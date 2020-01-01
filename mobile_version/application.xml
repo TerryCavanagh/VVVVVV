@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<application xmlns="http://ns.adobe.com/air/application/25.0">
+  <id>com.distractionware.vvvvvvmobile</id>
+  <versionNumber>1.02</versionNumber>
+  <supportedProfiles>mobileDevice</supportedProfiles>
+  <filename>VVVVVV</filename>
+  <name>VVVVVV</name>
+  <android>
+    <manifestAdditions><![CDATA[<manifest android:installLocation="auto">
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch" />
+</manifest>]]></manifestAdditions>
+  </android>
+  <iPhone>
+    <InfoAdditions><![CDATA[<key>UIStatusBarStyle</key>
+<string>UIStatusBarStyleBlackOpaque</string>
+<key>UIRequiresPersistentWiFi</key>
+<string>NO</string>
+<key>UIPrerenderedIcon</key>
+<true />
+<key>UIApplicationExitsOnSuspend</key>
+<false />
+<key>UIDeviceFamily</key>
+<array>
+	<!-- iPhone support -->
+	<string>1</string>
+	<!-- iPad support -->
+	<string>2</string>
+</array>]]></InfoAdditions>
+    <requestedDisplayResolution>standard</requestedDisplayResolution>
+  </iPhone>
+  <initialWindow>
+    <title>VVVVVV</title>
+    <content>vvvvvv.swf</content>
+    <visible>true</visible>
+    <aspectRatio>landscape</aspectRatio>
+    <renderMode>gpu</renderMode>
+    <systemChrome>standard</systemChrome>
+    <autoOrients>true</autoOrients>
+    <fullScreen>true</fullScreen>
+  </initialWindow>
+  <icon>
+    <image48x48>icons/icon_48.png</image48x48>
+		<image57x57>icons/icon_57.png</image57x57>
+		<image72x72>icons/icon_72.png</image72x72>
+		<image76x76>icons/icon_76.png</image76x76>
+		<image96x96>icons/icon_96.png</image96x96>
+		<image114x114>icons/icon_114.png</image114x114>
+		<image120x120>icons/icon_120.png</image120x120>
+		<image144x144>icons/icon_144.png</image144x144>
+		<image152x152>icons/icon_152.png</image152x152>
+		<image512x512>icons/icon_512.png</image512x512>
+		<image1024x1024>icons/icon_1024.png</image1024x1024>
+  </icon>
+  <!-- 
+	AIR options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	
+	AIR mobile options:
+	http://help.adobe.com/en_US/air/build/WSfffb011ac560372f-5d0f4f25128cc9cd0cb-7ffe.html
+	
+	Android manifest documentation:
+	http://developer.android.com/guide/topics/manifest/manifest-intro.html
+	-->
+  <extensions>
+    <extensionID>com.milkmangames.extensions.GameCenter</extensionID>  
+    <!--
+		<extensionID>com.sticksports.nativeExtensions.SilentSwitch</extensionID>
+    <extensionID>com.mesmotronic.ane.fullscreen</extensionID>
+    -->
+  </extensions>
+</application>
