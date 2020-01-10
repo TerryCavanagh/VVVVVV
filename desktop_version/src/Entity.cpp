@@ -257,67 +257,67 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                 game.swnstate = 1;
                 game.swndelay = 5;
 
-                if (game.swntimer <= 150)   //less than 5 seconds
+                if (game.swntimer <= seconds(5))
                 {
                     game.swnstate = 9;
                     game.swndelay = 8;
                 }
-                else	if (game.swntimer <= 300)    //less than 10 seconds
+                else if (game.swntimer <= seconds(10))
                 {
                     game.swnstate = 6;
                     game.swndelay = 12;
                 }
-                else	if (game.swntimer <= 360)    //less than 12 seconds
+                else if (game.swntimer <= seconds(12))
                 {
                     game.swnstate = 5+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 420)    //less than 14 seconds
+                else if (game.swntimer <= seconds(14))
                 {
                     game.swnstate = 7+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 480)    //less than 16 seconds
+                else if (game.swntimer <= seconds(16))
                 {
                     game.swnstate = 5+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 540)    //less than 18 seconds
+                else if (game.swntimer <= seconds(18))
                 {
                     game.swnstate = 7+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 600)    //less than 20 seconds
+                else if (game.swntimer <= seconds(20))
                 {
                     game.swnstate = 5+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 900)    //less than 30 seconds
+                else if (game.swntimer <= seconds(30))
                 {
                     game.swnstate = 4;
                     game.swndelay = 20;
                 }
-                else	if (game.swntimer <= 1050)    //less than 35 seconds
+                else if (game.swntimer <= seconds(35))
                 {
                     game.swnstate = 3;
                     game.swndelay = 10;
                 }
-                else	if (game.swntimer <= 1200)    //less than 40 seconds
+                else if (game.swntimer <= seconds(40))
                 {
                     game.swnstate = 3;
                     game.swndelay = 20;
                 }
-                else	if (game.swntimer <= 1500)    //less than 50 seconds
+                else if (game.swntimer <= seconds(50))
                 {
                     game.swnstate = 2;
                     game.swndelay = 10;
                 }
-                else	if (game.swntimer <= 1650)    //less than 55 seconds
+                else if (game.swntimer <= seconds(55))
                 {
                     game.swnstate = 1;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 1800)    //less than 60 seconds
+                else if (game.swntimer <= seconds(60))
                 {
                     game.swnstate = 1;
                     game.swndelay = 25;
