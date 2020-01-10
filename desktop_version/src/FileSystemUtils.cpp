@@ -83,7 +83,7 @@ void FILESYSTEM_init(char *argvZero)
 			"data.zip missing!",
 			"You do not have data.zip!"
 			"\n\nGrab it from your purchased copy of the game,"
-			"\n\nor get it from the free Make and Play Edition.",
+			"\nor get it from the free Make and Play Edition.",
 			NULL
 		);
 	}
