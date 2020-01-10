@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <SDL.h>
 #include <physfs.h>
 
 #if defined(_WIN32)
@@ -75,7 +76,17 @@ void FILESYSTEM_init(char *argvZero)
 #else
 	strcpy(output, "data.zip");
 #endif
-	PHYSFS_mount(output, NULL, 1);
+	if (!PHYSFS_mount(output, NULL, 1))
+	{
+		SDL_ShowSimpleMessageBox(
+			SDL_MESSAGEBOX_ERROR,
+			"data.zip missing!",
+			"You do not have data.zip!"
+			"\n\nGrab it from your purchased copy of the game,"
+			"\n\nor get it from the free Make and Play Edition.",
+			NULL
+		);
+	}
 }
 
 void FILESYSTEM_deinit()
