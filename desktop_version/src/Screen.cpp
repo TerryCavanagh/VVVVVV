@@ -24,6 +24,7 @@ Screen::Screen()
     m_screenTexture = NULL;
     m_screen = NULL;
     isWindowed = true;
+	vsync = false;
     stretchMode = 0;
     isFiltered = false;
     filterSubrect.x = 1;
@@ -184,6 +185,16 @@ void Screen::toggleFullScreen()
 {
 	isWindowed = !isWindowed;
 	ResizeScreen(-1, -1);
+}
+
+void Screen::toggleVsync()
+{
+	vsync = !vsync;
+
+	if(vsync)
+		SDL_GL_SetSwapInterval(1);
+	else
+		SDL_GL_SetSwapInterval(0);
 }
 
 void Screen::toggleStretchMode()

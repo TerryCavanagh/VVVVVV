@@ -18,10 +18,12 @@ public:
 	const SDL_PixelFormat* GetFormat();
 
 	void toggleFullScreen();
+	void toggleVsync();
 	void toggleStretchMode();
 	void toggleLinearFilter();
 
 	bool isWindowed;
+	bool vsync;
 	bool isFiltered;
 	bool badSignalEffect;
 	bool glScreen;

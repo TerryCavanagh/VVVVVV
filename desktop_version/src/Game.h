@@ -240,6 +240,7 @@ public:
     std::vector<int> temp_unlocknotify;
     int stat_trinkets;
     bool fullscreen;
+    bool vsync;
     int bestgamedeaths;
 
     bool stat_screenshakes;

@@ -199,8 +199,16 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
               }else{
                 dwgfx.Print( -1, 85, "Current mode: WINDOWED", tr, tg, tb, true);
               }
+          }else if(game.currentmenuoption == 1)
+          {
+              dwgfx.bigprint( -1, 30, "Toggle Vsync", tr, tg, tb, true);
+              dwgfx.Print( -1, 65, "Toggles vsync.", tr, tg, tb, true);
 
-          }else if (game.currentmenuoption == 1)
+              if(game.vsync)
+                    dwgfx.Print( -1, 85, "vsync: ENABLED", tr, tg, tb, true);
+              else
+                    dwgfx.Print( -1, 85, "vsync: DISABLED", tr, tg, tb, true);
+          }else if (game.currentmenuoption == 2)
                 {
                     dwgfx.bigprint( -1, 30, "Toggle Letterbox", tr, tg, tb, true);
                     dwgfx.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
@@ -212,7 +220,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
               }else{
                 dwgfx.Print( -1, 85, "Current mode: LETTERBOX", tr, tg, tb, true);
               }
-          }else if (game.currentmenuoption == 2)
+          }else if (game.currentmenuoption == 3)
                 {
                     dwgfx.bigprint( -1, 30, "Toggle Filter", tr, tg, tb, true);
                     dwgfx.Print( -1, 65, "Change to nearest/linear filter.", tr, tg, tb, true);
@@ -223,7 +231,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
                 dwgfx.Print( -1, 85, "Current mode: NEAREST", tr, tg, tb, true);
               }
 
-                } else if (game.currentmenuoption == 3)
+                } else if (game.currentmenuoption == 4)
                 {
                     dwgfx.bigprint( -1, 30, "Analogue Mode", tr, tg, tb, true);
                     dwgfx.Print( -1, 65, "There is nothing wrong with your", tr, tg, tb, true);

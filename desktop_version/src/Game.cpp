@@ -191,6 +191,7 @@ Game::Game(void):
     gameframerate=34;
 
     fullscreen = false;// true; //Assumed true at first unless overwritten at some point!
+    vsync = false;
     stretchMode = 0;
     useLinearFilter = false;
     advanced_mode = false;
@@ -4259,6 +4260,11 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
             fullscreen = atoi(pText);
         }
 
+        if(pKey == "vsync")
+        {
+            vsync = atoi(pText);
+        }
+
 	if (pKey == "stretch")
 	{
 		stretchMode = atoi(pText);
@@ -4391,6 +4397,10 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
     {
         dwgfx.screenbuffer->toggleFullScreen();
     }
+    if(vsync)
+    {
+        dwgfx.screenbuffer->toggleVsync();
+    }
     for (int i = 0; i < stretchMode; i += 1)
     {
         dwgfx.screenbuffer->toggleStretchMode();
@@ -4497,6 +4507,10 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
 
     msg = new TiXmlElement( "fullscreen" );
     msg->LinkEndChild( new TiXmlText( tu.String(fullscreen).c_str()));
+    dataNode->LinkEndChild( msg );
+
+    msg = new TiXmlElement( "vsync" );
+    msg->LinkEndChild( new TiXmlText( tu.String(vsync).c_str()));
     dataNode->LinkEndChild( msg );
 
     msg = new TiXmlElement( "stretch" );
@@ -6775,15 +6789,17 @@ void Game::createmenu( std::string t )
     {
         menuoptions[0] = "toggle fullscreen";
         menuoptionsactive[0] = true;
-        menuoptions[1] = "toggle letterbox";
+        menuoptions[1] = "toggle vsync";
         menuoptionsactive[1] = true;
-        menuoptions[2] = "toggle filter";
+        menuoptions[2] = "toggle letterbox";
         menuoptionsactive[2] = true;
-        menuoptions[3] = "toggle analogue";
+        menuoptions[3] = "toggle filter";
         menuoptionsactive[3] = true;
-        menuoptions[4] = "return";
+        menuoptions[4] = "toggle analogue";
         menuoptionsactive[4] = true;
-        nummenuoptions = 5;
+        menuoptions[5] = "return";
+        menuoptionsactive[5] = true;
+        nummenuoptions = 6;
         menuxoff = -50;
         menuyoff = 8;
         /* Old stuff, not used anymore

@@ -436,14 +436,23 @@ SDL_assert(0 && "Remove open level dir");
                     game.currentmenuoption = 0;
                   }else if (game.currentmenuoption == 1){
                     music.playef(11, 10);
+                    dwgfx.screenbuffer->toggleVsync();
+                    music.playef(11, 10);
+                    game.vsync = !game.vsync;
+                    updategraphicsmode(game, dwgfx);
+                    game.savestats(map, dwgfx);
+                    game.createmenu("graphicoptions");
+                    game.currentmenuoption = 1;
+                  }else if(game.currentmenuoption == 2){
+                    music.playef(11, 10);
                     dwgfx.screenbuffer->toggleStretchMode();
                     music.playef(11, 10);
                     game.stretchMode = (game.stretchMode + 1) % 3;
                     updategraphicsmode(game, dwgfx);
                     game.savestats(map, dwgfx);
                     game.createmenu("graphicoptions");
-                    game.currentmenuoption = 1;
-                  }else if (game.currentmenuoption == 2){
+                    game.currentmenuoption = 2;
+                  }else if (game.currentmenuoption == 3){
                     music.playef(11, 10);
                     dwgfx.screenbuffer->toggleLinearFilter();
                     music.playef(11, 10);
@@ -451,8 +460,8 @@ SDL_assert(0 && "Remove open level dir");
                     updategraphicsmode(game, dwgfx);
                     game.savestats(map, dwgfx);
                     game.createmenu("graphicoptions");
-                    game.currentmenuoption = 2;
-                  }else if (game.currentmenuoption == 3){
+                    game.currentmenuoption = 3;
+                  }else if (game.currentmenuoption == 4){
                       //change smoothing
                       music.playef(11, 10);
                       game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
@@ -461,7 +470,7 @@ SDL_assert(0 && "Remove open level dir");
 					  dwgfx.screenbuffer->badSignalEffect= !dwgfx.screenbuffer->badSignalEffect;
                       game.savestats(map, dwgfx);
                       game.createmenu("graphicoptions");
-                      game.currentmenuoption = 3;
+                      game.currentmenuoption = 4;
                   }
                   else
                   {
