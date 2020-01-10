@@ -2,3 +2,4 @@ Contributors
 ------------
 
 * Christoph Böhmwalder (@chrboe)
+* Emmanuel Vadot (@evadot)
