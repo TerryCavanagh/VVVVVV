@@ -32,7 +32,7 @@ void PLATFORM_getOSDirectory(char* output);
 void PLATFORM_migrateSaveData(char* output);
 void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
-void FILESYSTEM_init(char *argvZero)
+int FILESYSTEM_init(char *argvZero)
 {
 	char output[MAX_PATH];
 	int mkdirResult;
@@ -78,6 +78,11 @@ void FILESYSTEM_init(char *argvZero)
 #endif
 	if (!PHYSFS_mount(output, NULL, 1))
 	{
+		puts("Error: data.zip missing!");
+		puts("You do not have data.zip!");
+		puts("Grab it from your purchased copy of the game,");
+		puts("or get it from the free Make and Play Edition.");
+
 		SDL_ShowSimpleMessageBox(
 			SDL_MESSAGEBOX_ERROR,
 			"data.zip missing!",
@@ -86,7 +91,9 @@ void FILESYSTEM_init(char *argvZero)
 			"\nor get it from the free Make and Play Edition.",
 			NULL
 		);
+		return 0;
 	}
+	return 1;
 }
 
 void FILESYSTEM_deinit()
