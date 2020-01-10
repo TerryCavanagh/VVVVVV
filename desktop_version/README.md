@@ -6,10 +6,11 @@ VVVVVV's official desktop versions are built with the following environments:
 - macOS: Xcode CLT, currently targeting 10.9 SDK
 - GNU/Linux: CentOS 7
 
-The engine depends solely on SDL2 and SDL2_mixer. All other dependencies are
-statically linked into the engine. The libs for Windows are in this repository,
-all other platforms should install them either from the OS package manager or
-from self-compiled source.
+The engine depends solely on [SDL2](https://libsdl.org/) and
+[SDL2_mixer](https://www.libsdl.org/projects/SDL_mixer/). All other dependencies
+are statically linked into the engine. The libs for Windows are in this
+repository, all other platforms should install them either from the OS package
+manager or from self-compiled source.
 
 Steamworks support is included and the DLL is loaded dynamically, you do not
 need the SDK headers and there is no special Steam or non-Steam version. The
