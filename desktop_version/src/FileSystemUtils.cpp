@@ -172,8 +172,7 @@ void PLATFORM_getOSDirectory(char* output)
 		strcat(output, "/VVVVVV/");
 	}
 #elif defined(__APPLE__)
-	strcpy(output, PHYSFS_getUserDir());
-	strcat(output, "Library/Application Support/VVVVVV/");
+	strcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"));
 #elif defined(_WIN32)
 	SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, output);
 	strcat(output, "\\VVVVVV\\");
