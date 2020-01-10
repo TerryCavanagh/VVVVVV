@@ -124,7 +124,7 @@ void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem, size_t *
 		*len = length;
 	}
 	*mem = (unsigned char*) malloc(length);
-	PHYSFS_read(handle, *mem, 1, length);
+	PHYSFS_readBytes(handle, *mem, length);
 	PHYSFS_close(handle);
 }
 

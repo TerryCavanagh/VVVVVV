@@ -91,7 +91,7 @@ bool binaryBlob::unPackBinary(const char* name)
 
 	size = PHYSFS_fileLength(handle);
 
-	PHYSFS_read(handle, &m_headers, 1, sizeof(resourceheader) * 128);
+	PHYSFS_readBytes(handle, &m_headers, sizeof(resourceheader) * 128);
 
 	int offset = 0 + (sizeof(resourceheader) * 128);
 
@@ -101,7 +101,7 @@ bool binaryBlob::unPackBinary(const char* name)
 		{
 			PHYSFS_seek(handle, offset);
 			m_memblocks[i] = (char*) malloc(m_headers[i].size);
-			PHYSFS_read(handle, m_memblocks[i], 1, m_headers[i].size);
+			PHYSFS_readBytes(handle, m_memblocks[i], m_headers[i].size);
 			offset += m_headers[i].size;
 		}
 	}
