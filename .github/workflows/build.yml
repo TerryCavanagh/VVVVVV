@@ -1,0 +1,78 @@
+on: push
+name: Build
+jobs:
+  build_macos:
+    name: Build (macOS)
+    runs-on: macos-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Check out submodules
+      shell: bash
+      run: |
+        auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+        git submodule sync --recursive
+        git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+    - name: Install requirements
+      run: brew install sdl2 sdl2_mixer
+    - name: Build
+      run: cd desktop_version/ && mkdir build && cd build && cmake .. && make
+    - name: Upload artifacts (MacOS)
+      uses: actions/upload-artifact@master
+      with:
+        name: mac
+        path: "desktop_version/build/vvvvvv.osx"
+  build_linux:
+    name: Build (Linux)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Check out submodules
+      shell: bash
+      run: |
+        auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+        git submodule sync --recursive
+        git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+    - name: Install requirements
+      run: sudo apt-get install libsdl2-dev libsdl2-mixer-dev
+    - name: Build
+      run: cd desktop_version/ && mkdir build && cd build && cmake .. && make
+    - name: Upload artifacts (Linux)
+      uses: actions/upload-artifact@master
+      with:
+        name: linux
+        path: "desktop_version/build/vvvvvv.x86_64"
+  build_windows:
+    name: Build (Windows)
+    runs-on: windows-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Check out submodules
+      shell: bash
+      run: |
+        auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+        git submodule sync --recursive
+        git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+    - name: Install requirements
+      run: |
+        mkdir lib
+        cd lib
+        curl https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.4-VC.zip -O SDL2_mixer-devel-2.0.4-VC.zip
+        curl https://www.libsdl.org/release/SDL2-devel-2.0.10-VC.zip -O SDL2-devel-2.0.10-VC.zip
+        unzip SDL2_mixer-devel-2.0.4-VC.zip
+        unzip SDL2-devel-2.0.10-VC.zip
+    - name: Build
+      shell: bash
+      run: |
+        cd desktop_version/
+        mkdir build
+        cd build
+        cmake -A Win32 .. -DSDL2_INCLUDE_DIRS="$(pwd)/../../lib/SDL2_mixer-2.0.4/include:$(pwd)/../../lib/SDL2-2.0.10/include" -DSDL2_LIBRARIES="$(pwd)/../../lib/SDL2_mixer-2.0.4/lib/x86/SDL2_mixer.lib:$(pwd)/../../lib/SDL2-2.0.10/lib/x86/SDL2.lib:$(pwd)/../../lib/SDL2-2.0.10/lib/x86/SDL2main.lib"
+        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" VVVVVV.sln
+    - name: Upload artifacts (Windows)
+      uses: actions/upload-artifact@master
+      with:
+        name: windows
+        path: "desktop_version/build/Debug/vvvvvv.exe"
