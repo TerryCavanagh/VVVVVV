@@ -1,4 +1,4 @@
-This is the source code to VVVVVV, version 2.0+.
+This is the source code to VVVVVV, version 2.0+. For more context about this release, see the [announcement](http://distractionware.com/blog/2020/01/vvvvvv-is-now-open-source/) on Terry's blog!
 
 License
 -------
