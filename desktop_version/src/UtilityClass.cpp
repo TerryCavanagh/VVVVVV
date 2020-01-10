@@ -55,6 +55,11 @@ const char *GCChar(SDL_GameControllerButton button)
 	return NULL;
 }
 
+int seconds(const int s)
+{
+	return s * 30;
+}
+
 int ss_toi( std::string _s )
 {
 	std::istringstream i(_s);
