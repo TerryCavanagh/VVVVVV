@@ -2,3 +2,4 @@ Contributors
 ------------
 
 * Christoph Böhmwalder (@chrboe)
+* Elijah Stone
