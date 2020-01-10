@@ -1,7 +1,10 @@
 Contributors
 ------------
 
+(Ordered alphabetically by last name.)
+
 * Christoph Böhmwalder (@chrboe)
+* Marvin Scholz (@ePirat)
 * Elijah Stone
 * Emmanuel Vadot (@evadot)
-* Marvin Scholz (@ePirat)
+* Rémi Verschelde (@akien-mga)

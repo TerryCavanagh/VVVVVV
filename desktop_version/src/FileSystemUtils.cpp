@@ -159,19 +159,7 @@ std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
 
 void PLATFORM_getOSDirectory(char* output)
 {
-#if defined(__linux__) || defined(__FreeBSD__)
-	const char *homeDir = getenv("XDG_DATA_HOME");
-	if (homeDir == NULL)
-	{
-		strcpy(output, PHYSFS_getUserDir());
-		strcat(output, ".local/share/VVVVVV/");
-	}
-	else
-	{
-		strcpy(output, homeDir);
-		strcat(output, "/VVVVVV/");
-	}
-#elif defined(__APPLE__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__APPLE__)
 	strcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"));
 #elif defined(_WIN32)
 	SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, output);
