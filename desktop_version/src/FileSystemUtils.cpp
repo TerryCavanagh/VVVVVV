@@ -15,7 +15,7 @@
 #include <shlobj.h>
 #define mkdir(a, b) CreateDirectory(a, NULL)
 #define VNEEDS_MIGRATION (mkdirResult != 0)
-#elif defined(__linux__) || defined(__APPLE__)
+#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__)
 #include <sys/stat.h>
 #include <limits.h>
 #define VNEEDS_MIGRATION (mkdirResult == 0)
@@ -159,7 +159,7 @@ std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
 
 void PLATFORM_getOSDirectory(char* output)
 {
-#if defined(__linux__)
+#if defined(__linux__) || defined(__FreeBSD__)
 	const char *homeDir = getenv("XDG_DATA_HOME");
 	if (homeDir == NULL)
 	{
@@ -187,7 +187,7 @@ void PLATFORM_migrateSaveData(char* output)
 	char oldLocation[MAX_PATH];
 	char newLocation[MAX_PATH];
 	char oldDirectory[MAX_PATH];
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__)
 	DIR *dir = NULL;
 	struct dirent *de = NULL;
 	DIR *subDir = NULL;
@@ -200,7 +200,7 @@ void PLATFORM_migrateSaveData(char* output)
 		return;
 	}
 	strcpy(oldDirectory, homeDir);
-#if defined(__linux__)
+#if defined(__linux__) || defined(__FreeBSD__)
 	strcat(oldDirectory, "/.vvvvvv/");
 #elif defined(__APPLE__)
 	strcat(oldDirectory, "/Documents/VVVVVV/");
