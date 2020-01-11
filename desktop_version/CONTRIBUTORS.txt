@@ -5,6 +5,7 @@ Contributors
 
 * Christoph Böhmwalder (@chrboe)
 * Charlie Bruce (@charliebruce)
+* Brian Callahan (@ibara)
 * Daniel Lee (@ddm999)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
