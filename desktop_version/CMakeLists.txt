@@ -3,6 +3,10 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
 
+# CMake Options
+OPTION(ENABLE_WARNINGS "Enable compilation warnings" ON)
+OPTION(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
+
 # Architecture Flags
 IF(APPLE)
 	# Wow, Apple is a huge jerk these days huh?
@@ -101,6 +105,17 @@ IF(WIN32)
 	ADD_EXECUTABLE(vvvvvv WIN32 ${VVV_SRC})
 ELSE()
 	ADD_EXECUTABLE(vvvvvv ${VVV_SRC})
+ENDIF()
+
+# Build options
+IF(ENABLE_WARNINGS)
+	# The weird syntax is due to CMake generator expressions.
+	# Saves quite a few lines and boilerplate at the price of readability.
+	TARGET_COMPILE_OPTIONS(vvvvvv PRIVATE
+		$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
+			-Wall $<$<BOOL:ENABLE_WERROR>:-Werror>>
+		$<$<CXX_COMPILER_ID:MSVC>:
+			/W4 $<$<BOOL:ENABLE_WERROR>:/WX>>)
 ENDIF()
 
 # Library information
