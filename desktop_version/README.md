@@ -9,7 +9,8 @@ VVVVVV's official desktop versions are built with the following environments:
 The engine depends solely on [SDL2](https://libsdl.org/) and
 [SDL2_mixer](https://www.libsdl.org/projects/SDL_mixer/). All other dependencies
 are statically linked into the engine. The development libraries for Windows can
-be downloaded from their respective websites, Linux and macOS developers should
+be downloaded from their respective websites, Linux developers can find the dev
+libraries from their respective repositories, and macOS developers should
 compile and install from source.
 
 Steamworks support is included and the DLL is loaded dynamically, you do not
