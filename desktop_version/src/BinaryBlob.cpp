@@ -108,7 +108,7 @@ bool binaryBlob::unPackBinary(const char* name)
 	}
 	PHYSFS_close(handle);
 
-	printf("The complete reloaded file size: %li\n", size);
+	printf("The complete reloaded file size: %lli\n", size);
 
 	for (int i = 0; i < 128; i += 1)
 	{
