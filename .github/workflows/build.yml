@@ -14,7 +14,26 @@ jobs:
         git submodule sync --recursive
         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
     - name: Install requirements
-      run: brew install sdl2 sdl2_mixer
+      run: |
+        mkdir -p lib
+        cd lib
+        wget https://www.libsdl.org/release/SDL2-2.0.10.zip
+        wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.zip
+        unzip SDL2-2.0.10.zip
+        unzip SDL2_mixer-2.0.4.zip
+        cd SDL2-2.0.10
+        mkdir build
+        cd build
+        ../configure
+        make -j4
+        sudo make install
+        cd ../../
+        cd SDL2_mixer-2.0.4
+        mkdir build
+        cd build
+        ../configure
+        make
+        sudo make install
     - name: Build
       run: cd desktop_version/ && mkdir build && cd build && cmake .. && make
     - name: Upload artifacts (MacOS)
