@@ -4,6 +4,7 @@ Contributors
 (Ordered alphabetically by last name.)
 
 * Christoph Böhmwalder (@chrboe)
+* Charlie Bruce (@charliebruce)
 * Daniel Lee (@ddm999)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
