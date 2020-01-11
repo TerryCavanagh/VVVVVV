@@ -9,3 +9,4 @@ Contributors
 * Elijah Stone
 * Emmanuel Vadot (@evadot)
 * Rémi Verschelde (@akien-mga)
+* viri (viri.me)
