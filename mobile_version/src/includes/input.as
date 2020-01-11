@@ -649,7 +649,7 @@ public function titleinput(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, gam
 					}
 				}else if (game.currentmenuname == "unlockmenu") {
 					if (game.currentmenuoption == 0) {
-						//unlock time trials seperately...
+						//unlock time trials separately...
 						music.playef(11, 10);
 						game.createmenu("unlockmenutrials");
 						map.nexttowercolour();
