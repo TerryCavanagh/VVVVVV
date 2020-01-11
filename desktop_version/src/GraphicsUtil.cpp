@@ -200,7 +200,7 @@ SDL_Surface * ScaleSurfaceSlow( SDL_Surface *_surface, int Width, int Height)
 		// DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
 		//static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
 
-		return _ret;
+	return _ret;
 }
 
 SDL_Surface *  FlipSurfaceHorizontal(SDL_Surface* _src)
