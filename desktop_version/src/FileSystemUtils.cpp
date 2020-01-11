@@ -70,12 +70,8 @@ int FILESYSTEM_init(char *argvZero)
 	}
 
 	/* Mount the stock content last */
-#ifdef _WIN32
 	strcpy(output, PHYSFS_getBaseDir());
 	strcat(output, "data.zip");
-#else
-	strcpy(output, "data.zip");
-#endif
 	if (!PHYSFS_mount(output, NULL, 1))
 	{
 		puts("Error: data.zip missing!");

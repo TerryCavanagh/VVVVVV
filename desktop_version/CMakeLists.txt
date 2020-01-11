@@ -32,15 +32,22 @@ ENDIF()
 # Compiler Flags
 ADD_DEFINITIONS(-DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1)
 
-# Executable Suffix
-IF(APPLE)
-	SET(CMAKE_EXECUTABLE_SUFFIX ".osx")
-ELSEIF(WIN32)
-	# Nothing!
-ELSEIF(CMAKE_SIZEOF_VOID_P MATCHES "8")
-	SET(CMAKE_EXECUTABLE_SUFFIX ".x86_64")
-ELSE()
-	SET(CMAKE_EXECUTABLE_SUFFIX ".x86")
+# RPATH
+IF(NOT WIN32)
+	IF(APPLE)
+		SET(BIN_LIBROOT "osx")
+		SET(BIN_RPATH "@executable_path/osx")
+	ELSEIF(CMAKE_SIZEOF_VOID_P MATCHES "8")
+		SET(BIN_LIBROOT "lib64")
+		SET(BIN_RPATH "\$ORIGIN/lib64")
+	ELSE()
+		SET(BIN_LIBROOT "lib")
+		SET(BIN_RPATH "\$ORIGIN/lib")
+	ENDIF()
+	SET(CMAKE_SKIP_BUILD_RPATH TRUE)
+	SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+	SET(CMAKE_INSTALL_RPATH ${BIN_RPATH})
+	SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
 ENDIF()
 
 # Include Directories
@@ -106,16 +113,16 @@ SET(PNG_SRC lodepng/lodepng.c)
 
 # Executable information
 IF(WIN32)
-	ADD_EXECUTABLE(vvvvvv WIN32 ${VVV_SRC})
+	ADD_EXECUTABLE(VVVVVV WIN32 ${VVV_SRC})
 ELSE()
-	ADD_EXECUTABLE(vvvvvv ${VVV_SRC})
+	ADD_EXECUTABLE(VVVVVV ${VVV_SRC})
 ENDIF()
 
 # Build options
 IF(ENABLE_WARNINGS)
 	# The weird syntax is due to CMake generator expressions.
 	# Saves quite a few lines and boilerplate at the price of readability.
-	TARGET_COMPILE_OPTIONS(vvvvvv PRIVATE
+	TARGET_COMPILE_OPTIONS(VVVVVV PRIVATE
 		$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
 			-Wall $<$<BOOL:ENABLE_WERROR>:-Werror>>
 		$<$<CXX_COMPILER_ID:MSVC>:
@@ -128,26 +135,26 @@ ADD_LIBRARY(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
 ADD_LIBRARY(lodepng-static STATIC ${PNG_SRC})
 
 # Static Dependencies
-TARGET_LINK_LIBRARIES(vvvvvv physfs-static tinyxml-static lodepng-static)
+TARGET_LINK_LIBRARIES(VVVVVV physfs-static tinyxml-static lodepng-static)
 
 # SDL2 Dependency (Detection pulled from FAudio)
 if (DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
 	message(STATUS "Using pre-defined SDL2 variables SDL2_INCLUDE_DIRS and SDL2_LIBRARIES")
-	target_include_directories(vvvvvv PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
-	target_link_libraries(vvvvvv ${SDL2_LIBRARIES})
+	target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+	target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
 else()
 	# Only try to autodetect if both SDL2 variables aren't explicitly set
 	find_package(SDL2 CONFIG)
 	if (TARGET SDL2::SDL2)
 		message(STATUS "Using TARGET SDL2::SDL2")
-		target_link_libraries(vvvvvv SDL2::SDL2 SDL2_mixer)
+		target_link_libraries(VVVVVV SDL2::SDL2 SDL2_mixer)
 	elseif (TARGET SDL2)
 		message(STATUS "Using TARGET SDL2")
-		target_link_libraries(vvvvvv SDL2 SDL2_mixer)
+		target_link_libraries(VVVVVV SDL2 SDL2_mixer)
 	else()
 		message(STATUS "No TARGET SDL2::SDL2, or SDL2, using variables")
-		target_include_directories(vvvvvv PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
-		target_link_libraries(vvvvvv ${SDL2_LIBRARIES} SDL2_mixer)
+		target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+		target_link_libraries(VVVVVV ${SDL2_LIBRARIES} SDL2_mixer)
 	endif()
 endif()
 
@@ -155,5 +162,5 @@ endif()
 IF(APPLE)
 	FIND_LIBRARY(FOUNDATION NAMES Foundation)
 	FIND_LIBRARY(IOKIT NAMES IOKit)
-	TARGET_LINK_LIBRARIES(vvvvvv objc ${IOKIT} ${FOUNDATION})
+	TARGET_LINK_LIBRARIES(VVVVVV objc ${IOKIT} ${FOUNDATION})
 ENDIF()
