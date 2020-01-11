@@ -5319,7 +5319,7 @@ void scriptclass::load(std::string t)
 
         add("squeak(blue)");
         add("text(blue,0,0,3)");
-        add("This lab is amazing! The scentists");
+        add("This lab is amazing! The scientists");
         add("who worked here know a lot more");
         add("about warp technology than we do!");
         add("position(blue,below)");
