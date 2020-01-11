@@ -90,6 +90,9 @@ glow(0),
 	}
 
 	slowsine = 0;
+	globaltemp = 0;
+	temp = 0;
+	temp2 = 0;
 }
 
 std::string UtilityClass::String( int _v )
