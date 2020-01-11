@@ -1,0 +1,11 @@
+# Build objects
+build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+vvvvvv.*
+*.a
+
+# Game data
+data.zip
