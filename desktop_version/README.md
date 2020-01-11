@@ -18,10 +18,10 @@ current implementation has been tested with Steamworks SDK v1.46.
 
 To generate the projects on Windows:
 ```
-# Put the SDL2/SDL2_mixer VC development libraries next to the VVVVVV folder!
+# Put your SDL2/SDL2_mixer folders somewhere nice!
 mkdir flibitBuild
 cd flibitBuild
-cmake -G "Visual Studio 10 2010" .. -DSDL2_INCLUDE_DIRS="../../SDL2-2.0.10/include;../../SDL2_mixer-2.0.4/include" -DSDL2_LIBRARIES="../../SDL2-2.0.10/lib/x86/SDL2;../../SDL2-2.0.10/lib/x86/SDL2main;../../SDL2_mixer-2.0.4/lib/x86/SDL2_mixer"
+cmake -G "Visual Studio 10 2010" .. -DSDL2_INCLUDE_DIRS="C:\SDL2-2.0.10\include;C:\SDL2_mixer-2.0.4\include" -DSDL2_LIBRARIES="C:\SDL2-2.0.10\lib\x86\SDL2;C:\SDL2-2.0.10\lib\x86\SDL2main;C:\SDL2_mixer-2.0.4\lib\x86\SDL2_mixer"
 ```
 
 To generate everywhere else:
