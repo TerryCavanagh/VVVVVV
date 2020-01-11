@@ -1,5 +1,6 @@
 # Build objects
 build/
+flibitBuild/
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
