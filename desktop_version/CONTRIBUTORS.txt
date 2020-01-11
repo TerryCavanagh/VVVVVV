@@ -10,6 +10,7 @@ Contributors
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
 * Elijah Stone
+* Info Teddy (@InfoTeddy)
 * Emmanuel Vadot (@evadot)
 * Rémi Verschelde (@akien-mga)
 * viri (viri.me)
