@@ -1331,7 +1331,7 @@ SDL_assert(0 && "Remove open level dir");
 
 					if (game.currentmenuoption == 4)
 					{
-                        music.playef(11, 10);
+						music.playef(11, 10);
 						game.createmenu("options");
 
 						//Add extra menu for mmmmmm mod
