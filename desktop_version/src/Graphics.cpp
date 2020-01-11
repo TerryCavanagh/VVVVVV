@@ -104,25 +104,25 @@ Graphics::Graphics()
     fademode = 0;
 
     // initialize everything else to zero
-    backBuffer = nullptr;
+    backBuffer = NULL;
     backboxrect.x = 0, backboxrect.y = 0, backboxrect.w = 0, backboxrect.h = 0; 
     bcol = 0;
     bcol2 = 0;
     ct.colour = 0;
     foot_rect.x = 0, foot_rect.y = 0, foot_rect.w = 0, foot_rect.h = 0;
     foregrounddrawn = false;
-    foregroundBuffer = nullptr;
+    foregroundBuffer = NULL;
     backgrounddrawn = false;
     images_rect.x = 0, images_rect.y = 0, images_rect.w = 0, images_rect.h = 0;
     j = 0;
     k = 0;
     m = 0;
     linedelay = 0;
-    menubuffer = nullptr;
-    screenbuffer = nullptr;
-    tempBuffer = nullptr;
+    menubuffer = NULL;
+    screenbuffer = NULL;
+    tempBuffer = NULL;
     tl.x = 0, tl.y = 0;
-    towerbuffer = nullptr;
+    towerbuffer = NULL;
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;
