@@ -955,7 +955,7 @@ SDL_assert(0 && "Remove open level dir");
                 {
                     if (game.currentmenuoption == 0)
                     {
-                        //unlock time trials seperately...
+                        //unlock time trials separately...
                         music.playef(11, 10);
                         game.createmenu("unlockmenutrials");
                         map.nexttowercolour();

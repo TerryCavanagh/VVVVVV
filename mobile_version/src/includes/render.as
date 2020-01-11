@@ -483,7 +483,7 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 			/*
 			dwgfx.bigprint( -1, 30, "Unlock Time Trials", tr, tg, tb, true);
 			dwgfx.print( -1, 65, "You can unlock each time", tr, tg, tb, true);
-			dwgfx.print( -1, 75, "trial seperately.", tr, tg, tb, true);
+			dwgfx.print( -1, 75, "trial separately.", tr, tg, tb, true);
 			*/
 	  }else if (game.currentmenuname == "timetrials") {
 			/*
