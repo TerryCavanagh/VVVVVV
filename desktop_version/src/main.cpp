@@ -129,8 +129,8 @@ int main(int argc, char *argv[])
     graphics.Makebfont();
 
 
-    graphics.forgroundBuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
-    SDL_SetSurfaceBlendMode(graphics.forgroundBuffer, SDL_BLENDMODE_NONE);
+    graphics.foregroundBuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
+    SDL_SetSurfaceBlendMode(graphics.foregroundBuffer, SDL_BLENDMODE_NONE);
 
     graphics.screenbuffer = &gameScreen;
 

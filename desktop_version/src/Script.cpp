@@ -25,7 +25,17 @@ scriptclass::scriptclass()
 	scriptdelay = 0;
 	running = false;
 
-
+	b = 0;
+	g = 0;
+	i = 0;
+	j = 0;
+	k = 0;
+	loopcount = 0;
+	looppoint = 0;
+	r = 0;
+	textx = 0;
+	texty = 0;
+	txtnumlines = 0;
 }
 
 void scriptclass::clearcustom(){

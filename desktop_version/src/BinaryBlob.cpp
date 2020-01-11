@@ -19,6 +19,7 @@ binaryBlob::binaryBlob()
 			m_headers[i].name[j] = '\0';
 		}
 	}
+	::memset(m_headers, 0, 128 * sizeof(resourceheader));
 }
 
 #ifdef VVV_COMPILEMUSIC
