@@ -1,0 +1,66 @@
+name: CI
+
+# Trigger this workflow on push or pull request
+on: [push, pull_request]
+
+env:
+  SRC_DIR_PATH: desktop_version
+
+jobs:
+  build:
+    name: Build
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      CXXFLAGS: -I/usr/local/include/SDL2
+      LDFLAGS: -L/usr/local/lib
+
+    strategy:
+      matrix:
+        os: [ubuntu-18.04, macos-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Install dependencies (Linux)
+      if: startsWith(matrix.os, 'ubuntu')
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ninja-build libsdl2-dev libsdl2-mixer-dev
+
+    - name: Install dependencies (macOS)
+      if: startsWith(matrix.os, 'macos')
+      run: brew install ninja sdl2 sdl2_mixer
+
+    - name: CMake configure
+      run: |
+        mkdir ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
+        cmake -GNinja ..
+    - name: Build
+      run: ninja -C ${SRC_DIR_PATH}/build
+
+  build-win:
+    name: Build (windows-latest)
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Install dependencies (Windows)
+      run: |
+        vcpkg install sdl2 sdl2-mixer
+
+    - name: CMake configure
+      run: |
+        cd $env:SRC_DIR_PATH
+        $env:LDFLAGS =  "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib "
+        $env:LDFLAGS += "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib\manual-link"
+        cmake -G "Visual Studio 16 2019" -A Win32 `
+              -DSDL2_INCLUDE_DIRS="$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\include\SDL2" `
+              -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" .
+    - name: Build
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake --build .
