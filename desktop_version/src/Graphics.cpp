@@ -105,15 +105,15 @@ Graphics::Graphics()
 
     // initialize everything else to zero
     backBuffer = nullptr;
-    backboxrect = SDL_Rect{ 0, 0, 0, 0 };
+    backboxrect.x = 0, backboxrect.y = 0, backboxrect.w = 0, backboxrect.h = 0; 
     bcol = 0;
     bcol2 = 0;
-    ct = colourTransform{ 0 };
-    foot_rect = SDL_Rect{ 0, 0, 0, 0 };
+    ct.colour = 0;
+    foot_rect.x = 0, foot_rect.y = 0, foot_rect.w = 0, foot_rect.h = 0;
     foregrounddrawn = false;
     foregroundBuffer = nullptr;
     backgrounddrawn = false;
-    images_rect = SDL_Rect{ 0, 0, 0, 0 };
+    images_rect.x = 0, images_rect.y = 0, images_rect.w = 0, images_rect.h = 0;
     j = 0;
     k = 0;
     m = 0;
@@ -121,12 +121,12 @@ Graphics::Graphics()
     menubuffer = nullptr;
     screenbuffer = nullptr;
     tempBuffer = nullptr;
-    tl = point{ 0, 0 };
+    tl.x = 0, tl.y = 0;
     towerbuffer = nullptr;
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;
-    warprect = SDL_Rect{ 0, 0, 0, 0 };
+    warprect.x = 0, warprect.y = 0, warprect.w = 0, warprect.h = 0;
 }
 
 Graphics::~Graphics()

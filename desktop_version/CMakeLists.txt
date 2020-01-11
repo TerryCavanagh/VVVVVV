@@ -2,7 +2,6 @@
 # Written by Ethan "flibitijibibo" Lee
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
-PROJECT(VVVVVV)
 
 # Architecture Flags
 IF(APPLE)
@@ -11,13 +10,16 @@ IF(APPLE)
 	IF(IS_DIRECTORY ${OSX_10_9_SDK_PATH})
 		SET(CMAKE_OSX_SYSROOT ${OSX_10_9_SDK_PATH})
 	ELSE()
-		MESSAGE(WARNING "macOS 10.9 SDK not found, expect badness!")
+		MESSAGE(WARNING "macOS 10.9 SDK not found - proceeding with the default SDK. This may cause issues!")
+		SET(CMAKE_OSX_SYSROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)
 	ENDIF()
 	MESSAGE(STATUS "Using macOS SDK at ${CMAKE_OSX_SYSROOT}")
 	SET(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)
 	LINK_DIRECTORIES(/usr/local/lib)
 	ADD_COMPILE_OPTIONS(-Werror=partial-availability)
 ENDIF()
+
+PROJECT(VVVVVV)
 
 # Compiler Flags
 ADD_DEFINITIONS(-DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1)
