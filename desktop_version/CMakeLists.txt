@@ -107,13 +107,15 @@ SET(PFS_SRC
 	../third_party/physfs/physfs_byteorder.c
 	../third_party/physfs/physfs_unicode.c
 	../third_party/physfs/physfs_platform_posix.c
-	../third_party/physfs/physfs_platform_unix.c
-	../third_party/physfs/physfs_platform_windows.c
 )
-IF(APPLE)
+if(APPLE)
 	# Are you noticing a pattern with this Apple crap yet?
-	SET(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
-ENDIF()
+	list(APPEND PFS_SRC ../third_party/physfs/physfs_platform_apple.m)
+elseif(WIN32)
+	list(APPEND PFS_SRC ../third_party/physfs/physfs_platform_windows.c)
+else()
+	list(APPEND PFS_SRC ../third_party/physfs/physfs_platform_unix.c)
+endif()
 SET(PNG_SRC ../third_party/lodepng/lodepng.c)
 
 # Executable information
