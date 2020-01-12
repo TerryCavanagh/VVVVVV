@@ -2,6 +2,8 @@ This is the source code to VVVVVV, version 2.0+. For more context about this rel
 
 License
 -------
+
+![logo](https://docs.google.com/drawings/d/e/2PACX-1vTbLHmBw5VaYvtdQmKU7BsNKeCFhM6Y9UbqcijB3uhkwoUMZl8GZAynJd4hh55IP5F6cDj0hP67XcCc/pub?w=300&h=300) 
 VVVVVV's source code is made available under a custom license. See [LICENSE.md](LICENSE.md) for more details.
 
 In general, if you're interested in creating something that falls outside the license terms, get in touch with Terry and we'll talk about it!
