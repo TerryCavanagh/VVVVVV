@@ -132,7 +132,7 @@ void Graphics::init()
 }
 
 int Graphics::font_idx(char32_t ch) {
-    if (grphx.im_bfont->h > 128) {
+    if (font_positions.size() > 0) {
         std::map<int, int>::iterator iter = font_positions.find(ch);
         if (iter == font_positions.end()) {
             return font_positions.at('?');
