@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Map.h"
 #include "Screen.h"
+#include <utf8.h>
 
 void Graphics::init()
 {
@@ -129,6 +130,20 @@ void Graphics::init()
     showmousecursor = true;
 }
 
+int Graphics::font_idx(char32_t ch) {
+    if (grphx.im_bfont->h > 128) {
+        auto font = UR"( !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ ¡¢£¤¥¦§¨©«­®°²³»¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſΆΈΉΊΌΎΏΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџאבגדהוזחטיךכלםמןנסעףפץצקרשתװױײ׳״—‘’“”€←↑→↓↔↕↖↗↘↙↰↱↲↳↶↷↺↻↼↽↾↿⇀⇁⇂⇃⇅⇆─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿▀▁▂▃▄▅▆▇█▉▊▋▌▍▎▏▐░▒▓▔▕▖▗▘▙▚▛▜▝▞▟■□▢▲△▶▷▼▽◀◁、。〃〈〉《》「」『』【】〒〓〔〕〖〗〘〙〚〛〜〝〞ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーＵｇｈｉｐｒｔ)";
+        auto ptr = std::char_traits<char32_t>::find(font, std::char_traits<char32_t>::length(font), ch);
+        if (ptr == nullptr) {
+            return font_idx('?');
+        } else {
+            return ptr - font;
+        }
+    } else {
+        return ch;
+    }
+}
+
 Graphics::~Graphics()
 {
 
@@ -146,7 +161,7 @@ void Graphics::drawspritesetcol(int x, int y, int t, int c, UtilityClass& help)
 
 void Graphics::Makebfont()
 {
-    for (int j =  0; j < 16; j++)
+    for (int j =  0; j < (grphx.im_bfont->h / 8); j++)
     {
         for (int i = 0; i < 16; i++)
         {
@@ -154,25 +169,17 @@ void Graphics::Makebfont()
             SDL_Surface* temp = GetSubSurface(grphx.im_bfont,i*8,j*8,8,8);
             bfont.push_back(temp);
 
-            temp = GetSubSurface(grphx.im_bfont,i*8,j*8,8,8);
-			SDL_Surface* TempFlipped = FlipSurfaceVerticle(temp);
-
+            SDL_Surface* TempFlipped = FlipSurfaceVerticle(temp);
             flipbfont.push_back(TempFlipped);
-			SDL_FreeSurface(temp);
-
         }
     }
+}
 
-    //Ok, now we work out the lengths (this data string cortesy of a program I wrote!)
-    for (int i = 0; i < 256; i++)
-    {
-        bfontlen.push_back(6);
-    }
-
-
-    for(int k = 0; k < 96; k++)
-    {
-        bfontlen[k + 32] = 8;// int(maprow[k]);
+int Graphics::bfontlen(char32_t ch) {
+    if (ch < 32) {
+        return 6;
+    } else {
+        return 8;
     }
 }
 
@@ -250,13 +257,9 @@ void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool 
         _x = ((160 ) - ((len(_s)) / 2));
     int bfontpos = 0;
     int curr;
-    for (unsigned int i = 0; i < _s.length(); i++)
-    {
-        curr = (_s.c_str())[i];
-        if (curr > 255 || curr < 0)
-        {
-            curr = '?';
-        }
+    std::string::iterator iter = _s.begin();
+    while (iter != _s.end()) {
+        curr = utf8::next(iter, _s.end());
         point tpoint;
         tpoint.x = _x + bfontpos;
         tpoint.y = _y;
@@ -267,13 +270,13 @@ void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool 
 
         if (flipmode)
         {
-            BlitSurfaceColoured( flipbfont[curr], NULL, backBuffer, &fontRect , ct);
+            BlitSurfaceColoured( flipbfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         }
         else
         {
-            BlitSurfaceColoured( bfont[curr], NULL, backBuffer, &fontRect , ct);
+            BlitSurfaceColoured( bfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         }
-        bfontpos+=bfontlen[curr] ;
+        bfontpos+=bfontlen(curr) ;
     }
 }
 
@@ -293,13 +296,9 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
 
     int bfontpos = 0;
     int curr;
-    for (unsigned int i = 0; i < _s.length(); i++)
-    {
-        curr = (_s.c_str())[i];
-        if (curr > 255 || curr < 0)
-        {
-            curr = '?';
-        }
+    std::string::iterator iter = _s.begin();
+    while (iter != _s.end()) {
+        curr = utf8::next(iter, _s.end());
 
         /*
         point tpoint;
@@ -313,29 +312,29 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
 
         if (flipmode)
         {
-			SDL_Surface* tempPrint = ScaleSurfaceSlow(flipbfont[curr], bfont[curr]->w *sc,bfont[curr]->h *sc);
+			SDL_Surface* tempPrint = ScaleSurfaceSlow(flipbfont[font_idx(curr)], bfont[font_idx(curr)]->w *sc,bfont[font_idx(curr)]->h *sc);
 			SDL_Rect printrect = { Sint16((_x) + bfontpos), Sint16(_y) , Sint16(bfont_rect.w*sc), Sint16(bfont_rect.h * sc)};
 			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
 			SDL_FreeSurface(tempPrint);
         }
         else
         {
-			SDL_Surface* tempPrint = ScaleSurfaceSlow(bfont[curr], bfont[curr]->w *sc,bfont[curr]->h *sc);
+			SDL_Surface* tempPrint = ScaleSurfaceSlow(bfont[font_idx(curr)], bfont[font_idx(curr)]->w *sc,bfont[font_idx(curr)]->h *sc);
 			SDL_Rect printrect = { static_cast<Sint16>((_x) + bfontpos), static_cast<Sint16>(_y) , static_cast<Sint16>((bfont_rect.w*sc)+1), static_cast<Sint16>((bfont_rect.h * sc)+1)};
 			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
 			SDL_FreeSurface(tempPrint);
         }
-        bfontpos+=bfontlen[curr] *sc;
+        bfontpos+=bfontlen(curr) *sc;
     }
 }
 
 int Graphics::len(std::string t)
 {
     int bfontpos = 0;
-    for (unsigned int i = 0; i < t.length(); i++)
-    {
-        int cur = (t.c_str())[i];
-        bfontpos+= bfontlen[cur] ;
+    std::string::iterator iter = t.begin();
+    while (iter != t.end()) {
+        int cur = utf8::next(iter, t.end());
+        bfontpos += bfontlen(cur);
     }
     return bfontpos;
 }
@@ -351,14 +350,9 @@ void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bo
     if (cen)
         _x = ((160) - (len(_s) / 2))+_x;
     int bfontpos = 0;
-    int curr;
-    for (unsigned int i = 0; i < _s.length(); i++)
-    {
-        curr = (_s.c_str())[i];
-        if (curr > 255 || curr < 0)
-        {
-            curr = '?';
-        }
+    std::string::iterator iter = _s.begin();
+    while (iter != _s.end()) {
+        int curr = utf8::next(iter, _s.end());
         point tpoint;
         tpoint.x = _x + bfontpos;
         tpoint.y = _y;
@@ -369,16 +363,16 @@ void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bo
 
         if (flipmode)
         {
-            //flipbfont[cur].colorTransform(bfont_rect, ct);
-            BlitSurfaceColoured( bfont[curr], NULL, backBuffer, &fontRect , ct);
+            //flipbfont[font_idx(cur)].colorTransform(bfont_rect, ct);
+            BlitSurfaceColoured( bfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         }
         else
         {
-            //bfont[cur].colorTransform(bfont_rect, ct);
-            //backBuffer.copyPixels(bfont[cur], bfont_rect, tpoint);
-            BlitSurfaceColoured( bfont[curr], NULL, backBuffer, &fontRect , ct);
+            //bfont[font_idx(cur)].colorTransform(bfont_rect, ct);
+            //backBuffer.copyPixels(bfont[font_idx(cur)], bfont_rect, tpoint);
+            BlitSurfaceColoured( bfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         }
-        bfontpos+=bfontlen[curr] ;
+        bfontpos+=bfontlen(curr) ;
     }
 }
 
@@ -417,13 +411,9 @@ void Graphics::RPrint( int _x, int _y, std::string _s, int r, int g, int b, bool
         _x = ((308) - (_s.length() / 2));
     int bfontpos = 0;
     int curr;
-    for (unsigned int i = 0; i < _s.length(); i++)
-    {
-        curr = (_s.c_str())[i];
-        if (curr > 255 || curr < 0)
-        {
-            curr = '?';
-        }
+    std::string::iterator iter = _s.begin();
+    while (iter != _s.end()) {
+        curr = utf8::next(iter, _s.end());
         point tpoint;
         tpoint.x = _x + bfontpos;
         tpoint.y = _y;
@@ -434,16 +424,16 @@ void Graphics::RPrint( int _x, int _y, std::string _s, int r, int g, int b, bool
 
         if (flipmode)
         {
-            //flipbfont[cur].colorTransform(bfont_rect, ct);
-            BlitSurfaceColoured( flipbfont[curr], NULL, backBuffer, &fontRect , ct);
+            //flipbfont[font_idx(cur)].colorTransform(bfont_rect, ct);
+            BlitSurfaceColoured( flipbfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         }
         else
         {
-            //bfont[cur].colorTransform(bfont_rect, ct);
-            //backBuffer.copyPixels(bfont[cur], bfont_rect, tpoint);
-            BlitSurfaceColoured( bfont[curr], NULL, backBuffer, &fontRect , ct);
+            //bfont[font_idx(cur)].colorTransform(bfont_rect, ct);
+            //backBuffer.copyPixels(bfont[font_idx(cur)], bfont_rect, tpoint);
+            BlitSurfaceColoured( bfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         }
-        bfontpos+=bfontlen[curr] ;
+        bfontpos+=bfontlen(curr) ;
     }
 }
 
@@ -1035,7 +1025,8 @@ void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int
         textbox[m].clear();
         textbox[m].line[0] = t;
         textbox[m].xp = xp;
-        if (xp == -1) textbox[m].xp = 160 - (((t.length() / 2) + 1) * 8);
+        int length = utf8::distance(t.begin(), t.end());
+        if (xp == -1) textbox[m].xp = 160 - (((length / 2) + 1) * 8);
         textbox[m].yp = yp;
         textbox[m].initcol(r, g, b);
         textbox[m].resize();
@@ -3100,28 +3091,24 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 
 	int bfontpos = 0;
 	int cur;
-	for (size_t i = 0; i < t.length(); i++)
-	{
-		cur = (t.c_str())[i];
-		if (cur > 255 || cur < 0)
-		{
-			cur = '?';
-		}
+        std::string::iterator iter = t.begin();
+	while (iter != t.end()) {
+		cur = utf8::next(iter, t.end());
 		if (flipmode)
 		{
-			SDL_Surface* tempPrint = ScaleSurfaceSlow(flipbfont[cur], bfont[cur]->w *sc,bfont[cur]->h *sc);
+			SDL_Surface* tempPrint = ScaleSurfaceSlow(flipbfont[font_idx(cur)], bfont[font_idx(cur)]->w *sc,bfont[font_idx(cur)]->h *sc);
 			SDL_Rect printrect = { Sint16(x + bfontpos), Sint16(y) , Sint16(bfont_rect.w*sc), Sint16(bfont_rect.h * sc)};
 			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect ,ct);
 			SDL_FreeSurface(tempPrint);
 		}
 		else
 		{
-			SDL_Surface* tempPrint = ScaleSurfaceSlow(bfont[cur], bfont[cur]->w *sc,bfont[cur]->h *sc);
+			SDL_Surface* tempPrint = ScaleSurfaceSlow(bfont[font_idx(cur)], bfont[font_idx(cur)]->w *sc,bfont[font_idx(cur)]->h *sc);
 			SDL_Rect printrect = { Sint16((x) + bfontpos), Sint16(y) , Sint16(bfont_rect.w*sc), Sint16(bfont_rect.h * sc)};
 			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
 			SDL_FreeSurface(tempPrint);
 		}
-		bfontpos+=bfontlen[cur]* sc;
+		bfontpos+=bfontlen(cur)* sc;
 	}
 }
 

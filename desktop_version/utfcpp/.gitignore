@@ -1,0 +1,4 @@
+# VS Code:
+.vscode/
+# Often used by CMake 
+build/

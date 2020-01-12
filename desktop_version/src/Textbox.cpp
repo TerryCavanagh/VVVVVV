@@ -1,4 +1,5 @@
 #include "Textbox.h"
+#include <utf8.h>
 
 textboxclass::textboxclass()
 {
@@ -133,7 +134,8 @@ void textboxclass::resize()
     max = 0;
     for (int iter = 0; iter < numlines; iter++)
     {
-        if (line[iter].length() > (unsigned int)max) max = line[iter].length();
+        unsigned int len = utf8::distance(line[iter].begin(), line[iter].end());
+        if (len > (unsigned int)max) max = len;
     }
 
     lw = max;

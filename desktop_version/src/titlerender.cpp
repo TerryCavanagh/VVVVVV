@@ -56,7 +56,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
 
         /*dwgfx.Print(5, 5, "IGF WIP Build, 29th Oct '09", tr, tg, tb, true);
         dwgfx.Print(5, 200, "Game by Terry Cavanagh", tr, tg, tb, true);
-        dwgfx.Print(5, 210, "Music by Magnus P~lsson", tr, tg, tb, true);
+        dwgfx.Print(5, 210, "Music by Magnus Pälsson", tr, tg, tb, true);
         dwgfx.Print(5, 220, "Roomnames by Bennett Foddy", tr, tg, tb, true);*/
     }
     else
