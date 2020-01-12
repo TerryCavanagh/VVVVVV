@@ -90,6 +90,27 @@ namespace utf8
     }
 
     template <typename octet_iterator>
+    uint32_t peek_next(octet_iterator it, octet_iterator end)
+    {
+        return utf8::next(it, end);
+    }
+
+    template <typename octet_iterator>
+    uint32_t prior(octet_iterator& it, octet_iterator start)
+    {
+        // can't do much if it == start
+        if (it == start)
+            throw not_enough_room();
+
+        octet_iterator end = it;
+        // Go back until we hit either a lead octet or start
+        while (utf8::internal::is_trail(*(--it)))
+            if (it == start)
+                throw invalid_utf8(*it); // error - no lead byte in the sequence
+        return utf8::peek_next(it, end);
+    }
+
+    template <typename octet_iterator>
     typename std::iterator_traits<octet_iterator>::difference_type
     distance (octet_iterator first, octet_iterator last)
     {
