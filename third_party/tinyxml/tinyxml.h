@@ -167,7 +167,7 @@ enum TiXmlEncoding
 	TIXML_ENCODING_LEGACY
 };
 
-const TiXmlEncoding TIXML_DEFAULT_ENCODING = TIXML_ENCODING_UTF8;
+const TiXmlEncoding TIXML_DEFAULT_ENCODING = TIXML_ENCODING_UNKNOWN;
 
 /** TiXmlBase is a base class for every class in TinyXml.
 	It does little except to establish that TinyXml classes
