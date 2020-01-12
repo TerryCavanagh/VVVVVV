@@ -78,13 +78,13 @@ namespace utf8
             case internal::UTF8_OK :
                 break;
             case internal::NOT_ENOUGH_ROOM :
-                throw not_enough_room();
+                UTF_CPP_THROW(not_enough_room());
             case internal::INVALID_LEAD :
             case internal::INCOMPLETE_SEQUENCE :
             case internal::OVERLONG_SEQUENCE :
-                throw invalid_utf8(*it);
+                UTF_CPP_THROW(invalid_utf8(*it));
             case internal::INVALID_CODE_POINT :
-                throw invalid_code_point(cp);
+                UTF_CPP_THROW(invalid_code_point(cp));
         }
         return cp;
     }
@@ -100,13 +100,13 @@ namespace utf8
     {
         // can't do much if it == start
         if (it == start)
-            throw not_enough_room();
+            UTF_CPP_THROW(not_enough_room());
 
         octet_iterator end = it;
         // Go back until we hit either a lead octet or start
         while (utf8::internal::is_trail(*(--it)))
             if (it == start)
-                throw invalid_utf8(*it); // error - no lead byte in the sequence
+                UTF_CPP_THROW(invalid_utf8(*it)); // error - no lead byte in the sequence
         return utf8::peek_next(it, end);
     }
 
