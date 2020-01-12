@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Screen.h"
 #include <utf8/checked.h>
+#include <physfs.h>
 
 void Graphics::init()
 {
@@ -132,12 +133,11 @@ void Graphics::init()
 
 int Graphics::font_idx(char32_t ch) {
     if (grphx.im_bfont->h > 128) {
-        auto font = UR"( !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ ¡¢£¤¥¦§¨©«­®°²³»¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſΆΈΉΊΌΎΏΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџאבגדהוזחטיךכלםמןנסעףפץצקרשתװױײ׳״—‘’“”€←↑→↓↔↕↖↗↘↙↰↱↲↳↶↷↺↻↼↽↾↿⇀⇁⇂⇃⇅⇆─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿▀▁▂▃▄▅▆▇█▉▊▋▌▍▎▏▐░▒▓▔▕▖▗▘▙▚▛▜▝▞▟■□▢▲△▶▷▼▽◀◁、。〃〈〉《》「」『』【】〒〓〔〕〖〗〘〙〚〛〜〝〞ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーＵｇｈｉｐｒｔ)";
-        auto ptr = std::char_traits<char32_t>::find(font, std::char_traits<char32_t>::length(font), ch);
-        if (ptr == nullptr) {
+        std::map<int, int>::iterator iter = font_positions.find(ch);
+        if (iter == font_positions.end()) {
             return font_idx('?');
         } else {
-            return ptr - font;
+            return iter->second;
         }
     } else {
         return ch;
@@ -171,6 +171,30 @@ void Graphics::Makebfont()
 
             SDL_Surface* TempFlipped = FlipSurfaceVerticle(temp);
             flipbfont.push_back(TempFlipped);
+        }
+    }
+
+    PHYSFS_File* charmap_file = PHYSFS_openRead("graphics/font.txt");
+    if (charmap_file != NULL) {
+        uint64_t length = PHYSFS_fileLength(charmap_file);
+        char* charmap = (char*) malloc(length);
+        uint64_t read = 0;
+        do {
+            int64_t ret = PHYSFS_readBytes(charmap_file, charmap, length);
+            if (ret >= 0) {
+                read += ret;
+            } else {
+                printf("%s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+                exit(1);
+            }
+        } while (read < length);
+        char* current = charmap;
+        char* end = charmap + length;
+        int pos = 0;
+        while (current != end) {
+            int codepoint = utf8::next(current, end);
+            font_positions[codepoint] = pos;
+            ++pos;
         }
     }
 }

@@ -3,6 +3,7 @@
 
 #include "GraphicsResources.h"
 #include <vector>
+#include <map>
 
 
 
@@ -282,6 +283,8 @@ public:
 	bool translucentroomname;
 
 	bool showmousecursor;
+
+        std::map<int, int> font_positions;
 };
 
 extern Graphics graphics;
