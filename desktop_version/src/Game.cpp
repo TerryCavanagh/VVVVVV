@@ -207,18 +207,14 @@ Game::Game(void):
     }
     customcol=0;
 
-    for (int i = 0; i < 6; i++)
-    {
-        bool cstats;
-        cstats = false;
-        crewstats.push_back(cstats);
-        tele_crewstats.push_back(false);
-        quick_crewstats.push_back(false);
-        besttimes.push_back( -1);
-        besttrinkets.push_back( -1);
-        bestlives.push_back( -1);
-        bestrank.push_back( -1);
-    }
+    crewstats.resize(6);
+    tele_crewstats.resize(6);
+    quick_crewstats.resize(6);
+    besttimes.resize(6, -1);
+    besttrinkets.resize(6, -1);
+    bestlives.resize(6, -1);
+    bestrank.resize(6, -1);
+
     crewstats[0] = true;
     lastsaved = 0;
 
@@ -230,23 +226,10 @@ Game::Game(void):
     quick_currentarea = "Error! Error!";
 
     //Menu stuff initiliased here:
-    for (int mi = 0; mi < 25; mi++)
-    {
-        menuoptions.push_back(std::string());
-        menuoptionsactive.push_back(bool());
-
-        bool nb1, nb2;
-        nb1 = false;
-        nb2 = false;
-        unlock.push_back(nb1);
-        unlocknotify.push_back(nb2);
-    }
-
-    for (int ui = 0; ui < 25; ui++)
-    {
-        unlock[ui] = false;
-        unlocknotify[ui] = false;
-    }
+    menuoptions.resize(25);
+    menuoptionsactive.resize(25);
+    unlock.resize(25);
+    unlocknotify.resize(25);
 
     nummenuoptions = 0;
     currentmenuoption = 0;
