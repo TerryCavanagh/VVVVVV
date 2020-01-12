@@ -12,6 +12,7 @@ Contributors
 * Keith Stellyes (@keithstellyes)
 * Elijah Stone
 * Info Teddy (@InfoTeddy)
+* leo60228 (@leo60228)
 * Emmanuel Vadot (@evadot)
 * Rémi Verschelde (@akien-mga)
 * viri (viri.me)
