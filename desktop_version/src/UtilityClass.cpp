@@ -151,162 +151,23 @@ std::string UtilityClass::timestring( int t )
 
 std::string UtilityClass::number( int _t )
 {
-	switch(_t)
-	{
-	case 0:
-		return "Zero";
-		break;
-	case 1:
-		return "One";
-		break;
-	case 2:
-		return "Two";
-		break;
-	case 3:
-		return "Three";
-		break;
-	case 4:
-		return "Four";
-		break;
-	case 5:
-		return "Five";
-		break;
-	case 6:
-		return "Six";
-		break;
-	case 7:
-		return "Seven";
-		break;
-	case 8:
-		return "Eight";
-		break;
-	case 9:
-		return "Nine";
-		break;
-	case 10:
-		return "Ten";
-		break;
-	case 11:
-		return "Eleven";
-		break;
-	case 12:
-		return "Twelve";
-		break;
-	case 13:
-		return "Thirteen";
-		break;
-	case 14:
-		return "Fourteen";
-		break;
-	case 15:
-		return "Fifteen";
-		break;
-	case 16:
-		return "Sixteen";
-		break;
-	case 17:
-		return "Seventeen";
-		break;
-	case 18:
-		return "Eighteen";
-		break;
-	case 19:
-		return "Nineteen";
-		break;
-	case 20:
-		return "Twenty";
-		break;
-	case 21:
-		return "Twenty One";
-		break;
-	case 22:
-		return "Twenty Two";
-		break;
-	case 23:
-		return "Twenty Three";
-		break;
-	case 24:
-		return "Twenty Four";
-		break;
-	case 25:
-		return "Twenty Five";
-		break;
-	case 26:
-		return "Twenty Six";
-		break;
-	case 27:
-		return "Twenty Seven";
-		break;
-	case 28:
-		return "Twenty Eight";
-		break;
-	case 29:
-		return "Twenty Nine";
-		break;
-	case 30:
-		return "Thirty";
-		break;
-  case 31:
-		return "Thirty One";
-		break;
-	case 32:
-		return "Thirty Two";
-		break;
-	case 33:
-		return "Thirty Three";
-		break;
-	case 34:
-		return "Thirty Four";
-		break;
-	case 35:
-		return "Thirty Five";
-		break;
-	case 36:
-		return "Thirty Six";
-		break;
-	case 37:
-		return "Thirty Seven";
-		break;
-	case 38:
-		return "Thirty Eight";
-		break;
-	case 39:
-		return "Thirty Nine";
-		break;
-	case 40:
-		return "Forty";
-		break;
-  case 41:
-		return "Forty One";
-		break;
-	case 42:
-		return "Forty Two";
-		break;
-	case 43:
-		return "Forty Three";
-		break;
-	case 44:
-		return "Forty Four";
-		break;
-	case 45:
-		return "Forty Five";
-		break;
-	case 46:
-		return "Forty Six";
-		break;
-	case 47:
-		return "Forty Seven";
-		break;
-	case 48:
-		return "Forty Eight";
-		break;
-	case 49:
-		return "Forty Nine";
-		break;
-	case 50:
-		return "Fifty";
-		break;
+	const int BIGGEST_SMALL_NUMBER = 50;
+	const char* smallnumbers[] = {"Zero", "One", "Two", "Three", 
+		"Four", "Five", "Six", "Seven", "Eight", "Nine", 
+		"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
+		"Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty", "Twenty One",
+		"Twenty Two", "Twenty Three", "Twenty Four", "Twenty Five",
+		"Twenty Six", "Twenty Seven", "Twenty Eight", "Twenty Nine",
+		"Thirty", "Thirty One", "Thirty Two", "Thirty Three", "Thirty Four",
+		"Thirty Five", "Thirty Six", "Thirty Seven", "Thirty Eight",
+		"Thirty Nine", "Forty Zero", "Forty One", "Forty Two", "Forty Three",
+		"Forty Four", "Forty Five", "Forty Six", "Forty Seven", "Forty Eight",
+		"Forty Nine", "Fifty"};
+
+	if(_t <= BIGGEST_SMALL_NUMBER) {
+		return smallnumbers[_t];
 	}
+
 	return "Lots";
 }
 
