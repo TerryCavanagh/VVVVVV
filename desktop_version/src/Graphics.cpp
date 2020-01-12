@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Map.h"
 #include "Screen.h"
+#include "FileSystemUtils.h"
 #include <utf8/checked.h>
 #include <physfs.h>
 
@@ -174,22 +175,12 @@ void Graphics::Makebfont()
         }
     }
 
-    PHYSFS_File* charmap_file = PHYSFS_openRead("graphics/font.txt");
-    if (charmap_file != NULL) {
-        uint64_t length = PHYSFS_fileLength(charmap_file);
-        char* charmap = (char*) malloc(length);
-        uint64_t read = 0;
-        do {
-            int64_t ret = PHYSFS_readBytes(charmap_file, charmap, length);
-            if (ret >= 0) {
-                read += ret;
-            } else {
-                printf("%s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
-                exit(1);
-            }
-        } while (read < length);
-        char* current = charmap;
-        char* end = charmap + length;
+    unsigned char* charmap = NULL;
+    size_t length;
+    FILESYSTEM_loadFileToMemory("graphics/font.txt", &charmap, &length);
+    if (charmap != NULL) {
+        unsigned char* current = charmap;
+        unsigned char* end = charmap + length;
         int pos = 0;
         while (current != end) {
             int codepoint = utf8::next(current, end);
