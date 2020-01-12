@@ -77,27 +77,10 @@ namespace internal
     {
         return static_cast<uint8_t>(0xff & oc);
     }
-    template<typename u16_type>
-    inline uint16_t mask16(u16_type oc)
-    {
-        return static_cast<uint16_t>(0xffff & oc);
-    }
     template<typename octet_type>
     inline bool is_trail(octet_type oc)
     {
         return ((utf8::internal::mask8(oc) >> 6) == 0x2);
-    }
-
-    template <typename u16>
-    inline bool is_lead_surrogate(u16 cp)
-    {
-        return (cp >= LEAD_SURROGATE_MIN && cp <= LEAD_SURROGATE_MAX);
-    }
-
-    template <typename u16>
-    inline bool is_trail_surrogate(u16 cp)
-    {
-        return (cp >= TRAIL_SURROGATE_MIN && cp <= TRAIL_SURROGATE_MAX);
     }
 
     template <typename u16>
@@ -298,41 +281,7 @@ namespace internal
     }
 
 } // namespace internal
-
-    /// The library API - functions intended to be called by the users
-
-    // Byte order mark
-    const uint8_t bom[] = {0xef, 0xbb, 0xbf};
-
-    template <typename octet_iterator>
-    octet_iterator find_invalid(octet_iterator start, octet_iterator end)
-    {
-        octet_iterator result = start;
-        while (result != end) {
-            utf8::internal::utf_error err_code = utf8::internal::validate_next(result, end);
-            if (err_code != internal::UTF8_OK)
-                return result;
-        }
-        return result;
-    }
-
-    template <typename octet_iterator>
-    inline bool is_valid(octet_iterator start, octet_iterator end)
-    {
-        return (utf8::find_invalid(start, end) == end);
-    }
-
-    template <typename octet_iterator>
-    inline bool starts_with_bom (octet_iterator it, octet_iterator end)
-    {
-        return (
-            ((it != end) && (utf8::internal::mask8(*it++)) == bom[0]) &&
-            ((it != end) && (utf8::internal::mask8(*it++)) == bom[1]) &&
-            ((it != end) && (utf8::internal::mask8(*it))   == bom[2])
-           );
-    }	
-} // namespace utf8
+}	
 
 #endif // header guard
-
 
