@@ -51,7 +51,12 @@ IF(NOT WIN32)
 ENDIF()
 
 # Include Directories
-INCLUDE_DIRECTORIES(src tinyxml physfs lodepng)
+INCLUDE_DIRECTORIES(
+	src
+	../third_party/tinyxml
+	../third_party/physfs
+	../third_party/lodepng
+)
 
 # Source Lists
 SET(VVV_SRC
@@ -89,27 +94,27 @@ SET(VVV_SRC
 	src/SteamNetwork.c
 )
 SET(XML_SRC
-	tinyxml/tinystr.cpp
-	tinyxml/tinyxml.cpp
-	tinyxml/tinyxmlerror.cpp
-	tinyxml/tinyxmlparser.cpp
+	../third_party/tinyxml/tinystr.cpp
+	../third_party/tinyxml/tinyxml.cpp
+	../third_party/tinyxml/tinyxmlerror.cpp
+	../third_party/tinyxml/tinyxmlparser.cpp
 )
 SET(PFS_SRC
-	physfs/physfs.c
-	physfs/physfs_archiver_dir.c
-	physfs/physfs_archiver_unpacked.c
-	physfs/physfs_archiver_zip.c
-	physfs/physfs_byteorder.c
-	physfs/physfs_unicode.c
-	physfs/physfs_platform_posix.c
-	physfs/physfs_platform_unix.c
-	physfs/physfs_platform_windows.c
+	../third_party/physfs/physfs.c
+	../third_party/physfs/physfs_archiver_dir.c
+	../third_party/physfs/physfs_archiver_unpacked.c
+	../third_party/physfs/physfs_archiver_zip.c
+	../third_party/physfs/physfs_byteorder.c
+	../third_party/physfs/physfs_unicode.c
+	../third_party/physfs/physfs_platform_posix.c
+	../third_party/physfs/physfs_platform_unix.c
+	../third_party/physfs/physfs_platform_windows.c
 )
 IF(APPLE)
 	# Are you noticing a pattern with this Apple crap yet?
-	SET(PFS_SRC ${PFS_SRC} physfs/physfs_platform_apple.m)
+	SET(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
 ENDIF()
-SET(PNG_SRC lodepng/lodepng.c)
+SET(PNG_SRC ../third_party/lodepng/lodepng.c)
 
 # Executable information
 IF(WIN32)
