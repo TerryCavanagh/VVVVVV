@@ -348,8 +348,8 @@ Game::Game(void):
     }
 
 
-    TiXmlDocument docTele((saveFilePath+"tsave.vvv").c_str());
-    if (!docTele.LoadFile())
+    TiXmlDocument docTele;
+    if (!FILESYSTEM_loadTiXmlDocument("saves/tsave.vvv", &docTele))
     {
         telecookieexists = false;
         telesummary = "";
@@ -5315,8 +5315,8 @@ void Game::loadsummary( mapclass& map, UtilityClass& help )
     //	quick_crewstats = summary_crewstats.slice();
     //}
 
-    TiXmlDocument docTele((saveFilePath+"tsave.vvv").c_str());
-    if (!docTele.LoadFile())
+    TiXmlDocument docTele;
+    if (!FILESYSTEM_loadTiXmlDocument("saves/tsave.vvv", &docTele))
     {
         telecookieexists = false;
         telesummary = "";
