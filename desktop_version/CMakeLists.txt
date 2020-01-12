@@ -124,9 +124,9 @@ IF(ENABLE_WARNINGS)
 	# Saves quite a few lines and boilerplate at the price of readability.
 	TARGET_COMPILE_OPTIONS(VVVVVV PRIVATE
 		$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
-			-Wall $<$<BOOL:ENABLE_WERROR>:-Werror>>
+			-Wall $<$<BOOL:${ENABLE_WERROR}>:-Werror>>
 		$<$<CXX_COMPILER_ID:MSVC>:
-			/W4 $<$<BOOL:ENABLE_WERROR>:/WX>>)
+			/W4 $<$<BOOL:${ENABLE_WERROR}>:/WX>>)
 ENDIF()
 
 # Library information
