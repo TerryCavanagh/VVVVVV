@@ -11,11 +11,11 @@ scriptclass::scriptclass()
     	//Start SDL
 
 	//Init
-	for (int i = 0; i < 500; i++)
+	for (int init = 0; init < 500; init++)
 	{
 		commands.push_back(std::string());
 	}
-	for (int i = 0; i < 40; i++)
+	for (int init = 0; init < 40; init++)
 	{
 		words.push_back(std::string());
 		txt.push_back(std::string());
