@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "tinyxml.h"
+
 int FILESYSTEM_init(char *argvZero);
 void FILESYSTEM_deinit();
 
@@ -12,6 +14,8 @@ char *FILESYSTEM_getUserLevelDirectory();
 
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem, size_t *len);
 void FILESYSTEM_freeMemory(unsigned char **mem);
+bool FILESYSTEM_saveTiXmlDocument(const char *name, TiXmlDocument *doc);
+bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc);
 
 std::vector<std::string> FILESYSTEM_getLevelDirFileNames();
 

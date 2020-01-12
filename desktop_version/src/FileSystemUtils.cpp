@@ -10,6 +10,8 @@
 #include <SDL.h>
 #include <physfs.h>
 
+#include "tinyxml.h"
+
 #if defined(_WIN32)
 #include <windows.h>
 #include <shlobj.h>
@@ -52,6 +54,7 @@ int FILESYSTEM_init(char *argvZero)
 
 	/* Mount our base user directory */
 	PHYSFS_mount(output, NULL, 1);
+	PHYSFS_setWriteDir(output);
 	printf("Base directory: %s\n", output);
 
 	/* Create save directory */
@@ -133,6 +136,35 @@ void FILESYSTEM_freeMemory(unsigned char **mem)
 {
 	free(*mem);
 	*mem = NULL;
+}
+
+bool FILESYSTEM_saveTiXmlDocument(const char *name, TiXmlDocument *doc)
+{
+	/* TiXmlDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
+	TiXmlPrinter printer;
+	doc->Accept(&printer);
+	PHYSFS_File* handle = PHYSFS_openWrite(name);
+	if (handle == NULL)
+	{
+		return false;
+	}
+	PHYSFS_writeBytes(handle, printer.CStr(), printer.Size());
+	PHYSFS_close(handle);
+	return true;
+}
+
+bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc)
+{
+	/* TiXmlDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
+	unsigned char *mem = NULL;
+	FILESYSTEM_loadFileToMemory(name, &mem, NULL);
+	if (mem == NULL)
+	{
+		return false;
+	}
+	doc->Parse((const char*)mem);
+	FILESYSTEM_freeMemory(&mem);
+	return true;
 }
 
 std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
