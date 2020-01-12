@@ -9,6 +9,7 @@ Contributors
 * Daniel Lee (@ddm999)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
+* Keith Stellyes (@keithstellyes)
 * Elijah Stone
 * Info Teddy (@InfoTeddy)
 * Emmanuel Vadot (@evadot)
