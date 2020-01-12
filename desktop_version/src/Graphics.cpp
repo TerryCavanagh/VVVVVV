@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "Map.h"
 #include "Screen.h"
-#include <utf8.h>
+#include <utf8/checked.h>
 
 void Graphics::init()
 {

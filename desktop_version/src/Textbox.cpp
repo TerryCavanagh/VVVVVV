@@ -1,5 +1,5 @@
 #include "Textbox.h"
-#include <utf8.h>
+#include <utf8/checked.h>
 
 textboxclass::textboxclass()
 {
