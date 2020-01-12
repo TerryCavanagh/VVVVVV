@@ -2107,7 +2107,7 @@ void editorclass::save(std::string& _path)
     msg->LinkEndChild( new TiXmlText( scriptString.c_str() ));
     data->LinkEndChild( msg );
 
-    doc.SaveFile((std::string(FILESYSTEM_getUserLevelDirectory()) + _path).c_str() );
+    FILESYSTEM_saveTiXmlDocument(("levels/" + _path).c_str(), &doc);
 }
 
 
