@@ -1911,7 +1911,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			{
 				dwgfx.textboxremovefast();
 
-				dwgfx.createtextbox("The secret lab is seperate from", 50, 85, 174, 174, 174);
+				dwgfx.createtextbox("The secret lab is separate from", 50, 85, 174, 174, 174);
 				dwgfx.addline("the rest of the game. You can");
 				dwgfx.addline("now come back here at any time");
 				dwgfx.addline("by selecting the new SECRET LAB");
