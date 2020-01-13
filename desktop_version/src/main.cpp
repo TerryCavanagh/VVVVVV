@@ -164,6 +164,8 @@ int main(int argc, char *argv[])
 
     //Moved screensetting init here from main menu V2.1
     game.loadstats(map, graphics);
+    if (game.skipfakeload)
+        game.gamestate = TITLEMODE;
 		if(game.usingmmmmmm==0) music.usingmmmmmm=false;
 		if(game.usingmmmmmm==1) music.usingmmmmmm=true;
     if (game.slowdown == 0) game.slowdown = 30;

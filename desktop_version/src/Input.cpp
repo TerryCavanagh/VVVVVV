@@ -735,6 +735,12 @@ SDL_assert(0 && "Remove open level dir");
                     }
                     else if (game.currentmenuoption == 4)
                     {
+                        // toggle fake load screen
+                        game.skipfakeload = !game.skipfakeload;
+                        music.playef(11, 10);
+                    }
+                    else if (game.currentmenuoption == 5)
+                    {
                         //back
                         music.playef(11, 10);
                         game.createmenu("options");
