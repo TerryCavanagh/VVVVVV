@@ -900,10 +900,13 @@ void mapclass::gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass
 		}
 	}
 
+	int theplayer = obj.getplayer();
 	for (int i = 0; i < obj.nentity; i++)
 	{
-		//Of course the player's always gonna be object zero, this is just in case
-		if (obj.entities[i].rule != 0) obj.entities[i].active = false;
+		if (i != theplayer)
+		{
+			obj.entities[i].active = false;
+		}
 	}
 	obj.cleanup();
 
