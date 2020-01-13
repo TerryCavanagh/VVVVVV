@@ -8,6 +8,7 @@ Makefile
 VVVVVV.exe
 VVVVVV
 *.a
+*.gch
 
 # Game data
 data.zip
