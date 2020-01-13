@@ -6,7 +6,7 @@
 	extern void name##_shutdown(); \
 	extern void name##_update(); \
 	extern void name##_unlockAchievement(); \
-	extern void name##_getAchievementProgress(const char *name); \
+	extern int32_t name##_getAchievementProgress(const char *name); \
 	extern void name##_setAchievementProgress(const char *name, int32_t stat);
 DECLARE_BACKEND(STEAM)
 DECLARE_BACKEND(GOG)
@@ -30,11 +30,11 @@ int NETWORK_init()
 	int32_t i, any = 0;
 	#define ASSIGN_BACKEND(name, index) \
 		backends[index].Init = name##_init; \
-		backends[index].Init = name##_init; \
-		backends[index].Init = name##_init; \
-		backends[index].Init = name##_init; \
-		backends[index].Init = name##_init; \
-		backends[index].Init = name##_init;
+		backends[index].Shutdown = name##_shutdown; \
+		backends[index].Update = name##_update; \
+		backends[index].UnlockAchievement = name##_unlockAchievement; \
+		backends[index].GetAchievementProgress = name##_getAchievementProgress; \
+		backends[index].SetAchievementProgress = name##_setAchievementProgress;
 	ASSIGN_BACKEND(STEAM, 0)
 	ASSIGN_BACKEND(GOG, 1)
 	#undef ASSIGN_BACKEND
