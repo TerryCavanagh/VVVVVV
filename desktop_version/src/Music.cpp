@@ -215,7 +215,6 @@ musicclass::musicclass()
 	resumesong = 0;
 	volume = 0.0f;
 	fadeoutqueuesong = -1;
-	isfadingout = false;
 	dontquickfade = false;
 }
 
@@ -263,7 +262,7 @@ void musicclass::play(int t)
 				// musicchannel = musicchan[currentsong].play(0);
 				// musicchannel.soundTransform = new SoundTransform(0);
 				// musicchannel.addEventListener(Event.SOUND_COMPLETE, loopmusic);
-				if (isfadingout) {
+				if (Mix_FadingMusic() == MIX_FADING_OUT) {
 					// We're already fading out
 					fadeoutqueuesong = t;
 					currentsong = -1;
@@ -337,7 +336,6 @@ void musicclass::fadeout()
 
 	Mix_FadeOutMusic(2000);
 	currentsong = -1;
-	isfadingout = true;
 }
 
 void musicclass::processmusicfade()
@@ -371,12 +369,9 @@ void musicclass::processmusic()
 	//if (musicfade > 0) processmusicfade();
 	//if (musicfadein > 0) processmusicfadein();
 
-	if (isfadingout && Mix_PlayingMusic() == 0) {
-		isfadingout = false;
-		if (fadeoutqueuesong != -1) {
-			play(fadeoutqueuesong);
-			fadeoutqueuesong = -1;
-		}
+	if (fadeoutqueuesong != -1 && Mix_PlayingMusic() == 0) {
+		play(fadeoutqueuesong);
+		fadeoutqueuesong = -1;
 	}
 
 	if (nicefade == 1 && Mix_PlayingMusic() == 0)

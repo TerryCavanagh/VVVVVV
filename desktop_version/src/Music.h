@@ -57,7 +57,6 @@ public:
 	bool custompd;
 
 	int fadeoutqueuesong; // -1 if no song queued
-	bool isfadingout;
 	bool dontquickfade;
 
 	// MMMMMM mod settings
