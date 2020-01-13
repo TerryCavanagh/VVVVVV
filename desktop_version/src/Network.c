@@ -2,7 +2,7 @@
 
 #define NUM_BACKENDS 2
 #define DECLARE_BACKEND(name) \
-	extern int name##_init(); \
+	extern int32_t name##_init(); \
 	extern void name##_shutdown(); \
 	extern void name##_update(); \
 	extern void name##_unlockAchievement(); \
