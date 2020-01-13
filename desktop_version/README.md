@@ -44,7 +44,7 @@ Including data.zip
 ------------
 You'll need the data.zip file from VVVVVV to actually run the game! It's
 available to download separately for free in the
-[Make and Play](http://distractionware.com/blog/category/vvvvvv-make-and-play/)
+[Make and Play](https://thelettervsixtim.es/makeandplay/)
 edition of the game. Put this file next to your executable and the game should
 run.
 
