@@ -530,8 +530,10 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
                 {
                     dwgfx.Print( -1, 105, "Game speed is at 40%", tr, tg, tb, true);
                 }
-            } else if (game.currentmenuoption == 4) {
-                dwgfx.bigprint(-1, 30, "Fake load screen", tr, tg, tb, true);
+            }
+            else if (game.currentmenuoption == 4)
+            {
+                dwgfx.bigprint(-1, 30, "Fake Load Screen", tr, tg, tb, true);
                 if (game.skipfakeload)
                     dwgfx.Print(-1, 75, "Fake loading screen is OFF", tr/2, tg/2, tb/2, true);
                 else
