@@ -671,7 +671,6 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 }
 
                 game.gethardestroom(map);
-                game.activetele = false;
                 game.hascontrol = true;
 
 
