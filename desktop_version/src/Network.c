@@ -12,8 +12,6 @@ DECLARE_BACKEND(STEAM)
 DECLARE_BACKEND(GOG)
 #undef DECLARE_BACKEND
 
-typedef intptr_t (*SteamInternal_CreateInterfaceFunc)(const char*);
-
 typedef struct NetworkBackend
 {
 	int32_t IsInit;
