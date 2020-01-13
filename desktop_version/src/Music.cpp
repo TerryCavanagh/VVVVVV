@@ -270,8 +270,8 @@ void musicclass::play(int t)
 						Mix_FadeOutMusic(500); // fade out quicker
 					else
 						dontquickfade = false;
-				} else
-				if(Mix_FadeInMusic(musicTracks[t].m_music, -1, 3000)==-1)
+				}
+				else if(Mix_FadeInMusic(musicTracks[t].m_music, -1, 3000)==-1)
 				{
 					printf("Mix_FadeInMusic: %s\n", Mix_GetError());
 				}
