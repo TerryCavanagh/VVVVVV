@@ -7,6 +7,7 @@ Contributors
 * Charlie Bruce (@charliebruce)
 * Brian Callahan (@ibara)
 * Dav999 (Dav999-v)
+* Allison Fleischer (AllisonFleischer)
 * Daniel Lee (@ddm999)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
