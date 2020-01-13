@@ -354,6 +354,7 @@ public:
 	std::vector<SDL_GameControllerButton> controllerButton_flip;
 	std::vector<SDL_GameControllerButton> controllerButton_esc;
 
+    bool skipfakeload;
 };
 
 #endif /* GAME_H */
