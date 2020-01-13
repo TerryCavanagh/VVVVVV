@@ -91,7 +91,9 @@ SET(VVV_SRC
 	src/UtilityClass.cpp
 	src/WarpClass.cpp
 	src/main.cpp
+	src/Network.c
 	src/SteamNetwork.c
+	src/GOGNetwork.c
 )
 SET(XML_SRC
 	../third_party/tinyxml/tinystr.cpp
