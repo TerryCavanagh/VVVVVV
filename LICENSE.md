@@ -2,7 +2,7 @@ VVVVVV Source Code License v1.0
 -------
 Last updated on January 7th, 2020.
 
-This repo contains the source code for VVVVVV, including all level content and text from the game. It does not, however, contain any of the icons, art, graphics or music for the game, which are still under a proprietary license. For personal use, you can find these assets for free in the [Make and Play Edition](http://distractionware.com/blog/category/vvvvvv-make-and-play/).
+This repo contains the source code for VVVVVV, including all level content and text from the game. It does not, however, contain any of the icons, art, graphics or music for the game, which are still under a proprietary license. For personal use, you can find these assets for free in the [Make and Play Edition](https://thelettervsixtim.es/makeandplay/).
 
 If you are interested in distributing work that falls outside the terms in the licence below, or if you are interested in distributing work that includes using any part of VVVVVV not included in this repo then please get in touch - we can discuss granting a licence for that on a case by case basis. The purpose of making the contents of this repo available is for others to learn from, to inspire new work, and to allow the creation of new tools and modifications for VVVVVV.
 
