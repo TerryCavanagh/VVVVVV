@@ -925,11 +925,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			else if (words[0] == "flipgravity")
 			{
 				//not something I'll use a lot, I think. Doesn't need to be very robust!
-				if (words[1] == "player")
-				{
-					i=obj.getplayer();
-				}
-				else if (words[1] == "cyan")
+				if (words[1] == "cyan")
 				{
 					i=obj.getcrewman(0);
 				}
@@ -954,8 +950,23 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 					i=obj.getcrewman(1);
 				}
 
-				obj.entities[i].rule =7;
-				obj.entities[i].tile = 6;
+				if (words[1] == "player")
+				{
+					game.gravitycontrol = !game.gravitycontrol;
+				}
+				else
+				{
+					if (obj.entities[i].rule == 6)
+					{
+						obj.entities[i].rule = 7;
+						obj.entities[i].tile = 6;
+					}
+					else if (obj.entities[i].rule == 7)
+					{
+						obj.entities[i].rule = 6;
+						obj.entities[i].tile = 0;
+					}
+				}
 			}
 			else if (words[0] == "changegravity")
 			{
