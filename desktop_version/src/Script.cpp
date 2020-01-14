@@ -927,35 +927,46 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				//not something I'll use a lot, I think. Doesn't need to be very robust!
 				if (words[1] == "player")
 				{
-					i=obj.getplayer();
+					game.gravitycontrol = !game.gravitycontrol;
 				}
-				else if (words[1] == "cyan")
+				else
 				{
-					i=obj.getcrewman(0);
-				}
-				else if (words[1] == "red")
-				{
-					i=obj.getcrewman(3);
-				}
-				else if (words[1] == "green")
-				{
-					i=obj.getcrewman(4);
-				}
-				else if (words[1] == "yellow")
-				{
-					i=obj.getcrewman(2);
-				}
-				else if (words[1] == "blue")
-				{
-					i=obj.getcrewman(5);
-				}
-				else if (words[1] == "purple")
-				{
-					i=obj.getcrewman(1);
-				}
+					if (words[1] == "cyan")
+					{
+						i=obj.getcrewman(0);
+					}
+					else if (words[1] == "red")
+					{
+						i=obj.getcrewman(3);
+					}
+					else if (words[1] == "green")
+					{
+						i=obj.getcrewman(4);
+					}
+					else if (words[1] == "yellow")
+					{
+						i=obj.getcrewman(2);
+					}
+					else if (words[1] == "blue")
+					{
+						i=obj.getcrewman(5);
+					}
+					else if (words[1] == "purple")
+					{
+						i=obj.getcrewman(1);
+					}
 
-				obj.entities[i].rule =7;
-				obj.entities[i].tile = 6;
+					if (obj.entities[i].rule == 6)
+					{
+						obj.entities[i].rule = 7;
+						obj.entities[i].tile = 6;
+					}
+					else if (obj.entities[i].rule == 7)
+					{
+						obj.entities[i].rule = 6;
+						obj.entities[i].tile = 0;
+					}
+				}
 			}
 			else if (words[0] == "changegravity")
 			{
