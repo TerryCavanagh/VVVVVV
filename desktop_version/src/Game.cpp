@@ -449,7 +449,7 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
             j=numcustomlevelstats+1;
         }
     }
-    if(tvar>=0)
+    if(tvar>=0 && cscore > customlevelscore[tvar])
     {
         //update existing entry
         customlevelscore[tvar]=cscore;
