@@ -24,6 +24,7 @@ public:
 	bool isWindowed;
 	bool isFiltered;
 	bool badSignalEffect;
+	bool genny;
 	bool glScreen;
 	int stretchMode;
 

@@ -383,6 +383,35 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
 return _ret;
 }
 
+SDL_Surface* genesis(SDL_Surface* src) {
+    SDL_Surface* ret = SDL_CreateRGBSurface(src->flags, src->w, src->h, 32,
+        src->format->Rmask, src->format->Gmask, src->format->Bmask, src->format->Amask);
+    for (int x = 0; x < src->w; x++)
+    {
+        for (int y = 0; y < src->h; y++)
+        {
+            Uint32 pixel = ReadPixel(src, x, y);
+            unsigned char gencolour[8] = { 00, 0x34, 0x57, 0x74, 0x90, 0xAC, 0xCE, 0xFF };
+            unsigned char clrchecks[8] = { 0x20, 0x40, 0x60, 0x80, 0xA0, 0xC0, 0xE0, 0xFE };
+            unsigned char rgb[3] = { (pixel >> 16) & 0xFF, (pixel >> 8) & 0xFF, pixel & 0xFF };
+            for (int ii = 0; ii < 3; ii++) {
+                for (int i = 0; i < 8; i++) {
+                    //if (i == 8) res = gencolour[8];
+                    /*else*/
+                    if (rgb[ii] < clrchecks[i]) {
+                        rgb[ii] = gencolour[i];
+                        break;
+                    }
+                }
+            }
+            Uint32 finalPixel = ((rgb[0] << 16) + (rgb[1] << 8) + (rgb[2] << 0)) | (pixel & src->format->Amask);
+            DrawPixel(ret, x, y, finalPixel);
+        }
+    }
+    return ret;
+}
+
+
 void FillRect( SDL_Surface* _surface, const int _x, const int _y, const int _w, const int _h, const int r, int g, int b )
 {
     SDL_Rect rect = {Sint16(_x),Sint16(_y),Sint16(_w),Sint16(_h)};

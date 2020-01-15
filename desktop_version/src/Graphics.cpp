@@ -4,6 +4,8 @@
 #include "Map.h"
 #include "Screen.h"
 
+#define BEEF (1)
+
 Graphics::Graphics()
 {
     flipmode = false;
@@ -234,6 +236,9 @@ void Graphics::MakeSpriteArray()
 
 void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ )
 {
+#if BEEF
+    _s = "beef";
+#endif
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
@@ -274,6 +279,10 @@ void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool 
 
 void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, bool cen, int sc )
 {
+#if BEEF
+    _s = "beef";
+#endif
+
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
@@ -325,6 +334,10 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
 
 int Graphics::len(std::string t)
 {
+#if BEEF
+    t = "beef";
+#endif
+
     int bfontpos = 0;
     for (unsigned int i = 0; i < t.length(); i++)
     {
@@ -336,6 +349,10 @@ int Graphics::len(std::string t)
 
 void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ )
 {
+#if BEEF
+    _s = "beef";
+#endif
+
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
@@ -399,6 +416,10 @@ void Graphics::bprint( int x, int y, std::string t, int r, int g, int b, bool ce
 
 void Graphics::RPrint( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ )
 {
+#if BEEF
+    _s = "beef";
+#endif
+
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
@@ -990,6 +1011,9 @@ void Graphics::textboxtimer( int t )
 
 void Graphics::addline( std::string t )
 {
+#if BEEF
+    t = "beef";
+#endif
     textbox[m].addline(t);
 }
 
@@ -1001,6 +1025,9 @@ void Graphics::textboxadjust()
 
 void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int g/*= 255*/, int b /*= 255*/ )
 {
+#if BEEF
+    t = "beef";
+#endif
 
     if(ntextbox == 0)
     {
@@ -3060,6 +3087,9 @@ void Graphics::render()
 
 void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen, float sc)
 {
+#if BEEF
+    t = "beef";
+#endif
 	if (r < 0) r = 0;
 	if (g < 0) g = 0;
 	if (b < 0) b = 0;

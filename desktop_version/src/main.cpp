@@ -1,6 +1,11 @@
 #include <SDL.h>
 #include "SoundSystem.h"
 
+#ifdef WIN32
+#include <windows.h>
+#undef RGB
+#endif
+
 #include "UtilityClass.h"
 #include "Game.h"
 #include "Graphics.h"
@@ -56,6 +61,13 @@ int main(int argc, char *argv[])
     NETWORK_init();
 
     Screen gameScreen;
+
+#ifdef WIN32
+    AllocConsole();
+    freopen("conin$", "r", stdin);
+    freopen("conout$", "w", stdout);
+    freopen("conout$", "w", stderr);
+#endif
 
 	printf("\t\t\n");
 	printf("\t\t\n");
@@ -168,15 +180,6 @@ int main(int argc, char *argv[])
         game.gamestate = TITLEMODE;
 		if(game.usingmmmmmm==0) music.usingmmmmmm=false;
 		if(game.usingmmmmmm==1) music.usingmmmmmm=true;
-    if (game.slowdown == 0) game.slowdown = 30;
-
-    switch(game.slowdown){
-      case 30: game.gameframerate=34; break;
-      case 24: game.gameframerate=41; break;
-      case 18: game.gameframerate=55; break;
-      case 12: game.gameframerate=83; break;
-      default: game.gameframerate=34; break;
-    }
 
 		//Check to see if you've already unlocked some achievements here from before the update
 		if (game.swnbestrank > 0){
@@ -252,6 +255,15 @@ int main(int argc, char *argv[])
 
         // Update network per frame.
         NETWORK_update();
+        switch (game.slowdown) {
+        case 31: game.gameframerate = 0; break; //max speed
+        case 30: game.gameframerate = 1000 / 30; break;
+        case 24: game.gameframerate = 41; break;
+        case 18: game.gameframerate = 55; break;
+        case 12: game.gameframerate = 83; break;
+        default: game.gameframerate = 1000 / 30; break;
+        }
+
 
         //framerate limit to 30
         Uint32 timetaken = time - timePrev;
@@ -268,7 +280,7 @@ int main(int argc, char *argv[])
         }else{
           if (timetaken < game.gameframerate)
           {
-              volatile Uint32 delay = game.gameframerate - timetaken;
+              volatile float delay = game.gameframerate - timetaken;
               SDL_Delay( delay );
               time = SDL_GetTicks();
           }
@@ -279,6 +291,10 @@ int main(int argc, char *argv[])
 
 
         key.Poll();
+        if (key.pressedbackspace) {
+            if (game.slowdown != 31) game.slowdown = 31;
+            else game.slowdown = 30;
+        }
 		if(key.toggleFullscreen)
 		{
 			if(!gameScreen.isWindowed)

@@ -85,6 +85,7 @@ Screen::Screen()
 	);
 
     badSignalEffect = false;
+	genny = false;
 
     glScreen = true;
 }
@@ -144,12 +145,15 @@ void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect )
     {
         buffer = ApplyFilter(buffer);
     }
+	if (genny) {
+		buffer = genesis(buffer);
+	}
 
 
     FillRect(m_screen, 0x000);
     BlitSurfaceStandard(buffer,NULL,m_screen,rect);
 
-    if(badSignalEffect)
+    if(badSignalEffect || genny)
     {
         SDL_FreeSurface(buffer);
     }
