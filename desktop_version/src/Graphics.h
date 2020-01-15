@@ -3,6 +3,7 @@
 
 #include "GraphicsResources.h"
 #include <vector>
+#include "Game.h"
 
 
 
@@ -28,6 +29,9 @@ public:
 
 	GraphicsResources grphx;
 
+	int bfontlen(char32_t ch);
+	int font_idx(char32_t ch);
+
 	void Makebfont();
 
 	void drawhuetile(int x, int y, int t, int c);
@@ -51,7 +55,7 @@ public:
 
 	void setwarprect(int a, int b, int c, int d);
 
-	void createtextbox(std::string t, int xp, int yp, int r= 255, int g= 255, int b = 255);
+	void createtextbox(std::string t, int xp, int yp, int r = 255, int g = 255, int b = 255);
 
 	void textboxcleanup();
 
@@ -84,7 +88,7 @@ public:
 	void drawpixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo);
 	void drawcustompixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo);
 
-	void drawcrewman(int x, int y, int t, bool act, UtilityClass& help, bool noshift =false);
+	void drawcrewman(int x, int y, int t, bool act, UtilityClass& help, bool noshift = false);
 
 	int crewcolour(const int t);
 
@@ -92,9 +96,9 @@ public:
 
 	void drawpartimage(int t, int xp, int yp, int wp, int hp);
 
-	void drawimage(int t, int xp, int yp, bool cent=false);
+	void drawimage(int t, int xp, int yp, bool cent = false);
 
-	void drawimagecol(int t, int xp, int yp, int r, int g, int b, bool cent= false);
+	void drawimagecol(int t, int xp, int yp, int r, int g, int b, bool cent = false);
 
 	void drawgui(UtilityClass& help);
 
@@ -115,7 +119,7 @@ public:
 	void bprint(int x, int y, std::string t, int r, int g, int b, bool cen = false);
 
 	int len(std::string t);
-	void bigprint( int _x, int _y, std::string _s, int r, int g, int b, bool cen = false, int sc = 2 );
+	void bigprint(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false, int sc = 2);
 	void drawspritesetcol(int x, int y, int t, int c, UtilityClass& help);
 
 
@@ -149,16 +153,18 @@ public:
 	void setcolreal(Uint32 t);
 
 	void drawbackground(int t, mapclass& map);
-	void drawtile3( int x, int y, int t, int off );
-	void drawentcolours( int x, int y, int t);
-	void drawtile2( int x, int y, int t, int r, int g, int b );
-	void drawtile( int x, int y, int t, int r, int g, int b );
-	void drawtowertile( int x, int y, int t );
-	void drawtowertile3( int x, int y, int t, int off );
+	void drawtile3(int x, int y, int t, int off);
+	void drawentcolours(int x, int y, int t);
+	void drawtile2(int x, int y, int t, int r, int g, int b);
+	void drawtile(int x, int y, int t, int r, int g, int b);
+	void drawtowertile(int x, int y, int t);
+	void drawtowertile3(int x, int y, int t, int off);
+	void drawtowertile3(int x, int y, int t, int off, bool flip = false);
 
 	void drawtile(int x, int y, int t);
 
 	void drawmap(mapclass& map);
+	void drawmap(mapclass& map, int k, bool c = false);
 
 	void drawforetile(int x, int y, int t);
 
@@ -186,7 +192,7 @@ public:
 	void drawtowerbackground(mapclass& map);
 
 	void setcol(int t, UtilityClass& help);
-	void drawfinalmap(mapclass & map);
+	void drawfinalmap(mapclass& map);
 
 	colourTransform ct;
 
@@ -195,24 +201,24 @@ public:
 	int bcol, bcol2, rcol;
 
 
+	int mapoff = 53;
 
 	int j, k, m;
 
-	std::vector <SDL_Surface*> backgrounds;
-	std::vector <SDL_Surface*> images;
+	growing_vector <SDL_Surface*> backgrounds;
+	growing_vector <SDL_Surface*> images;
 
-	std::vector <SDL_Surface*> tele;
-	std::vector <SDL_Surface*> tiles;
-	std::vector <SDL_Surface*> tiles2;
-	std::vector <SDL_Surface*> tiles3;
-	std::vector <SDL_Surface*> entcolours;
-	std::vector <SDL_Surface*> sprites;
-	std::vector <SDL_Surface*> flipsprites;
-	std::vector <SDL_Surface*> bfont;
-	std::vector <SDL_Surface*> bfontmask;
-	std::vector <SDL_Surface*> flipbfont;
-	std::vector <SDL_Surface*> flipbfontmask;
-	std::vector <int> bfontlen;
+	growing_vector <SDL_Surface*> tele;
+	growing_vector <SDL_Surface*> tiles;
+	growing_vector <SDL_Surface*> tiles2;
+	growing_vector <SDL_Surface*> tiles3;
+	growing_vector <SDL_Surface*> entcolours;
+	growing_vector <SDL_Surface*> sprites;
+	growing_vector <SDL_Surface*> flipsprites;
+	growing_vector <SDL_Surface*> bfont;
+	growing_vector <SDL_Surface*> bfontmask;
+	growing_vector <SDL_Surface*> flipbfont;
+	growing_vector <SDL_Surface*> flipbfontmask;
 
 	bool flipmode;
 	bool setflipmode;
@@ -252,25 +258,25 @@ public:
 
 	int fademode;
 	int fadeamount;
-	std::vector <int> fadebars;
+	growing_vector <int> fadebars;
 
 	bool trinketcolset;
 	int trinketr, trinketg, trinketb;
 
-	std::vector <textboxclass> textbox;
+	growing_vector <textboxclass> textbox;
 	int ntextbox;
 
 	bool showcutscenebars;
 	int cutscenebarspos;
 
-	std::vector<SDL_Rect> stars;
-	std::vector<int> starsspeed;
+	growing_vector<SDL_Rect> stars;
+	growing_vector<int> starsspeed;
 
 	int spcol, spcoldel;
-	std::vector<SDL_Rect> backboxes;
-	std::vector<int> backboxvx;
-	std::vector<int> backboxvy;
-	std::vector<float> backboxint;
+	growing_vector<SDL_Rect> backboxes;
+	growing_vector<int> backboxvx;
+	growing_vector<int> backboxvy;
+	growing_vector<float> backboxint;
 	SDL_Rect backboxrect;
 
 	int warpskip, warpfcol, warpbcol;

@@ -11,7 +11,7 @@
 //Returns 0..1
 float inline fRandom()
 {
-    return ( float(rand()) / float(RAND_MAX)) ;
+    return (float(rand()) / float(RAND_MAX));
 }
 
 inline int clamp(int x, int a, int b)

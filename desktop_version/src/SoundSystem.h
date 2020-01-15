@@ -7,8 +7,8 @@ class MusicTrack
 {
 public:
 	MusicTrack(const char* fileName);
-	MusicTrack(SDL_RWops *rw);
-	Mix_Music *m_music;
+	MusicTrack(SDL_RWops* rw);
+	Mix_Music* m_music;
 	bool m_isValid;
 };
 
@@ -16,7 +16,8 @@ class SoundTrack
 {
 public:
 	SoundTrack(const char* fileName);
-	Mix_Chunk *sound;
+	SoundTrack() = default;
+	Mix_Chunk* sound;
 };
 
 class SoundSystem

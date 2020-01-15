@@ -19,23 +19,23 @@ extern "C"
 
 Screen::Screen()
 {
-    m_window = NULL;
-    m_renderer = NULL;
-    m_screenTexture = NULL;
-    m_screen = NULL;
-    isWindowed = true;
-    stretchMode = 0;
-    isFiltered = false;
-    filterSubrect.x = 1;
-    filterSubrect.y = 1;
-    filterSubrect.w = 318;
-    filterSubrect.h = 238;
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+	m_window = NULL;
+	m_renderer = NULL;
+	m_screenTexture = NULL;
+	m_screen = NULL;
+	isWindowed = true;
+	stretchMode = 0;
+	isFiltered = false;
+	filterSubrect.x = 1;
+	filterSubrect.y = 1;
+	filterSubrect.w = 318;
+	filterSubrect.h = 238;
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
 	// Uncomment this next line when you need to debug -flibit
 	// SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
 	SDL_CreateWindowAndRenderer(
-		640,
+		854,
 		480,
 		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE,
 		&m_window,
@@ -43,14 +43,14 @@ Screen::Screen()
 	);
 	SDL_SetWindowTitle(m_window, "VVVVVV");
 
-	unsigned char *fileIn = NULL;
+	unsigned char* fileIn = NULL;
 	size_t length = 0;
-	unsigned char *data;
+	unsigned char* data;
 	unsigned int width, height;
 	FILESYSTEM_loadFileToMemory("VVVVVV.png", &fileIn, &length);
 	lodepng_decode24(&data, &width, &height, fileIn, length);
 	FILESYSTEM_freeMemory(&fileIn);
-	SDL_Surface *icon = SDL_CreateRGBSurfaceFrom(
+	SDL_Surface* icon = SDL_CreateRGBSurfaceFrom(
 		data,
 		width,
 		height,
@@ -68,7 +68,7 @@ Screen::Screen()
 	// FIXME: This surface should be the actual backbuffer! -flibit
 	m_screen = SDL_CreateRGBSurface(
 		0,
-		320,
+		427,
 		240,
 		32,
 		0x00FF0000,
@@ -80,19 +80,20 @@ Screen::Screen()
 		m_renderer,
 		SDL_PIXELFORMAT_ARGB8888,
 		SDL_TEXTUREACCESS_STREAMING,
-		320,
+		427,
 		240
 	);
 
-    badSignalEffect = false;
+	badSignalEffect = false;
 	genny = false;
 
-    glScreen = true;
+	glScreen = true;
+
 }
 
-void Screen::ResizeScreen(int x , int y)
+void Screen::ResizeScreen(int x, int y)
 {
-	static int resX = 320;
+	static int resX = 427;
 	static int resY = 240;
 	if (x != -1 && y != -1)
 	{
@@ -101,7 +102,7 @@ void Screen::ResizeScreen(int x , int y)
 		resY = y;
 	}
 
-	if(!isWindowed)
+	if (!isWindowed)
 	{
 		SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
@@ -123,8 +124,8 @@ void Screen::ResizeScreen(int x , int y)
 	}
 	else
 	{
-		SDL_RenderSetLogicalSize(m_renderer, 320, 240);
-		SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (stretchMode == 2));
+		SDL_RenderSetLogicalSize(m_renderer, 427, 240);
+		SDL_RenderSetIntegerScale(m_renderer, (SDL_bool)(stretchMode == 2));
 	}
 	SDL_ShowWindow(m_window);
 }
@@ -134,35 +135,35 @@ void Screen::GetWindowSize(int* x, int* y)
 	SDL_GetWindowSize(m_window, x, y);
 }
 
-void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect )
+void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect)
 {
-    if((buffer == NULL) && (m_screen == NULL) )
-    {
-        return;
-    }
+	if ((buffer == NULL) && (m_screen == NULL))
+	{
+		return;
+	}
 
-    if(badSignalEffect)
-    {
-        buffer = ApplyFilter(buffer);
-    }
+	if (badSignalEffect)
+	{
+		buffer = ApplyFilter(buffer);
+	}
 	if (genny) {
 		buffer = genesis(buffer);
 	}
 
 
-    FillRect(m_screen, 0x000);
-    BlitSurfaceStandard(buffer,NULL,m_screen,rect);
+	FillRect(m_screen, 0x000);
+	BlitSurfaceStandard(buffer, NULL, m_screen, rect);
 
-    if(badSignalEffect || genny)
-    {
-        SDL_FreeSurface(buffer);
-    }
+	if (badSignalEffect || genny)
+	{
+		SDL_FreeSurface(buffer);
+	}
 
 }
 
 const SDL_PixelFormat* Screen::GetFormat()
 {
-    return m_screen->format;
+	return m_screen->format;
 }
 
 void Screen::FlipScreen()
@@ -205,12 +206,12 @@ void Screen::toggleLinearFilter()
 		m_renderer,
 		SDL_PIXELFORMAT_ARGB8888,
 		SDL_TEXTUREACCESS_STREAMING,
-		320,
+		427,
 		240
 	);
 }
 
-void Screen::ClearScreen( int colour )
+void Screen::ClearScreen(int colour)
 {
-    //FillRect(m_screen, colour) ;
+	//FillRect(m_screen, colour) ;
 }

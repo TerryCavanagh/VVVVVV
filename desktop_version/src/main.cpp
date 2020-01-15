@@ -33,6 +33,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <string>
 
 scriptclass script;
  edentities edentity[3000];

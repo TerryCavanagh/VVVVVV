@@ -6,18 +6,18 @@ MusicTrack::MusicTrack(const char* fileName)
 {
 	m_music = Mix_LoadMUS(fileName);
 	m_isValid = true;
-	if(m_music == NULL)
+	if (m_music == NULL)
 	{
 		fprintf(stderr, "Unable to load Ogg Music file: %s\n", Mix_GetError());;
 		m_isValid = false;
 	}
 }
 
-MusicTrack::MusicTrack(SDL_RWops *rw)
+MusicTrack::MusicTrack(SDL_RWops* rw)
 {
 	m_music = Mix_LoadMUS_RW(rw, 0);
 	m_isValid = true;
-	if(m_music == NULL)
+	if (m_music == NULL)
 	{
 		fprintf(stderr, "Unable to load Magic Binary Music file: %s\n", Mix_GetError());
 		m_isValid = false;
@@ -28,10 +28,10 @@ SoundTrack::SoundTrack(const char* fileName)
 {
 	sound = NULL;
 
-	unsigned char *mem;
+	unsigned char* mem;
 	size_t length = 0;
 	FILESYSTEM_loadFileToMemory(fileName, &mem, &length);
-	SDL_RWops *fileIn = SDL_RWFromMem(mem, length);
+	SDL_RWops* fileIn = SDL_RWFromMem(mem, length);
 	sound = Mix_LoadWAV_RW(fileIn, 1);
 	if (length)
 	{
@@ -60,11 +60,11 @@ SoundSystem::SoundSystem()
 
 void SoundSystem::playMusic(MusicTrack* music)
 {
-	if(!music->m_isValid)
+	if (!music->m_isValid)
 	{
 		fprintf(stderr, "Invalid mix specified: %s\n", Mix_GetError());
 	}
-	if(Mix_PlayMusic(music->m_music, 0) == -1)
+	if (Mix_PlayMusic(music->m_music, 0) == -1)
 	{
 		fprintf(stderr, "Unable to play Ogg file: %s\n", Mix_GetError());
 	}

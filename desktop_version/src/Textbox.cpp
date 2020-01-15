@@ -1,4 +1,5 @@
 #include "Textbox.h"
+#include <utf8.h>
 
 textboxclass::textboxclass()
 {
@@ -14,7 +15,7 @@ void textboxclass::firstcreate()
         t = "";
         line.push_back(t);
     }
-    x = 0;
+    x = 53;
     y = 0;
     w = 0;
     h = 0;
@@ -31,9 +32,9 @@ void textboxclass::clear()
     //Set all values to a default, required for creating a new entity
     for (size_t iter = 0; iter < line.size(); iter++)
     {
-        line[iter]="";
+        line[iter] = "";
     }
-    xp = 0;
+    xp = 53;
     yp = 0;
     w = 0;
     h = 0;
@@ -48,7 +49,7 @@ void textboxclass::clear()
 void textboxclass::centerx()
 {
     resize();
-    xp = 160 - (w / 2);
+    xp = (427 / 2) - (w / 2);
     resize();
 }
 void textboxclass::centery()
@@ -63,7 +64,7 @@ void textboxclass::adjust()
     resize();
     if (xp < 10) xp = 10;
     if (yp < 10) yp = 10;
-    if (xp + w > 310) xp = 310 - w;
+    if (xp + w > 417) xp = 417 - w;
     if (yp + h > 230) yp = 230 - h;
     resize();
 }
@@ -133,11 +134,12 @@ void textboxclass::resize()
     max = 0;
     for (int iter = 0; iter < numlines; iter++)
     {
-        if (line[iter].length() > (unsigned int)max) max = line[iter].length();
+        auto len = utf8::distance(line[iter].begin(), line[iter].end());
+        if (len > (unsigned int)max) max = len;
     }
 
     lw = max;
-    w = (max +2) * 8;
+    w = (max + 2) * 8;
     h = (numlines + 2) * 8;
     textrect.x = xp;
     textrect.y = yp;

@@ -4,6 +4,8 @@
 #include "SoundSystem.h"
 
 #include <vector>
+#include <map>
+#include <string>
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
@@ -38,6 +40,9 @@ public:
 	// Play a sound effect! There are 16 channels, which iterate
 	void initefchannels();
 
+	void playfile(const char* t, std::string track);
+	void stopfile(std::string track);
+
 	void playef(int t, int offset = 0);
 
 	std::vector<SoundTrack> soundTracks;
@@ -56,12 +61,14 @@ public:
 
 	bool custompd;
 
-	int fadeoutqueuesong; // -1 if no song queued
-	bool dontquickfade;
-
 	// MMMMMM mod settings
 	bool mmmmmm;
 	bool usingmmmmmm;
+
+	bool muted;
+
+	std::map<std::string, SoundTrack> custom_files;
+	std::map<std::string, int> custom_file_channels;
 };
 
 

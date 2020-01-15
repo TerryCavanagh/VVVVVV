@@ -5,7 +5,7 @@
 #include <sstream>
 
 /* Used by UtilityClass::GCString to generate a button list */
-const char *GCChar(SDL_GameControllerButton button)
+const char* GCChar(SDL_GameControllerButton button)
 {
 	if (button == SDL_CONTROLLER_BUTTON_A)
 	{
@@ -55,7 +55,7 @@ const char *GCChar(SDL_GameControllerButton button)
 	return NULL;
 }
 
-int ss_toi( std::string _s )
+int ss_toi(std::string _s)
 {
 	std::istringstream i(_s);
 	int x;
@@ -63,25 +63,25 @@ int ss_toi( std::string _s )
 	return x;
 }
 
-std::vector<std::string> split( const std::string &s, char delim, std::vector<std::string> &elems )
+growing_vector<std::string> split(const std::string& s, char delim, growing_vector<std::string>& elems)
 {
 	std::stringstream ss(s);
 	std::string item;
-	while(std::getline(ss, item, delim))
+	while (std::getline(ss, item, delim))
 	{
 		elems.push_back(item);
 	}
 	return elems;
 }
 
-std::vector<std::string> split( const std::string &s, char delim )
+growing_vector<std::string> split(const std::string& s, char delim)
 {
-	std::vector<std::string> elems;
+	growing_vector<std::string> elems;
 	return split(s, delim, elems);
 }
 
 UtilityClass::UtilityClass() :
-glow(0),
+	glow(0),
 	glowdir(0)
 {
 	for (int i = 0; i < 30; i++)
@@ -95,14 +95,14 @@ glow(0),
 	temp2 = 0;
 }
 
-std::string UtilityClass::String( int _v )
+std::string UtilityClass::String(int _v)
 {
 	std::ostringstream os;
 	os << _v;
 	return(os.str());
 }
 
-std::string UtilityClass::GCString(std::vector<SDL_GameControllerButton> buttons)
+std::string UtilityClass::GCString(growing_vector<SDL_GameControllerButton> buttons)
 {
 	std::string retval = "";
 	for (size_t i = 0; i < buttons.size(); i += 1)
@@ -116,7 +116,7 @@ std::string UtilityClass::GCString(std::vector<SDL_GameControllerButton> buttons
 	return retval;
 }
 
-std::string UtilityClass::twodigits( int t )
+std::string UtilityClass::twodigits(int t)
 {
 	if (t < 10)
 	{
@@ -129,7 +129,7 @@ std::string UtilityClass::twodigits( int t )
 	return String(t);
 }
 
-std::string UtilityClass::timestring( int t )
+std::string UtilityClass::timestring(int t)
 {
 	//given a time t in frames, return a time in seconds
 	tempstring = "";
@@ -149,11 +149,11 @@ std::string UtilityClass::timestring( int t )
 	return tempstring;
 }
 
-std::string UtilityClass::number( int _t )
+std::string UtilityClass::number(int _t)
 {
 	const int BIGGEST_SMALL_NUMBER = 50;
-	const char* smallnumbers[] = {"Zero", "One", "Two", "Three", 
-		"Four", "Five", "Six", "Seven", "Eight", "Nine", 
+	const char* smallnumbers[] = { "Zero", "One", "Two", "Three",
+		"Four", "Five", "Six", "Seven", "Eight", "Nine",
 		"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
 		"Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty", "Twenty One",
 		"Twenty Two", "Twenty Three", "Twenty Four", "Twenty Five",
@@ -162,18 +162,51 @@ std::string UtilityClass::number( int _t )
 		"Thirty Five", "Thirty Six", "Thirty Seven", "Thirty Eight",
 		"Thirty Nine", "Forty Zero", "Forty One", "Forty Two", "Forty Three",
 		"Forty Four", "Forty Five", "Forty Six", "Forty Seven", "Forty Eight",
-		"Forty Nine", "Fifty"};
+		"Forty Nine", "Fifty" };
 
-	if(_t <= BIGGEST_SMALL_NUMBER) {
+	if (_t <= BIGGEST_SMALL_NUMBER) {
 		return smallnumbers[_t];
 	}
 
 	return "Lots";
 }
 
-bool UtilityClass::intersects( SDL_Rect A, SDL_Rect B )
+bool UtilityClass::intersects(SDL_Rect A, SDL_Rect B)
 {
-	return (SDL_HasIntersection(&A, &B) == SDL_TRUE);
+	int leftA, leftB;
+	int rightA, rightB;
+	int topA, topB;
+	int bottomA, bottomB;
+	//Calculate the sides of rect A
+	leftA = A.x;
+	rightA = A.x + A.w;
+	topA = A.y;
+	bottomA = A.y + A.h;
+	//Calculate the sides of rect B
+	leftB = B.x;
+	rightB = B.x + B.w;
+	topB = B.y;
+	bottomB = B.y + B.h;
+
+	if (bottomA <= topB)
+	{
+		return false;
+	}
+	if (topA >= bottomB)
+	{
+		return false;
+	}
+	if (rightA <= leftB)
+	{
+		return false;
+	}
+	if (leftA >= rightB)
+	{
+		return false;
+	}
+	//If none of the sides from A are outside B return true; }
+
+	return true;
 }
 
 void UtilityClass::updateglow()
@@ -182,10 +215,11 @@ void UtilityClass::updateglow()
 	if (slowsine >= 64) slowsine = 0;
 
 	if (glowdir == 0) {
-		glow+=2;
+		glow += 2;
 		if (glow >= 62) glowdir = 1;
-	}else {
-		glow-=2;
+	}
+	else {
+		glow -= 2;
 		if (glow < 2) glowdir = 0;
 	}
 }
