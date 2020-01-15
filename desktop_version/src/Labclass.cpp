@@ -945,7 +945,7 @@ std::vector<std::string> labclass::loadlevel(int rx, int ry , Game& game, entity
 		obj.createentity(game, -8, 180, 11, 224);  // (horizontal gravity line)
 
 		rcol = 0;
-		roomname = "Exausted?";
+		roomname = "Exhausted?";
 		break;
 
 
