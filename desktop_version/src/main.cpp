@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
         SDL_INIT_JOYSTICK |
         SDL_INIT_GAMECONTROLLER
     );
-    SDL_ShowCursor(SDL_DISABLE);
 
     if (argc > 2 && strcmp(argv[1], "-renderer") == 0)
     {
