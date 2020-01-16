@@ -3520,8 +3520,8 @@ void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass&
 	{
 		for (i = 0; i < 20; i++)
 		{
-			map.roomdeaths[i] = 0;
-			map.roomdeathsfinal[i] = 0;
+			map.roomdeaths[i + (j * 20)] = 0;
+			map.roomdeathsfinal[i + (j * 20)] = 0;
 			map.explored[i + (j * 20)] = 0;
 		}
 	}
