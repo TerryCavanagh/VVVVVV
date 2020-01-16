@@ -1129,7 +1129,7 @@ std::string mapclass::currentarea(int t)
 		return "The Tower";
 		break;
 	case 4:
-		return "Warpzone";
+		return "Warp Zone";
 		break;
 	case 5:
 		return "Space Station";
