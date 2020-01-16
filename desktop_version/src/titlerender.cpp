@@ -290,6 +290,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
             dwgfx.Print(-1, 50, "viri", tr, tg, tb, true);
             dwgfx.Print(-1, 60, "Wouter", tr, tg, tb, true);
         }
+        // If you want to add another page, logic for that's in Input.cpp (find "credits_git1")
         else if (game.currentmenuname == "credits3")
         {
             dwgfx.Print( -1, 20, "VVVVVV is supported by", tr, tg, tb, true);
