@@ -65,7 +65,7 @@ public:
 	bool mmmmmm;
 	bool usingmmmmmm;
 
-	bool muted;
+	bool muted = false;
 
 	std::map<std::string, SoundTrack> custom_files;
 	std::map<std::string, int> custom_file_channels;
