@@ -1276,7 +1276,7 @@
 					
           entities[k].gravity = true;
 				break;
-				case 1: //Simple enemy, bouncing about like a spastic
+				case 1: //Simple enemy, bouncing off the walls
 				  entities[k].rule = 1; 
 					entities[k].xp = xp; entities[k].yp = yp;
 					entities[k].behave = vx; entities[k].para = vy;
