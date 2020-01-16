@@ -137,24 +137,25 @@ int main(int argc, char *argv[])
     graphics.images.push_back(graphics.grphx.im_image12);
 
     const SDL_PixelFormat* fmt = gameScreen.GetFormat();
-    graphics.backBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,32,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask ) ;
+    graphics.backBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, 32, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
     SDL_SetSurfaceBlendMode(graphics.backBuffer, SDL_BLENDMODE_NONE);
     graphics.Makebfont();
 
 
-    graphics.foregroundBuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
+    graphics.foregroundBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
     SDL_SetSurfaceBlendMode(graphics.foregroundBuffer, SDL_BLENDMODE_NONE);
 
     graphics.screenbuffer = &gameScreen;
 
-    graphics.menubuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask );
+    graphics.menubuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
     SDL_SetSurfaceBlendMode(graphics.menubuffer, SDL_BLENDMODE_NONE);
 
-    graphics.towerbuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
+    graphics.towerbuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
     SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE);
 
-	graphics.tempBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
+    graphics.tempBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
     SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);
+
 
     //Make a temporary rectangle to hold the offsets
     // SDL_Rect offset;

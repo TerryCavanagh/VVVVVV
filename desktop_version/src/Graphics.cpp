@@ -5,7 +5,7 @@
 #include "Screen.h"
 #include <utf8.h>
 
-#define BEEF (1)
+#define BEEF (0)
 
 Graphics::Graphics()
 {
@@ -2370,6 +2370,7 @@ void Graphics::drawbackground(int t, mapclass& map)
 void Graphics::drawmap(mapclass& map, int k, bool c)
 {
     mapoff = -267 + (k * 320);
+    if (c) foregrounddrawn = false;
     ///TODO forground once;
     if (!foregrounddrawn)
     {
@@ -3213,7 +3214,7 @@ void Graphics::setcolreal(Uint32 t)
 void Graphics::drawtile(int x, int y, int t)
 {
     SDL_Rect drawRect;
-    setRect(drawRect, x, y, tiles_rect.w, tiles_rect.h);
+    setRect(drawRect,x, y, tiles_rect.w, tiles_rect.h);
     BlitSurfaceStandard(tiles[t], NULL, backBuffer, &drawRect);
 }
 

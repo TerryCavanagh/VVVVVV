@@ -158,12 +158,10 @@ public:
 	void drawtile2(int x, int y, int t, int r, int g, int b);
 	void drawtile(int x, int y, int t, int r, int g, int b);
 	void drawtowertile(int x, int y, int t);
-	void drawtowertile3(int x, int y, int t, int off);
 	void drawtowertile3(int x, int y, int t, int off, bool flip = false);
 
 	void drawtile(int x, int y, int t);
 
-	void drawmap(mapclass& map);
 	void drawmap(mapclass& map, int k, bool c = false);
 
 	void drawforetile(int x, int y, int t);

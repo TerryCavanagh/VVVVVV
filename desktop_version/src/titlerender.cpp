@@ -1511,9 +1511,6 @@ void gamecompleterender2(Graphics& dwgfx, Game& game, entityclass& obj, UtilityC
 void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, UtilityClass& help)
 {
 
-    //mapclass left, right;
-    //left.loadlevel(game.roomx - 1, game.roomy, dwgfx, Game(), entityclass(), musicclass());
-    //right.loadlevel(game.roomx + 1, game.roomy, dwgfx, Game(), entityclass(), musicclass());
 
     if (!game.blackout)
     {
@@ -1525,6 +1522,16 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
         else
         {
             FillRect(dwgfx.backBuffer, 0x00000);
+        }
+        if (map.final_colormode)
+        {
+            dwgfx.drawfinalmap(map);
+        }
+        else
+        {
+            dwgfx.drawmap(map, 0, true);
+            dwgfx.drawmap(map, 1);
+            dwgfx.drawmap(map, 2);
         }
 
 
@@ -1556,18 +1563,8 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
             }
         }
 
-        if (map.final_colormode)
-        {
-            dwgfx.drawfinalmap(map);
-            dwgfx.drawentities(map, obj, help);
-        }
-        else
-        {
-            dwgfx.drawmap(map, 1, true);
-            dwgfx.drawentities(map, obj, help);
-            dwgfx.drawmap(map, 0);
-            dwgfx.drawmap(map, 2);
-        }
+        dwgfx.drawentities(map, obj, help);
+
     }
 
     /*for(int i=0; i<obj.nblocks; i++){

@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "Graphics.h"
 #include <vector>
+#include "Game.h"
 #include "Music.h"
 #include "editor.h"
 
@@ -20,7 +21,7 @@ class mapclass
 public:
     mapclass();
 
-    int RGB(int red,int green,int blue);
+    int RGB(int red, int green, int blue);
 
     int intpol(int a, int b, float c);
 
@@ -44,7 +45,7 @@ public:
 
     void changefinalcol(int t, entityclass& obj, Game& game);
 
-    void setcol(const int r1, const int g1, const int b1 , const int r2, const  int g2, const int b2, const int c);
+    void setcol(const int r1, const int g1, const int b1, const int r2, const  int g2, const int b2, const int c);
 
     void updatetowerglow();
 
@@ -56,11 +57,11 @@ public:
 
     bool collide(int x, int y);
 
-    void fillareamap(std::vector<std::string>& tmap);
+    void fillareamap(growing_vector<std::string>& tmap);
 
     void settile(int xp, int yp, int t);
 
-    void fillcontent(std::vector<std::string>& tmap);
+    void fillcontent(std::vector<growing_vector<std::string>> tmap);
 
 
     int area(int _rx, int _ry);
@@ -73,22 +74,22 @@ public:
 
     void resetplayer(Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music);
 
-    void warpto(int rx, int ry , int t, int tx, int ty,  Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music);
+    void warpto(int rx, int ry, int t, int tx, int ty, Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music);
 
-    void gotoroom(int rx, int ry, Graphics& dwgfx,  Game& game, entityclass& obj, musicclass& music);
+    void gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music);
 
     std::string currentarea(int t);
 
     void loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music);
 
 
-    std::vector <int> roomdeaths;
-    std::vector <int> roomdeathsfinal;
-    std::vector <int> areamap;
-    std::vector <int> contents;
-    std::vector <int> explored;
-    std::vector <int> vmult;
-    std::vector <std::string> tmap;
+    growing_vector <int> roomdeaths;
+    growing_vector <int> roomdeathsfinal;
+    growing_vector <int> areamap;
+    growing_vector <int> contents[3];
+    growing_vector <int> explored;
+    growing_vector <int> vmult;
+    growing_vector <std::string> tmap;
 
     int temp;
     int temp2;
@@ -113,7 +114,7 @@ public:
     int scrolldir;
 
     //This is the old colour cycle
-    int r, g,b;
+    int r, g, b;
     int check, cmode;
     int towercol;
     int colstate, colstatedelay;
@@ -138,7 +139,7 @@ public:
     int customzoom;
     bool customshowmm;
 
-    std::vector<std::string> specialnames;
+    growing_vector<std::string> specialnames;
     int glitchmode;
     int glitchdelay;
     std::string glitchname;
@@ -151,8 +152,8 @@ public:
     int final_colorframe, final_colorframedelay;
 
     //Teleporters and Trinkets on the map
-    std::vector<point> teleporters;
-    std::vector<point> shinytrinkets;
+    growing_vector<point> teleporters;
+    growing_vector<point> shinytrinkets;
 
     int numteleporters, numshinytrinkets;
     bool showteleporters, showtargets, showtrinkets;
@@ -160,7 +161,7 @@ public:
     //Roomtext
     int roomtextx[100], roomtexty[100];
     bool roomtexton;
-    std::vector<std::string> roomtext;
+    growing_vector<std::string> roomtext;
     int roomtextnumlines;
 
     //Levels

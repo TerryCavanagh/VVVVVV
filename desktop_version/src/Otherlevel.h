@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include "Game.h"
 
 class otherlevelclass
 {
@@ -22,7 +23,7 @@ public:
 
     otherlevelclass();
     void addline(std::string t);
-    std::vector<std::string> loadlevel(int rx, int ry , Game& game, entityclass& obj);
+    std::vector<growing_vector<std::string>> loadlevel(int rx, int ry, Game& game, entityclass& obj);
 
     std::string roomname;
 
@@ -32,7 +33,7 @@ public:
     // roomtext thing in other level
     bool roomtexton;
     int roomtextx, roomtexty, roomtextnumlines;
-    std::vector<std::string> roomtext;
+    growing_vector<std::string> roomtext;
 };
 
 #endif /* OTHERLEVEL_H */
