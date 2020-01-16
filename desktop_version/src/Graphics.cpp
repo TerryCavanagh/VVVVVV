@@ -1074,7 +1074,7 @@ void Graphics::drawfade()
     {
         for (int i = 0; i < 15; i++)
         {
-            FillRect(backBuffer, fadebars[i] - fadeamount, i * 16, 500, 16, 0x000000);
+            FillRect(backBuffer, fadebars[i] - fadeamount, i * 16, 607, 16, 0x000000);
             //backbuffer.fillRect(new Rectangle(fadebars[i]-fadeamount, i * 16, 500, 16), 0x000000);
         }
     }
@@ -1097,8 +1097,8 @@ void Graphics::processfade()
         }
         else if (fademode == 3)
         {
-            fadeamount += 24;
-            if (fadeamount > 416)
+            fadeamount += 30;
+            if (fadeamount > 523)
             {
                 fademode = 1; //faded
             }
@@ -1108,14 +1108,14 @@ void Graphics::processfade()
             //prepare fade in
             for (int i = 0; i < 15; i++)
             {
-                fadebars[i] = 320 + int(fRandom() * 12) * 8;
+                fadebars[i] = 427 + int(fRandom() * 12) * 8;
             }
-            fadeamount = 416;
+            fadeamount = 523;
             fademode = 5;
         }
         else if (fademode == 5)
         {
-            fadeamount -= 24;
+            fadeamount -= 30;
             if (fadeamount <= 0)
             {
                 fademode = 0; //normal
