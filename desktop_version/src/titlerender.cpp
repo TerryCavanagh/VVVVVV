@@ -1455,7 +1455,30 @@ void gamecompleterender(Graphics& dwgfx, Game& game, entityclass& obj, UtilityCl
     if (dwgfx.onscreen(1600 + game.creditposition)) dwgfx.Print(-1, 1610 + game.creditposition,"Tim W.", tr, tg, tb, true);
     if (dwgfx.onscreen(1610 + game.creditposition)) dwgfx.Print( -1, 1620 + game.creditposition, "Timothy Bragan", tr, tg, tb, true);
 
-    if (dwgfx.onscreen(1760 + game.creditposition)) dwgfx.bigprint( -1, 1760 + game.creditposition, "Thanks for playing!", tr, tg, tb, true, 2);
+    if (dwgfx.onscreen(1650 + game.creditposition)) dwgfx.bigprint(-1, 1650 + game.creditposition, "GitHub contributors", tr, tg, tb, true);
+
+    if (dwgfx.onscreen(1690 + game.creditposition)) dwgfx.Print(-1, 1690 + game.creditposition, "Christoph B{hmwalder", tr, tg, tb, true);
+    if (dwgfx.onscreen(1700 + game.creditposition)) dwgfx.Print(-1, 1700 + game.creditposition, "Charlie Bruce", tr, tg, tb, true);
+    if (dwgfx.onscreen(1710 + game.creditposition)) dwgfx.Print(-1, 1710 + game.creditposition, "Brian Callahan", tr, tg, tb, true);
+    if (dwgfx.onscreen(1720 + game.creditposition)) dwgfx.Print(-1, 1720 + game.creditposition, "Dav999", tr, tg, tb, true);
+    if (dwgfx.onscreen(1730 + game.creditposition)) dwgfx.Print(-1, 1730 + game.creditposition, "Allison Fleischer", tr, tg, tb, true);
+    if (dwgfx.onscreen(1740 + game.creditposition)) dwgfx.Print(-1, 1740 + game.creditposition, "Daniel Lee", tr, tg, tb, true);
+    if (dwgfx.onscreen(1750 + game.creditposition)) dwgfx.Print(-1, 1750 + game.creditposition, "Elliott Saltar", tr, tg, tb, true);
+    if (dwgfx.onscreen(1760 + game.creditposition)) dwgfx.Print(-1, 1760 + game.creditposition, "Marvin Scholz", tr, tg, tb, true);
+    if (dwgfx.onscreen(1770 + game.creditposition)) dwgfx.Print(-1, 1770 + game.creditposition, "Keith Stellyes", tr, tg, tb, true);
+    if (dwgfx.onscreen(1780 + game.creditposition)) dwgfx.Print(-1, 1780 + game.creditposition, "Elijah Stone", tr, tg, tb, true);
+    if (dwgfx.onscreen(1790 + game.creditposition)) dwgfx.Print(-1, 1790 + game.creditposition, "Thomas S|nger", tr, tg, tb, true);
+    if (dwgfx.onscreen(1800 + game.creditposition)) dwgfx.Print(-1, 1800 + game.creditposition, "Info Teddy", tr, tg, tb, true);
+    if (dwgfx.onscreen(1810 + game.creditposition)) dwgfx.Print(-1, 1810 + game.creditposition, "leo60228", tr, tg, tb, true);
+    if (dwgfx.onscreen(1820 + game.creditposition)) dwgfx.Print(-1, 1820 + game.creditposition, "Emmanuel Vadot", tr, tg, tb, true);
+    if (dwgfx.onscreen(1830 + game.creditposition)) dwgfx.Print(-1, 1830 + game.creditposition, "Remi Verschelde", tr, tg, tb, true); // TODO: Change to "Rémi" if/when UTF-8 support is added
+    if (dwgfx.onscreen(1840 + game.creditposition)) dwgfx.Print(-1, 1840 + game.creditposition, "viri", tr, tg, tb, true);
+    if (dwgfx.onscreen(1850 + game.creditposition)) dwgfx.Print(-1, 1850 + game.creditposition, "Wouter", tr, tg, tb, true);
+
+    // "Thanks for Playing" position = position of last credit + 140
+    // Code for ending the credits is in Logic.cpp - gamecompletelogic() and Input.cpp - gamecompleteinput().
+    // The "game.creditposition" checks in those functions should be updated when this is
+    if (dwgfx.onscreen(1990 + game.creditposition)) dwgfx.bigprint( -1, 1990 + game.creditposition, "Thanks for playing!", tr, tg, tb, true, 2);
 
     if (game.test)
     {
