@@ -4381,7 +4381,7 @@ int entityclass::getcrewman( int t )
 
     for (int i = 0; i < nentity; i++)
     {
-        if ((entities[i].type == 12 || entities.[i].type == 14)
+        if ((entities[i].type == 12 || entities[i].type == 14)
         && (entities[i].rule == 6 || entities[i].rule == 7))
         {
             if(entities[i].colour==t)
