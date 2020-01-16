@@ -7022,105 +7022,26 @@ void Game::createmenu( std::string t )
         menuxoff = -70;
         menuyoff = -20;
     }
-    else if (t == "credits")
+    else if (t.find("credits") == 0)
     {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits2")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits25")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits3")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits4")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits5")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits6")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits7")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits8")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits9")
-    {
-        menuoptions[0] = "first page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
+        if (t != "credits9") {
+            menuoptions[0] = "next page";
+            menuoptionsactive[0] = true;
+            menuoptions[1] = "return";
+            menuoptionsactive[1] = true;
+            nummenuoptions = 2;
+            menuxoff = 20;
+            menuyoff = 64;
+        }
+        else {
+            menuoptions[0] = "first page";
+            menuoptionsactive[0] = true;
+            menuoptions[1] = "return";
+            menuoptionsactive[1] = true;
+            nummenuoptions = 2;
+            menuxoff = 20;
+            menuyoff = 64;
+        }
     }
     else if (t == "play")
     {

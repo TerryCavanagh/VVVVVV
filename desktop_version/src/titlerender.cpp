@@ -263,6 +263,33 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
             dwgfx.Print( -1, 130, "Ending Picture by", tr, tg, tb, true);
             dwgfx.bigprint( 40, 145, "Pauli Kohberger", tr, tg, tb, true);
         }
+        else if (game.currentmenuname == "credits_git1")
+        {
+            dwgfx.Print(-1, 20, "GitHub source contributors:", tr, tg, tb, true);
+
+            dwgfx.Print(-1, 40, "Christoph B{hmwalder", tr, tg, tb, true);
+            dwgfx.Print(-1, 50, "Charlie Bruce", tr, tg, tb, true);
+            dwgfx.Print(-1, 60, "Brian Callahan", tr, tg, tb, true);
+            dwgfx.Print(-1, 70, "Dav999", tr, tg, tb, true);
+            dwgfx.Print(-1, 80, "Allison Fleischer", tr, tg, tb, true);
+            dwgfx.Print(-1, 90, "Daniel Lee", tr, tg, tb, true);
+            dwgfx.Print(-1, 100, "Elliott Saltar", tr, tg, tb, true);
+            dwgfx.Print(-1, 110, "Marvin Scholz", tr, tg, tb, true);
+            dwgfx.Print(-1, 120, "Keith Stellyes", tr, tg, tb, true);
+            dwgfx.Print(-1, 130, "Elijah Stone", tr, tg, tb, true);
+            dwgfx.Print(-1, 140, "Thomas S|nger", tr, tg, tb, true);
+            dwgfx.Print(-1, 150, "Info Teddy", tr, tg, tb, true);
+            dwgfx.Print(-1, 160, "leo60228", tr, tg, tb, true);
+            dwgfx.Print(-1, 170, "Emmanuel Vadot", tr, tg, tb, true);
+        }
+        else if (game.currentmenuname == "credits_git2")
+        {
+            dwgfx.Print(-1, 20, "GitHub source contributors:", tr, tg, tb, true);
+
+            dwgfx.Print(-1, 40, "Remi Verschelde", tr, tg, tb, true); // TODO: Change to "Rémi" if/when UTF-8 support is added
+            dwgfx.Print(-1, 50, "viri", tr, tg, tb, true);
+            dwgfx.Print(-1, 60, "Wouter", tr, tg, tb, true);
+        }
         else if (game.currentmenuname == "credits3")
         {
             dwgfx.Print( -1, 20, "VVVVVV is supported by", tr, tg, tb, true);

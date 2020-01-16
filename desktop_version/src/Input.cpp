@@ -1066,6 +1066,40 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         //next page
                         music.playef(11, 10);
+                        game.createmenu("credits_git1");
+                        map.nexttowercolour();
+                    }
+                    else
+                    {
+                        //back
+                        music.playef(11, 10);
+                        game.createmenu("mainmenu");
+                        map.nexttowercolour();
+                    }
+                }
+                else if (game.currentmenuname == "credits_git1")
+                {
+                    if (game.currentmenuoption == 0)
+                    {
+                        //next page
+                        music.playef(11, 10);
+                        game.createmenu("credits_git2");
+                        map.nexttowercolour();
+                    }
+                    else
+                    {
+                        //back
+                        music.playef(11, 10);
+                        game.createmenu("mainmenu");
+                        map.nexttowercolour();
+                    }
+                }
+                else if (game.currentmenuname == "credits_git2")
+                {
+                    if (game.currentmenuoption == 0)
+                    {
+                        //next page
+                        music.playef(11, 10);
                         game.createmenu("credits3");
                         map.nexttowercolour();
                     }
