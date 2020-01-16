@@ -53,7 +53,7 @@ void gamecompletelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclas
     map.tdrawback = true;
 
     game.creditposition--;
-    if (game.creditposition <= -1880) // See titlerender.cp - gamecompleterender(). Set to ((position of "Thanks for playing!" - 110) * -1)
+    if (game.creditposition <= -1880) // See titlerender.cpp - gamecompleterender(). Set to ((position of "Thanks for playing!" - 110) * -1)
     {
         game.creditposition = -1880; // Same as above
         map.bscroll = 0;
