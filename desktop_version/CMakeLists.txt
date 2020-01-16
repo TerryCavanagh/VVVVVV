@@ -3,6 +3,9 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # CMake Options
 OPTION(ENABLE_WARNINGS "Enable compilation warnings" ON)
 OPTION(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
@@ -56,6 +59,7 @@ INCLUDE_DIRECTORIES(
 	../third_party/tinyxml
 	../third_party/physfs
 	../third_party/lodepng
+	../third_party/utfcpp/source
 )
 
 # Source Lists
