@@ -134,7 +134,7 @@ IF(ENABLE_WARNINGS)
 		$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
 			-Wall $<$<BOOL:${ENABLE_WERROR}>:-Werror>>
 		$<$<CXX_COMPILER_ID:MSVC>:
-			/W4 $<$<BOOL:${ENABLE_WERROR}>:/WX>>)
+			/std:c++17 /W4 $<$<BOOL:${ENABLE_WERROR}>:/WX>>)
 ENDIF()
 
 # Library information
