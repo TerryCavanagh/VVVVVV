@@ -61,6 +61,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
         {
             for (int i = 0; i < 6; i++)
                 dwgfx.drawsprite((160 - 96) + 53 + i * 32, 50, 23, tr, tg, tb);
+            dwgfx.Print(417 - (4 * 8), 230, "RMGV6", tr / 2, tg / 2, tb / 2);
             if (music.mmmmmm) {
                 dwgfx.Print(10, 230, "[MMMMMM Mod Installed]", tr / 2, tg / 2, tb / 2);
             }
