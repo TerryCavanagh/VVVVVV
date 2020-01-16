@@ -674,7 +674,7 @@
 			add(" NEXT UNLOCK:    ");
 			add(" 5 Trinkets");
 			add("");
-			add(" Pushing onwards ");
+			add(" Pushing Onwards ");
 		add("position(center)");
 		add("speak_active");
 		add("endtext");
@@ -687,7 +687,7 @@
 			add(" NEXT UNLOCK:    ");
 			add(" 8 Trinkets");
 			add("");
-			add(" Positive force ");
+			add(" Positive Force ");
 		add("position(center)");
 		add("speak_active");
 		add("endtext");
@@ -713,7 +713,7 @@
 			add(" NEXT UNLOCK:    ");
 			add(" 12 Trinkets");
 			add("");
-			add(" Potential for anything ");
+			add(" Potential for Anything ");
 		add("position(center)");
 		add("speak_active");
 		add("endtext");
@@ -739,7 +739,7 @@
 			add(" NEXT UNLOCK:    ");
 			add(" 16 Trinkets");
 			add("");
-			add(" Predestined fate ");
+			add(" Predestined Fate ");
 		add("position(center)");
 		add("speak_active");
 		add("endtext");

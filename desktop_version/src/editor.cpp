@@ -3120,10 +3120,10 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 dwgfx.Print( -1, 120, "2: Positive Force", tr, tg, tb, true);
                 break;
             case 3:
-                dwgfx.Print( -1, 120, "3: Potential For Anything", tr, tg, tb, true);
+                dwgfx.Print( -1, 120, "3: Potential for Anything", tr, tg, tb, true);
                 break;
             case 4:
-                dwgfx.Print( -1, 120, "4: Passion For Exploring", tr, tg, tb, true);
+                dwgfx.Print( -1, 120, "4: Passion for Exploring", tr, tg, tb, true);
                 break;
             case 6:
                 dwgfx.Print( -1, 120, "5: Presenting VVVVVV", tr, tg, tb, true);
@@ -3144,7 +3144,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 dwgfx.Print( -1, 120, "10: Paced Energy", tr, tg, tb, true);
                 break;
             case 14:
-                dwgfx.Print( -1, 120, "11: Piercing The Sky", tr, tg, tb, true);
+                dwgfx.Print( -1, 120, "11: Piercing the Sky", tr, tg, tb, true);
                 break;
             default:
                 dwgfx.Print( -1, 120, "?: something else", tr, tg, tb, true);

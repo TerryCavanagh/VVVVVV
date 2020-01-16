@@ -816,19 +816,19 @@
 						  trig=0;
 						break;
 						case 25:
-						  blocks[k].prompt = "Passion for exploring";
+						  blocks[k].prompt = "Passion for Exploring";
 						  blocks[k].script = "terminal_juke1";
 							setblockcolour(k, "orange");
 						  trig=0;
 						break;
 						case 26:
-						  blocks[k].prompt = "Pushing onwards";
+						  blocks[k].prompt = "Pushing Onwards";
 						  blocks[k].script = "terminal_juke2";
 							setblockcolour(k, "orange");
 						  trig=0;
 						break;
 						case 27:
-						  blocks[k].prompt = "Positive force";
+						  blocks[k].prompt = "Positive Force";
 						  blocks[k].script = "terminal_juke3";
 							setblockcolour(k, "orange");
 						  trig=0;
@@ -840,13 +840,13 @@
 						  trig=0;
 						break;
 						case 29:
-						  blocks[k].prompt = "Potential for anything";
+						  blocks[k].prompt = "Potential for Anything";
 						  blocks[k].script = "terminal_juke5";
 							setblockcolour(k, "orange");
 						  trig=0;
 						break;
 						case 30:
-						  blocks[k].prompt = "Predestined fate";
+						  blocks[k].prompt = "Predestined Fate";
 						  blocks[k].script = "terminal_juke6";
 							setblockcolour(k, "orange");
 						  trig=0;
@@ -870,7 +870,7 @@
 						  trig=0;
 						break;
 						case 34:
-						  blocks[k].prompt = "ecrof evitisoP";
+						  blocks[k].prompt = "ecroF evitisoP";
 						  blocks[k].script = "terminal_juke10";
 							setblockcolour(k, "orange");
 						  trig=0;
