@@ -7,6 +7,42 @@ env:
   SRC_DIR_PATH: desktop_version
 
 jobs:
+  build-win:
+    name: Build (windows-latest)
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Install dependencies (Windows)
+      run: |
+        vcpkg install sdl2 sdl2-mixer
+
+    - name: CMake configure
+      run: |
+        cd $env:SRC_DIR_PATH
+        $env:LDFLAGS =  "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib "
+        $env:LDFLAGS += "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib\manual-link"
+        cmake -G "Visual Studio 16 2019" -A Win32 `
+              -DSDL2_INCLUDE_DIRS="$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\include\SDL2" `
+              -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" .
+    - name: Build
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake --build .
+        
+    - name: Move artifacts
+      run: |
+        mkdir build
+        move *.lib build
+        move VVVVVV.exe build/RMGV6.exe
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: RMGV6-Windows 
+        path: desktop_version\Debug\build 
   build:
     name: Build
 
@@ -40,38 +76,22 @@ jobs:
     - name: Build
       run: ninja -C ${SRC_DIR_PATH}/build
  
-    - name: Upload artifacts
+    - name: Tar app (macOS)
+      if: startsWith(matrix.os, "macos")
+      run: tar -czvf RMGV6.tgz VVVVVV/
+    
+    - name: Rename fire (Linux)
+      if: startsWith(matrix.os, 'ubuntu')
+      run: mv VVVVVV RMGV6
+          
+    - name: Upload artifacts (Linux)
       uses: actions/upload-artifact@v1
       with:
-        name: ${{format('RMGV6-{0}', matrix.os)}}
-        path: desktop_version/build/
-
-  build-win:
-    name: Build (windows-latest)
-
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v1
-
-    - name: Install dependencies (Windows)
-      run: |
-        vcpkg install sdl2 sdl2-mixer
-
-    - name: CMake configure
-      run: |
-        cd $env:SRC_DIR_PATH
-        $env:LDFLAGS =  "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib "
-        $env:LDFLAGS += "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib\manual-link"
-        cmake -G "Visual Studio 16 2019" -A Win32 `
-              -DSDL2_INCLUDE_DIRS="$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\include\SDL2" `
-              -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" .
-    - name: Build
-      run: |
-        cd $env:SRC_DIR_PATH
-        cmake --build .
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
+        name: RMGV6-Linux
+        path: desktop_version/build/RMGV6
+        
+    - name: Upload artifacts (macOS)
+      uses: actions/upload-artifact@v1
       with:
-        name: RMGV6-Windows 
-        path: desktop_version\Debug\
+        name: RMGV6-Mac
+        path: desktop_version/build/RMGV6.tgz      
