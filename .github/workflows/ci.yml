@@ -34,11 +34,11 @@ jobs:
         
     - name: Move artifacts
       run: |
-        cd
-        echo "$env:SRC_DIR_PATH/Debug"
+        cd $env:SRC_DIR_PATH/Debug
+        dir
         mkdir build
         move *.lib build
-        move $env:SRC_DIR_PATH/Debug/VVVVVV.exe $env:SRC_DIR_PATH/Debug/build/RMGV6.exe
+        move VVVVVV.exe build/RMGV6.exe
         robocopy .github/libs $env:SRC_DIR_PATH/build
         
     - name: Upload artifact
