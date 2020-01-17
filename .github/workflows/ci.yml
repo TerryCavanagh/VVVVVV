@@ -38,7 +38,7 @@ jobs:
         dir
         mkdir build
         move VVVVVV.exe build/RMGV6.exe
-        xcopy /s ../../.github/libs build
+        xcopy /s "../../.github/libs/" "build"
         
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
