@@ -714,6 +714,13 @@ SDL_assert(0 && "Remove open level dir");
                     }
                     else if (game.currentmenuoption == 2)
                     {
+                        //disable text outline
+                        dwgfx.notextoutline = !dwgfx.notextoutline;
+                        game.savestats(map, dwgfx);
+                        music.playef(11, 10);
+                    }
+                    else if (game.currentmenuoption == 3)
+                    {
                         //invincibility
                         if (!map.invincibility)
                         {
@@ -726,20 +733,20 @@ SDL_assert(0 && "Remove open level dir");
                         }
                         music.playef(11, 10);
                     }
-                    else if (game.currentmenuoption == 3)
+                    else if (game.currentmenuoption == 4)
                     {
                         //change game speed
                         game.createmenu("setslowdown2");
                         map.nexttowercolour();
                         music.playef(11, 10);
                     }
-                    else if (game.currentmenuoption == 4)
+                    else if (game.currentmenuoption == 5)
                     {
                         // toggle fake load screen
                         game.skipfakeload = !game.skipfakeload;
                         music.playef(11, 10);
                     }
-                    else if (game.currentmenuoption == 5)
+                    else if (game.currentmenuoption == 6)
                     {
                         //back
                         music.playef(11, 10);
