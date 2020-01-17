@@ -39,6 +39,12 @@ jobs:
         cmake -GNinja ..
     - name: Build
       run: ninja -C ${SRC_DIR_PATH}/build
+ 
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: ${{format('RMGV6-{0}', matrix.os)}}
+        path: desktop_version/build/
 
   build-win:
     name: Build (windows-latest)
@@ -64,3 +70,8 @@ jobs:
       run: |
         cd $env:SRC_DIR_PATH
         cmake --build .
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: RMGV6-Windows 
+        path: desktop_version\Debug\
