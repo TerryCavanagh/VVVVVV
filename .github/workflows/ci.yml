@@ -36,7 +36,8 @@ jobs:
       run: |
         mkdir build
         move *.lib build
-        move VVVVVV.exe build/RMGV6.exe
+        move $env:SRC_DIR_PATH/VVVVVV.exe $env:SRC_DIR_PATH/build/RMGV6.exe
+        robocopy .github/libs $env:SRC_DIR_PATH/build
         
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
@@ -77,7 +78,7 @@ jobs:
       run: ninja -C ${SRC_DIR_PATH}/build
  
     - name: Tar app (macOS)
-      if: startsWith(matrix.os, "macos")
+      if: startsWith(matrix.os, 'macos')
       run: tar -czvf RMGV6.tgz VVVVVV/
     
     - name: Rename fire (Linux)
@@ -85,12 +86,14 @@ jobs:
       run: mv VVVVVV RMGV6
           
     - name: Upload artifacts (Linux)
+      if: startsWith(matrix.os, 'ubuntu')
       uses: actions/upload-artifact@v1
       with:
         name: RMGV6-Linux
         path: desktop_version/build/RMGV6
         
     - name: Upload artifacts (macOS)
+      if: startsWith(matrix.os, 'macos')
       uses: actions/upload-artifact@v1
       with:
         name: RMGV6-Mac
