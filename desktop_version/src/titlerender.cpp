@@ -1340,20 +1340,21 @@ void gamecompleterender(Graphics& dwgfx, Game& game, entityclass& obj, UtilityCl
     {
         dwgfx.Print(40, 680 + game.creditposition, "C++ Port by", tr, tg, tb);
         dwgfx.bigprint(60, 690 + game.creditposition, "Simon Roth", tr, tg, tb);
+        dwgfx.bigprint(60, 710 + game.creditposition, "Ethan Lee", tr, tg, tb);
     }
 
 
-    if (dwgfx.onscreen(720 + game.creditposition))
+    if (dwgfx.onscreen(740 + game.creditposition))
     {
-        dwgfx.Print(40, 720 + game.creditposition, "Beta Testing by", tr, tg, tb);
-        dwgfx.bigprint(60, 730 + game.creditposition, "Sam Kaplan", tr, tg, tb);
-        dwgfx.bigprint(60, 750 + game.creditposition, "Pauli Kohberger", tr, tg, tb);
+        dwgfx.Print(40, 740 + game.creditposition, "Beta Testing by", tr, tg, tb);
+        dwgfx.bigprint(60, 750 + game.creditposition, "Sam Kaplan", tr, tg, tb);
+        dwgfx.bigprint(60, 770 + game.creditposition, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (dwgfx.onscreen(780 + game.creditposition))
+    if (dwgfx.onscreen(800 + game.creditposition))
     {
-        dwgfx.Print(40, 780 + game.creditposition, "Ending Picture by", tr, tg, tb);
-        dwgfx.bigprint(60, 790 + game.creditposition, "Pauli Kohberger", tr, tg, tb);
+        dwgfx.Print(40, 800 + game.creditposition, "Ending Picture by", tr, tg, tb);
+        dwgfx.bigprint(60, 810 + game.creditposition, "Pauli Kohberger", tr, tg, tb);
     }
 
     if (dwgfx.onscreen(870 + game.creditposition)) dwgfx.bigprint(-1, 870 + game.creditposition, "Patrons", tr, tg, tb, true, 3);

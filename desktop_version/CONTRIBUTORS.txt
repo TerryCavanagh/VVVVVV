@@ -13,6 +13,7 @@ Contributors
 * Marvin Scholz (@ePirat)
 * Keith Stellyes (@keithstellyes)
 * Elijah Stone
+* Thomas Sänger (@HorayNarea)
 * Info Teddy (@InfoTeddy)
 * leo60228 (@leo60228)
 * Emmanuel Vadot (@evadot)

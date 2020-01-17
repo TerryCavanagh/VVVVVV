@@ -2487,13 +2487,13 @@ void gamecompleteinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
     {
         game.creditposition -= 6;
-        if (game.creditposition <= -1650)
+        if (game.creditposition <= -game.creditmaxposition)
         {
             if(dwgfx.fademode==0)
             {
                 dwgfx.fademode = 2;
             }
-            game.creditposition = -1650;
+            game.creditposition = -game.creditmaxposition;
         }
         else
         {
