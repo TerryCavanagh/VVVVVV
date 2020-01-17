@@ -15,7 +15,7 @@ Graphics::Graphics()
     setRect(bfont_rect, 0, 0, 8, 8);
     setRect(bfontmask_rect, 0, 0, 8, 8);
     setRect(bg_rect, 0, 0, 320, 240);
-    setRect(footerrect, 0, 230, 320, 10);
+    setRect(footerrect, 0, 230, 427, 10);
     setRect(prect, 0, 0, 4, 4);
     setRect(line_rect, 0, 0, 0, 0);
     setRect(tele_rect, 0, 0, 96, 96);
@@ -396,7 +396,9 @@ void Graphics::PrintOff(int _x, int _y, std::string _s, int r, int g, int b, boo
 
 void Graphics::bprint(int x, int y, std::string t, int r, int g, int b, bool cen /*= false*/)
 {
-
+#if BEEF
+    t = "beef";
+#endif
     //printmask(x, y, t, cen);
     Print(x, y - 1, t, 0, 0, 0, cen);
     if (cen)
@@ -810,10 +812,10 @@ void Graphics::cutscenebars()
     if (showcutscenebars)
     {
         cutscenebarspos += 25;
-        cutscenebarspos = std::min(cutscenebarspos, 361);
+        cutscenebarspos = std::min(cutscenebarspos, 468);
         FillRect(backBuffer, 0, 0, cutscenebarspos, 16, 0x000000);
         //backbuffer.fillRect(new Rectangle(0, 0, cutscenebarspos, 16), 0x000000);
-        FillRect(backBuffer, 360 - cutscenebarspos, 224, cutscenebarspos, 16, 0x000000);
+        FillRect(backBuffer, 467 - cutscenebarspos, 224, cutscenebarspos, 16, 0x000000);
         //backbuffer.fillRect(new Rectangle(360-cutscenebarspos, 224, cutscenebarspos, 16), 0x000000);
     }
     else
@@ -826,7 +828,7 @@ void Graphics::cutscenebars()
             //draw
             FillRect(backBuffer, 0, 0, cutscenebarspos, 16, 0x000000);
             //backbuffer.fillRect(new Rectangle(0, 0, cutscenebarspos, 16), 0x000000);
-            FillRect(backBuffer, 360 - cutscenebarspos, 224, cutscenebarspos, 16, 0x000000);
+            FillRect(backBuffer, 467 - cutscenebarspos, 224, cutscenebarspos, 16, 0x000000);
             //backbuffer.fillRect(new Rectangle(360-cutscenebarspos, 224, cutscenebarspos, 16), 0x000000);
         }
     }

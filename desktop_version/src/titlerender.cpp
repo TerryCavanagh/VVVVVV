@@ -1643,11 +1643,11 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
             if (game.swnmessage == 0)
             {
                 tempstring = help.timestring(game.swntimer);
-                dwgfx.Print(10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                dwgfx.bigprint(25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
+                dwgfx.Print(10 + 53, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                dwgfx.bigprint(25 + 53, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
-                dwgfx.Print(240, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                dwgfx.bigrprint(300, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
+                dwgfx.Print(336 - 53, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                dwgfx.bigrprint(300 + 53, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
 
                 switch (game.swnbestrank)
                 {
@@ -1677,13 +1677,13 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
             else if (game.swnmessage == 1)
             {
                 tempstring = help.timestring(game.swntimer);
-                dwgfx.Print(10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                dwgfx.bigprint(25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
+                dwgfx.Print(10 + 53, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                dwgfx.bigprint(25 + 53, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
                 if (int(game.deathseq / 5) % 2 == 1)
                 {
-                    dwgfx.Print(240, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                    dwgfx.bigrprint(300, 24, tempstring, 128 - (help.glow), 220 - (help.glow), 128 - (help.glow / 2), false, 2);
+                    dwgfx.Print(336 - 53, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                    dwgfx.bigrprint(300 + 53, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 128 - (help.glow / 2), false, 2);
 
                     dwgfx.bigprint(-1, 200, "New Record!", 128 - (help.glow), 220 - (help.glow), 128 - (help.glow / 2), true, 2);
                 }
@@ -1693,11 +1693,11 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
                 game.swnmessage--;
                 if (game.swnmessage == 2) game.swnmessage = 0;
                 tempstring = help.timestring(game.swntimer);
-                dwgfx.Print(10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                dwgfx.bigprint(25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
+                dwgfx.Print(10 + 53, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                dwgfx.bigprint(25 + 53, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
-                dwgfx.Print(240, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                dwgfx.bigrprint(300, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
+                dwgfx.Print(336 - 53, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                dwgfx.bigrprint(300 + 53, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
 
                 if (int(game.swnmessage / 5) % 2 == 1)
                 {
