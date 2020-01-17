@@ -64,10 +64,16 @@ int main(int argc, char *argv[])
     Screen gameScreen;
 
 #ifdef WIN32
-    AllocConsole();
-    freopen("conin$", "r", stdin);
-    freopen("conout$", "w", stdout);
-    freopen("conout$", "w", stderr);
+    for (int i = 1; i < argc; i++) {
+        printf(argv[i]);
+        if (!strcmp(argv[i], "-console")) {
+            AllocConsole();
+            freopen("conin$", "r", stdin);
+            freopen("conout$", "w", stdout);
+            freopen("conout$", "w", stderr);
+            break;
+        }
+    }
 #endif
 
 	printf("\t\t\n");

@@ -891,6 +891,8 @@ void Graphics::drawcrewman(int x, int y, int t, bool act, UtilityClass& help, bo
 
 void Graphics::drawpixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo)
 {
+    x += 53;
+
     //given these parameters, draw a textbox with a pixel width
 
     //madrect.x = x; madrect.y = y; madrect.w = w; madrect.h = h;
@@ -917,6 +919,7 @@ void Graphics::drawpixeltextbox(int x, int y, int w, int h, int w2, int h2, int 
 
 void Graphics::drawcustompixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo)
 {
+    x += 53;
     //given these parameters, draw a textbox with a pixel width
 
     //madrect.x = x; madrect.y = y; madrect.w = w; madrect.h = h;
@@ -954,6 +957,7 @@ void Graphics::drawcustompixeltextbox(int x, int y, int w, int h, int w2, int h2
 
 void Graphics::drawtextbox(int x, int y, int w, int h, int r, int g, int b)
 {
+    x += 53;
     //given these parameters, draw a textbox
     //madrect.x = x; madrect.y = y; madrect.w = w*8; madrect.h = h*8;
     //backbuffer.fillRect(madrect, RGB(r / 6, g / 6, b / 6));
