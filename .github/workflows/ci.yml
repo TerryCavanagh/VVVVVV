@@ -36,7 +36,7 @@ jobs:
       run: |
         mkdir build
         move *.lib build
-        move $env:SRC_DIR_PATH/VVVVVV.exe $env:SRC_DIR_PATH/build/RMGV6.exe
+        move $env:SRC_DIR_PATH/Debug/VVVVVV.exe $env:SRC_DIR_PATH/Debug/build/RMGV6.exe
         robocopy .github/libs $env:SRC_DIR_PATH/build
         
     - name: Upload artifact
