@@ -39,7 +39,7 @@ jobs:
         mkdir build
         move *.lib build
         move VVVVVV.exe build/RMGV6.exe
-        robocopy ../../.github/libs build
+        xcopy ../../.github/libs build
         
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
