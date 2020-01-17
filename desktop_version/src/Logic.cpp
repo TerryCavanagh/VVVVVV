@@ -53,9 +53,9 @@ void gamecompletelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclas
     map.tdrawback = true;
 
     game.creditposition--;
-    if (game.creditposition <= -1650)
+    if (game.creditposition <= -game.creditmaxposition)
     {
-        game.creditposition = -1650;
+        game.creditposition = -game.creditmaxposition;
         map.bscroll = 0;
     }
     else
