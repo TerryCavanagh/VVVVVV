@@ -568,6 +568,7 @@ void Graphics::drawtile3(int x, int y, int t, int off, bool flip)
     SDL_Surface* temp = SDL_DuplicateSurface(tiles3[t + (off * 30)]);
     if (flip) temp = FlipSurfaceHorizontal(temp);
     BlitSurfaceStandard(temp, NULL, backBuffer, &rect);
+    SDL_FreeSurface(temp);
 }
 
 void Graphics::drawentcolours(int x, int y, int t)
@@ -589,6 +590,7 @@ void Graphics::drawtowertile3(int x, int y, int t, int off, bool flip)
     SDL_Surface* temp = SDL_DuplicateSurface(tiles3[t + (off * 30)]);
     if (flip) temp = FlipSurfaceHorizontal(temp);
     BlitSurfaceStandard(temp, NULL, towerbuffer, &rect);
+    SDL_FreeSurface(temp);
 }
 
 void Graphics::drawgui(UtilityClass& help)
@@ -1972,10 +1974,15 @@ void Graphics::drawentities(mapclass& map, entityclass& obj, UtilityClass& help)
     if (!map.warpx)
         BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
     else {
-        //if (map.currentarea)
-        for (int k = 0; k < 3; k++) {
-            rect.x = -267 + (k * 320) - 53;
-            BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
+        if (!specialwarp)
+            for (int k = 0; k < 3; k++) {
+                rect.x = -267 + (k * 320) - 53;
+                BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
+            }
+        else {
+            SDL_Rect srcrect = {53, 0, 320, backBuffer->h};
+            rect.x = 53;
+            BlitSurfaceStandard(tBuffer, &srcrect, backBuffer, &rect);
         }
         //drawrect(51, 0, 2, backBuffer->h, 215, 215, 215);
         //drawrect(backBuffer->w - 54, 0, 2, backBuffer->h, 215, 215, 215);
@@ -2747,7 +2754,6 @@ void Graphics::drawtowerbackground(mapclass& map)
         }
     }
     SDL_BlitSurface(towerbuffer, NULL, backBuffer, NULL);
-
 }
 
 void Graphics::setcol(int t, UtilityClass& help)

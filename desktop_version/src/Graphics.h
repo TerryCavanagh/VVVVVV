@@ -278,6 +278,8 @@ public:
 
 	int warpskip, warpfcol, warpbcol;
 
+	bool specialwarp = false;
+
 };
 
 #endif /* GRAPHICS_H */

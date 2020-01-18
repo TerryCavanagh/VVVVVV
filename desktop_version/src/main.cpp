@@ -412,12 +412,13 @@ int main(int argc, char *argv[])
                             script.run(key, graphics, game, map, obj, help, music);
                         }
 
+                        if (game.swnmode) graphics.specialwarp = true;
+                        else graphics.specialwarp = false;
+
                         gameinput(key, graphics, game, map, obj, help, music);
                         //}
                         gamerender(graphics,map, game,  obj, help);
                         gamelogic(graphics, game,obj, music, map,  help);
-
-
                     }
                     break;
                 case MAPMODE:

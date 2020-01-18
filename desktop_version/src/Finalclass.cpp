@@ -12,8 +12,8 @@ std::vector<growing_vector<std::string>> finalclass::loadlevel(int rx, int ry, G
 	warpx = false;
 	warpy = false;
 	bool warped = false;
+	roomname = "";
 
-	roomname = "Untitled room ["+UtilityClass::String(rx) + "," + UtilityClass::String(ry)+"]";
 	for (int i = 0; i < 3; i++) {
 		t++;
 		if (i >= 1 && warpx && !warped) {
