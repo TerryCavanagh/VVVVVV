@@ -1527,7 +1527,9 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
         }
         if (map.final_colormode)
         {
-            dwgfx.drawfinalmap(map);
+            dwgfx.drawfinalmap(map, 0, true);
+            dwgfx.drawfinalmap(map, 1);
+            dwgfx.drawfinalmap(map, 2);
         }
         else
         {

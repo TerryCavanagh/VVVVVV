@@ -5,8 +5,6 @@
 #include "Screen.h"
 #include <utf8.h>
 
-#define BEEF (0)
-
 Graphics::Graphics()
 {
     flipmode = false;
@@ -1968,12 +1966,13 @@ void Graphics::drawentities(mapclass& map, entityclass& obj, UtilityClass& help)
     if (!map.warpx)
         BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
     else {
-        SDL_Rect srcrect;
-        setRect(srcrect, 53, 0, 320, backBuffer->h);
-        rect.x = 53;
-        BlitSurfaceStandard(tBuffer, &srcrect, backBuffer, &rect);
-        drawrect(51, 0, 2, backBuffer->h, 215, 215, 215);
-        drawrect(backBuffer->w - 54, 0, 2, backBuffer->h, 215, 215, 215);
+        //if (map.currentarea)
+        for (int k = 0; k < 3; k++) {
+            rect.x = -267 + (k * 320) - 53;
+            BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
+        }
+        //drawrect(51, 0, 2, backBuffer->h, 215, 215, 215);
+        //drawrect(backBuffer->w - 54, 0, 2, backBuffer->h, 215, 215, 215);
     }
     SDL_FreeSurface(tBuffer);
 }
@@ -2194,10 +2193,10 @@ void Graphics::drawbackground(int t, mapclass& map)
             for (int j = 0; j < 15; j++)
             {
                 temp = 680 + (rcol * 3);
-                drawtowertile(424 - backoffset, (j * 16), temp + 40);  //20*16 = 320, but what the fuck * 20 is 427, answer is my ass!
-                drawtowertile(424 - backoffset + 8, (j * 16), temp + 41);
-                drawtowertile(424 - backoffset, (j * 16) + 8, temp + 80);
-                drawtowertile(424 - backoffset + 8, (j * 16) + 8, temp + 81);
+                drawtowertile(432 - backoffset, (j * 16), temp + 40);  //bullshit referenced in main
+                drawtowertile(432 - backoffset + 8, (j * 16), temp + 41);
+                drawtowertile(432 - backoffset, (j * 16) + 8, temp + 80);
+                drawtowertile(432 - backoffset + 8, (j * 16) + 8, temp + 81);
             }
         }
         else
@@ -2429,10 +2428,12 @@ void Graphics::drawmap(mapclass& map, int k, bool c)
 
 }
 
-void Graphics::drawfinalmap(mapclass& map)
+void Graphics::drawfinalmap(mapclass& map, int k, bool c)
 {
+    mapoff = -267 + (k * 320);
+
     //Update colour cycling for final level
-    if (map.final_colormode) {
+    if (map.final_colormode && c) {
         map.final_aniframedelay--;
         if (map.final_aniframedelay == 0)
         {
@@ -2447,11 +2448,12 @@ void Graphics::drawfinalmap(mapclass& map)
     }
 
     if (!foregrounddrawn) {
-        FillRect(foregroundBuffer, 0xDEADBEEF);
+        if (c)
+            FillRect(foregroundBuffer, 0xDEADBEEF);
         if (map.tileset == 0) {
             for (int j = 0; j < 29 + map.extrarow; j++) {
                 for (int i = 0; i < 40; i++) {
-                    if ((map.contents[1][i + map.vmult[j]]) > 0)
+                    if ((map.contents[k][i + map.vmult[j]]) > 0)
                         drawforetile(i * 8, j * 8, map.finalat(i, j));
                 }
             }
@@ -2459,12 +2461,12 @@ void Graphics::drawfinalmap(mapclass& map)
         else if (map.tileset == 1) {
             for (int j = 0; j < 29 + map.extrarow; j++) {
                 for (int i = 0; i < 40; i++) {
-                    if ((map.contents[1][i + map.vmult[j]]) > 0)
+                    if ((map.contents[k][i + map.vmult[j]]) > 0)
                         drawforetile2(i * 8, j * 8, map.finalat(i, j));
                 }
             }
         }
-        foregrounddrawn = true;
+        if (k == 2) foregrounddrawn = true;
     }
 
     OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0xDEADBEEF);
@@ -2478,7 +2480,8 @@ void Graphics::drawtowermap(mapclass& map)
         for (int i = 0; i < 40; i++)
         {
             temp = map.tower.at(i, j, map.ypos);
-            if (temp > 0) drawtile3(i * 8, (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
+            for (int k = 0; k < 3; k++)
+                if (temp > 0) drawtile3(i * 8 + -267 + (k * 320), (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
         }
     }
 }
@@ -2491,13 +2494,17 @@ void Graphics::drawtowermap_nobackground(mapclass& map)
         for (int i = 0; i < 40; i++)
         {
             temp = map.tower.at(i, j, map.ypos);
-            if (temp > 0 && temp < 28) drawtile3(i * 8, (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
+            for (int k = 0; k < 3; k++)
+                if (temp > 0 && temp < 28) drawtile3(i * 8 + -267 + (k * 320), (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
         }
     }
 }
 
 void Graphics::drawtowerentities(mapclass& map, entityclass& obj, UtilityClass& help)
 {
+    SDL_Surface* tBuffer = SDL_DuplicateSurface(backBuffer);
+    FillRect(tBuffer, 0);
+
     //Update line colours!
     if (linedelay <= 0)
     {
@@ -2519,27 +2526,27 @@ void Graphics::drawtowerentities(mapclass& map, entityclass& obj, UtilityClass& 
             if (obj.entities[i].size == 0)        // Sprites
             {
                 trinketcolset = false;
-                tpoint.x = obj.entities[i].xp;
+                tpoint.x = obj.entities[i].xp + 53;
                 tpoint.y = obj.entities[i].yp - map.ypos;
                 setcol(obj.entities[i].colour, help);
                 setRect(trect, tpoint.x, tpoint.y, sprites_rect.w, sprites_rect.h);
-                BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
+                BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, tBuffer, &trect, ct);
                 //screenwrapping!
                 if (!map.minitowermode)
                 {
                     if (map.ypos >= 500 && map.ypos <= 5000)   //The "wrapping" area of the tower
                     {
-                        if (tpoint.x < 0)
+                        if (tpoint.x < 53)
                         {
                             tpoint.x += 320;
                             setRect(trect, tpoint.x, tpoint.y, sprites_rect.w, sprites_rect.h);
-                            BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
+                            BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, tBuffer, &trect, ct);
                         }
-                        if (tpoint.x > 300)
+                        if (tpoint.x > 300 + 53)
                         {
                             tpoint.x -= 320;
                             setRect(trect, tpoint.x, tpoint.y, sprites_rect.w, sprites_rect.h);
-                            BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
+                            BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, tBuffer, &trect, ct);
                         }
                     }
                 }
@@ -2547,46 +2554,46 @@ void Graphics::drawtowerentities(mapclass& map, entityclass& obj, UtilityClass& 
             else if (obj.entities[i].size == 1)
             {
                 // Tiles
-                tpoint.x = obj.entities[i].xp;
+                tpoint.x = obj.entities[i].xp + 53;
                 tpoint.y = obj.entities[i].yp - map.ypos;
                 setRect(trect, tiles_rect.w, tiles_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
+                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, tBuffer, &trect, ct);
             }
             else if (obj.entities[i].size == 2)
             {
                 // Special: Moving platform, 4 tiles
-                tpoint.x = obj.entities[i].xp;
+                tpoint.x = obj.entities[i].xp + 53;
                 tpoint.y = obj.entities[i].yp - map.ypos;
                 setRect(trect, tiles_rect.w, tiles_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
+                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, tBuffer, &trect, ct);
                 tpoint.x += 8;
                 setRect(trect, sprites_rect.w, sprites_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
+                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, tBuffer, &trect, ct);
                 tpoint.x += 8;
                 setRect(trect, sprites_rect.w, sprites_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
+                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, tBuffer, &trect, ct);
                 tpoint.x += 8;
                 setRect(trect, sprites_rect.w, sprites_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
+                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, tBuffer, &trect, ct);
 
             }
             else if (obj.entities[i].size == 3)    // Big chunky pixels!
             {
-                prect.x = obj.entities[i].xp;
+                prect.x = obj.entities[i].xp + 53;
                 prect.y = obj.entities[i].yp - map.ypos;
                 //A seperate index of colours, for simplicity
                 if (obj.entities[i].colour == 1)
                 {
-                    FillRect(backBuffer, prect, getRGB(196 - (fRandom() * 64), 10, 10));
+                    FillRect(tBuffer, prect, getRGB(196 - (fRandom() * 64), 10, 10));
                 }
                 else if (obj.entities[i].colour == 2)
                 {
-                    FillRect(backBuffer, prect, getRGB(160 - help.glow / 2 - (fRandom() * 20), 200 - help.glow / 2, 220 - help.glow));
+                    FillRect(tBuffer, prect, getRGB(160 - help.glow / 2 - (fRandom() * 20), 200 - help.glow / 2, 220 - help.glow));
                 }
             }
             else if (obj.entities[i].size == 4)    // Small pickups
             {
-                drawhuetile(obj.entities[i].xp, obj.entities[i].yp - map.ypos, obj.entities[i].tile, obj.entities[i].colour);
+                drawhuetile(obj.entities[i].xp + 53, obj.entities[i].yp - map.ypos, obj.entities[i].tile, obj.entities[i].colour);
             }
             else if (obj.entities[i].size == 5)    //Horizontal Line
             {
@@ -2606,11 +2613,20 @@ void Graphics::drawtowerentities(mapclass& map, entityclass& obj, UtilityClass& 
             }
         }
     }
+
+    SDL_Rect rect;
+    setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
+    for (int k = 0; k < 3; k++) {
+        rect.x = -267 + (k * 320) - 53;
+        BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
+    }
+    SDL_FreeSurface(tBuffer);
+
 }
 
 void Graphics::drawtowerspikes(mapclass& map)
 {
-    for (int i = 0; i < 40; i++)
+    for (int i = 0; i < 80; i++)
     {
         drawtile3(i * 8, -8 + map.spikeleveltop, 9, map.colstate);
         drawtile3(i * 8, 230 - map.spikelevelbottom, 8, map.colstate);
@@ -2629,7 +2645,7 @@ void Graphics::drawtowerbackgroundsolo(mapclass& map)
     if (map.tdrawback)
     {
         //Draw the whole thing; needed for every colour cycle!
-        for (int j = 0; j < 31; j++)
+        for (int j = 0; j < 30; j++)
         {
             int x = 0;
             for (int i = 0; i < 40; i++)
@@ -2648,22 +2664,20 @@ void Graphics::drawtowerbackgroundsolo(mapclass& map)
     }
     else
     {
-        //just update the bottom
+        //just update the bott  om
         int x = 0;
         ScrollSurface(towerbuffer, 0, -map.bscroll);
         for (int i = 0; i < 40; i++)
         {
-            temp = map.tower.backat(i, j, map.bypos);
+            temp = map.tower.backat(i, 0, map.bypos);
             drawtowertile3(x++ * 8, -(map.bypos % 8), temp, map.colstate);
         }
         for (int i = 39; i > -1; i--)
         {
-            temp = map.tower.backat(i, j, map.bypos);
+            temp = map.tower.backat(i, 0, map.bypos);
             drawtowertile3(x++ * 8, -(map.bypos % 8), temp, map.colstate, true);
         }
-        SDL_Rect rect;
-        setRect(rect, 0, 0, towerbuffer->w, towerbuffer->h);
-        SDL_BlitSurface(towerbuffer, NULL, backBuffer, &rect);
+        SDL_BlitSurface(towerbuffer, NULL, backBuffer, NULL);
     }
 }
 
@@ -2679,35 +2693,40 @@ void Graphics::drawtowerbackground(mapclass& map)
     if (map.tdrawback)
     {
         //Draw the whole thing; needed for every colour cycle!
-        for (j = 0; j < 30; j++)
+        for (int j = 0; j < 30; j++)
         {
+            int x = 0;
             for (int i = 0; i < 40; i++)
             {
                 temp = map.tower.backat(i, j, map.bypos);
-                drawtowertile3(i * 8, (j * 8) - (map.bypos % 8), temp, map.colstate);
+                drawtowertile3(x++ * 8, (j * 8) - (map.bypos % 8), temp, map.colstate);
+            }
+            for (int i = 39; i > -1; i--)
+            {
+                temp = map.tower.backat(i, j, map.bypos);
+                drawtowertile3(x++ * 8, (j * 8) - (map.bypos % 8), temp, map.colstate, true);
             }
         }
-
-        //backbuffer.copyPixels(towerbuffer, towerbuffer.rect, tl, null, null, false);
-        SDL_BlitSurface(towerbuffer, NULL, backBuffer, NULL);
-
         map.tdrawback = false;
     }
     else
     {
-        //just update the bottom
-        //TODO SCOLL
-        //towerbuffer.scroll(0, -map.bscroll);
+        //just update the bott  om
+        int x = 0;
         ScrollSurface(towerbuffer, 0, -map.bscroll);
         for (int i = 0; i < 40; i++)
         {
             temp = map.tower.backat(i, 0, map.bypos);
-            drawtowertile3(i * 8, -(map.bypos % 8), temp, map.colstate);
+            drawtowertile3(x++ * 8, -(map.bypos % 8), temp, map.colstate);
         }
-
-        //backbuffer.copyPixels(towerbuffer, towerbuffer.rect, tl, null, null, false);
-        SDL_BlitSurface(towerbuffer, NULL, backBuffer, NULL);
+        for (int i = 39; i > -1; i--)
+        {
+            temp = map.tower.backat(i, 0, map.bypos);
+            drawtowertile3(x++ * 8, -(map.bypos % 8), temp, map.colstate, true);
+        }
     }
+    SDL_BlitSurface(towerbuffer, NULL, backBuffer, NULL);
+
 }
 
 void Graphics::setcol(int t, UtilityClass& help)

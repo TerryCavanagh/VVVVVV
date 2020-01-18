@@ -62,18 +62,19 @@ int main(int argc, char *argv[])
 
     Screen gameScreen;
 
-#ifdef WIN32
     for (int i = 1; i < argc; i++) {
-        printf(argv[i]);
+#ifdef WIN32
         if (!strcmp(argv[i], "-console")) {
             AllocConsole();
             freopen("conin$", "r", stdin);
             freopen("conout$", "w", stdout);
             freopen("conout$", "w", stderr);
-            break;
+            continue;
+        }
+#endif
+        if (!strcmp(argv[i], "-beef")) {
         }
     }
-#endif
 
 	printf("\t\t\n");
 	printf("\t\t\n");
@@ -155,8 +156,8 @@ int main(int argc, char *argv[])
     graphics.menubuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
     SDL_SetSurfaceBlendMode(graphics.menubuffer, SDL_BLENDMODE_NONE);
 
-    graphics.towerbuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
-    SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE);
+    graphics.towerbuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427 + 16, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
+    SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE); //^ make it longer to prevent bullshit
 
     graphics.tempBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
     SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);

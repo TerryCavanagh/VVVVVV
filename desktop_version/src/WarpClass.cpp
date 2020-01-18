@@ -867,7 +867,7 @@ std::vector<growing_vector<std::string>> warpclass::loadlevel(int rx, int ry , G
 			if (i == 1) rcol = 2;
 			if (i == 1) warpx = true;
 			if (i == 1) warpy = true;
-			if (i == 1) roomname = "I Love You";
+			if (i == 1) roomname = ":flushed:";
 			break;
 
 		case rn(50,49):

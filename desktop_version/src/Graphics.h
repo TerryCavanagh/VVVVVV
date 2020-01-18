@@ -5,8 +5,6 @@
 #include <vector>
 #include "Game.h"
 
-
-
 #include "Maths.h"
 #include "Textbox.h"
 #include "UtilityClass.h"
@@ -190,7 +188,7 @@ public:
 	void drawtowerbackground(mapclass& map);
 
 	void setcol(int t, UtilityClass& help);
-	void drawfinalmap(mapclass& map);
+	void drawfinalmap(mapclass& map, int k, bool c = false);
 
 	colourTransform ct;
 
