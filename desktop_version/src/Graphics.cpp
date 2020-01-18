@@ -562,10 +562,12 @@ void Graphics::drawtile2(int x, int y, int t, int r, int g, int b)
 
 
 
-void Graphics::drawtile3(int x, int y, int t, int off)
+void Graphics::drawtile3(int x, int y, int t, int off, bool flip)
 {
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
-    BlitSurfaceStandard(tiles3[t + (off * 30)], NULL, backBuffer, &rect);
+    SDL_Surface* temp = SDL_DuplicateSurface(tiles3[t + (off * 30)]);
+    if (flip) temp = FlipSurfaceHorizontal(temp);
+    BlitSurfaceStandard(temp, NULL, backBuffer, &rect);
 }
 
 void Graphics::drawentcolours(int x, int y, int t)
@@ -2350,9 +2352,14 @@ void Graphics::drawbackground(int t, mapclass& map)
         //Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
+            int x = 0;
             for (int i = 0; i < 40; i++)
             {
-                drawtile3(i * 8, j * 8, map.tower.backat(i, j, 200), 15);
+                drawtile3(x++ * 8, j * 8, map.tower.backat(i, j, 200), 15);
+            }
+            for (int i = 39; i > -1; i--)
+            {
+                drawtile3(x++ * 8, j * 8, map.tower.backat(i, j, 200), 15, true);
             }
         }
         break;
@@ -2360,9 +2367,14 @@ void Graphics::drawbackground(int t, mapclass& map)
         //Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
+            int x = 0;
             for (int i = 0; i < 40; i++)
             {
-                drawtile3(i * 8, j * 8, map.tower.backat(i, j, 200), 10);
+                drawtile3(x++ * 8, j * 8, map.tower.backat(i, j, 200), 10);
+            }
+            for (int i = 39; i > -1; i--)
+            {
+                drawtile3(x++ * 8, j * 8, map.tower.backat(i, j, 200), 10, true);
             }
         }
         break;
@@ -2370,9 +2382,14 @@ void Graphics::drawbackground(int t, mapclass& map)
         //Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
+            int x = 0;
             for (int i = 0; i < 40; i++)
             {
-                drawtile3(i * 8, j * 8, map.tower.backat(i, j, 600), 0);
+                drawtile3(x++ * 8, j * 8, map.tower.backat(i, j, 600), 0);
+            }
+            for (int i = 39; i > -1; i--)
+            {
+                drawtile3(x++ * 8, j * 8, map.tower.backat(i, j, 600), 0, true);
             }
         }
         break;

@@ -151,7 +151,7 @@ public:
 	void setcolreal(Uint32 t);
 
 	void drawbackground(int t, mapclass& map);
-	void drawtile3(int x, int y, int t, int off);
+	void drawtile3(int x, int y, int t, int off, bool flip = false);
 	void drawentcolours(int x, int y, int t);
 	void drawtile2(int x, int y, int t, int r, int g, int b);
 	void drawtile(int x, int y, int t, int r, int g, int b);
