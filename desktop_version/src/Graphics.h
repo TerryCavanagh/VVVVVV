@@ -196,6 +196,7 @@ public:
 
 	int bcol, bcol2, rcol;
 
+	std::string custom = "";
 
 	int mapoff = 53;
 

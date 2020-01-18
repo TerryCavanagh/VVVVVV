@@ -1,9 +1,10 @@
 #include "Textbox.h"
 #include <utf8.h>
 
-textboxclass::textboxclass()
+textboxclass::textboxclass(std::string c)
 {
     firstcreate();
+    custom = c;
 }
 
 void textboxclass::firstcreate()
@@ -134,6 +135,7 @@ void textboxclass::resize()
     max = 0;
     for (int iter = 0; iter < numlines; iter++)
     {
+        if (!custom.empty())    line[iter] = custom;
         auto len = utf8::distance(line[iter].begin(), line[iter].end());
         if (len > (unsigned int)max) max = len;
     }
@@ -149,7 +151,9 @@ void textboxclass::resize()
 
 void textboxclass::addline(std::string t)
 {
-    line[numlines] = t;
+    if (custom.empty())
+        line[numlines] = t;
+    else line[numlines] = custom;
     numlines++;
     resize();
     if (numlines >= 12) numlines = 0;

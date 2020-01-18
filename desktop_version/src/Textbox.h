@@ -8,7 +8,7 @@
 class textboxclass
 {
 public:
-    textboxclass();
+    textboxclass(std::string c = "");
 
     void firstcreate();
 
@@ -49,6 +49,7 @@ public:
 
     int max;
 
+    std::string custom = "";
 };
 
 #endif /* TEXTBOX_H */

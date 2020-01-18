@@ -92,7 +92,7 @@ Graphics::Graphics()
     //Textboxes!
     for (int i = 0; i < 30; i++)
     {
-        textboxclass t;
+        textboxclass t(custom);
         textbox.push_back(t);
     }
     ntextbox = 0;
@@ -251,9 +251,9 @@ void Graphics::MakeSpriteArray()
 
 void Graphics::Print(int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/)
 {
-#if BEEF
-    _s = "beef";
-#endif
+if (!custom.empty()) {
+    _s = custom;
+}
     r = clamp(r, 0, 255);
     g = clamp(g, 0, 255);
     b = clamp(b, 0, 255);
@@ -290,9 +290,9 @@ void Graphics::Print(int _x, int _y, std::string _s, int r, int g, int b, bool c
 
 void Graphics::bigprint(int _x, int _y, std::string _s, int r, int g, int b, bool cen, int sc)
 {
-#if BEEF
-    _s = "beef";
-#endif
+if (!custom.empty()) {
+    _s = custom;
+}
     r = clamp(r, 0, 255);
     g = clamp(g, 0, 255);
     b = clamp(b, 0, 255);
@@ -340,9 +340,9 @@ void Graphics::bigprint(int _x, int _y, std::string _s, int r, int g, int b, boo
 
 int Graphics::len(std::string t)
 {
-#if BEEF
-    t = "beef";
-#endif
+if (!custom.empty()) {
+    t = custom;
+}
 
     int bfontpos = 0;
     auto iter = t.begin();
@@ -355,9 +355,9 @@ int Graphics::len(std::string t)
 
 void Graphics::PrintOff(int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/)
 {
-#if BEEF
-    _s = "beef";
-#endif
+if (!custom.empty()) {
+    _s = custom;
+}
     r = clamp(r, 0, 255);
     g = clamp(g, 0, 255);
     b = clamp(b, 0, 255);
@@ -395,9 +395,9 @@ void Graphics::PrintOff(int _x, int _y, std::string _s, int r, int g, int b, boo
 
 void Graphics::bprint(int x, int y, std::string t, int r, int g, int b, bool cen /*= false*/)
 {
-#if BEEF
-    t = "beef";
-#endif
+if (!custom.empty()) {
+    t = custom;
+}
     //printmask(x, y, t, cen);
     if (!notextoutline)
     {
@@ -421,9 +421,9 @@ void Graphics::bprint(int x, int y, std::string t, int r, int g, int b, bool cen
 
 void Graphics::RPrint(int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/)
 {
-#if BEEF
-    _s = "beef";
-#endif
+if (!custom.empty()) {
+    _s = custom;
+}
     _x += 53;
 
     r = clamp(r, 0, 255);

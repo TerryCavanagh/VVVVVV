@@ -42,6 +42,24 @@ scriptclass script;
 
 int main(int argc, char *argv[])
 {
+    auto inArgs = [argc, argv](std::string arg) {
+
+        for (int i = 1; i < argc; i++) {
+            if (!strcmp(argv[i], arg.c_str())) {
+                return true;
+            }
+        }
+        return false;
+    };
+    auto argDetail = [argc, argv, inArgs](std::string arg) {
+        if (!inArgs(arg)) return std::string();
+        for (int i = 1; i < argc; i++) {
+            if (!strcmp(argv[i], arg.c_str())) {
+                return std::string(argv[i + 1]);
+            }
+        }
+        return std::string();
+    };
     if(!FILESYSTEM_init(argv[0]))
     {
         return 1;
@@ -61,21 +79,14 @@ int main(int argc, char *argv[])
     NETWORK_init();
 
     Screen gameScreen;
-
-    for (int i = 1; i < argc; i++) {
 #ifdef WIN32
-        if (!strcmp(argv[i], "-console")) {
-            AllocConsole();
-            freopen("conin$", "r", stdin);
-            freopen("conout$", "w", stdout);
-            freopen("conout$", "w", stderr);
-            continue;
-        }
-#endif
-        if (!strcmp(argv[i], "-beef")) {
-        }
+    if (inArgs("-console")) {
+        AllocConsole();
+        freopen("conin$", "r", stdin);
+        freopen("conout$", "w", stdout);
+        freopen("conout$", "w", stderr);
     }
-
+#endif
 	printf("\t\t\n");
 	printf("\t\t\n");
 	printf("\t\t       VVVVVV\n");
@@ -113,10 +124,18 @@ int main(int argc, char *argv[])
     UtilityClass help;
     // Load Ini
 
-
     Graphics graphics;
 
-
+    if (inArgs("-custom")) {
+        std::string t = argDetail("-custom");
+        graphics.custom = t;
+        printf("custom is on. word: %s\n", t.c_str());
+        std::transform(t.begin(), t.end(), t.begin(), ::toupper);
+        std::string t2 = "";
+        for (int i = 0; i < 6; i++)
+            t2 += (t.c_str()[0]);
+        SDL_SetWindowTitle(gameScreen.m_window, t2.c_str());
+    }
 
     musicclass music;
     Game game;
