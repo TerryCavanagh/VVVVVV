@@ -1317,8 +1317,8 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		}
 		break;
 	case 2: //The Lab
-		//tmap = lablevel.loadlevel(rx, ry, game, obj);
-		//fillcontent(tmap);
+		tmap = lablevel.loadlevel(rx, ry, game, obj);
+		fillcontent(tmap);
 		roomname = lablevel.roomname;
 		tileset = 1;
 		background = 2;
