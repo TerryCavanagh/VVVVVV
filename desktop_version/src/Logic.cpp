@@ -1200,11 +1200,13 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music,
             if (game.door_left > -2 && obj.entities[player].xp < -14)
             {
                 obj.entities[player].xp += 320;
+                dwgfx.camoff -= 320;
                 map.gotoroom(game.roomx - 1, game.roomy, dwgfx, game, obj, music);
             }
             if (game.door_right > -2 && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
+                dwgfx.camoff += 320;
                 map.gotoroom(game.roomx + 1, game.roomy, dwgfx, game, obj, music);
             }
         }
@@ -1225,11 +1227,13 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music,
             if (game.door_left > -2 && obj.entities[player].xp < -14)
             {
                 obj.entities[player].xp += 320;
+                dwgfx.camoff -= 320;
                 map.gotoroom(game.roomx - 1, game.roomy, dwgfx, game, obj, music);
             }
             if (game.door_right > -2 && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
+                dwgfx.camoff += 320;
                 map.gotoroom(game.roomx + 1, game.roomy, dwgfx, game, obj, music);
             }
         }

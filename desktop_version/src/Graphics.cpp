@@ -1304,7 +1304,7 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, int col, SDL_Surface* sur
 
 void Graphics::drawgravityline(int t, entityclass& obj)
 {
-    line_rect.x += 53;
+    line_rect.x += 53 + camoff;
     if (obj.entities[t].life == 0)
     {
         switch (linestate)
@@ -1970,18 +1970,18 @@ void Graphics::drawentities(mapclass& map, entityclass& obj, UtilityClass& help)
     }
 
     SDL_Rect rect;
-    setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
+    setRect(rect, camoff, 0, backBuffer->w, backBuffer->h);
     if (!map.warpx)
         BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
     else {
         if (!specialwarp)
             for (int k = 0; k < 3; k++) {
-                rect.x = -267 + (k * 320) - 53;
+                rect.x = -267 + (k * 320) - 53 + camoff;
                 BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
             }
         else {
             SDL_Rect srcrect = {53, 0, 320, backBuffer->h};
-            rect.x = 53;
+            rect.x = 53 + camoff;
             BlitSurfaceStandard(tBuffer, &srcrect, backBuffer, &rect);
         }
         //drawrect(51, 0, 2, backBuffer->h, 215, 215, 215);
@@ -2412,13 +2412,16 @@ void Graphics::drawbackground(int t, mapclass& map)
 
 void Graphics::drawmap(mapclass& map, int k, bool c)
 {
-    mapoff = -267 + (k * 320);
-    if (c) foregrounddrawn = false;
+    mapoff = -267 + (k * 320) + camoff;
+    if (c) {
+        foregrounddrawn = false;
+    }
     ///TODO forground once;
     if (!foregrounddrawn)
     {
-        if (c)
+        if (c) {
             FillRect(foregroundBuffer, 0xDEADBEEF);
+        }
         if (map.tileset == 0)
         {
             for (j = 0; j < 29 + map.extrarow; j++)
@@ -3230,7 +3233,7 @@ void Graphics::drawtele(int x, int y, int t, int c, UtilityClass& help)
     setcolreal(getRGB(16, 16, 16));
 
     SDL_Rect telerect;
-    setRect(telerect, x + 53, y, tele_rect.w, tele_rect.h);
+    setRect(telerect, x + 53 + camoff, y, tele_rect.w, tele_rect.h);
     BlitSurfaceColoured(tele[0], NULL, backBuffer, &telerect, ct);
 
     setcol(c, help);

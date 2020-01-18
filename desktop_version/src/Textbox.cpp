@@ -135,7 +135,7 @@ void textboxclass::resize()
     max = 0;
     for (int iter = 0; iter < numlines; iter++)
     {
-        if (!custom.empty())    line[iter] = custom;
+        if (!custom.empty()) line[iter] = custom;
         auto len = utf8::distance(line[iter].begin(), line[iter].end());
         if (len > (unsigned int)max) max = len;
     }

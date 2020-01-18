@@ -280,6 +280,7 @@ public:
 	int warpskip, warpfcol, warpbcol;
 
 	bool specialwarp = false;
+	int camoff = 0;
 
 };
 

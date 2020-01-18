@@ -1528,6 +1528,9 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
 {
 
 
+    if (dwgfx.camoff > 0) dwgfx.camoff -= 64;
+    else if (dwgfx.camoff < 0) dwgfx.camoff += 64;
+
     if (!game.blackout)
     {
 
