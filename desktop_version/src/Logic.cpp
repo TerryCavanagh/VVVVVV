@@ -264,7 +264,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music
 
     if (game.deathseq != -1)
     {
-        map.colsuperstate = 1;  //cause the palette to go spastic!
+        map.colsuperstate = 1;
         map.cameramode = 2;
         game.deathsequence(map, obj, music);
         game.deathseq--;

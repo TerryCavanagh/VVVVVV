@@ -492,9 +492,23 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
             }
             else if (game.currentmenuoption == 2)
             {
-                dwgfx.bigprint(-1, 40, "Invincibility", tr, tg, tb, true);
-                dwgfx.Print(-1, 75, "Provided to help disabled gamers", tr, tg, tb, true);
-                dwgfx.Print(-1, 85, "explore the game. Can cause glitches.", tr, tg, tb, true);
+                dwgfx.bigprint( -1, 40, "Text Outline", tr, tg, tb, true);
+                dwgfx.Print( -1, 75, "Disables outline on game text", tr, tg, tb, true);
+                // FIXME: Maybe do an outlined print instead? -flibit
+                if (!dwgfx.notextoutline)
+                {
+                    dwgfx.Print( -1, 85, "Text outlines are ON.", tr, tg, tb, true);
+                }
+                else
+                {
+                    dwgfx.Print( -1, 85, "Text outlines are OFF.", tr/2, tg/2, tb/2, true);
+                }
+            }
+            else if (game.currentmenuoption == 3)
+            {
+                dwgfx.bigprint( -1, 40, "Invincibility", tr, tg, tb, true);
+                dwgfx.Print( -1, 75, "Provided to help disabled gamers", tr, tg, tb, true);
+                dwgfx.Print( -1, 85, "explore the game. Can cause glitches.", tr, tg, tb, true);
                 if (map.invincibility)
                 {
                     dwgfx.Print(-1, 105, "Invincibility is ON.", tr, tg, tb, true);
@@ -504,7 +518,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
                     dwgfx.Print(-1, 105, "Invincibility is off.", tr / 2, tg / 2, tb / 2, true);
                 }
             }
-            else if (game.currentmenuoption == 3)
+            else if (game.currentmenuoption == 4)
             {
                 dwgfx.bigprint(-1, 40, "Game Speed", tr, tg, tb, true);
                 dwgfx.Print(-1, 75, "May be useful for disabled gamers", tr, tg, tb, true);
@@ -526,7 +540,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
                     dwgfx.Print(-1, 105, "Game speed is at 40%", tr, tg, tb, true);
                 }
             }
-            else if (game.currentmenuoption == 4)
+            else if (game.currentmenuoption == 5)
             {
                 dwgfx.bigprint(-1, 40, "Music", tr, tg, tb, true);
                 dwgfx.Print(-1, 75, "Disables music.", tr, tg, tb, true);
@@ -1601,7 +1615,7 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
         }
     }
 
-    if (map.custommode && !map.custommodeforreal) {
+     if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
         dwgfx.bprint(5, 5, "[Press ENTER to return to editor]", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
     }

@@ -4438,6 +4438,11 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
             skipfakeload = atoi(pText);
         }
 
+        if (pKey == "notextoutline")
+        {
+            dwgfx.notextoutline = atoi(pText);
+        }
+
 		if (pKey == "flipButton")
 		{
 			SDL_GameControllerButton newButton;
@@ -4645,6 +4650,10 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
 
     msg = new TiXmlElement("skipfakeload");
     msg->LinkEndChild(new TiXmlText(tu.String((int) skipfakeload).c_str()));
+    dataNode->LinkEndChild(msg);
+
+    msg = new TiXmlElement("notextoutline");
+    msg->LinkEndChild(new TiXmlText(tu.String((int) _dwgfx.notextoutline).c_str()));
     dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
@@ -7025,17 +7034,19 @@ void Game::createmenu( std::string t )
         menuoptionsactive[0] = true;
         menuoptions[1] = "screen effects";
         menuoptionsactive[1] = true;
-        menuoptions[2] = "invincibility";
+        menuoptions[2] = "text outline";
         menuoptionsactive[2] = true;
-        menuoptions[3] = "slowdown";
+        menuoptions[3] = "invincibility";
         menuoptionsactive[3] = true;
-        menuoptions[4] = "load screen";
+        menuoptions[4] = "slowdown";
         menuoptionsactive[4] = true;
-        menuoptions[5] = "return";
+        menuoptions[5] = "load screen";
         menuoptionsactive[5] = true;
-        nummenuoptions = 6;
-        menuxoff = -40;
-        menuyoff = 16;
+        menuoptions[6] = "return";
+        menuoptionsactive[6] = true;
+        nummenuoptions = 7;
+        menuxoff = -60;
+        menuyoff = 0;
     }
 	else if(t == "controller")
 	{

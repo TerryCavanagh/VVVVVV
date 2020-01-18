@@ -32,6 +32,7 @@ Graphics::Graphics()
 
     showcutscenebars = false;
     cutscenebarspos = 0;
+    notextoutline = false;
 
     flipmode = false;
     setflipmode = false;
@@ -398,19 +399,22 @@ void Graphics::bprint(int x, int y, std::string t, int r, int g, int b, bool cen
     t = "beef";
 #endif
     //printmask(x, y, t, cen);
-    Print(x, y - 1, t, 0, 0, 0, cen);
-    if (cen)
+    if (!notextoutline)
     {
-        //TODO find different
-        PrintOff(-1, y, t, 0, 0, 0, cen);
-        PrintOff(1, y, t, 0, 0, 0, cen);
+        Print(x, y - 1, t, 0, 0, 0, cen);
+        if (cen)
+        {
+            //TODO find different
+            PrintOff(-1, y, t, 0, 0, 0, cen);
+            PrintOff(1, y, t, 0, 0, 0, cen);
+        }
+        else
+        {
+            Print(x  -1, y, t, 0, 0, 0, cen);
+            Print(x  +1, y, t, 0, 0, 0, cen);
+        }
+        Print(x, y+1, t, 0, 0, 0, cen);
     }
-    else
-    {
-        Print(x  -1, y, t, 0, 0, 0, cen);
-        Print(x  +1, y, t, 0, 0, 0, cen);
-    }
-    Print(x, y+1, t, 0, 0, 0, cen);
 
     Print(x, y, t, r, g, b, cen);
 }

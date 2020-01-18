@@ -98,6 +98,13 @@ int FILESYSTEM_init(char *argvZero)
 		);
 		return 0;
 	}
+
+	strcpy(output, PHYSFS_getBaseDir());
+	strcpy(output, "gamecontrollerdb.txt");
+	if (SDL_GameControllerAddMappingsFromFile(output) < 0)
+	{
+		printf("gamecontrollerdb.txt not found!\n");
+	}
 	return 1;
 }
 

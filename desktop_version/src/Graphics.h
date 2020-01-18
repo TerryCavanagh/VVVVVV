@@ -218,6 +218,7 @@ public:
 
 	bool flipmode;
 	bool setflipmode;
+	bool notextoutline;
 	point tl;
 	//buffer objects. //TODO refactor buffer objects
 	SDL_Surface* backBuffer;
