@@ -1962,9 +1962,19 @@ void Graphics::drawentities(mapclass& map, entityclass& obj, UtilityClass& help)
             }
         }
     }
+
     SDL_Rect rect;
     setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-    BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
+    if (!map.warpx)
+        BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
+    else {
+        SDL_Rect srcrect;
+        setRect(srcrect, 53, 0, 320, backBuffer->h);
+        rect.x = 53;
+        BlitSurfaceStandard(tBuffer, &srcrect, backBuffer, &rect);
+        drawrect(51, 0, 2, backBuffer->h, 215, 215, 215);
+        drawrect(backBuffer->w - 54, 0, 2, backBuffer->h, 215, 215, 215);
+    }
     SDL_FreeSurface(tBuffer);
 }
 
@@ -2184,10 +2194,10 @@ void Graphics::drawbackground(int t, mapclass& map)
             for (int j = 0; j < 15; j++)
             {
                 temp = 680 + (rcol * 3);
-                drawtowertile(317 - backoffset, (j * 16), temp + 40);  //20*16 = 320
-                drawtowertile(317 - backoffset + 8, (j * 16), temp + 41);
-                drawtowertile(317 - backoffset, (j * 16) + 8, temp + 80);
-                drawtowertile(317 - backoffset + 8, (j * 16) + 8, temp + 81);
+                drawtowertile(424 - backoffset, (j * 16), temp + 40);  //20*16 = 320, but what the fuck * 20 is 427, answer is my ass!
+                drawtowertile(424 - backoffset + 8, (j * 16), temp + 41);
+                drawtowertile(424 - backoffset, (j * 16) + 8, temp + 80);
+                drawtowertile(424 - backoffset + 8, (j * 16) + 8, temp + 81);
             }
         }
         else
@@ -2197,7 +2207,7 @@ void Graphics::drawbackground(int t, mapclass& map)
             FillRect(towerbuffer, 0x000000);
             for (int j = 0; j < 15; j++)
             {
-                for (int i = 0; i < 21; i++)
+                for (int i = 0; i < 27; i++)
                 {
                     temp = 680 + (rcol * 3);
                     drawtowertile((i * 16) - backoffset, (j * 16), temp + 40);
@@ -2222,7 +2232,7 @@ void Graphics::drawbackground(int t, mapclass& map)
             //TODO scroll?!
             //towerbuffer.scroll(0, -3);
             ScrollSurface(towerbuffer, 0, -3);
-            for (int i = 0; i < 21; i++)
+            for (int i = 0; i < 27; i++)
             {
                 temp = 760 + (rcol * 3);
                 drawtowertile((i * 16), 237 - backoffset, temp + 40); //14*17=240 - 3
@@ -2238,7 +2248,7 @@ void Graphics::drawbackground(int t, mapclass& map)
             FillRect(towerbuffer, 0x000000);
             for (j = 0; j < 15; j++)
             {
-                for (int i = 0; i < 21; i++)
+                for (int i = 0; i < 27; i++)
                 {
                     temp = 760 + (rcol * 3);
                     drawtowertile((i * 16), (j * 16) - backoffset, temp + 40);
@@ -2297,7 +2307,7 @@ void Graphics::drawbackground(int t, mapclass& map)
             warpskip = (warpskip + 1) % 2;
         }
 
-        for (int i = 10; i >= 0; i--)
+        for (int i = 20; i >= 0; i--)
         {
             temp = (i << 4) + backoffset;
             setwarprect((427 / 2) - temp, 120 - temp, temp * 2, temp * 2);

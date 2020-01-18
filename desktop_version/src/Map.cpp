@@ -1363,7 +1363,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		obj.createentity(game, 280, 3216, 9, 8); // (shiny trinket)
 		break;
 	case 4: //The Warpzone
-		tmap[1] = warplevel.loadlevel(rx, ry, game, obj);
+		tmap = warplevel.loadlevel(rx, ry, game, obj);
 		fillcontent(tmap);
 		roomname = warplevel.roomname;
 		tileset = 1;

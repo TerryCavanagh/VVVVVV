@@ -8085,7 +8085,6 @@ std::vector<growing_vector<std::string>> otherlevelclass::loadlevel(int rx, int 
 			forceblank = true;
 		default:
 
-			if (i == 1) printf("%d %d %d %d\n", rx, ry, rn(rx, ry), t);
 			if (i == 1 || forceblank)
 				for (int j = 0; j < 30; j++)
 					tmap[i].push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
