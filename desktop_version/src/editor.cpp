@@ -3870,6 +3870,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                     }
                 }
                 key.keybuffer=ed.sb[ed.pagey+ed.sby];
+                ed.keydelay=6;
             }
 
             ed.sb[ed.pagey+ed.sby]=key.keybuffer;
