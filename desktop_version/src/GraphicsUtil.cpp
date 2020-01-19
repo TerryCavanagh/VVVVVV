@@ -270,6 +270,24 @@ void BlitSurfaceStandard( SDL_Surface* _src, SDL_Rect* _srcRect, SDL_Surface* _d
     //}
 }
 
+void BlitSurfaceKeyed(SDL_Surface* _src, SDL_Rect* _srcRect, SDL_Surface* _dest, SDL_Rect* _destRect, Uint32 key) {
+    const SDL_PixelFormat& fmt = *(_src->format);
+
+    SDL_Surface* tempsurface = SDL_CreateRGBSurface(
+        SDL_SWSURFACE,
+        _src->w,
+        _src->h,
+        fmt.BitsPerPixel,
+        fmt.Rmask,
+        fmt.Gmask,
+        fmt.Bmask,
+        fmt.Amask
+    );
+    OverlaySurfaceKeyed(_src, tempsurface, key);
+    BlitSurfaceStandard(tempsurface, _srcRect, _dest, _destRect);
+    SDL_FreeSurface(tempsurface);
+}
+
 void BlitSurfaceColoured(
     SDL_Surface* _src,
     SDL_Rect* _srcRect,

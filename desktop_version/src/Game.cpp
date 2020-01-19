@@ -4228,7 +4228,7 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
     }
 
     // WINDOW DIMS, ADDED AT PATCH 22
-    int width = 320;
+    int width = dwgfx.widescreen ? 427 : 320;
     int height = 240;
 
     for( pElem = hRoot.FirstChild( "Data" ).FirstChild().Element(); pElem; pElem=pElem->NextSiblingElement())

@@ -71,14 +71,16 @@ int main(int argc, char *argv[])
         SDL_INIT_GAMECONTROLLER
     );
 
-    if (argc > 2 && strcmp(argv[1], "-renderer") == 0)
-    {
-        SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, argv[2], SDL_HINT_OVERRIDE);
-    }
+    if (inArgs("-renderer"))
+        SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, argDetail("-renderer").c_str(), SDL_HINT_OVERRIDE);
+
+    bool camera = !inArgs("-nocamera");
 
     NETWORK_init();
 
-    Screen gameScreen;
+    Screen gameScreen(inArgs("-letterbox"));
+    gameScreen.genny = inArgs("-genny");
+
 #ifdef WIN32
     if (inArgs("-console")) {
         AllocConsole();
@@ -87,6 +89,8 @@ int main(int argc, char *argv[])
         freopen("conout$", "w", stderr);
     }
 #endif
+    printf("%d", gameScreen.widescreen);
+
 	printf("\t\t\n");
 	printf("\t\t\n");
 	printf("\t\t       VVVVVV\n");
@@ -125,6 +129,7 @@ int main(int argc, char *argv[])
     // Load Ini
 
     Graphics graphics;
+    graphics.widescreen = gameScreen.widescreen;
 
     if (inArgs("-custom")) {
         std::string t = argDetail("-custom");
@@ -140,6 +145,8 @@ int main(int argc, char *argv[])
     musicclass music;
     Game game;
     game.infocus = true;
+    game.widescreen = gameScreen.widescreen;
+    game.skipfakeload = !inArgs("-fakeload");
 
     graphics.MakeTileArray();
     graphics.MakeSpriteArray();
@@ -181,6 +188,11 @@ int main(int argc, char *argv[])
     graphics.tempBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
     SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);
 
+    graphics.yBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
+    SDL_SetSurfaceBlendMode(graphics.yBuffer, SDL_BLENDMODE_NONE);
+
+    graphics.xBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 427, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
+    SDL_SetSurfaceBlendMode(graphics.yBuffer, SDL_BLENDMODE_NONE);
 
     //Make a temporary rectangle to hold the offsets
     // SDL_Rect offset;
@@ -378,6 +390,7 @@ int main(int argc, char *argv[])
         }
         else
         {
+            if (!camera) {graphics.camxoff = 0; graphics.camyoff = 0;}
             switch(game.gamestate)
             {
             case PRELOADER:

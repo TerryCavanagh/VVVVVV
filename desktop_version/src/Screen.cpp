@@ -17,8 +17,10 @@ extern "C"
 	);
 }
 
-Screen::Screen()
+Screen::Screen(bool letterbox)
 {
+	widescreen = !letterbox;
+
 	m_window = NULL;
 	m_renderer = NULL;
 	m_screenTexture = NULL;
@@ -28,14 +30,14 @@ Screen::Screen()
 	isFiltered = false;
 	filterSubrect.x = 1;
 	filterSubrect.y = 1;
-	filterSubrect.w = 318;
+	filterSubrect.w = widescreen ? 425 : 318;
 	filterSubrect.h = 238;
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
 	// Uncomment this next line when you need to debug -flibit
 	// SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
 	SDL_CreateWindowAndRenderer(
-		854,
+		widescreen ? 854 : 640,
 		480,
 		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE,
 		&m_window,
@@ -68,7 +70,7 @@ Screen::Screen()
 	// FIXME: This surface should be the actual backbuffer! -flibit
 	m_screen = SDL_CreateRGBSurface(
 		0,
-		427,
+		widescreen ? 427 : 320,
 		240,
 		32,
 		0x00FF0000,
@@ -80,7 +82,7 @@ Screen::Screen()
 		m_renderer,
 		SDL_PIXELFORMAT_ARGB8888,
 		SDL_TEXTUREACCESS_STREAMING,
-		427,
+		widescreen ? 427 : 320,
 		240
 	);
 
@@ -89,11 +91,12 @@ Screen::Screen()
 
 	glScreen = true;
 
+	ResizeScreen(-1, -1);
 }
 
 void Screen::ResizeScreen(int x, int y)
 {
-	static int resX = 427;
+	static int resX = widescreen ? 427 : 320;
 	static int resY = 240;
 	if (x != -1 && y != -1)
 	{
@@ -124,7 +127,7 @@ void Screen::ResizeScreen(int x, int y)
 	}
 	else
 	{
-		SDL_RenderSetLogicalSize(m_renderer, 427, 240);
+		SDL_RenderSetLogicalSize(m_renderer, widescreen ? 427 : 320, 240);
 		SDL_RenderSetIntegerScale(m_renderer, (SDL_bool)(stretchMode == 2));
 	}
 	SDL_ShowWindow(m_window);
@@ -152,8 +155,11 @@ void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect)
 
 
 	FillRect(m_screen, 0x000);
-	BlitSurfaceStandard(buffer, NULL, m_screen, rect);
-
+	if (widescreen) BlitSurfaceStandard(buffer, NULL, m_screen, rect);
+	else {
+		SDL_Rect srcrect = {53, 0, 320, 240};
+		BlitSurfaceStandard(buffer, &srcrect, m_screen, rect);
+	}
 	if (badSignalEffect || genny)
 	{
 		SDL_FreeSurface(buffer);
@@ -206,7 +212,7 @@ void Screen::toggleLinearFilter()
 		m_renderer,
 		SDL_PIXELFORMAT_ARGB8888,
 		SDL_TEXTUREACCESS_STREAMING,
-		427,
+		widescreen ? 427 : 320,
 		240
 	);
 }

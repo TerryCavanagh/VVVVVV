@@ -61,7 +61,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
         {
             for (int i = 0; i < 6; i++)
                 dwgfx.drawsprite((160 - 96) + 53 + i * 32, 50, 23, tr, tg, tb);
-            dwgfx.Print(417 - (4 * 8), 230, "RMGV6", tr / 2, tg / 2, tb / 2);
+            dwgfx.Print((game.widescreen ? 417 : 320) - (4 * 8), 230, "RMGV6", tr / 2, tg / 2, tb / 2);
             if (music.mmmmmm) {
                 dwgfx.Print(10, 230, "[MMMMMM Mod Installed]", tr / 2, tg / 2, tb / 2);
             }
@@ -1528,8 +1528,10 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
 {
 
 
-    if (dwgfx.camoff > 0) dwgfx.camoff -= 64;
-    else if (dwgfx.camoff < 0) dwgfx.camoff += 64;
+    if (dwgfx.camxoff > 0) dwgfx.camxoff -= 320 / 5;
+    else if (dwgfx.camxoff < 0) dwgfx.camxoff += 320 / 5;
+    if (dwgfx.camyoff > 0) dwgfx.camyoff -= 240 / 5;
+    else if (dwgfx.camyoff < 0) dwgfx.camyoff += 240 / 5;
 
     if (!game.blackout)
     {
@@ -1594,6 +1596,18 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
     }
       }*/
       //dwgfx.drawminimap(game, map);
+
+    SDL_Rect rect = { dwgfx.camxoff, dwgfx.camyoff - 232, dwgfx.backBuffer->w, dwgfx.backBuffer->h };
+    if (dwgfx.camyoff != 0) {
+        if (dwgfx.camyoff < 0) rect.y = dwgfx.camyoff + 232;
+        BlitSurfaceKeyed(dwgfx.yBuffer, NULL, dwgfx.backBuffer, &rect, 0xDEADBEEF);
+    }
+
+    rect = { dwgfx.camxoff - 320, dwgfx.camyoff, dwgfx.backBuffer->w, dwgfx.backBuffer->h };
+    if (dwgfx.camxoff != 0) {
+        if (dwgfx.camxoff < 0) rect.y = dwgfx.camxoff + 320;
+        BlitSurfaceKeyed(dwgfx.xBuffer, NULL, dwgfx.backBuffer, &rect, 0xDEADBEEF);
+    }
 
     if (map.extrarow == 0 || (map.custommode && map.roomname != ""))
     {

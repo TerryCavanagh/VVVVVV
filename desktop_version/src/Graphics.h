@@ -228,6 +228,8 @@ public:
 	SDL_Surface* towerbuffer;
 	SDL_Surface* foregroundBuffer;
 	SDL_Surface* tempBuffer;
+	SDL_Surface* yBuffer;
+	SDL_Surface* xBuffer;
 
 	SDL_Rect bfont_rect;
 	SDL_Rect tiles_rect;
@@ -280,8 +282,9 @@ public:
 	int warpskip, warpfcol, warpbcol;
 
 	bool specialwarp = false;
-	int camoff = 0;
-
+	int camxoff = 0;
+	int camyoff = 0;
+	bool widescreen;
 };
 
 #endif /* GRAPHICS_H */

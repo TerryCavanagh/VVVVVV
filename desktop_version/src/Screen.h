@@ -6,7 +6,7 @@
 class Screen
 {
 public:
-	Screen();
+	Screen(bool letterbox);
 
 	void ResizeScreen(int x, int y);
 	void GetWindowSize(int* x, int* y);
@@ -34,6 +34,8 @@ public:
 	SDL_Surface* m_screen;
 
 	SDL_Rect filterSubrect;
+
+	bool widescreen = true;
 };
 
 

@@ -312,6 +312,7 @@ public:
 	bool useLinearFilter;
 	int stretchMode;
 	int controllerSensitivity;
+    bool widescreen;
 
     //Screenrecording stuff, for beta/trailer
     int recording;

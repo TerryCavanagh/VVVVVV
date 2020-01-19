@@ -1304,7 +1304,8 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, int col, SDL_Surface* sur
 
 void Graphics::drawgravityline(int t, entityclass& obj)
 {
-    line_rect.x += 53 + camoff;
+    line_rect.x += 53 + camxoff;
+    line_rect.y += camyoff;
     if (obj.entities[t].life == 0)
     {
         switch (linestate)
@@ -1346,6 +1347,7 @@ void Graphics::drawgravityline(int t, entityclass& obj)
         FillRect(backBuffer, line_rect, getRGB(96, 96, 96));
     }
     line_rect.x -= 53;
+    line_rect.y -= camyoff;
 }
 
 void Graphics::drawtrophytext(entityclass& obj, UtilityClass& help)
@@ -1970,18 +1972,18 @@ void Graphics::drawentities(mapclass& map, entityclass& obj, UtilityClass& help)
     }
 
     SDL_Rect rect;
-    setRect(rect, camoff, 0, backBuffer->w, backBuffer->h);
+    setRect(rect, camxoff, camyoff, backBuffer->w, backBuffer->h);
     if (!map.warpx)
         BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
     else {
         if (!specialwarp)
             for (int k = 0; k < 3; k++) {
-                rect.x = -267 + (k * 320) - 53 + camoff;
+                rect.x = -267 + (k * 320) - 53 + camxoff;
                 BlitSurfaceStandard(tBuffer, NULL, backBuffer, &rect);
             }
         else {
             SDL_Rect srcrect = {53, 0, 320, backBuffer->h};
-            rect.x = 53 + camoff;
+            rect.x = 53 + camxoff;
             BlitSurfaceStandard(tBuffer, &srcrect, backBuffer, &rect);
         }
         //drawrect(51, 0, 2, backBuffer->h, 215, 215, 215);
@@ -2412,16 +2414,15 @@ void Graphics::drawbackground(int t, mapclass& map)
 
 void Graphics::drawmap(mapclass& map, int k, bool c)
 {
-    mapoff = -267 + (k * 320) + camoff;
+    mapoff = -267 + (k * 320) + camxoff;
     if (c) {
         foregrounddrawn = false;
+        FillRect(foregroundBuffer, 0xDEADBEEF);
     }
+    if ((k == 0 && camxoff < 0) || (k == 2 && camxoff > 0)) return;
     ///TODO forground once;
     if (!foregrounddrawn)
     {
-        if (c) {
-            FillRect(foregroundBuffer, 0xDEADBEEF);
-        }
         if (map.tileset == 0)
         {
             for (j = 0; j < 29 + map.extrarow; j++)
@@ -2452,7 +2453,7 @@ void Graphics::drawmap(mapclass& map, int k, bool c)
                 }
             }
         }
-        if (k == 2) foregrounddrawn = true;
+        if (k == 2 && !camxoff) foregrounddrawn = true;
     }
     OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0xDEADBEEF);
     //SDL_BlitSurface(foregroundBuffer, NULL, backBuffer, NULL);
@@ -2461,7 +2462,7 @@ void Graphics::drawmap(mapclass& map, int k, bool c)
 
 void Graphics::drawfinalmap(mapclass& map, int k, bool c)
 {
-    mapoff = -267 + (k * 320);
+    mapoff = -267 + (k * 320) + camxoff;
 
     //Update colour cycling for final level
     if (map.final_colormode && c) {
@@ -3151,9 +3152,10 @@ void Graphics::render()
     {
         return;
     }
+    
+    SDL_Rect rect;
     if (flipmode)
     {
-        SDL_Rect rect;
         setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
         //setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
         //SDL_BlitSurface(backBuffer, NULL, screenbuffer, &rect);
@@ -3166,7 +3168,6 @@ void Graphics::render()
     }
     else
     {
-        SDL_Rect rect;
         setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
         //setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
         //SDL_BlitSurface(backBuffer, NULL, screenbuffer, &rect);
@@ -3233,7 +3234,7 @@ void Graphics::drawtele(int x, int y, int t, int c, UtilityClass& help)
     setcolreal(getRGB(16, 16, 16));
 
     SDL_Rect telerect;
-    setRect(telerect, x + 53 + camoff, y, tele_rect.w, tele_rect.h);
+    setRect(telerect, x + 53 + camxoff, y + camyoff, tele_rect.w, tele_rect.h);
     BlitSurfaceColoured(tele[0], NULL, backBuffer, &telerect, ct);
 
     setcol(c, help);
@@ -3287,7 +3288,7 @@ void Graphics::drawforetile(int x, int y, int t)
 {
     //frontbuffer.copyPixels(tiles[t], tiles_rect, tpoint);
     SDL_Rect rect;
-    setRect(rect, x + mapoff, y, tiles_rect.w, tiles_rect.h);
+    setRect(rect, x + mapoff, y + camyoff, tiles_rect.w, tiles_rect.h);
     BlitSurfaceStandard(tiles[t], NULL, foregroundBuffer, &rect);
 }
 
@@ -3295,14 +3296,14 @@ void Graphics::drawforetile2(int x, int y, int t)
 {
     //frontbuffer.copyPixels(tiles2[t], tiles_rect, tpoint);
     SDL_Rect rect;
-    setRect(rect, x + mapoff, y, tiles_rect.w, tiles_rect.h);
+    setRect(rect, x + mapoff, y + camyoff, tiles_rect.w, tiles_rect.h);
     BlitSurfaceStandard(tiles2[t], NULL, foregroundBuffer, &rect);
 }
 
 void Graphics::drawforetile3(int x, int y, int t, int off)
 {
     SDL_Rect rect;
-    setRect(rect, x + mapoff, y, tiles_rect.w, tiles_rect.h);
+    setRect(rect, x + mapoff, y + camyoff, tiles_rect.w, tiles_rect.h);
     BlitSurfaceStandard(tiles3[t + (off * 30)], NULL, foregroundBuffer, &rect);
     //frontbuffer.copyPixels(tiles3[t+(off*30)], tiles_rect, tpoint);
 }

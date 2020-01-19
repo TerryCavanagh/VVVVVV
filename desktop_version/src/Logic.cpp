@@ -1148,11 +1148,15 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music,
             if (game.door_down > -2 && obj.entities[player].yp >= 238)
             {
                 obj.entities[player].yp -= 240;
+                dwgfx.camyoff += 240;
+                dwgfx.yBuffer = SDL_DuplicateSurface(dwgfx.foregroundBuffer);
                 map.gotoroom(game.roomx, game.roomy + 1, dwgfx, game, obj, music);
             }
             if (game.door_up > -2 && obj.entities[player].yp < -2)
             {
                 obj.entities[player].yp += 240;
+                dwgfx.camyoff -= 240;
+                dwgfx.yBuffer = SDL_DuplicateSurface(dwgfx.foregroundBuffer);
                 map.gotoroom(game.roomx, game.roomy - 1, dwgfx, game, obj, music);
             }
         }
@@ -1200,13 +1204,15 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music,
             if (game.door_left > -2 && obj.entities[player].xp < -14)
             {
                 obj.entities[player].xp += 320;
-                dwgfx.camoff -= 320;
+                dwgfx.camxoff -= 320;
+                dwgfx.xBuffer = SDL_DuplicateSurface(dwgfx.foregroundBuffer);
                 map.gotoroom(game.roomx - 1, game.roomy, dwgfx, game, obj, music);
             }
             if (game.door_right > -2 && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
-                dwgfx.camoff += 320;
+                dwgfx.camxoff += 320;
+                dwgfx.xBuffer = SDL_DuplicateSurface(dwgfx.foregroundBuffer);
                 map.gotoroom(game.roomx + 1, game.roomy, dwgfx, game, obj, music);
             }
         }
@@ -1217,23 +1223,29 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music,
             if (game.door_down > -2 && obj.entities[player].yp >= 238)
             {
                 obj.entities[player].yp -= 240;
+                dwgfx.camyoff += 240;
+                dwgfx.yBuffer = SDL_DuplicateSurface(dwgfx.foregroundBuffer);
                 map.gotoroom(game.roomx, game.roomy + 1, dwgfx, game, obj, music);
             }
             if (game.door_up > -2 && obj.entities[player].yp < -2)
             {
                 obj.entities[player].yp += 240;
+                dwgfx.camyoff -= 240;
+                dwgfx.yBuffer = SDL_DuplicateSurface(dwgfx.foregroundBuffer);
                 map.gotoroom(game.roomx, game.roomy - 1, dwgfx, game, obj, music);
             }
             if (game.door_left > -2 && obj.entities[player].xp < -14)
             {
                 obj.entities[player].xp += 320;
-                dwgfx.camoff -= 320;
+                dwgfx.camxoff -= 320;
+                dwgfx.xBuffer = SDL_DuplicateSurface(dwgfx.foregroundBuffer);
                 map.gotoroom(game.roomx - 1, game.roomy, dwgfx, game, obj, music);
             }
             if (game.door_right > -2 && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
-                dwgfx.camoff += 320;
+                dwgfx.camxoff += 320;
+                dwgfx.xBuffer = SDL_DuplicateSurface(dwgfx.foregroundBuffer);
                 map.gotoroom(game.roomx + 1, game.roomy, dwgfx, game, obj, music);
             }
         }
