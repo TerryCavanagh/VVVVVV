@@ -71,6 +71,8 @@ public:
 	bool pressedbackspace;
 	std::string keybuffer;
 
+	bool linealreadyemptykludge;
+
 private:
 	std::map<SDL_JoystickID, SDL_GameController*> controllers;
 	std::map<SDL_GameControllerButton, bool> buttonmap;
