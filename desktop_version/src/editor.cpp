@@ -3834,7 +3834,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             if(key.keymap[SDLK_DOWN] && ed.keydelay<=0)
             {
                 ed.keydelay=6;
-                if(ed.sby+ed.pagey<ed.sblength)
+                if(ed.sby+ed.pagey<ed.sblength-1)
                 {
                     ed.sby++;
                     if(ed.sby>=20)
