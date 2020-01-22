@@ -265,34 +265,7 @@ int main(int argc, char *argv[])
         }
         game.customleveltitle=ed.ListOfMetaData[game.playcustomlevel].title;
         game.customlevelfilename=ed.ListOfMetaData[game.playcustomlevel].filename;
-        std::string name = game.saveFilePath + ed.ListOfMetaData[game.playcustomlevel].filename.substr(7) + ".vvv";
-        TiXmlDocument doc(name.c_str());
-        game.mainmenu = 22;
-        std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-        ed.load(filename);
-        ed.findstartpoint();
-        game.gamestate = GAMEMODE;
-        script.hardreset();
-        game.customstart();
-        game.jumpheld = true;
-        map.custommodeforreal = true;
-        map.custommode = true;
-        map.customx = 100;
-        map.customy = 100;
-        if(obj.entities.empty()) {
-            obj.createentity(game.savex, game.savey, 0, 0);
-        } else {
-            map.resetplayer();
-        }
-        map.gotoroom(game.saverx, game.savery);
-        ed.generatecustomminimap();
-        map.customshowmm=true;
-        if(ed.levmusic>0){
-            music.play(ed.levmusic);
-        } else {
-            music.currentsong=-1;
-        }
-
+        script.startgamemode(22);
     }
 
     volatile Uint32 time, timePrev = 0;
