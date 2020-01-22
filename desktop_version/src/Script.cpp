@@ -3501,6 +3501,7 @@ void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass&
 	dwgfx.textboxremovefast();
 	dwgfx.flipmode = false; //This will be reset if needs be elsewhere
 	dwgfx.showcutscenebars = false;
+	dwgfx.cutscenebarspos = 0;
 
   //mapclass
 	map.warpx = false;
