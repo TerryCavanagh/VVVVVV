@@ -100,6 +100,11 @@ public:
 	void drawimage(int t, int xp, int yp, bool cent=false);
 
 	void _drawimagecol(int t, int xp, int yp, int r, int g, int b, bool cent= false);
+	template<class A, class B, class C>
+	void drawimagecol(A t, B xp, C yp)
+	{
+		_drawimagecol(t, xp, yp, 0, 0, 0, false);
+	}
 	template <class A, class B, class C, class D, class E, class F>
 	void drawimagecol(A t, B xp, C yp, D r, E g, F b, bool cent = false)
 	{
