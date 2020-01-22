@@ -130,7 +130,7 @@ void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem, size_t *
 	{
 		return;
 	}
-	PHYSFS_uint32 length = PHYSFS_fileLength(handle);
+	PHYSFS_uint32 length = static_cast<PHYSFS_uint32>(PHYSFS_fileLength(handle));
 	if (len != NULL)
 	{
 		*len = length;

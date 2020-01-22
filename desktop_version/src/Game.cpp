@@ -4336,7 +4336,7 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
 
         if (pKey == "fullscreen")
         {
-            fullscreen = atoi(pText);
+            fullscreen = atoi(pText) != 0;
         }
 
 	if (pKey == "stretch")
@@ -4346,7 +4346,7 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
 
 	if (pKey == "useLinearFilter")
 	{
-		useLinearFilter = atoi(pText);
+		useLinearFilter = atoi(pText) != 0;
 	}
 
 	if (pKey == "window_width")
@@ -4361,22 +4361,22 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
 
         if (pKey == "noflashingmode")
         {
-            noflashingmode = atoi(pText);
+            noflashingmode = atoi(pText) != 0;
         }
 
         if (pKey == "colourblindmode")
         {
-            colourblindmode = atoi(pText);
+            colourblindmode = atoi(pText) != 0;
         }
 
         if (pKey == "setflipmode")
         {
-            dwgfx.setflipmode = atoi(pText);
+            dwgfx.setflipmode = atoi(pText) != 0;
         }
 
         if (pKey == "invincibility")
         {
-            map.invincibility = atoi(pText);
+            map.invincibility = atoi(pText) != 0;
         }
 
         if (pKey == "slowdown")
@@ -4415,12 +4415,12 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
 
         if (pKey == "advanced_mode")
         {
-            advanced_mode = atoi(pText);
+            advanced_mode = atoi(pText) != 0;
         }
 
         if (pKey == "advanced_smoothing")
         {
-            fullScreenEffect_badSignal = atoi(pText);
+            fullScreenEffect_badSignal = atoi(pText) != 0;
             dwgfx.screenbuffer->badSignalEffect = fullScreenEffect_badSignal;
         }
 
@@ -4435,12 +4435,12 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
 
         if (pKey == "skipfakeload")
         {
-            skipfakeload = atoi(pText);
+            skipfakeload = atoi(pText) != 0;
         }
 
         if (pKey == "notextoutline")
         {
-            dwgfx.notextoutline = atoi(pText);
+            dwgfx.notextoutline = atoi(pText) != 0;
         }
 
 		if (pKey == "flipButton")
@@ -4973,7 +4973,7 @@ void Game::loadquick( mapclass& map, entityclass& obj, musicclass& music )
                 crewstats.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    crewstats.push_back(atoi(values[i].c_str()));
+                    crewstats.push_back(atoi(values[i].c_str()) != 0);
                 }
             }
         }
@@ -4994,11 +4994,11 @@ void Game::loadquick( mapclass& map, entityclass& obj, musicclass& music )
 
         if (pKey == "finalmode")
         {
-            map.finalmode = atoi(pText);
+            map.finalmode = atoi(pText) != 0;
         }
         if (pKey == "finalstretch")
         {
-            map.finalstretch = atoi(pText);
+            map.finalstretch = atoi(pText) != 0;
         }
 
         if (pKey == "finalx")
@@ -5055,7 +5055,7 @@ void Game::loadquick( mapclass& map, entityclass& obj, musicclass& music )
         }
         else if (pKey == "supercrewmate")
         {
-            supercrewmate = atoi(pText);
+            supercrewmate = atoi(pText) != 0;
         }
         else if (pKey == "scmprogress")
         {
@@ -5063,7 +5063,7 @@ void Game::loadquick( mapclass& map, entityclass& obj, musicclass& music )
         }
         else if (pKey == "scmmoveme")
         {
-            scmmoveme = atoi(pText);
+            scmmoveme = atoi(pText) != 0;
         }
         else if (pKey == "frames")
         {
@@ -5092,7 +5092,7 @@ void Game::loadquick( mapclass& map, entityclass& obj, musicclass& music )
         }
         else if (pKey == "hardestroom")
         {
-            hardestroom = atoi(pText);
+            hardestroom = atoi(pText); // Does this need to be hardestroom = pText?  Copy/Paste error suspected due to warning emitted.
         }
         else if (pKey == "hardestroomdeaths")
         {
@@ -5208,7 +5208,7 @@ void Game::customloadquick(std::string savfile, mapclass& map, entityclass& obj,
                 crewstats.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    crewstats.push_back(atoi(values[i].c_str()));
+                    crewstats.push_back(atoi(values[i].c_str()) != 0);
                 }
             }
         }
@@ -5243,11 +5243,11 @@ void Game::customloadquick(std::string savfile, mapclass& map, entityclass& obj,
 
         if (pKey == "finalmode")
         {
-            map.finalmode = atoi(pText);
+            map.finalmode = atoi(pText) != 0;
         }
         if (pKey == "finalstretch")
         {
-            map.finalstretch = atoi(pText);
+            map.finalstretch = atoi(pText) != 0;
         }
 
         if (map.finalmode)
@@ -5323,7 +5323,7 @@ void Game::customloadquick(std::string savfile, mapclass& map, entityclass& obj,
         }
         else if (pKey == "supercrewmate")
         {
-            supercrewmate = atoi(pText);
+            supercrewmate = atoi(pText) != 0;
         }
         else if (pKey == "scmprogress")
         {
@@ -5331,7 +5331,7 @@ void Game::customloadquick(std::string savfile, mapclass& map, entityclass& obj,
         }
         else if (pKey == "scmmoveme")
         {
-            scmmoveme = atoi(pText);
+            scmmoveme = atoi(pText) != 0;
         }
         else if (pKey == "frames")
         {
@@ -5360,7 +5360,7 @@ void Game::customloadquick(std::string savfile, mapclass& map, entityclass& obj,
         }
         else if (pKey == "hardestroom")
         {
-            hardestroom = atoi(pText);
+            hardestroom = atoi(pText); // Does this want to be hardestroom=pText?  Suspect copy/paste error due to warning.
         }
         else if (pKey == "hardestroomdeaths")
         {
@@ -5372,7 +5372,7 @@ void Game::customloadquick(std::string savfile, mapclass& map, entityclass& obj,
         }
         else if (pKey == "showminimap")
         {
-            map.customshowmm = atoi(pText);
+            map.customshowmm = atoi(pText) != 0;
         }
 
     }
@@ -5478,11 +5478,11 @@ void Game::loadsummary( mapclass& map, UtilityClass& help )
             }
             else if (pKey == "finalmode")
             {
-                map.finalmode = atoi(pText);
+                map.finalmode = atoi(pText) != 0;
             }
             else if (pKey == "finalstretch")
             {
-                map.finalstretch = atoi(pText);
+                map.finalstretch = atoi(pText) != 0;
             }
 
             if (pKey == "crewstats")
@@ -5494,7 +5494,7 @@ void Game::loadsummary( mapclass& map, UtilityClass& help )
                     tele_crewstats.clear();
                     for(size_t i = 0; i < values.size(); i++)
                     {
-                        tele_crewstats.push_back(atoi(values[i].c_str()));
+                        tele_crewstats.push_back(atoi(values[i].c_str()) != 0);
                     }
                 }
             }
@@ -5569,11 +5569,11 @@ void Game::loadsummary( mapclass& map, UtilityClass& help )
             }
             else if (pKey == "finalmode")
             {
-                map.finalmode = atoi(pText);
+                map.finalmode = atoi(pText) != 0;
             }
             else if (pKey == "finalstretch")
             {
-                map.finalstretch = atoi(pText);
+                map.finalstretch = atoi(pText) != 0;
             }
 
             if (pKey == "crewstats")
@@ -5585,7 +5585,7 @@ void Game::loadsummary( mapclass& map, UtilityClass& help )
                     quick_crewstats.clear();
                     for(size_t i = 0; i < values.size(); i++)
                     {
-                        quick_crewstats.push_back(atoi(values[i].c_str()));
+                        quick_crewstats.push_back(atoi(values[i].c_str()) != 0);
                     }
                 }
             }
@@ -6435,7 +6435,7 @@ void Game::loadtele( mapclass& map, entityclass& obj, musicclass& music )
                 crewstats.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    crewstats.push_back(atoi(values[i].c_str()));
+                    crewstats.push_back(atoi(values[i].c_str()) != 0);
                 }
             }
         }
@@ -6456,11 +6456,11 @@ void Game::loadtele( mapclass& map, entityclass& obj, musicclass& music )
 
         if (pKey == "finalmode")
         {
-            map.finalmode = atoi(pText);
+            map.finalmode = atoi(pText) != 0;
         }
         if (pKey == "finalstretch")
         {
-            map.finalstretch = atoi(pText);
+            map.finalstretch = atoi(pText) != 0;
         }
 
         if (map.finalmode)
@@ -6532,7 +6532,7 @@ void Game::loadtele( mapclass& map, entityclass& obj, musicclass& music )
         }
         else if (pKey == "supercrewmate")
         {
-            supercrewmate = atoi(pText);
+            supercrewmate = atoi(pText) != 0;
         }
         else if (pKey == "scmprogress")
         {
@@ -6540,7 +6540,7 @@ void Game::loadtele( mapclass& map, entityclass& obj, musicclass& music )
         }
         else if (pKey == "scmmoveme")
         {
-            scmmoveme = atoi(pText);
+            scmmoveme = atoi(pText) != 0;
         }
         else if (pKey == "frames")
         {
@@ -7411,11 +7411,11 @@ void Game::createmenu( std::string t )
         menuoptions[0] = "time trials";
         menuoptionsactive[0] = true;
         menuoptions[1] = "intermissions";
-        menuoptionsactive[1] = unlock[16];
+        menuoptionsactive[1] = unlock[16] != 0;
         menuoptions[2] = "no death mode";
-        menuoptionsactive[2] = unlock[17];
+        menuoptionsactive[2] = unlock[17] != 0;
         menuoptions[3] = "flip mode";
-        menuoptionsactive[3] = unlock[18];
+        menuoptionsactive[3] = unlock[18] != 0;
         menuoptions[4] = "return to play menu";
         menuoptionsactive[4] = true;
         nummenuoptions = 5;
