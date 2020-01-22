@@ -2795,6 +2795,7 @@ void towerrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, U
     }
       }*/
     dwgfx.cutscenebars();
+    BlitSurfaceStandard(dwgfx.backBuffer, NULL, dwgfx.tempBuffer, NULL);
 
     dwgfx.drawgui(help);
     if (dwgfx.flipmode)
