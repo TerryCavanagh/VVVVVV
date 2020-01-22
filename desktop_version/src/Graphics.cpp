@@ -2342,7 +2342,7 @@ void Graphics::drawmap( mapclass& map )
     ///TODO forground once;
     if (!foregrounddrawn)
     {
-        FillRect(foregroundBuffer, 0xDEADBEEF);
+        FillRect(foregroundBuffer, 0x00000000);
         if(map.tileset==0)
         {
             for (j = 0; j < 29+map.extrarow; j++)
@@ -2375,7 +2375,7 @@ void Graphics::drawmap( mapclass& map )
         }
         foregrounddrawn = true;
     }
-    OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0xDEADBEEF);
+    OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0x00000000);
     //SDL_BlitSurface(foregroundBuffer, NULL, backBuffer, NULL);
 
 }
@@ -2398,7 +2398,7 @@ void Graphics::drawfinalmap(mapclass & map)
 	}
 
 	if (!foregrounddrawn) {
-		FillRect(foregroundBuffer, 0xDEADBEEF);
+		FillRect(foregroundBuffer, 0x00000000);
 		if(map.tileset==0){
 			for (int j = 0; j < 29+map.extrarow; j++) {
 				for (int i = 0; i < 40; i++) {
@@ -2417,7 +2417,7 @@ void Graphics::drawfinalmap(mapclass & map)
 		foregrounddrawn=true;
 	}
 
-	OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0xDEADBEEF);
+	OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0x00000000);
 }
 
 void Graphics::drawtowermap( mapclass& map )
