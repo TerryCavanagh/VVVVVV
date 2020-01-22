@@ -45,19 +45,19 @@ public:
 
     void fatal_top()
     {
-        createblock(DAMAGE, -8, -8, 384, 16);
+        createblock(static_cast<int>(DAMAGE), -8, -8, 384, 16);
     }
     void fatal_bottom()
     {
-        createblock(DAMAGE, -8, 224, 384, 16);
+        createblock(static_cast<int>(DAMAGE), -8, 224, 384, 16);
     }
     void fatal_left()
     {
-        createblock(DAMAGE, -8, -8, 16, 260);
+        createblock(static_cast<int>(DAMAGE), -8, -8, 16, 260);
     }
     void fatal_right()
     {
-        createblock(DAMAGE, 312, -8, 16, 260);
+        createblock(static_cast<int>(DAMAGE), 312, -8, 16, 260);
     }
 
     void setblockcolour(int t, std::string col);
