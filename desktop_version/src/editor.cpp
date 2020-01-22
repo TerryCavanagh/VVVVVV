@@ -1595,7 +1595,7 @@ void editorclass::findstartpoint(Game& game)
         game.edsavery = 100;
         game.edsavegc = 0;
         game.edsavey--;
-        game.edsavedir=1-edentity[testeditor].p1;
+        game.edsavedir=1;
     }
     else
     {
