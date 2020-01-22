@@ -3,7 +3,7 @@
 
 
 
-void setRect( SDL_Rect& _r, int x, int y, int w, int h )
+void _setRect( SDL_Rect& _r, int x, int y, int w, int h )
 {
     _r.x = x;
     _r.y = y;
@@ -171,7 +171,7 @@ SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Su
     return _ret;
 }
 
-SDL_Surface * ScaleSurfaceSlow( SDL_Surface *_surface, int Width, int Height)
+SDL_Surface * _ScaleSurfaceSlow( SDL_Surface *_surface, int Width, int Height)
 {
 	if(!_surface || !Width || !Height)
 		return 0;
@@ -387,7 +387,7 @@ void FillRect( SDL_Surface* _surface, const int _x, const int _y, const int _w, 
 {
     SDL_Rect rect = {Sint16(_x),Sint16(_y),Sint16(_w),Sint16(_h)};
     Uint32 color;
-    color = SDL_MapRGB(_surface->format, r, g, b);
+    color = SDL_MapRGB(_surface->format, static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b));
     SDL_FillRect(_surface, &rect, color);
 }
 
@@ -395,7 +395,7 @@ void FillRect( SDL_Surface* _surface, const int r, int g, int b )
 {
     SDL_Rect rect = {0,0,Uint16(_surface->w) ,Uint16(_surface->h) };
     Uint32 color;
-    color = SDL_MapRGB(_surface->format, r, g, b);
+    color = SDL_MapRGB(_surface->format, static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b));
     SDL_FillRect(_surface, &rect, color);
 }
 
@@ -411,10 +411,10 @@ void FillRect( SDL_Surface* _surface, const int x, const int y, const int w, con
     SDL_FillRect(_surface, &rect, rgba);
 }
 
-void FillRect( SDL_Surface* _surface, SDL_Rect& _rect, const int r, int g, int b )
+void _FillRect( SDL_Surface* _surface, SDL_Rect& _rect, const int r, int g, int b )
 {
     Uint32 color;
-    color = SDL_MapRGB(_surface->format, r, g, b);
+    color = SDL_MapRGB(_surface->format, static_cast<int>(r), static_cast<int>(g), static_cast<int>(b));
     SDL_FillRect(_surface, &_rect, color);
 }
 
@@ -423,7 +423,7 @@ void FillRect( SDL_Surface* _surface, SDL_Rect rect, int rgba )
     SDL_FillRect(_surface, &rect, rgba);
 }
 
-bool intersectRect( float left1, float right1, float bottom1, float top1, float left2, float right2, float bottom2, float top2 )
+bool _intersectRect( float left1, float right1, float bottom1, float top1, float left2, float right2, float bottom2, float top2 )
 {
     return !( left2 > right1 || right2 < left1	|| top2 < bottom1 || bottom2 > top1);
 }

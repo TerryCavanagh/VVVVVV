@@ -707,7 +707,6 @@ int editorclass::getenemycol(int t)
         return 6;
         break;
     }
-    return 0;
 }
 
 int editorclass::getwarpbackground(int rx, int ry)
@@ -985,7 +984,6 @@ int editorclass::getenemyframe(int t)
         return 78;
         break;
     }
-    return 78;
 }
 
 
@@ -1430,7 +1428,6 @@ int editorclass::edgetile( int x, int y )
         return 0;
         break;
     }
-    return 0;
 }
 
 int editorclass::warpzoneedgetile( int x, int y )
@@ -1481,7 +1478,6 @@ int editorclass::warpzoneedgetile( int x, int y )
         return 0;
         break;
     }
-    return 0;
 }
 
 int editorclass::outsideedgetile( int x, int y )
@@ -1499,7 +1495,6 @@ int editorclass::outsideedgetile( int x, int y )
         return 2;
         break;
     }
-    return 2;
 }
 
 
@@ -1551,7 +1546,6 @@ int editorclass::backedgetile( int x, int y )
         return 0;
         break;
     }
-    return 0;
 }
 
 int editorclass::labspikedir( int x, int y, int t )
@@ -3348,10 +3342,10 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 FillRect(dwgfx.backBuffer, tx+6,ty+2,4,12,dwgfx.getRGB(255,255,255));
                 //15:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,186,75, 75, 255- help.glow/4 - (fRandom()*20));
+                dwgfx.drawsprite(tx,ty,186,75, 75, static_cast<int>(255- help.glow/4 - (fRandom()*20)));
                 //16:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,184,160- help.glow/2 - (fRandom()*20), 200- help.glow/2, 220 - help.glow);
+                dwgfx.drawsprite(tx,ty,184,static_cast<int>(160- help.glow/2 - (fRandom()*20)), static_cast<int>(200- help.glow/2), 220 - help.glow);
 
                 if(ed.drawmode==10)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"R",255,255,255,false);
                 if(ed.drawmode==11)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"T",255,255,255,false);
@@ -3599,7 +3593,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     //dwgfx.backbuffer.unlock();
 }
 
-void editorlogic( KeyPoll& key, Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music, mapclass& map, UtilityClass& help )
+void editorlogic( KeyPoll& /*key*/, Graphics& dwgfx, Game& game, entityclass& /*obj*/, musicclass& music, mapclass& map, UtilityClass& help )
 {
     //Misc
     help.updateglow();
@@ -3639,8 +3633,8 @@ void editorlogic( KeyPoll& key, Graphics& dwgfx, Game& game, entityclass& obj, m
 void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music )
 {
     //TODO Mouse Input!
-    game.mx = (float) key.mx;
-    game.my = (float) key.my;
+    game.mx = (int) key.mx;
+    game.my = (int) key.my;
     ed.tilex=(game.mx - (game.mx%8))/8;
     ed.tiley=(game.my - (game.my%8))/8;
     if (game.stretchMode == 1) {

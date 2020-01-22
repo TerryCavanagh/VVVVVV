@@ -20,7 +20,12 @@ class mapclass
 public:
     mapclass();
 
-    int RGB(int red,int green,int blue);
+    int _RGB(int red,int green,int blue);
+    template<class R, class G, class B>
+    int RGB(R red, G green, B blue)
+    {
+        return _RGB(static_cast<int>(red), static_cast<int>(green), static_cast<int>(blue));
+    }
 
     int intpol(int a, int b, float c);
 

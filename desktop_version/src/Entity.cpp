@@ -227,7 +227,7 @@ void entityclass::gravcreate( Game& game, int ypos, int dir, int xoff /*= 0*/, i
     }
 }
 
-void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
+void entityclass::generateswnwave( Game& game, UtilityClass& /*help*/, int t )
 {
     //generate a wave for the SWN game
     if(game.swndelay<=0)
@@ -860,7 +860,7 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
     }
 }
 
-void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/ )
+void entityclass::_createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/ )
 {
     if(nblocks == 0)
     {
@@ -1774,7 +1774,7 @@ void entityclass::settreadmillcolour( int t, int rx, int ry )
     }
 }
 
-void entityclass::createentity( Game& game, float xp, float yp, int t, float vx /*= 0*/, float vy /*= 0*/, int p1 /*= 0*/, int p2 /*= 0*/, int p3 /*= 320*/, int p4 /*= 240 */ )
+void entityclass::_createentity( Game& game, float xp, float yp, int t, float vx /*= 0*/, float vy /*= 0*/, int p1 /*= 0*/, int p2 /*= 0*/, int p3 /*= 320*/, int p4 /*= 240 */ )
 {
     //Find the first inactive case z that we can use to index the new entity
     if (nentity == 0)
@@ -4941,7 +4941,7 @@ bool entityclass::entitycollideroof( mapclass& map, int t )
     return false;
 }
 
-bool entityclass::testwallsx( int t, mapclass& map, int tx, int ty )
+bool entityclass::_testwallsx( int t, mapclass& map, int tx, int ty )
 {
     tempx = tx + entities[t].cx;
     tempy = ty + entities[t].cy;
@@ -4987,7 +4987,7 @@ bool entityclass::testwallsx( int t, mapclass& map, int tx, int ty )
     return true;
 }
 
-bool entityclass::testwallsy( int t, mapclass& map, float tx, float ty )
+bool entityclass::_testwallsy( int t, mapclass& map, float tx, float ty )
 {
     tempx = static_cast<int>(tx) + entities[t].cx;
     tempy = static_cast<int>(ty) + entities[t].cy;

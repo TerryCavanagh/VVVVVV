@@ -124,7 +124,7 @@ mapclass::mapclass()
 	fillareamap(tmap);
 }
 
-int mapclass::RGB(int red,int green,int blue)
+int mapclass::_RGB(int red,int green,int blue)
 {
 	return (blue | (green << 8) | (red << 16));
 }
@@ -565,9 +565,9 @@ void mapclass::changefinalcol(int t, entityclass& obj, Game& game)
 
 void mapclass::setcol(const int r1, const int g1, const int b1 , const int r2, const int g2, const int b2, const int c)
 {
-	r = intpol(r1, r2, c / 5);
-	g = intpol(g1, g2, c / 5);
-	b = intpol(b1, b2, c / 5);
+	r = intpol(r1, r2, static_cast<float>(c / 5));
+	g = intpol(g1, g2, static_cast<float>(c / 5));
+	b = intpol(b1, b2, static_cast<float>(c / 5));
 }
 
 void mapclass::updatetowerglow()

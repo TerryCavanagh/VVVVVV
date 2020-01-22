@@ -713,7 +713,7 @@ void Graphics::drawgui( UtilityClass& help )
     }
 }
 
-void Graphics::drawimagecol( int t, int xp, int yp, int r = 0, int g = 0, int b = 0, bool cent/*= false*/ )
+void Graphics::_drawimagecol( int t, int xp, int yp, int r = 0, int g = 0, int b = 0, bool cent/*= false*/ )
 {
     SDL_Rect trect;
 	if(r+g+b != 0)
@@ -935,7 +935,7 @@ void Graphics::drawcustompixeltextbox( int x, int y, int w, int h, int w2, int h
     drawcoloredtile(x + (w) - 8, y + (h) - 8, 47, r, g, b);
 }
 
-void Graphics::drawtextbox( int x, int y, int w, int h, int r, int g, int b )
+void Graphics::_drawtextbox( int x, int y, int w, int h, int r, int g, int b )
 {
     //given these parameters, draw a textbox
     //madrect.x = x; madrect.y = y; madrect.w = w*8; madrect.h = h*8;
@@ -2427,7 +2427,7 @@ void Graphics::drawtowermap( mapclass& map )
     {
         for (int i = 0; i < 40; i++)
         {
-            temp = map.tower.at(i, j, map.ypos);
+            temp = map.tower.at(i, j, static_cast<int>(map.ypos));
             if (temp > 0) drawtile3(i * 8, (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
         }
     }
@@ -2440,7 +2440,7 @@ void Graphics::drawtowermap_nobackground( mapclass& map )
     {
         for (int i = 0; i < 40; i++)
         {
-            temp = map.tower.at(i, j, map.ypos);
+            temp = map.tower.at(i, j, static_cast<int>(map.ypos));
             if (temp > 0 && temp<28) drawtile3(i * 8, (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
         }
     }
@@ -2536,7 +2536,7 @@ void Graphics::drawtowerentities( mapclass& map, entityclass& obj, UtilityClass&
             }
             else if (obj.entities[i].size == 4)    // Small pickups
             {
-                drawhuetile(obj.entities[i].xp, obj.entities[i].yp-map.ypos, obj.entities[i].tile, obj.entities[i].colour);
+                drawhuetile(obj.entities[i].xp, static_cast<int>(obj.entities[i].yp-map.ypos), obj.entities[i].tile, obj.entities[i].colour);
             }
             else if (obj.entities[i].size == 5)    //Horizontal Line
             {
@@ -3135,12 +3135,12 @@ void Graphics::drawtele(int x, int y, int t, int c, UtilityClass& help)
 	BlitSurfaceColoured(tele[t], NULL, backBuffer, &telerect, ct);
 }
 
-Uint32 Graphics::getRGB(Uint8 r, Uint8 g, Uint8 b)
+Uint32 Graphics::_getRGB(Uint8 r, Uint8 g, Uint8 b)
 {
 	return SDL_MapRGB(backBuffer->format, b, g, r);
 }
 
-Uint32 Graphics::getBGR(Uint8 r, Uint8 g, Uint8 b)
+Uint32 Graphics::_getBGR(Uint8 r, Uint8 g, Uint8 b)
 {
 	return SDL_MapRGB(backBuffer->format, r, g, b);
 }
@@ -3150,17 +3150,17 @@ Uint32 Graphics::getRGB(Uint32 _col)
 	return ( _col);
 }
 
-Uint32 Graphics::RGBflip(Uint8  r, Uint8  g, Uint8  b)
+Uint32 Graphics::_RGBflip(Uint8  r, Uint8  g, Uint8  b)
 {
 	return SDL_MapRGB(backBuffer->format, r, g, b);
 }
 
-Uint32 Graphics::RGBf(int r, int g, int b)
+Uint32 Graphics::_RGBf(int r, int g, int b)
 {
 	r = (r+128) / 3;
 	g = (g+128) / 3;
 	b = (b+128) / 3;
-	return SDL_MapRGB(backBuffer->format, r, g, b);
+	return SDL_MapRGB(backBuffer->format, static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b));
 }
 
 void Graphics::setcolreal(Uint32 t)

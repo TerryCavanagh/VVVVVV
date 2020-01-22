@@ -79,7 +79,12 @@ public:
 
 	void textboxactive();
 
-	void drawtextbox(int x, int y, int w, int h, int r, int g, int b);
+	void _drawtextbox(int x, int y, int w, int h, int r, int g, int b);
+	template<class A, class B, class C, class D, class E, class F, class G>
+	void drawtextbox(A x, B y, C w, D h, E r, F g, G b)
+	{
+		_drawtextbox(static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h), static_cast<int>(r), static_cast<int>(g), static_cast<int>(b));
+	}
 
 	void drawpixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo);
 	void drawcustompixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo);
@@ -94,7 +99,12 @@ public:
 
 	void drawimage(int t, int xp, int yp, bool cent=false);
 
-	void drawimagecol(int t, int xp, int yp, int r, int g, int b, bool cent= false);
+	void _drawimagecol(int t, int xp, int yp, int r, int g, int b, bool cent= false);
+	template <class A, class B, class C, class D, class E, class F>
+	void drawimagecol(A t, B xp, C yp, D r, E g, F b, bool cent = false)
+	{
+		_drawimagecol(static_cast<int>(t), static_cast<int>(xp), static_cast<int>(yp), static_cast<int>(r), static_cast<int>(g), static_cast<int>(b), cent);
+	}
 
 	void drawgui(UtilityClass& help);
 
@@ -135,16 +145,40 @@ public:
 
 	void drawtele(int x, int y, int t, int c, UtilityClass& help);
 
-	Uint32 getRGB(Uint8 r, Uint8 g, Uint8 b);
-
-	Uint32 getBGR(Uint8 r, Uint8 g, Uint8 b);
+	Uint32 _getRGB(Uint8 r, Uint8 g, Uint8 b);
+	/* rather than making hundreds of casts through the code, instead make these functions templates
+	 * which will accept aything which the compiler can static_cast to a Uint8
+	 * Compiler should error if non-castable parameter is given.
+	 */
+	template <class R, class G, class B>
+	Uint32 getRGB(R r, G g, B b)
+	{
+		return _getRGB(static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b));
+	}
+	Uint32 _getBGR(Uint8 r, Uint8 g, Uint8 b);
+	template <class R, class G, class B>
+	Uint32 getBGR(R r, G g, B b)
+	{
+		return _getBGR(static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b));
+	}
+	Uint32 _RGBflip(Uint8  r, Uint8  g, Uint8  b);
+	template <class R, class G, class B>
+	Uint32 RGBflip(R  r, G  g, B  b)
+	{
+		return _RGBflip(static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b));
+	}
 
 	Uint32 getRGB(Uint32 _col);
 
 	Uint32 RGBflip(Uint8  r, Uint8  g, Uint8  b);
 
 
-	Uint32 RGBf(int r, int g, int b);
+	Uint32 _RGBf(int r, int g, int b);
+	template <class R, class G, class B>
+	Uint32 RGBf(R r, G g, B b)
+	{
+		return _RGBf(static_cast<int>(r), static_cast<int>(g), static_cast<int>(b));
+	}
 
 	void setcolreal(Uint32 t);
 
