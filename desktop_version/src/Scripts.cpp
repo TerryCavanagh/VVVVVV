@@ -74,7 +74,7 @@ void scriptclass::load(std::string t)
           words[0]="nothing"; //Default!
           words[1]="1"; //Default!
           tokenize(script.customscript[i]);
-          std::transform(words[0].begin(), words[0].end(), words[0].begin(), ::tolower);
+          std::transform(words[0].begin(), words[0].end(), words[0].begin(), [](char x)->char { return static_cast<char>(::tolower(x)); });
           if(words[0] == "music"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             if(words[1]=="0"){

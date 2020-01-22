@@ -66,7 +66,7 @@ public:
     int txtnumlines;
 
     //Misc
-    int i, j, k;
+    int /*i,*/ /*j,*/ k;
 
     //Custom level stuff
      std::vector <std::string>  customscript;

@@ -97,7 +97,7 @@ public:
 
     int temp;
     int temp2;
-    int j;
+    /*int j;*/
     int background;
     int rcol;
     int tileset;
@@ -118,7 +118,7 @@ public:
     int scrolldir;
 
     //This is the old colour cycle
-    int r, g,b;
+    int r,g,b;
     int check, cmode;
     int towercol;
     int colstate, colstatedelay;

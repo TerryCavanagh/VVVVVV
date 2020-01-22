@@ -2957,10 +2957,10 @@ void teleporterrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& o
         //Draw the chosen destination coordinate!
 		//TODO
         //draw the coordinates //destination
-        int tempx = map.teleporters[game.teleport_to_teleporter].x;
-        int tempy = map.teleporters[game.teleport_to_teleporter].y;
-        dwgfx.drawrect(40 + (tempx * 12) + 1, 21 + (tempy * 9) + 1, 12 - 2, 9 - 2, 245 - (help.glow * 2), 16, 16);
-        dwgfx.drawrect(40 + (tempx * 12) + 3, 21 + (tempy * 9) + 3, 12 - 6, 9 - 6, 245 - (help.glow * 2), 16, 16);
+        int _tempx = map.teleporters[game.teleport_to_teleporter].x;
+        int _tempy = map.teleporters[game.teleport_to_teleporter].y;
+        dwgfx.drawrect(40 + (_tempx * 12) + 1, 21 + (_tempy * 9) + 1, 12 - 2, 9 - 2, 245 - (help.glow * 2), 16, 16);
+        dwgfx.drawrect(40 + (_tempx * 12) + 3, 21 + (_tempy * 9) + 3, 12 - 6, 9 - 6, 245 - (help.glow * 2), 16, 16);
     }
 
     //draw legend details

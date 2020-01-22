@@ -159,7 +159,7 @@ class editorclass{
   int numcrewmates;
   edlevelclass level[400]; //Maxwidth*maxheight
 
-  int temp;
+  // int temp;
   int notedelay;
   std::string note;
   std::string keybuffer;

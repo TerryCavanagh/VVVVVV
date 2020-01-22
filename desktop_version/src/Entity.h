@@ -270,7 +270,7 @@ public:
 
     SDL_Rect temprect, temprect2;
 
-    int x, k;
+    int /*x,*/ k;
     float dx, dy, dr;
 
     int px, py, linetemp;

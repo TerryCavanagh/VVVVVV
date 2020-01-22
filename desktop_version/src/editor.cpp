@@ -160,57 +160,57 @@ bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
 
             for( TiXmlElement* subElem = pElem->FirstChildElement(); subElem; subElem= subElem->NextSiblingElement())
             {
-                std::string pKey(subElem->Value());
-                const char* pText = subElem->GetText() ;
-                if(pText == NULL)
+                std::string pKey2(subElem->Value());
+                const char* pText2 = subElem->GetText() ;
+                if(pText2 == NULL)
                 {
-                    pText = "";
+                    pText2 = "";
                 }
                 _data.filename = _path;
 
-                if(pKey == "Created")
+                if(pKey2 == "Created")
                 {
-                    _data.timeCreated = pText;
+                    _data.timeCreated = pText2;
                 }
 
-                if(pKey == "Creator")
+                if(pKey2 == "Creator")
                 {
-                    _data.creator = pText;
+                    _data.creator = pText2;
                 }
 
-                if(pKey == "Title")
+                if(pKey2 == "Title")
                 {
-                    _data.title = pText;
+                    _data.title = pText2;
                 }
 
-                if(pKey == "Modified")
+                if(pKey2 == "Modified")
                 {
-                    _data.timeModified = pText;
+                    _data.timeModified = pText2;
                 }
 
-                if(pKey == "Modifiers")
+                if(pKey2 == "Modifiers")
                 {
-                    _data.modifier = pText;
+                    _data.modifier = pText2;
                 }
 
-                if(pKey == "Desc1")
+                if(pKey2 == "Desc1")
                 {
-                    _data.Desc1 = pText;
+                    _data.Desc1 = pText2;
                 }
 
-                if(pKey == "Desc2")
+                if(pKey2 == "Desc2")
                 {
-                    _data.Desc2 = pText;
+                    _data.Desc2 = pText2;
                 }
 
-                if(pKey == "Desc3")
+                if(pKey2 == "Desc3")
                 {
-                    _data.Desc3 = pText;
+                    _data.Desc3 = pText2;
                 }
 
-                if(pKey == "website")
+                if(pKey2 == "website")
                 {
-                    _data.website = pText;
+                    _data.website = pText2;
                 }
             }
         }
@@ -1007,7 +1007,7 @@ void editorclass::placetilelocal( int x, int y, int t )
 int editorclass::base( int x, int y )
 {
     //Return the base tile for the given tileset and colour
-    temp=x+(y*maxwidth);
+    int temp=x+(y*maxwidth);
     if(level[temp].tileset==0)  //Space Station
     {
         if(level[temp].tilecol>=22)
@@ -1045,7 +1045,7 @@ int editorclass::base( int x, int y )
 int editorclass::backbase( int x, int y )
 {
     //Return the base tile for the background of the given tileset and colour
-    temp=x+(y*maxwidth);
+    int temp=x+(y*maxwidth);
     if(level[temp].tileset==0)  //Space Station
     {
         //Pick depending on tilecol
@@ -1755,41 +1755,41 @@ void editorclass::load(std::string& _path)
 
             for( TiXmlElement* subElem = pElem->FirstChildElement(); subElem; subElem= subElem->NextSiblingElement())
             {
-                std::string pKey(subElem->Value());
-                const char* pText = subElem->GetText() ;
-                if(pText == NULL)
+                std::string pKey2(subElem->Value());
+                const char* pText2 = subElem->GetText() ;
+                if(pText2 == NULL)
                 {
-                    pText = "";
+                    pText2 = "";
                 }
 
-                if(pKey == "Creator")
+                if(pKey2 == "Creator")
                 {
-                    EditorData::GetInstance().creator = pText;
+                    EditorData::GetInstance().creator = pText2;
                 }
 
-                if(pKey == "Title")
+                if(pKey2 == "Title")
                 {
-                    EditorData::GetInstance().title = pText;
+                    EditorData::GetInstance().title = pText2;
                 }
 
-                if(pKey == "Desc1")
+                if(pKey2 == "Desc1")
                 {
-                    Desc1 = pText;
+                    Desc1 = pText2;
                 }
 
-                if(pKey == "Desc2")
+                if(pKey2 == "Desc2")
                 {
-                    Desc2 = pText;
+                    Desc2 = pText2;
                 }
 
-                if(pKey == "Desc3")
+                if(pKey2 == "Desc3")
                 {
-                    Desc3 = pText;
+                    Desc3 = pText2;
                 }
 
-                if(pKey == "website")
+                if(pKey2 == "website")
                 {
-                    website = pText;
+                    website = pText2;
                 }
             }
         }
@@ -1858,7 +1858,7 @@ void editorclass::load(std::string& _path)
             int i = 0;
             for( TiXmlElement* edEntityEl = pElem->FirstChildElement(); edEntityEl; edEntityEl=edEntityEl->NextSiblingElement())
             {
-                std::string pKey(edEntityEl->Value());
+                std::string pKey2(edEntityEl->Value());
                 //const char* pText = edEntityEl->GetText() ;
                 if(edEntityEl->GetText() != NULL)
                 {
@@ -1887,7 +1887,7 @@ void editorclass::load(std::string& _path)
             int i = 0;
             for( TiXmlElement* edLevelClassElement = pElem->FirstChildElement(); edLevelClassElement; edLevelClassElement=edLevelClassElement->NextSiblingElement())
             {
-                std::string pKey(edLevelClassElement->Value());
+                std::string pKey2(edLevelClassElement->Value());
                 if(edLevelClassElement->GetText() != NULL)
                 {
                     level[i].roomname = std::string(edLevelClassElement->GetText()) ;
@@ -2201,7 +2201,7 @@ void fillboxabs( Graphics& dwgfx, int x, int y, int x2, int y2, int c )
 extern editorclass ed;
 extern edentities edentity[3000];
 
-extern int temp;
+// extern int temp;
 
 extern scriptclass script;
 
@@ -2435,7 +2435,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     ed.entcol=ed.getenemycol(game.customcol);
     obj.customplatformtile=game.customcol*12;
 
-    ed.temp=edentat(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30));
+    /*ed.*/temp=edentat(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30));
     for(int i=0; i< EditorData::GetInstance().numedentities; i++)
     {
         //if() on screen
@@ -2559,35 +2559,35 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             case 11: //Gravity lines
                 if(edentity[i].p1==0)  //Horizontal
                 {
-                    int tx=edentity[i].x-(ed.levx*40);
+                    int tx3=edentity[i].x-(ed.levx*40);
                     int tx2=edentity[i].x-(ed.levx*40);
-                    int ty=edentity[i].y-(ed.levy*30);
-                    while(ed.spikefree(tx,ty)==0) tx--;
-                    while(ed.spikefree(tx2,ty)==0) tx2++;
-                    tx++;
-                    FillRect(dwgfx.backBuffer, (tx*8),(ty*8)+4, (tx2-tx)*8,1, dwgfx.getRGB(194,194,194));
+                    int ty3=edentity[i].y-(ed.levy*30);
+                    while(ed.spikefree(tx3,ty3)==0) tx3--;
+                    while(ed.spikefree(tx2,ty3)==0) tx2++;
+                    tx3++;
+                    FillRect(dwgfx.backBuffer, (tx3*8),(ty3*8)+4, (tx2-tx3)*8,1, dwgfx.getRGB(194,194,194));
                     fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(164,255,164));
-                    edentity[i].p2=tx;
-                    edentity[i].p3=(tx2-tx)*8;
+                    edentity[i].p2=tx3;
+                    edentity[i].p3=(tx2-tx3)*8;
                 }
                 else  //Vertical
                 {
-                    int tx=edentity[i].x-(ed.levx*40);
-                    int ty=edentity[i].y-(ed.levy*30);
+                    int tx3=edentity[i].x-(ed.levx*40);
+                    int ty3=edentity[i].y-(ed.levy*30);
                     int ty2=edentity[i].y-(ed.levy*30);
-                    while(ed.spikefree(tx,ty)==0) ty--;
-                    while(ed.spikefree(tx,ty2)==0) ty2++;
-                    ty++;
-                    FillRect(dwgfx.backBuffer, (tx*8)+3,(ty*8), 1,(ty2-ty)*8, dwgfx.getRGB(194,194,194));
+                    while(ed.spikefree(tx3,ty3)==0) ty3--;
+                    while(ed.spikefree(tx3,ty2)==0) ty2++;
+                    ty3++;
+                    FillRect(dwgfx.backBuffer, (tx3*8)+3,(ty3*8), 1,(ty2-ty3)*8, dwgfx.getRGB(194,194,194));
                     fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(164,255,164));
-                    edentity[i].p2=ty;
-                    edentity[i].p3=(ty2-ty)*8;
+                    edentity[i].p2=ty3;
+                    edentity[i].p3=(ty2-ty3)*8;
                 }
                 break;
             case 13://Warp tokens
                 dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),18+(ed.entframe%2),196,196,196);
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,dwgfx.getRGB(164,164,255));
-                if(ed.temp==i)
+                if(/*ed.*/temp==i)
                 {
                     dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,
                                 "("+help.String(((edentity[i].p1-int(edentity[i].p1%40))/40)+1)+","+help.String(((edentity[i].p2-int(edentity[i].p2%30))/30)+1)+")",210,210,255);
@@ -2634,7 +2634,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             case 18: //Terminals
                 dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)+8,17,96,96,96);
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,dwgfx.getRGB(164,164,164));
-                if(ed.temp==i)
+                if(/*ed.*/temp==i)
                 {
                     dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
                 }
@@ -2642,7 +2642,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             case 19: //Script Triggers
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),edentity[i].p1*8,edentity[i].p2*8,dwgfx.getRGB(255,164,255));
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(255,255,255));
-                if(ed.temp==i)
+                if(/*ed.*/temp==i)
                 {
                     dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
                 }
@@ -2650,29 +2650,29 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             case 50: //Warp lines
                 if(edentity[i].p1>=2)  //Horizontal
                 {
-                    int tx=edentity[i].x-(ed.levx*40);
+                    int tx3=edentity[i].x-(ed.levx*40);
                     int tx2=edentity[i].x-(ed.levx*40);
-                    int ty=edentity[i].y-(ed.levy*30);
-                    while(ed.free(tx,ty)==0) tx--;
-                    while(ed.free(tx2,ty)==0) tx2++;
-                    tx++;
-                    fillboxabs(dwgfx, (tx*8),(ty*8)+1, (tx2-tx)*8,6, dwgfx.getRGB(255,255,194));
+                    int ty3=edentity[i].y-(ed.levy*30);
+                    while(ed.free(tx3,ty3)==0) tx3--;
+                    while(ed.free(tx2,ty3)==0) tx2++;
+                    tx3++;
+                    fillboxabs(dwgfx, (tx3*8),(ty3*8)+1, (tx2-tx3)*8,6, dwgfx.getRGB(255,255,194));
                     fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(255,255,164));
-                    edentity[i].p2=tx;
-                    edentity[i].p3=(tx2-tx)*8;
+                    edentity[i].p2=tx3;
+                    edentity[i].p3=(tx2-tx3)*8;
                 }
                 else  //Vertical
                 {
-                    int tx=edentity[i].x-(ed.levx*40);
-                    int ty=edentity[i].y-(ed.levy*30);
+                    int tx3=edentity[i].x-(ed.levx*40);
+                    int ty3=edentity[i].y-(ed.levy*30);
                     int ty2=edentity[i].y-(ed.levy*30);
-                    while(ed.free(tx,ty)==0) ty--;
-                    while(ed.free(tx,ty2)==0) ty2++;
-                    ty++;
-                    fillboxabs(dwgfx, (tx*8)+1,(ty*8), 6,(ty2-ty)*8, dwgfx.getRGB(255,255,194));
+                    while(ed.free(tx3,ty3)==0) ty3--;
+                    while(ed.free(tx3,ty2)==0) ty2++;
+                    ty3++;
+                    fillboxabs(dwgfx, (tx3*8)+1,(ty3*8), 6,(ty2-ty3)*8, dwgfx.getRGB(255,255,194));
                     fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(255,255,164));
-                    edentity[i].p2=ty;
-                    edentity[i].p3=(ty2-ty)*8;
+                    edentity[i].p2=ty3;
+                    edentity[i].p3=(ty2-ty3)*8;
                 }
                 break;
             }
@@ -2951,7 +2951,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                         if(ed.hookmenupage+i==ed.hookmenu)
                         {
                             std::string tstring="> " + ed.hooklist[(ed.numhooks-1)-(ed.hookmenupage+i)] + " <";
-                            std::transform(tstring.begin(), tstring.end(),tstring.begin(), ::toupper);
+                            std::transform(tstring.begin(), tstring.end(), tstring.begin(), [](char x)->char { return static_cast<char>(::toupper(x)); });
                             dwgfx.Print(16,68+(i*16),tstring,123, 111, 218, true);
                         }
                         else
@@ -5231,7 +5231,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes
@@ -5255,7 +5255,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes
@@ -5279,7 +5279,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes
@@ -5303,7 +5303,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes
@@ -5328,7 +5328,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes

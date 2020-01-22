@@ -121,7 +121,7 @@ public:
 
 	void printcrewnamedark(int x, int y, int t);
 
-	void Print(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false);
+	void Print(int _x, int _y, std::string _s, int r = 0, int g = 0, int b = 0, bool cen = false);
 
 	void RPrint(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false);
 
@@ -235,7 +235,7 @@ public:
 
 
 
-	int j, k, m;
+	int /*j,*/ /*k, */m;
 
 	std::vector <SDL_Surface*> backgrounds;
 	std::vector <SDL_Surface*> images;

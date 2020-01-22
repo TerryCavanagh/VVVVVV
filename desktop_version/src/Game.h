@@ -121,7 +121,7 @@ public:
     int door_up;
     int door_down;
     int roomx, roomy, roomchangedir;
-    int temp, j, k;
+    int /*temp,*/ /*j,*/ k;
 
     int savex, savey, saverx, savery;
     int savegc, savedir;

@@ -2365,10 +2365,11 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             dwgfx.textboxcenterx();
             break;
         case 3008:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
@@ -2406,6 +2407,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             }
             dwgfx.textboxcenterx();
             break;
+        }
         case 3009:
             state++;
             statedelay = 0;
@@ -2480,10 +2482,11 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             dwgfx.textboxcenterx();
             break;
         case 3022:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
@@ -2521,6 +2524,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             }
             dwgfx.textboxcenterx();
             break;
+        }
         case 3023:
             state++;
             statedelay = 0;
@@ -2594,10 +2598,11 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             dwgfx.textboxcenterx();
             break;
         case 3042:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
@@ -2635,6 +2640,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             }
             dwgfx.textboxcenterx();
             break;
+        }
         case 3043:
             state++;
             statedelay = 0;
@@ -2709,10 +2715,11 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             dwgfx.textboxcenterx();
             break;
         case 3052:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
@@ -2750,6 +2757,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             }
             dwgfx.textboxcenterx();
             break;
+        }
         case 3053:
             state++;
             statedelay = 0;
@@ -2842,10 +2850,11 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             dwgfx.textboxcenterx();
             break;
         case 3062:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
@@ -2883,6 +2892,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             }
             dwgfx.textboxcenterx();
             break;
+        }
         case 3063:
             state++;
             statedelay = 0;
@@ -3438,16 +3448,17 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4012:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
-                obj.entities[i].xp = obj.entities[j].xp+44;
-                obj.entities[i].yp = obj.entities[j].yp+44;
+                obj.entities[i].xp = obj.entities[j].xp + 44;
+                obj.entities[i].yp = obj.entities[j].yp + 44;
                 obj.entities[j].tile = 2;
                 obj.entities[j].colour = 101;
             }
@@ -3460,6 +3471,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = 6;
             break;
+        }
         case 4013:
             state++;
             i = obj.getplayer();
@@ -3527,12 +3539,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4022:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
                 obj.entities[i].xp = obj.entities[j].xp+44;
@@ -3549,6 +3562,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = 6;
             break;
+        }
         case 4023:
             state++;
             i = obj.getplayer();
@@ -3603,12 +3617,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4032:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
                 obj.entities[i].xp = obj.entities[j].xp+44;
@@ -3625,6 +3640,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = -6;
             break;
+        }
         case 4033:
             state++;
             i = obj.getplayer();
@@ -3679,12 +3695,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4042:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
                 obj.entities[i].xp = obj.entities[j].xp+44;
@@ -3701,6 +3718,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = 6;
             break;
+        }
         case 4043:
             state++;
             i = obj.getplayer();
@@ -3760,12 +3778,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4052:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
                 obj.entities[i].xp = obj.entities[j].xp+44;
@@ -3782,6 +3801,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = 6;
             break;
+        }
         case 4053:
             state++;
             i = obj.getplayer();
@@ -3841,12 +3861,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4062:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
                 obj.entities[i].xp = obj.entities[j].xp+44;
@@ -3863,6 +3884,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = -6;
             break;
+        }
         case 4063:
             state++;
             i = obj.getplayer();
@@ -3920,12 +3942,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4072:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
                 obj.entities[i].xp = obj.entities[j].xp+44;
@@ -3942,6 +3965,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = 6;
             break;
+        }
         case 4073:
             state++;
             i = obj.getplayer();
@@ -3996,12 +4020,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4082:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
                 obj.entities[i].xp = obj.entities[j].xp+44;
@@ -4018,6 +4043,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = 6;
             break;
+        }
         case 4083:
             state++;
             i = obj.getplayer();
@@ -4072,12 +4098,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             music.playef(10, 10);
             break;
         case 4092:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
             i = obj.getplayer();
-            j = obj.getteleporter();
+            int j = obj.getteleporter();
             if (j != -1)
             {
                 obj.entities[i].xp = obj.entities[j].xp+44;
@@ -4094,6 +4121,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].vy = -6;
             obj.entities[i].vx = 6;
             break;
+        }
         case 4093:
             state++;
             i = obj.getplayer();
@@ -6844,7 +6872,7 @@ void Game::createmenu( std::string t )
                         menuoptions[tcount] = "   " + ed.ListOfMetaData[i].title;
                     }
                     menuoptionsactive[tcount] = true;
-                    std::transform(menuoptions[tcount].begin(), menuoptions[tcount].end(), menuoptions[tcount].begin(), ::tolower);
+                    std::transform(menuoptions[tcount].begin(), menuoptions[tcount].end(), menuoptions[tcount].begin(), [](char x)->char { return static_cast<char>(::tolower(x)); });
                     tcount++;
                 }
             }
@@ -7232,7 +7260,7 @@ void Game::createmenu( std::string t )
     {
         //Ok, here's where the unlock stuff comes into it:
         //First up, time trials:
-        temp = 0;
+        int temp = 0;
         if (unlock[0] && stat_trinkets >= 3 && !unlocknotify[9]) temp++;
         if (unlock[1] && stat_trinkets >= 6 && !unlocknotify[10]) temp++;
         if (unlock[2] && stat_trinkets >= 9 && !unlocknotify[11]) temp++;

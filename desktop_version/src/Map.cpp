@@ -100,28 +100,28 @@ mapclass::mapclass()
 	roomtextnumlines = 0;
 
 	//Areamap starts at 100,100 and extends 20x20
-	std::vector<std::string> tmap;
-	tmap.push_back("1,2,2,2,2,2,2,2,0,3,0,0,0,4,4,4,4,4,4,4");
-	tmap.push_back("1,2,2,2,2,2,2,0,0,3,0,0,0,0,4,4,4,4,4,4");
-	tmap.push_back("0,1,0,0,2,0,0,0,0,3,0,0,0,0,4,4,4,4,4,4");
-	tmap.push_back("0,0,0,0,2,0,0,0,0,3,0,0,5,5,5,5,4,4,4,4");
-	tmap.push_back("0,0,2,2,2,0,0,0,0,3,11,11,5,5,5,5,0,0,0,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,5,5,5,5,5,5,0,0,0,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,5,5,5,5,5,5,5,0,0,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,5,5,5,5,5,5,5,5,5,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,0,0,0,5,5,5,5,5,5,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,11,3,0,0,0,5,5,5,5,5,5,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,0,0,0,5,5,5,5,5,5,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,0,5,5,5,5,5,5,5,5,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,0,5,5,5,5,5,5,0,5,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,0,5,5,5,5,5,5,0,5,0");
-	tmap.push_back("0,0,0,0,0,0,0,0,0,3,0,5,5,0,0,0,0,0,5,0");
-	tmap.push_back("0,0,0,0,0,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0");
-	tmap.push_back("0,0,2,2,2,2,2,2,0,3,0,0,0,0,0,0,0,0,0,0");
-	tmap.push_back("0,2,2,2,2,2,2,2,0,3,0,0,0,0,0,0,0,0,0,0");
-	tmap.push_back("2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0");
-	tmap.push_back("2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0");
-	fillareamap(tmap);
+	std::vector<std::string> tmap_notclass;
+	tmap_notclass.push_back("1,2,2,2,2,2,2,2,0,3,0,0,0,4,4,4,4,4,4,4");
+	tmap_notclass.push_back("1,2,2,2,2,2,2,0,0,3,0,0,0,0,4,4,4,4,4,4");
+	tmap_notclass.push_back("0,1,0,0,2,0,0,0,0,3,0,0,0,0,4,4,4,4,4,4");
+	tmap_notclass.push_back("0,0,0,0,2,0,0,0,0,3,0,0,5,5,5,5,4,4,4,4");
+	tmap_notclass.push_back("0,0,2,2,2,0,0,0,0,3,11,11,5,5,5,5,0,0,0,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,5,5,5,5,5,5,0,0,0,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,5,5,5,5,5,5,5,0,0,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,5,5,5,5,5,5,5,5,5,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,0,0,0,5,5,5,5,5,5,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,11,3,0,0,0,5,5,5,5,5,5,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,0,0,0,5,5,5,5,5,5,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,0,5,5,5,5,5,5,5,5,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,0,5,5,5,5,5,5,0,5,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,0,5,5,5,5,5,5,0,5,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,0,0,3,0,5,5,0,0,0,0,0,5,0");
+	tmap_notclass.push_back("0,0,0,0,0,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0");
+	tmap_notclass.push_back("0,0,2,2,2,2,2,2,0,3,0,0,0,0,0,0,0,0,0,0");
+	tmap_notclass.push_back("0,2,2,2,2,2,2,2,0,3,0,0,0,0,0,0,0,0,0,0");
+	tmap_notclass.push_back("2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0");
+	tmap_notclass.push_back("2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0");
+	fillareamap(tmap_notclass);
 }
 
 int mapclass::_RGB(int red,int green,int blue)
@@ -129,9 +129,9 @@ int mapclass::_RGB(int red,int green,int blue)
 	return (blue | (green << 8) | (red << 16));
 }
 
-int mapclass::intpol(int a, int b, float c)
+int mapclass::intpol(int a, int _b, float c)
 {
-	return static_cast<int>(a + ((b - a) * c));
+	return static_cast<int>(a + ((_b - a) * c));
 }
 
 void mapclass::setteleporter(int t, int x, int y)
@@ -736,12 +736,12 @@ bool mapclass::collide(int x, int y)
 	return false;
 }
 
-void mapclass::fillareamap(std::vector<std::string>& tmap)
+void mapclass::fillareamap(std::vector<std::string>& _tmap)
 {
 
-	for (j = 0; j < 20; j++)
+	for (int j = 0; j < 20; j++)
 	{
-		std::vector<std::string> maprow = split(tmap[j], ',');
+		std::vector<std::string> maprow = split(_tmap[j], ',');
 		for (int i = 0; i < 20; i++)
 		{
 			areamap[i + (j * 20)] = atoi(maprow[i].c_str());
@@ -757,12 +757,12 @@ void mapclass::settile(int xp, int yp, int t)
 	}
 }
 
-void mapclass::fillcontent(std::vector<std::string>& tmap)
+void mapclass::fillcontent(std::vector<std::string>& _tmap)
 {
 
-	for (j = 0; j < 29+extrarow; j++)
+	for (int j = 0; j < 29+extrarow; j++)
 	{
-		std::vector<std::string> maprow = split(tmap[j], ',');
+		std::vector<std::string> maprow = split(_tmap[j], ',');
 
 		for(int i = 0; i < 40; i++)
 		{
@@ -1084,7 +1084,7 @@ void mapclass::gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass
 			if (obj.entities[i].xp <= 0 || obj.entities[i].xp + obj.entities[i].w >= 312)
 			{
 				//it's on a screen edge
-				for (j = 0; j < obj.nlinecrosskludge; j++)
+				for (int j = 0; j < obj.nlinecrosskludge; j++)
 				{
 					if (obj.entities[i].yp == obj.linecrosskludge[j].yp)
 					{
@@ -1191,7 +1191,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 	obj.customwarpmodevon=false;
 	obj.customwarpmodehon=false;
 
-	std::vector<std::string> tmap;
+	std::vector<std::string> _tmap;
 
 	if (finalmode)
 	{
@@ -1297,8 +1297,8 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 	case 1: //World Map
 		tileset = 1;
 		extrarow = 1;
-		tmap = otherlevel.loadlevel(rx, ry, game, obj);
-		fillcontent(tmap);
+		_tmap = otherlevel.loadlevel(rx, ry, game, obj);
+		fillcontent(_tmap);
 		roomname = otherlevel.roomname;
 		tileset = otherlevel.roomtileset;
 		//do the appear/remove roomname here
@@ -1316,8 +1316,8 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		}
 		break;
 	case 2: //The Lab
-		tmap = lablevel.loadlevel(rx, ry, game, obj);
-		fillcontent(tmap);
+		_tmap = lablevel.loadlevel(rx, ry, game, obj);
+		fillcontent(_tmap);
 		roomname = lablevel.roomname;
 		tileset = 1;
 		background = 2;
@@ -1362,8 +1362,8 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		obj.createentity(game, 280, 3216, 9, 8); // (shiny trinket)
 		break;
 	case 4: //The Warpzone
-		tmap = warplevel.loadlevel(rx, ry, game, obj);
-		fillcontent(tmap);
+		_tmap = warplevel.loadlevel(rx, ry, game, obj);
+		fillcontent(_tmap);
 		roomname = warplevel.roomname;
 		tileset = 1;
 		background = 3;
@@ -1378,14 +1378,14 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		if (warpx && warpy) background = 5;
 		break;
 	case 5: //Space station
-		tmap = spacestation2.loadlevel(rx, ry, game, obj);
-		fillcontent(tmap);
+		_tmap = spacestation2.loadlevel(rx, ry, game, obj);
+		fillcontent(_tmap);
 		roomname = spacestation2.roomname;
 		tileset = 0;
 		break;
 	case 6: //final level
-		tmap = finallevel.loadlevel(finalx, finaly, game, obj);
-		fillcontent(tmap);
+		_tmap = finallevel.loadlevel(finalx, finaly, game, obj);
+		fillcontent(_tmap);
 		roomname = finallevel.roomname;
 		tileset = 1;
 		background = 3;
@@ -1537,8 +1537,8 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		break;
 	case 11: //Tower Hallways //Content is held in final level routine
 	{
-		tmap = finallevel.loadlevel(rx, ry, game, obj);
-		fillcontent(tmap);
+		_tmap = finallevel.loadlevel(rx, ry, game, obj);
+		fillcontent(_tmap);
 		roomname = finallevel.roomname;
 		tileset = 2;
 		if (rx == 108)
@@ -1636,6 +1636,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			if(tsx==rx-100 && tsy==ry-100){
 			switch(edentity[edi].t){
 				case 1: //Enemies
+                {
 				int bx1, by1, bx2, by2;
 				bx1=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyx1;
 				by1=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyy1;
@@ -1649,7 +1650,9 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 56,
 								 edentity[edi].p1, 4, bx1, by1, bx2, by2);
 				break;
+                }
 				case 2: //Platforms and Threadmills
+                {
 				if(edentity[edi].p1<=4){
 					int bx1, by1, bx2, by2;
 					bx1=ed.level[rx-100+((ry-100)*ed.maxwidth)].platx1;
@@ -1667,6 +1670,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 									 edentity[edi].p1+3, 4);
 				}
 				break;
+                }
 				case 3: //Disappearing platforms
 				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 3);
 				break;
@@ -1967,7 +1971,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			{
 				//A slight varation - she's upside down
 				obj.createentity(game, 249, 62, 18, 16, 0, 18);
-				j = obj.getcrewman(5);
+				int j = obj.getcrewman(5);
 				obj.entities[j].rule = 7;
 				obj.entities[j].tile +=6;
 				//What script do we use?
@@ -1984,7 +1988,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			if (obj.entities[i].state == 18)
 			{
 				//face the player
-				j = obj.getplayer();
+				int j = obj.getplayer();
 				if (obj.entities[j].xp > obj.entities[i].xp + 5)
 				{
 					obj.entities[i].dir = 1;

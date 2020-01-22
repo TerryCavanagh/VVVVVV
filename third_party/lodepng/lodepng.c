@@ -739,7 +739,7 @@ static unsigned HuffmanTree_makeTable(HuffmanTree* tree) {
     unsigned l = maxlens[i];
     if(l <= FIRSTBITS) continue;
     tree->table_len[i] = l;
-    tree->table_value[i] = pointer;
+    tree->table_value[i] = (unsigned short)(pointer);
     pointer += (1u << (l - FIRSTBITS));
   }
   lodepng_free(maxlens);
@@ -763,7 +763,7 @@ static unsigned HuffmanTree_makeTable(HuffmanTree* tree) {
         unsigned index = reverse | (j << l);
         if(tree->table_len[index] != 16) return 55; /*invalid tree: long symbol shares prefix with short symbol*/
         tree->table_len[index] = l;
-        tree->table_value[index] = i;
+        tree->table_value[index] = (unsigned short)i;
       }
     } else {
       /*long symbol, shares prefix with other long symbols in first lookup table, needs second lookup*/
@@ -780,7 +780,7 @@ static unsigned HuffmanTree_makeTable(HuffmanTree* tree) {
         unsigned reverse2 = reverse >> FIRSTBITS; /* l - FIRSTBITS bits */
         unsigned index2 = start + (reverse2 | (j << (l - FIRSTBITS)));
         tree->table_len[index2] = l;
-        tree->table_value[index2] = i;
+        tree->table_value[index2] = (unsigned short)i;
       }
     }
   }

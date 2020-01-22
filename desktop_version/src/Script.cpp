@@ -22,8 +22,6 @@ scriptclass::scriptclass()
 
 	b = 0;
 	g = 0;
-	i = 0;
-	j = 0;
 	k = 0;
 	loopcount = 0;
 	looppoint = 0;
@@ -39,7 +37,7 @@ void scriptclass::clearcustom(){
 
 void scriptclass::tokenize( std::string t )
 {
-	j = 0;
+	int j = 0;
 	tempword = "";
 
 	for (size_t i = 0; i < t.length(); i++)
@@ -48,7 +46,7 @@ void scriptclass::tokenize( std::string t )
 		if (currentletter == "(" || currentletter == ")" || currentletter == ",")
 		{
 			words[j] = tempword;
-			std::transform(words[j].begin(), words[j].end(), words[j].begin(), ::tolower);
+			std::transform(words[j].begin(), words[j].end(), words[j].begin(), [](char x)->char { return static_cast<char>(::tolower(x)); });
 			j++;
 			tempword = "";
 		}
@@ -383,8 +381,9 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "position")
 			{
+				int i = 0;
 				//are we facing left or right? for some objects we don't care, default at 0.
-				j = 0;
+				int j = 0;
 
 				//the first word is the object to position relative to
 				if (words[1] == "player")
@@ -472,8 +471,9 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "customposition")
 			{
+				int i = 0;
 				//are we facing left or right? for some objects we don't care, default at 0.
-				j = 0;
+				int j = 0;
 
 				//the first word is the object to position relative to
 				if (words[1] == "player")
@@ -581,7 +581,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				dwgfx.createtextbox(txt[0], textx, texty, r, g, b);
 				if (txtnumlines > 1)
 				{
-					for (i = 1; i < txtnumlines; i++)
+					for (int i = 1; i < txtnumlines; i++)
 					{
 						dwgfx.addline(txt[i]);
 					}
@@ -626,7 +626,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				dwgfx.createtextbox(txt[0], textx, texty, r, g, b);
 				if (txtnumlines > 1)
 				{
-					for (i = 1; i < txtnumlines; i++)
+					for (int i = 1; i < txtnumlines; i++)
 					{
 						dwgfx.addline(txt[i]);
 					}
@@ -695,7 +695,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			else if (words[0] == "vvvvvvman")
 			{
 				//Create the super VVVVVV combo!
-				i = obj.getplayer();
+				int i = obj.getplayer();
 				obj.entities[i].xp = 30;
 				obj.entities[i].yp = 46;
 				obj.entities[i].size = 13;
@@ -707,7 +707,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			else if (words[0] == "undovvvvvvman")
 			{
 				//Create the super VVVVVV combo!
-				i = obj.getplayer();
+				int i = obj.getplayer();
 				obj.entities[i].xp = 100;
 				obj.entities[i].size = 0;
 				obj.entities[i].colour = 0;
@@ -795,6 +795,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "changemood")
 			{
+                int i = 0;
 				if (words[1] == "player")
 				{
 					i=obj.getplayer();
@@ -843,6 +844,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "changecustommood")
 			{
+				int i = 0;
 				if (words[1] == "player")
 				{
 					i=obj.getcustomcrewman(0);
@@ -900,6 +902,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "changetile")
 			{
+			    int i = 0;
 				if (words[1] == "player")
 				{
 					i=obj.getplayer();
@@ -933,6 +936,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "flipgravity")
 			{
+				int i = 0;
 				//not something I'll use a lot, I think. Doesn't need to be very robust!
 				if (words[1] == "player")
 				{
@@ -979,6 +983,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "changegravity")
 			{
+                int i = 0;
 				//not something I'll use a lot, I think. Doesn't need to be very robust!
 				if (words[1] == "player")
 				{
@@ -1013,6 +1018,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "changedir")
 			{
+                int i = 0;
 				if (words[1] == "player")
 				{
 					i=obj.getplayer();
@@ -1062,6 +1068,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "changeai")
 			{
+                int i = 0;
 				if (words[1] == "player")
 				{
 					i=obj.getplayer();
@@ -1132,12 +1139,13 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "activateteleporter")
 			{
-				i = obj.getteleporter();
+				int i = obj.getteleporter();
 				obj.entities[i].tile = 6;
 				obj.entities[i].colour = 102;
 			}
 			else if (words[0] == "changecolour")
 			{
+                int i = 0;
 				if (words[1] == "player")
 				{
 					i=obj.getplayer();
@@ -1245,7 +1253,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "setcheckpoint")
 			{
-				i = obj.getplayer();
+				int i = obj.getplayer();
 				game.savepoint = 0;
 				game.savex = obj.entities[i].xp ;
 				game.savey = obj.entities[i].yp;
@@ -1466,7 +1474,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				map.tdrawback = true;
 
 				obj.resetallflags();
-				i = obj.getplayer();
+				int i = obj.getplayer();
 				obj.entities[i].tile = 0;
 
 				game.trinkets = 0;
@@ -1584,6 +1592,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "face")
 			{
+                int i = 0, j = 0;
 				if (words[1] == "player")
 				{
 					i=obj.getplayer();
@@ -1653,7 +1662,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "jukebox")
 			{
-				for (j = 0; j < obj.nentity; j++)
+				for (int j = 0; j < obj.nentity; j++)
 				{
 					if (obj.entities[j].type == 13 && obj.entities[j].active)
 					{
@@ -1663,7 +1672,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				if (ss_toi(words[1]) == 1)
 				{
 					obj.createblock(5, 88 - 4, 80, 20, 16, 25);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 88 && obj.entities[j].yp==80)
 						{
@@ -1674,7 +1683,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 2)
 				{
 					obj.createblock(5, 128 - 4, 80, 20, 16, 26);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 128 && obj.entities[j].yp==80)
 						{
@@ -1685,7 +1694,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 3)
 				{
 					obj.createblock(5, 176 - 4, 80, 20, 16, 27);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 176 && obj.entities[j].yp==80)
 						{
@@ -1696,7 +1705,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 4)
 				{
 					obj.createblock(5, 216 - 4, 80, 20, 16, 28);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 216 && obj.entities[j].yp==80)
 						{
@@ -1707,7 +1716,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 5)
 				{
 					obj.createblock(5, 88 - 4, 128, 20, 16, 29);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 88 && obj.entities[j].yp==128)
 						{
@@ -1718,7 +1727,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 6)
 				{
 					obj.createblock(5, 176 - 4, 128, 20, 16, 30);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 176 && obj.entities[j].yp==128)
 						{
@@ -1729,7 +1738,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 7)
 				{
 					obj.createblock(5, 40 - 4, 40, 20, 16, 31);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 40 && obj.entities[j].yp==40)
 						{
@@ -1740,7 +1749,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 8)
 				{
 					obj.createblock(5, 216 - 4, 128, 20, 16, 32);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 216 && obj.entities[j].yp==128)
 						{
@@ -1751,7 +1760,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 9)
 				{
 					obj.createblock(5, 128 - 4, 128, 20, 16, 33);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 128 && obj.entities[j].yp==128)
 						{
@@ -1762,7 +1771,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				else if (ss_toi(words[1]) == 10)
 				{
 					obj.createblock(5, 264 - 4, 40, 20, 16, 34);
-					for (j = 0; j < obj.nentity; j++)
+					for (int j = 0; j < obj.nentity; j++)
 					{
 						if (obj.entities[j].xp == 264 && obj.entities[j].yp==40)
 						{
@@ -1773,6 +1782,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "createactivityzone")
 			{
+                int i = 0;
 				if (words[1] == "red")
 				{
 					i=3;
@@ -1807,7 +1817,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			{
 				//special for final level cutscene
 				//starting at 180, create the rescued crewmembers (ingoring violet, who's at 155)
-				i = 215;
+				int i = 215;
 				if (game.crewstats[2] && game.lastsaved!=2)
 				{
 					obj.createentity(game, i, 153, 18, 14, 0, 17, 0);
@@ -1831,12 +1841,12 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "restoreplayercolour")
 			{
-				i = obj.getplayer();
+				int i = obj.getplayer();
 				obj.entities[i].colour = 0;
 			}
 			else if (words[0] == "changeplayercolour")
 			{
-				i = obj.getplayer();
+				int i = obj.getplayer();
 
 				if (words[1] == "cyan")
 				{
@@ -1873,7 +1883,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "activeteleporter")
 			{
-				i = obj.getteleporter();
+				int i = obj.getteleporter();
 				obj.entities[i].colour = 101;
 			}
 			else if (words[0] == "foundtrinket")
@@ -1951,7 +1961,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "everybodysad")
 			{
-				for (i = 0; i < obj.nentity; i++)
+				for (int i = 0; i < obj.nentity; i++)
 				{
 					if (obj.entities[i].rule == 6 || obj.entities[i].rule == 0)
 					{
@@ -2004,7 +2014,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				}
 
 				obj.createentity(game, 200, 153, 18, r, 0, 19, 30);
-				i = obj.getcrewman(game.lastsaved);
+				int i = obj.getcrewman(game.lastsaved);
 				obj.entities[i].dir = 1;
 			}
 			else if (words[0] == "specialline")
@@ -2606,7 +2616,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		{
 			map.resetplayer(dwgfx, game, obj, music);
 
-			i = obj.getplayer();
+			int i = obj.getplayer();
 			map.ypos = static_cast<float>(obj.entities[i].yp - 120);
 			map.bypos = static_cast<int>(map.ypos / 2);
 			map.cameramode = 0;
@@ -2855,7 +2865,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		for (int j = 0; j < 20; j++)
 		{
 			obj.collect[j] = true;
-			for (i = 0; i < 20; i++)
+			for (int i = 0; i < 20; i++)
 			{
 				map.explored[i + (j * 20)] = 1;
 			}
@@ -3306,7 +3316,7 @@ void scriptclass::teleport( Graphics& dwgfx, Game& game, mapclass& map, entitycl
 	//A general rule of thumb: if you teleport with a companion, get rid of them!
 	game.companion = 0;
 
-	i = obj.getplayer(); //less likely to have a serious collision error if the player is centered
+	int i = obj.getplayer(); //less likely to have a serious collision error if the player is centered
 	obj.entities[i].xp = 150;
 	obj.entities[i].yp = 110;
 	if(game.teleport_to_x==17 && game.teleport_to_y==17) obj.entities[i].xp = 88; //prevent falling!
@@ -3324,7 +3334,7 @@ void scriptclass::teleport( Graphics& dwgfx, Game& game, mapclass& map, entitycl
 
 	game.gravitycontrol = 0;
 	map.gotoroom(100+game.teleport_to_x, 100+game.teleport_to_y, dwgfx, game, obj, music);
-	j = obj.getteleporter();
+	int j = obj.getteleporter();
 	obj.entities[j].state = 2;
 	game.teleport_to_new_area = false;
 
@@ -3434,7 +3444,7 @@ void scriptclass::hardreset( KeyPoll& /*key*/, Graphics& dwgfx, Game& game,mapcl
 	game.nodeathmode = false;
 	game.nocutscenes = false;
 
-	for (i = 0; i < 6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		game.crewstats[i] = false;
 	}
@@ -3526,9 +3536,9 @@ void scriptclass::hardreset( KeyPoll& /*key*/, Graphics& dwgfx, Game& game,mapcl
 
 	map.customshowmm=true;
 
-	for (j = 0; j < 20; j++)
+	for (int j = 0; j < 20; j++)
 	{
-		for (i = 0; i < 20; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			map.roomdeaths[i + (j * 20)] = 0;
 			map.roomdeathsfinal[i + (j * 20)] = 0;
@@ -3544,16 +3554,16 @@ void scriptclass::hardreset( KeyPoll& /*key*/, Graphics& dwgfx, Game& game,mapcl
 	obj.trophytype = 0;
 	obj.altstates = 0;
 
-	for (i = 0; i < 100; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		obj.flags[i] = false;
 	}
 
-  for (i = 0; i < 6; i++){
+  for (int i = 0; i < 6; i++){
     obj.customcrewmoods[i]=1;
   }
 
-	for (i = 0; i < 100; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		obj.collect[i] = 0;
 		obj.customcollect[i] = 0;

@@ -40,7 +40,7 @@ public:
     std::vector<int> vmult;
 
     bool minitowermode;
-    int i;
+    /*int i;*/
     int k;
 };
 

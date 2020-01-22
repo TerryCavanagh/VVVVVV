@@ -109,8 +109,6 @@ Graphics::Graphics()
     foregroundBuffer = NULL;
     backgrounddrawn = false;
     images_rect = SDL_Rect();
-    j = 0;
-    k = 0;
     m = 0;
     linedelay = 0;
     menubuffer = NULL;
@@ -582,14 +580,14 @@ void Graphics::drawgui( UtilityClass& help )
             {
                 if(flipmode)
                 {
-                    for (j = 0; j < textbox[i].numlines; j++)
+                    for (int j = 0; j < textbox[i].numlines; j++)
                     {
                         Print(textbox[i].xp + 8, textbox[i].yp + (textbox[i].numlines*8) - (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
                     }
                 }
                 else
                 {
-                    for (j = 0; j < textbox[i].numlines; j++)
+                    for (int j = 0; j < textbox[i].numlines; j++)
                     {
                         Print(textbox[i].xp + 8, textbox[i].yp + 8 + (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
                     }
@@ -617,14 +615,14 @@ void Graphics::drawgui( UtilityClass& help )
 
                 if(flipmode)
                 {
-                    for (j = 0; j < textbox[i].numlines; j++)
+                    for (int j = 0; j < textbox[i].numlines; j++)
                     {
                         Print(textbox[i].xp + 8, textbox[i].yp  + (textbox[i].numlines*8) - (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
                     }
                 }
                 else
                 {
-                    for (j = 0; j < textbox[i].numlines; j++)
+                    for (int j = 0; j < textbox[i].numlines; j++)
                     {
                         Print(textbox[i].xp + 8, textbox[i].yp +8 + (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
                     }
@@ -880,13 +878,13 @@ void Graphics::drawpixeltextbox( int x, int y, int w, int h, int w2, int h2, int
     //backbuffer.fillRect(madrect, RGB(r / 6, g / 6, b / 6));
     FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
 
-    for (k = 0; k < w2-2; k++)
+    for (int k = 0; k < w2-2; k++)
     {
         drawcoloredtile(x + 8-xo + (k * 8), y, 41, r, g, b);
         drawcoloredtile(x + 8-xo + (k * 8), y + (h) - 8, 46, r, g, b);
     }
 
-    for (k = 0; k < h2-2; k++)
+    for (int k = 0; k < h2-2; k++)
     {
         drawcoloredtile(x, y + 8-yo + (k * 8), 43, r, g, b);
         drawcoloredtile(x + (w) - 8, y + 8-yo + (k * 8), 44, r, g, b);
@@ -906,7 +904,7 @@ void Graphics::drawcustompixeltextbox( int x, int y, int w, int h, int w2, int h
     //backbuffer.fillRect(madrect, RGB(r / 6, g / 6, b / 6));
     FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
 
-    for (k = 0; k < w2-2; k++)
+    for (int k = 0; k < w2-2; k++)
     {
         drawcoloredtile(x + 8-xo + (k * 8), y, 41, r, g, b);
         drawcoloredtile(x + 8-xo + (k * 8), y + (h) - 8, 46, r, g, b);
@@ -918,7 +916,7 @@ void Graphics::drawcustompixeltextbox( int x, int y, int w, int h, int w2, int h
     drawcoloredtile(x+ (w) - 24, y, 41, r, g, b);
     drawcoloredtile(x+ (w) - 24, y + (h) - 8, 46, r, g, b);
 
-    for (k = 0; k < h2-2; k++)
+    for (int k = 0; k < h2-2; k++)
     {
         drawcoloredtile(x, y + 8-yo + (k * 8), 43, r, g, b);
         drawcoloredtile(x + (w) - 8, y + 8-yo + (k * 8), 44, r, g, b);
@@ -1116,7 +1114,7 @@ void Graphics::drawmenu( Game& game, int cr, int cg, int cb, int division /*= 30
             if (game.menuoptionsactive[i])
             {
                 tempstring = game.menuoptions[i];
-                std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
+                std::transform(tempstring.begin(), tempstring.end(), tempstring.begin(), [](char x)->char { return static_cast<char>(::toupper(x)); });
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print(110 + (i * division) - 16 +game.menuxoff, 140 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }
@@ -1155,7 +1153,7 @@ void Graphics::drawlevelmenu( Game& game, int cr, int cg, int cb, int division /
             if (game.menuoptionsactive[i])
             {
                 tempstring = game.menuoptions[i];
-                std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
+                std::transform(tempstring.begin(), tempstring.end(), tempstring.begin(), [](char x)->char { return static_cast<char>(::toupper(x)); });
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print(110 + (i * division) - 16 +game.menuxoff, 140+8 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }
@@ -1171,7 +1169,7 @@ void Graphics::drawlevelmenu( Game& game, int cr, int cg, int cb, int division /
             if (game.menuoptionsactive[i])
             {
                 tempstring = game.menuoptions[i];
-                std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
+                std::transform(tempstring.begin(), tempstring.end(), tempstring.begin(), [](char x)->char { return static_cast<char>(::toupper(x)); });
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print(110 + (i * division) - 16 +game.menuxoff, 140 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }
@@ -1906,9 +1904,9 @@ void Graphics::drawentities( mapclass& map, entityclass& obj, UtilityClass& help
                 		setcol(obj.entities[i].colour, help);
                 		//flipsprites[obj.entities[i].drawframe].colorTransform(sprites_rect, ct);
                 		//bigbuffer.copyPixels(flipsprites[obj.entities[i].drawframe], sprites_rect, new Point(0, 0));
-						SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), sprites_rect.x, sprites_rect.y   };
+						SDL_Rect drawRect2 = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), sprites_rect.x, sprites_rect.y   };
 						SDL_Surface* TempSurface = ScaleSurface( flipsprites[obj.entities[i].drawframe], 6* sprites_rect.w,6* sprites_rect.w );
-						BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
+						BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect2, ct );
 						SDL_FreeSurface(TempSurface);
                 		//scaleMatrix.translate(-obj.entities[i].xp, -obj.entities[i].yp);
                 	}
@@ -1919,9 +1917,9 @@ void Graphics::drawentities( mapclass& map, entityclass& obj, UtilityClass& help
 						setcol(obj.entities[i].colour, help);
 						//flipsprites[obj.entities[i].drawframe].colorTransform(sprites_rect, ct);
 						//bigbuffer.copyPixels(flipsprites[obj.entities[i].drawframe], sprites_rect, new Point(0, 0));
-						SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
+						SDL_Rect drawRect2 = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
 						SDL_Surface* TempSurface = ScaleSurface( flipsprites[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
-						BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
+						BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect2, ct );
 						SDL_FreeSurface(TempSurface);
                 	}
 
@@ -2200,7 +2198,7 @@ void Graphics::drawbackground( int t, mapclass& map )
             //draw the whole thing for the first time!
             backoffset = 0;
             FillRect(towerbuffer,0x000000 );
-            for (j = 0; j < 15; j++)
+            for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 21; i++)
                 {
@@ -2345,7 +2343,7 @@ void Graphics::drawmap( mapclass& map )
         FillRect(foregroundBuffer, 0x00000000);
         if(map.tileset==0)
         {
-            for (j = 0; j < 29+map.extrarow; j++)
+            for (int j = 0; j < 29+map.extrarow; j++)
             {
                 for (int i = 0; i < 40; i++)
                 {
@@ -2365,7 +2363,7 @@ void Graphics::drawmap( mapclass& map )
         }
         else if (map.tileset == 2)
         {
-            for (j = 0; j < 29+map.extrarow; j++)
+            for (int j = 0; j < 29+map.extrarow; j++)
             {
                 for (int i = 0; i < 40; i++)
                 {
@@ -2436,7 +2434,7 @@ void Graphics::drawtowermap( mapclass& map )
 void Graphics::drawtowermap_nobackground( mapclass& map )
 {
     int temp;
-    for (j = 0; j < 30; j++)
+    for (int j = 0; j < 30; j++)
     {
         for (int i = 0; i < 40; i++)
         {
@@ -2616,7 +2614,7 @@ void Graphics::drawtowerbackground( mapclass& map )
     if (map.tdrawback)
     {
         //Draw the whole thing; needed for every colour cycle!
-        for (j = 0; j < 30; j++)
+        for (int j = 0; j < 30; j++)
         {
             for (int i = 0; i < 40; i++)
             {

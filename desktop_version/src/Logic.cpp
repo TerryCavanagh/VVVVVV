@@ -463,27 +463,27 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
 
             if(game.lifeseq==0)
             {
-                int player = obj.getplayer();
+                int player_temp = obj.getplayer();
                 if(!map.invincibility)
                 {
-                    if (obj.entities[player].yp-map.ypos <= 0)
+                    if (obj.entities[player_temp].yp-map.ypos <= 0)
                     {
                         game.deathseq = 30;
                     }
-                    else if (obj.entities[player].yp-map.ypos >= 208)
+                    else if (obj.entities[player_temp].yp-map.ypos >= 208)
                     {
                         game.deathseq = 30;
                     }
                 }
                 else
                 {
-                    if (obj.entities[player].yp-map.ypos <= 0)
+                    if (obj.entities[player_temp].yp-map.ypos <= 0)
                     {
                         map.ypos-=10;
                         map.bypos = static_cast<int>(map.ypos / 2);
                         map.bscroll = 0;
                     }
-                    else if (obj.entities[player].yp-map.ypos >= 208)
+                    else if (obj.entities[player_temp].yp-map.ypos >= 208)
                     {
                         map.ypos+=2;
                         map.bypos = static_cast<int>(map.ypos / 2);
@@ -491,7 +491,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
                     }
                 }
 
-                if (obj.entities[player].yp - map.ypos <= 40)
+                if (obj.entities[player_temp].yp - map.ypos <= 40)
                 {
                     map.spikeleveltop++;
                     if (map.spikeleveltop >= 8) map.spikeleveltop = 8;
@@ -501,7 +501,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
                     if (map.spikeleveltop > 0) map.spikeleveltop--;
                 }
 
-                if (obj.entities[player].yp - map.ypos >= 164)
+                if (obj.entities[player_temp].yp - map.ypos >= 164)
                 {
                     map.spikelevelbottom++;
                     if (map.spikelevelbottom >= 8) map.spikelevelbottom = 8;
