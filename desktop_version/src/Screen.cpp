@@ -206,7 +206,7 @@ void Screen::toggleLinearFilter()
 	);
 }
 
-void Screen::ClearScreen( int colour )
+void Screen::ClearScreen( int /*colour */)
 {
     //FillRect(m_screen, colour) ;
 }

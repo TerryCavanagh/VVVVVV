@@ -22,12 +22,12 @@ int tb;
 
 std::string tempstring;
 
-void updategraphicsmode(Game& game, Graphics& dwgfx)
+void updategraphicsmode(Game& /*game*/, Graphics& /*dwgfx*/)
 {
     swfStage = stage;
 }
 
-void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, UtilityClass& help, musicclass& music)
+void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& /*obj*/, UtilityClass& help, musicclass& music)
 {
 
     FillRect(dwgfx.backBuffer, 0,0,dwgfx.backBuffer->w, dwgfx.backBuffer->h, 0x00000000 );
@@ -1257,7 +1257,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
     //dwgfx.backbuffer.unlock();
 }
 
-void gamecompleterender(Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& help, mapclass& map)
+void gamecompleterender(Graphics& dwgfx, Game& game, entityclass& /*obj*/, UtilityClass& help, mapclass& map)
 {
     //dwgfx.backbuffer.lock();
     FillRect(dwgfx.backBuffer, 0x000000);
@@ -1435,7 +1435,7 @@ void gamecompleterender(Graphics& dwgfx, Game& game, entityclass& obj, UtilityCl
     //dwgfx.backbuffer.unlock();
 }
 
-void gamecompleterender2(Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& help)
+void gamecompleterender2(Graphics& dwgfx, Game& game, entityclass& /*obj*/, UtilityClass& /*help*/)
 {
     //dwgfx.backbuffer.lock();
     FillRect(dwgfx.backBuffer, 0x000000);

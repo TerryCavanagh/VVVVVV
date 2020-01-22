@@ -2368,7 +2368,7 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 }
 
 void teleporterinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-                     entityclass& obj, UtilityClass& help, musicclass& music)
+                     entityclass& obj, UtilityClass& /*help*/, musicclass& /*music*/)
 {
     //Todo Mouseinput!
     //game.mx = (mouseX / 2);
@@ -2471,7 +2471,7 @@ void teleporterinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 }
 
 void gamecompleteinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-                       entityclass& obj, UtilityClass& help, musicclass& music)
+                       entityclass& /*obj*/, UtilityClass& /*help*/, musicclass& /*music*/)
 {
     //game.mx = (mouseX / 2);
     //game.my = (mouseY / 2);
@@ -2515,8 +2515,8 @@ void gamecompleteinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     }
 }
 
-void gamecompleteinput2(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-                        entityclass& obj, UtilityClass& help, musicclass& music)
+void gamecompleteinput2(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& /*map*/,
+                        entityclass& /*obj*/, UtilityClass& /*help*/, musicclass& music)
 {
     //TODO Mouse Input!
     //game.mx = (mouseX / 2);

@@ -3,7 +3,7 @@
 
 extern int temp;
 
-void titlelogic( Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& help, musicclass& music, mapclass& map)
+void titlelogic( Graphics& /*dwgfx*/, Game& game, entityclass& /*obj*/, UtilityClass& help, musicclass& music, mapclass& map)
 {
     //Misc
     //map.updatetowerglow();
@@ -36,14 +36,14 @@ void titlelogic( Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& he
     }
 }
 
-void maplogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help)
+void maplogic(Graphics& /*dwgfx*/, Game& /*game*/, entityclass& /*obj*/,  musicclass& /*music*/, mapclass& /*map*/, UtilityClass& help)
 {
     //Misc
     help.updateglow();
 }
 
 
-void gamecompletelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help)
+void gamecompletelogic(Graphics& dwgfx, Game& game, entityclass& /*obj*/,  musicclass& /*music*/, mapclass& map, UtilityClass& help)
 {
     //Misc
     map.updatetowerglow();

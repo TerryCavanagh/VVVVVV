@@ -524,7 +524,7 @@ int mapclass::maptiletoenemycol(int t)
 	return 11;
 }
 
-void mapclass::changefinalcol(int t, entityclass& obj, Game& game)
+void mapclass::changefinalcol(int t, entityclass& obj, Game& /*game*/)
 {
 	//change the map to colour t - for the game's final stretch.
 	//First up, the tiles. This is just a setting:
@@ -1156,7 +1156,7 @@ std::string mapclass::currentarea(int t)
 	return "???";
 }
 
-void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music)
+void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclass& obj, musicclass& /*music*/)
 {
 	int t;
 	//t = rx + (ry * 100);
