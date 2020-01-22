@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
     mapclass map;
 
     map.ypos = (700-29) * 8;
-    map.bypos = map.ypos / 2;
+    map.bypos = static_cast<int>(map.ypos / 2);
 
     //Moved screensetting init here from main menu V2.1
     game.loadstats(map, graphics);

@@ -165,7 +165,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
         else if (map.cameramode == 4)
         {
             int i = obj.getplayer();
-            map.cameraseek = map.ypos - (obj.entities[i].yp - 120);
+            map.cameraseek = static_cast<int>(map.ypos - (obj.entities[i].yp - 120));
 
             map.cameraseek = map.cameraseek / 10;
             map.cameraseekframe = 10;
@@ -187,24 +187,24 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
                 {
                     if (map.ypos < obj.entities[i].yp - 120)
                     {
-                        map.ypos = obj.entities[i].yp - 120;
+                        map.ypos = static_cast<float>(obj.entities[i].yp - 120);
                     }
                 }
                 else
                 {
                     if (map.ypos > obj.entities[i].yp - 120)
                     {
-                        map.ypos = obj.entities[i].yp - 120;
+                        map.ypos = static_cast<float>(obj.entities[i].yp - 120);
                     }
                 }
                 map.cameraseekframe--;
-                map.bypos = map.ypos / 2;
+                map.bypos = static_cast<int>(map.ypos / 2);
             }
             else
             {
                 int i = obj.getplayer();
-                map.ypos = obj.entities[i].yp - 120;
-                map.bypos = map.ypos / 2;
+                map.ypos = static_cast<float>(obj.entities[i].yp - 120);
+                map.bypos = static_cast<int>(map.ypos / 2);
                 map.cameramode = 0;
                 map.colsuperstate = 0;
             }
@@ -226,7 +226,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
         if (map.ypos >= 568)
         {
             map.ypos = 568;
-            map.bypos = map.ypos / 2;
+            map.bypos = static_cast<int>(map.ypos / 2);
             map.bscroll = 0;
         } //100-29 * 8 = 568
     }
@@ -235,7 +235,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
         if (map.ypos >= 5368)
         {
             map.ypos = 5368;    //700-29 * 8 = 5368
-            map.bypos = map.ypos / 2.0;
+            map.bypos = static_cast<int>(map.ypos / 2.0);
         }
     }
 
@@ -480,13 +480,13 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
                     if (obj.entities[player].yp-map.ypos <= 0)
                     {
                         map.ypos-=10;
-                        map.bypos = map.ypos / 2;
+                        map.bypos = static_cast<int>(map.ypos / 2);
                         map.bscroll = 0;
                     }
                     else if (obj.entities[player].yp-map.ypos >= 208)
                     {
                         map.ypos+=2;
-                        map.bypos = map.ypos / 2;
+                        map.bypos = static_cast<int>(map.ypos / 2);
                         map.bscroll = 0;
                     }
                 }
@@ -618,8 +618,8 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
             else if (obj.entities[i].type == 23 && game.swnmode && game.deathseq<15)
             {
                 //if playing SWN, get the enemies offscreen.
-                obj.entities[i].xp += obj.entities[i].vx*5;
-                obj.entities[i].yp += obj.entities[i].vy*5;
+                obj.entities[i].xp += static_cast<int>(obj.entities[i].vx*5);
+                obj.entities[i].yp += static_cast<int>(obj.entities[i].vy*5);
             }
         }
         if (game.swnmode)
@@ -1234,7 +1234,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
           if (game.teleport)
           {
               int edi=obj.entities[game.edteleportent].behave;
-              int edj=obj.entities[game.edteleportent].para;
+              int edj=static_cast<int>(obj.entities[game.edteleportent].para);
               int edi2, edj2;
               edi2 = (edi-(edi%40))/40;
               edj2 = (edj-(edj%30))/30;

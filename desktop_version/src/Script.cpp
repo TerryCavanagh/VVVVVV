@@ -1114,7 +1114,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				obj.entities[i].state = ss_toi(words[2]);
 				if (obj.entities[i].state == 16)
 				{
-					obj.entities[i].para=ss_toi(words[3]);
+					obj.entities[i].para=static_cast<float>(ss_toi(words[3]));
 				}
 				else if (obj.entities[i].state == 17)
 				{
@@ -2607,8 +2607,8 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer(dwgfx, game, obj, music);
 
 			i = obj.getplayer();
-			map.ypos = obj.entities[i].yp - 120;
-			map.bypos = map.ypos / 2;
+			map.ypos = static_cast<float>(obj.entities[i].yp - 120);
+			map.bypos = static_cast<int>(map.ypos / 2);
 			map.cameramode = 0;
 			map.colsuperstate = 0;
 		}
@@ -3328,7 +3328,7 @@ void scriptclass::teleport( Graphics& dwgfx, Game& game, mapclass& map, entitycl
 	obj.entities[j].state = 2;
 	game.teleport_to_new_area = false;
 
-	game.savepoint = obj.entities[j].para;
+	game.savepoint = static_cast<int>(obj.entities[j].para);
 	game.savex = obj.entities[j].xp + 44;
 	game.savey = obj.entities[j].yp + 44;
 	game.savegc = 0;

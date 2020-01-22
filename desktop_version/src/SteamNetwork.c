@@ -100,6 +100,13 @@ int32_t STEAM_init()
 #endif
 	intptr_t steamClient;
 	int32_t steamUser, steamPipe;
+	union typepun 
+	{
+		void (*funcname)(void);
+		void* dataptr;
+	};
+
+	union typepun punner;
 
 	libHandle = SDL_LoadObject(STEAM_LIBRARY);
 	if (!libHandle)
@@ -108,8 +115,10 @@ int32_t STEAM_init()
 		return 0;
 	}
 
+
 	#define LOAD_FUNC(name) \
-		name = (name##Func) SDL_LoadFunction(libHandle, #name); \
+		punner.dataptr = SDL_LoadFunction(libHandle, #name); \
+		name = (name##Func) punner.funcname; \
 		if (!name) \
 		{ \
 			printf("%s symbol %s not found!\n", STEAM_LIBRARY, #name); \

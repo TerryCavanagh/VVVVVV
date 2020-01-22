@@ -1270,9 +1270,9 @@ void gamecompleterender(Graphics& dwgfx, Game& game, entityclass& /*obj*/, Utili
         //dwgfx.drawsprite((160-96)+ i * 32, 10, 23, 96+(i*10)+(random()*16), 196-(help.glow)-(random()*16), 255 - (help.glow*2));
     }
 
-    tr = map.r - (help.glow / 4) - fRandom() * 4;
-    tg = map.g - (help.glow / 4) - fRandom() * 4;
-    tb = map.b - (help.glow / 4) - fRandom() * 4;
+    tr = static_cast<int>(map.r - (help.glow / 4) - fRandom() * 4);
+    tg = static_cast<int>(map.g - (help.glow / 4) - fRandom() * 4);
+    tb = static_cast<int>(map.b - (help.glow / 4) - fRandom() * 4);
     if (tr < 0) tr = 0;
     if(tr>255) tr=255;
     if (tg < 0) tg = 0;
@@ -1795,14 +1795,14 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
             game.act_fade++;
         }
         dwgfx.drawtextbox(16, 4, 36, 3, game.activity_r*(game.act_fade/10.0f), game.activity_g*(game.act_fade/10.0f), game.activity_b*(game.act_fade/10.0f));
-        dwgfx.Print(5, 12, game.activity_lastprompt, game.activity_r*(game.act_fade/10.0f), game.activity_g*(game.act_fade/10.0f), game.activity_b*(game.act_fade/10.0f), true);
+        dwgfx.Print(5, 12, game.activity_lastprompt, static_cast<int>(game.activity_r*(game.act_fade/10.0f)), static_cast<int>(game.activity_g*(game.act_fade/10.0f)), static_cast<int>(game.activity_b*(game.act_fade/10.0f)), true);
     }
     else
     {
         if(game.act_fade>5)
         {
             dwgfx.drawtextbox(16, 4, 36, 3, game.activity_r*(game.act_fade/10.0f), game.activity_g*(game.act_fade/10.0f), game.activity_b*(game.act_fade/10.0f));
-            dwgfx.Print(5, 12, game.activity_lastprompt, game.activity_r*(game.act_fade/10.0f), game.activity_g*(game.act_fade/10.0f), game.activity_b*(game.act_fade/10.0f), true);
+            dwgfx.Print(5, 12, game.activity_lastprompt, static_cast<int>(game.activity_r*(game.act_fade/10.0f)), static_cast<int>(game.activity_g*(game.act_fade/10.0f)), static_cast<int>(game.activity_b*(game.act_fade/10.0f)), true);
             game.act_fade--;
         }
     }

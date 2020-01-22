@@ -3206,7 +3206,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                 {
                     game.coins++;
                     music.playef(4,10);
-                    collect[entities[static_cast<unsigned int>(i)].para] = 1;
+                    collect[static_cast<int>(entities[static_cast<unsigned int>(i)].para)] = 1;
 
                     entities[i].active = false;
                 }
@@ -3218,7 +3218,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                     game.trinkets++;
                     if (game.intimetrial)
                     {
-                        collect[entities[static_cast<unsigned int>(i)].para] = 1;
+                        collect[static_cast<int>(entities[static_cast<unsigned int>(i)].para)] = 1;
                         music.playef(25,10);
                     }
                     else
@@ -3227,7 +3227,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                         //music.haltdasmusik();
                         if(music.currentsong!=-1) music.silencedasmusik();
                         music.playef(3,10);
-                        collect[entities[static_cast<unsigned int>(i)].para] = 1;
+                        collect[static_cast<int>(entities[static_cast<unsigned int>(i)].para)] = 1;
                         if (game.trinkets > game.stat_trinkets)
                         {
                             game.stat_trinkets = game.trinkets;
@@ -3840,7 +3840,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                     game.crewmates++;
                     if (game.intimetrial)
                     {
-                        customcollect[entities[static_cast<unsigned int>(i)].para] = 1;
+                        customcollect[static_cast<int>(entities[static_cast<unsigned int>(i)].para)] = 1;
                         music.playef(27,10);
                     }
                     else
@@ -3849,7 +3849,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                         //music.haltdasmusik();
                         if(music.currentsong!=-1) music.silencedasmusik();
                         music.playef(27,10);
-                        customcollect[entities[static_cast<unsigned int>(i)].para] = 1;
+                        customcollect[static_cast<int>(entities[static_cast<unsigned int>(i)].para)] = 1;
                     }
 
                     entities[i].active = false;

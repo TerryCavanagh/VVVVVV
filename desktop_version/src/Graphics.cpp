@@ -44,7 +44,7 @@ Graphics::Graphics()
     for (int i = 0; i < 50; i++)
     {
         SDL_Rect s = {Sint16(fRandom() * 320), Sint16(fRandom() * 240), 2, 2};
-        int s2 = 4+(fRandom()*4);
+        int s2 = static_cast<int>(4+(fRandom()*4));
         stars.push_back(s);
         starsspeed.push_back(s2);
 
@@ -53,19 +53,19 @@ Graphics::Graphics()
         int bvy = 0;
         if(fRandom()*100 > 50)
         {
-            bvx = 9 - (fRandom() * 19);
+            bvx = static_cast<int>(9 - (fRandom() * 19));
             if (bvx > -6 && bvx < 6) bvx = 6;
-            bvx = bvx * 1.5;
+            bvx = static_cast<int>(bvx * 1.5);
             setRect(bb, fRandom() * 320, fRandom() * 240, 32, 12);
         }
         else
         {
-            bvy = 9 - (fRandom() * 19);
+            bvy = static_cast<int>(9 - (fRandom() * 19));
             if (bvy > -6 && bvy < 6) bvy = 6;
-            bvy = bvy * 1.5;
+            bvy = static_cast<int>(bvy * 1.5);
             setRect(bb, fRandom() * 320, fRandom() * 240, 12, 32) ;
         }
-        float bint = 0.5 + ((fRandom() * 100) / 200);
+        float bint = static_cast<float>(0.5 + ((fRandom() * 100) / 200));
         backboxes.push_back(bb);
         backboxvx.push_back(bvx);
         backboxvy.push_back(bvy);
@@ -2117,22 +2117,22 @@ void Graphics::drawbackground( int t, mapclass& map )
             if (backboxes[i].x < -40)
             {
                 backboxes[i].x = 320;
-                backboxes[i].y = fRandom() * 240;
+                backboxes[i].y = static_cast<int>(fRandom() * 240);
             }
             if (backboxes[i].x > 320)
             {
                 backboxes[i].x = -32;
-                backboxes[i].y = fRandom() * 240;
+                backboxes[i].y = static_cast<int>(fRandom() * 240);
             }
             if (backboxes[i].y < -40)
             {
                 backboxes[i].y = 240;
-                backboxes[i].x = fRandom() * 320;
+                backboxes[i].x = static_cast<int>(fRandom() * 320);
             }
             if (backboxes[i].y > 260)
             {
                 backboxes[i].y = -32;
-                backboxes[i].x = fRandom() * 320;
+                backboxes[i].x = static_cast<int>(fRandom() * 320);
             }
         }
         break;
@@ -2292,8 +2292,8 @@ void Graphics::drawbackground( int t, mapclass& map )
             if (stars[i].y < -10)
             {
                 stars[i].y += 260;
-                stars[i].x = fRandom() * 320;
-                starsspeed[i] = 5+(fRandom()*5);
+                stars[i].x = static_cast<int>(fRandom() * 320);
+                starsspeed[i] = static_cast<int>(5+(fRandom()*5));
             }
         }
         break;
@@ -2470,7 +2470,7 @@ void Graphics::drawtowerentities( mapclass& map, entityclass& obj, UtilityClass&
             {
 				trinketcolset = false;
                 tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp-map.ypos;
+                tpoint.y = static_cast<int>(obj.entities[i].yp-map.ypos);
                 setcol(obj.entities[i].colour, help);
                 setRect(trect, tpoint.x, tpoint.y, sprites_rect.w, sprites_rect.h);
                 BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
@@ -2498,7 +2498,7 @@ void Graphics::drawtowerentities( mapclass& map, entityclass& obj, UtilityClass&
             {
                 // Tiles
                 tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp-map.ypos;
+                tpoint.y = static_cast<int>(obj.entities[i].yp-map.ypos);
                 setRect(trect,tiles_rect.w, tiles_rect.h, tpoint.x, tpoint.y);
                 BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
             }
@@ -2506,7 +2506,7 @@ void Graphics::drawtowerentities( mapclass& map, entityclass& obj, UtilityClass&
             {
                 // Special: Moving platform, 4 tiles
                 tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp-map.ypos;
+                tpoint.y = static_cast<int>(obj.entities[i].yp-map.ypos);
                 setRect(trect,tiles_rect.w, tiles_rect.h, tpoint.x, tpoint.y);
                 BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
                 tpoint.x += 8;
@@ -2523,7 +2523,7 @@ void Graphics::drawtowerentities( mapclass& map, entityclass& obj, UtilityClass&
             else if (obj.entities[i].size == 3)    // Big chunky pixels!
             {
                 prect.x = obj.entities[i].xp;
-                prect.y = obj.entities[i].yp-map.ypos;
+                prect.y = static_cast<int>(obj.entities[i].yp-map.ypos);
                 //A seperate index of colours, for simplicity
                 if(obj.entities[i].colour==1)
                 {
@@ -2541,7 +2541,7 @@ void Graphics::drawtowerentities( mapclass& map, entityclass& obj, UtilityClass&
             else if (obj.entities[i].size == 5)    //Horizontal Line
             {
                 line_rect.x = obj.entities[i].xp;
-                line_rect.y = obj.entities[i].yp-map.ypos;
+                line_rect.y = static_cast<int>(obj.entities[i].yp-map.ypos);
                 line_rect.w = obj.entities[i].w;
                 line_rect.h = 1;
                 drawgravityline(i, obj);
@@ -2549,7 +2549,7 @@ void Graphics::drawtowerentities( mapclass& map, entityclass& obj, UtilityClass&
             else if (obj.entities[i].size == 6)    //Vertical Line
             {
                 line_rect.x = obj.entities[i].xp;
-                line_rect.y = obj.entities[i].yp-map.ypos;
+                line_rect.y = static_cast<int>(obj.entities[i].yp-map.ypos);
                 line_rect.w = 1;
                 line_rect.h = obj.entities[i].h;
                 drawgravityline(i, obj);
@@ -2669,15 +2669,15 @@ void Graphics::setcol( int t, UtilityClass& help )
 	case 3: //Trinket
 		if (!trinketcolset)
 		{
-			trinketr = 200 - (fRandom() * 64);
-			trinketg = 200 - (fRandom() * 128);
-			trinketb = 164 + (fRandom() * 60);
+			trinketr = static_cast<int>(200 - (fRandom() * 64));
+			trinketg = static_cast<int>(200 - (fRandom() * 128));
+			trinketb = static_cast<int>(164 + (fRandom() * 60));
 			trinketcolset = true;
 		}
 		ct.colour = getRGB(trinketr, trinketg, trinketb);
 		break;
 	case 4: //Inactive savepoint
-		temp = (help.glow/2) + (fRandom() * 8);
+		temp = static_cast<int>((help.glow/2) + (fRandom() * 8));
 		ct.colour = getRGB(80 + temp, 80 + temp, 80 + temp);
 		break;
 	case 5: //Active savepoint
@@ -2779,9 +2779,9 @@ void Graphics::setcol( int t, UtilityClass& help )
 	case 37: //Trinket
 		if (!trinketcolset)
 		{
-			trinketr = 200 - (fRandom() * 64);
-			trinketg = 200 - (fRandom() * 128);
-			trinketb = 164 + (fRandom() * 60);
+			trinketr = static_cast<int>(200 - (fRandom() * 64));
+			trinketg = static_cast<int>(200 - (fRandom() * 128));
+			trinketb = static_cast<int>(164 + (fRandom() * 60));
 			trinketcolset = true;
 		}
 		ct.colour = RGBf(trinketr, trinketg, trinketb);
@@ -2796,7 +2796,7 @@ void Graphics::setcol( int t, UtilityClass& help )
 		break;
 		//Awesome
 	case 40: //Teleporter in action!
-		temp = fRandom() * 150;
+		temp = static_cast<int>(fRandom() * 150);
 		if(temp<33)
 		{
 			ct.colour = RGBf(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
@@ -2816,14 +2816,14 @@ void Graphics::setcol( int t, UtilityClass& help )
 		break;
 
 	case 100: //Inactive Teleporter
-		temp = (help.glow/2) + (fRandom() * 8);
+		temp = static_cast<int>((help.glow/2) + (fRandom() * 8));
 		ct.colour = getRGB(42 + temp, 42 + temp, 42 + temp);
 		break;
 	case 101: //Active Teleporter
 		ct.colour = getRGB(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
 		break;
 	case 102: //Teleporter in action!
-		temp = fRandom() * 150;
+		temp = static_cast<int>(fRandom() * 150);
 		if(temp<33)
 		{
 			ct.colour = getRGB(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
@@ -3003,8 +3003,8 @@ void Graphics::screenshake()
 		//	flipmatrix.translate(-tpoint.x, -tpoint.y);
 
 		screenbuffer->ClearScreen(0x000);
-		tpoint.x =  (fRandom() * 7) - 4;
-		tpoint.y =  (fRandom() * 7) - 4;
+		tpoint.x =  static_cast<int>((fRandom() * 7) - 4);
+		tpoint.y =  static_cast<int>((fRandom() * 7) - 4);
 		SDL_Rect shakeRect;
 		setRect(shakeRect,tpoint.x, tpoint.y, backBuffer->w, backBuffer->h);
 		SDL_Surface* flipBackBuffer = FlipSurfaceVerticle(backBuffer);
@@ -3072,7 +3072,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 	if (b > 255) b = 255;
 	ct.colour = getRGB(r, g, b);
 
-	x = x /  (sc);
+	x = static_cast<int>(x /  (sc));
 
 	x -= (len(t));
 
@@ -3090,7 +3090,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 	}
 	else
 	{
-		x *=  (sc);
+		x *=  static_cast<int>(sc);
 	}
 
 	int bfontpos = 0;
@@ -3116,7 +3116,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
 			SDL_FreeSurface(tempPrint);
 		}
-		bfontpos+=bfontlen[cur]* sc;
+		bfontpos+=static_cast<int>(bfontlen[cur]* sc);
 	}
 }
 

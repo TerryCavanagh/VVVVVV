@@ -491,7 +491,6 @@ int mapclass::finalat(int x, int y)
 	{
 		return contents[x + vmult[y]];
 	}
-	return 0;
 }
 
 int mapclass::maptiletoenemycol(int t)
@@ -1237,7 +1236,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 				obj.entities[player].yp += (671 * 8);
 
 				ypos = (700-29) * 8;
-				bypos = ypos / 2;
+				bypos = static_cast<int>(ypos / 2);
 				cameramode = 0;
 				colstate = 0;
 				colsuperstate = 0;
@@ -1451,7 +1450,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		finaly--;
 
 		ypos = (100-29) * 8;
-		bypos = ypos/2;
+		bypos = static_cast<int>(ypos/2);
 		cameramode = 0;
 		colstate = 0;
 		colsuperstate = 0;}
@@ -1492,7 +1491,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		finaly--;
 
 		ypos = (100-29) * 8;
-		bypos = ypos/2;
+		bypos = static_cast<int>(ypos/2);
 		cameramode = 0;
 		colstate = 0;
 		colsuperstate = 0;
@@ -1843,8 +1842,8 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 				if (obj.entities[i].type == 1 && obj.entities[i].behave >= 8 && obj.entities[i].behave < 10)
 				{
 					//put a block underneath
-					temp = obj.entities[i].xp / 8.0f;
-					temp2 = obj.entities[i].yp / 8.0f;
+					temp = static_cast<int>(obj.entities[i].xp / 8.0f);
+					temp2 = static_cast<int>(obj.entities[i].yp / 8.0f);
 					settile(temp, temp2, 1);
 					settile(temp+1, temp2, 1);
 					settile(temp+2, temp2, 1);

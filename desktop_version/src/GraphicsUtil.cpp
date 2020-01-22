@@ -73,11 +73,11 @@ void DrawPixel( SDL_Surface *_surface, int x, int y, Uint32 pixel )
     switch(bpp)
     {
     case 1:
-        *p = pixel;
+        *p = static_cast<Uint8>(pixel);
         break;
 
     case 2:
-        *(Uint16 *)p = pixel;
+        *(Uint16 *)p = static_cast<Uint8>(pixel);
         break;
 
     case 3:
@@ -154,7 +154,7 @@ SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Su
         _ret = Dest;
     }
 
-    float  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(_surface->w)), _stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(_surface->h));
+    float  _stretch_factor_x = static_cast<float>((static_cast<double>(Width)  / static_cast<double>(_surface->w))), _stretch_factor_y = static_cast<float>((static_cast<double>(Height) / static_cast<double>(_surface->h)));
 
 
 	SDL_Rect gigantoPixel;
@@ -187,7 +187,7 @@ SDL_Surface * _ScaleSurfaceSlow( SDL_Surface *_surface, int Width, int Height)
 
 
 
-	float  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(_surface->w)), _stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(_surface->h));
+	float  _stretch_factor_x = static_cast<float>(static_cast<float>((static_cast<double>(Width)  / static_cast<double>(_surface->w)))), _stretch_factor_y = static_cast<float>(static_cast<float>((static_cast<double>(Height) / static_cast<double>(_surface->h))));
 
 
 	for(Sint32 y = 0; y < _surface->h; y++)
@@ -341,23 +341,23 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
 
 			Uint32 pixel = ReadPixel(_src, x,sampley);
 
-			Uint8 green = (pixel & _src->format->Gmask) >> 8;
-			Uint8 blue = (pixel & _src->format->Bmask) >> 0;
+			Uint8 green = static_cast<Uint8>((pixel & _src->format->Gmask) >> 8);
+			Uint8 blue = static_cast<Uint8>((pixel & _src->format->Bmask) >> 0); // >> 0 here does nothing...
 
 			Uint32 pixelOffset = ReadPixel(_src, std::min(x+redOffset, 319), sampley) ;
-			Uint8 red = (pixelOffset & _src->format->Rmask) >> 16 ;
+			Uint8 red = static_cast<Uint8>((pixelOffset & _src->format->Rmask) >> 16 );
 
 			if(isscrolling && sampley > 220 && ((rand() %10) < 4))
 			{
-				red = std::min(int(red+(fRandom() * 0.6)  * 254) , 255);
-				green = std::min(int(green+(fRandom() * 0.6)  * 254) , 255);
-				blue = std::min(int(blue+(fRandom() * 0.6)  * 254) , 255);
+				red = static_cast<Uint8>(std::min(int(red+(fRandom() * 0.6)  * 254) , 255));
+				green = static_cast<Uint8>(std::min(int(green+(fRandom() * 0.6)  * 254) , 255));
+				blue = static_cast<Uint8>(std::min(int(blue+(fRandom() * 0.6)  * 254) , 255));
 			}
 			else
 			{
-				red = std::min(int(red+(fRandom() * 0.2)  * 254) , 255);
-				green = std::min(int(green+(fRandom() * 0.2)  * 254) , 255);
-				blue = std::min(int(blue+(fRandom() * 0.2)  * 254) , 255);
+				red = static_cast<Uint8>(std::min(int(red+(fRandom() * 0.2)  * 254) , 255));
+				green = static_cast<Uint8>(std::min(int(green+(fRandom() * 0.2)  * 254) , 255));
+				blue = static_cast<Uint8>(std::min(int(blue+(fRandom() * 0.2)  * 254) , 255));
 			}
 
 
@@ -371,9 +371,9 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
 			int distX =  static_cast<int>((abs (160.0f -x ) / 160.0f) *16);
 			int distY =  static_cast<int>((abs (120.0f -y ) / 120.0f)*32);
 
-			red = std::max(red - ( distX +distY), 0);
-			green = std::max(green - ( distX +distY), 0);
-			blue = std::max(blue - ( distX +distY), 0);
+			red = static_cast<Uint8>(std::max(red - ( distX +distY), 0));
+			green = static_cast<Uint8>(std::max(green - ( distX +distY), 0));
+			blue = static_cast<Uint8>(std::max(blue - ( distX +distY), 0));
 
 			Uint32 finalPixel = ((red<<16) + (green<<8) + (blue<<0)) | (pixel &_src->format->Amask);
 			DrawPixel(_ret,x,y,  finalPixel);
@@ -414,7 +414,7 @@ void FillRect( SDL_Surface* _surface, const int x, const int y, const int w, con
 void _FillRect( SDL_Surface* _surface, SDL_Rect& _rect, const int r, int g, int b )
 {
     Uint32 color;
-    color = SDL_MapRGB(_surface->format, static_cast<int>(r), static_cast<int>(g), static_cast<int>(b));
+    color = SDL_MapRGB(_surface->format, static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b));
     SDL_FillRect(_surface, &_rect, color);
 }
 
