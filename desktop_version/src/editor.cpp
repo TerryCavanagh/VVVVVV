@@ -319,11 +319,11 @@ void editorclass::reset()
         }
     }
 
-    for (int j = 0; j < 30 * maxwidth; j++)
+    for (int j = 0; j < 30 * maxheight; j++)
     {
-        for (int i = 0; i < 40 * maxheight; i++)
+        for (int i = 0; i < 40 * maxwidth; i++)
         {
-            contents[i+(j*30*maxwidth)]=0;
+            contents[i+(j*40*maxwidth)]=0;
         }
     }
 
