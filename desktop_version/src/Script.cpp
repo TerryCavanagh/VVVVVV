@@ -1892,7 +1892,16 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				dwgfx.addline("You have found a shiny trinket!");
 				dwgfx.textboxcenterx();
 
-				dwgfx.createtextbox(" " + help.number(game.trinkets) + " out of Twenty ", 50, 135, 174, 174, 174);
+				std::string usethisnum;
+				if (map.custommode)
+				{
+					usethisnum = help.number(map.customtrinkets);
+				}
+				else
+				{
+					usethisnum = "Twenty";
+				}
+				dwgfx.createtextbox(" " + help.number(game.trinkets) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
 				dwgfx.textboxcenterx();
 
 				if (!game.backgroundtext)
