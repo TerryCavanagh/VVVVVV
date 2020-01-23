@@ -9,6 +9,7 @@ Contributors
 * Dav999 (Dav999-v)
 * Allison Fleischer (AllisonFleischer)
 * Daniel Lee (@ddm999)
+* Fredrik Ljungdahl (@FredrIQ)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
 * Keith Stellyes (@keithstellyes)
