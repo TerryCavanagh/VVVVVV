@@ -314,6 +314,7 @@ void editorclass::reset()
             level[i+(j*maxwidth)].enemyy1=0;
             level[i+(j*maxwidth)].enemyx2=320;
             level[i+(j*maxwidth)].enemyy2=240;
+            level[i+(j*maxwidth)].enemytype=0;
             level[i+(j*maxwidth)].directmode=0;
         }
     }
