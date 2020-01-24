@@ -21,3 +21,4 @@ Contributors
 * Rémi Verschelde (@akien-mga)
 * viri (viri.me)
 * Wouter (Xesxen)
+* Matt "Stelpjo" Aaldenberg
