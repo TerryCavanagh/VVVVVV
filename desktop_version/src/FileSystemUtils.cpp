@@ -123,7 +123,8 @@ char *FILESYSTEM_getUserLevelDirectory()
 	return levelDir;
 }
 
-void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem, size_t *len)
+void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
+                                 size_t *len, bool addnull)
 {
 	PHYSFS_File *handle = PHYSFS_openRead(name);
 	if (handle == NULL)
@@ -135,7 +136,15 @@ void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem, size_t *
 	{
 		*len = length;
 	}
-	*mem = (unsigned char*) malloc(length);
+	if (addnull)
+	{
+		*mem = (unsigned char *) malloc(length + 1);
+		mem[length] = 0;
+	}
+	else
+	{
+		*mem = (unsigned char*) malloc(length);
+	}
 	PHYSFS_readBytes(handle, *mem, length);
 	PHYSFS_close(handle);
 }
@@ -165,7 +174,7 @@ bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc)
 {
 	/* TiXmlDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
 	unsigned char *mem = NULL;
-	FILESYSTEM_loadFileToMemory(name, &mem, NULL);
+	FILESYSTEM_loadFileToMemory(name, &mem, NULL, true);
 	if (mem == NULL)
 	{
 		return false;
