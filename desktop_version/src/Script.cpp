@@ -3425,6 +3425,8 @@ void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass&
 	game.teleport = false;
 	game.companion = 0;
 	game.roomchange = false;
+	game.roomx = 0;
+	game.roomy = 0;
 	game.teleport_to_new_area = false;
 	game.teleport_to_x = 0;
 	game.teleport_to_y = 0;
@@ -3460,6 +3462,8 @@ void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass&
 	game.savetime = "00:00";
 	game.savearea = "nowhere";
 	game.savetrinkets = 0;
+	game.saverx = 0;
+	game.savery = 0;
 
 	game.intimetrial = false;
 	game.timetrialcountdown = 0;
@@ -3534,7 +3538,9 @@ void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass&
 	map.resetnames();
 	map.custommode=false;
 	map.custommodeforreal=false;
-
+	map.towermode=false;
+	map.cameraseekframe = 0;
+	map.resumedelay = 0;
 	map.customshowmm=true;
 
 	for (j = 0; j < 20; j++)
