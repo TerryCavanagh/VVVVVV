@@ -165,11 +165,17 @@ bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc)
 {
 	/* TiXmlDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
 	unsigned char *mem = NULL;
-	FILESYSTEM_loadFileToMemory(name, &mem, NULL);
+	size_t len = 0;
+	FILESYSTEM_loadFileToMemory(name, &mem, &len);
 	if (mem == NULL)
 	{
 		return false;
 	}
+
+	// Realloc including a null terminator
+	mem = (unsigned char *) realloc(mem, len + 1);
+	mem[len] = 0;
+
 	doc->Parse((const char*)mem);
 	FILESYSTEM_freeMemory(&mem);
 	return true;
