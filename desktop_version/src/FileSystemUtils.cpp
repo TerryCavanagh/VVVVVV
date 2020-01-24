@@ -22,7 +22,7 @@ int mkdir(char* path, int mode)
 	return CreateDirectoryW(utf16_path, NULL);
 }
 #define VNEEDS_MIGRATION (mkdirResult != 0)
-#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
 #include <sys/stat.h>
 #include <limits.h>
 #define VNEEDS_MIGRATION (mkdirResult == 0)
@@ -45,6 +45,7 @@ int FILESYSTEM_init(char *argvZero)
 	int mkdirResult;
 
 	PHYSFS_init(argvZero);
+	PHYSFS_permitSymbolicLinks(1);
 
 	/* Determine the OS user directory */
 	PLATFORM_getOSDirectory(output);
@@ -96,6 +97,13 @@ int FILESYSTEM_init(char *argvZero)
 			NULL
 		);
 		return 0;
+	}
+
+	strcpy(output, PHYSFS_getBaseDir());
+	strcpy(output, "gamecontrollerdb.txt");
+	if (SDL_GameControllerAddMappingsFromFile(output) < 0)
+	{
+		printf("gamecontrollerdb.txt not found!\n");
 	}
 	return 1;
 }
@@ -208,7 +216,7 @@ void PLATFORM_migrateSaveData(char* output)
 	char oldLocation[MAX_PATH];
 	char newLocation[MAX_PATH];
 	char oldDirectory[MAX_PATH];
-#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
 	DIR *dir = NULL;
 	struct dirent *de = NULL;
 	DIR *subDir = NULL;
@@ -221,7 +229,7 @@ void PLATFORM_migrateSaveData(char* output)
 		return;
 	}
 	strcpy(oldDirectory, homeDir);
-#if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
 	strcat(oldDirectory, "/.vvvvvv/");
 #elif defined(__APPLE__)
 	strcat(oldDirectory, "/Documents/VVVVVV/");

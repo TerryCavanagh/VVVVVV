@@ -31,6 +31,7 @@ Graphics::Graphics()
 
     showcutscenebars = false;
     cutscenebarspos = 0;
+    notextoutline = false;
 
     flipmode = false;
     setflipmode = false;
@@ -88,32 +89,26 @@ Graphics::Graphics()
     resumegamemode = false;
 
     //Textboxes!
-    for (int i = 0; i < 30; i++)
-    {
-        textboxclass t;
-        textbox.push_back(t);
-    }
+    textbox.resize(30);
     ntextbox = 0;
 
     //Fading stuff
-    for (int i = 0; i < 15; i++)
-    {
-        fadebars.push_back(0);
-    }
+    fadebars.resize(15);
+
     fadeamount = 0;
     fademode = 0;
 
     // initialize everything else to zero
     backBuffer = NULL;
-    backboxrect.x = 0, backboxrect.y = 0, backboxrect.w = 0, backboxrect.h = 0; 
+    backboxrect = SDL_Rect();
     bcol = 0;
     bcol2 = 0;
-    ct.colour = 0;
-    foot_rect.x = 0, foot_rect.y = 0, foot_rect.w = 0, foot_rect.h = 0;
+    ct = colourTransform();
+    foot_rect = SDL_Rect();
     foregrounddrawn = false;
     foregroundBuffer = NULL;
     backgrounddrawn = false;
-    images_rect.x = 0, images_rect.y = 0, images_rect.w = 0, images_rect.h = 0;
+    images_rect = SDL_Rect();
     j = 0;
     k = 0;
     m = 0;
@@ -121,12 +116,12 @@ Graphics::Graphics()
     menubuffer = NULL;
     screenbuffer = NULL;
     tempBuffer = NULL;
-    tl.x = 0, tl.y = 0;
+    tl = point();
     towerbuffer = NULL;
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;
-    warprect.x = 0, warprect.y = 0, warprect.w = 0, warprect.h = 0;
+    warprect = SDL_Rect();
 }
 
 Graphics::~Graphics()
@@ -386,19 +381,22 @@ void Graphics::bprint( int x, int y, std::string t, int r, int g, int b, bool ce
 {
 
     //printmask(x, y, t, cen);
-    //Print(x, y - 1, t, 0, 0, 0, cen);
-    //if (cen)
-    //{
-    //	//TODO find different
-    //	PrintOff(-1, y, t, 0, 0, 0, cen);
-    //	PrintOff(1, y, t, 0, 0, 0, cen);
-    //}
-    //else
-    //{
-    //	Print(x  -1, y, t, 0, 0, 0, cen);
-    //	Print(x , y, t, 0, 0, 0, cen);
-    //}
-    //Print(x, y+1, t, 0, 0, 0, cen);
+    if (!notextoutline)
+    {
+        Print(x, y - 1, t, 0, 0, 0, cen);
+        if (cen)
+        {
+            //TODO find different
+            PrintOff(-1, y, t, 0, 0, 0, cen);
+            PrintOff(1, y, t, 0, 0, 0, cen);
+        }
+        else
+        {
+            Print(x  -1, y, t, 0, 0, 0, cen);
+            Print(x  +1, y, t, 0, 0, 0, cen);
+        }
+        Print(x, y+1, t, 0, 0, 0, cen);
+    }
 
     Print(x, y, t, r, g, b, cen);
 }
@@ -2344,7 +2342,7 @@ void Graphics::drawmap( mapclass& map )
     ///TODO forground once;
     if (!foregrounddrawn)
     {
-        FillRect(foregroundBuffer, 0xDEADBEEF);
+        FillRect(foregroundBuffer, 0x00000000);
         if(map.tileset==0)
         {
             for (j = 0; j < 29+map.extrarow; j++)
@@ -2377,7 +2375,7 @@ void Graphics::drawmap( mapclass& map )
         }
         foregrounddrawn = true;
     }
-    OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0xDEADBEEF);
+    OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0x00000000);
     //SDL_BlitSurface(foregroundBuffer, NULL, backBuffer, NULL);
 
 }
@@ -2400,7 +2398,7 @@ void Graphics::drawfinalmap(mapclass & map)
 	}
 
 	if (!foregrounddrawn) {
-		FillRect(foregroundBuffer, 0xDEADBEEF);
+		FillRect(foregroundBuffer, 0x00000000);
 		if(map.tileset==0){
 			for (int j = 0; j < 29+map.extrarow; j++) {
 				for (int i = 0; i < 40; i++) {
@@ -2419,7 +2417,7 @@ void Graphics::drawfinalmap(mapclass & map)
 		foregrounddrawn=true;
 	}
 
-	OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0xDEADBEEF);
+	OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0x00000000);
 }
 
 void Graphics::drawtowermap( mapclass& map )

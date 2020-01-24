@@ -314,14 +314,16 @@ void editorclass::reset()
             level[i+(j*maxwidth)].enemyy1=0;
             level[i+(j*maxwidth)].enemyx2=320;
             level[i+(j*maxwidth)].enemyy2=240;
+            level[i+(j*maxwidth)].enemytype=0;
+            level[i+(j*maxwidth)].directmode=0;
         }
     }
 
-    for (int j = 0; j < 30 * maxwidth; j++)
+    for (int j = 0; j < 30 * maxheight; j++)
     {
-        for (int i = 0; i < 40 * maxheight; i++)
+        for (int i = 0; i < 40 * maxwidth; i++)
         {
-            contents[i+(j*30*maxwidth)]=0;
+            contents[i+(j*40*maxwidth)]=0;
         }
     }
 
@@ -1594,7 +1596,7 @@ void editorclass::findstartpoint(Game& game)
         game.edsavery = 100;
         game.edsavegc = 0;
         game.edsavey--;
-        game.edsavedir=1-edentity[testeditor].p1;
+        game.edsavedir=1;
     }
     else
     {
@@ -2594,12 +2596,12 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,dwgfx.getRGB(164,164,255));
                 if(ed.temp==i)
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,
+                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,
                                 "("+help.String(((edentity[i].p1-int(edentity[i].p1%40))/40)+1)+","+help.String(((edentity[i].p2-int(edentity[i].p2%30))/30)+1)+")",210,210,255);
                 }
                 else
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),210,210,255);
+                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),210,210,255);
                 }
                 break;
             case 15: //Crewmates
@@ -2618,11 +2620,11 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,dwgfx.getRGB(164,255,255));
                 if(ed.entframe<2)
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)-12,(edentity[i].y*8)- (ed.levy*30*8)-8,"START",255,255,255);
+                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8)-12,(edentity[i].y*8)- (ed.levy*30*8)-8,"START",255,255,255);
                 }
                 else
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)-12,(edentity[i].y*8)- (ed.levy*30*8)-8,"START",196,196,196);
+                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8)-12,(edentity[i].y*8)- (ed.levy*30*8)-8,"START",196,196,196);
                 }
                 break;
             case 17: //Roomtext
@@ -2634,14 +2636,14 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 {
                     fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),edentity[i].scriptname.length()*8,8,dwgfx.getRGB(96,96,96));
                 }
-                dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), edentity[i].scriptname, 196, 196, 255 - help.glow);
+                dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), edentity[i].scriptname, 196, 196, 255 - help.glow);
                 break;
             case 18: //Terminals
                 dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)+8,17,96,96,96);
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,dwgfx.getRGB(164,164,164));
                 if(ed.temp==i)
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
+                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
                 }
                 break;
             case 19: //Script Triggers
@@ -2649,7 +2651,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(255,255,255));
                 if(ed.temp==i)
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
+                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
                 }
                 break;
             case 50: //Warp lines
@@ -2694,12 +2696,12 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 fillboxabs(dwgfx, (edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),16,16,dwgfx.getRGB(64,64,96));
                 if(ed.tilex+(ed.levx*40)==edentity[i].p1 && ed.tiley+(ed.levy*30)==edentity[i].p2)
                 {
-                    dwgfx.Print((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,
+                    dwgfx.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,
                                 "("+help.String(((edentity[i].x-int(edentity[i].x%40))/40)+1)+","+help.String(((edentity[i].y-int(edentity[i].y%30))/30)+1)+")",190,190,225);
                 }
                 else
                 {
-                    dwgfx.Print((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),190,190,225);
+                    dwgfx.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),190,190,225);
                 }
             }
         }
@@ -2850,8 +2852,8 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
 
         if(ed.dmtileeditor>0 && t2<=30)
         {
-            dwgfx.Print(2, 45-t2, "Tile:", 196, 196, 255 - help.glow, false);
-            dwgfx.Print(58, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
+            dwgfx.bprint(2, 45-t2, "Tile:", 196, 196, 255 - help.glow, false);
+            dwgfx.bprint(58, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
             FillRect(dwgfx.backBuffer, 44,44-t2,10,10, dwgfx.getRGB(196, 196, 255 - help.glow));
             FillRect(dwgfx.backBuffer, 45,45-t2,8,8, dwgfx.getRGB(0,0,0));
 
@@ -2866,8 +2868,8 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         }
         else
         {
-            dwgfx.Print(2, 12, "Tile:", 196, 196, 255 - help.glow, false);
-            dwgfx.Print(58, 12, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
+            dwgfx.bprint(2, 12, "Tile:", 196, 196, 255 - help.glow, false);
+            dwgfx.bprint(58, 12, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
             FillRect(dwgfx.backBuffer, 44,11,10,10, dwgfx.getRGB(196, 196, 255 - help.glow));
             FillRect(dwgfx.backBuffer, 45,12,8,8, dwgfx.getRGB(0,0,0));
 
@@ -3120,10 +3122,10 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 dwgfx.Print( -1, 120, "2: Positive Force", tr, tg, tb, true);
                 break;
             case 3:
-                dwgfx.Print( -1, 120, "3: Potential For Anything", tr, tg, tb, true);
+                dwgfx.Print( -1, 120, "3: Potential for Anything", tr, tg, tb, true);
                 break;
             case 4:
-                dwgfx.Print( -1, 120, "4: Passion For Exploring", tr, tg, tb, true);
+                dwgfx.Print( -1, 120, "4: Passion for Exploring", tr, tg, tb, true);
                 break;
             case 6:
                 dwgfx.Print( -1, 120, "5: Presenting VVVVVV", tr, tg, tb, true);
@@ -3144,7 +3146,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 dwgfx.Print( -1, 120, "10: Paced Energy", tr, tg, tb, true);
                 break;
             case 14:
-                dwgfx.Print( -1, 120, "11: Piercing The Sky", tr, tg, tb, true);
+                dwgfx.Print( -1, 120, "11: Piercing the Sky", tr, tg, tb, true);
                 break;
             default:
                 dwgfx.Print( -1, 120, "?: something else", tr, tg, tb, true);
@@ -3385,61 +3387,61 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             switch(ed.drawmode)
             {
             case 0:
-                dwgfx.Print(2,199, "1: Walls",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "1: Walls",196, 196, 255 - help.glow);
                 break;
             case 1:
-                dwgfx.Print(2,199, "2: Backing",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "2: Backing",196, 196, 255 - help.glow);
                 break;
             case 2:
-                dwgfx.Print(2,199, "3: Spikes",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "3: Spikes",196, 196, 255 - help.glow);
                 break;
             case 3:
-                dwgfx.Print(2,199, "4: Trinkets",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "4: Trinkets",196, 196, 255 - help.glow);
                 break;
             case 4:
-                dwgfx.Print(2,199, "5: Checkpoint",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "5: Checkpoint",196, 196, 255 - help.glow);
                 break;
             case 5:
-                dwgfx.Print(2,199, "6: Disappear",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "6: Disappear",196, 196, 255 - help.glow);
                 break;
             case 6:
-                dwgfx.Print(2,199, "7: Conveyors",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "7: Conveyors",196, 196, 255 - help.glow);
                 break;
             case 7:
-                dwgfx.Print(2,199, "8: Moving",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "8: Moving",196, 196, 255 - help.glow);
                 break;
             case 8:
-                dwgfx.Print(2,199, "9: Enemies",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "9: Enemies",196, 196, 255 - help.glow);
                 break;
             case 9:
-                dwgfx.Print(2,199, "0: Grav Line",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "0: Grav Line",196, 196, 255 - help.glow);
                 break;
             case 10:
-                dwgfx.Print(2,199, "R: Roomtext",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "R: Roomtext",196, 196, 255 - help.glow);
                 break;
             case 11:
-                dwgfx.Print(2,199, "T: Terminal",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "T: Terminal",196, 196, 255 - help.glow);
                 break;
             case 12:
-                dwgfx.Print(2,199, "Y: Script Box",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "Y: Script Box",196, 196, 255 - help.glow);
                 break;
             case 13:
-                dwgfx.Print(2,199, "U: Warp Token",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "U: Warp Token",196, 196, 255 - help.glow);
                 break;
             case 14:
-                dwgfx.Print(2,199, "I: Warp Lines",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "I: Warp Lines",196, 196, 255 - help.glow);
                 break;
             case 15:
-                dwgfx.Print(2,199, "O: Crewmate",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "O: Crewmate",196, 196, 255 - help.glow);
                 break;
             case 16:
-                dwgfx.Print(2,199, "P: Start Point",196, 196, 255 - help.glow);
+                dwgfx.bprint(2,199, "P: Start Point",196, 196, 255 - help.glow);
                 break;
             }
 
             FillRect(dwgfx.backBuffer, 260,198,80,10, dwgfx.getRGB(32,32,32));
             FillRect(dwgfx.backBuffer, 261,199,80,9, dwgfx.getRGB(0,0,0));
-            dwgfx.Print(268,199, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+            dwgfx.bprint(268,199, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
 
         }
         else
@@ -3460,13 +3462,13 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                     FillRect(dwgfx.backBuffer, 0,230+ed.roomnamehide,320,10, dwgfx.getRGB(0,0,0));
                     dwgfx.Print(5,231+ed.roomnamehide,ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname, 196, 196, 255 - help.glow, true);
                 }
-                dwgfx.Print(4, 222, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
-                dwgfx.Print(268,222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+                dwgfx.bprint(4, 222, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
+                dwgfx.bprint(268,222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
             }
             else
             {
-                dwgfx.Print(4, 232, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
-                dwgfx.Print(268,232, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+                dwgfx.bprint(4, 232, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
+                dwgfx.bprint(268,232, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
             }
         }
 
@@ -3499,55 +3501,55 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         switch(ed.drawmode)
         {
         case 0:
-            dwgfx.Print(2,2, "1: Walls",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "1: Walls",196, 196, 255 - help.glow);
             break;
         case 1:
-            dwgfx.Print(2,2, "2: Backing",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "2: Backing",196, 196, 255 - help.glow);
             break;
         case 2:
-            dwgfx.Print(2,2, "3: Spikes",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "3: Spikes",196, 196, 255 - help.glow);
             break;
         case 3:
-            dwgfx.Print(2,2, "4: Trinkets",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "4: Trinkets",196, 196, 255 - help.glow);
             break;
         case 4:
-            dwgfx.Print(2,2, "5: Checkpoint",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "5: Checkpoint",196, 196, 255 - help.glow);
             break;
         case 5:
-            dwgfx.Print(2,2, "6: Disappear",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "6: Disappear",196, 196, 255 - help.glow);
             break;
         case 6:
-            dwgfx.Print(2,2, "7: Conveyors",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "7: Conveyors",196, 196, 255 - help.glow);
             break;
         case 7:
-            dwgfx.Print(2,2, "8: Moving",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "8: Moving",196, 196, 255 - help.glow);
             break;
         case 8:
-            dwgfx.Print(2,2, "9: Enemies",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "9: Enemies",196, 196, 255 - help.glow);
             break;
         case 9:
-            dwgfx.Print(2,2, "0: Grav Line",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "0: Grav Line",196, 196, 255 - help.glow);
             break;
         case 10:
-            dwgfx.Print(2,2, "R: Roomtext",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "R: Roomtext",196, 196, 255 - help.glow);
             break;
         case 11:
-            dwgfx.Print(2,2, "T: Terminal",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "T: Terminal",196, 196, 255 - help.glow);
             break;
         case 12:
-            dwgfx.Print(2,2, "Y: Script Box",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "Y: Script Box",196, 196, 255 - help.glow);
             break;
         case 13:
-            dwgfx.Print(2,2, "U: Warp Token",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "U: Warp Token",196, 196, 255 - help.glow);
             break;
         case 14:
-            dwgfx.Print(2,2, "I: Warp Lines",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "I: Warp Lines",196, 196, 255 - help.glow);
             break;
         case 15:
-            dwgfx.Print(2,2, "O: Crewmate",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "O: Crewmate",196, 196, 255 - help.glow);
             break;
         case 16:
-            dwgfx.Print(2,2, "P: Start Point",196, 196, 255 - help.glow);
+            dwgfx.bprint(2,2, "P: Start Point",196, 196, 255 - help.glow);
             break;
         }
 
@@ -3575,7 +3577,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
 
     if (game.test)
     {
-        dwgfx.Print(5, 5, game.teststring, 196, 196, 255 - help.glow, false);
+        dwgfx.bprint(5, 5, game.teststring, 196, 196, 255 - help.glow, false);
     }
 
     dwgfx.drawfade();
@@ -3642,6 +3644,13 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
     game.my = (float) key.my;
     ed.tilex=(game.mx - (game.mx%8))/8;
     ed.tiley=(game.my - (game.my%8))/8;
+    if (game.stretchMode == 1) {
+        // In this mode specifically, we have to fix the mouse coordinates
+        int winwidth, winheight;
+        dwgfx.screenbuffer->GetWindowSize(&winwidth, &winheight);
+        ed.tilex = ed.tilex * 320 / winwidth;
+        ed.tiley = ed.tiley * 240 / winheight;
+    }
 
     game.press_left = false;
     game.press_right = false;
@@ -3827,7 +3836,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             if(key.keymap[SDLK_DOWN] && ed.keydelay<=0)
             {
                 ed.keydelay=6;
-                if(ed.sby+ed.pagey<ed.sblength)
+                if(ed.sby+ed.pagey<ed.sblength-1)
                 {
                     ed.sby++;
                     if(ed.sby>=20)
@@ -3839,7 +3848,13 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                 key.keybuffer=ed.sb[ed.pagey+ed.sby];
             }
 
-            if(key.pressedbackspace && ed.sb[ed.pagey+ed.sby]=="")
+            if(key.linealreadyemptykludge)
+            {
+                ed.keydelay=6;
+                key.linealreadyemptykludge=false;
+            }
+
+            if(key.pressedbackspace && ed.sb[ed.pagey+ed.sby]=="" && ed.keydelay<=0)
             {
                 //Remove this line completely
                 ed.removeline(ed.pagey+ed.sby);
@@ -3857,6 +3872,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                     }
                 }
                 key.keybuffer=ed.sb[ed.pagey+ed.sby];
+                ed.keydelay=6;
             }
 
             ed.sb[ed.pagey+ed.sby]=key.keybuffer;
@@ -4980,7 +4996,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         {
                             if(ed.drawmode==3)
                             {
-                                if(ed.numtrinkets<20)
+                                if(ed.numtrinkets<100)
                                 {
                                     addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),9);
                                     ed.lclickdelay=1;
@@ -4988,7 +5004,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                                 }
                                 else
                                 {
-                                    ed.note="ERROR: Max number of trinkets is 20";
+                                    ed.note="ERROR: Max number of trinkets is 100";
                                     ed.notedelay=45;
                                 }
                             }
@@ -5075,7 +5091,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             }
                             else if(ed.drawmode==15)  //Crewmate
                             {
-                                if(ed.numcrewmates<20)
+                                if(ed.numcrewmates<100)
                                 {
                                     addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),15,1 + int(fRandom() * 5));
                                     ed.lclickdelay=1;
@@ -5083,7 +5099,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                                 }
                                 else
                                 {
-                                    ed.note="ERROR: Max number of crewmates is 20";
+                                    ed.note="ERROR: Max number of crewmates is 100";
                                     ed.notedelay=45;
                                 }
                             }

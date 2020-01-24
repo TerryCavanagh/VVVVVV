@@ -11,7 +11,7 @@ The engine depends solely on [SDL2](https://libsdl.org/) and
 are statically linked into the engine. The development libraries for Windows can
 be downloaded from their respective websites, Linux developers can find the dev
 libraries from their respective repositories, and macOS developers should
-compile and install from source.
+compile and install from source (including libogg/libvorbis/libvorbisfile).
 
 Steamworks support is included and the DLL is loaded dynamically, you do not
 need the SDK headers and there is no special Steam or non-Steam version. The
@@ -24,6 +24,10 @@ mkdir flibitBuild
 cd flibitBuild
 cmake -G "Visual Studio 10 2010" .. -DSDL2_INCLUDE_DIRS="C:\SDL2-2.0.10\include;C:\SDL2_mixer-2.0.4\include" -DSDL2_LIBRARIES="C:\SDL2-2.0.10\lib\x86\SDL2;C:\SDL2-2.0.10\lib\x86\SDL2main;C:\SDL2_mixer-2.0.4\lib\x86\SDL2_mixer"
 ```
+
+Note that on some systems, the `SDL2_LIBRARIES` list on Windows may need
+SDL2/SDL2main/SDL2_mixer to have `.lib` at the end of them. The reason for this
+inconsistency is unknown.
 
 To generate everywhere else:
 ```
@@ -40,7 +44,7 @@ Including data.zip
 ------------
 You'll need the data.zip file from VVVVVV to actually run the game! It's
 available to download separately for free in the
-[Make and Play](http://distractionware.com/blog/category/vvvvvv-make-and-play/)
+[Make and Play](https://thelettervsixtim.es/makeandplay/)
 edition of the game. Put this file next to your executable and the game should
 run.
 

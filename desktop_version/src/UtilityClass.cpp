@@ -151,201 +151,47 @@ std::string UtilityClass::timestring( int t )
 
 std::string UtilityClass::number( int _t )
 {
-	switch(_t)
+	const std::string ones_place[] = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+	const std::string tens_place[] = {"Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+	const std::string teens[] = {"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+
+	if (_t < 0)
 	{
-	case 0:
-		return "Zero";
-		break;
-	case 1:
-		return "One";
-		break;
-	case 2:
-		return "Two";
-		break;
-	case 3:
-		return "Three";
-		break;
-	case 4:
-		return "Four";
-		break;
-	case 5:
-		return "Five";
-		break;
-	case 6:
-		return "Six";
-		break;
-	case 7:
-		return "Seven";
-		break;
-	case 8:
-		return "Eight";
-		break;
-	case 9:
-		return "Nine";
-		break;
-	case 10:
-		return "Ten";
-		break;
-	case 11:
-		return "Eleven";
-		break;
-	case 12:
-		return "Twelve";
-		break;
-	case 13:
-		return "Thirteen";
-		break;
-	case 14:
-		return "Fourteen";
-		break;
-	case 15:
-		return "Fifteen";
-		break;
-	case 16:
-		return "Sixteen";
-		break;
-	case 17:
-		return "Seventeen";
-		break;
-	case 18:
-		return "Eighteen";
-		break;
-	case 19:
-		return "Nineteen";
-		break;
-	case 20:
-		return "Twenty";
-		break;
-	case 21:
-		return "Twenty One";
-		break;
-	case 22:
-		return "Twenty Two";
-		break;
-	case 23:
-		return "Twenty Three";
-		break;
-	case 24:
-		return "Twenty Four";
-		break;
-	case 25:
-		return "Twenty Five";
-		break;
-	case 26:
-		return "Twenty Six";
-		break;
-	case 27:
-		return "Twenty Seven";
-		break;
-	case 28:
-		return "Twenty Eight";
-		break;
-	case 29:
-		return "Twenty Nine";
-		break;
-	case 30:
-		return "Thirty";
-		break;
-  case 31:
-		return "Thirty One";
-		break;
-	case 32:
-		return "Thirty Two";
-		break;
-	case 33:
-		return "Thirty Three";
-		break;
-	case 34:
-		return "Thirty Four";
-		break;
-	case 35:
-		return "Thirty Five";
-		break;
-	case 36:
-		return "Thirty Six";
-		break;
-	case 37:
-		return "Thirty Seven";
-		break;
-	case 38:
-		return "Thirty Eight";
-		break;
-	case 39:
-		return "Thirty Nine";
-		break;
-	case 40:
-		return "Forty";
-		break;
-  case 41:
-		return "Forty One";
-		break;
-	case 42:
-		return "Forty Two";
-		break;
-	case 43:
-		return "Forty Three";
-		break;
-	case 44:
-		return "Forty Four";
-		break;
-	case 45:
-		return "Forty Five";
-		break;
-	case 46:
-		return "Forty Six";
-		break;
-	case 47:
-		return "Forty Seven";
-		break;
-	case 48:
-		return "Forty Eight";
-		break;
-	case 49:
-		return "Forty Nine";
-		break;
-	case 50:
-		return "Fifty";
-		break;
+		return "???";
 	}
-	return "Lots";
+	else if (_t > 100)
+	{
+		return "Lots";
+	}
+	else if (_t == 0)
+	{
+		return "Zero";
+	}
+	else if (_t == 100)
+	{
+		return "One Hundred";
+	}
+	else if (_t >= 1 && _t <= 9)
+	{
+		return ones_place[_t-1];
+	}
+	else if (_t >= 11 && _t <= 19)
+	{
+		return teens[_t-11];
+	}
+	else if (_t % 10 == 0)
+	{
+		return tens_place[(_t/10)-1];
+	}
+	else
+	{
+		return tens_place[(_t/10)-1] + " " + ones_place[(_t%10)-1];
+	}
 }
 
 bool UtilityClass::intersects( SDL_Rect A, SDL_Rect B )
 {
-	int leftA, leftB;
-	int rightA, rightB;
-	int topA, topB;
-	int bottomA, bottomB;
-	//Calculate the sides of rect A
-	leftA = A.x;
-	rightA = A.x + A.w;
-	topA = A.y;
-	bottomA = A.y + A.h;
-	//Calculate the sides of rect B
-	leftB = B.x;
-	rightB = B.x + B.w;
-	topB = B.y;
-	bottomB = B.y + B.h;
-
-	if( bottomA <= topB )
-	{
-		return false;
-	}
-	if( topA >= bottomB )
-	{
-		return false;
-	}
-	if( rightA <= leftB )
-	{
-		return false;
-	}
-	if( leftA >= rightB )
-	{
-		return false;
-	}
-	//If none of the sides from A are outside B return true; }
-
-	return true;
+	return (SDL_HasIntersection(&A, &B) == SDL_TRUE);
 }
 
 void UtilityClass::updateglow()

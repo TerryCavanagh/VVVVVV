@@ -2,11 +2,11 @@ VVVVVV Source Code License v1.0
 -------
 Last updated on January 7th, 2020.
 
-This repo contains the source code for VVVVVV, including all level content and text from the game. It does not, however, contain any of the icons, art, graphics or music for the game, which are still under a proprietary license. For personal use, you can find these assets for free in the [Make and Play Edition](http://distractionware.com/blog/category/vvvvvv-make-and-play/).
+This repo contains the source code for VVVVVV, including all level content and text from the game. It does not, however, contain any of the icons, art, graphics or music for the game, which are still under a proprietary license. For personal use, you can find these assets for free in the [Make and Play Edition](https://thelettervsixtim.es/makeandplay/).
 
 If you are interested in distributing work that falls outside the terms in the licence below, or if you are interested in distributing work that includes using any part of VVVVVV not included in this repo then please get in touch - we can discuss granting a licence for that on a case by case basis. The purpose of making the contents of this repo available is for others to learn from, to inspire new work, and to allow the creation of new tools and modifications for VVVVVV.
 
-This software available from here is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any claim, damages or other liability arising from the use or in connection with this software. All materials in the repo are copyright of Terry Cavanagh © 2010-2020.
+This software available from here is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any claim, damages or other liability arising from the use or in connection with this software. All materials in the repo, with the exception of the contents of the "third_party" directory, are copyright of Terry Cavanagh © 2010-2020.
 
 Permission is granted to anyone to use this software and to alter it and redistribute it freely, subject to the following restrictions:
 

@@ -53,9 +53,9 @@ void gamecompletelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclas
     map.tdrawback = true;
 
     game.creditposition--;
-    if (game.creditposition <= -1650)
+    if (game.creditposition <= -game.creditmaxposition)
     {
-        game.creditposition = -1650;
+        game.creditposition = -game.creditmaxposition;
         map.bscroll = 0;
     }
     else
@@ -264,7 +264,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
 
     if (game.deathseq != -1)
     {
-        map.colsuperstate = 1;  //cause the palette to go spastic!
+        map.colsuperstate = 1;
         map.cameramode = 2;
         game.deathsequence(map, obj, music);
         game.deathseq--;
@@ -671,7 +671,6 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 }
 
                 game.gethardestroom(map);
-                game.activetele = false;
                 game.hascontrol = true;
 
 

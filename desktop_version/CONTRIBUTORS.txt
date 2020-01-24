@@ -7,11 +7,18 @@ Contributors
 * Charlie Bruce (@charliebruce)
 * Brian Callahan (@ibara)
 * Dav999 (Dav999-v)
+* Allison Fleischer (AllisonFleischer)
 * Daniel Lee (@ddm999)
+* Fredrik Ljungdahl (@FredrIQ)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
+* Keith Stellyes (@keithstellyes)
 * Elijah Stone
+* Thomas Sänger (@HorayNarea)
 * Info Teddy (@InfoTeddy)
+* leo60228 (@leo60228)
 * Emmanuel Vadot (@evadot)
 * Rémi Verschelde (@akien-mga)
 * viri (viri.me)
+* Wouter (Xesxen)
+* Matt "Stelpjo" Aaldenberg

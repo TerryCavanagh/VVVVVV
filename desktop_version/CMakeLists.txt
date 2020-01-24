@@ -51,7 +51,12 @@ IF(NOT WIN32)
 ENDIF()
 
 # Include Directories
-INCLUDE_DIRECTORIES(src tinyxml physfs lodepng)
+INCLUDE_DIRECTORIES(
+	src
+	../third_party/tinyxml
+	../third_party/physfs
+	../third_party/lodepng
+)
 
 # Source Lists
 SET(VVV_SRC
@@ -86,30 +91,33 @@ SET(VVV_SRC
 	src/UtilityClass.cpp
 	src/WarpClass.cpp
 	src/main.cpp
+	src/Network.c
 	src/SteamNetwork.c
+	src/GOGNetwork.c
 )
 SET(XML_SRC
-	tinyxml/tinystr.cpp
-	tinyxml/tinyxml.cpp
-	tinyxml/tinyxmlerror.cpp
-	tinyxml/tinyxmlparser.cpp
+	../third_party/tinyxml/tinystr.cpp
+	../third_party/tinyxml/tinyxml.cpp
+	../third_party/tinyxml/tinyxmlerror.cpp
+	../third_party/tinyxml/tinyxmlparser.cpp
 )
 SET(PFS_SRC
-	physfs/physfs.c
-	physfs/physfs_archiver_dir.c
-	physfs/physfs_archiver_unpacked.c
-	physfs/physfs_archiver_zip.c
-	physfs/physfs_byteorder.c
-	physfs/physfs_unicode.c
-	physfs/physfs_platform_posix.c
-	physfs/physfs_platform_unix.c
-	physfs/physfs_platform_windows.c
+	../third_party/physfs/physfs.c
+	../third_party/physfs/physfs_archiver_dir.c
+	../third_party/physfs/physfs_archiver_unpacked.c
+	../third_party/physfs/physfs_archiver_zip.c
+	../third_party/physfs/physfs_byteorder.c
+	../third_party/physfs/physfs_unicode.c
+	../third_party/physfs/physfs_platform_posix.c
+	../third_party/physfs/physfs_platform_unix.c
+	../third_party/physfs/physfs_platform_windows.c
+	../third_party/physfs/physfs_platform_haiku.cpp
 )
 IF(APPLE)
 	# Are you noticing a pattern with this Apple crap yet?
-	SET(PFS_SRC ${PFS_SRC} physfs/physfs_platform_apple.m)
+	SET(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
 ENDIF()
-SET(PNG_SRC lodepng/lodepng.c)
+SET(PNG_SRC ../third_party/lodepng/lodepng.c)
 
 # Executable information
 IF(WIN32)
@@ -124,9 +132,9 @@ IF(ENABLE_WARNINGS)
 	# Saves quite a few lines and boilerplate at the price of readability.
 	TARGET_COMPILE_OPTIONS(VVVVVV PRIVATE
 		$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
-			-Wall $<$<BOOL:ENABLE_WERROR>:-Werror>>
+			-Wall $<$<BOOL:${ENABLE_WERROR}>:-Werror>>
 		$<$<CXX_COMPILER_ID:MSVC>:
-			/W4 $<$<BOOL:ENABLE_WERROR>:/WX>>)
+			/W4 $<$<BOOL:${ENABLE_WERROR}>:/WX>>)
 ENDIF()
 
 # Library information
@@ -163,4 +171,10 @@ IF(APPLE)
 	FIND_LIBRARY(FOUNDATION NAMES Foundation)
 	FIND_LIBRARY(IOKIT NAMES IOKit)
 	TARGET_LINK_LIBRARIES(VVVVVV objc ${IOKIT} ${FOUNDATION})
+ENDIF()
+# But hey, also some Haiku crap
+IF(HAIKU)
+	FIND_LIBRARY(BE_LIBRARY be)
+	FIND_LIBRARY(ROOT_LIBRARY root)
+	TARGET_LINK_LIBRARIES(VVVVVV ${BE_LIBRARY} ${ROOT_LIBRARY})
 ENDIF()

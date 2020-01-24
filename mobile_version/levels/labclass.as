@@ -946,7 +946,7 @@ tmap.push("280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,2
 obj.createentity(game, -8, 180, 11, 224);  // (horizontal gravity line)
 
 rcol = 0;
-roomname = "Exausted?";
+roomname = "Exhausted?";
 break;
 
 

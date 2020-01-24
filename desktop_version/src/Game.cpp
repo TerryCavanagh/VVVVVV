@@ -207,18 +207,14 @@ Game::Game(void):
     }
     customcol=0;
 
-    for (int i = 0; i < 6; i++)
-    {
-        bool cstats;
-        cstats = false;
-        crewstats.push_back(cstats);
-        tele_crewstats.push_back(false);
-        quick_crewstats.push_back(false);
-        besttimes.push_back( -1);
-        besttrinkets.push_back( -1);
-        bestlives.push_back( -1);
-        bestrank.push_back( -1);
-    }
+    crewstats.resize(6);
+    tele_crewstats.resize(6);
+    quick_crewstats.resize(6);
+    besttimes.resize(6, -1);
+    besttrinkets.resize(6, -1);
+    bestlives.resize(6, -1);
+    bestrank.resize(6, -1);
+
     crewstats[0] = true;
     lastsaved = 0;
 
@@ -230,23 +226,10 @@ Game::Game(void):
     quick_currentarea = "Error! Error!";
 
     //Menu stuff initiliased here:
-    for (int mi = 0; mi < 25; mi++)
-    {
-        menuoptions.push_back(std::string());
-        menuoptionsactive.push_back(bool());
-
-        bool nb1, nb2;
-        nb1 = false;
-        nb2 = false;
-        unlock.push_back(nb1);
-        unlocknotify.push_back(nb2);
-    }
-
-    for (int ui = 0; ui < 25; ui++)
-    {
-        unlock[ui] = false;
-        unlocknotify[ui] = false;
-    }
+    menuoptions.resize(25);
+    menuoptionsactive.resize(25);
+    unlock.resize(25);
+    unlocknotify.resize(25);
 
     nummenuoptions = 0;
     currentmenuoption = 0;
@@ -410,6 +393,103 @@ Game::Game(void):
     state = 1;
     statedelay = 0;
     //updatestate(dwgfx, map, obj, help, music);
+
+    skipfakeload = false;
+
+    /* Terry's Patrons... */
+    superpatrons.push_back("Anders Ekermo");
+    superpatrons.push_back("Andreas K|mper");
+    superpatrons.push_back("Anthony Burch");
+    superpatrons.push_back("Bennett Foddy");
+    superpatrons.push_back("Brendan O'Sullivan");
+    superpatrons.push_back("Christopher Armstrong");
+    superpatrons.push_back("Daniel Benmergui");
+    superpatrons.push_back("David Pittman");
+    superpatrons.push_back("Ian Bogost");
+    superpatrons.push_back("Jaz McDougall");
+    superpatrons.push_back("John Faulkenbury");
+    superpatrons.push_back("Jonathan Whiting");
+    superpatrons.push_back("Kyle Pulver");
+    superpatrons.push_back("Markus Persson");
+    superpatrons.push_back("Nathan Ostgard");
+    superpatrons.push_back("Nick Easler");
+    superpatrons.push_back("Stephen Lavelle");
+    patrons.push_back("Adam Wendt");
+    patrons.push_back("Andreas J{rgensen");
+    patrons.push_back("}ngel Louzao Penalva");
+    patrons.push_back("Ashley Burton");
+    patrons.push_back("Aubrey Hesselgren");
+    patrons.push_back("Bradley Rose");
+    patrons.push_back("Brendan Urquhart");
+    patrons.push_back("Chris Ayotte");
+    patrons.push_back("Christopher Zamanillo");
+    patrons.push_back("Daniel Schuller");
+    patrons.push_back("Hybrid Mind Studios");
+    patrons.push_back("Emilie McGinley");
+    patrons.push_back("Francisco Solares");
+    patrons.push_back("Hal Helms");
+    patrons.push_back("Hayden Scott-Baron");
+    patrons.push_back("Hermit Games");
+    patrons.push_back("Ido Yehieli");
+    patrons.push_back("Jade Vault Games");
+    patrons.push_back("James Andrews");
+    patrons.push_back("James Riley");
+    patrons.push_back("James Hsieh");
+    patrons.push_back("Jasper Byrne");
+    patrons.push_back("Jedediah Baker");
+    patrons.push_back("Jens Bergensten");
+    patrons.push_back("Jeremy J. Penner");
+    patrons.push_back("Jeremy Peterson");
+    patrons.push_back("Jim McGinley");
+    patrons.push_back("Jonathan Cartwright");
+    patrons.push_back("John Nesky");
+    patrons.push_back("Jos Yule");
+    patrons.push_back("Jose Flores");
+    patrons.push_back("Josh Bizeau");
+    patrons.push_back("Joshua Buergel");
+    patrons.push_back("Joshua Hochner");
+    patrons.push_back("Kurt Ostfeld");
+    patrons.push_back("Magnus P~lsson");
+    patrons.push_back("Mark Neschadimenko");
+    patrons.push_back("Matt Antonellis");
+    patrons.push_back("Matthew Reppert");
+    patrons.push_back("Michael Falkensteiner");
+    patrons.push_back("Michael Vendittelli");
+    patrons.push_back("Mike Kasprzak");
+    patrons.push_back("Mitchel Stein");
+    patrons.push_back("Sean Murray");
+    patrons.push_back("Simon Michael");
+    patrons.push_back("Simon Schmid");
+    patrons.push_back("Stephen Maxwell");
+    patrons.push_back("Swing Swing Submarine");
+    patrons.push_back("Tam Toucan");
+    patrons.push_back("Terry Dooher");
+    patrons.push_back("Tim W.");
+    patrons.push_back("Timothy Bragan");
+
+    /* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by last name */
+    githubfriends.push_back("Christoph B{hmwalder");
+    githubfriends.push_back("Charlie Bruce");
+    githubfriends.push_back("Brian Callahan");
+    githubfriends.push_back("Dav999");
+    githubfriends.push_back("Allison Fleischer");
+    githubfriends.push_back("Daniel Lee");
+    githubfriends.push_back("Elliott Saltar");
+    githubfriends.push_back("Marvin Scholz");
+    githubfriends.push_back("Keith Stellyes");
+    githubfriends.push_back("Elijah Stone");
+    githubfriends.push_back("Thomas S|nger");
+    githubfriends.push_back("Info Teddy");
+    githubfriends.push_back("leo60228");
+    githubfriends.push_back("Emmanuel Vadot");
+    githubfriends.push_back("Remi Verschelde"); // TODO: Change to "Rémi" if/when UTF-8 support is added
+    githubfriends.push_back("viri");
+    githubfriends.push_back("Wouter");
+
+    /* Calculate credits length, finally. */
+    creditmaxposition = 1050 + (10 * (
+        superpatrons.size() + patrons.size() + githubfriends.size()
+    ));
 }
 
 Game::~Game(void)
@@ -464,7 +544,7 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
             j=numcustomlevelstats+1;
         }
     }
-    if(tvar>=0)
+    if(tvar>=0 && cscore > customlevelscore[tvar])
     {
         //update existing entry
         customlevelscore[tvar]=cscore;
@@ -4353,6 +4433,16 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
 					}
         }
 
+        if (pKey == "skipfakeload")
+        {
+            skipfakeload = atoi(pText);
+        }
+
+        if (pKey == "notextoutline")
+        {
+            dwgfx.notextoutline = atoi(pText);
+        }
+
 		if (pKey == "flipButton")
 		{
 			SDL_GameControllerButton newButton;
@@ -4557,6 +4647,14 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     msg = new TiXmlElement( "usingmmmmmm" );
     msg->LinkEndChild( new TiXmlText( tu.String(usingmmmmmm).c_str()));
     dataNode->LinkEndChild( msg );
+
+    msg = new TiXmlElement("skipfakeload");
+    msg->LinkEndChild(new TiXmlText(tu.String((int) skipfakeload).c_str()));
+    dataNode->LinkEndChild(msg);
+
+    msg = new TiXmlElement("notextoutline");
+    msg->LinkEndChild(new TiXmlText(tu.String((int) _dwgfx.notextoutline).c_str()));
+    dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
     {
@@ -6936,15 +7034,19 @@ void Game::createmenu( std::string t )
         menuoptionsactive[0] = true;
         menuoptions[1] = "screen effects";
         menuoptionsactive[1] = true;
-        menuoptions[2] = "invincibility";
+        menuoptions[2] = "text outline";
         menuoptionsactive[2] = true;
-        menuoptions[3] = "slowdown";
+        menuoptions[3] = "invincibility";
         menuoptionsactive[3] = true;
-        menuoptions[4] = "return";
+        menuoptions[4] = "slowdown";
         menuoptionsactive[4] = true;
-        nummenuoptions = 5;
-        menuxoff = -40;
-        menuyoff = 16;
+        menuoptions[5] = "load screen";
+        menuoptionsactive[5] = true;
+        menuoptions[6] = "return";
+        menuoptionsactive[6] = true;
+        nummenuoptions = 7;
+        menuxoff = -60;
+        menuyoff = 0;
     }
 	else if(t == "controller")
 	{

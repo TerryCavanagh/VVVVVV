@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
         SDL_INIT_JOYSTICK |
         SDL_INIT_GAMECONTROLLER
     );
-    SDL_ShowCursor(SDL_DISABLE);
 
     if (argc > 2 && strcmp(argv[1], "-renderer") == 0)
     {
@@ -164,6 +163,8 @@ int main(int argc, char *argv[])
 
     //Moved screensetting init here from main menu V2.1
     game.loadstats(map, graphics);
+    if (game.skipfakeload)
+        game.gamestate = TITLEMODE;
 		if(game.usingmmmmmm==0) music.usingmmmmmm=false;
 		if(game.usingmmmmmm==1) music.usingmmmmmm=true;
     if (game.slowdown == 0) game.slowdown = 30;
@@ -472,6 +473,9 @@ int main(int argc, char *argv[])
 
         }
 
+        //We did editorinput, now it's safe to turn this off
+        key.linealreadyemptykludge = false;
+
         if (game.savemystats)
         {
             game.savemystats = false;
@@ -479,7 +483,7 @@ int main(int argc, char *argv[])
         }
 
         //Mute button
-        if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !ed.textentry)
+        if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !ed.textentry && ed.scripthelppage != 1)
         {
             game.mutebutton = 8;
             if (game.muted)

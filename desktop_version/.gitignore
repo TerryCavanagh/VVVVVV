@@ -5,8 +5,10 @@ CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 Makefile
-vvvvvv.*
+VVVVVV.exe
+VVVVVV
 *.a
+*.gch
 
 # Game data
 data.zip
