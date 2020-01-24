@@ -116,18 +116,12 @@ void editorclass::getDirectoryData()
 }
 bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
 {
-    unsigned char *mem = NULL;
-    FILESYSTEM_loadFileToMemory(_path.c_str(), &mem, NULL);
-
-    if (mem == NULL)
+    TiXmlDocument doc;
+    if (!FILESYSTEM_loadTiXmlDocument(_path.c_str(), &doc))
     {
         printf("Level %s not found :(\n", _path.c_str());
         return false;
     }
-
-    TiXmlDocument doc;
-    doc.Parse((const char*) mem);
-    FILESYSTEM_freeMemory(&mem);
 
     TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
@@ -1712,23 +1706,19 @@ void editorclass::load(std::string& _path)
 {
     reset();
 
-    unsigned char *mem = NULL;
     static const char *levelDir = "levels/";
     if (_path.compare(0, strlen(levelDir), levelDir) != 0)
     {
         _path = levelDir + _path;
     }
-    FILESYSTEM_loadFileToMemory(_path.c_str(), &mem, NULL);
 
-    if (mem == NULL)
+    TiXmlDocument doc;
+    if (!FILESYSTEM_loadTiXmlDocument(_path.c_str(), &doc))
     {
         printf("No level %s to load :(\n", _path.c_str());
         return;
     }
 
-    TiXmlDocument doc;
-    doc.Parse((const char*) mem);
-    FILESYSTEM_freeMemory(&mem);
 
     TiXmlHandle hDoc(&doc);
     TiXmlElement* pElem;
