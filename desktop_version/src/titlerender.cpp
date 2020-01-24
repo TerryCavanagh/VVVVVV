@@ -130,7 +130,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
 							else if (game.currentmenuoption == 1)
 							{
 								dwgfx.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
-								dwgfx.Print( -1, 65, "Rebind your controllers buttons", tr, tg, tb, true);
+								dwgfx.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
 								dwgfx.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
 							}
 							else if (game.currentmenuoption == 2)
@@ -165,7 +165,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
 							else if (game.currentmenuoption == 2)
 							{
 								dwgfx.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
-								dwgfx.Print( -1, 65, "Rebind your controllers buttons", tr, tg, tb, true);
+								dwgfx.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
 								dwgfx.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
 							}
 							else if (game.currentmenuoption == 3)
