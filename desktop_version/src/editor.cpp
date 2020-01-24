@@ -2070,7 +2070,6 @@ void editorclass::save(std::string& _path)
         edentityElement->SetAttribute( "p5", edentity[i].p5);
         edentityElement->SetAttribute(  "p6", edentity[i].p6);
         edentityElement->LinkEndChild( new TiXmlText( edentity[i].scriptname.c_str() )) ;
-        edentityElement->LinkEndChild( new TiXmlText( "" )) ;
         msg->LinkEndChild( edentityElement );
     }
 
