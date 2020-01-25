@@ -125,6 +125,9 @@ int main(int argc, char *argv[])
     const SDL_PixelFormat* fmt = gameScreen.GetFormat();
     graphics.backBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,32,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask ) ;
     SDL_SetSurfaceBlendMode(graphics.backBuffer, SDL_BLENDMODE_NONE);
+    graphics.footerbuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 10, 32, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
+    SDL_SetSurfaceBlendMode(graphics.footerbuffer, SDL_BLENDMODE_BLEND);
+    FillRect(graphics.footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
     graphics.Makebfont();
 
 
