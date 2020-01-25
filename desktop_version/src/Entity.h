@@ -219,7 +219,7 @@ public:
     std::vector<int> customcollect;
 
     int nblocks;
-    bool skipblocks = false, skipdirblocks;
+    bool skipblocks, skipdirblocks;
 
     int platformtile;
     bool vertplatforms, horplatforms;

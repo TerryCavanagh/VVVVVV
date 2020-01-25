@@ -51,6 +51,7 @@ void entityclass::init()
     nentity = 0;
     nblocks = 0;
 
+    skipblocks = false;
     skipdirblocks = false;
     platformtile = 0;
     customplatformtile=0;
