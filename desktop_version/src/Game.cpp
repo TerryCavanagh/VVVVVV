@@ -5154,6 +5154,15 @@ void Game::loadquick()
 
 void Game::customloadquick(std::string savfile)
 {
+    if (cliplaytest) {
+        savex = playx;
+        savey = savey;
+        saverx = playrx;
+        savery = playry;
+        savegc = playgc;
+        return;
+    }
+
     std::string levelfile = savfile.substr(7);
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument(("saves/"+levelfile+".vvv").c_str(), &doc)) return;

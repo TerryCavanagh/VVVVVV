@@ -314,6 +314,14 @@ public:
     std::vector<SDL_GameControllerButton> controllerButton_esc;
 
     bool skipfakeload;
+
+    bool cliplaytest = false;
+    int playx = 0;
+    int playy = 0;
+    int playrx = 0;
+    int playry = 0;
+    int playgc = 0;
+
 };
 
 extern Game game;

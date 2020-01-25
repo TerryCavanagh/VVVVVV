@@ -45,6 +45,14 @@ mapclass map;
 entityclass obj;
 
 bool startinplaytest = false;
+bool savefileplaytest = false;
+int savex = 0;
+int savey = 0;
+int saverx = 0;
+int savery = 0;
+int savegc = 0;
+int savemusic = 0;
+
 std::string playtestname;
 
 int main(int argc, char *argv[])
@@ -73,6 +81,29 @@ int main(int argc, char *argv[])
                 printf("--playing option requires one argument.\n");
                 return 1;
             }
+        } else if (strcmp(argv[i], "--playx") == 0 ||
+                strcmp(argv[i], "--playy") == 0 ||
+                strcmp(argv[i], "--playrx") == 0 ||
+                strcmp(argv[i], "--playry") == 0 ||
+                strcmp(argv[i], "--playgc") == 0 ||
+                strcmp(argv[i], "--playmusic") == 0) {
+            if (i + 1 < argc) {
+                savefileplaytest = true;
+                auto v = std::atoi(argv[i+1]);
+                if (strcmp(argv[i], "--playx") == 0) savex = v;
+                else if (strcmp(argv[i], "--playy") == 0) savey = v;
+                else if (strcmp(argv[i], "--playrx") == 0) saverx = v;
+                else if (strcmp(argv[i], "--playry") == 0) savery = v;
+                else if (strcmp(argv[i], "--playgc") == 0) savegc = v;
+                else if (strcmp(argv[i], "--playmusic") == 0) savemusic = v;
+                i++;
+            } else {
+                printf("--playing option requires one argument.\n");
+                return 1;
+            }
+        }
+        if (std::string(argv[i]) == "-renderer") {
+            SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, argv[2], SDL_HINT_OVERRIDE);
         }
     }
 
@@ -265,7 +296,18 @@ int main(int argc, char *argv[])
         }
         game.customleveltitle=ed.ListOfMetaData[game.playcustomlevel].title;
         game.customlevelfilename=ed.ListOfMetaData[game.playcustomlevel].filename;
-        script.startgamemode(22);
+        if (savefileplaytest) {
+            game.playx = savex;
+            game.playy = savey;
+            game.playrx = saverx;
+            game.playry = savery;
+            game.playgc = savegc;
+            game.cliplaytest = true;
+            music.play(savemusic);
+            script.startgamemode(23);
+        } else {
+            script.startgamemode(22);
+        }
     }
 
     volatile Uint32 time, timePrev = 0;
