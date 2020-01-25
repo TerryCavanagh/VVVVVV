@@ -238,6 +238,7 @@ public:
 	SDL_Rect foot_rect;
 	SDL_Rect prect;
 	SDL_Rect footerrect;
+	SDL_Surface* footerbuffer;
 
 	int linestate, linedelay;
 	int backoffset;
