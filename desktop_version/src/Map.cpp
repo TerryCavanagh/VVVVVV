@@ -826,6 +826,7 @@ void mapclass::showship()
 
 void mapclass::resetplayer(Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music)
 {
+	bool was_in_tower = towermode;
 	if (game.roomx != game.saverx || game.roomy != game.savery)
 	{
 		gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
@@ -845,6 +846,17 @@ void mapclass::resetplayer(Graphics& dwgfx, Game& game, entityclass& obj, musicc
 		obj.entities[i].colour = 0;
 		game.lifeseq = 10;
 		obj.entities[i].invis = true;
+
+		// If we entered a tower as part of respawn, reposition camera
+		if (!was_in_tower && towermode)
+		{
+			ypos = obj.entities[i].yp - 120;
+			if (ypos < 0)
+			{
+				ypos = 0;
+			}
+			bypos = ypos / 2;
+		}
 	}
 
 	game.scmhurt = false; //Just in case the supercrewmate is fucking this up!
