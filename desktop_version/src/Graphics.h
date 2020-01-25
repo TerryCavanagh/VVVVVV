@@ -277,6 +277,7 @@ public:
 
 	int warpskip, warpfcol, warpbcol;
 
+	bool translucentroomname;
 };
 
 #endif /* GRAPHICS_H */

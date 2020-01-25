@@ -553,6 +553,16 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
                 else
                     dwgfx.Print(-1, 75, "Fake loading screen is ON", tr, tg, tb, true);
             }
+            else if (game.currentmenuoption == 6)
+            {
+                dwgfx.bigprint(-1, 30, "Room Name BG", tr, tg, tb, true);
+                dwgfx.Print( -1, 75, "Lets you see through what is behind", tr, tg, tb, true);
+                dwgfx.Print( -1, 85, "the name at the bottom of the screen.", tr, tg, tb, true);
+                if (dwgfx.translucentroomname)
+                    dwgfx.Print(-1, 105, "Room name background is TRANSLUCENT", tr/2, tg/2, tb/2, true);
+                else
+                    dwgfx.Print(-1, 105, "Room name background is OPAQUE", tr, tg, tb, true);
+            }
         }
         else if (game.currentmenuname == "playint1" || game.currentmenuname == "playint2")
         {
@@ -1552,6 +1562,14 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
 
     if(map.extrarow==0 || (map.custommode && map.roomname!=""))
     {
+        if (dwgfx.translucentroomname)
+        {
+            SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 127);
+        }
+        else
+        {
+            SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 255);
+        }
         dwgfx.footerrect.y = 230;
         SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
 
@@ -2809,6 +2827,14 @@ void towerrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, U
     }
 
 
+    if (dwgfx.translucentroomname)
+    {
+        SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 127);
+    }
+    else
+    {
+        SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 255);
+    }
     dwgfx.footerrect.y = 230;
     SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
     dwgfx.Print(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
