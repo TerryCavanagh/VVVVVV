@@ -1562,16 +1562,15 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
 
     if(map.extrarow==0 || (map.custommode && map.roomname!=""))
     {
+        dwgfx.footerrect.y = 230;
         if (dwgfx.translucentroomname)
         {
-            SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 127);
+            SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
         }
         else
         {
-            SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 255);
+            FillRect(dwgfx.backBuffer, dwgfx.footerrect, 0);
         }
-        dwgfx.footerrect.y = 230;
-        SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
 
         if (map.finalmode)
         {
@@ -2827,16 +2826,15 @@ void towerrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, U
     }
 
 
+    dwgfx.footerrect.y = 230;
     if (dwgfx.translucentroomname)
     {
-        SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 127);
+        SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
     }
     else
     {
-        SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 255);
+        FillRect(dwgfx.backBuffer, dwgfx.footerrect, 0);
     }
-    dwgfx.footerrect.y = 230;
-    SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
     dwgfx.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
 
     //dwgfx.rprint(5, 231,help.String(game.coins), 255 - help.glow/2, 255 - help.glow/2, 196, true);
