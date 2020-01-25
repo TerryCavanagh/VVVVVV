@@ -1576,9 +1576,9 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
         if (map.finalmode)
         {
         	map.glitchname = map.getglitchname(game.roomx, game.roomy);
-          dwgfx.Print(5, 231, map.glitchname, 196, 196, 255 - help.glow, true);
+          dwgfx.bprint(5, 231, map.glitchname, 196, 196, 255 - help.glow, true);
         }else{
-          dwgfx.Print(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
+          dwgfx.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
         }
     }
 
@@ -2837,7 +2837,7 @@ void towerrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, U
     }
     dwgfx.footerrect.y = 230;
     SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
-    dwgfx.Print(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
+    dwgfx.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
 
     //dwgfx.rprint(5, 231,help.String(game.coins), 255 - help.glow/2, 255 - help.glow/2, 196, true);
     //dwgfx.drawhuetile(311, 230, 48, 1);
