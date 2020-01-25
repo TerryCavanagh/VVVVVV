@@ -3447,6 +3447,14 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 {
                     if(ed.roomnamehide<12) ed.roomnamehide++;
                 }
+                if (dwgfx.translucentroomname)
+                {
+                    SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 127);
+                }
+                else
+                {
+                    SDL_SetSurfaceAlphaMod(dwgfx.footerbuffer, 255);
+                }
                 dwgfx.footerrect.y = 230+ed.roomnamehide;
                 SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
                 dwgfx.Print(5,231+ed.roomnamehide,ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname, 196, 196, 255 - help.glow, true);

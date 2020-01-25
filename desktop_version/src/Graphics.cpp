@@ -122,6 +122,8 @@ Graphics::Graphics()
     trinketg = 0;
     trinketb = 0;
     warprect = SDL_Rect();
+
+    translucentroomname = false;
 }
 
 Graphics::~Graphics()
