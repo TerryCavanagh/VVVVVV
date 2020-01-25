@@ -3442,15 +3442,13 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 if(ed.tiley<28)
                 {
                     if(ed.roomnamehide>0) ed.roomnamehide--;
-                    FillRect(dwgfx.backBuffer, 0,230+ed.roomnamehide,320,10, dwgfx.getRGB(0,0,0));
-                    dwgfx.Print(5,231+ed.roomnamehide,ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname, 196, 196, 255 - help.glow, true);
                 }
                 else
                 {
                     if(ed.roomnamehide<12) ed.roomnamehide++;
-                    FillRect(dwgfx.backBuffer, 0,230+ed.roomnamehide,320,10, dwgfx.getRGB(0,0,0));
-                    dwgfx.Print(5,231+ed.roomnamehide,ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname, 196, 196, 255 - help.glow, true);
                 }
+                FillRect(dwgfx.backBuffer, 0,230+ed.roomnamehide,320,10, dwgfx.getRGB(0,0,0));
+                dwgfx.Print(5,231+ed.roomnamehide,ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname, 196, 196, 255 - help.glow, true);
                 dwgfx.bprint(4, 222, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
                 dwgfx.bprint(268,222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
             }
