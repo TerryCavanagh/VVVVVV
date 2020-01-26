@@ -1,5 +1,7 @@
 #include "Otherlevel.h"
 
+#include "MakeAndPlay.h"
+
 otherlevelclass::otherlevelclass()
 {
 	for (i = 0; i < 50; i++)
@@ -32,6 +34,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 
 	switch(t)
 	{
+#if !defined(MAKEANDPLAY)
 	case rn(0,0):
 
 		tmap.push_back("201,201,201,201,200,80,80,202,200,80,80,80,80,80,80,80,80,80,80,80,80,80,202,200,80,202,201,201,201,201,200,80,202,606,486,486,486,486,486,486");
@@ -8093,6 +8096,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		//obj.fatal_bottom();
 		break;
+#endif
 	}
 
 	return tmap;
