@@ -308,6 +308,8 @@ int main(int argc, char *argv[])
         } else {
             script.startgamemode(22);
         }
+
+        graphics.fademode = 0;
     }
 
     volatile Uint32 time, timePrev = 0;
