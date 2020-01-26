@@ -3447,9 +3447,9 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 {
                     if(ed.roomnamehide<12) ed.roomnamehide++;
                 }
-                dwgfx.footerrect.y = 230+ed.roomnamehide;
                 if (dwgfx.translucentroomname)
                 {
+                    dwgfx.footerrect.y = 230+ed.roomnamehide;
                     SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
                 }
                 else
