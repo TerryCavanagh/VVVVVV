@@ -2432,7 +2432,9 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     obj.customplatformtile=game.customcol*12;
 
     ed.temp=edentat(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30));
-    for(int i=0; i< EditorData::GetInstance().numedentities; i++)
+
+    // Draw entities backward to remain accurate with ingame
+    for (int i = EditorData::GetInstance().numedentities - 1; i >= 0; i--)
     {
         //if() on screen
         int tx=(edentity[i].x-(edentity[i].x%40))/40;
