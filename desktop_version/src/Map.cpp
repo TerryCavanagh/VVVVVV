@@ -1059,8 +1059,17 @@ void mapclass::gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass
 	loadlevel(game.roomx, game.roomy, dwgfx, game, obj, music);
 
 
-	dwgfx.backgrounddrawn = false; //Used for background caching speedup
+	//Do we need to reload the background?
+	bool redrawbg = game.roomx != game.prevroomx || game.roomy != game.prevroomy;
+
+	if(redrawbg)
+	{
+		dwgfx.backgrounddrawn = false; //Used for background caching speedup
+	}
 	dwgfx.foregrounddrawn = false; //Used for background caching speedup
+
+	game.prevroomx = game.roomx;
+	game.prevroomy = game.roomy;
 
 	//a very special case: if entering the communication room, room 13,4 before tag 5 is set, set the game state to a background
 	//textbox thingy. if tag five is not set when changing room, reset the game state. (tag 5 is set when you get back to the ship)
@@ -1605,7 +1614,10 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		}
 
 		//If screen warping, then override all that:
-		dwgfx.backgrounddrawn = false;
+		bool redrawbg = game.roomx != game.prevroomx || game.roomy != game.prevroomy;
+		if(redrawbg){
+			dwgfx.backgrounddrawn = false;
+		}
 		if(ed.level[curlevel].warpdir>0){
 			if(ed.level[curlevel].warpdir==1){
 			warpx=true;

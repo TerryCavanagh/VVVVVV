@@ -3427,6 +3427,8 @@ void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass&
 	game.roomchange = false;
 	game.roomx = 0;
 	game.roomy = 0;
+	game.prevroomx = 0;
+	game.prevroomy = 0;
 	game.teleport_to_new_area = false;
 	game.teleport_to_x = 0;
 	game.teleport_to_y = 0;
