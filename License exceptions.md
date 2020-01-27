@@ -13,4 +13,10 @@ VVVVVV's source code is made available under a [custom license](LICENSE.md), whi
 | cursed_vvvvvv.exe | [MustardBucket](https://twitter.com/mustard_bucket/) | Modified version of VVVVVV where instead of flipping gravity you jump normally, can jump multiple times, and wall jump. | Make it impossible to revert to ordinary flipping behaviour. | [download](https://mustardbucket.itch.io/cursed-vvvvvv?secret=O0KvS02wD473pXBF9avreZsww), [twitter gif](https://twitter.com/mustard_bucket/status/1216272971779670016) |
 | Haiku Port | [Julius C. Enriquez](https://github.com/win8linux) | Port for the Haiku operating system. | Display the following text in the Haiku package to make it clear that this is an exception: "VVVVVV is a commercial game! The author has given special permission to make this Haiku version available for free. If you enjoy the game, please consider purchasing a copy at [thelettervsixtim.es](http://thelettervsixtim.es)." | (coming soon) |
 
+In addition, the following exceptions apply for any projects that match these descriptions:
+
+| Project | Description | Conditions |
+|---|---|---|
+| Any distribution of the VVVVVV: Make and Play edition | All distributions and packages of the Make and Play edition can freely distribute the data assets, so long as they compile with the makeandplay define and do not distribute the original levels.| Must compile with the makeandplay define set, cannot distribute the original levels. | 
+
 In general, if you're interested in creating something that falls outside the license terms, [get in touch with Terry!](http://distractionware.com/email/)
