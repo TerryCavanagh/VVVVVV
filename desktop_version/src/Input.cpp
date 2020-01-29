@@ -460,6 +460,17 @@ SDL_assert(0 && "Remove open level dir");
                       game.savestats(map, dwgfx);
                       game.createmenu("graphicoptions");
                       game.currentmenuoption = 3;
+                  }else if (game.currentmenuoption == 4) {
+                      //toggle mouse cursor
+                      music.playef(11, 10);
+                      if (dwgfx.showmousecursor == true) {
+                          SDL_ShowCursor(SDL_DISABLE);
+                          dwgfx.showmousecursor = false;
+                      }
+                      else {
+                          SDL_ShowCursor(SDL_ENABLE);
+                          dwgfx.showmousecursor = true;
+                      }
                   }
                   else
                   {

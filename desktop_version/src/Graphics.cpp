@@ -124,6 +124,7 @@ Graphics::Graphics()
     warprect = SDL_Rect();
 
     translucentroomname = false;
+    showmousecursor = true;
 }
 
 Graphics::~Graphics()

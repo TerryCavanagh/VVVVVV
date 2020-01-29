@@ -230,6 +230,18 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
                     dwgfx.Print( -1, 75, "television set. Do not attempt to", tr, tg, tb, true);
                     dwgfx.Print( -1, 85, "adjust the picture.", tr, tg, tb, true);
                 }
+          else if (game.currentmenuoption == 4)
+          {
+              dwgfx.bigprint(-1, 30, "Toggle Mouse Cursor", tr, tg, tb, true);
+              dwgfx.Print(-1, 65, "Show/hide the system mouse cursor.", tr, tg, tb, true);
+
+              if (dwgfx.showmousecursor) {
+                  dwgfx.Print(-1, 85, "Current mode: SHOW", tr, tg, tb, true);
+              }
+              else {
+                  dwgfx.Print(-1, 85, "Current mode: HIDE", tr, tg, tb, true);
+              }
+          }
         }
         else if (game.currentmenuname == "credits")
         {

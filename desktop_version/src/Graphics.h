@@ -278,6 +278,8 @@ public:
 	int warpskip, warpfcol, warpbcol;
 
 	bool translucentroomname;
+
+	bool showmousecursor;
 };
 
 #endif /* GRAPHICS_H */
