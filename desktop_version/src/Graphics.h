@@ -23,7 +23,7 @@ class map;
 class Graphics
 {
 public:
-	Graphics();
+	void init();
 	~Graphics();
 
 	GraphicsResources grphx;
@@ -279,5 +279,7 @@ public:
 
 	bool translucentroomname;
 };
+
+extern Graphics graphics;
 
 #endif /* GRAPHICS_H */

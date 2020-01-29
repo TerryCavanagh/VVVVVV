@@ -81,5 +81,6 @@ private:
 	Uint32 wasFullscreen;
 };
 
+extern KeyPoll key;
 
 #endif /* KEYPOLL_H */

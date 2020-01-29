@@ -17,7 +17,7 @@ class musicclass;
 class Game
 {
 public:
-    Game(void);
+    void init(void);
     ~Game(void);
 
 
@@ -361,5 +361,7 @@ public:
 
     bool skipfakeload;
 };
+
+extern Game game;
 
 #endif /* GAME_H */
