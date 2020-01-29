@@ -239,7 +239,7 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
                   dwgfx.Print(-1, 85, "Current mode: SHOW", tr, tg, tb, true);
               }
               else {
-                  dwgfx.Print(-1, 85, "Current mode: HIDE", tr, tg, tb, true);
+                  dwgfx.Print(-1, 85, "Current mode: HIDE", tr/2, tg/2, tb/2, true);
               }
           }
         }
