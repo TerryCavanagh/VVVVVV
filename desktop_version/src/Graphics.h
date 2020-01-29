@@ -23,7 +23,7 @@ class map;
 class Graphics
 {
 public:
-	Graphics();
+	void init();
 	~Graphics();
 
 	GraphicsResources grphx;
@@ -281,5 +281,7 @@ public:
 
 	bool showmousecursor;
 };
+
+extern Graphics graphics;
 
 #endif /* GRAPHICS_H */

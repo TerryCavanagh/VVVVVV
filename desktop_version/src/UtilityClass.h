@@ -43,4 +43,6 @@ public:
     std::vector<int> splitseconds;
 };
 
+extern UtilityClass help;
+
 #endif /* UTILITYCLASS_H */

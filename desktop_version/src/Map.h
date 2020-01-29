@@ -179,4 +179,6 @@ public:
     int cursorstate, cursordelay;
 };
 
+extern mapclass map;
+
 #endif /* MAPGAME_H */

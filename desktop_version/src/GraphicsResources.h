@@ -6,7 +6,7 @@
 class GraphicsResources
 {
 public:
-    GraphicsResources(void);
+    void init(void);
     ~GraphicsResources(void);
 
     SDL_Surface* im_tiles;

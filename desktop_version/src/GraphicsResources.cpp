@@ -80,7 +80,7 @@ SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool noAlpha =
 	}
 }
 
-GraphicsResources::GraphicsResources(void)
+void GraphicsResources::init(void)
 {
 	im_tiles =		LoadImage("graphics/tiles.png");
 	im_tiles2 =		LoadImage("graphics/tiles2.png");

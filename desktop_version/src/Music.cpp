@@ -3,7 +3,7 @@
 #include "Music.h"
 #include "BinaryBlob.h"
 
-musicclass::musicclass()
+void musicclass::init()
 {
 	soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
 	soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));

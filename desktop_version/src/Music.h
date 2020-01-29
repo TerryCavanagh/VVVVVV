@@ -10,7 +10,7 @@
 class musicclass
 {
 public:
-	musicclass();
+	void init();
 
 	void play(int t);
 	void loopmusic();
@@ -64,5 +64,6 @@ public:
 	bool usingmmmmmm;
 };
 
+extern musicclass music;
 
 #endif /* MUSIC_H */
