@@ -6,6 +6,9 @@
 
 void musicclass::init()
 {
+	soundTracks.clear();
+	musicTracks.clear();
+
 	soundTracks.push_back(move(SoundTrack( "sounds/jump.wav" )));
 	soundTracks.push_back(move(SoundTrack( "sounds/jump2.wav" )));
 	soundTracks.push_back(move(SoundTrack( "sounds/hurt.wav" )));
