@@ -260,7 +260,7 @@ void editorclass::reset()
     boundy2=0;
 
     scripttextmod=false;
-    scripttextent=0;
+    textent=0;
     scripttexttype=0;
 
     drawmode=0;
@@ -289,7 +289,6 @@ void editorclass::reset()
     levmusic=0;
 
     roomtextmod=false;
-    roomtextent=0;
 
     for (int j = 0; j < maxheight; j++)
     {
@@ -3168,11 +3167,11 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         dwgfx.Print(4, 224, "Enter script id name:", 255,255,255, false);
         if(ed.entframe<2)
         {
-            dwgfx.Print(4, 232, edentity[ed.scripttextent].scriptname+"_", 196, 196, 255 - help.glow, true);
+            dwgfx.Print(4, 232, edentity[ed.textent].scriptname+"_", 196, 196, 255 - help.glow, true);
         }
         else
         {
-            dwgfx.Print(4, 232, edentity[ed.scripttextent].scriptname+" ", 196, 196, 255 - help.glow, true);
+            dwgfx.Print(4, 232, edentity[ed.textent].scriptname+" ", 196, 196, 255 - help.glow, true);
         }
     }
     else if(ed.savemod)
@@ -3224,11 +3223,11 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         dwgfx.Print(4, 224, "Enter text string:", 255,255,255, false);
         if(ed.entframe<2)
         {
-            dwgfx.Print(4, 232, edentity[ed.roomtextent].scriptname+"_", 196, 196, 255 - help.glow, true);
+            dwgfx.Print(4, 232, edentity[ed.textent].scriptname+"_", 196, 196, 255 - help.glow, true);
         }
         else
         {
-            dwgfx.Print(4, 232, edentity[ed.roomtextent].scriptname+" ", 196, 196, 255 - help.glow, true);
+            dwgfx.Print(4, 232, edentity[ed.textent].scriptname+" ", 196, 196, 255 - help.glow, true);
         }
     }
     else if(ed.warpmod)
@@ -3685,12 +3684,20 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             ed.desc3mod=false;
             ed.websitemod=false;
             ed.creatormod=false;
-            if(ed.scripttextmod)
+            if(ed.scripttextmod || ed.roomtextmod)
             {
-                ed.scripttextmod=false;
-                removeedentity(ed.scripttextmod);
+                if (ed.oldenttext == "")
+                {
+                    removeedentity(ed.textent);
+                }
+                else
+                {
+                    edentity[ed.textent].scriptname = ed.oldenttext;
+                }
             }
 
+            ed.scripttextmod=false;
+            ed.roomtextmod=false;
             ed.shiftmenu=false;
             ed.shiftkey=false;
         }
@@ -3927,11 +3934,11 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
         }
         else if(ed.roomtextmod)
         {
-            edentity[ed.roomtextent].scriptname=key.keybuffer;
+            edentity[ed.textent].scriptname=key.keybuffer;
         }
         else if(ed.scripttextmod)
         {
-            edentity[ed.scripttextent].scriptname=key.keybuffer;
+            edentity[ed.textent].scriptname=key.keybuffer;
         }
         else if(ed.titlemod)
         {
@@ -3999,7 +4006,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                 }
                 else if(ed.roomtextmod)
                 {
-                    edentity[ed.roomtextent].scriptname=key.keybuffer;
+                    edentity[ed.textent].scriptname=key.keybuffer;
                     ed.roomtextmod=false;
 
                     ed.shiftmenu=false;
@@ -4007,12 +4014,12 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                 }
                 else if(ed.scripttextmod)
                 {
-                    edentity[ed.scripttextent].scriptname=key.keybuffer;
+                    edentity[ed.textent].scriptname=key.keybuffer;
                     ed.scripttextmod=false;
                     ed.clearscriptbuffer();
-                    if(!ed.checkhook(edentity[ed.scripttextent].scriptname))
+                    if(!ed.checkhook(edentity[ed.textent].scriptname))
                     {
-                        ed.addhook(edentity[ed.scripttextent].scriptname);
+                        ed.addhook(edentity[ed.textent].scriptname);
                     }
                 }
                 else if(ed.titlemod)
@@ -4790,7 +4797,8 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             {
                                 //Script trigger
                                 ed.scripttextmod=true;
-                                ed.scripttextent=EditorData::GetInstance().numedentities;
+                                ed.oldenttext="";
+                                ed.textent=EditorData::GetInstance().numedentities;
                                 addedentity((ed.boundx1/8)+(ed.levx*40),(ed.boundy1/8)+ (ed.levy*30),19,
                                             (ed.boundx2-ed.boundx1)/8, (ed.boundy2-ed.boundy1)/8);
                                 ed.lclickdelay=1;
@@ -4972,7 +4980,8 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             if(ed.drawmode==10)
                             {
                                 ed.roomtextmod=true;
-                                ed.roomtextent=EditorData::GetInstance().numedentities;
+                                ed.oldenttext="";
+                                ed.textent=EditorData::GetInstance().numedentities;
                                 ed.textentry=true;
                                 key.enabletextentry();
                                 key.keybuffer="";
@@ -5038,7 +5047,8 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             else if(ed.drawmode==11)
                             {
                                 ed.scripttextmod=true;
-                                ed.scripttextent=EditorData::GetInstance().numedentities;
+                                ed.oldenttext="";
+                                ed.textent=EditorData::GetInstance().numedentities;
                                 ed.textentry=true;
                                 key.enabletextentry();
 
@@ -5156,19 +5166,21 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         else if(edentity[tmp].t==17)
                         {
                             ed.roomtextmod=true;
-                            ed.roomtextent=tmp;
+                            ed.oldenttext=edentity[tmp].scriptname;
+                            ed.textent=tmp;
                             ed.textentry=true;
                             key.enabletextentry();
-                            key.keybuffer=edentity[tmp].scriptname;
+                            key.keybuffer=ed.oldenttext;
                             ed.lclickdelay=1;
                         }
                         else if(edentity[tmp].t==18)
                         {
                             ed.scripttextmod=true;
-                            ed.scripttextent=tmp;
+                            ed.oldenttext=edentity[tmp].scriptname;
+                            ed.textent=tmp;
                             ed.textentry=true;
                             key.enabletextentry();
-                            key.keybuffer=edentity[tmp].scriptname;
+                            key.keybuffer=ed.oldenttext;
                             ed.lclickdelay=1;
                         }
                     }

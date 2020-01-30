@@ -173,11 +173,11 @@ class editorclass{
   int entframe, entframedelay;
 
   bool roomtextmod;
-  int roomtextent;
 
   bool scripttextmod;
-  int scripttextent;
+  int textent;
   int scripttexttype;
+  std::string oldenttext;
 
   bool xmod, zmod, spacemod, warpmod, roomnamemod, textentry, savemod, loadmod;
   bool titlemod, creatormod, desc1mod, desc2mod, desc3mod, websitemod;
