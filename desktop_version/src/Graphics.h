@@ -29,8 +29,8 @@ public:
 
 	GraphicsResources grphx;
 
-	int bfontlen(char32_t ch);
-	int font_idx(char32_t ch);
+        int bfontlen(char32_t ch);
+        int font_idx(char32_t ch);
 
 	void Makebfont();
 
@@ -284,7 +284,7 @@ public:
 
 	bool showmousecursor;
 
-	std::map<int, int> font_positions;
+        std::map<int, int> font_positions;
 };
 
 extern Graphics graphics;
