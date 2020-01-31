@@ -95,13 +95,12 @@ void KeyPoll::Poll()
 
 			if (textentrymode)
 			{
-				if (evt.key.keysym.sym == SDLK_BACKSPACE && keybuffer.size() > 0)
+				if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
 				{
-                                        bool kbemptybefore = keybuffer.empty();
 					std::string::iterator iter = keybuffer.end();
                                         utf8::unchecked::prior(iter);
 					keybuffer = keybuffer.substr(0, iter - keybuffer.begin());
-					if (!kbemptybefore && keybuffer.empty())
+					if (keybuffer.empty())
 					{
 						linealreadyemptykludge = true;
 					}
