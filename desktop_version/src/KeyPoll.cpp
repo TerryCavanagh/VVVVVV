@@ -98,7 +98,7 @@ void KeyPoll::Poll()
 				if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
 				{
 					std::string::iterator iter = keybuffer.end();
-                                        utf8::unchecked::prior(iter);
+					utf8::unchecked::prior(iter);
 					keybuffer = keybuffer.substr(0, iter - keybuffer.begin());
 					if (keybuffer.empty())
 					{
