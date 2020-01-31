@@ -2621,6 +2621,7 @@ void entityclass::createentity( Game& game, float xp, float yp, int t, float vx 
         //entities[k].colour = 0;
         entities[k].onentity = 1;
         entities[k].invis=true;
+        if (map.custommode) customwarpmode = true;
         break;
       case 52: //Vertical Warp Line
         entities[k].rule = 5;
@@ -2634,6 +2635,7 @@ void entityclass::createentity( Game& game, float xp, float yp, int t, float vx 
         //entities[k].colour = 0;
         entities[k].onentity = 1;
         entities[k].invis=true;
+        if (map.custommode) customwarpmode = true;
         break;
       case 53: //Horizontal Warp Line
         entities[k].rule = 7;
@@ -2646,6 +2648,7 @@ void entityclass::createentity( Game& game, float xp, float yp, int t, float vx 
         entities[k].h = 1;
         entities[k].onentity = 1;
         entities[k].invis=true;
+        if (map.custommode) customwarpmode = true;
         break;
       case 54: //Horizontal Warp Line
         entities[k].rule = 7;
@@ -2658,6 +2661,7 @@ void entityclass::createentity( Game& game, float xp, float yp, int t, float vx 
         entities[k].h = 1;
         entities[k].onentity = 1;
         entities[k].invis=true;
+        if (map.custommode) customwarpmode = true;
         break;
       case 55: // Crew Member (custom, collectable)
         //1 - position in array
