@@ -3110,7 +3110,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 
 	int bfontpos = 0;
 	int cur;
-        std::string::iterator iter = t.begin();
+	std::string::iterator iter = t.begin();
 	while (iter != t.end()) {
 		cur = utf8::unchecked::next(iter);
 		if (flipmode)
