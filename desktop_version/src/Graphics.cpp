@@ -4,7 +4,7 @@
 #include "Map.h"
 #include "Screen.h"
 #include "FileSystemUtils.h"
-#include <utf8/checked.h>
+#include <utf8/unchecked.h>
 #include <physfs.h>
 
 void Graphics::init()
@@ -183,7 +183,7 @@ void Graphics::Makebfont()
         unsigned char* end = charmap + length;
         int pos = 0;
         while (current != end) {
-            int codepoint = utf8::next(current, end);
+            int codepoint = utf8::unchecked::next(current);
             font_positions[codepoint] = pos;
             ++pos;
         }
@@ -274,7 +274,7 @@ void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool 
     int curr;
     std::string::iterator iter = _s.begin();
     while (iter != _s.end()) {
-        curr = utf8::next(iter, _s.end());
+        curr = utf8::unchecked::next(iter);
         point tpoint;
         tpoint.x = _x + bfontpos;
         tpoint.y = _y;
@@ -313,7 +313,7 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
     int curr;
     std::string::iterator iter = _s.begin();
     while (iter != _s.end()) {
-        curr = utf8::next(iter, _s.end());
+        curr = utf8::unchecked::next(iter);
 
         /*
         point tpoint;
@@ -348,7 +348,7 @@ int Graphics::len(std::string t)
     int bfontpos = 0;
     std::string::iterator iter = t.begin();
     while (iter != t.end()) {
-        int cur = utf8::next(iter, t.end());
+        int cur = utf8::unchecked::next(iter);
         bfontpos += bfontlen(cur);
     }
     return bfontpos;
@@ -367,7 +367,7 @@ void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bo
     int bfontpos = 0;
     std::string::iterator iter = _s.begin();
     while (iter != _s.end()) {
-        int curr = utf8::next(iter, _s.end());
+        int curr = utf8::unchecked::next(iter);
         point tpoint;
         tpoint.x = _x + bfontpos;
         tpoint.y = _y;
@@ -428,7 +428,7 @@ void Graphics::RPrint( int _x, int _y, std::string _s, int r, int g, int b, bool
     int curr;
     std::string::iterator iter = _s.begin();
     while (iter != _s.end()) {
-        curr = utf8::next(iter, _s.end());
+        curr = utf8::unchecked::next(iter);
         point tpoint;
         tpoint.x = _x + bfontpos;
         tpoint.y = _y;
@@ -1040,7 +1040,7 @@ void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int
         textbox[m].clear();
         textbox[m].line[0] = t;
         textbox[m].xp = xp;
-        int length = utf8::distance(t.begin(), t.end());
+        int length = utf8::unchecked::distance(t.begin(), t.end());
         if (xp == -1) textbox[m].xp = 160 - (((length / 2) + 1) * 8);
         textbox[m].yp = yp;
         textbox[m].initcol(r, g, b);
@@ -3108,7 +3108,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 	int cur;
         std::string::iterator iter = t.begin();
 	while (iter != t.end()) {
-		cur = utf8::next(iter, t.end());
+		cur = utf8::unchecked::next(iter);
 		if (flipmode)
 		{
 			SDL_Surface* tempPrint = ScaleSurfaceSlow(flipbfont[font_idx(cur)], bfont[font_idx(cur)]->w *sc,bfont[font_idx(cur)]->h *sc);
