@@ -3,6 +3,7 @@
 
 #include "GraphicsResources.h"
 #include <vector>
+#include <map>
 
 
 
@@ -27,6 +28,9 @@ public:
 	~Graphics();
 
 	GraphicsResources grphx;
+
+	int bfontlen(char32_t ch);
+	int font_idx(char32_t ch);
 
 	void Makebfont();
 
@@ -212,7 +216,6 @@ public:
 	std::vector <SDL_Surface*> bfontmask;
 	std::vector <SDL_Surface*> flipbfont;
 	std::vector <SDL_Surface*> flipbfontmask;
-	std::vector <int> bfontlen;
 
 	bool flipmode;
 	bool setflipmode;
@@ -280,6 +283,8 @@ public:
 	bool translucentroomname;
 
 	bool showmousecursor;
+
+	std::map<int, int> font_positions;
 };
 
 extern Graphics graphics;

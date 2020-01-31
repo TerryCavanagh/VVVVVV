@@ -1,6 +1,7 @@
 #include "KeyPoll.h"
 #include <stdio.h>
 #include <string.h>
+#include <utf8/unchecked.h>
 
 void KeyPoll::setSensitivity(int _value)
 {
@@ -94,11 +95,12 @@ void KeyPoll::Poll()
 
 			if (textentrymode)
 			{
-				if (evt.key.keysym.sym == SDLK_BACKSPACE)
+				if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
 				{
-					bool kbemptybefore = keybuffer.empty();
-					keybuffer = keybuffer.substr(0, keybuffer.length() - 1);
-					if (!kbemptybefore && keybuffer.empty())
+					std::string::iterator iter = keybuffer.end();
+					utf8::unchecked::prior(iter);
+					keybuffer = keybuffer.substr(0, iter - keybuffer.begin());
+					if (keybuffer.empty())
 					{
 						linealreadyemptykludge = true;
 					}

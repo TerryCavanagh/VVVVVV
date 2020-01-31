@@ -179,7 +179,7 @@ bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc)
 	{
 		return false;
 	}
-	doc->Parse((const char*)mem);
+	doc->Parse((const char*)mem, NULL, TIXML_ENCODING_UTF8);
 	FILESYSTEM_freeMemory(&mem);
 	return true;
 }
