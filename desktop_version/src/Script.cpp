@@ -597,7 +597,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 					dwgfx.textboxmoveto(textx);
 				}
 
-				if (textx == -500)
+				if (textx == -500 || textx == -1)
 				{
 					dwgfx.textboxcenterx();
 				}
@@ -642,7 +642,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 					dwgfx.textboxmoveto(textx);
 				}
 
-				if (textx == -500)
+				if (textx == -500 || textx == -1)
 				{
 					dwgfx.textboxcenterx();
 				}
