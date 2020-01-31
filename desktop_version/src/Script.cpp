@@ -3181,6 +3181,14 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.gamestate = GAMEMODE;
 		music.fadeout();
 		hardreset(key, dwgfx, game, map, obj, help, music);
+		//If warpdir() is used during playtesting, we need to set it back after!
+		for (int j = 0; j < ed.maxheight; j++)
+		{
+			for (int i = 0; i < ed.maxwidth; i++)
+			{
+				ed.kludgewarpdir[i+(j*ed.maxwidth)]=ed.level[i+(j*ed.maxwidth)].warpdir;
+			}
+		}
 		game.customstart(obj, music);
 		game.jumpheld = true;
 
