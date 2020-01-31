@@ -309,6 +309,7 @@ void editorclass::reset()
             level[i+(j*maxwidth)].enemyy2=240;
             level[i+(j*maxwidth)].enemytype=0;
             level[i+(j*maxwidth)].directmode=0;
+            kludgewarpdir[i+(j*maxwidth)]=0;
         }
     }
 
