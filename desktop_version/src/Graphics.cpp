@@ -5,7 +5,6 @@
 #include "Screen.h"
 #include "FileSystemUtils.h"
 #include <utf8/unchecked.h>
-#include <physfs.h>
 
 void Graphics::init()
 {
