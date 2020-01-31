@@ -242,4 +242,6 @@ public:
     int customcrewmoods[6];
 };
 
+extern entityclass obj;
+
 #endif /* ENTITY_H */
