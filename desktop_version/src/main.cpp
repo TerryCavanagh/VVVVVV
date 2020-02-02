@@ -44,10 +44,6 @@ entityclass obj;
 
 int main(int argc, char *argv[])
 {
-    if(!FILESYSTEM_init(argv[0]))
-    {
-        return 1;
-    }
     SDL_Init(
         SDL_INIT_VIDEO |
         SDL_INIT_AUDIO |
@@ -55,9 +51,21 @@ int main(int argc, char *argv[])
         SDL_INIT_GAMECONTROLLER
     );
 
-    if (argc > 2 && strcmp(argv[1], "-renderer") == 0)
+    char* assets = NULL;
+
+    for (int i = 1; i < argc; ++i) {
+        if (strcmp(argv[i], "-renderer") == 0) {
+            ++i;
+            SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, argv[i], SDL_HINT_OVERRIDE);
+        } else if (strcmp(argv[i], "-assets") == 0) {
+            ++i;
+            assets = argv[i];
+        }
+    }
+
+    if(!FILESYSTEM_init(argv[0], assets))
     {
-        SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, argv[2], SDL_HINT_OVERRIDE);
+        return 1;
     }
 
     NETWORK_init();
