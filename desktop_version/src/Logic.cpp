@@ -591,7 +591,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
             {
                 //Ok! super magical exception for the room with the intention death for the shiny trinket
                 //fix this when the maps are finalised
-                if (game.roomx != 111 && game.roomy != 107)
+                if (game.roomx != 111 || game.roomy != 107 || map.custommode)
                 {
                     obj.entities[i].state = 4;
                 }
