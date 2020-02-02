@@ -39,7 +39,7 @@ void PLATFORM_getOSDirectory(char* output);
 void PLATFORM_migrateSaveData(char* output);
 void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
-int FILESYSTEM_init(char *argvZero)
+int FILESYSTEM_init(char *argvZero, char *assetsPath)
 {
 	char output[MAX_PATH];
 	int mkdirResult;
@@ -79,8 +79,12 @@ int FILESYSTEM_init(char *argvZero)
 	}
 
 	/* Mount the stock content last */
-	strcpy(output, PHYSFS_getBaseDir());
-	strcat(output, "data.zip");
+	if (assetsPath) {
+            strcpy(output, assetsPath);
+        } else {
+            strcpy(output, PHYSFS_getBaseDir());
+            strcat(output, "data.zip");
+        }
 	if (!PHYSFS_mount(output, NULL, 1))
 	{
 		puts("Error: data.zip missing!");
