@@ -1304,7 +1304,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		}
 	}
 
-	if (rx == 119 && ry == 108)
+	if (rx == 119 && ry == 108 && !custommode)
 	{
 		background = 5;
 		dwgfx.rcol = 3;

@@ -892,7 +892,7 @@
 				}
 			}
 			
-			if (rx == 119 && ry == 108) {
+			if (rx == 119 && ry == 108 && !custommode) {
 				background = 5;
 				dwgfx.rcol = 3;
 				warpx = true;
