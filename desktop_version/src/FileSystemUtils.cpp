@@ -80,11 +80,11 @@ int FILESYSTEM_init(char *argvZero, char *assetsPath)
 
 	/* Mount the stock content last */
 	if (assetsPath) {
-            strcpy(output, assetsPath);
-        } else {
-            strcpy(output, PHYSFS_getBaseDir());
-            strcat(output, "data.zip");
-        }
+		strcpy(output, assetsPath);
+	} else {
+		strcpy(output, PHYSFS_getBaseDir());
+		strcat(output, "data.zip");
+	}
 	if (!PHYSFS_mount(output, NULL, 1))
 	{
 		puts("Error: data.zip missing!");
