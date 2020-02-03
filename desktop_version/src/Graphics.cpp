@@ -383,7 +383,7 @@ void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bo
         if (flipmode)
         {
             //flipbfont[font_idx(cur)].colorTransform(bfont_rect, ct);
-            BlitSurfaceColoured( bfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
+            BlitSurfaceColoured( flipbfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         }
         else
         {
