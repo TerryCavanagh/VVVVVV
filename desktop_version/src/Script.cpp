@@ -573,7 +573,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "flipme")
 			{
-				if(dwgfx.flipmode) texty += 2*(120 - texty);
+				if(dwgfx.flipmode) texty += 2*(120 - texty) - 8*(txtnumlines+2);
 			}
 			else if (words[0] == "speak_active")
 			{
