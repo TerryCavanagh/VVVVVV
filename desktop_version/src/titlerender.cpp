@@ -2933,7 +2933,15 @@ void towerrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, U
         dwgfx.flashlight();
     }
 
-    dwgfx.render();
+    if (game.screenshake > 0 && !game.noflashingmode)
+    {
+        game.screenshake--;
+        dwgfx.screenshake();
+    }
+    else
+    {
+        dwgfx.render();
+    }
 }
 
 void teleporterrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help)
