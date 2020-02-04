@@ -576,7 +576,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
     {
         for (int i = 0; i < obj.nentity; i++)
         {
-            if (game.roomx == 111 && game.roomy == 107)
+            if (game.roomx == 111 && game.roomy == 107 && !map.custommode)
             {
                 if (obj.entities[i].type == 1)
                 {
