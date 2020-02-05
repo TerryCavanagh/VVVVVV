@@ -37,12 +37,6 @@ bool entityclass::checktowerspikes(int t, mapclass& map)
             }
         }
     }
-    if (temprect.w >= 12)
-    {
-        tpx1 = getgridpoint(temprect.x + 6);
-        if (map.collide(tpx1, tempy)) return true;
-        if (map.collide(tpx1, temph)) return true;
-    }
     return false;
 }
 

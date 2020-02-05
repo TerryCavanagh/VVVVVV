@@ -699,6 +699,10 @@ bool mapclass::collide(int x, int y)
 	if (towermode)
 	{
 		if (tower.at(x, y, 0) >= 12 && tower.at(x, y, 0) <= 27) return true;
+		if (invincibility)
+		{
+			if (tower.at(x, y, 0) >= 6 && tower.at(x, y, 0) <= 11) return true;
+		}
 	}
 	else if (tileset == 2)
 	{
