@@ -4171,6 +4171,10 @@ void Game::gethardestroom( mapclass& map )
             if (roomx == 50 && roomy == 53) hardestroom =map.specialnames[6];
             if (roomx == 50 && roomy == 54) hardestroom = map.specialnames[7];
         }
+        else if (map.roomname == "")
+        {
+            hardestroom = "Dimension VVVVVV";
+        }
     }
 }
 
