@@ -40,7 +40,11 @@ void scriptclass::load(std::string t)
         }else if(scriptend==-1){
           //Find the end
           tstring=script.customscript[i];
-          tstring=tstring[tstring.size()-1];
+          if (tstring.size() > 0) {
+            tstring=tstring[tstring.size()-1];
+          } else {
+            tstring="";
+          }
           if(tstring==":"){
             scriptend=i;
           }
