@@ -32,6 +32,12 @@ int mkdir(char* path, int mode)
 #define MAX_PATH PATH_MAX
 #endif
 
+#ifdef _WIN32
+	#define PATH_SEP '\\'
+#else
+	#define PATH_SEP '/'
+#endif
+
 char saveDir[MAX_PATH];
 char levelDir[MAX_PATH];
 
@@ -39,7 +45,7 @@ void PLATFORM_getOSDirectory(char* output);
 void PLATFORM_migrateSaveData(char* output);
 void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
-int FILESYSTEM_init(char *argvZero, char *assetsPath)
+int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
 	char output[MAX_PATH];
 	int mkdirResult;
@@ -48,7 +54,20 @@ int FILESYSTEM_init(char *argvZero, char *assetsPath)
 	PHYSFS_permitSymbolicLinks(1);
 
 	/* Determine the OS user directory */
-	PLATFORM_getOSDirectory(output);
+	if (baseDir && strlen(baseDir) > 0)
+	{
+		strcpy(output, baseDir);
+
+		/* We later append to this path and assume it ends in a slash */
+		if (output[strlen(output)] != PATH_SEP)
+		{
+			strcat(output, std::string(1, PATH_SEP).c_str());
+		}
+	}
+	else
+	{
+		PLATFORM_getOSDirectory(output);
+	}
 
 	/* Create base user directory, mount */
 	mkdirResult = mkdir(output, 0777);
