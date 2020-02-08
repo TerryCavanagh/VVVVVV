@@ -39,16 +39,30 @@ void PLATFORM_getOSDirectory(char* output);
 void PLATFORM_migrateSaveData(char* output);
 void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
-int FILESYSTEM_init(char *argvZero, char *assetsPath)
+int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
 	char output[MAX_PATH];
 	int mkdirResult;
+	const char* pathSep = PHYSFS_getDirSeparator();
 
 	PHYSFS_init(argvZero);
 	PHYSFS_permitSymbolicLinks(1);
 
 	/* Determine the OS user directory */
-	PLATFORM_getOSDirectory(output);
+	if (baseDir && strlen(baseDir) > 0)
+	{
+		strcpy(output, baseDir);
+
+		/* We later append to this path and assume it ends in a slash */
+		if (strcmp(std::string(1, output[strlen(output) - 1]).c_str(), pathSep) != 0)
+		{
+			strcat(output, pathSep);
+		}
+	}
+	else
+	{
+		PLATFORM_getOSDirectory(output);
+	}
 
 	/* Create base user directory, mount */
 	mkdirResult = mkdir(output, 0777);

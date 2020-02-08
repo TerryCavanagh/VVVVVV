@@ -51,19 +51,23 @@ int main(int argc, char *argv[])
         SDL_INIT_GAMECONTROLLER
     );
 
-    char* assets = NULL;
+    char* baseDir = NULL;
+    char* assetsPath = NULL;
 
     for (int i = 1; i < argc; ++i) {
         if (strcmp(argv[i], "-renderer") == 0) {
             ++i;
             SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, argv[i], SDL_HINT_OVERRIDE);
+        } else if (strcmp(argv[i], "-basedir") == 0) {
+            ++i;
+            baseDir = argv[i];
         } else if (strcmp(argv[i], "-assets") == 0) {
             ++i;
-            assets = argv[i];
+            assetsPath = argv[i];
         }
     }
 
-    if(!FILESYSTEM_init(argv[0], assets))
+    if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
     {
         return 1;
     }
