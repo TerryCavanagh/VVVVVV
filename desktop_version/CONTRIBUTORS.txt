@@ -16,6 +16,7 @@ Contributors
 * Elijah Stone
 * Thomas Sänger (@HorayNarea)
 * Info Teddy (@InfoTeddy)
+* Alexandra Tildea (@AllyTally)
 * leo60228 (@leo60228)
 * Emmanuel Vadot (@evadot)
 * Rémi Verschelde (@akien-mga)

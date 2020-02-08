@@ -480,6 +480,7 @@ void Game::init(void)
     githubfriends.push_back("Elijah Stone");
     githubfriends.push_back("Thomas S|nger");
     githubfriends.push_back("Info Teddy");
+    githubfriends.push_back("Alexandra Tildea");
     githubfriends.push_back("leo60228");
     githubfriends.push_back("Emmanuel Vadot");
     githubfriends.push_back("Remi Verschelde"); // TODO: Change to "Rémi" if/when UTF-8 support is added
