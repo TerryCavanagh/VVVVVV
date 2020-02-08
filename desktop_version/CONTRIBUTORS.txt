@@ -3,6 +3,7 @@ Contributors
 
 (Ordered alphabetically by last name.)
 
+* Matt "Stelpjo" Aaldenberg
 * Christoph Böhmwalder (@chrboe)
 * Charlie Bruce (@charliebruce)
 * Brian Callahan (@ibara)
@@ -10,6 +11,7 @@ Contributors
 * Allison Fleischer (AllisonFleischer)
 * Daniel Lee (@ddm999)
 * Fredrik Ljungdahl (@FredrIQ)
+* Matt Penny (@mwpenny)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
 * Keith Stellyes (@keithstellyes)
@@ -22,4 +24,3 @@ Contributors
 * Rémi Verschelde (@akien-mga)
 * viri (viri.me)
 * Wouter (Xesxen)
-* Matt "Stelpjo" Aaldenberg

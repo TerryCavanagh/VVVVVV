@@ -468,12 +468,15 @@ void Game::init(void)
     patrons.push_back("Timothy Bragan");
 
     /* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by last name */
+    githubfriends.push_back("Matt \"Stelpjo\" Aaldenberg");
     githubfriends.push_back("Christoph B{hmwalder");
     githubfriends.push_back("Charlie Bruce");
     githubfriends.push_back("Brian Callahan");
     githubfriends.push_back("Dav999");
     githubfriends.push_back("Allison Fleischer");
     githubfriends.push_back("Daniel Lee");
+    githubfriends.push_back("Fredrik Ljungdahl");
+    githubfriends.push_back("Matt Penny");
     githubfriends.push_back("Elliott Saltar");
     githubfriends.push_back("Marvin Scholz");
     githubfriends.push_back("Keith Stellyes");
