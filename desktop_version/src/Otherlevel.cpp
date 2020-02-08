@@ -8096,6 +8096,12 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		//obj.fatal_bottom();
 		break;
+#else
+	default:
+		for (int j = 0; j < 30; j++)
+		{
+			tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+		}
 #endif
 	}
 

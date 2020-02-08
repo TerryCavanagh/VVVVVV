@@ -27,8 +27,8 @@ std::vector<std::string> labclass::loadlevel(int rx, int ry , Game& game, entity
 
 	switch(t)
 	{
-
 #if !defined(MAKEANDPLAY)
+
 	case rn(50,50):
 
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
@@ -1859,6 +1859,12 @@ std::vector<std::string> labclass::loadlevel(int rx, int ry , Game& game, entity
 		game.test = true;
 		game.teststring = "ERROR: Map not found in Lab Area";
 		break;
+#else
+	default:
+		for (int j = 0; j < 30; j++)
+		{
+			tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+		}
 #endif
 	}
 
