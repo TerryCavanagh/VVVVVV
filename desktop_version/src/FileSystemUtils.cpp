@@ -32,12 +32,6 @@ int mkdir(char* path, int mode)
 #define MAX_PATH PATH_MAX
 #endif
 
-#ifdef _WIN32
-	#define PATH_SEP '\\'
-#else
-	#define PATH_SEP '/'
-#endif
-
 char saveDir[MAX_PATH];
 char levelDir[MAX_PATH];
 
@@ -49,6 +43,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
 	char output[MAX_PATH];
 	int mkdirResult;
+	const char* pathSep = PHYSFS_getDirSeparator();
 
 	PHYSFS_init(argvZero);
 	PHYSFS_permitSymbolicLinks(1);
@@ -59,9 +54,9 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		strcpy(output, baseDir);
 
 		/* We later append to this path and assume it ends in a slash */
-		if (output[strlen(output)] != PATH_SEP)
+		if (strcmp(std::string(1, output[strlen(output) - 1]).c_str(), pathSep) != 0)
 		{
-			strcat(output, std::string(1, PATH_SEP).c_str());
+			strcat(output, pathSep);
 		}
 	}
 	else
