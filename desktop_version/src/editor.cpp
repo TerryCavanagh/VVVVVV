@@ -468,7 +468,11 @@ void editorclass::removehookfromscript(std::string t)
         {
             //If this line is not the start of a new hook, remove it!
             tstring=script.customscript[i];
-            tstring=tstring[tstring.length()-1];
+            if (tstring.length() > 0) {
+                tstring=tstring[tstring.length()-1];
+            } else {
+                tstring="";
+            }
             if(tstring==":")
             {
                 //this is a hook
