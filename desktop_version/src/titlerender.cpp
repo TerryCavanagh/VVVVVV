@@ -1604,7 +1604,10 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
 
      if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
-        dwgfx.bprint(5, 5, "[Press ENTER to return to editor]", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+        dwgfx.bprintalpha(5, 5, "[Press ENTER to return to editor]", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), ed.returneditoralpha, false);
+        if (ed.returneditoralpha > 0) {
+            ed.returneditoralpha -= 15;
+        }
       }
 
 

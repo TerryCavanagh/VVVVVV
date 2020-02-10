@@ -112,11 +112,17 @@ public:
 
 	void Print(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false);
 
+	void PrintAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
+
 	void RPrint(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false);
 
 	void PrintOff(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false);
 
+	void PrintOffAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
+
 	void bprint(int x, int y, std::string t, int r, int g, int b, bool cen = false);
+
+	void bprintalpha(int x, int y, std::string t, int r, int g, int b, int a, bool cen = false);
 
 	int len(std::string t);
 	void bigprint( int _x, int _y, std::string _s, int r, int g, int b, bool cen = false, int sc = 2 );
@@ -138,6 +144,8 @@ public:
 
 
 	void drawtele(int x, int y, int t, int c, UtilityClass& help);
+
+	Uint32 getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 	Uint32 getRGB(Uint8 r, Uint8 g, Uint8 b);
 
