@@ -2,7 +2,9 @@
 
 #include "MakeAndPlay.h"
 
-extern editorclass ed;
+#if !defined(NO_EDITOR)
+	extern editorclass ed;
+#endif
 
 mapclass::mapclass()
 {
@@ -976,6 +978,7 @@ void mapclass::gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass
 			if (game.roomx == 46 && game.roomy == 54) music.niceplay(15); //Final level remix
 		}
 	}
+#if !defined(NO_EDITOR)
 	else if (custommode)
 	{
 		game.roomx = rx;
@@ -986,6 +989,7 @@ void mapclass::gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass
 		if (game.roomx > 100 + ed.mapwidth-1) game.roomx = 100;
 		if (game.roomy > 100 + ed.mapheight-1) game.roomy = 100;
 	}
+#endif
 	else
 	{
 		game.roomx = rx;
@@ -1585,6 +1589,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 	}
 		break;
 					#endif
+#if !defined(NO_EDITOR)
 	case 12: //Custom level
 		int curlevel=(rx-100)+((ry-100)*ed.maxwidth);
 		game.customcol=ed.getlevelcol(curlevel)+1;
@@ -1772,6 +1777,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			}
 		}*/
 		break;
+#endif
 	}
 	//The room's loaded: now we fill out damage blocks based on the tiles.
 	if (towermode)

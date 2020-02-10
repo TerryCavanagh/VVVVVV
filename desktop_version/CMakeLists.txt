@@ -24,6 +24,7 @@ IF(APPLE)
 ENDIF()
 
 PROJECT(VVVVVV)
+OPTION(NO_EDITOR "Compile without the level editor" OFF)
 
 IF(APPLE)
 	MESSAGE(STATUS "Using macOS SDK at ${CMAKE_OSX_SYSROOT}")
@@ -63,7 +64,6 @@ INCLUDE_DIRECTORIES(
 SET(VVV_SRC
 	src/BinaryBlob.cpp
 	src/BlockV.cpp
-	src/editor.cpp
 	src/Ent.cpp
 	src/Entity.cpp
 	src/FileSystemUtils.cpp
@@ -96,6 +96,12 @@ SET(VVV_SRC
 	src/SteamNetwork.c
 	src/GOGNetwork.c
 )
+IF (NOT NO_EDITOR)
+	LIST(APPEND VVV_SRC src/editor.cpp)
+ELSE()
+	ADD_DEFINITIONS(-DNO_EDITOR)
+ENDIF()
+
 SET(XML_SRC
 	../third_party/tinyxml/tinystr.cpp
 	../third_party/tinyxml/tinyxml.cpp

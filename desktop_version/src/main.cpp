@@ -30,9 +30,11 @@
 #include <string.h>
 
 scriptclass script;
- edentities edentity[3000];
 
- editorclass ed;
+#if !defined(NO_EDITOR)
+	edentities edentity[3000];
+	editorclass ed;
+#endif
 
 UtilityClass help;
 Graphics graphics;
@@ -367,6 +369,7 @@ int main(int argc, char *argv[])
                 //Render
                 preloaderrender(graphics, game, help);
                 break;
+        #if !defined(NO_EDITOR)
             case EDITORMODE:
 				graphics.flipmode = false;
                 //Input
@@ -376,6 +379,7 @@ int main(int argc, char *argv[])
                 ////Logic
                 editorlogic(key, graphics, game, obj, music, map, help);
                 break;
+        #endif
             case TITLEMODE:
                 //Input
                 titleinput(key, graphics, map, game, obj, help, music);
@@ -510,7 +514,12 @@ int main(int argc, char *argv[])
         }
 
         //Mute button
-        if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !ed.textentry && ed.scripthelppage != 1)
+    #if !defined(NO_EDITOR)
+        bool inEditor = ed.textentry || ed.scripthelppage == 1;
+    #else
+        bool inEditor = false;
+    #endif
+        if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !inEditor)
         {
             game.mutebutton = 8;
             if (game.muted)
