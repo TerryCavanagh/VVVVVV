@@ -13,7 +13,9 @@
 #include "Music.h"
 #include "editor.h"
 
-extern editorclass ed;
+#if !defined(NO_EDITOR)
+	extern editorclass ed;
+#endif
 
 class mapclass
 {

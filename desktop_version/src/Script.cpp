@@ -92,6 +92,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				obj.entities[player].yp += ss_toi(words[2]);
 				scriptdelay = 1;
 			}
+	#if !defined(NO_EDITOR)
 			if (words[0] == "warpdir")
 			{
         int temprx=ss_toi(words[1])-1;
@@ -138,6 +139,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 					position--;
 				}
 			}
+	#endif
 			if (words[0] == "destroy")
 			{
 				if(words[1]=="gravitylines"){
@@ -3156,6 +3158,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
 		load("intermission_2");
 		break;
+#if !defined(NO_EDITOR)
 	case 20:
 		//Level editor
 		hardreset(key, dwgfx, game, map, obj, help, music);
@@ -3308,6 +3311,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		dwgfx.fademode = 4;
     //load("intro");
   break;
+#endif
 	case 100:
 		game.savestats(map, dwgfx);
 

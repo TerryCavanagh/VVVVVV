@@ -1,3 +1,5 @@
+#if !defined(NO_EDITOR)
+
 #include "editor.h"
 
 #include "Graphics.h"
@@ -5383,3 +5385,5 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
         }
     }
 }
+
+#endif /* NO_EDITOR */

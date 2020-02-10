@@ -1,7 +1,9 @@
 #include "Logic.h"
+#include "Script.h"
 #include "Network.h"
 
 extern int temp;
+extern scriptclass script;
 
 void titlelogic( Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& help, musicclass& music, mapclass& map)
 {

@@ -2057,6 +2057,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
                 dwgfx.textboxcenterx();
             }
             break;
+#if !defined(NO_EDITOR)
         case 1013:
             dwgfx.textboxremove();
             hascontrol = true;
@@ -2087,6 +2088,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             }
             dwgfx.showcutscenebars = false;
             break;
+#endif
         case 1014:
             frames--;
             if(dwgfx.fademode == 1)	state++;
@@ -6757,7 +6759,7 @@ void Game::createmenu( std::string t )
 
     if (t == "mainmenu")
     {
-				#if defined(MAKEANDPLAY)
+			#if defined(MAKEANDPLAY)
 					menuoptions[0] = "player levels";
 					menuoptionsactive[0] = true;
 					menuoptions[1] = "graphic options";
@@ -6769,7 +6771,22 @@ void Game::createmenu( std::string t )
 					nummenuoptions = 4;
 					menuxoff = -16;
 					menuyoff = -10;
-				#elif !defined(MAKEANDPLAY)
+			#elif !defined(MAKEANDPLAY)
+				#if defined(NO_EDITOR)
+					menuoptions[0] = "start game";
+					menuoptionsactive[0] = true;
+					menuoptions[1] = "graphic options";
+					menuoptionsactive[1] = true;
+					menuoptions[2] = "game options";
+					menuoptionsactive[2] = true;
+					menuoptions[3] = "view credits";
+					menuoptionsactive[3] = true;
+					menuoptions[4] = "quit game";
+					menuoptionsactive[4] = true;
+					nummenuoptions = 5;
+					menuxoff = -16;
+					menuyoff = -10;
+				#else
 					menuoptions[0] = "start game";
 					menuoptionsactive[0] = true;
 					menuoptions[1] = "player levels";
@@ -6786,7 +6803,9 @@ void Game::createmenu( std::string t )
 					menuxoff = -16;
 					menuyoff = -10;
 				#endif
+			#endif
     }
+#if !defined(NO_EDITOR)
     else if (t == "playerworlds")
     {
         menuoptions[0] = "play a level";
@@ -6800,36 +6819,6 @@ void Game::createmenu( std::string t )
         nummenuoptions = 3;
         menuxoff = -30;
         menuyoff = -40;
-    }
-    else if (t == "quickloadlevel")
-    {
-        menuoptions[0] = "continue from save";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "start from beginning";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "back to levels";
-        menuoptionsactive[2] = true;
-        nummenuoptions = 3;
-        menuxoff = -40;
-        menuyoff = -30;
-    }
-    else if (t == "youwannaquit")
-    {
-        menuoptions[0] = "yes, quit";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "no, return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 0;
-        menuyoff = -20;
-    }
-    else if (t == "errornostart")
-    {
-        menuoptions[0] = "ok";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
-        menuxoff = 0;
-        menuyoff = -20;
     }
     else if (t == "levellist")
     {
@@ -6902,6 +6891,37 @@ void Game::createmenu( std::string t )
             menuxoff = -90;
             menuyoff = 70-(tcount*10);
         }
+    }
+#endif
+    else if (t == "quickloadlevel")
+    {
+        menuoptions[0] = "continue from save";
+        menuoptionsactive[0] = true;
+        menuoptions[1] = "start from beginning";
+        menuoptionsactive[1] = true;
+        menuoptions[2] = "back to levels";
+        menuoptionsactive[2] = true;
+        nummenuoptions = 3;
+        menuxoff = -40;
+        menuyoff = -30;
+    }
+    else if (t == "youwannaquit")
+    {
+        menuoptions[0] = "yes, quit";
+        menuoptionsactive[0] = true;
+        menuoptions[1] = "no, return";
+        menuoptionsactive[1] = true;
+        nummenuoptions = 2;
+        menuxoff = 0;
+        menuyoff = -20;
+    }
+    else if (t == "errornostart")
+    {
+        menuoptions[0] = "ok";
+        menuoptionsactive[0] = true;
+        nummenuoptions = 1;
+        menuxoff = 0;
+        menuyoff = -20;
     }
     else if (t == "graphicoptions")
     {

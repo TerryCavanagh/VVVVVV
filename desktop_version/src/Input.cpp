@@ -1,10 +1,13 @@
 #include "Input.h"
+#include "Script.h"
 
 #include "MakeAndPlay.h"
 
 #include "tinyxml.h"
 
 #include "FileSystemUtils.h"
+
+extern scriptclass script;
 
 // Found in titlerender.cpp
 void updategraphicsmode(Game& game, Graphics& dwgfx);
@@ -231,7 +234,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                 if (game.currentmenuname == "mainmenu")
                 {
 								
-				#if defined(MAKEANDPLAY)
+            #if defined(MAKEANDPLAY)
 				   if (game.currentmenuoption == 0)
                     {
                       //Bring you to the normal playmenu
@@ -270,7 +273,8 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         dwgfx.fademode = 2;
                     }
                 }
-				#elif !defined(MAKEANDPLAY)
+            #elif !defined(MAKEANDPLAY)
+                #if defined(NO_EDITOR)
                     if (game.currentmenuoption == 0)
                     {
                         //Play
@@ -290,7 +294,62 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                     }
                     else if (game.currentmenuoption == 1)
                     {
-                      //Bring you to the normal playmenu
+                        //Options
+                        music.playef(11, 10);
+                        game.createmenu("graphicoptions");
+                        map.nexttowercolour();
+                    }
+                    else if (game.currentmenuoption == 2)
+                    {
+                        //Options
+                        music.playef(11, 10);
+                        game.createmenu("options");
+
+												//Add extra menu for mmmmmm mod
+											  if(music.mmmmmm){
+													game.menuoptions[4] = "soundtrack";
+													game.menuoptionsactive[4] = true;
+													game.menuoptions[5] = "return";
+													game.menuoptionsactive[5] = true;
+													game.nummenuoptions = 6;
+												}
+                        map.nexttowercolour();
+                    }
+                    else if (game.currentmenuoption == 3)
+                    {
+                        //Credits
+                        music.playef(11, 10);
+                        game.createmenu("credits");
+                        map.nexttowercolour();
+                    }
+                    else if (game.currentmenuoption == 4)
+                    {
+                        //bye!
+                        music.playef(2, 10);
+                        game.mainmenu = 100;
+                        dwgfx.fademode = 2;
+                    }
+                #else
+                    if (game.currentmenuoption == 0)
+                    {
+                        //Play
+                        if (game.telesummary == "" && game.quicksummary == "")
+                        {
+                            //No saves exist, just start a new game
+                            game.mainmenu = 0;
+                            dwgfx.fademode = 2;
+                        }
+                        else
+                        {
+                            //Bring you to the normal playmenu
+                            music.playef(11, 10);
+                            game.createmenu("play");
+                            map.nexttowercolour();
+                        }
+                    }
+                    else if (game.currentmenuoption == 1)
+                    {
+                        //Bring you to the normal playmenu
                         music.playef(11, 10);
                         game.createmenu("playerworlds");
                         map.nexttowercolour();
@@ -308,14 +367,14 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         music.playef(11, 10);
                         game.createmenu("options");
 
-												//Add extra menu for mmmmmm mod
-											  if(music.mmmmmm){
-													game.menuoptions[4] = "soundtrack";
-													game.menuoptionsactive[4] = true;
-													game.menuoptions[5] = "return";
-													game.menuoptionsactive[5] = true;
-													game.nummenuoptions = 6;
-												}
+                        //Add extra menu for mmmmmm mod
+                        if(music.mmmmmm){
+                            game.menuoptions[4] = "soundtrack";
+                            game.menuoptionsactive[4] = true;
+                            game.menuoptions[5] = "return";
+                            game.menuoptionsactive[5] = true;
+                            game.nummenuoptions = 6;
+                        }
                         map.nexttowercolour();
                     }
                     else if (game.currentmenuoption == 4)
@@ -332,8 +391,10 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         game.mainmenu = 100;
                         dwgfx.fademode = 2;
                     }
+            #endif
                 }
 								#endif
+            #if !defined(NO_EDITOR)
                 else if(game.currentmenuname=="levellist")
                 {
                   if(game.currentmenuoption==game.nummenuoptions-1){
@@ -371,6 +432,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
 	                  }
                   }
                 }
+            #endif
                 else if(game.currentmenuname=="quickloadlevel")
                 {
                   if(game.currentmenuoption==0){//continue save
@@ -386,6 +448,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                     map.nexttowercolour();
                   }
                 }
+            #if !defined(NO_EDITOR)
                 else if(game.currentmenuname=="playerworlds")
                 {
                   if(game.currentmenuoption==0){
@@ -419,6 +482,7 @@ SDL_assert(0 && "Remove open level dir");
                     map.nexttowercolour();
                   }
                 }
+            #endif
                 else if(game.currentmenuname=="errornostart"){
                   music.playef(11, 10);
                   game.createmenu("mainmenu");
@@ -1891,6 +1955,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     }
 
     //Returning to editor mode must always be possible
+#if !defined(NO_EDITOR)
     if(map.custommode && !map.custommodeforreal){
       if ((game.press_map || key.isDown(27)) && !game.mapheld){
         game.mapheld = true;
@@ -1924,6 +1989,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
         }
       }
     }
+#endif
 
     //Entity type 0 is player controled
     for (int ie = 0; ie < obj.nentity; ++ie)
@@ -2336,9 +2402,14 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 
             if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = "The Ship";
 
-            if(map.custommodeforreal){
+        #if !defined(NO_EDITOR)
+            if(map.custommodeforreal)
+            {
               game.customsavequick(ed.ListOfMetaData[game.playcustomlevel].filename, map, obj, music);
-            }else{
+            }
+            else
+        #endif
+            {
               game.savequick(map, obj, music);
             }
         }
