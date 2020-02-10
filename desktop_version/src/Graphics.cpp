@@ -264,13 +264,18 @@ void Graphics::MakeSpriteArray()
 }
 
 
-void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ )
+void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ ) {
+    return PrintAlpha(_x,_y,_s,r,g,b,255,cen);
+}
+
+void Graphics::PrintAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
 {
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
+    a = clamp(a,0,255);
 
-    ct.colour = getRGB(r, g, b);
+    ct.colour = getRGBA(r, g, b, a);
 
     if (cen)
         _x = ((160 ) - ((len(_s)) / 2));
@@ -358,11 +363,16 @@ int Graphics::len(std::string t)
     return bfontpos;
 }
 
-void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ )
+void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ ) {
+    PrintOffAlpha(_x,_y,_s,r,g,b,255,cen);
+}
+
+void Graphics::PrintOffAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
 {
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
+    a = clamp(a,0,255);
 
     ct.colour = getRGB(r, g, b);
 
@@ -395,28 +405,32 @@ void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bo
     }
 }
 
-void Graphics::bprint( int x, int y, std::string t, int r, int g, int b, bool cen /*= false*/ )
+void Graphics::bprint( int x, int y, std::string t, int r, int g, int b, bool cen /*= false*/ ) {
+    bprintalpha(x,y,t,r,g,b,255,cen);
+}
+
+void Graphics::bprintalpha( int x, int y, std::string t, int r, int g, int b, int a, bool cen /*= false*/ )
 {
 
     //printmask(x, y, t, cen);
     if (!notextoutline)
     {
-        Print(x, y - 1, t, 0, 0, 0, cen);
+        PrintAlpha(x, y - 1, t, 0, 0, 0, a, cen);
         if (cen)
         {
             //TODO find different
-            PrintOff(-1, y, t, 0, 0, 0, cen);
-            PrintOff(1, y, t, 0, 0, 0, cen);
+            PrintOffAlpha(-1, y, t, 0, 0, 0, a, cen);
+            PrintOffAlpha(1, y, t, 0, 0, 0, a, cen);
         }
         else
         {
-            Print(x  -1, y, t, 0, 0, 0, cen);
-            Print(x  +1, y, t, 0, 0, 0, cen);
+            PrintAlpha(x  -1, y, t, 0, 0, 0, a, cen);
+            PrintAlpha(x  +1, y, t, 0, 0, 0, a, cen);
         }
-        Print(x, y+1, t, 0, 0, 0, cen);
+        PrintAlpha(x, y+1, t, 0, 0, 0, a, cen);
     }
 
-    Print(x, y, t, r, g, b, cen);
+    PrintAlpha(x, y, t, r, g, b, a, cen);
 }
 
 void Graphics::RPrint( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ )
@@ -3144,6 +3158,11 @@ void Graphics::drawtele(int x, int y, int t, int c, UtilityClass& help)
 	if (t < 0) t = 0;
 
 	BlitSurfaceColoured(tele[t], NULL, backBuffer, &telerect, ct);
+}
+
+Uint32 Graphics::getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+	return SDL_MapRGBA(backBuffer->format, b, g, r, a);
 }
 
 Uint32 Graphics::getRGB(Uint8 r, Uint8 g, Uint8 b)
