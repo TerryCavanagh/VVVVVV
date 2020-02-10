@@ -1,4 +1,4 @@
-#if !defined(NO_EDITOR)
+#if !defined(NO_CUSTOM_LEVELS)
 
 #include "editor.h"
 
@@ -5386,4 +5386,4 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
     }
 }
 
-#endif /* NO_EDITOR */
+#endif /* NO_CUSTOM_LEVELS */

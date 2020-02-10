@@ -31,7 +31,7 @@
 
 scriptclass script;
 
-#if !defined(NO_EDITOR)
+#if !defined(NO_CUSTOM_LEVELS)
 	edentities edentity[3000];
 	editorclass ed;
 #endif
@@ -369,7 +369,7 @@ int main(int argc, char *argv[])
                 //Render
                 preloaderrender(graphics, game, help);
                 break;
-        #if !defined(NO_EDITOR)
+        #if !defined(NO_CUSTOM_LEVELS)
             case EDITORMODE:
 				graphics.flipmode = false;
                 //Input
@@ -514,7 +514,7 @@ int main(int argc, char *argv[])
         }
 
         //Mute button
-    #if !defined(NO_EDITOR)
+    #if !defined(NO_CUSTOM_LEVELS)
         bool inEditor = ed.textentry || ed.scripthelppage == 1;
     #else
         bool inEditor = false;
