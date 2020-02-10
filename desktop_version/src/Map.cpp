@@ -2,7 +2,7 @@
 
 #include "MakeAndPlay.h"
 
-#if !defined(NO_EDITOR)
+#if !defined(NO_CUSTOM_LEVELS)
 	extern editorclass ed;
 #endif
 
@@ -978,7 +978,7 @@ void mapclass::gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass
 			if (game.roomx == 46 && game.roomy == 54) music.niceplay(15); //Final level remix
 		}
 	}
-#if !defined(NO_EDITOR)
+#if !defined(NO_CUSTOM_LEVELS)
 	else if (custommode)
 	{
 		game.roomx = rx;
@@ -1589,7 +1589,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 	}
 		break;
 					#endif
-#if !defined(NO_EDITOR)
+#if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
 		int curlevel=(rx-100)+((ry-100)*ed.maxwidth);
 		game.customcol=ed.getlevelcol(curlevel)+1;

@@ -274,7 +274,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                     }
                 }
             #elif !defined(MAKEANDPLAY)
-                #if defined(NO_EDITOR)
+                #if defined(NO_CUSTOM_LEVELS)
                     if (game.currentmenuoption == 0)
                     {
                         //Play
@@ -394,7 +394,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
             #endif
                 }
 								#endif
-            #if !defined(NO_EDITOR)
+            #if !defined(NO_CUSTOM_LEVELS)
                 else if(game.currentmenuname=="levellist")
                 {
                   if(game.currentmenuoption==game.nummenuoptions-1){
@@ -448,9 +448,10 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                     map.nexttowercolour();
                   }
                 }
-            #if !defined(NO_EDITOR)
+            #if !defined(NO_CUSTOM_LEVELS)
                 else if(game.currentmenuname=="playerworlds")
                 {
+                #if !defined(NO_EDITOR)
                   if(game.currentmenuoption==0){
 
                     music.playef(11, 10);
@@ -481,6 +482,21 @@ SDL_assert(0 && "Remove open level dir");
                     game.createmenu("mainmenu");
                     map.nexttowercolour();
                   }
+                #else
+                  if(game.currentmenuoption==0){
+                    music.playef(11, 10);
+                    game.levelpage=0;
+                    ed.getDirectoryData();
+                    game.loadcustomlevelstats(); //Should only load a file if it's needed
+                    game.createmenu("levellist");
+                    map.nexttowercolour();
+                  }else if(game.currentmenuoption==1){
+                    //back
+                    music.playef(11, 10);
+                    game.createmenu("mainmenu");
+                    map.nexttowercolour();
+                  }
+                #endif
                 }
             #endif
                 else if(game.currentmenuname=="errornostart"){
@@ -1955,7 +1971,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     }
 
     //Returning to editor mode must always be possible
-#if !defined(NO_EDITOR)
+#if !defined(NO_CUSTOM_LEVELS)
     if(map.custommode && !map.custommodeforreal){
       if ((game.press_map || key.isDown(27)) && !game.mapheld){
         game.mapheld = true;
@@ -2402,7 +2418,7 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 
             if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = "The Ship";
 
-        #if !defined(NO_EDITOR)
+        #if !defined(NO_CUSTOM_LEVELS)
             if(map.custommodeforreal)
             {
               game.customsavequick(ed.ListOfMetaData[game.playcustomlevel].filename, map, obj, music);

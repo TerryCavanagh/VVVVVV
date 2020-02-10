@@ -2057,7 +2057,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
                 dwgfx.textboxcenterx();
             }
             break;
-#if !defined(NO_EDITOR)
+#if !defined(NO_CUSTOM_LEVELS)
         case 1013:
             dwgfx.textboxremove();
             hascontrol = true;
@@ -6772,7 +6772,7 @@ void Game::createmenu( std::string t )
 					menuxoff = -16;
 					menuyoff = -10;
 			#elif !defined(MAKEANDPLAY)
-				#if defined(NO_EDITOR)
+				#if defined(NO_CUSTOM_LEVELS)
 					menuoptions[0] = "start game";
 					menuoptionsactive[0] = true;
 					menuoptions[1] = "graphic options";
@@ -6805,9 +6805,10 @@ void Game::createmenu( std::string t )
 				#endif
 			#endif
     }
-#if !defined(NO_EDITOR)
+#if !defined(NO_CUSTOM_LEVELS)
     else if (t == "playerworlds")
     {
+    #if !defined(NO_EDITOR)
         menuoptions[0] = "play a level";
         menuoptionsactive[0] = true;
         menuoptions[1] = "level editor";
@@ -6819,6 +6820,15 @@ void Game::createmenu( std::string t )
         nummenuoptions = 3;
         menuxoff = -30;
         menuyoff = -40;
+    #else
+        menuoptions[0] = "play a level";
+        menuoptionsactive[0] = true;
+        menuoptions[1] = "back to menu";
+        menuoptionsactive[1] = true;
+        nummenuoptions = 2;
+        menuxoff = -30;
+        menuyoff = -40;
+    #endif
     }
     else if (t == "levellist")
     {
