@@ -19,11 +19,6 @@
 #include "GraphicsUtil.h"
 #include "Screen.h"
 
-#if __cplusplus < 201103L  // Pre-C++11
-typedef uint32_t char32_t;
-typedef uint16_t char16_t;
-#endif
-
 class map;
 
 class Graphics
@@ -34,8 +29,8 @@ public:
 
 	GraphicsResources grphx;
 
-	int bfontlen(char32_t ch);
-	int font_idx(char32_t ch);
+	int bfontlen(uint32_t ch);
+	int font_idx(uint32_t ch);
 
 	void Makebfont();
 
