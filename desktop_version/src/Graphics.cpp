@@ -133,7 +133,7 @@ void Graphics::init()
     showmousecursor = true;
 }
 
-int Graphics::font_idx(char32_t ch) {
+int Graphics::font_idx(uint32_t ch) {
     if (font_positions.size() > 0) {
         std::map<int, int>::iterator iter = font_positions.find(ch);
         if (iter == font_positions.end()) {
@@ -194,7 +194,7 @@ void Graphics::Makebfont()
     }
 }
 
-int Graphics::bfontlen(char32_t ch) {
+int Graphics::bfontlen(uint32_t ch) {
     if (ch < 32) {
         return 6;
     } else {
