@@ -235,6 +235,7 @@ void Game::init(void)
     currentmenuoption = 0;
     menuselection = "null";
     currentmenuname = "null";
+    current_credits_list_index = 0;
     menuxoff = 0;
     menuyoff = 0;
     menucountdown = 0;
@@ -406,6 +407,7 @@ void Game::init(void)
     superpatrons.push_back("Daniel Benmergui");
     superpatrons.push_back("David Pittman");
     superpatrons.push_back("Ian Bogost");
+    superpatrons.push_back("Ian Poma");
     superpatrons.push_back("Jaz McDougall");
     superpatrons.push_back("John Faulkenbury");
     superpatrons.push_back("Jonathan Whiting");
@@ -7259,36 +7261,6 @@ void Game::createmenu( std::string t )
     else if (t == "credits6")
     {
         menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits7")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits8")
-    {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = 20;
-        menuyoff = 64;
-    }
-    else if (t == "credits9")
-    {
-        menuoptions[0] = "first page";
         menuoptionsactive[0] = true;
         menuoptions[1] = "return";
         menuoptionsactive[1] = true;
