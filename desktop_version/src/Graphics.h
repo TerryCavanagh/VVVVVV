@@ -19,6 +19,11 @@
 #include "GraphicsUtil.h"
 #include "Screen.h"
 
+#if __cplusplus < 201103L  // Pre-C++11
+typedef uint32_t char32_t;
+typedef uint16_t char16_t;
+#endif
+
 class map;
 
 class Graphics

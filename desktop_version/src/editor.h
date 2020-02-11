@@ -237,7 +237,7 @@ class editorclass{
   int dmtile;
   int dmtileeditor;
 
-  int returneditoralpha = 0;
+  int returneditoralpha;
 };
 
 void addedentity(int xp, int yp, int tp, int p1=0, int p2=0, int p3=0, int p4=0, int p5=320, int p6=240);

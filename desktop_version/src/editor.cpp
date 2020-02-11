@@ -355,6 +355,8 @@ void editorclass::reset()
     hookmenu=0;
     numhooks=0;
     script.customscript.clear();
+
+    returneditoralpha = 0;
 }
 
 void editorclass::weirdloadthing(std::string t)
