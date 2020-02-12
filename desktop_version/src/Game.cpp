@@ -7260,7 +7260,7 @@ void Game::createmenu( std::string t )
     }
     else if (t == "credits6")
     {
-        menuoptions[0] = "next page";
+        menuoptions[0] = "first page";
         menuoptionsactive[0] = true;
         menuoptions[1] = "return";
         menuoptionsactive[1] = true;
