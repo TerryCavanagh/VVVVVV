@@ -282,103 +282,61 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
             dwgfx.Print( -1, 20, "VVVVVV is supported by", tr, tg, tb, true);
             dwgfx.Print( 40, 30, "the following patrons", tr, tg, tb, true);
 
-            dwgfx.Print( 80-16, 40+20, "Anders Ekermo", tr, tg, tb);
-            dwgfx.Print( 80-12, 54+20, "Andreas K|mper", tr, tg, tb);
-            dwgfx.Print( 80-8, 68+20, "Anthony Burch", tr, tg, tb);
-            dwgfx.Print( 80-4, 82+20, "Bennett Foddy", tr, tg, tb);
-            dwgfx.Print( 80, 96+20, "Brendan O'Sullivan", tr, tg, tb);
-            dwgfx.Print( 80+4, 110+20, "Christopher Armstrong", tr, tg, tb);
-            dwgfx.Print( 80+8, 124+20, "Daniel Benmergui", tr, tg, tb);
-            dwgfx.Print( 80+12, 138+20, "David Pittman", tr, tg, tb);
-            dwgfx.Print( 80+16, 152+20, "Ian Bogost", tr, tg, tb);
+            int startidx = game.current_credits_list_index;
+            int endidx = std::min(startidx + 9, (int)game.superpatrons.size());
+
+            int xofs = 80 - 16;
+            int yofs = 40 + 20;
+
+            for (int i = startidx; i < endidx; ++i)
+            {
+                dwgfx.Print(xofs, yofs, game.superpatrons[i], tr, tg, tb);
+                xofs += 4;
+                yofs += 14;
+            }
         }
         else if (game.currentmenuname == "credits4")
         {
-            dwgfx.Print( -1, 20, "VVVVVV is supported by", tr, tg, tb, true);
-            dwgfx.Print( 40, 30, "the following patrons", tr, tg, tb, true);
-            dwgfx.Print( 80-16, 20+40, "Ian Poma", tr, tg, tb);
-            dwgfx.Print( 80-12, 34+40, "Jaz McDougall", tr, tg, tb);
-            dwgfx.Print( 80-8, 48+40, "John Faulkenbury", tr, tg, tb);
-            dwgfx.Print( 80-4, 62+40, "Jonathan Whiting", tr, tg, tb);
-            dwgfx.Print( 80, 76+40, "Kyle Pulver", tr, tg, tb);
-            dwgfx.Print( 80+4, 90+40, "Markus Persson", tr, tg, tb);
-            dwgfx.Print( 80+8, 104+40, "Nathan Ostgard", tr, tg, tb);
-            dwgfx.Print( 80+12, 118+40, "Nick Easler", tr, tg, tb);
-            dwgfx.Print( 80+16, 132+40, "Stephen Lavelle", tr, tg, tb);
+            dwgfx.Print( -1, 20, "and also by", tr, tg, tb, true);
+
+            int startidx = game.current_credits_list_index;
+            int endidx = std::min(startidx + 14, (int)game.patrons.size());
+
+            int maxheight = 10 * 14;
+            int totalheight = (endidx - startidx) * 10;
+            int emptyspace = maxheight - totalheight;
+
+            int yofs = 40 + (emptyspace / 2);
+
+            for (int i = startidx; i < endidx; ++i)
+            {
+                dwgfx.Print(80, yofs, game.patrons[i], tr, tg, tb);
+                yofs += 10;
+            }
         }
         else if (game.currentmenuname == "credits5")
         {
-            dwgfx.Print( -1, 20, "and also by", tr, tg, tb, true);
+            dwgfx.Print( -1, 20, "With contributions on", tr, tg, tb, true);
+            dwgfx.Print( 40, 30, "GitHub from", tr, tg, tb, true);
 
-            dwgfx.Print( 80, 40,"Adam Wendt", tr, tg, tb);
-            dwgfx.Print( 80, 50,"Andreas J{rgensen", tr, tg, tb);
-            dwgfx.Print( 80, 60,"}ngel Louzao Penalva", tr, tg, tb);
-            dwgfx.Print( 80, 70,"Ashley Burton", tr, tg, tb);
-            dwgfx.Print( 80, 80,"Aubrey Hesselgren", tr, tg, tb);
-            dwgfx.Print( 80, 90,"Bradley Rose", tr, tg, tb);
-            dwgfx.Print( 80, 100,"Brendan Urquhart", tr, tg, tb);
-            dwgfx.Print( 80, 110,"Chris Ayotte", tr, tg, tb);
-            dwgfx.Print( 80, 120,"Christopher Zamanillo", tr, tg, tb);
-            dwgfx.Print( 80, 130,"Daniel Schuller", tr, tg, tb);
-            dwgfx.Print( 80, 140,"Hybrid Mind Studios", tr, tg, tb);
-            dwgfx.Print( 80, 150,"Emilie McGinley", tr, tg, tb);
-            dwgfx.Print( 80, 160,"Francisco Solares", tr, tg, tb);
-            dwgfx.Print( 80, 170,"Hal Helms", tr, tg, tb);
+            int startidx = game.current_credits_list_index;
+            int endidx = std::min(startidx + 9, (int)game.githubfriends.size());
+
+            int maxheight = 14 * 9;
+            int totalheight = (endidx - startidx) * 14;
+            int emptyspace = maxheight - totalheight;
+
+            int xofs = 80 - 16;
+            int yofs = 40 + 20 + (emptyspace / 2);
+
+            for (int i = startidx; i < endidx; ++i)
+            {
+                dwgfx.Print(xofs, yofs, game.githubfriends[i], tr, tg, tb);
+                xofs += 4;
+                yofs += 14;
+            }
         }
         else if (game.currentmenuname == "credits6")
-        {
-            dwgfx.Print( -1, 20, "and also by", tr, tg, tb, true);
-
-            dwgfx.Print( 80, 40,"Hayden Scott-Baron", tr, tg, tb);
-            dwgfx.Print( 80, 50,"Hermit Games", tr, tg, tb);
-            dwgfx.Print( 80, 60,"Ido Yehieli", tr, tg, tb);
-            dwgfx.Print( 80, 70,"Jade Vault Games", tr, tg, tb);
-            dwgfx.Print( 80, 80,"James Andrews", tr, tg, tb);
-            dwgfx.Print( 80, 90,"James Riley", tr, tg, tb);
-            dwgfx.Print( 80, 100,"James Hsieh", tr, tg, tb);
-            dwgfx.Print( 80, 110,"Jasper Byrne", tr, tg, tb);
-            dwgfx.Print( 80, 120,"Jedediah Baker", tr, tg, tb);
-            dwgfx.Print( 80, 130,"Jens Bergensten", tr, tg, tb);
-            dwgfx.Print( 80, 140,"Jeremy J. Penner", tr, tg, tb);
-            dwgfx.Print( 80, 150,"Jeremy Peterson", tr, tg, tb);
-            dwgfx.Print( 80, 160,"Jim McGinley", tr, tg, tb);
-            dwgfx.Print( 80, 170,"Jonathan Cartwright", tr, tg, tb);
-        }
-        else if (game.currentmenuname == "credits7")
-        {
-            dwgfx.Print( -1, 20, "and also by", tr, tg, tb, true);
-
-            dwgfx.Print( 80, 40,"John Nesky", tr, tg, tb);
-            dwgfx.Print( 80, 50,"Jos Yule", tr, tg, tb);
-            dwgfx.Print( 80, 60,"Jose Flores", tr, tg, tb);
-            dwgfx.Print( 80, 70,"Josh Bizeau", tr, tg, tb);
-            dwgfx.Print( 80, 80,"Joshua Buergel", tr, tg, tb);
-            dwgfx.Print( 80, 90,"Joshua Hochner", tr, tg, tb);
-            dwgfx.Print( 80, 100,"Kurt Ostfeld", tr, tg, tb);
-            dwgfx.Print( 80, 110,"Magnus P~lsson", tr, tg, tb);
-            dwgfx.Print( 80, 120,"Mark Neschadimenko", tr, tg, tb);
-            dwgfx.Print( 80, 130,"Matt Antonellis", tr, tg, tb);
-            dwgfx.Print( 80, 140,"Matthew Reppert", tr, tg, tb);
-            dwgfx.Print( 80, 150,"Michael Falkensteiner", tr, tg, tb);
-            dwgfx.Print( 80, 160,"Michael Vendittelli", tr, tg, tb);
-            dwgfx.Print( 80, 170,"Mike Kasprzak", tr, tg, tb);
-        }
-        else if (game.currentmenuname == "credits8")
-        {
-            dwgfx.Print( -1, 20, "and also by", tr, tg, tb, true);
-
-            dwgfx.Print( 80, 70,"Mitchel Stein", tr, tg, tb);
-            dwgfx.Print( 80, 80,"Sean Murray", tr, tg, tb);
-            dwgfx.Print( 80, 90,"Simon Michael", tr, tg, tb);
-            dwgfx.Print( 80, 100,"Simon Schmid", tr, tg, tb);
-            dwgfx.Print( 80, 110,"Stephen Maxwell", tr, tg, tb);
-            dwgfx.Print( 80, 120,"Swing Swing Submarine", tr, tg, tb);
-            dwgfx.Print( 80, 130,"Tam Toucan", tr, tg, tb);
-            dwgfx.Print( 80, 140,"Terry Dooher", tr, tg, tb);
-            dwgfx.Print( 80, 150,"Tim W.", tr, tg, tb);
-            dwgfx.Print( 80, 160,"Timothy Bragan", tr, tg, tb);
-        }
-        else if (game.currentmenuname == "credits9")
         {
             dwgfx.Print( -1, 20, "and thanks also to:", tr, tg, tb, true);
 

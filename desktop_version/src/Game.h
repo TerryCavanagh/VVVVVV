@@ -184,6 +184,7 @@ public:
     std::vector<bool> menuoptionsactive;
     int nummenuoptions, currentmenuoption ;
     std::string menuselection, currentmenuname, previousmenuname;
+    int current_credits_list_index;
     int menuxoff, menuyoff;
 
     int menucountdown;
