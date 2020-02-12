@@ -1188,15 +1188,15 @@ SDL_assert(0 && "Remove open level dir");
                         music.playef(11, 10);
                         game.current_credits_list_index += 9;
 
-                        if (game.current_credits_list_index >= (int)game.githubfriends.size())
+                        if (game.current_credits_list_index >= (int)game.superpatrons.size())
                         {
-                            // No more GitHub contributors. Move to the next credits section
+                            // No more super patrons. Move to the next credits section
                             game.current_credits_list_index = 0;
                             game.createmenu("credits4");
                         }
                         else
                         {
-                            // There are more GitHub contributors. Refresh the menu with the next ones
+                            // There are more super patrons. Refresh the menu with the next ones
                             game.createmenu("credits3");
                         }
 
@@ -1217,17 +1217,17 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         //next page
                         music.playef(11, 10);
-                        game.current_credits_list_index += 9;
+                        game.current_credits_list_index += 14;
 
-                        if (game.current_credits_list_index >= (int)game.superpatrons.size())
+                        if (game.current_credits_list_index >= (int)game.patrons.size())
                         {
-                            // No more super patrons. Move to the next credits section
+                            // No more patrons. Move to the next credits section
                             game.current_credits_list_index = 0;
                             game.createmenu("credits5");
                         }
                         else
                         {
-                            // There are more super patrons. Refresh the menu with the next ones
+                            // There are more patrons. Refresh the menu with the next ones
                             game.createmenu("credits4");
                         }
 
@@ -1248,17 +1248,17 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         //next page
                         music.playef(11, 10);
-                        game.current_credits_list_index += 14;
+                        game.current_credits_list_index += 9;
 
-                        if (game.current_credits_list_index >= (int)game.patrons.size())
+                        if (game.current_credits_list_index >= (int)game.githubfriends.size())
                         {
-                            // No more patrons. Move to the next credits section
+                            // No more GitHub contributors. Move to the next credits section
                             game.current_credits_list_index = 0;
                             game.createmenu("credits6");
                         }
                         else
                         {
-                            // There are more patrons. Refresh the menu with the next ones
+                            // There are more GitHub contributors. Refresh the menu with the next ones
                             game.createmenu("credits5");
                         }
 

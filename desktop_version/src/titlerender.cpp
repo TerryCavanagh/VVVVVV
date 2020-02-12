@@ -279,6 +279,43 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
         }
         else if (game.currentmenuname == "credits3")
         {
+            dwgfx.Print( -1, 20, "VVVVVV is supported by", tr, tg, tb, true);
+            dwgfx.Print( 40, 30, "the following patrons", tr, tg, tb, true);
+
+            int startidx = game.current_credits_list_index;
+            int endidx = std::min(startidx + 9, (int)game.superpatrons.size());
+
+            int xofs = 80 - 16;
+            int yofs = 40 + 20;
+
+            for (int i = startidx; i < endidx; ++i)
+            {
+                dwgfx.Print(xofs, yofs, game.superpatrons[i], tr, tg, tb);
+                xofs += 4;
+                yofs += 14;
+            }
+        }
+        else if (game.currentmenuname == "credits4")
+        {
+            dwgfx.Print( -1, 20, "and also by", tr, tg, tb, true);
+
+            int startidx = game.current_credits_list_index;
+            int endidx = std::min(startidx + 14, (int)game.patrons.size());
+
+            int maxheight = 10 * 14;
+            int totalheight = (endidx - startidx) * 10;
+            int emptyspace = maxheight - totalheight;
+
+            int yofs = 40 + (emptyspace / 2);
+
+            for (int i = startidx; i < endidx; ++i)
+            {
+                dwgfx.Print(80, yofs, game.patrons[i], tr, tg, tb);
+                yofs += 10;
+            }
+        }
+        else if (game.currentmenuname == "credits5")
+        {
             dwgfx.Print( -1, 20, "With contributions on", tr, tg, tb, true);
             dwgfx.Print( 40, 30, "GitHub from", tr, tg, tb, true);
 
@@ -297,43 +334,6 @@ void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, U
                 dwgfx.Print(xofs, yofs, game.githubfriends[i], tr, tg, tb);
                 xofs += 4;
                 yofs += 14;
-            }
-        }
-        else if (game.currentmenuname == "credits4")
-        {
-            dwgfx.Print( -1, 20, "VVVVVV is supported by", tr, tg, tb, true);
-            dwgfx.Print( 40, 30, "the following patrons", tr, tg, tb, true);
-
-            int startidx = game.current_credits_list_index;
-            int endidx = std::min(startidx + 9, (int)game.superpatrons.size());
-
-            int xofs = 80 - 16;
-            int yofs = 40 + 20;
-
-            for (int i = startidx; i < endidx; ++i)
-            {
-                dwgfx.Print(xofs, yofs, game.superpatrons[i], tr, tg, tb);
-                xofs += 4;
-                yofs += 14;
-            }
-        }
-        else if (game.currentmenuname == "credits5")
-        {
-            dwgfx.Print( -1, 20, "and also by", tr, tg, tb, true);
-
-            int startidx = game.current_credits_list_index;
-            int endidx = std::min(startidx + 14, (int)game.patrons.size());
-
-            int maxheight = 10 * 14;
-            int totalheight = (endidx - startidx) * 10;
-            int emptyspace = maxheight - totalheight;
-
-            int yofs = 40 + (emptyspace / 2);
-
-            for (int i = startidx; i < endidx; ++i)
-            {
-                dwgfx.Print(80, yofs, game.patrons[i], tr, tg, tb);
-                yofs += 10;
             }
         }
         else if (game.currentmenuname == "credits6")
