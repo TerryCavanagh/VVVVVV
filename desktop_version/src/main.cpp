@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
         } else if (strcmp(argv[i], "-assets") == 0) {
             ++i;
             assetsPath = argv[i];
-        } else if (strcmp(argv[i], "--playing") == 0 || strcmp(argv[i], "-p") == 0) {
+        } else if (strcmp(argv[i], "-playing") == 0 || strcmp(argv[i], "-p") == 0) {
             if (i + 1 < argc) {
                 startinplaytest = true;
                 i++;
@@ -78,27 +78,27 @@ int main(int argc, char *argv[])
                 playtestname.append(argv[i]);
                 playtestname.append(std::string(".vvvvvv"));
             } else {
-                printf("--playing option requires one argument.\n");
+                printf("-playing option requires one argument.\n");
                 return 1;
             }
-        } else if (strcmp(argv[i], "--playx") == 0 ||
-                strcmp(argv[i], "--playy") == 0 ||
-                strcmp(argv[i], "--playrx") == 0 ||
-                strcmp(argv[i], "--playry") == 0 ||
-                strcmp(argv[i], "--playgc") == 0 ||
-                strcmp(argv[i], "--playmusic") == 0) {
+        } else if (strcmp(argv[i], "-playx") == 0 ||
+                strcmp(argv[i], "-playy") == 0 ||
+                strcmp(argv[i], "-playrx") == 0 ||
+                strcmp(argv[i], "-playry") == 0 ||
+                strcmp(argv[i], "-playgc") == 0 ||
+                strcmp(argv[i], "-playmusic") == 0) {
             if (i + 1 < argc) {
                 savefileplaytest = true;
                 auto v = std::atoi(argv[i+1]);
-                if (strcmp(argv[i], "--playx") == 0) savex = v;
-                else if (strcmp(argv[i], "--playy") == 0) savey = v;
-                else if (strcmp(argv[i], "--playrx") == 0) saverx = v;
-                else if (strcmp(argv[i], "--playry") == 0) savery = v;
-                else if (strcmp(argv[i], "--playgc") == 0) savegc = v;
-                else if (strcmp(argv[i], "--playmusic") == 0) savemusic = v;
+                if (strcmp(argv[i], "-playx") == 0) savex = v;
+                else if (strcmp(argv[i], "-playy") == 0) savey = v;
+                else if (strcmp(argv[i], "-playrx") == 0) saverx = v;
+                else if (strcmp(argv[i], "-playry") == 0) savery = v;
+                else if (strcmp(argv[i], "-playgc") == 0) savegc = v;
+                else if (strcmp(argv[i], "-playmusic") == 0) savemusic = v;
                 i++;
             } else {
-                printf("--playing option requires one argument.\n");
+                printf("-playing option requires one argument.\n");
                 return 1;
             }
         }
