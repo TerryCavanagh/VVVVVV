@@ -246,7 +246,7 @@ void musicclass::play(int t)
 		{
 			// musicfade = 0;
 			currentsong = t;
-			if (currentsong == 0 || currentsong == 7)
+			if (currentsong == 0 || currentsong == 7 || currentsong == 16 || currentsong == 23)
 			{
 				// Level Complete theme, no fade in or repeat
 				// musicchannel = musicchan[currentsong].play(0);
@@ -412,7 +412,7 @@ void musicclass::processmusic()
 void musicclass::niceplay(int t)
 {
 	// important: do nothing if the correct song is playing!
-	if(currentsong!=t)
+	if((!mmmmmm && currentsong!=t) || (mmmmmm && usingmmmmmm && currentsong!=t) || (mmmmmm && !usingmmmmmm && currentsong!=t+16))
 	{
 		if(currentsong!=-1)
 		{
