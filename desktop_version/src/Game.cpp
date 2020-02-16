@@ -2012,7 +2012,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             statedelay = 15;
             break;
         case 1011:
-            //Found a trinket!
+            //Found a crewmate!
             advancetext = true;
             state++;
             if (dwgfx.flipmode)
@@ -2024,15 +2024,15 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
                 if(int(map.customcrewmates-crewmates)==0)
                 {
-                    dwgfx.createtextbox("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
+                    dwgfx.createtextbox("     All crewmates rescued!    ", 50, 65, 174, 174, 174);
                 }
                 else if(map.customcrewmates-crewmates==1)
                 {
-                    dwgfx.createtextbox("    " + help.number(int(map.customcrewmates-crewmates))+ " remains    ", 50, 135, 174, 174, 174);
+                    dwgfx.createtextbox("    " + help.number(int(map.customcrewmates-crewmates))+ " remains    ", 50, 65, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox("     " + help.number(int(map.customcrewmates-crewmates))+ " remain    ", 50, 135, 174, 174, 174);
+                    dwgfx.createtextbox("     " + help.number(int(map.customcrewmates-crewmates))+ " remain    ", 50, 65, 174, 174, 174);
                 }
                 dwgfx.textboxcenterx();
 
