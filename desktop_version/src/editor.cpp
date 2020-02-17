@@ -3157,7 +3157,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         else if (game.currentmenuname == "ed_quit")
         {
             dwgfx.bigprint( -1, 90, "Save before", tr, tg, tb, true);
-            dwgfx.bigprint( -1, 110, "quiting?", tr, tg, tb, true);
+            dwgfx.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
         }
 
         dwgfx.drawmenu(game, tr, tg, tb, 15);
