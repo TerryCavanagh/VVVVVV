@@ -46,13 +46,6 @@ entityclass obj;
 
 int main(int argc, char *argv[])
 {
-    SDL_Init(
-        SDL_INIT_VIDEO |
-        SDL_INIT_AUDIO |
-        SDL_INIT_JOYSTICK |
-        SDL_INIT_GAMECONTROLLER
-    );
-
     char* baseDir = NULL;
     char* assetsPath = NULL;
 
@@ -73,6 +66,13 @@ int main(int argc, char *argv[])
     {
         return 1;
     }
+
+    SDL_Init(
+        SDL_INIT_VIDEO |
+        SDL_INIT_AUDIO |
+        SDL_INIT_JOYSTICK |
+        SDL_INIT_GAMECONTROLLER
+    );
 
     NETWORK_init();
 
