@@ -207,9 +207,8 @@ class editorclass{
 
   bool scripteditmod;
   int scripthelppage, scripthelppagedelay;
-  std::string sb[500];
+  std::vector<std::string> sb;
   std::string sbscript;
-  int sblength;
   int sbx, sby;
   int pagey;
 
@@ -226,8 +225,7 @@ class editorclass{
   void clearscriptbuffer();
   void gethooks();
   bool checkhook(std::string t);
-  std::string hooklist[500];
-  int numhooks;
+  std::vector<std::string> hooklist;
 
   int hookmenupage, hookmenu;
 

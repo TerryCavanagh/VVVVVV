@@ -11,7 +11,7 @@ void scriptclass::load(std::string t)
 {
     //loads script name t into the array
     position = 0;
-    scriptlength=0;
+    commands.clear();
     running = true;
 
 	int maxlength = (std::min(int(t.length()),7));

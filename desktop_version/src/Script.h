@@ -23,8 +23,7 @@ public:
 
     void inline add(std::string t)
     {
-        commands[scriptlength] = t;
-        scriptlength++;
+        commands.push_back(t);
     }
 
     void clearcustom();
@@ -51,7 +50,7 @@ public:
     std::vector<std::string> words;
     std::vector<std::string> txt;
     std::string scriptname;
-    int position, scriptlength;
+    int position;
     int looppoint, loopcount;
 
     int scriptdelay;
