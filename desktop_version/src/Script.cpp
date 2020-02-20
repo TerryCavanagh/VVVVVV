@@ -11,12 +11,10 @@ scriptclass::scriptclass()
     	//Start SDL
 
 	//Init
-	commands.resize(500);
 	words.resize(40);
 	txt.resize(40);
 
 	position = 0;
-	scriptlength = 0;
 	scriptdelay = 0;
 	running = false;
 
@@ -72,7 +70,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 {
 	while(running && scriptdelay<=0 && !game.pausescript)
 	{
-		if (position < scriptlength)
+		if (position < (int) commands.size())
 		{
 			//Let's split or command in an array of words
 			tokenize(commands[position]);
@@ -3596,7 +3594,7 @@ void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass&
 
 	//Script Stuff
 	position = 0;
-	scriptlength = 0;
+	commands.clear();
 	scriptdelay = 0;
 	scriptname = "null";
 	running = false;
