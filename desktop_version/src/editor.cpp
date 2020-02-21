@@ -5185,7 +5185,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             key.keybuffer=ed.oldenttext;
                             ed.lclickdelay=1;
                         }
-                        else if(edentity[tmp].t==18)
+                        else if(edentity[tmp].t==18 || edentity[tmp].t==19)
                         {
                             ed.scripttextmod=true;
                             ed.oldenttext=edentity[tmp].scriptname;
