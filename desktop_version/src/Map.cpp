@@ -1646,7 +1646,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		//Entities have to be created HERE, akwardly
 		int tempcheckpoints=0;
 		int tempscriptbox=0;
-		for(int edi=0; edi<EditorData::GetInstance().numedentities; edi++){
+		for(size_t edi=0; edi<edentity.size(); edi++){
 			//If entity is in this room, create it
 			int tsx=(edentity[edi].x-(edentity[edi].x%40))/40;
 			int tsy=(edentity[edi].y-(edentity[edi].y%30))/30;

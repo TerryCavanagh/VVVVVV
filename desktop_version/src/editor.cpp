@@ -288,7 +288,7 @@ void editorclass::reset()
 
     numtrinkets=0;
     numcrewmates=0;
-    EditorData::GetInstance().numedentities=0;
+    edentity.clear();
     levmusic=0;
 
     roomtextmod=false;
@@ -1582,7 +1582,7 @@ void editorclass::findstartpoint(Game& game)
     //Ok! Scan the room for the closest checkpoint
     int testeditor=-1;
     //First up; is there a start point on this screen?
-    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+    for(size_t i=0; i<edentity.size(); i++)
     {
         //if() on screen
         if(edentity[i].t==16 && testeditor==-1)
@@ -1670,7 +1670,7 @@ void editorclass::saveconvertor()
 int editorclass::findtrinket(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+    for(int i=0; i<(int)edentity.size(); i++)
     {
         if(i==t) return ttrinket;
         if(edentity[i].t==9) ttrinket++;
@@ -1681,7 +1681,7 @@ int editorclass::findtrinket(int t)
 int editorclass::findcrewmate(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+    for(int i=0; i<(int)edentity.size(); i++)
     {
         if(i==t) return ttrinket;
         if(edentity[i].t==15) ttrinket++;
@@ -1692,7 +1692,7 @@ int editorclass::findcrewmate(int t)
 int editorclass::findwarptoken(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+    for(int i=0; i<(int)edentity.size(); i++)
     {
         if(i==t) return ttrinket;
         if(edentity[i].t==13) ttrinket++;
@@ -1704,7 +1704,7 @@ void editorclass::countstuff()
 {
     numtrinkets=0;
     numcrewmates=0;
-    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+    for(size_t i=0; i<edentity.size(); i++)
     {
         if(edentity[i].t==9) numtrinkets++;
         if(edentity[i].t==15) numcrewmates++;
@@ -1861,31 +1861,28 @@ void editorclass::load(std::string& _path)
 
         if (pKey == "edEntities")
         {
-            int i = 0;
             for( TiXmlElement* edEntityEl = pElem->FirstChildElement(); edEntityEl; edEntityEl=edEntityEl->NextSiblingElement())
             {
+                edentities entity;
+
                 std::string pKey(edEntityEl->Value());
-                //const char* pText = edEntityEl->GetText() ;
-                if(edEntityEl->GetText() != NULL)
+                if (edEntityEl->GetText() != NULL)
                 {
-                    edentity[i].scriptname = std::string(edEntityEl->GetText()) ;
+                    entity.scriptname = std::string(edEntityEl->GetText());
                 }
-                edEntityEl->QueryIntAttribute("x", &edentity[i].x);
-                edEntityEl->QueryIntAttribute("y", &edentity[i].y);
-                edEntityEl->QueryIntAttribute("t", &edentity[i].t);
+                edEntityEl->QueryIntAttribute("x", &entity.x);
+                edEntityEl->QueryIntAttribute("y", &entity.y);
+                edEntityEl->QueryIntAttribute("t", &entity.t);
 
-                edEntityEl->QueryIntAttribute("p1", &edentity[i].p1);
-                edEntityEl->QueryIntAttribute("p2", &edentity[i].p2);
-                edEntityEl->QueryIntAttribute("p3", &edentity[i].p3);
-                edEntityEl->QueryIntAttribute("p4", &edentity[i].p4);
-                edEntityEl->QueryIntAttribute("p5", &edentity[i].p5);
-                edEntityEl->QueryIntAttribute("p6", &edentity[i].p6);
+                edEntityEl->QueryIntAttribute("p1", &entity.p1);
+                edEntityEl->QueryIntAttribute("p2", &entity.p2);
+                edEntityEl->QueryIntAttribute("p3", &entity.p3);
+                edEntityEl->QueryIntAttribute("p4", &entity.p4);
+                edEntityEl->QueryIntAttribute("p5", &entity.p5);
+                edEntityEl->QueryIntAttribute("p6", &entity.p6);
 
-                i++;
-
+                edentity.push_back(entity);
             }
-
-            EditorData::GetInstance().numedentities = i;
         }
 
         if (pKey == "levelMetaData")
@@ -2056,7 +2053,7 @@ void editorclass::save(std::string& _path)
     */
 
     msg = new TiXmlElement( "edEntities" );
-    for(int i = 0; i < EditorData::GetInstance().numedentities; i++)
+    for(size_t i = 0; i < edentity.size(); i++)
     {
         TiXmlElement *edentityElement = new TiXmlElement( "edentity" );
         edentityElement->SetAttribute( "x", edentity[i].x);
@@ -2113,64 +2110,30 @@ void editorclass::save(std::string& _path)
 
 void addedentity( int xp, int yp, int tp, int p1/*=0*/, int p2/*=0*/, int p3/*=0*/, int p4/*=0*/, int p5/*=320*/, int p6/*=240*/)
 {
-    edentity[EditorData::GetInstance().numedentities].x=xp;
-    edentity[EditorData::GetInstance().numedentities].y=yp;
-    edentity[EditorData::GetInstance().numedentities].t=tp;
-    edentity[EditorData::GetInstance().numedentities].p1=p1;
-    edentity[EditorData::GetInstance().numedentities].p2=p2;
-    edentity[EditorData::GetInstance().numedentities].p3=p3;
-    edentity[EditorData::GetInstance().numedentities].p4=p4;
-    edentity[EditorData::GetInstance().numedentities].p5=p5;
-    edentity[EditorData::GetInstance().numedentities].p6=p6;
-    edentity[EditorData::GetInstance().numedentities].scriptname="";
+    edentities entity;
 
-    EditorData::GetInstance().numedentities++;
-}
+    entity.x=xp;
+    entity.y=yp;
+    entity.t=tp;
+    entity.p1=p1;
+    entity.p2=p2;
+    entity.p3=p3;
+    entity.p4=p4;
+    entity.p5=p5;
+    entity.p6=p6;
+    entity.scriptname="";
 
-void naddedentity( int xp, int yp, int tp, int p1/*=0*/, int p2/*=0*/, int p3/*=0*/, int p4/*=0*/, int p5/*=320*/, int p6/*=240*/)
-{
-    edentity[EditorData::GetInstance().numedentities].x=xp;
-    edentity[EditorData::GetInstance().numedentities].y=yp;
-    edentity[EditorData::GetInstance().numedentities].t=tp;
-    edentity[EditorData::GetInstance().numedentities].p1=p1;
-    edentity[EditorData::GetInstance().numedentities].p2=p2;
-    edentity[EditorData::GetInstance().numedentities].p3=p3;
-    edentity[EditorData::GetInstance().numedentities].p4=p4;
-    edentity[EditorData::GetInstance().numedentities].p5=p5;
-    edentity[EditorData::GetInstance().numedentities].p6=p6;
-    edentity[EditorData::GetInstance().numedentities].scriptname="";
-}
-
-void copyedentity( int a, int b )
-{
-    edentity[a].x=edentity[b].x;
-    edentity[a].y=edentity[b].y;
-    edentity[a].t=edentity[b].t;
-    edentity[a].p1=edentity[b].p1;
-    edentity[a].p2=edentity[b].p2;
-    edentity[a].p3=edentity[b].p3;
-    edentity[a].p4=edentity[b].p4;
-    edentity[a].p5=edentity[b].p5;
-    edentity[a].p6=edentity[b].p6;
-    edentity[a].scriptname=edentity[b].scriptname;
+    edentity.push_back(entity);
 }
 
 void removeedentity( int t )
 {
-    if(t==EditorData::GetInstance().numedentities-1)
-    {
-        EditorData::GetInstance().numedentities--;
-    }
-    else
-    {
-        for(int m=t; m<EditorData::GetInstance().numedentities; m++) copyedentity(m,m+1);
-        EditorData::GetInstance().numedentities--;
-    }
+    edentity.erase(edentity.begin() + t);
 }
 
 int edentat( int xp, int yp )
 {
-    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+    for(size_t i=0; i<edentity.size(); i++)
     {
         if(edentity[i].x==xp && edentity[i].y==yp) return i;
     }
@@ -2179,7 +2142,7 @@ int edentat( int xp, int yp )
 
 bool edentclear( int xp, int yp )
 {
-    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+    for(size_t i=0; i<edentity.size(); i++)
     {
         if(edentity[i].x==xp && edentity[i].y==yp) return false;
     }
@@ -2204,7 +2167,6 @@ void fillboxabs( Graphics& dwgfx, int x, int y, int x2, int y2, int c )
 
 
 extern editorclass ed;
-extern edentities edentity[3000];
 
 extern int temp;
 
@@ -2443,7 +2405,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     ed.temp=edentat(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30));
 
     // Draw entities backward to remain accurate with ingame
-    for (int i = EditorData::GetInstance().numedentities - 1; i >= 0; i--)
+    for (int i = edentity.size() - 1; i >= 0; i--)
     {
         //if() on screen
         int tx=(edentity[i].x-(edentity[i].x%40))/40;
@@ -4413,7 +4375,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             if(key.keymap[SDLK_w] && ed.keydelay==0)
             {
                 int j=0, tx=0, ty=0;
-                for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+                for(size_t i=0; i<edentity.size(); i++)
                 {
                     if(edentity[i].t==50)
                     {
@@ -4504,7 +4466,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                     int testeditor=-1;
                     int startpoint=0;
                     //First up; is there a start point on this screen?
-                    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+                    for(size_t i=0; i<edentity.size(); i++)
                     {
                         //if() on screen
                         if(edentity[i].t==16 && testeditor==-1)
@@ -4521,7 +4483,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                     if(testeditor==-1)
                     {
                         //Ok, settle for a check point
-                        for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+                        for(size_t i=0; i<edentity.size(); i++)
                         {
                             //if() on screen
                             if(edentity[i].t==10 && testeditor==-1)
@@ -4810,7 +4772,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                                 //Script trigger
                                 ed.scripttextmod=true;
                                 ed.oldenttext="";
-                                ed.textent=EditorData::GetInstance().numedentities;
+                                ed.textent=edentity.size();
                                 addedentity((ed.boundx1/8)+(ed.levx*40),(ed.boundy1/8)+ (ed.levy*30),19,
                                             (ed.boundx2-ed.boundx1)/8, (ed.boundy2-ed.boundy1)/8);
                                 ed.lclickdelay=1;
@@ -4993,7 +4955,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             {
                                 ed.roomtextmod=true;
                                 ed.oldenttext="";
-                                ed.textent=EditorData::GetInstance().numedentities;
+                                ed.textent=edentity.size();
                                 ed.textentry=true;
                                 key.enabletextentry();
                                 key.keybuffer="";
@@ -5060,7 +5022,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             {
                                 ed.scripttextmod=true;
                                 ed.oldenttext="";
-                                ed.textent=EditorData::GetInstance().numedentities;
+                                ed.textent=edentity.size();
                                 ed.textentry=true;
                                 key.enabletextentry();
 
@@ -5070,7 +5032,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             else if(ed.drawmode==13)
                             {
                                 ed.warpmod=true;
-                                ed.warpent=EditorData::GetInstance().numedentities;
+                                ed.warpent=edentity.size();
                                 addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),13);
                                 ed.lclickdelay=1;
                             }
@@ -5125,7 +5087,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             else if(ed.drawmode==16)  //Start Point
                             {
                                 //If there is another start point, destroy it
-                                for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+                                for(size_t i=0; i<edentity.size(); i++)
                                 {
                                     if(edentity[i].t==16)
                                     {
@@ -5229,7 +5191,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                     {
                         ed.placetilelocal(ed.tilex, ed.tiley, 0);
                     }
-                    for(int i=0; i<EditorData::GetInstance().numedentities; i++)
+                    for(size_t i=0; i<edentity.size(); i++)
                     {
                         if(edentity[i].x==ed.tilex + (ed.levx*40)&& edentity[i].y==ed.tiley+ (ed.levy*30))
                         {
