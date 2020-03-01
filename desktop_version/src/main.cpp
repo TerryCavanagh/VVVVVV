@@ -32,8 +32,8 @@
 scriptclass script;
 
 #if !defined(NO_CUSTOM_LEVELS)
-	edentities edentity[3000];
-	editorclass ed;
+    std::vector<edentities> edentity;
+    editorclass ed;
 #endif
 
 UtilityClass help;
