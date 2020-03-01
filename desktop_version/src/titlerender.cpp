@@ -1556,9 +1556,9 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
     if (map.roomtexton)
     {
         //Draw room text!
-        for (int i = 0; i < map.roomtextnumlines; i++)
+        for (size_t i = 0; i < map.roomtext.size(); i++)
         {
-            dwgfx.Print(map.roomtextx[i]*8, (map.roomtexty[i]*8), map.roomtext[i], 196, 196, 255 - help.glow);
+            dwgfx.Print(map.roomtext[i].x*8, (map.roomtext[i].y*8), map.roomtext[i].text, 196, 196, 255 - help.glow);
         }
     }
 

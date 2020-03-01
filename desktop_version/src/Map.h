@@ -160,10 +160,8 @@ public:
     bool showteleporters, showtargets, showtrinkets;
 
     //Roomtext
-    int roomtextx[100], roomtexty[100];
     bool roomtexton;
-    std::vector<std::string> roomtext;
-    int roomtextnumlines;
+    std::vector<Roomtext> roomtext;
 
     //Levels
     otherlevelclass otherlevel;

@@ -2,18 +2,13 @@
 
 #include "MakeAndPlay.h"
 
-otherlevelclass::otherlevelclass()
-{
-	for (i = 0; i < 50; i++)
-	{
-		roomtext.push_back(std::string());
-	}
-}
-
 void otherlevelclass::addline(std::string t)
 {
-	roomtext[roomtextnumlines] = t;
-	roomtextnumlines++;
+	Roomtext text;
+	text.x = 0;
+	text.y = 0;
+	text.text = t;
+	roomtext.push_back(text);
 }
 
 std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game, entityclass& obj)
@@ -27,9 +22,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 	std::vector<std::string> tmap;
 	roomname = "";
 
-	roomtextnumlines = 0;
-	roomtextx = 0;
-	roomtexty = 0;
+	roomtext.clear();
 	roomtexton = false;
 
 	switch(t)
