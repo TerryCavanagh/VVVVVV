@@ -5099,6 +5099,10 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                                 ed.lclickdelay=1;
                             }
                         }
+                        else if(tmp == -1)
+                        {
+                            //Important! Do nothing, or else Undefined Behavior will happen
+                        }
                         else if(edentity[tmp].t==1)
                         {
                             edentity[tmp].p1=(edentity[tmp].p1+1)%4;
