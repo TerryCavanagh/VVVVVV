@@ -12,9 +12,10 @@ public:
     void clear();
 
     void rectset(const int xi, const int yi, const int wi, const int hi);
+
+    void setblockcolour(std::string col);
 public:
     //Fundamentals
-    bool active;
     SDL_Rect rect;
     int type;
     int trigger;

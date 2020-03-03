@@ -2319,7 +2319,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             i = obj.getcompanion(companion);
             if(i>-1)
             {
-                obj.entities[i].active = false;
+                obj.removeentity(i);
             }
 
             i = obj.getteleporter();

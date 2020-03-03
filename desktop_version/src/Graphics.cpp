@@ -94,10 +94,6 @@ void Graphics::init()
     menuoffset = 0;
     resumegamemode = false;
 
-    //Textboxes!
-    textbox.resize(30);
-    ntextbox = 0;
-
     //Fading stuff
     fadebars.resize(15);
 
@@ -596,146 +592,149 @@ void Graphics::drawtowertile3( int x, int y, int t, int off )
     BlitSurfaceStandard(tiles3[t+(off*30)], NULL, towerbuffer, &rect);
 }
 
-void Graphics::drawgui( UtilityClass& help )
+void Graphics::drawgui(UtilityClass& help)
 {
-    textboxcleanup();
     //Draw all the textboxes to the screen
-    for (int i = 0; i<ntextbox; i++)
+    for (size_t i = 0; i < textbox.size(); i++)
     {
         //This routine also updates the textboxs
         textbox[i].update();
-        if (textbox[i].active)
+        if (textbox[i].tm == 2 && textbox[i].tl <= 0.5)
         {
-            if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
+            textbox.erase(textbox.begin() + i);
+            i--;
+            continue;
+        }
+
+        if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
+        {
+            if(flipmode)
             {
-                if(flipmode)
+                for (j = 0; j < (int) textbox[i].line.size(); j++)
                 {
-                    for (j = 0; j < textbox[i].numlines; j++)
-                    {
-                        Print(textbox[i].xp + 8, textbox[i].yp + (textbox[i].numlines*8) - (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
-                    }
-                }
-                else
-                {
-                    for (j = 0; j < textbox[i].numlines; j++)
-                    {
-                        Print(textbox[i].xp + 8, textbox[i].yp + 8 + (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
-                    }
+                    Print(textbox[i].xp + 8, textbox[i].yp + (textbox[i].line.size()*8) - (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
                 }
             }
             else
             {
-
-                FillRect(backBuffer,textbox[i].textrect, textbox[i].r/6, textbox[i].g/6, textbox[i].b / 6 );
-
-                drawcoloredtile(textbox[i].xp, textbox[i].yp, 40, textbox[i].r, textbox[i].g, textbox[i].b);
-                drawcoloredtile(textbox[i].xp+textbox[i].w-8, textbox[i].yp, 42, textbox[i].r, textbox[i].g, textbox[i].b);
-                drawcoloredtile(textbox[i].xp, textbox[i].yp+textbox[i].h-8, 45, textbox[i].r, textbox[i].g, textbox[i].b);
-                drawcoloredtile(textbox[i].xp+textbox[i].w-8, textbox[i].yp+textbox[i].h-8, 47, textbox[i].r, textbox[i].g, textbox[i].b);
-                for (int k = 0; k < textbox[i].lw; k++)
+                for (j = 0; j < (int) textbox[i].line.size(); j++)
                 {
-                    drawcoloredtile(textbox[i].xp + 8 + (k * 8), textbox[i].yp, 41, textbox[i].r, textbox[i].g, textbox[i].b);
-                    drawcoloredtile(textbox[i].xp + 8 + (k * 8), textbox[i].yp+textbox[i].h-8, 46, textbox[i].r, textbox[i].g, textbox[i].b);
-                }
-                for (int k = 0; k < textbox[i].numlines; k++)
-                {
-                    drawcoloredtile(textbox[i].xp, textbox[i].yp + 8 + (k * 8), 43, textbox[i].r, textbox[i].g, textbox[i].b);
-                    drawcoloredtile(textbox[i].xp + textbox[i].w-8, textbox[i].yp + 8 + (k * 8), 44, textbox[i].r, textbox[i].g, textbox[i].b);
-                }
-
-                if(flipmode)
-                {
-                    for (j = 0; j < textbox[i].numlines; j++)
-                    {
-                        Print(textbox[i].xp + 8, textbox[i].yp  + (textbox[i].numlines*8) - (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
-                    }
-                }
-                else
-                {
-                    for (j = 0; j < textbox[i].numlines; j++)
-                    {
-                        Print(textbox[i].xp + 8, textbox[i].yp +8 + (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
-                    }
+                    Print(textbox[i].xp + 8, textbox[i].yp + 8 + (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
                 }
             }
+        }
+        else
+        {
 
-            if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].r == 165)
+            FillRect(backBuffer,textbox[i].textrect, textbox[i].r/6, textbox[i].g/6, textbox[i].b / 6 );
+
+            drawcoloredtile(textbox[i].xp, textbox[i].yp, 40, textbox[i].r, textbox[i].g, textbox[i].b);
+            drawcoloredtile(textbox[i].xp+textbox[i].w-8, textbox[i].yp, 42, textbox[i].r, textbox[i].g, textbox[i].b);
+            drawcoloredtile(textbox[i].xp, textbox[i].yp+textbox[i].h-8, 45, textbox[i].r, textbox[i].g, textbox[i].b);
+            drawcoloredtile(textbox[i].xp+textbox[i].w-8, textbox[i].yp+textbox[i].h-8, 47, textbox[i].r, textbox[i].g, textbox[i].b);
+            for (int k = 0; k < textbox[i].lw; k++)
             {
-                if (flipmode)
-                {
-                    drawimage(5, 0, 180, true);
-                }
-                else
-                {
-                    drawimage(0, 0, 12, true);
-                }
+                drawcoloredtile(textbox[i].xp + 8 + (k * 8), textbox[i].yp, 41, textbox[i].r, textbox[i].g, textbox[i].b);
+                drawcoloredtile(textbox[i].xp + 8 + (k * 8), textbox[i].yp+textbox[i].h-8, 46, textbox[i].r, textbox[i].g, textbox[i].b);
             }
-            else if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].g == 165)
+            for (size_t k = 0; k < textbox[i].line.size(); k++)
             {
-                if (flipmode)
+                drawcoloredtile(textbox[i].xp, textbox[i].yp + 8 + (k * 8), 43, textbox[i].r, textbox[i].g, textbox[i].b);
+                drawcoloredtile(textbox[i].xp + textbox[i].w-8, textbox[i].yp + 8 + (k * 8), 44, textbox[i].r, textbox[i].g, textbox[i].b);
+            }
+
+            if(flipmode)
+            {
+                for (j = 0; j < (int) textbox[i].line.size(); j++)
                 {
-                    drawimage(6, 0, 180, true);
-                }
-                else
-                {
-                    drawimage(4, 0, 12, true);
+                    Print(textbox[i].xp + 8, textbox[i].yp  + (textbox[i].line.size()*8) - (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
                 }
             }
+            else
+            {
+                for (j = 0; j < (int) textbox[i].line.size(); j++)
+                {
+                    Print(textbox[i].xp + 8, textbox[i].yp +8 + (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
+                }
+            }
+        }
+
+        if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].r == 165)
+        {
             if (flipmode)
             {
-                if (textbox[i].r == 175 && textbox[i].g == 175)
-                {
-                    //purple guy
-                    drawsprite(80 - 6, 64 + 48 + 4, 6, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
-                }
-                else if (textbox[i].r == 175 && textbox[i].b == 175)
-                {
-                    //red guy
-                    drawsprite(80 - 6, 64 + 48+ 4, 6, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
-                }
-                else if (textbox[i].r == 175)
-                {
-                    //green guy
-                    drawsprite(80 - 6, 64 + 48 + 4, 6, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
-                }
-                else if (textbox[i].g == 175)
-                {
-                    //yellow guy
-                    drawsprite(80 - 6, 64 + 48+ 4, 6, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
-                }
-                else if (textbox[i].b == 175)
-                {
-                    //blue guy
-                    drawsprite(80 - 6, 64 + 48+ 4, 6, 75, 75, 255- help.glow/4 - int(fRandom()*20));
-                }
+                drawimage(5, 0, 180, true);
             }
             else
             {
-                if (textbox[i].r == 175 && textbox[i].g == 175)
-                {
-                    //purple guy
-                    drawsprite(80 - 6, 64 + 32 + 4, 0, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
-                }
-                else if (textbox[i].r == 175 && textbox[i].b == 175)
-                {
-                    //red guy
-                    drawsprite(80 - 6, 64 + 32 + 4, 0, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
-                }
-                else if (textbox[i].r == 175)
-                {
-                    //green guy
-                    drawsprite(80 - 6, 64 + 32 + 4, 0, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
-                }
-                else if (textbox[i].g == 175)
-                {
-                    //yellow guy
-                    drawsprite(80 - 6, 64 + 32 + 4, 0, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
-                }
-                else if (textbox[i].b == 175)
-                {
-                    //blue guy
-                    drawsprite(80 - 6, 64 + 32 + 4, 0, 75, 75, 255- help.glow/4 - int(fRandom()*20));
-                }
+                drawimage(0, 0, 12, true);
+            }
+        }
+        else if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].g == 165)
+        {
+            if (flipmode)
+            {
+                drawimage(6, 0, 180, true);
+            }
+            else
+            {
+                drawimage(4, 0, 12, true);
+            }
+        }
+        if (flipmode)
+        {
+            if (textbox[i].r == 175 && textbox[i].g == 175)
+            {
+                //purple guy
+                drawsprite(80 - 6, 64 + 48 + 4, 6, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
+            }
+            else if (textbox[i].r == 175 && textbox[i].b == 175)
+            {
+                //red guy
+                drawsprite(80 - 6, 64 + 48+ 4, 6, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
+            }
+            else if (textbox[i].r == 175)
+            {
+                //green guy
+                drawsprite(80 - 6, 64 + 48 + 4, 6, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
+            }
+            else if (textbox[i].g == 175)
+            {
+                //yellow guy
+                drawsprite(80 - 6, 64 + 48+ 4, 6, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
+            }
+            else if (textbox[i].b == 175)
+            {
+                //blue guy
+                drawsprite(80 - 6, 64 + 48+ 4, 6, 75, 75, 255- help.glow/4 - int(fRandom()*20));
+            }
+        }
+        else
+        {
+            if (textbox[i].r == 175 && textbox[i].g == 175)
+            {
+                //purple guy
+                drawsprite(80 - 6, 64 + 32 + 4, 0, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
+            }
+            else if (textbox[i].r == 175 && textbox[i].b == 175)
+            {
+                //red guy
+                drawsprite(80 - 6, 64 + 32 + 4, 0, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
+            }
+            else if (textbox[i].r == 175)
+            {
+                //green guy
+                drawsprite(80 - 6, 64 + 32 + 4, 0, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
+            }
+            else if (textbox[i].g == 175)
+            {
+                //yellow guy
+                drawsprite(80 - 6, 64 + 32 + 4, 0, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
+            }
+            else if (textbox[i].b == 175)
+            {
+                //blue guy
+                drawsprite(80 - 6, 64 + 32 + 4, 0, 75, 75, 255- help.glow/4 - int(fRandom()*20));
             }
         }
     }
@@ -991,7 +990,7 @@ void Graphics::drawtextbox( int x, int y, int w, int h, int r, int g, int b )
 void Graphics::textboxactive()
 {
     //Remove all but the most recent textbox
-    for (int i = 0; i < ntextbox; i++)
+    for (int i = 0; i < (int) textbox.size(); i++)
     {
         if (m != i) textbox[i].remove();
     }
@@ -1000,7 +999,7 @@ void Graphics::textboxactive()
 void Graphics::textboxremovefast()
 {
     //Remove all textboxes
-    for (int i = 0; i < ntextbox; i++)
+    for (size_t i = 0; i < textbox.size(); i++)
     {
         textbox[i].removefast();
     }
@@ -1009,7 +1008,7 @@ void Graphics::textboxremovefast()
 void Graphics::textboxremove()
 {
     //Remove all textboxes
-    for (int i = 0; i < ntextbox; i++)
+    for (size_t i = 0; i < textbox.size(); i++)
     {
         textbox[i].remove();
     }
@@ -1031,38 +1030,23 @@ void Graphics::textboxadjust()
 }
 
 
-void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int g/*= 255*/, int b /*= 255*/ )
+void Graphics::createtextbox(std::string t, int xp, int yp, int r /*= 255*/, int g /*= 255*/, int b /*= 255*/)
 {
+    m = textbox.size();
 
-    if(ntextbox == 0)
+    if ((int) textbox.size() < 20)
     {
-        //If there are no active textboxes, Z=0;
-        m = 0;
-        ntextbox++;
-    }
-    else
-    {
-        /*i = 0; m = -1;
-        while (i < ntextbox) {
-        if (!textbox[i].active) {	m = i; i = ntextbox;}
-        i++;
-        }
-        if (m == -1) {m = ntextbox; ntextbox++;}
-        */
-        m = ntextbox;
-        ntextbox++;
-    }
+        textboxclass text;
 
-    if(m<20)
-    {
-        textbox[m].clear();
-        textbox[m].line[0] = t;
-        textbox[m].xp = xp;
+        text.line.push_back(t);
+        text.xp = xp;
         int length = utf8::unchecked::distance(t.begin(), t.end());
-        if (xp == -1) textbox[m].xp = 160 - (((length / 2) + 1) * 8);
-        textbox[m].yp = yp;
-        textbox[m].initcol(r, g, b);
-        textbox[m].resize();
+        if (xp == -1) text.xp = 160 - (((length / 2) + 1) * 8);
+        text.yp = yp;
+        text.initcol(r, g, b);
+        text.resize();
+
+        textbox.push_back(text);
     }
 }
 
@@ -1448,11 +1432,11 @@ void Graphics::drawentities( mapclass& map, entityclass& obj, UtilityClass& help
 
     SDL_Rect drawRect;
 
-	trinketcolset = false;
+    trinketcolset = false;
 
-    for (int i = obj.nentity - 1; i >= 0; i--)
+    for (int i = obj.entities.size() - 1; i >= 0; i--)
     {
-        if (!obj.entities[i].invis && obj.entities[i].active)
+        if (!obj.entities[i].invis)
         {
             if (obj.entities[i].size == 0)
             {
@@ -2491,13 +2475,13 @@ void Graphics::drawtowerentities( mapclass& map, entityclass& obj, UtilityClass&
     point tpoint;
     SDL_Rect trect;
 
-    for (int i = obj.nentity - 1; i >= 0; i--)
+    for (int i = obj.entities.size() - 1; i >= 0; i--)
     {
-        if (!obj.entities[i].invis && obj.entities[i].active)
+        if (!obj.entities[i].invis)
         {
             if (obj.entities[i].size == 0)        // Sprites
             {
-				trinketcolset = false;
+                trinketcolset = false;
                 tpoint.x = obj.entities[i].xp;
                 tpoint.y = obj.entities[i].yp-map.ypos;
                 setcol(obj.entities[i].colour, help);
@@ -2960,16 +2944,6 @@ void Graphics::setwarprect( int a, int b, int c, int d )
 	warprect.w = c;
 	warprect.h = d;
 }
-
-	void Graphics::textboxcleanup()
-	{
-		int i = ntextbox - 1;
-		while (i >= 0 && !textbox[i].active)
-		{
-			ntextbox--;
-			i--;
-		}
-	}
 
 void Graphics::textboxcenter()
 {

@@ -1496,7 +1496,7 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
 
         if(!game.completestop)
         {
-            for (int i = 0; i < obj.nentity; i++)
+            for (size_t i = 0; i < obj.entities.size(); i++)
             {
                 //Is this entity on the ground? (needed for jumping)
                 if (obj.entitycollidefloor(map, i))
@@ -1525,11 +1525,6 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
         dwgfx.drawentities(map, obj, help);
     }
 
-    /*for(int i=0; i<obj.nblocks; i++){
-    if (obj.blocks[i].active) {
-    		dwgfx.backbuffer.fillRect(obj.blocks[i].rect, 0xDDDDDD);
-    }
-      }*/
     //dwgfx.drawminimap(game, map);
 
     if(map.extrarow==0 || (map.custommode && map.roomname!=""))
@@ -1826,7 +1821,7 @@ void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, Ut
 
     //Detail entity info for debuging
     /*
-    for (int i = 0; i < obj.nentity; i++) {
+    for (int i = 0; i < obj.entities.size(); i++) {
     	game.tempstring =help.String(obj.entities[i].type) +", (" +help.String(obj.entities[i].xp) + "," +help.String(obj.entities[i].yp) + ")";
     	game.tempstring += " state:" +obj.entities[i].state + ", delay:" + obj.entities[i].statedelay;
     	dwgfx.Print(5, 5 + i * 8, game.tempstring, 255, 255, 255);
@@ -2755,7 +2750,7 @@ void towerrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, U
 
     if(!game.completestop)
     {
-        for (int i = 0; i < obj.nentity; i++)
+        for (size_t i = 0; i < obj.entities.size(); i++)
         {
             //Is this entity on the ground? (needed for jumping)
             if (obj.entitycollidefloor(map, i))
@@ -2786,11 +2781,6 @@ void towerrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, U
     dwgfx.drawtowerspikes(map);
 
 
-    /*for(int i=0; i<obj.nblocks; i++){
-    if (obj.blocks[i].active) {
-    		dwgfx.backbuffer.fillRect(obj.blocks[i].rect, 0xDDDDDD);
-    }
-      }*/
     dwgfx.cutscenebars();
     BlitSurfaceStandard(dwgfx.backBuffer, NULL, dwgfx.tempBuffer, NULL);
 

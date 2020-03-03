@@ -8,7 +8,8 @@
 #include <vector>
 #include <string>
 
-#define		rn( rx,  ry) ((rx) + ((ry) * 100))
+#define removeblock_iter(index) { obj.removeblock(index); index--; }
+#define removeentity_iter(index) { obj.removeentity(index); index--; }
 
 enum
 {
@@ -60,8 +61,6 @@ public:
         createblock(DAMAGE, 312, -8, 16, 260);
     }
 
-    void setblockcolour(int t, std::string col);
-
     int swncolour(int t );
 
     void swnenemiescol(int t);
@@ -80,6 +79,8 @@ public:
 
     void removetrigger(int t);
 
+    void removeentity(int t);
+
     void copylinecross(int t);
 
     void revertlinecross(int t, int s);
@@ -87,12 +88,6 @@ public:
     bool gridmatch(int p1, int p2, int p3, int p4, int p11, int p21, int p31, int p41);
 
     int crewcolour(int t);
-
-    void setenemyroom(int t, int rx, int ry);
-
-    void setenemy(int t, int r);
-
-    void settreadmillcolour(int t, int rx, int ry);
 
     void createentity(Game& game, float xp, float yp, int t, float vx = 0, float vy = 0,
                       int p1 = 0, int p2 = 0, int p3 = 320, int p4 = 240 );
@@ -175,8 +170,6 @@ public:
 
     void applyfriction(int t, float xrate, float yrate);
 
-    void cleanup();
-
     void updateentitylogic(int t, Game& game);
 
 
@@ -193,10 +186,7 @@ public:
 
     std::vector<entclass> entities;
 
-    int nentity;
-
     std::vector<entclass> linecrosskludge;
-    int nlinecrosskludge;
 
     point colpoint1, colpoint2;
 
@@ -218,7 +208,6 @@ public:
     std::vector<int> collect;
     std::vector<int> customcollect;
 
-    int nblocks;
     bool skipblocks, skipdirblocks;
 
     int platformtile;

@@ -1972,6 +1972,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
             {
                 script.load(obj.blocks[game.activeactivity].script);
                 obj.removeblock(game.activeactivity);
+                game.activeactivity = -1;
             }
         }else{
           game.gamestate = EDITORMODE;
@@ -1999,7 +2000,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 #endif
 
     //Entity type 0 is player controled
-    for (int ie = 0; ie < obj.nentity; ++ie)
+    for (size_t ie = 0; ie < obj.entities.size(); ++ie)
     {
         if (obj.entities[ie].rule == 0)
         {
@@ -2101,6 +2102,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
                         {
                             script.load(obj.blocks[game.activeactivity].script);
                             obj.removeblock(game.activeactivity);
+                            game.activeactivity = -1;
                         }
                     }
                     else if (game.swnmode == 1 && game.swngame == 1)

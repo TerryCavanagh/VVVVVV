@@ -57,8 +57,6 @@ public:
 
 	void createtextbox(std::string t, int xp, int yp, int r= 255, int g= 255, int b = 255);
 
-	void textboxcleanup();
-
 	void textboxcenter();
 
 	void textboxcenterx();
@@ -271,7 +269,6 @@ public:
 	int trinketr, trinketg, trinketb;
 
 	std::vector <textboxclass> textbox;
-	int ntextbox;
 
 	bool showcutscenebars;
 	int cutscenebarspos;

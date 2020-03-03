@@ -1,6 +1,8 @@
 #ifndef ENT_H
 #define ENT_H
 
+#define rn(rx, ry) ((rx) + ((ry) * 100))
+
 class entclass
 {
 public:
@@ -10,9 +12,14 @@ public:
 
     bool outside();
 
+    void setenemyroom(int rx, int ry);
+
+    void setenemy(int t);
+
+    void settreadmillcolour(int rx, int ry);
 public:
     //Fundamentals
-    bool active, invis;
+    bool invis;
     int type, size, tile, rule;
     int state, statedelay;
     int behave, animate;

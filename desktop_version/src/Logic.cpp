@@ -360,17 +360,11 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
 
         if(!game.completestop)
         {
-            for (int i = obj.nentity - 1; i >= 0;  i--)
+            for (int i = obj.entities.size() - 1; i >= 0;  i--)
             {
-                //Remove old platform
-                //if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
-
                 obj.updateentities(i, help, game, music);                // Behavioral logic
                 obj.updateentitylogic(i, game);                          // Basic Physics
                 obj.entitymapcollision(i, map);                          // Collisions with walls
-
-                //Create new platform
-                //if (obj.entities[i].isplatform) obj.movingplatformfix(i, map);
             }
 
             obj.entitycollisioncheck(dwgfx, game, map, music);         // Check ent v ent collisions, update states
@@ -430,18 +424,15 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
                 //Always wrap except for the very top and very bottom of the tower
                 if(map.ypos>=500 && map.ypos <=5000)
                 {
-                    for (int i = 0; i < obj.nentity;  i++)
+                    for (size_t i = 0; i < obj.entities.size();  i++)
                     {
                         if (obj.entities[i].xp <= -10)
                         {
                             obj.entities[i].xp += 320;
                         }
-                        else
+                        else if (obj.entities[i].xp > 310)
                         {
-                            if (obj.entities[i].xp > 310)
-                            {
-                                obj.entities[i].xp -= 320;
-                            }
+                            obj.entities[i].xp -= 320;
                         }
                     }
                 }
@@ -517,8 +508,6 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
 
 
         }
-        //now! let's clean up removed entities
-        obj.cleanup();
 
         //Looping around, room change conditions!
     }
@@ -576,7 +565,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
 
     if (game.deathseq != -1)
     {
-        for (int i = 0; i < obj.nentity; i++)
+        for (size_t i = 0; i < obj.entities.size(); i++)
         {
             if (game.roomx == 111 && game.roomy == 107 && !map.custommode)
             {
@@ -868,7 +857,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 obj.entities[obj.getlineat(148 + 32)].xp += 24;
                 if (obj.entities[obj.getlineat(148 + 32)].xp > 320)
                 {
-                    obj.entities[obj.getlineat(148 + 32)].active = false;
+                    obj.removeentity(obj.getlineat(148 + 32));
                     game.swnmode = false;
                     game.swngame = 6;
                 }
@@ -957,7 +946,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
         {
             if(obj.vertplatforms)
             {
-                for (int i = obj.nentity - 1; i >= 0;  i--)
+                for (int i = obj.entities.size() - 1; i >= 0;  i--)
                 {
                     if (obj.entities[i].isplatform)
                     {
@@ -986,7 +975,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
 
             if(obj.horplatforms)
             {
-                for (int ie = obj.nentity - 1; ie >= 0;  ie--)
+                for (int ie = obj.entities.size() - 1; ie >= 0;  ie--)
                 {
                     if (obj.entities[ie].isplatform)
                     {
@@ -1021,7 +1010,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 }
             }
 
-            for (int ie = obj.nentity - 1; ie >= 0;  ie--)
+            for (int ie = obj.entities.size() - 1; ie >= 0;  ie--)
             {
                 if (!obj.entities[ie].isplatform)
                 {
@@ -1034,110 +1023,93 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
             obj.entitycollisioncheck(dwgfx, game, map, music);         // Check ent v ent collisions, update states
         }
 
-        //now! let's clean up removed entities
-        obj.cleanup();
-
         //Using warplines?
-				if (obj.customwarpmode) {
-					//Rewritten system for mobile update: basically, the new logic is to
-					//check if the player is leaving the map, and if so do a special check against
-					//warp lines for collision
-					obj.customwarpmodehon = false;
-					obj.customwarpmodevon = false;
-			
-					int i = obj.getplayer();
-					if ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16)){
-						//Player is leaving room
-						obj.customwarplinecheck(i);
-					}
-			
-					if(obj.customwarpmodehon){ map.warpy=true;
-					}else{ map.warpy=false; }
-					if(obj.customwarpmodevon){ map.warpx=true;
-					}else{ map.warpx=false; }
-				}
+        if (obj.customwarpmode) {
+            //Rewritten system for mobile update: basically, the new logic is to
+            //check if the player is leaving the map, and if so do a special check against
+            //warp lines for collision
+            obj.customwarpmodehon = false;
+            obj.customwarpmodevon = false;
+
+            int i = obj.getplayer();
+            if ((game.door_down > -2 && obj.entities[i].yp >= 226-16)
+            || (game.door_up > -2 && obj.entities[i].yp < -2+16)
+            || (game.door_left > -2 && obj.entities[i].xp < -14+16)
+            || (game.door_right > -2 && obj.entities[i].xp >= 308-16))
+            {
+                //Player is leaving room
+                obj.customwarplinecheck(i);
+            }
+
+            map.warpy = obj.customwarpmodehon;
+            map.warpx = obj.customwarpmodevon;
+        }
 
         //Finally: Are we changing room?
         if (map.warpx && map.warpy)
         {
-            for (int i = 0; i < obj.nentity;  i++)
+            for (size_t i = 0; i < obj.entities.size();  i++)
             {
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
-                  {
-                      if (obj.entities[i].xp <= -10)
-                      {
-                          obj.entities[i].xp += 320;
-                      }
-                      else
-                      {
-                          if (obj.entities[i].xp > 310)
-                          {
-                              obj.entities[i].xp -= 320;
-                          }
-                      }
-                  }
+                if (obj.entities[i].type < 50 //Don't warp warp lines
+                && obj.entities[i].size < 12) //Don't wrap SWN enemies
+                {
+                    if (obj.entities[i].xp <= -10)
+                    {
+                        obj.entities[i].xp += 320;
+                    }
+                    else if (obj.entities[i].xp > 310)
+                    {
+                        obj.entities[i].xp -= 320;
+                    }
                 }
             }
 
-            for (int i = 0; i < obj.nentity;  i++)
+            for (size_t i = 0; i < obj.entities.size();  i++)
             {
-
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
-                  {
-                      if (obj.entities[i].yp <= -12)
-                      {
-                          obj.entities[i].yp += 232;
-                      }
-                      else
-                      {
-                          if (obj.entities[i].yp > 226)
-                          {
-                              obj.entities[i].yp -= 232;
-                          }
-                      }
-                  }
+                if (obj.entities[i].type < 50 //Don't warp warp lines
+                && obj.entities[i].size < 12) //Don't wrap SWN enemies
+                {
+                    if (obj.entities[i].yp <= -12)
+                    {
+                        obj.entities[i].yp += 232;
+                    }
+                    else if (obj.entities[i].yp > 226)
+                    {
+                        obj.entities[i].yp -= 232;
+                    }
                 }
             }
         }
         else if (map.warpx)
         {
-            for (int i = 0; i < obj.nentity;  i++)
+            for (size_t i = 0; i < obj.entities.size();  i++)
             {
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
-                  {
-                      if (game.roomx == 118 && game.roomy == 102 && obj.entities[i].rule==1 && !map.custommode)
-                      {
-                          //ascii snakes
-                          if (obj.entities[i].xp <= -80)
-                          {
-                              obj.entities[i].xp += 400;
-                          }
-                          else
-                          {
-                              if (obj.entities[i].xp > 320)
-                              {
-                                  obj.entities[i].xp -= 400;
-                              }
-                          }
-                      }
-                      else
-                      {
-                          if (obj.entities[i].xp <= -10)
-                          {
-                              obj.entities[i].xp += 320;
-                          }
-                          else
-                          {
-                              if (obj.entities[i].xp > 310)
-                              {
-                                  obj.entities[i].xp -= 320;
-                              }
-                          }
-                      }
-                  }
+                if (obj.entities[i].type < 50 //Don't warp warp lines
+                && obj.entities[i].size < 12) //Don't wrap SWN enemies
+                {
+                    if (game.roomx == 118 && game.roomy == 102 && obj.entities[i].rule==1 && !map.custommode)
+                    {
+                        //ascii snakes
+                        if (obj.entities[i].xp <= -80)
+                        {
+                            obj.entities[i].xp += 400;
+                        }
+                        else if (obj.entities[i].xp > 320)
+                        {
+                            obj.entities[i].xp -= 400;
+                        }
+                    }
+                    else
+                    {
+                        if (obj.entities[i].xp <= -10)
+                        {
+                            obj.entities[i].xp += 320;
+                        }
+                        else if (obj.entities[i].xp > 310)
+                        {
+                            obj.entities[i].xp -= 320;
+                        }
+                    }
                 }
             }
 
@@ -1155,41 +1127,35 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
         }
         else if (map.warpy)
         {
-            for (int i = 0; i < obj.nentity;  i++)
+            for (size_t i = 0; i < obj.entities.size();  i++)
             {
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if (obj.entities[i].yp <= -12)
-                  {
-                      obj.entities[i].yp += 232;
-                  }
-                  else
-                  {
-                      if (obj.entities[i].yp > 226)
-                      {
-                          obj.entities[i].yp -= 232;
-                      }
-                  }
+                if (obj.entities[i].type < 50) //Don't warp warp lines
+                {
+                    if (obj.entities[i].yp <= -12)
+                    {
+                        obj.entities[i].yp += 232;
+                    }
+                    else if (obj.entities[i].yp > 226)
+                    {
+                        obj.entities[i].yp -= 232;
+                    }
                 }
             }
 
-            for (int i = 0; i < obj.nentity;  i++)
+            for (size_t i = 0; i < obj.entities.size();  i++)
             {
 
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if(obj.entities[i].rule!=0)
-                  {
-                      if (obj.entities[i].xp <= -30)
-                      {
-                          obj.entities[i].xp += 350;
-                      }
-                      else
-                      {
-                          if (obj.entities[i].xp > 320)
-                          {
-                              obj.entities[i].xp -= 350;
-                          }
-                      }
-                  }
+                if (obj.entities[i].type < 50 //Don't warp warp lines
+                && obj.entities[i].rule != 0)
+                {
+                    if (obj.entities[i].xp <= -30)
+                    {
+                        obj.entities[i].xp += 350;
+                    }
+                    else if (obj.entities[i].xp > 320)
+                    {
+                        obj.entities[i].xp -= 350;
+                    }
                 }
             }
 

@@ -522,7 +522,7 @@ void mapclass::changefinalcol(int t, entityclass& obj, Game& game)
 	final_mapcol = t;
 	temp = 6 - t;
 	//Next, entities
-	for (int i = 0; i < obj.nentity; i++)
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
 		if (obj.entities[i].type == 1) //something with a movement behavior
 		{
@@ -893,29 +893,24 @@ void mapclass::gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass
 	game.readytotele = 0;
 
 	//Ok, let's save the position of all lines on the screen
-	obj.nlinecrosskludge = 0;
-	for (int i = 0; i < obj.nentity; i++)
+	obj.linecrosskludge.clear();
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
-		if (obj.entities[i].type == 9 && obj.entities[i].active)
+		if (obj.entities[i].type == 9 //It's a horizontal line
+		&& (obj.entities[i].xp <= 0 || (obj.entities[i].xp + obj.entities[i].w) >= 312)) //it's on a screen edge
 		{
-			//It's a horizontal line
-			if (obj.entities[i].xp <= 0 || (obj.entities[i].xp + obj.entities[i].w) >= 312)
-			{
-				//it's on a screen edge
-				obj.copylinecross(i);
-			}
+			obj.copylinecross(i);
 		}
 	}
 
 	int theplayer = obj.getplayer();
-	for (int i = 0; i < obj.nentity; i++)
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
-		if (i != theplayer)
+		if ((int) i != theplayer)
 		{
-			obj.entities[i].active = false;
+			removeentity_iter(i);
 		}
 	}
-	obj.cleanup();
 
 	game.door_up = rx + ((ry - 1) * 100);
 	game.door_down = rx + ((ry + 1) * 100);
@@ -1095,33 +1090,29 @@ void mapclass::gotoroom(int rx, int ry, Graphics& dwgfx, Game& game, entityclass
 		obj.entities[temp].oldyp = obj.entities[temp].yp;
 	}
 
-	for (int i = 0; i < obj.nentity; i++)
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
-		if (obj.entities[i].type == 9 && obj.entities[i].active)
+		if (obj.entities[i].type == 9 //It's a horizontal line
+		&& (obj.entities[i].xp <= 0 || obj.entities[i].xp + obj.entities[i].w >= 312)) //it's on a screen edge
 		{
-			//It's a horizontal line
-			if (obj.entities[i].xp <= 0 || obj.entities[i].xp + obj.entities[i].w >= 312)
+			for (size_t j = 0; j < obj.linecrosskludge.size(); j++)
 			{
-				//it's on a screen edge
-				for (j = 0; j < obj.nlinecrosskludge; j++)
+				if (obj.entities[i].yp == obj.linecrosskludge[j].yp)
 				{
-					if (obj.entities[i].yp == obj.linecrosskludge[j].yp)
+					//y's match, how about x's?
+					//we're moving left:
+					if (game.roomchangedir == 0)
 					{
-						//y's match, how about x's?
-						//we're moving left:
-						if (game.roomchangedir == 0)
+						if (obj.entities[i].xp + obj.entities[i].w >= 312 && obj.linecrosskludge[j].xp <= 0)
 						{
-							if (obj.entities[i].xp + obj.entities[i].w >= 312 && obj.linecrosskludge[j].xp <= 0)
-							{
-								obj.revertlinecross(i, j);
-							}
+							obj.revertlinecross(i, j);
 						}
-						else
+					}
+					else
+					{
+						if (obj.entities[i].xp <= 0 && obj.linecrosskludge[j].xp + obj.linecrosskludge[j].w >= 312)
 						{
-							if (obj.entities[i].xp <= 0 && obj.linecrosskludge[j].xp + obj.linecrosskludge[j].w >= 312)
-							{
-								obj.revertlinecross(i, j);
-							}
+							obj.revertlinecross(i, j);
 						}
 					}
 				}
@@ -1843,26 +1834,23 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			}
 		}
 
-		for (int i = 0; i < obj.nentity; i++)
+		for (size_t i = 0; i < obj.entities.size(); i++)
 		{
-			if (obj.entities[i].active)
+			if (obj.entities[i].type == 1 && obj.entities[i].behave >= 8 && obj.entities[i].behave < 10)
 			{
-				if (obj.entities[i].type == 1 && obj.entities[i].behave >= 8 && obj.entities[i].behave < 10)
+				//put a block underneath
+				temp = obj.entities[i].xp / 8.0f;
+				temp2 = obj.entities[i].yp / 8.0f;
+				settile(temp, temp2, 1);
+				settile(temp+1, temp2, 1);
+				settile(temp+2, temp2, 1);
+				settile(temp+3, temp2, 1);
+				if (obj.entities[i].w == 64)
 				{
-					//put a block underneath
-					temp = obj.entities[i].xp / 8.0f;
-					temp2 = obj.entities[i].yp / 8.0f;
-					settile(temp, temp2, 1);
-					settile(temp+1, temp2, 1);
-					settile(temp+2, temp2, 1);
-					settile(temp+3, temp2, 1);
-					if (obj.entities[i].w == 64)
-					{
-						settile(temp+4, temp2, 1);
-						settile(temp+5, temp2, 1);
-						settile(temp+6, temp2, 1);
-						settile(temp+7, temp2, 1);
-					}
+					settile(temp+4, temp2, 1);
+					settile(temp+5, temp2, 1);
+					settile(temp+6, temp2, 1);
+					settile(temp+7, temp2, 1);
 				}
 			}
 		}
@@ -1985,22 +1973,20 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 	}
 
 	//Make sure our crewmates are facing the player if appliciable
-	for (int i = 0; i < obj.nentity; i++)
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
-		if (obj.entities[i].rule == 6 || obj.entities[i].rule == 7)
+		if ((obj.entities[i].rule == 6 || obj.entities[i].rule == 7)
+		&& obj.entities[i].state == 18)
 		{
-			if (obj.entities[i].state == 18)
+			//face the player
+			j = obj.getplayer();
+			if (obj.entities[j].xp > obj.entities[i].xp + 5)
 			{
-				//face the player
-				j = obj.getplayer();
-				if (obj.entities[j].xp > obj.entities[i].xp + 5)
-				{
-					obj.entities[i].dir = 1;
-				}
-				else if (obj.entities[j].xp < obj.entities[i].xp - 5)
-				{
-					obj.entities[i].dir = 0;
-				}
+				obj.entities[i].dir = 1;
+			}
+			else if (obj.entities[j].xp < obj.entities[i].xp - 5)
+			{
+				obj.entities[i].dir = 0;
 			}
 		}
 	}
