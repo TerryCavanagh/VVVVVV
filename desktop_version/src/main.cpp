@@ -575,6 +575,7 @@ int main(int argc, char *argv[])
     //SDL_FreeSurface( gameScreen );
 
     //Quit SDL
+    game.savestats(map, graphics);
     NETWORK_shutdown();
     SDL_Quit();
     FILESYSTEM_deinit();
