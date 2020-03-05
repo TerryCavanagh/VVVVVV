@@ -129,7 +129,7 @@ class editorclass{
 
   void load(std::string& _path);
   void save(std::string& _path);
-  void generatecustomminimap(Graphics& dwgfx, mapclass& map);
+  void generatecustomminimap();
   int edgetile(int x, int y);
   int warpzoneedgetile(int x, int y);
   int outsideedgetile(int x, int y);
@@ -142,8 +142,7 @@ class editorclass{
   int findcrewmate(int t);
   int findwarptoken(int t);
   void countstuff();
-  void findstartpoint(Game& game);
-  void weirdloadthing(std::string t);
+  void findstartpoint();
   int getlevelcol(int t);
   int getenemycol(int t);
   int entcol;
@@ -247,16 +246,15 @@ int edentat(int xp, int yp);
 
 bool edentclear(int xp, int yp);
 
-void fillbox(Graphics& dwgfx, int x, int y, int x2, int y2, int c);
+void fillbox(int x, int y, int x2, int y2, int c);
 
-void fillboxabs(Graphics& dwgfx, int x, int y, int x2, int y2, int c);
+void fillboxabs(int x, int y, int x2, int y2, int c);
 
-void editorrender(KeyPoll& key, Graphics& dwgfx, Game& game,  mapclass& map, entityclass& obj, UtilityClass& help);
+void editorrender();
 
-void editorlogic(KeyPoll& key, Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help);
+void editorlogic();
 
-void editorinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-                 entityclass& obj, UtilityClass& help, musicclass& music);
+void editorinput();
 
 #endif /* EDITOR_H */
 

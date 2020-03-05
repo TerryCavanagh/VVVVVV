@@ -2,7 +2,7 @@
 
 #include "MakeAndPlay.h"
 
-std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entityclass& obj)
+std::vector<std::string> warpclass::loadlevel(int rx, int ry)
 {
 	int t;
 
@@ -18,7 +18,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 	warpx = false;
 	warpy = false;
 
-	roomname = "Untitled room ["+UtilityClass::String(rx) + "," + UtilityClass::String(ry)+"]";
+	roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
 
 	switch(t)
 	{
@@ -55,7 +55,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("120,120,120,120,120,120,120,120,120,120,120,120,120,200,80,202,0,0,0,0,0,0,0,0,200,80,202,120,120,120,120,120,120,120,120,120,120,120,120,120");
 		tmap.push_back("120,120,120,120,120,120,120,120,120,120,120,120,120,200,80,202,0,0,0,0,0,0,0,0,200,80,202,120,120,120,120,120,120,120,120,120,120,120,120,120");
 
-		obj.createentity(game, 288, 168, 10, 1, 50500);  // (savepoint)
+		obj.createentity(288, 168, 10, 1, 50500);  // (savepoint)
 
 		if(game.intimetrial)
 		{
@@ -136,9 +136,9 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("83,83,83,83,83,205,0,0,0,0,203,83,83,83,83,83,83,205,0,0,0,0,203,83,83,83,83,83,83,205,0,0,0,0,203,83,83,83,83,83");
 		tmap.push_back("83,83,83,83,83,205,0,0,0,0,203,83,83,83,83,83,83,205,0,0,0,0,203,83,83,83,83,83,83,205,0,0,0,0,203,83,83,83,83,83");
 
-		obj.createentity(game, 248, 80, 10, 1, 51510);  // (savepoint)
-		obj.createentity(game, 136, 128, 1, 3, 3, 128, 120, 288, 152);  // Enemy, bounded
-		obj.createentity(game, 104, 192, 10, 1, 51511);  // (savepoint)
+		obj.createentity(248, 80, 10, 1, 51510);  // (savepoint)
+		obj.createentity(136, 128, 1, 3, 3, 128, 120, 288, 152);  // Enemy, bounded
+		obj.createentity(104, 192, 10, 1, 51511);  // (savepoint)
 		rcol = 1;
 		warpy = true;
 		roomname = "Take the Red Pill";
@@ -176,11 +176,11 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("135,135,135,135,135,135,135,135,135,135,215,95,217,215,95,95,95,95,95,95,95,95,95,217,215,95,217,135,135,135,135,135,135,135,135,135,135,135,135,135");
 		tmap.push_back("135,135,135,135,135,135,135,135,135,135,215,95,217,215,95,95,95,95,95,95,95,95,95,217,215,95,217,135,135,135,135,135,135,135,135,135,135,135,135,135");
 
-		obj.createentity(game, 32, 24, 1, 3, 4, -56, -40, 384, 312);  // Enemy, bounded
-		obj.createentity(game, 96, 24, 1, 3, 4, -56, -40, 384, 312);  // Enemy, bounded
-		obj.createentity(game, 160, 24, 1, 3, 4, -56, -40, 384, 312);  // Enemy, bounded
-		obj.createentity(game, 224, 24, 1, 3, 4, -56, -40, 384, 312);  // Enemy, bounded
-		obj.createentity(game, 232, 152, 10, 1, 51520);  // (savepoint)
+		obj.createentity(32, 24, 1, 3, 4, -56, -40, 384, 312);  // Enemy, bounded
+		obj.createentity(96, 24, 1, 3, 4, -56, -40, 384, 312);  // Enemy, bounded
+		obj.createentity(160, 24, 1, 3, 4, -56, -40, 384, 312);  // Enemy, bounded
+		obj.createentity(224, 24, 1, 3, 4, -56, -40, 384, 312);  // Enemy, bounded
+		obj.createentity(232, 152, 10, 1, 51520);  // (savepoint)
 		rcol = 5;
 		warpx = true;
 		roomname = "Short Circuit";
@@ -218,7 +218,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("213,212,92,214,172,174,0,0,0,0,0,0,212,214,0,0,0,0,0,0,212,214,0,0,0,0,0,0,212,214,0,0,0,0,0,0,212,92,92,92");
 		tmap.push_back("213,212,92,214,252,254,0,0,0,0,0,0,212,214,0,0,0,0,0,0,212,214,0,0,0,0,0,0,212,214,0,0,0,0,0,0,212,92,92,92");
 
-		obj.createentity(game, 32, 16, 10, 0, 50520);  // (savepoint)
+		obj.createentity(32, 16, 10, 0, 50520);  // (savepoint)
 		rcol = 4;
 		warpy = true;
 		roomname = "As you like it";
@@ -257,7 +257,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,211,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,209,211,0,0,0,0,0");
 		tmap.push_back("170,170,170,170,170,170,170,170,170,170,170,170,170,170,171,209,211,169,170,170,170,170,170,170,170,170,170,170,170,170,170,170,171,209,211,169,170,170,170,170");
 
-		obj.createentity(game, 16, 120, 10, 1, 50530);  // (savepoint)
+		obj.createentity(16, 120, 10, 1, 50530);  // (savepoint)
 		rcol = 3;
 		warpx = true;
 		roomname = "Maze With No Entrance";
@@ -295,7 +295,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("126,126,126,126,206,86,208,0,0,0,166,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,166,167");
 		tmap.push_back("126,126,126,126,206,86,208,0,0,0,206,86,208,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,206,86");
 
-		obj.createentity(game, 64, 152, 10, 0, 49530);  // (savepoint)
+		obj.createentity(64, 152, 10, 0, 49530);  // (savepoint)
 		rcol = 2;
 		warpy = true;
 		roomname = "As we go up, we go down";
@@ -333,10 +333,10 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("161,161,161,161,161,161,161,161,161,162,200,202,0,0,0,0,160,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,161,162,200,202,160,161");
 		tmap.push_back("80,80,80,80,80,80,80,80,80,202,200,202,0,0,0,0,200,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,202,200,202,200,80");
 
-		obj.createentity(game, 296, 64, 10, 1, 49540);  // (savepoint)
-		obj.createentity(game, 152-4-15+8, 32, 1, 0, 6, 128, 32, 288, 200);  // Enemy, bounded
-		obj.createentity(game, 240-4-15+8, 186, 1, 1, 6, 128, 32, 288, 200);  // Enemy, bounded
-		obj.createentity(game, 296, 152, 10, 0, 49541);  // (savepoint)
+		obj.createentity(296, 64, 10, 1, 49540);  // (savepoint)
+		obj.createentity(152-4-15+8, 32, 1, 0, 6, 128, 32, 288, 200);  // Enemy, bounded
+		obj.createentity(240-4-15+8, 186, 1, 1, 6, 128, 32, 288, 200);  // Enemy, bounded
+		obj.createentity(296, 152, 10, 0, 49541);  // (savepoint)
 		rcol = 0;
 		warpx = true;
 		roomname = "Time to get serious";
@@ -376,7 +376,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("86,86,208,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,206,86,86");
 		if(!game.intimetrial)
 		{
-			obj.createentity(game, (7 * 8) + 4, (6 * 8), 14); //Teleporter!
+			obj.createentity((7 * 8) + 4, (6 * 8), 14); //Teleporter!
 		}
 		rcol = 2;
 		warpy = true;
@@ -415,10 +415,10 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("212,92,92,214,212,92,92,214,172,173,173,174,0,0,0,0,0,0,0,0,212,92,92,214,212,92,92,214,212,92,92,214,212,92,92,214,212,92,92,214");
 		tmap.push_back("212,92,92,214,212,92,92,214,212,92,92,214,172,173,173,174,0,0,0,0,212,92,92,214,212,92,92,214,212,92,92,214,212,92,92,214,212,92,92,214");
 
-		obj.createentity(game, 96, 72, 1, 3, 8, 64, 56, 256, 152);  // Enemy, bounded
-		obj.createentity(game, 240, 120, 1, 2, 8, 64, 56, 256, 152);  // Enemy, bounded
-		obj.createentity(game, 72, 16, 10, 0, 50550);  // (savepoint)
-		obj.createentity(game, 264, 176, 10, 1, 50551);  // (savepoint)
+		obj.createentity(96, 72, 1, 3, 8, 64, 56, 256, 152);  // Enemy, bounded
+		obj.createentity(240, 120, 1, 2, 8, 64, 56, 256, 152);  // Enemy, bounded
+		obj.createentity(72, 16, 10, 0, 50550);  // (savepoint)
+		obj.createentity(264, 176, 10, 1, 50551);  // (savepoint)
 		rcol = 4;
 		warpx = true;
 		roomname = "Ascending and Descending";
@@ -456,12 +456,12 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("83,83,83,205,0,0,0,0,203,205,0,0,0,0,203,205,0,0,0,0,163,165,0,0,0,0,163,165,0,0,0,0,203,205,0,0,0,0,203,83");
 		tmap.push_back("83,83,83,205,0,0,0,0,203,205,0,0,0,0,203,205,0,0,0,0,203,205,0,0,0,0,203,205,0,0,0,0,203,205,0,0,0,0,203,83");
 
-		obj.createentity(game, 280, 24, 1, 2, 3, 128, 16, 304, 216);  // Enemy, bounded
-		obj.createentity(game, 136, 192, 1, 3, 3, 128, 16, 304, 216);  // Enemy, bounded
-		obj.createentity(game, 40, 8, 1, 0, 10, 24, -56, 120, 280);  // Enemy, bounded
-		obj.createentity(game, 88, 8, 1, 0, 10, 24, -40, 120, 272);  // Enemy, bounded
-		obj.createentity(game, 256, 128, 10, 1, 51550);  // (savepoint)
-		obj.createentity(game, 136, 32, 10, 1, 51551);  // (savepoint)
+		obj.createentity(280, 24, 1, 2, 3, 128, 16, 304, 216);  // Enemy, bounded
+		obj.createentity(136, 192, 1, 3, 3, 128, 16, 304, 216);  // Enemy, bounded
+		obj.createentity(40, 8, 1, 0, 10, 24, -56, 120, 280);  // Enemy, bounded
+		obj.createentity(88, 8, 1, 0, 10, 24, -40, 120, 272);  // Enemy, bounded
+		obj.createentity(256, 128, 10, 1, 51550);  // (savepoint)
+		obj.createentity(136, 32, 10, 1, 51551);  // (savepoint)
 		rcol = 1;
 		warpy = true;
 		roomname = "Shockwave Rider";
@@ -499,13 +499,13 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,171,169,170,170,171,169,170,170,170,170,170,170,170,170,171,0,0,0,0,169,170,170,170");
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,211,209,89,89,211,209,89,89,89,89,89,89,89,89,211,0,0,0,0,209,89,89,89");
 
-		obj.createentity(game, 296, 32, 10, 1, 51540);  // (savepoint)
-		obj.createentity(game, 184, 192, 1, 18, 48, -800, -24, 4000, 264);  // Enemy, bounded
-		obj.createentity(game, 88, 136, 1, 17, 48, -800, -32, 4000, 272);  // Enemy, bounded
-		obj.createentity(game, 184, 80, 1, 18, 48, -800, -32, 4000, 272);  // Enemy, bounded
+		obj.createentity(296, 32, 10, 1, 51540);  // (savepoint)
+		obj.createentity(184, 192, 1, 18, 48, -800, -24, 4000, 264);  // Enemy, bounded
+		obj.createentity(88, 136, 1, 17, 48, -800, -32, 4000, 272);  // Enemy, bounded
+		obj.createentity(184, 80, 1, 18, 48, -800, -32, 4000, 272);  // Enemy, bounded
 
 
-		obj.createentity(game, 8, 32, 20, 1);  // (terminal)
+		obj.createentity(8, 32, 20, 1);  // (terminal)
 		obj.createblock(5, 8-8, 32, 20, 16, 17);
 
 		rcol = 3;
@@ -545,18 +545,18 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("176,176,176,177,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,175,177,0,0,0,0,175,176,176,176");
 		tmap.push_back("95,95,95,217,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,257,0,0,0,0,215,95,95,95");
 
-		obj.createentity(game, 288, 200, 10, 1, 52540);  // (savepoint)
-		obj.createentity(game, 48, 16, 1, 1, 10, 0, -40, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 64, 16+8+4+2, 1, 1, 10, 0, -48, 320, 280);  // Enemy, bounded
-		obj.createentity(game, 80, 16+16+8+4, 1, 1, 10, 0, -40, 320, 280);  // Enemy, bounded
-		obj.createentity(game, 96, 16+24+12+6, 1, 1, 10, 0, -40, 320, 304);  // Enemy, bounded
-		obj.createentity(game, 112, 16+32+16+8, 1, 1, 10, 0, -48, 320, 288);  // Enemy, bounded
-		obj.createentity(game, 128, 16+40+20+10, 1, 1, 10, 0, -40, 320, 280);  // Enemy, bounded
-		obj.createentity(game, 144, 16+48+24+12, 1, 1, 10, 0, -56, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 160, 16+56+28+14, 1, 1, 10, 0, -48, 320, 288);  // Enemy, bounded
-		obj.createentity(game, 176, 16+64+32+16, 1, 1, 10, 0, -48, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 192, 16+72+36+18, 1, 1, 10, 0, -40, 320, 280);  // Enemy, bounded
-		obj.createentity(game, 208, 16+80+40+20, 1, 1, 10, 0, -48, 320, 280);  // Enemy, bounded
+		obj.createentity(288, 200, 10, 1, 52540);  // (savepoint)
+		obj.createentity(48, 16, 1, 1, 10, 0, -40, 320, 296);  // Enemy, bounded
+		obj.createentity(64, 16+8+4+2, 1, 1, 10, 0, -48, 320, 280);  // Enemy, bounded
+		obj.createentity(80, 16+16+8+4, 1, 1, 10, 0, -40, 320, 280);  // Enemy, bounded
+		obj.createentity(96, 16+24+12+6, 1, 1, 10, 0, -40, 320, 304);  // Enemy, bounded
+		obj.createentity(112, 16+32+16+8, 1, 1, 10, 0, -48, 320, 288);  // Enemy, bounded
+		obj.createentity(128, 16+40+20+10, 1, 1, 10, 0, -40, 320, 280);  // Enemy, bounded
+		obj.createentity(144, 16+48+24+12, 1, 1, 10, 0, -56, 320, 296);  // Enemy, bounded
+		obj.createentity(160, 16+56+28+14, 1, 1, 10, 0, -48, 320, 288);  // Enemy, bounded
+		obj.createentity(176, 16+64+32+16, 1, 1, 10, 0, -48, 320, 296);  // Enemy, bounded
+		obj.createentity(192, 16+72+36+18, 1, 1, 10, 0, -40, 320, 280);  // Enemy, bounded
+		obj.createentity(208, 16+80+40+20, 1, 1, 10, 0, -48, 320, 280);  // Enemy, bounded
 		rcol = 5;
 		warpy = true;
 		roomname = "Mind The Gap";
@@ -594,17 +594,17 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167,167");
 		tmap.push_back("86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86");
 
-		obj.createentity(game, 152, 200, 10, 1, 52530);  // (savepoint)
-		obj.createentity(game, 248, 48, 1, 3, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 152, 48, 1, 3, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 152, 96, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 56, 96, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 104, 144, 1, 3, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 200, 144, 1, 3, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 280, 16, 9, 12); //Shiny Trinket
+		obj.createentity(152, 200, 10, 1, 52530);  // (savepoint)
+		obj.createentity(248, 48, 1, 3, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(152, 48, 1, 3, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(152, 96, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(56, 96, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(104, 144, 1, 3, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(200, 144, 1, 3, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(280, 16, 9, 12); //Shiny Trinket
 
 
-		obj.createentity(game, 24, 200, 20, 1);  // (terminal)
+		obj.createentity(24, 200, 20, 1);  // (terminal)
 		obj.createblock(5, 24-8, 200, 20, 16, 18);
 		rcol = 2;
 		warpx = true;
@@ -643,7 +643,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("83,83,205,0,0,0,0,203,205,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,203,205,0,0,0,0,203,205,0,0,0,0,203,83,83");
 		tmap.push_back("83,83,205,0,0,0,0,203,205,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,203,205,0,0,0,0,203,205,0,0,0,0,203,83,83");
 
-		obj.createentity(game, 152, 112, 13);
+		obj.createentity(152, 112, 13);
 		rcol = 1;
 		warpx = true;
 		warpy = true;
@@ -682,8 +682,8 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("0,0,212,92,214,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,212,92,214,0,0");
 		tmap.push_back("0,0,212,92,214,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,212,92,214,0,0");
 
-		obj.createentity(game, 152, 112, 13);
-		obj.createentity(game, 152, 152, 10, 0, 49550);  // (savepoint)
+		obj.createentity(152, 112, 13);
+		obj.createentity(152, 152, 10, 0, 49550);  // (savepoint)
 		rcol = 4;
 		warpx = true;
 		warpy = true;
@@ -722,8 +722,8 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 152, 112, 13);
-		obj.createentity(game, 136, 40, 10, 1, 52550);  // (savepoint)
+		obj.createentity(152, 112, 13);
+		obj.createentity(136, 40, 10, 1, 52550);  // (savepoint)
 		rcol = 3;
 		warpx = true;
 		warpy = true;
@@ -762,8 +762,8 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,215,95,217,216,216,216,216,215,95,217,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,215,95,217,216,216,216,216,215,95,217,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 152, 112, 13);
-		obj.createentity(game, 288, 120, 10, 1, 52520);  // (savepoint)
+		obj.createentity(152, 112, 13);
+		obj.createentity(288, 120, 10, 1, 52520);  // (savepoint)
 		rcol = 5;
 		warpx = true;
 		warpy = true;
@@ -802,12 +802,12 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("83,83,83,83,83,83,83,83,83,83,83,83,83,205,163,164,164,164,164,164,164,164,164,164,164,165,0,0,0,0,203,83,83,83,83,83,83,83,83,83");
 		tmap.push_back("83,83,83,83,83,83,83,83,83,83,83,83,83,205,203,83,83,83,83,83,83,83,83,83,83,205,0,0,0,0,203,83,83,83,83,83,83,83,83,83");
 
-		obj.createentity(game, 152, 112, 13);
-		obj.createentity(game, 24, 128, 10, 1, 52510);  // (savepoint)
-		obj.createentity(game, 56, 48, 1, 0, 10, -16, -16, 336, 256);  // Enemy, bounded
-		obj.createentity(game, 264, 48, 1, 0, 10, -16, -16, 336, 256);  // Enemy, bounded
-		obj.createentity(game, 152, 48, 1, 2, 8, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 152, 176, 1, 2, 8, -24, -16, 344, 256);  // Enemy, bounded
+		obj.createentity(152, 112, 13);
+		obj.createentity(24, 128, 10, 1, 52510);  // (savepoint)
+		obj.createentity(56, 48, 1, 0, 10, -16, -16, 336, 256);  // Enemy, bounded
+		obj.createentity(264, 48, 1, 0, 10, -16, -16, 336, 256);  // Enemy, bounded
+		obj.createentity(152, 48, 1, 2, 8, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(152, 176, 1, 2, 8, -24, -16, 344, 256);  // Enemy, bounded
 		rcol = 1;
 		warpx = true;
 		warpy = true;
@@ -846,13 +846,13 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		tmap.push_back("86,86,86,86,86,208,0,0,0,0,206,208,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,206,208,0,0,0,0,206,86,86,86,86,86");
 		tmap.push_back("86,86,86,86,86,208,0,0,0,0,206,208,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,206,208,0,0,0,0,206,86,86,86,86,86");
 
-		obj.createentity(game, 152, 112, 13);
-		obj.createentity(game, 248, 16, 1, 0, 10, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 64, 16, 1, 0, 10, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 200, 56, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 152, 56, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 104, 56, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
-		obj.createentity(game, 152, 152, 10, 0, 49520);  // (savepoint)
+		obj.createentity(152, 112, 13);
+		obj.createentity(248, 16, 1, 0, 10, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(64, 16, 1, 0, 10, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(200, 56, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(152, 56, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(104, 56, 1, 2, 5, -24, -24, 344, 256);  // Enemy, bounded
+		obj.createentity(152, 152, 10, 0, 49520);  // (savepoint)
 		rcol = 2;
 		warpx = true;
 		warpy = true;
@@ -933,7 +933,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 
 		obj.entities[obj.nentity].active = true;
 		obj.nentity++;
-		obj.createentity(game, 14 * 8, (8 * 8) + 4, 14); //Teleporter!
+		obj.createentity(14 * 8, (8 * 8) + 4, 14); //Teleporter!
 		obj.entities[obj.nentity - 2].active = false;
 
 		if(game.intimetrial)
@@ -982,7 +982,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry , Game& game, entit
 		{
 			if(game.companion==0 && obj.flags[11]==0 && !game.crewstats[4])   //also need to check if he's rescued in a previous game
 			{
-				obj.createentity(game, 255, 121, 15, 0);
+				obj.createentity(255, 121, 15, 0);
 				obj.createblock(1, 215, 0, 160, 240, 35);
 			}
 		}

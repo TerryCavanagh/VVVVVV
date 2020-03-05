@@ -268,7 +268,6 @@ void Game::init(void)
     hardestroomdeaths = 0;
     currentroomdeaths=0;
 
-    sfpsmode = false; //by default, play at 30 fps
     inertia = 1.1f;
     swnmode = false;
     swntimer = 0;
@@ -297,13 +296,11 @@ void Game::init(void)
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument("saves/qsave.vvv", &doc))
     {
-        quickcookieexists = false;
         quicksummary = "";
         printf("Quick Save Not Found\n");
     }
     else
     {
-        quickcookieexists = true;
         TiXmlHandle hDoc(&doc);
         TiXmlElement* pElem;
         TiXmlHandle hRoot(0);
@@ -335,13 +332,11 @@ void Game::init(void)
     TiXmlDocument docTele;
     if (!FILESYSTEM_loadTiXmlDocument("saves/tsave.vvv", &docTele))
     {
-        telecookieexists = false;
         telesummary = "";
         printf("Teleporter Save Not Found\n");
     }
     else
     {
-        telecookieexists = true;
         TiXmlHandle hDoc(&docTele);
         TiXmlElement* pElem;
         TiXmlHandle hRoot(0);
@@ -373,18 +368,6 @@ void Game::init(void)
         }
     }
 
-    //if (telecookie.data.savex == undefined) {
-    // telecookieexists = false; telesummary = "";
-    //} else {
-    // telecookieexists = true; telesummary = telecookie.data.summary;
-    //}
-
-    //if (quickcookie.data.savex == undefined) {
-    // quickcookieexists = false; quicksummary = "";
-    //} else {
-    // quickcookieexists = true; quicksummary = quickcookie.data.summary;
-    //}
-
     screenshake = flashlight = 0 ;
 
     stat_trinkets = 0;
@@ -393,7 +376,6 @@ void Game::init(void)
     teststring = "TEST = True";
     state = 1;
     statedelay = 0;
-    //updatestate(dwgfx, map, obj, help, music);
 
     skipfakeload = false;
 
@@ -503,7 +485,7 @@ Game::~Game(void)
 {
 }
 
-void Game::lifesequence( entityclass& obj )
+void Game::lifesequence()
 {
     if (lifeseq > 0)
     {
@@ -664,13 +646,13 @@ void Game::savecustomlevelstats()
 
     if(numcustomlevelstats>=200)numcustomlevelstats=199;
     msg = new TiXmlElement( "numcustomlevelstats" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(numcustomlevelstats).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(numcustomlevelstats).c_str() ));
     msgs->LinkEndChild( msg );
 
     std::string customlevelscorestr;
     for(int i = 0; i < numcustomlevelstats; i++ )
     {
-        customlevelscorestr += UtilityClass::String(customlevelscore[i]) + ",";
+        customlevelscorestr += help.String(customlevelscore[i]) + ",";
     }
     msg = new TiXmlElement( "customlevelscore" );
     msg->LinkEndChild( new TiXmlText( customlevelscorestr.c_str() ));
@@ -696,16 +678,15 @@ void Game::savecustomlevelstats()
     }
 }
 
-void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music )
+void Game::updatestate()
 {
     int i;
     statedelay--;
-    if(statedelay<=0){
-		  statedelay=0;
-			glitchrunkludge=false;
-		}
     if (statedelay <= 0)
     {
+        statedelay=0;
+        glitchrunkludge=false;
+
         switch(state)
         {
         case 0:
@@ -720,24 +701,20 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             advancetext = true;
             hascontrol = false;
             state = 3;
-            dwgfx.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            dwgfx.addline("intro to story!");
+            graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
+            graphics.addline("intro to story!");
             //Oh no! what happen to rest of crew etc crash into dimension
             break;
         case 4:
             //End of opening cutscene for now
-            dwgfx.createtextbox("  Press arrow keys or WASD to move  ", -1, 195, 174, 174, 174);
-            dwgfx.textboxtimer(60);
+            graphics.createtextbox("  Press arrow keys or WASD to move  ", -1, 195, 174, 174, 174);
+            graphics.textboxtimer(60);
             state = 0;
             break;
         case 5:
             //Demo over
             advancetext = true;
             hascontrol = false;
-            /*dwgfx.createtextbox("   Prototype Complete    ", 50, 80, 164, 164, 255);
-            dwgfx.addline("Congrats! More Info Soon!");
-            dwgfx.textboxcenter();
-            */
 
             startscript = true;
             newscript="returntohub";
@@ -746,7 +723,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             break;
         case 7:
             //End of opening cutscene for now
-            dwgfx.textboxremove();
+            graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
             state = 0;
@@ -757,9 +734,9 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             if (obj.flags[13] == 0)
             {
                 obj.changeflag(13, 1);
-                dwgfx.createtextbox("  Press ENTER to view map  ", -1, 155, 174, 174, 174);
-                dwgfx.addline("      and quicksave");
-                dwgfx.textboxtimer(60);
+                graphics.createtextbox("  Press ENTER to view map  ", -1, 155, 174, 174, 174);
+                graphics.addline("      and quicksave");
+                graphics.textboxtimer(60);
             }
             state = 0;
             break;
@@ -808,49 +785,49 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 11:
             //Intermission 1 instructional textbox, depends on last saved
-            dwgfx.textboxremovefast();
-            dwgfx.createtextbox("   When you're NOT standing on   ", -1, 3, 174, 174, 174);
-            if (dwgfx.flipmode)
+            graphics.textboxremovefast();
+            graphics.createtextbox("   When you're NOT standing on   ", -1, 3, 174, 174, 174);
+            if (graphics.flipmode)
             {
                 if (lastsaved == 2)
                 {
-                    dwgfx.addline("   the ceiling, Vitellary will");
+                    graphics.addline("   the ceiling, Vitellary will");
                 }
                 else if (lastsaved == 3)
                 {
-                    dwgfx.addline("   the ceiling, Vermilion will");
+                    graphics.addline("   the ceiling, Vermilion will");
                 }
                 else if (lastsaved == 4)
                 {
-                    dwgfx.addline("   the ceiling, Verdigris will");
+                    graphics.addline("   the ceiling, Verdigris will");
                 }
                 else if (lastsaved == 5)
                 {
-                    dwgfx.addline("   the ceiling, Victoria will");
+                    graphics.addline("   the ceiling, Victoria will");
                 }
             }
             else
             {
                 if (lastsaved == 2)
                 {
-                    dwgfx.addline("    the floor, Vitellary will");
+                    graphics.addline("    the floor, Vitellary will");
                 }
                 else if (lastsaved == 3)
                 {
-                    dwgfx.addline("    the floor, Vermilion will");
+                    graphics.addline("    the floor, Vermilion will");
                 }
                 else if (lastsaved == 4)
                 {
-                    dwgfx.addline("    the floor, Verdigris will");
+                    graphics.addline("    the floor, Verdigris will");
                 }
                 else if (lastsaved == 5)
                 {
-                    dwgfx.addline("    the floor, Victoria will");
+                    graphics.addline("    the floor, Victoria will");
                 }
             }
 
-            dwgfx.addline("     stop and wait for you.");
-            dwgfx.textboxtimer(180);
+            graphics.addline("     stop and wait for you.");
+            graphics.textboxtimer(180);
             state = 0;
             break;
         case 12:
@@ -859,53 +836,53 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             if (obj.flags[61] == 0)
             {
                 obj.changeflag(61, 1);
-                dwgfx.textboxremovefast();
-                dwgfx.createtextbox("  You can't continue to the next   ", -1, 8, 174, 174, 174);
+                graphics.textboxremovefast();
+                graphics.createtextbox("  You can't continue to the next   ", -1, 8, 174, 174, 174);
                 if (lastsaved == 5)
                 {
-                    dwgfx.addline("  room until she is safely across. ");
+                    graphics.addline("  room until she is safely across. ");
                 }
                 else
                 {
-                    dwgfx.addline("  room until he is safely across.  ");
+                    graphics.addline("  room until he is safely across.  ");
                 }
-                dwgfx.textboxtimer(120);
+                graphics.textboxtimer(120);
             }
             state = 0;
             break;
         case 13:
             //textbox removal
             obj.removetrigger(13);
-            dwgfx.textboxremovefast();
+            graphics.textboxremovefast();
             state = 0;
             break;
         case 14:
             //Intermission 1 instructional textbox, depends on last saved
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox(" When you're standing on the ceiling, ", -1, 3, 174, 174, 174);
+                graphics.createtextbox(" When you're standing on the ceiling, ", -1, 3, 174, 174, 174);
             }
             else
             {
-                dwgfx.createtextbox(" When you're standing on the floor, ", -1, 3, 174, 174, 174);
+                graphics.createtextbox(" When you're standing on the floor, ", -1, 3, 174, 174, 174);
             }
             if (lastsaved == 2)
             {
-                dwgfx.addline(" Vitellary will try to walk to you. ");
+                graphics.addline(" Vitellary will try to walk to you. ");
             }
             else if (lastsaved == 3)
             {
-                dwgfx.addline(" Vermilion will try to walk to you. ");
+                graphics.addline(" Vermilion will try to walk to you. ");
             }
             else if (lastsaved == 4)
             {
-                dwgfx.addline(" Verdigris will try to walk to you. ");
+                graphics.addline(" Verdigris will try to walk to you. ");
             }
             else if (lastsaved == 5)
             {
-                dwgfx.addline(" Victoria will try to walk to you. ");
+                graphics.addline(" Victoria will try to walk to you. ");
             }
-            dwgfx.textboxtimer(280);
+            graphics.textboxtimer(280);
 
             state = 0;
             break;
@@ -928,9 +905,9 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
         case 17:
             //Arrow key tutorial
             obj.removetrigger(17);
-            dwgfx.createtextbox(" If you prefer, you can press UP or ", -1, 195, 174, 174, 174);
-            dwgfx.addline("   DOWN instead of ACTION to flip.");
-            dwgfx.textboxtimer(100);
+            graphics.createtextbox(" If you prefer, you can press UP or ", -1, 195, 174, 174, 174);
+            graphics.addline("   DOWN instead of ACTION to flip.");
+            graphics.textboxtimer(100);
             state = 0;
             break;
 
@@ -939,7 +916,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             {
                 obj.changeflag(1, 1);
                 state = 0;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
             }
             obj.removetrigger(20);
             break;
@@ -948,18 +925,18 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             {
                 obj.changeflag(2, 1);
                 state = 0;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
             }
             obj.removetrigger(21);
             break;
         case 22:
             if (obj.flags[3] == 0)
             {
-                dwgfx.textboxremovefast();
+                graphics.textboxremovefast();
                 obj.changeflag(3, 1);
                 state = 0;
-                dwgfx.createtextbox("  Press ACTION to flip  ", -1, 25, 174, 174, 174);
-                dwgfx.textboxtimer(60);
+                graphics.createtextbox("  Press ACTION to flip  ", -1, 25, 174, 174, 174);
+                graphics.textboxtimer(60);
             }
             obj.removetrigger(22);
             break;
@@ -1299,54 +1276,54 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 50:
             music.playef(15, 10);
-            dwgfx.createtextbox("Help! Can anyone hear", 35, 15, 255, 134, 255);
-            dwgfx.addline("this message?");
-            dwgfx.textboxtimer(60);
+            graphics.createtextbox("Help! Can anyone hear", 35, 15, 255, 134, 255);
+            graphics.addline("this message?");
+            graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 51:
             music.playef(15, 10);
-            dwgfx.createtextbox("Verdigris? Are you out", 30, 12, 255, 134, 255);
-            dwgfx.addline("there? Are you ok?");
-            dwgfx.textboxtimer(60);
+            graphics.createtextbox("Verdigris? Are you out", 30, 12, 255, 134, 255);
+            graphics.addline("there? Are you ok?");
+            graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 52:
             music.playef(15, 10);
-            dwgfx.createtextbox("Please help us! We've crashed", 5, 22, 255, 134, 255);
-            dwgfx.addline("and need assistance!");
-            dwgfx.textboxtimer(60);
+            graphics.createtextbox("Please help us! We've crashed", 5, 22, 255, 134, 255);
+            graphics.addline("and need assistance!");
+            graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 53:
             music.playef(15, 10);
-            dwgfx.createtextbox("Hello? Anyone out there?", 40, 15, 255, 134, 255);
-            dwgfx.textboxtimer(60);
+            graphics.createtextbox("Hello? Anyone out there?", 40, 15, 255, 134, 255);
+            graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 54:
             music.playef(15, 10);
-            dwgfx.createtextbox("This is Doctor Violet from the", 5, 8, 255, 134, 255);
-            dwgfx.addline("D.S.S. Souleye! Please respond!");
-            dwgfx.textboxtimer(60);
+            graphics.createtextbox("This is Doctor Violet from the", 5, 8, 255, 134, 255);
+            graphics.addline("D.S.S. Souleye! Please respond!");
+            graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 55:
             music.playef(15, 10);
-            dwgfx.createtextbox("Please... Anyone...", 45, 14, 255, 134, 255);
-            dwgfx.textboxtimer(60);
+            graphics.createtextbox("Please... Anyone...", 45, 14, 255, 134, 255);
+            graphics.textboxtimer(60);
             state++;
             statedelay = 100;
             break;
         case 56:
             music.playef(15, 10);
-            dwgfx.createtextbox("Please be alright, everyone...", 25, 18, 255, 134, 255);
-            dwgfx.textboxtimer(60);
+            graphics.createtextbox("Please be alright, everyone...", 25, 18, 255, 134, 255);
+            graphics.textboxtimer(60);
             state=50;
             statedelay = 100;
             break;
@@ -1354,15 +1331,15 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 80:
             //Used to return to menu from the game
-            if(dwgfx.fademode == 1)	state++;
+            if(graphics.fademode == 1) state++;
             break;
         case 81:
             gamestate = 1;
-            dwgfx.fademode = 4;
+            graphics.fademode = 4;
             music.play(6);
-            dwgfx.backgrounddrawn = false;
+            graphics.backgrounddrawn = false;
             map.tdrawback = true;
-            dwgfx.flipmode = false;
+            graphics.flipmode = false;
             createmenu("mainmenu");
             state = 0;
             break;
@@ -1392,31 +1369,32 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             if (timetrialrank > bestrank[timetriallevel] || bestrank[timetriallevel]==-1)
             {
                 bestrank[timetriallevel] = timetrialrank;
-								if(timetrialrank>=3){
-									if(timetriallevel==0) NETWORK_unlockAchievement("vvvvvvtimetrial_station1_fixed");
-									if(timetriallevel==1) NETWORK_unlockAchievement("vvvvvvtimetrial_lab_fixed");
-									if(timetriallevel==2) NETWORK_unlockAchievement("vvvvvvtimetrial_tower_fixed");
-									if(timetriallevel==3) NETWORK_unlockAchievement("vvvvvvtimetrial_station2_fixed");
-									if(timetriallevel==4) NETWORK_unlockAchievement("vvvvvvtimetrial_warp_fixed");
-									if(timetriallevel==5) NETWORK_unlockAchievement("vvvvvvtimetrial_final_fixed");
-								}
+                if (timetrialrank >= 3)
+                {
+                    if (timetriallevel == 0) NETWORK_unlockAchievement("vvvvvvtimetrial_station1_fixed");
+                    if (timetriallevel == 1) NETWORK_unlockAchievement("vvvvvvtimetrial_lab_fixed");
+                    if (timetriallevel == 2) NETWORK_unlockAchievement("vvvvvvtimetrial_tower_fixed");
+                    if (timetriallevel == 3) NETWORK_unlockAchievement("vvvvvvtimetrial_station2_fixed");
+                    if (timetriallevel == 4) NETWORK_unlockAchievement("vvvvvvtimetrial_warp_fixed");
+                    if (timetriallevel == 5) NETWORK_unlockAchievement("vvvvvvtimetrial_final_fixed");
+                }
             }
 
-            savestats(map, dwgfx);
+            savestats();
 
-            dwgfx.fademode = 2;
+            graphics.fademode = 2;
             music.fadeout();
             state++;
             break;
         case 83:
             frames--;
-            if(dwgfx.fademode == 1)	state++;
+            if (graphics.fademode == 1) state++;
             break;
         case 84:
-            dwgfx.flipmode = false;
+            graphics.flipmode = false;
             gamestate = 1;
-            dwgfx.fademode = 4;
-            dwgfx.backgrounddrawn = true;
+            graphics.fademode = 4;
+            graphics.backgrounddrawn = true;
             map.tdrawback = true;
             createmenu("timetrialcomplete");
             state = 0;
@@ -1491,11 +1469,11 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 96:
             //Used to return to gravitron to game
-            if(dwgfx.fademode == 1)	state++;
+            if(graphics.fademode == 1) state++;
             break;
         case 97:
             gamestate = 0;
-            dwgfx.fademode = 4;
+            graphics.fademode = 4;
             startscript = true;
             newscript="returntolab";
             state = 0;
@@ -1534,59 +1512,59 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
 
             companion = 6;
-            i = obj.getcompanion(6);
+            i = obj.getcompanion();
             obj.entities[i].tile = 0;
             obj.entities[i].state = 1;
 
             advancetext = true;
             hascontrol = false;
 
-            dwgfx.createtextbox("Captain! I've been so worried!", 60, 90, 164, 255, 164);
+            graphics.createtextbox("Captain! I've been so worried!", 60, 90, 164, 255, 164);
             state++;
             music.playef(12, 10);
         }
         break;
         case 104:
-            dwgfx.createtextbox("I'm glad you're ok!", 135, 152, 164, 164, 255);
+            graphics.createtextbox("I'm glad you're ok!", 135, 152, 164, 164, 255);
             state++;
             music.playef(11, 10);
-            dwgfx.textboxactive();
+            graphics.textboxactive();
             break;
         case 106:
         {
-            dwgfx.createtextbox("I've been trying to find a", 74, 70, 164, 255, 164);
-            dwgfx.addline("way out, but I keep going");
-            dwgfx.addline("around in circles...");
+            graphics.createtextbox("I've been trying to find a", 74, 70, 164, 255, 164);
+            graphics.addline("way out, but I keep going");
+            graphics.addline("around in circles...");
             state++;
             music.playef(2, 10);
-            dwgfx.textboxactive();
-            i = obj.getcompanion(6);
+            graphics.textboxactive();
+            i = obj.getcompanion();
             obj.entities[i].tile = 54;
             obj.entities[i].state = 0;
         }
         break;
         case 108:
-            dwgfx.createtextbox("Don't worry! I have a", 125, 152, 164, 164, 255);
-            dwgfx.addline("teleporter key!");
+            graphics.createtextbox("Don't worry! I have a", 125, 152, 164, 164, 255);
+            graphics.addline("teleporter key!");
             state++;
             music.playef(11, 10);
-            dwgfx.textboxactive();
+            graphics.textboxactive();
             break;
         case 110:
         {
 
-            i = obj.getcompanion(6);
+            i = obj.getcompanion();
             obj.entities[i].tile = 0;
             obj.entities[i].state = 1;
-            dwgfx.createtextbox("Follow me!", 185, 154, 164, 164, 255);
+            graphics.createtextbox("Follow me!", 185, 154, 164, 164, 255);
             state++;
             music.playef(11, 10);
-            dwgfx.textboxactive();
+            graphics.textboxactive();
 
         }
         break;
         case 112:
-            dwgfx.textboxremove();
+            graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
 
@@ -1607,13 +1585,13 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             advancetext = true;
             hascontrol = false;
 
-            dwgfx.createtextbox("Sorry Eurogamers! Teleporting around", 60 - 20, 200, 255, 64, 64);
-            dwgfx.addline("the map doesn't work in this version!");
-            dwgfx.textboxcenterx();
+            graphics.createtextbox("Sorry Eurogamers! Teleporting around", 60 - 20, 200, 255, 64, 64);
+            graphics.addline("the map doesn't work in this version!");
+            graphics.textboxcenterx();
             state++;
             break;
         case 118:
-            dwgfx.textboxremove();
+            graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
 
@@ -1650,50 +1628,50 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
         break;
         case 122:
             companion = 7;
-            i = obj.getcompanion(7);
+            i = obj.getcompanion();
             obj.entities[i].tile = 6;
             obj.entities[i].state = 1;
 
             advancetext = true;
             hascontrol = false;
 
-            dwgfx.createtextbox("Captain! You're ok!", 60-10, 90-40, 255, 255, 134);
+            graphics.createtextbox("Captain! You're ok!", 60-10, 90-40, 255, 255, 134);
             state++;
             music.playef(14, 10);
             break;
         case 124:
-            dwgfx.createtextbox("I've found a teleporter, but", 60-20, 90 - 40, 255, 255, 134);
-            dwgfx.addline("I can't get it to go anywhere...");
+            graphics.createtextbox("I've found a teleporter, but", 60-20, 90 - 40, 255, 255, 134);
+            graphics.addline("I can't get it to go anywhere...");
             state++;
             music.playef(2, 10);
-            dwgfx.textboxactive();
-            i = obj.getcompanion(7);	//obj.entities[i].tile = 66;	obj.entities[i].state = 0;
+            graphics.textboxactive();
+            i = obj.getcompanion();
             break;
         case 126:
-            dwgfx.createtextbox("I can help with that!", 125, 152-40, 164, 164, 255);
+            graphics.createtextbox("I can help with that!", 125, 152-40, 164, 164, 255);
             state++;
             music.playef(11, 10);
-            dwgfx.textboxactive();
+            graphics.textboxactive();
             break;
         case 128:
-            dwgfx.createtextbox("I have the teleporter", 130, 152-35, 164, 164, 255);
-            dwgfx.addline("codex for our ship!");
+            graphics.createtextbox("I have the teleporter", 130, 152-35, 164, 164, 255);
+            graphics.addline("codex for our ship!");
             state++;
             music.playef(11, 10);
-            dwgfx.textboxactive();
+            graphics.textboxactive();
             break;
 
         case 130:
-            dwgfx.createtextbox("Yey! Let's go home!", 60-30, 90-35, 255, 255, 134);
+            graphics.createtextbox("Yey! Let's go home!", 60-30, 90-35, 255, 255, 134);
             state++;
             music.playef(14, 10);
-            dwgfx.textboxactive();
-            i = obj.getcompanion(7);
+            graphics.textboxactive();
+            i = obj.getcompanion();
             obj.entities[i].tile = 6;
             obj.entities[i].state = 1;
             break;
         case 132:
-            dwgfx.textboxremove();
+            graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
 
@@ -1947,7 +1925,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             break;
 
         case 1000:
-            dwgfx.showcutscenebars = true;
+            graphics.showcutscenebars = true;
             hascontrol = false;
             completestop = true;
             state++;
@@ -1957,56 +1935,55 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             //Found a trinket!
             advancetext = true;
             state++;
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("        Congratulations!       ", 50, 105, 174, 174, 174);
-                dwgfx.addline("");
-                dwgfx.addline("You have found a shiny trinket!");
-                dwgfx.textboxcenterx();
+                graphics.createtextbox("        Congratulations!       ", 50, 105, 174, 174, 174);
+                graphics.addline("");
+                graphics.addline("You have found a shiny trinket!");
+                graphics.textboxcenterx();
 
                 if(map.custommode)
                 {
-                    dwgfx.createtextbox(" " + help.number(trinkets) + " out of " + help.number(map.customtrinkets)+ " ", 50, 65, 174, 174, 174);
-                    dwgfx.textboxcenterx();
+                    graphics.createtextbox(" " + help.number(trinkets) + " out of " + help.number(map.customtrinkets)+ " ", 50, 65, 174, 174, 174);
+                    graphics.textboxcenterx();
                 }
                 else
                 {
-                    dwgfx.createtextbox(" " + help.number(trinkets) + " out of Twenty ", 50, 65, 174, 174, 174);
-                    dwgfx.textboxcenterx();
+                    graphics.createtextbox(" " + help.number(trinkets) + " out of Twenty ", 50, 65, 174, 174, 174);
+                    graphics.textboxcenterx();
                 }
             }
             else
             {
-                dwgfx.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
-                dwgfx.addline("");
-                dwgfx.addline("You have found a shiny trinket!");
-                dwgfx.textboxcenterx();
+                graphics.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
+                graphics.addline("");
+                graphics.addline("You have found a shiny trinket!");
+                graphics.textboxcenterx();
 
                 if(map.custommode)
                 {
-                    dwgfx.createtextbox(" " + help.number(trinkets) + " out of " + help.number(map.customtrinkets)+ " ", 50, 135, 174, 174, 174);
-                    dwgfx.textboxcenterx();
+                    graphics.createtextbox(" " + help.number(trinkets) + " out of " + help.number(map.customtrinkets)+ " ", 50, 135, 174, 174, 174);
+                    graphics.textboxcenterx();
                 }
                 else
                 {
-                    dwgfx.createtextbox(" " + help.number(trinkets) + " out of Twenty ", 50, 135, 174, 174, 174);
-                    dwgfx.textboxcenterx();
+                    graphics.createtextbox(" " + help.number(trinkets) + " out of Twenty ", 50, 135, 174, 174, 174);
+                    graphics.textboxcenterx();
                 }
             }
             break;
         case 1003:
-            dwgfx.textboxremove();
+            graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
             completestop = false;
             state = 0;
-            //music.play(music.resumesong);
             if(!muted && music.currentsong>-1) music.fadeMusicVolumeIn(3000);
-            dwgfx.showcutscenebars = false;
+            graphics.showcutscenebars = false;
             break;
 
         case 1010:
-            dwgfx.showcutscenebars = true;
+            graphics.showcutscenebars = true;
             hascontrol = false;
             completestop = true;
             state++;
@@ -2016,53 +1993,53 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             //Found a crewmate!
             advancetext = true;
             state++;
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("        Congratulations!       ", 50, 105, 174, 174, 174);
-                dwgfx.addline("");
-                dwgfx.addline("You have found a lost crewmate!");
-                dwgfx.textboxcenterx();
+                graphics.createtextbox("        Congratulations!       ", 50, 105, 174, 174, 174);
+                graphics.addline("");
+                graphics.addline("You have found a lost crewmate!");
+                graphics.textboxcenterx();
 
-                if(int(map.customcrewmates-crewmates)==0)
+                if (map.customcrewmates - crewmates == 0)
                 {
-                    dwgfx.createtextbox("     All crewmates rescued!    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("     All crewmates rescued!    ", 50, 65, 174, 174, 174);
                 }
-                else if(map.customcrewmates-crewmates==1)
+                else if (map.customcrewmates - crewmates == 1)
                 {
-                    dwgfx.createtextbox("    " + help.number(int(map.customcrewmates-crewmates))+ " remains    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("    " + help.number(int(map.customcrewmates-crewmates))+ " remains    ", 50, 65, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox("     " + help.number(int(map.customcrewmates-crewmates))+ " remain    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("     " + help.number(int(map.customcrewmates-crewmates))+ " remain    ", 50, 65, 174, 174, 174);
                 }
-                dwgfx.textboxcenterx();
+                graphics.textboxcenterx();
 
             }
             else
             {
-                dwgfx.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
-                dwgfx.addline("");
-                dwgfx.addline("You have found a lost crewmate!");
-                dwgfx.textboxcenterx();
+                graphics.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
+                graphics.addline("");
+                graphics.addline("You have found a lost crewmate!");
+                graphics.textboxcenterx();
 
-                if(int(map.customcrewmates-crewmates)==0)
+                if (map.customcrewmates - crewmates == 0)
                 {
-                    dwgfx.createtextbox("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
                 }
-                else if(map.customcrewmates-crewmates==1)
+                else if (map.customcrewmates - crewmates == 1)
                 {
-                    dwgfx.createtextbox("    " + help.number(int(map.customcrewmates-crewmates))+ " remains    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("    " + help.number(int(map.customcrewmates-crewmates))+ " remains    ", 50, 135, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox("     " + help.number(int(map.customcrewmates-crewmates))+ " remain    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("     " + help.number(int(map.customcrewmates-crewmates))+ " remain    ", 50, 135, 174, 174, 174);
                 }
-                dwgfx.textboxcenterx();
+                graphics.textboxcenterx();
             }
             break;
 #if !defined(NO_CUSTOM_LEVELS)
         case 1013:
-            dwgfx.textboxremove();
+            graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
             completestop = false;
@@ -2072,36 +2049,36 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             {
                 if(map.custommodeforreal)
                 {
-                    dwgfx.fademode = 2;
-                    if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
-                    if(ed.levmusic>0) music.fadeout();
-                    state=1014;
+                    graphics.fademode = 2;
+                    if (!muted && ed.levmusic > 0) music.fadeMusicVolumeIn(3000);
+                    if (ed.levmusic > 0) music.fadeout();
+                    state = 1014;
                 }
                 else
                 {
                     gamestate = EDITORMODE;
-                    dwgfx.backgrounddrawn=false;
-                    if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
-                    if(ed.levmusic>0) music.fadeout();
+                    graphics.backgrounddrawn = false;
+                    if (!muted && ed.levmusic > 0) music.fadeMusicVolumeIn(3000);
+                    if (ed.levmusic > 0) music.fadeout();
                 }
             }
             else
             {
-                if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
+                if (!muted && ed.levmusic > 0) music.fadeMusicVolumeIn(3000);
             }
-            dwgfx.showcutscenebars = false;
+            graphics.showcutscenebars = false;
             break;
 #endif
         case 1014:
             frames--;
-            if(dwgfx.fademode == 1)	state++;
+            if(graphics.fademode == 1) state++;
             break;
         case 1015:
-            dwgfx.flipmode = false;
+            graphics.flipmode = false;
             gamestate = TITLEMODE;
-            dwgfx.fademode = 4;
+            graphics.fademode = 4;
             music.play(6);
-            dwgfx.backgrounddrawn = true;
+            graphics.backgrounddrawn = true;
             map.tdrawback = true;
             //Update level stats
             if(map.customcrewmates-crewmates==0)
@@ -2130,16 +2107,16 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             }
             else
             {
-                savetele(map, obj, music);
-                if (dwgfx.flipmode)
+                savetele();
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox("    Game Saved    ", -1, 202, 174, 174, 174);
-                    dwgfx.textboxtimer(25);
+                    graphics.createtextbox("    Game Saved    ", -1, 202, 174, 174, 174);
+                    graphics.textboxtimer(25);
                 }
                 else
                 {
-                    dwgfx.createtextbox("    Game Saved    ", -1, 12, 174, 174, 174);
-                    dwgfx.textboxtimer(25);
+                    graphics.createtextbox("    Game Saved    ", -1, 12, 174, 174, 174);
+                    graphics.textboxtimer(25);
                 }
                 state = 0;
             }
@@ -2223,21 +2200,21 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
         case 2510:
             advancetext = true;
             hascontrol = false;
-            dwgfx.createtextbox("Hello?", 125+24, 152-20, 164, 164, 255);
+            graphics.createtextbox("Hello?", 125+24, 152-20, 164, 164, 255);
             state++;
             music.playef(11, 10);
-            dwgfx.textboxactive();
+            graphics.textboxactive();
             break;
         case 2512:
             advancetext = true;
             hascontrol = false;
-            dwgfx.createtextbox("Is anyone there?", 125+8, 152-24, 164, 164, 255);
+            graphics.createtextbox("Is anyone there?", 125+8, 152-24, 164, 164, 255);
             state++;
             music.playef(11, 10);
-            dwgfx.textboxactive();
+            graphics.textboxactive();
             break;
         case 2514:
-            dwgfx.textboxremove();
+            graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
 
@@ -2317,7 +2294,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             obj.entities[i].colour = 0;
             obj.entities[i].invis = true;
 
-            i = obj.getcompanion(companion);
+            i = obj.getcompanion();
             if(i>-1)
             {
                 obj.entities[i].active = false;
@@ -2330,48 +2307,42 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 3006:
             //Level complete! (warp zone)
-            unlocknum(4, map, dwgfx);
+            unlocknum(4);
             lastsaved = 4;
             music.play(0);
             state++;
             statedelay = 75;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //dwgfx.addline("      Level Complete!      ");
-            dwgfx.addline("                                   ");
-            dwgfx.addline("");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
+            graphics.addline("                                   ");
+            graphics.addline("");
+            graphics.addline("");
+            graphics.textboxcenterx();
 
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            dwgfx.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            dwgfx.addline("intro to story!");*/
             break;
         case 3007:
             state++;
             statedelay = 45;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 104, 175,174,174);
+                graphics.createtextbox("", -1, 104, 175,174,174);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 64+8+16, 175,174,174);
+                graphics.createtextbox("", -1, 64+8+16, 175,174,174);
             }
-            dwgfx.addline("     You have rescued  ");
-            dwgfx.addline("      a crew member!   ");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
+            graphics.addline("     You have rescued  ");
+            graphics.addline("      a crew member!   ");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3008:
             state++;
@@ -2381,60 +2352,60 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else if (temp > 0)
             {
                 tempstring = "  " + help.number(temp) + " remain  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else
             {
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
                 }
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3009:
             state++;
             statedelay = 0;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
             }
             else
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3010:
             if (jumppressed)
             {
                 state++;
                 statedelay = 30;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
             }
             break;
         case 3011:
@@ -2444,49 +2415,42 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 3020:
             //Level complete! (Space Station 2)
-            unlocknum(3, map, dwgfx);
+            unlocknum(3);
             lastsaved = 2;
             music.play(0);
             state++;
             statedelay = 75;
 
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //dwgfx.addline("      Level Complete!      ");
-            dwgfx.addline("                                   ");
-            dwgfx.addline("");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            dwgfx.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            dwgfx.addline("intro to story!");*/
+            graphics.addline("                                   ");
+            graphics.addline("");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3021:
             state++;
             statedelay = 45;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 104, 174,175,174);
+                graphics.createtextbox("", -1, 104, 174,175,174);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 64+8+16, 174,175,174);
+                graphics.createtextbox("", -1, 64+8+16, 174,175,174);
             }
-            dwgfx.addline("     You have rescued  ");
-            dwgfx.addline("      a crew member!   ");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
+            graphics.addline("     You have rescued  ");
+            graphics.addline("      a crew member!   ");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3022:
             state++;
@@ -2496,60 +2460,60 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else if (temp > 0)
             {
                 tempstring = "  " + help.number(temp) + " remain  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else
             {
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
                 }
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3023:
             state++;
             statedelay = 0;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
             }
             else
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3024:
             if (jumppressed)
             {
                 state++;
                 statedelay = 30;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
             }
             break;
         case 3025:
@@ -2559,48 +2523,41 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 3040:
             //Level complete! (Lab)
-            unlocknum(1, map, dwgfx);
+            unlocknum(1);
             lastsaved = 5;
             music.play(0);
             state++;
             statedelay = 75;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //dwgfx.addline("      Level Complete!      ");
-            dwgfx.addline("                                   ");
-            dwgfx.addline("");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            dwgfx.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            dwgfx.addline("intro to story!");*/
+            graphics.addline("                                   ");
+            graphics.addline("");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3041:
             state++;
             statedelay = 45;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 104, 174,174,175);
+                graphics.createtextbox("", -1, 104, 174,174,175);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 64+8+16, 174,174,175);
+                graphics.createtextbox("", -1, 64+8+16, 174,174,175);
             }
-            dwgfx.addline("     You have rescued  ");
-            dwgfx.addline("      a crew member!   ");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
+            graphics.addline("     You have rescued  ");
+            graphics.addline("      a crew member!   ");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3042:
             state++;
@@ -2610,60 +2567,60 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else if (temp > 0)
             {
                 tempstring = "  " + help.number(temp) + " remain  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else
             {
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
                 }
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3043:
             state++;
             statedelay = 0;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
             }
             else
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3044:
             if (jumppressed)
             {
                 state++;
                 statedelay = 30;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
             }
             break;
         case 3045:
@@ -2673,49 +2630,42 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 3050:
             //Level complete! (Space Station 1)
-            unlocknum(0, map, dwgfx);
+            unlocknum(0);
             lastsaved = 1;
             music.play(0);
             state++;
             statedelay = 75;
 
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //dwgfx.addline("      Level Complete!      ");
-            dwgfx.addline("                                   ");
-            dwgfx.addline("");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            dwgfx.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            dwgfx.addline("intro to story!");*/
+            graphics.addline("                                   ");
+            graphics.addline("");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3051:
             state++;
             statedelay = 45;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 104, 175,175,174);
+                graphics.createtextbox("", -1, 104, 175,175,174);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 64+8+16, 175,175,174);
+                graphics.createtextbox("", -1, 64+8+16, 175,175,174);
             }
-            dwgfx.addline("     You have rescued  ");
-            dwgfx.addline("      a crew member!   ");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
+            graphics.addline("     You have rescued  ");
+            graphics.addline("      a crew member!   ");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3052:
             state++;
@@ -2725,71 +2675,71 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else if (temp > 0)
             {
                 tempstring = "  " + help.number(temp) + " remain  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else
             {
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
                 }
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3053:
             state++;
             statedelay = 0;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
             }
             else
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3054:
             if (jumppressed)
             {
                 state++;
                 statedelay = 30;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
                 crewstats[1] = 0; //Set violet's rescue script to 0 to make the next bit easier
                 teleportscript = "";
             }
             break;
         case 3055:
-            dwgfx.fademode = 2;
+            graphics.fademode = 2;
             state++;
             statedelay = 10;
             break;
         case 3056:
-            if(dwgfx.fademode==1)
+            if(graphics.fademode==1)
             {
                 startscript = true;
                 if (nocutscenes)
@@ -2807,48 +2757,41 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
         case 3060:
             //Level complete! (Tower)
-            unlocknum(2, map, dwgfx);
+            unlocknum(2);
             lastsaved = 3;
             music.play(0);
             state++;
             statedelay = 75;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //dwgfx.addline("      Level Complete!      ");
-            dwgfx.addline("                                   ");
-            dwgfx.addline("");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            dwgfx.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            dwgfx.addline("intro to story!");*/
+            graphics.addline("                                   ");
+            graphics.addline("");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3061:
             state++;
             statedelay = 45;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 104, 175,174,175);
+                graphics.createtextbox("", -1, 104, 175,174,175);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 64+8+16, 175,174,175);
+                graphics.createtextbox("", -1, 64+8+16, 175,174,175);
             }
-            dwgfx.addline("     You have rescued  ");
-            dwgfx.addline("      a crew member!   ");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
+            graphics.addline("     You have rescued  ");
+            graphics.addline("      a crew member!   ");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3062:
             state++;
@@ -2858,60 +2801,60 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             if (temp == 1)
             {
                 tempstring = "  One remains  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else if (temp > 0)
             {
                 tempstring = "  " + help.number(temp) + " remain  ";
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox(tempstring, -1, 72, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
                 }
             }
             else
             {
-                if (dwgfx.flipmode)
+                if (graphics.flipmode)
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
                 }
                 else
                 {
-                    dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
+                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
                 }
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3063:
             state++;
             statedelay = 0;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
             }
             else
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3064:
             if (jumppressed)
             {
                 state++;
                 statedelay = 30;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
             }
             break;
         case 3065:
@@ -2921,11 +2864,11 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
 
 
         case 3070:
-            dwgfx.fademode = 2;
+            graphics.fademode = 2;
             state++;
             break;
         case 3071:
-            if (dwgfx.fademode == 1) state++;
+            if (graphics.fademode == 1) state++;
             break;
         case 3072:
             //Ok, we need to adjust some flags based on who've we've rescued. Some of there conversation options
@@ -3000,25 +2943,25 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             //returning from an intermission, very like 3070
             if (inintermission)
             {
-                dwgfx.fademode = 2;
+                graphics.fademode = 2;
                 companion = 0;
                 state=3100;
             }
             else
             {
-                unlocknum(7, map, dwgfx);
-                dwgfx.fademode = 2;
+                unlocknum(7);
+                graphics.fademode = 2;
                 companion = 0;
                 state++;
             }
             break;
         case 3081:
-            if (dwgfx.fademode == 1) state++;
+            if (graphics.fademode == 1) state++;
             break;
         case 3082:
             map.finalmode = false;
             startscript = true;
-            newscript="regularreturn";
+            newscript = "regularreturn";
             state = 0;
             break;
 
@@ -3030,45 +2973,42 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
                 companion = 0;
                 supercrewmate = false;
                 state++;
-                dwgfx.fademode = 2;
+                graphics.fademode = 2;
                 music.fadeout();
-                state=3100;
+                state = 3100;
             }
             else
             {
-                unlocknum(6, map, dwgfx);
-                dwgfx.fademode = 2;
+                unlocknum(6);
+                graphics.fademode = 2;
                 companion = 0;
                 supercrewmate = false;
                 state++;
             }
             break;
         case 3086:
-            if (dwgfx.fademode == 1) state++;
+            if (graphics.fademode == 1) state++;
             break;
         case 3087:
             map.finalmode = false;
             startscript = true;
-            newscript="regularreturn";
+            newscript = "regularreturn";
             state = 0;
             break;
 
         case 3100:
-            if(dwgfx.fademode == 1)	state++;
+            if (graphics.fademode == 1) state++;
             break;
         case 3101:
-            dwgfx.flipmode = false;
+            graphics.flipmode = false;
             gamestate = 1;
-            dwgfx.fademode = 4;
-            dwgfx.backgrounddrawn = true;
+            graphics.fademode = 4;
+            graphics.backgrounddrawn = true;
             map.tdrawback = true;
             createmenu("play");
             music.play(6);
             state = 0;
             break;
-
-            //startscript = true;	newscript="returntohub";
-            //state = 0;
 
             /*case 3025:
             if (recording == 1) {
@@ -3077,17 +3017,17 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             help.toclipboard(recordstring);
             }
             test = true; teststring = recordstring;
-            dwgfx.createtextbox("   Congratulations!    ", 50, 80, 164, 164, 255);
-            dwgfx.addline("");
-            dwgfx.addline("Your play of this level has");
-            dwgfx.addline("been copied to the clipboard.");
-            dwgfx.addline("");
-            dwgfx.addline("Please consider pasting and");
-            dwgfx.addline("sending it to me! Even if you");
-            dwgfx.addline("made a lot of mistakes - knowing");
-            dwgfx.addline("exactly where people are having");
-            dwgfx.addline("trouble is extremely useful!");
-            dwgfx.textboxcenter();
+            graphics.createtextbox("   Congratulations!    ", 50, 80, 164, 164, 255);
+            graphics.addline("");
+            graphics.addline("Your play of this level has");
+            graphics.addline("been copied to the clipboard.");
+            graphics.addline("");
+            graphics.addline("Please consider pasting and");
+            graphics.addline("sending it to me! Even if you");
+            graphics.addline("made a lot of mistakes - knowing");
+            graphics.addline("exactly where people are having");
+            graphics.addline("trouble is extremely useful!");
+            graphics.textboxcenter();
             state = 0;
             break;*/
 
@@ -3099,54 +3039,54 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             break;
         case 3501:
             //Game complete!
-						NETWORK_unlockAchievement("vvvvvvgamecomplete");
-            unlocknum(5, map, dwgfx);
+            NETWORK_unlockAchievement("vvvvvvgamecomplete");
+            unlocknum(5);
             crewstats[0] = true;
             state++;
             statedelay = 75;
             music.play(7);
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("", -1, 180, 164, 165, 255);
+                graphics.createtextbox("", -1, 180, 164, 165, 255);
             }
             else
             {
-                dwgfx.createtextbox("", -1, 12, 164, 165, 255);
+                graphics.createtextbox("", -1, 12, 164, 165, 255);
             }
-            dwgfx.addline("                                   ");
-            dwgfx.addline("");
-            dwgfx.addline("");
-            dwgfx.textboxcenterx();
+            graphics.addline("                                   ");
+            graphics.addline("");
+            graphics.addline("");
+            graphics.textboxcenterx();
             break;
         case 3502:
             state++;
             statedelay = 45+15;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 175-24, 0, 0, 0);
+                graphics.createtextbox("  All Crew Members Rescued!  ", -1, 175-24, 0, 0, 0);
             }
             else
             {
-                dwgfx.createtextbox("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
+                graphics.createtextbox("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
             }
-            savetime = timestring(help);
+            savetime = timestring();
             break;
         case 3503:
             state++;
             statedelay = 45;
 
             tempstring = help.number(trinkets);
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("Trinkets Found:", 48, 155-24, 0,0,0);
-                dwgfx.createtextbox(tempstring, 180, 155-24, 0, 0, 0);
+                graphics.createtextbox("Trinkets Found:", 48, 155-24, 0,0,0);
+                graphics.createtextbox(tempstring, 180, 155-24, 0, 0, 0);
             }
             else
             {
-                dwgfx.createtextbox("Trinkets Found:", 48, 84, 0,0,0);
-                dwgfx.createtextbox(tempstring, 180, 84, 0, 0, 0);
+                graphics.createtextbox("Trinkets Found:", 48, 84, 0,0,0);
+                graphics.createtextbox(tempstring, 180, 84, 0, 0, 0);
             }
             break;
         case 3504:
@@ -3154,84 +3094,84 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             statedelay = 45+15;
 
             tempstring = savetime;
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("   Game Time:", 64, 143-24, 0,0,0);
-                dwgfx.createtextbox(tempstring, 180, 143-24, 0, 0, 0);
+                graphics.createtextbox("   Game Time:", 64, 143-24, 0,0,0);
+                graphics.createtextbox(tempstring, 180, 143-24, 0, 0, 0);
             }
             else
             {
-                dwgfx.createtextbox("   Game Time:", 64, 96, 0,0,0);
-                dwgfx.createtextbox(tempstring, 180, 96, 0, 0, 0);
+                graphics.createtextbox("   Game Time:", 64, 96, 0,0,0);
+                graphics.createtextbox(tempstring, 180, 96, 0, 0, 0);
             }
             break;
         case 3505:
             state++;
             statedelay = 45;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox(" Total Flips:", 64, 116-24, 0,0,0);
-                dwgfx.createtextbox(help.String(totalflips), 180, 116-24, 0, 0, 0);
+                graphics.createtextbox(" Total Flips:", 64, 116-24, 0,0,0);
+                graphics.createtextbox(help.String(totalflips), 180, 116-24, 0, 0, 0);
             }
             else
             {
-                dwgfx.createtextbox(" Total Flips:", 64, 123, 0,0,0);
-                dwgfx.createtextbox(help.String(totalflips), 180, 123, 0, 0, 0);
+                graphics.createtextbox(" Total Flips:", 64, 123, 0,0,0);
+                graphics.createtextbox(help.String(totalflips), 180, 123, 0, 0, 0);
             }
             break;
         case 3506:
             state++;
             statedelay = 45+15;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox("Total Deaths:", 64, 104-24, 0,0,0);
-                dwgfx.createtextbox(help.String(deathcounts), 180, 104-24, 0, 0, 0);
+                graphics.createtextbox("Total Deaths:", 64, 104-24, 0,0,0);
+                graphics.createtextbox(help.String(deathcounts), 180, 104-24, 0, 0, 0);
             }
             else
             {
-                dwgfx.createtextbox("Total Deaths:", 64, 135, 0,0,0);
-                dwgfx.createtextbox(help.String(deathcounts), 180, 135, 0, 0, 0);
+                graphics.createtextbox("Total Deaths:", 64, 135, 0,0,0);
+                graphics.createtextbox(help.String(deathcounts), 180, 135, 0, 0, 0);
             }
             break;
         case 3507:
             state++;
             statedelay = 45+15;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
                 tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
-                dwgfx.createtextbox(tempstring, -1, 81-24, 0,0,0);
-                dwgfx.createtextbox(hardestroom, -1, 69-24, 0, 0, 0);
+                graphics.createtextbox(tempstring, -1, 81-24, 0,0,0);
+                graphics.createtextbox(hardestroom, -1, 69-24, 0, 0, 0);
             }
             else
             {
                 tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
-                dwgfx.createtextbox(tempstring, -1, 158, 0,0,0);
-                dwgfx.createtextbox(hardestroom, -1, 170, 0, 0, 0);
+                graphics.createtextbox(tempstring, -1, 158, 0,0,0);
+                graphics.createtextbox(hardestroom, -1, 170, 0, 0, 0);
             }
             break;
         case 3508:
             state++;
             statedelay = 0;
 
-            if (dwgfx.flipmode)
+            if (graphics.flipmode)
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
             }
             else
             {
-                dwgfx.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
             }
-            dwgfx.textboxcenterx();
+            graphics.textboxcenterx();
             break;
         case 3509:
             if (jumppressed)
             {
                 state++;
                 statedelay = 30;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
             }
             break;
         case 3510:
@@ -3255,26 +3195,18 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
                 }
             }
 
-						if (bestgamedeaths > -1) {
-							if (bestgamedeaths <= 500) {
-							  NETWORK_unlockAchievement("vvvvvvcomplete500");
-							}
-							if (bestgamedeaths <= 250) {
-								NETWORK_unlockAchievement("vvvvvvcomplete250");
-							}
-							if (bestgamedeaths <= 100) {
-								NETWORK_unlockAchievement("vvvvvvcomplete100");
-							}
-							if (bestgamedeaths <= 50) {
-								NETWORK_unlockAchievement("vvvvvvcomplete50");
-							}
-						}
-						
+        if (bestgamedeaths > -1) {
+            if (bestgamedeaths <= 500) NETWORK_unlockAchievement("vvvvvvcomplete500");
+            if (bestgamedeaths <= 250) NETWORK_unlockAchievement("vvvvvvcomplete250");
+            if (bestgamedeaths <= 100) NETWORK_unlockAchievement("vvvvvvcomplete100");
+            if (bestgamedeaths <= 50) NETWORK_unlockAchievement("vvvvvvcomplete50");
+        }
 
-            savestats(map, dwgfx);
+
+            savestats();
             if (nodeathmode)
             {
-								NETWORK_unlockAchievement("vvvvvvmaster"); //bloody hell
+                NETWORK_unlockAchievement("vvvvvvmaster"); //bloody hell
                 unlock[20] = true;
                 state = 3520;
                 statedelay = 0;
@@ -3335,18 +3267,18 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             statedelay = 60;
             break;
         case 3516:
-            dwgfx.fademode = 2;
+            graphics.fademode = 2;
             state++;
             break;
         case 3517:
-            if (dwgfx.fademode == 1)
+            if (graphics.fademode == 1)
             {
                 state++;
                 statedelay = 30;
             }
             break;
         case 3518:
-            dwgfx.fademode = 4;
+            graphics.fademode = 4;
             state = 0;
             statedelay = 30;
             //music.play(5);
@@ -3360,7 +3292,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             map.finalx = 100;
             map.finaly = 100;
 
-            dwgfx.cutscenebarspos = 320;
+            graphics.cutscenebarspos = 320;
 
             teleport_to_new_area = true;
             teleportscript = "gamecomplete";
@@ -3371,17 +3303,17 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             hascontrol = false;
             crewstats[0] = true;
 
-            dwgfx.fademode = 2;
+            graphics.fademode = 2;
             state++;
             break;
         case 3521:
-            if(dwgfx.fademode == 1)	state++;
+            if (graphics.fademode == 1) state++;
             break;
         case 3522:
-            dwgfx.flipmode = false;
+            graphics.flipmode = false;
             gamestate = 1;
-            dwgfx.fademode = 4;
-            dwgfx.backgrounddrawn = true;
+            graphics.fademode = 4;
+            graphics.backgrounddrawn = true;
             map.tdrawback = true;
             createmenu("nodeathmodecomplete");
             state = 0;
@@ -3506,7 +3438,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
             }
             else
             {
-                savetele(map, obj, music);
+                savetele();
             }
             i = obj.getteleporter();
             activetele = true;
@@ -4151,7 +4083,7 @@ void Game::updatestate( Graphics& dwgfx, mapclass& map, entityclass& obj, Utilit
     }
 }
 
-void Game::gethardestroom( mapclass& map )
+void Game::gethardestroom()
 {
     if (currentroomdeaths > hardestroomdeaths)
     {
@@ -4187,7 +4119,7 @@ void Game::gethardestroom( mapclass& map )
     }
 }
 
-void Game::deletestats( mapclass& map, Graphics& dwgfx )
+void Game::deletestats()
 {
     for (int i = 0; i < 25; i++)
     {
@@ -4201,12 +4133,12 @@ void Game::deletestats( mapclass& map, Graphics& dwgfx )
         bestlives[i] = -1;
         bestrank[i] = -1;
     }
-    dwgfx.setflipmode = false;
+    graphics.setflipmode = false;
     stat_trinkets = 0;
-    savestats(map, dwgfx);
+    savestats();
 }
 
-void Game::unlocknum( int t, mapclass& map, Graphics& dwgfx )
+void Game::unlocknum(int t)
 {
     if (map.custommode)
     {
@@ -4215,16 +4147,15 @@ void Game::unlocknum( int t, mapclass& map, Graphics& dwgfx )
     }
 
     unlock[t] = true;
-    savestats(map, dwgfx);
+    savestats();
 }
 
-void Game::loadstats( mapclass& map, Graphics& dwgfx )
+void Game::loadstats()
 {
-    // TODO loadstats
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument("saves/unlock.vvv", &doc))
     {
-        savestats(map, dwgfx);
+        savestats();
         printf("No Stats found. Assuming a new player\n");
     }
 
@@ -4390,7 +4321,7 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
 
         if (pKey == "setflipmode")
         {
-            dwgfx.setflipmode = atoi(pText);
+            graphics.setflipmode = atoi(pText);
         }
 
         if (pKey == "invincibility")
@@ -4440,16 +4371,19 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
         if (pKey == "advanced_smoothing")
         {
             fullScreenEffect_badSignal = atoi(pText);
-            dwgfx.screenbuffer->badSignalEffect = fullScreenEffect_badSignal;
+            graphics.screenbuffer->badSignalEffect = fullScreenEffect_badSignal;
         }
 
-				if (pKey == "usingmmmmmm")
+        if (pKey == "usingmmmmmm")
         {
-					if(atoi(pText)>0){
-            usingmmmmmm = 1;
-					}else{
-					  usingmmmmmm = 0;
-					}
+            if (atoi(pText) > 0)
+            {
+                usingmmmmmm = 1;
+            }
+            else
+            {
+                usingmmmmmm = 0;
+            }
         }
 
         if (pKey == "skipfakeload")
@@ -4459,68 +4393,68 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
 
         if (pKey == "notextoutline")
         {
-            dwgfx.notextoutline = atoi(pText);
+            graphics.notextoutline = atoi(pText);
         }
 
         if (pKey == "translucentroomname")
         {
-            dwgfx.translucentroomname = atoi(pText);
+            graphics.translucentroomname = atoi(pText);
         }
 
         if (pKey == "showmousecursor")
         {
-            dwgfx.showmousecursor = atoi(pText);
+            graphics.showmousecursor = atoi(pText);
         }
 
-		if (pKey == "flipButton")
-		{
-			SDL_GameControllerButton newButton;
-			if (GetButtonFromString(pText, &newButton))
-			{
-				controllerButton_flip.push_back(newButton);
-			}
-		}
+        if (pKey == "flipButton")
+        {
+            SDL_GameControllerButton newButton;
+            if (GetButtonFromString(pText, &newButton))
+            {
+                controllerButton_flip.push_back(newButton);
+            }
+        }
 
-		if (pKey == "enterButton")
-		{
-			SDL_GameControllerButton newButton;
-			if (GetButtonFromString(pText, &newButton))
-			{
-				controllerButton_map.push_back(newButton);
-			}
-		}
+        if (pKey == "enterButton")
+        {
+            SDL_GameControllerButton newButton;
+            if (GetButtonFromString(pText, &newButton))
+            {
+                controllerButton_map.push_back(newButton);
+            }
+        }
 
-		if (pKey == "escButton")
-		{
-			SDL_GameControllerButton newButton;
-			if (GetButtonFromString(pText, &newButton))
-			{
-				controllerButton_esc.push_back(newButton);
-			}
-		}
+        if (pKey == "escButton")
+        {
+            SDL_GameControllerButton newButton;
+            if (GetButtonFromString(pText, &newButton))
+            {
+                controllerButton_esc.push_back(newButton);
+            }
+        }
 
-		if (pKey == "controllerSensitivity")
-		{
-			controllerSensitivity = atoi(pText);
-		}
+        if (pKey == "controllerSensitivity")
+        {
+            controllerSensitivity = atoi(pText);
+        }
 
     }
 
-    if(fullscreen)
+    if (fullscreen)
     {
-        dwgfx.screenbuffer->toggleFullScreen();
+        graphics.screenbuffer->toggleFullScreen();
     }
-    for (int i = 0; i < stretchMode; i += 1)
+    for (int i = 0; i < stretchMode; i++)
     {
-        dwgfx.screenbuffer->toggleStretchMode();
+        graphics.screenbuffer->toggleStretchMode();
     }
     if (useLinearFilter)
     {
-        dwgfx.screenbuffer->toggleLinearFilter();
+        graphics.screenbuffer->toggleLinearFilter();
     }
-    dwgfx.screenbuffer->ResizeScreen(width, height);
+    graphics.screenbuffer->ResizeScreen(width, height);
 
-    if (dwgfx.showmousecursor == true)
+    if (graphics.showmousecursor == true)
     {
         SDL_ShowCursor(SDL_ENABLE);
     }
@@ -4542,7 +4476,7 @@ void Game::loadstats( mapclass& map, Graphics& dwgfx )
     }
 }
 
-void Game::savestats( mapclass& _map, Graphics& _dwgfx )
+void Game::savestats()
 {
     TiXmlDocument doc;
     TiXmlElement* msg;
@@ -4562,7 +4496,7 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     std::string s_unlock;
     for(size_t i = 0; i < unlock.size(); i++ )
     {
-        s_unlock += UtilityClass::String(unlock[i]) + ",";
+        s_unlock += help.String(unlock[i]) + ",";
     }
     msg = new TiXmlElement( "unlock" );
     msg->LinkEndChild( new TiXmlText( s_unlock.c_str() ));
@@ -4571,7 +4505,7 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     std::string s_unlocknotify;
     for(size_t i = 0; i < unlocknotify.size(); i++ )
     {
-        s_unlocknotify += UtilityClass::String(unlocknotify[i]) + ",";
+        s_unlocknotify += help.String(unlocknotify[i]) + ",";
     }
     msg = new TiXmlElement( "unlocknotify" );
     msg->LinkEndChild( new TiXmlText( s_unlocknotify.c_str() ));
@@ -4580,7 +4514,7 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     std::string s_besttimes;
     for(size_t i = 0; i < besttrinkets.size(); i++ )
     {
-        s_besttimes += UtilityClass::String(besttimes[i]) + ",";
+        s_besttimes += help.String(besttimes[i]) + ",";
     }
     msg = new TiXmlElement( "besttimes" );
     msg->LinkEndChild( new TiXmlText( s_besttimes.c_str() ));
@@ -4589,7 +4523,7 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     std::string s_besttrinkets;
     for(size_t i = 0; i < besttrinkets.size(); i++ )
     {
-        s_besttrinkets += UtilityClass::String(besttrinkets[i]) + ",";
+        s_besttrinkets += help.String(besttrinkets[i]) + ",";
     }
     msg = new TiXmlElement( "besttrinkets" );
     msg->LinkEndChild( new TiXmlText( s_besttrinkets.c_str() ));
@@ -4598,7 +4532,7 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     std::string s_bestlives;
     for(size_t i = 0; i < bestlives.size(); i++ )
     {
-        s_bestlives += UtilityClass::String(bestlives[i]) + ",";
+        s_bestlives += help.String(bestlives[i]) + ",";
     }
     msg = new TiXmlElement( "bestlives" );
     msg->LinkEndChild( new TiXmlText( s_bestlives.c_str() ));
@@ -4607,7 +4541,7 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     std::string s_bestrank;
     for(size_t i = 0; i < bestrank.size(); i++ )
     {
-        s_bestrank += UtilityClass::String(bestrank[i]) + ",";
+        s_bestrank += help.String(bestrank[i]) + ",";
     }
     msg = new TiXmlElement( "bestrank" );
     msg->LinkEndChild( new TiXmlText( s_bestrank.c_str() ));
@@ -4635,7 +4569,7 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     dataNode->LinkEndChild( msg );
 
     int width, height;
-    _dwgfx.screenbuffer->GetWindowSize(&width, &height);
+    graphics.screenbuffer->GetWindowSize(&width, &height);
     msg = new TiXmlElement( "window_width" );
     msg->LinkEndChild( new TiXmlText( tu.String(width).c_str()));
     dataNode->LinkEndChild( msg );
@@ -4652,11 +4586,11 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     dataNode->LinkEndChild( msg );
 
     msg = new TiXmlElement( "setflipmode" );
-    msg->LinkEndChild( new TiXmlText( tu.String(_dwgfx.setflipmode).c_str()));
+    msg->LinkEndChild( new TiXmlText( tu.String(graphics.setflipmode).c_str()));
     dataNode->LinkEndChild( msg );
 
     msg = new TiXmlElement( "invincibility" );
-    msg->LinkEndChild( new TiXmlText( tu.String(_map.invincibility).c_str()));
+    msg->LinkEndChild( new TiXmlText( tu.String(map.invincibility).c_str()));
     dataNode->LinkEndChild( msg );
 
     msg = new TiXmlElement( "slowdown" );
@@ -4680,7 +4614,6 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     msg->LinkEndChild( new TiXmlText( tu.String(fullScreenEffect_badSignal).c_str()));
     dataNode->LinkEndChild( msg );
 
-		
     msg = new TiXmlElement( "usingmmmmmm" );
     msg->LinkEndChild( new TiXmlText( tu.String(usingmmmmmm).c_str()));
     dataNode->LinkEndChild( msg );
@@ -4690,15 +4623,15 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
     dataNode->LinkEndChild(msg);
 
     msg = new TiXmlElement("notextoutline");
-    msg->LinkEndChild(new TiXmlText(tu.String((int) _dwgfx.notextoutline).c_str()));
+    msg->LinkEndChild(new TiXmlText(tu.String((int) graphics.notextoutline).c_str()));
     dataNode->LinkEndChild(msg);
 
     msg = new TiXmlElement("translucentroomname");
-    msg->LinkEndChild(new TiXmlText(tu.String((int) _dwgfx.translucentroomname).c_str()));
+    msg->LinkEndChild(new TiXmlText(tu.String((int) graphics.translucentroomname).c_str()));
     dataNode->LinkEndChild(msg);
 
     msg = new TiXmlElement("showmousecursor");
-    msg->LinkEndChild(new TiXmlText(tu.String((int)_dwgfx.showmousecursor).c_str()));
+    msg->LinkEndChild(new TiXmlText(tu.String((int)graphics.showmousecursor).c_str()));
     dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
@@ -4720,14 +4653,14 @@ void Game::savestats( mapclass& _map, Graphics& _dwgfx )
         dataNode->LinkEndChild(msg);
     }
 
-	msg = new TiXmlElement( "controllerSensitivity" );
-	msg->LinkEndChild( new TiXmlText( tu.String(controllerSensitivity).c_str()));
-	dataNode->LinkEndChild( msg );
+    msg = new TiXmlElement( "controllerSensitivity" );
+    msg->LinkEndChild( new TiXmlText( tu.String(controllerSensitivity).c_str()));
+    dataNode->LinkEndChild( msg );
 
     FILESYSTEM_saveTiXmlDocument("saves/unlock.vvv", &doc);
 }
 
-void Game::customstart( entityclass& obj, musicclass& music )
+void Game::customstart()
 {
     jumpheld = true;
 
@@ -4738,24 +4671,18 @@ void Game::customstart( entityclass& obj, musicclass& music )
 
     savegc = edsavegc;
     savedir = edsavedir; //Worldmap Start
-    //savex = 6 * 8; savey = 15 * 8; saverx = 46; savery = 54; savegc = 0; savedir = 1; //Final Level Current
     savepoint = 0;
     gravitycontrol = savegc;
 
     coins = 0;
     trinkets = 0;
 
-    //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
     deathseq = -1;
     lifeseq = 0;
-
-    //let's teleport in!
-    //state = 2500;
-    //if (!nocutscenes) music.play(5);
 }
 
-void Game::start( entityclass& obj, musicclass& music )
+void Game::start()
 {
     jumpheld = true;
 
@@ -4765,24 +4692,20 @@ void Game::start( entityclass& obj, musicclass& music )
     savery = 110;
     savegc = 0;
     savedir = 1; //Worldmap Start
-    //savex = 6 * 8; savey = 15 * 8; saverx = 46; savery = 54; savegc = 0; savedir = 1; //Final Level Current
     savepoint = 0;
     gravitycontrol = savegc;
 
     coins = 0;
     trinkets = 0;
 
-    //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
     deathseq = -1;
     lifeseq = 0;
 
-    //let's teleport in!
-    //state = 2500;
     if (!nocutscenes) music.play(5);
 }
 
-void Game::deathsequence( mapclass& map, entityclass& obj, musicclass& music )
+void Game::deathsequence()
 {
     int i;
     if (supercrewmate && scmhurt)
@@ -4833,7 +4756,7 @@ void Game::deathsequence( mapclass& map, entityclass& obj, musicclass& music )
     }
 }
 
-void Game::startspecial( int t, entityclass& obj, musicclass& music )
+void Game::startspecial(int t)
 {
     jumpheld = true;
 
@@ -4874,7 +4797,7 @@ void Game::startspecial( int t, entityclass& obj, musicclass& music )
     lifeseq = 0;
 }
 
-void Game::starttrial( int t, entityclass& obj, musicclass& music )
+void Game::starttrial(int t)
 {
     jumpheld = true;
 
@@ -4950,7 +4873,7 @@ void Game::starttrial( int t, entityclass& obj, musicclass& music )
     lifeseq = 0;
 }
 
-void Game::loadquick( mapclass& map, entityclass& obj, musicclass& music )
+void Game::loadquick()
 {
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument("saves/qsave.vvv", &doc)) return;
@@ -5171,7 +5094,7 @@ void Game::loadquick( mapclass& map, entityclass& obj, musicclass& music )
 
 }
 
-void Game::customloadquick(std::string savfile, mapclass& map, entityclass& obj, musicclass& music )
+void Game::customloadquick(std::string savfile)
 {
     std::string levelfile = savfile.substr(7);
     TiXmlDocument doc;
@@ -5428,45 +5351,15 @@ void Game::customloadquick(std::string savfile, mapclass& map, entityclass& obj,
 
 }
 
-//TODO load summary
-void Game::loadsummary( mapclass& map, UtilityClass& help )
+void Game::loadsummary()
 {
-    //quickcookie = SharedObject.getLocal("dwvvvvvv_quick");
-    //telecookie = SharedObject.getLocal("dwvvvvvv_tele");
-
-    //if (telecookie.data.savex == undefined) {
-    //	telecookieexists = false; telesummary = "";
-    //} else {
-    //	telecookieexists = true; telesummary = telecookie.data.summary;
-    //	tele_gametime = giventimestring(telecookie.data.hours, telecookie.data.minutes, telecookie.data.seconds, help);
-    //	tele_trinkets = telecookie.data.trinkets;
-    //	tele_currentarea = map.currentarea(map.area(telecookie.data.savex, telecookie.data.savey));
-
-    //	summary_crewstats = telecookie.data.crewstats.slice();
-    //	tele_crewstats = summary_crewstats.slice();
-    //}
-
-    //if (quickcookie.data.savex == undefined) {
-    //	quickcookieexists = false; quicksummary = "";
-    //} else {
-    //	quickcookieexists = true; quicksummary = quickcookie.data.summary;
-    //	quick_gametime = giventimestring(quickcookie.data.hours, quickcookie.data.minutes, quickcookie.data.seconds, help);
-    //	quick_trinkets = quickcookie.data.trinkets;
-    //	quick_currentarea = map.currentarea(map.area(quickcookie.data.savex, quickcookie.data.savey));
-
-    //	summary_crewstats = quickcookie.data.crewstats.slice();
-    //	quick_crewstats = summary_crewstats.slice();
-    //}
-
     TiXmlDocument docTele;
     if (!FILESYSTEM_loadTiXmlDocument("saves/tsave.vvv", &docTele))
     {
-        telecookieexists = false;
         telesummary = "";
     }
     else
     {
-        telecookieexists = true;
         TiXmlHandle hDoc(&docTele);
         TiXmlElement* pElem;
         TiXmlHandle hRoot(0);
@@ -5545,19 +5438,17 @@ void Game::loadsummary( mapclass& map, UtilityClass& help )
             }
 
         }
-        tele_gametime = giventimestring(l_hours,l_minute, l_second,help);
+        tele_gametime = giventimestring(l_hours,l_minute, l_second);
         tele_currentarea = map.currentarea(map.area(l_saveX, l_saveY));
     }
 
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument("saves/qsave.vvv", &doc))
     {
-        quickcookieexists = false;
         quicksummary = "";
     }
     else
     {
-        quickcookieexists = true;
         TiXmlHandle hDoc(&doc);
         TiXmlElement* pElem;
         TiXmlHandle hRoot(0);
@@ -5637,7 +5528,7 @@ void Game::loadsummary( mapclass& map, UtilityClass& help )
 
         }
 
-        quick_gametime = giventimestring(l_hours,l_minute, l_second,help);
+        quick_gametime = giventimestring(l_hours,l_minute, l_second);
         quick_currentarea = map.currentarea(map.area(l_saveX, l_saveY));
     }
 
@@ -5645,7 +5536,7 @@ void Game::loadsummary( mapclass& map, UtilityClass& help )
 
 }
 
-void Game::initteleportermode( mapclass& map )
+void Game::initteleportermode()
 {
     //Set the teleporter variable to the right position!
     teleport_to_teleporter = 0;
@@ -5659,13 +5550,9 @@ void Game::initteleportermode( mapclass& map )
     }
 }
 
-void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
+void Game::savetele()
 {
     //TODO make this code a bit cleaner.
-
-    //telecookie = SharedObject.getLocal("dwvvvvvv_tele");
-    //Save to the telesave cookie
-    telecookieexists = true;
 
     if (map.custommode)
     {
@@ -5690,23 +5577,11 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
 
 
     //Flags, map and stats
-    //savestate[1].explored = map.explored.slice();
-    //savestate[1].flags = obj.flags.slice();
-    //savestate[1].crewstats = crewstats.slice();
-    //savestate[1].collect = obj.collect.slice();
-
-    //telecookie.data.worldmap = savestate[1].explored.slice();
-    //telecookie.data.flags = savestate[1].flags.slice();
-    //telecookie.data.crewstats = savestate[1].crewstats.slice();
-    //telecookie.data.collect = savestate[1].collect.slice();
-
-    //telecookie.data.finalmode = map.finalmode;
-    //telecookie.data.finalstretch = map.finalstretch;
 
     std::string mapExplored;
     for(size_t i = 0; i < map.explored.size(); i++ )
     {
-        mapExplored += UtilityClass::String(map.explored[i]) + ",";
+        mapExplored += help.String(map.explored[i]) + ",";
     }
     msg = new TiXmlElement( "worldmap" );
     msg->LinkEndChild( new TiXmlText( mapExplored.c_str() ));
@@ -5715,7 +5590,7 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += UtilityClass::String(obj.flags[i]) + ",";
+        flags += help.String(obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -5724,7 +5599,7 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
     std::string crewstatsString;
     for(size_t i = 0; i < crewstats.size(); i++ )
     {
-        crewstatsString += UtilityClass::String(crewstats[i]) + ",";
+        crewstatsString += help.String(crewstats[i]) + ",";
     }
     msg = new TiXmlElement( "crewstats" );
     msg->LinkEndChild( new TiXmlText( crewstatsString.c_str() ));
@@ -5733,90 +5608,67 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += UtilityClass::String(obj.collect[i]) + ",";
+        collect += help.String(obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
     msgs->LinkEndChild( msg );
 
-    //telecookie.data.finalx = map.finalx;
-    //telecookie.data.finaly = map.finaly;
     //Position
-    //telecookie.data.savex = savex;
-    //telecookie.data.savey = savey;
 
     msg = new TiXmlElement( "finalx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finalx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finalx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "finaly" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finaly).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finaly).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savex" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savex).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savex).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savey" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savey).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savey).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "saverx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(saverx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(saverx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savery" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savery).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savery).c_str() ));
     msgs->LinkEndChild( msg );
 
-    //telecookie.data.saverx = saverx;
-    //telecookie.data.savery = savery;
-    //telecookie.data.savegc = savegc;
-    //telecookie.data.savedir = savedir;
-    //telecookie.data.savepoint = savepoint;
-    //telecookie.data.trinkets = trinkets;
-
     msg = new TiXmlElement( "savegc" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savegc).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savegc).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savedir" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savedir).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savedir).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savepoint" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savepoint).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savepoint).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
     msgs->LinkEndChild( msg );
 
 
-    //if (music.nicechange != -1) {
-    //telecookie.data.currentsong = music.nicechange;
-    //}else{
-    //telecookie.data.currentsong = music.currentsong;
-    //}
-    //telecookie.data.teleportscript = teleportscript;
-
     //Special stats
-    //telecookie.data.companion = companion;
-    //telecookie.data.lastsaved = lastsaved;
-    //telecookie.data.supercrewmate = supercrewmate;
-    //telecookie.data.scmprogress = scmprogress;
-    //telecookie.data.scmmoveme = scmmoveme;
 
     if(music.nicefade==1)
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.nicechange).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.nicechange).c_str() ));
         msgs->LinkEndChild( msg );
     }
     else
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.currentsong).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.currentsong).c_str() ));
         msgs->LinkEndChild( msg );
     }
 
@@ -5824,62 +5676,50 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
     msg->LinkEndChild( new TiXmlText( teleportscript.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "companion" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(companion).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(companion).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "lastsaved" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(lastsaved).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(lastsaved).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "supercrewmate" );
     msg->LinkEndChild( new TiXmlText( BoolToString(supercrewmate) ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "scmprogress" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(scmprogress).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(scmprogress).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "scmmoveme" );
     msg->LinkEndChild( new TiXmlText( BoolToString(scmmoveme) ));
     msgs->LinkEndChild( msg );
 
 
-    //telecookie.data.frames = frames; telecookie.data.seconds = seconds;
-    //telecookie.data.minutes = minutes; telecookie.data.hours = hours;
-
-    //telecookie.data.deathcounts = deathcounts;
-    //telecookie.data.totalflips = totalflips;
-    //telecookie.data.hardestroom = hardestroom; telecookie.data.hardestroomdeaths = hardestroomdeaths;
-
-    //savearea = map.currentarea(map.area(roomx, roomy))
-    //telecookie.data.summary = savearea + ", " + timestring(help);
-    //telesummary = telecookie.data.summary;
-
-
     msg = new TiXmlElement( "frames" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(frames).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(frames).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "seconds" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(seconds).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(seconds).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "minutes" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(minutes).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(minutes).c_str()) );
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hours" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hours).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(hours).c_str()) );
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "deathcounts" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(deathcounts).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(deathcounts).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "totalflips" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(totalflips).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(totalflips).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "hardestroom" );
     msg->LinkEndChild( new TiXmlText( hardestroom.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hardestroomdeaths" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hardestroomdeaths).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(hardestroomdeaths).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "finalmode" );
@@ -5891,8 +5731,7 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
 
 
     msg = new TiXmlElement( "summary" );
-    UtilityClass tempUtil;
-    std::string summary = savearea + ", " + timestring(tempUtil);
+    std::string summary = savearea + ", " + timestring();
     msg->LinkEndChild( new TiXmlText( summary.c_str() ));
     msgs->LinkEndChild( msg );
 
@@ -5912,10 +5751,8 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
 }
 
 
-void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
+void Game::savequick()
 {
-    quickcookieexists = true;
-
     if (map.custommode)
     {
         //Don't trash save data!
@@ -5939,23 +5776,11 @@ void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
 
 
     //Flags, map and stats
-    //savestate[1].explored = map.explored.slice();
-    //savestate[1].flags = obj.flags.slice();
-    //savestate[1].crewstats = crewstats.slice();
-    //savestate[1].collect = obj.collect.slice();
-
-    //telecookie.data.worldmap = savestate[1].explored.slice();
-    //telecookie.data.flags = savestate[1].flags.slice();
-    //telecookie.data.crewstats = savestate[1].crewstats.slice();
-    //telecookie.data.collect = savestate[1].collect.slice();
-
-    //telecookie.data.finalmode = map.finalmode;
-    //telecookie.data.finalstretch = map.finalstretch;
 
     std::string mapExplored;
     for(size_t i = 0; i < map.explored.size(); i++ )
     {
-        mapExplored += UtilityClass::String(map.explored[i]) + ",";
+        mapExplored += help.String(map.explored[i]) + ",";
     }
     msg = new TiXmlElement( "worldmap" );
     msg->LinkEndChild( new TiXmlText( mapExplored.c_str() ));
@@ -5964,7 +5789,7 @@ void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += UtilityClass::String(obj.flags[i]) + ",";
+        flags += help.String(obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -5973,7 +5798,7 @@ void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
     std::string crewstatsString;
     for(size_t i = 0; i < crewstats.size(); i++ )
     {
-        crewstatsString += UtilityClass::String(crewstats[i]) + ",";
+        crewstatsString += help.String(crewstats[i]) + ",";
     }
     msg = new TiXmlElement( "crewstats" );
     msg->LinkEndChild( new TiXmlText( crewstatsString.c_str() ));
@@ -5982,89 +5807,66 @@ void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += UtilityClass::String(obj.collect[i]) + ",";
+        collect += help.String(obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
     msgs->LinkEndChild( msg );
 
-    //telecookie.data.finalx = map.finalx;
-    //telecookie.data.finaly = map.finaly;
     //Position
-    //telecookie.data.savex = savex;
-    //telecookie.data.savey = savey;
 
     msg = new TiXmlElement( "finalx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finalx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finalx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "finaly" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finaly).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finaly).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savex" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savex).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savex).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savey" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savey).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savey).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "saverx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(saverx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(saverx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savery" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savery).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savery).c_str() ));
     msgs->LinkEndChild( msg );
 
-    //telecookie.data.saverx = saverx;
-    //telecookie.data.savery = savery;
-    //telecookie.data.savegc = savegc;
-    //telecookie.data.savedir = savedir;
-    //telecookie.data.savepoint = savepoint;
-    //telecookie.data.trinkets = trinkets;
-
     msg = new TiXmlElement( "savegc" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savegc).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savegc).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savedir" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savedir).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savedir).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savepoint" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savepoint).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savepoint).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
     msgs->LinkEndChild( msg );
 
 
-    //if (music.nicechange != -1) {
-    //telecookie.data.currentsong = music.nicechange;
-    //}else{
-    //telecookie.data.currentsong = music.currentsong;
-    //}
-    //telecookie.data.teleportscript = teleportscript;
-
     //Special stats
-    //telecookie.data.companion = companion;
-    //telecookie.data.lastsaved = lastsaved;
-    //telecookie.data.supercrewmate = supercrewmate;
-    //telecookie.data.scmprogress = scmprogress;
-    //telecookie.data.scmmoveme = scmmoveme;
     if(music.nicefade==1)
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.nicechange).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.nicechange).c_str() ));
         msgs->LinkEndChild( msg );
     }
     else
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.currentsong).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.currentsong).c_str() ));
         msgs->LinkEndChild( msg );
     }
 
@@ -6072,26 +5874,23 @@ void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
     msg->LinkEndChild( new TiXmlText( teleportscript.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "companion" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(companion).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(companion).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "lastsaved" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(lastsaved).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(lastsaved).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "supercrewmate" );
     msg->LinkEndChild( new TiXmlText( BoolToString(supercrewmate) ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "scmprogress" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(scmprogress).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(scmprogress).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "scmmoveme" );
     msg->LinkEndChild( new TiXmlText( BoolToString(scmmoveme) ));
     msgs->LinkEndChild( msg );
 
-
-    //telecookie.data.finalmode = map.finalmode;
-    //telecookie.data.finalstretch = map.finalstretch;
 
     msg = new TiXmlElement( "finalmode" );
     msg->LinkEndChild( new TiXmlText( BoolToString(map.finalmode) ));
@@ -6100,55 +5899,41 @@ void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
     msg->LinkEndChild( new TiXmlText( BoolToString(map.finalstretch) ));
     msgs->LinkEndChild( msg );
 
-    //telecookie.data.frames = frames; telecookie.data.seconds = seconds;
-    //telecookie.data.minutes = minutes; telecookie.data.hours = hours;
-
-    //telecookie.data.deathcounts = deathcounts;
-    //telecookie.data.totalflips = totalflips;
-    //telecookie.data.hardestroom = hardestroom; telecookie.data.hardestroomdeaths = hardestroomdeaths;
-
-    //savearea = map.currentarea(map.area(roomx, roomy))
-    //telecookie.data.summary = savearea + ", " + timestring(help);
-    //telesummary = telecookie.data.summary;
-
 
     msg = new TiXmlElement( "frames" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(frames).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(frames).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "seconds" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(seconds).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(seconds).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "minutes" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(minutes).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(minutes).c_str()) );
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hours" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hours).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(hours).c_str()) );
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "deathcounts" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(deathcounts).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(deathcounts).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "totalflips" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(totalflips).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(totalflips).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "hardestroom" );
     msg->LinkEndChild( new TiXmlText( hardestroom.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hardestroomdeaths" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hardestroomdeaths).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(hardestroomdeaths).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "summary" );
-    UtilityClass tempUtil;
-    std::string summary = savearea + ", " + timestring(tempUtil);
+    std::string summary = savearea + ", " + timestring();
     msg->LinkEndChild( new TiXmlText( summary.c_str() ));
     msgs->LinkEndChild( msg );
 
     quicksummary = summary;
-    //telecookie.flush();
-    //telecookie.close();
 
     if(FILESYSTEM_saveTiXmlDocument("saves/qsave.vvv", &doc))
     {
@@ -6162,10 +5947,8 @@ void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
 
 }
 
-void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj, musicclass& music )
+void Game::customsavequick(std::string savfile)
 {
-    quickcookieexists = true;
-
     TiXmlDocument doc;
     TiXmlElement* msg;
     TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "", "" );
@@ -6183,23 +5966,11 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
 
 
     //Flags, map and stats
-    //savestate[1].explored = map.explored.slice();
-    //savestate[1].flags = obj.flags.slice();
-    //savestate[1].crewstats = crewstats.slice();
-    //savestate[1].collect = obj.collect.slice();
-
-    //telecookie.data.worldmap = savestate[1].explored.slice();
-    //telecookie.data.flags = savestate[1].flags.slice();
-    //telecookie.data.crewstats = savestate[1].crewstats.slice();
-    //telecookie.data.collect = savestate[1].collect.slice();
-
-    //telecookie.data.finalmode = map.finalmode;
-    //telecookie.data.finalstretch = map.finalstretch;
 
     std::string mapExplored;
     for(size_t i = 0; i < map.explored.size(); i++ )
     {
-        mapExplored += UtilityClass::String(map.explored[i]) + ",";
+        mapExplored += help.String(map.explored[i]) + ",";
     }
     msg = new TiXmlElement( "worldmap" );
     msg->LinkEndChild( new TiXmlText( mapExplored.c_str() ));
@@ -6208,7 +5979,7 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += UtilityClass::String(obj.flags[i]) + ",";
+        flags += help.String(obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -6217,7 +5988,7 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
     std::string moods;
     for(int i = 0; i < 6; i++ )
     {
-        moods += UtilityClass::String(obj.customcrewmoods[i]) + ",";
+        moods += help.String(obj.customcrewmoods[i]) + ",";
     }
     msg = new TiXmlElement( "moods" );
     msg->LinkEndChild( new TiXmlText( moods.c_str() ));
@@ -6226,7 +5997,7 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
     std::string crewstatsString;
     for(size_t i = 0; i < crewstats.size(); i++ )
     {
-        crewstatsString += UtilityClass::String(crewstats[i]) + ",";
+        crewstatsString += help.String(crewstats[i]) + ",";
     }
     msg = new TiXmlElement( "crewstats" );
     msg->LinkEndChild( new TiXmlText( crewstatsString.c_str() ));
@@ -6235,7 +6006,7 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += UtilityClass::String(obj.collect[i]) + ",";
+        collect += help.String(obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
@@ -6244,93 +6015,70 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
     std::string customcollect;
     for(size_t i = 0; i < obj.customcollect.size(); i++ )
     {
-        customcollect += UtilityClass::String(obj.customcollect[i]) + ",";
+        customcollect += help.String(obj.customcollect[i]) + ",";
     }
     msg = new TiXmlElement( "customcollect" );
     msg->LinkEndChild( new TiXmlText( customcollect.c_str() ));
     msgs->LinkEndChild( msg );
 
-    //telecookie.data.finalx = map.finalx;
-    //telecookie.data.finaly = map.finaly;
     //Position
-    //telecookie.data.savex = savex;
-    //telecookie.data.savey = savey;
 
     msg = new TiXmlElement( "finalx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finalx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finalx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "finaly" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finaly).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finaly).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savex" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savex).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savex).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savey" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savey).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savey).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "saverx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(saverx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(saverx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savery" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savery).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savery).c_str() ));
     msgs->LinkEndChild( msg );
 
-    //telecookie.data.saverx = saverx;
-    //telecookie.data.savery = savery;
-    //telecookie.data.savegc = savegc;
-    //telecookie.data.savedir = savedir;
-    //telecookie.data.savepoint = savepoint;
-    //telecookie.data.trinkets = trinkets;
-
     msg = new TiXmlElement( "savegc" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savegc).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savegc).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savedir" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savedir).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savedir).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savepoint" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savepoint).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savepoint).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "crewmates" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(crewmates).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(crewmates).c_str() ));
     msgs->LinkEndChild( msg );
 
 
-    //if (music.nicechange != -1) {
-    //telecookie.data.currentsong = music.nicechange;
-    //}else{
-    //telecookie.data.currentsong = music.currentsong;
-    //}
-    //telecookie.data.teleportscript = teleportscript;
-
     //Special stats
-    //telecookie.data.companion = companion;
-    //telecookie.data.lastsaved = lastsaved;
-    //telecookie.data.supercrewmate = supercrewmate;
-    //telecookie.data.scmprogress = scmprogress;
-    //telecookie.data.scmmoveme = scmmoveme;
     if(music.nicefade==1)
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.nicechange).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.nicechange).c_str() ));
         msgs->LinkEndChild( msg );
     }
     else
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.currentsong).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.currentsong).c_str() ));
         msgs->LinkEndChild( msg );
     }
 
@@ -6338,62 +6086,50 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
     msg->LinkEndChild( new TiXmlText( teleportscript.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "companion" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(companion).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(companion).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "lastsaved" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(lastsaved).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(lastsaved).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "supercrewmate" );
     msg->LinkEndChild( new TiXmlText( BoolToString(supercrewmate) ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "scmprogress" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(scmprogress).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(scmprogress).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "scmmoveme" );
     msg->LinkEndChild( new TiXmlText( BoolToString(scmmoveme) ));
     msgs->LinkEndChild( msg );
 
 
-    //telecookie.data.frames = frames; telecookie.data.seconds = seconds;
-    //telecookie.data.minutes = minutes; telecookie.data.hours = hours;
-
-    //telecookie.data.deathcounts = deathcounts;
-    //telecookie.data.totalflips = totalflips;
-    //telecookie.data.hardestroom = hardestroom; telecookie.data.hardestroomdeaths = hardestroomdeaths;
-
-    //savearea = map.currentarea(map.area(roomx, roomy))
-    //telecookie.data.summary = savearea + ", " + timestring(help);
-    //telesummary = telecookie.data.summary;
-
-
     msg = new TiXmlElement( "frames" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(frames).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(frames).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "seconds" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(seconds).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(seconds).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "minutes" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(minutes).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(minutes).c_str()) );
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hours" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hours).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(hours).c_str()) );
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "deathcounts" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(deathcounts).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(deathcounts).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "totalflips" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(totalflips).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(totalflips).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "hardestroom" );
     msg->LinkEndChild( new TiXmlText( hardestroom.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hardestroomdeaths" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hardestroomdeaths).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(hardestroomdeaths).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "showminimap" );
@@ -6401,14 +6137,11 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "summary" );
-    UtilityClass tempUtil;
-    std::string summary = savearea + ", " + timestring(tempUtil);
+    std::string summary = savearea + ", " + timestring();
     msg->LinkEndChild( new TiXmlText( summary.c_str() ));
     msgs->LinkEndChild( msg );
 
     customquicksummary = summary;
-    //telecookie.flush();
-    //telecookie.close();
 
     std::string levelfile = savfile.substr(7);
     if(FILESYSTEM_saveTiXmlDocument(("saves/"+levelfile+".vvv").c_str(), &doc))
@@ -6423,7 +6156,7 @@ void Game::customsavequick(std::string savfile, mapclass& map, entityclass& obj,
 }
 
 
-void Game::loadtele( mapclass& map, entityclass& obj, musicclass& music )
+void Game::loadtele()
 {
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument("saves/tsave.vvv", &doc)) return;
@@ -6700,7 +6433,7 @@ teststring = os.str();
 	}
 }
 
-std::string Game::giventimestring( int hrs, int min, int sec, UtilityClass& help )
+std::string Game::giventimestring(int hrs, int min, int sec)
 {
     tempstring = "";
     if (hrs > 0)
@@ -6711,7 +6444,7 @@ std::string Game::giventimestring( int hrs, int min, int sec, UtilityClass& help
     return tempstring;
 }
 
-std::string Game::timestring( UtilityClass& help )
+std::string Game::timestring()
 {
     tempstring = "";
     if (hours > 0)
@@ -6722,7 +6455,7 @@ std::string Game::timestring( UtilityClass& help )
     return tempstring;
 }
 
-std::string Game::partimestring( UtilityClass& help )
+std::string Game::partimestring()
 {
     //given par time in seconds:
     tempstring = "";
@@ -6737,7 +6470,7 @@ std::string Game::partimestring( UtilityClass& help )
     return tempstring;
 }
 
-std::string Game::resulttimestring( UtilityClass& help )
+std::string Game::resulttimestring()
 {
     //given result time in seconds:
     tempstring = "";
@@ -6753,7 +6486,7 @@ std::string Game::resulttimestring( UtilityClass& help )
     return tempstring;
 }
 
-std::string Game::timetstring( int t, UtilityClass& help )
+std::string Game::timetstring(int t)
 {
     //given par time in seconds:
     tempstring = "";
@@ -7753,7 +7486,6 @@ void Game::deletequick()
         printf("Error deleting file\n");
 
     quicksummary = "";
-    quickcookieexists = false;
 }
 
 void Game::deletetele()
@@ -7762,7 +7494,6 @@ void Game::deletetele()
         printf("Error deleting file\n");
 
     telesummary = "";
-    telecookieexists = false;
 }
 
 void Game::swnpenalty()

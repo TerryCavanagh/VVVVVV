@@ -9,111 +9,108 @@
 
 extern scriptclass script;
 
-// Found in titlerender.cpp
-void updategraphicsmode(Game& game, Graphics& dwgfx);
-
-void updatebuttonmappings(Game& game, KeyPoll& key, musicclass& music, int bind)
+void updatebuttonmappings(int bind)
 {
-	for (
-		SDL_GameControllerButton i = SDL_CONTROLLER_BUTTON_A;
-		i < SDL_CONTROLLER_BUTTON_DPAD_UP;
-		i = (SDL_GameControllerButton) (i + 1)
-	) {
-		if (key.isDown(i))
-		{
-			bool dupe = false;
-			if (bind == 1)
-			{
-				for (size_t j = 0; j < game.controllerButton_flip.size(); j += 1)
-				{
-					if (i == game.controllerButton_flip[j])
-					{
-						dupe = true;
-					}
-				}
-				if (!dupe)
-				{
-					game.controllerButton_flip.push_back(i);
-					music.playef(11, 10);
-				}
-				for (size_t j = 0; j < game.controllerButton_map.size(); j += 1)
-				{
-					if (i == game.controllerButton_map[j])
-					{
-						game.controllerButton_map.erase(game.controllerButton_map.begin() + j);
-					}
-				}
-				for (size_t j = 0; j < game.controllerButton_esc.size(); j += 1)
-				{
-					if (i == game.controllerButton_esc[j])
-					{
-						game.controllerButton_esc.erase(game.controllerButton_esc.begin() + j);
-					}
-				}
-			}
-			if (bind == 2)
-			{
-				for (size_t j = 0; j < game.controllerButton_map.size(); j += 1)
-				{
-					if (i == game.controllerButton_map[j])
-					{
-						dupe = true;
-					}
-				}
-				if (!dupe)
-				{
-					game.controllerButton_map.push_back(i);
-					music.playef(11, 10);
-				}
-				for (size_t j = 0; j < game.controllerButton_flip.size(); j += 1)
-				{
-					if (i == game.controllerButton_flip[j])
-					{
-						game.controllerButton_flip.erase(game.controllerButton_flip.begin() + j);
-					}
-				}
-				for (size_t j = 0; j < game.controllerButton_esc.size(); j += 1)
-				{
-					if (i == game.controllerButton_esc[j])
-					{
-						game.controllerButton_esc.erase(game.controllerButton_esc.begin() + j);
-					}
-				}
-			}
-			if (bind == 3)
-			{
-				for (size_t j = 0; j < game.controllerButton_esc.size(); j += 1)
-				{
-					if (i == game.controllerButton_esc[j])
-					{
-						dupe = true;
-					}
-				}
-				if (!dupe)
-				{
-					game.controllerButton_esc.push_back(i);
-					music.playef(11, 10);
-				}
-				for (size_t j = 0; j < game.controllerButton_flip.size(); j += 1)
-				{
-					if (i == game.controllerButton_flip[j])
-					{
-						game.controllerButton_flip.erase(game.controllerButton_flip.begin() + j);
-					}
-				}
-				for (size_t j = 0; j < game.controllerButton_map.size(); j += 1)
-				{
-					if (i == game.controllerButton_map[j])
-					{
-						game.controllerButton_map.erase(game.controllerButton_map.begin() + j);
-					}
-				}
-			}
-		}
-	}
+    for (
+        SDL_GameControllerButton i = SDL_CONTROLLER_BUTTON_A;
+        i < SDL_CONTROLLER_BUTTON_DPAD_UP;
+        i = (SDL_GameControllerButton) (i + 1)
+    ) {
+        if (key.isDown(i))
+        {
+            bool dupe = false;
+            if (bind == 1)
+            {
+                for (size_t j = 0; j < game.controllerButton_flip.size(); j++)
+                {
+                    if (i == game.controllerButton_flip[j])
+                    {
+                        dupe = true;
+                    }
+                }
+                if (!dupe)
+                {
+                    game.controllerButton_flip.push_back(i);
+                    music.playef(11, 10);
+                }
+                for (size_t j = 0; j < game.controllerButton_map.size(); j++)
+                {
+                    if (i == game.controllerButton_map[j])
+                    {
+                        game.controllerButton_map.erase(game.controllerButton_map.begin() + j);
+                    }
+                }
+                for (size_t j = 0; j < game.controllerButton_esc.size(); j++)
+                {
+                    if (i == game.controllerButton_esc[j])
+                    {
+                        game.controllerButton_esc.erase(game.controllerButton_esc.begin() + j);
+                    }
+                }
+            }
+            if (bind == 2)
+            {
+                for (size_t j = 0; j < game.controllerButton_map.size(); j++)
+                {
+                    if (i == game.controllerButton_map[j])
+                    {
+                        dupe = true;
+                    }
+                }
+                if (!dupe)
+                {
+                    game.controllerButton_map.push_back(i);
+                    music.playef(11, 10);
+                }
+                for (size_t j = 0; j < game.controllerButton_flip.size(); j++)
+                {
+                    if (i == game.controllerButton_flip[j])
+                    {
+                        game.controllerButton_flip.erase(game.controllerButton_flip.begin() + j);
+                    }
+                }
+                for (size_t j = 0; j < game.controllerButton_esc.size(); j++)
+                {
+                    if (i == game.controllerButton_esc[j])
+                    {
+                        game.controllerButton_esc.erase(game.controllerButton_esc.begin() + j);
+                    }
+                }
+            }
+            if (bind == 3)
+            {
+                for (size_t j = 0; j < game.controllerButton_esc.size(); j++)
+                {
+                    if (i == game.controllerButton_esc[j])
+                    {
+                        dupe = true;
+                    }
+                }
+                if (!dupe)
+                {
+                    game.controllerButton_esc.push_back(i);
+                    music.playef(11, 10);
+                }
+                for (size_t j = 0; j < game.controllerButton_flip.size(); j++)
+                {
+                    if (i == game.controllerButton_flip[j])
+                    {
+                        game.controllerButton_flip.erase(game.controllerButton_flip.begin() + j);
+                    }
+                }
+                for (size_t j = 0; j < game.controllerButton_map.size(); j++)
+                {
+                    if (i == game.controllerButton_map[j])
+                    {
+                        game.controllerButton_map.erase(game.controllerButton_map.begin() + j);
+                    }
+                }
+            }
+        }
+    }
 }
 
-void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, UtilityClass& help, musicclass& music)
+void titleinput()
 {
     //game.mx = (mouseX / 4);
     //game.my = (mouseY / 4);
@@ -126,9 +123,9 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
     game.press_action = false;
     game.press_map = false;
 
-    if (dwgfx.flipmode)
+    if (graphics.flipmode)
     {
-		//GAMEPAD TODO
+        //GAMEPAD TODO
         if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_s) || key.controllerWantsRight(true)) game.press_left = true;
         if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_UP)  || key.isDown(KEYBOARD_d) ||  key.isDown(KEYBOARD_w) || key.controllerWantsLeft(true)) game.press_right = true;
     }
@@ -141,7 +138,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
         if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_DOWN)  || key.isDown(KEYBOARD_d) ||  key.isDown(KEYBOARD_s) || key.controllerWantsRight(true))
         {
             game.press_right = true;
-		}
+        }
     }
     if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip)) game.press_action = true;
     //|| key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.press_action = true; //on menus, up and down don't work as action
@@ -151,48 +148,12 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
     if (!game.press_action && !game.press_left && !game.press_right) game.jumpheld = false;
     if (!game.press_map) game.mapheld = false;
 
-    if (!game.jumpheld && dwgfx.fademode==0)
+    if (!game.jumpheld && graphics.fademode==0)
     {
         if (game.press_action || game.press_left || game.press_right || game.press_map)
         {
             game.jumpheld = true;
         }
-
-        /*
-        if (game.press_left) {
-        game.mainmenu--;
-        }else if (game.press_right) {
-        game.mainmenu++;
-        }
-
-        if (game.mainmenu < 0) game.mainmenu = 2;
-        if (game.mainmenu > 2 ) game.mainmenu = 0;
-        */
-
-
-        /*
-        if (game.press_action) {
-        if (!game.menustart) {
-        game.menustart = true;
-        music.play(6);
-        music.playef(18, 10);
-        game.screenshake = 10;
-        game.flashlight = 5;
-        }else{
-        if(game.mainmenu==0){
-        dwgfx.fademode = 2;
-        }else if (game.mainmenu == 1) {
-        if (game.telesummary != "") {
-        dwgfx.fademode = 2;
-        }
-        }else if (game.mainmenu == 2) {
-        if (game.quicksummary != "") {
-        dwgfx.fademode = 2;
-        }
-        }
-        }
-        }
-        */
 
         if (key.isDown(27) && game.currentmenuname != "youwannaquit" && game.menustart)
         {
@@ -233,9 +194,9 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
             {
                 if (game.currentmenuname == "mainmenu")
                 {
-								
-            #if defined(MAKEANDPLAY)
-				   if (game.currentmenuoption == 0)
+
+#if defined(MAKEANDPLAY)
+                    if (game.currentmenuoption == 0)
                     {
                       //Bring you to the normal playmenu
                         music.playef(11, 10);
@@ -255,14 +216,14 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         music.playef(11, 10);
                         game.createmenu("options");
 
-												//Add extra menu for mmmmmm mod
-												if(music.mmmmmm){
-													game.menuoptions[3] = "soundtrack";
-													game.menuoptionsactive[3] = true;
-													game.menuoptions[4] = "return";
-													game.menuoptionsactive[4] = true;
-													game.nummenuoptions = 5;
-												}
+                    //Add extra menu for mmmmmm mod
+                    if(music.mmmmmm){
+                        game.menuoptions[3] = "soundtrack";
+                        game.menuoptionsactive[3] = true;
+                        game.menuoptions[4] = "return";
+                        game.menuoptionsactive[4] = true;
+                        game.nummenuoptions = 5;
+                    }
                         map.nexttowercolour();
                     }
                     else if (game.currentmenuoption == 3)
@@ -270,11 +231,11 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         //bye!
                         music.playef(2, 10);
                         game.mainmenu = 100;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                 }
-            #elif !defined(MAKEANDPLAY)
-                #if defined(NO_CUSTOM_LEVELS)
+#elif !defined(MAKEANDPLAY)
+  #if defined(NO_CUSTOM_LEVELS)
                     if (game.currentmenuoption == 0)
                     {
                         //Play
@@ -282,7 +243,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         {
                             //No saves exist, just start a new game
                             game.mainmenu = 0;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else
                         {
@@ -327,7 +288,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         //bye!
                         music.playef(2, 10);
                         game.mainmenu = 100;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                 #else
                     if (game.currentmenuoption == 0)
@@ -337,7 +298,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         {
                             //No saves exist, just start a new game
                             game.mainmenu = 0;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else
                         {
@@ -389,7 +350,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                         //bye!
                         music.playef(2, 10);
                         game.mainmenu = 100;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
             #endif
                 }
@@ -425,7 +386,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                     TiXmlDocument doc;
 	                  if (!FILESYSTEM_loadTiXmlDocument(name.c_str(), &doc)){
 	                    game.mainmenu = 22;
-                      dwgfx.fademode = 2;
+                      graphics.fademode = 2;
 	                  }else{
                       game.createmenu("quickloadlevel");
                       map.nexttowercolour();
@@ -437,10 +398,10 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                 {
                   if(game.currentmenuoption==0){//continue save
                     game.mainmenu = 23;
-                    dwgfx.fademode = 2;
+                    graphics.fademode = 2;
                   }else if(game.currentmenuoption==1){
 	                  game.mainmenu = 22;
-                    dwgfx.fademode = 2;
+                    graphics.fademode = 2;
                   }else if(game.currentmenuoption==2){
                     music.playef(11, 10);
                     game.levelpage=0;
@@ -464,7 +425,7 @@ void titleinput(KeyPoll& key, Graphics& dwgfx, mapclass& map, Game& game, entity
                     //LEVEL EDITOR HOOK
                     music.playef(11, 10);
                     game.mainmenu = 20;
-                    dwgfx.fademode = 2;
+                    graphics.fademode = 2;
                     ed.filename="";
                   }/*else if(game.currentmenuoption==2){
                     music.playef(11, 10);
@@ -508,26 +469,23 @@ SDL_assert(0 && "Remove open level dir");
                 {
                   if (game.currentmenuoption == 0){
                     music.playef(11, 10);
-                    dwgfx.screenbuffer->toggleFullScreen();
+                    graphics.screenbuffer->toggleFullScreen();
                     game.fullscreen = !game.fullscreen;
-                    updategraphicsmode(game, dwgfx);
-                    game.savestats(map, dwgfx);
+                    game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 0;
                   }else if (game.currentmenuoption == 1){
                     music.playef(11, 10);
-                    dwgfx.screenbuffer->toggleStretchMode();
+                    graphics.screenbuffer->toggleStretchMode();
                     game.stretchMode = (game.stretchMode + 1) % 3;
-                    updategraphicsmode(game, dwgfx);
-                    game.savestats(map, dwgfx);
+                    game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 1;
                   }else if (game.currentmenuoption == 2){
                     music.playef(11, 10);
-                    dwgfx.screenbuffer->toggleLinearFilter();
+                    graphics.screenbuffer->toggleLinearFilter();
                     game.useLinearFilter = !game.useLinearFilter;
-                    updategraphicsmode(game, dwgfx);
-                    game.savestats(map, dwgfx);
+                    game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 2;
                   }else if (game.currentmenuoption == 3){
@@ -535,21 +493,20 @@ SDL_assert(0 && "Remove open level dir");
                       music.playef(11, 10);
                       game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
                       //Hook the analogue thing in here: ABCDEFG
-                      updategraphicsmode(game, dwgfx);
-					  dwgfx.screenbuffer->badSignalEffect= !dwgfx.screenbuffer->badSignalEffect;
-                      game.savestats(map, dwgfx);
+                      graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
+                      game.savestats();
                       game.createmenu("graphicoptions");
                       game.currentmenuoption = 3;
                   }else if (game.currentmenuoption == 4) {
                       //toggle mouse cursor
                       music.playef(11, 10);
-                      if (dwgfx.showmousecursor == true) {
+                      if (graphics.showmousecursor == true) {
                           SDL_ShowCursor(SDL_DISABLE);
-                          dwgfx.showmousecursor = false;
+                          graphics.showmousecursor = false;
                       }
                       else {
                           SDL_ShowCursor(SDL_ENABLE);
-                          dwgfx.showmousecursor = true;
+                          graphics.showmousecursor = true;
                       }
                   }
                   else
@@ -559,122 +516,6 @@ SDL_assert(0 && "Remove open level dir");
                       game.createmenu("mainmenu");
                       map.nexttowercolour();
                   }
-
-                  /* //Old stuff
-                    if (game.advanced_mode)
-                    {
-                        if (game.currentmenuoption == 0)
-                        {
-                            //toggle fullscreen
-                            dwgfx.screenbuffer->toggleFullScreen();
-                            music.playef(11, 10);
-                            if (game.fullscreen)
-                            {
-                                game.fullscreen = false;
-                            }
-                            else
-                            {
-                                game.fullscreen = true;
-                            }
-                            updategraphicsmode(game, dwgfx);
-                            game.savestats(map, dwgfx);
-                            game.createmenu("graphicoptions");
-                        }
-                        else if (game.currentmenuoption == 1)
-                        {
-                            //enable acceleration: if in fullscreen, go back to window first
-                            music.playef(11, 10);
-                            game.advanced_mode = false;
-                            if (game.fullscreen)
-                            {
-                                game.fullscreen = false;
-                                updategraphicsmode(game, dwgfx);
-                                game.fullscreen = true;
-                            }
-                            updategraphicsmode(game, dwgfx);
-
-                            game.savestats(map, dwgfx);
-                            game.createmenu("graphicoptions");
-                            game.currentmenuoption = 1;
-                        }
-                        else if (game.currentmenuoption == 2)
-                        {
-                            //change scaling mode
-                            music.playef(11, 10);
-                            game.advanced_scaling = (game.advanced_scaling + 1) % 5;
-                            dwgfx.screenbuffer->ResizeScreen(320 *game.advanced_scaling,240*game.advanced_scaling );
-                            dwgfx.screenbuffer->SetScale(game.advanced_scaling);
-                            updategraphicsmode(game, dwgfx);
-
-                            game.savestats(map, dwgfx);
-                            game.createmenu("graphicoptions");
-                            game.currentmenuoption = 2;
-                        }
-                        else if (game.currentmenuoption == 3)
-                        {
-                            //change smoothing
-                            music.playef(11, 10);
-                            game.advanced_smoothing = !game.advanced_smoothing;
-                            updategraphicsmode(game, dwgfx);
-
-                            game.savestats(map, dwgfx);
-                            game.createmenu("graphicoptions");
-                            game.currentmenuoption = 3;
-                        }
-                        else
-                        {
-                            //back
-                            music.playef(11, 10);
-                            game.createmenu("mainmenu");
-                            map.nexttowercolour();
-                        }
-                    }
-                    else
-                    {
-                        if (game.currentmenuoption == 0)
-                        {
-                            dwgfx.screenbuffer->toggleFullScreen();
-                            //toggle fullscreen
-                            music.playef(11, 10);
-                            if (game.fullscreen)
-                            {
-                                game.fullscreen = false;
-                            }
-                            else
-                            {
-                                game.fullscreen = true;
-                            }
-                            updategraphicsmode(game, dwgfx);
-
-                            game.savestats(map, dwgfx);
-                            game.createmenu("graphicoptions");
-                        }
-                        else if (game.currentmenuoption == 1)
-                        {
-                            //disable acceleration: if in fullscreen, go back to window first
-                            music.playef(11, 10);
-                            game.advanced_mode = true;
-                            if (game.fullscreen)
-                            {
-                                game.fullscreen = false;
-                                updategraphicsmode(game, dwgfx);
-                                game.fullscreen = true;
-                            }
-                            updategraphicsmode(game, dwgfx);
-
-                            game.savestats(map, dwgfx);
-                            game.createmenu("graphicoptions");
-                            game.currentmenuoption = 1;
-                        }
-                        else
-                        {
-                            //back
-                            music.playef(11, 10);
-                            game.createmenu("mainmenu");
-                            map.nexttowercolour();
-                        }
-                    }
-                    */
                 }
                 else if (game.currentmenuname == "youwannaquit")
                 {
@@ -683,7 +524,7 @@ SDL_assert(0 && "Remove open level dir");
                         //bye!
                         music.playef(2, 10);
                         game.mainmenu = 100;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else
                     {
@@ -707,7 +548,7 @@ SDL_assert(0 && "Remove open level dir");
                         map.invincibility = !map.invincibility;
                         //game.deletequick();
                         //game.deletetele();
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         music.playef(11, 10);
                         game.createmenu("accessibility");
                         game.currentmenuoption = 3;
@@ -741,7 +582,7 @@ SDL_assert(0 && "Remove open level dir");
                         //back
                         game.gameframerate=34;
                         game.slowdown = 30;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         music.playef(11, 10);
                         game.createmenu("accessibility");
                         game.currentmenuoption = 4;
@@ -751,7 +592,7 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         game.gameframerate=41;
                         game.slowdown = 24;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         music.playef(11, 10);
                         game.createmenu("accessibility");
                         game.currentmenuoption = 4;
@@ -761,7 +602,7 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         game.gameframerate=55;
                         game.slowdown = 18;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         music.playef(11, 10);
                         game.createmenu("accessibility");
                         game.currentmenuoption = 4;
@@ -771,7 +612,7 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         game.gameframerate=83;
                         game.slowdown = 12;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         music.playef(11, 10);
                         game.createmenu("accessibility");
                         game.currentmenuoption = 4;
@@ -784,7 +625,7 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         //disable animated backgrounds
                         game.colourblindmode = !game.colourblindmode;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         map.tdrawback = true;
                         music.playef(11, 10);
                     }
@@ -792,7 +633,7 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         //disable screeneffects
                         game.noflashingmode = !game.noflashingmode;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         if (!game.noflashingmode)
                         {
                             music.playef(18, 10);
@@ -805,8 +646,8 @@ SDL_assert(0 && "Remove open level dir");
                     else if (game.currentmenuoption == 2)
                     {
                         //disable text outline
-                        dwgfx.notextoutline = !dwgfx.notextoutline;
-                        game.savestats(map, dwgfx);
+                        graphics.notextoutline = !graphics.notextoutline;
+                        game.savestats();
                         music.playef(11, 10);
                     }
                     else if (game.currentmenuoption == 3)
@@ -839,7 +680,7 @@ SDL_assert(0 && "Remove open level dir");
                     else if (game.currentmenuoption == 6)
                     {
                         // toggle translucent roomname BG
-                        dwgfx.translucentroomname = !dwgfx.translucentroomname;
+                        graphics.translucentroomname = !graphics.translucentroomname;
                         music.playef(11, 10);
                     }
                     else if (game.currentmenuoption == 7)
@@ -848,22 +689,22 @@ SDL_assert(0 && "Remove open level dir");
                         music.playef(11, 10);
                         game.createmenu("options");
 
-												//Add extra menu for mmmmmm mod
-												if(music.mmmmmm){
-													#if defined(MAKEANDPLAY)
-														game.menuoptions[3] = "soundtrack";
-														game.menuoptionsactive[3] = true;
-														game.menuoptions[4] = "return";
-														game.menuoptionsactive[4] = true;
-														game.nummenuoptions = 5;
-													#elif !defined(MAKEANDPLAY)
-														game.menuoptions[4] = "soundtrack";
-														game.menuoptionsactive[4] = true;
-														game.menuoptions[5] = "return";
-														game.menuoptionsactive[5] = true;
-														game.nummenuoptions = 6;
-													#endif
-												}
+                        //Add extra menu for mmmmmm mod
+                        if(music.mmmmmm){
+#if defined(MAKEANDPLAY)
+                            game.menuoptions[3] = "soundtrack";
+                            game.menuoptionsactive[3] = true;
+                            game.menuoptions[4] = "return";
+                            game.menuoptionsactive[4] = true;
+                            game.nummenuoptions = 5;
+#elif !defined(MAKEANDPLAY)
+                            game.menuoptions[4] = "soundtrack";
+                            game.menuoptionsactive[4] = true;
+                            game.menuoptions[5] = "return";
+                            game.menuoptionsactive[5] = true;
+                            game.nummenuoptions = 6;
+#endif
+}
 
                         map.nexttowercolour();
                     }
@@ -875,23 +716,22 @@ SDL_assert(0 && "Remove open level dir");
                 }
                 else if (game.currentmenuname == "options")
                 {
-								
-				#if defined(MAKEANDPLAY)
-				if (game.currentmenuoption == 0)
+#if defined(MAKEANDPLAY)
+                    if (game.currentmenuoption == 0)
                     {
                         //accessibility options
                         music.playef(11, 10);
                         game.createmenu("accessibility");
                         map.nexttowercolour();
                     }
-                   
-					else if (game.currentmenuoption == 1)
-					{
-						//clear data menu
-						music.playef(11, 10);
-						game.createmenu("controller");
-						map.nexttowercolour();
-					}
+
+                    else if (game.currentmenuoption == 1)
+                    {
+                        //clear data menu
+                        music.playef(11, 10);
+                        game.createmenu("controller");
+                        map.nexttowercolour();
+                    }
                     else if (game.currentmenuoption == 2)
                     {
                         //clear data menu
@@ -900,40 +740,39 @@ SDL_assert(0 && "Remove open level dir");
                         map.nexttowercolour();
                     }
 
-										if(music.mmmmmm){
-											if (game.currentmenuoption == 3)
-											{
-													//**** TOGGLE MMMMMM
-													if(game.usingmmmmmm > 0){
-														game.usingmmmmmm=0;
-													}else{
-														game.usingmmmmmm=1;
-													}
-													music.usingmmmmmm = !music.usingmmmmmm;
-													music.playef(11, 10);
-													music.play(6);
-													game.savestats(map, dwgfx);
-													game.createmenu("mainmenu");
-													map.nexttowercolour();
-											}
-											if (game.currentmenuoption == 4)
-											{
-													//back
-													music.playef(11, 10);
-													game.createmenu("mainmenu");
-													map.nexttowercolour();
-											}
-										}else{
-											if (game.currentmenuoption == 3)
-											{
-													//back
-													music.playef(11, 10);
-													game.createmenu("mainmenu");
-													map.nexttowercolour();
-											}
-										}
-                    
-				#elif !defined(MAKEANDPLAY)
+                    if(music.mmmmmm){
+                        if (game.currentmenuoption == 3)
+                        {
+                            //**** TOGGLE MMMMMM
+                            if(game.usingmmmmmm > 0){
+                                game.usingmmmmmm=0;
+                            }else{
+                                game.usingmmmmmm=1;
+                            }
+                            music.usingmmmmmm = !music.usingmmmmmm;
+                            music.playef(11, 10);
+                            music.play(6);
+                            game.savestats();
+                            game.createmenu("mainmenu");
+                            map.nexttowercolour();
+                        }
+                        if (game.currentmenuoption == 4)
+                        {
+                            //back
+                            music.playef(11, 10);
+                            game.createmenu("mainmenu");
+                            map.nexttowercolour();
+                        }
+                    }else{
+                        if (game.currentmenuoption == 3)
+                        {
+                            //back
+                            music.playef(11, 10);
+                            game.createmenu("mainmenu");
+                            map.nexttowercolour();
+                        }
+                    }
+#elif !defined(MAKEANDPLAY)
                     if (game.currentmenuoption == 0)
                     {
                         //accessibility options
@@ -948,13 +787,13 @@ SDL_assert(0 && "Remove open level dir");
                         game.createmenu("unlockmenu");
                         map.nexttowercolour();
                     }
-					else if (game.currentmenuoption == 2)
-					{
-						//clear data menu
-						music.playef(11, 10);
-						game.createmenu("controller");
-						map.nexttowercolour();
-					}
+                    else if (game.currentmenuoption == 2)
+                    {
+                        //clear data menu
+                        music.playef(11, 10);
+                        game.createmenu("controller");
+                        map.nexttowercolour();
+                    }
                     else if (game.currentmenuoption == 3)
                     {
                         //clear data menu
@@ -962,40 +801,40 @@ SDL_assert(0 && "Remove open level dir");
                         game.createmenu("cleardatamenu");
                         map.nexttowercolour();
                     }
-                    
-										if(music.mmmmmm){
-											if (game.currentmenuoption == 4)
-											{
-													//**** TOGGLE MMMMMM
-													if(game.usingmmmmmm > 0){
-														game.usingmmmmmm=0;
-													}else{
-														game.usingmmmmmm=1;
-													}
-													music.usingmmmmmm = !music.usingmmmmmm;
-													music.playef(11, 10);
-													music.play(6);
-													game.savestats(map, dwgfx);
-													game.createmenu("mainmenu");
-													map.nexttowercolour();
-											}
-											if (game.currentmenuoption == 5)
-											{
-													//back
-													music.playef(11, 10);
-													game.createmenu("mainmenu");
-													map.nexttowercolour();
-											}
-										}else{
-											if (game.currentmenuoption == 4)
-											{
-													//back
-													music.playef(11, 10);
-													game.createmenu("mainmenu");
-													map.nexttowercolour();
-											}
-										}
-										#endif
+
+                    if(music.mmmmmm){
+                        if (game.currentmenuoption == 4)
+                        {
+                            //**** TOGGLE MMMMMM
+                            if(game.usingmmmmmm > 0){
+                                game.usingmmmmmm=0;
+                            }else{
+                                game.usingmmmmmm=1;
+                            }
+                            music.usingmmmmmm = !music.usingmmmmmm;
+                            music.playef(11, 10);
+                            music.play(6);
+                            game.savestats();
+                            game.createmenu("mainmenu");
+                            map.nexttowercolour();
+                        }
+                        if (game.currentmenuoption == 5)
+                        {
+                            //back
+                            music.playef(11, 10);
+                            game.createmenu("mainmenu");
+                            map.nexttowercolour();
+                        }
+                    }else{
+                        if (game.currentmenuoption == 4)
+                        {
+                            //back
+                            music.playef(11, 10);
+                            game.createmenu("mainmenu");
+                            map.nexttowercolour();
+                        }
+                    }
+#endif
                 }
                 else if (game.currentmenuname == "unlockmenutrials")
                 {
@@ -1004,7 +843,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.unlock[9] = true;
                         game.unlocknotify[9] = true;
                         music.playef(11, 10);
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenutrials");
                         game.currentmenuoption = 0;
                     }
@@ -1013,7 +852,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.unlock[10] = true;
                         game.unlocknotify[10] = true;
                         music.playef(11, 10);
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenutrials");
                         game.currentmenuoption = 1;
                     }
@@ -1022,7 +861,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.unlock[11] = true;
                         game.unlocknotify[11] = true;
                         music.playef(11, 10);
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenutrials");
                         game.currentmenuoption = 2;
                     }
@@ -1031,7 +870,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.unlock[12] = true;
                         game.unlocknotify[12] = true;
                         music.playef(11, 10);
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenutrials");
                         game.currentmenuoption = 3;
                     }
@@ -1040,7 +879,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.unlock[13] = true;
                         game.unlocknotify[13] = true;
                         music.playef(11, 10);
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenutrials");
                         game.currentmenuoption = 4;
                     }
@@ -1049,7 +888,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.unlock[14] = true;
                         game.unlocknotify[14] = true;
                         music.playef(11, 10);
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenutrials");
                         game.currentmenuoption = 5;
                     }
@@ -1078,7 +917,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.unlocknotify[16] = true;
                         game.unlock[6] = true;
                         game.unlock[7] = true;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenu");
                         game.currentmenuoption = 1;
                     }
@@ -1088,7 +927,7 @@ SDL_assert(0 && "Remove open level dir");
                         music.playef(11, 10);
                         game.unlock[17] = true;
                         game.unlocknotify[17] = true;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenu");
                         game.currentmenuoption = 2;
                     }
@@ -1098,7 +937,7 @@ SDL_assert(0 && "Remove open level dir");
                         music.playef(11, 10);
                         game.unlock[18] = true;
                         game.unlocknotify[18] = true;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenu");
                         game.currentmenuoption = 3;
                     }
@@ -1107,7 +946,7 @@ SDL_assert(0 && "Remove open level dir");
                         //unlock jukebox
                         music.playef(11, 10);
                         game.stat_trinkets = 20;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenu");
                         game.currentmenuoption = 4;
                     }
@@ -1117,7 +956,7 @@ SDL_assert(0 && "Remove open level dir");
                         music.playef(11, 10);
                         game.unlock[8] = true;
                         game.unlocknotify[8] = true;
-                        game.savestats(map, dwgfx);
+                        game.savestats();
                         game.createmenu("unlockmenu");
                         game.currentmenuoption = 5;
                     }
@@ -1301,19 +1140,19 @@ SDL_assert(0 && "Remove open level dir");
                         {
                             //You at least have a quicksave, or you couldn't have gotten here
                             game.mainmenu = 2;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else if (game.quicksummary == "")
                         {
                             //You at least have a telesave, or you couldn't have gotten here
                             game.mainmenu = 1;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else
                         {
                             //go to a menu!
                             music.playef(11, 10);
-                            game.loadsummary(map, help); //Prepare save slots to display
+                            game.loadsummary(); //Prepare save slots to display
                             game.createmenu("continue");
                             map.settowercolour(3);
                         }
@@ -1351,32 +1190,32 @@ SDL_assert(0 && "Remove open level dir");
                         {
                             //You at least have a quicksave, or you couldn't have gotten here
                             game.mainmenu = 2;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else if (game.quicksummary == "")
                         {
                             //You at least have a telesave, or you couldn't have gotten here
                             game.mainmenu = 1;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else
                         {
                             //go to a menu!
                             music.playef(11, 10);
-                            game.loadsummary(map, help); //Prepare save slots to display
+                            game.loadsummary(); //Prepare save slots to display
                             game.createmenu("continue");
                             map.settowercolour(3);
                         }
                     }
                     else if (game.currentmenuoption == 1)
                     {
-										  if(!map.invincibility){
-                        game.mainmenu = 11;
-                        dwgfx.fademode = 2;
-											}else{
+                        if(!map.invincibility){
+                            game.mainmenu = 11;
+                            graphics.fademode = 2;
+                        }else{
                         //Can't do yet! play sad sound
                         music.playef(2, 10);
-											}
+                        }
                     }
                     else if (game.currentmenuoption == 2)
                     {
@@ -1406,7 +1245,7 @@ SDL_assert(0 && "Remove open level dir");
                     {
                         //yep
                         game.mainmenu = 0;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                         game.deletequick();
                         game.deletetele();
                     }
@@ -1419,41 +1258,41 @@ SDL_assert(0 && "Remove open level dir");
                     }
                 }
 
-				else if (game.currentmenuname == "controller")
-				{
-					if (game.currentmenuoption == 0)
-					{
-						game.controllerSensitivity++;
-						music.playef(11, 10);
-						if(game.controllerSensitivity > 4)
-						{
-							game.controllerSensitivity = 0;
-						}
-					}
+                else if (game.currentmenuname == "controller")
+                {
+                    if (game.currentmenuoption == 0)
+                    {
+                        game.controllerSensitivity++;
+                        music.playef(11, 10);
+                        if(game.controllerSensitivity > 4)
+                        {
+                            game.controllerSensitivity = 0;
+                        }
+                    }
 
-					if (game.currentmenuoption == 4)
-					{
-						music.playef(11, 10);
-						game.createmenu("options");
+                    if (game.currentmenuoption == 4)
+                    {
+                        music.playef(11, 10);
+                        game.createmenu("options");
 
-						//Add extra menu for mmmmmm mod
-						if(music.mmmmmm){
-							#if defined(MAKEANDPLAY)
-								game.menuoptions[3] = "soundtrack";
-								game.menuoptionsactive[3] = true;
-								game.menuoptions[4] = "return";
-								game.menuoptionsactive[4] = true;
-								game.nummenuoptions = 5;
-							#elif !defined(MAKEANDPLAY)
-								game.menuoptions[4] = "soundtrack";
-								game.menuoptionsactive[4] = true;
-								game.menuoptions[5] = "return";
-								game.menuoptionsactive[5] = true;
-								game.nummenuoptions = 6;
-							#endif
-						}
-					}
-				}
+                        //Add extra menu for mmmmmm mod
+                        if(music.mmmmmm){
+#if defined(MAKEANDPLAY)
+                            game.menuoptions[3] = "soundtrack";
+                            game.menuoptionsactive[3] = true;
+                            game.menuoptions[4] = "return";
+                            game.menuoptionsactive[4] = true;
+                            game.nummenuoptions = 5;
+#elif !defined(MAKEANDPLAY)
+                            game.menuoptions[4] = "soundtrack";
+                            game.menuoptionsactive[4] = true;
+                            game.menuoptions[5] = "return";
+                            game.menuoptionsactive[5] = true;
+                            game.nummenuoptions = 6;
+#endif
+                        }
+                    }
+                }
                 else if (game.currentmenuname == "cleardatamenu")
                 {
                     if (game.currentmenuoption == 0)
@@ -1462,22 +1301,22 @@ SDL_assert(0 && "Remove open level dir");
                         music.playef(11, 10);
                         game.createmenu("options");
 
-												//Add extra menu for mmmmmm mod
-												if(music.mmmmmm){
-													#if defined(MAKEANDPLAY)
-														game.menuoptions[3] = "soundtrack";
-														game.menuoptionsactive[3] = true;
-														game.menuoptions[4] = "return";
-														game.menuoptionsactive[4] = true;
-														game.nummenuoptions = 5;
-													#elif !defined(MAKEANDPLAY)
-														game.menuoptions[4] = "soundtrack";
-														game.menuoptionsactive[4] = true;
-														game.menuoptions[5] = "return";
-														game.menuoptionsactive[5] = true;
-														game.nummenuoptions = 6;
-													#endif
-												}
+                        //Add extra menu for mmmmmm mod
+                        if(music.mmmmmm){
+#if defined(MAKEANDPLAY)
+                            game.menuoptions[3] = "soundtrack";
+                            game.menuoptionsactive[3] = true;
+                            game.menuoptions[4] = "return";
+                            game.menuoptionsactive[4] = true;
+                            game.nummenuoptions = 5;
+#elif !defined(MAKEANDPLAY)
+                            game.menuoptions[4] = "soundtrack";
+                            game.menuoptionsactive[4] = true;
+                            game.menuoptions[5] = "return";
+                            game.menuoptionsactive[5] = true;
+                            game.nummenuoptions = 6;
+#endif
+                        }
                         map.nexttowercolour();
                     }
                     else
@@ -1486,7 +1325,7 @@ SDL_assert(0 && "Remove open level dir");
                         music.playef(23, 10);
                         game.deletequick();
                         game.deletetele();
-                        game.deletestats(map, dwgfx);
+                        game.deletestats();
                         game.flashlight = 5;
                         game.screenshake = 15;
                         game.createmenu("mainmenu");
@@ -1519,7 +1358,7 @@ SDL_assert(0 && "Remove open level dir");
                         music.playef(18, 10);
                         game.screenshake = 10;
                         game.flashlight = 5;
-                        dwgfx.setflipmode = !dwgfx.setflipmode;
+                        graphics.setflipmode = !graphics.setflipmode;
                         game.savemystats = true;
                     }
                     else if (game.currentmenuoption == 4)
@@ -1540,12 +1379,12 @@ SDL_assert(0 && "Remove open level dir");
                     if (game.currentmenuoption == 0)   //start no death mode, disabling cutscenes
                     {
                         game.mainmenu = 10;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 1)
                     {
                         game.mainmenu = 9;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 2)
                     {
@@ -1560,12 +1399,12 @@ SDL_assert(0 && "Remove open level dir");
                     if (game.currentmenuoption == 0)
                     {
                         game.mainmenu = 1;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 1)
                     {
                         game.mainmenu = 2;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 2)
                     {
@@ -1604,22 +1443,22 @@ SDL_assert(0 && "Remove open level dir");
                     if (game.currentmenuoption == 0)
                     {
                         game.mainmenu = 12;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 1)
                     {
                         game.mainmenu = 13;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 2)
                     {
                         game.mainmenu = 14;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 3)
                     {
                         game.mainmenu = 15;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 4)
                     {
@@ -1634,22 +1473,22 @@ SDL_assert(0 && "Remove open level dir");
                     if (game.currentmenuoption == 0)
                     {
                         game.mainmenu = 16;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 1)
                     {
                         game.mainmenu = 17;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 2)
                     {
                         game.mainmenu = 18;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 3)
                     {
                         game.mainmenu = 19;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 4)
                     {
@@ -1687,32 +1526,32 @@ SDL_assert(0 && "Remove open level dir");
                     if (game.currentmenuoption == 0 && game.unlock[9])   //space station 1
                     {
                         game.mainmenu = 3;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 1 && game.unlock[10])    //lab
                     {
                         game.mainmenu = 4;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 2 && game.unlock[11])    //tower
                     {
                         game.mainmenu = 5;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 3 && game.unlock[12])    //station 2
                     {
                         game.mainmenu = 6;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 4 && game.unlock[13])    //warp
                     {
                         game.mainmenu = 7;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 5 && game.unlock[14])    //final
                     {
                         game.mainmenu = 8;
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                     else if (game.currentmenuoption == 6)    //go to the time trial menu
                     {
@@ -1743,32 +1582,32 @@ SDL_assert(0 && "Remove open level dir");
                         if (game.timetriallevel == 0)   //space station 1
                         {
                             game.mainmenu = 3;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else if (game.timetriallevel == 1)    //lab
                         {
                             game.mainmenu = 4;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else if (game.timetriallevel == 2)    //tower
                         {
                             game.mainmenu = 5;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else if (game.timetriallevel == 3)    //station 2
                         {
                             game.mainmenu = 6;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else if (game.timetriallevel == 4)    //warp
                         {
                             game.mainmenu = 7;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else if (game.timetriallevel == 5)    //final
                         {
                             game.mainmenu = 8;
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                     }
                 }
@@ -1789,17 +1628,18 @@ SDL_assert(0 && "Remove open level dir");
                 game.currentmenuoption < 4 &&
                 key.controllerButtonDown()      )
         {
-            updatebuttonmappings(game, key, music, game.currentmenuoption);
+            updatebuttonmappings(game.currentmenuoption);
         }
 
     }
 
-    if (dwgfx.fademode == 1)
-        script.startgamemode(game.mainmenu, key, dwgfx, game, map, obj, help, music);
+    if (graphics.fademode == 1)
+    {
+        script.startgamemode(game.mainmenu);
+    }
 }
 
-void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-               entityclass& obj, UtilityClass& help, musicclass& music)
+void gameinput()
 {
     //TODO mouse input
     //game.mx = (mouseX / 2);
@@ -1922,41 +1762,11 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 
     if (!game.press_map) game.mapheld = false;
 
-    /*
-    if (key.isDown("1".charCodeAt(0))) {
-    dwgfx.screen.width = 640;
-    dwgfx.screen.height = 480;
-    setstage(640,480);
-    }
-    if (key.isDown("2".charCodeAt(0))) {
-    dwgfx.screen.width = 960;
-    dwgfx.screen.height = 720;
-    setstage(960,720);
-    }
-    if (key.isDown("3".charCodeAt(0))) {
-    dwgfx.screen.width = 1280;
-    dwgfx.screen.height = 960;
-    setstage(1280,960);
-    }
-    */
-    /*game.test = true;
-    game.teststring = String(game.inertia);
-    if (key.isDown("1".charCodeAt(0))) game.inertia = 0.5;
-    if (key.isDown("2".charCodeAt(0))) game.inertia = 0.6;
-    if (key.isDown("3".charCodeAt(0))) game.inertia = 0.7;
-    if (key.isDown("4".charCodeAt(0))) game.inertia = 0.8;
-    if (key.isDown("5".charCodeAt(0))) game.inertia = 0.9;
-    if (key.isDown("6".charCodeAt(0))) game.inertia = 1;
-    if (key.isDown("7".charCodeAt(0))) game.inertia = 1.1;
-    if (key.isDown("8".charCodeAt(0))) game.inertia = 1.2;
-    if (key.isDown("9".charCodeAt(0))) game.inertia = 1.3;
-    if (key.isDown("0".charCodeAt(0))) game.inertia = 1.4;*/
-
-    if (game.intimetrial && dwgfx.fademode == 1 && game.quickrestartkludge)
+    if (game.intimetrial && graphics.fademode == 1 && game.quickrestartkludge)
     {
         //restart the time trial
         game.quickrestartkludge = false;
-        script.startgamemode(game.timetriallevel + 3, key, dwgfx, game, map, obj, help, music);
+        script.startgamemode(game.timetriallevel + 3);
         game.deathseq = -1;
         game.completestop = false;
     }
@@ -1976,14 +1786,14 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
         }else{
           game.gamestate = EDITORMODE;
 
-          dwgfx.textboxremove();
+          graphics.textboxremove();
           game.hascontrol = true;
           game.advancetext = false;
           game.completestop = false;
           game.state = 0;
-			    dwgfx.showcutscenebars = false;
+          graphics.showcutscenebars = false;
 
-          dwgfx.backgrounddrawn=false;
+          graphics.backgrounddrawn=false;
           music.fadeout();
           //If warpdir() is used during playtesting, we need to set it back after!
           for (int j = 0; j < ed.maxheight; j++)
@@ -2003,26 +1813,8 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     {
         if (obj.entities[ie].rule == 0)
         {
-            //game.test = true;
-            //game.teststring = "player(" + String(int(obj.entities[i])) + "," + String(int(obj.entities[i].yp)) + ")"
-            //  + ", mouse(" + String(int(game.mx)) + "," + String(int(game.my)) + ")";
             if (game.hascontrol && game.deathseq == -1 && game.lifeseq <= 5)
             {
-                /*
-                if (key.isDown(8)) {
-                script.load("returntohub");
-                }
-                */
-                /*
-                if (key.isDown(27)) {
-                game.state = 0;
-                dwgfx.textboxremove();
-
-                map.tdrawback = true;
-                music.haltdasmusik();
-                game.gamestate = TITLEMODE;
-                }
-                */
 
                 if (game.press_map && !game.mapheld)
                 {
@@ -2030,7 +1822,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 
                     if (game.activetele && game.readytotele > 20 && !game.intimetrial)
                     {
-                        if(!dwgfx.flipmode)
+                        if(!graphics.flipmode)
                         {
                             obj.flags[73] = 1; //Flip mode test
                         }
@@ -2060,30 +1852,26 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
                             {
                                 //Alright, normal teleporting
                                 game.gamestate = 5;
-                                dwgfx.menuoffset = 240; //actually this should count the roomname
-                                if (map.extrarow) dwgfx.menuoffset -= 10;
-                                //dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
+                                graphics.menuoffset = 240; //actually this should count the roomname
+                                if (map.extrarow) graphics.menuoffset -= 10;
 
-                                //TODO TESTHIS
-                                //dwgfx.screenbuffer->UpdateScreen(dwgfx.menubuffer, NULL);
-								BlitSurfaceStandard(dwgfx.menubuffer,NULL,dwgfx.backBuffer, NULL);
+                                BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
 
-                                dwgfx.resumegamemode = false;
+                                graphics.resumegamemode = false;
 
                                 game.useteleporter = true;
-                                game.initteleportermode(map);
+                                game.initteleportermode();
                             }
                             else
                             {
-                                //trace(game.recordstring);
                                 //We're teleporting! Yey!
                                 game.activetele = false;
                                 game.hascontrol = false;
-                                music.fadeout(); //Uncomment this when it's working!
+                                music.fadeout();
 
                                 int player = obj.getplayer();
                                 obj.entities[player].colour = 102;
-                                int companion = obj.getcompanion(game.companion);
+                                int companion = obj.getcompanion();
                                 if(companion>-1) obj.entities[companion].colour = 102;
 
                                 int teleporter = obj.getteleporter();
@@ -2110,38 +1898,35 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
                         //Quit menu, same conditions as in game menu
                         game.gamestate = MAPMODE;
                         game.gamesaved = false;
-                        dwgfx.resumegamemode = false;
+                        graphics.resumegamemode = false;
                         game.menupage = 20; // The Map Page
-                        //dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
-                        //dwgfx.screenbuffer->UpdateScreen(dwgfx.menubuffer, NULL);
-														BlitSurfaceStandard(dwgfx.menubuffer,NULL,dwgfx.backBuffer, NULL);
-                        dwgfx.menuoffset = 240; //actually this should count the roomname
-                        if (map.extrarow) dwgfx.menuoffset -= 10;
+                        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
+                        graphics.menuoffset = 240; //actually this should count the roomname
+                        if (map.extrarow) graphics.menuoffset -= 10;
                     }
-                    else if (game.intimetrial && dwgfx.fademode==0)
+                    else if (game.intimetrial && graphics.fademode==0)
                     {
                         //Quick restart of time trial
-                        script.hardreset(key, dwgfx, game, map, obj, help, music);
-                        if (dwgfx.setflipmode) dwgfx.flipmode = true;
-                        dwgfx.fademode = 2;
+                        script.hardreset();
+                        if (graphics.setflipmode) graphics.flipmode = true;
+                        graphics.fademode = 2;
                         game.completestop = true;
                         music.fadeout();
                         game.intimetrial = true;
                         game.quickrestartkludge = true;
                     }
-                    else if (dwgfx.fademode==0)
+                    else if (graphics.fademode==0)
                     {
                         //Normal map screen, do transition later
                         game.gamestate = MAPMODE;
                         map.cursordelay = 0;
                         map.cursorstate = 0;
                         game.gamesaved = false;
-                        dwgfx.resumegamemode = false;
+                        graphics.resumegamemode = false;
                         game.menupage = 0; // The Map Page
-														BlitSurfaceStandard(dwgfx.menubuffer,NULL,dwgfx.backBuffer, NULL);
-                        //dwgfx.screenbuffer->UpdateScreen(dwgfx.menubuffer, NULL);
-                        dwgfx.menuoffset = 240; //actually this should count the roomname
-                        if (map.extrarow) dwgfx.menuoffset -= 10;
+                        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
+                        graphics.menuoffset = 240; //actually this should count the roomname
+                        if (map.extrarow) graphics.menuoffset -= 10;
                     }
                 }
 
@@ -2151,20 +1936,17 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
                     //Quit menu, same conditions as in game menu
                     game.gamestate = MAPMODE;
                     game.gamesaved = false;
-                    dwgfx.resumegamemode = false;
+                    graphics.resumegamemode = false;
                     game.menupage = 10; // The Map Page
 
-                    //dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, NULL, NULL, false);
-
-                    //dwgfx.screenbuffer->UpdateScreen(dwgfx.menubuffer, NULL);
-													BlitSurfaceStandard(dwgfx.menubuffer,NULL,dwgfx.backBuffer, NULL);
-                    dwgfx.menuoffset = 240; //actually this should count the roomname
-                    if (map.extrarow) dwgfx.menuoffset -= 10;
+                    BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
+                    graphics.menuoffset = 240; //actually this should count the roomname
+                    if (map.extrarow) graphics.menuoffset -= 10;
                 }
 
                 if (key.keymap[SDLK_r] && game.deathseq<=0)// && map.custommode) //Have fun glitchrunners!
                 {
-                	game.deathseq = 30;
+                    game.deathseq = 30;
                 }
 
                 if (game.press_left)
@@ -2267,8 +2049,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     }
 }
 
-void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-              entityclass& obj, UtilityClass& help, musicclass& music)
+void mapinput()
 {
     //TODO Mouse Input!
     //game.mx = (mouseX / 2);
@@ -2279,9 +2060,9 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     game.press_action = false;
     game.press_map = false;
 
-    if(dwgfx.menuoffset==0)
+    if(graphics.menuoffset==0)
     {
-        if (dwgfx.flipmode)
+        if (graphics.flipmode)
         {
             if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_s) || key.controllerWantsLeft(false) ) game.press_left = true;
             if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_d) ||  key.isDown(KEYBOARD_w) || key.controllerWantsRight(false)) game.press_right = true;
@@ -2336,14 +2117,14 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
         if(game.press_map && game.menupage < 10)
         {
             //Normal map screen, do transition later
-            dwgfx.resumegamemode = true;
+            graphics.resumegamemode = true;
         }
     }
 
-    if (dwgfx.fademode == 1)
+    if (graphics.fademode == 1)
     {
-        FillRect(dwgfx.menubuffer, 0x000000);
-        dwgfx.resumegamemode = true;
+        FillRect(graphics.menubuffer, 0x000000);
+        graphics.resumegamemode = true;
         obj.removeallblocks();
         game.menukludge = false;
         if (game.menupage >= 20)
@@ -2377,7 +2158,7 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
         if (game.menupage == 1 && obj.flags[67] == 1 && game.press_action && !game.insecretlab && !map.custommode)
         {
             //Warp back to the ship
-            dwgfx.resumegamemode = true;
+            graphics.resumegamemode = true;
 
             game.teleport_to_x = 2;
             game.teleport_to_y = 11;
@@ -2403,41 +2184,41 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
             music.playef(18, 10);
             game.gamesaved = true;
 
-            game.savetime = game.timestring(help);
+            game.savetime = game.timestring();
             game.savearea = map.currentarea(map.area(game.roomx, game.roomy));
             game.savetrinkets = game.trinkets;
 
             if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = "The Ship";
 
-        #if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS)
             if(map.custommodeforreal)
             {
-              game.customsavequick(ed.ListOfMetaData[game.playcustomlevel].filename, map, obj, music);
+              game.customsavequick(ed.ListOfMetaData[game.playcustomlevel].filename);
             }
             else
-        #endif
+#endif
             {
-              game.savequick(map, obj, music);
+              game.savequick();
             }
         }
 
         if (game.menupage == 10 && game.press_action)
         {
             //return to game
-            dwgfx.resumegamemode = true;
+            graphics.resumegamemode = true;
         }
         if (game.menupage == 11 && game.press_action)
         {
             //quit to menu
-            if (dwgfx.fademode == 0)
+            if (graphics.fademode == 0)
             {
-				//Kill contents of offset render buffer, since we do that for some reason.
-				//This fixes an apparent frame flicker.
-				FillRect(dwgfx.tempBuffer, 0x000000);
+                //Kill contents of offset render buffer, since we do that for some reason.
+                //This fixes an apparent frame flicker.
+                FillRect(graphics.tempBuffer, 0x000000);
                 if (game.intimetrial || game.insecretlab || game.nodeathmode) game.menukludge = true;
-                script.hardreset(key, dwgfx, game, map, obj, help, music);
-                if(dwgfx.setflipmode) dwgfx.flipmode = true;
-                dwgfx.fademode = 2;
+                script.hardreset();
+                if(graphics.setflipmode) graphics.flipmode = true;
+                graphics.fademode = 2;
                 music.fadeout();
                 map.nexttowercolour();
             }
@@ -2446,15 +2227,15 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
         if (game.menupage == 20 && game.press_action)
         {
             //return to game
-            dwgfx.resumegamemode = true;
+            graphics.resumegamemode = true;
         }
         if (game.menupage == 21 && game.press_action)
         {
             //quit to menu
-            if (dwgfx.fademode == 0)
+            if (graphics.fademode == 0)
             {
                 game.swnmode = false;
-                dwgfx.fademode = 2;
+                graphics.fademode = 2;
                 music.fadeout();
             }
         }
@@ -2471,8 +2252,7 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     }
 }
 
-void teleporterinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-                     entityclass& obj, UtilityClass& help, musicclass& music)
+void teleporterinput()
 {
     //Todo Mouseinput!
     //game.mx = (mouseX / 2);
@@ -2485,7 +2265,7 @@ void teleporterinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     game.press_action = false;
     game.press_map = false;
 
-    if(dwgfx.menuoffset==0)
+    if(graphics.menuoffset==0)
     {
         if (key.isDown(KEYBOARD_LEFT)|| key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false) ) game.press_left = true;
         if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d)|| key.controllerWantsRight(false) ) game.press_right = true;
@@ -2546,12 +2326,12 @@ void teleporterinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
             if (game.roomx == tempx + 100 && game.roomy == tempy + 100)
             {
                 //cancel!
-                dwgfx.resumegamemode = true;
+                graphics.resumegamemode = true;
             }
             else
             {
                 //teleport
-                dwgfx.resumegamemode = true;
+                graphics.resumegamemode = true;
                 game.teleport_to_x = tempx;
                 game.teleport_to_y = tempy;
 
@@ -2574,8 +2354,7 @@ void teleporterinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     }
 }
 
-void gamecompleteinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-                       entityclass& obj, UtilityClass& help, musicclass& music)
+void gamecompleteinput()
 {
     //game.mx = (mouseX / 2);
     //game.my = (mouseY / 2);
@@ -2590,9 +2369,9 @@ void gamecompleteinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
         game.creditposition -= 6;
         if (game.creditposition <= -game.creditmaxposition)
         {
-            if(dwgfx.fademode==0)
+            if(graphics.fademode==0)
             {
-                dwgfx.fademode = 2;
+                graphics.fademode = 2;
             }
             game.creditposition = -game.creditmaxposition;
         }
@@ -2611,16 +2390,15 @@ void gamecompleteinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
         if(game.press_map)
         {
             //Return to game
-            if(dwgfx.fademode==0)
+            if(graphics.fademode==0)
             {
-                dwgfx.fademode = 2;
+                graphics.fademode = 2;
             }
         }
     }
 }
 
-void gamecompleteinput2(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-                        entityclass& obj, UtilityClass& help, musicclass& music)
+void gamecompleteinput2()
 {
     //TODO Mouse Input!
     //game.mx = (mouseX / 2);
@@ -2638,9 +2416,9 @@ void gamecompleteinput2(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map
         game.creditposx++;
         if (game.creditposy >= 30)
         {
-            if(dwgfx.fademode==0)
+            if(graphics.fademode==0)
             {
-                dwgfx.fademode = 2;
+                graphics.fademode = 2;
                 music.fadeout();
             }
         }
@@ -2654,9 +2432,9 @@ void gamecompleteinput2(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map
         if(game.press_map)
         {
             //Return to game
-            if(dwgfx.fademode==0)
+            if(graphics.fademode==0)
             {
-                dwgfx.fademode = 2;
+                graphics.fademode = 2;
                 music.fadeout();
             }
         }

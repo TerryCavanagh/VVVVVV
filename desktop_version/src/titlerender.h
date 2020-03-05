@@ -18,18 +18,18 @@ extern Stage stage;
 extern Stage swfStage;
 extern int temp;
 
-void titlerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, UtilityClass& help, musicclass& music);
+void titlerender();
 
-void towerrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help);
+void towerrender();
 
-void gamerender(Graphics& dwgfx, mapclass& map, Game& game, entityclass& obj, UtilityClass& help);
+void gamerender();
 
-void maprender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help);
+void maprender();
 
-void teleporterrender(Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help);
+void teleporterrender();
 
-void gamecompleterender(Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& help, mapclass& map);
+void gamecompleterender();
 
-void gamecompleterender2(Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& help);
+void gamecompleterender2();
 
 #endif /* TITLERENDERER_H */

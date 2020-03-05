@@ -3,7 +3,7 @@
 #include "Map.h"
 #include "UtilityClass.h"
 
-bool entityclass::checktowerspikes(int t, mapclass& map)
+bool entityclass::checktowerspikes(int t)
 {
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy;
@@ -210,19 +210,19 @@ void entityclass::swnenemiescol( int t )
     }
 }
 
-void entityclass::gravcreate( Game& game, int ypos, int dir, int xoff /*= 0*/, int yoff /*= 0*/ )
+void entityclass::gravcreate(int ypos, int dir, int xoff /*= 0*/, int yoff /*= 0*/)
 {
     if (dir == 0)
     {
-        createentity(game, -150 - xoff, 58 + (ypos * 20)+yoff, 23, 0, 0);
+        createentity(-150 - xoff, 58 + (ypos * 20)+yoff, 23, 0, 0);
     }
     else
     {
-        createentity(game, 320+150 + xoff, 58 + (ypos * 20)+yoff, 23, 1, 0);
+        createentity(320+150 + xoff, 58 + (ypos * 20)+yoff, 23, 1, 0);
     }
 }
 
-void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
+void entityclass::generateswnwave(int t)
 {
     //generate a wave for the SWN game
     if(game.swndelay<=0)
@@ -308,7 +308,7 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                 if (game.deathcounts - game.swndeaths > 25) game.swndelay += 4;
                 break;
             case 1:
-                createentity(game, -150, 58 + (int(fRandom() * 6) * 20), 23, 0, 0);
+                createentity(-150, 58 + (int(fRandom() * 6) * 20), 23, 0, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 break;
@@ -331,52 +331,52 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                         game.swnstate2++;
                     }
                 }
-                createentity(game, -150, 58 + (int(game.swnstate2) * 20), 23, 0, 0);
+                createentity(-150, 58 + (int(game.swnstate2) * 20), 23, 0, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 break;
             case 3:
-                createentity(game, 320+150, 58 + (int(fRandom() * 6) * 20), 23, 1, 0);
+                createentity(320+150, 58 + (int(fRandom() * 6) * 20), 23, 1, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 break;
             case 4:
                 //left and right compliments
                 game.swnstate2 = int(fRandom() * 6);
-                createentity(game, -150, 58 + (game.swnstate2  * 20), 23, 0, 0);
-                createentity(game, 320+150, 58 + ((5-game.swnstate2) * 20), 23, 1, 0);
+                createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
+                createentity(320+150, 58 + ((5-game.swnstate2) * 20), 23, 1, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 game.swnstate2 = 0;
                 break;
             case 5:
                 //Top and bottom
-                createentity(game, -150, 58, 23, 0, 0);
-                createentity(game, -150, 58 + (5 * 20), 23, 0, 0);
+                createentity(-150, 58, 23, 0, 0);
+                createentity(-150, 58 + (5 * 20), 23, 0, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 game.swnstate2 = 1;
                 break;
             case 6:
                 //Middle
-                createentity(game, -150, 58 + (2 * 20), 23, 0, 0);
-                createentity(game, -150, 58 + (3 * 20), 23, 0, 0);
+                createentity(-150, 58 + (2 * 20), 23, 0, 0);
+                createentity(-150, 58 + (3 * 20), 23, 0, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 game.swnstate2 = 0;
                 break;
             case 7:
                 //Top and bottom
-                createentity(game, 320+150, 58, 23, 1, 0);
-                createentity(game, 320+150, 58 + (5 * 20), 23, 1, 0);
+                createentity(320+150, 58, 23, 1, 0);
+                createentity(320+150, 58 + (5 * 20), 23, 1, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 game.swnstate2 = 1;
                 break;
             case 8:
                 //Middle
-                createentity(game, 320+150, 58 + (2 * 20), 23, 1, 0);
-                createentity(game, 320+150, 58 + (3 * 20), 23, 1, 0);
+                createentity(320+150, 58 + (2 * 20), 23, 1, 0);
+                createentity(320+150, 58 + (3 * 20), 23, 1, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 game.swnstate2 = 0;
@@ -400,7 +400,7 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                         game.swnstate2++;
                     }
                 }
-                createentity(game, 320 + 150, 58 + (int(game.swnstate2) * 20), 23, 1, 0);
+                createentity(320 + 150, 58 + (int(game.swnstate2) * 20), 23, 1, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 break;
@@ -567,16 +567,16 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                 game.swnstate2 = 0;
                 break;
             case 10:
-                gravcreate(game, 0, 0);
-                gravcreate(game, 1, 0);
-                gravcreate(game, 2, 0);
+                gravcreate(0, 0);
+                gravcreate(1, 0);
+                gravcreate(2, 0);
                 game.swnstate++;
                 game.swndelay = 10; //return to decision state
                 break;
             case 11:
-                gravcreate(game, 3, 0);
-                gravcreate(game, 4, 0);
-                gravcreate(game, 5, 0);
+                gravcreate(3, 0);
+                gravcreate(4, 0);
+                gravcreate(5, 0);
                 game.swnstate2++;
                 if(game.swnstate2==3)
                 {
@@ -590,16 +590,16 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                 }
                 break;
             case 12:
-                gravcreate(game, 0, 1);
-                gravcreate(game, 1, 1);
-                gravcreate(game, 2, 1);
+                gravcreate(0, 1);
+                gravcreate(1, 1);
+                gravcreate(2, 1);
                 game.swnstate++;
                 game.swndelay = 10; //return to decision state
                 break;
             case 13:
-                gravcreate(game, 3, 1);
-                gravcreate(game, 4, 1);
-                gravcreate(game, 5, 1);
+                gravcreate(3, 1);
+                gravcreate(4, 1);
+                gravcreate(5, 1);
                 game.swnstate2++;
                 if(game.swnstate2==3)
                 {
@@ -613,43 +613,43 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                 }
                 break;
             case 14:
-                gravcreate(game, 0, 0, 0);
-                gravcreate(game, 5, 1, 0);
+                gravcreate(0, 0, 0);
+                gravcreate(5, 1, 0);
 
                 game.swnstate++;
                 game.swndelay = 20; //return to decision state
                 break;
             case 15:
-                gravcreate(game, 1, 0);
-                gravcreate(game, 4, 1);
+                gravcreate(1, 0);
+                gravcreate(4, 1);
 
                 game.swnstate++;
                 game.swndelay = 20; //return to decision state
                 break;
             case 16:
-                gravcreate(game, 2, 0);
-                gravcreate(game, 3, 1);
+                gravcreate(2, 0);
+                gravcreate(3, 1);
 
                 game.swnstate++;
                 game.swndelay = 20; //return to decision state
                 break;
             case 17:
-                gravcreate(game, 3, 0);
-                gravcreate(game, 2, 1);
+                gravcreate(3, 0);
+                gravcreate(2, 1);
 
                 game.swnstate++;
                 game.swndelay = 20; //return to decision state
                 break;
             case 18:
-                gravcreate(game, 4, 0);
-                gravcreate(game, 1, 1);
+                gravcreate(4, 0);
+                gravcreate(1, 1);
 
                 game.swnstate++;
                 game.swndelay = 20; //return to decision state
                 break;
             case 19:
-                gravcreate(game, 5, 0);
-                gravcreate(game, 0, 1);
+                gravcreate(5, 0);
+                gravcreate(0, 1);
 
                 game.swnstate=0;
                 game.swndelay = 20; //return to decision state
@@ -674,7 +674,7 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                         game.swnstate2++;
                     }
                 }
-                createentity(game, -150, 58 + (int(game.swnstate2) * 20), 23, 0, 0);
+                createentity(-150, 58 + (int(game.swnstate2) * 20), 23, 0, 0);
                 if(game.swnstate4<=6)
                 {
                     game.swnstate = 20;
@@ -706,7 +706,7 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                         game.swnstate2++;
                     }
                 }
-                createentity(game, 320+150, 58 + (int(game.swnstate2) * 20), 23, 1, 0);
+                createentity(320+150, 58 + (int(game.swnstate2) * 20), 23, 1, 0);
                 if(game.swnstate4<=6)
                 {
                     game.swnstate = 21;
@@ -722,8 +722,8 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                 game.swnstate4++;
                 //left and right compliments
                 game.swnstate2 = int(fRandom() * 6);
-                createentity(game, -150, 58 + (game.swnstate2  * 20), 23, 0, 0);
-                createentity(game, 320 + 150, 58 + ((5 - game.swnstate2) * 20), 23, 1, 0);
+                createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
+                createentity(320 + 150, 58 + ((5 - game.swnstate2) * 20), 23, 1, 0);
                 if(game.swnstate4<=12)
                 {
                     game.swnstate = 22;
@@ -737,53 +737,53 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
                 game.swnstate2 = 0;
                 break;
             case 23:
-                gravcreate(game, 1, 0);
-                gravcreate(game, 2, 0, 15);
-                gravcreate(game, 2, 0, -15);
-                gravcreate(game, 3, 0, 15);
-                gravcreate(game, 3, 0, -15);
-                gravcreate(game, 4, 0);
+                gravcreate(1, 0);
+                gravcreate(2, 0, 15);
+                gravcreate(2, 0, -15);
+                gravcreate(3, 0, 15);
+                gravcreate(3, 0, -15);
+                gravcreate(4, 0);
                 game.swnstate = 0;
                 game.swndelay = 15; //return to decision state
                 break;
             case 24:
-                gravcreate(game, 1, 1);
-                gravcreate(game, 2, 1, 15);
-                gravcreate(game, 2, 1, -15);
-                gravcreate(game, 3, 1, 15);
-                gravcreate(game, 3, 1, -15);
-                gravcreate(game, 4, 1);
+                gravcreate(1, 1);
+                gravcreate(2, 1, 15);
+                gravcreate(2, 1, -15);
+                gravcreate(3, 1, 15);
+                gravcreate(3, 1, -15);
+                gravcreate(4, 1);
                 game.swnstate = 0;
                 game.swndelay = 15; //return to decision state
                 break;
             case 25:
-                gravcreate(game, 0, 0);
-                gravcreate(game, 1, 1,0,10);
-                gravcreate(game, 4, 1,0,-10);
-                gravcreate(game, 5, 0);
+                gravcreate(0, 0);
+                gravcreate(1, 1,0,10);
+                gravcreate(4, 1,0,-10);
+                gravcreate(5, 0);
                 game.swnstate = 0;
                 game.swndelay = 20; //return to decision state
                 break;
             case 26:
-                gravcreate(game, 0, 1, 0);
-                gravcreate(game, 1, 1, 10);
-                gravcreate(game, 4, 1, 40);
-                gravcreate(game, 5, 1, 50);
+                gravcreate(0, 1, 0);
+                gravcreate(1, 1, 10);
+                gravcreate(4, 1, 40);
+                gravcreate(5, 1, 50);
                 game.swnstate = 0;
                 game.swndelay = 20; //return to decision state
                 break;
             case 27:
-                gravcreate(game, 0, 0, 0);
-                gravcreate(game, 1, 0, 10);
-                gravcreate(game, 4, 0, 40);
-                gravcreate(game, 5, 0, 50);
+                gravcreate(0, 0, 0);
+                gravcreate(1, 0, 10);
+                gravcreate(4, 0, 40);
+                gravcreate(5, 0, 50);
                 game.swnstate = 0;
                 game.swndelay = 20; //return to decision state
                 break;
             case 28:
                 game.swnstate4++;
                 game.swnstate2 = int(fRandom() * 6);
-                createentity(game, -150, 58 + (game.swnstate2  * 20), 23, 0, 0);
+                createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
                 if(game.swnstate4<=6)
                 {
                     game.swnstate = 28;
@@ -799,7 +799,7 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
             case 29:
                 game.swnstate4++;
                 game.swnstate2 = int(fRandom() * 6);
-                gravcreate(game, game.swnstate2, 1);
+                gravcreate(game.swnstate2, 1);
                 if(game.swnstate4<=6)
                 {
                     game.swnstate = 29;
@@ -815,8 +815,8 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
             case 30:
                 game.swnstate4++;
                 game.swnstate2 = int(fRandom() * 3);
-                gravcreate(game, game.swnstate2, 0);
-                gravcreate(game, 5-game.swnstate2, 0);
+                gravcreate(game.swnstate2, 0);
+                gravcreate(5-game.swnstate2, 0);
                 if(game.swnstate4<=2)
                 {
                     game.swnstate = 30;
@@ -832,8 +832,8 @@ void entityclass::generateswnwave( Game& game, UtilityClass& help, int t )
             case 31:
                 game.swnstate4++;
                 game.swnstate2 = int(fRandom() * 3);
-                gravcreate(game, game.swnstate2, 1);
-                gravcreate(game, 5-game.swnstate2, 1);
+                gravcreate(game.swnstate2, 1);
+                gravcreate(5-game.swnstate2, 1);
                 if(game.swnstate4<=2)
                 {
                     game.swnstate = 31;
@@ -1769,7 +1769,7 @@ void entityclass::settreadmillcolour( int t, int rx, int ry )
     }
 }
 
-void entityclass::createentity( Game& game, float xp, float yp, int t, float vx /*= 0*/, float vy /*= 0*/, int p1 /*= 0*/, int p2 /*= 0*/, int p3 /*= 320*/, int p4 /*= 240 */ )
+void entityclass::createentity(float xp, float yp, int t, float vx /*= 0*/, float vy /*= 0*/, int p1 /*= 0*/, int p2 /*= 0*/, int p3 /*= 320*/, int p4 /*= 240 */)
 {
     //Find the first inactive case z that we can use to index the new entity
     if (nentity == 0)
@@ -2764,7 +2764,7 @@ void entityclass::createentity( Game& game, float xp, float yp, int t, float vx 
     }
 }
 
-bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musicclass& music )
+bool entityclass::updateentities(int i)
 {
     if(entities[i].active)
     {
@@ -2785,7 +2785,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                     if (entities[i].state == 0)   //Init
                     {
                         entities[i].state = 3;
-                        updateentities(i, help, game, music);
+                        updateentities(i);
                     }
                     else if (entities[i].state == 1)
                     {
@@ -2808,7 +2808,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                     if (entities[i].state == 0)   //Init
                     {
                         entities[i].state = 2;
-                        updateentities(i, help, game, music);
+                        updateentities(i);
                     }
                     else if (entities[i].state == 1)
                     {
@@ -2831,7 +2831,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                     if (entities[i].state == 0)   //Init
                     {
                         entities[i].state = 3;
-                        updateentities(i, help, game, music);
+                        updateentities(i);
                     }
                     else if (entities[i].state == 1)
                     {
@@ -2854,7 +2854,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                     if (entities[i].state == 0)   //Init
                     {
                         entities[i].state = 3;
-                        updateentities(i, help, game, music);
+                        updateentities(i);
                     }
                     else if (entities[i].state == 1)
                     {
@@ -2932,7 +2932,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                     //Emitter: shoot an enemy every so often
                     if (entities[i].state == 0)
                     {
-                        createentity(game, entities[i].xp+28, entities[i].yp, 1, 10, 1);
+                        createentity(entities[i].xp+28, entities[i].yp, 1, 10, 1);
                         entities[i].state = 1;
                         entities[i].statedelay = 12;
                     }
@@ -2961,7 +2961,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                     //Emitter: shoot an enemy every so often (up)
                     if (entities[i].state == 0)
                     {
-                        createentity(game, entities[i].xp, entities[i].yp, 1, 12, 1);
+                        createentity(entities[i].xp, entities[i].yp, 1, 12, 1);
                         entities[i].state = 1;
                         entities[i].statedelay = 16;
                     }
@@ -2994,7 +2994,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                             if (entities[j].type == 2 && entities[j].state== 3 && entities[j].xp == (entities[i].xp-32) )
                             {
                                 entities[i].state = 3;
-                                updateentities(i, help, game, music);
+                                updateentities(i);
                             }
                         }
                     }
@@ -3023,7 +3023,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                             if (entities[j].type == 2 && entities[j].state==3 && entities[j].xp==entities[i].xp+32)
                             {
                                 entities[i].state = 3;
-                                updateentities(i, help, game, music);
+                                updateentities(i);
                             }
                         }
                     }
@@ -3064,14 +3064,14 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
                             //approach from the left
                             entities[i].xp = -64;
                             entities[i].state = 2;
-                            updateentities(i, help, game, music); //right
+                            updateentities(i); //right
                         }
                         else
                         {
                             //approach from the left
                             entities[i].xp = 320;
                             entities[i].state = 3;
-                            updateentities(i, help, game, music); //left
+                            updateentities(i); //left
                         }
 
                     }
@@ -3931,7 +3931,7 @@ bool entityclass::updateentities( int i, UtilityClass& help, Game& game, musiccl
     return true;
 }
 
-void entityclass::animateentities( int _i, Game& game, UtilityClass& help )
+void entityclass::animateentities(int _i)
 {
     if(entities[_i].active)
     {
@@ -4309,7 +4309,7 @@ bool entityclass::gettype( int t )
     return false;
 }
 
-int entityclass::getcompanion( int t )
+int entityclass::getcompanion()
 {
     //Returns the index of the companion with rule t
     for (int i = 0; i < nentity; i++)
@@ -4461,11 +4461,11 @@ bool entityclass::entitycollide( int a, int b )
     temph = entities[b].h;
     rect2set(tempx, tempy, tempw, temph);
 
-    if (UtilityClass::intersects(temprect, temprect2)) return true;
+    if (help.intersects(temprect, temprect2)) return true;
     return false;
 }
 
-bool entityclass::checkdirectional( int t )
+bool entityclass::checkdirectional()
 {
     //Returns true if player entity (rule 0) moving in dir t through directional block
     for(int i=0; i < nentity; i++)
@@ -4482,7 +4482,7 @@ bool entityclass::checkdirectional( int t )
             {
                 if (blocks[j].type == DIRECTIONAL && blocks[j].active)
                 {
-                    if(UtilityClass::intersects(blocks[j].rect,temprect))
+                    if(help.intersects(blocks[j].rect,temprect))
                     {
                         return true;
                     }
@@ -4510,7 +4510,7 @@ bool entityclass::checkdamage()
             {
                 if (blocks[j].type == DAMAGE && blocks[j].active)
                 {
-                    if(UtilityClass::intersects(blocks[j].rect, temprect))
+                    if(help.intersects(blocks[j].rect, temprect))
                     {
                         return true;
                     }
@@ -4538,7 +4538,7 @@ bool entityclass::scmcheckdamage()
             {
                 if (blocks[j].type == DAMAGE && blocks[j].active)
                 {
-                    if(UtilityClass::intersects(blocks[j].rect, temprect))
+                    if(help.intersects(blocks[j].rect, temprect))
                     {
                         return true;
                     }
@@ -4576,7 +4576,7 @@ int entityclass::checktrigger()
             {
                 if (blocks[j].type == TRIGGER && blocks[j].active)
                 {
-                    if (UtilityClass::intersects(blocks[j].rect, temprect))
+                    if (help.intersects(blocks[j].rect, temprect))
                     {
                         activetrigger = blocks[j].trigger;
                         return blocks[j].trigger;
@@ -4605,7 +4605,7 @@ int entityclass::checkactivity()
             {
                 if (blocks[j].type == ACTIVITY && blocks[j].active)
                 {
-                    if (UtilityClass::intersects(blocks[j].rect, temprect))
+                    if (help.intersects(blocks[j].rect, temprect))
                     {
                         return j;
                     }
@@ -4642,7 +4642,7 @@ bool entityclass::checkplatform()
         {
             if (blocks[i].type == BLOCK)
             {
-                if (UtilityClass::intersects(blocks[i].rect, temprect))
+                if (help.intersects(blocks[i].rect, temprect))
                 {
                     px = blocks[i].xp;
                     py = blocks[i].yp;
@@ -4664,15 +4664,15 @@ bool entityclass::checkblocks()
             {
                 if (blocks[i].type == DIRECTIONAL)
                 {
-                    if (dy > 0 && blocks[i].trigger == 0) if (UtilityClass::intersects(blocks[i].rect, temprect)) return true;
-                    if (dy <= 0 && blocks[i].trigger == 1) if (UtilityClass::intersects(blocks[i].rect, temprect)) return true;
-                    if (dx > 0 && blocks[i].trigger == 2) if (UtilityClass::intersects(blocks[i].rect, temprect)) return true;
-                    if (dx <= 0 && blocks[i].trigger == 3) if (UtilityClass::intersects(blocks[i].rect, temprect)) return true;
+                    if (dy > 0 && blocks[i].trigger == 0) if (help.intersects(blocks[i].rect, temprect)) return true;
+                    if (dy <= 0 && blocks[i].trigger == 1) if (help.intersects(blocks[i].rect, temprect)) return true;
+                    if (dx > 0 && blocks[i].trigger == 2) if (help.intersects(blocks[i].rect, temprect)) return true;
+                    if (dx <= 0 && blocks[i].trigger == 3) if (help.intersects(blocks[i].rect, temprect)) return true;
                 }
             }
             if (blocks[i].type == BLOCK)
             {
-                if (UtilityClass::intersects(blocks[i].rect, temprect))
+                if (help.intersects(blocks[i].rect, temprect))
                 {
                     return true;
                 }
@@ -4681,7 +4681,7 @@ bool entityclass::checkblocks()
             {
                 if( (dr)==1)
                 {
-                    if (UtilityClass::intersects(blocks[i].rect, temprect))
+                    if (help.intersects(blocks[i].rect, temprect))
                     {
                         return true;
                     }
@@ -4692,7 +4692,7 @@ bool entityclass::checkblocks()
     return false;
 }
 
-bool entityclass::checkwall( mapclass& map )
+bool entityclass::checkwall()
 {
     //Returns true if entity setup in temprect collides with a wall
     //used for proper collision functions; you can't just, like, call it
@@ -4882,7 +4882,7 @@ bool entityclass::entitywarpvlinecollide(int t, int l) {
 	return false;
 }
 
-float entityclass::entitycollideplatformroof( mapclass& map, int t )
+float entityclass::entitycollideplatformroof(int t)
 {
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy -1;
@@ -4898,7 +4898,7 @@ float entityclass::entitycollideplatformroof( mapclass& map, int t )
     return -1000;
 }
 
-float entityclass::entitycollideplatformfloor( mapclass& map, int t )
+float entityclass::entitycollideplatformfloor(int t)
 {
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy + 1;
@@ -4914,7 +4914,7 @@ float entityclass::entitycollideplatformfloor( mapclass& map, int t )
     return -1000;
 }
 
-bool entityclass::entitycollidefloor( mapclass& map, int t )
+bool entityclass::entitycollidefloor(int t)
 {
     //see? like here, for example!
     tempx = entities[t].xp + entities[t].cx;
@@ -4923,11 +4923,11 @@ bool entityclass::entitycollidefloor( mapclass& map, int t )
     temph = entities[t].h;
     rectset(tempx, tempy, tempw, temph);
 
-    if (checkwall(map)) return true;
+    if (checkwall()) return true;
     return false;
 }
 
-bool entityclass::entitycollideroof( mapclass& map, int t )
+bool entityclass::entitycollideroof(int t)
 {
     //and here!
     tempx = entities[t].xp + entities[t].cx;
@@ -4936,11 +4936,11 @@ bool entityclass::entitycollideroof( mapclass& map, int t )
     temph = entities[t].h;
     rectset(tempx, tempy, tempw, temph);
 
-    if (checkwall(map)) return true;
+    if (checkwall()) return true;
     return false;
 }
 
-bool entityclass::testwallsx( int t, mapclass& map, int tx, int ty )
+bool entityclass::testwallsx(int t, int tx, int ty)
 {
     tempx = tx + entities[t].cx;
     tempy = ty + entities[t].cy;
@@ -4963,19 +4963,19 @@ bool entityclass::testwallsx( int t, mapclass& map, int tx, int ty )
     dr = entities[t].rule;
 
     //Ok, now we check walls
-    if (checkwall(map))
+    if (checkwall())
     {
         if (entities[t].vx > 1.0f)
         {
             entities[t].vx--;
             entities[t].newxp = entities[t].xp + entities[t].vx;
-            return testwallsx(t, map, entities[t].newxp, entities[t].yp);
+            return testwallsx(t, entities[t].newxp, entities[t].yp);
         }
         else if (entities[t].vx < -1.0f)
         {
             entities[t].vx++;
             entities[t].newxp = entities[t].xp + entities[t].vx;
-            return testwallsx(t, map, entities[t].newxp, entities[t].yp);
+            return testwallsx(t, entities[t].newxp, entities[t].yp);
         }
         else
         {
@@ -4986,7 +4986,7 @@ bool entityclass::testwallsx( int t, mapclass& map, int tx, int ty )
     return true;
 }
 
-bool entityclass::testwallsy( int t, mapclass& map, float tx, float ty )
+bool entityclass::testwallsy(int t, float tx, float ty)
 {
     tempx = static_cast<int>(tx) + entities[t].cx;
     tempy = static_cast<int>(ty) + entities[t].cy;
@@ -5010,19 +5010,19 @@ bool entityclass::testwallsy( int t, mapclass& map, float tx, float ty )
     dr = entities[t].rule;
 
     //Ok, now we check walls
-    if (checkwall(map))
+    if (checkwall())
     {
         if (entities[t].vy > 1)
         {
             entities[t].vy--;
             entities[t].newyp = int(entities[t].yp + entities[t].vy);
-            return testwallsy(t, map, entities[t].xp, entities[t].newyp);
+            return testwallsy(t, entities[t].xp, entities[t].newyp);
         }
         else if (entities[t].vy < -1)
         {
             entities[t].vy++;
             entities[t].newyp = int(entities[t].yp + entities[t].vy);
-            return testwallsy(t, map, entities[t].xp, entities[t].newyp);
+            return testwallsy(t, entities[t].xp, entities[t].newyp);
         }
         else
         {
@@ -5073,7 +5073,7 @@ void entityclass::cleanup()
     }
 }
 
-void entityclass::updateentitylogic( int t, Game& game )
+void entityclass::updateentitylogic(int t)
 {
     entities[t].oldxp = entities[t].xp;
     entities[t].oldyp = entities[t].yp;
@@ -5110,9 +5110,9 @@ void entityclass::updateentitylogic( int t, Game& game )
     entities[t].newyp = entities[t].yp + entities[t].vy;
 }
 
-void entityclass::entitymapcollision( int t, mapclass& map )
+void entityclass::entitymapcollision(int t)
 {
-    if (testwallsx(t, map, entities[t].newxp, entities[t].yp))
+    if (testwallsx(t, entities[t].newxp, entities[t].yp))
     {
         entities[t].xp = entities[t].newxp;
     }
@@ -5121,7 +5121,7 @@ void entityclass::entitymapcollision( int t, mapclass& map )
         if (entities[t].onwall > 0) entities[t].state = entities[t].onwall;
         if (entities[t].onxwall > 0) entities[t].state = entities[t].onxwall;
     }
-    if (testwallsy(t, map, entities[t].xp, entities[t].newyp))
+    if (testwallsy(t, entities[t].xp, entities[t].newyp))
     {
         entities[t].yp = entities[t].newyp;
     }
@@ -5133,7 +5133,7 @@ void entityclass::entitymapcollision( int t, mapclass& map )
     }
 }
 
-void entityclass::movingplatformfix( int t, mapclass& map )
+void entityclass::movingplatformfix(int t)
 {
     //If this intersects the player, then we move the player along it
     int j = getplayer();
@@ -5146,7 +5146,7 @@ void entityclass::movingplatformfix( int t, mapclass& map )
             entities[j].yp = entities[j].yp - int(entities[j].vy);
             entities[j].vy = entities[t].vy;
             entities[j].newyp = entities[j].yp + int(entities[j].vy);
-            if (testwallsy(j, map, entities[j].xp, entities[j].newyp))
+            if (testwallsy(j, entities[j].xp, entities[j].newyp))
             {
                  if (entities[t].vy > 0)
                 {
@@ -5169,7 +5169,7 @@ void entityclass::movingplatformfix( int t, mapclass& map )
     }
 }
 
-void entityclass::scmmovingplatformfix( int t, mapclass& map )
+void entityclass::scmmovingplatformfix(int t)
 {
     //If this intersects the SuperCrewMate, then we move them along it
     int j = getscm();
@@ -5182,7 +5182,7 @@ void entityclass::scmmovingplatformfix( int t, mapclass& map )
             entities[j].yp = entities[j].yp -  (entities[j].vy);
             entities[j].vy = entities[t].vy;
             entities[j].newyp = static_cast<float>(entities[j].yp) + entities[j].vy;
-            if (testwallsy(j, map, entities[j].xp, entities[j].newyp))
+            if (testwallsy(j, entities[j].xp, entities[j].newyp))
             {
                 if (entities[t].vy > 0)
                 {
@@ -5205,7 +5205,7 @@ void entityclass::scmmovingplatformfix( int t, mapclass& map )
     }
 }
 
-void entityclass::hormovingplatformfix( int t, mapclass& map )
+void entityclass::hormovingplatformfix(int t)
 {
     //If this intersects the player, then we move the player along it
     //for horizontal platforms, this is simplier
@@ -5248,7 +5248,7 @@ void entityclass::customwarplinecheck(int i) {
 	}
 }
 
-void entityclass::entitycollisioncheck( Graphics& dwgfx, Game& game, mapclass& map, musicclass& music )
+void entityclass::entitycollisioncheck()
 {
     for (int i = 0; i < nentity; i++)
     {
@@ -5271,10 +5271,10 @@ void entityclass::entitycollisioncheck( Graphics& dwgfx, Game& game, mapclass& m
                                 colpoint1.y = entities[i].yp;
                                 colpoint2.x = entities[j].xp;
                                 colpoint2.y = entities[j].yp;
-                                if (dwgfx.flipmode)
+                                if (graphics.flipmode)
                                 {
-                                    if (dwgfx.Hitest(dwgfx.flipsprites[entities[i].drawframe],
-                                                     colpoint1, 1, dwgfx.flipsprites[entities[j].drawframe], colpoint2, 1))
+                                    if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
+                                                     colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
                                     {
                                         //Do the collision stuff
                                         game.deathseq = 30;
@@ -5282,8 +5282,8 @@ void entityclass::entitycollisioncheck( Graphics& dwgfx, Game& game, mapclass& m
                                 }
                                 else
                                 {
-                                    if (dwgfx.Hitest(dwgfx.sprites[entities[i].drawframe],
-                                                     colpoint1, 1, dwgfx.sprites[entities[j].drawframe], colpoint2, 1) )
+                                    if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
+                                                     colpoint1, graphics.sprites[entities[j].drawframe], colpoint2) )
                                     {
                                         //Do the collision stuff
                                         game.deathseq = 30;
@@ -5399,10 +5399,10 @@ void entityclass::entitycollisioncheck( Graphics& dwgfx, Game& game, mapclass& m
                                         colpoint1.y = entities[i].yp;
                                         colpoint2.x = entities[j].xp;
                                         colpoint2.y = entities[j].yp;
-                                        if (dwgfx.flipmode)
+                                        if (graphics.flipmode)
                                         {
-                                            if (dwgfx.Hitest(dwgfx.flipsprites[entities[i].drawframe],
-                                                             colpoint1, 1, dwgfx.flipsprites[entities[j].drawframe], colpoint2, 1))
+                                            if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
+                                                             colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
                                             {
                                                 //Do the collision stuff
                                                 game.deathseq = 30;
@@ -5411,8 +5411,8 @@ void entityclass::entitycollisioncheck( Graphics& dwgfx, Game& game, mapclass& m
                                         }
                                         else
                                         {
-                                            if (dwgfx.Hitest(dwgfx.sprites[entities[i].drawframe],
-                                                             colpoint1, 1, dwgfx.sprites[entities[j].drawframe], colpoint2, 1))
+                                            if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
+                                                             colpoint1, graphics.sprites[entities[j].drawframe], colpoint2))
                                             {
                                                 //Do the collision stuff
                                                 game.deathseq = 30;
@@ -5449,7 +5449,7 @@ void entityclass::entitycollisioncheck( Graphics& dwgfx, Game& game, mapclass& m
     //can't have the player being stuck...
     int j = getplayer();
     skipdirblocks = true;
-    if (!testwallsx(j, map, entities[j].xp, entities[j].yp))
+    if (!testwallsx(j, entities[j].xp, entities[j].yp))
     {
         //Let's try to get out...
         if (entities[j].rule == 0)
@@ -5471,7 +5471,7 @@ void entityclass::entitycollisioncheck( Graphics& dwgfx, Game& game, mapclass& m
     {
         j = getscm();
         skipdirblocks = true;
-        if (!testwallsx(j, map, entities[j].xp, entities[j].yp))
+        if (!testwallsx(j, entities[j].xp, entities[j].yp))
         {
             //Let's try to get out...
             if(game.gravitycontrol==0)

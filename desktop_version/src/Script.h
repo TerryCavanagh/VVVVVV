@@ -17,8 +17,8 @@ public:
 
     scriptclass();
 
-	void load(std::string t);
-	void loadother(std::string t);
+    void load(std::string t);
+    void loadother(std::string t);
 
 
     void inline add(std::string t)
@@ -31,20 +31,15 @@ public:
 
     void tokenize(std::string t);
 
-    void run(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-             entityclass& obj, UtilityClass& help, musicclass& music);
+    void run();
 
-    void resetgametomenu(Graphics& dwgfx, Game& game,mapclass& map,
-                         entityclass& obj, UtilityClass& help, musicclass& music);
+    void resetgametomenu();
 
-    void startgamemode(int t, KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
-                       entityclass& obj, UtilityClass& help, musicclass& music);
+    void startgamemode(int t);
 
-    void teleport(Graphics& dwgfx, Game& game, mapclass& map,
-                  entityclass& obj, UtilityClass& help, musicclass& music);
+    void teleport();
 
-    void hardreset(KeyPoll& key, Graphics& dwgfx, Game& game,mapclass& map,
-                   entityclass& obj, UtilityClass& help, musicclass& music);
+    void hardreset();
 
     //Script contents
     std::vector<std::string> commands;

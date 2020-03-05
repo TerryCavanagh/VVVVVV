@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
     map.bypos = map.ypos / 2;
 
     //Moved screensetting init here from main menu V2.1
-    game.loadstats(map, graphics);
+    game.loadstats();
     if (game.skipfakeload)
         game.gamestate = TITLEMODE;
 		if(game.usingmmmmmm==0) music.usingmmmmmm=false;
@@ -274,8 +274,6 @@ int main(int argc, char *argv[])
 
     while(!key.quitProgram)
     {
-		//gameScreen.ClearScreen(0x00);
-
         time = SDL_GetTicks();
 
         // Update network per frame.
@@ -357,141 +355,78 @@ int main(int argc, char *argv[])
             {
             case PRELOADER:
                 //Render
-                preloaderrender(graphics, game, help);
+                preloaderrender();
                 break;
-        #if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS)
             case EDITORMODE:
-				graphics.flipmode = false;
+                graphics.flipmode = false;
                 //Input
-                editorinput(key, graphics, game, map, obj, help, music);
+                editorinput();
                 //Render
-                editorrender(key, graphics, game, map, obj, help);
+                editorrender();
                 ////Logic
-                editorlogic(key, graphics, game, obj, music, map, help);
+                editorlogic();
                 break;
-        #endif
+#endif
             case TITLEMODE:
-                //Input
-                titleinput(key, graphics, map, game, obj, help, music);
-                //Render
-                titlerender(graphics, map, game, obj, help, music);
-                ////Logic
-                titlelogic(graphics, game, obj, help, music, map);
+                titleinput();
+                titlerender();
+                titlelogic();
                 break;
             case GAMEMODE:
                 if (map.towermode)
                 {
-					gameinput(key, graphics, game, map, obj, help, music);
-
-                    //if(game.recording==1)
-                    //{
-                    // ///recordinput(key, graphics, game, map, obj, help, music);
-                    //}
-                    //else
-                    //{
-                    //}
-                    towerrender(graphics, game, map, obj, help);
-                    towerlogic(graphics, game,  obj,  music, map, help);
-
+                    gameinput();
+                    towerrender();
+                    towerlogic();
                 }
                 else
                 {
-
-                    if (game.recording == 1)
+                    if (script.running)
                     {
-                        //recordinput(key, dwgfx, game, map, obj, help, music);
+                        script.run();
                     }
-                    else
-                    {
-                        if (script.running)
-                        {
-                            script.run(key, graphics, game, map, obj, help, music);
-                        }
 
-                        gameinput(key, graphics, game, map, obj, help, music);
-                        //}
-                        gamerender(graphics,map, game,  obj, help);
-                        gamelogic(graphics, game,obj, music, map,  help);
-
-
-                    }
-                    break;
-                case MAPMODE:
-                    maprender(graphics, game, map, obj, help);
-                    if (game.recording == 1)
-                    {
-                        //recordinput(key, dwgfx, game, map, obj, help, music); //will implement this later if it's actually needed
-                    }
-                    else
-                    {
-                        mapinput(key, graphics, game, map, obj, help, music);
-                    }
-                    maplogic(graphics, game, obj ,music , map, help );
-                    break;
-                case TELEPORTERMODE:
-                    teleporterrender(graphics, game, map, obj, help);
-                    if (game.recording == 1)
-                    {
-                        //recordinput(key, graphics, game, map, obj, help, music);
-                    }
-                    else
-                    {
-                        if(game.useteleporter)
-                        {
-                            teleporterinput(key, graphics, game, map, obj, help, music);
-                        }
-                        else
-                        {
-                            if (script.running)
-                            {
-                                script.run(key, graphics, game, map, obj, help, music);
-                            }
-                            gameinput(key, graphics, game, map, obj, help, music);
-                        }
-                    }
-                    maplogic(graphics, game,  obj, music, map, help);
-                    break;
-                case GAMECOMPLETE:
-                    gamecompleterender(graphics, game, obj, help, map);
-                    //Input
-                    gamecompleteinput(key, graphics, game, map, obj, help, music);
-                    //Logic
-                    gamecompletelogic(graphics, game,  obj, music, map, help);
-                    break;
-                case GAMECOMPLETE2:
-                    gamecompleterender2(graphics, game, obj, help);
-                    //Input
-                    gamecompleteinput2(key, graphics, game, map, obj, help, music);
-                    //Logic
-                    gamecompletelogic2(graphics, game,  obj, music, map, help);
-                    break;
-                case CLICKTOSTART:
-
-                    //dwgfx.bprint(5, 115, "[Click to start]", 196 - help.glow, 196 - help.glow, 255 - help.glow, true);
-                    //dwgfx.drawgui(help);
-                    //dwgfx.render();
-                    //dwgfx.backbuffer.unlock();
-
-                    help.updateglow();
-                    // if (key.click) {
-                    //  dwgfx.textboxremove();
-                    // }
-                    // if (dwgfx.ntextbox == 0) {
-                    //  //music.play(6);
-                    //  map.ypos = (700-29) * 8;
-                    //  map.bypos = map.ypos / 2;
-                    //  map.cameramode = 0;
-
-                    //  game.gamestate = TITLEMODE;
-                    // }
-                    break;
-                default:
-
-                break;
+                    gameinput();
+                    gamerender();
+                    gamelogic();
                 }
-
+                break;
+            case MAPMODE:
+                maprender();
+                mapinput();
+                maplogic();
+                break;
+            case TELEPORTERMODE:
+                teleporterrender();
+                if(game.useteleporter)
+                {
+                    teleporterinput();
+                }
+                else
+                {
+                    if (script.running)
+                    {
+                        script.run();
+                    }
+                    gameinput();
+                }
+                maplogic();
+                break;
+            case GAMECOMPLETE:
+                gamecompleterender();
+                gamecompleteinput();
+                gamecompletelogic();
+                break;
+            case GAMECOMPLETE2:
+                gamecompleterender2();
+                gamecompleteinput2();
+                gamecompletelogic2();
+                break;
+            case CLICKTOSTART:
+                help.updateglow();
+                break;
             }
-
         }
 
         //We did editorinput, now it's safe to turn this off
@@ -500,15 +435,15 @@ int main(int argc, char *argv[])
         if (game.savemystats)
         {
             game.savemystats = false;
-            game.savestats(map, graphics);
+            game.savestats();
         }
 
         //Mute button
-    #if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS)
         bool inEditor = ed.textentry || ed.scripthelppage == 1;
-    #else
+#else
         bool inEditor = false;
-    #endif
+#endif
         if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !inEditor)
         {
             game.mutebutton = 8;
@@ -565,7 +500,7 @@ int main(int argc, char *argv[])
     //SDL_FreeSurface( gameScreen );
 
     //Quit SDL
-    game.savestats(map, graphics);
+    game.savestats();
     NETWORK_shutdown();
     SDL_Quit();
     FILESYSTEM_deinit();

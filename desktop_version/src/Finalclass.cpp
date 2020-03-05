@@ -2,7 +2,7 @@
 
 #include "MakeAndPlay.h"
 
-std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entityclass& obj)
+std::vector<std::string> finalclass::loadlevel(int rx, int ry)
 {
 	int t;
 
@@ -13,7 +13,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 	warpx = false;
 	warpy = false;
 
-	roomname = "Untitled room ["+UtilityClass::String(rx) + "," + UtilityClass::String(ry)+"]";
+	roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
 
 	switch(t)
 	{
@@ -50,11 +50,11 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,220,0,0,0,0,0,0,0,218,98,98,98,98,98,98,98,98,98,98,98");
 		tmap.push_back("98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,220,0,0,0,0,0,0,0,218,98,98,98,98,98,98,98,98,98,98,98");
 
-		obj.createentity(game, 163, 32, 12, 168);  // (vertical gravity line)
-		obj.createentity(game, 99, 32, 12, 168);  // (vertical gravity line)
-		obj.createentity(game, 227, 32, 12, 168);  // (vertical gravity line)
-		obj.createentity(game, 35, 32, 12, 168);  // (vertical gravity line)
-		obj.createentity(game, 291, 32, 12, 168);  // (vertical gravity line)
+		obj.createentity(163, 32, 12, 168);  // (vertical gravity line)
+		obj.createentity(99, 32, 12, 168);  // (vertical gravity line)
+		obj.createentity(227, 32, 12, 168);  // (vertical gravity line)
+		obj.createentity(35, 32, 12, 168);  // (vertical gravity line)
+		obj.createentity(291, 32, 12, 168);  // (vertical gravity line)
 
 		warpx = true;
 		roomname = "1954 World Cup Vinyl";
@@ -92,12 +92,12 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,178,179,179,180,0,0,0,0,0,0,0,178,179,179,180,0,0,0,0,0,0,0,178,179,179,180,0,0,0,0,0,0,0,218,98,220,740");
 		tmap.push_back("0,0,0,218,98,98,220,0,0,0,0,0,0,0,218,98,98,220,0,0,0,0,0,0,0,218,98,98,220,0,0,0,0,0,0,0,218,98,220,740");
 
-		obj.createentity(game, -8, 116, 11, 40);  // (horizontal gravity line)
-		obj.createentity(game, 48, 116, 11, 184);  // (horizontal gravity line)
-		obj.createentity(game, 32, 88, 10, 1, 51500);  // (savepoint)
-		obj.createentity(game, 32, 128, 10, 0, 51501);  // (savepoint)
-		obj.createentity(game, 256, 88, 10, 1, 51502);  // (savepoint)
-		obj.createentity(game, 256, 128, 10, 0, 51503);  // (savepoint)
+		obj.createentity(-8, 116, 11, 40);  // (horizontal gravity line)
+		obj.createentity(48, 116, 11, 184);  // (horizontal gravity line)
+		obj.createentity(32, 88, 10, 1, 51500);  // (savepoint)
+		obj.createentity(32, 128, 10, 0, 51501);  // (savepoint)
+		obj.createentity(256, 88, 10, 1, 51502);  // (savepoint)
+		obj.createentity(256, 128, 10, 0, 51503);  // (savepoint)
 		warpy = true;
 		roomname = "The V Stooges";
 		break;
@@ -135,10 +135,10 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,50,178,179,179,180,49,0,0,0,0,0,0,0,0,50,178,179,179,180,49,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,50,218,98,98,220,49,0,0,0,0,0,0,0,0,50,218,98,98,220,49,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, -8, 116, 11, 40);  // (horizontal gravity line)
-		obj.createentity(game, 288, 116, 11, 32);  // (horizontal gravity line)
-		obj.createentity(game, 64, 116, 11, 64);  // (horizontal gravity line)
-		obj.createentity(game, 192, 116, 11, 64);  // (horizontal gravity line)
+		obj.createentity(-8, 116, 11, 40);  // (horizontal gravity line)
+		obj.createentity(288, 116, 11, 32);  // (horizontal gravity line)
+		obj.createentity(64, 116, 11, 64);  // (horizontal gravity line)
+		obj.createentity(192, 116, 11, 64);  // (horizontal gravity line)
 
 		warpy = true;
 		roomname = "glitch";
@@ -176,13 +176,13 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, -8, 116, 11, 40);  // (horizontal gravity line)
-		obj.createentity(game, 48, 116, 11, 224);  // (horizontal gravity line)
-		obj.createentity(game, 288, 116, 11, 32);  // (horizontal gravity line)
-		obj.createentity(game, 56, 88, 1, 3, 10);  // Enemy
-		obj.createentity(game, 248-16, 128, 1, 2, 10);  // Enemy
-		obj.createentity(game, 272, 168, 10, 0, 51480);  // (savepoint)
-		obj.createentity(game, 32, 48, 10, 1, 51481);  // (savepoint)
+		obj.createentity(-8, 116, 11, 40);  // (horizontal gravity line)
+		obj.createentity(48, 116, 11, 224);  // (horizontal gravity line)
+		obj.createentity(288, 116, 11, 32);  // (horizontal gravity line)
+		obj.createentity(56, 88, 1, 3, 10);  // Enemy
+		obj.createentity(248-16, 128, 1, 2, 10);  // Enemy
+		obj.createentity(272, 168, 10, 0, 51480);  // (savepoint)
+		obj.createentity(32, 48, 10, 1, 51481);  // (savepoint)
 
 		warpy = true;
 		roomname = "glitch";
@@ -220,11 +220,11 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,218,220,0,0,0,0,0,0,218,220,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,218,220,0,0,0,0,0,0,218,220,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, -8, 148, 11, 104);  // (horizontal gravity line)
-		obj.createentity(game, -8, 84, 11, 80);  // (horizontal gravity line)
-		obj.createentity(game, 176, 116, 11, 144);  // (horizontal gravity line)
-		obj.createentity(game, 128, 96, 10, 0, 51470);  // (savepoint)
-		obj.createentity(game, 128, 56, 10, 1, 51471);  // (savepoint)
+		obj.createentity(-8, 148, 11, 104);  // (horizontal gravity line)
+		obj.createentity(-8, 84, 11, 80);  // (horizontal gravity line)
+		obj.createentity(176, 116, 11, 144);  // (horizontal gravity line)
+		obj.createentity(128, 96, 10, 0, 51470);  // (savepoint)
+		obj.createentity(128, 56, 10, 1, 51471);  // (savepoint)
 
 		warpy = true;
 		roomname = "change";
@@ -262,13 +262,13 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, -8, 84, 11, 328);  // (horizontal gravity line)
-		obj.createentity(game, -8, 148, 11, 328);  // (horizontal gravity line)
-		obj.createentity(game, 96, 120, 1, 2, 4);  // Enemy
-		obj.createentity(game, 144, 96, 1, 2, 4);  // Enemy
-		obj.createentity(game, 192, 120, 1, 2, 4);  // Enemy
-		obj.createentity(game, 240, 96, 1, 2, 4);  // Enemy
-		obj.createentity(game, 288, 120, 1, 2, 4);  // Enemy
+		obj.createentity(-8, 84, 11, 328);  // (horizontal gravity line)
+		obj.createentity(-8, 148, 11, 328);  // (horizontal gravity line)
+		obj.createentity(96, 120, 1, 2, 4);  // Enemy
+		obj.createentity(144, 96, 1, 2, 4);  // Enemy
+		obj.createentity(192, 120, 1, 2, 4);  // Enemy
+		obj.createentity(240, 96, 1, 2, 4);  // Enemy
+		obj.createentity(288, 120, 1, 2, 4);  // Enemy
 
 		warpy = true;
 		roomname = "change";
@@ -306,10 +306,10 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,218,220,0,0,0,0,0,0,218,220,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,218,220,0,0,0,0,0,0,218,220,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 248, 84, 11, 72);  // (horizontal gravity line)
-		obj.createentity(game, 224, 148, 11, 96);  // (horizontal gravity line)
-		obj.createentity(game, 176, 56, 10, 1, 51450);  // (savepoint)
-		obj.createentity(game, 176, 96, 10, 0, 51451);  // (savepoint)
+		obj.createentity(248, 84, 11, 72);  // (horizontal gravity line)
+		obj.createentity(224, 148, 11, 96);  // (horizontal gravity line)
+		obj.createentity(176, 56, 10, 1, 51450);  // (savepoint)
+		obj.createentity(176, 96, 10, 0, 51451);  // (savepoint)
 
 		warpy = true;
 		roomname = "change";
@@ -348,19 +348,19 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 64+32-8, 32-16, 1, 0, 7, 0, -48, 320, 312);  // Enemy, bounded
-		obj.createentity(game, 96+32-8, 32-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 128+32-8, 32-16, 1, 0, 7, 0, -40, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 160+32-8, 32-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 192+32-8, 32-16, 1, 0, 7, 0, -64, 320, 336);  // Enemy, bounded
-		obj.createentity(game, 64+32-8, 64-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 64+32-8, 96-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 64+32-8, 128-16, 1, 0, 7, 0, -64, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 64+32-8, 160-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 192+32-8, 128-16+8, 1, 0, 7, 0, -64, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 192+32-8, 160-16+8, 1, 0, 7, 0, -80, 320, 320);  // Enemy, bounded
-		obj.createentity(game, 192+32-8, 192-16+8, 1, 0, 7, 0, -80, 320, 304);  // Enemy, bounded
-		obj.createentity(game, 192+32-8, 192+24, 1, 0, 7, 0, -80, 320, 304);  // Enemy, bounded
+		obj.createentity(64+32-8, 32-16, 1, 0, 7, 0, -48, 320, 312);  // Enemy, bounded
+		obj.createentity(96+32-8, 32-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
+		obj.createentity(128+32-8, 32-16, 1, 0, 7, 0, -40, 320, 320);  // Enemy, bounded
+		obj.createentity(160+32-8, 32-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
+		obj.createentity(192+32-8, 32-16, 1, 0, 7, 0, -64, 320, 336);  // Enemy, bounded
+		obj.createentity(64+32-8, 64-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
+		obj.createentity(64+32-8, 96-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
+		obj.createentity(64+32-8, 128-16, 1, 0, 7, 0, -64, 320, 320);  // Enemy, bounded
+		obj.createentity(64+32-8, 160-16, 1, 0, 7, 0, -56, 320, 320);  // Enemy, bounded
+		obj.createentity(192+32-8, 128-16+8, 1, 0, 7, 0, -64, 320, 320);  // Enemy, bounded
+		obj.createentity(192+32-8, 160-16+8, 1, 0, 7, 0, -80, 320, 320);  // Enemy, bounded
+		obj.createentity(192+32-8, 192-16+8, 1, 0, 7, 0, -80, 320, 304);  // Enemy, bounded
+		obj.createentity(192+32-8, 192+24, 1, 0, 7, 0, -80, 320, 304);  // Enemy, bounded
 
 		warpy = true;
 		roomname = "Vertigo";
@@ -398,17 +398,17 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,179,180,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,218,98,220,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 155, 24, 12, 184);  // (vertical gravity line)
-		obj.createentity(game, 120, 152, 1, 1, 8, 0, -56, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 104, 136, 1, 1, 8, 0, -64, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 88, 120, 1, 1, 8, 0, -56, 320, 312);  // Enemy, bounded
-		obj.createentity(game, 72, 104, 1, 1, 8, 0, -56, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 56, 88, 1, 1, 8, 0, -48, 320, 328);  // Enemy, bounded
-		obj.createentity(game, 176, 56, 1, 0, 8, 0, -64, 320, 288);  // Enemy, bounded
-		obj.createentity(game, 192, 72, 1, 0, 8, 0, -48, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 208, 88, 1, 0, 8, 0, -72, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 224, 104, 1, 0, 8, 0, -56, 320, 296);  // Enemy, bounded
-		obj.createentity(game, 240, 120, 1, 0, 8, 0, -48, 320, 296);  // Enemy, bounded
+		obj.createentity(155, 24, 12, 184);  // (vertical gravity line)
+		obj.createentity(120, 152, 1, 1, 8, 0, -56, 320, 296);  // Enemy, bounded
+		obj.createentity(104, 136, 1, 1, 8, 0, -64, 320, 296);  // Enemy, bounded
+		obj.createentity(88, 120, 1, 1, 8, 0, -56, 320, 312);  // Enemy, bounded
+		obj.createentity(72, 104, 1, 1, 8, 0, -56, 320, 296);  // Enemy, bounded
+		obj.createentity(56, 88, 1, 1, 8, 0, -48, 320, 328);  // Enemy, bounded
+		obj.createentity(176, 56, 1, 0, 8, 0, -64, 320, 288);  // Enemy, bounded
+		obj.createentity(192, 72, 1, 0, 8, 0, -48, 320, 296);  // Enemy, bounded
+		obj.createentity(208, 88, 1, 0, 8, 0, -72, 320, 296);  // Enemy, bounded
+		obj.createentity(224, 104, 1, 0, 8, 0, -56, 320, 296);  // Enemy, bounded
+		obj.createentity(240, 120, 1, 0, 8, 0, -48, 320, 296);  // Enemy, bounded
 
 		warpy = true;
 		roomname = "The Voon Show";
@@ -446,9 +446,9 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,218,98,220,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,218,98,220,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 168, 72, 10, 0, 51420);  // (savepoint)
-		obj.createentity(game, 24, 60, 11, 120);  // (horizontal gravity line)
-		obj.createentity(game, 24, 148, 11, 120);  // (horizontal gravity line)
+		obj.createentity(168, 72, 10, 0, 51420);  // (savepoint)
+		obj.createentity(24, 60, 11, 120);  // (horizontal gravity line)
+		obj.createentity(24, 148, 11, 120);  // (horizontal gravity line)
 
 		warpy = true;
 		roomname = "glitch";
@@ -487,11 +487,11 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,740,218,98,220,0,0,0,0,0,218,220,0,0,0,0,0,0,0,0,0,0,0,218,98,220,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 		tmap.push_back("740,740,218,98,220,0,0,0,0,0,218,220,178,179,179,179,179,179,179,179,179,179,180,218,98,220,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 
-		obj.createentity(game, 280, 120, 10, 1, 51410);  // (savepoint)
-		obj.createentity(game, 40, 28, 11, 192);  // (horizontal gravity line)
-		obj.createentity(game, 96, 204, 11, 88);  // (horizontal gravity line)
-		obj.createentity(game, 144, 156, 11, 88);  // (horizontal gravity line)
-		obj.createentity(game, 96, 92, 11, 88);  // (horizontal gravity line)
+		obj.createentity(280, 120, 10, 1, 51410);  // (savepoint)
+		obj.createentity(40, 28, 11, 192);  // (horizontal gravity line)
+		obj.createentity(96, 204, 11, 88);  // (horizontal gravity line)
+		obj.createentity(144, 156, 11, 88);  // (horizontal gravity line)
+		obj.createentity(96, 92, 11, 88);  // (horizontal gravity line)
 
 		warpx = true;
 		roomname = "1950 Silverstone Grand V";
@@ -530,8 +530,8 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,740,218,98,220,0,0,0,0,0,218,98,220,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 		tmap.push_back("740,740,218,98,220,0,0,0,0,0,218,98,220,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 
-		obj.createentity(game, 264, 168, 10, 1, 52410);  // (savepoint)
-		obj.createentity(game, 152, 112, 20, 1);  // (terminal)
+		obj.createentity(264, 168, 10, 1, 52410);  // (savepoint)
+		obj.createentity(152, 112, 20, 1);  // (terminal)
 
 		if(obj.flags[72] == 0)
 		{
@@ -617,12 +617,12 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220,178,179,179,180,218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220");
 		tmap.push_back("218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220,218,98,98,220");
 
-		obj.createentity(game, 264, 176, 10, 1, 52430);  // (savepoint)
-		obj.createentity(game, 96, 180, 11, 96);  // (horizontal gravity line)
-		obj.createentity(game, 160, 52, 11, 96);  // (horizontal gravity line)
-		obj.createentity(game, 240, 136, 1, 2, 8);  // Enemy
-		obj.createentity(game, 96, 88, 1, 3, 8);  // Enemy
-		obj.createentity(game, 72, 32, 10, 0, 52431);  // (savepoint)
+		obj.createentity(264, 176, 10, 1, 52430);  // (savepoint)
+		obj.createentity(96, 180, 11, 96);  // (horizontal gravity line)
+		obj.createentity(160, 52, 11, 96);  // (horizontal gravity line)
+		obj.createentity(240, 136, 1, 2, 8);  // Enemy
+		obj.createentity(96, 88, 1, 3, 8);  // Enemy
+		obj.createentity(72, 32, 10, 0, 52431);  // (savepoint)
 		roomname = "Upstairs, Downstairs";
 		break;
 
@@ -659,21 +659,20 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("98,98,98,98,98,98,220,218,220,218,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,220,218,98,98");
 		tmap.push_back("98,98,98,98,98,98,220,218,220,218,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,220,218,98,98");
 
-		obj.createentity(game, 64, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 192, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 32, 112, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(64, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(192, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(32, 112, 2, 9, 4);  //Threadmill, <<<
 
-		obj.createentity(game, 0, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 104, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(0, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 104, 2, 8, 4);  //Threadmill, >>>
 
-		obj.createentity(game, 80+8, 128, 1, 0, 5, 0, 120, 320, 200);  // Enemy, bounded
-		obj.createentity(game, 128+16, 168, 1, 1, 5, 0, 120, 320, 200);  // Enemy, bounded
-		obj.createentity(game, 176+24, 128, 1, 0, 5, 0, 120, 320, 200);  // Enemy, bounded
-		//obj.createentity(game, 224, 168, 1, 1, 5, 0, 120, 320, 200);  // Enemy, bounded
-		obj.createentity(game, 24, 184, 10, 1, 52440);  // (savepoint)
+		obj.createentity(80+8, 128, 1, 0, 5, 0, 120, 320, 200);  // Enemy, bounded
+		obj.createentity(128+16, 168, 1, 1, 5, 0, 120, 320, 200);  // Enemy, bounded
+		obj.createentity(176+24, 128, 1, 0, 5, 0, 120, 320, 200);  // Enemy, bounded
+		obj.createentity(24, 184, 10, 1, 52440);  // (savepoint)
 		roomname = "Timeslip";
 		break;
 
@@ -709,10 +708,10 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,218,98,220,218,98,220,740,740,218,98,220,218,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,220,218,98,220,740,740,740,740,740,740,740");
 		tmap.push_back("740,218,98,220,218,98,220,740,740,218,98,220,218,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,220,218,98,220,740,740,740,740,740,740,740");
 
-		obj.createentity(game, 40, 176, 10, 1, 52450);  // (savepoint)
-		obj.createentity(game, 80, 156, 11, 176);  // (horizontal gravity line)
-		obj.createentity(game, 128, 88, 10, 1, 52451);  // (savepoint)
-		obj.createentity(game, 160, 76, 11, 96);  // (horizontal gravity line)
+		obj.createentity(40, 176, 10, 1, 52450);  // (savepoint)
+		obj.createentity(80, 156, 11, 176);  // (horizontal gravity line)
+		obj.createentity(128, 88, 10, 1, 52451);  // (savepoint)
+		obj.createentity(160, 76, 11, 96);  // (horizontal gravity line)
 		roomname = "Three's Company";
 		break;
 
@@ -748,12 +747,12 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,218,98,220,178,179,179,179,179,179,179,179,180,218,220,178,179,179,179,179,179,179,179,179,179,179,179,180,218,98,220,740,740,740,740,740,740,740,740,740");
 		tmap.push_back("740,218,98,220,218,98,98,98,98,98,98,98,220,218,220,218,98,98,98,98,98,98,98,98,98,98,98,220,218,98,220,740,740,740,740,740,740,740,740,740");
 
-		obj.createentity(game, 68-4, 56,  2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 132-4, 56,  2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 44, 192, 3);  //Disappearing Platform
-		obj.createentity(game, 92, 104, 3);  //Disappearing Platform
-		obj.createentity(game, 120, 192, 2, 3, 6);  // Platform
-		obj.createentity(game, 264, 48, 2, 2, 6);  // Platform
+		obj.createentity(68-4, 56,  2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(132-4, 56,  2, 9, 4);  //Threadmill, <<<
+		obj.createentity(44, 192, 3);  //Disappearing Platform
+		obj.createentity(92, 104, 3);  //Disappearing Platform
+		obj.createentity(120, 192, 2, 3, 6);  // Platform
+		obj.createentity(264, 48, 2, 2, 6);  // Platform
 		roomname = "Cosmic Creepers";
 		break;
 
@@ -789,12 +788,12 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("179,179,179,179,179,179,179,179,179,180,6,6,6,6,6,6,6,6,6,6,6,6,178,179,180,6,6,6,6,6,6,6,6,6,6,6,6,178,179,179");
 		tmap.push_back("98,98,98,98,98,98,98,98,98,220,178,179,179,179,179,179,179,179,179,179,179,180,218,98,220,178,179,179,179,179,179,179,179,179,179,179,180,218,98,98");
 
-		obj.createentity(game, 16, 112, 10, 1, 52480);  // (savepoint)
-		obj.createentity(game, 67, 24, 12, 96);  // (vertical gravity line)
-		obj.createentity(game, 243, 112, 12, 104);  // (vertical gravity line)
-		obj.createentity(game, 288, 104, 10, 0, 52481);  // (savepoint)
-		obj.createentity(game, 187, 24, 12, 80);  // (vertical gravity line)
-		obj.createentity(game, 123, 128, 12, 88);  // (vertical gravity line)
+		obj.createentity(16, 112, 10, 1, 52480);  // (savepoint)
+		obj.createentity(67, 24, 12, 96);  // (vertical gravity line)
+		obj.createentity(243, 112, 12, 104);  // (vertical gravity line)
+		obj.createentity(288, 104, 10, 0, 52481);  // (savepoint)
+		obj.createentity(187, 24, 12, 80);  // (vertical gravity line)
+		obj.createentity(123, 128, 12, 88);  // (vertical gravity line)
 
 		roomname = "The Villi People";
 		break;
@@ -831,16 +830,16 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("98,220,0,0,0,218,98,98,98,98,220,218,98,98,98,98,98,220,218,98,220,740,740,740,740,740,740,740,740,740,218,98,220,218,98,98,98,98,98,98");
 		tmap.push_back("98,220,0,0,0,218,98,98,98,98,220,218,98,98,98,98,98,220,218,98,220,740,740,740,740,740,740,740,740,740,218,98,220,218,98,98,98,98,98,98");
 
-		obj.createentity(game, 192, 56, 10, 1, 53500);  // (savepoint)
-		obj.createentity(game, 288, 104, 10, 0, 53501);  // (savepoint)
+		obj.createentity(192, 56, 10, 1, 53500);  // (savepoint)
+		obj.createentity(288, 104, 10, 0, 53501);  // (savepoint)
 
-		obj.createentity(game, 168, 96, 1, 0, 5);  // Enemy
-		obj.createentity(game, 184+2, 104, 1, 0, 5);  // Enemy
-		obj.createentity(game, 200+4, 112, 1, 0, 5);  // Enemy
+		obj.createentity(168, 96, 1, 0, 5);  // Enemy
+		obj.createentity(184+2, 104, 1, 0, 5);  // Enemy
+		obj.createentity(200+4, 112, 1, 0, 5);  // Enemy
 
-		obj.createentity(game, 88, 176-4, 1, 1, 5);  // Enemy
-		obj.createentity(game, 104+2, 168-4, 1, 1, 5);  // Enemy
-		obj.createentity(game, 120 + 4, 160 - 4, 1, 1, 5);  // Enemy
+		obj.createentity(88, 176-4, 1, 1, 5);  // Enemy
+		obj.createentity(104+2, 168-4, 1, 1, 5);  // Enemy
+		obj.createentity(120 + 4, 160 - 4, 1, 1, 5);  // Enemy
 
 		warpx = true;
 		roomname = "change";
@@ -878,13 +877,13 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259");
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 
-		obj.createentity(game, 24, 88, 10, 1, 54500);  // (savepoint)
-		obj.createentity(game, 280, 184, 10, 1, 54501);  // (savepoint)
-		obj.createentity(game, 56, 44, 11, 56);  // (horizontal gravity line)
-		obj.createentity(game, 131, 72, 12, 64);  // (vertical gravity line)
-		obj.createentity(game, 144, 36, 11, 48);  // (horizontal gravity line)
-		obj.createentity(game, 211, 80, 12, 56);  // (vertical gravity line)
-		obj.createentity(game, 224, 52, 11, 80);  // (horizontal gravity line)
+		obj.createentity(24, 88, 10, 1, 54500);  // (savepoint)
+		obj.createentity(280, 184, 10, 1, 54501);  // (savepoint)
+		obj.createentity(56, 44, 11, 56);  // (horizontal gravity line)
+		obj.createentity(131, 72, 12, 64);  // (vertical gravity line)
+		obj.createentity(144, 36, 11, 48);  // (horizontal gravity line)
+		obj.createentity(211, 80, 12, 56);  // (vertical gravity line)
+		obj.createentity(224, 52, 11, 80);  // (horizontal gravity line)
 
 		warpx = true;
 		roomname = "change";
@@ -923,14 +922,14 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 
-		obj.createentity(game, 16, 48, 10, 1, 53520);  // (savepoint)
-		obj.createentity(game, 96, 144, 3);  //Disappearing Platform
-		obj.createentity(game, 128, 144, 3);  //Disappearing Platform
-		obj.createentity(game, 160, 144, 3);  //Disappearing Platform
-		obj.createentity(game, 208, 80, 3);  //Disappearing Platform
-		obj.createentity(game, 240, 80, 3);  //Disappearing Platform
-		obj.createentity(game, 272, 80, 3);  //Disappearing Platform
-		obj.createentity(game, 304, 80, 3);  //Disappearing Platform
+		obj.createentity(16, 48, 10, 1, 53520);  // (savepoint)
+		obj.createentity(96, 144, 3);  //Disappearing Platform
+		obj.createentity(128, 144, 3);  //Disappearing Platform
+		obj.createentity(160, 144, 3);  //Disappearing Platform
+		obj.createentity(208, 80, 3);  //Disappearing Platform
+		obj.createentity(240, 80, 3);  //Disappearing Platform
+		obj.createentity(272, 80, 3);  //Disappearing Platform
+		obj.createentity(304, 80, 3);  //Disappearing Platform
 		roomname = "The Last Straw";
 		break;
 
@@ -966,16 +965,16 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,6,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 
-		obj.createentity(game, 0, 80, 3);  //Disappearing Platform
-		obj.createentity(game, 288, 88, 3);  //Disappearing Platform
-		obj.createentity(game, 32, 80, 3);  //Disappearing Platform
-		obj.createentity(game, 64, 136, 3);  //Disappearing Platform
-		obj.createentity(game, 96, 136, 3);  //Disappearing Platform
-		obj.createentity(game, 224, 144, 3);  //Disappearing Platform
-		obj.createentity(game, 192, 144, 3);  //Disappearing Platform
-		obj.createentity(game, 256, 88, 3);  //Disappearing Platform
-		obj.createentity(game, 128, 88, 3);  //Disappearing Platform
-		obj.createentity(game, 160, 88, 3);  //Disappearing Platform
+		obj.createentity(0, 80, 3);  //Disappearing Platform
+		obj.createentity(288, 88, 3);  //Disappearing Platform
+		obj.createentity(32, 80, 3);  //Disappearing Platform
+		obj.createentity(64, 136, 3);  //Disappearing Platform
+		obj.createentity(96, 136, 3);  //Disappearing Platform
+		obj.createentity(224, 144, 3);  //Disappearing Platform
+		obj.createentity(192, 144, 3);  //Disappearing Platform
+		obj.createentity(256, 88, 3);  //Disappearing Platform
+		obj.createentity(128, 88, 3);  //Disappearing Platform
+		obj.createentity(160, 88, 3);  //Disappearing Platform
 		roomname = "W";
 		break;
 
@@ -1011,10 +1010,10 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 		tmap.push_back("740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740,740");
 
-		obj.createentity(game, 0, 88, 3);  //Disappearing Platform
-		obj.createentity(game, 32, 88, 3);  //Disappearing Platform
-		obj.createentity(game, 64, 88, 3);  //Disappearing Platform
-		obj.createentity(game, 120, 128, 9, 19);  // (shiny trinket)
+		obj.createentity(0, 88, 3);  //Disappearing Platform
+		obj.createentity(32, 88, 3);  //Disappearing Platform
+		obj.createentity(64, 88, 3);  //Disappearing Platform
+		obj.createentity(120, 128, 9, 19);  // (shiny trinket)
 
 		roomname="V";
 		break;
@@ -1311,11 +1310,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,178,179,180,218,98,220,218,98,220,218,98,220,218,98,220,218,98,220,740,740,740,740,740,740");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,218,98,220,218,98,220,218,98,220,218,98,220,218,98,220,218,98,220,740,740,740,740,740,740");
 
-		obj.createentity(game, 264, 32, 10, 0, 54480);  // (savepoint)
-
-		/*if(!game.nocutscenes && obj.flags[71]==0){
-		obj.createblock(1, 72, 0, 320, 240, 49);
-		}*/
+		obj.createentity(264, 32, 10, 0, 54480);  // (savepoint)
 
 		warpy = true;
 		roomname = "Regular Service Will Return Shortly";
@@ -1353,7 +1348,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("740,740,740,218,98,220,0,0,218,220,0,0,218,98,220,0,0,0,0,218,220,0,0,0,0,218,98,220,0,0,218,220,0,0,218,98,98,98,98,98");
 		tmap.push_back("740,740,740,218,98,220,0,0,218,220,0,0,218,98,220,0,0,0,0,218,220,0,0,0,0,218,98,220,0,0,218,220,0,0,218,98,98,98,98,98");
 
-		obj.createentity(game, 120, 116, 11, 80);  // (horizontal gravity line)
+		obj.createentity(120, 116, 11, 80);  // (horizontal gravity line)
 		warpy = true;
 		roomname = "Origami Room";
 		break;
@@ -1392,7 +1387,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("12,12,12,12,12,12,12,15,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,16,12");
 		tmap.push_back("12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12");
 
-		obj.createentity(game, 40, 80, 10, 1, 50500);  // (savepoint)
+		obj.createentity(40, 80, 10, 1, 50500);  // (savepoint)
 
 		roomname = "Teleporter Divot";
 		break;
@@ -1429,14 +1424,14 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12");
 		tmap.push_back("12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12");
 
-		obj.createentity(game, 16, 112, 10, 1, 50520);  // (savepoint)
+		obj.createentity(16, 112, 10, 1, 50520);  // (savepoint)
 		roomname = "Seeing Red";
 
 		if(!game.intimetrial)
 		{
 			if(game.companion==0 && obj.flags[8]==0 && !game.crewstats[3])   //also need to check if he's rescued in a previous game
 			{
-				obj.createentity(game, 264, 185, 18, 15, 1, 17, 0);
+				obj.createentity(264, 185, 18, 15, 1, 17, 0);
 				obj.createblock(1, 26*8, 0, 32, 240, 36);
 			}
 		}
@@ -1474,7 +1469,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12");
 		tmap.push_back("12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12");
 
-		obj.createentity(game, 128-16, 80-32, 14); //Teleporter!
+		obj.createentity(128-16, 80-32, 14); //Teleporter!
 		roomname = "Building Apport";
 
 		if(game.intimetrial)
@@ -1589,8 +1584,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
 
-		//obj.createentity(game, -8, 84-32, 11, 328);  // (horizontal gravity line)
-		obj.createentity(game, -8, 148 + 32, 11, 328);  // (horizontal gravity line)
+		obj.createentity(-8, 148 + 32, 11, 328);  // (horizontal gravity line)
 
 		obj.createblock(1, -10, 84 - 16, 340, 32, 10); //create the second line!
 
@@ -1630,28 +1624,28 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("219,218,98,220,0,0,0,0,218,98,220,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 		tmap.push_back("219,218,98,220,0,0,0,0,218,98,220,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 
-		obj.createentity(game, 264, 176, 10, 1, 51530);  // (savepoint)
+		obj.createentity(264, 176, 10, 1, 51530);  // (savepoint)
 
 		if(game.companion==0)   //also need to check if he's rescued in a previous game
 		{
 			if (game.lastsaved == 2)
 			{
-				obj.createentity(game, 112, 169, 18, 14, 0, 17, 1);
+				obj.createentity(112, 169, 18, 14, 0, 17, 1);
 				obj.createblock(1, 22 * 8, 16*8, 32, 240, 37);
 			}
 			else if (game.lastsaved ==3)
 			{
-				obj.createentity(game, 112, 169, 18, 15, 0, 17, 1);
+				obj.createentity(112, 169, 18, 15, 0, 17, 1);
 				obj.createblock(1, 22 * 8, 16*8, 32, 240, 38);
 			}
 			else if (game.lastsaved == 4)
 			{
-				obj.createentity(game, 112, 169, 18, 13, 0, 17, 1);
+				obj.createentity(112, 169, 18, 13, 0, 17, 1);
 				obj.createblock(1, 22 * 8, 16*8, 32, 240, 39);
 			}
 			else
 			{
-				obj.createentity(game, 112, 169, 18, 16, 1, 17, 1);
+				obj.createentity(112, 169, 18, 16, 1, 17, 1);
 				obj.createblock(1, 22 * 8, 16*8, 32, 240, 40);
 			}
 		}
@@ -1695,7 +1689,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("219,219,219,219,219,219,219,219,218,98,220,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 		tmap.push_back("219,219,219,219,219,219,219,219,218,98,220,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 
-		obj.createentity(game, (22 * 8)+4, (9 * 8) + 4, 14); //Teleporter!
+		obj.createentity((22 * 8)+4, (9 * 8) + 4, 14); //Teleporter!
 
 		roomname = "House of Mirrors";
 		warpx = true;
@@ -1734,8 +1728,6 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,218,98,220,0,218,98,98,220,0,218,98,98,98,220,0,218,98,98,98,98,220,0,218,98,99,259,259,259,259,259");
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,218,98,220,0,218,98,98,220,0,218,98,98,98,220,0,218,98,98,98,98,220,0,218,98,220,219,219,219,219,219");
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,218,98,220,0,218,98,98,220,0,218,98,98,98,220,0,218,98,98,98,98,220,0,218,98,220,219,219,219,219,219");
-
-		//obj.createentity(game, 164, 96, 10, 1, 56410);  // (savepoint)
 
 		warpy = true;
 		roomname = "Now Take My Lead";
@@ -1820,9 +1812,9 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		{
 			obj.createblock(1, 20, 0, 32, 240, 13); //scene 2
 		}
-		obj.createentity(game, 104, 120, 1, 0, 3);  // Enemy
-		obj.createentity(game, 168, 176, 1, 1, 3);  // Enemy
-		obj.createentity(game, 232, 120, 1, 0, 3);  // Enemy
+		obj.createentity(104, 120, 1, 0, 3);  // Enemy
+		obj.createentity(168, 176, 1, 1, 3);  // Enemy
+		obj.createentity(232, 120, 1, 0, 3);  // Enemy
 
 		warpy = true;
 		roomname = "Don't Get Ahead of Yourself!";
@@ -1860,7 +1852,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("259,259,259,259,259,259,259,259,259,259,259,259,259,100,98,220,218,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98");
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,219,219,219,218,98,220,218,98,99,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259");
 
-		obj.createentity(game, 144, 40, 10, 1, 56440);  // (savepoint)
+		obj.createentity(144, 40, 10, 1, 56440);  // (savepoint)
 
 		if(!game.nodeathmode)
 		{
@@ -1904,8 +1896,8 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98");
 		tmap.push_back("259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259");
 
-		obj.createentity(game, 104, 152, 1, 0, 3);  // Enemy
-		obj.createentity(game, 200, 152, 1, 0, 3);  // Enemy
+		obj.createentity(104, 152, 1, 0, 3);  // Enemy
+		obj.createentity(200, 152, 1, 0, 3);  // Enemy
 
 		roomname = "Must I Do Everything For You?";
 		warpy = true;
@@ -1944,7 +1936,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98");
 		tmap.push_back("259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259");
 
-		obj.createentity(game, 56, 192, 10, 1, 56460);  // (savepoint)
+		obj.createentity(56, 192, 10, 1, 56460);  // (savepoint)
 
 		if(!game.nodeathmode)
 		{
@@ -1987,7 +1979,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,220,6,6,6,6,218,98,98,220,218,98,220,219,219,219,219,219,219,219,219,219,219,219");
 		tmap.push_back("259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,100,98,220,178,179,179,180,218,98,98,220,218,98,220,219,219,219,219,219,219,219,219,219,219,219");
 
-		obj.createentity(game, 144, 64, 2, 0, 2, 144, 64, 176, 216);  // Platform, bounded
+		obj.createentity(144, 64, 2, 0, 2, 144, 64, 176, 216);  // Platform, bounded
 
 		roomname = "...But Not Too Close";
 		warpy = true;
@@ -2061,7 +2053,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 
-		obj.createentity(game, 152, 176, 10, 1, 56490);  // (savepoint)
+		obj.createentity(152, 176, 10, 1, 56490);  // (savepoint)
 		if(!game.nodeathmode)
 		{
 			obj.createblock(1, 200, 0, 32, 240, 44); //scene 3
@@ -2102,9 +2094,9 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("219,219,219,219,219,219,218,98,220,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,218,98,98,220,218,98");
 		tmap.push_back("219,219,219,219,219,219,218,98,220,178,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,180,218,98,98,220,218,98");
 
-		obj.createentity(game, 88, 200, 2, 1, 4, 88, 128, 216, 208);  // Platform, bounded
-		obj.createentity(game, 136, 136, 2, 0, 4, 88, 128, 216, 208);  // Platform, bounded
-		obj.createentity(game, 184, 200, 2, 1, 4, 88, 128, 216, 208);  // Platform, bounded
+		obj.createentity(88, 200, 2, 1, 4, 88, 128, 216, 208);  // Platform, bounded
+		obj.createentity(136, 136, 2, 0, 4, 88, 128, 216, 208);  // Platform, bounded
+		obj.createentity(184, 200, 2, 1, 4, 88, 128, 216, 208);  // Platform, bounded
 
 		roomname = "...Not as I Do";
 		warpy = true;
@@ -2142,7 +2134,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 
-		obj.createentity(game, 192, 136, 10, 1, 56510);  // (savepoint)
+		obj.createentity(192, 136, 10, 1, 56510);  // (savepoint)
 		if(!game.nodeathmode)
 		{
 			obj.createblock(1, 80, 0, 32, 240, 45); //scene 3
@@ -2183,13 +2175,13 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("219,218,98,220,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,218,98,220,219");
 		tmap.push_back("219,218,98,220,178,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,180,218,98,220,219");
 
-		obj.createentity(game, 48, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
-		obj.createentity(game, 80, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
-		obj.createentity(game, 112, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
-		obj.createentity(game, 144, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
-		obj.createentity(game, 176, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
-		obj.createentity(game, 208, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
-		obj.createentity(game, 240, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
+		obj.createentity(48, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
+		obj.createentity(80, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
+		obj.createentity(112, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
+		obj.createentity(144, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
+		obj.createentity(176, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
+		obj.createentity(208, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
+		obj.createentity(240, 200, 2, 1, 6, 48, 48, 272, 208);  // Platform, bounded
 
 		roomname = "Do Try To Keep Up";
 		warpy = true;
@@ -2227,7 +2219,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("219,219,219,219,219,218,98,220,218,98,99,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259");
 		tmap.push_back("219,219,219,219,219,218,98,220,218,98,220,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 
-		obj.createentity(game, 72, 72, 10, 1, 56530);  // (savepoint)
+		obj.createentity(72, 72, 10, 1, 56530);  // (savepoint)
 
 		roomname = "You're Falling Behind";
 		warpy = true;
@@ -2265,7 +2257,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entit
 		tmap.push_back("259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259");
 		tmap.push_back("219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219,219");
 
-		obj.createentity(game, (18 * 8) + 4, (10 * 8) + 4, 14); //Teleporter!
+		obj.createentity((18 * 8) + 4, (10 * 8) + 4, 14); //Teleporter!
 
 		if(!game.nodeathmode)
 		{
