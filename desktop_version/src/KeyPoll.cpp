@@ -81,14 +81,13 @@ void KeyPoll::Poll()
 			{
 				pressedbackspace = true;
 			}
-			else if (	(	evt.key.keysym.sym == SDLK_RETURN ||
-						evt.key.keysym.sym == SDLK_f	) &&
-#ifdef __APPLE__ /* OSX prefers the command key over the alt keys. -flibit */
-					keymap[SDLK_LGUI]	)
+			else if (((evt.key.keysym.sym == SDLK_RETURN || evt.key.keysym.sym == SDLK_f) &&
+#ifdef __APPLE__ /* OSX prefers the command keys over the alt keys. -flibit */
+			(keymap[SDLK_LGUI] || keymap[SDLK_RGUI])
 #else
-					(	keymap[SDLK_LALT] ||
-						keymap[SDLK_RALT]	)	)
+			(keymap[SDLK_LALT] || keymap[SDLK_RALT])
 #endif
+			) || evt.key.keysym.sym == SDLK_F11)
 			{
 				toggleFullscreen = true;
 			}
