@@ -471,6 +471,7 @@ void Game::init(void)
 
     /* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by last name */
     githubfriends.push_back("Matt \"Stelpjo\" Aaldenberg");
+    githubfriends.push_back("AlexApps99");
     githubfriends.push_back("Christoph B{hmwalder");
     githubfriends.push_back("Charlie Bruce");
     githubfriends.push_back("Brian Callahan");
