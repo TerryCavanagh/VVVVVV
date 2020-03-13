@@ -8,7 +8,7 @@ class Screen
 public:
 	Screen();
 
-	void ResizeScreen(int x, int y);
+	int ResizeScreen(int x, int y);
 	void GetWindowSize(int* x, int* y);
 
 	void UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect);
@@ -17,7 +17,7 @@ public:
 
 	const SDL_PixelFormat* GetFormat();
 
-	void toggleFullScreen();
+	int toggleFullScreen();
 	void toggleStretchMode();
 	void toggleLinearFilter();
 
