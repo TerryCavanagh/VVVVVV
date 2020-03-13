@@ -92,6 +92,8 @@ Screen::Screen()
 int Screen::ResizeScreen(int x, int y)
 {
 	int result = 0; // 0 is success, nonzero is failure
+	int result2 = 0;
+	int result3 = 0;
 
 	static int resX = 320;
 	static int resY = 240;
@@ -119,16 +121,24 @@ int Screen::ResizeScreen(int x, int y)
 	{
 		int winX, winY;
 		SDL_GetWindowSize(m_window, &winX, &winY);
-		SDL_RenderSetLogicalSize(m_renderer, winX, winY);
-		result = SDL_RenderSetIntegerScale(m_renderer, SDL_FALSE);
+		result2 = SDL_RenderSetLogicalSize(m_renderer, winX, winY);
+		result3 = SDL_RenderSetIntegerScale(m_renderer, SDL_FALSE);
 	}
 	else
 	{
-		SDL_RenderSetLogicalSize(m_renderer, 320, 240);
-		result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (stretchMode == 2));
+		result2 = SDL_RenderSetLogicalSize(m_renderer, 320, 240);
+		result3 = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (stretchMode == 2));
 	}
 	SDL_ShowWindow(m_window);
 
+	if (result3 != 0)
+	{
+		return result3;
+	}
+	if (result2 != 0)
+	{
+		return result2;
+	}
 	return result;
 }
 
