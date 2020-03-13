@@ -325,7 +325,7 @@ int main(int argc, char *argv[])
                 SDL_ShowCursor(SDL_ENABLE);
             }
 
-            int result = gameScreen.toggleFullScreen();
+            gameScreen.toggleFullScreen();
             game.fullscreen = !game.fullscreen;
             key.toggleFullscreen = false;
 
@@ -334,11 +334,6 @@ int main(int argc, char *argv[])
             game.press_right = false;
             game.press_action = true;
             game.press_map = false;
-
-            if(result != 0)
-            {
-                printf("Error: toggling fullscreen failed: %s\n", SDL_GetError());
-            }
         }
 
         game.infocus = key.isActive;
