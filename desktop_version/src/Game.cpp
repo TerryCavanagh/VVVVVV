@@ -4208,6 +4208,12 @@ void Game::deletestats( mapclass& map, Graphics& dwgfx )
 
 void Game::unlocknum( int t, mapclass& map, Graphics& dwgfx )
 {
+    if (map.custommode)
+    {
+        //Don't let custom levels unlock things!
+        return;
+    }
+
     unlock[t] = true;
     savestats(map, dwgfx);
 }
@@ -5661,6 +5667,12 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
     //Save to the telesave cookie
     telecookieexists = true;
 
+    if (map.custommode)
+    {
+        //Don't trash save data!
+        return;
+    }
+
     TiXmlDocument doc;
     TiXmlElement* msg;
     TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "", "" );
@@ -5903,6 +5915,12 @@ void Game::savetele( mapclass& map, entityclass& obj, musicclass& music )
 void Game::savequick( mapclass& map, entityclass& obj, musicclass& music )
 {
     quickcookieexists = true;
+
+    if (map.custommode)
+    {
+        //Don't trash save data!
+        return;
+    }
 
     TiXmlDocument doc;
     TiXmlElement* msg;
