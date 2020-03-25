@@ -7,6 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <iterator>
+#include <algorithm>
+#include <iostream>
+
 #include <SDL.h>
 #include <physfs.h>
 
@@ -144,6 +148,30 @@ char *FILESYSTEM_getUserLevelDirectory()
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
                                  size_t *len, bool addnull)
 {
+        if (strcmp(name, "levels/special/stdin.vvvvvv") == 0) {
+            // this isn't *technically* necessary when piping directly from a file, but checking for that is annoying
+            static bool STDIN_LOADED = false;
+            static std::vector<char> STDIN_BUFFER;
+            if (!STDIN_LOADED) {
+                std::istreambuf_iterator<char> begin(std::cin), end;
+                STDIN_BUFFER.assign(begin, end);
+                STDIN_LOADED = true;
+            }
+
+            auto length = STDIN_BUFFER.size();
+            if (len != NULL) {
+                *len = length;
+            }
+            if (addnull) {
+                *mem = (unsigned char *) malloc(length + 1);
+                (*mem)[length] = 0;
+            } else {
+                *mem = (unsigned char*) malloc(length);
+            }
+            std::transform(STDIN_BUFFER.begin(), STDIN_BUFFER.end(), *mem, [](char c) -> unsigned char { return static_cast<unsigned char>(c); });
+            return;
+        }
+
 	PHYSFS_File *handle = PHYSFS_openRead(name);
 	if (handle == NULL)
 	{
