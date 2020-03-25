@@ -197,7 +197,6 @@ int main(int argc, char *argv[])
     FillRect(graphics.footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
     graphics.Makebfont();
 
-
     graphics.foregroundBuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
     SDL_SetSurfaceBlendMode(graphics.foregroundBuffer, SDL_BLENDMODE_NONE);
 
@@ -275,25 +274,20 @@ int main(int argc, char *argv[])
     obj.init();
 
     if (startinplaytest) {
-        game.levelpage=0;
-        ed.getDirectoryData();
-        game.loadcustomlevelstats();
+        game.levelpage = 0;
+        game.playcustomlevel = 0;
 
-        bool found = false;
+        ed.directoryList = { playtestname };
 
-        // search for the file in the vector
-        for(size_t i = 0; i < ed.ListOfMetaData.size(); i++) {
-            LevelMetaData currentmeta = ed.ListOfMetaData[i];
-            if (currentmeta.filename == playtestname) {
-                game.playcustomlevel = (int)i;
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
+        LevelMetaData meta;
+        if (ed.getLevelMetaData(playtestname, meta)) {
+            ed.ListOfMetaData = { meta };
+        } else {
             printf("Level not found\n");
             return 1;
         }
+
+        game.loadcustomlevelstats();
         game.customleveltitle=ed.ListOfMetaData[game.playcustomlevel].title;
         game.customlevelfilename=ed.ListOfMetaData[game.playcustomlevel].filename;
         if (savefileplaytest) {
