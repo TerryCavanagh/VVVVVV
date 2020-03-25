@@ -164,7 +164,7 @@ void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
                 *len = length;
             }
 
-            if (addnull) ++length;
+            ++length;
             *mem = static_cast<unsigned char*>(malloc(length)); // STDIN_BUFFER.data() causes double-free
             std::copy(STDIN_BUFFER.begin(), STDIN_BUFFER.end(), reinterpret_cast<char*>(*mem));
             return;
