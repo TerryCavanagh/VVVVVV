@@ -145,6 +145,10 @@ char *FILESYSTEM_getUserLevelDirectory()
 	return levelDir;
 }
 
+static unsigned char cast_to_unsigned_char(char orig) {
+    return static_cast<unsigned char>(orig);
+}
+
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
                                  size_t *len, bool addnull)
 {
@@ -168,7 +172,7 @@ void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
             } else {
                 *mem = (unsigned char*) malloc(length);
             }
-            std::transform(STDIN_BUFFER.begin(), STDIN_BUFFER.end(), *mem, [](char c) -> unsigned char { return static_cast<unsigned char>(c); });
+            std::transform(STDIN_BUFFER.begin(), STDIN_BUFFER.end(), *mem, cast_to_unsigned_char);
             return;
         }
 
