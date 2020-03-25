@@ -145,34 +145,28 @@ char *FILESYSTEM_getUserLevelDirectory()
 	return levelDir;
 }
 
-static unsigned char cast_to_unsigned_char(char orig) {
-    return static_cast<unsigned char>(orig);
-}
-
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
                                  size_t *len, bool addnull)
 {
         if (strcmp(name, "levels/special/stdin.vvvvvv") == 0) {
             // this isn't *technically* necessary when piping directly from a file, but checking for that is annoying
-            static bool STDIN_LOADED = false;
             static std::vector<char> STDIN_BUFFER;
+            static bool STDIN_LOADED = false;
             if (!STDIN_LOADED) {
                 std::istreambuf_iterator<char> begin(std::cin), end;
                 STDIN_BUFFER.assign(begin, end);
+                STDIN_BUFFER.push_back(0); // there's no observable change in behavior if addnull is always true, but not vice versa
                 STDIN_LOADED = true;
             }
 
-            auto length = STDIN_BUFFER.size();
+            auto length = STDIN_BUFFER.size() - 1;
             if (len != NULL) {
                 *len = length;
             }
-            if (addnull) {
-                *mem = (unsigned char *) malloc(length + 1);
-                (*mem)[length] = 0;
-            } else {
-                *mem = (unsigned char*) malloc(length);
-            }
-            std::transform(STDIN_BUFFER.begin(), STDIN_BUFFER.end(), *mem, cast_to_unsigned_char);
+
+            if (addnull) ++length;
+            *mem = static_cast<unsigned char*>(malloc(length)); // STDIN_BUFFER.data() causes double-free
+            std::copy(STDIN_BUFFER.begin(), STDIN_BUFFER.end(), reinterpret_cast<char*>(*mem));
             return;
         }
 
