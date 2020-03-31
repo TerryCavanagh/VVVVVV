@@ -717,7 +717,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "createentity")
 			{
-				obj.createentity(game, ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]), ss_toi(words[4]), ss_toi(words[5]));
+				obj.createentity(ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]), ss_toi(words[4]), ss_toi(words[5]));
 			}
 			else if (words[0] == "createcrewman")
 			{
@@ -786,11 +786,11 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 
 				if (ss_toi(words[5]) >= 16)
 				{
-					obj.createentity(game, ss_toi(words[1]), ss_toi(words[2]), 18, r, ss_toi(words[4]), ss_toi(words[5]), ss_toi(words[6]));
+					obj.createentity(ss_toi(words[1]), ss_toi(words[2]), 18, r, ss_toi(words[4]), ss_toi(words[5]), ss_toi(words[6]));
 				}
 				else
 				{
-					obj.createentity(game, ss_toi(words[1]), ss_toi(words[2]), 18, r, ss_toi(words[4]), ss_toi(words[5]));
+					obj.createentity(ss_toi(words[1]), ss_toi(words[2]), 18, r, ss_toi(words[4]), ss_toi(words[5]));
 				}
 			}
 			else if (words[0] == "changemood")
@@ -1810,22 +1810,22 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				i = 215;
 				if (game.crewstats[2] && game.lastsaved!=2)
 				{
-					obj.createentity(game, i, 153, 18, 14, 0, 17, 0);
+					obj.createentity(i, 153, 18, 14, 0, 17, 0);
 					i += 25;
 				}
 				if (game.crewstats[3] && game.lastsaved!=3)
 				{
-					obj.createentity(game, i, 153, 18, 15, 0, 17, 0);
+					obj.createentity(i, 153, 18, 15, 0, 17, 0);
 					i += 25;
 				}
 				if (game.crewstats[4] && game.lastsaved!=4)
 				{
-					obj.createentity(game, i, 153, 18, 13, 0, 17, 0);
+					obj.createentity(i, 153, 18, 13, 0, 17, 0);
 					i += 25;
 				}
 				if (game.crewstats[5] && game.lastsaved!=5)
 				{
-					obj.createentity(game, i, 153, 18, 16, 0, 17, 0);
+					obj.createentity(i, 153, 18, 16, 0, 17, 0);
 					i += 25;
 				}
 			}
@@ -2012,7 +2012,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 					r = 19;
 				}
 
-				obj.createentity(game, 200, 153, 18, r, 0, 19, 30);
+				obj.createentity(200, 153, 18, r, 0, 19, 30);
 				i = obj.getcrewman(game.lastsaved);
 				obj.entities[i].dir = 1;
 			}
@@ -2558,7 +2558,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2581,7 +2581,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2603,7 +2603,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2642,7 +2642,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2670,7 +2670,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2698,7 +2698,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2726,7 +2726,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2754,7 +2754,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2788,7 +2788,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2813,7 +2813,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2842,7 +2842,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2878,7 +2878,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2913,7 +2913,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2948,7 +2948,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -2983,7 +2983,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -3018,7 +3018,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -3050,7 +3050,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -3082,7 +3082,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -3114,7 +3114,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -3146,7 +3146,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -3169,7 +3169,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -3206,7 +3206,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
 		if(obj.nentity==0)
 		{
-			obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
 		else
 		{
@@ -3245,7 +3245,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
     if(obj.nentity==0)
     {
-      obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+      obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
     }
     else
     {
@@ -3291,7 +3291,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
     if(obj.nentity==0)
     {
-      obj.createentity(game, game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+      obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
     }
     else
     {

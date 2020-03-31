@@ -1352,27 +1352,27 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		//All the entities for here are just loaded here; it's essentially one room after all
 
 
-		obj.createentity(game, 48, 5456, 10, 1, 505007); // (savepoint)
-		obj.createentity(game, 224, 4528, 10, 1, 505017); // (savepoint)
-		obj.createentity(game, 232, 4168, 10, 0, 505027); // (savepoint)
-		obj.createentity(game, 280, 3816, 10, 1, 505037); // (savepoint)
-		obj.createentity(game, 152, 3552, 10, 1, 505047); // (savepoint)
-		obj.createentity(game, 216, 3280, 10, 0, 505057); // (savepoint)
-		obj.createentity(game, 216, 4808, 10, 1, 505067); // (savepoint)
-		obj.createentity(game, 72, 3096, 10, 0, 505077); // (savepoint)
-		obj.createentity(game, 176, 2600, 10, 0, 505087); // (savepoint)
-		obj.createentity(game, 216, 2392, 10, 0, 505097); // (savepoint)
-		obj.createentity(game, 152, 1184, 10, 1, 505107); // (savepoint)
-		obj.createentity(game, 152, 912, 10, 1, 505117); // (savepoint)
-		obj.createentity(game, 152, 536, 10, 1, 505127); // (savepoint)
-		obj.createentity(game, 120, 5136, 10, 0, 505137); // (savepoint)
-		obj.createentity(game, 144, 1824, 10, 0, 505147); // (savepoint)
-		obj.createentity(game, 72, 2904, 10, 0, 505157); // (savepoint)
-		obj.createentity(game, 224, 1648, 10, 1, 505167); // (savepoint)
-		obj.createentity(game, 112, 5280, 10, 1, 50517); // (savepoint)
+		obj.createentity(48, 5456, 10, 1, 505007); // (savepoint)
+		obj.createentity(224, 4528, 10, 1, 505017); // (savepoint)
+		obj.createentity(232, 4168, 10, 0, 505027); // (savepoint)
+		obj.createentity(280, 3816, 10, 1, 505037); // (savepoint)
+		obj.createentity(152, 3552, 10, 1, 505047); // (savepoint)
+		obj.createentity(216, 3280, 10, 0, 505057); // (savepoint)
+		obj.createentity(216, 4808, 10, 1, 505067); // (savepoint)
+		obj.createentity(72, 3096, 10, 0, 505077); // (savepoint)
+		obj.createentity(176, 2600, 10, 0, 505087); // (savepoint)
+		obj.createentity(216, 2392, 10, 0, 505097); // (savepoint)
+		obj.createentity(152, 1184, 10, 1, 505107); // (savepoint)
+		obj.createentity(152, 912, 10, 1, 505117); // (savepoint)
+		obj.createentity(152, 536, 10, 1, 505127); // (savepoint)
+		obj.createentity(120, 5136, 10, 0, 505137); // (savepoint)
+		obj.createentity(144, 1824, 10, 0, 505147); // (savepoint)
+		obj.createentity(72, 2904, 10, 0, 505157); // (savepoint)
+		obj.createentity(224, 1648, 10, 1, 505167); // (savepoint)
+		obj.createentity(112, 5280, 10, 1, 50517); // (savepoint)
 
-		obj.createentity(game, 24, 4216, 9, 7); // (shiny trinket)
-		obj.createentity(game, 280, 3216, 9, 8); // (shiny trinket)
+		obj.createentity(24, 4216, 9, 7); // (shiny trinket)
+		obj.createentity(280, 3216, 9, 8); // (shiny trinket)
 		break;
 	case 4: //The Warpzone
 		tmap = warplevel.loadlevel(rx, ry, game, obj);
@@ -1484,19 +1484,19 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 
 		tower.loadminitower2();
 
-		obj.createentity(game, 56, 556, 11, 136); // (horizontal gravity line)
-		obj.createentity(game, 184, 592, 10, 0, 50500); // (savepoint)
-		obj.createentity(game, 184, 644, 11, 88); // (horizontal gravity line)
-		obj.createentity(game, 56, 460, 11, 136); // (horizontal gravity line)
-		obj.createentity(game, 216, 440, 10, 0, 50501); // (savepoint)
-		obj.createentity(game, 104, 508, 11, 168); // (horizontal gravity line)
-		obj.createentity(game, 219, 264, 12, 56); // (vertical gravity line)
-		obj.createentity(game, 120, 332, 11, 96); // (horizontal gravity line)
-		obj.createentity(game, 219, 344, 12, 56); // (vertical gravity line)
-		obj.createentity(game, 224, 332, 11, 48); // (horizontal gravity line)
-		obj.createentity(game, 56, 212, 11, 144); // (horizontal gravity line)
-		obj.createentity(game, 32, 20, 11, 96); // (horizontal gravity line)
-		obj.createentity(game, 72, 156, 11, 200); // (horizontal gravity line)
+		obj.createentity(56, 556, 11, 136); // (horizontal gravity line)
+		obj.createentity(184, 592, 10, 0, 50500); // (savepoint)
+		obj.createentity(184, 644, 11, 88); // (horizontal gravity line)
+		obj.createentity(56, 460, 11, 136); // (horizontal gravity line)
+		obj.createentity(216, 440, 10, 0, 50501); // (savepoint)
+		obj.createentity(104, 508, 11, 168); // (horizontal gravity line)
+		obj.createentity(219, 264, 12, 56); // (vertical gravity line)
+		obj.createentity(120, 332, 11, 96); // (horizontal gravity line)
+		obj.createentity(219, 344, 12, 56); // (vertical gravity line)
+		obj.createentity(224, 332, 11, 48); // (horizontal gravity line)
+		obj.createentity(56, 212, 11, 144); // (horizontal gravity line)
+		obj.createentity(32, 20, 11, 96); // (horizontal gravity line)
+		obj.createentity(72, 156, 11, 200); // (horizontal gravity line)
 
 		int i = obj.getplayer();
 		obj.entities[i].yp += (71 * 8);
@@ -1527,19 +1527,19 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 
 		tower.loadminitower2();
 
-		obj.createentity(game, 56, 556, 11, 136); // (horizontal gravity line)
-		obj.createentity(game, 184, 592, 10, 0, 50500); // (savepoint)
-		obj.createentity(game, 184, 644, 11, 88); // (horizontal gravity line)
-		obj.createentity(game, 56, 460, 11, 136); // (horizontal gravity line)
-		obj.createentity(game, 216, 440, 10, 0, 50501); // (savepoint)
-		obj.createentity(game, 104, 508, 11, 168); // (horizontal gravity line)
-		obj.createentity(game, 219, 264, 12, 56); // (vertical gravity line)
-		obj.createentity(game, 120, 332, 11, 96); // (horizontal gravity line)
-		obj.createentity(game, 219, 344, 12, 56); // (vertical gravity line)
-		obj.createentity(game, 224, 332, 11, 48); // (horizontal gravity line)
-		obj.createentity(game, 56, 212, 11, 144); // (horizontal gravity line)
-		obj.createentity(game, 32, 20, 11, 96); // (horizontal gravity line)
-		obj.createentity(game, 72, 156, 11, 200); // (horizontal gravity line)
+		obj.createentity(56, 556, 11, 136); // (horizontal gravity line)
+		obj.createentity(184, 592, 10, 0, 50500); // (savepoint)
+		obj.createentity(184, 644, 11, 88); // (horizontal gravity line)
+		obj.createentity(56, 460, 11, 136); // (horizontal gravity line)
+		obj.createentity(216, 440, 10, 0, 50501); // (savepoint)
+		obj.createentity(104, 508, 11, 168); // (horizontal gravity line)
+		obj.createentity(219, 264, 12, 56); // (vertical gravity line)
+		obj.createentity(120, 332, 11, 96); // (horizontal gravity line)
+		obj.createentity(219, 344, 12, 56); // (vertical gravity line)
+		obj.createentity(224, 332, 11, 48); // (horizontal gravity line)
+		obj.createentity(56, 212, 11, 144); // (horizontal gravity line)
+		obj.createentity(32, 20, 11, 96); // (horizontal gravity line)
+		obj.createentity(72, 156, 11, 200); // (horizontal gravity line)
 
 		ypos = 0;
 		bypos = 0;
@@ -1663,7 +1663,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 				if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
 
 				obj.customenemy=ed.level[tsx+((ed.maxwidth)*tsy)].enemytype;
-				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 56,
+				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 56,
 								 edentity[edi].p1, 4, bx1, by1, bx2, by2);
 				break;
 				case 2: //Platforms and Threadmills
@@ -1677,36 +1677,36 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 					if(warpx){ if(bx1==0 && bx2==320){ bx1=-100; bx2=420; } }
 					if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
 
-					obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 2,
+					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 2,
 									 edentity[edi].p1, ed.level[rx-100+((ry-100)*ed.mapwidth)].platv, bx1, by1, bx2, by2);
 				}else if(edentity[edi].p1>=5 && edentity[edi].p1<=8){ //Threadmill
-					obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 2,
+					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 2,
 									 edentity[edi].p1+3, 4);
 				}
 				break;
 				case 3: //Disappearing platforms
-				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 3);
+				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 3);
 				break;
 				case 9:
-				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 9, ed.findtrinket(edi));
+				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 9, ed.findtrinket(edi));
 				break;
 				case 10: //Checkpoints
-				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 10,
+				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 10,
 								edentity[edi].p1,((rx+(ry*100))*20)+tempcheckpoints);
 				tempcheckpoints++;
 				break;
 				case 11: //Gravity Lines
 				if(edentity[edi].p1==0){ //Horizontal
-					obj.createentity(game, (edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8)+4, 11, edentity[edi].p3);
+					obj.createentity((edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8)+4, 11, edentity[edi].p3);
 				}else{ //Vertical
-					obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8)+3,(edentity[edi].p2*8), 12, edentity[edi].p3);
+					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8)+3,(edentity[edi].p2*8), 12, edentity[edi].p3);
 				}
 				break;
 				case 13: //Warp Tokens
-				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 13, edentity[edi].p1, edentity[edi].p2);
+				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 13, edentity[edi].p1, edentity[edi].p2);
 				break;
 				case 15: //Collectable crewmate
-				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8)-4,(edentity[edi].y*8)- ((ry-100)*30*8)+1, 55, ed.findcrewmate(edi), edentity[edi].p1, edentity[edi].p2);
+				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8)-4,(edentity[edi].y*8)- ((ry-100)*30*8)+1, 55, ed.findcrewmate(edi), edentity[edi].p1, edentity[edi].p2);
 				break;
 				case 17: //Roomtext!
 				{
@@ -1720,7 +1720,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 				}
 				case 18: //Terminals
 				obj.customscript=edentity[edi].scriptname;
-				obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8)+8, 20, 1);
+				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8)+8, 20, 1);
 				obj.createblock(5, (edentity[edi].x*8)- ((rx-100)*40*8)-8, (edentity[edi].y*8)- ((ry-100)*30*8)+8, 20, 16, 35);
 				break;
 				case 19: //Script Box
@@ -1732,13 +1732,13 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 				case 50: //Warp Lines
 				obj.customwarpmode=true;
 				if(edentity[edi].p1==0){ //
-					obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8)+4,(edentity[edi].p2*8), 51, edentity[edi].p3);
+					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8)+4,(edentity[edi].p2*8), 51, edentity[edi].p3);
 				}else if(edentity[edi].p1==1){ //Horizontal, right
-					obj.createentity(game, (edentity[edi].x*8)- ((rx-100)*40*8)+4,(edentity[edi].p2*8), 52, edentity[edi].p3);
+					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8)+4,(edentity[edi].p2*8), 52, edentity[edi].p3);
 				}else if(edentity[edi].p1==2){ //Vertical, top
-					obj.createentity(game, (edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8)+7, 53, edentity[edi].p3);
+					obj.createentity((edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8)+7, 53, edentity[edi].p3);
 				}else if(edentity[edi].p1==3){
-					obj.createentity(game, (edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8), 54, edentity[edi].p3);
+					obj.createentity((edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8), 54, edentity[edi].p3);
 				}
 				break;
 			}
@@ -1833,7 +1833,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 				if (contents[i + vmult[j]] == 10)
 				{
 					contents[i + vmult[j]] = 0;
-					obj.createentity(game, i * 8, j * 8, 4);
+					obj.createentity(i * 8, j * 8, 4);
 				}
 				//Directional blocks
 				if (contents[i + vmult[j]] >= 14 && contents[i + vmult[j]] <= 17)
@@ -1877,7 +1877,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		{
 			if (game.crewstats[3] && !game.crewstats[4])
 			{
-				obj.createentity(game, 87, 105, 18, 15, 0, 18);
+				obj.createentity(87, 105, 18, 15, 0, 18);
 				obj.createblock(5, 87-32, 0, 32+32+32, 240, 3);
 			}
 		}
@@ -1885,7 +1885,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		{
 			if (game.crewstats[3] && !game.crewstats[5])
 			{
-				obj.createentity(game, 140, 137, 18, 15, 0, 18);
+				obj.createentity(140, 137, 18, 15, 0, 18);
 				obj.createblock(5, 140-32, 0, 32+32+32, 240, 3);
 			}
 		}
@@ -1893,7 +1893,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 		{
 			if (game.crewstats[3] && !game.crewstats[2])
 			{
-				obj.createentity(game, 235, 81, 18, 15, 0, 18);
+				obj.createentity(235, 81, 18, 15, 0, 18);
 				obj.createblock(5, 235-32, 0, 32+32+32, 240, 3);
 			}
 		}
@@ -1905,7 +1905,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			{
 				if(game.crewrescued()>4 && game.crewrescued()!=6)
 				{
-					obj.createentity(game, 175, 121, 18, 13, 0, 18);
+					obj.createentity(175, 121, 18, 13, 0, 18);
 					obj.createblock(5, 175-32, 0, 32+32+32, 240, 4);
 				}
 			}
@@ -1916,7 +1916,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			{
 				if(game.crewrescued()<=4 && game.crewrescued()!=6)
 				{
-					obj.createentity(game, 53, 161, 18, 13, 1, 18);
+					obj.createentity(53, 161, 18, 13, 1, 18);
 					obj.createblock(5, 53-32, 0, 32+32+32, 240, 4);
 				}
 			}
@@ -1929,7 +1929,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			if (game.crewstats[3])
 			{
 				//If so, red will always be at his post
-				obj.createentity(game, 107, 121, 18, 15, 0, 18);
+				obj.createentity(107, 121, 18, 15, 0, 18);
 				//What script do we use?
 				obj.createblock(5, 107-32, 0, 32+32+32, 240, 3);
 			}
@@ -1940,7 +1940,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			//First: is he rescued?
 			if (game.crewstats[2])
 			{
-				obj.createentity(game, 198, 105, 18, 14, 0, 18);
+				obj.createentity(198, 105, 18, 14, 0, 18);
 				//What script do we use?
 				obj.createblock(5, 198-32, 0, 32+32+32, 240, 2);
 			}
@@ -1951,7 +1951,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			//First: is he rescued?
 			if (game.crewstats[4])
 			{
-				obj.createentity(game, 242, 177, 18, 13, 0, 18);
+				obj.createentity(242, 177, 18, 13, 0, 18);
 				//What script do we use?
 				obj.createblock(5, 242-32, 177-20, 32+32+32, 40, 4);
 			}
@@ -1962,7 +1962,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			//First: is she rescued?
 			if (game.crewstats[1])
 			{
-				obj.createentity(game, 140, 177, 18, 20, 0, 18);
+				obj.createentity(140, 177, 18, 20, 0, 18);
 				//What script do we use?
 				obj.createblock(5, 140-32, 0, 32+32+32, 240, 1);
 			}
@@ -1974,7 +1974,7 @@ void mapclass::loadlevel(int rx, int ry, Graphics& dwgfx, Game& game, entityclas
 			if (game.crewstats[5])
 			{
 				//A slight varation - she's upside down
-				obj.createentity(game, 249, 62, 18, 16, 0, 18);
+				obj.createentity(249, 62, 18, 16, 0, 18);
 				j = obj.getcrewman(5);
 				obj.entities[j].rule = 7;
 				obj.entities[j].tile +=6;

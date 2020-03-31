@@ -20,12 +20,6 @@ enum
     ACTIVITY = 5
 };
 
-class mapclass;
-class musicclass;
-class Graphics;
-class Game;
-class UtilityClass;
-
 class entityclass
 {
 public:
@@ -66,9 +60,9 @@ public:
 
     void swnenemiescol(int t);
 
-    void gravcreate(Game& game, int ypos, int dir, int xoff = 0, int yoff = 0);
+    void gravcreate(int ypos, int dir, int xoff = 0, int yoff = 0);
 
-    void generateswnwave(Game& game, UtilityClass& help, int t);
+    void generateswnwave(int t);
 
     void createblock(int t, int xp, int yp, int w, int h, int trig = 0);
 
@@ -94,12 +88,12 @@ public:
 
     void settreadmillcolour(int t, int rx, int ry);
 
-    void createentity(Game& game, float xp, float yp, int t, float vx = 0, float vy = 0,
+    void createentity(float xp, float yp, int t, float vx = 0, float vy = 0,
                       int p1 = 0, int p2 = 0, int p3 = 320, int p4 = 240 );
 
-    bool updateentities(int i, UtilityClass& help, Game& game, musicclass& music);
+    bool updateentities(int i);
 
-    void animateentities(int i, Game& game, UtilityClass& help);
+    void animateentities(int i);
 
     bool gettype(int t);
 
@@ -142,9 +136,9 @@ public:
 
     bool checkblocks();
 
-    bool checktowerspikes(int t, mapclass& map);
+    bool checktowerspikes(int t);
 
-    bool checkwall(mapclass& map);
+    bool checkwall();
 
     float hplatformat();
 
@@ -159,17 +153,17 @@ public:
 
 		void customwarplinecheck(int i);
 
-    float entitycollideplatformroof(mapclass& map, int t);
+    float entitycollideplatformroof(int t);
 
-    float entitycollideplatformfloor(mapclass& map, int t);
+    float entitycollideplatformfloor(int t);
 
-    bool entitycollidefloor(mapclass& map, int t);
+    bool entitycollidefloor(int t);
 
-    bool entitycollideroof(mapclass& map, int t);
+    bool entitycollideroof(int t);
 
-    bool testwallsx(int t, mapclass& map, int tx, int ty);
+    bool testwallsx(int t, int tx, int ty);
 
-	bool testwallsy(int t, mapclass& map, float tx, float ty);
+	bool testwallsy(int t, float tx, float ty);
 
     void fixfriction(int t, float xfix, float xrate, float yrate);
 
@@ -177,18 +171,18 @@ public:
 
     void cleanup();
 
-    void updateentitylogic(int t, Game& game);
+    void updateentitylogic(int t);
 
 
-    void entitymapcollision(int t, mapclass& map);
+    void entitymapcollision(int t);
 
-    void movingplatformfix(int t, mapclass& map);
+    void movingplatformfix(int t);
 
-    void scmmovingplatformfix(int t, mapclass& map);
+    void scmmovingplatformfix(int t);
 
-    void hormovingplatformfix(int t, mapclass& map);
+    void hormovingplatformfix(int t);
 
-    void entitycollisioncheck(Graphics& dwgfx, Game& game, mapclass& map, musicclass& music);
+    void entitycollisioncheck();
 
 
     std::vector<entclass> entities;
