@@ -280,7 +280,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			if (words[0] == "gotoroom")
 			{
 				//USAGE: gotoroom(x,y) (manually add 100)
-				map.gotoroom(ss_toi(words[1])+100, ss_toi(words[2])+100, dwgfx, game, obj, music);
+				map.gotoroom(ss_toi(words[1])+100, ss_toi(words[2])+100);
 			}
 			if (words[0] == "cutscene")
 			{
@@ -1462,7 +1462,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			{
 				map.resetnames();
 				map.resetmap();
-				map.resetplayer(dwgfx, game, obj, music);
+				map.resetplayer();
 				map.tdrawback = true;
 
 				obj.resetallflags();
@@ -1518,7 +1518,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				map.finaly = ss_toi(words[2]);
 				game.roomx = map.finalx;
 				game.roomy = map.finaly;
-				map.gotoroom(game.roomx, game.roomy, dwgfx, game, obj, music);
+				map.gotoroom(game.roomx, game.roomy);
 			}
 			else if (words[0] == "rescued")
 			{
@@ -1983,7 +1983,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				game.savepoint = 0;
 				game.gravitycontrol = 0;
 
-				map.gotoroom(46, 54, dwgfx, game, obj, music);
+				map.gotoroom(46, 54);
 			}
 			else if (words[0] == "telesave")
 			{
@@ -2562,9 +2562,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intro");
 		break;
@@ -2585,9 +2585,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		dwgfx.fademode = 4;
 		break;
 	case 2: //Load Quicksave
@@ -2607,13 +2607,13 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		//a very special case for here needs to ensure that the tower is set correctly
 		if (map.towermode)
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 
 			i = obj.getplayer();
 			map.ypos = obj.entities[i].yp - 120;
@@ -2646,9 +2646,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		dwgfx.fademode = 4;
 		break;
 	case 4:
@@ -2674,9 +2674,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		dwgfx.fademode = 4;
 		break;
 	case 5:
@@ -2702,9 +2702,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		dwgfx.fademode = 4;
 		break;
 	case 6:
@@ -2730,9 +2730,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		dwgfx.fademode = 4;
 		break;
 	case 7:
@@ -2758,9 +2758,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		dwgfx.fademode = 4;
 		break;
 	case 8:
@@ -2792,9 +2792,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		dwgfx.fademode = 4;
 		break;
 	case 9:
@@ -2817,9 +2817,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 
 		load("intro");
@@ -2846,9 +2846,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 
 		load("intro");
@@ -2882,9 +2882,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		music.play(11);
 		dwgfx.fademode = 4;
 		break;
@@ -2917,9 +2917,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intermission_1");
 		break;
@@ -2952,9 +2952,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intermission_1");
 		break;
@@ -2987,9 +2987,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intermission_1");
 		break;
@@ -3022,9 +3022,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intermission_1");
 		break;
@@ -3054,9 +3054,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intermission_2");
 		break;
@@ -3086,9 +3086,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intermission_2");
 		break;
@@ -3118,9 +3118,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intermission_2");
 		break;
@@ -3150,9 +3150,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 
 		load("intermission_2");
 		break;
@@ -3173,9 +3173,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		dwgfx.fademode = 4;
 		break;
 	case 21:  //play custom level (in editor)
@@ -3210,9 +3210,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		else
 		{
-			map.resetplayer(dwgfx, game, obj, music);
+			map.resetplayer();
 		}
-		map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+		map.gotoroom(game.saverx, game.savery);
 		if(ed.levmusic>0){
 		  music.play(ed.levmusic);
 		}else{
@@ -3249,9 +3249,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
     }
     else
     {
-      map.resetplayer(dwgfx, game, obj, music);
+      map.resetplayer();
     }
-    map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+    map.gotoroom(game.saverx, game.savery);
 
 		ed.generatecustomminimap(dwgfx, map);
 		map.customshowmm=true;
@@ -3295,9 +3295,9 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
     }
     else
     {
-      map.resetplayer(dwgfx, game, obj, music);
+      map.resetplayer();
     }
-    map.gotoroom(game.saverx, game.savery, dwgfx, game, obj, music);
+    map.gotoroom(game.saverx, game.savery);
     /* Handled by load
     if(ed.levmusic>0){
       music.play(ed.levmusic);
@@ -3342,7 +3342,7 @@ void scriptclass::teleport( Graphics& dwgfx, Game& game, mapclass& map, entitycl
 	}
 
 	game.gravitycontrol = 0;
-	map.gotoroom(100+game.teleport_to_x, 100+game.teleport_to_y, dwgfx, game, obj, music);
+	map.gotoroom(100+game.teleport_to_x, 100+game.teleport_to_y);
 	j = obj.getteleporter();
 	obj.entities[j].state = 2;
 	game.teleport_to_new_area = false;
