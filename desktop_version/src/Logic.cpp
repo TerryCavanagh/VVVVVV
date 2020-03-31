@@ -278,7 +278,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
                 game.gethardestroom();
                 //start depressing sequence here...
                 if (game.gameoverdelay <= -10 && dwgfx.fademode==0) dwgfx.fademode = 2;
-                if (dwgfx.fademode == 1) script.resetgametomenu(dwgfx, game, map, obj, help, music);
+                if (dwgfx.fademode == 1) script.resetgametomenu();
             }
             else
             {
@@ -523,7 +523,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
         //Looping around, room change conditions!
     }
 
-    if (game.teleport_to_new_area) script.teleport(dwgfx, game, map,	obj, help, music);
+    if (game.teleport_to_new_area) script.teleport();
 }
 
 void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help)
@@ -657,7 +657,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 game.gethardestroom();
                 //start depressing sequence here...
                 if (game.gameoverdelay <= -10 && dwgfx.fademode==0) dwgfx.fademode = 2;
-                if (dwgfx.fademode == 1) script.resetgametomenu(dwgfx, game, map, obj, help, music);
+                if (dwgfx.fademode == 1) script.resetgametomenu();
             }
             else
             {
@@ -1544,5 +1544,5 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
     }
 
     if (game.teleport_to_new_area)
-        script.teleport(dwgfx, game, map,	obj, help, music);
+        script.teleport();
 }

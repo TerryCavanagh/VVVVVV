@@ -66,7 +66,7 @@ void scriptclass::tokenize( std::string t )
 	}
 }
 
-void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music )
+void scriptclass::run()
 {
 	while(running && scriptdelay<=0 && !game.pausescript)
 	{
@@ -98,7 +98,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
         int curlevel=temprx+(ed.maxwidth*(tempry));
 			  ed.level[curlevel].warpdir=ss_toi(words[3]);
 			  //If screen warping, then override all that:
-        dwgfx.backgrounddrawn = false;
+        graphics.backgrounddrawn = false;
 
         //Do we update our own room?
         if(game.roomx-100==temprx && game.roomy-100==tempry){
@@ -109,7 +109,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
             if(ed.level[curlevel].tileset==2){
               //Lab
               map.background = 2;
-              dwgfx.rcol = ed.level[curlevel].tilecol;
+              graphics.rcol = ed.level[curlevel].tilecol;
             }else if(ed.level[curlevel].tileset==3){
               //Warp Zone
               map.background = 6;
@@ -117,15 +117,15 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
           }else if(ed.level[curlevel].warpdir==1){
             map.warpx=true;
             map.background=3;
-            dwgfx.rcol = ed.getwarpbackground(temprx,tempry);
+            graphics.rcol = ed.getwarpbackground(temprx,tempry);
           }else if(ed.level[curlevel].warpdir==2){
             map.warpy=true;
             map.background=4;
-            dwgfx.rcol = ed.getwarpbackground(temprx,tempry);
+            graphics.rcol = ed.getwarpbackground(temprx,tempry);
           }else if(ed.level[curlevel].warpdir==3){
             map.warpx=true; map.warpy=true;
             map.background = 5;
-            dwgfx.rcol = ed.getwarpbackground(temprx,tempry);
+            graphics.rcol = ed.getwarpbackground(temprx,tempry);
           }
         }
 			}
@@ -284,17 +284,17 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			if (words[0] == "cutscene")
 			{
-				dwgfx.showcutscenebars = true;
+				graphics.showcutscenebars = true;
 			}
 			if (words[0] == "endcutscene")
 			{
-				dwgfx.showcutscenebars = false;
+				graphics.showcutscenebars = false;
 			}
 			if (words[0] == "untilbars")
 			{
-				if (dwgfx.showcutscenebars)
+				if (graphics.showcutscenebars)
 				{
-					if (dwgfx.cutscenebarspos < 360)
+					if (graphics.cutscenebarspos < 360)
 					{
 						scriptdelay = 1;
 						position--;
@@ -302,7 +302,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				}
 				else
 				{
-					if (dwgfx.cutscenebarspos > 0)
+					if (graphics.cutscenebarspos > 0)
 					{
 						scriptdelay = 1;
 						position--;
@@ -573,17 +573,17 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "flipme")
 			{
-				if(dwgfx.flipmode) texty += 2*(120 - texty) - 8*(txtnumlines+2);
+				if(graphics.flipmode) texty += 2*(120 - texty) - 8*(txtnumlines+2);
 			}
 			else if (words[0] == "speak_active")
 			{
 				//Ok, actually display the textbox we've initilised now!
-				dwgfx.createtextbox(txt[0], textx, texty, r, g, b);
+				graphics.createtextbox(txt[0], textx, texty, r, g, b);
 				if (txtnumlines > 1)
 				{
 					for (i = 1; i < txtnumlines; i++)
 					{
-						dwgfx.addline(txt[i]);
+						graphics.addline(txt[i]);
 					}
 				}
 
@@ -592,23 +592,23 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				{
 					//position to the left of the player
 					textx += 10000;
-					textx -= dwgfx.textboxwidth();
+					textx -= graphics.textboxwidth();
 					textx += 16;
-					dwgfx.textboxmoveto(textx);
+					graphics.textboxmoveto(textx);
 				}
 
 				if (textx == -500 || textx == -1)
 				{
-					dwgfx.textboxcenterx();
+					graphics.textboxcenterx();
 				}
 
 				if (texty == -500)
 				{
-					dwgfx.textboxcentery();
+					graphics.textboxcentery();
 				}
 
-				dwgfx.textboxadjust();
-				dwgfx.textboxactive();
+				graphics.textboxadjust();
+				graphics.textboxactive();
 
 				if (!game.backgroundtext)
 				{
@@ -623,12 +623,12 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			else if (words[0] == "speak")
 			{
 				//Exactly as above, except don't make the textbox active (so we can use multiple textboxes)
-				dwgfx.createtextbox(txt[0], textx, texty, r, g, b);
+				graphics.createtextbox(txt[0], textx, texty, r, g, b);
 				if (txtnumlines > 1)
 				{
 					for (i = 1; i < txtnumlines; i++)
 					{
-						dwgfx.addline(txt[i]);
+						graphics.addline(txt[i]);
 					}
 				}
 
@@ -637,23 +637,23 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				{
 					//position to the left of the player
 					textx += 10000;
-					textx -= dwgfx.textboxwidth();
+					textx -= graphics.textboxwidth();
 					textx += 16;
-					dwgfx.textboxmoveto(textx);
+					graphics.textboxmoveto(textx);
 				}
 
 				if (textx == -500 || textx == -1)
 				{
-					dwgfx.textboxcenterx();
+					graphics.textboxcenterx();
 				}
 
 				if (texty == -500)
 				{
-					dwgfx.textboxcentery();
+					graphics.textboxcentery();
 				}
 
-				dwgfx.textboxadjust();
-				//dwgfx.textboxactive();
+				graphics.textboxadjust();
+				//graphics.textboxactive();
 
 				if (!game.backgroundtext)
 				{
@@ -667,13 +667,13 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "endtext")
 			{
-				dwgfx.textboxremove();
+				graphics.textboxremove();
 				game.hascontrol = true;
 				game.advancetext = false;
 			}
 			else if (words[0] == "endtextfast")
 			{
-				dwgfx.textboxremovefast();
+				graphics.textboxremovefast();
 				game.hascontrol = true;
 				game.advancetext = false;
 			}
@@ -1261,7 +1261,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "textboxactive")
 			{
-				dwgfx.textboxactive();
+				graphics.textboxactive();
 			}
 			else if (words[0] == "gamemode")
 			{
@@ -1269,17 +1269,17 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				{
 					//TODO this draw the teleporter screen. This is a problem. :(
 					game.gamestate = 5;
-					dwgfx.menuoffset = 240; //actually this should count the roomname
-					if (map.extrarow) dwgfx.menuoffset -= 10;
-					//dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
+					graphics.menuoffset = 240; //actually this should count the roomname
+					if (map.extrarow) graphics.menuoffset -= 10;
+					//graphics.menubuffer.copyPixels(graphics.screenbuffer, graphics.screenbuffer.rect, graphics.tl, null, null, false);
 
-					dwgfx.resumegamemode = false;
+					graphics.resumegamemode = false;
 
 					game.useteleporter = false; //good heavens don't actually use it
 				}
 				else if (words[1] == "game")
 				{
-					dwgfx.resumegamemode = true;
+					graphics.resumegamemode = true;
 				}
 			}
 			else if (words[0] == "ifexplored")
@@ -1430,20 +1430,20 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "befadein")
 			{
-				dwgfx.fadeamount = 0;
-				dwgfx.fademode= 0;
+				graphics.fadeamount = 0;
+				graphics.fademode= 0;
 			}
 			else if (words[0] == "fadein")
 			{
-				dwgfx.fademode = 4;
+				graphics.fademode = 4;
 			}
 			else if (words[0] == "fadeout")
 			{
-				dwgfx.fademode = 2;
+				graphics.fademode = 2;
 			}
 			else if (words[0] == "untilfade")
 			{
-				if (dwgfx.fademode>1)
+				if (graphics.fademode>1)
 				{
 					scriptdelay = 1;
 					position--;
@@ -1508,7 +1508,7 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			else if (words[0] == "rollcredits")
 			{
 				game.gamestate = 6;
-				dwgfx.fademode = 4;
+				graphics.fademode = 4;
 				game.creditposition = 0;
 			}
 			else if (words[0] == "finalmode")
@@ -1885,12 +1885,12 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				game.trinkets++;
 				obj.collect[ss_toi(words[1])] = 1;
 
-				dwgfx.textboxremovefast();
+				graphics.textboxremovefast();
 
-				dwgfx.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
-				dwgfx.addline("");
-				dwgfx.addline("You have found a shiny trinket!");
-				dwgfx.textboxcenterx();
+				graphics.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
+				graphics.addline("");
+				graphics.addline("You have found a shiny trinket!");
+				graphics.textboxcenterx();
 
 				std::string usethisnum;
 				if (map.custommode)
@@ -1901,8 +1901,8 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				{
 					usethisnum = "Twenty";
 				}
-				dwgfx.createtextbox(" " + help.number(game.trinkets) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
-				dwgfx.textboxcenterx();
+				graphics.createtextbox(" " + help.number(game.trinkets) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
+				graphics.textboxcenterx();
 
 				if (!game.backgroundtext)
 				{
@@ -1918,13 +1918,13 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			{
 				music.playef(3,10);
 
-				dwgfx.textboxremovefast();
+				graphics.textboxremovefast();
 
-				dwgfx.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
-				dwgfx.addline("");
-				dwgfx.addline("You have found the secret lab!");
-				dwgfx.textboxcenterx();
-				dwgfx.textboxcentery();
+				graphics.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
+				graphics.addline("");
+				graphics.addline("You have found the secret lab!");
+				graphics.textboxcenterx();
+				graphics.textboxcentery();
 
 				if (!game.backgroundtext)
 				{
@@ -1938,15 +1938,15 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 			}
 			else if (words[0] == "foundlab2")
 			{
-				dwgfx.textboxremovefast();
+				graphics.textboxremovefast();
 
-				dwgfx.createtextbox("The secret lab is separate from", 50, 85, 174, 174, 174);
-				dwgfx.addline("the rest of the game. You can");
-				dwgfx.addline("now come back here at any time");
-				dwgfx.addline("by selecting the new SECRET LAB");
-				dwgfx.addline("option in the play menu.");
-				dwgfx.textboxcenterx();
-				dwgfx.textboxcentery();
+				graphics.createtextbox("The secret lab is separate from", 50, 85, 174, 174, 174);
+				graphics.addline("the rest of the game. You can");
+				graphics.addline("now come back here at any time");
+				graphics.addline("by selecting the new SECRET LAB");
+				graphics.addline("option in the play menu.");
+				graphics.textboxcenterx();
+				graphics.textboxcentery();
 
 				if (!game.backgroundtext)
 				{
@@ -2532,29 +2532,29 @@ void scriptclass::run( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 	}
 }
 
-void scriptclass::resetgametomenu( Graphics& dwgfx, Game& game,mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music )
+void scriptclass::resetgametomenu()
 {
 	game.gamestate = TITLEMODE;
-	dwgfx.flipmode = false;
+	graphics.flipmode = false;
 	obj.nentity = 0;
-	dwgfx.fademode = 4;
+	graphics.fademode = 4;
 	game.createmenu("gameover");
 }
 
-void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music )
+void scriptclass::startgamemode( int t )
 {
 	switch(t)
 	{
 	case 0:  //Normal new game
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.start();
 		game.jumpheld = true;
-		dwgfx.showcutscenebars = true;
-		dwgfx.cutscenebarspos = 320;
+		graphics.showcutscenebars = true;
+		graphics.cutscenebarspos = 320;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 
 		if(obj.nentity==0)
 		{
@@ -2570,14 +2570,14 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 1:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.start();
 		game.loadtele();
 		game.gravitycontrol = game.savegc;
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 
 		if(obj.nentity==0)
 		{
@@ -2588,18 +2588,18 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer();
 		}
 		map.gotoroom(game.saverx, game.savery);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 2: //Load Quicksave
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.start();
 		game.loadquick();
 		game.gravitycontrol = game.savegc;
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 
 		if(obj.nentity==0)
 		{
@@ -2621,11 +2621,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.cameramode = 0;
 			map.colsuperstate = 0;
 		}
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 3:
 		//Start Time Trial 1
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.nocutscenes = true;
 		game.intimetrial = true;
 		game.timetrialcountdown = 150;
@@ -2639,7 +2639,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.starttrial(game.timetriallevel);
 		game.jumpheld = true;
 
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2649,11 +2649,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer();
 		}
 		map.gotoroom(game.saverx, game.savery);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 4:
 		//Start Time Trial 2
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.nocutscenes = true;
 		game.intimetrial = true;
 		game.timetrialcountdown = 150;
@@ -2667,7 +2667,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.starttrial(game.timetriallevel);
 		game.jumpheld = true;
 
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2677,11 +2677,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer();
 		}
 		map.gotoroom(game.saverx, game.savery);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 5:
 		//Start Time Trial 3 tow
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.nocutscenes = true;
 		game.intimetrial = true;
 		game.timetrialcountdown = 150;
@@ -2695,7 +2695,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.starttrial(game.timetriallevel);
 		game.jumpheld = true;
 
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2705,11 +2705,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer();
 		}
 		map.gotoroom(game.saverx, game.savery);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 6:
 		//Start Time Trial 4 station
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.nocutscenes = true;
 		game.intimetrial = true;
 		game.timetrialcountdown = 150;
@@ -2723,7 +2723,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.starttrial(game.timetriallevel);
 		game.jumpheld = true;
 
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2733,11 +2733,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer();
 		}
 		map.gotoroom(game.saverx, game.savery);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 7:
 		//Start Time Trial 5 warp
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.nocutscenes = true;
 		game.intimetrial = true;
 		game.timetrialcountdown = 150;
@@ -2751,7 +2751,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.starttrial(game.timetriallevel);
 		game.jumpheld = true;
 
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2761,11 +2761,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer();
 		}
 		map.gotoroom(game.saverx, game.savery);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 8:
 		//Start Time Trial 6// final level!
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.nocutscenes = true;
 		game.intimetrial = true;
 		game.timetrialcountdown = 150;
@@ -2785,7 +2785,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.starttrial(game.timetriallevel);
 		game.jumpheld = true;
 
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2795,21 +2795,21 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer();
 		}
 		map.gotoroom(game.saverx, game.savery);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 9:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.nodeathmode = true;
 		game.start();
 		game.jumpheld = true;
-		dwgfx.showcutscenebars = true;
-		dwgfx.cutscenebarspos = 320;
+		graphics.showcutscenebars = true;
+		graphics.cutscenebarspos = 320;
 		//game.starttest();
 		//music.play(4);
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 
 		if(obj.nentity==0)
 		{
@@ -2826,19 +2826,19 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 10:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		game.nodeathmode = true;
 		game.nocutscenes = true;
 
 		game.start();
 		game.jumpheld = true;
-		dwgfx.showcutscenebars = true;
-		dwgfx.cutscenebarspos = 320;
+		graphics.showcutscenebars = true;
+		graphics.cutscenebarspos = 320;
 		//game.starttest();
 		//music.play(4);
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 
 		if(obj.nentity==0)
 		{
@@ -2855,7 +2855,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 11:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 
 		game.startspecial(0);
 		game.jumpheld = true;
@@ -2874,7 +2874,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		map.showteleporters = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 
 		if(obj.nentity==0)
 		{
@@ -2886,11 +2886,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		}
 		map.gotoroom(game.saverx, game.savery);
 		music.play(11);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 12:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		music.fadeout();
 
 		game.lastsaved = 2;
@@ -2910,7 +2910,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2925,7 +2925,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 13:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		music.fadeout();
 
 		game.lastsaved = 3;
@@ -2945,7 +2945,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2960,7 +2960,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 14:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		music.fadeout();
 
 		game.lastsaved = 4;
@@ -2980,7 +2980,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -2995,7 +2995,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 15:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		music.fadeout();
 
 		game.lastsaved = 5;
@@ -3015,7 +3015,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -3030,7 +3030,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 16:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		music.fadeout();
 
 		game.lastsaved = 2;
@@ -3047,7 +3047,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -3062,7 +3062,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 17:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		music.fadeout();
 
 		game.lastsaved = 3;
@@ -3079,7 +3079,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -3094,7 +3094,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 18:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		music.fadeout();
 
 		game.lastsaved = 4;
@@ -3111,7 +3111,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -3126,7 +3126,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		break;
 	case 19:
 		game.gamestate = GAMEMODE;
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		music.fadeout();
 
 		game.lastsaved = 5;
@@ -3143,7 +3143,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		game.jumpheld = true;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -3159,14 +3159,14 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 #if !defined(NO_CUSTOM_LEVELS)
 	case 20:
 		//Level editor
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		ed.reset();
 		music.fadeout();
 
 		game.gamestate = EDITORMODE;
 		game.jumpheld = true;
 
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
 		if(obj.nentity==0)
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
@@ -3176,12 +3176,12 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 			map.resetplayer();
 		}
 		map.gotoroom(game.saverx, game.savery);
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
 		break;
 	case 21:  //play custom level (in editor)
 		game.gamestate = GAMEMODE;
 		music.fadeout();
-		hardreset(key, dwgfx, game, map, obj, help, music);
+		hardreset();
 		//If warpdir() is used during playtesting, we need to set it back after!
 		for (int j = 0; j < ed.maxheight; j++)
 		{
@@ -3198,11 +3198,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 		map.customx = 100;
 		map.customy = 100;
 
-		//dwgfx.showcutscenebars = true;
-		//dwgfx.cutscenebarspos = 320;
+		//graphics.showcutscenebars = true;
+		//graphics.cutscenebarspos = 320;
 
 		//set flipmode
-		if (dwgfx.setflipmode) dwgfx.flipmode = true;
+		if (graphics.setflipmode) graphics.flipmode = true;
 
 		if(obj.nentity==0)
 		{
@@ -3228,7 +3228,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
     game.gamestate = GAMEMODE;
     music.fadeout();
-    hardreset(key, dwgfx, game, map, obj, help, music);
+    hardreset();
     game.customstart();
     game.jumpheld = true;
 
@@ -3237,11 +3237,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
     map.customx = 100;
     map.customy = 100;
 
-    //dwgfx.showcutscenebars = true;
-    //dwgfx.cutscenebarspos = 320;
+    //graphics.showcutscenebars = true;
+    //graphics.cutscenebarspos = 320;
 
     //set flipmode
-    if (dwgfx.setflipmode) dwgfx.flipmode = true;
+    if (graphics.setflipmode) graphics.flipmode = true;
 
     if(obj.nentity==0)
     {
@@ -3253,14 +3253,14 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
     }
     map.gotoroom(game.saverx, game.savery);
 
-		ed.generatecustomminimap(dwgfx, map);
+		ed.generatecustomminimap(graphics, map);
 		map.customshowmm=true;
     if(ed.levmusic>0){
       music.play(ed.levmusic);
     }else{
       music.currentsong=-1;
 		}
-		dwgfx.fademode = 4;
+		graphics.fademode = 4;
     //load("intro");
   break;
   case 23: //Continue in custom level
@@ -3271,7 +3271,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 
     game.gamestate = GAMEMODE;
     music.fadeout();
-    hardreset(key, dwgfx, game, map, obj, help, music);
+    hardreset();
 		map.custommodeforreal = true;
     map.custommode = true;
     map.customx = 100;
@@ -3283,11 +3283,11 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
     game.gravitycontrol = game.savegc;
 
 
-    //dwgfx.showcutscenebars = true;
-    //dwgfx.cutscenebarspos = 320;
+    //graphics.showcutscenebars = true;
+    //graphics.cutscenebarspos = 320;
 
     //set flipmode
-    if (dwgfx.setflipmode) dwgfx.flipmode = true;
+    if (graphics.setflipmode) graphics.flipmode = true;
 
     if(obj.nentity==0)
     {
@@ -3305,8 +3305,8 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
       music.currentsong=-1;
 		}
 		*/
-		ed.generatecustomminimap(dwgfx, map);
-		dwgfx.fademode = 4;
+		ed.generatecustomminimap(graphics, map);
+		graphics.fademode = 4;
     //load("intro");
   break;
 #endif
@@ -3319,7 +3319,7 @@ void scriptclass::startgamemode( int t, KeyPoll& key, Graphics& dwgfx, Game& gam
 	}
 }
 
-void scriptclass::teleport( Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music )
+void scriptclass::teleport()
 {
 	//er, ok! Teleport to a new area, so!
 	//A general rule of thumb: if you teleport with a companion, get rid of them!
@@ -3402,7 +3402,7 @@ void scriptclass::teleport( Graphics& dwgfx, Game& game, mapclass& map, entitycl
 	else
 	{
 		//change music based on location
-		if (dwgfx.setflipmode && game.teleport_to_x == 11 && game.teleport_to_y == 4)
+		if (graphics.setflipmode && game.teleport_to_x == 11 && game.teleport_to_y == 4)
 		{
 			music.niceplay(9);
 		}
@@ -3412,22 +3412,22 @@ void scriptclass::teleport( Graphics& dwgfx, Game& game, mapclass& map, entitycl
 		}
 		if (!game.intimetrial && !game.nodeathmode && !game.inintermission)
 		{
-			if (dwgfx.flipmode)
+			if (graphics.flipmode)
 			{
-				dwgfx.createtextbox("    Game Saved    ", -1, 202, 174, 174, 174);
-				dwgfx.textboxtimer(25);
+				graphics.createtextbox("    Game Saved    ", -1, 202, 174, 174, 174);
+				graphics.textboxtimer(25);
 			}
 			else
 			{
-				dwgfx.createtextbox("    Game Saved    ", -1, 12, 174, 174, 174);
-				dwgfx.textboxtimer(25);
+				graphics.createtextbox("    Game Saved    ", -1, 12, 174, 174, 174);
+				graphics.textboxtimer(25);
 			}
 			game.savetele();
 		}
 	}
 }
 
-void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music )
+void scriptclass::hardreset()
 {
 	//Game:
 	game.hascontrol = true;
@@ -3524,11 +3524,11 @@ void scriptclass::hardreset( KeyPoll& key, Graphics& dwgfx, Game& game,mapclass&
 	game.pausescript = false;
 
 	//dwgraphicsclass
-	dwgfx.backgrounddrawn = false;
-	dwgfx.textboxremovefast();
-	dwgfx.flipmode = false; //This will be reset if needs be elsewhere
-	dwgfx.showcutscenebars = false;
-	dwgfx.cutscenebarspos = 0;
+	graphics.backgrounddrawn = false;
+	graphics.textboxremovefast();
+	graphics.flipmode = false; //This will be reset if needs be elsewhere
+	graphics.showcutscenebars = false;
+	graphics.cutscenebarspos = 0;
 
   //mapclass
 	map.warpx = false;

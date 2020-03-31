@@ -1795,7 +1795,7 @@ SDL_assert(0 && "Remove open level dir");
     }
 
     if (dwgfx.fademode == 1)
-        script.startgamemode(game.mainmenu, key, dwgfx, game, map, obj, help, music);
+        script.startgamemode(game.mainmenu);
 }
 
 void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
@@ -1956,7 +1956,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
     {
         //restart the time trial
         game.quickrestartkludge = false;
-        script.startgamemode(game.timetriallevel + 3, key, dwgfx, game, map, obj, help, music);
+        script.startgamemode(game.timetriallevel + 3);
         game.deathseq = -1;
         game.completestop = false;
     }
@@ -2121,7 +2121,7 @@ void gameinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
                     else if (game.intimetrial && dwgfx.fademode==0)
                     {
                         //Quick restart of time trial
-                        script.hardreset(key, dwgfx, game, map, obj, help, music);
+                        script.hardreset();
                         if (dwgfx.setflipmode) dwgfx.flipmode = true;
                         dwgfx.fademode = 2;
                         game.completestop = true;
@@ -2435,7 +2435,7 @@ void mapinput(KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map,
 				//This fixes an apparent frame flicker.
 				FillRect(dwgfx.tempBuffer, 0x000000);
                 if (game.intimetrial || game.insecretlab || game.nodeathmode) game.menukludge = true;
-                script.hardreset(key, dwgfx, game, map, obj, help, music);
+                script.hardreset();
                 if(dwgfx.setflipmode) dwgfx.flipmode = true;
                 dwgfx.fademode = 2;
                 music.fadeout();
