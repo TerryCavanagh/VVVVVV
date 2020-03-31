@@ -1527,7 +1527,7 @@ int editorclass::spikedir( int x, int y )
     return 8;
 }
 
-void editorclass::findstartpoint(Game& game)
+void editorclass::findstartpoint()
 {
     //Ok! Scan the room for the closest checkpoint
     int testeditor=-1;
@@ -2099,20 +2099,20 @@ bool edentclear( int xp, int yp )
     return true;
 }
 
-void fillbox( Graphics& dwgfx, int x, int y, int x2, int y2, int c )
+void fillbox( int x, int y, int x2, int y2, int c )
 {
-    FillRect(dwgfx.backBuffer, x, y, x2-x, 1, c);
-    FillRect(dwgfx.backBuffer, x, y2-1, x2-x, 1, c);
-    FillRect(dwgfx.backBuffer, x, y, 1, y2-y, c);
-    FillRect(dwgfx.backBuffer, x2-1, y, 1, y2-y, c);
+    FillRect(graphics.backBuffer, x, y, x2-x, 1, c);
+    FillRect(graphics.backBuffer, x, y2-1, x2-x, 1, c);
+    FillRect(graphics.backBuffer, x, y, 1, y2-y, c);
+    FillRect(graphics.backBuffer, x2-1, y, 1, y2-y, c);
 }
 
-void fillboxabs( Graphics& dwgfx, int x, int y, int x2, int y2, int c )
+void fillboxabs( int x, int y, int x2, int y2, int c )
 {
-    FillRect(dwgfx.backBuffer, x, y, x2, 1, c);
-    FillRect(dwgfx.backBuffer, x, y+y2-1, x2, 1, c);
-    FillRect(dwgfx.backBuffer, x, y, 1, y2, c);
-    FillRect(dwgfx.backBuffer, x+x2-1, y, 1, y2, c);
+    FillRect(graphics.backBuffer, x, y, x2, 1, c);
+    FillRect(graphics.backBuffer, x, y+y2-1, x2, 1, c);
+    FillRect(graphics.backBuffer, x, y, 1, y2, c);
+    FillRect(graphics.backBuffer, x+x2-1, y, 1, y2, c);
 }
 
 
@@ -2122,7 +2122,7 @@ extern int temp;
 
 extern scriptclass script;
 
-void editorclass::generatecustomminimap(Graphics& dwgfx, mapclass& map)
+void editorclass::generatecustomminimap()
 {
     map.customwidth=mapwidth;
     map.customheight=mapheight;
@@ -2157,7 +2157,7 @@ void editorclass::generatecustomminimap(Graphics& dwgfx, mapclass& map)
         map.custommmysize=180-(map.custommmyoff*2);
     }
 
-    FillRect(dwgfx.images[12], dwgfx.getRGB(0,0,0));
+    FillRect(graphics.images[12], graphics.getRGB(0,0,0));
 
     int tm=0;
     int temp=0;
@@ -2181,7 +2181,7 @@ void editorclass::generatecustomminimap(Graphics& dwgfx, mapclass& map)
                         if(temp>=1)
                         {
                             //Fill in this pixel
-                            FillRect(dwgfx.images[12], (i2*48)+i, (j2*36)+j, 1, 1, dwgfx.getRGB(tm, tm, tm));
+                            FillRect(graphics.images[12], (i2*48)+i, (j2*36)+j, 1, 1, graphics.getRGB(tm, tm, tm));
                         }
                     }
                 }
@@ -2207,7 +2207,7 @@ void editorclass::generatecustomminimap(Graphics& dwgfx, mapclass& map)
                         if(temp>=1)
                         {
                             //Fill in this pixel
-                            FillRect(dwgfx.images[12], (i2*24)+i, (j2*18)+j, 1, 1, dwgfx.getRGB(tm, tm, tm));
+                            FillRect(graphics.images[12], (i2*24)+i, (j2*18)+j, 1, 1, graphics.getRGB(tm, tm, tm));
                         }
                     }
                 }
@@ -2232,7 +2232,7 @@ void editorclass::generatecustomminimap(Graphics& dwgfx, mapclass& map)
                         if(temp>=1)
                         {
                             //Fill in this pixel
-                            FillRect(dwgfx.images[12], (i2*12)+i, (j2*9)+j, 1, 1, dwgfx.getRGB(tm, tm, tm));
+                            FillRect(graphics.images[12], (i2*12)+i, (j2*9)+j, 1, 1, graphics.getRGB(tm, tm, tm));
                         }
                     }
                 }
@@ -2241,51 +2241,51 @@ void editorclass::generatecustomminimap(Graphics& dwgfx, mapclass& map)
     }
 }
 
-void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help )
+void editorrender()
 {
     //TODO
-    //dwgfx.backbuffer.lock();
+    //graphics.backbuffer.lock();
 
     //Draw grid
 
-    FillRect(dwgfx.backBuffer, 0, 0, 320,240, dwgfx.getRGB(0,0,0));
+    FillRect(graphics.backBuffer, 0, 0, 320,240, graphics.getRGB(0,0,0));
     for(int j=0; j<30; j++)
     {
         for(int i=0; i<40; i++)
         {
-            fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(8,8,8)); //a simple grid
-            if(i%4==0) fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(16,16,16));
-            if(j%4==0) fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(16,16,16));
+            fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(8,8,8)); //a simple grid
+            if(i%4==0) fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(16,16,16));
+            if(j%4==0) fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(16,16,16));
 
             //Minor guides
-            if(i==9) fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(24,24,24));
-            if(i==30) fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(24,24,24));
-            if(j==6 || j==7) fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(24,24,24));
-            if(j==21 || j==22) fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(24,24,24));
+            if(i==9) fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(24,24,24));
+            if(i==30) fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(24,24,24));
+            if(j==6 || j==7) fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(24,24,24));
+            if(j==21 || j==22) fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(24,24,24));
 
             //Major guides
-            if(i==20 || i==19) fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(32,32,32));
-            if(j==14) fillbox(dwgfx, i*8, j*8, (i*8)+7, (j*8)+7, dwgfx.getRGB(32,32,32));
+            if(i==20 || i==19) fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(32,32,32));
+            if(j==14) fillbox(i*8, j*8, (i*8)+7, (j*8)+7, graphics.getRGB(32,32,32));
         }
     }
 
     //Or draw background
-    //dwgfx.drawbackground(1);
+    //graphics.drawbackground(1);
     if(!ed.settingsmod)
     {
         switch(ed.level[ed.levx+(ed.levy*ed.maxwidth)].warpdir)
         {
         case 1:
-            dwgfx.rcol=ed.getwarpbackground(ed.levx, ed.levy);
-            dwgfx.drawbackground(3);
+            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.drawbackground(3);
             break;
         case 2:
-            dwgfx.rcol=ed.getwarpbackground(ed.levx, ed.levy);
-            dwgfx.drawbackground(4);
+            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.drawbackground(4);
             break;
         case 3:
-            dwgfx.rcol=ed.getwarpbackground(ed.levx, ed.levy);
-            dwgfx.drawbackground(5);
+            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.drawbackground(5);
             break;
         default:
             break;
@@ -2301,7 +2301,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             for (int i = 0; i < 40; i++)
             {
                 temp=ed.contents[i + (ed.levx*40) + ed.vmult[j+(ed.levy*30)]];
-                if(temp>0) dwgfx.drawtile(i*8,j*8,temp,0,0,0);
+                if(temp>0) graphics.drawtile(i*8,j*8,temp,0,0,0);
             }
         }
     }
@@ -2312,7 +2312,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             for (int i = 0; i < 40; i++)
             {
                 temp=ed.contents[i + (ed.levx*40) + ed.vmult[j+(ed.levy*30)]];
-                if(temp>0) dwgfx.drawtile2(i*8,j*8,temp,0,0,0);
+                if(temp>0) graphics.drawtile2(i*8,j*8,temp,0,0,0);
             }
         }
     }
@@ -2325,12 +2325,12 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         //left edge
         if(ed.freewrap((ed.levx*40)-1,j+(ed.levy*30))==1)
         {
-            FillRect(dwgfx.backBuffer, 0,j*8, 2,8, dwgfx.getRGB(255,255,255-help.glow));
+            FillRect(graphics.backBuffer, 0,j*8, 2,8, graphics.getRGB(255,255,255-help.glow));
         }
         //right edge
         if(ed.freewrap((ed.levx*40)+40,j+(ed.levy*30))==1)
         {
-            FillRect(dwgfx.backBuffer, 318,j*8, 2,8, dwgfx.getRGB(255,255,255-help.glow));
+            FillRect(graphics.backBuffer, 318,j*8, 2,8, graphics.getRGB(255,255,255-help.glow));
         }
     }
 
@@ -2338,12 +2338,12 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     {
         if(ed.freewrap((ed.levx*40)+i,(ed.levy*30)-1)==1)
         {
-            FillRect(dwgfx.backBuffer, i*8,0, 8,2, dwgfx.getRGB(255,255,255-help.glow));
+            FillRect(graphics.backBuffer, i*8,0, 8,2, graphics.getRGB(255,255,255-help.glow));
         }
 
         if(ed.freewrap((ed.levx*40)+i,30+(ed.levy*30))==1)
         {
-            FillRect(dwgfx.backBuffer, i*8,238, 8,2, dwgfx.getRGB(255,255,255-help.glow));
+            FillRect(graphics.backBuffer, i*8,238, 8,2, graphics.getRGB(255,255,255-help.glow));
         }
     }
 
@@ -2369,111 +2369,111 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             switch(edentity[i].t)
             {
             case 1: //Entities
-                //FillRect(dwgfx.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 16,16, dwgfx.getRGB(64,32,64));
-                //dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),164,48,48);
-                dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),ed.entcol);
-                if(edentity[i].p1==0) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
-                if(edentity[i].p1==1) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow, false);
-                if(edentity[i].p1==2) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "<", 255, 255, 255 - help.glow, false);
-                if(edentity[i].p1==3) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, ">", 255, 255, 255 - help.glow, false);
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,dwgfx.getBGR(255,164,255));
+                //FillRect(graphics.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 16,16, graphics.getRGB(64,32,64));
+                //graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),164,48,48);
+                graphics.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),ed.entcol);
+                if(edentity[i].p1==0) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
+                if(edentity[i].p1==1) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow, false);
+                if(edentity[i].p1==2) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "<", 255, 255, 255 - help.glow, false);
+                if(edentity[i].p1==3) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, ">", 255, 255, 255 - help.glow, false);
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getBGR(255,164,255));
                 break;
             case 2: //Threadmills & platforms
                 tpoint.x = (edentity[i].x*8)- (ed.levx*40*8);
                 tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
-                drawRect = dwgfx.tiles_rect;
+                drawRect = graphics.tiles_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
-                BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                 drawRect.x += 8;
-                BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                 drawRect.x += 8;
-                BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                 drawRect.x += 8;
-                BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL,dwgfx.backBuffer, &drawRect);
+                BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL,graphics.backBuffer, &drawRect);
 
                 if(edentity[i].p1<=4)
                 {
-                    if(edentity[i].p1==0) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "V", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(edentity[i].p1==1) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "^", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(edentity[i].p1==2) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(edentity[i].p1==3) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), ">", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,dwgfx.getBGR(255,255,255));
+                    if(edentity[i].p1==0) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "V", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    if(edentity[i].p1==1) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "^", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    if(edentity[i].p1==2) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), "<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    if(edentity[i].p1==3) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+12,(edentity[i].y*8)- (ed.levy*30*8), ">", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
                 }
 
                 if(edentity[i].p1==5)
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), ">>>>", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,dwgfx.getBGR(255,255,255));
+                    graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), ">>>>", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
                 }
                 else if(edentity[i].p1==6)
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), "<<<<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,dwgfx.getBGR(255,255,255));
+                    graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), "<<<<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
                 }
 
                 if(edentity[i].p1>=7)
                 {
-                    //FillRect(dwgfx.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 32,8, dwgfx.getBGR(64,128,64));
+                    //FillRect(graphics.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 32,8, graphics.getBGR(64,128,64));
                     tpoint.x = (edentity[i].x*8)- (ed.levx*40*8)+32;
                     tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
-                    drawRect = dwgfx.tiles_rect;
+                    drawRect = graphics.tiles_rect;
                     drawRect.x += tpoint.x;
                     drawRect.y += tpoint.y;
-                    BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                    BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                     drawRect.x += 8;
-                    BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                    BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                     drawRect.x += 8;
-                    BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                    BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                     drawRect.x += 8;
-                    BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL,dwgfx.backBuffer, &drawRect);
+                    BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL,graphics.backBuffer, &drawRect);
 
                 }
 
                 if(edentity[i].p1==7)
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8), "> > > > ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),64,8,dwgfx.getBGR(255,255,255));
+                    graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8), "> > > > ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),64,8,graphics.getBGR(255,255,255));
                 }
                 else if(edentity[i].p1==8)
                 {
-                    dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8), "< < < < ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),64,8,dwgfx.getBGR(255,255,255));
+                    graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8), "< < < < ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),64,8,graphics.getBGR(255,255,255));
                 }
                 break;
             case 3: //Disappearing Platform
-                //FillRect(dwgfx.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 32,8, dwgfx.getBGR(64,64,128));
+                //FillRect(graphics.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 32,8, graphics.getBGR(64,64,128));
 
                 tpoint.x = (edentity[i].x*8)- (ed.levx*40*8);
                 tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
-                drawRect = dwgfx.tiles_rect;
+                drawRect = graphics.tiles_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
-                BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                 drawRect.x += 8;
-                BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                 drawRect.x += 8;
-                BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL, dwgfx.backBuffer, &drawRect);
+                BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL, graphics.backBuffer, &drawRect);
                 drawRect.x += 8;
-                BlitSurfaceStandard(dwgfx.entcolours[obj.customplatformtile],NULL,dwgfx.backBuffer, &drawRect);
+                BlitSurfaceStandard(graphics.entcolours[obj.customplatformtile],NULL,graphics.backBuffer, &drawRect);
 
-                dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), "////", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,dwgfx.getBGR(255,255,255));
+                graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), "////", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
                 break;
             case 9: //Shiny Trinket
-                dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),22,196,196,196);
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,dwgfx.getRGB(164,164,255));
+                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),22,196,196,196);
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
                 break;
             case 10: //Checkpoints
                 if(edentity[i].p1==0)  //From roof
                 {
-                    dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),20,196,196,196);
+                    graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),20,196,196,196);
                 }
                 else if(edentity[i].p1==1)   //From floor
                 {
-                    dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),21,196,196,196);
+                    graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),21,196,196,196);
                 }
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,dwgfx.getRGB(164,164,255));
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
                 break;
             case 11: //Gravity lines
                 if(edentity[i].p1==0)  //Horizontal
@@ -2484,8 +2484,8 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                     while(ed.spikefree(tx,ty)==0) tx--;
                     while(ed.spikefree(tx2,ty)==0) tx2++;
                     tx++;
-                    FillRect(dwgfx.backBuffer, (tx*8),(ty*8)+4, (tx2-tx)*8,1, dwgfx.getRGB(194,194,194));
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(164,255,164));
+                    FillRect(graphics.backBuffer, (tx*8),(ty*8)+4, (tx2-tx)*8,1, graphics.getRGB(194,194,194));
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164,255,164));
                     edentity[i].p2=tx;
                     edentity[i].p3=(tx2-tx)*8;
                 }
@@ -2497,74 +2497,74 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                     while(ed.spikefree(tx,ty)==0) ty--;
                     while(ed.spikefree(tx,ty2)==0) ty2++;
                     ty++;
-                    FillRect(dwgfx.backBuffer, (tx*8)+3,(ty*8), 1,(ty2-ty)*8, dwgfx.getRGB(194,194,194));
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(164,255,164));
+                    FillRect(graphics.backBuffer, (tx*8)+3,(ty*8), 1,(ty2-ty)*8, graphics.getRGB(194,194,194));
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164,255,164));
                     edentity[i].p2=ty;
                     edentity[i].p3=(ty2-ty)*8;
                 }
                 break;
             case 13://Warp tokens
-                dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),18+(ed.entframe%2),196,196,196);
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,dwgfx.getRGB(164,164,255));
+                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),18+(ed.entframe%2),196,196,196);
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
                 if(ed.temp==i)
                 {
-                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,
+                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,
                                 "("+help.String(((edentity[i].p1-int(edentity[i].p1%40))/40)+1)+","+help.String(((edentity[i].p2-int(edentity[i].p2%30))/30)+1)+")",210,210,255);
                 }
                 else
                 {
-                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),210,210,255);
+                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),210,210,255);
                 }
                 break;
             case 15: //Crewmates
-                dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),144,obj.crewcolour(edentity[i].p1));
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,dwgfx.getRGB(164,164,164));
+                graphics.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),144,obj.crewcolour(edentity[i].p1));
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
                 break;
             case 16: //Start
                 if(edentity[i].p1==0)  //Left
                 {
-                    dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),0,obj.crewcolour(0));
+                    graphics.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),0,obj.crewcolour(0));
                 }
                 else if(edentity[i].p1==1)
                 {
-                    dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),3,obj.crewcolour(0));
+                    graphics.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),3,obj.crewcolour(0));
                 }
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,dwgfx.getRGB(164,255,255));
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,255,255));
                 if(ed.entframe<2)
                 {
-                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8)-12,(edentity[i].y*8)- (ed.levy*30*8)-8,"START",255,255,255);
+                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8)-12,(edentity[i].y*8)- (ed.levy*30*8)-8,"START",255,255,255);
                 }
                 else
                 {
-                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8)-12,(edentity[i].y*8)- (ed.levy*30*8)-8,"START",196,196,196);
+                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8)-12,(edentity[i].y*8)- (ed.levy*30*8)-8,"START",196,196,196);
                 }
                 break;
             case 17: //Roomtext
                 if(edentity[i].scriptname.length()<1)
                 {
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(96,96,96));
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(96,96,96));
                 }
                 else
                 {
                     int length = utf8::unchecked::distance(edentity[i].scriptname.begin(), edentity[i].scriptname.end());
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),length*8,8,dwgfx.getRGB(96,96,96));
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),length*8,8,graphics.getRGB(96,96,96));
                 }
-                dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), edentity[i].scriptname, 196, 196, 255 - help.glow);
+                graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), edentity[i].scriptname, 196, 196, 255 - help.glow);
                 break;
             case 18: //Terminals
-                dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)+8,17,96,96,96);
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,dwgfx.getRGB(164,164,164));
+                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)+8,17,96,96,96);
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
                 if(ed.temp==i)
                 {
-                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
+                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
                 }
                 break;
             case 19: //Script Triggers
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),edentity[i].p1*8,edentity[i].p2*8,dwgfx.getRGB(255,164,255));
-                fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(255,255,255));
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),edentity[i].p1*8,edentity[i].p2*8,graphics.getRGB(255,164,255));
+                fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,255));
                 if(ed.temp==i)
                 {
-                    dwgfx.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
+                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
                 }
                 break;
             case 50: //Warp lines
@@ -2576,8 +2576,8 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                     while(ed.free(tx,ty)==0) tx--;
                     while(ed.free(tx2,ty)==0) tx2++;
                     tx++;
-                    fillboxabs(dwgfx, (tx*8),(ty*8)+1, (tx2-tx)*8,6, dwgfx.getRGB(255,255,194));
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(255,255,164));
+                    fillboxabs((tx*8),(ty*8)+1, (tx2-tx)*8,6, graphics.getRGB(255,255,194));
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,164));
                     edentity[i].p2=tx;
                     edentity[i].p3=(tx2-tx)*8;
                 }
@@ -2589,8 +2589,8 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                     while(ed.free(tx,ty)==0) ty--;
                     while(ed.free(tx,ty2)==0) ty2++;
                     ty++;
-                    fillboxabs(dwgfx, (tx*8)+1,(ty*8), 6,(ty2-ty)*8, dwgfx.getRGB(255,255,194));
-                    fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,dwgfx.getRGB(255,255,164));
+                    fillboxabs((tx*8)+1,(ty*8), 6,(ty2-ty)*8, graphics.getRGB(255,255,194));
+                    fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,164));
                     edentity[i].p2=ty;
                     edentity[i].p3=(ty2-ty)*8;
                 }
@@ -2605,16 +2605,16 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             ty=(edentity[i].p2-(edentity[i].p2%30))/30;
             if(tx==ed.levx && ty==ed.levy)
             {
-                dwgfx.drawsprite((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),18+(ed.entframe%2),64,64,64);
-                fillboxabs(dwgfx, (edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),16,16,dwgfx.getRGB(64,64,96));
+                graphics.drawsprite((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),18+(ed.entframe%2),64,64,64);
+                fillboxabs((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),16,16,graphics.getRGB(64,64,96));
                 if(ed.tilex+(ed.levx*40)==edentity[i].p1 && ed.tiley+(ed.levy*30)==edentity[i].p2)
                 {
-                    dwgfx.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,
+                    graphics.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,
                                 "("+help.String(((edentity[i].x-int(edentity[i].x%40))/40)+1)+","+help.String(((edentity[i].y-int(edentity[i].y%30))/30)+1)+")",190,190,225);
                 }
                 else
                 {
-                    dwgfx.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),190,190,225);
+                    graphics.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),190,190,225);
                 }
             }
         }
@@ -2624,20 +2624,20 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     {
         if(ed.boundarymod==1)
         {
-            fillboxabs(dwgfx, ed.tilex*8, ed.tiley*8, 8,8,dwgfx.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
-            fillboxabs(dwgfx, (ed.tilex*8)+2, (ed.tiley*8)+2, 4,4,dwgfx.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
+            fillboxabs(ed.tilex*8, ed.tiley*8, 8,8,graphics.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
+            fillboxabs((ed.tilex*8)+2, (ed.tiley*8)+2, 4,4,graphics.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
         }
         else if(ed.boundarymod==2)
         {
             if((ed.tilex*8)+8<=ed.boundx1 || (ed.tiley*8)+8<=ed.boundy1)
             {
-                fillboxabs(dwgfx, ed.boundx1, ed.boundy1, 8, 8,dwgfx.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
-                fillboxabs(dwgfx, ed.boundx1+2, ed.boundy1+2, 4, 4,dwgfx.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
+                fillboxabs(ed.boundx1, ed.boundy1, 8, 8,graphics.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
+                fillboxabs(ed.boundx1+2, ed.boundy1+2, 4, 4,graphics.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
             }
             else
             {
-                fillboxabs(dwgfx, ed.boundx1, ed.boundy1, (ed.tilex*8)+8-ed.boundx1,(ed.tiley*8)+8-ed.boundy1,dwgfx.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
-                fillboxabs(dwgfx, ed.boundx1+2, ed.boundy1+2, (ed.tilex*8)+8-ed.boundx1-4,(ed.tiley*8)+8-ed.boundy1-4,dwgfx.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
+                fillboxabs(ed.boundx1, ed.boundy1, (ed.tilex*8)+8-ed.boundx1,(ed.tiley*8)+8-ed.boundy1,graphics.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
+                fillboxabs(ed.boundx1+2, ed.boundy1+2, (ed.tilex*8)+8-ed.boundx1-4,(ed.tiley*8)+8-ed.boundy1-4,graphics.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
             }
         }
     }
@@ -2648,19 +2648,19 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         if(ed.level[tmp].enemyx1!=0 && ed.level[tmp].enemyy1!=0
                 && ed.level[tmp].enemyx2!=320 && ed.level[tmp].enemyy2!=240)
         {
-            fillboxabs(dwgfx,  ed.level[tmp].enemyx1, ed.level[tmp].enemyy1,
+            fillboxabs( ed.level[tmp].enemyx1, ed.level[tmp].enemyy1,
                        ed.level[tmp].enemyx2-ed.level[tmp].enemyx1,
                        ed.level[tmp].enemyy2-ed.level[tmp].enemyy1,
-                       dwgfx.getBGR(255-(help.glow/2),64,64));
+                       graphics.getBGR(255-(help.glow/2),64,64));
         }
 
         if(ed.level[tmp].platx1!=0 && ed.level[tmp].platy1!=0
                 && ed.level[tmp].platx2!=320 && ed.level[tmp].platy2!=240)
         {
-            fillboxabs(dwgfx,  ed.level[tmp].platx1, ed.level[tmp].platy1,
+            fillboxabs( ed.level[tmp].platx1, ed.level[tmp].platy1,
                        ed.level[tmp].platx2-ed.level[tmp].platx1,
                        ed.level[tmp].platy2-ed.level[tmp].platy1,
-                       dwgfx.getBGR(64,64,255-(help.glow/2)));
+                       graphics.getBGR(64,64,255-(help.glow/2)));
         }
     }
 
@@ -2676,33 +2676,33 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     case 9:
     case 10:
     case 12: //Single point
-        fillboxabs(dwgfx, (ed.tilex*8),(ed.tiley*8),8,8, dwgfx.getRGB(200,32,32));
+        fillboxabs((ed.tilex*8),(ed.tiley*8),8,8, graphics.getRGB(200,32,32));
         break;
     case 3:
     case 4:
     case 8:
     case 13://2x2
-        fillboxabs(dwgfx, (ed.tilex*8),(ed.tiley*8),16,16, dwgfx.getRGB(200,32,32));
+        fillboxabs((ed.tilex*8),(ed.tiley*8),16,16, graphics.getRGB(200,32,32));
         break;
     case 5:
     case 6:
     case 7://Platform
-        fillboxabs(dwgfx, (ed.tilex*8),(ed.tiley*8),32,8, dwgfx.getRGB(200,32,32));
+        fillboxabs((ed.tilex*8),(ed.tiley*8),32,8, graphics.getRGB(200,32,32));
         break;
     case 14: //X if not on edge
         if(ed.tilex==0 || ed.tilex==39 || ed.tiley==0 || ed.tiley==29)
         {
-            fillboxabs(dwgfx, (ed.tilex*8),(ed.tiley*8),8,8, dwgfx.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8),(ed.tiley*8),8,8, graphics.getRGB(200,32,32));
         }
         else
         {
-            dwgfx.Print((ed.tilex*8),(ed.tiley*8),"X",255,0,0);
+            graphics.Print((ed.tilex*8),(ed.tiley*8),"X",255,0,0);
         }
         break;
     case 11:
     case 15:
     case 16: //2x3
-        fillboxabs(dwgfx, (ed.tilex*8),(ed.tiley*8),16,24, dwgfx.getRGB(200,32,32));
+        fillboxabs((ed.tilex*8),(ed.tiley*8),16,24, graphics.getRGB(200,32,32));
         break;
     }
 
@@ -2710,11 +2710,11 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     {
         if(ed.zmod && ed.drawmode<2)
         {
-            fillboxabs(dwgfx, (ed.tilex*8)-8,(ed.tiley*8)-8,24,24, dwgfx.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8)-8,(ed.tiley*8)-8,24,24, graphics.getRGB(200,32,32));
         }
         else if(ed.xmod && ed.drawmode<2)
         {
-            fillboxabs(dwgfx, (ed.tilex*8)-16,(ed.tiley*8)-16,24+16,24+16, dwgfx.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8)-16,(ed.tiley*8)-16,24+16,24+16, graphics.getRGB(200,32,32));
         }
     }
 
@@ -2734,65 +2734,65 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             //Draw five lines of the editor
             temp=ed.dmtile-(ed.dmtile%40);
             temp-=80;
-            FillRect(dwgfx.backBuffer, 0,-t2,320,40, dwgfx.getRGB(0,0,0));
-            FillRect(dwgfx.backBuffer, 0,-t2+40,320,2, dwgfx.getRGB(255,255,255));
+            FillRect(graphics.backBuffer, 0,-t2,320,40, graphics.getRGB(0,0,0));
+            FillRect(graphics.backBuffer, 0,-t2+40,320,2, graphics.getRGB(255,255,255));
             if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
             {
                 for(int i=0; i<40; i++)
                 {
-                    dwgfx.drawtile(i*8,0-t2,(temp+1200+i)%1200,0,0,0);
-                    dwgfx.drawtile(i*8,8-t2,(temp+1200+40+i)%1200,0,0,0);
-                    dwgfx.drawtile(i*8,16-t2,(temp+1200+80+i)%1200,0,0,0);
-                    dwgfx.drawtile(i*8,24-t2,(temp+1200+120+i)%1200,0,0,0);
-                    dwgfx.drawtile(i*8,32-t2,(temp+1200+160+i)%1200,0,0,0);
+                    graphics.drawtile(i*8,0-t2,(temp+1200+i)%1200,0,0,0);
+                    graphics.drawtile(i*8,8-t2,(temp+1200+40+i)%1200,0,0,0);
+                    graphics.drawtile(i*8,16-t2,(temp+1200+80+i)%1200,0,0,0);
+                    graphics.drawtile(i*8,24-t2,(temp+1200+120+i)%1200,0,0,0);
+                    graphics.drawtile(i*8,32-t2,(temp+1200+160+i)%1200,0,0,0);
                 }
             }
             else
             {
                 for(int i=0; i<40; i++)
                 {
-                    dwgfx.drawtile2(i*8,0-t2,(temp+1200+i)%1200,0,0,0);
-                    dwgfx.drawtile2(i*8,8-t2,(temp+1200+40+i)%1200,0,0,0);
-                    dwgfx.drawtile2(i*8,16-t2,(temp+1200+80+i)%1200,0,0,0);
-                    dwgfx.drawtile2(i*8,24-t2,(temp+1200+120+i)%1200,0,0,0);
-                    dwgfx.drawtile2(i*8,32-t2,(temp+1200+160+i)%1200,0,0,0);
+                    graphics.drawtile2(i*8,0-t2,(temp+1200+i)%1200,0,0,0);
+                    graphics.drawtile2(i*8,8-t2,(temp+1200+40+i)%1200,0,0,0);
+                    graphics.drawtile2(i*8,16-t2,(temp+1200+80+i)%1200,0,0,0);
+                    graphics.drawtile2(i*8,24-t2,(temp+1200+120+i)%1200,0,0,0);
+                    graphics.drawtile2(i*8,32-t2,(temp+1200+160+i)%1200,0,0,0);
                 }
             }
             //Highlight our little block
-            fillboxabs(dwgfx,((ed.dmtile%40)*8)-2,16-2,12,12,dwgfx.getRGB(196, 196, 255 - help.glow));
-            fillboxabs(dwgfx,((ed.dmtile%40)*8)-1,16-1,10,10,dwgfx.getRGB(0,0,0));
+            fillboxabs(((ed.dmtile%40)*8)-2,16-2,12,12,graphics.getRGB(196, 196, 255 - help.glow));
+            fillboxabs(((ed.dmtile%40)*8)-1,16-1,10,10,graphics.getRGB(0,0,0));
         }
 
         if(ed.dmtileeditor>0 && t2<=30)
         {
-            dwgfx.bprint(2, 45-t2, "Tile:", 196, 196, 255 - help.glow, false);
-            dwgfx.bprint(58, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
-            FillRect(dwgfx.backBuffer, 44,44-t2,10,10, dwgfx.getRGB(196, 196, 255 - help.glow));
-            FillRect(dwgfx.backBuffer, 45,45-t2,8,8, dwgfx.getRGB(0,0,0));
+            graphics.bprint(2, 45-t2, "Tile:", 196, 196, 255 - help.glow, false);
+            graphics.bprint(58, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
+            FillRect(graphics.backBuffer, 44,44-t2,10,10, graphics.getRGB(196, 196, 255 - help.glow));
+            FillRect(graphics.backBuffer, 45,45-t2,8,8, graphics.getRGB(0,0,0));
 
             if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
             {
-                dwgfx.drawtile(45,45-t2,ed.dmtile,0,0,0);
+                graphics.drawtile(45,45-t2,ed.dmtile,0,0,0);
             }
             else
             {
-                dwgfx.drawtile2(45,45-t2,ed.dmtile,0,0,0);
+                graphics.drawtile2(45,45-t2,ed.dmtile,0,0,0);
             }
         }
         else
         {
-            dwgfx.bprint(2, 12, "Tile:", 196, 196, 255 - help.glow, false);
-            dwgfx.bprint(58, 12, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
-            FillRect(dwgfx.backBuffer, 44,11,10,10, dwgfx.getRGB(196, 196, 255 - help.glow));
-            FillRect(dwgfx.backBuffer, 45,12,8,8, dwgfx.getRGB(0,0,0));
+            graphics.bprint(2, 12, "Tile:", 196, 196, 255 - help.glow, false);
+            graphics.bprint(58, 12, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
+            FillRect(graphics.backBuffer, 44,11,10,10, graphics.getRGB(196, 196, 255 - help.glow));
+            FillRect(graphics.backBuffer, 45,12,8,8, graphics.getRGB(0,0,0));
 
             if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
             {
-                dwgfx.drawtile(45,12,ed.dmtile,0,0,0);
+                graphics.drawtile(45,12,ed.dmtile,0,0,0);
             }
             else
             {
-                dwgfx.drawtile2(45,12,ed.dmtile,0,0,0);
+                graphics.drawtile2(45,12,ed.dmtile,0,0,0);
             }
         }
     }
@@ -2805,47 +2805,47 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     {
         if(ed.boundarymod==1)
         {
-            FillRect(dwgfx.backBuffer, 0,230,320,240, dwgfx.getRGB(32,32,32));
-            FillRect(dwgfx.backBuffer, 0,231,320,240, dwgfx.getRGB(0,0,0));
+            FillRect(graphics.backBuffer, 0,230,320,240, graphics.getRGB(32,32,32));
+            FillRect(graphics.backBuffer, 0,231,320,240, graphics.getRGB(0,0,0));
             switch(ed.boundarytype)
             {
             case 0:
-                dwgfx.Print(4, 232, "SCRIPT BOX: Click on top left", 255,255,255, false);
+                graphics.Print(4, 232, "SCRIPT BOX: Click on top left", 255,255,255, false);
                 break;
             case 1:
-                dwgfx.Print(4, 232, "ENEMY BOUNDS: Click on top left", 255,255,255, false);
+                graphics.Print(4, 232, "ENEMY BOUNDS: Click on top left", 255,255,255, false);
                 break;
             case 2:
-                dwgfx.Print(4, 232, "PLATFORM BOUNDS: Click on top left", 255,255,255, false);
+                graphics.Print(4, 232, "PLATFORM BOUNDS: Click on top left", 255,255,255, false);
                 break;
             case 3:
-                dwgfx.Print(4, 232, "COPY TILES: Click on top left", 255,255,255, false);
+                graphics.Print(4, 232, "COPY TILES: Click on top left", 255,255,255, false);
                 break;
             default:
-                dwgfx.Print(4, 232, "Click on top left", 255,255,255, false);
+                graphics.Print(4, 232, "Click on top left", 255,255,255, false);
                 break;
             }
         }
         else if(ed.boundarymod==2)
         {
-            FillRect(dwgfx.backBuffer, 0,230,320,240, dwgfx.getRGB(32,32,32));
-            FillRect(dwgfx.backBuffer, 0,231,320,240, dwgfx.getRGB(0,0,0));
+            FillRect(graphics.backBuffer, 0,230,320,240, graphics.getRGB(32,32,32));
+            FillRect(graphics.backBuffer, 0,231,320,240, graphics.getRGB(0,0,0));
             switch(ed.boundarytype)
             {
             case 0:
-                dwgfx.Print(4, 232, "SCRIPT BOX: Click on bottom right", 255,255,255, false);
+                graphics.Print(4, 232, "SCRIPT BOX: Click on bottom right", 255,255,255, false);
                 break;
             case 1:
-                dwgfx.Print(4, 232, "ENEMY BOUNDS: Click on bottom right", 255,255,255, false);
+                graphics.Print(4, 232, "ENEMY BOUNDS: Click on bottom right", 255,255,255, false);
                 break;
             case 2:
-                dwgfx.Print(4, 232, "PLATFORM BOUNDS: Click on bottom right", 255,255,255, false);
+                graphics.Print(4, 232, "PLATFORM BOUNDS: Click on bottom right", 255,255,255, false);
                 break;
             case 3:
-                dwgfx.Print(4, 232, "COPY TILES: Click on bottom right", 255,255,255, false);
+                graphics.Print(4, 232, "COPY TILES: Click on bottom right", 255,255,255, false);
                 break;
             default:
-                dwgfx.Print(4, 232, "Click on bottom right", 255,255,255, false);
+                graphics.Print(4, 232, "Click on bottom right", 255,255,255, false);
                 break;
             }
         }
@@ -2853,14 +2853,14 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     else if(ed.scripteditmod)
     {
         //Elaborate C64 BASIC menu goes here!
-        FillRect(dwgfx.backBuffer, 0,0,320,240, dwgfx.getBGR(123, 111, 218));
-        FillRect(dwgfx.backBuffer, 14,16,292,208, dwgfx.getRGB(162,48,61));
+        FillRect(graphics.backBuffer, 0,0,320,240, graphics.getBGR(123, 111, 218));
+        FillRect(graphics.backBuffer, 14,16,292,208, graphics.getRGB(162,48,61));
         switch(ed.scripthelppage)
         {
         case 0:
-            dwgfx.Print(16,28,"**** VVVVVV SCRIPT EDITOR ****", 123, 111, 218, true);
-            dwgfx.Print(16,44,"PRESS ESC TO RETURN TO MENU", 123, 111, 218, true);
-            //dwgfx.Print(16,60,"READY.", 123, 111, 218, false);
+            graphics.Print(16,28,"**** VVVVVV SCRIPT EDITOR ****", 123, 111, 218, true);
+            graphics.Print(16,44,"PRESS ESC TO RETURN TO MENU", 123, 111, 218, true);
+            //graphics.Print(16,60,"READY.", 123, 111, 218, false);
 
             if(!ed.hooklist.empty())
             {
@@ -2872,45 +2872,45 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                         {
                             std::string tstring="> " + ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)] + " <";
                             std::transform(tstring.begin(), tstring.end(),tstring.begin(), ::toupper);
-                            dwgfx.Print(16,68+(i*16),tstring,123, 111, 218, true);
+                            graphics.Print(16,68+(i*16),tstring,123, 111, 218, true);
                         }
                         else
                         {
-                            dwgfx.Print(16,68+(i*16),ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)],123, 111, 218, true);
+                            graphics.Print(16,68+(i*16),ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)],123, 111, 218, true);
                         }
                     }
                 }
             }
             else
             {
-                dwgfx.Print(16,110,"NO SCRIPT IDS FOUND", 123, 111, 218, true);
-                dwgfx.Print(16,130,"CREATE A SCRIPT WITH EITHER", 123, 111, 218, true);
-                dwgfx.Print(16,140,"THE TERMINAL OR SCRIPT BOX TOOLS", 123, 111, 218, true);
+                graphics.Print(16,110,"NO SCRIPT IDS FOUND", 123, 111, 218, true);
+                graphics.Print(16,130,"CREATE A SCRIPT WITH EITHER", 123, 111, 218, true);
+                graphics.Print(16,140,"THE TERMINAL OR SCRIPT BOX TOOLS", 123, 111, 218, true);
             }
             break;
         case 1:
             //Current scriptname
-            FillRect(dwgfx.backBuffer, 14,226,292,12, dwgfx.getRGB(162,48,61));
-            dwgfx.Print(16,228,"CURRENT SCRIPT: " + ed.sbscript, 123, 111, 218, true);
+            FillRect(graphics.backBuffer, 14,226,292,12, graphics.getRGB(162,48,61));
+            graphics.Print(16,228,"CURRENT SCRIPT: " + ed.sbscript, 123, 111, 218, true);
             //Draw text
             for(int i=0; i<25; i++)
             {
                 if(i+ed.pagey<(int)ed.sb.size())
                 {
-                    dwgfx.Print(16,20+(i*8),ed.sb[i+ed.pagey], 123, 111, 218, false);
+                    graphics.Print(16,20+(i*8),ed.sb[i+ed.pagey], 123, 111, 218, false);
                 }
             }
             //Draw cursor
             if(ed.entframe<2)
             {
-                dwgfx.Print(16+(ed.sbx*8),20+(ed.sby*8),"_",123, 111, 218, false);
+                graphics.Print(16+(ed.sbx*8),20+(ed.sby*8),"_",123, 111, 218, false);
             }
             break;
         }
     }
     else if(ed.settingsmod)
     {
-        if(!game.colourblindmode) dwgfx.drawtowerbackgroundsolo();
+        if(!game.colourblindmode) graphics.drawtowerbackgroundsolo();
 
         int tr = map.r - (help.glow / 4) - int(fRandom() * 4);
         int tg = map.g - (help.glow / 4) - int(fRandom() * 4);
@@ -2923,7 +2923,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         if(tb>255) tb=255;
         if (game.currentmenuname == "ed_settings")
         {
-            dwgfx.bigprint( -1, 75, "Map Settings", tr, tg, tb, true);
+            graphics.bigprint( -1, 75, "Map Settings", tr, tg, tb, true);
         }
         else if (game.currentmenuname=="ed_desc")
         {
@@ -2931,242 +2931,242 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             {
                 if(ed.entframe<2)
                 {
-                    dwgfx.bigprint( -1, 35, key.keybuffer+"_", tr, tg, tb, true);
+                    graphics.bigprint( -1, 35, key.keybuffer+"_", tr, tg, tb, true);
                 }
                 else
                 {
-                    dwgfx.bigprint( -1, 35, key.keybuffer+" ", tr, tg, tb, true);
+                    graphics.bigprint( -1, 35, key.keybuffer+" ", tr, tg, tb, true);
                 }
             }
             else
             {
-                dwgfx.bigprint( -1, 35, EditorData::GetInstance().title, tr, tg, tb, true);
+                graphics.bigprint( -1, 35, EditorData::GetInstance().title, tr, tg, tb, true);
             }
             if(ed.creatormod)
             {
                 if(ed.entframe<2)
                 {
-                    dwgfx.Print( -1, 60, "by " + key.keybuffer+ "_", tr, tg, tb, true);
+                    graphics.Print( -1, 60, "by " + key.keybuffer+ "_", tr, tg, tb, true);
                 }
                 else
                 {
-                    dwgfx.Print( -1, 60, "by " + key.keybuffer+ " ", tr, tg, tb, true);
+                    graphics.Print( -1, 60, "by " + key.keybuffer+ " ", tr, tg, tb, true);
                 }
             }
             else
             {
-                dwgfx.Print( -1, 60, "by " + EditorData::GetInstance().creator, tr, tg, tb, true);
+                graphics.Print( -1, 60, "by " + EditorData::GetInstance().creator, tr, tg, tb, true);
             }
             if(ed.websitemod)
             {
                 if(ed.entframe<2)
                 {
-                    dwgfx.Print( -1, 70, key.keybuffer+"_", tr, tg, tb, true);
+                    graphics.Print( -1, 70, key.keybuffer+"_", tr, tg, tb, true);
                 }
                 else
                 {
-                    dwgfx.Print( -1, 70, key.keybuffer+" ", tr, tg, tb, true);
+                    graphics.Print( -1, 70, key.keybuffer+" ", tr, tg, tb, true);
                 }
             }
             else
             {
-                dwgfx.Print( -1, 70, ed.website, tr, tg, tb, true);
+                graphics.Print( -1, 70, ed.website, tr, tg, tb, true);
             }
             if(ed.desc1mod)
             {
                 if(ed.entframe<2)
                 {
-                    dwgfx.Print( -1, 90, key.keybuffer+"_", tr, tg, tb, true);
+                    graphics.Print( -1, 90, key.keybuffer+"_", tr, tg, tb, true);
                 }
                 else
                 {
-                    dwgfx.Print( -1, 90, key.keybuffer+" ", tr, tg, tb, true);
+                    graphics.Print( -1, 90, key.keybuffer+" ", tr, tg, tb, true);
                 }
             }
             else
             {
-                dwgfx.Print( -1, 90, ed.Desc1, tr, tg, tb, true);
+                graphics.Print( -1, 90, ed.Desc1, tr, tg, tb, true);
             }
             if(ed.desc2mod)
             {
                 if(ed.entframe<2)
                 {
-                    dwgfx.Print( -1, 100, key.keybuffer+"_", tr, tg, tb, true);
+                    graphics.Print( -1, 100, key.keybuffer+"_", tr, tg, tb, true);
                 }
                 else
                 {
-                    dwgfx.Print( -1, 100, key.keybuffer+" ", tr, tg, tb, true);
+                    graphics.Print( -1, 100, key.keybuffer+" ", tr, tg, tb, true);
                 }
             }
             else
             {
-                dwgfx.Print( -1, 100, ed.Desc2, tr, tg, tb, true);
+                graphics.Print( -1, 100, ed.Desc2, tr, tg, tb, true);
             }
             if(ed.desc3mod)
             {
                 if(ed.entframe<2)
                 {
-                    dwgfx.Print( -1, 110, key.keybuffer+"_", tr, tg, tb, true);
+                    graphics.Print( -1, 110, key.keybuffer+"_", tr, tg, tb, true);
                 }
                 else
                 {
-                    dwgfx.Print( -1, 110, key.keybuffer+" ", tr, tg, tb, true);
+                    graphics.Print( -1, 110, key.keybuffer+" ", tr, tg, tb, true);
                 }
             }
             else
             {
-                dwgfx.Print( -1, 110, ed.Desc3, tr, tg, tb, true);
+                graphics.Print( -1, 110, ed.Desc3, tr, tg, tb, true);
             }
         }
         else if (game.currentmenuname == "ed_music")
         {
-            dwgfx.bigprint( -1, 65, "Map Music", tr, tg, tb, true);
+            graphics.bigprint( -1, 65, "Map Music", tr, tg, tb, true);
 
-            dwgfx.Print( -1, 85, "Current map music:", tr, tg, tb, true);
+            graphics.Print( -1, 85, "Current map music:", tr, tg, tb, true);
             switch(ed.levmusic)
             {
             case 0:
-                dwgfx.Print( -1, 120, "No background music", tr, tg, tb, true);
+                graphics.Print( -1, 120, "No background music", tr, tg, tb, true);
                 break;
             case 1:
-                dwgfx.Print( -1, 120, "1: Pushing Onwards", tr, tg, tb, true);
+                graphics.Print( -1, 120, "1: Pushing Onwards", tr, tg, tb, true);
                 break;
             case 2:
-                dwgfx.Print( -1, 120, "2: Positive Force", tr, tg, tb, true);
+                graphics.Print( -1, 120, "2: Positive Force", tr, tg, tb, true);
                 break;
             case 3:
-                dwgfx.Print( -1, 120, "3: Potential for Anything", tr, tg, tb, true);
+                graphics.Print( -1, 120, "3: Potential for Anything", tr, tg, tb, true);
                 break;
             case 4:
-                dwgfx.Print( -1, 120, "4: Passion for Exploring", tr, tg, tb, true);
+                graphics.Print( -1, 120, "4: Passion for Exploring", tr, tg, tb, true);
                 break;
             case 6:
-                dwgfx.Print( -1, 120, "5: Presenting VVVVVV", tr, tg, tb, true);
+                graphics.Print( -1, 120, "5: Presenting VVVVVV", tr, tg, tb, true);
                 break;
             case 8:
-                dwgfx.Print( -1, 120, "6: Predestined Fate", tr, tg, tb, true);
+                graphics.Print( -1, 120, "6: Predestined Fate", tr, tg, tb, true);
                 break;
             case 10:
-                dwgfx.Print( -1, 120, "7: Popular Potpourri", tr, tg, tb, true);
+                graphics.Print( -1, 120, "7: Popular Potpourri", tr, tg, tb, true);
                 break;
             case 11:
-                dwgfx.Print( -1, 120, "8: Pipe Dream", tr, tg, tb, true);
+                graphics.Print( -1, 120, "8: Pipe Dream", tr, tg, tb, true);
                 break;
             case 12:
-                dwgfx.Print( -1, 120, "9: Pressure Cooker", tr, tg, tb, true);
+                graphics.Print( -1, 120, "9: Pressure Cooker", tr, tg, tb, true);
                 break;
             case 13:
-                dwgfx.Print( -1, 120, "10: Paced Energy", tr, tg, tb, true);
+                graphics.Print( -1, 120, "10: Paced Energy", tr, tg, tb, true);
                 break;
             case 14:
-                dwgfx.Print( -1, 120, "11: Piercing the Sky", tr, tg, tb, true);
+                graphics.Print( -1, 120, "11: Piercing the Sky", tr, tg, tb, true);
                 break;
             default:
-                dwgfx.Print( -1, 120, "?: something else", tr, tg, tb, true);
+                graphics.Print( -1, 120, "?: something else", tr, tg, tb, true);
                 break;
             }
         }
         else if (game.currentmenuname == "ed_quit")
         {
-            dwgfx.bigprint( -1, 90, "Save before", tr, tg, tb, true);
-            dwgfx.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
+            graphics.bigprint( -1, 90, "Save before", tr, tg, tb, true);
+            graphics.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
         }
 
-        dwgfx.drawmenu(tr, tg, tb, 15);
+        graphics.drawmenu(tr, tg, tb, 15);
 
         /*
-        dwgfx.Print(4, 224, "Enter name to save map as:", 255,255,255, false);
+        graphics.Print(4, 224, "Enter name to save map as:", 255,255,255, false);
         if(ed.entframe<2){
-          dwgfx.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
+          graphics.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
         }else{
-          dwgfx.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
+          graphics.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
         }
         */
     }
     else if(ed.scripttextmod)
     {
-        FillRect(dwgfx.backBuffer, 0,221,320,240, dwgfx.getRGB(32,32,32));
-        FillRect(dwgfx.backBuffer, 0,222,320,240, dwgfx.getRGB(0,0,0));
-        dwgfx.Print(4, 224, "Enter script id name:", 255,255,255, false);
+        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
+        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
+        graphics.Print(4, 224, "Enter script id name:", 255,255,255, false);
         if(ed.entframe<2)
         {
-            dwgfx.Print(4, 232, edentity[ed.textent].scriptname+"_", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, edentity[ed.textent].scriptname+"_", 196, 196, 255 - help.glow, true);
         }
         else
         {
-            dwgfx.Print(4, 232, edentity[ed.textent].scriptname+" ", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, edentity[ed.textent].scriptname+" ", 196, 196, 255 - help.glow, true);
         }
     }
     else if(ed.savemod)
     {
-        FillRect(dwgfx.backBuffer, 0,221,320,240, dwgfx.getRGB(32,32,32));
-        FillRect(dwgfx.backBuffer, 0,222,320,240, dwgfx.getRGB(0,0,0));
-        dwgfx.Print(4, 224, "Enter filename to save map as:", 255,255,255, false);
+        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
+        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
+        graphics.Print(4, 224, "Enter filename to save map as:", 255,255,255, false);
         if(ed.entframe<2)
         {
-            dwgfx.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
         }
         else
         {
-            dwgfx.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
         }
     }
     else if(ed.loadmod)
     {
-        FillRect(dwgfx.backBuffer, 0,221,320,240, dwgfx.getRGB(32,32,32));
-        FillRect(dwgfx.backBuffer, 0,222,320,240, dwgfx.getRGB(0,0,0));
-        dwgfx.Print(4, 224, "Enter map filename to load:", 255,255,255, false);
+        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
+        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
+        graphics.Print(4, 224, "Enter map filename to load:", 255,255,255, false);
         if(ed.entframe<2)
         {
-            dwgfx.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
         }
         else
         {
-            dwgfx.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
         }
     }
     else if(ed.roomnamemod)
     {
-        FillRect(dwgfx.backBuffer, 0,221,320,240, dwgfx.getRGB(32,32,32));
-        FillRect(dwgfx.backBuffer, 0,222,320,240, dwgfx.getRGB(0,0,0));
-        dwgfx.Print(4, 224, "Enter new room name:", 255,255,255, false);
+        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
+        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
+        graphics.Print(4, 224, "Enter new room name:", 255,255,255, false);
         if(ed.entframe<2)
         {
-            dwgfx.Print(4, 232, ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname+"_", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname+"_", 196, 196, 255 - help.glow, true);
         }
         else
         {
-            dwgfx.Print(4, 232, ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname+" ", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname+" ", 196, 196, 255 - help.glow, true);
         }
     }
     else if(ed.roomtextmod)
     {
-        FillRect(dwgfx.backBuffer, 0,221,320,240, dwgfx.getRGB(32,32,32));
-        FillRect(dwgfx.backBuffer, 0,222,320,240, dwgfx.getRGB(0,0,0));
-        dwgfx.Print(4, 224, "Enter text string:", 255,255,255, false);
+        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
+        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
+        graphics.Print(4, 224, "Enter text string:", 255,255,255, false);
         if(ed.entframe<2)
         {
-            dwgfx.Print(4, 232, edentity[ed.textent].scriptname+"_", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, edentity[ed.textent].scriptname+"_", 196, 196, 255 - help.glow, true);
         }
         else
         {
-            dwgfx.Print(4, 232, edentity[ed.textent].scriptname+" ", 196, 196, 255 - help.glow, true);
+            graphics.Print(4, 232, edentity[ed.textent].scriptname+" ", 196, 196, 255 - help.glow, true);
         }
     }
     else if(ed.warpmod)
     {
         //placing warp token
-        FillRect(dwgfx.backBuffer, 0,221,320,240, dwgfx.getRGB(32,32,32));
-        FillRect(dwgfx.backBuffer, 0,222,320,240, dwgfx.getRGB(0,0,0));
-        dwgfx.Print(4, 224, "Left click to place warp destination", 196, 196, 255 - help.glow, false);
-        dwgfx.Print(4, 232, "Right click to cancel", 196, 196, 255 - help.glow, false);
+        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
+        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
+        graphics.Print(4, 224, "Left click to place warp destination", 196, 196, 255 - help.glow, false);
+        graphics.Print(4, 232, "Right click to cancel", 196, 196, 255 - help.glow, false);
     }
     else
     {
         if(ed.spacemod)
         {
-            FillRect(dwgfx.backBuffer, 0,208,320,240, dwgfx.getRGB(32,32,32));
-            FillRect(dwgfx.backBuffer, 0,209,320,240, dwgfx.getRGB(0,0,0));
+            FillRect(graphics.backBuffer, 0,208,320,240, graphics.getRGB(32,32,32));
+            FillRect(graphics.backBuffer, 0,209,320,240, graphics.getRGB(0,0,0));
 
             //Draw little icons for each thingy
             int tx=6, ty=211, tg=32;
@@ -3175,192 +3175,192 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             {
                 for(int i=0; i<10; i++)
                 {
-                    FillRect(dwgfx.backBuffer, 4+(i*tg), 209,20,20,dwgfx.getRGB(32,32,32));
+                    FillRect(graphics.backBuffer, 4+(i*tg), 209,20,20,graphics.getRGB(32,32,32));
                 }
-                FillRect(dwgfx.backBuffer, 4+(ed.drawmode*tg), 209,20,20,dwgfx.getRGB(64,64,64));
+                FillRect(graphics.backBuffer, 4+(ed.drawmode*tg), 209,20,20,graphics.getRGB(64,64,64));
                 //0:
-                dwgfx.drawtile(tx,ty,83,0,0,0);
-                dwgfx.drawtile(tx+8,ty,83,0,0,0);
-                dwgfx.drawtile(tx,ty+8,83,0,0,0);
-                dwgfx.drawtile(tx+8,ty+8,83,0,0,0);
+                graphics.drawtile(tx,ty,83,0,0,0);
+                graphics.drawtile(tx+8,ty,83,0,0,0);
+                graphics.drawtile(tx,ty+8,83,0,0,0);
+                graphics.drawtile(tx+8,ty+8,83,0,0,0);
                 //1:
                 tx+=tg;
-                dwgfx.drawtile(tx,ty,680,0,0,0);
-                dwgfx.drawtile(tx+8,ty,680,0,0,0);
-                dwgfx.drawtile(tx,ty+8,680,0,0,0);
-                dwgfx.drawtile(tx+8,ty+8,680,0,0,0);
+                graphics.drawtile(tx,ty,680,0,0,0);
+                graphics.drawtile(tx+8,ty,680,0,0,0);
+                graphics.drawtile(tx,ty+8,680,0,0,0);
+                graphics.drawtile(tx+8,ty+8,680,0,0,0);
                 //2:
                 tx+=tg;
-                dwgfx.drawtile(tx+4,ty+4,8,0,0,0);
+                graphics.drawtile(tx+4,ty+4,8,0,0,0);
                 //3:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,22,196,196,196);
+                graphics.drawsprite(tx,ty,22,196,196,196);
                 //4:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,21,196,196,196);
+                graphics.drawsprite(tx,ty,21,196,196,196);
                 //5:
                 tx+=tg;
-                dwgfx.drawtile(tx,ty+4,3,0,0,0);
-                dwgfx.drawtile(tx+8,ty+4,4,0,0,0);
+                graphics.drawtile(tx,ty+4,3,0,0,0);
+                graphics.drawtile(tx+8,ty+4,4,0,0,0);
                 //6:
                 tx+=tg;
-                dwgfx.drawtile(tx,ty+4,24,0,0,0);
-                dwgfx.drawtile(tx+8,ty+4,24,0,0,0);
+                graphics.drawtile(tx,ty+4,24,0,0,0);
+                graphics.drawtile(tx+8,ty+4,24,0,0,0);
                 //7:
                 tx+=tg;
-                dwgfx.drawtile(tx,ty+4,1,0,0,0);
-                dwgfx.drawtile(tx+8,ty+4,1,0,0,0);
+                graphics.drawtile(tx,ty+4,1,0,0,0);
+                graphics.drawtile(tx+8,ty+4,1,0,0,0);
                 //8:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,78+ed.entframe,196,196,196);
+                graphics.drawsprite(tx,ty,78+ed.entframe,196,196,196);
                 //9:
                 tx+=tg;
-                FillRect(dwgfx.backBuffer, tx+2,ty+8,12,1,dwgfx.getRGB(255,255,255));
+                FillRect(graphics.backBuffer, tx+2,ty+8,12,1,graphics.getRGB(255,255,255));
 
                 for(int i=0; i<9; i++)
                 {
-                    fillboxabs(dwgfx, 4+(i*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                    dwgfx.Print(22+(i*tg)-4, 225-4,help.String(i+1),164,164,164,false);
+                    fillboxabs(4+(i*tg), 209,20,20,graphics.getRGB(96,96,96));
+                    graphics.Print(22+(i*tg)-4, 225-4,help.String(i+1),164,164,164,false);
                 }
 
-                if(ed.drawmode==9)dwgfx.Print(22+(ed.drawmode*tg)-4, 225-4,"0",255,255,255,false);
+                if(ed.drawmode==9)graphics.Print(22+(ed.drawmode*tg)-4, 225-4,"0",255,255,255,false);
 
-                fillboxabs(dwgfx, 4+(9*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                dwgfx.Print(22+(9*tg)-4, 225-4, "0",164,164,164,false);
+                fillboxabs(4+(9*tg), 209,20,20,graphics.getRGB(96,96,96));
+                graphics.Print(22+(9*tg)-4, 225-4, "0",164,164,164,false);
 
-                fillboxabs(dwgfx, 4+(ed.drawmode*tg), 209,20,20,dwgfx.getRGB(200,200,200));
+                fillboxabs(4+(ed.drawmode*tg), 209,20,20,graphics.getRGB(200,200,200));
                 if(ed.drawmode<9)
                 {
-                    dwgfx.Print(22+(ed.drawmode*tg)-4, 225-4,help.String(ed.drawmode+1),255,255,255,false);
+                    graphics.Print(22+(ed.drawmode*tg)-4, 225-4,help.String(ed.drawmode+1),255,255,255,false);
                 }
 
-                dwgfx.Print(4, 232, "1/2", 196, 196, 255 - help.glow, false);
+                graphics.Print(4, 232, "1/2", 196, 196, 255 - help.glow, false);
             }
             else
             {
                 for(int i=0; i<7; i++)
                 {
-                    FillRect(dwgfx.backBuffer, 4+(i*tg), 209,20,20,dwgfx.getRGB(32,32,32));
+                    FillRect(graphics.backBuffer, 4+(i*tg), 209,20,20,graphics.getRGB(32,32,32));
                 }
-                FillRect(dwgfx.backBuffer, 4+((ed.drawmode-10)*tg), 209,20,20,dwgfx.getRGB(64,64,64));
+                FillRect(graphics.backBuffer, 4+((ed.drawmode-10)*tg), 209,20,20,graphics.getRGB(64,64,64));
                 //10:
-                dwgfx.Print(tx,ty,"A",196, 196, 255 - help.glow, false);
-                dwgfx.Print(tx+8,ty,"B",196, 196, 255 - help.glow, false);
-                dwgfx.Print(tx,ty+8,"C",196, 196, 255 - help.glow, false);
-                dwgfx.Print(tx+8,ty+8,"D",196, 196, 255 - help.glow, false);
+                graphics.Print(tx,ty,"A",196, 196, 255 - help.glow, false);
+                graphics.Print(tx+8,ty,"B",196, 196, 255 - help.glow, false);
+                graphics.Print(tx,ty+8,"C",196, 196, 255 - help.glow, false);
+                graphics.Print(tx+8,ty+8,"D",196, 196, 255 - help.glow, false);
                 //11:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,17,196,196,196);
+                graphics.drawsprite(tx,ty,17,196,196,196);
                 //12:
                 tx+=tg;
-                fillboxabs(dwgfx, tx+4,ty+4,8,8,dwgfx.getRGB(96,96,96));
+                fillboxabs(tx+4,ty+4,8,8,graphics.getRGB(96,96,96));
                 //13:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,18+(ed.entframe%2),196,196,196);
+                graphics.drawsprite(tx,ty,18+(ed.entframe%2),196,196,196);
                 //14:
                 tx+=tg;
-                FillRect(dwgfx.backBuffer, tx+6,ty+2,4,12,dwgfx.getRGB(255,255,255));
+                FillRect(graphics.backBuffer, tx+6,ty+2,4,12,graphics.getRGB(255,255,255));
                 //15:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,186,75, 75, 255- help.glow/4 - (fRandom()*20));
+                graphics.drawsprite(tx,ty,186,75, 75, 255- help.glow/4 - (fRandom()*20));
                 //16:
                 tx+=tg;
-                dwgfx.drawsprite(tx,ty,184,160- help.glow/2 - (fRandom()*20), 200- help.glow/2, 220 - help.glow);
+                graphics.drawsprite(tx,ty,184,160- help.glow/2 - (fRandom()*20), 200- help.glow/2, 220 - help.glow);
 
-                if(ed.drawmode==10)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"R",255,255,255,false);
-                if(ed.drawmode==11)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"T",255,255,255,false);
-                if(ed.drawmode==12)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"Y",255,255,255,false);
-                if(ed.drawmode==13)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"U",255,255,255,false);
-                if(ed.drawmode==14)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"I",255,255,255,false);
-                if(ed.drawmode==15)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"O",255,255,255,false);
-                if(ed.drawmode==16)dwgfx.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"P",255,255,255,false);
+                if(ed.drawmode==10)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"R",255,255,255,false);
+                if(ed.drawmode==11)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"T",255,255,255,false);
+                if(ed.drawmode==12)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"Y",255,255,255,false);
+                if(ed.drawmode==13)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"U",255,255,255,false);
+                if(ed.drawmode==14)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"I",255,255,255,false);
+                if(ed.drawmode==15)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"O",255,255,255,false);
+                if(ed.drawmode==16)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"P",255,255,255,false);
 
-                fillboxabs(dwgfx, 4+(0*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                dwgfx.Print(22+(0*tg)-4, 225-4, "R",164,164,164,false);
-                fillboxabs(dwgfx, 4+(1*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                dwgfx.Print(22+(1*tg)-4, 225-4, "T",164,164,164,false);
-                fillboxabs(dwgfx, 4+(2*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                dwgfx.Print(22+(2*tg)-4, 225-4, "Y",164,164,164,false);
-                fillboxabs(dwgfx, 4+(3*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                dwgfx.Print(22+(3*tg)-4, 225-4, "U",164,164,164,false);
-                fillboxabs(dwgfx, 4+(4*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                dwgfx.Print(22+(4*tg)-4, 225-4, "I",164,164,164,false);
-                fillboxabs(dwgfx, 4+(5*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                dwgfx.Print(22+(5*tg)-4, 225-4, "O",164,164,164,false);
-                fillboxabs(dwgfx, 4+(6*tg), 209,20,20,dwgfx.getRGB(96,96,96));
-                dwgfx.Print(22+(6*tg)-4, 225-4, "P",164,164,164,false);
+                fillboxabs(4+(0*tg), 209,20,20,graphics.getRGB(96,96,96));
+                graphics.Print(22+(0*tg)-4, 225-4, "R",164,164,164,false);
+                fillboxabs(4+(1*tg), 209,20,20,graphics.getRGB(96,96,96));
+                graphics.Print(22+(1*tg)-4, 225-4, "T",164,164,164,false);
+                fillboxabs(4+(2*tg), 209,20,20,graphics.getRGB(96,96,96));
+                graphics.Print(22+(2*tg)-4, 225-4, "Y",164,164,164,false);
+                fillboxabs(4+(3*tg), 209,20,20,graphics.getRGB(96,96,96));
+                graphics.Print(22+(3*tg)-4, 225-4, "U",164,164,164,false);
+                fillboxabs(4+(4*tg), 209,20,20,graphics.getRGB(96,96,96));
+                graphics.Print(22+(4*tg)-4, 225-4, "I",164,164,164,false);
+                fillboxabs(4+(5*tg), 209,20,20,graphics.getRGB(96,96,96));
+                graphics.Print(22+(5*tg)-4, 225-4, "O",164,164,164,false);
+                fillboxabs(4+(6*tg), 209,20,20,graphics.getRGB(96,96,96));
+                graphics.Print(22+(6*tg)-4, 225-4, "P",164,164,164,false);
 
-                dwgfx.Print(4, 232, "2/2", 196, 196, 255 - help.glow, false);
+                graphics.Print(4, 232, "2/2", 196, 196, 255 - help.glow, false);
             }
 
-            dwgfx.Print(128, 232, "< and > keys change tool", 196, 196, 255 - help.glow, false);
+            graphics.Print(128, 232, "< and > keys change tool", 196, 196, 255 - help.glow, false);
 
-            FillRect(dwgfx.backBuffer, 0,198,120,10, dwgfx.getRGB(32,32,32));
-            FillRect(dwgfx.backBuffer, 0,199,119,9, dwgfx.getRGB(0,0,0));
+            FillRect(graphics.backBuffer, 0,198,120,10, graphics.getRGB(32,32,32));
+            FillRect(graphics.backBuffer, 0,199,119,9, graphics.getRGB(0,0,0));
             switch(ed.drawmode)
             {
             case 0:
-                dwgfx.bprint(2,199, "1: Walls",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "1: Walls",196, 196, 255 - help.glow);
                 break;
             case 1:
-                dwgfx.bprint(2,199, "2: Backing",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "2: Backing",196, 196, 255 - help.glow);
                 break;
             case 2:
-                dwgfx.bprint(2,199, "3: Spikes",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "3: Spikes",196, 196, 255 - help.glow);
                 break;
             case 3:
-                dwgfx.bprint(2,199, "4: Trinkets",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "4: Trinkets",196, 196, 255 - help.glow);
                 break;
             case 4:
-                dwgfx.bprint(2,199, "5: Checkpoint",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "5: Checkpoint",196, 196, 255 - help.glow);
                 break;
             case 5:
-                dwgfx.bprint(2,199, "6: Disappear",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "6: Disappear",196, 196, 255 - help.glow);
                 break;
             case 6:
-                dwgfx.bprint(2,199, "7: Conveyors",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "7: Conveyors",196, 196, 255 - help.glow);
                 break;
             case 7:
-                dwgfx.bprint(2,199, "8: Moving",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "8: Moving",196, 196, 255 - help.glow);
                 break;
             case 8:
-                dwgfx.bprint(2,199, "9: Enemies",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "9: Enemies",196, 196, 255 - help.glow);
                 break;
             case 9:
-                dwgfx.bprint(2,199, "0: Grav Line",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "0: Grav Line",196, 196, 255 - help.glow);
                 break;
             case 10:
-                dwgfx.bprint(2,199, "R: Roomtext",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "R: Roomtext",196, 196, 255 - help.glow);
                 break;
             case 11:
-                dwgfx.bprint(2,199, "T: Terminal",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "T: Terminal",196, 196, 255 - help.glow);
                 break;
             case 12:
-                dwgfx.bprint(2,199, "Y: Script Box",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "Y: Script Box",196, 196, 255 - help.glow);
                 break;
             case 13:
-                dwgfx.bprint(2,199, "U: Warp Token",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "U: Warp Token",196, 196, 255 - help.glow);
                 break;
             case 14:
-                dwgfx.bprint(2,199, "I: Warp Lines",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "I: Warp Lines",196, 196, 255 - help.glow);
                 break;
             case 15:
-                dwgfx.bprint(2,199, "O: Crewmate",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "O: Crewmate",196, 196, 255 - help.glow);
                 break;
             case 16:
-                dwgfx.bprint(2,199, "P: Start Point",196, 196, 255 - help.glow);
+                graphics.bprint(2,199, "P: Start Point",196, 196, 255 - help.glow);
                 break;
             }
 
-            FillRect(dwgfx.backBuffer, 260,198,80,10, dwgfx.getRGB(32,32,32));
-            FillRect(dwgfx.backBuffer, 261,199,80,9, dwgfx.getRGB(0,0,0));
-            dwgfx.bprint(268,199, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+            FillRect(graphics.backBuffer, 260,198,80,10, graphics.getRGB(32,32,32));
+            FillRect(graphics.backBuffer, 261,199,80,9, graphics.getRGB(0,0,0));
+            graphics.bprint(268,199, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
 
         }
         else
         {
-            //FillRect(dwgfx.backBuffer, 0,230,72,240, dwgfx.RGB(32,32,32));
-            //FillRect(dwgfx.backBuffer, 0,231,71,240, dwgfx.RGB(0,0,0));
+            //FillRect(graphics.backBuffer, 0,230,72,240, graphics.RGB(32,32,32));
+            //FillRect(graphics.backBuffer, 0,231,71,240, graphics.RGB(0,0,0));
             if(ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname!="")
             {
                 if(ed.tiley<28)
@@ -3371,45 +3371,45 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 {
                     if(ed.roomnamehide<12) ed.roomnamehide++;
                 }
-                if (dwgfx.translucentroomname)
+                if (graphics.translucentroomname)
                 {
-                    dwgfx.footerrect.y = 230+ed.roomnamehide;
-                    SDL_BlitSurface(dwgfx.footerbuffer, NULL, dwgfx.backBuffer, &dwgfx.footerrect);
+                    graphics.footerrect.y = 230+ed.roomnamehide;
+                    SDL_BlitSurface(graphics.footerbuffer, NULL, graphics.backBuffer, &graphics.footerrect);
                 }
                 else
                 {
-                    FillRect(dwgfx.backBuffer, 0,230+ed.roomnamehide,320,10, dwgfx.getRGB(0,0,0));
+                    FillRect(graphics.backBuffer, 0,230+ed.roomnamehide,320,10, graphics.getRGB(0,0,0));
                 }
-                dwgfx.bprint(5,231+ed.roomnamehide,ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname, 196, 196, 255 - help.glow, true);
-                dwgfx.bprint(4, 222, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
-                dwgfx.bprint(268,222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+                graphics.bprint(5,231+ed.roomnamehide,ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname, 196, 196, 255 - help.glow, true);
+                graphics.bprint(4, 222, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
+                graphics.bprint(268,222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
             }
             else
             {
-                dwgfx.bprint(4, 232, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
-                dwgfx.bprint(268,232, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+                graphics.bprint(4, 232, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
+                graphics.bprint(268,232, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
             }
         }
 
         if(ed.shiftmenu)
         {
-            fillboxabs(dwgfx, 0, 127,161+8,140,dwgfx.getRGB(64,64,64));
-            FillRect(dwgfx.backBuffer, 0,128,160+8,140, dwgfx.getRGB(0,0,0));
-            dwgfx.Print(4, 130, "F1: Change Tileset",164,164,164,false);
-            dwgfx.Print(4, 140, "F2: Change Colour",164,164,164,false);
-            dwgfx.Print(4, 150, "F3: Change Enemies",164,164,164,false);
-            dwgfx.Print(4, 160, "F4: Enemy Bounds",164,164,164,false);
-            dwgfx.Print(4, 170, "F5: Platform Bounds",164,164,164,false);
+            fillboxabs(0, 127,161+8,140,graphics.getRGB(64,64,64));
+            FillRect(graphics.backBuffer, 0,128,160+8,140, graphics.getRGB(0,0,0));
+            graphics.Print(4, 130, "F1: Change Tileset",164,164,164,false);
+            graphics.Print(4, 140, "F2: Change Colour",164,164,164,false);
+            graphics.Print(4, 150, "F3: Change Enemies",164,164,164,false);
+            graphics.Print(4, 160, "F4: Enemy Bounds",164,164,164,false);
+            graphics.Print(4, 170, "F5: Platform Bounds",164,164,164,false);
 
-            dwgfx.Print(4, 190, "F10: Direct Mode",164,164,164,false);
+            graphics.Print(4, 190, "F10: Direct Mode",164,164,164,false);
 
-            dwgfx.Print(4, 210, "W: Change Warp Dir",164,164,164,false);
-            dwgfx.Print(4, 220, "E: Change Roomname",164,164,164,false);
+            graphics.Print(4, 210, "W: Change Warp Dir",164,164,164,false);
+            graphics.Print(4, 220, "E: Change Roomname",164,164,164,false);
 
-            fillboxabs(dwgfx, 220, 207,100,60,dwgfx.getRGB(64,64,64));
-            FillRect(dwgfx.backBuffer, 221,208,160,60, dwgfx.getRGB(0,0,0));
-            dwgfx.Print(224, 210, "S: Save Map",164,164,164,false);
-            dwgfx.Print(224, 220, "L: Load Map",164,164,164,false);
+            fillboxabs(220, 207,100,60,graphics.getRGB(64,64,64));
+            FillRect(graphics.backBuffer, 221,208,160,60, graphics.getRGB(0,0,0));
+            graphics.Print(224, 210, "S: Save Map",164,164,164,false);
+            graphics.Print(224, 220, "L: Load Map",164,164,164,false);
         }
     }
 
@@ -3420,106 +3420,106 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
         switch(ed.drawmode)
         {
         case 0:
-            dwgfx.bprint(2,2, "1: Walls",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "1: Walls",196, 196, 255 - help.glow);
             break;
         case 1:
-            dwgfx.bprint(2,2, "2: Backing",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "2: Backing",196, 196, 255 - help.glow);
             break;
         case 2:
-            dwgfx.bprint(2,2, "3: Spikes",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "3: Spikes",196, 196, 255 - help.glow);
             break;
         case 3:
-            dwgfx.bprint(2,2, "4: Trinkets",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "4: Trinkets",196, 196, 255 - help.glow);
             break;
         case 4:
-            dwgfx.bprint(2,2, "5: Checkpoint",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "5: Checkpoint",196, 196, 255 - help.glow);
             break;
         case 5:
-            dwgfx.bprint(2,2, "6: Disappear",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "6: Disappear",196, 196, 255 - help.glow);
             break;
         case 6:
-            dwgfx.bprint(2,2, "7: Conveyors",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "7: Conveyors",196, 196, 255 - help.glow);
             break;
         case 7:
-            dwgfx.bprint(2,2, "8: Moving",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "8: Moving",196, 196, 255 - help.glow);
             break;
         case 8:
-            dwgfx.bprint(2,2, "9: Enemies",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "9: Enemies",196, 196, 255 - help.glow);
             break;
         case 9:
-            dwgfx.bprint(2,2, "0: Grav Line",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "0: Grav Line",196, 196, 255 - help.glow);
             break;
         case 10:
-            dwgfx.bprint(2,2, "R: Roomtext",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "R: Roomtext",196, 196, 255 - help.glow);
             break;
         case 11:
-            dwgfx.bprint(2,2, "T: Terminal",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "T: Terminal",196, 196, 255 - help.glow);
             break;
         case 12:
-            dwgfx.bprint(2,2, "Y: Script Box",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "Y: Script Box",196, 196, 255 - help.glow);
             break;
         case 13:
-            dwgfx.bprint(2,2, "U: Warp Token",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "U: Warp Token",196, 196, 255 - help.glow);
             break;
         case 14:
-            dwgfx.bprint(2,2, "I: Warp Lines",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "I: Warp Lines",196, 196, 255 - help.glow);
             break;
         case 15:
-            dwgfx.bprint(2,2, "O: Crewmate",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "O: Crewmate",196, 196, 255 - help.glow);
             break;
         case 16:
-            dwgfx.bprint(2,2, "P: Start Point",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, "P: Start Point",196, 196, 255 - help.glow);
             break;
         }
 
-        //dwgfx.Print(254, 2, "F1: HELP", 196, 196, 255 - help.glow, false);
+        //graphics.Print(254, 2, "F1: HELP", 196, 196, 255 - help.glow, false);
     }
 
     /*
     for(size_t i=0; i<script.customscript.size(); i++){
-      dwgfx.Print(0,i*8,script.customscript[i],255,255,255);
+      graphics.Print(0,i*8,script.customscript[i],255,255,255);
     }
-    dwgfx.Print(0,8*script.customscript.size(),help.String(script.customscript.size()),255,255,255);
+    graphics.Print(0,8*script.customscript.size(),help.String(script.customscript.size()),255,255,255);
 
     for(size_t i=0; i<ed.hooklist.size(); i++){
-      dwgfx.Print(260,i*8,ed.hooklist[i],255,255,255);
+      graphics.Print(260,i*8,ed.hooklist[i],255,255,255);
     }
-    dwgfx.Print(260,8*ed.hooklist.size(),help.String(ed.hooklist.size()),255,255,255);
+    graphics.Print(260,8*ed.hooklist.size(),help.String(ed.hooklist.size()),255,255,255);
     */
 
     if(ed.notedelay>0)
     {
-        FillRect(dwgfx.backBuffer, 0,115,320,18, dwgfx.getRGB(92,92,92));
-        FillRect(dwgfx.backBuffer, 0,116,320,16, dwgfx.getRGB(0,0,0));
-        dwgfx.Print(0,121, ed.note,196-((45-ed.notedelay)*4), 196-((45-ed.notedelay)*4), 196-((45-ed.notedelay)*4), true);
+        FillRect(graphics.backBuffer, 0,115,320,18, graphics.getRGB(92,92,92));
+        FillRect(graphics.backBuffer, 0,116,320,16, graphics.getRGB(0,0,0));
+        graphics.Print(0,121, ed.note,196-((45-ed.notedelay)*4), 196-((45-ed.notedelay)*4), 196-((45-ed.notedelay)*4), true);
     }
 
     if (game.test)
     {
-        dwgfx.bprint(5, 5, game.teststring, 196, 196, 255 - help.glow, false);
+        graphics.bprint(5, 5, game.teststring, 196, 196, 255 - help.glow, false);
     }
 
-    dwgfx.drawfade();
+    graphics.drawfade();
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
         game.flashlight--;
-        dwgfx.flashlight();
+        graphics.flashlight();
     }
 
     if (game.screenshake > 0  && !game.noflashingmode)
     {
         game.screenshake--;
-        dwgfx.screenshake();
+        graphics.screenshake();
     }
     else
     {
-        dwgfx.render();
+        graphics.render();
     }
-    //dwgfx.backbuffer.unlock();
+    //graphics.backbuffer.unlock();
 }
 
-void editorlogic( KeyPoll& key, Graphics& dwgfx, Game& game, entityclass& obj, musicclass& music, mapclass& map, UtilityClass& help )
+void editorlogic()
 {
     //Misc
     help.updateglow();
@@ -3539,24 +3539,24 @@ void editorlogic( KeyPoll& key, Graphics& dwgfx, Game& game, entityclass& obj, m
         ed.notedelay--;
     }
 
-    if (dwgfx.fademode == 1)
+    if (graphics.fademode == 1)
     {
         //Return to game
         map.nexttowercolour();
         map.colstate = 10;
         game.gamestate = 1;
-        dwgfx.fademode = 4;
+        graphics.fademode = 4;
         music.stopmusic();
         music.play(6);
         map.nexttowercolour();
         ed.settingsmod=false;
-        dwgfx.backgrounddrawn=false;
+        graphics.backgrounddrawn=false;
         game.createmenu("mainmenu");
     }
 }
 
 
-void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music )
+void editorinput()
 {
     //TODO Mouse Input!
     game.mx = (float) key.mx;
@@ -3566,7 +3566,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
     if (game.stretchMode == 1) {
         // In this mode specifically, we have to fix the mouse coordinates
         int winwidth, winheight;
-        dwgfx.screenbuffer->GetWindowSize(&winwidth, &winheight);
+        graphics.screenbuffer->GetWindowSize(&winwidth, &winheight);
         ed.tilex = ed.tilex * 320 / winwidth;
         ed.tiley = ed.tiley * 240 / winheight;
     }
@@ -3632,7 +3632,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
         {
 
             ed.settingsmod=!ed.settingsmod;
-            dwgfx.backgrounddrawn=false;
+            graphics.backgrounddrawn=false;
 
             game.createmenu("ed_settings");
             map.nexttowercolour();
@@ -3912,7 +3912,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                     if(ed.saveandquit)
                     {
                         //quit editor
-                        dwgfx.fademode = 2;
+                        graphics.fademode = 2;
                     }
                 }
                 else if(ed.loadmod)
@@ -4099,7 +4099,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         {
                             //Load level
                             ed.settingsmod=false;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                             map.nexttowercolour();
 
                             ed.loadmod=true;
@@ -4108,13 +4108,13 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             key.keybuffer=ed.filename;
                             ed.keydelay=6;
                             game.mapheld=true;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                         }
                         else if (game.currentmenuoption == 4)
                         {
                             //Save level
                             ed.settingsmod=false;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                             map.nexttowercolour();
 
                             ed.savemod=true;
@@ -4123,7 +4123,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             key.keybuffer=ed.filename;
                             ed.keydelay=6;
                             game.mapheld=true;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                         }
                         else if (game.currentmenuoption == 5)
                         {
@@ -4167,7 +4167,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             ed.saveandquit=true;
 
                             ed.settingsmod=false;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                             map.nexttowercolour();
 
                             ed.savemod=true;
@@ -4176,14 +4176,14 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                             key.keybuffer=ed.filename;
                             ed.keydelay=6;
                             game.mapheld=true;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                         }
                         else if (game.currentmenuoption == 1)
                         {
                             //Quit without saving
                             music.playef(11, 10);
                             music.fadeout();
-                            dwgfx.fademode = 2;
+                            graphics.fademode = 2;
                         }
                         else if (game.currentmenuoption == 2)
                         {
@@ -4203,7 +4203,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             if(key.keymap[SDLK_F1] && ed.keydelay==0)
             {
                 ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset++;
-                dwgfx.backgrounddrawn=false;
+                graphics.backgrounddrawn=false;
                 if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset>=5) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset=0;
                 if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
                 {
@@ -4248,7 +4248,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
             if(key.keymap[SDLK_F2] && ed.keydelay==0)
             {
                 ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol++;
-                dwgfx.backgrounddrawn=false;
+                graphics.backgrounddrawn=false;
                 if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
                 {
                     if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=32) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
@@ -4297,7 +4297,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                     ed.level[ed.levx+(ed.levy*ed.maxwidth)].directmode=1;
                     ed.note="Direct Mode Enabled";
                 }
-                dwgfx.backgrounddrawn=false;
+                graphics.backgrounddrawn=false;
 
                 ed.notedelay=45;
                 ed.updatetiles=true;
@@ -4348,25 +4348,25 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                     {
                         ed.note="Room warping disabled";
                         ed.notedelay=45;
-                        dwgfx.backgrounddrawn=false;
+                        graphics.backgrounddrawn=false;
                     }
                     else if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].warpdir==1)
                     {
                         ed.note="Room warps horizontally";
                         ed.notedelay=45;
-                        dwgfx.backgrounddrawn=false;
+                        graphics.backgrounddrawn=false;
                     }
                     else if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].warpdir==2)
                     {
                         ed.note="Room warps vertically";
                         ed.notedelay=45;
-                        dwgfx.backgrounddrawn=false;
+                        graphics.backgrounddrawn=false;
                     }
                     else if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].warpdir==3)
                     {
                         ed.note="Room warps in all directions";
                         ed.notedelay=45;
-                        dwgfx.backgrounddrawn=false;
+                        graphics.backgrounddrawn=false;
                     }
                 }
                 ed.keydelay=6;
@@ -4390,7 +4390,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                 key.keybuffer=ed.filename;
                 ed.keydelay=6;
                 game.mapheld=true;
-                dwgfx.backgrounddrawn=false;
+                graphics.backgrounddrawn=false;
             }
 
             if(key.keymap[SDLK_l] && ed.keydelay==0)
@@ -4401,7 +4401,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                 key.keybuffer=ed.filename;
                 ed.keydelay=6;
                 game.mapheld=true;
-                dwgfx.backgrounddrawn=false;
+                graphics.backgrounddrawn=false;
             }
 
             if(!game.press_map) game.mapheld=false;
@@ -4489,15 +4489,15 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         }
 
                         music.stopmusic();
-                        dwgfx.backgrounddrawn=false;
+                        graphics.backgrounddrawn=false;
                         ed.returneditoralpha = 1000; // Let's start it higher than 255 since it gets clamped
                         script.startgamemode(21);
                     }
                     //Return to game
                     //game.gamestate=GAMEMODE;
-                    /*if(dwgfx.fademode==0)
+                    /*if(graphics.fademode==0)
                     {
-                    dwgfx.fademode = 2;
+                    graphics.fademode = 2;
                     music.fadeout();
                     }*/
                 }
@@ -4625,7 +4625,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         if(key.keymap[SDLK_UP])
                         {
                             ed.keydelay=6;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                             ed.levy--;
                             ed.updatetiles=true;
                             ed.changeroom=true;
@@ -4633,7 +4633,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         else if(key.keymap[SDLK_DOWN])
                         {
                             ed.keydelay=6;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                             ed.levy++;
                             ed.updatetiles=true;
                             ed.changeroom=true;
@@ -4641,7 +4641,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         else if(key.keymap[SDLK_LEFT])
                         {
                             ed.keydelay=6;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                             ed.levx--;
                             ed.updatetiles=true;
                             ed.changeroom=true;
@@ -4649,7 +4649,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         else if(key.keymap[SDLK_RIGHT])
                         {
                             ed.keydelay=6;
-                            dwgfx.backgrounddrawn=false;
+                            graphics.backgrounddrawn=false;
                             ed.levx++;
                             ed.updatetiles=true;
                             ed.changeroom=true;
@@ -4908,7 +4908,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                                 ed.textentry=true;
                                 key.enabletextentry();
                                 key.keybuffer="";
-                                dwgfx.backgrounddrawn=false;
+                                graphics.backgrounddrawn=false;
                                 addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),17);
                                 ed.lclickdelay=1;
                             }
