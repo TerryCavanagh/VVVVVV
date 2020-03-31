@@ -61,8 +61,8 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("486,486,486,486,486,486,486,486,486,608,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,606,486,486,486,486,486,486");
 		tmap.push_back("486,486,486,486,486,486,486,486,486,608,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,606,486,486,486,486,486,486");
 
-		obj.createentity(game, 72, 32, 14); //Teleporter!
-		obj.createentity(game, 216, 144, 20, 1);
+		obj.createentity(72, 32, 14); //Teleporter!
+		obj.createentity(216, 144, 20, 1);
 
 		obj.createblock(5, 216-4, 144, 20, 16, 8);
 		break;
@@ -372,7 +372,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 
-		obj.createentity(game, 152, 144, 10, 1, 9000);  // (savepoint)
+		obj.createentity(152, 144, 10, 1, 9000);  // (savepoint)
 		break;
 
 	case rn(0,10):
@@ -408,7 +408,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 
-		obj.createentity(game, 224, 96, 10, 0, 10000);  // (savepoint)
+		obj.createentity(224, 96, 10, 0, 10000);  // (savepoint)
 		break;
 
 	case rn(0,11):
@@ -444,7 +444,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 
-		obj.createentity(game, 56, 32, 13); //Warp Token
+		obj.createentity(56, 32, 13); //Warp Token
 
 		break;
 
@@ -617,7 +617,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 
-		obj.createentity(game, 120, 40, 14); //Teleporter!
+		obj.createentity(120, 40, 14); //Teleporter!
 		break;
 
 	case rn(0,17):
@@ -755,7 +755,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,603,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,603,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 
-		obj.createentity(game, 144, 136, 10, 1, 4010);  // (savepoint)
+		obj.createentity(144, 136, 10, 1, 4010);  // (savepoint)
 		break;
 
 	case rn(1,5):
@@ -791,7 +791,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 
-		obj.createentity(game, 88, 104, 10, 1, 106010);  // (savepoint)
+		obj.createentity(88, 104, 10, 1, 106010);  // (savepoint)
 		break;
 
 	case rn(1,6):
@@ -895,7 +895,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,605,236,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116");
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,605,236,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116");
 
-		obj.createentity(game, 152, 64, 10, 0, 9010);  // (savepoint)
+		obj.createentity(152, 64, 10, 0, 9010);  // (savepoint)
 		break;
 
 	case rn(1,10):
@@ -931,7 +931,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 
-		obj.createentity(game, 208, 120, 9, 15);  // (shiny trinket)
+		obj.createentity(208, 120, 9, 15);  // (shiny trinket)
 		break;
 
 	case rn(1,11):
@@ -967,13 +967,13 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 
-		obj.createentity(game, 40, 192, 13); //Warp Token
-		obj.createentity(game, 168, 136, 13); //Warp Token
-		obj.createentity(game, 224, 136, 13); //Warp Token
+		obj.createentity(40, 192, 13); //Warp Token
+		obj.createentity(168, 136, 13); //Warp Token
+		obj.createentity(224, 136, 13); //Warp Token
 
 
 
-		obj.createentity(game, 96, 80, 13); //Warp Token
+		obj.createentity(96, 80, 13); //Warp Token
 
 		break;
 
@@ -1044,7 +1044,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 
-		obj.createentity(game, 112, 152, 10, 1, 13010);  // (savepoint)
+		obj.createentity(112, 152, 10, 1, 13010);  // (savepoint)
 		break;
 
 	case rn(1,14):
@@ -1148,7 +1148,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,617,415,295,295,295,295,295");
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,617,415,295,295,295,295,295");
 
-		obj.createentity(game, 280, 120, 10, 1, 16010);  // (savepoint)
+		obj.createentity(280, 120, 10, 1, 16010);  // (savepoint)
 		break;
 
 	case rn(2,2):
@@ -1184,7 +1184,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("483,483,483,483,483,483,483,483,483,605,49,0,0,0,0,0,0,50,603,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 		tmap.push_back("483,483,483,483,483,483,483,483,483,605,49,0,0,0,0,0,0,50,603,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 
-		obj.createentity(game, 56, 32, 10, 1, 2020);  // (savepoint)
+		obj.createentity(56, 32, 10, 1, 2020);  // (savepoint)
 		break;
 
 	case rn(2,3):
@@ -1288,7 +1288,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 40, 88, 10, 1, 6020);  // (savepoint)
+		obj.createentity(40, 88, 10, 1, 6020);  // (savepoint)
 		break;
 
 	case rn(2,8):
@@ -1394,26 +1394,26 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 			tmap.push_back("113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113");
 			tmap.push_back("113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113");
 
-			obj.createentity(game, 40, 32, 22, 0);  // (shiny trinket)
-			obj.createentity(game, 64, 32, 22, 1);  // (shiny trinket)
-			obj.createentity(game, 88, 32, 22, 2);  // (shiny trinket)
-			obj.createentity(game, 40, 80, 22, 3);  // (shiny trinket)
-			obj.createentity(game, 64, 80, 22, 4);  // (shiny trinket)
-			obj.createentity(game, 88, 80, 22, 5);  // (shiny trinket)
-			obj.createentity(game, 112, 80, 22, 6);  // (shiny trinket)
-			obj.createentity(game, 40, 128, 22, 7);  // (shiny trinket)
-			obj.createentity(game, 64, 128, 22, 8);  // (shiny trinket)
-			obj.createentity(game, 88, 128, 22, 9);  // (shiny trinket)
-			obj.createentity(game, 112, 128, 22, 10);  // (shiny trinket)
-			obj.createentity(game, 136, 128, 22, 11);  // (shiny trinket)
-			obj.createentity(game, 40, 176, 22, 12);  // (shiny trinket)
-			obj.createentity(game, 64, 176, 22, 13);  // (shiny trinket)
-			obj.createentity(game, 88, 176, 22, 14);  // (shiny trinket)
-			obj.createentity(game, 112, 176, 22, 15);  // (shiny trinket)
-			obj.createentity(game, 136, 176, 22, 16);  // (shiny trinket)
-			obj.createentity(game, 112, 32, 22, 17);  // (shiny trinket)
-			obj.createentity(game, 136, 80, 22, 18);  // (shiny trinket)
-			obj.createentity(game, 136, 32, 22, 19);  // (shiny trinket)
+			obj.createentity(40, 32, 22, 0);  // (shiny trinket)
+			obj.createentity(64, 32, 22, 1);  // (shiny trinket)
+			obj.createentity(88, 32, 22, 2);  // (shiny trinket)
+			obj.createentity(40, 80, 22, 3);  // (shiny trinket)
+			obj.createentity(64, 80, 22, 4);  // (shiny trinket)
+			obj.createentity(88, 80, 22, 5);  // (shiny trinket)
+			obj.createentity(112, 80, 22, 6);  // (shiny trinket)
+			obj.createentity(40, 128, 22, 7);  // (shiny trinket)
+			obj.createentity(64, 128, 22, 8);  // (shiny trinket)
+			obj.createentity(88, 128, 22, 9);  // (shiny trinket)
+			obj.createentity(112, 128, 22, 10);  // (shiny trinket)
+			obj.createentity(136, 128, 22, 11);  // (shiny trinket)
+			obj.createentity(40, 176, 22, 12);  // (shiny trinket)
+			obj.createentity(64, 176, 22, 13);  // (shiny trinket)
+			obj.createentity(88, 176, 22, 14);  // (shiny trinket)
+			obj.createentity(112, 176, 22, 15);  // (shiny trinket)
+			obj.createentity(136, 176, 22, 16);  // (shiny trinket)
+			obj.createentity(112, 32, 22, 17);  // (shiny trinket)
+			obj.createentity(136, 80, 22, 18);  // (shiny trinket)
+			obj.createentity(136, 32, 22, 19);  // (shiny trinket)
 
 			if(!game.nocutscenes && obj.flags[70]==0)
 			{
@@ -1454,7 +1454,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 			tmap.push_back("113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113");
 			tmap.push_back("113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113");
 
-			obj.createentity(game, 90, 52, 26, 0);  // (super warp)
+			obj.createentity(90, 52, 26, 0);  // (super warp)
 		}
 
 		break;
@@ -1492,7 +1492,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104");
 		tmap.push_back("104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104,104");
 
-		obj.createentity(game, 64, 64, 14); //Teleporter!
+		obj.createentity(64, 64, 14); //Teleporter!
 		break;
 
 	case rn(2,12):
@@ -1630,7 +1630,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 		tmap.push_back("489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 
-		obj.createentity(game, 240, 96, 10, 0, 15020);  // (savepoint)
+		obj.createentity(240, 96, 10, 0, 15020);  // (savepoint)
 		break;
 
 	case rn(3,2):
@@ -1666,7 +1666,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,620,0,0,0,0,618,498,498");
 		tmap.push_back("498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,620,0,0,0,0,618,498,498");
 
-		obj.createentity(game, 152, 96, 9, 16);  // (shiny trinket)
+		obj.createentity(152, 96, 9, 16);  // (shiny trinket)
 		break;
 
 	case rn(3,3):
@@ -1702,7 +1702,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501");
 		tmap.push_back("501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501");
 
-		obj.createentity(game, 24, 192, 10, 1, 3030);  // (savepoint)
+		obj.createentity(24, 192, 10, 1, 3030);  // (savepoint)
 		break;
 
 	case rn(3,5):
@@ -1874,7 +1874,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101");
 		tmap.push_back("101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101");
 
-		obj.createentity(game, 248, 168, 10, 1, 9030);  // (savepoint)
+		obj.createentity(248, 168, 10, 1, 9030);  // (savepoint)
 		break;
 
 	case rn(3,10):
@@ -1910,65 +1910,65 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,223,741,741,741,741,741,741,221,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101");
 		tmap.push_back("101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,223,741,741,741,741,741,741,221,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101");
 
-		obj.createentity(game, 88, 80, 21, 1); //Terminal	// UU Brothers
+		obj.createentity(88, 80, 21, 1); //Terminal	// UU Brothers
 		obj.createblock(5, 88 - 4, 80, 20, 16, 25);
 
 		if(game.stat_trinkets>=5)
 		{
-			obj.createentity(game, 128, 80, 21, 1); //Terminal
+			obj.createentity(128, 80, 21, 1); //Terminal
 			obj.createblock(5, 128 - 4, 80, 20, 16, 26);
 		}
 
 		if(game.stat_trinkets>=8)
 		{
-			obj.createentity(game, 176, 80, 21, 1); //Terminal
+			obj.createentity(176, 80, 21, 1); //Terminal
 			obj.createblock(5, 176 - 4, 80, 20, 16, 27);
 		}
 
 		if(game.stat_trinkets>=10)
 		{
-			obj.createentity(game, 216, 80, 21, 1); //Terminal
+			obj.createentity(216, 80, 21, 1); //Terminal
 			obj.createblock(5, 216 - 4, 80, 20, 16, 28);
 		}
 
 		if(game.stat_trinkets>=12)
 		{
-			obj.createentity(game, 88, 128, 21, 0); //Terminal
+			obj.createentity(88, 128, 21, 0); //Terminal
 			obj.createblock(5, 88 - 4, 128, 20, 16, 29);
 		}
 
 		if(game.stat_trinkets>=14)
 		{
-			obj.createentity(game, 128, 128, 21, 0); //Terminal
+			obj.createentity(128, 128, 21, 0); //Terminal
 			obj.createblock(5, 128 - 4, 128, 20, 16, 33);
 		}
 
 		if(game.stat_trinkets>=16)
 		{
-			obj.createentity(game, 176, 128, 21, 0); //Terminal
+			obj.createentity(176, 128, 21, 0); //Terminal
 			obj.createblock(5, 176 - 4, 128, 20, 16, 30);
 		}
 
 		if(game.stat_trinkets>=18)
 		{
-			obj.createentity(game, 216, 128, 21, 0); //Terminal
+			obj.createentity(216, 128, 21, 0); //Terminal
 			obj.createblock(5, 216 - 4, 128, 20, 16, 32);
 		}
 
 		//Special cases
 		if(game.stat_trinkets>=20)
 		{
-			obj.createentity(game, 40, 40, 21, 0); //Terminal
+			obj.createentity(40, 40, 21, 0); //Terminal
 			obj.createblock(5, 40 - 4, 40, 20, 16, 31);
 		}
 
 		if(game.stat_trinkets>=20)
 		{
-			obj.createentity(game, 264, 40, 21, 0); //Terminal
+			obj.createentity(264, 40, 21, 0); //Terminal
 			obj.createblock(5, 264 - 4, 40, 20, 16, 34);
 		}
 
-		obj.createentity(game, 152, 40, 21, 0); //Terminal (jukebox instructions)
+		obj.createentity(152, 40, 21, 0); //Terminal (jukebox instructions)
 		obj.createblock(5, 152 - 4, 40, 20, 16, 24);
 		break;
 
@@ -2039,7 +2039,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,692,0,0,0,0,0,612,492,492,492,492,492,492,492,492,492,492,492,492,492,492,614,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,692,0,0,0,0,0,612,492,492,492,492,492,492,492,492,492,492,492,492,492,492,614,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 128, 160, 10, 1, 113030);  // (savepoint)
+		obj.createentity(128, 160, 10, 1, 113030);  // (savepoint)
 		break;
 
 
@@ -2076,7 +2076,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,605,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,605,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 192, 96, 10, 0, 114030);  // (savepoint)
+		obj.createentity(192, 96, 10, 0, 114030);  // (savepoint)
 		break;
 
 	case rn(3,14):
@@ -2282,12 +2282,12 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110");
 		tmap.push_back("110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110");
 
-		obj.createentity(game, 256, 120, 20, 1); //Terminal Ship computer
+		obj.createentity(256, 120, 20, 1); //Terminal Ship computer
 		obj.createblock(5, 256 - 4, 120, 20, 16, 22);
 
-		obj.createentity(game, 256, 184, 20, 1); //Terminal
-		obj.createentity(game, 232, 184, 20, 1); //Terminal
-		obj.createentity(game, 208, 184, 20, 1); //Terminal
+		obj.createentity(256, 184, 20, 1); //Terminal
+		obj.createentity(232, 184, 20, 1); //Terminal
+		obj.createentity(208, 184, 20, 1); //Terminal
 		obj.createblock(5, 208 + 4, 184, 56, 16, 23);
 		break;
 
@@ -2392,7 +2392,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,689,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,609,489,489,489,489,489,489,489,489,489,489,489");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,689,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,609,489,489,489,489,489,489,489,489,489,489,489");
 
-		obj.createentity(game, 248, 112, 10, 1, 114040);  // (savepoint)
+		obj.createentity(248, 112, 10, 1, 114040);  // (savepoint)
 		break;
 
 	case rn(4,14):
@@ -2428,7 +2428,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,614,0,0,0,0,0,612,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,614,0,0,0,0,0,612,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 
-		obj.createentity(game, 104, 176, 10, 1, 115040);  // (savepoint)
+		obj.createentity(104, 176, 10, 1, 115040);  // (savepoint)
 		break;
 
 	case rn(4,15):
@@ -2464,7 +2464,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 
-		obj.createentity(game, 16, 40, 10, 1, 15040);  // (savepoint)
+		obj.createentity(16, 40, 10, 1, 15040);  // (savepoint)
 		break;
 
 	case rn(5,2):
@@ -2534,7 +2534,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,614,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,614,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 272, 128, 10, 0, 3050);  // (savepoint)
+		obj.createentity(272, 128, 10, 0, 3050);  // (savepoint)
 		break;
 
 	case rn(5,4):
@@ -2876,7 +2876,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 
-		obj.createentity(game, 184, 176, 10, 1, 13050);  // (savepoint)
+		obj.createentity(184, 176, 10, 1, 13050);  // (savepoint)
 		break;
 
 	case rn(5,14):
@@ -2947,7 +2947,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("486,486,486,486,486,486,486,486,527,567,568,0,0,686,0,0,606,486,486,486,486,486,486,486,527,568,0,0,0,0,0,566,567,528,486,486,486,486,486,486");
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,527,567,567,567,567,567,528,486,486,486,486,486,486,486,486,527,567,567,567,567,567,528,486,486,486,486,486,486,486,486");
 
-		obj.createentity(game, 72, 16, 9, 14);  // (shiny trinket)
+		obj.createentity(72, 16, 9, 14);  // (shiny trinket)
 		break;
 
 	case rn(5,18):
@@ -2983,7 +2983,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("489,489,611,0,0,0,0,609,489,489,611,0,0,0,0,609,489,489,611,0,0,0,0,609,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 		tmap.push_back("489,489,611,0,0,0,0,609,489,489,611,0,0,0,0,609,489,489,611,0,0,0,0,609,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 
-		obj.createentity(game, 224, 160, 13); //Warp Token
+		obj.createentity(224, 160, 13); //Warp Token
 
 		break;
 
@@ -3054,7 +3054,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 152, 152, 10, 0, 103060);  // (savepoint)
+		obj.createentity(152, 152, 10, 0, 103060);  // (savepoint)
 		break;
 
 	case rn(6,4):
@@ -3090,7 +3090,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,603,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,603,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 
-		obj.createentity(game, 128, 120, 10, 1, 4060);  // (savepoint)
+		obj.createentity(128, 120, 10, 1, 4060);  // (savepoint)
 		break;
 
 	case rn(6,5):
@@ -3194,7 +3194,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 		tmap.push_back("489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 
-		obj.createentity(game, 64, 88, 10, 1, 7060);  // (savepoint)
+		obj.createentity(64, 88, 10, 1, 7060);  // (savepoint)
 		break;
 
 	case rn(6,8):
@@ -3298,7 +3298,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,618,498,498,498,498,498,498,498,498,498");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,618,498,498,498,498,498,498,498,498,498");
 
-		obj.createentity(game, 152, 128, 10, 0, 10060);  // (savepoint)
+		obj.createentity(152, 128, 10, 0, 10060);  // (savepoint)
 		break;
 
 	case rn(6,11):
@@ -3473,11 +3473,11 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 
 		if(!game.intimetrial)
 		{
-			obj.createentity(game, 96, 48, 20, 1);//Terminal
+			obj.createentity(96, 48, 20, 1);//Terminal
 			obj.createblock(5, 96 - 4, 48, 20, 16, 12);
 		}
 
-		obj.createentity(game, 128, 216, 10, 1, 116061);  // (savepoint)
+		obj.createentity(128, 216, 10, 1, 116061);  // (savepoint)
 		break;
 
 	case rn(6,18):
@@ -3581,7 +3581,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486");
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486");
 
-		obj.createentity(game, 192, 104, 13); //Warp Token
+		obj.createentity(192, 104, 13); //Warp Token
 
 		break;
 
@@ -3618,7 +3618,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 88, 136, 10, 0, 103070);  // (savepoint)
+		obj.createentity(88, 136, 10, 0, 103070);  // (savepoint)
 		break;
 
 	case rn(7,3):
@@ -3688,7 +3688,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,527,567,567,567,528,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486");
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486");
 
-		obj.createentity(game, 208, 128, 10, 1, 4070);  // (savepoint)
+		obj.createentity(208, 128, 10, 1, 4070);  // (savepoint)
 		break;
 
 	case rn(7,5):
@@ -3860,7 +3860,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 
-		obj.createentity(game, 64, 112, 14); //Teleporter!
+		obj.createentity(64, 112, 14); //Teleporter!
 		break;
 
 	case rn(7,10):
@@ -3964,7 +3964,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,524,564,564,564,564,564,564,564,564,564,564,564,564,564,564,564,525,483,483,483,483,483,483,483,483,483,483,483");
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 
-		obj.createentity(game, 48, 192, 10, 1, 14070);  // (savepoint)
+		obj.createentity(48, 192, 10, 1, 14070);  // (savepoint)
 		break;
 
 	case rn(8,0):
@@ -4170,7 +4170,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 
-		obj.createentity(game, 80, 40, 10, 1, 5080);  // (savepoint)
+		obj.createentity(80, 40, 10, 1, 5080);  // (savepoint)
 		break;
 
 	case rn(8,6):
@@ -4206,7 +4206,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("489,489,489,489,489,489,611,0,0,0,0,609,489,489,489,489,611,0,0,0,0,0,0,609,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 		tmap.push_back("489,489,489,489,489,489,611,0,0,0,0,609,489,489,489,489,611,0,0,0,0,0,0,609,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 
-		obj.createentity(game, 96, 72, 13); //Warp Token
+		obj.createentity(96, 72, 13); //Warp Token
 
 		break;
 
@@ -4345,8 +4345,8 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,603,483,483,483,483");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,603,483,483,483,483");
 
-		obj.createentity(game, 176, 40, 14); //Teleporter!
-		obj.createentity(game, 120, 128, 20, 1);  // (terminal)
+		obj.createentity(176, 40, 14); //Teleporter!
+		obj.createentity(120, 128, 20, 1);  // (terminal)
 
 		obj.createblock(5, 120-4, 128, 20, 16, 7);
 		break;
@@ -4452,7 +4452,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("492,492,614,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,612,492,492");
 		tmap.push_back("492,492,614,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,612,492,492");
 
-		obj.createentity(game, 40, 152, 10, 1, 14080);  // (savepoint)
+		obj.createentity(40, 152, 10, 1, 14080);  // (savepoint)
 		break;
 
 	case rn(8,15):
@@ -4522,7 +4522,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("489,489,489,489,611,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,609,489,489,489,489");
 		tmap.push_back("489,489,489,489,611,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,609,489,489,489,489");
 
-		obj.createentity(game, 152, 80, 10, 1, 16080);  // (savepoint)
+		obj.createentity(152, 80, 10, 1, 16080);  // (savepoint)
 		break;
 
 	case rn(8,17):
@@ -4796,7 +4796,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("295,295,295,295,295,295,295,295,295,295,295,417,698,698,698,698,698,698,698,698,698,698,698,698,698,698,698,698,415,295,295,295,295,295,295,295,295,295,295,295");
 		tmap.push_back("295,295,295,295,295,295,295,295,295,295,295,417,698,698,698,698,698,698,698,698,698,698,698,698,698,698,698,698,415,295,295,295,295,295,295,295,295,295,295,295");
 
-		obj.createentity(game, 80, 40, 9, 17);  // (shiny trinket)
+		obj.createentity(80, 40, 9, 17);  // (shiny trinket)
 		roomtileset = 0; // (Use space station tileset)
 		break;
 
@@ -4942,7 +4942,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("516,516,638,0,0,0,630,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510");
 		tmap.push_back("516,516,638,0,0,0,630,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510,510");
 
-		obj.createentity(game, 184, 176, 10, 1, 12100);  // (savepoint)
+		obj.createentity(184, 176, 10, 1, 12100);  // (savepoint)
 		roomtileset = 0; // (Use space station tileset)
 		break;
 
@@ -5085,7 +5085,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486");
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486");
 
-		obj.createentity(game, 216, 72, 10, 1, 16100);  // (savepoint)
+		obj.createentity(216, 72, 10, 1, 16100);  // (savepoint)
 		break;
 
 	case rn(10,17):
@@ -5189,7 +5189,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,623,0,0,0,0,0,621,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501");
 		tmap.push_back("501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501,623,0,0,0,0,0,621,501,501,501,501,501,501,501,501,501,501,501,501,501,501,501");
 
-		obj.createentity(game, 40, 112, 9, 13);  // (shiny trinket)
+		obj.createentity(40, 112, 9, 13);  // (shiny trinket)
 		break;
 
 	case rn(11,0):
@@ -5362,7 +5362,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("495,495,617,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
 
-		obj.createentity(game, (8 * 8), (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
+		obj.createentity((8 * 8), (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
 		obj.nearelephant = true;
 
 		roomtileset = 0; // (Use space station tileset)
@@ -5402,7 +5402,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310");
 
 
-		obj.createentity(game, 8 * 8, -248 + (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
+		obj.createentity(8 * 8, -248 + (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
 		obj.nearelephant = true;
 
 		roomtileset = 0; // (Use space station tileset)
@@ -5716,10 +5716,10 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,412,292,292,414,698,698,698,412,292,292,292");
 
 
-		obj.createentity(game, -328 + (8 * 8), (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
+		obj.createentity(-328 + (8 * 8), (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
 		obj.nearelephant = true;
 
-		obj.createentity(game, 240, 72, 10, 1, 8120);  // (savepoint)
+		obj.createentity(240, 72, 10, 1, 8120);  // (savepoint)
 		roomtileset = 0; // (Use space station tileset)
 		break;
 
@@ -5757,7 +5757,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,217,689,689,689,215,95,95,95");
 
 
-		obj.createentity(game, -328 + (8 * 8), -248 + (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
+		obj.createentity(-328 + (8 * 8), -248 + (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
 		obj.nearelephant = true;
 
 		roomtileset = 0; // (Use space station tileset)
@@ -6003,7 +6003,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 		tmap.push_back("480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480,480");
 
-		obj.createentity(game, 48, 96, 14); //Teleporter!
+		obj.createentity(48, 96, 14); //Teleporter!
 		break;
 
 	case rn(13,14):
@@ -6039,7 +6039,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 280, 32, 20, 1); //terminal
+		obj.createentity(280, 32, 20, 1); //terminal
 		obj.createblock(5, 280-4, 32, 20, 16, 9);
 
 		roomtileset = 0; // (Use space station tileset)
@@ -6112,7 +6112,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 
-		obj.createentity(game, 80, 104, 10, 1, 16130);  // (savepoint)
+		obj.createentity(80, 104, 10, 1, 16130);  // (savepoint)
 		break;
 
 	case rn(13,17):
@@ -6148,7 +6148,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,617,0,0,0,0,0,0,0,0,615,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,617,0,0,0,0,0,0,0,0,615,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 
-		obj.createentity(game, 240, 128, 10, 1, 17130);  // (savepoint)
+		obj.createentity(240, 128, 10, 1, 17130);  // (savepoint)
 		break;
 
 	case rn(13,18):
@@ -6390,8 +6390,8 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 
-		obj.createentity(game, 176, 72, 14); //Teleporter!
-		obj.createentity(game, 88, 160, 20, 1);//terminal
+		obj.createentity(176, 72, 14); //Teleporter!
+		obj.createentity(88, 160, 20, 1);//terminal
 
 		obj.createblock(5, 88-4, 160, 20, 16, 11);
 		break;
@@ -6533,7 +6533,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,608,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,608,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 88, 96, 10, 0, 18150);  // (savepoint)
+		obj.createentity(88, 96, 10, 0, 18150);  // (savepoint)
 		break;
 
 	case rn(15,19):
@@ -6603,7 +6603,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483");
 
-		obj.createentity(game, 72, 120, 13); //Warp Token
+		obj.createentity(72, 120, 13); //Warp Token
 
 		break;
 
@@ -6641,7 +6641,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
 		roomtileset = 0; // (Use space station tileset)
-		obj.createentity(game, 176, 152, 10, 1, 14160);  // (savepoint)
+		obj.createentity(176, 152, 10, 1, 14160);  // (savepoint)
 		break;
 
 	case rn(16,17):
@@ -6779,8 +6779,8 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,617,680,680,680,680,680,680,615,495,495,495,495,495");
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,617,680,680,680,680,680,680,615,495,495,495,495,495");
 
-		obj.createentity(game, 40, 40, 14); //Teleporter!
-		obj.createentity(game, 192, 120, 20, 1);//terminal
+		obj.createentity(40, 40, 14); //Teleporter!
+		obj.createentity(192, 120, 20, 1);//terminal
 
 		obj.createblock(5, 192-4, 120, 20, 16, 10);
 		roomtileset = 0; // (Use space station tileset)
@@ -6961,7 +6961,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 112, 72, 14); //Teleporter!
+		obj.createentity(112, 72, 14); //Teleporter!
 		break;
 
 	case rn(17,18):
@@ -7031,7 +7031,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486");
 		tmap.push_back("486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486,486");
 
-		obj.createentity(game, 152, 152, 10, 0, 19170);  // (savepoint)
+		obj.createentity(152, 152, 10, 0, 19170);  // (savepoint)
 		break;
 
 	case rn(18,4):
@@ -7102,7 +7102,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
 		roomtileset = 0; // (Use space station tileset)
-		obj.createentity(game, 104, 152, 10, 1, 15180);  // (savepoint)
+		obj.createentity(104, 152, 10, 1, 15180);  // (savepoint)
 		break;
 
 	case rn(18,17):
@@ -7206,7 +7206,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("564,564,564,564,564,564,565,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("483,483,483,483,483,483,605,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 192, 176, 10, 1, 105190);  // (savepoint)
+		obj.createentity(192, 176, 10, 1, 105190);  // (savepoint)
 		break;
 
 	case rn(19,5):
@@ -7242,7 +7242,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 
-		obj.createentity(game, 40, 192, 10, 1, 106190);  // (savepoint)
+		obj.createentity(40, 192, 10, 1, 106190);  // (savepoint)
 		break;
 
 
@@ -7313,7 +7313,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498");
 		tmap.push_back("498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498");
 
-		obj.createentity(game, 72, 168, 10, 1, 111190);  // (savepoint)
+		obj.createentity(72, 168, 10, 1, 111190);  // (savepoint)
 		break;
 
 	case rn(19,11):
@@ -7451,7 +7451,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("489,489,489,489,489,489,611,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,609,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 		tmap.push_back("489,489,489,489,489,489,611,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,609,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489");
 
-		obj.createentity(game, 80, 144, 10, 1, 14190);  // (savepoint)
+		obj.createentity(80, 144, 10, 1, 14190);  // (savepoint)
 		break;
 
 	case rn(19,15):
@@ -7555,7 +7555,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,615,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,615,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 
-		obj.createentity(game, 168, 88, 10, 1, 17190);  // (savepoint)
+		obj.createentity(168, 88, 10, 1, 17190);  // (savepoint)
 		break;
 
 	case rn(19,18):
@@ -7802,23 +7802,23 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,414,0,0,0,0,0,0,0,412,292,292,292,292,292,292,292,292,292,292,292");
 		tmap.push_back("292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,414,0,0,0,0,0,0,0,412,292,292,292,292,292,292,292,292,292,292,292");
 
-		obj.createentity(game, 256, 88, 21, 1); //Terminal
-		obj.createentity(game, 128, 88, 21, 1); //Terminal
-		obj.createentity(game, 104, 88, 21, 1); //Terminal
-		obj.createentity(game, 80, 88, 21, 1); //Terminal
-		obj.createentity(game, 128, 128, 21, 0); //Terminal
-		obj.createentity(game, 128, 192, 21, 1); //Terminal
-		obj.createentity(game, 104, 192, 21, 1); //Terminal
-		obj.createentity(game, 80, 192, 21, 1); //Terminal
+		obj.createentity(256, 88, 21, 1); //Terminal
+		obj.createentity(128, 88, 21, 1); //Terminal
+		obj.createentity(104, 88, 21, 1); //Terminal
+		obj.createentity(80, 88, 21, 1); //Terminal
+		obj.createentity(128, 128, 21, 0); //Terminal
+		obj.createentity(128, 192, 21, 1); //Terminal
+		obj.createentity(104, 192, 21, 1); //Terminal
+		obj.createentity(80, 192, 21, 1); //Terminal
 
 		if(game.insecretlab)
 		{
 			//vitellary
-			obj.createentity(game, 231, 81, 18, 14, 0, 18);
+			obj.createentity(231, 81, 18, 14, 0, 18);
 			obj.createblock(5, 231- 32, 0, 32 + 32 + 32, 240, 2);
 
 			//violet
-			obj.createentity(game,83, 126, 18, 20, 0, 18);
+			obj.createentity(83, 126, 18, 20, 0, 18);
 			obj.entities[obj.getcrewman(1)].rule = 7;
 			obj.entities[obj.getcrewman(1)].tile +=6;
 			obj.createblock(5, 83 - 32, 0, 32 + 32 + 32, 240, 1);
@@ -7858,27 +7858,27 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295");
 		tmap.push_back("295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295");
 
-		obj.createentity(game, 96, 48, 25, 0, 1); //Terminal
-		obj.createentity(game, 128, 48, 25, 0, 2); //Terminal
-		obj.createentity(game, 160, 48, 25, 0, 3); //Terminal
-		obj.createentity(game, 192, 48, 25, 0, 4); //Terminal
-		obj.createentity(game, 224, 48, 25, 0, 5); //Terminal
-		obj.createentity(game, 256, 48, 25, 0, 6); //Terminal
+		obj.createentity(96, 48, 25, 0, 1); //Terminal
+		obj.createentity(128, 48, 25, 0, 2); //Terminal
+		obj.createentity(160, 48, 25, 0, 3); //Terminal
+		obj.createentity(192, 48, 25, 0, 4); //Terminal
+		obj.createentity(224, 48, 25, 0, 5); //Terminal
+		obj.createentity(256, 48, 25, 0, 6); //Terminal
 
-		obj.createentity(game, 96, 88, 25, 1, 13); //Terminal
-		obj.createentity(game, 128, 88, 25, 1, 14); //Terminal
-		obj.createentity(game, 160, 88, 25, 1, 15); //Terminal
-		obj.createentity(game, 192, 88, 25, 1, 16); //Terminal
-		obj.createentity(game, 224, 88, 25, 1, 17); //Terminal
-		obj.createentity(game, 256, 88, 25, 1, 18); //Terminal
+		obj.createentity(96, 88, 25, 1, 13); //Terminal
+		obj.createentity(128, 88, 25, 1, 14); //Terminal
+		obj.createentity(160, 88, 25, 1, 15); //Terminal
+		obj.createentity(192, 88, 25, 1, 16); //Terminal
+		obj.createentity(224, 88, 25, 1, 17); //Terminal
+		obj.createentity(256, 88, 25, 1, 18); //Terminal
 
-		obj.createentity(game, 96, 128-3, 25, 0, 7); //Terminal
-		obj.createentity(game, 96, 168, 25, 1, 8); //Terminal
+		obj.createentity(96, 128-3, 25, 0, 7); //Terminal
+		obj.createentity(96, 168, 25, 1, 8); //Terminal
 
-		obj.createentity(game, 160, 128, 25, 0, 12); //Terminal
-		obj.createentity(game, 192, 128, 25, 0, 11); //Terminal
-		obj.createentity(game, 224, 128, 25, 0, 10); //Terminal
-		obj.createentity(game, 256, 128, 25, 0, 9); //Terminal
+		obj.createentity(160, 128, 25, 0, 12); //Terminal
+		obj.createentity(192, 128, 25, 0, 11); //Terminal
+		obj.createentity(224, 128, 25, 0, 10); //Terminal
+		obj.createentity(256, 128, 25, 0, 9); //Terminal
 		break;
 
 	case rn(16,5):
@@ -7914,8 +7914,8 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 
-		obj.createentity(game, 152, 168, 25, 0, 20); //Terminal
-		obj.createentity(game, 152, 168, 25, 0, 19); //Terminal
+		obj.createentity(152, 168, 25, 0, 20); //Terminal
+		obj.createentity(152, 168, 25, 0, 19); //Terminal
 		break;
 
 	case rn(19,6):
@@ -7951,21 +7951,21 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,411,0,0,0,0,0,0,409,289,289,289");
 		tmap.push_back("289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,411,0,0,0,0,0,0,409,289,289,289");
 
-		obj.createentity(game, 216, 176, 21, 1); //Terminal
-		obj.createentity(game, 192, 176, 21, 1); //Terminal
-		obj.createentity(game, 168, 176, 21, 1); //Terminal
-		obj.createentity(game, 144, 176, 21, 1); //Terminal
-		obj.createentity(game, 88, 96, 21, 1); //Terminal
-		obj.createentity(game, 112, 96, 21, 1); //Terminal
-		obj.createentity(game, 136, 96, 21, 1); //Terminal
-		obj.createentity(game, 160, 96, 21, 1); //Terminal
+		obj.createentity(216, 176, 21, 1); //Terminal
+		obj.createentity(192, 176, 21, 1); //Terminal
+		obj.createentity(168, 176, 21, 1); //Terminal
+		obj.createentity(144, 176, 21, 1); //Terminal
+		obj.createentity(88, 96, 21, 1); //Terminal
+		obj.createentity(112, 96, 21, 1); //Terminal
+		obj.createentity(136, 96, 21, 1); //Terminal
+		obj.createentity(160, 96, 21, 1); //Terminal
 
 		//vertigris:
-		obj.createentity(game, 100, 169, 18, 13, 0, 18);
+		obj.createentity(100, 169, 18, 13, 0, 18);
 		obj.createblock(5, 100 - 16, 0, 32 + 32, 240, 4);
 
 		//victoria:
-		obj.createentity(game, 193, 89, 18, 16, 0, 18);
+		obj.createentity(193, 89, 18, 16, 0, 18);
 		obj.createblock(5, 193-16, 0, 32+32, 240, 5);
 		break;
 
@@ -8003,12 +8003,12 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 
-		obj.createentity(game, 72, 192, 13);  // (shiny trinket)
-		obj.createentity(game, 112, 144, 20, 1);  // (terminal)
+		obj.createentity(72, 192, 13);  // (shiny trinket)
+		obj.createentity(112, 144, 20, 1);  // (terminal)
 		obj.createblock(5, 112 - 4, 144, 20, 16, 21);
 
 		//vermilion
-		obj.createentity(game, 186, 137, 18, 15, 0, 18);
+		obj.createentity(186, 137, 18, 15, 0, 18);
 		obj.createblock(5, 186 - 32, 0, 32 + 32 + 32, 240, 3);
 
 		//naughty corner!
@@ -8051,8 +8051,8 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game,
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 
-		obj.createentity(game, -8, 84-32, 11, 328+8);  // (horizontal gravity line)
-		obj.createentity(game, -8, 148 + 32, 11, 328+8);  // (horizontal gravity line)
+		obj.createentity(-8, 84-32, 11, 328+8);  // (horizontal gravity line)
+		obj.createentity(-8, 148 + 32, 11, 328+8);  // (horizontal gravity line)
 		obj.createblock(1, -10, 84 - 16, 340, 32, 9); //start the game
 		break;
 

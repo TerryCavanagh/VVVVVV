@@ -51,10 +51,10 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,276,277,277,277,277,277,278,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 96, 40, 10, 0, 450500);  // (savepoint)
+		obj.createentity(96, 40, 10, 0, 450500);  // (savepoint)
 		if(game.intimetrial)
 		{
-			obj.createentity(game, 136, 92, 11, 48);  // (horizontal gravity line)
+			obj.createentity(136, 92, 11, 48);  // (horizontal gravity line)
 		}
 
 		roomname = "Outer Hull"; //If not yet in level, use "The Space Station";
@@ -128,14 +128,14 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("107,107,107,107,107,107,229,689,689,689,689,227,107,107,107,107,107,107,107,148,188,188,188,188,188,188,188,188,188,188,188,188,188,188,188,188,149,107,107,107");
 		tmap.push_back("107,107,107,107,107,107,229,689,689,689,689,227,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107");
 
-		obj.createentity(game, 128, 176, 10, 1, 449490);  // (savepoint)
-		obj.createentity(game, 160, 192, 3);  //Disappearing Platform
-		obj.createentity(game, 192, 192, 3);  //Disappearing Platform
-		obj.createentity(game, 224, 192, 3);  //Disappearing Platform
-		obj.createentity(game, 256, 192, 3);  //Disappearing Platform
-		obj.createentity(game, 216-4, 168, 1, 0, 4, 160, 88, 256, 192);  // Enemy, bounded
-		obj.createentity(game, 184-24, 96, 1, 1, 4, 160, 88, 256, 192);  // Enemy, bounded
-		obj.createentity(game, 256, 8, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 176, 10, 1, 449490);  // (savepoint)
+		obj.createentity(160, 192, 3);  //Disappearing Platform
+		obj.createentity(192, 192, 3);  //Disappearing Platform
+		obj.createentity(224, 192, 3);  //Disappearing Platform
+		obj.createentity(256, 192, 3);  //Disappearing Platform
+		obj.createentity(216-4, 168, 1, 0, 4, 160, 88, 256, 192);  // Enemy, bounded
+		obj.createentity(184-24, 96, 1, 1, 4, 160, 88, 256, 192);  // Enemy, bounded
+		obj.createentity(256, 8, 2, 10, 4);  //Big Threadmill, >>>>>>
 		roomname = "Boldly To Go";
 		break;
 
@@ -172,7 +172,7 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("289,289,289,289,289,289,411,680,680,680,680,409,289,289,411,680,680,680,680,680,409,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289");
 		tmap.push_back("289,289,289,289,289,289,411,680,680,680,680,409,289,289,411,680,680,680,680,680,409,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289");
 
-		obj.createentity(game, 192, 96, 9, 2);  // (shiny trinket)
+		obj.createentity(192, 96, 9, 2);  // (shiny trinket)
 		roomname = "One Way Room";
 		break;
 
@@ -209,23 +209,23 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("92,92,92,92,92,92,214,0,0,803,683,212,92,92,214,683,683,683,683,683,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,212,92,92,92");
 		tmap.push_back("92,92,92,92,92,92,214,0,0,803,683,212,92,92,214,683,683,683,683,683,172,173,173,173,173,173,173,173,173,173,173,174,0,0,0,0,212,92,92,92");
 
-		obj.createentity(game, 56, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 120, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 184, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 88, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 216, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 280, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 32, 10, 0, 447490);  // (savepoint)
-		obj.createentity(game, 288, 160, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 280, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 160, 216, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 224, 216, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 248, 24, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 120, 168, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 184, 168, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 216, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 152, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 224, 120, 10, 0, 447491);  // (savepoint)
+		obj.createentity(56, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(120, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(184, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(88, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(216, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(280, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 32, 10, 0, 447490);  // (savepoint)
+		obj.createentity(288, 160, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(280, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(160, 216, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(224, 216, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(248, 24, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(120, 168, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(184, 168, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(216, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(152, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(224, 120, 10, 0, 447491);  // (savepoint)
 
 		roomname = "Conveying a New Idea";
 		break;
@@ -263,23 +263,23 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("98,98,98,220,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,218,98,98,220,0,0,0,0,218,98,98,98");
 		tmap.push_back("98,98,98,220,0,0,0,0,178,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,179,140,98,98,220,0,0,0,0,218,98,98,98");
 
-		obj.createentity(game, 0, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 96, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 160, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 168, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 168, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 160, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 160, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 0, 160, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 0, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 216, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 216, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 216, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 0, 168, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 112, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(0, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(96, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(160, 24, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 168, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 168, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 160, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 160, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(0, 160, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(0, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 216, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 216, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 216, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(0, 168, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 112, 2, 8, 4);  //Threadmill, >>>
 		roomname = "Upstream Downstream";
 		break;
 
@@ -316,13 +316,13 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292");
 
 		obj.platformtile = 119;
-		obj.createentity(game, 64, 72, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
-		obj.createentity(game, 96, 80, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
-		obj.createentity(game, 128, 88, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
-		obj.createentity(game, 160, 96, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
-		obj.createentity(game, 192, 104, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
-		obj.createentity(game, 224, 112, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
-		obj.createentity(game, 264, 96, 10, 1, 448500);  // (savepoint)
+		obj.createentity(64, 72, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
+		obj.createentity(96, 80, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
+		obj.createentity(128, 88, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
+		obj.createentity(160, 96, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
+		obj.createentity(192, 104, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
+		obj.createentity(224, 112, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
+		obj.createentity(264, 96, 10, 1, 448500);  // (savepoint)
 		roomname = "The High Road is Low";
 		break;
 
@@ -358,13 +358,13 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,235,8,8,8,8,233,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113");
 		tmap.push_back("113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,154,194,194,194,194,155,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113,113");
 
-		obj.createentity(game, 144, 200, 3, 51);  //Disappearing Platform
-		obj.createentity(game, 24, 16, 10, 0, 449500);  // (savepoint)
-		obj.createentity(game, 280, 16, 10, 0, 449501);  // (savepoint)
-		obj.createentity(game, 0, 8, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 8, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 224, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 288, 8, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(144, 200, 3, 51);  //Disappearing Platform
+		obj.createentity(24, 16, 10, 0, 449500);  // (savepoint)
+		obj.createentity(280, 16, 10, 0, 449501);  // (savepoint)
+		obj.createentity(0, 8, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 8, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(224, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(288, 8, 2, 9, 4);  //Threadmill, <<<
 		roomname = "Give Me A V";
 		break;
 
@@ -400,20 +400,20 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("83,83,83,124,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,164,125,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83");
 		tmap.push_back("83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83,83");
 
-		obj.createentity(game, 0, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 64, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 192, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 256, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 152, 88, 10, 1, 449510);  // (savepoint)
-		obj.createentity(game, 152, 120, 10, 0, 449511);  // (savepoint)
-		obj.createentity(game, 128, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 256, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 32, 208, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 64, 208, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 208, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(0, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(64, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(192, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(256, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(152, 88, 10, 1, 449510);  // (savepoint)
+		obj.createentity(152, 120, 10, 0, 449511);  // (savepoint)
+		obj.createentity(128, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(256, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(32, 208, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(64, 208, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 208, 2, 10, 4);  //Big Threadmill, >>>>>>
 		roomname = "Select Track";
 		break;
 
@@ -449,21 +449,21 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 		tmap.push_back("283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 
-		obj.createentity(game, 0, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 256, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 152, 128, 1, 0, 5, 72, 120, 256, 200);  // Enemy, bounded
-		obj.createentity(game, 240, 168, 1, 1, 5, 72, 120, 256, 200);  // Enemy, bounded
-		obj.createentity(game, 72, 168, 1, 1, 5, 72, 120, 256, 200);  // Enemy, bounded
-		obj.createentity(game, 0, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 256, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 32, 3,10);  //Disappearing Platform
-		obj.createentity(game, 96, 32, 3,10);  //Disappearing Platform
-		obj.createentity(game, 192, 32, 3,10);  //Disappearing Platform
-		obj.createentity(game, 224, 32, 3,10);  //Disappearing Platform
+		obj.createentity(0, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(256, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(152, 128, 1, 0, 5, 72, 120, 256, 200);  // Enemy, bounded
+		obj.createentity(240, 168, 1, 1, 5, 72, 120, 256, 200);  // Enemy, bounded
+		obj.createentity(72, 168, 1, 1, 5, 72, 120, 256, 200);  // Enemy, bounded
+		obj.createentity(0, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(256, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 32, 3,10);  //Disappearing Platform
+		obj.createentity(96, 32, 3,10);  //Disappearing Platform
+		obj.createentity(192, 32, 3,10);  //Disappearing Platform
+		obj.createentity(224, 32, 3,10);  //Disappearing Platform
 		roomname = "You Chose... Poorly";
 		break;
 
@@ -499,16 +499,16 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107");
 		tmap.push_back("107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107");
 
-		obj.createentity(game, 0, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 64, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 192, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 256, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 152, 120, 10, 0, 449530);  // (savepoint)
-		obj.createentity(game, 0, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 256, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(0, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(64, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(192, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(256, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(152, 120, 10, 0, 449530);  // (savepoint)
+		obj.createentity(0, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(256, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
 		roomname = "Hyperspace Bypass 5";
 		break;
 
@@ -545,14 +545,14 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92");
 
 		obj.platformtile = 319;
-		obj.createentity(game, 0, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 64, 104, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 0, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 112, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 136, 104, 2, 0, 5, 136, 88, 200, 152);  // Platform, bounded
-		obj.createentity(game, 168, 104, 2, 0, 5, 136, 88, 200, 152);  // Platform, bounded
-		obj.createentity(game, 80, 112, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 80, 104, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(0, 104, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(64, 104, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(0, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 112, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(136, 104, 2, 0, 5, 136, 88, 200, 152);  // Platform, bounded
+		obj.createentity(168, 104, 2, 0, 5, 136, 88, 200, 152);  // Platform, bounded
+		obj.createentity(80, 112, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(80, 104, 2, 9, 4);  //Threadmill, <<<
 		roomname = "Plain Sailing from Here On";
 		break;
 
@@ -590,14 +590,14 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,483,605,0,0,0,0,0,0,0,0,603,483,483,483");
 
 		obj.platformtile = 10;
-		obj.createentity(game, 264, 128, 10, 0, 448540);  // (savepoint)
-		obj.createentity(game, 192, 32, 3, 10);  //Disappearing Platform
-		obj.createentity(game, 32, 176, 2, 3, 4);  // Platform
-		obj.createentity(game, 256, 120, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 224, 184, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 0, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 16, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 104, 24, 10, 0, 448541);  // (savepoint)
+		obj.createentity(264, 128, 10, 0, 448540);  // (savepoint)
+		obj.createentity(192, 32, 3, 10);  //Disappearing Platform
+		obj.createentity(32, 176, 2, 3, 4);  // Platform
+		obj.createentity(256, 120, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(224, 184, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(0, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 16, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(104, 24, 10, 0, 448541);  // (savepoint)
 		roomname = "Ha Ha Ha Not Really";
 		break;
 
@@ -635,18 +635,18 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("510,510,510,510,510,510,510,510,632,0,0,0,0,818,698,698,630,510,510,510,510,510,510,632,698,698,820,0,0,0,0,630,510,510,510,510,510,510,510,510");
 
 		obj.platformtile = 279;
-		obj.createentity(game, 32, 168, 9, 3);  // (shiny trinket)
-		obj.createentity(game, 16, 112, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 0, 112, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 0, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 256, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 96, 32, 2, 3, 4);  // Platform
-		obj.createentity(game, 240, 88, 2, 2, 4);  // Platform
-		obj.createentity(game, 128, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 152, 168, 10, 1, 448530);  // (savepoint)
-		obj.createentity(game, 72, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 184, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 48, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(32, 168, 9, 3);  // (shiny trinket)
+		obj.createentity(16, 112, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(0, 112, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(0, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(256, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(96, 32, 2, 3, 4);  // Platform
+		obj.createentity(240, 88, 2, 2, 4);  // Platform
+		obj.createentity(128, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(152, 168, 10, 1, 448530);  // (savepoint)
+		obj.createentity(72, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(184, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(48, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
 
 		roomname="You Just Keep Coming Back";
 		break;
@@ -684,16 +684,16 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289");
 
 		obj.platformtile = 359;
-		obj.createentity(game, 256, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 256, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 0, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 0, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 120, 104, 2, 0, 4, 96, 64, 224, 160);  // Platform, bounded
-		obj.createentity(game, 168, 80, 2, 0, 4, 96, 64, 224, 160);  // Platform, bounded
-		obj.createentity(game, 72, 64, 10, 1, 448520);  // (savepoint)
-		obj.createentity(game, 232, 64, 10, 1, 448521);  // (savepoint)
-		obj.createentity(game, 232, 144, 10, 0, 448522);  // (savepoint)
-		obj.createentity(game, 72, 144, 10, 0, 448523);  // (savepoint)
+		obj.createentity(256, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(256, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(0, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(0, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(120, 104, 2, 0, 4, 96, 64, 224, 160);  // Platform, bounded
+		obj.createentity(168, 80, 2, 0, 4, 96, 64, 224, 160);  // Platform, bounded
+		obj.createentity(72, 64, 10, 1, 448520);  // (savepoint)
+		obj.createentity(232, 64, 10, 1, 448521);  // (savepoint)
+		obj.createentity(232, 144, 10, 0, 448522);  // (savepoint)
+		obj.createentity(72, 144, 10, 0, 448523);  // (savepoint)
 		roomname = "Gordian Knot";
 		break;
 
@@ -730,20 +730,20 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313");
 		tmap.push_back("313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313");
 
-		obj.createentity(game, 256, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 192, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 64, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 256, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 96, 40, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 160, 40, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 32, 40, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 72, 80, 10, 1, 448510);  // (savepoint)
-		obj.createentity(game, 104, 128, 1, 0, 5, 104, 120, 288, 200);  // Enemy, bounded
-		obj.createentity(game, 160+8, 168, 1, 1, 5, 104, 120, 288, 200);  // Enemy, bounded
-		obj.createentity(game, 216+16, 128, 1, 0, 5, 104, 120, 288, 200);  // Enemy, bounded
+		obj.createentity(256, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(192, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(64, 112, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(256, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(96, 40, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(160, 40, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(32, 40, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(72, 80, 10, 1, 448510);  // (savepoint)
+		obj.createentity(104, 128, 1, 0, 5, 104, 120, 288, 200);  // Enemy, bounded
+		obj.createentity(160+8, 168, 1, 1, 5, 104, 120, 288, 200);  // Enemy, bounded
+		obj.createentity(216+16, 128, 1, 0, 5, 104, 120, 288, 200);  // Enemy, bounded
 
 		roomname = "Backsliders";
 		break;
@@ -780,16 +780,16 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("283,283,283,283,283,283,283,405,0,0,0,0,363,364,364,364,325,283,283,283,283,283,283,283,283,283,283,283,283,324,364,364,364,364,364,364,364,364,364,364");
 		tmap.push_back("283,283,283,283,283,283,283,405,0,0,0,0,403,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 
-		obj.createentity(game, 72, 184, 10, 0, 447510);  // (savepoint)
-		obj.createentity(game, 80, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 144, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 208, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(72, 184, 10, 0, 447510);  // (savepoint)
+		obj.createentity(80, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(144, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(208, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
 
-		obj.createentity(game, 24 - 8, 144 - 8, 1, 10, 0);  // Enemy
+		obj.createentity(24 - 8, 144 - 8, 1, 10, 0);  // Enemy
 
-		obj.createentity(game, 24 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
 
 		//LIES emitter starts here
 		roomname = "The Cuckoo";
@@ -827,15 +827,15 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("391,391,391,391,391,391,391,391,391,391,352,351,391,391,391,391,391,391,391,391,352,310,310,351,391,391,391,391,391,391,391,391,391,391,391,391,391,391,391,391");
 		tmap.push_back("310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310");
 
-		obj.createentity(game, 8, 200, 10, 1, 447520);  // (savepoint)
-		obj.createentity(game, 200, 192, 9, 4);  // (shiny trinket)
-		obj.createentity(game, 232, 96, 10, 1, 447521);  // (savepoint)
+		obj.createentity(8, 200, 10, 1, 447520);  // (savepoint)
+		obj.createentity(200, 192, 9, 4);  // (shiny trinket)
+		obj.createentity(232, 96, 10, 1, 447521);  // (savepoint)
 
-		obj.createentity(game, 24 - 60 - 8, 144 - 8, 1, 10, 0);  // Enemy
+		obj.createentity(24 - 60 - 8, 144 - 8, 1, 10, 0);  // Enemy
 
-		obj.createentity(game, 24 - 60 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 60 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
 		//LIES Emitter, manually positioned
 		roomname = "Clarion Call";
 		break;
@@ -872,11 +872,11 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,232,0,0,0,0,230,110,110,110,110,110,110,110,110,110,110,110,110,110,110");
 		tmap.push_back("110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,110,232,0,0,0,0,230,110,110,110,110,110,110,110,110,110,110,110,110,110,110");
 
-		obj.createentity(game, 176, 104, 10, 0, 446510);  // (savepoint)
+		obj.createentity(176, 104, 10, 0, 446510);  // (savepoint)
 
-		obj.createentity(game, 7 * 8, 17 * 8, 1, 12, 0);  // Enemy
+		obj.createentity(7 * 8, 17 * 8, 1, 12, 0);  // Enemy
 
-		obj.createentity(game, 7*8, 2*8, 1, 12, 1);  // Enemy
+		obj.createentity(7*8, 2*8, 1, 12, 1);  // Enemy
 		//FACTORY emitter starts here
 		roomname = "The Solution is Dilution";
 		break;
@@ -913,12 +913,12 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("92,92,92,92,92,92,214,683,683,683,683,683,172,173,134,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92");
 		tmap.push_back("92,92,92,92,92,92,214,683,683,683,683,683,212,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92");
 
-		obj.createentity(game, 96, 168, 10, 0, 445510);  // (savepoint)
+		obj.createentity(96, 168, 10, 0, 445510);  // (savepoint)
 
-		obj.createentity(game, 7 * 8, 36 * 8, 1, 12, 0);  // Enemy
+		obj.createentity(7 * 8, 36 * 8, 1, 12, 0);  // Enemy
 
-		obj.createentity(game, 7 * 8, (36 * 8)-108, 1, 12, 1);  // Enemy
-		obj.createentity(game, 7 * 8, (36 * 8)-216, 1, 12, 1);  // Enemy
+		obj.createentity(7 * 8, (36 * 8)-108, 1, 12, 1);  // Enemy
+		obj.createentity(7 * 8, (36 * 8)-216, 1, 12, 1);  // Enemy
 		//FACTORY emitter starts here (manually placed)
 
 		roomname = "Lighter Than Air";
@@ -957,19 +957,19 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("292,292,292,292,333,373,374,701,701,701,701,701,412,292,292,292,292,292,292,292,414,0,0,0,0,372,373,373,373,373,373,373,373,373,373,373,373,334,292,292");
 		tmap.push_back("292,292,292,292,292,292,414,701,701,701,701,701,412,292,292,292,292,292,292,292,414,0,0,0,0,412,292,292,292,292,292,292,292,292,292,292,292,292,292,292");
 
-		obj.createentity(game, 224, 200, 10, 1, 444510);  // (savepoint)
+		obj.createentity(224, 200, 10, 1, 444510);  // (savepoint)
 
-		obj.createentity(game, 56, 40, 1, 0, 2);  // Enemy //collector
+		obj.createentity(56, 40, 1, 0, 2);  // Enemy //collector
 
-		obj.createentity(game, 7 * 8, 36 * 8, 1, 12, 0);  // Enemy
+		obj.createentity(7 * 8, 36 * 8, 1, 12, 0);  // Enemy
 
-		obj.createentity(game, 7 * 8, (36 * 8)-108, 1, 12, 1);  // Enemy
-		obj.createentity(game, 7 * 8, (36 * 8)-216, 1, 12, 1);  // Enemy
+		obj.createentity(7 * 8, (36 * 8)-108, 1, 12, 1);  // Enemy
+		obj.createentity(7 * 8, (36 * 8)-216, 1, 12, 1);  // Enemy
 		//FACTORY emitter starts here (manually placed)
 
 		if(!game.intimetrial)
 		{
-			obj.createentity(game, 18 * 8, (5 * 8) + 4, 14); //Teleporter!
+			obj.createentity(18 * 8, (5 * 8) + 4, 14); //Teleporter!
 		}
 		roomname = "Level Complete!";
 		break;
@@ -1041,11 +1041,11 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("98,98,98,98,220,0,0,0,0,0,800,680,680,680,680,680,680,680,680,680,802,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("98,98,98,98,220,0,0,0,0,0,800,680,680,680,680,680,680,680,680,680,802,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 248 - 4, 160 - 48, 1, 1, 0);  // Enemy
-		obj.createentity(game, 124, 120, 20, 1);  // (terminal)
+		obj.createentity(248 - 4, 160 - 48, 1, 1, 0);  // Enemy
+		obj.createentity(124, 120, 20, 1);  // (terminal)
 		obj.createblock(5, 124-4, 120, 20, 16, 14);
 
-		obj.createentity(game, 156, 40, 20, 1);  // (terminal)
+		obj.createentity(156, 40, 20, 1);  // (terminal)
 		obj.createblock(5, 156-4, 40, 20, 16, 15);
 
 		roomname = "The Hanged Man, Reversed";
@@ -1083,7 +1083,7 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,330,370,371,0,0,0,0,369,370,331,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289");
 		tmap.push_back("289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,411,0,0,0,0,409,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289");
 
-		obj.createentity(game, 152, 120, 10, 0, 445530);  // (savepoint)
+		obj.createentity(152, 120, 10, 0, 445530);  // (savepoint)
 		roomname = "doomS";
 		break;
 
@@ -1119,12 +1119,12 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("170,170,170,170,170,170,131,89,89,130,170,170,170,170,170,170,170,170,131,89,89,130,170,170,170,170,170,170,170,170,131,89,89,130,170,170,170,170,170,170");
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 
-		obj.createentity(game, 24-60-8, 144-8, 1, 10, 0);  // Enemy
+		obj.createentity(24-60-8, 144-8, 1, 10, 0);  // Enemy
 		//LIES Emitter, manually positioned
 
-		obj.createentity(game, 24 - 60 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 60 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
 
 		roomname = "Chinese Rooms";
 		break;
@@ -1161,7 +1161,7 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 152, 96, 10, 1, 446530);  // (savepoint)
+		obj.createentity(152, 96, 10, 1, 446530);  // (savepoint)
 		roomname = "Swoop";
 		break;
 
@@ -1197,11 +1197,11 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,229,0,0,0,0,227,229,0,0,0,0,0,0");
 		tmap.push_back("107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,229,0,0,0,0,227,229,0,0,0,0,0,0");
 
-		obj.createentity(game, 64, 40, 10, 1, 446520);  // (savepoint)
-		obj.createentity(game, 208, 88, 3, 827);  //Disappearing Platform
-		obj.createentity(game, 152, 160, 3, 827);  //Disappearing Platform
-		obj.createentity(game, 96, 88, 3, 827);  //Disappearing Platform
-		obj.createentity(game, 40, 160, 3, 827);  //Disappearing Platform
+		obj.createentity(64, 40, 10, 1, 446520);  // (savepoint)
+		obj.createentity(208, 88, 3, 827);  //Disappearing Platform
+		obj.createentity(152, 160, 3, 827);  //Disappearing Platform
+		obj.createentity(96, 88, 3, 827);  //Disappearing Platform
+		obj.createentity(40, 160, 3, 827);  //Disappearing Platform
 		roomname = "Manic Mine";
 		break;
 
@@ -1273,26 +1273,26 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,435,0,0,0,0,0,0,0,0,0,0,433,313,313,313,313,313,313,313,313,313,313,313,313");
 		tmap.push_back("313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,313,354,394,394,394,394,394,394,394,394,394,394,355,313,313,313,313,313,313,313,313,313,313,313,313");
 
-		obj.createentity(game, 144-4, 208, 1, 1, 6);  // Enemy
-		obj.createentity(game, 128+4, 8, 1, 0, 6);  // Enemy
-		obj.createentity(game, 64, 200, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 216, 200, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 96, 160, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 160, 160, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 208, 160, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 248, 184, 10, 1, 445540);  // (savepoint)
-		obj.createentity(game, 184, 24, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 64, 64, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 152, 64, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 152, 88, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 64, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 96, 136, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 160, 136, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 184, 136, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 152, 24, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 104, 200, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 104, 136, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 104, 160, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(144-4, 208, 1, 1, 6);  // Enemy
+		obj.createentity(128+4, 8, 1, 0, 6);  // Enemy
+		obj.createentity(64, 200, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(216, 200, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(96, 160, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(160, 160, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(208, 160, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(248, 184, 10, 1, 445540);  // (savepoint)
+		obj.createentity(184, 24, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(64, 64, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(152, 64, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(152, 88, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(64, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(96, 136, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(160, 136, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(184, 136, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(152, 24, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(104, 200, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(104, 136, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(104, 160, 2, 9, 4);  //Threadmill, <<<
 
 		roomname = "$eeing Dollar $ign$";
 		break;
@@ -1329,19 +1329,19 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("0,0,0,0,0,206,86,208,0,0,818,698,206,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,208,698,698,820,0,0,206,86,86,86,86");
 		tmap.push_back("0,0,0,0,0,206,86,208,0,0,818,698,206,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,208,698,698,820,0,0,206,86,86,86,86");
 
-		obj.createentity(game, 184, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 248, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 312, 56, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 152, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 216, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 280, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 280, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 272, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 64, 152, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 120, 152, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 96, 192, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 152, 192, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 240, 88, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(184, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(248, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(312, 56, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(152, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(216, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(280, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(280, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(272, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(64, 152, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(120, 152, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(96, 192, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(152, 192, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(240, 88, 2, 9, 4);  //Threadmill, <<<
 		roomname = "Parabolica";
 		break;
 
@@ -1377,23 +1377,23 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("167,167,167,167,128,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86");
 		tmap.push_back("86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86");
 
-		obj.createentity(game, 96, 80, 10, 1, 447540);  // (savepoint)
-		obj.createentity(game, 64, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 112, 184, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 176, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 224, 184, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 232, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 288, 128, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 288, 184, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 120, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 168, 112, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 208, 168, 10, 1, 447541);  // (savepoint)
+		obj.createentity(96, 80, 10, 1, 447540);  // (savepoint)
+		obj.createentity(64, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(112, 184, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(176, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(224, 184, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(232, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(288, 128, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(288, 184, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(120, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(168, 112, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(208, 168, 10, 1, 447541);  // (savepoint)
 
-		obj.createentity(game, 24 - 60 - 8, 144 - 8, 1, 10, 0);  // Enemy
+		obj.createentity(24 - 60 - 8, 144 - 8, 1, 10, 0);  // Enemy
 
-		obj.createentity(game, 24 - 60 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 60 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
 
 		//LIES Emitter, manually positioned
 		roomname = "Spikes Do!";
@@ -1431,10 +1431,10 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-		obj.createentity(game, 64, 152, 10, 1, 446540);  // (savepoint)
-		obj.createentity(game, 120, 72, 3, 707);  //Disappearing Platform
-		obj.createentity(game, 248, 72, 3, 707);  //Disappearing Platform
-		obj.createentity(game, 184, 200, 3, 707);  //Disappearing Platform
+		obj.createentity(64, 152, 10, 1, 446540);  // (savepoint)
+		obj.createentity(120, 72, 3, 707);  //Disappearing Platform
+		obj.createentity(248, 72, 3, 707);  //Disappearing Platform
+		obj.createentity(184, 200, 3, 707);  //Disappearing Platform
 		roomname = "What Lies Beneath?";
 		break;
 
@@ -1470,18 +1470,18 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 
-		obj.createentity(game, 0, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 112, 128, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 0, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 184, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 152, 168, 10, 1, 447550);  // (savepoint)
+		obj.createentity(0, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 128, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(112, 128, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(0, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(184, 184, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(152, 168, 10, 1, 447550);  // (savepoint)
 
-		obj.createentity(game, 264, 136, 1, 0, 2);  // Enemy //Collector
-		obj.createentity(game, 24 - 60 - 8, 144 - 8, 1, 10, 0);  // Enemy
-		obj.createentity(game, 24 - 60 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
-		obj.createentity(game, 24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(264, 136, 1, 0, 2);  // Enemy //Collector
+		obj.createentity(24 - 60 - 8, 144 - 8, 1, 10, 0);  // Enemy
+		obj.createentity(24 - 60 - 8 + 117, 144 - 8, 1, 10, 1);  // Enemy
+		obj.createentity(24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
 		//LIES Emitter, manually positioned, collector!
 		roomname = "Chipper Cipher";
 		break;
@@ -1518,7 +1518,7 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("0,0,0,0,0,0,0,803,683,683,683,683,683,683,683,624,504,626,683,683,683,683,683,683,683,805,0,0,0,0,0,624,504,504,504,504,504,504,504,504");
 		tmap.push_back("0,0,0,0,0,0,0,803,683,683,683,683,683,683,683,624,504,626,683,683,683,683,683,683,683,805,0,0,0,0,0,624,504,504,504,504,504,504,504,504");
 
-		obj.createentity(game, 40, 72, 3, 787);  //Disappearing Platform
+		obj.createentity(40, 72, 3, 787);  //Disappearing Platform
 		roomname = "If You Fall Up";
 		break;
 
@@ -1555,9 +1555,9 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,620,695,695,695,695,618,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498,498");
 
 		obj.platformtile = 159;
-		obj.createentity(game, 24, 80, 2, 3, 6);  // Platform
-		obj.createentity(game, 64, 176, 10, 0, 445550);  // (savepoint)
-		obj.createentity(game, 216 - 4, 192, 10, 1, 445551);  // (savepoint)
+		obj.createentity(24, 80, 2, 3, 6);  // Platform
+		obj.createentity(64, 176, 10, 0, 445550);  // (savepoint)
+		obj.createentity(216 - 4, 192, 10, 1, 445551);  // (savepoint)
 		roomname = "Just Pick Yourself Down";
 		break;
 
@@ -1594,37 +1594,37 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,408,0,0,0,0,406,286");
 		tmap.push_back("286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,408,0,0,0,0,406,286");
 
-		obj.createentity(game, 32, 40, 10, 1, 444560);  // (savepoint)
-		obj.createentity(game, 56, 24, 10, 0, 444551);  // (savepoint)
-		obj.createentity(game, 80, 40, 10, 1, 444552);  // (savepoint)
-		obj.createentity(game, 104, 24, 10, 0, 444553);  // (savepoint)
-		obj.createentity(game, 128, 40, 10, 1, 444554);  // (savepoint)
-		obj.createentity(game, 152, 24, 10, 0, 444555);  // (savepoint)
-		obj.createentity(game, 176, 40, 10, 1, 444556);  // (savepoint)
-		obj.createentity(game, 200, 24, 10, 0, 444557);  // (savepoint)
-		obj.createentity(game, 224, 40, 10, 1, 444558);  // (savepoint)
-		obj.createentity(game, 248, 24, 10, 0, 444559);  // (savepoint)
-		obj.createentity(game, 272, 40, 10, 1, 444550);  // (savepoint)
-		obj.createentity(game, 0, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 256, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 0, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 64, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 128, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 192, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 256, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 0, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 64, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 192, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 240, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 0, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 64, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 192, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 240, 128, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(32, 40, 10, 1, 444560);  // (savepoint)
+		obj.createentity(56, 24, 10, 0, 444551);  // (savepoint)
+		obj.createentity(80, 40, 10, 1, 444552);  // (savepoint)
+		obj.createentity(104, 24, 10, 0, 444553);  // (savepoint)
+		obj.createentity(128, 40, 10, 1, 444554);  // (savepoint)
+		obj.createentity(152, 24, 10, 0, 444555);  // (savepoint)
+		obj.createentity(176, 40, 10, 1, 444556);  // (savepoint)
+		obj.createentity(200, 24, 10, 0, 444557);  // (savepoint)
+		obj.createentity(224, 40, 10, 1, 444558);  // (savepoint)
+		obj.createentity(248, 24, 10, 0, 444559);  // (savepoint)
+		obj.createentity(272, 40, 10, 1, 444550);  // (savepoint)
+		obj.createentity(0, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(256, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(0, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(64, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(128, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(192, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(256, 56, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(0, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(64, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(192, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(240, 88, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(0, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(64, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(192, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(240, 128, 2, 9, 4);  //Threadmill, <<<
 		roomname = "The Warning";
 		break;
 
@@ -1661,13 +1661,13 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("420,49,0,0,0,0,50,418,298,420,0,0,0,0,0,0,0,0,0,0,50,418,298,298,298,298,420,49,0,0,0,0,0,0,0,0,0,0,418,298");
 		tmap.push_back("420,49,0,0,0,0,50,418,298,420,0,0,0,0,0,0,0,0,0,0,50,418,298,298,298,298,420,49,0,0,0,0,0,0,0,0,0,0,418,298");
 
-		obj.createentity(game, 176, 80, 3, 55);  //Disappearing Platform
-		obj.createentity(game, 0, 56, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 16, 56, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 72, 72, 10, 1, 444561);  // (savepoint)
-		obj.createentity(game, 8, 144, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 48, 144, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 0, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(176, 80, 3, 55);  //Disappearing Platform
+		obj.createentity(0, 56, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(16, 56, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(72, 72, 10, 1, 444561);  // (savepoint)
+		obj.createentity(8, 144, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(48, 144, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(0, 16, 2, 10, 4);  //Big Threadmill, >>>>>>
 
 
 		roomname = "Getting Here is Half the Fun";
@@ -1880,10 +1880,10 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("89,89,89,89,89,89,211,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,169,170,170,170,170,170,170,170,131,89,89");
 		tmap.push_back("89,89,89,89,89,89,130,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,170,131,89,89,89,89,89,89,89,89,89,89");
 
-		obj.createentity(game, 224, 144, 9, 5);  // (shiny trinket)
-		obj.createentity(game, 96, 152, 10, 1, 450560);  // (savepoint)
+		obj.createentity(224, 144, 9, 5);  // (shiny trinket)
+		obj.createentity(96, 152, 10, 1, 450560);  // (savepoint)
 
-		obj.createentity(game, 24, 152, 20, 1);  // (terminal)
+		obj.createentity(24, 152, 20, 1);  // (terminal)
 		obj.createblock(5, 24-4, 152, 20, 16, 16);
 		roomname = "Doing Things The Hard Way";
 		break;
@@ -1923,8 +1923,8 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("495,495,495,495,495,495,495,495,495,495,495,495,495,495,617,0,0,0,0,0,0,0,0,0,0,615,495,495,495,495,495,495,495,495,495,495,495,495,495,495");
 
 		obj.platformtile = 707;
-		obj.createentity(game, 272, 40, 2, 14, 2);  // Platform
-		obj.createentity(game, 240, 40, 3, 707);  //Disappearing Platform
+		obj.createentity(272, 40, 2, 14, 2);  // Platform
+		obj.createentity(240, 40, 3, 707);  //Disappearing Platform
 
 		if(game.intimetrial && game.timetriallevel > 0)
 		{
@@ -1965,11 +1965,11 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("301,301,301,301,301,301,301,423,0,0,0,0,421,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301");
 		tmap.push_back("301,301,301,301,301,301,301,423,0,0,0,0,421,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301,301");
 
-		obj.createentity(game, 0, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 64, 168, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 72, 128, 10, 1, 443560);  // (savepoint)
+		obj.createentity(0, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(64, 168, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(72, 128, 10, 1, 443560);  // (savepoint)
 
-		obj.createentity(game, (21 * 8), (9 * 8), 14); //Teleporter!
+		obj.createentity((21 * 8), (9 * 8), 14); //Teleporter!
 
 		if(game.intimetrial)
 		{
@@ -2026,16 +2026,16 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86");
 		tmap.push_back("86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86");
 
-		obj.createentity(game, 0, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 63, 64-16, 1, 3, 4, 64, 0, 256, 204);  // Enemy, bounded
-		obj.createentity(game, 256-28, 80, 1, 2, 4, 64, 0, 256, 204);  // Enemy, bounded
-		obj.createentity(game, 48, 168, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 104, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 152, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 240, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 288, 168, 2, 9, 4);  //Threadmill, <<<
-		obj.createentity(game, 160 - 48, 184 - 8, 1, 3, 5);// , 160, 0, 320, 240);  // Enemy, bounded
-		obj.createentity(game, 160 - 28 + 48, 184 - 8, 1, 2, 5);// , 0, 0, 160, 240);  // Enemy, bounded
+		obj.createentity(0, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(63, 64-16, 1, 3, 4, 64, 0, 256, 204);  // Enemy, bounded
+		obj.createentity(256-28, 80, 1, 2, 4, 64, 0, 256, 204);  // Enemy, bounded
+		obj.createentity(48, 168, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(104, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(152, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(240, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(288, 168, 2, 9, 4);  //Threadmill, <<<
+		obj.createentity(160 - 48, 184 - 8, 1, 3, 5);// , 160, 0, 320, 240);  // Enemy, bounded
+		obj.createentity(160 - 28 + 48, 184 - 8, 1, 2, 5);// , 0, 0, 160, 240);  // Enemy, bounded
 		roomname = "Brass Sent Us Under The Top";
 		break;
 
@@ -2071,13 +2071,13 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507");
 		tmap.push_back("507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507,507");
 
-		obj.createentity(game, 64, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 128, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 192, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 256, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 32+4, 48, 10, 0, 443540);  // (savepoint)
-		obj.createentity(game, 208-4, 48, 1, 0, 3, 104, 40, 324, 136);  // Enemy, bounded
-		obj.createentity(game, 136 + 4, 96, 10, 1, 443541);  // (savepoint)
+		obj.createentity(64, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(128, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(192, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(256, 168, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(32+4, 48, 10, 0, 443540);  // (savepoint)
+		obj.createentity(208-4, 48, 1, 0, 3, 104, 40, 324, 136);  // Enemy, bounded
+		obj.createentity(136 + 4, 96, 10, 1, 443541);  // (savepoint)
 
 		roomname = "The Tomb of Mad Carew";
 		break;
@@ -2114,8 +2114,8 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("310,310,310,310,432,0,0,0,0,0,812,692,430,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,432,0,0,0,0,0,0,430,310,310,310,310");
 		tmap.push_back("310,310,310,310,432,0,0,0,0,0,812,692,430,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,432,0,0,0,0,0,0,430,310,310,310,310");
 
-		obj.createentity(game, 56, 144, 10, 0, 443520);  // (savepoint)
-		obj.createentity(game, 152, 80, 10, 1, 443521);  // (savepoint)
+		obj.createentity(56, 144, 10, 0, 443520);  // (savepoint)
+		obj.createentity(152, 80, 10, 1, 443521);  // (savepoint)
 		roomname = "The Sensible Room";
 		break;
 
@@ -2151,7 +2151,7 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 
-		obj.createentity(game, 0, -200, 1, 16, 6, -64, -500, 320 + 64, 340);
+		obj.createentity(0, -200, 1, 16, 6, -64, -500, 320 + 64, 340);
 		roomname = "B-B-B-Busted";
 		break;
 
@@ -2188,8 +2188,8 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("286,286,286,327,367,367,367,367,328,286,286,327,367,367,367,367,328,286,286,327,367,367,367,367,328,286,286,327,367,367,367,367,328,286,286,286,286,286,286,286");
 		tmap.push_back("286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286");
 
-		obj.createentity(game, 280, 192, 10, 1, 443500);  // (savepoint)
-		obj.createentity(game, 64, 80, 10, 1, 443501);  // (savepoint)
+		obj.createentity(280, 192, 10, 1, 443500);  // (savepoint)
+		obj.createentity(64, 80, 10, 1, 443501);  // (savepoint)
 
 		if(!game.nocutscenes)
 		{
@@ -2239,12 +2239,12 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492");
 
 		obj.platformtile = 747;
-		obj.createentity(game, 120, 72, 3, 747);  //Disappearing Platform
-		obj.createentity(game, 120, 112, 3, 747);  //Disappearing Platform
-		obj.createentity(game, 120, 128, 3, 747);  //Disappearing Platform
-		obj.createentity(game, 88, 72, 2, 15, 4);  // Platform
-		obj.createentity(game, 192, 128, 9, 6);  // (shiny trinket)
-		obj.createentity(game, 240, 136, 10, 0, 443490);  // (savepoint)
+		obj.createentity(120, 72, 3, 747);  //Disappearing Platform
+		obj.createentity(120, 112, 3, 747);  //Disappearing Platform
+		obj.createentity(120, 128, 3, 747);  //Disappearing Platform
+		obj.createentity(88, 72, 2, 15, 4);  // Platform
+		obj.createentity(192, 128, 9, 6);  // (shiny trinket)
+		obj.createentity(240, 136, 10, 0, 443490);  // (savepoint)
 		roomname = "Prize for the Reckless";
 		if(game.nodeathmode)
 		{
@@ -2288,16 +2288,16 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 
-		obj.createentity(game, 152, 32, 10, 1, 443480);  // (savepoint)
-		obj.createentity(game, 152, 184, 10, 0, 443481);  // (savepoint)
-		obj.createentity(game, 272, 120, 1, 2, 8);  // Enemy
-		obj.createentity(game, 32, 96, 1, 3, 8);  // Enemy
-		obj.createentity(game, 104, 80, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 168, 80, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 232, 80, 2, 8, 4);  //Threadmill, >>>
-		obj.createentity(game, 56, 144, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 120, 144, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 184, 144, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(152, 32, 10, 1, 443480);  // (savepoint)
+		obj.createentity(152, 184, 10, 0, 443481);  // (savepoint)
+		obj.createentity(272, 120, 1, 2, 8);  // Enemy
+		obj.createentity(32, 96, 1, 3, 8);  // Enemy
+		obj.createentity(104, 80, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(168, 80, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(232, 80, 2, 8, 4);  //Threadmill, >>>
+		obj.createentity(56, 144, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(120, 144, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(184, 144, 2, 8, 4);  //Threadmill, >>>
 		roomname = "A Deception";
 		break;
 
@@ -2334,12 +2334,12 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("310,310,432,692,692,692,692,430,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310,310");
 
 		obj.platformtile = 239;
-		obj.createentity(game, 88, 112, 2, 0, 4, 88, 64, 264, 168);  // Platform, bounded
-		obj.createentity(game, 136, 112, 2, 1, 4, 88, 64, 264, 168);  // Platform, bounded
-		obj.createentity(game, 184, 112, 2, 0, 4, 88, 64, 264, 168);  // Platform, bounded
-		obj.createentity(game, 232, 112, 2, 1, 4, 88, 64, 264, 168);  // Platform, bounded
-		obj.createentity(game, 56, 64, 10, 0, 442480);  // (savepoint)
-		obj.createentity(game, 280, 152, 10, 1, 442481);  // (savepoint)
+		obj.createentity(88, 112, 2, 0, 4, 88, 64, 264, 168);  // Platform, bounded
+		obj.createentity(136, 112, 2, 1, 4, 88, 64, 264, 168);  // Platform, bounded
+		obj.createentity(184, 112, 2, 0, 4, 88, 64, 264, 168);  // Platform, bounded
+		obj.createentity(232, 112, 2, 1, 4, 88, 64, 264, 168);  // Platform, bounded
+		obj.createentity(56, 64, 10, 0, 442480);  // (savepoint)
+		obj.createentity(280, 152, 10, 1, 442481);  // (savepoint)
 
 		roomname = "Down Under";
 		break;
@@ -2376,10 +2376,10 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("295,417,779,779,779,779,415,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,417,698,698,698,820,0,0,415,295,295,295,295,295");
 		tmap.push_back("295,417,698,698,698,698,415,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,417,698,698,698,820,0,0,415,295,295,295,295,295");
 
-		obj.createentity(game, 16, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
-		obj.createentity(game, 104, 184, 2, 11, 4);  //Big Threadmill, <<<<<<
-		obj.createentity(game, 144, 168, 10, 1, 442490);  // (savepoint)
-		obj.createentity(game, 24, 112, 10, 0, 442491);  // (savepoint)
+		obj.createentity(16, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
+		obj.createentity(104, 184, 2, 11, 4);  //Big Threadmill, <<<<<<
+		obj.createentity(144, 168, 10, 1, 442490);  // (savepoint)
+		obj.createentity(24, 112, 10, 0, 442491);  // (savepoint)
 		roomname = "Shenanigan";
 		break;
 
@@ -2415,13 +2415,13 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,611,0,0,0,809,689,689,609,489,489,489,489,489");
 		tmap.push_back("489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,489,611,0,0,0,809,689,689,609,489,489,489,489,489");
 
-		obj.createentity(game, 192, 88, 10, 0, 441490);  // (savepoint)
+		obj.createentity(192, 88, 10, 0, 441490);  // (savepoint)
 
 		if(!game.intimetrial)
 		{
 			if(game.companion==0 && obj.flags[10]==0 &&  !game.crewstats[2])   //also need to check if he's rescued in a previous game
 			{
-				obj.createentity(game, 42, 86, 16, 0);
+				obj.createentity(42, 86, 16, 0);
 				obj.createblock(1, 0, 0, 140, 240, 34);
 			}
 		}
@@ -2460,7 +2460,7 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298");
 		tmap.push_back("298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298,298");
 
-		obj.createentity(game, (5 * 8) - 4, (8 * 8) + 4, 14); //Teleporter!
+		obj.createentity((5 * 8) - 4, (8 * 8) + 4, 14); //Teleporter!
 
 		if(game.intimetrial)
 		{
@@ -2501,8 +2501,8 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,414,0,0,0,0,412,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292");
 		tmap.push_back("292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,414,0,0,0,0,412,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292");
 
-		obj.createentity(game, 40, 24, 10, 0, 442530);  // (savepoint)
-		obj.createentity(game, 264, 24, 10, 0, 442531);  // (savepoint)
+		obj.createentity(40, 24, 10, 0, 442530);  // (savepoint)
+		obj.createentity(264, 24, 10, 0, 442531);  // (savepoint)
 
 		roomname = "Driller";
 		break;
@@ -2539,24 +2539,24 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,214,0,0,0,0,0,0,172,173,134,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92");
 		tmap.push_back("92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,214,0,0,0,0,0,0,212,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92");
 
-		obj.createentity(game, 128, 80, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 160, 80, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 192, 80, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 128, 88, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 160, 88, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 192, 88, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 128, 96, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 128, 104, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 128, 112, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 128, 120, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 160, 96, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 160, 104, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 160, 112, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 160, 120, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 192, 96, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 192, 104, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 192, 112, 3, 867);  //Disappearing Platform
-		obj.createentity(game, 192, 120, 3, 867);  //Disappearing Platform
+		obj.createentity(128, 80, 3, 867);  //Disappearing Platform
+		obj.createentity(160, 80, 3, 867);  //Disappearing Platform
+		obj.createentity(192, 80, 3, 867);  //Disappearing Platform
+		obj.createentity(128, 88, 3, 867);  //Disappearing Platform
+		obj.createentity(160, 88, 3, 867);  //Disappearing Platform
+		obj.createentity(192, 88, 3, 867);  //Disappearing Platform
+		obj.createentity(128, 96, 3, 867);  //Disappearing Platform
+		obj.createentity(128, 104, 3, 867);  //Disappearing Platform
+		obj.createentity(128, 112, 3, 867);  //Disappearing Platform
+		obj.createentity(128, 120, 3, 867);  //Disappearing Platform
+		obj.createentity(160, 96, 3, 867);  //Disappearing Platform
+		obj.createentity(160, 104, 3, 867);  //Disappearing Platform
+		obj.createentity(160, 112, 3, 867);  //Disappearing Platform
+		obj.createentity(160, 120, 3, 867);  //Disappearing Platform
+		obj.createentity(192, 96, 3, 867);  //Disappearing Platform
+		obj.createentity(192, 104, 3, 867);  //Disappearing Platform
+		obj.createentity(192, 112, 3, 867);  //Disappearing Platform
+		obj.createentity(192, 120, 3, 867);  //Disappearing Platform
 
 		if(!game.nocutscenes)
 		{
@@ -2601,8 +2601,8 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,217,0,0,809,689,689,689,689,689,215,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95");
 		tmap.push_back("95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,217,0,0,809,689,689,689,689,689,215,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95");
 
-		obj.createentity(game, 144, 40, 3);  //Disappearing Platform
-		obj.createentity(game, 200, 128, 3);  //Disappearing Platform
+		obj.createentity(144, 40, 3);  //Disappearing Platform
+		obj.createentity(200, 128, 3);  //Disappearing Platform
 		roomname = "Boo! Think Fast!";
 		break;
 
@@ -2638,12 +2638,12 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("495,495,495,495,495,617,0,0,0,0,0,0,615,495,617,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,615,495,495,495,495");
 		tmap.push_back("495,495,495,495,495,617,0,0,0,0,0,0,615,495,536,576,576,576,576,576,576,576,576,576,576,576,576,576,576,576,576,576,576,576,576,537,495,495,495,495");
 
-		obj.createentity(game, 288, 160, 10, 1, 442500);  // (savepoint)
+		obj.createentity(288, 160, 10, 1, 442500);  // (savepoint)
 
 
-		obj.createentity(game, 135, 75, 2, 0, 3, 100, 70, 320, 160);
-		obj.createentity(game, 185, 110, 2, 0, 3, 100, 70, 320, 160);
-		obj.createentity(game, 235, 145, 2, 0, 3, 100, 70, 320, 160);
+		obj.createentity(135, 75, 2, 0, 3, 100, 70, 320, 160);
+		obj.createentity(185, 110, 2, 0, 3, 100, 70, 320, 160);
+		obj.createentity(235, 145, 2, 0, 3, 100, 70, 320, 160);
 		roomname = "Stop and Reflect";
 		break;
 
@@ -2680,11 +2680,11 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86,86");
 
 		obj.platformtile = 207;
-		obj.createentity(game, 112-4, 200-4, 1, 1, 6, 104, 144, 264, 240);  // Enemy, bounded
-		obj.createentity(game, 176-4, 152, 1, 0, 6, 104, 144, 264, 240);  // Enemy, bounded
-		obj.createentity(game, 240-4, 200-4, 1, 1, 6, 104, 144, 264, 240);  // Enemy, bounded
-		obj.createentity(game, 64, 48, 2, 3, 4);  // Platform
-		obj.createentity(game, 272, 152, 9, 1);  // (shiny trinket)
+		obj.createentity(112-4, 200-4, 1, 1, 6, 104, 144, 264, 240);  // Enemy, bounded
+		obj.createentity(176-4, 152, 1, 0, 6, 104, 144, 264, 240);  // Enemy, bounded
+		obj.createentity(240-4, 200-4, 1, 1, 6, 104, 144, 264, 240);  // Enemy, bounded
+		obj.createentity(64, 48, 2, 3, 4);  // Platform
+		obj.createentity(272, 152, 9, 1);  // (shiny trinket)
 
 		if(!game.nocutscenes)
 		{
@@ -2726,14 +2726,14 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("92,92,92,92,92,214,683,683,683,683,683,683,212,92,214,683,683,683,212,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92");
 		tmap.push_back("92,92,92,92,92,214,683,683,683,683,683,683,212,92,133,173,173,173,134,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92,92");
 
-		obj.createentity(game, 120+2, 8, 1, 0, 3);  // Enemy
-		obj.createentity(game, 264+2, 8, 1, 0, 3);  // Enemy
-		obj.createentity(game, 120+2, 208-4, 1, 1, 3);  // Enemy
-		obj.createentity(game, 192+2, 176-4, 1, 1, 3);  // Enemy
-		obj.createentity(game, 192+2, 40, 1, 0, 3);  // Enemy
+		obj.createentity(120+2, 8, 1, 0, 3);  // Enemy
+		obj.createentity(264+2, 8, 1, 0, 3);  // Enemy
+		obj.createentity(120+2, 208-4, 1, 1, 3);  // Enemy
+		obj.createentity(192+2, 176-4, 1, 1, 3);  // Enemy
+		obj.createentity(192+2, 40, 1, 0, 3);  // Enemy
 
-		obj.createentity(game, 64, 80, 10, 1, 441501);  // (savepoint)
-		obj.createentity(game, 64, 136, 10, 0, 441502);  // (savepoint)
+		obj.createentity(64, 80, 10, 1, 441501);  // (savepoint)
+		obj.createentity(64, 136, 10, 0, 441502);  // (savepoint)
 
 		roomname = "The Yes Men";
 		break;
@@ -2771,12 +2771,12 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("283,283,283,283,283,405,0,0,0,0,0,0,403,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283");
 
 		obj.platformtile = 10;
-		obj.createentity(game, 136-32, 64, 3, 10);  //Disappearing Platform
-		obj.createentity(game, 136, 64, 3, 10);  //Disappearing Platform
-		obj.createentity(game, 136+32, 64, 3, 10);  //Disappearing Platform
-		obj.createentity(game, 56, 104, 10, 1, 440500);  // (savepoint)
-		obj.createentity(game, 56, 152, 2, 3, 3);  // Platform
-		obj.createentity(game, 280, 192, 10, 1, 440501);  // (savepoint)
+		obj.createentity(136-32, 64, 3, 10);  //Disappearing Platform
+		obj.createentity(136, 64, 3, 10);  //Disappearing Platform
+		obj.createentity(136+32, 64, 3, 10);  //Disappearing Platform
+		obj.createentity(56, 104, 10, 1, 440500);  // (savepoint)
+		obj.createentity(56, 152, 2, 3, 3);  // Platform
+		obj.createentity(280, 192, 10, 1, 440501);  // (savepoint)
 
 		roomname = "Gantry and Dolly";
 		break;
@@ -2813,13 +2813,13 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("495,495,495,495,495,495,495,495,495,617,680,680,680,680,680,680,680,680,680,615,495,495,495,495,617,680,680,680,680,680,680,680,680,680,680,615,495,495,495,495");
 		tmap.push_back("495,495,495,495,495,495,495,495,495,536,576,576,576,576,576,576,576,576,576,537,495,495,495,495,536,576,576,576,576,576,576,576,576,576,576,537,495,495,495,495");
 
-		obj.createentity(game, 88, 104, 21, 1);  // (savepoint)
-		obj.createentity(game, 112, 104, 21, 1, 440511);  // (savepoint)
-		obj.createentity(game, 136, 88, 1, 0, 0);  // Enemy //the radar dish
-		//obj.createentity(game, 176, 104, 10, 1, 440512);  // (savepoint)
-		obj.createentity(game, 200, 104, 21, 1);  // (savepoint)
-		obj.createentity(game, 224, 104, 21, 1);  // (savepoint)
-		obj.createentity(game, 256, 32, 1, 0, 0);  // Enemy //in this case, the transmitter
+		obj.createentity(88, 104, 21, 1);  // (savepoint)
+		obj.createentity(112, 104, 21, 1, 440511);  // (savepoint)
+		obj.createentity(136, 88, 1, 0, 0);  // Enemy //the radar dish
+		//obj.createentity(176, 104, 10, 1, 440512);  // (savepoint)
+		obj.createentity(200, 104, 21, 1);  // (savepoint)
+		obj.createentity(224, 104, 21, 1);  // (savepoint)
+		obj.createentity(256, 32, 1, 0, 0);  // Enemy //in this case, the transmitter
 
 		if(!game.intimetrial)
 		{
@@ -2861,8 +2861,8 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("292,292,292,292,292,414,0,0,0,0,0,0,412,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292");
 		tmap.push_back("292,292,292,292,292,414,0,0,0,0,0,0,412,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292,292");
 
-		obj.createentity(game, 200, 32, 1, 0, 8);  // Enemy
-		obj.createentity(game, 168, 104, 10, 1, 439500);  // (savepoint)
+		obj.createentity(200, 32, 1, 0, 8);  // Enemy
+		obj.createentity(168, 104, 10, 1, 439500);  // (savepoint)
 
 		roomname = "Security Sweep";
 		break;
@@ -2899,12 +2899,12 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,136,176,176,176,176,176,176,176,176,176,137,95,95");
 		tmap.push_back("95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95");
 
-		obj.createentity(game, 24, 168, 10, 1, 439510);  // (savepoint)
-		obj.createentity(game, 280, 48, 10, 0, 439511);  // (savepoint)
-		obj.createentity(game, 80, 88, 1, 3, 3);  // Enemy
-		obj.createentity(game, 224 - 16, 128, 1, 2, 3);  // Enemy
+		obj.createentity(24, 168, 10, 1, 439510);  // (savepoint)
+		obj.createentity(280, 48, 10, 0, 439511);  // (savepoint)
+		obj.createentity(80, 88, 1, 3, 3);  // Enemy
+		obj.createentity(224 - 16, 128, 1, 2, 3);  // Enemy
 
-		obj.createentity(game, 256-4, 200, 20, 1);  // (terminal)
+		obj.createentity(256-4, 200, 20, 1);  // (terminal)
 		obj.createblock(5, 256-8, 200, 20, 16, 6);
 		roomname = "Linear Collider";
 		break;
@@ -2941,8 +2941,8 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,411,0,0,0,0,409,289,289,289,289,289,289,289,289,289");
 		tmap.push_back("289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,289,411,0,0,0,0,409,289,289,289,289,289,289,289,289,289");
 
-		obj.createentity(game, 192, 48, 10, 0, 439520);  // (savepoint)
-		obj.createentity(game, 112, 160, 10, 1, 439521);  // (savepoint)
+		obj.createentity(192, 48, 10, 0, 439520);  // (savepoint)
+		obj.createentity(112, 160, 10, 1, 439521);  // (savepoint)
 		roomname = "Atmospheric Filtering Unit";
 		break;
 
@@ -2980,11 +2980,11 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 
 		roomname = "Traffic Jam";
 
-		obj.createentity(game, 45, 118, 1, 1, 4);
-		obj.createentity(game, 205, 118, 1, 1, 4);
-		obj.createentity(game, 125, 18, 1, 0, 4);
+		obj.createentity(45, 118, 1, 1, 4);
+		obj.createentity(205, 118, 1, 1, 4);
+		obj.createentity(125, 18, 1, 0, 4);
 
-		obj.createentity(game, 232, 184, 10, 0, 1);
+		obj.createentity(232, 184, 10, 0, 1);
 		break;
 
 	case rn(53,40):
@@ -3053,7 +3053,7 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286");
 		tmap.push_back("286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286");
 
-		obj.createentity(game, 152, 168, 10, 1, 441530);  // (savepoint)
+		obj.createentity(152, 168, 10, 1, 441530);  // (savepoint)
 
 		if(!game.nocutscenes)
 		{
@@ -3171,8 +3171,8 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry, Game& gam
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 		tmap.push_back("89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89,89");
 
-		obj.createentity(game, 216, 144, 10, 1, 440520);  // (savepoint)
-		obj.createentity(game, 16, 136, 9, 0);  // (shiny trinket)
+		obj.createentity(216, 144, 10, 1, 440520);  // (savepoint)
+		obj.createentity(16, 136, 9, 0);  // (shiny trinket)
 
 		roomname = "It's a Secret to Nobody";
 		break;
