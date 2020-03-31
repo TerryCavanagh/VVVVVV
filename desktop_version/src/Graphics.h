@@ -19,7 +19,8 @@
 #include "GraphicsUtil.h"
 #include "Screen.h"
 
-class map;
+class mapclass;
+class entityclass;
 
 class Graphics
 {

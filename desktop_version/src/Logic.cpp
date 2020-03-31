@@ -114,7 +114,7 @@ void gamecompletelogic2(Graphics& dwgfx, Game& game, entityclass& obj,  musiccla
         game.deletequick();
         int tmp=music.currentsong;
         music.currentsong=4;
-        game.savetele(map,obj,music);
+        game.savetele();
         music.currentsong=tmp;
         game.telegotoship();
         //Return to game
@@ -254,7 +254,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
         {
             if (map.resumedelay <= 0)
             {
-                game.lifesequence(obj);
+                game.lifesequence();
                 if (game.lifeseq == 0) map.cameramode = 1;
             }
             else
@@ -268,14 +268,14 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
     {
         map.colsuperstate = 1;
         map.cameramode = 2;
-        game.deathsequence(map, obj, music);
+        game.deathsequence();
         game.deathseq--;
         if (game.deathseq <= 0)
         {
             if (game.nodeathmode)
             {
                 game.deathseq = 1;
-                game.gethardestroom(map);
+                game.gethardestroom();
                 //start depressing sequence here...
                 if (game.gameoverdelay <= -10 && dwgfx.fademode==0) dwgfx.fademode = 2;
                 if (dwgfx.fademode == 1) script.resetgametomenu(dwgfx, game, map, obj, help, music);
@@ -297,7 +297,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
     else
     {
         //State machine for game logic
-        game.updatestate(dwgfx, map, obj, help, music);
+        game.updatestate();
 
 
         //Time trial stuff
@@ -571,7 +571,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
         obj.upset = 0;
     }
 
-    game.lifesequence(obj);
+    game.lifesequence();
 
 
     if (game.deathseq != -1)
@@ -647,14 +647,14 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
             }
         }
 
-        game.deathsequence(map, obj, music);
+        game.deathsequence();
         game.deathseq--;
         if (game.deathseq <= 0)
         {
             if (game.nodeathmode)
             {
                 game.deathseq = 1;
-                game.gethardestroom(map);
+                game.gethardestroom();
                 //start depressing sequence here...
                 if (game.gameoverdelay <= -10 && dwgfx.fademode==0) dwgfx.fademode = 2;
                 if (dwgfx.fademode == 1) script.resetgametomenu(dwgfx, game, map, obj, help, music);
@@ -672,7 +672,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                     }
                 }
 
-                game.gethardestroom(map);
+                game.gethardestroom();
                 game.hascontrol = true;
 
 
@@ -715,7 +715,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
             }
         }
         //State machine for game logic
-        game.updatestate(dwgfx, map, obj, help, music);
+        game.updatestate();
         if (game.startscript)
         {
             script.load(game.newscript);
