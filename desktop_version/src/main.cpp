@@ -363,11 +363,11 @@ int main(int argc, char *argv[])
             case EDITORMODE:
 				graphics.flipmode = false;
                 //Input
-                editorinput(key, graphics, game, map, obj, help, music);
+                editorinput();
                 //Render
-                editorrender(key, graphics, game, map, obj, help);
+                editorrender();
                 ////Logic
-                editorlogic(key, graphics, game, obj, music, map, help);
+                editorlogic();
                 break;
         #endif
             case TITLEMODE:

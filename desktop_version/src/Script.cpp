@@ -3224,7 +3224,7 @@ void scriptclass::startgamemode( int t )
     //Initilise the level
     //First up, find the start point
     ed.weirdloadthing(ed.ListOfMetaData[game.playcustomlevel].filename);
-    ed.findstartpoint(game);
+    ed.findstartpoint();
 
     game.gamestate = GAMEMODE;
     music.fadeout();
@@ -3253,7 +3253,7 @@ void scriptclass::startgamemode( int t )
     }
     map.gotoroom(game.saverx, game.savery);
 
-		ed.generatecustomminimap(graphics, map);
+		ed.generatecustomminimap();
 		map.customshowmm=true;
     if(ed.levmusic>0){
       music.play(ed.levmusic);
@@ -3267,7 +3267,7 @@ void scriptclass::startgamemode( int t )
       //Initilise the level
     //First up, find the start point
     ed.weirdloadthing(ed.ListOfMetaData[game.playcustomlevel].filename);
-    ed.findstartpoint(game);
+    ed.findstartpoint();
 
     game.gamestate = GAMEMODE;
     music.fadeout();
@@ -3305,7 +3305,7 @@ void scriptclass::startgamemode( int t )
       music.currentsong=-1;
 		}
 		*/
-		ed.generatecustomminimap(graphics, map);
+		ed.generatecustomminimap();
 		graphics.fademode = 4;
     //load("intro");
   break;
