@@ -2270,22 +2270,22 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     }
 
     //Or draw background
-    //dwgfx.drawbackground(1, map);
+    //dwgfx.drawbackground(1);
     if(!ed.settingsmod)
     {
         switch(ed.level[ed.levx+(ed.levy*ed.maxwidth)].warpdir)
         {
         case 1:
             dwgfx.rcol=ed.getwarpbackground(ed.levx, ed.levy);
-            dwgfx.drawbackground(3, map);
+            dwgfx.drawbackground(3);
             break;
         case 2:
             dwgfx.rcol=ed.getwarpbackground(ed.levx, ed.levy);
-            dwgfx.drawbackground(4, map);
+            dwgfx.drawbackground(4);
             break;
         case 3:
             dwgfx.rcol=ed.getwarpbackground(ed.levx, ed.levy);
-            dwgfx.drawbackground(5, map);
+            dwgfx.drawbackground(5);
             break;
         default:
             break;
@@ -2371,7 +2371,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             case 1: //Entities
                 //FillRect(dwgfx.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 16,16, dwgfx.getRGB(64,32,64));
                 //dwgfx.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),164,48,48);
-                dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),ed.entcol,help);
+                dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),ed.entcol);
                 if(edentity[i].p1==0) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
                 if(edentity[i].p1==1) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow, false);
                 if(edentity[i].p1==2) dwgfx.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "<", 255, 255, 255 - help.glow, false);
@@ -2517,17 +2517,17 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
                 }
                 break;
             case 15: //Crewmates
-                dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),144,obj.crewcolour(edentity[i].p1), help);
+                dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),144,obj.crewcolour(edentity[i].p1));
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,dwgfx.getRGB(164,164,164));
                 break;
             case 16: //Start
                 if(edentity[i].p1==0)  //Left
                 {
-                    dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),0,obj.crewcolour(0), help);
+                    dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),0,obj.crewcolour(0));
                 }
                 else if(edentity[i].p1==1)
                 {
-                    dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),3,obj.crewcolour(0), help);
+                    dwgfx.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8)-4,(edentity[i].y*8)- (ed.levy*30*8),3,obj.crewcolour(0));
                 }
                 fillboxabs(dwgfx, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,dwgfx.getRGB(164,255,255));
                 if(ed.entframe<2)
@@ -2910,7 +2910,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
     }
     else if(ed.settingsmod)
     {
-        if(!game.colourblindmode) dwgfx.drawtowerbackgroundsolo(map);
+        if(!game.colourblindmode) dwgfx.drawtowerbackgroundsolo();
 
         int tr = map.r - (help.glow / 4) - int(fRandom() * 4);
         int tg = map.g - (help.glow / 4) - int(fRandom() * 4);
@@ -3072,7 +3072,7 @@ void editorrender( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, ent
             dwgfx.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
         }
 
-        dwgfx.drawmenu(game, tr, tg, tb, 15);
+        dwgfx.drawmenu(tr, tg, tb, 15);
 
         /*
         dwgfx.Print(4, 224, "Enter name to save map as:", 255,255,255, false);
