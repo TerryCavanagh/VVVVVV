@@ -7,7 +7,7 @@
 #include <string>
 #include "Script.h"
 
-class KeyPoll; class Graphics; class Game; class mapclass; class entityclass; class UtilityClass;
+class KeyPoll; class Graphics; class Game; class mapclass; class entityclass; class UtilityClass; class musicclass;
 
 
 class edentities{

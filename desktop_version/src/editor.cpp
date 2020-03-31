@@ -4491,7 +4491,7 @@ void editorinput( KeyPoll& key, Graphics& dwgfx, Game& game, mapclass& map, enti
                         music.stopmusic();
                         dwgfx.backgrounddrawn=false;
                         ed.returneditoralpha = 1000; // Let's start it higher than 255 since it gets clamped
-                        script.startgamemode(21, key, dwgfx, game, map, obj, help, music);
+                        script.startgamemode(21);
                     }
                     //Return to game
                     //game.gamestate=GAMEMODE;

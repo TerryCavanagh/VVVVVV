@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
     /*
     //game.gamestate=GAMEMODE;
 		//game.start(obj,music);
-		//script.startgamemode(8, key, graphics, game, map, obj, help, music);
+		//script.startgamemode(8);
    // map.finalmode = true; //Enable final level mode
 		//map.finalx = 41; map.finaly = 52; //Midpoint
 		//map.finalstretch = true;
@@ -405,7 +405,7 @@ int main(int argc, char *argv[])
                     {
                         if (script.running)
                         {
-                            script.run(key, graphics, game, map, obj, help, music);
+                            script.run();
                         }
 
                         gameinput(key, graphics, game, map, obj, help, music);
@@ -444,7 +444,7 @@ int main(int argc, char *argv[])
                         {
                             if (script.running)
                             {
-                                script.run(key, graphics, game, map, obj, help, music);
+                                script.run();
                             }
                             gameinput(key, graphics, game, map, obj, help, music);
                         }
