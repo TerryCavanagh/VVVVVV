@@ -389,7 +389,7 @@ void scriptclass::loadother(std::string t)
     {
 
 
-        //add("delay(15)");	add("flash(5)"); add("shake(20)"); add("playef(9,10)");
+        //add("delay(15)");	add("flash(5)"); add("shake(20)"); add("playef(9)");
 
         add("text(gray,0,114,3)");
         add("          -= WARNING =-         ");

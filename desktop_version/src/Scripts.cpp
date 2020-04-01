@@ -100,7 +100,7 @@ void scriptclass::load(std::string t)
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add("flash(5)");
             add("shake(20)");
-            add("playef(9,10)");
+            add("playef(9)");
           }else if(words[0] == "sad" || words[0] == "cry"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             if(words[1]=="player"){
@@ -326,7 +326,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("musicfadeout()");
         add("changemood(player,1)");
         add("delay(15)");
@@ -359,7 +359,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(50)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("changemood(green,1)");
         add("changemood(purple,1)");
         add("alarmon");
@@ -381,7 +381,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(50)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("changeai(green,followposition,-60)");
         add("changeai(purple,followposition,-60)");
         add("squeak(player)");
@@ -397,7 +397,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(50)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("gotoroom(3,10)");
         add("gotoposition(310,177,0)");
         add("createcrewman(208,177,green,1,followposition,120)");
@@ -416,7 +416,7 @@ void scriptclass::load(std::string t)
         //and the next!
         add("flash(5)");
         add("shake(50)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("gotoroom(3,11)");
         add("gotoposition(140,0,0)");
 
@@ -443,7 +443,7 @@ void scriptclass::load(std::string t)
         //final room:
         add("flash(5)");
         add("shake(80)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("gotoroom(2,11)");
         add("gotoposition(265,153,0)");
 
@@ -480,7 +480,7 @@ void scriptclass::load(std::string t)
         add("alarmoff");
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("blackout()");
         add("changemood(player,0)");
         add("changedir(player,1)");
@@ -488,7 +488,7 @@ void scriptclass::load(std::string t)
         add("delay(100)");
         add("blackon()");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
 
         //Finally, appear at the start of the game:
         add("gotoroom(13,5)");
@@ -1723,7 +1723,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("showplayer()");
         add("play(8)");
 
@@ -1744,19 +1744,19 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(9,10)");
+        add("playef(9)");
 
         add("delay(35)");
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(9,10)");
+        add("playef(9)");
 
         add("delay(25)");
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
 
         add("showplayer()");
         add("play(8)");
@@ -2949,7 +2949,7 @@ void scriptclass::load(std::string t)
         add("setcheckpoint()");
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
 
         add("showplayer()");
         add("play(8)");
@@ -2971,19 +2971,19 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(9,10)");
+        add("playef(9)");
 
         add("delay(35)");
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(9,10)");
+        add("playef(9)");
 
         add("delay(25)");
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
 
         add("showplayer()");
         add("play(8)");
@@ -3020,7 +3020,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("delay(15)");
 
         add("changedir(player,0)");
@@ -3060,7 +3060,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("delay(15)");
 
         add("changedir(player,0)");
@@ -3100,7 +3100,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("delay(15)");
 
         add("changedir(player,0)");
@@ -3140,7 +3140,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("delay(15)");
 
         add("changedir(player,0)");
@@ -6066,7 +6066,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(9,10)");
+        add("playef(9)");
 
         add("musicfadeout()");
 
@@ -6087,7 +6087,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("alarmon");
 
         add("delay(30)");
@@ -6106,7 +6106,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(50)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("gotoroom(3,10)");
         add("gotoposition(40,177,0)");
         add("createcrewman(208,177,green,1,followposition,120)");
@@ -6125,7 +6125,7 @@ void scriptclass::load(std::string t)
         //and the next!
         add("flash(5)");
         add("shake(50)");
-        add("playef(9,10)");
+        add("playef(9)");
         add("gotoroom(3,11)");
         add("gotoposition(140,0,0)");
 
@@ -6152,7 +6152,7 @@ void scriptclass::load(std::string t)
         //final room:
         add("flash(5)");
         add("alarmoff");
-        add("playef(9,10)");
+        add("playef(9)");
         add("gotoroom(2,11)");
         add("gotoposition(265,153,0)");
 
@@ -6299,7 +6299,7 @@ void scriptclass::load(std::string t)
 
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("blackout()");
 
         add("delay(45)");
@@ -6309,37 +6309,37 @@ void scriptclass::load(std::string t)
         add("changedir(player,1)");
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("blackon()");
 
         add("delay(15)");
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("createcrewman(28,65,purple,0,faceright)");
 
         add("delay(15)");
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("createcrewman(145,169,yellow,0,faceleft)");
 
         add("delay(15)");
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("createcrewman(32,169,red,0,faceright)");
 
         add("delay(15)");
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("createcrewman(96,149,green,0,faceleft)");
 
         add("delay(15)");
         add("flash(5)");
         add("shake(20)");
-        add("playef(10,10)");
+        add("playef(10)");
         add("createcrewman(155,57,blue,0,faceleft)");
 
         add("delay(45)");
@@ -6436,7 +6436,7 @@ void scriptclass::load(std::string t)
         add("delay(5)");
         add("flash(10)");
         add("shake(20)");
-        add("playef(24,10)");
+        add("playef(24)");
         add("gotoroom(17,6)");
         add("vvvvvvman()");
 
@@ -6447,7 +6447,7 @@ void scriptclass::load(std::string t)
         add("walk(right,6)");
         add("flash(10)");
         add("shake(20)");
-        add("playef(23,10)");
+        add("playef(23)");
         add("altstates(2)");
         add("gotoroom(17,6)");
 
@@ -6456,7 +6456,7 @@ void scriptclass::load(std::string t)
         add("walk(right,12)");
         add("flash(10)");
         add("shake(20)");
-        add("playef(23,10)");
+        add("playef(23)");
         add("altstates(0)");
         add("gotoroom(17,6)");
 
@@ -6471,7 +6471,7 @@ void scriptclass::load(std::string t)
         add("delay(20)");
         add("flash(10)");
         add("shake(20)");
-        add("playef(24,10)");
+        add("playef(24)");
         add("undovvvvvvman()");
         add("createcrewman(30,99,purple,0,faceright)");
         add("createcrewman(65,119,yellow,0,faceright)");
@@ -6543,11 +6543,11 @@ void scriptclass::load(std::string t)
         add("delay(21)");
         add("changeai(yellow,faceright)");
         add("flipgravity(yellow)");
-        add("playef(0,10)");
+        add("playef(0)");
         add("delay(2)");
         add("changeai(purple,faceright)");
         add("flipgravity(purple)");
-        add("playef(0,10)");
+        add("playef(0)");
 
         add("delay(48)");
 
