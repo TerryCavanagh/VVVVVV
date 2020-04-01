@@ -372,7 +372,7 @@ int main(int argc, char *argv[])
         #endif
             case TITLEMODE:
                 //Input
-                titleinput(key, graphics, map, game, obj, help, music);
+                titleinput();
                 //Render
                 titlerender(graphics, map, game, obj, help, music);
                 ////Logic
@@ -381,11 +381,11 @@ int main(int argc, char *argv[])
             case GAMEMODE:
                 if (map.towermode)
                 {
-					gameinput(key, graphics, game, map, obj, help, music);
+					gameinput();
 
                     //if(game.recording==1)
                     //{
-                    // ///recordinput(key, graphics, game, map, obj, help, music);
+                    // ///recordinput();
                     //}
                     //else
                     //{
@@ -399,7 +399,7 @@ int main(int argc, char *argv[])
 
                     if (game.recording == 1)
                     {
-                        //recordinput(key, dwgfx, game, map, obj, help, music);
+                        //recordinput();
                     }
                     else
                     {
@@ -408,7 +408,7 @@ int main(int argc, char *argv[])
                             script.run();
                         }
 
-                        gameinput(key, graphics, game, map, obj, help, music);
+                        gameinput();
                         //}
                         gamerender(graphics,map, game,  obj, help);
                         gamelogic();
@@ -420,11 +420,11 @@ int main(int argc, char *argv[])
                     maprender(graphics, game, map, obj, help);
                     if (game.recording == 1)
                     {
-                        //recordinput(key, dwgfx, game, map, obj, help, music); //will implement this later if it's actually needed
+                        //recordinput(); //will implement this later if it's actually needed
                     }
                     else
                     {
-                        mapinput(key, graphics, game, map, obj, help, music);
+                        mapinput();
                     }
                     maplogic();
                     break;
@@ -432,13 +432,13 @@ int main(int argc, char *argv[])
                     teleporterrender(graphics, game, map, obj, help);
                     if (game.recording == 1)
                     {
-                        //recordinput(key, graphics, game, map, obj, help, music);
+                        //recordinput();
                     }
                     else
                     {
                         if(game.useteleporter)
                         {
-                            teleporterinput(key, graphics, game, map, obj, help, music);
+                            teleporterinput();
                         }
                         else
                         {
@@ -446,7 +446,7 @@ int main(int argc, char *argv[])
                             {
                                 script.run();
                             }
-                            gameinput(key, graphics, game, map, obj, help, music);
+                            gameinput();
                         }
                     }
                     maplogic();
@@ -454,14 +454,14 @@ int main(int argc, char *argv[])
                 case GAMECOMPLETE:
                     gamecompleterender(graphics, game, obj, help, map);
                     //Input
-                    gamecompleteinput(key, graphics, game, map, obj, help, music);
+                    gamecompleteinput();
                     //Logic
                     gamecompletelogic();
                     break;
                 case GAMECOMPLETE2:
                     gamecompleterender2(graphics, game, obj, help);
                     //Input
-                    gamecompleteinput2(key, graphics, game, map, obj, help, music);
+                    gamecompleteinput2();
                     //Logic
                     gamecompletelogic2();
                     break;
