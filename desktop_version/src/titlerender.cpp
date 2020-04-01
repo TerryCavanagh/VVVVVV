@@ -20,10 +20,6 @@ int tb;
 
 std::string tempstring;
 
-void updategraphicsmode()
-{
-}
-
 void titlerender()
 {
 
