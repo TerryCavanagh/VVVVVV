@@ -234,8 +234,6 @@ public:
     std::vector<int>bestlives;
     std::vector<int> bestrank;
 
-    bool quickcookieexists;
-
     std::string tele_gametime;
     int tele_trinkets;
     std::string tele_currentarea;

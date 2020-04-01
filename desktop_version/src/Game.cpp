@@ -296,13 +296,11 @@ void Game::init(void)
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument("saves/qsave.vvv", &doc))
     {
-        quickcookieexists = false;
         quicksummary = "";
         printf("Quick Save Not Found\n");
     }
     else
     {
-        quickcookieexists = true;
         TiXmlHandle hDoc(&doc);
         TiXmlElement* pElem;
         TiXmlHandle hRoot(0);
@@ -5547,12 +5545,10 @@ void Game::loadsummary()
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument("saves/qsave.vvv", &doc))
     {
-        quickcookieexists = false;
         quicksummary = "";
     }
     else
     {
-        quickcookieexists = true;
         TiXmlHandle hDoc(&doc);
         TiXmlElement* pElem;
         TiXmlHandle hRoot(0);
@@ -5907,8 +5903,6 @@ void Game::savetele()
 
 void Game::savequick()
 {
-    quickcookieexists = true;
-
     if (map.custommode)
     {
         //Don't trash save data!
@@ -6156,8 +6150,6 @@ void Game::savequick()
 
 void Game::customsavequick(std::string savfile)
 {
-    quickcookieexists = true;
-
     TiXmlDocument doc;
     TiXmlElement* msg;
     TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "", "" );
@@ -7744,7 +7736,6 @@ void Game::deletequick()
         printf("Error deleting file\n");
 
     quicksummary = "";
-    quickcookieexists = false;
 }
 
 void Game::deletetele()
