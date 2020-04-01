@@ -334,13 +334,11 @@ void Game::init(void)
     TiXmlDocument docTele;
     if (!FILESYSTEM_loadTiXmlDocument("saves/tsave.vvv", &docTele))
     {
-        telecookieexists = false;
         telesummary = "";
         printf("Teleporter Save Not Found\n");
     }
     else
     {
-        telecookieexists = true;
         TiXmlHandle hDoc(&docTele);
         TiXmlElement* pElem;
         TiXmlHandle hRoot(0);
@@ -5460,12 +5458,10 @@ void Game::loadsummary()
     TiXmlDocument docTele;
     if (!FILESYSTEM_loadTiXmlDocument("saves/tsave.vvv", &docTele))
     {
-        telecookieexists = false;
         telesummary = "";
     }
     else
     {
-        telecookieexists = true;
         TiXmlHandle hDoc(&docTele);
         TiXmlElement* pElem;
         TiXmlHandle hRoot(0);
@@ -5664,7 +5660,6 @@ void Game::savetele()
 
     //telecookie = SharedObject.getLocal("dwvvvvvv_tele");
     //Save to the telesave cookie
-    telecookieexists = true;
 
     if (map.custommode)
     {
@@ -7758,7 +7753,6 @@ void Game::deletetele()
         printf("Error deleting file\n");
 
     telesummary = "";
-    telecookieexists = false;
 }
 
 void Game::swnpenalty()
