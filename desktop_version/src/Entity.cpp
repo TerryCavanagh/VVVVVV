@@ -4465,34 +4465,6 @@ bool entityclass::entitycollide( int a, int b )
     return false;
 }
 
-bool entityclass::checkdirectional( int t )
-{
-    //Returns true if player entity (rule 0) moving in dir t through directional block
-    for(int i=0; i < nentity; i++)
-    {
-        if(entities[i].rule==0)
-        {
-            tempx = entities[i].xp + entities[i].cx;
-            tempy = entities[i].yp + entities[i].cy;
-            tempw = entities[i].w;
-            temph = entities[i].h;
-            rectset(tempx, tempy, tempw, temph);
-
-            for (int j=0; j<nblocks; j++)
-            {
-                if (blocks[j].type == DIRECTIONAL && blocks[j].active)
-                {
-                    if(UtilityClass::intersects(blocks[j].rect,temprect))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
 bool entityclass::checkdamage()
 {
     //Returns true if player entity (rule 0) collides with a damagepoint

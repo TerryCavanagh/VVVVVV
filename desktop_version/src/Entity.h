@@ -116,8 +116,6 @@ public:
 
     bool entitycollide(int a, int b);
 
-    bool checkdirectional(int t);
-
     bool checkdamage();
 
     bool scmcheckdamage();
