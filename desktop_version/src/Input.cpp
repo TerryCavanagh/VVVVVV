@@ -2082,7 +2082,7 @@ void gameinput()
 
                                 int player = obj.getplayer();
                                 obj.entities[player].colour = 102;
-                                int companion = obj.getcompanion(game.companion);
+                                int companion = obj.getcompanion();
                                 if(companion>-1) obj.entities[companion].colour = 102;
 
                                 int teleporter = obj.getteleporter();

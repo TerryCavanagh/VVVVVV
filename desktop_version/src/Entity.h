@@ -97,7 +97,7 @@ public:
 
     bool gettype(int t);
 
-    int getcompanion(int t);
+    int getcompanion();
 
     int getplayer();
 
