@@ -1253,7 +1253,7 @@ void Graphics::drawcoloredtile( int x, int y, int t, int r, int g, int b )
 }
 
 
-bool Graphics::Hitest(SDL_Surface* surface1, point p1, int col, SDL_Surface* surface2, point p2, int col2)
+bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, point p2)
 {
 
     //find rectangle where they intersect:
