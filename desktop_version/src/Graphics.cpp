@@ -3031,7 +3031,6 @@ void Graphics::screenshake()
 		//	screenbuffer.draw(backbuffer, flipmatrix);
 		//	flipmatrix.translate(-tpoint.x, -tpoint.y);
 
-		screenbuffer->ClearScreen(0x000);
 		tpoint.x =  (fRandom() * 7) - 4;
 		tpoint.y =  (fRandom() * 7) - 4;
 		SDL_Rect shakeRect;
@@ -3046,7 +3045,6 @@ void Graphics::screenshake()
 		//SDL_Rect rect;
 		//setRect(rect, blackBars/2, 0, screenbuffer->w, screenbuffer->h);
 		//SDL_BlitSurface(backBuffer, NULL, screenbuffer, &rect);
-		screenbuffer->ClearScreen(0x000);
 		tpoint.x =  static_cast<Sint32>((fRandom() * 7) - 4);
 		tpoint.y =  static_cast<Sint32>((fRandom() * 7) - 4);
 		SDL_Rect shakeRect;
