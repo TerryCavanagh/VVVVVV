@@ -374,7 +374,7 @@ int main(int argc, char *argv[])
                 //Input
                 titleinput();
                 //Render
-                titlerender(graphics, map, game, obj, help, music);
+                titlerender();
                 ////Logic
                 titlelogic();
                 break;
@@ -390,7 +390,7 @@ int main(int argc, char *argv[])
                     //else
                     //{
                     //}
-                    towerrender(graphics, game, map, obj, help);
+                    towerrender();
                     towerlogic();
 
                 }
@@ -410,14 +410,14 @@ int main(int argc, char *argv[])
 
                         gameinput();
                         //}
-                        gamerender(graphics,map, game,  obj, help);
+                        gamerender();
                         gamelogic();
 
 
                     }
                     break;
                 case MAPMODE:
-                    maprender(graphics, game, map, obj, help);
+                    maprender();
                     if (game.recording == 1)
                     {
                         //recordinput(); //will implement this later if it's actually needed
@@ -429,7 +429,7 @@ int main(int argc, char *argv[])
                     maplogic();
                     break;
                 case TELEPORTERMODE:
-                    teleporterrender(graphics, game, map, obj, help);
+                    teleporterrender();
                     if (game.recording == 1)
                     {
                         //recordinput();
@@ -452,14 +452,14 @@ int main(int argc, char *argv[])
                     maplogic();
                     break;
                 case GAMECOMPLETE:
-                    gamecompleterender(graphics, game, obj, help, map);
+                    gamecompleterender();
                     //Input
                     gamecompleteinput();
                     //Logic
                     gamecompletelogic();
                     break;
                 case GAMECOMPLETE2:
-                    gamecompleterender2(graphics, game, obj, help);
+                    gamecompleterender2();
                     //Input
                     gamecompleteinput2();
                     //Logic
