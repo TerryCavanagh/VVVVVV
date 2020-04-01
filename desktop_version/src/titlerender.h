@@ -8,12 +8,6 @@
 #include "Map.h"
 #include "Script.h"
 
-class Stage
-{
-public:
-    int frameRate;
-};
-
 extern int temp;
 
 void titlerender();
