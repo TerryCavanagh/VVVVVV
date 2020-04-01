@@ -357,7 +357,7 @@ int main(int argc, char *argv[])
             {
             case PRELOADER:
                 //Render
-                preloaderrender(graphics, game, help);
+                preloaderrender();
                 break;
         #if !defined(NO_CUSTOM_LEVELS)
             case EDITORMODE:
