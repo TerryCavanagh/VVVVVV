@@ -79,24 +79,6 @@ public:
 
     void starttrial(int t);
 
-    void telegotoship()
-    {
-        //Special function to move the telesave to the ship teleporter.
-        //telecookie.data.savex = 13*8;
-        //telecookie.data.savey = 129;
-        //telecookie.data.saverx = 102;
-        //telecookie.data.savery = 111;
-        //telecookie.data.savegc = 0;
-        //telecookie.data.savedir = 1;
-        //telecookie.data.savepoint = 0;
-
-        //telecookie.data.currentsong = 4;
-        //telecookie.data.companion = 0;
-
-        //telecookie.data.finalmode = false;
-        //telecookie.data.finalstretch = false;
-    }
-
     void swnpenalty();
 
     void deathsequence();
