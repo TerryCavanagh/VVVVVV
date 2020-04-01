@@ -2301,7 +2301,7 @@ void editorrender()
             for (int i = 0; i < 40; i++)
             {
                 temp=ed.contents[i + (ed.levx*40) + ed.vmult[j+(ed.levy*30)]];
-                if(temp>0) graphics.drawtile(i*8,j*8,temp,0,0,0);
+                if(temp>0) graphics.drawtile(i*8,j*8,temp);
             }
         }
     }
@@ -2740,11 +2740,11 @@ void editorrender()
             {
                 for(int i=0; i<40; i++)
                 {
-                    graphics.drawtile(i*8,0-t2,(temp+1200+i)%1200,0,0,0);
-                    graphics.drawtile(i*8,8-t2,(temp+1200+40+i)%1200,0,0,0);
-                    graphics.drawtile(i*8,16-t2,(temp+1200+80+i)%1200,0,0,0);
-                    graphics.drawtile(i*8,24-t2,(temp+1200+120+i)%1200,0,0,0);
-                    graphics.drawtile(i*8,32-t2,(temp+1200+160+i)%1200,0,0,0);
+                    graphics.drawtile(i*8,0-t2,(temp+1200+i)%1200);
+                    graphics.drawtile(i*8,8-t2,(temp+1200+40+i)%1200);
+                    graphics.drawtile(i*8,16-t2,(temp+1200+80+i)%1200);
+                    graphics.drawtile(i*8,24-t2,(temp+1200+120+i)%1200);
+                    graphics.drawtile(i*8,32-t2,(temp+1200+160+i)%1200);
                 }
             }
             else
@@ -2772,7 +2772,7 @@ void editorrender()
 
             if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
             {
-                graphics.drawtile(45,45-t2,ed.dmtile,0,0,0);
+                graphics.drawtile(45,45-t2,ed.dmtile);
             }
             else
             {
@@ -2788,7 +2788,7 @@ void editorrender()
 
             if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
             {
-                graphics.drawtile(45,12,ed.dmtile,0,0,0);
+                graphics.drawtile(45,12,ed.dmtile);
             }
             else
             {
@@ -3179,19 +3179,19 @@ void editorrender()
                 }
                 FillRect(graphics.backBuffer, 4+(ed.drawmode*tg), 209,20,20,graphics.getRGB(64,64,64));
                 //0:
-                graphics.drawtile(tx,ty,83,0,0,0);
-                graphics.drawtile(tx+8,ty,83,0,0,0);
-                graphics.drawtile(tx,ty+8,83,0,0,0);
-                graphics.drawtile(tx+8,ty+8,83,0,0,0);
+                graphics.drawtile(tx,ty,83);
+                graphics.drawtile(tx+8,ty,83);
+                graphics.drawtile(tx,ty+8,83);
+                graphics.drawtile(tx+8,ty+8,83);
                 //1:
                 tx+=tg;
-                graphics.drawtile(tx,ty,680,0,0,0);
-                graphics.drawtile(tx+8,ty,680,0,0,0);
-                graphics.drawtile(tx,ty+8,680,0,0,0);
-                graphics.drawtile(tx+8,ty+8,680,0,0,0);
+                graphics.drawtile(tx,ty,680);
+                graphics.drawtile(tx+8,ty,680);
+                graphics.drawtile(tx,ty+8,680);
+                graphics.drawtile(tx+8,ty+8,680);
                 //2:
                 tx+=tg;
-                graphics.drawtile(tx+4,ty+4,8,0,0,0);
+                graphics.drawtile(tx+4,ty+4,8);
                 //3:
                 tx+=tg;
                 graphics.drawsprite(tx,ty,22,196,196,196);
@@ -3200,16 +3200,16 @@ void editorrender()
                 graphics.drawsprite(tx,ty,21,196,196,196);
                 //5:
                 tx+=tg;
-                graphics.drawtile(tx,ty+4,3,0,0,0);
-                graphics.drawtile(tx+8,ty+4,4,0,0,0);
+                graphics.drawtile(tx,ty+4,3);
+                graphics.drawtile(tx+8,ty+4,4);
                 //6:
                 tx+=tg;
-                graphics.drawtile(tx,ty+4,24,0,0,0);
-                graphics.drawtile(tx+8,ty+4,24,0,0,0);
+                graphics.drawtile(tx,ty+4,24);
+                graphics.drawtile(tx+8,ty+4,24);
                 //7:
                 tx+=tg;
-                graphics.drawtile(tx,ty+4,1,0,0,0);
-                graphics.drawtile(tx+8,ty+4,1,0,0,0);
+                graphics.drawtile(tx,ty+4,1);
+                graphics.drawtile(tx+8,ty+4,1);
                 //8:
                 tx+=tg;
                 graphics.drawsprite(tx,ty,78+ed.entframe,196,196,196);
