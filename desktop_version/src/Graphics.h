@@ -161,7 +161,7 @@ public:
 	void drawbackground(int t);
 	void drawtile3( int x, int y, int t, int off );
 	void drawentcolours( int x, int y, int t);
-	void drawtile2( int x, int y, int t, int r, int g, int b );
+	void drawtile2( int x, int y, int t );
 	void drawtile( int x, int y, int t );
 	void drawtowertile( int x, int y, int t );
 	void drawtowertile3( int x, int y, int t, int off );
