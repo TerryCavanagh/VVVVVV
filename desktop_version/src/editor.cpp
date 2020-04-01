@@ -4059,7 +4059,7 @@ void editorinput()
                         }
                         else if (game.currentmenuoption == 4)
                         {
-                            music.playef(11, 10);
+                            music.playef(11);
                             game.createmenu("ed_settings");
                             map.nexttowercolour();
                         }
@@ -4069,14 +4069,14 @@ void editorinput()
                         if (game.currentmenuoption == 0)
                         {
                             //Change level description stuff
-                            music.playef(11, 10);
+                            music.playef(11);
                             game.createmenu("ed_desc");
                             map.nexttowercolour();
                         }
                         else if (game.currentmenuoption == 1)
                         {
                             //Enter script editormode
-                            music.playef(11, 10);
+                            music.playef(11);
                             ed.scripteditmod=true;
                             ed.clearscriptbuffer();
                             key.enabletextentry();
@@ -4090,7 +4090,7 @@ void editorinput()
                         }
                         else if (game.currentmenuoption == 2)
                         {
-                            music.playef(11, 10);
+                            music.playef(11);
                             game.createmenu("ed_music");
                             map.nexttowercolour();
                             if(ed.levmusic>0) music.play(ed.levmusic);
@@ -4127,7 +4127,7 @@ void editorinput()
                         }
                         else if (game.currentmenuoption == 5)
                         {
-                            music.playef(11, 10);
+                            music.playef(11);
                             game.createmenu("ed_quit");
                             map.nexttowercolour();
                         }
@@ -4149,11 +4149,11 @@ void editorinput()
                             {
                                 music.haltdasmusik();
                             }
-                            music.playef(11, 10);
+                            music.playef(11);
                         }
                         else if (game.currentmenuoption == 1)
                         {
-                            music.playef(11, 10);
+                            music.playef(11);
                             music.fadeout();
                             game.createmenu("ed_settings");
                             map.nexttowercolour();
@@ -4181,14 +4181,14 @@ void editorinput()
                         else if (game.currentmenuoption == 1)
                         {
                             //Quit without saving
-                            music.playef(11, 10);
+                            music.playef(11);
                             music.fadeout();
                             graphics.fademode = 2;
                         }
                         else if (game.currentmenuoption == 2)
                         {
                             //Go back to editor
-                            music.playef(11, 10);
+                            music.playef(11);
                             game.createmenu("ed_settings");
                             map.nexttowercolour();
                         }

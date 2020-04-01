@@ -35,7 +35,7 @@ public:
 
 	//public var nicefade:int, nicechange:int;
 
-	void playef(int t, int offset = 0);
+	void playef(int t);
 
 	std::vector<SoundTrack> soundTracks;
 	std::vector<MusicTrack> musicTracks;

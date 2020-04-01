@@ -240,7 +240,7 @@ void scriptclass::run()
 			}
 			if (words[0] == "playef")
 			{
-				music.playef(ss_toi(words[1]), ss_toi(words[2]));
+				music.playef(ss_toi(words[1]));
 			}
 			if (words[0] == "play")
 			{
@@ -1200,39 +1200,39 @@ void scriptclass::run()
 			{
 				if (words[1] == "player")
 				{
-					music.playef(11, 10);
+					music.playef(11);
 				}
 				else if (words[1] == "cyan")
 				{
-					music.playef(11, 10);
+					music.playef(11);
 				}
 				else if (words[1] == "red")
 				{
-					music.playef(16, 10);
+					music.playef(16);
 				}
 				else if (words[1] == "green")
 				{
-					music.playef(12, 10);
+					music.playef(12);
 				}
 				else if (words[1] == "yellow")
 				{
-					music.playef(14, 10);
+					music.playef(14);
 				}
 				else if (words[1] == "blue")
 				{
-					music.playef(13, 10);
+					music.playef(13);
 				}
 				else if (words[1] == "purple")
 				{
-					music.playef(15, 10);
+					music.playef(15);
 				}
 				else if (words[1] == "cry")
 				{
-					music.playef(2, 10);
+					music.playef(2);
 				}
 				else if (words[1] == "terminal")
 				{
-					music.playef(20, 10);
+					music.playef(20);
 				}
 			}
 			else if (words[0] == "blackout")
@@ -1880,7 +1880,7 @@ void scriptclass::run()
 			{
 				//music.silencedasmusik();
 				music.haltdasmusik();
-				music.playef(3,10);
+				music.playef(3);
 
 				game.trinkets++;
 				obj.collect[ss_toi(words[1])] = 1;
@@ -1916,7 +1916,7 @@ void scriptclass::run()
 			}
 			else if (words[0] == "foundlab")
 			{
-				music.playef(3,10);
+				music.playef(3);
 
 				graphics.textboxremovefast();
 

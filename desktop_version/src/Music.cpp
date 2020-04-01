@@ -460,7 +460,7 @@ void musicclass::changemusicarea(int x, int y)
 	}
 }
 
-void musicclass::playef(int t, int offset)
+void musicclass::playef(int t)
 {
 	// efchannel[currentefchan] = efchan[t].play(offset);
 	// currentefchan++;
