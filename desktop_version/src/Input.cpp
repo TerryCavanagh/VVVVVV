@@ -10,7 +10,7 @@
 extern scriptclass script;
 
 // Found in titlerender.cpp
-void updategraphicsmode(Game& game, Graphics& graphics);
+void updategraphicsmode();
 
 void updatebuttonmappings(int bind)
 {
@@ -510,7 +510,7 @@ SDL_assert(0 && "Remove open level dir");
                     music.playef(11, 10);
                     graphics.screenbuffer->toggleFullScreen();
                     game.fullscreen = !game.fullscreen;
-                    updategraphicsmode(game, graphics);
+                    updategraphicsmode();
                     game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 0;
@@ -518,7 +518,7 @@ SDL_assert(0 && "Remove open level dir");
                     music.playef(11, 10);
                     graphics.screenbuffer->toggleStretchMode();
                     game.stretchMode = (game.stretchMode + 1) % 3;
-                    updategraphicsmode(game, graphics);
+                    updategraphicsmode();
                     game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 1;
@@ -526,7 +526,7 @@ SDL_assert(0 && "Remove open level dir");
                     music.playef(11, 10);
                     graphics.screenbuffer->toggleLinearFilter();
                     game.useLinearFilter = !game.useLinearFilter;
-                    updategraphicsmode(game, graphics);
+                    updategraphicsmode();
                     game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 2;
@@ -535,7 +535,7 @@ SDL_assert(0 && "Remove open level dir");
                       music.playef(11, 10);
                       game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
                       //Hook the analogue thing in here: ABCDEFG
-                      updategraphicsmode(game, graphics);
+                      updategraphicsmode();
 					  graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
                       game.savestats();
                       game.createmenu("graphicoptions");
@@ -576,7 +576,7 @@ SDL_assert(0 && "Remove open level dir");
                             {
                                 game.fullscreen = true;
                             }
-                            updategraphicsmode(game, graphics);
+                            updategraphicsmode();
                             game.savestats();
                             game.createmenu("graphicoptions");
                         }
@@ -588,10 +588,10 @@ SDL_assert(0 && "Remove open level dir");
                             if (game.fullscreen)
                             {
                                 game.fullscreen = false;
-                                updategraphicsmode(game, graphics);
+                                updategraphicsmode();
                                 game.fullscreen = true;
                             }
-                            updategraphicsmode(game, graphics);
+                            updategraphicsmode();
 
                             game.savestats();
                             game.createmenu("graphicoptions");
@@ -604,7 +604,7 @@ SDL_assert(0 && "Remove open level dir");
                             game.advanced_scaling = (game.advanced_scaling + 1) % 5;
                             graphics.screenbuffer->ResizeScreen(320 *game.advanced_scaling,240*game.advanced_scaling );
                             graphics.screenbuffer->SetScale(game.advanced_scaling);
-                            updategraphicsmode(game, graphics);
+                            updategraphicsmode();
 
                             game.savestats();
                             game.createmenu("graphicoptions");
@@ -615,7 +615,7 @@ SDL_assert(0 && "Remove open level dir");
                             //change smoothing
                             music.playef(11, 10);
                             game.advanced_smoothing = !game.advanced_smoothing;
-                            updategraphicsmode(game, graphics);
+                            updategraphicsmode();
 
                             game.savestats();
                             game.createmenu("graphicoptions");
@@ -644,7 +644,7 @@ SDL_assert(0 && "Remove open level dir");
                             {
                                 game.fullscreen = true;
                             }
-                            updategraphicsmode(game, graphics);
+                            updategraphicsmode();
 
                             game.savestats();
                             game.createmenu("graphicoptions");
@@ -657,10 +657,10 @@ SDL_assert(0 && "Remove open level dir");
                             if (game.fullscreen)
                             {
                                 game.fullscreen = false;
-                                updategraphicsmode(game, graphics);
+                                updategraphicsmode();
                                 game.fullscreen = true;
                             }
-                            updategraphicsmode(game, graphics);
+                            updategraphicsmode();
 
                             game.savestats();
                             game.createmenu("graphicoptions");
