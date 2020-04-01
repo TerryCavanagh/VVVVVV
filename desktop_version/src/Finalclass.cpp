@@ -2,7 +2,7 @@
 
 #include "MakeAndPlay.h"
 
-std::vector<std::string> finalclass::loadlevel(int rx, int ry, Game& game, entityclass& obj)
+std::vector<std::string> finalclass::loadlevel(int rx, int ry)
 {
 	int t;
 

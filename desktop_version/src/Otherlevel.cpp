@@ -11,7 +11,7 @@ void otherlevelclass::addline(std::string t)
 	roomtext.push_back(text);
 }
 
-std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry , Game& game, entityclass& obj)
+std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry)
 {
 	int t;
 	roomtileset = 1;

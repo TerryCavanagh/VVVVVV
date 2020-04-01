@@ -27,7 +27,7 @@ public:
     };
 
     void addline(std::string t);
-    std::vector<std::string> loadlevel(int rx, int ry , Game& game, entityclass& obj);
+    std::vector<std::string> loadlevel(int rx, int ry);
 
     std::string roomname;
 
