@@ -12,8 +12,6 @@
 
 extern scriptclass script;
 
-Stage stage;
-Stage swfStage;
 int temp;
 
 int tr;
@@ -24,7 +22,6 @@ std::string tempstring;
 
 void updategraphicsmode()
 {
-    swfStage = stage;
 }
 
 void titlerender()
