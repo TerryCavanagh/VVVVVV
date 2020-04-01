@@ -268,7 +268,6 @@ void Game::init(void)
     hardestroomdeaths = 0;
     currentroomdeaths=0;
 
-    sfpsmode = false; //by default, play at 30 fps
     inertia = 1.1f;
     swnmode = false;
     swntimer = 0;
