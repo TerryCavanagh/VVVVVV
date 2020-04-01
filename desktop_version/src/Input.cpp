@@ -9,9 +9,6 @@
 
 extern scriptclass script;
 
-// Found in titlerender.cpp
-void updategraphicsmode();
-
 void updatebuttonmappings(int bind)
 {
 	for (
@@ -510,7 +507,6 @@ SDL_assert(0 && "Remove open level dir");
                     music.playef(11, 10);
                     graphics.screenbuffer->toggleFullScreen();
                     game.fullscreen = !game.fullscreen;
-                    updategraphicsmode();
                     game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 0;
@@ -518,7 +514,6 @@ SDL_assert(0 && "Remove open level dir");
                     music.playef(11, 10);
                     graphics.screenbuffer->toggleStretchMode();
                     game.stretchMode = (game.stretchMode + 1) % 3;
-                    updategraphicsmode();
                     game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 1;
@@ -526,7 +521,6 @@ SDL_assert(0 && "Remove open level dir");
                     music.playef(11, 10);
                     graphics.screenbuffer->toggleLinearFilter();
                     game.useLinearFilter = !game.useLinearFilter;
-                    updategraphicsmode();
                     game.savestats();
                     game.createmenu("graphicoptions");
                     game.currentmenuoption = 2;
@@ -535,7 +529,6 @@ SDL_assert(0 && "Remove open level dir");
                       music.playef(11, 10);
                       game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
                       //Hook the analogue thing in here: ABCDEFG
-                      updategraphicsmode();
 					  graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
                       game.savestats();
                       game.createmenu("graphicoptions");
