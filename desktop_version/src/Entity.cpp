@@ -5274,7 +5274,7 @@ void entityclass::entitycollisioncheck()
                                 if (graphics.flipmode)
                                 {
                                     if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
-                                                     colpoint1, 1, graphics.flipsprites[entities[j].drawframe], colpoint2, 1))
+                                                     colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
                                     {
                                         //Do the collision stuff
                                         game.deathseq = 30;
@@ -5283,7 +5283,7 @@ void entityclass::entitycollisioncheck()
                                 else
                                 {
                                     if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
-                                                     colpoint1, 1, graphics.sprites[entities[j].drawframe], colpoint2, 1) )
+                                                     colpoint1, graphics.sprites[entities[j].drawframe], colpoint2) )
                                     {
                                         //Do the collision stuff
                                         game.deathseq = 30;
@@ -5402,7 +5402,7 @@ void entityclass::entitycollisioncheck()
                                         if (graphics.flipmode)
                                         {
                                             if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
-                                                             colpoint1, 1, graphics.flipsprites[entities[j].drawframe], colpoint2, 1))
+                                                             colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
                                             {
                                                 //Do the collision stuff
                                                 game.deathseq = 30;
@@ -5412,7 +5412,7 @@ void entityclass::entitycollisioncheck()
                                         else
                                         {
                                             if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
-                                                             colpoint1, 1, graphics.sprites[entities[j].drawframe], colpoint2, 1))
+                                                             colpoint1, graphics.sprites[entities[j].drawframe], colpoint2))
                                             {
                                                 //Do the collision stuff
                                                 game.deathseq = 30;
