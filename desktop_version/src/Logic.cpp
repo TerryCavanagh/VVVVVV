@@ -116,7 +116,6 @@ void gamecompletelogic2()
         music.currentsong=4;
         game.savetele();
         music.currentsong=tmp;
-        game.telegotoship();
         //Return to game
         map.colstate = 10;
         game.gamestate = 1;
