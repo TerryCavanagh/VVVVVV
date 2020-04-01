@@ -274,8 +274,6 @@ int main(int argc, char *argv[])
 
     while(!key.quitProgram)
     {
-		//gameScreen.ClearScreen(0x00);
-
         time = SDL_GetTicks();
 
         // Update network per frame.
