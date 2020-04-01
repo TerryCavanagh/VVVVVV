@@ -5,7 +5,7 @@
 extern int temp;
 extern scriptclass script;
 
-void titlelogic( Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& help, musicclass& music, mapclass& map)
+void titlelogic()
 {
     //Misc
     //map.updatetowerglow();
@@ -38,19 +38,19 @@ void titlelogic( Graphics& dwgfx, Game& game, entityclass& obj, UtilityClass& he
     }
 }
 
-void maplogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help)
+void maplogic()
 {
     //Misc
     help.updateglow();
 }
 
 
-void gamecompletelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help)
+void gamecompletelogic()
 {
     //Misc
     map.updatetowerglow();
     help.updateglow();
-    dwgfx.crewframe = 0;
+    graphics.crewframe = 0;
 
     map.tdrawback = true;
 
@@ -66,18 +66,18 @@ void gamecompletelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclas
         map.bscroll = +1;
     }
 
-    if (dwgfx.fademode == 1)
+    if (graphics.fademode == 1)
     {
         //Fix some graphical things
-        dwgfx.showcutscenebars = false;
-        dwgfx.cutscenebarspos = 0;
+        graphics.showcutscenebars = false;
+        graphics.cutscenebarspos = 0;
         //Return to game
         game.gamestate = 7;
-        dwgfx.fademode = 4;
+        graphics.fademode = 4;
     }
 }
 
-void gamecompletelogic2(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help)
+void gamecompletelogic2()
 {
     //Misc
     map.updatetowerglow();
@@ -105,11 +105,11 @@ void gamecompletelogic2(Graphics& dwgfx, Game& game, entityclass& obj,  musiccla
     }
     */
 
-    if (dwgfx.fademode == 1)
+    if (graphics.fademode == 1)
     {
         //Fix some graphical things
-        dwgfx.showcutscenebars = false;
-        dwgfx.cutscenebarspos = 0;
+        graphics.showcutscenebars = false;
+        graphics.cutscenebarspos = 0;
         //Fix the save thingy
         game.deletequick();
         int tmp=music.currentsong;
@@ -120,7 +120,7 @@ void gamecompletelogic2(Graphics& dwgfx, Game& game, entityclass& obj,  musiccla
         //Return to game
         map.colstate = 10;
         game.gamestate = 1;
-        dwgfx.fademode = 4;
+        graphics.fademode = 4;
         music.playef(18, 10);
         game.createmenu("gamecompletecontinue");
         map.nexttowercolour();
@@ -128,7 +128,7 @@ void gamecompletelogic2(Graphics& dwgfx, Game& game, entityclass& obj,  musiccla
 }
 
 
-void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help)
+void towerlogic()
 {
     //Logic for the tower level
     map.updatetowerglow();
@@ -277,8 +277,8 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
                 game.deathseq = 1;
                 game.gethardestroom();
                 //start depressing sequence here...
-                if (game.gameoverdelay <= -10 && dwgfx.fademode==0) dwgfx.fademode = 2;
-                if (dwgfx.fademode == 1) script.resetgametomenu();
+                if (game.gameoverdelay <= -10 && graphics.fademode==0) graphics.fademode = 2;
+                if (graphics.fademode == 1) script.resetgametomenu();
             }
             else
             {
@@ -289,7 +289,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
                 }
 
                 game.gravitycontrol = game.savegc;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
                 map.resetplayer();
             }
         }
@@ -376,7 +376,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
             obj.entitycollisioncheck();         // Check ent v ent collisions, update states
             //special for tower: is the player touching any spike blocks?
             int player = obj.getplayer();
-            if(obj.checktowerspikes(player) && dwgfx.fademode==0)
+            if(obj.checktowerspikes(player) && graphics.fademode==0)
             {
                 game.deathseq = 30;
             }
@@ -526,7 +526,7 @@ void towerlogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& musi
     if (game.teleport_to_new_area) script.teleport();
 }
 
-void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music, mapclass& map, UtilityClass& help)
+void gamelogic()
 {
     //Misc
     help.updateglow();
@@ -656,8 +656,8 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 game.deathseq = 1;
                 game.gethardestroom();
                 //start depressing sequence here...
-                if (game.gameoverdelay <= -10 && dwgfx.fademode==0) dwgfx.fademode = 2;
-                if (dwgfx.fademode == 1) script.resetgametomenu();
+                if (game.gameoverdelay <= -10 && graphics.fademode==0) graphics.fademode = 2;
+                if (graphics.fademode == 1) script.resetgametomenu();
             }
             else
             {
@@ -677,7 +677,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
 
 
                 game.gravitycontrol = game.savegc;
-                dwgfx.textboxremove();
+                graphics.textboxremove();
                 map.resetplayer();
             }
         }
@@ -832,7 +832,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 {
                     game.swncolstate = (game.swncolstate+1)%6;
                     game.swncoldelay = 30;
-                    dwgfx.rcol = game.swncolstate;
+                    graphics.rcol = game.swncolstate;
                     obj.swnenemiescol(game.swncolstate);
                 }
             }
@@ -1422,7 +1422,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 {
                     if (obj.flags[59] == 0)
                     {
-                        obj.createentity(225.0f, 169.0f, 18, dwgfx.crewcolour(game.lastsaved), 0, 10);
+                        obj.createentity(225.0f, 169.0f, 18, graphics.crewcolour(game.lastsaved), 0, 10);
                         j = obj.getcompanion(10);
                         obj.entities[j].vx = obj.entities[i].vx;
                         obj.entities[j].dir = obj.entities[i].dir;
@@ -1432,7 +1432,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 {
                     if (obj.flags[59] == 1)
                     {
-                        obj.createentity(160.0f, 177.0f, 18, dwgfx.crewcolour(game.lastsaved), 0, 18, 1);
+                        obj.createentity(160.0f, 177.0f, 18, graphics.crewcolour(game.lastsaved), 0, 18, 1);
                         j = obj.getcompanion(10);
                         obj.entities[j].vx = obj.entities[i].vx;
                         obj.entities[j].dir = obj.entities[i].dir;
@@ -1440,7 +1440,7 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                     else
                     {
                         obj.flags[59] = 1;
-                        obj.createentity(obj.entities[i].xp, -20.0f, 18.0f, dwgfx.crewcolour(game.lastsaved), 0, 10, 0);
+                        obj.createentity(obj.entities[i].xp, -20.0f, 18.0f, graphics.crewcolour(game.lastsaved), 0, 10, 0);
                         j = obj.getcompanion(10);
                         obj.entities[j].vx = obj.entities[i].vx;
                         obj.entities[j].dir = obj.entities[i].dir;
@@ -1449,60 +1449,60 @@ void gamelogic(Graphics& dwgfx, Game& game, entityclass& obj,  musicclass& music
                 break;
             case 11:
                 //Intermission 1: We're using the SuperCrewMate instead!
-                //obj.createentity(obj.entities[i].xp, obj.entities[i].yp, 24, dwgfx.crewcolour(game.lastsaved));
+                //obj.createentity(obj.entities[i].xp, obj.entities[i].yp, 24, graphics.crewcolour(game.lastsaved));
                 if(game.roomx-41==game.scmprogress)
                 {
                     switch(game.scmprogress)
                     {
                     case 0:
-                        obj.createentity(76, 161, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(76, 161, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 1:
-                        obj.createentity(10, 169, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 169, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 2:
-                        obj.createentity(10, 177, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 177, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 3:
                         if (game.scmmoveme)
                         {
-                            obj.createentity(obj.entities[obj.getplayer()].xp, 185, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                            obj.createentity(obj.entities[obj.getplayer()].xp, 185, 24, graphics.crewcolour(game.lastsaved), 2);
                             game.scmmoveme = false;
                         }
                         else
                         {
-                            obj.createentity(10, 177, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                            obj.createentity(10, 177, 24, graphics.crewcolour(game.lastsaved), 2);
                         }
                         break;
                     case 4:
-                        obj.createentity(10, 185, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 185, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 5:
-                        obj.createentity(10, 185, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 185, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 6:
-                        obj.createentity(10, 185, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 185, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 7:
-                        obj.createentity(10, 41, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 41, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 8:
-                        obj.createentity(10, 169, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 169, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 9:
-                        obj.createentity(10, 169, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 169, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 10:
-                        obj.createentity(10, 129, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 129, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 11:
-                        obj.createentity(10, 129, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 129, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 12:
-                        obj.createentity(10, 65, 24, dwgfx.crewcolour(game.lastsaved), 2);
+                        obj.createentity(10, 65, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 13:
-                        obj.createentity(10, 177, 24, dwgfx.crewcolour(game.lastsaved));
+                        obj.createentity(10, 177, 24, graphics.crewcolour(game.lastsaved));
                         break;
                     }
                 }
