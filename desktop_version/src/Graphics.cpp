@@ -556,7 +556,7 @@ void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
 }
 
-void Graphics::drawtile( int x, int y, int t, int r, int g,  int b )
+void Graphics::drawtile( int x, int y, int t )
 {
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
     BlitSurfaceStandard(tiles[t], NULL, backBuffer, &rect);
@@ -3196,13 +3196,6 @@ Uint32 Graphics::RGBf(int r, int g, int b)
 void Graphics::setcolreal(Uint32 t)
 {
 	ct.colour = t;
-}
-
-void Graphics::drawtile(int x, int y, int t)
-{
-	SDL_Rect drawRect;
-	setRect(drawRect,x,y, tiles_rect.w, tiles_rect.h  );
-	BlitSurfaceStandard(tiles[t] ,NULL, backBuffer,&drawRect);
 }
 
 void Graphics::drawforetile(int x, int y, int t)
