@@ -762,7 +762,7 @@ void gamelogic()
                     game.swnrank = 1;
                     if (game.swnbestrank < 1)
                     {
-												NETWORK_unlockAchievement("vvvvvvsupgrav5");
+                        NETWORK_unlockAchievement("vvvvvvsupgrav5");
                         game.swnbestrank = 1;
                         game.swnmessage = 2+30;
                         music.playef(26);
@@ -773,7 +773,7 @@ void gamelogic()
                     game.swnrank = 2;
                     if (game.swnbestrank < 2)
                     {
-												NETWORK_unlockAchievement("vvvvvvsupgrav10");
+                        NETWORK_unlockAchievement("vvvvvvsupgrav10");
                         game.swnbestrank = 2;
                         game.swnmessage = 2+30;
                         music.playef(26);
@@ -784,7 +784,7 @@ void gamelogic()
                     game.swnrank = 3;
                     if (game.swnbestrank < 3)
                     {
-												NETWORK_unlockAchievement("vvvvvvsupgrav15");
+                        NETWORK_unlockAchievement("vvvvvvsupgrav15");
                         game.swnbestrank = 3;
                         game.swnmessage = 2+30;
                         music.playef(26);
@@ -795,7 +795,7 @@ void gamelogic()
                     game.swnrank = 4;
                     if (game.swnbestrank < 4)
                     {
-												NETWORK_unlockAchievement("vvvvvvsupgrav20");
+                        NETWORK_unlockAchievement("vvvvvvsupgrav20");
                         game.swnbestrank = 4;
                         game.swnmessage = 2+30;
                         music.playef(26);
@@ -806,7 +806,7 @@ void gamelogic()
                     game.swnrank = 5;
                     if (game.swnbestrank < 5)
                     {
-												NETWORK_unlockAchievement("vvvvvvsupgrav30");
+                        NETWORK_unlockAchievement("vvvvvvsupgrav30");
                         game.swnbestrank = 5;
                         game.swnmessage = 2+30;
                         music.playef(26);
@@ -817,7 +817,7 @@ void gamelogic()
                     game.swnrank = 6;
                     if (game.swnbestrank < 6)
                     {
-												NETWORK_unlockAchievement("vvvvvvsupgrav60");
+                        NETWORK_unlockAchievement("vvvvvvsupgrav60");
                         game.swnbestrank = 6;
                         game.swnmessage = 2+30;
                         music.playef(26);
@@ -1037,24 +1037,24 @@ void gamelogic()
         obj.cleanup();
 
         //Using warplines?
-				if (obj.customwarpmode) {
-					//Rewritten system for mobile update: basically, the new logic is to
-					//check if the player is leaving the map, and if so do a special check against
-					//warp lines for collision
-					obj.customwarpmodehon = false;
-					obj.customwarpmodevon = false;
+        if (obj.customwarpmode) {
+            //Rewritten system for mobile update: basically, the new logic is to
+            //check if the player is leaving the map, and if so do a special check against
+            //warp lines for collision
+            obj.customwarpmodehon = false;
+            obj.customwarpmodevon = false;
 
-					int i = obj.getplayer();
-					if ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16)){
-						//Player is leaving room
-						obj.customwarplinecheck(i);
-					}
+            int i = obj.getplayer();
+            if ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16)){
+            //Player is leaving room
+            obj.customwarplinecheck(i);
+        }
 
-					if(obj.customwarpmodehon){ map.warpy=true;
-					}else{ map.warpy=false; }
-					if(obj.customwarpmodevon){ map.warpx=true;
-					}else{ map.warpx=false; }
-				}
+        if(obj.customwarpmodehon){ map.warpy=true;
+        }else{ map.warpy=false; }
+        if(obj.customwarpmodevon){ map.warpx=true;
+        }else{ map.warpx=false; }
+        }
 
         //Finally: Are we changing room?
         if (map.warpx && map.warpy)
