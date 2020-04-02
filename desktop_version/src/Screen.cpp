@@ -19,18 +19,18 @@ extern "C"
 
 Screen::Screen()
 {
-    m_window = NULL;
-    m_renderer = NULL;
-    m_screenTexture = NULL;
-    m_screen = NULL;
-    isWindowed = true;
-    stretchMode = 0;
-    isFiltered = false;
-    filterSubrect.x = 1;
-    filterSubrect.y = 1;
-    filterSubrect.w = 318;
-    filterSubrect.h = 238;
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+	m_window = NULL;
+	m_renderer = NULL;
+	m_screenTexture = NULL;
+	m_screen = NULL;
+	isWindowed = true;
+	stretchMode = 0;
+	isFiltered = false;
+	filterSubrect.x = 1;
+	filterSubrect.y = 1;
+	filterSubrect.w = 318;
+	filterSubrect.h = 238;
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
 	// Uncomment this next line when you need to debug -flibit
 	// SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
@@ -84,9 +84,9 @@ Screen::Screen()
 		240
 	);
 
-    badSignalEffect = false;
+	badSignalEffect = false;
 
-    glScreen = true;
+	glScreen = true;
 }
 
 void Screen::ResizeScreen(int x, int y)
@@ -160,30 +160,30 @@ void Screen::GetWindowSize(int* x, int* y)
 
 void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect )
 {
-    if((buffer == NULL) && (m_screen == NULL) )
-    {
-        return;
-    }
+	if((buffer == NULL) && (m_screen == NULL) )
+	{
+		return;
+	}
 
-    if(badSignalEffect)
-    {
-        buffer = ApplyFilter(buffer);
-    }
+	if(badSignalEffect)
+	{
+		buffer = ApplyFilter(buffer);
+	}
 
 
-    FillRect(m_screen, 0x000);
-    BlitSurfaceStandard(buffer,NULL,m_screen,rect);
+	FillRect(m_screen, 0x000);
+	BlitSurfaceStandard(buffer,NULL,m_screen,rect);
 
-    if(badSignalEffect)
-    {
-        SDL_FreeSurface(buffer);
-    }
+	if(badSignalEffect)
+	{
+		SDL_FreeSurface(buffer);
+	}
 
 }
 
 const SDL_PixelFormat* Screen::GetFormat()
 {
-    return m_screen->format;
+	return m_screen->format;
 }
 
 void Screen::FlipScreen()
