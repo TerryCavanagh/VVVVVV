@@ -220,7 +220,7 @@ void musicclass::init()
 
 void musicclass::play(int t)
 {
-  t = (t % 16);
+	t = (t % 16);
 
 	if(mmmmmm)
 	{
