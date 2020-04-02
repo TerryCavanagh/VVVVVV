@@ -18,8 +18,6 @@ int tr;
 int tg;
 int tb;
 
-std::string tempstring;
-
 void titlerender()
 {
 
@@ -660,6 +658,7 @@ void titlerender()
             {
                 graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.crewstats[i], true);
             }
+            std::string tempstring;
             tempstring = "You rescued " + help.number(game.crewrescued()) + " crewmates";
             graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
@@ -711,7 +710,7 @@ void titlerender()
             {
                 graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.crewstats[i], true);
             }
-            tempstring = "You rescued all the crewmates!";
+            std::string tempstring = "You rescued all the crewmates!";
             graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
             tempstring = "And you found " + help.number(game.trinkets) + " trinkets.";
@@ -726,7 +725,7 @@ void titlerender()
         {
             graphics.bigprint( -1, 20, "Results", tr, tg, tb, true, 3);
 
-            tempstring = game.resulttimestring() + " / " + game.partimestring();
+            std::string tempstring = game.resulttimestring() + " / " + game.partimestring();
 
             graphics.drawspritesetcol(30, 80-15, 50, 22);
             graphics.Print(65, 80-15, "TIME TAKEN:", 255, 255, 255);
@@ -1123,22 +1122,22 @@ void titlerender()
             graphics.Print( -1, 135, "the intermission levels.", tr, tg, tb, true);
         }else if (game.currentmenuname == "playerworlds")
         {
-            graphics.tempstring = FILESYSTEM_getUserLevelDirectory();
-            if(graphics.tempstring.length()>80){
+            std::string tempstring = FILESYSTEM_getUserLevelDirectory();
+            if(tempstring.length()>80){
                 graphics.Print( -1, 160, "To install new player levels, copy", tr, tg, tb, true);
                 graphics.Print( -1, 170, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-                graphics.Print( 320-((graphics.tempstring.length()-80)*8), 190, graphics.tempstring.substr(0,graphics.tempstring.length()-80), tr, tg, tb);
-                graphics.Print( 0, 200, graphics.tempstring.substr(graphics.tempstring.length()-80,40), tr, tg, tb);
-                graphics.Print( 0, 210, graphics.tempstring.substr(graphics.tempstring.length()-40,40), tr, tg, tb);
-            }else if(graphics.tempstring.length()>40){
+                graphics.Print( 320-((tempstring.length()-80)*8), 190, tempstring.substr(0,tempstring.length()-80), tr, tg, tb);
+                graphics.Print( 0, 200, tempstring.substr(tempstring.length()-80,40), tr, tg, tb);
+                graphics.Print( 0, 210, tempstring.substr(tempstring.length()-40,40), tr, tg, tb);
+            }else if(tempstring.length()>40){
                 graphics.Print( -1, 170, "To install new player levels, copy", tr, tg, tb, true);
                 graphics.Print( -1, 180, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-                graphics.Print( 320-((graphics.tempstring.length()-40)*8), 200, graphics.tempstring.substr(0,graphics.tempstring.length()-40), tr, tg, tb);
-                graphics.Print( 0, 210, graphics.tempstring.substr(graphics.tempstring.length()-40,40), tr, tg, tb);
+                graphics.Print( 320-((tempstring.length()-40)*8), 200, tempstring.substr(0,tempstring.length()-40), tr, tg, tb);
+                graphics.Print( 0, 210, tempstring.substr(tempstring.length()-40,40), tr, tg, tb);
             }else{
                 graphics.Print( -1, 180, "To install new player levels, copy", tr, tg, tb, true);
                 graphics.Print( -1, 190, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-                graphics.Print( 320-(graphics.tempstring.length()*8), 210, graphics.tempstring, tr, tg, tb);
+                graphics.Print( 320-(tempstring.length()*8), 210, tempstring, tr, tg, tb);
             }
         }
 
@@ -1581,14 +1580,14 @@ void gamerender()
     {
         if (game.swngame == 0)
         {
-            tempstring = help.timestring(game.swntimer);
+            std::string tempstring = help.timestring(game.swntimer);
             graphics.bigprint( -1, 20, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
         }
         else if (game.swngame == 1)
         {
             if (game.swnmessage == 0)
             {
-                tempstring = help.timestring(game.swntimer);
+                std::string tempstring = help.timestring(game.swntimer);
                 graphics.Print( 10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
@@ -1622,7 +1621,7 @@ void gamerender()
             }
             else if (game.swnmessage == 1)
             {
-                tempstring = help.timestring(game.swntimer);
+                std::string tempstring = help.timestring(game.swntimer);
                 graphics.Print( 10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
@@ -1638,7 +1637,7 @@ void gamerender()
             {
                 game.swnmessage--;
                 if (game.swnmessage == 2) game.swnmessage = 0;
-                tempstring = help.timestring(game.swntimer);
+                std::string tempstring = help.timestring(game.swntimer);
                 graphics.Print( 10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
@@ -1675,7 +1674,7 @@ void gamerender()
             {
                 graphics.bigprint( -1, 20, "SUPER GRAVITRON", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
 
-                tempstring = help.timestring(game.swnrecord);
+                std::string tempstring = help.timestring(game.swnrecord);
                 graphics.Print( 240, 190, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                 graphics.bigrprint( 300, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
             }
@@ -2165,7 +2164,7 @@ void maprender()
             {
                 graphics.Print(0, 174, "SUPER GRAVITRON HIGHSCORE", 196, 196, 255 - help.glow, true);
 
-                tempstring = help.timestring(game.swnrecord);
+                std::string tempstring = help.timestring(game.swnrecord);
                 graphics.Print( 240, 124, "Best Time", 196, 196, 255 - help.glow, true);
                 graphics.bigrprint( 300, 94, tempstring, 196, 196, 255 - help.glow, true, 2);
 
@@ -2198,7 +2197,7 @@ void maprender()
             {
                 graphics.Print(0, 40, "SUPER GRAVITRON HIGHSCORE", 196, 196, 255 - help.glow, true);
 
-                tempstring = help.timestring(game.swnrecord);
+                std::string tempstring = help.timestring(game.swnrecord);
                 graphics.Print( 240, 90, "Best Time", 196, 196, 255 - help.glow, true);
                 graphics.bigrprint( 300, 104, tempstring, 196, 196, 255 - help.glow, true, 2);
 

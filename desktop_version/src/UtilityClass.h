@@ -39,7 +39,6 @@ public:
     int globaltemp;
     int temp;
     int temp2;
-    std::string tempstring;
     std::vector<int> splitseconds;
 };
 

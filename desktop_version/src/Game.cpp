@@ -2373,7 +2373,7 @@ void Game::updatestate()
             temp = 6 - crewrescued();
             if (temp == 1)
             {
-                tempstring = "  One remains  ";
+                std::string tempstring = "  One remains  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2385,7 +2385,7 @@ void Game::updatestate()
             }
             else if (temp > 0)
             {
-                tempstring = "  " + help.number(temp) + " remain  ";
+                std::string tempstring = "  " + help.number(temp) + " remain  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2488,7 +2488,7 @@ void Game::updatestate()
             temp = 6 - crewrescued();
             if (temp == 1)
             {
-                tempstring = "  One remains  ";
+                std::string tempstring = "  One remains  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2500,7 +2500,7 @@ void Game::updatestate()
             }
             else if (temp > 0)
             {
-                tempstring = "  " + help.number(temp) + " remain  ";
+                std::string tempstring = "  " + help.number(temp) + " remain  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2602,7 +2602,7 @@ void Game::updatestate()
             temp = 6 - crewrescued();
             if (temp == 1)
             {
-                tempstring = "  One remains  ";
+                std::string tempstring = "  One remains  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2614,7 +2614,7 @@ void Game::updatestate()
             }
             else if (temp > 0)
             {
-                tempstring = "  " + help.number(temp) + " remain  ";
+                std::string tempstring = "  " + help.number(temp) + " remain  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2717,7 +2717,7 @@ void Game::updatestate()
             temp = 6 - crewrescued();
             if (temp == 1)
             {
-                tempstring = "  One remains  ";
+                std::string tempstring = "  One remains  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2729,7 +2729,7 @@ void Game::updatestate()
             }
             else if (temp > 0)
             {
-                tempstring = "  " + help.number(temp) + " remain  ";
+                std::string tempstring = "  " + help.number(temp) + " remain  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2850,7 +2850,7 @@ void Game::updatestate()
             temp = 6 - crewrescued();
             if (temp == 1)
             {
-                tempstring = "  One remains  ";
+                std::string tempstring = "  One remains  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -2862,7 +2862,7 @@ void Game::updatestate()
             }
             else if (temp > 0)
             {
-                tempstring = "  " + help.number(temp) + " remain  ";
+                std::string tempstring = "  " + help.number(temp) + " remain  ";
                 if (graphics.flipmode)
                 {
                     graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
@@ -3127,10 +3127,11 @@ void Game::updatestate()
             savetime = timestring();
             break;
         case 3503:
+        {
             state++;
             statedelay = 45;
 
-            tempstring = help.number(trinkets);
+            std::string tempstring = help.number(trinkets);
             if (graphics.flipmode)
             {
                 graphics.createtextbox("Trinkets Found:", 48, 155-24, 0,0,0);
@@ -3142,11 +3143,13 @@ void Game::updatestate()
                 graphics.createtextbox(tempstring, 180, 84, 0, 0, 0);
             }
             break;
+        }
         case 3504:
+        {
             state++;
             statedelay = 45+15;
 
-            tempstring = savetime;
+            std::string tempstring = savetime;
             if (graphics.flipmode)
             {
                 graphics.createtextbox("   Game Time:", 64, 143-24, 0,0,0);
@@ -3158,6 +3161,7 @@ void Game::updatestate()
                 graphics.createtextbox(tempstring, 180, 96, 0, 0, 0);
             }
             break;
+        }
         case 3505:
             state++;
             statedelay = 45;
@@ -3189,22 +3193,24 @@ void Game::updatestate()
             }
             break;
         case 3507:
+        {
             state++;
             statedelay = 45+15;
 
             if (graphics.flipmode)
             {
-                tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
+                std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
                 graphics.createtextbox(tempstring, -1, 81-24, 0,0,0);
                 graphics.createtextbox(hardestroom, -1, 69-24, 0, 0, 0);
             }
             else
             {
-                tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
+                std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
                 graphics.createtextbox(tempstring, -1, 158, 0,0,0);
                 graphics.createtextbox(hardestroom, -1, 170, 0, 0, 0);
             }
             break;
+        }
         case 3508:
             state++;
             statedelay = 0;
@@ -6683,7 +6689,7 @@ teststring = os.str();
 
 std::string Game::giventimestring( int hrs, int min, int sec )
 {
-    tempstring = "";
+    std::string tempstring = "";
     if (hrs > 0)
     {
         tempstring += help.String(hrs) + ":";
@@ -6694,7 +6700,7 @@ std::string Game::giventimestring( int hrs, int min, int sec )
 
 std::string Game::timestring()
 {
-    tempstring = "";
+    std::string tempstring = "";
     if (hours > 0)
     {
         tempstring += help.String(hours) + ":";
@@ -6706,7 +6712,7 @@ std::string Game::timestring()
 std::string Game::partimestring()
 {
     //given par time in seconds:
-    tempstring = "";
+    std::string tempstring = "";
     if (timetrialpar >= 60)
     {
         tempstring = help.twodigits(int((timetrialpar - (timetrialpar % 60)) / 60)) + ":" + help.twodigits(timetrialpar % 60);
@@ -6721,7 +6727,7 @@ std::string Game::partimestring()
 std::string Game::resulttimestring()
 {
     //given result time in seconds:
-    tempstring = "";
+    std::string tempstring = "";
     if (timetrialresulttime > 60)
     {
         tempstring = help.twodigits(int((timetrialresulttime - (timetrialresulttime % 60)) / 60)) + ":"
@@ -6737,7 +6743,7 @@ std::string Game::resulttimestring()
 std::string Game::timetstring( int t )
 {
     //given par time in seconds:
-    tempstring = "";
+    std::string tempstring = "";
     if (t >= 60)
     {
         tempstring = help.twodigits(int((t - (t % 60)) / 60)) + ":" + help.twodigits(t % 60);
