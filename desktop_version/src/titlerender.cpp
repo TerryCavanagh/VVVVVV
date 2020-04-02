@@ -38,9 +38,9 @@ void titlerender()
         graphics.drawsprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
-				#if defined(MAKEANDPLAY)
-					graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
-				#endif
+#if defined(MAKEANDPLAY)
+        graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
+#endif
 
         graphics.Print(5, 175, "[ Press ACTION to Start ]", tr, tg, tb, true);
         graphics.Print(5, 195, "ACTION = Space, Z, or V", int(tr*0.5f), int(tg*0.5f), int(tb*0.5f), true);
@@ -76,16 +76,16 @@ void titlerender()
             graphics.drawsprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
             graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
             graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
-						#if defined(MAKEANDPLAY)
-							graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
-						#endif
+#if defined(MAKEANDPLAY)
+            graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
+#endif
             graphics.Print( 310 - (4*8), 230, "v2.2", tr/2, tg/2, tb/2);
 
-						if(music.mmmmmm){
-						  graphics.Print( 10, 230, "[MMMMMM Mod Installed]", tr/2, tg/2, tb/2);
-						}
+            if(music.mmmmmm){
+                graphics.Print( 10, 230, "[MMMMMM Mod Installed]", tr/2, tg/2, tb/2);
+            }
         }
-    #if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS)
         else if (game.currentmenuname == "levellist")
         {
           if(ed.ListOfMetaData.size()==0){
@@ -106,7 +106,7 @@ void titlerender()
             }
           }
         }
-    #endif
+#endif
         else if (game.currentmenuname == "errornostart")
         {
           graphics.Print( -1, 65, "ERROR: This level has", tr, tg, tb, true);
@@ -115,72 +115,72 @@ void titlerender()
         else if (game.currentmenuname == "options")
         {
 
-						#if defined(MAKEANDPLAY)
-							if (game.currentmenuoption == 0)
-							{
-									graphics.bigprint( -1, 30, "Accessibility", tr, tg, tb, true);
-									graphics.Print( -1, 65, "Disable screen effects, enable", tr, tg, tb, true);
-									graphics.Print( -1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
-							}
-							else if (game.currentmenuoption == 1)
-							{
-								graphics.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
-								graphics.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
-								graphics.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
-							}
-							else if (game.currentmenuoption == 2)
-							{
-									graphics.bigprint( -1, 30, "Clear Data", tr, tg, tb, true);
-									graphics.Print( -1, 65, "Delete your save data", tr, tg, tb, true);
-									graphics.Print( -1, 75, "and unlocked play modes", tr, tg, tb, true);
-							}else if (game.currentmenuoption == 3){
-								if(music.mmmmmm){
-									graphics.bigprint( -1, 30, "Soundtrack", tr, tg, tb, true);
-									graphics.Print( -1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
-									if(music.usingmmmmmm){
-										graphics.Print( -1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
-									}else{
-										graphics.Print( -1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
-									}
-								}
-							}
-						#elif !defined(MAKEANDPLAY)
-							if (game.currentmenuoption == 0)
-							{
-									graphics.bigprint( -1, 30, "Accessibility", tr, tg, tb, true);
-									graphics.Print( -1, 65, "Disable screen effects, enable", tr, tg, tb, true);
-									graphics.Print( -1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
-							}
-							else if (game.currentmenuoption == 1)
-							{
-									graphics.bigprint( -1, 30, "Unlock Play Modes", tr, tg, tb, true);
-									graphics.Print( -1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
-									graphics.Print( -1, 75, "unlocked as you progress", tr, tg, tb, true);
-							}
-							else if (game.currentmenuoption == 2)
-							{
-								graphics.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
-								graphics.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
-								graphics.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
-							}
-							else if (game.currentmenuoption == 3)
-							{
-									graphics.bigprint( -1, 30, "Clear Data", tr, tg, tb, true);
-									graphics.Print( -1, 65, "Delete your save data", tr, tg, tb, true);
-									graphics.Print( -1, 75, "and unlocked play modes", tr, tg, tb, true);
-							}else if (game.currentmenuoption == 4)
-							{
-							if(music.mmmmmm){
-									graphics.bigprint( -1, 30, "Soundtrack", tr, tg, tb, true);
-									graphics.Print( -1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
-									if(music.usingmmmmmm){
-										graphics.Print( -1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
-									}else{
-										graphics.Print( -1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
-									}
-							}
-							}
-						#endif
+#if defined(MAKEANDPLAY)
+            if (game.currentmenuoption == 0)
+            {
+                graphics.bigprint( -1, 30, "Accessibility", tr, tg, tb, true);
+                graphics.Print( -1, 65, "Disable screen effects, enable", tr, tg, tb, true);
+                graphics.Print( -1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
+            }
+            else if (game.currentmenuoption == 1)
+            {
+                graphics.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
+                graphics.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
+                graphics.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
+            }
+            else if (game.currentmenuoption == 2)
+            {
+                graphics.bigprint( -1, 30, "Clear Data", tr, tg, tb, true);
+                graphics.Print( -1, 65, "Delete your save data", tr, tg, tb, true);
+                graphics.Print( -1, 75, "and unlocked play modes", tr, tg, tb, true);
+            }else if (game.currentmenuoption == 3){
+                if(music.mmmmmm){
+                    graphics.bigprint( -1, 30, "Soundtrack", tr, tg, tb, true);
+                    graphics.Print( -1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
+                    if(music.usingmmmmmm){
+                        graphics.Print( -1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
+                    }else{
+                        graphics.Print( -1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
+                    }
+                }
+            }
+#elif !defined(MAKEANDPLAY)
+            if (game.currentmenuoption == 0)
+            {
+                graphics.bigprint( -1, 30, "Accessibility", tr, tg, tb, true);
+                graphics.Print( -1, 65, "Disable screen effects, enable", tr, tg, tb, true);
+                graphics.Print( -1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
+            }
+            else if (game.currentmenuoption == 1)
+            {
+                graphics.bigprint( -1, 30, "Unlock Play Modes", tr, tg, tb, true);
+                graphics.Print( -1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
+                graphics.Print( -1, 75, "unlocked as you progress", tr, tg, tb, true);
+            }
+            else if (game.currentmenuoption == 2)
+            {
+                graphics.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
+                graphics.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
+                graphics.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
+            }
+            else if (game.currentmenuoption == 3)
+            {
+                graphics.bigprint( -1, 30, "Clear Data", tr, tg, tb, true);
+                graphics.Print( -1, 65, "Delete your save data", tr, tg, tb, true);
+                graphics.Print( -1, 75, "and unlocked play modes", tr, tg, tb, true);
+            }else if (game.currentmenuoption == 4)
+            {
+                if(music.mmmmmm){
+                    graphics.bigprint( -1, 30, "Soundtrack", tr, tg, tb, true);
+                    graphics.Print( -1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
+                    if(music.usingmmmmmm){
+                        graphics.Print( -1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
+                    }else{
+                        graphics.Print( -1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
+                    }
+                }
+            }
+#endif
         }
         else if (game.currentmenuname == "graphicoptions")
         {
@@ -259,7 +259,7 @@ void titlerender()
             //graphics.Print( 40, 80, "http://www.distractionware.com", tr, tg, tb);
             graphics.Print( -1, 110, "C++ version by", tr, tg, tb, true);
             graphics.bigprint( 40, 125, "Simon Roth", tr, tg, tb, true);
-						graphics.bigprint( 40, 145, "Ethan Lee", tr, tg, tb, true);
+            graphics.bigprint( 40, 145, "Ethan Lee", tr, tg, tb, true);
            //graphics.drawimagecol(11, -1, 156, tr*0.75, tg *0.75, tb *0.75, true);
         }
         else if (game.currentmenuname == "credits25")
@@ -392,47 +392,47 @@ void titlerender()
             graphics.Print( -1, 100, "Would you like to disable the", tr, tg, tb, true);
             graphics.Print( -1, 112, "cutscenes during the game?", tr, tg, tb, true);
         }
-		else if (game.currentmenuname == "controller")
-		{
-			graphics.bigprint( -1, 30, "Game Pad", tr, tg, tb, true);
-			graphics.Print( -1, 55, "Change controller options.", tr, tg, tb, true);
-			if (game.currentmenuoption == 0)
-			{
-				switch(game.controllerSensitivity)
-				{
-				case 0:
-					graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-					graphics.Print( -1, 95, "[]..................", tr, tg, tb, true);
-					break;
-				case 1:
-					graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-					graphics.Print( -1, 95, ".....[].............", tr, tg, tb, true);
-					break;
-				case 2:
-					graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-					graphics.Print( -1, 95, ".........[].........", tr, tg, tb, true);
-					break;
-				case 3:
-					graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-					graphics.Print( -1, 95, ".............[].....", tr, tg, tb, true);
-					break;
-				case 4:
-					graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-					graphics.Print( -1, 95, "..................[]", tr, tg, tb, true);
-					break;
-				}
-			}
-			if (    game.currentmenuoption == 1 ||
+        else if (game.currentmenuname == "controller")
+        {
+            graphics.bigprint( -1, 30, "Game Pad", tr, tg, tb, true);
+            graphics.Print( -1, 55, "Change controller options.", tr, tg, tb, true);
+            if (game.currentmenuoption == 0)
+            {
+                switch(game.controllerSensitivity)
+                {
+                case 0:
+                    graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
+                    graphics.Print( -1, 95, "[]..................", tr, tg, tb, true);
+                    break;
+                case 1:
+                    graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
+                    graphics.Print( -1, 95, ".....[].............", tr, tg, tb, true);
+                    break;
+                case 2:
+                    graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
+                    graphics.Print( -1, 95, ".........[].........", tr, tg, tb, true);
+                    break;
+                case 3:
+                    graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
+                    graphics.Print( -1, 95, ".............[].....", tr, tg, tb, true);
+                    break;
+                case 4:
+                    graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
+                    graphics.Print( -1, 95, "..................[]", tr, tg, tb, true);
+                    break;
+                }
+            }
+            if (    game.currentmenuoption == 1 ||
                                 game.currentmenuoption == 2 ||
                                 game.currentmenuoption == 3     )
-			{
-				graphics.Print( -1, 85, "Flip is bound to: " + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
-				graphics.Print( -1, 95, "Enter is bound to: "  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
-				graphics.Print( -1, 105, "Menu is bound to: " + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
-			}
+            {
+                graphics.Print( -1, 85, "Flip is bound to: " + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
+                graphics.Print( -1, 95, "Enter is bound to: "  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
+                graphics.Print( -1, 105, "Menu is bound to: " + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
+            }
 
 
-		}
+        }
         else if (game.currentmenuname == "accessibility")
         {
             if (game.currentmenuoption == 0)
@@ -1123,46 +1123,46 @@ void titlerender()
             graphics.Print( -1, 135, "the intermission levels.", tr, tg, tb, true);
         }else if (game.currentmenuname == "playerworlds")
         {
-						graphics.tempstring = FILESYSTEM_getUserLevelDirectory();
-						if(graphics.tempstring.length()>80){
-							graphics.Print( -1, 160, "To install new player levels, copy", tr, tg, tb, true);
-							graphics.Print( -1, 170, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-							graphics.Print( 320-((graphics.tempstring.length()-80)*8), 190, graphics.tempstring.substr(0,graphics.tempstring.length()-80), tr, tg, tb);
-							graphics.Print( 0, 200, graphics.tempstring.substr(graphics.tempstring.length()-80,40), tr, tg, tb);
-							graphics.Print( 0, 210, graphics.tempstring.substr(graphics.tempstring.length()-40,40), tr, tg, tb);
-						}else if(graphics.tempstring.length()>40){
-							graphics.Print( -1, 170, "To install new player levels, copy", tr, tg, tb, true);
-							graphics.Print( -1, 180, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-							graphics.Print( 320-((graphics.tempstring.length()-40)*8), 200, graphics.tempstring.substr(0,graphics.tempstring.length()-40), tr, tg, tb);
-							graphics.Print( 0, 210, graphics.tempstring.substr(graphics.tempstring.length()-40,40), tr, tg, tb);
-						}else{
-							graphics.Print( -1, 180, "To install new player levels, copy", tr, tg, tb, true);
-							graphics.Print( -1, 190, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-							graphics.Print( 320-(graphics.tempstring.length()*8), 210, graphics.tempstring, tr, tg, tb);
-						}
+            graphics.tempstring = FILESYSTEM_getUserLevelDirectory();
+            if(graphics.tempstring.length()>80){
+                graphics.Print( -1, 160, "To install new player levels, copy", tr, tg, tb, true);
+                graphics.Print( -1, 170, "the .vvvvvv files to this folder:", tr, tg, tb, true);
+                graphics.Print( 320-((graphics.tempstring.length()-80)*8), 190, graphics.tempstring.substr(0,graphics.tempstring.length()-80), tr, tg, tb);
+                graphics.Print( 0, 200, graphics.tempstring.substr(graphics.tempstring.length()-80,40), tr, tg, tb);
+                graphics.Print( 0, 210, graphics.tempstring.substr(graphics.tempstring.length()-40,40), tr, tg, tb);
+            }else if(graphics.tempstring.length()>40){
+                graphics.Print( -1, 170, "To install new player levels, copy", tr, tg, tb, true);
+                graphics.Print( -1, 180, "the .vvvvvv files to this folder:", tr, tg, tb, true);
+                graphics.Print( 320-((graphics.tempstring.length()-40)*8), 200, graphics.tempstring.substr(0,graphics.tempstring.length()-40), tr, tg, tb);
+                graphics.Print( 0, 210, graphics.tempstring.substr(graphics.tempstring.length()-40,40), tr, tg, tb);
+            }else{
+                graphics.Print( -1, 180, "To install new player levels, copy", tr, tg, tb, true);
+                graphics.Print( -1, 190, "the .vvvvvv files to this folder:", tr, tg, tb, true);
+                graphics.Print( 320-(graphics.tempstring.length()*8), 210, graphics.tempstring, tr, tg, tb);
+            }
         }
 
         /*
         switch(game.mainmenu) {
-        	case 0:
-        		graphics.Print(5, 115, "[ NEW GAME ]", tr, tg, tb, true);
-        	break;
-        	case 1:
-        		if (game.telesummary == "") {
-        			graphics.Print(5, 115, "[ no teleporter save ]", tr/3, tg/3, tb/3, true);
-        		}else {
-        			graphics.Print(5, 115, "[ RESTORE FROM LAST TELEPORTER ]", tr, tg, tb, true);
-        			graphics.Print(5, 125, game.telesummary, tr, tg, tb, true);
-        		}
-        	break;
-        	case 2:
-        		if (game.quicksummary == "") {
-        			graphics.Print(5, 115, "[ no quicksave ]", tr/3, tg/3, tb/3, true);
-        		}else {
-        			graphics.Print(5, 115, "[ RESTORE FROM LAST QUICKSAVE ]", tr, tg, tb, true);
-        			graphics.Print(5, 125, game.quicksummary, tr, tg, tb, true);
-        		}
-        	break;
+            case 0:
+                graphics.Print(5, 115, "[ NEW GAME ]", tr, tg, tb, true);
+            break;
+            case 1:
+                if (game.telesummary == "") {
+                    graphics.Print(5, 115, "[ no teleporter save ]", tr/3, tg/3, tb/3, true);
+                }else {
+                    graphics.Print(5, 115, "[ RESTORE FROM LAST TELEPORTER ]", tr, tg, tb, true);
+                    graphics.Print(5, 125, game.telesummary, tr, tg, tb, true);
+                }
+            break;
+            case 2:
+                if (game.quicksummary == "") {
+                    graphics.Print(5, 115, "[ no quicksave ]", tr/3, tg/3, tb/3, true);
+                }else {
+                    graphics.Print(5, 115, "[ RESTORE FROM LAST QUICKSAVE ]", tr, tg, tb, true);
+                    graphics.Print(5, 125, game.quicksummary, tr, tg, tb, true);
+                }
+            break;
         }
         */
 
@@ -1470,20 +1470,20 @@ void gamerender()
     {
 
         if(!game.colourblindmode)
-		{
-        graphics.drawbackground(map.background);
-		}
-		else
-		{
-			FillRect(graphics.backBuffer,0x00000);
-		}
-        if (map.final_colormode)
-		{
-        	graphics.drawfinalmap();
+        {
+            graphics.drawbackground(map.background);
         }
         else
-		{
-        graphics.drawmap();
+        {
+            FillRect(graphics.backBuffer,0x00000);
+        }
+        if (map.final_colormode)
+        {
+            graphics.drawfinalmap();
+        }
+        else
+        {
+            graphics.drawmap();
         }
 
 
@@ -1520,7 +1520,7 @@ void gamerender()
 
     /*for(int i=0; i<obj.nblocks; i++){
     if (obj.blocks[i].active) {
-    		graphics.backbuffer.fillRect(obj.blocks[i].rect, 0xDDDDDD);
+        graphics.backbuffer.fillRect(obj.blocks[i].rect, 0xDDDDDD);
     }
       }*/
     //graphics.drawminimap(game, map);
@@ -1539,10 +1539,10 @@ void gamerender()
 
         if (map.finalmode)
         {
-        	map.glitchname = map.getglitchname(game.roomx, game.roomy);
-          graphics.bprint(5, 231, map.glitchname, 196, 196, 255 - help.glow, true);
+            map.glitchname = map.getglitchname(game.roomx, game.roomy);
+            graphics.bprint(5, 231, map.glitchname, 196, 196, 255 - help.glow, true);
         }else{
-          graphics.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
+            graphics.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
         }
     }
 
@@ -1568,7 +1568,7 @@ void gamerender()
 
     graphics.cutscenebars();
     graphics.drawfade();
-	BlitSurfaceStandard(graphics.backBuffer, NULL, graphics.tempBuffer, NULL);
+    BlitSurfaceStandard(graphics.backBuffer, NULL, graphics.tempBuffer, NULL);
 
     graphics.drawgui();
     if (graphics.flipmode)
@@ -1820,9 +1820,9 @@ void gamerender()
     //Detail entity info for debuging
     /*
     for (int i = 0; i < obj.nentity; i++) {
-    	game.tempstring =help.String(obj.entities[i].type) +", (" +help.String(obj.entities[i].xp) + "," +help.String(obj.entities[i].yp) + ")";
-    	game.tempstring += " state:" +obj.entities[i].state + ", delay:" + obj.entities[i].statedelay;
-    	graphics.Print(5, 5 + i * 8, game.tempstring, 255, 255, 255);
+        game.tempstring =help.String(obj.entities[i].type) +", (" +help.String(obj.entities[i].xp) + "," +help.String(obj.entities[i].yp) + ")";
+        game.tempstring += " state:" +obj.entities[i].state + ", delay:" + obj.entities[i].statedelay;
+        graphics.Print(5, 5 + i * 8, game.tempstring, 255, 255, 255);
     }
     */
 
@@ -1878,7 +1878,7 @@ void maprender()
 
     //draw screen alliteration
     //Roomname:
-	//CRASH
+    //CRASH
     temp = map.area(game.roomx, game.roomy);
     if (temp < 2 && !map.custommode && graphics.fademode==0)
     {
@@ -2078,9 +2078,9 @@ void maprender()
             {
                 //tower!instead of room y, scale map.ypos
                 /*if (map.ypos > (0.57 * (680 * 8))) {
-                	i = int(map.ypos - (0.57 * (680 * 8)));
-                	i = int((i / (0.43 * (680 * 8)))*9);
-                	graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + i + 2, 12 - 4, 9 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
+                    i = int(map.ypos - (0.57 * (680 * 8)));
+                    i = int((i / (0.43 * (680 * 8)))*9);
+                    graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + i + 2, 12 - 4, 9 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
                 }*/
                 if (map.cursorstate == 0)
                 {
@@ -2257,45 +2257,45 @@ void maprender()
 
             graphics.Print(0, 105, "Press ACTION to warp to the ship.", 196, 196, 255 - help.glow, true);
         }
-    #if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS)
         else if(map.custommode){
-          graphics.Print(30, 220, "MAP", 64,64,64);
+            graphics.Print(30, 220, "MAP", 64,64,64);
             graphics.Print(103-8, 220, "[CREW]", 196, 196, 255 - help.glow);
             graphics.Print(185-4, 220, "STATS", 64,64,64);
             graphics.Print(258, 220, "SAVE", 64, 64, 64);
 
             if (graphics.flipmode)
             {
-              graphics.bigprint( -1, 220-45, ed.ListOfMetaData[game.playcustomlevel].title, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 220-70, "by " + ed.ListOfMetaData[game.playcustomlevel].creator, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 220-80, ed.ListOfMetaData[game.playcustomlevel].website, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 220-100, ed.ListOfMetaData[game.playcustomlevel].Desc1, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 220-110, ed.ListOfMetaData[game.playcustomlevel].Desc2, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 220-120, ed.ListOfMetaData[game.playcustomlevel].Desc3, 196, 196, 255 - help.glow, true);
+                graphics.bigprint( -1, 220-45, ed.ListOfMetaData[game.playcustomlevel].title, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 220-70, "by " + ed.ListOfMetaData[game.playcustomlevel].creator, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 220-80, ed.ListOfMetaData[game.playcustomlevel].website, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 220-100, ed.ListOfMetaData[game.playcustomlevel].Desc1, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 220-110, ed.ListOfMetaData[game.playcustomlevel].Desc2, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 220-120, ed.ListOfMetaData[game.playcustomlevel].Desc3, 196, 196, 255 - help.glow, true);
 
-              if(map.customcrewmates-game.crewmates==1){
-                graphics.Print(1,220-165, help.number(int(map.customcrewmates-game.crewmates))+ " crewmate remains", 196, 196, 255 - help.glow, true);
-              }else if(map.customcrewmates-game.crewmates>0){
-                graphics.Print(1,220-165, help.number(int(map.customcrewmates-game.crewmates))+ " crewmates remain", 196, 196, 255 - help.glow, true);
-              }
+                if(map.customcrewmates-game.crewmates==1){
+                    graphics.Print(1,220-165, help.number(int(map.customcrewmates-game.crewmates))+ " crewmate remains", 196, 196, 255 - help.glow, true);
+                }else if(map.customcrewmates-game.crewmates>0){
+                    graphics.Print(1,220-165, help.number(int(map.customcrewmates-game.crewmates))+ " crewmates remain", 196, 196, 255 - help.glow, true);
+                }
             }
             else
             {
-              graphics.bigprint( -1, 45, ed.ListOfMetaData[game.playcustomlevel].title, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 70, "by " + ed.ListOfMetaData[game.playcustomlevel].creator, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 80, ed.ListOfMetaData[game.playcustomlevel].website, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 100, ed.ListOfMetaData[game.playcustomlevel].Desc1, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 110, ed.ListOfMetaData[game.playcustomlevel].Desc2, 196, 196, 255 - help.glow, true);
-              graphics.Print( -1, 120, ed.ListOfMetaData[game.playcustomlevel].Desc3, 196, 196, 255 - help.glow, true);
+                graphics.bigprint( -1, 45, ed.ListOfMetaData[game.playcustomlevel].title, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 70, "by " + ed.ListOfMetaData[game.playcustomlevel].creator, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 80, ed.ListOfMetaData[game.playcustomlevel].website, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 100, ed.ListOfMetaData[game.playcustomlevel].Desc1, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 110, ed.ListOfMetaData[game.playcustomlevel].Desc2, 196, 196, 255 - help.glow, true);
+                graphics.Print( -1, 120, ed.ListOfMetaData[game.playcustomlevel].Desc3, 196, 196, 255 - help.glow, true);
 
-              if(map.customcrewmates-game.crewmates==1){
-                graphics.Print(1,165, help.number(int(map.customcrewmates-game.crewmates))+ " crewmate remains", 196, 196, 255 - help.glow, true);
-              }else if(map.customcrewmates-game.crewmates>0){
-                graphics.Print(1,165, help.number(int(map.customcrewmates-game.crewmates))+ " crewmates remain", 196, 196, 255 - help.glow, true);
-              }
+                if(map.customcrewmates-game.crewmates==1){
+                    graphics.Print(1,165, help.number(int(map.customcrewmates-game.crewmates))+ " crewmate remains", 196, 196, 255 - help.glow, true);
+                }else if(map.customcrewmates-game.crewmates>0){
+                    graphics.Print(1,165, help.number(int(map.customcrewmates-game.crewmates))+ " crewmates remain", 196, 196, 255 - help.glow, true);
+                }
             }
         }
-    #endif
+#endif
         else
         {
             graphics.Print(30, 220, "MAP", 64,64,64);
@@ -2463,7 +2463,7 @@ void maprender()
         }
         else if (map.custommode)
         {
-          if (game.gamesaved)
+            if (game.gamesaved)
             {
                 graphics.Print(0, 36, "Game saved ok!", 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2), true);
 
@@ -2781,7 +2781,7 @@ void towerrender()
 
     /*for(int i=0; i<obj.nblocks; i++){
     if (obj.blocks[i].active) {
-    		graphics.backbuffer.fillRect(obj.blocks[i].rect, 0xDDDDDD);
+        graphics.backbuffer.fillRect(obj.blocks[i].rect, 0xDDDDDD);
     }
       }*/
     graphics.cutscenebars();
@@ -2961,7 +2961,7 @@ void teleporterrender()
     if (game.useteleporter)
     {
         //Draw the chosen destination coordinate!
-		//TODO
+        //TODO
         //draw the coordinates //destination
         int tempx = map.teleporters[game.teleport_to_teleporter].x;
         int tempy = map.teleporters[game.teleport_to_teleporter].y;
@@ -3000,8 +3000,8 @@ void teleporterrender()
         }
     }
 
-	tempx = map.teleporters[game.teleport_to_teleporter].x;
-	tempy = map.teleporters[game.teleport_to_teleporter].y;
+    tempx = map.teleporters[game.teleport_to_teleporter].x;
+    tempy = map.teleporters[game.teleport_to_teleporter].y;
     if (game.useteleporter && ((help.slowsine%16)>8))
     {
         //colour in the legend
