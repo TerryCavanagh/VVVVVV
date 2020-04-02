@@ -344,14 +344,6 @@ void editorclass::reset()
     returneditoralpha = 0;
 }
 
-void editorclass::weirdloadthing(std::string t)
-{
-    //Stupid pointless function because I hate C++ and everything to do with it
-    //It's even stupider now that I don't need to append .vvvvvv anymore! bah, whatever
-    //t=t+".vvvvvv";
-    load(t);
-}
-
 void editorclass::gethooks()
 {
     //Scan through the script and create a hooks list based on it
