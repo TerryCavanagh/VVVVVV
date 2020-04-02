@@ -3,7 +3,7 @@
 #include "MakeAndPlay.h"
 
 #if !defined(NO_CUSTOM_LEVELS)
-	extern editorclass ed;
+extern editorclass ed;
 #endif
 
 mapclass::mapclass()
@@ -1312,7 +1312,7 @@ void mapclass::loadlevel(int rx, int ry)
 	switch(t)
 	{
 	case 0:
-			#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY)
 	case 1: //World Map
 		tileset = 1;
 		extrarow = 1;
@@ -1571,7 +1571,7 @@ void mapclass::loadlevel(int rx, int ry)
 		}
 	}
 		break;
-					#endif
+#endif
 #if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
 		int curlevel=(rx-100)+((ry-100)*ed.maxwidth);
@@ -1664,7 +1664,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 				obj.customenemy=ed.level[tsx+((ed.maxwidth)*tsy)].enemytype;
 				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 56,
-								 edentity[edi].p1, 4, bx1, by1, bx2, by2);
+				edentity[edi].p1, 4, bx1, by1, bx2, by2);
 				break;
 				case 2: //Platforms and Threadmills
 				if(edentity[edi].p1<=4){
@@ -1678,10 +1678,10 @@ void mapclass::loadlevel(int rx, int ry)
 					if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
 
 					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 2,
-									 edentity[edi].p1, ed.level[rx-100+((ry-100)*ed.mapwidth)].platv, bx1, by1, bx2, by2);
+					edentity[edi].p1, ed.level[rx-100+((ry-100)*ed.mapwidth)].platv, bx1, by1, bx2, by2);
 				}else if(edentity[edi].p1>=5 && edentity[edi].p1<=8){ //Threadmill
 					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 2,
-									 edentity[edi].p1+3, 4);
+					edentity[edi].p1+3, 4);
 				}
 				break;
 				case 3: //Disappearing platforms
@@ -1692,7 +1692,7 @@ void mapclass::loadlevel(int rx, int ry)
 				break;
 				case 10: //Checkpoints
 				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 10,
-								edentity[edi].p1,((rx+(ry*100))*20)+tempcheckpoints);
+				edentity[edi].p1,((rx+(ry*100))*20)+tempcheckpoints);
 				tempcheckpoints++;
 				break;
 				case 11: //Gravity Lines
