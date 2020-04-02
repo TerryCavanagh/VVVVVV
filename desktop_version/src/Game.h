@@ -90,7 +90,7 @@ public:
 
     void initteleportermode();
 
-	std::string saveFilePath;
+    std::string saveFilePath;
 
 
     int door_left;
@@ -111,9 +111,9 @@ public:
     //State logic stuff
     int state, statedelay;
 
-		bool glitchrunkludge;
+    bool glitchrunkludge;
 
-		int usingmmmmmm;
+    int usingmmmmmm;
 
     int gamestate;
     bool hascontrol, jumpheld;
@@ -123,10 +123,10 @@ public:
     bool infocus;
     bool muted;
     int mutebutton;
-	private:
+private:
     float m_globalVol;
 
-	public:
+public:
 
     int tapleft, tapright;
 
@@ -136,7 +136,7 @@ public:
     //public var crewstats:Array = new Array();
     int lastsaved;
     int deathcounts;
-	int timerStartTime;
+    int timerStartTime;
 
     int frames, seconds, minutes, hours;
     bool gamesaved;
@@ -282,9 +282,9 @@ public:
 
     bool advanced_mode;
     bool fullScreenEffect_badSignal;
-	bool useLinearFilter;
-	int stretchMode;
-	int controllerSensitivity;
+    bool useLinearFilter;
+    int stretchMode;
+    int controllerSensitivity;
 
     //Screenrecording stuff, for beta/trailer
     int recording;
@@ -327,9 +327,9 @@ public:
     bool customlevelstatsloaded;
 
 
-	std::vector<SDL_GameControllerButton> controllerButton_map;
-	std::vector<SDL_GameControllerButton> controllerButton_flip;
-	std::vector<SDL_GameControllerButton> controllerButton_esc;
+    std::vector<SDL_GameControllerButton> controllerButton_map;
+    std::vector<SDL_GameControllerButton> controllerButton_flip;
+    std::vector<SDL_GameControllerButton> controllerButton_esc;
 
     bool skipfakeload;
 };
