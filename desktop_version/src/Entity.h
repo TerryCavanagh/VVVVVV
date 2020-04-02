@@ -146,10 +146,10 @@ public:
 
     bool entityvlinecollide(int t, int l);
 
-		bool entitywarphlinecollide(int t, int l);
-		bool entitywarpvlinecollide(int t, int l);
+    bool entitywarphlinecollide(int t, int l);
+    bool entitywarpvlinecollide(int t, int l);
 
-		void customwarplinecheck(int i);
+    void customwarplinecheck(int i);
 
     float entitycollideplatformroof(int t);
 
@@ -161,7 +161,7 @@ public:
 
     bool testwallsx(int t, int tx, int ty);
 
-	bool testwallsy(int t, float tx, float ty);
+    bool testwallsy(int t, float tx, float ty);
 
     void fixfriction(int t, float xfix, float xrate, float yrate);
 

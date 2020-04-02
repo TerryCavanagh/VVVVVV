@@ -1916,7 +1916,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         if (customplatformtile > 0){
             entities[k].tile = customplatformtile;
         }else if (platformtile > 0) {
-						entities[k].tile = platformtile;
+            entities[k].tile = platformtile;
         }else{
           //appearance again depends on location
           if (gridmatch(p1, p2, p3, p4, 100, 70, 320, 160)) entities[k].tile = 616;
@@ -1932,10 +1932,10 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         entities[k].w = 32;
         entities[k].h = 8;
 
-		if (int(vx) <= 1) vertplatforms = true;
-		if (int(vx) >= 2  && int(vx) <= 5) horplatforms = true;
-		if (int(vx) == 14 || int(vx) == 15) horplatforms = true; //special case for last part of Space Station
-		if (int(vx) >= 6  && int(vx) <= 7) vertplatforms = true;
+        if (int(vx) <= 1) vertplatforms = true;
+        if (int(vx) >= 2  && int(vx) <= 5) horplatforms = true;
+        if (int(vx) == 14 || int(vx) == 15) horplatforms = true; //special case for last part of Space Station
+        if (int(vx) >= 6  && int(vx) <= 7) vertplatforms = true;
 
         if (int(vx) >= 10  && int(vx) <= 11)
         {
@@ -4793,65 +4793,65 @@ bool entityclass::entityvlinecollide( int t, int l )
 }
 
 bool entityclass::entitywarphlinecollide(int t, int l) {
-	//Returns true is entity t collided with the horizontal line l.
-	if(entities[t].xp + entities[t].cx+entities[t].w>=entities[l].xp){
-		if(entities[t].xp + entities[t].cx<=entities[l].xp+entities[l].w){
-			linetemp = 0;
-			if (entities[l].yp < 120) {
-				//Top line
-				if (entities[t].vy < 0) {
-					if (entities[t].yp < entities[l].yp + 10) linetemp++;
-					if (entities[t].yp + entities[t].h < entities[l].yp + 10) linetemp++;
-					if (entities[t].oldyp < entities[l].yp + 10) linetemp++;
-					if (entities[t].oldyp + entities[t].h < entities[l].yp + 10) linetemp++;
-				}
+    //Returns true is entity t collided with the horizontal line l.
+    if(entities[t].xp + entities[t].cx+entities[t].w>=entities[l].xp){
+        if(entities[t].xp + entities[t].cx<=entities[l].xp+entities[l].w){
+            linetemp = 0;
+            if (entities[l].yp < 120) {
+                //Top line
+                if (entities[t].vy < 0) {
+                    if (entities[t].yp < entities[l].yp + 10) linetemp++;
+                    if (entities[t].yp + entities[t].h < entities[l].yp + 10) linetemp++;
+                    if (entities[t].oldyp < entities[l].yp + 10) linetemp++;
+                    if (entities[t].oldyp + entities[t].h < entities[l].yp + 10) linetemp++;
+                }
 
-				if (linetemp > 0) return true;
-				return false;
-			}else {
-				//Bottom line
-				if (entities[t].vy > 0) {
-					if (entities[t].yp > entities[l].yp - 10) linetemp++;
-					if (entities[t].yp + entities[t].h > entities[l].yp - 10) linetemp++;
-					if (entities[t].oldyp > entities[l].yp - 10) linetemp++;
-					if (entities[t].oldyp + entities[t].h > entities[l].yp - 10) linetemp++;
-				}
+                if (linetemp > 0) return true;
+                return false;
+            }else {
+                //Bottom line
+                if (entities[t].vy > 0) {
+                    if (entities[t].yp > entities[l].yp - 10) linetemp++;
+                    if (entities[t].yp + entities[t].h > entities[l].yp - 10) linetemp++;
+                    if (entities[t].oldyp > entities[l].yp - 10) linetemp++;
+                    if (entities[t].oldyp + entities[t].h > entities[l].yp - 10) linetemp++;
+                }
 
-				if (linetemp > 0) return true;
-				return false;
-			}
-		}
-	}
-	return false;
+                if (linetemp > 0) return true;
+                return false;
+            }
+        }
+    }
+    return false;
 }
 
 bool entityclass::entitywarpvlinecollide(int t, int l) {
-	//Returns true is entity t collided with the vertical warp line l.
-	if(entities[t].yp + entities[t].cy+entities[t].h>=entities[l].yp){
-		if (entities[t].yp + entities[t].cy <= entities[l].yp + entities[l].h) {
-			linetemp = 0;
-			if (entities[l].xp < 160) {
-				//Left hand line
-				if (entities[t].xp + entities[t].cx + 1 < entities[l].xp + 10) linetemp++;
-				if (entities[t].xp + entities[t].cx+1 + entities[t].w < entities[l].xp + 10) linetemp++;
-				if (entities[t].oldxp + entities[t].cx + 1 < entities[l].xp + 10) linetemp++;
-				if (entities[t].oldxp + entities[t].cx + 1 + entities[t].w < entities[l].xp + 10) linetemp++;
+    //Returns true is entity t collided with the vertical warp line l.
+    if(entities[t].yp + entities[t].cy+entities[t].h>=entities[l].yp){
+        if (entities[t].yp + entities[t].cy <= entities[l].yp + entities[l].h) {
+            linetemp = 0;
+            if (entities[l].xp < 160) {
+                //Left hand line
+                if (entities[t].xp + entities[t].cx + 1 < entities[l].xp + 10) linetemp++;
+                if (entities[t].xp + entities[t].cx+1 + entities[t].w < entities[l].xp + 10) linetemp++;
+                if (entities[t].oldxp + entities[t].cx + 1 < entities[l].xp + 10) linetemp++;
+                if (entities[t].oldxp + entities[t].cx + 1 + entities[t].w < entities[l].xp + 10) linetemp++;
 
-				if (linetemp > 0) return true;
-				return false;
-			}else {
-				//Right hand line
-				if (entities[t].xp + entities[t].cx + 1 > entities[l].xp - 10) linetemp++;
-				if (entities[t].xp + entities[t].cx+1 + entities[t].w > entities[l].xp - 10) linetemp++;
-				if (entities[t].oldxp + entities[t].cx + 1 > entities[l].xp - 10) linetemp++;
-				if (entities[t].oldxp + entities[t].cx + 1 + entities[t].w > entities[l].xp - 10) linetemp++;
+                if (linetemp > 0) return true;
+                return false;
+            }else {
+                //Right hand line
+                if (entities[t].xp + entities[t].cx + 1 > entities[l].xp - 10) linetemp++;
+                if (entities[t].xp + entities[t].cx+1 + entities[t].w > entities[l].xp - 10) linetemp++;
+                if (entities[t].oldxp + entities[t].cx + 1 > entities[l].xp - 10) linetemp++;
+                if (entities[t].oldxp + entities[t].cx + 1 + entities[t].w > entities[l].xp - 10) linetemp++;
 
-				if (linetemp > 0) return true;
-				return false;
-			}
-		}
-	}
-	return false;
+                if (linetemp > 0) return true;
+                return false;
+            }
+        }
+    }
+    return false;
 }
 
 float entityclass::entitycollideplatformroof( int t )
@@ -5193,31 +5193,31 @@ void entityclass::hormovingplatformfix( int t )
 }
 
 void entityclass::customwarplinecheck(int i) {
-		//Turns on obj.customwarpmodevon and obj.customwarpmodehon if player collides
-		//with warp lines
+    //Turns on obj.customwarpmodevon and obj.customwarpmodehon if player collides
+    //with warp lines
 
-	if (entities[i].active) {
-		//We test entity to entity
-		for (int j = 0; j < nentity; j++) {
-			if (entities[j].active && i != j) {//Active
-				if (entities[i].rule == 0 && entities[j].rule == 5) { //Player vs vertical line!
-					if (entities[j].type == 51 || entities[j].type == 52) {
-						if (entitywarpvlinecollide(i, j)) {
-							customwarpmodevon = true;
-						}
-					}
-				}
+    if (entities[i].active) {
+        //We test entity to entity
+        for (int j = 0; j < nentity; j++) {
+            if (entities[j].active && i != j) {//Active
+                if (entities[i].rule == 0 && entities[j].rule == 5) { //Player vs vertical line!
+                    if (entities[j].type == 51 || entities[j].type == 52) {
+                        if (entitywarpvlinecollide(i, j)) {
+                            customwarpmodevon = true;
+                        }
+                    }
+                }
 
-				if (entities[i].rule == 0 && entities[j].rule == 7){   //Player vs horizontal WARP line
-					if (entities[j].type == 53 || entities[j].type == 54) {
-						if (entitywarphlinecollide(i, j)) {
-							customwarpmodehon = true;
-						}
-					}
-				}
-			}
-		}
-	}
+                if (entities[i].rule == 0 && entities[j].rule == 7){   //Player vs horizontal WARP line
+                    if (entities[j].type == 53 || entities[j].type == 54) {
+                        if (entitywarphlinecollide(i, j)) {
+                            customwarpmodehon = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 void entityclass::entitycollisioncheck()
@@ -5338,7 +5338,7 @@ void entityclass::entitycollisioncheck()
                             }
                         }
                     }
-										/*
+                    /*
                     if (entities[i].rule == 0 && entities[j].rule == 7)   //Player vs horizontal WARP line
                     {
                         if(game.deathseq==-1)
@@ -5353,7 +5353,7 @@ void entityclass::entitycollisioncheck()
                             }
                         }
                     }
-										*/
+                    */
                     if (game.supercrewmate)
                     {
                         //some extra collisions
