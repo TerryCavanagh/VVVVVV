@@ -1207,11 +1207,6 @@ void titlerender()
         //graphics.Print(5, 228, "Left/Right to Choose, V to Select", tr, tg, tb, true);
     }
 
-    if (game.test)
-    {
-        graphics.Print(5, 5, game.teststring, 196, 196, 255, false);
-    }
-
     graphics.drawfade();
 
     if (game.flashlight > 0 && !game.noflashingmode)
@@ -1385,11 +1380,6 @@ void gamecompleterender()
     creditOffset += 140;
     if (graphics.onscreen(creditOffset + game.creditposition)) graphics.bigprint( -1, creditOffset + game.creditposition, "Thanks for playing!", tr, tg, tb, true, 2);
 
-    if (game.test)
-    {
-        graphics.Print(5, 5, game.teststring, 196, 196, 255, false);
-    }
-
     graphics.drawfade();
 
     if (game.flashlight > 0 && !game.noflashingmode)
@@ -1434,11 +1424,6 @@ void gamecompleterender2()
                 FillRect(graphics.backBuffer, i * 8, j * 8, 8, 8, 0, 0, 0);
             }
         }
-    }
-
-    if (game.test)
-    {
-        graphics.Print(5, 5, game.teststring, 196, 196, 255, false);
     }
 
     graphics.drawfade();
@@ -1844,11 +1829,6 @@ void gamerender()
     }
     */
 
-
-    if (game.test)
-    {
-        graphics.Print(5, 5, game.teststring, 196, 196, 255, false);
-    }
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
@@ -2673,11 +2653,6 @@ void maprender()
 
     graphics.drawfade();
 
-    if (game.test)
-    {
-        graphics.Print(5, 5, game.teststring, 196, 196, 255, false);
-    }
-
     if (game.flashlight > 0 && !game.noflashingmode)
     {
         game.flashlight--;
@@ -2882,11 +2857,6 @@ void towerrender()
 
     graphics.drawfade();
 
-    if (game.test)
-    {
-        graphics.Print(5, 5, game.teststring, 196, 196, 255, false);
-    }
-
     if (game.flashlight > 0 && !game.noflashingmode)
     {
         game.flashlight--;
@@ -3031,11 +3001,6 @@ void teleporterrender()
         if (game.advancetext) graphics.bprint(5, 5, "- Press ACTION to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
 
-
-    if (game.test)
-    {
-        graphics.Print(5, 5, game.teststring, 196, 196, 255, false);
-    }
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
