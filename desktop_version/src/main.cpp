@@ -32,8 +32,8 @@
 scriptclass script;
 
 #if !defined(NO_CUSTOM_LEVELS)
-    std::vector<edentities> edentity;
-    editorclass ed;
+std::vector<edentities> edentity;
+editorclass ed;
 #endif
 
 UtilityClass help;
@@ -78,34 +78,34 @@ int main(int argc, char *argv[])
 
     Screen gameScreen;
 
-	printf("\t\t\n");
-	printf("\t\t\n");
-	printf("\t\t       VVVVVV\n");
-	printf("\t\t\n");
-	printf("\t\t\n");
-	printf("\t\t  8888888888888888  \n");
-	printf("\t\t88888888888888888888\n");
-	printf("\t\t888888    8888    88\n");
-	printf("\t\t888888    8888    88\n");
-	printf("\t\t88888888888888888888\n");
-	printf("\t\t88888888888888888888\n");
-	printf("\t\t888888            88\n");
-	printf("\t\t88888888        8888\n");
-	printf("\t\t  8888888888888888  \n");
-	printf("\t\t      88888888      \n");
-	printf("\t\t  8888888888888888  \n");
-	printf("\t\t88888888888888888888\n");
-	printf("\t\t88888888888888888888\n");
-	printf("\t\t88888888888888888888\n");
-	printf("\t\t8888  88888888  8888\n");
-	printf("\t\t8888  88888888  8888\n");
-	printf("\t\t    888888888888    \n");
-	printf("\t\t    8888    8888    \n");
-	printf("\t\t  888888    888888  \n");
-	printf("\t\t  888888    888888  \n");
-	printf("\t\t  888888    888888  \n");
-	printf("\t\t\n");
-	printf("\t\t\n");
+    printf("\t\t\n");
+    printf("\t\t\n");
+    printf("\t\t       VVVVVV\n");
+    printf("\t\t\n");
+    printf("\t\t\n");
+    printf("\t\t  8888888888888888  \n");
+    printf("\t\t88888888888888888888\n");
+    printf("\t\t888888    8888    88\n");
+    printf("\t\t888888    8888    88\n");
+    printf("\t\t88888888888888888888\n");
+    printf("\t\t88888888888888888888\n");
+    printf("\t\t888888            88\n");
+    printf("\t\t88888888        8888\n");
+    printf("\t\t  8888888888888888  \n");
+    printf("\t\t      88888888      \n");
+    printf("\t\t  8888888888888888  \n");
+    printf("\t\t88888888888888888888\n");
+    printf("\t\t88888888888888888888\n");
+    printf("\t\t88888888888888888888\n");
+    printf("\t\t8888  88888888  8888\n");
+    printf("\t\t8888  88888888  8888\n");
+    printf("\t\t    888888888888    \n");
+    printf("\t\t    8888    8888    \n");
+    printf("\t\t  888888    888888  \n");
+    printf("\t\t  888888    888888  \n");
+    printf("\t\t  888888    888888  \n");
+    printf("\t\t\n");
+    printf("\t\t\n");
 
     //Set up screen
 
@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
     graphics.towerbuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
     SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE);
 
-	graphics.tempBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
+    graphics.tempBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
     SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);
 
     //Make a temporary rectangle to hold the offsets
@@ -194,53 +194,53 @@ int main(int argc, char *argv[])
     game.loadstats();
     if (game.skipfakeload)
         game.gamestate = TITLEMODE;
-		if(game.usingmmmmmm==0) music.usingmmmmmm=false;
-		if(game.usingmmmmmm==1) music.usingmmmmmm=true;
+    if(game.usingmmmmmm==0) music.usingmmmmmm=false;
+    if(game.usingmmmmmm==1) music.usingmmmmmm=true;
     if (game.slowdown == 0) game.slowdown = 30;
 
     switch(game.slowdown){
-      case 30: game.gameframerate=34; break;
-      case 24: game.gameframerate=41; break;
-      case 18: game.gameframerate=55; break;
-      case 12: game.gameframerate=83; break;
-      default: game.gameframerate=34; break;
+        case 30: game.gameframerate=34; break;
+        case 24: game.gameframerate=41; break;
+        case 18: game.gameframerate=55; break;
+        case 12: game.gameframerate=83; break;
+        default: game.gameframerate=34; break;
     }
 
-		//Check to see if you've already unlocked some achievements here from before the update
-		if (game.swnbestrank > 0){
-		  if(game.swnbestrank >= 1) NETWORK_unlockAchievement("vvvvvvsupgrav5");
-			if(game.swnbestrank >= 2) NETWORK_unlockAchievement("vvvvvvsupgrav10");
-			if(game.swnbestrank >= 3) NETWORK_unlockAchievement("vvvvvvsupgrav15");
-			if(game.swnbestrank >= 4) NETWORK_unlockAchievement("vvvvvvsupgrav20");
-			if(game.swnbestrank >= 5) NETWORK_unlockAchievement("vvvvvvsupgrav30");
-			if(game.swnbestrank >= 6) NETWORK_unlockAchievement("vvvvvvsupgrav60");
-		}
+    //Check to see if you've already unlocked some achievements here from before the update
+    if (game.swnbestrank > 0){
+        if(game.swnbestrank >= 1) NETWORK_unlockAchievement("vvvvvvsupgrav5");
+        if(game.swnbestrank >= 2) NETWORK_unlockAchievement("vvvvvvsupgrav10");
+        if(game.swnbestrank >= 3) NETWORK_unlockAchievement("vvvvvvsupgrav15");
+        if(game.swnbestrank >= 4) NETWORK_unlockAchievement("vvvvvvsupgrav20");
+        if(game.swnbestrank >= 5) NETWORK_unlockAchievement("vvvvvvsupgrav30");
+        if(game.swnbestrank >= 6) NETWORK_unlockAchievement("vvvvvvsupgrav60");
+    }
 
-		if(game.unlock[5]) NETWORK_unlockAchievement("vvvvvvgamecomplete");
-		if(game.unlock[19]) NETWORK_unlockAchievement("vvvvvvgamecompleteflip");
-		if(game.unlock[20]) NETWORK_unlockAchievement("vvvvvvmaster");
+    if(game.unlock[5]) NETWORK_unlockAchievement("vvvvvvgamecomplete");
+    if(game.unlock[19]) NETWORK_unlockAchievement("vvvvvvgamecompleteflip");
+    if(game.unlock[20]) NETWORK_unlockAchievement("vvvvvvmaster");
 
-		if (game.bestgamedeaths > -1) {
-			if (game.bestgamedeaths <= 500) {
-				NETWORK_unlockAchievement("vvvvvvcomplete500");
-			}
-			if (game.bestgamedeaths <= 250) {
-				NETWORK_unlockAchievement("vvvvvvcomplete250");
-			}
-			if (game.bestgamedeaths <= 100) {
-				NETWORK_unlockAchievement("vvvvvvcomplete100");
-			}
-			if (game.bestgamedeaths <= 50) {
-				NETWORK_unlockAchievement("vvvvvvcomplete50");
-			}
-		}
+    if (game.bestgamedeaths > -1) {
+        if (game.bestgamedeaths <= 500) {
+            NETWORK_unlockAchievement("vvvvvvcomplete500");
+        }
+        if (game.bestgamedeaths <= 250) {
+            NETWORK_unlockAchievement("vvvvvvcomplete250");
+        }
+        if (game.bestgamedeaths <= 100) {
+            NETWORK_unlockAchievement("vvvvvvcomplete100");
+        }
+        if (game.bestgamedeaths <= 50) {
+            NETWORK_unlockAchievement("vvvvvvcomplete50");
+        }
+    }
 
-		if(game.bestrank[0]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_station1_fixed");
-		if(game.bestrank[1]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_lab_fixed");
-		if(game.bestrank[2]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_tower_fixed");
-		if(game.bestrank[3]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_station2_fixed");
-		if(game.bestrank[4]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_warp_fixed");
-		if(game.bestrank[5]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_final_fixed");
+    if(game.bestrank[0]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_station1_fixed");
+    if(game.bestrank[1]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_lab_fixed");
+    if(game.bestrank[2]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_tower_fixed");
+    if(game.bestrank[3]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_station2_fixed");
+    if(game.bestrank[4]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_warp_fixed");
+    if(game.bestrank[5]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_final_fixed");
 
     //entityclass obj;
     obj.init();
@@ -248,24 +248,24 @@ int main(int argc, char *argv[])
     //Quick hack to start in final level ---- //Might be useful to leave this commented in for testing
     /*
     //game.gamestate=GAMEMODE;
-		//game.start(obj,music);
-		//script.startgamemode(8);
+    //game.start(obj,music);
+    //script.startgamemode(8);
    // map.finalmode = true; //Enable final level mode
-		//map.finalx = 41; map.finaly = 52; //Midpoint
-		//map.finalstretch = true;
-		//map.final_colormode = true;
-		//map.final_mapcol = 0;
-		//map.final_colorframe = 0;
+    //map.finalx = 41; map.finaly = 52; //Midpoint
+    //map.finalstretch = true;
+    //map.final_colormode = true;
+    //map.final_mapcol = 0;
+    //map.final_colorframe = 0;
 
-		//game.starttest(obj, music);
+    //game.starttest(obj, music);
 
     game.savex = 5 * 8; game.savey = 15 * 8; game.saverx = 41; game.savery = 52;
     game.savegc = 0; game.savedir = 1;
     game.state = 0; game.deathseq = -1; game.lifeseq = 10;
-		//obj.createentity(game, game.savex, game.savey, 0);
-		map.gotoroom(game.saverx, game.savery, graphics, game, obj, music);
-		//music.play(1);
-		*/
+    //obj.createentity(game, game.savex, game.savey, 0);
+    map.gotoroom(game.saverx, game.savery, graphics, game, obj, music);
+    //music.play(1);
+    */
     //End hack here ----
 
     volatile Uint32 time, timePrev = 0;
@@ -282,23 +282,23 @@ int main(int argc, char *argv[])
         //framerate limit to 30
         Uint32 timetaken = time - timePrev;
         if(game.gamestate==EDITORMODE)
-		{
-          if (timetaken < 24)
-          {
-              volatile Uint32 delay = 24 - timetaken;
-              SDL_Delay( delay );
-              time = SDL_GetTicks();
-          }
-          timePrev = time;
+        {
+            if (timetaken < 24)
+            {
+                volatile Uint32 delay = 24 - timetaken;
+                SDL_Delay( delay );
+                time = SDL_GetTicks();
+            }
+            timePrev = time;
 
         }else{
-          if (timetaken < game.gameframerate)
-          {
-              volatile Uint32 delay = game.gameframerate - timetaken;
-              SDL_Delay( delay );
-              time = SDL_GetTicks();
-          }
-          timePrev = time;
+            if (timetaken < game.gameframerate)
+            {
+                volatile Uint32 delay = game.gameframerate - timetaken;
+                SDL_Delay( delay );
+                time = SDL_GetTicks();
+            }
+            timePrev = time;
 
         }
 
@@ -357,9 +357,9 @@ int main(int argc, char *argv[])
                 //Render
                 preloaderrender();
                 break;
-        #if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS)
             case EDITORMODE:
-				graphics.flipmode = false;
+                graphics.flipmode = false;
                 //Input
                 editorinput();
                 //Render
@@ -367,7 +367,7 @@ int main(int argc, char *argv[])
                 ////Logic
                 editorlogic();
                 break;
-        #endif
+#endif
             case TITLEMODE:
                 //Input
                 titleinput();
@@ -379,7 +379,7 @@ int main(int argc, char *argv[])
             case GAMEMODE:
                 if (map.towermode)
                 {
-					gameinput();
+                    gameinput();
 
                     //if(game.recording==1)
                     //{
@@ -502,11 +502,11 @@ int main(int argc, char *argv[])
         }
 
         //Mute button
-    #if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS)
         bool inEditor = ed.textentry || ed.scripthelppage == 1;
-    #else
+#else
         bool inEditor = false;
-    #endif
+#endif
         if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !inEditor)
         {
             game.mutebutton = 8;
@@ -556,7 +556,7 @@ int main(int argc, char *argv[])
     }
 
 
-	  //SDL_Delay(300);
+    //SDL_Delay(300);
 
     //TODO
     //Free the loaded image
