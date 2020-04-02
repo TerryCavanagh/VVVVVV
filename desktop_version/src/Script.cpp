@@ -3221,9 +3221,11 @@ void scriptclass::startgamemode( int t )
 		//load("intro");
 		break;
   case 22:  //play custom level (in game)
+  {
     //Initilise the level
     //First up, find the start point
-    ed.weirdloadthing(ed.ListOfMetaData[game.playcustomlevel].filename);
+    std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
+    ed.load(filename);
     ed.findstartpoint();
 
     game.gamestate = GAMEMODE;
@@ -3263,10 +3265,13 @@ void scriptclass::startgamemode( int t )
 		graphics.fademode = 4;
     //load("intro");
   break;
+  }
   case 23: //Continue in custom level
+  {
       //Initilise the level
     //First up, find the start point
-    ed.weirdloadthing(ed.ListOfMetaData[game.playcustomlevel].filename);
+    std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
+    ed.load(filename);
     ed.findstartpoint();
 
     game.gamestate = GAMEMODE;
@@ -3309,6 +3314,7 @@ void scriptclass::startgamemode( int t )
 		graphics.fademode = 4;
     //load("intro");
   break;
+  }
 #endif
 	case 100:
 		game.savestats();
