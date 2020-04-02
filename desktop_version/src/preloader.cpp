@@ -65,7 +65,7 @@ void preloaderrender()
 
     for (int i = 0; i < 18; i++) {
       pre_temprecty = (i * 16)- pre_offset;
-      if (i % 2 == 0) 
+      if (i % 2 == 0)
 	  {
         FillRect(graphics.backBuffer, pre_temprectx, pre_temprecty, pre_temprectw,pre_temprecth, pre_lightcol);
       }
