@@ -8,7 +8,7 @@
 
 scriptclass::scriptclass()
 {
-    	//Start SDL
+	//Start SDL
 
 	//Init
 	words.resize(40);
@@ -90,44 +90,44 @@ void scriptclass::run()
 				obj.entities[player].yp += ss_toi(words[2]);
 				scriptdelay = 1;
 			}
-	#if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS)
 			if (words[0] == "warpdir")
 			{
-        int temprx=ss_toi(words[1])-1;
-        int tempry=ss_toi(words[2])-1;
-        int curlevel=temprx+(ed.maxwidth*(tempry));
-			  ed.level[curlevel].warpdir=ss_toi(words[3]);
-			  //If screen warping, then override all that:
-        graphics.backgrounddrawn = false;
+				int temprx=ss_toi(words[1])-1;
+				int tempry=ss_toi(words[2])-1;
+				int curlevel=temprx+(ed.maxwidth*(tempry));
+				ed.level[curlevel].warpdir=ss_toi(words[3]);
+				//If screen warping, then override all that:
+				graphics.backgrounddrawn = false;
 
-        //Do we update our own room?
-        if(game.roomx-100==temprx && game.roomy-100==tempry){
-          map.warpx=false; map.warpy=false;
-          if(ed.level[curlevel].warpdir==0){
-            map.background = 1;
-            //Be careful, we could be in a Lab or Warp Zone room...
-            if(ed.level[curlevel].tileset==2){
-              //Lab
-              map.background = 2;
-              graphics.rcol = ed.level[curlevel].tilecol;
-            }else if(ed.level[curlevel].tileset==3){
-              //Warp Zone
-              map.background = 6;
-            }
-          }else if(ed.level[curlevel].warpdir==1){
-            map.warpx=true;
-            map.background=3;
-            graphics.rcol = ed.getwarpbackground(temprx,tempry);
-          }else if(ed.level[curlevel].warpdir==2){
-            map.warpy=true;
-            map.background=4;
-            graphics.rcol = ed.getwarpbackground(temprx,tempry);
-          }else if(ed.level[curlevel].warpdir==3){
-            map.warpx=true; map.warpy=true;
-            map.background = 5;
-            graphics.rcol = ed.getwarpbackground(temprx,tempry);
-          }
-        }
+				//Do we update our own room?
+				if(game.roomx-100==temprx && game.roomy-100==tempry){
+					map.warpx=false; map.warpy=false;
+					if(ed.level[curlevel].warpdir==0){
+						map.background = 1;
+						//Be careful, we could be in a Lab or Warp Zone room...
+						if(ed.level[curlevel].tileset==2){
+							//Lab
+							map.background = 2;
+							graphics.rcol = ed.level[curlevel].tilecol;
+						}else if(ed.level[curlevel].tileset==3){
+							//Warp Zone
+							map.background = 6;
+						}
+					}else if(ed.level[curlevel].warpdir==1){
+						map.warpx=true;
+						map.background=3;
+						graphics.rcol = ed.getwarpbackground(temprx,tempry);
+					}else if(ed.level[curlevel].warpdir==2){
+						map.warpy=true;
+						map.background=4;
+						graphics.rcol = ed.getwarpbackground(temprx,tempry);
+					}else if(ed.level[curlevel].warpdir==3){
+						map.warpx=true; map.warpy=true;
+						map.background = 5;
+						graphics.rcol = ed.getwarpbackground(temprx,tempry);
+					}
+				}
 			}
 			if (words[0] == "ifwarp")
 			{
@@ -137,22 +137,22 @@ void scriptclass::run()
 					position--;
 				}
 			}
-	#endif
+#endif
 			if (words[0] == "destroy")
 			{
 				if(words[1]=="gravitylines"){
-				  for(int edi=0; edi<obj.nentity; edi++){
-				    if(obj.entities[edi].type==9) obj.entities[edi].active=false;
-				    if(obj.entities[edi].type==10) obj.entities[edi].active=false;
-				  }
+					for(int edi=0; edi<obj.nentity; edi++){
+						if(obj.entities[edi].type==9) obj.entities[edi].active=false;
+						if(obj.entities[edi].type==10) obj.entities[edi].active=false;
+					}
 				}else if(words[1]=="warptokens"){
-				  for(int edi=0; edi<obj.nentity; edi++){
-				    if(obj.entities[edi].type==11) obj.entities[edi].active=false;
-          }
+					for(int edi=0; edi<obj.nentity; edi++){
+						if(obj.entities[edi].type==11) obj.entities[edi].active=false;
+					}
 				}else if(words[1]=="platforms"){
-				  for(int edi=0; edi<obj.nentity; edi++){
-				    if(obj.entities[edi].rule==2 && obj.entities[edi].animate==100) obj.entities[edi].active=false;
-          }
+					for(int edi=0; edi<obj.nentity; edi++){
+						if(obj.entities[edi].rule==2 && obj.entities[edi].animate==100) obj.entities[edi].active=false;
+					}
 				}
 			}
 			if (words[0] == "customiftrinkets")
@@ -171,7 +171,7 @@ void scriptclass::run()
 					position--;
 				}
 			}
-      else if (words[0] == "customifflag")
+			else if (words[0] == "customifflag")
 			{
 				if (obj.flags[ss_toi(words[1])]==1)
 				{
@@ -182,9 +182,9 @@ void scriptclass::run()
 			if (words[0] == "custommap")
 			{
 				if(words[1]=="on"){
-				  map.customshowmm=true;
+					map.customshowmm=true;
 				}else if(words[1]=="off"){
-				  map.customshowmm=false;
+					map.customshowmm=false;
 				}
 			}
 			if (words[0] == "delay")
@@ -192,7 +192,7 @@ void scriptclass::run()
 				//USAGE: delay(frames)
 				scriptdelay = ss_toi(words[1]);
 			}
-      if (words[0] == "flag")
+			if (words[0] == "flag")
 			{
 				if(ss_toi(words[1])>=0 && ss_toi(words[1])<100){
 					if(words[2]=="on"){
@@ -254,7 +254,7 @@ void scriptclass::run()
 			{
 				music.play(music.resumesong);
 			}
-      if (words[0] == "musicfadeout")
+			if (words[0] == "musicfadeout")
 			{
 				music.fadeout();
 				music.dontquickfade = true;
@@ -532,8 +532,8 @@ void scriptclass::run()
 				}
 
 				if(i==0 && words[1]!="player" && words[1]!="cyan"){
-				  //Requested crewmate is not actually on screen
-          words[2] = "donothing";
+					//Requested crewmate is not actually on screen
+					words[2] = "donothing";
 					j = -1;
 					textx = -500;
 					texty = -500;
@@ -3214,107 +3214,107 @@ void scriptclass::startgamemode( int t )
 		}
 		map.gotoroom(game.saverx, game.savery);
 		if(ed.levmusic>0){
-		  music.play(ed.levmusic);
+			music.play(ed.levmusic);
 		}else{
-		  music.currentsong=-1;
+			music.currentsong=-1;
 		}
 		//load("intro");
 		break;
-  case 22:  //play custom level (in game)
-  {
-    //Initilise the level
-    //First up, find the start point
-    std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-    ed.load(filename);
-    ed.findstartpoint();
+	case 22:  //play custom level (in game)
+	{
+		//Initilise the level
+		//First up, find the start point
+		std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
+		ed.load(filename);
+		ed.findstartpoint();
 
-    game.gamestate = GAMEMODE;
-    music.fadeout();
-    hardreset();
-    game.customstart();
-    game.jumpheld = true;
+		game.gamestate = GAMEMODE;
+		music.fadeout();
+		hardreset();
+		game.customstart();
+		game.jumpheld = true;
 
 		map.custommodeforreal = true;
-    map.custommode = true;
-    map.customx = 100;
-    map.customy = 100;
+		map.custommode = true;
+		map.customx = 100;
+		map.customy = 100;
 
-    //graphics.showcutscenebars = true;
-    //graphics.cutscenebarspos = 320;
+		//graphics.showcutscenebars = true;
+		//graphics.cutscenebarspos = 320;
 
-    //set flipmode
-    if (graphics.setflipmode) graphics.flipmode = true;
+		//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;
 
-    if(obj.nentity==0)
-    {
-      obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-    }
-    else
-    {
-      map.resetplayer();
-    }
-    map.gotoroom(game.saverx, game.savery);
+		if(obj.nentity==0)
+		{
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+		}
+		else
+		{
+			map.resetplayer();
+		}
+		map.gotoroom(game.saverx, game.savery);
 
 		ed.generatecustomminimap();
 		map.customshowmm=true;
-    if(ed.levmusic>0){
-      music.play(ed.levmusic);
-    }else{
-      music.currentsong=-1;
+		if(ed.levmusic>0){
+			music.play(ed.levmusic);
+		}else{
+			music.currentsong=-1;
 		}
 		graphics.fademode = 4;
-    //load("intro");
-  break;
-  }
-  case 23: //Continue in custom level
-  {
-      //Initilise the level
-    //First up, find the start point
-    std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-    ed.load(filename);
-    ed.findstartpoint();
+		//load("intro");
+		break;
+	}
+	case 23: //Continue in custom level
+	{
+		//Initilise the level
+		//First up, find the start point
+		std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
+		ed.load(filename);
+		ed.findstartpoint();
 
-    game.gamestate = GAMEMODE;
-    music.fadeout();
-    hardreset();
+		game.gamestate = GAMEMODE;
+		music.fadeout();
+		hardreset();
 		map.custommodeforreal = true;
-    map.custommode = true;
-    map.customx = 100;
-    map.customy = 100;
+		map.custommode = true;
+		map.customx = 100;
+		map.customy = 100;
 
-    game.customstart();
+		game.customstart();
 		game.customloadquick(ed.ListOfMetaData[game.playcustomlevel].filename);
-    game.jumpheld = true;
-    game.gravitycontrol = game.savegc;
+		game.jumpheld = true;
+		game.gravitycontrol = game.savegc;
 
 
-    //graphics.showcutscenebars = true;
-    //graphics.cutscenebarspos = 320;
+		//graphics.showcutscenebars = true;
+		//graphics.cutscenebarspos = 320;
 
-    //set flipmode
-    if (graphics.setflipmode) graphics.flipmode = true;
+		//set flipmode
+		if (graphics.setflipmode) graphics.flipmode = true;
 
-    if(obj.nentity==0)
-    {
-      obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-    }
-    else
-    {
-      map.resetplayer();
-    }
-    map.gotoroom(game.saverx, game.savery);
-    /* Handled by load
-    if(ed.levmusic>0){
-      music.play(ed.levmusic);
-    }else{
-      music.currentsong=-1;
+		if(obj.nentity==0)
+		{
+			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+		}
+		else
+		{
+			map.resetplayer();
+		}
+		map.gotoroom(game.saverx, game.savery);
+		/* Handled by load
+		if(ed.levmusic>0){
+			music.play(ed.levmusic);
+		}else{
+			music.currentsong=-1;
 		}
 		*/
 		ed.generatecustomminimap();
 		graphics.fademode = 4;
-    //load("intro");
-  break;
-  }
+		//load("intro");
+		break;
+	}
 #endif
 	case 100:
 		game.savestats();
@@ -3524,8 +3524,8 @@ void scriptclass::hardreset()
 	game.state = 0;
 	game.statedelay = 0;
 
-  game.hascontrol = true;
-  game.advancetext = false;
+	game.hascontrol = true;
+	game.advancetext = false;
 
 	game.pausescript = false;
 
@@ -3536,7 +3536,7 @@ void scriptclass::hardreset()
 	graphics.showcutscenebars = false;
 	graphics.cutscenebarspos = 0;
 
-  //mapclass
+	//mapclass
 	map.warpx = false;
 	map.warpy = false;
 	map.showteleporters = false;
@@ -3584,9 +3584,9 @@ void scriptclass::hardreset()
 		obj.flags[i] = false;
 	}
 
-  for (i = 0; i < 6; i++){
-    obj.customcrewmoods[i]=1;
-  }
+	for (i = 0; i < 6; i++){
+		obj.customcrewmoods[i]=1;
+	}
 
 	for (i = 0; i < 100; i++)
 	{
