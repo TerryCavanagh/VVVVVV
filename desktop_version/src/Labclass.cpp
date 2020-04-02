@@ -1855,9 +1855,6 @@ std::vector<std::string> labclass::loadlevel(int rx, int ry)
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		tmap.push_back("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 		roomname = "Outer Space";
-
-		game.test = true;
-		game.teststring = "ERROR: Map not found in Lab Area";
 		break;
 #else
 	default:

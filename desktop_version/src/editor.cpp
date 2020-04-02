@@ -3486,11 +3486,6 @@ void editorrender()
         graphics.Print(0,121, ed.note,196-((45-ed.notedelay)*4), 196-((45-ed.notedelay)*4), 196-((45-ed.notedelay)*4), true);
     }
 
-    if (game.test)
-    {
-        graphics.bprint(5, 5, game.teststring, 196, 196, 255 - help.glow, false);
-    }
-
     graphics.drawfade();
 
     if (game.flashlight > 0 && !game.noflashingmode)

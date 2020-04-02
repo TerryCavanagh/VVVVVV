@@ -243,8 +243,7 @@ public:
 
     int mx, my;
     int screenshake, flashlight;
-    bool test;
-    std::string teststring, tempstring;
+    std::string tempstring;
     bool advancetext, pausescript;
 
     int deathseq, lifeseq;

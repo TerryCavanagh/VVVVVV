@@ -100,11 +100,6 @@ void preloaderrender()
     graphics.Print(282-(15*8), 204, "LOADING... 100%", 124, 112, 218, false);
   }
 
-  if (game.test)
-  {
-    graphics.Print(5, 5, game.teststring, 196, 196, 255 - help.glow, false);
-  }
-
   graphics.drawfade();
 
   if (game.flashlight > 0 && !game.noflashingmode)

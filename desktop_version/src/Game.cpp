@@ -384,8 +384,6 @@ void Game::init(void)
 
     stat_trinkets = 0;
 
-    test = false;
-    teststring = "TEST = True";
     state = 1;
     statedelay = 0;
     //updatestate();
