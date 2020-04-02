@@ -198,8 +198,6 @@ public:
 
 	colourTransform ct;
 
-	std::string tempstring;
-
 	int bcol, bcol2, rcol;
 
 

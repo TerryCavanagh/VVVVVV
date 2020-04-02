@@ -1144,14 +1144,14 @@ void Graphics::drawmenu( int cr, int cg, int cb, int division /*= 30*/ )
             //Draw it highlighted
             if (game.menuoptionsactive[i])
             {
-                tempstring = game.menuoptions[i];
+                std::string tempstring = game.menuoptions[i];
                 std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print(110 + (i * division) - 16 +game.menuxoff, 140 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }
             else
             {
-                tempstring = game.menuoptions[i];
+                std::string tempstring = game.menuoptions[i];
                 tempstring = "[ " + tempstring + " ]";
                 //Draw it in gray
                 Print(110 + (i * division) - 16 +game.menuxoff, 140 + (i * 12)+game.menuyoff, tempstring, 128, 128, 128);
@@ -1183,14 +1183,14 @@ void Graphics::drawlevelmenu( int cr, int cg, int cb, int division /*= 30*/ )
             //Draw it highlighted
             if (game.menuoptionsactive[i])
             {
-                tempstring = game.menuoptions[i];
+                std::string tempstring = game.menuoptions[i];
                 std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print(110 + (i * division) - 16 +game.menuxoff, 140+8 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }
             else
             {
-                tempstring = game.menuoptions[i];
+                std::string tempstring = game.menuoptions[i];
                 tempstring = "[ " + tempstring + " ]";
                 //Draw it in gray
                 Print(110 + (i * division) - 16 +game.menuxoff, 140+8 + (i * 12)+game.menuyoff, tempstring, 128, 128, 128);
@@ -1199,14 +1199,14 @@ void Graphics::drawlevelmenu( int cr, int cg, int cb, int division /*= 30*/ )
             //Draw it highlighted
             if (game.menuoptionsactive[i])
             {
-                tempstring = game.menuoptions[i];
+                std::string tempstring = game.menuoptions[i];
                 std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print(110 + (i * division) - 16 +game.menuxoff, 140 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }
             else
             {
-                tempstring = game.menuoptions[i];
+                std::string tempstring = game.menuoptions[i];
                 tempstring = "[ " + tempstring + " ]";
                 //Draw it in gray
                 Print(110 + (i * division) - 16 +game.menuxoff, 140 + (i * 12)+game.menuyoff, tempstring, 128, 128, 128);
