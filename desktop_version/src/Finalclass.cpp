@@ -13,7 +13,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry)
 	warpx = false;
 	warpy = false;
 
-	roomname = "Untitled room ["+UtilityClass::String(rx) + "," + UtilityClass::String(ry)+"]";
+	roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
 
 	switch(t)
 	{
