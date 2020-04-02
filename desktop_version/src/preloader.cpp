@@ -11,10 +11,10 @@ int pre_temprectx=0, pre_temprecty=0, pre_temprectw=320, pre_temprecth=240;
 
 void preloaderrender()
 {
-	//TODO
-	//graphics.backbuffer.lock();
+  //TODO
+  //graphics.backbuffer.lock();
 
-	//Draw grid
+  //Draw grid
 
   //pre_transition = -10;	pre_fakepercent = 100;
 
@@ -33,44 +33,44 @@ void preloaderrender()
       pre_coltimer = 8;
     }
     switch(pre_curcol) {
-	case 0:
-		pre_lightcol = graphics.RGBflip(0xBF,0x59,0x6F);
-		pre_darkcol = graphics.RGBflip(0x88,0x3E,0x53);
-		break;
-	case 1:
-		pre_lightcol = graphics.RGBflip(0x6C,0xBC,0x5C);
-		pre_darkcol = graphics.RGBflip(0x50,0x86,0x40);
-		break;
-	case 2:
-		pre_lightcol = graphics.RGBflip(0x5D,0x57,0xAA);
-		pre_darkcol = graphics.RGBflip(0x2F,0x2F,0x6C);
-		break;
-	case 3:
-		pre_lightcol = graphics.RGBflip(0xB7,0xBA,0x5E);
-		pre_darkcol = graphics.RGBflip(0x84,0x83,0x42);
-		break;
-	case 4:
-		pre_lightcol = graphics.RGBflip(0x57,0x90,0xAA);
-		pre_darkcol = graphics.RGBflip(0x2F,0x5B,0x6C);
-		break;
-	case 5:
-		pre_lightcol = graphics.RGBflip(0x90,0x61,0xB1);
-		pre_darkcol = graphics.RGBflip(0x58,0x3D,0x71);
-		break;
-	default:
-		pre_lightcol = graphics.RGBflip(0x00,0x00,0x00);
-		pre_darkcol = graphics.RGBflip(0x08,0x00,0x00);
-		break;
+    case 0:
+      pre_lightcol = graphics.RGBflip(0xBF,0x59,0x6F);
+      pre_darkcol = graphics.RGBflip(0x88,0x3E,0x53);
+      break;
+    case 1:
+      pre_lightcol = graphics.RGBflip(0x6C,0xBC,0x5C);
+      pre_darkcol = graphics.RGBflip(0x50,0x86,0x40);
+      break;
+    case 2:
+      pre_lightcol = graphics.RGBflip(0x5D,0x57,0xAA);
+      pre_darkcol = graphics.RGBflip(0x2F,0x2F,0x6C);
+      break;
+    case 3:
+      pre_lightcol = graphics.RGBflip(0xB7,0xBA,0x5E);
+      pre_darkcol = graphics.RGBflip(0x84,0x83,0x42);
+      break;
+    case 4:
+      pre_lightcol = graphics.RGBflip(0x57,0x90,0xAA);
+      pre_darkcol = graphics.RGBflip(0x2F,0x5B,0x6C);
+      break;
+    case 5:
+      pre_lightcol = graphics.RGBflip(0x90,0x61,0xB1);
+      pre_darkcol = graphics.RGBflip(0x58,0x3D,0x71);
+      break;
+    default:
+      pre_lightcol = graphics.RGBflip(0x00,0x00,0x00);
+      pre_darkcol = graphics.RGBflip(0x08,0x00,0x00);
+      break;
     }
 
     for (int i = 0; i < 18; i++) {
       pre_temprecty = (i * 16)- pre_offset;
       if (i % 2 == 0)
-	  {
+      {
         FillRect(graphics.backBuffer, pre_temprectx, pre_temprecty, pre_temprectw,pre_temprecth, pre_lightcol);
       }
-	  else
-	  {
+      else
+      {
         FillRect(graphics.backBuffer, pre_temprectx, pre_temprecty, pre_temprectw,pre_temprecth, pre_darkcol);
       }
     }
@@ -90,7 +90,7 @@ void preloaderrender()
   }else if (pre_transition <= -10) {
     game.gamestate=TITLEMODE;
   }else if (pre_transition < 5) {
-	  FillRect(graphics.backBuffer, 0, 0, 320,240, graphics.getBGR(0,0,0));
+    FillRect(graphics.backBuffer, 0, 0, 320,240, graphics.getBGR(0,0,0));
   }else if (pre_transition < 20) {
     pre_temprecty = 0;
     pre_temprecth = 240;
@@ -100,27 +100,27 @@ void preloaderrender()
     graphics.Print(282-(15*8), 204, "LOADING... 100%", 124, 112, 218, false);
   }
 
-	if (game.test)
-	{
-		graphics.Print(5, 5, game.teststring, 196, 196, 255 - help.glow, false);
-	}
+  if (game.test)
+  {
+    graphics.Print(5, 5, game.teststring, 196, 196, 255 - help.glow, false);
+  }
 
-	graphics.drawfade();
+  graphics.drawfade();
 
-	if (game.flashlight > 0 && !game.noflashingmode)
-	{
-		game.flashlight--;
-		graphics.flashlight();
-	}
+  if (game.flashlight > 0 && !game.noflashingmode)
+  {
+    game.flashlight--;
+    graphics.flashlight();
+  }
 
-	if (game.screenshake > 0  && !game.noflashingmode)
-	{
-		game.screenshake--;
-		graphics.screenshake();
-	}
-	else
-	{
-		graphics.render();
-	}
-	//graphics.backbuffer.unlock();
+  if (game.screenshake > 0  && !game.noflashingmode)
+  {
+    game.screenshake--;
+    graphics.screenshake();
+  }
+  else
+  {
+    graphics.render();
+  }
+  //graphics.backbuffer.unlock();
 }
