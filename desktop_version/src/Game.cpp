@@ -659,13 +659,13 @@ void Game::savecustomlevelstats()
 
     if(numcustomlevelstats>=200)numcustomlevelstats=199;
     msg = new TiXmlElement( "numcustomlevelstats" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(numcustomlevelstats).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(numcustomlevelstats).c_str() ));
     msgs->LinkEndChild( msg );
 
     std::string customlevelscorestr;
     for(int i = 0; i < numcustomlevelstats; i++ )
     {
-        customlevelscorestr += UtilityClass::String(customlevelscore[i]) + ",";
+        customlevelscorestr += help.String(customlevelscore[i]) + ",";
     }
     msg = new TiXmlElement( "customlevelscore" );
     msg->LinkEndChild( new TiXmlText( customlevelscorestr.c_str() ));
@@ -4557,7 +4557,7 @@ void Game::savestats()
     std::string s_unlock;
     for(size_t i = 0; i < unlock.size(); i++ )
     {
-        s_unlock += UtilityClass::String(unlock[i]) + ",";
+        s_unlock += help.String(unlock[i]) + ",";
     }
     msg = new TiXmlElement( "unlock" );
     msg->LinkEndChild( new TiXmlText( s_unlock.c_str() ));
@@ -4566,7 +4566,7 @@ void Game::savestats()
     std::string s_unlocknotify;
     for(size_t i = 0; i < unlocknotify.size(); i++ )
     {
-        s_unlocknotify += UtilityClass::String(unlocknotify[i]) + ",";
+        s_unlocknotify += help.String(unlocknotify[i]) + ",";
     }
     msg = new TiXmlElement( "unlocknotify" );
     msg->LinkEndChild( new TiXmlText( s_unlocknotify.c_str() ));
@@ -4575,7 +4575,7 @@ void Game::savestats()
     std::string s_besttimes;
     for(size_t i = 0; i < besttrinkets.size(); i++ )
     {
-        s_besttimes += UtilityClass::String(besttimes[i]) + ",";
+        s_besttimes += help.String(besttimes[i]) + ",";
     }
     msg = new TiXmlElement( "besttimes" );
     msg->LinkEndChild( new TiXmlText( s_besttimes.c_str() ));
@@ -4584,7 +4584,7 @@ void Game::savestats()
     std::string s_besttrinkets;
     for(size_t i = 0; i < besttrinkets.size(); i++ )
     {
-        s_besttrinkets += UtilityClass::String(besttrinkets[i]) + ",";
+        s_besttrinkets += help.String(besttrinkets[i]) + ",";
     }
     msg = new TiXmlElement( "besttrinkets" );
     msg->LinkEndChild( new TiXmlText( s_besttrinkets.c_str() ));
@@ -4593,7 +4593,7 @@ void Game::savestats()
     std::string s_bestlives;
     for(size_t i = 0; i < bestlives.size(); i++ )
     {
-        s_bestlives += UtilityClass::String(bestlives[i]) + ",";
+        s_bestlives += help.String(bestlives[i]) + ",";
     }
     msg = new TiXmlElement( "bestlives" );
     msg->LinkEndChild( new TiXmlText( s_bestlives.c_str() ));
@@ -4602,7 +4602,7 @@ void Game::savestats()
     std::string s_bestrank;
     for(size_t i = 0; i < bestrank.size(); i++ )
     {
-        s_bestrank += UtilityClass::String(bestrank[i]) + ",";
+        s_bestrank += help.String(bestrank[i]) + ",";
     }
     msg = new TiXmlElement( "bestrank" );
     msg->LinkEndChild( new TiXmlText( s_bestrank.c_str() ));
@@ -5696,7 +5696,7 @@ void Game::savetele()
     std::string mapExplored;
     for(size_t i = 0; i < map.explored.size(); i++ )
     {
-        mapExplored += UtilityClass::String(map.explored[i]) + ",";
+        mapExplored += help.String(map.explored[i]) + ",";
     }
     msg = new TiXmlElement( "worldmap" );
     msg->LinkEndChild( new TiXmlText( mapExplored.c_str() ));
@@ -5705,7 +5705,7 @@ void Game::savetele()
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += UtilityClass::String(obj.flags[i]) + ",";
+        flags += help.String(obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -5714,7 +5714,7 @@ void Game::savetele()
     std::string crewstatsString;
     for(size_t i = 0; i < crewstats.size(); i++ )
     {
-        crewstatsString += UtilityClass::String(crewstats[i]) + ",";
+        crewstatsString += help.String(crewstats[i]) + ",";
     }
     msg = new TiXmlElement( "crewstats" );
     msg->LinkEndChild( new TiXmlText( crewstatsString.c_str() ));
@@ -5723,7 +5723,7 @@ void Game::savetele()
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += UtilityClass::String(obj.collect[i]) + ",";
+        collect += help.String(obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
@@ -5736,27 +5736,27 @@ void Game::savetele()
     //telecookie.data.savey = savey;
 
     msg = new TiXmlElement( "finalx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finalx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finalx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "finaly" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finaly).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finaly).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savex" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savex).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savex).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savey" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savey).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savey).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "saverx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(saverx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(saverx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savery" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savery).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savery).c_str() ));
     msgs->LinkEndChild( msg );
 
     //telecookie.data.saverx = saverx;
@@ -5767,19 +5767,19 @@ void Game::savetele()
     //telecookie.data.trinkets = trinkets;
 
     msg = new TiXmlElement( "savegc" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savegc).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savegc).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savedir" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savedir).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savedir).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savepoint" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savepoint).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savepoint).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
     msgs->LinkEndChild( msg );
 
 
@@ -5800,13 +5800,13 @@ void Game::savetele()
     if(music.nicefade==1)
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.nicechange).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.nicechange).c_str() ));
         msgs->LinkEndChild( msg );
     }
     else
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.currentsong).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.currentsong).c_str() ));
         msgs->LinkEndChild( msg );
     }
 
@@ -5814,18 +5814,18 @@ void Game::savetele()
     msg->LinkEndChild( new TiXmlText( teleportscript.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "companion" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(companion).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(companion).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "lastsaved" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(lastsaved).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(lastsaved).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "supercrewmate" );
     msg->LinkEndChild( new TiXmlText( BoolToString(supercrewmate) ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "scmprogress" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(scmprogress).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(scmprogress).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "scmmoveme" );
     msg->LinkEndChild( new TiXmlText( BoolToString(scmmoveme) ));
@@ -5845,31 +5845,31 @@ void Game::savetele()
 
 
     msg = new TiXmlElement( "frames" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(frames).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(frames).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "seconds" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(seconds).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(seconds).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "minutes" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(minutes).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(minutes).c_str()) );
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hours" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hours).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(hours).c_str()) );
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "deathcounts" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(deathcounts).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(deathcounts).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "totalflips" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(totalflips).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(totalflips).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "hardestroom" );
     msg->LinkEndChild( new TiXmlText( hardestroom.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hardestroomdeaths" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hardestroomdeaths).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(hardestroomdeaths).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "finalmode" );
@@ -5942,7 +5942,7 @@ void Game::savequick()
     std::string mapExplored;
     for(size_t i = 0; i < map.explored.size(); i++ )
     {
-        mapExplored += UtilityClass::String(map.explored[i]) + ",";
+        mapExplored += help.String(map.explored[i]) + ",";
     }
     msg = new TiXmlElement( "worldmap" );
     msg->LinkEndChild( new TiXmlText( mapExplored.c_str() ));
@@ -5951,7 +5951,7 @@ void Game::savequick()
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += UtilityClass::String(obj.flags[i]) + ",";
+        flags += help.String(obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -5960,7 +5960,7 @@ void Game::savequick()
     std::string crewstatsString;
     for(size_t i = 0; i < crewstats.size(); i++ )
     {
-        crewstatsString += UtilityClass::String(crewstats[i]) + ",";
+        crewstatsString += help.String(crewstats[i]) + ",";
     }
     msg = new TiXmlElement( "crewstats" );
     msg->LinkEndChild( new TiXmlText( crewstatsString.c_str() ));
@@ -5969,7 +5969,7 @@ void Game::savequick()
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += UtilityClass::String(obj.collect[i]) + ",";
+        collect += help.String(obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
@@ -5982,27 +5982,27 @@ void Game::savequick()
     //telecookie.data.savey = savey;
 
     msg = new TiXmlElement( "finalx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finalx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finalx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "finaly" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finaly).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finaly).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savex" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savex).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savex).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savey" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savey).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savey).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "saverx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(saverx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(saverx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savery" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savery).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savery).c_str() ));
     msgs->LinkEndChild( msg );
 
     //telecookie.data.saverx = saverx;
@@ -6013,19 +6013,19 @@ void Game::savequick()
     //telecookie.data.trinkets = trinkets;
 
     msg = new TiXmlElement( "savegc" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savegc).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savegc).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savedir" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savedir).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savedir).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savepoint" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savepoint).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savepoint).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
     msgs->LinkEndChild( msg );
 
 
@@ -6045,13 +6045,13 @@ void Game::savequick()
     if(music.nicefade==1)
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.nicechange).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.nicechange).c_str() ));
         msgs->LinkEndChild( msg );
     }
     else
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.currentsong).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.currentsong).c_str() ));
         msgs->LinkEndChild( msg );
     }
 
@@ -6059,18 +6059,18 @@ void Game::savequick()
     msg->LinkEndChild( new TiXmlText( teleportscript.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "companion" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(companion).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(companion).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "lastsaved" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(lastsaved).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(lastsaved).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "supercrewmate" );
     msg->LinkEndChild( new TiXmlText( BoolToString(supercrewmate) ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "scmprogress" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(scmprogress).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(scmprogress).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "scmmoveme" );
     msg->LinkEndChild( new TiXmlText( BoolToString(scmmoveme) ));
@@ -6100,31 +6100,31 @@ void Game::savequick()
 
 
     msg = new TiXmlElement( "frames" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(frames).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(frames).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "seconds" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(seconds).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(seconds).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "minutes" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(minutes).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(minutes).c_str()) );
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hours" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hours).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(hours).c_str()) );
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "deathcounts" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(deathcounts).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(deathcounts).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "totalflips" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(totalflips).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(totalflips).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "hardestroom" );
     msg->LinkEndChild( new TiXmlText( hardestroom.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hardestroomdeaths" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hardestroomdeaths).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(hardestroomdeaths).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "summary" );
@@ -6183,7 +6183,7 @@ void Game::customsavequick(std::string savfile)
     std::string mapExplored;
     for(size_t i = 0; i < map.explored.size(); i++ )
     {
-        mapExplored += UtilityClass::String(map.explored[i]) + ",";
+        mapExplored += help.String(map.explored[i]) + ",";
     }
     msg = new TiXmlElement( "worldmap" );
     msg->LinkEndChild( new TiXmlText( mapExplored.c_str() ));
@@ -6192,7 +6192,7 @@ void Game::customsavequick(std::string savfile)
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += UtilityClass::String(obj.flags[i]) + ",";
+        flags += help.String(obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -6201,7 +6201,7 @@ void Game::customsavequick(std::string savfile)
     std::string moods;
     for(int i = 0; i < 6; i++ )
     {
-        moods += UtilityClass::String(obj.customcrewmoods[i]) + ",";
+        moods += help.String(obj.customcrewmoods[i]) + ",";
     }
     msg = new TiXmlElement( "moods" );
     msg->LinkEndChild( new TiXmlText( moods.c_str() ));
@@ -6210,7 +6210,7 @@ void Game::customsavequick(std::string savfile)
     std::string crewstatsString;
     for(size_t i = 0; i < crewstats.size(); i++ )
     {
-        crewstatsString += UtilityClass::String(crewstats[i]) + ",";
+        crewstatsString += help.String(crewstats[i]) + ",";
     }
     msg = new TiXmlElement( "crewstats" );
     msg->LinkEndChild( new TiXmlText( crewstatsString.c_str() ));
@@ -6219,7 +6219,7 @@ void Game::customsavequick(std::string savfile)
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += UtilityClass::String(obj.collect[i]) + ",";
+        collect += help.String(obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
@@ -6228,7 +6228,7 @@ void Game::customsavequick(std::string savfile)
     std::string customcollect;
     for(size_t i = 0; i < obj.customcollect.size(); i++ )
     {
-        customcollect += UtilityClass::String(obj.customcollect[i]) + ",";
+        customcollect += help.String(obj.customcollect[i]) + ",";
     }
     msg = new TiXmlElement( "customcollect" );
     msg->LinkEndChild( new TiXmlText( customcollect.c_str() ));
@@ -6241,27 +6241,27 @@ void Game::customsavequick(std::string savfile)
     //telecookie.data.savey = savey;
 
     msg = new TiXmlElement( "finalx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finalx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finalx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "finaly" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(map.finaly).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(map.finaly).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savex" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savex).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savex).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savey" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savey).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savey).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "saverx" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(saverx).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(saverx).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savery" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savery).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savery).c_str() ));
     msgs->LinkEndChild( msg );
 
     //telecookie.data.saverx = saverx;
@@ -6272,23 +6272,23 @@ void Game::customsavequick(std::string savfile)
     //telecookie.data.trinkets = trinkets;
 
     msg = new TiXmlElement( "savegc" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savegc).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savegc).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savedir" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savedir).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savedir).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "savepoint" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(savepoint).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(savepoint).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "crewmates" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(crewmates).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(crewmates).c_str() ));
     msgs->LinkEndChild( msg );
 
 
@@ -6308,13 +6308,13 @@ void Game::customsavequick(std::string savfile)
     if(music.nicefade==1)
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.nicechange).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.nicechange).c_str() ));
         msgs->LinkEndChild( msg );
     }
     else
     {
         msg = new TiXmlElement( "currentsong" );
-        msg->LinkEndChild( new TiXmlText( UtilityClass::String(music.currentsong).c_str() ));
+        msg->LinkEndChild( new TiXmlText( help.String(music.currentsong).c_str() ));
         msgs->LinkEndChild( msg );
     }
 
@@ -6322,18 +6322,18 @@ void Game::customsavequick(std::string savfile)
     msg->LinkEndChild( new TiXmlText( teleportscript.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "companion" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(companion).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(companion).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "lastsaved" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(lastsaved).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(lastsaved).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "supercrewmate" );
     msg->LinkEndChild( new TiXmlText( BoolToString(supercrewmate) ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "scmprogress" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(scmprogress).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(scmprogress).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "scmmoveme" );
     msg->LinkEndChild( new TiXmlText( BoolToString(scmmoveme) ));
@@ -6353,31 +6353,31 @@ void Game::customsavequick(std::string savfile)
 
 
     msg = new TiXmlElement( "frames" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(frames).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(frames).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "seconds" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(seconds).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(seconds).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "minutes" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(minutes).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(minutes).c_str()) );
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hours" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hours).c_str()) );
+    msg->LinkEndChild( new TiXmlText( help.String(hours).c_str()) );
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "deathcounts" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(deathcounts).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(deathcounts).c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "totalflips" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(totalflips).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(totalflips).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "hardestroom" );
     msg->LinkEndChild( new TiXmlText( hardestroom.c_str() ));
     msgs->LinkEndChild( msg );
     msg = new TiXmlElement( "hardestroomdeaths" );
-    msg->LinkEndChild( new TiXmlText( UtilityClass::String(hardestroomdeaths).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(hardestroomdeaths).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "showminimap" );
