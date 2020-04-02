@@ -85,8 +85,6 @@ Screen::Screen()
 	);
 
 	badSignalEffect = false;
-
-	glScreen = true;
 }
 
 void Screen::ResizeScreen(int x, int y)

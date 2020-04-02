@@ -23,7 +23,6 @@ public:
 	bool isWindowed;
 	bool isFiltered;
 	bool badSignalEffect;
-	bool glScreen;
 	int stretchMode;
 
 	SDL_Window *m_window;
