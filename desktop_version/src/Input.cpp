@@ -230,7 +230,7 @@ void titleinput()
             {
                 if (game.currentmenuname == "mainmenu")
                 {
-								
+
             #if defined(MAKEANDPLAY)
 				   if (game.currentmenuoption == 0)
                     {
@@ -868,7 +868,7 @@ SDL_assert(0 && "Remove open level dir");
                 }
                 else if (game.currentmenuname == "options")
                 {
-								
+
 				#if defined(MAKEANDPLAY)
 				if (game.currentmenuoption == 0)
                     {
@@ -877,7 +877,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.createmenu("accessibility");
                         map.nexttowercolour();
                     }
-                   
+
 					else if (game.currentmenuoption == 1)
 					{
 						//clear data menu
@@ -925,7 +925,7 @@ SDL_assert(0 && "Remove open level dir");
 													map.nexttowercolour();
 											}
 										}
-                    
+
 				#elif !defined(MAKEANDPLAY)
                     if (game.currentmenuoption == 0)
                     {
@@ -955,7 +955,7 @@ SDL_assert(0 && "Remove open level dir");
                         game.createmenu("cleardatamenu");
                         map.nexttowercolour();
                     }
-                    
+
 										if(music.mmmmmm){
 											if (game.currentmenuoption == 4)
 											{

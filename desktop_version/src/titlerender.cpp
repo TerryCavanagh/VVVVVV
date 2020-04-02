@@ -114,7 +114,7 @@ void titlerender()
         }
         else if (game.currentmenuname == "options")
         {
-				
+
 						#if defined(MAKEANDPLAY)
 							if (game.currentmenuoption == 0)
 							{
@@ -1122,7 +1122,7 @@ void titlerender()
             graphics.Print( -1, 125, "Your have unlocked", tr, tg, tb, true);
             graphics.Print( -1, 135, "the intermission levels.", tr, tg, tb, true);
         }else if (game.currentmenuname == "playerworlds")
-        {   
+        {
 						graphics.tempstring = FILESYSTEM_getUserLevelDirectory();
 						if(graphics.tempstring.length()>80){
 							graphics.Print( -1, 160, "To install new player levels, copy", tr, tg, tb, true);

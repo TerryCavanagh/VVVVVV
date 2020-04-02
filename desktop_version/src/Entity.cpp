@@ -4805,7 +4805,7 @@ bool entityclass::entitywarphlinecollide(int t, int l) {
 					if (entities[t].oldyp < entities[l].yp + 10) linetemp++;
 					if (entities[t].oldyp + entities[t].h < entities[l].yp + 10) linetemp++;
 				}
-							
+
 				if (linetemp > 0) return true;
 				return false;
 			}else {
@@ -4816,7 +4816,7 @@ bool entityclass::entitywarphlinecollide(int t, int l) {
 					if (entities[t].oldyp > entities[l].yp - 10) linetemp++;
 					if (entities[t].oldyp + entities[t].h > entities[l].yp - 10) linetemp++;
 				}
-						
+
 				if (linetemp > 0) return true;
 				return false;
 			}
@@ -4824,7 +4824,7 @@ bool entityclass::entitywarphlinecollide(int t, int l) {
 	}
 	return false;
 }
-		
+
 bool entityclass::entitywarpvlinecollide(int t, int l) {
 	//Returns true is entity t collided with the vertical warp line l.
 	if(entities[t].yp + entities[t].cy+entities[t].h>=entities[l].yp){
@@ -4836,7 +4836,7 @@ bool entityclass::entitywarpvlinecollide(int t, int l) {
 				if (entities[t].xp + entities[t].cx+1 + entities[t].w < entities[l].xp + 10) linetemp++;
 				if (entities[t].oldxp + entities[t].cx + 1 < entities[l].xp + 10) linetemp++;
 				if (entities[t].oldxp + entities[t].cx + 1 + entities[t].w < entities[l].xp + 10) linetemp++;
-						
+
 				if (linetemp > 0) return true;
 				return false;
 			}else {
@@ -4845,7 +4845,7 @@ bool entityclass::entitywarpvlinecollide(int t, int l) {
 				if (entities[t].xp + entities[t].cx+1 + entities[t].w > entities[l].xp - 10) linetemp++;
 				if (entities[t].oldxp + entities[t].cx + 1 > entities[l].xp - 10) linetemp++;
 				if (entities[t].oldxp + entities[t].cx + 1 + entities[t].w > entities[l].xp - 10) linetemp++;
-						
+
 				if (linetemp > 0) return true;
 				return false;
 			}
@@ -5195,21 +5195,21 @@ void entityclass::hormovingplatformfix( int t )
 void entityclass::customwarplinecheck(int i) {
 		//Turns on obj.customwarpmodevon and obj.customwarpmodehon if player collides
 		//with warp lines
-			
+
 	if (entities[i].active) {
 		//We test entity to entity
 		for (int j = 0; j < nentity; j++) {
 			if (entities[j].active && i != j) {//Active
 				if (entities[i].rule == 0 && entities[j].rule == 5) { //Player vs vertical line!
-					if (entities[j].type == 51 || entities[j].type == 52) {								
-						if (entitywarpvlinecollide(i, j)) {	
+					if (entities[j].type == 51 || entities[j].type == 52) {
+						if (entitywarpvlinecollide(i, j)) {
 							customwarpmodevon = true;
 						}
 					}
 				}
-						
+
 				if (entities[i].rule == 0 && entities[j].rule == 7){   //Player vs horizontal WARP line
-					if (entities[j].type == 53 || entities[j].type == 54) {								
+					if (entities[j].type == 53 || entities[j].type == 54) {
 						if (entitywarphlinecollide(i, j)) {
 							customwarpmodehon = true;
 						}
