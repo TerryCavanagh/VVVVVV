@@ -3596,7 +3596,7 @@ void editorinput()
 
             if(!key.keymap[SDLK_BACKSPACE]) ed.deletekeyheld=0;
 
-            if(key.keymap[SDLK_BACKSPACE] && ed.deletekeyheld==0)
+            if(key.keymap[SDLK_BACKSPACE] && ed.deletekeyheld==0 && !ed.hooklist.empty())
             {
                 ed.deletekeyheld=1;
                 music.playef(2);
