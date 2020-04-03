@@ -171,3 +171,337 @@ void entclass::setenemy( int t )
 		break;
 	}
 }
+
+void entclass::setenemyroom( int rx, int ry )
+{
+	//Simple function to initilise simple enemies
+	rx -= 100;
+	ry -= 100;
+	switch(rn(rx, ry))
+	{
+		//Space Station 1
+	case rn(12, 3):  //Security Drone
+		tile = 36;
+		colour = 8;
+		animate = 1;
+		break;
+	case rn(13, 3):  //Wavelengths
+		tile = 32;
+		colour = 7;
+		animate = 1;
+		w = 32;
+		break;
+	case rn(15, 3):  //Traffic
+		tile = 28;
+		colour = 6;
+		animate = 1;
+		w = 22;
+		h = 32;
+		break;
+	case rn(12, 5):  //The Yes Men
+		tile = 40;
+		colour = 9;
+		animate = 1;
+		w = 20;
+		h = 20;
+		break;
+	case rn(13, 6):  //Hunchbacked Guards
+		tile = 44;
+		colour = 8;
+		animate = 1;
+		w = 16;
+		h = 20;
+		break;
+	case rn(13, 4):  //Communication Station
+		harmful = false;
+		if (xp == 256)
+		{
+			//transmittor
+			tile = 104;
+			colour = 4;
+			animate = 7;
+			w = 16;
+			h = 16;
+			xp -= 24;
+			yp -= 16;
+		}
+		else
+		{
+			//radar dish
+			tile =124;
+			colour = 4;
+			animate = 6;
+			w = 32;
+			h = 32;
+			cx = 4;
+			size = 9;
+			xp -= 4;
+			yp -= 32;
+		}
+
+		break;
+		//The Lab
+	case rn(4, 0):
+		tile = 78;
+		colour = 7;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(2, 0):
+		tile = 88;
+		colour = 11;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+		//Space Station 2
+	case rn(14, 11):
+		colour = 17;
+		break; //Lies
+	case rn(16, 11):
+		colour = 8;
+		break; //Lies
+	case rn(13, 10):
+		colour = 11;
+		break; //Factory
+	case rn(13, 9):
+		colour = 9;
+		break; //Factory
+	case rn(13, 8):
+		colour = 8;
+		break; //Factory
+	case rn(11, 13): //Truth
+		tile = 64;
+		colour = 7;
+		animate = 100;
+		w = 44;
+		h = 10;
+		size = 10;
+		break;
+	case rn(17, 7): //Brass sent us under the top
+		tile =82;
+		colour = 8;
+		animate = 5;
+		w = 28;
+		h = 32;
+		cx = 4;
+		break;
+	case rn(10, 7): // (deception)
+		tile = 92;
+		colour = 6;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(14, 13): // (chose poorly)
+		tile = 56;
+		colour = 6;
+		animate = 1;
+		w = 15;
+		h = 24;
+		break;
+	case rn(13, 12): // (backsliders)
+		tile = 164;
+		colour = 7;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(14, 8): // (wheel of fortune room)
+		tile = 116;
+		colour = 12;
+		animate = 1;
+		w = 32;
+		h = 32;
+		break;
+	case rn(16, 9): // (seeing dollar signs)
+		tile = 68;
+		colour = 7;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(16, 7): // (tomb of mad carew)
+		tile = 106;
+		colour = 7;
+		animate = 2;
+		w = 24;
+		h = 25;
+		break;
+		//Warp Zone
+	case rn(15, 2): // (numbers)
+		tile = 100;
+		colour = 6;
+		animate = 1;
+		w = 32;
+		h = 14;
+		yp += 1;
+		break;
+	case rn(16, 2): // (Manequins)
+		tile = 52;
+		colour = 7;
+		animate = 5;
+		w = 16;
+		h = 25;
+		yp -= 4;
+		break;
+	case rn(18, 0): // (Obey)
+		tile = 51;
+		colour = 11;
+		animate = 100;
+		w = 30;
+		h = 14;
+		break;
+	case rn(19, 1): // Ascending and Descending
+		tile = 48;
+		colour = 9;
+		animate = 5;
+		w = 16;
+		h = 16;
+		break;
+	case rn(19, 2): // Shockwave Rider
+		tile = 176;
+		colour = 6;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(18, 3): // Mind the gap
+		tile = 168;
+		colour = 7;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(17, 3): // Edge Games
+		if (yp ==96)
+		{
+			tile = 160;
+			colour = 8;
+			animate = 1;
+			w = 16;
+			h = 16;
+		}
+		else
+		{
+			tile = 156;
+			colour = 8;
+			animate = 1;
+			w = 16;
+			h = 16;
+		}
+		break;
+	case rn(16, 0): // I love you
+		tile = 112;
+		colour = 8;
+		animate = 5;
+		w = 16;
+		h = 16;
+		break;
+	case rn(14, 2): // That's why I have to kill you
+		tile = 114;
+		colour = 6;
+		animate = 5;
+		w = 16;
+		h = 16;
+		break;
+	case rn(18, 2): // Thinking with Portals
+		//depends on direction
+		if (xp ==88)
+		{
+			tile = 54+12;
+			colour = 12;
+			animate = 100;
+			w = 60;
+			h = 16;
+			size = 10;
+		}
+		else
+		{
+			tile = 54;
+			colour = 12;
+			animate = 100;
+			w = 60;
+			h = 16;
+			size = 10;
+		}
+		break;
+		//Final level
+	case rn(50-100, 53-100):  //The Yes Men
+		tile = 40;
+		colour = 9;
+		animate = 1;
+		w = 20;
+		h = 20;
+		break;
+	case rn(48-100, 51-100):  //Wavelengths
+		tile = 32;
+		colour = 7;
+		animate = 1;
+		w = 32;
+		break;
+	case rn(43-100,52-100): // Ascending and Descending
+		tile = 48;
+		colour = 9;
+		animate = 5;
+		w = 16;
+		h = 16;
+		break;
+	case rn(46-100,51-100): //kids his age
+		tile = 88;
+		colour = 11;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(43-100,51-100): // Mind the gap
+		tile = 168;
+		colour = 7;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(44-100,51-100): // vertigo?
+		tile = 172;
+		colour = 7;
+		animate = 100;
+		w = 32;
+		h = 32;
+		break;
+	case rn(44-100,52-100): // (backsliders)
+		tile = 164;
+		colour = 7;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(43-100, 56-100): //Intermission 1
+		tile = 88;
+		colour = 21;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+	case rn(45-100, 56-100): //Intermission 1
+		tile = 88;
+		colour = 21;
+		animate = 1;
+		w = 16;
+		h = 16;
+		break;
+		//The elephant
+	case rn(11, 9):
+	case rn(12, 9):
+	case rn(11, 8):
+	case rn(12, 8):
+		tile = 0;
+		colour = 102;
+		animate = 0;
+		w = 464;
+		h = 320;
+		size = 11;
+		harmful = false;
+		break;
+	}
+}
