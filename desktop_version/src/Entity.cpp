@@ -1601,91 +1601,6 @@ void entityclass::setenemyroom( int t, int rx, int ry )
     }
 }
 
-void entityclass::setenemy( int t, int r )
-{
-    switch(t)
-    {
-    case 0:
-        //lies emitter
-        if( (entities[r].para)==0)
-        {
-            entities[r].tile = 60;
-            entities[r].animate = 2;
-            entities[r].colour = 6;
-            entities[r].behave = 10;
-            entities[r].w = 32;
-            entities[r].h = 32;
-            entities[r].x1 = -200;
-        }
-        else if ( (entities[r].para) == 1)
-        {
-            entities[r].yp += 10;
-            entities[r].tile = 63;
-            entities[r].animate = 100; //LIES
-            entities[r].colour = 6;
-            entities[r].behave = 11;
-            entities[r].para = 9; //destroyed when outside
-            entities[r].x1 = -200;
-            entities[r].x2 = 400;
-            entities[r].w = 26;
-            entities[r].h = 10;
-            entities[r].cx = 1;
-            entities[r].cy = 1;
-        }
-        else if ( (entities[r].para) == 2)
-        {
-            entities[r].tile = 62;
-            entities[r].animate = 100;
-            entities[r].colour = 6;
-            entities[r].behave = -1;
-            entities[r].w = 32;
-            entities[r].h = 32;
-        }
-        break;
-    case 1:
-        //FACTORY emitter
-        if( (entities[r].para)==0)
-        {
-            entities[r].tile = 72;
-            entities[r].animate = 3;
-            entities[r].size = 9;
-            entities[r].colour = 6;
-            entities[r].behave = 12;
-            entities[r].w = 64;
-            entities[r].h = 40;
-            entities[r].cx = 0;
-            entities[r].cy = 24;
-        }
-        else if ( (entities[r].para) == 1)
-        {
-            entities[r].xp += 4;
-            entities[r].yp -= 4;
-            entities[r].tile = 76;
-            entities[r].animate = 100; // Clouds
-            entities[r].colour = 6;
-            entities[r].behave = 13;
-            entities[r].para = -6; //destroyed when outside
-            entities[r].x2 = 400;
-            entities[r].w = 32;
-            entities[r].h = 12;
-            entities[r].cx = 0;
-            entities[r].cy = 6;
-        }
-        else if ( (entities[r].para) == 2)
-        {
-            entities[r].tile = 77;
-            entities[r].animate = 100;
-            entities[r].colour = 6;
-            entities[r].behave = -1;
-            entities[r].w = 32;
-            entities[r].h = 16;
-        }
-        break;
-    default:
-        break;
-    }
-}
-
 void entityclass::settreadmillcolour( int t, int rx, int ry )
 {
     rx -= 100;
@@ -1865,12 +1780,12 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         if  (game.roomy == 111 && (game.roomx >= 113 && game.roomx <= 117))
         {
-            setenemy(0, k);
+            entities[k].setenemy(0);
             setenemyroom(k, game.roomx, game.roomy); //For colour
         }
         else if  (game.roomx == 113 && (game.roomy <= 110 && game.roomy >= 108))
         {
-            setenemy(1, k);
+            entities[k].setenemy(1);
             setenemyroom(k, game.roomx, game.roomy); //For colour
         }
         else if (game.roomx == 113 && game.roomy == 107)
