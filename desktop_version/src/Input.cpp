@@ -1709,38 +1709,38 @@ void gameinput()
     //Returning to editor mode must always be possible
 #if !defined(NO_CUSTOM_LEVELS)
     if(map.custommode && !map.custommodeforreal){
-      if ((game.press_map || key.isDown(27)) && !game.mapheld){
-        game.mapheld = true;
-        //Return to level editor
-        if (game.activeactivity > -1 && game.press_map){
-           if((int(std::abs(obj.entities[obj.getplayer()].vx))<=1) && (int(obj.entities[obj.getplayer()].vy) == 0) )
-            {
-                script.load(obj.blocks[game.activeactivity].script);
-                obj.removeblock(game.activeactivity);
-                game.activeactivity = -1;
-            }
-        }else{
-          game.gamestate = EDITORMODE;
+        if ((game.press_map || key.isDown(27)) && !game.mapheld){
+            game.mapheld = true;
+            //Return to level editor
+            if (game.activeactivity > -1 && game.press_map){
+               if((int(std::abs(obj.entities[obj.getplayer()].vx))<=1) && (int(obj.entities[obj.getplayer()].vy) == 0) )
+               {
+                   script.load(obj.blocks[game.activeactivity].script);
+                   obj.removeblock(game.activeactivity);
+                   game.activeactivity = -1;
+               }
+            }else{
+                game.gamestate = EDITORMODE;
 
-          graphics.textboxremove();
-          game.hascontrol = true;
-          game.advancetext = false;
-          game.completestop = false;
-          game.state = 0;
-          graphics.showcutscenebars = false;
+                graphics.textboxremove();
+                game.hascontrol = true;
+                game.advancetext = false;
+                game.completestop = false;
+                game.state = 0;
+                graphics.showcutscenebars = false;
 
-          graphics.backgrounddrawn=false;
-          music.fadeout();
-          //If warpdir() is used during playtesting, we need to set it back after!
-          for (int j = 0; j < ed.maxheight; j++)
-          {
-            for (int i = 0; i < ed.maxwidth; i++)
-            {
-              ed.level[i+(j*ed.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*ed.maxwidth)];
+                graphics.backgrounddrawn=false;
+                music.fadeout();
+                //If warpdir() is used during playtesting, we need to set it back after!
+                for (int j = 0; j < ed.maxheight; j++)
+                {
+                    for (int i = 0; i < ed.maxwidth; i++)
+                    {
+                       ed.level[i+(j*ed.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*ed.maxwidth)];
+                    }
+                }
             }
-          }
         }
-      }
     }
 #endif
 
