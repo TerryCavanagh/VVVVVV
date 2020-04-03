@@ -8,7 +8,6 @@
 #include "KeyPoll.h"
 #include "Map.h"
 #include "Script.h"
-//#include "UtilityClass.h"
 #include "time.h"
 
 #include "tinyxml.h"
@@ -1149,12 +1148,6 @@ int editorclass::backfree( int x, int y )
         {
             return 0;
         }
-        else
-        {
-            //if(contents[x+(levx*40)+vmult[y+(levy*30)]]>=2 && contents[x+(levx*40)+vmult[y+(levy*30)]]<80){
-            //		return 0;
-            //}
-        }
     }
     return 1;
 }
@@ -1294,21 +1287,6 @@ int editorclass::backmatch( int x, int y )
     // 5 1 6
     // 2 X 4
     // 7 3 8
-    /*
-    if(at(x-1,y)>=80 && at(x,y-1)>=80) return 10;
-    if(at(x+1,y)>=80 && at(x,y-1)>=80) return 11;
-    if(at(x-1,y)>=80 && at(x,y+1)>=80) return 12;
-    if(at(x+1,y)>=80 && at(x,y+1)>=80) return 13;
-
-    if(at(x,y-1)>=80) return 1;
-    if(at(x-1,y)>=80) return 2;
-    if(at(x,y+1)>=80) return 3;
-    if(at(x+1,y)>=80) return 4;
-    if(at(x-1,y-1)>=80) return 5;
-    if(at(x+1,y-1)>=80) return 6;
-    if(at(x-1,y+1)>=80) return 7;
-    if(at(x+1,y+1)>=80) return 8;
-    */
     if(backfree(x-1,y)==0 && backfree(x,y-1)==0 && backfree(x+1,y)==0 && backfree(x,y+1)==0) return 0;
 
     if(backfree(x-1,y)==0 && backfree(x,y-1)==0) return 10;
@@ -1879,7 +1857,6 @@ void editorclass::load(std::string& _path)
     gethooks();
     countstuff();
     version=2;
-    //saveconvertor();
 }
 
 void editorclass::save(std::string& _path)
@@ -1909,7 +1886,6 @@ void editorclass::save(std::string& _path)
     timeinfo = localtime ( &rawtime );
 
     std::string timeAndDate = asctime (timeinfo);
-    //timeAndDate += dateStr;
 
     EditorData::GetInstance().timeModified =  timeAndDate;
     if(EditorData::GetInstance().timeModified == "")
@@ -1981,18 +1957,6 @@ void editorclass::save(std::string& _path)
     msg->LinkEndChild( new TiXmlText( contentsString.c_str() ));
     data->LinkEndChild( msg );
 
-
-    //Old save format
-    /*
-    std::string contentsString;
-    for(int i = 0; i < contents.size(); i++ )
-    {
-    	contentsString += help.String(contents[i]) + ",";
-    }
-    msg = new TiXmlElement( "contents" );
-    msg->LinkEndChild( new TiXmlText( contentsString.c_str() ));
-    data->LinkEndChild( msg );
-    */
 
     msg = new TiXmlElement( "edEntities" );
     for(size_t i = 0; i < edentity.size(); i++)
@@ -2235,9 +2199,6 @@ void editorclass::generatecustomminimap()
 
 void editorrender()
 {
-    //TODO
-    //graphics.backbuffer.lock();
-
     //Draw grid
 
     FillRect(graphics.backBuffer, 0, 0, 320,240, graphics.getRGB(0,0,0));
@@ -2262,7 +2223,6 @@ void editorrender()
     }
 
     //Or draw background
-    //graphics.drawbackground(1);
     if(!ed.settingsmod)
     {
         switch(ed.level[ed.levx+(ed.levy*ed.maxwidth)].warpdir)
@@ -2361,8 +2321,6 @@ void editorrender()
             switch(edentity[i].t)
             {
             case 1: //Entities
-                //FillRect(graphics.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 16,16, graphics.getRGB(64,32,64));
-                //graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),164,48,48);
                 graphics.drawspritesetcol((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),ed.getenemyframe(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype),ed.entcol);
                 if(edentity[i].p1==0) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
                 if(edentity[i].p1==1) graphics.Print((edentity[i].x*8)- (ed.levx*40*8)+4,(edentity[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow, false);
@@ -2406,7 +2364,6 @@ void editorrender()
 
                 if(edentity[i].p1>=7)
                 {
-                    //FillRect(graphics.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 32,8, graphics.getBGR(64,128,64));
                     tpoint.x = (edentity[i].x*8)- (ed.levx*40*8)+32;
                     tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
                     drawRect = graphics.tiles_rect;
@@ -2434,8 +2391,6 @@ void editorrender()
                 }
                 break;
             case 3: //Disappearing Platform
-                //FillRect(graphics.backBuffer, (edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), 32,8, graphics.getBGR(64,64,128));
-
                 tpoint.x = (edentity[i].x*8)- (ed.levx*40*8);
                 tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
                 drawRect = graphics.tiles_rect;
@@ -2656,9 +2611,6 @@ void editorrender()
         }
     }
 
-    //Draw connecting map guidelines
-    //TODO
-
     //Draw Cursor
     switch(ed.drawmode)
     {
@@ -2852,7 +2804,6 @@ void editorrender()
         case 0:
             graphics.Print(16,28,"**** VVVVVV SCRIPT EDITOR ****", 123, 111, 218, true);
             graphics.Print(16,44,"PRESS ESC TO RETURN TO MENU", 123, 111, 218, true);
-            //graphics.Print(16,60,"READY.", 123, 111, 218, false);
 
             if(!ed.hooklist.empty())
             {
@@ -3065,15 +3016,6 @@ void editorrender()
         }
 
         graphics.drawmenu(tr, tg, tb, 15);
-
-        /*
-        graphics.Print(4, 224, "Enter name to save map as:", 255,255,255, false);
-        if(ed.entframe<2){
-          graphics.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
-        }else{
-          graphics.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
-        }
-        */
     }
     else if(ed.scripttextmod)
     {
@@ -3463,21 +3405,7 @@ void editorrender()
             graphics.bprint(2,2, "P: Start Point",196, 196, 255 - help.glow);
             break;
         }
-
-        //graphics.Print(254, 2, "F1: HELP", 196, 196, 255 - help.glow, false);
     }
-
-    /*
-    for(size_t i=0; i<script.customscript.size(); i++){
-      graphics.Print(0,i*8,script.customscript[i],255,255,255);
-    }
-    graphics.Print(0,8*script.customscript.size(),help.String(script.customscript.size()),255,255,255);
-
-    for(size_t i=0; i<ed.hooklist.size(); i++){
-      graphics.Print(260,i*8,ed.hooklist[i],255,255,255);
-    }
-    graphics.Print(260,8*ed.hooklist.size(),help.String(ed.hooklist.size()),255,255,255);
-    */
 
     if(ed.notedelay>0)
     {
@@ -3503,7 +3431,6 @@ void editorrender()
     {
         graphics.render();
     }
-    //graphics.backbuffer.unlock();
 }
 
 void editorlogic()
@@ -3545,7 +3472,6 @@ void editorlogic()
 
 void editorinput()
 {
-    //TODO Mouse Input!
     game.mx = (float) key.mx;
     game.my = (float) key.my;
     ed.tilex=(game.mx - (game.mx%8))/8;
@@ -3573,7 +3499,6 @@ void editorinput()
     }
     if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v))
     {
-        // || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)
         game.press_action = true;
     };
 
@@ -4480,13 +4405,6 @@ void editorinput()
                         ed.returneditoralpha = 1000; // Let's start it higher than 255 since it gets clamped
                         script.startgamemode(21);
                     }
-                    //Return to game
-                    //game.gamestate=GAMEMODE;
-                    /*if(graphics.fademode==0)
-                    {
-                    graphics.fademode = 2;
-                    music.fadeout();
-                    }*/
                 }
             }
 
@@ -5242,12 +5160,11 @@ void editorinput()
                     else if(ed.contents[temp]==2 || ed.contents[temp]>=680)
                     {
                         //Fix background
-                        ed.contents[temp]=713;//ed.backbase(ed.levx,ed.levy);
+                        ed.contents[temp]=713;
                     }
                     else if(ed.contents[temp]>0)
                     {
                         //Fix tiles
-                        //ed.contents[temp]=ed.warpzoneedgetile(i,j)+ed.base(ed.levx,ed.levy);
                         ed.contents[temp]=ed.edgetile(i,j)+ed.base(ed.levx,ed.levy);
                     }
                 }
