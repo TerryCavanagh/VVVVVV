@@ -169,12 +169,6 @@ void mapclass::transformname(int t)
 {
 	//transform special names into new ones, one step at a time
 
-	/*
-	if (specialnames[3] == "") { specialnames[3] = ;
-	}else if (specialnames[3] == "") { specialnames[3] = ;
-	}
-	*/
-
 	glitchdelay--;
 	if(glitchdelay<=0)
 	{
@@ -465,7 +459,6 @@ int mapclass::finalat(int x, int y)
 		//Special case: animated tiles
 		if (final_mapcol == 1)
 		{
-			// return contents[x + vmult[y]] - (final_mapcol * 3) + (int(fRandom()*12)*40);
 			// Windows hits fRandom() == 1 frequently! For fuck sake! -flibit
 			return 737 + (std::min(int(fRandom() * 12), 11) * 40);
 		}
@@ -934,10 +927,6 @@ void mapclass::gotoroom(int rx, int ry)
 	if (finalmode)
 	{
 		//Ok, what way are we moving?
-		/*if (rx - finalx >= 1) finalx++;
-		if (rx - finalx <= -1) finalx--;
-		if (ry - finaly >= 1) finaly++;
-		if (ry - finaly <= -1) finaly--;*/
 		finalx = rx;
 		finaly = ry;
 		game.roomx = finalx;
@@ -1177,8 +1166,6 @@ std::string mapclass::currentarea(int t)
 void mapclass::loadlevel(int rx, int ry)
 {
 	int t;
-	//t = rx + (ry * 100);
-	//roomname = "[UNTITLED] (" + String(rx)+","+String(ry)+")";
 	if (!finalmode)
 	{
 		explored[rx - 100 + ((ry - 100) * 20)] = 1;
@@ -1755,14 +1742,7 @@ void mapclass::loadlevel(int rx, int ry)
 	//The room's loaded: now we fill out damage blocks based on the tiles.
 	if (towermode)
 	{
-		for (int j = 0; j < 700; j++)
-		{
-			for (int i = 0; i < 40; i++)
-			{
-				//Damage blocks
-				//if (tower.contents[i + tower.vmult[j]] >=6	&& tower.contents[i + tower.vmult[j]] <= 11) obj.createblock(2, (i * 8) + 1, j * 8, 6, 8);
-			}
-		}
+
 	}
 	else
 	{
