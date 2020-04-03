@@ -1313,14 +1313,6 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         entity.y2 = p4;
 
         entity.harmful = true;
-        //Exact appearance depends entirely on location, assigned here:
-        /*
-        }else if (game.roomx == 50 && game.roomy == 52) {
-        entity.tile = 48; entity.colour = 6;
-        entity.w = 32;	entity.h = 27;
-        entity.animate = 1;
-        //ok, for space station 2
-        */
         entity.tile = 24;
         entity.animate = 0;
         entity.colour = 8;
@@ -1349,25 +1341,6 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         {
             entity.setenemyroom(game.roomx, game.roomy);
         }
-
-        //}else{*/
-        /*
-        entity.tile = 24;
-        entity.animate = 0;
-        entity.colour = 8;
-        //for warpzone:
-        if (game.roomx == 51 && game.roomy == 51) entity.colour = 6;
-        if (game.roomx == 52 && game.roomy == 51) entity.colour = 7;
-        if (game.roomx == 54 && game.roomy == 49) entity.colour = 11;
-        if (game.roomx == 55 && game.roomy == 50) entity.colour = 9;
-        if (game.roomx == 55 && game.roomy == 51) entity.colour = 6;
-        if (game.roomx == 54 && game.roomy == 51) entity.colour = 12;
-        if (game.roomx == 54 && game.roomy == 52) entity.colour = 7;
-        if (game.roomx == 53 && game.roomy == 52) entity.colour = 8;
-        if (game.roomx == 51 && game.roomy == 52) entity.colour = 6;
-        if (game.roomx == 52 && game.roomy == 49) entity.colour = 8;
-        //}
-        */
         break;
     case 2: //A moving platform
         entity.rule = 2;
@@ -1636,12 +1609,6 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         entity.onentity = 1;
         entity.animate = 100;
         entity.para = vy;
-
-        //we'll init it's activeness here later
-        /*if (game.savepoint == vy) {
-        entity.colour = 5;
-        entity.onentity = 0;
-        }*/
         break;
     case 15: // Crew Member (warp zone)
         entity.rule = 6;
@@ -1755,11 +1722,6 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         entity.onentity = 1;
         entity.animate = 100;
         entity.para = vy;
-
-        /*if (game.savepoint == vy) {
-        entity.colour = 5;
-        entity.onentity = 0;
-        }*/
         break;
     case 21: //as above, except doesn't highlight
         entity.rule = 3;
@@ -1774,11 +1736,6 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         entity.onentity = 0;
         entity.animate = 100;
         entity.para = vy;
-
-        /*if (game.savepoint == vy) {
-        entity.colour = 5;
-        entity.onentity = 0;
-        }*/
         break;
     case 22: //Fake trinkets, only appear if you've collected them
         entity.rule = 3;
@@ -2621,18 +2578,10 @@ void entityclass::updateentities( int i )
             //Only counts if vy of player entity is non zero
             if (entities[i].state == 1)
             {
-                // int j = getplayer();
-                //if (entities[j].vy > 0.5 && (entities[j].yp+entities[j].h<=entities[i].yp+6)) {
                 entities[i].life = 4;
                 entities[i].state = 2;
                 entities[i].onentity = 0;
                 music.playef(6);
-                /*}else if (entities[j].vy <= -0.5  && (entities[j].yp>=entities[i].yp+2)) {
-                entities[i].life = 4;
-                entities[i].state = 2; entities[i].onentity = 0;
-                }else {
-                entities[i].state = 0;
-                }*/
             }
             else if (entities[i].state == 2)
             {
@@ -2685,7 +2634,6 @@ void entityclass::updateentities( int i )
                 else
                 {
                     game.state = 1000;
-                    //music.haltdasmusik();
                     if(music.currentsong!=-1) music.silencedasmusik();
                     music.playef(3);
                     collect[entities[i].para] = 1;
@@ -4589,13 +4537,11 @@ void entityclass::scmmovingplatformfix( int t )
                 {
                     entities[j].yp = entities[t].yp + entities[t].h;
                     entities[j].vy = 0;
-                    //entities[j].onroof = true;
                 }
                 else
                 {
                     entities[j].yp = entities[t].yp - entities[j].h-entities[j].cy;
                     entities[j].vy = 0;
-                    //entities[j].onground = true;
                 }
             }
             else
@@ -4611,14 +4557,6 @@ void entityclass::hormovingplatformfix( int t )
     //If this intersects the player, then we move the player along it
     //for horizontal platforms, this is simplier
     createblock(0, entities[t].xp, entities[t].yp, entities[t].w, entities[t].h);
-    /*j = getplayer();
-    if (entitycollide(t, j)) {
-    //ok, bollox, let's make sure
-    entities[j].yp = entities[j].yp + entities[j].vy;
-    if (entitycollide(t, j)) {
-    //entities[t].state = entities[t].onwall;
-    }
-    }*/
 }
 
 void entityclass::customwarplinecheck(int i) {
@@ -4763,22 +4701,6 @@ void entityclass::entitycollisioncheck()
                         }
                     }
                 }
-                /*
-                if (entities[i].rule == 0 && entities[j].rule == 7)   //Player vs horizontal WARP line
-                {
-                    if(game.deathseq==-1)
-                    {
-                        if(entities[j].onentity>0)
-                        {
-                            if (entityhlinecollide(i, j))
-                            {
-                                entities[j].state = entities[j].onentity;
-                                entities[j].life = 4;
-                            }
-                        }
-                    }
-                }
-                */
                 if (game.supercrewmate)
                 {
                     //some extra collisions
