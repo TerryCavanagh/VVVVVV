@@ -1267,89 +1267,6 @@ int entityclass::crewcolour( int t )
     return 0;
 }
 
-void entityclass::settreadmillcolour( int t, int rx, int ry )
-{
-    rx -= 100;
-    ry -= 100;
-    rx += 50 - 12;
-    ry += 50 - 14;   //Space Station
-
-    entities[t].tile = 20; //default as blue
-    switch(rn(rx, ry))
-    {
-    case rn(52, 48):
-        entities[t].tile = 791;
-        break; //Cyan
-
-    case rn(49, 47):
-        entities[t].tile = 24;
-        break; //Yellow
-    case rn(56, 44):
-        entities[t].tile = 24;
-        break; //Yellow
-    case rn(54, 49):
-        entities[t].tile = 24;
-        break; //Yellow
-
-    case rn(49, 49):
-        entities[t].tile = 36;
-        break; //Green
-    case rn(55, 44):
-        entities[t].tile = 36;
-        break; //Green
-    case rn(54, 43):
-        entities[t].tile = 36;
-        break; //Green
-    case rn(53, 49):
-        entities[t].tile = 36;
-        break; //Green
-    case rn(54, 45):
-        entities[t].tile = 711;
-        break; //Green (special)
-    case rn(51, 48):
-        entities[t].tile = 711;
-        break; //Green (special)
-
-    case rn(50, 49):
-        entities[t].tile = 28;
-        break; //Purple
-    case rn(54, 44):
-        entities[t].tile = 28;
-        break; //Purple
-    case rn(49, 42):
-        entities[t].tile = 28;
-        break; //Purple
-    case rn(55, 43):
-        entities[t].tile = 28;
-        break; //Purple
-    case rn(54, 47):
-        entities[t].tile = 28;
-        break; //Purple
-    case rn(53, 48):
-        entities[t].tile = 28;
-        break; //Purple
-
-    case rn(51, 47):
-        entities[t].tile = 32;
-        break; //Red
-    case rn(52, 49):
-        entities[t].tile = 32;
-        break; //Red
-    case rn(48, 43):
-        entities[t].tile = 32;
-        break; //Red
-    case rn(55, 47):
-        entities[t].tile = 32;
-        break; //Red
-    case rn(54, 48):
-        entities[t].tile = 32;
-        break; //Red
-    default:
-        return;
-        break;
-    }
-}
-
 void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, float vy /*= 0*/, int p1 /*= 0*/, int p2 /*= 0*/, int p3 /*= 320*/, int p4 /*= 240 */ )
 {
     //Find the first inactive case z that we can use to index the new entity
@@ -1539,7 +1456,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
               if (int(vx) == 8) entities[k].tile += 4;
               if (int(vx) == 9) entities[k].animate = 11;
             }else{
-              settreadmillcolour(k, game.roomx, game.roomy);
+              entities[k].settreadmillcolour(game.roomx, game.roomy);
               if (int(vx) == 8) entities[k].tile += 40;
               if (int(vx) == 9) entities[k].animate = 11;
             }

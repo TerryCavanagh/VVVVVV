@@ -505,3 +505,86 @@ void entclass::setenemyroom( int rx, int ry )
 		break;
 	}
 }
+
+void entclass::settreadmillcolour( int rx, int ry )
+{
+	rx -= 100;
+	ry -= 100;
+	rx += 50 - 12;
+	ry += 50 - 14;   //Space Station
+
+	tile = 20; //default as blue
+	switch(rn(rx, ry))
+	{
+	case rn(52, 48):
+		tile = 791;
+		break; //Cyan
+
+	case rn(49, 47):
+		tile = 24;
+		break; //Yellow
+	case rn(56, 44):
+		tile = 24;
+		break; //Yellow
+	case rn(54, 49):
+		tile = 24;
+		break; //Yellow
+
+	case rn(49, 49):
+		tile = 36;
+		break; //Green
+	case rn(55, 44):
+		tile = 36;
+		break; //Green
+	case rn(54, 43):
+		tile = 36;
+		break; //Green
+	case rn(53, 49):
+		tile = 36;
+		break; //Green
+	case rn(54, 45):
+		tile = 711;
+		break; //Green (special)
+	case rn(51, 48):
+		tile = 711;
+		break; //Green (special)
+
+	case rn(50, 49):
+		tile = 28;
+		break; //Purple
+	case rn(54, 44):
+		tile = 28;
+		break; //Purple
+	case rn(49, 42):
+		tile = 28;
+		break; //Purple
+	case rn(55, 43):
+		tile = 28;
+		break; //Purple
+	case rn(54, 47):
+		tile = 28;
+		break; //Purple
+	case rn(53, 48):
+		tile = 28;
+		break; //Purple
+
+	case rn(51, 47):
+		tile = 32;
+		break; //Red
+	case rn(52, 49):
+		tile = 32;
+		break; //Red
+	case rn(48, 43):
+		tile = 32;
+		break; //Red
+	case rn(55, 47):
+		tile = 32;
+		break; //Red
+	case rn(54, 48):
+		tile = 32;
+		break; //Red
+	default:
+		return;
+		break;
+	}
+}
