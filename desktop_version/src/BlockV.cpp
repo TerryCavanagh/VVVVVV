@@ -2,11 +2,6 @@
 
 blockclass::blockclass()
 {
-	clear();
-}
-
-void blockclass::clear()
-{
 	type = 0;
 	trigger = 0;
 
