@@ -3753,20 +3753,6 @@ void entityclass::animateentities( int _i )
     }
 }
 
-bool entityclass::gettype( int t )
-{
-    //Returns true is there is an entity of type t onscreen
-    for (size_t i = 0; i < entities.size(); i++)
-    {
-        if(entities[i].type==t)
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 int entityclass::getcompanion()
 {
     //Returns the index of the companion with rule t
