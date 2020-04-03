@@ -9,6 +9,7 @@
 #include <string>
 
 #define removeentity_iter(index) { obj.removeentity(index); index--; }
+#define removeblock_iter(index) { obj.removeblock(index); index--; }
 
 enum
 {
