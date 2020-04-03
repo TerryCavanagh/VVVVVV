@@ -351,8 +351,8 @@ void towerlogic()
             for (int i = obj.nentity - 1; i >= 0;  i--)
             {
                 obj.updateentities(i);                // Behavioral logic
-                obj.updateentitylogic(i);                          // Basic Physics
-                obj.entitymapcollision(i);                          // Collisions with walls
+                obj.updateentitylogic(i);             // Basic Physics
+                obj.entitymapcollision(i);            // Collisions with walls
             }
 
             obj.entitycollisioncheck();         // Check ent v ent collisions, update states
@@ -947,8 +947,8 @@ void gamelogic()
                             obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
 
                             obj.updateentities(i);                // Behavioral logic
-                            obj.updateentitylogic(i);                          // Basic Physics
-                            obj.entitymapcollision(i);                          // Collisions with walls
+                            obj.updateentitylogic(i);             // Basic Physics
+                            obj.entitymapcollision(i);            // Collisions with walls
 
                             obj.createblock(0, obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].w, obj.entities[i].h);
                             if (game.supercrewmate)
@@ -976,8 +976,8 @@ void gamelogic()
                             obj.removeblockat(obj.entities[ie].xp, obj.entities[ie].yp);
 
                             obj.updateentities(ie);                // Behavioral logic
-                            obj.updateentitylogic(ie);                          // Basic Physics
-                            obj.entitymapcollision(ie);                          // Collisions with walls
+                            obj.updateentitylogic(ie);             // Basic Physics
+                            obj.entitymapcollision(ie);            // Collisions with walls
 
                             obj.hormovingplatformfix(ie);
                         }
@@ -1007,8 +1007,8 @@ void gamelogic()
                 if (!obj.entities[ie].isplatform)
                 {
                     obj.updateentities(ie);          // Behavioral logic
-                    obj.updateentitylogic(ie);                    // Basic Physics
-                    obj.entitymapcollision(ie);                    // Collisions with walls
+                    obj.updateentitylogic(ie);       // Basic Physics
+                    obj.entitymapcollision(ie);      // Collisions with walls
                 }
             }
 
