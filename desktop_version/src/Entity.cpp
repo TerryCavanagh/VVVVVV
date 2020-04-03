@@ -4556,7 +4556,7 @@ void entityclass::customwarplinecheck(int i) {
 
     //We test entity to entity
     for (int j = 0; j < (int) entities.size(); j++) {
-        if (i != j) {//Active
+        if (i != j) {
             if (entities[i].rule == 0 && entities[j].rule == 5 //Player vs vertical line!
             && (entities[j].type == 51 || entities[j].type == 52)
             && entitywarpvlinecollide(i, j)) {
@@ -4579,7 +4579,7 @@ void entityclass::entitycollisioncheck()
         //We test entity to entity
         for (size_t j = 0; j < entities.size(); j++)
         {
-            if (i!=j)  //Active
+            if (i!=j)
             {
                 if (entities[i].rule == 0 && entities[j].rule == 1 && entities[j].harmful)
                 {
