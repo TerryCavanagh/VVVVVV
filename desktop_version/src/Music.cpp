@@ -269,15 +269,6 @@ void musicclass::play(int t)
 	}
 }
 
-void musicclass::loopmusic()
-{
-	//musicchannel.removeEventListener(Event.SOUND_COMPLETE, loopmusic);
-	//if(currentsong>-1){
-	//	musicchannel = musicchan[currentsong].play();
-	//	musicchannel.addEventListener(Event.SOUND_COMPLETE, loopmusic);
-	//}
-}
-
 void musicclass::stopmusic()
 {
 	Mix_HaltMusic();

@@ -13,7 +13,6 @@ public:
 	void init();
 
 	void play(int t);
-	void loopmusic();
 	void stopmusic();
 	void haltdasmusik();
 	void silencedasmusik();
