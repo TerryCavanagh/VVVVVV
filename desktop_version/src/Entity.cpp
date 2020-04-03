@@ -195,12 +195,9 @@ void entityclass::swnenemiescol( int t )
     //change the colour of all SWN enemies to the current one
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if (true) // FIXME: remove this later (no more 'active')
+        if (entities[i].type == 23)
         {
-            if (entities[i].type == 23)
-            {
-                entities[i].colour = swncolour(t);
-            }
+            entities[i].colour = swncolour(t);
         }
     }
 }
@@ -2233,480 +2230,1116 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
 bool entityclass::updateentities( int i )
 {
-    if(true) // FIXME: remove this later (no more 'active')
+    if(entities[i].statedelay<=0)
     {
-        if(entities[i].statedelay<=0)
+        switch(entities[i].type)
         {
-            switch(entities[i].type)
+        case 0:  //Player
+            if (entities[i].state == 0)
             {
-            case 0:  //Player
-                if (entities[i].state == 0)
+            }
+            break;
+        case 1:  //Movement behaviors
+            //Enemies can have a number of different behaviors:
+            switch(entities[i].behave)
+            {
+            case 0: //Bounce, Start moving down
+                if (entities[i].state == 0)   //Init
                 {
+                    entities[i].state = 3;
+                    updateentities(i);
                 }
-                break;
-            case 1:  //Movement behaviors
-                //Enemies can have a number of different behaviors:
-                switch(entities[i].behave)
+                else if (entities[i].state == 1)
                 {
-                case 0: //Bounce, Start moving down
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].state = 3;
-                        updateentities(i);
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].outside()) entities[i].state = entities[i].onwall;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vy = -entities[i].para;
-                        entities[i].onwall = 3;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 3)
-                    {
-                        entities[i].vy = entities[i].para;
-                        entities[i].onwall = 2;
-                        entities[i].state = 1;
-                    }
-                    break;
-                case 1: //Bounce, Start moving up
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].state = 2;
-                        updateentities(i);
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].outside()) entities[i].state = entities[i].onwall;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vy = -entities[i].para;
-                        entities[i].onwall = 3;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 3)
-                    {
-                        entities[i].vy = entities[i].para;
-                        entities[i].onwall = 2;
-                        entities[i].state = 1;
-                    }
-                    break;
-                case 2: //Bounce, Start moving left
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].state = 3;
-                        updateentities(i);
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].outside()) entities[i].state = entities[i].onwall;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vx = entities[i].para;
-                        entities[i].onwall = 3;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 3)
-                    {
-                        entities[i].vx = -entities[i].para;
-                        entities[i].onwall = 2;
-                        entities[i].state = 1;
-                    }
-                    break;
-                case 3: //Bounce, Start moving right
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].state = 3;
-                        updateentities(i);
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].outside()) entities[i].state = entities[i].onwall;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vx = -entities[i].para;
-                        entities[i].onwall = 3;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 3)
-                    {
-                        entities[i].vx = entities[i].para;
-                        entities[i].onwall = 2;
-                        entities[i].state = 1;
-                    }
-                    break;
-                case 4: //Always move left
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].vx = entities[i].para;
-                    }
-                    break;
-                case 5: //Always move right
-                    if (entities[i].state == 0)
-                    {
-                        //Init
-                        entities[i].vx = static_cast<int>(entities[i].para);
-                        entities[i].state = 1;
-                        entities[i].onwall = 2;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vx = 0;
-                        entities[i].onwall = 0;
-                        entities[i].xp -=  static_cast<int>(entities[i].para);
-                        entities[i].statedelay=8;
-                        entities[i].state=0;
-                    }
-                    break;
-                case 6: //Always move up
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].vy = static_cast<int>(entities[i].para);
-                        entities[i].state = 1;
-                        entities[i].onwall = 2;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vy = static_cast<int>(-entities[i].para);
-                        entities[i].onwall = 0;
-                        entities[i].yp -=  (entities[i].para);
-                        entities[i].statedelay=8;
-                        entities[i].state=0;
-                    }
-                    break;
-                case 7: //Always move down
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].vx = static_cast<int>(entities[i].para);
-                    }
-                    break;
-                case 8:
-                case 9:
-                    //Threadmill: don't move, just impart velocity
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].vx = 0;
-                        entities[i].state = 1;
-                        entities[i].onwall = 0;
-                    }
-                    break;
-                case 10:
-                    //Emitter: shoot an enemy every so often
-                    if (entities[i].state == 0)
-                    {
-                        createentity(entities[i].xp+28, entities[i].yp, 1, 10, 1);
-                        entities[i].state = 1;
-                        entities[i].statedelay = 12;
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        entities[i].state = 0;
-                    }
-                    break;
-                case 11: //Always move right, destroy when outside screen
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].vx = entities[i].para;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].xp >= 335) removeentity(i);
-                        if (game.roomx == 117)
-                        {
-                            if (entities[i].xp >= (33*8)-32) removeentity(i);
-                            //collector for LIES
-                        }
-                    }
-                    break;
-                case 12:
-                    //Emitter: shoot an enemy every so often (up)
-                    if (entities[i].state == 0)
-                    {
-                        createentity(entities[i].xp, entities[i].yp, 1, 12, 1);
-                        entities[i].state = 1;
-                        entities[i].statedelay = 16;
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        entities[i].state = 0;
-                    }
-                    break;
-                case 13: //Always move up, destroy when outside screen
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].vy = entities[i].para;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].yp <= -60) removeentity(i);
-                        if (game.roomy == 108)
-                        {
-                            if (entities[i].yp <= 60) removeentity(i);
-                            //collector for factory
-                        }
-                    }
-                    break;
-                case 14: //Very special hack: as two, but doesn't move in specific circumstances
-                    if (entities[i].state == 0)   //Init
-                    {
-                        for (size_t j = 0; j < entities.size(); j++)
-                        {
-                            if (entities[j].type == 2 && entities[j].state== 3 && entities[j].xp == (entities[i].xp-32) )
-                            {
-                                entities[i].state = 3;
-                                updateentities(i);
-                            }
-                        }
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].outside()) entities[i].state = entities[i].onwall;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vx = entities[i].para;
-                        entities[i].onwall = 3;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 3)
-                    {
-                        entities[i].vx = -entities[i].para;
-                        entities[i].onwall = 2;
-                        entities[i].state = 1;
-                    }
-                    break;
-                case 15: //As above, but for 3!
-                    if (entities[i].state == 0)   //Init
-                    {
-                        for (size_t j = 0; j < entities.size(); j++)
-                        {
-                            if (entities[j].type == 2 && entities[j].state==3 && entities[j].xp==entities[i].xp+32)
-                            {
-                                entities[i].state = 3;
-                                updateentities(i);
-                            }
-                        }
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].outside()) entities[i].state = entities[i].onwall;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vx = -entities[i].para;
-                        entities[i].onwall = 3;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 3)
-                    {
-                        entities[i].vx = entities[i].para;
-                        entities[i].onwall = 2;
-                        entities[i].state = 1;
-                    }
-                    break;
-                case 16: //MAVERICK BUS FOLLOWS HIS OWN RULES
-                    if (entities[i].state == 0)   //Init
-                    {
-                        //first, y position
-                        if (entities[getplayer()].yp > 14 * 8)
-                        {
-                            entities[i].tile = 120;
-                            entities[i].yp = (28*8)-62;
-                        }
-                        else
-                        {
-                            entities[i].tile = 96;
-                            entities[i].yp = 24;
-                        }
-                        //now, x position
-                        if (entities[getplayer()].xp > 20 * 8)
-                        {
-                            //approach from the left
-                            entities[i].xp = -64;
-                            entities[i].state = 2;
-                            updateentities(i); //right
-                        }
-                        else
-                        {
-                            //approach from the left
-                            entities[i].xp = 320;
-                            entities[i].state = 3;
-                            updateentities(i); //left
-                        }
-
-                    }
-                    else if (entities[i].state == 1)
-                    {
-                        if (entities[i].outside()) entities[i].state = entities[i].onwall;
-                    }
-                    else if (entities[i].state == 2)
-                    {
-                        entities[i].vx = int(entities[i].para);
-                        entities[i].onwall = 3;
-                        entities[i].state = 1;
-                    }
-                    else if (entities[i].state == 3)
-                    {
-                        entities[i].vx = int(-entities[i].para);
-                        entities[i].onwall = 2;
-                        entities[i].state = 1;
-                    }
-                    break;
-                case 17: //Special for ASCII Snake (left)
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].statedelay = 6;
-                        entities[i].xp -=  int(entities[i].para);
-                    }
-                    break;
-                case 18: //Special for ASCII Snake (right)
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].statedelay = 6;
-                        entities[i].xp += int(entities[i].para);
-                    }
-                    break;
-                }
-                break;
-            case 2: //Disappearing platforms
-                //wait for collision
-                if (entities[i].state == 1)
-                {
-                    entities[i].life = 12;
-                    entities[i].state = 2;
-                    entities[i].onentity = 0;
-
-                    music.playef(7);
+                    if (entities[i].outside()) entities[i].state = entities[i].onwall;
                 }
                 else if (entities[i].state == 2)
                 {
-                    entities[i].life--;
-                    if (entities[i].life % 3 == 0) entities[i].tile++;
-                    if (entities[i].life <= 0)
-                    {
-                        removeblockat(entities[i].xp, entities[i].yp);
-                        entities[i].state = 3;// = false;
-                        entities[i].invis = true;
-                    }
+                    entities[i].vy = -entities[i].para;
+                    entities[i].onwall = 3;
+                    entities[i].state = 1;
                 }
                 else if (entities[i].state == 3)
                 {
-                    //wait until recharged!
-                }
-                else if (entities[i].state == 4)
-                {
-                    //restart!
-                    createblock(0, entities[i].xp, entities[i].yp, 32, 8);
-                    entities[i].state = 4;
-                    entities[i].invis = false;
-                    entities[i].tile--;
-                    entities[i].state++;
-                    entities[i].onentity = 1;
-                }
-                else if (entities[i].state == 5)
-                {
-                    entities[i].life+=3;
-                    if (entities[i].life % 3 == 0) entities[i].tile--;
-                    if (entities[i].life >= 12)
-                    {
-                        entities[i].life = 12;
-                        entities[i].state = 0;
-                        entities[i].tile++;
-                    }
+                    entities[i].vy = entities[i].para;
+                    entities[i].onwall = 2;
+                    entities[i].state = 1;
                 }
                 break;
-            case 3: //Breakable blocks
-                //Only counts if vy of player entity is non zero
-                if (entities[i].state == 1)
+            case 1: //Bounce, Start moving up
+                if (entities[i].state == 0)   //Init
                 {
-                    // int j = getplayer();
-                    //if (entities[j].vy > 0.5 && (entities[j].yp+entities[j].h<=entities[i].yp+6)) {
-                    entities[i].life = 4;
                     entities[i].state = 2;
-                    entities[i].onentity = 0;
-                    music.playef(6);
-                    /*}else if (entities[j].vy <= -0.5  && (entities[j].yp>=entities[i].yp+2)) {
-                    entities[i].life = 4;
-                    entities[i].state = 2; entities[i].onentity = 0;
-                    }else {
-                    entities[i].state = 0;
-                    }*/
+                    updateentities(i);
+                }
+                else if (entities[i].state == 1)
+                {
+                    if (entities[i].outside()) entities[i].state = entities[i].onwall;
                 }
                 else if (entities[i].state == 2)
                 {
-                    entities[i].life--;
-                    entities[i].tile++;
-                    if (entities[i].life <= 0)
+                    entities[i].vy = -entities[i].para;
+                    entities[i].onwall = 3;
+                    entities[i].state = 1;
+                }
+                else if (entities[i].state == 3)
+                {
+                    entities[i].vy = entities[i].para;
+                    entities[i].onwall = 2;
+                    entities[i].state = 1;
+                }
+                break;
+            case 2: //Bounce, Start moving left
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].state = 3;
+                    updateentities(i);
+                }
+                else if (entities[i].state == 1)
+                {
+                    if (entities[i].outside()) entities[i].state = entities[i].onwall;
+                }
+                else if (entities[i].state == 2)
+                {
+                    entities[i].vx = entities[i].para;
+                    entities[i].onwall = 3;
+                    entities[i].state = 1;
+                }
+                else if (entities[i].state == 3)
+                {
+                    entities[i].vx = -entities[i].para;
+                    entities[i].onwall = 2;
+                    entities[i].state = 1;
+                }
+                break;
+            case 3: //Bounce, Start moving right
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].state = 3;
+                    updateentities(i);
+                }
+                else if (entities[i].state == 1)
+                {
+                    if (entities[i].outside()) entities[i].state = entities[i].onwall;
+                }
+                else if (entities[i].state == 2)
+                {
+                    entities[i].vx = -entities[i].para;
+                    entities[i].onwall = 3;
+                    entities[i].state = 1;
+                }
+                else if (entities[i].state == 3)
+                {
+                    entities[i].vx = entities[i].para;
+                    entities[i].onwall = 2;
+                    entities[i].state = 1;
+                }
+                break;
+            case 4: //Always move left
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].vx = entities[i].para;
+                }
+                break;
+            case 5: //Always move right
+                if (entities[i].state == 0)
+                {
+                    //Init
+                    entities[i].vx = static_cast<int>(entities[i].para);
+                    entities[i].state = 1;
+                    entities[i].onwall = 2;
+                }
+                else if (entities[i].state == 2)
+                {
+                    entities[i].vx = 0;
+                    entities[i].onwall = 0;
+                    entities[i].xp -=  static_cast<int>(entities[i].para);
+                    entities[i].statedelay=8;
+                    entities[i].state=0;
+                }
+                break;
+            case 6: //Always move up
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].vy = static_cast<int>(entities[i].para);
+                    entities[i].state = 1;
+                    entities[i].onwall = 2;
+                }
+                else if (entities[i].state == 2)
+                {
+                    entities[i].vy = static_cast<int>(-entities[i].para);
+                    entities[i].onwall = 0;
+                    entities[i].yp -=  (entities[i].para);
+                    entities[i].statedelay=8;
+                    entities[i].state=0;
+                }
+                break;
+            case 7: //Always move down
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].vx = static_cast<int>(entities[i].para);
+                }
+                break;
+            case 8:
+            case 9:
+                //Threadmill: don't move, just impart velocity
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].vx = 0;
+                    entities[i].state = 1;
+                    entities[i].onwall = 0;
+                }
+                break;
+            case 10:
+                //Emitter: shoot an enemy every so often
+                if (entities[i].state == 0)
+                {
+                    createentity(entities[i].xp+28, entities[i].yp, 1, 10, 1);
+                    entities[i].state = 1;
+                    entities[i].statedelay = 12;
+                }
+                else if (entities[i].state == 1)
+                {
+                    entities[i].state = 0;
+                }
+                break;
+            case 11: //Always move right, destroy when outside screen
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].vx = entities[i].para;
+                    entities[i].state = 1;
+                }
+                else if (entities[i].state == 1)
+                {
+                    if (entities[i].xp >= 335) removeentity(i);
+                    if (game.roomx == 117)
                     {
-                        removeblockat(entities[i].xp, entities[i].yp);
-                        removeentity(i);
+                        if (entities[i].xp >= (33*8)-32) removeentity(i);
+                        //collector for LIES
                     }
                 }
                 break;
-            case 4: //Gravity token
-                //wait for collision
-                if (entities[i].state == 1)
-                {
-                    removeentity(i);
-                    game.gravitycontrol = (game.gravitycontrol + 1) % 2;
-
-                }
-                break;
-            case 5:  //Particle sprays
+            case 12:
+                //Emitter: shoot an enemy every so often (up)
                 if (entities[i].state == 0)
                 {
-                    entities[i].life--;
-                    if (entities[i].life < 0) removeentity(i);
+                    createentity(entities[i].xp, entities[i].yp, 1, 12, 1);
+                    entities[i].state = 1;
+                    entities[i].statedelay = 16;
+                }
+                else if (entities[i].state == 1)
+                {
+                    entities[i].state = 0;
                 }
                 break;
-            case 6: //Small pickup
-                //wait for collision
-                if (entities[i].state == 1)
+            case 13: //Always move up, destroy when outside screen
+                if (entities[i].state == 0)   //Init
                 {
-                    game.coins++;
-                    music.playef(4);
-                    collect[entities[i].para] = 1;
-
-                    removeentity(i);
+                    entities[i].vy = entities[i].para;
+                    entities[i].state = 1;
                 }
-                break;
-            case 7: //Found a trinket
-                //wait for collision
-                if (entities[i].state == 1)
+                else if (entities[i].state == 1)
                 {
-                    game.trinkets++;
-                    if (game.intimetrial)
+                    if (entities[i].yp <= -60) removeentity(i);
+                    if (game.roomy == 108)
                     {
-                        collect[entities[i].para] = 1;
-                        music.playef(25);
+                        if (entities[i].yp <= 60) removeentity(i);
+                        //collector for factory
+                    }
+                }
+                break;
+            case 14: //Very special hack: as two, but doesn't move in specific circumstances
+                if (entities[i].state == 0)   //Init
+                {
+                    for (size_t j = 0; j < entities.size(); j++)
+                    {
+                        if (entities[j].type == 2 && entities[j].state== 3 && entities[j].xp == (entities[i].xp-32) )
+                        {
+                            entities[i].state = 3;
+                            updateentities(i);
+                        }
+                    }
+                }
+                else if (entities[i].state == 1)
+                {
+                    if (entities[i].outside()) entities[i].state = entities[i].onwall;
+                }
+                else if (entities[i].state == 2)
+                {
+                    entities[i].vx = entities[i].para;
+                    entities[i].onwall = 3;
+                    entities[i].state = 1;
+                }
+                else if (entities[i].state == 3)
+                {
+                    entities[i].vx = -entities[i].para;
+                    entities[i].onwall = 2;
+                    entities[i].state = 1;
+                }
+                break;
+            case 15: //As above, but for 3!
+                if (entities[i].state == 0)   //Init
+                {
+                    for (size_t j = 0; j < entities.size(); j++)
+                    {
+                        if (entities[j].type == 2 && entities[j].state==3 && entities[j].xp==entities[i].xp+32)
+                        {
+                            entities[i].state = 3;
+                            updateentities(i);
+                        }
+                    }
+                }
+                else if (entities[i].state == 1)
+                {
+                    if (entities[i].outside()) entities[i].state = entities[i].onwall;
+                }
+                else if (entities[i].state == 2)
+                {
+                    entities[i].vx = -entities[i].para;
+                    entities[i].onwall = 3;
+                    entities[i].state = 1;
+                }
+                else if (entities[i].state == 3)
+                {
+                    entities[i].vx = entities[i].para;
+                    entities[i].onwall = 2;
+                    entities[i].state = 1;
+                }
+                break;
+            case 16: //MAVERICK BUS FOLLOWS HIS OWN RULES
+                if (entities[i].state == 0)   //Init
+                {
+                    //first, y position
+                    if (entities[getplayer()].yp > 14 * 8)
+                    {
+                        entities[i].tile = 120;
+                        entities[i].yp = (28*8)-62;
                     }
                     else
                     {
-                        game.state = 1000;
-                        //music.haltdasmusik();
-                        if(music.currentsong!=-1) music.silencedasmusik();
-                        music.playef(3);
-                        collect[entities[i].para] = 1;
-                        if (game.trinkets > game.stat_trinkets)
-                        {
-                            game.stat_trinkets = game.trinkets;
-                        }
+                        entities[i].tile = 96;
+                        entities[i].yp = 24;
+                    }
+                    //now, x position
+                    if (entities[getplayer()].xp > 20 * 8)
+                    {
+                        //approach from the left
+                        entities[i].xp = -64;
+                        entities[i].state = 2;
+                        updateentities(i); //right
+                    }
+                    else
+                    {
+                        //approach from the left
+                        entities[i].xp = 320;
+                        entities[i].state = 3;
+                        updateentities(i); //left
                     }
 
-                    removeentity(i);
+                }
+                else if (entities[i].state == 1)
+                {
+                    if (entities[i].outside()) entities[i].state = entities[i].onwall;
+                }
+                else if (entities[i].state == 2)
+                {
+                    entities[i].vx = int(entities[i].para);
+                    entities[i].onwall = 3;
+                    entities[i].state = 1;
+                }
+                else if (entities[i].state == 3)
+                {
+                    entities[i].vx = int(-entities[i].para);
+                    entities[i].onwall = 2;
+                    entities[i].state = 1;
                 }
                 break;
-            case 8: //Savepoints
-                //wait for collision
-                if (entities[i].state == 1)
+            case 17: //Special for ASCII Snake (left)
+                if (entities[i].state == 0)   //Init
                 {
+                    entities[i].statedelay = 6;
+                    entities[i].xp -=  int(entities[i].para);
+                }
+                break;
+            case 18: //Special for ASCII Snake (right)
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].statedelay = 6;
+                    entities[i].xp += int(entities[i].para);
+                }
+                break;
+            }
+            break;
+        case 2: //Disappearing platforms
+            //wait for collision
+            if (entities[i].state == 1)
+            {
+                entities[i].life = 12;
+                entities[i].state = 2;
+                entities[i].onentity = 0;
+
+                music.playef(7);
+            }
+            else if (entities[i].state == 2)
+            {
+                entities[i].life--;
+                if (entities[i].life % 3 == 0) entities[i].tile++;
+                if (entities[i].life <= 0)
+                {
+                    removeblockat(entities[i].xp, entities[i].yp);
+                    entities[i].state = 3;// = false;
+                    entities[i].invis = true;
+                }
+            }
+            else if (entities[i].state == 3)
+            {
+                //wait until recharged!
+            }
+            else if (entities[i].state == 4)
+            {
+                //restart!
+                createblock(0, entities[i].xp, entities[i].yp, 32, 8);
+                entities[i].state = 4;
+                entities[i].invis = false;
+                entities[i].tile--;
+                entities[i].state++;
+                entities[i].onentity = 1;
+            }
+            else if (entities[i].state == 5)
+            {
+                entities[i].life+=3;
+                if (entities[i].life % 3 == 0) entities[i].tile--;
+                if (entities[i].life >= 12)
+                {
+                    entities[i].life = 12;
+                    entities[i].state = 0;
+                    entities[i].tile++;
+                }
+            }
+            break;
+        case 3: //Breakable blocks
+            //Only counts if vy of player entity is non zero
+            if (entities[i].state == 1)
+            {
+                // int j = getplayer();
+                //if (entities[j].vy > 0.5 && (entities[j].yp+entities[j].h<=entities[i].yp+6)) {
+                entities[i].life = 4;
+                entities[i].state = 2;
+                entities[i].onentity = 0;
+                music.playef(6);
+                /*}else if (entities[j].vy <= -0.5  && (entities[j].yp>=entities[i].yp+2)) {
+                entities[i].life = 4;
+                entities[i].state = 2; entities[i].onentity = 0;
+                }else {
+                entities[i].state = 0;
+                }*/
+            }
+            else if (entities[i].state == 2)
+            {
+                entities[i].life--;
+                entities[i].tile++;
+                if (entities[i].life <= 0)
+                {
+                    removeblockat(entities[i].xp, entities[i].yp);
+                    removeentity(i);
+                }
+            }
+            break;
+        case 4: //Gravity token
+            //wait for collision
+            if (entities[i].state == 1)
+            {
+                removeentity(i);
+                game.gravitycontrol = (game.gravitycontrol + 1) % 2;
+
+            }
+            break;
+        case 5:  //Particle sprays
+            if (entities[i].state == 0)
+            {
+                entities[i].life--;
+                if (entities[i].life < 0) removeentity(i);
+            }
+            break;
+        case 6: //Small pickup
+            //wait for collision
+            if (entities[i].state == 1)
+            {
+                game.coins++;
+                music.playef(4);
+                collect[entities[i].para] = 1;
+
+                removeentity(i);
+            }
+            break;
+        case 7: //Found a trinket
+            //wait for collision
+            if (entities[i].state == 1)
+            {
+                game.trinkets++;
+                if (game.intimetrial)
+                {
+                    collect[entities[i].para] = 1;
+                    music.playef(25);
+                }
+                else
+                {
+                    game.state = 1000;
+                    //music.haltdasmusik();
+                    if(music.currentsong!=-1) music.silencedasmusik();
+                    music.playef(3);
+                    collect[entities[i].para] = 1;
+                    if (game.trinkets > game.stat_trinkets)
+                    {
+                        game.stat_trinkets = game.trinkets;
+                    }
+                }
+
+                removeentity(i);
+            }
+            break;
+        case 8: //Savepoints
+            //wait for collision
+            if (entities[i].state == 1)
+            {
+                //First, deactivate all other savepoints
+                for (size_t j = 0; j < entities.size(); j++)
+                {
+                    if (entities[j].type == 8)
+                    {
+                        entities[j].colour = 4;
+                        entities[j].onentity = 1;
+                    }
+                }
+                entities[i].colour = 5;
+                entities[i].onentity = 0;
+                game.savepoint = entities[i].para;
+                music.playef(5);
+
+                game.savex = entities[i].xp - 4;
+
+                if (entities[i].tile == 20)
+                {
+                    game.savey = entities[i].yp - 1;
+                    game.savegc = 1;
+                }
+                else if (entities[i].tile == 21)
+                {
+                    game.savey = entities[i].yp-8;
+                    game.savegc = 0;
+                }
+
+                game.saverx = game.roomx;
+                game.savery = game.roomy;
+                game.savedir = entities[getplayer()].dir;
+                entities[i].state = 0;
+            }
+            break;
+        case 9: //Gravity Lines
+            if (entities[i].state == 1)
+            {
+                entities[i].life--;
+                entities[i].onentity = 0;
+
+                if (entities[i].life <= 0)
+                {
+                    entities[i].state = 0;
+                    entities[i].onentity = 1;
+                }
+            }
+            break;
+        case 10: //Vertical gravity Lines
+            if (entities[i].state == 1)
+            {
+                entities[i].onentity = 3;
+                entities[i].state = 2;
+
+
+                music.playef(8);
+                game.gravitycontrol = (game.gravitycontrol + 1) % 2;
+                game.totalflips++;
+                temp = getplayer();
+                if (game.gravitycontrol == 0)
+                {
+                    if (entities[temp].vy < 3) entities[temp].vy = 3;
+                }
+                else
+                {
+                    if (entities[temp].vy > -3) entities[temp].vy = -3;
+                }
+            }
+            else if (entities[i].state == 2)
+            {
+                entities[i].life--;
+                if (entities[i].life <= 0)
+                {
+                    entities[i].state = 0;
+                    entities[i].onentity = 1;
+                }
+            }
+            else if (entities[i].state == 3)
+            {
+                entities[i].state = 2;
+                entities[i].life = 4;
+                entities[i].onentity = 3;
+            }
+            else if (entities[i].state == 4)
+            {
+                //Special case for room initilisations: As state one, except without the reversal
+                entities[i].onentity = 3;
+                entities[i].state = 2;
+            }
+            break;
+        case 11: //Warp point
+            //wait for collision
+            if (entities[i].state == 1)
+            {
+                //Depending on the room the warp point is in, teleport to a new location!
+                entities[i].onentity = 0;
+                //play a sound or somefink
+                music.playef(10);
+                game.teleport = true;
+
+                game.edteleportent = i;
+                //for the multiple room:
+                if (int(entities[i].xp) == 12*8) game.teleportxpos = 1;
+                if (int(entities[i].xp) == 5*8) game.teleportxpos = 2;
+                if (int(entities[i].xp) == 28*8) game.teleportxpos = 3;
+                if (int(entities[i].xp) == 21*8) game.teleportxpos = 4;
+            }
+            break;
+        case 12: //Crew member
+            //Somewhat complex AI: exactly what they do depends on room, location, state etc
+            //At state 0, do nothing at all.
+            if (entities[i].state == 1)
+            {
+                //happy!
+                if (entities[k].rule == 6)	entities[k].tile = 0;
+                if (entities[k].rule == 7)	entities[k].tile = 6;
+                //Stay close to the hero!
+                int j = getplayer();
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[j].xp > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[j].xp < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+
+                //Special rules:
+                if (game.roomx == 110 && game.roomy == 105)
+                {
+                    if (entities[i].xp < 155)
+                    {
+                        if (entities[i].ax < 0) entities[i].ax = 0;
+                    }
+                }
+            }
+            else if (entities[i].state == 2)
+            {
+                //Basic rules, don't change expression
+                int j = getplayer();
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[j].xp > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[j].xp < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+            }
+            else if (entities[i].state == 10)
+            {
+                //Everything from 10 on is for cutscenes
+                //Basic rules, don't change expression
+                int j = getplayer();
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[j].xp > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[j].xp < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+            }
+            else if (entities[i].state == 11)
+            {
+                //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
+                int j=getcrewman(1); //purple
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[j].xp > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[j].xp < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+            }
+            else if (entities[i].state == 12)
+            {
+                //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
+                int j=getcrewman(2); //yellow
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[j].xp > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[j].xp < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+            }
+            else if (entities[i].state == 13)
+            {
+                //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
+                int j=getcrewman(3); //red
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[j].xp > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[j].xp < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+            }
+            else if (entities[i].state == 14)
+            {
+                //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
+                int j=getcrewman(4); //green
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[j].xp > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[j].xp < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+            }
+            else if (entities[i].state == 15)
+            {
+                //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
+                int j=getcrewman(5); //blue
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[j].xp > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[j].xp < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+            }
+            else if (entities[i].state == 16)
+            {
+                //Follow a position: given an x coordinate, seek it out.
+                if (entities[i].para > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[i].para < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+
+                if (entities[i].para > entities[i].xp + 45)
+                {
+                    entities[i].ax = 3;
+                }
+                else if (entities[i].para < entities[i].xp - 45)
+                {
+                    entities[i].ax = -3;
+                }
+            }
+            else if (entities[i].state == 17)
+            {
+                //stand still
+            }
+            else if (entities[i].state == 18)
+            {
+                //Stand still and face the player
+                int j = getplayer();
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+            }
+            else if (entities[i].state == 19)
+            {
+                //Walk right off the screen after time t
+                if (entities[i].para <= 0)
+                {
+                    entities[i].dir = 1;
+                    entities[i].ax = 3;
+                }
+                else
+                {
+                    entities[i].para--;
+                }
+            }
+            else if (entities[i].state == 20)
+            {
+                //Panic! For briefing script
+                if (entities[i].life == 0)
+                {
+                    //walk left for a bit
+                    entities[i].ax = 0;
+                    if (40 > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (40 < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
+
+                    if (40 > entities[i].xp + 45)
+                    {
+                        entities[i].ax = 3;
+                    }
+                    else if (40 < entities[i].xp - 45)
+                    {
+                        entities[i].ax = -3;
+                    }
+                    if ( (entities[i].ax) == 0)
+                    {
+                        entities[i].life = 1;
+                        entities[i].para = 30;
+                    }
+                }
+                else	if (entities[i].life == 1)
+                {
+                    //Stand around for a bit
+                    entities[i].para--;
+                    if (entities[i].para <= 0)
+                    {
+                        entities[i].life++;
+                    }
+                }
+                else if (entities[i].life == 2)
+                {
+                    //walk right for a bit
+                    entities[i].ax = 0;
+                    if (280 > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (280 < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
+
+                    if (280 > entities[i].xp + 45)
+                    {
+                        entities[i].ax = 3;
+                    }
+                    else if (280 < entities[i].xp - 45)
+                    {
+                        entities[i].ax = -3;
+                    }
+                    if ( (entities[i].ax) == 0)
+                    {
+                        entities[i].life = 3;
+                        entities[i].para = 30;
+                    }
+                }
+                else	if (entities[i].life == 3)
+                {
+                    //Stand around for a bit
+                    entities[i].para--;
+                    if (entities[i].para <= 0)
+                    {
+                        entities[i].life=0;
+                    }
+                }
+            }
+            break;
+        case 13: //Terminals (very similar to savepoints)
+            //wait for collision
+            if (entities[i].state == 1)
+            {
+                entities[i].colour = 5;
+                entities[i].onentity = 0;
+                music.playef(17);
+
+                entities[i].state = 0;
+            }
+            break;
+        case 14: //Super Crew member
+            //Actually needs less complex AI than the scripting crewmember
+            if (entities[i].state == 0)
+            {
+                //follow player, but only if he's on the floor!
+                int j = getplayer();
+                if(entities[j].onground>0)
+                {
+                    if (entities[j].xp > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (entities[j].xp>15 && entities[j].xp < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
+
+                    if (entities[j].xp > entities[i].xp + 45)
+                    {
+                        entities[i].ax = 3;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 45)
+                    {
+                        entities[i].ax = -3;
+                    }
+                    if (entities[i].ax < 0 && entities[i].xp < 60)
+                    {
+                        entities[i].ax = 0;
+                    }
+                }
+                else
+                {
+                    if (entities[j].xp > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
+
+                    entities[i].ax = 0;
+                }
+
+                if (entities[i].xp > 240)
+                {
+                    entities[i].ax = 3;
+                    entities[i].dir = 1;
+                }
+                if (entities[i].xp >= 310)
+                {
+                    game.scmprogress++;
+                    removeentity(i);
+                }
+            }
+            break;
+        case 15: //Trophy
+            //wait for collision
+            if (entities[i].state == 1)
+            {
+                trophytext+=2;
+                if (trophytext > 30) trophytext = 30;
+                trophytype = entities[i].para;
+
+                entities[i].state = 0;
+            }
+            break;
+        case 23:
+            //swn game!
+            switch(entities[i].behave)
+            {
+            case 0:
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].vx = 7;
+                    if (entities[i].xp > 320) removeentity(i);
+                }
+                break;
+            case 1:
+                if (entities[i].state == 0)   //Init
+                {
+                    entities[i].vx = -7;
+                    if (entities[i].xp <-20) removeentity(i);
+                }
+                break;
+            }
+            break;
+
+        case 51: //Vertical warp line
+            if (entities[i].state == 2){
+              int j=getplayer();
+              if(entities[j].xp<=307){
+                customwarpmodevon=false;
+                entities[i].state = 0;
+              }
+            }else if (entities[i].state == 1)
+            {
+              entities[i].state = 2;
+              entities[i].statedelay = 2;
+              entities[i].onentity = 1;
+              customwarpmodevon=true;
+            }
+            break;
+        case 52: //Vertical warp line
+            if (entities[i].state == 2){
+              int j=getplayer();
+              if(entities[j].xp<=307){
+                customwarpmodevon=false;
+                entities[i].state = 0;
+              }
+            }else if (entities[i].state == 1)
+            {
+              entities[i].state = 2;
+              entities[i].statedelay = 2;
+              entities[i].onentity = 1;
+              customwarpmodevon=true;
+            }
+            break;
+          case 53: //Warp lines Horizonal
+            if (entities[i].state == 2){
+              customwarpmodehon=false;
+              entities[i].state = 0;
+            }else if (entities[i].state == 1)
+            {
+              entities[i].state = 2;
+              entities[i].statedelay = 2;
+              entities[i].onentity = 1;
+              customwarpmodehon=true;
+            }
+            break;
+            case 54: //Warp lines Horizonal
+            if (entities[i].state == 2){
+              customwarpmodehon=false;
+              entities[i].state = 0;
+            }else if (entities[i].state == 1)
+            {
+               entities[i].state = 2;
+               entities[i].statedelay = 2;
+               entities[i].onentity = 1;
+               customwarpmodehon=true;
+            }
+            break;
+          case 55: //Collectable crewmate
+            //wait for collision
+            if (entities[i].state == 0)
+            {
+                //Basic rules, don't change expression
+                int j = getplayer();
+                if (entities[j].xp > entities[i].xp + 5)
+                {
+                    entities[i].dir = 1;
+                }
+                else if (entities[j].xp < entities[i].xp - 5)
+                {
+                    entities[i].dir = 0;
+                }
+            }
+            else if (entities[i].state == 1)
+            {
+                game.crewmates++;
+                if (game.intimetrial)
+                {
+                    customcollect[entities[i].para] = 1;
+                    music.playef(27);
+                }
+                else
+                {
+                    game.state = 1010;
+                    //music.haltdasmusik();
+                    if(music.currentsong!=-1) music.silencedasmusik();
+                    music.playef(27);
+                    customcollect[entities[i].para] = 1;
+                }
+
+                removeentity(i);
+            }
+            break;
+        case 100: //The teleporter
+            if (entities[i].state == 1)
+            {
+                //if inactive, activate!
+                if (entities[i].tile == 1)
+                {
+                    music.playef(18);
+                    entities[i].onentity = 0;
+                    entities[i].tile = 2;
+                    entities[i].colour = 101;
+                    if(!game.intimetrial && !game.nodeathmode)
+                    {
+                        game.state = 2000;
+                        game.statedelay = 0;
+                    }
+
+                    game.activetele = true;
+                    game.teleblock.x = entities[i].xp - 32;
+                    game.teleblock.y = entities[i].yp - 32;
+                    game.teleblock.w = 160;
+                    game.teleblock.h = 160;
+
+
+                    //Alright, let's set this as our savepoint too
                     //First, deactivate all other savepoints
                     for (size_t j = 0; j < entities.size(); j++)
                     {
@@ -2716,682 +3349,43 @@ bool entityclass::updateentities( int i )
                             entities[j].onentity = 1;
                         }
                     }
-                    entities[i].colour = 5;
-                    entities[i].onentity = 0;
-                    game.savepoint = entities[i].para;
-                    music.playef(5);
-
-                    game.savex = entities[i].xp - 4;
-
-                    if (entities[i].tile == 20)
-                    {
-                        game.savey = entities[i].yp - 1;
-                        game.savegc = 1;
-                    }
-                    else if (entities[i].tile == 21)
-                    {
-                        game.savey = entities[i].yp-8;
-                        game.savegc = 0;
-                    }
+                    game.savepoint = static_cast<int>(entities[i].para);
+                    game.savex = entities[i].xp + 44;
+                    game.savey = entities[i].yp + 44;
+                    game.savegc = 0;
 
                     game.saverx = game.roomx;
                     game.savery = game.roomy;
                     game.savedir = entities[getplayer()].dir;
                     entities[i].state = 0;
                 }
-                break;
-            case 9: //Gravity Lines
-                if (entities[i].state == 1)
-                {
-                    entities[i].life--;
-                    entities[i].onentity = 0;
 
-                    if (entities[i].life <= 0)
-                    {
-                        entities[i].state = 0;
-                        entities[i].onentity = 1;
-                    }
-                }
-                break;
-            case 10: //Vertical gravity Lines
-                if (entities[i].state == 1)
-                {
-                    entities[i].onentity = 3;
-                    entities[i].state = 2;
-
-
-                    music.playef(8);
-                    game.gravitycontrol = (game.gravitycontrol + 1) % 2;
-                    game.totalflips++;
-                    temp = getplayer();
-                    if (game.gravitycontrol == 0)
-                    {
-                        if (entities[temp].vy < 3) entities[temp].vy = 3;
-                    }
-                    else
-                    {
-                        if (entities[temp].vy > -3) entities[temp].vy = -3;
-                    }
-                }
-                else if (entities[i].state == 2)
-                {
-                    entities[i].life--;
-                    if (entities[i].life <= 0)
-                    {
-                        entities[i].state = 0;
-                        entities[i].onentity = 1;
-                    }
-                }
-                else if (entities[i].state == 3)
-                {
-                    entities[i].state = 2;
-                    entities[i].life = 4;
-                    entities[i].onentity = 3;
-                }
-                else if (entities[i].state == 4)
-                {
-                    //Special case for room initilisations: As state one, except without the reversal
-                    entities[i].onentity = 3;
-                    entities[i].state = 2;
-                }
-                break;
-            case 11: //Warp point
-                //wait for collision
-                if (entities[i].state == 1)
-                {
-                    //Depending on the room the warp point is in, teleport to a new location!
-                    entities[i].onentity = 0;
-                    //play a sound or somefink
-                    music.playef(10);
-                    game.teleport = true;
-
-                    game.edteleportent = i;
-                    //for the multiple room:
-                    if (int(entities[i].xp) == 12*8) game.teleportxpos = 1;
-                    if (int(entities[i].xp) == 5*8) game.teleportxpos = 2;
-                    if (int(entities[i].xp) == 28*8) game.teleportxpos = 3;
-                    if (int(entities[i].xp) == 21*8) game.teleportxpos = 4;
-                }
-                break;
-            case 12: //Crew member
-                //Somewhat complex AI: exactly what they do depends on room, location, state etc
-                //At state 0, do nothing at all.
-                if (entities[i].state == 1)
-                {
-                    //happy!
-                    if (entities[k].rule == 6)	entities[k].tile = 0;
-                    if (entities[k].rule == 7)	entities[k].tile = 6;
-                    //Stay close to the hero!
-                    int j = getplayer();
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[j].xp > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-
-                    //Special rules:
-                    if (game.roomx == 110 && game.roomy == 105)
-                    {
-                        if (entities[i].xp < 155)
-                        {
-                            if (entities[i].ax < 0) entities[i].ax = 0;
-                        }
-                    }
-                }
-                else if (entities[i].state == 2)
-                {
-                    //Basic rules, don't change expression
-                    int j = getplayer();
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[j].xp > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-                }
-                else if (entities[i].state == 10)
-                {
-                    //Everything from 10 on is for cutscenes
-                    //Basic rules, don't change expression
-                    int j = getplayer();
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[j].xp > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-                }
-                else if (entities[i].state == 11)
-                {
-                    //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                    int j=getcrewman(1); //purple
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[j].xp > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-                }
-                else if (entities[i].state == 12)
-                {
-                    //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                    int j=getcrewman(2); //yellow
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[j].xp > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-                }
-                else if (entities[i].state == 13)
-                {
-                    //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                    int j=getcrewman(3); //red
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[j].xp > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-                }
-                else if (entities[i].state == 14)
-                {
-                    //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                    int j=getcrewman(4); //green
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[j].xp > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-                }
-                else if (entities[i].state == 15)
-                {
-                    //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                    int j=getcrewman(5); //blue
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[j].xp > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-                }
-                else if (entities[i].state == 16)
-                {
-                    //Follow a position: given an x coordinate, seek it out.
-                    if (entities[i].para > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[i].para < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-
-                    if (entities[i].para > entities[i].xp + 45)
-                    {
-                        entities[i].ax = 3;
-                    }
-                    else if (entities[i].para < entities[i].xp - 45)
-                    {
-                        entities[i].ax = -3;
-                    }
-                }
-                else if (entities[i].state == 17)
-                {
-                    //stand still
-                }
-                else if (entities[i].state == 18)
-                {
-                    //Stand still and face the player
-                    int j = getplayer();
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-                }
-                else if (entities[i].state == 19)
-                {
-                    //Walk right off the screen after time t
-                    if (entities[i].para <= 0)
-                    {
-                        entities[i].dir = 1;
-                        entities[i].ax = 3;
-                    }
-                    else
-                    {
-                        entities[i].para--;
-                    }
-                }
-                else if (entities[i].state == 20)
-                {
-                    //Panic! For briefing script
-                    if (entities[i].life == 0)
-                    {
-                        //walk left for a bit
-                        entities[i].ax = 0;
-                        if (40 > entities[i].xp + 5)
-                        {
-                            entities[i].dir = 1;
-                        }
-                        else if (40 < entities[i].xp - 5)
-                        {
-                            entities[i].dir = 0;
-                        }
-
-                        if (40 > entities[i].xp + 45)
-                        {
-                            entities[i].ax = 3;
-                        }
-                        else if (40 < entities[i].xp - 45)
-                        {
-                            entities[i].ax = -3;
-                        }
-                        if ( (entities[i].ax) == 0)
-                        {
-                            entities[i].life = 1;
-                            entities[i].para = 30;
-                        }
-                    }
-                    else	if (entities[i].life == 1)
-                    {
-                        //Stand around for a bit
-                        entities[i].para--;
-                        if (entities[i].para <= 0)
-                        {
-                            entities[i].life++;
-                        }
-                    }
-                    else if (entities[i].life == 2)
-                    {
-                        //walk right for a bit
-                        entities[i].ax = 0;
-                        if (280 > entities[i].xp + 5)
-                        {
-                            entities[i].dir = 1;
-                        }
-                        else if (280 < entities[i].xp - 5)
-                        {
-                            entities[i].dir = 0;
-                        }
-
-                        if (280 > entities[i].xp + 45)
-                        {
-                            entities[i].ax = 3;
-                        }
-                        else if (280 < entities[i].xp - 45)
-                        {
-                            entities[i].ax = -3;
-                        }
-                        if ( (entities[i].ax) == 0)
-                        {
-                            entities[i].life = 3;
-                            entities[i].para = 30;
-                        }
-                    }
-                    else	if (entities[i].life == 3)
-                    {
-                        //Stand around for a bit
-                        entities[i].para--;
-                        if (entities[i].para <= 0)
-                        {
-                            entities[i].life=0;
-                        }
-                    }
-                }
-                break;
-            case 13: //Terminals (very similar to savepoints)
-                //wait for collision
-                if (entities[i].state == 1)
-                {
-                    entities[i].colour = 5;
-                    entities[i].onentity = 0;
-                    music.playef(17);
-
-                    entities[i].state = 0;
-                }
-                break;
-            case 14: //Super Crew member
-                //Actually needs less complex AI than the scripting crewmember
-                if (entities[i].state == 0)
-                {
-                    //follow player, but only if he's on the floor!
-                    int j = getplayer();
-                    if(entities[j].onground>0)
-                    {
-                        if (entities[j].xp > entities[i].xp + 5)
-                        {
-                            entities[i].dir = 1;
-                        }
-                        else if (entities[j].xp>15 && entities[j].xp < entities[i].xp - 5)
-                        {
-                            entities[i].dir = 0;
-                        }
-
-                        if (entities[j].xp > entities[i].xp + 45)
-                        {
-                            entities[i].ax = 3;
-                        }
-                        else if (entities[j].xp < entities[i].xp - 45)
-                        {
-                            entities[i].ax = -3;
-                        }
-                        if (entities[i].ax < 0 && entities[i].xp < 60)
-                        {
-                            entities[i].ax = 0;
-                        }
-                    }
-                    else
-                    {
-                        if (entities[j].xp > entities[i].xp + 5)
-                        {
-                            entities[i].dir = 1;
-                        }
-                        else if (entities[j].xp < entities[i].xp - 5)
-                        {
-                            entities[i].dir = 0;
-                        }
-
-                        entities[i].ax = 0;
-                    }
-
-                    if (entities[i].xp > 240)
-                    {
-                        entities[i].ax = 3;
-                        entities[i].dir = 1;
-                    }
-                    if (entities[i].xp >= 310)
-                    {
-                        game.scmprogress++;
-                        removeentity(i);
-                    }
-                }
-                break;
-            case 15: //Trophy
-                //wait for collision
-                if (entities[i].state == 1)
-                {
-                    trophytext+=2;
-                    if (trophytext > 30) trophytext = 30;
-                    trophytype = entities[i].para;
-
-                    entities[i].state = 0;
-                }
-                break;
-            case 23:
-                //swn game!
-                switch(entities[i].behave)
-                {
-                case 0:
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].vx = 7;
-                        if (entities[i].xp > 320) removeentity(i);
-                    }
-                    break;
-                case 1:
-                    if (entities[i].state == 0)   //Init
-                    {
-                        entities[i].vx = -7;
-                        if (entities[i].xp <-20) removeentity(i);
-                    }
-                    break;
-                }
-                break;
-
-            case 51: //Vertical warp line
-                if (entities[i].state == 2){
-                  int j=getplayer();
-                  if(entities[j].xp<=307){
-                    customwarpmodevon=false;
-                    entities[i].state = 0;
-                  }
-                }else if (entities[i].state == 1)
-                {
-                  entities[i].state = 2;
-                  entities[i].statedelay = 2;
-                  entities[i].onentity = 1;
-                  customwarpmodevon=true;
-                }
-                break;
-            case 52: //Vertical warp line
-                if (entities[i].state == 2){
-                  int j=getplayer();
-                  if(entities[j].xp<=307){
-                    customwarpmodevon=false;
-                    entities[i].state = 0;
-                  }
-                }else if (entities[i].state == 1)
-                {
-                  entities[i].state = 2;
-                  entities[i].statedelay = 2;
-                  entities[i].onentity = 1;
-                  customwarpmodevon=true;
-                }
-                break;
-              case 53: //Warp lines Horizonal
-                if (entities[i].state == 2){
-                  customwarpmodehon=false;
-                  entities[i].state = 0;
-                }else if (entities[i].state == 1)
-                {
-                  entities[i].state = 2;
-                  entities[i].statedelay = 2;
-                  entities[i].onentity = 1;
-                  customwarpmodehon=true;
-                }
-                break;
-                case 54: //Warp lines Horizonal
-                if (entities[i].state == 2){
-                  customwarpmodehon=false;
-                  entities[i].state = 0;
-                }else if (entities[i].state == 1)
-                {
-                   entities[i].state = 2;
-                   entities[i].statedelay = 2;
-                   entities[i].onentity = 1;
-                   customwarpmodehon=true;
-                }
-                break;
-              case 55: //Collectable crewmate
-                //wait for collision
-                if (entities[i].state == 0)
-                {
-                    //Basic rules, don't change expression
-                    int j = getplayer();
-                    if (entities[j].xp > entities[i].xp + 5)
-                    {
-                        entities[i].dir = 1;
-                    }
-                    else if (entities[j].xp < entities[i].xp - 5)
-                    {
-                        entities[i].dir = 0;
-                    }
-                }
-                else if (entities[i].state == 1)
-                {
-                    game.crewmates++;
-                    if (game.intimetrial)
-                    {
-                        customcollect[entities[i].para] = 1;
-                        music.playef(27);
-                    }
-                    else
-                    {
-                        game.state = 1010;
-                        //music.haltdasmusik();
-                        if(music.currentsong!=-1) music.silencedasmusik();
-                        music.playef(27);
-                        customcollect[entities[i].para] = 1;
-                    }
-
-                    removeentity(i);
-                }
-                break;
-            case 100: //The teleporter
-                if (entities[i].state == 1)
-                {
-                    //if inactive, activate!
-                    if (entities[i].tile == 1)
-                    {
-                        music.playef(18);
-                        entities[i].onentity = 0;
-                        entities[i].tile = 2;
-                        entities[i].colour = 101;
-                        if(!game.intimetrial && !game.nodeathmode)
-                        {
-                            game.state = 2000;
-                            game.statedelay = 0;
-                        }
-
-                        game.activetele = true;
-                        game.teleblock.x = entities[i].xp - 32;
-                        game.teleblock.y = entities[i].yp - 32;
-                        game.teleblock.w = 160;
-                        game.teleblock.h = 160;
-
-
-                        //Alright, let's set this as our savepoint too
-                        //First, deactivate all other savepoints
-                        for (size_t j = 0; j < entities.size(); j++)
-                        {
-                            if (entities[j].type == 8)
-                            {
-                                entities[j].colour = 4;
-                                entities[j].onentity = 1;
-                            }
-                        }
-                        game.savepoint = static_cast<int>(entities[i].para);
-                        game.savex = entities[i].xp + 44;
-                        game.savey = entities[i].yp + 44;
-                        game.savegc = 0;
-
-                        game.saverx = game.roomx;
-                        game.savery = game.roomy;
-                        game.savedir = entities[getplayer()].dir;
-                        entities[i].state = 0;
-                    }
-
-                    entities[i].state = 0;
-                }
-                else if (entities[i].state == 2)
-                {
-                    //Initilise the teleporter without changing the game state or playing sound
-                    entities[i].onentity = 0;
-                    entities[i].tile = 6;
-                    entities[i].colour = 102;
-
-                    game.activetele = true;
-                    game.teleblock.x = entities[i].xp - 32;
-                    game.teleblock.y = entities[i].yp - 32;
-                    game.teleblock.w = 160;
-                    game.teleblock.h = 160;
-
-                    entities[i].state = 0;
-                }
-                break;
+                entities[i].state = 0;
             }
-        }
-        else
-        {
-            entities[i].statedelay--;
-            if (entities[i].statedelay < 0)
+            else if (entities[i].state == 2)
             {
-                entities[i].statedelay = 0;
+                //Initilise the teleporter without changing the game state or playing sound
+                entities[i].onentity = 0;
+                entities[i].tile = 6;
+                entities[i].colour = 102;
+
+                game.activetele = true;
+                game.teleblock.x = entities[i].xp - 32;
+                game.teleblock.y = entities[i].yp - 32;
+                game.teleblock.w = 160;
+                game.teleblock.h = 160;
+
+                entities[i].state = 0;
             }
+            break;
+        }
+    }
+    else
+    {
+        entities[i].statedelay--;
+        if (entities[i].statedelay < 0)
+        {
+            entities[i].statedelay = 0;
         }
     }
 
@@ -3400,365 +3394,362 @@ bool entityclass::updateentities( int i )
 
 void entityclass::animateentities( int _i )
 {
-    if(true) // FIXME: remove this later (no more 'active')
+    if(entities[_i].statedelay < 1)
     {
-        if(entities[_i].statedelay < 1)
+        switch(entities[_i].type)
         {
-            switch(entities[_i].type)
+        case 0:
+            entities[_i].framedelay--;
+            if(entities[_i].dir==1)
+            {
+                entities[_i].drawframe=entities[_i].tile;
+            }
+            else
+            {
+                entities[_i].drawframe=entities[_i].tile+3;
+            }
+
+            if(entities[_i].onground>0 || entities[_i].onroof>0)
+            {
+                if(entities[_i].vx > 0.00f || entities[_i].vx < -0.00f)
+                {
+                    //Walking
+                    if(entities[_i].framedelay<=1)
+                    {
+                        entities[_i].framedelay=4;
+                        entities[_i].walkingframe++;
+                    }
+                    if (entities[_i].walkingframe >=2) entities[_i].walkingframe=0;
+                    entities[_i].drawframe += entities[_i].walkingframe + 1;
+                }
+
+                if (entities[_i].onroof > 0) entities[_i].drawframe += 6;
+            }
+            else
+            {
+                entities[_i].drawframe ++;
+                if (game.gravitycontrol == 1)
+                {
+                    entities[_i].drawframe += 6;
+                }
+            }
+
+            if (game.deathseq > -1)
+            {
+                entities[_i].drawframe=13;
+                if (entities[_i].dir == 1) entities[_i].drawframe = 12;
+                if (game.gravitycontrol == 1) entities[_i].drawframe += 2;
+            }
+            break;
+        case 1:
+        case 23:
+            //Variable animation
+            switch(entities[_i].animate)
             {
             case 0:
+                //Simple oscilation
                 entities[_i].framedelay--;
-                if(entities[_i].dir==1)
+                if(entities[_i].framedelay<=0)
                 {
-                    entities[_i].drawframe=entities[_i].tile;
-                }
-                else
-                {
-                    entities[_i].drawframe=entities[_i].tile+3;
-                }
-
-                if(entities[_i].onground>0 || entities[_i].onroof>0)
-                {
-                    if(entities[_i].vx > 0.00f || entities[_i].vx < -0.00f)
+                    entities[_i].framedelay = 8;
+                    if(entities[_i].actionframe==0)
                     {
-                        //Walking
-                        if(entities[_i].framedelay<=1)
-                        {
-                            entities[_i].framedelay=4;
-                            entities[_i].walkingframe++;
-                        }
-                        if (entities[_i].walkingframe >=2) entities[_i].walkingframe=0;
-                        entities[_i].drawframe += entities[_i].walkingframe + 1;
-                    }
-
-                    if (entities[_i].onroof > 0) entities[_i].drawframe += 6;
-                }
-                else
-                {
-                    entities[_i].drawframe ++;
-                    if (game.gravitycontrol == 1)
-                    {
-                        entities[_i].drawframe += 6;
-                    }
-                }
-
-                if (game.deathseq > -1)
-                {
-                    entities[_i].drawframe=13;
-                    if (entities[_i].dir == 1) entities[_i].drawframe = 12;
-                    if (game.gravitycontrol == 1) entities[_i].drawframe += 2;
-                }
-                break;
-            case 1:
-            case 23:
-                //Variable animation
-                switch(entities[_i].animate)
-                {
-                case 0:
-                    //Simple oscilation
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 8;
-                        if(entities[_i].actionframe==0)
-                        {
-                            entities[_i].walkingframe++;
-                            if (entities[_i].walkingframe == 4)
-                            {
-                                entities[_i].walkingframe = 2;
-                                entities[_i].actionframe = 1;
-                            }
-                        }
-                        else
-                        {
-                            entities[_i].walkingframe--;
-                            if (entities[_i].walkingframe == -1)
-                            {
-                                entities[_i].walkingframe = 1;
-                                entities[_i].actionframe = 0;
-                            }
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                    break;
-                case 1:
-                    //Simple Loop
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 8;
                         entities[_i].walkingframe++;
                         if (entities[_i].walkingframe == 4)
                         {
-                            entities[_i].walkingframe = 0;
+                            entities[_i].walkingframe = 2;
+                            entities[_i].actionframe = 1;
                         }
                     }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                    break;
-                case 2:
-                    //Simpler Loop (just two frames)
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
+                    else
                     {
-                        entities[_i].framedelay = 2;
-                        entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 2)
-                        {
-                            entities[_i].walkingframe = 0;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                    break;
-                case 3:
-                    //Simpler Loop (just two frames, but double sized)
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 2;
-                        entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 2)
-                        {
-                            entities[_i].walkingframe = 0;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += (entities[_i].walkingframe*2);
-                    break;
-                case 4:
-                    //Simpler Loop (just two frames, but double sized) (as above but slower)
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 6;
-                        entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 2)
-                        {
-                            entities[_i].walkingframe = 0;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += (entities[_i].walkingframe*2);
-                    break;
-                case 5:
-                    //Simpler Loop (just two frames) (slower)
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 6;
-                        entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 2)
-                        {
-                            entities[_i].walkingframe = 0;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                    break;
-                case 6:
-                    //Normal Loop (four frames, double sized)
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 4;
-                        entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 4)
-                        {
-                            entities[_i].walkingframe = 0;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += (entities[_i].walkingframe*2);
-                    break;
-                case 7:
-                    //Simpler Loop (just two frames) (slower) (with directions!)
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 6;
-                        entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 2)
-                        {
-                            entities[_i].walkingframe = 0;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-
-                    if (entities[_i].vx > 0.000f ) entities[_i].drawframe += 2;
-                    break;
-                case 10:
-                    //Threadmill left
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 3;//(6-entities[_i].para);
                         entities[_i].walkingframe--;
                         if (entities[_i].walkingframe == -1)
                         {
-                            entities[_i].walkingframe = 3;
+                            entities[_i].walkingframe = 1;
+                            entities[_i].actionframe = 0;
                         }
                     }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                    break;
-                case 11:
-                    //Threadmill right
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 3;//(6-entities[_i].para);
-                        entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 4)
-                        {
-                            entities[_i].walkingframe = 0;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                    break;
-                case 100:
-                    //Simple case for no animation (platforms, etc)
-                    entities[_i].drawframe = entities[_i].tile;
-                    break;
-                default:
-                    entities[_i].drawframe = entities[_i].tile;
-                    break;
                 }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
+                break;
+            case 1:
+                //Simple Loop
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 8;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 4)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
+                break;
+            case 2:
+                //Simpler Loop (just two frames)
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 2;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 2)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
+                break;
+            case 3:
+                //Simpler Loop (just two frames, but double sized)
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 2;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 2)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += (entities[_i].walkingframe*2);
+                break;
+            case 4:
+                //Simpler Loop (just two frames, but double sized) (as above but slower)
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 6;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 2)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += (entities[_i].walkingframe*2);
+                break;
+            case 5:
+                //Simpler Loop (just two frames) (slower)
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 6;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 2)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
+                break;
+            case 6:
+                //Normal Loop (four frames, double sized)
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 4;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 4)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += (entities[_i].walkingframe*2);
+                break;
+            case 7:
+                //Simpler Loop (just two frames) (slower) (with directions!)
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 6;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 2)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
+
+                if (entities[_i].vx > 0.000f ) entities[_i].drawframe += 2;
+                break;
+            case 10:
+                //Threadmill left
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 3;//(6-entities[_i].para);
+                    entities[_i].walkingframe--;
+                    if (entities[_i].walkingframe == -1)
+                    {
+                        entities[_i].walkingframe = 3;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
                 break;
             case 11:
-                entities[_i].drawframe = entities[_i].tile;
-                if(entities[_i].animate==2)
-                {
-                    //Simpler Loop (just two frames)
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 10;
-                        entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 2)
-                        {
-                            entities[_i].walkingframe = 0;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                }
-                break;
-            case 12:
-            case 55:
-            case 14: //Crew member! Very similar to hero
+                //Threadmill right
                 entities[_i].framedelay--;
-                if(entities[_i].dir==1)
+                if(entities[_i].framedelay<=0)
                 {
-                    entities[_i].drawframe=entities[_i].tile;
-                }
-                else
-                {
-                    entities[_i].drawframe=entities[_i].tile+3;
-                }
-
-                if(entities[_i].onground>0 || entities[_i].onroof>0)
-                {
-                    if(entities[_i].vx > 0.0000f || entities[_i].vx < -0.000f)
+                    entities[_i].framedelay = 3;//(6-entities[_i].para);
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 4)
                     {
-                        //Walking
-                        if(entities[_i].framedelay<=0)
-                        {
-                            entities[_i].framedelay=4;
-                            entities[_i].walkingframe++;
-                        }
-                        if (entities[_i].walkingframe >=2) entities[_i].walkingframe=0;
-                        entities[_i].drawframe += entities[_i].walkingframe + 1;
+                        entities[_i].walkingframe = 0;
                     }
-
-                    //if (entities[_i].onroof > 0) entities[_i].drawframe += 6;
-                }
-                else
-                {
-                    entities[_i].drawframe ++;
-                    //if (game.gravitycontrol == 1) {
-                    //	entities[_i].drawframe += 6;
-                    //}
                 }
 
-                if (game.deathseq > -1)
-                {
-                    entities[_i].drawframe=13;
-                    if (entities[_i].dir == 1) entities[_i].drawframe = 12;
-                    if (entities[_i].rule == 7) entities[_i].drawframe += 2;
-                    //if (game.gravitycontrol == 1) entities[_i].drawframe += 2;
-                }
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
                 break;
-            case 100: //the teleporter!
-                if (entities[_i].tile == 1)
-                {
-                    //it's inactive
-                    entities[_i].drawframe = entities[_i].tile;
-                }
-                else if (entities[_i].tile == 2)
-                {
-                    entities[_i].drawframe = entities[_i].tile;
-
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 1;
-                        entities[_i].walkingframe = int(fRandom() * 6);
-                        if (entities[_i].walkingframe >= 4)
-                        {
-                            entities[_i].walkingframe = -1;
-                            entities[_i].framedelay = 4;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                }
-                else if (entities[_i].tile == 6)
-                {
-                    //faster!
-                    entities[_i].drawframe = entities[_i].tile;
-
-                    entities[_i].framedelay--;
-                    if(entities[_i].framedelay<=0)
-                    {
-                        entities[_i].framedelay = 2;
-                        entities[_i].walkingframe = int(fRandom() * 6);
-                        if (entities[_i].walkingframe >= 4)
-                        {
-                            entities[_i].walkingframe = -5;
-                            entities[_i].framedelay = 4;
-                        }
-                    }
-
-                    entities[_i].drawframe = entities[_i].tile;
-                    entities[_i].drawframe += entities[_i].walkingframe;
-                }
+            case 100:
+                //Simple case for no animation (platforms, etc)
+                entities[_i].drawframe = entities[_i].tile;
                 break;
             default:
                 entities[_i].drawframe = entities[_i].tile;
                 break;
             }
+            break;
+        case 11:
+            entities[_i].drawframe = entities[_i].tile;
+            if(entities[_i].animate==2)
+            {
+                //Simpler Loop (just two frames)
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 10;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe == 2)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
+            }
+            break;
+        case 12:
+        case 55:
+        case 14: //Crew member! Very similar to hero
+            entities[_i].framedelay--;
+            if(entities[_i].dir==1)
+            {
+                entities[_i].drawframe=entities[_i].tile;
+            }
+            else
+            {
+                entities[_i].drawframe=entities[_i].tile+3;
+            }
+
+            if(entities[_i].onground>0 || entities[_i].onroof>0)
+            {
+                if(entities[_i].vx > 0.0000f || entities[_i].vx < -0.000f)
+                {
+                    //Walking
+                    if(entities[_i].framedelay<=0)
+                    {
+                        entities[_i].framedelay=4;
+                        entities[_i].walkingframe++;
+                    }
+                    if (entities[_i].walkingframe >=2) entities[_i].walkingframe=0;
+                    entities[_i].drawframe += entities[_i].walkingframe + 1;
+                }
+
+                //if (entities[_i].onroof > 0) entities[_i].drawframe += 6;
+            }
+            else
+            {
+                entities[_i].drawframe ++;
+                //if (game.gravitycontrol == 1) {
+                //	entities[_i].drawframe += 6;
+                //}
+            }
+
+            if (game.deathseq > -1)
+            {
+                entities[_i].drawframe=13;
+                if (entities[_i].dir == 1) entities[_i].drawframe = 12;
+                if (entities[_i].rule == 7) entities[_i].drawframe += 2;
+                //if (game.gravitycontrol == 1) entities[_i].drawframe += 2;
+            }
+            break;
+        case 100: //the teleporter!
+            if (entities[_i].tile == 1)
+            {
+                //it's inactive
+                entities[_i].drawframe = entities[_i].tile;
+            }
+            else if (entities[_i].tile == 2)
+            {
+                entities[_i].drawframe = entities[_i].tile;
+
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 1;
+                    entities[_i].walkingframe = int(fRandom() * 6);
+                    if (entities[_i].walkingframe >= 4)
+                    {
+                        entities[_i].walkingframe = -1;
+                        entities[_i].framedelay = 4;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
+            }
+            else if (entities[_i].tile == 6)
+            {
+                //faster!
+                entities[_i].drawframe = entities[_i].tile;
+
+                entities[_i].framedelay--;
+                if(entities[_i].framedelay<=0)
+                {
+                    entities[_i].framedelay = 2;
+                    entities[_i].walkingframe = int(fRandom() * 6);
+                    if (entities[_i].walkingframe >= 4)
+                    {
+                        entities[_i].walkingframe = -5;
+                        entities[_i].framedelay = 4;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile;
+                entities[_i].drawframe += entities[_i].walkingframe;
+            }
+            break;
+        default:
+            entities[_i].drawframe = entities[_i].tile;
+            break;
         }
-        else
-        {
-            //entities[_i].statedelay--;
-            if (entities[_i].statedelay < 0) entities[_i].statedelay = 0;
-        }
+    }
+    else
+    {
+        //entities[_i].statedelay--;
+        if (entities[_i].statedelay < 0) entities[_i].statedelay = 0;
     }
 }
 
@@ -4183,26 +4174,23 @@ float entityclass::hplatformat()
     //Returns first entity of horizontal platform at (px, py), -1000 otherwise.
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if (true) // FIXME: remove this later (no more 'active')
+        if (entities[i].rule == 2)
         {
-            if (entities[i].rule == 2)
+            if (entities[i].behave >= 2)
             {
-                if (entities[i].behave >= 2)
+                if (entities[i].xp == px && entities[i].yp == py)
                 {
-                    if (entities[i].xp == px && entities[i].yp == py)
+                    if (entities[i].behave == 8)   //threadmill!
                     {
-                        if (entities[i].behave == 8)   //threadmill!
-                        {
-                            return entities[i].para;
-                        }
-                        else if(entities[i].behave == 9)    //threadmill!
-                        {
-                            return -entities[i].para;
-                        }
-                        else
-                        {
-                            return entities[i].vx;
-                        }
+                        return entities[i].para;
+                    }
+                    else if(entities[i].behave == 9)    //threadmill!
+                    {
+                        return -entities[i].para;
+                    }
+                    else
+                    {
+                        return entities[i].vx;
                     }
                 }
             }
@@ -4657,23 +4645,21 @@ void entityclass::customwarplinecheck(int i) {
     //Turns on obj.customwarpmodevon and obj.customwarpmodehon if player collides
     //with warp lines
 
-    if (true) { // FIXME: remove this later (no more 'active')
-        //We test entity to entity
-        for (int j = 0; j < (int) entities.size(); j++) {
-            if (i != j) {//Active
-                if (entities[i].rule == 0 && entities[j].rule == 5) { //Player vs vertical line!
-                    if (entities[j].type == 51 || entities[j].type == 52) {
-                        if (entitywarpvlinecollide(i, j)) {
-                            customwarpmodevon = true;
-                        }
+    //We test entity to entity
+    for (int j = 0; j < (int) entities.size(); j++) {
+        if (i != j) {//Active
+            if (entities[i].rule == 0 && entities[j].rule == 5) { //Player vs vertical line!
+                if (entities[j].type == 51 || entities[j].type == 52) {
+                    if (entitywarpvlinecollide(i, j)) {
+                        customwarpmodevon = true;
                     }
                 }
+            }
 
-                if (entities[i].rule == 0 && entities[j].rule == 7){   //Player vs horizontal WARP line
-                    if (entities[j].type == 53 || entities[j].type == 54) {
-                        if (entitywarphlinecollide(i, j)) {
-                            customwarpmodehon = true;
-                        }
+            if (entities[i].rule == 0 && entities[j].rule == 7){   //Player vs horizontal WARP line
+                if (entities[j].type == 53 || entities[j].type == 54) {
+                    if (entitywarphlinecollide(i, j)) {
+                        customwarpmodehon = true;
                     }
                 }
             }
@@ -4685,192 +4671,189 @@ void entityclass::entitycollisioncheck()
 {
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if (true) // FIXME: remove this later (no more 'active')
+        //We test entity to entity
+        for (size_t j = 0; j < entities.size(); j++)
         {
-            //We test entity to entity
-            for (size_t j = 0; j < entities.size(); j++)
+            if (i!=j)  //Active
             {
-                if (i!=j)  //Active
+                if (entities[i].rule == 0 && entities[j].rule == 1 && entities[j].harmful)
                 {
-                    if (entities[i].rule == 0 && entities[j].rule == 1 && entities[j].harmful)
+                    //player i hits enemy or enemy bullet j
+                    if (entitycollide(i, j) && !map.invincibility)
                     {
-                        //player i hits enemy or enemy bullet j
-                        if (entitycollide(i, j) && !map.invincibility)
+                        if (entities[i].size == 0 && (entities[j].size == 0 || entities[j].size == 12))
                         {
-                            if (entities[i].size == 0 && (entities[j].size == 0 || entities[j].size == 12))
+                            //They're both sprites, so do a per pixel collision
+                            colpoint1.x = entities[i].xp;
+                            colpoint1.y = entities[i].yp;
+                            colpoint2.x = entities[j].xp;
+                            colpoint2.y = entities[j].yp;
+                            if (graphics.flipmode)
                             {
-                                //They're both sprites, so do a per pixel collision
-                                colpoint1.x = entities[i].xp;
-                                colpoint1.y = entities[i].yp;
-                                colpoint2.x = entities[j].xp;
-                                colpoint2.y = entities[j].yp;
-                                if (graphics.flipmode)
+                                if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
+                                                 colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
                                 {
-                                    if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
-                                                     colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
-                                    {
-                                        //Do the collision stuff
-                                        game.deathseq = 30;
-                                    }
-                                }
-                                else
-                                {
-                                    if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
-                                                     colpoint1, graphics.sprites[entities[j].drawframe], colpoint2) )
-                                    {
-                                        //Do the collision stuff
-                                        game.deathseq = 30;
-                                    }
+                                    //Do the collision stuff
+                                    game.deathseq = 30;
                                 }
                             }
                             else
                             {
-                                //Ok, then we just assume a normal bounding box collision
-                                game.deathseq = 30;
+                                if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
+                                                 colpoint1, graphics.sprites[entities[j].drawframe], colpoint2) )
+                                {
+                                    //Do the collision stuff
+                                    game.deathseq = 30;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //Ok, then we just assume a normal bounding box collision
+                            game.deathseq = 30;
+                        }
+                    }
+                }
+                if (entities[i].rule == 0 && entities[j].rule == 2)   //Moving platforms
+                {
+                    if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
+                }
+                if (entities[i].rule == 0 && entities[j].rule == 3)   //Entity to entity
+                {
+                    if(entities[j].onentity>0)
+                    {
+                        if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
+                    }
+                }
+                if (entities[i].rule == 0 && entities[j].rule == 4)   //Player vs horizontal line!
+                {
+                    if(game.deathseq==-1)
+                    {
+                        //Here we compare the player's old position versus his new one versus the line.
+                        //All points either be above or below it. Otherwise, there was a collision this frame.
+                        if (entities[j].onentity > 0)
+                        {
+                            if (entityhlinecollide(i, j))
+                            {
+                                music.playef(8);
+                                game.gravitycontrol = (game.gravitycontrol + 1) % 2;
+                                game.totalflips++;
+                                if (game.gravitycontrol == 0)
+                                {
+                                    if (entities[i].vy < 1) entities[i].vy = 1;
+                                }
+                                else
+                                {
+                                    if (entities[i].vy > -1) entities[i].vy = -1;
+                                }
+
+                                entities[j].state = entities[j].onentity;
+                                entities[j].life = 6;
                             }
                         }
                     }
-                    if (entities[i].rule == 0 && entities[j].rule == 2)   //Moving platforms
-                    {
-                        if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
-                    }
-                    if (entities[i].rule == 0 && entities[j].rule == 3)   //Entity to entity
+                }
+                if (entities[i].rule == 0 && entities[j].rule == 5)   //Player vs vertical line!
+                {
+                    if(game.deathseq==-1)
                     {
                         if(entities[j].onentity>0)
                         {
-                            if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
-                        }
-                    }
-                    if (entities[i].rule == 0 && entities[j].rule == 4)   //Player vs horizontal line!
-                    {
-                        if(game.deathseq==-1)
-                        {
-                            //Here we compare the player's old position versus his new one versus the line.
-                            //All points either be above or below it. Otherwise, there was a collision this frame.
-                            if (entities[j].onentity > 0)
+                            if (entityvlinecollide(i, j))
                             {
-                                if (entityhlinecollide(i, j))
-                                {
-                                    music.playef(8);
-                                    game.gravitycontrol = (game.gravitycontrol + 1) % 2;
-                                    game.totalflips++;
-                                    if (game.gravitycontrol == 0)
-                                    {
-                                        if (entities[i].vy < 1) entities[i].vy = 1;
-                                    }
-                                    else
-                                    {
-                                        if (entities[i].vy > -1) entities[i].vy = -1;
-                                    }
-
-                                    entities[j].state = entities[j].onentity;
-                                    entities[j].life = 6;
-                                }
+                                entities[j].state = entities[j].onentity;
+                                entities[j].life = 4;
                             }
                         }
                     }
-                    if (entities[i].rule == 0 && entities[j].rule == 5)   //Player vs vertical line!
+                }
+                if (entities[i].rule == 0 && entities[j].rule == 6)   //Player versus crumbly blocks! Special case
+                {
+                    if (entities[j].onentity > 0)
                     {
-                        if(game.deathseq==-1)
+                        //ok; only check the actual collision if they're in a close proximity
+                        temp = entities[i].yp - entities[j].yp;
+                        if (temp < 30 || temp > -30)
                         {
-                            if(entities[j].onentity>0)
-                            {
-                                if (entityvlinecollide(i, j))
-                                {
-                                    entities[j].state = entities[j].onentity;
-                                    entities[j].life = 4;
-                                }
-                            }
-                        }
-                    }
-                    if (entities[i].rule == 0 && entities[j].rule == 6)   //Player versus crumbly blocks! Special case
-                    {
-                        if (entities[j].onentity > 0)
-                        {
-                            //ok; only check the actual collision if they're in a close proximity
-                            temp = entities[i].yp - entities[j].yp;
+                            temp = entities[i].xp - entities[j].xp;
                             if (temp < 30 || temp > -30)
                             {
-                                temp = entities[i].xp - entities[j].xp;
-                                if (temp < 30 || temp > -30)
-                                {
-                                    if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
-                                }
+                                if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
                             }
                         }
                     }
-                    /*
-                    if (entities[i].rule == 0 && entities[j].rule == 7)   //Player vs horizontal WARP line
+                }
+                /*
+                if (entities[i].rule == 0 && entities[j].rule == 7)   //Player vs horizontal WARP line
+                {
+                    if(game.deathseq==-1)
                     {
-                        if(game.deathseq==-1)
+                        if(entities[j].onentity>0)
                         {
-                            if(entities[j].onentity>0)
+                            if (entityhlinecollide(i, j))
                             {
-                                if (entityhlinecollide(i, j))
-                                {
-                                    entities[j].state = entities[j].onentity;
-                                    entities[j].life = 4;
-                                }
+                                entities[j].state = entities[j].onentity;
+                                entities[j].life = 4;
                             }
                         }
                     }
-                    */
-                    if (game.supercrewmate)
+                }
+                */
+                if (game.supercrewmate)
+                {
+                    //some extra collisions
+                    if (entities[i].type == 14)   //i is the supercrewmate
                     {
-                        //some extra collisions
-                        if (entities[i].type == 14)   //i is the supercrewmate
+                        if (entities[j].rule == 1 && entities[j].harmful)  //j is a harmful enemy
                         {
-                            if (entities[j].rule == 1 && entities[j].harmful)  //j is a harmful enemy
+                            //player i hits enemy or enemy bullet j
+                            if (entitycollide(i, j) && !map.invincibility)
                             {
-                                //player i hits enemy or enemy bullet j
-                                if (entitycollide(i, j) && !map.invincibility)
+                                if (entities[i].size == 0 && entities[j].size == 0)
                                 {
-                                    if (entities[i].size == 0 && entities[j].size == 0)
+                                    //They're both sprites, so do a per pixel collision
+                                    colpoint1.x = entities[i].xp;
+                                    colpoint1.y = entities[i].yp;
+                                    colpoint2.x = entities[j].xp;
+                                    colpoint2.y = entities[j].yp;
+                                    if (graphics.flipmode)
                                     {
-                                        //They're both sprites, so do a per pixel collision
-                                        colpoint1.x = entities[i].xp;
-                                        colpoint1.y = entities[i].yp;
-                                        colpoint2.x = entities[j].xp;
-                                        colpoint2.y = entities[j].yp;
-                                        if (graphics.flipmode)
+                                        if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
+                                                         colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
                                         {
-                                            if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
-                                                             colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
-                                            {
-                                                //Do the collision stuff
-                                                game.deathseq = 30;
-                                                game.scmhurt = true;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
-                                                             colpoint1, graphics.sprites[entities[j].drawframe], colpoint2))
-                                            {
-                                                //Do the collision stuff
-                                                game.deathseq = 30;
-                                                game.scmhurt = true;
-                                            }
+                                            //Do the collision stuff
+                                            game.deathseq = 30;
+                                            game.scmhurt = true;
                                         }
                                     }
                                     else
                                     {
-                                        //Ok, then we just assume a normal bounding box collision
-                                        game.deathseq = 30;
-                                        game.scmhurt = true;
+                                        if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
+                                                         colpoint1, graphics.sprites[entities[j].drawframe], colpoint2))
+                                        {
+                                            //Do the collision stuff
+                                            game.deathseq = 30;
+                                            game.scmhurt = true;
+                                        }
                                     }
                                 }
-                            }
-                            if (entities[j].rule == 2)   //Moving platforms
-                            {
-                                if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
-                            }
-                            if (entities[j].type == 8 && entities[j].rule == 3)   //Entity to entity (well, checkpoints anyway!)
-                            {
-                                if(entities[j].onentity>0)
+                                else
                                 {
-                                    if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
+                                    //Ok, then we just assume a normal bounding box collision
+                                    game.deathseq = 30;
+                                    game.scmhurt = true;
                                 }
+                            }
+                        }
+                        if (entities[j].rule == 2)   //Moving platforms
+                        {
+                            if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
+                        }
+                        if (entities[j].type == 8 && entities[j].rule == 3)   //Entity to entity (well, checkpoints anyway!)
+                        {
+                            if(entities[j].onentity>0)
+                            {
+                                if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
                             }
                         }
                     }
