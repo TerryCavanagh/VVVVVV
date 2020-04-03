@@ -284,22 +284,6 @@ public:
     int stretchMode;
     int controllerSensitivity;
 
-    //Screenrecording stuff, for beta/trailer
-    int recording;
-    std::string recordstring;
-    bool combomode;
-    int combolen;
-    std::string comboaction;
-    std::string currentaction;
-    bool recordinit;
-
-    std::vector<int> playback;
-    int playbackpos;
-    int playbacksize;
-    int playmove;
-    int playcombo;
-    bool playbackfinished;
-
     bool menukludge;
     bool quickrestartkludge;
 
