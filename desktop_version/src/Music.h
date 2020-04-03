@@ -26,14 +26,8 @@ public:
 
 	void changemusicarea(int x, int y);
 
-	// public var musicchan:Array = new Array();
-	// public var musicchannel:SoundChannel, musicchannel2:SoundChannel;
-	// public var currentmusicchan:int, musicchanlen:int, musicchancur:int, musicstopother:int, resumesong:int;
-	// public var currentsong:int, musicfade:int, musicfadein:int;
 	int currentsong, musicfade, musicfadein;
 	int resumesong;
-
-	//public var nicefade:int, nicechange:int;
 
 	void playef(int t);
 
