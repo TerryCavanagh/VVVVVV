@@ -269,12 +269,6 @@ void musicclass::play(int t)
 	}
 }
 
-void musicclass::stopmusic()
-{
-	Mix_HaltMusic();
-	currentsong = -1;
-}
-
 void musicclass::haltdasmusik()
 {
 	Mix_HaltMusic();
