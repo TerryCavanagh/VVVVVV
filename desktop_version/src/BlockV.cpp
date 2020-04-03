@@ -7,7 +7,6 @@ blockclass::blockclass()
 
 void blockclass::clear()
 {
-	active = false;
 	type = 0;
 	trigger = 0;
 
