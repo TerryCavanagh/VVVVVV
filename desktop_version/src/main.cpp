@@ -112,18 +112,14 @@ int main(int argc, char *argv[])
 
 
 
-    //UtilityClass help;
     // Load Ini
 
 
-    //Graphics graphics;
     graphics.init();
 
 
 
-    //musicclass music;
     music.init();
-    //Game game;
     game.init();
     game.infocus = true;
 
@@ -171,21 +167,10 @@ int main(int argc, char *argv[])
     graphics.tempBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
     SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);
 
-    //Make a temporary rectangle to hold the offsets
-    // SDL_Rect offset;
-    //Give the offsets to the rectangle
-    // offset.x = 60;
-    // offset.y = 80;
-
-    //game.gamestate = TITLEMODE;
-    //game.gamestate=EDITORMODE;
-    game.gamestate = PRELOADER; //Remember to uncomment this later!
+    game.gamestate = PRELOADER;
 
     game.menustart = false;
     game.mainmenu = 0;
-
-    //KeyPoll key;
-    //mapclass map;
 
     map.ypos = (700-29) * 8;
     map.bypos = map.ypos / 2;
@@ -242,31 +227,7 @@ int main(int argc, char *argv[])
     if(game.bestrank[4]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_warp_fixed");
     if(game.bestrank[5]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_final_fixed");
 
-    //entityclass obj;
     obj.init();
-
-    //Quick hack to start in final level ---- //Might be useful to leave this commented in for testing
-    /*
-    //game.gamestate=GAMEMODE;
-    //game.start(obj,music);
-    //script.startgamemode(8);
-   // map.finalmode = true; //Enable final level mode
-    //map.finalx = 41; map.finaly = 52; //Midpoint
-    //map.finalstretch = true;
-    //map.final_colormode = true;
-    //map.final_mapcol = 0;
-    //map.final_colorframe = 0;
-
-    //game.starttest(obj, music);
-
-    game.savex = 5 * 8; game.savey = 15 * 8; game.saverx = 41; game.savery = 52;
-    game.savegc = 0; game.savedir = 1;
-    game.state = 0; game.deathseq = -1; game.lifeseq = 10;
-    //obj.createentity(game, game.savex, game.savey, 0);
-    map.gotoroom(game.saverx, game.savery, graphics, game, obj, music);
-    //music.play(1);
-    */
-    //End hack here ----
 
     volatile Uint32 time, timePrev = 0;
     game.infocus = true;
@@ -380,14 +341,6 @@ int main(int argc, char *argv[])
                 if (map.towermode)
                 {
                     gameinput();
-
-                    //if(game.recording==1)
-                    //{
-                    // ///recordinput();
-                    //}
-                    //else
-                    //{
-                    //}
                     towerrender();
                     towerlogic();
 
@@ -397,7 +350,6 @@ int main(int argc, char *argv[])
 
                     if (game.recording == 1)
                     {
-                        //recordinput();
                     }
                     else
                     {
@@ -407,7 +359,6 @@ int main(int argc, char *argv[])
                         }
 
                         gameinput();
-                        //}
                         gamerender();
                         gamelogic();
 
@@ -418,7 +369,6 @@ int main(int argc, char *argv[])
                     maprender();
                     if (game.recording == 1)
                     {
-                        //recordinput(); //will implement this later if it's actually needed
                     }
                     else
                     {
@@ -430,7 +380,6 @@ int main(int argc, char *argv[])
                     teleporterrender();
                     if (game.recording == 1)
                     {
-                        //recordinput();
                     }
                     else
                     {
@@ -464,24 +413,7 @@ int main(int argc, char *argv[])
                     gamecompletelogic2();
                     break;
                 case CLICKTOSTART:
-
-                    //dwgfx.bprint(5, 115, "[Click to start]", 196 - help.glow, 196 - help.glow, 255 - help.glow, true);
-                    //dwgfx.drawgui(help);
-                    //dwgfx.render();
-                    //dwgfx.backbuffer.unlock();
-
                     help.updateglow();
-                    // if (key.click) {
-                    //  dwgfx.textboxremove();
-                    // }
-                    // if (dwgfx.ntextbox == 0) {
-                    //  //music.play(6);
-                    //  map.ypos = (700-29) * 8;
-                    //  map.bypos = map.ypos / 2;
-                    //  map.cameramode = 0;
-
-                    //  game.gamestate = TITLEMODE;
-                    // }
                     break;
                 default:
 
@@ -526,12 +458,9 @@ int main(int argc, char *argv[])
 
         if (game.muted)
         {
-            //if (game.globalsound == 1)
-            //{
-                game.globalsound = 0;
-                Mix_VolumeMusic(0) ;
-                Mix_Volume(-1,0);
-            //}
+            game.globalsound = 0;
+            Mix_VolumeMusic(0) ;
+            Mix_Volume(-1,0);
         }
 
         if (!game.muted && game.globalsound == 0)
@@ -551,18 +480,8 @@ int main(int argc, char *argv[])
         graphics.processfade();
         game.gameclock();
         gameScreen.FlipScreen();
-
-        //SDL_FillRect( SDL_GetVideoSurface(), NULL, 0 );
     }
 
-
-    //SDL_Delay(300);
-
-    //TODO
-    //Free the loaded image
-    //SDL_FreeSurface( gameScreen );
-
-    //Quit SDL
     game.savestats();
     NETWORK_shutdown();
     SDL_Quit();
