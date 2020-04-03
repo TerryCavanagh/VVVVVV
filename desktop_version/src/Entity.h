@@ -54,8 +54,6 @@ public:
         createblock(DAMAGE, 312, -8, 16, 260);
     }
 
-    void setblockcolour(int t, std::string col);
-
     int swncolour(int t );
 
     void swnenemiescol(int t);

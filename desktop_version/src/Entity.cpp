@@ -113,71 +113,6 @@ void entityclass::changeflag( int t, int s )
     flags[t] = s;
 }
 
-void entityclass::setblockcolour( int t, std::string col )
-{
-    if (col == "cyan")
-    {
-        blocks[t].r = 164;
-        blocks[t].g = 164;
-        blocks[t].b = 255;
-    }
-    else if (col == "red")
-    {
-        blocks[t].r = 255;
-        blocks[t].g = 60;
-        blocks[t].b = 60;
-    }
-    else if (col == "green")
-    {
-        blocks[t].r = 144;
-        blocks[t].g = 255;
-        blocks[t].b = 144;
-    }
-    else if (col == "yellow")
-    {
-        blocks[t].r = 255;
-        blocks[t].g = 255;
-        blocks[t].b = 134;
-    }
-    else if (col == "blue")
-    {
-        blocks[t].r = 95;
-        blocks[t].g = 95;
-        blocks[t].b = 255;
-    }
-    else if (col == "purple")
-    {
-        blocks[t].r = 255;
-        blocks[t].g = 134;
-        blocks[t].b = 255;
-    }
-    else if (col == "white")
-    {
-        blocks[t].r = 244;
-        blocks[t].g = 244;
-        blocks[t].b = 244;
-    }
-    else if (col == "gray")
-    {
-        blocks[t].r = 174;
-        blocks[t].g = 174;
-        blocks[t].b = 174;
-    }
-    else if (col == "orange")
-    {
-        blocks[t].r = 255;
-        blocks[t].g = 130;
-        blocks[t].b = 20;
-    }
-    else
-    {
-        //use a gray
-        blocks[t].r = 174;
-        blocks[t].g = 174;
-        blocks[t].b = 174;
-    }
-}
-
 int entityclass::swncolour( int t )
 {
     //given colour t, return colour in setcol
@@ -946,217 +881,217 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         case 0: //testing zone
             blocks[k].prompt = "Press ENTER to explode";
             blocks[k].script = "intro";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=1;
             break;
         case 1:
             blocks[k].prompt = "Press ENTER to talk to Violet";
             blocks[k].script = "talkpurple";
-            setblockcolour(k, "purple");
+            blocks[k].setblockcolour("purple");
             trig=0;
             break;
         case 2:
             blocks[k].prompt = "Press ENTER to talk to Vitellary";
             blocks[k].script = "talkyellow";
-            setblockcolour(k, "yellow");
+            blocks[k].setblockcolour("yellow");
             trig=0;
             break;
         case 3:
             blocks[k].prompt = "Press ENTER to talk to Vermilion";
             blocks[k].script = "talkred";
-            setblockcolour(k, "red");
+            blocks[k].setblockcolour("red");
             trig=0;
             break;
         case 4:
             blocks[k].prompt = "Press ENTER to talk to Verdigris";
             blocks[k].script = "talkgreen";
-            setblockcolour(k, "green");
+            blocks[k].setblockcolour("green");
             trig=0;
             break;
         case 5:
             blocks[k].prompt = "Press ENTER to talk to Victoria";
             blocks[k].script = "talkblue";
-            setblockcolour(k, "blue");
+            blocks[k].setblockcolour("blue");
             trig=0;
             break;
         case 6:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_station_1";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 7:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_outside_1";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 8:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_outside_2";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 9:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_outside_3";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 10:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_outside_4";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 11:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_outside_5";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 12:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_outside_6";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 13:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_finallevel";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 14:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_station_2";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 15:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_station_3";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 16:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_station_4";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 17:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_warp_1";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 18:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_warp_2";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 19:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_lab_1";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 20:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_lab_2";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 21:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_secretlab";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 22:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_shipcomputer";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 23:
             blocks[k].prompt = "Press ENTER to activate terminals";
             blocks[k].script = "terminal_radio";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 24:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "terminal_jukebox";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 25:
             blocks[k].prompt = "Passion for Exploring";
             blocks[k].script = "terminal_juke1";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 26:
             blocks[k].prompt = "Pushing Onwards";
             blocks[k].script = "terminal_juke2";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 27:
             blocks[k].prompt = "Positive Force";
             blocks[k].script = "terminal_juke3";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 28:
             blocks[k].prompt = "Presenting VVVVVV";
             blocks[k].script = "terminal_juke4";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 29:
             blocks[k].prompt = "Potential for Anything";
             blocks[k].script = "terminal_juke5";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 30:
             blocks[k].prompt = "Predestined Fate";
             blocks[k].script = "terminal_juke6";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 31:
             blocks[k].prompt = "Pipe Dream";
             blocks[k].script = "terminal_juke7";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 32:
             blocks[k].prompt = "Popular Potpourri";
             blocks[k].script = "terminal_juke8";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 33:
             blocks[k].prompt = "Pressure Cooker";
             blocks[k].script = "terminal_juke9";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 34:
             blocks[k].prompt = "ecroF evitisoP";
             blocks[k].script = "terminal_juke10";
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         case 35:
             blocks[k].prompt = "Press ENTER to activate terminal";
             blocks[k].script = "custom_"+customscript;
-            setblockcolour(k, "orange");
+            blocks[k].setblockcolour("orange");
             trig=0;
             break;
         }
