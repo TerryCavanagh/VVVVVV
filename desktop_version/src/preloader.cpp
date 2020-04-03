@@ -11,13 +11,6 @@ int pre_temprectx=0, pre_temprecty=0, pre_temprectw=320, pre_temprecth=240;
 
 void preloaderrender()
 {
-  //TODO
-  //graphics.backbuffer.lock();
-
-  //Draw grid
-
-  //pre_transition = -10;	pre_fakepercent = 100;
-
   if (pre_transition < 30) pre_transition--;
   if(pre_transition>=30){
     pre_fakepercent++;
@@ -117,5 +110,4 @@ void preloaderrender()
   {
     graphics.render();
   }
-  //graphics.backbuffer.unlock();
 }
