@@ -16,6 +16,8 @@ public:
 
     void setenemyroom(int rx, int ry);
 
+    void settreadmillcolour(int rx, int ry);
+
 public:
     //Fundamentals
     bool active, invis;
