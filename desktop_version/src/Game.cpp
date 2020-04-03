@@ -148,11 +148,6 @@ void Game::init(void)
     press_left = 0;
 
 
-    recording = 0;
-    recordinit = false;
-    playbackfinished = false;
-    recordstring = "";
-
     advancetext = false;
     pausescript = false;
     completestop = false;
