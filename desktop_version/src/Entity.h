@@ -87,7 +87,7 @@ public:
     void createentity(float xp, float yp, int t, float vx = 0, float vy = 0,
                       int p1 = 0, int p2 = 0, int p3 = 320, int p4 = 240 );
 
-    bool updateentities(int i);
+    void updateentities(int i);
 
     void animateentities(int i);
 

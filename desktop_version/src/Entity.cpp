@@ -2228,7 +2228,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
     entities.push_back(entity);
 }
 
-bool entityclass::updateentities( int i )
+void entityclass::updateentities( int i )
 {
     if(entities[i].statedelay<=0)
     {
@@ -3388,8 +3388,6 @@ bool entityclass::updateentities( int i )
             entities[i].statedelay = 0;
         }
     }
-
-    return true;
 }
 
 void entityclass::animateentities( int _i )
