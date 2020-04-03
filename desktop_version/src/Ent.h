@@ -8,8 +8,6 @@ class entclass
 public:
     entclass();
 
-    void clear();
-
     bool outside();
 
     void setenemy(int t);

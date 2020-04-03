@@ -2,12 +2,6 @@
 
 entclass::entclass()
 {
-	clear();
-}
-
-void entclass::clear()
-{
-	// Set all values to a default, required for creating a new entity
 	invis = false;
 	type = 0;
 	size = 0;
