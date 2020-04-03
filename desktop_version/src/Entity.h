@@ -8,6 +8,8 @@
 #include <vector>
 #include <string>
 
+#define removeentity_iter(index) { obj.removeentity(index); index--; }
+
 enum
 {
     BLOCK = 0,
