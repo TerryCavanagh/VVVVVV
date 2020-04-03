@@ -163,8 +163,6 @@ public:
 
     void applyfriction(int t, float xrate, float yrate);
 
-    void cleanup();
-
     void updateentitylogic(int t);
 
 
