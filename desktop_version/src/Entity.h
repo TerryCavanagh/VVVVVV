@@ -198,7 +198,6 @@ public:
     std::vector<int> collect;
     std::vector<int> customcollect;
 
-    int nblocks;
     bool skipblocks, skipdirblocks;
 
     int platformtile;
