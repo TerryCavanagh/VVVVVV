@@ -4490,10 +4490,6 @@ void entityclass::applyfriction( int t, float xrate, float yrate )
     if (std::abs(entities[t].vy) < yrate) entities[t].vy = 0.0f;
 }
 
-void entityclass::cleanup()
-{
-}
-
 void entityclass::updateentitylogic( int t )
 {
     entities[t].oldxp = entities[t].xp;

@@ -909,7 +909,6 @@ void mapclass::gotoroom(int rx, int ry)
 			theplayer--; //just in case indice of player is not 0
 		}
 	}
-	obj.cleanup();
 
 	game.door_up = rx + ((ry - 1) * 100);
 	game.door_down = rx + ((ry + 1) * 100);
