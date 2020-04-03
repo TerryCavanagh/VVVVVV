@@ -8,8 +8,6 @@
 #include "Map.h"
 #include "Script.h"
 
-extern int temp;
-
 void titlerender();
 
 void towerrender();

@@ -954,7 +954,7 @@ void editorclass::placetilelocal( int x, int y, int t )
 int editorclass::base( int x, int y )
 {
     //Return the base tile for the given tileset and colour
-    temp=x+(y*maxwidth);
+    int temp=x+(y*maxwidth);
     if(level[temp].tileset==0)  //Space Station
     {
         if(level[temp].tilecol>=22)
@@ -992,7 +992,7 @@ int editorclass::base( int x, int y )
 int editorclass::backbase( int x, int y )
 {
     //Return the base tile for the background of the given tileset and colour
-    temp=x+(y*maxwidth);
+    int temp=x+(y*maxwidth);
     if(level[temp].tileset==0)  //Space Station
     {
         //Pick depending on tilecol
@@ -2073,8 +2073,6 @@ void fillboxabs( int x, int y, int x2, int y2, int c )
 
 
 extern editorclass ed;
-
-extern int temp;
 
 extern scriptclass script;
 
@@ -5079,7 +5077,7 @@ void editorinput()
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes
@@ -5103,7 +5101,7 @@ void editorinput()
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes
@@ -5127,7 +5125,7 @@ void editorinput()
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes
@@ -5151,7 +5149,7 @@ void editorinput()
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes
@@ -5175,7 +5173,7 @@ void editorinput()
             {
                 for(int i=0; i<40; i++)
                 {
-                    temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
+                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
                     if(ed.contents[temp]>=3 && ed.contents[temp]<80)
                     {
                         //Fix spikes

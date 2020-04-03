@@ -12,8 +12,6 @@
 
 extern scriptclass script;
 
-int temp;
-
 int tr;
 int tg;
 int tb;
@@ -29,7 +27,7 @@ void titlerender()
         tg = 164 - (help.glow / 2) - int(fRandom() * 4);
         tb = 164 - (help.glow / 2) - int(fRandom() * 4);
 
-        temp = 50;
+        int temp = 50;
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
@@ -57,7 +55,7 @@ void titlerender()
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
 
-        temp = 50;
+        int temp = 50;
 
         if(game.currentmenuname=="mainmenu")
         {
@@ -1209,7 +1207,7 @@ void gamecompleterender()
 
     if (graphics.onscreen(220 + game.creditposition))
     {
-        temp = 220 + game.creditposition;
+        int temp = 220 + game.creditposition;
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
@@ -1753,7 +1751,7 @@ void maprender()
 
     //draw screen alliteration
     //Roomname:
-    temp = map.area(game.roomx, game.roomy);
+    int temp = map.area(game.roomx, game.roomy);
     if (temp < 2 && !map.custommode && graphics.fademode==0)
     {
         if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111)
@@ -2014,13 +2012,13 @@ void maprender()
             {
                 if (map.showteleporters && map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)] > 0)
                 {
-                    temp = 1126 + map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)];
+                    int temp = 1126 + map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)];
                     if (graphics.flipmode) temp += 3;
                     graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
                 }
                 else if(map.showtargets && map.explored[map.teleporters[i].x+(20*map.teleporters[i].y)]==0)
                 {
-                    temp = 1126 + map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)];
+                    int temp = 1126 + map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)];
                     if (graphics.flipmode) temp += 3;
                     graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
                 }
@@ -2032,7 +2030,7 @@ void maprender()
                 {
                     if (obj.collect[i] == 0)
                     {
-                        temp = 1086;
+                        int temp = 1086;
                         if (graphics.flipmode) temp += 3;
                         graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12), 22 + (map.shinytrinkets[i].y * 9),	temp);
                     }
@@ -2757,7 +2755,7 @@ void teleporterrender()
     int tempy;
     //draw screen alliteration
     //Roomname:
-    temp = map.area(game.roomx, game.roomy);
+    int temp = map.area(game.roomx, game.roomy);
     if (temp < 2 && !map.custommode && graphics.fademode==0)
     {
         if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111)
