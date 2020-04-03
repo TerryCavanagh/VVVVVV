@@ -1,6 +1,8 @@
 #ifndef ENT_H
 #define ENT_H
 
+#define		rn( rx,  ry) ((rx) + ((ry) * 100))
+
 class entclass
 {
 public:
@@ -11,6 +13,8 @@ public:
     bool outside();
 
     void setenemy(int t);
+
+    void setenemyroom(int rx, int ry);
 
 public:
     //Fundamentals
