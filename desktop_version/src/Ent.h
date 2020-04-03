@@ -10,6 +10,8 @@ public:
 
     bool outside();
 
+    void setenemy(int t);
+
 public:
     //Fundamentals
     bool active, invis;

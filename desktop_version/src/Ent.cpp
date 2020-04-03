@@ -86,3 +86,88 @@ bool entclass::outside()
 	}
 	return false;
 }
+
+void entclass::setenemy( int t )
+{
+	switch(t)
+	{
+	case 0:
+		//lies emitter
+		if( (para)==0)
+		{
+			tile = 60;
+			animate = 2;
+			colour = 6;
+			behave = 10;
+			w = 32;
+			h = 32;
+			x1 = -200;
+		}
+		else if ( (para) == 1)
+		{
+			yp += 10;
+			tile = 63;
+			animate = 100; //LIES
+			colour = 6;
+			behave = 11;
+			para = 9; //destroyed when outside
+			x1 = -200;
+			x2 = 400;
+			w = 26;
+			h = 10;
+			cx = 1;
+			cy = 1;
+		}
+		else if ( (para) == 2)
+		{
+			tile = 62;
+			animate = 100;
+			colour = 6;
+			behave = -1;
+			w = 32;
+			h = 32;
+		}
+		break;
+	case 1:
+		//FACTORY emitter
+		if( (para)==0)
+		{
+			tile = 72;
+			animate = 3;
+			size = 9;
+			colour = 6;
+			behave = 12;
+			w = 64;
+			h = 40;
+			cx = 0;
+			cy = 24;
+		}
+		else if ( (para) == 1)
+		{
+			xp += 4;
+			yp -= 4;
+			tile = 76;
+			animate = 100; // Clouds
+			colour = 6;
+			behave = 13;
+			para = -6; //destroyed when outside
+			x2 = 400;
+			w = 32;
+			h = 12;
+			cx = 0;
+			cy = 6;
+		}
+		else if ( (para) == 2)
+		{
+			tile = 77;
+			animate = 100;
+			colour = 6;
+			behave = -1;
+			w = 32;
+			h = 16;
+		}
+		break;
+	default:
+		break;
+	}
+}
