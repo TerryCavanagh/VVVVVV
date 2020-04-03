@@ -42,13 +42,6 @@ void titlerender()
 
         graphics.Print(5, 175, "[ Press ACTION to Start ]", tr, tg, tb, true);
         graphics.Print(5, 195, "ACTION = Space, Z, or V", int(tr*0.5f), int(tg*0.5f), int(tb*0.5f), true);
-
-        //graphics.Print(5, 215, "Press CTRL-F for Fullscreen", tr, tg, tb, true);
-
-        /*graphics.Print(5, 5, "IGF WIP Build, 29th Oct '09", tr, tg, tb, true);
-        graphics.Print(5, 200, "Game by Terry Cavanagh", tr, tg, tb, true);
-        graphics.Print(5, 210, "Music by Magnus P~lsson", tr, tg, tb, true);
-        graphics.Print(5, 220, "Roomnames by Bennett Foddy", tr, tg, tb, true);*/
     }
     else
     {
@@ -242,23 +235,19 @@ void titlerender()
             graphics.bigprint( 40, 65, "Terry Cavanagh", tr, tg, tb, true, 2);
 
             graphics.drawimagecol(7, -1, 86, tr *0.75, tg *0.75, tb *0.75, true);
-            //graphics.Print( 40, 85, "http://www.distractionware.com", tr, tg, tb, true);
 
             graphics.Print( -1, 120, "and features music by", tr, tg, tb, true);
             graphics.bigprint( 40, 135, "Magnus P~lsson", tr, tg, tb, true, 2);
             graphics.drawimagecol(8, -1, 156, tr *0.75, tg *0.75, tb *0.75, true);
-            //graphics.Print( 40, 155, "http://souleye.madtracker.net", tr, tg, tb, true);
         }
         else if (game.currentmenuname == "credits2")
         {
             graphics.Print( -1, 50, "Roomnames are by", tr, tg, tb, true);
             graphics.bigprint( 40, 65, "Bennett Foddy", tr, tg, tb, true);
             graphics.drawimagecol(9, -1, 86, tr*0.75, tg *0.75, tb *0.75, true);
-            //graphics.Print( 40, 80, "http://www.distractionware.com", tr, tg, tb);
             graphics.Print( -1, 110, "C++ version by", tr, tg, tb, true);
             graphics.bigprint( 40, 125, "Simon Roth", tr, tg, tb, true);
             graphics.bigprint( 40, 145, "Ethan Lee", tr, tg, tb, true);
-           //graphics.drawimagecol(11, -1, 156, tr*0.75, tg *0.75, tb *0.75, true);
         }
         else if (game.currentmenuname == "credits25")
         {
@@ -1141,30 +1130,6 @@ void titlerender()
             }
         }
 
-        /*
-        switch(game.mainmenu) {
-            case 0:
-                graphics.Print(5, 115, "[ NEW GAME ]", tr, tg, tb, true);
-            break;
-            case 1:
-                if (game.telesummary == "") {
-                    graphics.Print(5, 115, "[ no teleporter save ]", tr/3, tg/3, tb/3, true);
-                }else {
-                    graphics.Print(5, 115, "[ RESTORE FROM LAST TELEPORTER ]", tr, tg, tb, true);
-                    graphics.Print(5, 125, game.telesummary, tr, tg, tb, true);
-                }
-            break;
-            case 2:
-                if (game.quicksummary == "") {
-                    graphics.Print(5, 115, "[ no quicksave ]", tr/3, tg/3, tb/3, true);
-                }else {
-                    graphics.Print(5, 115, "[ RESTORE FROM LAST QUICKSAVE ]", tr, tg, tb, true);
-                    graphics.Print(5, 125, game.quicksummary, tr, tg, tb, true);
-                }
-            break;
-        }
-        */
-
         tr = int(tr * .8f);
         tg = int(tg * .8f);
         tb = int(tb * .8f);
@@ -1202,8 +1167,6 @@ void titlerender()
         {
             graphics.drawmenu(tr, tg, tb);
         }
-
-        //graphics.Print(5, 228, "Left/Right to Choose, V to Select", tr, tg, tb, true);
     }
 
     graphics.drawfade();
@@ -1223,21 +1186,13 @@ void titlerender()
     {
         graphics.render();
     }
-    //graphics.backbuffer.unlock();
 }
 
 void gamecompleterender()
 {
-    //graphics.backbuffer.lock();
     FillRect(graphics.backBuffer, 0x000000);
 
     if(!game.colourblindmode) graphics.drawtowerbackgroundsolo();
-    //graphics.drawtowermap();
-
-    for (int i = 0; i < 6; i++)
-    {
-        //graphics.drawsprite((160-96)+ i * 32, 10, 23, 96+(i*10)+(random()*16), 196-(help.glow)-(random()*16), 255 - (help.glow*2));
-    }
 
     tr = map.r - (help.glow / 4) - fRandom() * 4;
     tg = map.g - (help.glow / 4) - fRandom() * 4;
@@ -1396,12 +1351,10 @@ void gamecompleterender()
     {
         graphics.render();
     }
-    //graphics.backbuffer.unlock();
 }
 
 void gamecompleterender2()
 {
-    //graphics.backbuffer.lock();
     FillRect(graphics.backBuffer, 0x000000);
 
     graphics.drawimage(10, 0, 0);
@@ -1442,7 +1395,6 @@ void gamecompleterender2()
     {
         graphics.render();
     }
-    //graphics.backbuffer.unlock();
 }
 
 void gamerender()
@@ -1501,13 +1453,6 @@ void gamerender()
 
         graphics.drawentities();
     }
-
-    /*for(int i=0; i<obj.nblocks; i++){
-    if (obj.blocks[i].active) {
-        graphics.backbuffer.fillRect(obj.blocks[i].rect, 0xDDDDDD);
-    }
-      }*/
-    //graphics.drawminimap(game, map);
 
     if(map.extrarow==0 || (map.custommode && map.roomname!=""))
     {
@@ -1756,7 +1701,6 @@ void gamerender()
 
     if (game.activeactivity > -1)
     {
-        //graphics.backbuffer.fillRect(new Rectangle(0, 0, 320, 18), 0x000000);
         game.activity_lastprompt = obj.blocks[game.activeactivity].prompt;
         game.activity_r = obj.blocks[game.activeactivity].r;
         game.activity_g = obj.blocks[game.activeactivity].g;
@@ -1785,49 +1729,6 @@ void gamerender()
         obj.trophytext--;
     }
 
-    //graphics.rprint(5, 231,help.String(game.coins), 255 - help.glow/2, 255 - help.glow/2, 196, true);
-    //graphics.drawhuetile(311, 230, 48, 1);
-
-    //Level complete image
-    //if (game.state >= 3007) {
-    //	graphics.drawimage(0, 0, 12, true);
-    //}
-
-    //state changes
-
-    /*
-    game.test = true;
-    if (game.teststring !=help.String(game.state)) trace(game.state);
-    game.teststring =help.String(game.state);
-    */
-
-    //Detail entity info for debuging
-    /*
-    for (int i = 0; i < obj.nentity; i++) {
-        game.tempstring =help.String(obj.entities[i].type) +", (" +help.String(obj.entities[i].xp) + "," +help.String(obj.entities[i].yp) + ")";
-        game.tempstring += " state:" +obj.entities[i].state + ", delay:" + obj.entities[i].statedelay;
-        graphics.Print(5, 5 + i * 8, game.tempstring, 255, 255, 255);
-    }
-    */
-
-    /*
-    game.test = true;
-    game.teststring =help.String(int(obj.entities[obj.getplayer()].xp)) + "," +help.String(int(obj.entities[obj.getplayer()].yp));
-    game.teststring += "   [" +help.String(game.roomx) + "," +help.String(game.roomy) + "]";
-    */
-
-    //game.test = true;
-    //game.teststring = "Current room deaths: " +help.String(game.currentroomdeaths);
-
-    //Special thing for loading:
-    /*
-    if(graphics.fademode==1){
-      if(game.mainmenu==22){
-        graphics.Print(5, 225, "Loading...", 196, 196, 255 - help.glow, false);
-      }
-    }
-    */
-
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
@@ -1844,20 +1745,14 @@ void gamerender()
     {
         graphics.render();
     }
-
-    //graphics.backbuffer.unlock();
 }
 
 void maprender()
 {
-    //graphics.backbuffer.lock();
-
-
     graphics.drawgui();
 
     //draw screen alliteration
     //Roomname:
-    //CRASH
     temp = map.area(game.roomx, game.roomy);
     if (temp < 2 && !map.custommode && graphics.fademode==0)
     {
@@ -1881,7 +1776,6 @@ void maprender()
     }
 
     //Background color
-    //graphics.drawfillrect(0, 12, 320, 240, 10, 24, 26);
     FillRect(graphics.backBuffer,0, 12, 320, 240, 10, 24, 26 );
 
     graphics.crewframedelay--;
@@ -2056,11 +1950,6 @@ void maprender()
             if (game.roomx == 109)
             {
                 //tower!instead of room y, scale map.ypos
-                /*if (map.ypos > (0.57 * (680 * 8))) {
-                    i = int(map.ypos - (0.57 * (680 * 8)));
-                    i = int((i / (0.43 * (680 * 8)))*9);
-                    graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + i + 2, 12 - 4, 9 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
-                }*/
                 if (map.cursorstate == 0)
                 {
                     map.cursordelay++;
@@ -2135,7 +2024,6 @@ void maprender()
                     if (graphics.flipmode) temp += 3;
                     graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
                 }
-                //graphics.drawtile(40+3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), 1086); //for shiny trinkets, do later
             }
 
             if (map.showtrinkets)
@@ -2701,8 +2589,6 @@ void maprender()
             graphics.render();
         }
     }
-
-    //graphics.backbuffer.unlock();
 }
 
 void towerrender()
@@ -2753,11 +2639,6 @@ void towerrender()
     graphics.drawtowerspikes();
 
 
-    /*for(int i=0; i<obj.nblocks; i++){
-    if (obj.blocks[i].active) {
-        graphics.backbuffer.fillRect(obj.blocks[i].rect, 0xDDDDDD);
-    }
-      }*/
     graphics.cutscenebars();
     BlitSurfaceStandard(graphics.backBuffer, NULL, graphics.tempBuffer, NULL);
 
@@ -2782,9 +2663,6 @@ void towerrender()
         FillRect(graphics.backBuffer, graphics.footerrect, 0);
     }
     graphics.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
-
-    //graphics.rprint(5, 231,help.String(game.coins), 255 - help.glow/2, 255 - help.glow/2, 196, true);
-    //graphics.drawhuetile(311, 230, 48, 1);
 
     if (game.intimetrial && graphics.fademode==0)
     {
@@ -2875,7 +2753,6 @@ void towerrender()
 
 void teleporterrender()
 {
-    //graphics.backbuffer.lock();
     int tempx;
     int tempy;
     //draw screen alliteration
@@ -2953,7 +2830,6 @@ void teleporterrender()
             if (graphics.flipmode) temp += 3;
             graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
         }
-        //graphics.drawtile(40+3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), 1086); //for shiny trinkets, do later
     }
 
     if (map.showtrinkets)
@@ -3050,6 +2926,4 @@ void teleporterrender()
             graphics.render();
         }
     }
-
-    //graphics.backbuffer.unlock();
 }
