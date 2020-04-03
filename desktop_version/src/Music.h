@@ -19,7 +19,6 @@ public:
 	void silencedasmusik();
 	void fadeMusicVolumeIn(int ms);
 	void fadeout();
-	void processmusicfade();
 	void processmusicfadein();
 	void processmusic();
 	void niceplay(int t);
