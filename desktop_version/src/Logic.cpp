@@ -13,8 +13,6 @@ void titlelogic()
 
     map.bypos -= 2;
     map.bscroll = -2;
-    //if (map.ypos <= 0) { map.ypos = 0; map.bypos = 0; map.bscroll = 0; }
-    //if (map.ypos >= 5368) { map.ypos = 5368; map.bypos = map.ypos / 2; } //700-29 * 8 = 5368
 
     if (game.menucountdown > 0)
     {
@@ -95,15 +93,6 @@ void gamecompletelogic2()
             if (game.creditposy > 30) game.creditposy = 30;
         }
     }
-    /*
-    game.creditposition--;
-    if (game.creditposition <= -1650) {
-    game.creditposition = -1650;
-    map.bscroll = 0;
-    }else {
-    map.bypos += 1; map.bscroll = +1;
-    }
-    */
 
     if (graphics.fademode == 1)
     {
@@ -361,15 +350,9 @@ void towerlogic()
         {
             for (int i = obj.nentity - 1; i >= 0;  i--)
             {
-                //Remove old platform
-                //if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
-
                 obj.updateentities(i);                // Behavioral logic
                 obj.updateentitylogic(i);                          // Basic Physics
                 obj.entitymapcollision(i);                          // Collisions with walls
-
-                //Create new platform
-                //if (obj.entities[i].isplatform) obj.movingplatformfix(i);
             }
 
             obj.entitycollisioncheck();         // Check ent v ent collisions, update states
@@ -611,7 +594,6 @@ void gamelogic()
             }
             else if (map.finalstretch && obj.entities[i].type == 2)
             {
-                //TODO: }else if (map.finallevel && map.finalstretch && obj.entities[i].type == 2) {
                 //for the final level. probably something 99% of players won't see.
                 while (obj.entities[i].state == 2) obj.updateentities(i);
                 obj.entities[i].state = 4;
@@ -1448,7 +1430,6 @@ void gamelogic()
                 break;
             case 11:
                 //Intermission 1: We're using the SuperCrewMate instead!
-                //obj.createentity(obj.entities[i].xp, obj.entities[i].yp, 24, graphics.crewcolour(game.lastsaved));
                 if(game.roomx-41==game.scmprogress)
                 {
                     switch(game.scmprogress)
