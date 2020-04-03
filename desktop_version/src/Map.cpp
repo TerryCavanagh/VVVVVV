@@ -515,7 +515,7 @@ void mapclass::changefinalcol(int t)
 	final_mapcol = t;
 	temp = 6 - t;
 	//Next, entities
-	for (int i = 0; i < obj.nentity; i++)
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
 		if (obj.entities[i].type == 1) //something with a movement behavior
 		{
@@ -886,10 +886,10 @@ void mapclass::gotoroom(int rx, int ry)
 	game.readytotele = 0;
 
 	//Ok, let's save the position of all lines on the screen
-	obj.nlinecrosskludge = 0;
-	for (int i = 0; i < obj.nentity; i++)
+	obj.linecrosskludge.clear();
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
-		if (obj.entities[i].type == 9 && obj.entities[i].active)
+		if (obj.entities[i].type == 9)
 		{
 			//It's a horizontal line
 			if (obj.entities[i].xp <= 0 || (obj.entities[i].xp + obj.entities[i].w) >= 312)
@@ -901,11 +901,12 @@ void mapclass::gotoroom(int rx, int ry)
 	}
 
 	int theplayer = obj.getplayer();
-	for (int i = 0; i < obj.nentity; i++)
+	for (int i = 0; i < (int) obj.entities.size(); i++)
 	{
 		if (i != theplayer)
 		{
-			obj.entities[i].active = false;
+			removeentity_iter(i);
+			theplayer--; //just in case indice of player is not 0
 		}
 	}
 	obj.cleanup();
@@ -1084,15 +1085,15 @@ void mapclass::gotoroom(int rx, int ry)
 		obj.entities[temp].oldyp = obj.entities[temp].yp;
 	}
 
-	for (int i = 0; i < obj.nentity; i++)
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
-		if (obj.entities[i].type == 9 && obj.entities[i].active)
+		if (obj.entities[i].type == 9)
 		{
 			//It's a horizontal line
 			if (obj.entities[i].xp <= 0 || obj.entities[i].xp + obj.entities[i].w >= 312)
 			{
 				//it's on a screen edge
-				for (j = 0; j < obj.nlinecrosskludge; j++)
+				for (j = 0; j < (int) obj.linecrosskludge.size(); j++)
 				{
 					if (obj.entities[i].yp == obj.linecrosskludge[j].yp)
 					{
@@ -1823,9 +1824,9 @@ void mapclass::loadlevel(int rx, int ry)
 			}
 		}
 
-		for (int i = 0; i < obj.nentity; i++)
+		for (size_t i = 0; i < obj.entities.size(); i++)
 		{
-			if (obj.entities[i].active)
+			if (true) //FIXME: remove this later (no more 'active')
 			{
 				if (obj.entities[i].type == 1 && obj.entities[i].behave >= 8 && obj.entities[i].behave < 10)
 				{
@@ -1965,7 +1966,7 @@ void mapclass::loadlevel(int rx, int ry)
 	}
 
 	//Make sure our crewmates are facing the player if appliciable
-	for (int i = 0; i < obj.nentity; i++)
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
 		if (obj.entities[i].rule == 6 || obj.entities[i].rule == 7)
 		{

@@ -42,7 +42,6 @@ bool entityclass::checktowerspikes(int t)
 
 void entityclass::init()
 {
-    nentity = 0;
     nblocks = 0;
 
     skipblocks = false;
@@ -70,12 +69,8 @@ void entityclass::init()
 
     flags.resize(100);
     blocks.resize(500);
-    entities.resize(200);
-    linecrosskludge.resize(100);
     collect.resize(100);
     customcollect.resize(100);
-
-    nlinecrosskludge = 0;
 }
 
 void entityclass::resetallflags()
@@ -198,9 +193,9 @@ int entityclass::swncolour( int t )
 void entityclass::swnenemiescol( int t )
 {
     //change the colour of all SWN enemies to the current one
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
-        if (entities[i].active)
+        if (true) // FIXME: remove this later (no more 'active')
         {
             if (entities[i].type == 23)
             {
@@ -1175,7 +1170,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
 
 void entityclass::removeentity(int t)
 {
-    entities[t].active = false;
+    entities.erase(entities.begin() + t);
 }
 
 void entityclass::removeallblocks()
@@ -1221,14 +1216,7 @@ void entityclass::removetrigger( int t )
 void entityclass::copylinecross( int t )
 {
     //Copy entity t into the first free linecrosskludge entity
-    linecrosskludge[nlinecrosskludge].clear();
-    linecrosskludge[nlinecrosskludge].xp = entities[t].xp;
-    linecrosskludge[nlinecrosskludge].yp = entities[t].yp;
-    linecrosskludge[nlinecrosskludge].w = entities[t].w;
-    linecrosskludge[nlinecrosskludge].onentity = entities[t].onentity;
-    linecrosskludge[nlinecrosskludge].state = entities[t].state;
-    linecrosskludge[nlinecrosskludge].life = entities[t].life;
-    nlinecrosskludge++;
+    linecrosskludge.push_back(entities[t]);
 }
 
 void entityclass::revertlinecross( int t, int s )
@@ -1274,32 +1262,7 @@ int entityclass::crewcolour( int t )
 
 void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, float vy /*= 0*/, int p1 /*= 0*/, int p2 /*= 0*/, int p3 /*= 320*/, int p4 /*= 240 */ )
 {
-    //Find the first inactive case z that we can use to index the new entity
-    if (nentity == 0)
-    {
-        //If there are no active entities, Z=0;
-        k = 0;
-        nentity++;
-    }
-    else
-    {
-        int i = 0;
-        k = -1;
-        while (i < nentity)
-        {
-            if (!entities[i].active)
-            {
-                k = i;
-                i = nentity;
-            }
-            i++;
-        }
-        if (k == -1)
-        {
-            k = nentity;
-            nentity++;
-        }
-    }
+    k = entities.size();
 
     //Size 0 is a sprite
     //Size 1 is a tile
@@ -1316,124 +1279,123 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
     //Rule 4 is a horizontal line, 5 is vertical
     //Rule 6 is a crew member
 
-    entities[k].clear();
-    entities[k].active = true;
-    entities[k].type = t;
+    entclass entity;
+    entity.type = t;
     switch(t)
     {
     case 0: //Player
-        entities[k].rule = 0; //Playable character
-        entities[k].tile = 0;
-        entities[k].colour = 0;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cx = 6;
-        entities[k].cy = 2;
-        entities[k].w = 12;
-        entities[k].h = 21;
-        entities[k].dir = 1;
+        entity.rule = 0; //Playable character
+        entity.tile = 0;
+        entity.colour = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cx = 6;
+        entity.cy = 2;
+        entity.w = 12;
+        entity.h = 21;
+        entity.dir = 1;
 
-        if( (vx)==1) entities[k].invis = true;
+        if( (vx)==1) entity.invis = true;
 
-        entities[k].gravity = true;
+        entity.gravity = true;
         break;
     case 1: //Simple enemy, bouncing off the walls
-        entities[k].rule = 1;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].behave = vx;
-        entities[k].para = vy;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].cx = 0;
-        entities[k].cy = 0;
+        entity.rule = 1;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.behave = vx;
+        entity.para = vy;
+        entity.w = 16;
+        entity.h = 16;
+        entity.cx = 0;
+        entity.cy = 0;
 
-        entities[k].x1 = p1;
-        entities[k].y1 = p2;
-        entities[k].x2 = p3;
-        entities[k].y2 = p4;
+        entity.x1 = p1;
+        entity.y1 = p2;
+        entity.x2 = p3;
+        entity.y2 = p4;
 
-        entities[k].harmful = true;
+        entity.harmful = true;
         //Exact appearance depends entirely on location, assigned here:
         /*
         }else if (game.roomx == 50 && game.roomy == 52) {
-        entities[k].tile = 48; entities[k].colour = 6;
-        entities[k].w = 32;	entities[k].h = 27;
-        entities[k].animate = 1;
+        entity.tile = 48; entity.colour = 6;
+        entity.w = 32;	entity.h = 27;
+        entity.animate = 1;
         //ok, for space station 2
         */
-        entities[k].tile = 24;
-        entities[k].animate = 0;
-        entities[k].colour = 8;
+        entity.tile = 24;
+        entity.animate = 0;
+        entity.colour = 8;
 
         if  (game.roomy == 111 && (game.roomx >= 113 && game.roomx <= 117))
         {
-            entities[k].setenemy(0);
-            entities[k].setenemyroom(game.roomx, game.roomy); //For colour
+            entity.setenemy(0);
+            entity.setenemyroom(game.roomx, game.roomy); //For colour
         }
         else if  (game.roomx == 113 && (game.roomy <= 110 && game.roomy >= 108))
         {
-            entities[k].setenemy(1);
-            entities[k].setenemyroom(game.roomx, game.roomy); //For colour
+            entity.setenemy(1);
+            entity.setenemyroom(game.roomx, game.roomy); //For colour
         }
         else if (game.roomx == 113 && game.roomy == 107)
         {
             //MAVVERRRICK
-            entities[k].tile = 96;
-            entities[k].colour = 6;
-            entities[k].size = 9;
-            entities[k].w = 64;
-            entities[k].h = 44;
-            entities[k].animate = 4;
+            entity.tile = 96;
+            entity.colour = 6;
+            entity.size = 9;
+            entity.w = 64;
+            entity.h = 44;
+            entity.animate = 4;
         }
         else
         {
-            entities[k].setenemyroom(game.roomx, game.roomy);
+            entity.setenemyroom(game.roomx, game.roomy);
         }
 
         //}else{*/
         /*
-        entities[k].tile = 24;
-        entities[k].animate = 0;
-        entities[k].colour = 8;
+        entity.tile = 24;
+        entity.animate = 0;
+        entity.colour = 8;
         //for warpzone:
-        if (game.roomx == 51 && game.roomy == 51) entities[k].colour = 6;
-        if (game.roomx == 52 && game.roomy == 51) entities[k].colour = 7;
-        if (game.roomx == 54 && game.roomy == 49) entities[k].colour = 11;
-        if (game.roomx == 55 && game.roomy == 50) entities[k].colour = 9;
-        if (game.roomx == 55 && game.roomy == 51) entities[k].colour = 6;
-        if (game.roomx == 54 && game.roomy == 51) entities[k].colour = 12;
-        if (game.roomx == 54 && game.roomy == 52) entities[k].colour = 7;
-        if (game.roomx == 53 && game.roomy == 52) entities[k].colour = 8;
-        if (game.roomx == 51 && game.roomy == 52) entities[k].colour = 6;
-        if (game.roomx == 52 && game.roomy == 49) entities[k].colour = 8;
+        if (game.roomx == 51 && game.roomy == 51) entity.colour = 6;
+        if (game.roomx == 52 && game.roomy == 51) entity.colour = 7;
+        if (game.roomx == 54 && game.roomy == 49) entity.colour = 11;
+        if (game.roomx == 55 && game.roomy == 50) entity.colour = 9;
+        if (game.roomx == 55 && game.roomy == 51) entity.colour = 6;
+        if (game.roomx == 54 && game.roomy == 51) entity.colour = 12;
+        if (game.roomx == 54 && game.roomy == 52) entity.colour = 7;
+        if (game.roomx == 53 && game.roomy == 52) entity.colour = 8;
+        if (game.roomx == 51 && game.roomy == 52) entity.colour = 6;
+        if (game.roomx == 52 && game.roomy == 49) entity.colour = 8;
         //}
         */
         break;
     case 2: //A moving platform
-        entities[k].rule = 2;
-        entities[k].type = 1;
-        entities[k].size = 2;
-        entities[k].tile = 1;
+        entity.rule = 2;
+        entity.type = 1;
+        entity.size = 2;
+        entity.tile = 1;
 
         if (customplatformtile > 0){
-            entities[k].tile = customplatformtile;
+            entity.tile = customplatformtile;
         }else if (platformtile > 0) {
-            entities[k].tile = platformtile;
+            entity.tile = platformtile;
         }else{
           //appearance again depends on location
-          if (gridmatch(p1, p2, p3, p4, 100, 70, 320, 160)) entities[k].tile = 616;
-          if (gridmatch(p1, p2, p3, p4, 72, 0, 248, 240)) entities[k].tile = 610;
-          if (gridmatch(p1, p2, p3, p4, -20, 0, 320, 240)) entities[k].tile = 413;
+          if (gridmatch(p1, p2, p3, p4, 100, 70, 320, 160)) entity.tile = 616;
+          if (gridmatch(p1, p2, p3, p4, 72, 0, 248, 240)) entity.tile = 610;
+          if (gridmatch(p1, p2, p3, p4, -20, 0, 320, 240)) entity.tile = 413;
 
-          if (gridmatch(p1, p2, p3, p4, -96, -72, 400, 312)) entities[k].tile = 26;
-          if (gridmatch(p1, p2, p3, p4, -32, -40, 352, 264)) entities[k].tile = 27;
+          if (gridmatch(p1, p2, p3, p4, -96, -72, 400, 312)) entity.tile = 26;
+          if (gridmatch(p1, p2, p3, p4, -32, -40, 352, 264)) entity.tile = 27;
         }
 
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 32;
-        entities[k].h = 8;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 32;
+        entity.h = 8;
 
         if (int(vx) <= 1) vertplatforms = true;
         if (int(vx) >= 2  && int(vx) <= 5) horplatforms = true;
@@ -1443,437 +1405,437 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         if (int(vx) >= 10  && int(vx) <= 11)
         {
             //Double sized threadmills
-            entities[k].w = 64;
-            entities[k].h = 8;
+            entity.w = 64;
+            entity.h = 8;
             vx -= 2;
-            entities[k].size = 8;
+            entity.size = 8;
         }
 
-        entities[k].behave = vx;
-        entities[k].para = vy;
+        entity.behave = vx;
+        entity.para = vy;
 
         if (int(vx) >= 8  && int(vx) <= 9)
         {
             horplatforms = true; //threadmill!
-            entities[k].animate = 10;
+            entity.animate = 10;
             if(customplatformtile>0){
-              entities[k].tile = customplatformtile+4;
-              if (int(vx) == 8) entities[k].tile += 4;
-              if (int(vx) == 9) entities[k].animate = 11;
+              entity.tile = customplatformtile+4;
+              if (int(vx) == 8) entity.tile += 4;
+              if (int(vx) == 9) entity.animate = 11;
             }else{
-              entities[k].settreadmillcolour(game.roomx, game.roomy);
-              if (int(vx) == 8) entities[k].tile += 40;
-              if (int(vx) == 9) entities[k].animate = 11;
+              entity.settreadmillcolour(game.roomx, game.roomy);
+              if (int(vx) == 8) entity.tile += 40;
+              if (int(vx) == 9) entity.animate = 11;
             }
         }
         else
         {
-            entities[k].animate = 100;
+            entity.animate = 100;
         }
 
-        entities[k].x1 = p1;
-        entities[k].y1 = p2;
-        entities[k].x2 = p3;
-        entities[k].y2 = p4;
+        entity.x1 = p1;
+        entity.y1 = p2;
+        entity.x2 = p3;
+        entity.y2 = p4;
 
-        entities[k].isplatform = true;
+        entity.isplatform = true;
 
         createblock(0, xp, yp, 32, 8);
         break;
     case 3: //Disappearing platforms
-        entities[k].rule = 3;
-        entities[k].type = 2;
-        entities[k].size = 2;
-        entities[k].tile = 2;
+        entity.rule = 3;
+        entity.type = 2;
+        entity.size = 2;
+        entity.tile = 2;
         //appearance again depends on location
         if(customplatformtile>0)
         {
-          entities[k].tile=customplatformtile;
+          entity.tile=customplatformtile;
         }
         else if (vx > 0)
         {
-            entities[k].tile = int(vx);
+            entity.tile = int(vx);
         }
         else
         {
-            if(game.roomx==49 && game.roomy==52) entities[k].tile = 18;
-            if (game.roomx == 50 && game.roomy == 52) entities[k].tile = 22;
+            if(game.roomx==49 && game.roomy==52) entity.tile = 18;
+            if (game.roomx == 50 && game.roomy == 52) entity.tile = 22;
         }
 
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cy = -1;
-        entities[k].w = 32;
-        entities[k].h = 10;
-        entities[k].behave = vx;
-        entities[k].para = vy;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cy = -1;
+        entity.w = 32;
+        entity.h = 10;
+        entity.behave = vx;
+        entity.para = vy;
+        entity.onentity = 1;
+        entity.animate = 100;
 
         createblock(0, xp, yp, 32, 8);
         break;
     case 4: //Breakable blocks
-        entities[k].rule = 6;
-        entities[k].type = 3;
-        entities[k].size = 1;
-        entities[k].tile = 10;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cy = -1;
-        entities[k].w = 8;
-        entities[k].h = 10;
-        entities[k].behave = vx;
-        entities[k].para = vy;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
+        entity.rule = 6;
+        entity.type = 3;
+        entity.size = 1;
+        entity.tile = 10;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cy = -1;
+        entity.w = 8;
+        entity.h = 10;
+        entity.behave = vx;
+        entity.para = vy;
+        entity.onentity = 1;
+        entity.animate = 100;
 
         createblock(0, xp, yp, 8, 8);
         break;
     case 5: //Gravity Tokens
-        entities[k].rule = 3;
-        entities[k].type = 4;
-        entities[k].size = 0;
-        entities[k].tile = 11;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].behave = vx;
-        entities[k].para = vy;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
+        entity.rule = 3;
+        entity.type = 4;
+        entity.size = 0;
+        entity.tile = 11;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 16;
+        entity.h = 16;
+        entity.behave = vx;
+        entity.para = vy;
+        entity.onentity = 1;
+        entity.animate = 100;
         break;
     case 6: //Decorative particles
-        entities[k].rule = 2;
-        entities[k].type = 5;  //Particles
-        entities[k].colour = 1;
-        entities[k].size = 3;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].vx = vx;
-        entities[k].vy = vy;
+        entity.rule = 2;
+        entity.type = 5;  //Particles
+        entity.colour = 1;
+        entity.size = 3;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.vx = vx;
+        entity.vy = vy;
 
-        entities[k].life = 12;
+        entity.life = 12;
         break;
     case 7: //Decorative particles
-        entities[k].rule = 2;
-        entities[k].type = 5;  //Particles
-        entities[k].colour = 2;
-        entities[k].size = 3;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].vx = vx;
-        entities[k].vy = vy;
+        entity.rule = 2;
+        entity.type = 5;  //Particles
+        entity.colour = 2;
+        entity.size = 3;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.vx = vx;
+        entity.vy = vy;
 
-        entities[k].life = 12;
+        entity.life = 12;
         break;
     case 8: //Small collectibles
-        entities[k].rule = 3;
-        entities[k].type = 6;
-        entities[k].size = 4;
-        entities[k].tile = 48;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 8;
-        entities[k].h = 8;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
+        entity.rule = 3;
+        entity.type = 6;
+        entity.size = 4;
+        entity.tile = 48;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 8;
+        entity.h = 8;
+        entity.onentity = 1;
+        entity.animate = 100;
 
         //Check if it's already been collected
-        entities[k].para = vx;
-        if (collect[vx] == 1) entities[k].active = false;
+        entity.para = vx;
+        if (collect[vx] == 1) return;
         break;
     case 9: //Something Shiny
-        entities[k].rule = 3;
-        entities[k].type = 7;
-        entities[k].size = 0;
-        entities[k].tile = 22;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].colour = 3;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
+        entity.rule = 3;
+        entity.type = 7;
+        entity.size = 0;
+        entity.tile = 22;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 16;
+        entity.h = 16;
+        entity.colour = 3;
+        entity.onentity = 1;
+        entity.animate = 100;
 
         //Check if it's already been collected
-        entities[k].para = vx;
-        if (collect[vx] == 1) entities[k].active = false;
+        entity.para = vx;
+        if (collect[vx] == 1) return;
         break;
     case 10: //Savepoint
-        entities[k].rule = 3;
-        entities[k].type = 8;
-        entities[k].size = 0;
-        entities[k].tile = 20 + vx;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].colour = 4;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
-        entities[k].para = vy;
+        entity.rule = 3;
+        entity.type = 8;
+        entity.size = 0;
+        entity.tile = 20 + vx;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 16;
+        entity.h = 16;
+        entity.colour = 4;
+        entity.onentity = 1;
+        entity.animate = 100;
+        entity.para = vy;
 
         if (game.savepoint ==  (vy))
         {
-            entities[k].colour = 5;
-            entities[k].onentity = 0;
+            entity.colour = 5;
+            entity.onentity = 0;
         }
 
         if (game.nodeathmode)
         {
-            entities[k].active = false;
+            return;
         }
         break;
     case 11: //Horizontal Gravity Line
-        entities[k].rule = 4;
-        entities[k].type = 9;
-        entities[k].size = 5;
-        entities[k].life = 0;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = vx;
-        entities[k].h = 1;
-        entities[k].onentity = 1;
+        entity.rule = 4;
+        entity.type = 9;
+        entity.size = 5;
+        entity.life = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = vx;
+        entity.h = 1;
+        entity.onentity = 1;
         break;
     case 12: //Vertical Gravity Line
-        entities[k].rule = 5;
-        entities[k].type = 10;
-        entities[k].size = 6;
-        entities[k].life = 0;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 1;
-        entities[k].h = vx;
-        //entities[k].colour = 0;
-        entities[k].onentity = 1;
+        entity.rule = 5;
+        entity.type = 10;
+        entity.size = 6;
+        entity.life = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 1;
+        entity.h = vx;
+        //entity.colour = 0;
+        entity.onentity = 1;
         break;
     case 13: //Warp token
-        entities[k].rule = 3;
-        entities[k].type = 11;
-        entities[k].size = 0;
-        entities[k].tile = 18;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].colour = 10;
-        entities[k].onentity = 1;
-        entities[k].animate = 2;
+        entity.rule = 3;
+        entity.type = 11;
+        entity.size = 0;
+        entity.tile = 18;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 16;
+        entity.h = 16;
+        entity.colour = 10;
+        entity.onentity = 1;
+        entity.animate = 2;
         //Added in port, hope it doesn't break anything
-        entities[k].behave = vx;
-        entities[k].para = vy;
+        entity.behave = vx;
+        entity.para = vy;
         break;
     case 14: // Teleporter
-        entities[k].rule = 3;
-        entities[k].type = 100;
-        entities[k].size = 7;
-        entities[k].tile = 1; //inactive
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 96;
-        entities[k].h = 96;
-        entities[k].colour = 100;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
-        entities[k].para = vy;
+        entity.rule = 3;
+        entity.type = 100;
+        entity.size = 7;
+        entity.tile = 1; //inactive
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 96;
+        entity.h = 96;
+        entity.colour = 100;
+        entity.onentity = 1;
+        entity.animate = 100;
+        entity.para = vy;
 
         //we'll init it's activeness here later
         /*if (game.savepoint == vy) {
-        entities[k].colour = 5;
-        entities[k].onentity = 0;
+        entity.colour = 5;
+        entity.onentity = 0;
         }*/
         break;
     case 15: // Crew Member (warp zone)
-        entities[k].rule = 6;
-        entities[k].type = 12; //A special case!
-        entities[k].tile = 144;
-        entities[k].colour = 13; //144 for sad :(
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cx = 6;
-        entities[k].cy = 2;
-        entities[k].w = 12;
-        entities[k].h = 21;
-        entities[k].dir = 0;
+        entity.rule = 6;
+        entity.type = 12; //A special case!
+        entity.tile = 144;
+        entity.colour = 13; //144 for sad :(
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cx = 6;
+        entity.cy = 2;
+        entity.w = 12;
+        entity.h = 21;
+        entity.dir = 0;
 
-        entities[k].state = vx;
+        entity.state = vx;
 
-        entities[k].gravity = true;
+        entity.gravity = true;
         break;
     case 16: // Crew Member, upside down (space station)
-        entities[k].rule = 7;
-        entities[k].type = 12; //A special case!
-        entities[k].tile = 144+6;
-        entities[k].colour = 14; //144 for sad (upside down+12):(
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cx = 6;
-        entities[k].cy = 2;
-        entities[k].w = 12;
-        entities[k].h = 21;
-        entities[k].dir = 1;
+        entity.rule = 7;
+        entity.type = 12; //A special case!
+        entity.tile = 144+6;
+        entity.colour = 14; //144 for sad (upside down+12):(
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cx = 6;
+        entity.cy = 2;
+        entity.w = 12;
+        entity.h = 21;
+        entity.dir = 1;
 
-        entities[k].state = vx;
+        entity.state = vx;
 
-        entities[k].gravity = true;
+        entity.gravity = true;
         break;
     case 17: // Crew Member (Lab)
-        entities[k].rule = 6;
-        entities[k].type = 12; //A special case!
-        entities[k].tile = 144;
-        entities[k].colour = 16; //144 for sad :(
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cx = 6;
-        entities[k].cy = 2;
-        entities[k].w = 12;
-        entities[k].h = 21;
-        entities[k].dir = 1;
+        entity.rule = 6;
+        entity.type = 12; //A special case!
+        entity.tile = 144;
+        entity.colour = 16; //144 for sad :(
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cx = 6;
+        entity.cy = 2;
+        entity.w = 12;
+        entity.h = 21;
+        entity.dir = 1;
 
-        entities[k].state = vx;
+        entity.state = vx;
 
-        entities[k].gravity = true;
+        entity.gravity = true;
         break;
     case 18: // Crew Member (Ship)
         //This is the scriping crewmember
-        entities[k].rule = 6;
-        entities[k].type = 12; //A special case!
-        entities[k].colour = vx;
+        entity.rule = 6;
+        entity.type = 12; //A special case!
+        entity.colour = vx;
         if (int(vy) == 0)
         {
-            entities[k].tile = 0;
+            entity.tile = 0;
         }
         else
         {
-            entities[k].tile = 144;
+            entity.tile = 144;
         }
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cx = 6;
-        entities[k].cy = 2;
-        entities[k].w = 12;
-        entities[k].h = 21;
-        entities[k].dir = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cx = 6;
+        entity.cy = 2;
+        entity.w = 12;
+        entity.h = 21;
+        entity.dir = 0;
 
-        entities[k].state = p1;
-        entities[k].para = p2;
+        entity.state = p1;
+        entity.para = p2;
 
         if (p1 == 17)
         {
-            entities[k].dir = p2;
+            entity.dir = p2;
         }
 
-        entities[k].gravity = true;
+        entity.gravity = true;
         break;
     case 19: // Crew Member (Ship) More tests!
-        entities[k].rule = 6;
-        entities[k].type = 12; //A special case!
-        entities[k].tile = 0;
-        entities[k].colour = 6; //54 for sad :(
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cx = 6;
-        entities[k].cy = 2;
-        entities[k].w = 12;
-        entities[k].h = 21;
-        entities[k].dir = 1;
+        entity.rule = 6;
+        entity.type = 12; //A special case!
+        entity.tile = 0;
+        entity.colour = 6; //54 for sad :(
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cx = 6;
+        entity.cy = 2;
+        entity.w = 12;
+        entity.h = 21;
+        entity.dir = 1;
 
-        entities[k].state = vx;
+        entity.state = vx;
 
-        entities[k].gravity = true;
+        entity.gravity = true;
         break;
     case 20: //Terminal
-        entities[k].rule = 3;
-        entities[k].type = 13;
-        entities[k].size = 0;
-        entities[k].tile = 16 + vx;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].colour = 4;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
-        entities[k].para = vy;
+        entity.rule = 3;
+        entity.type = 13;
+        entity.size = 0;
+        entity.tile = 16 + vx;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 16;
+        entity.h = 16;
+        entity.colour = 4;
+        entity.onentity = 1;
+        entity.animate = 100;
+        entity.para = vy;
 
         /*if (game.savepoint == vy) {
-        entities[k].colour = 5;
-        entities[k].onentity = 0;
+        entity.colour = 5;
+        entity.onentity = 0;
         }*/
         break;
     case 21: //as above, except doesn't highlight
-        entities[k].rule = 3;
-        entities[k].type = 13;
-        entities[k].size = 0;
-        entities[k].tile = 16 + vx;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].colour = 4;
-        entities[k].onentity = 0;
-        entities[k].animate = 100;
-        entities[k].para = vy;
+        entity.rule = 3;
+        entity.type = 13;
+        entity.size = 0;
+        entity.tile = 16 + vx;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 16;
+        entity.h = 16;
+        entity.colour = 4;
+        entity.onentity = 0;
+        entity.animate = 100;
+        entity.para = vy;
 
         /*if (game.savepoint == vy) {
-        entities[k].colour = 5;
-        entities[k].onentity = 0;
+        entity.colour = 5;
+        entity.onentity = 0;
         }*/
         break;
     case 22: //Fake trinkets, only appear if you've collected them
-        entities[k].rule = 3;
-        entities[k].type = 7;
-        entities[k].size = 0;
-        entities[k].tile = 22;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].colour = 3;
-        entities[k].onentity = 0;
-        entities[k].animate = 100;
+        entity.rule = 3;
+        entity.type = 7;
+        entity.size = 0;
+        entity.tile = 22;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 16;
+        entity.h = 16;
+        entity.colour = 3;
+        entity.onentity = 0;
+        entity.animate = 100;
 
         //Check if it's already been collected
-        entities[k].para = vx;
-        if (collect[ (vx)] == 0) entities[k].active = false;
+        entity.para = vx;
+        if (collect[ (vx)] == 0) return;
         break;
     case 23: //SWN Enemies
         //Given a different behavior, these enemies are especially for SWN mode and disappear outside the screen.
-        entities[k].rule = 1;
-        entities[k].type = 23;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].behave = vx;
-        entities[k].para = vy;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].cx = 0;
-        entities[k].cy = 0;
+        entity.rule = 1;
+        entity.type = 23;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.behave = vx;
+        entity.para = vy;
+        entity.w = 16;
+        entity.h = 16;
+        entity.cx = 0;
+        entity.cy = 0;
 
-        entities[k].x1 = -2000;
-        entities[k].y1 = -100;
-        entities[k].x2 = 5200;
-        entities[k].y2 = 340;
+        entity.x1 = -2000;
+        entity.y1 = -100;
+        entity.x2 = 5200;
+        entity.y2 = 340;
 
-        entities[k].harmful = true;
+        entity.harmful = true;
 
         //initilise tiles here based on behavior
-        entities[k].size = 12; //don't wrap around
-        entities[k].colour = 21;
-        entities[k].tile = 78; //default case
-        entities[k].animate = 1;
+        entity.size = 12; //don't wrap around
+        entity.colour = 21;
+        entity.tile = 78; //default case
+        entity.animate = 1;
         if (game.swngame == 1)
         {
             //set colour based on current state
-            entities[k].colour = swncolour(game.swncolstate);
+            entity.colour = swncolour(game.swncolstate);
         }
         break;
     case 24: // Super Crew Member
         //This special crewmember is way more advanced than the usual kind, and can interact with game objects
-        entities[k].rule = 6;
-        entities[k].type = 14; //A special case!
-        entities[k].colour = vx;
+        entity.rule = 6;
+        entity.type = 14; //A special case!
+        entity.colour = vx;
         if( (vx)==16)
         {
             //victoria is sad!
@@ -1885,110 +1847,110 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         }
         if (int(vy) == 0)
         {
-            entities[k].tile = 0;
+            entity.tile = 0;
         }
         else
         {
-            entities[k].tile = 144;
+            entity.tile = 144;
         }
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cx = 6;
-        entities[k].cy = 2;
-        entities[k].w = 12;
-        entities[k].h = 21;
-        entities[k].dir = 1;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cx = 6;
+        entity.cy = 2;
+        entity.w = 12;
+        entity.h = 21;
+        entity.dir = 1;
 
-        entities[k].x1 = -2000;
-        entities[k].y1 = -100;
-        entities[k].x2 = 5200;
-        entities[k].y2 = 340;
+        entity.x1 = -2000;
+        entity.y1 = -100;
+        entity.x2 = 5200;
+        entity.y2 = 340;
 
-        entities[k].state = p1;
-        entities[k].para = p2;
+        entity.state = p1;
+        entity.para = p2;
 
         if (p1 == 17)
         {
-            entities[k].dir = p2;
+            entity.dir = p2;
         }
 
-        entities[k].gravity = true;
+        entity.gravity = true;
         break;
     case 25: //Trophies
-        entities[k].rule = 3;
-        entities[k].type = 15;
-        entities[k].size = 0;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].colour = 4;
-        entities[k].onentity = 1;
-        entities[k].animate = 100;
-        entities[k].para = vy;
+        entity.rule = 3;
+        entity.type = 15;
+        entity.size = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 16;
+        entity.h = 16;
+        entity.colour = 4;
+        entity.onentity = 1;
+        entity.animate = 100;
+        entity.para = vy;
 
         //Decide tile here based on given achievement: both whether you have them and what they are
         //default is just a trophy base:
-        entities[k].tile = 180 + vx;
+        entity.tile = 180 + vx;
         switch(int(vy))
         {
         case 1:
             if(game.bestrank[0]>=3)
             {
-                entities[k].tile = 184 + vx;
-                entities[k].colour = 31;
+                entity.tile = 184 + vx;
+                entity.colour = 31;
             }
             break;
         case 2:
             if(game.bestrank[1]>=3)
             {
-                entities[k].tile = 186 + vx;
-                entities[k].colour = 35;
+                entity.tile = 186 + vx;
+                entity.colour = 35;
             }
             break;
         case 3:
             if(game.bestrank[2]>=3)
             {
-                entities[k].tile = 184 + vx;
-                entities[k].colour = 33;
+                entity.tile = 184 + vx;
+                entity.colour = 33;
             }
             break;
         case 4:
             if(game.bestrank[3]>=3)
             {
-                entities[k].tile = 184 + vx;
-                entities[k].colour = 32;
+                entity.tile = 184 + vx;
+                entity.colour = 32;
             }
             break;
         case 5:
             if(game.bestrank[4]>=3)
             {
-                entities[k].tile = 184 + vx;
-                entities[k].colour = 34;
+                entity.tile = 184 + vx;
+                entity.colour = 34;
             }
             break;
         case 6:
             if(game.bestrank[5]>=3)
             {
-                entities[k].tile = 184 + vx;
-                entities[k].colour = 30;
+                entity.tile = 184 + vx;
+                entity.colour = 30;
             }
             break;
 
         case 7:
             if(game.unlock[5])
             {
-                entities[k].tile = 188 + vx;
-                entities[k].colour = 37;
-                entities[k].h += 3;
+                entity.tile = 188 + vx;
+                entity.colour = 37;
+                entity.h += 3;
             }
             break;
         case 8:
             if(game.unlock[19])
             {
-                entities[k].tile = 188 + vx;
-                entities[k].colour = 37;
-                entities[k].h += 3;
+                entity.tile = 188 + vx;
+                entity.colour = 37;
+                entity.h += 3;
             }
             break;
 
@@ -1997,8 +1959,8 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
             {
                 if (game.bestgamedeaths <= 50)
                 {
-                    entities[k].tile = 182 + vx;
-                    entities[k].colour = 40;
+                    entity.tile = 182 + vx;
+                    entity.colour = 40;
                 }
             }
             break;
@@ -2007,8 +1969,8 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
             {
                 if (game.bestgamedeaths <= 100)
                 {
-                    entities[k].tile = 182 + vx;
-                    entities[k].colour = 36;
+                    entity.tile = 182 + vx;
+                    entity.colour = 36;
                 }
             }
             break;
@@ -2017,8 +1979,8 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
             {
                 if (game.bestgamedeaths <= 250)
                 {
-                    entities[k].tile = 182 + vx;
-                    entities[k].colour = 38;
+                    entity.tile = 182 + vx;
+                    entity.colour = 38;
                 }
             }
             break;
@@ -2027,8 +1989,8 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
             {
                 if (game.bestgamedeaths <= 500)
                 {
-                    entities[k].tile = 182 + vx;
-                    entities[k].colour = 39;
+                    entity.tile = 182 + vx;
+                    entity.colour = 39;
                 }
             }
             break;
@@ -2036,54 +1998,54 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         case 13:
             if(game.swnbestrank>=1)
             {
-                entities[k].tile = 182 + vx;
-                entities[k].colour = 39;
+                entity.tile = 182 + vx;
+                entity.colour = 39;
             }
             break;
         case 14:
             if(game.swnbestrank>=2)
             {
-                entities[k].tile =  (182 + vx);
-                entities[k].colour = 39;
+                entity.tile =  (182 + vx);
+                entity.colour = 39;
             }
             break;
         case 15:
             if(game.swnbestrank>=3)
             {
-                entities[k].tile =  (182 + vx);
-                entities[k].colour = 39;
+                entity.tile =  (182 + vx);
+                entity.colour = 39;
             }
             break;
         case 16:
             if(game.swnbestrank>=4)
             {
-                entities[k].tile =  (182 + vx);
-                entities[k].colour = 38;
+                entity.tile =  (182 + vx);
+                entity.colour = 38;
             }
             break;
         case 17:
             if(game.swnbestrank>=5)
             {
-                entities[k].tile =  (182 + vx);
-                entities[k].colour = 36;
+                entity.tile =  (182 + vx);
+                entity.colour = 36;
             }
             break;
         case 18:
             if(game.swnbestrank>=6)
             {
-                entities[k].tile =  (182 + vx);
-                entities[k].colour = 40;
+                entity.tile =  (182 + vx);
+                entity.colour = 40;
             }
             break;
 
         case 19:
             if(game.unlock[20])
             {
-                entities[k].tile = 3;
-                entities[k].colour = 102;
-                entities[k].size = 13;
-                entities[k].xp -= 64;
-                entities[k].yp -= 128;
+                entity.tile = 3;
+                entity.colour = 102;
+                entity.size = 13;
+                entity.xp -= 64;
+                entity.yp -= 128;
             }
             break;
 
@@ -2091,135 +2053,135 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         break;
     case 26: //Epilogue super warp token
-        entities[k].rule = 3;
-        entities[k].type = 11;
-        entities[k].size = 0;
-        entities[k].tile = 18;
-        entities[k].xp =  (xp);
-        entities[k].yp =  (yp);
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].colour = 3;
-        entities[k].onentity = 0;
-        entities[k].animate = 100;
-        entities[k].para = vy;
-        entities[k].size = 13;
+        entity.rule = 3;
+        entity.type = 11;
+        entity.size = 0;
+        entity.tile = 18;
+        entity.xp =  (xp);
+        entity.yp =  (yp);
+        entity.w = 16;
+        entity.h = 16;
+        entity.colour = 3;
+        entity.onentity = 0;
+        entity.animate = 100;
+        entity.para = vy;
+        entity.size = 13;
         break;
 
     case 51: //Vertical Warp Line
-        entities[k].rule = 5;
-        entities[k].type = 51;
-        entities[k].size = 6;
-        entities[k].life = 0;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 1;
-        entities[k].h = vx;
-        //entities[k].colour = 0;
-        entities[k].onentity = 1;
-        entities[k].invis=true;
+        entity.rule = 5;
+        entity.type = 51;
+        entity.size = 6;
+        entity.life = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 1;
+        entity.h = vx;
+        //entity.colour = 0;
+        entity.onentity = 1;
+        entity.invis=true;
         if (map.custommode) customwarpmode = true;
         break;
       case 52: //Vertical Warp Line
-        entities[k].rule = 5;
-        entities[k].type = 52;
-        entities[k].size = 6;
-        entities[k].life = 0;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = 1;
-        entities[k].h = vx;
-        //entities[k].colour = 0;
-        entities[k].onentity = 1;
-        entities[k].invis=true;
+        entity.rule = 5;
+        entity.type = 52;
+        entity.size = 6;
+        entity.life = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = 1;
+        entity.h = vx;
+        //entity.colour = 0;
+        entity.onentity = 1;
+        entity.invis=true;
         if (map.custommode) customwarpmode = true;
         break;
       case 53: //Horizontal Warp Line
-        entities[k].rule = 7;
-        entities[k].type = 53;
-        entities[k].size = 5;
-        entities[k].life = 0;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = vx;
-        entities[k].h = 1;
-        entities[k].onentity = 1;
-        entities[k].invis=true;
+        entity.rule = 7;
+        entity.type = 53;
+        entity.size = 5;
+        entity.life = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = vx;
+        entity.h = 1;
+        entity.onentity = 1;
+        entity.invis=true;
         if (map.custommode) customwarpmode = true;
         break;
       case 54: //Horizontal Warp Line
-        entities[k].rule = 7;
-        entities[k].type = 54;
-        entities[k].size = 5;
-        entities[k].life = 0;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].w = vx;
-        entities[k].h = 1;
-        entities[k].onentity = 1;
-        entities[k].invis=true;
+        entity.rule = 7;
+        entity.type = 54;
+        entity.size = 5;
+        entity.life = 0;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.w = vx;
+        entity.h = 1;
+        entity.onentity = 1;
+        entity.invis=true;
         if (map.custommode) customwarpmode = true;
         break;
       case 55: // Crew Member (custom, collectable)
         //1 - position in array
         //2 - colour
-        entities[k].rule = 3;
-        entities[k].type = 55;
+        entity.rule = 3;
+        entity.type = 55;
         if(customcrewmoods[int(vy)]==1){
-          entities[k].tile = 144;
+          entity.tile = 144;
         }else{
-          entities[k].tile = 0;
+          entity.tile = 0;
         }
-        entities[k].colour = crewcolour(int(vy));
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].cx = 6;
-        entities[k].cy = 2;
-        entities[k].w = 12;
-        entities[k].h = 21;
-        entities[k].dir = 0;
+        entity.colour = crewcolour(int(vy));
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.cx = 6;
+        entity.cy = 2;
+        entity.w = 12;
+        entity.h = 21;
+        entity.dir = 0;
 
-        entities[k].state = 0;
-        entities[k].onentity = 1;
-        //entities[k].state = vx;
+        entity.state = 0;
+        entity.onentity = 1;
+        //entity.state = vx;
 
-        entities[k].gravity = true;
+        entity.gravity = true;
 
         //Check if it's already been collected
-        entities[k].para = vx;
-        if (customcollect[vx] == 1) entities[k].active = false;
+        entity.para = vx;
+        if (customcollect[vx] == 1) return;
         break;
       case 56: //Custom enemy
-        entities[k].rule = 1;
-        entities[k].type = 1;
-        entities[k].xp = xp;
-        entities[k].yp = yp;
-        entities[k].behave = vx;
-        entities[k].para = vy;
-        entities[k].w = 16;
-        entities[k].h = 16;
-        entities[k].cx = 0;
-        entities[k].cy = 0;
+        entity.rule = 1;
+        entity.type = 1;
+        entity.xp = xp;
+        entity.yp = yp;
+        entity.behave = vx;
+        entity.para = vy;
+        entity.w = 16;
+        entity.h = 16;
+        entity.cx = 0;
+        entity.cy = 0;
 
-        entities[k].x1 = p1;
-        entities[k].y1 = p2;
-        entities[k].x2 = p3;
-        entities[k].y2 = p4;
+        entity.x1 = p1;
+        entity.y1 = p2;
+        entity.x2 = p3;
+        entity.y2 = p4;
 
-        entities[k].harmful = true;
+        entity.harmful = true;
 
         switch(customenemy){
-          case 0: entities[k].setenemyroom(4+100, 0+100); break;
-          case 1: entities[k].setenemyroom(2+100, 0+100); break;
-          case 2: entities[k].setenemyroom(12+100, 3+100); break;
-          case 3: entities[k].setenemyroom(13+100, 12+100); break;
-          case 4: entities[k].setenemyroom(16+100, 9+100); break;
-          case 5: entities[k].setenemyroom(19+100, 1+100); break;
-          case 6: entities[k].setenemyroom(19+100, 2+100); break;
-          case 7: entities[k].setenemyroom(18+100, 3+100); break;
-          case 8: entities[k].setenemyroom(16+100, 0+100); break;
-          case 9: entities[k].setenemyroom(14+100, 2+100); break;
-          default: entities[k].setenemyroom(4+100, 0+100); break;
+          case 0: entity.setenemyroom(4+100, 0+100); break;
+          case 1: entity.setenemyroom(2+100, 0+100); break;
+          case 2: entity.setenemyroom(12+100, 3+100); break;
+          case 3: entity.setenemyroom(13+100, 12+100); break;
+          case 4: entity.setenemyroom(16+100, 9+100); break;
+          case 5: entity.setenemyroom(19+100, 1+100); break;
+          case 6: entity.setenemyroom(19+100, 2+100); break;
+          case 7: entity.setenemyroom(18+100, 3+100); break;
+          case 8: entity.setenemyroom(16+100, 0+100); break;
+          case 9: entity.setenemyroom(14+100, 2+100); break;
+          default: entity.setenemyroom(4+100, 0+100); break;
         }
 
         //Set colour based on room tile
@@ -2230,46 +2192,48 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
             //RED
             case 3: case 7: case 12: case 23: case 28:
             case 34: case 42: case 48: case 58:
-              entities[k].colour = 6; break;
+              entity.colour = 6; break;
             //GREEN
             case 5: case 9: case 22: case 25: case 29:
             case 31: case 38: case 46: case 52: case 53:
-              entities[k].colour = 7; break;
+              entity.colour = 7; break;
             //BLUE
             case 1: case 6: case 14: case 27: case 33:
             case 44: case 50: case 57:
-              entities[k].colour = 12; break;
+              entity.colour = 12; break;
             //YELLOW
             case 4: case 17: case 24: case 30: case 37:
             case 45: case 51: case 55:
-              entities[k].colour = 9; break;
+              entity.colour = 9; break;
             //PURPLE
             case 2: case 11: case 15: case 19: case 32:
             case 36: case 49:
-              entities[k].colour = 20; break;
+              entity.colour = 20; break;
             //CYAN
             case 8: case 10: case 13: case 18: case 26:
             case 35: case 41: case 47: case 54:
-              entities[k].colour = 11; break;
+              entity.colour = 11; break;
             //PINK
             case 16: case 20: case 39: case 43: case 56:
-              entities[k].colour = 8; break;
+              entity.colour = 8; break;
             //ORANGE
             case 21: case 40:
-              entities[k].colour = 17; break;
+              entity.colour = 17; break;
             default:
-              entities[k].colour = 6;
+              entity.colour = 6;
             break;
           }
         }
 
         break;
     }
+
+    entities.push_back(entity);
 }
 
 bool entityclass::updateentities( int i )
 {
-    if(entities[i].active)
+    if(true) // FIXME: remove this later (no more 'active')
     {
         if(entities[i].statedelay<=0)
         {
@@ -2452,10 +2416,10 @@ bool entityclass::updateentities( int i )
                     }
                     else if (entities[i].state == 1)
                     {
-                        if (entities[i].xp >= 335) entities[i].active = false;
+                        if (entities[i].xp >= 335) removeentity(i);
                         if (game.roomx == 117)
                         {
-                            if (entities[i].xp >= (33*8)-32) entities[i].active = false;
+                            if (entities[i].xp >= (33*8)-32) removeentity(i);
                             //collector for LIES
                         }
                     }
@@ -2481,10 +2445,10 @@ bool entityclass::updateentities( int i )
                     }
                     else if (entities[i].state == 1)
                     {
-                        if (entities[i].yp <= -60) entities[i].active = false;
+                        if (entities[i].yp <= -60) removeentity(i);
                         if (game.roomy == 108)
                         {
-                            if (entities[i].yp <= 60) entities[i].active = false;
+                            if (entities[i].yp <= 60) removeentity(i);
                             //collector for factory
                         }
                     }
@@ -2492,7 +2456,7 @@ bool entityclass::updateentities( int i )
                 case 14: //Very special hack: as two, but doesn't move in specific circumstances
                     if (entities[i].state == 0)   //Init
                     {
-                        for (int j = 0; j < nentity; j++)
+                        for (size_t j = 0; j < entities.size(); j++)
                         {
                             if (entities[j].type == 2 && entities[j].state== 3 && entities[j].xp == (entities[i].xp-32) )
                             {
@@ -2521,7 +2485,7 @@ bool entityclass::updateentities( int i )
                 case 15: //As above, but for 3!
                     if (entities[i].state == 0)   //Init
                     {
-                        for (int j = 0; j < nentity; j++)
+                        for (size_t j = 0; j < entities.size(); j++)
                         {
                             if (entities[j].type == 2 && entities[j].state==3 && entities[j].xp==entities[i].xp+32)
                             {
@@ -2682,7 +2646,7 @@ bool entityclass::updateentities( int i )
                     if (entities[i].life <= 0)
                     {
                         removeblockat(entities[i].xp, entities[i].yp);
-                        entities[i].active = false;
+                        removeentity(i);
                     }
                 }
                 break;
@@ -2690,7 +2654,7 @@ bool entityclass::updateentities( int i )
                 //wait for collision
                 if (entities[i].state == 1)
                 {
-                    entities[i].active = false;
+                    removeentity(i);
                     game.gravitycontrol = (game.gravitycontrol + 1) % 2;
 
                 }
@@ -2699,7 +2663,7 @@ bool entityclass::updateentities( int i )
                 if (entities[i].state == 0)
                 {
                     entities[i].life--;
-                    if (entities[i].life < 0) entities[i].active = false;
+                    if (entities[i].life < 0) removeentity(i);
                 }
                 break;
             case 6: //Small pickup
@@ -2710,7 +2674,7 @@ bool entityclass::updateentities( int i )
                     music.playef(4);
                     collect[entities[i].para] = 1;
 
-                    entities[i].active = false;
+                    removeentity(i);
                 }
                 break;
             case 7: //Found a trinket
@@ -2736,7 +2700,7 @@ bool entityclass::updateentities( int i )
                         }
                     }
 
-                    entities[i].active = false;
+                    removeentity(i);
                 }
                 break;
             case 8: //Savepoints
@@ -2744,9 +2708,9 @@ bool entityclass::updateentities( int i )
                 if (entities[i].state == 1)
                 {
                     //First, deactivate all other savepoints
-                    for (int j = 0; j < nentity; j++)
+                    for (size_t j = 0; j < entities.size(); j++)
                     {
-                        if (entities[j].type == 8 && entities[j].active)
+                        if (entities[j].type == 8)
                         {
                             entities[j].colour = 4;
                             entities[j].onentity = 1;
@@ -3232,7 +3196,7 @@ bool entityclass::updateentities( int i )
                     if (entities[i].xp >= 310)
                     {
                         game.scmprogress++;
-                        entities[i].active = false;
+                        removeentity(i);
                     }
                 }
                 break;
@@ -3255,14 +3219,14 @@ bool entityclass::updateentities( int i )
                     if (entities[i].state == 0)   //Init
                     {
                         entities[i].vx = 7;
-                        if (entities[i].xp > 320) entities[i].active = false;
+                        if (entities[i].xp > 320) removeentity(i);
                     }
                     break;
                 case 1:
                     if (entities[i].state == 0)   //Init
                     {
                         entities[i].vx = -7;
-                        if (entities[i].xp <-20) entities[i].active = false;
+                        if (entities[i].xp <-20) removeentity(i);
                     }
                     break;
                 }
@@ -3354,7 +3318,7 @@ bool entityclass::updateentities( int i )
                         customcollect[entities[i].para] = 1;
                     }
 
-                    entities[i].active = false;
+                    removeentity(i);
                 }
                 break;
             case 100: //The teleporter
@@ -3382,9 +3346,9 @@ bool entityclass::updateentities( int i )
 
                         //Alright, let's set this as our savepoint too
                         //First, deactivate all other savepoints
-                        for (int j = 0; j < nentity; j++)
+                        for (size_t j = 0; j < entities.size(); j++)
                         {
-                            if (entities[j].type == 8 && entities[j].active)
+                            if (entities[j].type == 8)
                             {
                                 entities[j].colour = 4;
                                 entities[j].onentity = 1;
@@ -3436,7 +3400,7 @@ bool entityclass::updateentities( int i )
 
 void entityclass::animateentities( int _i )
 {
-    if(entities[_i].active)
+    if(true) // FIXME: remove this later (no more 'active')
     {
         if(entities[_i].statedelay < 1)
         {
@@ -3801,7 +3765,7 @@ void entityclass::animateentities( int _i )
 bool entityclass::gettype( int t )
 {
     //Returns true is there is an entity of type t onscreen
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
         if(entities[i].type==t)
         {
@@ -3815,7 +3779,7 @@ bool entityclass::gettype( int t )
 int entityclass::getcompanion()
 {
     //Returns the index of the companion with rule t
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
         if(entities[i].rule==6 || entities[i].rule==7)
         {
@@ -3829,7 +3793,7 @@ int entityclass::getcompanion()
 int entityclass::getplayer()
 {
     //Returns the index of the first player entity
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
         if(entities[i].type==0)
         {
@@ -3843,7 +3807,7 @@ int entityclass::getplayer()
 int entityclass::getscm()
 {
     //Returns the supercrewmate
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
         if(entities[i].type==14)
         {
@@ -3857,7 +3821,7 @@ int entityclass::getscm()
 int entityclass::getlineat( int t )
 {
     //Get the entity which is a horizontal line at height t (for SWN game)
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
         if (entities[i].size == 5)
         {
@@ -3881,7 +3845,7 @@ int entityclass::getcrewman( int t )
     if (t == 4) t = 13;
     if (t == 5) t = 16;
 
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
         if ((entities[i].type == 12 || entities[i].type == 14)
         && (entities[i].rule == 6 || entities[i].rule == 7))
@@ -3906,7 +3870,7 @@ int entityclass::getcustomcrewman( int t )
     if (t == 4) t = 13;
     if (t == 5) t = 16;
 
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
         if (entities[i].type == 55)
         {
@@ -3922,9 +3886,9 @@ int entityclass::getcustomcrewman( int t )
 
 int entityclass::getteleporter()
 {
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
-        if(entities[i].type==100 && entities[i].active)
+        if(entities[i].type==100)
         {
             return i;
         }
@@ -3971,7 +3935,7 @@ bool entityclass::entitycollide( int a, int b )
 bool entityclass::checkdamage()
 {
     //Returns true if player entity (rule 0) collides with a damagepoint
-    for(int i=0; i < nentity; i++)
+    for(size_t i=0; i < entities.size(); i++)
     {
         if(entities[i].rule==0)
         {
@@ -3999,7 +3963,7 @@ bool entityclass::checkdamage()
 bool entityclass::scmcheckdamage()
 {
     //Returns true if supercrewmate collides with a damagepoint
-    for(int i=0; i < nentity; i++)
+    for(size_t i=0; i < entities.size(); i++)
     {
         if(entities[i].type==14)
         {
@@ -4037,7 +4001,7 @@ void entityclass::settemprect( int t )
 int entityclass::checktrigger()
 {
     //Returns an int player entity (rule 0) collides with a trigger
-    for(int i=0; i < nentity; i++)
+    for(size_t i=0; i < entities.size(); i++)
     {
         if(entities[i].rule==0)
         {
@@ -4066,7 +4030,7 @@ int entityclass::checktrigger()
 int entityclass::checkactivity()
 {
     //Returns an int player entity (rule 0) collides with an activity
-    for(int i=0; i < nentity; i++)
+    for(size_t i=0; i < entities.size(); i++)
     {
         if(entities[i].rule==0)
         {
@@ -4217,9 +4181,9 @@ bool entityclass::checkwall()
 float entityclass::hplatformat()
 {
     //Returns first entity of horizontal platform at (px, py), -1000 otherwise.
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
-        if (entities[i].active)
+        if (true) // FIXME: remove this later (no more 'active')
         {
             if (entities[i].rule == 2)
             {
@@ -4540,12 +4504,6 @@ void entityclass::applyfriction( int t, float xrate, float yrate )
 
 void entityclass::cleanup()
 {
-    int i = nentity - 1;
-    while (i >= 0 && !entities[i].active)
-    {
-        nentity--;
-        i--;
-    }
 }
 
 void entityclass::updateentitylogic( int t )
@@ -4699,10 +4657,10 @@ void entityclass::customwarplinecheck(int i) {
     //Turns on obj.customwarpmodevon and obj.customwarpmodehon if player collides
     //with warp lines
 
-    if (entities[i].active) {
+    if (true) { // FIXME: remove this later (no more 'active')
         //We test entity to entity
-        for (int j = 0; j < nentity; j++) {
-            if (entities[j].active && i != j) {//Active
+        for (int j = 0; j < (int) entities.size(); j++) {
+            if (i != j) {//Active
                 if (entities[i].rule == 0 && entities[j].rule == 5) { //Player vs vertical line!
                     if (entities[j].type == 51 || entities[j].type == 52) {
                         if (entitywarpvlinecollide(i, j)) {
@@ -4725,14 +4683,14 @@ void entityclass::customwarplinecheck(int i) {
 
 void entityclass::entitycollisioncheck()
 {
-    for (int i = 0; i < nentity; i++)
+    for (size_t i = 0; i < entities.size(); i++)
     {
-        if (entities[i].active)
+        if (true) // FIXME: remove this later (no more 'active')
         {
             //We test entity to entity
-            for (int j = 0; j < nentity; j++)
+            for (size_t j = 0; j < entities.size(); j++)
             {
-                if (entities[j].active && i!=j)  //Active
+                if (i!=j)  //Active
                 {
                     if (entities[i].rule == 0 && entities[j].rule == 1 && entities[j].harmful)
                     {

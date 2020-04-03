@@ -8,7 +8,6 @@ entclass::entclass()
 void entclass::clear()
 {
 	// Set all values to a default, required for creating a new entity
-	active = false;
 	invis = false;
 	type = 0;
 	size = 0;

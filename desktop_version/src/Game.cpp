@@ -2296,7 +2296,7 @@ void Game::updatestate()
             i = obj.getcompanion();
             if(i>-1)
             {
-                obj.entities[i].active = false;
+                obj.removeentity(i);
             }
 
             i = obj.getteleporter();

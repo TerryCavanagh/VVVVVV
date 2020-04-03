@@ -931,10 +931,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry)
 		warpy = true;
 		rcol = 5;
 
-		obj.entities[obj.nentity].active = true;
-		obj.nentity++;
 		obj.createentity(14 * 8, (8 * 8) + 4, 14); //Teleporter!
-		obj.entities[obj.nentity - 2].active = false;
 
 		if(game.intimetrial)
 		{
