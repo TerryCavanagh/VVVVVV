@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Music.h"
 #include "BinaryBlob.h"
+#include "Map.h"
 
 void musicclass::init()
 {
@@ -237,7 +238,7 @@ void musicclass::play(int t)
 		{
 			// musicfade = 0;
 			currentsong = t;
-			if (currentsong == 0 || currentsong == 7 || currentsong == 16 || currentsong == 23)
+			if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 16 || currentsong == 23)))
 			{
 				// Level Complete theme, no fade in or repeat
 				if(Mix_FadeInMusic(musicTracks[t].m_music, 0, 0)==-1)
