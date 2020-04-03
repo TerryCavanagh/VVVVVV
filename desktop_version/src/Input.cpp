@@ -1744,7 +1744,7 @@ void gameinput()
 #endif
 
     //Entity type 0 is player controled
-    for (int ie = 0; ie < obj.nentity; ++ie)
+    for (size_t ie = 0; ie < obj.entities.size(); ++ie)
     {
         if (obj.entities[ie].rule == 0)
         {

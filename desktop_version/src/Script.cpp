@@ -141,17 +141,17 @@ void scriptclass::run()
 			if (words[0] == "destroy")
 			{
 				if(words[1]=="gravitylines"){
-					for(int edi=0; edi<obj.nentity; edi++){
-						if(obj.entities[edi].type==9) obj.entities[edi].active=false;
-						if(obj.entities[edi].type==10) obj.entities[edi].active=false;
+					for(size_t edi=0; edi<obj.entities.size(); edi++){
+						if(obj.entities[edi].type==9) removeentity_iter(edi);
+						if(obj.entities[edi].type==10) removeentity_iter(edi);
 					}
 				}else if(words[1]=="warptokens"){
-					for(int edi=0; edi<obj.nentity; edi++){
-						if(obj.entities[edi].type==11) obj.entities[edi].active=false;
+					for(size_t edi=0; edi<obj.entities.size(); edi++){
+						if(obj.entities[edi].type==11) removeentity_iter(edi);
 					}
 				}else if(words[1]=="platforms"){
-					for(int edi=0; edi<obj.nentity; edi++){
-						if(obj.entities[edi].rule==2 && obj.entities[edi].animate==100) obj.entities[edi].active=false;
+					for(size_t edi=0; edi<obj.entities.size(); edi++){
+						if(obj.entities[edi].rule==2 && obj.entities[edi].animate==100) removeentity_iter(edi);
 					}
 				}
 			}
@@ -1652,9 +1652,9 @@ void scriptclass::run()
 			}
 			else if (words[0] == "jukebox")
 			{
-				for (j = 0; j < obj.nentity; j++)
+				for (j = 0; j < (int) obj.entities.size(); j++)
 				{
-					if (obj.entities[j].type == 13 && obj.entities[j].active)
+					if (obj.entities[j].type == 13)
 					{
 						obj.entities[j].colour = 4;
 					}
@@ -1662,7 +1662,7 @@ void scriptclass::run()
 				if (ss_toi(words[1]) == 1)
 				{
 					obj.createblock(5, 88 - 4, 80, 20, 16, 25);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 88 && obj.entities[j].yp==80)
 						{
@@ -1673,7 +1673,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 2)
 				{
 					obj.createblock(5, 128 - 4, 80, 20, 16, 26);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 128 && obj.entities[j].yp==80)
 						{
@@ -1684,7 +1684,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 3)
 				{
 					obj.createblock(5, 176 - 4, 80, 20, 16, 27);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 176 && obj.entities[j].yp==80)
 						{
@@ -1695,7 +1695,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 4)
 				{
 					obj.createblock(5, 216 - 4, 80, 20, 16, 28);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 216 && obj.entities[j].yp==80)
 						{
@@ -1706,7 +1706,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 5)
 				{
 					obj.createblock(5, 88 - 4, 128, 20, 16, 29);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 88 && obj.entities[j].yp==128)
 						{
@@ -1717,7 +1717,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 6)
 				{
 					obj.createblock(5, 176 - 4, 128, 20, 16, 30);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 176 && obj.entities[j].yp==128)
 						{
@@ -1728,7 +1728,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 7)
 				{
 					obj.createblock(5, 40 - 4, 40, 20, 16, 31);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 40 && obj.entities[j].yp==40)
 						{
@@ -1739,7 +1739,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 8)
 				{
 					obj.createblock(5, 216 - 4, 128, 20, 16, 32);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 216 && obj.entities[j].yp==128)
 						{
@@ -1750,7 +1750,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 9)
 				{
 					obj.createblock(5, 128 - 4, 128, 20, 16, 33);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 128 && obj.entities[j].yp==128)
 						{
@@ -1761,7 +1761,7 @@ void scriptclass::run()
 				else if (ss_toi(words[1]) == 10)
 				{
 					obj.createblock(5, 264 - 4, 40, 20, 16, 34);
-					for (j = 0; j < obj.nentity; j++)
+					for (j = 0; j < (int) obj.entities.size(); j++)
 					{
 						if (obj.entities[j].xp == 264 && obj.entities[j].yp==40)
 						{
@@ -1959,7 +1959,7 @@ void scriptclass::run()
 			}
 			else if (words[0] == "everybodysad")
 			{
-				for (i = 0; i < obj.nentity; i++)
+				for (i = 0; i < (int) obj.entities.size(); i++)
 				{
 					if (obj.entities[i].rule == 6 || obj.entities[i].rule == 0)
 					{
@@ -2535,7 +2535,7 @@ void scriptclass::resetgametomenu()
 {
 	game.gamestate = TITLEMODE;
 	graphics.flipmode = false;
-	obj.nentity = 0;
+	obj.entities.clear();
 	graphics.fademode = 4;
 	game.createmenu("gameover");
 }
@@ -2555,7 +2555,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2578,7 +2578,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2600,7 +2600,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2639,7 +2639,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 
 		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2667,7 +2667,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 
 		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2695,7 +2695,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 
 		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2723,7 +2723,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 
 		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2751,7 +2751,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 
 		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2785,7 +2785,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 
 		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2808,7 +2808,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2835,7 +2835,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2871,7 +2871,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2906,7 +2906,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2941,7 +2941,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -2976,7 +2976,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3011,7 +3011,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3043,7 +3043,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3075,7 +3075,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3107,7 +3107,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3139,7 +3139,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3162,7 +3162,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 
 		if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3196,7 +3196,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3233,7 +3233,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
@@ -3278,7 +3278,7 @@ void scriptclass::startgamemode( int t )
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
 
-		if(obj.nentity==0)
+		if(obj.entities.empty())
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}

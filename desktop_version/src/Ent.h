@@ -20,7 +20,7 @@ public:
 
 public:
     //Fundamentals
-    bool active, invis;
+    bool invis;
     int type, size, tile, rule;
     int state, statedelay;
     int behave, animate;

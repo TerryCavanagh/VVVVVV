@@ -181,10 +181,7 @@ public:
 
     std::vector<entclass> entities;
 
-    int nentity;
-
     std::vector<entclass> linecrosskludge;
-    int nlinecrosskludge;
 
     point colpoint1, colpoint2;
 
