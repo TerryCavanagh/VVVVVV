@@ -1038,20 +1038,20 @@ void gamelogic()
             for (size_t i = 0; i < obj.entities.size();  i++)
             {
                 if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
-                  {
-                      if (obj.entities[i].xp <= -10)
-                      {
-                          obj.entities[i].xp += 320;
-                      }
-                      else
-                      {
-                          if (obj.entities[i].xp > 310)
-                          {
-                              obj.entities[i].xp -= 320;
-                          }
-                      }
-                  }
+                    if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
+                    {
+                        if (obj.entities[i].xp <= -10)
+                        {
+                            obj.entities[i].xp += 320;
+                        }
+                        else
+                        {
+                            if (obj.entities[i].xp > 310)
+                            {
+                                obj.entities[i].xp -= 320;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -1059,20 +1059,20 @@ void gamelogic()
             {
 
                 if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
-                  {
-                      if (obj.entities[i].yp <= -12)
-                      {
-                          obj.entities[i].yp += 232;
-                      }
-                      else
-                      {
-                          if (obj.entities[i].yp > 226)
-                          {
-                              obj.entities[i].yp -= 232;
-                          }
-                      }
-                  }
+                    if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
+                    {
+                        if (obj.entities[i].yp <= -12)
+                        {
+                            obj.entities[i].yp += 232;
+                        }
+                        else
+                        {
+                            if (obj.entities[i].yp > 226)
+                            {
+                                obj.entities[i].yp -= 232;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1081,38 +1081,38 @@ void gamelogic()
             for (size_t i = 0; i < obj.entities.size();  i++)
             {
                 if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
-                  {
-                      if (game.roomx == 118 && game.roomy == 102 && obj.entities[i].rule==1 && !map.custommode)
-                      {
-                          //ascii snakes
-                          if (obj.entities[i].xp <= -80)
-                          {
-                              obj.entities[i].xp += 400;
-                          }
-                          else
-                          {
-                              if (obj.entities[i].xp > 320)
-                              {
-                                  obj.entities[i].xp -= 400;
-                              }
-                          }
-                      }
-                      else
-                      {
-                          if (obj.entities[i].xp <= -10)
-                          {
-                              obj.entities[i].xp += 320;
-                          }
-                          else
-                          {
-                              if (obj.entities[i].xp > 310)
-                              {
-                                  obj.entities[i].xp -= 320;
-                              }
-                          }
-                      }
-                  }
+                    if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
+                    {
+                        if (game.roomx == 118 && game.roomy == 102 && obj.entities[i].rule==1 && !map.custommode)
+                        {
+                            //ascii snakes
+                            if (obj.entities[i].xp <= -80)
+                            {
+                                obj.entities[i].xp += 400;
+                            }
+                            else
+                            {
+                                if (obj.entities[i].xp > 320)
+                                {
+                                    obj.entities[i].xp -= 400;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (obj.entities[i].xp <= -10)
+                            {
+                                obj.entities[i].xp += 320;
+                            }
+                            else
+                            {
+                                if (obj.entities[i].xp > 310)
+                                {
+                                    obj.entities[i].xp -= 320;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -1133,17 +1133,17 @@ void gamelogic()
             for (size_t i = 0; i < obj.entities.size();  i++)
             {
                 if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if (obj.entities[i].yp <= -12)
-                  {
-                      obj.entities[i].yp += 232;
-                  }
-                  else
-                  {
-                      if (obj.entities[i].yp > 226)
-                      {
-                          obj.entities[i].yp -= 232;
-                      }
-                  }
+                    if (obj.entities[i].yp <= -12)
+                    {
+                        obj.entities[i].yp += 232;
+                    }
+                    else
+                    {
+                        if (obj.entities[i].yp > 226)
+                        {
+                            obj.entities[i].yp -= 232;
+                        }
+                    }
                 }
             }
 
@@ -1151,20 +1151,20 @@ void gamelogic()
             {
 
                 if(obj.entities[i].type<50){ //Don't warp warp lines
-                  if(obj.entities[i].rule!=0)
-                  {
-                      if (obj.entities[i].xp <= -30)
-                      {
-                          obj.entities[i].xp += 350;
-                      }
-                      else
-                      {
-                          if (obj.entities[i].xp > 320)
-                          {
-                              obj.entities[i].xp -= 350;
-                          }
-                      }
-                  }
+                    if(obj.entities[i].rule!=0)
+                    {
+                        if (obj.entities[i].xp <= -30)
+                        {
+                            obj.entities[i].xp += 350;
+                        }
+                        else
+                        {
+                            if (obj.entities[i].xp > 320)
+                            {
+                                obj.entities[i].xp -= 350;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -1208,119 +1208,119 @@ void gamelogic()
 
         //Warp tokens
         if (map.custommode){
-          if (game.teleport)
-          {
-              int edi=obj.entities[game.edteleportent].behave;
-              int edj=obj.entities[game.edteleportent].para;
-              int edi2, edj2;
-              edi2 = (edi-(edi%40))/40;
-              edj2 = (edj-(edj%30))/30;
+            if (game.teleport)
+            {
+                int edi=obj.entities[game.edteleportent].behave;
+                int edj=obj.entities[game.edteleportent].para;
+                int edi2, edj2;
+                edi2 = (edi-(edi%40))/40;
+                edj2 = (edj-(edj%30))/30;
 
-              map.warpto(100+edi2, 100+edj2, obj.getplayer(), edi%40, (edj%30)+2);
-              game.teleport = false;
+                map.warpto(100+edi2, 100+edj2, obj.getplayer(), edi%40, (edj%30)+2);
+                game.teleport = false;
 
-              if (game.teleport == false)
-              {
-                  game.flashlight = 6;
-                  game.screenshake = 25;
-              }
-          }
+                if (game.teleport == false)
+                {
+                    game.flashlight = 6;
+                    game.screenshake = 25;
+                }
+            }
         }else{
-          if (game.teleport)
-          {
-              if (game.roomx == 117 && game.roomy == 102)
-              {
-                  int i = obj.getplayer();
-                  obj.entities[i].yp = 225;
-                  map.gotoroom(119, 100);
-                  game.teleport = false;
-              }
-              else if (game.roomx == 119 && game.roomy == 100)
-              {
-                  int i = obj.getplayer();
-                  obj.entities[i].yp = 225;
-                  map.gotoroom(119, 103);
-                  game.teleport = false;
-              }
-              else if (game.roomx == 119 && game.roomy == 103)
-              {
-                  int i = obj.getplayer();
-                  obj.entities[i].xp = 0;
-                  map.gotoroom(116, 103);
-                  game.teleport = false;
-              }
-              else if (game.roomx == 116 && game.roomy == 103)
-              {
-                  int i = obj.getplayer();
-                  obj.entities[i].yp = 225;
-                  map.gotoroom(116, 100);
-                  game.teleport = false;
-              }
-              else if (game.roomx == 116 && game.roomy == 100)
-              {
-                  int i = obj.getplayer();
-                  obj.entities[i].xp = 0;
-                  map.gotoroom(114, 102);
-                  game.teleport = false;
-              }
-              else if (game.roomx == 114 && game.roomy == 102)
-              {
-                  int i = obj.getplayer();
-                  obj.entities[i].yp = 225;
-                  map.gotoroom(113, 100);
-                  game.teleport = false;
-              }
-              else if (game.roomx == 116 && game.roomy == 104)
-              {
-                  //pre warp zone here
-                  map.warpto(107, 101, obj.getplayer(), 14, 16);
-              }
-              else if (game.roomx == 107 && game.roomy == 101)
-              {
-                  map.warpto(105, 119, obj.getplayer(), 5, 26);
-              }
-              else if (game.roomx == 105 && game.roomy == 118)
-              {
-                  map.warpto(101, 111, obj.getplayer(), 34, 6);
-              }
-              else if (game.roomx == 101 && game.roomy == 111)
-              {
-                  //There are lots of warp tokens in this room, so we have to distinguish!
-                  switch(game.teleportxpos)
-                  {
-                  case 1:
-                      map.warpto(108, 108, obj.getplayer(), 4, 27);
-                      break;
-                  case 2:
-                      map.warpto(101, 111, obj.getplayer(), 12, 27);
-                      break;
-                  case 3:
-                      map.warpto(119, 111, obj.getplayer(), 31, 7);
-                      break;
-                  case 4:
-                      map.warpto(114, 117, obj.getplayer(), 19, 16);
-                      break;
-                  }
-              }
-              else if (game.roomx == 108 && game.roomy == 106)
-              {
-                  map.warpto(119, 111, obj.getplayer(), 4, 27);
-              }
-              else if (game.roomx == 100 && game.roomy == 111)
-              {
-                  map.warpto(101, 111, obj.getplayer(), 24, 6);
-              }
-              else if (game.roomx == 119 && game.roomy == 107)
-              {
-                  //Secret lab, to super gravitron
-                  map.warpto(119, 108, obj.getplayer(), 19, 10);
-              }
-              if (game.teleport == false)
-              {
-                  game.flashlight = 6;
-                  game.screenshake = 25;
-              }
-          }
+            if (game.teleport)
+            {
+                if (game.roomx == 117 && game.roomy == 102)
+                {
+                    int i = obj.getplayer();
+                    obj.entities[i].yp = 225;
+                    map.gotoroom(119, 100);
+                    game.teleport = false;
+                }
+                else if (game.roomx == 119 && game.roomy == 100)
+                {
+                    int i = obj.getplayer();
+                    obj.entities[i].yp = 225;
+                    map.gotoroom(119, 103);
+                    game.teleport = false;
+                }
+                else if (game.roomx == 119 && game.roomy == 103)
+                {
+                    int i = obj.getplayer();
+                    obj.entities[i].xp = 0;
+                    map.gotoroom(116, 103);
+                    game.teleport = false;
+                }
+                else if (game.roomx == 116 && game.roomy == 103)
+                {
+                    int i = obj.getplayer();
+                    obj.entities[i].yp = 225;
+                    map.gotoroom(116, 100);
+                    game.teleport = false;
+                }
+                else if (game.roomx == 116 && game.roomy == 100)
+                {
+                    int i = obj.getplayer();
+                    obj.entities[i].xp = 0;
+                    map.gotoroom(114, 102);
+                    game.teleport = false;
+                }
+                else if (game.roomx == 114 && game.roomy == 102)
+                {
+                    int i = obj.getplayer();
+                    obj.entities[i].yp = 225;
+                    map.gotoroom(113, 100);
+                    game.teleport = false;
+                }
+                else if (game.roomx == 116 && game.roomy == 104)
+                {
+                    //pre warp zone here
+                    map.warpto(107, 101, obj.getplayer(), 14, 16);
+                }
+                else if (game.roomx == 107 && game.roomy == 101)
+                {
+                    map.warpto(105, 119, obj.getplayer(), 5, 26);
+                }
+                else if (game.roomx == 105 && game.roomy == 118)
+                {
+                    map.warpto(101, 111, obj.getplayer(), 34, 6);
+                }
+                else if (game.roomx == 101 && game.roomy == 111)
+                {
+                    //There are lots of warp tokens in this room, so we have to distinguish!
+                    switch(game.teleportxpos)
+                    {
+                    case 1:
+                        map.warpto(108, 108, obj.getplayer(), 4, 27);
+                        break;
+                    case 2:
+                        map.warpto(101, 111, obj.getplayer(), 12, 27);
+                        break;
+                    case 3:
+                        map.warpto(119, 111, obj.getplayer(), 31, 7);
+                        break;
+                    case 4:
+                        map.warpto(114, 117, obj.getplayer(), 19, 16);
+                        break;
+                    }
+                }
+                else if (game.roomx == 108 && game.roomy == 106)
+                {
+                    map.warpto(119, 111, obj.getplayer(), 4, 27);
+                }
+                else if (game.roomx == 100 && game.roomy == 111)
+                {
+                    map.warpto(101, 111, obj.getplayer(), 24, 6);
+                }
+                else if (game.roomx == 119 && game.roomy == 107)
+                {
+                    //Secret lab, to super gravitron
+                    map.warpto(119, 108, obj.getplayer(), 19, 10);
+                }
+                if (game.teleport == false)
+                {
+                    game.flashlight = 6;
+                    game.screenshake = 25;
+                }
+            }
         }
     }
     int j;
