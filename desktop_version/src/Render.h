@@ -1,5 +1,5 @@
-#ifndef TITLERENDERER_H
-#define TITLERENDERER_H
+#ifndef RENDER_H
+#define RENDER_H
 
 #include "Graphics.h"
 #include "UtilityClass.h"
@@ -22,4 +22,4 @@ void gamecompleterender();
 
 void gamecompleterender2();
 
-#endif /* TITLERENDERER_H */
+#endif /* RENDER_H */
