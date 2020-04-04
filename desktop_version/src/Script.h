@@ -54,7 +54,6 @@ public:
     int textx;
     int texty;
     int r,g,b;
-    int txtnumlines;
 
     //Misc
     int i, j, k;
