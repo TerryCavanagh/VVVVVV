@@ -586,6 +586,11 @@ void Graphics::drawgui()
         textbox[i].update();
         if (textbox[i].active)
         {
+            if (textbox[i].tm == 2 && textbox[i].tl <= 0.5)
+            {
+                textbox[i].active = false;
+            }
+
             if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
             {
                 if(flipmode)
