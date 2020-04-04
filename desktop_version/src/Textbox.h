@@ -10,10 +10,6 @@ class textboxclass
 public:
     textboxclass();
 
-    void firstcreate();
-
-    void clear();
-
     void centerx();
 
     void centery();
