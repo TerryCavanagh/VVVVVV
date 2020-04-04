@@ -105,7 +105,7 @@ void textboxclass::update()
         if (tl <= 0.5)
         {
             tl = 0.5;
-            active = false;
+            //this textbox will be removed by drawgui() later
         }
         setcol(int(tr * tl), int(tg * tl), int(tb * tl));
     }
