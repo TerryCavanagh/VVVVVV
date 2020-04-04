@@ -1037,8 +1037,66 @@ void gamelogic()
         {
             for (size_t i = 0; i < obj.entities.size();  i++)
             {
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                    if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
+                if(obj.entities[i].type<50 //Don't warp warp lines
+                && obj.entities[i].size < 12)   //Don't wrap SWN enemies
+                {
+                    if (obj.entities[i].xp <= -10)
+                    {
+                        obj.entities[i].xp += 320;
+                    }
+                    else
+                    {
+                        if (obj.entities[i].xp > 310)
+                        {
+                            obj.entities[i].xp -= 320;
+                        }
+                    }
+                }
+            }
+
+            for (size_t i = 0; i < obj.entities.size();  i++)
+            {
+
+                if(obj.entities[i].type<50 //Don't warp warp lines
+                && obj.entities[i].size < 12)   //Don't wrap SWN enemies
+                {
+                    if (obj.entities[i].yp <= -12)
+                    {
+                        obj.entities[i].yp += 232;
+                    }
+                    else
+                    {
+                        if (obj.entities[i].yp > 226)
+                        {
+                            obj.entities[i].yp -= 232;
+                        }
+                    }
+                }
+            }
+        }
+        else if (map.warpx)
+        {
+            for (size_t i = 0; i < obj.entities.size();  i++)
+            {
+                if(obj.entities[i].type<50 //Don't warp warp lines
+                && obj.entities[i].size < 12)   //Don't wrap SWN enemies
+                {
+                    if (game.roomx == 118 && game.roomy == 102 && obj.entities[i].rule==1 && !map.custommode)
+                    {
+                        //ascii snakes
+                        if (obj.entities[i].xp <= -80)
+                        {
+                            obj.entities[i].xp += 400;
+                        }
+                        else
+                        {
+                            if (obj.entities[i].xp > 320)
+                            {
+                                obj.entities[i].xp -= 400;
+                            }
+                        }
+                    }
+                    else
                     {
                         if (obj.entities[i].xp <= -10)
                         {
@@ -1049,67 +1107,6 @@ void gamelogic()
                             if (obj.entities[i].xp > 310)
                             {
                                 obj.entities[i].xp -= 320;
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (size_t i = 0; i < obj.entities.size();  i++)
-            {
-
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                    if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
-                    {
-                        if (obj.entities[i].yp <= -12)
-                        {
-                            obj.entities[i].yp += 232;
-                        }
-                        else
-                        {
-                            if (obj.entities[i].yp > 226)
-                            {
-                                obj.entities[i].yp -= 232;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (map.warpx)
-        {
-            for (size_t i = 0; i < obj.entities.size();  i++)
-            {
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                    if (obj.entities[i].size < 12)   //Don't wrap SWN enemies
-                    {
-                        if (game.roomx == 118 && game.roomy == 102 && obj.entities[i].rule==1 && !map.custommode)
-                        {
-                            //ascii snakes
-                            if (obj.entities[i].xp <= -80)
-                            {
-                                obj.entities[i].xp += 400;
-                            }
-                            else
-                            {
-                                if (obj.entities[i].xp > 320)
-                                {
-                                    obj.entities[i].xp -= 400;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (obj.entities[i].xp <= -10)
-                            {
-                                obj.entities[i].xp += 320;
-                            }
-                            else
-                            {
-                                if (obj.entities[i].xp > 310)
-                                {
-                                    obj.entities[i].xp -= 320;
-                                }
                             }
                         }
                     }
@@ -1150,19 +1147,18 @@ void gamelogic()
             for (size_t i = 0; i < obj.entities.size();  i++)
             {
 
-                if(obj.entities[i].type<50){ //Don't warp warp lines
-                    if(obj.entities[i].rule!=0)
+                if(obj.entities[i].type<50 //Don't warp warp lines
+                &&obj.entities[i].rule!=0)
+                {
+                    if (obj.entities[i].xp <= -30)
                     {
-                        if (obj.entities[i].xp <= -30)
+                        obj.entities[i].xp += 350;
+                    }
+                    else
+                    {
+                        if (obj.entities[i].xp > 320)
                         {
-                            obj.entities[i].xp += 350;
-                        }
-                        else
-                        {
-                            if (obj.entities[i].xp > 320)
-                            {
-                                obj.entities[i].xp -= 350;
-                            }
+                            obj.entities[i].xp -= 350;
                         }
                     }
                 }
