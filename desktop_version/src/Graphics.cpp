@@ -85,10 +85,6 @@ void Graphics::init()
     menuoffset = 0;
     resumegamemode = false;
 
-    //Textboxes!
-    textbox.resize(30);
-    ntextbox = 0;
-
     //Fading stuff
     fadebars.resize(15);
 
@@ -580,15 +576,17 @@ void Graphics::drawgui()
 {
     textboxcleanup();
     //Draw all the textboxes to the screen
-    for (int i = 0; i<ntextbox; i++)
+    for (size_t i = 0; i<textbox.size(); i++)
     {
         //This routine also updates the textboxs
         textbox[i].update();
-        if (textbox[i].active)
+        if (true) //FIXME: remove this later (no more 'active')
         {
             if (textbox[i].tm == 2 && textbox[i].tl <= 0.5)
             {
-                textbox[i].active = false;
+                textbox.erase(textbox.begin() + i);
+                i--;
+                continue;
             }
 
             if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
@@ -966,7 +964,7 @@ void Graphics::drawtextbox( int x, int y, int w, int h, int r, int g, int b )
 void Graphics::textboxactive()
 {
     //Remove all but the most recent textbox
-    for (int i = 0; i < ntextbox; i++)
+    for (int i = 0; i < (int) textbox.size(); i++)
     {
         if (m != i) textbox[i].remove();
     }
@@ -975,7 +973,7 @@ void Graphics::textboxactive()
 void Graphics::textboxremovefast()
 {
     //Remove all textboxes
-    for (int i = 0; i < ntextbox; i++)
+    for (size_t i = 0; i < textbox.size(); i++)
     {
         textbox[i].removefast();
     }
@@ -984,7 +982,7 @@ void Graphics::textboxremovefast()
 void Graphics::textboxremove()
 {
     //Remove all textboxes
-    for (int i = 0; i < ntextbox; i++)
+    for (size_t i = 0; i < textbox.size(); i++)
     {
         textbox[i].remove();
     }
@@ -1008,36 +1006,20 @@ void Graphics::textboxadjust()
 
 void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int g/*= 255*/, int b /*= 255*/ )
 {
-
-    if(ntextbox == 0)
-    {
-        //If there are no active textboxes, Z=0;
-        m = 0;
-        ntextbox++;
-    }
-    else
-    {
-        /*i = 0; m = -1;
-        while (i < ntextbox) {
-        if (!textbox[i].active) {	m = i; i = ntextbox;}
-        i++;
-        }
-        if (m == -1) {m = ntextbox; ntextbox++;}
-        */
-        m = ntextbox;
-        ntextbox++;
-    }
+    m = textbox.size();
 
     if(m<20)
     {
-        textbox[m].clear();
-        textbox[m].line[0] = t;
-        textbox[m].xp = xp;
+        textboxclass text;
+        text.clear();
+        text.line[0] = t;
+        text.xp = xp;
         int length = utf8::unchecked::distance(t.begin(), t.end());
-        if (xp == -1) textbox[m].xp = 160 - (((length / 2) + 1) * 8);
-        textbox[m].yp = yp;
-        textbox[m].initcol(r, g, b);
-        textbox[m].resize();
+        if (xp == -1) text.xp = 160 - (((length / 2) + 1) * 8);
+        text.yp = yp;
+        text.initcol(r, g, b);
+        text.resize();
+        textbox.push_back(text);
     }
 }
 
@@ -2891,12 +2873,6 @@ void Graphics::setwarprect( int a, int b, int c, int d )
 
 	void Graphics::textboxcleanup()
 	{
-		int i = ntextbox - 1;
-		while (i >= 0 && !textbox[i].active)
-		{
-			ntextbox--;
-			i--;
-		}
 	}
 
 void Graphics::textboxcenter()
