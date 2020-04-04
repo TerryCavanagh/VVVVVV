@@ -3,28 +3,8 @@
 
 textboxclass::textboxclass()
 {
-    firstcreate();
-}
-
-void textboxclass::firstcreate()
-{
-    //Like clear, only it creates the actual arrays, etc
     x = 0;
     y = 0;
-    w = 0;
-    h = 0;
-    lw = 0;
-    tl = 0;
-    tm = 0;
-    timer = 0;
-}
-
-void textboxclass::clear()
-{
-    //Set all values to a default, required for creating a new entity
-    line.resize(1);
-    xp = 0;
-    yp = 0;
     w = 0;
     h = 0;
     lw = 0;
