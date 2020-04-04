@@ -591,14 +591,14 @@ void Graphics::drawgui()
         {
             if(flipmode)
             {
-                for (j = 0; j < textbox[i].numlines; j++)
+                for (j = 0; j < (int) textbox[i].line.size(); j++)
                 {
-                    Print(textbox[i].xp + 8, textbox[i].yp + (textbox[i].numlines*8) - (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
+                    Print(textbox[i].xp + 8, textbox[i].yp + (textbox[i].line.size()*8) - (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
                 }
             }
             else
             {
-                for (j = 0; j < textbox[i].numlines; j++)
+                for (j = 0; j < (int) textbox[i].line.size(); j++)
                 {
                     Print(textbox[i].xp + 8, textbox[i].yp + 8 + (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
                 }
@@ -618,7 +618,7 @@ void Graphics::drawgui()
                 drawcoloredtile(textbox[i].xp + 8 + (k * 8), textbox[i].yp, 41, textbox[i].r, textbox[i].g, textbox[i].b);
                 drawcoloredtile(textbox[i].xp + 8 + (k * 8), textbox[i].yp+textbox[i].h-8, 46, textbox[i].r, textbox[i].g, textbox[i].b);
             }
-            for (int k = 0; k < textbox[i].numlines; k++)
+            for (size_t k = 0; k < textbox[i].line.size(); k++)
             {
                 drawcoloredtile(textbox[i].xp, textbox[i].yp + 8 + (k * 8), 43, textbox[i].r, textbox[i].g, textbox[i].b);
                 drawcoloredtile(textbox[i].xp + textbox[i].w-8, textbox[i].yp + 8 + (k * 8), 44, textbox[i].r, textbox[i].g, textbox[i].b);
@@ -626,14 +626,14 @@ void Graphics::drawgui()
 
             if(flipmode)
             {
-                for (j = 0; j < textbox[i].numlines; j++)
+                for (j = 0; j < (int) textbox[i].line.size(); j++)
                 {
-                    Print(textbox[i].xp + 8, textbox[i].yp  + (textbox[i].numlines*8) - (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
+                    Print(textbox[i].xp + 8, textbox[i].yp  + (textbox[i].line.size()*8) - (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
                 }
             }
             else
             {
-                for (j = 0; j < textbox[i].numlines; j++)
+                for (j = 0; j < (int) textbox[i].line.size(); j++)
                 {
                     Print(textbox[i].xp + 8, textbox[i].yp +8 + (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
                 }
@@ -1008,8 +1008,7 @@ void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int
     if(m<20)
     {
         textboxclass text;
-        text.clear();
-        text.line[0] = t;
+        text.line.push_back(t);
         text.xp = xp;
         int length = utf8::unchecked::distance(t.begin(), t.end());
         if (xp == -1) text.xp = 160 - (((length / 2) + 1) * 8);
