@@ -1077,35 +1077,35 @@ void titlerender()
         {
             graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
-            graphics.Print( -1, 125, "Your have unlocked", tr, tg, tb, true);
+            graphics.Print( -1, 125, "You have unlocked", tr, tg, tb, true);
             graphics.Print( -1, 135, "a new Time Trial.", tr, tg, tb, true);
         }
         else if (game.currentmenuname == "unlocktimetrials")
         {
             graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
-            graphics.Print( -1, 125, "Your have unlocked some", tr, tg, tb, true);
+            graphics.Print( -1, 125, "You have unlocked some", tr, tg, tb, true);
             graphics.Print( -1, 135, "new Time Trials.", tr, tg, tb, true);
         }
         else if (game.currentmenuname == "unlocknodeathmode")
         {
             graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
-            graphics.Print( -1, 125, "Your have unlocked", tr, tg, tb, true);
+            graphics.Print( -1, 125, "You have unlocked", tr, tg, tb, true);
             graphics.Print( -1, 135, "No Death Mode.", tr, tg, tb, true);
         }
         else if (game.currentmenuname == "unlockflipmode")
         {
             graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
-            graphics.Print( -1, 125, "Your have unlocked", tr, tg, tb, true);
+            graphics.Print( -1, 125, "You have unlocked", tr, tg, tb, true);
             graphics.Print( -1, 135, "Flip Mode.", tr, tg, tb, true);
         }
         else if (game.currentmenuname == "unlockintermission")
         {
             graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
-            graphics.Print( -1, 125, "Your have unlocked", tr, tg, tb, true);
+            graphics.Print( -1, 125, "You have unlocked", tr, tg, tb, true);
             graphics.Print( -1, 135, "the intermission levels.", tr, tg, tb, true);
         }else if (game.currentmenuname == "playerworlds")
         {
