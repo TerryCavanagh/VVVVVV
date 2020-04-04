@@ -265,7 +265,6 @@ public:
 	int trinketr, trinketg, trinketb;
 
 	std::vector <textboxclass> textbox;
-	int ntextbox;
 
 	bool showcutscenebars;
 	int cutscenebarspos;

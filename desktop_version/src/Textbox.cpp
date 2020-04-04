@@ -23,7 +23,6 @@ void textboxclass::firstcreate()
     lw = 0;
     tl = 0;
     tm = 0;
-    active = false;
     timer = 0;
 }
 
@@ -42,7 +41,6 @@ void textboxclass::clear()
     lw = 0;
     tl = 0;
     tm = 0;
-    active = true;
     timer = 0;
 }
 

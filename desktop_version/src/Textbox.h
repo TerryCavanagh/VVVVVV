@@ -41,7 +41,6 @@ public:
     int r,g,b;
     int tr,tg,tb;
     SDL_Rect textrect;
-    bool active;
     int timer;
 
     float tl;
