@@ -1090,12 +1090,9 @@ void entityclass::removetrigger( int t )
 {
     for(size_t i=0; i<blocks.size(); i++)
     {
-        if(blocks[i].type == TRIGGER)
+        if(blocks[i].type == TRIGGER && blocks[i].trigger == t)
         {
-            if (blocks[i].trigger == t)
-            {
-                removeblock_iter(i);
-            }
+            removeblock_iter(i);
         }
     }
 }
@@ -3757,12 +3754,9 @@ bool entityclass::checkdamage()
 
             for (size_t j=0; j<blocks.size(); j++)
             {
-                if (blocks[j].type == DAMAGE)
+                if (blocks[j].type == DAMAGE && help.intersects(blocks[j].rect, temprect))
                 {
-                    if(help.intersects(blocks[j].rect, temprect))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
@@ -3785,12 +3779,9 @@ bool entityclass::scmcheckdamage()
 
             for (size_t j=0; j<blocks.size(); j++)
             {
-                if (blocks[j].type == DAMAGE)
+                if (blocks[j].type == DAMAGE && help.intersects(blocks[j].rect, temprect))
                 {
-                    if(help.intersects(blocks[j].rect, temprect))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
@@ -3823,13 +3814,10 @@ int entityclass::checktrigger()
 
             for (size_t j=0; j<blocks.size(); j++)
             {
-                if (blocks[j].type == TRIGGER)
+                if (blocks[j].type == TRIGGER && help.intersects(blocks[j].rect, temprect))
                 {
-                    if (help.intersects(blocks[j].rect, temprect))
-                    {
-                        activetrigger = blocks[j].trigger;
-                        return blocks[j].trigger;
-                    }
+                    activetrigger = blocks[j].trigger;
+                    return blocks[j].trigger;
                 }
             }
         }
@@ -3852,12 +3840,9 @@ int entityclass::checkactivity()
 
             for (size_t j=0; j<blocks.size(); j++)
             {
-                if (blocks[j].type == ACTIVITY)
+                if (blocks[j].type == ACTIVITY && help.intersects(blocks[j].rect, temprect))
                 {
-                    if (help.intersects(blocks[j].rect, temprect))
-                    {
-                        return j;
-                    }
+                    return j;
                 }
             }
         }
@@ -3887,17 +3872,11 @@ bool entityclass::checkplatform()
     //Return true if rectset intersects a moving platform, setups px & py to the platform x & y
     for (size_t i = 0; i < blocks.size(); i++)
     {
-        if (true) //FIXME: remove this later (no more 'active')
+        if (blocks[i].type == BLOCK && help.intersects(blocks[i].rect, temprect))
         {
-            if (blocks[i].type == BLOCK)
-            {
-                if (help.intersects(blocks[i].rect, temprect))
-                {
-                    px = blocks[i].xp;
-                    py = blocks[i].yp;
-                    return true;
-                }
-            }
+            px = blocks[i].xp;
+            py = blocks[i].yp;
+            return true;
         }
     }
     return false;
@@ -3907,35 +3886,20 @@ bool entityclass::checkblocks()
 {
     for (size_t i = 0; i < blocks.size(); i++)
     {
-        if (true) //FIXME: remove this later (no more 'active')
+        if(!skipdirblocks && blocks[i].type == DIRECTIONAL)
         {
-            if(!skipdirblocks)
-            {
-                if (blocks[i].type == DIRECTIONAL)
-                {
-                    if (dy > 0 && blocks[i].trigger == 0) if (help.intersects(blocks[i].rect, temprect)) return true;
-                    if (dy <= 0 && blocks[i].trigger == 1) if (help.intersects(blocks[i].rect, temprect)) return true;
-                    if (dx > 0 && blocks[i].trigger == 2) if (help.intersects(blocks[i].rect, temprect)) return true;
-                    if (dx <= 0 && blocks[i].trigger == 3) if (help.intersects(blocks[i].rect, temprect)) return true;
-                }
-            }
-            if (blocks[i].type == BLOCK)
-            {
-                if (help.intersects(blocks[i].rect, temprect))
-                {
-                    return true;
-                }
-            }
-            if (blocks[i].type == SAFE)
-            {
-                if( (dr)==1)
-                {
-                    if (help.intersects(blocks[i].rect, temprect))
-                    {
-                        return true;
-                    }
-                }
-            }
+            if (dy > 0 && blocks[i].trigger == 0) if (help.intersects(blocks[i].rect, temprect)) return true;
+            if (dy <= 0 && blocks[i].trigger == 1) if (help.intersects(blocks[i].rect, temprect)) return true;
+            if (dx > 0 && blocks[i].trigger == 2) if (help.intersects(blocks[i].rect, temprect)) return true;
+            if (dx <= 0 && blocks[i].trigger == 3) if (help.intersects(blocks[i].rect, temprect)) return true;
+        }
+        if (blocks[i].type == BLOCK && help.intersects(blocks[i].rect, temprect))
+        {
+            return true;
+        }
+        if (blocks[i].type == SAFE && (dr)==1 && help.intersects(blocks[i].rect, temprect))
+        {
+            return true;
         }
     }
     return false;
