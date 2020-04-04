@@ -36,7 +36,7 @@ public:
 public:
     //Fundamentals
     std::vector<std::string> line;
-    int xp, yp, lw, w, h, numlines;
+    int xp, yp, lw, w, h;
     int x,y;
     int r,g,b;
     int tr,tg,tb;
