@@ -82,6 +82,7 @@ SET(VVV_SRC
 	src/Music.cpp
 	src/Otherlevel.cpp
 	src/preloader.cpp
+	src/Render.cpp
 	src/Screen.cpp
 	src/Script.cpp
 	src/Scripts.cpp
@@ -89,7 +90,6 @@ SET(VVV_SRC
 	src/Spacestation2.cpp
 	src/TerminalScripts.cpp
 	src/Textbox.cpp
-	src/titlerender.cpp
 	src/Tower.cpp
 	src/UtilityClass.cpp
 	src/WarpClass.cpp
