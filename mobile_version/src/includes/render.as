@@ -688,27 +688,27 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 		}else if (game.currentmenuname == "unlocktimetrial") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "Your have unlocked", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "You have unlocked", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "a new Time Trial.", tr, tg, tb, true);
 		}else if (game.currentmenuname == "unlocktimetrials") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "Your have unlocked some", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "You have unlocked some", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "new Time Trials.", tr, tg, tb, true);
 		}else if (game.currentmenuname == "unlocknodeathmode") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "Your have unlocked", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "You have unlocked", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "No Death Mode.", tr, tg, tb, true);
 		}else if (game.currentmenuname == "unlockflipmode") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "Your have unlocked", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "You have unlocked", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "Flip Mode.", tr, tg, tb, true);
 		}else if (game.currentmenuname == "unlockintermission") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "Your have unlocked", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "You have unlocked", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "the intermission levels.", tr, tg, tb, true);
 		}
 			
