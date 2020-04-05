@@ -2521,7 +2521,7 @@ void entityclass::updateentities( int i )
                     if(music.currentsong!=-1) music.silencedasmusik();
                     music.playef(3);
                     collect[entities[i].para] = 1;
-                    if (game.trinkets > game.stat_trinkets)
+                    if (game.trinkets > game.stat_trinkets && !map.custommode)
                     {
                         game.stat_trinkets = game.trinkets;
                     }
