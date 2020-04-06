@@ -751,8 +751,6 @@ void titleinput()
                             music.playef(11);
                             music.play(6);
                             game.savestats();
-                            game.createmenu("mainmenu");
-                            map.nexttowercolour();
                         }
                         if (game.currentmenuoption == 4)
                         {
@@ -814,8 +812,6 @@ void titleinput()
                             music.playef(11);
                             music.play(6);
                             game.savestats();
-                            game.createmenu("mainmenu");
-                            map.nexttowercolour();
                         }
                         if (game.currentmenuoption == 5)
                         {
