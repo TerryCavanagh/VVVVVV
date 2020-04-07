@@ -2006,17 +2006,17 @@ void Game::updatestate()
                 graphics.addline("You have found a lost crewmate!");
                 graphics.textboxcenterx();
 
-                if(int(map.customcrewmates-crewmates)==0)
+                if(int(map.customcrewmates-crewmates())==0)
                 {
                     graphics.createtextbox("     All crewmates rescued!    ", 50, 65, 174, 174, 174);
                 }
-                else if(map.customcrewmates-crewmates==1)
+                else if(map.customcrewmates-crewmates()==1)
                 {
-                    graphics.createtextbox("    " + help.number(int(map.customcrewmates-crewmates))+ " remains    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("    " + help.number(int(map.customcrewmates-crewmates()))+ " remains    ", 50, 65, 174, 174, 174);
                 }
                 else
                 {
-                    graphics.createtextbox("     " + help.number(int(map.customcrewmates-crewmates))+ " remain    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("     " + help.number(int(map.customcrewmates-crewmates()))+ " remain    ", 50, 65, 174, 174, 174);
                 }
                 graphics.textboxcenterx();
 
@@ -2028,17 +2028,17 @@ void Game::updatestate()
                 graphics.addline("You have found a lost crewmate!");
                 graphics.textboxcenterx();
 
-                if(int(map.customcrewmates-crewmates)==0)
+                if(int(map.customcrewmates-crewmates())==0)
                 {
                     graphics.createtextbox("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
                 }
-                else if(map.customcrewmates-crewmates==1)
+                else if(map.customcrewmates-crewmates()==1)
                 {
-                    graphics.createtextbox("    " + help.number(int(map.customcrewmates-crewmates))+ " remains    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("    " + help.number(int(map.customcrewmates-crewmates()))+ " remains    ", 50, 135, 174, 174, 174);
                 }
                 else
                 {
-                    graphics.createtextbox("     " + help.number(int(map.customcrewmates-crewmates))+ " remain    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("     " + help.number(int(map.customcrewmates-crewmates()))+ " remain    ", 50, 135, 174, 174, 174);
                 }
                 graphics.textboxcenterx();
             }
@@ -2051,7 +2051,7 @@ void Game::updatestate()
             completestop = false;
             state = 0;
 
-            if(map.customcrewmates-crewmates==0)
+            if(map.customcrewmates-crewmates()==0)
             {
                 if(map.custommodeforreal)
                 {
@@ -2087,7 +2087,7 @@ void Game::updatestate()
             graphics.backgrounddrawn = true;
             map.tdrawback = true;
             //Update level stats
-            if(map.customcrewmates-crewmates==0)
+            if(map.customcrewmates-crewmates()==0)
             {
                 //Finished level
                 if(map.customtrinkets-trinkets()==0)
@@ -4926,7 +4926,6 @@ void Game::starttrial( int t )
     gravitycontrol = savegc;
 
     coins = 0;
-    crewmates = 0;
 
     //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
@@ -5334,10 +5333,6 @@ void Game::customloadquick(std::string savfile)
         else if (pKey == "savepoint")
         {
             savepoint = atoi(pText);
-        }
-        else if (pKey == "crewmates")
-        {
-            crewmates = atoi(pText);
         }
         else if (pKey == "companion")
         {
@@ -6124,7 +6119,7 @@ void Game::customsavequick(std::string savfile)
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "crewmates" );
-    msg->LinkEndChild( new TiXmlText( help.String(crewmates).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(crewmates()).c_str() ));
     msgs->LinkEndChild( msg );
 
 
@@ -7658,4 +7653,9 @@ void Game::resetgameclock()
 int Game::trinkets()
 {
     return std::count(obj.collect.begin(), obj.collect.end(), 1);
+}
+
+int Game::crewmates()
+{
+    return std::count(obj.customcollect.begin(), obj.customcollect.end(), 1);
 }

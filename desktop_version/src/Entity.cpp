@@ -3129,7 +3129,6 @@ void entityclass::updateentities( int i )
             }
             else if (entities[i].state == 1)
             {
-                game.crewmates++;
                 if (game.intimetrial)
                 {
                     customcollect[entities[i].para] = 1;
