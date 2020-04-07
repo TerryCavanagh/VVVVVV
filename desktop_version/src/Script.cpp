@@ -1466,7 +1466,6 @@ void scriptclass::run()
 				i = obj.getplayer();
 				obj.entities[i].tile = 0;
 
-				game.crewmates=0;
 				for (i = 0; i < 100; i++)
 				{
 					obj.collect[i] = 0;
@@ -3489,8 +3488,6 @@ void scriptclass::hardreset()
 
 	game.inintermission = false;
 	game.insecretlab = false;
-
-	game.crewmates=0;
 
 	game.state = 0;
 	game.statedelay = 0;

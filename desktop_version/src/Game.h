@@ -247,7 +247,7 @@ public:
 
     int deathseq, lifeseq;
 
-    int coins, trinkets(), crewmates, trinkencollect;
+    int coins, trinkets(), crewmates(), trinkencollect;
     int savepoint, teleport, teleportxpos;
     int edteleportent;
     bool completestop;
