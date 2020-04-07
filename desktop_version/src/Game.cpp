@@ -1357,16 +1357,16 @@ void Game::updatestate()
             timetrialresulttime = seconds + (minutes * 60);
             timetrialrank = 0;
             if (timetrialresulttime <= timetrialpar) timetrialrank++;
-            if (trinkets >= timetrialshinytarget) timetrialrank++;
+            if (trinkets() >= timetrialshinytarget) timetrialrank++;
             if (deathcounts == 0) timetrialrank++;
 
             if (timetrialresulttime < besttimes[timetriallevel] || besttimes[timetriallevel]==-1)
             {
                 besttimes[timetriallevel] = timetrialresulttime;
             }
-            if (trinkets > besttrinkets[timetriallevel] || besttrinkets[timetriallevel]==-1)
+            if (trinkets() > besttrinkets[timetriallevel] || besttrinkets[timetriallevel]==-1)
             {
-                besttrinkets[timetriallevel] = trinkets;
+                besttrinkets[timetriallevel] = trinkets();
             }
             if (deathcounts < bestlives[timetriallevel] || bestlives[timetriallevel]==-1)
             {
@@ -1949,12 +1949,12 @@ void Game::updatestate()
 
                 if(map.custommode)
                 {
-                    graphics.createtextbox(" " + help.number(trinkets) + " out of " + help.number(map.customtrinkets)+ " ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(map.customtrinkets)+ " ", 50, 65, 174, 174, 174);
                     graphics.textboxcenterx();
                 }
                 else
                 {
-                    graphics.createtextbox(" " + help.number(trinkets) + " out of Twenty ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox(" " + help.number(trinkets()) + " out of Twenty ", 50, 65, 174, 174, 174);
                     graphics.textboxcenterx();
                 }
             }
@@ -1967,12 +1967,12 @@ void Game::updatestate()
 
                 if(map.custommode)
                 {
-                    graphics.createtextbox(" " + help.number(trinkets) + " out of " + help.number(map.customtrinkets)+ " ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(map.customtrinkets)+ " ", 50, 135, 174, 174, 174);
                     graphics.textboxcenterx();
                 }
                 else
                 {
-                    graphics.createtextbox(" " + help.number(trinkets) + " out of Twenty ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox(" " + help.number(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
                     graphics.textboxcenterx();
                 }
             }
@@ -2090,7 +2090,7 @@ void Game::updatestate()
             if(map.customcrewmates-crewmates==0)
             {
                 //Finished level
-                if(map.customtrinkets-trinkets==0)
+                if(map.customtrinkets-trinkets()==0)
                 {
                     //and got all the trinkets!
                     updatecustomlevelstats(customlevelfilename, 3);
@@ -3121,7 +3121,7 @@ void Game::updatestate()
             state++;
             statedelay = 45;
 
-            std::string tempstring = help.number(trinkets);
+            std::string tempstring = help.number(trinkets());
             if (graphics.flipmode)
             {
                 graphics.createtextbox("Trinkets Found:", 48, 155-24, 0,0,0);
@@ -4731,7 +4731,6 @@ void Game::customstart()
     gravitycontrol = savegc;
 
     coins = 0;
-    trinkets = 0;
 
     //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
@@ -4758,7 +4757,6 @@ void Game::start()
     gravitycontrol = savegc;
 
     coins = 0;
-    trinkets = 0;
 
     //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
@@ -4856,7 +4854,6 @@ void Game::startspecial( int t )
     savepoint = 0;
     gravitycontrol = savegc;
     coins = 0;
-    trinkets = 0;
     state = 0;
     deathseq = -1;
     lifeseq = 0;
@@ -4929,7 +4926,6 @@ void Game::starttrial( int t )
     gravitycontrol = savegc;
 
     coins = 0;
-    trinkets = 0;
     crewmates = 0;
 
     //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
@@ -5069,10 +5065,6 @@ void Game::loadquick()
         else if (pKey == "savepoint")
         {
             savepoint = atoi(pText);
-        }
-        else if (pKey == "trinkets")
-        {
-            trinkets = atoi(pText);
         }
         else if (pKey == "companion")
         {
@@ -5342,10 +5334,6 @@ void Game::customloadquick(std::string savfile)
         else if (pKey == "savepoint")
         {
             savepoint = atoi(pText);
-        }
-        else if (pKey == "trinkets")
-        {
-            trinkets = atoi(pText);
         }
         else if (pKey == "crewmates")
         {
@@ -5727,7 +5715,7 @@ void Game::savetele()
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets()).c_str() ));
     msgs->LinkEndChild( msg );
 
 
@@ -5924,7 +5912,7 @@ void Game::savequick()
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets()).c_str() ));
     msgs->LinkEndChild( msg );
 
 
@@ -6132,7 +6120,7 @@ void Game::customsavequick(std::string savfile)
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "trinkets" );
-    msg->LinkEndChild( new TiXmlText( help.String(trinkets).c_str() ));
+    msg->LinkEndChild( new TiXmlText( help.String(trinkets()).c_str() ));
     msgs->LinkEndChild( msg );
 
     msg = new TiXmlElement( "crewmates" );
@@ -6376,10 +6364,6 @@ void Game::loadtele()
         else if (pKey == "savepoint")
         {
             savepoint = atoi(pText);
-        }
-        else if (pKey == "trinkets")
-        {
-            trinkets = atoi(pText);
         }
         else if (pKey == "companion")
         {
@@ -7669,4 +7653,9 @@ void Game::resetgameclock()
     minutes = 0;
     hours = 0;
     timerStartTime = SDL_GetTicks();
+}
+
+int Game::trinkets()
+{
+    return std::count(obj.collect.begin(), obj.collect.end(), 1);
 }
