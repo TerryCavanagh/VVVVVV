@@ -2117,7 +2117,7 @@ void mapinput()
 
             game.savetime = game.timestring();
             game.savearea = map.currentarea(map.area(game.roomx, game.roomy));
-            game.savetrinkets = game.trinkets;
+            game.savetrinkets = game.trinkets();
 
             if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = "The Ship";
 

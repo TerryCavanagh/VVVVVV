@@ -155,7 +155,7 @@ void scriptclass::run()
 			}
 			if (words[0] == "customiftrinkets")
 			{
-				if (game.trinkets >= ss_toi(words[1]))
+				if (game.trinkets() >= ss_toi(words[1]))
 				{
 					load("custom_"+words[2]);
 					position--;
@@ -163,7 +163,7 @@ void scriptclass::run()
 			}
 			if (words[0] == "customiftrinketsless")
 			{
-				if (game.trinkets < ss_toi(words[1]))
+				if (game.trinkets() < ss_toi(words[1]))
 				{
 					load("custom_"+words[2]);
 					position--;
@@ -1321,7 +1321,7 @@ void scriptclass::run()
 			}
 			else if (words[0] == "iftrinkets")
 			{
-				if (game.trinkets >= ss_toi(words[1]))
+				if (game.trinkets() >= ss_toi(words[1]))
 				{
 					load(words[2]);
 					position--;
@@ -1466,7 +1466,6 @@ void scriptclass::run()
 				i = obj.getplayer();
 				obj.entities[i].tile = 0;
 
-				game.trinkets = 0;
 				game.crewmates=0;
 				for (i = 0; i < 100; i++)
 				{
@@ -1879,7 +1878,6 @@ void scriptclass::run()
 				music.haltdasmusik();
 				music.playef(3);
 
-				game.trinkets++;
 				obj.collect[ss_toi(words[1])] = 1;
 
 				graphics.textboxremovefast();
@@ -1898,7 +1896,7 @@ void scriptclass::run()
 				{
 					usethisnum = "Twenty";
 				}
-				graphics.createtextbox(" " + help.number(game.trinkets) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
+				graphics.createtextbox(" " + help.number(game.trinkets()) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
 				graphics.textboxcenterx();
 
 				if (!game.backgroundtext)
@@ -2040,12 +2038,12 @@ void scriptclass::run()
 			}
 			else if (words[0] == "trinketbluecontrol")
 			{
-				if (game.trinkets == 20 && obj.flags[67] == 1)
+				if (game.trinkets() == 20 && obj.flags[67] == 1)
 				{
 					load("talkblue_trinket6");
 					position--;
 				}
-				else if (game.trinkets >= 19 && obj.flags[67] == 0)
+				else if (game.trinkets() >= 19 && obj.flags[67] == 0)
 				{
 					load("talkblue_trinket5");
 					position--;
@@ -2058,7 +2056,7 @@ void scriptclass::run()
 			}
 			else if (words[0] == "trinketyellowcontrol")
 			{
-				if (game.trinkets >= 19)
+				if (game.trinkets() >= 19)
 				{
 					load("talkyellow_trinket3");
 					position--;
@@ -2257,7 +2255,7 @@ void scriptclass::run()
 					else
 					{
 						//Ok, we've already dealt with the trinket thing; so either you have them all, or you don't. If you do:
-						if (game.trinkets >= 20)
+						if (game.trinkets() >= 20)
 						{
 							load("startepilogue");
 							position--;
@@ -2862,7 +2860,6 @@ void scriptclass::startgamemode( int t )
 				map.explored[i + (j * 20)] = 1;
 			}
 		}
-		game.trinkets = 20;
 		game.insecretlab = true;
 		map.showteleporters = true;
 
