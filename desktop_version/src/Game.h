@@ -222,12 +222,6 @@ public:
     bool fullscreen;
     int bestgamedeaths;
 
-    bool stat_screenshakes;
-    bool stat_backgrounds;
-    bool stat_flipmode;
-    bool stat_invincibility;
-    int stat_slowdown;
-
 
     std::vector<int>besttimes;
     std::vector<int>besttrinkets;
