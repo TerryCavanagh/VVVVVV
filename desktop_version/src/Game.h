@@ -240,7 +240,8 @@ public:
     int deathseq, lifeseq;
 
     int trinkets(), crewmates();
-    int savepoint, teleport, teleportxpos;
+    int savepoint, teleportxpos;
+    bool teleport;
     int edteleportent;
     bool completestop;
 
