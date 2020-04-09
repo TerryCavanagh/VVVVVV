@@ -2011,17 +2011,17 @@ void Game::updatestate()
                 graphics.addline("You have found a lost crewmate!");
                 graphics.textboxcenterx();
 
-                if(int(ed.numcrewmates-crewmates())==0)
+                if(ed.numcrewmates-crewmates()==0)
                 {
                     graphics.createtextbox("     All crewmates rescued!    ", 50, 65, 174, 174, 174);
                 }
                 else if(ed.numcrewmates-crewmates()==1)
                 {
-                    graphics.createtextbox("    " + help.number(int(ed.numcrewmates-crewmates()))+ " remains    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("    " + help.number(ed.numcrewmates-crewmates())+ " remains    ", 50, 65, 174, 174, 174);
                 }
                 else
                 {
-                    graphics.createtextbox("     " + help.number(int(ed.numcrewmates-crewmates()))+ " remain    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("     " + help.number(ed.numcrewmates-crewmates())+ " remain    ", 50, 65, 174, 174, 174);
                 }
                 graphics.textboxcenterx();
 
@@ -2033,17 +2033,17 @@ void Game::updatestate()
                 graphics.addline("You have found a lost crewmate!");
                 graphics.textboxcenterx();
 
-                if(int(ed.numcrewmates-crewmates())==0)
+                if(ed.numcrewmates-crewmates()==0)
                 {
                     graphics.createtextbox("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
                 }
                 else if(ed.numcrewmates-crewmates()==1)
                 {
-                    graphics.createtextbox("    " + help.number(int(ed.numcrewmates-crewmates()))+ " remains    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("    " + help.number(ed.numcrewmates-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
                 }
                 else
                 {
-                    graphics.createtextbox("     " + help.number(int(ed.numcrewmates-crewmates()))+ " remain    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("     " + help.number(ed.numcrewmates-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
                 }
                 graphics.textboxcenterx();
             }

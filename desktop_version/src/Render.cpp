@@ -2139,9 +2139,9 @@ void maprender()
                 graphics.Print( -1, 220-120, ed.ListOfMetaData[game.playcustomlevel].Desc3, 196, 196, 255 - help.glow, true);
 
                 if(ed.numcrewmates-game.crewmates()==1){
-                    graphics.Print(1,220-165, help.number(int(ed.numcrewmates-game.crewmates()))+ " crewmate remains", 196, 196, 255 - help.glow, true);
+                    graphics.Print(1,220-165, help.number(ed.numcrewmates-game.crewmates())+ " crewmate remains", 196, 196, 255 - help.glow, true);
                 }else if(ed.numcrewmates-game.crewmates()>0){
-                    graphics.Print(1,220-165, help.number(int(ed.numcrewmates-game.crewmates()))+ " crewmates remain", 196, 196, 255 - help.glow, true);
+                    graphics.Print(1,220-165, help.number(ed.numcrewmates-game.crewmates())+ " crewmates remain", 196, 196, 255 - help.glow, true);
                 }
             }
             else
@@ -2154,9 +2154,9 @@ void maprender()
                 graphics.Print( -1, 120, ed.ListOfMetaData[game.playcustomlevel].Desc3, 196, 196, 255 - help.glow, true);
 
                 if(ed.numcrewmates-game.crewmates()==1){
-                    graphics.Print(1,165, help.number(int(ed.numcrewmates-game.crewmates()))+ " crewmate remains", 196, 196, 255 - help.glow, true);
+                    graphics.Print(1,165, help.number(ed.numcrewmates-game.crewmates())+ " crewmate remains", 196, 196, 255 - help.glow, true);
                 }else if(ed.numcrewmates-game.crewmates()>0){
-                    graphics.Print(1,165, help.number(int(ed.numcrewmates-game.crewmates()))+ " crewmates remain", 196, 196, 255 - help.glow, true);
+                    graphics.Print(1,165, help.number(ed.numcrewmates-game.crewmates())+ " crewmates remain", 196, 196, 255 - help.glow, true);
                 }
             }
         }
