@@ -2498,7 +2498,6 @@ void entityclass::updateentities( int i )
             //wait for collision
             if (entities[i].state == 1)
             {
-                game.coins++;
                 music.playef(4);
                 collect[entities[i].para] = 1;
 
