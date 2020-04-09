@@ -186,7 +186,7 @@ public:
     std::vector<blockclass> blocks;
     std::vector<bool> flags;
     std::vector<bool> collect;
-    std::vector<int> customcollect;
+    std::vector<bool> customcollect;
 
     bool skipblocks, skipdirblocks;
 
