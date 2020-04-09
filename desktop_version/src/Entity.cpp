@@ -94,12 +94,6 @@ void entityclass::confirmflags()
     }
 }
 
-void entityclass::changecollect( int t, int s )
-{
-    collect[t] = s;
-}
-
-
 void entityclass::changecustomcollect( int t, int s )
 {
     collect[t] = s;
