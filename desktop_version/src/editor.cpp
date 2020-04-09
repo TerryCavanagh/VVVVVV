@@ -1618,10 +1618,6 @@ int editorclass::findwarptoken(int t)
     return 0;
 }
 
-void editorclass::countstuff()
-{
-}
-
 void editorclass::load(std::string& _path)
 {
     reset();
@@ -1846,7 +1842,6 @@ void editorclass::load(std::string& _path)
     }
 
     gethooks();
-    countstuff();
     version=2;
 }
 
