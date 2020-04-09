@@ -1415,7 +1415,7 @@ std::vector<std::string> otherlevelclass::loadlevel(int rx, int ry)
 			obj.createentity(136, 80, 22, 18);  // (shiny trinket)
 			obj.createentity(136, 32, 22, 19);  // (shiny trinket)
 
-			if(!game.nocutscenes && obj.flags[70]==0)
+			if(!game.nocutscenes && !obj.flags[70])
 			{
 				obj.createblock(1, 304, 0, 16, 240, 48);
 			}

@@ -977,7 +977,7 @@ std::vector<std::string> warpclass::loadlevel(int rx, int ry)
 
 		if(!game.intimetrial)
 		{
-			if(game.companion==0 && obj.flags[11]==0 && !game.crewstats[4])   //also need to check if he's rescued in a previous game
+			if(game.companion==0 && !obj.flags[11] && !game.crewstats[4])   //also need to check if he's rescued in a previous game
 			{
 				obj.createentity(255, 121, 15, 0);
 				obj.createblock(1, 215, 0, 160, 240, 35);

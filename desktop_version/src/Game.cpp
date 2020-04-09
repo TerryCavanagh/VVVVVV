@@ -728,9 +728,9 @@ void Game::updatestate()
         case 8:
             //Enter dialogue
             obj.removetrigger(8);
-            if (obj.flags[13] == 0)
+            if (!obj.flags[13])
             {
-                obj.changeflag(13, 1);
+                obj.changeflag(13, true);
                 graphics.createtextbox("  Press ENTER to view map  ", -1, 155, 174, 174, 174);
                 graphics.addline("      and quicksave");
                 graphics.textboxtimer(60);
@@ -830,9 +830,9 @@ void Game::updatestate()
         case 12:
             //Intermission 1 instructional textbox, depends on last saved
             obj.removetrigger(12);
-            if (obj.flags[61] == 0)
+            if (!obj.flags[61])
             {
-                obj.changeflag(61, 1);
+                obj.changeflag(61, true);
                 graphics.textboxremovefast();
                 graphics.createtextbox("  You can't continue to the next   ", -1, 8, 174, 174, 174);
                 if (lastsaved == 5)
@@ -909,28 +909,28 @@ void Game::updatestate()
             break;
 
         case 20:
-            if (obj.flags[1] == 0)
+            if (!obj.flags[1])
             {
-                obj.changeflag(1, 1);
+                obj.changeflag(1, true);
                 state = 0;
                 graphics.textboxremove();
             }
             obj.removetrigger(20);
             break;
         case 21:
-            if (obj.flags[2] == 0)
+            if (!obj.flags[2])
             {
-                obj.changeflag(2, 1);
+                obj.changeflag(2, true);
                 state = 0;
                 graphics.textboxremove();
             }
             obj.removetrigger(21);
             break;
         case 22:
-            if (obj.flags[3] == 0)
+            if (!obj.flags[3])
             {
                 graphics.textboxremovefast();
-                obj.changeflag(3, 1);
+                obj.changeflag(3, true);
                 state = 0;
                 graphics.createtextbox("  Press ACTION to flip  ", -1, 25, 174, 174, 174);
                 graphics.textboxtimer(60);
@@ -940,9 +940,9 @@ void Game::updatestate()
 
         case 30:
             //Generic "run script"
-            if (obj.flags[4] == 0)
+            if (!obj.flags[4])
             {
-                obj.changeflag(4, 1);
+                obj.changeflag(4, true);
                 startscript = true;
                 newscript="firststeps";
                 state = 0;
@@ -954,11 +954,11 @@ void Game::updatestate()
             //state = 55;  statedelay = 50;
             state = 0;
             statedelay = 0;
-            if (obj.flags[6] == 0)
+            if (!obj.flags[6])
             {
-                obj.changeflag(6, 1);
+                obj.changeflag(6, true);
 
-                obj.changeflag(5, 1);
+                obj.changeflag(5, true);
                 startscript = true;
                 newscript="communicationstation";
                 state = 0;
@@ -968,9 +968,9 @@ void Game::updatestate()
             break;
         case 32:
             //Generic "run script"
-            if (obj.flags[7] == 0)
+            if (!obj.flags[7])
             {
-                obj.changeflag(7, 1);
+                obj.changeflag(7, true);
                 startscript = true;
                 newscript="teleporterback";
                 state = 0;
@@ -980,9 +980,9 @@ void Game::updatestate()
             break;
         case 33:
             //Generic "run script"
-            if (obj.flags[9] == 0)
+            if (!obj.flags[9])
             {
-                obj.changeflag(9, 1);
+                obj.changeflag(9, true);
                 startscript = true;
                 newscript="rescueblue";
                 state = 0;
@@ -992,9 +992,9 @@ void Game::updatestate()
             break;
         case 34:
             //Generic "run script"
-            if (obj.flags[10] == 0)
+            if (!obj.flags[10])
             {
-                obj.changeflag(10, 1);
+                obj.changeflag(10, true);
                 startscript = true;
                 newscript="rescueyellow";
                 state = 0;
@@ -1004,9 +1004,9 @@ void Game::updatestate()
             break;
         case 35:
             //Generic "run script"
-            if (obj.flags[11] == 0)
+            if (!obj.flags[11])
             {
-                obj.changeflag(11, 1);
+                obj.changeflag(11, true);
                 startscript = true;
                 newscript="rescuegreen";
                 state = 0;
@@ -1016,9 +1016,9 @@ void Game::updatestate()
             break;
         case 36:
             //Generic "run script"
-            if (obj.flags[8] == 0)
+            if (!obj.flags[8])
             {
-                obj.changeflag(8, 1);
+                obj.changeflag(8, true);
                 startscript = true;
                 newscript="rescuered";
                 state = 0;
@@ -1074,9 +1074,9 @@ void Game::updatestate()
 
         case 41:
             //Generic "run script"
-            if (obj.flags[60] == 0)
+            if (!obj.flags[60])
             {
-                obj.changeflag(60, 1);
+                obj.changeflag(60, true);
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1101,9 +1101,9 @@ void Game::updatestate()
             break;
         case 42:
             //Generic "run script"
-            if (obj.flags[62] == 0)
+            if (!obj.flags[62])
             {
-                obj.changeflag(62, 1);
+                obj.changeflag(62, true);
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1128,9 +1128,9 @@ void Game::updatestate()
             break;
         case 43:
             //Generic "run script"
-            if (obj.flags[63] == 0)
+            if (!obj.flags[63])
             {
-                obj.changeflag(63, 1);
+                obj.changeflag(63, true);
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1155,9 +1155,9 @@ void Game::updatestate()
             break;
         case 44:
             //Generic "run script"
-            if (obj.flags[64] == 0)
+            if (!obj.flags[64])
             {
-                obj.changeflag(64, 1);
+                obj.changeflag(64, true);
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1182,9 +1182,9 @@ void Game::updatestate()
             break;
         case 45:
             //Generic "run script"
-            if (obj.flags[65] == 0)
+            if (!obj.flags[65])
             {
-                obj.changeflag(65, 1);
+                obj.changeflag(65, true);
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1209,9 +1209,9 @@ void Game::updatestate()
             break;
         case 46:
             //Generic "run script"
-            if (obj.flags[66] == 0)
+            if (!obj.flags[66])
             {
-                obj.changeflag(66, 1);
+                obj.changeflag(66, true);
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1237,9 +1237,9 @@ void Game::updatestate()
 
         case 47:
             //Generic "run script"
-            if (obj.flags[69] == 0)
+            if (!obj.flags[69])
             {
-                obj.changeflag(69, 1);
+                obj.changeflag(69, true);
                 startscript = true;
                 newscript="trenchwarfare";
                 state = 0;
@@ -1249,9 +1249,9 @@ void Game::updatestate()
             break;
         case 48:
             //Generic "run script"
-            if (obj.flags[70] == 0)
+            if (!obj.flags[70])
             {
-                obj.changeflag(70, 1);
+                obj.changeflag(70, true);
                 startscript = true;
                 newscript="trinketcollector";
                 state = 0;
@@ -1261,9 +1261,9 @@ void Game::updatestate()
             break;
         case 49:
             //Start final level music
-            if (obj.flags[71] == 0)
+            if (!obj.flags[71])
             {
-                obj.changeflag(71, 1);
+                obj.changeflag(71, true);
                 music.niceplay(15);  //Final level remix
                 state = 0;
             }
@@ -1404,7 +1404,7 @@ void Game::updatestate()
             state++;
             music.playef(9);
             music.play(2);
-            obj.flags[72] = 1;
+            obj.flags[72] = true;
 
             screenshake = 10;
             flashlight = 5;
@@ -1480,9 +1480,9 @@ void Game::updatestate()
             //                       Meeting crewmate in the warpzone
             //
             obj.removetrigger(100);
-            if (obj.flags[4] == 0)
+            if (!obj.flags[4])
             {
-                obj.changeflag(4, 1);
+                obj.changeflag(4, true);
                 state++;
             }
             break;
@@ -1599,9 +1599,9 @@ void Game::updatestate()
             //                       Meeting crewmate in the space station
             //
             obj.removetrigger(120);
-            if (obj.flags[5] == 0)
+            if (!obj.flags[5])
             {
-                obj.changeflag(5, 1);
+                obj.changeflag(5, true);
                 state++;
             }
             break;
@@ -1679,7 +1679,7 @@ void Game::updatestate()
             state++;
             music.playef(9);
             //music.play(2);
-            obj.flags[72] = 1;
+            obj.flags[72] = true;
 
             screenshake = 10;
             flashlight = 5;
@@ -2912,27 +2912,27 @@ void Game::updatestate()
             //change depending on when they get back to the ship.
             if (lastsaved == 2)
             {
-                if (crewstats[3]) obj.flags[25] = 1;
-                if (crewstats[4]) obj.flags[26] = 1;
-                if (crewstats[5]) obj.flags[24] = 1;
+                if (crewstats[3]) obj.flags[25] = true;
+                if (crewstats[4]) obj.flags[26] = true;
+                if (crewstats[5]) obj.flags[24] = true;
             }
             else if (lastsaved == 3)
             {
-                if (crewstats[2]) obj.flags[50] = 1;
-                if (crewstats[4]) obj.flags[49] = 1;
-                if (crewstats[5]) obj.flags[48] = 1;
+                if (crewstats[2]) obj.flags[50] = true;
+                if (crewstats[4]) obj.flags[49] = true;
+                if (crewstats[5]) obj.flags[48] = true;
             }
             else if (lastsaved == 4)
             {
-                if (crewstats[2]) obj.flags[54] = 1;
-                if (crewstats[3]) obj.flags[55] = 1;
-                if (crewstats[5]) obj.flags[56] = 1;
+                if (crewstats[2]) obj.flags[54] = true;
+                if (crewstats[3]) obj.flags[55] = true;
+                if (crewstats[5]) obj.flags[56] = true;
             }
             else if (lastsaved == 5)
             {
-                if (crewstats[2]) obj.flags[37] = 1;
-                if (crewstats[3]) obj.flags[38] = 1;
-                if (crewstats[4]) obj.flags[39] = 1;
+                if (crewstats[2]) obj.flags[37] = true;
+                if (crewstats[3]) obj.flags[38] = true;
+                if (crewstats[4]) obj.flags[39] = true;
             }
             //We're pitch black now, make a decision
             companion = 0;
@@ -2950,22 +2950,22 @@ void Game::updatestate()
 
                 startscript = true;
                 newscript = "intermission_1";
-                obj.flags[19] = 1;
-                if (lastsaved == 2) obj.flags[32] = 1;
-                if (lastsaved == 3) obj.flags[35] = 1;
-                if (lastsaved == 4) obj.flags[34] = 1;
-                if (lastsaved == 5) obj.flags[33] = 1;
+                obj.flags[19] = true;
+                if (lastsaved == 2) obj.flags[32] = true;
+                if (lastsaved == 3) obj.flags[35] = true;
+                if (lastsaved == 4) obj.flags[34] = true;
+                if (lastsaved == 5) obj.flags[33] = true;
                 state = 0;
             }
             else if (crewrescued() == 5)
             {
                 startscript = true;
                 newscript = "intermission_2";
-                obj.flags[20] = 1;
-                if (lastsaved == 2) obj.flags[32] = 1;
-                if (lastsaved == 3) obj.flags[35] = 1;
-                if (lastsaved == 4) obj.flags[34] = 1;
-                if (lastsaved == 5) obj.flags[33] = 1;
+                obj.flags[20] = true;
+                if (lastsaved == 2) obj.flags[32] = true;
+                if (lastsaved == 3) obj.flags[35] = true;
+                if (lastsaved == 4) obj.flags[34] = true;
+                if (lastsaved == 5) obj.flags[33] = true;
                 state = 0;
             }
             else
@@ -3222,7 +3222,7 @@ void Game::updatestate()
             break;
         case 3510:
             //Save stats and stuff here
-            if (obj.flags[73] == 0)
+            if (!obj.flags[73])
             {
                 //flip mode complete
                 NETWORK_unlockAchievement("vvvvvvgamecompleteflip");
@@ -3276,7 +3276,7 @@ void Game::updatestate()
             i = obj.getplayer();
             obj.entities[i].colour = 102;
 
-            obj.flags[67] = 1;
+            obj.flags[67] = true;
 
             state++;
             statedelay = 30;
@@ -4975,7 +4975,7 @@ void Game::loadquick()
                 obj.flags.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    obj.flags.push_back(atoi(values[i].c_str()));
+                    obj.flags.push_back((bool) atoi(values[i].c_str()));
                 }
             }
         }
@@ -5132,8 +5132,8 @@ void Game::loadquick()
     }
 
     map.showteleporters = true;
-    if(obj.flags[12]==1) map.showtargets = true;
-    if (obj.flags[42] == 1) map.showtrinkets = true;
+    if(obj.flags[12]) map.showtargets = true;
+    if (obj.flags[42]) map.showtrinkets = true;
 
 
 }
@@ -5193,7 +5193,7 @@ void Game::customloadquick(std::string savfile)
                 obj.flags.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    obj.flags.push_back(atoi(values[i].c_str()));
+                    obj.flags.push_back((bool) atoi(values[i].c_str()));
                 }
             }
         }
@@ -5382,8 +5382,8 @@ void Game::customloadquick(std::string savfile)
     }
 
     map.showteleporters = true;
-    if(obj.flags[12]==1) map.showtargets = true;
-    if (obj.flags[42] == 1) map.showtrinkets = true;
+    if(obj.flags[12]) map.showtargets = true;
+    if (obj.flags[42]) map.showtrinkets = true;
 
 }
 
@@ -5626,7 +5626,7 @@ void Game::savetele()
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += help.String(obj.flags[i]) + ",";
+        flags += help.String((int) obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -5823,7 +5823,7 @@ void Game::savequick()
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += help.String(obj.flags[i]) + ",";
+        flags += help.String((int) obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -6013,7 +6013,7 @@ void Game::customsavequick(std::string savfile)
     std::string flags;
     for(size_t i = 0; i < obj.flags.size(); i++ )
     {
-        flags += help.String(obj.flags[i]) + ",";
+        flags += help.String((int) obj.flags[i]) + ",";
     }
     msg = new TiXmlElement( "flags" );
     msg->LinkEndChild( new TiXmlText( flags.c_str() ));
@@ -6246,7 +6246,7 @@ void Game::loadtele()
                 obj.flags.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    obj.flags.push_back(atoi(values[i].c_str()));
+                    obj.flags.push_back((bool) atoi(values[i].c_str()));
                 }
             }
         }
@@ -6404,8 +6404,8 @@ void Game::loadtele()
     }
 
     map.showteleporters = true;
-    if(obj.flags[12]==1) map.showtargets = true;
-    if (obj.flags[42] == 1) map.showtrinkets = true;
+    if(obj.flags[12]) map.showtargets = true;
+    if (obj.flags[42]) map.showtrinkets = true;
 }
 
 std::string Game::unrescued()

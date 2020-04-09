@@ -1795,7 +1795,7 @@ void maprender()
         {
             graphics.Print(103, 220, "GRAV", 64, 64, 64);
         }
-        else if (obj.flags[67] == 1 && !map.custommode)
+        else if (obj.flags[67] && !map.custommode)
         {
             graphics.Print(103, 220, "SHIP", 64,64,64);
         }
@@ -2113,7 +2113,7 @@ void maprender()
                 }
             }
         }
-        else if (obj.flags[67] == 1 && !map.custommode)
+        else if (obj.flags[67] && !map.custommode)
         {
             graphics.Print(30, 220, "MAP", 64,64,64);
             graphics.Print(103-8, 220, "[SHIP]", 196, 196, 255 - help.glow);
@@ -2234,7 +2234,7 @@ void maprender()
         {
             graphics.Print(103, 220, "GRAV", 64, 64, 64);
         }
-        else if (obj.flags[67] == 1 && !map.custommode)
+        else if (obj.flags[67] && !map.custommode)
         {
             graphics.Print(103, 220, "SHIP", 64,64,64);
         }
@@ -2304,7 +2304,7 @@ void maprender()
         {
             graphics.Print(103, 220, "GRAV", 64, 64, 64);
         }
-        else if (obj.flags[67] == 1 && !map.custommode)
+        else if (obj.flags[67] && !map.custommode)
         {
             graphics.Print(103, 220, "SHIP", 64,64,64);
         }

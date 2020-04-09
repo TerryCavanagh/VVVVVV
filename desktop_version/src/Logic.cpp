@@ -1333,7 +1333,7 @@ void gamelogic()
                 //intermission 2, choose colour based on lastsaved
                 if (game.roomy == 51)
                 {
-                    if (obj.flags[59] == 0)
+                    if (!obj.flags[59])
                     {
                         obj.createentity(225.0f, 169.0f, 18, graphics.crewcolour(game.lastsaved), 0, 10);
                         j = obj.getcompanion();
@@ -1343,7 +1343,7 @@ void gamelogic()
                 }
                 else	if (game.roomy >= 52)
                 {
-                    if (obj.flags[59] == 1)
+                    if (obj.flags[59])
                     {
                         obj.createentity(160.0f, 177.0f, 18, graphics.crewcolour(game.lastsaved), 0, 18, 1);
                         j = obj.getcompanion();
@@ -1352,7 +1352,7 @@ void gamelogic()
                     }
                     else
                     {
-                        obj.flags[59] = 1;
+                        obj.flags[59] = true;
                         obj.createentity(obj.entities[i].xp, -20.0f, 18.0f, graphics.crewcolour(game.lastsaved), 0, 10, 0);
                         j = obj.getcompanion();
                         obj.entities[j].vx = obj.entities[i].vx;
