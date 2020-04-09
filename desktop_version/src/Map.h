@@ -134,7 +134,6 @@ public:
     bool custommodeforreal;
     int customx, customy;
     int customwidth, customheight;
-    int customcrewmates;
     int custommmxoff, custommmyoff, custommmxsize, custommmysize;
     int customzoom;
     bool customshowmm;

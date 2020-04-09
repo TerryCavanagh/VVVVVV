@@ -1731,8 +1731,6 @@ void mapclass::loadlevel(int rx, int ry)
 			}
 			}
 
-		customcrewmates=ed.numcrewmates;
-
 		//do the appear/remove roomname here
 		break;
 #endif

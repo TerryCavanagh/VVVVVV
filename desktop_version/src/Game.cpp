@@ -1992,6 +1992,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             break;
+#if !defined(NO_CUSTOM_LEVELS)
         case 1011:
             //Found a crewmate!
             advancetext = true;
@@ -2003,17 +2004,17 @@ void Game::updatestate()
                 graphics.addline("You have found a lost crewmate!");
                 graphics.textboxcenterx();
 
-                if(int(map.customcrewmates-crewmates())==0)
+                if(int(ed.numcrewmates-crewmates())==0)
                 {
                     graphics.createtextbox("     All crewmates rescued!    ", 50, 65, 174, 174, 174);
                 }
-                else if(map.customcrewmates-crewmates()==1)
+                else if(ed.numcrewmates-crewmates()==1)
                 {
-                    graphics.createtextbox("    " + help.number(int(map.customcrewmates-crewmates()))+ " remains    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("    " + help.number(int(ed.numcrewmates-crewmates()))+ " remains    ", 50, 65, 174, 174, 174);
                 }
                 else
                 {
-                    graphics.createtextbox("     " + help.number(int(map.customcrewmates-crewmates()))+ " remain    ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox("     " + help.number(int(ed.numcrewmates-crewmates()))+ " remain    ", 50, 65, 174, 174, 174);
                 }
                 graphics.textboxcenterx();
 
@@ -2025,22 +2026,21 @@ void Game::updatestate()
                 graphics.addline("You have found a lost crewmate!");
                 graphics.textboxcenterx();
 
-                if(int(map.customcrewmates-crewmates())==0)
+                if(int(ed.numcrewmates-crewmates())==0)
                 {
                     graphics.createtextbox("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
                 }
-                else if(map.customcrewmates-crewmates()==1)
+                else if(ed.numcrewmates-crewmates()==1)
                 {
-                    graphics.createtextbox("    " + help.number(int(map.customcrewmates-crewmates()))+ " remains    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("    " + help.number(int(ed.numcrewmates-crewmates()))+ " remains    ", 50, 135, 174, 174, 174);
                 }
                 else
                 {
-                    graphics.createtextbox("     " + help.number(int(map.customcrewmates-crewmates()))+ " remain    ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox("     " + help.number(int(ed.numcrewmates-crewmates()))+ " remain    ", 50, 135, 174, 174, 174);
                 }
                 graphics.textboxcenterx();
             }
             break;
-#if !defined(NO_CUSTOM_LEVELS)
         case 1013:
             graphics.textboxremove();
             hascontrol = true;
@@ -2048,7 +2048,7 @@ void Game::updatestate()
             completestop = false;
             state = 0;
 
-            if(map.customcrewmates-crewmates()==0)
+            if(ed.numcrewmates-crewmates()==0)
             {
                 if(map.custommodeforreal)
                 {
@@ -2083,10 +2083,10 @@ void Game::updatestate()
             music.play(6);
             graphics.backgrounddrawn = true;
             map.tdrawback = true;
-            //Update level stats
-            if(map.customcrewmates-crewmates()==0)
-            {
 #if !defined(NO_CUSTOM_LEVELS)
+            //Update level stats
+            if(ed.numcrewmates-crewmates()==0)
+            {
                 //Finished level
                 if(ed.numtrinkets-trinkets()==0)
                 {
@@ -2094,11 +2094,11 @@ void Game::updatestate()
                     updatecustomlevelstats(customlevelfilename, 3);
                 }
                 else
-#endif
                 {
                     updatecustomlevelstats(customlevelfilename, 1);
                 }
             }
+#endif
             createmenu("levellist");
             state = 0;
             break;
