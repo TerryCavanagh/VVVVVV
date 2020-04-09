@@ -7604,7 +7604,15 @@ void Game::swnpenalty()
 
 int Game::crewrescued()
 {
-    return std::count(crewstats.begin(), crewstats.end(), true);
+    int temp = 0;
+    for (size_t i = 0; i < crewstats.size(); i++)
+    {
+        if (crewstats[i])
+        {
+            temp++;
+        }
+    }
+    return temp;
 }
 
 void Game::resetgameclock()
