@@ -42,7 +42,6 @@ mapclass::mapclass()
 
 	custommode=false;
 	custommodeforreal=false;
-	customtrinkets=0;
 	customx=0; customy=0;
 	customwidth=20; customheight=20;
 	custommmxoff=0; custommmyoff=0; custommmxsize=0; custommmysize=0;
@@ -1732,7 +1731,6 @@ void mapclass::loadlevel(int rx, int ry)
 			}
 			}
 
-		customtrinkets=ed.numtrinkets;
 		customcrewmates=ed.numcrewmates;
 
 		//do the appear/remove roomname here

@@ -1947,12 +1947,14 @@ void Game::updatestate()
                 graphics.addline("You have found a shiny trinket!");
                 graphics.textboxcenterx();
 
+#if !defined(NO_CUSTOM_LEVELS)
                 if(map.custommode)
                 {
-                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(map.customtrinkets)+ " ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets)+ " ", 50, 65, 174, 174, 174);
                     graphics.textboxcenterx();
                 }
                 else
+#endif
                 {
                     graphics.createtextbox(" " + help.number(trinkets()) + " out of Twenty ", 50, 65, 174, 174, 174);
                     graphics.textboxcenterx();
@@ -1965,12 +1967,14 @@ void Game::updatestate()
                 graphics.addline("You have found a shiny trinket!");
                 graphics.textboxcenterx();
 
+#if !defined(NO_CUSTOM_LEVELS)
                 if(map.custommode)
                 {
-                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(map.customtrinkets)+ " ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets)+ " ", 50, 135, 174, 174, 174);
                     graphics.textboxcenterx();
                 }
                 else
+#endif
                 {
                     graphics.createtextbox(" " + help.number(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
                     graphics.textboxcenterx();
@@ -2089,13 +2093,15 @@ void Game::updatestate()
             //Update level stats
             if(map.customcrewmates-crewmates()==0)
             {
+#if !defined(NO_CUSTOM_LEVELS)
                 //Finished level
-                if(map.customtrinkets-trinkets()==0)
+                if(ed.numtrinkets-trinkets()==0)
                 {
                     //and got all the trinkets!
                     updatecustomlevelstats(customlevelfilename, 3);
                 }
                 else
+#endif
                 {
                     updatecustomlevelstats(customlevelfilename, 1);
                 }
