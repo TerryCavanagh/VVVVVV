@@ -1368,7 +1368,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (collect[vx] == 1) return;
+        if (collect[vx]) return;
         break;
     case 9: //Something Shiny
         entity.rule = 3;
@@ -1385,7 +1385,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (collect[vx] == 1) return;
+        if (collect[vx]) return;
         break;
     case 10: //Savepoint
         entity.rule = 3;
@@ -1607,7 +1607,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (collect[ (vx)] == 0) return;
+        if (!collect[ (vx)]) return;
         break;
     case 23: //SWN Enemies
         //Given a different behavior, these enemies are especially for SWN mode and disappear outside the screen.
@@ -2467,7 +2467,7 @@ void entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 music.playef(4);
-                collect[entities[i].para] = 1;
+                collect[entities[i].para] = true;
 
                 removeentity(i);
             }
@@ -2478,7 +2478,7 @@ void entityclass::updateentities( int i )
             {
                 if (game.intimetrial)
                 {
-                    collect[entities[i].para] = 1;
+                    collect[entities[i].para] = true;
                     music.playef(25);
                 }
                 else
@@ -2486,7 +2486,7 @@ void entityclass::updateentities( int i )
                     game.state = 1000;
                     if(music.currentsong!=-1) music.silencedasmusik();
                     music.playef(3);
-                    collect[entities[i].para] = 1;
+                    collect[entities[i].para] = true;
                     if (game.trinkets() > game.stat_trinkets && !map.custommode)
                     {
                         game.stat_trinkets = game.trinkets();

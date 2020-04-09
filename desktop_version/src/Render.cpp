@@ -2028,7 +2028,7 @@ void maprender()
             {
                 for (int i = 0; i < map.numshinytrinkets; i++)
                 {
-                    if (obj.collect[i] == 0)
+                    if (!obj.collect[i])
                     {
                         int temp = 1086;
                         if (graphics.flipmode) temp += 3;
@@ -2839,7 +2839,7 @@ void teleporterrender()
     {
         for (int i = 0; i < map.numshinytrinkets; i++)
         {
-            if (obj.collect[i] == 0)
+            if (!obj.collect[i])
             {
                 temp = 1086;
                 if (graphics.flipmode) temp += 3;

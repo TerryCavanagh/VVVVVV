@@ -1468,7 +1468,7 @@ void scriptclass::run()
 
 				for (i = 0; i < 100; i++)
 				{
-					obj.collect[i] = 0;
+					obj.collect[i] = false;
 					obj.customcollect[i] = 0;
 				}
 				game.deathcounts = 0;
@@ -1877,7 +1877,7 @@ void scriptclass::run()
 				music.haltdasmusik();
 				music.playef(3);
 
-				obj.collect[ss_toi(words[1])] = 1;
+				obj.collect[ss_toi(words[1])] = true;
 
 				graphics.textboxremovefast();
 
@@ -3560,7 +3560,7 @@ void scriptclass::hardreset()
 
 	for (i = 0; i < 100; i++)
 	{
-		obj.collect[i] = 0;
+		obj.collect[i] = false;
 		obj.customcollect[i] = 0;
 	}
 
