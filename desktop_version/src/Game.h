@@ -216,8 +216,6 @@ public:
 
     std::vector<int> unlock;
     std::vector<int> unlocknotify;
-    std::vector<int> temp_unlock;
-    std::vector<int> temp_unlocknotify;
     int stat_trinkets;
     bool fullscreen;
     int bestgamedeaths;
