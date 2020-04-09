@@ -78,14 +78,6 @@ void entityclass::resetallflags()
     }
 }
 
-void entityclass::confirmflags()
-{
-    for (int i = 0; i < 100; i++)
-    {
-        if (flags[i] == 2) flags[i] = 1;
-    }
-}
-
 int entityclass::swncolour( int t )
 {
     //given colour t, return colour in setcol
