@@ -5010,7 +5010,7 @@ void Game::loadquick()
                 obj.collect.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    obj.collect.push_back(atoi(values[i].c_str()));
+                    obj.collect.push_back((bool) atoi(values[i].c_str()));
                 }
             }
         }
@@ -5250,7 +5250,7 @@ void Game::customloadquick(std::string savfile)
                 obj.collect.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    obj.collect.push_back(atoi(values[i].c_str()));
+                    obj.collect.push_back((bool) atoi(values[i].c_str()));
                 }
             }
         }
@@ -5660,7 +5660,7 @@ void Game::savetele()
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += help.String(obj.collect[i]) + ",";
+        collect += help.String((int) obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
@@ -5857,7 +5857,7 @@ void Game::savequick()
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += help.String(obj.collect[i]) + ",";
+        collect += help.String((int) obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
@@ -6056,7 +6056,7 @@ void Game::customsavequick(std::string savfile)
     std::string collect;
     for(size_t i = 0; i < obj.collect.size(); i++ )
     {
-        collect += help.String(obj.collect[i]) + ",";
+        collect += help.String((int) obj.collect[i]) + ",";
     }
     msg = new TiXmlElement( "collect" );
     msg->LinkEndChild( new TiXmlText( collect.c_str() ));
@@ -6290,7 +6290,7 @@ void Game::loadtele()
                 obj.collect.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    obj.collect.push_back(atoi(values[i].c_str()));
+                    obj.collect.push_back((bool) atoi(values[i].c_str()));
                 }
             }
         }
@@ -7633,7 +7633,7 @@ void Game::resetgameclock()
 
 int Game::trinkets()
 {
-    return std::count(obj.collect.begin(), obj.collect.end(), 1);
+    return std::count(obj.collect.begin(), obj.collect.end(), true);
 }
 
 int Game::crewmates()
