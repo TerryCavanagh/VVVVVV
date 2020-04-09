@@ -373,6 +373,13 @@ void Game::init(void)
 
     skipfakeload = false;
 
+    cliplaytest = false;
+    playx = 0;
+    playy = 0;
+    playrx = 0;
+    playry = 0;
+    playgc = 0;
+
     /* Terry's Patrons... */
     superpatrons.push_back("Anders Ekermo");
     superpatrons.push_back("Andreas K|mper");
@@ -5154,6 +5161,15 @@ void Game::loadquick()
 
 void Game::customloadquick(std::string savfile)
 {
+    if (cliplaytest) {
+        savex = playx;
+        savey = savey;
+        saverx = playrx;
+        savery = playry;
+        savegc = playgc;
+        return;
+    }
+
     std::string levelfile = savfile.substr(7);
     TiXmlDocument doc;
     if (!FILESYSTEM_loadTiXmlDocument(("saves/"+levelfile+".vvv").c_str(), &doc)) return;

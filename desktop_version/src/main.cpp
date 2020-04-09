@@ -44,6 +44,17 @@ KeyPoll key;
 mapclass map;
 entityclass obj;
 
+bool startinplaytest = false;
+bool savefileplaytest = false;
+int savex = 0;
+int savey = 0;
+int saverx = 0;
+int savery = 0;
+int savegc = 0;
+int savemusic = 0;
+
+std::string playtestname;
+
 int main(int argc, char *argv[])
 {
     char* baseDir = NULL;
@@ -59,6 +70,40 @@ int main(int argc, char *argv[])
         } else if (strcmp(argv[i], "-assets") == 0) {
             ++i;
             assetsPath = argv[i];
+        } else if (strcmp(argv[i], "-playing") == 0 || strcmp(argv[i], "-p") == 0) {
+            if (i + 1 < argc) {
+                startinplaytest = true;
+                i++;
+                playtestname = std::string("levels/");
+                playtestname.append(argv[i]);
+                playtestname.append(std::string(".vvvvvv"));
+            } else {
+                printf("-playing option requires one argument.\n");
+                return 1;
+            }
+        } else if (strcmp(argv[i], "-playx") == 0 ||
+                strcmp(argv[i], "-playy") == 0 ||
+                strcmp(argv[i], "-playrx") == 0 ||
+                strcmp(argv[i], "-playry") == 0 ||
+                strcmp(argv[i], "-playgc") == 0 ||
+                strcmp(argv[i], "-playmusic") == 0) {
+            if (i + 1 < argc) {
+                savefileplaytest = true;
+                int v = std::atoi(argv[i+1]);
+                if (strcmp(argv[i], "-playx") == 0) savex = v;
+                else if (strcmp(argv[i], "-playy") == 0) savey = v;
+                else if (strcmp(argv[i], "-playrx") == 0) saverx = v;
+                else if (strcmp(argv[i], "-playry") == 0) savery = v;
+                else if (strcmp(argv[i], "-playgc") == 0) savegc = v;
+                else if (strcmp(argv[i], "-playmusic") == 0) savemusic = v;
+                i++;
+            } else {
+                printf("-playing option requires one argument.\n");
+                return 1;
+            }
+        }
+        if (std::string(argv[i]) == "-renderer") {
+            SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, argv[2], SDL_HINT_OVERRIDE);
         }
     }
 
@@ -152,7 +197,6 @@ int main(int argc, char *argv[])
     FillRect(graphics.footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
     graphics.Makebfont();
 
-
     graphics.foregroundBuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
     SDL_SetSurfaceBlendMode(graphics.foregroundBuffer, SDL_BLENDMODE_NONE);
 
@@ -228,6 +272,41 @@ int main(int argc, char *argv[])
     if(game.bestrank[5]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_final_fixed");
 
     obj.init();
+
+    if (startinplaytest) {
+        game.levelpage = 0;
+        game.playcustomlevel = 0;
+
+        ed.directoryList.clear();
+        ed.directoryList.push_back(playtestname);
+
+        LevelMetaData meta;
+        if (ed.getLevelMetaData(playtestname, meta)) {
+            ed.ListOfMetaData.clear();
+            ed.ListOfMetaData.push_back(meta);
+        } else {
+            printf("Level not found\n");
+            return 1;
+        }
+
+        game.loadcustomlevelstats();
+        game.customleveltitle=ed.ListOfMetaData[game.playcustomlevel].title;
+        game.customlevelfilename=ed.ListOfMetaData[game.playcustomlevel].filename;
+        if (savefileplaytest) {
+            game.playx = savex;
+            game.playy = savey;
+            game.playrx = saverx;
+            game.playry = savery;
+            game.playgc = savegc;
+            game.cliplaytest = true;
+            music.play(savemusic);
+            script.startgamemode(23);
+        } else {
+            script.startgamemode(22);
+        }
+
+        graphics.fademode = 0;
+    }
 
     volatile Uint32 time, timePrev = 0;
     game.infocus = true;
