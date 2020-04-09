@@ -5248,7 +5248,7 @@ void Game::customloadquick(std::string savfile)
                 obj.customcollect.clear();
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    obj.customcollect.push_back(atoi(values[i].c_str()));
+                    obj.customcollect.push_back((bool) atoi(values[i].c_str()));
                 }
             }
         }
@@ -6049,7 +6049,7 @@ void Game::customsavequick(std::string savfile)
     std::string customcollect;
     for(size_t i = 0; i < obj.customcollect.size(); i++ )
     {
-        customcollect += help.String(obj.customcollect[i]) + ",";
+        customcollect += help.String((int) obj.customcollect[i]) + ",";
     }
     msg = new TiXmlElement( "customcollect" );
     msg->LinkEndChild( new TiXmlText( customcollect.c_str() ));
@@ -7622,5 +7622,5 @@ int Game::trinkets()
 
 int Game::crewmates()
 {
-    return std::count(obj.customcollect.begin(), obj.customcollect.end(), 1);
+    return std::count(obj.customcollect.begin(), obj.customcollect.end(), true);
 }

@@ -1958,7 +1958,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (customcollect[vx] == 1) return;
+        if (customcollect[vx]) return;
         break;
       case 56: //Custom enemy
         entity.rule = 1;
@@ -3098,7 +3098,7 @@ void entityclass::updateentities( int i )
             {
                 if (game.intimetrial)
                 {
-                    customcollect[entities[i].para] = 1;
+                    customcollect[entities[i].para] = true;
                     music.playef(27);
                 }
                 else
@@ -3107,7 +3107,7 @@ void entityclass::updateentities( int i )
                     //music.haltdasmusik();
                     if(music.currentsong!=-1) music.silencedasmusik();
                     music.playef(27);
-                    customcollect[entities[i].para] = 1;
+                    customcollect[entities[i].para] = true;
                 }
 
                 removeentity(i);
