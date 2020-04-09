@@ -7638,5 +7638,13 @@ int Game::trinkets()
 
 int Game::crewmates()
 {
-    return std::count(obj.customcollect.begin(), obj.customcollect.end(), true);
+    int temp = 0;
+    for (size_t i = 0; i < obj.customcollect.size(); i++)
+    {
+        if (obj.customcollect[i])
+        {
+            temp++;
+        }
+    }
+    return temp;
 }
