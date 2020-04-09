@@ -285,7 +285,6 @@ void editorclass::reset()
     entframe=0;
     entframedelay=0;
 
-    numtrinkets=0;
     numcrewmates=0;
     edentity.clear();
     levmusic=0;
@@ -1622,11 +1621,9 @@ int editorclass::findwarptoken(int t)
 
 void editorclass::countstuff()
 {
-    numtrinkets=0;
     numcrewmates=0;
     for(size_t i=0; i<edentity.size(); i++)
     {
-        if(edentity[i].t==9) numtrinkets++;
         if(edentity[i].t==15) numcrewmates++;
     }
 }
@@ -4828,11 +4825,10 @@ void editorinput()
                         {
                             if(ed.drawmode==3)
                             {
-                                if(ed.numtrinkets<100)
+                                if(ed.numtrinkets()<100)
                                 {
                                     addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),9);
                                     ed.lclickdelay=1;
-                                    ed.numtrinkets++;
                                 }
                                 else
                                 {
@@ -5051,7 +5047,6 @@ void editorinput()
                     {
                         if(edentity[i].x==ed.tilex + (ed.levx*40)&& edentity[i].y==ed.tiley+ (ed.levy*30))
                         {
-                            if(edentity[i].t==9) ed.numtrinkets--;
                             if(edentity[i].t==15) ed.numcrewmates--;
                             removeedentity(i);
                         }
@@ -5204,6 +5199,19 @@ void editorinput()
             break;
         }
     }
+}
+
+int editorclass::numtrinkets()
+{
+    int temp = 0;
+    for (size_t i = 0; i < edentity.size(); i++)
+    {
+        if (edentity[i].t == 9)
+        {
+            temp++;
+        }
+    }
+    return temp;
 }
 
 #endif /* NO_CUSTOM_LEVELS */

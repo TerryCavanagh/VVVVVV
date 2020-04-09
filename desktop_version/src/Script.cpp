@@ -1890,7 +1890,7 @@ void scriptclass::run()
 #if !defined(NO_CUSTOM_LEVELS)
 				if (map.custommode)
 				{
-					usethisnum = help.number(ed.numtrinkets);
+					usethisnum = help.number(ed.numtrinkets());
 				}
 				else
 #endif
