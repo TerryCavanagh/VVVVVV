@@ -1950,7 +1950,7 @@ void Game::updatestate()
 #if !defined(NO_CUSTOM_LEVELS)
                 if(map.custommode)
                 {
-                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets)+ " ", 50, 65, 174, 174, 174);
+                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets())+ " ", 50, 65, 174, 174, 174);
                     graphics.textboxcenterx();
                 }
                 else
@@ -1970,7 +1970,7 @@ void Game::updatestate()
 #if !defined(NO_CUSTOM_LEVELS)
                 if(map.custommode)
                 {
-                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets)+ " ", 50, 135, 174, 174, 174);
+                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets())+ " ", 50, 135, 174, 174, 174);
                     graphics.textboxcenterx();
                 }
                 else
@@ -2095,7 +2095,7 @@ void Game::updatestate()
             if(ed.numcrewmates-crewmates()==0)
             {
                 //Finished level
-                if(ed.numtrinkets-trinkets()==0)
+                if(ed.numtrinkets()-trinkets()==0)
                 {
                     //and got all the trinkets!
                     updatecustomlevelstats(customlevelfilename, 3);
