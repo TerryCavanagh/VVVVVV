@@ -28,8 +28,6 @@ public:
 
     void resetallflags();
 
-    void resetflags();
-
     void confirmflags();
 
     void fatal_top()

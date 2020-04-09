@@ -78,14 +78,6 @@ void entityclass::resetallflags()
     }
 }
 
-void entityclass::resetflags()
-{
-    for (int i = 0; i < 100; i++)
-    {
-        if (flags[i] == 2) flags[i] = 0;
-    }
-}
-
 void entityclass::confirmflags()
 {
     for (int i = 0; i < 100; i++)
