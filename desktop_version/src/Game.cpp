@@ -4729,8 +4729,6 @@ void Game::customstart()
     savepoint = 0;
     gravitycontrol = savegc;
 
-    coins = 0;
-
     //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
     deathseq = -1;
@@ -4754,8 +4752,6 @@ void Game::start()
     //savex = 6 * 8; savey = 15 * 8; saverx = 46; savery = 54; savegc = 0; savedir = 1; //Final Level Current
     savepoint = 0;
     gravitycontrol = savegc;
-
-    coins = 0;
 
     //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
@@ -4852,7 +4848,6 @@ void Game::startspecial( int t )
 
     savepoint = 0;
     gravitycontrol = savegc;
-    coins = 0;
     state = 0;
     deathseq = -1;
     lifeseq = 0;
@@ -4923,8 +4918,6 @@ void Game::starttrial( int t )
 
     savepoint = 0;
     gravitycontrol = savegc;
-
-    coins = 0;
 
     //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
