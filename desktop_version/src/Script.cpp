@@ -194,9 +194,9 @@ void scriptclass::run()
 			{
 				if(ss_toi(words[1])>=0 && ss_toi(words[1])<100){
 					if(words[2]=="on"){
-						obj.changeflag(ss_toi(words[1]),true);
+						obj.flags[ss_toi(words[1])] = true;
 					}else if(words[2]=="off"){
-						obj.changeflag(ss_toi(words[1]),false);
+						obj.flags[ss_toi(words[1])] = false;
 					}
 				}
 			}
