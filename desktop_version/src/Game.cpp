@@ -7641,7 +7641,15 @@ void Game::resetgameclock()
 
 int Game::trinkets()
 {
-    return std::count(obj.collect.begin(), obj.collect.end(), true);
+    int temp = 0;
+    for (size_t i = 0; i < obj.collect.size(); i++)
+    {
+        if (obj.collect[i])
+        {
+            temp++;
+        }
+    }
+    return temp;
 }
 
 int Game::crewmates()
