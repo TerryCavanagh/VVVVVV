@@ -285,7 +285,6 @@ void editorclass::reset()
     entframe=0;
     entframedelay=0;
 
-    numcrewmates=0;
     edentity.clear();
     levmusic=0;
 
@@ -1621,11 +1620,6 @@ int editorclass::findwarptoken(int t)
 
 void editorclass::countstuff()
 {
-    numcrewmates=0;
-    for(size_t i=0; i<edentity.size(); i++)
-    {
-        if(edentity[i].t==15) numcrewmates++;
-    }
 }
 
 void editorclass::load(std::string& _path)
@@ -4920,11 +4914,10 @@ void editorinput()
                             }
                             else if(ed.drawmode==15)  //Crewmate
                             {
-                                if(ed.numcrewmates<100)
+                                if(ed.numcrewmates()<100)
                                 {
                                     addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),15,1 + int(fRandom() * 5));
                                     ed.lclickdelay=1;
-                                    ed.numcrewmates++;
                                 }
                                 else
                                 {
@@ -5047,7 +5040,6 @@ void editorinput()
                     {
                         if(edentity[i].x==ed.tilex + (ed.levx*40)&& edentity[i].y==ed.tiley+ (ed.levy*30))
                         {
-                            if(edentity[i].t==15) ed.numcrewmates--;
                             removeedentity(i);
                         }
                     }
@@ -5207,6 +5199,19 @@ int editorclass::numtrinkets()
     for (size_t i = 0; i < edentity.size(); i++)
     {
         if (edentity[i].t == 9)
+        {
+            temp++;
+        }
+    }
+    return temp;
+}
+
+int editorclass::numcrewmates()
+{
+    int temp = 0;
+    for (size_t i = 0; i < edentity.size(); i++)
+    {
+        if (edentity[i].t == 15)
         {
             temp++;
         }

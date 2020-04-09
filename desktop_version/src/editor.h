@@ -152,7 +152,7 @@ class editorclass{
   std::vector <int> contents;
   std::vector <int> vmult;
   int numtrinkets();
-  int numcrewmates;
+  int numcrewmates();
   edlevelclass level[400]; //Maxwidth*maxheight
   int kludgewarpdir[400]; //Also maxwidth*maxheight
 
