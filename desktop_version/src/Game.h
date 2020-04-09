@@ -238,7 +238,8 @@ public:
 
     int deathseq, lifeseq;
 
-    int trinkets(), crewmates();
+    int trinkets();
+    int crewmates();
     int savepoint, teleportxpos;
     bool teleport;
     int edteleportent;
