@@ -315,13 +315,12 @@ public:
 
     bool skipfakeload;
 
-    bool cliplaytest = false;
-    int playx = 0;
-    int playy = 0;
-    int playrx = 0;
-    int playry = 0;
-    int playgc = 0;
-
+    bool cliplaytest;
+    int playx;
+    int playy;
+    int playrx;
+    int playry;
+    int playgc;
 };
 
 extern Game game;

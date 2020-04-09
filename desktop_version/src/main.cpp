@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
                 strcmp(argv[i], "-playmusic") == 0) {
             if (i + 1 < argc) {
                 savefileplaytest = true;
-                auto v = std::atoi(argv[i+1]);
+                int v = std::atoi(argv[i+1]);
                 if (strcmp(argv[i], "-playx") == 0) savex = v;
                 else if (strcmp(argv[i], "-playy") == 0) savey = v;
                 else if (strcmp(argv[i], "-playrx") == 0) saverx = v;
@@ -277,11 +277,13 @@ int main(int argc, char *argv[])
         game.levelpage = 0;
         game.playcustomlevel = 0;
 
-        ed.directoryList = { playtestname };
+        ed.directoryList.clear();
+        ed.directoryList.push_back(playtestname);
 
         LevelMetaData meta;
         if (ed.getLevelMetaData(playtestname, meta)) {
-            ed.ListOfMetaData = { meta };
+            ed.ListOfMetaData.clear();
+            ed.ListOfMetaData.push_back(meta);
         } else {
             printf("Level not found\n");
             return 1;

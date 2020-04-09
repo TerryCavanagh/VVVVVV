@@ -373,6 +373,13 @@ void Game::init(void)
 
     skipfakeload = false;
 
+    cliplaytest = false;
+    playx = 0;
+    playy = 0;
+    playrx = 0;
+    playry = 0;
+    playgc = 0;
+
     /* Terry's Patrons... */
     superpatrons.push_back("Anders Ekermo");
     superpatrons.push_back("Andreas K|mper");
