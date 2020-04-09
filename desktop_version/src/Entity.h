@@ -32,8 +32,6 @@ public:
 
     void confirmflags();
 
-    void changecollect(int t, int s);
-
     void changecustomcollect(int t, int s);
 
     void fatal_top()
