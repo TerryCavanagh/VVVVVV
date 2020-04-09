@@ -1755,7 +1755,7 @@ void gameinput()
                     {
                         if(!graphics.flipmode)
                         {
-                            obj.flags[73] = 1; //Flip mode test
+                            obj.flags[73] = true; //Flip mode test
                         }
                         if(int(std::abs(obj.entities[ie].vx))<=1 && int(obj.entities[ie].vy)==0)
                         {
@@ -2086,7 +2086,7 @@ void mapinput()
             game.menupage++;
         }
 
-        if (game.menupage == 1 && obj.flags[67] == 1 && game.press_action && !game.insecretlab && !map.custommode)
+        if (game.menupage == 1 && obj.flags[67] && game.press_action && !game.insecretlab && !map.custommode)
         {
             //Warp back to the ship
             graphics.resumegamemode = true;

@@ -1766,7 +1766,7 @@ std::vector<std::string> labclass::loadlevel(int rx, int ry)
 
 		if(!game.intimetrial)
 		{
-			if(game.companion==0 && obj.flags[9]==0 &&  !game.crewstats[5])   //also need to check if he's rescued in a previous game
+			if(game.companion==0 && !obj.flags[9] &&  !game.crewstats[5])   //also need to check if he's rescued in a previous game
 			{
 				obj.createentity(32, 177, 18, 16, 1, 17, 1);
 				obj.createblock(1, 24*8, 0, 32, 240, 33);

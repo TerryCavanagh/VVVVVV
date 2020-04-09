@@ -533,7 +533,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry)
 		obj.createentity(264, 168, 10, 1, 52410);  // (savepoint)
 		obj.createentity(152, 112, 20, 1);  // (terminal)
 
-		if(obj.flags[72] == 0)
+		if(!obj.flags[72])
 		{
 			if (game.intimetrial || game.nocutscenes)
 			{
@@ -1313,7 +1313,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry)
 
 		obj.createentity(264, 32, 10, 0, 54480);  // (savepoint)
 
-		/*if(!game.nocutscenes && obj.flags[71]==0){
+		/*if(!game.nocutscenes && !obj.flags[71]){
 		obj.createblock(1, 72, 0, 320, 240, 49);
 		}*/
 
@@ -1434,7 +1434,7 @@ std::vector<std::string> finalclass::loadlevel(int rx, int ry)
 
 		if(!game.intimetrial)
 		{
-			if(game.companion==0 && obj.flags[8]==0 && !game.crewstats[3])   //also need to check if he's rescued in a previous game
+			if(game.companion==0 && !obj.flags[8] && !game.crewstats[3])   //also need to check if he's rescued in a previous game
 			{
 				obj.createentity(264, 185, 18, 15, 1, 17, 0);
 				obj.createblock(1, 26*8, 0, 32, 240, 36);

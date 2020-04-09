@@ -1977,11 +1977,11 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry)
 		}
 		else
 		{
-			if(obj.flags[7] == 0)
+			if(!obj.flags[7])
 			{
 				if (game.nocutscenes)
 				{
-					obj.changeflag(7, 1);
+					obj.changeflag(7, true);
 					game.teleportscript = "levelonecomplete";
 				}
 				else
@@ -2419,7 +2419,7 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry)
 
 		if(!game.intimetrial)
 		{
-			if(game.companion==0 && obj.flags[10]==0 &&  !game.crewstats[2])   //also need to check if he's rescued in a previous game
+			if(game.companion==0 && !obj.flags[10] &&  !game.crewstats[2])   //also need to check if he's rescued in a previous game
 			{
 				obj.createentity(42, 86, 16, 0);
 				obj.createblock(1, 0, 0, 140, 240, 34);
@@ -2560,10 +2560,10 @@ std::vector<std::string> spacestation2class::loadlevel(int rx, int ry)
 
 		if(!game.nocutscenes)
 		{
-			if(obj.flags[68]==0)
+			if(!obj.flags[68])
 			{
 				obj.createblock(1, 32, 0, 320, 240, 17);
-				obj.flags[68] = 1;
+				obj.flags[68] = true;
 			}
 		}
 		roomname = "Quicksand";

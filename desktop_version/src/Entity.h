@@ -36,7 +36,7 @@ public:
 
     void changecustomcollect(int t, int s);
 
-    void changeflag(int t, int s);
+    void changeflag(int t, bool s);
 
     void fatal_top()
     {
@@ -194,7 +194,7 @@ public:
 
 
     std::vector<blockclass> blocks;
-    std::vector<int> flags;
+    std::vector<bool> flags;
     std::vector<int> collect;
     std::vector<int> customcollect;
 

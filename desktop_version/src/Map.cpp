@@ -1060,7 +1060,7 @@ void mapclass::gotoroom(int rx, int ry)
 	//textbox thingy. if tag five is not set when changing room, reset the game state. (tag 5 is set when you get back to the ship)
 	if(!game.intimetrial && !custommode)
 	{
-		if (obj.flags[5] == 0 && !finalmode)
+		if (!obj.flags[5] && !finalmode)
 		{
 			game.state = 0;
 			if (game.roomx == 113 && game.roomy == 104)
