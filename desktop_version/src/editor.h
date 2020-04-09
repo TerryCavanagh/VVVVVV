@@ -138,7 +138,6 @@ class editorclass{
   int findtrinket(int t);
   int findcrewmate(int t);
   int findwarptoken(int t);
-  void countstuff();
   void findstartpoint();
   int getlevelcol(int t);
   int getenemycol(int t);
