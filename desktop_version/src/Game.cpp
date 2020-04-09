@@ -122,8 +122,6 @@ void Game::init(void)
     globalsound = 128;
     m_globalVol = 1.0f;
 
-    timerStartTime= SDL_GetTicks();
-
     glitchrunkludge = false;
     hascontrol = true;
     jumpheld = false;
@@ -7646,7 +7644,6 @@ void Game::resetgameclock()
     seconds = 0;
     minutes = 0;
     hours = 0;
-    timerStartTime = SDL_GetTicks();
 }
 
 int Game::trinkets()
