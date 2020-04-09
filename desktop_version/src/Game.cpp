@@ -737,7 +737,7 @@ void Game::updatestate()
             obj.removetrigger(8);
             if (!obj.flags[13])
             {
-                obj.changeflag(13, true);
+                obj.flags[13] = true;
                 graphics.createtextbox("  Press ENTER to view map  ", -1, 155, 174, 174, 174);
                 graphics.addline("      and quicksave");
                 graphics.textboxtimer(60);
@@ -839,7 +839,7 @@ void Game::updatestate()
             obj.removetrigger(12);
             if (!obj.flags[61])
             {
-                obj.changeflag(61, true);
+                obj.flags[61] = true;
                 graphics.textboxremovefast();
                 graphics.createtextbox("  You can't continue to the next   ", -1, 8, 174, 174, 174);
                 if (lastsaved == 5)
@@ -918,7 +918,7 @@ void Game::updatestate()
         case 20:
             if (!obj.flags[1])
             {
-                obj.changeflag(1, true);
+                obj.flags[1] = true;
                 state = 0;
                 graphics.textboxremove();
             }
@@ -927,7 +927,7 @@ void Game::updatestate()
         case 21:
             if (!obj.flags[2])
             {
-                obj.changeflag(2, true);
+                obj.flags[2] = true;
                 state = 0;
                 graphics.textboxremove();
             }
@@ -937,7 +937,7 @@ void Game::updatestate()
             if (!obj.flags[3])
             {
                 graphics.textboxremovefast();
-                obj.changeflag(3, true);
+                obj.flags[3] = true;
                 state = 0;
                 graphics.createtextbox("  Press ACTION to flip  ", -1, 25, 174, 174, 174);
                 graphics.textboxtimer(60);
@@ -949,7 +949,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[4])
             {
-                obj.changeflag(4, true);
+                obj.flags[4] = true;
                 startscript = true;
                 newscript="firststeps";
                 state = 0;
@@ -963,9 +963,9 @@ void Game::updatestate()
             statedelay = 0;
             if (!obj.flags[6])
             {
-                obj.changeflag(6, true);
+                obj.flags[6] = true;
 
-                obj.changeflag(5, true);
+                obj.flags[5] = true;
                 startscript = true;
                 newscript="communicationstation";
                 state = 0;
@@ -977,7 +977,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[7])
             {
-                obj.changeflag(7, true);
+                obj.flags[7] = true;
                 startscript = true;
                 newscript="teleporterback";
                 state = 0;
@@ -989,7 +989,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[9])
             {
-                obj.changeflag(9, true);
+                obj.flags[9] = true;
                 startscript = true;
                 newscript="rescueblue";
                 state = 0;
@@ -1001,7 +1001,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[10])
             {
-                obj.changeflag(10, true);
+                obj.flags[10] = true;
                 startscript = true;
                 newscript="rescueyellow";
                 state = 0;
@@ -1013,7 +1013,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[11])
             {
-                obj.changeflag(11, true);
+                obj.flags[11] = true;
                 startscript = true;
                 newscript="rescuegreen";
                 state = 0;
@@ -1025,7 +1025,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[8])
             {
-                obj.changeflag(8, true);
+                obj.flags[8] = true;
                 startscript = true;
                 newscript="rescuered";
                 state = 0;
@@ -1083,7 +1083,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[60])
             {
-                obj.changeflag(60, true);
+                obj.flags[60] = true;
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1110,7 +1110,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[62])
             {
-                obj.changeflag(62, true);
+                obj.flags[62] = true;
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1137,7 +1137,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[63])
             {
-                obj.changeflag(63, true);
+                obj.flags[63] = true;
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1164,7 +1164,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[64])
             {
-                obj.changeflag(64, true);
+                obj.flags[64] = true;
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1191,7 +1191,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[65])
             {
-                obj.changeflag(65, true);
+                obj.flags[65] = true;
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1218,7 +1218,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[66])
             {
-                obj.changeflag(66, true);
+                obj.flags[66] = true;
                 startscript = true;
                 if (lastsaved == 2)
                 {
@@ -1246,7 +1246,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[69])
             {
-                obj.changeflag(69, true);
+                obj.flags[69] = true;
                 startscript = true;
                 newscript="trenchwarfare";
                 state = 0;
@@ -1258,7 +1258,7 @@ void Game::updatestate()
             //Generic "run script"
             if (!obj.flags[70])
             {
-                obj.changeflag(70, true);
+                obj.flags[70] = true;
                 startscript = true;
                 newscript="trinketcollector";
                 state = 0;
@@ -1270,7 +1270,7 @@ void Game::updatestate()
             //Start final level music
             if (!obj.flags[71])
             {
-                obj.changeflag(71, true);
+                obj.flags[71] = true;
                 music.niceplay(15);  //Final level remix
                 state = 0;
             }
@@ -1489,7 +1489,7 @@ void Game::updatestate()
             obj.removetrigger(100);
             if (!obj.flags[4])
             {
-                obj.changeflag(4, true);
+                obj.flags[4] = true;
                 state++;
             }
             break;
@@ -1608,7 +1608,7 @@ void Game::updatestate()
             obj.removetrigger(120);
             if (!obj.flags[5])
             {
-                obj.changeflag(5, true);
+                obj.flags[5] = true;
                 state++;
             }
             break;
