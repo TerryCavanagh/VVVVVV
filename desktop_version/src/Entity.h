@@ -111,8 +111,6 @@ public:
 
     int getgridpoint(int t);
 
-    bool cblocks(int t);
-
     bool checkplatform();
 
     bool checkblocks();
