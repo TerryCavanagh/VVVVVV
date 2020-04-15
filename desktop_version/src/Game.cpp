@@ -6679,60 +6679,6 @@ void Game::createmenu( std::string t )
         option("return");
         menuxoff = -50;
         menuyoff = 8;
-        /* Old stuff, not used anymore
-        if (advanced_mode)
-        {
-        if(fullscreen)
-        {
-        menuoptions[0] = "change to windowed mode";
-        menuoptionsactive[0] = true;
-        }
-        else
-        {
-        menuoptions[0] = "change to fullscreen";
-        menuoptionsactive[0] = true;
-        }
-        menuoptions[1] = "enable acceleration";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "change scaling mode";
-        menuoptionsactive[2] = true;
-        if (advanced_smoothing)
-        {
-        menuoptions[3] = "disable smoothing";
-        menuoptionsactive[3] = true;
-        }
-        else
-        {
-        menuoptions[3] = "enable smoothing";
-        menuoptionsactive[3] = true;
-        }
-        menuoptions[4] = "return";
-        menuoptionsactive[4] = true;
-        nummenuoptions = 5;
-        menuxoff = -50;
-        menuyoff = 16;
-        }
-        else
-        {
-        if(fullscreen)
-        {
-        menuoptions[0] = "change to windowed mode";
-        menuoptionsactive[0] = true;
-        }
-        else
-        {
-        menuoptions[0] = "change to fullscreen";
-        menuoptionsactive[0] = true;
-        }
-        menuoptions[1] = "disable acceleration";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "return";
-        menuoptionsactive[2] = true;
-        nummenuoptions = 3;
-        menuxoff = -50;
-        menuyoff = 16;
-        }
-        */
     }
     else if (t == "ed_settings")
     {
