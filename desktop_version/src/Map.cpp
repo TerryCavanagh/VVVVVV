@@ -411,7 +411,6 @@ std::string mapclass::getglitchname(int x, int y)
 void mapclass::initmapdata()
 {
 	//Set up static map information like teleporters and shiny trinkets.
-	numteleporters = 17;
 	setteleporter(0, 0);
 	setteleporter(0, 16);
 	setteleporter(2, 4);

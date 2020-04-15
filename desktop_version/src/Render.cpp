@@ -2008,7 +2008,7 @@ void maprender()
             }
 
             //draw legend details
-            for (int i = 0; i < map.numteleporters; i++)
+            for (size_t i = 0; i < map.teleporters.size(); i++)
             {
                 if (map.showteleporters && map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)] > 0)
                 {
@@ -2819,7 +2819,7 @@ void teleporterrender()
     }
 
     //draw legend details
-    for (int i = 0; i < map.numteleporters; i++)
+    for (size_t i = 0; i < map.teleporters.size(); i++)
     {
         if (map.showteleporters && map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)] > 0)
         {

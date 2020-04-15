@@ -5593,7 +5593,7 @@ void Game::initteleportermode()
     //Set the teleporter variable to the right position!
     teleport_to_teleporter = 0;
 
-    for (int i = 0; i < map.numteleporters; i++)
+    for (size_t i = 0; i < map.teleporters.size(); i++)
     {
         if (roomx == map.teleporters[i].x + 100 && roomy == map.teleporters[i].y + 100)
         {
