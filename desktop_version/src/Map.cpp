@@ -57,7 +57,6 @@ mapclass::mapclass()
 	for (int i = 0; i < 30; i++)
 	{
 		vmult.push_back(int(i * 40));
-		teleporters.push_back(point());
 		shinytrinkets.push_back(point());
 	}
 	//We create a blank map
@@ -126,8 +125,10 @@ int mapclass::intpol(int a, int b, float c)
 
 void mapclass::setteleporter(int t, int x, int y)
 {
-	teleporters[t].x = x;
-	teleporters[t].y = y;
+	point temp;
+	temp.x = x;
+	temp.y = y;
+	teleporters.push_back(temp);
 }
 
 void mapclass::settrinket(int t, int x, int y)
