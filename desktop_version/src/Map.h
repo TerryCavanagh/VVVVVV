@@ -26,7 +26,7 @@ public:
 
     int intpol(int a, int b, float c);
 
-    void setteleporter(int t, int x, int y);
+    void setteleporter(int x, int y);
 
     void settrinket(int t, int x, int y);
 
