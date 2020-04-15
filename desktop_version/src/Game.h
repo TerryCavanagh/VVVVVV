@@ -8,6 +8,12 @@
 #include "UtilityClass.h"
 #include "GraphicsUtil.h"
 
+struct MenuOption
+{
+    std::string text;
+    bool active;
+};
+
 
 class Game
 {
