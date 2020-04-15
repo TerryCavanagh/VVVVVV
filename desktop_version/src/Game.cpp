@@ -6923,44 +6923,35 @@ void Game::createmenu( std::string t )
                 createmenu("unlocknodeathmode");
                 savemystats = true;
             }
+            //Alright then! Flip mode?
+            else if (unlock[5] && !unlocknotify[18])
+            {
+                unlock[18] = true;
+                unlocknotify[18] = true;
+                createmenu("unlockflipmode");
+                savemystats = true;
+            }
+            //What about the intermission levels?
+            else if (unlock[7] && !unlocknotify[16])
+            {
+                unlock[16] = true;
+                unlocknotify[16] = true;
+                createmenu("unlockintermission");
+                savemystats = true;
+            }
+            //ok, secret lab! no notification, but test:
+            else if (unlock[8])
+            {
+                createmenu("playsecretlab");
+            }
             else
             {
-                //Alright then! Flip mode?
-                if (unlock[5] && !unlocknotify[18])
-                {
-                    unlock[18] = true;
-                    unlocknotify[18] = true;
-                    createmenu("unlockflipmode");
-                    savemystats = true;
-                }
-                else
-                {
-                    //What about the intermission levels?
-                    if (unlock[7] && !unlocknotify[16])
-                    {
-                        unlock[16] = true;
-                        unlocknotify[16] = true;
-                        createmenu("unlockintermission");
-                        savemystats = true;
-                    }
-                    else
-                    {
-                        //ok, secret lab! no notification, but test:
-                        if (unlock[8])
-                        {
-                            createmenu("playsecretlab");
-                        }
-                        else
-                        {
-                            option("continue");
-                            option("play modes");
-                            option("new game");
-                            option("return");
-                            menuxoff = -20;
-                            menuyoff = -40;
-                        }
-                    }
-                }
+                option("continue");
+                option("play modes");
+                option("new game");
+                option("return");
+                menuxoff = -20;
+                menuyoff = -40;
             }
         }
     }
