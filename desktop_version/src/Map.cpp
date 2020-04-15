@@ -130,7 +130,7 @@ void mapclass::setteleporter(int x, int y)
 	teleporters.push_back(temp);
 }
 
-void mapclass::settrinket(int t, int x, int y)
+void mapclass::settrinket(int x, int y)
 {
 	point temp;
 	temp.x = x;
@@ -431,24 +431,24 @@ void mapclass::initmapdata()
 	setteleporter(18, 7);
 
 	numshinytrinkets = 18;
-	settrinket(0, 14, 4);
-	settrinket(1, 13, 6);
-	settrinket(2, 11, 12);
-	settrinket(3, 15, 12);
-	settrinket(4, 14, 11);
-	settrinket(5, 18, 14);
-	settrinket(6, 11, 7);
-	settrinket(7, 9, 2);
-	settrinket(8, 9, 16);
-	settrinket(9, 2, 18);
-	settrinket(10, 7, 18);
-	settrinket(11, 6, 1);
-	settrinket(12, 17, 3);
-	settrinket(13, 10, 19);
-	settrinket(14, 5, 15);
-	settrinket(15, 1, 10);
-	settrinket(16, 3, 2);
-	settrinket(17, 10, 8);
+	settrinket(14, 4);
+	settrinket(13, 6);
+	settrinket(11, 12);
+	settrinket(15, 12);
+	settrinket(14, 11);
+	settrinket(18, 14);
+	settrinket(11, 7);
+	settrinket(9, 2);
+	settrinket(9, 16);
+	settrinket(2, 18);
+	settrinket(7, 18);
+	settrinket(6, 1);
+	settrinket(17, 3);
+	settrinket(10, 19);
+	settrinket(5, 15);
+	settrinket(1, 10);
+	settrinket(3, 2);
+	settrinket(10, 8);
 }
 
 int mapclass::finalat(int x, int y)

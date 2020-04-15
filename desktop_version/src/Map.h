@@ -28,7 +28,7 @@ public:
 
     void setteleporter(int x, int y);
 
-    void settrinket(int t, int x, int y);
+    void settrinket(int x, int y);
 
     void resetmap();
 
