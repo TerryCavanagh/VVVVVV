@@ -3821,17 +3821,6 @@ int entityclass::getgridpoint( int t )
     return t;
 }
 
-bool entityclass::cblocks( int t )
-{
-    tempx = entities[t].xp + entities[t].cx;
-    tempy = entities[t].yp + entities[t].cy;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
-
-    return checkblocks();
-}
-
 bool entityclass::checkplatform()
 {
     //Return true if rectset intersects a moving platform, setups px & py to the platform x & y
