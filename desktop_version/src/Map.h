@@ -154,7 +154,6 @@ public:
     std::vector<point> teleporters;
     std::vector<point> shinytrinkets;
 
-    int numshinytrinkets;
     bool showteleporters, showtargets, showtrinkets;
 
     //Roomtext
