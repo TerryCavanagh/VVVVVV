@@ -3918,8 +3918,8 @@ void editorinput()
                     }
                 }
 
-                if (game.currentmenuoption < 0) game.currentmenuoption = game.nummenuoptions-1;
-                if (game.currentmenuoption >= game.nummenuoptions ) game.currentmenuoption = 0;
+                if (game.currentmenuoption < 0) game.currentmenuoption = game.menuoptions.size()-1;
+                if (game.currentmenuoption >= (int) game.menuoptions.size() ) game.currentmenuoption = 0;
 
                 if (game.press_action)
                 {

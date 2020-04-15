@@ -219,12 +219,9 @@ void Game::init(void)
     quick_currentarea = "Error! Error!";
 
     //Menu stuff initiliased here:
-    menuoptions.resize(25);
-    menuoptionsactive.resize(25);
     unlock.resize(25);
     unlocknotify.resize(25);
 
-    nummenuoptions = 0;
     currentmenuoption = 0;
     menuselection = "null";
     currentmenuname = "null";
@@ -6557,93 +6554,47 @@ void Game::createmenu( std::string t )
     menuyoff = 0;
     menucountdown = 0;
     menudest="null";
+    menuoptions.clear();
 
     if (t == "mainmenu")
     {
-#if defined(MAKEANDPLAY)
-        menuoptions[0] = "player levels";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "graphic options";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "game options";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "quit game";
-        menuoptionsactive[3] = true;
-        nummenuoptions = 4;
-        menuxoff = -16;
-        menuyoff = -10;
-#elif !defined(MAKEANDPLAY)
- #if defined(NO_CUSTOM_LEVELS)
-        menuoptions[0] = "start game";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "graphic options";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "game options";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "view credits";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "quit game";
-        menuoptionsactive[4] = true;
-        nummenuoptions = 5;
-        menuxoff = -16;
-        menuyoff = -10;
- #else
-        menuoptions[0] = "start game";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "player levels";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "graphic options";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "game options";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "view credits";
-        menuoptionsactive[4] = true;
-        menuoptions[5] = "quit game";
-        menuoptionsactive[5] = true;
-        nummenuoptions = 6;
-        menuxoff = -16;
-        menuyoff = -10;
- #endif
+#if !defined(MAKEANDPLAY)
+        option("start game");
 #endif
+#if !defined(NO_CUSTOM_LEVELS)
+        option("player levels");
+#endif
+        option("graphic options");
+        option("game options");
+#if !defined(MAKEANDPLAY)
+        option("view credits");
+#endif
+        option("quit game");
+        menuxoff = -16;
+        menuyoff = -10;
     }
 #if !defined(NO_CUSTOM_LEVELS)
     else if (t == "playerworlds")
     {
+        option("play a level");
  #if !defined(NO_EDITOR)
-        menuoptions[0] = "play a level";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "level editor";
-        menuoptionsactive[1] = true;
-        //menuoptions[2] = "open level folder";
-        //menuoptionsactive[2] = true;
-        menuoptions[2] = "back to menu";
-        menuoptionsactive[2] = true;
-        nummenuoptions = 3;
-        menuxoff = -30;
-        menuyoff = -40;
- #else
-        menuoptions[0] = "play a level";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "back to menu";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
-        menuxoff = -30;
-        menuyoff = -40;
+        option("level editor");
  #endif
+        //option("open level folder");
+        option("back to menu");
+        menuxoff = -30;
+        menuyoff = -40;
     }
     else if (t == "levellist")
     {
         if(ed.ListOfMetaData.size()==0)
         {
-            menuoptions[0] = "ok";
-            menuoptionsactive[0] = true;
-            nummenuoptions = 1;
+            option("ok");
             menuxoff = 0;
             menuyoff = -20;
         }
         else
         {
-            int tcount=0;
             for(int i=0; i<(int) ed.ListOfMetaData.size(); i++) // FIXME: int/size_t! -flibit
             {
                 if(i>=levelpage*8 && i< (levelpage*8)+8)
@@ -6658,97 +6609,74 @@ void Game::createmenu( std::string t )
                             j=numcustomlevelstats+1;
                         }
                     }
+                    std::string text;
                     if(tvar>=0)
                     {
                         if(customlevelscore[tvar]==0)
                         {
-                            menuoptions[tcount] = "   " + ed.ListOfMetaData[i].title;
+                            text = "   " + ed.ListOfMetaData[i].title;
                         }
                         else if(customlevelscore[tvar]==1)
                         {
-                            menuoptions[tcount] = " * " + ed.ListOfMetaData[i].title;
+                            text = " * " + ed.ListOfMetaData[i].title;
                         }
                         else if(customlevelscore[tvar]==3)
                         {
-                            menuoptions[tcount] = "** " + ed.ListOfMetaData[i].title;
+                            text = "** " + ed.ListOfMetaData[i].title;
                         }
                     }
                     else
                     {
-                        menuoptions[tcount] = "   " + ed.ListOfMetaData[i].title;
+                        text = "   " + ed.ListOfMetaData[i].title;
                     }
-                    menuoptionsactive[tcount] = true;
-                    std::transform(menuoptions[tcount].begin(), menuoptions[tcount].end(), menuoptions[tcount].begin(), ::tolower);
-                    tcount++;
+                    std::transform(text.begin(), text.end(), text.begin(), ::tolower);
+                    option(text);
                 }
             }
             if((size_t) ((levelpage*8)+8) <ed.ListOfMetaData.size())
             {
-                menuoptions[tcount] = "next page";
-                menuoptionsactive[tcount] = true;
-                tcount++;
+                option("next page");
             }
             else
             {
-                menuoptions[tcount] = "first page";
-                menuoptionsactive[tcount] = true;
-                tcount++;
+                option("first page");
             }
-            menuoptions[tcount] = "return to menu";
-            menuoptionsactive[tcount] = true;
-            tcount++;
+            option("return to menu");
 
-            nummenuoptions = tcount;
             menuxoff = -90;
-            menuyoff = 70-(tcount*10);
+            menuyoff = 70-(menuoptions.size()*10);
         }
     }
 #endif
     else if (t == "quickloadlevel")
     {
-        menuoptions[0] = "continue from save";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "start from beginning";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "back to levels";
-        menuoptionsactive[2] = true;
-        nummenuoptions = 3;
+        option("continue from save");
+        option("start from beginning");
+        option("back to levels");
         menuxoff = -40;
         menuyoff = -30;
     }
     else if (t == "youwannaquit")
     {
-        menuoptions[0] = "yes, quit";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "no, return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("yes, quit");
+        option("no, return");
         menuxoff = 0;
         menuyoff = -20;
     }
     else if (t == "errornostart")
     {
-        menuoptions[0] = "ok";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
+        option("ok");
         menuxoff = 0;
         menuyoff = -20;
     }
     else if (t == "graphicoptions")
     {
-        menuoptions[0] = "toggle fullscreen";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "toggle letterbox";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "toggle filter";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "toggle analogue";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "toggle mouse";
-        menuoptionsactive[4] = true;
-        menuoptions[5] = "return";
-        menuoptionsactive[5] = true;
-        nummenuoptions = 6;
+        option("toggle fullscreen");
+        option("toggle letterbox");
+        option("toggle filter");
+        option("toggle analogue");
+        option("toggle mouse");
+        option("return");
         menuxoff = -50;
         menuyoff = 8;
         /* Old stuff, not used anymore
@@ -6808,262 +6736,170 @@ void Game::createmenu( std::string t )
     }
     else if (t == "ed_settings")
     {
-        menuoptions[0] = "change description";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "edit scripts";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "change music";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "load level";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "save level";
-        menuoptionsactive[4] = true;
-        menuoptions[5] = "quit to main menu";
-        menuoptionsactive[5] = true;
+        option("change description");
+        option("edit scripts");
+        option("change music");
+        option("load level");
+        option("save level");
+        option("quit to main menu");
 
-        nummenuoptions = 6;
         menuxoff = -50;
         menuyoff = -20;
     }
     else if (t == "ed_desc")
     {
-        menuoptions[0] = "change name";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "change author";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "change description";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "change website";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "back to settings";
-        menuoptionsactive[4] = true;
+        option("change name");
+        option("change author");
+        option("change description");
+        option("change website");
+        option("back to settings");
 
-        nummenuoptions = 5;
         menuxoff = -40;
         menuyoff = 6;
     }
     else if (t == "ed_music")
     {
-        menuoptions[0] = "next song";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "back";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("next song");
+        option("back");
         menuxoff = -10;
         menuyoff = 16;
     }
     else if (t == "ed_quit")
     {
-        menuoptions[0] = "yes, save and quit";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "no, quit without saving";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "return to editor";
-        menuoptionsactive[2] = true;
-        nummenuoptions = 3;
+        option("yes, save and quit");
+        option("no, quit without saving");
+        option("return to editor");
         menuxoff = -50;
         menuyoff = 8;
     }
     else if (t == "options")
     {
-#if defined(MAKEANDPLAY)
-        menuoptions[0] = "accessibility options";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "game pad options";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "clear data";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "return";
-        menuoptionsactive[3] = true;
-        nummenuoptions = 4;
-        menuxoff = -40;
-        menuyoff = 0;
-#elif !defined(MAKEANDPLAY)
-        menuoptions[0] = "accessibility options";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "unlock play modes";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "game pad options";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "clear data";
-        menuoptionsactive[3] = true;
-
-        menuoptions[4] = "return";
-        menuoptionsactive[4] = true;
-        nummenuoptions = 5;
-        menuxoff = -40;
-        menuyoff = 0;
+        option("accessibility options");
+#if !defined(MAKEANDPLAY)
+        option("unlock play modes");
 #endif
+        option("game pad options");
+        option("clear data");
+        //Add extra menu for mmmmmm mod
+        if(music.mmmmmm){
+            option("soundtrack");
+        }
+
+        option("return");
+        menuxoff = -40;
+        menuyoff = 0;
     }
     else if (t == "accessibility")
     {
-        menuoptions[0] = "animated backgrounds";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "screen effects";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "text outline";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "invincibility";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "slowdown";
-        menuoptionsactive[4] = true;
-        menuoptions[5] = "load screen";
-        menuoptionsactive[5] = true;
-        menuoptions[6] = "room name bg";
-        menuoptionsactive[6] = true;
-        menuoptions[7] = "return";
-        menuoptionsactive[7] = true;
-        nummenuoptions = 8;
+        option("animated backgrounds");
+        option("screen effects");
+        option("text outline");
+        option("invincibility");
+        option("slowdown");
+        option("load screen");
+        option("room name bg");
+        option("return");
         menuxoff = -85;
         menuyoff = -10;
     }
     else if(t == "controller")
     {
-        menuoptions[0] = "analog stick sensitivity";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "bind flip";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "bind enter";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "bind menu";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "return";
-        menuoptionsactive[4] = true;
-        nummenuoptions = 5;
+        option("analog stick sensitivity");
+        option("bind flip");
+        option("bind enter");
+        option("bind menu");
+        option("return");
         menuxoff = -40;
         menuyoff = 10;
     }
     else if (t == "cleardatamenu")
     {
-        menuoptions[0] = "no! don't delete";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "yes, delete everything";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("no! don't delete");
+        option("yes, delete everything");
         menuxoff = -30;
         menuyoff = 64;
     }
     else if (t == "setinvincibility")
     {
-        menuoptions[0] = "no, return to options";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "yes, enable";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("no, return to options");
+        option("yes, enable");
         menuxoff = -30;
         menuyoff = 64;
     }
     else if (t == "setslowdown1")
     {
-        menuoptions[0] = "no, return to options";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "yes, delete saves";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("no, return to options");
+        option("yes, delete saves");
         menuxoff = -30;
         menuyoff = 64;
     }
     else if (t == "setslowdown2")
     {
-        menuoptions[0] = "normal speed";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "80% speed";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "60% speed";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "40% speed";
-        menuoptionsactive[3] = true;
-        nummenuoptions = 4;
+        option("normal speed");
+        option("80% speed");
+        option("60% speed");
+        option("40% speed");
         menuxoff = -40;
         menuyoff = 16;
     }
     else if (t == "unlockmenu")
     {
-        menuoptions[0] = "unlock time trials";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "unlock intermissions";
-        menuoptionsactive[1] = !unlock[16];
-        menuoptions[2] = "unlock no death mode";
-        menuoptionsactive[2] = !unlock[17];
-        menuoptions[3] = "unlock flip mode";
-        menuoptionsactive[3] = !unlock[18];
-        menuoptions[4] = "unlock ship jukebox";
-        menuoptionsactive[4] = (stat_trinkets<20);
-        menuoptions[5] = "unlock secret lab";
-        menuoptionsactive[5] = !unlock[8];
-        menuoptions[6] = "return";
-        menuoptionsactive[6] = true;
-        nummenuoptions = 7;
+        option("unlock time trials");
+        option("unlock intermissions", !unlock[16]);
+        option("unlock no death mode", !unlock[17]);
+        option("unlock flip mode", !unlock[18]);
+        option("unlock ship jukebox", (stat_trinkets<20));
+        option("unlock secret lab", !unlock[8]);
+        option("return");
         menuxoff = -70;
         menuyoff = -20;
     }
     else if (t == "credits")
     {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("next page");
+        option("return");
         menuxoff = 20;
         menuyoff = 64;
     }
     else if (t == "credits2")
     {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("next page");
+        option("return");
         menuxoff = 20;
         menuyoff = 64;
     }
     else if (t == "credits25")
     {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("next page");
+        option("return");
         menuxoff = 20;
         menuyoff = 64;
     }
     else if (t == "credits3")
     {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("next page");
+        option("return");
         menuxoff = 20;
         menuyoff = 64;
     }
     else if (t == "credits4")
     {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("next page");
+        option("return");
         menuxoff = 20;
         menuyoff = 64;
     }
     else if (t == "credits5")
     {
-        menuoptions[0] = "next page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("next page");
+        option("return");
         menuxoff = 20;
         menuyoff = 64;
     }
     else if (t == "credits6")
     {
-        menuoptions[0] = "first page";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("first page");
+        option("return");
         menuxoff = 20;
         menuyoff = 64;
     }
@@ -7170,15 +7006,10 @@ void Game::createmenu( std::string t )
                         }
                         else
                         {
-                            menuoptions[0] = "continue";
-                            menuoptionsactive[0] = true;
-                            menuoptions[1] = "play modes";
-                            menuoptionsactive[1] = true;
-                            menuoptions[2] = "new game";
-                            menuoptionsactive[2] = true;
-                            menuoptions[3] = "return";
-                            menuoptionsactive[3] = true;
-                            nummenuoptions = 4;
+                            option("continue");
+                            option("play modes");
+                            option("new game");
+                            option("return");
                             menuxoff = -20;
                             menuyoff = -40;
                         }
@@ -7189,339 +7020,167 @@ void Game::createmenu( std::string t )
     }
     else if (t == "unlocktimetrial" || t == "unlocktimetrials")
     {
-        menuoptions[0] = "continue";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
+        option("continue");
         menuxoff = 20;
         menuyoff = 70;
     }
     else if (t == "unlocknodeathmode")
     {
-        menuoptions[0] = "continue";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
+        option("continue");
         menuxoff = 20;
         menuyoff = 70;
     }
     else if (t == "unlockintermission")
     {
-        menuoptions[0] = "continue";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
+        option("continue");
         menuxoff = 20;
         menuyoff = 70;
     }
     else if (t == "unlockflipmode")
     {
-        menuoptions[0] = "continue";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
+        option("continue");
         menuxoff = 20;
         menuyoff = 70;
     }
     else if (t == "playsecretlab")
     {
-        menuoptions[0] = "continue";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "secret lab";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "play modes";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "new game";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "return";
-        menuoptionsactive[4] = true;
-        nummenuoptions = 5;
+        option("continue");
+        option("secret lab");
+        option("play modes");
+        option("new game");
+        option("return");
         menuxoff = -40;
         menuyoff = -30;
     }
     else if (t == "newgamewarning")
     {
-        menuoptions[0] = "start new game";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "return to menu";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("start new game");
+        option("return to menu");
         menuxoff = -30;
         menuyoff = 64;
     }
     else if (t == "playmodes")
     {
-        menuoptions[0] = "time trials";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "intermissions";
-        menuoptionsactive[1] = unlock[16];
-        menuoptions[2] = "no death mode";
-        menuoptionsactive[2] = unlock[17];
-        menuoptions[3] = "flip mode";
-        menuoptionsactive[3] = unlock[18];
-        menuoptions[4] = "return to play menu";
-        menuoptionsactive[4] = true;
-        nummenuoptions = 5;
+        option("time trials");
+        option("intermissions", unlock[16]);
+        option("no death mode", unlock[17]);
+        option("flip mode", unlock[18]);
+        option("return to play menu");
         menuxoff = -70;
         menuyoff = 8;
     }
     else if (t == "intermissionmenu")
     {
-        menuoptions[0] = "play intermission 1";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "play intermission 2";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "return to play menu";
-        menuoptionsactive[2] = true;
-        nummenuoptions = 3;
+        option("play intermission 1");
+        option("play intermission 2");
+        option("return to play menu");
         menuxoff = -50;
         menuyoff = -35;
     }
     else if (t == "playint1")
     {
-        menuoptions[0] = "Vitellary";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "Vermilion";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "Verdigris";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "Victoria";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "return";
-        menuoptionsactive[4] = true;
-        nummenuoptions = 5;
+        option("Vitellary");
+        option("Vermilion");
+        option("Verdigris");
+        option("Victoria");
+        option("return");
         menuxoff = -60;
         menuyoff = 10;
     }
     else if (t == "playint2")
     {
-        menuoptions[0] = "Vitellary";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "Vermilion";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "Verdigris";
-        menuoptionsactive[2] = true;
-        menuoptions[3] = "Victoria";
-        menuoptionsactive[3] = true;
-        menuoptions[4] = "return";
-        menuoptionsactive[4] = true;
-        nummenuoptions = 5;
+        option("Vitellary");
+        option("Vermilion");
+        option("Verdigris");
+        option("Victoria");
+        option("return");
         menuxoff = -60;
         menuyoff = 10;
     }
     else if (t == "continue")
     {
-        menuoptions[0] = "continue from teleporter";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "continue from quicksave";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "return to play menu";
-        menuoptionsactive[2] = true;
-        nummenuoptions = 3;
+        option("continue from teleporter");
+        option("continue from quicksave");
+        option("return to play menu");
         menuxoff = -60;
         menuyoff = 20;
     }
     else if (t == "startnodeathmode")
     {
-        menuoptions[0] = "disable cutscenes";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "enable cutscenes";
-        menuoptionsactive[1] = true;
-        menuoptions[2] = "return to play menu";
-        menuoptionsactive[2] = true;
-        nummenuoptions = 3;
+        option("disable cutscenes");
+        option("enable cutscenes");
+        option("return to play menu");
         menuxoff = -60;
         menuyoff = 40;
     }
     else if (t == "gameover")
     {
-        nummenuoptions = 0;
         menucountdown = 120;
         menudest="gameover2";
     }
     else if (t == "gameover2")
     {
-        menuoptions[0] = "return to play menu";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
+        option("return to play menu");
         menuxoff = -25;
         menuyoff = 80;
     }
     else if (t == "unlockmenutrials")
     {
-        if (unlock[9])
-        {
-            menuoptions[0] = "space station 1";
-            menuoptionsactive[0] = false;
-        }
-        else
-        {
-            menuoptions[0] = "space station 1";
-            menuoptionsactive[0] = true;
-        }
-        if (unlock[10])
-        {
-            menuoptions[1] = "the laboratory";
-            menuoptionsactive[1] = false;
-        }
-        else
-        {
-            menuoptions[1] = "the laboratory";
-            menuoptionsactive[1] = true;
-        }
-        if (unlock[11])
-        {
-            menuoptions[2] = "the tower";
-            menuoptionsactive[2] = false;
-        }
-        else
-        {
-            menuoptions[2] = "the tower";
-            menuoptionsactive[2] = true;
-        }
-        if (unlock[12])
-        {
-            menuoptions[3] = "space station 2";
-            menuoptionsactive[3] = false;
-        }
-        else
-        {
-            menuoptions[3] = "space station 2";
-            menuoptionsactive[3] = true;
-        }
-        if (unlock[13])
-        {
-            menuoptions[4] = "the warp zone";
-            menuoptionsactive[4] = false;
-        }
-        else
-        {
-            menuoptions[4] = "the warp zone";
-            menuoptionsactive[4] = true;
-        }
-        if (unlock[14])
-        {
-            menuoptions[5] = "the final level";
-            menuoptionsactive[5] = false;
-        }
-        else
-        {
-            menuoptions[5] = "the final level";
-            menuoptionsactive[5] = true;
-        }
+        option("space station 1", !unlock[9]);
+        option("the laboratory", !unlock[10]);
+        option("the tower", !unlock[11]);
+        option("space station 2", !unlock[12]);
+        option("the warp zone", !unlock[13]);
+        option("the final level", !unlock[14]);
 
-        menuoptions[6] = "return to unlock menu";
-        menuoptionsactive[6] = true;
-        nummenuoptions = 7;
+        option("return to unlock menu");
         menuxoff = -80;
         menuyoff = 0;
     }
     else if (t == "timetrials")
     {
-        if (!unlock[9])
-        {
-            menuoptions[0] = "???";
-            menuoptionsactive[0] = false;
-        }
-        else
-        {
-            menuoptions[0] = "space station 1";
-            menuoptionsactive[0] = true;
-        }
-        if (!unlock[10])
-        {
-            menuoptions[1] = "???";
-            menuoptionsactive[1] = false;
-        }
-        else
-        {
-            menuoptions[1] = "the laboratory";
-            menuoptionsactive[1] = true;
-        }
-        if (!unlock[11])
-        {
-            menuoptions[2] = "???";
-            menuoptionsactive[2] = false;
-        }
-        else
-        {
-            menuoptions[2] = "the tower";
-            menuoptionsactive[2] = true;
-        }
-        if (!unlock[12])
-        {
-            menuoptions[3] = "???";
-            menuoptionsactive[3] = false;
-        }
-        else
-        {
-            menuoptions[3] = "space station 2";
-            menuoptionsactive[3] = true;
-        }
-        if (!unlock[13])
-        {
-            menuoptions[4] = "???";
-            menuoptionsactive[4] = false;
-        }
-        else
-        {
-            menuoptions[4] = "the warp zone";
-            menuoptionsactive[4] = true;
-        }
-        if (!unlock[14])
-        {
-            menuoptions[5] = "???";
-            menuoptionsactive[5] = false;
-        }
-        else
-        {
-            menuoptions[5] = "the final level";
-            menuoptionsactive[5] = true;
-        }
+        option(unlock[9] ? "space station 1" : "???", unlock[9]);
+        option(unlock[10] ? "the laboratory" : "???", unlock[10]);
+        option(unlock[11] ? "the tower" : "???", unlock[11]);
+        option(unlock[12] ? "space station 2" : "???", unlock[12]);
+        option(unlock[13] ? "the warp zone" : "???", unlock[13]);
+        option(unlock[14] ? "the final level" : "???", unlock[14]);
 
-        menuoptions[6] = "return to play menu";
-        menuoptionsactive[6] = true;
-        nummenuoptions = 7;
+        option("return to play menu");
         menuxoff = -80;
         menuyoff = 0;
     }
     else if (t == "nodeathmodecomplete")
     {
-        nummenuoptions = 0;
         menucountdown = 90;
         menudest = "nodeathmodecomplete2";
     }
     else if (t == "nodeathmodecomplete2")
     {
-        menuoptions[0] = "return to play menu";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
+        option("return to play menu");
         menuxoff = -25;
         menuyoff = 70;
     }
     else if (t == "timetrialcomplete")
     {
-        nummenuoptions = 0;
         menucountdown = 90;
         menudest="timetrialcomplete2";
     }
     else if (t == "timetrialcomplete2")
     {
-        nummenuoptions = 0;
         menucountdown = 60;
         menudest="timetrialcomplete3";
     }
     else if (t == "timetrialcomplete3")
     {
-        menuoptions[0] = "return to play menu";
-        menuoptionsactive[0] = true;
-        menuoptions[1] = "try again";
-        menuoptionsactive[1] = true;
-        nummenuoptions = 2;
+        option("return to play menu");
+        option("try again");
         menuxoff = -25;
         menuyoff = 70;
     }
     else if (t == "gamecompletecontinue")
     {
-        menuoptions[0] = "return to play menu";
-        menuoptionsactive[0] = true;
-        nummenuoptions = 1;
+        option("return to play menu");
         menuxoff = -25;
         menuyoff = 70;
     }
