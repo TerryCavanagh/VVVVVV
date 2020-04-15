@@ -273,6 +273,7 @@ int main(int argc, char *argv[])
 
     obj.init();
 
+#if !defined(NO_CUSTOM_LEVELS)
     if (startinplaytest) {
         game.levelpage = 0;
         game.playcustomlevel = 0;
@@ -307,6 +308,7 @@ int main(int argc, char *argv[])
 
         graphics.fademode = 0;
     }
+#endif
 
     volatile Uint32 time, timePrev = 0;
     game.infocus = true;
