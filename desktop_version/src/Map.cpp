@@ -57,7 +57,6 @@ mapclass::mapclass()
 	for (int i = 0; i < 30; i++)
 	{
 		vmult.push_back(int(i * 40));
-		shinytrinkets.push_back(point());
 	}
 	//We create a blank map
 	for (int j = 0; j < 30; j++)
@@ -133,8 +132,10 @@ void mapclass::setteleporter(int x, int y)
 
 void mapclass::settrinket(int t, int x, int y)
 {
-	shinytrinkets[t].x = x;
-	shinytrinkets[t].y = y;
+	point temp;
+	temp.x = x;
+	temp.y = y;
+	shinytrinkets.push_back(temp);
 }
 
 void mapclass::resetmap()
