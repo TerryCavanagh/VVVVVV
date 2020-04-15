@@ -174,8 +174,8 @@ void titleinput()
             }
         }
 
-        if (game.currentmenuoption < 0) game.currentmenuoption = game.nummenuoptions-1;
-        if (game.currentmenuoption >= game.nummenuoptions ) game.currentmenuoption = 0;
+        if (game.currentmenuoption < 0) game.currentmenuoption = game.menuoptions.size()-1;
+        if (game.currentmenuoption >= (int) game.menuoptions.size() ) game.currentmenuoption = 0;
 
         if (game.press_action)
         {
@@ -214,15 +214,6 @@ void titleinput()
                         //Options
                         music.playef(11);
                         game.createmenu("options");
-
-                        //Add extra menu for mmmmmm mod
-                        if(music.mmmmmm){
-                            game.menuoptions[3] = "soundtrack";
-                            game.menuoptionsactive[3] = true;
-                            game.menuoptions[4] = "return";
-                            game.menuoptionsactive[4] = true;
-                            game.nummenuoptions = 5;
-                        }
                         map.nexttowercolour();
                     }
                     else if (game.currentmenuoption == 3)
@@ -264,15 +255,6 @@ void titleinput()
                         //Options
                         music.playef(11);
                         game.createmenu("options");
-
-                        //Add extra menu for mmmmmm mod
-                        if(music.mmmmmm){
-                            game.menuoptions[4] = "soundtrack";
-                            game.menuoptionsactive[4] = true;
-                            game.menuoptions[5] = "return";
-                            game.menuoptionsactive[5] = true;
-                            game.nummenuoptions = 6;
-                        }
                         map.nexttowercolour();
                     }
                     else if (game.currentmenuoption == 3)
@@ -326,15 +308,6 @@ void titleinput()
                         //Options
                         music.playef(11);
                         game.createmenu("options");
-
-                        //Add extra menu for mmmmmm mod
-                        if(music.mmmmmm){
-                            game.menuoptions[4] = "soundtrack";
-                            game.menuoptionsactive[4] = true;
-                            game.menuoptions[5] = "return";
-                            game.menuoptionsactive[5] = true;
-                            game.nummenuoptions = 6;
-                        }
                         map.nexttowercolour();
                     }
                     else if (game.currentmenuoption == 4)
@@ -357,12 +330,12 @@ void titleinput()
 #if !defined(NO_CUSTOM_LEVELS)
                 else if(game.currentmenuname=="levellist")
                 {
-                    if(game.currentmenuoption==game.nummenuoptions-1){
+                    if(game.currentmenuoption==(int)game.menuoptions.size()-1){
                         //go back to menu
                         music.playef(11);
                         game.createmenu("mainmenu");
                         map.nexttowercolour();
-                    }else if(game.currentmenuoption==game.nummenuoptions-2){
+                    }else if(game.currentmenuoption==(int)game.menuoptions.size()-2){
                         //next page
                         music.playef(11);
                         if((size_t) ((game.levelpage*8)+8) >= ed.ListOfMetaData.size()){
@@ -371,7 +344,7 @@ void titleinput()
                             game.levelpage++;
                         }
                         game.createmenu("levellist");
-                        game.currentmenuoption=game.nummenuoptions-2;
+                        game.currentmenuoption=game.menuoptions.size()-2;
                         map.nexttowercolour();
                     }else{
                         //Ok, launch the level!
@@ -685,24 +658,6 @@ void titleinput()
                         //back
                         music.playef(11);
                         game.createmenu("options");
-
-                        //Add extra menu for mmmmmm mod
-                        if(music.mmmmmm){
-#if defined(MAKEANDPLAY)
-                            game.menuoptions[3] = "soundtrack";
-                            game.menuoptionsactive[3] = true;
-                            game.menuoptions[4] = "return";
-                            game.menuoptionsactive[4] = true;
-                            game.nummenuoptions = 5;
-#elif !defined(MAKEANDPLAY)
-                            game.menuoptions[4] = "soundtrack";
-                            game.menuoptionsactive[4] = true;
-                            game.menuoptions[5] = "return";
-                            game.menuoptionsactive[5] = true;
-                            game.nummenuoptions = 6;
-#endif
-                        }
-
                         map.nexttowercolour();
                     }
                     else
@@ -1269,23 +1224,6 @@ void titleinput()
                     {
                         music.playef(11);
                         game.createmenu("options");
-
-                        //Add extra menu for mmmmmm mod
-                        if(music.mmmmmm){
-#if defined(MAKEANDPLAY)
-                            game.menuoptions[3] = "soundtrack";
-                            game.menuoptionsactive[3] = true;
-                            game.menuoptions[4] = "return";
-                            game.menuoptionsactive[4] = true;
-                            game.nummenuoptions = 5;
-#elif !defined(MAKEANDPLAY)
-                            game.menuoptions[4] = "soundtrack";
-                            game.menuoptionsactive[4] = true;
-                            game.menuoptions[5] = "return";
-                            game.menuoptionsactive[5] = true;
-                            game.nummenuoptions = 6;
-#endif
-                        }
                     }
                 }
                 else if (game.currentmenuname == "cleardatamenu")
@@ -1295,23 +1233,6 @@ void titleinput()
                         //back
                         music.playef(11);
                         game.createmenu("options");
-
-                        //Add extra menu for mmmmmm mod
-                        if(music.mmmmmm){
-#if defined(MAKEANDPLAY)
-                            game.menuoptions[3] = "soundtrack";
-                            game.menuoptionsactive[3] = true;
-                            game.menuoptions[4] = "return";
-                            game.menuoptionsactive[4] = true;
-                            game.nummenuoptions = 5;
-#elif !defined(MAKEANDPLAY)
-                            game.menuoptions[4] = "soundtrack";
-                            game.menuoptionsactive[4] = true;
-                            game.menuoptions[5] = "return";
-                            game.menuoptionsactive[5] = true;
-                            game.nummenuoptions = 6;
-#endif
-                        }
                         map.nexttowercolour();
                     }
                     else
