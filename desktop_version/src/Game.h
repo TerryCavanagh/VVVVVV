@@ -169,6 +169,14 @@ public:
     int current_credits_list_index;
     int menuxoff, menuyoff;
 
+    void inline option(std::string text, bool active = true)
+    {
+        MenuOption menuoption;
+        menuoption.text = text;
+        menuoption.active = active;
+        menuoptions.push_back(menuoption);
+    }
+
     int menucountdown;
     std::string menudest;
 
