@@ -1343,15 +1343,11 @@ void menuactionpress()
         game.createmenu("mainmenu");
         map.nexttowercolour();
     }
-    else if (game.currentmenuname == "unlocktimetrials" || game.currentmenuname == "unlocktimetrial")
-    {
-        //back
-        music.playef(11);
-        game.createmenu("play");
-        map.nexttowercolour();
-    }
-    else if (game.currentmenuname == "unlocknodeathmode" || game.currentmenuname == "unlockintermission"
-             || game.currentmenuname == "unlockflipmode")
+    else if (game.currentmenuname == "unlocktimetrials"
+    || game.currentmenuname == "unlocktimetrial"
+    || game.currentmenuname == "unlocknodeathmode"
+    || game.currentmenuname == "unlockintermission"
+    || game.currentmenuname == "unlockflipmode")
     {
         //back
         music.playef(11);

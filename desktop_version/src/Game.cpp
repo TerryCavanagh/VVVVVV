@@ -6955,25 +6955,11 @@ void Game::createmenu( std::string t )
             }
         }
     }
-    else if (t == "unlocktimetrial" || t == "unlocktimetrials")
-    {
-        option("continue");
-        menuxoff = 20;
-        menuyoff = 70;
-    }
-    else if (t == "unlocknodeathmode")
-    {
-        option("continue");
-        menuxoff = 20;
-        menuyoff = 70;
-    }
-    else if (t == "unlockintermission")
-    {
-        option("continue");
-        menuxoff = 20;
-        menuyoff = 70;
-    }
-    else if (t == "unlockflipmode")
+    else if (t == "unlocktimetrial"
+    || t == "unlocktimetrials"
+    || t == "unlocknodeathmode"
+    || t == "unlockintermission"
+    || t == "unlockflipmode")
     {
         option("continue");
         menuxoff = 20;
