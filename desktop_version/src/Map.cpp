@@ -430,7 +430,6 @@ void mapclass::initmapdata()
 	setteleporter(18, 1);
 	setteleporter(18, 7);
 
-	numshinytrinkets = 18;
 	settrinket(14, 4);
 	settrinket(13, 6);
 	settrinket(11, 12);
