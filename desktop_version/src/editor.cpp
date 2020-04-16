@@ -3463,52 +3463,50 @@ void editormenuactionpress()
 {
     if (game.currentmenuname == "ed_desc")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             ed.textentry=true;
             ed.titlemod=true;
             key.enabletextentry();
             key.keybuffer=EditorData::GetInstance().title;
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             ed.textentry=true;
             ed.creatormod=true;
             key.enabletextentry();
             key.keybuffer=EditorData::GetInstance().creator;
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             ed.textentry=true;
             ed.desc1mod=true;
             key.enabletextentry();
             key.keybuffer=ed.Desc1;
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             ed.textentry=true;
             ed.websitemod=true;
             key.enabletextentry();
             key.keybuffer=ed.website;
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             music.playef(11);
             game.createmenu("ed_settings");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "ed_settings")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //Change level description stuff
             music.playef(11);
             game.createmenu("ed_desc");
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             //Enter script editormode
             music.playef(11);
             ed.scripteditmod=true;
@@ -3521,16 +3519,14 @@ void editormenuactionpress()
             ed.scripthelppagedelay=0;
             ed.sby=0;
             ed.sbx=0, ed.pagey=0;
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             music.playef(11);
             game.createmenu("ed_music");
             map.nexttowercolour();
             if(ed.levmusic>0) music.play(ed.levmusic);
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             //Load level
             ed.settingsmod=false;
             graphics.backgrounddrawn=false;
@@ -3543,9 +3539,8 @@ void editormenuactionpress()
             ed.keydelay=6;
             game.mapheld=true;
             graphics.backgrounddrawn=false;
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             //Save level
             ed.settingsmod=false;
             graphics.backgrounddrawn=false;
@@ -3558,18 +3553,19 @@ void editormenuactionpress()
             ed.keydelay=6;
             game.mapheld=true;
             graphics.backgrounddrawn=false;
-        }
-        else if (game.currentmenuoption == 5)
-        {
+            break;
+        case 5:
             music.playef(11);
             game.createmenu("ed_quit");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "ed_music")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             ed.levmusic++;
             if(ed.levmusic==5) ed.levmusic=6;
             if(ed.levmusic==7) ed.levmusic=8;
@@ -3584,19 +3580,20 @@ void editormenuactionpress()
                 music.haltdasmusik();
             }
             music.playef(11);
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             music.playef(11);
             music.fadeout();
             game.createmenu("ed_settings");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "ed_quit")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //Saving and quit
             ed.saveandquit=true;
 
@@ -3611,20 +3608,19 @@ void editormenuactionpress()
             ed.keydelay=6;
             game.mapheld=true;
             graphics.backgrounddrawn=false;
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             //Quit without saving
             music.playef(11);
             music.fadeout();
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             //Go back to editor
             music.playef(11);
             game.createmenu("ed_settings");
             map.nexttowercolour();
+            break;
         }
     }
 }
