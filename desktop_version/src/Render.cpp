@@ -113,59 +113,59 @@ void menurender()
     }
     else if (game.currentmenuname == "graphicoptions")
     {
-      if (game.currentmenuoption == 0)
-      {
-          graphics.bigprint( -1, 30, "Toggle Fullscreen", tr, tg, tb, true);
-          graphics.Print( -1, 65, "Change to fullscreen/windowed mode.", tr, tg, tb, true);
+        if (game.currentmenuoption == 0)
+        {
+            graphics.bigprint( -1, 30, "Toggle Fullscreen", tr, tg, tb, true);
+            graphics.Print( -1, 65, "Change to fullscreen/windowed mode.", tr, tg, tb, true);
 
-          if(game.fullscreen){
-            graphics.Print( -1, 85, "Current mode: FULLSCREEN", tr, tg, tb, true);
-          }else{
-            graphics.Print( -1, 85, "Current mode: WINDOWED", tr, tg, tb, true);
-          }
-
-      }else if (game.currentmenuoption == 1)
-            {
-                graphics.bigprint( -1, 30, "Toggle Letterbox", tr, tg, tb, true);
-                graphics.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
-
-          if(game.stretchMode == 2){
-            graphics.Print( -1, 85, "Current mode: INTEGER", tr, tg, tb, true);
-          }else if (game.stretchMode == 1){
-            graphics.Print( -1, 85, "Current mode: STRETCH", tr, tg, tb, true);
-          }else{
-            graphics.Print( -1, 85, "Current mode: LETTERBOX", tr, tg, tb, true);
-          }
-      }else if (game.currentmenuoption == 2)
-            {
-                graphics.bigprint( -1, 30, "Toggle Filter", tr, tg, tb, true);
-                graphics.Print( -1, 65, "Change to nearest/linear filter.", tr, tg, tb, true);
-
-          if(game.useLinearFilter){
-            graphics.Print( -1, 85, "Current mode: LINEAR", tr, tg, tb, true);
-          }else{
-            graphics.Print( -1, 85, "Current mode: NEAREST", tr, tg, tb, true);
-          }
-
-            } else if (game.currentmenuoption == 3)
-            {
-                graphics.bigprint( -1, 30, "Analogue Mode", tr, tg, tb, true);
-                graphics.Print( -1, 65, "There is nothing wrong with your", tr, tg, tb, true);
-                graphics.Print( -1, 75, "television set. Do not attempt to", tr, tg, tb, true);
-                graphics.Print( -1, 85, "adjust the picture.", tr, tg, tb, true);
+            if(game.fullscreen){
+              graphics.Print( -1, 85, "Current mode: FULLSCREEN", tr, tg, tb, true);
+            }else{
+              graphics.Print( -1, 85, "Current mode: WINDOWED", tr, tg, tb, true);
             }
-      else if (game.currentmenuoption == 4)
-      {
-          graphics.bigprint(-1, 30, "Toggle Mouse Cursor", tr, tg, tb, true);
-          graphics.Print(-1, 65, "Show/hide the system mouse cursor.", tr, tg, tb, true);
 
-          if (graphics.showmousecursor) {
-              graphics.Print(-1, 85, "Current mode: SHOW", tr, tg, tb, true);
-          }
-          else {
-              graphics.Print(-1, 85, "Current mode: HIDE", tr/2, tg/2, tb/2, true);
-          }
-      }
+        }else if (game.currentmenuoption == 1)
+        {
+            graphics.bigprint( -1, 30, "Toggle Letterbox", tr, tg, tb, true);
+            graphics.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
+
+            if(game.stretchMode == 2){
+              graphics.Print( -1, 85, "Current mode: INTEGER", tr, tg, tb, true);
+            }else if (game.stretchMode == 1){
+              graphics.Print( -1, 85, "Current mode: STRETCH", tr, tg, tb, true);
+            }else{
+              graphics.Print( -1, 85, "Current mode: LETTERBOX", tr, tg, tb, true);
+            }
+        }else if (game.currentmenuoption == 2)
+        {
+            graphics.bigprint( -1, 30, "Toggle Filter", tr, tg, tb, true);
+            graphics.Print( -1, 65, "Change to nearest/linear filter.", tr, tg, tb, true);
+
+            if(game.useLinearFilter){
+              graphics.Print( -1, 85, "Current mode: LINEAR", tr, tg, tb, true);
+            }else{
+              graphics.Print( -1, 85, "Current mode: NEAREST", tr, tg, tb, true);
+            }
+
+        } else if (game.currentmenuoption == 3)
+        {
+            graphics.bigprint( -1, 30, "Analogue Mode", tr, tg, tb, true);
+            graphics.Print( -1, 65, "There is nothing wrong with your", tr, tg, tb, true);
+            graphics.Print( -1, 75, "television set. Do not attempt to", tr, tg, tb, true);
+            graphics.Print( -1, 85, "adjust the picture.", tr, tg, tb, true);
+        }
+        else if (game.currentmenuoption == 4)
+        {
+            graphics.bigprint(-1, 30, "Toggle Mouse Cursor", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Show/hide the system mouse cursor.", tr, tg, tb, true);
+
+            if (graphics.showmousecursor) {
+                graphics.Print(-1, 85, "Current mode: SHOW", tr, tg, tb, true);
+            }
+            else {
+                graphics.Print(-1, 85, "Current mode: HIDE", tr/2, tg/2, tb/2, true);
+            }
+        }
     }
     else if (game.currentmenuname == "credits")
     {
