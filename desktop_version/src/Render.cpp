@@ -487,7 +487,7 @@ void menurender()
 
             if (game.gameframerate > 34 || map.invincibility)
             {
-                graphics.Print( -1, 105, "No death mode is not available", tr, tg, tb, true);
+                graphics.Print( -1, 105, "No Death Mode is not available", tr, tg, tb, true);
                 graphics.Print( -1, 115, "with slowdown or invincibility.", tr, tg, tb, true);
             }
             else if (!game.unlock[17])
