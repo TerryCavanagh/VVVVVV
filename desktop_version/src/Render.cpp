@@ -269,7 +269,7 @@ void menurender()
         graphics.Print( -1, 100, "Are you sure you want to ", tr, tg, tb, true);
         graphics.Print( -1, 110, "enable invincibility?", tr, tg, tb, true);
         break;
-    case Menu::setslowdown2:
+    case Menu::setslowdown:
         graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
         graphics.Print( -1, 75, "Select a new game speed below.", tr, tg, tb, true);
         switch (game.gameframerate)
