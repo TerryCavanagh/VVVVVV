@@ -917,7 +917,7 @@ void menuactionpress()
         }
         else if (game.currentmenuoption == 1 && game.unlock[8])
         {
-            if(!map.invincibility){
+            if(!map.invincibility && game.slowdown == 30){
                 game.mainmenu = 11;
                 graphics.fademode = 2;
             }else{
