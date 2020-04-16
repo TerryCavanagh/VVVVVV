@@ -6753,12 +6753,6 @@ void Game::createmenu( enum Menu::MenuName t )
         menuxoff = -30;
         menuyoff = 64;
         break;
-    case Menu::setslowdown1:
-        option("no, return to options");
-        option("yes, delete saves");
-        menuxoff = -30;
-        menuyoff = 64;
-        break;
     case Menu::setslowdown2:
         option("normal speed");
         option("80% speed");

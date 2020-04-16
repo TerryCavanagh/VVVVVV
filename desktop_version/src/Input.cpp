@@ -392,26 +392,6 @@ void menuactionpress()
             break;
         }
         break;
-    case Menu::setslowdown1:
-        switch (game.currentmenuoption)
-        {
-        case 0:
-            //back
-            music.playef(11);
-            game.createmenu(Menu::accessibility);
-            game.currentmenuoption = 4;
-            map.nexttowercolour();
-            break;
-        case 1:
-            //change game speed
-            game.deletequick();
-            game.deletetele();
-            game.createmenu(Menu::setslowdown2);
-            map.nexttowercolour();
-            music.playef(11);
-            break;
-        }
-        break;
     case Menu::setslowdown2:
         switch (game.currentmenuoption)
         {

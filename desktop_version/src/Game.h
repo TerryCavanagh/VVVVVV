@@ -35,7 +35,6 @@ namespace Menu
         controller,
         cleardatamenu,
         setinvincibility,
-        setslowdown1,
         setslowdown2,
         unlockmenu,
         credits,
