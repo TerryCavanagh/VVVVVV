@@ -223,7 +223,6 @@ void Game::init(void)
     unlocknotify.resize(25);
 
     currentmenuoption = 0;
-    menuselection = "null";
     current_credits_list_index = 0;
     menuxoff = 0;
     menuyoff = 0;
@@ -6546,7 +6545,6 @@ std::string Game::timetstring( int t )
 void Game::createmenu( enum Menu::MenuName t )
 {
     currentmenuoption = 0;
-    menuselection = "null";
     currentmenuname = t;
     menuxoff = 0;
     menuyoff = 0;
