@@ -3454,6 +3454,176 @@ void editorlogic()
 }
 
 
+void editormenuactionpress()
+{
+    if (game.currentmenuname == "ed_desc")
+    {
+        if (game.currentmenuoption == 0)
+        {
+            ed.textentry=true;
+            ed.titlemod=true;
+            key.enabletextentry();
+            key.keybuffer=EditorData::GetInstance().title;
+        }
+        else if (game.currentmenuoption == 1)
+        {
+            ed.textentry=true;
+            ed.creatormod=true;
+            key.enabletextentry();
+            key.keybuffer=EditorData::GetInstance().creator;
+        }
+        else if (game.currentmenuoption == 2)
+        {
+            ed.textentry=true;
+            ed.desc1mod=true;
+            key.enabletextentry();
+            key.keybuffer=ed.Desc1;
+        }
+        else if (game.currentmenuoption == 3)
+        {
+            ed.textentry=true;
+            ed.websitemod=true;
+            key.enabletextentry();
+            key.keybuffer=ed.website;
+        }
+        else if (game.currentmenuoption == 4)
+        {
+            music.playef(11);
+            game.createmenu("ed_settings");
+            map.nexttowercolour();
+        }
+    }
+    else if (game.currentmenuname == "ed_settings")
+    {
+        if (game.currentmenuoption == 0)
+        {
+            //Change level description stuff
+            music.playef(11);
+            game.createmenu("ed_desc");
+            map.nexttowercolour();
+        }
+        else if (game.currentmenuoption == 1)
+        {
+            //Enter script editormode
+            music.playef(11);
+            ed.scripteditmod=true;
+            ed.clearscriptbuffer();
+            key.enabletextentry();
+            key.keybuffer="";
+            ed.hookmenupage=0;
+            ed.hookmenu=0;
+            ed.scripthelppage=0;
+            ed.scripthelppagedelay=0;
+            ed.sby=0;
+            ed.sbx=0, ed.pagey=0;
+        }
+        else if (game.currentmenuoption == 2)
+        {
+            music.playef(11);
+            game.createmenu("ed_music");
+            map.nexttowercolour();
+            if(ed.levmusic>0) music.play(ed.levmusic);
+        }
+        else if (game.currentmenuoption == 3)
+        {
+            //Load level
+            ed.settingsmod=false;
+            graphics.backgrounddrawn=false;
+            map.nexttowercolour();
+
+            ed.loadmod=true;
+            ed.textentry=true;
+            key.enabletextentry();
+            key.keybuffer=ed.filename;
+            ed.keydelay=6;
+            game.mapheld=true;
+            graphics.backgrounddrawn=false;
+        }
+        else if (game.currentmenuoption == 4)
+        {
+            //Save level
+            ed.settingsmod=false;
+            graphics.backgrounddrawn=false;
+            map.nexttowercolour();
+
+            ed.savemod=true;
+            ed.textentry=true;
+            key.enabletextentry();
+            key.keybuffer=ed.filename;
+            ed.keydelay=6;
+            game.mapheld=true;
+            graphics.backgrounddrawn=false;
+        }
+        else if (game.currentmenuoption == 5)
+        {
+            music.playef(11);
+            game.createmenu("ed_quit");
+            map.nexttowercolour();
+        }
+    }
+    else if (game.currentmenuname == "ed_music")
+    {
+        if (game.currentmenuoption == 0)
+        {
+            ed.levmusic++;
+            if(ed.levmusic==5) ed.levmusic=6;
+            if(ed.levmusic==7) ed.levmusic=8;
+            if(ed.levmusic==9) ed.levmusic=10;
+            if(ed.levmusic==15) ed.levmusic=0;
+            if(ed.levmusic>0)
+            {
+                music.play(ed.levmusic);
+            }
+            else
+            {
+                music.haltdasmusik();
+            }
+            music.playef(11);
+        }
+        else if (game.currentmenuoption == 1)
+        {
+            music.playef(11);
+            music.fadeout();
+            game.createmenu("ed_settings");
+            map.nexttowercolour();
+        }
+    }
+    else if (game.currentmenuname == "ed_quit")
+    {
+        if (game.currentmenuoption == 0)
+        {
+            //Saving and quit
+            ed.saveandquit=true;
+
+            ed.settingsmod=false;
+            graphics.backgrounddrawn=false;
+            map.nexttowercolour();
+
+            ed.savemod=true;
+            ed.textentry=true;
+            key.enabletextentry();
+            key.keybuffer=ed.filename;
+            ed.keydelay=6;
+            game.mapheld=true;
+            graphics.backgrounddrawn=false;
+        }
+        else if (game.currentmenuoption == 1)
+        {
+            //Quit without saving
+            music.playef(11);
+            music.fadeout();
+            graphics.fademode = 2;
+        }
+        else if (game.currentmenuoption == 2)
+        {
+            //Go back to editor
+            music.playef(11);
+            game.createmenu("ed_settings");
+            map.nexttowercolour();
+        }
+    }
+}
+
 void editorinput()
 {
     game.mx = (float) key.mx;
@@ -3923,172 +4093,7 @@ void editorinput()
 
                 if (game.press_action)
                 {
-                    if (game.currentmenuname == "ed_desc")
-                    {
-                        if (game.currentmenuoption == 0)
-                        {
-                            ed.textentry=true;
-                            ed.titlemod=true;
-                            key.enabletextentry();
-                            key.keybuffer=EditorData::GetInstance().title;
-                        }
-                        else if (game.currentmenuoption == 1)
-                        {
-                            ed.textentry=true;
-                            ed.creatormod=true;
-                            key.enabletextentry();
-                            key.keybuffer=EditorData::GetInstance().creator;
-                        }
-                        else if (game.currentmenuoption == 2)
-                        {
-                            ed.textentry=true;
-                            ed.desc1mod=true;
-                            key.enabletextentry();
-                            key.keybuffer=ed.Desc1;
-                        }
-                        else if (game.currentmenuoption == 3)
-                        {
-                            ed.textentry=true;
-                            ed.websitemod=true;
-                            key.enabletextentry();
-                            key.keybuffer=ed.website;
-                        }
-                        else if (game.currentmenuoption == 4)
-                        {
-                            music.playef(11);
-                            game.createmenu("ed_settings");
-                            map.nexttowercolour();
-                        }
-                    }
-                    else if (game.currentmenuname == "ed_settings")
-                    {
-                        if (game.currentmenuoption == 0)
-                        {
-                            //Change level description stuff
-                            music.playef(11);
-                            game.createmenu("ed_desc");
-                            map.nexttowercolour();
-                        }
-                        else if (game.currentmenuoption == 1)
-                        {
-                            //Enter script editormode
-                            music.playef(11);
-                            ed.scripteditmod=true;
-                            ed.clearscriptbuffer();
-                            key.enabletextentry();
-                            key.keybuffer="";
-                            ed.hookmenupage=0;
-                            ed.hookmenu=0;
-                            ed.scripthelppage=0;
-                            ed.scripthelppagedelay=0;
-                            ed.sby=0;
-                            ed.sbx=0, ed.pagey=0;
-                        }
-                        else if (game.currentmenuoption == 2)
-                        {
-                            music.playef(11);
-                            game.createmenu("ed_music");
-                            map.nexttowercolour();
-                            if(ed.levmusic>0) music.play(ed.levmusic);
-                        }
-                        else if (game.currentmenuoption == 3)
-                        {
-                            //Load level
-                            ed.settingsmod=false;
-                            graphics.backgrounddrawn=false;
-                            map.nexttowercolour();
-
-                            ed.loadmod=true;
-                            ed.textentry=true;
-                            key.enabletextentry();
-                            key.keybuffer=ed.filename;
-                            ed.keydelay=6;
-                            game.mapheld=true;
-                            graphics.backgrounddrawn=false;
-                        }
-                        else if (game.currentmenuoption == 4)
-                        {
-                            //Save level
-                            ed.settingsmod=false;
-                            graphics.backgrounddrawn=false;
-                            map.nexttowercolour();
-
-                            ed.savemod=true;
-                            ed.textentry=true;
-                            key.enabletextentry();
-                            key.keybuffer=ed.filename;
-                            ed.keydelay=6;
-                            game.mapheld=true;
-                            graphics.backgrounddrawn=false;
-                        }
-                        else if (game.currentmenuoption == 5)
-                        {
-                            music.playef(11);
-                            game.createmenu("ed_quit");
-                            map.nexttowercolour();
-                        }
-                    }
-                    else if (game.currentmenuname == "ed_music")
-                    {
-                        if (game.currentmenuoption == 0)
-                        {
-                            ed.levmusic++;
-                            if(ed.levmusic==5) ed.levmusic=6;
-                            if(ed.levmusic==7) ed.levmusic=8;
-                            if(ed.levmusic==9) ed.levmusic=10;
-                            if(ed.levmusic==15) ed.levmusic=0;
-                            if(ed.levmusic>0)
-                            {
-                                music.play(ed.levmusic);
-                            }
-                            else
-                            {
-                                music.haltdasmusik();
-                            }
-                            music.playef(11);
-                        }
-                        else if (game.currentmenuoption == 1)
-                        {
-                            music.playef(11);
-                            music.fadeout();
-                            game.createmenu("ed_settings");
-                            map.nexttowercolour();
-                        }
-                    }
-                    else if (game.currentmenuname == "ed_quit")
-                    {
-                        if (game.currentmenuoption == 0)
-                        {
-                            //Saving and quit
-                            ed.saveandquit=true;
-
-                            ed.settingsmod=false;
-                            graphics.backgrounddrawn=false;
-                            map.nexttowercolour();
-
-                            ed.savemod=true;
-                            ed.textentry=true;
-                            key.enabletextentry();
-                            key.keybuffer=ed.filename;
-                            ed.keydelay=6;
-                            game.mapheld=true;
-                            graphics.backgrounddrawn=false;
-                        }
-                        else if (game.currentmenuoption == 1)
-                        {
-                            //Quit without saving
-                            music.playef(11);
-                            music.fadeout();
-                            graphics.fademode = 2;
-                        }
-                        else if (game.currentmenuoption == 2)
-                        {
-                            //Go back to editor
-                            music.playef(11);
-                            game.createmenu("ed_settings");
-                            map.nexttowercolour();
-                        }
-                    }
+                    editormenuactionpress();
                 }
             }
         }
