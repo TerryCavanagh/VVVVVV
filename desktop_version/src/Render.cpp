@@ -72,33 +72,31 @@ void menurender()
 #define OFFSET 0
 #endif
 
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             graphics.bigprint( -1, 30, "Accessibility", tr, tg, tb, true);
             graphics.Print( -1, 65, "Disable screen effects, enable", tr, tg, tb, true);
             graphics.Print( -1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
-        }
+            break;
 #if !defined(MAKEANDPLAY)
-        else if (game.currentmenuoption == 1)
-        {
+        case 1:
             graphics.bigprint( -1, 30, "Unlock Play Modes", tr, tg, tb, true);
             graphics.Print( -1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
             graphics.Print( -1, 75, "unlocked as you progress", tr, tg, tb, true);
-        }
+            break;
 #endif
-        else if (game.currentmenuoption == OFFSET+2)
-        {
+        case OFFSET+2:
             graphics.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
             graphics.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
             graphics.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
-        }
-        else if (game.currentmenuoption == OFFSET+3)
-        {
+            break;
+        case OFFSET+3:
             graphics.bigprint( -1, 30, "Clear Data", tr, tg, tb, true);
             graphics.Print( -1, 65, "Delete your save data", tr, tg, tb, true);
             graphics.Print( -1, 75, "and unlocked play modes", tr, tg, tb, true);
-        }else if (game.currentmenuoption == OFFSET+4)
-        {
+            break;
+        case OFFSET+4:
             if(music.mmmmmm){
                 graphics.bigprint( -1, 30, "Soundtrack", tr, tg, tb, true);
                 graphics.Print( -1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
@@ -108,13 +106,15 @@ void menurender()
                     graphics.Print( -1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
                 }
             }
+            break;
         }
 #undef OFFSET
     }
     else if (game.currentmenuname == "graphicoptions")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             graphics.bigprint( -1, 30, "Toggle Fullscreen", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to fullscreen/windowed mode.", tr, tg, tb, true);
 
@@ -123,9 +123,9 @@ void menurender()
             }else{
               graphics.Print( -1, 85, "Current mode: WINDOWED", tr, tg, tb, true);
             }
+            break;
 
-        }else if (game.currentmenuoption == 1)
-        {
+        case 1:
             graphics.bigprint( -1, 30, "Toggle Letterbox", tr, tg, tb, true);
             graphics.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
 
@@ -136,8 +136,8 @@ void menurender()
             }else{
               graphics.Print( -1, 85, "Current mode: LETTERBOX", tr, tg, tb, true);
             }
-        }else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             graphics.bigprint( -1, 30, "Toggle Filter", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to nearest/linear filter.", tr, tg, tb, true);
 
@@ -146,16 +146,15 @@ void menurender()
             }else{
               graphics.Print( -1, 85, "Current mode: NEAREST", tr, tg, tb, true);
             }
+            break;
 
-        } else if (game.currentmenuoption == 3)
-        {
+        case 3:
             graphics.bigprint( -1, 30, "Analogue Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "There is nothing wrong with your", tr, tg, tb, true);
             graphics.Print( -1, 75, "television set. Do not attempt to", tr, tg, tb, true);
             graphics.Print( -1, 85, "adjust the picture.", tr, tg, tb, true);
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             graphics.bigprint(-1, 30, "Toggle Mouse Cursor", tr, tg, tb, true);
             graphics.Print(-1, 65, "Show/hide the system mouse cursor.", tr, tg, tb, true);
 
@@ -165,6 +164,7 @@ void menurender()
             else {
                 graphics.Print(-1, 85, "Current mode: HIDE", tr/2, tg/2, tb/2, true);
             }
+            break;
         }
     }
     else if (game.currentmenuname == "credits")
@@ -283,21 +283,20 @@ void menurender()
     {
         graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
         graphics.Print( -1, 75, "Select a new game speed below.", tr, tg, tb, true);
-        if (game.gameframerate==34)
+        switch (game.gameframerate)
         {
+        case 34:
             graphics.Print( -1, 105, "Game speed is normal.", tr/2, tg/2, tb/2, true);
-        }
-        else if (game.gameframerate==41)
-        {
+            break;
+        case 41:
             graphics.Print( -1, 105, "Game speed is at 80%", tr, tg, tb, true);
-        }
-        else if (game.gameframerate==55)
-        {
+            break;
+        case 55:
             graphics.Print( -1, 105, "Game speed is at 60%", tr, tg, tb, true);
-        }
-        else if (game.gameframerate==83)
-        {
+            break;
+        case 83:
             graphics.Print( -1, 105, "Game speed is at 40%", tr, tg, tb, true);
+            break;
         }
     }
     else if (game.currentmenuname == "newgamewarning")
@@ -321,8 +320,9 @@ void menurender()
     {
         graphics.bigprint( -1, 30, "Game Pad", tr, tg, tb, true);
         graphics.Print( -1, 55, "Change controller options.", tr, tg, tb, true);
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             switch(game.controllerSensitivity)
             {
             case 0:
@@ -346,22 +346,23 @@ void menurender()
                 graphics.Print( -1, 95, "..................[]", tr, tg, tb, true);
                 break;
             }
-        }
-        if (    game.currentmenuoption == 1 ||
-                            game.currentmenuoption == 2 ||
-                            game.currentmenuoption == 3     )
-        {
+            break;
+        case 1:
+        case 2:
+        case 3:
             graphics.Print( -1, 85, "Flip is bound to: " + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
             graphics.Print( -1, 95, "Enter is bound to: "  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
             graphics.Print( -1, 105, "Menu is bound to: " + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
+            break;
         }
 
 
     }
     else if (game.currentmenuname == "accessibility")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             graphics.bigprint( -1, 40, "Backgrounds", tr, tg, tb, true);
             if (!game.colourblindmode)
             {
@@ -371,9 +372,8 @@ void menurender()
             {
                 graphics.Print( -1, 75, "Backgrounds are OFF.", tr/2, tg/2, tb/2, true);
             }
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             graphics.bigprint( -1, 40, "Screen Effects", tr, tg, tb, true);
             graphics.Print( -1, 75, "Disables screen shakes and flashes.", tr, tg, tb, true);
             if (!game.noflashingmode)
@@ -384,9 +384,8 @@ void menurender()
             {
                 graphics.Print( -1, 85, "Screen Effects are OFF.", tr/2, tg/2, tb/2, true);
             }
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             graphics.bigprint( -1, 40, "Text Outline", tr, tg, tb, true);
             graphics.Print( -1, 75, "Disables outline on game text", tr, tg, tb, true);
             // FIXME: Maybe do an outlined print instead? -flibit
@@ -398,9 +397,8 @@ void menurender()
             {
                 graphics.Print( -1, 85, "Text outlines are OFF.", tr/2, tg/2, tb/2, true);
             }
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             graphics.bigprint( -1, 40, "Invincibility", tr, tg, tb, true);
             graphics.Print( -1, 75, "Provided to help disabled gamers", tr, tg, tb, true);
             graphics.Print( -1, 85, "explore the game. Can cause glitches.", tr, tg, tb, true);
@@ -412,9 +410,8 @@ void menurender()
             {
                 graphics.Print( -1, 105, "Invincibility is off.", tr/2, tg/2, tb/2, true);
             }
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
             graphics.Print( -1, 75, "May be useful for disabled gamers", tr, tg, tb, true);
             graphics.Print( -1, 85, "using one switch devices.", tr, tg, tb, true);
@@ -434,17 +431,15 @@ void menurender()
             {
                 graphics.Print( -1, 105, "Game speed is at 40%", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 5)
-        {
+            break;
+        case 5:
             graphics.bigprint(-1, 30, "Fake Load Screen", tr, tg, tb, true);
             if (game.skipfakeload)
                 graphics.Print(-1, 75, "Fake loading screen is OFF", tr/2, tg/2, tb/2, true);
             else
                 graphics.Print(-1, 75, "Fake loading screen is ON", tr, tg, tb, true);
-        }
-        else if (game.currentmenuoption == 6)
-        {
+            break;
+        case 6:
             graphics.bigprint(-1, 30, "Room Name BG", tr, tg, tb, true);
             graphics.Print( -1, 75, "Lets you see through what is behind", tr, tg, tb, true);
             graphics.Print( -1, 85, "the name at the bottom of the screen.", tr, tg, tb, true);
@@ -452,6 +447,7 @@ void menurender()
                 graphics.Print(-1, 105, "Room name background is TRANSLUCENT", tr/2, tg/2, tb/2, true);
             else
                 graphics.Print(-1, 105, "Room name background is OPAQUE", tr, tg, tb, true);
+            break;
         }
     }
     else if (game.currentmenuname == "playint1" || game.currentmenuname == "playint2")
@@ -461,8 +457,9 @@ void menurender()
     }
     else if (game.currentmenuname == "playmodes")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             graphics.bigprint( -1, 30, "Time Trials", tr, tg, tb, true);
             graphics.Print( -1, 65, "Replay any level in the game in", tr, tg, tb, true);
             graphics.Print( -1, 75, "a competitive time trial mode.", tr, tg, tb, true);
@@ -472,9 +469,8 @@ void menurender()
                 graphics.Print( -1, 105, "Time Trials are not available", tr, tg, tb, true);
                 graphics.Print( -1, 115, "with slowdown or invincibility.", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             graphics.bigprint( -1, 30, "Intermissions", tr, tg, tb, true);
             graphics.Print( -1, 65, "Replay the intermission levels.", tr, tg, tb, true);
 
@@ -483,9 +479,8 @@ void menurender()
                 graphics.Print( -1, 95, "TO UNLOCK: Complete the", tr, tg, tb, true);
                 graphics.Print( -1, 105, "intermission levels in-game.", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             graphics.bigprint( -1, 30, "No Death Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Play the entire game", tr, tg, tb, true);
             graphics.Print( -1, 75, "without dying once.", tr, tg, tb, true);
@@ -500,9 +495,8 @@ void menurender()
                 graphics.Print( -1, 105, "TO UNLOCK: Achieve an S-rank or", tr, tg, tb, true);
                 graphics.Print( -1, 115, "above in at least 4 time trials.", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             graphics.bigprint( -1, 30, "Flip Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Flip the entire game vertically.", tr, tg, tb, true);
             graphics.Print( -1, 75, "Compatible with other game modes.", tr, tg, tb, true);
@@ -522,6 +516,7 @@ void menurender()
             {
                 graphics.Print( -1, 105, "TO UNLOCK: Complete the game.", tr, tg, tb, true);
             }
+            break;
         }
     }
     else if (game.currentmenuname == "youwannaquit")
@@ -536,8 +531,9 @@ void menurender()
             graphics.crewframedelay = 8;
             graphics.crewframe = (graphics.crewframe + 1) % 2;
         }
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //Show teleporter save info
             graphics.drawpixeltextbox(25, 65-20, 270, 90, 34,12, 65, 185, 207,0,4);
 
@@ -552,9 +548,8 @@ void menurender()
 
             graphics.drawspritesetcol(50, 126-20, 50, 18);
             graphics.drawspritesetcol(175, 126-20, 22, 18);
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             //Show quick save info
             graphics.drawpixeltextbox(25, 65-20, 270, 90, 34,12, 65, 185, 207,0,4);
 
@@ -569,6 +564,7 @@ void menurender()
 
             graphics.drawspritesetcol(50, 126-20, 50, 18);
             graphics.drawspritesetcol(175, 126-20, 22, 18);
+            break;
         }
     }
     else if (game.currentmenuname == "gameover" || game.currentmenuname == "gameover2")
@@ -596,29 +592,26 @@ void menurender()
         graphics.Print(0, 145, tempstring, tr, tg, tb, true);
         graphics.Print(0, 155, game.hardestroom, tr, tg, tb, true);
 
-        if (game.crewrescued() == 1)
+        switch (game.crewrescued())
         {
+        case 1:
             tempstring = "Keep trying! You'll get there!";
-        }
-        else if (game.crewrescued() == 2)
-        {
+            break;
+        case 2:
             tempstring = "Nice one!";
-        }
-        else if (game.crewrescued() == 3)
-        {
+            break;
+        case 3:
             tempstring = "Wow! Congratulations!";
-        }
-        else if (game.crewrescued() == 4)
-        {
+            break;
+        case 4:
             tempstring = "Incredible!";
-        }
-        else if (game.crewrescued() == 5)
-        {
+            break;
+        case 5:
             tempstring = "Unbelievable! Well done!";
-        }
-        else if (game.crewrescued() == 6)
-        {
+            break;
+        case 6:
             tempstring = "Er, how did you do that?";
+            break;
         }
 
         graphics.Print(0, 190, tempstring, tr, tg, tb, true);
@@ -712,8 +705,9 @@ void menurender()
     }
     else if (game.currentmenuname == "timetrials")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             if(game.unlock[9])
             {
                 graphics.bigprint( -1, 30, "Space Station 1", tr, tg, tb, true);
@@ -758,9 +752,8 @@ void menurender()
                 graphics.Print( -1, 75, "Rescue Violet", tr, tg, tb, true);
                 graphics.Print( -1, 85, "Find three trinkets", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             if(game.unlock[10])
             {
                 graphics.bigprint( -1, 30, "The Laboratory", tr, tg, tb, true);
@@ -805,9 +798,8 @@ void menurender()
                 graphics.Print( -1, 75, "Rescue Victoria", tr, tg, tb, true);
                 graphics.Print( -1, 85, "Find six trinkets", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             if(game.unlock[11])
             {
                 graphics.bigprint( -1, 30, "The Tower", tr, tg, tb, true);
@@ -852,9 +844,8 @@ void menurender()
                 graphics.Print( -1, 75, "Rescue Vermilion", tr, tg, tb, true);
                 graphics.Print( -1, 85, "Find nine trinkets", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             if(game.unlock[12])
             {
                 graphics.bigprint( -1, 30, "Space Station 2", tr, tg, tb, true);
@@ -899,9 +890,8 @@ void menurender()
                 graphics.Print( -1, 75, "Rescue Vitellary", tr, tg, tb, true);
                 graphics.Print( -1, 85, "Find twelve trinkets", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             if(game.unlock[13])
             {
                 graphics.bigprint( -1, 30, "The Warp Zone", tr, tg, tb, true);
@@ -946,9 +936,8 @@ void menurender()
                 graphics.Print( -1, 75, "Rescue Verdigris", tr, tg, tb, true);
                 graphics.Print( -1, 85, "Find fifteen trinkets", tr, tg, tb, true);
             }
-        }
-        else if (game.currentmenuoption == 5)
-        {
+            break;
+        case 5:
             if(game.unlock[14])
             {
                 graphics.bigprint( -1, 30, "The Final Level", tr, tg, tb, true);
@@ -993,6 +982,7 @@ void menurender()
                 graphics.Print( -1, 75, "Complete the game", tr, tg, tb, true);
                 graphics.Print( -1, 85, "Find eighteen trinkets", tr, tg, tb, true);
             }
+            break;
         }
     }
     else if (game.currentmenuname == "gamecompletecontinue")

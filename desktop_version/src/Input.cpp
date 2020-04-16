@@ -128,9 +128,10 @@ void menuactionpress()
 
 #define OFFSET (MPOFFSET+NOCUSTOMSOFFSET)
 
-#if !defined(MAKEANDPLAY)
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+#if !defined(MAKEANDPLAY)
+        case 0:
             //Play
             if (game.telesummary == "" && game.quicksummary == "")
             {
@@ -145,55 +146,49 @@ void menuactionpress()
                 game.createmenu("play");
                 map.nexttowercolour();
             }
-        }
-        else
+            break;
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
-        if (game.currentmenuoption == OFFSET+1)
-        {
+        case OFFSET+1:
             //Bring you to the normal playmenu
             music.playef(11);
             game.createmenu("playerworlds");
             map.nexttowercolour();
-        }
-        else
+            break;
 #endif
-        if (game.currentmenuoption == OFFSET+2)
-        {
+        case OFFSET+2:
             //Options
             music.playef(11);
             game.createmenu("graphicoptions");
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == OFFSET+3)
-        {
+            break;
+        case OFFSET+3:
             //Options
             music.playef(11);
             game.createmenu("options");
             map.nexttowercolour();
-        }
+            break;
 #if !defined(MAKEANDPLAY)
-        else if (game.currentmenuoption == OFFSET+4)
-        {
+        case OFFSET+4:
             //Credits
             music.playef(11);
             game.createmenu("credits");
             map.nexttowercolour();
-        }
+            break;
 #else
  #undef MPOFFSET
  #define MPOFFSET -2
 #endif
-        else if (game.currentmenuoption == OFFSET+5)
-        {
+        case OFFSET+5:
             //bye!
             music.playef(2);
             game.mainmenu = 100;
             graphics.fademode = 2;
-        }
+            break;
 #undef OFFSET
 #undef NOCUSTOMSOFFSET
 #undef MPOFFSET
+        }
     }
 #if !defined(NO_CUSTOM_LEVELS)
     else if(game.currentmenuname=="levellist")
@@ -236,17 +231,22 @@ void menuactionpress()
 #endif
     else if(game.currentmenuname=="quickloadlevel")
     {
-        if(game.currentmenuoption==0){//continue save
+        switch (game.currentmenuoption)
+        {
+        case 0: //continue save
             game.mainmenu = 23;
             graphics.fademode = 2;
-        }else if(game.currentmenuoption==1){
+            break;
+        case 1:
             game.mainmenu = 22;
             graphics.fademode = 2;
-        }else if(game.currentmenuoption==2){
+            break;
+        case 2:
             music.playef(11);
             game.levelpage=0;
             game.createmenu("levellist");
             map.nexttowercolour();
+            break;
         }
     }
 #if !defined(NO_CUSTOM_LEVELS)
@@ -257,7 +257,9 @@ void menuactionpress()
  #else
   #define OFFSET 0
  #endif
-        if(game.currentmenuoption==0){
+        switch (game.currentmenuoption)
+        {
+        case 0:
 
             music.playef(11);
             game.levelpage=0;
@@ -265,17 +267,17 @@ void menuactionpress()
             game.loadcustomlevelstats(); //Should only load a file if it's needed
             game.createmenu("levellist");
             map.nexttowercolour();
-        }
+            break;
  #if !defined(NO_EDITOR)
-        if(game.currentmenuoption==1){
+        case 1:
             //LEVEL EDITOR HOOK
             music.playef(11);
             game.mainmenu = 20;
             graphics.fademode = 2;
             ed.filename="";
-        }
+            break;
  #endif
-        /*else if(game.currentmenuoption==offset+2){
+        /*case OFFSET+2:
             music.playef(11);
             //"OPENFOLDERHOOK"
             //When the player selects the "open level folder" menu option,
@@ -284,12 +286,13 @@ void menuactionpress()
             // - Minimise the game
             // - Open the levels folder for whatever operating system we're on
             SDL_assert(0 && "Remove open level dir");
-
-        }*/else if(game.currentmenuoption==OFFSET+2){
+            break;*/
+        case OFFSET+2:
             //back
             music.playef(11);
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
 #undef OFFSET
     }
@@ -301,28 +304,33 @@ void menuactionpress()
     }
     else if (game.currentmenuname == "graphicoptions")
     {
-        if (game.currentmenuoption == 0){
+        switch (game.currentmenuoption)
+        {
+        case 0:
             music.playef(11);
             graphics.screenbuffer->toggleFullScreen();
             game.fullscreen = !game.fullscreen;
             game.savestats();
             game.createmenu("graphicoptions");
             game.currentmenuoption = 0;
-        }else if (game.currentmenuoption == 1){
+            break;
+        case 1:
             music.playef(11);
             graphics.screenbuffer->toggleStretchMode();
             game.stretchMode = (game.stretchMode + 1) % 3;
             game.savestats();
             game.createmenu("graphicoptions");
             game.currentmenuoption = 1;
-        }else if (game.currentmenuoption == 2){
+            break;
+        case 2:
             music.playef(11);
             graphics.screenbuffer->toggleLinearFilter();
             game.useLinearFilter = !game.useLinearFilter;
             game.savestats();
             game.createmenu("graphicoptions");
             game.currentmenuoption = 2;
-        }else if (game.currentmenuoption == 3){
+            break;
+        case 3:
             //change smoothing
             music.playef(11);
             game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
@@ -331,7 +339,8 @@ void menuactionpress()
             game.savestats();
             game.createmenu("graphicoptions");
             game.currentmenuoption = 3;
-        }else if (game.currentmenuoption == 4) {
+            break;
+        case 4:
             //toggle mouse cursor
             music.playef(11);
             if (graphics.showmousecursor == true) {
@@ -342,26 +351,26 @@ void menuactionpress()
                 SDL_ShowCursor(SDL_ENABLE);
                 graphics.showmousecursor = true;
             }
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "youwannaquit")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //bye!
             music.playef(2);
             game.mainmenu = 100;
             graphics.fademode = 2;
-        }
-        else
-        {
+            break;
+        default:
             music.playef(11);
             game.createmenu(game.previousmenuname);
             map.nexttowercolour();
@@ -369,48 +378,51 @@ void menuactionpress()
     }
     else if (game.currentmenuname == "setinvincibility")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //back
             music.playef(11);
             game.createmenu("accessibility");
             game.currentmenuoption = 3;
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             map.invincibility = !map.invincibility;
             game.savestats();
             music.playef(11);
             game.createmenu("accessibility");
             game.currentmenuoption = 3;
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "setslowdown1")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //back
             music.playef(11);
             game.createmenu("accessibility");
             game.currentmenuoption = 4;
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        case 1:
             //change game speed
             game.deletequick();
             game.deletetele();
             game.createmenu("setslowdown2");
             map.nexttowercolour();
             music.playef(11);
+            break;
         }
     }
     else if (game.currentmenuname == "setslowdown2")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //back
             game.gameframerate=34;
             game.slowdown = 30;
@@ -419,9 +431,8 @@ void menuactionpress()
             game.createmenu("accessibility");
             game.currentmenuoption = 4;
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             game.gameframerate=41;
             game.slowdown = 24;
             game.savestats();
@@ -429,9 +440,8 @@ void menuactionpress()
             game.createmenu("accessibility");
             game.currentmenuoption = 4;
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             game.gameframerate=55;
             game.slowdown = 18;
             game.savestats();
@@ -439,9 +449,8 @@ void menuactionpress()
             game.createmenu("accessibility");
             game.currentmenuoption = 4;
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             game.gameframerate=83;
             game.slowdown = 12;
             game.savestats();
@@ -449,20 +458,21 @@ void menuactionpress()
             game.createmenu("accessibility");
             game.currentmenuoption = 4;
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "accessibility")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //disable animated backgrounds
             game.colourblindmode = !game.colourblindmode;
             game.savestats();
             map.tdrawback = true;
             music.playef(11);
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             //disable screeneffects
             game.noflashingmode = !game.noflashingmode;
             game.savestats();
@@ -474,16 +484,14 @@ void menuactionpress()
             }else{
                 music.playef(11);
             }
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             //disable text outline
             graphics.notextoutline = !graphics.notextoutline;
             game.savestats();
             music.playef(11);
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             //invincibility
             if (!map.invincibility)
             {
@@ -495,37 +503,33 @@ void menuactionpress()
                 map.invincibility = !map.invincibility;
             }
             music.playef(11);
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             //change game speed
             game.createmenu("setslowdown2");
             map.nexttowercolour();
             music.playef(11);
-        }
-        else if (game.currentmenuoption == 5)
-        {
+            break;
+        case 5:
             // toggle fake load screen
             game.skipfakeload = !game.skipfakeload;
             music.playef(11);
-        }
-        else if (game.currentmenuoption == 6)
-        {
+            break;
+        case 6:
             // toggle translucent roomname BG
             graphics.translucentroomname = !graphics.translucentroomname;
             music.playef(11);
-        }
-        else if (game.currentmenuoption == 7)
-        {
+            break;
+        case 7:
             //back
             music.playef(11);
             game.createmenu("options");
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             //Can't do yet! play sad sound
             music.playef(2);
+            break;
         }
     }
     else if (game.currentmenuname == "options")
@@ -536,35 +540,34 @@ void menuactionpress()
 #define OFFSET 0
 #endif
 
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //accessibility options
             music.playef(11);
             game.createmenu("accessibility");
             map.nexttowercolour();
-        }
+            break;
 #if !defined(MAKEANDPLAY)
-        else if (game.currentmenuoption == 1)
-        {
+        case 1:
             //unlock play options
             music.playef(11);
             game.createmenu("unlockmenu");
             map.nexttowercolour();
-        }
+            break;
 #endif
-        else if (game.currentmenuoption == OFFSET+2)
-        {
+        case OFFSET+2:
             //clear data menu
             music.playef(11);
             game.createmenu("controller");
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == OFFSET+3)
-        {
+            break;
+        case OFFSET+3:
             //clear data menu
             music.playef(11);
             game.createmenu("cleardatamenu");
             map.nexttowercolour();
+            break;
         }
 
         int mmmmmm_offset = music.mmmmmm ? 0 : -1;
@@ -592,79 +595,75 @@ void menuactionpress()
     }
     else if (game.currentmenuname == "unlockmenutrials")
     {
-        if (game.currentmenuoption == 0)   	//unlock 1
+        switch (game.currentmenuoption)
         {
+        case 0:   	//unlock 1
             game.unlock[9] = true;
             game.unlocknotify[9] = true;
             music.playef(11);
             game.savestats();
             game.createmenu("unlockmenutrials");
             game.currentmenuoption = 0;
-        }
-        else if (game.currentmenuoption == 1)   	//unlock 2
-        {
+            break;
+        case 1:   	//unlock 2
             game.unlock[10] = true;
             game.unlocknotify[10] = true;
             music.playef(11);
             game.savestats();
             game.createmenu("unlockmenutrials");
             game.currentmenuoption = 1;
-        }
-        else if (game.currentmenuoption == 2)   	//unlock 3
-        {
+            break;
+        case 2:   	//unlock 3
             game.unlock[11] = true;
             game.unlocknotify[11] = true;
             music.playef(11);
             game.savestats();
             game.createmenu("unlockmenutrials");
             game.currentmenuoption = 2;
-        }
-        else if (game.currentmenuoption == 3)   	//unlock 4
-        {
+            break;
+        case 3:   	//unlock 4
             game.unlock[12] = true;
             game.unlocknotify[12] = true;
             music.playef(11);
             game.savestats();
             game.createmenu("unlockmenutrials");
             game.currentmenuoption = 3;
-        }
-        else if (game.currentmenuoption == 4)   	//unlock 5
-        {
+            break;
+        case 4:   	//unlock 5
             game.unlock[13] = true;
             game.unlocknotify[13] = true;
             music.playef(11);
             game.savestats();
             game.createmenu("unlockmenutrials");
             game.currentmenuoption = 4;
-        }
-        else if (game.currentmenuoption == 5)   	//unlock 6
-        {
+            break;
+        case 5:   	//unlock 6
             game.unlock[14] = true;
             game.unlocknotify[14] = true;
             music.playef(11);
             game.savestats();
             game.createmenu("unlockmenutrials");
             game.currentmenuoption = 5;
-        }
-        else if (game.currentmenuoption == 6)   	//back
-        {
+            break;
+        case 6:   	//back
             //back
             music.playef(11);
             game.createmenu("unlockmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "unlockmenu")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //unlock time trials separately...
             music.playef(11);
             game.createmenu("unlockmenutrials");
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             //unlock intermissions
             music.playef(11);
             game.unlock[16] = true;
@@ -674,9 +673,8 @@ void menuactionpress()
             game.savestats();
             game.createmenu("unlockmenu");
             game.currentmenuoption = 1;
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             //unlock no death mode
             music.playef(11);
             game.unlock[17] = true;
@@ -684,9 +682,8 @@ void menuactionpress()
             game.savestats();
             game.createmenu("unlockmenu");
             game.currentmenuoption = 2;
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             //unlock flip mode
             music.playef(11);
             game.unlock[18] = true;
@@ -694,18 +691,16 @@ void menuactionpress()
             game.savestats();
             game.createmenu("unlockmenu");
             game.currentmenuoption = 3;
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             //unlock jukebox
             music.playef(11);
             game.stat_trinkets = 20;
             game.savestats();
             game.createmenu("unlockmenu");
             game.currentmenuoption = 4;
-        }
-        else if (game.currentmenuoption == 5)
-        {
+            break;
+        case 5:
             //unlock secret lab
             music.playef(11);
             game.unlock[8] = true;
@@ -713,70 +708,74 @@ void menuactionpress()
             game.savestats();
             game.createmenu("unlockmenu");
             game.currentmenuoption = 5;
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.createmenu("options");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "credits")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //next page
             music.playef(11);
             game.createmenu("credits2");
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "credits2")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //next page
             music.playef(11);
             game.createmenu("credits25");
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        case 1:
             //back
             music.playef(11);
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "credits25")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //next page
             music.playef(11);
             game.createmenu("credits3");
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "credits3")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //next page
             music.playef(11);
             game.current_credits_list_index += 9;
@@ -794,20 +793,21 @@ void menuactionpress()
             }
 
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.current_credits_list_index = 0;
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "credits4")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //next page
             music.playef(11);
             game.current_credits_list_index += 14;
@@ -825,20 +825,21 @@ void menuactionpress()
             }
 
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.current_credits_list_index = 0;
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "credits5")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //next page
             music.playef(11);
             game.current_credits_list_index += 9;
@@ -856,32 +857,33 @@ void menuactionpress()
             }
 
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.current_credits_list_index = 0;
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "credits6")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //first page
             music.playef(11);
             game.createmenu("credits");
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.createmenu("mainmenu");
             map.nexttowercolour();
             music.niceplay(6);
+            break;
         }
     }
     else if (game.currentmenuname == "play")
@@ -947,52 +949,54 @@ void menuactionpress()
     }
     else if (game.currentmenuname == "newgamewarning")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //yep
             game.mainmenu = 0;
             graphics.fademode = 2;
             game.deletequick();
             game.deletetele();
-        }
-        else
-        {
+            break;
+        default:
             //back
             music.playef(11);
             game.createmenu("play");
             map.nexttowercolour();
+            break;
         }
     }
 
     else if (game.currentmenuname == "controller")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             game.controllerSensitivity++;
             music.playef(11);
             if(game.controllerSensitivity > 4)
             {
                 game.controllerSensitivity = 0;
             }
-        }
+            break;
 
-        if (game.currentmenuoption == 4)
-        {
+        case 4:
             music.playef(11);
             game.createmenu("options");
+            break;
         }
     }
     else if (game.currentmenuname == "cleardatamenu")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //back
             music.playef(11);
             game.createmenu("options");
             map.nexttowercolour();
-        }
-        else
-        {
+            break;
+        default:
             //yep
             music.playef(23);
             game.deletequick();
@@ -1002,11 +1006,12 @@ void menuactionpress()
             game.screenshake = 15;
             game.createmenu("mainmenu");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "playmodes")
     {
-        if (game.currentmenuoption == 0  && game.slowdown == 30 && !map.invincibility)   //go to the time trial menu
+        if (game.currentmenuoption == 0 && game.slowdown == 30 && !map.invincibility)   //go to the time trial menu
         {
             music.playef(11);
             game.createmenu("timetrials");
@@ -1048,126 +1053,122 @@ void menuactionpress()
     }
     else if (game.currentmenuname == "startnodeathmode")
     {
-        if (game.currentmenuoption == 0)   //start no death mode, disabling cutscenes
+        switch (game.currentmenuoption)
         {
+        case 0:   //start no death mode, disabling cutscenes
             game.mainmenu = 10;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             game.mainmenu = 9;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             //back
             music.playef(11);
             game.createmenu("play");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "continue")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             game.mainmenu = 1;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             game.mainmenu = 2;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             //back
             music.playef(11);
             game.createmenu("play");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "intermissionmenu")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             music.playef(11);
             music.play(6);
             game.createmenu("playint1");
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             music.playef(11);
             music.play(6);
             game.createmenu("playint2");
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             //back
             music.playef(11);
             game.createmenu("play");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "playint1")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             game.mainmenu = 12;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             game.mainmenu = 13;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             game.mainmenu = 14;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             game.mainmenu = 15;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             //back
             music.playef(11);
             game.createmenu("play");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "playint2")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             game.mainmenu = 16;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             game.mainmenu = 17;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 2)
-        {
+            break;
+        case 2:
             game.mainmenu = 18;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 3)
-        {
+            break;
+        case 3:
             game.mainmenu = 19;
             graphics.fademode = 2;
-        }
-        else if (game.currentmenuoption == 4)
-        {
+            break;
+        case 4:
             //back
             music.playef(11);
             game.createmenu("play");
             map.nexttowercolour();
+            break;
         }
     }
     else if (game.currentmenuname == "gameover2")
@@ -1236,16 +1237,16 @@ void menuactionpress()
     }
     else if (game.currentmenuname == "timetrialcomplete3")
     {
-        if (game.currentmenuoption == 0)
+        switch (game.currentmenuoption)
         {
+        case 0:
             //back
             music.playef(11);
             music.play(6);
             game.createmenu("play");
             map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 1)
-        {
+            break;
+        case 1:
             //duplicate the above based on given time trial level!
             if (game.timetriallevel == 0)   //space station 1
             {
@@ -1277,17 +1278,15 @@ void menuactionpress()
                 game.mainmenu = 8;
                 graphics.fademode = 2;
             }
+            break;
         }
     }
     else if (game.currentmenuname == "gamecompletecontinue" || game.currentmenuname == "nodeathmodecomplete2")
     {
-        if (game.currentmenuoption == 0)
-        {
-            music.play(6);
-            music.playef(11);
-            game.createmenu("play");
-            map.nexttowercolour();
-        }
+        music.play(6);
+        music.playef(11);
+        game.createmenu("play");
+        map.nexttowercolour();
     }
 }
 
