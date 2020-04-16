@@ -1297,8 +1297,8 @@ void mapclass::loadlevel(int rx, int ry)
 
 	switch(t)
 	{
-	case 0:
 #if !defined(MAKEANDPLAY)
+	case 0:
 	case 1: //World Map
 		tileset = 1;
 		extrarow = 1;
