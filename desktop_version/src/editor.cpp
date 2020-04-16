@@ -2181,6 +2181,160 @@ void editorclass::generatecustomminimap()
     }
 }
 
+void editormenurender(int tr, int tg, int tb)
+{
+    if (game.currentmenuname == "ed_settings")
+    {
+        graphics.bigprint( -1, 75, "Map Settings", tr, tg, tb, true);
+    }
+    else if (game.currentmenuname=="ed_desc")
+    {
+        if(ed.titlemod)
+        {
+            if(ed.entframe<2)
+            {
+                graphics.bigprint( -1, 35, key.keybuffer+"_", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.bigprint( -1, 35, key.keybuffer+" ", tr, tg, tb, true);
+            }
+        }
+        else
+        {
+            graphics.bigprint( -1, 35, EditorData::GetInstance().title, tr, tg, tb, true);
+        }
+        if(ed.creatormod)
+        {
+            if(ed.entframe<2)
+            {
+                graphics.Print( -1, 60, "by " + key.keybuffer+ "_", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 60, "by " + key.keybuffer+ " ", tr, tg, tb, true);
+            }
+        }
+        else
+        {
+            graphics.Print( -1, 60, "by " + EditorData::GetInstance().creator, tr, tg, tb, true);
+        }
+        if(ed.websitemod)
+        {
+            if(ed.entframe<2)
+            {
+                graphics.Print( -1, 70, key.keybuffer+"_", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 70, key.keybuffer+" ", tr, tg, tb, true);
+            }
+        }
+        else
+        {
+            graphics.Print( -1, 70, ed.website, tr, tg, tb, true);
+        }
+        if(ed.desc1mod)
+        {
+            if(ed.entframe<2)
+            {
+                graphics.Print( -1, 90, key.keybuffer+"_", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 90, key.keybuffer+" ", tr, tg, tb, true);
+            }
+        }
+        else
+        {
+            graphics.Print( -1, 90, ed.Desc1, tr, tg, tb, true);
+        }
+        if(ed.desc2mod)
+        {
+            if(ed.entframe<2)
+            {
+                graphics.Print( -1, 100, key.keybuffer+"_", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 100, key.keybuffer+" ", tr, tg, tb, true);
+            }
+        }
+        else
+        {
+            graphics.Print( -1, 100, ed.Desc2, tr, tg, tb, true);
+        }
+        if(ed.desc3mod)
+        {
+            if(ed.entframe<2)
+            {
+                graphics.Print( -1, 110, key.keybuffer+"_", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 110, key.keybuffer+" ", tr, tg, tb, true);
+            }
+        }
+        else
+        {
+            graphics.Print( -1, 110, ed.Desc3, tr, tg, tb, true);
+        }
+    }
+    else if (game.currentmenuname == "ed_music")
+    {
+        graphics.bigprint( -1, 65, "Map Music", tr, tg, tb, true);
+
+        graphics.Print( -1, 85, "Current map music:", tr, tg, tb, true);
+        switch(ed.levmusic)
+        {
+        case 0:
+            graphics.Print( -1, 120, "No background music", tr, tg, tb, true);
+            break;
+        case 1:
+            graphics.Print( -1, 120, "1: Pushing Onwards", tr, tg, tb, true);
+            break;
+        case 2:
+            graphics.Print( -1, 120, "2: Positive Force", tr, tg, tb, true);
+            break;
+        case 3:
+            graphics.Print( -1, 120, "3: Potential for Anything", tr, tg, tb, true);
+            break;
+        case 4:
+            graphics.Print( -1, 120, "4: Passion for Exploring", tr, tg, tb, true);
+            break;
+        case 6:
+            graphics.Print( -1, 120, "5: Presenting VVVVVV", tr, tg, tb, true);
+            break;
+        case 8:
+            graphics.Print( -1, 120, "6: Predestined Fate", tr, tg, tb, true);
+            break;
+        case 10:
+            graphics.Print( -1, 120, "7: Popular Potpourri", tr, tg, tb, true);
+            break;
+        case 11:
+            graphics.Print( -1, 120, "8: Pipe Dream", tr, tg, tb, true);
+            break;
+        case 12:
+            graphics.Print( -1, 120, "9: Pressure Cooker", tr, tg, tb, true);
+            break;
+        case 13:
+            graphics.Print( -1, 120, "10: Paced Energy", tr, tg, tb, true);
+            break;
+        case 14:
+            graphics.Print( -1, 120, "11: Piercing the Sky", tr, tg, tb, true);
+            break;
+        default:
+            graphics.Print( -1, 120, "?: something else", tr, tg, tb, true);
+            break;
+        }
+    }
+    else if (game.currentmenuname == "ed_quit")
+    {
+        graphics.bigprint( -1, 90, "Save before", tr, tg, tb, true);
+        graphics.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
+    }
+}
+
 void editorrender()
 {
     //Draw grid
@@ -2848,156 +3002,7 @@ void editorrender()
         if(tg>255) tg=255;
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
-        if (game.currentmenuname == "ed_settings")
-        {
-            graphics.bigprint( -1, 75, "Map Settings", tr, tg, tb, true);
-        }
-        else if (game.currentmenuname=="ed_desc")
-        {
-            if(ed.titlemod)
-            {
-                if(ed.entframe<2)
-                {
-                    graphics.bigprint( -1, 35, key.keybuffer+"_", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.bigprint( -1, 35, key.keybuffer+" ", tr, tg, tb, true);
-                }
-            }
-            else
-            {
-                graphics.bigprint( -1, 35, EditorData::GetInstance().title, tr, tg, tb, true);
-            }
-            if(ed.creatormod)
-            {
-                if(ed.entframe<2)
-                {
-                    graphics.Print( -1, 60, "by " + key.keybuffer+ "_", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( -1, 60, "by " + key.keybuffer+ " ", tr, tg, tb, true);
-                }
-            }
-            else
-            {
-                graphics.Print( -1, 60, "by " + EditorData::GetInstance().creator, tr, tg, tb, true);
-            }
-            if(ed.websitemod)
-            {
-                if(ed.entframe<2)
-                {
-                    graphics.Print( -1, 70, key.keybuffer+"_", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( -1, 70, key.keybuffer+" ", tr, tg, tb, true);
-                }
-            }
-            else
-            {
-                graphics.Print( -1, 70, ed.website, tr, tg, tb, true);
-            }
-            if(ed.desc1mod)
-            {
-                if(ed.entframe<2)
-                {
-                    graphics.Print( -1, 90, key.keybuffer+"_", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( -1, 90, key.keybuffer+" ", tr, tg, tb, true);
-                }
-            }
-            else
-            {
-                graphics.Print( -1, 90, ed.Desc1, tr, tg, tb, true);
-            }
-            if(ed.desc2mod)
-            {
-                if(ed.entframe<2)
-                {
-                    graphics.Print( -1, 100, key.keybuffer+"_", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( -1, 100, key.keybuffer+" ", tr, tg, tb, true);
-                }
-            }
-            else
-            {
-                graphics.Print( -1, 100, ed.Desc2, tr, tg, tb, true);
-            }
-            if(ed.desc3mod)
-            {
-                if(ed.entframe<2)
-                {
-                    graphics.Print( -1, 110, key.keybuffer+"_", tr, tg, tb, true);
-                }
-                else
-                {
-                    graphics.Print( -1, 110, key.keybuffer+" ", tr, tg, tb, true);
-                }
-            }
-            else
-            {
-                graphics.Print( -1, 110, ed.Desc3, tr, tg, tb, true);
-            }
-        }
-        else if (game.currentmenuname == "ed_music")
-        {
-            graphics.bigprint( -1, 65, "Map Music", tr, tg, tb, true);
-
-            graphics.Print( -1, 85, "Current map music:", tr, tg, tb, true);
-            switch(ed.levmusic)
-            {
-            case 0:
-                graphics.Print( -1, 120, "No background music", tr, tg, tb, true);
-                break;
-            case 1:
-                graphics.Print( -1, 120, "1: Pushing Onwards", tr, tg, tb, true);
-                break;
-            case 2:
-                graphics.Print( -1, 120, "2: Positive Force", tr, tg, tb, true);
-                break;
-            case 3:
-                graphics.Print( -1, 120, "3: Potential for Anything", tr, tg, tb, true);
-                break;
-            case 4:
-                graphics.Print( -1, 120, "4: Passion for Exploring", tr, tg, tb, true);
-                break;
-            case 6:
-                graphics.Print( -1, 120, "5: Presenting VVVVVV", tr, tg, tb, true);
-                break;
-            case 8:
-                graphics.Print( -1, 120, "6: Predestined Fate", tr, tg, tb, true);
-                break;
-            case 10:
-                graphics.Print( -1, 120, "7: Popular Potpourri", tr, tg, tb, true);
-                break;
-            case 11:
-                graphics.Print( -1, 120, "8: Pipe Dream", tr, tg, tb, true);
-                break;
-            case 12:
-                graphics.Print( -1, 120, "9: Pressure Cooker", tr, tg, tb, true);
-                break;
-            case 13:
-                graphics.Print( -1, 120, "10: Paced Energy", tr, tg, tb, true);
-                break;
-            case 14:
-                graphics.Print( -1, 120, "11: Piercing the Sky", tr, tg, tb, true);
-                break;
-            default:
-                graphics.Print( -1, 120, "?: something else", tr, tg, tb, true);
-                break;
-            }
-        }
-        else if (game.currentmenuname == "ed_quit")
-        {
-            graphics.bigprint( -1, 90, "Save before", tr, tg, tb, true);
-            graphics.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
-        }
+        editormenurender(tr, tg, tb);
 
         graphics.drawmenu(tr, tg, tb, 15);
     }
