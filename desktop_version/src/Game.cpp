@@ -2355,10 +2355,11 @@ void Game::updatestate()
             graphics.textboxcenterx();
             break;
         case 3008:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 std::string tempstring = "  One remains  ";
@@ -2396,6 +2397,7 @@ void Game::updatestate()
             }
             graphics.textboxcenterx();
             break;
+        }
         case 3009:
             state++;
             statedelay = 0;
@@ -2470,10 +2472,11 @@ void Game::updatestate()
             graphics.textboxcenterx();
             break;
         case 3022:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 std::string tempstring = "  One remains  ";
@@ -2511,6 +2514,7 @@ void Game::updatestate()
             }
             graphics.textboxcenterx();
             break;
+        }
         case 3023:
             state++;
             statedelay = 0;
@@ -2584,10 +2588,11 @@ void Game::updatestate()
             graphics.textboxcenterx();
             break;
         case 3042:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 std::string tempstring = "  One remains  ";
@@ -2625,6 +2630,7 @@ void Game::updatestate()
             }
             graphics.textboxcenterx();
             break;
+        }
         case 3043:
             state++;
             statedelay = 0;
@@ -2699,10 +2705,11 @@ void Game::updatestate()
             graphics.textboxcenterx();
             break;
         case 3052:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 std::string tempstring = "  One remains  ";
@@ -2740,6 +2747,7 @@ void Game::updatestate()
             }
             graphics.textboxcenterx();
             break;
+        }
         case 3053:
             state++;
             statedelay = 0;
@@ -2832,10 +2840,11 @@ void Game::updatestate()
             graphics.textboxcenterx();
             break;
         case 3062:
+        {
             state++;
             statedelay = 45;
 
-            temp = 6 - crewrescued();
+            int temp = 6 - crewrescued();
             if (temp == 1)
             {
                 std::string tempstring = "  One remains  ";
@@ -2873,6 +2882,7 @@ void Game::updatestate()
             }
             graphics.textboxcenterx();
             break;
+        }
         case 3063:
             state++;
             statedelay = 0;
@@ -6815,9 +6825,10 @@ void Game::createmenu( enum Menu::MenuName t )
         menuyoff = 64;
         break;
     case Menu::play:
+    {
         //Ok, here's where the unlock stuff comes into it:
         //First up, time trials:
-        temp = 0;
+        int temp = 0;
         if (unlock[0] && stat_trinkets >= 3 && !unlocknotify[9]) temp++;
         if (unlock[1] && stat_trinkets >= 6 && !unlocknotify[10]) temp++;
         if (unlock[2] && stat_trinkets >= 9 && !unlocknotify[11]) temp++;
@@ -6927,6 +6938,7 @@ void Game::createmenu( enum Menu::MenuName t )
             }
         }
         break;
+    }
     case Menu::unlocktimetrial:
     case Menu::unlocktimetrials:
     case Menu::unlocknodeathmode:
