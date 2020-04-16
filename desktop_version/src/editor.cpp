@@ -2183,11 +2183,11 @@ void editorclass::generatecustomminimap()
 
 void editormenurender(int tr, int tg, int tb)
 {
-    if (game.currentmenuname == "ed_settings")
+    if (game.currentmenuname == Menu::ed_settings)
     {
         graphics.bigprint( -1, 75, "Map Settings", tr, tg, tb, true);
     }
-    else if (game.currentmenuname=="ed_desc")
+    else if (game.currentmenuname==Menu::ed_desc)
     {
         if(ed.titlemod)
         {
@@ -2280,7 +2280,7 @@ void editormenurender(int tr, int tg, int tb)
             graphics.Print( -1, 110, ed.Desc3, tr, tg, tb, true);
         }
     }
-    else if (game.currentmenuname == "ed_music")
+    else if (game.currentmenuname == Menu::ed_music)
     {
         graphics.bigprint( -1, 65, "Map Music", tr, tg, tb, true);
 
@@ -2328,7 +2328,7 @@ void editormenurender(int tr, int tg, int tb)
             break;
         }
     }
-    else if (game.currentmenuname == "ed_quit")
+    else if (game.currentmenuname == Menu::ed_quit)
     {
         graphics.bigprint( -1, 90, "Save before", tr, tg, tb, true);
         graphics.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
@@ -3454,14 +3454,14 @@ void editorlogic()
         map.nexttowercolour();
         ed.settingsmod=false;
         graphics.backgrounddrawn=false;
-        game.createmenu("mainmenu");
+        game.createmenu(Menu::mainmenu);
     }
 }
 
 
 void editormenuactionpress()
 {
-    if (game.currentmenuname == "ed_desc")
+    if (game.currentmenuname == Menu::ed_desc)
     {
         switch (game.currentmenuoption)
         {
@@ -3491,19 +3491,19 @@ void editormenuactionpress()
             break;
         case 4:
             music.playef(11);
-            game.createmenu("ed_settings");
+            game.createmenu(Menu::ed_settings);
             map.nexttowercolour();
             break;
         }
     }
-    else if (game.currentmenuname == "ed_settings")
+    else if (game.currentmenuname == Menu::ed_settings)
     {
         switch (game.currentmenuoption)
         {
         case 0:
             //Change level description stuff
             music.playef(11);
-            game.createmenu("ed_desc");
+            game.createmenu(Menu::ed_desc);
             map.nexttowercolour();
             break;
         case 1:
@@ -3522,7 +3522,7 @@ void editormenuactionpress()
             break;
         case 2:
             music.playef(11);
-            game.createmenu("ed_music");
+            game.createmenu(Menu::ed_music);
             map.nexttowercolour();
             if(ed.levmusic>0) music.play(ed.levmusic);
             break;
@@ -3556,12 +3556,12 @@ void editormenuactionpress()
             break;
         case 5:
             music.playef(11);
-            game.createmenu("ed_quit");
+            game.createmenu(Menu::ed_quit);
             map.nexttowercolour();
             break;
         }
     }
-    else if (game.currentmenuname == "ed_music")
+    else if (game.currentmenuname == Menu::ed_music)
     {
         switch (game.currentmenuoption)
         {
@@ -3584,12 +3584,12 @@ void editormenuactionpress()
         case 1:
             music.playef(11);
             music.fadeout();
-            game.createmenu("ed_settings");
+            game.createmenu(Menu::ed_settings);
             map.nexttowercolour();
             break;
         }
     }
-    else if (game.currentmenuname == "ed_quit")
+    else if (game.currentmenuname == Menu::ed_quit)
     {
         switch (game.currentmenuoption)
         {
@@ -3618,7 +3618,7 @@ void editormenuactionpress()
         case 2:
             //Go back to editor
             music.playef(11);
-            game.createmenu("ed_settings");
+            game.createmenu(Menu::ed_settings);
             map.nexttowercolour();
             break;
         }
@@ -3701,7 +3701,7 @@ void editorinput()
             ed.settingsmod=!ed.settingsmod;
             graphics.backgrounddrawn=false;
 
-            game.createmenu("ed_settings");
+            game.createmenu(Menu::ed_settings);
             map.nexttowercolour();
         }
     }

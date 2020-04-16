@@ -20,7 +20,7 @@ void menurender()
 {
     int temp = 50;
 
-    if(game.currentmenuname=="mainmenu")
+    if(game.currentmenuname==Menu::mainmenu)
     {
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
@@ -38,7 +38,7 @@ void menurender()
         }
     }
 #if !defined(NO_CUSTOM_LEVELS)
-    else if (game.currentmenuname == "levellist")
+    else if (game.currentmenuname == Menu::levellist)
     {
       if(ed.ListOfMetaData.size()==0){
       graphics.Print( -1, 100, "ERROR: No levels found.", tr, tg, tb, true);
@@ -59,12 +59,12 @@ void menurender()
       }
     }
 #endif
-    else if (game.currentmenuname == "errornostart")
+    else if (game.currentmenuname == Menu::errornostart)
     {
       graphics.Print( -1, 65, "ERROR: This level has", tr, tg, tb, true);
       graphics.Print( -1, 75, "no start point!", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "options")
+    else if (game.currentmenuname == Menu::options)
     {
 #if defined(MAKEANDPLAY)
 #define OFFSET -1
@@ -110,7 +110,7 @@ void menurender()
         }
 #undef OFFSET
     }
-    else if (game.currentmenuname == "graphicoptions")
+    else if (game.currentmenuname == Menu::graphicoptions)
     {
         switch (game.currentmenuoption)
         {
@@ -167,7 +167,7 @@ void menurender()
             break;
         }
     }
-    else if (game.currentmenuname == "credits")
+    else if (game.currentmenuname == Menu::credits)
     {
         graphics.Print( -1, 50, "VVVVVV is a game by", tr, tg, tb, true);
         graphics.bigprint( 40, 65, "Terry Cavanagh", tr, tg, tb, true, 2);
@@ -178,7 +178,7 @@ void menurender()
         graphics.bigprint( 40, 135, "Magnus P~lsson", tr, tg, tb, true, 2);
         graphics.drawimagecol(8, -1, 156, tr *0.75, tg *0.75, tb *0.75, true);
     }
-    else if (game.currentmenuname == "credits2")
+    else if (game.currentmenuname == Menu::credits2)
     {
         graphics.Print( -1, 50, "Roomnames are by", tr, tg, tb, true);
         graphics.bigprint( 40, 65, "Bennett Foddy", tr, tg, tb, true);
@@ -187,7 +187,7 @@ void menurender()
         graphics.bigprint( 40, 125, "Simon Roth", tr, tg, tb, true);
         graphics.bigprint( 40, 145, "Ethan Lee", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "credits25")
+    else if (game.currentmenuname == Menu::credits25)
     {
         graphics.Print( -1, 40, "Beta Testing by", tr, tg, tb, true);
         graphics.bigprint( 40, 55, "Sam Kaplan", tr, tg, tb, true);
@@ -195,7 +195,7 @@ void menurender()
         graphics.Print( -1, 130, "Ending Picture by", tr, tg, tb, true);
         graphics.bigprint( 40, 145, "Pauli Kohberger", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "credits3")
+    else if (game.currentmenuname == Menu::credits3)
     {
         graphics.Print( -1, 20, "VVVVVV is supported by", tr, tg, tb, true);
         graphics.Print( 40, 30, "the following patrons", tr, tg, tb, true);
@@ -213,7 +213,7 @@ void menurender()
             yofs += 14;
         }
     }
-    else if (game.currentmenuname == "credits4")
+    else if (game.currentmenuname == Menu::credits4)
     {
         graphics.Print( -1, 20, "and also by", tr, tg, tb, true);
 
@@ -232,7 +232,7 @@ void menurender()
             yofs += 10;
         }
     }
-    else if (game.currentmenuname == "credits5")
+    else if (game.currentmenuname == Menu::credits5)
     {
         graphics.Print( -1, 20, "With contributions on", tr, tg, tb, true);
         graphics.Print( 40, 30, "GitHub from", tr, tg, tb, true);
@@ -254,7 +254,7 @@ void menurender()
             yofs += 14;
         }
     }
-    else if (game.currentmenuname == "credits6")
+    else if (game.currentmenuname == Menu::credits6)
     {
         graphics.Print( -1, 20, "and thanks also to:", tr, tg, tb, true);
 
@@ -267,19 +267,19 @@ void menurender()
 
         graphics.Print( 80, 150,"Thank you!", tr, tg, tb,true);
     }
-    else if (game.currentmenuname == "setinvincibility")
+    else if (game.currentmenuname == Menu::setinvincibility)
     {
         graphics.Print( -1, 100, "Are you sure you want to ", tr, tg, tb, true);
         graphics.Print( -1, 110, "enable invincibility?", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "setslowdown1")
+    else if (game.currentmenuname == Menu::setslowdown1)
     {
         graphics.Print( -1, 90, "Warning! Changing the game speed", tr, tg, tb, true);
         graphics.Print( -1, 100, "requires a game restart, and will", tr, tg, tb, true);
         graphics.Print( -1, 110, "delete your current saves.", tr, tg, tb, true);
         graphics.Print( -1, 120, "Is this ok?", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "setslowdown2")
+    else if (game.currentmenuname == Menu::setslowdown2)
     {
         graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
         graphics.Print( -1, 75, "Select a new game speed below.", tr, tg, tb, true);
@@ -299,24 +299,24 @@ void menurender()
             break;
         }
     }
-    else if (game.currentmenuname == "newgamewarning")
+    else if (game.currentmenuname == Menu::newgamewarning)
     {
         graphics.Print( -1, 100, "Are you sure? This will", tr, tg, tb, true);
         graphics.Print( -1, 110, "delete your current saves...", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "cleardatamenu")
+    else if (game.currentmenuname == Menu::cleardatamenu)
     {
         graphics.Print( -1, 100, "Are you sure you want to", tr, tg, tb, true);
         graphics.Print( -1, 110, "delete all your saved data?", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "startnodeathmode")
+    else if (game.currentmenuname == Menu::startnodeathmode)
     {
         graphics.Print( -1, 45, "Good luck!", tr, tg, tb, true);
         graphics.Print( -1, 80, "You cannot save in this mode.", tr, tg, tb, true);
         graphics.Print( -1, 100, "Would you like to disable the", tr, tg, tb, true);
         graphics.Print( -1, 112, "cutscenes during the game?", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "controller")
+    else if (game.currentmenuname == Menu::controller)
     {
         graphics.bigprint( -1, 30, "Game Pad", tr, tg, tb, true);
         graphics.Print( -1, 55, "Change controller options.", tr, tg, tb, true);
@@ -358,7 +358,7 @@ void menurender()
 
 
     }
-    else if (game.currentmenuname == "accessibility")
+    else if (game.currentmenuname == Menu::accessibility)
     {
         switch (game.currentmenuoption)
         {
@@ -450,12 +450,12 @@ void menurender()
             break;
         }
     }
-    else if (game.currentmenuname == "playint1" || game.currentmenuname == "playint2")
+    else if (game.currentmenuname == Menu::playint1 || game.currentmenuname == Menu::playint2)
     {
         graphics.Print( -1, 65, "Who do you want to play", tr, tg, tb, true);
         graphics.Print( -1, 75, "the level with?", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "playmodes")
+    else if (game.currentmenuname == Menu::playmodes)
     {
         switch (game.currentmenuoption)
         {
@@ -519,11 +519,11 @@ void menurender()
             break;
         }
     }
-    else if (game.currentmenuname == "youwannaquit")
+    else if (game.currentmenuname == Menu::youwannaquit)
     {
         graphics.Print( -1, 75, "Are you sure you want to quit?", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "continue")
+    else if (game.currentmenuname == Menu::continuemenu)
     {
         graphics.crewframedelay--;
         if (graphics.crewframedelay <= 0)
@@ -567,7 +567,7 @@ void menurender()
             break;
         }
     }
-    else if (game.currentmenuname == "gameover" || game.currentmenuname == "gameover2")
+    else if (game.currentmenuname == Menu::gameover || game.currentmenuname == Menu::gameover2)
     {
         graphics.bigprint( -1, 25, "GAME OVER", tr, tg, tb, true, 3);
 
@@ -616,7 +616,7 @@ void menurender()
 
         graphics.Print(0, 190, tempstring, tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "nodeathmodecomplete" || game.currentmenuname == "nodeathmodecomplete2")
+    else if (game.currentmenuname == Menu::nodeathmodecomplete || game.currentmenuname == Menu::nodeathmodecomplete2)
     {
         graphics.bigprint( -1, 8, "WOW", tr, tg, tb, true, 4);
 
@@ -640,8 +640,8 @@ void menurender()
         graphics.Print(0, 170, "placed in the secret lab to", tr, tg, tb, true);
         graphics.Print(0, 180, "acknowledge your achievement!", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "timetrialcomplete" || game.currentmenuname == "timetrialcomplete2"
-             || game.currentmenuname == "timetrialcomplete3" || game.currentmenuname == "timetrialcomplete4")
+    else if (game.currentmenuname == Menu::timetrialcomplete || game.currentmenuname == Menu::timetrialcomplete2
+             || game.currentmenuname == Menu::timetrialcomplete3)
     {
         graphics.bigprint( -1, 20, "Results", tr, tg, tb, true, 3);
 
@@ -673,12 +673,12 @@ void menurender()
             graphics.Print(220, 85+55, "+1 Rank!", 255, 255, 255);
         }
 
-        if (game.currentmenuname == "timetrialcomplete2" || game.currentmenuname == "timetrialcomplete3")
+        if (game.currentmenuname == Menu::timetrialcomplete2 || game.currentmenuname == Menu::timetrialcomplete3)
         {
             graphics.bigprint( 100, 175, "Rank:", tr, tg, tb, false, 2);
         }
 
-        if (game.currentmenuname == "timetrialcomplete3")
+        if (game.currentmenuname == Menu::timetrialcomplete3)
         {
             switch(game.timetrialrank)
             {
@@ -697,13 +697,13 @@ void menurender()
             }
         }
     }
-    else if (game.currentmenuname == "unlockmenutrials")
+    else if (game.currentmenuname == Menu::unlockmenutrials)
     {
         graphics.bigprint( -1, 30, "Unlock Time Trials", tr, tg, tb, true);
         graphics.Print( -1, 65, "You can unlock each time", tr, tg, tb, true);
         graphics.Print( -1, 75, "trial separately.", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "timetrials")
+    else if (game.currentmenuname == Menu::timetrials)
     {
         switch (game.currentmenuoption)
         {
@@ -985,7 +985,7 @@ void menurender()
             break;
         }
     }
-    else if (game.currentmenuname == "gamecompletecontinue")
+    else if (game.currentmenuname == Menu::gamecompletecontinue)
     {
         graphics.bigprint( -1, 25, "Congratulations!", tr, tg, tb, true, 2);
 
@@ -995,7 +995,7 @@ void menurender()
         graphics.Print( -1, 120, "the game, select CONTINUE", tr, tg, tb, true);
         graphics.Print( -1, 130, "from the play menu.", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "unlockmenu")
+    else if (game.currentmenuname == Menu::unlockmenu)
     {
         graphics.bigprint( -1, 25, "Unlock Play Modes", tr, tg, tb, true, 2);
 
@@ -1003,41 +1003,41 @@ void menurender()
         graphics.Print( -1, 65, "of the game that are normally", tr, tg, tb, true);
         graphics.Print( -1, 75, "unlocked as you play.", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "unlocktimetrial")
+    else if (game.currentmenuname == Menu::unlocktimetrial)
     {
         graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
         graphics.Print( -1, 125, "You have unlocked", tr, tg, tb, true);
         graphics.Print( -1, 135, "a new Time Trial.", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "unlocktimetrials")
+    else if (game.currentmenuname == Menu::unlocktimetrials)
     {
         graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
         graphics.Print( -1, 125, "You have unlocked some", tr, tg, tb, true);
         graphics.Print( -1, 135, "new Time Trials.", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "unlocknodeathmode")
+    else if (game.currentmenuname == Menu::unlocknodeathmode)
     {
         graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
         graphics.Print( -1, 125, "You have unlocked", tr, tg, tb, true);
         graphics.Print( -1, 135, "No Death Mode.", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "unlockflipmode")
+    else if (game.currentmenuname == Menu::unlockflipmode)
     {
         graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
         graphics.Print( -1, 125, "You have unlocked", tr, tg, tb, true);
         graphics.Print( -1, 135, "Flip Mode.", tr, tg, tb, true);
     }
-    else if (game.currentmenuname == "unlockintermission")
+    else if (game.currentmenuname == Menu::unlockintermission)
     {
         graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 
         graphics.Print( -1, 125, "You have unlocked", tr, tg, tb, true);
         graphics.Print( -1, 135, "the intermission levels.", tr, tg, tb, true);
-    }else if (game.currentmenuname == "playerworlds")
+    }else if (game.currentmenuname == Menu::playerworlds)
     {
         std::string tempstring = FILESYSTEM_getUserLevelDirectory();
         if(tempstring.length()>80){
@@ -1109,27 +1109,27 @@ void titlerender()
         if(tg>255) tg=255;
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
-        if (game.currentmenuname == "timetrials" || game.currentmenuname == "unlockmenutrials")
+        if (game.currentmenuname == Menu::timetrials || game.currentmenuname == Menu::unlockmenutrials)
         {
             graphics.drawmenu(tr, tg, tb, 15);
         }
-        else if (game.currentmenuname == "unlockmenu")
+        else if (game.currentmenuname == Menu::unlockmenu)
         {
             graphics.drawmenu(tr, tg, tb, 15);
         }
-        else if (game.currentmenuname == "playmodes")
+        else if (game.currentmenuname == Menu::playmodes)
         {
             graphics.drawmenu(tr, tg, tb, 20);
         }
-        else if (game.currentmenuname == "mainmenu")
+        else if (game.currentmenuname == Menu::mainmenu)
         {
             graphics.drawmenu(tr, tg, tb, 15);
         }
-        else if (game.currentmenuname == "playerworlds")
+        else if (game.currentmenuname == Menu::playerworlds)
         {
             graphics.drawmenu(tr, tg, tb, 15);
         }
-        else if (game.currentmenuname == "levellist")
+        else if (game.currentmenuname == Menu::levellist)
         {
             graphics.drawlevelmenu(tr, tg, tb, 5);
         }

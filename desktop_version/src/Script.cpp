@@ -2534,7 +2534,7 @@ void scriptclass::resetgametomenu()
 	graphics.flipmode = false;
 	obj.entities.clear();
 	graphics.fademode = 4;
-	game.createmenu("gameover");
+	game.createmenu(Menu::gameover);
 }
 
 void scriptclass::startgamemode( int t )
