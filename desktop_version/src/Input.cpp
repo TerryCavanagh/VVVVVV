@@ -331,7 +331,6 @@ void menuactionpress()
             //change smoothing
             music.playef(11);
             game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
-            //Hook the analogue thing in here: ABCDEFG
             graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
             game.savestats();
             game.createmenu(Menu::graphicoptions);
