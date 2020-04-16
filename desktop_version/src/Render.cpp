@@ -31,7 +31,7 @@ void menurender()
 #if defined(MAKEANDPLAY)
         graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
 #endif
-        graphics.Print( 310 - (4*8), 230, "v2.2", tr/2, tg/2, tb/2);
+        graphics.Print( 310 - (4*8), 230, "v2.3", tr/2, tg/2, tb/2);
 
         if(music.mmmmmm){
             graphics.Print( 10, 230, "[MMMMMM Mod Installed]", tr/2, tg/2, tb/2);
