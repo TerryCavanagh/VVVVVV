@@ -886,6 +886,8 @@ void menuactionpress()
     }
     else if (game.currentmenuname == "play")
     {
+        //Do we have the Secret Lab option?
+        int offset = game.unlock[8] ? 0 : -1;
         if (game.currentmenuoption == 0)
         {
             //continue
@@ -911,57 +913,7 @@ void menuactionpress()
                 map.settowercolour(3);
             }
         }
-        else if (game.currentmenuoption == 1)
-        {
-            //play modes
-            music.playef(11);
-            game.createmenu("playmodes");
-            map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 2)
-        {
-            //newgame
-            music.playef(11);
-            game.createmenu("newgamewarning");
-            map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 3)
-        {
-            //back
-            music.playef(11);
-            game.createmenu("mainmenu");
-            map.nexttowercolour();
-        }
-    }
-    else if (game.currentmenuname == "playsecretlab")
-    {
-        //as above, except with an extra option...
-        if (game.currentmenuoption == 0)
-        {
-            //continue
-            //right, this depends on what saves you've got
-            if (game.telesummary == "")
-            {
-                //You at least have a quicksave, or you couldn't have gotten here
-                game.mainmenu = 2;
-                graphics.fademode = 2;
-            }
-            else if (game.quicksummary == "")
-            {
-                //You at least have a telesave, or you couldn't have gotten here
-                game.mainmenu = 1;
-                graphics.fademode = 2;
-            }
-            else
-            {
-                //go to a menu!
-                music.playef(11);
-                game.loadsummary(); //Prepare save slots to display
-                game.createmenu("continue");
-                map.settowercolour(3);
-            }
-        }
-        else if (game.currentmenuoption == 1)
+        else if (game.currentmenuoption == 1 && game.unlock[8])
         {
             if(!map.invincibility){
                 game.mainmenu = 11;
@@ -971,21 +923,21 @@ void menuactionpress()
                 music.playef(2);
             }
         }
-        else if (game.currentmenuoption == 2)
+        else if (game.currentmenuoption == offset+2)
         {
             //play modes
             music.playef(11);
             game.createmenu("playmodes");
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == 3)
+        else if (game.currentmenuoption == offset+3)
         {
             //newgame
             music.playef(11);
             game.createmenu("newgamewarning");
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == 4)
+        else if (game.currentmenuoption == offset+4)
         {
             //back
             music.playef(11);
