@@ -269,12 +269,6 @@ void menurender()
         graphics.Print( -1, 100, "Are you sure you want to ", tr, tg, tb, true);
         graphics.Print( -1, 110, "enable invincibility?", tr, tg, tb, true);
         break;
-    case Menu::setslowdown1:
-        graphics.Print( -1, 90, "Warning! Changing the game speed", tr, tg, tb, true);
-        graphics.Print( -1, 100, "requires a game restart, and will", tr, tg, tb, true);
-        graphics.Print( -1, 110, "delete your current saves.", tr, tg, tb, true);
-        graphics.Print( -1, 120, "Is this ok?", tr, tg, tb, true);
-        break;
     case Menu::setslowdown2:
         graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
         graphics.Print( -1, 75, "Select a new game speed below.", tr, tg, tb, true);
