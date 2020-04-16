@@ -2183,12 +2183,12 @@ void editorclass::generatecustomminimap()
 
 void editormenurender(int tr, int tg, int tb)
 {
-    if (game.currentmenuname == Menu::ed_settings)
+    switch (game.currentmenuname)
     {
+    case Menu::ed_settings:
         graphics.bigprint( -1, 75, "Map Settings", tr, tg, tb, true);
-    }
-    else if (game.currentmenuname==Menu::ed_desc)
-    {
+        break;
+    case Menu::ed_desc:
         if(ed.titlemod)
         {
             if(ed.entframe<2)
@@ -2279,9 +2279,8 @@ void editormenurender(int tr, int tg, int tb)
         {
             graphics.Print( -1, 110, ed.Desc3, tr, tg, tb, true);
         }
-    }
-    else if (game.currentmenuname == Menu::ed_music)
-    {
+        break;
+    case Menu::ed_music:
         graphics.bigprint( -1, 65, "Map Music", tr, tg, tb, true);
 
         graphics.Print( -1, 85, "Current map music:", tr, tg, tb, true);
@@ -2327,11 +2326,13 @@ void editormenurender(int tr, int tg, int tb)
             graphics.Print( -1, 120, "?: something else", tr, tg, tb, true);
             break;
         }
-    }
-    else if (game.currentmenuname == Menu::ed_quit)
-    {
+        break;
+    case Menu::ed_quit:
         graphics.bigprint( -1, 90, "Save before", tr, tg, tb, true);
         graphics.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
+        break;
+    default:
+        break;
     }
 }
 
@@ -3461,8 +3462,9 @@ void editorlogic()
 
 void editormenuactionpress()
 {
-    if (game.currentmenuname == Menu::ed_desc)
+    switch (game.currentmenuname)
     {
+    case Menu::ed_desc:
         switch (game.currentmenuoption)
         {
         case 0:
@@ -3495,9 +3497,8 @@ void editormenuactionpress()
             map.nexttowercolour();
             break;
         }
-    }
-    else if (game.currentmenuname == Menu::ed_settings)
-    {
+        break;
+    case Menu::ed_settings:
         switch (game.currentmenuoption)
         {
         case 0:
@@ -3560,9 +3561,8 @@ void editormenuactionpress()
             map.nexttowercolour();
             break;
         }
-    }
-    else if (game.currentmenuname == Menu::ed_music)
-    {
+        break;
+    case Menu::ed_music:
         switch (game.currentmenuoption)
         {
         case 0:
@@ -3588,9 +3588,8 @@ void editormenuactionpress()
             map.nexttowercolour();
             break;
         }
-    }
-    else if (game.currentmenuname == Menu::ed_quit)
-    {
+        break;
+    case Menu::ed_quit:
         switch (game.currentmenuoption)
         {
         case 0:
@@ -3622,6 +3621,9 @@ void editormenuactionpress()
             map.nexttowercolour();
             break;
         }
+        break;
+    default:
+        break;
     }
 }
 
