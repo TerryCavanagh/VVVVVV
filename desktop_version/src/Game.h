@@ -221,7 +221,6 @@ public:
     //Main Menu Variables
     std::vector<MenuOption> menuoptions;
     int currentmenuoption ;
-    std::string menuselection;
     enum Menu::MenuName currentmenuname, previousmenuname;
     int current_credits_list_index;
     int menuxoff, menuyoff;
