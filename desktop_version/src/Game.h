@@ -70,6 +70,12 @@ namespace Menu
     };
 };
 
+struct MenuStackFrame
+{
+    int option;
+    enum Menu::MenuName name;
+};
+
 
 class Game
 {
