@@ -14,6 +14,63 @@ struct MenuOption
     bool active;
 };
 
+//Menu IDs
+namespace Menu
+{
+    enum MenuName
+    {
+        mainmenu,
+        playerworlds,
+        levellist,
+        quickloadlevel,
+        youwannaquit,
+        errornostart,
+        graphicoptions,
+        ed_settings,
+        ed_desc,
+        ed_music,
+        ed_quit,
+        options,
+        accessibility,
+        controller,
+        cleardatamenu,
+        setinvincibility,
+        setslowdown1,
+        setslowdown2,
+        unlockmenu,
+        credits,
+        credits2,
+        credits25,
+        credits3,
+        credits4,
+        credits5,
+        credits6,
+        play,
+        unlocktimetrial,
+        unlocktimetrials,
+        unlocknodeathmode,
+        unlockintermission,
+        unlockflipmode,
+        newgamewarning,
+        playmodes,
+        intermissionmenu,
+        playint1,
+        playint2,
+        continuemenu,
+        startnodeathmode,
+        gameover,
+        gameover2,
+        unlockmenutrials,
+        timetrials,
+        nodeathmodecomplete,
+        nodeathmodecomplete2,
+        timetrialcomplete,
+        timetrialcomplete2,
+        timetrialcomplete3,
+        gamecompletecontinue,
+    };
+};
+
 
 class Game
 {
@@ -53,7 +110,7 @@ public:
 
     std::string timetstring(int t);
 
-    void  createmenu(std::string t);
+    void  createmenu(enum Menu::MenuName t);
 
     void lifesequence();
 
@@ -164,7 +221,8 @@ public:
     //Main Menu Variables
     std::vector<MenuOption> menuoptions;
     int currentmenuoption ;
-    std::string menuselection, currentmenuname, previousmenuname;
+    std::string menuselection;
+    enum Menu::MenuName currentmenuname, previousmenuname;
     int current_credits_list_index;
     int menuxoff, menuyoff;
 
@@ -177,7 +235,7 @@ public:
     }
 
     int menucountdown;
-    std::string menudest;
+    enum Menu::MenuName menudest;
 
     int creditposx, creditposy, creditposdelay;
 
