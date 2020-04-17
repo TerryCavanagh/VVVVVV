@@ -6552,6 +6552,30 @@ std::string Game::timetstring( int t )
     return tempstring;
 }
 
+void Game::returnmenu()
+{
+    if (menustack.empty())
+    {
+        puts("Error: returning to previous menu frame on empty stack!");
+        return;
+    }
+
+    MenuStackFrame& frame = menustack[menustack.size()-1];
+
+    //Store this in case createmenu() removes the stack frame
+    int previousoption = frame.option;
+
+    createmenu(frame.name, true);
+    currentmenuoption = previousoption;
+
+    //Remove the stackframe now, but createmenu() might have already gotten to it
+    //if we were returning to the main menu
+    if (!menustack.empty())
+    {
+        menustack.pop_back();
+    }
+}
+
 void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 {
     if (t == Menu::mainmenu)
