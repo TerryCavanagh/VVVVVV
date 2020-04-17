@@ -202,100 +202,32 @@ void editorclass::getDirectoryData()
 }
 bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
 {
-    TiXmlDocument doc;
-    if (!FILESYSTEM_loadTiXmlDocument(_path.c_str(), &doc))
+    unsigned char *uMem = NULL;
+    FILESYSTEM_loadFileToMemory(_path.c_str(), &uMem, NULL, true);
+
+    if (uMem == NULL)
     {
         printf("Level %s not found :(\n", _path.c_str());
         return false;
     }
 
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
+    std::string buf((char*) uMem);
 
-
+    if (find_metadata(buf) == "")
     {
-        pElem=hDoc.FirstChildElement().Element();
-        // should always have a valid root but handle gracefully if it does
-        if (!pElem)
-        {
-            printf("No valid root! Corrupt level file?\n");
-        }
-
-        // save this for later
-        hRoot=TiXmlHandle(pElem);
+        printf("Couldn't load metadata for %s\n", _path.c_str());
+        return false;
     }
 
-    for( pElem = hRoot.FirstChild( "Data" ).FirstChild().Element(); pElem; pElem=pElem->NextSiblingElement())
-    {
-        std::string pKey(pElem->Value());
-        const char* pText = pElem->GetText() ;
-        if(pText == NULL)
-        {
-            pText = "";
-        }
+    _data.creator = find_creator(buf);
+    _data.title = find_title(buf);
+    _data.Desc1 = find_desc1(buf);
+    _data.Desc2 = find_desc2(buf);
+    _data.Desc3 = find_desc3(buf);
+    _data.website = find_desc3(buf);
 
-        if (pKey == "MetaData")
-        {
-
-            for( TiXmlElement* subElem = pElem->FirstChildElement(); subElem; subElem= subElem->NextSiblingElement())
-            {
-                std::string pKey(subElem->Value());
-                const char* pText = subElem->GetText() ;
-                if(pText == NULL)
-                {
-                    pText = "";
-                }
-                _data.filename = _path;
-
-                if(pKey == "Created")
-                {
-                    _data.timeCreated = pText;
-                }
-
-                if(pKey == "Creator")
-                {
-                    _data.creator = pText;
-                }
-
-                if(pKey == "Title")
-                {
-                    _data.title = pText;
-                }
-
-                if(pKey == "Modified")
-                {
-                    _data.timeModified = pText;
-                }
-
-                if(pKey == "Modifiers")
-                {
-                    _data.modifier = pText;
-                }
-
-                if(pKey == "Desc1")
-                {
-                    _data.Desc1 = pText;
-                }
-
-                if(pKey == "Desc2")
-                {
-                    _data.Desc2 = pText;
-                }
-
-                if(pKey == "Desc3")
-                {
-                    _data.Desc3 = pText;
-                }
-
-                if(pKey == "website")
-                {
-                    _data.website = pText;
-                }
-            }
-        }
-    }
-    return (_data.filename != "");
+    _data.filename = _path;
+    return true;
 }
 
 void editorclass::reset()
