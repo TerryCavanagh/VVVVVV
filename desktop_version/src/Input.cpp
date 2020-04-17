@@ -701,6 +701,13 @@ void menuactionpress()
             game.createmenu(Menu::credits2, true);
             map.nexttowercolour();
             break;
+        case 1:
+            //last page
+            music.playef(11);
+            game.createmenu(Menu::credits6, true);
+            game.currentmenuoption = 1;
+            map.nexttowercolour();
+            break;
         default:
             //back
             music.playef(11);
@@ -719,6 +726,13 @@ void menuactionpress()
             map.nexttowercolour();
             break;
         case 1:
+            //previous page
+            music.playef(11);
+            game.createmenu(Menu::credits, true);
+            game.currentmenuoption = 1;
+            map.nexttowercolour();
+            break;
+        case 2:
             //back
             music.playef(11);
             game.returnmenu();
@@ -733,6 +747,13 @@ void menuactionpress()
             //next page
             music.playef(11);
             game.createmenu(Menu::credits3, true);
+            map.nexttowercolour();
+            break;
+        case 1:
+            //previous page
+            music.playef(11);
+            game.createmenu(Menu::credits2, true);
+            game.currentmenuoption = 1;
             map.nexttowercolour();
             break;
         default:
@@ -762,6 +783,26 @@ void menuactionpress()
                 // There are more super patrons. Refresh the menu with the next ones
                 game.createmenu(Menu::credits3, true);
             }
+
+            map.nexttowercolour();
+            break;
+        case 1:
+            //previous page
+            music.playef(11);
+            game.current_credits_list_index -= 9;
+
+            if (game.current_credits_list_index < 0)
+            {
+                //No more super patrons. Move to the previous credits section
+                game.current_credits_list_index = 0;
+                game.createmenu(Menu::credits25, true);
+            }
+            else
+            {
+                //There are more super patrons. Refresh the menu with the next ones
+                game.createmenu(Menu::credits3, true);
+            }
+            game.currentmenuoption = 1;
 
             map.nexttowercolour();
             break;
@@ -796,6 +837,26 @@ void menuactionpress()
 
             map.nexttowercolour();
             break;
+        case 1:
+            //previous page
+            music.playef(11);
+            game.current_credits_list_index -= 14;
+
+            if (game.current_credits_list_index < 0)
+            {
+                //No more patrons. Move to the previous credits section
+                game.current_credits_list_index = game.superpatrons.size() - 1 - (game.superpatrons.size()-1)%9;
+                game.createmenu(Menu::credits3, true);
+            }
+            else
+            {
+                //There are more patrons. Refresh the menu with the next ones
+                game.createmenu(Menu::credits4, true);
+            }
+            game.currentmenuoption = 1;
+
+            map.nexttowercolour();
+            break;
         default:
             //back
             music.playef(11);
@@ -827,6 +888,26 @@ void menuactionpress()
 
             map.nexttowercolour();
             break;
+        case 1:
+            //previous page
+            music.playef(11);
+            game.current_credits_list_index -= 9;
+
+            if (game.current_credits_list_index < 0)
+            {
+                //No more GitHub contributors. Move to the previous credits section
+                game.current_credits_list_index = game.patrons.size() - 1 - (game.patrons.size()-1)%14;
+                game.createmenu(Menu::credits4, true);
+            }
+            else
+            {
+                //There are more GitHub contributors. Refresh the menu with the next ones
+                game.createmenu(Menu::credits5, true);
+            }
+            game.currentmenuoption = 1;
+
+            map.nexttowercolour();
+            break;
         default:
             //back
             music.playef(11);
@@ -843,6 +924,14 @@ void menuactionpress()
             //first page
             music.playef(11);
             game.createmenu(Menu::credits, true);
+            map.nexttowercolour();
+            break;
+        case 1:
+            //previous page
+            music.playef(11);
+            game.current_credits_list_index = game.githubfriends.size() - 1 - (game.githubfriends.size()-1)%9;
+            game.createmenu(Menu::credits5, true);
+            game.currentmenuoption = 1;
             map.nexttowercolour();
             break;
         default:
