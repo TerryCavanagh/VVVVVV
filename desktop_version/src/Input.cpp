@@ -199,6 +199,17 @@ void menuactionpress()
             game.returnmenu();
             map.nexttowercolour();
         }else if(game.currentmenuoption==(int)game.menuoptions.size()-2){
+            //previous page
+            music.playef(11);
+            if(game.levelpage==0){
+                game.levelpage=(ed.ListOfMetaData.size()-1)/8;
+            }else{
+                game.levelpage--;
+            }
+            game.createmenu(Menu::levellist, true);
+            game.currentmenuoption=game.menuoptions.size()-2;
+            map.nexttowercolour();
+        }else if(game.currentmenuoption==(int)game.menuoptions.size()-3){
             //next page
             music.playef(11);
             if((size_t) ((game.levelpage*8)+8) >= ed.ListOfMetaData.size()){
@@ -207,7 +218,7 @@ void menuactionpress()
                 game.levelpage++;
             }
             game.createmenu(Menu::levellist, true);
-            game.currentmenuoption=game.menuoptions.size()-2;
+            game.currentmenuoption=game.menuoptions.size()-3;
             map.nexttowercolour();
         }else{
             //Ok, launch the level!
