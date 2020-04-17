@@ -189,7 +189,11 @@ void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
 	{
 		*mem = (unsigned char*) malloc(length);
 	}
-	PHYSFS_readBytes(handle, *mem, length);
+	int success = PHYSFS_readBytes(handle, *mem, length);
+	if (success == -1)
+	{
+		FILESYSTEM_freeMemory(mem);
+	}
 	PHYSFS_close(handle);
 }
 
