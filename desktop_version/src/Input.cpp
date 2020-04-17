@@ -363,8 +363,8 @@ void menuactionpress()
             break;
         default:
             music.playef(11);
+            map.nexttowercolour(); //This goes first, otherwise mismatching continuemenu color is possible
             game.createmenu(game.previousmenuname);
-            map.nexttowercolour();
         }
         break;
     case Menu::setinvincibility:
@@ -871,7 +871,6 @@ void menuactionpress()
                 music.playef(11);
                 game.loadsummary(); //Prepare save slots to display
                 game.createmenu(Menu::continuemenu);
-                map.settowercolour(3);
             }
         }
         else if (game.currentmenuoption == 1 && game.unlock[8])

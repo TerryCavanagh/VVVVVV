@@ -7028,6 +7028,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 10;
         break;
     case Menu::continuemenu:
+        map.settowercolour(3);
         option("continue from teleporter");
         option("continue from quicksave");
         option("return to play menu");
