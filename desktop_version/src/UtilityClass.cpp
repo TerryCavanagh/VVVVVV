@@ -207,3 +207,15 @@ void UtilityClass::updateglow()
 		if (glow < 2) glowdir = 0;
 	}
 }
+
+bool is_positive_num(const std::string& str)
+{
+	for (size_t i = 0; i < str.length(); i++)
+	{
+		if (!std::isdigit(str[i]))
+		{
+			return false;
+		}
+	}
+	return true;
+}
