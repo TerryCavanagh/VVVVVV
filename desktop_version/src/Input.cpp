@@ -1284,7 +1284,6 @@ void titleinput()
         if (key.isDown(27) && game.currentmenuname != Menu::youwannaquit && game.menustart)
         {
             music.playef(11);
-            game.previousmenuname = game.currentmenuname;
             game.createmenu(Menu::youwannaquit);
             map.nexttowercolour();
         }
