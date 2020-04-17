@@ -232,6 +232,9 @@ void Game::init(void)
     customleveltitle="";
     createmenu(Menu::mainmenu);
 
+    wasintimetrial = false;
+    wasincustommode = false;
+
     deathcounts = 0;
     gameoverdelay = 0;
     frames = 0;
@@ -1341,10 +1344,13 @@ void Game::updatestate()
             //Don't be stuck on the summary screen,
             //or "who do you want to play the level with?"
             //or "do you want cutscenes?"
-            if (!intimetrial)
+            //or the confirm-load-quicksave menu
+            if ((!wasintimetrial && !wasincustommode) || currentmenuname == Menu::quickloadlevel)
             {
                 returnmenu();
             }
+            wasintimetrial = false;
+            wasincustommode = false;
             state = 0;
             break;
 
