@@ -6690,6 +6690,14 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             {
                 option("first page");
             }
+            if (levelpage == 0)
+            {
+                option("last page");
+            }
+            else
+            {
+                option("previous page");
+            }
             option("return to menu");
 
             menuxoff = -90;
