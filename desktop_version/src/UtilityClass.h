@@ -11,6 +11,8 @@ std::vector<std::string> split(const std::string &s, char delim, std::vector<std
 
 std::vector<std::string> split(const std::string &s, char delim);
 
+bool is_positive_num(const std::string& str);
+
 
 //helperClass
 class UtilityClass
