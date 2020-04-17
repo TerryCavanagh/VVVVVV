@@ -102,6 +102,57 @@ void replace_all(std::string& str, const std::string& from, const std::string& t
     }
 }
 
+std::string find_tag(const std::string& buf, const std::string& start, const std::string& end)
+{
+    size_t tag = buf.find(start);
+
+    if (tag == std::string::npos)
+    {
+        //No start tag
+        return "";
+    }
+
+    size_t tag_start = tag + start.size();
+    size_t tag_close = buf.find(end, tag_start);
+
+    if (tag_close == std::string::npos)
+    {
+        //No close tag
+        return "";
+    }
+
+    size_t tag_len = tag_close - tag_start;
+    std::string value(buf.substr(tag_start, tag_len));
+
+    //Encode special XML entities
+    replace_all(value, "&quot;", "\"");
+    replace_all(value, "&amp;", "&");
+    replace_all(value, "&apos;", "'");
+    replace_all(value, "&lt;", "<");
+    replace_all(value, "&gt;", ">");
+
+    //Encode general XML entities
+    size_t start_pos = 0;
+    while ((start_pos = value.find("&#", start_pos)) != std::string::npos)
+    {
+        size_t end = value.find(';', start_pos);
+        std::string number(value.substr(start_pos + 2, end - start_pos));
+
+        if (!is_positive_num(number))
+        {
+            return "";
+        }
+
+        int character = atoi(number.c_str());
+        int utf32[] = {character, 0};
+        std::string utf8;
+        utf8::unchecked::utf32to8(utf32, utf32 + 1, std::back_inserter(utf8));
+        value.replace(start_pos, end - start_pos + 1, utf8);
+    }
+
+    return value;
+}
+
 void editorclass::getDirectoryData()
 {
 
