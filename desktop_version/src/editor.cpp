@@ -153,6 +153,23 @@ std::string find_tag(const std::string& buf, const std::string& start, const std
     return value;
 }
 
+#define TAG_FINDER(NAME, TAG) \
+std::string NAME(const std::string& buf) \
+{ \
+    return find_tag(buf, "<" TAG ">", "</" TAG ">"); \
+}
+
+TAG_FINDER(find_metadata, "MetaData"); //only for checking that it exists
+
+TAG_FINDER(find_creator, "Creator");
+TAG_FINDER(find_title, "Title");
+TAG_FINDER(find_desc1, "Desc1");
+TAG_FINDER(find_desc2, "Desc2");
+TAG_FINDER(find_desc3, "Desc3");
+TAG_FINDER(find_website, "website");
+
+#undef TAG_FINDER
+
 void editorclass::getDirectoryData()
 {
 
