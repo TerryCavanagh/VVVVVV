@@ -1484,7 +1484,7 @@ void gameinput()
                             else if (game.companion == 0)
                             {
                                 //Alright, normal teleporting
-                                game.gamestate = 5;
+                                game.gamestate = TELEPORTERMODE;
                                 graphics.menuoffset = 240; //actually this should count the roomname
                                 if (map.extrarow) graphics.menuoffset -= 10;
 
