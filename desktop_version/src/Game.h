@@ -229,6 +229,7 @@ public:
     enum Menu::MenuName currentmenuname, previousmenuname;
     int current_credits_list_index;
     int menuxoff, menuyoff;
+    std::vector<MenuStackFrame> menustack;
 
     void inline option(std::string text, bool active = true)
     {
