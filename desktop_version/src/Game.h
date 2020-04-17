@@ -115,6 +115,7 @@ public:
 
     std::string timetstring(int t);
 
+    void returnmenu();
     void  createmenu(enum Menu::MenuName t, bool samemenu = false);
 
     void lifesequence();
