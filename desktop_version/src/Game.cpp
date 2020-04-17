@@ -6837,42 +6837,49 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::credits:
         option("next page");
+        option("last page");
         option("return");
         menuxoff = 20;
         menuyoff = 64;
         break;
     case Menu::credits2:
         option("next page");
+        option("previous page");
         option("return");
         menuxoff = 20;
         menuyoff = 64;
         break;
     case Menu::credits25:
         option("next page");
+        option("previous page");
         option("return");
         menuxoff = 20;
         menuyoff = 64;
         break;
     case Menu::credits3:
         option("next page");
+        option("previous page");
         option("return");
         menuxoff = 20;
         menuyoff = 64;
         break;
     case Menu::credits4:
         option("next page");
+        option("previous page");
         option("return");
         menuxoff = 20;
         menuyoff = 64;
         break;
     case Menu::credits5:
         option("next page");
+        option("previous page");
         option("return");
         menuxoff = 20;
         menuyoff = 64;
         break;
     case Menu::credits6:
         option("first page");
+        option("previous page");
         option("return");
         menuxoff = 20;
         menuyoff = 64;
