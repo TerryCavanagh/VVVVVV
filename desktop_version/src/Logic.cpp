@@ -30,7 +30,7 @@ void titlelogic()
             {
                 music.playef(3);
             }
-            game.createmenu(game.menudest);
+            game.createmenu(game.menudest, true);
         }
     }
 }

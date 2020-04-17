@@ -1191,6 +1191,15 @@ void menuactionpress()
             map.nexttowercolour();
             break;
         case 1:
+            //Ok but first quickly remove the last stack frame to prevent piling up timetrialcomplete stack frames
+            if (game.menustack.empty())
+            {
+                puts("Error: menu stack is empty!");
+            }
+            else
+            {
+                game.menustack.pop_back();
+            }
             //duplicate the above based on given time trial level!
             if (game.timetriallevel == 0)   //space station 1
             {
@@ -1229,7 +1238,7 @@ void menuactionpress()
     case Menu::nodeathmodecomplete2:
         music.play(6);
         music.playef(11);
-        game.createmenu(Menu::play);
+        game.returnmenu();
         map.nexttowercolour();
         break;
     default:
