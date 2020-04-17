@@ -6552,8 +6552,23 @@ std::string Game::timetstring( int t )
     return tempstring;
 }
 
-void Game::createmenu( enum Menu::MenuName t )
+void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 {
+    if (t == Menu::mainmenu)
+    {
+        //Either we've just booted up the game or returned from gamemode
+        //Whichever it is, we shouldn't have a stack,
+        //and most likely don't have a current stackframe
+        menustack.clear();
+    }
+    else if (!samemenu)
+    {
+        MenuStackFrame frame;
+        frame.option = currentmenuoption;
+        frame.name = currentmenuname;
+        menustack.push_back(frame);
+    }
+
     currentmenuoption = 0;
     currentmenuname = t;
     menuxoff = 0;
