@@ -1958,6 +1958,8 @@ void mapinput()
                 //This fixes an apparent frame flicker.
                 FillRect(graphics.tempBuffer, 0x000000);
                 if (game.intimetrial || game.insecretlab || game.nodeathmode) game.menukludge = true;
+                game.wasintimetrial = game.intimetrial;
+                game.wasincustommode = map.custommode;
                 script.hardreset();
                 if(graphics.setflipmode) graphics.flipmode = true;
                 graphics.fademode = 2;
