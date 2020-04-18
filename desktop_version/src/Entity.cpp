@@ -4251,8 +4251,10 @@ void entityclass::updateentitylogic( int t )
         applyfriction(t, game.inertia, 0.25f);
     }
 
-    entities[t].newxp = entities[t].xp + entities[t].vx;
-    entities[t].newyp = entities[t].yp + entities[t].vy;
+    entities[t].mx = clamp(entities[t].mx, -1, 1);
+    entities[t].my = clamp(entities[t].my, -1, 1);
+    entities[t].newxp = entities[t].xp + entities[t].vx*entities[t].mx;
+    entities[t].newyp = entities[t].yp + entities[t].vy*entities[t].my;
 }
 
 void entityclass::entitymapcollision( int t )

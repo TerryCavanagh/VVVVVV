@@ -21,6 +21,8 @@ entclass::entclass()
 	ay = 0;
 	vx = 0;
 	vy = 0;
+	mx = 1;
+	my = 1;
 	w = 16;
 	h = 16;
 	cx = 0;

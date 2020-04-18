@@ -28,6 +28,7 @@ public:
     //Position and velocity
     int oldxp, oldyp;
     float ax, ay, vx, vy;
+    float mx, my;
     int cx, cy, w, h;
     float newxp, newyp;
     bool isplatform;
