@@ -285,17 +285,19 @@ void menuactionpress()
             ed.filename="";
             break;
  #endif
-        /*case OFFSET+2:
-            music.playef(11);
-            //"OPENFOLDERHOOK"
-            //When the player selects the "open level folder" menu option,
-            //this is where it should run the appropriate code.
-            //This code should:
-            // - Minimise the game
-            // - Open the levels folder for whatever operating system we're on
-            SDL_assert(0 && "Remove open level dir");
-            break;*/
         case OFFSET+2:
+            //"OPENFOLDERHOOK"
+            if (FILESYSTEM_openDirectory(FILESYSTEM_getUserLevelDirectory()))
+            {
+                music.playef(11);
+                SDL_MinimizeWindow(graphics.screenbuffer->m_window);
+            }
+            else
+            {
+                music.playef(2);
+            }
+            break;
+        case OFFSET+3:
             //back
             music.playef(11);
             game.returnmenu();

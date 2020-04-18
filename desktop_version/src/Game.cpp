@@ -6636,7 +6636,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
  #if !defined(NO_EDITOR)
         option("level editor");
  #endif
-        //option("open level folder");
+        option("open level folder", FILESYSTEM_openDirectoryEnabled());
         option("back to menu");
         menuxoff = -30;
         menuyoff = -40;
