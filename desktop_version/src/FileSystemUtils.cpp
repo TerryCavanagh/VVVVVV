@@ -470,22 +470,22 @@ void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 	printf("Copied:\n\tOld: %s\n\tNew: %s\n", oldLocation, newLocation);
 }
 
-#ifdef _WIN32
 bool FILESYSTEM_openDirectoryEnabled()
 {
-	return true;
+	/* This is just a check to see if we're on a desktop or tenfoot setup.
+	 * If you're working on a tenfoot-only build, add a def that always
+	 * returns false!
+	 */
+	return !SDL_GetHintBoolean("SteamTenfoot", SDL_TRUE);
 }
 
+#ifdef _WIN32
 bool FILESYSTEM_openDirectory(const char *dname)
 {
 	ShellExecute(NULL, "open", dname, NULL, NULL, SW_SHOWMINIMIZED);
 	return true;
 }
 #elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
-bool FILESYSTEM_openDirectoryEnabled()
-{
-	return std::getenv("SteamTenfoot") == NULL;
-}
  #ifdef __linux__
 const char* open_cmd = "xdg-open";
  #else
@@ -505,11 +505,6 @@ bool FILESYSTEM_openDirectory(const char *dname)
 	return WIFEXITED(status) && WEXITSTATUS(status) == 0;
 }
 #else
-bool FILESYSTEM_openDirectoryEnabled()
-{
-	return false;
-}
-
 bool FILESYSTEM_openDirectory(const char *dname)
 {
 	return false;
