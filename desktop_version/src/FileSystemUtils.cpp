@@ -476,7 +476,7 @@ bool FILESYSTEM_openDirectoryEnabled()
 	 * If you're working on a tenfoot-only build, add a def that always
 	 * returns false!
 	 */
-	return !SDL_GetHintBoolean("SteamTenfoot", SDL_TRUE);
+	return !SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
 }
 
 #ifdef _WIN32
