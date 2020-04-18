@@ -19,6 +19,7 @@
 #if defined(_WIN32)
 #include <windows.h>
 #include <shlobj.h>
+#include <shellapi.h>
 int mkdir(char* path, int mode)
 {
 	WCHAR utf16_path[MAX_PATH];
@@ -33,6 +34,9 @@ int mkdir(char* path, int mode)
 /* These are needed for PLATFORM_* crap */
 #include <unistd.h>
 #include <dirent.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <spawn.h>
 #define MAX_PATH PATH_MAX
 #endif
 
@@ -465,3 +469,49 @@ void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 	/* WTF did we just do */
 	printf("Copied:\n\tOld: %s\n\tNew: %s\n", oldLocation, newLocation);
 }
+
+#ifdef _WIN32
+bool FILESYSTEM_openDirectoryEnabled()
+{
+	return true;
+}
+
+bool FILESYSTEM_openDirectory(const char *dname)
+{
+	ShellExecute(NULL, "open", dname, NULL, NULL, SW_SHOWMINIMIZED);
+	return true;
+}
+#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
+bool FILESYSTEM_openDirectoryEnabled()
+{
+	return true;
+}
+ #ifdef __linux__
+const char* open_cmd = "xdg-open";
+ #else
+const char* open_cmd = "open";
+ #endif
+
+extern "C" char** environ;
+
+bool FILESYSTEM_openDirectory(const char *dname)
+{
+	pid_t child;
+	// This const_cast is legal (ctrl-f "The statement" at https://pubs.opengroup.org/onlinepubs/9699919799/functions/exec.html
+	char* argv[3] = {const_cast<char*>(open_cmd), const_cast<char*>(dname), NULL};
+	posix_spawnp(&child, open_cmd, NULL, NULL, argv, environ);
+	int status = 0;
+	waitpid(child, &status, 0);
+	return WIFEXITED(status) && WEXITSTATUS(status) == 0;
+}
+#else
+bool FILESYSTEM_openDirectoryEnabled()
+{
+	return false;
+}
+
+bool FILESYSTEM_openDirectory(const char *dname)
+{
+	return false;
+}
+#endif
