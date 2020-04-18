@@ -287,7 +287,8 @@ void menuactionpress()
  #endif
         case OFFSET+2:
             //"OPENFOLDERHOOK"
-            if (FILESYSTEM_openDirectory(FILESYSTEM_getUserLevelDirectory()))
+            if (FILESYSTEM_openDirectoryEnabled()
+            && FILESYSTEM_openDirectory(FILESYSTEM_getUserLevelDirectory()))
             {
                 music.playef(11);
                 SDL_MinimizeWindow(graphics.screenbuffer->m_window);
