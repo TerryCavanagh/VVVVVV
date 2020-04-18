@@ -484,7 +484,7 @@ bool FILESYSTEM_openDirectory(const char *dname)
 #elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
 bool FILESYSTEM_openDirectoryEnabled()
 {
-	return true;
+	return std::getenv("SteamTenfoot") == NULL;
 }
  #ifdef __linux__
 const char* open_cmd = "xdg-open";
