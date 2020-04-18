@@ -1737,6 +1737,18 @@ void gameinput()
                     obj.entities[ie].dir = 1;
                 }
 
+                if (game.press_left || game.press_right)
+                {
+                    if (key.xMagnitude != 0.0f)
+                    {
+                        obj.entities[ie].mx = key.xMagnitude;
+                    }
+                    else
+                    {
+                        obj.entities[ie].mx = 1;
+                    }
+                }
+
                 if (!game.press_action)
                 {
                     game.jumppressed = 0;

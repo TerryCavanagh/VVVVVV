@@ -53,6 +53,8 @@ KeyPoll::KeyPoll()
 	}
 
 	linealreadyemptykludge = false;
+
+	xMagnitude = 0.0f;
 }
 
 void KeyPoll::enabletextentry()
@@ -194,10 +196,12 @@ void KeyPoll::Poll()
 					evt.caxis.value < sensitivity	)
 				{
 					xVel = 0;
+					xMagnitude = 0;
 				}
 				else
 				{
 					xVel = (evt.caxis.value > 0) ? 1 : -1;
+					xMagnitude = (std::abs(evt.caxis.value) - sensitivity) / (32768.0f - sensitivity);
 				}
 			}
 			if (evt.caxis.axis == SDL_CONTROLLER_AXIS_LEFTY)
