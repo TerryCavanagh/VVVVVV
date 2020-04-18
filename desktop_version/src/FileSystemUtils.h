@@ -20,4 +20,7 @@ bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc);
 
 std::vector<std::string> FILESYSTEM_getLevelDirFileNames();
 
+bool FILESYSTEM_openDirectoryEnabled();
+bool FILESYSTEM_openDirectory(const char *dname);
+
 #endif /* FILESYSTEMUTILS_H */
