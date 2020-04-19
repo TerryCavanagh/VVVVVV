@@ -531,8 +531,7 @@ int main(int argc, char *argv[])
             Mix_VolumeMusic(0) ;
             Mix_Volume(-1,0);
         }
-
-        if (!game.muted)
+        else
         {
             Mix_Volume(-1,MIX_MAX_VOLUME);
 
