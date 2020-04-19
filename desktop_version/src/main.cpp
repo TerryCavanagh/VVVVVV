@@ -528,14 +528,12 @@ int main(int argc, char *argv[])
 
         if (game.muted)
         {
-            game.globalsound = 0;
             Mix_VolumeMusic(0) ;
             Mix_Volume(-1,0);
         }
 
-        if (!game.muted && game.globalsound == 0)
+        if (!game.muted)
         {
-            game.globalsound = 1;
             Mix_Volume(-1,MIX_MAX_VOLUME);
 
             if (game.musicmuted)
