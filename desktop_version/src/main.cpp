@@ -379,6 +379,9 @@ int main(int argc, char *argv[])
         game.infocus = key.isActive;
         if(!game.infocus)
         {
+            Mix_Pause(-1);
+            Mix_PauseMusic();
+
             FillRect(graphics.backBuffer, 0x00000000);
             graphics.bprint(5, 110, "Game paused", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
             graphics.bprint(5, 120, "[click to resume]", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
@@ -390,6 +393,9 @@ int main(int argc, char *argv[])
         }
         else
         {
+            Mix_Resume(-1);
+            Mix_ResumeMusic();
+
             switch(game.gamestate)
             {
             case PRELOADER:
