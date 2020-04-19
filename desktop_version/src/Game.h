@@ -350,7 +350,6 @@ public:
     bool quickrestartkludge;
 
     bool paused;
-    int globalsound;
 
     //Custom stuff
     std::string customscript[50];
