@@ -440,51 +440,51 @@ int main(int argc, char *argv[])
                     gameinput();
                     gamerender();
                     gamelogic();
+                }
 
-
-                    break;
-                case MAPMODE:
-                    maprender();
-                    mapinput();
-                    maplogic();
-                    break;
-                case TELEPORTERMODE:
-                    teleporterrender();
-                    if(game.useteleporter)
-                    {
-                        teleporterinput();
-                    }
-                    else
-                    {
-                        if (script.running)
-                        {
-                            script.run();
-                        }
-                        gameinput();
-                    }
-                    maplogic();
-                    break;
-                case GAMECOMPLETE:
-                    gamecompleterender();
-                    //Input
-                    gamecompleteinput();
-                    //Logic
-                    gamecompletelogic();
-                    break;
-                case GAMECOMPLETE2:
-                    gamecompleterender2();
-                    //Input
-                    gamecompleteinput2();
-                    //Logic
-                    gamecompletelogic2();
-                    break;
-                case CLICKTOSTART:
-                    help.updateglow();
-                    break;
-                default:
 
                 break;
+            case MAPMODE:
+                maprender();
+                mapinput();
+                maplogic();
+                break;
+            case TELEPORTERMODE:
+                teleporterrender();
+                if(game.useteleporter)
+                {
+                    teleporterinput();
                 }
+                else
+                {
+                    if (script.running)
+                    {
+                        script.run();
+                    }
+                    gameinput();
+                }
+                maplogic();
+                break;
+            case GAMECOMPLETE:
+                gamecompleterender();
+                //Input
+                gamecompleteinput();
+                //Logic
+                gamecompletelogic();
+                break;
+            case GAMECOMPLETE2:
+                gamecompleterender2();
+                //Input
+                gamecompleteinput2();
+                //Logic
+                gamecompletelogic2();
+                break;
+            case CLICKTOSTART:
+                help.updateglow();
+                break;
+            default:
+
+                break;
 
             }
 
