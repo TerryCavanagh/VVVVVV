@@ -84,16 +84,6 @@ public:
     ~Game(void);
 
 
-    void setGlobalSoundVol(const float _vol)
-    {
-        m_globalVol = _vol;
-    }
-    float getGlobalSoundVol()
-    {
-        return m_globalVol;
-    }
-
-
     int crewrescued();
 
     std::string unrescued();
@@ -194,10 +184,6 @@ public:
     int mutebutton;
     bool musicmuted;
     int musicmutebutton;
-private:
-    float m_globalVol;
-
-public:
 
     int tapleft, tapright;
 

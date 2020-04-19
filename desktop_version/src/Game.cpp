@@ -122,7 +122,6 @@ void Game::init(void)
     musicmuted = false;
     musicmutebutton = 0;
     globalsound = 128;
-    m_globalVol = 1.0f;
 
     glitchrunkludge = false;
     hascontrol = true;
