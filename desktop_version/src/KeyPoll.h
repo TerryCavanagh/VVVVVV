@@ -21,6 +21,7 @@ enum Kybrd
 	KEYBOARD_a = SDLK_a,
 	KEYBOARD_d = SDLK_d,
 	KEYBOARD_m = SDLK_m,
+	KEYBOARD_n = SDLK_n,
 
 	KEYBOARD_v = SDLK_v,
 	KEYBOARD_z = SDLK_z,

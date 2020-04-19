@@ -119,6 +119,8 @@ void Game::init(void)
     infocus = true;
     paused = false;
     muted = false;
+    musicmuted = false;
+    musicmutebutton = 0;
     globalsound = 128;
     m_globalVol = 1.0f;
 
