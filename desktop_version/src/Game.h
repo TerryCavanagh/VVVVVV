@@ -192,6 +192,8 @@ public:
     bool infocus;
     bool muted;
     int mutebutton;
+    bool musicmuted;
+    int musicmutebutton;
 private:
     float m_globalVol;
 
