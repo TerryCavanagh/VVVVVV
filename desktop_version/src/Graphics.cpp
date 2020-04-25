@@ -2122,10 +2122,10 @@ void Graphics::drawbackground( int t )
                 for (int i = 0; i < 21; i++)
                 {
                     temp = 680 + (rcol * 3);
-                    drawtowertile((i * 16) - backoffset, (j * 16), temp+40);
-                    drawtowertile((i * 16) - backoffset + 8, (j * 16), temp + 41);
-                    drawtowertile((i * 16) - backoffset, (j * 16) + 8, temp + 80);
-                    drawtowertile((i * 16) - backoffset + 8, (j * 16) + 8, temp + 81);
+                    drawtowertile((i * 16) - backoffset - 3, (j * 16), temp+40);
+                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
+                    drawtowertile((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
+                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16) + 8, temp + 81);
                 }
             }
             backgrounddrawn = true;
@@ -2158,10 +2158,10 @@ void Graphics::drawbackground( int t )
                 for (int i = 0; i < 21; i++)
                 {
                     temp = 760 + (rcol * 3);
-                    drawtowertile((i * 16), (j * 16)- backoffset, temp+40);
-                    drawtowertile((i * 16)+ 8, (j * 16)- backoffset, temp + 41);
-                    drawtowertile((i * 16), (j * 16)- backoffset + 8, temp + 80);
-                    drawtowertile((i * 16)+ 8, (j * 16)- backoffset + 8, temp + 81);
+                    drawtowertile((i * 16), (j * 16)- backoffset - 3, temp+40);
+                    drawtowertile((i * 16)+ 8, (j * 16)- backoffset - 3, temp + 41);
+                    drawtowertile((i * 16), (j * 16)- backoffset + 8 - 3, temp + 80);
+                    drawtowertile((i * 16)+ 8, (j * 16)- backoffset + 8 - 3, temp + 81);
                 }
             }
             backgrounddrawn = true;
