@@ -1527,15 +1527,20 @@ void Graphics::drawentities()
                 drawRect.y += tpoint.y;
                 BlitSurfaceStandard(tiles[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
             }
-            else if (obj.entities[i].size == 2)
+            else if (obj.entities[i].size == 2 || obj.entities[i].size == 8)
             {
-                // Special: Moving platform, 4 tiles
+                // Special: Moving platform, 4 tiles or 8 tiles
                 tpoint.x = obj.entities[i].xp;
                 tpoint.y = obj.entities[i].yp;
                 drawRect = tiles_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
-                for (int ii = 0; ii < 4; ii++)
+                int thiswidth = 4;
+                if (obj.entities[i].size == 8)
+                {
+                    thiswidth = 8;
+                }
+                for (int ii = 0; ii < thiswidth; ii++)
                 {
                     BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
                     drawRect.x += 8;
@@ -1581,17 +1586,7 @@ void Graphics::drawentities()
             }
             else if (obj.entities[i].size == 8)    // Special: Moving platform, 8 tiles
             {
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp;
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-
-                for (int ii = 0; ii < 8; ii++)
-                {
-                    BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
-                    drawRect.x += 8;
-                }
+                // Note: This code is in the 4-tile code
             }
             else if (obj.entities[i].size == 9)         // Really Big Sprite! (2x2)
             {
