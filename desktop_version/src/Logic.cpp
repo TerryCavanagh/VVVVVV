@@ -115,399 +115,13 @@ void gamecompletelogic2()
 }
 
 
-void towerlogic()
-{
-    //Logic for the tower level
-    map.updatetowerglow();
-    help.updateglow();
-
-    if(!game.completestop)
-    {
-        if (map.cameramode == 0)
-        {
-            //do nothing!
-            //a trigger will set this off in the game
-            map.cameramode = 1;
-            map.bscroll = 0;
-        }
-        else if (map.cameramode == 1)
-        {
-            //move normally
-            if(map.scrolldir==0)
-            {
-                map.ypos -= 2;
-                map.bypos -= 1;
-                map.bscroll = -1;
-            }
-            else
-            {
-                map.ypos += 2;
-                map.bypos += 1;
-                map.bscroll = 1;
-            }
-        }
-        else if (map.cameramode == 2)
-        {
-            //do nothing, but cycle colours (for taking damage)
-            map.bscroll = 0;
-        }
-        else if (map.cameramode == 4)
-        {
-            int i = obj.getplayer();
-            map.cameraseek = map.ypos - (obj.entities[i].yp - 120);
-
-            map.cameraseek = map.cameraseek / 10;
-            map.cameraseekframe = 10;
-
-            map.cameramode = 5;
-
-            map.bscroll = map.cameraseek/2;
-        }
-        else if (map.cameramode == 5)
-        {
-            //actually do it
-            if (map.spikeleveltop > 0) map.spikeleveltop-=2;
-            if (map.spikelevelbottom > 0) map.spikelevelbottom-=2;
-            if (map.cameraseekframe > 0)
-            {
-                int i = obj.getplayer();
-                map.ypos -= map.cameraseek;
-                if (map.cameraseek > 0)
-                {
-                    if (map.ypos < obj.entities[i].yp - 120)
-                    {
-                        map.ypos = obj.entities[i].yp - 120;
-                    }
-                }
-                else
-                {
-                    if (map.ypos > obj.entities[i].yp - 120)
-                    {
-                        map.ypos = obj.entities[i].yp - 120;
-                    }
-                }
-                map.cameraseekframe--;
-                map.bypos = map.ypos / 2;
-            }
-            else
-            {
-                int i = obj.getplayer();
-                map.ypos = obj.entities[i].yp - 120;
-                map.bypos = map.ypos / 2;
-                map.cameramode = 0;
-                map.colsuperstate = 0;
-            }
-        }
-    }
-    else
-    {
-        map.bscroll = 0;
-    }
-
-    if (map.ypos <= 0)
-    {
-        map.ypos = 0;
-        map.bypos = 0;
-        map.bscroll = 0;
-    }
-    if (map.minitowermode)
-    {
-        if (map.ypos >= 568)
-        {
-            map.ypos = 568;
-            map.bypos = map.ypos / 2;
-            map.bscroll = 0;
-        } //100-29 * 8 = 568
-    }
-    else
-    {
-        if (map.ypos >= 5368)
-        {
-            map.ypos = 5368;    //700-29 * 8 = 5368
-            map.bypos = map.ypos / 2.0;
-        }
-    }
-
-    if (game.lifeseq > 0)
-    {
-        if (map.cameramode == 2)
-        {
-            map.cameraseekframe = 20;
-            map.cameramode = 4;
-            map.resumedelay = 4;
-        }
-
-        if (map.cameraseekframe <= 0)
-        {
-            if (map.resumedelay <= 0)
-            {
-                game.lifesequence();
-                if (game.lifeseq == 0) map.cameramode = 1;
-            }
-            else
-            {
-                map.resumedelay--;
-            }
-        }
-    }
-
-    if (game.deathseq != -1)
-    {
-        map.colsuperstate = 1;
-        map.cameramode = 2;
-        game.deathsequence();
-        game.deathseq--;
-        if (game.deathseq <= 0)
-        {
-            if (game.nodeathmode)
-            {
-                game.deathseq = 1;
-                game.gethardestroom();
-                //start depressing sequence here...
-                if (game.gameoverdelay <= -10 && graphics.fademode==0) graphics.fademode = 2;
-                if (graphics.fademode == 1) script.resetgametomenu();
-            }
-            else
-            {
-                if (game.currentroomdeaths > game.hardestroomdeaths)
-                {
-                    game.hardestroomdeaths = game.currentroomdeaths;
-                    game.hardestroom = map.roomname;
-                }
-
-                game.gravitycontrol = game.savegc;
-                graphics.textboxremove();
-                map.resetplayer();
-            }
-        }
-    }
-    else
-    {
-        //State machine for game logic
-        game.updatestate();
-
-
-        //Time trial stuff
-        if (game.intimetrial)
-        {
-            if (game.timetrialcountdown > 0)
-            {
-                game.hascontrol = true;
-                game.timetrialcountdown--;
-                if (game.timetrialcountdown > 30)
-                {
-                    game.hascontrol = false;
-                }
-                if(game.timetrialcountdown == 120) music.playef(21);
-                if(game.timetrialcountdown == 90) music.playef(21);
-                if(game.timetrialcountdown == 60) music.playef(21);
-                if (game.timetrialcountdown == 30)
-                {
-                    switch(game.timetriallevel)
-                    {
-                    case 0:
-                        music.play(1);
-                        break;
-                    case 1:
-                        music.play(3);
-                        break;
-                    case 2:
-                        music.play(2);
-                        break;
-                    case 3:
-                        music.play(1);
-                        break;
-                    case 4:
-                        music.play(12);
-                        break;
-                    case 5:
-                        music.play(15);
-                        break;
-                    }
-                    music.playef(22);
-                }
-            }
-
-            //Have we lost the par?
-            if (!game.timetrialparlost)
-            {
-                if ((game.minutes * 60) + game.seconds > game.timetrialpar)
-                {
-                    game.timetrialparlost = true;
-                    int i = obj.getplayer();
-                    if (i > -1)
-                    {
-                        obj.entities[i].tile = 144;
-                    }
-                    music.playef(2);
-                }
-            }
-        }
-        //Update entities
-
-        if(!game.completestop)
-        {
-            for (int i = obj.entities.size() - 1; i >= 0;  i--)
-            {
-                obj.updateentities(i);                // Behavioral logic
-                obj.updateentitylogic(i);             // Basic Physics
-                obj.entitymapcollision(i);            // Collisions with walls
-            }
-
-            obj.entitycollisioncheck();         // Check ent v ent collisions, update states
-            //special for tower: is the player touching any spike blocks?
-            int player = obj.getplayer();
-            if(obj.checktowerspikes(player) && graphics.fademode==0)
-            {
-                game.deathseq = 30;
-            }
-
-            //Right so! Screenwraping for tower:
-            if (map.minitowermode)
-            {
-                if (map.scrolldir == 1)
-                {
-                    //This is minitower 1!
-                    player = obj.getplayer();
-                    if (game.door_left > -2 && obj.entities[player].xp < -14)
-                    {
-                        obj.entities[player].xp += 320;
-                        map.gotoroom(48, 52);
-                    }
-                    if (game.door_right > -2 && obj.entities[player].xp >= 308)
-                    {
-                        obj.entities[player].xp -= 320;
-                        obj.entities[player].yp -= (71*8);
-                        map.gotoroom(game.roomx + 1, game.roomy+1);
-                    }
-                }
-                else
-                {
-                    //This is minitower 2!
-                    player = obj.getplayer();
-                    if (game.door_left > -2 && obj.entities[player].xp < -14)
-                    {
-                        if (obj.entities[player].yp > 300)
-                        {
-                            obj.entities[player].xp += 320;
-                            obj.entities[player].yp -= (71 * 8);
-                            map.gotoroom(50, 54);
-                        }
-                        else
-                        {
-                            obj.entities[player].xp += 320;
-                            map.gotoroom(50, 53);
-                        }
-                    }
-                    if (game.door_right > -2 && obj.entities[player].xp >= 308)
-                    {
-                        obj.entities[player].xp -= 320;
-                        map.gotoroom(52, 53);
-                    }
-                }
-            }
-            else
-            {
-                //Always wrap except for the very top and very bottom of the tower
-                if(map.ypos>=500 && map.ypos <=5000)
-                {
-                    for (size_t i = 0; i < obj.entities.size();  i++)
-                    {
-                        if (obj.entities[i].xp <= -10)
-                        {
-                            obj.entities[i].xp += 320;
-                        }
-                        else
-                        {
-                            if (obj.entities[i].xp > 310)
-                            {
-                                obj.entities[i].xp -= 320;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    //Do not wrap! Instead, go to the correct room
-                    player = obj.getplayer();
-                    if (game.door_left > -2 && obj.entities[player].xp < -14)
-                    {
-                        obj.entities[player].xp += 320;
-                        obj.entities[player].yp -= (671 * 8);
-                        map.gotoroom(108, 109);
-                    }
-                    if (game.door_right > -2 && obj.entities[player].xp >= 308)
-                    {
-                        obj.entities[player].xp -= 320;
-                        map.gotoroom(110, 104);
-                    }
-                }
-            }
-
-            if(game.lifeseq==0)
-            {
-                int player = obj.getplayer();
-                if(!map.invincibility)
-                {
-                    if (obj.entities[player].yp-map.ypos <= 0)
-                    {
-                        game.deathseq = 30;
-                    }
-                    else if (obj.entities[player].yp-map.ypos >= 208)
-                    {
-                        game.deathseq = 30;
-                    }
-                }
-                else
-                {
-                    if (obj.entities[player].yp-map.ypos <= 0)
-                    {
-                        map.ypos-=10;
-                        map.bypos = map.ypos / 2;
-                        map.bscroll = 0;
-                    }
-                    else if (obj.entities[player].yp-map.ypos >= 208)
-                    {
-                        map.ypos+=2;
-                        map.bypos = map.ypos / 2;
-                        map.bscroll = 0;
-                    }
-                }
-
-                if (obj.entities[player].yp - map.ypos <= 40)
-                {
-                    map.spikeleveltop++;
-                    if (map.spikeleveltop >= 8) map.spikeleveltop = 8;
-                }
-                else
-                {
-                    if (map.spikeleveltop > 0) map.spikeleveltop--;
-                }
-
-                if (obj.entities[player].yp - map.ypos >= 164)
-                {
-                    map.spikelevelbottom++;
-                    if (map.spikelevelbottom >= 8) map.spikelevelbottom = 8;
-                }
-                else
-                {
-                    if (map.spikelevelbottom > 0) map.spikelevelbottom--;
-                }
-
-            }
-
-
-        }
-
-        //Looping around, room change conditions!
-    }
-
-    if (game.teleport_to_new_area) script.teleport();
-}
-
 void gamelogic()
 {
     //Misc
+    if (map.towermode)
+    {
+        map.updatetowerglow();
+    }
     help.updateglow();
 
     if (game.alarmon)
@@ -550,11 +164,152 @@ void gamelogic()
         obj.upset = 0;
     }
 
-    game.lifesequence();
+    if (map.towermode)
+    {
+        if(!game.completestop)
+        {
+            if (map.cameramode == 0)
+            {
+                //do nothing!
+                //a trigger will set this off in the game
+                map.cameramode = 1;
+                map.bscroll = 0;
+            }
+            else if (map.cameramode == 1)
+            {
+                //move normally
+                if(map.scrolldir==0)
+                {
+                    map.ypos -= 2;
+                    map.bypos -= 1;
+                    map.bscroll = -1;
+                }
+                else
+                {
+                    map.ypos += 2;
+                    map.bypos += 1;
+                    map.bscroll = 1;
+                }
+            }
+            else if (map.cameramode == 2)
+            {
+                //do nothing, but cycle colours (for taking damage)
+                map.bscroll = 0;
+            }
+            else if (map.cameramode == 4)
+            {
+                int i = obj.getplayer();
+                map.cameraseek = map.ypos - (obj.entities[i].yp - 120);
+
+                map.cameraseek = map.cameraseek / 10;
+                map.cameraseekframe = 10;
+
+                map.cameramode = 5;
+
+                map.bscroll = map.cameraseek/2;
+            }
+            else if (map.cameramode == 5)
+            {
+                //actually do it
+                if (map.spikeleveltop > 0) map.spikeleveltop-=2;
+                if (map.spikelevelbottom > 0) map.spikelevelbottom-=2;
+                if (map.cameraseekframe > 0)
+                {
+                    int i = obj.getplayer();
+                    map.ypos -= map.cameraseek;
+                    if (map.cameraseek > 0)
+                    {
+                        if (map.ypos < obj.entities[i].yp - 120)
+                        {
+                            map.ypos = obj.entities[i].yp - 120;
+                        }
+                    }
+                    else
+                    {
+                        if (map.ypos > obj.entities[i].yp - 120)
+                        {
+                            map.ypos = obj.entities[i].yp - 120;
+                        }
+                    }
+                    map.cameraseekframe--;
+                    map.bypos = map.ypos / 2;
+                }
+                else
+                {
+                    int i = obj.getplayer();
+                    map.ypos = obj.entities[i].yp - 120;
+                    map.bypos = map.ypos / 2;
+                    map.cameramode = 0;
+                    map.colsuperstate = 0;
+                }
+            }
+        }
+        else
+        {
+            map.bscroll = 0;
+        }
+
+        if (map.ypos <= 0)
+        {
+            map.ypos = 0;
+            map.bypos = 0;
+            map.bscroll = 0;
+        }
+        if (map.minitowermode)
+        {
+            if (map.ypos >= 568)
+            {
+                map.ypos = 568;
+                map.bypos = map.ypos / 2;
+                map.bscroll = 0;
+            } //100-29 * 8 = 568
+        }
+        else
+        {
+            if (map.ypos >= 5368)
+            {
+                map.ypos = 5368;    //700-29 * 8 = 5368
+                map.bypos = map.ypos / 2.0;
+            }
+        }
+
+        if (game.lifeseq > 0)
+        {
+            if (map.cameramode == 2)
+            {
+                map.cameraseekframe = 20;
+                map.cameramode = 4;
+                map.resumedelay = 4;
+            }
+
+            if (map.cameraseekframe <= 0)
+            {
+                if (map.resumedelay <= 0)
+                {
+                    game.lifesequence();
+                    if (game.lifeseq == 0) map.cameramode = 1;
+                }
+                else
+                {
+                    map.resumedelay--;
+                }
+            }
+        }
+    }
+    else
+    {
+        game.lifesequence();
+    }
 
 
     if (game.deathseq != -1)
     {
+        if (map.towermode)
+        {
+            map.colsuperstate = 1;
+            map.cameramode = 2;
+        }
+
         for (size_t i = 0; i < obj.entities.size(); i++)
         {
             if (game.roomx == 111 && game.roomy == 107 && !map.custommode)
@@ -1010,6 +765,68 @@ void gamelogic()
             }
 
             obj.entitycollisioncheck();         // Check ent v ent collisions, update states
+
+            if (map.towermode)
+            {
+                //special for tower: is the player touching any spike blocks?
+                int player = obj.getplayer();
+                if(obj.checktowerspikes(player) && graphics.fademode==0)
+                {
+                    game.deathseq = 30;
+                }
+            }
+
+            if(map.towermode && game.lifeseq==0)
+            {
+                int player = obj.getplayer();
+                if(!map.invincibility)
+                {
+                    if (obj.entities[player].yp-map.ypos <= 0)
+                    {
+                        game.deathseq = 30;
+                    }
+                    else if (obj.entities[player].yp-map.ypos >= 208)
+                    {
+                        game.deathseq = 30;
+                    }
+                }
+                else
+                {
+                    if (obj.entities[player].yp-map.ypos <= 0)
+                    {
+                        map.ypos-=10;
+                        map.bypos = map.ypos / 2;
+                        map.bscroll = 0;
+                    }
+                    else if (obj.entities[player].yp-map.ypos >= 208)
+                    {
+                        map.ypos+=2;
+                        map.bypos = map.ypos / 2;
+                        map.bscroll = 0;
+                    }
+                }
+
+                if (obj.entities[player].yp - map.ypos <= 40)
+                {
+                    map.spikeleveltop++;
+                    if (map.spikeleveltop >= 8) map.spikeleveltop = 8;
+                }
+                else
+                {
+                    if (map.spikeleveltop > 0) map.spikeleveltop--;
+                }
+
+                if (obj.entities[player].yp - map.ypos >= 164)
+                {
+                    map.spikelevelbottom++;
+                    if (map.spikelevelbottom >= 8) map.spikelevelbottom = 8;
+                }
+                else
+                {
+                    if (map.spikelevelbottom > 0) map.spikelevelbottom--;
+                }
+
+            }
         }
 
         //Using warplines?
@@ -1033,7 +850,7 @@ void gamelogic()
         }
 
         //Finally: Are we changing room?
-        if (map.warpx)
+        if (map.warpx && !map.towermode)
         {
             for (size_t i = 0; i < obj.entities.size();  i++)
             {
@@ -1071,7 +888,7 @@ void gamelogic()
             }
         }
 
-        if (map.warpy)
+        if (map.warpy && !map.towermode)
         {
             for (size_t i = 0; i < obj.entities.size();  i++)
             {
@@ -1090,7 +907,7 @@ void gamelogic()
             }
         }
 
-        if (map.warpy && !map.warpx)
+        if (map.warpy && !map.warpx && !map.towermode)
         {
             for (size_t i = 0; i < obj.entities.size();  i++)
             {
@@ -1112,7 +929,7 @@ void gamelogic()
             }
         }
 
-        if (!map.warpy)
+        if (!map.warpy && !map.towermode)
         {
             //Normal! Just change room
             int player = obj.getplayer();
@@ -1128,7 +945,7 @@ void gamelogic()
             }
         }
 
-        if (!map.warpx)
+        if (!map.warpx && !map.towermode)
         {
             //Normal! Just change room
             int player = obj.getplayer();
@@ -1141,6 +958,88 @@ void gamelogic()
             {
                 obj.entities[player].xp -= 320;
                 map.gotoroom(game.roomx + 1, game.roomy);
+            }
+        }
+
+        //Right so! Screenwraping for tower:
+        if (map.minitowermode)
+        {
+            if (map.scrolldir == 1)
+            {
+                //This is minitower 1!
+                int player = obj.getplayer();
+                if (game.door_left > -2 && obj.entities[player].xp < -14)
+                {
+                    obj.entities[player].xp += 320;
+                    map.gotoroom(48, 52);
+                }
+                if (game.door_right > -2 && obj.entities[player].xp >= 308)
+                {
+                    obj.entities[player].xp -= 320;
+                    obj.entities[player].yp -= (71*8);
+                    map.gotoroom(game.roomx + 1, game.roomy+1);
+                }
+            }
+            else
+            {
+                //This is minitower 2!
+                int player = obj.getplayer();
+                if (game.door_left > -2 && obj.entities[player].xp < -14)
+                {
+                    if (obj.entities[player].yp > 300)
+                    {
+                        obj.entities[player].xp += 320;
+                        obj.entities[player].yp -= (71 * 8);
+                        map.gotoroom(50, 54);
+                    }
+                    else
+                    {
+                        obj.entities[player].xp += 320;
+                        map.gotoroom(50, 53);
+                    }
+                }
+                if (game.door_right > -2 && obj.entities[player].xp >= 308)
+                {
+                    obj.entities[player].xp -= 320;
+                    map.gotoroom(52, 53);
+                }
+            }
+        }
+        else if (map.towermode)
+        {
+            //Always wrap except for the very top and very bottom of the tower
+            if(map.ypos>=500 && map.ypos <=5000)
+            {
+                for (size_t i = 0; i < obj.entities.size();  i++)
+                {
+                    if (obj.entities[i].xp <= -10)
+                    {
+                        obj.entities[i].xp += 320;
+                    }
+                    else
+                    {
+                        if (obj.entities[i].xp > 310)
+                        {
+                            obj.entities[i].xp -= 320;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Do not wrap! Instead, go to the correct room
+                int player = obj.getplayer();
+                if (game.door_left > -2 && obj.entities[player].xp < -14)
+                {
+                    obj.entities[player].xp += 320;
+                    obj.entities[player].yp -= (671 * 8);
+                    map.gotoroom(108, 109);
+                }
+                if (game.door_right > -2 && obj.entities[player].xp >= 308)
+                {
+                    obj.entities[player].xp -= 320;
+                    map.gotoroom(110, 104);
+                }
             }
         }
 
