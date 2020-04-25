@@ -1532,9 +1532,6 @@ void Graphics::drawentities()
                 // Special: Moving platform, 4 tiles or 8 tiles
                 tpoint.x = obj.entities[i].xp;
                 tpoint.y = obj.entities[i].yp;
-                drawRect = tiles_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
                 int thiswidth = 4;
                 if (obj.entities[i].size == 8)
                 {
@@ -1542,8 +1539,11 @@ void Graphics::drawentities()
                 }
                 for (int ii = 0; ii < thiswidth; ii++)
                 {
+                    drawRect = tiles_rect;
+                    drawRect.x += tpoint.x;
+                    drawRect.y += tpoint.y;
+                    drawRect.x += 8 * ii;
                     BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
-                    drawRect.x += 8;
                 }
             }
             else if (obj.entities[i].size == 3)    // Big chunky pixels!
