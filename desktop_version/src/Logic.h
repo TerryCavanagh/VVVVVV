@@ -16,8 +16,6 @@ void gamecompletelogic();
 
 void gamecompletelogic2();
 
-void towerlogic();
-
 void gamelogic();
 
 #endif /* LOGIC_H */
