@@ -1427,54 +1427,53 @@ void Graphics::drawentities()
             if (obj.entities[i].size == 0)
             {
                 // Sprites
-                // FIXME: Remove temporary indent here
-                    tpoint.x = obj.entities[i].xp;
-                    tpoint.y = obj.entities[i].yp;
-                    setcol(obj.entities[i].colour);
+                tpoint.x = obj.entities[i].xp;
+                tpoint.y = obj.entities[i].yp;
+                setcol(obj.entities[i].colour);
 
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                    if (map.warpx)
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                if (map.warpx)
+                {
+                    //screenwrapping!
+                    if (tpoint.x < 0)
                     {
-                        //screenwrapping!
-                        if (tpoint.x < 0)
-                        {
-                            tpoint.x += 320;
-                            drawRect = sprites_rect;
-                            drawRect.x += tpoint.x;
-                            drawRect.y += tpoint.y;
-                            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                        }
-                        if (tpoint.x > 300)
-                        {
-                            tpoint.x -= 320;
-                            drawRect = sprites_rect;
-                            drawRect.x += tpoint.x;
-                            drawRect.y += tpoint.y;
-                            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                        }
+                        tpoint.x += 320;
+                        drawRect = sprites_rect;
+                        drawRect.x += tpoint.x;
+                        drawRect.y += tpoint.y;
+                        BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                     }
-                    else if (map.warpy)
+                    if (tpoint.x > 300)
                     {
-                        if (tpoint.y < 0)
-                        {
-                            tpoint.y += 230;
-                            drawRect = sprites_rect;
-                            drawRect.x += tpoint.x;
-                            drawRect.y += tpoint.y;
-                            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                        }
-                        if (tpoint.y > 210)
-                        {
-                            tpoint.y -= 230;
-                            drawRect = sprites_rect;
-                            drawRect.x += tpoint.x;
-                            drawRect.y += tpoint.y;
-                            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                        }
+                        tpoint.x -= 320;
+                        drawRect = sprites_rect;
+                        drawRect.x += tpoint.x;
+                        drawRect.y += tpoint.y;
+                        BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                     }
+                }
+                else if (map.warpy)
+                {
+                    if (tpoint.y < 0)
+                    {
+                        tpoint.y += 230;
+                        drawRect = sprites_rect;
+                        drawRect.x += tpoint.x;
+                        drawRect.y += tpoint.y;
+                        BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                    }
+                    if (tpoint.y > 210)
+                    {
+                        tpoint.y -= 230;
+                        drawRect = sprites_rect;
+                        drawRect.x += tpoint.x;
+                        drawRect.y += tpoint.y;
+                        BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                    }
+                }
             }
             else if (obj.entities[i].size == 1)
             {
@@ -1549,61 +1548,59 @@ void Graphics::drawentities()
             }
             else if (obj.entities[i].size == 9)         // Really Big Sprite! (2x2)
             {
-                // FIXME: Remove temporary indent here
-                    setcol(obj.entities[i].colour);
+                setcol(obj.entities[i].colour);
 
-                    tpoint.x = obj.entities[i].xp;
-                    tpoint.y = obj.entities[i].yp;
+                tpoint.x = obj.entities[i].xp;
+                tpoint.y = obj.entities[i].yp;
 
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
-                    tpoint.x = obj.entities[i].xp+32;
-                    tpoint.y = obj.entities[i].yp;
-                    //
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+                tpoint.x = obj.entities[i].xp+32;
+                tpoint.y = obj.entities[i].yp;
+                //
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
 
-                    tpoint.x = obj.entities[i].xp;
-                    tpoint.y = obj.entities[i].yp+32;
-                    //
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
+                tpoint.x = obj.entities[i].xp;
+                tpoint.y = obj.entities[i].yp+32;
+                //
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
 
-                    tpoint.x = obj.entities[i].xp+32;
-                    tpoint.y = obj.entities[i].yp+32;
-                    //
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
+                tpoint.x = obj.entities[i].xp+32;
+                tpoint.y = obj.entities[i].yp+32;
+                //
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
             }
             else if (obj.entities[i].size == 10)         // 2x1 Sprite
             {
-                // FIXME: Remove temporary indent here
-                    setcol(obj.entities[i].colour);
+                setcol(obj.entities[i].colour);
 
-                    tpoint.x = obj.entities[i].xp;
-                    tpoint.y = obj.entities[i].yp;
-                    //
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                tpoint.x = obj.entities[i].xp;
+                tpoint.y = obj.entities[i].yp;
+                //
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
-                    tpoint.x = obj.entities[i].xp+32;
-                    tpoint.y = obj.entities[i].yp;
-                    //
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+                tpoint.x = obj.entities[i].xp+32;
+                tpoint.y = obj.entities[i].yp;
+                //
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
             }
             else if (obj.entities[i].size == 11)    //The fucking elephant
             {
@@ -1612,72 +1609,70 @@ void Graphics::drawentities()
             }
             else if (obj.entities[i].size == 12)         // Regular sprites that don't wrap
             {
-                // FIXME: Remove temporary indent here
-                    tpoint.x = obj.entities[i].xp;
-                    tpoint.y = obj.entities[i].yp;
-                    setcol(obj.entities[i].colour);
-                    //
-                    drawRect = sprites_rect;
+                tpoint.x = obj.entities[i].xp;
+                tpoint.y = obj.entities[i].yp;
+                setcol(obj.entities[i].colour);
+                //
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+
+
+                //if we're outside the screen, we need to draw indicators
+
+                if (obj.entities[i].xp < -20 && obj.entities[i].vx > 0)
+                {
+                    if (obj.entities[i].xp < -100)
+                    {
+                        tpoint.x = -5 + (int(( -obj.entities[i].xp) / 10));
+                    }
+                    else
+                    {
+                        tpoint.x = 5;
+                    }
+
+                    tpoint.y = tpoint.y+4;
+                    setcol(23);
+
+
+                    drawRect = tiles_rect;
                     drawRect.x += tpoint.x;
                     drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                    BlitSurfaceColoured(tiles[1167],NULL, backBuffer, &drawRect, ct);
 
-
-                    //if we're outside the screen, we need to draw indicators
-
-                    if (obj.entities[i].xp < -20 && obj.entities[i].vx > 0)
+                }
+                else if (obj.entities[i].xp > 340 && obj.entities[i].vx < 0)
+                {
+                    if (obj.entities[i].xp > 420)
                     {
-                        if (obj.entities[i].xp < -100)
-                        {
-                            tpoint.x = -5 + (int(( -obj.entities[i].xp) / 10));
-                        }
-                        else
-                        {
-                            tpoint.x = 5;
-                        }
-
-                        tpoint.y = tpoint.y+4;
-                        setcol(23);
-
-
-                        drawRect = tiles_rect;
-                        drawRect.x += tpoint.x;
-                        drawRect.y += tpoint.y;
-                        BlitSurfaceColoured(tiles[1167],NULL, backBuffer, &drawRect, ct);
-
+                        tpoint.x = 320 - (int(( obj.entities[i].xp-320) / 10));
                     }
-                    else if (obj.entities[i].xp > 340 && obj.entities[i].vx < 0)
+                    else
                     {
-                        if (obj.entities[i].xp > 420)
-                        {
-                            tpoint.x = 320 - (int(( obj.entities[i].xp-320) / 10));
-                        }
-                        else
-                        {
-                            tpoint.x = 310;
-                        }
-
-                        tpoint.y = tpoint.y+4;
-                        setcol(23);
-                        //
-
-                        drawRect = tiles_rect;
-                        drawRect.x += tpoint.x;
-                        drawRect.y += tpoint.y;
-                        BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
+                        tpoint.x = 310;
                     }
+
+                    tpoint.y = tpoint.y+4;
+                    setcol(23);
+                    //
+
+                    drawRect = tiles_rect;
+                    drawRect.x += tpoint.x;
+                    drawRect.y += tpoint.y;
+                    BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
+                }
             }
             else if (obj.entities[i].size == 13)
             {
-                 //Special for epilogue: huge hero!
+                //Special for epilogue: huge hero!
 
-                // FIXME: Remove temporary indent here
-                    tpoint.x = obj.entities[i].xp; tpoint.y = obj.entities[i].yp;
-                    setcol(obj.entities[i].colour);
-                    SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
-                    SDL_Surface* TempSurface = ScaleSurface( (*spritesvec)[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
-                    BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
-                    SDL_FreeSurface(TempSurface);
+                tpoint.x = obj.entities[i].xp; tpoint.y = obj.entities[i].yp;
+                setcol(obj.entities[i].colour);
+                SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
+                SDL_Surface* TempSurface = ScaleSurface( (*spritesvec)[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
+                BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
+                SDL_FreeSurface(TempSurface);
 
 
 
