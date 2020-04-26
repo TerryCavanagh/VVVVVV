@@ -1357,7 +1357,7 @@ void Game::updatestate()
             {
                 returntomenu(Menu::levellist);
             }
-            else if (telesummary != "" || quicksummary != "" || anything_unlocked())
+            else if (save_exists() || anything_unlocked())
             {
                 returntomenu(Menu::play);
             }
@@ -7031,7 +7031,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             }
             else
             {
-                if (telesummary != "" || quicksummary != "")
+                if (save_exists())
                 {
                     option("continue");
                 }
@@ -7045,7 +7045,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     option("secret lab", !map.invincibility && slowdown == 30);
                 }
                 option("play modes");
-                if (telesummary != "" || quicksummary != "")
+                if (save_exists())
                 {
                     option("new game");
                 }
@@ -7345,4 +7345,9 @@ bool Game::anything_unlocked()
         }
     }
     return false;
+}
+
+bool Game::save_exists()
+{
+    return telesummary != "" || quicksummary != "";
 }
