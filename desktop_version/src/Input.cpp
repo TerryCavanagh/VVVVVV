@@ -134,7 +134,7 @@ void menuactionpress()
 #if !defined(MAKEANDPLAY)
         case 0:
             //Play
-            if (game.telesummary == "" && game.quicksummary == "" && !game.anything_unlocked())
+            if (!game.save_exists() && !game.anything_unlocked())
             {
                 //No saves exist, just start a new game
                 game.mainmenu = 0;
@@ -950,12 +950,12 @@ void menuactionpress()
         //Do we have the Secret Lab option?
         int sloffset = game.unlock[8] ? 0 : -1;
         //Do we have a telesave or quicksave?
-        int ngoffset = game.telesummary != "" || game.quicksummary != "" ? 0 : -1;
+        int ngoffset = game.save_exists() ? 0 : -1;
         if (game.currentmenuoption == 0)
         {
             //continue
             //right, this depends on what saves you've got
-            if (game.telesummary == "" && game.quicksummary == "")
+            if (!game.save_exists())
             {
                 //You have no saves but have something unlocked, or you couldn't have gotten here
                 game.mainmenu = 0;
@@ -998,7 +998,7 @@ void menuactionpress()
             game.createmenu(Menu::playmodes);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == sloffset+3 && (game.telesummary != "" || game.quicksummary != ""))
+        else if (game.currentmenuoption == sloffset+3 && game.save_exists())
         {
             //newgame
             music.playef(11);
