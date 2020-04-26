@@ -422,25 +422,14 @@ int main(int argc, char *argv[])
                 titlelogic();
                 break;
             case GAMEMODE:
-                if (map.towermode)
+                if (script.running)
                 {
-                    gameinput();
-                    gamerender();
-                    gamelogic();
-
+                    script.run();
                 }
-                else
-                {
 
-                    if (script.running)
-                    {
-                        script.run();
-                    }
-
-                    gameinput();
-                    gamerender();
-                    gamelogic();
-                }
+                gameinput();
+                gamerender();
+                gamelogic();
 
 
                 break;
