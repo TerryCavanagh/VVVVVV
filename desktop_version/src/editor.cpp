@@ -3719,8 +3719,27 @@ void editorinput()
             ed.settingsmod=!ed.settingsmod;
             graphics.backgrounddrawn=false;
 
-            game.createmenu(Menu::ed_settings);
-            map.nexttowercolour();
+            if (ed.settingsmod)
+            {
+                bool edsettings_in_stack = false;
+                for (size_t i = 0; i < game.menustack.size(); i++)
+                {
+                    if (game.menustack[i].name == Menu::ed_settings)
+                    {
+                        edsettings_in_stack = true;
+                        break;
+                    }
+                }
+                if (edsettings_in_stack)
+                {
+                    game.returntomenu(Menu::ed_settings);
+                }
+                else
+                {
+                    game.createmenu(Menu::ed_settings);
+                }
+                map.nexttowercolour();
+            }
         }
     }
 
