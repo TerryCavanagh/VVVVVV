@@ -1345,11 +1345,28 @@ void Game::updatestate()
             //or "who do you want to play the level with?"
             //or "do you want cutscenes?"
             //or the confirm-load-quicksave menu
-            if ((!wasintimetrial && !wasincustommode) || currentmenuname == Menu::quickloadlevel)
+            if (wasintimetrial)
             {
-                returnmenu();
+                returntomenu(Menu::timetrials);
+            }
+            else if (wasinintermission)
+            {
+                returntomenu(Menu::intermissionmenu);
+            }
+            else if (wasincustommode)
+            {
+                returntomenu(Menu::levellist);
+            }
+            else if (game.telesummary != "" || game.quicksummary != "")
+            {
+                returntomenu(Menu::play);
+            }
+            else
+            {
+                createmenu(Menu::mainmenu);
             }
             wasintimetrial = false;
+            wasinintermission = false;
             wasincustommode = false;
             state = 0;
             break;

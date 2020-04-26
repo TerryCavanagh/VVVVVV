@@ -1961,6 +1961,7 @@ void mapinput()
                 FillRect(graphics.tempBuffer, 0x000000);
                 if (game.intimetrial || game.insecretlab || game.nodeathmode) game.menukludge = true;
                 game.wasintimetrial = game.intimetrial;
+                game.wasinintermission = game.inintermission;
                 game.wasincustommode = map.custommode;
                 script.hardreset();
                 if(graphics.setflipmode) graphics.flipmode = true;
