@@ -7188,16 +7188,16 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
 void Game::deletequick()
 {
-    if( remove( "qsave.vvv" ) != 0 )
-        puts("Error deleting qsave.vvv");
+    if( !FILESYSTEM_delete( "saves/qsave.vvv" ) )
+        puts("Error deleting saves/qsave.vvv");
     else
         quicksummary = "";
 }
 
 void Game::deletetele()
 {
-    if( remove( "tsave.vvv" ) != 0 )
-        puts("Error deleting tsave.vvv");
+    if( !FILESYSTEM_delete( "saves/tsave.vvv" ) )
+        puts("Error deleting saves/tsave.vvv");
     else
         telesummary = "";
 }

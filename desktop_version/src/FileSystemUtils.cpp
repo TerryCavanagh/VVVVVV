@@ -510,3 +510,8 @@ bool FILESYSTEM_openDirectory(const char *dname)
 	return false;
 }
 #endif
+
+bool FILESYSTEM_delete(const char *name)
+{
+    return PHYSFS_delete(name) != 0;
+}

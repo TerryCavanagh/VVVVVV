@@ -23,4 +23,6 @@ std::vector<std::string> FILESYSTEM_getLevelDirFileNames();
 bool FILESYSTEM_openDirectoryEnabled();
 bool FILESYSTEM_openDirectory(const char *dname);
 
+bool FILESYSTEM_delete(const char *name);
+
 #endif /* FILESYSTEMUTILS_H */
