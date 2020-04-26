@@ -7313,3 +7313,20 @@ int Game::crewmates()
     }
     return temp;
 }
+
+bool Game::anything_unlocked()
+{
+    for (size_t i = 0; i < unlock.size(); i++)
+    {
+        if (unlock[i] &&
+        (i == 8 // Secret Lab
+        || i >= 9 || i <= 14 // any Time Trial
+        || i == 16 // Intermission replays
+        || i == 17 // No Death Mode
+        || i == 18)) // Flip Mode
+        {
+            return true;
+        }
+    }
+    return false;
+}
