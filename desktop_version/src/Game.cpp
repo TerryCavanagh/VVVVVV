@@ -6588,6 +6588,32 @@ void Game::returnmenu()
     }
 }
 
+void Game::returntomenu(enum Menu::MenuName t)
+{
+    if (currentmenuname == t)
+    {
+        //Why are you calling this function then?
+        return;
+    }
+
+    //Unwind the menu stack until we reach our desired menu
+    int i = menustack.size() - 1;
+    while (i >= 0)
+    {
+        //If we pop it off we can't reference it anymore, so check for it now
+        bool is_the_menu_we_want = menustack[i].name == t;
+
+        returnmenu();
+
+        if (is_the_menu_we_want)
+        {
+            break;
+        }
+
+        i--;
+    }
+}
+
 void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 {
     if (t == Menu::mainmenu)
