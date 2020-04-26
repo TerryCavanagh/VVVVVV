@@ -1427,8 +1427,9 @@ void Graphics::drawentities()
             continue;
         }
 
-        if (obj.entities[i].size == 0)
+        switch (obj.entities[i].size)
         {
+        case 0:
             // Sprites
             tpoint.x = obj.entities[i].xp;
             tpoint.y = obj.entities[i].yp;
@@ -1477,9 +1478,8 @@ void Graphics::drawentities()
                     BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                 }
             }
-        }
-        else if (obj.entities[i].size == 1)
-        {
+            break;
+        case 1:
             // Tiles
             tpoint.x = obj.entities[i].xp;
             tpoint.y = obj.entities[i].yp;
@@ -1487,8 +1487,9 @@ void Graphics::drawentities()
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceStandard(tiles[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
-        }
-        else if (obj.entities[i].size == 2 || obj.entities[i].size == 8)
+            break;
+        case 2:
+        case 8:
         {
             // Special: Moving platform, 4 tiles or 8 tiles
             tpoint.x = obj.entities[i].xp;
@@ -1506,9 +1507,9 @@ void Graphics::drawentities()
                 drawRect.x += 8 * ii;
                 BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
             }
+            break;
         }
-        else if (obj.entities[i].size == 3)    // Big chunky pixels!
-        {
+        case 3:    // Big chunky pixels!
             prect.x = obj.entities[i].xp;
             prect.y = obj.entities[i].yp;
             //A seperate index of colours, for simplicity
@@ -1520,37 +1521,31 @@ void Graphics::drawentities()
             {
                 FillRect(backBuffer,prect, int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
             }
-        }
-        else if (obj.entities[i].size == 4)    // Small pickups
-        {
+            break;
+        case 4:    // Small pickups
             drawhuetile(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].tile, obj.entities[i].colour);
-        }
-        else if (obj.entities[i].size == 5)    //Horizontal Line
-        {
+            break;
+        case 5:    //Horizontal Line
             line_rect.x = obj.entities[i].xp;
             line_rect.y = obj.entities[i].yp;
             line_rect.w = obj.entities[i].w;
             line_rect.h = 1;
             drawgravityline(i);
-        }
-        else if (obj.entities[i].size == 6)    //Vertical Line
-        {
+            break;
+        case 6:    //Vertical Line
             line_rect.x = obj.entities[i].xp;
             line_rect.y = obj.entities[i].yp;
             line_rect.w = 1;
             line_rect.h = obj.entities[i].h;
             drawgravityline(i);
-        }
-        else if (obj.entities[i].size == 7)    //Teleporter
-        {
+            break;
+        case 7:    //Teleporter
             drawtele(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].drawframe, obj.entities[i].colour);
-        }
-        else if (obj.entities[i].size == 8)    // Special: Moving platform, 8 tiles
-        {
+            break;
+        //case 8:    // Special: Moving platform, 8 tiles
             // Note: This code is in the 4-tile code
-        }
-        else if (obj.entities[i].size == 9)         // Really Big Sprite! (2x2)
-        {
+            break;
+        case 9:         // Really Big Sprite! (2x2)
             setcol(obj.entities[i].colour);
 
             tpoint.x = obj.entities[i].xp;
@@ -1584,9 +1579,8 @@ void Graphics::drawentities()
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
-        }
-        else if (obj.entities[i].size == 10)         // 2x1 Sprite
-        {
+            break;
+        case 10:         // 2x1 Sprite
             setcol(obj.entities[i].colour);
 
             tpoint.x = obj.entities[i].xp;
@@ -1604,14 +1598,12 @@ void Graphics::drawentities()
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
-        }
-        else if (obj.entities[i].size == 11)    //The fucking elephant
-        {
+            break;
+        case 11:    //The fucking elephant
             setcol(obj.entities[i].colour);
             drawimagecol(3, obj.entities[i].xp, obj.entities[i].yp);
-        }
-        else if (obj.entities[i].size == 12)         // Regular sprites that don't wrap
-        {
+            break;
+        case 12:         // Regular sprites that don't wrap
             tpoint.x = obj.entities[i].xp;
             tpoint.y = obj.entities[i].yp;
             setcol(obj.entities[i].colour);
@@ -1665,8 +1657,8 @@ void Graphics::drawentities()
                 drawRect.y += tpoint.y;
                 BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
             }
-        }
-        else if (obj.entities[i].size == 13)
+            break;
+        case 13:
         {
             //Special for epilogue: huge hero!
 
@@ -1679,6 +1671,8 @@ void Graphics::drawentities()
 
 
 
+            break;
+        }
         }
     }
 }
