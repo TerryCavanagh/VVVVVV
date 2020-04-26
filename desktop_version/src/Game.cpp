@@ -4215,21 +4215,27 @@ void Game::gethardestroom()
 
 void Game::deletestats()
 {
-    for (int i = 0; i < 25; i++)
+    if (!FILESYSTEM_delete("saves/unlock.vvv"))
     {
-        unlock[i] = false;
-        unlocknotify[i] = false;
+        puts("Error deleting saves/unlock.vvv");
     }
-    for (int i = 0; i < 6; i++)
+    else
     {
-        besttimes[i] = -1;
-        besttrinkets[i] = -1;
-        bestlives[i] = -1;
-        bestrank[i] = -1;
+        for (int i = 0; i < 25; i++)
+        {
+            unlock[i] = false;
+            unlocknotify[i] = false;
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            besttimes[i] = -1;
+            besttrinkets[i] = -1;
+            bestlives[i] = -1;
+            bestrank[i] = -1;
+        }
+        graphics.setflipmode = false;
+        stat_trinkets = 0;
     }
-    graphics.setflipmode = false;
-    stat_trinkets = 0;
-    savestats();
 }
 
 void Game::unlocknum( int t )
