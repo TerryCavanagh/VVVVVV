@@ -1418,6 +1418,16 @@ void Graphics::drawentities()
         spritesvec = &sprites;
     }
 
+    int yoff;
+    if (map.towermode)
+    {
+        yoff = map.ypos;
+    }
+    else
+    {
+        yoff = 0;
+    }
+
     trinketcolset = false;
 
     for (int i = obj.entities.size() - 1; i >= 0; i--)
@@ -1432,16 +1442,18 @@ void Graphics::drawentities()
         case 0:
             // Sprites
             tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp;
+            tpoint.y = obj.entities[i].yp - yoff;
             setcol(obj.entities[i].colour);
 
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-            if (map.warpx)
+            //screenwrapping!
+            if (map.warpx ||
+            (map.towermode && !map.minitowermode
+            && map.ypos >= 500 && map.ypos <= 5000))   //The "wrapping" area of the tower
             {
-                //screenwrapping!
                 if (tpoint.x < 0)
                 {
                     tpoint.x += 320;
@@ -1482,7 +1494,7 @@ void Graphics::drawentities()
         case 1:
             // Tiles
             tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp;
+            tpoint.y = obj.entities[i].yp - yoff;
             drawRect = tiles_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
@@ -1493,7 +1505,7 @@ void Graphics::drawentities()
         {
             // Special: Moving platform, 4 tiles or 8 tiles
             tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp;
+            tpoint.y = obj.entities[i].yp - yoff;
             int thiswidth = 4;
             if (obj.entities[i].size == 8)
             {
@@ -1511,7 +1523,7 @@ void Graphics::drawentities()
         }
         case 3:    // Big chunky pixels!
             prect.x = obj.entities[i].xp;
-            prect.y = obj.entities[i].yp;
+            prect.y = obj.entities[i].yp - yoff;
             //A seperate index of colours, for simplicity
             if(obj.entities[i].colour==1)
             {
@@ -1523,24 +1535,24 @@ void Graphics::drawentities()
             }
             break;
         case 4:    // Small pickups
-            drawhuetile(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].tile, obj.entities[i].colour);
+            drawhuetile(obj.entities[i].xp, obj.entities[i].yp - yoff, obj.entities[i].tile, obj.entities[i].colour);
             break;
         case 5:    //Horizontal Line
             line_rect.x = obj.entities[i].xp;
-            line_rect.y = obj.entities[i].yp;
+            line_rect.y = obj.entities[i].yp - yoff;
             line_rect.w = obj.entities[i].w;
             line_rect.h = 1;
             drawgravityline(i);
             break;
         case 6:    //Vertical Line
             line_rect.x = obj.entities[i].xp;
-            line_rect.y = obj.entities[i].yp;
+            line_rect.y = obj.entities[i].yp - yoff;
             line_rect.w = 1;
             line_rect.h = obj.entities[i].h;
             drawgravityline(i);
             break;
         case 7:    //Teleporter
-            drawtele(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].drawframe, obj.entities[i].colour);
+            drawtele(obj.entities[i].xp, obj.entities[i].yp - yoff, obj.entities[i].drawframe, obj.entities[i].colour);
             break;
         //case 8:    // Special: Moving platform, 8 tiles
             // Note: This code is in the 4-tile code
@@ -1549,7 +1561,7 @@ void Graphics::drawentities()
             setcol(obj.entities[i].colour);
 
             tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp;
+            tpoint.y = obj.entities[i].yp - yoff;
 
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1557,7 +1569,7 @@ void Graphics::drawentities()
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
             tpoint.x = obj.entities[i].xp+32;
-            tpoint.y = obj.entities[i].yp;
+            tpoint.y = obj.entities[i].yp - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1565,7 +1577,7 @@ void Graphics::drawentities()
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
 
             tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp+32;
+            tpoint.y = obj.entities[i].yp+32 - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1573,7 +1585,7 @@ void Graphics::drawentities()
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
 
             tpoint.x = obj.entities[i].xp+32;
-            tpoint.y = obj.entities[i].yp+32;
+            tpoint.y = obj.entities[i].yp+32 - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1584,7 +1596,7 @@ void Graphics::drawentities()
             setcol(obj.entities[i].colour);
 
             tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp;
+            tpoint.y = obj.entities[i].yp - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1592,7 +1604,7 @@ void Graphics::drawentities()
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
             tpoint.x = obj.entities[i].xp+32;
-            tpoint.y = obj.entities[i].yp;
+            tpoint.y = obj.entities[i].yp - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1601,11 +1613,11 @@ void Graphics::drawentities()
             break;
         case 11:    //The fucking elephant
             setcol(obj.entities[i].colour);
-            drawimagecol(3, obj.entities[i].xp, obj.entities[i].yp);
+            drawimagecol(3, obj.entities[i].xp, obj.entities[i].yp - yoff);
             break;
         case 12:         // Regular sprites that don't wrap
             tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp;
+            tpoint.y = obj.entities[i].yp - yoff;
             setcol(obj.entities[i].colour);
             //
             drawRect = sprites_rect;
@@ -1662,9 +1674,9 @@ void Graphics::drawentities()
         {
             //Special for epilogue: huge hero!
 
-            tpoint.x = obj.entities[i].xp; tpoint.y = obj.entities[i].yp;
+            tpoint.x = obj.entities[i].xp; tpoint.y = obj.entities[i].yp - yoff;
             setcol(obj.entities[i].colour);
-            SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
+            SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
             SDL_Surface* TempSurface = ScaleSurface( (*spritesvec)[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
             BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
             SDL_FreeSurface(TempSurface);
@@ -2176,118 +2188,6 @@ void Graphics::drawtowermap_nobackground()
         {
             temp = map.tower.at(i, j, map.ypos);
             if (temp > 0 && temp<28) drawtile3(i * 8, (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
-        }
-    }
-}
-
-void Graphics::drawtowerentities()
-{
-    //Update line colours!
-    if (linedelay <= 0)
-    {
-        linestate++;
-        if (linestate >= 10) linestate = 0;
-        linedelay = 2;
-    }
-    else
-    {
-        linedelay--;
-    }
-    point tpoint;
-    SDL_Rect trect;
-
-    for (int i = obj.entities.size() - 1; i >= 0; i--)
-    {
-        if (!obj.entities[i].invis)
-        {
-            if (obj.entities[i].size == 0)        // Sprites
-            {
-                trinketcolset = false;
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp-map.ypos;
-                setcol(obj.entities[i].colour);
-                setRect(trect, tpoint.x, tpoint.y, sprites_rect.w, sprites_rect.h);
-                BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
-                //screenwrapping!
-                if (!map.minitowermode)
-                {
-                    if ( map.ypos >= 500 && map.ypos <= 5000)   //The "wrapping" area of the tower
-                    {
-                        if (tpoint.x < 0)
-                        {
-                            tpoint.x += 320;
-                            setRect(trect, tpoint.x, tpoint.y, sprites_rect.w, sprites_rect.h);
-                            BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
-                        }
-                        if (tpoint.x > 300)
-                        {
-                            tpoint.x -= 320;
-                            setRect(trect,  tpoint.x, tpoint.y, sprites_rect.w, sprites_rect.h);
-                            BlitSurfaceColoured(sprites[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
-                        }
-                    }
-                }
-            }
-            else if (obj.entities[i].size == 1)
-            {
-                // Tiles
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp-map.ypos;
-                setRect(trect,tiles_rect.w, tiles_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
-            }
-            else if (obj.entities[i].size == 2)
-            {
-                // Special: Moving platform, 4 tiles
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp-map.ypos;
-                setRect(trect,tiles_rect.w, tiles_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
-                tpoint.x += 8;
-                setRect(trect,sprites_rect.w, sprites_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
-                tpoint.x += 8;
-                setRect(trect,sprites_rect.w, sprites_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
-                tpoint.x += 8;
-                setRect(trect,sprites_rect.w, sprites_rect.h, tpoint.x, tpoint.y);
-                BlitSurfaceColoured(tiles[obj.entities[i].drawframe], NULL, backBuffer, &trect, ct);
-
-            }
-            else if (obj.entities[i].size == 3)    // Big chunky pixels!
-            {
-                prect.x = obj.entities[i].xp;
-                prect.y = obj.entities[i].yp-map.ypos;
-                //A seperate index of colours, for simplicity
-                if(obj.entities[i].colour==1)
-                {
-                    FillRect(backBuffer, prect, getRGB(196 - (fRandom() * 64), 10, 10));
-                }
-                else if (obj.entities[i].colour == 2)
-                {
-                    FillRect(backBuffer, prect, getRGB(160- help.glow/2 - (fRandom()*20), 200- help.glow/2, 220 - help.glow));
-                }
-            }
-            else if (obj.entities[i].size == 4)    // Small pickups
-            {
-                drawhuetile(obj.entities[i].xp, obj.entities[i].yp-map.ypos, obj.entities[i].tile, obj.entities[i].colour);
-            }
-            else if (obj.entities[i].size == 5)    //Horizontal Line
-            {
-                line_rect.x = obj.entities[i].xp;
-                line_rect.y = obj.entities[i].yp-map.ypos;
-                line_rect.w = obj.entities[i].w;
-                line_rect.h = 1;
-                drawgravityline(i);
-            }
-            else if (obj.entities[i].size == 6)    //Vertical Line
-            {
-                line_rect.x = obj.entities[i].xp;
-                line_rect.y = obj.entities[i].yp-map.ypos;
-                line_rect.w = 1;
-                line_rect.h = obj.entities[i].h;
-                drawgravityline(i);
-            }
         }
     }
 }
