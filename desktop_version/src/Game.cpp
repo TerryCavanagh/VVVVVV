@@ -7190,16 +7190,16 @@ void Game::deletequick()
 {
     if( remove( "qsave.vvv" ) != 0 )
         printf("Error deleting file\n");
-
-    quicksummary = "";
+    else
+        quicksummary = "";
 }
 
 void Game::deletetele()
 {
     if( remove( "tsave.vvv" ) != 0 )
         printf("Error deleting file\n");
-
-    telesummary = "";
+    else
+        telesummary = "";
 }
 
 void Game::swnpenalty()
