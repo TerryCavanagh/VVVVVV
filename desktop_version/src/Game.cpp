@@ -1357,7 +1357,7 @@ void Game::updatestate()
             {
                 returntomenu(Menu::levellist);
             }
-            else if (game.telesummary != "" || game.quicksummary != "" || anything_unlocked())
+            else if (telesummary != "" || quicksummary != "" || anything_unlocked())
             {
                 returntomenu(Menu::play);
             }
@@ -7036,7 +7036,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 //ok, secret lab! no notification, but test:
                 if (unlock[8])
                 {
-                    option("secret lab", !map.invincibility && game.slowdown == 30);
+                    option("secret lab", !map.invincibility && slowdown == 30);
                 }
                 option("play modes");
                 if (telesummary != "" || quicksummary != "")
@@ -7074,9 +7074,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 64;
         break;
     case Menu::playmodes:
-        option("time trials", !map.invincibility && game.slowdown == 30);
+        option("time trials", !map.invincibility && slowdown == 30);
         option("intermissions", unlock[16]);
-        option("no death mode", unlock[17] && !map.invincibility && game.slowdown == 30);
+        option("no death mode", unlock[17] && !map.invincibility && slowdown == 30);
         option("flip mode", unlock[18]);
         option("return to play menu");
         menuxoff = -70;
