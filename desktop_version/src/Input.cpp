@@ -134,7 +134,7 @@ void menuactionpress()
 #if !defined(MAKEANDPLAY)
         case 0:
             //Play
-            if (game.telesummary == "" && game.quicksummary == "")
+            if (game.telesummary == "" && game.quicksummary == "" && !game.anything_unlocked())
             {
                 //No saves exist, just start a new game
                 game.mainmenu = 0;
@@ -948,12 +948,20 @@ void menuactionpress()
     case Menu::play:
     {
         //Do we have the Secret Lab option?
-        int offset = game.unlock[8] ? 0 : -1;
+        int sloffset = game.unlock[8] ? 0 : -1;
+        //Do we have a telesave or quicksave?
+        int ngoffset = game.telesummary != "" || game.quicksummary != "" ? 0 : -1;
         if (game.currentmenuoption == 0)
         {
             //continue
             //right, this depends on what saves you've got
-            if (game.telesummary == "")
+            if (game.telesummary == "" && game.quicksummary == "")
+            {
+                //You have no saves but have something unlocked, or you couldn't have gotten here
+                game.mainmenu = 0;
+                graphics.fademode = 2;
+            }
+            else if (game.telesummary == "")
             {
                 //You at least have a quicksave, or you couldn't have gotten here
                 game.mainmenu = 2;
@@ -983,21 +991,21 @@ void menuactionpress()
                 music.playef(2);
             }
         }
-        else if (game.currentmenuoption == offset+2)
+        else if (game.currentmenuoption == sloffset+2)
         {
             //play modes
             music.playef(11);
             game.createmenu(Menu::playmodes);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == offset+3)
+        else if (game.currentmenuoption == sloffset+3 && (game.telesummary != "" || game.quicksummary != ""))
         {
             //newgame
             music.playef(11);
             game.createmenu(Menu::newgamewarning);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == offset+4)
+        else if (game.currentmenuoption == sloffset+ngoffset+4)
         {
             //back
             music.playef(11);
