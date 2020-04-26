@@ -3509,7 +3509,7 @@ void editormenuactionpress()
             break;
         case 4:
             music.playef(11);
-            game.createmenu(Menu::ed_settings);
+            game.returnmenu();
             map.nexttowercolour();
             break;
         }
@@ -3600,7 +3600,7 @@ void editormenuactionpress()
         case 1:
             music.playef(11);
             music.fadeout();
-            game.createmenu(Menu::ed_settings);
+            game.returnmenu();
             map.nexttowercolour();
             break;
         }
@@ -3633,7 +3633,7 @@ void editormenuactionpress()
         case 2:
             //Go back to editor
             music.playef(11);
-            game.createmenu(Menu::ed_settings);
+            game.returnmenu();
             map.nexttowercolour();
             break;
         }
