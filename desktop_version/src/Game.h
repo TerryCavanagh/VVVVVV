@@ -286,6 +286,7 @@ public:
 
     std::vector<int> unlock;
     std::vector<int> unlocknotify;
+    bool anything_unlocked();
     int stat_trinkets;
     bool fullscreen;
     int bestgamedeaths;
