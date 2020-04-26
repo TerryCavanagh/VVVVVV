@@ -1422,261 +1422,263 @@ void Graphics::drawentities()
 
     for (int i = obj.entities.size() - 1; i >= 0; i--)
     {
-        if (!obj.entities[i].invis)
+        if (obj.entities[i].invis)
         {
-            if (obj.entities[i].size == 0)
-            {
-                // Sprites
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp;
-                setcol(obj.entities[i].colour);
+            continue;
+        }
 
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                if (map.warpx)
+        if (obj.entities[i].size == 0)
+        {
+            // Sprites
+            tpoint.x = obj.entities[i].xp;
+            tpoint.y = obj.entities[i].yp;
+            setcol(obj.entities[i].colour);
+
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+            if (map.warpx)
+            {
+                //screenwrapping!
+                if (tpoint.x < 0)
                 {
-                    //screenwrapping!
-                    if (tpoint.x < 0)
-                    {
-                        tpoint.x += 320;
-                        drawRect = sprites_rect;
-                        drawRect.x += tpoint.x;
-                        drawRect.y += tpoint.y;
-                        BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                    }
-                    if (tpoint.x > 300)
-                    {
-                        tpoint.x -= 320;
-                        drawRect = sprites_rect;
-                        drawRect.x += tpoint.x;
-                        drawRect.y += tpoint.y;
-                        BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                    }
+                    tpoint.x += 320;
+                    drawRect = sprites_rect;
+                    drawRect.x += tpoint.x;
+                    drawRect.y += tpoint.y;
+                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                 }
-                else if (map.warpy)
+                if (tpoint.x > 300)
                 {
-                    if (tpoint.y < 0)
-                    {
-                        tpoint.y += 230;
-                        drawRect = sprites_rect;
-                        drawRect.x += tpoint.x;
-                        drawRect.y += tpoint.y;
-                        BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                    }
-                    if (tpoint.y > 210)
-                    {
-                        tpoint.y -= 230;
-                        drawRect = sprites_rect;
-                        drawRect.x += tpoint.x;
-                        drawRect.y += tpoint.y;
-                        BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                    }
+                    tpoint.x -= 320;
+                    drawRect = sprites_rect;
+                    drawRect.x += tpoint.x;
+                    drawRect.y += tpoint.y;
+                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                 }
             }
-            else if (obj.entities[i].size == 1)
+            else if (map.warpy)
             {
-                // Tiles
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp;
+                if (tpoint.y < 0)
+                {
+                    tpoint.y += 230;
+                    drawRect = sprites_rect;
+                    drawRect.x += tpoint.x;
+                    drawRect.y += tpoint.y;
+                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                }
+                if (tpoint.y > 210)
+                {
+                    tpoint.y -= 230;
+                    drawRect = sprites_rect;
+                    drawRect.x += tpoint.x;
+                    drawRect.y += tpoint.y;
+                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                }
+            }
+        }
+        else if (obj.entities[i].size == 1)
+        {
+            // Tiles
+            tpoint.x = obj.entities[i].xp;
+            tpoint.y = obj.entities[i].yp;
+            drawRect = tiles_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceStandard(tiles[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
+        }
+        else if (obj.entities[i].size == 2 || obj.entities[i].size == 8)
+        {
+            // Special: Moving platform, 4 tiles or 8 tiles
+            tpoint.x = obj.entities[i].xp;
+            tpoint.y = obj.entities[i].yp;
+            int thiswidth = 4;
+            if (obj.entities[i].size == 8)
+            {
+                thiswidth = 8;
+            }
+            for (int ii = 0; ii < thiswidth; ii++)
+            {
                 drawRect = tiles_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
-                BlitSurfaceStandard(tiles[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
+                drawRect.x += 8 * ii;
+                BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
             }
-            else if (obj.entities[i].size == 2 || obj.entities[i].size == 8)
+        }
+        else if (obj.entities[i].size == 3)    // Big chunky pixels!
+        {
+            prect.x = obj.entities[i].xp;
+            prect.y = obj.entities[i].yp;
+            //A seperate index of colours, for simplicity
+            if(obj.entities[i].colour==1)
             {
-                // Special: Moving platform, 4 tiles or 8 tiles
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp;
-                int thiswidth = 4;
-                if (obj.entities[i].size == 8)
+                FillRect(backBuffer, prect, (fRandom() * 64), 10, 10);
+            }
+            else if (obj.entities[i].colour == 2)
+            {
+                FillRect(backBuffer,prect, int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
+            }
+        }
+        else if (obj.entities[i].size == 4)    // Small pickups
+        {
+            drawhuetile(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].tile, obj.entities[i].colour);
+        }
+        else if (obj.entities[i].size == 5)    //Horizontal Line
+        {
+            line_rect.x = obj.entities[i].xp;
+            line_rect.y = obj.entities[i].yp;
+            line_rect.w = obj.entities[i].w;
+            line_rect.h = 1;
+            drawgravityline(i);
+        }
+        else if (obj.entities[i].size == 6)    //Vertical Line
+        {
+            line_rect.x = obj.entities[i].xp;
+            line_rect.y = obj.entities[i].yp;
+            line_rect.w = 1;
+            line_rect.h = obj.entities[i].h;
+            drawgravityline(i);
+        }
+        else if (obj.entities[i].size == 7)    //Teleporter
+        {
+            drawtele(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].drawframe, obj.entities[i].colour);
+        }
+        else if (obj.entities[i].size == 8)    // Special: Moving platform, 8 tiles
+        {
+            // Note: This code is in the 4-tile code
+        }
+        else if (obj.entities[i].size == 9)         // Really Big Sprite! (2x2)
+        {
+            setcol(obj.entities[i].colour);
+
+            tpoint.x = obj.entities[i].xp;
+            tpoint.y = obj.entities[i].yp;
+
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+
+            tpoint.x = obj.entities[i].xp+32;
+            tpoint.y = obj.entities[i].yp;
+            //
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+
+            tpoint.x = obj.entities[i].xp;
+            tpoint.y = obj.entities[i].yp+32;
+            //
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
+
+            tpoint.x = obj.entities[i].xp+32;
+            tpoint.y = obj.entities[i].yp+32;
+            //
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
+        }
+        else if (obj.entities[i].size == 10)         // 2x1 Sprite
+        {
+            setcol(obj.entities[i].colour);
+
+            tpoint.x = obj.entities[i].xp;
+            tpoint.y = obj.entities[i].yp;
+            //
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+
+            tpoint.x = obj.entities[i].xp+32;
+            tpoint.y = obj.entities[i].yp;
+            //
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+        }
+        else if (obj.entities[i].size == 11)    //The fucking elephant
+        {
+            setcol(obj.entities[i].colour);
+            drawimagecol(3, obj.entities[i].xp, obj.entities[i].yp);
+        }
+        else if (obj.entities[i].size == 12)         // Regular sprites that don't wrap
+        {
+            tpoint.x = obj.entities[i].xp;
+            tpoint.y = obj.entities[i].yp;
+            setcol(obj.entities[i].colour);
+            //
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+
+
+            //if we're outside the screen, we need to draw indicators
+
+            if (obj.entities[i].xp < -20 && obj.entities[i].vx > 0)
+            {
+                if (obj.entities[i].xp < -100)
                 {
-                    thiswidth = 8;
+                    tpoint.x = -5 + (int(( -obj.entities[i].xp) / 10));
                 }
-                for (int ii = 0; ii < thiswidth; ii++)
+                else
                 {
-                    drawRect = tiles_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    drawRect.x += 8 * ii;
-                    BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
+                    tpoint.x = 5;
                 }
+
+                tpoint.y = tpoint.y+4;
+                setcol(23);
+
+
+                drawRect = tiles_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured(tiles[1167],NULL, backBuffer, &drawRect, ct);
+
             }
-            else if (obj.entities[i].size == 3)    // Big chunky pixels!
+            else if (obj.entities[i].xp > 340 && obj.entities[i].vx < 0)
             {
-                prect.x = obj.entities[i].xp;
-                prect.y = obj.entities[i].yp;
-                //A seperate index of colours, for simplicity
-                if(obj.entities[i].colour==1)
+                if (obj.entities[i].xp > 420)
                 {
-                    FillRect(backBuffer, prect, (fRandom() * 64), 10, 10);
+                    tpoint.x = 320 - (int(( obj.entities[i].xp-320) / 10));
                 }
-                else if (obj.entities[i].colour == 2)
+                else
                 {
-                    FillRect(backBuffer,prect, int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
+                    tpoint.x = 310;
                 }
-            }
-            else if (obj.entities[i].size == 4)    // Small pickups
-            {
-                drawhuetile(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].tile, obj.entities[i].colour);
-            }
-            else if (obj.entities[i].size == 5)    //Horizontal Line
-            {
-                line_rect.x = obj.entities[i].xp;
-                line_rect.y = obj.entities[i].yp;
-                line_rect.w = obj.entities[i].w;
-                line_rect.h = 1;
-                drawgravityline(i);
-            }
-            else if (obj.entities[i].size == 6)    //Vertical Line
-            {
-                line_rect.x = obj.entities[i].xp;
-                line_rect.y = obj.entities[i].yp;
-                line_rect.w = 1;
-                line_rect.h = obj.entities[i].h;
-                drawgravityline(i);
-            }
-            else if (obj.entities[i].size == 7)    //Teleporter
-            {
-                drawtele(obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].drawframe, obj.entities[i].colour);
-            }
-            else if (obj.entities[i].size == 8)    // Special: Moving platform, 8 tiles
-            {
-                // Note: This code is in the 4-tile code
-            }
-            else if (obj.entities[i].size == 9)         // Really Big Sprite! (2x2)
-            {
-                setcol(obj.entities[i].colour);
 
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp;
-
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-
-                tpoint.x = obj.entities[i].xp+32;
-                tpoint.y = obj.entities[i].yp;
+                tpoint.y = tpoint.y+4;
+                setcol(23);
                 //
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
 
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp+32;
-                //
-                drawRect = sprites_rect;
+                drawRect = tiles_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
-
-                tpoint.x = obj.entities[i].xp+32;
-                tpoint.y = obj.entities[i].yp+32;
-                //
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
+                BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
             }
-            else if (obj.entities[i].size == 10)         // 2x1 Sprite
-            {
-                setcol(obj.entities[i].colour);
+        }
+        else if (obj.entities[i].size == 13)
+        {
+            //Special for epilogue: huge hero!
 
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp;
-                //
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-
-                tpoint.x = obj.entities[i].xp+32;
-                tpoint.y = obj.entities[i].yp;
-                //
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
-            }
-            else if (obj.entities[i].size == 11)    //The fucking elephant
-            {
-                setcol(obj.entities[i].colour);
-                drawimagecol(3, obj.entities[i].xp, obj.entities[i].yp);
-            }
-            else if (obj.entities[i].size == 12)         // Regular sprites that don't wrap
-            {
-                tpoint.x = obj.entities[i].xp;
-                tpoint.y = obj.entities[i].yp;
-                setcol(obj.entities[i].colour);
-                //
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-
-
-                //if we're outside the screen, we need to draw indicators
-
-                if (obj.entities[i].xp < -20 && obj.entities[i].vx > 0)
-                {
-                    if (obj.entities[i].xp < -100)
-                    {
-                        tpoint.x = -5 + (int(( -obj.entities[i].xp) / 10));
-                    }
-                    else
-                    {
-                        tpoint.x = 5;
-                    }
-
-                    tpoint.y = tpoint.y+4;
-                    setcol(23);
-
-
-                    drawRect = tiles_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured(tiles[1167],NULL, backBuffer, &drawRect, ct);
-
-                }
-                else if (obj.entities[i].xp > 340 && obj.entities[i].vx < 0)
-                {
-                    if (obj.entities[i].xp > 420)
-                    {
-                        tpoint.x = 320 - (int(( obj.entities[i].xp-320) / 10));
-                    }
-                    else
-                    {
-                        tpoint.x = 310;
-                    }
-
-                    tpoint.y = tpoint.y+4;
-                    setcol(23);
-                    //
-
-                    drawRect = tiles_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
-                }
-            }
-            else if (obj.entities[i].size == 13)
-            {
-                //Special for epilogue: huge hero!
-
-                tpoint.x = obj.entities[i].xp; tpoint.y = obj.entities[i].yp;
-                setcol(obj.entities[i].colour);
-                SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
-                SDL_Surface* TempSurface = ScaleSurface( (*spritesvec)[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
-                BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
-                SDL_FreeSurface(TempSurface);
+            tpoint.x = obj.entities[i].xp; tpoint.y = obj.entities[i].yp;
+            setcol(obj.entities[i].colour);
+            SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
+            SDL_Surface* TempSurface = ScaleSurface( (*spritesvec)[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
+            BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
+            SDL_FreeSurface(TempSurface);
 
 
 
-            }
         }
     }
 }
