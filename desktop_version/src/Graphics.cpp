@@ -1449,7 +1449,7 @@ void Graphics::drawentities()
                     drawRect.y += tpoint.y;
                     BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                 }
-                if (tpoint.x > 300)
+                else if (tpoint.x > 300)
                 {
                     tpoint.x -= 320;
                     drawRect = sprites_rect;
@@ -1468,7 +1468,7 @@ void Graphics::drawentities()
                     drawRect.y += tpoint.y;
                     BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                 }
-                if (tpoint.y > 210)
+                else if (tpoint.y > 210)
                 {
                     tpoint.y -= 230;
                     drawRect = sprites_rect;
