@@ -425,7 +425,7 @@ int main(int argc, char *argv[])
                 if (map.towermode)
                 {
                     gameinput();
-                    towerrender();
+                    gamerender();
                     gamelogic();
 
                 }

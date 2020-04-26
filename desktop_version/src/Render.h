@@ -10,8 +10,6 @@
 
 void titlerender();
 
-void towerrender();
-
 void gamerender();
 
 void maprender();
