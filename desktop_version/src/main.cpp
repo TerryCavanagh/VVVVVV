@@ -479,6 +479,16 @@ int main(int argc, char *argv[])
 
         }
 
+        //Screen effects timers
+        if (game.infocus && game.flashlight > 0)
+        {
+            game.flashlight--;
+        }
+        if (game.infocus && game.screenshake > 0)
+        {
+            game.screenshake--;
+        }
+
         //We did editorinput, now it's safe to turn this off
         key.linealreadyemptykludge = false;
 
