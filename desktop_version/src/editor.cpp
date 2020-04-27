@@ -3422,7 +3422,7 @@ void editorrender()
 
     graphics.drawfade();
 
-    graphics.renderwithscreeneffects();
+    graphics.render();
 }
 
 void editorlogic()

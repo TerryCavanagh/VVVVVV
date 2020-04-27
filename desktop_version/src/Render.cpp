@@ -1275,7 +1275,7 @@ void gamecompleterender()
 
     graphics.drawfade();
 
-    graphics.renderwithscreeneffects();
+    graphics.render();
 }
 
 void gamecompleterender2()
@@ -1305,7 +1305,7 @@ void gamecompleterender2()
 
     graphics.drawfade();
 
-    graphics.renderwithscreeneffects();
+    graphics.render();
 }
 
 void gamerender()
@@ -2495,7 +2495,7 @@ void maprender()
     }
     else
     {
-        graphics.renderwithscreeneffects();
+        graphics.render();
     }
 }
 
@@ -2658,6 +2658,6 @@ void teleporterrender()
     }
     else
     {
-        graphics.renderwithscreeneffects();
+        graphics.render();
     }
 }
