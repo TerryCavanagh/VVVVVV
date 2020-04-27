@@ -3451,6 +3451,7 @@ void editorlogic()
         map.nexttowercolour();
         map.colstate = 10;
         game.gamestate = TITLEMODE;
+        script.hardreset();
         graphics.fademode = 4;
         music.haltdasmusik();
         music.play(6);
