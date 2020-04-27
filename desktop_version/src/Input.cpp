@@ -1233,7 +1233,7 @@ void menuactionpress()
         //back
         music.playef(11);
         music.play(6);
-        game.returnmenu();
+        game.returntomenu(Menu::playmodes);
         map.nexttowercolour();
         break;
     case Menu::unlocktimetrials:
@@ -1970,6 +1970,7 @@ void mapinput()
                 if (game.intimetrial || game.insecretlab || game.nodeathmode) game.menukludge = true;
                 game.wasintimetrial = game.intimetrial;
                 game.wasinintermission = game.inintermission;
+                game.wasinnodeathmode = game.nodeathmode;
                 game.wasincustommode = map.custommode;
                 script.hardreset();
                 if(graphics.setflipmode) graphics.flipmode = true;

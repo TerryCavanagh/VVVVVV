@@ -233,6 +233,8 @@ void Game::init(void)
     createmenu(Menu::mainmenu);
 
     wasintimetrial = false;
+    wasinintermission = false;
+    wasinnodeathmode = false;
     wasincustommode = false;
 
     deathcounts = 0;
@@ -1353,6 +1355,10 @@ void Game::updatestate()
             {
                 returntomenu(Menu::intermissionmenu);
             }
+            else if (wasinnodeathmode)
+            {
+                returntomenu(Menu::playmodes);
+            }
             else if (wasincustommode)
             {
                 returntomenu(Menu::levellist);
@@ -1367,6 +1373,7 @@ void Game::updatestate()
             }
             wasintimetrial = false;
             wasinintermission = false;
+            wasinnodeathmode = false;
             wasincustommode = false;
             state = 0;
             break;
