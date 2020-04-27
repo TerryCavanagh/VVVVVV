@@ -95,5 +95,5 @@ void preloaderrender()
 
   graphics.drawfade();
 
-  graphics.renderwithscreeneffects();
+  graphics.render();
 }
