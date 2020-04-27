@@ -1126,13 +1126,11 @@ void titlerender()
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
-        game.flashlight--;
         graphics.flashlight();
     }
 
     if (game.screenshake > 0  && !game.noflashingmode)
     {
-        game.screenshake--;
         graphics.screenshake();
     }
     else
@@ -1291,13 +1289,11 @@ void gamecompleterender()
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
-        game.flashlight--;
         graphics.flashlight();
     }
 
     if (game.screenshake > 0 && !game.noflashingmode)
     {
-        game.screenshake--;
         graphics.screenshake();
     }
     else
@@ -1335,13 +1331,11 @@ void gamecompleterender2()
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
-        game.flashlight--;
         graphics.flashlight();
     }
 
     if (game.screenshake > 0 && !game.noflashingmode)
     {
-        game.screenshake--;
         graphics.screenshake();
     }
     else
@@ -1705,13 +1699,11 @@ void gamerender()
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
-        game.flashlight--;
         graphics.flashlight();
     }
 
     if (game.screenshake > 0 && !game.noflashingmode)
     {
-        game.screenshake--;
         graphics.screenshake();
     }
     else
@@ -2520,7 +2512,6 @@ void maprender()
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
-        game.flashlight--;
         graphics.flashlight();
     }
 
@@ -2559,7 +2550,6 @@ void maprender()
     {
         if (game.screenshake > 0 && !game.noflashingmode)
         {
-            game.screenshake--;
             graphics.screenshake();
         }
         else
@@ -2697,7 +2687,6 @@ void teleporterrender()
 
     if (game.flashlight > 0 && !game.noflashingmode)
     {
-        game.flashlight--;
         graphics.flashlight();
     }
 
@@ -2736,7 +2725,6 @@ void teleporterrender()
     {
         if (game.screenshake > 0 && !game.noflashingmode)
         {
-            game.screenshake--;
             graphics.screenshake();
         }
         else
