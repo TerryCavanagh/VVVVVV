@@ -88,8 +88,9 @@ void entclass::setenemy( int t )
 	{
 	case 0:
 		//lies emitter
-		if( (para)==0)
+		switch ((int) para)
 		{
+		case 0:
 			tile = 60;
 			animate = 2;
 			colour = 6;
@@ -97,9 +98,8 @@ void entclass::setenemy( int t )
 			w = 32;
 			h = 32;
 			x1 = -200;
-		}
-		else if ( (para) == 1)
-		{
+			break;
+		case 1:
 			yp += 10;
 			oldyp += 10;
 			tile = 63;
@@ -113,21 +113,22 @@ void entclass::setenemy( int t )
 			h = 10;
 			cx = 1;
 			cy = 1;
-		}
-		else if ( (para) == 2)
-		{
+			break;
+		case 2:
 			tile = 62;
 			animate = 100;
 			colour = 6;
 			behave = -1;
 			w = 32;
 			h = 32;
+			break;
 		}
 		break;
 	case 1:
 		//FACTORY emitter
-		if( (para)==0)
+		switch ((int) para)
 		{
+		case 0:
 			tile = 72;
 			animate = 3;
 			size = 9;
@@ -137,9 +138,8 @@ void entclass::setenemy( int t )
 			h = 40;
 			cx = 0;
 			cy = 24;
-		}
-		else if ( (para) == 1)
-		{
+			break;
+		case 1:
 			xp += 4;
 			oldxp += 4;
 			yp -= 4;
@@ -154,15 +154,15 @@ void entclass::setenemy( int t )
 			h = 12;
 			cx = 0;
 			cy = 6;
-		}
-		else if ( (para) == 2)
-		{
+			break;
+		case 2:
 			tile = 77;
 			animate = 100;
 			colour = 6;
 			behave = -1;
 			w = 32;
 			h = 16;
+			break;
 		}
 		break;
 	default:
