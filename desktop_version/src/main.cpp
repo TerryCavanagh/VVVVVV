@@ -543,6 +543,7 @@ int main(int argc, char *argv[])
             game.gameclock();
         }
         const float alpha = static_cast<float>(accumulator) / timesteplimit;
+        graphics.alpha = alpha;
 
         if (game.infocus)
         {

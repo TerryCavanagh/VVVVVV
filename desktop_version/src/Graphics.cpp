@@ -116,6 +116,8 @@ void Graphics::init()
 
     translucentroomname = false;
     showmousecursor = true;
+
+    alpha = 1.0f;
 }
 
 int Graphics::font_idx(uint32_t ch) {
@@ -1479,6 +1481,9 @@ void Graphics::drawentities()
             continue;
         }
 
+        int xp = lerp(obj.entities[i].oldxp, obj.entities[i].xp);
+        int yp = lerp(obj.entities[i].oldyp, obj.entities[i].yp);
+
         switch (obj.entities[i].size)
         {
         case 0:
@@ -1487,8 +1492,8 @@ void Graphics::drawentities()
             {
                 continue;
             }
-            tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp;
+            tpoint.y = yp - yoff;
             setcol(obj.entities[i].colour);
 
             drawRect = sprites_rect;
@@ -1543,8 +1548,8 @@ void Graphics::drawentities()
             {
                 continue;
             }
-            tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp;
+            tpoint.y = yp - yoff;
             drawRect = tiles_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
@@ -1558,8 +1563,8 @@ void Graphics::drawentities()
             {
                 continue;
             }
-            tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp;
+            tpoint.y = yp - yoff;
             int thiswidth = 4;
             if (obj.entities[i].size == 8)
             {
@@ -1576,8 +1581,8 @@ void Graphics::drawentities()
             break;
         }
         case 3:    // Big chunky pixels!
-            prect.x = obj.entities[i].xp;
-            prect.y = obj.entities[i].yp - yoff;
+            prect.x = xp;
+            prect.y = yp - yoff;
             //A seperate index of colours, for simplicity
             if(obj.entities[i].colour==1)
             {
@@ -1589,24 +1594,24 @@ void Graphics::drawentities()
             }
             break;
         case 4:    // Small pickups
-            drawhuetile(obj.entities[i].xp, obj.entities[i].yp - yoff, obj.entities[i].tile, obj.entities[i].colour);
+            drawhuetile(xp, yp - yoff, obj.entities[i].tile, obj.entities[i].colour);
             break;
         case 5:    //Horizontal Line
-            line_rect.x = obj.entities[i].xp;
-            line_rect.y = obj.entities[i].yp - yoff;
+            line_rect.x = xp;
+            line_rect.y = yp - yoff;
             line_rect.w = obj.entities[i].w;
             line_rect.h = 1;
             drawgravityline(i);
             break;
         case 6:    //Vertical Line
-            line_rect.x = obj.entities[i].xp;
-            line_rect.y = obj.entities[i].yp - yoff;
+            line_rect.x = xp;
+            line_rect.y = yp - yoff;
             line_rect.w = 1;
             line_rect.h = obj.entities[i].h;
             drawgravityline(i);
             break;
         case 7:    //Teleporter
-            drawtele(obj.entities[i].xp, obj.entities[i].yp - yoff, obj.entities[i].drawframe, obj.entities[i].colour);
+            drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].colour);
             break;
         //case 8:    // Special: Moving platform, 8 tiles
             // Note: This code is in the 4-tile code
@@ -1618,32 +1623,32 @@ void Graphics::drawentities()
             }
             setcol(obj.entities[i].colour);
 
-            tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp;
+            tpoint.y = yp - yoff;
 
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
-            tpoint.x = obj.entities[i].xp+32;
-            tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp+32;
+            tpoint.y = yp - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
 
-            tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp+32 - yoff;
+            tpoint.x = xp;
+            tpoint.y = yp+32 - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
 
-            tpoint.x = obj.entities[i].xp+32;
-            tpoint.y = obj.entities[i].yp+32 - yoff;
+            tpoint.x = xp+32;
+            tpoint.y = yp+32 - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1657,16 +1662,16 @@ void Graphics::drawentities()
             }
             setcol(obj.entities[i].colour);
 
-            tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp;
+            tpoint.y = yp - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
-            tpoint.x = obj.entities[i].xp+32;
-            tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp+32;
+            tpoint.y = yp - yoff;
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1682,15 +1687,15 @@ void Graphics::drawentities()
             {
                 setcol(obj.entities[i].colour);
             }
-            drawimagecol(3, obj.entities[i].xp, obj.entities[i].yp - yoff);
+            drawimagecol(3, xp, yp - yoff);
             break;
         case 12:         // Regular sprites that don't wrap
             if (!INBOUNDS(obj.entities[i].drawframe, (*spritesvec)))
             {
                 continue;
             }
-            tpoint.x = obj.entities[i].xp;
-            tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp;
+            tpoint.y = yp - yoff;
             setcol(obj.entities[i].colour);
             //
             drawRect = sprites_rect;
@@ -1751,7 +1756,7 @@ void Graphics::drawentities()
                 continue;
             }
 
-            tpoint.x = obj.entities[i].xp; tpoint.y = obj.entities[i].yp - yoff;
+            tpoint.x = xp; tpoint.y = yp - yoff;
             setcol(obj.entities[i].colour);
             SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
             SDL_Surface* TempSurface = ScaleSurface( (*spritesvec)[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
