@@ -2006,6 +2006,8 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         break;
     }
 
+    entity.drawframe = entity.tile;
+
     entities.push_back(entity);
 }
 
