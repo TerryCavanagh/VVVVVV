@@ -333,225 +333,225 @@ int main(int argc, char *argv[])
 
         while (accumulator >= timesteplimit)
         {
-        accumulator = fmodf(accumulator, timesteplimit);
+            accumulator = fmodf(accumulator, timesteplimit);
 
-        key.Poll();
-        if(key.toggleFullscreen)
-        {
-            if(!gameScreen.isWindowed)
+            key.Poll();
+            if(key.toggleFullscreen)
             {
-                SDL_ShowCursor(SDL_DISABLE);
-                SDL_ShowCursor(SDL_ENABLE);
-            }
-            else
-            {
-                SDL_ShowCursor(SDL_ENABLE);
-            }
-
-
-            if(game.gamestate == EDITORMODE)
-            {
-                SDL_ShowCursor(SDL_ENABLE);
-            }
-
-            gameScreen.toggleFullScreen();
-            game.fullscreen = !game.fullscreen;
-            key.toggleFullscreen = false;
-
-            key.keymap.clear(); //we lost the input due to a new window.
-            game.press_left = false;
-            game.press_right = false;
-            game.press_action = true;
-            game.press_map = false;
-        }
-
-        game.infocus = key.isActive;
-        if(!game.infocus)
-        {
-            Mix_Pause(-1);
-            Mix_PauseMusic();
-
-            if (!game.blackout)
-            {
-                FillRect(graphics.backBuffer, 0x00000000);
-                graphics.bprint(5, 110, "Game paused", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
-                graphics.bprint(5, 120, "[click to resume]", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
-                graphics.bprint(5, 220, "Press M to mute in game", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);
-                graphics.bprint(5, 230, "Press N to mute music only", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);
-            }
-            graphics.render();
-            //We are minimised, so lets put a bit of a delay to save CPU
-            SDL_Delay(100);
-        }
-        else
-        {
-            Mix_Resume(-1);
-            Mix_ResumeMusic();
-            game.gametimer++;
-            switch(game.gamestate)
-            {
-            case PRELOADER:
-                //Render
-                preloaderrender();
-                break;
-#if !defined(NO_CUSTOM_LEVELS)
-            case EDITORMODE:
-                graphics.flipmode = false;
-                //Input
-                editorinput();
-                //Render
-                editorrender();
-                ////Logic
-                editorlogic();
-                break;
-#endif
-            case TITLEMODE:
-                //Input
-                titleinput();
-                //Render
-                titlerender();
-                ////Logic
-                titlelogic();
-                break;
-            case GAMEMODE:
-                if (script.running)
+                if(!gameScreen.isWindowed)
                 {
-                    script.run();
-                }
-
-                gameinput();
-                gamerender();
-                gamelogic();
-
-
-                break;
-            case MAPMODE:
-                maprender();
-                mapinput();
-                maplogic();
-                break;
-            case TELEPORTERMODE:
-                teleporterrender();
-                if(game.useteleporter)
-                {
-                    teleporterinput();
+                    SDL_ShowCursor(SDL_DISABLE);
+                    SDL_ShowCursor(SDL_ENABLE);
                 }
                 else
                 {
+                    SDL_ShowCursor(SDL_ENABLE);
+                }
+
+
+                if(game.gamestate == EDITORMODE)
+                {
+                    SDL_ShowCursor(SDL_ENABLE);
+                }
+
+                gameScreen.toggleFullScreen();
+                game.fullscreen = !game.fullscreen;
+                key.toggleFullscreen = false;
+
+                key.keymap.clear(); //we lost the input due to a new window.
+                game.press_left = false;
+                game.press_right = false;
+                game.press_action = true;
+                game.press_map = false;
+            }
+
+            game.infocus = key.isActive;
+            if(!game.infocus)
+            {
+                Mix_Pause(-1);
+                Mix_PauseMusic();
+
+                if (!game.blackout)
+                {
+                    FillRect(graphics.backBuffer, 0x00000000);
+                    graphics.bprint(5, 110, "Game paused", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
+                    graphics.bprint(5, 120, "[click to resume]", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
+                    graphics.bprint(5, 220, "Press M to mute in game", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);
+                    graphics.bprint(5, 230, "Press N to mute music only", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);
+                }
+                graphics.render();
+                //We are minimised, so lets put a bit of a delay to save CPU
+                SDL_Delay(100);
+            }
+            else
+            {
+                Mix_Resume(-1);
+                Mix_ResumeMusic();
+                game.gametimer++;
+                switch(game.gamestate)
+                {
+                case PRELOADER:
+                    //Render
+                    preloaderrender();
+                    break;
+#if !defined(NO_CUSTOM_LEVELS)
+                case EDITORMODE:
+                    graphics.flipmode = false;
+                    //Input
+                    editorinput();
+                    //Render
+                    editorrender();
+                    ////Logic
+                    editorlogic();
+                    break;
+#endif
+                case TITLEMODE:
+                    //Input
+                    titleinput();
+                    //Render
+                    titlerender();
+                    ////Logic
+                    titlelogic();
+                    break;
+                case GAMEMODE:
                     if (script.running)
                     {
                         script.run();
                     }
-                    gameinput();
-                }
-                maplogic();
-                break;
-            case GAMECOMPLETE:
-                gamecompleterender();
-                //Input
-                gamecompleteinput();
-                //Logic
-                gamecompletelogic();
-                break;
-            case GAMECOMPLETE2:
-                gamecompleterender2();
-                //Input
-                gamecompleteinput2();
-                //Logic
-                gamecompletelogic2();
-                break;
-            case CLICKTOSTART:
-                help.updateglow();
-                break;
-            default:
 
-                break;
+                    gameinput();
+                    gamerender();
+                    gamelogic();
+
+
+                    break;
+                case MAPMODE:
+                    maprender();
+                    mapinput();
+                    maplogic();
+                    break;
+                case TELEPORTERMODE:
+                    teleporterrender();
+                    if(game.useteleporter)
+                    {
+                        teleporterinput();
+                    }
+                    else
+                    {
+                        if (script.running)
+                        {
+                            script.run();
+                        }
+                        gameinput();
+                    }
+                    maplogic();
+                    break;
+                case GAMECOMPLETE:
+                    gamecompleterender();
+                    //Input
+                    gamecompleteinput();
+                    //Logic
+                    gamecompletelogic();
+                    break;
+                case GAMECOMPLETE2:
+                    gamecompleterender2();
+                    //Input
+                    gamecompleteinput2();
+                    //Logic
+                    gamecompletelogic2();
+                    break;
+                case CLICKTOSTART:
+                    help.updateglow();
+                    break;
+                default:
+
+                    break;
+
+                }
 
             }
 
-        }
+            //Screen effects timers
+            if (game.infocus && game.flashlight > 0)
+            {
+                game.flashlight--;
+            }
+            if (game.infocus && game.screenshake > 0)
+            {
+                game.screenshake--;
+            }
 
-        //Screen effects timers
-        if (game.infocus && game.flashlight > 0)
-        {
-            game.flashlight--;
-        }
-        if (game.infocus && game.screenshake > 0)
-        {
-            game.screenshake--;
-        }
+            //We did editorinput, now it's safe to turn this off
+            key.linealreadyemptykludge = false;
 
-        //We did editorinput, now it's safe to turn this off
-        key.linealreadyemptykludge = false;
+            if (game.savemystats)
+            {
+                game.savemystats = false;
+                game.savestats();
+            }
 
-        if (game.savemystats)
-        {
-            game.savemystats = false;
-            game.savestats();
-        }
-
-        //Mute button
+            //Mute button
 #if !defined(NO_CUSTOM_LEVELS)
-        bool inEditor = ed.textentry || ed.scripthelppage == 1;
+            bool inEditor = ed.textentry || ed.scripthelppage == 1;
 #else
-        bool inEditor = false;
+            bool inEditor = false;
 #endif
-        if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !inEditor)
-        {
-            game.mutebutton = 8;
+            if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !inEditor)
+            {
+                game.mutebutton = 8;
+                if (game.muted)
+                {
+                    game.muted = false;
+                }
+                else
+                {
+                    game.muted = true;
+                }
+            }
+            if(game.mutebutton>0)
+            {
+                game.mutebutton--;
+            }
+
+            if (key.isDown(KEYBOARD_n) && game.musicmutebutton <= 0 && !inEditor)
+            {
+                game.musicmutebutton = 8;
+                game.musicmuted = !game.musicmuted;
+            }
+            if (game.musicmutebutton > 0)
+            {
+                game.musicmutebutton--;
+            }
+
             if (game.muted)
             {
-                game.muted = false;
+                Mix_VolumeMusic(0) ;
+                Mix_Volume(-1,0);
             }
             else
             {
-                game.muted = true;
+                Mix_Volume(-1,MIX_MAX_VOLUME);
+
+                if (game.musicmuted || game.completestop)
+                {
+                    Mix_VolumeMusic(0);
+                }
+                else
+                {
+                    Mix_VolumeMusic(MIX_MAX_VOLUME);
+                }
             }
-        }
-        if(game.mutebutton>0)
-        {
-            game.mutebutton--;
-        }
 
-        if (key.isDown(KEYBOARD_n) && game.musicmutebutton <= 0 && !inEditor)
-        {
-            game.musicmutebutton = 8;
-            game.musicmuted = !game.musicmuted;
-        }
-        if (game.musicmutebutton > 0)
-        {
-            game.musicmutebutton--;
-        }
-
-        if (game.muted)
-        {
-            Mix_VolumeMusic(0) ;
-            Mix_Volume(-1,0);
-        }
-        else
-        {
-            Mix_Volume(-1,MIX_MAX_VOLUME);
-
-            if (game.musicmuted || game.completestop)
+            if (key.resetWindow)
             {
-                Mix_VolumeMusic(0);
+                key.resetWindow = false;
+                gameScreen.ResizeScreen(-1, -1);
             }
-            else
-            {
-                Mix_VolumeMusic(MIX_MAX_VOLUME);
-            }
-        }
 
-        if(key.resetWindow)
-        {
-            key.resetWindow = false;
-            gameScreen.ResizeScreen(-1, -1);
-        }
-
-        music.processmusic();
-        graphics.processfade();
-        game.gameclock();
-        gameScreen.FlipScreen();
+            music.processmusic();
+            graphics.processfade();
+            game.gameclock();
+            gameScreen.FlipScreen();
         }
         const float deltatime = rawdeltatime/1000.0f * 34.0f / timesteplimit;
         const float alpha = static_cast<float>(accumulator) / timesteplimit;
