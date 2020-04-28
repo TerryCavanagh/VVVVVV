@@ -1087,13 +1087,10 @@ void gamelogic()
                         obj.entities[i].xp += 320;
                         obj.entities[i].oldxp += 320;
                     }
-                    else
+                    else if (obj.entities[i].xp > 310)
                     {
-                        if (obj.entities[i].xp > 310)
-                        {
-                            obj.entities[i].xp -= 320;
-                            obj.entities[i].oldxp -= 320;
-                        }
+                        obj.entities[i].xp -= 320;
+                        obj.entities[i].oldxp -= 320;
                     }
                 }
             }
