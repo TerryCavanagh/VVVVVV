@@ -288,6 +288,12 @@ public:
 	std::map<int, int> font_positions;
 
 	SDL_Surface* ghostbuffer;
+
+	float inline lerp(const float v0, const float v1)
+	{
+		return v0 + alpha * (v1 - v0);
+	}
+	float alpha;
 };
 
 extern Graphics graphics;
