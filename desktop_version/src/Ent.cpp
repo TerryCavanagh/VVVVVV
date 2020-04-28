@@ -27,6 +27,8 @@ entclass::entclass()
 	cy = 0;
 	newxp = 0;
 	newyp = 0;
+	oldxp = 0;
+	oldyp = 0;
 
 	x1 = 0;
 	y1 = 0;
@@ -99,6 +101,7 @@ void entclass::setenemy( int t )
 		else if ( (para) == 1)
 		{
 			yp += 10;
+			oldyp += 10;
 			tile = 63;
 			animate = 100; //LIES
 			colour = 6;
@@ -138,7 +141,9 @@ void entclass::setenemy( int t )
 		else if ( (para) == 1)
 		{
 			xp += 4;
+			oldxp += 4;
 			yp -= 4;
+			oldyp -= 4;
 			tile = 76;
 			animate = 100; // Clouds
 			colour = 6;
