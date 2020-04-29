@@ -471,6 +471,7 @@ int main(int argc, char *argv[])
             if (game.infocus && game.screenshake > 0)
             {
                 game.screenshake--;
+                graphics.updatescreenshake();
             }
 
             //We did editorinput, now it's safe to turn this off
