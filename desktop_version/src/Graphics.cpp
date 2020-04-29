@@ -1963,40 +1963,6 @@ void Graphics::drawbackground( int t )
         BlitSurfaceStandard(towerbuffer_lerp, NULL, backBuffer, NULL);
         break;
     case 4: //Warp zone (vertical)
-        backoffset+=3;
-        if (backoffset >= 16) backoffset -= 16;
-
-        if (backgrounddrawn)
-        {
-            ScrollSurface(towerbuffer,0,-3);
-            for (int i = 0; i < 21; i++)
-            {
-                temp = 760 + (rcol * 3);
-                drawtowertile((i * 16), 237 - backoffset, temp + 40); //14*17=240 - 3
-                drawtowertile((i * 16) + 8, 237 - backoffset, temp + 41);
-                drawtowertile((i * 16), 237 - backoffset + 8, temp + 80);
-                drawtowertile((i * 16) + 8, 237 - backoffset + 8, temp + 81);
-            }
-        }
-        else
-        {
-            //draw the whole thing for the first time!
-            backoffset = 0;
-            FillRect(towerbuffer,0x000000 );
-            for (int j = 0; j < 15; j++)
-            {
-                for (int i = 0; i < 21; i++)
-                {
-                    temp = 760 + (rcol * 3);
-                    drawtowertile((i * 16), (j * 16)- backoffset - 3, temp+40);
-                    drawtowertile((i * 16)+ 8, (j * 16)- backoffset - 3, temp + 41);
-                    drawtowertile((i * 16), (j * 16)- backoffset + 8 - 3, temp + 80);
-                    drawtowertile((i * 16)+ 8, (j * 16)- backoffset + 8 - 3, temp + 81);
-                }
-            }
-            backgrounddrawn = true;
-        }
-
         SDL_BlitSurface(towerbuffer,NULL, backBuffer,NULL);
         break;
     case 5:
@@ -2204,6 +2170,41 @@ void Graphics::updatebackground(int t)
                     drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
                     drawtowertile((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
                     drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16) + 8, temp + 81);
+                }
+            }
+            backgrounddrawn = true;
+        }
+        break;
+    case 4: //Warp zone (vertical)
+        backoffset+=3;
+        if (backoffset >= 16) backoffset -= 16;
+
+        if (backgrounddrawn)
+        {
+            ScrollSurface(towerbuffer,0,-3);
+            for (int i = 0; i < 21; i++)
+            {
+                int temp = 760 + (rcol * 3);
+                drawtowertile((i * 16), 237 - backoffset, temp + 40); //14*17=240 - 3
+                drawtowertile((i * 16) + 8, 237 - backoffset, temp + 41);
+                drawtowertile((i * 16), 237 - backoffset + 8, temp + 80);
+                drawtowertile((i * 16) + 8, 237 - backoffset + 8, temp + 81);
+            }
+        }
+        else
+        {
+            //draw the whole thing for the first time!
+            backoffset = 0;
+            FillRect(towerbuffer,0x000000 );
+            for (int j = 0; j < 15; j++)
+            {
+                for (int i = 0; i < 21; i++)
+                {
+                    int temp = 760 + (rcol * 3);
+                    drawtowertile((i * 16), (j * 16)- backoffset - 3, temp+40);
+                    drawtowertile((i * 16)+ 8, (j * 16)- backoffset - 3, temp + 41);
+                    drawtowertile((i * 16), (j * 16)- backoffset + 8 - 3, temp + 80);
+                    drawtowertile((i * 16)+ 8, (j * 16)- backoffset + 8 - 3, temp + 81);
                 }
             }
             backgrounddrawn = true;
