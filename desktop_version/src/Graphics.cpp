@@ -609,15 +609,6 @@ void Graphics::drawgui()
     //Draw all the textboxes to the screen
     for (size_t i = 0; i<textbox.size(); i++)
     {
-        //This routine also updates the textboxs
-        textbox[i].update();
-        if (textbox[i].tm == 2 && textbox[i].tl <= 0.5)
-        {
-            textbox.erase(textbox.begin() + i);
-            i--;
-            continue;
-        }
-
         if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
         {
             if(flipmode)
@@ -748,6 +739,21 @@ void Graphics::drawgui()
                 //blue guy
                 drawsprite(80 - 6, 64 + 32 + 4, 0, 75, 75, 255- help.glow/4 - int(fRandom()*20));
             }
+        }
+    }
+}
+
+void Graphics::updatetextboxes()
+{
+    for (size_t i = 0; i < textbox.size(); i++)
+    {
+        textbox[i].update();
+
+        if (textbox[i].tm == 2 && textbox[i].tl <= 0.5)
+        {
+            textbox.erase(textbox.begin() + i);
+            i--;
+            continue;
         }
     }
 }

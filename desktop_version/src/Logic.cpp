@@ -38,6 +38,7 @@ void maplogic()
 {
     //Misc
     help.updateglow();
+    graphics.updatetextboxes();
 }
 
 
@@ -1500,4 +1501,6 @@ void gamelogic()
     {
         obj.trophytext--;
     }
+
+    graphics.updatetextboxes();
 }
