@@ -12,6 +12,11 @@ void titlelogic()
     map.bypos -= 2;
     map.bscroll = -2;
 
+    if (!game.colourblindmode)
+    {
+        graphics.updatetowerbackground();
+    }
+
     if (game.menucountdown > 0)
     {
         game.menucountdown--;
@@ -94,6 +99,11 @@ void gamecompletelogic()
     else if (!game.press_action)
     {
         map.bscroll = +1;
+    }
+
+    if (!game.colourblindmode)
+    {
+        graphics.updatetowerbackground();
     }
 
     if (graphics.fademode == 1)
@@ -1542,7 +1552,14 @@ void gamelogic()
 
     if (!game.colourblindmode)
     {
-        graphics.updatebackground(map.background);
+        if (map.towermode)
+        {
+            graphics.updatetowerbackground();
+        }
+        else
+        {
+            graphics.updatebackground(map.background);
+        }
     }
 
     if (!game.blackout)

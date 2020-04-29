@@ -2349,6 +2349,11 @@ void Graphics::drawtowerspikes()
 
 void Graphics::drawtowerbackground()
 {
+    SDL_BlitSurface(towerbuffer,NULL, backBuffer,NULL);
+}
+
+void Graphics::updatetowerbackground()
+{
     int temp;
 
     if (map.bypos < 0) map.bypos += 120 * 8;
@@ -2365,8 +2370,6 @@ void Graphics::drawtowerbackground()
                 drawtowertile3(i * 8, (j * 8) - (map.bypos % 8) - off, temp, map.colstate);
             }
         }
-
-        SDL_BlitSurface(towerbuffer,NULL, backBuffer,NULL);
 
         map.tdrawback = false;
     }
@@ -2394,8 +2397,6 @@ void Graphics::drawtowerbackground()
                 drawtowertile3(i * 8, 31*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
             }
         }
-
-        SDL_BlitSurface(towerbuffer,NULL, backBuffer,NULL);
     }
 }
 
