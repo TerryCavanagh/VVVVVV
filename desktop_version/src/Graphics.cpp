@@ -2109,13 +2109,6 @@ void Graphics::drawbackground( int t )
             {
                 FillRect(backBuffer, stars[i], getRGB(0x55, 0x55, 0x55));
             }
-            stars[i].y -= starsspeed[i];
-            if (stars[i].y < -10)
-            {
-                stars[i].y += 260;
-                stars[i].x = fRandom() * 320;
-                starsspeed[i] = 5+(fRandom()*5);
-            }
         }
         break;
     case 7:
@@ -2214,6 +2207,22 @@ void Graphics::updatebackground(int t)
                 backboxes[i].x = fRandom() * 320;
             }
         }
+        break;
+    case 6:
+        //Final Starfield
+        for (int i = 0; i < 50; i++)
+        {
+            stars[i].w = 2;
+            stars[i].h = 2;
+            stars[i].y -= starsspeed[i];
+            if (stars[i].y < -10)
+            {
+                stars[i].y += 260;
+                stars[i].x = fRandom() * 320;
+                starsspeed[i] = 5+(fRandom()*5);
+            }
+        }
+        break;
     }
 }
 
