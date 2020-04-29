@@ -1530,4 +1530,19 @@ void gamelogic()
     {
         graphics.updatebackground(map.background);
     }
+
+    if (!game.blackout)
+    {
+        //Update line colours!
+        if (graphics.linedelay <= 0)
+        {
+            graphics.linestate++;
+            if (graphics.linestate >= 10) graphics.linestate = 0;
+            graphics.linedelay = 2;
+        }
+        else
+        {
+            graphics.linedelay--;
+        }
+    }
 }
