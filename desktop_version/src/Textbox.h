@@ -40,6 +40,7 @@ public:
     int timer;
 
     float tl;
+    float prev_tl;
     int tm;
 
     int max;
