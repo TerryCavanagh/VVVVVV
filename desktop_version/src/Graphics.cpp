@@ -839,8 +839,6 @@ void Graphics::cutscenebars()
 {
     if (showcutscenebars)
     {
-        cutscenebarspos += 25;
-        cutscenebarspos = std::min(cutscenebarspos, 361);
         FillRect(backBuffer, 0, 0, cutscenebarspos, 16, 0x000000);
         FillRect(backBuffer, 360-cutscenebarspos, 224, cutscenebarspos, 16, 0x000000);
     }
@@ -849,12 +847,25 @@ void Graphics::cutscenebars()
         //disappearing
         if (cutscenebarspos > 0)
         {
-            cutscenebarspos -= 25;
-            cutscenebarspos = std::max(cutscenebarspos, 0);
             //draw
             FillRect(backBuffer, 0, 0, cutscenebarspos, 16, 0x000000);
             FillRect(backBuffer, 360-cutscenebarspos, 224, cutscenebarspos, 16, 0x000000);
         }
+    }
+}
+
+void Graphics::cutscenebarstimer()
+{
+    if (showcutscenebars)
+    {
+        cutscenebarspos += 25;
+        cutscenebarspos = std::min(cutscenebarspos, 361);
+    }
+    else if (cutscenebarspos > 0)
+    {
+        //disappearing
+        cutscenebarspos -= 25;
+        cutscenebarspos = std::max(cutscenebarspos, 0);
     }
 }
 
