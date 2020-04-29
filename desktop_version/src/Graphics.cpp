@@ -1805,13 +1805,15 @@ void Graphics::drawbackground( int t )
         {
             stars[i].w = 2;
             stars[i].h = 2;
+            SDL_Rect star_rect = stars[i];
+            star_rect.x = lerp(star_rect.x + starsspeed[i], star_rect.x);
             if (starsspeed[i] <= 6)
             {
-                FillRect(backBuffer,stars[i], getRGB(0x22,0x22,0x22));
+                FillRect(backBuffer,star_rect, getRGB(0x22,0x22,0x22));
             }
             else
             {
-                FillRect(backBuffer,stars[i], getRGB(0x55,0x55,0x55));
+                FillRect(backBuffer,star_rect, getRGB(0x55,0x55,0x55));
             }
         }
         break;
