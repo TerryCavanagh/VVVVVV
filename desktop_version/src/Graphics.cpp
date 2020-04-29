@@ -1813,14 +1813,6 @@ void Graphics::drawbackground( int t )
             {
                 FillRect(backBuffer,stars[i], getRGB(0x55,0x55,0x55));
             }
-            stars[i].x -= Sint16(starsspeed[i]);
-            if (stars[i].x < -10)
-            {
-                stars[i].x += 340;
-                stars[i].y = int(fRandom() * 240);
-                stars[i].w = 2;
-                starsspeed[i] = 4+int(fRandom()*4);
-            }
         }
         break;
     case 2:
@@ -2184,6 +2176,28 @@ void Graphics::drawbackground( int t )
         BlitSurfaceStandard(backgrounds[t], NULL, backBuffer, &bg_rect);
 
         break;
+    }
+}
+
+void Graphics::updatebackground(int t)
+{
+    switch (t)
+    {
+    case 1:
+        //Starfield
+        for (int i = 0; i < 50; i++)
+        {
+            stars[i].w = 2;
+            stars[i].h = 2;
+            stars[i].x -= Sint16(starsspeed[i]);
+            if (stars[i].x < -10)
+            {
+                stars[i].x += 340;
+                stars[i].y = int(fRandom() * 240);
+                stars[i].w = 2;
+                starsspeed[i] = 4+int(fRandom()*4);
+            }
+        }
     }
 }
 
