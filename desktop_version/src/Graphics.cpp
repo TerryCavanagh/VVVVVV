@@ -1842,13 +1842,6 @@ void Graphics::drawbackground( int t )
                 break;  //Green
             case 6:
                 //crazy case
-                spcoldel--;
-                if (spcoldel <= 0)
-                {
-                    spcoldel = 15;
-                    spcol++;
-                    if (spcol >= 12) spcol = 0;
-                }
                 switch(spcol)
                 {
                 case 0:
@@ -2185,6 +2178,17 @@ void Graphics::updatebackground(int t)
         break;
     case 2:
         //Lab
+        if (rcol == 6)
+        {
+            //crazy caze
+            spcoldel--;
+            if (spcoldel <= 0)
+            {
+                spcoldel = 15;
+                spcol++;
+                if (spcol >= 12) spcol = 0;
+            }
+        }
         for (int i = 0; i < 18; i++)
         {
             backboxes[i].x += backboxvx[i];
