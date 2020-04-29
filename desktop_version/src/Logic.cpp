@@ -1503,4 +1503,9 @@ void gamelogic()
     }
 
     graphics.updatetextboxes();
+
+    if (!game.colourblindmode)
+    {
+        graphics.updatebackground(map.background);
+    }
 }
