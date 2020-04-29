@@ -1958,11 +1958,16 @@ void Graphics::drawbackground( int t )
                 }
                 break;
             }
-            FillRect(backBuffer, backboxes[i], bcol);
-            backboxrect.x = backboxes[i].x + 1;
-            backboxrect.y = backboxes[i].y + 1;
-            backboxrect.w = backboxes[i].w - 2;
-            backboxrect.h = backboxes[i].h - 2;
+
+            backboxrect = backboxes[i];
+            backboxrect.x = lerp(backboxes[i].x - backboxvx[i], backboxes[i].x);
+            backboxrect.y = lerp(backboxes[i].y - backboxvy[i], backboxes[i].y);
+
+            FillRect(backBuffer, backboxrect, bcol);
+            backboxrect.x += 1;
+            backboxrect.y += 1;
+            backboxrect.w -= 2;
+            backboxrect.h -= 2;
             FillRect(backBuffer,backboxrect, bcol2);
         }
         break;
