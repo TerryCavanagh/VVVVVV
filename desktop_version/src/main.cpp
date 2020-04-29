@@ -417,6 +417,13 @@ int main(int argc, char *argv[])
                         script.run();
                     }
 
+                    //Update old positions of entities - has to be done BEFORE gameinput!
+                    for (size_t i = 0; i < obj.entities.size(); i++)
+                    {
+                        obj.entities[i].oldxp = obj.entities[i].xp;
+                        obj.entities[i].oldyp = obj.entities[i].yp;
+                    }
+
                     gameinput();
                     gamelogic();
 
