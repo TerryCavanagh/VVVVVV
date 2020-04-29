@@ -1963,7 +1963,9 @@ void Graphics::drawbackground( int t )
         BlitSurfaceStandard(towerbuffer_lerp, NULL, backBuffer, NULL);
         break;
     case 4: //Warp zone (vertical)
-        SDL_BlitSurface(towerbuffer,NULL, backBuffer,NULL);
+        SDL_BlitSurface(towerbuffer, NULL, towerbuffer_lerp, NULL);
+        ScrollSurface(towerbuffer_lerp, 0, lerp(0, -3));
+        SDL_BlitSurface(towerbuffer_lerp,NULL, backBuffer,NULL);
         break;
     case 5:
         //Warp zone, central
