@@ -606,7 +606,6 @@ void Graphics::drawtowertile3( int x, int y, int t, int off )
 
 void Graphics::drawgui()
 {
-    textboxcleanup();
     //Draw all the textboxes to the screen
     for (size_t i = 0; i<textbox.size(); i++)
     {
@@ -2629,10 +2628,6 @@ void Graphics::setwarprect( int a, int b, int c, int d )
 	warprect.w = c;
 	warprect.h = d;
 }
-
-	void Graphics::textboxcleanup()
-	{
-	}
 
 void Graphics::textboxcenter()
 {
