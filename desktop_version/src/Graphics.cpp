@@ -1957,39 +1957,6 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 3: //Warp zone (horizontal)
-        backoffset+=3;
-        if (backoffset >= 16) backoffset -= 16;
-
-        if (backgrounddrawn)
-        {
-            ScrollSurface(towerbuffer, -3, 0 );
-            for (int j = 0; j < 15; j++)
-            {
-                temp = 680 + (rcol * 3);
-                drawtowertile(317 - backoffset, (j * 16), temp+40);  //20*16 = 320
-                drawtowertile(317 - backoffset + 8, (j * 16), temp + 41);
-                drawtowertile(317 - backoffset, (j * 16) + 8, temp + 80);
-                drawtowertile(317 - backoffset + 8, (j * 16) + 8, temp + 81);
-            }
-        }
-        else
-        {
-            //draw the whole thing for the first time!
-            backoffset = 0;
-            FillRect(towerbuffer, 0x000000);
-            for (int j = 0; j < 15; j++)
-            {
-                for (int i = 0; i < 21; i++)
-                {
-                    temp = 680 + (rcol * 3);
-                    drawtowertile((i * 16) - backoffset - 3, (j * 16), temp+40);
-                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
-                    drawtowertile((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
-                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16) + 8, temp + 81);
-                }
-            }
-            backgrounddrawn = true;
-        }
         BlitSurfaceStandard(towerbuffer, NULL, backBuffer, NULL);
         break;
     case 4: //Warp zone (vertical)
@@ -2202,6 +2169,41 @@ void Graphics::updatebackground(int t)
                 backboxes[i].y = -32;
                 backboxes[i].x = fRandom() * 320;
             }
+        }
+        break;
+    case 3: //Warp zone (horizontal)
+        backoffset+=3;
+        if (backoffset >= 16) backoffset -= 16;
+
+        if (backgrounddrawn)
+        {
+            ScrollSurface(towerbuffer, -3, 0 );
+            for (int j = 0; j < 15; j++)
+            {
+                int temp = 680 + (rcol * 3);
+                drawtowertile(317 - backoffset, (j * 16), temp+40);  //20*16 = 320
+                drawtowertile(317 - backoffset + 8, (j * 16), temp + 41);
+                drawtowertile(317 - backoffset, (j * 16) + 8, temp + 80);
+                drawtowertile(317 - backoffset + 8, (j * 16) + 8, temp + 81);
+            }
+        }
+        else
+        {
+            //draw the whole thing for the first time!
+            backoffset = 0;
+            FillRect(towerbuffer, 0x000000);
+            for (int j = 0; j < 15; j++)
+            {
+                for (int i = 0; i < 21; i++)
+                {
+                    int temp = 680 + (rcol * 3);
+                    drawtowertile((i * 16) - backoffset - 3, (j * 16), temp+40);
+                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
+                    drawtowertile((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
+                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16) + 8, temp + 81);
+                }
+            }
+            backgrounddrawn = true;
         }
         break;
     case 6:
