@@ -609,6 +609,10 @@ void Graphics::drawgui()
     //Draw all the textboxes to the screen
     for (size_t i = 0; i<textbox.size(); i++)
     {
+        //This routine also updates textbox colors
+        float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
+        textbox[i].setcol(textbox[i].tr * tl_lerp, textbox[i].tg * tl_lerp, textbox[i].tb * tl_lerp);
+
         if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
         {
             if(flipmode)
