@@ -90,6 +90,7 @@ void Graphics::init()
     fadebars.resize(15);
 
     fadeamount = 0;
+    oldfadeamount = 0;
     fademode = 0;
 
     // initialize everything else to zero
@@ -1074,6 +1075,7 @@ void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int
 
 void Graphics::drawfade()
 {
+    int usethisamount = lerp(oldfadeamount, fadeamount);
     if ((fademode == 1)||(fademode == 4))
     {
         FillRect(backBuffer, 0, 0, backBuffer->w, backBuffer->h, 0x000000);
@@ -1082,14 +1084,14 @@ void Graphics::drawfade()
     {
         for (int i = 0; i < 15; i++)
         {
-            FillRect(backBuffer, fadebars[i], i * 16, fadeamount, 16, 0x000000 );
+            FillRect(backBuffer, fadebars[i], i * 16, usethisamount, 16, 0x000000 );
         }
     }
     else if(fademode==5 )
     {
         for (int i = 0; i < 15; i++)
         {
-            FillRect(backBuffer, fadebars[i]-fadeamount, i * 16, 500, 16, 0x000000 );
+            FillRect(backBuffer, fadebars[i]-usethisamount, i * 16, 500, 16, 0x000000 );
         }
     }
 
@@ -1097,6 +1099,7 @@ void Graphics::drawfade()
 
 void Graphics::processfade()
 {
+    oldfadeamount = fadeamount;
     if (fademode > 1)
     {
         if (fademode == 2)
