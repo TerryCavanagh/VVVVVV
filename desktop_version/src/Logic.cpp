@@ -65,6 +65,7 @@ void gamecompletelogic()
         //Fix some graphical things
         graphics.showcutscenebars = false;
         graphics.cutscenebarspos = 0;
+        graphics.oldcutscenebarspos = 0;
         map.scrolldir = 0;
         map.bypos = 0;
         //Return to game

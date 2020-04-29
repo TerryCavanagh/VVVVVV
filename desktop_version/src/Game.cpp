@@ -3440,6 +3440,7 @@ void Game::updatestate()
             map.finaly = 100;
 
             graphics.cutscenebarspos = 320;
+            graphics.oldcutscenebarspos = 320;
 
             teleport_to_new_area = true;
             teleportscript = "gamecomplete";

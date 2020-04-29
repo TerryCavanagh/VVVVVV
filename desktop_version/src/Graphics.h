@@ -269,6 +269,7 @@ public:
 
 	bool showcutscenebars;
 	int cutscenebarspos;
+	int oldcutscenebarspos;
 
 	std::vector<SDL_Rect> stars;
 	std::vector<int> starsspeed;

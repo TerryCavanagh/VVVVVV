@@ -2593,6 +2593,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 		graphics.showcutscenebars = true;
 		graphics.cutscenebarspos = 320;
+		graphics.oldcutscenebarspos = 320;
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
@@ -2849,6 +2850,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 		graphics.showcutscenebars = true;
 		graphics.cutscenebarspos = 320;
+		graphics.oldcutscenebarspos = 320;
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
@@ -2876,6 +2878,7 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 		graphics.showcutscenebars = true;
 		graphics.cutscenebarspos = 320;
+		graphics.oldcutscenebarspos = 320;
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
