@@ -1625,7 +1625,12 @@ void gameinput()
                                 //Alright, normal teleporting
                                 game.gamestate = TELEPORTERMODE;
                                 graphics.menuoffset = 240; //actually this should count the roomname
-                                if (map.extrarow) graphics.menuoffset -= 10;
+                                graphics.oldmenuoffset = 240;
+                                if (map.extrarow)
+                                {
+                                    graphics.menuoffset -= 10;
+                                    graphics.oldmenuoffset -= 10;
+                                }
 
                                 BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
 
@@ -1681,7 +1686,12 @@ void gameinput()
                         game.menupage = 20; // The Map Page
                         BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
                         graphics.menuoffset = 240; //actually this should count the roomname
-                        if (map.extrarow) graphics.menuoffset -= 10;
+                        graphics.oldmenuoffset = 240;
+                        if (map.extrarow)
+                        {
+                            graphics.menuoffset -= 10;
+                            graphics.oldmenuoffset -= 10;
+                        }
                     }
                     else if (game.intimetrial && graphics.fademode==0)
                     {
@@ -1705,7 +1715,12 @@ void gameinput()
                         game.menupage = 0; // The Map Page
                         BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
                         graphics.menuoffset = 240; //actually this should count the roomname
-                        if (map.extrarow) graphics.menuoffset -= 10;
+                        graphics.oldmenuoffset = 240;
+                        if (map.extrarow)
+                        {
+                            graphics.menuoffset -= 10;
+                            graphics.oldmenuoffset -= 10;
+                        }
                     }
                 }
 
@@ -1720,7 +1735,12 @@ void gameinput()
 
                     BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
                     graphics.menuoffset = 240; //actually this should count the roomname
-                    if (map.extrarow) graphics.menuoffset -= 10;
+                    graphics.oldmenuoffset = 240;
+                    if (map.extrarow)
+                    {
+                        graphics.menuoffset -= 10;
+                        graphics.oldmenuoffset -= 10;
+                    }
                 }
 
                 if (key.keymap[SDLK_r] && game.deathseq<=0)// && map.custommode) //Have fun glitchrunners!

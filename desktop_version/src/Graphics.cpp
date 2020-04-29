@@ -84,6 +84,7 @@ void Graphics::init()
     crewframe = 0;
     crewframedelay = 4;
     menuoffset = 0;
+    oldmenuoffset = 0;
     resumegamemode = false;
 
     //Fading stuff
@@ -2609,6 +2610,7 @@ void Graphics::menuoffrender()
 
 
 
+	int usethisoffset = lerp(oldmenuoffset, menuoffset);
 	if(flipmode)
 	{
 		//	flipmatrix.translate(0, menuoffset);
@@ -2620,7 +2622,7 @@ void Graphics::menuoffrender()
 		BlitSurfaceStandard(tempbufferFlipped, NULL, backBuffer, NULL);
 		SDL_FreeSurface(tempbufferFlipped);
 		SDL_Rect offsetRect;
-		setRect (offsetRect, 0, menuoffset, backBuffer->w ,backBuffer->h);
+		setRect (offsetRect, 0, usethisoffset, backBuffer->w ,backBuffer->h);
 		SDL_Surface* temp = FlipSurfaceVerticle(menubuffer);
 		BlitSurfaceStandard(temp,NULL,backBuffer,&offsetRect);
 		SDL_FreeSurface(temp);
@@ -2631,7 +2633,7 @@ void Graphics::menuoffrender()
 		BlitSurfaceStandard(tempBuffer, NULL, backBuffer, NULL);
 
 		SDL_Rect offsetRect;
-		setRect (offsetRect, 0, menuoffset, backBuffer->w ,backBuffer->h);
+		setRect (offsetRect, 0, usethisoffset, backBuffer->w ,backBuffer->h);
 		BlitSurfaceStandard(menubuffer,NULL,backBuffer,&offsetRect);
 	}
 
