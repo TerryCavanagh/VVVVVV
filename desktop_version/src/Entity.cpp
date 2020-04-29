@@ -62,6 +62,7 @@ void entityclass::init()
     customenemy=0;
     customwarpmode=false; customwarpmodevon=false; customwarpmodehon=false;
     trophytext = 0 ;
+    oldtrophytext = 0;
     trophytype = 0;
     altstates = 0;
 

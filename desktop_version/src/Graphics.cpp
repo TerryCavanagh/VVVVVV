@@ -1369,9 +1369,10 @@ void Graphics::drawtrophytext()
 
     if (obj.trophytext < 15)
     {
-        temp = (196 * obj.trophytext) / 15;
-        temp2 = (196 * obj.trophytext) / 15;
-        temp3 = ((255 - help.glow) * obj.trophytext) / 15;
+        int usethismult = lerp(obj.oldtrophytext, obj.trophytext);
+        temp = (196 * usethismult) / 15;
+        temp2 = (196 * usethismult) / 15;
+        temp3 = ((255 - help.glow) * usethismult) / 15;
     }
     else
     {
