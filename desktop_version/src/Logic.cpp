@@ -247,6 +247,8 @@ void gamelogic()
         obj.upset = 0;
     }
 
+    obj.oldtrophytext = obj.trophytext;
+
     if (map.towermode)
     {
         if(!game.completestop)
