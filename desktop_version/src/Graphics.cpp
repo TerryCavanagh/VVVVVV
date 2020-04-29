@@ -2246,13 +2246,14 @@ void Graphics::drawtowerbackground()
 
     if (map.tdrawback)
     {
+        int off = map.scrolldir == 0 ? 0 : map.bscroll;
         //Draw the whole thing; needed for every colour cycle!
         for (j = 0; j < 30; j++)
         {
             for (int i = 0; i < 40; i++)
             {
                 temp = map.tower.backat(i, j, map.bypos);
-                drawtowertile3(i * 8, (j * 8) - (map.bypos % 8), temp, map.colstate);
+                drawtowertile3(i * 8, (j * 8) - (map.bypos % 8) - off, temp, map.colstate);
             }
         }
 
