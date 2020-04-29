@@ -111,6 +111,7 @@ void Graphics::init()
     tempBuffer = NULL;
     tl = point();
     towerbuffer = NULL;
+    towerbuffer_lerp = NULL;
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;
@@ -1957,7 +1958,9 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 3: //Warp zone (horizontal)
-        BlitSurfaceStandard(towerbuffer, NULL, backBuffer, NULL);
+        BlitSurfaceStandard(towerbuffer, NULL, towerbuffer_lerp, NULL);
+        ScrollSurface(towerbuffer_lerp, lerp(0, -3), 0);
+        BlitSurfaceStandard(towerbuffer_lerp, NULL, backBuffer, NULL);
         break;
     case 4: //Warp zone (vertical)
         backoffset+=3;
