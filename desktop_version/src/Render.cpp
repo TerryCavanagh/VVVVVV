@@ -1635,11 +1635,6 @@ void gamerender()
         game.activity_r = obj.blocks[game.activeactivity].r;
         game.activity_g = obj.blocks[game.activeactivity].g;
         game.activity_b = obj.blocks[game.activeactivity].b;
-        if(game.act_fade<5) game.act_fade=5;
-        if(game.act_fade<10)
-        {
-            game.act_fade++;
-        }
         graphics.drawtextbox(16, 4, 36, 3, game.activity_r*(game.act_fade/10.0f), game.activity_g*(game.act_fade/10.0f), game.activity_b*(game.act_fade/10.0f));
         graphics.Print(5, 12, game.activity_lastprompt, game.activity_r*(game.act_fade/10.0f), game.activity_g*(game.act_fade/10.0f), game.activity_b*(game.act_fade/10.0f), true);
     }
@@ -1649,7 +1644,6 @@ void gamerender()
         {
             graphics.drawtextbox(16, 4, 36, 3, game.activity_r*(game.act_fade/10.0f), game.activity_g*(game.act_fade/10.0f), game.activity_b*(game.act_fade/10.0f));
             graphics.Print(5, 12, game.activity_lastprompt, game.activity_r*(game.act_fade/10.0f), game.activity_g*(game.act_fade/10.0f), game.activity_b*(game.act_fade/10.0f), true);
-            game.act_fade--;
         }
     }
 
