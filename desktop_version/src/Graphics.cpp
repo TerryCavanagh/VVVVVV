@@ -2007,7 +2007,7 @@ void Graphics::drawbackground( int t )
 
         for (int i = 10 ; i >= 0; i--)
         {
-            temp = (i << 4) + backoffset;
+            temp = (i << 4) + lerp(backoffset - 1, backoffset);
             setwarprect(160 - temp, 120 - temp, temp * 2, temp * 2);
             if (i % 2 == warpskip)
             {
