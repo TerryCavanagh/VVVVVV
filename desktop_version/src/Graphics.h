@@ -233,6 +233,7 @@ public:
 	Screen* screenbuffer;
 	SDL_Surface* menubuffer;
 	SDL_Surface* towerbuffer;
+	SDL_Surface* towerbuffer_lerp;
 	SDL_Surface* foregroundBuffer;
 	SDL_Surface* tempBuffer;
 
