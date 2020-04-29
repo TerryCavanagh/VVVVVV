@@ -255,6 +255,7 @@ public:
 	bool backgrounddrawn, foregrounddrawn;
 
 	int menuoffset;
+	int oldmenuoffset;
 	bool resumegamemode;
 
 	SDL_Rect warprect;
