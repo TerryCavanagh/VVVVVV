@@ -2244,8 +2244,6 @@ void Graphics::drawtowerbackground()
 
     if (map.bypos < 0) map.bypos += 120 * 8;
 
-    if (map.scrolldir == 1) map.tdrawback = true;
-
     if (map.tdrawback)
     {
         //Draw the whole thing; needed for every colour cycle!
@@ -2268,8 +2266,18 @@ void Graphics::drawtowerbackground()
         ScrollSurface(towerbuffer, 0, -map.bscroll);
         for (int i = 0; i < 40; i++)
         {
-            temp = map.tower.backat(i, 0, map.bypos);
-            drawtowertile3(i * 8, -(map.bypos % 8), temp, map.colstate);
+            if (map.scrolldir == 0)
+            {
+                temp = map.tower.backat(i, 0, map.bypos);
+                drawtowertile3(i * 8, -(map.bypos % 8), temp, map.colstate);
+            }
+            else
+            {
+                temp = map.tower.backat(i, 29, map.bypos);
+                drawtowertile3(i * 8, 29*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
+                temp = map.tower.backat(i, 30, map.bypos);
+                drawtowertile3(i * 8, 30*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
+            }
         }
 
         SDL_BlitSurface(towerbuffer,NULL, backBuffer,NULL);
