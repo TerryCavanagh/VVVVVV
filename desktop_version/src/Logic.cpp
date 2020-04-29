@@ -43,25 +43,13 @@ void maplogic()
     if (graphics.resumegamemode)
     {
         graphics.menuoffset += 25;
-        if (map.extrarow)
+        int threshold = map.extrarow ? 230 : 240;
+        if (graphics.menuoffset >= threshold)
         {
-            if (graphics.menuoffset >= 230)
-            {
-                graphics.menuoffset = 230;
-                //go back to gamemode!
-                game.mapheld = true;
-                game.gamestate = GAMEMODE;
-            }
-        }
-        else
-        {
-            if (graphics.menuoffset >= 240)
-            {
-                graphics.menuoffset = 240;
-                //go back to gamemode!
-                game.mapheld = true;
-                game.gamestate = GAMEMODE;
-            }
+            graphics.menuoffset = threshold;
+            //go back to gamemode!
+            game.mapheld = true;
+            game.gamestate = GAMEMODE;
         }
     }
     else if (graphics.menuoffset > 0)
