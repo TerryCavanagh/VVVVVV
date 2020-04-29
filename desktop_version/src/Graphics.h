@@ -185,8 +185,6 @@ public:
 
 	bool onscreen(int t);
 
-	void drawtowerbackgroundsolo();
-
 
 	void menuoffrender();
 

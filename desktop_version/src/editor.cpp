@@ -3010,7 +3010,7 @@ void editorrender()
     {
         if(!game.colourblindmode)
         {
-            graphics.drawtowerbackgroundsolo();
+            graphics.drawtowerbackground();
         }
         else
         {
