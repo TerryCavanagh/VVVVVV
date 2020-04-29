@@ -844,15 +844,11 @@ void Graphics::cutscenebars()
         FillRect(backBuffer, 0, 0, usethispos, 16, 0x000000);
         FillRect(backBuffer, 360-usethispos, 224, usethispos, 16, 0x000000);
     }
-    else
+    else if (cutscenebarspos > 0) //disappearing
     {
-        //disappearing
-        if (cutscenebarspos > 0)
-        {
-            //draw
-            FillRect(backBuffer, 0, 0, usethispos, 16, 0x000000);
-            FillRect(backBuffer, 360-usethispos, 224, usethispos, 16, 0x000000);
-        }
+        //draw
+        FillRect(backBuffer, 0, 0, usethispos, 16, 0x000000);
+        FillRect(backBuffer, 360-usethispos, 224, usethispos, 16, 0x000000);
     }
 }
 
