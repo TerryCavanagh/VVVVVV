@@ -2005,13 +2005,6 @@ void Graphics::drawbackground( int t )
             warpfcol = RGBflip(0xFF, 0xFF, 0xFF);
         }
 
-        backoffset += 1;
-        if (backoffset >= 16)
-        {
-            backoffset -= 16;
-            warpskip = (warpskip + 1) % 2;
-        }
-
         for (int i = 10 ; i >= 0; i--)
         {
             temp = (i << 4) + backoffset;
@@ -2210,6 +2203,16 @@ void Graphics::updatebackground(int t)
                 }
             }
             backgrounddrawn = true;
+        }
+        break;
+    case 5:
+        //Warp zone, central
+
+        backoffset += 1;
+        if (backoffset >= 16)
+        {
+            backoffset -= 16;
+            warpskip = (warpskip + 1) % 2;
         }
         break;
     case 6:

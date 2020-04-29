@@ -3618,6 +3618,10 @@ void editorlogic()
             graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
             graphics.updatebackground(4);
             break;
+        case 3:
+            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.updatebackground(5);
+            break;
         default:
             break;
         }
