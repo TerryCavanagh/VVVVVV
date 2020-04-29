@@ -61,6 +61,19 @@ void maplogic()
             graphics.menuoffset = 0;
         }
     }
+
+    if (map.cursorstate == 0){
+        map.cursordelay++;
+        if (map.cursordelay > 10){
+            map.cursorstate = 1;
+            map.cursordelay = 0;
+        }
+    }else if (map.cursorstate == 1){
+        map.cursordelay++;
+        if (map.cursordelay > 30) map.cursorstate = 2;
+    }else if (map.cursorstate == 2){
+        map.cursordelay++;
+    }
 }
 
 
