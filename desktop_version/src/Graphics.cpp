@@ -1964,29 +1964,6 @@ void Graphics::drawbackground( int t )
             backboxrect.w = backboxes[i].w - 2;
             backboxrect.h = backboxes[i].h - 2;
             FillRect(backBuffer,backboxrect, bcol2);
-
-            backboxes[i].x += backboxvx[i];
-            backboxes[i].y += backboxvy[i];
-            if (backboxes[i].x < -40)
-            {
-                backboxes[i].x = 320;
-                backboxes[i].y = fRandom() * 240;
-            }
-            if (backboxes[i].x > 320)
-            {
-                backboxes[i].x = -32;
-                backboxes[i].y = fRandom() * 240;
-            }
-            if (backboxes[i].y < -40)
-            {
-                backboxes[i].y = 240;
-                backboxes[i].x = fRandom() * 320;
-            }
-            if (backboxes[i].y > 260)
-            {
-                backboxes[i].y = -32;
-                backboxes[i].x = fRandom() * 320;
-            }
         }
         break;
     case 3: //Warp zone (horizontal)
@@ -2198,6 +2175,34 @@ void Graphics::updatebackground(int t)
                 stars[i].y = int(fRandom() * 240);
                 stars[i].w = 2;
                 starsspeed[i] = 4+int(fRandom()*4);
+            }
+        }
+        break;
+    case 2:
+        //Lab
+        for (int i = 0; i < 18; i++)
+        {
+            backboxes[i].x += backboxvx[i];
+            backboxes[i].y += backboxvy[i];
+            if (backboxes[i].x < -40)
+            {
+                backboxes[i].x = 320;
+                backboxes[i].y = fRandom() * 240;
+            }
+            if (backboxes[i].x > 320)
+            {
+                backboxes[i].x = -32;
+                backboxes[i].y = fRandom() * 240;
+            }
+            if (backboxes[i].y < -40)
+            {
+                backboxes[i].y = 240;
+                backboxes[i].x = fRandom() * 320;
+            }
+            if (backboxes[i].y > 260)
+            {
+                backboxes[i].y = -32;
+                backboxes[i].x = fRandom() * 320;
             }
         }
     }
