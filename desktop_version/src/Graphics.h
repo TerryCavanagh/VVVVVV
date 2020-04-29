@@ -284,7 +284,6 @@ public:
 	std::vector<int> backboxvx;
 	std::vector<int> backboxvy;
 	std::vector<float> backboxint;
-	SDL_Rect backboxrect;
 
 	int warpskip, warpfcol, warpbcol;
 
