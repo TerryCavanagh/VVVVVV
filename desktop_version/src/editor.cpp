@@ -3606,6 +3606,19 @@ void editorlogic()
         ed.notedelay--;
     }
 
+    if (!ed.settingsmod)
+    {
+        switch(ed.level[ed.levx+(ed.levy*ed.maxwidth)].warpdir)
+        {
+        case 1:
+            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.updatebackground(3);
+            break;
+        default:
+            break;
+        }
+    }
+
     if (graphics.fademode == 1)
     {
         //Return to game
