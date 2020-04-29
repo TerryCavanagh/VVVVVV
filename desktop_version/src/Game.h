@@ -327,6 +327,7 @@ public:
     bool backgroundtext;
 
     int activeactivity, act_fade;
+    int prev_act_fade;
 
     bool press_left, press_right, press_action, press_map;
 

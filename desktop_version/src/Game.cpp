@@ -150,6 +150,7 @@ void Game::init(void)
     completestop = false;
     activeactivity = -1;
     act_fade = 0;
+    prev_act_fade = 0;
     backgroundtext = false;
     startscript = false;
     newscript = "";
