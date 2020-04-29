@@ -3008,7 +3008,14 @@ void editorrender()
     }
     else if(ed.settingsmod)
     {
-        if(!game.colourblindmode) graphics.drawtowerbackgroundsolo();
+        if(!game.colourblindmode)
+        {
+            graphics.drawtowerbackgroundsolo();
+        }
+        else
+        {
+            FillRect(graphics.backBuffer, 0, 0, 320, 240, 0x00000000);
+        }
 
         int tr = map.r - (help.glow / 4) - int(fRandom() * 4);
         int tg = map.g - (help.glow / 4) - int(fRandom() * 4);
