@@ -2244,6 +2244,8 @@ void Graphics::drawtowerbackground()
                 drawtowertile3(i * 8, 29*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
                 temp = map.tower.backat(i, 30, map.bypos);
                 drawtowertile3(i * 8, 30*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
+                temp = map.tower.backat(i, 31, map.bypos);
+                drawtowertile3(i * 8, 31*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
             }
         }
 
