@@ -2171,6 +2171,12 @@ void gamecompleteinput()
     game.press_action = false;
     game.press_map = false;
 
+    //Do this before we update map.bypos
+    if (!game.colourblindmode)
+    {
+        graphics.updatetowerbackground();
+    }
+
     //Do these here because input comes first
     map.bypos += map.bscroll;
     game.oldcreditposition = game.creditposition;
