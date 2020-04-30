@@ -1126,9 +1126,10 @@ void gamecompleterender()
 
     //rendering starts... here!
 
-    if (graphics.onscreen(220 + game.creditposition))
+    int position = graphics.lerp(game.oldcreditposition, game.creditposition);
+    if (graphics.onscreen(220 + position))
     {
-        int temp = 220 + game.creditposition;
+        int temp = 220 + position;
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
@@ -1137,121 +1138,121 @@ void gamecompleterender()
         graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
     }
 
-    if (graphics.onscreen(290 + game.creditposition)) graphics.bigprint( -1, 290 + game.creditposition, "Starring", tr, tg, tb, true, 2);
+    if (graphics.onscreen(290 + position)) graphics.bigprint( -1, 290 + position, "Starring", tr, tg, tb, true, 2);
 
-    if (graphics.onscreen(320 + game.creditposition))
+    if (graphics.onscreen(320 + position))
     {
-        graphics.drawcrewman(70, 320 + game.creditposition, 0, true);
-        graphics.Print(100, 330 + game.creditposition, "Captain Viridian", tr, tg, tb);
+        graphics.drawcrewman(70, 320 + position, 0, true);
+        graphics.Print(100, 330 + position, "Captain Viridian", tr, tg, tb);
     }
-    if (graphics.onscreen(350 + game.creditposition))
+    if (graphics.onscreen(350 + position))
     {
-        graphics.drawcrewman(70, 350 + game.creditposition, 1, true);
-        graphics.Print(100, 360 + game.creditposition, "Doctor Violet", tr, tg, tb);
+        graphics.drawcrewman(70, 350 + position, 1, true);
+        graphics.Print(100, 360 + position, "Doctor Violet", tr, tg, tb);
     }
-    if (graphics.onscreen(380 + game.creditposition))
+    if (graphics.onscreen(380 + position))
     {
-        graphics.drawcrewman(70, 380 + game.creditposition, 2, true);
-        graphics.Print(100, 390 + game.creditposition, "Professor Vitellary", tr, tg, tb);
+        graphics.drawcrewman(70, 380 + position, 2, true);
+        graphics.Print(100, 390 + position, "Professor Vitellary", tr, tg, tb);
     }
-    if (graphics.onscreen(410 + game.creditposition))
+    if (graphics.onscreen(410 + position))
     {
-        graphics.drawcrewman(70, 410 + game.creditposition, 3, true);
-        graphics.Print(100, 420 + game.creditposition, "Officer Vermilion", tr, tg, tb);
+        graphics.drawcrewman(70, 410 + position, 3, true);
+        graphics.Print(100, 420 + position, "Officer Vermilion", tr, tg, tb);
     }
-    if (graphics.onscreen(440 + game.creditposition))
+    if (graphics.onscreen(440 + position))
     {
-        graphics.drawcrewman(70, 440 + game.creditposition, 4, true);
-        graphics.Print(100, 450 + game.creditposition, "Chief Verdigris", tr, tg, tb);
+        graphics.drawcrewman(70, 440 + position, 4, true);
+        graphics.Print(100, 450 + position, "Chief Verdigris", tr, tg, tb);
     }
-    if (graphics.onscreen(470 + game.creditposition))
+    if (graphics.onscreen(470 + position))
     {
-        graphics.drawcrewman(70, 470 + game.creditposition, 5, true);
-        graphics.Print(100, 480 + game.creditposition, "Doctor Victoria", tr, tg, tb);
-    }
-
-    if (graphics.onscreen(520 + game.creditposition)) graphics.bigprint( -1, 520 + game.creditposition, "Credits", tr, tg, tb, true, 3);
-
-    if (graphics.onscreen(560 + game.creditposition))
-    {
-        graphics.Print(40, 560 + game.creditposition, "Created by", tr, tg, tb);
-        graphics.bigprint(60, 570 + game.creditposition, "Terry Cavanagh", tr, tg, tb);
+        graphics.drawcrewman(70, 470 + position, 5, true);
+        graphics.Print(100, 480 + position, "Doctor Victoria", tr, tg, tb);
     }
 
-    if (graphics.onscreen(600 + game.creditposition))
+    if (graphics.onscreen(520 + position)) graphics.bigprint( -1, 520 + position, "Credits", tr, tg, tb, true, 3);
+
+    if (graphics.onscreen(560 + position))
     {
-        graphics.Print(40, 600 + game.creditposition, "With Music by", tr, tg, tb);
-        graphics.bigprint(60, 610 + game.creditposition, "Magnus P~lsson", tr, tg, tb);
+        graphics.Print(40, 560 + position, "Created by", tr, tg, tb);
+        graphics.bigprint(60, 570 + position, "Terry Cavanagh", tr, tg, tb);
     }
 
-    if (graphics.onscreen(640 + game.creditposition))
+    if (graphics.onscreen(600 + position))
     {
-        graphics.Print(40, 640 + game.creditposition, "Rooms Named by", tr, tg, tb);
-        graphics.bigprint(60, 650 + game.creditposition, "Bennett Foddy", tr, tg, tb);
+        graphics.Print(40, 600 + position, "With Music by", tr, tg, tb);
+        graphics.bigprint(60, 610 + position, "Magnus P~lsson", tr, tg, tb);
     }
 
-    if (graphics.onscreen(680 + game.creditposition))
+    if (graphics.onscreen(640 + position))
     {
-        graphics.Print(40, 680 + game.creditposition, "C++ Port by", tr, tg, tb);
-        graphics.bigprint(60, 690 + game.creditposition, "Simon Roth", tr, tg, tb);
-        graphics.bigprint(60, 710 + game.creditposition, "Ethan Lee", tr, tg, tb);
+        graphics.Print(40, 640 + position, "Rooms Named by", tr, tg, tb);
+        graphics.bigprint(60, 650 + position, "Bennett Foddy", tr, tg, tb);
+    }
+
+    if (graphics.onscreen(680 + position))
+    {
+        graphics.Print(40, 680 + position, "C++ Port by", tr, tg, tb);
+        graphics.bigprint(60, 690 + position, "Simon Roth", tr, tg, tb);
+        graphics.bigprint(60, 710 + position, "Ethan Lee", tr, tg, tb);
     }
 
 
-    if (graphics.onscreen(740 + game.creditposition))
+    if (graphics.onscreen(740 + position))
     {
-        graphics.Print(40, 740 + game.creditposition, "Beta Testing by", tr, tg, tb);
-        graphics.bigprint(60, 750 + game.creditposition, "Sam Kaplan", tr, tg, tb);
-        graphics.bigprint(60, 770 + game.creditposition, "Pauli Kohberger", tr, tg, tb);
+        graphics.Print(40, 740 + position, "Beta Testing by", tr, tg, tb);
+        graphics.bigprint(60, 750 + position, "Sam Kaplan", tr, tg, tb);
+        graphics.bigprint(60, 770 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (graphics.onscreen(800 + game.creditposition))
+    if (graphics.onscreen(800 + position))
     {
-        graphics.Print(40, 800 + game.creditposition, "Ending Picture by", tr, tg, tb);
-        graphics.bigprint(60, 810 + game.creditposition, "Pauli Kohberger", tr, tg, tb);
+        graphics.Print(40, 800 + position, "Ending Picture by", tr, tg, tb);
+        graphics.bigprint(60, 810 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (graphics.onscreen(890 + game.creditposition)) graphics.bigprint( -1, 870 + game.creditposition, "Patrons", tr, tg, tb, true, 3);
+    if (graphics.onscreen(890 + position)) graphics.bigprint( -1, 870 + position, "Patrons", tr, tg, tb, true, 3);
 
     int creditOffset = 930;
 
     for (size_t i = 0; i < game.superpatrons.size(); i += 1)
     {
-        if (graphics.onscreen(creditOffset + game.creditposition))
+        if (graphics.onscreen(creditOffset + position))
         {
-            graphics.Print(-1, creditOffset + game.creditposition, game.superpatrons[i], tr, tg, tb, true);
+            graphics.Print(-1, creditOffset + position, game.superpatrons[i], tr, tg, tb, true);
         }
         creditOffset += 10;
     }
 
     creditOffset += 10;
-    if (graphics.onscreen(creditOffset + game.creditposition)) graphics.Print( -1, creditOffset + game.creditposition, "and", tr, tg, tb, true);
+    if (graphics.onscreen(creditOffset + position)) graphics.Print( -1, creditOffset + position, "and", tr, tg, tb, true);
     creditOffset += 20;
 
     for (size_t i = 0; i < game.patrons.size(); i += 1)
     {
-        if (graphics.onscreen(creditOffset + game.creditposition))
+        if (graphics.onscreen(creditOffset + position))
         {
-            graphics.Print(-1, creditOffset + game.creditposition, game.patrons[i], tr, tg, tb, true);
+            graphics.Print(-1, creditOffset + position, game.patrons[i], tr, tg, tb, true);
         }
         creditOffset += 10;
     }
 
     creditOffset += 20;
-    if (graphics.onscreen(creditOffset + game.creditposition)) graphics.bigprint(40, creditOffset + game.creditposition, "GitHub Contributors", tr, tg, tb, true);
+    if (graphics.onscreen(creditOffset + position)) graphics.bigprint(40, creditOffset + position, "GitHub Contributors", tr, tg, tb, true);
     creditOffset += 30;
 
     for (size_t i = 0; i < game.githubfriends.size(); i += 1)
     {
-        if (graphics.onscreen(creditOffset + game.creditposition))
+        if (graphics.onscreen(creditOffset + position))
         {
-            graphics.Print(-1, creditOffset + game.creditposition, game.githubfriends[i], tr, tg, tb, true);
+            graphics.Print(-1, creditOffset + position, game.githubfriends[i], tr, tg, tb, true);
         }
         creditOffset += 10;
     }
 
     creditOffset += 140;
-    if (graphics.onscreen(creditOffset + game.creditposition)) graphics.bigprint( -1, creditOffset + game.creditposition, "Thanks for playing!", tr, tg, tb, true, 2);
+    if (graphics.onscreen(creditOffset + position)) graphics.bigprint( -1, creditOffset + position, "Thanks for playing!", tr, tg, tb, true, 2);
 
     graphics.drawfade();
 
