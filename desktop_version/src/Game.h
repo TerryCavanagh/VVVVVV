@@ -260,6 +260,7 @@ public:
     int timetrialpar, timetrialresulttime, timetrialrank;
 
     int creditposition;
+    int oldcreditposition;
     int creditmaxposition;
     std::vector<const char*> superpatrons;
     std::vector<const char*> patrons;
