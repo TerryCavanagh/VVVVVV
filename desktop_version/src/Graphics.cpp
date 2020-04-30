@@ -1481,7 +1481,7 @@ void Graphics::drawentities()
     int yoff;
     if (map.towermode)
     {
-        yoff = map.ypos;
+        yoff = lerp(map.oldypos, map.ypos);
     }
     else
     {
@@ -2320,12 +2320,13 @@ void Graphics::drawfinalmap()
 void Graphics::drawtowermap()
 {
     int temp;
+    int yoff = lerp(map.oldypos, map.ypos);
     for (int j = 0; j < 31; j++)
     {
         for (int i = 0; i < 40; i++)
         {
-            temp = map.tower.at(i, j, map.ypos);
-            if (temp > 0) drawtile3(i * 8, (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
+            temp = map.tower.at(i, j, yoff);
+            if (temp > 0) drawtile3(i * 8, (j * 8) - (yoff % 8), temp, map.colstate);
         }
     }
 }
@@ -2333,12 +2334,13 @@ void Graphics::drawtowermap()
 void Graphics::drawtowermap_nobackground()
 {
     int temp;
+    int yoff = lerp(map.oldypos, map.ypos);
     for (int j = 0; j < 31; j++)
     {
         for (int i = 0; i < 40; i++)
         {
-            temp = map.tower.at(i, j, map.ypos);
-            if (temp > 0 && temp<28) drawtile3(i * 8, (j * 8) - ((int)map.ypos % 8), temp, map.colstate);
+            temp = map.tower.at(i, j, yoff);
+            if (temp > 0 && temp<28) drawtile3(i * 8, (j * 8) - (yoff % 8), temp, map.colstate);
         }
     }
 }

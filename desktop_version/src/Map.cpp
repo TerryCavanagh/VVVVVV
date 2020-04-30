@@ -91,6 +91,10 @@ mapclass::mapclass()
 	2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0,
 	};
 	areamap.insert(areamap.end(), tmap, tmap+400);
+
+	ypos = 0;
+	oldypos = 0;
+	bypos = 0;
 }
 
 int mapclass::RGB(int red,int green,int blue)
