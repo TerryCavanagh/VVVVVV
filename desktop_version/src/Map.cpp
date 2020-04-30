@@ -1909,6 +1909,7 @@ void mapclass::loadlevel(int rx, int ry)
 	}
 
 	//Make sure our crewmates are facing the player if appliciable
+	//Also make sure they're flipped if they're flipped
 	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
 		if (obj.entities[i].rule == 6 || obj.entities[i].rule == 7)
@@ -1924,8 +1925,13 @@ void mapclass::loadlevel(int rx, int ry)
 				else if (j > -1 && obj.entities[j].xp < obj.entities[i].xp - 5)
 				{
 					obj.entities[i].dir = 0;
+					obj.entities[i].drawframe += 3;
 				}
 			}
+		}
+		if (obj.entities[i].rule == 7)
+		{
+			obj.entities[i].drawframe += 6;
 		}
 	}
 }
