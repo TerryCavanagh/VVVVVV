@@ -115,11 +115,6 @@ void gamecompletelogic()
         map.bscroll = +1;
     }
 
-    if (!game.colourblindmode)
-    {
-        graphics.updatetowerbackground();
-    }
-
     if (graphics.fademode == 1)
     {
         //Fix some graphical things
