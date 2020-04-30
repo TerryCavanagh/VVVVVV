@@ -34,6 +34,7 @@ public:
 
 	void drawhuetile(int x, int y, int t);
 	void huetilesetcol(int t);
+	Uint32 bigchunkygetcol(int t);
 
 	void drawgravityline(int t);
 
