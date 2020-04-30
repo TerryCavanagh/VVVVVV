@@ -1842,7 +1842,7 @@ void mapclass::loadlevel(int rx, int ry)
 	}
 
 	//Special scripting: Create objects and triggers based on what crewmembers are rescued.
-	if (!finalmode)
+	if (!finalmode && !custommode)
 	{
 		//First up: the extra bits:
 		//Vermilion's quest:
