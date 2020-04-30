@@ -504,12 +504,6 @@ void menurender()
         graphics.Print( -1, 75, "Are you sure you want to quit?", tr, tg, tb, true);
         break;
     case Menu::continuemenu:
-        graphics.crewframedelay--;
-        if (graphics.crewframedelay <= 0)
-        {
-            graphics.crewframedelay = 8;
-            graphics.crewframe = (graphics.crewframe + 1) % 2;
-        }
         switch (game.currentmenuoption)
         {
         case 0:
@@ -551,12 +545,6 @@ void menurender()
     {
         graphics.bigprint( -1, 25, "GAME OVER", tr, tg, tb, true, 3);
 
-        graphics.crewframedelay--;
-        if (graphics.crewframedelay <= 0)
-        {
-            graphics.crewframedelay = 8;
-            graphics.crewframe = (graphics.crewframe + 1) % 2;
-        }
         for (int i = 0; i < 6; i++)
         {
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.crewstats[i], true);
@@ -602,12 +590,6 @@ void menurender()
     {
         graphics.bigprint( -1, 8, "WOW", tr, tg, tb, true, 4);
 
-        graphics.crewframedelay--;
-        if (graphics.crewframedelay <= 0)
-        {
-            graphics.crewframedelay = 8;
-            graphics.crewframe = (graphics.crewframe + 1) % 2;
-        }
         for (int i = 0; i < 6; i++)
         {
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.crewstats[i], true);
@@ -1683,13 +1665,6 @@ void maprender()
 
     //Background color
     FillRect(graphics.backBuffer,0, 12, 320, 240, 10, 24, 26 );
-
-    graphics.crewframedelay--;
-    if (graphics.crewframedelay <= 0)
-    {
-        graphics.crewframedelay = 8;
-        graphics.crewframe = (graphics.crewframe + 1) % 2;
-    }
 
 
 

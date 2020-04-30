@@ -17,6 +17,13 @@ void titlelogic()
         graphics.updatetowerbackground();
     }
 
+    graphics.crewframedelay--;
+    if (graphics.crewframedelay <= 0)
+    {
+        graphics.crewframedelay = 8;
+        graphics.crewframe = (graphics.crewframe + 1) % 2;
+    }
+
     if (game.menucountdown > 0)
     {
         game.menucountdown--;
@@ -44,6 +51,13 @@ void maplogic()
     //Misc
     help.updateglow();
     graphics.updatetextboxes();
+
+    graphics.crewframedelay--;
+    if (graphics.crewframedelay <= 0)
+    {
+        graphics.crewframedelay = 8;
+        graphics.crewframe = (graphics.crewframe + 1) % 2;
+    }
 
     graphics.oldmenuoffset = graphics.menuoffset;
     if (graphics.resumegamemode)
