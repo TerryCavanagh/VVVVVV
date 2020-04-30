@@ -48,8 +48,7 @@ void gamecompletelogic()
     map.updatetowerglow();
     help.updateglow();
     graphics.crewframe = 0;
-
-    map.tdrawback = true;
+    map.scrolldir = 1;
 
     game.creditposition--;
     if (game.creditposition <= -game.creditmaxposition)
@@ -57,9 +56,8 @@ void gamecompletelogic()
         game.creditposition = -game.creditmaxposition;
         map.bscroll = 0;
     }
-    else
+    else if (!game.press_action)
     {
-        map.bypos += 1;
         map.bscroll = +1;
     }
 
@@ -68,6 +66,8 @@ void gamecompletelogic()
         //Fix some graphical things
         graphics.showcutscenebars = false;
         graphics.cutscenebarspos = 0;
+        map.scrolldir = 0;
+        map.bypos = 0;
         //Return to game
         game.gamestate = GAMECOMPLETE2;
         graphics.fademode = 4;

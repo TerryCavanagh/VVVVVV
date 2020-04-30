@@ -2118,6 +2118,9 @@ void gamecompleteinput()
     game.press_action = false;
     game.press_map = false;
 
+    //Do this here because input comes first
+    map.bypos += map.bscroll;
+
     if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
     {
         game.creditposition -= 6;
@@ -2131,8 +2134,7 @@ void gamecompleteinput()
         }
         else
         {
-            map.bypos += 6;
-            map.bscroll = +6;
+            map.bscroll = +7;
         }
         game.press_action = true;
     }
