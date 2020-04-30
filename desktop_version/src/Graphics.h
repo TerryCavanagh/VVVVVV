@@ -53,7 +53,7 @@ public:
 
 	void setwarprect(int a, int b, int c, int d);
 
-	void createtextbox(std::string t, int xp, int yp, int r= 255, int g= 255, int b = 255);
+	void createtextbox(std::string t, int xp, int yp, int r= 255, int g= 255, int b = 255, bool allowspecial = false);
 
 	void textboxcenter();
 

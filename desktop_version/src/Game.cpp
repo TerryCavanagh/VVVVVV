@@ -2398,11 +2398,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255, true);
             }
             //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
@@ -2422,11 +2422,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 104, 175,174,174);
+                graphics.createtextbox("", -1, 104, 175,174,174, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 64+8+16, 175,174,174);
+                graphics.createtextbox("", -1, 64+8+16, 175,174,174, true);
             }
             graphics.addline("     You have rescued  ");
             graphics.addline("      a crew member!   ");
@@ -2515,11 +2515,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255, true);
             }
             //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
@@ -2539,11 +2539,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 104, 174,175,174);
+                graphics.createtextbox("", -1, 104, 174,175,174, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 64+8+16, 174,175,174);
+                graphics.createtextbox("", -1, 64+8+16, 174,175,174, true);
             }
             graphics.addline("     You have rescued  ");
             graphics.addline("      a crew member!   ");
@@ -2631,11 +2631,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255, true);
             }
             //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
@@ -2655,11 +2655,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 104, 174,174,175);
+                graphics.createtextbox("", -1, 104, 174,174,175, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 64+8+16, 174,174,175);
+                graphics.createtextbox("", -1, 64+8+16, 174,174,175, true);
             }
             graphics.addline("     You have rescued  ");
             graphics.addline("      a crew member!   ");
@@ -2748,11 +2748,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255, true);
             }
             //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
@@ -2772,11 +2772,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 104, 175,175,174);
+                graphics.createtextbox("", -1, 104, 175,175,174, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 64+8+16, 175,175,174);
+                graphics.createtextbox("", -1, 64+8+16, 175,175,174, true);
             }
             graphics.addline("     You have rescued  ");
             graphics.addline("      a crew member!   ");
@@ -2883,11 +2883,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
+                graphics.createtextbox("", -1, 180, 165, 165, 255, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
+                graphics.createtextbox("", -1, 12, 165, 165, 255, true);
             }
             //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
@@ -2907,11 +2907,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 104, 175,174,175);
+                graphics.createtextbox("", -1, 104, 175,174,175, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 64+8+16, 175,174,175);
+                graphics.createtextbox("", -1, 64+8+16, 175,174,175, true);
             }
             graphics.addline("     You have rescued  ");
             graphics.addline("      a crew member!   ");
@@ -3179,11 +3179,11 @@ void Game::updatestate()
 
             if (graphics.flipmode)
             {
-                graphics.createtextbox("", -1, 180, 164, 165, 255);
+                graphics.createtextbox("", -1, 180, 164, 165, 255, true);
             }
             else
             {
-                graphics.createtextbox("", -1, 12, 164, 165, 255);
+                graphics.createtextbox("", -1, 12, 164, 165, 255, true);
             }
             graphics.addline("                                   ");
             graphics.addline("");
