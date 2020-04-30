@@ -32,7 +32,8 @@ public:
 
 	void Makebfont();
 
-	void drawhuetile(int x, int y, int t, int c);
+	void drawhuetile(int x, int y, int t);
+	void huetilesetcol(int t);
 
 	void drawgravityline(int t);
 

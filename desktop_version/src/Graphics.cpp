@@ -1610,7 +1610,8 @@ void Graphics::drawentities()
             }
             break;
         case 4:    // Small pickups
-            drawhuetile(xp, yp - yoff, obj.entities[i].tile, obj.entities[i].colour);
+            huetilesetcol(obj.entities[i].colour);
+            drawhuetile(xp, yp - yoff, obj.entities[i].tile);
             break;
         case 5:    //Horizontal Line
             line_rect.x = xp;
@@ -2640,7 +2641,7 @@ void Graphics::menuoffrender()
 	FillRect(backBuffer, 0x000000);
 }
 
-void Graphics::drawhuetile( int x, int y, int t, int c )
+void Graphics::drawhuetile( int x, int y, int t )
 {
 	if (!INBOUNDS(t, tiles))
 	{
@@ -2649,7 +2650,16 @@ void Graphics::drawhuetile( int x, int y, int t, int c )
 	point tpoint;
 	tpoint.x = x;
 	tpoint.y = y;
-	switch(c)
+
+
+	SDL_Rect rect;
+	setRect(rect,tpoint.x,tpoint.y,tiles_rect.w, tiles_rect.h);
+	BlitSurfaceColoured(tiles[t],NULL,backBuffer, &rect, ct);
+}
+
+void Graphics::huetilesetcol(int t)
+{
+	switch (t)
 	{
 	case 0:
 		setcolreal(getRGB(250-int(fRandom()*32), 250-int(fRandom()*32), 10));
@@ -2661,11 +2671,6 @@ void Graphics::drawhuetile( int x, int y, int t, int c )
 		setcolreal(getRGB(250-int(fRandom()*32), 250-int(fRandom()*32),  10));
 		break;
 	}
-
-
-	SDL_Rect rect;
-	setRect(rect,tpoint.x,tpoint.y,tiles_rect.w, tiles_rect.h);
-	BlitSurfaceColoured(tiles[t],NULL,backBuffer, &rect, ct);
 }
 
 void Graphics::setwarprect( int a, int b, int c, int d )
