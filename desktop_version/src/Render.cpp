@@ -1441,13 +1441,14 @@ void gamerender()
 
     if (game.readytotele > 100 && !game.advancetext && game.hascontrol && !script.running && !game.intimetrial)
     {
+        int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
         if(graphics.flipmode)
         {
-            graphics.bprint(5, 20, "- Press ENTER to Teleport -", game.readytotele - 20 - (help.glow / 2), game.readytotele - 20 - (help.glow / 2), game.readytotele, true);
+            graphics.bprint(5, 20, "- Press ENTER to Teleport -", alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
         }
         else
         {
-            graphics.bprint(5, 210, "- Press ENTER to Teleport -", game.readytotele - 20 - (help.glow / 2), game.readytotele - 20 - (help.glow / 2), game.readytotele, true);
+            graphics.bprint(5, 210, "- Press ENTER to Teleport -", alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
         }
     }
 

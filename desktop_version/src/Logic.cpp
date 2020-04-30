@@ -1490,6 +1490,7 @@ void gamelogic()
 
     game.activeactivity = obj.checkactivity();
 
+    game.oldreadytotele = game.readytotele;
     if (game.activetele)
     {
         int i = obj.getplayer();

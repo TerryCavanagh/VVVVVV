@@ -318,6 +318,7 @@ public:
     SDL_Rect teleblock;
     bool activetele;
     int readytotele;
+    int oldreadytotele;
     int activity_r, activity_g, activity_b;
     std::string activity_lastprompt;
 
