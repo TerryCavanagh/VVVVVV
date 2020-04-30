@@ -799,6 +799,7 @@ void mapclass::resetplayer()
 			{
 				ypos = 0;
 			}
+			oldypos = ypos;
 			bypos = ypos / 2;
 		}
 	}
@@ -1147,6 +1148,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 	towermode = false;
 	ypos = 0;
+	oldypos = 0;
 	extrarow = 0;
 
 	//Custom stuff for warplines
@@ -1202,6 +1204,7 @@ void mapclass::loadlevel(int rx, int ry)
 				}
 
 				ypos = (700-29) * 8;
+				oldypos = ypos;
 				bypos = ypos / 2;
 				cameramode = 0;
 				colstate = 0;
@@ -1211,6 +1214,7 @@ void mapclass::loadlevel(int rx, int ry)
 			{
 				//you've entered from the top floor
 				ypos = 0;
+				oldypos = ypos;
 				bypos = 0;
 				cameramode = 0;
 				colstate = 0;
@@ -1379,6 +1383,7 @@ void mapclass::loadlevel(int rx, int ry)
 		tower.loadminitower1();
 
 		ypos = 0;
+		oldypos = 0;
 		bypos = 0;
 		cameramode = 0;
 		colstate = 0;
@@ -1408,6 +1413,7 @@ void mapclass::loadlevel(int rx, int ry)
 		finaly--;
 
 		ypos = (100-29) * 8;
+		oldypos = ypos;
 		bypos = ypos/2;
 		cameramode = 0;
 		colstate = 0;
@@ -1452,6 +1458,7 @@ void mapclass::loadlevel(int rx, int ry)
 		finaly--;
 
 		ypos = (100-29) * 8;
+		oldypos = ypos;
 		bypos = ypos/2;
 		cameramode = 0;
 		colstate = 0;
@@ -1490,6 +1497,7 @@ void mapclass::loadlevel(int rx, int ry)
 		obj.createentity(72, 156, 11, 200); // (horizontal gravity line)
 
 		ypos = 0;
+		oldypos = 0;
 		bypos = 0;
 		cameramode = 0;
 		colstate = 0;
