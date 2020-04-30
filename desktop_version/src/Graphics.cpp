@@ -2332,10 +2332,12 @@ void Graphics::drawtowermap_nobackground()
 
 void Graphics::drawtowerspikes()
 {
+    int spikeleveltop = lerp(map.oldspikeleveltop, map.spikeleveltop);
+    int spikelevelbottom = lerp(map.oldspikelevelbottom, map.spikelevelbottom);
     for (int i = 0; i < 40; i++)
     {
-        drawtile3(i * 8, -8+map.spikeleveltop, 9, map.colstate);
-        drawtile3(i * 8, 230-map.spikelevelbottom, 8, map.colstate);
+        drawtile3(i * 8, -8+spikeleveltop, 9, map.colstate);
+        drawtile3(i * 8, 230-spikelevelbottom, 8, map.colstate);
     }
 }
 

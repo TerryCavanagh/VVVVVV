@@ -13,6 +13,8 @@ mapclass::mapclass()
 	colsuperstate = 0;
 	spikeleveltop = 0;
 	spikelevelbottom = 0;
+	oldspikeleveltop = 0;
+	oldspikelevelbottom = 0;
 	warpx = false;
 	warpy = false;
 	extrarow = 0;
@@ -1152,6 +1154,8 @@ void mapclass::loadlevel(int rx, int ry)
 	extrarow = 0;
 	spikeleveltop = 0;
 	spikelevelbottom = 0;
+	oldspikeleveltop = 0;
+	oldspikelevelbottom = 0;
 
 	//Custom stuff for warplines
 	obj.customwarpmode=false;

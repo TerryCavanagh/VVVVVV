@@ -113,6 +113,7 @@ public:
     int colstate, colstatedelay;
     int colsuperstate;
     int spikeleveltop, spikelevelbottom;
+    int oldspikeleveltop, oldspikelevelbottom;
     bool tdrawback;
     int bscroll;
     //final level navigation
