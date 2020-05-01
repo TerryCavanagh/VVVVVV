@@ -103,6 +103,7 @@ public:
 	void drawgui();
 
 	void drawsprite(int x, int y, int t, int r, int g, int b);
+	void drawsprite(int x, int y, int t, Uint32 c);
 
 	void printcrewname(int x, int y, int t);
 
@@ -305,6 +306,20 @@ public:
 		return v0 + alpha * (v1 - v0);
 	}
 	float alpha;
+
+	Uint32 col_crewred;
+	Uint32 col_crewyellow;
+	Uint32 col_crewgreen;
+	Uint32 col_crewcyan;
+	Uint32 col_crewblue;
+	Uint32 col_crewpurple; //actually pink
+	Uint32 col_crewinactive;
+	Uint32 col_clock;
+	Uint32 col_trinket;
+	int col_tr;
+	int col_tg;
+	int col_tb;
+	void updatetitlecolours();
 };
 
 extern Graphics graphics;

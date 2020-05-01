@@ -519,8 +519,8 @@ void menurender()
             graphics.Print(160 - 84, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
             graphics.Print(160 + 40, 132-20, help.number(game.tele_trinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-            graphics.drawspritesetcol(50, 126-20, 50, 18);
-            graphics.drawspritesetcol(175, 126-20, 22, 18);
+            graphics.drawsprite(50, 126-20, 50, graphics.col_clock);
+            graphics.drawsprite(175, 126-20, 22, graphics.col_trinket);
             break;
         case 1:
             //Show quick save info
@@ -535,8 +535,8 @@ void menurender()
             graphics.Print(160 - 84, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
             graphics.Print(160 + 40, 132-20, help.number(game.quick_trinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-            graphics.drawspritesetcol(50, 126-20, 50, 18);
-            graphics.drawspritesetcol(175, 126-20, 22, 18);
+            graphics.drawsprite(50, 126-20, 50, graphics.col_clock);
+            graphics.drawsprite(175, 126-20, 22, graphics.col_trinket);
             break;
         }
         break;
@@ -1029,9 +1029,9 @@ void titlerender()
 
     if (!game.menustart)
     {
-        tr = (int)(164 - (help.glow / 2) - int(fRandom() * 4));
-        tg = 164 - (help.glow / 2) - int(fRandom() * 4);
-        tb = 164 - (help.glow / 2) - int(fRandom() * 4);
+        tr = graphics.col_tr;
+        tg = graphics.col_tg;
+        tb = graphics.col_tb;
 
         int temp = 50;
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
@@ -1051,15 +1051,9 @@ void titlerender()
     {
         if(!game.colourblindmode) graphics.drawtowerbackground();
 
-        tr = map.r - (help.glow / 4) - int(fRandom() * 4);
-        tg = map.g - (help.glow / 4) - int(fRandom() * 4);
-        tb = map.b - (help.glow / 4) - int(fRandom() * 4);
-        if (tr < 0) tr = 0;
-        if(tr>255) tr=255;
-        if (tg < 0) tg = 0;
-        if(tg>255) tg=255;
-        if (tb < 0) tb = 0;
-        if(tb>255) tb=255;
+        tr = graphics.col_tr;
+        tg = graphics.col_tg;
+        tb = graphics.col_tb;
 
         menurender();
 
@@ -1113,15 +1107,9 @@ void gamecompleterender()
 
     if(!game.colourblindmode) graphics.drawtowerbackground();
 
-    tr = map.r - (help.glow / 4) - fRandom() * 4;
-    tg = map.g - (help.glow / 4) - fRandom() * 4;
-    tb = map.b - (help.glow / 4) - fRandom() * 4;
-    if (tr < 0) tr = 0;
-    if(tr>255) tr=255;
-    if (tg < 0) tg = 0;
-    if(tg>255) tg=255;
-    if (tb < 0) tb = 0;
-    if(tb>255) tb=255;
+    tr = graphics.col_tr;
+    tg = graphics.col_tg;
+    tb = graphics.col_tb;
 
 
     //rendering starts... here!
@@ -2193,8 +2181,8 @@ void maprender()
                     graphics.Print(160 - 84, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
                     graphics.Print(160 + 40, 78, help.number(game.savetrinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-                    graphics.drawspritesetcol(50, 74, 50, 18);
-                    graphics.drawspritesetcol(175, 74, 22, 18);
+                    graphics.drawsprite(50, 74, 50, graphics.col_clock);
+                    graphics.drawsprite(175, 74, 22, graphics.col_trinket);
                 }
                 else
                 {
@@ -2202,8 +2190,8 @@ void maprender()
                     graphics.Print(160 - 84, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
                     graphics.Print(160 + 40, 132, help.number(game.savetrinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-                    graphics.drawspritesetcol(50, 126, 50, 18);
-                    graphics.drawspritesetcol(175, 126, 22, 18);
+                    graphics.drawsprite(50, 126, 50, graphics.col_clock);
+                    graphics.drawsprite(175, 126, 22, graphics.col_trinket);
                 }
             }
             else
@@ -2240,8 +2228,8 @@ void maprender()
                     graphics.Print(160 - 84, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
                     graphics.Print(160 + 40, 78, help.number(game.savetrinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-                    graphics.drawspritesetcol(50, 74, 50, 18);
-                    graphics.drawspritesetcol(175, 74, 22, 18);
+                    graphics.drawsprite(50, 74, 50, graphics.col_clock);
+                    graphics.drawsprite(175, 74, 22, graphics.col_trinket);
                 }
                 else
                 {
@@ -2253,8 +2241,8 @@ void maprender()
                     graphics.Print(160 - 84, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
                     graphics.Print(160 + 40, 132, help.number(game.savetrinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-                    graphics.drawspritesetcol(50, 126, 50, 18);
-                    graphics.drawspritesetcol(175, 126, 22, 18);
+                    graphics.drawsprite(50, 126, 50, graphics.col_clock);
+                    graphics.drawsprite(175, 126, 22, graphics.col_trinket);
                 }
             }
             else
