@@ -1617,7 +1617,7 @@ void gamerender()
         graphics.Print(5, 12, game.activity_lastprompt, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
     }
 
-    if (obj.trophytext > 0)
+    if (obj.trophytext > 0 || obj.oldtrophytext > 0)
     {
         graphics.drawtrophytext();
     }
