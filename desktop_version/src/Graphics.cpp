@@ -124,6 +124,19 @@ void Graphics::init()
 
     screenshake_x = 0;
     screenshake_y = 0;
+
+    col_crewred = 0x00000000;
+    col_crewyellow = 0x00000000;
+    col_crewgreen = 0x00000000;
+    col_crewcyan = 0x00000000;
+    col_crewblue = 0x00000000;
+    col_crewpurple = 0x00000000;
+    col_crewinactive = 0x00000000;
+    col_clock = 0x00000000;
+    col_trinket = 0x00000000;
+    col_tr = 0;
+    col_tg = 0;
+    col_tb = 0;
 }
 
 int Graphics::font_idx(uint32_t ch) {
@@ -158,6 +171,29 @@ void Graphics::drawspritesetcol(int x, int y, int t, int c)
     setcol(c);
 
     BlitSurfaceColoured(sprites[t],NULL,backBuffer, &rect, ct);
+}
+
+void Graphics::updatetitlecolours()
+{
+    setcol(15);
+    col_crewred = ct.colour;
+    setcol(14);
+    col_crewyellow = ct.colour;
+    setcol(13);
+    col_crewgreen = ct.colour;
+    setcol(0);
+    col_crewcyan = ct.colour;
+    setcol(16);
+    col_crewblue = ct.colour;
+    setcol(20);
+    col_crewpurple = ct.colour;
+    setcol(19);
+    col_crewinactive = ct.colour;
+
+    setcol(18);
+    col_clock = ct.colour;
+    setcol(18);
+    col_trinket = ct.colour;
 }
 
 void Graphics::Makebfont()
@@ -540,6 +576,13 @@ void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
 }
 
+void Graphics::drawsprite(int x, int y, int t, Uint32 c)
+{
+    SDL_Rect rect = { Sint16(x), Sint16(y), sprites_rect.w, sprites_rect.h };
+    setcolreal(c);
+    BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
+}
+
 void Graphics::drawtile( int x, int y, int t )
 {
     if (!INBOUNDS(t, tiles))
@@ -890,22 +933,22 @@ void Graphics::drawcrewman( int x, int y, int t, bool act, bool noshift /*=false
         {
             if (flipmode)
             {
-                drawspritesetcol(x, y, 14, 19);
+                drawsprite(x, y, 14, col_crewinactive);
             }
             else
             {
-                drawspritesetcol(x, y, 12, 19);
+                drawsprite(x, y, 12, col_crewinactive);
             }
         }
         else
         {
             if (flipmode)
             {
-                drawspritesetcol(x - 8, y, 14, 19);
+                drawsprite(x - 8, y, 14, col_crewinactive);
             }
             else
             {
-                drawspritesetcol(x - 8, y, 12, 19);
+                drawsprite(x - 8, y, 12, col_crewinactive);
             }
         }
     }
@@ -916,22 +959,22 @@ void Graphics::drawcrewman( int x, int y, int t, bool act, bool noshift /*=false
         switch(t)
         {
         case 0:
-            drawspritesetcol(x, y, crewframe, 0);
+            drawsprite(x, y, crewframe, col_crewcyan);
             break;
         case 1:
-            drawspritesetcol(x, y, crewframe, 20);
+            drawsprite(x, y, crewframe, col_crewpurple);
             break;
         case 2:
-            drawspritesetcol(x, y, crewframe, 14);
+            drawsprite(x, y, crewframe, col_crewyellow);
             break;
         case 3:
-            drawspritesetcol(x, y, crewframe, 15);
+            drawsprite(x, y, crewframe, col_crewred);
             break;
         case 4:
-            drawspritesetcol(x, y, crewframe, 13);
+            drawsprite(x, y, crewframe, col_crewgreen);
             break;
         case 5:
-            drawspritesetcol(x, y, crewframe, 16);
+            drawsprite(x, y, crewframe, col_crewblue);
             break;
         }
 

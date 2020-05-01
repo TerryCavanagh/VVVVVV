@@ -17,6 +17,27 @@ void titlelogic()
         graphics.updatetowerbackground();
     }
 
+    if (!game.menustart)
+    {
+        graphics.col_tr = (int)(164 - (help.glow / 2) - int(fRandom() * 4));
+        graphics.col_tg = 164 - (help.glow / 2) - int(fRandom() * 4);
+        graphics.col_tb = 164 - (help.glow / 2) - int(fRandom() * 4);
+    }
+    else
+    {
+        graphics.col_tr = map.r - (help.glow / 4) - int(fRandom() * 4);
+        graphics.col_tg = map.g - (help.glow / 4) - int(fRandom() * 4);
+        graphics.col_tb = map.b - (help.glow / 4) - int(fRandom() * 4);
+        if (graphics.col_tr < 0) graphics.col_tr = 0;
+        if(graphics.col_tr>255) graphics.col_tr=255;
+        if (graphics.col_tg < 0) graphics.col_tg = 0;
+        if(graphics.col_tg>255) graphics.col_tg=255;
+        if (graphics.col_tb < 0) graphics.col_tb = 0;
+        if(graphics.col_tb>255) graphics.col_tb=255;
+
+        graphics.updatetitlecolours();
+    }
+
     graphics.crewframedelay--;
     if (graphics.crewframedelay <= 0)
     {
@@ -51,6 +72,7 @@ void maplogic()
     //Misc
     help.updateglow();
     graphics.updatetextboxes();
+    graphics.updatetitlecolours();
 
     graphics.crewframedelay--;
     if (graphics.crewframedelay <= 0)
@@ -103,6 +125,17 @@ void gamecompletelogic()
     help.updateglow();
     graphics.crewframe = 0;
     map.scrolldir = 1;
+    graphics.updatetitlecolours();
+
+    graphics.col_tr = map.r - (help.glow / 4) - fRandom() * 4;
+    graphics.col_tg = map.g - (help.glow / 4) - fRandom() * 4;
+    graphics.col_tb = map.b - (help.glow / 4) - fRandom() * 4;
+    if (graphics.col_tr < 0) graphics.col_tr = 0;
+    if(graphics.col_tr>255) graphics.col_tr=255;
+    if (graphics.col_tg < 0) graphics.col_tg = 0;
+    if(graphics.col_tg>255) graphics.col_tg=255;
+    if (graphics.col_tb < 0) graphics.col_tb = 0;
+    if(graphics.col_tb>255) graphics.col_tb=255;
 
     game.creditposition--;
     if (game.creditposition <= -game.creditmaxposition)
