@@ -53,6 +53,8 @@ entclass::entclass()
 	walkingframe = 0;
 	dir = 0;
 	actionframe = 0;
+
+	realcol = 0;
 }
 
 bool entclass::outside()
@@ -583,6 +585,53 @@ void entclass::settreadmillcolour( int rx, int ry )
 		break; //Red
 	default:
 		return;
+		break;
+	}
+}
+
+void entclass::updatecolour()
+{
+	switch (size)
+	{
+	case 0: // Sprites
+	case 7: // Teleporter
+	case 9: // Really Big Sprite! (2x2)
+	case 10: // 2x1 Sprite
+	case 13: // Special for epilogue: huge hero!
+		graphics.setcol(colour);
+		realcol = graphics.ct.colour;
+		break;
+	case 3: // Big chunky pixels!
+		realcol = graphics.bigchunkygetcol(colour);
+		break;
+	case 4: // Small pickups
+		graphics.huetilesetcol(colour);
+		realcol = graphics.ct.colour;
+		break;
+	case 11: // The fucking elephant
+		if (game.noflashingmode)
+		{
+			graphics.setcol(22);
+		}
+		else
+		{
+			graphics.setcol(colour);
+		}
+		realcol = graphics.ct.colour;
+		break;
+	case 12: // Regular sprites that don't wrap
+		// if we're outside the screen, we need to draw indicators
+		if ((xp < -20 && vx > 0) || (xp > 340 && vx < 0))
+		{
+			graphics.setcol(23);
+		}
+		else
+		{
+			graphics.setcol(colour);
+		}
+		realcol = graphics.ct.colour;
+		break;
+	default:
 		break;
 	}
 }

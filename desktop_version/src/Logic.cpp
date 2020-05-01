@@ -1608,4 +1608,15 @@ void gamelogic()
             graphics.linedelay--;
         }
     }
+
+    graphics.trinketcolset = false;
+    for (int i = obj.entities.size() - 1; i >= 0; i--)
+    {
+        if (obj.entities[i].invis)
+        {
+            continue;
+        }
+
+        obj.entities[i].updatecolour();
+    }
 }
