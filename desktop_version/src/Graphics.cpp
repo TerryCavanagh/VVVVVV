@@ -1488,8 +1488,6 @@ void Graphics::drawentities()
         yoff = 0;
     }
 
-    trinketcolset = false;
-
     for (int i = obj.entities.size() - 1; i >= 0; i--)
     {
         if (obj.entities[i].invis)
@@ -1510,7 +1508,7 @@ void Graphics::drawentities()
             }
             tpoint.x = xp;
             tpoint.y = yp - yoff;
-            setcol(obj.entities[i].colour);
+            setcolreal(obj.entities[i].realcol);
 
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1599,10 +1597,10 @@ void Graphics::drawentities()
         case 3:    // Big chunky pixels!
             prect.x = xp;
             prect.y = yp - yoff;
-            FillRect(backBuffer, prect, bigchunkygetcol(obj.entities[i].colour));
+            FillRect(backBuffer, prect, obj.entities[i].realcol);
             break;
         case 4:    // Small pickups
-            huetilesetcol(obj.entities[i].colour);
+            setcol(obj.entities[i].realcol);
             drawhuetile(xp, yp - yoff, obj.entities[i].tile);
             break;
         case 5:    //Horizontal Line
@@ -1620,7 +1618,7 @@ void Graphics::drawentities()
             drawgravityline(i);
             break;
         case 7:    //Teleporter
-            drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].colour);
+            drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].realcol);
             break;
         //case 8:    // Special: Moving platform, 8 tiles
             // Note: This code is in the 4-tile code
@@ -1630,7 +1628,7 @@ void Graphics::drawentities()
             {
                 continue;
             }
-            setcol(obj.entities[i].colour);
+            setcolreal(obj.entities[i].realcol);
 
             tpoint.x = xp;
             tpoint.y = yp - yoff;
@@ -1669,7 +1667,7 @@ void Graphics::drawentities()
             {
                 continue;
             }
-            setcol(obj.entities[i].colour);
+            setcolreal(obj.entities[i].realcol);
 
             tpoint.x = xp;
             tpoint.y = yp - yoff;
@@ -1688,14 +1686,7 @@ void Graphics::drawentities()
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
             break;
         case 11:    //The fucking elephant
-            if (game.noflashingmode)
-            {
-                setcol(22);
-            }
-            else
-            {
-                setcol(obj.entities[i].colour);
-            }
+            setcolreal(obj.entities[i].realcol);
             drawimagecol(3, xp, yp - yoff);
             break;
         case 12:         // Regular sprites that don't wrap
@@ -1705,7 +1696,7 @@ void Graphics::drawentities()
             }
             tpoint.x = xp;
             tpoint.y = yp - yoff;
-            setcol(obj.entities[i].colour);
+            setcolreal(obj.entities[i].realcol);
             //
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
@@ -1727,7 +1718,6 @@ void Graphics::drawentities()
                 }
 
                 tpoint.y = tpoint.y+4;
-                setcol(23);
 
 
                 drawRect = tiles_rect;
@@ -1748,7 +1738,6 @@ void Graphics::drawentities()
                 }
 
                 tpoint.y = tpoint.y+4;
-                setcol(23);
                 //
 
                 drawRect = tiles_rect;
@@ -1766,7 +1755,7 @@ void Graphics::drawentities()
             }
 
             tpoint.x = xp; tpoint.y = yp - yoff;
-            setcol(obj.entities[i].colour);
+            setcolreal(obj.entities[i].realcol);
             SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
             SDL_Surface* TempSurface = ScaleSurface( (*spritesvec)[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
             BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
@@ -2867,7 +2856,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 	}
 }
 
-void Graphics::drawtele(int x, int y, int t, int c)
+void Graphics::drawtele(int x, int y, int t, Uint32 c)
 {
 	setcolreal(getRGB(16,16,16));
 
@@ -2878,7 +2867,7 @@ void Graphics::drawtele(int x, int y, int t, int c)
 		BlitSurfaceColoured(tele[0], NULL, backBuffer, &telerect, ct);
 	}
 
-	setcol(c);
+	setcolreal(c);
 	if (t > 9) t = 8;
 	if (t < 0) t = 0;
 

@@ -148,7 +148,7 @@ public:
 	void bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
 
 
-	void drawtele(int x, int y, int t, int c);
+	void drawtele(int x, int y, int t, Uint32 c);
 
 	Uint32 getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
