@@ -223,7 +223,9 @@ void entclass::setenemyroom( int rx, int ry )
 			w = 16;
 			h = 16;
 			xp -= 24;
+			oldxp -= 24;
 			yp -= 16;
+			oldyp -= 16;
 		}
 		else
 		{
@@ -236,7 +238,9 @@ void entclass::setenemyroom( int rx, int ry )
 			cx = 4;
 			size = 9;
 			xp -= 4;
+			oldxp -= 4;
 			yp -= 32;
+			oldyp -= 32;
 		}
 
 		break;
@@ -337,6 +341,7 @@ void entclass::setenemyroom( int rx, int ry )
 		w = 32;
 		h = 14;
 		yp += 1;
+		oldyp += 1;
 		break;
 	case rn(16, 2): // (Manequins)
 		tile = 52;
@@ -345,6 +350,7 @@ void entclass::setenemyroom( int rx, int ry )
 		w = 16;
 		h = 25;
 		yp -= 4;
+		oldyp -= 4;
 		break;
 	case rn(18, 0): // (Obey)
 		tile = 51;
