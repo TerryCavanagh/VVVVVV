@@ -1631,17 +1631,9 @@ void maprender()
 
     //draw screen alliteration
     //Roomname:
-    int temp = map.area(game.roomx, game.roomy);
-    if (temp < 2 && !map.custommode && graphics.fademode==0)
+    if (map.hiddenname != "")
     {
-        if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111)
-        {
-            graphics.Print(5, 2, "The Ship", 196, 196, 255 - help.glow, true);
-        }
-        else
-        {
-            graphics.Print(5, 2, "Dimension VVVVVV", 196, 196, 255 - help.glow, true);
-        }
+        graphics.Print(5, 2, map.hiddenname, 196, 196, 255 - help.glow, true);
     }
     else
     {
@@ -2402,14 +2394,7 @@ void teleporterrender()
     int temp = map.area(game.roomx, game.roomy);
     if (temp < 2 && !map.custommode && graphics.fademode==0)
     {
-        if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111)
-        {
-            graphics.Print(5, 2, "The Ship", 196, 196, 255 - help.glow, true);
-        }
-        else
-        {
-            graphics.Print(5, 2, "Dimension VVVVVV", 196, 196, 255 - help.glow, true);
-        }
+        graphics.Print(5, 2, map.hiddenname, 196, 196, 255 - help.glow, true);
     }
     else
     {

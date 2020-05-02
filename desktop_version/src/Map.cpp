@@ -1144,6 +1144,7 @@ void mapclass::loadlevel(int rx, int ry)
 	obj.vertplatforms = false;
 	obj.horplatforms = false;
 	roomname = "";
+	hiddenname = "";
 	background = 1;
 	warpx = false;
 	warpy = false;
@@ -1282,6 +1283,15 @@ void mapclass::loadlevel(int rx, int ry)
 		{
 			roomtexton = true;
 			roomtext = std::vector<Roomtext>(otherlevel.roomtext);
+		}
+
+		if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111)
+		{
+			hiddenname = "The Ship";
+		}
+		else
+		{
+			hiddenname = "Dimension VVVVVV";
 		}
 		break;
 	case 2: //The Lab
