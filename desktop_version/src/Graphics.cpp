@@ -2174,6 +2174,8 @@ void Graphics::updatebackground(int t)
         }
         break;
     case 3: //Warp zone (horizontal)
+    {
+        int temp = 680 + (rcol * 3);
         backoffset+=3;
         if (backoffset >= 16) backoffset -= 16;
 
@@ -2182,11 +2184,13 @@ void Graphics::updatebackground(int t)
             ScrollSurface(towerbuffer, -3, 0 );
             for (int j = 0; j < 15; j++)
             {
-                int temp = 680 + (rcol * 3);
-                drawtowertile(317 - backoffset, (j * 16), temp+40);  //20*16 = 320
-                drawtowertile(317 - backoffset + 8, (j * 16), temp + 41);
-                drawtowertile(317 - backoffset, (j * 16) + 8, temp + 80);
-                drawtowertile(317 - backoffset + 8, (j * 16) + 8, temp + 81);
+                for (int i = 0; i < 2; i++)
+                {
+                    drawtowertile(317 - backoffset + (i * 16), (j * 16), temp+40);  //20*16 = 320
+                    drawtowertile(317 - backoffset + (i * 16) + 8, (j * 16), temp + 41);
+                    drawtowertile(317 - backoffset + (i * 16), (j * 16) + 8, temp + 80);
+                    drawtowertile(317 - backoffset + (i * 16) + 8, (j * 16) + 8, temp + 81);
+                }
             }
         }
         else
@@ -2198,7 +2202,6 @@ void Graphics::updatebackground(int t)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    int temp = 680 + (rcol * 3);
                     drawtowertile((i * 16) - backoffset - 3, (j * 16), temp+40);
                     drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
                     drawtowertile((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
@@ -2208,20 +2211,25 @@ void Graphics::updatebackground(int t)
             backgrounddrawn = true;
         }
         break;
+    }
     case 4: //Warp zone (vertical)
+    {
+        int temp = 760 + (rcol * 3);
         backoffset+=3;
         if (backoffset >= 16) backoffset -= 16;
 
         if (backgrounddrawn)
         {
             ScrollSurface(towerbuffer,0,-3);
-            for (int i = 0; i < 21; i++)
+            for (int j = 0; j < 2; j++)
             {
-                int temp = 760 + (rcol * 3);
-                drawtowertile((i * 16), 237 - backoffset, temp + 40); //14*17=240 - 3
-                drawtowertile((i * 16) + 8, 237 - backoffset, temp + 41);
-                drawtowertile((i * 16), 237 - backoffset + 8, temp + 80);
-                drawtowertile((i * 16) + 8, 237 - backoffset + 8, temp + 81);
+                for (int i = 0; i < 21; i++)
+                {
+                    drawtowertile((i * 16), 237 - backoffset + (j * 16), temp + 40); //14*17=240 - 3
+                    drawtowertile((i * 16) + 8, 237 - backoffset + (j * 16), temp + 41);
+                    drawtowertile((i * 16), 237 - backoffset + (j * 16) + 8, temp + 80);
+                    drawtowertile((i * 16) + 8, 237 - backoffset + (j * 16) + 8, temp + 81);
+                }
             }
         }
         else
@@ -2229,11 +2237,10 @@ void Graphics::updatebackground(int t)
             //draw the whole thing for the first time!
             backoffset = 0;
             FillRect(towerbuffer,0x000000 );
-            for (int j = 0; j < 15; j++)
+            for (int j = 0; j < 16; j++)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    int temp = 760 + (rcol * 3);
                     drawtowertile((i * 16), (j * 16)- backoffset - 3, temp+40);
                     drawtowertile((i * 16)+ 8, (j * 16)- backoffset - 3, temp + 41);
                     drawtowertile((i * 16), (j * 16)- backoffset + 8 - 3, temp + 80);
@@ -2243,6 +2250,7 @@ void Graphics::updatebackground(int t)
             backgrounddrawn = true;
         }
         break;
+    }
     case 5:
         //Warp zone, central
 
