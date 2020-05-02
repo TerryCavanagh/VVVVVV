@@ -232,6 +232,7 @@ public:
     enum Menu::MenuName menudest;
 
     int creditposx, creditposy, creditposdelay;
+    int oldcreditposx;
 
 
     //Sine Wave Ninja Minigame
