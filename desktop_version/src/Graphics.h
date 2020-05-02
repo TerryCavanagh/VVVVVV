@@ -322,6 +322,8 @@ public:
 	void updatetitlecolours();
 
 	bool kludgeswnlinewidth;
+
+	Uint32 crewcolourreal(int t);
 };
 
 extern Graphics graphics;
