@@ -237,6 +237,7 @@ class editorclass{
   int dmtileeditor;
 
   int returneditoralpha;
+  int oldreturneditoralpha;
 
   std::vector<GhostInfo> ghosts;
   int currentghosts;

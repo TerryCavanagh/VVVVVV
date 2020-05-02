@@ -1666,6 +1666,7 @@ void gamelogic()
     }
 
 #if !defined(NO_CUSTOM_LEVELS)
+    ed.oldreturneditoralpha = ed.returneditoralpha;
     if (map.custommode && !map.custommodeforreal && ed.returneditoralpha > 0)
     {
         ed.returneditoralpha -= 15;
