@@ -2379,6 +2379,7 @@ void Graphics::drawtowerspikes()
 
 void Graphics::drawtowerbackground()
 {
+    FillRect(backBuffer, 0x000000);
     SDL_BlitSurface(towerbuffer, NULL, towerbuffer_lerp, NULL);
     ScrollSurface(towerbuffer_lerp, 0, lerp(0, -map.bscroll));
     SDL_BlitSurface(towerbuffer_lerp,NULL, backBuffer,NULL);
