@@ -1389,7 +1389,8 @@ void gamerender()
 #if !defined(NO_CUSTOM_LEVELS)
      if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
-        graphics.bprintalpha(5, 5, "[Press ENTER to return to editor]", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), ed.returneditoralpha, false);
+        int alpha = graphics.lerp(ed.oldreturneditoralpha, ed.returneditoralpha);
+        graphics.bprintalpha(5, 5, "[Press ENTER to return to editor]", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), alpha, false);
       }
 #endif
 
