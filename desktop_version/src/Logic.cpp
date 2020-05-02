@@ -442,6 +442,7 @@ void gamelogic()
         game.lifesequence();
     }
 
+    graphics.kludgeswnlinewidth = false;
 
     if (game.deathseq != -1)
     {
@@ -747,6 +748,7 @@ void gamelogic()
                 {
                     obj.entities[obj.getlineat(84 - 32)].w = 332;
                     game.swngame = 2;
+                    graphics.kludgeswnlinewidth = true;
                 }
             }
             else if (game.swngame == 4)    //create top line

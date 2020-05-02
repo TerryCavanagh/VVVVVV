@@ -137,6 +137,8 @@ void Graphics::init()
     col_tr = 0;
     col_tg = 0;
     col_tb = 0;
+
+    kludgeswnlinewidth = false;
 }
 
 int Graphics::font_idx(uint32_t ch) {
@@ -1649,7 +1651,7 @@ void Graphics::drawentities()
         case 5:    //Horizontal Line
         {
             int oldw = obj.entities[i].w;
-            if (game.swngame == 3 && obj.getlineat(84 - 32) == i)
+            if ((game.swngame == 3 || kludgeswnlinewidth) && obj.getlineat(84 - 32) == i)
             {
                 oldw -= 24;
             }

@@ -320,6 +320,8 @@ public:
 	int col_tg;
 	int col_tb;
 	void updatetitlecolours();
+
+	bool kludgeswnlinewidth;
 };
 
 extern Graphics graphics;
