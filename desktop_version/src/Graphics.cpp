@@ -2403,7 +2403,7 @@ void Graphics::updatetowerbackground()
     {
         int off = map.scrolldir == 0 ? 0 : map.bscroll;
         //Draw the whole thing; needed for every colour cycle!
-        for (int j = 0; j < 31; j++)
+        for (int j = 0; j < 32; j++)
         {
             for (int i = 0; i < 40; i++)
             {
@@ -2436,6 +2436,8 @@ void Graphics::updatetowerbackground()
                 drawtowertile3(i * 8, 30*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
                 temp = map.tower.backat(i, 31, map.bypos);
                 drawtowertile3(i * 8, 31*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
+                temp = map.tower.backat(i, 32, map.bypos);
+                drawtowertile3(i * 8, 32*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
             }
         }
     }
