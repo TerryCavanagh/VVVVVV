@@ -1664,4 +1664,11 @@ void gamelogic()
     {
         map.glitchname = map.getglitchname(game.roomx, game.roomy);
     }
+
+#if !defined(NO_CUSTOM_LEVELS)
+    if (map.custommode && !map.custommodeforreal && ed.returneditoralpha > 0)
+    {
+        ed.returneditoralpha -= 15;
+    }
+#endif
 }
