@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include "Script.h"
+#include "Graphics.h"
 
 class edentities{
 public:
@@ -150,6 +151,7 @@ class editorclass{
   int getlevelcol(int t);
   int getenemycol(int t);
   int entcol;
+  Uint32 entcolreal;
 
   //Colouring stuff
   int getwarpbackground(int rx, int ry);
