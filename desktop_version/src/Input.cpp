@@ -2220,10 +2220,13 @@ void gamecompleteinput2()
     game.press_action = false;
     game.press_map = false;
 
+    //Do this here because input comes first
+    game.oldcreditposx = game.creditposx;
 
     if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
     {
         game.creditposx++;
+        game.oldcreditposx++;
         if (game.creditposy >= 30)
         {
             if(graphics.fademode==0)
