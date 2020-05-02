@@ -108,6 +108,8 @@ int main(int argc, char *argv[])
         }
     }
 
+    SDL_SetHintWithPriority(SDL_HINT_RENDER_VSYNC, "1", SDL_HINT_OVERRIDE);
+
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
     {
         return 1;
