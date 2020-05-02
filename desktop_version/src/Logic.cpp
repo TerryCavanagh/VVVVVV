@@ -1022,11 +1022,13 @@ void gamelogic()
                         {
                             if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                             obj.entities[i].xp += 400;
+                            obj.entities[i].oldxp += 400;
                         }
                         else if (obj.entities[i].xp > 320)
                         {
                             if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                             obj.entities[i].xp -= 400;
+                            obj.entities[i].oldxp -= 400;
                         }
                     }
                     else
