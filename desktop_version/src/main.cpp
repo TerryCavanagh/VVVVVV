@@ -330,9 +330,13 @@ int main(int argc, char *argv[])
         {
             timesteplimit = 24;
         }
-        else
+        else if (game.gamestate == GAMEMODE || game.gamestate == MAPMODE || game.gamestate == TELEPORTERMODE)
         {
             timesteplimit = game.gameframerate;
+        }
+        else
+        {
+            timesteplimit = 34;
         }
 
         while (accumulator >= timesteplimit)
