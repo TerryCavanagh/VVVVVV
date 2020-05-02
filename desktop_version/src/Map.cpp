@@ -1942,6 +1942,10 @@ void mapclass::loadlevel(int rx, int ry)
 	{
 		if (obj.entities[i].rule == 6 || obj.entities[i].rule == 7)
 		{
+			if (obj.entities[i].tile == 144 || obj.entities[i].tile == 144+6)
+			{
+				obj.entities[i].drawframe = 144;
+			}
 			if (obj.entities[i].state == 18)
 			{
 				//face the player
