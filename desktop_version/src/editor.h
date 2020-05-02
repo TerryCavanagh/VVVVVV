@@ -164,6 +164,7 @@ class editorclass{
 
   int temp;
   int notedelay;
+  int oldnotedelay;
   std::string note;
   std::string keybuffer;
   std::string filename;

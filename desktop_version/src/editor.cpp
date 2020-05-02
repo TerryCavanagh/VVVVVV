@@ -305,6 +305,7 @@ void editorclass::reset()
     saveandquit=false;
     note="";
     notedelay=0;
+    oldnotedelay=0;
     roomnamemod=false;
     textentry=false;
     savemod=false;
@@ -3574,11 +3575,12 @@ void editorrender()
         }
     }
 
-    if(ed.notedelay>0)
+    if(ed.notedelay>0 || ed.oldnotedelay>0)
     {
+        float alpha = graphics.lerp(ed.oldnotedelay, ed.notedelay);
         FillRect(graphics.backBuffer, 0,115,320,18, graphics.getRGB(92,92,92));
         FillRect(graphics.backBuffer, 0,116,320,16, graphics.getRGB(0,0,0));
-        graphics.Print(0,121, ed.note,196-((45-ed.notedelay)*4), 196-((45-ed.notedelay)*4), 196-((45-ed.notedelay)*4), true);
+        graphics.Print(0,121, ed.note,196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), true);
     }
 
     graphics.drawfade();
@@ -3601,6 +3603,7 @@ void editorlogic()
         ed.entframedelay=8;
     }
 
+    ed.oldnotedelay = ed.notedelay;
     if(ed.notedelay>0)
     {
         ed.notedelay--;
