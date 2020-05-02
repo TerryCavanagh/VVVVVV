@@ -1040,8 +1040,8 @@ void mapclass::gotoroom(int rx, int ry)
 	temp = obj.getplayer();
 	if(temp>-1)
 	{
-		obj.entities[temp].oldxp = obj.entities[temp].xp;
-		obj.entities[temp].oldyp = obj.entities[temp].yp;
+		obj.entities[temp].oldxp = obj.entities[temp].xp - int(obj.entities[temp].vx);
+		obj.entities[temp].oldyp = obj.entities[temp].yp - int(obj.entities[temp].vy);
 	}
 
 	for (size_t i = 0; i < obj.entities.size(); i++)
