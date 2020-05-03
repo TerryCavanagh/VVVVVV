@@ -2105,6 +2105,7 @@ void Game::updatestate()
                 if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
             }
             graphics.showcutscenebars = false;
+            returntomenu(Menu::levellist);
             break;
 #endif
         case 1014:

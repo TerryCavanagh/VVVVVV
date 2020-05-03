@@ -109,6 +109,7 @@ void gamecompletelogic2()
         game.gamestate = TITLEMODE;
         graphics.fademode = 4;
         music.playef(18);
+        game.returntomenu(Menu::play);
         game.createmenu(Menu::gamecompletecontinue);
         map.nexttowercolour();
     }
