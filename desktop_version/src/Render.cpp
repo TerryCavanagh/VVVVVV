@@ -162,6 +162,20 @@ void menurender()
                 graphics.Print(-1, 85, "Current mode: HIDE", tr/2, tg/2, tb/2, true);
             }
             break;
+        case 5:
+            graphics.bigprint(-1, 30, "Toggle 30+ FPS", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Change whether the game", tr, tg, tb, true);
+            graphics.Print(-1, 75, "runs at 30 or over 30 FPS.", tr, tg, tb, true);
+
+            if (!game.over30mode)
+            {
+                graphics.Print(-1, 95, "Current mode: 30 FPS", tr/2, tg/2, tb/2, true);
+            }
+            else
+            {
+                graphics.Print(-1, 95, "Current mode: Over 30 FPS", tr, tg, tb, true);
+            }
+            break;
         }
         break;
     case Menu::credits:

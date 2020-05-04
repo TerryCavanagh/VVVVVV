@@ -387,6 +387,8 @@ void Game::init(void)
     shouldreturntoeditor = false;
 #endif
 
+    over30mode = false;
+
     /* Terry's Patrons... */
     const char* superpatrons_arr[] = {
     "Anders Ekermo",
@@ -4746,6 +4748,11 @@ void Game::loadstats()
             skipfakeload = atoi(pText);
         }
 
+        if (pKey == "over30mode")
+        {
+            over30mode = atoi(pText);
+        }
+
         if (pKey == "notextoutline")
         {
             graphics.notextoutline = atoi(pText);
@@ -4989,6 +4996,10 @@ void Game::savestats()
 
     msg = doc.NewElement("showmousecursor");
     msg->LinkEndChild(doc.NewText(help.String((int)graphics.showmousecursor).c_str()));
+    dataNode->LinkEndChild(msg);
+
+    msg = doc.NewElement("over30mode");
+    msg->LinkEndChild(doc.NewText(help.String((int) over30mode).c_str()));
     dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
@@ -7063,6 +7074,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("toggle filter");
         option("toggle analogue");
         option("toggle mouse");
+        option("toggle fps");
         option("return");
         menuxoff = -50;
         menuyoff = 8;
