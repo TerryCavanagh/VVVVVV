@@ -5,6 +5,11 @@
 
 bool entityclass::checktowerspikes(int t)
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return false;
+    }
+
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy;
     tempw = entities[t].w;
@@ -1033,6 +1038,10 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
 
 void entityclass::removeentity(int t)
 {
+    if (t < 0 || t > (int) entities.size())
+    {
+        return;
+    }
     entities.erase(entities.begin() + t);
 }
 
@@ -1043,6 +1052,10 @@ void entityclass::removeallblocks()
 
 void entityclass::removeblock( int t )
 {
+    if (t < 0 || t > (int) blocks.size())
+    {
+        return;
+    }
     blocks.erase(blocks.begin() + t);
 }
 
@@ -1067,12 +1080,20 @@ void entityclass::removetrigger( int t )
 
 void entityclass::copylinecross( int t )
 {
+    if (t < 0 || t > (int) entities.size())
+    {
+        return;
+    }
     //Copy entity t into the first free linecrosskludge entity
     linecrosskludge.push_back(entities[t]);
 }
 
 void entityclass::revertlinecross( int t, int s )
 {
+    if (t < 0 || t > (int) entities.size() || s < 0 || s > (int) linecrosskludge.size())
+    {
+        return;
+    }
     //Restore entity t info from linecrossing s
     entities[t].onentity = linecrosskludge[s].onentity;
     entities[t].state = linecrosskludge[s].state;
@@ -2042,6 +2063,11 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
 void entityclass::updateentities( int i )
 {
+    if (i < 0 || i >= (int) entities.size())
+    {
+        return;
+    }
+
     if(entities[i].statedelay<=0)
     {
         switch(entities[i].type)
@@ -3189,6 +3215,11 @@ void entityclass::updateentities( int i )
 
 void entityclass::animateentities( int _i )
 {
+    if (_i < 0 || _i >= (int) entities.size())
+    {
+        return;
+    }
+
     if(entities[_i].statedelay < 1)
     {
         switch(entities[_i].type)
@@ -3687,6 +3718,11 @@ void entityclass::rect2set( int xi, int yi, int wi, int hi )
 
 bool entityclass::entitycollide( int a, int b )
 {
+    if (a < 0 || a > (int) entities.size() || b < 0 || b > (int) entities.size())
+    {
+        return false;
+    }
+
     //Do entities a and b collide?
     tempx = entities[a].xp + entities[a].cx;
     tempy = entities[a].yp + entities[a].cy;
@@ -3756,6 +3792,11 @@ bool entityclass::scmcheckdamage()
 
 void entityclass::settemprect( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return;
+    }
+
     //setup entity t in temprect
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy;
@@ -3939,6 +3980,11 @@ int entityclass::yline( int a, int b )
 
 bool entityclass::entityhlinecollide( int t, int l )
 {
+    if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
+    {
+        return false;
+    }
+
     //Returns true is entity t collided with the horizontal line l.
     if(entities[t].xp + entities[t].cx+entities[t].w>=entities[l].xp)
     {
@@ -3960,6 +4006,11 @@ bool entityclass::entityhlinecollide( int t, int l )
 
 bool entityclass::entityvlinecollide( int t, int l )
 {
+    if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
+    {
+        return false;
+    }
+
     //Returns true is entity t collided with the vertical line l.
     if(entities[t].yp + entities[t].cy+entities[t].h>=entities[l].yp
     && entities[t].yp + entities[t].cy<=entities[l].yp+entities[l].h)
@@ -3978,6 +4029,11 @@ bool entityclass::entityvlinecollide( int t, int l )
 }
 
 bool entityclass::entitywarphlinecollide(int t, int l) {
+    if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
+    {
+        return false;
+    }
+
     //Returns true is entity t collided with the horizontal line l.
     if(entities[t].xp + entities[t].cx+entities[t].w>=entities[l].xp
     &&entities[t].xp + entities[t].cx<=entities[l].xp+entities[l].w){
@@ -4010,6 +4066,11 @@ bool entityclass::entitywarphlinecollide(int t, int l) {
 }
 
 bool entityclass::entitywarpvlinecollide(int t, int l) {
+    if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
+    {
+        return false;
+    }
+
     //Returns true is entity t collided with the vertical warp line l.
     if(entities[t].yp + entities[t].cy+entities[t].h>=entities[l].yp
     && entities[t].yp + entities[t].cy <= entities[l].yp + entities[l].h) {
@@ -4039,6 +4100,11 @@ bool entityclass::entitywarpvlinecollide(int t, int l) {
 
 float entityclass::entitycollideplatformroof( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return -1000;
+    }
+
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy -1;
     tempw = entities[t].w;
@@ -4055,6 +4121,11 @@ float entityclass::entitycollideplatformroof( int t )
 
 float entityclass::entitycollideplatformfloor( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return -1000;
+    }
+
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy + 1;
     tempw = entities[t].w;
@@ -4071,6 +4142,11 @@ float entityclass::entitycollideplatformfloor( int t )
 
 bool entityclass::entitycollidefloor( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return false;
+    }
+
     //see? like here, for example!
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy + 1;
@@ -4084,6 +4160,11 @@ bool entityclass::entitycollidefloor( int t )
 
 bool entityclass::entitycollideroof( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return false;
+    }
+
     //and here!
     tempx = entities[t].xp + entities[t].cx;
     tempy = entities[t].yp + entities[t].cy - 1;
@@ -4097,6 +4178,11 @@ bool entityclass::entitycollideroof( int t )
 
 bool entityclass::testwallsx( int t, int tx, int ty )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return false;
+    }
+
     tempx = tx + entities[t].cx;
     tempy = ty + entities[t].cy;
     tempw = entities[t].w;
@@ -4143,6 +4229,11 @@ bool entityclass::testwallsx( int t, int tx, int ty )
 
 bool entityclass::testwallsy( int t, float tx, float ty )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return false;
+    }
+
     tempx = static_cast<int>(tx) + entities[t].cx;
     tempy = static_cast<int>(ty) + entities[t].cy;
     tempw = entities[t].w;
@@ -4190,6 +4281,11 @@ bool entityclass::testwallsy( int t, float tx, float ty )
 
 void entityclass::fixfriction( int t, float xfix, float xrate, float yrate )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return;
+    }
+
     if (entities[t].vx > xfix) entities[t].vx -= xrate;
     if (entities[t].vx < xfix) entities[t].vx += xrate;
     if (entities[t].vy > 0) entities[t].vy -= yrate;
@@ -4205,6 +4301,11 @@ void entityclass::fixfriction( int t, float xfix, float xrate, float yrate )
 
 void entityclass::applyfriction( int t, float xrate, float yrate )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return;
+    }
+
     if (entities[t].vx > 0.00f) entities[t].vx -= xrate;
     if (entities[t].vx < 0.00f) entities[t].vx += xrate;
     if (entities[t].vy > 0.00f) entities[t].vy -= yrate;
@@ -4220,6 +4321,11 @@ void entityclass::applyfriction( int t, float xrate, float yrate )
 
 void entityclass::updateentitylogic( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return;
+    }
+
     entities[t].oldxp = entities[t].xp;
     entities[t].oldyp = entities[t].yp;
 
@@ -4257,6 +4363,11 @@ void entityclass::updateentitylogic( int t )
 
 void entityclass::entitymapcollision( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return;
+    }
+
     if (testwallsx(t, entities[t].newxp, entities[t].yp))
     {
         entities[t].xp = entities[t].newxp;
@@ -4280,6 +4391,11 @@ void entityclass::entitymapcollision( int t )
 
 void entityclass::movingplatformfix( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return;
+    }
+
     //If this intersects the player, then we move the player along it
     int j = getplayer();
     if (entitycollide(t, j))
@@ -4316,6 +4432,11 @@ void entityclass::movingplatformfix( int t )
 
 void entityclass::scmmovingplatformfix( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return;
+    }
+
     //If this intersects the SuperCrewMate, then we move them along it
     int j = getscm();
     if (entitycollide(t, j))
@@ -4350,12 +4471,22 @@ void entityclass::scmmovingplatformfix( int t )
 
 void entityclass::hormovingplatformfix( int t )
 {
+    if (t < 0 || t >= (int) entities.size())
+    {
+        return;
+    }
+
     //If this intersects the player, then we move the player along it
     //for horizontal platforms, this is simplier
     createblock(0, entities[t].xp, entities[t].yp, entities[t].w, entities[t].h);
 }
 
 void entityclass::customwarplinecheck(int i) {
+    if (i < 0 || i >= (int) entities.size())
+    {
+        return;
+    }
+
     //Turns on obj.customwarpmodevon and obj.customwarpmodehon if player collides
     //with warp lines
 
