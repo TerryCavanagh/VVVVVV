@@ -364,6 +364,13 @@ void menuactionpress()
             game.over30mode = !game.over30mode;
             game.savestats();
             break;
+        case 6:
+            //toggle vsync
+            music.playef(11);
+            graphics.vsync = !graphics.vsync;
+            graphics.processVsync();
+            game.savestats();
+            break;
         default:
             //back
             music.playef(11);
