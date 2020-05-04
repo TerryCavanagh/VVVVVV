@@ -9,7 +9,7 @@ int pre_darkcol=0, pre_lightcol=0, pre_curcol=0, pre_coltimer=0, pre_offset=0;
 int pre_frontrectx=30, pre_frontrecty=20, pre_frontrectw=260, pre_frontrecth=200;
 int pre_temprectx=0, pre_temprecty=0, pre_temprectw=320, pre_temprecth=240;
 
-void preloaderrender()
+void preloaderlogic()
 {
   if (pre_transition < 30) pre_transition--;
   if(pre_transition>=30){
@@ -25,6 +25,12 @@ void preloaderrender()
       pre_curcol = (pre_curcol + int(fRandom() * 5.0f)) % 6;
       pre_coltimer = 8;
     }
+  }
+}
+
+void preloaderrender()
+{
+  if(pre_transition>=30){
     switch(pre_curcol) {
     case 0:
       pre_lightcol = graphics.RGBflip(0xBF,0x59,0x6F);

@@ -400,6 +400,7 @@ int main(int argc, char *argv[])
                 switch(game.gamestate)
                 {
                 case PRELOADER:
+                    preloaderlogic();
                     break;
 #if !defined(NO_CUSTOM_LEVELS)
                 case EDITORMODE:
