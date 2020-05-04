@@ -139,6 +139,8 @@ void Graphics::init()
     col_tb = 0;
 
     kludgeswnlinewidth = false;
+
+    vsync = false;
 }
 
 int Graphics::font_idx(uint32_t ch) {
@@ -3099,4 +3101,9 @@ Uint32 Graphics::crewcolourreal(int t)
 		return col_crewblue;
 	}
 	return col_crewcyan;
+}
+
+void Graphics::processVsync()
+{
+	SDL_SetHintWithPriority(SDL_HINT_RENDER_VSYNC, vsync ? "1" : "0", SDL_HINT_OVERRIDE);
 }

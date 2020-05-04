@@ -105,8 +105,6 @@ int main(int argc, char *argv[])
         }
     }
 
-    SDL_SetHintWithPriority(SDL_HINT_RENDER_VSYNC, "1", SDL_HINT_OVERRIDE);
-
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
     {
         return 1;
@@ -208,6 +206,8 @@ int main(int argc, char *argv[])
 
     //Moved screensetting init here from main menu V2.1
     game.loadstats();
+    graphics.processVsync();
+
     if (game.skipfakeload)
         game.gamestate = TITLEMODE;
     if(game.usingmmmmmm==0) music.usingmmmmmm=false;

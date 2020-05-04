@@ -4753,6 +4753,11 @@ void Game::loadstats()
             over30mode = atoi(pText);
         }
 
+        if (pKey == "vsync")
+        {
+            graphics.vsync = atoi(pText);
+        }
+
         if (pKey == "notextoutline")
         {
             graphics.notextoutline = atoi(pText);
@@ -5000,6 +5005,10 @@ void Game::savestats()
 
     msg = doc.NewElement("over30mode");
     msg->LinkEndChild(doc.NewText(help.String((int) over30mode).c_str()));
+    dataNode->LinkEndChild(msg);
+
+    msg = doc.NewElement("vsync");
+    msg->LinkEndChild(doc.NewText(help.String((int) graphics.vsync).c_str()));
     dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
@@ -7075,9 +7084,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("toggle analogue");
         option("toggle mouse");
         option("toggle fps");
+        option("toggle vsync");
         option("return");
-        menuxoff = -50;
-        menuyoff = 8;
+        menuxoff = -85;
+        menuyoff = 0;
         break;
     case Menu::ed_settings:
         option("change description");
