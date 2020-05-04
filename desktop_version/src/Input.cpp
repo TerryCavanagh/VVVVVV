@@ -358,6 +358,12 @@ void menuactionpress()
                 graphics.showmousecursor = true;
             }
             break;
+        case 5:
+            //toggle 30+ fps
+            music.playef(11);
+            game.over30mode = !game.over30mode;
+            game.savestats();
+            break;
         default:
             //back
             music.playef(11);

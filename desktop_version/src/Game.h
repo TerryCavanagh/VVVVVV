@@ -401,6 +401,8 @@ public:
     {
         return inintermission || insecretlab || intimetrial || nodeathmode;
     }
+
+    bool over30mode;
 };
 
 extern Game game;
