@@ -7,4 +7,6 @@
 
 void preloaderrender();
 
+void preloaderlogic();
+
 #endif /* PRELOADER_H */
