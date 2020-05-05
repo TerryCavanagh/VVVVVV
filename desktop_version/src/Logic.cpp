@@ -256,7 +256,7 @@ void gamelogic()
             map.bypos = 0;
             map.bscroll = 0;
         }
-        if (map.minitowermode)
+        if (map.towermode && map.minitowermode)
         {
             if (map.ypos >= 568)
             {
@@ -963,7 +963,7 @@ void gamelogic()
         }
 
         //Right so! Screenwraping for tower:
-        if (map.minitowermode)
+        if (map.towermode && map.minitowermode)
         {
             if (map.scrolldir == 1)
             {
