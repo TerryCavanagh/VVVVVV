@@ -7,6 +7,7 @@ bool entityclass::checktowerspikes(int t)
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("checktowerspikes() out-of-bounds!");
         return false;
     }
 
@@ -1040,6 +1041,7 @@ void entityclass::removeentity(int t)
 {
     if (t < 0 || t > (int) entities.size())
     {
+        puts("removeentity() out-of-bounds!");
         return;
     }
     entities.erase(entities.begin() + t);
@@ -1054,6 +1056,7 @@ void entityclass::removeblock( int t )
 {
     if (t < 0 || t > (int) blocks.size())
     {
+        puts("removeblock() out-of-bounds!");
         return;
     }
     blocks.erase(blocks.begin() + t);
@@ -1082,6 +1085,7 @@ void entityclass::copylinecross( int t )
 {
     if (t < 0 || t > (int) entities.size())
     {
+        puts("copylinecross() out-of-bounds!");
         return;
     }
     //Copy entity t into the first free linecrosskludge entity
@@ -1092,6 +1096,7 @@ void entityclass::revertlinecross( int t, int s )
 {
     if (t < 0 || t > (int) entities.size() || s < 0 || s > (int) linecrosskludge.size())
     {
+        puts("revertlinecross() out-of-bounds!");
         return;
     }
     //Restore entity t info from linecrossing s
@@ -2065,6 +2070,7 @@ void entityclass::updateentities( int i )
 {
     if (i < 0 || i >= (int) entities.size())
     {
+        puts("updateentities() out-of-bounds!");
         return;
     }
 
@@ -3217,6 +3223,7 @@ void entityclass::animateentities( int _i )
 {
     if (_i < 0 || _i >= (int) entities.size())
     {
+        puts("animateentities() out-of-bounds!");
         return;
     }
 
@@ -3720,6 +3727,7 @@ bool entityclass::entitycollide( int a, int b )
 {
     if (a < 0 || a > (int) entities.size() || b < 0 || b > (int) entities.size())
     {
+        puts("entitycollide() out-of-bounds!");
         return false;
     }
 
@@ -3982,6 +3990,7 @@ bool entityclass::entityhlinecollide( int t, int l )
 {
     if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
     {
+        puts("entityhlinecollide() out-of-bounds!");
         return false;
     }
 
@@ -4008,6 +4017,7 @@ bool entityclass::entityvlinecollide( int t, int l )
 {
     if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
     {
+        puts("entityvlinecollide() out-of-bounds!");
         return false;
     }
 
@@ -4031,6 +4041,7 @@ bool entityclass::entityvlinecollide( int t, int l )
 bool entityclass::entitywarphlinecollide(int t, int l) {
     if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
     {
+        puts("entitywarphlinecollide() out-of-bounds!");
         return false;
     }
 
@@ -4068,6 +4079,7 @@ bool entityclass::entitywarphlinecollide(int t, int l) {
 bool entityclass::entitywarpvlinecollide(int t, int l) {
     if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
     {
+        puts("entitywarpvlinecollide() out-of-bounds!");
         return false;
     }
 
@@ -4102,6 +4114,7 @@ float entityclass::entitycollideplatformroof( int t )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("entitycollideplatformroof() out-of-bounds!");
         return -1000;
     }
 
@@ -4123,6 +4136,7 @@ float entityclass::entitycollideplatformfloor( int t )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("entitycollideplatformfloor() out-of-bounds!");
         return -1000;
     }
 
@@ -4144,6 +4158,7 @@ bool entityclass::entitycollidefloor( int t )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("entitycollidefloor() out-of-bounds!");
         return false;
     }
 
@@ -4162,6 +4177,7 @@ bool entityclass::entitycollideroof( int t )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("entitycollideroof() out-of-bounds!");
         return false;
     }
 
@@ -4180,6 +4196,7 @@ bool entityclass::testwallsx( int t, int tx, int ty )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("testwallsx() out-of-bounds!");
         return false;
     }
 
@@ -4231,6 +4248,7 @@ bool entityclass::testwallsy( int t, float tx, float ty )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("testwallsy() out-of-bounds!");
         return false;
     }
 
@@ -4283,6 +4301,7 @@ void entityclass::fixfriction( int t, float xfix, float xrate, float yrate )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("fixfriction() out-of-bounds!");
         return;
     }
 
@@ -4303,6 +4322,7 @@ void entityclass::applyfriction( int t, float xrate, float yrate )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("applyfriction() out-of-bounds!");
         return;
     }
 
@@ -4393,6 +4413,7 @@ void entityclass::movingplatformfix( int t )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("movingplatformfix() out-of-bounds!");
         return;
     }
 
@@ -4434,6 +4455,7 @@ void entityclass::scmmovingplatformfix( int t )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("scmmovingplatformfix() out-of-bounds!");
         return;
     }
 
@@ -4473,6 +4495,7 @@ void entityclass::hormovingplatformfix( int t )
 {
     if (t < 0 || t >= (int) entities.size())
     {
+        puts("hormovingplatformfix() out-of-bounds!");
         return;
     }
 
@@ -4484,6 +4507,7 @@ void entityclass::hormovingplatformfix( int t )
 void entityclass::customwarplinecheck(int i) {
     if (i < 0 || i >= (int) entities.size())
     {
+        puts("customwarplinecheck() out-of-bounds!");
         return;
     }
 
