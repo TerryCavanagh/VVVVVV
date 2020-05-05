@@ -2534,6 +2534,7 @@ void scriptclass::resetgametomenu()
 	graphics.flipmode = false;
 	obj.entities.clear();
 	graphics.fademode = 4;
+	map.tdrawback = true;
 	game.createmenu(Menu::gameover);
 }
 
