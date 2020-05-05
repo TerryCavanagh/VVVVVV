@@ -342,14 +342,32 @@ void gamelogic()
             {
                 //ok, unfortunate case where the disappearing platform hasn't fully disappeared. Accept a little
                 //graphical uglyness to avoid breaking the room!
-                while (obj.entities[i].state == 2) obj.updateentities(i);
-                obj.entities[i].state = 4;
+                bool entitygone = false;
+                while (obj.entities[i].state == 2)
+                {
+                    entitygone = obj.updateentities(i);
+                    if (entitygone)
+                    {
+                        i--;
+                        break;
+                    }
+                }
+                if (!entitygone) obj.entities[i].state = 4;
             }
             else if (map.finalstretch && obj.entities[i].type == 2)
             {
                 //for the final level. probably something 99% of players won't see.
-                while (obj.entities[i].state == 2) obj.updateentities(i);
-                obj.entities[i].state = 4;
+                bool entitygone = false;
+                while (obj.entities[i].state == 2)
+                {
+                    entitygone = obj.updateentities(i);
+                    if (entitygone)
+                    {
+                        i--;
+                        break;
+                    }
+                }
+                if (!entitygone) obj.entities[i].state = 4;
             }
             else if (obj.entities[i].type == 23 && game.swnmode && game.deathseq<15)
             {
@@ -699,7 +717,8 @@ void gamelogic()
                         {
                             obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
 
-                            obj.updateentities(i);                // Behavioral logic
+                            bool entitygone = obj.updateentities(i);                // Behavioral logic
+                            if (entitygone) continue;
                             obj.updateentitylogic(i);             // Basic Physics
                             obj.entitymapcollision(i);            // Collisions with walls
 
@@ -728,7 +747,8 @@ void gamelogic()
                         {
                             obj.removeblockat(obj.entities[ie].xp, obj.entities[ie].yp);
 
-                            obj.updateentities(ie);                // Behavioral logic
+                            bool entitygone = obj.updateentities(ie);                // Behavioral logic
+                            if (entitygone) continue;
                             obj.updateentitylogic(ie);             // Basic Physics
                             obj.entitymapcollision(ie);            // Collisions with walls
 
@@ -759,7 +779,8 @@ void gamelogic()
             {
                 if (!obj.entities[ie].isplatform)
                 {
-                    obj.updateentities(ie);          // Behavioral logic
+                    bool entitygone = obj.updateentities(ie);          // Behavioral logic
+                    if (entitygone) continue;
                     obj.updateentitylogic(ie);       // Basic Physics
                     obj.entitymapcollision(ie);      // Collisions with walls
                 }
