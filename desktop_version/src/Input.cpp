@@ -1812,6 +1812,19 @@ void mapinput()
     game.press_action = false;
     game.press_map = false;
 
+    if (game.fadetomenu)
+    {
+        if (game.fadetomenudelay > 0)
+        {
+            game.fadetomenudelay--;
+        }
+        else
+        {
+            game.quittomenu();
+            game.fadetomenu = false;
+        }
+    }
+
     if(graphics.menuoffset==0)
     {
         if (graphics.flipmode)
@@ -1970,6 +1983,8 @@ void mapinput()
                 graphics.fademode = 2;
                 music.fadeout();
                 map.nexttowercolour();
+                game.fadetomenu = true;
+                game.fadetomenudelay = 15;
             }
         }
 
