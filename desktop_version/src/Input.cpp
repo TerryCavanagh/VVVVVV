@@ -1545,6 +1545,7 @@ void gameinput()
                 game.completestop = false;
                 game.state = 0;
                 graphics.showcutscenebars = false;
+                graphics.fademode = 0;
 
                 graphics.backgrounddrawn=false;
                 music.fadeout();
