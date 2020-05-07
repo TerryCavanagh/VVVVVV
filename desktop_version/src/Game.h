@@ -380,6 +380,7 @@ public:
     int playgc;
 
     void quittomenu();
+    void returntolab();
 };
 
 extern Game game;
