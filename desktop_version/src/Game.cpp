@@ -370,6 +370,9 @@ void Game::init(void)
     playry = 0;
     playgc = 0;
 
+    fadetomenu = false;
+    fadetomenudelay = 0;
+
     /* Terry's Patrons... */
     superpatrons.push_back("Anders Ekermo");
     superpatrons.push_back("Andreas K|mper");
