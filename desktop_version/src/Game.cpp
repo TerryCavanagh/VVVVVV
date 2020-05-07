@@ -372,6 +372,8 @@ void Game::init(void)
 
     fadetomenu = false;
     fadetomenudelay = 0;
+    fadetolab = false;
+    fadetolabdelay = 0;
 
     /* Terry's Patrons... */
     superpatrons.push_back("Anders Ekermo");
