@@ -1336,44 +1336,7 @@ void Game::updatestate()
             if(graphics.fademode == 1)	state++;
             break;
         case 81:
-            gamestate = TITLEMODE;
-            graphics.fademode = 4;
-            music.play(6);
-            graphics.backgrounddrawn = false;
-            map.tdrawback = true;
-            graphics.flipmode = false;
-            //Don't be stuck on the summary screen,
-            //or "who do you want to play the level with?"
-            //or "do you want cutscenes?"
-            //or the confirm-load-quicksave menu
-            if (wasintimetrial)
-            {
-                returntomenu(Menu::timetrials);
-            }
-            else if (wasinintermission)
-            {
-                returntomenu(Menu::intermissionmenu);
-            }
-            else if (wasinnodeathmode)
-            {
-                returntomenu(Menu::playmodes);
-            }
-            else if (wasincustommode)
-            {
-                returntomenu(Menu::levellist);
-            }
-            else if (save_exists() || anything_unlocked())
-            {
-                returntomenu(Menu::play);
-            }
-            else
-            {
-                createmenu(Menu::mainmenu);
-            }
-            wasintimetrial = false;
-            wasinintermission = false;
-            wasinnodeathmode = false;
-            wasincustommode = false;
+            quittomenu();
             state = 0;
             break;
 
@@ -7357,4 +7320,46 @@ bool Game::anything_unlocked()
 bool Game::save_exists()
 {
     return telesummary != "" || quicksummary != "";
+}
+
+void Game::quittomenu()
+{
+    gamestate = TITLEMODE;
+    graphics.fademode = 4;
+    music.play(6);
+    graphics.backgrounddrawn = false;
+    map.tdrawback = true;
+    graphics.flipmode = false;
+    //Don't be stuck on the summary screen,
+    //or "who do you want to play the level with?"
+    //or "do you want cutscenes?"
+    //or the confirm-load-quicksave menu
+    if (wasintimetrial)
+    {
+        returntomenu(Menu::timetrials);
+    }
+    else if (wasinintermission)
+    {
+        returntomenu(Menu::intermissionmenu);
+    }
+    else if (wasinnodeathmode)
+    {
+        returntomenu(Menu::playmodes);
+    }
+    else if (wasincustommode)
+    {
+        returntomenu(Menu::levellist);
+    }
+    else if (save_exists() || anything_unlocked())
+    {
+        returntomenu(Menu::play);
+    }
+    else
+    {
+        createmenu(Menu::mainmenu);
+    }
+    wasintimetrial = false;
+    wasinintermission = false;
+    wasinnodeathmode = false;
+    wasincustommode = false;
 }

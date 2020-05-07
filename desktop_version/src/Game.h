@@ -385,6 +385,8 @@ public:
     int playrx;
     int playry;
     int playgc;
+
+    void quittomenu();
 };
 
 extern Game game;
