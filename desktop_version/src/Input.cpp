@@ -1879,7 +1879,6 @@ void mapinput()
         graphics.resumegamemode = true;
         obj.removeallblocks();
         game.activeactivity = -1;
-        game.menukludge = false;
         if (game.menupage >= 20)
         {
             game.state = 96;
@@ -1968,13 +1967,6 @@ void mapinput()
                 //Kill contents of offset render buffer, since we do that for some reason.
                 //This fixes an apparent frame flicker.
                 FillRect(graphics.tempBuffer, 0x000000);
-                if (game.intimetrial || game.insecretlab || game.nodeathmode) game.menukludge = true;
-                game.wasintimetrial = game.intimetrial;
-                game.wasinintermission = game.inintermission;
-                game.wasinnodeathmode = game.nodeathmode;
-                game.wasincustommode = map.custommode;
-                script.hardreset();
-                if(graphics.setflipmode) graphics.flipmode = true;
                 graphics.fademode = 2;
                 music.fadeout();
                 map.nexttowercolour();
