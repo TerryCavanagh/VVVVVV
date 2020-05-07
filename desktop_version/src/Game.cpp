@@ -7361,6 +7361,25 @@ void Game::returntolab()
 {
     gamestate = GAMEMODE;
     graphics.fademode = 4;
-    startscript = true;
-    newscript="returntolab";
+    map.gotoroom(119, 107);
+    int player = obj.getplayer();
+    if (player > -1)
+    {
+        obj.entities[player].xp = 132;
+        obj.entities[player].yp = 137;
+    }
+    gravitycontrol = 0;
+
+    savepoint = 0;
+    saverx = 119;
+    savery = 107;
+    savex = 132;
+    savey = 137;
+    savegc = 0;
+    if (player > -1)
+    {
+        savedir = obj.entities[player].dir;
+    }
+
+    music.play(11);
 }
