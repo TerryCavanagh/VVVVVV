@@ -1971,8 +1971,7 @@ void mapinput()
         if (game.menupage == 11 && game.press_action)
         {
             //quit to menu
-            if (graphics.fademode == 0)
-            {
+
                 //Kill contents of offset render buffer, since we do that for some reason.
                 //This fixes an apparent frame flicker.
                 FillRect(graphics.tempBuffer, 0x000000);
@@ -1981,7 +1980,6 @@ void mapinput()
                 map.nexttowercolour();
                 game.fadetomenu = true;
                 game.fadetomenudelay = 15;
-            }
         }
 
         if (game.menupage == 20 && game.press_action)
@@ -1992,14 +1990,11 @@ void mapinput()
         if (game.menupage == 21 && game.press_action)
         {
             //quit to menu
-            if (graphics.fademode == 0)
-            {
                 game.swnmode = false;
                 graphics.fademode = 2;
                 music.fadeout();
                 game.fadetolab = true;
                 game.fadetolabdelay = 15;
-            }
         }
 
         if (game.menupage < 0) game.menupage = 3;
