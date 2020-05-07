@@ -1900,24 +1900,6 @@ void mapinput()
         }
     }
 
-    if (graphics.fademode == 1)
-    {
-        FillRect(graphics.menubuffer, 0x000000);
-        graphics.resumegamemode = true;
-        obj.removeallblocks();
-        game.activeactivity = -1;
-        if (game.menupage >= 20)
-        {
-            game.state = 96;
-            game.statedelay = 0;
-        }
-        else
-        {
-            game.state = 80;
-            game.statedelay = 0;
-        }
-    }
-
     if (!game.jumpheld)
     {
         if (game.press_action || game.press_left || game.press_right || game.press_map)
