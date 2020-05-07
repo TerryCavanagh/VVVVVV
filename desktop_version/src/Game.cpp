@@ -117,7 +117,6 @@ void Game::init(void)
 {
     mutebutton = 0;
     infocus = true;
-    paused = false;
     muted = false;
     musicmuted = false;
     musicmutebutton = 0;

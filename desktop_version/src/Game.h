@@ -354,8 +354,6 @@ public:
     bool menukludge;
     bool quickrestartkludge;
 
-    bool paused;
-
     //Custom stuff
     std::string customscript[50];
     int customcol;
