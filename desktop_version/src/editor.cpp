@@ -224,7 +224,7 @@ bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
     _data.Desc1 = find_desc1(buf);
     _data.Desc2 = find_desc2(buf);
     _data.Desc3 = find_desc3(buf);
-    _data.website = find_desc3(buf);
+    _data.website = find_website(buf);
 
     _data.filename = _path;
     return true;
