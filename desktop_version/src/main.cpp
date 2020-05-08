@@ -585,7 +585,7 @@ int main(int argc, char *argv[])
                 graphics.processfade();
                 game.gameclock();
             }
-            const float alpha = static_cast<float>(accumulator) / timesteplimit;
+            const float alpha = game.over30mode ? static_cast<float>(accumulator) / timesteplimit : 1.0f;
             graphics.alpha = alpha;
 
             if (game.infocus)
