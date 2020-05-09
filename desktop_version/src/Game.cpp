@@ -3282,8 +3282,6 @@ void Game::updatestate()
             i = obj.getplayer();
             obj.entities[i].colour = 102;
 
-            obj.flags[67] = true;
-
             state++;
             statedelay = 30;
             flashlight = 5;

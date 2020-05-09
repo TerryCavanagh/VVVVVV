@@ -102,6 +102,7 @@ void gamecompletelogic2()
         game.deletequick();
         int tmp=music.currentsong;
         music.currentsong=4;
+        obj.flags[67] = true;
         game.savetele();
         music.currentsong=tmp;
         //Return to game
