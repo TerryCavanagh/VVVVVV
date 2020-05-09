@@ -833,6 +833,10 @@ void mapclass::resetplayer()
 		obj.entities[i].colour = 0;
 		game.lifeseq = 10;
 		obj.entities[i].invis = true;
+		obj.entities[i].size = 0;
+		obj.entities[i].cx = 6;
+		obj.entities[i].cy = 2;
+		obj.entities[i].h = 21;
 
 		// If we entered a tower as part of respawn, reposition camera
 		if (!was_in_tower && towermode)
