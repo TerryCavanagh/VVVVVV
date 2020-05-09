@@ -7381,3 +7381,30 @@ void Game::returntolab()
 
     music.play(11);
 }
+
+#if !defined(NO_CUSTOM_LEVELS)
+void Game::returntoeditor()
+{
+    game.gamestate = EDITORMODE;
+
+    graphics.textboxremove();
+    game.hascontrol = true;
+    game.advancetext = false;
+    game.completestop = false;
+    game.state = 0;
+    graphics.showcutscenebars = false;
+    graphics.fademode = 0;
+
+    graphics.backgrounddrawn=false;
+    music.fadeout();
+    //If warpdir() is used during playtesting, we need to set it back after!
+    for (int j = 0; j < ed.maxheight; j++)
+    {
+        for (int i = 0; i < ed.maxwidth; i++)
+        {
+           ed.level[i+(j*ed.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*ed.maxwidth)];
+        }
+    }
+    map.scrolldir = 0;
+}
+#endif
