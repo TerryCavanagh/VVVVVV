@@ -1595,7 +1595,6 @@ void gamelogic()
 #if !defined(NO_CUSTOM_LEVELS)
     if (game.shouldreturntoeditor)
     {
-        game.shouldreturntoeditor = false;
         game.returntoeditor();
     }
 #endif
