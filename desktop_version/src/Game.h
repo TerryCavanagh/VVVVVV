@@ -388,6 +388,7 @@ public:
 
 #if !defined(NO_CUSTOM_LEVELS)
     void returntoeditor();
+    bool shouldreturntoeditor;
 #endif
 };
 

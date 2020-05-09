@@ -1537,7 +1537,7 @@ void gameinput()
                    game.activeactivity = -1;
                }
             }else{
-                game.returntoeditor();
+                game.shouldreturntoeditor = true;
             }
         }
     }
