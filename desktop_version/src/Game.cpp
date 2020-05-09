@@ -375,6 +375,10 @@ void Game::init(void)
     fadetolab = false;
     fadetolabdelay = 0;
 
+#if !defined(NO_CUSTOM_LEVELS)
+    shouldreturntoeditor = false;
+#endif
+
     /* Terry's Patrons... */
     superpatrons.push_back("Anders Ekermo");
     superpatrons.push_back("Andreas K|mper");
