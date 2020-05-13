@@ -4685,10 +4685,10 @@ void entityclass::entitycollisioncheck()
                     {
                         //ok; only check the actual collision if they're in a close proximity
                         temp = entities[i].yp - entities[j].yp;
-                        if (temp < 30 || temp > -30)
+                        if (temp > -30 && temp < 30)
                         {
                             temp = entities[i].xp - entities[j].xp;
-                            if (temp < 30 || temp > -30)
+                            if (temp > -30 && temp < 30)
                             {
                                 if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
                             }
