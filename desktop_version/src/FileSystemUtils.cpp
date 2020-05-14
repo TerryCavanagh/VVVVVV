@@ -486,10 +486,10 @@ bool FILESYSTEM_openDirectory(const char *dname)
 	return true;
 }
 #elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
- #ifdef __linux__
-const char* open_cmd = "xdg-open";
- #else
+ #if defined(__APPLE__) || defined(__HAIKU__)
 const char* open_cmd = "open";
+ #else
+const char* open_cmd = "xdg-open";
  #endif
 
 extern "C" char** environ;
