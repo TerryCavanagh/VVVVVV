@@ -1527,17 +1527,12 @@ void gameinput()
 #if !defined(NO_CUSTOM_LEVELS)
     if(map.custommode && !map.custommodeforreal){
         if ((game.press_map || key.isDown(27)) && !game.mapheld){
-            game.mapheld = true;
             //Return to level editor
             if (game.activeactivity > -1 && game.press_map){
-               if((int(std::abs(obj.entities[obj.getplayer()].vx))<=1) && (int(obj.entities[obj.getplayer()].vy) == 0) )
-               {
-                   script.load(obj.blocks[game.activeactivity].script);
-                   obj.removeblock(game.activeactivity);
-                   game.activeactivity = -1;
-               }
+                //pass, let code block below handle it
             }else{
                 game.shouldreturntoeditor = true;
+                game.mapheld = true;
             }
         }
     }
