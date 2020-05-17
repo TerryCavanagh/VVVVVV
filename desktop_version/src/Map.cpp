@@ -1385,8 +1385,7 @@ void mapclass::loadlevel(int rx, int ry)
 		tileset = 0;
 		break;
 	case 6: //final level
-		tmap = finallevel.loadlevel(finalx, finaly);
-		fillcontent(tmap);
+		contents = finallevel.loadlevel(finalx, finaly);
 		roomname = finallevel.roomname;
 		tileset = 1;
 		background = 3;
@@ -1538,8 +1537,7 @@ void mapclass::loadlevel(int rx, int ry)
 		break;
 	case 11: //Tower Hallways //Content is held in final level routine
 	{
-		tmap = finallevel.loadlevel(rx, ry);
-		fillcontent(tmap);
+		contents = finallevel.loadlevel(rx, ry);
 		roomname = finallevel.roomname;
 		tileset = 2;
 		if (rx == 108)
