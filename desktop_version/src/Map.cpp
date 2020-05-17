@@ -1379,8 +1379,7 @@ void mapclass::loadlevel(int rx, int ry)
 		if (warpx && warpy) background = 5;
 		break;
 	case 5: //Space station
-		tmap = spacestation2.loadlevel(rx, ry);
-		fillcontent(tmap);
+		contents = spacestation2.loadlevel(rx, ry);
 		roomname = spacestation2.roomname;
 		tileset = 0;
 		break;

@@ -10,7 +10,7 @@
 class spacestation2class
 {
 public:
-	std::vector<std::string> loadlevel(int rx, int ry);
+	std::vector<int> loadlevel(int rx, int ry);
 	std::string roomname;
 };
 
