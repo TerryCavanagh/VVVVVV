@@ -1306,8 +1306,7 @@ void mapclass::loadlevel(int rx, int ry)
 	case 1: //World Map
 		tileset = 1;
 		extrarow = 1;
-		tmap = otherlevel.loadlevel(rx, ry);
-		fillcontent(tmap);
+		contents = otherlevel.loadlevel(rx, ry);
 		roomname = otherlevel.roomname;
 		tileset = otherlevel.roomtileset;
 		//do the appear/remove roomname here
