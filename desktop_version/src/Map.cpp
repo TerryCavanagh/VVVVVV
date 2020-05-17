@@ -1319,8 +1319,7 @@ void mapclass::loadlevel(int rx, int ry)
 		}
 		break;
 	case 2: //The Lab
-		tmap = lablevel.loadlevel(rx, ry);
-		fillcontent(tmap);
+		contents = lablevel.loadlevel(rx, ry);
 		roomname = lablevel.roomname;
 		tileset = 1;
 		background = 2;
