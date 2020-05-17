@@ -745,20 +745,6 @@ void mapclass::settile(int xp, int yp, int t)
 	}
 }
 
-void mapclass::fillcontent(std::vector<std::string>& tmap)
-{
-
-	for (j = 0; j < 29+extrarow; j++)
-	{
-		std::vector<std::string> maprow = split(tmap[j], ',');
-
-		for(int i = 0; i < 40; i++)
-		{
-			contents[i + vmult[j]] = atoi(maprow[i].c_str());
-		}
-	}
-}
-
 
 int mapclass::area(int _rx, int _ry)
 {

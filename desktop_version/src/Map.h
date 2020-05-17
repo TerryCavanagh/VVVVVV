@@ -62,8 +62,6 @@ public:
 
     void settile(int xp, int yp, int t);
 
-    void fillcontent(std::vector<std::string>& tmap);
-
 
     int area(int _rx, int _ry);
 
