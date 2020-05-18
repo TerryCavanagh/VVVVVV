@@ -726,19 +726,6 @@ bool mapclass::collide(int x, int y)
 	return false;
 }
 
-void mapclass::fillareamap(std::vector<std::string>& tmap)
-{
-
-	for (j = 0; j < 20; j++)
-	{
-		std::vector<std::string> maprow = split(tmap[j], ',');
-		for (int i = 0; i < 20; i++)
-		{
-			areamap[i + (j * 20)] = atoi(maprow[i].c_str());
-		}
-	}
-}
-
 void mapclass::settile(int xp, int yp, int t)
 {
 	if (xp >= 0 && xp < 40 && yp >= 0 && yp < 29+extrarow)

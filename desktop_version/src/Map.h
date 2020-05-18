@@ -58,8 +58,6 @@ public:
 
     bool collide(int x, int y);
 
-    void fillareamap(std::vector<std::string>& tmap);
-
     void settile(int xp, int yp, int t);
 
 
