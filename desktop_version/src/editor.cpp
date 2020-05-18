@@ -2076,8 +2076,6 @@ void fillboxabs( int x, int y, int x2, int y2, int c )
 
 extern editorclass ed;
 
-extern scriptclass script;
-
 void editorclass::generatecustomminimap()
 {
     map.customwidth=mapwidth;

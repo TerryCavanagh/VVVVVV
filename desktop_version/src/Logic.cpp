@@ -2,8 +2,6 @@
 #include "Script.h"
 #include "Network.h"
 
-extern scriptclass script;
-
 void titlelogic()
 {
     //Misc

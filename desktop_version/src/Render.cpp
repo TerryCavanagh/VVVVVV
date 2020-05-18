@@ -10,8 +10,6 @@
 
 #include "MakeAndPlay.h"
 
-extern scriptclass script;
-
 int tr;
 int tg;
 int tb;
