@@ -23,6264 +23,6735 @@ void scriptclass::load(std::string t)
     }
     else if (t == "intro")
     {
-        add("ifskip(quickstart)");
-        //add("createcrewman(232,113,cyan,0,faceright)");
-        add("createcrewman(96,177,green,0,faceright)");
-        add("createcrewman(122,177,purple,0,faceleft)");
-        add("fadein()");
-        add("untilfade()");
-        add("delay(90)");
+        const char* lines[] = {
+        "ifskip(quickstart)",
+        //"createcrewman(232,113,cyan,0,faceright)",
+        "createcrewman(96,177,green,0,faceright)",
+        "createcrewman(122,177,purple,0,faceleft)",
+        "fadein()",
+        "untilfade()",
+        "delay(90)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(9)");
-        add("musicfadeout()");
-        add("changemood(player,1)");
-        add("delay(15)");
-        add("squeak(player)");
-        add("text(cyan,0,0,1)");
-        add("Uh oh...");
-        add("position(player,above)");
-        //add("backgroundtext");
-        add("speak_active");
+        "flash(5)",
+        "shake(20)",
+        "playef(9)",
+        "musicfadeout()",
+        "changemood(player,1)",
+        "delay(15)",
+        "squeak(player)",
+        "text(cyan,0,0,1)",
+        "Uh oh...",
+        "position(player,above)",
+        //"backgroundtext",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("changeai(purple,followposition,175)");
-        add("text(purple,145,150,1)");
-        add("Is everything ok?");
-        //add("position(purple,above)");
-        //add("backgroundtext");
-        add("speak_active");
+        "squeak(purple)",
+        "changeai(purple,followposition,175)",
+        "text(purple,145,150,1)",
+        "Is everything ok?",
+        //"position(purple,above)",
+        //"backgroundtext",
+        "speak_active",
 
-        add("squeak(player)");
-        add("walk(left,2)");
-        add("text(cyan,0,0,2)");
-        add("No! We've hit some");
-        add("kind of interference...");
-        add("position(player,above)");
-        //add("backgroundtext");
-        add("speak_active");
+        "squeak(player)",
+        "walk(left,2)",
+        "text(cyan,0,0,2)",
+        "No! We've hit some",
+        "kind of interference...",
+        "position(player,above)",
+        //"backgroundtext",
+        "speak_active",
 
-        //add("delay(30)");
-        add("endtext");
+        //"delay(30)",
+        "endtext",
 
-        add("flash(5)");
-        add("shake(50)");
-        add("playef(9)");
-        add("changemood(green,1)");
-        add("changemood(purple,1)");
-        add("alarmon");
+        "flash(5)",
+        "shake(50)",
+        "playef(9)",
+        "changemood(green,1)",
+        "changemood(purple,1)",
+        "alarmon",
 
-        add("changedir(player,1)");
-        add("delay(30)");
-        add("endtext");
+        "changedir(player,1)",
+        "delay(30)",
+        "endtext",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,2)");
-        add("Something's wrong! We're");
-        add("going to crash!");
-        add("position(player,above)");
-        //add("backgroundtext");
-        add("speak_active");
-        //add("delay(100)");
+        "squeak(player)",
+        "text(cyan,0,0,2)",
+        "Something's wrong! We're",
+        "going to crash!",
+        "position(player,above)",
+        //"backgroundtext",
+        "speak_active",
+        //"delay(100)",
 
-        add("endtext");
+        "endtext",
 
-        add("flash(5)");
-        add("shake(50)");
-        add("playef(9)");
-        add("changeai(green,followposition,-60)");
-        add("changeai(purple,followposition,-60)");
-        add("squeak(player)");
-        add("text(cyan,70,140,1)");
-        add("Evacuate!");
-        add("backgroundtext");
-        add("speak_active");
-        add("walk(left,35)");
+        "flash(5)",
+        "shake(50)",
+        "playef(9)",
+        "changeai(green,followposition,-60)",
+        "changeai(purple,followposition,-60)",
+        "squeak(player)",
+        "text(cyan,70,140,1)",
+        "Evacuate!",
+        "backgroundtext",
+        "speak_active",
+        "walk(left,35)",
 
-        add("endtextfast");
+        "endtextfast",
 
         //Ok, next room!
 
-        add("flash(5)");
-        add("shake(50)");
-        add("playef(9)");
-        add("gotoroom(3,10)");
-        add("gotoposition(310,177,0)");
-        add("createcrewman(208,177,green,1,followposition,120)");
-        add("createcrewman(240,177,purple,1,followposition,120)");
-        add("createcrewman(10,177,blue,1,followposition,180)");
+        "flash(5)",
+        "shake(50)",
+        "playef(9)",
+        "gotoroom(3,10)",
+        "gotoposition(310,177,0)",
+        "createcrewman(208,177,green,1,followposition,120)",
+        "createcrewman(240,177,purple,1,followposition,120)",
+        "createcrewman(10,177,blue,1,followposition,180)",
 
-        add("squeak(blue)");
-        add("text(blue,80,150,1)");
-        add("Oh no!");
-        add("backgroundtext");
-        add("speak_active");
-        add("walk(left,20)");
+        "squeak(blue)",
+        "text(blue,80,150,1)",
+        "Oh no!",
+        "backgroundtext",
+        "speak_active",
+        "walk(left,20)",
 
-        add("endtextfast");
+        "endtextfast",
 
         //and the next!
-        add("flash(5)");
-        add("shake(50)");
-        add("playef(9)");
-        add("gotoroom(3,11)");
-        add("gotoposition(140,0,0)");
+        "flash(5)",
+        "shake(50)",
+        "playef(9)",
+        "gotoroom(3,11)",
+        "gotoposition(140,0,0)",
 
-        add("createcrewman(90,105,green,1,followblue)");
-        add("createcrewman(125,105,purple,1,followgreen)");
-        add("createcrewman(55,105,blue,1,followposition,-200)");
+        "createcrewman(90,105,green,1,followblue)",
+        "createcrewman(125,105,purple,1,followgreen)",
+        "createcrewman(55,105,blue,1,followposition,-200)",
 
-        add("createcrewman(120,177,yellow,1,followposition,-200)");
-        add("createcrewman(240,177,red,1,faceleft)");
+        "createcrewman(120,177,yellow,1,followposition,-200)",
+        "createcrewman(240,177,red,1,faceleft)",
 
-        add("delay(5)");
-        add("changeai(red,followposition,-200)");
+        "delay(5)",
+        "changeai(red,followposition,-200)",
 
-        add("squeak(red)");
-        add("text(red,100,150,1)");
-        add("Everyone off the ship!");
-        add("backgroundtext");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,100,150,1)",
+        "Everyone off the ship!",
+        "backgroundtext",
+        "speak_active",
 
-        add("walk(left,25)");
+        "walk(left,25)",
 
-        add("endtextfast");
+        "endtextfast",
 
         //final room:
-        add("flash(5)");
-        add("shake(80)");
-        add("playef(9)");
-        add("gotoroom(2,11)");
-        add("gotoposition(265,153,0)");
+        "flash(5)",
+        "shake(80)",
+        "playef(9)",
+        "gotoroom(2,11)",
+        "gotoposition(265,153,0)",
 
-        add("createcrewman(130,153,blue,1,faceleft)");
-        add("createcrewman(155,153,green,1,faceleft)");
-        add("createcrewman(180,153,purple,1,faceleft)");
-        add("createcrewman(205,153,yellow,1,faceleft)");
-        add("createcrewman(230,153,red,1,faceleft)");
+        "createcrewman(130,153,blue,1,faceleft)",
+        "createcrewman(155,153,green,1,faceleft)",
+        "createcrewman(180,153,purple,1,faceleft)",
+        "createcrewman(205,153,yellow,1,faceleft)",
+        "createcrewman(230,153,red,1,faceleft)",
 
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("This shouldn't be happening!");
-        add("position(yellow,below)");
-        add("backgroundtext");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "This shouldn't be happening!",
+        "position(yellow,below)",
+        "backgroundtext",
+        "speak_active",
 
-        add("activateteleporter()");
+        "activateteleporter()",
 
-        add("delay(10)");
-        add("changecolour(blue,teleporter)");
-        add("delay(10)");
-        add("changecolour(green,teleporter)");
-        add("delay(10)");
-        add("changecolour(purple,teleporter)");
-        add("delay(10)");
-        add("changecolour(yellow,teleporter)");
-        add("delay(10)");
-        add("changecolour(red,teleporter)");
-        add("delay(10)");
+        "delay(10)",
+        "changecolour(blue,teleporter)",
+        "delay(10)",
+        "changecolour(green,teleporter)",
+        "delay(10)",
+        "changecolour(purple,teleporter)",
+        "delay(10)",
+        "changecolour(yellow,teleporter)",
+        "delay(10)",
+        "changecolour(red,teleporter)",
+        "delay(10)",
 
         //and teleport!
-        add("endtext");
-        add("alarmoff");
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("blackout()");
-        add("changemood(player,0)");
-        add("changedir(player,1)");
+        "endtext",
+        "alarmoff",
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "blackout()",
+        "changemood(player,0)",
+        "changedir(player,1)",
 
-        add("delay(100)");
-        add("blackon()");
-        add("shake(20)");
-        add("playef(10)");
+        "delay(100)",
+        "blackon()",
+        "shake(20)",
+        "playef(10)",
 
         //Finally, appear at the start of the game:
-        add("gotoroom(13,5)");
-        add("gotoposition(80,96,0)");
-        add("walk(right,20)");
-        //add("delay(45)");
+        "gotoroom(13,5)",
+        "gotoposition(80,96,0)",
+        "walk(right,20)",
+        //"delay(45)",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,1)");
-        add("Phew! That was scary!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,1)",
+        "Phew! That was scary!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,2)");
-        add("At least we all");
-        add("escaped, right guys?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,2)",
+        "At least we all",
+        "escaped, right guys?",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(45)");
-        add("walk(left,3)");
-        add("delay(45)");
-        add("setcheckpoint()");
+        "delay(45)",
+        "walk(left,3)",
+        "delay(45)",
+        "setcheckpoint()",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,1)");
-        add("...guys?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,1)",
+        "...guys?",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(25)");
-        add("changemood(player,1)");
-        add("squeak(cry)");
-        add("delay(25)");
+        "delay(25)",
+        "changemood(player,1)",
+        "squeak(cry)",
+        "delay(25)",
 
-        add("play(1)");
-        add("endcutscene()");
-        add("untilbars()");
+        "play(1)",
+        "endcutscene()",
+        "untilbars()",
 
-        add("hideship()");
+        "hideship()",
 
-        add("gamestate(4)");
+        "gamestate(4)",
+        };
+        filllines(lines);
     }
     else if (t == "quickstart")
     {
         //Finally, appear at the start of the game:
-        add("gotoroom(13,5)");
-        add("gotoposition(80,96,0)");
-        add("walk(right,17)");
-        add("fadein()");
+        const char* lines[] = {
+        "gotoroom(13,5)",
+        "gotoposition(80,96,0)",
+        "walk(right,17)",
+        "fadein()",
 
-        add("setcheckpoint()");
+        "setcheckpoint()",
 
-        add("play(1)");
-        add("endcutscene()");
-        add("untilbars()");
+        "play(1)",
+        "endcutscene()",
+        "untilbars()",
 
-        add("hideship()");
+        "hideship()",
+        };
+        filllines(lines);
     }
     else if (t == "firststeps")
     {
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,2)");
-        add("I wonder why the ship");
-        add("teleported me here alone?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,2)",
+        "I wonder why the ship",
+        "teleported me here alone?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("text(cyan,0,0,2)");
-        add("I hope everyone else");
-        add("got out ok...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(cyan,0,0,2)",
+        "I hope everyone else",
+        "got out ok...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "trenchwarfare")
     {
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
 
-        add("iftrinkets(1,newtrenchwarfare)");
+        "iftrinkets(1,newtrenchwarfare)",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,1)");
-        add("Ohh! I wonder what that is?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,1)",
+        "Ohh! I wonder what that is?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,3)");
-        add("I probably don't really need it,");
-        add("but it might be nice to take it");
-        add("back to the ship to study...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,3)",
+        "I probably don't really need it,",
+        "but it might be nice to take it",
+        "back to the ship to study...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "newtrenchwarfare")
     {
-        add("squeak(player)");
-        add("text(cyan,0,0,2)");
-        add("Oh! It's another one of");
-        add("those shiny things!");
-        add("position(player,above)");
-        add("speak_active");
+        const char* lines[] = {
+        "squeak(player)",
+        "text(cyan,0,0,2)",
+        "Oh! It's another one of",
+        "those shiny things!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,3)");
-        add("I probably don't really need it,");
-        add("but it might be nice to take it");
-        add("back to the ship to study...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,3)",
+        "I probably don't really need it,",
+        "but it might be nice to take it",
+        "back to the ship to study...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "trinketcollector")
     {
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
 
-        add("iftrinkets(1,newtrinketcollector)");
+        "iftrinkets(1,newtrinketcollector)",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,3)");
-        add("This seems like a good");
-        add("place to store anything");
-        add("I find out there...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,3)",
+        "This seems like a good",
+        "place to store anything",
+        "I find out there...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,3)");
-        add("Victoria loves to study the");
-        add("interesting things we find");
-        add("on our adventures!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,3)",
+        "Victoria loves to study the",
+        "interesting things we find",
+        "on our adventures!",
+        "position(player,above)",
+        "speak_active",
 
-        add("ifcrewlost(5,new2trinketcollector)");
+        "ifcrewlost(5,new2trinketcollector)",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "newtrinketcollector")
     {
-        add("squeak(player)");
-        add("text(cyan,0,0,3)");
-        add("This seems like a good");
-        add("place to store those");
-        add("shiny things.");
-        add("position(player,above)");
-        add("speak_active");
+        const char* lines[] = {
+        "squeak(player)",
+        "text(cyan,0,0,3)",
+        "This seems like a good",
+        "place to store those",
+        "shiny things.",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,3)");
-        add("Victoria loves to study the");
-        add("interesting things we find");
-        add("on our adventures!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,3)",
+        "Victoria loves to study the",
+        "interesting things we find",
+        "on our adventures!",
+        "position(player,above)",
+        "speak_active",
 
-        add("ifcrewlost(5,new2trinketcollector)");
+        "ifcrewlost(5,new2trinketcollector)",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "new2trinketcollector")
     {
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(cyan,0,0,1)");
-        add("I hope she's ok...");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        const char* lines[] = {
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(cyan,0,0,1)",
+        "I hope she's ok...",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("changemood(player,0)");
+        "changemood(player,0)",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
         return;
     }
     if (t == "communicationstation")
     {
-        add("ifskip(communicationstationskip)");
-        add("cutscene()");
-        add("untilbars()");
-        add("changemood(player,0)");
+        const char* lines[] = {
+        "ifskip(communicationstationskip)",
+        "cutscene()",
+        "untilbars()",
+        "changemood(player,0)",
 
-        add("tofloor");
-        add("play(5)");
-        add("delay(10)");
+        "tofloor",
+        "play(5)",
+        "delay(10)",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,1)");
-        add("Violet! Is that you?");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(cyan,0,0,1)",
+        "Violet! Is that you?",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("squeak(purple)");
-        add("text(purple,45,18,1)");
-        add("Captain! You're ok!");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,45,18,1)",
+        "Captain! You're ok!",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("text(purple,20,16,3)");
-        add("Something has gone");
-        add("horribly wrong with the");
-        add("ship's teleporter!");
-        add("speak_active");
+        "squeak(cry)",
+        "text(purple,20,16,3)",
+        "Something has gone",
+        "horribly wrong with the",
+        "ship's teleporter!",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,8,14,3)");
-        add("I think everyone has been");
-        add("teleported away randomly!");
-        add("They could be anywhere!");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,8,14,3)",
+        "I think everyone has been",
+        "teleported away randomly!",
+        "They could be anywhere!",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(cyan,0,0,1)");
-        add("Oh no!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(cyan,0,0,1)",
+        "Oh no!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,10,19,2)");
-        add("I'm on the ship - it's damaged");
-        add("badly, but it's still intact!");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,10,19,2)",
+        "I'm on the ship - it's damaged",
+        "badly, but it's still intact!",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,10,15,1)");
-        add("Where are you, Captain?");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,10,15,1)",
+        "Where are you, Captain?",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(cyan,0,0,3)");
-        add("I'm on some sort of");
-        add("space station... It");
-        add("seems pretty modern...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(cyan,0,0,3)",
+        "I'm on some sort of",
+        "space station... It",
+        "seems pretty modern...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,15,16,2)");
-        add("There seems to be some sort of");
-        add("interference in this dimension...");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,15,16,2)",
+        "There seems to be some sort of",
+        "interference in this dimension...",
+        "speak_active",
 
-        add("hideteleporters()");
-        add("endtextfast");
-        add("delay(10)");
+        "hideteleporters()",
+        "endtextfast",
+        "delay(10)",
 
         //add map mode here and wrap up...
-        add("gamemode(teleporter)");
-        add("delay(20)");
+        "gamemode(teleporter)",
+        "delay(20)",
 
-        add("squeak(purple)");
-        add("text(purple,25,205,2)");
-        add("I'm broadcasting the coordinates");
-        add("of the ship to you now.");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,25,205,2)",
+        "I'm broadcasting the coordinates",
+        "of the ship to you now.",
+        "speak_active",
+        "endtext",
 
-        add("squeak(terminal)");
-        add("showship()");
-        add("delay(10)");
-        add("hideship()");
-        add("delay(10)");
-        add("showship()");
-        add("delay(10)");
-        add("hideship()");
-        add("delay(10)");
-        add("showship()");
-        add("delay(20)");
+        "squeak(terminal)",
+        "showship()",
+        "delay(10)",
+        "hideship()",
+        "delay(10)",
+        "showship()",
+        "delay(10)",
+        "hideship()",
+        "delay(10)",
+        "showship()",
+        "delay(20)",
 
-        add("squeak(purple)");
-        add("text(purple,10,200,1)");
-        add("I can't teleport you back, but...");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,10,200,1)",
+        "I can't teleport you back, but...",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,25,195,3)");
-        add("If YOU can find a teleporter");
-        add("anywhere nearby, you should be");
-        add("able to teleport back to me!");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,25,195,3)",
+        "If YOU can find a teleporter",
+        "anywhere nearby, you should be",
+        "able to teleport back to me!",
+        "speak_active",
+        "endtext",
 
-        add("squeak(terminal)");
-        add("delay(20)");
-        add("showteleporters()");
-        add("delay(10)");
-        add("hideteleporters()");
-        add("delay(10)");
-        add("showteleporters()");
-        add("delay(10)");
-        add("hideteleporters()");
-        add("delay(10)");
-        add("showteleporters()");
-        add("delay(20)");
+        "squeak(terminal)",
+        "delay(20)",
+        "showteleporters()",
+        "delay(10)",
+        "hideteleporters()",
+        "delay(10)",
+        "showteleporters()",
+        "delay(10)",
+        "hideteleporters()",
+        "delay(10)",
+        "showteleporters()",
+        "delay(20)",
 
-        add("squeak(player)");
-        add("text(cyan,20,190,1)");
-        add("Ok! I'll try to find one!");
-        add("speak_active");
-        add("endtext");
-        add("delay(20)");
+        "squeak(player)",
+        "text(cyan,20,190,1)",
+        "Ok! I'll try to find one!",
+        "speak_active",
+        "endtext",
+        "delay(20)",
 
-        add("gamemode(game)");
-        add("delay(20)");
+        "gamemode(game)",
+        "delay(20)",
 
-        add("squeak(purple)");
-        add("text(purple,40,22,1)");
-        add("Good luck, Captain!");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,40,22,1)",
+        "Good luck, Captain!",
+        "speak_active",
+        "endtext",
 
-        add("squeak(purple)");
-        add("text(purple,10,19,2)");
-        add("I'll keep trying to find");
-        add("the rest of the crew...");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,10,19,2)",
+        "I'll keep trying to find",
+        "the rest of the crew...",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("play(1)");
+        "endcutscene()",
+        "untilbars()",
+        "play(1)",
+        };
+        filllines(lines);
     }
     else if (t == "communicationstationskip")
     {
-        add("changemood(player,0)");
+        const char* lines[] = {
+        "changemood(player,0)",
 
-        add("delay(10)");
-        add("endtext");
+        "delay(10)",
+        "endtext",
         //add map mode here and wrap up...
-        add("gamemode(teleporter)");
-        add("delay(5)");
+        "gamemode(teleporter)",
+        "delay(5)",
 
-        add("squeak(terminal)");
-        add("showship()");
-        add("showteleporters()");
-        add("delay(10)");
-        add("hideship()");
-        add("hideteleporters()");
-        add("delay(10)");
-        add("showship()");
-        add("showteleporters()");
-        add("delay(10)");
-        add("hideship()");
-        add("hideteleporters()");
-        add("delay(10)");
-        add("showship()");
-        add("showteleporters()");
-        add("delay(20)");
+        "squeak(terminal)",
+        "showship()",
+        "showteleporters()",
+        "delay(10)",
+        "hideship()",
+        "hideteleporters()",
+        "delay(10)",
+        "showship()",
+        "showteleporters()",
+        "delay(10)",
+        "hideship()",
+        "hideteleporters()",
+        "delay(10)",
+        "showship()",
+        "showteleporters()",
+        "delay(20)",
 
-        add("gamemode(game)");
+        "gamemode(game)",
+        };
+        filllines(lines);
     }
     else if (t == "teleporterback")
     {
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,1)");
-        add("A teleporter!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,1)",
+        "A teleporter!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(cyan,0,0,2)");
-        add("I can get back to the");
-        add("ship with this!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(cyan,0,0,2)",
+        "I can get back to the",
+        "ship with this!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("teleportscript(levelonecomplete)");
+        "teleportscript(levelonecomplete)",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "levelonecomplete")
     {
-        add("nocontrol()");
-        add("createcrewman(230,153,purple,0,faceleft)");
+        const char* lines[] = {
+        "nocontrol()",
+        "createcrewman(230,153,purple,0,faceleft)",
 
-        add("cutscene()");
-        add("untilbars()");
+        "cutscene()",
+        "untilbars()",
 
-        add("delay(30)");
-        add("rescued(purple)");
+        "delay(30)",
+        "rescued(purple)",
 
-        add("delay(10)");
-        add("gamestate(4090)");
+        "delay(10)",
+        "gamestate(4090)",
+        };
+        filllines(lines);
     }
     else if (t == "levelonecomplete_ending")
     {
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Captain!");
-        add("position(purple,above)");
-        add("speak_active");
-        add("endtext");
-        add("nocontrol()");
+        const char* lines[] = {
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Captain!",
+        "position(purple,above)",
+        "speak_active",
+        "endtext",
+        "nocontrol()",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
 
-        add("gamestate(3050)");
+        "gamestate(3050)",
+        };
+        filllines(lines);
     }
     else if (t == "levelonecompleteskip")
     {
-        add("nocontrol()");
-        add("gamestate(3050)");
+        const char* lines[] = {
+        "nocontrol()",
+        "gamestate(3050)",
+        };
+        filllines(lines);
     }
     else if (t == "bigopenworld")
     {
-        add("play(5)");
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "play(5)",
+        "cutscene()",
+        "untilbars()",
 
-        add("gotoroom(4,10)");
-        add("gotoposition(100,177,0)");
-        add("createcrewman(150,177,purple,0,faceleft)");
+        "gotoroom(4,10)",
+        "gotoposition(100,177,0)",
+        "createcrewman(150,177,purple,0,faceleft)",
 
         //set all the crew as rescued to avoid companion issues!
-        add("rescued(red)");
-        add("rescued(green)");
-        add("rescued(blue)");
-        add("rescued(yellow)");
+        "rescued(red)",
+        "rescued(green)",
+        "rescued(blue)",
+        "rescued(yellow)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("So, Doctor - have you any");
-        add("idea what caused the crash?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "So, Doctor - have you any",
+        "idea what caused the crash?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,3)");
-        add("There's some sort of bizarre");
-        add("signal here that's interfering");
-        add("with our equipment...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,3)",
+        "There's some sort of bizarre",
+        "signal here that's interfering",
+        "with our equipment...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,3)");
-        add("It caused the ship to lose");
-        add("its quantum position, collapsing");
-        add("us into this dimension!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,3)",
+        "It caused the ship to lose",
+        "its quantum position, collapsing",
+        "us into this dimension!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("Oh no!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "Oh no!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("But I think we should be able to fix");
-        add("the ship and get out of here...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "But I think we should be able to fix",
+        "the ship and get out of here...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("... as long as we can");
-        add("find the rest of the crew.");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "... as long as we can",
+        "find the rest of the crew.",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
         //Cut to Red
-        add("fadeout()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
 
-        add("changeplayercolour(red)");
-        add("gotoroom(10,4)");
-        add("gotoposition(200,185,0)");
-        add("hideplayer()");
-        add("createcrewman(200,185,red,1,panic)");
+        "changeplayercolour(red)",
+        "gotoroom(10,4)",
+        "gotoposition(200,185,0)",
+        "hideplayer()",
+        "createcrewman(200,185,red,1,panic)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
-        //add("walk(right,10)");
+        //"walk(right,10)",
 
-        add("squeak(purple)");
-        add("text(purple,60,40,2)");
-        add("We really don't know anything");
-        add("about this place...");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,60,40,2)",
+        "We really don't know anything",
+        "about this place...",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
         //Cut to Green
-        add("fadeout()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
 
-        add("showplayer()");
+        "showplayer()",
 
-        add("changeplayercolour(green)");
-        add("gotoroom(13,0)");
-        add("gotoposition(143,20,0)");
+        "changeplayercolour(green)",
+        "gotoroom(13,0)",
+        "gotoposition(143,20,0)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
 
-        add("squeak(purple)");
-        add("text(purple,40,30,2)");
-        add("Our friends could be anywhere - they");
-        add("could be lost, or in danger!");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,40,30,2)",
+        "Our friends could be anywhere - they",
+        "could be lost, or in danger!",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
         //Cut to Blue
-        add("fadeout()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
 
-        add("changeplayercolour(blue)");
-        add("gotoroom(3,4)");
-        add("gotoposition(190,177,0)");
+        "changeplayercolour(blue)",
+        "gotoroom(3,4)",
+        "gotoposition(190,177,0)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
 
-        add("squeak(player)");
-        add("text(player,10,60,1)");
-        add("Can they teleport back here?");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,10,60,1)",
+        "Can they teleport back here?",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,50,80,2)");
-        add("Not unless they find some way");
-        add("to communicate with us!");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,50,80,2)",
+        "Not unless they find some way",
+        "to communicate with us!",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,30,100,3)");
-        add("We can't pick up their signal and");
-        add("they can't teleport here unless");
-        add("they know where the ship is...");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,30,100,3)",
+        "We can't pick up their signal and",
+        "they can't teleport here unless",
+        "they know where the ship is...",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
 
         //Cut to Yellow
-        add("fadeout()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
 
-        add("changeplayercolour(yellow)");
-        add("gotoroom(15,9)");
+        "changeplayercolour(yellow)",
+        "gotoroom(15,9)",
         //(6*8)-21
-        add("gotoposition(300,27,0)");
+        "gotoposition(300,27,0)",
 
-        add("hideplayer()");
-        add("createcrewman(280,25,yellow,1,panic)");
+        "hideplayer()",
+        "createcrewman(280,25,yellow,1,panic)",
 
-        //add("hascontrol()");
-        //add("walk(left,4)");
+        //"hascontrol()",
+        //"walk(left,4)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
-        add("squeak(player)");
-        add("text(player,25,60,1)");
-        add("So what do we do?");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,25,60,1)",
+        "So what do we do?",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,80,125,4)");
-        add("We need to find them! Head");
-        add("out into the dimension and");
-        add("look for anywhere they might");
-        add("have ended up...");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,80,125,4)",
+        "We need to find them! Head",
+        "out into the dimension and",
+        "look for anywhere they might",
+        "have ended up...",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
         //Back to ship
-        add("fadeout()");
-        add("untilfade()");
-        add("showplayer()");
+        "fadeout()",
+        "untilfade()",
+        "showplayer()",
 
-        add("missing(red)");
-        add("missing(green)");
-        add("missing(blue)");
-        add("missing(yellow)");
+        "missing(red)",
+        "missing(green)",
+        "missing(blue)",
+        "missing(yellow)",
 
-        add("changeplayercolour(cyan)");
-        add("changemood(player,0)");
-        add("gotoroom(4,10)");
-        add("gotoposition(90,177,0)");
-        add("walk(right,2)");
-        add("createcrewman(150,177,purple,0,faceleft)");
+        "changeplayercolour(cyan)",
+        "changemood(player,0)",
+        "gotoroom(4,10)",
+        "gotoposition(90,177,0)",
+        "walk(right,2)",
+        "createcrewman(150,177,purple,0,faceleft)",
 
 
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Ok! Where do we start?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Ok! Where do we start?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("Well, I've been trying to find");
-        add("them with the ship's scanners!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "Well, I've been trying to find",
+        "them with the ship's scanners!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("It's not working, but I did");
-        add("find something...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "It's not working, but I did",
+        "find something...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("hidecoordinates(10,4)");
-        add("hidecoordinates(13,0)");
-        add("hidecoordinates(3,4)");
-        add("hidecoordinates(15,9)");
-        add("showteleporters()");
+        "hidecoordinates(10,4)",
+        "hidecoordinates(13,0)",
+        "hidecoordinates(3,4)",
+        "hidecoordinates(15,9)",
+        "showteleporters()",
 
         //Cut to map
         //add map mode here and wrap up...
-        add("gamemode(teleporter)");
-        add("delay(20)");
+        "gamemode(teleporter)",
+        "delay(20)",
 
-        add("squeak(terminal)");
-        add("showtargets()");
-        add("delay(10)");
-        add("hidetargets()");
-        add("delay(10)");
-        add("showtargets()");
-        add("delay(10)");
-        add("hidetargets()");
-        add("delay(10)");
-        add("showtargets()");
-        add("delay(20)");
+        "squeak(terminal)",
+        "showtargets()",
+        "delay(10)",
+        "hidetargets()",
+        "delay(10)",
+        "showtargets()",
+        "delay(10)",
+        "hidetargets()",
+        "delay(10)",
+        "showtargets()",
+        "delay(20)",
 
-        add("squeak(purple)");
-        add("text(purple,25,205,2)");
-        add("These points show up on our scans");
-        add("as having high energy patterns!");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,25,205,2)",
+        "These points show up on our scans",
+        "as having high energy patterns!",
+        "speak_active",
+        "endtext",
 
-        add("squeak(purple)");
-        add("text(purple,35,185,4)");
-        add("There's a good chance they're");
-        add("teleporters - which means");
-        add("they're probably built near");
-        add("something important...");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,35,185,4)",
+        "There's a good chance they're",
+        "teleporters - which means",
+        "they're probably built near",
+        "something important...",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,25,205,2)");
-        add("They could be a very good");
-        add("place to start looking.");
-        add("speak_active");
-        add("endtext");
-        add("delay(20)");
+        "squeak(purple)",
+        "text(purple,25,205,2)",
+        "They could be a very good",
+        "place to start looking.",
+        "speak_active",
+        "endtext",
+        "delay(20)",
 
-        add("gamemode(game)");
-        add("delay(20)");
+        "gamemode(game)",
+        "delay(20)",
         //And finally, back to the ship!
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Ok! I'll head out and see");
-        add("what I can find!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Ok! I'll head out and see",
+        "what I can find!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("I'll be right here if");
-        add("you need any help!");
-        add("position(purple,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "I'll be right here if",
+        "you need any help!",
+        "position(purple,above)",
+        "speak_active",
+        "endtext",
 
-        add("rescued(purple)");
-        add("play(4)");
+        "rescued(purple)",
+        "play(4)",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("hascontrol()");
+        "endcutscene()",
+        "untilbars()",
+        "hascontrol()",
 
-        add("createactivityzone(purple)");
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "bigopenworldskip")
     {
-        add("gotoroom(4,10)");
-        add("gotoposition(100,177,0)");
-        add("createcrewman(150,177,purple,0,faceleft)");
+        const char* lines[] = {
+        "gotoroom(4,10)",
+        "gotoposition(100,177,0)",
+        "createcrewman(150,177,purple,0,faceleft)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
-        add("hidecoordinates(10,4)");
-        add("hidecoordinates(13,0)");
-        add("hidecoordinates(3,4)");
-        add("hidecoordinates(15,9)");
-        add("showteleporters()");
+        "hidecoordinates(10,4)",
+        "hidecoordinates(13,0)",
+        "hidecoordinates(3,4)",
+        "hidecoordinates(15,9)",
+        "showteleporters()",
 
         //Cut to map
         //add map mode here and wrap up...
-        add("gamemode(teleporter)");
-        add("delay(20)");
+        "gamemode(teleporter)",
+        "delay(20)",
 
-        add("squeak(terminal)");
-        add("showtargets()");
-        add("delay(10)");
-        add("hidetargets()");
-        add("delay(10)");
-        add("showtargets()");
-        add("delay(10)");
-        add("hidetargets()");
-        add("delay(10)");
-        add("showtargets()");
-        add("delay(20)");
+        "squeak(terminal)",
+        "showtargets()",
+        "delay(10)",
+        "hidetargets()",
+        "delay(10)",
+        "showtargets()",
+        "delay(10)",
+        "hidetargets()",
+        "delay(10)",
+        "showtargets()",
+        "delay(20)",
 
-        add("gamemode(game)");
-        add("delay(20)");
+        "gamemode(game)",
+        "delay(20)",
         //And finally, back to the ship!
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("I'll be right here if");
-        add("you need any help!");
-        add("position(purple,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "I'll be right here if",
+        "you need any help!",
+        "position(purple,above)",
+        "speak_active",
+        "endtext",
 
-        add("rescued(purple)");
-        add("play(4)");
+        "rescued(purple)",
+        "play(4)",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("hascontrol()");
+        "endcutscene()",
+        "untilbars()",
+        "hascontrol()",
 
-        add("createactivityzone(purple)");
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "rescueblue")
     {
-        add("ifskip(skipblue)");
-        add("cutscene()");
+        const char* lines[] = {
+        "ifskip(skipblue)",
+        "cutscene()",
 
-        add("tofloor()");
-        add("changeai(blue,followplayer)");
-        add("untilbars()");
+        "tofloor()",
+        "changeai(blue,followplayer)",
+        "untilbars()",
 
-        add("rescued(blue)");
+        "rescued(blue)",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,2)");
-        add("Oh no! Captain! Are you");
-        add("stuck here too?");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,2)",
+        "Oh no! Captain! Are you",
+        "stuck here too?",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("It's ok - I'm here to rescue you!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "It's ok - I'm here to rescue you!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Let me explain everything...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Let me explain everything...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("fadeout()");
-        add("untilfade()");
-        add("delay(30)");
-        add("fadein()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
+        "delay(30)",
+        "fadein()",
+        "untilfade()",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,2)");
-        add("What? I didn't understand");
-        add("any of that!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,2)",
+        "What? I didn't understand",
+        "any of that!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Oh... well, don't worry.");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Oh... well, don't worry.",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Follow me! Everything");
-        add("will be alright!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Follow me! Everything",
+        "will be alright!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changemood(blue,0)");
-        add("text(blue,0,0,1)");
-        add("Sniff... Really?");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "changemood(blue,0)",
+        "text(blue,0,0,1)",
+        "Sniff... Really?",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,1)");
-        add("Ok then!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,1)",
+        "Ok then!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("companion(8)");
-        add("setcheckpoint()");
+        "endcutscene()",
+        "untilbars()",
+        "companion(8)",
+        "setcheckpoint()",
+        };
+        filllines(lines);
     }
     else if (t == "skipblue")
     {
-        add("changeai(blue,followplayer)");
-        add("squeak(blue)");
-        add("changemood(blue,0)");
-        add("companion(8)");
-        add("rescued(blue)");
-        add("setcheckpoint()");
+        const char* lines[] = {
+        "changeai(blue,followplayer)",
+        "squeak(blue)",
+        "changemood(blue,0)",
+        "companion(8)",
+        "rescued(blue)",
+        "setcheckpoint()",
+        };
+        filllines(lines);
     }
     else if (t == "rescueyellow")
     {
-        add("ifskip(skipyellow)");
-        add("cutscene()");
+        const char* lines[] = {
+        "ifskip(skipyellow)",
+        "cutscene()",
 
-        add("changeai(yellow,followplayer)");
-        add("changetile(yellow,6)");
-        add("untilbars()");
+        "changeai(yellow,followplayer)",
+        "changetile(yellow,6)",
+        "untilbars()",
 
-        add("rescued(yellow)");
+        "rescued(yellow)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Ah, Viridian! You got off");
-        add("the ship alright too? ");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Ah, Viridian! You got off",
+        "the ship alright too? ",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("It's good to see you're");
-        add("alright, Professor!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "It's good to see you're",
+        "alright, Professor!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("Is the ship ok?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "Is the ship ok?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("It's badly damaged, but Violet's");
-        add("been working on fixing it.");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "It's badly damaged, but Violet's",
+        "been working on fixing it.",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("We could really use your help...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "We could really use your help...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("fadeout()");
-        add("untilfade()");
-        add("delay(30)");
-        add("fadein()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
+        "delay(30)",
+        "fadein()",
+        "untilfade()",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("Ah, of course!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "Ah, of course!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,4)");
-        add("The background interference");
-        add("in this dimension prevented");
-        add("the ship from finding a");
-        add("teleporter when we crashed!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,4)",
+        "The background interference",
+        "in this dimension prevented",
+        "the ship from finding a",
+        "teleporter when we crashed!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("We've all been teleported");
-        add("to different locations!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "We've all been teleported",
+        "to different locations!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Er, that sounds about right!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Er, that sounds about right!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Let's get back to");
-        add("the ship, then!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Let's get back to",
+        "the ship, then!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("After you, Captain!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "After you, Captain!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("companion(7)");
-        add("endcutscene()");
-        add("untilbars()");
+        "companion(7)",
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "skipyellow")
     {
-        add("changeai(yellow,followplayer)");
-        add("changetile(yellow,6)");
-        add("squeak(yellow)");
-        add("rescued(yellow)");
-        add("companion(7)");
+        const char* lines[] = {
+        "changeai(yellow,followplayer)",
+        "changetile(yellow,6)",
+        "squeak(yellow)",
+        "rescued(yellow)",
+        "companion(7)",
+        };
+        filllines(lines);
     }
     else if (t == "rescuegreen")
     {
-        add("ifskip(skipgreen)");
-        add("cutscene()");
+        const char* lines[] = {
+        "ifskip(skipgreen)",
+        "cutscene()",
 
-        add("tofloor()");
-        add("changemood(green,0)");
-        add("untilbars()");
+        "tofloor()",
+        "changemood(green,0)",
+        "untilbars()",
 
-        add("rescued(green)");
+        "rescued(green)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Captain! I've been so worried!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Captain! I've been so worried!",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Chief Verdigris! You're ok!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Chief Verdigris! You're ok!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(green,1)");
-        add("text(green,0,0,2)");
-        add("I've been trying to get out, but");
-        add("I keep going around in circles...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(green,1)",
+        "text(green,0,0,2)",
+        "I've been trying to get out, but",
+        "I keep going around in circles...",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("I've come from the ship. I'm here");
-        add("to teleport you back to it.");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "I've come from the ship. I'm here",
+        "to teleport you back to it.",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("Is everyone else");
-        add("alright? Is Violet...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "Is everyone else",
+        "alright? Is Violet...",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("She's fine - she's back on the ship!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "She's fine - she's back on the ship!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("changemood(green,0)");
-        add("text(green,0,0,2)");
-        add("Oh! Great - Let's");
-        add("get going, then!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "changemood(green,0)",
+        "text(green,0,0,2)",
+        "Oh! Great - Let's",
+        "get going, then!",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("companion(6)");
-        add("endcutscene()");
-        add("untilbars()");
-        add("changeai(green,followplayer)");
+        "companion(6)",
+        "endcutscene()",
+        "untilbars()",
+        "changeai(green,followplayer)",
+        };
+        filllines(lines);
     }
     else if (t == "skipgreen")
     {
-        add("changeai(green,followplayer)");
-        add("squeak(green)");
-        add("rescued(green)");
-        add("changemood(green,0)");
-        add("companion(6)");
+        const char* lines[] = {
+        "changeai(green,followplayer)",
+        "squeak(green)",
+        "rescued(green)",
+        "changemood(green,0)",
+        "companion(6)",
+        };
+        filllines(lines);
     }
     else if (t == "rescuered")
     {
-        add("ifskip(skipred)");
-        add("cutscene()");
+        const char* lines[] = {
+        "ifskip(skipred)",
+        "cutscene()",
 
-        add("tofloor()");
-        add("changemood(red,0)");
-        add("untilbars()");
+        "tofloor()",
+        "changemood(red,0)",
+        "untilbars()",
 
-        add("rescued(red)");
+        "rescued(red)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Captain!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Captain!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("Am I ever glad to see you!");
-        add("I thought I was the only");
-        add("one to escape the ship...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "Am I ever glad to see you!",
+        "I thought I was the only",
+        "one to escape the ship...",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Vermilion! I knew you'd be ok!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Vermilion! I knew you'd be ok!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("So, what's the situation?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "So, what's the situation?",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("fadeout()");
-        add("untilfade()");
-        add("delay(30)");
-        add("fadein()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
+        "delay(30)",
+        "fadein()",
+        "untilfade()",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("I see! Well, we'd better");
-        add("get back then.");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "I see! Well, we'd better",
+        "get back then.",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("There's a teleporter");
-        add("in the next room.");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "There's a teleporter",
+        "in the next room.",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("companion(9)");
-        add("endcutscene()");
-        add("untilbars()");
-        add("changeai(red,followplayer)");
+        "companion(9)",
+        "endcutscene()",
+        "untilbars()",
+        "changeai(red,followplayer)",
+        };
+        filllines(lines);
     }
     else if (t == "skipred")
     {
-        add("changeai(red,followplayer)");
-        add("squeak(red)");
-        add("rescued(red)");
-        add("changemood(red,0)");
-        add("companion(9)");
+        const char* lines[] = {
+        "changeai(red,followplayer)",
+        "squeak(red)",
+        "rescued(red)",
+        "changemood(red,0)",
+        "companion(9)",
+        };
+        filllines(lines);
     }
     else if (t == "startexpolevel_station1")
     {
+        const char* lines[] = {
         //For the Eurogamer EXPO! Scrap later.
-        add("fadeout()");
-        add("musicfadeout()");
-        add("untilfade()");
+        "fadeout()",
+        "musicfadeout()",
+        "untilfade()",
 
-        add("cutscene()");
-        add("untilbars()");
+        "cutscene()",
+        "untilbars()",
 
-        add("resetgame");
+        "resetgame",
 
-        add("gotoroom(4,10)");
-        add("gotoposition(232,113,0)");
-        add("setcheckpoint()");
-        add("changedir(player,1)");
-        add("fadein()");
+        "gotoroom(4,10)",
+        "gotoposition(232,113,0)",
+        "setcheckpoint()",
+        "changedir(player,1)",
+        "fadein()",
 
-        add("play(5)");
-        add("loadscript(intro)");
+        "play(5)",
+        "loadscript(intro)",
+        };
+        filllines(lines);
     }
     else if (t == "startexpolevel_lab")
     {
+        const char* lines[] = {
         //For the Eurogamer EXPO! Scrap later.
-        add("fadeout()");
-        add("musicfadeout()");
-        add("untilfade()");
-        add("delay(30)");
+        "fadeout()",
+        "musicfadeout()",
+        "untilfade()",
+        "delay(30)",
 
-        add("resetgame");
+        "resetgame",
 
-        add("gotoroom(2,16)");
-        add("gotoposition(58,193,0)");
-        add("setcheckpoint()");
-        add("changedir(player,1)");
-        add("fadein()");
+        "gotoroom(2,16)",
+        "gotoposition(58,193,0)",
+        "setcheckpoint()",
+        "changedir(player,1)",
+        "fadein()",
 
-        add("stopmusic()");
-        add("play(3)");
+        "stopmusic()",
+        "play(3)",
+        };
+        filllines(lines);
     }
     else if (t == "startexpolevel_warp")
     {
+        const char* lines[] = {
         //For the Eurogamer EXPO! Scrap later.
-        add("fadeout()");
-        add("musicfadeout()");
-        add("untilfade()");
-        add("delay(30)");
+        "fadeout()",
+        "musicfadeout()",
+        "untilfade()",
+        "delay(30)",
 
-        add("resetgame");
+        "resetgame",
 
-        add("gotoroom(14,1)");
-        add("gotoposition(45,73,0)");
-        add("setcheckpoint()");
-        add("changedir(player,1)");
-        add("fadein()");
+        "gotoroom(14,1)",
+        "gotoposition(45,73,0)",
+        "setcheckpoint()",
+        "changedir(player,1)",
+        "fadein()",
 
-        add("stopmusic()");
-        add("play(3)");
+        "stopmusic()",
+        "play(3)",
+        };
+        filllines(lines);
     }
     else if (t == "startexpolevel_tower")
     {
+        const char* lines[] = {
         //For the Eurogamer EXPO! Scrap later.
-        add("fadeout()");
-        add("musicfadeout()");
-        add("untilfade()");
-        add("delay(30)");
+        "fadeout()",
+        "musicfadeout()",
+        "untilfade()",
+        "delay(30)",
 
-        add("resetgame");
+        "resetgame",
 
-        add("gotoroom(8,9)");
-        add("gotoposition(95,193,0)");
-        add("setcheckpoint()");
-        add("changedir(player,1)");
-        add("fadein()");
+        "gotoroom(8,9)",
+        "gotoposition(95,193,0)",
+        "setcheckpoint()",
+        "changedir(player,1)",
+        "fadein()",
 
-        add("stopmusic()");
-        add("play(2)");
+        "stopmusic()",
+        "play(2)",
+        };
+        filllines(lines);
     }
     else if (t == "skipint1")
     {
-        add("finalmode(41,56)");
-        add("gotoposition(52,89,0)");
-        add("changedir(player,1)");
-        add("setcheckpoint()");
-        add("delay(15)");
+        const char* lines[] = {
+        "finalmode(41,56)",
+        "gotoposition(52,89,0)",
+        "changedir(player,1)",
+        "setcheckpoint()",
+        "delay(15)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(9)");
-        add("showplayer()");
-        add("play(8)");
+        "flash(5)",
+        "shake(20)",
+        "playef(9)",
+        "showplayer()",
+        "play(8)",
 
-        add("hascontrol()");
-        add("befadein()");
+        "hascontrol()",
+        "befadein()",
+        };
+        filllines(lines);
     }
     else if (t == "intermission_1")
     {
-        add("ifskip(skipint1)");
-        add("finalmode(41,56)");
-        add("gotoposition(52,89,0)");
-        add("changedir(player,1)");
-        add("setcheckpoint()");
+        const char* lines[] = {
+        "ifskip(skipint1)",
+        "finalmode(41,56)",
+        "gotoposition(52,89,0)",
+        "changedir(player,1)",
+        "setcheckpoint()",
 
-        add("cutscene()");
+        "cutscene()",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(9)");
+        "flash(5)",
+        "shake(20)",
+        "playef(9)",
 
-        add("delay(35)");
+        "delay(35)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(9)");
+        "flash(5)",
+        "shake(20)",
+        "playef(9)",
 
-        add("delay(25)");
+        "delay(25)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
 
-        add("showplayer()");
-        add("play(8)");
+        "showplayer()",
+        "play(8)",
 
-        add("befadein()");
+        "befadein()",
 
-        add("iflast(2,int1yellow_1)");
-        add("iflast(3,int1red_1)");
-        add("iflast(4,int1green_1)");
-        add("iflast(5,int1blue_1)");
+        "iflast(2,int1yellow_1)",
+        "iflast(3,int1red_1)",
+        "iflast(4,int1green_1)",
+        "iflast(5,int1blue_1)",
+        };
+        filllines(lines);
     }
     else if (t == "int1blue_1")
     {
-        add("delay(45)");
+        const char* lines[] = {
+        "delay(45)",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("Waaaa!");
-        add("position(blue,above)");
-        add("speak_active");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "Waaaa!",
+        "position(blue,above)",
+        "speak_active",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,1)");
-        add("Captain! Are you ok?");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,1)",
+        "Captain! Are you ok?",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("I'm ok... this...");
-        add("this isn't the ship...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "I'm ok... this...",
+        "this isn't the ship...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Where are we?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Where are we?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("Waaaa!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "Waaaa!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Something's gone wrong... We");
-        add("should look for a way back!");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Something's gone wrong... We",
+        "should look for a way back!",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("telesave()");
+        "telesave()",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("gamestate(14)");
+        "endcutscene()",
+        "untilbars()",
+        "gamestate(14)",
+        };
+        filllines(lines);
     }
     else if (t == "int1blue_2")
     {
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Follow me! I'll help you!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Follow me! I'll help you!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("Promise you won't leave without me!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "Promise you won't leave without me!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("I promise! Don't worry!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "I promise! Don't worry!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("gamestate(11)");
+        "endcutscene()",
+        "untilbars()",
+        "gamestate(11)",
+        };
+        filllines(lines);
     }
     else if (t == "int1blue_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Are you ok down there, Doctor?");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Are you ok down there, Doctor?",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("I wanna go home!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "I wanna go home!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,2)");
-        add("Where are we? How did");
-        add("we even get here?");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,2)",
+        "Where are we? How did",
+        "we even get here?",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,4)");
-        add("Well, Violet did say that the");
-        add("interference in the dimension");
-        add("we crashed in was causing");
-        add("problems with the teleporters...");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,4)",
+        "Well, Violet did say that the",
+        "interference in the dimension",
+        "we crashed in was causing",
+        "problems with the teleporters...",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("I guess something went wrong...");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "I guess something went wrong...",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,3)");
-        add("But if we can find another");
-        add("teleporter, I think we can");
-        add("get back to the ship!");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,3)",
+        "But if we can find another",
+        "teleporter, I think we can",
+        "get back to the ship!",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,1)");
-        add("Sniff...");
-        add("position(blue,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(blue)",
+        "text(blue,0,0,1)",
+        "Sniff...",
+        "position(blue,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1blue_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("Captain! Captain! Wait for me!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "Captain! Captain! Wait for me!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,2)");
-        add("Please don't leave me behind!");
-        add("I don't mean to be a burden!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,2)",
+        "Please don't leave me behind!",
+        "I don't mean to be a burden!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("I'm scared!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "I'm scared!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Oh... don't worry Victoria,");
-        add("I'll look after you!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Oh... don't worry Victoria,",
+        "I'll look after you!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1blue_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,2)");
-        add("We're never going to get");
-        add("out of here, are we?");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,2)",
+        "We're never going to get",
+        "out of here, are we?",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("I.. I don't know...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "I.. I don't know...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("text(player,0,0,2)");
-        add("I don't know where we are or");
-        add("how we're going to get out...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(player,0,0,2)",
+        "I don't know where we are or",
+        "how we're going to get out...",
+        "position(player,above)",
+        "speak_active",
 
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1blue_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("We're going to be lost forever!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "We're going to be lost forever!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,2)");
-        add("Ok, come on... Things");
-        add("aren't that bad.");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,2)",
+        "Ok, come on... Things",
+        "aren't that bad.",
+        "position(player,above)",
+        "speak_active",
 
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("I have a feeling that");
-        add("we're nearly home!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "I have a feeling that",
+        "we're nearly home!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("We can't be too far");
-        add("from another teleporter!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "We can't be too far",
+        "from another teleporter!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("I hope you're right, captain...");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "I hope you're right, captain...",
+        "position(blue,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1blue_7")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,2");
-        add("Captain! You were right!");
-        add("It's a teleporter!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,2",
+        "Captain! You were right!",
+        "It's a teleporter!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,3)");
-        add("Phew! You had me worried for a");
-        add("while there... I thought we");
-        add("were never going to find one.");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,3)",
+        "Phew! You had me worried for a",
+        "while there... I thought we",
+        "were never going to find one.",
+        "position(player,above)",
+        "speak_active",
 
 
-        add("squeak(cry)");
-        add("changemood(blue,1)");
-        add("text(blue,0,0,1");
-        add("What? Really?");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(blue,1)",
+        "text(blue,0,0,1",
+        "What? Really?",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Anyway, let's go");
-        add("back to the ship.");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Anyway, let's go",
+        "back to the ship.",
+        "position(player,above)",
+        "speak_active",
 
-        add("changemood(blue,0)");
-        add("endtext");
+        "changemood(blue,0)",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1green_1")
     {
-        add("delay(45)");
+        const char* lines[] = {
+        "delay(45)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Huh? This isn't the ship...");
-        add("position(green,above)");
-        add("speak_active");
-        add("face(player,green)");
-        add("face(green,player)");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Huh? This isn't the ship...",
+        "position(green,above)",
+        "speak_active",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Captain! What's going on?");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Captain! What's going on?",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1");
-        add("text(player,0,0,1)");
-        add("I... I don't know!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1",
+        "text(player,0,0,1)",
+        "I... I don't know!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Where are we?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Where are we?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("Uh oh, this isn't good...");
-        add("Something must have gone");
-        add("wrong with the teleporter!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "Uh oh, this isn't good...",
+        "Something must have gone",
+        "wrong with the teleporter!",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,0");
-        add("text(player,0,0,1)");
-        add("Ok... no need to panic!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0",
+        "text(player,0,0,1)",
+        "Ok... no need to panic!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,0");
-        add("text(player,0,0,1)");
-        add("Let's look for another teleporter!");
-        add("There's bound to be one around");
-        add("here somewhere!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0",
+        "text(player,0,0,1)",
+        "Let's look for another teleporter!",
+        "There's bound to be one around",
+        "here somewhere!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("telesave()");
-        add("endcutscene()");
-        add("untilbars()");
-        add("gamestate(14)");
+        "telesave()",
+        "endcutscene()",
+        "untilbars()",
+        "gamestate(14)",
+        };
+        filllines(lines);
     }
     else if (t == "int1green_2")
     {
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Let's go this way!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Let's go this way!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("After you, Captain!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "After you, Captain!",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("gamestate(11)");
+        "endcutscene()",
+        "untilbars()",
+        "gamestate(11)",
+        };
+        filllines(lines);
 
     }
     else if (t == "int1green_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("So Violet's back on the");
-        add("ship? She's really ok?");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "So Violet's back on the",
+        "ship? She's really ok?",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("She's fine! She helped");
-        add("me find my way back!");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "She's fine! She helped",
+        "me find my way back!",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Oh, phew! I was worried about her.");
-        add("position(green,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Oh, phew! I was worried about her.",
+        "position(green,above)",
+        "speak_active",
+        "endtext",
 
-        add("delay(45)");
+        "delay(45)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Captain, I have a secret...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Captain, I have a secret...",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(green,1)");
-        add("text(green,0,0,1)");
-        add("I really like Violet!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(green,1)",
+        "text(green,0,0,1)",
+        "I really like Violet!",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Is that so?");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Is that so?",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("changemood(green,0)");
-        add("text(green,0,0,2)");
-        add("Please promise you");
-        add("won't tell her!");
-        add("position(green,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(green)",
+        "changemood(green,0)",
+        "text(green,0,0,2)",
+        "Please promise you",
+        "won't tell her!",
+        "position(green,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1green_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Hey again!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Hey again!",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Hey!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Hey!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Are you doing ok?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Are you doing ok?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("I think so! I really");
-        add("hope we can find a way");
-        add("back to the ship...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "I think so! I really",
+        "hope we can find a way",
+        "back to the ship...",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1green_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("So, about Violet...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "So, about Violet...",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Um, yeah?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Um, yeah?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Do you have any advice?");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Do you have any advice?",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Oh!");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Oh!",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("delay(45)");
+        "delay(45)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Hmm...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Hmm...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Um... you should... be yourself!");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Um... you should... be yourself!",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Oh.");
-        add("position(green,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Oh.",
+        "position(green,above)",
+        "speak_active",
+        "endtext",
 
-        add("delay(75)");
+        "delay(75)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Thanks Captain!");
-        add("position(green,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Thanks Captain!",
+        "position(green,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1green_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("So, do you think you'll");
-        add("be able to fix the ship?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "So, do you think you'll",
+        "be able to fix the ship?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("Depends on how bad it ");
-        add("is... I think so, though!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "Depends on how bad it ",
+        "is... I think so, though!",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,5)");
-        add("It's not very hard, really. The");
-        add("basic dimensional warping engine");
-        add("design is pretty simple, and if we");
-        add("can get that working we shouldn't");
-        add("have any trouble getting home.");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,5)",
+        "It's not very hard, really. The",
+        "basic dimensional warping engine",
+        "design is pretty simple, and if we",
+        "can get that working we shouldn't",
+        "have any trouble getting home.",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Oh! Good!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Oh! Good!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1green_7")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Finally! A teleporter!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Finally! A teleporter!",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("I was getting worried");
-        add("we wouldn't find one...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "I was getting worried",
+        "we wouldn't find one...",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Let's head back to the ship!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Let's head back to the ship!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1red_1")
     {
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Wow! Where are we?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Wow! Where are we?",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,3)");
-        add("This... isn't right...");
-        add("Something must have gone");
-        add("wrong with the teleporter!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,3)",
+        "This... isn't right...",
+        "Something must have gone",
+        "wrong with the teleporter!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("Oh well... We can work");
-        add("it out when we get");
-        add("back to the ship!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "Oh well... We can work",
+        "it out when we get",
+        "back to the ship!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Let's go exploring!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Let's go exploring!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,1)");
-        add("Ok then!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,1)",
+        "Ok then!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("telesave()");
-        add("endcutscene()");
-        add("untilbars()");
-        add("gamestate(14)");
+        "telesave()",
+        "endcutscene()",
+        "untilbars()",
+        "gamestate(14)",
+        };
+        filllines(lines);
     }
     else if (t == "int1red_2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Follow me!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Follow me!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Aye aye, Captain!");
-        add("position(red,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Aye aye, Captain!",
+        "position(red,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("gamestate(11)");
+        "endcutscene()",
+        "untilbars()",
+        "gamestate(11)",
+        };
+        filllines(lines);
     }
     else if (t == "int1red_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("Hey Viridian... how did");
-        add("the crash happen, exactly?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "Hey Viridian... how did",
+        "the crash happen, exactly?",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Oh, I don't really know -");
-        add("some sort of interference...");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Oh, I don't really know -",
+        "some sort of interference...",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("...or something sciencey like");
-        add("that. It's not really my area.");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "...or something sciencey like",
+        "that. It's not really my area.",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("Ah! Well, do you think");
-        add("we'll be able to fix");
-        add("the ship and go home?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "Ah! Well, do you think",
+        "we'll be able to fix",
+        "the ship and go home?",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Of course! Everything will be ok!");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Of course! Everything will be ok!",
+        "position(player,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1red_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Hi again! You doing ok?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Hi again! You doing ok?",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("I think so! But I really want");
-        add("to get back to the ship...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "I think so! But I really want",
+        "to get back to the ship...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("We'll be ok! If we can find");
-        add("a teleporter somewhere we");
-        add("should be able to get back!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "We'll be ok! If we can find",
+        "a teleporter somewhere we",
+        "should be able to get back!",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1red_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Are we there yet?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Are we there yet?",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("We're getting closer, I think...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "We're getting closer, I think...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("I hope...");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "I hope...",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1red_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("I wonder where we are, anyway?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "I wonder where we are, anyway?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,3)");
-        add("This seems different from");
-        add("that dimension we crashed");
-        add("in, somehow...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,3)",
+        "This seems different from",
+        "that dimension we crashed",
+        "in, somehow...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("I dunno... But we must be");
-        add("close to a teleporter by now...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "I dunno... But we must be",
+        "close to a teleporter by now...",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1red_7")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("We're there!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "We're there!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("See? I told you! Let's");
-        add("get back to the ship!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "See? I told you! Let's",
+        "get back to the ship!",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1yellow_1")
     {
-        add("cutscene()");
-        add("untilbars()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("Oooh! This is interesting...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "Oooh! This is interesting...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Captain! Have you");
-        add("been here before?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Captain! Have you",
+        "been here before?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("What? Where are we?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "What? Where are we?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("I suspect something deflected");
-        add("our teleporter transmission!");
-        add("This is somewhere new...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "I suspect something deflected",
+        "our teleporter transmission!",
+        "This is somewhere new...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("Oh no!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "Oh no!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,3)");
-        add("We should try to find a");
-        add("teleporter and get back");
-        add("to the ship...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,3)",
+        "We should try to find a",
+        "teleporter and get back",
+        "to the ship...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("telesave()");
-        add("endcutscene()");
-        add("untilbars()");
-        add("gamestate(14)");
+        "telesave()",
+        "endcutscene()",
+        "untilbars()",
+        "gamestate(14)",
+        };
+        filllines(lines);
     }
     else if (t == "int1yellow_2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Follow me!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Follow me!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("Right behind you, Captain!");
-        add("position(yellow,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "Right behind you, Captain!",
+        "position(yellow,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("gamestate(11)");
+        "endcutscene()",
+        "untilbars()",
+        "gamestate(11)",
+        };
+        filllines(lines);
     }
     else if (t == "int1yellow_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("What do you make of");
-        add("all this, Professor?");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "What do you make of",
+        "all this, Professor?",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,4)");
-        add("I'm guessing this dimension");
-        add("has something to do with the");
-        add("interference that caused");
-        add("us to crash!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,4)",
+        "I'm guessing this dimension",
+        "has something to do with the",
+        "interference that caused",
+        "us to crash!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Maybe we'll find the");
-        add("cause of it here?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Maybe we'll find the",
+        "cause of it here?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Oh wow! Really?");
-        add("position(player,below)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Oh wow! Really?",
+        "position(player,below)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,4)");
-        add("Well, it's just a guess.");
-        add("I'll need to get back to");
-        add("the ship before I can do");
-        add("any real tests...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,4)",
+        "Well, it's just a guess.",
+        "I'll need to get back to",
+        "the ship before I can do",
+        "any real tests...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1yellow_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("Ohh! What was that?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "Ohh! What was that?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("What was what?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "What was what?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changedir(yellow,0)");
-        add("text(yellow,0,0,2)");
-        add("That big... C thing!");
-        add("I wonder what it does?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "changedir(yellow,0)",
+        "text(yellow,0,0,2)",
+        "That big... C thing!",
+        "I wonder what it does?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,2)");
-        add("Em... I don't really know");
-        add("how to answer that question...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,2)",
+        "Em... I don't really know",
+        "how to answer that question...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,3)");
-        add("It's probably best not");
-        add("to acknowledge that");
-        add("it's there at all.");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,3)",
+        "It's probably best not",
+        "to acknowledge that",
+        "it's there at all.",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changedir(yellow,1)");
-        add("text(yellow,0,0,2)");
-        add("Maybe we should take it back");
-        add("to the ship to study it?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "changedir(yellow,1)",
+        "text(yellow,0,0,2)",
+        "Maybe we should take it back",
+        "to the ship to study it?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,3)");
-        add("We really shouldn't think");
-        add("about it too much... Let's");
-        add("keep moving!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,3)",
+        "We really shouldn't think",
+        "about it too much... Let's",
+        "keep moving!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1yellow_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("You know, there's");
-        add("something really odd");
-        add("about this dimension...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "You know, there's",
+        "something really odd",
+        "about this dimension...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Yeah?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Yeah?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changedir(yellow,0)");
-        add("text(yellow,0,0,3)");
-        add("We shouldn't really be able");
-        add("to move between dimensions");
-        add("with a regular teleporter...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "changedir(yellow,0)",
+        "text(yellow,0,0,3)",
+        "We shouldn't really be able",
+        "to move between dimensions",
+        "with a regular teleporter...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changedir(yellow,0)");
-        add("text(yellow,0,0,2)");
-        add("Maybe this isn't a proper");
-        add("dimension at all?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "changedir(yellow,0)",
+        "text(yellow,0,0,2)",
+        "Maybe this isn't a proper",
+        "dimension at all?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changedir(yellow,0)");
-        add("text(yellow,0,0,4)");
-        add("Maybe it's some kind of");
-        add("polar dimension? Something");
-        add("artificially created for");
-        add("some reason?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "changedir(yellow,0)",
+        "text(yellow,0,0,4)",
+        "Maybe it's some kind of",
+        "polar dimension? Something",
+        "artificially created for",
+        "some reason?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changedir(yellow,1)");
-        add("text(yellow,0,0,2)");
-        add("I can't wait to get back to the");
-        add("ship. I have a lot of tests to run!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "changedir(yellow,1)",
+        "text(yellow,0,0,2)",
+        "I can't wait to get back to the",
+        "ship. I have a lot of tests to run!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1yellow_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("I wonder if there's anything");
-        add("else in this dimension");
-        add("worth exploring?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "I wonder if there's anything",
+        "else in this dimension",
+        "worth exploring?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,3)");
-        add("Maybe... but we should probably");
-        add("just focus on finding the rest");
-        add("of the crew for now...");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(player,0,0,3)",
+        "Maybe... but we should probably",
+        "just focus on finding the rest",
+        "of the crew for now...",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int1yellow_7")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("At last!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "At last!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("Let's go back to the ship!");
-        add("position(yellow,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "Let's go back to the ship!",
+        "position(yellow,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "skipint2")
     {
-        add("finalmode(53,49)");
-        add("gotoposition(228,129,0)");
-        add("changedir(player,1)");
-        add("setcheckpoint()");
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
+        const char* lines[] = {
+        "finalmode(53,49)",
+        "gotoposition(228,129,0)",
+        "changedir(player,1)",
+        "setcheckpoint()",
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
 
-        add("showplayer()");
-        add("play(8)");
+        "showplayer()",
+        "play(8)",
 
-        add("hascontrol()");
-        add("befadein()");
+        "hascontrol()",
+        "befadein()",
+        };
+        filllines(lines);
     }
     else if (t == "intermission_2")
     {
-        add("ifskip(skipint2)");
-        add("finalmode(53,49)");
-        add("gotoposition(228,129,0)");
-        add("changedir(player,1)");
-        add("setcheckpoint()");
+        const char* lines[] = {
+        "ifskip(skipint2)",
+        "finalmode(53,49)",
+        "gotoposition(228,129,0)",
+        "changedir(player,1)",
+        "setcheckpoint()",
 
-        add("cutscene()");
+        "cutscene()",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(9)");
+        "flash(5)",
+        "shake(20)",
+        "playef(9)",
 
-        add("delay(35)");
+        "delay(35)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(9)");
+        "flash(5)",
+        "shake(20)",
+        "playef(9)",
 
-        add("delay(25)");
+        "delay(25)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
 
-        add("showplayer()");
-        add("play(8)");
+        "showplayer()",
+        "play(8)",
 
-        add("befadein()");
+        "befadein()",
 
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("Uh oh...");
-        add("position(player,above)");
-        add("speak_active");
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "Uh oh...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("Not again!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "Not again!",
+        "position(player,above)",
+        "speak_active",
 
-        add("iflast(2,int2intro_yellow)");
-        add("iflast(3,int2intro_red)");
-        add("iflast(4,int2intro_green)");
-        add("iflast(5,int2intro_blue)");
+        "iflast(2,int2intro_yellow)",
+        "iflast(3,int2intro_red)",
+        "iflast(4,int2intro_green)",
+        "iflast(5,int2intro_blue)",
+        };
+        filllines(lines);
     }
     else if (t == "int2intro_yellow")
     {
-        add("squeak(cry)");
-        add("text(player,0,0,1)");
-        add("Vitellary? Where are you?");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
-        add("delay(15)");
+        const char* lines[] = {
+        "squeak(cry)",
+        "text(player,0,0,1)",
+        "Vitellary? Where are you?",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
+        "delay(15)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("delay(15)");
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "delay(15)",
 
-        add("changedir(player,0)");
+        "changedir(player,0)",
 
-        add("createcrewman(150,-20,yellow,1,17,1)");
+        "createcrewman(150,-20,yellow,1,17,1)",
 
-        add("squeak(cry)");
-        add("text(yellow,170,50,1)");
-        add("Captain!");
-        add("speak_active");
-        add("endtext");
+        "squeak(cry)",
+        "text(yellow,170,50,1)",
+        "Captain!",
+        "speak_active",
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,1)");
-        add("Hang on! I'll save you!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,1)",
+        "Hang on! I'll save you!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
-        add("telesave()");
+        "endtext",
+        "telesave()",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int2intro_red")
     {
-        add("squeak(cry)");
-        add("text(player,0,0,1)");
-        add("Vermilion? Where are you?");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
-        add("delay(15)");
+        const char* lines[] = {
+        "squeak(cry)",
+        "text(player,0,0,1)",
+        "Vermilion? Where are you?",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
+        "delay(15)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("delay(15)");
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "delay(15)",
 
-        add("changedir(player,0)");
+        "changedir(player,0)",
 
-        add("createcrewman(150,-20,red,0,17,1)");
+        "createcrewman(150,-20,red,0,17,1)",
 
-        add("squeak(red)");
-        add("text(red,170,50,1)");
-        add("Wheeeee!");
-        add("speak_active");
-        add("endtext");
+        "squeak(red)",
+        "text(red,170,50,1)",
+        "Wheeeee!",
+        "speak_active",
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,1)");
-        add("Hang on! I'll save you!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,1)",
+        "Hang on! I'll save you!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
-        add("telesave()");
+        "endtext",
+        "telesave()",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int2intro_green")
     {
-        add("squeak(cry)");
-        add("text(player,0,0,1)");
-        add("Verdigris? Where are you?");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
-        add("delay(15)");
+        const char* lines[] = {
+        "squeak(cry)",
+        "text(player,0,0,1)",
+        "Verdigris? Where are you?",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
+        "delay(15)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("delay(15)");
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "delay(15)",
 
-        add("changedir(player,0)");
+        "changedir(player,0)",
 
-        add("createcrewman(150,-20,green,1,17,1)");
+        "createcrewman(150,-20,green,1,17,1)",
 
-        add("squeak(cry)");
-        add("text(green,170,50,1)");
-        add("Aaagghh!");
-        add("speak_active");
-        add("endtext");
+        "squeak(cry)",
+        "text(green,170,50,1)",
+        "Aaagghh!",
+        "speak_active",
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,1)");
-        add("Hang on! I'll save you!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,1)",
+        "Hang on! I'll save you!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
-        add("telesave()");
+        "endtext",
+        "telesave()",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int2intro_blue")
     {
-        add("squeak(cry)");
-        add("text(player,0,0,1)");
-        add("Victoria? Where are you?");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
-        add("delay(15)");
+        const char* lines[] = {
+        "squeak(cry)",
+        "text(player,0,0,1)",
+        "Victoria? Where are you?",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
+        "delay(15)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("delay(15)");
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "delay(15)",
 
-        add("changedir(player,0)");
+        "changedir(player,0)",
 
-        add("createcrewman(150,-20,blue,1,17,1)");
+        "createcrewman(150,-20,blue,1,17,1)",
 
-        add("squeak(cry)");
-        add("text(blue,170,50,1)");
-        add("Help!");
-        add("speak_active");
-        add("endtext");
+        "squeak(cry)",
+        "text(blue,170,50,1)",
+        "Help!",
+        "speak_active",
+        "endtext",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,1)");
-        add("Hang on! I'll save you!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,1)",
+        "Hang on! I'll save you!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
-        add("telesave()");
+        "endtext",
+        "telesave()",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "int2_yellow")
     {
-        add("ifskip(skipint2yellow)");
-        add("cutscene()");
+        const char* lines[] = {
+        "ifskip(skipint2yellow)",
+        "cutscene()",
 
-        add("tofloor()");
-        add("changeai(yellow,followplayer)");
-        add("untilbars()");
+        "tofloor()",
+        "changeai(yellow,followplayer)",
+        "untilbars()",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("That was interesting, wasn't it?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "That was interesting, wasn't it?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("I feel dizzy...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "I feel dizzy...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("changemood(player,0)");
+        "changemood(player,0)",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("companion(10)");
+        "endcutscene()",
+        "untilbars()",
+        "companion(10)",
+        };
+        filllines(lines);
     }
     else if (t == "skipint2yellow")
     {
-        add("squeak(yellow)");
-        add("companion(10)");
+        const char* lines[] = {
+        "squeak(yellow)",
+        "companion(10)",
+        };
+        filllines(lines);
     }
     else if (t == "int2_red")
     {
-        add("ifskip(skipint2red)");
-        add("cutscene()");
+        const char* lines[] = {
+        "ifskip(skipint2red)",
+        "cutscene()",
 
-        add("tofloor()");
-        add("changeai(red,followplayer)");
-        add("untilbars()");
+        "tofloor()",
+        "changeai(red,followplayer)",
+        "untilbars()",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Again! Let's go again!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Again! Let's go again!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("I feel dizzy...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "I feel dizzy...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("changemood(player,0)");
+        "changemood(player,0)",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("companion(10)");
+        "endcutscene()",
+        "untilbars()",
+        "companion(10)",
+        };
+        filllines(lines);
     }
     else if (t == "skipint2red")
     {
-        add("squeak(red)");
-        add("companion(10)");
+        const char* lines[] = {
+        "squeak(red)",
+        "companion(10)",
+        };
+        filllines(lines);
     }
     else if (t == "int2_green")
     {
-        add("ifskip(skipint2green)");
-        add("cutscene()");
+        const char* lines[] = {
+        "ifskip(skipint2green)",
+        "cutscene()",
 
-        add("tofloor()");
-        add("changeai(green,followplayer)");
-        add("untilbars()");
+        "tofloor()",
+        "changeai(green,followplayer)",
+        "untilbars()",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Phew! You're ok!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Phew! You're ok!",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("I feel dizzy...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "I feel dizzy...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("changemood(player,0)");
+        "changemood(player,0)",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("companion(10)");
+        "endcutscene()",
+        "untilbars()",
+        "companion(10)",
+        };
+        filllines(lines);
     }
     else if (t == "skipint2green")
     {
-        add("squeak(green)");
-        add("companion(10)");
+        const char* lines[] = {
+        "squeak(green)",
+        "companion(10)",
+        };
+        filllines(lines);
     }
     else if (t == "int2_blue")
     {
-        add("ifskip(skipint2blue)");
-        add("cutscene()");
+        const char* lines[] = {
+        "ifskip(skipint2blue)",
+        "cutscene()",
 
-        add("tofloor()");
-        add("changeai(blue,followplayer)");
-        add("untilbars()");
+        "tofloor()",
+        "changeai(blue,followplayer)",
+        "untilbars()",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("I think I'm going to be sick...");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "I think I'm going to be sick...",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("I feel dizzy...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "I feel dizzy...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("changemood(player,0)");
-        add("changemood(blue,0)");
+        "changemood(player,0)",
+        "changemood(blue,0)",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("companion(10)");
+        "endcutscene()",
+        "untilbars()",
+        "companion(10)",
+        };
+        filllines(lines);
     }
     else if (t == "skipint2blue")
     {
-        add("squeak(blue)");
-        add("companion(10)");
+        const char* lines[] = {
+        "squeak(blue)",
+        "companion(10)",
+        };
+        filllines(lines);
     }
     else if (t == "startexpolevel_station2")
     {
         //For the Eurogamer EXPO! Scrap later.
-        add("fadeout()");
-        add("musicfadeout()");
-        add("untilfade()");
-        add("delay(30)");
+        const char* lines[] = {
+        "fadeout()",
+        "musicfadeout()",
+        "untilfade()",
+        "delay(30)",
 
-        add("resetgame");
+        "resetgame",
 
-        add("gotoroom(12,14)");
-        add("gotoposition(126,38,1)");
-        add("setcheckpoint()");
-        add("changedir(player,0)");
-        add("fadein()");
+        "gotoroom(12,14)",
+        "gotoposition(126,38,1)",
+        "setcheckpoint()",
+        "changedir(player,0)",
+        "fadein()",
 
-        add("stopmusic()");
-        add("play(1)");
+        "stopmusic()",
+        "play(1)",
+        };
+        filllines(lines);
     }
     else if (t == "finallevel_teleporter")
     {
-        add("delay(10)");
+        const char* lines[] = {
+        "delay(10)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Welcome back!");
-        add("position(purple,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Welcome back!",
+        "position(purple,above)",
+        "speak_active",
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Um, where's Captain Viridian?");
-        add("position(purple,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Um, where's Captain Viridian?",
+        "position(purple,above)",
+        "speak_active",
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("walk(left,3)");
-        add("delay(60)");
+        "walk(left,3)",
+        "delay(60)",
 
-        add("everybodysad()");
-        add("squeak(cry)");
-        add("delay(30)");
+        "everybodysad()",
+        "squeak(cry)",
+        "delay(30)",
 
-        add("fadeout()");
-        add("untilfade()");
-        add("changemood(player,0)");
-        add("musicfadeout()");
+        "fadeout()",
+        "untilfade()",
+        "changemood(player,0)",
+        "musicfadeout()",
 
-        add("finalmode(46,54)");
-        add("gotoposition(101,113,0)");
-        add("setcheckpoint()");
-        add("changedir(player,1)");
-        add("restoreplayercolour");
-        add("fadein()");
-        add("untilfade()");
+        "finalmode(46,54)",
+        "gotoposition(101,113,0)",
+        "setcheckpoint()",
+        "changedir(player,1)",
+        "restoreplayercolour",
+        "fadein()",
+        "untilfade()",
 
-        add("delay(15)");
+        "delay(15)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("... Hello?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "... Hello?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Is anyone there?");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Is anyone there?",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("missing(player)");
+        "missing(player)",
 
-        //add("squeak(cry)");
-        //add("changemood(player,1)");
+        //"squeak(cry)",
+        //"changemood(player,1)",
 
-        add("endcutscene()");
-        add("untilbars()");
+        "endcutscene()",
+        "untilbars()",
 
-        add("play(15)");
-        add("telesave()");
+        "play(15)",
+        "telesave()",
+        };
+        filllines(lines);
     }
     else if (t == "skipfinal")
     {
-        add("finalmode(46,54)");
-        add("gotoposition(101,113,0)");
-        add("setcheckpoint()");
-        add("changedir(player,1)");
-        add("restoreplayercolour");
+        const char* lines[] = {
+        "finalmode(46,54)",
+        "gotoposition(101,113,0)",
+        "setcheckpoint()",
+        "changedir(player,1)",
+        "restoreplayercolour",
 
-        add("showplayer()");
-        add("hascontrol()");
-        add("missing(player)");
-        add("play(15)");
-        add("fadein()");
-        add("untilfade()");
+        "showplayer()",
+        "hascontrol()",
+        "missing(player)",
+        "play(15)",
+        "fadein()",
+        "untilfade()",
+        };
+        filllines(lines);
     }
     else if (t == "startlevel_final")
     {
-        add("ifskip(skipfinal)");
-        add("cutscene()");
-        add("untilbars()");
-        add("activeteleporter()");
+        const char* lines[] = {
+        "ifskip(skipfinal)",
+        "cutscene()",
+        "untilbars()",
+        "activeteleporter()",
 
-        add("stopmusic()");
-        add("play(5)");
+        "stopmusic()",
+        "play(5)",
 
-        add("gotoroom(2,11)");
-        add("gotoposition(160,120,0)");
+        "gotoroom(2,11)",
+        "gotoposition(160,120,0)",
 
-        add("createcrewman(190,153,purple,0,faceleft)");
-        add("createrescuedcrew()");
+        "createcrewman(190,153,purple,0,faceleft)",
+        "createrescuedcrew()",
 
-        add("fadein()");
-        add("untilfade()");
-        add("gamestate(4070)");
+        "fadein()",
+        "untilfade()",
+        "gamestate(4070)",
+        };
+        filllines(lines);
     }
     else if (t == "regularreturn")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("activeteleporter()");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "activeteleporter()",
 
-        add("stopmusic()");
-        add("play(4)");
+        "stopmusic()",
+        "play(4)",
 
-        add("gotoroom(2,11)");
-        add("gotoposition(160,120,0)");
+        "gotoroom(2,11)",
+        "gotoposition(160,120,0)",
 
-        add("createlastrescued()");
+        "createlastrescued()",
 
-        add("fadein()");
-        add("untilfade()");
-        add("endcutscene()");
-        add("setcheckpoint()");
-        add("gamestate(4010)");
+        "fadein()",
+        "untilfade()",
+        "endcutscene()",
+        "setcheckpoint()",
+        "gamestate(4010)",
+        };
+        filllines(lines);
     }
     else if (t == "returntohub")
     {
         //For the Eurogamer EXPO! Scrap later.
-        add("fadeout()");
-        add("musicfadeout()");
-        add("untilfade()");
-        add("delay(30)");
+        const char* lines[] = {
+        "fadeout()",
+        "musicfadeout()",
+        "untilfade()",
+        "delay(30)",
 
-        add("resetgame");
+        "resetgame",
 
-        add("gotoroom(7,8)");
-        add("gotoposition(145,145,0)");
-        add("setcheckpoint()");
-        add("changedir(player,0)");
-        add("fadein()");
+        "gotoroom(7,8)",
+        "gotoposition(145,145,0)",
+        "setcheckpoint()",
+        "changedir(player,0)",
+        "fadein()",
 
-        add("stopmusic()");
-        add("play(4)");
+        "stopmusic()",
+        "play(4)",
+        };
+        filllines(lines);
     }
     else if (t == "resetgame")
     {
         //For the Eurogamer EXPO! Scrap later.
-        add("resetgame");
-        add("gotoroom(4,6)");
-        add("fadein()");
+        const char* lines[] = {
+        "resetgame",
+        "gotoroom(4,6)",
+        "fadein()",
+        };
+        filllines(lines);
     }
     else if (t == "talkred")
     {
-        add("redcontrol");
+        const char* lines[] = {
+        "redcontrol",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow")
     {
-        add("yellowcontrol");
+        const char* lines[] = {
+        "yellowcontrol",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen")
     {
-        add("greencontrol");
+        const char* lines[] = {
+        "greencontrol",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue")
     {
-        add("bluecontrol");
+        const char* lines[] = {
+        "bluecontrol",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple")
     {
-        add("purplecontrol");
+        const char* lines[] = {
+        "purplecontrol",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_1")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Don't worry, Sir!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Don't worry, Sir!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("We'll find a way");
-        add("out of here!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "We'll find a way",
+        "out of here!",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("I hope Victoria is ok...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "I hope Victoria is ok...",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("She doesn't handle");
-        add("surprises very well...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "She doesn't handle",
+        "surprises very well...",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("I don't know how we're");
-        add("going to get this ship");
-        add("working again!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "I don't know how we're",
+        "going to get this ship",
+        "working again!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("Chief Verdigris would");
-        add("know what to do...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "Chief Verdigris would",
+        "know what to do...",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("I wonder what caused");
-        add("the ship to crash here?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "I wonder what caused",
+        "the ship to crash here?",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("It's the shame the Professor");
-        add("isn't here, huh? I'm sure he");
-        add("could work it out!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "It's the shame the Professor",
+        "isn't here, huh? I'm sure he",
+        "could work it out!",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("It's great to be back!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "It's great to be back!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("I can't wait to help you");
-        add("find the rest of the crew!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "I can't wait to help you",
+        "find the rest of the crew!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("It'll be like old");
-        add("times, huh, Captain?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "It'll be like old",
+        "times, huh, Captain?",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("It's good to have");
-        add("Victoria back with us.");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "It's good to have",
+        "Victoria back with us.",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("She really seems happy to");
-        add("get back to work in her lab!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "She really seems happy to",
+        "get back to work in her lab!",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_7")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("I think I saw Verdigris");
-        add("working on the outside");
-        add("of the ship!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "I think I saw Verdigris",
+        "working on the outside",
+        "of the ship!",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_8")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("You found Professor");
-        add("Vitellary! All right!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "You found Professor",
+        "Vitellary! All right!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("We'll have this interference");
-        add("thing worked out in no time now!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "We'll have this interference",
+        "thing worked out in no time now!",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_9")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("That other dimension was");
-        add("really strange, wasn't it?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "That other dimension was",
+        "really strange, wasn't it?",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("I wonder what caused the");
-        add("teleporter to send us there?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "I wonder what caused the",
+        "teleporter to send us there?",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_10")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Heya Captain!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Heya Captain!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("This way looks a little");
-        add("dangerous...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "This way looks a little",
+        "dangerous...",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_11")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("I'm helping!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "I'm helping!",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_12")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Hey Captain!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Hey Captain!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("I found something interesting");
-        add("around here - the same warp");
-        add("signature I saw when I landed!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "I found something interesting",
+        "around here - the same warp",
+        "signature I saw when I landed!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("Someone from the ship");
-        add("must be nearby...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "Someone from the ship",
+        "must be nearby...",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_13")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("This dimension is pretty");
-        add("exciting, isn't it?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "This dimension is pretty",
+        "exciting, isn't it?",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("I wonder what we'll find?");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "I wonder what we'll find?",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkred_14")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,red)");
-        add("face(red,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,red)",
+        "face(red,player)",
 
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Look what I found!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Look what I found!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("It's pretty hard, I can only");
-        add("last for about 10 seconds...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "It's pretty hard, I can only",
+        "last for about 10 seconds...",
+        "position(red,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(red)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(red)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_1")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("I'm making some fascinating");
-        add("discoveries, captain!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "I'm making some fascinating",
+        "discoveries, captain!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("This isn't like any");
-        add("other dimension we've");
-        add("been to, Captain.");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "This isn't like any",
+        "other dimension we've",
+        "been to, Captain.",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("There's something strange");
-        add("about this place...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "There's something strange",
+        "about this place...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("Captain, have you noticed");
-        add("that this dimension seems");
-        add("to wrap around?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "Captain, have you noticed",
+        "that this dimension seems",
+        "to wrap around?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Yeah, it's strange...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Yeah, it's strange...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(yellow,1)");
-        add("text(yellow,0,0,3)");
-        add("It looks like this dimension");
-        add("is having the same stability");
-        add("problems as our own!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(yellow,1)",
+        "text(yellow,0,0,3)",
+        "It looks like this dimension",
+        "is having the same stability",
+        "problems as our own!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("I hope we're not the");
-        add("ones causing it...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "I hope we're not the",
+        "ones causing it...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("What? Do you think we might be?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "What? Do you think we might be?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changemood(yellow,0)");
-        add("changemood(player,0)");
-        add("text(yellow,0,0,2)");
-        add("No no... that's very");
-        add("unlikely, really...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "changemood(yellow,0)",
+        "changemood(player,0)",
+        "text(yellow,0,0,2)",
+        "No no... that's very",
+        "unlikely, really...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,4)");
-        add("My guess is that whoever used");
-        add("to live here was experimenting");
-        add("with ways to stop the dimension");
-        add("from collapsing.");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,4)",
+        "My guess is that whoever used",
+        "to live here was experimenting",
+        "with ways to stop the dimension",
+        "from collapsing.",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("It would explain why they've");
-        add("wrapped the edges...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "It would explain why they've",
+        "wrapped the edges...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Hey, maybe that's what's");
-        add("causing the interference?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Hey, maybe that's what's",
+        "causing the interference?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("I wonder where the people who");
-        add("used to live here have gone?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "I wonder where the people who",
+        "used to live here have gone?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("I think it's no coincidence");
-        add("that the teleporter was drawn");
-        add("to that dimension...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "I think it's no coincidence",
+        "that the teleporter was drawn",
+        "to that dimension...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,4)");
-        add("There's something there. I");
-        add("think it might be causing the");
-        add("interference that's stopping");
-        add("us from leaving...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,4)",
+        "There's something there. I",
+        "think it might be causing the",
+        "interference that's stopping",
+        "us from leaving...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_7")
     {
         //Vertigris is back
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("I'm glad Verdigris is alright.");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "I'm glad Verdigris is alright.",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("It'll be a lot easier to find");
-        add("some way out of here now that");
-        add("we can get the ship working again!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "It'll be a lot easier to find",
+        "some way out of here now that",
+        "we can get the ship working again!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_8")
     {
         //Victoria is back
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Ah, you've found Doctor");
-        add("Victoria? Excellent!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Ah, you've found Doctor",
+        "Victoria? Excellent!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("I have lots of questions for her!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "I have lots of questions for her!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_9")
     {
         //Vermilion is back
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("Vermilion says that he");
-        add("was trapped in some");
-        add("sort of tunnel?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "Vermilion says that he",
+        "was trapped in some",
+        "sort of tunnel?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Yeah, it just seemed to");
-        add("keep going and going...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Yeah, it just seemed to",
+        "keep going and going...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Interesting... I wonder");
-        add("why it was built?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Interesting... I wonder",
+        "why it was built?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_10")
     {
         //Back on the ship!
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("It's good to be back!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "It's good to be back!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("I've got so much work");
-        add("to catch up on...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "I've got so much work",
+        "to catch up on...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_11")
     {
         //Game Complete
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("I know it's probably a little");
-        add("dangerous to stay here now that");
-        add("this dimension is collapsing...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "I know it's probably a little",
+        "dangerous to stay here now that",
+        "this dimension is collapsing...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("...but it's so rare to find");
-        add("somewhere this interesting!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "...but it's so rare to find",
+        "somewhere this interesting!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Maybe we'll find the answers");
-        add("to our own problems here?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Maybe we'll find the answers",
+        "to our own problems here?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_12")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("Captain! Have you seen this?");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "Captain! Have you seen this?",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("With their research and ours,");
-        add("we should be able to stabilise");
-        add("our own dimension!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "With their research and ours,",
+        "we should be able to stabilise",
+        "our own dimension!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("We're saved!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "We're saved!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_1")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("I'm an engineer!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "I'm an engineer!",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("I think I can get this ship");
-        add("moving again, but it's going");
-        add("to take a while...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "I think I can get this ship",
+        "moving again, but it's going",
+        "to take a while...",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("I think I can get this ship");
-        add("moving again, but it's going");
-        add("to take a while...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "I think I can get this ship",
+        "moving again, but it's going",
+        "to take a while...",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("Victoria mentioned something");
-        add("about a lab? I wonder if she");
-        add("found anything down there?");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "Victoria mentioned something",
+        "about a lab? I wonder if she",
+        "found anything down there?",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Vermilion's back! Yey!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Vermilion's back! Yey!",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("The Professor had lots of");
-        add("questions about this");
-        add("dimension for me...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "The Professor had lots of",
+        "questions about this",
+        "dimension for me...",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("We still don't really know");
-        add("that much, though.");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "We still don't really know",
+        "that much, though.",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("Until we work out what's");
-        add("causing that interference,");
-        add("we can't go anywhere.");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "Until we work out what's",
+        "causing that interference,",
+        "we can't go anywhere.",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("I'm so glad that");
-        add("Violet's alright!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "I'm so glad that",
+        "Violet's alright!",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_7")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("That other dimension we ended");
-        add("up in must be related to this");
-        add("one, somehow...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "That other dimension we ended",
+        "up in must be related to this",
+        "one, somehow...",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_8")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(cry)");
-        add("text(green,0,0,3)");
-        add("The antenna's broken!");
-        add("This is going to be");
-        add("very hard to fix...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "text(green,0,0,3)",
+        "The antenna's broken!",
+        "This is going to be",
+        "very hard to fix...",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_9")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("It looks like we were warped");
-        add("into solid rock when we crashed!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "It looks like we were warped",
+        "into solid rock when we crashed!",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("Hmm. It's going to be hard");
-        add("to separate from this...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "Hmm. It's going to be hard",
+        "to separate from this...",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_10")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("The ship's all fixed up. We");
-        add("can leave at a moment's notice!");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "The ship's all fixed up. We",
+        "can leave at a moment's notice!",
+        "position(green,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
     }
     else if (t == "talkgreen_11")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,green)");
-        add("face(green,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,green)",
+        "face(green,player)",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("I wonder why they abandoned this");
-        add("dimension? They were so close to");
-        add("working out how to fix it...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "I wonder why they abandoned this",
+        "dimension? They were so close to",
+        "working out how to fix it...",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,2)");
-        add("Maybe we can fix it for them?");
-        add("Maybe they'll come back?");
-        add("position(green,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(green)",
+        "text(green,0,0,2)",
+        "Maybe we can fix it for them?",
+        "Maybe they'll come back?",
+        "position(green,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(green)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(green)",
+        };
+        filllines(lines);
 
     }
 
 
     if (t == "talkpurple_1")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(cry)");
-        add("changemood(purple,1)");
-        add("text(purple,0,0,1)");
-        add("... I hope Verdigris is alright.");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(purple,1)",
+        "text(purple,0,0,1)",
+        "... I hope Verdigris is alright.",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("changemood(purple,0)");
-        add("text(purple,0,0,2)");
-        add("If you can find him, he'd be a");
-        add("a big help fixing the ship!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "changemood(purple,0)",
+        "text(purple,0,0,2)",
+        "If you can find him, he'd be a",
+        "a big help fixing the ship!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("Chief Verdigris is so brave");
-        add("and ever so smart!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "Chief Verdigris is so brave",
+        "and ever so smart!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Are you doing ok, Captain?");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Are you doing ok, Captain?",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,0)");
-        add("specialline(1)");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,0)",
+        "specialline(1)",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("Oh - well, don't worry,");
-        add("they'll show up!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "Oh - well, don't worry,",
+        "they'll show up!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("changemood(player,0)");
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Here! Have a lollipop!");
-        add("position(purple,above)");
-        add("speak_active");
+        "changemood(player,0)",
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Here! Have a lollipop!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Welcome back, Captain!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Welcome back, Captain!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("I think Victoria is quite happy");
-        add("to be back on the ship.");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "I think Victoria is quite happy",
+        "to be back on the ship.",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("She really doesn't like adventuring.");
-        add("She gets very homesick!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "She really doesn't like adventuring.",
+        "She gets very homesick!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("Vermilion called in");
-        add("to say hello!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "Vermilion called in",
+        "to say hello!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("He's really looking forward");
-        add("specialline(2)");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "He's really looking forward",
+        "specialline(2)",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Captain! You found Verdigris!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Captain! You found Verdigris!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Thank you so much!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Thank you so much!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_7")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("I'm glad Professor");
-        add("Vitellary is ok!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "I'm glad Professor",
+        "Vitellary is ok!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("He had lots of questions");
-        add("for me about this dimension.");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "He had lots of questions",
+        "for me about this dimension.",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("He's already gotten to");
-        add("work with his research!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "He's already gotten to",
+        "work with his research!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_8")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,4)");
-        add("Hey Captain! Now that you've turned");
-        add("off the source of the interference,");
-        add("we can warp everyone back to the");
-        add("ship instantly, if we need to!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,4)",
+        "Hey Captain! Now that you've turned",
+        "off the source of the interference,",
+        "we can warp everyone back to the",
+        "ship instantly, if we need to!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,3)");
-        add("Any time you want to come back");
-        add("to the ship, just select the");
-        add("new SHIP option in your menu!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,3)",
+        "Any time you want to come back",
+        "to the ship, just select the",
+        "new SHIP option in your menu!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_9")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,3)");
-        add("Look at all this research!");
-        add("This is going to be a big");
-        add("help back home!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,3)",
+        "Look at all this research!",
+        "This is going to be a big",
+        "help back home!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_intermission1")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,3)");
-        add("Doctor, something strange");
-        add("happened when we teleported");
-        add("back to the ship...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,3)",
+        "Doctor, something strange",
+        "happened when we teleported",
+        "back to the ship...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("We got lost in another dimension!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "We got lost in another dimension!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(purple,1)");
-        add("text(purple,0,0,1)");
-        add("Oh no!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(purple,1)",
+        "text(purple,0,0,1)",
+        "Oh no!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("changemood(purple,0)");
-        add("changemood(player,0)");
-        add("text(purple,0,0,3)");
-        add("Maybe that dimension has something");
-        add("to do with the interference that");
-        add("caused us to crash here?");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "changemood(purple,0)",
+        "changemood(player,0)",
+        "text(purple,0,0,3)",
+        "Maybe that dimension has something",
+        "to do with the interference that",
+        "caused us to crash here?",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("I'll look into it...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "I'll look into it...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_intermission2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("Doctor! Doctor! It happened again!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "Doctor! Doctor! It happened again!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("The teleporter brought us");
-        add("to that weird dimension...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "The teleporter brought us",
+        "to that weird dimension...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("changemood(player,0)");
-        add("changemood(purple,0)");
-        add("text(purple,0,0,2)");
-        add("Hmm, there's definitely");
-        add("something strange happening...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "changemood(player,0)",
+        "changemood(purple,0)",
+        "text(purple,0,0,2)",
+        "Hmm, there's definitely",
+        "something strange happening...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("If only we could find the");
-        add("source of that interference!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "If only we could find the",
+        "source of that interference!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_intermission3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(player)");
-        add("text(player,0,0,3)");
-        add("Doctor, something strange has");
-        add("been happening when we teleport");
-        add("back to the ship...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,3)",
+        "Doctor, something strange has",
+        "been happening when we teleport",
+        "back to the ship...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,2)");
-        add("We keep getting brought to");
-        add("another weird dimension!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,2)",
+        "We keep getting brought to",
+        "another weird dimension!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(purple,1)");
-        add("text(purple,0,0,1)");
-        add("Oh no!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(purple,1)",
+        "text(purple,0,0,1)",
+        "Oh no!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("changemood(purple,0)");
-        add("changemood(player,0)");
-        add("text(purple,0,0,3)");
-        add("Maybe that dimension has something");
-        add("to do with the interference that");
-        add("caused us to crash here?");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "changemood(purple,0)",
+        "changemood(player,0)",
+        "text(purple,0,0,3)",
+        "Maybe that dimension has something",
+        "to do with the interference that",
+        "caused us to crash here?",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("changemood(player,0)");
-        add("changemood(purple,0)");
-        add("text(purple,0,0,2)");
-        add("Hmm, there's definitely");
-        add("something strange happening...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "changemood(player,0)",
+        "changemood(purple,0)",
+        "text(purple,0,0,2)",
+        "Hmm, there's definitely",
+        "something strange happening...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("If only we could find the");
-        add("source of that interference!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "If only we could find the",
+        "source of that interference!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkpurple_intro")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,purple)");
-        add("face(purple,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,purple)",
+        "face(purple,player)",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,2)");
-        add("I'm feeling a bit");
-        add("overwhelmed, Doctor.");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,2)",
+        "I'm feeling a bit",
+        "overwhelmed, Doctor.",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Where do I begin?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Where do I begin?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("Remember that you can press ENTER");
-        add("to check where you are on the map!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "Remember that you can press ENTER",
+        "to check where you are on the map!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("Look for areas where the rest");
-        add("of the crew might be...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "Look for areas where the rest",
+        "of the crew might be...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("If you get lost, you can get back");
-        add("to the ship from any teleporter.");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "If you get lost, you can get back",
+        "to the ship from any teleporter.",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("And don't worry!");
-        add("We'll find everyone!");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "And don't worry!",
+        "We'll find everyone!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("changemood(player,0)");
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("Everything will be ok!");
-        add("position(purple,above)");
-        add("speak_active");
+        "changemood(player,0)",
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "Everything will be ok!",
+        "position(purple,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(purple)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(purple)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_1")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("Any signs of Professor Vitellary?");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "Any signs of Professor Vitellary?",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Sorry, not yet...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Sorry, not yet...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,1)");
-        add("I hope he's ok...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,1)",
+        "I hope he's ok...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,2)");
-        add("Thanks so much for");
-        add("saving me, Captain!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,2)",
+        "Thanks so much for",
+        "saving me, Captain!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_3")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("I'm so glad to be back!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "I'm so glad to be back!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,3)");
-        add("That lab was so dark");
-        add("and scary! I didn't");
-        add("like it at all...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,3)",
+        "That lab was so dark",
+        "and scary! I didn't",
+        "like it at all...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_4")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,2)");
-        add("Vitellary's back? I");
-        add("knew you'd find him!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,2)",
+        "Vitellary's back? I",
+        "knew you'd find him!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,2)");
-        add("I mean, I admit I was very");
-        add("worried that you wouldn't...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,2)",
+        "I mean, I admit I was very",
+        "worried that you wouldn't...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,2)");
-        add("or that something might");
-        add("have happened to him...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,2)",
+        "or that something might",
+        "have happened to him...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,1)");
-        add("sniff...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,1)",
+        "sniff...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Doctor Victoria? He's ok!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Doctor Victoria? He's ok!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,3)");
-        add("Oh! Sorry! I was just");
-        add("thinking about what");
-        add("if he wasn't?");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,3)",
+        "Oh! Sorry! I was just",
+        "thinking about what",
+        "if he wasn't?",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("Thank you, Captain!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "Thank you, Captain!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_5")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("You found Vermilion! Great!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "You found Vermilion! Great!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,2)");
-        add("I wish he wasn't");
-        add("so reckless!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,2)",
+        "I wish he wasn't",
+        "so reckless!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,2)");
-        add("He'll get himself");
-        add("into trouble...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,2)",
+        "He'll get himself",
+        "into trouble...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_6")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,2)");
-        add("Verdigris is ok! Violet");
-        add("will be so happy!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,2)",
+        "Verdigris is ok! Violet",
+        "will be so happy!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("I'm happy!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "I'm happy!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,1)");
-        add("Though I was very worried...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,1)",
+        "Though I was very worried...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_7")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,2)");
-        add("Why did the teleporter send");
-        add("us to that scary dimension?");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,2)",
+        "Why did the teleporter send",
+        "us to that scary dimension?",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,1)");
-        add("What happened?");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,1)",
+        "What happened?",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("I don't know, Doctor...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "I don't know, Doctor...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,1)");
-        add("Why?");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,1)",
+        "Why?",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_8")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("Heya Captain!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "Heya Captain!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("Are you going to try");
-        add("and find the rest of");
-        add("these shiny things?");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "Are you going to try",
+        "and find the rest of",
+        "these shiny things?",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_9")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,3)");
-        add("This lab is amazing! The scientists");
-        add("who worked here know a lot more");
-        add("about warp technology than we do!");
-        add("position(blue,below)");
-        add("speak_active");
-        add("endtext");
+        "squeak(blue)",
+        "text(blue,0,0,3)",
+        "This lab is amazing! The scientists",
+        "who worked here know a lot more",
+        "about warp technology than we do!",
+        "position(blue,below)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_trinket1")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,2)");
-        add("Hey Captain, I found");
-        add("this in that lab...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,2)",
+        "Hey Captain, I found",
+        "this in that lab...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
-        add("delay(30)");
+        "endtext",
+        "delay(30)",
 
         //found a trinket!
-        add("foundtrinket(18)");
-        add("endtext");
-        //add("musicfadein");
-        add("trinketscriptmusic");
+        "foundtrinket(18)",
+        "endtext",
+        //"musicfadein",
+        "trinketscriptmusic",
 
-        add("delay(30)");
-        add("createentity(136,80,22,18,0)");
+        "delay(30)",
+        "createentity(136,80,22,18,0)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("Any idea what it does?");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "Any idea what it does?",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Sorry, I don't know!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Sorry, I don't know!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("They seem important, though...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "They seem important, though...",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Maybe something will happen");
-        add("if we find them all?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Maybe something will happen",
+        "if we find them all?",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_trinket2")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("Captain! Come have a");
-        add("look at what I've");
-        add("been working on!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "Captain! Come have a",
+        "look at what I've",
+        "been working on!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("It looks like these shiny");
-        add("things are giving off a");
-        add("strange energy reading!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "It looks like these shiny",
+        "things are giving off a",
+        "strange energy reading!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("So I analysed it...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "So I analysed it...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("trinketbluecontrol()");
+        "trinketbluecontrol()",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_trinket3")
     {
         //If you missed the first conversation
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("Captain! Come have a");
-        add("look at what I've");
-        add("been working on!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "Captain! Come have a",
+        "look at what I've",
+        "been working on!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("I found this in that lab...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "I found this in that lab...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
-        add("delay(30)");
+        "endtext",
+        "delay(30)",
 
         //found a trinket!
-        add("foundtrinket(18)");
-        add("endtext");
-        //add("musicfadein");
-        add("trinketscriptmusic");
+        "foundtrinket(18)",
+        "endtext",
+        //"musicfadein",
+        "trinketscriptmusic",
 
-        add("delay(30)");
-        add("createentity(136,80,22,18,0)");
+        "delay(30)",
+        "createentity(136,80,22,18,0)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("It seemed to be");
-        add("giving off a weird");
-        add("energy reading...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "It seemed to be",
+        "giving off a weird",
+        "energy reading...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("So I analysed it...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "So I analysed it...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("trinketbluecontrol()");
+        "trinketbluecontrol()",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_trinket4")
     {
-        add("hidetrinkets()");
-        add("endtextfast");
-        add("delay(10)");
+        const char* lines[] = {
+        "hidetrinkets()",
+        "endtextfast",
+        "delay(10)",
 
         //add map mode here and wrap up...
-        add("gamemode(teleporter)");
-        add("delay(20)");
+        "gamemode(teleporter)",
+        "delay(20)",
 
-        add("squeak(blue)");
-        add("text(blue,50,15,2)");
-        add("...and I was able to find more");
-        add("of them with the ship's scanner!");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,50,15,2)",
+        "...and I was able to find more",
+        "of them with the ship's scanner!",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("squeak(terminal)");
-        add("showtrinkets()");
-        add("delay(10)");
-        add("hidetrinkets()");
-        add("delay(10)");
-        add("showtrinkets()");
-        add("delay(10)");
-        add("hidetrinkets()");
-        add("delay(10)");
-        add("showtrinkets()");
-        add("delay(75)");
+        "squeak(terminal)",
+        "showtrinkets()",
+        "delay(10)",
+        "hidetrinkets()",
+        "delay(10)",
+        "showtrinkets()",
+        "delay(10)",
+        "hidetrinkets()",
+        "delay(10)",
+        "showtrinkets()",
+        "delay(75)",
 
-        add("gamemode(game)");
-        add("delay(20)");
+        "gamemode(game)",
+        "delay(20)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("If you get a chance, it");
-        add("might be worth finding");
-        add("the rest of them!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "If you get a chance, it",
+        "might be worth finding",
+        "the rest of them!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(blue,0,0,2)");
-        add("Don't put yourself in");
-        add("any danger, though!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(cry)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(blue,0,0,2)",
+        "Don't put yourself in",
+        "any danger, though!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_trinket5")
     {
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("...but it looks like you've");
-        add("already found all of them");
-        add("in this dimension!");
-        add("position(blue,below)");
-        add("speak_active");
+        const char* lines[] = {
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "...but it looks like you've",
+        "already found all of them",
+        "in this dimension!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Oh? Really?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Oh? Really?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,2)");
-        add("Yeah, well done! That");
-        add("can't have been easy!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,2)",
+        "Yeah, well done! That",
+        "can't have been easy!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(blue)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(blue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkblue_trinket6")
     {
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("...and they're related.");
-        add("They're all a part of");
-        add("something bigger!");
-        add("position(blue,below)");
-        add("speak_active");
+        const char* lines[] = {
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "...and they're related.",
+        "They're all a part of",
+        "something bigger!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Oh? Really?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Oh? Really?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,4)");
-        add("Yeah! There seem to be");
-        add("twenty variations of");
-        add("the fundamental energy");
-        add("signature...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,4)",
+        "Yeah! There seem to be",
+        "twenty variations of",
+        "the fundamental energy",
+        "signature...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("Wait...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "Wait...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,2)");
-        add("Does that mean you've");
-        add("found all of them?");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,2)",
+        "Does that mean you've",
+        "found all of them?",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("loadscript(startepilogue)");
+        "loadscript(startepilogue)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_trinket1")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,yellow)");
-        add("face(yellow,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,yellow)",
+        "face(yellow,player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Captain! I've been meaning");
-        add("to give this to you...");
-        add("position(yellow,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Captain! I've been meaning",
+        "to give this to you...",
+        "position(yellow,above)",
+        "speak_active",
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
         //found a trinket!
-        add("foundtrinket(18)");
-        add("endtext");
-        //add("musicfadein");
-        add("trinketscriptmusic");
+        "foundtrinket(18)",
+        "endtext",
+        //"musicfadein",
+        "trinketscriptmusic",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Professor! Where did you find this?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Professor! Where did you find this?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("Oh, it was just lying");
-        add("around that space station.");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "Oh, it was just lying",
+        "around that space station.",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(cry)");
-        add("changemood(yellow,1)");
-        add("text(yellow,0,0,3)");
-        add("It's a pity Doctor Victoria");
-        add("isn't here, she loves studying");
-        add("that sort of thing...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(yellow,1)",
+        "text(yellow,0,0,3)",
+        "It's a pity Doctor Victoria",
+        "isn't here, she loves studying",
+        "that sort of thing...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Any idea what it does?");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Any idea what it does?",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changemood(yellow,0)");
-        add("text(yellow,0,0,2)");
-        add("Nope! But it is giving off");
-        add("a strange energy reading...");
-        add("position(yellow,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(yellow)",
+        "changemood(yellow,0)",
+        "text(yellow,0,0,2)",
+        "Nope! But it is giving off",
+        "a strange energy reading...",
+        "position(yellow,above)",
+        "speak_active",
+        "endtext",
 
-        add("trinketyellowcontrol()");
+        "trinketyellowcontrol()",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_trinket2")
     {
-        add("hidetrinkets()");
-        add("endtextfast");
-        add("delay(10)");
+        const char* lines[] = {
+        "hidetrinkets()",
+        "endtextfast",
+        "delay(10)",
 
         //add map mode here and wrap up...
-        add("gamemode(teleporter)");
-        add("delay(20)");
+        "gamemode(teleporter)",
+        "delay(20)",
 
-        add("squeak(yellow)");
-        add("text(yellow,50,15,2)");
-        add("...so I used the ship's scanner");
-        add("to find more of them!");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,50,15,2)",
+        "...so I used the ship's scanner",
+        "to find more of them!",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("squeak(terminal)");
-        add("showtrinkets()");
-        add("delay(10)");
-        add("hidetrinkets()");
-        add("delay(10)");
-        add("showtrinkets()");
-        add("delay(10)");
-        add("hidetrinkets()");
-        add("delay(10)");
-        add("showtrinkets()");
-        add("delay(75)");
+        "squeak(terminal)",
+        "showtrinkets()",
+        "delay(10)",
+        "hidetrinkets()",
+        "delay(10)",
+        "showtrinkets()",
+        "delay(10)",
+        "hidetrinkets()",
+        "delay(10)",
+        "showtrinkets()",
+        "delay(75)",
 
-        add("gamemode(game)");
-        add("delay(20)");
+        "gamemode(game)",
+        "delay(20)",
 
-        add("squeak(yellow)");
-        add("changemood(yellow,0)");
-        add("text(yellow,0,0,3)");
-        add("...Please don't let them");
-        add("distract you from finding");
-        add("Victoria, though!");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "changemood(yellow,0)",
+        "text(yellow,0,0,3)",
+        "...Please don't let them",
+        "distract you from finding",
+        "Victoria, though!",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("I hope she's ok...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "I hope she's ok...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "talkyellow_trinket3")
     {
-        add("squeak(yellow)");
-        add("changemood(yellow,0)");
-        add("text(yellow,0,0,2)");
-        add("Can't seem to detect any");
-        add("more of them nearby, though.");
-        add("position(yellow,above)");
-        add("speak_active");
+        const char* lines[] = {
+        "squeak(yellow)",
+        "changemood(yellow,0)",
+        "text(yellow,0,0,2)",
+        "Can't seem to detect any",
+        "more of them nearby, though.",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("changemood(yellow,0)");
-        add("text(yellow,0,0,1)");
-        add("Maybe you've found them all?");
-        add("position(yellow,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(yellow)",
+        "changemood(yellow,0)",
+        "text(yellow,0,0,1)",
+        "Maybe you've found them all?",
+        "position(yellow,above)",
+        "speak_active",
+        "endtext",
 
-        add("endcutscene()");
-        add("untilbars()");
-        add("createactivityzone(yellow)");
+        "endcutscene()",
+        "untilbars()",
+        "createactivityzone(yellow)",
+        };
+        filllines(lines);
     }
     else if (t == "gamecomplete")
     {
-        add("gotoroom(2,11)");
-        add("gotoposition(160,120,0)");
-        add("nocontrol()");
-        add("createcrewman(185,153,purple,0,faceleft)");
-        add("createcrewman(205,153,yellow,0,faceleft)");
-        add("createcrewman(225,153,red,0,faceleft)");
-        add("createcrewman(245,153,green,0,faceleft)");
-        add("createcrewman(265,153,blue,1,faceleft)");
+        const char* lines[] = {
+        "gotoroom(2,11)",
+        "gotoposition(160,120,0)",
+        "nocontrol()",
+        "createcrewman(185,153,purple,0,faceleft)",
+        "createcrewman(205,153,yellow,0,faceleft)",
+        "createcrewman(225,153,red,0,faceleft)",
+        "createcrewman(245,153,green,0,faceleft)",
+        "createcrewman(265,153,blue,1,faceleft)",
 
-        add("cutscene()");
-        add("untilbars()");
+        "cutscene()",
+        "untilbars()",
 
-        add("delay(30)");
-        add("rescued(player)");
+        "delay(30)",
+        "rescued(player)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("Any moment now...");
-        add("position(yellow,above)");
-        add("speak_active");
-        add("endtext");
-        add("nocontrol()");
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "Any moment now...",
+        "position(yellow,above)",
+        "speak_active",
+        "endtext",
+        "nocontrol()",
 
-        add("delay(60)");
+        "delay(60)",
 
-        add("gamestate(4080)");
+        "gamestate(4080)",
+        };
+        filllines(lines);
     }
     else if (t == "gamecomplete_ending")
     {
-        add("delay(15)");
-        add("changemood(blue,0)");
-        add("play(10)");
-        add("delay(45)");
+        const char* lines[] = {
+        "delay(15)",
+        "changemood(blue,0)",
+        "play(10)",
+        "delay(45)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Hello!");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Hello!",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("squeak(purple)");
-        add("delay(1)");
-        add("squeak(yellow)");
-        add("delay(1)");
-        add("squeak(red)");
-        add("delay(1)");
-        add("squeak(green)");
+        "squeak(purple)",
+        "delay(1)",
+        "squeak(yellow)",
+        "delay(1)",
+        "squeak(red)",
+        "delay(1)",
+        "squeak(green)",
 
-        add("text(purple,0,0,1)");
-        add("Captain!        ");
-        add("position(purple,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(yellow,0,0,1)");
-        add("Captain!      ");
-        add("position(yellow,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(red,0,0,1)");
-        add("Captain!    ");
-        add("position(red,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(green,0,0,1)");
-        add("Captain!  ");
-        add("position(green,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(blue,0,0,1)");
-        add("Captain!");
-        add("position(blue,above)");
-        add("speak");
+        "text(purple,0,0,1)",
+        "Captain!        ",
+        "position(purple,above)",
+        "backgroundtext",
+        "speak",
+        "text(yellow,0,0,1)",
+        "Captain!      ",
+        "position(yellow,above)",
+        "backgroundtext",
+        "speak",
+        "text(red,0,0,1)",
+        "Captain!    ",
+        "position(red,above)",
+        "backgroundtext",
+        "speak",
+        "text(green,0,0,1)",
+        "Captain!  ",
+        "position(green,above)",
+        "backgroundtext",
+        "speak",
+        "text(blue,0,0,1)",
+        "Captain!",
+        "position(blue,above)",
+        "speak",
 
-        add("endtextfast");
+        "endtextfast",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,1)");
-        add("You're alright!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,1)",
+        "You're alright!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,1)");
-        add("I knew you'd be ok!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,1)",
+        "I knew you'd be ok!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("We were very worried when");
-        add("you didn't come back...");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "We were very worried when",
+        "you didn't come back...",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("...but when you turned");
-        add("off the source of");
-        add("the interference...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "...but when you turned",
+        "off the source of",
+        "the interference...",
+        "position(green,above)",
+        "speak_active",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,3)");
-        add("...we were able to");
-        add("find you with the");
-        add("ship's scanners...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,3)",
+        "...we were able to",
+        "find you with the",
+        "ship's scanners...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("squeak(red)");
-        add("text(red,0,0,2)");
-        add("...and teleport you");
-        add("back on board!");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,2)",
+        "...and teleport you",
+        "back on board!",
+        "position(red,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("That was lucky!");
-        add("Thanks guys!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "That was lucky!",
+        "Thanks guys!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Thanks guys!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Thanks guys!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
         //Move to Vitellary's lab
-        add("fadeout()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
 
-        add("missing(purple)");
-        add("missing(red)");
-        add("missing(green)");
-        add("missing(blue)");
-        add("missing(yellow)");
+        "missing(purple)",
+        "missing(red)",
+        "missing(green)",
+        "missing(blue)",
+        "missing(yellow)",
 
-        add("gotoroom(3,11)");
-        add("gotoposition(117,105,0)");
-        add("changedir(player,0)");
-        add("createcrewman(75,105,yellow,0,faceright)");
-        add("createcrewman(190,105,red,0,faceleft)");
+        "gotoroom(3,11)",
+        "gotoposition(117,105,0)",
+        "changedir(player,0)",
+        "createcrewman(75,105,yellow,0,faceright)",
+        "createcrewman(190,105,red,0,faceleft)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,4)");
-        add("...it looks like this");
-        add("dimension is starting");
-        add("to destabilise, just");
-        add("like our own...");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,4)",
+        "...it looks like this",
+        "dimension is starting",
+        "to destabilise, just",
+        "like our own...",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("walk(right,3)");
+        "walk(right,3)",
 
-        add("squeak(red)");
-        add("text(red,0,0,3)");
-        add("...we can stay and");
-        add("explore for a little");
-        add("longer, but...");
-        add("position(red,above)");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,0,0,3)",
+        "...we can stay and",
+        "explore for a little",
+        "longer, but...",
+        "position(red,above)",
+        "speak_active",
 
-        add("walk(left,3)");
+        "walk(left,3)",
 
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("...eventually, it'll");
-        add("collapse completely.");
-        add("position(yellow,above)");
-        add("speak_active");
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "...eventually, it'll",
+        "collapse completely.",
+        "position(yellow,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
         //Move to Vertigris' lab
-        add("fadeout()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
 
-        add("gotoroom(3,10)");
-        add("gotoposition(210,177,0)");
-        add("changedir(player,1)");
-        add("createcrewman(245,177,green,0,faceleft)");
-        add("createcrewman(56,177,blue,0,faceright)");
+        "gotoroom(3,10)",
+        "gotoposition(210,177,0)",
+        "changedir(player,1)",
+        "createcrewman(245,177,green,0,faceleft)",
+        "createcrewman(56,177,blue,0,faceright)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
-        add("squeak(green)");
-        add("text(green,0,0,3)");
-        add("There's no telling exactly");
-        add("how long we have here. But");
-        add("the ship's fixed, so...");
-        add("position(green,above)");
-        add("speak_active");
+        "squeak(green)",
+        "text(green,0,0,3)",
+        "There's no telling exactly",
+        "how long we have here. But",
+        "the ship's fixed, so...",
+        "position(green,above)",
+        "speak_active",
 
-        add("walk(left,3)");
+        "walk(left,3)",
 
-        add("squeak(blue)");
-        add("text(blue,0,0,2)");
-        add("...as soon as we're");
-        add("ready, we can go home!");
-        add("position(blue,above)");
-        add("speak_active");
+        "squeak(blue)",
+        "text(blue,0,0,2)",
+        "...as soon as we're",
+        "ready, we can go home!",
+        "position(blue,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
         //Move to the bridge!
-        add("fadeout()");
-        add("untilfade()");
+        "fadeout()",
+        "untilfade()",
 
-        add("gotoroom(4,10)");
-        add("gotoposition(227,113,0)");
-        add("changedir(player,0)");
-        add("createcrewman(140,177,purple,0,faceright)");
-        add("createcrewman(115,177,yellow,0,faceright)");
-        add("createcrewman(90,177,red,0,faceright)");
-        add("createcrewman(65,177,green,0,faceright)");
-        add("createcrewman(40,177,blue,0,faceright)");
+        "gotoroom(4,10)",
+        "gotoposition(227,113,0)",
+        "changedir(player,0)",
+        "createcrewman(140,177,purple,0,faceright)",
+        "createcrewman(115,177,yellow,0,faceright)",
+        "createcrewman(90,177,red,0,faceright)",
+        "createcrewman(65,177,green,0,faceright)",
+        "createcrewman(40,177,blue,0,faceright)",
 
-        add("rescued(purple)");
-        add("rescued(red)");
-        add("rescued(green)");
-        add("rescued(blue)");
-        add("rescued(yellow)");
+        "rescued(purple)",
+        "rescued(red)",
+        "rescued(green)",
+        "rescued(blue)",
+        "rescued(yellow)",
 
-        add("fadein()");
-        add("untilfade()");
+        "fadein()",
+        "untilfade()",
 
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("What now, Captain?");
-        add("position(purple,above)");
-        add("speak_active");
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "What now, Captain?",
+        "position(purple,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("Let's find a way to save");
-        add("this dimension!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "Let's find a way to save",
+        "this dimension!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("And a way to save our");
-        add("home dimension too!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "And a way to save our",
+        "home dimension too!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("The answer is out there, somewhere!");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "The answer is out there, somewhere!",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Let's go!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Let's go!",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("fadeout()");
-        add("untilfade()");
-        add("rollcredits()");
+        "fadeout()",
+        "untilfade()",
+        "rollcredits()",
+        };
+        filllines(lines);
     }
     else if (t == "startepilogue")
     {
-        add("cutscene()");
-        add("untilbars()");
-        add("face(player,blue)");
-        add("face(blue,player)");
+        const char* lines[] = {
+        "cutscene()",
+        "untilbars()",
+        "face(player,blue)",
+        "face(blue,player)",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,1)");
-        add("Wow! You found all of them!");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,1)",
+        "Wow! You found all of them!",
+        "position(blue,below)",
+        "speak_active",
 
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Really? Great!");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Really? Great!",
+        "position(player,above)",
+        "speak_active",
 
-        add("squeak(blue)");
-        add("changetile(blue,6)"); //smiling again! blue always needs to specify her mood
-        add("text(blue,0,0,3)");
-        add("I'll run some tests and");
-        add("see if I can work out");
-        add("what they're for...");
-        add("position(blue,below)");
-        add("speak_active");
+        "squeak(blue)",
+        "changetile(blue,6)", //smiling again! blue always needs to specify her mood
+        "text(blue,0,0,3)",
+        "I'll run some tests and",
+        "see if I can work out",
+        "what they're for...",
+        "position(blue,below)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(9)");
+        "flash(5)",
+        "shake(20)",
+        "playef(9)",
 
-        add("musicfadeout()");
+        "musicfadeout()",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("changetile(blue,150)"); //upside down frown :(
-        add("text(player,0,0,2)");
-        add("That... that didn't");
-        add("sound good...");
-        add("position(player,above)");
-        add("speak_active");
+        "squeak(cry)",
+        "changemood(player,1)",
+        "changetile(blue,150)", //upside down frown :(
+        "text(player,0,0,2)",
+        "That... that didn't",
+        "sound good...",
+        "position(player,above)",
+        "speak_active",
 
-        add("endtext");
+        "endtext",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(9)");
-        add("alarmon");
+        "flash(5)",
+        "shake(20)",
+        "playef(9)",
+        "alarmon",
 
-        add("delay(30)");
+        "delay(30)",
 
-        add("squeak(cry)");
-        add("text(blue,0,0,1)");
-        add("Run!");
-        add("position(blue,below)");
-        add("speak_active");
-        add("endtext");
+        "squeak(cry)",
+        "text(blue,0,0,1)",
+        "Run!",
+        "position(blue,below)",
+        "speak_active",
+        "endtext",
 
-        add("delay(5)");
+        "delay(5)",
 
-        add("missing(green)");
-        add("missing(yellow)");
+        "missing(green)",
+        "missing(yellow)",
 
-        add("flash(5)");
-        add("shake(50)");
-        add("playef(9)");
-        add("gotoroom(3,10)");
-        add("gotoposition(40,177,0)");
-        add("createcrewman(208,177,green,1,followposition,120)");
-        add("createcrewman(240,177,purple,1,followposition,120)");
-        add("createcrewman(10,177,blue,1,followposition,180)");
+        "flash(5)",
+        "shake(50)",
+        "playef(9)",
+        "gotoroom(3,10)",
+        "gotoposition(40,177,0)",
+        "createcrewman(208,177,green,1,followposition,120)",
+        "createcrewman(240,177,purple,1,followposition,120)",
+        "createcrewman(10,177,blue,1,followposition,180)",
 
-        add("squeak(player)");
-        add("text(player,80,150,1)");
-        add("Oh no!");
-        add("backgroundtext");
-        add("speak_active");
-        add("walk(right,20)");
+        "squeak(player)",
+        "text(player,80,150,1)",
+        "Oh no!",
+        "backgroundtext",
+        "speak_active",
+        "walk(right,20)",
 
-        add("endtextfast");
+        "endtextfast",
 
         //and the next!
-        add("flash(5)");
-        add("shake(50)");
-        add("playef(9)");
-        add("gotoroom(3,11)");
-        add("gotoposition(140,0,0)");
+        "flash(5)",
+        "shake(50)",
+        "playef(9)",
+        "gotoroom(3,11)",
+        "gotoposition(140,0,0)",
 
-        add("createcrewman(90,105,green,1,followblue)");
-        add("createcrewman(125,105,purple,1,followgreen)");
-        add("createcrewman(55,105,blue,1,followposition,-200)");
+        "createcrewman(90,105,green,1,followblue)",
+        "createcrewman(125,105,purple,1,followgreen)",
+        "createcrewman(55,105,blue,1,followposition,-200)",
 
-        add("createcrewman(120,177,yellow,1,followposition,-200)");
-        add("createcrewman(240,177,red,1,faceleft)");
+        "createcrewman(120,177,yellow,1,followposition,-200)",
+        "createcrewman(240,177,red,1,faceleft)",
 
-        add("delay(5)");
-        add("changeai(red,followposition,-200)");
+        "delay(5)",
+        "changeai(red,followposition,-200)",
 
-        add("squeak(red)");
-        add("text(red,100,150,1)");
-        add("Not again!");
-        add("backgroundtext");
-        add("speak_active");
+        "squeak(red)",
+        "text(red,100,150,1)",
+        "Not again!",
+        "backgroundtext",
+        "speak_active",
 
-        add("walk(left,25)");
+        "walk(left,25)",
 
-        add("endtextfast");
+        "endtextfast",
 
         //final room:
-        add("flash(5)");
-        add("alarmoff");
-        add("playef(9)");
-        add("gotoroom(2,11)");
-        add("gotoposition(265,153,0)");
-
-        add("createcrewman(130,153,blue,1,faceleft)");
-        add("createcrewman(155,153,green,1,faceleft)");
-        add("createcrewman(180,153,purple,1,faceleft)");
-        add("createcrewman(205,153,yellow,1,faceleft)");
-        add("createcrewman(230,153,red,1,faceleft)");
-
-        add("delay(75)");
-
-        add("squeak(player)");
-        add("changemood(player,0)");
-        add("text(player,0,0,1)");
-        add("Wait! It's stopped!");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
-
-        add("delay(30)");
-        add("changemood(purple,0)");
-        add("changedir(purple,1)");
-        add("changemood(red,0)");
-        add("changedir(red,1)");
-        add("changemood(green,0)");
-        add("changedir(green,1)");
-        add("changemood(blue,0)");
-        add("changedir(blue,1)");
-        add("changemood(yellow,0)");
-        add("changedir(yellow,1)");
-        add("delay(30)");
-
-        add("rescued(green)");
-        add("rescued(yellow)");
-        add("missing(blue)");
-        add("altstates(1)");
-
-        add("fadeout()");
-        add("untilfade()");
-
-        add("gotoroom(2,10)");
-        add("gotoposition(227,113,0)");
-        add("changedir(player,0)");
-
-        add("rescued(blue)");
-
-        add("createcrewman(150,177,purple,0,faceleft)");
-        add("createcrewman(90,177,yellow,0,faceright)");
-        add("createcrewman(184,185,red,0,faceleft)");
-        add("createcrewman(65,177,green,0,faceright)");
-        add("createcrewman(35,177,blue,0,faceright)");
-
-        add("rescued(purple)");
-        add("rescued(red)");
-        add("rescued(green)");
-        add("rescued(yellow)");
-
-        add("fadein()");
-        add("untilfade()");
-
-        add("delay(30)");
-
-        add("squeak(purple)");
-        add("text(purple,0,0,3)");
-        add("This is where we were");
-        add("storing those shiny");
-        add("things? What happened?");
-        add("position(purple,above)");
-        add("speak_active");
-
-        add("squeak(player)");
-        add("text(player,0,0,2)");
-        add("We were just playing");
-        add("with them, and...");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
-
-        add("squeak(cry)");
-        add("changemood(player,1)");
-        add("text(player,0,0,1)");
-        add("...they suddenly exploded!");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
-
-        add("squeak(blue)");
-        add("text(blue,0,0,2)");
-        add("But look what they made!");
-        add("Is that a teleporter?");
-        add("position(blue,above)");
-        add("speak_active");
-
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("I think so, but...");
-        add("position(yellow,above)");
-        add("speak_active");
-
-        add("squeak(yellow)");
-        add("text(yellow,0,0,2)");
-        add("I've never seen a teleporter");
-        add("like that before...");
-        add("position(yellow,above)");
-        add("speak_active");
-        add("endtext");
-
-        add("changemood(player,0)");
-
-        add("delay(30)");
-
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("We should investigate!");
-        add("position(red,above)");
-        add("speak_active");
-
-        add("squeak(purple)");
-        add("text(purple,0,0,1)");
-        add("What do you think, Captain?");
-        add("position(purple,above)");
-        add("speak_active");
-
-        add("squeak(purple)");
-        add("text(purple,0,0,2)");
-        add("Should we find out");
-        add("where it leads?");
-        add("position(purple,above)");
-        add("speak_active");
-        add("endtext");
-
-        add("delay(15)");
-
-        add("squeak(player)");
-        add("text(player,0,0,1)");
-        add("Let's go!");
-        add("position(player,above)");
-        add("speak_active");
-        add("endtext");
-
-        add("walk(left,10)");
-        add("flip");
-        add("walk(left,5)");
-
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("blackout()");
-
-        add("delay(45)");
-
-        add("gotoroom(17,6)");
-        add("gotoposition(80,109,1)");
-        add("changedir(player,1)");
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("blackon()");
-
-        add("delay(15)");
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("createcrewman(28,65,purple,0,faceright)");
-
-        add("delay(15)");
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("createcrewman(145,169,yellow,0,faceleft)");
-
-        add("delay(15)");
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("createcrewman(32,169,red,0,faceright)");
-
-        add("delay(15)");
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("createcrewman(96,149,green,0,faceleft)");
-
-        add("delay(15)");
-        add("flash(5)");
-        add("shake(20)");
-        add("playef(10)");
-        add("createcrewman(155,57,blue,0,faceleft)");
-
-        add("delay(45)");
-
-
-        add("squeak(cry)");
-        add("changemood(blue,1)");
-        add("text(blue,0,0,1)");
-        add("Oh no! We're trapped!");
-        add("position(blue,above)");
-        add("speak_active");
-
-        add("squeak(cry)");
-        add("changemood(yellow,1)");
-        add("text(yellow,0,0,1)");
-        add("Oh dear...");
-        add("position(yellow,above)");
-        add("speak_active");
-
-        add("squeak(cry)");
-        add("changemood(red,1)");
-        add("changemood(green,1)");
-        add("changemood(purple,1)");
-        add("changemood(player,1)");
-        add("text(player,0,0,2)");
-        add("Hmm... how should we");
-        add("get out of this?");
-        add("position(player,below)");
-        add("speak_active");
-
-        add("endtext");
-
-        add("delay(70)");
-
-        add("squeak(purple)");
-        add("delay(1)");
-        add("squeak(yellow)");
-        add("delay(1)");
-        add("squeak(red)");
-        add("delay(1)");
-        add("squeak(blue)");
-        add("delay(1)");
-        add("squeak(player)");
-        add("delay(1)");
-        add("squeak(green)");
-
-        add("changemood(yellow,0)");
-        add("changemood(blue,0)");
-        add("changemood(red,0)");
-        add("changemood(player,0)");
-        add("changemood(green,0)");
-        add("changemood(purple,0)");
-        add("text(player,0,0,1)");
-        add("COMBINE!");
-        add("position(player,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(purple,0,0,1)");
-        add("COMBINE!");
-        add("position(purple,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(yellow,0,0,1)");
-        add("COMBINE!");
-        add("position(yellow,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(red,0,0,1)");
-        add("COMBINE!");
-        add("position(red,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(green,0,0,1)");
-        add("COMBINE!");
-        add("position(green,above)");
-        add("backgroundtext");
-        add("speak");
-        add("text(blue,0,0,1)");
-        add("COMBINE!");
-        add("position(blue,above)");
-        add("speak");
-
-        add("endtextfast");
-
-        add("delay(15)");
-        add("flip");
-        add("changeai(purple,followplayer)");
-        add("changeai(blue,followplayer)");
-        add("changeai(red,followplayer)");
-        add("changeai(yellow,followplayer)");
-        add("changeai(green,followplayer)");
-        add("walk(right,3)");
-
-        add("delay(5)");
-        add("flash(10)");
-        add("shake(20)");
-        add("playef(24)");
-        add("gotoroom(17,6)");
-        add("vvvvvvman()");
-
-
-        add("delay(90)");
-
-
-        add("walk(right,6)");
-        add("flash(10)");
-        add("shake(20)");
-        add("playef(23)");
-        add("altstates(2)");
-        add("gotoroom(17,6)");
-
-        add("delay(20)");
-
-        add("walk(right,12)");
-        add("flash(10)");
-        add("shake(20)");
-        add("playef(23)");
-        add("altstates(0)");
-        add("gotoroom(17,6)");
-
-        add("delay(20)");
-
-        add("walk(right,15)");
-
-        add("gotoroom(18,6)");
-        add("gotoposition(0,46,0)");
-        add("walk(right,5)");
-
-        add("delay(20)");
-        add("flash(10)");
-        add("shake(20)");
-        add("playef(24)");
-        add("undovvvvvvman()");
-        add("createcrewman(30,99,purple,0,faceright)");
-        add("createcrewman(65,119,yellow,0,faceright)");
-        add("createcrewman(135,149,red,0,faceleft)");
-        add("createcrewman(170,159,green,0,faceleft)");
-        add("createcrewman(205,159,blue,0,faceleft)");
-
-
-        add("delay(60)");
-
-
-        add("changedir(yellow,0)");
-        add("changedir(player,0)");
-        add("delay(20)");
-        add("squeak(purple)");
-        add("text(purple,0,0,3)");
-        add("Or, you know... we could");
-        add("have just warped back");
-        add("to the ship...");
-        add("position(purple,above)");
-        add("speak_active");
-
-        add("endtext");
-
-        add("delay(30)");
-
-        add("changedir(purple,1)");
-        add("changedir(yellow,1)");
-        add("changedir(player,1)");
-        add("changedir(red,1)");
-
-        add("changedir(green,1)");
-        add("squeak(green)");
-        add("text(green,0,0,1)");
-        add("Wow! What is this?");
-        add("position(green,above)");
-        add("speak_active");
-
-
-        add("changedir(purple,1)");
-        add("changedir(yellow,1)");
-        add("changedir(player,0)");
-        add("changedir(red,0)");
-        add("changedir(green,0)");
-        add("squeak(yellow)");
-        add("text(yellow,0,0,1)");
-        add("It looks like another laboratory!");
-        add("position(yellow,above)");
-        add("speak_active");
-
-        add("changedir(purple,1)");
-        add("changedir(yellow,1)");
-        add("changedir(player,1)");
-        add("squeak(red)");
-        add("text(red,0,0,1)");
-        add("Let's have a look around!");
-        add("position(red,above)");
-        add("speak_active");
-
-        add("endtext");
-
-        add("delay(20)");
-        add("changeai(yellow,followposition,500)");
-        add("changeai(purple,followposition,500)");
-        add("changeai(blue,followposition,500)");
-        add("changeai(red,followposition,500)");
-        add("changeai(green,followposition,500)");
-
-        add("delay(21)");
-        add("changeai(yellow,faceright)");
-        add("flipgravity(yellow)");
-        add("playef(0)");
-        add("delay(2)");
-        add("changeai(purple,faceright)");
-        add("flipgravity(purple)");
-        add("playef(0)");
-
-        add("delay(48)");
-
-        add("foundlab");
-        add("endtext");
-        add("foundlab2");
-        add("endtext");
-
-        add("entersecretlab");
-        add("play(11)");
-
-        add("endcutscene()");
-        add("untilbars()");
+        "flash(5)",
+        "alarmoff",
+        "playef(9)",
+        "gotoroom(2,11)",
+        "gotoposition(265,153,0)",
+
+        "createcrewman(130,153,blue,1,faceleft)",
+        "createcrewman(155,153,green,1,faceleft)",
+        "createcrewman(180,153,purple,1,faceleft)",
+        "createcrewman(205,153,yellow,1,faceleft)",
+        "createcrewman(230,153,red,1,faceleft)",
+
+        "delay(75)",
+
+        "squeak(player)",
+        "changemood(player,0)",
+        "text(player,0,0,1)",
+        "Wait! It's stopped!",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
+
+        "delay(30)",
+        "changemood(purple,0)",
+        "changedir(purple,1)",
+        "changemood(red,0)",
+        "changedir(red,1)",
+        "changemood(green,0)",
+        "changedir(green,1)",
+        "changemood(blue,0)",
+        "changedir(blue,1)",
+        "changemood(yellow,0)",
+        "changedir(yellow,1)",
+        "delay(30)",
+
+        "rescued(green)",
+        "rescued(yellow)",
+        "missing(blue)",
+        "altstates(1)",
+
+        "fadeout()",
+        "untilfade()",
+
+        "gotoroom(2,10)",
+        "gotoposition(227,113,0)",
+        "changedir(player,0)",
+
+        "rescued(blue)",
+
+        "createcrewman(150,177,purple,0,faceleft)",
+        "createcrewman(90,177,yellow,0,faceright)",
+        "createcrewman(184,185,red,0,faceleft)",
+        "createcrewman(65,177,green,0,faceright)",
+        "createcrewman(35,177,blue,0,faceright)",
+
+        "rescued(purple)",
+        "rescued(red)",
+        "rescued(green)",
+        "rescued(yellow)",
+
+        "fadein()",
+        "untilfade()",
+
+        "delay(30)",
+
+        "squeak(purple)",
+        "text(purple,0,0,3)",
+        "This is where we were",
+        "storing those shiny",
+        "things? What happened?",
+        "position(purple,above)",
+        "speak_active",
+
+        "squeak(player)",
+        "text(player,0,0,2)",
+        "We were just playing",
+        "with them, and...",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
+
+        "squeak(cry)",
+        "changemood(player,1)",
+        "text(player,0,0,1)",
+        "...they suddenly exploded!",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
+
+        "squeak(blue)",
+        "text(blue,0,0,2)",
+        "But look what they made!",
+        "Is that a teleporter?",
+        "position(blue,above)",
+        "speak_active",
+
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "I think so, but...",
+        "position(yellow,above)",
+        "speak_active",
+
+        "squeak(yellow)",
+        "text(yellow,0,0,2)",
+        "I've never seen a teleporter",
+        "like that before...",
+        "position(yellow,above)",
+        "speak_active",
+        "endtext",
+
+        "changemood(player,0)",
+
+        "delay(30)",
+
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "We should investigate!",
+        "position(red,above)",
+        "speak_active",
+
+        "squeak(purple)",
+        "text(purple,0,0,1)",
+        "What do you think, Captain?",
+        "position(purple,above)",
+        "speak_active",
+
+        "squeak(purple)",
+        "text(purple,0,0,2)",
+        "Should we find out",
+        "where it leads?",
+        "position(purple,above)",
+        "speak_active",
+        "endtext",
+
+        "delay(15)",
+
+        "squeak(player)",
+        "text(player,0,0,1)",
+        "Let's go!",
+        "position(player,above)",
+        "speak_active",
+        "endtext",
+
+        "walk(left,10)",
+        "flip",
+        "walk(left,5)",
+
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "blackout()",
+
+        "delay(45)",
+
+        "gotoroom(17,6)",
+        "gotoposition(80,109,1)",
+        "changedir(player,1)",
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "blackon()",
+
+        "delay(15)",
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "createcrewman(28,65,purple,0,faceright)",
+
+        "delay(15)",
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "createcrewman(145,169,yellow,0,faceleft)",
+
+        "delay(15)",
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "createcrewman(32,169,red,0,faceright)",
+
+        "delay(15)",
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "createcrewman(96,149,green,0,faceleft)",
+
+        "delay(15)",
+        "flash(5)",
+        "shake(20)",
+        "playef(10)",
+        "createcrewman(155,57,blue,0,faceleft)",
+
+        "delay(45)",
+
+
+        "squeak(cry)",
+        "changemood(blue,1)",
+        "text(blue,0,0,1)",
+        "Oh no! We're trapped!",
+        "position(blue,above)",
+        "speak_active",
+
+        "squeak(cry)",
+        "changemood(yellow,1)",
+        "text(yellow,0,0,1)",
+        "Oh dear...",
+        "position(yellow,above)",
+        "speak_active",
+
+        "squeak(cry)",
+        "changemood(red,1)",
+        "changemood(green,1)",
+        "changemood(purple,1)",
+        "changemood(player,1)",
+        "text(player,0,0,2)",
+        "Hmm... how should we",
+        "get out of this?",
+        "position(player,below)",
+        "speak_active",
+
+        "endtext",
+
+        "delay(70)",
+
+        "squeak(purple)",
+        "delay(1)",
+        "squeak(yellow)",
+        "delay(1)",
+        "squeak(red)",
+        "delay(1)",
+        "squeak(blue)",
+        "delay(1)",
+        "squeak(player)",
+        "delay(1)",
+        "squeak(green)",
+
+        "changemood(yellow,0)",
+        "changemood(blue,0)",
+        "changemood(red,0)",
+        "changemood(player,0)",
+        "changemood(green,0)",
+        "changemood(purple,0)",
+        "text(player,0,0,1)",
+        "COMBINE!",
+        "position(player,above)",
+        "backgroundtext",
+        "speak",
+        "text(purple,0,0,1)",
+        "COMBINE!",
+        "position(purple,above)",
+        "backgroundtext",
+        "speak",
+        "text(yellow,0,0,1)",
+        "COMBINE!",
+        "position(yellow,above)",
+        "backgroundtext",
+        "speak",
+        "text(red,0,0,1)",
+        "COMBINE!",
+        "position(red,above)",
+        "backgroundtext",
+        "speak",
+        "text(green,0,0,1)",
+        "COMBINE!",
+        "position(green,above)",
+        "backgroundtext",
+        "speak",
+        "text(blue,0,0,1)",
+        "COMBINE!",
+        "position(blue,above)",
+        "speak",
+
+        "endtextfast",
+
+        "delay(15)",
+        "flip",
+        "changeai(purple,followplayer)",
+        "changeai(blue,followplayer)",
+        "changeai(red,followplayer)",
+        "changeai(yellow,followplayer)",
+        "changeai(green,followplayer)",
+        "walk(right,3)",
+
+        "delay(5)",
+        "flash(10)",
+        "shake(20)",
+        "playef(24)",
+        "gotoroom(17,6)",
+        "vvvvvvman()",
+
+
+        "delay(90)",
+
+
+        "walk(right,6)",
+        "flash(10)",
+        "shake(20)",
+        "playef(23)",
+        "altstates(2)",
+        "gotoroom(17,6)",
+
+        "delay(20)",
+
+        "walk(right,12)",
+        "flash(10)",
+        "shake(20)",
+        "playef(23)",
+        "altstates(0)",
+        "gotoroom(17,6)",
+
+        "delay(20)",
+
+        "walk(right,15)",
+
+        "gotoroom(18,6)",
+        "gotoposition(0,46,0)",
+        "walk(right,5)",
+
+        "delay(20)",
+        "flash(10)",
+        "shake(20)",
+        "playef(24)",
+        "undovvvvvvman()",
+        "createcrewman(30,99,purple,0,faceright)",
+        "createcrewman(65,119,yellow,0,faceright)",
+        "createcrewman(135,149,red,0,faceleft)",
+        "createcrewman(170,159,green,0,faceleft)",
+        "createcrewman(205,159,blue,0,faceleft)",
+
+
+        "delay(60)",
+
+
+        "changedir(yellow,0)",
+        "changedir(player,0)",
+        "delay(20)",
+        "squeak(purple)",
+        "text(purple,0,0,3)",
+        "Or, you know... we could",
+        "have just warped back",
+        "to the ship...",
+        "position(purple,above)",
+        "speak_active",
+
+        "endtext",
+
+        "delay(30)",
+
+        "changedir(purple,1)",
+        "changedir(yellow,1)",
+        "changedir(player,1)",
+        "changedir(red,1)",
+
+        "changedir(green,1)",
+        "squeak(green)",
+        "text(green,0,0,1)",
+        "Wow! What is this?",
+        "position(green,above)",
+        "speak_active",
+
+
+        "changedir(purple,1)",
+        "changedir(yellow,1)",
+        "changedir(player,0)",
+        "changedir(red,0)",
+        "changedir(green,0)",
+        "squeak(yellow)",
+        "text(yellow,0,0,1)",
+        "It looks like another laboratory!",
+        "position(yellow,above)",
+        "speak_active",
+
+        "changedir(purple,1)",
+        "changedir(yellow,1)",
+        "changedir(player,1)",
+        "squeak(red)",
+        "text(red,0,0,1)",
+        "Let's have a look around!",
+        "position(red,above)",
+        "speak_active",
+
+        "endtext",
+
+        "delay(20)",
+        "changeai(yellow,followposition,500)",
+        "changeai(purple,followposition,500)",
+        "changeai(blue,followposition,500)",
+        "changeai(red,followposition,500)",
+        "changeai(green,followposition,500)",
+
+        "delay(21)",
+        "changeai(yellow,faceright)",
+        "flipgravity(yellow)",
+        "playef(0)",
+        "delay(2)",
+        "changeai(purple,faceright)",
+        "flipgravity(purple)",
+        "playef(0)",
+
+        "delay(48)",
+
+        "foundlab",
+        "endtext",
+        "foundlab2",
+        "endtext",
+
+        "entersecretlab",
+        "play(11)",
+
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else if (t == "returntolab")
     {
         //To get back to the lab from the gravitron
-        add("gotoroom(19,7)");
-        add("gotoposition(132,137,0)");
-        add("fadein()");
+        const char* lines[] = {
+        "gotoroom(19,7)",
+        "gotoposition(132,137,0)",
+        "fadein()",
 
-        add("setcheckpoint()");
+        "setcheckpoint()",
 
-        add("play(11)");
-        add("endcutscene()");
-        add("untilbars()");
+        "play(11)",
+        "endcutscene()",
+        "untilbars()",
+        };
+        filllines(lines);
     }
     else
     {
