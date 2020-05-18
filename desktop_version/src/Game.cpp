@@ -6583,7 +6583,13 @@ void Game::returntomenu(enum Menu::MenuName t)
 {
     if (currentmenuname == t)
     {
-        //Why are you calling this function then?
+        //Re-create the menu
+        int keep_menu_option = currentmenuoption;
+        createmenu(t, true);
+        if (keep_menu_option < (int) menuoptions.size())
+        {
+            currentmenuoption = keep_menu_option;
+        }
         return;
     }
 
