@@ -290,11 +290,11 @@ void PLATFORM_migrateSaveData(char* output)
 		return;
 	}
 	strcpy(oldDirectory, homeDir);
-#if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
+ #if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
 	strcat(oldDirectory, "/.vvvvvv/");
-#elif defined(__APPLE__)
+ #elif defined(__APPLE__)
 	strcat(oldDirectory, "/Documents/VVVVVV/");
-#endif
+ #endif
 	dir = opendir(oldDirectory);
 	if (!dir)
 	{
@@ -523,5 +523,5 @@ bool FILESYSTEM_openDirectory(const char *dname)
 
 bool FILESYSTEM_delete(const char *name)
 {
-    return PHYSFS_delete(name) != 0;
+	return PHYSFS_delete(name) != 0;
 }
