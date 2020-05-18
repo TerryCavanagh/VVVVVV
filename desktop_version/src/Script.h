@@ -37,6 +37,8 @@ public:
 
     void hardreset();
 
+    void loadcustom(std::string t);
+
     //Script contents
     std::vector<std::string> commands;
     std::vector<std::string> words;
