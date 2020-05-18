@@ -248,6 +248,8 @@ void editorlogic();
 
 void editorinput();
 
+extern editorclass ed;
+
 #endif /* EDITOR_H */
 
 #endif /* NO_CUSTOM_LEVELS */

@@ -2,10 +2,6 @@
 
 #include "MakeAndPlay.h"
 
-#if !defined(NO_CUSTOM_LEVELS)
-extern editorclass ed;
-#endif
-
 mapclass::mapclass()
 {
 	//Start here!

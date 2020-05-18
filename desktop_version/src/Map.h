@@ -13,10 +13,6 @@
 #include "Music.h"
 #include "editor.h"
 
-#if !defined(NO_CUSTOM_LEVELS)
-extern editorclass ed;
-#endif
-
 class mapclass
 {
 public:
