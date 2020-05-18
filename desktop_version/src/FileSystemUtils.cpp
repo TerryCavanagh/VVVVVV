@@ -438,7 +438,7 @@ void PLATFORM_migrateSaveData(char* output)
 void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 {
 	char *data;
-	long int length;
+	size_t length, bytes_read, bytes_written;
 
 	/* Read data */
 	FILE *file = fopen(oldLocation, "rb");
@@ -451,8 +451,14 @@ void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 	length = ftell(file);
 	fseek(file, 0, SEEK_SET);
 	data = (char*) malloc(length);
-	fread(data, 1, length, file);
+	bytes_read = fread(data, 1, length, file);
 	fclose(file);
+	if (bytes_read != length)
+	{
+		printf("An error occurred when reading from %s\n", oldLocation);
+		free(data);
+		return;
+	}
 
 	/* Write data */
 	file = fopen(newLocation, "wb");
@@ -462,12 +468,16 @@ void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 		free(data);
 		return;
 	}
-	fwrite(data, 1, length, file);
+	bytes_written = fwrite(data, 1, length, file);
 	fclose(file);
 	free(data);
 
 	/* WTF did we just do */
 	printf("Copied:\n\tOld: %s\n\tNew: %s\n", oldLocation, newLocation);
+	if (bytes_written != length)
+	{
+		printf("Warning: an error occurred when writing to %s\n", newLocation);
+	}
 }
 
 bool FILESYSTEM_openDirectoryEnabled()
