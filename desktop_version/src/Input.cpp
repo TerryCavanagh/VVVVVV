@@ -7,8 +7,6 @@
 
 #include "FileSystemUtils.h"
 
-extern scriptclass script;
-
 void updatebuttonmappings(int bind)
 {
     for (

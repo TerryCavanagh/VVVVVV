@@ -64,4 +64,6 @@ public:
      std::vector <std::string>  customscript;
 };
 
+extern scriptclass script;
+
 #endif /* SCRIPT_H */

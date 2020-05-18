@@ -46,7 +46,6 @@ struct LevelMetaData
 
 
 extern std::vector<edentities> edentity;
-extern scriptclass script;
 
 class EditorData
 {

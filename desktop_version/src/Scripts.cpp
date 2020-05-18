@@ -5,8 +5,6 @@
 
 #include <algorithm>
 
-extern scriptclass script;
-
 void scriptclass::load(std::string t)
 {
     //loads script name t into the array
