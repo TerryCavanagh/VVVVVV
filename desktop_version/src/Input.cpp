@@ -1103,11 +1103,18 @@ void menuactionpress()
         }
         else if (game.currentmenuoption == 3 && game.unlock[18])    //enable/disable flip mode
         {
-            music.playef(18);
-            game.screenshake = 10;
-            game.flashlight = 5;
             graphics.setflipmode = !graphics.setflipmode;
             game.savemystats = true;
+            if (graphics.setflipmode)
+            {
+                music.playef(18);
+                game.screenshake = 10;
+                game.flashlight = 5;
+            }
+            else
+            {
+                music.playef(11);
+            }
         }
         else if (game.currentmenuoption == 4)
         {
