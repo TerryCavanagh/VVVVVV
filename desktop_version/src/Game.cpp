@@ -7357,6 +7357,11 @@ void Game::quittomenu()
     else if (save_exists() || anything_unlocked())
     {
         returntomenu(Menu::play);
+        if (!insecretlab)
+        {
+            //Select "continue"
+            currentmenuoption = 0;
+        }
     }
     else
     {
