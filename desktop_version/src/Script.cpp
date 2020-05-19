@@ -3536,15 +3536,12 @@ void scriptclass::hardreset()
 	map.scrolldir = 0;
 	map.customshowmm=true;
 
-	for (j = 0; j < 20; j++)
-	{
-		for (i = 0; i < 20; i++)
-		{
-			map.roomdeaths[i + (j * 20)] = 0;
-			map.roomdeathsfinal[i + (j * 20)] = 0;
-			map.explored[i + (j * 20)] = 0;
-		}
-	}
+	map.roomdeaths.clear();
+	map.roomdeaths.resize(20 * 20);
+	map.roomdeathsfinal.clear();
+	map.roomdeathsfinal.resize(20 * 20);
+	map.explored.clear();
+	map.explored.resize(20 * 20);
 	//entityclass
 	obj.nearelephant = false;
 	obj.upsetmode = false;
@@ -3554,20 +3551,18 @@ void scriptclass::hardreset()
 	obj.trophytype = 0;
 	obj.altstates = 0;
 
-	for (i = 0; i < 100; i++)
-	{
-		obj.flags[i] = false;
-	}
+	obj.flags.clear();
+	obj.flags.resize(100);
 
 	for (i = 0; i < 6; i++){
 		obj.customcrewmoods[i]=1;
 	}
 
-	for (i = 0; i < 100; i++)
-	{
-		obj.collect[i] = false;
-		obj.customcollect[i] = false;
-	}
+	obj.collect.clear();
+	obj.collect.resize(100);
+	obj.customcollect.clear();
+	obj.customcollect.resize(100);
+	i = 100; //previously a for-loop iterating over collect/customcollect set this to 100
 
 	if (obj.getplayer() > -1){
 		obj.entities[obj.getplayer()].tile = 0;
