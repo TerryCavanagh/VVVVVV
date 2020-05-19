@@ -137,6 +137,7 @@ void menuactionpress()
             if (!game.save_exists() && !game.anything_unlocked())
             {
                 //No saves exist, just start a new game
+                music.playef(11);
                 game.mainmenu = 0;
                 graphics.fademode = 2;
             }
@@ -244,10 +245,12 @@ void menuactionpress()
         switch (game.currentmenuoption)
         {
         case 0: //continue save
+            music.playef(11);
             game.mainmenu = 23;
             graphics.fademode = 2;
             break;
         case 1:
+            music.playef(11);
             game.mainmenu = 22;
             graphics.fademode = 2;
             break;
@@ -958,18 +961,21 @@ void menuactionpress()
             if (!game.save_exists())
             {
                 //You have no saves but have something unlocked, or you couldn't have gotten here
+                music.playef(11);
                 game.mainmenu = 0;
                 graphics.fademode = 2;
             }
             else if (game.telesummary == "")
             {
                 //You at least have a quicksave, or you couldn't have gotten here
+                music.playef(11);
                 game.mainmenu = 2;
                 graphics.fademode = 2;
             }
             else if (game.quicksummary == "")
             {
                 //You at least have a telesave, or you couldn't have gotten here
+                music.playef(11);
                 game.mainmenu = 1;
                 graphics.fademode = 2;
             }
@@ -984,6 +990,7 @@ void menuactionpress()
         else if (game.currentmenuoption == 1 && game.unlock[8])
         {
             if(!map.invincibility && game.slowdown == 30){
+                music.playef(11);
                 game.mainmenu = 11;
                 graphics.fademode = 2;
             }else{
@@ -1019,6 +1026,7 @@ void menuactionpress()
         {
         case 0:
             //yep
+            music.playef(11);
             game.mainmenu = 0;
             graphics.fademode = 2;
             game.deletequick();
@@ -1118,10 +1126,12 @@ void menuactionpress()
         switch (game.currentmenuoption)
         {
         case 0:   //start no death mode, disabling cutscenes
+            music.playef(11);
             game.mainmenu = 10;
             graphics.fademode = 2;
             break;
         case 1:
+            music.playef(11);
             game.mainmenu = 9;
             graphics.fademode = 2;
             break;
@@ -1137,10 +1147,12 @@ void menuactionpress()
         switch (game.currentmenuoption)
         {
         case 0:
+            music.playef(11);
             game.mainmenu = 1;
             graphics.fademode = 2;
             break;
         case 1:
+            music.playef(11);
             game.mainmenu = 2;
             graphics.fademode = 2;
             break;
@@ -1179,18 +1191,22 @@ void menuactionpress()
         switch (game.currentmenuoption)
         {
         case 0:
+            music.playef(11);
             game.mainmenu = 12;
             graphics.fademode = 2;
             break;
         case 1:
+            music.playef(11);
             game.mainmenu = 13;
             graphics.fademode = 2;
             break;
         case 2:
+            music.playef(11);
             game.mainmenu = 14;
             graphics.fademode = 2;
             break;
         case 3:
+            music.playef(11);
             game.mainmenu = 15;
             graphics.fademode = 2;
             break;
@@ -1206,18 +1222,22 @@ void menuactionpress()
         switch (game.currentmenuoption)
         {
         case 0:
+            music.playef(11);
             game.mainmenu = 16;
             graphics.fademode = 2;
             break;
         case 1:
+            music.playef(11);
             game.mainmenu = 17;
             graphics.fademode = 2;
             break;
         case 2:
+            music.playef(11);
             game.mainmenu = 18;
             graphics.fademode = 2;
             break;
         case 3:
+            music.playef(11);
             game.mainmenu = 19;
             graphics.fademode = 2;
             break;
@@ -1249,31 +1269,37 @@ void menuactionpress()
     case Menu::timetrials:
         if (game.currentmenuoption == 0 && game.unlock[9])   //space station 1
         {
+            music.playef(11);
             game.mainmenu = 3;
             graphics.fademode = 2;
         }
         else if (game.currentmenuoption == 1 && game.unlock[10])    //lab
         {
+            music.playef(11);
             game.mainmenu = 4;
             graphics.fademode = 2;
         }
         else if (game.currentmenuoption == 2 && game.unlock[11])    //tower
         {
+            music.playef(11);
             game.mainmenu = 5;
             graphics.fademode = 2;
         }
         else if (game.currentmenuoption == 3 && game.unlock[12])    //station 2
         {
+            music.playef(11);
             game.mainmenu = 6;
             graphics.fademode = 2;
         }
         else if (game.currentmenuoption == 4 && game.unlock[13])    //warp
         {
+            music.playef(11);
             game.mainmenu = 7;
             graphics.fademode = 2;
         }
         else if (game.currentmenuoption == 5 && game.unlock[14])    //final
         {
+            music.playef(11);
             game.mainmenu = 8;
             graphics.fademode = 2;
         }
@@ -1313,31 +1339,37 @@ void menuactionpress()
             //duplicate the above based on given time trial level!
             if (game.timetriallevel == 0)   //space station 1
             {
+                music.playef(11);
                 game.mainmenu = 3;
                 graphics.fademode = 2;
             }
             else if (game.timetriallevel == 1)    //lab
             {
+                music.playef(11);
                 game.mainmenu = 4;
                 graphics.fademode = 2;
             }
             else if (game.timetriallevel == 2)    //tower
             {
+                music.playef(11);
                 game.mainmenu = 5;
                 graphics.fademode = 2;
             }
             else if (game.timetriallevel == 3)    //station 2
             {
+                music.playef(11);
                 game.mainmenu = 6;
                 graphics.fademode = 2;
             }
             else if (game.timetriallevel == 4)    //warp
             {
+                music.playef(11);
                 game.mainmenu = 7;
                 graphics.fademode = 2;
             }
             else if (game.timetriallevel == 5)    //final
             {
+                music.playef(11);
                 game.mainmenu = 8;
                 graphics.fademode = 2;
             }
