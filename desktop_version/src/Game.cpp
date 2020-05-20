@@ -4799,13 +4799,19 @@ void Game::deathsequence()
         obj.entities[i].invis = true;
         if (map.finalmode)
         {
-            map.roomdeathsfinal[roomx - 41 + (20 * (roomy - 48))]++;
-            currentroomdeaths = map.roomdeathsfinal[roomx - 41 + (20 * (roomy - 48))];
+            if (roomx - 41 >= 0 && roomx - 41 < 20 && roomy - 48 >= 0 && roomy - 48 < 20)
+            {
+                map.roomdeathsfinal[roomx - 41 + (20 * (roomy - 48))]++;
+                currentroomdeaths = map.roomdeathsfinal[roomx - 41 + (20 * (roomy - 48))];
+            }
         }
         else
         {
-            map.roomdeaths[roomx - 100 + (20*(roomy - 100))]++;
-            currentroomdeaths = map.roomdeaths[roomx - 100 + (20 * (roomy - 100))];
+            if (roomx - 100 >= 0 && roomx - 100 < 20 && roomy - 100 >= 0 && roomy - 100 < 20)
+            {
+                map.roomdeaths[roomx - 100 + (20*(roomy - 100))]++;
+                currentroomdeaths = map.roomdeaths[roomx - 100 + (20 * (roomy - 100))];
+            }
         }
     }
     if (deathseq == 25) obj.entities[i].invis = true;
