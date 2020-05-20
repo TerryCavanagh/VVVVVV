@@ -4948,7 +4948,7 @@ void editorinput()
                             {
                                 if(ed.numcrewmates()<100)
                                 {
-                                    addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),15,1 + int(fRandom() * 5));
+                                    addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),15,int(fRandom() * 6));
                                     ed.lclickdelay=1;
                                 }
                                 else
