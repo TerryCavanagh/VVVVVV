@@ -3503,6 +3503,9 @@ void scriptclass::hardreset()
 	game.flashlight = 0;
 	game.screenshake = 0;
 
+	game.activeactivity = -1;
+	game.act_fade = 5;
+
 	//dwgraphicsclass
 	graphics.backgrounddrawn = false;
 	graphics.textboxremovefast();
