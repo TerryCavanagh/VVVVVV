@@ -380,100 +380,110 @@ void Game::init(void)
 #endif
 
     /* Terry's Patrons... */
-    superpatrons.push_back("Anders Ekermo");
-    superpatrons.push_back("Andreas K|mper");
-    superpatrons.push_back("Anthony Burch");
-    superpatrons.push_back("Bennett Foddy");
-    superpatrons.push_back("Brendan O'Sullivan");
-    superpatrons.push_back("Christopher Armstrong");
-    superpatrons.push_back("Daniel Benmergui");
-    superpatrons.push_back("David Pittman");
-    superpatrons.push_back("Ian Bogost");
-    superpatrons.push_back("Ian Poma");
-    superpatrons.push_back("Jaz McDougall");
-    superpatrons.push_back("John Faulkenbury");
-    superpatrons.push_back("Jonathan Whiting");
-    superpatrons.push_back("Kyle Pulver");
-    superpatrons.push_back("Markus Persson");
-    superpatrons.push_back("Nathan Ostgard");
-    superpatrons.push_back("Nick Easler");
-    superpatrons.push_back("Stephen Lavelle");
-    patrons.push_back("Adam Wendt");
-    patrons.push_back("Andreas J{rgensen");
-    patrons.push_back("}ngel Louzao Penalva");
-    patrons.push_back("Ashley Burton");
-    patrons.push_back("Aubrey Hesselgren");
-    patrons.push_back("Bradley Rose");
-    patrons.push_back("Brendan Urquhart");
-    patrons.push_back("Chris Ayotte");
-    patrons.push_back("Christopher Zamanillo");
-    patrons.push_back("Daniel Schuller");
-    patrons.push_back("Hybrid Mind Studios");
-    patrons.push_back("Emilie McGinley");
-    patrons.push_back("Francisco Solares");
-    patrons.push_back("Hal Helms");
-    patrons.push_back("Hayden Scott-Baron");
-    patrons.push_back("Hermit Games");
-    patrons.push_back("Ido Yehieli");
-    patrons.push_back("Jade Vault Games");
-    patrons.push_back("James Andrews");
-    patrons.push_back("James Riley");
-    patrons.push_back("James Hsieh");
-    patrons.push_back("Jasper Byrne");
-    patrons.push_back("Jedediah Baker");
-    patrons.push_back("Jens Bergensten");
-    patrons.push_back("Jeremy J. Penner");
-    patrons.push_back("Jeremy Peterson");
-    patrons.push_back("Jim McGinley");
-    patrons.push_back("Jonathan Cartwright");
-    patrons.push_back("John Nesky");
-    patrons.push_back("Jos Yule");
-    patrons.push_back("Jose Flores");
-    patrons.push_back("Josh Bizeau");
-    patrons.push_back("Joshua Buergel");
-    patrons.push_back("Joshua Hochner");
-    patrons.push_back("Kurt Ostfeld");
-    patrons.push_back("Magnus P~lsson");
-    patrons.push_back("Mark Neschadimenko");
-    patrons.push_back("Matt Antonellis");
-    patrons.push_back("Matthew Reppert");
-    patrons.push_back("Michael Falkensteiner");
-    patrons.push_back("Michael Vendittelli");
-    patrons.push_back("Mike Kasprzak");
-    patrons.push_back("Mitchel Stein");
-    patrons.push_back("Sean Murray");
-    patrons.push_back("Simon Michael");
-    patrons.push_back("Simon Schmid");
-    patrons.push_back("Stephen Maxwell");
-    patrons.push_back("Swing Swing Submarine");
-    patrons.push_back("Tam Toucan");
-    patrons.push_back("Terry Dooher");
-    patrons.push_back("Tim W.");
-    patrons.push_back("Timothy Bragan");
+    const char* superpatrons_arr[] = {
+    "Anders Ekermo",
+    "Andreas K|mper",
+    "Anthony Burch",
+    "Bennett Foddy",
+    "Brendan O'Sullivan",
+    "Christopher Armstrong",
+    "Daniel Benmergui",
+    "David Pittman",
+    "Ian Bogost",
+    "Ian Poma",
+    "Jaz McDougall",
+    "John Faulkenbury",
+    "Jonathan Whiting",
+    "Kyle Pulver",
+    "Markus Persson",
+    "Nathan Ostgard",
+    "Nick Easler",
+    "Stephen Lavelle",
+    };
+    superpatrons.insert(superpatrons.end(), superpatrons_arr, superpatrons_arr + sizeof(superpatrons_arr)/sizeof(superpatrons_arr[0]));
+
+    const char* patrons_arr[] = {
+    "Adam Wendt",
+    "Andreas J{rgensen",
+    "}ngel Louzao Penalva",
+    "Ashley Burton",
+    "Aubrey Hesselgren",
+    "Bradley Rose",
+    "Brendan Urquhart",
+    "Chris Ayotte",
+    "Christopher Zamanillo",
+    "Daniel Schuller",
+    "Hybrid Mind Studios",
+    "Emilie McGinley",
+    "Francisco Solares",
+    "Hal Helms",
+    "Hayden Scott-Baron",
+    "Hermit Games",
+    "Ido Yehieli",
+    "Jade Vault Games",
+    "James Andrews",
+    "James Riley",
+    "James Hsieh",
+    "Jasper Byrne",
+    "Jedediah Baker",
+    "Jens Bergensten",
+    "Jeremy J. Penner",
+    "Jeremy Peterson",
+    "Jim McGinley",
+    "Jonathan Cartwright",
+    "John Nesky",
+    "Jos Yule",
+    "Jose Flores",
+    "Josh Bizeau",
+    "Joshua Buergel",
+    "Joshua Hochner",
+    "Kurt Ostfeld",
+    "Magnus P~lsson",
+    "Mark Neschadimenko",
+    "Matt Antonellis",
+    "Matthew Reppert",
+    "Michael Falkensteiner",
+    "Michael Vendittelli",
+    "Mike Kasprzak",
+    "Mitchel Stein",
+    "Sean Murray",
+    "Simon Michael",
+    "Simon Schmid",
+    "Stephen Maxwell",
+    "Swing Swing Submarine",
+    "Tam Toucan",
+    "Terry Dooher",
+    "Tim W.",
+    "Timothy Bragan",
+    };
+    patrons.insert(patrons.end(), patrons_arr, patrons_arr + sizeof(patrons_arr)/sizeof(patrons_arr[0]));
 
     /* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by last name */
-    githubfriends.push_back("Matt \"Stelpjo\" Aaldenberg");
-    githubfriends.push_back("AlexApps99");
-    githubfriends.push_back("Christoph B{hmwalder");
-    githubfriends.push_back("Charlie Bruce");
-    githubfriends.push_back("Brian Callahan");
-    githubfriends.push_back("Dav999");
-    githubfriends.push_back("Allison Fleischer");
-    githubfriends.push_back("Daniel Lee");
-    githubfriends.push_back("Fredrik Ljungdahl");
-    githubfriends.push_back("Matt Penny");
-    githubfriends.push_back("Elliott Saltar");
-    githubfriends.push_back("Marvin Scholz");
-    githubfriends.push_back("Keith Stellyes");
-    githubfriends.push_back("Elijah Stone");
-    githubfriends.push_back("Thomas S|nger");
-    githubfriends.push_back("Info Teddy");
-    githubfriends.push_back("Alexandra Tildea");
-    githubfriends.push_back("leo60228");
-    githubfriends.push_back("Emmanuel Vadot");
-    githubfriends.push_back("Remi Verschelde"); // TODO: Change to "Rémi" if/when UTF-8 support is added
-    githubfriends.push_back("viri");
-    githubfriends.push_back("Wouter");
+    const char* githubfriends_arr[] = {
+    "Matt \"Stelpjo\" Aaldenberg",
+    "AlexApps99",
+    "Christoph B{hmwalder",
+    "Charlie Bruce",
+    "Brian Callahan",
+    "Dav999",
+    "Allison Fleischer",
+    "Daniel Lee",
+    "Fredrik Ljungdahl",
+    "Matt Penny",
+    "Elliott Saltar",
+    "Marvin Scholz",
+    "Keith Stellyes",
+    "Elijah Stone",
+    "Thomas S|nger",
+    "Info Teddy",
+    "Alexandra Tildea",
+    "leo60228",
+    "Emmanuel Vadot",
+    "Remi Verschelde", // TODO: Change to "Rémi" if/when UTF-8 support is added
+    "viri",
+    "Wouter",
+    };
+    githubfriends.insert(githubfriends.end(), githubfriends_arr, githubfriends_arr + sizeof(githubfriends_arr)/sizeof(githubfriends_arr[0]));
 
     /* Calculate credits length, finally. */
     creditmaxposition = 1050 + (10 * (
