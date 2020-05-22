@@ -1568,17 +1568,11 @@ void mapclass::loadlevel(int rx, int ry)
 			roomname=ed.level[curlevel].roomname;
 		}
 		extrarow = 1;
-		ed.loadlevel(rx, ry);
+		contents = ed.loadlevel(rx, ry);
 
 
 		roomtexton = false;
 		roomtext.clear();
-
-		for (int edj = 0; edj < 30; edj++){
-			for(int edi = 0; edi < 40; edi++){
-			contents[edi + vmult[edj]] = ed.swapmap[edi + vmult[edj]];
-			}
-		}
 
 		//Entities have to be created HERE, akwardly
 		int tempcheckpoints=0;
