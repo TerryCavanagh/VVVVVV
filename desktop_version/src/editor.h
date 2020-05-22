@@ -95,7 +95,7 @@ class editorclass{
 
   void saveconvertor();
   void reset();
-  void loadlevel(int rxi, int ryi);
+  std::vector<int> loadlevel(int rxi, int ryi);
 
   void placetile(int x, int y, int t);
 
@@ -147,7 +147,6 @@ class editorclass{
   int getwarpbackground(int rx, int ry);
 
   std::vector<std::string> getLevelDirFileNames( );
-  std::vector <int> swapmap;
   std::vector <int> contents;
   std::vector <int> vmult;
   int numtrinkets();
