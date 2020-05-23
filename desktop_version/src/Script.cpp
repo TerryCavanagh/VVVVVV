@@ -573,9 +573,10 @@ void scriptclass::run()
 			{
 				if(graphics.flipmode) texty += 2*(120 - texty) - 8*(txt.size()+2);
 			}
-			else if (words[0] == "speak_active")
+			else if (words[0] == "speak_active" || words[0] == "speak")
 			{
 				//Ok, actually display the textbox we've initilised now!
+				//If using "speak", don't make the textbox active (so we can use multiple textboxes)
 				graphics.createtextbox(txt[0], textx, texty, r, g, b);
 				if ((int) txt.size() > 1)
 				{
@@ -606,52 +607,10 @@ void scriptclass::run()
 				}
 
 				graphics.textboxadjust();
-				graphics.textboxactive();
-
-				if (!game.backgroundtext)
+				if (words[0] == "speak_active")
 				{
-					game.advancetext = true;
-					game.hascontrol = false;
-					game.pausescript = true;
-					if (key.isDown(90) || key.isDown(32) || key.isDown(86)
-						|| key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.jumpheld = true;
+					graphics.textboxactive();
 				}
-				game.backgroundtext = false;
-			}
-			else if (words[0] == "speak")
-			{
-				//Exactly as above, except don't make the textbox active (so we can use multiple textboxes)
-				graphics.createtextbox(txt[0], textx, texty, r, g, b);
-				if ((int) txt.size() > 1)
-				{
-					for (i = 1; i < (int) txt.size(); i++)
-					{
-						graphics.addline(txt[i]);
-					}
-				}
-
-				//the textbox cannot be outside the screen. Fix if it is.
-				if (textx <= -1000)
-				{
-					//position to the left of the player
-					textx += 10000;
-					textx -= graphics.textboxwidth();
-					textx += 16;
-					graphics.textboxmoveto(textx);
-				}
-
-				if (textx == -500 || textx == -1)
-				{
-					graphics.textboxcenterx();
-				}
-
-				if (texty == -500)
-				{
-					graphics.textboxcentery();
-				}
-
-				graphics.textboxadjust();
-				//graphics.textboxactive();
 
 				if (!game.backgroundtext)
 				{
