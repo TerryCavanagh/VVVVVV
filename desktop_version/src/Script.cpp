@@ -577,6 +577,10 @@ void scriptclass::run()
 			{
 				//Ok, actually display the textbox we've initilised now!
 				//If using "speak", don't make the textbox active (so we can use multiple textboxes)
+				if (txt.empty())
+				{
+					txt.resize(1);
+				}
 				graphics.createtextbox(txt[0], textx, texty, r, g, b);
 				if ((int) txt.size() > 1)
 				{
