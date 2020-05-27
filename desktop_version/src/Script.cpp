@@ -3557,12 +3557,12 @@ void scriptclass::loadcustom(std::string t)
 	for(size_t i=0; i<customscript.size(); i++){
 		if(scriptstart==-1){
 			//Find start of the script
-			if(script.customscript[i]==cscriptname+":"){
+			if(customscript[i]==cscriptname+":"){
 				scriptstart=i+1;
 			}
 		}else if(scriptend==-1){
 			//Find the end
-			tstring=script.customscript[i];
+			tstring=customscript[i];
 			if (tstring.size() > 0) {
 				tstring=tstring[tstring.size()-1];
 			} else {
@@ -3581,7 +3581,7 @@ void scriptclass::loadcustom(std::string t)
 		//Ok, we've got the relavent script segment, we do a pass to assess it, then run it!
 		int customcutscenemode=0;
 		for(int i=scriptstart; i<scriptend; i++){
-			tokenize(script.customscript[i]);
+			tokenize(customscript[i]);
 			if(words[0] == "say"){
 				customcutscenemode=1;
 			}else if(words[0] == "reply"){
@@ -3600,7 +3600,7 @@ void scriptclass::loadcustom(std::string t)
 		for(int i=scriptstart; i<scriptend; i++){
 			words[0]="nothing"; //Default!
 			words[1]="1"; //Default!
-			tokenize(script.customscript[i]);
+			tokenize(customscript[i]);
 			std::transform(words[0].begin(), words[0].end(), words[0].begin(), ::tolower);
 			if(words[0] == "music"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
@@ -3712,28 +3712,28 @@ void scriptclass::loadcustom(std::string t)
 				}
 			}else if(words[0] == "delay"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add(script.customscript[i]);
+				add(customscript[i]);
 			}else if(words[0] == "flag"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add(script.customscript[i]);
+				add(customscript[i]);
 			}else if(words[0] == "map"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add("custom"+script.customscript[i]);
+				add("custom"+customscript[i]);
 			}else if(words[0] == "warpdir"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add(script.customscript[i]);
+				add(customscript[i]);
 			}else if(words[0] == "ifwarp"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add(script.customscript[i]);
+				add(customscript[i]);
 			}else if(words[0] == "iftrinkets"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add("custom"+script.customscript[i]);
+				add("custom"+customscript[i]);
 			}else if(words[0] == "ifflag"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add("custom"+script.customscript[i]);
+				add("custom"+customscript[i]);
 			}else if(words[0] == "iftrinketsless"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add("custom"+script.customscript[i]);
+				add("custom"+customscript[i]);
 			}else if(words[0] == "destroy"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
 				if(words[1]=="gravitylines"){
@@ -3794,10 +3794,10 @@ void scriptclass::loadcustom(std::string t)
 				int ti=atoi(words[1].c_str());
 				if(ti>=0 && ti<=50){
 					for(int ti2=0; ti2<ti; ti2++){
-						i++; add(script.customscript[i]);
+						i++; add(customscript[i]);
 					}
 				}else{
-					i++; add(script.customscript[i]);
+					i++; add(customscript[i]);
 				}
 
 				switch(speakermode){
@@ -3819,10 +3819,10 @@ void scriptclass::loadcustom(std::string t)
 				int ti=atoi(words[1].c_str());
 				if(ti>=0 && ti<=50){
 					for(int ti2=0; ti2<ti; ti2++){
-						i++; add(script.customscript[i]);
+						i++; add(customscript[i]);
 					}
 				}else{
-					i++; add(script.customscript[i]);
+					i++; add(customscript[i]);
 				}
 				add("position(player,above)");
 				add("speak_active");
