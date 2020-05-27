@@ -3792,11 +3792,8 @@ void scriptclass::loadcustom(std::string t)
 					break;
 				}
 				int ti=atoi(words[1].c_str());
-				if(ti>=0 && ti<=50){
-					for(int ti2=0; ti2<ti; ti2++){
-						i++; add(customscript[i]);
-					}
-				}else{
+				int nti = ti>=0 && ti<=50 ? ti : 1;
+				for(int ti2=0; ti2<nti; ti2++){
 					i++; add(customscript[i]);
 				}
 
@@ -3817,11 +3814,8 @@ void scriptclass::loadcustom(std::string t)
 				add("text(cyan,0,0,"+words[1]+")");
 
 				int ti=atoi(words[1].c_str());
-				if(ti>=0 && ti<=50){
-					for(int ti2=0; ti2<ti; ti2++){
-						i++; add(customscript[i]);
-					}
-				}else{
+				int nti = ti>=0 && ti<=50 ? ti : 1;
+				for(int ti2=0; ti2<nti; ti2++){
 					i++; add(customscript[i]);
 				}
 				add("position(player,above)");
