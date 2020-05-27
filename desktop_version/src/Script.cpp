@@ -376,7 +376,10 @@ void scriptclass::run()
 				for (int i = 0; i < ss_toi(words[4]); i++)
 				{
 					position++;
-					txt.push_back(commands[position]);
+					if (position < (int) commands.size())
+					{
+						txt.push_back(commands[position]);
+					}
 				}
 			}
 			else if (words[0] == "position")
@@ -3794,7 +3797,10 @@ void scriptclass::loadcustom(std::string t)
 				int ti=atoi(words[1].c_str());
 				int nti = ti>=0 && ti<=50 ? ti : 1;
 				for(int ti2=0; ti2<nti; ti2++){
-					i++; add(customscript[i]);
+					i++;
+					if(i < (int) customscript.size()){
+						add(customscript[i]);
+					}
 				}
 
 				switch(speakermode){
@@ -3816,7 +3822,10 @@ void scriptclass::loadcustom(std::string t)
 				int ti=atoi(words[1].c_str());
 				int nti = ti>=0 && ti<=50 ? ti : 1;
 				for(int ti2=0; ti2<nti; ti2++){
-					i++; add(customscript[i]);
+					i++;
+					if(i < (int) customscript.size()){
+						add(customscript[i]);
+					}
 				}
 				add("position(player,above)");
 				add("speak_active");
