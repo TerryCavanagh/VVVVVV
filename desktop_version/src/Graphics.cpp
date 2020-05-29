@@ -2819,3 +2819,49 @@ bool Graphics::onscreen(int t)
 {
 	return (t >= -40 && t <= 280);
 }
+
+void Graphics::reloadresources(bool fast /*= false*/) {
+    grphx = GraphicsResources();
+    grphx.init();
+
+    for(auto x : images){ SDL_FreeSurface(x); }
+    images.clear();
+    for(auto x : tiles){ SDL_FreeSurface(x); }
+    tiles.clear();
+    for(auto x : tiles2){ SDL_FreeSurface(x); }
+    tiles2.clear();
+    for(auto x : tiles3){ SDL_FreeSurface(x); }
+    tiles3.clear();
+    for(auto x : entcolours){ SDL_FreeSurface(x); }
+    entcolours.clear();
+    for(auto x : sprites){ SDL_FreeSurface(x); }
+    sprites.clear();
+
+    // Freeing flipsprites causes double free
+    flipsprites.clear();
+
+    for(auto x : tele){ SDL_FreeSurface(x); }
+    tele.clear();
+
+    MakeTileArray();
+    MakeSpriteArray();
+    maketelearray();
+    Makebfont();
+
+    images.push_back(grphx.im_image0);
+    images.push_back(grphx.im_image1);
+    images.push_back(grphx.im_image2);
+    images.push_back(grphx.im_image3);
+    images.push_back(grphx.im_image4);
+    images.push_back(grphx.im_image5);
+    images.push_back(grphx.im_image6);
+
+    images.push_back(grphx.im_image7);
+    images.push_back(grphx.im_image8);
+    images.push_back(grphx.im_image9);
+    images.push_back(grphx.im_image10);
+    images.push_back(grphx.im_image11);
+    images.push_back(grphx.im_image12);
+
+    if (!fast) music.init();
+}

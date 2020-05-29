@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "Graphics.h"
+
 #include <iterator>
 #include <algorithm>
 #include <iostream>
@@ -76,7 +78,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	mkdirResult = mkdir(output, 0777);
 
 	/* Mount our base user directory */
-	PHYSFS_mount(output, NULL, 1);
+	PHYSFS_mount(output, NULL, 0);
 	PHYSFS_setWriteDir(output);
 	printf("Base directory: %s\n", output);
 
@@ -147,6 +149,40 @@ char *FILESYSTEM_getUserSaveDirectory()
 char *FILESYSTEM_getUserLevelDirectory()
 {
 	return levelDir;
+}
+
+bool FILESYSTEM_directoryExists(const char *fname)
+{
+    return PHYSFS_exists(fname);
+}
+
+const char pathSeparator =
+#ifdef _WIN32
+                            '\\';
+#else
+                            '/';
+#endif
+
+void FILESYSTEM_mount(const char *fname)
+{
+    std::string path(PHYSFS_getRealDir(fname));
+    path += pathSeparator;
+    path += fname;
+    if (!PHYSFS_mount(path.c_str(), NULL, 0)) {
+        printf("Error mounting: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+    } else
+        graphics.assetdir = path.c_str();
+}
+
+void FILESYSTEM_unmountassets()
+{
+    if (graphics.assetdir != "")
+    {
+        /*if (!game.quiet)*/ printf("Unmounting %s\n", graphics.assetdir.c_str());
+        PHYSFS_unmount(graphics.assetdir.c_str());
+        graphics.assetdir = "";
+        graphics.reloadresources();
+    } else /*if (!game.quiet)*/ printf("Cannot unmount when no asset directory is mounted\n");
 }
 
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,

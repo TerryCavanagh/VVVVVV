@@ -18,6 +18,7 @@
 
 #include <string>
 #include <utf8/unchecked.h>
+#include <physfs.h>
 
 edlevelclass::edlevelclass()
 {
@@ -76,6 +77,10 @@ bool compare_nocase (std::string first, std::string second)
         return true;
     else
         return false;
+}
+
+static bool endsWith(const std::string& str, const std::string& suffix) {
+    return str.size() >= suffix.size() && 0 == str.compare(str.size()-suffix.size(), suffix.size(), suffix);
 }
 
 void replace_all(std::string& str, const std::string& from, const std::string& to)
@@ -1638,6 +1643,38 @@ void editorclass::load(std::string& _path)
     if (_path.compare(0, strlen(levelDir), levelDir) != 0)
     {
         _path = levelDir + _path;
+    }
+
+    FILESYSTEM_unmountassets();
+
+    std::string zippath = "levels/" + _path.substr(7,_path.size()-14) + ".data.zip";
+    std::string dirpath = "levels/" + _path.substr(7,_path.size()-14) + "/";
+    std::string zip_path;
+    const char* cstr = PHYSFS_getRealDir(_path.c_str());
+    if (cstr) zip_path = cstr;
+    if (cstr && FILESYSTEM_directoryExists(zippath.c_str())) {
+        printf("Custom asset directory exists at %s\n",zippath.c_str());
+        FILESYSTEM_mount(zippath.c_str());
+        graphics.reloadresources();
+        music.init();
+    } else if (zip_path != "data.zip" && !endsWith(zip_path, "/data.zip") && endsWith(zip_path, ".zip")) {
+        printf("Custom asset directory is .zip at %s\n", zip_path.c_str());
+        PHYSFS_File* zip = PHYSFS_openRead(zip_path.c_str());
+        zip_path += ".data.zip";
+        if (zip == nullptr) {
+            printf("error loading .zip: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+        } else if (PHYSFS_mountHandle(zip, zip_path.c_str(), "/", 0) == 0) {
+            printf("error mounting .zip: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+        } else {
+            graphics.assetdir = zip_path;
+        }
+        graphics.reloadresources();
+    } else if (FILESYSTEM_directoryExists(dirpath.c_str())) {
+        printf("Custom asset directory exists at %s\n",dirpath.c_str());
+        FILESYSTEM_mount(dirpath.c_str());
+        graphics.reloadresources();
+    } else {
+        printf("Custom asset directory does not exist\n");
     }
 
     TiXmlDocument doc;
@@ -3660,6 +3697,13 @@ void editorinput()
     {
         game.press_action = true;
     };
+
+    if (key.keymap[SDLK_F9] && (ed.keydelay==0)) {
+        ed.keydelay = 30;
+        ed.note="Reloaded resources";
+        ed.notedelay=45;
+        graphics.reloadresources();
+    }
 
     if (key.isDown(KEYBOARD_ENTER)) game.press_map = true;
     if (key.isDown(27) && !ed.settingskey)

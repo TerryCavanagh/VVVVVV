@@ -184,6 +184,9 @@ public:
 	void drawtowerspikes();
 
 	bool onscreen(int t);
+	
+	void reloadresources(bool fast = false);
+	std::string assetdir;
 
 
 	void menuoffrender();
