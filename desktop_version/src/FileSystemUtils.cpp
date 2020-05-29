@@ -178,11 +178,11 @@ void FILESYSTEM_unmountassets()
 {
     if (graphics.assetdir != "")
     {
-        /*if (!game.quiet)*/ printf("Unmounting %s\n", graphics.assetdir.c_str());
+        printf("Unmounting %s\n", graphics.assetdir.c_str());
         PHYSFS_unmount(graphics.assetdir.c_str());
         graphics.assetdir = "";
         graphics.reloadresources();
-    } else /*if (!game.quiet)*/ printf("Cannot unmount when no asset directory is mounted\n");
+    } else printf("Cannot unmount when no asset directory is mounted\n");
 }
 
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,

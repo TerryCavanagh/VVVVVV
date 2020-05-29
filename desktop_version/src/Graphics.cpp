@@ -2824,23 +2824,23 @@ void Graphics::reloadresources(bool fast /*= false*/) {
     grphx = GraphicsResources();
     grphx.init();
 
-    for(auto x : images){ SDL_FreeSurface(x); }
+    for (size_t i = 0; images.size(); i++){ SDL_FreeSurface(images[i]); }
     images.clear();
-    for(auto x : tiles){ SDL_FreeSurface(x); }
+    for (size_t i = 0; tiles.size(); i++){ SDL_FreeSurface(tiles[i]); }
     tiles.clear();
-    for(auto x : tiles2){ SDL_FreeSurface(x); }
+    for (size_t i = 0; tiles2.size(); i++){ SDL_FreeSurface(tiles2[i]); }
     tiles2.clear();
-    for(auto x : tiles3){ SDL_FreeSurface(x); }
+    for (size_t i = 0; tiles3.size(); i++){ SDL_FreeSurface(tiles3[i]); }
     tiles3.clear();
-    for(auto x : entcolours){ SDL_FreeSurface(x); }
+    for (size_t i = 0; entcolours.size(); i++){ SDL_FreeSurface(entcolours[i]); }
     entcolours.clear();
-    for(auto x : sprites){ SDL_FreeSurface(x); }
+    for (size_t i = 0; sprites.size(); i++){ SDL_FreeSurface(sprites[i]); }
     sprites.clear();
 
     // Freeing flipsprites causes double free
     flipsprites.clear();
 
-    for(auto x : tele){ SDL_FreeSurface(x); }
+    for (size_t i = 0; tele.size(); i++){ SDL_FreeSurface(tele[i]); }
     tele.clear();
 
     MakeTileArray();
@@ -2862,6 +2862,4 @@ void Graphics::reloadresources(bool fast /*= false*/) {
     images.push_back(grphx.im_image10);
     images.push_back(grphx.im_image11);
     images.push_back(grphx.im_image12);
-
-    if (!fast) music.init();
 }
