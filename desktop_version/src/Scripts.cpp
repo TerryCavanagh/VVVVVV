@@ -23,7 +23,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "intro")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(quickstart)",
         //"createcrewman(232,113,cyan,0,faceright)",
         "createcrewman(96,177,green,0,faceright)",
@@ -250,7 +250,7 @@ void scriptclass::load(std::string t)
     else if (t == "quickstart")
     {
         //Finally, appear at the start of the game:
-        const char* lines[] = {
+        static const char* lines[] = {
         "gotoroom(13,5)",
         "gotoposition(80,96,0)",
         "walk(right,17)",
@@ -268,7 +268,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "firststeps")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -295,7 +295,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "trenchwarfare")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -324,7 +324,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "newtrenchwarfare")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(player)",
         "text(cyan,0,0,2)",
         "Oh! It's another one of",
@@ -349,7 +349,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "trinketcollector")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -382,7 +382,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "newtrinketcollector")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(player)",
         "text(cyan,0,0,3)",
         "This seems like a good",
@@ -410,7 +410,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "new2trinketcollector")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(cry)",
         "changemood(player,1)",
         "text(cyan,0,0,1)",
@@ -429,7 +429,7 @@ void scriptclass::load(std::string t)
     }
     if (t == "communicationstation")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(communicationstationskip)",
         "cutscene()",
         "untilbars()",
@@ -582,7 +582,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "communicationstationskip")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "changemood(player,0)",
 
         "delay(10)",
@@ -614,7 +614,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "teleporterback")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -642,7 +642,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "levelonecomplete")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "nocontrol()",
         "createcrewman(230,153,purple,0,faceleft)",
 
@@ -659,7 +659,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "levelonecomplete_ending")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(purple)",
         "text(purple,0,0,1)",
         "Captain!",
@@ -677,7 +677,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "levelonecompleteskip")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "nocontrol()",
         "gamestate(3050)",
         };
@@ -685,7 +685,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "bigopenworld")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(5)",
         "cutscene()",
         "untilbars()",
@@ -994,7 +994,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "bigopenworldskip")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "gotoroom(4,10)",
         "gotoposition(100,177,0)",
         "createcrewman(150,177,purple,0,faceleft)",
@@ -1050,7 +1050,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "rescueblue")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipblue)",
         "cutscene()",
 
@@ -1131,7 +1131,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipblue")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "changeai(blue,followplayer)",
         "squeak(blue)",
         "changemood(blue,0)",
@@ -1143,7 +1143,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "rescueyellow")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipyellow)",
         "cutscene()",
 
@@ -1245,7 +1245,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipyellow")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "changeai(yellow,followplayer)",
         "changetile(yellow,6)",
         "squeak(yellow)",
@@ -1256,7 +1256,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "rescuegreen")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipgreen)",
         "cutscene()",
 
@@ -1325,7 +1325,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipgreen")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "changeai(green,followplayer)",
         "squeak(green)",
         "rescued(green)",
@@ -1336,7 +1336,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "rescuered")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipred)",
         "cutscene()",
 
@@ -1405,7 +1405,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipred")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "changeai(red,followplayer)",
         "squeak(red)",
         "rescued(red)",
@@ -1416,7 +1416,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "startexpolevel_station1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         //For the Eurogamer EXPO! Scrap later.
         "fadeout()",
         "musicfadeout()",
@@ -1440,7 +1440,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "startexpolevel_lab")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         //For the Eurogamer EXPO! Scrap later.
         "fadeout()",
         "musicfadeout()",
@@ -1462,7 +1462,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "startexpolevel_warp")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         //For the Eurogamer EXPO! Scrap later.
         "fadeout()",
         "musicfadeout()",
@@ -1484,7 +1484,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "startexpolevel_tower")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         //For the Eurogamer EXPO! Scrap later.
         "fadeout()",
         "musicfadeout()",
@@ -1506,7 +1506,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipint1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "finalmode(41,56)",
         "gotoposition(52,89,0)",
         "changedir(player,1)",
@@ -1526,7 +1526,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "intermission_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipint1)",
         "finalmode(41,56)",
         "gotoposition(52,89,0)",
@@ -1567,7 +1567,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1blue_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "delay(45)",
 
         "squeak(cry)",
@@ -1621,7 +1621,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1blue_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -1653,7 +1653,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1blue_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -1715,7 +1715,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1blue_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -1756,7 +1756,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1blue_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -1793,7 +1793,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1blue_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -1843,7 +1843,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1blue_7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -1890,7 +1890,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1green_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "delay(45)",
 
         "squeak(green)",
@@ -1955,7 +1955,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1green_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -1982,7 +1982,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1green_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -2046,7 +2046,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1green_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -2087,7 +2087,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1green_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -2158,7 +2158,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1green_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -2203,7 +2203,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1green_7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -2237,7 +2237,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1red_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -2288,7 +2288,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1red_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -2315,7 +2315,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1red_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -2365,7 +2365,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1red_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -2401,7 +2401,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1red_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -2433,7 +2433,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1red_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -2469,7 +2469,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1red_7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -2497,7 +2497,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1yellow_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -2556,7 +2556,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1yellow_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -2583,7 +2583,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1yellow_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -2636,7 +2636,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1yellow_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -2704,7 +2704,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1yellow_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -2768,7 +2768,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1yellow_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -2798,7 +2798,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int1yellow_7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -2824,7 +2824,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipint2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "finalmode(53,49)",
         "gotoposition(228,129,0)",
         "changedir(player,1)",
@@ -2843,7 +2843,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "intermission_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipint2)",
         "finalmode(53,49)",
         "gotoposition(228,129,0)",
@@ -2897,7 +2897,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int2intro_yellow")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(cry)",
         "text(player,0,0,1)",
         "Vitellary? Where are you?",
@@ -2940,7 +2940,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int2intro_red")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(cry)",
         "text(player,0,0,1)",
         "Vermilion? Where are you?",
@@ -2983,7 +2983,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int2intro_green")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(cry)",
         "text(player,0,0,1)",
         "Verdigris? Where are you?",
@@ -3026,7 +3026,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int2intro_blue")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(cry)",
         "text(player,0,0,1)",
         "Victoria? Where are you?",
@@ -3069,7 +3069,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int2_yellow")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipint2yellow)",
         "cutscene()",
 
@@ -3102,7 +3102,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipint2yellow")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(yellow)",
         "companion(10)",
         };
@@ -3110,7 +3110,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int2_red")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipint2red)",
         "cutscene()",
 
@@ -3143,7 +3143,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipint2red")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(red)",
         "companion(10)",
         };
@@ -3151,7 +3151,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int2_green")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipint2green)",
         "cutscene()",
 
@@ -3184,7 +3184,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipint2green")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(green)",
         "companion(10)",
         };
@@ -3192,7 +3192,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "int2_blue")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipint2blue)",
         "cutscene()",
 
@@ -3226,7 +3226,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipint2blue")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(blue)",
         "companion(10)",
         };
@@ -3235,7 +3235,7 @@ void scriptclass::load(std::string t)
     else if (t == "startexpolevel_station2")
     {
         //For the Eurogamer EXPO! Scrap later.
-        const char* lines[] = {
+        static const char* lines[] = {
         "fadeout()",
         "musicfadeout()",
         "untilfade()",
@@ -3256,7 +3256,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "finallevel_teleporter")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "delay(10)",
 
         "squeak(purple)",
@@ -3333,7 +3333,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "skipfinal")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "finalmode(46,54)",
         "gotoposition(101,113,0)",
         "setcheckpoint()",
@@ -3351,7 +3351,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "startlevel_final")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "ifskip(skipfinal)",
         "cutscene()",
         "untilbars()",
@@ -3374,7 +3374,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "regularreturn")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "activeteleporter()",
@@ -3398,7 +3398,7 @@ void scriptclass::load(std::string t)
     else if (t == "returntohub")
     {
         //For the Eurogamer EXPO! Scrap later.
-        const char* lines[] = {
+        static const char* lines[] = {
         "fadeout()",
         "musicfadeout()",
         "untilfade()",
@@ -3420,7 +3420,7 @@ void scriptclass::load(std::string t)
     else if (t == "resetgame")
     {
         //For the Eurogamer EXPO! Scrap later.
-        const char* lines[] = {
+        static const char* lines[] = {
         "resetgame",
         "gotoroom(4,6)",
         "fadein()",
@@ -3429,42 +3429,42 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "redcontrol",
         };
         filllines(lines);
     }
     else if (t == "talkyellow")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "yellowcontrol",
         };
         filllines(lines);
     }
     else if (t == "talkgreen")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "greencontrol",
         };
         filllines(lines);
     }
     else if (t == "talkblue")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "bluecontrol",
         };
         filllines(lines);
     }
     else if (t == "talkpurple")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "purplecontrol",
         };
         filllines(lines);
     }
     else if (t == "talkred_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3493,7 +3493,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3522,7 +3522,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3553,7 +3553,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3584,7 +3584,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3620,7 +3620,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3650,7 +3650,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3674,7 +3674,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_8")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3704,7 +3704,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_9")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3734,7 +3734,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_10")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3763,7 +3763,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_11")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3785,7 +3785,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_12")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3822,7 +3822,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_13")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3851,7 +3851,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkred_14")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,red)",
@@ -3880,7 +3880,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -3903,7 +3903,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -3934,7 +3934,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -3996,7 +3996,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4035,7 +4035,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4058,7 +4058,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4092,7 +4092,7 @@ void scriptclass::load(std::string t)
     else if (t == "talkyellow_7")
     {
         //Vertigris is back
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4123,7 +4123,7 @@ void scriptclass::load(std::string t)
     else if (t == "talkyellow_8")
     {
         //Victoria is back
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4153,7 +4153,7 @@ void scriptclass::load(std::string t)
     else if (t == "talkyellow_9")
     {
         //Vermilion is back
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4192,7 +4192,7 @@ void scriptclass::load(std::string t)
     else if (t == "talkyellow_10")
     {
         //Back on the ship!
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4222,7 +4222,7 @@ void scriptclass::load(std::string t)
     else if (t == "talkyellow_11")
     {
         //Game Complete
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4260,7 +4260,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_12")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -4296,7 +4296,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4318,7 +4318,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4342,7 +4342,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4366,7 +4366,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4390,7 +4390,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4412,7 +4412,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4451,7 +4451,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4474,7 +4474,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4498,7 +4498,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_8")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4522,7 +4522,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_9")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4552,7 +4552,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_10")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4575,7 +4575,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkgreen_11")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,green)",
@@ -4608,7 +4608,7 @@ void scriptclass::load(std::string t)
 
     if (t == "talkpurple_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4639,7 +4639,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4662,7 +4662,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4705,7 +4705,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4741,7 +4741,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4771,7 +4771,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4799,7 +4799,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4836,7 +4836,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_8")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4869,7 +4869,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_9")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4893,7 +4893,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_intermission1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4947,7 +4947,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_intermission2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -4993,7 +4993,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_intermission3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -5058,7 +5058,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkpurple_intro")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,purple)",
@@ -5127,7 +5127,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5163,7 +5163,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5187,7 +5187,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5219,7 +5219,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5295,7 +5295,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5334,7 +5334,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5376,7 +5376,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5420,7 +5420,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_8")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5452,7 +5452,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_9")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5475,7 +5475,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_trinket1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5537,7 +5537,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_trinket2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5575,7 +5575,7 @@ void scriptclass::load(std::string t)
     else if (t == "talkblue_trinket3")
     {
         //If you missed the first conversation
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -5631,7 +5631,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_trinket4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "hidetrinkets()",
         "endtextfast",
         "delay(10)",
@@ -5690,7 +5690,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_trinket5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(blue)",
         "changetile(blue,6)", //smiling again! blue always needs to specify her mood
         "text(blue,0,0,3)",
@@ -5724,7 +5724,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkblue_trinket6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(blue)",
         "changetile(blue,6)", //smiling again! blue always needs to specify her mood
         "text(blue,0,0,3)",
@@ -5773,7 +5773,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_trinket1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,yellow)",
@@ -5840,7 +5840,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_trinket2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "hidetrinkets()",
         "endtextfast",
         "delay(10)",
@@ -5897,7 +5897,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "talkyellow_trinket3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(yellow)",
         "changemood(yellow,0)",
         "text(yellow,0,0,2)",
@@ -5922,7 +5922,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "gamecomplete")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "gotoroom(2,11)",
         "gotoposition(160,120,0)",
         "nocontrol()",
@@ -6207,7 +6207,7 @@ void scriptclass::load(std::string t)
     }
     else if (t == "startepilogue")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
         "face(player,blue)",
@@ -6740,7 +6740,7 @@ void scriptclass::load(std::string t)
     else if (t == "returntolab")
     {
         //To get back to the lab from the gravitron
-        const char* lines[] = {
+        static const char* lines[] = {
         "gotoroom(19,7)",
         "gotoposition(132,137,0)",
         "fadein()",
