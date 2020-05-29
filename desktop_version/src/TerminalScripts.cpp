@@ -8,7 +8,7 @@ void scriptclass::loadother(std::string t)
     //loads script name t into the array
     if (t == "terminal_station_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -39,7 +39,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "alreadyvisited")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(player)",
         "text(cyan,0,0,1)",
         "...oh, I've already found this.",
@@ -54,7 +54,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_outside_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -105,7 +105,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_outside_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -154,7 +154,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_outside_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -203,7 +203,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_outside_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -241,7 +241,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_outside_5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -290,7 +290,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_outside_6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -339,7 +339,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_finallevel")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -416,7 +416,7 @@ void scriptclass::loadother(std::string t)
     {
 
 
-        const char* lines[] = {
+        static const char* lines[] = {
         //"delay(15)",	"flash(5)", "shake(20)", "playef(9)",
 
         "text(gray,0,114,3)",
@@ -445,7 +445,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_station_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -473,7 +473,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_station_3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -500,7 +500,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_station_4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -527,7 +527,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_warp_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -554,7 +554,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_warp_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -582,7 +582,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_lab_1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -620,7 +620,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_lab_2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -639,7 +639,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_secretlab")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -670,7 +670,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_shipcomputer")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -700,7 +700,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_letsgo")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(player)",
         "text(player,0,0,2)",
         "Now that the ship is fixed,",
@@ -730,7 +730,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_radio")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -752,7 +752,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukebox")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "cutscene()",
         "untilbars()",
 
@@ -786,7 +786,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukeunlock1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(terminal)",
         "text(gray,0,114,4)",
         " NEXT UNLOCK:    ",
@@ -804,7 +804,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukeunlock2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(terminal)",
         "text(gray,0,114,4)",
         " NEXT UNLOCK:    ",
@@ -822,7 +822,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukeunlock3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(terminal)",
         "text(gray,0,114,4)",
         " NEXT UNLOCK:    ",
@@ -840,7 +840,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukeunlock4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(terminal)",
         "text(gray,0,114,4)",
         " NEXT UNLOCK:    ",
@@ -858,7 +858,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukeunlock41")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(terminal)",
         "text(gray,0,114,4)",
         " NEXT UNLOCK:    ",
@@ -876,7 +876,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukeunlock5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(terminal)",
         "text(gray,0,114,4)",
         " NEXT UNLOCK:    ",
@@ -894,7 +894,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukeunlock6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(terminal)",
         "text(gray,0,114,4)",
         " NEXT UNLOCK:    ",
@@ -912,7 +912,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_jukeunlock7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "squeak(terminal)",
         "text(gray,0,114,4)",
         " NEXT UNLOCK:    ",
@@ -930,7 +930,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke1")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(4)",
         "squeak(terminal)",
         "jukebox(1)",
@@ -939,7 +939,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke2")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(1)",
         "squeak(terminal)",
         "jukebox(2)",
@@ -948,7 +948,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke3")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(2)",
         "squeak(terminal)",
         "jukebox(3)",
@@ -957,7 +957,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke4")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(6)",
         "squeak(terminal)",
         "jukebox(4)",
@@ -966,7 +966,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke5")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(3)",
         "squeak(terminal)",
         "jukebox(5)",
@@ -975,7 +975,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke6")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(8)",
         "squeak(terminal)",
         "jukebox(6)",
@@ -984,7 +984,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke7")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(11)",
         "squeak(terminal)",
         "jukebox(7)",
@@ -993,7 +993,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke8")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(10)",
         "squeak(terminal)",
         "jukebox(8)",
@@ -1002,7 +1002,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke9")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(12)",
         "squeak(terminal)",
         "jukebox(9)",
@@ -1011,7 +1011,7 @@ void scriptclass::loadother(std::string t)
     }
     else if (t == "terminal_juke10")
     {
-        const char* lines[] = {
+        static const char* lines[] = {
         "play(9)",
         "squeak(terminal)",
         "jukebox(10)",
