@@ -4,6 +4,7 @@
 #include "Graphics.h"
 #include "Entity.h"
 #include "Map.h"
+#include "Script.h"
 
 #include <stdio.h>
 #include <stdlib.h>
