@@ -2862,5 +2862,5 @@ void Graphics::reloadresources() {
     images.push_back(grphx.im_image11);
     images.push_back(grphx.im_image12);
 
-    music.init()
+    music.init();
 }
