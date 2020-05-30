@@ -185,7 +185,7 @@ public:
 
 	bool onscreen(int t);
 	
-	void reloadresources(bool fast = false);
+	void reloadresources();
 	std::string assetdir;
 
 
