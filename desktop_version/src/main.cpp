@@ -169,25 +169,6 @@ int main(int argc, char *argv[])
     game.infocus = true;
 
     graphics.reloadresources(true);
-    /*graphics.MakeTileArray();
-    graphics.MakeSpriteArray();
-    graphics.maketelearray();
-
-
-    graphics.images.push_back(graphics.grphx.im_image0);
-    graphics.images.push_back(graphics.grphx.im_image1);
-    graphics.images.push_back(graphics.grphx.im_image2);
-    graphics.images.push_back(graphics.grphx.im_image3);
-    graphics.images.push_back(graphics.grphx.im_image4);
-    graphics.images.push_back(graphics.grphx.im_image5);
-    graphics.images.push_back(graphics.grphx.im_image6);
-
-    graphics.images.push_back(graphics.grphx.im_image7);
-    graphics.images.push_back(graphics.grphx.im_image8);
-    graphics.images.push_back(graphics.grphx.im_image9);
-    graphics.images.push_back(graphics.grphx.im_image10);
-    graphics.images.push_back(graphics.grphx.im_image11);
-    graphics.images.push_back(graphics.grphx.im_image12);*/
 
     const SDL_PixelFormat* fmt = gameScreen.GetFormat();
     graphics.backBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
