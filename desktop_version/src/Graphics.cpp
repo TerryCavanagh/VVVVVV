@@ -2836,8 +2836,7 @@ void Graphics::reloadresources(bool fast /*= false*/) {
     entcolours.clear();
     for (size_t i = 0; sprites.size(); i++){ SDL_FreeSurface(sprites[i]); }
     sprites.clear();
-
-    // Freeing flipsprites causes double free
+    for (size_t i = 0; flipsprites.size(); i++){ SDL_FreeSurface(flipsprites[i]); }
     flipsprites.clear();
 
     for (size_t i = 0; tele.size(); i++){ SDL_FreeSurface(tele[i]); }
