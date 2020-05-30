@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
     game.init();
     game.infocus = true;
 
-    graphics.reloadresources(true);
+    graphics.reloadresources();
 
     const SDL_PixelFormat* fmt = gameScreen.GetFormat();
     graphics.backBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
