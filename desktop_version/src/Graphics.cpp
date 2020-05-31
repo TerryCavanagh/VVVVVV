@@ -2819,3 +2819,48 @@ bool Graphics::onscreen(int t)
 {
 	return (t >= -40 && t <= 280);
 }
+
+void Graphics::reloadresources() {
+    grphx = GraphicsResources();
+    grphx.init();
+
+    for (size_t i = 0; i < images.size(); i++){ SDL_FreeSurface(images[i]); }
+    images.clear();
+    for (size_t i = 0; i < tiles.size(); i++){ SDL_FreeSurface(tiles[i]); }
+    tiles.clear();
+    for (size_t i = 0; i < tiles2.size(); i++){ SDL_FreeSurface(tiles2[i]); }
+    tiles2.clear();
+    for (size_t i = 0; i < tiles3.size(); i++){ SDL_FreeSurface(tiles3[i]); }
+    tiles3.clear();
+    for (size_t i = 0; i < entcolours.size(); i++){ SDL_FreeSurface(entcolours[i]); }
+    entcolours.clear();
+    for (size_t i = 0; i < sprites.size(); i++){ SDL_FreeSurface(sprites[i]); }
+    sprites.clear();
+    for (size_t i = 0; i < flipsprites.size(); i++){ SDL_FreeSurface(flipsprites[i]); }
+    flipsprites.clear();
+
+    for (size_t i = 0; i < tele.size(); i++){ SDL_FreeSurface(tele[i]); }
+    tele.clear();
+
+    MakeTileArray();
+    MakeSpriteArray();
+    maketelearray();
+    Makebfont();
+
+    images.push_back(grphx.im_image0);
+    images.push_back(grphx.im_image1);
+    images.push_back(grphx.im_image2);
+    images.push_back(grphx.im_image3);
+    images.push_back(grphx.im_image4);
+    images.push_back(grphx.im_image5);
+    images.push_back(grphx.im_image6);
+
+    images.push_back(grphx.im_image7);
+    images.push_back(grphx.im_image8);
+    images.push_back(grphx.im_image9);
+    images.push_back(grphx.im_image10);
+    images.push_back(grphx.im_image11);
+    images.push_back(grphx.im_image12);
+
+    music.init();
+}
