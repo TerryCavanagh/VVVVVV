@@ -2824,23 +2824,23 @@ void Graphics::reloadresources() {
     grphx = GraphicsResources();
     grphx.init();
 
-    for (size_t i = 0; i < images.size(); i++){ SDL_FreeSurface(images[i]); }
-    images.clear();
-    for (size_t i = 0; i < tiles.size(); i++){ SDL_FreeSurface(tiles[i]); }
-    tiles.clear();
-    for (size_t i = 0; i < tiles2.size(); i++){ SDL_FreeSurface(tiles2[i]); }
-    tiles2.clear();
-    for (size_t i = 0; i < tiles3.size(); i++){ SDL_FreeSurface(tiles3[i]); }
-    tiles3.clear();
-    for (size_t i = 0; i < entcolours.size(); i++){ SDL_FreeSurface(entcolours[i]); }
-    entcolours.clear();
-    for (size_t i = 0; i < sprites.size(); i++){ SDL_FreeSurface(sprites[i]); }
-    sprites.clear();
-    for (size_t i = 0; i < flipsprites.size(); i++){ SDL_FreeSurface(flipsprites[i]); }
-    flipsprites.clear();
+    #define CLEAR_ARRAY(name) \
+        for (size_t i = 0; i < name.size(); i += 1) \
+        { \
+            SDL_FreeSurface(name[i]); \
+        } \
+        name.clear();
 
-    for (size_t i = 0; i < tele.size(); i++){ SDL_FreeSurface(tele[i]); }
-    tele.clear();
+    CLEAR_ARRAY(images)
+    CLEAR_ARRAY(tiles)
+    CLEAR_ARRAY(tiles2)
+    CLEAR_ARRAY(tiles3)
+    CLEAR_ARRAY(entcolours)
+    CLEAR_ARRAY(sprites)
+    CLEAR_ARRAY(flipsprites)
+    CLEAR_ARRAY(tele)
+
+    #undef CLEAR_ARRAY
 
     MakeTileArray();
     MakeSpriteArray();
