@@ -79,8 +79,17 @@ bool compare_nocase (std::string first, std::string second)
         return false;
 }
 
-static bool endsWith(const std::string& str, const std::string& suffix) {
-    return str.size() >= suffix.size() && 0 == str.compare(str.size()-suffix.size(), suffix.size(), suffix);
+static bool endsWith(const std::string& str, const std::string& suffix)
+{
+    if (str.size() < suffix.size())
+    {
+        return false;
+    }
+    return str.compare(
+        str.size() - suffix.size(),
+        suffix.size(),
+        suffix
+    ) == 0;
 }
 
 void replace_all(std::string& str, const std::string& from, const std::string& to)
@@ -1651,9 +1660,13 @@ void editorclass::load(std::string& _path)
     std::string dirpath = "levels/" + _path.substr(7,_path.size()-14) + "/";
     std::string zip_path;
     const char* cstr = PHYSFS_getRealDir(_path.c_str());
-    if (cstr) zip_path = cstr;
+
+    if (cstr) {
+        zip_path = cstr;
+    }
+
     if (cstr && FILESYSTEM_directoryExists(zippath.c_str())) {
-        printf("Custom asset directory exists at %s\n",zippath.c_str());
+        printf("Custom asset directory exists at %s\n", zippath.c_str());
         FILESYSTEM_mount(zippath.c_str());
         graphics.reloadresources();
         music.init();
