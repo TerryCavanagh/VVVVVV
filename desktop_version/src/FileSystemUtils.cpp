@@ -103,9 +103,12 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	}
 
 	/* Mount the stock content last */
-	if (assetsPath) {
+	if (assetsPath)
+	{
 		strcpy(output, assetsPath);
-	} else {
+	}
+	else
+	{
 		strcpy(output, PHYSFS_getBaseDir());
 		strcat(output, "data.zip");
 	}
@@ -153,39 +156,52 @@ char *FILESYSTEM_getUserLevelDirectory()
 
 bool FILESYSTEM_directoryExists(const char *fname)
 {
-    return PHYSFS_exists(fname);
+	return PHYSFS_exists(fname);
 }
 
 void FILESYSTEM_mount(const char *fname)
 {
-    std::string path(PHYSFS_getRealDir(fname));
-    path += PHYSFS_getDirSeparator();
-    path += fname;
-    if (!PHYSFS_mount(path.c_str(), NULL, 0)) {
-        printf("Error mounting: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
-    } else
-        graphics.assetdir = path.c_str();
+	std::string path(PHYSFS_getRealDir(fname));
+	path += PHYSFS_getDirSeparator();
+	path += fname;
+	if (!PHYSFS_mount(path.c_str(), NULL, 0))
+	{
+		printf("Error mounting: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+	}
+	else
+	{
+		graphics.assetdir = path.c_str();
+	}
 }
 
 void FILESYSTEM_unmountassets()
 {
-    if (graphics.assetdir != "")
-    {
-        printf("Unmounting %s\n", graphics.assetdir.c_str());
-        PHYSFS_unmount(graphics.assetdir.c_str());
-        graphics.assetdir = "";
-        graphics.reloadresources();
-    } else printf("Cannot unmount when no asset directory is mounted\n");
+	if (graphics.assetdir != "")
+	{
+		printf("Unmounting %s\n", graphics.assetdir.c_str());
+		PHYSFS_unmount(graphics.assetdir.c_str());
+		graphics.assetdir = "";
+		graphics.reloadresources();
+	}
+	else
+	{
+		printf("Cannot unmount when no asset directory is mounted\n");
+	}
 }
 
-void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
-                                 size_t *len, bool addnull)
-{
-	if (strcmp(name, "levels/special/stdin.vvvvvv") == 0) {
+void FILESYSTEM_loadFileToMemory(
+	const char *name,
+	unsigned char **mem,
+	size_t *len,
+	bool addnull
+) {
+	if (strcmp(name, "levels/special/stdin.vvvvvv") == 0)
+	{
 		// this isn't *technically* necessary when piping directly from a file, but checking for that is annoying
 		static std::vector<char> STDIN_BUFFER;
 		static bool STDIN_LOADED = false;
-		if (!STDIN_LOADED) {
+		if (!STDIN_LOADED)
+		{
 			std::istreambuf_iterator<char> begin(std::cin), end;
 			STDIN_BUFFER.assign(begin, end);
 			STDIN_BUFFER.push_back(0); // there's no observable change in behavior if addnull is always true, but not vice versa
@@ -193,7 +209,8 @@ void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
 		}
 
 		size_t length = STDIN_BUFFER.size() - 1;
-		if (len != NULL) {
+		if (len != NULL)
+		{
 			*len = length;
 		}
 
@@ -537,7 +554,12 @@ bool FILESYSTEM_openDirectory(const char *dname)
 {
 	pid_t child;
 	// This const_cast is legal (ctrl-f "The statement" at https://pubs.opengroup.org/onlinepubs/9699919799/functions/exec.html
-	char* argv[3] = {const_cast<char*>(open_cmd), const_cast<char*>(dname), NULL};
+	char* argv[3] =
+	{
+		const_cast<char*>(open_cmd),
+		const_cast<char*>(dname),
+		NULL
+	};
 	posix_spawnp(&child, open_cmd, NULL, NULL, argv, environ);
 	int status = 0;
 	waitpid(child, &status, 0);
