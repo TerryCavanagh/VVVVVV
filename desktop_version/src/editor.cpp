@@ -1661,7 +1661,7 @@ void editorclass::load(std::string& _path)
         printf("Custom asset directory is .zip at %s\n", zip_path.c_str());
         PHYSFS_File* zip = PHYSFS_openRead(zip_path.c_str());
         zip_path += ".data.zip";
-        if (zip == nullptr) {
+        if (zip == NULL) {
             printf("error loading .zip: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
         } else if (PHYSFS_mountHandle(zip, zip_path.c_str(), "/", 0) == 0) {
             printf("error mounting .zip: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
