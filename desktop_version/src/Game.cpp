@@ -461,7 +461,7 @@ void Game::init(void)
 
     /* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by last name */
     const char* githubfriends_arr[] = {
-    "Matt \"Stelpjo\" Aaldenberg",
+    "Matt \"Fussmatte\" Aaldenberg", // TODO: Change to "Fußmatte" if/when UTF-8 support is added
     "AlexApps99",
     "Christoph B{hmwalder",
     "Charlie Bruce",
