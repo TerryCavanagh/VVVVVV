@@ -10,6 +10,14 @@ OPTION(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 SET(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
 SET_PROPERTY(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
 
+SET(STEAM OFF CACHE BOOL "Use the Steam API")
+SET(GOG OFF CACHE BOOL "Use the GOG API")
+
+IF(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+	SET(STEAM ON)
+	SET(GOG ON)
+ENDIF()
+
 # Architecture Flags
 IF(APPLE)
 	# Wow, Apple is a huge jerk these days huh?
@@ -95,11 +103,17 @@ SET(VVV_SRC
 	src/WarpClass.cpp
 	src/main.cpp
 	src/Network.c
-	src/SteamNetwork.c
-	src/GOGNetwork.c
 )
 IF(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
 	LIST(APPEND VVV_SRC src/editor.cpp)
+ENDIF()
+IF(STEAM)
+	LIST(APPEND VVV_SRC src/SteamNetwork.c)
+	ADD_DEFINITIONS(-DSTEAM_NETWORK)
+ENDIF()
+IF(GOG)
+	LIST(APPEND VVV_SRC src/GOGNetwork.c)
+	ADD_DEFINITIONS(-DGOG_NETWORK)
 ENDIF()
 
 SET(XML_SRC
