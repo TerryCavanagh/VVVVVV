@@ -123,8 +123,8 @@ class editorclass{
 
   int backmatch(int x, int y);
 
-  void load(std::string& _path);
-  void save(std::string& _path);
+  bool load(std::string& _path);
+  bool save(std::string& _path);
   void generatecustomminimap();
   int edgetile(int x, int y);
   int warpzoneedgetile(int x, int y);

@@ -1644,7 +1644,7 @@ int editorclass::findwarptoken(int t)
     return 0;
 }
 
-void editorclass::load(std::string& _path)
+bool editorclass::load(std::string& _path)
 {
     reset();
 
@@ -1694,7 +1694,7 @@ void editorclass::load(std::string& _path)
     if (!FILESYSTEM_loadTiXmlDocument(_path.c_str(), &doc))
     {
         printf("No level %s to load :(\n", _path.c_str());
-        return;
+        return false;
     }
 
 
@@ -1905,9 +1905,11 @@ void editorclass::load(std::string& _path)
 
     gethooks();
     version=2;
+
+    return true;
 }
 
-void editorclass::save(std::string& _path)
+bool editorclass::save(std::string& _path)
 {
     TiXmlDocument doc;
     TiXmlElement* msg;
@@ -2058,7 +2060,7 @@ void editorclass::save(std::string& _path)
     msg->LinkEndChild( new TiXmlText( scriptString.c_str() ));
     data->LinkEndChild( msg );
 
-    FILESYSTEM_saveTiXmlDocument(("levels/" + _path).c_str(), &doc);
+    return FILESYSTEM_saveTiXmlDocument(("levels/" + _path).c_str(), &doc);
 }
 
 
@@ -4048,15 +4050,22 @@ void editorinput()
                 else if(ed.savemod)
                 {
                     std::string savestring=ed.filename+".vvvvvv";
-                    ed.save(savestring);
-                    ed.note="[ Saved map: " + ed.filename+ ".vvvvvv]";
+                    bool success = ed.save(savestring);
+                    if (success)
+                    {
+                        ed.note="[ Saved map: " + ed.filename+ ".vvvvvv]";
+                    }
+                    else
+                    {
+                        ed.note="[ ERROR: Could not save level! ]";
+                    }
                     ed.notedelay=45;
                     ed.savemod=false;
 
                     ed.shiftmenu=false;
                     ed.shiftkey=false;
 
-                    if(ed.saveandquit)
+                    if(ed.saveandquit && success)
                     {
                         //quit editor
                         graphics.fademode = 2;
@@ -4065,8 +4074,15 @@ void editorinput()
                 else if(ed.loadmod)
                 {
                     std::string loadstring=ed.filename+".vvvvvv";
-                    ed.load(loadstring);
-                    ed.note="[ Loaded map: " + ed.filename+ ".vvvvvv]";
+                    bool success = ed.load(loadstring);
+                    if (success)
+                    {
+                        ed.note="[ Loaded map: " + ed.filename+ ".vvvvvv]";
+                    }
+                    else
+                    {
+                        ed.note="[ ERROR: Could not load level ]";
+                    }
                     ed.notedelay=45;
                     ed.loadmod=false;
 
