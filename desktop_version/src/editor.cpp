@@ -4050,14 +4050,14 @@ void editorinput()
                 else if(ed.savemod)
                 {
                     std::string savestring=ed.filename+".vvvvvv";
-                    bool success = ed.save(savestring);
-                    if (success)
+                    if (ed.save(savestring))
                     {
                         ed.note="[ Saved map: " + ed.filename+ ".vvvvvv]";
                     }
                     else
                     {
                         ed.note="[ ERROR: Could not save level! ]";
+                        ed.saveandquit = false;
                     }
                     ed.notedelay=45;
                     ed.savemod=false;
@@ -4065,7 +4065,7 @@ void editorinput()
                     ed.shiftmenu=false;
                     ed.shiftkey=false;
 
-                    if(ed.saveandquit && success)
+                    if(ed.saveandquit)
                     {
                         //quit editor
                         graphics.fademode = 2;
@@ -4074,8 +4074,7 @@ void editorinput()
                 else if(ed.loadmod)
                 {
                     std::string loadstring=ed.filename+".vvvvvv";
-                    bool success = ed.load(loadstring);
-                    if (success)
+                    if (ed.load(loadstring))
                     {
                         ed.note="[ Loaded map: " + ed.filename+ ".vvvvvv]";
                     }
