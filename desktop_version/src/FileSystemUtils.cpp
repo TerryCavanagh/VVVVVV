@@ -297,6 +297,20 @@ bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 	return true;
 }
 
+bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
+{
+	/* XMLDocument.LoadFile doesn't account for Unicode paths, PHYSFS does */
+	unsigned char *mem = NULL;
+	FILESYSTEM_loadFileToMemory(name, &mem, NULL, true);
+	if (mem == NULL)
+	{
+		return false;
+	}
+	doc.Parse((const char*) mem);
+	FILESYSTEM_freeMemory(&mem);
+	return true;
+}
+
 std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
 {
 	std::vector<std::string> list;

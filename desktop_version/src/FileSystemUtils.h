@@ -23,6 +23,7 @@ void FILESYSTEM_freeMemory(unsigned char **mem);
 bool FILESYSTEM_saveTiXmlDocument(const char *name, TiXmlDocument *doc);
 bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc);
 bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc);
+bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc);
 
 std::vector<std::string> FILESYSTEM_getLevelDirFileNames();
 
