@@ -269,8 +269,6 @@ int main(int argc, char *argv[])
             ed.ListOfMetaData.push_back(meta);
         } else {
             ed.loadZips();
-
-            ed.directoryList = { playtestname };
             if (ed.getLevelMetaData(playtestname, meta)) {
                 ed.ListOfMetaData.clear();
                 ed.ListOfMetaData.push_back(meta);
