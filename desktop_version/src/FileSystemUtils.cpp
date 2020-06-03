@@ -282,6 +282,21 @@ bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc)
 	return true;
 }
 
+bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
+{
+	/* XMLDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
+	tinyxml2::XMLPrinter printer;
+	doc.Print(&printer);
+	PHYSFS_File* handle = PHYSFS_openWrite(name);
+	if (handle == NULL)
+	{
+		return false;
+	}
+	PHYSFS_writeBytes(handle, printer.CStr(), printer.CStrSize() - 1); // subtract one because CStrSize includes terminating null
+	PHYSFS_close(handle);
+	return true;
+}
+
 std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
 {
 	std::vector<std::string> list;

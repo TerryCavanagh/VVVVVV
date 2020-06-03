@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "tinyxml.h"
+#include "tinyxml2.h"
 
 int FILESYSTEM_init(char *argvZero, char* baseDir, char* assetsPath);
 void FILESYSTEM_deinit();
@@ -21,6 +22,7 @@ void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
 void FILESYSTEM_freeMemory(unsigned char **mem);
 bool FILESYSTEM_saveTiXmlDocument(const char *name, TiXmlDocument *doc);
 bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc);
+bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc);
 
 std::vector<std::string> FILESYSTEM_getLevelDirFileNames();
 
