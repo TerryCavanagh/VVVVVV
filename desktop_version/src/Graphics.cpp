@@ -2839,6 +2839,7 @@ void Graphics::reloadresources() {
     CLEAR_ARRAY(sprites)
     CLEAR_ARRAY(flipsprites)
     CLEAR_ARRAY(tele)
+    CLEAR_ARRAY(bfont)
 
     #undef CLEAR_ARRAY
 
