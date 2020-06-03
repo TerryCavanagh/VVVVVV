@@ -89,6 +89,7 @@ class editorclass{
   std::vector<std::string> directoryList;
   std::vector<LevelMetaData> ListOfMetaData;
 
+  void loadZips();
   void getDirectoryData();
   bool getLevelMetaData(std::string& filename, LevelMetaData& _data );
 

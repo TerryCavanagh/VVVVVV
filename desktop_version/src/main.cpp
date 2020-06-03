@@ -260,16 +260,21 @@ int main(int argc, char *argv[])
         game.levelpage = 0;
         game.playcustomlevel = 0;
 
-        ed.directoryList.clear();
-        ed.directoryList.push_back(playtestname);
+        ed.directoryList = { playtestname };
 
         LevelMetaData meta;
         if (ed.getLevelMetaData(playtestname, meta)) {
-            ed.ListOfMetaData.clear();
-            ed.ListOfMetaData.push_back(meta);
+            ed.ListOfMetaData = { meta };
         } else {
-            printf("Level not found\n");
-            return 1;
+            ed.loadZips();
+
+            ed.directoryList = { playtestname };
+            if (ed.getLevelMetaData(playtestname, meta)) {
+                ed.ListOfMetaData = { meta };
+            } else {
+                printf("Level not found\n");
+                return 1;
+            }
         }
 
         game.loadcustomlevelstats();

@@ -92,6 +92,26 @@ static bool endsWith(const std::string& str, const std::string& suffix)
     ) == 0;
 }
 
+void editorclass::loadZips()
+{
+    directoryList = FILESYSTEM_getLevelDirFileNames();
+    bool needsReload = false;
+
+    for(size_t i = 0; i < directoryList.size(); i++)
+    {
+        if (endsWith(directoryList[i], ".zip")) {
+            PHYSFS_File* zip = PHYSFS_openRead(directoryList[i].c_str());
+            if (!PHYSFS_mountHandle(zip, directoryList[i].c_str(), "levels", 1)) {
+                printf("%s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+            } else {
+                needsReload = true;
+            }
+        }
+    }
+
+    if (needsReload) directoryList = FILESYSTEM_getLevelDirFileNames();
+}
+
 void replace_all(std::string& str, const std::string& from, const std::string& to)
 {
     if (from.empty())
@@ -181,6 +201,8 @@ void editorclass::getDirectoryData()
 
     ListOfMetaData.clear();
     directoryList.clear();
+
+    loadZips();
 
     directoryList = FILESYSTEM_getLevelDirFileNames();
 
