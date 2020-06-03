@@ -4555,19 +4555,18 @@ void Game::loadstats()
 
 void Game::savestats()
 {
-    TiXmlDocument doc;
-    TiXmlElement* msg;
-    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "", "" );
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement * msg;
+    tinyxml2::XMLDeclaration * decl = doc.NewDeclaration();
     doc.LinkEndChild( decl );
 
-    TiXmlElement * root = new TiXmlElement( "Save" );
+    tinyxml2::XMLElement * root = doc.NewElement( "Save" );
     doc.LinkEndChild( root );
 
-    TiXmlComment * comment = new TiXmlComment();
-    comment->SetValue(" Save file " );
+    tinyxml2::XMLComment * comment = doc.NewComment(" Save file " );
     root->LinkEndChild( comment );
 
-    TiXmlElement * dataNode = new TiXmlElement( "Data" );
+    tinyxml2::XMLElement * dataNode = doc.NewElement( "Data" );
     root->LinkEndChild( dataNode );
 
     std::string s_unlock;
@@ -4575,8 +4574,8 @@ void Game::savestats()
     {
         s_unlock += help.String(unlock[i]) + ",";
     }
-    msg = new TiXmlElement( "unlock" );
-    msg->LinkEndChild( new TiXmlText( s_unlock.c_str() ));
+    msg = doc.NewElement( "unlock" );
+    msg->LinkEndChild( doc.NewText( s_unlock.c_str() ));
     dataNode->LinkEndChild( msg );
 
     std::string s_unlocknotify;
@@ -4584,8 +4583,8 @@ void Game::savestats()
     {
         s_unlocknotify += help.String(unlocknotify[i]) + ",";
     }
-    msg = new TiXmlElement( "unlocknotify" );
-    msg->LinkEndChild( new TiXmlText( s_unlocknotify.c_str() ));
+    msg = doc.NewElement( "unlocknotify" );
+    msg->LinkEndChild( doc.NewText( s_unlocknotify.c_str() ));
     dataNode->LinkEndChild( msg );
 
     std::string s_besttimes;
@@ -4593,8 +4592,8 @@ void Game::savestats()
     {
         s_besttimes += help.String(besttimes[i]) + ",";
     }
-    msg = new TiXmlElement( "besttimes" );
-    msg->LinkEndChild( new TiXmlText( s_besttimes.c_str() ));
+    msg = doc.NewElement( "besttimes" );
+    msg->LinkEndChild( doc.NewText( s_besttimes.c_str() ));
     dataNode->LinkEndChild( msg );
 
     std::string s_besttrinkets;
@@ -4602,8 +4601,8 @@ void Game::savestats()
     {
         s_besttrinkets += help.String(besttrinkets[i]) + ",";
     }
-    msg = new TiXmlElement( "besttrinkets" );
-    msg->LinkEndChild( new TiXmlText( s_besttrinkets.c_str() ));
+    msg = doc.NewElement( "besttrinkets" );
+    msg->LinkEndChild( doc.NewText( s_besttrinkets.c_str() ));
     dataNode->LinkEndChild( msg );
 
     std::string s_bestlives;
@@ -4611,8 +4610,8 @@ void Game::savestats()
     {
         s_bestlives += help.String(bestlives[i]) + ",";
     }
-    msg = new TiXmlElement( "bestlives" );
-    msg->LinkEndChild( new TiXmlText( s_bestlives.c_str() ));
+    msg = doc.NewElement( "bestlives" );
+    msg->LinkEndChild( doc.NewText( s_bestlives.c_str() ));
     dataNode->LinkEndChild( msg );
 
     std::string s_bestrank;
@@ -4620,120 +4619,120 @@ void Game::savestats()
     {
         s_bestrank += help.String(bestrank[i]) + ",";
     }
-    msg = new TiXmlElement( "bestrank" );
-    msg->LinkEndChild( new TiXmlText( s_bestrank.c_str() ));
+    msg = doc.NewElement( "bestrank" );
+    msg->LinkEndChild( doc.NewText( s_bestrank.c_str() ));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "bestgamedeaths" );
-    msg->LinkEndChild( new TiXmlText( help.String(bestgamedeaths).c_str() ));
+    msg = doc.NewElement( "bestgamedeaths" );
+    msg->LinkEndChild( doc.NewText( help.String(bestgamedeaths).c_str() ));
     dataNode->LinkEndChild( msg );
-    msg = new TiXmlElement( "stat_trinkets" );
-    msg->LinkEndChild( new TiXmlText( help.String(stat_trinkets).c_str()));
-    dataNode->LinkEndChild( msg );
-
-    msg = new TiXmlElement( "fullscreen" );
-    msg->LinkEndChild( new TiXmlText( help.String(fullscreen).c_str()));
+    msg = doc.NewElement( "stat_trinkets" );
+    msg->LinkEndChild( doc.NewText( help.String(stat_trinkets).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "stretch" );
-    msg->LinkEndChild( new TiXmlText( help.String(stretchMode).c_str()));
+    msg = doc.NewElement( "fullscreen" );
+    msg->LinkEndChild( doc.NewText( help.String(fullscreen).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "useLinearFilter" );
-    msg->LinkEndChild( new TiXmlText( help.String(useLinearFilter).c_str()));
+    msg = doc.NewElement( "stretch" );
+    msg->LinkEndChild( doc.NewText( help.String(stretchMode).c_str()));
+    dataNode->LinkEndChild( msg );
+
+    msg = doc.NewElement( "useLinearFilter" );
+    msg->LinkEndChild( doc.NewText( help.String(useLinearFilter).c_str()));
     dataNode->LinkEndChild( msg );
 
     int width, height;
     graphics.screenbuffer->GetWindowSize(&width, &height);
-    msg = new TiXmlElement( "window_width" );
-    msg->LinkEndChild( new TiXmlText( help.String(width).c_str()));
+    msg = doc.NewElement( "window_width" );
+    msg->LinkEndChild( doc.NewText( help.String(width).c_str()));
     dataNode->LinkEndChild( msg );
-    msg = new TiXmlElement( "window_height" );
-    msg->LinkEndChild( new TiXmlText( help.String(height).c_str()));
-    dataNode->LinkEndChild( msg );
-
-    msg = new TiXmlElement( "noflashingmode" );
-    msg->LinkEndChild( new TiXmlText( help.String(noflashingmode).c_str()));
+    msg = doc.NewElement( "window_height" );
+    msg->LinkEndChild( doc.NewText( help.String(height).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "colourblindmode" );
-    msg->LinkEndChild( new TiXmlText( help.String(colourblindmode).c_str()));
+    msg = doc.NewElement( "noflashingmode" );
+    msg->LinkEndChild( doc.NewText( help.String(noflashingmode).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "setflipmode" );
-    msg->LinkEndChild( new TiXmlText( help.String(graphics.setflipmode).c_str()));
+    msg = doc.NewElement( "colourblindmode" );
+    msg->LinkEndChild( doc.NewText( help.String(colourblindmode).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "invincibility" );
-    msg->LinkEndChild( new TiXmlText( help.String(map.invincibility).c_str()));
+    msg = doc.NewElement( "setflipmode" );
+    msg->LinkEndChild( doc.NewText( help.String(graphics.setflipmode).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "slowdown" );
-    msg->LinkEndChild( new TiXmlText( help.String(slowdown).c_str()));
+    msg = doc.NewElement( "invincibility" );
+    msg->LinkEndChild( doc.NewText( help.String(map.invincibility).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "swnbestrank" );
-    msg->LinkEndChild( new TiXmlText( help.String(swnbestrank).c_str()));
+    msg = doc.NewElement( "slowdown" );
+    msg->LinkEndChild( doc.NewText( help.String(slowdown).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "swnrecord" );
-    msg->LinkEndChild( new TiXmlText( help.String(swnrecord).c_str()));
+    msg = doc.NewElement( "swnbestrank" );
+    msg->LinkEndChild( doc.NewText( help.String(swnbestrank).c_str()));
     dataNode->LinkEndChild( msg );
 
-
-    msg = new TiXmlElement( "advanced_mode" );
-    msg->LinkEndChild( new TiXmlText( help.String(advanced_mode).c_str()));
-    dataNode->LinkEndChild( msg );
-
-    msg = new TiXmlElement( "advanced_smoothing" );
-    msg->LinkEndChild( new TiXmlText( help.String(fullScreenEffect_badSignal).c_str()));
+    msg = doc.NewElement( "swnrecord" );
+    msg->LinkEndChild( doc.NewText( help.String(swnrecord).c_str()));
     dataNode->LinkEndChild( msg );
 
 
-    msg = new TiXmlElement( "usingmmmmmm" );
-    msg->LinkEndChild( new TiXmlText( help.String(usingmmmmmm).c_str()));
+    msg = doc.NewElement( "advanced_mode" );
+    msg->LinkEndChild( doc.NewText( help.String(advanced_mode).c_str()));
     dataNode->LinkEndChild( msg );
 
-    msg = new TiXmlElement("skipfakeload");
-    msg->LinkEndChild(new TiXmlText(help.String((int) skipfakeload).c_str()));
+    msg = doc.NewElement( "advanced_smoothing" );
+    msg->LinkEndChild( doc.NewText( help.String(fullScreenEffect_badSignal).c_str()));
+    dataNode->LinkEndChild( msg );
+
+
+    msg = doc.NewElement( "usingmmmmmm" );
+    msg->LinkEndChild( doc.NewText( help.String(usingmmmmmm).c_str()));
+    dataNode->LinkEndChild( msg );
+
+    msg = doc.NewElement("skipfakeload");
+    msg->LinkEndChild(doc.NewText(help.String((int) skipfakeload).c_str()));
     dataNode->LinkEndChild(msg);
 
-    msg = new TiXmlElement("notextoutline");
-    msg->LinkEndChild(new TiXmlText(help.String((int) graphics.notextoutline).c_str()));
+    msg = doc.NewElement("notextoutline");
+    msg->LinkEndChild(doc.NewText(help.String((int) graphics.notextoutline).c_str()));
     dataNode->LinkEndChild(msg);
 
-    msg = new TiXmlElement("translucentroomname");
-    msg->LinkEndChild(new TiXmlText(help.String((int) graphics.translucentroomname).c_str()));
+    msg = doc.NewElement("translucentroomname");
+    msg->LinkEndChild(doc.NewText(help.String((int) graphics.translucentroomname).c_str()));
     dataNode->LinkEndChild(msg);
 
-    msg = new TiXmlElement("showmousecursor");
-    msg->LinkEndChild(new TiXmlText(help.String((int)graphics.showmousecursor).c_str()));
+    msg = doc.NewElement("showmousecursor");
+    msg->LinkEndChild(doc.NewText(help.String((int)graphics.showmousecursor).c_str()));
     dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
     {
-        msg = new TiXmlElement("flipButton");
-        msg->LinkEndChild(new TiXmlText(help.String((int) controllerButton_flip[i]).c_str()));
+        msg = doc.NewElement("flipButton");
+        msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_flip[i]).c_str()));
         dataNode->LinkEndChild(msg);
     }
     for (size_t i = 0; i < controllerButton_map.size(); i += 1)
     {
-        msg = new TiXmlElement("enterButton");
-        msg->LinkEndChild(new TiXmlText(help.String((int) controllerButton_map[i]).c_str()));
+        msg = doc.NewElement("enterButton");
+        msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_map[i]).c_str()));
         dataNode->LinkEndChild(msg);
     }
     for (size_t i = 0; i < controllerButton_esc.size(); i += 1)
     {
-        msg = new TiXmlElement("escButton");
-        msg->LinkEndChild(new TiXmlText(help.String((int) controllerButton_esc[i]).c_str()));
+        msg = doc.NewElement("escButton");
+        msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_esc[i]).c_str()));
         dataNode->LinkEndChild(msg);
     }
 
-    msg = new TiXmlElement( "controllerSensitivity" );
-    msg->LinkEndChild( new TiXmlText( help.String(controllerSensitivity).c_str()));
+    msg = doc.NewElement( "controllerSensitivity" );
+    msg->LinkEndChild( doc.NewText( help.String(controllerSensitivity).c_str()));
     dataNode->LinkEndChild( msg );
 
-    FILESYSTEM_saveTiXmlDocument("saves/unlock.vvv", &doc);
+    FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
 }
 
 void Game::customstart()
