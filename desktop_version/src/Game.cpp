@@ -280,28 +280,28 @@ void Game::init(void)
 
     saveFilePath = FILESYSTEM_getUserSaveDirectory();
 
-    TiXmlDocument doc;
-    if (!FILESYSTEM_loadTiXmlDocument("saves/qsave.vvv", &doc))
+    tinyxml2::XMLDocument doc;
+    if (!FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc))
     {
         quicksummary = "";
         printf("Quick Save Not Found\n");
     }
     else
     {
-        TiXmlHandle hDoc(&doc);
-        TiXmlElement* pElem;
-        TiXmlHandle hRoot(0);
+        tinyxml2::XMLHandle hDoc(&doc);
+        tinyxml2::XMLElement* pElem;
+        tinyxml2::XMLHandle hRoot(NULL);
 
-        pElem=hDoc.FirstChildElement().Element();
+        pElem=hDoc.FirstChildElement().ToElement();
         if (!pElem)
         {
             printf("Quick Save Appears Corrupted: No XML Root\n");
         }
 
         // save this for later
-        hRoot=TiXmlHandle(pElem);
+        hRoot=tinyxml2::XMLHandle(pElem);
 
-        for( pElem = hRoot.FirstChild( "Data" ).FirstChild().Element(); pElem; pElem=pElem->NextSiblingElement())
+        for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
         {
             std::string pKey(pElem->Value());
             const char* pText = pElem->GetText() ;
@@ -316,21 +316,21 @@ void Game::init(void)
     }
 
 
-    TiXmlDocument docTele;
-    if (!FILESYSTEM_loadTiXmlDocument("saves/tsave.vvv", &docTele))
+    tinyxml2::XMLDocument docTele;
+    if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", docTele))
     {
         telesummary = "";
         printf("Teleporter Save Not Found\n");
     }
     else
     {
-        TiXmlHandle hDoc(&docTele);
-        TiXmlElement* pElem;
-        TiXmlHandle hRoot(0);
+        tinyxml2::XMLHandle hDoc(&docTele);
+        tinyxml2::XMLElement* pElem;
+        tinyxml2::XMLHandle hRoot(NULL);
 
 
         {
-            pElem=hDoc.FirstChildElement().Element();
+            pElem=hDoc.FirstChildElement().ToElement();
             // should always have a valid root but handle gracefully if it does
             if (!pElem)
             {
@@ -338,10 +338,10 @@ void Game::init(void)
             }
 
             // save this for later
-            hRoot=TiXmlHandle(pElem);
+            hRoot=tinyxml2::XMLHandle(pElem);
         }
 
-        for( pElem = hRoot.FirstChild( "Data" ).FirstChild().Element(); pElem; pElem=pElem->NextSiblingElement())
+        for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
         {
             std::string pKey(pElem->Value());
             const char* pText = pElem->GetText() ;
