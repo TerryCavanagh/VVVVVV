@@ -1712,21 +1712,21 @@ bool editorclass::load(std::string& _path)
         printf("Custom asset directory does not exist\n");
     }
 
-    TiXmlDocument doc;
-    if (!FILESYSTEM_loadTiXmlDocument(_path.c_str(), &doc))
+    tinyxml2::XMLDocument doc;
+    if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))
     {
         printf("No level %s to load :(\n", _path.c_str());
         return false;
     }
 
 
-    TiXmlHandle hDoc(&doc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLHandle hRoot(NULL);
     version = 0;
 
     {
-        pElem=hDoc.FirstChildElement().Element();
+        pElem=hDoc.FirstChildElement().ToElement();
         // should always have a valid root but handle gracefully if it does
         if (!pElem)
         {
@@ -1735,10 +1735,10 @@ bool editorclass::load(std::string& _path)
 
         pElem->QueryIntAttribute("version", &version);
         // save this for later
-        hRoot=TiXmlHandle(pElem);
+        hRoot=tinyxml2::XMLHandle(pElem);
     }
 
-    for( pElem = hRoot.FirstChild( "Data" ).FirstChild().Element(); pElem; pElem=pElem->NextSiblingElement())
+    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
     {
         std::string pKey(pElem->Value());
         const char* pText = pElem->GetText() ;
@@ -1750,7 +1750,7 @@ bool editorclass::load(std::string& _path)
         if (pKey == "MetaData")
         {
 
-            for( TiXmlElement* subElem = pElem->FirstChildElement(); subElem; subElem= subElem->NextSiblingElement())
+            for( tinyxml2::XMLElement* subElem = pElem->FirstChildElement(); subElem; subElem= subElem->NextSiblingElement())
             {
                 std::string pKey(subElem->Value());
                 const char* pText = subElem->GetText() ;
@@ -1852,7 +1852,7 @@ bool editorclass::load(std::string& _path)
 
         if (pKey == "edEntities")
         {
-            for( TiXmlElement* edEntityEl = pElem->FirstChildElement(); edEntityEl; edEntityEl=edEntityEl->NextSiblingElement())
+            for( tinyxml2::XMLElement* edEntityEl = pElem->FirstChildElement(); edEntityEl; edEntityEl=edEntityEl->NextSiblingElement())
             {
                 edentities entity;
 
@@ -1879,7 +1879,7 @@ bool editorclass::load(std::string& _path)
         if (pKey == "levelMetaData")
         {
             int i = 0;
-            for( TiXmlElement* edLevelClassElement = pElem->FirstChildElement(); edLevelClassElement; edLevelClassElement=edLevelClassElement->NextSiblingElement())
+            for( tinyxml2::XMLElement* edLevelClassElement = pElem->FirstChildElement(); edLevelClassElement; edLevelClassElement=edLevelClassElement->NextSiblingElement())
             {
                 std::string pKey(edLevelClassElement->Value());
                 if(edLevelClassElement->GetText() != NULL)
