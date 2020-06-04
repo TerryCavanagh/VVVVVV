@@ -4,6 +4,7 @@
 #include "MakeAndPlay.h"
 
 #include "tinyxml.h"
+#include "tinyxml2.h"
 
 #include "FileSystemUtils.h"
 
@@ -228,8 +229,8 @@ void menuactionpress()
             game.customlevelfilename=ed.ListOfMetaData[game.playcustomlevel].filename;
 
             std::string name = "saves/" + ed.ListOfMetaData[game.playcustomlevel].filename.substr(7) + ".vvv";
-            TiXmlDocument doc;
-            if (!FILESYSTEM_loadTiXmlDocument(name.c_str(), &doc)){
+            tinyxml2::XMLDocument doc;
+            if (!FILESYSTEM_loadTiXml2Document(name.c_str(), doc)){
                 game.mainmenu = 22;
                 graphics.fademode = 2;
             }else{
