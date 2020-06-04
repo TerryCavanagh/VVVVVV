@@ -641,24 +641,23 @@ void Game::loadcustomlevelstats()
 
 void Game::savecustomlevelstats()
 {
-    TiXmlDocument doc;
-    TiXmlElement* msg;
-    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "", "" );
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* msg;
+    tinyxml2::XMLDeclaration* decl = doc.NewDeclaration();
     doc.LinkEndChild( decl );
 
-    TiXmlElement * root = new TiXmlElement( "Levelstats" );
+    tinyxml2::XMLElement * root = doc.NewElement( "Levelstats" );
     doc.LinkEndChild( root );
 
-    TiXmlComment * comment = new TiXmlComment();
-    comment->SetValue(" Levelstats Save file " );
+    tinyxml2::XMLComment * comment = doc.NewComment(" Levelstats Save file " );
     root->LinkEndChild( comment );
 
-    TiXmlElement * msgs = new TiXmlElement( "Data" );
+    tinyxml2::XMLElement * msgs = doc.NewElement( "Data" );
     root->LinkEndChild( msgs );
 
     if(numcustomlevelstats>=200)numcustomlevelstats=199;
-    msg = new TiXmlElement( "numcustomlevelstats" );
-    msg->LinkEndChild( new TiXmlText( help.String(numcustomlevelstats).c_str() ));
+    msg = doc.NewElement( "numcustomlevelstats" );
+    msg->LinkEndChild( doc.NewText( help.String(numcustomlevelstats).c_str() ));
     msgs->LinkEndChild( msg );
 
     std::string customlevelscorestr;
@@ -666,8 +665,8 @@ void Game::savecustomlevelstats()
     {
         customlevelscorestr += help.String(customlevelscore[i]) + ",";
     }
-    msg = new TiXmlElement( "customlevelscore" );
-    msg->LinkEndChild( new TiXmlText( customlevelscorestr.c_str() ));
+    msg = doc.NewElement( "customlevelscore" );
+    msg->LinkEndChild( doc.NewText( customlevelscorestr.c_str() ));
     msgs->LinkEndChild( msg );
 
     std::string customlevelstatsstr;
@@ -675,11 +674,11 @@ void Game::savecustomlevelstats()
     {
         customlevelstatsstr += customlevelstats[i] + "|";
     }
-    msg = new TiXmlElement( "customlevelstats" );
-    msg->LinkEndChild( new TiXmlText( customlevelstatsstr.c_str() ));
+    msg = doc.NewElement( "customlevelstats" );
+    msg->LinkEndChild( doc.NewText( customlevelstatsstr.c_str() ));
     msgs->LinkEndChild( msg );
 
-    if(FILESYSTEM_saveTiXmlDocument("saves/levelstats.vvv", &doc))
+    if(FILESYSTEM_saveTiXml2Document("saves/levelstats.vvv", doc))
     {
         printf("Level stats saved\n");
     }
