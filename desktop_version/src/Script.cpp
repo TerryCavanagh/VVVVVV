@@ -6,8 +6,6 @@
 #include "KeyPoll.h"
 #include "Map.h"
 
-#include "FileSystemUtils.h"
-
 scriptclass::scriptclass()
 {
 	//Start SDL
@@ -2508,7 +2506,6 @@ void scriptclass::resetgametomenu()
 
 void scriptclass::startgamemode( int t )
 {
-	FILESYSTEM_unmountassets();
 	switch(t)
 	{
 	case 0:  //Normal new game
