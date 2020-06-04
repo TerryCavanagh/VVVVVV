@@ -7385,6 +7385,7 @@ void Game::quittomenu()
         createmenu(Menu::mainmenu);
     }
     script.hardreset();
+    FILESYSTEM_unmountassets();
 }
 
 void Game::returntolab()
