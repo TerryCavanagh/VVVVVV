@@ -568,8 +568,8 @@ void Game::loadcustomlevelstats()
     //testing
     if(!customlevelstatsloaded)
     {
-        TiXmlDocument doc;
-        if (!FILESYSTEM_loadTiXmlDocument("saves/levelstats.vvv", &doc))
+        tinyxml2::XMLDocument doc;
+        if (!FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc))
         {
             //No levelstats file exists; start new
             numcustomlevelstats=0;
@@ -577,12 +577,12 @@ void Game::loadcustomlevelstats()
         }
         else
         {
-            TiXmlHandle hDoc(&doc);
-            TiXmlElement* pElem;
-            TiXmlHandle hRoot(0);
+            tinyxml2::XMLHandle hDoc(&doc);
+            tinyxml2::XMLElement* pElem;
+            tinyxml2::XMLHandle hRoot(NULL);
 
             {
-                pElem=hDoc.FirstChildElement().Element();
+                pElem=hDoc.FirstChildElement().ToElement();
                 // should always have a valid root but handle gracefully if it does
                 if (!pElem)
                 {
@@ -590,11 +590,11 @@ void Game::loadcustomlevelstats()
                 }
 
                 // save this for later
-                hRoot=TiXmlHandle(pElem);
+                hRoot=tinyxml2::XMLHandle(pElem);
             }
 
 
-            for( pElem = hRoot.FirstChild( "Data" ).FirstChild().Element(); pElem; pElem=pElem->NextSiblingElement())
+            for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
             {
                 std::string pKey(pElem->Value());
                 const char* pText = pElem->GetText() ;
