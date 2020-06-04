@@ -68,7 +68,6 @@ ENDIF()
 # Include Directories
 INCLUDE_DIRECTORIES(
 	src
-	../third_party/tinyxml
 	../third_party/tinyxml2
 	../third_party/physfs
 	../third_party/lodepng
@@ -121,12 +120,6 @@ IF(GOG)
 	ADD_DEFINITIONS(-DGOG_NETWORK)
 ENDIF()
 
-SET(XML_SRC
-	../third_party/tinyxml/tinystr.cpp
-	../third_party/tinyxml/tinyxml.cpp
-	../third_party/tinyxml/tinyxmlerror.cpp
-	../third_party/tinyxml/tinyxmlparser.cpp
-)
 SET(XML2_SRC
 	../third_party/tinyxml2/tinyxml2.cpp
 )
@@ -193,13 +186,12 @@ SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_STANDARD 98)
 SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_EXTENSIONS FALSE)
 
 # Library information
-ADD_LIBRARY(tinyxml-static STATIC ${XML_SRC})
 ADD_LIBRARY(tinyxml2-static STATIC ${XML2_SRC})
 ADD_LIBRARY(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
 ADD_LIBRARY(lodepng-static STATIC ${PNG_SRC})
 
 # Static Dependencies
-TARGET_LINK_LIBRARIES(VVVVVV physfs-static tinyxml-static tinyxml2-static lodepng-static)
+TARGET_LINK_LIBRARIES(VVVVVV physfs-static tinyxml2-static lodepng-static)
 
 # SDL2 Dependency (Detection pulled from FAudio)
 if (DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)

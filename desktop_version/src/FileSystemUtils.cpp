@@ -16,7 +16,7 @@
 #include <SDL.h>
 #include <physfs.h>
 
-#include "tinyxml.h"
+#include "tinyxml2.h"
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -251,35 +251,6 @@ void FILESYSTEM_freeMemory(unsigned char **mem)
 {
 	free(*mem);
 	*mem = NULL;
-}
-
-bool FILESYSTEM_saveTiXmlDocument(const char *name, TiXmlDocument *doc)
-{
-	/* TiXmlDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
-	TiXmlPrinter printer;
-	doc->Accept(&printer);
-	PHYSFS_File* handle = PHYSFS_openWrite(name);
-	if (handle == NULL)
-	{
-		return false;
-	}
-	PHYSFS_writeBytes(handle, printer.CStr(), printer.Size());
-	PHYSFS_close(handle);
-	return true;
-}
-
-bool FILESYSTEM_loadTiXmlDocument(const char *name, TiXmlDocument *doc)
-{
-	/* TiXmlDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
-	unsigned char *mem = NULL;
-	FILESYSTEM_loadFileToMemory(name, &mem, NULL, true);
-	if (mem == NULL)
-	{
-		return false;
-	}
-	doc->Parse((const char*)mem, NULL, TIXML_ENCODING_UTF8);
-	FILESYSTEM_freeMemory(&mem);
-	return true;
 }
 
 bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
