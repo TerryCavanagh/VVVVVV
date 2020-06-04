@@ -11,6 +11,7 @@
 #include "time.h"
 
 #include "tinyxml.h"
+#include "tinyxml2.h"
 
 #include "Enums.h"
 
@@ -1933,23 +1934,22 @@ bool editorclass::load(std::string& _path)
 
 bool editorclass::save(std::string& _path)
 {
-    TiXmlDocument doc;
-    TiXmlElement* msg;
-    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "", "" );
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* msg;
+    tinyxml2::XMLDeclaration* decl = doc.NewDeclaration();
     doc.LinkEndChild( decl );
 
-    TiXmlElement * root = new TiXmlElement( "MapData" );
+    tinyxml2::XMLElement * root = doc.NewElement( "MapData" );
     root->SetAttribute("version",version);
     doc.LinkEndChild( root );
 
-    TiXmlComment * comment = new TiXmlComment();
-    comment->SetValue(" Save file " );
+    tinyxml2::XMLComment * comment = doc.NewComment(" Save file " );
     root->LinkEndChild( comment );
 
-    TiXmlElement * data = new TiXmlElement( "Data" );
+    tinyxml2::XMLElement * data = doc.NewElement( "Data" );
     root->LinkEndChild( data );
 
-    msg = new TiXmlElement( "MetaData" );
+    msg = doc.NewElement( "MetaData" );
 
     time_t rawtime;
     struct tm * timeinfo;
@@ -1966,54 +1966,54 @@ bool editorclass::save(std::string& _path)
     }
 
     //getUser
-    TiXmlElement* meta = new TiXmlElement( "Creator" );
-    meta->LinkEndChild( new TiXmlText( EditorData::GetInstance().creator.c_str() ));
+    tinyxml2::XMLElement* meta = doc.NewElement( "Creator" );
+    meta->LinkEndChild( doc.NewText( EditorData::GetInstance().creator.c_str() ));
     msg->LinkEndChild( meta );
 
-    meta = new TiXmlElement( "Title" );
-    meta->LinkEndChild( new TiXmlText( EditorData::GetInstance().title.c_str() ));
+    meta = doc.NewElement( "Title" );
+    meta->LinkEndChild( doc.NewText( EditorData::GetInstance().title.c_str() ));
     msg->LinkEndChild( meta );
 
-    meta = new TiXmlElement( "Created" );
-    meta->LinkEndChild( new TiXmlText( help.String(version).c_str() ));
+    meta = doc.NewElement( "Created" );
+    meta->LinkEndChild( doc.NewText( help.String(version).c_str() ));
     msg->LinkEndChild( meta );
 
-    meta = new TiXmlElement( "Modified" );
-    meta->LinkEndChild( new TiXmlText( EditorData::GetInstance().modifier.c_str() ) );
+    meta = doc.NewElement( "Modified" );
+    meta->LinkEndChild( doc.NewText( EditorData::GetInstance().modifier.c_str() ) );
     msg->LinkEndChild( meta );
 
-    meta = new TiXmlElement( "Modifiers" );
-    meta->LinkEndChild( new TiXmlText( help.String(version).c_str() ));
+    meta = doc.NewElement( "Modifiers" );
+    meta->LinkEndChild( doc.NewText( help.String(version).c_str() ));
     msg->LinkEndChild( meta );
 
-    meta = new TiXmlElement( "Desc1" );
-    meta->LinkEndChild( new TiXmlText( Desc1.c_str() ));
+    meta = doc.NewElement( "Desc1" );
+    meta->LinkEndChild( doc.NewText( Desc1.c_str() ));
     msg->LinkEndChild( meta );
 
-    meta = new TiXmlElement( "Desc2" );
-    meta->LinkEndChild( new TiXmlText( Desc2.c_str() ));
+    meta = doc.NewElement( "Desc2" );
+    meta->LinkEndChild( doc.NewText( Desc2.c_str() ));
     msg->LinkEndChild( meta );
 
-    meta = new TiXmlElement( "Desc3" );
-    meta->LinkEndChild( new TiXmlText( Desc3.c_str() ));
+    meta = doc.NewElement( "Desc3" );
+    meta->LinkEndChild( doc.NewText( Desc3.c_str() ));
     msg->LinkEndChild( meta );
 
-    meta = new TiXmlElement( "website" );
-    meta->LinkEndChild( new TiXmlText( website.c_str() ));
+    meta = doc.NewElement( "website" );
+    meta->LinkEndChild( doc.NewText( website.c_str() ));
     msg->LinkEndChild( meta );
 
     data->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "mapwidth" );
-    msg->LinkEndChild( new TiXmlText( help.String(mapwidth).c_str() ));
+    msg = doc.NewElement( "mapwidth" );
+    msg->LinkEndChild( doc.NewText( help.String(mapwidth).c_str() ));
     data->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "mapheight" );
-    msg->LinkEndChild( new TiXmlText( help.String(mapheight).c_str() ));
+    msg = doc.NewElement( "mapheight" );
+    msg->LinkEndChild( doc.NewText( help.String(mapheight).c_str() ));
     data->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "levmusic" );
-    msg->LinkEndChild( new TiXmlText( help.String(levmusic).c_str() ));
+    msg = doc.NewElement( "levmusic" );
+    msg->LinkEndChild( doc.NewText( help.String(levmusic).c_str() ));
     data->LinkEndChild( msg );
 
     //New save format
@@ -2025,15 +2025,15 @@ bool editorclass::save(std::string& _path)
             contentsString += help.String(contents[x + (maxwidth*40*y)]) + ",";
         }
     }
-    msg = new TiXmlElement( "contents" );
-    msg->LinkEndChild( new TiXmlText( contentsString.c_str() ));
+    msg = doc.NewElement( "contents" );
+    msg->LinkEndChild( doc.NewText( contentsString.c_str() ));
     data->LinkEndChild( msg );
 
 
-    msg = new TiXmlElement( "edEntities" );
+    msg = doc.NewElement( "edEntities" );
     for(size_t i = 0; i < edentity.size(); i++)
     {
-        TiXmlElement *edentityElement = new TiXmlElement( "edentity" );
+        tinyxml2::XMLElement *edentityElement = doc.NewElement( "edentity" );
         edentityElement->SetAttribute( "x", edentity[i].x);
         edentityElement->SetAttribute(  "y", edentity[i].y);
         edentityElement->SetAttribute(  "t", edentity[i].t);
@@ -2043,16 +2043,16 @@ bool editorclass::save(std::string& _path)
         edentityElement->SetAttribute( "p4", edentity[i].p4);
         edentityElement->SetAttribute( "p5", edentity[i].p5);
         edentityElement->SetAttribute(  "p6", edentity[i].p6);
-        edentityElement->LinkEndChild( new TiXmlText( edentity[i].scriptname.c_str() )) ;
+        edentityElement->LinkEndChild( doc.NewText( edentity[i].scriptname.c_str() )) ;
         msg->LinkEndChild( edentityElement );
     }
 
     data->LinkEndChild( msg );
 
-    msg = new TiXmlElement( "levelMetaData" );
+    msg = doc.NewElement( "levelMetaData" );
     for(int i = 0; i < 400; i++)
     {
-        TiXmlElement *edlevelclassElement = new TiXmlElement( "edLevelClass" );
+        tinyxml2::XMLElement *edlevelclassElement = doc.NewElement( "edLevelClass" );
         edlevelclassElement->SetAttribute( "tileset", level[i].tileset);
         edlevelclassElement->SetAttribute(  "tilecol", level[i].tilecol);
         edlevelclassElement->SetAttribute(  "platx1", level[i].platx1);
@@ -2068,7 +2068,7 @@ bool editorclass::save(std::string& _path)
         edlevelclassElement->SetAttribute(  "directmode", level[i].directmode);
         edlevelclassElement->SetAttribute(  "warpdir", level[i].warpdir);
 
-        edlevelclassElement->LinkEndChild( new TiXmlText( level[i].roomname.c_str() )) ;
+        edlevelclassElement->LinkEndChild( doc.NewText( level[i].roomname.c_str() )) ;
         msg->LinkEndChild( edlevelclassElement );
     }
     data->LinkEndChild( msg );
@@ -2078,11 +2078,11 @@ bool editorclass::save(std::string& _path)
     {
         scriptString += script.customscript[i] + "|";
     }
-    msg = new TiXmlElement( "script" );
-    msg->LinkEndChild( new TiXmlText( scriptString.c_str() ));
+    msg = doc.NewElement( "script" );
+    msg->LinkEndChild( doc.NewText( scriptString.c_str() ));
     data->LinkEndChild( msg );
 
-    return FILESYSTEM_saveTiXmlDocument(("levels/" + _path).c_str(), &doc);
+    return FILESYSTEM_saveTiXml2Document(("levels/" + _path).c_str(), doc);
 }
 
 
