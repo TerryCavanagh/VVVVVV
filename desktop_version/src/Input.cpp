@@ -3,7 +3,6 @@
 
 #include "MakeAndPlay.h"
 
-#include "tinyxml.h"
 #include "tinyxml2.h"
 
 #include "FileSystemUtils.h"
