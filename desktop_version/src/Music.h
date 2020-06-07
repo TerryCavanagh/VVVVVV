@@ -2,6 +2,7 @@
 #define MUSIC_H
 
 #include "SoundSystem.h"
+#include "BinaryBlob.h"
 
 #include <vector>
 
@@ -50,6 +51,8 @@ public:
 	// MMMMMM mod settings
 	bool mmmmmm;
 	bool usingmmmmmm;
+
+	binaryBlob musicReadBlob;
 };
 
 extern musicclass music;
