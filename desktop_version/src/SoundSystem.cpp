@@ -24,15 +24,6 @@ MusicTrack::MusicTrack(SDL_RWops *rw)
 	}
 }
 
-MusicTrack::MusicTrack(MusicTrack&& moved) : m_music(move(moved.m_music)), m_isValid(move(moved.m_isValid)) {
-	moved.m_isValid = false;
-}
-
-MusicTrack::~MusicTrack() {
-	if (m_isValid) Mix_FreeMusic(m_music);
-	m_isValid = false;
-}
-
 SoundTrack::SoundTrack(const char* fileName)
 {
 	sound = NULL;
@@ -47,20 +38,10 @@ SoundTrack::SoundTrack(const char* fileName)
 		FILESYSTEM_freeMemory(&mem);
 	}
 
-	if (sound == NULL) {
+	if (sound == NULL)
+	{
 		fprintf(stderr, "Unable to load WAV file: %s\n", Mix_GetError());
-	} else {
-		isValid = true;
 	}
-}
-
-SoundTrack::SoundTrack(SoundTrack&& moved) : sound(move(moved.sound)), isValid(move(moved.isValid)) {
-	moved.isValid = false;
-}
-
-SoundTrack::~SoundTrack() {
-	if (isValid) Mix_FreeChunk(sound);
-	isValid = false;
 }
 
 SoundSystem::SoundSystem()
