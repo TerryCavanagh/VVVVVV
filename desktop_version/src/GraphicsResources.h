@@ -7,7 +7,7 @@ class GraphicsResources
 {
 public:
     void init(void);
-    ~GraphicsResources(void);
+    void destroy(void);
 
     SDL_Surface* im_tiles;
     SDL_Surface* im_tiles2;
