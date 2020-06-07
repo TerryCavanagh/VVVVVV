@@ -18,6 +18,10 @@ IF(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebI
 	SET(GOG ON)
 ENDIF()
 
+# Set standard to C++98/C++03
+SET(CMAKE_CXX_STANDARD 98)
+SET(CMAKE_CXX_EXTENSIONS OFF) # prevent mixing stdlib implementations (dangerous!)
+
 # Architecture Flags
 IF(APPLE)
 	# Wow, Apple is a huge jerk these days huh?
