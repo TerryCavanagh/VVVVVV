@@ -108,7 +108,7 @@ void GraphicsResources::init(void)
 }
 
 
-GraphicsResources::~GraphicsResources(void)
+void GraphicsResources::destroy(void)
 {
 	SDL_FreeSurface(im_tiles);
 	SDL_FreeSurface(im_tiles2);

@@ -177,6 +177,7 @@ void Graphics::Makebfont()
             font_positions[codepoint] = pos;
             ++pos;
         }
+        FILESYSTEM_freeMemory(&charmap);
     }
 }
 
@@ -2821,6 +2822,7 @@ bool Graphics::onscreen(int t)
 }
 
 void Graphics::reloadresources() {
+    grphx.destroy();
     grphx = GraphicsResources();
     grphx.init();
 
@@ -2831,7 +2833,6 @@ void Graphics::reloadresources() {
         } \
         name.clear();
 
-    CLEAR_ARRAY(images)
     CLEAR_ARRAY(tiles)
     CLEAR_ARRAY(tiles2)
     CLEAR_ARRAY(tiles3)
@@ -2848,6 +2849,8 @@ void Graphics::reloadresources() {
     MakeSpriteArray();
     maketelearray();
     Makebfont();
+
+    images.clear();
 
     images.push_back(grphx.im_image0);
     images.push_back(grphx.im_image1);
