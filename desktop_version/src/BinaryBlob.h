@@ -31,6 +31,8 @@ public:
 
 	char* getAddress(int _index);
 
+	void clear();
+
 private:
 	int numberofHeaders;
 	resourceheader m_headers[128];

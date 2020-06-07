@@ -9,6 +9,8 @@ void musicclass::init()
 	soundTracks.clear();
 	musicTracks.clear();
 
+	musicReadBlob.clear();
+
 	soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
 	soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));
 	soundTracks.push_back(SoundTrack( "sounds/hurt.wav" ));
@@ -60,7 +62,6 @@ void musicclass::init()
 	musicWriteBlob.writeBinaryBlob("data/BinaryMusic.vvv");
 #endif
 
-	binaryBlob musicReadBlob;
 	if (!musicReadBlob.unPackBinary("mmmmmm.vvv"))
 	{
 		mmmmmm = false;
