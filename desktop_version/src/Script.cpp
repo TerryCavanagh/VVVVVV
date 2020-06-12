@@ -30,7 +30,7 @@ scriptclass::scriptclass()
 }
 
 void scriptclass::clearcustom(){
-	customscript.clear();
+	customscripts.clear();
 }
 
 void scriptclass::tokenize( std::string t )
@@ -3553,38 +3553,24 @@ void scriptclass::loadcustom(std::string t)
 		if(i>=7) cscriptname+=t[i];
 	}
 
-	int scriptstart=-1;
-	int scriptend=-1;
 	std::string tstring;
 
-	for(size_t i=0; i<customscript.size(); i++){
-		if(scriptstart==-1){
-			//Find start of the script
-			if(customscript[i]==cscriptname+":"){
-				scriptstart=i+1;
-			}
-		}else if(scriptend==-1){
-			//Find the end
-			tstring=customscript[i];
-			if (tstring.size() > 0) {
-				tstring=tstring[tstring.size()-1];
-			} else {
-				tstring="";
-			}
-			if(tstring==":"){
-				scriptend=i;
-			}
+	std::vector<std::string>* contents = NULL;
+	for(size_t i = 0; i < customscripts.size(); i++){
+		Script& script_ = customscripts[i];
+
+		if(script_.name == cscriptname){
+			contents = &script_.contents;
+			break;
 		}
 	}
-	if(scriptstart>-1){
-		if(scriptend==-1){
-			scriptend=customscript.size();
-		}
+	if(contents != NULL){
+		std::vector<std::string>& lines = *contents;
 
 		//Ok, we've got the relavent script segment, we do a pass to assess it, then run it!
 		int customcutscenemode=0;
-		for(int i=scriptstart; i<scriptend; i++){
-			tokenize(customscript[i]);
+		for(size_t i=0; i<lines.size(); i++){
+			tokenize(lines[i]);
 			if(words[0] == "say"){
 				customcutscenemode=1;
 			}else if(words[0] == "reply"){
@@ -3600,10 +3586,10 @@ void scriptclass::loadcustom(std::string t)
 		int speakermode=0; //0, terminal, numbers for crew
 		int squeakmode=0;//default on
 		//Now run the script
-		for(int i=scriptstart; i<scriptend; i++){
+		for(size_t i=0; i<lines.size(); i++){
 			words[0]="nothing"; //Default!
 			words[1]="1"; //Default!
-			tokenize(customscript[i]);
+			tokenize(lines[i]);
 			std::transform(words[0].begin(), words[0].end(), words[0].begin(), ::tolower);
 			if(words[0] == "music"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
@@ -3715,28 +3701,28 @@ void scriptclass::loadcustom(std::string t)
 				}
 			}else if(words[0] == "delay"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add(customscript[i]);
+				add(lines[i]);
 			}else if(words[0] == "flag"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add(customscript[i]);
+				add(lines[i]);
 			}else if(words[0] == "map"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add("custom"+customscript[i]);
+				add("custom"+lines[i]);
 			}else if(words[0] == "warpdir"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add(customscript[i]);
+				add(lines[i]);
 			}else if(words[0] == "ifwarp"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add(customscript[i]);
+				add(lines[i]);
 			}else if(words[0] == "iftrinkets"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add("custom"+customscript[i]);
+				add("custom"+lines[i]);
 			}else if(words[0] == "ifflag"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add("custom"+customscript[i]);
+				add("custom"+lines[i]);
 			}else if(words[0] == "iftrinketsless"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
-				add("custom"+customscript[i]);
+				add("custom"+lines[i]);
 			}else if(words[0] == "destroy"){
 				if(customtextmode==1){ add("endtext"); customtextmode=0;}
 				if(words[1]=="gravitylines"){
@@ -3798,8 +3784,8 @@ void scriptclass::loadcustom(std::string t)
 				int nti = ti>=0 && ti<=50 ? ti : 1;
 				for(int ti2=0; ti2<nti; ti2++){
 					i++;
-					if(i < (int) customscript.size()){
-						add(customscript[i]);
+					if(i < lines.size()){
+						add(lines[i]);
 					}
 				}
 
@@ -3823,8 +3809,8 @@ void scriptclass::loadcustom(std::string t)
 				int nti = ti>=0 && ti<=50 ? ti : 1;
 				for(int ti2=0; ti2<nti; ti2++){
 					i++;
-					if(i < (int) customscript.size()){
-						add(customscript[i]);
+					if(i < lines.size()){
+						add(lines[i]);
 					}
 				}
 				add("position(player,above)");
