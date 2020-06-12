@@ -286,6 +286,8 @@ public:
 	bool showmousecursor;
 
 	std::map<int, int> font_positions;
+
+    SDL_Surface* ghostbuffer;
 };
 
 extern Graphics graphics;
