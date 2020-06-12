@@ -3151,7 +3151,7 @@ void scriptclass::startgamemode( int t )
 		game.customstart();
 		game.jumpheld = true;
 
-        ed.ghosts.clear();
+		ed.ghosts.clear();
 
 		map.custommode = true;
 		map.customx = 100;
