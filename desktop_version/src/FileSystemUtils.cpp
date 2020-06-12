@@ -89,7 +89,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	printf("Level directory: %s\n", levelDir);
 
 	/* We didn't exist until now, migrate files! */
-	if (mkdirResult != 0)
+	if (mkdirResult == 0)
 	{
 		PLATFORM_migrateSaveData(output);
 	}
