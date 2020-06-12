@@ -3564,7 +3564,10 @@ void scriptclass::loadcustom(std::string t)
 			break;
 		}
 	}
-	if(contents != NULL){
+	if(contents == NULL){
+		return;
+	}
+
 		std::vector<std::string>& lines = *contents;
 
 		//Ok, we've got the relavent script segment, we do a pass to assess it, then run it!
@@ -3824,5 +3827,4 @@ void scriptclass::loadcustom(std::string t)
 			add("endcutscene()");
 			add("untilbars()");
 		}
-	}
 }
