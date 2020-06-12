@@ -385,6 +385,7 @@ void editorclass::reset()
     returneditoralpha = 0;
 
     ghosts.clear();
+    currentghosts = 0;
 }
 
 void editorclass::gethooks()
