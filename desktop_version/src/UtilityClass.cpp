@@ -2,6 +2,7 @@
 
 #include "SDL.h"
 
+#include <cctype>
 #include <sstream>
 
 /* Used by UtilityClass::GCString to generate a button list */
