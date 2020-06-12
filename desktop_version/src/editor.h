@@ -238,7 +238,7 @@ class editorclass{
   int returneditoralpha;
 
   std::vector<GhostInfo> ghosts;
-  int currentghosts = 0;
+  int currentghosts;
 };
 
 void addedentity(int xp, int yp, int tp, int p1=0, int p2=0, int p3=0, int p4=0, int p5=320, int p6=240);
