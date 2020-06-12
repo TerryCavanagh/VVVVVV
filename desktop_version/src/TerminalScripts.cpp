@@ -1,6 +1,3 @@
-#ifndef TERMINALSCRIPTS_H
-#define TERMINALSCRIPTS_H
-
 #include "Script.h"
 
 void scriptclass::loadother(std::string t)
@@ -1019,5 +1016,3 @@ void scriptclass::loadother(std::string t)
         filllines(lines);
     }
 }
-
-#endif /* TERMINALSCRIPTS_H */

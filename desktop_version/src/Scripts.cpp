@@ -1,6 +1,3 @@
-#ifndef SCRIPTS_H
-#define SCRIPTS_H
-
 #include "Script.h"
 
 void scriptclass::load(std::string t)
@@ -6756,4 +6753,3 @@ void scriptclass::load(std::string t)
     }
 
 }
-#endif /* SCRIPTS_H */
