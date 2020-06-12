@@ -392,7 +392,7 @@ public:
     bool shouldreturntoeditor;
 #endif
 
-    int gametimer = 0;
+    int gametimer;
 };
 
 extern Game game;
