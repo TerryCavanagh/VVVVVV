@@ -1382,6 +1382,7 @@ void gamerender()
             graphics.drawtowerspikes();
         }
 
+#if !defined(NO_CUSTOM_LEVELS)
         // Editor ghosts!
         if (game.ghostsenabled)
         {
@@ -1405,6 +1406,7 @@ void gamerender()
                 }
             }
         }
+#endif
     }
 
     if(map.extrarow==0 || (map.custommode && map.roomname!=""))
