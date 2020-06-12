@@ -162,12 +162,10 @@ int main(int argc, char *argv[])
 
     graphics.init();
 
-
-
-    music.init();
     game.init();
     game.infocus = true;
 
+    // This loads music too...
     graphics.reloadresources();
 
     const SDL_PixelFormat* fmt = gameScreen.GetFormat();
