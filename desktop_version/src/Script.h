@@ -9,6 +9,12 @@
 #define filllines(lines) commands.insert(commands.end(), lines, lines + sizeof(lines)/sizeof(lines[0]))
 
 
+struct Script
+{
+    std::string name;
+    std::vector<std::string> contents;
+};
+
 class scriptclass
 {
 public:
@@ -63,7 +69,7 @@ public:
     int i, j, k;
 
     //Custom level stuff
-     std::vector <std::string>  customscript;
+    std::vector<Script> customscripts;
 };
 
 extern scriptclass script;

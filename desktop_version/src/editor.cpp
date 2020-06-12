@@ -380,7 +380,7 @@ void editorclass::reset()
 
     hookmenupage=0;
     hookmenu=0;
-    script.customscript.clear();
+    script.customscripts.clear();
 
     returneditoralpha = 0;
 }
@@ -389,29 +389,11 @@ void editorclass::gethooks()
 {
     //Scan through the script and create a hooks list based on it
     hooklist.clear();
-    std::string tstring;
-    std::string tstring2;
-    for(size_t i=0; i<script.customscript.size(); i++)
+    for (size_t i = 0; i < script.customscripts.size(); i++)
     {
-        tstring=script.customscript[i];
-        if((int) tstring.length() - 1 >= 0) // FIXME: This is sketchy. -flibit
-        {
-            tstring=tstring[tstring.length()-1];
-        }
-        else
-        {
-            tstring="";
-        }
-        if(tstring==":")
-        {
-            tstring2="";
-            tstring=script.customscript[i];
-            for(size_t j=0; j<tstring.length()-1; j++)
-            {
-                tstring2+=tstring[j];
-            }
-            hooklist.push_back(tstring2);
-        }
+        Script& script_ = script.customscripts[i];
+
+        hooklist.push_back(script_.name);
     }
 }
 
@@ -420,34 +402,17 @@ void editorclass::loadhookineditor(std::string t)
     //Find hook t in the scriptclass, then load it into the editor
     clearscriptbuffer();
 
-    std::string tstring;
-
-    bool removemode=false;
-    for(size_t i=0; i<script.customscript.size(); i++)
+    for(size_t i = 0; i < script.customscripts.size(); i++)
     {
-        if(script.customscript[i]==t+":")
+        Script& script_ = script.customscripts[i];
+
+        if(script_.name == t)
         {
-            removemode=true;
-        }
-        else if(removemode)
-        {
-            tstring=script.customscript[i];
-            if(tstring != "")
-            {
-                tstring = tstring[tstring.length()-1];
-            }
-            if(tstring==":")
-            {
-                //this is a hook
-                removemode=false;
-            }
-            else
-            {
-                //load in this line
-                sb.push_back(script.customscript[i]);
-            }
+            sb = script_.contents;
+            break;
         }
     }
+
     if(sb.empty())
     {
         //Always have one line or we'll have problems
@@ -459,57 +424,23 @@ void editorclass::addhooktoscript(std::string t)
 {
     //Adds hook+the scriptbuffer to the end of the scriptclass
     removehookfromscript(t);
-    script.customscript.push_back(t+":");
-    for(size_t i=0; i<sb.size(); i++)
-    {
-        script.customscript.push_back(sb[i]);
-    }
+    Script script_;
+    script_.name = t;
+    script_.contents = sb;
+    script.customscripts.push_back(script_);
 }
 
 void editorclass::removehookfromscript(std::string t)
 {
     //Find hook t in the scriptclass, then removes it (and any other code with it)
-    std::string tstring;
-    bool removemode=false;
-    for(size_t i=0; i<script.customscript.size(); i++)
+    for (size_t i = 0; i < script.customscripts.size(); i++)
     {
-        if(script.customscript[i]==t+":")
-        {
-            removemode=true;
-            //Remove this line
-            for(size_t j=i; j<script.customscript.size()-1; j++)
-            {
-                script.customscript[j]=script.customscript[j+1];
-            }
-            script.customscript.pop_back();
+        Script& script_ = script.customscripts[i];
 
-            i--;
-        }
-        else if(removemode)
+        if (script_.name == t)
         {
-            //If this line is not the start of a new hook, remove it!
-            tstring=script.customscript[i];
-            if (tstring.length() > 0) {
-                tstring=tstring[tstring.length()-1];
-            } else {
-                tstring="";
-            }
-            if(tstring==":")
-            {
-                //this is a hook
-                removemode=false;
-            }
-            else
-            {
-                //Remove this line
-                for(size_t j=i; j<script.customscript.size()-1; j++)
-                {
-                    script.customscript[j]=script.customscript[j+1];
-                }
-                script.customscript.pop_back();
-
-                i--;
-            }
+            script.customscripts.erase(script.customscripts.begin() + i);
+            break;
         }
     }
 }
@@ -1915,9 +1846,42 @@ bool editorclass::load(std::string& _path)
             {
                 std::vector<std::string> values = split(TextString,'|');
                 script.clearcustom();
+                Script script_;
+                bool headerfound = false;
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    script.customscript.push_back(values[i]);
+                    std::string& line = values[i];
+
+                    //Comparing line[line.length()-1] directly to a string literal is UB
+                    //Workaround: assign line[line.length()-1] to a string first
+                    std::string temp;
+                    if(line.length())
+                    {
+                        temp = line[line.length()-1];
+                    }
+                    if(temp == ":")
+                    {
+                        if(headerfound)
+                        {
+                            //Add the script if we have a preceding header
+                            script.customscripts.push_back(script_);
+                        }
+                        script_.name = line.substr(0, line.length()-1);
+                        script_.contents.clear();
+                        headerfound = true;
+                        continue;
+                    }
+
+                    if(headerfound)
+                    {
+                        script_.contents.push_back(line);
+                    }
+                }
+                //Add the last script
+                if(headerfound)
+                {
+                    //Add the script if we have a preceding header
+                    script.customscripts.push_back(script_);
                 }
 
             }
@@ -2074,9 +2038,15 @@ bool editorclass::save(std::string& _path)
     data->LinkEndChild( msg );
 
     std::string scriptString;
-    for(size_t i = 0; i < script.customscript.size(); i++ )
+    for(size_t i = 0; i < script.customscripts.size(); i++)
     {
-        scriptString += script.customscript[i] + "|";
+        Script& script_ = script.customscripts[i];
+
+        scriptString += script_.name + ":|";
+        for (size_t i = 0; i < script_.contents.size(); i++)
+        {
+            scriptString += script_.contents[i] + "|";
+        }
     }
     msg = new TiXmlElement( "script" );
     msg->LinkEndChild( new TiXmlText( scriptString.c_str() ));
