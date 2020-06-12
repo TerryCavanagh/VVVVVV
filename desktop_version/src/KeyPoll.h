@@ -21,6 +21,7 @@ enum Kybrd
 	KEYBOARD_a = SDLK_a,
 	KEYBOARD_d = SDLK_d,
 	KEYBOARD_m = SDLK_m,
+	KEYBOARD_n = SDLK_n,
 
 	KEYBOARD_v = SDLK_v,
 	KEYBOARD_z = SDLK_z,
@@ -71,6 +72,8 @@ public:
 	bool pressedbackspace;
 	std::string keybuffer;
 
+	bool linealreadyemptykludge;
+
 private:
 	std::map<SDL_JoystickID, SDL_GameController*> controllers;
 	std::map<SDL_GameControllerButton, bool> buttonmap;
@@ -79,5 +82,6 @@ private:
 	Uint32 wasFullscreen;
 };
 
+extern KeyPoll key;
 
 #endif /* KEYPOLL_H */

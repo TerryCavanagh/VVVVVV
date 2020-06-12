@@ -80,7 +80,7 @@ SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool noAlpha =
 	}
 }
 
-GraphicsResources::GraphicsResources(void)
+void GraphicsResources::init(void)
 {
 	im_tiles =		LoadImage("graphics/tiles.png");
 	im_tiles2 =		LoadImage("graphics/tiles2.png");
@@ -108,6 +108,29 @@ GraphicsResources::GraphicsResources(void)
 }
 
 
-GraphicsResources::~GraphicsResources(void)
+void GraphicsResources::destroy(void)
 {
+	SDL_FreeSurface(im_tiles);
+	SDL_FreeSurface(im_tiles2);
+	SDL_FreeSurface(im_tiles3);
+	SDL_FreeSurface(im_entcolours);
+	SDL_FreeSurface(im_sprites);
+	SDL_FreeSurface(im_flipsprites);
+	SDL_FreeSurface(im_bfont);
+	SDL_FreeSurface(im_bfontmask);
+	SDL_FreeSurface(im_teleporter);
+
+	SDL_FreeSurface(im_image0);
+	SDL_FreeSurface(im_image1);
+	SDL_FreeSurface(im_image2);
+	SDL_FreeSurface(im_image3);
+	SDL_FreeSurface(im_image4);
+	SDL_FreeSurface(im_image5);
+	SDL_FreeSurface(im_image6);
+	SDL_FreeSurface(im_image7);
+	SDL_FreeSurface(im_image8);
+	SDL_FreeSurface(im_image9);
+	SDL_FreeSurface(im_image10);
+	SDL_FreeSurface(im_image11);
+	SDL_FreeSurface(im_image12);
 }

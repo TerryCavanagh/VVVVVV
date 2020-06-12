@@ -58,7 +58,7 @@ const char *GCChar(SDL_GameControllerButton button)
 int ss_toi( std::string _s )
 {
 	std::istringstream i(_s);
-	int x;
+	int x = 0;
 	i >> x;
 	return x;
 }
@@ -132,7 +132,7 @@ std::string UtilityClass::twodigits( int t )
 std::string UtilityClass::timestring( int t )
 {
 	//given a time t in frames, return a time in seconds
-	tempstring = "";
+	std::string tempstring = "";
 	temp = (t - (t % 30)) / 30;
 	if (temp < 60)   //less than one minute
 	{
@@ -151,24 +151,42 @@ std::string UtilityClass::timestring( int t )
 
 std::string UtilityClass::number( int _t )
 {
-	const int BIGGEST_SMALL_NUMBER = 50;
-	const char* smallnumbers[] = {"Zero", "One", "Two", "Three", 
-		"Four", "Five", "Six", "Seven", "Eight", "Nine", 
-		"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
-		"Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty", "Twenty One",
-		"Twenty Two", "Twenty Three", "Twenty Four", "Twenty Five",
-		"Twenty Six", "Twenty Seven", "Twenty Eight", "Twenty Nine",
-		"Thirty", "Thirty One", "Thirty Two", "Thirty Three", "Thirty Four",
-		"Thirty Five", "Thirty Six", "Thirty Seven", "Thirty Eight",
-		"Thirty Nine", "Forty Zero", "Forty One", "Forty Two", "Forty Three",
-		"Forty Four", "Forty Five", "Forty Six", "Forty Seven", "Forty Eight",
-		"Forty Nine", "Fifty"};
+	const std::string ones_place[] = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+	const std::string tens_place[] = {"Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+	const std::string teens[] = {"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 
-	if(_t <= BIGGEST_SMALL_NUMBER) {
-		return smallnumbers[_t];
+	if (_t < 0)
+	{
+		return "???";
 	}
-
-	return "Lots";
+	else if (_t > 100)
+	{
+		return "Lots";
+	}
+	else if (_t == 0)
+	{
+		return "Zero";
+	}
+	else if (_t == 100)
+	{
+		return "One Hundred";
+	}
+	else if (_t >= 1 && _t <= 9)
+	{
+		return ones_place[_t-1];
+	}
+	else if (_t >= 11 && _t <= 19)
+	{
+		return teens[_t-11];
+	}
+	else if (_t % 10 == 0)
+	{
+		return tens_place[(_t/10)-1];
+	}
+	else
+	{
+		return tens_place[(_t/10)-1] + " " + ones_place[(_t%10)-1];
+	}
 }
 
 bool UtilityClass::intersects( SDL_Rect A, SDL_Rect B )
@@ -188,4 +206,16 @@ void UtilityClass::updateglow()
 		glow-=2;
 		if (glow < 2) glowdir = 0;
 	}
+}
+
+bool is_positive_num(const std::string& str)
+{
+	for (size_t i = 0; i < str.length(); i++)
+	{
+		if (!std::isdigit(str[i]))
+		{
+			return false;
+		}
+	}
+	return true;
 }

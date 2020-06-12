@@ -790,7 +790,7 @@
 				case 1: return "Dimension VVVVVV"; break;
 				case 2: return "Laboratory"; break;
 				case 3: return "The Tower"; break;
-				case 4: return "Warpzone"; break;
+				case 4: return "Warp Zone"; break;
 				case 5: return "Space Station"; break;
 				case 6: return "Outside Dimension VVVVVV"; break;
 				case 7: return "Outside Dimension VVVVVV"; break;
@@ -892,7 +892,7 @@
 				}
 			}
 			
-			if (rx == 119 && ry == 108) {
+			if (rx == 119 && ry == 108 && !custommode) {
 				background = 5;
 				dwgfx.rcol = 3;
 				warpx = true;

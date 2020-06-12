@@ -123,6 +123,18 @@ bool binaryBlob::unPackBinary(const char* name)
 	return true;
 }
 
+void binaryBlob::clear()
+{
+	for (int i = 0; i < 128; i += 1)
+	{
+		if (m_headers[i].valid)
+		{
+			free(m_memblocks[i]);
+			m_headers[i].valid = false;
+		}
+	}
+}
+
 int binaryBlob::getIndex(const char* _name)
 {
 	for (int i = 0; i < 128; i += 1)

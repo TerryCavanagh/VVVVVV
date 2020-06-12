@@ -13,7 +13,7 @@
 #define STEAM_LIBRARY "steam_api.dll"
 #elif defined(__APPLE__)
 #define STEAM_LIBRARY "libsteam_api.dylib"
-#elif defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
+#elif defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
 #define STEAM_LIBRARY "libsteam_api.so"
 #else
 #error STEAM_LIBRARY: Unrecognized platform!
@@ -95,7 +95,7 @@ static void ClearPointers()
 
 int32_t STEAM_init()
 {
-#if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
+#if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
 	return 0;
 #endif
 	intptr_t steamClient;

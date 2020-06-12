@@ -11,6 +11,8 @@ std::vector<std::string> split(const std::string &s, char delim, std::vector<std
 
 std::vector<std::string> split(const std::string &s, char delim);
 
+bool is_positive_num(const std::string& str);
+
 
 //helperClass
 class UtilityClass
@@ -39,8 +41,9 @@ public:
     int globaltemp;
     int temp;
     int temp2;
-    std::string tempstring;
     std::vector<int> splitseconds;
 };
+
+extern UtilityClass help;
 
 #endif /* UTILITYCLASS_H */

@@ -1,47 +1,15 @@
 #include "Textbox.h"
+#include <utf8/unchecked.h>
 
 textboxclass::textboxclass()
 {
-    firstcreate();
-}
-
-void textboxclass::firstcreate()
-{
-    //Like clear, only it creates the actual arrays, etc
-    for (int iter = 0; iter < 10; iter++)
-    {
-        std::string t;
-        t = "";
-        line.push_back(t);
-    }
     x = 0;
     y = 0;
     w = 0;
     h = 0;
-    numlines = 0;
     lw = 0;
     tl = 0;
     tm = 0;
-    active = false;
-    timer = 0;
-}
-
-void textboxclass::clear()
-{
-    //Set all values to a default, required for creating a new entity
-    for (size_t iter = 0; iter < line.size(); iter++)
-    {
-        line[iter]="";
-    }
-    xp = 0;
-    yp = 0;
-    w = 0;
-    h = 0;
-    numlines = 1;
-    lw = 0;
-    tl = 0;
-    tm = 0;
-    active = true;
     timer = 0;
 }
 
@@ -104,7 +72,7 @@ void textboxclass::update()
         if (tl <= 0.5)
         {
             tl = 0.5;
-            active = false;
+            //this textbox will be removed by drawgui() later
         }
         setcol(int(tr * tl), int(tg * tl), int(tb * tl));
     }
@@ -131,14 +99,15 @@ void textboxclass::resize()
 {
     //Set the width and height to the correct sizes
     max = 0;
-    for (int iter = 0; iter < numlines; iter++)
+    for (size_t iter = 0; iter < line.size(); iter++)
     {
-        if (line[iter].length() > (unsigned int)max) max = line[iter].length();
+        unsigned int len = utf8::unchecked::distance(line[iter].begin(), line[iter].end());
+        if (len > (unsigned int)max) max = len;
     }
 
     lw = max;
     w = (max +2) * 8;
-    h = (numlines + 2) * 8;
+    h = (line.size() + 2) * 8;
     textrect.x = xp;
     textrect.y = yp;
     textrect.w = w;
@@ -147,8 +116,7 @@ void textboxclass::resize()
 
 void textboxclass::addline(std::string t)
 {
-    line[numlines] = t;
-    numlines++;
+    line.push_back(t);
     resize();
-    if (numlines >= 12) numlines = 0;
+    if ((int) line.size() >= 12) line.clear();
 }

@@ -10,10 +10,6 @@ class textboxclass
 public:
     textboxclass();
 
-    void firstcreate();
-
-    void clear();
-
     void centerx();
 
     void centery();
@@ -36,12 +32,11 @@ public:
 public:
     //Fundamentals
     std::vector<std::string> line;
-    int xp, yp, lw, w, h, numlines;
+    int xp, yp, lw, w, h;
     int x,y;
     int r,g,b;
     int tr,tg,tb;
     SDL_Rect textrect;
-    bool active;
     int timer;
 
     float tl;

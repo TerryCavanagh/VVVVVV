@@ -8,27 +8,80 @@
 #include "UtilityClass.h"
 #include "GraphicsUtil.h"
 
+struct MenuOption
+{
+    std::string text;
+    bool active;
+};
 
-class entityclass;
-class mapclass;
-class Graphics;
-class musicclass;
+//Menu IDs
+namespace Menu
+{
+    enum MenuName
+    {
+        mainmenu,
+        playerworlds,
+        levellist,
+        quickloadlevel,
+        youwannaquit,
+        errornostart,
+        graphicoptions,
+        ed_settings,
+        ed_desc,
+        ed_music,
+        ed_quit,
+        options,
+        accessibility,
+        controller,
+        cleardatamenu,
+        setinvincibility,
+        setslowdown,
+        unlockmenu,
+        credits,
+        credits2,
+        credits25,
+        credits3,
+        credits4,
+        credits5,
+        credits6,
+        play,
+        unlocktimetrial,
+        unlocktimetrials,
+        unlocknodeathmode,
+        unlockintermission,
+        unlockflipmode,
+        newgamewarning,
+        playmodes,
+        intermissionmenu,
+        playint1,
+        playint2,
+        continuemenu,
+        startnodeathmode,
+        gameover,
+        gameover2,
+        unlockmenutrials,
+        timetrials,
+        nodeathmodecomplete,
+        nodeathmodecomplete2,
+        timetrialcomplete,
+        timetrialcomplete2,
+        timetrialcomplete3,
+        gamecompletecontinue,
+    };
+};
+
+struct MenuStackFrame
+{
+    int option;
+    enum Menu::MenuName name;
+};
+
 
 class Game
 {
 public:
-    Game(void);
+    void init(void);
     ~Game(void);
-
-
-    void setGlobalSoundVol(const float _vol)
-    {
-        m_globalVol = _vol;
-    }
-    float getGlobalSoundVol()
-    {
-        return m_globalVol;
-    }
 
 
     int crewrescued();
@@ -37,83 +90,67 @@ public:
 
     void resetgameclock();
 
-    void customsavequick(std::string savfile, mapclass& map, entityclass& obj, musicclass& music);
-    void savequick(mapclass& map, entityclass& obj, musicclass& music);
+    void customsavequick(std::string savfile);
+    void savequick();
 
     void gameclock();
 
-    std::string giventimestring(int hrs, int min, int sec, UtilityClass& help );
+    std::string giventimestring(int hrs, int min, int sec);
 
-    std::string  timestring(UtilityClass& help);
+    std::string  timestring();
 
-    std::string partimestring(UtilityClass& help);
+    std::string partimestring();
 
-    std::string resulttimestring(UtilityClass& help);
+    std::string resulttimestring();
 
-    std::string timetstring(int t, UtilityClass& help);
+    std::string timetstring(int t);
 
-    void  createmenu(std::string t);
+    void returnmenu();
+    void returntomenu(enum Menu::MenuName t);
+    void  createmenu(enum Menu::MenuName t, bool samemenu = false);
 
-    void lifesequence(entityclass& obj);
+    void lifesequence();
 
-    void gethardestroom(mapclass& map);
+    void gethardestroom();
 
-    void updatestate(Graphics& dwgfx, mapclass& map, entityclass& obj, UtilityClass& help, musicclass& music);
+    void updatestate();
 
-    void unlocknum(int t, mapclass& map, Graphics& dwgfx);
+    void unlocknum(int t);
 
-    void loadstats(mapclass& map, Graphics& dwgfx);
+    void loadstats();
 
-    void  savestats(mapclass& map, Graphics& dwgfx);
+    void  savestats();
 
-    void deletestats(mapclass& map, Graphics& dwgfx);
+    void deletestats();
 
     void deletequick();
 
-    void savetele(mapclass& map, entityclass& obj, musicclass& music);
+    void savetele();
 
-    void loadtele(mapclass& map, entityclass& obj, musicclass& music);
+    void loadtele();
 
     void deletetele();
 
-    void customstart(entityclass& obj, musicclass& music );
+    void customstart();
 
-    void start(entityclass& obj, musicclass& music );
+    void start();
 
-    void startspecial(int t, entityclass& obj, musicclass& music);
+    void startspecial(int t);
 
-    void starttrial(int t, entityclass& obj, musicclass& music);
-
-    void telegotoship()
-    {
-        //Special function to move the telesave to the ship teleporter.
-        //telecookie.data.savex = 13*8;
-        //telecookie.data.savey = 129;
-        //telecookie.data.saverx = 102;
-        //telecookie.data.savery = 111;
-        //telecookie.data.savegc = 0;
-        //telecookie.data.savedir = 1;
-        //telecookie.data.savepoint = 0;
-
-        //telecookie.data.currentsong = 4;
-        //telecookie.data.companion = 0;
-
-        //telecookie.data.finalmode = false;
-        //telecookie.data.finalstretch = false;
-    }
+    void starttrial(int t);
 
     void swnpenalty();
 
-    void deathsequence(mapclass& map, entityclass& obj, musicclass& music);
+    void deathsequence();
 
-    void customloadquick(std::string savfile, mapclass& map, entityclass& obj, musicclass& music);
-    void loadquick(mapclass& map, entityclass& obj, musicclass& music);
+    void customloadquick(std::string savfile);
+    void loadquick();
 
-    void loadsummary(mapclass& map, UtilityClass& help);
+    void loadsummary();
 
-    void initteleportermode(mapclass& map);
+    void initteleportermode();
 
-	std::string saveFilePath;
+    std::string saveFilePath;
 
 
     int door_left;
@@ -121,7 +158,8 @@ public:
     int door_up;
     int door_down;
     int roomx, roomy, roomchangedir;
-    int temp, j, k;
+    int prevroomx, prevroomy;
+    int j, k;
 
     int savex, savey, saverx, savery;
     int savegc, savedir;
@@ -133,9 +171,9 @@ public:
     //State logic stuff
     int state, statedelay;
 
-		bool glitchrunkludge;
+    bool glitchrunkludge;
 
-		int usingmmmmmm;
+    int usingmmmmmm;
 
     int gamestate;
     bool hascontrol, jumpheld;
@@ -145,10 +183,8 @@ public:
     bool infocus;
     bool muted;
     int mutebutton;
-	private:
-    float m_globalVol;
-
-	public:
+    bool musicmuted;
+    int musicmutebutton;
 
     int tapleft, tapright;
 
@@ -158,7 +194,6 @@ public:
     //public var crewstats:Array = new Array();
     int lastsaved;
     int deathcounts;
-	int timerStartTime;
 
     int frames, seconds, minutes, hours;
     bool gamesaved;
@@ -179,20 +214,26 @@ public:
     int teleport_to_teleporter;
 
     //Main Menu Variables
-    std::vector<std::string> menuoptions;
-    std::vector<bool> menuoptionsactive;
-    int nummenuoptions, currentmenuoption ;
-    std::string menuselection, currentmenuname, previousmenuname;
+    std::vector<MenuOption> menuoptions;
+    int currentmenuoption ;
+    enum Menu::MenuName currentmenuname;
+    int current_credits_list_index;
     int menuxoff, menuyoff;
+    std::vector<MenuStackFrame> menustack;
+
+    void inline option(std::string text, bool active = true)
+    {
+        MenuOption menuoption;
+        menuoption.text = text;
+        menuoption.active = active;
+        menuoptions.push_back(menuoption);
+    }
 
     int menucountdown;
-    std::string menudest;
+    enum Menu::MenuName menudest;
 
     int creditposx, creditposy, creditposdelay;
 
-
-    //60 fps mode!
-    bool sfpsmode;
 
     //Sine Wave Ninja Minigame
     bool swnmode;
@@ -220,6 +261,10 @@ public:
     int timetrialpar, timetrialresulttime, timetrialrank;
 
     int creditposition;
+    int creditmaxposition;
+    std::vector<const char*> superpatrons;
+    std::vector<const char*> patrons;
+    std::vector<const char*> githubfriends;
     bool insecretlab;
 
     bool inintermission;
@@ -236,26 +281,16 @@ public:
 
     std::vector<int> unlock;
     std::vector<int> unlocknotify;
-    std::vector<int> temp_unlock;
-    std::vector<int> temp_unlocknotify;
+    bool anything_unlocked();
     int stat_trinkets;
     bool fullscreen;
     int bestgamedeaths;
-
-    bool stat_screenshakes;
-    bool stat_backgrounds;
-    bool stat_flipmode;
-    bool stat_invincibility;
-    int stat_slowdown;
 
 
     std::vector<int>besttimes;
     std::vector<int>besttrinkets;
     std::vector<int>bestlives;
     std::vector<int> bestrank;
-
-    bool telecookieexists;
-    bool quickcookieexists;
 
     std::string tele_gametime;
     int tele_trinkets;
@@ -266,14 +301,14 @@ public:
 
     int mx, my;
     int screenshake, flashlight;
-    bool test;
-    std::string teststring, tempstring;
     bool advancetext, pausescript;
 
     int deathseq, lifeseq;
 
-    int coins, trinkets, crewmates, trinkencollect;
-    int savepoint, teleport, teleportxpos;
+    int trinkets();
+    int crewmates();
+    int savepoint, teleportxpos;
+    bool teleport;
     int edteleportent;
     bool completestop;
 
@@ -288,6 +323,7 @@ public:
     std::string activity_lastprompt;
 
     std::string telesummary, quicksummary, customquicksummary;
+    bool save_exists();
 
     bool backgroundtext;
 
@@ -305,31 +341,11 @@ public:
 
     bool advanced_mode;
     bool fullScreenEffect_badSignal;
-	bool useLinearFilter;
-	int stretchMode;
-	int controllerSensitivity;
+    bool useLinearFilter;
+    int stretchMode;
+    int controllerSensitivity;
 
-    //Screenrecording stuff, for beta/trailer
-    int recording;
-    std::string recordstring;
-    bool combomode;
-    int combolen;
-    std::string comboaction;
-    std::string currentaction;
-    bool recordinit;
-
-    std::vector<int> playback;
-    int playbackpos;
-    int playbacksize;
-    int playmove;
-    int playcombo;
-    bool playbackfinished;
-
-    bool menukludge;
     bool quickrestartkludge;
-
-    bool paused;
-    int globalsound;
 
     //Custom stuff
     std::string customscript[50];
@@ -350,11 +366,32 @@ public:
     bool customlevelstatsloaded;
 
 
-	std::vector<SDL_GameControllerButton> controllerButton_map;
-	std::vector<SDL_GameControllerButton> controllerButton_flip;
-	std::vector<SDL_GameControllerButton> controllerButton_esc;
+    std::vector<SDL_GameControllerButton> controllerButton_map;
+    std::vector<SDL_GameControllerButton> controllerButton_flip;
+    std::vector<SDL_GameControllerButton> controllerButton_esc;
 
     bool skipfakeload;
+
+    bool cliplaytest;
+    int playx;
+    int playy;
+    int playrx;
+    int playry;
+    int playgc;
+
+    void quittomenu();
+    void returntolab();
+    bool fadetomenu;
+    int fadetomenudelay;
+    bool fadetolab;
+    int fadetolabdelay;
+
+#if !defined(NO_CUSTOM_LEVELS)
+    void returntoeditor();
+    bool shouldreturntoeditor;
+#endif
 };
+
+extern Game game;
 
 #endif /* GAME_H */

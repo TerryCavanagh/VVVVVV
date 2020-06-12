@@ -231,7 +231,7 @@ public function towerlogic(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, m
 	}
 	
 	if (game.deathseq != -1) {
-		map.colsuperstate = 1;  //cause the palette to go spastic!
+		map.colsuperstate = 1;
 		map.cameramode = 2;
 		game.deathsequence(map, obj, music);
 		game.deathseq--;
@@ -465,7 +465,7 @@ public function gamelogic(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 			if (obj.entities[i].type == 2 && obj.entities[i].state == 3) {
 				//Ok! super magical exception for the room with the intention death for the shiny trinket
 				//fix this when the maps are finalised
-				if (game.roomx != 111 && game.roomy != 107) {
+				if (game.roomx != 111 || game.roomy != 107 || map.custommode) {
 				  obj.entities[i].state = 4;	
 				}else {
 				  obj.entities[i].state = 4;	

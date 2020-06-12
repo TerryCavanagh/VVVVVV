@@ -1,6 +1,7 @@
 #include "KeyPoll.h"
 #include <stdio.h>
 #include <string.h>
+#include <utf8/unchecked.h>
 
 void KeyPoll::setSensitivity(int _value)
 {
@@ -50,6 +51,8 @@ KeyPoll::KeyPoll()
 			useFullscreenSpaces = (strcmp(hint, "1") == 0);
 		}
 	}
+
+	linealreadyemptykludge = false;
 }
 
 void KeyPoll::enabletextentry()
@@ -74,27 +77,36 @@ void KeyPoll::Poll()
 		if (evt.type == SDL_KEYDOWN)
 		{
 			keymap[evt.key.keysym.sym] = true;
+
 			if (evt.key.keysym.sym == SDLK_BACKSPACE)
 			{
 				pressedbackspace = true;
 			}
-			else if (	(	evt.key.keysym.sym == SDLK_RETURN ||
-						evt.key.keysym.sym == SDLK_f	) &&
-#ifdef __APPLE__ /* OSX prefers the command key over the alt keys. -flibit */
-					keymap[SDLK_LGUI]	)
+
+#ifdef __APPLE__ /* OSX prefers the command keys over the alt keys. -flibit */
+			bool altpressed = keymap[SDLK_LGUI] || keymap[SDLK_RGUI];
 #else
-					(	keymap[SDLK_LALT] ||
-						keymap[SDLK_RALT]	)	)
+			bool altpressed = keymap[SDLK_LALT] || keymap[SDLK_RALT];
 #endif
+			bool returnpressed = evt.key.keysym.sym == SDLK_RETURN;
+			bool fpressed = evt.key.keysym.sym == SDLK_f;
+			bool f11pressed = evt.key.keysym.sym == SDLK_F11;
+			if ((altpressed && (returnpressed || fpressed)) || f11pressed)
 			{
 				toggleFullscreen = true;
 			}
 
 			if (textentrymode)
 			{
-				if (evt.key.keysym.sym == SDLK_BACKSPACE)
+				if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
 				{
-					keybuffer = keybuffer.substr(0, keybuffer.length() - 1);
+					std::string::iterator iter = keybuffer.end();
+					utf8::unchecked::prior(iter);
+					keybuffer = keybuffer.substr(0, iter - keybuffer.begin());
+					if (keybuffer.empty())
+					{
+						linealreadyemptykludge = true;
+					}
 				}
 				else if (	evt.key.keysym.sym == SDLK_v &&
 						keymap[SDLK_LCTRL]	)
@@ -239,6 +251,7 @@ void KeyPoll::Poll()
 					SDL_SetWindowFullscreen(window, 0);
 				}
 				SDL_DisableScreenSaver();
+				resetWindow = true;
 			}
 			else if (evt.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
 			{
@@ -251,16 +264,19 @@ void KeyPoll::Poll()
 					);
 				}
 				SDL_EnableScreenSaver();
+				resetWindow = true;
 			}
 
 			/* Mouse Focus */
 			else if (evt.window.event == SDL_WINDOWEVENT_ENTER)
 			{
 				SDL_DisableScreenSaver();
+				resetWindow = true;
 			}
 			else if (evt.window.event == SDL_WINDOWEVENT_LEAVE)
 			{
 				SDL_EnableScreenSaver();
+				resetWindow = true;
 			}
 		}
 

@@ -7,6 +7,21 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
 OPTION(ENABLE_WARNINGS "Enable compilation warnings" ON)
 OPTION(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
+SET(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
+SET_PROPERTY(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
+
+SET(STEAM OFF CACHE BOOL "Use the Steam API")
+SET(GOG OFF CACHE BOOL "Use the GOG API")
+
+IF(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+	SET(STEAM ON)
+	SET(GOG ON)
+ENDIF()
+
+# Set standard to C++98/C++03
+SET(CMAKE_CXX_STANDARD 98)
+SET(CMAKE_CXX_EXTENSIONS OFF) # prevent mixing stdlib implementations (dangerous!)
+
 # Architecture Flags
 IF(APPLE)
 	# Wow, Apple is a huge jerk these days huh?
@@ -56,13 +71,13 @@ INCLUDE_DIRECTORIES(
 	../third_party/tinyxml
 	../third_party/physfs
 	../third_party/lodepng
+	../third_party/utfcpp/source
 )
 
 # Source Lists
 SET(VVV_SRC
 	src/BinaryBlob.cpp
 	src/BlockV.cpp
-	src/editor.cpp
 	src/Ent.cpp
 	src/Entity.cpp
 	src/FileSystemUtils.cpp
@@ -79,6 +94,7 @@ SET(VVV_SRC
 	src/Music.cpp
 	src/Otherlevel.cpp
 	src/preloader.cpp
+	src/Render.cpp
 	src/Screen.cpp
 	src/Script.cpp
 	src/Scripts.cpp
@@ -86,15 +102,24 @@ SET(VVV_SRC
 	src/Spacestation2.cpp
 	src/TerminalScripts.cpp
 	src/Textbox.cpp
-	src/titlerender.cpp
 	src/Tower.cpp
 	src/UtilityClass.cpp
 	src/WarpClass.cpp
 	src/main.cpp
 	src/Network.c
-	src/SteamNetwork.c
-	src/GOGNetwork.c
 )
+IF(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
+	LIST(APPEND VVV_SRC src/editor.cpp)
+ENDIF()
+IF(STEAM)
+	LIST(APPEND VVV_SRC src/SteamNetwork.c)
+	ADD_DEFINITIONS(-DSTEAM_NETWORK)
+ENDIF()
+IF(GOG)
+	LIST(APPEND VVV_SRC src/GOGNetwork.c)
+	ADD_DEFINITIONS(-DGOG_NETWORK)
+ENDIF()
+
 SET(XML_SRC
 	../third_party/tinyxml/tinystr.cpp
 	../third_party/tinyxml/tinyxml.cpp
@@ -137,6 +162,32 @@ IF(ENABLE_WARNINGS)
 			/W4 $<$<BOOL:${ENABLE_WERROR}>:/WX>>)
 ENDIF()
 
+IF(CUSTOM_LEVEL_SUPPORT STREQUAL "NO_EDITOR")
+	ADD_DEFINITIONS(-DNO_EDITOR)
+ELSEIF(CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
+	ADD_DEFINITIONS(-DNO_CUSTOM_LEVELS -DNO_EDITOR)
+ENDIF()
+
+IF(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	SET(SUPPORTS_IMPLICIT_FALLTHROUGH 1)
+ELSEIF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	IF(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
+		SET(SUPPORTS_IMPLICIT_FALLTHROUGH 1)
+	ELSE()
+		SET(SUPPORTS_IMPLICIT_FALLTHROUGH 0)
+	ENDIF()
+ELSE()
+	SET(SUPPORTS_IMPLICIT_FALLTHROUGH 0)
+ENDIF()
+
+
+IF(SUPPORTS_IMPLICIT_FALLTHROUGH)
+	TARGET_COMPILE_OPTIONS(VVVVVV PRIVATE -Werror=implicit-fallthrough)
+ENDIF()
+
+SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_STANDARD 98)
+SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_EXTENSIONS FALSE)
+
 # Library information
 ADD_LIBRARY(tinyxml-static STATIC ${XML_SRC})
 ADD_LIBRARY(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
@@ -161,7 +212,8 @@ else()
 		target_link_libraries(VVVVVV SDL2 SDL2_mixer)
 	else()
 		message(STATUS "No TARGET SDL2::SDL2, or SDL2, using variables")
-		target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+		find_path(SDL2_MIXER_INCLUDE_DIRS NAMES SDL_mixer.h PATH_SUFFIXES SDL2)
+		target_include_directories(VVVVVV PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>" ${SDL2_MIXER_INCLUDE_DIRS})
 		target_link_libraries(VVVVVV ${SDL2_LIBRARIES} SDL2_mixer)
 	endif()
 endif()

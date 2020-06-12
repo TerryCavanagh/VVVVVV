@@ -23,8 +23,8 @@ unsigned int endian_swap( unsigned int x )
 template <class T>
 void endian_swap(T *objp)
 {
-	unsigned char *memp = reinterpret_cast<unsigned char*>(objp);
-	std::reverse(memp, memp + sizeof(T));
+    unsigned char *memp = reinterpret_cast<unsigned char*>(objp);
+    std::reverse(memp, memp + sizeof(T));
 }
 
 
@@ -157,94 +157,94 @@ SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Su
     float  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(_surface->w)), _stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(_surface->h));
 
 
-	SDL_Rect gigantoPixel;
+    SDL_Rect gigantoPixel;
     for(Sint32 y = 0; y < _surface->h; y++)
         for(Sint32 x = 0; x < _surface->w; x++)
-		{
-			setRect(gigantoPixel, static_cast<Sint32>((float(x)*_stretch_factor_x) -1), static_cast<Sint32>((float(y) *_stretch_factor_y)-1), static_cast<Sint32>(_stretch_factor_x +1.0),static_cast<Sint32>( _stretch_factor_y+1.0)) ;
-			SDL_FillRect(_ret, &gigantoPixel, ReadPixel(_surface, x, y));
-		}
+        {
+            setRect(gigantoPixel, static_cast<Sint32>((float(x)*_stretch_factor_x) -1), static_cast<Sint32>((float(y) *_stretch_factor_y)-1), static_cast<Sint32>(_stretch_factor_x +1.0),static_cast<Sint32>( _stretch_factor_y+1.0)) ;
+            SDL_FillRect(_ret, &gigantoPixel, ReadPixel(_surface, x, y));
+        }
 
-                   // DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
-                              //static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
+            // DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
+                       //static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
 
     return _ret;
 }
 
 SDL_Surface * ScaleSurfaceSlow( SDL_Surface *_surface, int Width, int Height)
 {
-	if(!_surface || !Width || !Height)
-		return 0;
+    if(!_surface || !Width || !Height)
+        return 0;
 
-	SDL_Surface *_ret;
+    SDL_Surface *_ret;
 
-		_ret = SDL_CreateRGBSurface(_surface->flags, Width, Height, _surface->format->BitsPerPixel,
-			_surface->format->Rmask, _surface->format->Gmask, _surface->format->Bmask, _surface->format->Amask);
-		if(_ret == NULL)
-		{
-			return NULL;
-		}
-
-
-
-	float  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(_surface->w)), _stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(_surface->h));
+    _ret = SDL_CreateRGBSurface(_surface->flags, Width, Height, _surface->format->BitsPerPixel,
+        _surface->format->Rmask, _surface->format->Gmask, _surface->format->Bmask, _surface->format->Amask);
+    if(_ret == NULL)
+    {
+        return NULL;
+    }
 
 
-	for(Sint32 y = 0; y < _surface->h; y++)
-		for(Sint32 x = 0; x < _surface->w; x++)
-			for(Sint32 o_y = 0; o_y < _stretch_factor_y; ++o_y)
-				for(Sint32 o_x = 0; o_x < _stretch_factor_x; ++o_x)
-					DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
-					static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
 
-		// DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
-		//static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
+    float  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(_surface->w)), _stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(_surface->h));
 
-	return _ret;
+
+    for(Sint32 y = 0; y < _surface->h; y++)
+        for(Sint32 x = 0; x < _surface->w; x++)
+            for(Sint32 o_y = 0; o_y < _stretch_factor_y; ++o_y)
+                for(Sint32 o_x = 0; o_x < _stretch_factor_x; ++o_x)
+                    DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
+                    static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
+
+                    // DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
+                    //static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
+
+    return _ret;
 }
 
 SDL_Surface *  FlipSurfaceHorizontal(SDL_Surface* _src)
 {
-	SDL_Surface * ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, _src->format->BitsPerPixel,
-		_src->format->Rmask, _src->format->Gmask, _src->format->Bmask, _src->format->Amask);
-	if(ret == NULL)
-	{
-		return NULL;
-	}
+    SDL_Surface * ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, _src->format->BitsPerPixel,
+        _src->format->Rmask, _src->format->Gmask, _src->format->Bmask, _src->format->Amask);
+    if(ret == NULL)
+    {
+        return NULL;
+    }
 
-	for(Sint32 y = 0; y < _src->h; y++)
-	{
-		for(Sint32 x = 0; x < _src->w; x++)
-		{
-			DrawPixel(ret,(_src->w -1) -x,y,ReadPixel(_src, x, y));
-		}
+    for(Sint32 y = 0; y < _src->h; y++)
+    {
+        for(Sint32 x = 0; x < _src->w; x++)
+        {
+            DrawPixel(ret,(_src->w -1) -x,y,ReadPixel(_src, x, y));
+        }
 
 
-	}
+    }
 
-	return ret;
+    return ret;
 }
 
 SDL_Surface *  FlipSurfaceVerticle(SDL_Surface* _src)
 {
-	SDL_Surface * ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, _src->format->BitsPerPixel,
-		_src->format->Rmask, _src->format->Gmask, _src->format->Bmask, _src->format->Amask);
-	if(ret == NULL)
-	{
-		return NULL;
-	}
+    SDL_Surface * ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, _src->format->BitsPerPixel,
+        _src->format->Rmask, _src->format->Gmask, _src->format->Bmask, _src->format->Amask);
+    if(ret == NULL)
+    {
+        return NULL;
+    }
 
-	for(Sint32 y = 0; y < _src->h; y++)
-	{
-		for(Sint32 x = 0; x < _src->w; x++)
-		{
-			DrawPixel(ret, x ,(_src->h-1) - y ,ReadPixel(_src, x, y));
-		}
+    for(Sint32 y = 0; y < _src->h; y++)
+    {
+        for(Sint32 x = 0; x < _src->w; x++)
+        {
+            DrawPixel(ret, x ,(_src->h-1) - y ,ReadPixel(_src, x, y));
+        }
 
 
-	}
+    }
 
-	return ret;
+    return ret;
 }
 
 void BlitSurfaceStandard( SDL_Surface* _src, SDL_Rect* _srcRect, SDL_Surface* _dest, SDL_Rect* _destRect )
@@ -300,7 +300,11 @@ void BlitSurfaceColoured(
             Uint32 pixel = ReadPixel(_src, x, y);
             Uint32 Alpha = pixel & fmt.Amask;
             Uint32 result = ct.colour & 0x00FFFFFF;
-            DrawPixel(tempsurface, x, y, result | Alpha);
+            Uint32 CTAlpha = ct.colour & fmt.Amask;
+            float div1 = ((Alpha >> 24) / 255.0f);
+            float div2 = ((CTAlpha >> 24) / 255.0f);
+            Uint32 UseAlpha = (div1 * div2) * 255.0f;
+            DrawPixel(tempsurface, x, y, result | (UseAlpha << 24));
         }
     }
 
@@ -313,74 +317,74 @@ int scrollamount = 0;
 bool isscrolling = 0;
 SDL_Surface* ApplyFilter( SDL_Surface* _src )
 {
-	SDL_Surface* _ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, 32,
-		_src->format->Rmask, _src->format->Gmask, _src->format->Bmask, _src->format->Amask);
+    SDL_Surface* _ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, 32,
+        _src->format->Rmask, _src->format->Gmask, _src->format->Bmask, _src->format->Amask);
 
-	if (rand() % 4000 < 8)
-	{
-		isscrolling = true;
-	}
+    if (rand() % 4000 < 8)
+    {
+        isscrolling = true;
+    }
 
-	if(isscrolling == true)
-	{
-		scrollamount += 20;
-		if(scrollamount > 240)
-		{
-			scrollamount = 0;
-			isscrolling = false;
-		}
-	}
+    if(isscrolling == true)
+    {
+        scrollamount += 20;
+        if(scrollamount > 240)
+        {
+            scrollamount = 0;
+            isscrolling = false;
+        }
+    }
 
-	int redOffset = rand() % 4;
+    int redOffset = rand() % 4;
 
-	for(int x = 0; x < _src->w; x++)
-	{
-		for(int y = 0; y < _src->h; y++)
-		{
-			int sampley = (y + scrollamount )% 240;
+    for(int x = 0; x < _src->w; x++)
+    {
+        for(int y = 0; y < _src->h; y++)
+        {
+            int sampley = (y + scrollamount )% 240;
 
-			Uint32 pixel = ReadPixel(_src, x,sampley);
+            Uint32 pixel = ReadPixel(_src, x,sampley);
 
-			Uint8 green = (pixel & _src->format->Gmask) >> 8;
-			Uint8 blue = (pixel & _src->format->Bmask) >> 0;
+            Uint8 green = (pixel & _src->format->Gmask) >> 8;
+            Uint8 blue = (pixel & _src->format->Bmask) >> 0;
 
-			Uint32 pixelOffset = ReadPixel(_src, std::min(x+redOffset, 319), sampley) ;
-			Uint8 red = (pixelOffset & _src->format->Rmask) >> 16 ;
+            Uint32 pixelOffset = ReadPixel(_src, std::min(x+redOffset, 319), sampley) ;
+            Uint8 red = (pixelOffset & _src->format->Rmask) >> 16 ;
 
-			if(isscrolling && sampley > 220 && ((rand() %10) < 4))
-			{
-				red = std::min(int(red+(fRandom() * 0.6)  * 254) , 255);
-				green = std::min(int(green+(fRandom() * 0.6)  * 254) , 255);
-				blue = std::min(int(blue+(fRandom() * 0.6)  * 254) , 255);
-			}
-			else
-			{
-				red = std::min(int(red+(fRandom() * 0.2)  * 254) , 255);
-				green = std::min(int(green+(fRandom() * 0.2)  * 254) , 255);
-				blue = std::min(int(blue+(fRandom() * 0.2)  * 254) , 255);
-			}
+            if(isscrolling && sampley > 220 && ((rand() %10) < 4))
+            {
+                red = std::min(int(red+(fRandom() * 0.6)  * 254) , 255);
+                green = std::min(int(green+(fRandom() * 0.6)  * 254) , 255);
+                blue = std::min(int(blue+(fRandom() * 0.6)  * 254) , 255);
+            }
+            else
+            {
+                red = std::min(int(red+(fRandom() * 0.2)  * 254) , 255);
+                green = std::min(int(green+(fRandom() * 0.2)  * 254) , 255);
+                blue = std::min(int(blue+(fRandom() * 0.2)  * 254) , 255);
+            }
 
 
-			if(y % 2 == 0)
-			{
-				red = static_cast<Uint8>(red / 1.2f);
-				green = static_cast<Uint8>(green / 1.2f);
-				blue =  static_cast<Uint8>(blue / 1.2f);
-			}
+            if(y % 2 == 0)
+            {
+                red = static_cast<Uint8>(red / 1.2f);
+                green = static_cast<Uint8>(green / 1.2f);
+                blue =  static_cast<Uint8>(blue / 1.2f);
+            }
 
-			int distX =  static_cast<int>((abs (160.0f -x ) / 160.0f) *16);
-			int distY =  static_cast<int>((abs (120.0f -y ) / 120.0f)*32);
+            int distX =  static_cast<int>((abs (160.0f -x ) / 160.0f) *16);
+            int distY =  static_cast<int>((abs (120.0f -y ) / 120.0f)*32);
 
-			red = std::max(red - ( distX +distY), 0);
-			green = std::max(green - ( distX +distY), 0);
-			blue = std::max(blue - ( distX +distY), 0);
+            red = std::max(red - ( distX +distY), 0);
+            green = std::max(green - ( distX +distY), 0);
+            blue = std::max(blue - ( distX +distY), 0);
 
-			Uint32 finalPixel = ((red<<16) + (green<<8) + (blue<<0)) | (pixel &_src->format->Amask);
-			DrawPixel(_ret,x,y,  finalPixel);
+            Uint32 finalPixel = ((red<<16) + (green<<8) + (blue<<0)) | (pixel &_src->format->Amask);
+            DrawPixel(_ret,x,y,  finalPixel);
 
-		}
-	}
-return _ret;
+        }
+    }
+    return _ret;
 }
 
 void FillRect( SDL_Surface* _surface, const int _x, const int _y, const int _w, const int _h, const int r, int g, int b )
@@ -450,7 +454,7 @@ void ScrollSurface( SDL_Surface* _src, int _pX, int _pY )
     SDL_Surface* part1 = NULL;
 
     SDL_Rect rect1;
-	 SDL_Rect rect2;
+    SDL_Rect rect2;
     //scrolling up;
     if(_pY < 0)
     {
@@ -484,39 +488,39 @@ void ScrollSurface( SDL_Surface* _src, int _pX, int _pY )
 
     }
 
-	//Right
-	else if(_pX <= 0)
-	{
-		setRect(rect2, 0, 0, _src->w - _pX,  _src->h );
+    //Right
+    else if(_pX <= 0)
+    {
+        setRect(rect2, 0, 0, _src->w - _pX,  _src->h );
 
-		part1 = GetSubSurface(_src, rect2.x, rect2.y, rect2.w, rect2.h);
+        part1 = GetSubSurface(_src, rect2.x, rect2.y, rect2.w, rect2.h);
 
-		SDL_Rect destrect1;
+        SDL_Rect destrect1;
 
-		SDL_SetSurfaceBlendMode(part1, SDL_BLENDMODE_NONE);
+        SDL_SetSurfaceBlendMode(part1, SDL_BLENDMODE_NONE);
 
-		setRect(destrect1, _pX,  0, _src->w - _pX, _src->h);
+        setRect(destrect1, _pX,  0, _src->w - _pX, _src->h);
 
-		SDL_BlitSurface (part1, NULL, _src, &destrect1);
-	}
+        SDL_BlitSurface (part1, NULL, _src, &destrect1);
+    }
 
-	else if(_pX > 0)
-	{
+    else if(_pX > 0)
+    {
 
-		setRect(rect1, _pX, 0, _src->w - _pX, _src->h );
+        setRect(rect1, _pX, 0, _src->w - _pX, _src->h );
 
-		part1 = GetSubSurface(_src, rect1.x, rect1.y, rect1.w, rect1.h);
+        part1 = GetSubSurface(_src, rect1.x, rect1.y, rect1.w, rect1.h);
 
-		SDL_Rect destrect1;
+        SDL_Rect destrect1;
 
-		SDL_SetSurfaceBlendMode(part1, SDL_BLENDMODE_NONE);
+        SDL_SetSurfaceBlendMode(part1, SDL_BLENDMODE_NONE);
 
-		setRect(destrect1, 0, 0, _src->w - _pX, _src->h);
+        setRect(destrect1, 0, 0, _src->w - _pX, _src->h);
 
-		SDL_BlitSurface (part1, NULL, _src, &destrect1);
+        SDL_BlitSurface (part1, NULL, _src, &destrect1);
 
-	}
-	//Cleanup temp surface
+    }
+    //Cleanup temp surface
     if (part1)
     {
         SDL_FreeSurface(part1);
