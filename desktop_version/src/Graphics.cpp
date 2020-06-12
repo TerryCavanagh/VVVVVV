@@ -2822,50 +2822,50 @@ bool Graphics::onscreen(int t)
 }
 
 void Graphics::reloadresources() {
-    grphx.destroy();
-    grphx = GraphicsResources();
-    grphx.init();
+	grphx.destroy();
+	grphx = GraphicsResources();
+	grphx.init();
 
-    #define CLEAR_ARRAY(name) \
-        for (size_t i = 0; i < name.size(); i += 1) \
-        { \
-            SDL_FreeSurface(name[i]); \
-        } \
-        name.clear();
+	#define CLEAR_ARRAY(name) \
+		for (size_t i = 0; i < name.size(); i += 1) \
+		{ \
+			SDL_FreeSurface(name[i]); \
+		} \
+		name.clear();
 
-    CLEAR_ARRAY(tiles)
-    CLEAR_ARRAY(tiles2)
-    CLEAR_ARRAY(tiles3)
-    CLEAR_ARRAY(entcolours)
-    CLEAR_ARRAY(sprites)
-    CLEAR_ARRAY(flipsprites)
-    CLEAR_ARRAY(tele)
-    CLEAR_ARRAY(bfont)
-    CLEAR_ARRAY(flipbfont)
+	CLEAR_ARRAY(tiles)
+	CLEAR_ARRAY(tiles2)
+	CLEAR_ARRAY(tiles3)
+	CLEAR_ARRAY(entcolours)
+	CLEAR_ARRAY(sprites)
+	CLEAR_ARRAY(flipsprites)
+	CLEAR_ARRAY(tele)
+	CLEAR_ARRAY(bfont)
+	CLEAR_ARRAY(flipbfont)
 
-    #undef CLEAR_ARRAY
+	#undef CLEAR_ARRAY
 
-    MakeTileArray();
-    MakeSpriteArray();
-    maketelearray();
-    Makebfont();
+	MakeTileArray();
+	MakeSpriteArray();
+	maketelearray();
+	Makebfont();
 
-    images.clear();
+	images.clear();
 
-    images.push_back(grphx.im_image0);
-    images.push_back(grphx.im_image1);
-    images.push_back(grphx.im_image2);
-    images.push_back(grphx.im_image3);
-    images.push_back(grphx.im_image4);
-    images.push_back(grphx.im_image5);
-    images.push_back(grphx.im_image6);
+	images.push_back(grphx.im_image0);
+	images.push_back(grphx.im_image1);
+	images.push_back(grphx.im_image2);
+	images.push_back(grphx.im_image3);
+	images.push_back(grphx.im_image4);
+	images.push_back(grphx.im_image5);
+	images.push_back(grphx.im_image6);
 
-    images.push_back(grphx.im_image7);
-    images.push_back(grphx.im_image8);
-    images.push_back(grphx.im_image9);
-    images.push_back(grphx.im_image10);
-    images.push_back(grphx.im_image11);
-    images.push_back(grphx.im_image12);
+	images.push_back(grphx.im_image7);
+	images.push_back(grphx.im_image8);
+	images.push_back(grphx.im_image9);
+	images.push_back(grphx.im_image10);
+	images.push_back(grphx.im_image11);
+	images.push_back(grphx.im_image12);
 
-    music.init();
+	music.init();
 }
