@@ -9,39 +9,39 @@
 
 class edentities{
 public:
-	int x, y, t;
-	//parameters
-	int p1, p2, p3, p4, p5, p6;
-	std::string scriptname;
+  int x, y, t;
+  //parameters
+  int p1, p2, p3, p4, p5, p6;
+  std::string scriptname;
 };
 
 
 class edlevelclass{
 public:
   edlevelclass();
-	int tileset, tilecol;
-	std::string roomname;
-	int warpdir;
-	int platx1, platy1, platx2, platy2, platv;
-	int enemyx1, enemyy1, enemyx2, enemyy2, enemytype;
-	int directmode;
+  int tileset, tilecol;
+  std::string roomname;
+  int warpdir;
+  int platx1, platy1, platx2, platy2, platv;
+  int enemyx1, enemyy1, enemyx2, enemyy2, enemytype;
+  int directmode;
 };
 
 struct LevelMetaData
 {
-	std::string title;
-	std::string creator;
-	std::string Desc1;
-	std::string Desc2;
-	std::string Desc3;
-	std::string website;
-	std::string filename;
+  std::string title;
+  std::string creator;
+  std::string Desc1;
+  std::string Desc2;
+  std::string Desc3;
+  std::string website;
+  std::string filename;
 
-	std::string modifier;
-	std::string timeCreated;
-	std::string timeModified;
+  std::string modifier;
+  std::string timeCreated;
+  std::string timeModified;
 
-	int version;
+  int version;
 };
 
 
@@ -49,29 +49,29 @@ extern std::vector<edentities> edentity;
 
 class EditorData
 {
-	public:
+  public:
 
-	static EditorData& GetInstance()
-	{
-		static EditorData  instance; // Guaranteed to be destroyed.
-		// Instantiated on first use.
-		return instance;
-	}
+  static EditorData& GetInstance()
+  {
+    static EditorData  instance; // Guaranteed to be destroyed.
+    // Instantiated on first use.
+    return instance;
+  }
 
 
-	std::string title;
-	std::string creator;
+  std::string title;
+  std::string creator;
 
-	std::string modifier;
-	std::string timeCreated;
-	std::string timeModified;
+  std::string modifier;
+  std::string timeCreated;
+  std::string timeModified;
 
 private:
 
 
-	EditorData()
-	{
-	}
+  EditorData()
+  {
+  }
 
 };
 
@@ -84,7 +84,7 @@ class editorclass{
   std::string Desc1;
   std::string Desc2;
   std::string Desc3;
-	std::string website;
+  std::string website;
 
   std::vector<std::string> directoryList;
   std::vector<LevelMetaData> ListOfMetaData;
