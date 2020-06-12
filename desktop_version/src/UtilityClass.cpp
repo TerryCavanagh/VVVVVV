@@ -213,7 +213,7 @@ bool is_positive_num(const std::string& str)
 {
 	for (size_t i = 0; i < str.length(); i++)
 	{
-		if (!std::isdigit(str[i]))
+		if (!std::isdigit(static_cast<unsigned char>(str[i])))
 		{
 			return false;
 		}
