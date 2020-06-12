@@ -1,4 +1,4 @@
-#include "Render.h"
+    #include "Render.h"
 
 #include "Graphics.h"
 #include "UtilityClass.h"
@@ -1380,6 +1380,30 @@ void gamerender()
         if (map.towermode)
         {
             graphics.drawtowerspikes();
+        }
+
+        // Editor ghosts!
+        if (game.ghostsenabled)
+        {
+            if (map.custommode && !map.custommodeforreal)
+            {
+                if (game.gametimer % 3 == 0)
+                {
+                    int i = obj.getplayer();
+                    GhostInfo ghost;
+                    ghost.rx = game.roomx-100;
+                    ghost.ry = game.roomy-100;
+                    ghost.x = obj.entities[i].xp;
+                    ghost.y = obj.entities[i].yp;
+                    ghost.col = obj.entities[i].colour;
+                    ghost.frame = obj.entities[i].drawframe;
+                    ed.ghosts.push_back(ghost);
+                }
+                if (ed.ghosts.size() > 100)
+                {
+                    ed.ghosts.erase(ed.ghosts.begin());
+                }
+            }
         }
     }
 

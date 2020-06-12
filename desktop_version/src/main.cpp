@@ -177,6 +177,11 @@ int main(int argc, char *argv[])
     SDL_SetSurfaceBlendMode(graphics.footerbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(graphics.footerbuffer, 127);
     FillRect(graphics.footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
+
+    graphics.ghostbuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
+    SDL_SetSurfaceBlendMode(graphics.ghostbuffer, SDL_BLENDMODE_BLEND);
+    SDL_SetSurfaceAlphaMod(graphics.ghostbuffer, 127);
+
     graphics.Makebfont();
 
     graphics.foregroundBuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
@@ -301,6 +306,7 @@ int main(int argc, char *argv[])
     volatile Uint32 time, timePrev = 0;
     game.infocus = true;
     key.isActive = true;
+    game.gametimer = 0;
 
     while(!key.quitProgram)
     {
@@ -386,7 +392,7 @@ int main(int argc, char *argv[])
         {
             Mix_Resume(-1);
             Mix_ResumeMusic();
-
+            game.gametimer++;
             switch(game.gamestate)
             {
             case PRELOADER:

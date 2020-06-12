@@ -371,6 +371,7 @@ public:
     std::vector<SDL_GameControllerButton> controllerButton_esc;
 
     bool skipfakeload;
+    bool ghostsenabled;
 
     bool cliplaytest;
     int playx;
@@ -390,6 +391,8 @@ public:
     void returntoeditor();
     bool shouldreturntoeditor;
 #endif
+
+    int gametimer = 0;
 };
 
 extern Game game;

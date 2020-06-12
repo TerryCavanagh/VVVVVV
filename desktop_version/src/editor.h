@@ -75,6 +75,14 @@ private:
 
 };
 
+struct GhostInfo {
+    int rx; // game.roomx-100
+    int ry; // game.roomy-100
+    int x; // .xp
+    int y; // .yp
+    int col; // .colour
+    int frame; // .drawframe
+};
 
 class editorclass{
   //Special class to handle ALL editor variables locally
@@ -228,6 +236,9 @@ class editorclass{
   int dmtileeditor;
 
   int returneditoralpha;
+
+  std::vector<GhostInfo> ghosts;
+  int currentghosts = 0;
 };
 
 void addedentity(int xp, int yp, int tp, int p1=0, int p2=0, int p3=0, int p4=0, int p5=320, int p6=240);
