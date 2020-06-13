@@ -17,7 +17,7 @@ extern "C"
 	);
 }
 
-Screen::Screen()
+void Screen::init()
 {
 	m_window = NULL;
 	m_renderer = NULL;

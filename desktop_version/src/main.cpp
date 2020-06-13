@@ -43,6 +43,7 @@ Game game;
 KeyPoll key;
 mapclass map;
 entityclass obj;
+Screen gameScreen;
 
 bool startinplaytest = false;
 bool savefileplaytest = false;
@@ -121,7 +122,7 @@ int main(int argc, char *argv[])
 
     NETWORK_init();
 
-    Screen gameScreen;
+    gameScreen.init();
 
     printf("\t\t\n");
     printf("\t\t\n");
