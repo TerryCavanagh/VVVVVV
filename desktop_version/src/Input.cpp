@@ -1605,7 +1605,10 @@ void gameinput()
                                 music.fadeout();
 
                                 int player = obj.getplayer();
-                                obj.entities[player].colour = 102;
+                                if (player > -1)
+                                {
+                                    obj.entities[player].colour = 102;
+                                }
 
                                 int teleporter = obj.getteleporter();
                                 if (teleporter > -1)
@@ -1639,7 +1642,10 @@ void gameinput()
                                 music.fadeout();
 
                                 int player = obj.getplayer();
-                                obj.entities[player].colour = 102;
+                                if (player > -1)
+                                {
+                                    obj.entities[player].colour = 102;
+                                }
                                 int companion = obj.getcompanion();
                                 if(companion>-1) obj.entities[companion].colour = 102;
 
@@ -1948,7 +1954,10 @@ void mapinput()
             game.hascontrol = false;
 
             int i = obj.getplayer();
-            obj.entities[i].colour = 102;
+            if (i > -1)
+            {
+                obj.entities[i].colour = 102;
+            }
 
             //which teleporter script do we use? it depends on the companion!
             game.state = 4000;
@@ -2116,7 +2125,10 @@ void teleporterinput()
                 game.hascontrol = false;
 
                 int i = obj.getplayer();
-                obj.entities[i].colour = 102;
+                if (i > -1)
+                {
+                    obj.entities[i].colour = 102;
+                }
 
                 i = obj.getteleporter();
                 if (i > -1)

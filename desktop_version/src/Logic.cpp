@@ -142,7 +142,10 @@ void gamelogic()
             obj.upsetmode = true;
             //change player to sad
             int i = obj.getplayer();
-            obj.entities[i].tile = 144;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 144;
+            }
             music.playef(2);
         }
         if (obj.upset > 301) obj.upset = 301;
@@ -156,7 +159,10 @@ void gamelogic()
             obj.upsetmode = false;
             //change player to happy
             int i = obj.getplayer();
-            obj.entities[i].tile = 0;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 0;
+            }
         }
     }
     else
@@ -199,7 +205,10 @@ void gamelogic()
             else if (map.cameramode == 4)
             {
                 int i = obj.getplayer();
-                map.cameraseek = map.ypos - (obj.entities[i].yp - 120);
+                if (i > -1)
+                {
+                    map.cameraseek = map.ypos - (obj.entities[i].yp - 120);
+                }
 
                 map.cameraseek = map.cameraseek / 10;
                 map.cameraseekframe = 10;
@@ -217,14 +226,14 @@ void gamelogic()
                 {
                     int i = obj.getplayer();
                     map.ypos -= map.cameraseek;
-                    if (map.cameraseek > 0)
+                    if (map.cameraseek > 0 && i > -1)
                     {
                         if (map.ypos < obj.entities[i].yp - 120)
                         {
                             map.ypos = obj.entities[i].yp - 120;
                         }
                     }
-                    else
+                    else if (i > -1)
                     {
                         if (map.ypos > obj.entities[i].yp - 120)
                         {
@@ -237,7 +246,10 @@ void gamelogic()
                 else
                 {
                     int i = obj.getplayer();
-                    map.ypos = obj.entities[i].yp - 120;
+                    if (i > -1)
+                    {
+                        map.ypos = obj.entities[i].yp - 120;
+                    }
                     map.bypos = map.ypos / 2;
                     map.cameramode = 0;
                     map.colsuperstate = 0;
@@ -481,7 +493,7 @@ void gamelogic()
             if (game.roomx == 41 + game.scmprogress)   //he's in the same room
             {
                 int i = obj.getplayer();
-                if (obj.entities[i].ax > 0 && obj.entities[i].xp > 280)
+                if (i > -1 && obj.entities[i].ax > 0 && obj.entities[i].xp > 280)
                 {
                     obj.entities[i].ax = 0;
                     obj.entities[i].dir = 0;
@@ -759,7 +771,7 @@ void gamelogic()
                 //is the player standing on a moving platform?
                 int i = obj.getplayer();
                 float j = obj.entitycollideplatformfloor(i);
-                if (j > -1000)
+                if (i > -1 && j > -1000)
                 {
                     obj.entities[i].newxp = obj.entities[i].xp + j;
                     obj.entitymapcollision(i);
@@ -767,7 +779,7 @@ void gamelogic()
                 else
                 {
                     j = obj.entitycollideplatformroof(i);
-                    if (j > -1000)
+                    if (i > -1 && j > -1000)
                     {
                         obj.entities[i].newxp = obj.entities[i].xp + j;
                         obj.entitymapcollision(i);
@@ -792,7 +804,7 @@ void gamelogic()
             {
                 //special for tower: is the player touching any spike blocks?
                 int player = obj.getplayer();
-                if(obj.checktowerspikes(player) && graphics.fademode==0)
+                if(player > -1 && obj.checktowerspikes(player) && graphics.fademode==0)
                 {
                     game.deathseq = 30;
                 }
@@ -801,7 +813,7 @@ void gamelogic()
             if(map.towermode && game.lifeseq==0)
             {
                 int player = obj.getplayer();
-                if(!map.invincibility)
+                if(!map.invincibility && player > -1)
                 {
                     if (obj.entities[player].yp-map.ypos <= 0)
                     {
@@ -812,7 +824,7 @@ void gamelogic()
                         game.deathseq = 30;
                     }
                 }
-                else
+                else if (player > -1)
                 {
                     if (obj.entities[player].yp-map.ypos <= 0)
                     {
@@ -828,7 +840,7 @@ void gamelogic()
                     }
                 }
 
-                if (obj.entities[player].yp - map.ypos <= 40)
+                if (player > -1 && obj.entities[player].yp - map.ypos <= 40)
                 {
                     map.spikeleveltop++;
                     if (map.spikeleveltop >= 8) map.spikeleveltop = 8;
@@ -838,7 +850,7 @@ void gamelogic()
                     if (map.spikeleveltop > 0) map.spikeleveltop--;
                 }
 
-                if (obj.entities[player].yp - map.ypos >= 164)
+                if (player > -1 && obj.entities[player].yp - map.ypos >= 164)
                 {
                     map.spikelevelbottom++;
                     if (map.spikelevelbottom >= 8) map.spikelevelbottom = 8;
@@ -860,7 +872,7 @@ void gamelogic()
             obj.customwarpmodevon = false;
 
             int i = obj.getplayer();
-            if ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16)){
+            if (i > -1 && ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16))){
             //Player is leaving room
             obj.customwarplinecheck(i);
         }
@@ -955,12 +967,12 @@ void gamelogic()
         {
             //Normal! Just change room
             int player = obj.getplayer();
-            if (game.door_down > -2 && obj.entities[player].yp >= 238)
+            if (player > -1 && game.door_down > -2 && obj.entities[player].yp >= 238)
             {
                 obj.entities[player].yp -= 240;
                 map.gotoroom(game.roomx, game.roomy + 1);
             }
-            if (game.door_up > -2 && obj.entities[player].yp < -2)
+            if (player > -1 && game.door_up > -2 && obj.entities[player].yp < -2)
             {
                 obj.entities[player].yp += 240;
                 map.gotoroom(game.roomx, game.roomy - 1);
@@ -971,12 +983,12 @@ void gamelogic()
         {
             //Normal! Just change room
             int player = obj.getplayer();
-            if (game.door_left > -2 && obj.entities[player].xp < -14)
+            if (player > -1 && game.door_left > -2 && obj.entities[player].xp < -14)
             {
                 obj.entities[player].xp += 320;
                 map.gotoroom(game.roomx - 1, game.roomy);
             }
-            if (game.door_right > -2 && obj.entities[player].xp >= 308)
+            if (player > -1 && game.door_right > -2 && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
                 map.gotoroom(game.roomx + 1, game.roomy);
@@ -990,12 +1002,12 @@ void gamelogic()
             {
                 //This is minitower 1!
                 int player = obj.getplayer();
-                if (game.door_left > -2 && obj.entities[player].xp < -14)
+                if (player > -1 && game.door_left > -2 && obj.entities[player].xp < -14)
                 {
                     obj.entities[player].xp += 320;
                     map.gotoroom(48, 52);
                 }
-                if (game.door_right > -2 && obj.entities[player].xp >= 308)
+                if (player > -1 && game.door_right > -2 && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
                     obj.entities[player].yp -= (71*8);
@@ -1006,7 +1018,7 @@ void gamelogic()
             {
                 //This is minitower 2!
                 int player = obj.getplayer();
-                if (game.door_left > -2 && obj.entities[player].xp < -14)
+                if (player > -1 && game.door_left > -2 && obj.entities[player].xp < -14)
                 {
                     if (obj.entities[player].yp > 300)
                     {
@@ -1020,7 +1032,7 @@ void gamelogic()
                         map.gotoroom(50, 53);
                     }
                 }
-                if (game.door_right > -2 && obj.entities[player].xp >= 308)
+                if (player > -1 && game.door_right > -2 && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
                     map.gotoroom(52, 53);
@@ -1051,13 +1063,13 @@ void gamelogic()
             {
                 //Do not wrap! Instead, go to the correct room
                 int player = obj.getplayer();
-                if (game.door_left > -2 && obj.entities[player].xp < -14)
+                if (player > -1 && game.door_left > -2 && obj.entities[player].xp < -14)
                 {
                     obj.entities[player].xp += 320;
                     obj.entities[player].yp -= (671 * 8);
                     map.gotoroom(108, 109);
                 }
-                if (game.door_right > -2 && obj.entities[player].xp >= 308)
+                if (player > -1 && game.door_right > -2 && obj.entities[player].xp >= 308)
                 {
                     obj.entities[player].xp -= 320;
                     map.gotoroom(110, 104);
@@ -1090,42 +1102,60 @@ void gamelogic()
                 if (game.roomx == 117 && game.roomy == 102)
                 {
                     int i = obj.getplayer();
-                    obj.entities[i].yp = 225;
+                    if (i > -1)
+                    {
+                        obj.entities[i].yp = 225;
+                    }
                     map.gotoroom(119, 100);
                     game.teleport = false;
                 }
                 else if (game.roomx == 119 && game.roomy == 100)
                 {
                     int i = obj.getplayer();
-                    obj.entities[i].yp = 225;
+                    if (i > -1)
+                    {
+                        obj.entities[i].yp = 225;
+                    }
                     map.gotoroom(119, 103);
                     game.teleport = false;
                 }
                 else if (game.roomx == 119 && game.roomy == 103)
                 {
                     int i = obj.getplayer();
-                    obj.entities[i].xp = 0;
+                    if (i > -1)
+                    {
+                        obj.entities[i].xp = 0;
+                    }
                     map.gotoroom(116, 103);
                     game.teleport = false;
                 }
                 else if (game.roomx == 116 && game.roomy == 103)
                 {
                     int i = obj.getplayer();
-                    obj.entities[i].yp = 225;
+                    if (i > -1)
+                    {
+                        obj.entities[i].yp = 225;
+                    }
                     map.gotoroom(116, 100);
                     game.teleport = false;
                 }
                 else if (game.roomx == 116 && game.roomy == 100)
                 {
                     int i = obj.getplayer();
-                    obj.entities[i].xp = 0;
+                    if (i > -1)
+                    {
+                        obj.entities[i].xp = 0;
+                    }
                     map.gotoroom(114, 102);
                     game.teleport = false;
                 }
                 else if (game.roomx == 114 && game.roomy == 102)
                 {
                     int i = obj.getplayer();
-                    obj.entities[i].yp = 225;
+                    if (i > -1)
+                    {
+                        obj.entities[i].yp = 225;
+                    }
                     map.gotoroom(113, 100);
                     game.teleport = false;
                 }
@@ -1187,9 +1217,9 @@ void gamelogic()
     {
         //We've changed room? Let's bring our companion along!
         game.roomchange = false;
-        if (game.companion > 0)
+        int i = obj.getplayer();
+        if (game.companion > 0 && i > -1)
         {
-            int i = obj.getplayer();
             //ok, we'll presume our companion has been destroyed in the room change. So:
             switch(game.companion)
             {
@@ -1355,7 +1385,10 @@ void gamelogic()
     if (game.activetele)
     {
         int i = obj.getplayer();
-        obj.settemprect(i);
+        if (i > -1)
+        {
+            obj.settemprect(i);
+        }
         if (help.intersects(game.teleblock, obj.temprect))
         {
             game.readytotele += 25;
