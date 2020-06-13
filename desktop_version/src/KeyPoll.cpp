@@ -68,7 +68,7 @@ void KeyPoll::disabletextentry()
 	SDL_StopTextInput();
 }
 
-void KeyPoll::Poll(Screen *screen)
+void KeyPoll::Poll()
 {
 	SDL_Event evt;
 	while (SDL_PollEvent(&evt))
@@ -248,7 +248,7 @@ void KeyPoll::Poll(Screen *screen)
 				{
 					if (wasFullscreen)
 					{
-						screen->isWindowed = false;
+						gameScreen.isWindowed = false;
 						SDL_SetWindowFullscreen(
 							SDL_GetWindowFromID(evt.window.windowID),
 							SDL_WINDOW_FULLSCREEN_DESKTOP
@@ -262,8 +262,8 @@ void KeyPoll::Poll(Screen *screen)
 				isActive = false;
 				if (!useFullscreenSpaces)
 				{
-					wasFullscreen = !screen->isWindowed;
-					screen->isWindowed = true;
+					wasFullscreen = !gameScreen.isWindowed;
+					gameScreen.isWindowed = true;
 					SDL_SetWindowFullscreen(
 						SDL_GetWindowFromID(evt.window.windowID),
 						0

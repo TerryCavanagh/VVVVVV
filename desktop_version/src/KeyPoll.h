@@ -54,7 +54,7 @@ public:
 
 	void disabletextentry();
 
-	void Poll(Screen *screen);
+	void Poll();
 
 	bool isDown(SDL_Keycode key);
 
