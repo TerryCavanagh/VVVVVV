@@ -6,7 +6,7 @@
 class Screen
 {
 public:
-	Screen();
+	void init();
 
 	void ResizeScreen(int x, int y);
 	void GetWindowSize(int* x, int* y);
@@ -33,6 +33,6 @@ public:
 	SDL_Rect filterSubrect;
 };
 
-
+extern Screen gameScreen;
 
 #endif /* SCREEN_H */
