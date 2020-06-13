@@ -1226,8 +1226,11 @@ void gamelogic()
             case 6:
                 obj.createentity(obj.entities[i].xp, 121.0f, 15.0f,1);  //Y=121, the floor in that particular place!
                 j = obj.getcompanion();
-                obj.entities[j].vx = obj.entities[i].vx;
-                obj.entities[j].dir = obj.entities[i].dir;
+                if (j > -1)
+                {
+                    obj.entities[j].vx = obj.entities[i].vx;
+                    obj.entities[j].dir = obj.entities[i].dir;
+                }
                 break;
             case 7:
                 if (game.roomy <= 105)   //don't jump after him!
@@ -1241,8 +1244,11 @@ void gamelogic()
                         obj.createentity(obj.entities[i].xp, 86.0f, 16.0f, 1);  //Y=86, the ROOF in that particular place!
                     }
                     j = obj.getcompanion();
-                    obj.entities[j].vx = obj.entities[i].vx;
-                    obj.entities[j].dir = obj.entities[i].dir;
+                    if (j > -1)
+                    {
+                        obj.entities[j].vx = obj.entities[i].vx;
+                        obj.entities[j].dir = obj.entities[i].dir;
+                    }
                 }
                 break;
             case 8:
@@ -1252,15 +1258,21 @@ void gamelogic()
                     {
                         obj.createentity(310, 177, 17, 1);
                         j = obj.getcompanion();
-                        obj.entities[j].vx = obj.entities[i].vx;
-                        obj.entities[j].dir = obj.entities[i].dir;
+                        if (j > -1)
+                        {
+                            obj.entities[j].vx = obj.entities[i].vx;
+                            obj.entities[j].dir = obj.entities[i].dir;
+                        }
                     }
                     else
                     {
                         obj.createentity(obj.entities[i].xp, 177.0f, 17.0f, 1);
                         j = obj.getcompanion();
-                        obj.entities[j].vx = obj.entities[i].vx;
-                        obj.entities[j].dir = obj.entities[i].dir;
+                        if (j > -1)
+                        {
+                            obj.entities[j].vx = obj.entities[i].vx;
+                            obj.entities[j].dir = obj.entities[i].dir;
+                        }
                     }
                 }
                 break;
@@ -1276,8 +1288,11 @@ void gamelogic()
                         obj.createentity(obj.entities[i].xp, 185.0f, 18.0f, 15, 0, 1);
                     }
                     j = obj.getcompanion();
-                    obj.entities[j].vx = obj.entities[i].vx;
-                    obj.entities[j].dir = obj.entities[i].dir;
+                    if (j > -1)
+                    {
+                        obj.entities[j].vx = obj.entities[i].vx;
+                        obj.entities[j].dir = obj.entities[i].dir;
+                    }
                 }
                 break;
             case 10:
@@ -1288,8 +1303,11 @@ void gamelogic()
                     {
                         obj.createentity(225.0f, 169.0f, 18, graphics.crewcolour(game.lastsaved), 0, 10);
                         j = obj.getcompanion();
-                        obj.entities[j].vx = obj.entities[i].vx;
-                        obj.entities[j].dir = obj.entities[i].dir;
+                        if (j > -1)
+                        {
+                            obj.entities[j].vx = obj.entities[i].vx;
+                            obj.entities[j].dir = obj.entities[i].dir;
+                        }
                     }
                 }
                 else	if (game.roomy >= 52)
@@ -1298,16 +1316,22 @@ void gamelogic()
                     {
                         obj.createentity(160.0f, 177.0f, 18, graphics.crewcolour(game.lastsaved), 0, 18, 1);
                         j = obj.getcompanion();
-                        obj.entities[j].vx = obj.entities[i].vx;
-                        obj.entities[j].dir = obj.entities[i].dir;
+                        if (j > -1)
+                        {
+                            obj.entities[j].vx = obj.entities[i].vx;
+                            obj.entities[j].dir = obj.entities[i].dir;
+                        }
                     }
                     else
                     {
                         obj.flags[59] = true;
                         obj.createentity(obj.entities[i].xp, -20.0f, 18.0f, graphics.crewcolour(game.lastsaved), 0, 10, 0);
                         j = obj.getcompanion();
-                        obj.entities[j].vx = obj.entities[i].vx;
-                        obj.entities[j].dir = obj.entities[i].dir;
+                        if (j > -1)
+                        {
+                            obj.entities[j].vx = obj.entities[i].vx;
+                            obj.entities[j].dir = obj.entities[i].dir;
+                        }
                     }
                 }
                 break;
