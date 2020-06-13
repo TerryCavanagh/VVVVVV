@@ -545,11 +545,11 @@ int main(int argc, char *argv[])
             }
         }
 
-		if(key.resetWindow)
-		{
-			key.resetWindow = false;
-			gameScreen.ResizeScreen(-1, -1);
-		}
+        if(key.resetWindow)
+        {
+            key.resetWindow = false;
+            gameScreen.ResizeScreen(-1, -1);
+        }
 
         music.processmusic();
         graphics.processfade();
