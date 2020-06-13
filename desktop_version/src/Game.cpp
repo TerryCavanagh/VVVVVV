@@ -2157,6 +2157,7 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 2502:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
@@ -2165,17 +2166,25 @@ void Game::updatestate()
             obj.entities[i].colour = 0;
             obj.entities[i].invis = false;
 
-            obj.entities[i].xp = obj.entities[obj.getteleporter()].xp+44;
-            obj.entities[i].yp = obj.entities[obj.getteleporter()].yp+44;
+            int j = obj.getteleporter();
+            if (j > -1)
+            {
+                obj.entities[i].xp = obj.entities[j].xp+44;
+                obj.entities[i].yp = obj.entities[j].yp+44;
+            }
             obj.entities[i].ay = -6;
             obj.entities[i].ax = 6;
             obj.entities[i].vy = -6;
             obj.entities[i].vx = 6;
 
             i = obj.getteleporter();
-            obj.entities[i].tile = 1;
-            obj.entities[i].colour = 101;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 1;
+                obj.entities[i].colour = 101;
+            }
             break;
+        }
         case 2503:
             state++;
             i = obj.getplayer();
@@ -2316,8 +2325,11 @@ void Game::updatestate()
             }
 
             i = obj.getteleporter();
-            obj.entities[i].tile = 1;
-            obj.entities[i].colour = 100;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 1;
+                obj.entities[i].colour = 100;
+            }
             break;
 
         case 3006:
@@ -3517,8 +3529,11 @@ void Game::updatestate()
             }
             i = obj.getteleporter();
             activetele = true;
-            teleblock.x = obj.entities[i].xp - 32;
-            teleblock.y = obj.entities[i].yp - 32;
+            if (i > -1)
+            {
+                teleblock.x = obj.entities[i].xp - 32;
+                teleblock.y = obj.entities[i].yp - 32;
+            }
             teleblock.w = 160;
             teleblock.h = 160;
             hascontrol = true;
