@@ -1689,6 +1689,7 @@ void gamelogic()
                     ghost.x = obj.entities[i].xp;
                     ghost.y = obj.entities[i].yp;
                     ghost.col = obj.entities[i].colour;
+                    ghost.realcol = obj.entities[i].realcol;
                     ghost.frame = obj.entities[i].drawframe;
                 }
                 ed.ghosts.push_back(ghost);

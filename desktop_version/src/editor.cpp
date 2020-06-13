@@ -2889,7 +2889,7 @@ void editorrender()
                 point tpoint;
                 tpoint.x = ed.ghosts[i].x;
                 tpoint.y = ed.ghosts[i].y;
-                graphics.setcol(ed.ghosts[i].col);
+                graphics.setcolreal(ed.ghosts[i].realcol);
                 Uint32 alpha = graphics.ct.colour & graphics.backBuffer->format->Amask;
                 Uint32 therest = graphics.ct.colour & 0x00FFFFFF;
                 alpha = (3 * (alpha >> 24) / 4) << 24;
@@ -3621,6 +3621,19 @@ void editorlogic()
 
     if (game.ghostsenabled)
     {
+        for (size_t i = 0; i < ed.ghosts.size(); i++)
+        {
+            GhostInfo& ghost = ed.ghosts[i];
+
+            if ((int) i > ed.currentghosts || ghost.rx != ed.levx || ghost.ry != ed.levy)
+            {
+                continue;
+            }
+
+            graphics.setcol(ghost.col);
+            ghost.realcol = graphics.ct.colour;
+        }
+
         if (ed.currentghosts + 1 < (int)ed.ghosts.size()) {
             ed.currentghosts++;
             if (ed.zmod) ed.currentghosts++;
