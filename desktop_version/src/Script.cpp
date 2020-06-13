@@ -1097,8 +1097,11 @@ void scriptclass::run()
 			else if (words[0] == "activateteleporter")
 			{
 				i = obj.getteleporter();
-				obj.entities[i].tile = 6;
-				obj.entities[i].colour = 102;
+				if (i > -1)
+				{
+					obj.entities[i].tile = 6;
+					obj.entities[i].colour = 102;
+				}
 			}
 			else if (words[0] == "changecolour")
 			{
@@ -1835,7 +1838,10 @@ void scriptclass::run()
 			else if (words[0] == "activeteleporter")
 			{
 				i = obj.getteleporter();
-				obj.entities[i].colour = 101;
+				if (i > -1)
+				{
+					obj.entities[i].colour = 101;
+				}
 			}
 			else if (words[0] == "foundtrinket")
 			{
@@ -3290,12 +3296,18 @@ void scriptclass::teleport()
 	game.gravitycontrol = 0;
 	map.gotoroom(100+game.teleport_to_x, 100+game.teleport_to_y);
 	j = obj.getteleporter();
-	obj.entities[j].state = 2;
+	if (j > -1)
+	{
+		obj.entities[j].state = 2;
+	}
 	game.teleport_to_new_area = false;
 
-	game.savepoint = obj.entities[j].para;
-	game.savex = obj.entities[j].xp + 44;
-	game.savey = obj.entities[j].yp + 44;
+	if (j > -1)
+	{
+		game.savepoint = obj.entities[j].para;
+		game.savex = obj.entities[j].xp + 44;
+		game.savey = obj.entities[j].yp + 44;
+	}
 	game.savegc = 0;
 
 	game.saverx = game.roomx;
