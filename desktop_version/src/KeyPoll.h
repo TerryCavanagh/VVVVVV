@@ -7,6 +7,8 @@
 
 #include "SDL.h"
 
+#include "Screen.h"
+
 enum Kybrd
 {
 	KEYBOARD_UP = SDLK_UP,
@@ -52,7 +54,7 @@ public:
 
 	void disabletextentry();
 
-	void Poll();
+	void Poll(Screen *screen);
 
 	bool isDown(SDL_Keycode key);
 
