@@ -391,6 +391,10 @@ void musicclass::changemusicarea(int x, int y)
 
 void musicclass::playef(int t)
 {
+	if (t < 0 || t >= (int) soundTracks.size())
+	{
+		return;
+	}
 	int channel;
 
 	channel = Mix_PlayChannel(-1, soundTracks[t].sound, 0);
