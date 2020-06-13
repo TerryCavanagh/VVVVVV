@@ -825,8 +825,11 @@ void mapclass::warpto(int rx, int ry , int t, int tx, int ty)
 {
 	gotoroom(rx, ry);
 	game.teleport = false;
-	obj.entities[t].xp = tx * 8;
-	obj.entities[t].yp = (ty * 8) - obj.entities[t].h;
+	if (t >= 0 && t < (int) obj.entities.size())
+	{
+		obj.entities[t].xp = tx * 8;
+		obj.entities[t].yp = (ty * 8) - obj.entities[t].h;
+	}
 	game.gravitycontrol = 0;
 }
 
@@ -1191,7 +1194,10 @@ void mapclass::loadlevel(int rx, int ry)
 			{
 				//entered from ground floor
 				int player = obj.getplayer();
-				obj.entities[player].yp += (671 * 8);
+				if (player > -1)
+				{
+					obj.entities[player].yp += (671 * 8);
+				}
 
 				ypos = (700-29) * 8;
 				bypos = ypos / 2;
@@ -1392,7 +1398,10 @@ void mapclass::loadlevel(int rx, int ry)
 		tower.loadminitower1();
 
 		int i = obj.getplayer();
-		obj.entities[i].yp += (71 * 8);
+		if (i > -1)
+		{
+			obj.entities[i].yp += (71 * 8);
+		}
 		game.roomy--;
 		finaly--;
 
@@ -1433,7 +1442,10 @@ void mapclass::loadlevel(int rx, int ry)
 		obj.createentity(72, 156, 11, 200); // (horizontal gravity line)
 
 		int i = obj.getplayer();
-		obj.entities[i].yp += (71 * 8);
+		if (i > -1)
+		{
+			obj.entities[i].yp += (71 * 8);
+		}
 		game.roomy--;
 		finaly--;
 
@@ -1907,11 +1919,11 @@ void mapclass::loadlevel(int rx, int ry)
 			{
 				//face the player
 				j = obj.getplayer();
-				if (obj.entities[j].xp > obj.entities[i].xp + 5)
+				if (j > -1 && obj.entities[j].xp > obj.entities[i].xp + 5)
 				{
 					obj.entities[i].dir = 1;
 				}
-				else if (obj.entities[j].xp < obj.entities[i].xp - 5)
+				else if (j > -1 && obj.entities[j].xp < obj.entities[i].xp - 5)
 				{
 					obj.entities[i].dir = 0;
 				}

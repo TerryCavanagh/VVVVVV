@@ -1394,10 +1394,13 @@ void gamerender()
                     GhostInfo ghost;
                     ghost.rx = game.roomx-100;
                     ghost.ry = game.roomy-100;
-                    ghost.x = obj.entities[i].xp;
-                    ghost.y = obj.entities[i].yp;
-                    ghost.col = obj.entities[i].colour;
-                    ghost.frame = obj.entities[i].drawframe;
+                    if (i > -1)
+                    {
+                        ghost.x = obj.entities[i].xp;
+                        ghost.y = obj.entities[i].yp;
+                        ghost.col = obj.entities[i].colour;
+                        ghost.frame = obj.entities[i].drawframe;
+                    }
                     ed.ghosts.push_back(ghost);
                 }
                 if (ed.ghosts.size() > 100)
