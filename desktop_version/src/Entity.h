@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 
-#define removeentity_iter(index) { obj.removeentity(index); index--; }
+#define removeentity_iter(index) { if (obj.removeentity(index)) index--; }
 #define removeblock_iter(index) { obj.removeblock(index); index--; }
 
 enum
@@ -55,7 +55,7 @@ public:
 
     void createblock(int t, int xp, int yp, int w, int h, int trig = 0);
 
-    void removeentity(int t);
+    bool removeentity(int t);
 
     void removeallblocks();
 
