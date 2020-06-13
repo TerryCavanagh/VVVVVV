@@ -1533,8 +1533,11 @@ void Game::updatestate()
 
             companion = 6;
             i = obj.getcompanion();
-            obj.entities[i].tile = 0;
-            obj.entities[i].state = 1;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 0;
+                obj.entities[i].state = 1;
+            }
 
             advancetext = true;
             hascontrol = false;
@@ -1559,8 +1562,11 @@ void Game::updatestate()
             music.playef(2);
             graphics.textboxactive();
             i = obj.getcompanion();
-            obj.entities[i].tile = 54;
-            obj.entities[i].state = 0;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 54;
+                obj.entities[i].state = 0;
+            }
         }
         break;
         case 108:
@@ -1574,8 +1580,11 @@ void Game::updatestate()
         {
 
             i = obj.getcompanion();
-            obj.entities[i].tile = 0;
-            obj.entities[i].state = 1;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 0;
+                obj.entities[i].state = 1;
+            }
             graphics.createtextbox("Follow me!", 185, 154, 164, 164, 255);
             state++;
             music.playef(11);
@@ -1649,8 +1658,11 @@ void Game::updatestate()
         case 122:
             companion = 7;
             i = obj.getcompanion();
-            obj.entities[i].tile = 6;
-            obj.entities[i].state = 1;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 6;
+                obj.entities[i].state = 1;
+            }
 
             advancetext = true;
             hascontrol = false;
@@ -1665,7 +1677,7 @@ void Game::updatestate()
             state++;
             music.playef(2);
             graphics.textboxactive();
-            i = obj.getcompanion();	//obj.entities[i].tile = 66;	obj.entities[i].state = 0;
+            i = obj.getcompanion(); if (i > -1) {	/*obj.entities[i].tile = 66;	obj.entities[i].state = 0;*/	}
             break;
         case 126:
             graphics.createtextbox("I can help with that!", 125, 152-40, 164, 164, 255);
@@ -1687,8 +1699,11 @@ void Game::updatestate()
             music.playef(14);
             graphics.textboxactive();
             i = obj.getcompanion();
-            obj.entities[i].tile = 6;
-            obj.entities[i].state = 1;
+            if (i > -1)
+            {
+                obj.entities[i].tile = 6;
+                obj.entities[i].state = 1;
+            }
             break;
         case 132:
             graphics.textboxremove();
