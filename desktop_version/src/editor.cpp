@@ -2900,12 +2900,6 @@ void editorrender()
                 BlitSurfaceColoured(graphics.sprites[ed.ghosts[i].frame],NULL, graphics.ghostbuffer, &drawRect, graphics.ct);
             }
         }
-        if (ed.currentghosts + 1 < (int)ed.ghosts.size()) {
-            ed.currentghosts++;
-            if (ed.zmod) ed.currentghosts++;
-        } else {
-            ed.currentghosts = (int)ed.ghosts.size() - 1;
-        }
         SDL_BlitSurface(graphics.ghostbuffer, NULL, graphics.backBuffer, &graphics.bg_rect);
     }
 
@@ -3623,6 +3617,16 @@ void editorlogic()
     if(ed.notedelay>0)
     {
         ed.notedelay--;
+    }
+
+    if (game.ghostsenabled)
+    {
+        if (ed.currentghosts + 1 < (int)ed.ghosts.size()) {
+            ed.currentghosts++;
+            if (ed.zmod) ed.currentghosts++;
+        } else {
+            ed.currentghosts = (int)ed.ghosts.size() - 1;
+        }
     }
 
     if (!ed.settingsmod)
