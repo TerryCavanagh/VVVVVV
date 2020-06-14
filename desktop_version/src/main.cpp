@@ -64,6 +64,7 @@ volatile Uint32 f_timePrev = 0;
 volatile Uint32 f_accumulator = 0;
 
 void gameloop();
+void deltaloop();
 
 int main(int argc, char *argv[])
 {
@@ -353,6 +354,12 @@ void gameloop()
         timePrev = time_;
         time_ = SDL_GetTicks();
 
+        deltaloop();
+    }
+}
+
+void deltaloop()
+{
         game.infocus = key.isActive;
 
         // Update network per frame.
@@ -639,5 +646,4 @@ void gameloop()
             }
             gameScreen.FlipScreen();
         }
-    }
 }
