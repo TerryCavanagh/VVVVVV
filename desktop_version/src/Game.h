@@ -393,6 +393,11 @@ public:
 #endif
 
     int gametimer;
+
+    bool inline inspecial()
+    {
+        return inintermission || insecretlab || intimetrial || nodeathmode;
+    }
 };
 
 extern Game game;
