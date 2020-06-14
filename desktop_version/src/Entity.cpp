@@ -4582,6 +4582,8 @@ void entityclass::customwarplinecheck(int i) {
 
 void entityclass::entitycollisioncheck()
 {
+    std::vector<SDL_Surface*>& spritesvec = graphics.flipmode ? graphics.flipsprites : graphics.sprites;
+
     for (size_t i = 0; i < entities.size(); i++)
     {
         //We test entity to entity
@@ -4601,23 +4603,11 @@ void entityclass::entitycollisioncheck()
                             colpoint1.y = entities[i].yp;
                             colpoint2.x = entities[j].xp;
                             colpoint2.y = entities[j].yp;
-                            if (graphics.flipmode)
+                            if (graphics.Hitest(spritesvec[entities[i].drawframe],
+                                             colpoint1, spritesvec[entities[j].drawframe], colpoint2))
                             {
-                                if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
-                                                 colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
-                                {
-                                    //Do the collision stuff
-                                    game.deathseq = 30;
-                                }
-                            }
-                            else
-                            {
-                                if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
-                                                 colpoint1, graphics.sprites[entities[j].drawframe], colpoint2) )
-                                {
-                                    //Do the collision stuff
-                                    game.deathseq = 30;
-                                }
+                                //Do the collision stuff
+                                game.deathseq = 30;
                             }
                         }
                         else
@@ -4713,25 +4703,12 @@ void entityclass::entitycollisioncheck()
                                     colpoint1.y = entities[i].yp;
                                     colpoint2.x = entities[j].xp;
                                     colpoint2.y = entities[j].yp;
-                                    if (graphics.flipmode)
+                                    if (graphics.Hitest(spritesvec[entities[i].drawframe],
+                                                     colpoint1, spritesvec[entities[j].drawframe], colpoint2))
                                     {
-                                        if (graphics.Hitest(graphics.flipsprites[entities[i].drawframe],
-                                                         colpoint1, graphics.flipsprites[entities[j].drawframe], colpoint2))
-                                        {
-                                            //Do the collision stuff
-                                            game.deathseq = 30;
-                                            game.scmhurt = true;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (graphics.Hitest(graphics.sprites[entities[i].drawframe],
-                                                         colpoint1, graphics.sprites[entities[j].drawframe], colpoint2))
-                                        {
-                                            //Do the collision stuff
-                                            game.deathseq = 30;
-                                            game.scmhurt = true;
-                                        }
+                                        //Do the collision stuff
+                                        game.deathseq = 30;
+                                        game.scmhurt = true;
                                     }
                                 }
                                 else
