@@ -1443,7 +1443,7 @@ void Graphics::drawentities()
     SDL_Rect drawRect;
 
     std::vector<SDL_Surface*> *tilesvec;
-    if (map.custommode)
+    if (map.custommode && !map.finalmode)
     {
         tilesvec = &entcolours;
     }
