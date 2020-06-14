@@ -5916,7 +5916,7 @@ void Game::savetele()
 {
     //TODO make this code a bit cleaner.
 
-    if (map.custommode)
+    if (map.custommode || inspecial())
     {
         //Don't trash save data!
         return;
@@ -6112,7 +6112,7 @@ void Game::savetele()
 
 void Game::savequick()
 {
-    if (map.custommode)
+    if (map.custommode || inspecial())
     {
         //Don't trash save data!
         return;
