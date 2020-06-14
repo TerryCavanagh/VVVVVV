@@ -65,6 +65,7 @@ volatile Uint32 f_accumulator = 0;
 
 void gameloop();
 void deltaloop();
+void fixedloop();
 
 int main(int argc, char *argv[])
 {
@@ -387,6 +388,50 @@ void deltaloop()
     {
         accumulator = fmodf(accumulator, timesteplimit);
 
+        fixedloop();
+    }
+    const float alpha = game.over30mode ? static_cast<float>(accumulator) / timesteplimit : 1.0f;
+    graphics.alpha = alpha;
+
+    if (game.infocus)
+    {
+        switch (game.gamestate)
+        {
+        case PRELOADER:
+            preloaderrender();
+            break;
+        case EDITORMODE:
+            graphics.flipmode = false;
+            editorrender();
+            break;
+        case TITLEMODE:
+            titlerender();
+            break;
+        case GAMEMODE:
+            gamerender();
+            break;
+        case MAPMODE:
+            maprender();
+            break;
+        case TELEPORTERMODE:
+            teleporterrender();
+            break;
+        case GAMECOMPLETE:
+            gamecompleterender();
+            break;
+        case GAMECOMPLETE2:
+            gamecompleterender2();
+            break;
+        case CLICKTOSTART:
+            help.updateglow();
+            break;
+        }
+        gameScreen.FlipScreen();
+    }
+}
+
+void fixedloop()
+{
         key.Poll();
         if(key.toggleFullscreen)
         {
@@ -607,43 +652,4 @@ void deltaloop()
         music.processmusic();
         graphics.processfade();
         game.gameclock();
-    }
-    const float alpha = game.over30mode ? static_cast<float>(accumulator) / timesteplimit : 1.0f;
-    graphics.alpha = alpha;
-
-    if (game.infocus)
-    {
-        switch (game.gamestate)
-        {
-        case PRELOADER:
-            preloaderrender();
-            break;
-        case EDITORMODE:
-            graphics.flipmode = false;
-            editorrender();
-            break;
-        case TITLEMODE:
-            titlerender();
-            break;
-        case GAMEMODE:
-            gamerender();
-            break;
-        case MAPMODE:
-            maprender();
-            break;
-        case TELEPORTERMODE:
-            teleporterrender();
-            break;
-        case GAMECOMPLETE:
-            gamecompleterender();
-            break;
-        case GAMECOMPLETE2:
-            gamecompleterender2();
-            break;
-        case CLICKTOSTART:
-            help.updateglow();
-            break;
-        }
-        gameScreen.FlipScreen();
-    }
 }
