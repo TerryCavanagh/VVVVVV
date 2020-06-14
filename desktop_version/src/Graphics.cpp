@@ -102,8 +102,6 @@ void Graphics::init()
     foregroundBuffer = NULL;
     backgrounddrawn = false;
     images_rect = SDL_Rect();
-    j = 0;
-    k = 0;
     m = 0;
     linedelay = 0;
     menubuffer = NULL;
@@ -618,14 +616,14 @@ void Graphics::drawgui()
         {
             if(flipmode)
             {
-                for (j = 0; j < (int) textbox[i].line.size(); j++)
+                for (size_t j = 0; j < textbox[i].line.size(); j++)
                 {
                     Print(textbox[i].xp + 8, textbox[i].yp + (textbox[i].line.size()*8) - (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
                 }
             }
             else
             {
-                for (j = 0; j < (int) textbox[i].line.size(); j++)
+                for (size_t j = 0; j < textbox[i].line.size(); j++)
                 {
                     Print(textbox[i].xp + 8, textbox[i].yp + 8 + (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
                 }
@@ -653,14 +651,14 @@ void Graphics::drawgui()
 
             if(flipmode)
             {
-                for (j = 0; j < (int) textbox[i].line.size(); j++)
+                for (size_t j = 0; j < textbox[i].line.size(); j++)
                 {
                     Print(textbox[i].xp + 8, textbox[i].yp  + (textbox[i].line.size()*8) - (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
                 }
             }
             else
             {
-                for (j = 0; j < (int) textbox[i].line.size(); j++)
+                for (size_t j = 0; j < textbox[i].line.size(); j++)
                 {
                     Print(textbox[i].xp + 8, textbox[i].yp +8 + (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
                 }
@@ -922,13 +920,13 @@ void Graphics::drawpixeltextbox( int x, int y, int w, int h, int w2, int h2, int
     //madrect.x = x; madrect.y = y; madrect.w = w; madrect.h = h;
     FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
 
-    for (k = 0; k < w2-2; k++)
+    for (int k = 0; k < w2-2; k++)
     {
         drawcoloredtile(x + 8-xo + (k * 8), y, 41, r, g, b);
         drawcoloredtile(x + 8-xo + (k * 8), y + (h) - 8, 46, r, g, b);
     }
 
-    for (k = 0; k < h2-2; k++)
+    for (int k = 0; k < h2-2; k++)
     {
         drawcoloredtile(x, y + 8-yo + (k * 8), 43, r, g, b);
         drawcoloredtile(x + (w) - 8, y + 8-yo + (k * 8), 44, r, g, b);
@@ -946,7 +944,7 @@ void Graphics::drawcustompixeltextbox( int x, int y, int w, int h, int w2, int h
 
     FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
 
-    for (k = 0; k < w2-2; k++)
+    for (int k = 0; k < w2-2; k++)
     {
         drawcoloredtile(x + 8-xo + (k * 8), y, 41, r, g, b);
         drawcoloredtile(x + 8-xo + (k * 8), y + (h) - 8, 46, r, g, b);
@@ -958,7 +956,7 @@ void Graphics::drawcustompixeltextbox( int x, int y, int w, int h, int w2, int h
     drawcoloredtile(x+ (w) - 24, y, 41, r, g, b);
     drawcoloredtile(x+ (w) - 24, y + (h) - 8, 46, r, g, b);
 
-    for (k = 0; k < h2-2; k++)
+    for (int k = 0; k < h2-2; k++)
     {
         drawcoloredtile(x, y + 8-yo + (k * 8), 43, r, g, b);
         drawcoloredtile(x + (w) - 8, y + 8-yo + (k * 8), 44, r, g, b);
@@ -2021,7 +2019,7 @@ void Graphics::drawbackground( int t )
             //draw the whole thing for the first time!
             backoffset = 0;
             FillRect(towerbuffer,0x000000 );
-            for (j = 0; j < 15; j++)
+            for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 21; i++)
                 {
@@ -2163,7 +2161,7 @@ void Graphics::drawmap()
         FillRect(foregroundBuffer, 0x00000000);
         if(map.tileset==0)
         {
-            for (j = 0; j < 30; j++)
+            for (int j = 0; j < 30; j++)
             {
                 for (int i = 0; i < 40; i++)
                 {
@@ -2183,7 +2181,7 @@ void Graphics::drawmap()
         }
         else if (map.tileset == 2)
         {
-            for (j = 0; j < 30; j++)
+            for (int j = 0; j < 30; j++)
             {
                 for (int i = 0; i < 40; i++)
                 {
@@ -2254,7 +2252,7 @@ void Graphics::drawtowermap()
 void Graphics::drawtowermap_nobackground()
 {
     int temp;
-    for (j = 0; j < 31; j++)
+    for (int j = 0; j < 31; j++)
     {
         for (int i = 0; i < 40; i++)
         {

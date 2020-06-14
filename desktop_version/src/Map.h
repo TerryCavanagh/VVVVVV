@@ -86,7 +86,6 @@ public:
 
     int temp;
     int temp2;
-    int j;
     int background;
     int rcol;
     int tileset;

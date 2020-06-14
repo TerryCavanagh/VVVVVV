@@ -202,7 +202,7 @@ public:
 
 
 
-	int j, k, m;
+	int m;
 
 	std::vector <SDL_Surface*> backgrounds;
 	std::vector <SDL_Surface*> images;

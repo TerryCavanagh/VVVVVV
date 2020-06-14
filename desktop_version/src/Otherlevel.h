@@ -32,7 +32,6 @@ public:
     std::string roomname;
 
     int roomtileset;
-    int i;
 
     // roomtext thing in other level
     bool roomtexton;

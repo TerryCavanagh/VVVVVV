@@ -1047,7 +1047,7 @@ void mapclass::gotoroom(int rx, int ry)
 			if (obj.entities[i].xp <= 0 || obj.entities[i].xp + obj.entities[i].w >= 312)
 			{
 				//it's on a screen edge
-				for (j = 0; j < (int) obj.linecrosskludge.size(); j++)
+				for (size_t j = 0; j < obj.linecrosskludge.size(); j++)
 				{
 					if (obj.entities[i].yp == obj.linecrosskludge[j].yp)
 					{
@@ -1901,7 +1901,7 @@ void mapclass::loadlevel(int rx, int ry)
 			{
 				//A slight varation - she's upside down
 				obj.createentity(249, 62, 18, 16, 0, 18);
-				j = obj.getcrewman(5);
+				int j = obj.getcrewman(5);
 				obj.entities[j].rule = 7;
 				obj.entities[j].tile +=6;
 				//What script do we use?
@@ -1918,7 +1918,7 @@ void mapclass::loadlevel(int rx, int ry)
 			if (obj.entities[i].state == 18)
 			{
 				//face the player
-				j = obj.getplayer();
+				int j = obj.getplayer();
 				if (j > -1 && obj.entities[j].xp > obj.entities[i].xp + 5)
 				{
 					obj.entities[i].dir = 1;
