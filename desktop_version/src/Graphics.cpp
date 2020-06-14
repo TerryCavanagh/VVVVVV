@@ -261,6 +261,8 @@ void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool 
 
 void Graphics::PrintAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
 {
+    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
+
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
@@ -283,14 +285,7 @@ void Graphics::PrintAlpha( int _x, int _y, std::string _s, int r, int g, int b, 
         fontRect.x = tpoint.x ;
         fontRect.y = tpoint.y ;
 
-        if (flipmode)
-        {
-            BlitSurfaceColoured( flipbfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
-        }
-        else
-        {
-            BlitSurfaceColoured( bfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
-        }
+        BlitSurfaceColoured( font[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         bfontpos+=bfontlen(curr) ;
     }
 }
@@ -298,6 +293,8 @@ void Graphics::PrintAlpha( int _x, int _y, std::string _s, int r, int g, int b, 
 
 void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, bool cen, int sc )
 {
+    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
+
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
@@ -325,20 +322,10 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
         fontRect.y = tpoint.y ;
         */
 
-        if (flipmode)
-        {
-            SDL_Surface* tempPrint = ScaleSurfaceSlow(flipbfont[font_idx(curr)], bfont[font_idx(curr)]->w *sc,bfont[font_idx(curr)]->h *sc);
-            SDL_Rect printrect = { Sint16((_x) + bfontpos), Sint16(_y) , Sint16(bfont_rect.w*sc), Sint16(bfont_rect.h * sc)};
-            BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
-            SDL_FreeSurface(tempPrint);
-        }
-        else
-        {
-            SDL_Surface* tempPrint = ScaleSurfaceSlow(bfont[font_idx(curr)], bfont[font_idx(curr)]->w *sc,bfont[font_idx(curr)]->h *sc);
-            SDL_Rect printrect = { static_cast<Sint16>((_x) + bfontpos), static_cast<Sint16>(_y) , static_cast<Sint16>((bfont_rect.w*sc)+1), static_cast<Sint16>((bfont_rect.h * sc)+1)};
-            BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
-            SDL_FreeSurface(tempPrint);
-        }
+        SDL_Surface* tempPrint = ScaleSurfaceSlow(font[font_idx(curr)], font[font_idx(curr)]->w *sc,font[font_idx(curr)]->h *sc);
+        SDL_Rect printrect = { static_cast<Sint16>((_x) + bfontpos), static_cast<Sint16>(_y) , static_cast<Sint16>((bfont_rect.w*sc)+1), static_cast<Sint16>((bfont_rect.h * sc)+1)};
+        BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
+        SDL_FreeSurface(tempPrint);
         bfontpos+=bfontlen(curr) *sc;
     }
 }
@@ -360,6 +347,8 @@ void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bo
 
 void Graphics::PrintOffAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
 {
+    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
+
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
@@ -381,14 +370,7 @@ void Graphics::PrintOffAlpha( int _x, int _y, std::string _s, int r, int g, int 
         fontRect.x = tpoint.x ;
         fontRect.y = tpoint.y ;
 
-        if (flipmode)
-        {
-            BlitSurfaceColoured( flipbfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
-        }
-        else
-        {
-            BlitSurfaceColoured( bfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
-        }
+        BlitSurfaceColoured( font[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         bfontpos+=bfontlen(curr) ;
     }
 }
@@ -420,6 +402,8 @@ void Graphics::bprintalpha( int x, int y, std::string t, int r, int g, int b, in
 
 void Graphics::RPrint( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ )
 {
+    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
+
     r = clamp(r,0,255);
     g = clamp(g,0,255);
     b = clamp(b,0,255);
@@ -440,14 +424,7 @@ void Graphics::RPrint( int _x, int _y, std::string _s, int r, int g, int b, bool
         fontRect.x = tpoint.x ;
         fontRect.y = tpoint.y ;
 
-        if (flipmode)
-        {
-            BlitSurfaceColoured( flipbfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
-        }
-        else
-        {
-            BlitSurfaceColoured( bfont[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
-        }
+        BlitSurfaceColoured( font[font_idx(curr)], NULL, backBuffer, &fontRect , ct);
         bfontpos+=bfontlen(curr) ;
     }
 }
@@ -2742,6 +2719,8 @@ void Graphics::renderwithscreeneffects()
 
 void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen, float sc)
 {
+	std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
+
 	if (r < 0) r = 0;
 	if (g < 0) g = 0;
 	if (b < 0) b = 0;
@@ -2776,20 +2755,10 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 	std::string::iterator iter = t.begin();
 	while (iter != t.end()) {
 		cur = utf8::unchecked::next(iter);
-		if (flipmode)
-		{
-			SDL_Surface* tempPrint = ScaleSurfaceSlow(flipbfont[font_idx(cur)], bfont[font_idx(cur)]->w *sc,bfont[font_idx(cur)]->h *sc);
-			SDL_Rect printrect = { Sint16(x + bfontpos), Sint16(y) , Sint16(bfont_rect.w*sc), Sint16(bfont_rect.h * sc)};
-			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect ,ct);
-			SDL_FreeSurface(tempPrint);
-		}
-		else
-		{
-			SDL_Surface* tempPrint = ScaleSurfaceSlow(bfont[font_idx(cur)], bfont[font_idx(cur)]->w *sc,bfont[font_idx(cur)]->h *sc);
-			SDL_Rect printrect = { Sint16((x) + bfontpos), Sint16(y) , Sint16(bfont_rect.w*sc), Sint16(bfont_rect.h * sc)};
-			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
-			SDL_FreeSurface(tempPrint);
-		}
+		SDL_Surface* tempPrint = ScaleSurfaceSlow(font[font_idx(cur)], font[font_idx(cur)]->w *sc,font[font_idx(cur)]->h *sc);
+		SDL_Rect printrect = { Sint16((x) + bfontpos), Sint16(y) , Sint16(bfont_rect.w*sc), Sint16(bfont_rect.h * sc)};
+		BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
+		SDL_FreeSurface(tempPrint);
 		bfontpos+=bfontlen(cur)* sc;
 	}
 }
