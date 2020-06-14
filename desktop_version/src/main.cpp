@@ -303,7 +303,7 @@ int main(int argc, char *argv[])
     }
 #endif
 
-    volatile Uint32 time = 0;
+    volatile Uint32 time_ = 0;
     volatile Uint32 timePrev = 0;
     volatile Uint32 accumulator = 0;
     volatile Uint32 f_time = 0;
@@ -334,8 +334,8 @@ int main(int argc, char *argv[])
                 f_accumulator = fmodf(f_accumulator, 34);
             }
 
-            timePrev = time;
-            time = SDL_GetTicks();
+            timePrev = time_;
+            time_ = SDL_GetTicks();
 
             game.infocus = key.isActive;
 
@@ -343,7 +343,7 @@ int main(int argc, char *argv[])
             NETWORK_update();
 
             //timestep limit to 30
-            const float rawdeltatime = static_cast<float>(time - timePrev);
+            const float rawdeltatime = static_cast<float>(time_ - timePrev);
             accumulator += rawdeltatime;
 
             Uint32 timesteplimit;
