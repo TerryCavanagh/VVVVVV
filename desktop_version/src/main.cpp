@@ -56,6 +56,15 @@ int savemusic = 0;
 
 std::string playtestname;
 
+volatile Uint32 time_ = 0;
+volatile Uint32 timePrev = 0;
+volatile Uint32 accumulator = 0;
+volatile Uint32 f_time = 0;
+volatile Uint32 f_timePrev = 0;
+volatile Uint32 f_accumulator = 0;
+
+void gameloop();
+
 int main(int argc, char *argv[])
 {
     char* baseDir = NULL;
@@ -303,12 +312,6 @@ int main(int argc, char *argv[])
     }
 #endif
 
-    volatile Uint32 time_ = 0;
-    volatile Uint32 timePrev = 0;
-    volatile Uint32 accumulator = 0;
-    volatile Uint32 f_time = 0;
-    volatile Uint32 f_timePrev = 0;
-    volatile Uint32 f_accumulator = 0;
     game.infocus = true;
     key.isActive = true;
     game.gametimer = 0;
@@ -323,6 +326,19 @@ int main(int argc, char *argv[])
             f_accumulator += f_rawdeltatime;
         }
 
+        gameloop();
+    }
+
+    game.savestats();
+    NETWORK_shutdown();
+    SDL_Quit();
+    FILESYSTEM_deinit();
+
+    return 0;
+}
+
+void gameloop()
+{
         while ((game.over30mode || f_accumulator >= 34) && !key.quitProgram)
         {
             if (game.over30mode)
@@ -624,12 +640,4 @@ int main(int argc, char *argv[])
                 gameScreen.FlipScreen();
             }
         }
-    }
-
-    game.savestats();
-    NETWORK_shutdown();
-    SDL_Quit();
-    FILESYSTEM_deinit();
-
-    return 0;
 }
