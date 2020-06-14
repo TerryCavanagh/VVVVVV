@@ -753,6 +753,10 @@ void Graphics::drawgui()
 
 void Graphics::drawimagecol( int t, int xp, int yp, int r = 0, int g = 0, int b = 0, bool cent/*= false*/ )
 {
+    if (!INBOUNDS(t, images))
+    {
+        return;
+    }
     SDL_Rect trect;
     if(r+g+b != 0)
     {
@@ -784,6 +788,10 @@ void Graphics::drawimagecol( int t, int xp, int yp, int r = 0, int g = 0, int b 
 
 void Graphics::drawimage( int t, int xp, int yp, bool cent/*=false*/ )
 {
+    if (!INBOUNDS(t, images))
+    {
+        return;
+    }
 
     SDL_Rect trect;
     if (cent)
@@ -808,6 +816,11 @@ void Graphics::drawimage( int t, int xp, int yp, bool cent/*=false*/ )
 
 void Graphics::drawpartimage( int t, int xp, int yp, int wp, int hp)
 {
+  if (!INBOUNDS(t, images))
+  {
+    return;
+  }
+
   SDL_Rect trect;
 
   trect.x = xp;
@@ -2787,14 +2800,20 @@ void Graphics::drawtele(int x, int y, int t, int c)
 
 	SDL_Rect telerect;
 	setRect(telerect, x , y, tele_rect.w, tele_rect.h );
-	BlitSurfaceColoured(tele[0], NULL, backBuffer, &telerect, ct);
+	if (INBOUNDS(0, tele))
+	{
+		BlitSurfaceColoured(tele[0], NULL, backBuffer, &telerect, ct);
+	}
 
 	setcol(c);
 	if (t > 9) t = 8;
 	if (t < 0) t = 0;
 
 	setRect(telerect, x , y, tele_rect.w, tele_rect.h );
-	BlitSurfaceColoured(tele[t], NULL, backBuffer, &telerect, ct);
+	if (INBOUNDS(t, tele))
+	{
+		BlitSurfaceColoured(tele[t], NULL, backBuffer, &telerect, ct);
+	}
 }
 
 Uint32 Graphics::getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
