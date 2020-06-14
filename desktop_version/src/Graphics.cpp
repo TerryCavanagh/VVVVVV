@@ -539,6 +539,10 @@ void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )
 
 void Graphics::drawtile( int x, int y, int t )
 {
+    if (!INBOUNDS(t, tiles))
+    {
+        return;
+    }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
     BlitSurfaceStandard(tiles[t], NULL, backBuffer, &rect);
 }
@@ -546,6 +550,10 @@ void Graphics::drawtile( int x, int y, int t )
 
 void Graphics::drawtile2( int x, int y, int t )
 {
+    if (!INBOUNDS(t, tiles2))
+    {
+        return;
+    }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
     BlitSurfaceStandard(tiles2[t], NULL, backBuffer, &rect);
 }
@@ -554,18 +562,30 @@ void Graphics::drawtile2( int x, int y, int t )
 
 void Graphics::drawtile3( int x, int y, int t, int off )
 {
+    if (!INBOUNDS(t, tiles3))
+    {
+        return;
+    }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
     BlitSurfaceStandard(tiles3[t+(off*30)], NULL, backBuffer, &rect);
 }
 
 void Graphics::drawentcolours( int x, int y, int t)
 {
+    if (!INBOUNDS(t, entcolours))
+    {
+        return;
+    }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
     BlitSurfaceStandard(entcolours[t], NULL, backBuffer, &rect);
 }
 
 void Graphics::drawtowertile( int x, int y, int t )
 {
+    if (!INBOUNDS(t, tiles2))
+    {
+        return;
+    }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
     BlitSurfaceStandard(tiles2[t], NULL, towerbuffer, &rect);
 }
@@ -573,8 +593,13 @@ void Graphics::drawtowertile( int x, int y, int t )
 
 void Graphics::drawtowertile3( int x, int y, int t, int off )
 {
+    t += off*30;
+    if (!INBOUNDS(t, tiles3))
+    {
+        return;
+    }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
-    BlitSurfaceStandard(tiles3[t+(off*30)], NULL, towerbuffer, &rect);
+    BlitSurfaceStandard(tiles3[t], NULL, towerbuffer, &rect);
 }
 
 void Graphics::drawgui()
@@ -1200,6 +1225,10 @@ void Graphics::drawlevelmenu( int cr, int cg, int cb, int division /*= 30*/ )
 
 void Graphics::drawcoloredtile( int x, int y, int t, int r, int g, int b )
 {
+    if (!INBOUNDS(t, tiles))
+    {
+        return;
+    }
     setcolreal(getRGB(r,g,b));
 
     SDL_Rect rect;
@@ -2531,6 +2560,10 @@ void Graphics::menuoffrender()
 
 void Graphics::drawhuetile( int x, int y, int t, int c )
 {
+	if (!INBOUNDS(t, tiles))
+	{
+		return;
+	}
 	point tpoint;
 	tpoint.x = x;
 	tpoint.y = y;
