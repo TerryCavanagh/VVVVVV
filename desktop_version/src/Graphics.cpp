@@ -143,6 +143,10 @@ Graphics::~Graphics()
 
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
 {
+    if (!INBOUNDS(t, sprites))
+    {
+        return;
+    }
     SDL_Rect rect;
     setRect(rect,x,y,sprites_rect.w,sprites_rect.h);
     setcol(c);
@@ -1442,6 +1446,10 @@ void Graphics::drawentities()
         {
         case 0:
             // Sprites
+            if (!INBOUNDS(obj.entities[i].drawframe, (*spritesvec)))
+            {
+                continue;
+            }
             tpoint.x = obj.entities[i].xp;
             tpoint.y = obj.entities[i].yp - yoff;
             setcol(obj.entities[i].colour);
@@ -1494,6 +1502,10 @@ void Graphics::drawentities()
             break;
         case 1:
             // Tiles
+            if (!INBOUNDS(obj.entities[i].drawframe, tiles))
+            {
+                continue;
+            }
             tpoint.x = obj.entities[i].xp;
             tpoint.y = obj.entities[i].yp - yoff;
             drawRect = tiles_rect;
@@ -1505,6 +1517,10 @@ void Graphics::drawentities()
         case 8:
         {
             // Special: Moving platform, 4 tiles or 8 tiles
+            if (!INBOUNDS(obj.entities[i].drawframe, (*tilesvec)))
+            {
+                continue;
+            }
             tpoint.x = obj.entities[i].xp;
             tpoint.y = obj.entities[i].yp - yoff;
             int thiswidth = 4;
@@ -1559,6 +1575,10 @@ void Graphics::drawentities()
             // Note: This code is in the 4-tile code
             break;
         case 9:         // Really Big Sprite! (2x2)
+            if (!INBOUNDS(obj.entities[i].drawframe, (*spritesvec)))
+            {
+                continue;
+            }
             setcol(obj.entities[i].colour);
 
             tpoint.x = obj.entities[i].xp;
@@ -1594,6 +1614,10 @@ void Graphics::drawentities()
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
             break;
         case 10:         // 2x1 Sprite
+            if (!INBOUNDS(obj.entities[i].drawframe, (*spritesvec)))
+            {
+                continue;
+            }
             setcol(obj.entities[i].colour);
 
             tpoint.x = obj.entities[i].xp;
@@ -1617,6 +1641,10 @@ void Graphics::drawentities()
             drawimagecol(3, obj.entities[i].xp, obj.entities[i].yp - yoff);
             break;
         case 12:         // Regular sprites that don't wrap
+            if (!INBOUNDS(obj.entities[i].drawframe, (*spritesvec)))
+            {
+                continue;
+            }
             tpoint.x = obj.entities[i].xp;
             tpoint.y = obj.entities[i].yp - yoff;
             setcol(obj.entities[i].colour);
@@ -1674,6 +1702,10 @@ void Graphics::drawentities()
         case 13:
         {
             //Special for epilogue: huge hero!
+            if (!INBOUNDS(obj.entities[i].drawframe, (*spritesvec)))
+            {
+                continue;
+            }
 
             tpoint.x = obj.entities[i].xp; tpoint.y = obj.entities[i].yp - yoff;
             setcol(obj.entities[i].colour);
