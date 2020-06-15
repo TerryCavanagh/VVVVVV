@@ -7,7 +7,7 @@
 struct resourceheader
 {
 	char name[48];
-	int start;
+	int start_UNUSED;
 	int size;
 	bool valid;
 };
