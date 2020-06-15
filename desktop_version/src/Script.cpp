@@ -3628,8 +3628,19 @@ void scriptclass::hardreset()
 	obj.customcollect.resize(100);
 	i = 100; //previously a for-loop iterating over collect/customcollect set this to 100
 
-	if (obj.getplayer() > -1){
-		obj.entities[obj.getplayer()].tile = 0;
+	int theplayer = obj.getplayer();
+	if (theplayer > -1){
+		obj.entities[theplayer].tile = 0;
+	}
+
+	// Remove duplicate player entities
+	for (int i = 0; i < (int) obj.entities.size(); i++)
+	{
+		if (i != theplayer)
+		{
+			removeentity_iter(i);
+			theplayer--; // just in case indice of player is not 0
+		}
 	}
 
 	//Script Stuff
