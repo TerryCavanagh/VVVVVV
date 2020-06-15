@@ -6828,7 +6828,7 @@ std::string Game::resulttimestring()
 {
     //given result time in seconds:
     std::string tempstring = "";
-    if (timetrialresulttime > 60)
+    if (timetrialresulttime >= 60)
     {
         tempstring = help.twodigits(int((timetrialresulttime - (timetrialresulttime % 60)) / 60)) + ":"
                      + help.twodigits(timetrialresulttime % 60);
