@@ -63,9 +63,9 @@ volatile Uint32 f_time = 0;
 volatile Uint32 f_timePrev = 0;
 volatile Uint32 f_accumulator = 0;
 
-void gameloop();
-void deltaloop();
-void fixedloop();
+void inline gameloop();
+void inline deltaloop();
+void inline fixedloop();
 
 int main(int argc, char *argv[])
 {
@@ -339,7 +339,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void gameloop()
+void inline gameloop()
 {
     while ((game.over30mode || f_accumulator >= 34) && !key.quitProgram)
     {
@@ -359,7 +359,7 @@ void gameloop()
     }
 }
 
-void deltaloop()
+void inline deltaloop()
 {
     //timestep limit to 30
     const float rawdeltatime = static_cast<float>(time_ - timePrev);
@@ -427,7 +427,7 @@ void deltaloop()
     }
 }
 
-void fixedloop()
+void inline fixedloop()
 {
     game.infocus = key.isActive;
 
