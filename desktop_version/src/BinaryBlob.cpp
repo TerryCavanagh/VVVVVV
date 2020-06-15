@@ -105,7 +105,7 @@ bool binaryBlob::unPackBinary(const char* name)
 		{
 			continue; /* Must be EXACTLY 1 or 0 */
 		}
-		if (size < 1)
+		if (m_headers[i].size < 1)
 		{
 			continue; /* Must be nonzero and positive */
 		}
