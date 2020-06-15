@@ -855,13 +855,11 @@ void mapclass::gotoroom(int rx, int ry)
 		}
 	}
 
-	int theplayer = obj.getplayer();
-	for (int i = 0; i < (int) obj.entities.size(); i++)
+	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
-		if (i != theplayer)
+		if (obj.entities[i].rule != 0)
 		{
 			removeentity_iter(i);
-			theplayer--; //just in case indice of player is not 0
 		}
 	}
 
