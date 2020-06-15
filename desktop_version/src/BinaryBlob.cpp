@@ -98,13 +98,26 @@ bool binaryBlob::unPackBinary(const char* name)
 
 	for (int i = 0; i < 128; i += 1)
 	{
-		if (m_headers[i].valid)
+		/* Name can be stupid, just needs to be terminated */
+		m_headers[i].name[47] = '\0';
+
+		if (m_headers[i].valid & ~0x1)
 		{
-			PHYSFS_seek(handle, offset);
-			m_memblocks[i] = (char*) malloc(m_headers[i].size);
-			PHYSFS_readBytes(handle, m_memblocks[i], m_headers[i].size);
-			offset += m_headers[i].size;
+			continue; /* Must be EXACTLY 1 */
 		}
+		if ((offset + m_headers[i].size) > size)
+		{
+			continue; /* Bogus size value */
+		}
+
+		PHYSFS_seek(handle, offset);
+		m_memblocks[i] = (char*) malloc(m_headers[i].size);
+		if (m_memblocks[i] == NULL)
+		{
+			exit(1); /* Oh god we're out of memory, just bail */
+		}
+		PHYSFS_readBytes(handle, m_memblocks[i], m_headers[i].size);
+		offset += m_headers[i].size;
 	}
 	PHYSFS_close(handle);
 
