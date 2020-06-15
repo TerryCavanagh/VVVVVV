@@ -101,9 +101,9 @@ bool binaryBlob::unPackBinary(const char* name)
 		/* Name can be stupid, just needs to be terminated */
 		m_headers[i].name[47] = '\0';
 
-		if (m_headers[i].valid & ~0x1)
+		if (m_headers[i].valid & ~0x1 || !m_headers[i].valid)
 		{
-			continue; /* Must be EXACTLY 1 */
+			continue; /* Must be EXACTLY 1 or 0 */
 		}
 		if ((offset + m_headers[i].size) > size)
 		{
