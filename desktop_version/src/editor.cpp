@@ -20,6 +20,9 @@
 #include <utf8/unchecked.h>
 #include <physfs.h>
 
+#include <inttypes.h>
+#include <cstdio>
+
 edlevelclass::edlevelclass()
 {
     tileset=0;
@@ -161,16 +164,26 @@ std::string find_tag(const std::string& buf, const std::string& start, const std
     size_t start_pos = 0;
     while ((start_pos = value.find("&#", start_pos)) != std::string::npos)
     {
+        bool hex = value[start_pos + 2] == 'x';
         size_t end = value.find(';', start_pos);
-        std::string number(value.substr(start_pos + 2, end - start_pos));
+        size_t real_start = start_pos + 2 + ((int) hex);
+        std::string number(value.substr(real_start, end - real_start));
 
-        if (!is_positive_num(number))
+        if (!is_positive_num(number, hex))
         {
             return "";
         }
 
-        int character = atoi(number.c_str());
-        int utf32[] = {character, 0};
+        uint32_t character = 0;
+        if (hex)
+        {
+            sscanf(number.c_str(), "%" SCNx32, &character);
+        }
+        else
+        {
+            sscanf(number.c_str(), "%" SCNu32, &character);
+        }
+        uint32_t utf32[] = {character, 0};
         std::string utf8;
         utf8::unchecked::utf32to8(utf32, utf32 + 1, std::back_inserter(utf8));
         value.replace(start_pos, end - start_pos + 1, utf8);

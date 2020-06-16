@@ -11,7 +11,7 @@ std::vector<std::string> split(const std::string &s, char delim, std::vector<std
 
 std::vector<std::string> split(const std::string &s, char delim);
 
-bool is_positive_num(const std::string& str);
+bool is_positive_num(const std::string& str, bool hex);
 
 #define INBOUNDS(index, vector) ((int) index >= 0 && (int) index < (int) vector.size())
 
