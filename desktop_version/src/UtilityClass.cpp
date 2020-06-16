@@ -209,13 +209,23 @@ void UtilityClass::updateglow()
 	}
 }
 
-bool is_positive_num(const std::string& str)
+bool is_positive_num(const std::string& str, bool hex)
 {
 	for (size_t i = 0; i < str.length(); i++)
 	{
-		if (!std::isdigit(static_cast<unsigned char>(str[i])))
+		if (hex)
 		{
-			return false;
+			if (!std::isxdigit(static_cast<unsigned char>(str[i])))
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if (!std::isdigit(static_cast<unsigned char>(str[i])))
+			{
+				return false;
+			}
 		}
 	}
 	return true;
