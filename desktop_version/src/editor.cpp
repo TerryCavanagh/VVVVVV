@@ -1806,7 +1806,46 @@ bool editorclass::load(std::string& _path)
                 std::string pKey(edEntityEl->Value());
                 if (edEntityEl->GetText() != NULL)
                 {
-                    entity.scriptname = std::string(edEntityEl->GetText());
+                    std::string text(edEntityEl->GetText());
+
+                    // And now we come to the part where we have to deal with
+                    // the terrible decisions of the past.
+                    //
+                    // For some reason, the closing tag of edentities generated
+                    // by 2.2 and below has not only been put on a separate
+                    // line, but also indented to match with the opening tag as
+                    // well. Like this:
+                    //
+                    //    <edentity ...>contents
+                    //    </edentity>
+                    //
+                    // Instead of doing <edentity ...>contents</edentity>.
+                    //
+                    // This is COMPLETELY terrible. This requires the XML to be
+                    // parsed in an extremely specific and quirky way, which
+                    // TinyXML-1 just happened to do.
+                    //
+                    // TinyXML-2 by default interprets the newline and the next
+                    // indentation of whitespace literally, so you end up with
+                    // tag contents that has a linefeed plus a bunch of extra
+                    // spaces. You can't fix this by setting the whitespace
+                    // mode to COLLAPSE_WHITESPACE, that does way more than
+                    // TinyXML-1 ever did - it removes the leading whitespace
+                    // from things like <edentity ...> this</edentity>, and
+                    // collapses XML-encoded whitespace like <edentity ...>
+                    // &#32; &#32;this</edentity>, which TinyXML-1 never did.
+                    //
+                    // Best solution here is to specifically hardcode removing
+                    // the linefeed + the extremely specific amount of
+                    // whitespace at the end of the contents.
+
+                    if (endsWith(text, "\n            ")) // linefeed + exactly 12 spaces
+                    {
+                        // 12 spaces + 1 linefeed = 13 chars
+                        text = text.substr(0, text.length()-13);
+                    }
+
+                    entity.scriptname = text;
                 }
                 edEntityEl->QueryIntAttribute("x", &entity.x);
                 edEntityEl->QueryIntAttribute("y", &entity.y);
