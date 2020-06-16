@@ -1659,7 +1659,7 @@ bool editorclass::load(std::string& _path)
         printf("Custom asset directory does not exist\n");
     }
 
-    tinyxml2::XMLDocument doc(true, tinyxml2::COLLAPSE_WHITESPACE);
+    tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))
     {
         printf("No level %s to load :(\n", _path.c_str());
