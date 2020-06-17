@@ -7631,6 +7631,7 @@ void Game::quittomenu()
 {
     gamestate = TITLEMODE;
     graphics.fademode = 4;
+    FILESYSTEM_unmountassets(); // should be before music.play(6)
     music.play(6);
     graphics.backgrounddrawn = false;
     map.tdrawback = true;
@@ -7669,7 +7670,6 @@ void Game::quittomenu()
         createmenu(Menu::mainmenu);
     }
     script.hardreset();
-    FILESYSTEM_unmountassets();
 }
 
 void Game::returntolab()
