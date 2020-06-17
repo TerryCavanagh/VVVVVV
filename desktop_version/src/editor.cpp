@@ -23,6 +23,9 @@
 #ifndef __STDC_FORMAT_MACROS
 #define __STDC_FORMAT_MACROS
 #endif
+#ifndef _POSIX_SOURCE
+#define _POSIX_SOURCE
+#endif
 #include <inttypes.h>
 #include <cstdio>
 
