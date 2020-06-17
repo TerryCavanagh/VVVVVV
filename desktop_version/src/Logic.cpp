@@ -1,6 +1,7 @@
 #include "Logic.h"
 #include "Script.h"
 #include "Network.h"
+#include "FileSystemUtils.h"
 
 void titlelogic()
 {
@@ -107,6 +108,7 @@ void gamecompletelogic2()
         map.colstate = 10;
         game.gamestate = TITLEMODE;
         graphics.fademode = 4;
+        FILESYSTEM_unmountassets(); // should be before music.playef(18)
         music.playef(18);
         game.returntomenu(Menu::play);
         game.createmenu(Menu::gamecompletecontinue);

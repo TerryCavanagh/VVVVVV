@@ -3589,6 +3589,7 @@ void editorlogic()
         script.hardreset();
         graphics.fademode = 4;
         music.haltdasmusik();
+        FILESYSTEM_unmountassets(); // should be before music.play(6)
         music.play(6);
         map.nexttowercolour();
         ed.settingsmod=false;
