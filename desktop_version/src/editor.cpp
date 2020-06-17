@@ -288,6 +288,10 @@ void editorclass::reset()
     roomnamehide=0;
     zmod=false;
     xmod=false;
+    cmod=false;
+    vmod=false;
+    hmod=false;
+    bmod=false;
     spacemod=false;
     spacemenu=0;
     shiftmenu=false;
@@ -2943,6 +2947,22 @@ void editorrender()
         {
             fillboxabs((ed.tilex*8)-16,(ed.tiley*8)-16,24+16,24+16, graphics.getRGB(200,32,32));
         }
+        else if(ed.cmod && ed.drawmode<2)
+        {
+            fillboxabs((ed.tilex*8)-24,(ed.tiley*8)-24,24+32,24+32, graphics.getRGB(200,32,32));
+        }
+        else if(ed.vmod && ed.drawmode<2)
+        {
+            fillboxabs((ed.tilex*8)-32,(ed.tiley*8)-32,24+48,24+48, graphics.getRGB(200,32,32));
+        }
+        else if(ed.hmod && ed.drawmode<2)
+        {
+            fillboxabs(0,(ed.tiley*8),320,8,graphics.getRGB(200,32,32));
+        }
+        else if(ed.bmod && ed.drawmode<2)
+        {
+            fillboxabs((ed.tilex*8),0,8,240,graphics.getRGB(200,32,32));
+        }
     }
 
     //If in directmode, show current directmode tile
@@ -4583,24 +4603,12 @@ void editorinput()
                 }
             }
 
-            if(key.keymap[SDLK_x])
-            {
-                ed.xmod=true;
-            }
-            else
-            {
-                ed.xmod=false;
-            }
-
-
-            if(key.keymap[SDLK_z])
-            {
-                ed.zmod=true;
-            }
-            else
-            {
-                ed.zmod=false;
-            }
+            ed.hmod = key.keymap[SDLK_h];
+            ed.vmod = key.keymap[SDLK_v];
+            ed.bmod = key.keymap[SDLK_b];
+            ed.cmod = key.keymap[SDLK_c];
+            ed.xmod = key.keymap[SDLK_x];
+            ed.zmod = key.keymap[SDLK_z];
 
             //Keyboard shortcuts
             if(ed.keydelay>0)
@@ -4889,7 +4897,41 @@ void editorinput()
                             //Are we in direct mode?
                             if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].directmode>=1)
                             {
-                                if(ed.xmod)
+                                if(ed.bmod)
+                                {
+                                    for(int i=0; i<30; i++)
+                                    {
+                                        ed.placetilelocal(ed.tilex, i, ed.dmtile);
+                                    }
+                                }
+                                else if(ed.hmod)
+                                {
+                                    for(int i=0; i<40; i++)
+                                    {
+                                        ed.placetilelocal(i, ed.tiley, ed.dmtile);
+                                    }
+                                }
+                                else if(ed.vmod)
+                                {
+                                    for(int j=-4; j<5; j++)
+                                    {
+                                        for(int i=-4; i<5; i++)
+                                        {
+                                            ed.placetilelocal(ed.tilex+i, ed.tiley+j, ed.dmtile);
+                                        }
+                                    }
+                                }
+                                else if(ed.cmod)
+                                {
+                                    for(int j=-3; j<4; j++)
+                                    {
+                                        for(int i=-3; i<4; i++)
+                                        {
+                                            ed.placetilelocal(ed.tilex+i, ed.tiley+j, ed.dmtile);
+                                        }
+                                    }
+                                }
+                                else if(ed.xmod)
                                 {
                                     for(int j=-2; j<3; j++)
                                     {
@@ -4916,7 +4958,41 @@ void editorinput()
                             }
                             else
                             {
-                                if(ed.xmod)
+                                if(ed.bmod)
+                                {
+                                    for(int i=0; i<30; i++)
+                                    {
+                                        ed.placetilelocal(ed.tilex, i, 80);
+                                    }
+                                }
+                                else if(ed.hmod)
+                                {
+                                    for(int i=0; i<40; i++)
+                                    {
+                                        ed.placetilelocal(i, ed.tiley, 80);
+                                    }
+                                }
+                                else if(ed.vmod)
+                                {
+                                    for(int j=-4; j<5; j++)
+                                    {
+                                        for(int i=-4; i<5; i++)
+                                        {
+                                            ed.placetilelocal(ed.tilex+i, ed.tiley+j, 80);
+                                        }
+                                    }
+                                }
+                                else if(ed.cmod)
+                                {
+                                    for(int j=-3; j<4; j++)
+                                    {
+                                        for(int i=-3; i<4; i++)
+                                        {
+                                            ed.placetilelocal(ed.tilex+i, ed.tiley+j, 80);
+                                        }
+                                    }
+                                }
+                                else if(ed.xmod)
                                 {
                                     for(int j=-2; j<3; j++)
                                     {
@@ -4945,7 +5021,41 @@ void editorinput()
                         else if(ed.drawmode==1)
                         {
                             //place background tiles
-                            if(ed.xmod)
+                            if(ed.bmod)
+                            {
+                                for(int i=0; i<30; i++)
+                                {
+                                    ed.placetilelocal(ed.tilex, i, 2);
+                                }
+                            }
+                            else if(ed.hmod)
+                            {
+                                for(int i=0; i<40; i++)
+                                {
+                                    ed.placetilelocal(i, ed.tiley, 2);
+                                }
+                            }
+                            else if(ed.vmod)
+                            {
+                                for(int j=-4; j<5; j++)
+                                {
+                                    for(int i=-4; i<5; i++)
+                                    {
+                                        ed.placetilelocal(ed.tilex+i, ed.tiley+j, 2);
+                                    }
+                                }
+                            }
+                            else if(ed.cmod)
+                            {
+                                for(int j=-3; j<4; j++)
+                                {
+                                    for(int i=-3; i<4; i++)
+                                    {
+                                        ed.placetilelocal(ed.tilex+i, ed.tiley+j, 2);
+                                    }
+                                }
+                            }
+                            else if(ed.xmod)
                             {
                                 for(int j=-2; j<3; j++)
                                 {
@@ -5198,7 +5308,41 @@ void editorinput()
                 if(key.rightbutton)
                 {
                     //place tiles
-                    if(ed.xmod)
+                    if(ed.bmod)
+                    {
+                        for(int i=0; i<30; i++)
+                        {
+                            ed.placetilelocal(ed.tilex, i, 0);
+                        }
+                    }
+                    else if(ed.hmod)
+                    {
+                        for(int i=0; i<40; i++)
+                        {
+                            ed.placetilelocal(i, ed.tiley, 0);
+                        }
+                    }
+                    else if(ed.vmod)
+                    {
+                        for(int j=-4; j<5; j++)
+                        {
+                            for(int i=-4; i<5; i++)
+                            {
+                                ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                            }
+                        }
+                    }
+                    else if(ed.cmod)
+                    {
+                        for(int j=-3; j<4; j++)
+                        {
+                            for(int i=-3; i<4; i++)
+                            {
+                                ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                            }
+                        }
+                    }
+                    else if(ed.xmod)
                     {
                         for(int j=-2; j<3; j++)
                         {

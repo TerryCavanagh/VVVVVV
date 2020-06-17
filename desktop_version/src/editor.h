@@ -182,7 +182,7 @@ class editorclass{
   int scripttexttype;
   std::string oldenttext;
 
-  bool xmod, zmod, spacemod, warpmod, roomnamemod, textentry, savemod, loadmod;
+  bool xmod, zmod, cmod, vmod, bmod, hmod, spacemod, warpmod, roomnamemod, textentry, savemod, loadmod;
   bool titlemod, creatormod, desc1mod, desc2mod, desc3mod, websitemod;
 
   int roomnamehide;
