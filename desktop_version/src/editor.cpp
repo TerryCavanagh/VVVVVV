@@ -4343,6 +4343,10 @@ void editorinput()
                 {
                     if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=8) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
                 }
+                else if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==3)
+                {
+                    if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=7) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
+                }
                 else
                 {
                     if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=6) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
