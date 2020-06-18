@@ -1372,7 +1372,7 @@ void Game::updatestate()
             //Time Trial Complete!
             obj.removetrigger(82);
             hascontrol = false;
-            timetrialresulttime = seconds + (minutes * 60);
+            timetrialresulttime = seconds + (minutes * 60) + (hours * 60 * 60);
             timetrialrank = 0;
             if (timetrialresulttime <= timetrialpar) timetrialrank++;
             if (trinkets() >= timetrialshinytarget) timetrialrank++;
