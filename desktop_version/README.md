@@ -57,6 +57,11 @@ file, [get in touch](http://distractionware.com/email/)!)
 A Word About Compiler Quirks
 ----------------------------
 
+_(Note: This section only applies to version 2.2 of the source code, which is
+the initial commit of this repository. Since then, much hard work has been put
+in to fix many undefined behaviors. If you're compiling the latest version of
+the source code, ignore this section.)_
+
 This engine is _super_ fussy about optimization levels and runtime checks. In
 particular, the Windows version _absolutely positively must_ be compiled in
 Debug mode, with /RTC enabled. If you build in Release mode, or have /RTC
