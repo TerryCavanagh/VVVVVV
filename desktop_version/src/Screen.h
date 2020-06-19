@@ -33,6 +33,4 @@ public:
 	SDL_Rect filterSubrect;
 };
 
-extern Screen gameScreen;
-
 #endif /* SCREEN_H */
