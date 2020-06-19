@@ -2299,6 +2299,7 @@ void editorclass::generatecustomminimap()
     }
 }
 
+#if !defined(NO_EDITOR)
 void editormenurender(int tr, int tg, int tb)
 {
     switch (game.currentmenuname)
@@ -5594,6 +5595,7 @@ void editorinput()
         }
     }
 }
+#endif /* NO_EDITOR */
 
 int editorclass::numtrinkets()
 {
