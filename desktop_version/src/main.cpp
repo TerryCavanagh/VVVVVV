@@ -217,6 +217,11 @@ int main(int argc, char *argv[])
 
     //Moved screensetting init here from main menu V2.1
     game.loadstats();
+
+    // FIXME: Thanks to having to work around an SDL2 bug, this destroys the
+    // renderer created by Screen::init(), which is a bit wasteful!
+    // This is annoying to fix because we'd have to call gameScreen.init() after
+    // game.loadstats(), but game.loadstats() assumes gameScreen.init() is already called!
     graphics.processVsync();
 
     if (game.skipfakeload)
