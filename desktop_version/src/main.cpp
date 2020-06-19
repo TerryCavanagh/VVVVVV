@@ -400,7 +400,7 @@ void inline deltaloop()
         case PRELOADER:
             preloaderrender();
             break;
-#if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
         case EDITORMODE:
             graphics.flipmode = false;
             editorrender();
@@ -499,7 +499,7 @@ void inline fixedloop()
         case PRELOADER:
             preloaderlogic();
             break;
-#if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
         case EDITORMODE:
             //Input
             editorinput();
@@ -598,7 +598,7 @@ void inline fixedloop()
     }
 
     //Mute button
-#if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     bool inEditor = ed.textentry || ed.scripthelppage == 1;
 #else
     bool inEditor = false;
