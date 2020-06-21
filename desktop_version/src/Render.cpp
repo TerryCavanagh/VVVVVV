@@ -1970,10 +1970,12 @@ void maprender()
             graphics.Print( -1, FLIP(110), meta.Desc2, 196, 196, 255 - help.glow, true);
             graphics.Print( -1, FLIP(120), meta.Desc3, 196, 196, 255 - help.glow, true);
 
-            if(ed.numcrewmates()-game.crewmates()==1){
-                graphics.Print(1,FLIP(165), help.number(ed.numcrewmates()-game.crewmates())+ " crewmate remains", 196, 196, 255 - help.glow, true);
-            }else if(ed.numcrewmates()-game.crewmates()>0){
-                graphics.Print(1,FLIP(165), help.number(ed.numcrewmates()-game.crewmates())+ " crewmates remain", 196, 196, 255 - help.glow, true);
+            int remaining = ed.numcrewmates() - game.crewmates();
+
+            if(remaining==1){
+                graphics.Print(1,FLIP(165), help.number(remaining)+ " crewmate remains", 196, 196, 255 - help.glow, true);
+            }else if(remaining>0){
+                graphics.Print(1,FLIP(165), help.number(remaining)+ " crewmates remain", 196, 196, 255 - help.glow, true);
             }
         }
 #endif
