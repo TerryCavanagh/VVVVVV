@@ -14,6 +14,17 @@ int tr;
 int tg;
 int tb;
 
+// Macro-like inline function used in maprender()
+// Used to keep some text positions the same in Flip Mode
+int inline FLIP(int ypos)
+{
+    if (graphics.flipmode)
+    {
+        return 220 - ypos;
+    }
+    return ypos;
+}
+
 void menurender()
 {
     int temp = 50;
