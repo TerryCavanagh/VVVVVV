@@ -1961,12 +1961,14 @@ void maprender()
         }
 #if !defined(NO_CUSTOM_LEVELS)
         else if(map.custommode){
-            graphics.bigprint( -1, FLIP(45), ed.ListOfMetaData[game.playcustomlevel].title, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(70), "by " + ed.ListOfMetaData[game.playcustomlevel].creator, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(80), ed.ListOfMetaData[game.playcustomlevel].website, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(100), ed.ListOfMetaData[game.playcustomlevel].Desc1, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(110), ed.ListOfMetaData[game.playcustomlevel].Desc2, 196, 196, 255 - help.glow, true);
-            graphics.Print( -1, FLIP(120), ed.ListOfMetaData[game.playcustomlevel].Desc3, 196, 196, 255 - help.glow, true);
+            LevelMetaData& meta = ed.ListOfMetaData[game.playcustomlevel];
+
+            graphics.bigprint( -1, FLIP(45), meta.title, 196, 196, 255 - help.glow, true);
+            graphics.Print( -1, FLIP(70), "by " + meta.creator, 196, 196, 255 - help.glow, true);
+            graphics.Print( -1, FLIP(80), meta.website, 196, 196, 255 - help.glow, true);
+            graphics.Print( -1, FLIP(100), meta.Desc1, 196, 196, 255 - help.glow, true);
+            graphics.Print( -1, FLIP(110), meta.Desc2, 196, 196, 255 - help.glow, true);
+            graphics.Print( -1, FLIP(120), meta.Desc3, 196, 196, 255 - help.glow, true);
 
             if(ed.numcrewmates()-game.crewmates()==1){
                 graphics.Print(1,FLIP(165), help.number(ed.numcrewmates()-game.crewmates())+ " crewmate remains", 196, 196, 255 - help.glow, true);
