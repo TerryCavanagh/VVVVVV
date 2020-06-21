@@ -2093,6 +2093,14 @@ void teleporterinput()
         //In the menu system, all keypresses are single taps rather than holds. Therefore this test has to be done for all presses
         if (!game.press_action && !game.press_left && !game.press_right) game.jumpheld = false;
         if (!game.press_map) game.mapheld = false;
+
+        if (key.isDown(27))
+        {
+            // Go to "Do you want to quit?" screen
+            game.mapheld = true;
+            game.menupage = 10;
+            game.gamestate = MAPMODE;
+        }
     }
     else
     {
