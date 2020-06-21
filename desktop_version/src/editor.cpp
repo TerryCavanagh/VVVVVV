@@ -1623,39 +1623,7 @@ bool editorclass::load(std::string& _path)
     }
 
     FILESYSTEM_unmountassets();
-
-    std::string zippath = "levels/" + _path.substr(7,_path.size()-14) + ".data.zip";
-    std::string dirpath = "levels/" + _path.substr(7,_path.size()-14) + "/";
-    std::string zip_path;
-    const char* cstr = PHYSFS_getRealDir(_path.c_str());
-
-    if (cstr) {
-        zip_path = cstr;
-    }
-
-    if (cstr && FILESYSTEM_directoryExists(zippath.c_str())) {
-        printf("Custom asset directory exists at %s\n", zippath.c_str());
-        FILESYSTEM_mount(zippath.c_str());
-        graphics.reloadresources();
-    } else if (zip_path != "data.zip" && !endsWith(zip_path, "/data.zip") && endsWith(zip_path, ".zip")) {
-        printf("Custom asset directory is .zip at %s\n", zip_path.c_str());
-        PHYSFS_File* zip = PHYSFS_openRead(zip_path.c_str());
-        zip_path += ".data.zip";
-        if (zip == NULL) {
-            printf("error loading .zip: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
-        } else if (PHYSFS_mountHandle(zip, zip_path.c_str(), "/", 0) == 0) {
-            printf("error mounting .zip: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
-        } else {
-            graphics.assetdir = zip_path;
-        }
-        graphics.reloadresources();
-    } else if (FILESYSTEM_directoryExists(dirpath.c_str())) {
-        printf("Custom asset directory exists at %s\n",dirpath.c_str());
-        FILESYSTEM_mount(dirpath.c_str());
-        graphics.reloadresources();
-    } else {
-        printf("Custom asset directory does not exist\n");
-    }
+    FILESYSTEM_mountassets(_path.c_str());
 
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))
