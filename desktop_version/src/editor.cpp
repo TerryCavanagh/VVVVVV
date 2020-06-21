@@ -1623,7 +1623,14 @@ bool editorclass::load(std::string& _path)
     }
 
     FILESYSTEM_unmountassets();
-    FILESYSTEM_mountassets(_path.c_str());
+    if (game.playassets != "")
+    {
+        FILESYSTEM_mountassets(game.playassets.c_str());
+    }
+    else
+    {
+        FILESYSTEM_mountassets(_path.c_str());
+    }
 
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))

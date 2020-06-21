@@ -53,6 +53,7 @@ int saverx = 0;
 int savery = 0;
 int savegc = 0;
 int savemusic = 0;
+std::string playassets;
 
 std::string playtestname;
 
@@ -111,6 +112,15 @@ int main(int argc, char *argv[])
                 i++;
             } else {
                 printf("-playing option requires one argument.\n");
+                return 1;
+            }
+        } else if (strcmp(argv[i], "-playassets") == 0) {
+            if (i + 1 < argc) {
+                i++;
+                // Even if this is a directory, FILESYSTEM_mountassets() expects '.vvvvvv' on the end
+                playassets = "levels/" + std::string(argv[i]) + ".vvvvvv";
+            } else {
+                printf("%s option requires one argument.\n", argv[i]);
                 return 1;
             }
         }
@@ -280,6 +290,7 @@ int main(int argc, char *argv[])
     if (startinplaytest) {
         game.levelpage = 0;
         game.playcustomlevel = 0;
+        game.playassets = playassets;
 
         ed.directoryList.clear();
         ed.directoryList.push_back(playtestname);
