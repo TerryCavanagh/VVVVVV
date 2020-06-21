@@ -88,19 +88,6 @@ bool compare_nocase (std::string first, std::string second)
         return false;
 }
 
-static bool endsWith(const std::string& str, const std::string& suffix)
-{
-    if (str.size() < suffix.size())
-    {
-        return false;
-    }
-    return str.compare(
-        str.size() - suffix.size(),
-        suffix.size(),
-        suffix
-    ) == 0;
-}
-
 void editorclass::loadZips()
 {
     directoryList = FILESYSTEM_getLevelDirFileNames();
