@@ -1650,7 +1650,6 @@ bool editorclass::load(std::string& _path)
         printf("Custom asset directory exists at %s\n", zippath.c_str());
         FILESYSTEM_mount(zippath.c_str());
         graphics.reloadresources();
-        music.init();
     } else if (zip_path != "data.zip" && !endsWith(zip_path, "/data.zip") && endsWith(zip_path, ".zip")) {
         printf("Custom asset directory is .zip at %s\n", zip_path.c_str());
         PHYSFS_File* zip = PHYSFS_openRead(zip_path.c_str());
