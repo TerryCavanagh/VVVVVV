@@ -382,6 +382,7 @@ public:
     int playrx;
     int playry;
     int playgc;
+    std::string playassets;
 
     void quittomenu();
     void returntolab();
