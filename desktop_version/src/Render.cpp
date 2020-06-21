@@ -1648,25 +1648,36 @@ void maprender()
 
     //Menubar:
     graphics.drawtextbox( -10, 212, 42, 3, 65, 185, 207);
-    switch(game.menupage)
+
+    // Draw the selected page name at the bottom
+    // menupage 0 - 3 is the pause screen
+    if (game.menupage <= 3)
     {
-    case 0:
-        graphics.Print(30 - 8, 220, "[MAP]", 196, 196, 255 - help.glow);
+        std::string tab1;
         if (game.insecretlab)
         {
-            graphics.Print(103, 220, "GRAV", 64, 64, 64);
+            tab1 = "GRAV";
         }
         else if (obj.flags[67] && !map.custommode)
         {
-            graphics.Print(103, 220, "SHIP", 64,64,64);
+            tab1 = "SHIP";
         }
         else
         {
-            graphics.Print(103, 220, "CREW", 64,64,64);
+            tab1 = "CREW";
         }
-        graphics.Print(185-4, 220, "STATS", 64,64,64);
-        graphics.Print(258, 220, "SAVE", 64,64,64);
+#define TAB(opt, text) graphics.map_tab(opt, text, game.menupage == opt)
+        TAB(0, "MAP");
+        TAB(1, tab1);
+        TAB(2, "STATS");
+        TAB(3, "SAVE");
+#undef TAB
+    }
 
+    // Draw the actual menu
+    switch(game.menupage)
+    {
+    case 0:
         if (map.finalmode || (map.custommode&&!map.customshowmm))
         {
             //draw the map image
@@ -1866,11 +1877,6 @@ void maprender()
     case 1:
         if (game.insecretlab)
         {
-            graphics.Print(30, 220, "MAP", 64,64,64);
-            graphics.Print(103-8, 220, "[GRAV]", 196, 196, 255 - help.glow);
-            graphics.Print(185-4, 220, "STATS", 64,64,64);
-            graphics.Print(258, 220, "SAVE", 64, 64, 64);
-
             if (graphics.flipmode)
             {
                 graphics.Print(0, 174, "SUPER GRAVITRON HIGHSCORE", 196, 196, 255 - help.glow, true);
@@ -1940,20 +1946,10 @@ void maprender()
         }
         else if (obj.flags[67] && !map.custommode)
         {
-            graphics.Print(30, 220, "MAP", 64,64,64);
-            graphics.Print(103-8, 220, "[SHIP]", 196, 196, 255 - help.glow);
-            graphics.Print(185-4, 220, "STATS", 64,64,64);
-            graphics.Print(258, 220, "SAVE", 64, 64, 64);
-
             graphics.Print(0, 105, "Press ACTION to warp to the ship.", 196, 196, 255 - help.glow, true);
         }
 #if !defined(NO_CUSTOM_LEVELS)
         else if(map.custommode){
-            graphics.Print(30, 220, "MAP", 64,64,64);
-            graphics.Print(103-8, 220, "[CREW]", 196, 196, 255 - help.glow);
-            graphics.Print(185-4, 220, "STATS", 64,64,64);
-            graphics.Print(258, 220, "SAVE", 64, 64, 64);
-
             if (graphics.flipmode)
             {
                 graphics.bigprint( -1, 220-45, ed.ListOfMetaData[game.playcustomlevel].title, 196, 196, 255 - help.glow, true);
@@ -1988,11 +1984,6 @@ void maprender()
 #endif
         else
         {
-            graphics.Print(30, 220, "MAP", 64,64,64);
-            graphics.Print(103-8, 220, "[CREW]", 196, 196, 255 - help.glow);
-            graphics.Print(185-4, 220, "STATS", 64,64,64);
-            graphics.Print(258, 220, "SAVE", 64, 64, 64);
-
             if (graphics.flipmode)
             {
                 for (int i = 0; i < 3; i++)
@@ -2054,22 +2045,6 @@ void maprender()
         }
         break;
     case 2:
-        graphics.Print(30, 220, "MAP", 64,64,64);
-        if (game.insecretlab)
-        {
-            graphics.Print(103, 220, "GRAV", 64, 64, 64);
-        }
-        else if (obj.flags[67] && !map.custommode)
-        {
-            graphics.Print(103, 220, "SHIP", 64,64,64);
-        }
-        else
-        {
-            graphics.Print(103, 220, "CREW", 64,64,64);
-        }
-        graphics.Print(185-12, 220, "[STATS]", 196, 196, 255 - help.glow);
-        graphics.Print(258, 220, "SAVE", 64, 64, 64);
-
 #if !defined(NO_CUSTOM_LEVELS)
         if(map.custommode)
         {
@@ -2124,22 +2099,6 @@ void maprender()
         }
         break;
     case 3:
-        graphics.Print(30, 220, "MAP", 64,64,64);
-        if (game.insecretlab)
-        {
-            graphics.Print(103, 220, "GRAV", 64, 64, 64);
-        }
-        else if (obj.flags[67] && !map.custommode)
-        {
-            graphics.Print(103, 220, "SHIP", 64,64,64);
-        }
-        else
-        {
-            graphics.Print(103, 220, "CREW", 64,64,64);
-        }
-        graphics.Print(185-4, 220, "STATS", 64,64,64);
-        graphics.Print(258 - 8, 220, "[SAVE]", 196, 196, 255 - help.glow);
-
         if (game.inintermission)
         {
             graphics.Print(0, 115, "Cannot Save in Level Replay", 146, 146, 180, true);
