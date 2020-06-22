@@ -1685,6 +1685,27 @@ void maprender()
 #undef TAB
     }
 
+    // Draw menu header
+    switch (game.menupage)
+    {
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+        graphics.Print(-1, 220, "[ PAUSE ]", 196, 196, 255 - help.glow, true);
+    }
+
+    // Draw menu options
+    if (game.menupage >= 30 && game.menupage <= 33)
+    {
+#define OPTION(opt, text) graphics.map_option(opt, 4, text, game.menupage - 30 == opt)
+        OPTION(0, "return to game");
+        OPTION(1, "quit to menu");
+        OPTION(2, "graphic options");
+        OPTION(3, "game options");
+#undef OPTION
+    }
+
     // Draw the actual menu
     switch(game.menupage)
     {
