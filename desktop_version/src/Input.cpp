@@ -2106,23 +2106,19 @@ void mapmenuactionpress()
         game.menupage = 10;
         break;
     case 32:
-        // Graphic options
-        music.playef(11);
-        game.gamestate = TITLEMODE;
-        game.ingame_titlemode = true;
-        game.createmenu(Menu::graphicoptions);
-        map.nexttowercolour();
-
-        // Fix delta rendering glitch
-        graphics.updatetowerbackground();
-        titleupdatetextcol();
-        break;
     case 33:
-        // Game options
+        // Graphic options and game options
         music.playef(11);
         game.gamestate = TITLEMODE;
         game.ingame_titlemode = true;
-        game.createmenu(Menu::options);
+        if (game.menupage == 32)
+        {
+            game.createmenu(Menu::graphicoptions);
+        }
+        else
+        {
+            game.createmenu(Menu::options);
+        }
         map.nexttowercolour();
 
         // Fix delta rendering glitch
