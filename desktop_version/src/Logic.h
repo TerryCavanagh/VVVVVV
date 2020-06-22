@@ -8,6 +8,8 @@
 #include "Music.h"
 #include "Map.h"
 
+void titleupdatetextcol();
+
 void titlelogic();
 
 void maplogic();
