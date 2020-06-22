@@ -2079,6 +2079,29 @@ void mapmenuactionpress()
         game.fadetolab = true;
         game.fadetolabdelay = 16;
         break;
+    case 30:
+        // Return to game
+        graphics.resumegamemode = true;
+        break;
+    case 31:
+        // Go to quit prompt
+        music.playef(11);
+        game.menupage = 10;
+        break;
+    case 32:
+        // Graphic options
+        music.playef(11);
+        game.gamestate = TITLEMODE;
+        game.createmenu(Menu::graphicoptions);
+        map.nexttowercolour();
+        break;
+    case 33:
+        // Game options
+        music.playef(11);
+        game.gamestate = TITLEMODE;
+        game.createmenu(Menu::options);
+        map.nexttowercolour();
+        break;
     }
 }
 
