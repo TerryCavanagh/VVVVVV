@@ -1999,7 +1999,7 @@ void mapmenuactionpress()
     switch (game.menupage)
     {
     case 1:
-    if (obj.flags[67] && !game.insecretlab && !map.custommode)
+    if (obj.flags[67] && !game.inspecial() && !map.custommode)
     {
         //Warp back to the ship
         graphics.resumegamemode = true;
@@ -2024,8 +2024,7 @@ void mapmenuactionpress()
     }
         break;
     case 3:
-    if (!game.gamesaved && !game.intimetrial
-            && !game.nodeathmode && !game.insecretlab && !game.inintermission)
+    if (!game.gamesaved && !game.inspecial())
     {
         game.flashlight = 5;
         game.screenshake = 10;
