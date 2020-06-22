@@ -1859,6 +1859,8 @@ void gameinput()
     }
 }
 
+void mapmenuactionpress();
+
 void mapinput()
 {
     //TODO Mouse Input!
@@ -1973,6 +1975,24 @@ void mapinput()
             game.menupage++;
         }
 
+        mapmenuactionpress();
+
+        if (game.menupage < 0) game.menupage = 3;
+        if (game.menupage > 3 && game.menupage < 9) game.menupage = 0;
+
+        if (game.menupage == 9) game.menupage = 11;
+        if (game.menupage == 12) game.menupage = 10;
+
+        if (game.menupage == 19) game.menupage = 21;
+        if (game.menupage == 22) game.menupage = 20;
+
+        if (game.menupage == 29) game.menupage = 33;
+        if (game.menupage == 34) game.menupage = 30;
+    }
+}
+
+void mapmenuactionpress()
+{
         if (game.menupage == 1 && obj.flags[67] && game.press_action && !game.insecretlab && !map.custommode)
         {
             //Warp back to the ship
@@ -2056,19 +2076,6 @@ void mapinput()
             game.fadetolab = true;
             game.fadetolabdelay = 16;
         }
-
-        if (game.menupage < 0) game.menupage = 3;
-        if (game.menupage > 3 && game.menupage < 9) game.menupage = 0;
-
-        if (game.menupage == 9) game.menupage = 11;
-        if (game.menupage == 12) game.menupage = 10;
-
-        if (game.menupage == 19) game.menupage = 21;
-        if (game.menupage == 22) game.menupage = 20;
-
-        if (game.menupage == 29) game.menupage = 33;
-        if (game.menupage == 34) game.menupage = 30;
-    }
 }
 
 void teleporterinput()
