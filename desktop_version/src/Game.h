@@ -404,6 +404,8 @@ public:
     }
 
     bool over30mode;
+
+    bool ingame_titlemode;
 };
 
 extern Game game;
