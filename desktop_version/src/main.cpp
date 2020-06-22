@@ -79,7 +79,6 @@ int main(int argc, char *argv[])
 #define ARG_INNER(code) \
     if (i + 1 < argc) \
     { \
-        i++; \
         code \
     } \
     else \
@@ -91,24 +90,28 @@ int main(int argc, char *argv[])
         if (ARG("-renderer"))
         {
             ARG_INNER({
+                i++;
                 SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, argv[i], SDL_HINT_OVERRIDE);
             })
         }
         else if (ARG("-basedir"))
         {
             ARG_INNER({
+                i++;
                 baseDir = argv[i];
             })
         }
         else if (ARG("-assets"))
         {
             ARG_INNER({
+                i++;
                 assetsPath = argv[i];
             })
         }
         else if (ARG("-playing") || ARG("-p"))
         {
             ARG_INNER({
+                i++;
                 startinplaytest = true;
                 playtestname = std::string("levels/");
                 playtestname.append(argv[i]);
@@ -121,19 +124,21 @@ int main(int argc, char *argv[])
         {
             ARG_INNER({
                 savefileplaytest = true;
-                int v = std::atoi(argv[i]);
+                int v = std::atoi(argv[i+1]);
                 if (ARG("-playx")) savex = v;
                 else if (ARG("-playy")) savey = v;
                 else if (ARG("-playrx")) saverx = v;
                 else if (ARG("-playry")) savery = v;
                 else if (ARG("-playgc")) savegc = v;
                 else if (ARG("-playmusic")) savemusic = v;
+                i++;
             })
         }
         else if (ARG("-playassets"))
         {
-            // Even if this is a directory, FILESYSTEM_mountassets() expects '.vvvvvv' on the end
             ARG_INNER({
+                i++;
+                // Even if this is a directory, FILESYSTEM_mountassets() expects '.vvvvvv' on the end
                 playassets = "levels/" + std::string(argv[i]) + ".vvvvvv";
             })
         }
