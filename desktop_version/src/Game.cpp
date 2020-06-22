@@ -389,6 +389,8 @@ void Game::init(void)
 
     over30mode = false;
 
+    ingame_titlemode = false;
+
     /* Terry's Patrons... */
     const char* superpatrons_arr[] = {
     "Anders Ekermo",
