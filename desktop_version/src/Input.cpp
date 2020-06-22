@@ -1993,89 +1993,89 @@ void mapinput()
 
 void mapmenuactionpress()
 {
-        if (game.menupage == 1 && obj.flags[67] && game.press_action && !game.insecretlab && !map.custommode)
+    if (game.menupage == 1 && obj.flags[67] && game.press_action && !game.insecretlab && !map.custommode)
+    {
+        //Warp back to the ship
+        graphics.resumegamemode = true;
+
+        game.teleport_to_x = 2;
+        game.teleport_to_y = 11;
+
+        //trace(game.recordstring);
+        //We're teleporting! Yey!
+        game.activetele = false;
+        game.hascontrol = false;
+
+        int i = obj.getplayer();
+        if (i > -1)
         {
-            //Warp back to the ship
-            graphics.resumegamemode = true;
-
-            game.teleport_to_x = 2;
-            game.teleport_to_y = 11;
-
-            //trace(game.recordstring);
-            //We're teleporting! Yey!
-            game.activetele = false;
-            game.hascontrol = false;
-
-            int i = obj.getplayer();
-            if (i > -1)
-            {
-                obj.entities[i].colour = 102;
-            }
-
-            //which teleporter script do we use? it depends on the companion!
-            game.state = 4000;
-            game.statedelay = 0;
+            obj.entities[i].colour = 102;
         }
 
-        if (game.menupage == 3 && !game.gamesaved && game.press_action && !game.intimetrial
-                && !game.nodeathmode && !game.insecretlab && !game.inintermission)
-        {
-            game.flashlight = 5;
-            game.screenshake = 10;
-            music.playef(18);
-            game.gamesaved = true;
+        //which teleporter script do we use? it depends on the companion!
+        game.state = 4000;
+        game.statedelay = 0;
+    }
 
-            game.savetime = game.timestring();
-            game.savearea = map.currentarea(map.area(game.roomx, game.roomy));
-            game.savetrinkets = game.trinkets();
+    if (game.menupage == 3 && !game.gamesaved && game.press_action && !game.intimetrial
+            && !game.nodeathmode && !game.insecretlab && !game.inintermission)
+    {
+        game.flashlight = 5;
+        game.screenshake = 10;
+        music.playef(18);
+        game.gamesaved = true;
 
-            if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = "The Ship";
+        game.savetime = game.timestring();
+        game.savearea = map.currentarea(map.area(game.roomx, game.roomy));
+        game.savetrinkets = game.trinkets();
+
+        if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = "The Ship";
 
 #if !defined(NO_CUSTOM_LEVELS)
-            if(map.custommodeforreal)
-            {
-                game.customsavequick(ed.ListOfMetaData[game.playcustomlevel].filename);
-            }
-            else
+        if(map.custommodeforreal)
+        {
+            game.customsavequick(ed.ListOfMetaData[game.playcustomlevel].filename);
+        }
+        else
 #endif
-            {
-                game.savequick();
-            }
+        {
+            game.savequick();
         }
+    }
 
-        if (game.menupage == 10 && game.press_action)
-        {
-            //return to game
-            graphics.resumegamemode = true;
-        }
-        if (game.menupage == 11 && game.press_action)
-        {
-            //quit to menu
+    if (game.menupage == 10 && game.press_action)
+    {
+        //return to game
+        graphics.resumegamemode = true;
+    }
+    if (game.menupage == 11 && game.press_action)
+    {
+        //quit to menu
 
-            //Kill contents of offset render buffer, since we do that for some reason.
-            //This fixes an apparent frame flicker.
-            FillRect(graphics.tempBuffer, 0x000000);
-            graphics.fademode = 2;
-            music.fadeout();
-            map.nexttowercolour();
-            game.fadetomenu = true;
-            game.fadetomenudelay = 16;
-        }
+        //Kill contents of offset render buffer, since we do that for some reason.
+        //This fixes an apparent frame flicker.
+        FillRect(graphics.tempBuffer, 0x000000);
+        graphics.fademode = 2;
+        music.fadeout();
+        map.nexttowercolour();
+        game.fadetomenu = true;
+        game.fadetomenudelay = 16;
+    }
 
-        if (game.menupage == 20 && game.press_action)
-        {
-            //return to game
-            graphics.resumegamemode = true;
-        }
-        if (game.menupage == 21 && game.press_action)
-        {
-            //quit to menu
-            game.swnmode = false;
-            graphics.fademode = 2;
-            music.fadeout();
-            game.fadetolab = true;
-            game.fadetolabdelay = 16;
-        }
+    if (game.menupage == 20 && game.press_action)
+    {
+        //return to game
+        graphics.resumegamemode = true;
+    }
+    if (game.menupage == 21 && game.press_action)
+    {
+        //quit to menu
+        game.swnmode = false;
+        graphics.fademode = 2;
+        music.fadeout();
+        game.fadetolab = true;
+        game.fadetolabdelay = 16;
+    }
 }
 
 void teleporterinput()
