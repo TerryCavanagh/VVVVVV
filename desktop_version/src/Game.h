@@ -407,6 +407,8 @@ public:
     bool over30mode;
 
     bool ingame_titlemode;
+
+    void returntopausemenu();
 };
 
 extern Game game;
