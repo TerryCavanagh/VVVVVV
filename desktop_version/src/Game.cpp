@@ -390,6 +390,7 @@ void Game::init(void)
     over30mode = false;
 
     ingame_titlemode = false;
+    kludge_ingametemp = Menu::mainmenu;
 
     /* Terry's Patrons... */
     const char* superpatrons_arr[] = {
