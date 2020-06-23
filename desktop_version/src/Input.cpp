@@ -1468,8 +1468,15 @@ void titleinput()
         if (key.isDown(27) && game.currentmenuname != Menu::youwannaquit && game.menustart)
         {
             music.playef(11);
-            game.createmenu(Menu::youwannaquit);
-            map.nexttowercolour();
+            if (game.ingame_titlemode)
+            {
+                game.returntopausemenu();
+            }
+            else
+            {
+                game.createmenu(Menu::youwannaquit);
+                map.nexttowercolour();
+            }
         }
 
         if(game.menustart)
