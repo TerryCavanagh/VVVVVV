@@ -334,7 +334,9 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
 
     if (selected)
     {
-        Print(x - 16, y, "[ " + text + " ]", 196, 196, 255 - help.glow);
+        std::string text_upper(text);
+        std::transform(text_upper.begin(), text_upper.end(), text_upper.begin(), ::toupper);
+        Print(x - 16, y, "[ " + text_upper + " ]", 196, 196, 255 - help.glow);
     }
     else
     {
