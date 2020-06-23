@@ -493,7 +493,7 @@ void menuactionpress()
             break;
         case 3:
             //invincibility
-            if (!game.ingame_titlemode || !game.inspecial())
+            if (!game.ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode))
             {
                 if (!map.invincibility)
                 {
@@ -514,7 +514,7 @@ void menuactionpress()
             break;
         case 4:
             //change game speed
-            if (!game.inspecial())
+            if (!game.insecretlab && !game.intimetrial && !game.nodeathmode)
             {
                 game.createmenu(Menu::setslowdown);
                 map.nexttowercolour();
