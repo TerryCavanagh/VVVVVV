@@ -2143,6 +2143,7 @@ void mapmenuactionpress()
         // Graphic options and game options
         music.playef(11);
         game.gamestate = TITLEMODE;
+        graphics.flipmode = false;
         game.ingame_titlemode = true;
         if (game.menupage == 32)
         {
