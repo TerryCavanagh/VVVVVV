@@ -408,6 +408,7 @@ public:
 
     bool ingame_titlemode;
 
+    bool shouldreturntopausemenu;
     void returntopausemenu();
 };
 
