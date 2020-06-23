@@ -2089,8 +2089,9 @@ void mapmenuactionpress()
         break;
 
     case 10:
-        //return to game
-        graphics.resumegamemode = true;
+        //return to pause menu
+        music.playef(11);
+        game.menupage = 31;
         break;
     case 11:
         //quit to menu
