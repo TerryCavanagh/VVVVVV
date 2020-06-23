@@ -2145,6 +2145,7 @@ void mapmenuactionpress()
 
         map.scrolldir = 0;
         map.colstate = ((int) (map.colstate / 5)) * 5;
+        map.bypos = 0;
         map.nexttowercolour();
 
         // Fix delta rendering glitch
