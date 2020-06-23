@@ -493,22 +493,38 @@ void menuactionpress()
             break;
         case 3:
             //invincibility
-            if (!map.invincibility)
+            if (!game.ingame_titlemode || !game.inspecial())
             {
-                game.createmenu(Menu::setinvincibility);
-                map.nexttowercolour();
+                if (!map.invincibility)
+                {
+                    game.createmenu(Menu::setinvincibility);
+                    map.nexttowercolour();
+                }
+                else
+                {
+                    map.invincibility = !map.invincibility;
+                }
+                music.playef(11);
             }
             else
             {
-                map.invincibility = !map.invincibility;
+                music.playef(2);
+                map.invincibility = false;
             }
-            music.playef(11);
             break;
         case 4:
             //change game speed
-            game.createmenu(Menu::setslowdown);
-            map.nexttowercolour();
-            music.playef(11);
+            if (!game.inspecial())
+            {
+                game.createmenu(Menu::setslowdown);
+                map.nexttowercolour();
+                music.playef(11);
+            }
+            else
+            {
+                music.playef(2);
+                game.gameframerate = 34;
+            }
             break;
         case 5:
             // toggle fake load screen
