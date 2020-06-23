@@ -79,6 +79,16 @@ void maplogic()
     graphics.updatetextboxes();
     graphics.updatetitlecolours();
 
+    if (game.shouldreturntopausemenu)
+    {
+        game.shouldreturntopausemenu = false;
+        graphics.backgrounddrawn = false;
+        if (map.background == 3 || map.background || 4)
+        {
+            graphics.updatebackground(map.background);
+        }
+    }
+
     graphics.crewframedelay--;
     if (graphics.crewframedelay <= 0)
     {
