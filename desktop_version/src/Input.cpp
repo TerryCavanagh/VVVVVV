@@ -1958,19 +1958,23 @@ void mapinput()
         {
             game.press_action = true;
         }
-        if (game.menupage < 12)
+        if (game.menupage < 12 || (game.menupage >= 30 && game.menupage <= 33))
         {
             if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) ) game.press_map = true;
-            if (key.isDown(27))
+            if (key.isDown(27) && !game.mapheld)
             {
                 game.mapheld = true;
                 if (game.menupage < 9)
                 {
                     game.menupage = 30;
                 }
-                else
+                else if (game.menupage < 12)
                 {
                     game.menupage = 31;
+                }
+                else
+                {
+                    graphics.resumegamemode = true;
                 }
             }
         }
