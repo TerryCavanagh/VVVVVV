@@ -7763,6 +7763,7 @@ void Game::returntopausemenu()
     gamestate = MAPMODE;
     map.kludge_to_bg();
     map.tdrawback = true;
+    graphics.backgrounddrawn = false;
     game.mapheld = true;
     graphics.flipmode = graphics.setflipmode;
 }
