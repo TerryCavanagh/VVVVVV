@@ -168,6 +168,22 @@ public:
 
     //Map cursor
     int cursorstate, cursordelay;
+
+    int kludge_bypos;
+    int kludge_colstate;
+    int kludge_scrolldir;
+    void inline bg_to_kludge()
+    {
+        kludge_bypos = bypos;
+        kludge_colstate = colstate;
+        kludge_scrolldir = scrolldir;
+    }
+    void inline kludge_to_bg()
+    {
+        bypos = kludge_bypos;
+        colstate = kludge_colstate;
+        scrolldir = kludge_scrolldir;
+    }
 };
 
 extern mapclass map;

@@ -380,6 +380,7 @@ void menuactionpress()
             {
                 game.ingame_titlemode = false;
                 game.gamestate = MAPMODE;
+                map.kludge_to_bg();
             }
             else
             {
@@ -594,6 +595,7 @@ void menuactionpress()
             {
                 game.ingame_titlemode = false;
                 game.gamestate = MAPMODE;
+                map.kludge_to_bg();
             }
             else
             {
@@ -2119,6 +2121,8 @@ void mapmenuactionpress()
         {
             game.createmenu(Menu::options);
         }
+        map.bg_to_kludge();
+
         map.nexttowercolour();
         map.scrolldir = 0;
 
