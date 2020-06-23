@@ -2143,8 +2143,9 @@ void mapmenuactionpress()
         map.bg_to_kludge();
         game.kludge_ingametemp = game.currentmenuname;
 
-        map.nexttowercolour();
         map.scrolldir = 0;
+        map.colstate = ((int) (map.colstate / 5)) * 5;
+        map.nexttowercolour();
 
         // Fix delta rendering glitch
         graphics.updatetowerbackground();
