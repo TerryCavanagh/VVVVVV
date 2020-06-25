@@ -88,24 +88,37 @@ void menurender()
             graphics.Print( -1, 65, "Disable screen effects, enable", tr, tg, tb, true);
             graphics.Print( -1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
             break;
-#if !defined(MAKEANDPLAY)
         case 1:
+            graphics.bigprint( -1, 30, "Glitchrunner Mode", tr, tg, tb, true);
+            graphics.Print( -1, 65, "Re-enable glitches that existed", tr, tg, tb, true);
+            graphics.Print( -1, 75, "in previous versions of the game", tr, tg, tb, true);
+            if (game.glitchrunnermode)
+            {
+                graphics.Print( -1, 95, "Glitchrunner mode is ON", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 95, "Glitchrunner mode is OFF", tr/2, tg/2, tb/2, true);
+            }
+            break;
+#if !defined(MAKEANDPLAY)
+        case 2:
             graphics.bigprint( -1, 30, "Unlock Play Modes", tr, tg, tb, true);
             graphics.Print( -1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
             graphics.Print( -1, 75, "unlocked as you progress", tr, tg, tb, true);
             break;
 #endif
-        case OFFSET+2:
+        case OFFSET+3:
             graphics.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
             graphics.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
             graphics.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
             break;
-        case OFFSET+3:
+        case OFFSET+4:
             graphics.bigprint( -1, 30, "Clear Data", tr, tg, tb, true);
             graphics.Print( -1, 65, "Delete your save data", tr, tg, tb, true);
             graphics.Print( -1, 75, "and unlocked play modes", tr, tg, tb, true);
             break;
-        case OFFSET+4:
+        case OFFSET+5:
             if(music.mmmmmm){
                 graphics.bigprint( -1, 30, "Soundtrack", tr, tg, tb, true);
                 graphics.Print( -1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
