@@ -1597,10 +1597,11 @@ void gameinput()
             }
             else
             {
-                if(!game.glitchrunkludge) game.state++;
+                if(game.glitchrunnermode || !game.glitchrunkludge) game.state++;
                     game.jumpheld = true;
                     game.glitchrunkludge=true;
                     //Bug fix! You should only be able to do this ONCE.
+                    //...Unless you're in glitchrunner mode
             }
         }
     }
