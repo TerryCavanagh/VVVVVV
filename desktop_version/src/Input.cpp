@@ -1372,7 +1372,7 @@ void menuactionpress()
             //back
             music.playef(11);
             music.play(6);
-            game.returnmenu();
+            game.returntomenu(Menu::timetrials);
             map.nexttowercolour();
             break;
         case 1:
