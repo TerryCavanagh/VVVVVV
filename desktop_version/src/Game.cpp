@@ -387,6 +387,7 @@ void Game::init(void)
 #endif
 
     over30mode = false;
+    glitchrunnermode = false;
 
     ingame_titlemode = false;
     kludge_ingametemp = Menu::mainmenu;
@@ -4756,6 +4757,11 @@ void Game::loadstats()
             over30mode = atoi(pText);
         }
 
+        if (pKey == "glitchrunnermode")
+        {
+            glitchrunnermode = atoi(pText);
+        }
+
         if (pKey == "vsync")
         {
             graphics.vsync = atoi(pText);
@@ -5008,6 +5014,10 @@ void Game::savestats()
 
     msg = doc.NewElement("over30mode");
     msg->LinkEndChild(doc.NewText(help.String((int) over30mode).c_str()));
+    dataNode->LinkEndChild(msg);
+
+    msg = doc.NewElement("glitchrunnermode");
+    msg->LinkEndChild(doc.NewText(help.String((int) glitchrunnermode).c_str()));
     dataNode->LinkEndChild(msg);
 
     msg = doc.NewElement("vsync");
@@ -7129,6 +7139,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::options:
         option("accessibility options");
+        option("glitchrunner mode");
 #if !defined(MAKEANDPLAY)
         option("unlock play modes");
 #endif
@@ -7140,7 +7151,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         }
 
         option("return");
-        menuxoff = -40;
+        menuxoff = -50;
         menuyoff = 0;
         break;
     case Menu::accessibility:
