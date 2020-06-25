@@ -31,6 +31,10 @@ mapclass::mapclass()
 	cursorstate = 0;
 	cursordelay = 0;
 
+	towermode = false;
+	cameraseekframe = 0;
+	resumedelay = 0;
+
 	final_colormode = false;
 	final_colorframe = 0;
 	final_colorframedelay = 0;
