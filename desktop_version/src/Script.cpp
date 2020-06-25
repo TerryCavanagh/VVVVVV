@@ -3564,7 +3564,12 @@ void scriptclass::hardreset()
 	game.statedelay = 0;
 
 	game.hascontrol = true;
-	game.advancetext = false;
+	if (!game.glitchrunnermode)
+	{
+		// Keep the "- Press ACTION to advance text -" prompt around,
+		// apparently the speedrunners call it the "text storage" glitch
+		game.advancetext = false;
+	}
 
 	game.pausescript = false;
 
