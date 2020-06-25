@@ -2356,7 +2356,10 @@ void maprender()
 
 
 
-    if (graphics.fademode == 3 || graphics.fademode == 5)
+    // We need to draw the black screen above the menu in order to disguise it
+    // being jankily brought down in glitchrunner mode when exiting to the title
+    // Otherwise, there's no reason to obscure the menu
+    if (game.glitchrunnermode || graphics.fademode == 3 || graphics.fademode == 5)
     {
         graphics.drawfade();
     }
