@@ -102,11 +102,11 @@ void scriptclass::run()
 				{
 					ed.level[curlevel].warpdir=ss_toi(words[3]);
 				}
-				//If screen warping, then override all that:
-				graphics.backgrounddrawn = false;
 
 				//Do we update our own room?
 				if(inbounds && game.roomx-100==temprx && game.roomy-100==tempry){
+					//If screen warping, then override all that:
+					graphics.backgrounddrawn = false;
 					map.warpx=false; map.warpy=false;
 					if(ed.level[curlevel].warpdir==0){
 						map.background = 1;
