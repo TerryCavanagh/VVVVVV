@@ -117,7 +117,6 @@ bool GetButtonFromString(const char *pText, SDL_GameControllerButton *button)
 void Game::init(void)
 {
     mutebutton = 0;
-    infocus = true;
     muted = false;
     musicmuted = false;
     musicmutebutton = 0;

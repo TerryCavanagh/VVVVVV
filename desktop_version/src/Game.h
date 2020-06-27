@@ -179,7 +179,6 @@ public:
     int jumppressed;
     int gravitycontrol;
 
-    bool infocus;
     bool muted;
     int mutebutton;
     bool musicmuted;
