@@ -1170,8 +1170,6 @@ void mapclass::loadlevel(int rx, int ry)
 	obj.customwarpmodevon=false;
 	obj.customwarpmodehon=false;
 
-	std::vector<std::string> tmap;
-
 	if (finalmode)
 	{
 		t = 6;
