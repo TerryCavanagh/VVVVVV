@@ -26,7 +26,7 @@ public:
 
 	void changemusicarea(int x, int y);
 
-	int currentsong, musicfade, musicfadein;
+	int currentsong;
 	int resumesong;
 
 	void playef(int t);
@@ -42,10 +42,6 @@ public:
 	bool m_doFadeInVol;
 	int FadeVolAmountPerFrame;
 	int musicVolume;
-
-	float volume;
-
-	bool custompd;
 
 	int fadeoutqueuesong; // -1 if no song queued
 	bool dontquickfade;
