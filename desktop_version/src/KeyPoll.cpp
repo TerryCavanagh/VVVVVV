@@ -74,8 +74,10 @@ void KeyPoll::Poll()
 	SDL_Event evt;
 	while (SDL_PollEvent(&evt))
 	{
+		switch (evt.type)
+		{
 		/* Keyboard Input */
-		if (evt.type == SDL_KEYDOWN)
+		case SDL_KEYDOWN:
 		{
 			keymap[evt.key.keysym.sym] = true;
 
@@ -115,82 +117,76 @@ void KeyPoll::Poll()
 					keybuffer += SDL_GetClipboardText();
 				}
 			}
+			break;
 		}
-		else if (evt.type == SDL_KEYUP)
-		{
+		case SDL_KEYUP:
 			keymap[evt.key.keysym.sym] = false;
 			if (evt.key.keysym.sym == SDLK_BACKSPACE)
 			{
 				pressedbackspace = false;
 			}
-		}
-		else if (evt.type == SDL_TEXTINPUT)
-		{
+			break;
+		case SDL_TEXTINPUT:
 			keybuffer += evt.text.text;
-		}
+			break;
 
 		/* Mouse Input */
-		else if (evt.type == SDL_MOUSEMOTION)
-		{
+		case SDL_MOUSEMOTION:
 			mx = evt.motion.x;
 			my = evt.motion.y;
-		}
-		else if (evt.type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (evt.button.button == SDL_BUTTON_LEFT)
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			switch (evt.button.button)
 			{
+			case SDL_BUTTON_LEFT:
 				mx = evt.button.x;
 				my = evt.button.y;
 				leftbutton = 1;
-			}
-			else if (evt.button.button == SDL_BUTTON_RIGHT)
-			{
+				break;
+			case SDL_BUTTON_RIGHT:
 				mx = evt.button.x;
 				my = evt.button.y;
 				rightbutton = 1;
-			}
-			else if (evt.button.button == SDL_BUTTON_MIDDLE)
-			{
+				break;
+			case SDL_BUTTON_MIDDLE:
 				mx = evt.button.x;
 				my = evt.button.y;
 				middlebutton = 1;
+				break;
 			}
-		}
-		else if (evt.type == SDL_MOUSEBUTTONUP)
-		{
-			if (evt.button.button == SDL_BUTTON_LEFT)
+			break;
+		case SDL_MOUSEBUTTONUP:
+			switch (evt.button.button)
 			{
+			case SDL_BUTTON_LEFT:
 				mx = evt.button.x;
 				my = evt.button.y;
 				leftbutton=0;
-			}
-			else if (evt.button.button == SDL_BUTTON_RIGHT)
-			{
+				break;
+			case SDL_BUTTON_RIGHT:
 				mx = evt.button.x;
 				my = evt.button.y;
 				rightbutton=0;
-			}
-			else if (evt.button.button == SDL_BUTTON_MIDDLE)
-			{
+				break;
+			case SDL_BUTTON_MIDDLE:
 				mx = evt.button.x;
 				my = evt.button.y;
 				middlebutton=0;
+				break;
 			}
-		}
+			break;
 
 		/* Controller Input */
-		else if (evt.type == SDL_CONTROLLERBUTTONDOWN)
-		{
+		case SDL_CONTROLLERBUTTONDOWN:
 			buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = true;
-		}
-		else if (evt.type == SDL_CONTROLLERBUTTONUP)
-		{
+			break;
+		case SDL_CONTROLLERBUTTONUP:
 			buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = false;
-		}
-		else if (evt.type == SDL_CONTROLLERAXISMOTION)
-		{
-			if (evt.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
+			break;
+		case SDL_CONTROLLERAXISMOTION:
+			switch (evt.caxis.axis)
 			{
+			case SDL_CONTROLLER_AXIS_LEFTX:
 				if (	evt.caxis.value > -sensitivity &&
 					evt.caxis.value < sensitivity	)
 				{
@@ -200,9 +196,8 @@ void KeyPoll::Poll()
 				{
 					xVel = (evt.caxis.value > 0) ? 1 : -1;
 				}
-			}
-			if (evt.caxis.axis == SDL_CONTROLLER_AXIS_LEFTY)
-			{
+				break;
+			case SDL_CONTROLLER_AXIS_LEFTY:
 				if (	evt.caxis.value > -sensitivity &&
 					evt.caxis.value < sensitivity	)
 				{
@@ -212,9 +207,10 @@ void KeyPoll::Poll()
 				{
 					yVel = (evt.caxis.value > 0) ? 1 : -1;
 				}
+				break;
 			}
-		}
-		else if (evt.type == SDL_CONTROLLERDEVICEADDED)
+			break;
+		case SDL_CONTROLLERDEVICEADDED:
 		{
 			SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);
 			printf(
@@ -223,27 +219,28 @@ void KeyPoll::Poll()
 				SDL_GameControllerName(toOpen)
 			);
 			controllers[SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(toOpen))] = toOpen;
+			break;
 		}
-		else if (evt.type == SDL_CONTROLLERDEVICEREMOVED)
+		case SDL_CONTROLLERDEVICEREMOVED:
 		{
 			SDL_GameController *toClose = controllers[evt.cdevice.which];
 			controllers.erase(evt.cdevice.which);
 			printf("Closing %s\n", SDL_GameControllerName(toClose));
 			SDL_GameControllerClose(toClose);
+			break;
 		}
 
 		/* Window Events */
-		else if (evt.type == SDL_WINDOWEVENT)
-		{
-			/* Window Resize */
-			if (evt.window.event == SDL_WINDOWEVENT_RESIZED)
+		case SDL_WINDOWEVENT:
+			switch (evt.window.event)
 			{
+			/* Window Resize */
+			case SDL_WINDOWEVENT_RESIZED:
 				resetWindow = true;
-			}
+				break;
 
 			/* Window Focus */
-			else if (evt.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
-			{
+			case SDL_WINDOWEVENT_FOCUS_GAINED:
 				isActive = true;
 				if (!useFullscreenSpaces)
 				{
@@ -257,9 +254,8 @@ void KeyPoll::Poll()
 					}
 				}
 				SDL_DisableScreenSaver();
-			}
-			else if (evt.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
-			{
+				break;
+			case SDL_WINDOWEVENT_FOCUS_LOST:
 				isActive = false;
 				if (!useFullscreenSpaces)
 				{
@@ -271,23 +267,22 @@ void KeyPoll::Poll()
 					);
 				}
 				SDL_EnableScreenSaver();
-			}
+				break;
 
 			/* Mouse Focus */
-			else if (evt.window.event == SDL_WINDOWEVENT_ENTER)
-			{
+			case SDL_WINDOWEVENT_ENTER:
 				SDL_DisableScreenSaver();
-			}
-			else if (evt.window.event == SDL_WINDOWEVENT_LEAVE)
-			{
+				break;
+			case SDL_WINDOWEVENT_LEAVE:
 				SDL_EnableScreenSaver();
+				break;
 			}
-		}
+			break;
 
 		/* Quit Event */
-		else if (evt.type == SDL_QUIT)
-		{
+		case SDL_QUIT:
 			quitProgram = true;
+			break;
 		}
 	}
 }
