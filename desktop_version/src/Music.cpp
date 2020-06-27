@@ -218,15 +218,10 @@ void musicclass::init()
 	musicVolume = 128;
 	FadeVolAmountPerFrame = 0;
 
-	custompd = false;
-
 	currentsong = 0;
-	musicfade = 0;
-	musicfadein = 0;
 	nicechange = 0;
 	nicefade = 0;
 	resumesong = 0;
-	volume = 0.0f;
 	fadeoutqueuesong = -1;
 	dontquickfade = false;
 
