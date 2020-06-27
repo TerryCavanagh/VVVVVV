@@ -13,11 +13,13 @@ class musicclass
 public:
 	void init();
 
-	void play(int t);
+	void play(int t, const double position_sec = 0.0, const int fadein_ms = 3000);
+	void resume(const int fadein_ms = 0);
 	void haltdasmusik();
 	void silencedasmusik();
 	void fadeMusicVolumeIn(int ms);
 	void fadeout();
+	void fadein();
 	void processmusicfadein();
 	void processmusic();
 	void niceplay(int t);
@@ -53,6 +55,9 @@ public:
 	bool usingmmmmmm;
 
 	binaryBlob musicReadBlob;
+
+	Uint64 songStart;
+	Uint64 songEnd;
 };
 
 extern musicclass music;

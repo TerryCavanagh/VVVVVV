@@ -260,7 +260,7 @@ void scriptclass::run()
 			}
 			if (words[0] == "resumemusic")
 			{
-				music.play(music.resumesong);
+				music.resume();
 			}
 			if (words[0] == "musicfadeout")
 			{
@@ -269,8 +269,7 @@ void scriptclass::run()
 			}
 			if (words[0] == "musicfadein")
 			{
-				music.musicfadein = 90;
-				//if(!game.muted) music.fadeMusicVolumeIn(3000);
+				music.fadein();
 			}
 			if (words[0] == "trinketscriptmusic")
 			{

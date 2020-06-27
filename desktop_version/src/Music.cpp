@@ -4,6 +4,8 @@
 #include "BinaryBlob.h"
 #include "Map.h"
 
+void songend();
+
 void musicclass::init()
 {
 	for (size_t i = 0; i < soundTracks.size(); ++i) {
@@ -227,9 +229,20 @@ void musicclass::init()
 	volume = 0.0f;
 	fadeoutqueuesong = -1;
 	dontquickfade = false;
+
+	songStart = 0;
+	songEnd = 0;
+
+	Mix_HookMusicFinished(&songend);
 }
 
-void musicclass::play(int t)
+void songend()
+{
+	music.songEnd = SDL_GetPerformanceCounter();
+	music.currentsong = -1;
+}
+
+void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fadein_ms /*= 3000*/)
 {
 	t = (t % 16);
 
@@ -250,9 +263,9 @@ void musicclass::play(int t)
 			if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 16 || currentsong == 23)))
 			{
 				// Level Complete theme, no fade in or repeat
-				if(Mix_FadeInMusic(musicTracks[t].m_music, 0, 0)==-1)
+				if(Mix_FadeInMusicPos(musicTracks[t].m_music, 0, 0, position_sec)==-1)
 				{
-					printf("Mix_PlayMusic: %s\n", Mix_GetError());
+					printf("Mix_FadeInMusicPos: %s\n", Mix_GetError());
 				}
 			}
 			else
@@ -266,11 +279,13 @@ void musicclass::play(int t)
 					else
 						dontquickfade = false;
 				}
-				else if(Mix_FadeInMusic(musicTracks[t].m_music, -1, 3000)==-1)
+				else if(Mix_FadeInMusicPos(musicTracks[t].m_music, -1, fadein_ms, position_sec)==-1)
 				{
-					printf("Mix_FadeInMusic: %s\n", Mix_GetError());
+					printf("Mix_FadeInMusicPos: %s\n", Mix_GetError());
 				}
 			}
+
+			songStart = SDL_GetPerformanceCounter();
 		}
 		else
 		{
@@ -279,10 +294,25 @@ void musicclass::play(int t)
 	}
 }
 
+void musicclass::resume(const int fadein_ms /*= 0*/)
+{
+	const double offset = static_cast<double>(songEnd - songStart);
+	const double frequency = static_cast<double>(SDL_GetPerformanceFrequency());
+
+	const double position_sec = offset / frequency;
+
+	play(resumesong, position_sec, fadein_ms);
+}
+
+void musicclass::fadein()
+{
+	resume(3000); // 3000 ms fadein
+}
+
 void musicclass::haltdasmusik()
 {
 	Mix_HaltMusic();
-	currentsong = -1;
+	resumesong = currentsong;
 }
 
 void musicclass::silencedasmusik()
@@ -300,7 +330,7 @@ void musicclass::fadeMusicVolumeIn(int ms)
 void musicclass::fadeout()
 {
 	Mix_FadeOutMusic(2000);
-	currentsong = -1;
+	resumesong = currentsong;
 }
 
 void musicclass::processmusicfadein()
