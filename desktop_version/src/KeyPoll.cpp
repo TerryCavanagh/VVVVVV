@@ -1,5 +1,6 @@
 #include "KeyPoll.h"
 #include "Graphics.h"
+#include "Music.h"
 #include <stdio.h>
 #include <string.h>
 #include <utf8/unchecked.h>
@@ -54,6 +55,8 @@ KeyPoll::KeyPoll()
 	}
 
 	linealreadyemptykludge = false;
+
+	pauseStart = 0;
 }
 
 void KeyPoll::enabletextentry()
@@ -254,6 +257,11 @@ void KeyPoll::Poll()
 					}
 				}
 				SDL_DisableScreenSaver();
+				if (Mix_PlayingMusic())
+				{
+					// Correct songStart for how long we were paused
+					music.songStart += SDL_GetPerformanceCounter() - pauseStart;
+				}
 				break;
 			case SDL_WINDOWEVENT_FOCUS_LOST:
 				isActive = false;
@@ -267,6 +275,7 @@ void KeyPoll::Poll()
 					);
 				}
 				SDL_EnableScreenSaver();
+				pauseStart = SDL_GetPerformanceCounter();
 				break;
 
 			/* Mouse Focus */
