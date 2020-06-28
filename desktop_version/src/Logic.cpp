@@ -83,7 +83,7 @@ void maplogic()
     {
         game.shouldreturntopausemenu = false;
         graphics.backgrounddrawn = false;
-        if (map.background == 3 || map.background || 4)
+        if (map.background == 3 || map.background == 4)
         {
             graphics.updatebackground(map.background);
         }
