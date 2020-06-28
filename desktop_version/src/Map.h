@@ -75,6 +75,8 @@ public:
 
     void loadlevel(int rx, int ry);
 
+    void twoframedelayfix();
+
 
     std::vector <int> roomdeaths;
     std::vector <int> roomdeathsfinal;

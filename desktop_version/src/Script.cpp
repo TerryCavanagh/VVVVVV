@@ -16,6 +16,7 @@ scriptclass::scriptclass()
 	position = 0;
 	scriptdelay = 0;
 	running = false;
+	dontrunnextframe = false;
 
 	b = 0;
 	g = 0;
