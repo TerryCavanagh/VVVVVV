@@ -1141,16 +1141,31 @@ void Graphics::textboxremove()
 
 void Graphics::textboxtimer( int t )
 {
+    if (!INBOUNDS(m, textbox))
+    {
+        return;
+    }
+
     textbox[m].timer=t;
 }
 
 void Graphics::addline( std::string t )
 {
+    if (!INBOUNDS(m, textbox))
+    {
+        return;
+    }
+
     textbox[m].addline(t);
 }
 
 void Graphics::textboxadjust()
 {
+    if (!INBOUNDS(m, textbox))
+    {
+        return;
+    }
+
     textbox[m].adjust();
 }
 
@@ -2787,33 +2802,63 @@ void Graphics::setwarprect( int a, int b, int c, int d )
 
 void Graphics::textboxcenter()
 {
+	if (!INBOUNDS(m, textbox))
+	{
+		return;
+	}
+
 	textbox[m].centerx();
 	textbox[m].centery();
 }
 
 void Graphics::textboxcenterx()
 {
+	if (!INBOUNDS(m, textbox))
+	{
+		return;
+	}
+
 	textbox[m].centerx();
 }
 
 int Graphics::textboxwidth()
 {
+	if (!INBOUNDS(m, textbox))
+	{
+		return 0;
+	}
+
 	return textbox[m].w;
 }
 
 void Graphics::textboxmove(int xo, int yo)
 {
+	if (!INBOUNDS(m, textbox))
+	{
+		return;
+	}
+
 	textbox[m].xp += xo;
 	textbox[m].yp += yo;
 }
 
 void Graphics::textboxmoveto(int xo)
 {
+	if (!INBOUNDS(m, textbox))
+	{
+		return;
+	}
+
 	textbox[m].xp = xo;
 }
 
 void Graphics::textboxcentery()
 {
+	if (!INBOUNDS(m, textbox))
+	{
+		return;
+	}
+
 	textbox[m].centery();
 }
 
