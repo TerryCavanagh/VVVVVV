@@ -1753,6 +1753,7 @@ void Game::updatestate()
             break;
 
 
+        // WARNING: If updating this code, make sure to update Map.cpp mapclass::twoframedelayfix()
         case 300:
             startscript = true;
             newscript="custom_"+customscript[0];
