@@ -200,20 +200,58 @@ void Graphics::updatetitlecolours()
     col_trinket = ct.colour;
 }
 
+#define PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
+    if (grphx.im_##tilesheet->w % tile_square != 0 \
+    || grphx.im_##tilesheet->h % tile_square != 0) \
+    { \
+        const char* error = "Error: %s.png dimensions not exact multiples of %i!"; \
+        char message[128]; \
+        SDL_snprintf(message, sizeof(message), error, #tilesheet, tile_square); \
+        \
+        const char* error_title = "Error with %s.png"; \
+        char message_title[128]; \
+        SDL_snprintf(message_title, sizeof(message_title), error_title, #tilesheet); \
+        \
+        puts(message); \
+        \
+        SDL_ShowSimpleMessageBox( \
+            SDL_MESSAGEBOX_ERROR, \
+            message_title, \
+            message, \
+            NULL \
+        ); \
+        \
+        exit(1); \
+    }
+
+#define PROCESS_TILESHEET_RENAME(tilesheet, vector, tile_square, extra_code) \
+    PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
+    \
+    for (int j = 0; j < grphx.im_##tilesheet->h / tile_square; j++) \
+    { \
+        for (int i = 0; i < grphx.im_##tilesheet->w / tile_square; i++) \
+        { \
+            SDL_Surface* temp = GetSubSurface( \
+                grphx.im_##tilesheet, \
+                i * tile_square, j * tile_square, \
+                tile_square, tile_square \
+            ); \
+            vector.push_back(temp); \
+            \
+            extra_code \
+        } \
+    }
+
+#define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
+    PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
+
 void Graphics::Makebfont()
 {
-    for (int j =  0; j < (grphx.im_bfont->h / 8); j++)
+    PROCESS_TILESHEET(bfont, 8,
     {
-        for (int i = 0; i < 16; i++)
-        {
-
-            SDL_Surface* temp = GetSubSurface(grphx.im_bfont,i*8,j*8,8,8);
-            bfont.push_back(temp);
-
-            SDL_Surface* TempFlipped = FlipSurfaceVerticle(temp);
-            flipbfont.push_back(TempFlipped);
-        }
-    }
+        SDL_Surface* TempFlipped = FlipSurfaceVerticle(temp);
+        flipbfont.push_back(TempFlipped);
+    })
 
     unsigned char* charmap = NULL;
     size_t length;
@@ -241,64 +279,26 @@ int Graphics::bfontlen(uint32_t ch) {
 
 void Graphics::MakeTileArray()
 {
-    for(int j = 0; j <30; j++)
-    {
-        for(int i = 0; i <40; i++)
-        {
-            SDL_Surface* temp = GetSubSurface(grphx.im_tiles,i*8,j*8,8,8);
-            tiles.push_back(temp);
-        }
-    }
-    for(int j = 0; j <30; j++)
-    {
-        for(int i = 0; i <40; i++)
-        {
-            SDL_Surface* temp = GetSubSurface(grphx.im_tiles2,i*8,j*8,8,8);
-            tiles2.push_back(temp);
-        }
-    }
-
-    for(int j = 0; j <30; j++)
-    {
-        for(int i = 0; i <30; i++)
-        {
-            SDL_Surface* temp = GetSubSurface(grphx.im_tiles3,i*8,j*8,8,8);
-            tiles3.push_back(temp);
-        }
-    }
-
-    for(int j = 0; j <60; j++)
-    {
-        for(int i = 0; i <12; i++)
-        {
-            SDL_Surface* temp = GetSubSurface(grphx.im_entcolours,i*8,j*8,8,8);
-            entcolours.push_back(temp);
-        }
-    }
+    PROCESS_TILESHEET(tiles, 8, )
+    PROCESS_TILESHEET(tiles2, 8, )
+    PROCESS_TILESHEET(tiles3, 8, )
+    PROCESS_TILESHEET(entcolours, 8, )
 }
 
 void Graphics::maketelearray()
 {
-    for (int i = 0; i < 10; i++)
-    {
-        SDL_Surface* temp = GetSubSurface(grphx.im_teleporter,i*96,0,96,96);
-        tele.push_back(temp);
-    }
+    PROCESS_TILESHEET_RENAME(teleporter, tele, 96, )
 }
 
 void Graphics::MakeSpriteArray()
 {
-    for(int j = 0; j <16; j++)
-    {
-        for(int i = 0; i <12; i++)
-        {
-            SDL_Surface* temp = GetSubSurface(grphx.im_sprites,i*32,j*32,32,32);
-            sprites.push_back(temp);
-            temp = GetSubSurface(grphx.im_flipsprites,i*32,j*32,32,32);
-            flipsprites.push_back(temp);
-        }
-    }
+    PROCESS_TILESHEET(sprites, 32, )
+    PROCESS_TILESHEET(flipsprites, 32, )
 }
+
+#undef PROCESS_TILESHEET
+#undef PROCESS_TILESHEET_RENAME
+#undef PROCESS_TILESHEET_CHECK_ERROR
 
 
 void Graphics::map_tab(int opt, const std::string& text, bool selected /*= false*/)
