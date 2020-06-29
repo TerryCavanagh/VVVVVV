@@ -7466,7 +7466,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     }
 
     // Automatically center the menu. We must check the width of the menu with the initial horizontal spacing.
-    // If it doesn't fit onscreen (including square brackets), reduce the horizontal spacing by 5 and retry.
+    // If it's too wide, reduce the horizontal spacing by 5 and retry.
+    // Try to limit the menu width to 272 pixels: 320 minus 16*2 for square brackets, minus 8*2 padding.
+    // The square brackets fall outside the menu width (i.e. selected menu options are printed 16 pixels to the left)
     bool done_once = false;
     int menuwidth = 0;
     for (; !done_once || (menuwidth > 272 && menuspacing > 0); maxspacing -= 5)
