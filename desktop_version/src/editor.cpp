@@ -3143,7 +3143,7 @@ void editorrender()
         if(tb>255) tb=255;
         editormenurender(tr, tg, tb);
 
-        graphics.drawmenu(tr, tg, tb, 15);
+        graphics.drawmenu(tr, tg, tb);
     }
     else if(ed.scripttextmod)
     {
