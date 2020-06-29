@@ -83,7 +83,7 @@ void maplogic()
     {
         game.shouldreturntopausemenu = false;
         graphics.backgrounddrawn = false;
-        if (map.background == 3 || map.background || 4)
+        if (map.background == 3 || map.background == 4)
         {
             graphics.updatebackground(map.background);
         }
@@ -1117,6 +1117,8 @@ void gamelogic()
             }
         }
 
+        bool screen_transition = false;
+
         if (!map.warpy && !map.towermode)
         {
             //Normal! Just change room
@@ -1125,11 +1127,13 @@ void gamelogic()
             {
                 obj.entities[player].yp -= 240;
                 map.gotoroom(game.roomx, game.roomy + 1);
+                screen_transition = true;
             }
             if (player > -1 && game.door_up > -2 && obj.entities[player].yp < -2)
             {
                 obj.entities[player].yp += 240;
                 map.gotoroom(game.roomx, game.roomy - 1);
+                screen_transition = true;
             }
         }
 
@@ -1141,11 +1145,13 @@ void gamelogic()
             {
                 obj.entities[player].xp += 320;
                 map.gotoroom(game.roomx - 1, game.roomy);
+                screen_transition = true;
             }
             if (player > -1 && game.door_right > -2 && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
                 map.gotoroom(game.roomx + 1, game.roomy);
+                screen_transition = true;
             }
         }
 
@@ -1363,6 +1369,11 @@ void gamelogic()
                     game.screenshake = 25;
                 }
             }
+        }
+
+        if (screen_transition)
+        {
+            map.twoframedelayfix();
         }
     }
 

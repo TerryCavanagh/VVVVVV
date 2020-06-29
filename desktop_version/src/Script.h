@@ -56,7 +56,7 @@ public:
     int looppoint, loopcount;
 
     int scriptdelay;
-    bool running;
+    bool running, dontrunnextframe;
     std::string tempword;
     std::string currentletter;
 

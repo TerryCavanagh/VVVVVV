@@ -116,6 +116,13 @@ bool GetButtonFromString(const char *pText, SDL_GameControllerButton *button)
 
 void Game::init(void)
 {
+    roomx = 0;
+    roomy = 0;
+    prevroomx = 0;
+    prevroomy = 0;
+    saverx = 0;
+    savery = 0;
+
     mutebutton = 0;
     muted = false;
     musicmuted = false;
@@ -387,6 +394,7 @@ void Game::init(void)
 #endif
 
     over30mode = false;
+    glitchrunnermode = false;
 
     ingame_titlemode = false;
     kludge_ingametemp = Menu::mainmenu;
@@ -1745,6 +1753,7 @@ void Game::updatestate()
             break;
 
 
+        // WARNING: If updating this code, make sure to update Map.cpp mapclass::twoframedelayfix()
         case 300:
             startscript = true;
             newscript="custom_"+customscript[0];
@@ -4756,6 +4765,11 @@ void Game::loadstats()
             over30mode = atoi(pText);
         }
 
+        if (pKey == "glitchrunnermode")
+        {
+            glitchrunnermode = atoi(pText);
+        }
+
         if (pKey == "vsync")
         {
             graphics.vsync = atoi(pText);
@@ -5008,6 +5022,10 @@ void Game::savestats()
 
     msg = doc.NewElement("over30mode");
     msg->LinkEndChild(doc.NewText(help.String((int) over30mode).c_str()));
+    dataNode->LinkEndChild(msg);
+
+    msg = doc.NewElement("glitchrunnermode");
+    msg->LinkEndChild(doc.NewText(help.String((int) glitchrunnermode).c_str()));
     dataNode->LinkEndChild(msg);
 
     msg = doc.NewElement("vsync");
@@ -7126,6 +7144,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::options:
         option("accessibility options");
+        option("glitchrunner mode");
 #if !defined(MAKEANDPLAY)
         option("unlock play modes");
 #endif
@@ -7630,7 +7649,7 @@ bool Game::anything_unlocked()
     {
         if (unlock[i] &&
         (i == 8 // Secret Lab
-        || i >= 9 || i <= 14 // any Time Trial
+        || (i >= 9 && i <= 14) // any Time Trial
         || i == 16 // Intermission replays
         || i == 17 // No Death Mode
         || i == 18)) // Flip Mode

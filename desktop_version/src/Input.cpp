@@ -564,21 +564,26 @@ void menuactionpress()
             game.createmenu(Menu::accessibility);
             map.nexttowercolour();
             break;
-#if !defined(MAKEANDPLAY)
         case 1:
+            // Glitchrunner mode
+            music.playef(11);
+            game.glitchrunnermode = !game.glitchrunnermode;
+            break;
+#if !defined(MAKEANDPLAY)
+        case 2:
             //unlock play options
             music.playef(11);
             game.createmenu(Menu::unlockmenu);
             map.nexttowercolour();
             break;
 #endif
-        case OFFSET+2:
+        case OFFSET+3:
             //clear data menu
             music.playef(11);
             game.createmenu(Menu::controller);
             map.nexttowercolour();
             break;
-        case OFFSET+3:
+        case OFFSET+4:
             //clear data menu
             music.playef(11);
             game.createmenu(Menu::cleardatamenu);
@@ -587,7 +592,7 @@ void menuactionpress()
         }
 
         int mmmmmm_offset = music.mmmmmm ? 0 : -1;
-        if (game.currentmenuoption == OFFSET+4+mmmmmm_offset)
+        if (game.currentmenuoption == OFFSET+5+mmmmmm_offset)
         {
             //**** TOGGLE MMMMMM
             if(game.usingmmmmmm > 0){
@@ -600,7 +605,7 @@ void menuactionpress()
             music.play(music.currentsong);
             game.savestats();
         }
-        else if (game.currentmenuoption == OFFSET+5+mmmmmm_offset)
+        else if (game.currentmenuoption == OFFSET+6+mmmmmm_offset)
         {
             //back
             music.playef(11);
@@ -1592,10 +1597,11 @@ void gameinput()
             }
             else
             {
-                if(!game.glitchrunkludge) game.state++;
+                if(game.glitchrunnermode || !game.glitchrunkludge) game.state++;
                     game.jumpheld = true;
                     game.glitchrunkludge=true;
                     //Bug fix! You should only be able to do this ONCE.
+                    //...Unless you're in glitchrunner mode
             }
         }
     }
@@ -1910,7 +1916,41 @@ void mapinput()
     game.press_action = false;
     game.press_map = false;
 
-    if (game.fadetomenu)
+    if (game.glitchrunnermode && graphics.fademode == 1 && graphics.menuoffset == 0)
+    {
+        // Deliberate re-addition of the glitchy gamestate-based fadeout!
+
+        // First of all, detecting a black screen means if the glitchy fadeout
+        // gets interrupted but you're still on a black screen, opening a menu
+        // immediately quits you to the title. This has the side effect that if
+        // you accidentally press Esc during a cutscene when it's black, you'll
+        // immediately be quit and lose all your progress, but that's fair in
+        // glitchrunner mode.
+        // Also have to check graphics.menuoffset so this doesn't run every frame
+
+        // Have to close the menu in order to run gamestates. This adds
+        // about an extra half second of completely black screen.
+        graphics.resumegamemode = true;
+
+        // Technically this was in <=2.2 as well
+        obj.removeallblocks();
+
+        if (game.menupage >= 20 && game.menupage <= 21)
+        {
+            game.state = 96;
+            game.statedelay = 0;
+        }
+        else
+        {
+            // Produces more glitchiness! Necessary for credits warp to work.
+            script.hardreset();
+
+            game.state = 80;
+            game.statedelay = 0;
+        }
+    }
+
+    if (game.fadetomenu && !game.glitchrunnermode)
     {
         if (game.fadetomenudelay > 0)
         {
@@ -1923,7 +1963,7 @@ void mapinput()
         }
     }
 
-    if (game.fadetolab)
+    if (game.fadetolab && !game.glitchrunnermode)
     {
         if (game.fadetolabdelay > 0)
         {
@@ -1936,7 +1976,9 @@ void mapinput()
         }
     }
 
-    if(graphics.menuoffset==0 && game.fadetomenudelay <= 0 && game.fadetolabdelay <= 0)
+    if(graphics.menuoffset==0
+    && (!game.glitchrunnermode || graphics.fademode == 0)
+    && game.fadetomenudelay <= 0 && game.fadetolabdelay <= 0)
     {
         if (graphics.flipmode)
         {
@@ -2113,8 +2155,11 @@ void mapmenuactionpress()
         graphics.fademode = 2;
         music.fadeout();
         map.nexttowercolour();
-        game.fadetomenu = true;
-        game.fadetomenudelay = 16;
+        if (!game.glitchrunnermode)
+        {
+            game.fadetomenu = true;
+            game.fadetomenudelay = 16;
+        }
         break;
 
     case 20:

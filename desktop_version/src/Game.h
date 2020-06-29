@@ -405,6 +405,7 @@ public:
     }
 
     bool over30mode;
+    bool glitchrunnermode; // Have fun speedrunners! <3 Misa
 
     bool ingame_titlemode;
 

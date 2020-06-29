@@ -31,6 +31,10 @@ mapclass::mapclass()
 	cursorstate = 0;
 	cursordelay = 0;
 
+	towermode = false;
+	cameraseekframe = 0;
+	resumedelay = 0;
+
 	final_colormode = false;
 	final_colorframe = 0;
 	final_colorframedelay = 0;
@@ -788,10 +792,13 @@ void mapclass::resetplayer()
 		obj.entities[i].colour = 0;
 		game.lifeseq = 10;
 		obj.entities[i].invis = true;
-		obj.entities[i].size = 0;
-		obj.entities[i].cx = 6;
-		obj.entities[i].cy = 2;
-		obj.entities[i].h = 21;
+		if (!game.glitchrunnermode)
+		{
+			obj.entities[i].size = 0;
+			obj.entities[i].cx = 6;
+			obj.entities[i].cy = 2;
+			obj.entities[i].h = 21;
+		}
 
 		// If we entered a tower as part of respawn, reposition camera
 		if (!was_in_tower && towermode)
@@ -1162,8 +1169,6 @@ void mapclass::loadlevel(int rx, int ry)
 	obj.customwarpmode=false;
 	obj.customwarpmodevon=false;
 	obj.customwarpmodehon=false;
-
-	std::vector<std::string> tmap;
 
 	if (finalmode)
 	{
@@ -1973,5 +1978,32 @@ void mapclass::loadlevel(int rx, int ry)
 		{
 			obj.entities[i].drawframe += 6;
 		}
+	}
+}
+
+void mapclass::twoframedelayfix()
+{
+	// Fixes the two-frame delay in custom levels that use scripts to spawn an entity upon room load.
+	// Because when the room loads and newscript is set to run, newscript has already ran for that frame,
+	// and when the script gets loaded script.run() has already ran for that frame, too.
+	// A bit kludge-y, but it's the least we can do without changing the frame ordering.
+
+	if (game.deathseq != -1
+	// obj.checktrigger() sets obj.activetrigger
+	|| obj.checktrigger() <= -1
+	|| obj.activetrigger < 300)
+	{
+		return;
+	}
+
+	game.newscript = "custom_" + game.customscript[obj.activetrigger - 300];
+	obj.removetrigger(obj.activetrigger);
+	game.state = 0;
+	game.statedelay = 0;
+	script.load(game.newscript);
+	if (script.running)
+	{
+		script.run();
+		script.dontrunnextframe = true;
 	}
 }
