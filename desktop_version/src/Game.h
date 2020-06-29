@@ -258,7 +258,7 @@ public:
     //Time Trials
     bool intimetrial, timetrialparlost;
     int timetrialcountdown, timetrialshinytarget, timetriallevel;
-    int timetrialpar, timetrialresulttime, timetrialrank;
+    int timetrialpar, timetrialresulttime, timetrialresultframes, timetrialrank;
 
     int creditposition;
     int oldcreditposition;
