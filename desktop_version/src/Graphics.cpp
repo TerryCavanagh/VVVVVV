@@ -1566,6 +1566,15 @@ void Graphics::drawentities()
 
     SDL_Rect drawRect;
 
+#if !defined(NO_CUSTOM_LEVELS)
+    // Special case for gray Warp Zone tileset!
+    int room = game.roomx-100 + (game.roomy-100) * ed.maxwidth;
+    bool custom_gray = room >= 0 && room < 400
+    && ed.level[room].tileset == 3 && ed.level[room].tilecol == 6;
+#else
+    bool custom_gray = false;
+#endif
+
     std::vector<SDL_Surface*> *tilesvec;
     if (map.custommode && !map.finalmode)
     {
@@ -1698,7 +1707,16 @@ void Graphics::drawentities()
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
                 drawRect.x += 8 * ii;
-                BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
+                if (custom_gray)
+                {
+                    colourTransform temp_ct;
+                    temp_ct.colour = 0xFFFFFFFF;
+                    BlitSurfaceTinted((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, temp_ct);
+                }
+                else
+                {
+                    BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
+                }
             }
             break;
         }
