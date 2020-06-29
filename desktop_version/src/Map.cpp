@@ -1988,7 +1988,8 @@ void mapclass::twoframedelayfix()
 	// and when the script gets loaded script.run() has already ran for that frame, too.
 	// A bit kludge-y, but it's the least we can do without changing the frame ordering.
 
-	if (game.deathseq != -1
+	if (game.glitchrunnermode
+	|| game.deathseq != -1
 	// obj.checktrigger() sets obj.activetrigger
 	|| obj.checktrigger() <= -1
 	|| obj.activetrigger < 300)
