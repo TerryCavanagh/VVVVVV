@@ -7469,7 +7469,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     // If it doesn't fit onscreen (including square brackets), reduce the horizontal spacing by 5 and retry.
     bool done_once = false;
     int menuwidth = 0;
-    for (; !done_once || (menuwidth > 272 && maxspacing > 0); maxspacing -= 5)
+    for (; !done_once || (menuwidth > 272 && menuspacing > 0); maxspacing -= 5)
     {
         done_once = true;
         menuspacing = maxspacing;
