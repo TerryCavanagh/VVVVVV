@@ -258,6 +258,7 @@ void Game::init(void)
     timetrialparlost = false;
     timetrialpar = 0;
     timetrialresulttime = 0;
+    timetrialresultframes = 0;
 
     totalflips = 0;
     hardestroom = "Welcome Aboard";
@@ -1390,6 +1391,7 @@ void Game::updatestate()
             obj.removetrigger(82);
             hascontrol = false;
             timetrialresulttime = seconds + (minutes * 60) + (hours * 60 * 60);
+            timetrialresultframes = frames;
             timetrialrank = 0;
             if (timetrialresulttime <= timetrialpar) timetrialrank++;
             if (trinkets() >= timetrialshinytarget) timetrialrank++;
@@ -3219,6 +3221,7 @@ void Game::updatestate()
                 graphics.createtextbox("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
             }
             savetime = timestring();
+            savetime += "." + help.twodigits(frames*100 / 30);
             break;
         case 3503:
         {
@@ -6883,6 +6886,7 @@ std::string Game::resulttimestring()
     {
         tempstring = "00:" + help.twodigits(timetrialresulttime);
     }
+    tempstring += "." + help.twodigits(timetrialresultframes*100 / 30);
     return tempstring;
 }
 
