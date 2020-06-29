@@ -1116,29 +1116,9 @@ void titlerender()
         if(tg>255) tg=255;
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
-        if (game.currentmenuname == Menu::timetrials || game.currentmenuname == Menu::unlockmenutrials)
+        if (game.currentmenuname == Menu::levellist)
         {
-            graphics.drawmenu(tr, tg, tb, 15);
-        }
-        else if (game.currentmenuname == Menu::unlockmenu)
-        {
-            graphics.drawmenu(tr, tg, tb, 15);
-        }
-        else if (game.currentmenuname == Menu::playmodes)
-        {
-            graphics.drawmenu(tr, tg, tb, 20);
-        }
-        else if (game.currentmenuname == Menu::mainmenu)
-        {
-            graphics.drawmenu(tr, tg, tb, 15);
-        }
-        else if (game.currentmenuname == Menu::playerworlds)
-        {
-            graphics.drawmenu(tr, tg, tb, 15);
-        }
-        else if (game.currentmenuname == Menu::levellist)
-        {
-            graphics.drawlevelmenu(tr, tg, tb, 5);
+            graphics.drawlevelmenu(tr, tg, tb);
         }
         else
         {
