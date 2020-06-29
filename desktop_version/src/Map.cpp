@@ -797,6 +797,7 @@ void mapclass::resetplayer()
 			obj.entities[i].size = 0;
 			obj.entities[i].cx = 6;
 			obj.entities[i].cy = 2;
+			obj.entities[i].w = 12;
 			obj.entities[i].h = 21;
 		}
 
