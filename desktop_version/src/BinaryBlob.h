@@ -1,6 +1,8 @@
 #ifndef BINARYBLOB_H
 #define BINARYBLOB_H
 
+#include <vector>
+
 /* Laaaazyyyyyyy -flibit */
 // #define VVV_COMPILEMUSIC
 
@@ -46,6 +48,8 @@ public:
 	int getIndex(const char* _name);
 
 	int getSize(int _index);
+
+	std::vector<int> getExtra();
 
 	char* getAddress(int _index);
 
