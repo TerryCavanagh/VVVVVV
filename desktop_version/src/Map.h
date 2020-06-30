@@ -35,6 +35,7 @@ public:
     std::string getglitchname(int x, int y);
 
     void initmapdata();
+    void initcustommapdata();
 
     int finalat(int x, int y);
 
