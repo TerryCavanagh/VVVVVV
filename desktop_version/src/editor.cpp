@@ -398,6 +398,8 @@ void editorclass::reset()
 
     ghosts.clear();
     currentghosts = 0;
+
+    onewaycol_override = false;
 }
 
 void editorclass::gethooks()
@@ -1708,6 +1710,11 @@ bool editorclass::load(std::string& _path)
                 {
                     website = pText;
                 }
+
+                if(pKey == "onewaycol_override")
+                {
+                    onewaycol_override = atoi(pText);
+                }
             }
         }
 
@@ -1992,6 +1999,13 @@ bool editorclass::save(std::string& _path)
     meta = doc.NewElement( "website" );
     meta->LinkEndChild( doc.NewText( website.c_str() ));
     msg->LinkEndChild( meta );
+
+    if (onewaycol_override)
+    {
+        meta = doc.NewElement( "onewaycol_override" );
+        meta->LinkEndChild( doc.NewText( help.String(onewaycol_override).c_str() ));
+        msg->LinkEndChild( meta );
+    }
 
     data->LinkEndChild( msg );
 
