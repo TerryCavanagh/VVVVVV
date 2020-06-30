@@ -191,8 +191,6 @@ public:
 
 	void drawtowermap();
 
-	void drawtowermap_nobackground();
-
 	void drawtowerspikes();
 
 	bool onscreen(int t);
