@@ -7160,7 +7160,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::graphicoptions:
         option("toggle fullscreen");
-        option("toggle letterbox");
+        option("scaling mode");
         option("resize to nearest", graphics.screenbuffer->isWindowed);
         option("toggle filter");
         option("toggle analogue");
