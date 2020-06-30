@@ -572,10 +572,20 @@ void menuactionpress()
     case Menu::options:
     {
 #if defined(MAKEANDPLAY)
-#define OFFSET -1
+        int flipmode_offset = 0;
 #else
-#define OFFSET 0
+        int flipmode_offset = game.ingame_titlemode && game.unlock[18] ? 0 : -1;
 #endif
+
+#if defined(MAKEANDPLAY)
+        int unlockmode_offset = -1;
+#else
+        int unlockmode_offset = 0;
+#endif
+
+        int mmmmmm_offset = music.mmmmmm ? 0 : -1;
+
+        int offset = 0;
 
         switch (game.currentmenuoption)
         {
@@ -590,30 +600,58 @@ void menuactionpress()
             music.playef(11);
             game.glitchrunnermode = !game.glitchrunnermode;
             break;
-#if !defined(MAKEANDPLAY)
         case 2:
+#if !defined(MAKEANDPLAY)
+        if (game.ingame_titlemode && game.unlock[18])
+#endif
+        {
+            // toggle Flip Mode
+            graphics.setflipmode = !graphics.setflipmode;
+            game.savemystats = true;
+            if (graphics.setflipmode)
+            {
+                music.playef(18);
+                game.screenshake = 10;
+                game.flashlight = 5;
+            }
+            else
+            {
+                music.playef(11);
+            }
+        }
+            break;
+        }
+
+        offset += flipmode_offset;
+
+#if !defined(MAKEANDPLAY)
+        if (game.currentmenuoption == 3+offset)
+        {
             //unlock play options
             music.playef(11);
             game.createmenu(Menu::unlockmenu);
             map.nexttowercolour();
-            break;
+        }
 #endif
-        case OFFSET+3:
+
+        offset += unlockmode_offset;
+
+        if (game.currentmenuoption == 4+offset)
+        {
             //clear data menu
             music.playef(11);
             game.createmenu(Menu::controller);
             map.nexttowercolour();
             break;
-        case OFFSET+4:
+        }
+        else if (game.currentmenuoption == 5+offset)
+        {
             //clear data menu
             music.playef(11);
             game.createmenu(Menu::cleardatamenu);
             map.nexttowercolour();
-            break;
         }
-
-        int mmmmmm_offset = music.mmmmmm ? 0 : -1;
-        if (game.currentmenuoption == OFFSET+5+mmmmmm_offset)
+        else if (game.currentmenuoption == 6+offset && music.mmmmmm)
         {
             //**** TOGGLE MMMMMM
             if(game.usingmmmmmm > 0){
@@ -626,7 +664,10 @@ void menuactionpress()
             music.play(music.currentsong);
             game.savestats();
         }
-        else if (game.currentmenuoption == OFFSET+6+mmmmmm_offset)
+
+        offset += mmmmmm_offset;
+
+        if (game.currentmenuoption == 7+offset)
         {
             //back
             music.playef(11);
@@ -640,7 +681,6 @@ void menuactionpress()
                 map.nexttowercolour();
             }
         }
-#undef OFFSET
         break;
     }
     case Menu::unlockmenutrials:
@@ -1171,6 +1211,7 @@ void menuactionpress()
         }
         else if (game.currentmenuoption == 3 && game.unlock[18])    //enable/disable flip mode
         {
+            // WARNING: Partially duplicated in Menu::options
             graphics.setflipmode = !graphics.setflipmode;
             game.savemystats = true;
             if (graphics.setflipmode)
