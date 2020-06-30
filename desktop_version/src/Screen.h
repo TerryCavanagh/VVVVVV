@@ -9,6 +9,7 @@ public:
 	void init();
 
 	void ResizeScreen(int x, int y);
+	void ResizeToNearestMultiple();
 	void GetWindowSize(int* x, int* y);
 
 	void UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect);

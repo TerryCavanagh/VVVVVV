@@ -7167,8 +7167,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("toggle mouse");
         option("toggle fps");
         option("toggle vsync");
+        option("resize to nearest", graphics.screenbuffer->isWindowed);
         option("return");
-        menuyoff = 0;
+        menuyoff = -10;
         break;
     case Menu::ed_settings:
         option("change description");
