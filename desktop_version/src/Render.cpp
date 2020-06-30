@@ -187,6 +187,16 @@ void menurender()
             }
             break;
         case 2:
+            graphics.bigprint(-1, 30, "Resize to Nearest", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Resize to the nearest window size", tr, tg, tb, true);
+            graphics.Print(-1, 75, "that is of an integer multiple.", tr, tg, tb, true);
+            if (!graphics.screenbuffer->isWindowed)
+            {
+                graphics.Print(-1, 95, "You must be in windowed mode", tr, tg, tb, true);
+                graphics.Print(-1, 105, "to use this option.", tr, tg, tb, true);
+            }
+            break;
+        case 3:
             graphics.bigprint( -1, 30, "Toggle Filter", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to nearest/linear filter.", tr, tg, tb, true);
 
@@ -197,13 +207,13 @@ void menurender()
             }
             break;
 
-        case 3:
+        case 4:
             graphics.bigprint( -1, 30, "Analogue Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "There is nothing wrong with your", tr, tg, tb, true);
             graphics.Print( -1, 75, "television set. Do not attempt to", tr, tg, tb, true);
             graphics.Print( -1, 85, "adjust the picture.", tr, tg, tb, true);
             break;
-        case 4:
+        case 5:
             graphics.bigprint(-1, 30, "Toggle 30+ FPS", tr, tg, tb, true);
             graphics.Print(-1, 65, "Change whether the game", tr, tg, tb, true);
             graphics.Print(-1, 75, "runs at 30 or over 30 FPS.", tr, tg, tb, true);
@@ -217,7 +227,7 @@ void menurender()
                 graphics.Print(-1, 95, "Current mode: Over 30 FPS", tr, tg, tb, true);
             }
             break;
-        case 5:
+        case 6:
             graphics.bigprint(-1, 30, "Toggle VSync", tr, tg, tb, true);
             graphics.Print(-1, 65, "Turn VSync on or off.", tr, tg, tb, true);
 
@@ -228,16 +238,6 @@ void menurender()
             else
             {
                 graphics.Print(-1, 95, "Current mode: VSYNC ON", tr, tg, tb, true);
-            }
-            break;
-        case 6:
-            graphics.bigprint(-1, 30, "Resize to Nearest", tr, tg, tb, true);
-            graphics.Print(-1, 65, "Resize to the nearest window size", tr, tg, tb, true);
-            graphics.Print(-1, 75, "that is of an integer multiple.", tr, tg, tb, true);
-            if (!graphics.screenbuffer->isWindowed)
-            {
-                graphics.Print(-1, 95, "You must be in windowed mode", tr, tg, tb, true);
-                graphics.Print(-1, 105, "to use this option.", tr, tg, tb, true);
             }
             break;
         }
