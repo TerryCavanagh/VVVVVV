@@ -397,6 +397,15 @@ std::string mapclass::getglitchname(int x, int y)
 
 void mapclass::initmapdata()
 {
+	if (custommode)
+	{
+		initcustommapdata();
+		return;
+	}
+
+	teleporters.clear();
+	shinytrinkets.clear();
+
 	//Set up static map information like teleporters and shiny trinkets.
 	setteleporter(0, 0);
 	setteleporter(0, 16);
@@ -434,6 +443,27 @@ void mapclass::initmapdata()
 	settrinket(1, 10);
 	settrinket(3, 2);
 	settrinket(10, 8);
+}
+
+void mapclass::initcustommapdata()
+{
+	shinytrinkets.clear();
+
+#if !defined(NO_CUSTOM_LEVELS)
+	for (size_t i = 0; i < edentity.size(); i++)
+	{
+		const edentities& ent = edentity[i];
+		if (ent.t != 9)
+		{
+			continue;
+		}
+
+		const int rx = ent.x / 40;
+		const int ry = ent.y / 30;
+
+		settrinket(rx, ry);
+	}
+#endif
 }
 
 int mapclass::finalat(int x, int y)
