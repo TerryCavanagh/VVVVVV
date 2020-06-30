@@ -401,6 +401,8 @@ void Game::init(void)
     kludge_ingametemp = Menu::mainmenu;
     shouldreturntopausemenu = false;
 
+    disablepause = false;
+
     /* Terry's Patrons... */
     const char* superpatrons_arr[] = {
     "Anders Ekermo",
@@ -4811,6 +4813,11 @@ void Game::loadstats()
             skipfakeload = atoi(pText);
         }
 
+        if (pKey == "disablepause")
+        {
+            disablepause = atoi(pText);
+        }
+
         if (pKey == "over30mode")
         {
             over30mode = atoi(pText);
@@ -5057,6 +5064,10 @@ void Game::savestats()
 
     msg = doc.NewElement("skipfakeload");
     msg->LinkEndChild(doc.NewText(help.String((int) skipfakeload).c_str()));
+    dataNode->LinkEndChild(msg);
+
+    msg = doc.NewElement("disablepause");
+    msg->LinkEndChild(doc.NewText(help.String((int) disablepause).c_str()));
     dataNode->LinkEndChild(msg);
 
     msg = doc.NewElement("notextoutline");
@@ -7216,6 +7227,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("text outline");
         option("invincibility", !ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode));
         option("slowdown", !ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode));
+        option("unfocus pause");
         option("load screen");
         option("room name bg");
         option("return");
