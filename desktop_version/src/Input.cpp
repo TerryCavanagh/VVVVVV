@@ -333,37 +333,8 @@ void menuactionpress()
             graphics.screenbuffer->toggleStretchMode();
             game.stretchMode = (game.stretchMode + 1) % 3;
             game.savestats();
-            game.currentmenuoption = 1;
             break;
         case 2:
-            music.playef(11);
-            graphics.screenbuffer->toggleLinearFilter();
-            game.useLinearFilter = !game.useLinearFilter;
-            game.savestats();
-            game.currentmenuoption = 2;
-            break;
-        case 3:
-            //change smoothing
-            music.playef(11);
-            game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
-            graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
-            game.savestats();
-            game.currentmenuoption = 3;
-            break;
-        case 4:
-            //toggle 30+ fps
-            music.playef(11);
-            game.over30mode = !game.over30mode;
-            game.savestats();
-            break;
-        case 5:
-            //toggle vsync
-            music.playef(11);
-            graphics.vsync = !graphics.vsync;
-            graphics.processVsync();
-            game.savestats();
-            break;
-        case 6:
             // resize to nearest multiple
             if (graphics.screenbuffer->isWindowed)
             {
@@ -375,6 +346,32 @@ void menuactionpress()
             {
                 music.playef(2);
             }
+            break;
+        case 3:
+            music.playef(11);
+            graphics.screenbuffer->toggleLinearFilter();
+            game.useLinearFilter = !game.useLinearFilter;
+            game.savestats();
+            break;
+        case 4:
+            //change smoothing
+            music.playef(11);
+            game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
+            graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
+            game.savestats();
+            break;
+        case 5:
+            //toggle 30+ fps
+            music.playef(11);
+            game.over30mode = !game.over30mode;
+            game.savestats();
+            break;
+        case 6:
+            //toggle vsync
+            music.playef(11);
+            graphics.vsync = !graphics.vsync;
+            graphics.processVsync();
+            game.savestats();
             break;
         default:
             //back

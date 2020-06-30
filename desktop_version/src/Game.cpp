@@ -7162,11 +7162,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::graphicoptions:
         option("toggle fullscreen");
         option("toggle letterbox");
+        option("resize to nearest", graphics.screenbuffer->isWindowed);
         option("toggle filter");
         option("toggle analogue");
         option("toggle fps");
         option("toggle vsync");
-        option("resize to nearest", graphics.screenbuffer->isWindowed);
         option("return");
         menuyoff = -10;
         break;
