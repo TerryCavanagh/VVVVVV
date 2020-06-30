@@ -153,6 +153,63 @@ void Screen::ResizeScreen(int x, int y)
 	SDL_ShowWindow(m_window);
 }
 
+void Screen::ResizeToNearestMultiple()
+{
+	int w, h;
+	GetWindowSize(&w, &h);
+
+	// Check aspect ratio first
+	bool using_width;
+	int usethisdimension, usethisratio;
+
+	if ((float) w / (float) h > 4.0 / 3.0)
+	{
+		// Width is bigger, so it's limited by height
+		usethisdimension = h;
+		usethisratio = 240;
+		using_width = false;
+	}
+	else
+	{
+		// Height is bigger, so it's limited by width. Or we're exactly 4:3 already
+		usethisdimension = w;
+		usethisratio = 320;
+		using_width = true;
+	}
+
+	int floor = (usethisdimension / usethisratio) * usethisratio;
+	int ceiling = floor + usethisratio;
+
+	int final_dimension;
+
+	if (usethisdimension - floor < ceiling - usethisdimension)
+	{
+		// Floor is nearest
+		final_dimension = floor;
+	}
+	else
+	{
+		// Ceiling is nearest. Or we're exactly on a multiple already
+		final_dimension = ceiling;
+	}
+
+	if (final_dimension == 0)
+	{
+		// We're way too small!
+		ResizeScreen(320, 240);
+		return;
+	}
+
+	if (using_width)
+	{
+		ResizeScreen(final_dimension, final_dimension / 4 * 3);
+	}
+	else
+	{
+		ResizeScreen(final_dimension * 4 / 3, final_dimension);
+	}
+}
+
 void Screen::GetWindowSize(int* x, int* y)
 {
 	SDL_GetWindowSize(m_window, x, y);

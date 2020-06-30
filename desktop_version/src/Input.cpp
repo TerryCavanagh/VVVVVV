@@ -323,6 +323,9 @@ void menuactionpress()
             graphics.screenbuffer->toggleFullScreen();
             game.fullscreen = !game.fullscreen;
             game.savestats();
+
+            // Recreate menu to update "resize to nearest"
+            game.createmenu(game.currentmenuname, true);
             game.currentmenuoption = 0;
             break;
         case 1:
@@ -371,6 +374,19 @@ void menuactionpress()
             graphics.vsync = !graphics.vsync;
             graphics.processVsync();
             game.savestats();
+            break;
+        case 7:
+            // resize to nearest multiple
+            if (graphics.screenbuffer->isWindowed)
+            {
+                music.playef(11);
+                graphics.screenbuffer->ResizeToNearestMultiple();
+                game.savestats();
+            }
+            else
+            {
+                music.playef(2);
+            }
             break;
         default:
             //back

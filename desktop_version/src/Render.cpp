@@ -212,6 +212,17 @@ void menurender()
             {
                 graphics.Print(-1, 95, "Current mode: VSYNC ON", tr, tg, tb, true);
             }
+            break;
+        case 7:
+            graphics.bigprint(-1, 30, "Resize to Nearest", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Resize to the nearest window size", tr, tg, tb, true);
+            graphics.Print(-1, 75, "that is of an integer multiple.", tr, tg, tb, true);
+            if (!graphics.screenbuffer->isWindowed)
+            {
+                graphics.Print(-1, 95, "You must be in windowed mode", tr, tg, tb, true);
+                graphics.Print(-1, 105, "to use this option.", tr, tg, tb, true);
+            }
+            break;
         }
         break;
     case Menu::credits:
