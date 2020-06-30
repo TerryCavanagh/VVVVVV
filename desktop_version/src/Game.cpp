@@ -5817,7 +5817,6 @@ void Game::customloadquick(std::string savfile)
 
     map.showteleporters = true;
     if(obj.flags[12]) map.showtargets = true;
-    if (obj.flags[42]) map.showtrinkets = true;
 
 }
 
