@@ -15,6 +15,7 @@ char *FILESYSTEM_getUserLevelDirectory();
 
 bool FILESYSTEM_directoryExists(const char *fname);
 void FILESYSTEM_mount(const char *fname);
+extern bool FILESYSTEM_assetsmounted;
 void FILESYSTEM_mountassets(const char *path);
 void FILESYSTEM_unmountassets();
 

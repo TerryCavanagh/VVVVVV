@@ -640,7 +640,7 @@ void Graphics::drawtile( int x, int y, int t )
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
 
 #if !defined(NO_CUSTOM_LEVELS)
-    if (t >= 14 && t <= 17)
+    if (t >= 14 && t <= 17 && !FILESYSTEM_assetsmounted)
     {
         colourTransform thect = {ed.getonewaycol()};
         BlitSurfaceTinted(tiles[t], NULL, backBuffer, &rect, thect);
@@ -663,7 +663,7 @@ void Graphics::drawtile2( int x, int y, int t )
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
 
 #if !defined(NO_CUSTOM_LEVELS)
-    if (t >= 14 && t <= 17)
+    if (t >= 14 && t <= 17 && !FILESYSTEM_assetsmounted)
     {
         colourTransform thect = {ed.getonewaycol()};
         BlitSurfaceTinted(tiles2[t], NULL, backBuffer, &rect, thect);
@@ -3119,7 +3119,7 @@ void Graphics::drawforetile(int x, int y, int t)
 	setRect(rect, x,y,tiles_rect.w, tiles_rect.h);
 
 #if !defined(NO_CUSTOM_LEVELS)
-	if (t >= 14 && t <= 17)
+	if (t >= 14 && t <= 17 && !FILESYSTEM_assetsmounted)
 	{
 		colourTransform thect = {ed.getonewaycol()};
 		BlitSurfaceTinted(tiles[t], NULL, foregroundBuffer, &rect, thect);
@@ -3142,7 +3142,7 @@ void Graphics::drawforetile2(int x, int y, int t)
 	setRect(rect, x,y,tiles_rect.w, tiles_rect.h);
 
 #if !defined(NO_CUSTOM_LEVELS)
-	if (t >= 14 && t <= 17)
+	if (t >= 14 && t <= 17 && !FILESYSTEM_assetsmounted)
 	{
 		colourTransform thect = {ed.getonewaycol()};
 		BlitSurfaceTinted(tiles2[t], NULL, foregroundBuffer, &rect, thect);
