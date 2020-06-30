@@ -634,6 +634,7 @@ void Graphics::drawtile( int x, int y, int t )
 {
     if (!INBOUNDS(t, tiles))
     {
+        WHINE_ONCE("drawtile() out-of-bounds!")
         return;
     }
 
@@ -657,6 +658,7 @@ void Graphics::drawtile2( int x, int y, int t )
 {
     if (!INBOUNDS(t, tiles2))
     {
+        WHINE_ONCE("drawtile2() out-of-bounds!")
         return;
     }
 
@@ -681,6 +683,7 @@ void Graphics::drawtile3( int x, int y, int t, int off )
 {
     if (!INBOUNDS(t, tiles3))
     {
+        WHINE_ONCE("drawtile3() out-of-bounds!")
         return;
     }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
@@ -691,6 +694,7 @@ void Graphics::drawentcolours( int x, int y, int t)
 {
     if (!INBOUNDS(t, entcolours))
     {
+        WHINE_ONCE("drawentcolours() out-of-bounds!")
         return;
     }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
@@ -701,6 +705,7 @@ void Graphics::drawtowertile( int x, int y, int t )
 {
     if (!INBOUNDS(t, tiles2))
     {
+        WHINE_ONCE("drawtowertile() out-of-bounds!")
         return;
     }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
@@ -713,6 +718,7 @@ void Graphics::drawtowertile3( int x, int y, int t, int off )
     t += off*30;
     if (!INBOUNDS(t, tiles3))
     {
+        WHINE_ONCE("drawtowertile3() out-of-bounds!")
         return;
     }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
@@ -3112,6 +3118,7 @@ void Graphics::drawforetile(int x, int y, int t)
 {
 	if (!INBOUNDS(t, tiles))
 	{
+		WHINE_ONCE("drawforetile() out-of-bounds!")
 		return;
 	}
 
@@ -3135,6 +3142,7 @@ void Graphics::drawforetile2(int x, int y, int t)
 {
 	if (!INBOUNDS(t, tiles2))
 	{
+		WHINE_ONCE("drawforetile2() out-of-bounds!")
 		return;
 	}
 
@@ -3159,6 +3167,7 @@ void Graphics::drawforetile3(int x, int y, int t, int off)
 	t += off * 30;
 	if (!INBOUNDS(t, tiles3))
 	{
+		WHINE_ONCE("drawforetile3() out-of-bounds!")
 		return;
 	}
 	SDL_Rect rect;
