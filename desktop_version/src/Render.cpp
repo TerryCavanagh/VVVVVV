@@ -1382,13 +1382,12 @@ void gamerender()
             if (!game.colourblindmode)
             {
                 graphics.drawtowerbackground();
-                graphics.drawtowermap();
             }
             else
             {
                 FillRect(graphics.backBuffer,0x00000);
-                graphics.drawtowermap_nobackground();
             }
+            graphics.drawtowermap();
         }
         else
         {
