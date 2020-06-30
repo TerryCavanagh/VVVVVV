@@ -1868,6 +1868,22 @@ void maprender()
               }
             }
           }
+
+          if(map.showtrinkets){
+            for(size_t i=0; i<map.shinytrinkets.size(); i++){
+              if(!obj.collect[i]){
+                int temp = 1086;
+                if(graphics.flipmode) temp += 3;
+                if(map.customzoom==4){
+                  graphics.drawtile(40 + (map.shinytrinkets[i].x * 48) + 20+map.custommmxoff, 21 + (map.shinytrinkets[i].y * 36) + 14+map.custommmyoff, temp);
+                }else if(map.customzoom==2){
+                  graphics.drawtile(40 + (map.shinytrinkets[i].x * 24) + 8+map.custommmxoff, 21 + (map.shinytrinkets[i].y * 18) + 5+map.custommmyoff, temp);
+                }else{
+                  graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12) + map.custommmxoff, 22 + (map.shinytrinkets[i].y * 9) + map.custommmyoff, temp);
+                }
+              }
+            }
+          }
         }
         else
         {
