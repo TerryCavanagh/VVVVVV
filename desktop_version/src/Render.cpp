@@ -175,7 +175,7 @@ void menurender()
             break;
 
         case 1:
-            graphics.bigprint( -1, 30, "Toggle Letterbox", tr, tg, tb, true);
+            graphics.bigprint( -1, 30, "Scaling Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
 
             if(game.stretchMode == 2){
