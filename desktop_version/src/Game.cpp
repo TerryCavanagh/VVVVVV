@@ -580,17 +580,20 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
 void Game::loadcustomlevelstats()
 {
     //testing
-    if(!customlevelstatsloaded)
+    if(customlevelstatsloaded)
     {
+        return;
+    }
+
         tinyxml2::XMLDocument doc;
         if (!FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc))
         {
             //No levelstats file exists; start new
             customlevelstats.clear();
             savecustomlevelstats();
+            return;
         }
-        else
-        {
+
             // Old system
             std::vector<std::string> customlevelnames;
             std::vector<int> customlevelscores;
@@ -689,8 +692,6 @@ void Game::loadcustomlevelstats()
                 CustomLevelStat stat = {customlevelnames[i], customlevelscores[i]};
                 customlevelstats.push_back(stat);
             }
-        }
-    }
 }
 
 void Game::savecustomlevelstats()
