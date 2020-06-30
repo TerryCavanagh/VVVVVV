@@ -17,6 +17,14 @@ bool endsWith(const std::string& str, const std::string& suffix);
 
 #define INBOUNDS(index, vector) ((int) index >= 0 && (int) index < (int) vector.size())
 
+#define WHINE_ONCE(message) \
+    static bool whine = true; \
+    if (whine) \
+    { \
+        whine = false; \
+        puts(message); \
+    }
+
 
 //helperClass
 class UtilityClass
