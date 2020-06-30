@@ -7214,8 +7214,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("animated backgrounds");
         option("screen effects");
         option("text outline");
-        option("invincibility", !ingame_titlemode || !inspecial());
-        option("slowdown", !ingame_titlemode || !inspecial());
+        option("invincibility", !ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode));
+        option("slowdown", !ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode));
         option("load screen");
         option("room name bg");
         option("return");
