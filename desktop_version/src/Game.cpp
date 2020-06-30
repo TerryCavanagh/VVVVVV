@@ -541,13 +541,8 @@ void Game::lifesequence()
 
 void Game::clearcustomlevelstats()
 {
-    //just clearing the arrays
-    for(int i=0; i<200; i++)
-    {
-        customlevelstats[i]="";
-        customlevelscore[i]=0;
-    }
-    numcustomlevelstats=0;
+    //just clearing the array
+    customlevelstats.clear();
 
     customlevelstatsloaded=false; //To ensure we don't load it where it isn't needed
 }
@@ -560,28 +555,24 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
         clevel = clevel.substr(7);
     }
     int tvar=-1;
-    for(int j=0; j<numcustomlevelstats; j++)
+    for(size_t j=0; j<customlevelstats.size(); j++)
     {
-        if(clevel==customlevelstats[j])
+        if(clevel==customlevelstats[j].name)
         {
             tvar=j;
-            j=numcustomlevelstats+1;
+            break;
         }
     }
-    if(tvar>=0 && cscore > customlevelscore[tvar])
+    if(tvar>=0 && cscore > customlevelstats[tvar].score)
     {
         //update existing entry
-        customlevelscore[tvar]=cscore;
+        customlevelstats[tvar].score=cscore;
     }
     else
     {
         //add a new entry
-        if(numcustomlevelstats<200)
-        {
-            customlevelstats[numcustomlevelstats]=clevel;
-            customlevelscore[numcustomlevelstats]=cscore;
-            numcustomlevelstats++;
-        }
+        CustomLevelStat levelstat = {clevel, cscore};
+        customlevelstats.push_back(levelstat);
     }
     savecustomlevelstats();
 }
@@ -589,76 +580,117 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
 void Game::loadcustomlevelstats()
 {
     //testing
-    if(!customlevelstatsloaded)
+    if(customlevelstatsloaded)
     {
-        tinyxml2::XMLDocument doc;
-        if (!FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc))
-        {
-            //No levelstats file exists; start new
-            numcustomlevelstats=0;
-            savecustomlevelstats();
-        }
-        else
-        {
-            tinyxml2::XMLHandle hDoc(&doc);
-            tinyxml2::XMLElement* pElem;
-            tinyxml2::XMLHandle hRoot(NULL);
+        return;
+    }
 
+    tinyxml2::XMLDocument doc;
+    if (!FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc))
+    {
+        //No levelstats file exists; start new
+        customlevelstats.clear();
+        savecustomlevelstats();
+        return;
+    }
+
+    // Old system
+    std::vector<std::string> customlevelnames;
+    std::vector<int> customlevelscores;
+
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLHandle hRoot(NULL);
+
+    {
+        pElem=hDoc.FirstChildElement().ToElement();
+        // should always have a valid root but handle gracefully if it does
+        if (!pElem)
+        {
+            printf("Error: Levelstats file corrupted\n");
+        }
+
+        // save this for later
+        hRoot=tinyxml2::XMLHandle(pElem);
+    }
+
+    // First pass, look for the new system of storing stats
+    // If they don't exist, then fall back to the old system
+    for (pElem = hRoot.FirstChildElement("Data").FirstChild().ToElement(); pElem; pElem = pElem->NextSiblingElement())
+    {
+        std::string pKey(pElem->Value());
+        const char* pText = pElem->GetText();
+        if (pText == NULL)
+        {
+            pText = "";
+        }
+
+        if (pKey == "stats")
+        {
+            for (tinyxml2::XMLElement* stat_el = pElem->FirstChildElement(); stat_el; stat_el = stat_el->NextSiblingElement())
             {
-                pElem=hDoc.FirstChildElement().ToElement();
-                // should always have a valid root but handle gracefully if it does
-                if (!pElem)
+                CustomLevelStat stat = {};
+
+                if (stat_el->GetText() != NULL)
                 {
-                    printf("Error: Levelstats file corrupted\n");
+                    stat.score = atoi(stat_el->GetText());
                 }
 
-                // save this for later
-                hRoot=tinyxml2::XMLHandle(pElem);
+                if (stat_el->Attribute("name"))
+                {
+                    stat.name = stat_el->Attribute("name");
+                }
+
+                customlevelstats.push_back(stat);
             }
 
+            return;
+        }
+    }
 
-            for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+
+    // Since we're still here, we must be on the old system
+    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+    {
+        std::string pKey(pElem->Value());
+        const char* pText = pElem->GetText() ;
+        if(pText == NULL)
+        {
+            pText = "";
+        }
+
+        if (pKey == "customlevelscore")
+        {
+            std::string TextString = (pText);
+            if(TextString.length())
             {
-                std::string pKey(pElem->Value());
-                const char* pText = pElem->GetText() ;
-                if(pText == NULL)
+                std::vector<std::string> values = split(TextString,',');
+                for(size_t i = 0; i < values.size(); i++)
                 {
-                    pText = "";
-                }
-
-                if (pKey == "numcustomlevelstats")
-                {
-                    numcustomlevelstats = atoi(pText);
-                    if(numcustomlevelstats>=200) numcustomlevelstats=199;
-                }
-
-                if (pKey == "customlevelscore")
-                {
-                    std::string TextString = (pText);
-                    if(TextString.length())
-                    {
-                        std::vector<std::string> values = split(TextString,',');
-                        for(size_t i = 0; i < values.size(); i++)
-                        {
-                            if(i<200) customlevelscore[i]=(atoi(values[i].c_str()));
-                        }
-                    }
-                }
-
-                if (pKey == "customlevelstats")
-                {
-                    std::string TextString = (pText);
-                    if(TextString.length())
-                    {
-                        std::vector<std::string> values = split(TextString,'|');
-                        for(size_t i = 0; i < values.size(); i++)
-                        {
-                            if(i<200) customlevelstats[i]=values[i];
-                        }
-                    }
+                    customlevelscores.push_back(atoi(values[i].c_str()));
                 }
             }
         }
+
+        if (pKey == "customlevelstats")
+        {
+            std::string TextString = (pText);
+            if(TextString.length())
+            {
+                std::vector<std::string> values = split(TextString,'|');
+                for(size_t i = 0; i < values.size(); i++)
+                {
+                    customlevelnames.push_back(values[i]);
+                }
+            }
+        }
+    }
+
+    // If the two arrays happen to differ in length, just go with the smallest one
+    for (size_t i = 0; i < std::min(customlevelnames.size(), customlevelscores.size()); i++)
+    {
+        CustomLevelStat stat = {customlevelnames[i], customlevelscores[i]};
+        customlevelstats.push_back(stat);
     }
 }
 
@@ -678,6 +710,7 @@ void Game::savecustomlevelstats()
     tinyxml2::XMLElement * msgs = doc.NewElement( "Data" );
     root->LinkEndChild( msgs );
 
+    int numcustomlevelstats = customlevelstats.size();
     if(numcustomlevelstats>=200)numcustomlevelstats=199;
     msg = doc.NewElement( "numcustomlevelstats" );
     msg->LinkEndChild( doc.NewText( help.String(numcustomlevelstats).c_str() ));
@@ -686,7 +719,7 @@ void Game::savecustomlevelstats()
     std::string customlevelscorestr;
     for(int i = 0; i < numcustomlevelstats; i++ )
     {
-        customlevelscorestr += help.String(customlevelscore[i]) + ",";
+        customlevelscorestr += help.String(customlevelstats[i].score) + ",";
     }
     msg = doc.NewElement( "customlevelscore" );
     msg->LinkEndChild( doc.NewText( customlevelscorestr.c_str() ));
@@ -695,11 +728,26 @@ void Game::savecustomlevelstats()
     std::string customlevelstatsstr;
     for(int i = 0; i < numcustomlevelstats; i++ )
     {
-        customlevelstatsstr += customlevelstats[i] + "|";
+        customlevelstatsstr += customlevelstats[i].name + "|";
     }
     msg = doc.NewElement( "customlevelstats" );
     msg->LinkEndChild( doc.NewText( customlevelstatsstr.c_str() ));
     msgs->LinkEndChild( msg );
+
+    // New system
+    msg = doc.NewElement("stats");
+    tinyxml2::XMLElement* stat_el;
+    for (size_t i = 0; i < customlevelstats.size(); i++)
+    {
+        stat_el = doc.NewElement("stat");
+        CustomLevelStat& stat = customlevelstats[i];
+
+        stat_el->SetAttribute("name", stat.name.c_str());
+        stat_el->LinkEndChild(doc.NewText(help.String(stat.score).c_str()));
+
+        msg->LinkEndChild(stat_el);
+    }
+    msgs->LinkEndChild(msg);
 
     if(FILESYSTEM_saveTiXml2Document("saves/levelstats.vvv", doc))
     {
@@ -7028,26 +7076,26 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 {
                     //This is, er, suboptimal. Whatever, life optimisation and all that
                     int tvar=-1;
-                    for(int j=0; j<numcustomlevelstats; j++)
+                    for(size_t j=0; j<customlevelstats.size(); j++)
                     {
-                        if(ed.ListOfMetaData[i].filename.substr(7) == customlevelstats[j])
+                        if(ed.ListOfMetaData[i].filename.substr(7) == customlevelstats[j].name)
                         {
                             tvar=j;
-                            j=numcustomlevelstats+1;
+                            break;
                         }
                     }
                     std::string text;
                     if(tvar>=0)
                     {
-                        if(customlevelscore[tvar]==0)
+                        if(customlevelstats[tvar].score==0)
                         {
                             text = "   " + ed.ListOfMetaData[i].title;
                         }
-                        else if(customlevelscore[tvar]==1)
+                        else if(customlevelstats[tvar].score==1)
                         {
                             text = " * " + ed.ListOfMetaData[i].title;
                         }
-                        else if(customlevelscore[tvar]==3)
+                        else if(customlevelstats[tvar].score==3)
                         {
                             text = "** " + ed.ListOfMetaData[i].title;
                         }
