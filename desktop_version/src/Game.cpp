@@ -7209,6 +7209,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("accessibility options");
         option("glitchrunner mode");
 #if !defined(MAKEANDPLAY)
+        if (ingame_titlemode && unlock[18])
+#endif
+        {
+            option("flip mode");
+        }
+#if !defined(MAKEANDPLAY)
         option("unlock play modes");
 #endif
         option("game pad options");

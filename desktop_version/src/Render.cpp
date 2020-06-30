@@ -75,11 +75,20 @@ void menurender()
       graphics.Print( -1, 75, "no start point!", tr, tg, tb, true);
       break;
     case Menu::options:
+    {
 #if defined(MAKEANDPLAY)
-#define OFFSET -1
+        int flipmode_offset = 0;
 #else
-#define OFFSET 0
+        int flipmode_offset = game.ingame_titlemode && game.unlock[18] ? 0 : -1;
 #endif
+
+#if defined(MAKEANDPLAY)
+        int unlockmode_offset = -1;
+#else
+        int unlockmode_offset = 0;
+#endif
+
+        int offset = 0;
 
         switch (game.currentmenuoption)
         {
@@ -101,37 +110,63 @@ void menurender()
                 graphics.Print( -1, 95, "Glitchrunner mode is OFF", tr/2, tg/2, tb/2, true);
             }
             break;
-#if !defined(MAKEANDPLAY)
         case 2:
+#if !defined(MAKEANDPLAY)
+        if (game.ingame_titlemode && game.unlock[18])
+#endif
+        {
+            graphics.bigprint( -1, 30, "Flip Mode", tr, tg, tb, true);
+            graphics.Print( -1, 65, "Flip the entire game vertically.", tr, tg, tb, true);
+            if (graphics.setflipmode)
+            {
+                graphics.Print( -1, 85, "Currently ENABLED!", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 85, "Currently Disabled.", tr/2, tg/2, tb/2, true);
+            }
+        }
+            break;
+        }
+
+        offset += flipmode_offset;
+
+#if !defined(MAKEANDPLAY)
+        if (game.currentmenuoption == 3+offset)
+        {
             graphics.bigprint( -1, 30, "Unlock Play Modes", tr, tg, tb, true);
             graphics.Print( -1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
             graphics.Print( -1, 75, "unlocked as you progress", tr, tg, tb, true);
-            break;
+        }
 #endif
-        case OFFSET+3:
+
+        offset += unlockmode_offset;
+
+        if (game.currentmenuoption == 4+offset)
+        {
             graphics.bigprint( -1, 30, "Game Pad Options", tr, tg, tb, true);
             graphics.Print( -1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
             graphics.Print( -1, 75, "and adjust sensitivity", tr, tg, tb, true);
-            break;
-        case OFFSET+4:
+        }
+        else if (game.currentmenuoption == 5+offset)
+        {
             graphics.bigprint( -1, 30, "Clear Data", tr, tg, tb, true);
             graphics.Print( -1, 65, "Delete your save data", tr, tg, tb, true);
             graphics.Print( -1, 75, "and unlocked play modes", tr, tg, tb, true);
-            break;
-        case OFFSET+5:
-            if(music.mmmmmm){
-                graphics.bigprint( -1, 30, "Soundtrack", tr, tg, tb, true);
-                graphics.Print( -1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
-                if(music.usingmmmmmm){
-                    graphics.Print( -1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
-                }else{
-                    graphics.Print( -1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
-                }
+        }
+        else if (game.currentmenuoption == 6+offset && music.mmmmmm)
+        {
+            graphics.bigprint( -1, 30, "Soundtrack", tr, tg, tb, true);
+            graphics.Print( -1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
+            if(music.usingmmmmmm){
+                graphics.Print( -1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
+            }else{
+                graphics.Print( -1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
             }
             break;
         }
-#undef OFFSET
         break;
+    }
     case Menu::graphicoptions:
         switch (game.currentmenuoption)
         {
@@ -541,6 +576,7 @@ void menurender()
             }
             break;
         case 3:
+            // WARNING: Partially duplicated in Menu::options
             graphics.bigprint( -1, 30, "Flip Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Flip the entire game vertically.", tr, tg, tb, true);
             graphics.Print( -1, 75, "Compatible with other game modes.", tr, tg, tb, true);
