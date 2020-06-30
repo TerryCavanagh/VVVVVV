@@ -241,6 +241,7 @@ class editorclass{
 
   Uint32 getonewaycol(const int rx, const int ry);
   Uint32 getonewaycol();
+  bool onewaycol_override;
 
   int returneditoralpha;
   int oldreturneditoralpha;
