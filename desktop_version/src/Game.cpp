@@ -585,113 +585,113 @@ void Game::loadcustomlevelstats()
         return;
     }
 
-        tinyxml2::XMLDocument doc;
-        if (!FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc))
+    tinyxml2::XMLDocument doc;
+    if (!FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc))
+    {
+        //No levelstats file exists; start new
+        customlevelstats.clear();
+        savecustomlevelstats();
+        return;
+    }
+
+    // Old system
+    std::vector<std::string> customlevelnames;
+    std::vector<int> customlevelscores;
+
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLHandle hRoot(NULL);
+
+    {
+        pElem=hDoc.FirstChildElement().ToElement();
+        // should always have a valid root but handle gracefully if it does
+        if (!pElem)
         {
-            //No levelstats file exists; start new
-            customlevelstats.clear();
-            savecustomlevelstats();
-            return;
+            printf("Error: Levelstats file corrupted\n");
         }
 
-            // Old system
-            std::vector<std::string> customlevelnames;
-            std::vector<int> customlevelscores;
+        // save this for later
+        hRoot=tinyxml2::XMLHandle(pElem);
+    }
 
-            tinyxml2::XMLHandle hDoc(&doc);
-            tinyxml2::XMLElement* pElem;
-            tinyxml2::XMLHandle hRoot(NULL);
+    // First pass, look for the new system of storing stats
+    // If they don't exist, then fall back to the old system
+    for (pElem = hRoot.FirstChildElement("Data").FirstChild().ToElement(); pElem; pElem = pElem->NextSiblingElement())
+    {
+        std::string pKey(pElem->Value());
+        const char* pText = pElem->GetText();
+        if (pText == NULL)
+        {
+            pText = "";
+        }
 
+        if (pKey == "stats")
+        {
+            for (tinyxml2::XMLElement* stat_el = pElem->FirstChildElement(); stat_el; stat_el = stat_el->NextSiblingElement())
             {
-                pElem=hDoc.FirstChildElement().ToElement();
-                // should always have a valid root but handle gracefully if it does
-                if (!pElem)
+                CustomLevelStat stat = {};
+
+                if (stat_el->GetText() != NULL)
                 {
-                    printf("Error: Levelstats file corrupted\n");
+                    stat.score = atoi(stat_el->GetText());
                 }
 
-                // save this for later
-                hRoot=tinyxml2::XMLHandle(pElem);
-            }
-
-            // First pass, look for the new system of storing stats
-            // If they don't exist, then fall back to the old system
-            for (pElem = hRoot.FirstChildElement("Data").FirstChild().ToElement(); pElem; pElem = pElem->NextSiblingElement())
-            {
-                std::string pKey(pElem->Value());
-                const char* pText = pElem->GetText();
-                if (pText == NULL)
+                if (stat_el->Attribute("name"))
                 {
-                    pText = "";
+                    stat.name = stat_el->Attribute("name");
                 }
 
-                if (pKey == "stats")
-                {
-                    for (tinyxml2::XMLElement* stat_el = pElem->FirstChildElement(); stat_el; stat_el = stat_el->NextSiblingElement())
-                    {
-                        CustomLevelStat stat = {};
-
-                        if (stat_el->GetText() != NULL)
-                        {
-                            stat.score = atoi(stat_el->GetText());
-                        }
-
-                        if (stat_el->Attribute("name"))
-                        {
-                            stat.name = stat_el->Attribute("name");
-                        }
-
-                        customlevelstats.push_back(stat);
-                    }
-
-                    return;
-                }
-            }
-
-
-            // Since we're still here, we must be on the old system
-            for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
-            {
-                std::string pKey(pElem->Value());
-                const char* pText = pElem->GetText() ;
-                if(pText == NULL)
-                {
-                    pText = "";
-                }
-
-                if (pKey == "customlevelscore")
-                {
-                    std::string TextString = (pText);
-                    if(TextString.length())
-                    {
-                        std::vector<std::string> values = split(TextString,',');
-                        for(size_t i = 0; i < values.size(); i++)
-                        {
-                            customlevelscores.push_back(atoi(values[i].c_str()));
-                        }
-                    }
-                }
-
-                if (pKey == "customlevelstats")
-                {
-                    std::string TextString = (pText);
-                    if(TextString.length())
-                    {
-                        std::vector<std::string> values = split(TextString,'|');
-                        for(size_t i = 0; i < values.size(); i++)
-                        {
-                            customlevelnames.push_back(values[i]);
-                        }
-                    }
-                }
-            }
-
-            // If the two arrays happen to differ in length, just go with the smallest one
-            for (size_t i = 0; i < std::min(customlevelnames.size(), customlevelscores.size()); i++)
-            {
-                CustomLevelStat stat = {customlevelnames[i], customlevelscores[i]};
                 customlevelstats.push_back(stat);
             }
+
+            return;
+        }
+    }
+
+
+    // Since we're still here, we must be on the old system
+    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+    {
+        std::string pKey(pElem->Value());
+        const char* pText = pElem->GetText() ;
+        if(pText == NULL)
+        {
+            pText = "";
+        }
+
+        if (pKey == "customlevelscore")
+        {
+            std::string TextString = (pText);
+            if(TextString.length())
+            {
+                std::vector<std::string> values = split(TextString,',');
+                for(size_t i = 0; i < values.size(); i++)
+                {
+                    customlevelscores.push_back(atoi(values[i].c_str()));
+                }
+            }
+        }
+
+        if (pKey == "customlevelstats")
+        {
+            std::string TextString = (pText);
+            if(TextString.length())
+            {
+                std::vector<std::string> values = split(TextString,'|');
+                for(size_t i = 0; i < values.size(); i++)
+                {
+                    customlevelnames.push_back(values[i]);
+                }
+            }
+        }
+    }
+
+    // If the two arrays happen to differ in length, just go with the smallest one
+    for (size_t i = 0; i < std::min(customlevelnames.size(), customlevelscores.size()); i++)
+    {
+        CustomLevelStat stat = {customlevelnames[i], customlevelscores[i]};
+        customlevelstats.push_back(stat);
+    }
 }
 
 void Game::savecustomlevelstats()
