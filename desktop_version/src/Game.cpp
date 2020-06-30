@@ -7164,7 +7164,6 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("toggle letterbox");
         option("toggle filter");
         option("toggle analogue");
-        option("toggle mouse");
         option("toggle fps");
         option("toggle vsync");
         option("resize to nearest", graphics.screenbuffer->isWindowed);
@@ -7208,7 +7207,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::options:
         option("accessibility options");
-        option("glitchrunner mode");
+        option("advanced options");
 #if !defined(MAKEANDPLAY)
         if (ingame_titlemode && unlock[18])
 #endif
@@ -7228,17 +7227,23 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("return");
         menuyoff = 0;
         break;
+    case Menu::advancedoptions:
+        option("toggle mouse");
+        option("unfocus pause");
+        option("fake load screen");
+        option("room name background");
+        option("glitchrunner mode");
+        option("return");
+        menuyoff = 0;
+        break;
     case Menu::accessibility:
         option("animated backgrounds");
         option("screen effects");
         option("text outline");
         option("invincibility", !ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode));
         option("slowdown", !ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode));
-        option("unfocus pause");
-        option("load screen");
-        option("room name bg");
         option("return");
-        menuyoff = -10;
+        menuyoff = 0;
         break;
     case Menu::controller:
         option("analog stick sensitivity");
