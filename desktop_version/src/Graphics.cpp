@@ -3110,6 +3110,11 @@ void Graphics::setcolreal(Uint32 t)
 
 void Graphics::drawforetile(int x, int y, int t)
 {
+	if (!INBOUNDS(t, tiles))
+	{
+		return;
+	}
+
 	SDL_Rect rect;
 	setRect(rect, x,y,tiles_rect.w, tiles_rect.h);
 
@@ -3128,6 +3133,11 @@ void Graphics::drawforetile(int x, int y, int t)
 
 void Graphics::drawforetile2(int x, int y, int t)
 {
+	if (!INBOUNDS(t, tiles2))
+	{
+		return;
+	}
+
 	SDL_Rect rect;
 	setRect(rect, x,y,tiles_rect.w, tiles_rect.h);
 
@@ -3146,9 +3156,14 @@ void Graphics::drawforetile2(int x, int y, int t)
 
 void Graphics::drawforetile3(int x, int y, int t, int off)
 {
+	t += off * 30;
+	if (!INBOUNDS(t, tiles3))
+	{
+		return;
+	}
 	SDL_Rect rect;
 	setRect(rect, x,y,tiles_rect.w, tiles_rect.h);
-	BlitSurfaceStandard(tiles3[t+(off*30)],NULL, foregroundBuffer, &rect  );
+	BlitSurfaceStandard(tiles3[t],NULL, foregroundBuffer, &rect  );
 }
 
 void Graphics::drawrect(int x, int y, int w, int h, int r, int g, int b)
