@@ -703,7 +703,17 @@ void scriptclass::run()
 			}
 			else if (words[0] == "createentity")
 			{
-				obj.createentity(ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]), ss_toi(words[4]), ss_toi(words[5]));
+				if (words[6] == "") words[6] = "0";
+				if (words[7] == "") words[7] = "0";
+				if (words[8] == "") words[8] = "320";
+				if (words[9] == "") words[9] = "240";
+				obj.createentity(ss_toi(words[1]), ss_toi(words[2]), ss_toi(words[3]),
+					ss_toi(words[4]), ss_toi(words[5]),
+					ss_toi(words[6]), ss_toi(words[7]), ss_toi(words[8]), ss_toi(words[9]));
+				words[6] = "";
+				words[7] = "";
+				words[8] = "";
+				words[9] = "";
 			}
 			else if (words[0] == "createcrewman")
 			{
