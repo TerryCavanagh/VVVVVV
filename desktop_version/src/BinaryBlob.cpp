@@ -173,3 +173,19 @@ char* binaryBlob::getAddress(int _index)
 {
 	return m_memblocks[_index];
 }
+
+std::vector<int> binaryBlob::getExtra()
+{
+	std::vector<int> result;
+	for (int i = 0; i < 128; i += 1)
+	{
+		if (m_headers[i].valid
+#define FOREACH_TRACK(track_name) && strcmp(m_headers[i].name, track_name) != 0
+		TRACK_NAMES
+#undef FOREACH_TRACK
+		) {
+			result.push_back(i);
+		}
+	}
+	return result;
+}
