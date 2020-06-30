@@ -31,6 +31,7 @@ namespace Menu
         ed_music,
         ed_quit,
         options,
+        advancedoptions,
         accessibility,
         controller,
         cleardatamenu,
