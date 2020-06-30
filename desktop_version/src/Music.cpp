@@ -78,6 +78,14 @@ void musicclass::init()
 
 		TRACK_NAMES
 
+		const std::vector<int> extra = musicReadBlob.getExtra();
+		for (size_t i = 0; i < extra.size(); i++)
+		{
+			const int& index = extra[i];
+			rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index));
+			musicTracks.push_back(MusicTrack( rw ));
+		}
+
 		bool ohCrap = musicReadBlob.unPackBinary("vvvvvvmusic.vvv");
 		SDL_assert(ohCrap && "Music not found!");
 	}
@@ -88,6 +96,14 @@ void musicclass::init()
 	TRACK_NAMES
 
 #undef FOREACH_TRACK
+
+	const std::vector<int> extra = musicReadBlob.getExtra();
+	for (size_t i = 0; i < extra.size(); i++)
+	{
+		const int& index = extra[i];
+		rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index));
+		musicTracks.push_back(MusicTrack( rw ));
+	}
 
 	safeToProcessMusic= false;
 	m_doFadeInVol = false;
