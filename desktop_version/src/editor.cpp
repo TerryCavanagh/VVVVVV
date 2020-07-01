@@ -3887,10 +3887,10 @@ void editorinput()
         ed.tiley = ed.tiley * 240 / winheight;
     }
 
-    bool up_pressed = key.keymap[SDLK_UP] || key.keymap[SDL_CONTROLLER_BUTTON_DPAD_UP];
-    bool down_pressed = key.keymap[SDLK_DOWN] || key.keymap[SDL_CONTROLLER_BUTTON_DPAD_DOWN];
-    bool left_pressed = key.keymap[SDLK_LEFT] || key.keymap[SDL_CONTROLLER_BUTTON_DPAD_LEFT];
-    bool right_pressed = key.keymap[SDLK_RIGHT] || key.keymap[SDL_CONTROLLER_BUTTON_DPAD_RIGHT];
+    bool up_pressed = key.isDown(SDLK_UP) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_UP);
+    bool down_pressed = key.isDown(SDLK_DOWN) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN);
+    bool left_pressed = key.isDown(SDLK_LEFT) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+    bool right_pressed = key.isDown(SDLK_RIGHT) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
 
     game.press_left = false;
     game.press_right = false;
