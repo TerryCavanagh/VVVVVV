@@ -4971,7 +4971,7 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     std::string s_besttimes;
-    for(size_t i = 0; i < besttrinkets.size(); i++ )
+    for(size_t i = 0; i < besttimes.size(); i++ )
     {
         s_besttimes += help.String(besttimes[i]) + ",";
     }
