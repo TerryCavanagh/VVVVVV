@@ -405,7 +405,7 @@ void inline deltaloop()
     {
         timesteplimit = 24;
     }
-    else if (game.gamestate == GAMEMODE || game.gamestate == MAPMODE || game.gamestate == TELEPORTERMODE)
+    else if (game.gamestate == GAMEMODE)
     {
         timesteplimit = game.gameframerate;
     }
