@@ -2382,52 +2382,56 @@ void editormenurender(int tr, int tg, int tb)
         }
         break;
     case Menu::ed_music:
+    {
         graphics.bigprint( -1, 65, "Map Music", tr, tg, tb, true);
 
         graphics.Print( -1, 85, "Current map music:", tr, tg, tb, true);
+        std::string songname;
         switch(ed.levmusic)
         {
         case 0:
-            graphics.Print( -1, 120, "No background music", tr, tg, tb, true);
+            songname = "No background music";
             break;
         case 1:
-            graphics.Print( -1, 120, "1: Pushing Onwards", tr, tg, tb, true);
+            songname = "1: Pushing Onwards";
             break;
         case 2:
-            graphics.Print( -1, 120, "2: Positive Force", tr, tg, tb, true);
+            songname = "2: Positive Force";
             break;
         case 3:
-            graphics.Print( -1, 120, "3: Potential for Anything", tr, tg, tb, true);
+            songname = "3: Potential for Anything";
             break;
         case 4:
-            graphics.Print( -1, 120, "4: Passion for Exploring", tr, tg, tb, true);
+            songname = "4: Passion for Exploring";
             break;
         case 6:
-            graphics.Print( -1, 120, "5: Presenting VVVVVV", tr, tg, tb, true);
+            songname = "5: Presenting VVVVVV";
             break;
         case 8:
-            graphics.Print( -1, 120, "6: Predestined Fate", tr, tg, tb, true);
+            songname = "6: Predestined Fate";
             break;
         case 10:
-            graphics.Print( -1, 120, "7: Popular Potpourri", tr, tg, tb, true);
+            songname = "7: Popular Potpourri";
             break;
         case 11:
-            graphics.Print( -1, 120, "8: Pipe Dream", tr, tg, tb, true);
+            songname = "8: Pipe Dream";
             break;
         case 12:
-            graphics.Print( -1, 120, "9: Pressure Cooker", tr, tg, tb, true);
+            songname = "9: Pressure Cooker";
             break;
         case 13:
-            graphics.Print( -1, 120, "10: Paced Energy", tr, tg, tb, true);
+            songname = "10: Paced Energy";
             break;
         case 14:
-            graphics.Print( -1, 120, "11: Piercing the Sky", tr, tg, tb, true);
+            songname = "11: Piercing the Sky";
             break;
         default:
-            graphics.Print( -1, 120, "?: something else", tr, tg, tb, true);
+            songname = "?: something else";
             break;
         }
+        graphics.Print( -1, 120, songname, tr, tg, tb, true);
         break;
+    }
     case Menu::ed_quit:
         graphics.bigprint( -1, 90, "Save before", tr, tg, tb, true);
         graphics.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
