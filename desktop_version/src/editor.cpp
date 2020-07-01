@@ -1614,6 +1614,132 @@ int editorclass::findwarptoken(int t)
     return 0;
 }
 
+void editorclass::switch_tileset(const bool reversed /*= false*/)
+{
+    const char* tilesets[] = {"Space Station", "Outside", "Lab", "Warp Zone", "Ship"};
+    const size_t roomnum = levx + levy*maxwidth;
+    if (roomnum >= SDL_arraysize(level))
+    {
+        return;
+    }
+    edlevelclass& room = level[roomnum];
+
+    int tiles = room.tileset;
+
+    if (reversed)
+    {
+        tiles--;
+    }
+    else
+    {
+        tiles++;
+    }
+
+    const size_t modulus = SDL_arraysize(tilesets);
+    tiles = (tiles % modulus + modulus) % modulus;
+    room.tileset = tiles;
+
+    clamp_tilecol(levx, levy);
+
+    char buffer[64];
+    SDL_snprintf(buffer, sizeof(buffer), "Now using %s Tileset", tilesets[tiles]);
+
+    note = buffer;
+    notedelay = 45;
+    updatetiles = true;
+}
+
+void editorclass::switch_tilecol(const bool reversed /*= false*/)
+{
+    const size_t roomnum = levx + levy*maxwidth;
+    if (roomnum >= SDL_arraysize(level))
+    {
+        return;
+    }
+    edlevelclass& room = level[roomnum];
+
+    if (reversed)
+    {
+        room.tilecol--;
+    }
+    else
+    {
+        room.tilecol++;
+    }
+
+    clamp_tilecol(levx, levy, true);
+
+    notedelay = 45;
+    note = "Tileset Colour Changed";
+    updatetiles = true;
+}
+
+void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap /*= false*/)
+{
+    const size_t roomnum = rx + ry*maxwidth;
+    if (roomnum >= SDL_arraysize(level))
+    {
+        return;
+    }
+    edlevelclass& room = level[rx + ry*maxwidth];
+
+    const int tileset = room.tileset;
+    int tilecol = room.tilecol;
+
+    int mincol = 0;
+    int maxcol = 5;
+
+    switch (tileset)
+    {
+    case 0:
+        maxcol = 31;
+        break;
+    case 1:
+        maxcol = 7;
+        break;
+    case 3:
+        maxcol = 6;
+        break;
+    case 5:
+        maxcol = 29;
+        break;
+    }
+
+    // If wrap is true, wrap-around, otherwise just cap
+    if (tilecol > maxcol)
+    {
+        tilecol = (wrap ? mincol : maxcol);
+    }
+    if (tilecol < mincol)
+    {
+        tilecol = (wrap ? maxcol : mincol);
+    }
+
+    room.tilecol = tilecol;
+}
+
+void editorclass::switch_enemy(const bool reversed /*= false*/)
+{
+    const size_t roomnum = levx + levy*maxwidth;
+    if (roomnum >= SDL_arraysize(level))
+    {
+        return;
+    }
+    edlevelclass& room = level[roomnum];
+
+    if (reversed)
+    {
+        room.enemytype--;
+    }
+    else
+    {
+        room.enemytype++;
+    }
+
+    note = "Enemy Type Changed";
+    notedelay = 45;
+}
+
 bool editorclass::load(std::string& _path)
 {
     reset();
@@ -4488,80 +4614,20 @@ void editorinput()
             ed.shiftkey=false;
             if(key.keymap[SDLK_F1])
             {
-                ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset++;
-                graphics.backgrounddrawn=false;
-                if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset>=5) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset=0;
-                if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
-                {
-                    if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=32) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
-                }
-                else if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==1)
-                {
-                    if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=8) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
-                }
-                else
-                {
-                    if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=6) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
-                }
-                ed.notedelay=45;
-                switch(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset)
-                {
-                case 0:
-                    ed.note="Now using Space Station Tileset";
-                    break;
-                case 1:
-                    ed.note="Now using Outside Tileset";
-                    break;
-                case 2:
-                    ed.note="Now using Lab Tileset";
-                    break;
-                case 3:
-                    ed.note="Now using Warp Zone Tileset";
-                    break;
-                case 4:
-                    ed.note="Now using Ship Tileset";
-                    break;
-                case 5:
-                    ed.note="Now using Tower Tileset";
-                    break;
-                default:
-                    ed.note="Tileset Changed";
-                    break;
-                }
-                ed.updatetiles=true;
-                ed.keydelay=6;
+                ed.switch_tileset();
+                graphics.backgrounddrawn = false;
+                ed.keydelay = 6;
             }
             if(key.keymap[SDLK_F2])
             {
-                ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol++;
-                graphics.backgrounddrawn=false;
-                if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==0)
-                {
-                    if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=32) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
-                }
-                else if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==1)
-                {
-                    if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=8) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
-                }
-                else if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset==3)
-                {
-                    if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=7) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
-                }
-                else
-                {
-                    if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol>=6) ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol=0;
-                }
-                ed.updatetiles=true;
-                ed.keydelay=6;
-                ed.notedelay=45;
-                ed.note="Tileset Colour Changed";
+                ed.switch_tilecol();
+                graphics.backgrounddrawn = false;
+                ed.keydelay = 6;
             }
             if(key.keymap[SDLK_F3])
             {
-                ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype=(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype+1)%10;
+                ed.switch_enemy();
                 ed.keydelay=6;
-                ed.notedelay=45;
-                ed.note="Enemy Type Changed";
             }
             if(key.keymap[SDLK_F4])
             {
