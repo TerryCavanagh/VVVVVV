@@ -8,7 +8,7 @@ MusicTrack::MusicTrack(const char* fileName)
 	m_isValid = true;
 	if(m_music == NULL)
 	{
-		fprintf(stderr, "Unable to load Ogg Music file: %s\n", Mix_GetError());;
+		fprintf(stderr, "Unable to load Ogg Music file: %s\n", Mix_GetError());
 		m_isValid = false;
 	}
 }
