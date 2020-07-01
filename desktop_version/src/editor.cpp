@@ -3887,20 +3887,25 @@ void editorinput()
         ed.tiley = ed.tiley * 240 / winheight;
     }
 
+    bool up_pressed = key.keymap[SDLK_UP] || key.keymap[SDL_CONTROLLER_BUTTON_DPAD_UP];
+    bool down_pressed = key.keymap[SDLK_DOWN] || key.keymap[SDL_CONTROLLER_BUTTON_DPAD_DOWN];
+    bool left_pressed = key.keymap[SDLK_LEFT] || key.keymap[SDL_CONTROLLER_BUTTON_DPAD_LEFT];
+    bool right_pressed = key.keymap[SDLK_RIGHT] || key.keymap[SDL_CONTROLLER_BUTTON_DPAD_RIGHT];
+
     game.press_left = false;
     game.press_right = false;
     game.press_action = false;
     game.press_map = false;
 
-    if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a))
+    if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false))
     {
         game.press_left = true;
     }
-    if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d))
+    if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false))
     {
         game.press_right = true;
     }
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v))
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
     {
         game.press_action = true;
     };
@@ -3997,13 +4002,13 @@ void editorinput()
             //hook select menu
             if(ed.keydelay>0) ed.keydelay--;
 
-            if(key.keymap[SDLK_UP] && ed.keydelay<=0)
+            if(up_pressed && ed.keydelay<=0)
             {
                 ed.keydelay=6;
                 ed.hookmenu--;
             }
 
-            if(key.keymap[SDLK_DOWN] && ed.keydelay<=0)
+            if(down_pressed && ed.keydelay<=0)
             {
                 ed.keydelay=6;
                 ed.hookmenu++;
@@ -4035,11 +4040,11 @@ void editorinput()
             }
 
             if (!game.press_action && !game.press_left && !game.press_right
-                    && !key.keymap[SDLK_UP] && !key.keymap[SDLK_DOWN] && !key.isDown(27)) game.jumpheld = false;
+                    && !up_pressed && !down_pressed && !key.isDown(27)) game.jumpheld = false;
             if (!game.jumpheld)
             {
                 if (game.press_action || game.press_left || game.press_right || game.press_map
-                        || key.keymap[SDLK_UP] || key.keymap[SDLK_DOWN] || key.isDown(27))
+                        || up_pressed || down_pressed || key.isDown(27))
                 {
                     game.jumpheld = true;
                 }
@@ -4082,7 +4087,7 @@ void editorinput()
 
             if(ed.keydelay>0) ed.keydelay--;
 
-            if(key.keymap[SDLK_UP] && ed.keydelay<=0)
+            if(up_pressed && ed.keydelay<=0)
             {
                 ed.keydelay=6;
                 ed.sby--;
@@ -4101,7 +4106,7 @@ void editorinput()
                 key.keybuffer=ed.sb[ed.pagey+ed.sby];
             }
 
-            if(key.keymap[SDLK_DOWN] && ed.keydelay<=0)
+            if(down_pressed && ed.keydelay<=0)
             {
                 ed.keydelay=6;
                 if(ed.sby+ed.pagey<(int)ed.sb.size()-1)
@@ -4355,22 +4360,22 @@ void editorinput()
         if(ed.settingsmod)
         {
             if (!game.press_action && !game.press_left && !game.press_right
-                    && !key.keymap[SDLK_UP] && !key.keymap[SDLK_DOWN]) game.jumpheld = false;
+                    && !up_pressed && !down_pressed) game.jumpheld = false;
             if (!game.jumpheld)
             {
                 if (game.press_action || game.press_left || game.press_right || game.press_map
-                        || key.keymap[SDLK_UP] || key.keymap[SDLK_DOWN])
+                        || up_pressed || down_pressed)
                 {
                     game.jumpheld = true;
                 }
 
                 if(game.menustart)
                 {
-                    if (game.press_left || key.keymap[SDLK_UP])
+                    if (game.press_left || up_pressed)
                     {
                         game.currentmenuoption--;
                     }
-                    else if (game.press_right || key.keymap[SDLK_DOWN])
+                    else if (game.press_right || down_pressed)
                     {
                         game.currentmenuoption++;
                     }
@@ -4707,23 +4712,23 @@ void editorinput()
             {
                 if(key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT])
                 {
-                    if(key.keymap[SDLK_UP])
+                    if(up_pressed)
                     {
                         ed.keydelay=6;
                         ed.mapheight--;
                     }
-                    else if(key.keymap[SDLK_DOWN])
+                    else if(down_pressed)
                     {
                         ed.keydelay=6;
                         ed.mapheight++;
                     }
 
-                    if(key.keymap[SDLK_LEFT])
+                    if(left_pressed)
                     {
                         ed.keydelay=6;
                         ed.mapwidth--;
                     }
-                    else if(key.keymap[SDLK_RIGHT])
+                    else if(right_pressed)
                     {
                         ed.keydelay=6;
                         ed.mapwidth++;
@@ -4769,26 +4774,26 @@ void editorinput()
                     if(key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
                     {
                         ed.dmtileeditor=10;
-                        if(key.keymap[SDLK_LEFT])
+                        if(left_pressed)
                         {
                             ed.dmtile--;
                             ed.keydelay=3;
                             if(ed.dmtile<0) ed.dmtile+=1200;
                         }
-                        else if(key.keymap[SDLK_RIGHT])
+                        else if(right_pressed)
                         {
                             ed.dmtile++;
                             ed.keydelay=3;
 
                             if(ed.dmtile>=1200) ed.dmtile-=1200;
                         }
-                        if(key.keymap[SDLK_UP])
+                        if(up_pressed)
                         {
                             ed.dmtile-=40;
                             ed.keydelay=3;
                             if(ed.dmtile<0) ed.dmtile+=1200;
                         }
-                        else if(key.keymap[SDLK_DOWN])
+                        else if(down_pressed)
                         {
                             ed.dmtile+=40;
                             ed.keydelay=3;
@@ -4798,7 +4803,7 @@ void editorinput()
                     }
                     else
                     {
-                        if(key.keymap[SDLK_UP])
+                        if(up_pressed)
                         {
                             ed.keydelay=6;
                             graphics.backgrounddrawn=false;
@@ -4806,7 +4811,7 @@ void editorinput()
                             ed.updatetiles=true;
                             ed.changeroom=true;
                         }
-                        else if(key.keymap[SDLK_DOWN])
+                        else if(down_pressed)
                         {
                             ed.keydelay=6;
                             graphics.backgrounddrawn=false;
@@ -4814,7 +4819,7 @@ void editorinput()
                             ed.updatetiles=true;
                             ed.changeroom=true;
                         }
-                        else if(key.keymap[SDLK_LEFT])
+                        else if(left_pressed)
                         {
                             ed.keydelay=6;
                             graphics.backgrounddrawn=false;
@@ -4822,7 +4827,7 @@ void editorinput()
                             ed.updatetiles=true;
                             ed.changeroom=true;
                         }
-                        else if(key.keymap[SDLK_RIGHT])
+                        else if(right_pressed)
                         {
                             ed.keydelay=6;
                             graphics.backgrounddrawn=false;
