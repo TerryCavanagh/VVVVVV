@@ -103,6 +103,7 @@ bool binaryBlob::unPackBinary(const char* name)
 
 		if (m_headers[i].valid & ~0x1 || !m_headers[i].valid)
 		{
+			m_headers[i].valid = false;
 			continue; /* Must be EXACTLY 1 or 0 */
 		}
 		if (m_headers[i].size < 1)
