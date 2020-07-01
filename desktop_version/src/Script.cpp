@@ -366,11 +366,23 @@ void scriptclass::run()
 					g = 134;
 					b = 255;
 				}
+				else if (words[1] == "white")
+				{
+					r = 244;
+					g = 244;
+					b = 244;
+				}
 				else if (words[1] == "gray")
 				{
 					r = 174;
 					g = 174;
 					b = 174;
+				}
+				else if (words[1] == "orange")
+				{
+					r = 255;
+					g = 130;
+					b = 20;
 				}
 				else
 				{
