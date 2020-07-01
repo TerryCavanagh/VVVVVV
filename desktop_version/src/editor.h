@@ -8,6 +8,30 @@
 #include "Script.h"
 #include "Graphics.h"
 
+// Text entry field type
+enum textmode {
+  TEXT_NONE,
+
+  // In-editor text fields
+  TEXT_LOAD,
+  TEXT_SAVE,
+  TEXT_ROOMNAME,
+  TEXT_SCRIPT,
+  TEXT_ROOMTEXT,
+  LAST_EDTEXT = TEXT_ROOMTEXT,
+
+  // Settings-mode text fields
+  TEXT_TITLE,
+  TEXT_DESC,
+  TEXT_WEBSITE,
+  TEXT_CREATOR,
+  NUM_TEXTMODES,
+
+  // Text modes with an entity
+  FIRST_ENTTEXT = TEXT_SCRIPT,
+  LAST_ENTTEXT = TEXT_ROOMTEXT
+};
+
 class edentities{
 public:
   int x, y, t;
@@ -105,6 +129,7 @@ class editorclass{
 
   void saveconvertor();
   void reset();
+  void getlin(const enum textmode mode, const std::string& prompt, std::string* ptr);
   std::vector<int> loadlevel(int rxi, int ryi);
 
   void placetile(int x, int y, int t);
@@ -184,14 +209,17 @@ class editorclass{
   int levx, levy;
   int entframe, entframedelay;
 
-  bool roomtextmod;
-
-  bool scripttextmod;
-  int textent;
   int scripttexttype;
   std::string oldenttext;
 
-  bool xmod, zmod, cmod, vmod, bmod, hmod, spacemod, warpmod, roomnamemod, textentry, savemod, loadmod;
+  enum textmode textmod; // In text entry
+  std::string* textptr; // Pointer to text we're changing
+  std::string textdesc; // Description (for editor mode text fields)
+  union {
+    int desc; // Which description row we're changing
+    int textent; // Entity ID for text prompt
+  };
+  bool xmod, zmod, cmod, vmod, bmod, hmod, spacemod, warpmod, textentry;
   bool titlemod, creatormod, desc1mod, desc2mod, desc3mod, websitemod;
 
   int roomnamehide;

@@ -293,11 +293,9 @@ void editorclass::reset()
     note="";
     notedelay=0;
     oldnotedelay=0;
-    roomnamemod=false;
     textentry=false;
-    savemod=false;
-    loadmod=false;
     deletekeyheld=false;
+    textmod = TEXT_NONE;
 
     titlemod=false;
     creatormod=false;
@@ -316,7 +314,6 @@ void editorclass::reset()
     boundy1=0;
     boundy2=0;
 
-    scripttextmod=false;
     textent=0;
     scripttexttype=0;
 
@@ -342,8 +339,6 @@ void editorclass::reset()
 
     edentity.clear();
     levmusic=0;
-
-    roomtextmod=false;
 
     for (int j = 0; j < maxheight; j++)
     {
@@ -506,6 +501,25 @@ void editorclass::insertline(int t)
 {
     //insert a blank line into script at line t
     sb.insert(sb.begin() + t, "");
+}
+
+void editorclass::getlin(const enum textmode mode, const std::string& prompt, std::string* ptr)
+{
+    ed.textmod = mode;
+    ed.textptr = ptr;
+    ed.textdesc = prompt;
+    key.enabletextentry();
+    if (ptr)
+    {
+        key.keybuffer = *ptr;
+    }
+    else
+    {
+        key.keybuffer = "";
+        ed.textptr = &(key.keybuffer);
+    }
+
+    ed.oldenttext = key.keybuffer;
 }
 
 std::vector<int> editorclass::loadlevel( int rxi, int ryi )
@@ -3347,75 +3361,21 @@ void editorrender()
 
         graphics.drawmenu(tr, tg, tb);
     }
-    else if(ed.scripttextmod)
+    else if (ed.textmod)
     {
-        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
-        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
-        graphics.Print(4, 224, "Enter script id name:", 255,255,255, false);
-        if(ed.entframe<2)
+        FillRect(graphics.backBuffer, 0, 221, 320, 240, graphics.getRGB(32, 32, 32));
+        FillRect(graphics.backBuffer, 0, 222, 320, 240, graphics.getRGB(0, 0, 0));
+        graphics.Print(4, 224, ed.textdesc, 255, 255, 255, false);
+        std::string input = key.keybuffer;
+        if (ed.entframe < 2)
         {
-            graphics.Print(4, 232, edentity[ed.textent].scriptname+"_", 196, 196, 255 - help.glow, true);
+            input += "_";
         }
         else
         {
-            graphics.Print(4, 232, edentity[ed.textent].scriptname+" ", 196, 196, 255 - help.glow, true);
+            input += " ";
         }
-    }
-    else if(ed.savemod)
-    {
-        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
-        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
-        graphics.Print(4, 224, "Enter filename to save map as:", 255,255,255, false);
-        if(ed.entframe<2)
-        {
-            graphics.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
-        }
-        else
-        {
-            graphics.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
-        }
-    }
-    else if(ed.loadmod)
-    {
-        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
-        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
-        graphics.Print(4, 224, "Enter map filename to load:", 255,255,255, false);
-        if(ed.entframe<2)
-        {
-            graphics.Print(4, 232, ed.filename+"_", 196, 196, 255 - help.glow, true);
-        }
-        else
-        {
-            graphics.Print(4, 232, ed.filename+" ", 196, 196, 255 - help.glow, true);
-        }
-    }
-    else if(ed.roomnamemod)
-    {
-        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
-        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
-        graphics.Print(4, 224, "Enter new room name:", 255,255,255, false);
-        if(ed.entframe<2)
-        {
-            graphics.Print(4, 232, ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname+"_", 196, 196, 255 - help.glow, true);
-        }
-        else
-        {
-            graphics.Print(4, 232, ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname+" ", 196, 196, 255 - help.glow, true);
-        }
-    }
-    else if(ed.roomtextmod)
-    {
-        FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
-        FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
-        graphics.Print(4, 224, "Enter text string:", 255,255,255, false);
-        if(ed.entframe<2)
-        {
-            graphics.Print(4, 232, edentity[ed.textent].scriptname+"_", 196, 196, 255 - help.glow, true);
-        }
-        else
-        {
-            graphics.Print(4, 232, edentity[ed.textent].scriptname+" ", 196, 196, 255 - help.glow, true);
-        }
+        graphics.Print(4, 232, input, 196, 196, 255 - help.glow, true);
     }
     else if(ed.warpmod)
     {
@@ -3927,25 +3887,18 @@ void editormenuactionpress()
             graphics.backgrounddrawn=false;
             map.nexttowercolour();
 
-            ed.loadmod=true;
-            ed.textentry=true;
-            key.enabletextentry();
-            key.keybuffer=ed.filename;
-            ed.keydelay=6;
+            ed.keydelay = 6;
+            ed.getlin(TEXT_LOAD, "Enter map filename to load:", &(ed.filename));
             game.mapheld=true;
             graphics.backgrounddrawn=false;
             break;
         case 5:
             //Save level
             ed.settingsmod=false;
-            graphics.backgrounddrawn=false;
             map.nexttowercolour();
 
-            ed.savemod=true;
-            ed.textentry=true;
-            key.enabletextentry();
-            key.keybuffer=ed.filename;
-            ed.keydelay=6;
+            ed.keydelay = 6;
+            ed.getlin(TEXT_SAVE, "Enter map filename to save as:", &(ed.filename));
             game.mapheld=true;
             graphics.backgrounddrawn=false;
             break;
@@ -3988,14 +3941,10 @@ void editormenuactionpress()
             ed.saveandquit=true;
 
             ed.settingsmod=false;
-            graphics.backgrounddrawn=false;
             map.nexttowercolour();
 
-            ed.savemod=true;
-            ed.textentry=true;
-            key.enabletextentry();
-            key.keybuffer=ed.filename;
-            ed.keydelay=6;
+            ed.keydelay = 6;
+            ed.getlin(TEXT_SAVE, "Enter map filename to save as:", &(ed.filename));
             game.mapheld=true;
             graphics.backgrounddrawn=false;
             break;
@@ -4066,12 +4015,26 @@ void editorinput()
     if (key.isDown(27) && !ed.settingskey)
     {
         ed.settingskey=true;
-        if(ed.textentry)
+        if (ed.textmod)
         {
             key.disabletextentry();
-            ed.roomnamemod=false;
-            ed.loadmod=false;
-            ed.savemod=false;
+            if (ed.textmod >= FIRST_ENTTEXT && ed.textmod <= LAST_ENTTEXT)
+            {
+                *ed.textptr = ed.oldenttext;
+                if (ed.oldenttext == "")
+                {
+                    removeedentity(ed.textent);
+                }
+            }
+
+            ed.textmod = TEXT_NONE;
+
+            ed.shiftmenu = false;
+            ed.shiftkey = false;
+        }
+        else if (ed.textentry)
+        {
+            key.disabletextentry();
             ed.textentry=false;
             ed.titlemod=false;
             ed.desc1mod=false;
@@ -4079,20 +4042,7 @@ void editorinput()
             ed.desc3mod=false;
             ed.websitemod=false;
             ed.creatormod=false;
-            if(ed.scripttextmod || ed.roomtextmod)
-            {
-                if (ed.oldenttext == "")
-                {
-                    removeedentity(ed.textent);
-                }
-                else
-                {
-                    edentity[ed.textent].scriptname = ed.oldenttext;
-                }
-            }
 
-            ed.scripttextmod=false;
-            ed.roomtextmod=false;
             ed.shiftmenu=false;
             ed.shiftkey=false;
         }
@@ -4331,29 +4281,78 @@ void editorinput()
             }
         }
     }
-    else if(ed.textentry)
+    else if (ed.textmod)
     {
-        if(ed.roomnamemod)
+        *ed.textptr = key.keybuffer;
+
+        if (!game.press_map && !key.isDown(27))
         {
-            ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname=key.keybuffer;
+            game.mapheld = false;
         }
-        else if(ed.savemod)
+        if (!game.mapheld && game.press_map)
         {
-            ed.filename=key.keybuffer;
+            game.mapheld = true;
+            key.disabletextentry();
+            switch (ed.textmod)
+            {
+            case TEXT_LOAD:
+            {
+                std::string loadstring = ed.filename + ".vvvvvv";
+                if (ed.load(loadstring))
+                {
+                    // don't use filename, it has the full path
+                    char buffer[64];
+                    SDL_snprintf(buffer, sizeof(buffer), "[ Loaded map: %s.vvvvvv ]", ed.filename.c_str());
+                    ed.note = buffer;
+                }
+                else
+                {
+                    ed.note = "[ ERROR: Could not load level ]";
+                }
+                ed.notedelay = 45;
+                break;
+            }
+            case TEXT_SAVE:
+            {
+                std::string savestring = ed.filename + ".vvvvvv";
+                if (ed.save(savestring))
+                {
+                    char buffer[64];
+                    SDL_snprintf(buffer, sizeof(buffer), "[ Saved map: %s.vvvvvv ]", ed.filename.c_str());
+                    ed.note = buffer;
+                }
+                else
+                {
+                    ed.note = "[ ERROR: Could not save level! ]";
+                    ed.saveandquit = false;
+                }
+                ed.notedelay = 45;
+
+                if (ed.saveandquit)
+                {
+                    graphics.fademode = 2; // quit editor
+                }
+                break;
+            }
+            case TEXT_SCRIPT:
+                ed.clearscriptbuffer();
+                if (!ed.checkhook(key.keybuffer))
+                {
+                    ed.addhook(key.keybuffer);
+                }
+                break;
+            default:
+                break;
+            }
+
+            ed.shiftmenu = false;
+            ed.shiftkey = false;
+            ed.textmod = TEXT_NONE;
         }
-        else if(ed.loadmod)
-        {
-            ed.filename=key.keybuffer;
-        }
-        else if(ed.roomtextmod)
-        {
-            edentity[ed.textent].scriptname=key.keybuffer;
-        }
-        else if(ed.scripttextmod)
-        {
-            edentity[ed.textent].scriptname=key.keybuffer;
-        }
-        else if(ed.titlemod)
+    }
+    else if (ed.textentry)
+    {
+        if(ed.titlemod)
         {
             EditorData::GetInstance().title=key.keybuffer;
         }
@@ -4384,71 +4383,7 @@ void editorinput()
             if(game.press_map)
             {
                 game.mapheld=true;
-                if(ed.roomnamemod)
-                {
-                    ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname=key.keybuffer;
-                    ed.roomnamemod=false;
-                }
-                else if(ed.savemod)
-                {
-                    std::string savestring=ed.filename+".vvvvvv";
-                    if (ed.save(savestring))
-                    {
-                        ed.note="[ Saved map: " + ed.filename+ ".vvvvvv]";
-                    }
-                    else
-                    {
-                        ed.note="[ ERROR: Could not save level! ]";
-                        ed.saveandquit = false;
-                    }
-                    ed.notedelay=45;
-                    ed.savemod=false;
-
-                    ed.shiftmenu=false;
-                    ed.shiftkey=false;
-
-                    if(ed.saveandquit)
-                    {
-                        //quit editor
-                        graphics.fademode = 2;
-                    }
-                }
-                else if(ed.loadmod)
-                {
-                    std::string loadstring=ed.filename+".vvvvvv";
-                    if (ed.load(loadstring))
-                    {
-                        ed.note="[ Loaded map: " + ed.filename+ ".vvvvvv]";
-                    }
-                    else
-                    {
-                        ed.note="[ ERROR: Could not load level ]";
-                    }
-                    ed.notedelay=45;
-                    ed.loadmod=false;
-
-                    ed.shiftmenu=false;
-                    ed.shiftkey=false;
-                }
-                else if(ed.roomtextmod)
-                {
-                    edentity[ed.textent].scriptname=key.keybuffer;
-                    ed.roomtextmod=false;
-
-                    ed.shiftmenu=false;
-                    ed.shiftkey=false;
-                }
-                else if(ed.scripttextmod)
-                {
-                    edentity[ed.textent].scriptname=key.keybuffer;
-                    ed.scripttextmod=false;
-                    ed.clearscriptbuffer();
-                    if(!ed.checkhook(edentity[ed.textent].scriptname))
-                    {
-                        ed.addhook(edentity[ed.textent].scriptname);
-                    }
-                }
-                else if(ed.titlemod)
+                if(ed.titlemod)
                 {
                     EditorData::GetInstance().title=key.keybuffer;
                     ed.titlemod=false;
@@ -4753,35 +4688,24 @@ void editorinput()
             }
             if(key.keymap[SDLK_e])
             {
-                ed.roomnamemod=true;
-                ed.textentry=true;
-                key.enabletextentry();
-                key.keybuffer=ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname;
-                ed.keydelay=6;
+                ed.keydelay = 6;
+                ed.getlin(TEXT_ROOMNAME, "Enter new room name:", &(ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname));
                 game.mapheld=true;
             }
 
             //Save and load
             if(key.keymap[SDLK_s])
             {
-                ed.savemod=true;
-                ed.textentry=true;
-                key.enabletextentry();
-                key.keybuffer=ed.filename;
-                ed.keydelay=6;
+                ed.keydelay = 6;
+                ed.getlin(TEXT_SAVE, "Enter map filename to save map as:", &(ed.filename));
                 game.mapheld=true;
-                graphics.backgrounddrawn=false;
             }
 
             if(key.keymap[SDLK_l])
             {
-                ed.loadmod=true;
-                ed.textentry=true;
-                key.enabletextentry();
-                key.keybuffer=ed.filename;
-                ed.keydelay=6;
+                ed.keydelay = 6;
+                ed.getlin(TEXT_LOAD, "Enter map filename to load:", &(ed.filename));
                 game.mapheld=true;
-                graphics.backgrounddrawn=false;
             }
 
             if(!game.press_map) game.mapheld=false;
@@ -4985,16 +4909,11 @@ void editorinput()
                             if(ed.boundarytype==0)
                             {
                                 //Script trigger
-                                ed.scripttextmod=true;
-                                ed.oldenttext="";
+                                ed.lclickdelay=1;
                                 ed.textent=edentity.size();
                                 addedentity((ed.boundx1/8)+(ed.levx*40),(ed.boundy1/8)+ (ed.levy*30),19,
                                             (ed.boundx2-ed.boundx1)/8, (ed.boundy2-ed.boundy1)/8);
-                                ed.lclickdelay=1;
-
-                                ed.textentry=true;
-                                key.enabletextentry();
-                                key.keybuffer="";
+                                ed.getlin(TEXT_SCRIPT, "Enter script name:", &(edentity[ed.textent].scriptname));
                                 ed.lclickdelay=1;
                             }
                             else if(ed.boundarytype==1)
@@ -5270,15 +5189,10 @@ void editorinput()
                             //Room text and script triggers can be placed in walls
                             if(ed.drawmode==10)
                             {
-                                ed.roomtextmod=true;
-                                ed.oldenttext="";
-                                ed.textent=edentity.size();
-                                ed.textentry=true;
-                                key.enabletextentry();
-                                key.keybuffer="";
-                                graphics.backgrounddrawn=false;
-                                addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),17);
                                 ed.lclickdelay=1;
+                                ed.textent=edentity.size();
+                                addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),17);
+                                ed.getlin(TEXT_ROOMTEXT, "Enter roomtext:", &(edentity[ed.textent].scriptname));
                             }
                             else if(ed.drawmode==12)   //Script Trigger
                             {
@@ -5336,14 +5250,10 @@ void editorinput()
                             }
                             else if(ed.drawmode==11)
                             {
-                                ed.scripttextmod=true;
-                                ed.oldenttext="";
-                                ed.textent=edentity.size();
-                                ed.textentry=true;
-                                key.enabletextentry();
-
-                                addedentity(ed.tilex+(ed.levx*40),ed.tiley+ (ed.levy*30),18,0);
                                 ed.lclickdelay=1;
+                                ed.textent=edentity.size();
+                                addedentity(ed.tilex+(ed.levx*40),ed.tiley+ (ed.levy*30),18,0);
+                                ed.getlin(TEXT_SCRIPT, "Enter script name", &(edentity[ed.textent].scriptname));
                             }
                             else if(ed.drawmode==13)
                             {
@@ -5458,23 +5368,15 @@ void editorinput()
                         }
                         else if(edentity[tmp].t==17)
                         {
-                            ed.roomtextmod=true;
-                            ed.oldenttext=edentity[tmp].scriptname;
+                            ed.getlin(TEXT_ROOMTEXT, "Enter roomtext:", &(edentity[tmp].scriptname));
                             ed.textent=tmp;
-                            ed.textentry=true;
-                            key.enabletextentry();
-                            key.keybuffer=ed.oldenttext;
                             ed.lclickdelay=1;
                         }
                         else if(edentity[tmp].t==18 || edentity[tmp].t==19)
                         {
-                            ed.scripttextmod=true;
-                            ed.oldenttext=edentity[tmp].scriptname;
-                            ed.textent=tmp;
-                            ed.textentry=true;
-                            key.enabletextentry();
-                            key.keybuffer=ed.oldenttext;
                             ed.lclickdelay=1;
+                            ed.textent=tmp;
+                            ed.getlin(TEXT_SCRIPT, "Enter script name:", &(edentity[ed.textent].scriptname));
                         }
                     }
                 }
