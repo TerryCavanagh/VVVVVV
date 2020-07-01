@@ -163,6 +163,12 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 		if (t != -1)
 		{
 			currentsong = t;
+			if (!INBOUNDS(t, musicTracks))
+			{
+				puts("play() out-of-bounds!");
+				currentsong = -1;
+				return;
+			}
 			if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_pppppp_tracks || currentsong == 7+num_pppppp_tracks)))
 			{
 				// Level Complete theme, no fade in or repeat
