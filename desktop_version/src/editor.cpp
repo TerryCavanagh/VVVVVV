@@ -4403,11 +4403,90 @@ void editorinput()
                 }
             }
         }
+        else if (ed.keydelay > 0)
+        {
+            ed.keydelay--;
+        }
+        else if (key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
+        {
+            // Ctrl modifiers
+            ed.dmtileeditor=10;
+            if(left_pressed)
+            {
+                ed.dmtile--;
+                ed.keydelay=3;
+                if(ed.dmtile<0) ed.dmtile+=1200;
+            }
+            else if(right_pressed)
+            {
+                ed.dmtile++;
+                ed.keydelay=3;
+
+                if(ed.dmtile>=1200) ed.dmtile-=1200;
+            }
+            if(up_pressed)
+            {
+                ed.dmtile-=40;
+                ed.keydelay=3;
+                if(ed.dmtile<0) ed.dmtile+=1200;
+            }
+            else if(down_pressed)
+            {
+                ed.dmtile+=40;
+                ed.keydelay=3;
+
+                if(ed.dmtile>=1200) ed.dmtile-=1200;
+            }
+        }
+        else if (key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT])
+        {
+            // Shift modifiers
+            if (up_pressed || down_pressed || left_pressed || right_pressed)
+            {
+                ed.keydelay=6;
+                if(up_pressed)
+                {
+                    ed.mapheight--;
+                }
+                else if(down_pressed)
+                {
+                    ed.mapheight++;
+                }
+                else if(left_pressed)
+                {
+                    ed.mapwidth--;
+                }
+                else if(right_pressed)
+                {
+                    ed.mapwidth++;
+                }
+
+                if(ed.mapwidth<1) ed.mapwidth=1;
+                if(ed.mapheight<1) ed.mapheight=1;
+                if(ed.mapwidth>=ed.maxwidth) ed.mapwidth=ed.maxwidth;
+                if(ed.mapheight>=ed.maxheight) ed.mapheight=ed.maxheight;
+                ed.note = "Mapsize is now [" + help.String(ed.mapwidth) + "," + help.String(ed.mapheight) + "]";
+                ed.notedelay=45;
+            }
+
+            if(!ed.shiftkey)
+            {
+                if(ed.shiftmenu)
+                {
+                    ed.shiftmenu=false;
+                }
+                else
+                {
+                    ed.shiftmenu=true;
+                }
+            }
+            ed.shiftkey=true;
+        }
         else
         {
-            //Shortcut keys
-            //TO DO: make more user friendly
-            if(key.keymap[SDLK_F1] && ed.keydelay==0)
+            // No modifiers
+            ed.shiftkey=false;
+            if(key.keymap[SDLK_F1])
             {
                 ed.level[ed.levx+(ed.levy*ed.maxwidth)].tileset++;
                 graphics.backgrounddrawn=false;
@@ -4452,7 +4531,7 @@ void editorinput()
                 ed.updatetiles=true;
                 ed.keydelay=6;
             }
-            if(key.keymap[SDLK_F2] && ed.keydelay==0)
+            if(key.keymap[SDLK_F2])
             {
                 ed.level[ed.levx+(ed.levy*ed.maxwidth)].tilecol++;
                 graphics.backgrounddrawn=false;
@@ -4477,26 +4556,26 @@ void editorinput()
                 ed.notedelay=45;
                 ed.note="Tileset Colour Changed";
             }
-            if(key.keymap[SDLK_F3] && ed.keydelay==0)
+            if(key.keymap[SDLK_F3])
             {
                 ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype=(ed.level[ed.levx+(ed.levy*ed.maxwidth)].enemytype+1)%10;
                 ed.keydelay=6;
                 ed.notedelay=45;
                 ed.note="Enemy Type Changed";
             }
-            if(key.keymap[SDLK_F4] && ed.keydelay==0)
+            if(key.keymap[SDLK_F4])
             {
                 ed.keydelay=6;
                 ed.boundarytype=1;
                 ed.boundarymod=1;
             }
-            if(key.keymap[SDLK_F5] && ed.keydelay==0)
+            if(key.keymap[SDLK_F5])
             {
                 ed.keydelay=6;
                 ed.boundarytype=2;
                 ed.boundarymod=1;
             }
-            if(key.keymap[SDLK_F10] && ed.keydelay==0)
+            if(key.keymap[SDLK_F10])
             {
                 if(ed.level[ed.levx+(ed.levy*ed.maxwidth)].directmode==1)
                 {
@@ -4532,7 +4611,7 @@ void editorinput()
             if(key.keymap[SDLK_o]) ed.drawmode=15;
             if(key.keymap[SDLK_p]) ed.drawmode=16;
 
-            if(key.keymap[SDLK_w] && ed.keydelay==0)
+            if(key.keymap[SDLK_w])
             {
                 int j=0, tx=0, ty=0;
                 for(size_t i=0; i<edentity.size(); i++)
@@ -4582,7 +4661,7 @@ void editorinput()
                 }
                 ed.keydelay=6;
             }
-            if(key.keymap[SDLK_e] && ed.keydelay==0)
+            if(key.keymap[SDLK_e])
             {
                 ed.roomnamemod=true;
                 ed.textentry=true;
@@ -4593,7 +4672,7 @@ void editorinput()
             }
 
             //Save and load
-            if(key.keymap[SDLK_s] && ed.keydelay==0)
+            if(key.keymap[SDLK_s])
             {
                 ed.savemod=true;
                 ed.textentry=true;
@@ -4604,7 +4683,7 @@ void editorinput()
                 graphics.backgrounddrawn=false;
             }
 
-            if(key.keymap[SDLK_l] && ed.keydelay==0)
+            if(key.keymap[SDLK_l])
             {
                 ed.loadmod=true;
                 ed.textentry=true;
@@ -4716,170 +4795,73 @@ void editorinput()
             ed.xmod = key.keymap[SDLK_x];
             ed.zmod = key.keymap[SDLK_z];
 
-            //Keyboard shortcuts
-            if(ed.keydelay>0)
+            if(key.keymap[SDLK_COMMA])
             {
-                ed.keydelay--;
+                ed.drawmode--;
+                ed.keydelay=6;
+            }
+            else if(key.keymap[SDLK_PERIOD])
+            {
+                ed.drawmode++;
+                ed.keydelay=6;
+            }
+
+            if(ed.drawmode<0)
+            {
+                ed.drawmode=16;
+                if(ed.spacemod) ed.spacemenu=0;
+            }
+            if(ed.drawmode>16) ed.drawmode=0;
+            if(ed.drawmode>9)
+            {
+                if(ed.spacemod) ed.spacemenu=1;
             }
             else
             {
-                if(key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT])
-                {
-                    if(up_pressed)
-                    {
-                        ed.keydelay=6;
-                        ed.mapheight--;
-                    }
-                    else if(down_pressed)
-                    {
-                        ed.keydelay=6;
-                        ed.mapheight++;
-                    }
+                if(ed.spacemod) ed.spacemenu=0;
+            }
 
-                    if(left_pressed)
-                    {
-                        ed.keydelay=6;
-                        ed.mapwidth--;
-                    }
-                    else if(right_pressed)
-                    {
-                        ed.keydelay=6;
-                        ed.mapwidth++;
-                    }
-                    if(ed.keydelay==6)
-                    {
-                        if(ed.mapwidth<1) ed.mapwidth=1;
-                        if(ed.mapheight<1) ed.mapheight=1;
-                        if(ed.mapwidth>=ed.maxwidth) ed.mapwidth=ed.maxwidth;
-                        if(ed.mapheight>=ed.maxheight) ed.mapheight=ed.maxheight;
-                        ed.note = "Mapsize is now [" + help.String(ed.mapwidth) + "," + help.String(ed.mapheight) + "]";
-                        ed.notedelay=45;
-                    }
-                }
-                else
-                {
-                    if(key.keymap[SDLK_COMMA])
-                    {
-                        ed.drawmode--;
-                        ed.keydelay=6;
-                    }
-                    else if(key.keymap[SDLK_PERIOD])
-                    {
-                        ed.drawmode++;
-                        ed.keydelay=6;
-                    }
+            if(up_pressed)
+            {
+                ed.keydelay=6;
+                graphics.backgrounddrawn=false;
+                ed.levy--;
+                ed.updatetiles=true;
+                ed.changeroom=true;
+            }
+            else if(down_pressed)
+            {
+                ed.keydelay=6;
+                graphics.backgrounddrawn=false;
+                ed.levy++;
+                ed.updatetiles=true;
+                ed.changeroom=true;
+            }
+            else if(left_pressed)
+            {
+                ed.keydelay=6;
+                graphics.backgrounddrawn=false;
+                ed.levx--;
+                ed.updatetiles=true;
+                ed.changeroom=true;
+            }
+            else if(right_pressed)
+            {
+                ed.keydelay=6;
+                graphics.backgrounddrawn=false;
+                ed.levx++;
+                ed.updatetiles=true;
+                ed.changeroom=true;
+            }
 
-                    if(ed.drawmode<0)
-                    {
-                        ed.drawmode=16;
-                        if(ed.spacemod) ed.spacemenu=0;
-                    }
-                    if(ed.drawmode>16) ed.drawmode=0;
-                    if(ed.drawmode>9)
-                    {
-                        if(ed.spacemod) ed.spacemenu=1;
-                    }
-                    else
-                    {
-                        if(ed.spacemod) ed.spacemenu=0;
-                    }
-
-                    if(key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
-                    {
-                        ed.dmtileeditor=10;
-                        if(left_pressed)
-                        {
-                            ed.dmtile--;
-                            ed.keydelay=3;
-                            if(ed.dmtile<0) ed.dmtile+=1200;
-                        }
-                        else if(right_pressed)
-                        {
-                            ed.dmtile++;
-                            ed.keydelay=3;
-
-                            if(ed.dmtile>=1200) ed.dmtile-=1200;
-                        }
-                        if(up_pressed)
-                        {
-                            ed.dmtile-=40;
-                            ed.keydelay=3;
-                            if(ed.dmtile<0) ed.dmtile+=1200;
-                        }
-                        else if(down_pressed)
-                        {
-                            ed.dmtile+=40;
-                            ed.keydelay=3;
-
-                            if(ed.dmtile>=1200) ed.dmtile-=1200;
-                        }
-                    }
-                    else
-                    {
-                        if(up_pressed)
-                        {
-                            ed.keydelay=6;
-                            graphics.backgrounddrawn=false;
-                            ed.levy--;
-                            ed.updatetiles=true;
-                            ed.changeroom=true;
-                        }
-                        else if(down_pressed)
-                        {
-                            ed.keydelay=6;
-                            graphics.backgrounddrawn=false;
-                            ed.levy++;
-                            ed.updatetiles=true;
-                            ed.changeroom=true;
-                        }
-                        else if(left_pressed)
-                        {
-                            ed.keydelay=6;
-                            graphics.backgrounddrawn=false;
-                            ed.levx--;
-                            ed.updatetiles=true;
-                            ed.changeroom=true;
-                        }
-                        else if(right_pressed)
-                        {
-                            ed.keydelay=6;
-                            graphics.backgrounddrawn=false;
-                            ed.levx++;
-                            ed.updatetiles=true;
-                            ed.changeroom=true;
-                        }
-                    }
-
-                    if(ed.levx<0) ed.levx+=ed.mapwidth;
-                    if(ed.levx>= ed.mapwidth) ed.levx-=ed.mapwidth;
-                    if(ed.levy<0) ed.levy+=ed.mapheight;
-                    if(ed.levy>=ed.mapheight) ed.levy-=ed.mapheight;
-                }
-                if(key.keymap[SDLK_SPACE])
-                {
-                    ed.spacemod = !ed.spacemod;
-                    ed.keydelay=6;
-                }
-
-                if(key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT])
-                {
-                    if(!ed.shiftkey)
-                    {
-                        if(ed.shiftmenu)
-                        {
-                            ed.shiftmenu=false;
-                        }
-                        else
-                        {
-                            ed.shiftmenu=true;
-                        }
-                    }
-                    ed.shiftkey=true;
-                }
-                else
-                {
-                    ed.shiftkey=false;
-                }
+            if(ed.levx<0) ed.levx+=ed.mapwidth;
+            if(ed.levx>= ed.mapwidth) ed.levx-=ed.mapwidth;
+            if(ed.levy<0) ed.levy+=ed.mapheight;
+            if(ed.levy>=ed.mapheight) ed.levy-=ed.mapheight;
+            if(key.keymap[SDLK_SPACE])
+            {
+                ed.spacemod = !ed.spacemod;
+                ed.keydelay=6;
             }
         }
 
