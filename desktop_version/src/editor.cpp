@@ -3817,10 +3817,7 @@ void editormenuactionpress()
         {
         case 0:
             ed.levmusic++;
-            if(ed.levmusic==5) ed.levmusic=6;
-            if(ed.levmusic==7) ed.levmusic=8;
-            if(ed.levmusic==9) ed.levmusic=10;
-            if(ed.levmusic==15) ed.levmusic=0;
+            if(ed.levmusic==16) ed.levmusic=0;
             if(ed.levmusic>0)
             {
                 music.play(ed.levmusic);
