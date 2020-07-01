@@ -51,6 +51,8 @@ public:
 	bool usingmmmmmm;
 
 	binaryBlob musicReadBlob;
+	int num_pppppp_tracks;
+	int num_mmmmmm_tracks;
 
 	Uint64 songStart;
 	Uint64 songEnd;

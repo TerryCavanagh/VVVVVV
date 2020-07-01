@@ -57,6 +57,9 @@ void musicclass::init()
 	musicWriteBlob.writeBinaryBlob("data/BinaryMusic.vvv");
 #endif
 
+	num_mmmmmm_tracks = 0;
+	num_pppppp_tracks = 0;
+
 	if (!musicReadBlob.unPackBinary("mmmmmm.vvv"))
 	{
 		mmmmmm = false;
@@ -78,12 +81,16 @@ void musicclass::init()
 
 		TRACK_NAMES
 
+		num_mmmmmm_tracks += 16;
+
 		const std::vector<int> extra = musicReadBlob.getExtra();
 		for (size_t i = 0; i < extra.size(); i++)
 		{
 			const int& index = extra[i];
 			rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index));
 			musicTracks.push_back(MusicTrack( rw ));
+
+			num_mmmmmm_tracks++;
 		}
 
 		bool ohCrap = musicReadBlob.unPackBinary("vvvvvvmusic.vvv");
@@ -97,12 +104,16 @@ void musicclass::init()
 
 #undef FOREACH_TRACK
 
+	num_pppppp_tracks += 16;
+
 	const std::vector<int> extra = musicReadBlob.getExtra();
 	for (size_t i = 0; i < extra.size(); i++)
 	{
 		const int& index = extra[i];
 		rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index));
 		musicTracks.push_back(MusicTrack( rw ));
+
+		num_pppppp_tracks++;
 	}
 
 	safeToProcessMusic= false;
@@ -131,14 +142,19 @@ void songend()
 
 void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fadein_ms /*= 3000*/)
 {
-	t = (t % 16);
-
-	if(mmmmmm)
+	// No need to check if num_tracks is greater than 0, we wouldn't be here if it wasn't
+	if (mmmmmm && usingmmmmmm)
 	{
-		if(!usingmmmmmm)
-		{
-			t += 16;
-		}
+		t %= num_mmmmmm_tracks;
+	}
+	else
+	{
+		t %= num_pppppp_tracks;
+	}
+
+	if(mmmmmm && !usingmmmmmm)
+	{
+		t += num_mmmmmm_tracks;
 	}
 	safeToProcessMusic = true;
 	Mix_VolumeMusic(128);
@@ -147,7 +163,7 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 		if (t != -1)
 		{
 			currentsong = t;
-			if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 16 || currentsong == 23)))
+			if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_pppppp_tracks || currentsong == 7+num_pppppp_tracks)))
 			{
 				// Level Complete theme, no fade in or repeat
 				if(Mix_FadeInMusicPos(musicTracks[t].m_music, 0, 0, position_sec)==-1)
