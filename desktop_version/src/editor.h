@@ -134,6 +134,11 @@ class editorclass{
 
   int backmatch(int x, int y);
 
+  void switch_tileset(const bool reversed = false);
+  void switch_tilecol(const bool reversed = false);
+  void clamp_tilecol(const int rx, const int ry, const bool wrap = false);
+  void switch_enemy(const bool reversed = false);
+
   bool load(std::string& _path);
   bool save(std::string& _path);
   void generatecustomminimap();
