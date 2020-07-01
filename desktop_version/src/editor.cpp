@@ -2404,11 +2404,20 @@ void editormenurender(int tr, int tg, int tb)
         case 4:
             songname = "4: Passion for Exploring";
             break;
+        case 5:
+            songname = "N/A: Pause";
+            break;
         case 6:
             songname = "5: Presenting VVVVVV";
             break;
+        case 7:
+            songname = "N/A: Plenary";
+            break;
         case 8:
             songname = "6: Predestined Fate";
+            break;
+        case 9:
+            songname = "N/A: ecroF evitisoP";
             break;
         case 10:
             songname = "7: Popular Potpourri";
@@ -2424,6 +2433,9 @@ void editormenurender(int tr, int tg, int tb)
             break;
         case 14:
             songname = "11: Piercing the Sky";
+            break;
+        case 15:
+            songname = "N/A: Predestined Fate Remix";
             break;
         default:
             songname = "?: something else";
