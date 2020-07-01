@@ -1686,8 +1686,14 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap /*= 
     const int tileset = room.tileset;
     int tilecol = room.tilecol;
 
-    int mincol = 0;
+    int mincol = -1;
     int maxcol = 5;
+
+    // Only Space Station allows tileset -1
+    if (tileset != 0)
+    {
+        mincol = 0;
+    }
 
     switch (tileset)
     {
