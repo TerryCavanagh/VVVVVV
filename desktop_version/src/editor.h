@@ -18,7 +18,8 @@ enum textmode {
   TEXT_ROOMNAME,
   TEXT_SCRIPT,
   TEXT_ROOMTEXT,
-  LAST_EDTEXT = TEXT_ROOMTEXT,
+  TEXT_GOTOROOM,
+  LAST_EDTEXT = TEXT_GOTOROOM,
 
   // Settings-mode text fields
   TEXT_TITLE,

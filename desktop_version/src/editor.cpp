@@ -4295,6 +4295,20 @@ void editorinput()
             key.disabletextentry();
             switch (ed.textmod)
             {
+            case TEXT_GOTOROOM:
+            {
+                std::vector<std::string> coords = split(key.keybuffer, ',');
+                if (coords.size() != 2)
+                {
+                    ed.note = "[ ERROR: Invalid format ]";
+                    ed.notedelay = 45;
+                    break;
+                }
+                ed.levx = clamp(atoi(coords[0].c_str()) - 1, 0, ed.mapwidth - 1);
+                ed.levy = clamp(atoi(coords[1].c_str()) - 1, 0, ed.mapheight - 1);
+                graphics.backgrounddrawn = false;
+                break;
+            }
             case TEXT_LOAD:
             {
                 std::string loadstring = ed.filename + ".vvvvvv";
@@ -4690,6 +4704,12 @@ void editorinput()
             {
                 ed.keydelay = 6;
                 ed.getlin(TEXT_ROOMNAME, "Enter new room name:", &(ed.level[ed.levx+(ed.levy*ed.maxwidth)].roomname));
+                game.mapheld=true;
+            }
+            if (key.keymap[SDLK_g])
+            {
+                ed.keydelay = 6;
+                ed.getlin(TEXT_GOTOROOM, "Enter room coordinates x,y:", NULL);
                 game.mapheld=true;
             }
 
