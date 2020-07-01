@@ -2032,13 +2032,15 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         case 0: // Simple Loop
         case 1: // Simple Loop
         case 2: // Simpler Loop (just two frames)
-        case 3: // Simpler Loop (just two frames, but double sized)
-        case 4: // Simpler Loop (just two frames, but double sized) (as above, but slower)
         case 5: // Simpler Loop (just two frames) (slower)
-        case 6: // Normal Loop (four frames, double sized)
         case 7: // Simpler Loop (just two frames) (slower) (with directions!)
         case 11: // Conveyor right
             entity.drawframe++;
+            break;
+        case 3: // Simpler Loop (just two frames, but double sized)
+        case 4: // Simpler Loop (just two frames, but double sized) (as above, but slower)
+        case 6: // Normal Loop (four frames, double sized)
+            entity.drawframe += 2;
             break;
         case 10: // Conveyor left
             entity.drawframe += 3;
