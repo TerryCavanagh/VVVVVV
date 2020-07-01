@@ -4573,6 +4573,24 @@ void editorinput()
         else if (key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT])
         {
             // Shift modifiers
+            if (key.keymap[SDLK_F1])
+            {
+                ed.switch_tileset(true);
+                graphics.backgrounddrawn = false;
+                ed.keydelay = 6;
+            }
+            if (key.keymap[SDLK_F2])
+            {
+                ed.switch_tilecol(true);
+                graphics.backgrounddrawn = false;
+                ed.keydelay = 6;
+            }
+            if (key.keymap[SDLK_F3])
+            {
+                ed.switch_enemy(true);
+                ed.keydelay=6;
+            }
+
             if (up_pressed || down_pressed || left_pressed || right_pressed)
             {
                 ed.keydelay=6;
