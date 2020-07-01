@@ -213,7 +213,7 @@ void Game::init(void)
     tele_crewstats.resize(6);
     quick_crewstats.resize(6);
     besttimes.resize(6, -1);
-    ::memset(bestframes, -1, sizeof(bestframes) * sizeof(int));
+    SDL_memset(bestframes, -1, sizeof(bestframes));
     besttrinkets.resize(6, -1);
     bestlives.resize(6, -1);
     bestrank.resize(6, -1);
