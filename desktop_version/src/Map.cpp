@@ -1728,10 +1728,27 @@ void mapclass::loadlevel(int rx, int ry)
 				break;
 				}
 				case 18: //Terminals
+				{
 				obj.customscript=edentity[edi].scriptname;
-				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8)+8, 20, 1);
-				obj.createblock(5, (edentity[edi].x*8)- ((rx-100)*40*8)-8, (edentity[edi].y*8)- ((ry-100)*30*8)+8, 20, 16, 35);
+
+				int usethistile = edentity[edi].p1;
+				int usethisy = (edentity[edi].y*8)- ((ry-100)*30*8);
+
+				// This isn't a boolean: we just swap 0 and 1 around and leave the rest alone
+				if (usethistile == 0)
+				{
+					usethistile = 1; // Unflipped
+				}
+				else if (usethistile == 1)
+				{
+					usethistile = 0; // Flipped;
+					usethisy -= 8;
+				}
+
+				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8), usethisy+8, 20, usethistile);
+				obj.createblock(5, (edentity[edi].x*8)- ((rx-100)*40*8)-8, usethisy+8, 20, 16, 35);
 				break;
+				}
 				case 19: //Script Box
 				game.customscript[tempscriptbox]=edentity[edi].scriptname;
 				obj.createblock(1, (edentity[edi].x*8)- ((rx-100)*40*8), (edentity[edi].y*8)- ((ry-100)*30*8),
