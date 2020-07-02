@@ -1754,7 +1754,7 @@ void Graphics::drawentities()
             FillRect(backBuffer, prect, obj.entities[i].realcol);
             break;
         case 4:    // Small pickups
-            setcol(obj.entities[i].realcol);
+            setcolreal(obj.entities[i].realcol);
             drawhuetile(xp, yp - yoff, obj.entities[i].tile);
             break;
         case 5:    //Horizontal Line
