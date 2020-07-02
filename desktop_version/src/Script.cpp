@@ -56,9 +56,13 @@ void scriptclass::tokenize( std::string t )
 		{
 			tempword += currentletter;
 		}
+		if (j >= (int) SDL_arraysize(words))
+		{
+			break;
+		}
 	}
 
-	if (tempword != "")
+	if (tempword != "" && j < (int) SDL_arraysize(words))
 	{
 		words[j] = tempword;
 	}
