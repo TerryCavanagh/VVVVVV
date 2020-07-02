@@ -57,8 +57,6 @@ public:
 
     int scriptdelay;
     bool running, dontrunnextframe;
-    std::string tempword;
-    std::string currentletter;
 
     //Textbox stuff
     int textx;

@@ -37,7 +37,8 @@ void scriptclass::clearcustom(){
 void scriptclass::tokenize( std::string t )
 {
 	j = 0;
-	tempword = "";
+	std::string tempword;
+	std::string currentletter;
 
 	for (size_t i = 0; i < t.length(); i++)
 	{
