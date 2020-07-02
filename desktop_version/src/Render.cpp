@@ -231,7 +231,7 @@ void menurender()
             graphics.bigprint(-1, 30, "Toggle VSync", tr, tg, tb, true);
             graphics.Print(-1, 65, "Turn VSync on or off.", tr, tg, tb, true);
 
-            if (!graphics.vsync)
+            if (!graphics.screenbuffer->vsync)
             {
                 graphics.Print(-1, 95, "Current mode: VSYNC OFF", tr/2, tg/2, tb/2, true);
             }

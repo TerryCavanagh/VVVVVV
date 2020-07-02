@@ -4848,7 +4848,7 @@ void Game::loadstats()
 
         if (pKey == "vsync")
         {
-            graphics.vsync = atoi(pText);
+            graphics.screenbuffer->vsync = atoi(pText);
         }
 
         if (pKey == "notextoutline")
@@ -5118,7 +5118,7 @@ void Game::savestats()
     dataNode->LinkEndChild(msg);
 
     msg = doc.NewElement("vsync");
-    msg->LinkEndChild(doc.NewText(help.String((int) graphics.vsync).c_str()));
+    msg->LinkEndChild(doc.NewText(help.String((int) graphics.screenbuffer->vsync).c_str()));
     dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)

@@ -326,9 +326,6 @@ public:
 	bool kludgeswnlinewidth;
 
 	Uint32 crewcolourreal(int t);
-
-	bool vsync;
-	void processVsync();
 };
 
 extern Graphics graphics;

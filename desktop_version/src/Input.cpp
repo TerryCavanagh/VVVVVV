@@ -369,8 +369,8 @@ void menuactionpress()
         case 6:
             //toggle vsync
             music.playef(11);
-            graphics.vsync = !graphics.vsync;
-            graphics.processVsync();
+            graphics.screenbuffer->vsync = !graphics.screenbuffer->vsync;
+            graphics.screenbuffer->resetRendererWorkaround();
             game.savestats();
             break;
         default:

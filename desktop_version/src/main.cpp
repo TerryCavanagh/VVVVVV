@@ -252,7 +252,7 @@ int main(int argc, char *argv[])
     // renderer created by Screen::init(), which is a bit wasteful!
     // This is annoying to fix because we'd have to call gameScreen.init() after
     // game.loadstats(), but game.loadstats() assumes gameScreen.init() is already called!
-    graphics.processVsync();
+    gameScreen.resetRendererWorkaround();
 
     if (game.skipfakeload)
         game.gamestate = TITLEMODE;

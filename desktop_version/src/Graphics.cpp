@@ -139,8 +139,6 @@ void Graphics::init()
     col_tb = 0;
 
     kludgeswnlinewidth = false;
-
-    vsync = false;
 }
 
 int Graphics::font_idx(uint32_t ch) {
@@ -3272,43 +3270,4 @@ Uint32 Graphics::crewcolourreal(int t)
 		return col_crewblue;
 	}
 	return col_crewcyan;
-}
-
-void Graphics::processVsync()
-{
-	SDL_SetHintWithPriority(SDL_HINT_RENDER_VSYNC, vsync ? "1" : "0", SDL_HINT_OVERRIDE);
-
-	if (screenbuffer == NULL)
-	{
-		return;
-	}
-
-	// FIXME: Sigh... work around SDL2 bug where the VSync hint is only
-	// listened to at renderer creation
-
-	// Ugh, have to re-create m_screenTexture as well, otherwise the screen
-	// will be black...
-	if (screenbuffer->m_screenTexture != NULL)
-	{
-		SDL_DestroyTexture(screenbuffer->m_screenTexture);
-	}
-
-	if (screenbuffer->m_renderer != NULL)
-	{
-		SDL_DestroyRenderer(screenbuffer->m_renderer);
-	}
-	screenbuffer->m_renderer = SDL_CreateRenderer(screenbuffer->m_window, -1, 0);
-
-	// FIXME: This is duplicated from Screen::init()!
-	screenbuffer->m_screenTexture = SDL_CreateTexture(
-		screenbuffer->m_renderer,
-		SDL_PIXELFORMAT_ARGB8888,
-		SDL_TEXTUREACCESS_STREAMING,
-		320,
-		240
-	);
-
-	// Ugh, have to make sure to re-apply graphics options after doing the
-	// above, otherwise letterbox/integer won't be applied...
-	screenbuffer->ResizeScreen(-1, -1);
 }

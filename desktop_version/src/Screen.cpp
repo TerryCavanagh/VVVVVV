@@ -26,6 +26,7 @@ void Screen::init()
 	isWindowed = true;
 	stretchMode = 0;
 	isFiltered = false;
+	vsync = false;
 	filterSubrect.x = 1;
 	filterSubrect.y = 1;
 	filterSubrect.w = 318;
@@ -286,4 +287,50 @@ void Screen::toggleLinearFilter()
 		320,
 		240
 	);
+}
+
+void Screen::resetRendererWorkaround()
+{
+	SDL_SetHintWithPriority(
+		SDL_HINT_RENDER_VSYNC,
+		vsync ? "1" : "0",
+		SDL_HINT_OVERRIDE
+	);
+
+	/* FIXME: This exists because SDL_HINT_RENDER_VSYNC is not dynamic!
+	 * As a result, our only workaround is to tear down the renderer
+	 * and recreate everything so that it can process the variable.
+	 * -flibit
+	 */
+
+	if (m_renderer == NULL)
+	{
+		/* We haven't made it to init yet, don't worry about it */
+		return;
+	}
+
+	SDL_RendererInfo renderInfo;
+	SDL_GetRendererInfo(m_renderer, &renderInfo);
+	bool curVsync = (renderInfo.flags & SDL_RENDERER_PRESENTVSYNC) != 0;
+	if (vsync == curVsync)
+	{
+		return;
+	}
+
+	SDL_DestroyTexture(m_screenTexture);
+	SDL_DestroyRenderer(m_renderer);
+
+	m_renderer = SDL_CreateRenderer(m_window, -1, 0);
+	m_screenTexture = SDL_CreateTexture(
+		m_renderer,
+		SDL_PIXELFORMAT_ARGB8888,
+		SDL_TEXTUREACCESS_STREAMING,
+		320,
+		240
+	);
+
+	/* Ugh, have to make sure to re-apply graphics options after doing the
+	 * above, otherwise letterbox/integer won't be applied...
+	 */
+	ResizeScreen(-1, -1);
 }
