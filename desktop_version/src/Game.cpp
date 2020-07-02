@@ -229,8 +229,8 @@ void Game::init(void)
     quick_currentarea = "Error! Error!";
 
     //Menu stuff initiliased here:
-    unlock.resize(25);
-    unlocknotify.resize(25);
+    SDL_memset(unlock, false, sizeof(unlock));
+    SDL_memset(unlocknotify, false, sizeof(unlock));
 
     currentmenuoption = 0;
     current_credits_list_index = 0;
@@ -4559,7 +4559,7 @@ void Game::deletestats()
     }
     else
     {
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < numunlock; i++)
         {
             unlock[i] = false;
             unlocknotify[i] = false;
@@ -4631,10 +4631,9 @@ void Game::loadstats()
             if(TextString.length())
             {
                 std::vector<std::string> values = split(TextString,',');
-                unlock.clear();
-                for(size_t i = 0; i < values.size(); i++)
+                for(size_t i = 0; i < SDL_min(SDL_arraysize(unlock), values.size()); i++)
                 {
-                    unlock.push_back(atoi(values[i].c_str()));
+                    unlock[i] = atoi(values[i].c_str());
                 }
             }
         }
@@ -4645,10 +4644,9 @@ void Game::loadstats()
             if(TextString.length())
             {
                 std::vector<std::string> values = split(TextString,',');
-                unlocknotify.clear();
-                for(size_t i = 0; i < values.size(); i++)
+                for(size_t i = 0; i < SDL_min(SDL_arraysize(unlocknotify), values.size()); i++)
                 {
-                    unlocknotify.push_back(atoi(values[i].c_str()));
+                    unlocknotify[i] = atoi(values[i].c_str());
                 }
             }
         }
@@ -4967,7 +4965,7 @@ void Game::savestats()
     root->LinkEndChild( dataNode );
 
     std::string s_unlock;
-    for(size_t i = 0; i < unlock.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(unlock); i++ )
     {
         s_unlock += help.String(unlock[i]) + ",";
     }
@@ -4976,7 +4974,7 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     std::string s_unlocknotify;
-    for(size_t i = 0; i < unlocknotify.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(unlocknotify); i++ )
     {
         s_unlocknotify += help.String(unlocknotify[i]) + ",";
     }
@@ -7761,7 +7759,7 @@ int Game::crewmates()
 
 bool Game::anything_unlocked()
 {
-    for (size_t i = 0; i < unlock.size(); i++)
+    for (size_t i = 0; i < SDL_arraysize(unlock); i++)
     {
         if (unlock[i] &&
         (i == 8 // Secret Lab
