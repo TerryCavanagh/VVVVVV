@@ -77,7 +77,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	/* Create save directory */
 	strcpy(saveDir, "saves");
 	strcat(saveDir, PHYSFS_getDirSeparator());
-	PHYSFS_mkdir(saveDir);
+	mkdirResult = PHYSFS_mkdir(saveDir);
 	printf("Save directory: %s%s\n", output, saveDir);
 
 	/* Create level directory */
