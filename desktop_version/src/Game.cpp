@@ -4589,6 +4589,20 @@ void Game::unlocknum( int t )
     savestats();
 }
 
+#define LOAD_ARRAY(ARRAY_NAME) \
+    if (pKey == #ARRAY_NAME) \
+    { \
+        std::string TextString = pText; \
+        if (TextString.length()) \
+        { \
+            std::vector<std::string> values = split(TextString, ','); \
+            for (size_t i = 0; i < SDL_min(SDL_arraysize(ARRAY_NAME), values.size()); i++) \
+            { \
+                ARRAY_NAME[i] = atoi(values[i].c_str()); \
+            } \
+        } \
+    }
+
 void Game::loadstats()
 {
     tinyxml2::XMLDocument doc;
@@ -4625,31 +4639,9 @@ void Game::loadstats()
         std::string pKey(pElem->Value());
         const char* pText = pElem->GetText() ;
 
-        if (pKey == "unlock")
-        {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-                std::vector<std::string> values = split(TextString,',');
-                for(size_t i = 0; i < SDL_min(SDL_arraysize(unlock), values.size()); i++)
-                {
-                    unlock[i] = atoi(values[i].c_str());
-                }
-            }
-        }
+        LOAD_ARRAY(unlock)
 
-        if (pKey == "unlocknotify")
-        {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-                std::vector<std::string> values = split(TextString,',');
-                for(size_t i = 0; i < SDL_min(SDL_arraysize(unlocknotify), values.size()); i++)
-                {
-                    unlocknotify[i] = atoi(values[i].c_str());
-                }
-            }
-        }
+        LOAD_ARRAY(unlocknotify)
 
         if (pKey == "besttimes")
         {
@@ -4665,18 +4657,7 @@ void Game::loadstats()
             }
         }
 
-        if (pKey == "bestframes")
-        {
-            std::string TextString = pText;
-            if (TextString.length())
-            {
-                std::vector<std::string> values = split(TextString, ',');
-                for (size_t i = 0; i < std::min(sizeof(bestframes) / sizeof(int), values.size()); i++)
-                {
-                    bestframes[i] = atoi(values[i].c_str());
-                }
-            }
-        }
+        LOAD_ARRAY(bestframes)
 
         if (pKey == "besttrinkets")
         {
