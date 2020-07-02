@@ -49,7 +49,7 @@ public:
 
     //Script contents
     std::vector<std::string> commands;
-    std::vector<std::string> words;
+    std::string words[40];
     std::vector<std::string> txt;
     std::string scriptname;
     int position;

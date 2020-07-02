@@ -11,8 +11,6 @@ scriptclass::scriptclass()
 	//Start SDL
 
 	//Init
-	words.resize(40);
-
 	position = 0;
 	scriptdelay = 0;
 	running = false;
