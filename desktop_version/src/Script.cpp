@@ -38,19 +38,19 @@ void scriptclass::tokenize( std::string t )
 {
 	j = 0;
 	std::string tempword;
-	std::string currentletter;
+	char currentletter;
 
 	for (size_t i = 0; i < t.length(); i++)
 	{
-		currentletter = t.substr(i, 1);
-		if (currentletter == "(" || currentletter == ")" || currentletter == ",")
+		currentletter = t[i];
+		if (currentletter == '(' || currentletter == ')' || currentletter == ',')
 		{
 			words[j] = tempword;
 			std::transform(words[j].begin(), words[j].end(), words[j].begin(), ::tolower);
 			j++;
 			tempword = "";
 		}
-		else if (currentletter == " ")
+		else if (currentletter == ' ')
 		{
 			//don't do anything - i.e. strip out spaces.
 		}
