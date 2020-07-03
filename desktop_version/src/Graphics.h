@@ -269,7 +269,7 @@ public:
 	int fademode;
 	int fadeamount;
 	int oldfadeamount;
-	std::vector <int> fadebars;
+	int fadebars[15];
 
 	bool trinketcolset;
 	int trinketr, trinketg, trinketb;
