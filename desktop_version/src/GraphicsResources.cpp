@@ -89,7 +89,6 @@ void GraphicsResources::init(void)
 	im_sprites =		LoadImage("graphics/sprites.png");
 	im_flipsprites =	LoadImage("graphics/flipsprites.png");
 	im_bfont =		LoadImage("graphics/font.png");
-	im_bfontmask =		LoadImage("graphics/fontmask.png");
 	im_teleporter =		LoadImage("graphics/teleporter.png");
 
 	im_image0 =		LoadImage("graphics/levelcomplete.png", false);
@@ -117,7 +116,6 @@ void GraphicsResources::destroy(void)
 	SDL_FreeSurface(im_sprites);
 	SDL_FreeSurface(im_flipsprites);
 	SDL_FreeSurface(im_bfont);
-	SDL_FreeSurface(im_bfontmask);
 	SDL_FreeSurface(im_teleporter);
 
 	SDL_FreeSurface(im_image0);

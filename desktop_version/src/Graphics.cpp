@@ -16,7 +16,6 @@ void Graphics::init()
     setRect(tiles_rect, 0,0,8,8);
     setRect(sprites_rect, 0,0,32,32);
     setRect(bfont_rect, 0,0,8,8);
-    setRect(bfontmask_rect, 0,0,8,8);
     setRect(bg_rect, 0,0,320,240);
     setRect(footerrect, 0, 230, 320, 10);
     setRect(prect, 0, 0, 4, 4);
@@ -2217,7 +2216,6 @@ void Graphics::drawbackground( int t )
         break;
     default:
         FillRect(backBuffer, 0x000000 );
-        BlitSurfaceStandard(backgrounds[t], NULL, backBuffer, &bg_rect);
 
         break;
     }
