@@ -27,7 +27,7 @@ public:
     };
 
     void addline(std::string t);
-    std::vector<int> loadlevel(int rx, int ry);
+    const int* loadlevel(int rx, int ry);
 
     std::string roomname;
 

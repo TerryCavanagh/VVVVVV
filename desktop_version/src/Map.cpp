@@ -57,12 +57,12 @@ mapclass::mapclass()
 	invincibility = false;
 
 	//We init the lookup table:
-	for (int i = 0; i < 30; i++)
+	for (size_t i = 0; i < SDL_arraysize(vmult); i++)
 	{
-		vmult.push_back(int(i * 40));
+		vmult[i] = i * 40;
 	}
 	//We create a blank map
-	contents.resize(40 * 30);
+	SDL_memset(contents, 0, sizeof(contents));
 
 	SDL_memset(roomdeaths, 0, sizeof(roomdeaths));
 	SDL_memset(roomdeathsfinal, 0, sizeof(roomdeathsfinal));
@@ -1307,9 +1307,11 @@ void mapclass::loadlevel(int rx, int ry)
 #if !defined(MAKEANDPLAY)
 	case 0:
 	case 1: //World Map
+	{
 		tileset = 1;
 		extrarow = 1;
-		contents = otherlevel.loadlevel(rx, ry);
+		const int* tmap = otherlevel.loadlevel(rx, ry);
+		SDL_memcpy(contents, tmap, sizeof(contents));
 		roomname = otherlevel.roomname;
 		tileset = otherlevel.roomtileset;
 		//do the appear/remove roomname here
@@ -1329,13 +1331,17 @@ void mapclass::loadlevel(int rx, int ry)
 			hiddenname = "Dimension VVVVVV";
 		}
 		break;
+	}
 	case 2: //The Lab
-		contents = lablevel.loadlevel(rx, ry);
+	{
+		const int* tmap = lablevel.loadlevel(rx, ry);
+		SDL_memcpy(contents, tmap, sizeof(contents));
 		roomname = lablevel.roomname;
 		tileset = 1;
 		background = 2;
 		graphics.rcol = lablevel.rcol;
 		break;
+	}
 	case 3: //The Tower
 		tdrawback = true;
 		minitowermode = false;
@@ -1375,7 +1381,9 @@ void mapclass::loadlevel(int rx, int ry)
 		obj.createentity(280, 3216, 9, 8); // (shiny trinket)
 		break;
 	case 4: //The Warpzone
-		contents = warplevel.loadlevel(rx, ry);
+	{
+		const int* tmap = warplevel.loadlevel(rx, ry);
+		SDL_memcpy(contents, tmap, sizeof(contents));
 		roomname = warplevel.roomname;
 		tileset = 1;
 		background = 3;
@@ -1389,13 +1397,19 @@ void mapclass::loadlevel(int rx, int ry)
 		if (warpx) background = 3;
 		if (warpx && warpy) background = 5;
 		break;
+	}
 	case 5: //Space station
-		contents = spacestation2.loadlevel(rx, ry);
+	{
+		const int* tmap = spacestation2.loadlevel(rx, ry);
+		SDL_memcpy(contents, tmap, sizeof(contents));
 		roomname = spacestation2.roomname;
 		tileset = 0;
 		break;
+	}
 	case 6: //final level
-		contents = finallevel.loadlevel(finalx, finaly);
+	{
+		const int* tmap = finallevel.loadlevel(finalx, finaly);
+		SDL_memcpy(contents, tmap, sizeof(contents));
 		roomname = finallevel.roomname;
 		tileset = 1;
 		background = 3;
@@ -1427,6 +1441,7 @@ void mapclass::loadlevel(int rx, int ry)
 			}
 		}
 		break;
+	}
 	case 7: //Final Level, Tower 1
 		tdrawback = true;
 		minitowermode = true;
@@ -1565,7 +1580,8 @@ void mapclass::loadlevel(int rx, int ry)
 		break;
 	case 11: //Tower Hallways //Content is held in final level routine
 	{
-		contents = finallevel.loadlevel(rx, ry);
+		const int* tmap = finallevel.loadlevel(rx, ry);
+		SDL_memcpy(contents, tmap, sizeof(contents));
 		roomname = finallevel.roomname;
 		tileset = 2;
 		if (rx == 108)
@@ -1645,7 +1661,8 @@ void mapclass::loadlevel(int rx, int ry)
 			roomname=ed.level[curlevel].roomname;
 		}
 		extrarow = 1;
-		contents = ed.loadlevel(rx, ry);
+		const int* tmap = ed.loadlevel(rx, ry);
+		SDL_memcpy(contents, tmap, sizeof(contents));
 
 
 		roomtexton = false;

@@ -522,7 +522,7 @@ void editorclass::getlin(const enum textmode mode, const std::string& prompt, st
     ed.oldenttext = key.keybuffer;
 }
 
-std::vector<int> editorclass::loadlevel( int rxi, int ryi )
+const int* editorclass::loadlevel( int rxi, int ryi )
 {
     //Set up our buffer array to be picked up by mapclass
     rxi -= 100;
@@ -532,13 +532,13 @@ std::vector<int> editorclass::loadlevel( int rxi, int ryi )
     if(rxi>=mapwidth)rxi-=mapwidth;
     if(ryi>=mapheight)ryi-=mapheight;
 
-    std::vector<int> result;
+    static int result[1200];
 
     for (int j = 0; j < 30; j++)
     {
         for (int i = 0; i < 40; i++)
         {
-            result.push_back(contents[i+(rxi*40)+vmult[j+(ryi*30)]]);
+            result[i + j*40] = contents[i+(rxi*40)+vmult[j+(ryi*30)]];
         }
     }
 

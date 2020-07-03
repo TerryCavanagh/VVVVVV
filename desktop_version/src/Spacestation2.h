@@ -5,12 +5,11 @@
 #include "Entity.h"
 
 #include <string>
-#include <vector>
 
 class spacestation2class
 {
 public:
-	std::vector<int> loadlevel(int rx, int ry);
+	const int* loadlevel(int rx, int ry);
 	std::string roomname;
 };
 

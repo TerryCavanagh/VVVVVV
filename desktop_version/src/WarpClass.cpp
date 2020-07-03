@@ -2,7 +2,7 @@
 
 #include "MakeAndPlay.h"
 
-std::vector<int> warpclass::loadlevel(int rx, int ry)
+const int* warpclass::loadlevel(int rx, int ry)
 {
 	int t;
 
@@ -12,7 +12,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 	ry += 49;   //warp
 
 	t = rx + (ry * 100);
-	std::vector<int> result;
+	const int* result;
 	coin = 0;
 	rcol = 0;
 	warpx = false;
@@ -68,7 +68,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 0;
 		warpy = true;
 		roomname = "This is how it is";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -110,7 +110,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 2;
 		warpx = true;
 		roomname = "A Bisected Spiral";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -157,7 +157,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 1;
 		warpy = true;
 		roomname = "Take the Red Pill";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -205,7 +205,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 5;
 		warpx = true;
 		roomname = "Short Circuit";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -249,7 +249,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 4;
 		warpy = true;
 		roomname = "As you like it";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -294,7 +294,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 3;
 		warpx = true;
 		roomname = "Maze With No Entrance";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -338,7 +338,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 2;
 		warpy = true;
 		roomname = "As we go up, we go down";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -385,7 +385,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 0;
 		warpx = true;
 		roomname = "Time to get serious";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -432,7 +432,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 2;
 		warpy = true;
 		roomname = "Wheeler's Wormhole";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -479,7 +479,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 4;
 		warpx = true;
 		roomname = "Ascending and Descending";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -528,7 +528,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 1;
 		warpy = true;
 		roomname = "Shockwave Rider";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -580,7 +580,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 3;
 		warpx = true;
 		roomname = "Sweeney's Maze";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -635,7 +635,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 5;
 		warpy = true;
 		roomname = "Mind The Gap";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -690,7 +690,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 2;
 		warpx = true;
 		roomname = "Edge Games";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -735,7 +735,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		warpx = true;
 		warpy = true;
 		roomname = "The Brown Gate";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -781,7 +781,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		warpx = true;
 		warpy = true;
 		roomname = "To The Batcave!";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -827,7 +827,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		warpx = true;
 		warpy = true;
 		roomname = "This will make you flip";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -873,7 +873,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		warpx = true;
 		warpy = true;
 		roomname = "Twisty Little Passages";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -923,7 +923,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		warpx = true;
 		warpy = true;
 		roomname = "That's Why I Have To Kill You";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -974,7 +974,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		warpx = true;
 		warpy = true;
 		roomname = "I Love You";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1016,7 +1016,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		rcol = 1;
 		warpy = true;
 		roomname = "Green Dudes Can't Flip";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1068,7 +1068,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 		}
 
 		roomname = "Murdering Twinmaker";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1119,7 +1119,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 			}
 		}
 		roomname = "It's Not Easy Being Green";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1129,7 +1129,7 @@ std::vector<int> warpclass::loadlevel(int rx, int ry)
 	{
 		static const int contents[1200] = {0};
 		//roomname = "Outer Space";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 	}

@@ -2,7 +2,7 @@
 
 #include "MakeAndPlay.h"
 
-std::vector<int> spacestation2class::loadlevel(int rx, int ry)
+const int* spacestation2class::loadlevel(int rx, int ry)
 {
 	int t;
 	rx -= 100;
@@ -13,7 +13,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 	t = rx + (ry * 100);
 
-	std::vector<int> result;
+	const int* result;
 	roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
 
 	switch(t)
@@ -63,7 +63,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 		roomname = "Outer Hull"; //If not yet in level, use "The Space Station";
 
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -104,7 +104,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		};
 
 		roomname = "The Filter"; //If not yet in level, use "The Space Station"
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -153,7 +153,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(184-24, 96, 1, 1, 4, 160, 88, 256, 192);  // Enemy, bounded
 		obj.createentity(256, 8, 2, 10, 4);  //Big Threadmill, >>>>>>
 		roomname = "Boldly To Go";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -196,7 +196,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 		obj.createentity(192, 96, 9, 2);  // (shiny trinket)
 		roomname = "One Way Room";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -256,7 +256,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(224, 120, 10, 0, 447491);  // (savepoint)
 
 		roomname = "Conveying a New Idea";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -315,7 +315,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(192, 72, 2, 10, 4);  //Big Threadmill, >>>>>>
 		obj.createentity(192, 112, 2, 8, 4);  //Threadmill, >>>
 		roomname = "Upstream Downstream";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -364,7 +364,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(224, 112, 2, 0, 4, 64, 72, 256, 160);  // Platform, bounded
 		obj.createentity(264, 96, 10, 1, 448500);  // (savepoint)
 		roomname = "The High Road is Low";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -412,7 +412,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(224, 8, 2, 11, 4);  //Big Threadmill, <<<<<<
 		obj.createentity(288, 8, 2, 9, 4);  //Threadmill, <<<
 		roomname = "Give Me A V";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -467,7 +467,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(64, 208, 2, 10, 4);  //Big Threadmill, >>>>>>
 		obj.createentity(128, 208, 2, 10, 4);  //Big Threadmill, >>>>>>
 		roomname = "Select Track";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -523,7 +523,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(192, 32, 3,10);  //Disappearing Platform
 		obj.createentity(224, 32, 3,10);  //Disappearing Platform
 		roomname = "You Chose... Poorly";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -574,7 +574,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(192, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
 		obj.createentity(256, 112, 2, 10, 4);  //Big Threadmill, >>>>>>
 		roomname = "Hyperspace Bypass 5";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -624,7 +624,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(80, 112, 2, 8, 4);  //Threadmill, >>>
 		obj.createentity(80, 104, 2, 9, 4);  //Threadmill, <<<
 		roomname = "Plain Sailing from Here On";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -675,7 +675,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(64, 16, 2, 8, 4);  //Threadmill, >>>
 		obj.createentity(104, 24, 10, 0, 448541);  // (savepoint)
 		roomname = "Ha Ha Ha Not Really";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -731,7 +731,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(48, 104, 2, 10, 4);  //Big Threadmill, >>>>>>
 
 		roomname="You Just Keep Coming Back";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -783,7 +783,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(232, 144, 10, 0, 448522);  // (savepoint)
 		obj.createentity(72, 144, 10, 0, 448523);  // (savepoint)
 		roomname = "Gordian Knot";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -840,7 +840,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(216+16, 128, 1, 0, 5, 104, 120, 288, 200);  // Enemy, bounded
 
 		roomname = "Backsliders";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -893,7 +893,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 		//LIES emitter starts here
 		roomname = "The Cuckoo";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -944,7 +944,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(24 - 60 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
 		//LIES Emitter, manually positioned
 		roomname = "Clarion Call";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -991,7 +991,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(7*8, 2*8, 1, 12, 1);  // Enemy
 		//FACTORY emitter starts here
 		roomname = "The Solution is Dilution";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1040,7 +1040,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		//FACTORY emitter starts here (manually placed)
 
 		roomname = "Lighter Than Air";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1096,7 +1096,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 			obj.createentity(18 * 8, (5 * 8) + 4, 14); //Teleporter!
 		}
 		roomname = "Level Complete!";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1137,7 +1137,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,286,
 		};
 		roomname = "Green Grotto";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1185,7 +1185,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createblock(5, 156-4, 40, 20, 16, 15);
 
 		roomname = "The Hanged Man, Reversed";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1227,7 +1227,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 		obj.createentity(152, 120, 10, 0, 445530);  // (savepoint)
 		roomname = "doomS";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1275,7 +1275,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(24 - 60 - 8 + (117 * 3), 144 - 8, 1, 10, 1);  // Enemy
 
 		roomname = "Chinese Rooms";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1317,7 +1317,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 		obj.createentity(152, 96, 10, 1, 446530);  // (savepoint)
 		roomname = "Swoop";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1363,7 +1363,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(96, 88, 3, 827);  //Disappearing Platform
 		obj.createentity(40, 160, 3, 827);  //Disappearing Platform
 		roomname = "Manic Mine";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1404,7 +1404,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		};
 		roomname = "Sorrow";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1467,7 +1467,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(104, 160, 2, 9, 4);  //Threadmill, <<<
 
 		roomname = "$eeing Dollar $ign$";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1521,7 +1521,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(152, 192, 2, 8, 4);  //Threadmill, >>>
 		obj.createentity(240, 88, 2, 9, 4);  //Threadmill, <<<
 		roomname = "Parabolica";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1581,7 +1581,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 		//LIES Emitter, manually positioned
 		roomname = "Spikes Do!";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1626,7 +1626,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(248, 72, 3, 707);  //Disappearing Platform
 		obj.createentity(184, 200, 3, 707);  //Disappearing Platform
 		roomname = "What Lies Beneath?";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1680,7 +1680,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(24 - 60 - 8 + (117 * 2), 144 - 8, 1, 10, 1);  // Enemy
 		//LIES Emitter, manually positioned, collector!
 		roomname = "Chipper Cipher";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1722,7 +1722,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 		obj.createentity(40, 72, 3, 787);  //Disappearing Platform
 		roomname = "If You Fall Up";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1767,7 +1767,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(64, 176, 10, 0, 445550);  // (savepoint)
 		obj.createentity(216 - 4, 192, 10, 1, 445551);  // (savepoint)
 		roomname = "Just Pick Yourself Down";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1840,7 +1840,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(192, 128, 2, 11, 4);  //Big Threadmill, <<<<<<
 		obj.createentity(240, 128, 2, 9, 4);  //Threadmill, <<<
 		roomname = "The Warning";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1891,7 +1891,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 
 		roomname = "Getting Here is Half the Fun";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1932,7 +1932,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		};
 
 		roomname = "Your Bitter Tears... Delicious";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1973,7 +1973,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		};
 
 		roomname = "Easy Mode Unlocked";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2014,7 +2014,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		};
 
 		roomname = "Vici!";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2055,7 +2055,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		};
 
 		roomname = "Vidi";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2096,7 +2096,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		};
 
 		roomname="Veni";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2142,7 +2142,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(24, 152, 20, 1);  // (terminal)
 		obj.createblock(5, 24-4, 152, 20, 16, 16);
 		roomname = "Doing Things The Hard Way";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2193,7 +2193,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 			obj.fatal_top();
 		}
 		roomname = "Exhaust Chute";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2259,7 +2259,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 			}
 		}
 		roomname = "A Wrinkle in Time";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2311,7 +2311,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(160 - 48, 184 - 8, 1, 3, 5);// , 160, 0, 320, 240);  // Enemy, bounded
 		obj.createentity(160 - 28 + 48, 184 - 8, 1, 2, 5);// , 0, 0, 160, 240);  // Enemy, bounded
 		roomname = "Brass Sent Us Under The Top";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2360,7 +2360,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(136 + 4, 96, 10, 1, 443541);  // (savepoint)
 
 		roomname = "The Tomb of Mad Carew";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2403,7 +2403,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(56, 144, 10, 0, 443520);  // (savepoint)
 		obj.createentity(152, 80, 10, 1, 443521);  // (savepoint)
 		roomname = "The Sensible Room";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2445,7 +2445,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 
 		obj.createentity(0, -200, 1, 16, 6, -64, -500, 320 + 64, 340);
 		roomname = "B-B-B-Busted";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2494,7 +2494,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 			obj.createblock(1, 0, 0, 112, 112, 8);
 		}
 		roomname = "V Stitch";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2560,7 +2560,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		{
 			roomname = "Imagine Spikes There, if You Like";
 		}
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2611,7 +2611,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(120, 144, 2, 10, 4);  //Big Threadmill, >>>>>>
 		obj.createentity(184, 144, 2, 8, 4);  //Threadmill, >>>
 		roomname = "A Deception";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2660,7 +2660,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(280, 152, 10, 1, 442481);  // (savepoint)
 
 		roomname = "Down Under";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2705,7 +2705,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(144, 168, 10, 1, 442490);  // (savepoint)
 		obj.createentity(24, 112, 10, 0, 442491);  // (savepoint)
 		roomname = "Shenanigan";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2756,7 +2756,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 			}
 		}
 		roomname = "Frown Upside Down";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2803,7 +2803,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 			obj.createblock(1, 280, 0, 32, 240, 82);
 		}
 		roomname = "Energize";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2847,7 +2847,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(264, 24, 10, 0, 442531);  // (savepoint)
 
 		roomname = "Driller";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2915,7 +2915,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 			}
 		}
 		roomname = "Quicksand";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2958,7 +2958,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(144, 40, 3);  //Disappearing Platform
 		obj.createentity(200, 128, 3);  //Disappearing Platform
 		roomname = "Boo! Think Fast!";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3005,7 +3005,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(185, 110, 2, 0, 3, 100, 70, 320, 160);
 		obj.createentity(235, 145, 2, 0, 3, 100, 70, 320, 160);
 		roomname = "Stop and Reflect";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3058,7 +3058,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		}
 
 		roomname = "Trench Warfare";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3108,7 +3108,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(64, 136, 10, 0, 441502);  // (savepoint)
 
 		roomname = "The Yes Men";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3157,7 +3157,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(280, 192, 10, 1, 440501);  // (savepoint)
 
 		roomname = "Gantry and Dolly";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3211,7 +3211,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		}
 
 		roomname = "Comms Relay";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3255,7 +3255,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(168, 104, 10, 1, 439500);  // (savepoint)
 
 		roomname = "Security Sweep";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3303,7 +3303,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(256-4, 200, 20, 1);  // (terminal)
 		obj.createblock(5, 256-8, 200, 20, 16, 6);
 		roomname = "Linear Collider";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3346,7 +3346,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(192, 48, 10, 0, 439520);  // (savepoint)
 		obj.createentity(112, 160, 10, 1, 439521);  // (savepoint)
 		roomname = "Atmospheric Filtering Unit";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3393,7 +3393,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(125, 18, 1, 0, 4);
 
 		obj.createentity(232, 184, 10, 0, 1);
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3433,7 +3433,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		310,310,432,692,692,692,692,692,692,814,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,812,692,692,692,692,692,692,692,692,692,430,310,310,
 		};
 		roomname = "Leap of Faith";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3481,7 +3481,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		}
 
 		roomname = "Solitude";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3528,7 +3528,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 			obj.createblock(1, 10, 0, 60, 240, 22);
 			obj.createblock(1, 280, 0, 320, 240, 21);
 		}
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	};
 
@@ -3569,7 +3569,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		};
 
 		roomname = "Welcome Aboard";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3613,7 +3613,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		obj.createentity(16, 136, 9, 0);  // (shiny trinket)
 
 		roomname = "It's a Secret to Nobody";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -3625,7 +3625,7 @@ std::vector<int> spacestation2class::loadlevel(int rx, int ry)
 		static const int contents[1200] = {0};
 		roomname = "Outer Space";
 		obj.fatal_bottom();
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 	}

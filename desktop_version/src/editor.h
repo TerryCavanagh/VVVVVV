@@ -131,7 +131,7 @@ class editorclass{
   void saveconvertor();
   void reset();
   void getlin(const enum textmode mode, const std::string& prompt, std::string* ptr);
-  std::vector<int> loadlevel(int rxi, int ryi);
+  const int* loadlevel(int rxi, int ryi);
 
   void placetile(int x, int y, int t);
 
