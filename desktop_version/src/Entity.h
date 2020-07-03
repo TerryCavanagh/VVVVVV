@@ -207,7 +207,7 @@ public:
     int customplatformtile;
     bool customwarpmode, customwarpmodevon, customwarpmodehon;
     std::string customscript;
-    int customcrewmoods[6];
+    bool customcrewmoods[Game::numcrew];
 };
 
 extern entityclass obj;

@@ -67,10 +67,7 @@ void entityclass::init()
     altstates = 0;
 
 
-    for (int i = 0; i < 6; i++)
-    {
-      customcrewmoods[i]=1;
-    }
+    SDL_memset(customcrewmoods, true, sizeof(customcrewmoods));
 
     flags.resize(100);
     collect.resize(100);
