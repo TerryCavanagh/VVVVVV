@@ -50,21 +50,12 @@ edlevelclass::edlevelclass()
 
 editorclass::editorclass()
 {
-    maxwidth=20;
-    maxheight=20;
-
     //We create a blank map
-    for (int j = 0; j < 30 * maxwidth; j++)
-    {
-        for (int i = 0; i < 40 * maxheight; i++)
-        {
-            contents.push_back(0);
-        }
-    }
+    SDL_memset(contents, 0, sizeof(contents));
 
-    for (int i = 0; i < 30 * maxheight; i++)
+    for (size_t i = 0; i < SDL_arraysize(vmult); i++)
     {
-        vmult.push_back(int(i * 40 * maxwidth));
+        vmult[i] = i * 40 * maxwidth;
     }
 
     reset();
@@ -1544,57 +1535,6 @@ void editorclass::findstartpoint()
     }
 }
 
-void editorclass::saveconvertor()
-{
-    //In the case of resizing breaking a level, this function can fix it
-    maxwidth=20;
-    maxheight=20;
-    int oldwidth=10, oldheight=10;
-
-    std::vector <int> tempcontents;
-    for (int j = 0; j < 30 * oldwidth; j++)
-    {
-        for (int i = 0; i < 40 * oldheight; i++)
-        {
-            tempcontents.push_back(contents[i+(j*40*oldwidth)]);
-        }
-    }
-
-    contents.clear();
-    for (int j = 0; j < 30 * maxheight; j++)
-    {
-        for (int i = 0; i < 40 * maxwidth; i++)
-        {
-            contents.push_back(0);
-        }
-    }
-
-    for (int j = 0; j < 30 * oldheight; j++)
-    {
-        for (int i = 0; i < 40 * oldwidth; i++)
-        {
-            contents[i+(j*40*oldwidth)]=tempcontents[i+(j*40*oldwidth)];
-        }
-    }
-
-    tempcontents.clear();
-
-    for (int i = 0; i < 30 * maxheight; i++)
-    {
-        vmult.push_back(int(i * 40 * maxwidth));
-    }
-
-    for (int j = 0; j < maxheight; j++)
-    {
-        for (int i = 0; i < maxwidth; i++)
-        {
-            level[i+(j*maxwidth)].tilecol=(i+j)%6;
-        }
-    }
-    contents.clear();
-
-}
-
 int editorclass::findtrinket(int t)
 {
     int ttrinket=0;
@@ -1884,11 +1824,7 @@ bool editorclass::load(std::string& _path)
             if(TextString.length())
             {
                 std::vector<std::string> values = split(TextString,',');
-                //contents.clear();
-                for(size_t i = 0; i < contents.size(); i++)
-                {
-                    contents[i] =0;
-                }
+                SDL_memset(contents, 0, sizeof(contents));
                 int x =0;
                 int y =0;
                 for(size_t i = 0; i < values.size(); i++)
