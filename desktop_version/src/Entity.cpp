@@ -69,15 +69,14 @@ void entityclass::init()
 
     SDL_memset(customcrewmoods, true, sizeof(customcrewmoods));
 
-    flags.resize(100);
+    resetallflags();
     collect.resize(100);
     customcollect.resize(100);
 }
 
 void entityclass::resetallflags()
 {
-    flags.clear();
-    flags.resize(100);
+    SDL_memset(flags, false, sizeof(flags));
 }
 
 int entityclass::swncolour( int t )
