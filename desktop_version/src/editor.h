@@ -196,7 +196,6 @@ class editorclass{
   edlevelclass level[400]; //Maxwidth*maxheight
   int kludgewarpdir[400]; //Also maxwidth*maxheight
 
-  int temp;
   int notedelay;
   int oldnotedelay;
   std::string note;
