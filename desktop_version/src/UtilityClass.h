@@ -51,7 +51,7 @@ public:
     int glow;
     int slowsine;
     int glowdir;
-    std::vector<int> splitseconds;
+    int splitseconds[30];
 };
 
 extern UtilityClass help;
