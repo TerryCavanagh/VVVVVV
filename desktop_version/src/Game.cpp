@@ -5351,19 +5351,7 @@ void Game::loadquick()
             pText = "";
         }
 
-        if (pKey == "worldmap")
-        {
-            std::string TextString = (pText);
-            if(TextString.length()>1)
-            {
-                std::vector<std::string> values = split(TextString,',');
-                map.explored.clear();
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    map.explored.push_back(atoi(values[i].c_str()));
-                }
-            }
-        }
+        LOAD_ARRAY_RENAME(worldmap, map.explored)
 
         LOAD_ARRAY_RENAME(flags, obj.flags)
 
@@ -5542,19 +5530,7 @@ void Game::customloadquick(std::string savfile)
             pText = "";
         }
 
-        if (pKey == "worldmap")
-        {
-            std::string TextString = (pText);
-            if(TextString.length()>1)
-            {
-                std::vector<std::string> values = split(TextString,',');
-                map.explored.clear();
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    map.explored.push_back(atoi(values[i].c_str()));
-                }
-            }
-        }
+        LOAD_ARRAY_RENAME(worldmap, map.explored)
 
         LOAD_ARRAY_RENAME(flags, obj.flags)
 
@@ -5902,7 +5878,7 @@ void Game::savetele()
     //Flags, map and stats
 
     std::string mapExplored;
-    for(size_t i = 0; i < map.explored.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(map.explored); i++ )
     {
         mapExplored += help.String(map.explored[i]) + ",";
     }
@@ -6098,7 +6074,7 @@ void Game::savequick()
     //Flags, map and stats
 
     std::string mapExplored;
-    for(size_t i = 0; i < map.explored.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(map.explored); i++ )
     {
         mapExplored += help.String(map.explored[i]) + ",";
     }
@@ -6287,7 +6263,7 @@ void Game::customsavequick(std::string savfile)
     //Flags, map and stats
 
     std::string mapExplored;
-    for(size_t i = 0; i < map.explored.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(map.explored); i++ )
     {
         mapExplored += help.String(map.explored[i]) + ",";
     }
@@ -6508,19 +6484,7 @@ void Game::loadtele()
             pText = "";
         }
 
-        if (pKey == "worldmap")
-        {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-                std::vector<std::string> values = split(TextString,',');
-                map.explored.clear();
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    map.explored.push_back(atoi(values[i].c_str()));
-                }
-            }
-        }
+        LOAD_ARRAY_RENAME(worldmap, map.explored)
 
         LOAD_ARRAY_RENAME(flags, obj.flags)
 

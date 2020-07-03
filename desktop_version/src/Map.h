@@ -79,11 +79,11 @@ public:
     void twoframedelayfix();
 
 
-    std::vector <int> roomdeaths;
-    std::vector <int> roomdeathsfinal;
+    int roomdeaths[20 * 20];
+    int roomdeathsfinal[20 * 20];
     std::vector <int> areamap;
     std::vector <int> contents;
-    std::vector <int> explored;
+    bool explored[20 * 20];
     std::vector <int> vmult;
 
     int background;

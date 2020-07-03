@@ -1333,7 +1333,7 @@ void scriptclass::run()
 			else if (words[0] == "ifexplored")
 			{
 				int room = ss_toi(words[1]) + (20 * ss_toi(words[2]));
-				if (room >= 0 && room < (int) map.explored.size() && map.explored[room] == 1)
+				if (INBOUNDS_ARR(room, map.explored) && map.explored[room] == 1)
 				{
 					load(words[3]);
 					position--;
@@ -1392,17 +1392,17 @@ void scriptclass::run()
 			else if (words[0] == "hidecoordinates")
 			{
 				int room = ss_toi(words[1]) + (20 * ss_toi(words[2]));
-				if (room >= 0 && room < (int) map.explored.size())
+				if (INBOUNDS_ARR(room, map.explored))
 				{
-					map.explored[room] = 0;
+					map.explored[room] = false;
 				}
 			}
 			else if (words[0] == "showcoordinates")
 			{
 				int room = ss_toi(words[1]) + (20 * ss_toi(words[2]));
-				if (room >= 0 && room < (int) map.explored.size())
+				if (INBOUNDS_ARR(room, map.explored))
 				{
-					map.explored[room] = 1;
+					map.explored[room] = true;
 				}
 			}
 			else if (words[0] == "hideship")
@@ -3686,12 +3686,9 @@ void scriptclass::hardreset()
 	map.scrolldir = 0;
 	map.customshowmm=true;
 
-	map.roomdeaths.clear();
-	map.roomdeaths.resize(20 * 20);
-	map.roomdeathsfinal.clear();
-	map.roomdeathsfinal.resize(20 * 20);
-	map.explored.clear();
-	map.explored.resize(20 * 20);
+	SDL_memset(map.roomdeaths, 0, sizeof(map.roomdeaths));
+	SDL_memset(map.roomdeathsfinal, 0, sizeof(map.roomdeathsfinal));
+	map.resetmap();
 	//entityclass
 	obj.nearelephant = false;
 	obj.upsetmode = false;
