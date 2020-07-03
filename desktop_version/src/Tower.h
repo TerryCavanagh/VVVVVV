@@ -1,9 +1,6 @@
 #ifndef TOWER_H
 #define TOWER_H
 
-#include <string>
-#include <vector>
-
 class towerclass
 {
 public:
@@ -23,15 +20,10 @@ public:
 
     void loadmap();
 
-    //public var back:Array = new Array();
-    //public var contents:Array = new Array();
-    //public var minitower:Array = new Array();
-    //public var vmult:Array = new Array();
-
-    std::vector<int> back;
-    std::vector<int> contents;
-    std::vector<int> minitower;
-    std::vector<int> vmult;
+    int back[40 * 120];
+    int contents[40 * 700];
+    int minitower[40 * 100];
+    int vmult[40 * 700];
 
     bool minitowermode;
 };
