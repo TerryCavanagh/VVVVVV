@@ -183,8 +183,8 @@ void scriptclass::run()
 			}
 			else if (words[0] == "customifflag")
 			{
-				int flag = ss_toi(words[1]);
-				if (flag >= 0 && flag < (int) obj.flags.size() && obj.flags[flag])
+				size_t flag = ss_toi(words[1]);
+				if (flag < SDL_arraysize(obj.flags) && obj.flags[flag])
 				{
 					load("custom_"+words[2]);
 					position--;
@@ -1357,8 +1357,8 @@ void scriptclass::run()
 			}
 			else if (words[0] == "ifflag")
 			{
-				int flag = ss_toi(words[1]);
-				if (flag >= 0 && flag < (int) obj.flags.size() && obj.flags[flag])
+				size_t flag = ss_toi(words[1]);
+				if (flag < SDL_arraysize(obj.flags) && obj.flags[flag])
 				{
 					load(words[2]);
 					position--;
@@ -3701,8 +3701,7 @@ void scriptclass::hardreset()
 	obj.trophytype = 0;
 	obj.altstates = 0;
 
-	obj.flags.clear();
-	obj.flags.resize(100);
+	obj.resetallflags();
 
 	for (i = 0; i < (int) SDL_arraysize(obj.customcrewmoods); i++){
 		obj.customcrewmoods[i]=true;

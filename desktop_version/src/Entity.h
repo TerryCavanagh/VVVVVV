@@ -182,7 +182,7 @@ public:
 
 
     std::vector<blockclass> blocks;
-    std::vector<bool> flags;
+    bool flags[100];
     std::vector<bool> collect;
     std::vector<bool> customcollect;
 
