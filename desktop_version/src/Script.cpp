@@ -1515,7 +1515,7 @@ void scriptclass::run()
 			}
 			else if (words[0] == "entersecretlab")
 			{
-				game.unlock[8] = true;
+				game.unlocknum(8);
 				game.insecretlab = true;
 			}
 			else if (words[0] == "leavesecretlab")
