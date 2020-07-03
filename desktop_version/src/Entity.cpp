@@ -70,8 +70,8 @@ void entityclass::init()
     SDL_memset(customcrewmoods, true, sizeof(customcrewmoods));
 
     resetallflags();
-    collect.resize(100);
-    customcollect.resize(100);
+    SDL_memset(collect, false, sizeof(collect));
+    SDL_memset(customcollect, false, sizeof(customcollect));
 }
 
 void entityclass::resetallflags()
@@ -1391,7 +1391,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (!INBOUNDS(vx, collect) || collect[vx]) return;
+        if (!INBOUNDS_ARR(vx, collect) || collect[(int) vx]) return;
         break;
     case 9: //Something Shiny
         entity.rule = 3;
@@ -1406,7 +1406,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (collect[vx]) return;
+        if (collect[(int) vx]) return;
         break;
     case 10: //Savepoint
         entity.rule = 3;
@@ -1602,7 +1602,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (INBOUNDS(vx, collect) && !collect[ (vx)]) return;
+        if (INBOUNDS_ARR(vx, collect) && !collect[(int) vx]) return;
         break;
     case 23: //SWN Enemies
         //Given a different behavior, these enemies are especially for SWN mode and disappear outside the screen.
@@ -1935,7 +1935,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (!INBOUNDS(vx, customcollect) || customcollect[vx]) return;
+        if (!INBOUNDS_ARR(vx, customcollect) || customcollect[(int) vx]) return;
         break;
       case 56: //Custom enemy
         entity.rule = 1;
@@ -2517,7 +2517,7 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 music.playef(4);
-                collect[entities[i].para] = true;
+                collect[(int) entities[i].para] = true;
 
                 return removeentity(i);
             }
@@ -2526,9 +2526,9 @@ bool entityclass::updateentities( int i )
             //wait for collision
             if (entities[i].state == 1)
             {
-                if (INBOUNDS(entities[i].para, collect))
+                if (INBOUNDS_ARR(entities[i].para, collect))
                 {
-                    collect[entities[i].para] = true;
+                    collect[(int) entities[i].para] = true;
                 }
 
                 if (game.intimetrial)
@@ -3159,9 +3159,9 @@ bool entityclass::updateentities( int i )
             }
             else if (entities[i].state == 1)
             {
-                if (INBOUNDS(entities[i].para, customcollect))
+                if (INBOUNDS_ARR(entities[i].para, customcollect))
                 {
-                    customcollect[entities[i].para] = true;
+                    customcollect[(int) entities[i].para] = true;
                 }
 
                 if (game.intimetrial)

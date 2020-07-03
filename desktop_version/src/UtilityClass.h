@@ -16,6 +16,7 @@ bool is_positive_num(const std::string& str, bool hex);
 bool endsWith(const std::string& str, const std::string& suffix);
 
 #define INBOUNDS(index, vector) ((int) index >= 0 && (int) index < (int) vector.size())
+#define INBOUNDS_ARR(index, array) ((int) index >= 0 && (int) index < (int) SDL_arraysize(array))
 
 #define WHINE_ONCE(message) \
     static bool whine = true; \

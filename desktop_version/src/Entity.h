@@ -183,8 +183,8 @@ public:
 
     std::vector<blockclass> blocks;
     bool flags[100];
-    std::vector<bool> collect;
-    std::vector<bool> customcollect;
+    bool collect[100];
+    bool customcollect[100];
 
     bool skipblocks, skipdirblocks;
 
