@@ -196,7 +196,6 @@ public:
     //Menu interaction stuff
     bool mapheld;
     int menupage;
-    //public var crewstats:Array = new Array();
     int lastsaved;
     int deathcounts;
 
@@ -278,15 +277,16 @@ public:
 
     bool inintermission;
 
-    std::vector<bool> crewstats;
+    static const int numcrew = 6;
+    bool crewstats[numcrew];
 
     bool alarmon;
     int alarmdelay;
     bool blackout;
 
-    std::vector<bool> tele_crewstats;
+    bool tele_crewstats[numcrew];
 
-    std::vector<bool> quick_crewstats;
+    bool quick_crewstats[numcrew];
 
     static const int numunlock = 25;
     bool unlock[numunlock];
