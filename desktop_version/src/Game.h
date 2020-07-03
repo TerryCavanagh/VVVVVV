@@ -269,10 +269,6 @@ public:
 
     int creditposition;
     int oldcreditposition;
-    int creditmaxposition;
-    std::vector<const char*> superpatrons;
-    std::vector<const char*> patrons;
-    std::vector<const char*> githubfriends;
     bool insecretlab;
 
     bool inintermission;

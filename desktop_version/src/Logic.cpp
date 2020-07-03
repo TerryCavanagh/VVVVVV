@@ -2,6 +2,7 @@
 #include "Script.h"
 #include "Network.h"
 #include "FileSystemUtils.h"
+#include "Credits.h"
 
 void titleupdatetextcol()
 {
@@ -158,9 +159,9 @@ void gamecompletelogic()
     if(graphics.col_tb>255) graphics.col_tb=255;
 
     game.creditposition--;
-    if (game.creditposition <= -game.creditmaxposition)
+    if (game.creditposition <= -Credits::creditmaxposition)
     {
-        game.creditposition = -game.creditmaxposition;
+        game.creditposition = -Credits::creditmaxposition;
         map.bscroll = 0;
     }
     else if (!game.press_action)

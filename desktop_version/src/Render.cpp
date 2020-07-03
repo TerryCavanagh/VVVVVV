@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "Script.h"
 #include "FileSystemUtils.h"
+#include "Credits.h"
 
 #include "MakeAndPlay.h"
 
@@ -273,14 +274,14 @@ void menurender()
         graphics.Print( 40, 30, "the following patrons", tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = std::min(startidx + 9, (int)game.superpatrons.size());
+        int endidx = std::min(startidx + 9, (int)SDL_arraysize(Credits::superpatrons));
 
         int xofs = 80 - 16;
         int yofs = 40 + 20;
 
         for (int i = startidx; i < endidx; ++i)
         {
-            graphics.Print(xofs, yofs, game.superpatrons[i], tr, tg, tb);
+            graphics.Print(xofs, yofs, Credits::superpatrons[i], tr, tg, tb);
             xofs += 4;
             yofs += 14;
         }
@@ -291,7 +292,7 @@ void menurender()
         graphics.Print( -1, 20, "and also by", tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = std::min(startidx + 14, (int)game.patrons.size());
+        int endidx = std::min(startidx + 14, (int)SDL_arraysize(Credits::patrons));
 
         int maxheight = 10 * 14;
         int totalheight = (endidx - startidx) * 10;
@@ -301,7 +302,7 @@ void menurender()
 
         for (int i = startidx; i < endidx; ++i)
         {
-            graphics.Print(80, yofs, game.patrons[i], tr, tg, tb);
+            graphics.Print(80, yofs, Credits::patrons[i], tr, tg, tb);
             yofs += 10;
         }
         break;
@@ -312,7 +313,7 @@ void menurender()
         graphics.Print( 40, 30, "GitHub from", tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = std::min(startidx + 9, (int)game.githubfriends.size());
+        int endidx = std::min(startidx + 9, (int)SDL_arraysize(Credits::githubfriends));
 
         int maxheight = 14 * 9;
         int totalheight = (endidx - startidx) * 14;
@@ -323,7 +324,7 @@ void menurender()
 
         for (int i = startidx; i < endidx; ++i)
         {
-            graphics.Print(xofs, yofs, game.githubfriends[i], tr, tg, tb);
+            graphics.Print(xofs, yofs, Credits::githubfriends[i], tr, tg, tb);
             xofs += 4;
             yofs += 14;
         }
@@ -1305,11 +1306,11 @@ void gamecompleterender()
 
     int creditOffset = 930;
 
-    for (size_t i = 0; i < game.superpatrons.size(); i += 1)
+    for (size_t i = 0; i < SDL_arraysize(Credits::superpatrons); i += 1)
     {
         if (graphics.onscreen(creditOffset + position))
         {
-            graphics.Print(-1, creditOffset + position, game.superpatrons[i], tr, tg, tb, true);
+            graphics.Print(-1, creditOffset + position, Credits::superpatrons[i], tr, tg, tb, true);
         }
         creditOffset += 10;
     }
@@ -1318,11 +1319,11 @@ void gamecompleterender()
     if (graphics.onscreen(creditOffset + position)) graphics.Print( -1, creditOffset + position, "and", tr, tg, tb, true);
     creditOffset += 20;
 
-    for (size_t i = 0; i < game.patrons.size(); i += 1)
+    for (size_t i = 0; i < SDL_arraysize(Credits::patrons); i += 1)
     {
         if (graphics.onscreen(creditOffset + position))
         {
-            graphics.Print(-1, creditOffset + position, game.patrons[i], tr, tg, tb, true);
+            graphics.Print(-1, creditOffset + position, Credits::patrons[i], tr, tg, tb, true);
         }
         creditOffset += 10;
     }
@@ -1331,11 +1332,11 @@ void gamecompleterender()
     if (graphics.onscreen(creditOffset + position)) graphics.bigprint(40, creditOffset + position, "GitHub Contributors", tr, tg, tb, true);
     creditOffset += 30;
 
-    for (size_t i = 0; i < game.githubfriends.size(); i += 1)
+    for (size_t i = 0; i < SDL_arraysize(Credits::githubfriends); i += 1)
     {
         if (graphics.onscreen(creditOffset + position))
         {
-            graphics.Print(-1, creditOffset + position, game.githubfriends[i], tr, tg, tb, true);
+            graphics.Print(-1, creditOffset + position, Credits::githubfriends[i], tr, tg, tb, true);
         }
         creditOffset += 10;
     }
