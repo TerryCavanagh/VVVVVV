@@ -39,13 +39,16 @@ void Graphics::init()
     setflipmode = false;
 
     //Background inits
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < numstars; i++)
     {
         SDL_Rect s = {Sint16(fRandom() * 320), Sint16(fRandom() * 240), 2, 2};
         int s2 = 4+(fRandom()*4);
-        stars.push_back(s);
-        starsspeed.push_back(s2);
+        stars[i] = s;
+        starsspeed[i] = s2;
+    }
 
+    for (int i = 0; i < numbackboxes; i++)
+    {
         SDL_Rect bb;
         int bvx = 0;
         int bvy = 0;
@@ -64,10 +67,10 @@ void Graphics::init()
             setRect(bb, fRandom() * 320, fRandom() * 240, 12, 32) ;
         }
         float bint = 0.5 + ((fRandom() * 100) / 200);
-        backboxes.push_back(bb);
-        backboxvx.push_back(bvx);
-        backboxvy.push_back(bvy);
-        backboxint.push_back(bint);
+        backboxes[i] = bb;
+        backboxvx[i] = bvx;
+        backboxvy[i] = bvy;
+        backboxint[i] = bint;
     }
     backoffset = 0;
     backgrounddrawn = false;
@@ -1938,7 +1941,7 @@ void Graphics::drawbackground( int t )
     case 1:
         //Starfield
         FillRect(backBuffer,0x00000);
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < numstars; i++)
         {
             stars[i].w = 2;
             stars[i].h = 2;
@@ -2022,7 +2025,7 @@ void Graphics::drawbackground( int t )
         }
         FillRect(backBuffer,bcol2);
 
-        for (int i = 0; i < 18; i++)
+        for (int i = 0; i < numbackboxes; i++)
         {
             switch(rcol)
             {
@@ -2168,7 +2171,7 @@ void Graphics::drawbackground( int t )
     case 6:
         //Final Starfield
         FillRect(backBuffer,0x000000);
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < numstars; i++)
         {
             stars[i].w = 2;
             stars[i].h = 2;
@@ -2227,7 +2230,7 @@ void Graphics::updatebackground(int t)
     {
     case 1:
         //Starfield
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < numstars; i++)
         {
             stars[i].w = 2;
             stars[i].h = 2;
@@ -2254,7 +2257,7 @@ void Graphics::updatebackground(int t)
                 if (spcol >= 12) spcol = 0;
             }
         }
-        for (int i = 0; i < 18; i++)
+        for (int i = 0; i < numbackboxes; i++)
         {
             backboxes[i].x += backboxvx[i];
             backboxes[i].y += backboxvy[i];
@@ -2370,7 +2373,7 @@ void Graphics::updatebackground(int t)
         break;
     case 6:
         //Final Starfield
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < numstars; i++)
         {
             stars[i].w = 2;
             stars[i].h = 2;
