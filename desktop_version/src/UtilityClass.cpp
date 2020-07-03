@@ -85,9 +85,9 @@ UtilityClass::UtilityClass() :
 glow(0),
 	glowdir(0)
 {
-	for (int i = 0; i < 30; i++)
+	for (size_t i = 0; i < SDL_arraysize(splitseconds); i++)
 	{
-		splitseconds.push_back(int((i * 100) / 30));
+		splitseconds[i] = (i * 100) / 30;
 	}
 
 	slowsine = 0;
