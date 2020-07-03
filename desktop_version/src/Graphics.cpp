@@ -90,7 +90,7 @@ void Graphics::init()
     resumegamemode = false;
 
     //Fading stuff
-    fadebars.resize(15);
+    SDL_memset(fadebars, 0, sizeof(fadebars));
 
     fadeamount = 0;
     oldfadeamount = 0;
@@ -1231,14 +1231,14 @@ void Graphics::drawfade()
     }
     else if(fademode==3)
     {
-        for (int i = 0; i < 15; i++)
+        for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
             FillRect(backBuffer, fadebars[i], i * 16, usethisamount, 16, 0x000000 );
         }
     }
     else if(fademode==5 )
     {
-        for (int i = 0; i < 15; i++)
+        for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
             FillRect(backBuffer, fadebars[i]-usethisamount, i * 16, 500, 16, 0x000000 );
         }
@@ -1254,7 +1254,7 @@ void Graphics::processfade()
         if (fademode == 2)
         {
             //prepare fade out
-            for (int i = 0; i < 15; i++)
+            for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
             {
                 fadebars[i] = -int(fRandom() * 12) * 8;
             }
@@ -1272,7 +1272,7 @@ void Graphics::processfade()
         else if (fademode == 4)
         {
             //prepare fade in
-            for (int i = 0; i < 15; i++)
+            for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
             {
                 fadebars[i] = 320 + int(fRandom() * 12) * 8;
             }
