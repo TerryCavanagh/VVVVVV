@@ -71,7 +71,6 @@ mapclass::mapclass()
 	tileset = 0;
 	initmapdata();
 
-	specialnames.resize(8);
 	resetnames();
 
 	ypos = 0;
