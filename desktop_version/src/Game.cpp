@@ -6786,7 +6786,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     {
                         text = "   " + ed.ListOfMetaData[i].title;
                     }
-                    std::transform(text.begin(), text.end(), text.begin(), ::tolower);
+                    for (size_t ii = 0; ii < text.length(); ii++)
+                    {
+                        text[ii] = SDL_tolower(text[ii]);
+                    }
                     option(text);
                 }
             }
