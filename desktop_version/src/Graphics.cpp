@@ -335,7 +335,10 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     if (selected)
     {
         std::string text_upper(text);
-        std::transform(text_upper.begin(), text_upper.end(), text_upper.begin(), ::toupper);
+        for (size_t i = 0; i < text_upper.length(); i++)
+        {
+            text_upper[i] = SDL_toupper(text_upper[i]);
+        }
         Print(x - 16, y, "[ " + text_upper + " ]", 196, 196, 255 - help.glow);
     }
     else
@@ -1300,7 +1303,10 @@ void Graphics::drawmenu( int cr, int cg, int cb )
             if (game.menuoptions[i].active)
             {
                 std::string tempstring = game.menuoptions[i].text;
-                std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
+                for (size_t ii = 0; ii < tempstring.length(); ii++)
+                {
+                    tempstring[ii] = SDL_toupper(tempstring[ii]);
+                }
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print((i * game.menuspacing) - 16 +game.menuxoff, 140 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }
@@ -1339,7 +1345,10 @@ void Graphics::drawlevelmenu( int cr, int cg, int cb )
             if (game.menuoptions[i].active)
             {
                 std::string tempstring = game.menuoptions[i].text;
-                std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
+                for (size_t ii = 0; ii < tempstring.length(); ii++)
+                {
+                    tempstring[ii] = SDL_toupper(tempstring[ii]);
+                }
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print((i * game.menuspacing) - 16 +game.menuxoff, 140+8 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }
@@ -1355,7 +1364,10 @@ void Graphics::drawlevelmenu( int cr, int cg, int cb )
             if (game.menuoptions[i].active)
             {
                 std::string tempstring = game.menuoptions[i].text;
-                std::transform(tempstring.begin(), tempstring.end(),tempstring.begin(), ::toupper);
+                for (size_t ii = 0; ii < tempstring.length(); ii++)
+                {
+                    tempstring[ii] = SDL_toupper(tempstring[ii]);
+                }
                 tempstring = std::string("[ ") + tempstring + std::string(" ]");
                 Print((i * game.menuspacing) - 16 +game.menuxoff, 144 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
             }

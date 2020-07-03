@@ -44,7 +44,10 @@ void scriptclass::tokenize( std::string t )
 		if (currentletter == '(' || currentletter == ')' || currentletter == ',')
 		{
 			words[j] = tempword;
-			std::transform(words[j].begin(), words[j].end(), words[j].begin(), ::tolower);
+			for (size_t ii = 0; ii < words[j].length(); ii++)
+			{
+				words[j][ii] = SDL_tolower(words[j][ii]);
+			}
 			j++;
 			tempword = "";
 		}
@@ -3779,7 +3782,10 @@ void scriptclass::loadcustom(std::string t)
 		words[0]="nothing"; //Default!
 		words[1]="1"; //Default!
 		tokenize(lines[i]);
-		std::transform(words[0].begin(), words[0].end(), words[0].begin(), ::tolower);
+		for (size_t ii = 0; ii < words[0].length(); ii++)
+		{
+			words[0][ii] = SDL_tolower(words[0][ii]);
+		}
 		if(words[0] == "music"){
 			if(customtextmode==1){ add("endtext"); customtextmode=0;}
 			if(words[1]=="0"){
