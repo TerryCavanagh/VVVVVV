@@ -74,8 +74,13 @@ mapclass::mapclass()
 	specialnames.resize(8);
 	resetnames();
 
-	//Areamap starts at 100,100 and extends 20x20
-	const int tmap[] = {
+	ypos = 0;
+	oldypos = 0;
+	bypos = 0;
+}
+
+//Areamap starts at 100,100 and extends 20x20
+const int mapclass::areamap[] = {
 	1,2,2,2,2,2,2,2,0,3,0,0,0,4,4,4,4,4,4,4,
 	1,2,2,2,2,2,2,0,0,3,0,0,0,0,4,4,4,4,4,4,
 	0,1,0,0,2,0,0,0,0,3,0,0,0,0,4,4,4,4,4,4,
@@ -96,13 +101,7 @@ mapclass::mapclass()
 	0,2,2,2,2,2,2,2,0,3,0,0,0,0,0,0,0,0,0,0,
 	2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0,
 	2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0,
-	};
-	areamap.insert(areamap.end(), tmap, tmap+400);
-
-	ypos = 0;
-	oldypos = 0;
-	bypos = 0;
-}
+};
 
 int mapclass::RGB(int red,int green,int blue)
 {

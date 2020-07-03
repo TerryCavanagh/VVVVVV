@@ -81,7 +81,7 @@ public:
 
     int roomdeaths[20 * 20];
     int roomdeathsfinal[20 * 20];
-    std::vector <int> areamap;
+    static const int areamap[20 * 20];
     std::vector <int> contents;
     bool explored[20 * 20];
     std::vector <int> vmult;
