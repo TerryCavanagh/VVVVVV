@@ -51,9 +51,6 @@ public:
     int glow;
     int slowsine;
     int glowdir;
-    int globaltemp;
-    int temp;
-    int temp2;
     std::vector<int> splitseconds;
 };
 
