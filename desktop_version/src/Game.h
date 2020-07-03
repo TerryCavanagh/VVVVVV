@@ -297,11 +297,12 @@ public:
     int bestgamedeaths;
 
 
-    std::vector<int>besttimes;
-    int bestframes[6];
-    std::vector<int>besttrinkets;
-    std::vector<int>bestlives;
-    std::vector<int> bestrank;
+    static const int numtrials = 6;
+    int besttimes[numtrials];
+    int bestframes[numtrials];
+    int besttrinkets[numtrials];
+    int bestlives[numtrials];
+    int bestrank[numtrials];
 
     std::string tele_gametime;
     int tele_trinkets;

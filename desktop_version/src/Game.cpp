@@ -212,11 +212,11 @@ void Game::init(void)
     crewstats.resize(6);
     tele_crewstats.resize(6);
     quick_crewstats.resize(6);
-    besttimes.resize(6, -1);
+    SDL_memset(besttimes, -1, sizeof(besttimes));
     SDL_memset(bestframes, -1, sizeof(bestframes));
-    besttrinkets.resize(6, -1);
-    bestlives.resize(6, -1);
-    bestrank.resize(6, -1);
+    SDL_memset(besttrinkets, -1, sizeof(besttrinkets));
+    SDL_memset(bestlives, -1, sizeof(bestlives));
+    SDL_memset(bestrank, -1, sizeof(bestrank));
 
     crewstats[0] = true;
     lastsaved = 0;
@@ -4564,7 +4564,7 @@ void Game::deletestats()
             unlock[i] = false;
             unlocknotify[i] = false;
         }
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < numtrials; i++)
         {
             besttimes[i] = -1;
             bestframes[i] = -1;
@@ -4643,65 +4643,17 @@ void Game::loadstats()
 
         LOAD_ARRAY(unlocknotify)
 
-        if (pKey == "besttimes")
-        {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-                std::vector<std::string> values = split(TextString,',');
-                besttimes.clear();
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    besttimes.push_back(atoi(values[i].c_str()));
-                }
-            }
-        }
+        LOAD_ARRAY(besttimes)
 
         LOAD_ARRAY(bestframes)
 
-        if (pKey == "besttrinkets")
-        {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-                std::vector<std::string> values = split(TextString,',');
-                besttrinkets.clear();
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    besttrinkets.push_back(atoi(values[i].c_str()));
-                }
-            }
-        }
+        LOAD_ARRAY(besttrinkets)
 
 
-        if (pKey == "bestlives")
-        {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-                std::vector<std::string> values = split(TextString,',');
-                bestlives.clear();
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    bestlives.push_back(atoi(values[i].c_str()));
-                }
-            }
-        }
+        LOAD_ARRAY(bestlives)
 
 
-        if (pKey == "bestrank")
-        {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-                std::vector<std::string> values = split(TextString,',');
-                bestrank.clear();
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    bestrank.push_back(atoi(values[i].c_str()));
-                }
-            }
-        }
+        LOAD_ARRAY(bestrank)
 
 
 
@@ -4964,7 +4916,7 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     std::string s_besttimes;
-    for(size_t i = 0; i < besttimes.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(besttimes); i++ )
     {
         s_besttimes += help.String(besttimes[i]) + ",";
     }
@@ -4973,7 +4925,7 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     std::string s_bestframes;
-    for (size_t i = 0; i < sizeof(bestframes) / sizeof(int); i++)
+    for (size_t i = 0; i < SDL_arraysize(bestframes); i++)
     {
         s_bestframes += help.String(bestframes[i]) + ",";
     }
@@ -4982,7 +4934,7 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     std::string s_besttrinkets;
-    for(size_t i = 0; i < besttrinkets.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(besttrinkets); i++ )
     {
         s_besttrinkets += help.String(besttrinkets[i]) + ",";
     }
@@ -4991,7 +4943,7 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     std::string s_bestlives;
-    for(size_t i = 0; i < bestlives.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(bestlives); i++ )
     {
         s_bestlives += help.String(bestlives[i]) + ",";
     }
@@ -5000,7 +4952,7 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     std::string s_bestrank;
-    for(size_t i = 0; i < bestrank.size(); i++ )
+    for(size_t i = 0; i < SDL_arraysize(bestrank); i++ )
     {
         s_bestrank += help.String(bestrank[i]) + ",";
     }
