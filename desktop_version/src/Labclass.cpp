@@ -2,7 +2,7 @@
 
 #include "MakeAndPlay.h"
 
-std::vector<int> labclass::loadlevel(int rx, int ry)
+const int* labclass::loadlevel(int rx, int ry)
 {
 	int t;
 
@@ -20,7 +20,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 	}
 
 	t = rx + (ry * 100);
-	std::vector<int> result;
+	const int* result;
 	coin = 0;
 	rcol = 0;
 	roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
@@ -74,7 +74,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 
 		rcol=1;
 		roomname = "Get Ready To Bounce";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -118,7 +118,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 0;
 
 		roomname = "It's Perfectly Safe";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -163,7 +163,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 4;
 
 		roomname = "Rascasse";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -211,7 +211,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 2;
 
 		roomname = "Keep Going";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -258,7 +258,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=3;
 
 		roomname = "Single-slit Experiment";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -305,7 +305,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 5;
 
 		roomname = "Don't Flip Out";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -355,7 +355,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 1;
 
 		roomname = "Shuffled Hallway";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -400,7 +400,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 3;
 
 		roomname = "Double-slit Experiment";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -446,7 +446,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		obj.createentity(40, 112, 10, 0, 253511);  // (savepoint)
 		rcol = 2;
 		roomname = "They Call Him Flipper";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -490,7 +490,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		obj.createentity(64, 164, 11, 200);  // (horizontal gravity line)
 		rcol = 4;
 		roomname = "Three's a Crowd";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -536,7 +536,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		obj.createentity(80, 96, 10, 1, 252521);  // (savepoint)
 		rcol = 2;
 		roomname = "Hitting the Apex";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -584,7 +584,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=0;
 
 		roomname = "Square Root";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -629,7 +629,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		obj.createentity(176, 180, 11, 112);  // (horizontal gravity line)
 		rcol = 4;
 		roomname = "Thorny Exchange";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -675,7 +675,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		obj.createentity(88, 112, 10, 0, 250510);  // (savepoint)
 		roomname = "Brought to you by the letter G";
 		rcol = 1;
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -720,7 +720,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=2;
 
 		roomname = "Free Your Mind";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -763,7 +763,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		obj.createentity(80, 180, 11, 248);  // (horizontal gravity line)
 		rcol=0;
 		roomname = "I Changed My Mind, Thelma...";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -808,7 +808,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=4;
 
 		roomname = "Indirect Jump Vector";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -852,7 +852,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=5;
 
 		roomname = "In a Single Bound";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -898,7 +898,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=1;
 
 		roomname = "Barani, Barani";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -945,7 +945,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=2;
 
 		roomname = "Safety Dance";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -989,7 +989,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 
 		rcol=3;
 		roomname = "Heady Heights";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1040,7 +1040,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 5;
 
 		roomname = "Entanglement Generator";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1085,7 +1085,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 
 		rcol = 0;
 		roomname = "Exhausted?";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1131,7 +1131,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 4;
 
 		roomname = "The Tantalizing Trinket";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1178,7 +1178,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=1;
 
 		roomname = "The Bernoulli Principle";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1224,7 +1224,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 5;
 
 		roomname = "Standing Wave";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1270,7 +1270,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 
 		obj.fatal_top();
 		roomname = "Topsy Turvyism";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1322,7 +1322,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 
 		obj.fatal_top();
 		roomname = "Spike Strip Deployed";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1371,7 +1371,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		obj.fatal_top();
 		roomname = "Vibrating String Problem";
 		rcol = 5;
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1420,7 +1420,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 
 		obj.fatal_top();
 		roomname = "Merge";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1470,7 +1470,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		obj.fatal_top();
 
 		roomname = "Kids His Age Bounce";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1517,7 +1517,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=2;
 
 		roomname = "I'm Sorry";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1563,7 +1563,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=4;
 
 		roomname = "Please Forgive Me!";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1610,7 +1610,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=1;
 
 		roomname = "Playing Foosball";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1664,7 +1664,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=5;
 
 		roomname = "A Difficult Chord";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1712,7 +1712,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 0;
 
 		roomname = "The Living Dead End";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1754,7 +1754,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=3;
 
 		roomname = "AAAAAA";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1796,7 +1796,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 2;
 
 		roomname = "Diode";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1847,7 +1847,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol=0;
 
 		roomname = "Young Man, It's Worth the Challenge";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1890,7 +1890,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 6;
 
 		roomname = "Anomaly";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1934,7 +1934,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 6;
 
 		roomname = "Purest Unobtainium";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -1979,7 +1979,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		rcol = 5;
 
 		roomname = "I Smell Ozone";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2031,7 +2031,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 
 		roomname = "Why So Blue?";
 
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2081,7 +2081,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 		}
 
 		roomname = "Philadelphia Experiment";
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 
@@ -2089,7 +2089,7 @@ std::vector<int> labclass::loadlevel(int rx, int ry)
 	default:
 	{
 		static const int contents[1200] = {0};
-		result.insert(result.end(), contents, contents+1200);
+		result = contents;
 		break;
 	}
 	}
