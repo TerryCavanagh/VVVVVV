@@ -8,26 +8,14 @@ towerclass::towerclass()
 {
 	minitowermode = false;
 	//We init the lookup table:
-	for (int i = 0; i < 700; i++)
+	for (size_t i = 0; i < SDL_arraysize(vmult); i++)
 	{
-		vmult.push_back(int(i * 40));
+		vmult[i] = i * 40;
 	}
 	//We create a blank map
-	for (int j = 0; j < 700; j++)
-	{
-		for (int i = 0; i < 40; i++)
-		{
-			contents.push_back(0);
-		}
-	}
-	for (int j = 0; j < 120; j++)
-	{
-		for (int i = 0; i < 40; i++)
-		{
-			back.push_back(0);
-			minitower.push_back(0);
-		}
-	}
+	SDL_memset(contents, 0, sizeof(contents));
+	SDL_memset(back, 0, sizeof(back));
+	SDL_memset(minitower, 0, sizeof(minitower));
 
 	loadbackground();
 	loadmap();
@@ -108,7 +96,7 @@ void towerclass::loadminitower1()
 {
 	//Loads the first minitower into the array.
 #if !defined(MAKEANDPLAY)
-	const int tmap[] = {
+	static const int tmap[] = {
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
@@ -211,17 +199,16 @@ void towerclass::loadminitower1()
 	12,12,12,12,12,12,12,12,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,12,12,12,12,12,
 	};
 #else
-	const int tmap[100*40] = {0};
+	static const int tmap[100*40] = {0};
 #endif
 
-	minitower.clear();
-	minitower.insert(minitower.end(), tmap, tmap + 100*40);
+	SDL_memcpy(minitower, tmap, sizeof(minitower));
 }
 
 void towerclass::loadminitower2()
 {
 #if !defined(MAKEANDPLAY)
-	const int tmap[] = {
+	static const int tmap[] = {
 	12,12,21,10,0,0,0,0,0,0,0,0,0,0,0,0,11,20,21,10,0,20,21,28,28,20,21,28,28,20,12,12,12,12,12,12,12,12,12,12,
 	12,12,21,10,0,0,0,0,0,0,0,0,0,0,0,0,11,20,21,10,0,20,21,28,28,20,21,28,28,20,12,12,12,12,12,12,12,12,12,12,
 	12,12,21,10,0,0,0,0,0,0,0,0,0,0,0,0,11,20,21,10,0,20,21,28,28,20,21,28,28,20,12,12,12,12,12,12,12,12,12,12,
@@ -324,18 +311,17 @@ void towerclass::loadminitower2()
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,21,28,28,0,0,0,0,0,0,0,0,0,20,12,12,12,12,12,
 	};
 #else
-	const int tmap[100*40] = {0};
+	static const int tmap[100*40] = {0};
 #endif
 
-	minitower.clear();
-	minitower.insert(minitower.end(), tmap, tmap + 100*40);
+	SDL_memcpy(minitower, tmap, sizeof(minitower));
 }
 
 
 void towerclass::loadbackground()
 {
 	//Loads the background into the array.
-	const int tmap[] = {
+	static const int tmap[] = {
 	1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0,0,0,5,4,0,0,
 	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0,0,0,5,1,1,4,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0,0,0,5,1,1,1,1,4,
@@ -457,15 +443,14 @@ void towerclass::loadbackground()
 	1,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,2,0,0,3,1,1,2,3,1,1,2,0,0,0,0,
 	1,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,2,0,0,0,0,3,2,0,0,3,2,0,0,0,0,0,
 	};
-	back.clear();
-	back.insert(back.end(), tmap, tmap + 120*40);
+	SDL_memcpy(back, tmap, sizeof(back));
 }
 
 void towerclass::loadmap()
 {
 	//Loads the map into the array.
 #if !defined(MAKEANDPLAY)
-	const int tmap[] = {
+	static const int tmap[] = {
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
@@ -1168,9 +1153,8 @@ void towerclass::loadmap()
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	};
 #else
-	const int tmap[700*40] = {0};
+	static const int tmap[700*40] = {0};
 #endif
 
-	contents.clear();
-	contents.insert(contents.end(), tmap, tmap + 700*40);
+	SDL_memcpy(contents, tmap, sizeof(contents));
 }
