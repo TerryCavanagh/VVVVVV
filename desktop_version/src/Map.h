@@ -86,8 +86,6 @@ public:
     std::vector <int> explored;
     std::vector <int> vmult;
 
-    int temp;
-    int temp2;
     int background;
     int rcol;
     int tileset;
