@@ -91,9 +91,6 @@ glow(0),
 	}
 
 	slowsine = 0;
-	globaltemp = 0;
-	temp = 0;
-	temp2 = 0;
 }
 
 std::string UtilityClass::String( int _v )
@@ -134,7 +131,7 @@ std::string UtilityClass::timestring( int t )
 {
 	//given a time t in frames, return a time in seconds
 	std::string tempstring = "";
-	temp = (t - (t % 30)) / 30;
+	int temp = (t - (t % 30)) / 30;
 	if (temp < 60)   //less than one minute
 	{
 		t = t % 30;
@@ -142,7 +139,7 @@ std::string UtilityClass::timestring( int t )
 	}
 	else
 	{
-		temp2 = (temp - (temp % 60)) / 60;
+		int temp2 = (temp - (temp % 60)) / 60;
 		temp = temp % 60;
 		t = t % 30;
 		tempstring = String(temp2) + ":" + twodigits(temp) + ":" + twodigits(splitseconds[t]);
