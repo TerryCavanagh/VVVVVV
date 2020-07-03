@@ -215,7 +215,6 @@ public:
 
 	int m;
 
-	std::vector <SDL_Surface*> backgrounds;
 	std::vector <SDL_Surface*> images;
 
 	std::vector <SDL_Surface*> tele;
@@ -226,9 +225,7 @@ public:
 	std::vector <SDL_Surface*> sprites;
 	std::vector <SDL_Surface*> flipsprites;
 	std::vector <SDL_Surface*> bfont;
-	std::vector <SDL_Surface*> bfontmask;
 	std::vector <SDL_Surface*> flipbfont;
-	std::vector <SDL_Surface*> flipbfontmask;
 
 	bool flipmode;
 	bool setflipmode;
@@ -246,7 +243,6 @@ public:
 	SDL_Rect bfont_rect;
 	SDL_Rect tiles_rect;
 	SDL_Rect sprites_rect;
-	SDL_Rect bfontmask_rect;
 	SDL_Rect images_rect;
 	SDL_Rect bg_rect;
 	SDL_Rect line_rect;
