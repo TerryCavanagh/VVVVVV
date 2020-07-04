@@ -6766,27 +6766,39 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                             break;
                         }
                     }
-                    std::string text;
+                    const char* prefix;
                     if(tvar>=0)
                     {
-                        if(customlevelstats[tvar].score==0)
+                        switch (customlevelstats[tvar].score)
                         {
-                            text = "   " + ed.ListOfMetaData[i].title;
+                        case 0:
+                        {
+                            static const char tmp[] = "   ";
+                            prefix = tmp;
+                            break;
                         }
-                        else if(customlevelstats[tvar].score==1)
+                        case 1:
                         {
-                            text = " * " + ed.ListOfMetaData[i].title;
+                            static const char tmp[] = " * ";
+                            prefix = tmp;
+                            break;
                         }
-                        else if(customlevelstats[tvar].score==3)
+                        case 3:
                         {
-                            text = "** " + ed.ListOfMetaData[i].title;
+                            static const char tmp[] = "** ";
+                            prefix = tmp;
+                            break;
+                        }
                         }
                     }
                     else
                     {
-                        text = "   " + ed.ListOfMetaData[i].title;
+                        static const char tmp[] = "   ";
+                        prefix = tmp;
                     }
-                    for (size_t ii = 0; ii < text.length(); ii++)
+                    char text[menutextbytes];
+                    SDL_snprintf(text, sizeof(text), "%s%s", prefix, ed.ListOfMetaData[i].title.c_str());
+                    for (size_t ii = 0; ii < SDL_arraysize(text); ii++)
                     {
                         text[ii] = SDL_tolower(text[ii]);
                     }
