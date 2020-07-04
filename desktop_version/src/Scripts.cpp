@@ -1,7 +1,7 @@
 #include "Script.h"
 #include <SDL.h>
 
-void scriptclass::load(std::string name)
+void scriptclass::load(const std::string& name)
 {
     //loads script name t into the array
     position = 0;
