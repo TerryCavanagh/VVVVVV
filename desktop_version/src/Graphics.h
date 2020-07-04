@@ -46,8 +46,7 @@ public:
 
 	void drawcoloredtile(int x, int y, int t, int r, int g, int b);
 
-	void drawmenu(int cr, int cg, int cb);
-	void drawlevelmenu(int cr, int cg, int cb);
+	void drawmenu(int cr, int cg, int cb, bool levelmenu = false);
 
 	void processfade();
 

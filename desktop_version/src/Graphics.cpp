@@ -1293,131 +1293,72 @@ void Graphics::processfade()
     }
 }
 
-void Graphics::drawmenu( int cr, int cg, int cb )
+void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
 {
     for (size_t i = 0; i < game.menuoptions.size(); i++)
     {
-        if ((int) i == game.currentmenuoption)
-        {
-            //Draw it highlighted
-            if (game.menuoptions[i].active)
-            {
-                char tempstring[Game::menutextbytes];
-                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
-                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
-                {
-                    tempstring[ii] = SDL_toupper(tempstring[ii]);
-                }
-                char buffer[Game::menutextbytes];
-                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 140 + (i * 12) +game.menuyoff, buffer, cr, cg, cb);
-            }
-            else
-            {
-                char tempstring[Game::menutextbytes];
-                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
-                char buffer[Game::menutextbytes];
-                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
-                //Draw it in gray
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 140 + (i * 12)+game.menuyoff, buffer, 128, 128, 128);
-            }
-        }
-        else
-        {
-            //Draw it normally
-            if (game.menuoptions[i].active)
-            {
-                Print((i * game.menuspacing) +game.menuxoff, 140 + (i * 12)+game.menuyoff, game.menuoptions[i].text, cr, cg, cb);
-            }
-            else
-            {
-                //Draw it in gray
-                Print((i * game.menuspacing) +game.menuxoff, 140 + (i * 12)+game.menuyoff, game.menuoptions[i].text, 128, 128, 128);
-            }
-        }
-    }
-}
+        MenuOption& opt = game.menuoptions[i];
 
-void Graphics::drawlevelmenu( int cr, int cg, int cb )
-{
-    for (size_t i = 0; i < game.menuoptions.size(); i++)
-    {
-        if ((int) i == game.currentmenuoption)
+        int fr, fg, fb;
+        if (opt.active)
         {
-          if(game.menuoptions.size()-i<=3){
-            //Draw it highlighted
-            if (game.menuoptions[i].active)
-            {
-                char tempstring[Game::menutextbytes];
-                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
-                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
-                {
-                    tempstring[ii] = SDL_toupper(tempstring[ii]);
-                }
-                char buffer[Game::menutextbytes];
-                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 140+8 + (i * 12) +game.menuyoff, buffer, cr, cg, cb);
-            }
-            else
-            {
-                char tempstring[Game::menutextbytes];
-                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
-                char buffer[Game::menutextbytes];
-                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
-                //Draw it in gray
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 140+8 + (i * 12)+game.menuyoff, buffer, 128, 128, 128);
-            }
-          }else{
-            //Draw it highlighted
-            if (game.menuoptions[i].active)
-            {
-                char tempstring[Game::menutextbytes];
-                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
-                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
-                {
-                    tempstring[ii] = SDL_toupper(tempstring[ii]);
-                }
-                char buffer[Game::menutextbytes];
-                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 144 + (i * 12) +game.menuyoff, buffer, cr, cg, cb);
-            }
-            else
-            {
-                char tempstring[Game::menutextbytes];
-                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
-                char buffer[Game::menutextbytes];
-                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
-                //Draw it in gray
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 144 + (i * 12)+game.menuyoff, buffer, 128, 128, 128);
-            }
-          }
+            // Color it normally
+            fr = cr;
+            fg = cg;
+            fb = cb;
         }
         else
         {
-          if(game.menuoptions.size()-i<=3){
-            //Draw it normally
-            if (game.menuoptions[i].active)
-            {
-                Print((i * game.menuspacing) +game.menuxoff, 140+8 + (i * 12)+game.menuyoff, game.menuoptions[i].text, cr, cg, cb);
-            }
-            else
-            {
-                //Draw it in gray
-                Print((i * game.menuspacing) +game.menuxoff, 140+8 + (i * 12)+game.menuyoff, game.menuoptions[i].text, 128, 128, 128);
-            }
-          }else{
-            //Draw it normally
-            if (game.menuoptions[i].active)
-            {
-                Print((i * game.menuspacing) +game.menuxoff, 144 + (i * 12)+game.menuyoff, game.menuoptions[i].text, cr, cg, cb);
-            }
-            else
-            {
-                //Draw it in gray
-                Print((i * game.menuspacing) +game.menuxoff, 144 + (i * 12)+game.menuyoff, game.menuoptions[i].text, 128, 128, 128);
-            }
-          }
+            // Color it gray
+            fr = 128;
+            fg = 128;
+            fb = 128;
         }
+
+        int x = i*game.menuspacing + game.menuxoff;
+        int y = 140 + i*12 + game.menuyoff;
+
+        if (levelmenu)
+        {
+            if (game.menuoptions.size() - i <= 3)
+            {
+                // We're on "next page", "previous page", or "return to menu". Draw them separated by a bit
+                y += 8;
+            }
+            else
+            {
+                // Get out of the way of the level descriptions
+                y += 4;
+            }
+        }
+
+        char tempstring[Game::menutextbytes];
+        SDL_strlcpy(tempstring, opt.text, sizeof(tempstring));
+
+        char buffer[Game::menutextbytes];
+        if ((int) i == game.currentmenuoption)
+        {
+            if (opt.active)
+            {
+                // Uppercase the text
+                // FIXME: This isn't UTF-8 aware!
+                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
+                {
+                    tempstring[ii] = SDL_toupper(tempstring[ii]);
+                }
+            }
+
+            // Add brackets
+            SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
+            // Account for brackets
+            x -= 16;
+        }
+        else
+        {
+            SDL_strlcpy(buffer, tempstring, sizeof(buffer));
+        }
+
+        Print(x, y, buffer, fr, fg, fb);
     }
 }
 
