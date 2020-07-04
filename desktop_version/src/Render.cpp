@@ -1188,14 +1188,7 @@ void titlerender()
         if(tg>255) tg=255;
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
-        if (game.currentmenuname == Menu::levellist)
-        {
-            graphics.drawlevelmenu(tr, tg, tb);
-        }
-        else
-        {
-            graphics.drawmenu(tr, tg, tb);
-        }
+        graphics.drawmenu(tr, tg, tb, game.currentmenuname == Menu::levellist);
     }
 
     graphics.drawfade();
