@@ -1302,20 +1302,24 @@ void Graphics::drawmenu( int cr, int cg, int cb )
             //Draw it highlighted
             if (game.menuoptions[i].active)
             {
-                std::string tempstring = game.menuoptions[i].text;
-                for (size_t ii = 0; ii < tempstring.length(); ii++)
+                char tempstring[Game::menutextbytes];
+                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
+                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
                 {
                     tempstring[ii] = SDL_toupper(tempstring[ii]);
                 }
-                tempstring = std::string("[ ") + tempstring + std::string(" ]");
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 140 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
+                char buffer[Game::menutextbytes];
+                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
+                Print((i * game.menuspacing) - 16 +game.menuxoff, 140 + (i * 12) +game.menuyoff, buffer, cr, cg, cb);
             }
             else
             {
-                std::string tempstring = game.menuoptions[i].text;
-                tempstring = "[ " + tempstring + " ]";
+                char tempstring[Game::menutextbytes];
+                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
+                char buffer[Game::menutextbytes];
+                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
                 //Draw it in gray
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 140 + (i * 12)+game.menuyoff, tempstring, 128, 128, 128);
+                Print((i * game.menuspacing) - 16 +game.menuxoff, 140 + (i * 12)+game.menuyoff, buffer, 128, 128, 128);
             }
         }
         else
@@ -1344,39 +1348,47 @@ void Graphics::drawlevelmenu( int cr, int cg, int cb )
             //Draw it highlighted
             if (game.menuoptions[i].active)
             {
-                std::string tempstring = game.menuoptions[i].text;
-                for (size_t ii = 0; ii < tempstring.length(); ii++)
+                char tempstring[Game::menutextbytes];
+                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
+                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
                 {
                     tempstring[ii] = SDL_toupper(tempstring[ii]);
                 }
-                tempstring = std::string("[ ") + tempstring + std::string(" ]");
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 140+8 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
+                char buffer[Game::menutextbytes];
+                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
+                Print((i * game.menuspacing) - 16 +game.menuxoff, 140+8 + (i * 12) +game.menuyoff, buffer, cr, cg, cb);
             }
             else
             {
-                std::string tempstring = game.menuoptions[i].text;
-                tempstring = "[ " + tempstring + " ]";
+                char tempstring[Game::menutextbytes];
+                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
+                char buffer[Game::menutextbytes];
+                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
                 //Draw it in gray
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 140+8 + (i * 12)+game.menuyoff, tempstring, 128, 128, 128);
+                Print((i * game.menuspacing) - 16 +game.menuxoff, 140+8 + (i * 12)+game.menuyoff, buffer, 128, 128, 128);
             }
           }else{
             //Draw it highlighted
             if (game.menuoptions[i].active)
             {
-                std::string tempstring = game.menuoptions[i].text;
-                for (size_t ii = 0; ii < tempstring.length(); ii++)
+                char tempstring[Game::menutextbytes];
+                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
+                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
                 {
                     tempstring[ii] = SDL_toupper(tempstring[ii]);
                 }
-                tempstring = std::string("[ ") + tempstring + std::string(" ]");
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 144 + (i * 12) +game.menuyoff, tempstring, cr, cg, cb);
+                char buffer[Game::menutextbytes];
+                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
+                Print((i * game.menuspacing) - 16 +game.menuxoff, 144 + (i * 12) +game.menuyoff, buffer, cr, cg, cb);
             }
             else
             {
-                std::string tempstring = game.menuoptions[i].text;
-                tempstring = "[ " + tempstring + " ]";
+                char tempstring[Game::menutextbytes];
+                SDL_strlcpy(tempstring, game.menuoptions[i].text, sizeof(tempstring));
+                char buffer[Game::menutextbytes];
+                SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
                 //Draw it in gray
-                Print((i * game.menuspacing) - 16 +game.menuxoff, 144 + (i * 12)+game.menuyoff, tempstring, 128, 128, 128);
+                Print((i * game.menuspacing) - 16 +game.menuxoff, 144 + (i * 12)+game.menuyoff, buffer, 128, 128, 128);
             }
           }
         }
