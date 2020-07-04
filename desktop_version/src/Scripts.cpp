@@ -4334,30 +4334,6 @@ void scriptclass::load(std::string t)
         };
         filllines(lines);
     }
-    else if (t == "talkgreen_2")
-    {
-        static const char* lines[] = {
-        "cutscene()",
-        "untilbars()",
-        "face(player,green)",
-        "face(green,player)",
-
-        "squeak(green)",
-        "text(green,0,0,3)",
-        "I think I can get this ship",
-        "moving again, but it's going",
-        "to take a while...",
-        "position(green,above)",
-        "speak_active",
-
-        "endtext",
-
-        "endcutscene()",
-        "untilbars()",
-        "createactivityzone(green)",
-        };
-        filllines(lines);
-    }
     else if (t == "talkgreen_3")
     {
         static const char* lines[] = {

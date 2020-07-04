@@ -1156,15 +1156,6 @@ void scriptclass::run()
 					}
 				}
 			}
-			else if (words[0] == "alarmon")
-			{
-				game.alarmon = true;
-				game.alarmdelay = 0;
-			}
-			else if (words[0] == "alarmoff")
-			{
-				game.alarmon = false;
-			}
 			else if (words[0] == "activateteleporter")
 			{
 				i = obj.getteleporter();
