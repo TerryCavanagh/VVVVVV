@@ -32,7 +32,7 @@ void scriptclass::clearcustom(){
 	customscripts.clear();
 }
 
-void scriptclass::tokenize( std::string t )
+void scriptclass::tokenize( const std::string& t )
 {
 	j = 0;
 	std::string tempword;
@@ -3725,7 +3725,7 @@ void scriptclass::hardreset()
 	running = false;
 }
 
-void scriptclass::loadcustom(std::string t)
+void scriptclass::loadcustom(const std::string& t)
 {
 	//this magic function breaks down the custom script and turns into real scripting!
 	std::string cscriptname="";

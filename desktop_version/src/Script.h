@@ -22,18 +22,18 @@ public:
 
     scriptclass();
 
-    void load(std::string name);
+    void load(const std::string& name);
     void loadother(const char* t);
-    void loadcustom(std::string t);
+    void loadcustom(const std::string& t);
 
-    void inline add(std::string t)
+    void inline add(const std::string& t)
     {
         commands.push_back(t);
     }
 
     void clearcustom();
 
-    void tokenize(std::string t);
+    void tokenize(const std::string& t);
 
     void run();
 
