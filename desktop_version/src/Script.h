@@ -22,9 +22,9 @@ public:
 
     scriptclass();
 
-    void load(std::string t);
-    void loadother(std::string t);
-
+    void load(std::string name);
+    void loadother(const char* t);
+    void loadcustom(std::string t);
 
     void inline add(std::string t)
     {
@@ -44,8 +44,6 @@ public:
     void teleport();
 
     void hardreset();
-
-    void loadcustom(std::string t);
 
     //Script contents
     std::vector<std::string> commands;
