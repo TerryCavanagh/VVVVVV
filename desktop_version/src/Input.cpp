@@ -2337,31 +2337,25 @@ void teleporterinput()
 
         if (game.press_left)
         {
-            game.teleport_to_teleporter--;
-            if (game.teleport_to_teleporter < 0) game.teleport_to_teleporter = map.teleporters.size() - 1;
-            tempx = map.teleporters[game.teleport_to_teleporter].x;
-            tempy = map.teleporters[game.teleport_to_teleporter].y;
-            while (map.explored[tempx + (20 * tempy)] == 0)
+            do
             {
                 game.teleport_to_teleporter--;
                 if (game.teleport_to_teleporter < 0) game.teleport_to_teleporter = map.teleporters.size() - 1;
                 tempx = map.teleporters[game.teleport_to_teleporter].x;
                 tempy = map.teleporters[game.teleport_to_teleporter].y;
             }
+            while (map.explored[tempx + (20 * tempy)] == 0);
         }
         else if (game.press_right)
         {
-            game.teleport_to_teleporter++;
-            if (game.teleport_to_teleporter >= (int) map.teleporters.size()) game.teleport_to_teleporter = 0;
-            tempx = map.teleporters[game.teleport_to_teleporter].x;
-            tempy = map.teleporters[game.teleport_to_teleporter].y;
-            while (map.explored[tempx + (20 * tempy)] == 0)
+            do
             {
                 game.teleport_to_teleporter++;
                 if (game.teleport_to_teleporter >= (int) map.teleporters.size()) game.teleport_to_teleporter = 0;
                 tempx = map.teleporters[game.teleport_to_teleporter].x;
                 tempy = map.teleporters[game.teleport_to_teleporter].y;
             }
+            while (map.explored[tempx + (20 * tempy)] == 0);
         }
 
         if (game.press_map)
