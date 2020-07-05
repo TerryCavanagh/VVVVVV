@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Script.h"
 
 #include "MakeAndPlay.h"
 
