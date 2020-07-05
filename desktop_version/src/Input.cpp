@@ -2335,7 +2335,22 @@ void teleporterinput()
             game.jumpheld = true;
         }
 
-        if (game.press_left)
+        bool any_tele_unlocked = false;
+        if (game.press_left || game.press_right)
+        {
+            for (size_t i = 0; i < map.teleporters.size(); i++)
+            {
+                point& tele = map.teleporters[i];
+
+                if (map.explored[tele.x + tele.y*20])
+                {
+                    any_tele_unlocked = true;
+                    break;
+                }
+            }
+        }
+
+        if (game.press_left && any_tele_unlocked)
         {
             do
             {
@@ -2346,7 +2361,7 @@ void teleporterinput()
             }
             while (map.explored[tempx + (20 * tempy)] == 0);
         }
-        else if (game.press_right)
+        else if (game.press_right && any_tele_unlocked)
         {
             do
             {
