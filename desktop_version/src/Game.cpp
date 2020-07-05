@@ -2085,6 +2085,13 @@ void Game::updatestate()
                 }
             }
             break;
+        case 1002:
+            if (!advancetext)
+            {
+                // Prevent softlocks if we somehow don't have advancetext
+                state++;
+            }
+            break;
         case 1003:
             graphics.textboxremove();
             hascontrol = true;
@@ -2150,6 +2157,13 @@ void Game::updatestate()
                     graphics.createtextbox("     " + help.number(ed.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
                 }
                 graphics.textboxcenterx();
+            }
+            break;
+        case 1012:
+            if (!advancetext)
+            {
+                // Prevent softlocks if we somehow don't have advancetext
+                state++;
             }
             break;
         case 1013:
