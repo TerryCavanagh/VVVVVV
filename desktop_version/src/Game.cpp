@@ -394,10 +394,6 @@ void Game::init(void)
     disablepause = false;
 }
 
-Game::~Game(void)
-{
-}
-
 void Game::lifesequence()
 {
     if (lifeseq > 0)
