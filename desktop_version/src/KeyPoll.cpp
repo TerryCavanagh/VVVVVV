@@ -57,6 +57,8 @@ KeyPoll::KeyPoll()
 	linealreadyemptykludge = false;
 
 	pauseStart = 0;
+
+	isActive = true;
 }
 
 void KeyPoll::enabletextentry()
