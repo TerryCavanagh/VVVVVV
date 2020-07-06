@@ -16,16 +16,6 @@ struct Roomtext
 class otherlevelclass
 {
 public:
-    enum
-    {
-        BLOCK = 0,
-        TRIGGER,
-        DAMAGE,
-        DIRECTIONAL,
-        SAFE,
-        ACTIVITY
-    };
-
     const int* loadlevel(int rx, int ry);
 
     std::string roomname;
