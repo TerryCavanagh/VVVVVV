@@ -89,7 +89,6 @@ class Game
 {
 public:
     void init(void);
-    ~Game(void);
 
 
     int crewrescued();

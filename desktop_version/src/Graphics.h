@@ -23,7 +23,6 @@ class Graphics
 {
 public:
 	void init();
-	~Graphics();
 
 	GraphicsResources grphx;
 
