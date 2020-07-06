@@ -34,8 +34,8 @@
 #define MAX_PATH PATH_MAX
 #endif
 
-char saveDir[MAX_PATH];
-char levelDir[MAX_PATH];
+char saveDir[MAX_PATH] = {'\0'};
+char levelDir[MAX_PATH] = {'\0'};
 
 void PLATFORM_getOSDirectory(char* output);
 void PLATFORM_migrateSaveData(char* output);
