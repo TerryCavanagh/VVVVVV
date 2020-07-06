@@ -8,7 +8,6 @@ const int* finalclass::loadlevel(int rx, int ry)
 
 	t = rx + (ry * 100);
 	const int* result;
-	rcol = 0;
 	warpx = false;
 	warpy = false;
 
@@ -1410,7 +1409,6 @@ const int* finalclass::loadlevel(int rx, int ry)
 		98,98,220,218,98,98,98,98,98,98,98,98,98,98,98,98,98,220,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		};
 
-		rcol = 6;
 		warpy = true;
 		roomname = "Temporary Fault...";
 		result = contents;
