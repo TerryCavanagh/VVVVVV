@@ -26,16 +26,11 @@ public:
         ACTIVITY
     };
 
-    void addline(std::string t);
     const int* loadlevel(int rx, int ry);
 
     std::string roomname;
 
     int roomtileset;
-
-    // roomtext thing in other level
-    bool roomtexton;
-    std::vector<Roomtext> roomtext;
 };
 
 #endif /* OTHERLEVEL_H */
