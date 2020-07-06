@@ -24,7 +24,7 @@ enum
 class entityclass
 {
 public:
-    void init();
+    entityclass();
 
     void resetallflags();
 

@@ -46,7 +46,7 @@ bool entityclass::checktowerspikes(int t)
     return false;
 }
 
-void entityclass::init()
+entityclass::entityclass()
 {
     skipblocks = false;
     skipdirblocks = false;

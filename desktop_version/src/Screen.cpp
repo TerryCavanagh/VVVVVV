@@ -17,7 +17,7 @@ extern "C"
 	);
 }
 
-void Screen::init()
+Screen::Screen()
 {
 	m_window = NULL;
 	m_renderer = NULL;
@@ -31,6 +31,12 @@ void Screen::init()
 	filterSubrect.y = 1;
 	filterSubrect.w = 318;
 	filterSubrect.h = 238;
+
+	badSignalEffect = false;
+}
+
+void Screen::init()
+{
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
 	// Uncomment this next line when you need to debug -flibit
@@ -86,8 +92,6 @@ void Screen::init()
 		320,
 		240
 	);
-
-	badSignalEffect = false;
 }
 
 void Screen::ResizeScreen(int x, int y)

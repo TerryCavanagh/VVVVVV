@@ -6,6 +6,7 @@
 class Screen
 {
 public:
+	Screen();
 	void init();
 
 	void ResizeScreen(int x, int y);

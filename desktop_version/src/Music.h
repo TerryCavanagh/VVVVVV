@@ -12,6 +12,7 @@ class musicclass
 {
 public:
 	void init();
+	musicclass();
 
 	void play(int t, const double position_sec = 0.0, const int fadein_ms = 3000);
 	void resume(const int fadein_ms = 0);

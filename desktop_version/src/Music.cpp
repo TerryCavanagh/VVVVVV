@@ -57,9 +57,6 @@ void musicclass::init()
 	musicWriteBlob.writeBinaryBlob("data/BinaryMusic.vvv");
 #endif
 
-	num_mmmmmm_tracks = 0;
-	num_pppppp_tracks = 0;
-
 	if (!musicReadBlob.unPackBinary("mmmmmm.vvv"))
 	{
 		mmmmmm = false;
@@ -115,6 +112,12 @@ void musicclass::init()
 
 		num_pppppp_tracks++;
 	}
+}
+
+musicclass::musicclass()
+{
+	num_mmmmmm_tracks = 0;
+	num_pppppp_tracks = 0;
 
 	safeToProcessMusic= false;
 	m_doFadeInVol = false;

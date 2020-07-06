@@ -304,8 +304,6 @@ int main(int argc, char *argv[])
     if(game.bestrank[4]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_warp_fixed");
     if(game.bestrank[5]>=3) NETWORK_unlockAchievement("vvvvvvtimetrial_final_fixed");
 
-    obj.init();
-
 #if !defined(NO_CUSTOM_LEVELS)
     if (startinplaytest) {
         game.levelpage = 0;

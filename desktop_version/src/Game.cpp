@@ -114,7 +114,7 @@ bool GetButtonFromString(const char *pText, SDL_GameControllerButton *button)
 }
 
 
-void Game::init(void)
+Game::Game(void)
 {
     roomx = 0;
     roomy = 0;
@@ -289,6 +289,47 @@ void Game::init(void)
 
     clearcustomlevelstats();
 
+    screenshake = flashlight = 0 ;
+
+    stat_trinkets = 0;
+
+    state = 1;
+    statedelay = 0;
+    //updatestate();
+
+    skipfakeload = false;
+
+    ghostsenabled = false;
+    gametimer = 0;
+
+    cliplaytest = false;
+    playx = 0;
+    playy = 0;
+    playrx = 0;
+    playry = 0;
+    playgc = 0;
+
+    fadetomenu = false;
+    fadetomenudelay = 0;
+    fadetolab = false;
+    fadetolabdelay = 0;
+
+#if !defined(NO_CUSTOM_LEVELS)
+    shouldreturntoeditor = false;
+#endif
+
+    over30mode = false;
+    glitchrunnermode = false;
+
+    ingame_titlemode = false;
+    kludge_ingametemp = Menu::mainmenu;
+    shouldreturntopausemenu = false;
+
+    disablepause = false;
+}
+
+void Game::init(void)
+{
     saveFilePath = FILESYSTEM_getUserSaveDirectory();
 
     tinyxml2::XMLDocument doc;
@@ -366,43 +407,6 @@ void Game::init(void)
         }
     }
 
-    screenshake = flashlight = 0 ;
-
-    stat_trinkets = 0;
-
-    state = 1;
-    statedelay = 0;
-    //updatestate();
-
-    skipfakeload = false;
-
-    ghostsenabled = false;
-    gametimer = 0;
-
-    cliplaytest = false;
-    playx = 0;
-    playy = 0;
-    playrx = 0;
-    playry = 0;
-    playgc = 0;
-
-    fadetomenu = false;
-    fadetomenudelay = 0;
-    fadetolab = false;
-    fadetolabdelay = 0;
-
-#if !defined(NO_CUSTOM_LEVELS)
-    shouldreturntoeditor = false;
-#endif
-
-    over30mode = false;
-    glitchrunnermode = false;
-
-    ingame_titlemode = false;
-    kludge_ingametemp = Menu::mainmenu;
-    shouldreturntopausemenu = false;
-
-    disablepause = false;
 }
 
 Game::~Game(void)
