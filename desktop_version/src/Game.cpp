@@ -192,7 +192,6 @@ void Game::init(void)
     fullscreen = false;// true; //Assumed true at first unless overwritten at some point!
     stretchMode = 0;
     useLinearFilter = false;
-    advanced_mode = false;
     fullScreenEffect_badSignal = false;
     // 0..5
     controllerSensitivity = 2;
@@ -4625,11 +4624,6 @@ void Game::loadstats(int *width, int *height, bool *vsync)
             swnrecord = atoi(pText);
         }
 
-        if (pKey == "advanced_mode")
-        {
-            advanced_mode = atoi(pText);
-        }
-
         if (pKey == "advanced_smoothing")
         {
             fullScreenEffect_badSignal = atoi(pText);
@@ -4880,10 +4874,6 @@ void Game::savestats()
     msg->LinkEndChild( doc.NewText( help.String(swnrecord).c_str()));
     dataNode->LinkEndChild( msg );
 
-
-    msg = doc.NewElement( "advanced_mode" );
-    msg->LinkEndChild( doc.NewText( help.String(advanced_mode).c_str()));
-    dataNode->LinkEndChild( msg );
 
     msg = doc.NewElement( "advanced_smoothing" );
     msg->LinkEndChild( doc.NewText( help.String(fullScreenEffect_badSignal).c_str()));

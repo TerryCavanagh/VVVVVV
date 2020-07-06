@@ -351,7 +351,6 @@ public:
     bool savemystats;
 
 
-    bool advanced_mode;
     bool fullScreenEffect_badSignal;
     bool useLinearFilter;
     int stretchMode;
