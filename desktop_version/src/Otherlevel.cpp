@@ -2,15 +2,6 @@
 
 #include "MakeAndPlay.h"
 
-void otherlevelclass::addline(std::string t)
-{
-	Roomtext text;
-	text.x = 0;
-	text.y = 0;
-	text.text = t;
-	roomtext.push_back(text);
-}
-
 const int* otherlevelclass::loadlevel(int rx, int ry)
 {
 	int t;
@@ -21,9 +12,6 @@ const int* otherlevelclass::loadlevel(int rx, int ry)
 	t = rx + (ry * 100);
 	const int* result;
 	roomname = "";
-
-	roomtext.clear();
-	roomtexton = false;
 
 	switch(t)
 	{

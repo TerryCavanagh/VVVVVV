@@ -1315,12 +1315,6 @@ void mapclass::loadlevel(int rx, int ry)
 		tileset = otherlevel.roomtileset;
 		//do the appear/remove roomname here
 
-		if (otherlevel.roomtexton)
-		{
-			roomtexton = true;
-			roomtext = std::vector<Roomtext>(otherlevel.roomtext);
-		}
-
 		if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111)
 		{
 			hiddenname = "The Ship";
