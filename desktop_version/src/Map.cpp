@@ -1406,7 +1406,6 @@ void mapclass::loadlevel(int rx, int ry)
 		roomname = finallevel.roomname;
 		tileset = 1;
 		background = 3;
-		graphics.rcol = finallevel.rcol;
 		graphics.backgrounddrawn = false;
 
 		if (finalstretch)
