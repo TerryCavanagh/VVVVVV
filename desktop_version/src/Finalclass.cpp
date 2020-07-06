@@ -8,7 +8,6 @@ const int* finalclass::loadlevel(int rx, int ry)
 
 	t = rx + (ry * 100);
 	const int* result;
-	coin = 0;
 	rcol = 0;
 	warpx = false;
 	warpy = false;

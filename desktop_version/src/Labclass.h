@@ -12,6 +12,6 @@ public:
     const int* loadlevel(int rx, int ry);
 
     std::string roomname;
-    int coin, rcol;
+    int rcol;
 };
 #endif /* LABCLASS_H */
