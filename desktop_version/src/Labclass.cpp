@@ -21,7 +21,6 @@ const int* labclass::loadlevel(int rx, int ry)
 
 	t = rx + (ry * 100);
 	const int* result;
-	coin = 0;
 	rcol = 0;
 	roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
 
