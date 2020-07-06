@@ -13,6 +13,20 @@ textboxclass::textboxclass()
     tm = 0;
     timer = 0;
     allowspecial = false;
+
+    xp = 0;
+    yp = 0;
+    r = 0;
+    g = 0;
+    b = 0;
+    tr = 0;
+    tg = 0;
+    tb = 0;
+    max = 0;
+    textrect.x = 0;
+    textrect.y = 0;
+    textrect.w = 0;
+    textrect.h = 0;
 }
 
 void textboxclass::centerx()

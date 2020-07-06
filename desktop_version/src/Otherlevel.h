@@ -9,6 +9,8 @@
 class otherlevelclass
 {
 public:
+    otherlevelclass();
+
     const int* loadlevel(int rx, int ry);
 
     std::string roomname;

@@ -9,6 +9,8 @@
 class labclass
 {
 public:
+    labclass();
+
     const int* loadlevel(int rx, int ry);
 
     std::string roomname;

@@ -117,6 +117,8 @@ Graphics::Graphics()
     tl = point();
     towerbuffer = NULL;
     towerbuffer_lerp = NULL;
+    footerbuffer = NULL;
+    ghostbuffer = NULL;
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;

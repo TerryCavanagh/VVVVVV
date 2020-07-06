@@ -6,6 +6,7 @@
 class GraphicsResources
 {
 public:
+    GraphicsResources();
     void init(void);
     void destroy(void);
 

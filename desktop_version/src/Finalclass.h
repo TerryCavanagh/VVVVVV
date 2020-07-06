@@ -9,6 +9,8 @@
 class finalclass
 {
 public:
+    finalclass();
+
     const int* loadlevel(int rx, int ry);
 
     std::string roomname;

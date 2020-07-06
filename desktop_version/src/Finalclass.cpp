@@ -2,6 +2,12 @@
 
 #include "MakeAndPlay.h"
 
+finalclass::finalclass()
+{
+	warpx = false;
+	warpy = false;
+}
+
 const int* finalclass::loadlevel(int rx, int ry)
 {
 	int t;

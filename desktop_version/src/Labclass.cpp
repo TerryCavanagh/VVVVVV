@@ -2,6 +2,11 @@
 
 #include "MakeAndPlay.h"
 
+labclass::labclass()
+{
+	rcol = 0;
+}
+
 const int* labclass::loadlevel(int rx, int ry)
 {
 	int t;

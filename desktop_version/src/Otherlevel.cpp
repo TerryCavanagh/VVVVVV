@@ -2,6 +2,11 @@
 
 #include "MakeAndPlay.h"
 
+otherlevelclass::otherlevelclass()
+{
+	roomtileset = 0;
+}
+
 const int* otherlevelclass::loadlevel(int rx, int ry)
 {
 	int t;

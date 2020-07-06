@@ -9,6 +9,8 @@
 class warpclass
 {
 public:
+	warpclass();
+
 	const int* loadlevel(int rx, int ry);
 	std::string roomname;
 	int rcol;

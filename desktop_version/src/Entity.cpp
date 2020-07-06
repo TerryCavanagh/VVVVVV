@@ -72,6 +72,28 @@ entityclass::entityclass()
     resetallflags();
     SDL_memset(collect, false, sizeof(collect));
     SDL_memset(customcollect, false, sizeof(customcollect));
+
+    colpoint1 = point();
+    colpoint2 = point();
+    tempx = 0;
+    tempy = 0;
+    tempw = 0;
+    temph = 0;
+    temp = 0;
+    temp2 = 0;
+    tpx1 = 0;
+    tpy1 = 0;
+    tpx2 = 0;
+    tpy2 = 0;
+    x = 0;
+    k = 0;
+    dx = 0.0f;
+    dy = 0.0f;
+    dr = 0.0f;
+    px = 0;
+    py = 0;
+    linetemp = 0;
+    activetrigger = 0;
 }
 
 void entityclass::resetallflags()

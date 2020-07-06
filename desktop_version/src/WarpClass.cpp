@@ -2,6 +2,13 @@
 
 #include "MakeAndPlay.h"
 
+warpclass::warpclass()
+{
+	rcol = 0;
+	warpx = false;
+	warpy = false;
+}
+
 const int* warpclass::loadlevel(int rx, int ry)
 {
 	int t;
