@@ -150,7 +150,6 @@ void Game::init(void)
     press_left = 0;
 
 
-    advancetext = false;
     pausescript = false;
     completestop = false;
     activeactivity = -1;
@@ -192,7 +191,6 @@ void Game::init(void)
     fullscreen = false;// true; //Assumed true at first unless overwritten at some point!
     stretchMode = 0;
     useLinearFilter = false;
-    fullScreenEffect_badSignal = false;
     // 0..5
     controllerSensitivity = 2;
 
