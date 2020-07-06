@@ -24,7 +24,6 @@ class Graphics
 public:
 	void init();
 	Graphics();
-	~Graphics();
 
 	GraphicsResources grphx;
 

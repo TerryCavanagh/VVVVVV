@@ -90,7 +90,6 @@ class Game
 public:
     Game(void);
     void init(void);
-    ~Game(void);
 
 
     int crewrescued();

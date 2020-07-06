@@ -398,10 +398,6 @@ void Game::init(void)
 
 }
 
-Game::~Game(void)
-{
-}
-
 void Game::lifesequence()
 {
     if (lifeseq > 0)

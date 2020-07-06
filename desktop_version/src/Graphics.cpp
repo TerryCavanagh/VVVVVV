@@ -164,11 +164,6 @@ int Graphics::font_idx(uint32_t ch) {
     }
 }
 
-Graphics::~Graphics()
-{
-
-}
-
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
 {
     if (!INBOUNDS(t, sprites))
