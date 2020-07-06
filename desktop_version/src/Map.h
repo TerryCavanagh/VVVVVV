@@ -13,6 +13,12 @@
 #include "Music.h"
 #include "editor.h"
 
+struct Roomtext
+{
+    int x, y;
+    std::string text;
+};
+
 class mapclass
 {
 public:
