@@ -40,7 +40,6 @@ public:
 
 	bool resetWindow;
 
-	bool escapeWasPressedPreviously;
 	bool quitProgram;
 	bool toggleFullscreen;
 
@@ -70,7 +69,6 @@ public:
 	int mx, my;
 
 	bool textentrymode;
-	int keyentered, keybufferlen;
 	bool pressedbackspace;
 	std::string keybuffer;
 
