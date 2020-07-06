@@ -76,6 +76,21 @@ mapclass::mapclass()
 	ypos = 0;
 	oldypos = 0;
 	bypos = 0;
+
+	background = 0;
+	cameramode = 0;
+	cameraseek = 0;
+	minitowermode = false;
+	scrolldir = 0;
+	check = 0;
+	cmode = 0;
+	towercol = 0;
+	tdrawback = false;
+	bscroll = 0;
+	roomtexton = false;
+	kludge_bypos = 0;
+	kludge_colstate = 0;
+	kludge_scrolldir = 0;
 }
 
 //Areamap starts at 100,100 and extends 20x20

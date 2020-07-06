@@ -109,26 +109,31 @@ void GraphicsResources::init(void)
 
 void GraphicsResources::destroy(void)
 {
-	SDL_FreeSurface(im_tiles);
-	SDL_FreeSurface(im_tiles2);
-	SDL_FreeSurface(im_tiles3);
-	SDL_FreeSurface(im_entcolours);
-	SDL_FreeSurface(im_sprites);
-	SDL_FreeSurface(im_flipsprites);
-	SDL_FreeSurface(im_bfont);
-	SDL_FreeSurface(im_teleporter);
+#define CLEAR(img) \
+	SDL_FreeSurface(img); \
+	img = NULL;
 
-	SDL_FreeSurface(im_image0);
-	SDL_FreeSurface(im_image1);
-	SDL_FreeSurface(im_image2);
-	SDL_FreeSurface(im_image3);
-	SDL_FreeSurface(im_image4);
-	SDL_FreeSurface(im_image5);
-	SDL_FreeSurface(im_image6);
-	SDL_FreeSurface(im_image7);
-	SDL_FreeSurface(im_image8);
-	SDL_FreeSurface(im_image9);
-	SDL_FreeSurface(im_image10);
-	SDL_FreeSurface(im_image11);
-	SDL_FreeSurface(im_image12);
+	CLEAR(im_tiles);
+	CLEAR(im_tiles2);
+	CLEAR(im_tiles3);
+	CLEAR(im_entcolours);
+	CLEAR(im_sprites);
+	CLEAR(im_flipsprites);
+	CLEAR(im_bfont);
+	CLEAR(im_teleporter);
+
+	CLEAR(im_image0);
+	CLEAR(im_image1);
+	CLEAR(im_image2);
+	CLEAR(im_image3);
+	CLEAR(im_image4);
+	CLEAR(im_image5);
+	CLEAR(im_image6);
+	CLEAR(im_image7);
+	CLEAR(im_image8);
+	CLEAR(im_image9);
+	CLEAR(im_image10);
+	CLEAR(im_image11);
+	CLEAR(im_image12);
+#undef CLEAR
 }
