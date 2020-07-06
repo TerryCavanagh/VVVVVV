@@ -14,8 +14,6 @@ blockclass::blockclass()
 	rect.w = wp;
 	rect.h = hp;
 
-	prompt = "";
-	script = "";
 	r = 0;
 	g = 0;
 	b = 0;

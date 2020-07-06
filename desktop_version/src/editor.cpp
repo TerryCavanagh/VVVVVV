@@ -33,7 +33,6 @@ edlevelclass::edlevelclass()
 {
     tileset=0;
     tilecol=0;
-    roomname="";
     warpdir=0;
     platx1=0;
     platy1=0;

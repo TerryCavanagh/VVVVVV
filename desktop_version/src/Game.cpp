@@ -140,7 +140,6 @@ void Game::init(void)
     roomchange = false;
 
 
-    teleportscript = "";
     savemystats = false;
     quickrestartkludge = false;
 
@@ -159,7 +158,6 @@ void Game::init(void)
     prev_act_fade = 0;
     backgroundtext = false;
     startscript = false;
-    newscript = "";
     inintermission = false;
 
     alarmon = false;
@@ -176,7 +174,6 @@ void Game::init(void)
     activetele = false;
     readytotele = 0;
     oldreadytotele = 0;
-    activity_lastprompt = "";
     activity_r = 0;
     activity_g = 0;
     activity_b = 0;
@@ -203,10 +200,6 @@ void Game::init(void)
     nodeathmode = false;
     nocutscenes = false;
 
-    for(int i=0; i<50; i++)
-    {
-        customscript[i]="";
-    }
     customcol=0;
 
     SDL_memset(crewstats, false, sizeof(crewstats));
@@ -239,7 +232,6 @@ void Game::init(void)
     menucountdown = 0;
     levelpage=0;
     playcustomlevel=0;
-    customleveltitle="";
     createmenu(Menu::mainmenu);
 
     deathcounts = 0;
