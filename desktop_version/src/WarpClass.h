@@ -11,7 +11,7 @@ class warpclass
 public:
 	const int* loadlevel(int rx, int ry);
 	std::string roomname;
-	int coin, rcol;
+	int rcol;
 	bool warpx, warpy;
 };
 
