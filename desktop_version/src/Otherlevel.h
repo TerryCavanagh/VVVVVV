@@ -7,12 +7,6 @@
 #include <string>
 #include <vector>
 
-struct Roomtext
-{
-    int x, y;
-    std::string text;
-};
-
 class otherlevelclass
 {
 public:
