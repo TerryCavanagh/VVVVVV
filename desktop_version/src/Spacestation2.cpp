@@ -2535,13 +2535,12 @@ const int* spacestation2class::loadlevel(int rx, int ry)
 		492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,
 		492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,492,
 		};
-		if(game.nodeathmode || game.intimetrial)
+
+		//Remove spikes in modes where the player shouldn't kill themselves
+		int spikevalue = (game.nodeathmode || game.intimetrial) ? 0 : 9;
+		for (int i = 23; i < 23+14; i++)
 		{
-			for (int i = 23; i < 23+14; i++)
-			{
-				//Remove spikes
-				contents[i + 8*40] = 0;
-			}
+			contents[i + 8*40] = spikevalue;
 		}
 
 		obj.platformtile = 747;
