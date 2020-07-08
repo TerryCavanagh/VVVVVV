@@ -2651,7 +2651,7 @@ void scriptclass::load(const std::string& name)
         "speak_active",
 
         "squeak(yellow)",
-        "changedir(yellow,0)",
+        "changeai(yellow,faceleft)", // changedir(yellow,0) doesn't work
         "text(yellow,0,0,2)",
         "That big... C thing!",
         "I wonder what it does?",
@@ -2676,7 +2676,7 @@ void scriptclass::load(const std::string& name)
         "speak_active",
 
         "squeak(yellow)",
-        "changedir(yellow,1)",
+        "changeai(yellow,0)", // Make him face right again
         "text(yellow,0,0,2)",
         "Maybe we should take it back",
         "to the ship to study it?",
