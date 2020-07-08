@@ -228,6 +228,7 @@ void menurender()
                 graphics.Print(-1, 95, "Current mode: Over 30 FPS", tr, tg, tb, true);
             }
             break;
+#ifndef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
         case 6:
             graphics.bigprint(-1, 30, "Toggle VSync", tr, tg, tb, true);
             graphics.Print(-1, 65, "Turn VSync on or off.", tr, tg, tb, true);
@@ -241,6 +242,7 @@ void menurender()
                 graphics.Print(-1, 95, "Current mode: VSYNC ON", tr, tg, tb, true);
             }
             break;
+#endif
         }
         break;
     case Menu::credits:
