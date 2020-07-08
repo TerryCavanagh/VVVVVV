@@ -16,6 +16,7 @@ void scriptclass::load(const std::string& name)
     if (strcmp(customstring, "custom_") == 0)
     {
         loadcustom(name);
+        return;
     }
 
     #include "scripts/generated/intro.vsc.cpp"
