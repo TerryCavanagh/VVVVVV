@@ -6833,9 +6833,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("toggle filter");
         option("toggle analogue");
         option("toggle fps");
-#ifndef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
         option("toggle vsync");
-#endif
         option("return");
         menuyoff = -10;
         break;

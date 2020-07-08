@@ -367,15 +367,15 @@ void menuactionpress()
             game.over30mode = !game.over30mode;
             game.savestats();
             break;
-#ifndef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
         case 6:
             //toggle vsync
             music.playef(11);
+#ifndef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
             graphics.screenbuffer->vsync = !graphics.screenbuffer->vsync;
             graphics.screenbuffer->resetRendererWorkaround();
             game.savestats();
-            break;
 #endif
+            break;
         default:
             //back
             music.playef(11);
