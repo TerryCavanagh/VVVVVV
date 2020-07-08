@@ -4494,7 +4494,7 @@ void Game::unlocknum( int t )
 
 #define LOAD_ARRAY(ARRAY_NAME) LOAD_ARRAY_RENAME(ARRAY_NAME, ARRAY_NAME)
 
-void Game::loadstats()
+void Game::loadstats(int *width, int *height, bool *vsync)
 {
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc))
@@ -4520,10 +4520,6 @@ void Game::loadstats()
         // save this for later
         hRoot=tinyxml2::XMLHandle(pElem);
     }
-
-    // WINDOW DIMS, ADDED AT PATCH 22
-    int width = 320;
-    int height = 240;
 
     for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
     {
@@ -4575,11 +4571,11 @@ void Game::loadstats()
 
         if (pKey == "window_width")
         {
-            width = atoi(pText);
+            *width = atoi(pText);
         }
         if (pKey == "window_height")
         {
-            height = atoi(pText);
+            *height = atoi(pText);
         }
 
 
@@ -4645,7 +4641,6 @@ void Game::loadstats()
         if (pKey == "advanced_smoothing")
         {
             fullScreenEffect_badSignal = atoi(pText);
-            graphics.screenbuffer->badSignalEffect = fullScreenEffect_badSignal;
         }
 
         if (pKey == "usingmmmmmm")
@@ -4684,7 +4679,7 @@ void Game::loadstats()
 
         if (pKey == "vsync")
         {
-            graphics.screenbuffer->vsync = atoi(pText);
+            *vsync = atoi(pText);
         }
 
         if (pKey == "notextoutline")
@@ -4735,20 +4730,6 @@ void Game::loadstats()
         }
 
     }
-
-    if(fullscreen)
-    {
-        graphics.screenbuffer->toggleFullScreen();
-    }
-    for (int i = 0; i < stretchMode; i += 1)
-    {
-        graphics.screenbuffer->toggleStretchMode();
-    }
-    if (useLinearFilter)
-    {
-        graphics.screenbuffer->toggleLinearFilter();
-    }
-    graphics.screenbuffer->ResizeScreen(width, height);
 
     if (graphics.showmousecursor == true)
     {

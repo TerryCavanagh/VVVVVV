@@ -17,21 +17,28 @@ extern "C"
 	);
 }
 
-void Screen::init()
-{
+void Screen::init(
+	int windowWidth,
+	int windowHeight,
+	bool fullscreen,
+	bool useVsync,
+	int stretch,
+	bool linearFilter,
+	bool badSignal
+) {
 	m_window = NULL;
 	m_renderer = NULL;
 	m_screenTexture = NULL;
 	m_screen = NULL;
-	isWindowed = true;
-	stretchMode = 0;
-	isFiltered = false;
-	vsync = false;
+	isWindowed = !fullscreen;
+	stretchMode = stretch;
+	isFiltered = linearFilter;
+	vsync = useVsync;
 	filterSubrect.x = 1;
 	filterSubrect.y = 1;
 	filterSubrect.w = 318;
 	filterSubrect.h = 238;
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, isFiltered ? "linear" : "nearest");
 
 	// Uncomment this next line when you need to debug -flibit
 	// SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
@@ -87,7 +94,9 @@ void Screen::init()
 		240
 	);
 
-	badSignalEffect = false;
+	badSignalEffect = badSignal;
+
+	ResizeScreen(windowWidth, windowHeight);
 }
 
 void Screen::ResizeScreen(int x, int y)

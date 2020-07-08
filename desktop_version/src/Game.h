@@ -125,7 +125,7 @@ public:
 
     void unlocknum(int t);
 
-    void loadstats();
+    void loadstats(int *width, int *height, bool *vsync);
 
     void  savestats();
 

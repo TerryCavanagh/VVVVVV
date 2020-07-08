@@ -161,8 +161,6 @@ int main(int argc, char *argv[])
 
     NETWORK_init();
 
-    gameScreen.init();
-
     printf("\t\t\n");
     printf("\t\t\n");
     printf("\t\t       VVVVVV\n");
@@ -207,36 +205,6 @@ int main(int argc, char *argv[])
     // This loads music too...
     graphics.reloadresources();
 
-    const SDL_PixelFormat* fmt = gameScreen.GetFormat();
-    graphics.backBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
-    SDL_SetSurfaceBlendMode(graphics.backBuffer, SDL_BLENDMODE_NONE);
-    graphics.footerbuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 10, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
-    SDL_SetSurfaceBlendMode(graphics.footerbuffer, SDL_BLENDMODE_BLEND);
-    SDL_SetSurfaceAlphaMod(graphics.footerbuffer, 127);
-    FillRect(graphics.footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
-
-    graphics.ghostbuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
-    SDL_SetSurfaceBlendMode(graphics.ghostbuffer, SDL_BLENDMODE_BLEND);
-    SDL_SetSurfaceAlphaMod(graphics.ghostbuffer, 127);
-
-    graphics.Makebfont();
-
-    graphics.foregroundBuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
-    SDL_SetSurfaceBlendMode(graphics.foregroundBuffer, SDL_BLENDMODE_NONE);
-
-    graphics.screenbuffer = &gameScreen;
-
-    graphics.menubuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask );
-    SDL_SetSurfaceBlendMode(graphics.menubuffer, SDL_BLENDMODE_NONE);
-
-    graphics.towerbuffer =  SDL_CreateRGBSurface(SDL_SWSURFACE ,320+16 ,240+16 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
-    SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE);
-    graphics.towerbuffer_lerp = SDL_CreateRGBSurface(SDL_SWSURFACE, 320+16, 240+16, fmt->BitsPerPixel, fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask);
-    SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE);
-
-    graphics.tempBuffer = SDL_CreateRGBSurface(SDL_SWSURFACE ,320 ,240 ,fmt->BitsPerPixel,fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask  );
-    SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);
-
     game.gamestate = PRELOADER;
 
     game.menustart = false;
@@ -246,13 +214,59 @@ int main(int argc, char *argv[])
     map.bypos = map.ypos / 2;
 
     //Moved screensetting init here from main menu V2.1
-    game.loadstats();
+    int width = 320;
+    int height = 240;
+    bool vsync = false;
+    game.loadstats(&width, &height, &vsync);
+    gameScreen.init(
+        width,
+        height,
+        game.fullscreen,
+        vsync,
+        game.stretchMode,
+        game.useLinearFilter,
+        game.fullScreenEffect_badSignal
+    );
+    graphics.screenbuffer = &gameScreen;
 
-    // FIXME: Thanks to having to work around an SDL2 bug, this destroys the
-    // renderer created by Screen::init(), which is a bit wasteful!
-    // This is annoying to fix because we'd have to call gameScreen.init() after
-    // game.loadstats(), but game.loadstats() assumes gameScreen.init() is already called!
-    gameScreen.resetRendererWorkaround();
+    const SDL_PixelFormat* fmt = gameScreen.GetFormat();
+    #define CREATE_SURFACE(w, h) \
+        SDL_CreateRGBSurface( \
+            SDL_SWSURFACE, \
+            w, h, \
+            fmt->BitsPerPixel, \
+            fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask \
+        )
+    graphics.backBuffer = CREATE_SURFACE(320, 240);
+    SDL_SetSurfaceBlendMode(graphics.backBuffer, SDL_BLENDMODE_NONE);
+
+    graphics.footerbuffer = CREATE_SURFACE(320, 10);
+    SDL_SetSurfaceBlendMode(graphics.footerbuffer, SDL_BLENDMODE_BLEND);
+    SDL_SetSurfaceAlphaMod(graphics.footerbuffer, 127);
+    FillRect(graphics.footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
+
+    graphics.ghostbuffer = CREATE_SURFACE(320, 240);
+    SDL_SetSurfaceBlendMode(graphics.ghostbuffer, SDL_BLENDMODE_BLEND);
+    SDL_SetSurfaceAlphaMod(graphics.ghostbuffer, 127);
+
+    graphics.Makebfont();
+
+    graphics.foregroundBuffer =  CREATE_SURFACE(320, 240);
+    SDL_SetSurfaceBlendMode(graphics.foregroundBuffer, SDL_BLENDMODE_NONE);
+
+    graphics.menubuffer = CREATE_SURFACE(320, 240);
+    SDL_SetSurfaceBlendMode(graphics.menubuffer, SDL_BLENDMODE_NONE);
+
+    graphics.towerbuffer =  CREATE_SURFACE(320 + 16, 240 + 16);
+    SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE);
+
+    graphics.towerbuffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
+    SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE);
+
+    graphics.tempBuffer = CREATE_SURFACE(320, 240);
+    SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);
+
+    #undef CREATE_SURFACE
 
     if (game.skipfakeload)
         game.gamestate = TITLEMODE;
