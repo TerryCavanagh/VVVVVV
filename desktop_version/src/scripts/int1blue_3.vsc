@@ -1,0 +1,56 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(player)
+text(player,0,0,1)
+Are you ok down there, Doctor?
+position(player,below)
+speak_active
+
+squeak(cry)
+text(blue,0,0,1)
+I wanna go home!
+position(blue,above)
+speak_active
+
+squeak(blue)
+text(blue,0,0,2)
+Where are we? How did
+we even get here?
+position(blue,above)
+speak_active
+
+squeak(player)
+text(player,0,0,4)
+Well, Violet did say that the
+interference in the dimension
+we crashed in was causing
+problems with the teleporters...
+position(player,below)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+I guess something went wrong...
+position(player,below)
+speak_active
+
+squeak(player)
+text(player,0,0,3)
+But if we can find another
+teleporter, I think we can
+get back to the ship!
+position(player,below)
+speak_active
+
+squeak(blue)
+text(blue,0,0,1)
+Sniff...
+position(blue,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()

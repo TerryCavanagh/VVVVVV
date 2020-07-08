@@ -1,0 +1,41 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+text(blue,0,0,2
+Captain! You were right!
+It's a teleporter!
+position(blue,above)
+speak_active
+
+squeak(player)
+changemood(player,0)
+text(player,0,0,3)
+Phew! You had me worried for a
+while there... I thought we
+were never going to find one.
+position(player,above)
+speak_active
+
+
+squeak(cry)
+changemood(blue,1)
+text(blue,0,0,1
+What? Really?
+position(blue,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+Anyway, let's go
+back to the ship.
+position(player,above)
+speak_active
+
+changemood(blue,0)
+endtext
+
+endcutscene()
+untilbars()

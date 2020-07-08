@@ -1,0 +1,17 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+text(blue,0,0,3)
+This lab is amazing! The scientists
+who worked here know a lot more
+about warp technology than we do!
+position(blue,below)
+speak_active
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

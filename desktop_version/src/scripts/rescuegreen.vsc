@@ -1,0 +1,63 @@
+ifskip(skipgreen)
+cutscene()
+
+tofloor()
+changemood(green,0)
+untilbars()
+
+rescued(green)
+
+squeak(green)
+text(green,0,0,1)
+Captain! I've been so worried!
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Chief Verdigris! You're ok!
+position(player,above)
+speak_active
+
+squeak(cry)
+changemood(green,1)
+text(green,0,0,2)
+I've been trying to get out, but
+I keep going around in circles...
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+I've come from the ship. I'm here
+to teleport you back to it.
+position(player,above)
+speak_active
+
+squeak(green)
+text(green,0,0,2)
+Is everyone else
+alright? Is Violet...
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+She's fine - she's back on the ship!
+position(player,above)
+speak_active
+
+squeak(green)
+changemood(green,0)
+text(green,0,0,2)
+Oh! Great - Let's
+get going, then!
+position(green,above)
+speak_active
+
+endtext
+
+companion(6)
+endcutscene()
+untilbars()
+changeai(green,followplayer)

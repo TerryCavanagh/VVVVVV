@@ -1,0 +1,62 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,1)
+Ohh! What was that?
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+What was what?
+position(player,above)
+speak_active
+
+squeak(yellow)
+changedir(yellow,0)
+text(yellow,0,0,2)
+That big... C thing!
+I wonder what it does?
+position(yellow,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,2)
+Em... I don't really know
+how to answer that question...
+position(player,above)
+speak_active
+
+squeak(player)
+changemood(player,0)
+text(player,0,0,3)
+It's probably best not
+to acknowledge that
+it's there at all.
+position(player,above)
+speak_active
+
+squeak(yellow)
+changedir(yellow,1)
+text(yellow,0,0,2)
+Maybe we should take it back
+to the ship to study it?
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,3)
+We really shouldn't think
+about it too much... Let's
+keep moving!
+position(player,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

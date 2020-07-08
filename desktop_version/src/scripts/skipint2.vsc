@@ -1,0 +1,13 @@
+finalmode(53,49)
+gotoposition(228,129,0)
+changedir(player,1)
+setcheckpoint()
+flash(5)
+shake(20)
+playef(10)
+
+showplayer()
+play(8)
+
+hascontrol()
+befadein()

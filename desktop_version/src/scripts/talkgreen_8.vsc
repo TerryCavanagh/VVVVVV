@@ -1,0 +1,18 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(cry)
+text(green,0,0,3)
+The antenna's broken!
+This is going to be
+very hard to fix...
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

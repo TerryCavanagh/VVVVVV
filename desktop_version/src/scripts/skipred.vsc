@@ -1,0 +1,5 @@
+changeai(red,followplayer)
+squeak(red)
+rescued(red)
+changemood(red,0)
+companion(9)

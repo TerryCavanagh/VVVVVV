@@ -1,0 +1,50 @@
+gotoroom(4,10)
+gotoposition(100,177,0)
+createcrewman(150,177,purple,0,faceleft)
+
+fadein()
+untilfade()
+
+hidecoordinates(10,4)
+hidecoordinates(13,0)
+hidecoordinates(3,4)
+hidecoordinates(15,9)
+showteleporters()
+
+# Cut to map
+# add map mode here and wrap up...
+gamemode(teleporter)
+delay(20)
+
+squeak(terminal)
+showtargets()
+delay(10)
+hidetargets()
+delay(10)
+showtargets()
+delay(10)
+hidetargets()
+delay(10)
+showtargets()
+delay(20)
+
+gamemode(game)
+delay(20)
+# And finally, back to the ship!
+
+squeak(purple)
+text(purple,0,0,2)
+I'll be right here if
+you need any help!
+position(purple,above)
+speak_active
+endtext
+
+rescued(purple)
+play(4)
+
+endcutscene()
+untilbars()
+hascontrol()
+
+createactivityzone(purple)

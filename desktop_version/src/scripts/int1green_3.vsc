@@ -1,0 +1,58 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,2)
+So Violet's back on the
+ship? She's really ok?
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+She's fine! She helped
+me find my way back!
+position(player,below)
+speak_active
+
+squeak(green)
+text(green,0,0,1)
+Oh, phew! I was worried about her.
+position(green,above)
+speak_active
+endtext
+
+delay(45)
+
+squeak(green)
+text(green,0,0,1)
+Captain, I have a secret...
+position(green,above)
+speak_active
+
+squeak(cry)
+changemood(green,1)
+text(green,0,0,1)
+I really like Violet!
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Is that so?
+position(player,below)
+speak_active
+
+squeak(green)
+changemood(green,0)
+text(green,0,0,2)
+Please promise you
+won't tell her!
+position(green,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()

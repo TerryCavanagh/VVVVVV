@@ -1,0 +1,24 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(purple)
+text(purple,0,0,2)
+Vermilion called in
+to say hello!
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,1)
+He's really looking forward
+specialline(2)
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

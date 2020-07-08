@@ -1,0 +1,39 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(player)
+text(player,0,0,2)
+So, do you think you'll
+be able to fix the ship?
+position(player,above)
+speak_active
+
+squeak(green)
+text(green,0,0,2)
+Depends on how bad it 
+is... I think so, though!
+position(green,above)
+speak_active
+
+squeak(green)
+text(green,0,0,5)
+It's not very hard, really. The
+basic dimensional warping engine
+design is pretty simple, and if we
+can get that working we shouldn't
+have any trouble getting home.
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Oh! Good!
+position(player,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

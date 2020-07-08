@@ -1,0 +1,28 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,1)
+Finally! A teleporter!
+position(green,above)
+speak_active
+
+squeak(green)
+text(green,0,0,2)
+I was getting worried
+we wouldn't find one...
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Let's head back to the ship!
+position(player,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

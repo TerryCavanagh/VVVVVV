@@ -1,0 +1,69 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,9)
+* DIMENSIONAL STABILITY GENERATOR *
+
+     [ Currently Generating ]      
+Maximum Stability    
+
+    [ Status ]
+      Online
+
+READY _
+position(center)
+speak_active
+
+endtextfast
+delay(10)
+
+squeak(player)
+text(cyan,0,0,2)
+Aha! This must be what's ,
+causing the interference!
+position(player,above)
+speak_active
+
+squeak(player)
+text(cyan,0,0,1)
+I wonder if I can turn it off?
+position(player,above)
+speak_active
+
+squeak(terminal)
+text(gray,0,114,4)
+WARNING: Disabling the Dimensional
+Stability Generator may lead to
+instability! Are you sure you want
+to do this?
+position(center)
+speak_active
+
+squeak(player)
+text(cyan,0,0,1)
+Yes!
+position(player,above)
+speak_active
+
+squeak(terminal)
+text(gray,0,114,6)
+Seriously! The whole dimension
+could collapse! Just think about
+this for a minute!
+
+Are you really sure you want
+to do this?
+position(center)
+speak_active
+
+squeak(player)
+text(cyan,0,0,1)
+Yes!
+position(player,above)
+speak_active
+
+endtext
+
+stopmusic
+gamestate(200)

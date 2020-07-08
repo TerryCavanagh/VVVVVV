@@ -1,0 +1,26 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+I'm so glad to be back!
+position(blue,below)
+speak_active
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,3)
+That lab was so dark
+and scary! I didn't
+like it at all...
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

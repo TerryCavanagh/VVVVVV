@@ -1,0 +1,45 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,60,1)
+      -= Research Notes =-       
+position(centerx)
+backgroundtext
+flipme
+speak
+
+text(gray,0,114,5)
+ ... our first breakthrough was 
+ the creation of the inversion  
+ plane, which creates a 
+ mirrored dimension beyond a   
+ given event horizon ...       
+position(center)
+speak
+
+endtextfast
+delay(10)
+
+ifexplored(2,16,alreadyvisited)
+
+gamemode(teleporter)
+delay(20)
+
+squeak(terminal)
+showcoordinates(2,16)
+delay(10)
+hidecoordinates(2,16)
+delay(10)
+showcoordinates(2,16)
+delay(10)
+hidecoordinates(2,16)
+delay(10)
+showcoordinates(2,16)
+delay(45)
+
+gamemode(game)
+delay(20)
+
+endcutscene()
+untilbars()

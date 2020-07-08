@@ -1,0 +1,12 @@
+gotoroom(13,5)
+gotoposition(80,96,0)
+walk(right,17)
+fadein()
+
+setcheckpoint()
+
+play(1)
+endcutscene()
+untilbars()
+
+hideship()

@@ -1,0 +1,21 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,60,1)
+-= PERSONAL LOG =- 
+position(centerx)
+backgroundtext
+flipme
+speak
+
+text(gray,0,114,2)
+ Hah! Nobody will ever 
+ get this one. 
+position(center)
+speak
+
+endtextfast
+
+endcutscene()
+untilbars()

@@ -1,0 +1,12 @@
+squeak(cry)
+changemood(player,1)
+text(cyan,0,0,1)
+I hope she's ok...
+position(player,above)
+speak_active
+endtext
+
+changemood(player,0)
+
+endcutscene()
+untilbars()

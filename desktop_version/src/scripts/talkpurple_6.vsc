@@ -1,0 +1,22 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(purple)
+text(purple,0,0,1)
+Captain! You found Verdigris!
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,1)
+Thank you so much!
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

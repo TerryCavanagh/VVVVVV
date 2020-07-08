@@ -1,0 +1,25 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,60,1)
+-= PERSONAL LOG =- 
+position(centerx)
+backgroundtext
+flipme
+speak
+
+text(gray,0,120,6)
+ Almost everyone has been    
+ evacuated from the space    
+ station now. The rest of us 
+ are leaving in a couple of  
+ days, once our research has 
+ been completed.     
+position(center)
+speak
+
+endtext
+
+endcutscene()
+untilbars()

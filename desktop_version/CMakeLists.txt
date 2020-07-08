@@ -100,7 +100,6 @@ SET(VVV_SRC
 	src/Scripts.cpp
 	src/SoundSystem.cpp
 	src/Spacestation2.cpp
-	src/TerminalScripts.cpp
 	src/Textbox.cpp
 	src/Tower.cpp
 	src/UtilityClass.cpp
@@ -147,6 +146,13 @@ IF(WIN32)
 ELSE()
 	ADD_EXECUTABLE(VVVVVV ${VVV_SRC})
 ENDIF()
+
+# Regenerate script code before building, if needed
+ADD_CUSTOM_TARGET(GENERATED_SCRIPTS
+	COMMAND ${CMAKE_COMMAND} -P "${PROJECT_SOURCE_DIR}/cmake/GenerateScriptCode.cmake"
+	WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+)
+ADD_DEPENDENCIES(VVVVVV GENERATED_SCRIPTS)
 
 # Build options
 IF(ENABLE_WARNINGS)

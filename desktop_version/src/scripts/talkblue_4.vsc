@@ -1,0 +1,70 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,2)
+Vitellary's back? I
+knew you'd find him!
+position(blue,below)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,2)
+I mean, I admit I was very
+worried that you wouldn't...
+position(blue,below)
+speak_active
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,2)
+or that something might
+have happened to him...
+position(blue,below)
+speak_active
+
+squeak(blue)
+text(blue,0,0,1)
+sniff...
+position(blue,below)
+speak_active
+
+endtext
+
+delay(30)
+
+squeak(player)
+text(player,0,0,1)
+Doctor Victoria? He's ok!
+position(player,above)
+speak_active
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,3)
+Oh! Sorry! I was just
+thinking about what
+if he wasn't?
+position(blue,below)
+speak_active
+
+endtext
+
+delay(30)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+Thank you, Captain!
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

@@ -1,0 +1,18 @@
+# For the Eurogamer EXPO! Scrap later.
+fadeout()
+musicfadeout()
+untilfade()
+
+cutscene()
+untilbars()
+
+resetgame
+
+gotoroom(4,10)
+gotoposition(232,113,0)
+setcheckpoint()
+changedir(player,1)
+fadein()
+
+play(5)
+loadscript(intro)

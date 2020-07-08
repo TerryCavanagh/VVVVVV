@@ -1,0 +1,63 @@
+ifskip(skipred)
+cutscene()
+
+tofloor()
+changemood(red,0)
+untilbars()
+
+rescued(red)
+
+squeak(red)
+text(red,0,0,1)
+Captain!
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,3)
+Am I ever glad to see you!
+I thought I was the only
+one to escape the ship...
+position(red,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Vermilion! I knew you'd be ok!
+position(player,above)
+speak_active
+
+squeak(red)
+text(red,0,0,1)
+So, what's the situation?
+position(red,above)
+speak_active
+
+endtext
+
+fadeout()
+untilfade()
+delay(30)
+fadein()
+untilfade()
+
+squeak(red)
+text(red,0,0,2)
+I see! Well, we'd better
+get back then.
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+There's a teleporter
+in the next room.
+position(red,above)
+speak_active
+
+endtext
+
+companion(9)
+endcutscene()
+untilbars()
+changeai(red,followplayer)

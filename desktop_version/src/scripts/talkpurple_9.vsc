@@ -1,0 +1,18 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(purple)
+text(purple,0,0,3)
+Look at all this research!
+This is going to be a big
+help back home!
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

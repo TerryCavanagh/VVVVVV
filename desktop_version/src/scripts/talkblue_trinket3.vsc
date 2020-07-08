@@ -1,0 +1,50 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,3)
+Captain! Come have a
+look at what I've
+been working on!
+position(blue,below)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+I found this in that lab...
+position(blue,below)
+speak_active
+
+endtext
+delay(30)
+
+# found a trinket!
+foundtrinket(18)
+endtext
+# musicfadein
+trinketscriptmusic
+
+delay(30)
+createentity(136,80,22,18,0)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,3)
+It seemed to be
+giving off a weird
+energy reading...
+position(blue,below)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+So I analysed it...
+position(blue,below)
+speak_active
+
+trinketbluecontrol()

@@ -1,0 +1,48 @@
+delay(45)
+
+squeak(cry)
+text(blue,0,0,1)
+Waaaa!
+position(blue,above)
+speak_active
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+text(blue,0,0,1)
+Captain! Are you ok?
+position(blue,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+I'm ok... this...
+this isn't the ship...
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Where are we?
+position(player,above)
+speak_active
+
+squeak(cry)
+text(blue,0,0,1)
+Waaaa!
+position(blue,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+Something's gone wrong... We
+should look for a way back!
+position(player,above)
+speak_active
+endtext
+
+telesave()
+
+endcutscene()
+untilbars()
+gamestate(14)

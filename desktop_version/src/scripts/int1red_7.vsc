@@ -1,0 +1,22 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(player)
+text(player,0,0,1)
+We're there!
+position(player,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+See? I told you! Let's
+get back to the ship!
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

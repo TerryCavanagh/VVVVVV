@@ -1,0 +1,32 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,60,1)
+      -= Research Notes =-       
+position(centerx)
+backgroundtext
+flipme
+speak
+
+text(gray,0,114,4)
+ ...despite our best efforts, 
+ the dimensional stabiliser   
+ won't hold out forever. Its  
+ collapse is inevitable...    
+position(center)
+speak
+
+endtextfast
+delay(10)
+
+squeak(player)
+text(cyan,0,0,2)
+Huh? These coordinates aren't
+even in this dimension!
+position(player,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()

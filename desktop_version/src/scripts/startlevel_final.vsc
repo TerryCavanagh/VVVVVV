@@ -1,0 +1,17 @@
+ifskip(skipfinal)
+cutscene()
+untilbars()
+activeteleporter()
+
+stopmusic()
+play(5)
+
+gotoroom(2,11)
+gotoposition(160,120,0)
+
+createcrewman(190,153,purple,0,faceleft)
+createrescuedcrew()
+
+fadein()
+untilfade()
+gamestate(4070)

@@ -1,0 +1,61 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,2)
+Captain! I've been meaning
+to give this to you...
+position(yellow,above)
+speak_active
+endtext
+
+delay(30)
+
+# found a trinket!
+foundtrinket(18)
+endtext
+# musicfadein
+trinketscriptmusic
+
+delay(30)
+
+squeak(player)
+text(player,0,0,1)
+Professor! Where did you find this?
+position(player,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+Oh, it was just lying
+around that space station.
+position(yellow,above)
+speak_active
+
+squeak(cry)
+changemood(yellow,1)
+text(yellow,0,0,3)
+It's a pity Doctor Victoria
+isn't here, she loves studying
+that sort of thing...
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Any idea what it does?
+position(player,above)
+speak_active
+
+squeak(yellow)
+changemood(yellow,0)
+text(yellow,0,0,2)
+Nope! But it is giving off
+a strange energy reading...
+position(yellow,above)
+speak_active
+endtext
+
+trinketyellowcontrol()

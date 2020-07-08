@@ -1,0 +1,56 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,2)
+Hey Captain, I found
+this in that lab...
+position(blue,below)
+speak_active
+
+endtext
+delay(30)
+
+# found a trinket!
+foundtrinket(18)
+endtext
+# musicfadein
+trinketscriptmusic
+
+delay(30)
+createentity(136,80,22,18,0)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+Any idea what it does?
+position(blue,below)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Sorry, I don't know!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+They seem important, though...
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+Maybe something will happen
+if we find them all?
+position(player,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

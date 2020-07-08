@@ -1,0 +1,16 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,4)
+  -= SHIP RADIO =-  
+
+     [ Status ]
+    Broadcasting
+position(center)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

@@ -1,0 +1,71 @@
+delay(10)
+
+squeak(purple)
+text(purple,0,0,1)
+Welcome back!
+position(purple,above)
+speak_active
+endtext
+
+delay(30)
+
+squeak(purple)
+text(purple,0,0,1)
+...
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,1)
+Um, where's Captain Viridian?
+position(purple,above)
+speak_active
+endtext
+
+delay(30)
+
+walk(left,3)
+delay(60)
+
+everybodysad()
+squeak(cry)
+delay(30)
+
+fadeout()
+untilfade()
+changemood(player,0)
+musicfadeout()
+
+finalmode(46,54)
+gotoposition(101,113,0)
+setcheckpoint()
+changedir(player,1)
+restoreplayercolour
+fadein()
+untilfade()
+
+delay(15)
+
+squeak(player)
+text(player,0,0,1)
+... Hello?
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Is anyone there?
+position(player,above)
+speak_active
+endtext
+
+missing(player)
+
+# squeak(cry)
+# changemood(player,1)
+
+endcutscene()
+untilbars()
+
+play(15)
+telesave()

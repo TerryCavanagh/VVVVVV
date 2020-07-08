@@ -1,0 +1,48 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(player)
+text(player,0,0,3)
+Doctor, something strange
+happened when we teleported
+back to the ship...
+position(player,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,1)
+We got lost in another dimension!
+position(player,above)
+speak_active
+
+squeak(cry)
+changemood(purple,1)
+text(purple,0,0,1)
+Oh no!
+position(purple,above)
+speak_active
+
+squeak(purple)
+changemood(purple,0)
+changemood(player,0)
+text(purple,0,0,3)
+Maybe that dimension has something
+to do with the interference that
+caused us to crash here?
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,1)
+I'll look into it...
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

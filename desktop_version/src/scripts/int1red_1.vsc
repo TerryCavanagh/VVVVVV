@@ -1,0 +1,45 @@
+cutscene()
+untilbars()
+
+squeak(red)
+text(red,0,0,1)
+Wow! Where are we?
+position(red,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,3)
+This... isn't right...
+Something must have gone
+wrong with the teleporter!
+position(player,above)
+speak_active
+
+squeak(red)
+text(red,0,0,3)
+Oh well... We can work
+it out when we get
+back to the ship!
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,1)
+Let's go exploring!
+position(red,above)
+speak_active
+
+squeak(player)
+changemood(player,0)
+text(player,0,0,1)
+Ok then!
+position(player,above)
+speak_active
+
+endtext
+
+telesave()
+endcutscene()
+untilbars()
+gamestate(14)

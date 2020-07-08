@@ -1,0 +1,37 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(purple)
+text(purple,0,0,1)
+Are you doing ok, Captain?
+position(purple,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,0)
+specialline(1)
+position(player,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+Oh - well, don't worry,
+they'll show up!
+position(purple,above)
+speak_active
+
+changemood(player,0)
+squeak(purple)
+text(purple,0,0,1)
+Here! Have a lollipop!
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

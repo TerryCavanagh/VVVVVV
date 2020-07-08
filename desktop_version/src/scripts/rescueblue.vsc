@@ -1,0 +1,75 @@
+ifskip(skipblue)
+cutscene()
+
+tofloor()
+changeai(blue,followplayer)
+untilbars()
+
+rescued(blue)
+
+squeak(blue)
+text(blue,0,0,2)
+Oh no! Captain! Are you
+stuck here too?
+position(blue,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+It's ok - I'm here to rescue you!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Let me explain everything...
+position(player,above)
+speak_active
+
+endtext
+
+fadeout()
+untilfade()
+delay(30)
+fadein()
+untilfade()
+
+squeak(cry)
+text(blue,0,0,2)
+What? I didn't understand
+any of that!
+position(blue,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Oh... well, don't worry.
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+Follow me! Everything
+will be alright!
+position(player,above)
+speak_active
+
+squeak(blue)
+changemood(blue,0)
+text(blue,0,0,1)
+Sniff... Really?
+position(blue,above)
+speak_active
+
+squeak(blue)
+text(blue,0,0,1)
+Ok then!
+position(blue,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+companion(8)
+setcheckpoint()

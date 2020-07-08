@@ -1,0 +1,19 @@
+squeak(yellow)
+changemood(yellow,0)
+text(yellow,0,0,2)
+Can't seem to detect any
+more of them nearby, though.
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+changemood(yellow,0)
+text(yellow,0,0,1)
+Maybe you've found them all?
+position(yellow,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

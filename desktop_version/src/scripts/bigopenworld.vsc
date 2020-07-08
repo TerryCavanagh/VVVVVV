@@ -1,0 +1,303 @@
+play(5)
+cutscene()
+untilbars()
+
+gotoroom(4,10)
+gotoposition(100,177,0)
+createcrewman(150,177,purple,0,faceleft)
+
+# set all the crew as rescued to avoid companion issues!
+rescued(red)
+rescued(green)
+rescued(blue)
+rescued(yellow)
+
+fadein()
+untilfade()
+
+delay(15)
+
+squeak(player)
+text(player,0,0,2)
+So, Doctor - have you any
+idea what caused the crash?
+position(player,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,3)
+There's some sort of bizarre
+signal here that's interfering
+with our equipment...
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,3)
+It caused the ship to lose
+its quantum position, collapsing
+us into this dimension!
+position(purple,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,1)
+Oh no!
+position(player,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+But I think we should be able to fix
+the ship and get out of here...
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+... as long as we can
+find the rest of the crew.
+position(purple,above)
+speak_active
+
+endtext
+
+# Cut to Red
+fadeout()
+untilfade()
+
+changeplayercolour(red)
+gotoroom(10,4)
+gotoposition(200,185,0)
+hideplayer()
+createcrewman(200,185,red,1,panic)
+
+fadein()
+untilfade()
+
+# walk(right,10)
+
+squeak(purple)
+text(purple,60,40,2)
+We really don't know anything
+about this place...
+speak_active
+
+endtext
+
+delay(15)
+
+# Cut to Green
+fadeout()
+untilfade()
+
+showplayer()
+
+changeplayercolour(green)
+gotoroom(13,0)
+gotoposition(143,20,0)
+
+fadein()
+untilfade()
+
+
+squeak(purple)
+text(purple,40,30,2)
+Our friends could be anywhere - they
+could be lost, or in danger!
+speak_active
+
+endtext
+
+delay(15)
+
+# Cut to Blue
+fadeout()
+untilfade()
+
+changeplayercolour(blue)
+gotoroom(3,4)
+gotoposition(190,177,0)
+
+fadein()
+untilfade()
+
+
+squeak(player)
+text(player,10,60,1)
+Can they teleport back here?
+speak_active
+
+squeak(purple)
+text(purple,50,80,2)
+Not unless they find some way
+to communicate with us!
+speak_active
+
+squeak(purple)
+text(purple,30,100,3)
+We can't pick up their signal and
+they can't teleport here unless
+they know where the ship is...
+speak_active
+
+endtext
+
+delay(15)
+
+
+# Cut to Yellow
+fadeout()
+untilfade()
+
+changeplayercolour(yellow)
+gotoroom(15,9)
+# (6*8)-21
+gotoposition(300,27,0)
+
+hideplayer()
+createcrewman(280,25,yellow,1,panic)
+
+# hascontrol()
+# walk(left,4)
+
+fadein()
+untilfade()
+
+squeak(player)
+text(player,25,60,1)
+So what do we do?
+speak_active
+
+squeak(purple)
+text(purple,80,125,4)
+We need to find them! Head
+out into the dimension and
+look for anywhere they might
+have ended up...
+speak_active
+
+endtext
+
+delay(15)
+
+# Back to ship
+fadeout()
+untilfade()
+showplayer()
+
+missing(red)
+missing(green)
+missing(blue)
+missing(yellow)
+
+changeplayercolour(cyan)
+changemood(player,0)
+gotoroom(4,10)
+gotoposition(90,177,0)
+walk(right,2)
+createcrewman(150,177,purple,0,faceleft)
+
+
+
+fadein()
+untilfade()
+
+squeak(player)
+text(player,0,0,1)
+Ok! Where do we start?
+position(player,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+Well, I've been trying to find
+them with the ship's scanners!
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+It's not working, but I did
+find something...
+position(purple,above)
+speak_active
+
+endtext
+
+delay(15)
+
+hidecoordinates(10,4)
+hidecoordinates(13,0)
+hidecoordinates(3,4)
+hidecoordinates(15,9)
+showteleporters()
+
+# Cut to map
+# add map mode here and wrap up...
+gamemode(teleporter)
+delay(20)
+
+squeak(terminal)
+showtargets()
+delay(10)
+hidetargets()
+delay(10)
+showtargets()
+delay(10)
+hidetargets()
+delay(10)
+showtargets()
+delay(20)
+
+squeak(purple)
+text(purple,25,205,2)
+These points show up on our scans
+as having high energy patterns!
+speak_active
+endtext
+
+squeak(purple)
+text(purple,35,185,4)
+There's a good chance they're
+teleporters - which means
+they're probably built near
+something important...
+speak_active
+
+squeak(purple)
+text(purple,25,205,2)
+They could be a very good
+place to start looking.
+speak_active
+endtext
+delay(20)
+
+gamemode(game)
+delay(20)
+# And finally, back to the ship!
+
+squeak(player)
+text(player,0,0,2)
+Ok! I'll head out and see
+what I can find!
+position(player,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+I'll be right here if
+you need any help!
+position(purple,above)
+speak_active
+endtext
+
+rescued(purple)
+play(4)
+
+endcutscene()
+untilbars()
+hascontrol()
+
+createactivityzone(purple)

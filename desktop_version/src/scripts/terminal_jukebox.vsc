@@ -1,0 +1,28 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,7)
+  -= JUKEBOX =-       
+
+   Songs will continue to play   
+   until you leave the ship.
+
+      Collect trinkets to
+       unlock new songs!
+position(center)
+speak_active
+
+endtext
+
+iftrinketsless(5,terminal_jukeunlock1)
+iftrinketsless(8,terminal_jukeunlock2)
+iftrinketsless(10,terminal_jukeunlock3)
+iftrinketsless(12,terminal_jukeunlock4)
+iftrinketsless(14,terminal_jukeunlock41)
+iftrinketsless(16,terminal_jukeunlock5)
+iftrinketsless(18,terminal_jukeunlock6)
+iftrinketsless(20,terminal_jukeunlock7)
+
+endcutscene()
+untilbars()

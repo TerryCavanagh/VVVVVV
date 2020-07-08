@@ -1,0 +1,24 @@
+squeak(player)
+text(player,0,0,2)
+Now that the ship is fixed,
+we can leave anytime we want!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,3)
+We've all agreed to
+keep exploring this
+dimension, though.
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Who knows what we'll find?
+position(player,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()

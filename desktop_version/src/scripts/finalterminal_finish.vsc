@@ -1,0 +1,23 @@
+# delay(15)flash(5) shake(20) playef(9)
+
+text(gray,0,114,3)
+  -= WARNING =- 
+
+ DIMENSIONAL STABILISER OFFLINE 
+position(center)
+speak_active
+endtext
+
+squeak(cry)
+changemood(player,1)
+text(cyan,0,0,1)
+Uh oh...
+position(player,above)
+speak_active
+endtext
+
+play(2)
+changemood(player,0)
+
+endcutscene()
+untilbars()

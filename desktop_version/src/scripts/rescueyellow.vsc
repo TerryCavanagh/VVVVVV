@@ -1,0 +1,96 @@
+ifskip(skipyellow)
+cutscene()
+
+changeai(yellow,followplayer)
+changetile(yellow,6)
+untilbars()
+
+rescued(yellow)
+
+squeak(yellow)
+text(yellow,0,0,2)
+Ah, Viridian! You got off
+the ship alright too? 
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+It's good to see you're
+alright, Professor!
+position(player,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,1)
+Is the ship ok?
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+It's badly damaged, but Violet's
+been working on fixing it.
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+We could really use your help...
+position(player,above)
+speak_active
+
+endtext
+
+fadeout()
+untilfade()
+delay(30)
+fadein()
+untilfade()
+
+squeak(yellow)
+text(yellow,0,0,1)
+Ah, of course!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,4)
+The background interference
+in this dimension prevented
+the ship from finding a
+teleporter when we crashed!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+We've all been teleported
+to different locations!
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Er, that sounds about right!
+position(player,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+Let's get back to
+the ship, then!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,1)
+After you, Captain!
+position(yellow,above)
+speak_active
+
+endtext
+
+companion(7)
+endcutscene()
+untilbars()

@@ -1,0 +1,11 @@
+nocontrol()
+createcrewman(230,153,purple,0,faceleft)
+
+cutscene()
+untilbars()
+
+delay(30)
+rescued(purple)
+
+delay(10)
+gamestate(4090)

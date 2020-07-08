@@ -1,0 +1,20 @@
+cutscene()
+untilbars()
+
+squeak(player)
+text(player,0,0,1)
+Let's go this way!
+position(player,above)
+speak_active
+
+squeak(green)
+text(green,0,0,1)
+After you, Captain!
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+gamestate(11)

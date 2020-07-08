@@ -1,0 +1,30 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,1)
+Captain! Have you seen this?
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,3)
+With their research and ours,
+we should be able to stabilise
+our own dimension!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,1)
+We're saved!
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

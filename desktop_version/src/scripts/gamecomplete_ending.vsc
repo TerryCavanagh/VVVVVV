@@ -1,0 +1,247 @@
+delay(15)
+changemood(blue,0)
+play(10)
+delay(45)
+
+squeak(player)
+text(player,0,0,1)
+Hello!
+position(player,above)
+speak_active
+endtext
+
+squeak(purple)
+delay(1)
+squeak(yellow)
+delay(1)
+squeak(red)
+delay(1)
+squeak(green)
+
+text(purple,0,0,1)
+Captain!
+position(purple,above)
+backgroundtext
+speak
+text(yellow,0,0,1)
+Captain!      
+position(yellow,above)
+backgroundtext
+speak
+text(red,0,0,1)
+Captain!    
+position(red,above)
+backgroundtext
+speak
+text(green,0,0,1)
+Captain!  
+position(green,above)
+backgroundtext
+speak
+text(blue,0,0,1)
+Captain!
+position(blue,above)
+speak
+
+endtextfast
+
+squeak(blue)
+text(blue,0,0,1)
+You're alright!
+position(blue,above)
+speak_active
+
+squeak(blue)
+text(blue,0,0,1)
+I knew you'd be ok!
+position(blue,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+We were very worried when
+you didn't come back...
+position(purple,above)
+speak_active
+
+squeak(green)
+text(green,0,0,3)
+...but when you turned
+off the source of
+the interference...
+position(green,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,3)
+...we were able to
+find you with the
+ship's scanners...
+position(yellow,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+...and teleport you
+back on board!
+position(red,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+That was lucky!
+Thanks guys!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Thanks guys!
+position(player,above)
+speak_active
+
+endtext
+
+# Move to Vitellary's lab
+fadeout()
+untilfade()
+
+missing(purple)
+missing(red)
+missing(green)
+missing(blue)
+missing(yellow)
+
+gotoroom(3,11)
+gotoposition(117,105,0)
+changedir(player,0)
+createcrewman(75,105,yellow,0,faceright)
+createcrewman(190,105,red,0,faceleft)
+
+fadein()
+untilfade()
+
+squeak(yellow)
+text(yellow,0,0,4)
+...it looks like this
+dimension is starting
+to destabilise, just
+like our own...
+position(yellow,above)
+speak_active
+
+walk(right,3)
+
+squeak(red)
+text(red,0,0,3)
+...we can stay and
+explore for a little
+longer, but...
+position(red,above)
+speak_active
+
+walk(left,3)
+
+squeak(yellow)
+text(yellow,0,0,2)
+...eventually, it'll
+collapse completely.
+position(yellow,above)
+speak_active
+
+endtext
+
+# Move to Vertigris' lab
+fadeout()
+untilfade()
+
+gotoroom(3,10)
+gotoposition(210,177,0)
+changedir(player,1)
+createcrewman(245,177,green,0,faceleft)
+createcrewman(56,177,blue,0,faceright)
+
+fadein()
+untilfade()
+
+squeak(green)
+text(green,0,0,3)
+There's no telling exactly
+how long we have here. But
+the ship's fixed, so...
+position(green,above)
+speak_active
+
+walk(left,3)
+
+squeak(blue)
+text(blue,0,0,2)
+...as soon as we're
+ready, we can go home!
+position(blue,above)
+speak_active
+
+endtext
+
+# Move to the bridge!
+fadeout()
+untilfade()
+
+gotoroom(4,10)
+gotoposition(227,113,0)
+changedir(player,0)
+createcrewman(140,177,purple,0,faceright)
+createcrewman(115,177,yellow,0,faceright)
+createcrewman(90,177,red,0,faceright)
+createcrewman(65,177,green,0,faceright)
+createcrewman(40,177,blue,0,faceright)
+
+rescued(purple)
+rescued(red)
+rescued(green)
+rescued(blue)
+rescued(yellow)
+
+fadein()
+untilfade()
+
+squeak(purple)
+text(purple,0,0,1)
+What now, Captain?
+position(purple,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+Let's find a way to save
+this dimension!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+And a way to save our
+home dimension too!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+The answer is out there, somewhere!
+position(player,above)
+speak_active
+endtext
+
+delay(30)
+
+squeak(player)
+text(player,0,0,1)
+Let's go!
+position(player,above)
+speak_active
+
+endtext
+
+fadeout()
+untilfade()
+rollcredits()

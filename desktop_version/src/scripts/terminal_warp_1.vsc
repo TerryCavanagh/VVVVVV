@@ -1,0 +1,21 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,3)
+...The other day I was chased
+down a hallway by a giant cube
+with the word AVOID on it.
+position(center)
+speak_active
+
+squeak(terminal)
+text(gray,0,114,1)
+These security measures go too far!
+position(center)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

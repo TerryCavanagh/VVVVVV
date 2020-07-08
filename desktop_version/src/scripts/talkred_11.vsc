@@ -1,0 +1,16 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,1)
+I'm helping!
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(red)

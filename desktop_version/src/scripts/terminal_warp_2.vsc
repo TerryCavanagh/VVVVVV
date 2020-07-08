@@ -1,0 +1,22 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,2)
+The only way into my private lab
+anymore is by teleporter.
+position(center)
+speak_active
+
+squeak(terminal)
+text(gray,0,114,3)
+I've made sure that it's
+difficult for unauthorised
+personnel to gain access.
+position(center)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

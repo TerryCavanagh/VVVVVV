@@ -1,0 +1,13 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,1)
+?SYNTAX  ERROR
+position(center)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

@@ -1,0 +1,23 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,1)
+Look what I found!
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+It's pretty hard, I can only
+last for about 10 seconds...
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(red)

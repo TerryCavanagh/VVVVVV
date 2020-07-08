@@ -1,0 +1,27 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,3)
+I think it's no coincidence
+that the teleporter was drawn
+to that dimension...
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,4)
+There's something there. I
+think it might be causing the
+interference that's stopping
+us from leaving...
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

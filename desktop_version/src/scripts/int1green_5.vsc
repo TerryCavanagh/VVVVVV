@@ -1,0 +1,65 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,1)
+So, about Violet...
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Um, yeah?
+position(player,above)
+speak_active
+
+squeak(green)
+text(green,0,0,1)
+Do you have any advice?
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Oh!
+position(player,above)
+speak_active
+endtext
+
+delay(45)
+
+squeak(player)
+text(player,0,0,1)
+Hmm...
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Um... you should... be yourself!
+position(player,above)
+speak_active
+endtext
+
+delay(15)
+
+squeak(green)
+text(green,0,0,1)
+Oh.
+position(green,above)
+speak_active
+endtext
+
+delay(75)
+
+squeak(green)
+text(green,0,0,1)
+Thanks Captain!
+position(green,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()

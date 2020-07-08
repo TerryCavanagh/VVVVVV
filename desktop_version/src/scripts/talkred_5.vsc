@@ -1,0 +1,30 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,1)
+It's great to be back!
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+I can't wait to help you
+find the rest of the crew!
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+It'll be like old
+times, huh, Captain?
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(red)

@@ -1,0 +1,30 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(purple)
+text(purple,0,0,1)
+Welcome back, Captain!
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+I think Victoria is quite happy
+to be back on the ship.
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+She really doesn't like adventuring.
+She gets very homesick!
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

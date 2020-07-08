@@ -1,0 +1,53 @@
+hidetrinkets()
+endtextfast
+delay(10)
+
+# add map mode here and wrap up...
+gamemode(teleporter)
+delay(20)
+
+squeak(blue)
+text(blue,50,15,2)
+...and I was able to find more
+of them with the ship's scanner!
+speak_active
+
+endtext
+
+squeak(terminal)
+showtrinkets()
+delay(10)
+hidetrinkets()
+delay(10)
+showtrinkets()
+delay(10)
+hidetrinkets()
+delay(10)
+showtrinkets()
+delay(75)
+
+gamemode(game)
+delay(20)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,3)
+If you get a chance, it
+might be worth finding
+the rest of them!
+position(blue,below)
+speak_active
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,2)
+Don't put yourself in
+any danger, though!
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

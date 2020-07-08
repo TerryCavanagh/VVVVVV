@@ -1,3 +1,6 @@
+# Generated script code
+*.vsc.cpp
+
 # Build objects
 build/
 flibitBuild/

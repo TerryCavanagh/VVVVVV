@@ -1,0 +1,26 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,1)
+Are we there yet?
+position(red,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+We're getting closer, I think...
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+I hope...
+position(player,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()
