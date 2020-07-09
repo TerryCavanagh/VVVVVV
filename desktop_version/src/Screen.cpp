@@ -38,7 +38,17 @@ void Screen::init(
 	filterSubrect.y = 1;
 	filterSubrect.w = 318;
 	filterSubrect.h = 238;
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, isFiltered ? "linear" : "nearest");
+
+	SDL_SetHintWithPriority(
+		SDL_HINT_RENDER_SCALE_QUALITY,
+		isFiltered ? "linear" : "nearest",
+		SDL_HINT_OVERRIDE
+	);
+	SDL_SetHintWithPriority(
+		SDL_HINT_RENDER_VSYNC,
+		vsync ? "1" : "0",
+		SDL_HINT_OVERRIDE
+	);
 
 	// Uncomment this next line when you need to debug -flibit
 	// SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
@@ -287,7 +297,11 @@ void Screen::toggleStretchMode()
 void Screen::toggleLinearFilter()
 {
 	isFiltered = !isFiltered;
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, isFiltered ? "linear" : "nearest");
+	SDL_SetHintWithPriority(
+		SDL_HINT_RENDER_SCALE_QUALITY,
+		isFiltered ? "linear" : "nearest",
+		SDL_HINT_OVERRIDE
+	);
 	SDL_DestroyTexture(m_screenTexture);
 	m_screenTexture = SDL_CreateTexture(
 		m_renderer,
