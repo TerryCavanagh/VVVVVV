@@ -1661,20 +1661,23 @@ void mapclass::loadlevel(int rx, int ry)
 		if(redrawbg){
 			graphics.backgrounddrawn = false;
 		}
-		if(room.warpdir>0){
-			if(room.warpdir==1){
+		switch (room.warpdir)
+		{
+		case 1:
 			warpx=true;
 			background=3;
 			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
-			}else if(room.warpdir==2){
+			break;
+		case 2:
 			warpy=true;
 			background=4;
 			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
-			}else if(room.warpdir==3){
+			break;
+		case 3:
 			warpx=true; warpy=true;
 			background = 5;
 			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
-			}
+			break;
 		}
 
 		roomname = room.roomname;
