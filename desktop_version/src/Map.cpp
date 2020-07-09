@@ -1725,11 +1725,11 @@ void mapclass::loadlevel(int rx, int ry)
 				obj.createentity(ex, ey, 56,
 				ent.p1, 4, bx1, by1, bx2, by2);
 				break;
-			case 2: //Platforms and Threadmills
+			case 2: //Platforms and conveyors
 				if(ent.p1<=4){
 					obj.createentity(ex, ey, 2,
 					ent.p1, room.platv, bx1, by1, bx2, by2);
-				}else if(ent.p1 >= 5 && ent.p1 <= 8){ //Threadmill
+				}else if(ent.p1 >= 5 && ent.p1 <= 8){ // Conveyor
 					obj.createentity(ex, ey, 2,
 					ent.p1 + 3, 4);
 				}
@@ -1737,7 +1737,7 @@ void mapclass::loadlevel(int rx, int ry)
 			case 3: //Disappearing platforms
 				obj.createentity(ex, ey, 3);
 				break;
-			case 9:
+			case 9: // Trinkets
 				obj.createentity(ex, ey, 9, ed.findtrinket(edi));
 				break;
 			case 10: //Checkpoints
@@ -1800,7 +1800,7 @@ void mapclass::loadlevel(int rx, int ry)
 				obj.customwarpmode=true;
 				switch (ent.p1)
 				{
-				case 0: //
+				case 0: // Vertical, left
 					obj.createentity(ex + 4, ent.p2 * 8, 51, ent.p3);
 					break;
 				case 1: //Horizontal, right
@@ -1809,7 +1809,7 @@ void mapclass::loadlevel(int rx, int ry)
 				case 2: //Vertical, top
 					obj.createentity(ent.p2 * 8, ey + 7, 53, ent.p3);
 					break;
-				case 3:
+				case 3: // Horizontal, bottom
 					obj.createentity(ent.p2 * 8, ey, 54, ent.p3);
 					break;
 				}
