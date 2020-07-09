@@ -1680,15 +1680,16 @@ void mapclass::loadlevel(int rx, int ry)
 		int tempscriptbox=0;
 		for(size_t edi=0; edi<edentity.size(); edi++){
 			//If entity is in this room, create it
-			const int tsx = edentity[edi].x / 40;
-			const int tsy = edentity[edi].y / 30;
+			const edentities& ent = edentity[edi];
+			const int tsx = ent.x / 40;
+			const int tsy = ent.y / 30;
 			if (tsx != rx-100 || tsy != ry-100)
 			{
 				continue;
 			}
-			const int ex = (edentity[edi].x % 40) * 8;
-			const int ey = (edentity[edi].y % 30) * 8;
-			switch(edentity[edi].t){
+			const int ex = (ent.x % 40) * 8;
+			const int ey = (ent.y % 30) * 8;
+			switch(ent.t){
 			case 1: //Enemies
 				int bx1, by1, bx2, by2;
 				bx1=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyx1;
@@ -1701,10 +1702,10 @@ void mapclass::loadlevel(int rx, int ry)
 
 				obj.customenemy=ed.level[tsx+((ed.maxwidth)*tsy)].enemytype;
 				obj.createentity(ex, ey, 56,
-				edentity[edi].p1, 4, bx1, by1, bx2, by2);
+				ent.p1, 4, bx1, by1, bx2, by2);
 				break;
 			case 2: //Platforms and Threadmills
-				if(edentity[edi].p1<=4){
+				if(ent.p1<=4){
 					int bx1, by1, bx2, by2;
 					bx1=ed.level[rx-100+((ry-100)*ed.maxwidth)].platx1;
 					by1=ed.level[rx-100+((ry-100)*ed.maxwidth)].platy1;
@@ -1715,10 +1716,10 @@ void mapclass::loadlevel(int rx, int ry)
 					if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
 
 					obj.createentity(ex, ey, 2,
-					edentity[edi].p1, ed.level[rx-100+((ry-100)*ed.mapwidth)].platv, bx1, by1, bx2, by2);
-				}else if(edentity[edi].p1>=5 && edentity[edi].p1<=8){ //Threadmill
+					ent.p1, ed.level[rx-100+((ry-100)*ed.mapwidth)].platv, bx1, by1, bx2, by2);
+				}else if(ent.p1 >= 5 && ent.p1 <= 8){ //Threadmill
 					obj.createentity(ex, ey, 2,
-					edentity[edi].p1+3, 4);
+					ent.p1 + 3, 4);
 				}
 				break;
 			case 3: //Disappearing platforms
@@ -1729,21 +1730,21 @@ void mapclass::loadlevel(int rx, int ry)
 				break;
 			case 10: //Checkpoints
 				obj.createentity(ex, ey, 10,
-				edentity[edi].p1,((rx+(ry*100))*20)+tempcheckpoints);
+				ent.p1, ((rx+(ry*100))*20)+tempcheckpoints);
 				tempcheckpoints++;
 				break;
 			case 11: //Gravity Lines
-				if(edentity[edi].p1==0){ //Horizontal
-					obj.createentity((edentity[edi].p2*8), ey + 4, 11, edentity[edi].p3);
+				if(ent.p1==0){ //Horizontal
+					obj.createentity(ent.p2 * 8, ey + 4, 11, ent.p3);
 				}else{ //Vertical
-					obj.createentity(ex + 3,(edentity[edi].p2*8), 12, edentity[edi].p3);
+					obj.createentity(ex + 3, ent.p2 * 8, 12, ent.p3);
 				}
 				break;
 			case 13: //Warp Tokens
-				obj.createentity(ex, ey, 13, edentity[edi].p1, edentity[edi].p2);
+				obj.createentity(ex, ey, 13, ent.p1, ent.p2);
 				break;
 			case 15: //Collectable crewmate
-				obj.createentity(ex - 4, ey + 1, 55, ed.findcrewmate(edi), edentity[edi].p1, edentity[edi].p2);
+				obj.createentity(ex - 4, ey + 1, 55, ed.findcrewmate(edi), ent.p1, ent.p2);
 				break;
 			case 17: //Roomtext!
 			{
@@ -1751,15 +1752,15 @@ void mapclass::loadlevel(int rx, int ry)
 				Roomtext text;
 				text.x = ex / 8;
 				text.y = ey / 8;
-				text.text = edentity[edi].scriptname;
+				text.text = ent.scriptname;
 				roomtext.push_back(text);
 				break;
 			}
 			case 18: //Terminals
 			{
-				obj.customscript=edentity[edi].scriptname;
+				obj.customscript = ent.scriptname;
 
-				int usethistile = edentity[edi].p1;
+				int usethistile = ent.p1;
 				int usethisy = ey;
 
 				// This isn't a boolean: we just swap 0 and 1 around and leave the rest alone
@@ -1778,21 +1779,21 @@ void mapclass::loadlevel(int rx, int ry)
 				break;
 			}
 			case 19: //Script Box
-				game.customscript[tempscriptbox]=edentity[edi].scriptname;
+				game.customscript[tempscriptbox]=ent.scriptname;
 				obj.createblock(1, ex, ey,
-								edentity[edi].p1*8, edentity[edi].p2*8, 300+tempscriptbox);
+								ent.p1 * 8, ent.p2 * 8, 300+tempscriptbox);
 				tempscriptbox++;
 				break;
 			case 50: //Warp Lines
 				obj.customwarpmode=true;
-				if(edentity[edi].p1==0){ //
-					obj.createentity(ex + 4,(edentity[edi].p2*8), 51, edentity[edi].p3);
-				}else if(edentity[edi].p1==1){ //Horizontal, right
-					obj.createentity(ex + 4,(edentity[edi].p2*8), 52, edentity[edi].p3);
-				}else if(edentity[edi].p1==2){ //Vertical, top
-					obj.createentity((edentity[edi].p2*8), ey + 7, 53, edentity[edi].p3);
-				}else if(edentity[edi].p1==3){
-					obj.createentity((edentity[edi].p2*8), ey, 54, edentity[edi].p3);
+				if(ent.p1==0){ //
+					obj.createentity(ex + 4, ent.p2 * 8, 51, ent.p3);
+				}else if(ent.p1==1){ //Horizontal, right
+					obj.createentity(ex + 4, ent.p2 * 8, 52, ent.p3);
+				}else if(ent.p1==2){ //Vertical, top
+					obj.createentity(ent.p2 * 8, ey + 7, 53, ent.p3);
+				}else if(ent.p1==3){
+					obj.createentity(ent.p2 * 8, ey, 54, ent.p3);
 				}
 				break;
 			}
