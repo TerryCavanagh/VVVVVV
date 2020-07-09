@@ -1797,7 +1797,7 @@ void mapclass::loadlevel(int rx, int ry)
 				}
 				break;
 			}
-			}
+		}
 
 		//do the appear/remove roomname here
 		break;
