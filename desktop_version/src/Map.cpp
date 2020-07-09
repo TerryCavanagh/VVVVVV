@@ -1544,8 +1544,8 @@ void mapclass::loadlevel(int rx, int ry)
 		cameramode = 0;
 		colstate = 0;
 		colsuperstate = 0;
-	}
 		break;
+	}
 	case 10: //Final Level, Tower 2
 	{
 
@@ -1583,8 +1583,8 @@ void mapclass::loadlevel(int rx, int ry)
 		cameramode = 0;
 		colstate = 0;
 		colsuperstate = 0;
-	}
 		break;
+	}
 	case 11: //Tower Hallways //Content is held in final level routine
 	{
 		const int* tmap = finallevel.loadlevel(rx, ry);
@@ -1606,8 +1606,8 @@ void mapclass::loadlevel(int rx, int ry)
 			background = 9;
 			rcol = 0;
 		}
-	}
 		break;
+	}
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
