@@ -1680,8 +1680,8 @@ void mapclass::loadlevel(int rx, int ry)
 		int tempscriptbox=0;
 		for(size_t edi=0; edi<edentity.size(); edi++){
 			//If entity is in this room, create it
-			int tsx=(edentity[edi].x-(edentity[edi].x%40))/40;
-			int tsy=(edentity[edi].y-(edentity[edi].y%30))/30;
+			const int tsx = edentity[edi].x / 40;
+			const int tsy = edentity[edi].y / 30;
 			if (tsx != rx-100 || tsy != ry-100)
 			{
 				continue;
