@@ -1689,7 +1689,7 @@ void mapclass::loadlevel(int rx, int ry)
 			const int ex = (edentity[edi].x % 40) * 8;
 			const int ey = (edentity[edi].y % 30) * 8;
 			switch(edentity[edi].t){
-				case 1: //Enemies
+			case 1: //Enemies
 				int bx1, by1, bx2, by2;
 				bx1=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyx1;
 				by1=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyy1;
@@ -1703,7 +1703,7 @@ void mapclass::loadlevel(int rx, int ry)
 				obj.createentity(ex, ey, 56,
 				edentity[edi].p1, 4, bx1, by1, bx2, by2);
 				break;
-				case 2: //Platforms and Threadmills
+			case 2: //Platforms and Threadmills
 				if(edentity[edi].p1<=4){
 					int bx1, by1, bx2, by2;
 					bx1=ed.level[rx-100+((ry-100)*ed.maxwidth)].platx1;
@@ -1721,32 +1721,32 @@ void mapclass::loadlevel(int rx, int ry)
 					edentity[edi].p1+3, 4);
 				}
 				break;
-				case 3: //Disappearing platforms
+			case 3: //Disappearing platforms
 				obj.createentity(ex, ey, 3);
 				break;
-				case 9:
+			case 9:
 				obj.createentity(ex, ey, 9, ed.findtrinket(edi));
 				break;
-				case 10: //Checkpoints
+			case 10: //Checkpoints
 				obj.createentity(ex, ey, 10,
 				edentity[edi].p1,((rx+(ry*100))*20)+tempcheckpoints);
 				tempcheckpoints++;
 				break;
-				case 11: //Gravity Lines
+			case 11: //Gravity Lines
 				if(edentity[edi].p1==0){ //Horizontal
 					obj.createentity((edentity[edi].p2*8), ey + 4, 11, edentity[edi].p3);
 				}else{ //Vertical
 					obj.createentity(ex + 3,(edentity[edi].p2*8), 12, edentity[edi].p3);
 				}
 				break;
-				case 13: //Warp Tokens
+			case 13: //Warp Tokens
 				obj.createentity(ex, ey, 13, edentity[edi].p1, edentity[edi].p2);
 				break;
-				case 15: //Collectable crewmate
+			case 15: //Collectable crewmate
 				obj.createentity(ex - 4, ey + 1, 55, ed.findcrewmate(edi), edentity[edi].p1, edentity[edi].p2);
 				break;
-				case 17: //Roomtext!
-				{
+			case 17: //Roomtext!
+			{
 				roomtexton = true;
 				Roomtext text;
 				text.x = ex / 8;
@@ -1754,9 +1754,9 @@ void mapclass::loadlevel(int rx, int ry)
 				text.text = edentity[edi].scriptname;
 				roomtext.push_back(text);
 				break;
-				}
-				case 18: //Terminals
-				{
+			}
+			case 18: //Terminals
+			{
 				obj.customscript=edentity[edi].scriptname;
 
 				int usethistile = edentity[edi].p1;
@@ -1776,14 +1776,14 @@ void mapclass::loadlevel(int rx, int ry)
 				obj.createentity(ex, usethisy + 8, 20, usethistile);
 				obj.createblock(5, ex - 8, usethisy + 8, 20, 16, 35);
 				break;
-				}
-				case 19: //Script Box
+			}
+			case 19: //Script Box
 				game.customscript[tempscriptbox]=edentity[edi].scriptname;
 				obj.createblock(1, ex, ey,
 								edentity[edi].p1*8, edentity[edi].p2*8, 300+tempscriptbox);
 				tempscriptbox++;
 				break;
-				case 50: //Warp Lines
+			case 50: //Warp Lines
 				obj.customwarpmode=true;
 				if(edentity[edi].p1==0){ //
 					obj.createentity(ex + 4,(edentity[edi].p2*8), 51, edentity[edi].p3);
