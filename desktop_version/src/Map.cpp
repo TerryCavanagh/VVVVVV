@@ -1611,6 +1611,7 @@ void mapclass::loadlevel(int rx, int ry)
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
+	{
 		const int curlevel = rx-100 + (ry-100) * ed.maxwidth;
 		const edlevelclass* room_ptr = NULL;
 		if (!INBOUNDS_ARR(curlevel, ed.level))
@@ -1815,6 +1816,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 		//do the appear/remove roomname here
 		break;
+	}
 #endif
 	}
 	//The room's loaded: now we fill out damage blocks based on the tiles.
