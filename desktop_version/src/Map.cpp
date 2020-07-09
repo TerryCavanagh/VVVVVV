@@ -1792,7 +1792,7 @@ void mapclass::loadlevel(int rx, int ry)
 				}
 
 				obj.createentity(ex, usethisy + 8, 20, usethistile);
-				obj.createblock(5, ex - 8, usethisy + 8, 20, 16, 35);
+				obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
 				break;
 			}
 			case 19: //Script Box
@@ -1800,7 +1800,7 @@ void mapclass::loadlevel(int rx, int ry)
 				{
 					game.customscript[tempscriptbox]=ent.scriptname;
 				}
-				obj.createblock(1, ex, ey,
+				obj.createblock(TRIGGER, ex, ey,
 								ent.p1*8, ent.p2*8, 300+tempscriptbox, "custom_" + ent.scriptname);
 				tempscriptbox++;
 				break;
