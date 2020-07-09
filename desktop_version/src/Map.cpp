@@ -1701,32 +1701,32 @@ void mapclass::loadlevel(int rx, int ry)
 			const int ex = (ent.x % 40) * 8;
 			const int ey = (ent.y % 30) * 8;
 
+			// Platform and enemy bounding boxes
+			int bx1 = room.platx1;
+			int by1 = room.platy1;
+			int bx2 = room.platx2;
+			int by2 = room.platy2;
+
+			// Enlarge bounding boxes to fix warping entities
+			if (warpx && bx1 == 0 && bx2 == 320)
+			{
+				bx1 -= 100;
+				bx2 += 100;
+			}
+			if (warpy && by1 == 0 && by2 == 240)
+			{
+				by1 -= 100;
+				by2 += 100;
+			}
+
 			switch(ent.t){
 			case 1: //Enemies
-				int bx1, by1, bx2, by2;
-				bx1=room.enemyx1;
-				by1=room.enemyy1;
-				bx2=room.enemyx2;
-				by2=room.enemyy2;
-
-				if(warpx){ if(bx1==0 && bx2==320){ bx1=-100; bx2=420; } }
-				if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
-
 				obj.customenemy=room.enemytype;
 				obj.createentity(ex, ey, 56,
 				ent.p1, 4, bx1, by1, bx2, by2);
 				break;
 			case 2: //Platforms and Threadmills
 				if(ent.p1<=4){
-					int bx1, by1, bx2, by2;
-					bx1=room.platx1;
-					by1=room.platy1;
-					bx2=room.platx2;
-					by2=room.platy2;
-
-					if(warpx){ if(bx1==0 && bx2==320){ bx1=-100; bx2=420; } }
-					if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
-
 					obj.createentity(ex, ey, 2,
 					ent.p1, room.platv, bx1, by1, bx2, by2);
 				}else if(ent.p1 >= 5 && ent.p1 <= 8){ //Threadmill
