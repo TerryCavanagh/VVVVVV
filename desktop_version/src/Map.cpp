@@ -1629,28 +1629,28 @@ void mapclass::loadlevel(int rx, int ry)
 		game.customcol=ed.getlevelcol(curlevel)+1;
 		obj.customplatformtile=game.customcol*12;
 		switch(room.tileset){
-			case 0: //Space Station
+		case 0: //Space Station
 			tileset = 0;
 			background = 1;
 			break;
-			case 1: //Outside
+		case 1: //Outside
 			tileset = 1;
 			background = 1;
 			break;
-			case 2: //Lab
+		case 2: //Lab
 			tileset = 1;
 			background = 2;
 			graphics.rcol = room.tilecol;
 			break;
-			case 3: //Warp Zone/intermission
+		case 3: //Warp Zone/intermission
 			tileset = 1;
 			background = 6;
 			break;
-			case 4://Ship
+		case 4://Ship
 			tileset = 1;
 			background = 1;
 			break;
-			default:
+		default:
 			tileset = 1;
 			background = 1;
 			break;
