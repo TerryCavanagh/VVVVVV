@@ -1611,10 +1611,23 @@ void mapclass::loadlevel(int rx, int ry)
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
-		int curlevel=(rx-100)+((ry-100)*ed.maxwidth);
+		const int curlevel = rx-100 + (ry-100) * ed.maxwidth;
+		const edlevelclass* room_ptr = NULL;
+		if (!INBOUNDS_ARR(curlevel, ed.level))
+		{
+			static edlevelclass blank;
+			blank.tileset = 1;
+			room_ptr = &blank;
+		}
+		else
+		{
+			room_ptr = &ed.level[curlevel];
+		}
+		const edlevelclass& room = *room_ptr;
+
 		game.customcol=ed.getlevelcol(curlevel)+1;
 		obj.customplatformtile=game.customcol*12;
-		switch(ed.level[curlevel].tileset){
+		switch(room.tileset){
 			case 0: //Space Station
 			tileset = 0;
 			background = 1;
@@ -1626,7 +1639,7 @@ void mapclass::loadlevel(int rx, int ry)
 			case 2: //Lab
 			tileset = 1;
 			background = 2;
-			graphics.rcol = ed.level[curlevel].tilecol;
+			graphics.rcol = room.tilecol;
 			break;
 			case 3: //Warp Zone/intermission
 			tileset = 1;
@@ -1647,16 +1660,16 @@ void mapclass::loadlevel(int rx, int ry)
 		if(redrawbg){
 			graphics.backgrounddrawn = false;
 		}
-		if(ed.level[curlevel].warpdir>0){
-			if(ed.level[curlevel].warpdir==1){
+		if(room.warpdir>0){
+			if(room.warpdir==1){
 			warpx=true;
 			background=3;
 			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
-			}else if(ed.level[curlevel].warpdir==2){
+			}else if(room.warpdir==2){
 			warpy=true;
 			background=4;
 			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
-			}else if(ed.level[curlevel].warpdir==3){
+			}else if(room.warpdir==3){
 			warpx=true; warpy=true;
 			background = 5;
 			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
@@ -1664,8 +1677,8 @@ void mapclass::loadlevel(int rx, int ry)
 		}
 
 		roomname="";
-		if(ed.level[curlevel].roomname!=""){
-			roomname=ed.level[curlevel].roomname;
+		if(room.roomname!=""){
+			roomname=room.roomname;
 		}
 		extrarow = 1;
 		const int* tmap = ed.loadlevel(rx, ry);
@@ -1689,34 +1702,35 @@ void mapclass::loadlevel(int rx, int ry)
 			}
 			const int ex = (ent.x % 40) * 8;
 			const int ey = (ent.y % 30) * 8;
+
 			switch(ent.t){
 			case 1: //Enemies
 				int bx1, by1, bx2, by2;
-				bx1=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyx1;
-				by1=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyy1;
-				bx2=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyx2;
-				by2=ed.level[rx-100+((ry-100)*ed.maxwidth)].enemyy2;
+				bx1=room.enemyx1;
+				by1=room.enemyy1;
+				bx2=room.enemyx2;
+				by2=room.enemyy2;
 
 				if(warpx){ if(bx1==0 && bx2==320){ bx1=-100; bx2=420; } }
 				if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
 
-				obj.customenemy=ed.level[tsx+((ed.maxwidth)*tsy)].enemytype;
+				obj.customenemy=room.enemytype;
 				obj.createentity(ex, ey, 56,
 				ent.p1, 4, bx1, by1, bx2, by2);
 				break;
 			case 2: //Platforms and Threadmills
 				if(ent.p1<=4){
 					int bx1, by1, bx2, by2;
-					bx1=ed.level[rx-100+((ry-100)*ed.maxwidth)].platx1;
-					by1=ed.level[rx-100+((ry-100)*ed.maxwidth)].platy1;
-					bx2=ed.level[rx-100+((ry-100)*ed.maxwidth)].platx2;
-					by2=ed.level[rx-100+((ry-100)*ed.maxwidth)].platy2;
+					bx1=room.platx1;
+					by1=room.platy1;
+					bx2=room.platx2;
+					by2=room.platy2;
 
 					if(warpx){ if(bx1==0 && bx2==320){ bx1=-100; bx2=420; } }
 					if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
 
 					obj.createentity(ex, ey, 2,
-					ent.p1, ed.level[rx-100+((ry-100)*ed.mapwidth)].platv, bx1, by1, bx2, by2);
+					ent.p1, room.platv, bx1, by1, bx2, by2);
 				}else if(ent.p1 >= 5 && ent.p1 <= 8){ //Threadmill
 					obj.createentity(ex, ey, 2,
 					ent.p1 + 3, 4);
