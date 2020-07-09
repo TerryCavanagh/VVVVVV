@@ -1666,18 +1666,19 @@ void mapclass::loadlevel(int rx, int ry)
 		case 1:
 			warpx=true;
 			background=3;
-			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
 			break;
 		case 2:
 			warpy=true;
 			background=4;
-			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
 			break;
 		case 3:
 			warpx=true; warpy=true;
 			background = 5;
-			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
 			break;
+		}
+		if (room.warpdir > 0)
+		{
+			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
 		}
 
 		roomname = room.roomname;
