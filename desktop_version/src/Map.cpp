@@ -1626,27 +1626,29 @@ void mapclass::loadlevel(int rx, int ry)
 		}
 		const edlevelclass& room = *room_ptr;
 
-		game.customcol=ed.getlevelcol(curlevel)+1;
-		obj.customplatformtile=game.customcol*12;
-		switch(room.tileset){
-		case 0: //Space Station
+		game.customcol = ed.getlevelcol(curlevel) + 1;
+		obj.customplatformtile = game.customcol * 12;
+
+		switch (room.tileset)
+		{
+		case 0: // Space Station
 			tileset = 0;
 			background = 1;
 			break;
-		case 1: //Outside
+		case 1: // Outside
 			tileset = 1;
 			background = 1;
 			break;
-		case 2: //Lab
+		case 2: // Lab
 			tileset = 1;
 			background = 2;
 			graphics.rcol = room.tilecol;
 			break;
-		case 3: //Warp Zone/intermission
+		case 3: // Warp Zone/intermission
 			tileset = 1;
 			background = 6;
 			break;
-		case 4://Ship
+		case 4: // Ship
 			tileset = 1;
 			background = 1;
 			break;
@@ -1656,29 +1658,32 @@ void mapclass::loadlevel(int rx, int ry)
 			break;
 		}
 
-		//If screen warping, then override all that:
+		// If screen warping, then override all that:
 		bool redrawbg = game.roomx != game.prevroomx || game.roomy != game.prevroomy;
-		if(redrawbg){
+		if (redrawbg)
+		{
 			graphics.backgrounddrawn = false;
 		}
+
 		switch (room.warpdir)
 		{
 		case 1:
-			warpx=true;
-			background=3;
+			warpx = true;
+			background = 3;
 			break;
 		case 2:
-			warpy=true;
-			background=4;
+			warpy = true;
+			background = 4;
 			break;
 		case 3:
-			warpx=true; warpy=true;
+			warpx = true;
+			warpy = true;
 			background = 5;
 			break;
 		}
 		if (room.warpdir > 0)
 		{
-			graphics.rcol = ed.getwarpbackground(rx-100,ry-100);
+			graphics.rcol = ed.getwarpbackground(rx - 100, ry - 100);
 		}
 
 		roomname = room.roomname;
@@ -1690,18 +1695,21 @@ void mapclass::loadlevel(int rx, int ry)
 		roomtexton = false;
 		roomtext.clear();
 
-		//Entities have to be created HERE, akwardly
-		int tempcheckpoints=0;
-		int tempscriptbox=0;
-		for(size_t edi=0; edi<edentity.size(); edi++){
-			//If entity is in this room, create it
+		// Entities have to be created HERE, akwardly
+		int tempcheckpoints = 0;
+		int tempscriptbox = 0;
+		for (size_t edi = 0; edi < edentity.size(); edi++)
+		{
+			// If entity is in this room, create it
 			const edentities& ent = edentity[edi];
 			const int tsx = ent.x / 40;
 			const int tsy = ent.y / 30;
+
 			if (tsx != rx-100 || tsy != ry-100)
 			{
 				continue;
 			}
+
 			const int ex = (ent.x % 40) * 8;
 			const int ey = (ent.y % 30) * 8;
 
@@ -1723,46 +1731,49 @@ void mapclass::loadlevel(int rx, int ry)
 				by2 += 100;
 			}
 
-			switch(ent.t){
-			case 1: //Enemies
-				obj.customenemy=room.enemytype;
-				obj.createentity(ex, ey, 56,
-				ent.p1, 4, bx1, by1, bx2, by2);
+			switch (ent.t)
+			{
+			case 1: // Enemies
+				obj.customenemy = room.enemytype;
+				obj.createentity(ex, ey, 56, ent.p1, 4, bx1, by1, bx2, by2);
 				break;
-			case 2: //Platforms and conveyors
-				if(ent.p1<=4){
-					obj.createentity(ex, ey, 2,
-					ent.p1, room.platv, bx1, by1, bx2, by2);
-				}else if(ent.p1 >= 5 && ent.p1 <= 8){ // Conveyor
-					obj.createentity(ex, ey, 2,
-					ent.p1 + 3, 4);
+			case 2: // Platforms and conveyors
+				if (ent.p1 <= 4)
+				{
+					obj.createentity(ex, ey, 2, ent.p1, room.platv, bx1, by1, bx2, by2);
+				}
+				else if (ent.p1 >= 5 && ent.p1 <= 8) // Conveyor
+				{
+					obj.createentity(ex, ey, 2, ent.p1 + 3, 4);
 				}
 				break;
-			case 3: //Disappearing platforms
+			case 3: // Disappearing platforms
 				obj.createentity(ex, ey, 3);
 				break;
 			case 9: // Trinkets
 				obj.createentity(ex, ey, 9, ed.findtrinket(edi));
 				break;
-			case 10: //Checkpoints
-				obj.createentity(ex, ey, 10,
-				ent.p1, ((rx+(ry*100))*20)+tempcheckpoints);
+			case 10: // Checkpoints
+				obj.createentity(ex, ey, 10, ent.p1, (rx + ry*100) * 20 + tempcheckpoints);
 				tempcheckpoints++;
 				break;
-			case 11: //Gravity Lines
-				if(ent.p1==0){ //Horizontal
+			case 11: // Gravity Lines
+				if (ent.p1 == 0) //Horizontal
+				{
 					obj.createentity(ent.p2 * 8, ey + 4, 11, ent.p3);
-				}else{ //Vertical
+				}
+				else //Vertical
+				{
 					obj.createentity(ex + 3, ent.p2 * 8, 12, ent.p3);
 				}
 				break;
-			case 13: //Warp Tokens
+			case 13: // Warp Tokens
 				obj.createentity(ex, ey, 13, ent.p1, ent.p2);
 				break;
-			case 15: //Collectable crewmate
+			case 15: // Collectable crewmate
 				obj.createentity(ex - 4, ey + 1, 55, ed.findcrewmate(edi), ent.p1, ent.p2);
 				break;
-			case 17: //Roomtext!
+			case 17: // Roomtext!
 			{
 				roomtexton = true;
 				Roomtext text;
@@ -1772,7 +1783,7 @@ void mapclass::loadlevel(int rx, int ry)
 				roomtext.push_back(text);
 				break;
 			}
-			case 18: //Terminals
+			case 18: // Terminals
 			{
 				obj.customscript = ent.scriptname;
 
@@ -1794,13 +1805,12 @@ void mapclass::loadlevel(int rx, int ry)
 				obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
 				break;
 			}
-			case 19: //Script Box
-				game.customscript[tempscriptbox]=ent.scriptname;
-				obj.createblock(TRIGGER, ex, ey,
-								ent.p1 * 8, ent.p2 * 8, 300+tempscriptbox);
+			case 19: // Script Box
+				game.customscript[tempscriptbox] = ent.scriptname;
+				obj.createblock(TRIGGER, ex, ey, ent.p1 * 8, ent.p2 * 8, 300 + tempscriptbox);
 				tempscriptbox++;
 				break;
-			case 50: //Warp Lines
+			case 50: // Warp Lines
 				obj.customwarpmode=true;
 				switch (ent.p1)
 				{
