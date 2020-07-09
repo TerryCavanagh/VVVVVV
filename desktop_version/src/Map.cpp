@@ -1806,14 +1806,20 @@ void mapclass::loadlevel(int rx, int ry)
 				break;
 			case 50: //Warp Lines
 				obj.customwarpmode=true;
-				if(ent.p1==0){ //
+				switch (ent.p1)
+				{
+				case 0: //
 					obj.createentity(ex + 4, ent.p2 * 8, 51, ent.p3);
-				}else if(ent.p1==1){ //Horizontal, right
+					break;
+				case 1: //Horizontal, right
 					obj.createentity(ex + 4, ent.p2 * 8, 52, ent.p3);
-				}else if(ent.p1==2){ //Vertical, top
+					break;
+				case 2: //Vertical, top
 					obj.createentity(ent.p2 * 8, ey + 7, 53, ent.p3);
-				}else if(ent.p1==3){
+					break;
+				case 3:
 					obj.createentity(ent.p2 * 8, ey, 54, ent.p3);
+					break;
 				}
 				break;
 			}
