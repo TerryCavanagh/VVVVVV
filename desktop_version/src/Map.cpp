@@ -1677,10 +1677,7 @@ void mapclass::loadlevel(int rx, int ry)
 			}
 		}
 
-		roomname="";
-		if(room.roomname!=""){
-			roomname=room.roomname;
-		}
+		roomname = room.roomname;
 		extrarow = 1;
 		const int* tmap = ed.loadlevel(rx, ry);
 		SDL_memcpy(contents, tmap, sizeof(contents));
