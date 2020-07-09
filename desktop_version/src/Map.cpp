@@ -1682,7 +1682,10 @@ void mapclass::loadlevel(int rx, int ry)
 			//If entity is in this room, create it
 			int tsx=(edentity[edi].x-(edentity[edi].x%40))/40;
 			int tsy=(edentity[edi].y-(edentity[edi].y%30))/30;
-			if(tsx==rx-100 && tsy==ry-100){
+			if (tsx != rx-100 || tsy != ry-100)
+			{
+				continue;
+			}
 			switch(edentity[edi].t){
 				case 1: //Enemies
 				int bx1, by1, bx2, by2;
@@ -1790,7 +1793,6 @@ void mapclass::loadlevel(int rx, int ry)
 					obj.createentity((edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8), 54, edentity[edi].p3);
 				}
 				break;
-			}
 			}
 			}
 
