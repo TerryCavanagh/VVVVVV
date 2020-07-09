@@ -1686,6 +1686,8 @@ void mapclass::loadlevel(int rx, int ry)
 			{
 				continue;
 			}
+			const int ex = (edentity[edi].x % 40) * 8;
+			const int ey = (edentity[edi].y % 30) * 8;
 			switch(edentity[edi].t){
 				case 1: //Enemies
 				int bx1, by1, bx2, by2;
@@ -1698,7 +1700,7 @@ void mapclass::loadlevel(int rx, int ry)
 				if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
 
 				obj.customenemy=ed.level[tsx+((ed.maxwidth)*tsy)].enemytype;
-				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 56,
+				obj.createentity(ex, ey, 56,
 				edentity[edi].p1, 4, bx1, by1, bx2, by2);
 				break;
 				case 2: //Platforms and Threadmills
@@ -1712,43 +1714,43 @@ void mapclass::loadlevel(int rx, int ry)
 					if(warpx){ if(bx1==0 && bx2==320){ bx1=-100; bx2=420; } }
 					if(warpy){ if(by1==0 && by2==240){ by1=-100; by2=340; } }
 
-					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 2,
+					obj.createentity(ex, ey, 2,
 					edentity[edi].p1, ed.level[rx-100+((ry-100)*ed.mapwidth)].platv, bx1, by1, bx2, by2);
 				}else if(edentity[edi].p1>=5 && edentity[edi].p1<=8){ //Threadmill
-					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 2,
+					obj.createentity(ex, ey, 2,
 					edentity[edi].p1+3, 4);
 				}
 				break;
 				case 3: //Disappearing platforms
-				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 3);
+				obj.createentity(ex, ey, 3);
 				break;
 				case 9:
-				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 9, ed.findtrinket(edi));
+				obj.createentity(ex, ey, 9, ed.findtrinket(edi));
 				break;
 				case 10: //Checkpoints
-				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 10,
+				obj.createentity(ex, ey, 10,
 				edentity[edi].p1,((rx+(ry*100))*20)+tempcheckpoints);
 				tempcheckpoints++;
 				break;
 				case 11: //Gravity Lines
 				if(edentity[edi].p1==0){ //Horizontal
-					obj.createentity((edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8)+4, 11, edentity[edi].p3);
+					obj.createentity((edentity[edi].p2*8), ey + 4, 11, edentity[edi].p3);
 				}else{ //Vertical
-					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8)+3,(edentity[edi].p2*8), 12, edentity[edi].p3);
+					obj.createentity(ex + 3,(edentity[edi].p2*8), 12, edentity[edi].p3);
 				}
 				break;
 				case 13: //Warp Tokens
-				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8),(edentity[edi].y*8)- ((ry-100)*30*8), 13, edentity[edi].p1, edentity[edi].p2);
+				obj.createentity(ex, ey, 13, edentity[edi].p1, edentity[edi].p2);
 				break;
 				case 15: //Collectable crewmate
-				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8)-4,(edentity[edi].y*8)- ((ry-100)*30*8)+1, 55, ed.findcrewmate(edi), edentity[edi].p1, edentity[edi].p2);
+				obj.createentity(ex - 4, ey + 1, 55, ed.findcrewmate(edi), edentity[edi].p1, edentity[edi].p2);
 				break;
 				case 17: //Roomtext!
 				{
 				roomtexton = true;
 				Roomtext text;
-				text.x = edentity[edi].x - ((rx-100)*40);
-				text.y = edentity[edi].y - ((ry-100)*30);
+				text.x = ex / 8;
+				text.y = ey / 8;
 				text.text = edentity[edi].scriptname;
 				roomtext.push_back(text);
 				break;
@@ -1758,7 +1760,7 @@ void mapclass::loadlevel(int rx, int ry)
 				obj.customscript=edentity[edi].scriptname;
 
 				int usethistile = edentity[edi].p1;
-				int usethisy = (edentity[edi].y*8)- ((ry-100)*30*8);
+				int usethisy = ey;
 
 				// This isn't a boolean: we just swap 0 and 1 around and leave the rest alone
 				if (usethistile == 0)
@@ -1771,8 +1773,8 @@ void mapclass::loadlevel(int rx, int ry)
 					usethisy -= 8;
 				}
 
-				obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8), usethisy+8, 20, usethistile);
-				obj.createblock(5, (edentity[edi].x*8)- ((rx-100)*40*8)-8, usethisy+8, 20, 16, 35);
+				obj.createentity(ex, usethisy + 8, 20, usethistile);
+				obj.createblock(5, ex - 8, usethisy + 8, 20, 16, 35);
 				break;
 				}
 				case 19: //Script Box
@@ -1780,20 +1782,20 @@ void mapclass::loadlevel(int rx, int ry)
 				{
 					game.customscript[tempscriptbox]=edentity[edi].scriptname;
 				}
-				obj.createblock(1, (edentity[edi].x*8)- ((rx-100)*40*8), (edentity[edi].y*8)- ((ry-100)*30*8),
+				obj.createblock(1, ex, ey,
 								edentity[edi].p1*8, edentity[edi].p2*8, 300+tempscriptbox, "custom_" + edentity[edi].scriptname);
 				tempscriptbox++;
 				break;
 				case 50: //Warp Lines
 				obj.customwarpmode=true;
 				if(edentity[edi].p1==0){ //
-					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8)+4,(edentity[edi].p2*8), 51, edentity[edi].p3);
+					obj.createentity(ex + 4,(edentity[edi].p2*8), 51, edentity[edi].p3);
 				}else if(edentity[edi].p1==1){ //Horizontal, right
-					obj.createentity((edentity[edi].x*8)- ((rx-100)*40*8)+4,(edentity[edi].p2*8), 52, edentity[edi].p3);
+					obj.createentity(ex + 4,(edentity[edi].p2*8), 52, edentity[edi].p3);
 				}else if(edentity[edi].p1==2){ //Vertical, top
-					obj.createentity((edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8)+7, 53, edentity[edi].p3);
+					obj.createentity((edentity[edi].p2*8), ey + 7, 53, edentity[edi].p3);
 				}else if(edentity[edi].p1==3){
-					obj.createentity((edentity[edi].p2*8),(edentity[edi].y*8)- ((ry-100)*30*8), 54, edentity[edi].p3);
+					obj.createentity((edentity[edi].p2*8), ey, 54, edentity[edi].p3);
 				}
 				break;
 			}
