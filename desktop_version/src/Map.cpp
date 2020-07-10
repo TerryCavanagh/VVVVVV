@@ -1775,7 +1775,7 @@ void mapclass::loadlevel(int rx, int ry)
 				case 19: //Script Box
 				game.customscript[tempscriptbox]=edentity[edi].scriptname;
 				obj.createblock(1, (edentity[edi].x*8)- ((rx-100)*40*8), (edentity[edi].y*8)- ((ry-100)*30*8),
-								edentity[edi].p1*8, edentity[edi].p2*8, 300+tempscriptbox);
+								edentity[edi].p1*8, edentity[edi].p2*8, 300+tempscriptbox, "custom_" + edentity[edi].scriptname);
 				tempscriptbox++;
 				break;
 				case 50: //Warp Lines

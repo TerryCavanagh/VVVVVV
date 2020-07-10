@@ -53,7 +53,7 @@ public:
 
     void generateswnwave(int t);
 
-    void createblock(int t, int xp, int yp, int w, int h, int trig = 0);
+    void createblock(int t, int xp, int yp, int w, int h, int trig = 0, const std::string& script = "");
 
     bool removeentity(int t);
 
