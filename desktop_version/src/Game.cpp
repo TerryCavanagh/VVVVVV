@@ -1685,225 +1685,45 @@ void Game::updatestate()
 
         // WARNING: If updating this code, make sure to update Map.cpp mapclass::twoframedelayfix()
         case 300:
-            startscript = true;
-            newscript="custom_"+customscript[0];
-            obj.removetrigger(300);
-            state = 0;
-            break;
         case 301:
-            startscript = true;
-            newscript="custom_"+customscript[1];
-            obj.removetrigger(301);
-            state = 0;
-            break;
         case 302:
-            startscript = true;
-            newscript="custom_"+customscript[2];
-            obj.removetrigger(302);
-            state = 0;
-            break;
         case 303:
-            startscript = true;
-            newscript="custom_"+customscript[3];
-            obj.removetrigger(303);
-            state = 0;
-            break;
         case 304:
-            startscript = true;
-            newscript="custom_"+customscript[4];
-            obj.removetrigger(304);
-            state = 0;
-            break;
         case 305:
-            startscript = true;
-            newscript="custom_"+customscript[5];
-            obj.removetrigger(305);
-            state = 0;
-            break;
         case 306:
-            startscript = true;
-            newscript="custom_"+customscript[6];
-            obj.removetrigger(306);
-            state = 0;
-            break;
         case 307:
-            startscript = true;
-            newscript="custom_"+customscript[7];
-            obj.removetrigger(307);
-            state = 0;
-            break;
         case 308:
-            startscript = true;
-            newscript="custom_"+customscript[8];
-            obj.removetrigger(308);
-            state = 0;
-            break;
         case 309:
-            startscript = true;
-            newscript="custom_"+customscript[9];
-            obj.removetrigger(309);
-            state = 0;
-            break;
         case 310:
-            startscript = true;
-            newscript="custom_"+customscript[10];
-            obj.removetrigger(310);
-            state = 0;
-            break;
         case 311:
-            startscript = true;
-            newscript="custom_"+customscript[11];
-            obj.removetrigger(311);
-            state = 0;
-            break;
         case 312:
-            startscript = true;
-            newscript="custom_"+customscript[12];
-            obj.removetrigger(312);
-            state = 0;
-            break;
         case 313:
-            startscript = true;
-            newscript="custom_"+customscript[13];
-            obj.removetrigger(313);
-            state = 0;
-            break;
         case 314:
-            startscript = true;
-            newscript="custom_"+customscript[14];
-            obj.removetrigger(314);
-            state = 0;
-            break;
         case 315:
-            startscript = true;
-            newscript="custom_"+customscript[15];
-            obj.removetrigger(315);
-            state = 0;
-            break;
         case 316:
-            startscript = true;
-            newscript="custom_"+customscript[16];
-            obj.removetrigger(316);
-            state = 0;
-            break;
         case 317:
-            startscript = true;
-            newscript="custom_"+customscript[17];
-            obj.removetrigger(317);
-            state = 0;
-            break;
         case 318:
-            startscript = true;
-            newscript="custom_"+customscript[18];
-            obj.removetrigger(318);
-            state = 0;
-            break;
         case 319:
-            startscript = true;
-            newscript="custom_"+customscript[19];
-            obj.removetrigger(319);
-            state = 0;
-            break;
         case 320:
-            startscript = true;
-            newscript="custom_"+customscript[20];
-            obj.removetrigger(320);
-            state = 0;
-            break;
         case 321:
-            startscript = true;
-            newscript="custom_"+customscript[21];
-            obj.removetrigger(321);
-            state = 0;
-            break;
         case 322:
-            startscript = true;
-            newscript="custom_"+customscript[22];
-            obj.removetrigger(322);
-            state = 0;
-            break;
         case 323:
-            startscript = true;
-            newscript="custom_"+customscript[23];
-            obj.removetrigger(323);
-            state = 0;
-            break;
         case 324:
-            startscript = true;
-            newscript="custom_"+customscript[24];
-            obj.removetrigger(324);
-            state = 0;
-            break;
         case 325:
-            startscript = true;
-            newscript="custom_"+customscript[25];
-            obj.removetrigger(325);
-            state = 0;
-            break;
         case 326:
-            startscript = true;
-            newscript="custom_"+customscript[26];
-            obj.removetrigger(326);
-            state = 0;
-            break;
         case 327:
-            startscript = true;
-            newscript="custom_"+customscript[27];
-            obj.removetrigger(327);
-            state = 0;
-            break;
         case 328:
-            startscript = true;
-            newscript="custom_"+customscript[28];
-            obj.removetrigger(328);
-            state = 0;
-            break;
         case 329:
-            startscript = true;
-            newscript="custom_"+customscript[29];
-            obj.removetrigger(329);
-            state = 0;
-            break;
         case 330:
-            startscript = true;
-            newscript="custom_"+customscript[30];
-            obj.removetrigger(330);
-            state = 0;
-            break;
         case 331:
-            startscript = true;
-            newscript="custom_"+customscript[31];
-            obj.removetrigger(331);
-            state = 0;
-            break;
         case 332:
-            startscript = true;
-            newscript="custom_"+customscript[32];
-            obj.removetrigger(332);
-            state = 0;
-            break;
         case 333:
-            startscript = true;
-            newscript="custom_"+customscript[33];
-            obj.removetrigger(333);
-            state = 0;
-            break;
         case 334:
-            startscript = true;
-            newscript="custom_"+customscript[34];
-            obj.removetrigger(334);
-            state = 0;
-            break;
         case 335:
-            startscript = true;
-            newscript="custom_"+customscript[35];
-            obj.removetrigger(335);
-            state = 0;
-            break;
         case 336:
             startscript = true;
-            newscript="custom_"+customscript[36];
-            obj.removetrigger(336);
+            newscript="custom_"+customscript[state - 300];
+            obj.removetrigger(state);
             state = 0;
             break;
 
