@@ -635,6 +635,23 @@ void menuactionpress()
             {
                 music.playef(11);
             }
+            // Fix wrong area music in Tower (Positive Force vs. ecroF evitisoP)
+            if (map.custommode)
+            {
+                break;
+            }
+            int area = map.area(game.roomx, game.roomy);
+            if (area == 3 || area == 11)
+            {
+                if (graphics.setflipmode)
+                {
+                    music.play(9); // ecroF evitisoP
+                }
+                else
+                {
+                    music.play(2); // Positive Force
+                }
+            }
         }
             break;
         }
