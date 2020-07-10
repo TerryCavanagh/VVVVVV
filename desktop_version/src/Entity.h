@@ -105,7 +105,7 @@ public:
 
     void settemprect(int t);
 
-    int checktrigger();
+    int checktrigger(int* block_idx);
 
     int checkactivity();
 
