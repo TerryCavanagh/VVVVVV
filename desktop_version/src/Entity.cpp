@@ -770,7 +770,7 @@ void entityclass::generateswnwave( int t )
     }
 }
 
-void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/ )
+void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/, const std::string& script /*= ""*/ )
 {
     k = blocks.size();
 
@@ -793,6 +793,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         block.hp = h;
         block.rectset(xp, yp, w, h);
         block.trigger = trig;
+        block.script = script;
         break;
     case DAMAGE: //Damage
         block.type = DAMAGE;
