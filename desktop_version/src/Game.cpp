@@ -7313,5 +7313,9 @@ void Game::returntopausemenu()
     graphics.backgrounddrawn = false;
     game.mapheld = true;
     graphics.flipmode = graphics.setflipmode;
+    if (!map.custommode && !graphics.flipmode)
+    {
+        obj.flags[73] = true;
+    }
     game.shouldreturntopausemenu = true;
 }
