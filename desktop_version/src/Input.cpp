@@ -1724,10 +1724,6 @@ void gameinput()
 
                     if (game.activetele && game.readytotele > 20 && !game.intimetrial)
                     {
-                        if(!graphics.flipmode)
-                        {
-                            obj.flags[73] = true; //Flip mode test
-                        }
                         if(int(std::abs(obj.entities[ie].vx))<=1 && int(obj.entities[ie].vy)==0)
                         {
                             //wait! space station 2 debug thingy

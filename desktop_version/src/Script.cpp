@@ -2633,6 +2633,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
+		else obj.flags[73] = true;
 
 		if(obj.entities.empty())
 		{
@@ -2657,6 +2658,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
+		else obj.flags[73] = true;
 
 		if(obj.entities.empty())
 		{
@@ -2680,6 +2682,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
+		else obj.flags[73] = true;
 
 		if(obj.entities.empty())
 		{
