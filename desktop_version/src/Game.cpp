@@ -1878,8 +1878,7 @@ void Game::updatestate()
                 }
                 else
                 {
-                    gamestate = EDITORMODE;
-                    graphics.backgrounddrawn=false;
+                    shouldreturntoeditor = true;
                     if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
                     if(ed.levmusic>0) music.fadeout();
                 }
