@@ -2336,9 +2336,9 @@ void teleporterinput()
         {
             if (!map.custommode || map.custommodeforreal)
             {
-                // Go to "Do you want to quit?" screen
+                // Go to pause menu
                 game.mapheld = true;
-                game.menupage = 10;
+                game.menupage = 30;
                 game.gamestate = MAPMODE;
             }
             else
