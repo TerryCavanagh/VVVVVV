@@ -353,8 +353,8 @@ int main(int argc, char *argv[])
             game.playrx = saverx;
             game.playry = savery;
             game.playgc = savegc;
+            game.playmusic = savemusic;
             game.cliplaytest = true;
-            music.play(savemusic);
             script.startgamemode(23);
         } else {
             script.startgamemode(22);
