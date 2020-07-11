@@ -7310,6 +7310,7 @@ void Game::returntoeditor()
     ed.settingskey = true;
     ed.oldnotedelay = 0;
     ed.notedelay = 0;
+    ed.roomnamehide = 0;
 
     graphics.backgrounddrawn=false;
     music.fadeout();
