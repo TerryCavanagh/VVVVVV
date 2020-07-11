@@ -6114,7 +6114,7 @@ void Game::customsavequick(std::string savfile)
     else
     {
         printf("Could Not Save game!\n");
-        printf("Failed: %s%s%s", saveFilePath.c_str(), levelfile.c_str(), ".vvv");
+        printf("Failed: %s%s%s\n", saveFilePath.c_str(), levelfile.c_str(), ".vvv");
     }
 }
 
