@@ -5163,6 +5163,7 @@ void Game::customloadquick(std::string savfile)
         saverx = playrx;
         savery = playry;
         savegc = playgc;
+        music.play(playmusic);
         return;
     }
 
