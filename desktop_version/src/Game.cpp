@@ -7308,6 +7308,8 @@ void Game::returntoeditor()
 
     ed.keydelay = 6;
     ed.settingskey = true;
+    ed.oldnotedelay = 0;
+    ed.notedelay = 0;
 
     graphics.backgrounddrawn=false;
     music.fadeout();
