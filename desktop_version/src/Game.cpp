@@ -7307,6 +7307,7 @@ void Game::returntoeditor()
     graphics.fademode = 0;
 
     ed.keydelay = 6;
+    ed.settingskey = true;
 
     graphics.backgrounddrawn=false;
     music.fadeout();
