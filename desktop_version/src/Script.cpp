@@ -3713,7 +3713,7 @@ void scriptclass::hardreset()
 	// Remove duplicate player entities
 	for (int i = 0; i < (int) obj.entities.size(); i++)
 	{
-		if (i != theplayer)
+		if (obj.entities[i].rule == 0 && i != theplayer)
 		{
 			removeentity_iter(i);
 			theplayer--; // just in case indice of player is not 0
