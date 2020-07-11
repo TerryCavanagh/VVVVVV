@@ -7306,6 +7306,8 @@ void Game::returntoeditor()
     graphics.showcutscenebars = false;
     graphics.fademode = 0;
 
+    ed.keydelay = 6;
+
     graphics.backgrounddrawn=false;
     music.fadeout();
     //If warpdir() is used during playtesting, we need to set it back after!
