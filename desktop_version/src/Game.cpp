@@ -1924,7 +1924,7 @@ void Game::updatestate()
 
         case 2000:
             //Game Saved!
-            if (intimetrial || nodeathmode || inintermission)
+            if (inspecial() || map.custommode)
             {
                 state = 0;
             }
