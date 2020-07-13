@@ -4652,7 +4652,15 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     int width, height;
-    graphics.screenbuffer->GetWindowSize(&width, &height);
+    if (graphics.screenbuffer != NULL)
+    {
+        graphics.screenbuffer->GetWindowSize(&width, &height);
+    }
+    else
+    {
+        width = 320;
+        height = 240;
+    }
     msg = doc.NewElement( "window_width" );
     msg->LinkEndChild( doc.NewText( help.String(width).c_str()));
     dataNode->LinkEndChild( msg );
@@ -4730,8 +4738,17 @@ void Game::savestats()
     msg->LinkEndChild(doc.NewText(help.String((int) glitchrunnermode).c_str()));
     dataNode->LinkEndChild(msg);
 
+    int vsyncOption;
     msg = doc.NewElement("vsync");
-    msg->LinkEndChild(doc.NewText(help.String((int) graphics.screenbuffer->vsync).c_str()));
+    if (graphics.screenbuffer != NULL)
+    {
+        vsyncOption = (int) graphics.screenbuffer->vsync;
+    }
+    else
+    {
+        vsyncOption = 0;
+    }
+    msg->LinkEndChild(doc.NewText(help.String(vsyncOption).c_str()));
     dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
