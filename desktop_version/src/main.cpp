@@ -62,9 +62,7 @@ volatile Uint32 timePrev = 0;
 volatile Uint32 accumulator = 0;
 volatile Uint32 f_time = 0;
 volatile Uint32 f_timePrev = 0;
-volatile Uint32 f_accumulator = 0;
 
-void inline gameloop();
 void inline deltaloop();
 void inline fixedloop();
 
@@ -369,15 +367,22 @@ int main(int argc, char *argv[])
 
     while(!key.quitProgram)
     {
-        f_timePrev = f_time;
         f_time = SDL_GetTicks();
-        const float f_rawdeltatime = static_cast<float>(f_time - f_timePrev);
-        if (!game.over30mode)
+
+        const Uint32 f_timetaken = f_time - f_timePrev;
+        if (!game.over30mode && f_timetaken < 34)
         {
-            f_accumulator += f_rawdeltatime;
+            const volatile Uint32 f_delay = 34 - f_timetaken;
+            SDL_Delay(f_delay);
+            f_time = SDL_GetTicks();
         }
 
-        gameloop();
+        f_timePrev = f_time;
+
+        timePrev = time_;
+        time_ = SDL_GetTicks();
+
+        deltaloop();
     }
 
     game.savestats();
@@ -386,26 +391,6 @@ int main(int argc, char *argv[])
     FILESYSTEM_deinit();
 
     return 0;
-}
-
-void inline gameloop()
-{
-    while ((game.over30mode || f_accumulator >= 34) && !key.quitProgram)
-    {
-        if (game.over30mode)
-        {
-            f_accumulator = 0;
-        }
-        else
-        {
-            f_accumulator = fmodf(f_accumulator, 34);
-        }
-
-        timePrev = time_;
-        time_ = SDL_GetTicks();
-
-        deltaloop();
-    }
 }
 
 void inline deltaloop()
