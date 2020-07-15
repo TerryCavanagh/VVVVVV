@@ -6583,6 +6583,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                             prefix = tmp;
                             break;
                         }
+                        default:
+                            SDL_assert(0 && "Unhandled menu text prefix!");
+                            prefix = "";
+                            break;
                         }
                     }
                     else
