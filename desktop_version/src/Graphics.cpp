@@ -1339,7 +1339,8 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
             {
                 // Uppercase the text
                 // FIXME: This isn't UTF-8 aware!
-                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
+                size_t templen = SDL_strlen(tempstring);
+                for (size_t ii = 0; ii < templen; ii++)
                 {
                     tempstring[ii] = SDL_toupper(tempstring[ii]);
                 }
