@@ -133,7 +133,6 @@ void musicclass::init()
 
 	Mix_HookMusicFinished(&songend);
 
-	mmmmmm = false;
 	usingmmmmmm = false;
 }
 
