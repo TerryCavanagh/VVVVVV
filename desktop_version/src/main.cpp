@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
             })
         }
 #undef ARG_INNER
-#undef ARG_IS
+#undef ARG
     }
 
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
