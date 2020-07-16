@@ -2071,8 +2071,8 @@ void mapinput()
     }
 
     if(graphics.menuoffset==0
-    && (!game.glitchrunnermode || graphics.fademode == 0)
-    && game.fadetomenudelay <= 0 && game.fadetolabdelay <= 0)
+    && ((!game.glitchrunnermode && game.fadetomenudelay <= 0 && game.fadetolabdelay <= 0)
+    || graphics.fademode == 0))
     {
         if (graphics.flipmode)
         {
@@ -2265,8 +2265,11 @@ void mapmenuactionpress()
         game.swnmode = false;
         graphics.fademode = 2;
         music.fadeout();
-        game.fadetolab = true;
-        game.fadetolabdelay = 16;
+        if (!game.glitchrunnermode)
+        {
+            game.fadetolab = true;
+            game.fadetolabdelay = 16;
+        }
         break;
     case 30:
         // Return to game
