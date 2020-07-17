@@ -1686,14 +1686,20 @@ void editorclass::switch_enemy(const bool reversed /*= false*/)
     }
     edlevelclass& room = level[roomnum];
 
+    int enemy = room.enemytype;
+
     if (reversed)
     {
-        room.enemytype--;
+        enemy--;
     }
     else
     {
-        room.enemytype++;
+        enemy++;
     }
+
+    const int modulus = 10;
+    enemy = (enemy % modulus + modulus) % modulus;
+    room.enemytype = enemy;
 
     note = "Enemy Type Changed";
     notedelay = 45;
