@@ -3209,7 +3209,6 @@ bool entityclass::updateentities( int i )
                 if (entities[i].tile == 1)
                 {
                     music.playef(18);
-                    entities[i].onentity = 0;
                     entities[i].tile = 2;
                     entities[i].colour = 101;
                     if(!game.intimetrial && !game.nodeathmode)
@@ -3247,9 +3246,9 @@ bool entityclass::updateentities( int i )
                     {
                         game.savedir = entities[player].dir;
                     }
-                    entities[i].state = 0;
                 }
 
+                entities[i].onentity = 0;
                 entities[i].state = 0;
             }
             else if (entities[i].state == 2)
