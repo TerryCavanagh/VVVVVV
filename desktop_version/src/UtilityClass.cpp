@@ -1,6 +1,6 @@
 #include "UtilityClass.h"
 
-#include "SDL.h"
+#include <SDL.h>
 
 #include <cctype>
 #include <sstream>
