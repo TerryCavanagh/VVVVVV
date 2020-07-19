@@ -1,6 +1,10 @@
 #include "Entity.h"
+
+#include "editor.h"
 #include "Game.h"
+#include "Graphics.h"
 #include "Map.h"
+#include "Music.h"
 #include "UtilityClass.h"
 
 bool entityclass::checktowerspikes(int t)

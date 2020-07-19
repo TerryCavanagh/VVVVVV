@@ -5,8 +5,8 @@
 
 #include <vector>
 #include <string>
-#include "Script.h"
-#include "Graphics.h"
+
+#include <SDL.h>
 
 // Text entry field type
 enum textmode {

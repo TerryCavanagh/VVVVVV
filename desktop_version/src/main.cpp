@@ -2,6 +2,8 @@
 #include "SoundSystem.h"
 
 #include "UtilityClass.h"
+#include "Enums.h"
+#include "Entity.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
@@ -12,6 +14,7 @@
 #include "Labclass.h"
 #include "Finalclass.h"
 #include "Map.h"
+#include "Music.h"
 
 #include "Screen.h"
 

@@ -1,9 +1,6 @@
 #ifndef OTHERLEVEL_H
 #define OTHERLEVEL_H
 
-#include "Game.h"
-#include "Entity.h"
-
 #include <string>
 
 class otherlevelclass

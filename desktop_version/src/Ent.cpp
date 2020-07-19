@@ -1,5 +1,8 @@
 #include "Ent.h"
 
+#include "Game.h"
+#include "Graphics.h"
+
 entclass::entclass()
 {
 	invis = false;

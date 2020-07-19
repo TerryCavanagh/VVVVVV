@@ -1,4 +1,5 @@
 #include "KeyPoll.h"
+#include "Game.h"
 #include "Graphics.h"
 #include "Music.h"
 #include <stdio.h>

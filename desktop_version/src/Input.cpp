@@ -1,4 +1,3 @@
-#include "Input.h"
 #include "Logic.h"
 #include "Script.h"
 #include "Credits.h"
@@ -8,6 +7,15 @@
 #include <tinyxml2.h>
 
 #include "FileSystemUtils.h"
+
+#include "editor.h"
+#include "Entity.h"
+#include "Enums.h"
+#include "Game.h"
+#include "Graphics.h"
+#include "KeyPoll.h"
+#include "Map.h"
+#include "Music.h"
 
 void updatebuttonmappings(int bind)
 {

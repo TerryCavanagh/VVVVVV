@@ -1,5 +1,3 @@
-#include "FileSystemUtils.h"
-
 #include <vector>
 #include <string>
 
@@ -8,6 +6,7 @@
 #include <string.h>
 
 #include "Graphics.h"
+#include "UtilityClass.h"
 
 #include <iterator>
 #include <algorithm>
@@ -230,6 +229,8 @@ void FILESYSTEM_unmountassets()
 	}
 	FILESYSTEM_assetsmounted = false;
 }
+
+void FILESYSTEM_freeMemory(unsigned char **mem);
 
 void FILESYSTEM_loadFileToMemory(
 	const char *name,

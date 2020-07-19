@@ -3,6 +3,7 @@
 #include "Music.h"
 #include "BinaryBlob.h"
 #include "Map.h"
+#include "UtilityClass.h"
 
 void songend();
 

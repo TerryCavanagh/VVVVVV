@@ -1,13 +1,6 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#include "Graphics.h"
-#include "UtilityClass.h"
-#include "Maths.h"
-#include "Entity.h"
-#include "Map.h"
-#include "Script.h"
-
 void titlerender();
 
 void gamerender();
