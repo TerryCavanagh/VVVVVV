@@ -1,9 +1,9 @@
 #include "Screen.h"
 
+#include <stdlib.h>
+
 #include "FileSystemUtils.h"
 #include "GraphicsUtil.h"
-
-#include <stdlib.h>
 
 // Used to create the window icon
 extern "C"

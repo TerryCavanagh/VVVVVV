@@ -2,8 +2,8 @@
 #define UTILITYCLASS_H
 
 #include <SDL.h>
-#include <vector>
 #include <string>
+#include <vector>
 
 int ss_toi(std::string _s);
 

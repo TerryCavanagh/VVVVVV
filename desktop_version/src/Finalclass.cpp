@@ -1,9 +1,8 @@
 #include "Finalclass.h"
 
-#include "MakeAndPlay.h"
-
 #include "Game.h"
 #include "Entity.h"
+#include "MakeAndPlay.h"
 #include "UtilityClass.h"
 
 const short* finalclass::loadlevel(int rx, int ry)

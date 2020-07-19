@@ -1,11 +1,10 @@
 #ifndef KEYPOLL_H
 #define KEYPOLL_H
 
+#include <map> // FIXME: I should feel very bad for using C++ -flibit
+#include <SDL.h>
 #include <string>
 #include <vector>
-#include <map> // FIXME: I should feel very bad for using C++ -flibit
-
-#include <SDL.h>
 
 enum Kybrd
 {

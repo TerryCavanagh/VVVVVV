@@ -1,9 +1,8 @@
 #include "Otherlevel.h"
 
-#include "MakeAndPlay.h"
-
 #include "Game.h"
 #include "Entity.h"
+#include "MakeAndPlay.h"
 
 const short* otherlevelclass::loadlevel(int rx, int ry)
 {

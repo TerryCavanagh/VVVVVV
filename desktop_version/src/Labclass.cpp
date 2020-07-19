@@ -1,9 +1,8 @@
 #include "Labclass.h"
 
-#include "MakeAndPlay.h"
-
 #include "Game.h"
 #include "Entity.h"
+#include "MakeAndPlay.h"
 #include "UtilityClass.h"
 
 const short* labclass::loadlevel(int rx, int ry)

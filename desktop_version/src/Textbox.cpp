@@ -1,4 +1,5 @@
 #include "Textbox.h"
+
 #include <utf8/unchecked.h>
 
 textboxclass::textboxclass()

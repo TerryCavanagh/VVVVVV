@@ -1,7 +1,9 @@
 #include "GraphicsResources.h"
-#include "FileSystemUtils.h"
+
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "FileSystemUtils.h"
 
 // Used to load PNG data
 extern "C"

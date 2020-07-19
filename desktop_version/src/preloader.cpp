@@ -1,5 +1,3 @@
-#include "preloader.h"
-
 #include "Enums.h"
 #include "Game.h"
 #include "Graphics.h"
