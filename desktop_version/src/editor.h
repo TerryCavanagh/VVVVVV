@@ -89,14 +89,6 @@ class EditorData
   std::string creator;
 
   std::string modifier;
-
-private:
-
-
-  EditorData()
-  {
-  }
-
 };
 
 struct GhostInfo {
