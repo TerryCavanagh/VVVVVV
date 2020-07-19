@@ -9,7 +9,6 @@
 #include "Map.h"
 #include "Script.h"
 #include "UtilityClass.h"
-#include "time.h"
 
 #include <tinyxml2.h>
 
@@ -2036,20 +2035,6 @@ bool editorclass::save(std::string& _path)
     root->LinkEndChild( data );
 
     msg = doc.NewElement( "MetaData" );
-
-    time_t rawtime;
-    struct tm * timeinfo;
-
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-
-    std::string timeAndDate = asctime (timeinfo);
-
-    EditorData::GetInstance().timeModified =  timeAndDate;
-    if(EditorData::GetInstance().timeModified == "")
-    {
-        EditorData::GetInstance().timeCreated =  timeAndDate;
-    }
 
     //getUser
     tinyxml2::XMLElement* meta = doc.NewElement( "Creator" );

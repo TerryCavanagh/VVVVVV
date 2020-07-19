@@ -89,8 +89,6 @@ class EditorData
   std::string creator;
 
   std::string modifier;
-  std::string timeCreated;
-  std::string timeModified;
 
 private:
 
