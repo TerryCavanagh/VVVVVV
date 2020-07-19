@@ -16,7 +16,7 @@
 #include <SDL.h>
 #include <physfs.h>
 
-#include "tinyxml2.h"
+#include <tinyxml2.h>
 
 /* These are needed for PLATFORM_* crap */
 #if defined(_WIN32)
