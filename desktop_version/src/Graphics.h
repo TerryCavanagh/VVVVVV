@@ -9,8 +9,6 @@
 
 #include "Maths.h"
 #include "Textbox.h"
-#include "UtilityClass.h"
-#include "Game.h"
 
 
 #include <string>

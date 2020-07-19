@@ -1,9 +1,6 @@
 #ifndef LABCLASS_H
 #define LABCLASS_H
 
-#include "Game.h"
-#include "Entity.h"
-
 #include <string>
 
 class labclass

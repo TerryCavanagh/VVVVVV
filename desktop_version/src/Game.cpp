@@ -1,10 +1,13 @@
 #include "Enums.h"
 
+#include "editor.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "Entity.h"
 #include "Map.h"
+#include "Music.h"
 #include "Script.h"
+#include "UtilityClass.h"
 
 #include <stdio.h>
 #include <stdlib.h>

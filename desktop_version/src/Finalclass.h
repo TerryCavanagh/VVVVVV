@@ -1,9 +1,6 @@
 #ifndef FINALCLASS_H
 #define FINALCLASS_H
 
-#include "Game.h"
-#include "Entity.h"
-
 #include <string>
 
 class finalclass

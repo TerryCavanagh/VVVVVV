@@ -1,7 +1,7 @@
 #ifndef ENT_H
 #define ENT_H
 
-#include "Graphics.h"
+#include <SDL.h>
 
 #define		rn( rx,  ry) ((rx) + ((ry) * 100))
 

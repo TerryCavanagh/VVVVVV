@@ -2,6 +2,10 @@
 
 #include "MakeAndPlay.h"
 
+#include "Game.h"
+#include "Entity.h"
+#include "UtilityClass.h"
+
 const short* labclass::loadlevel(int rx, int ry)
 {
 	int t;

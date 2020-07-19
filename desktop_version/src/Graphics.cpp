@@ -1,9 +1,11 @@
 #include "Graphics.h"
-#include "Maths.h"
+#include "editor.h"
 #include "Entity.h"
 #include "Map.h"
+#include "Music.h"
 #include "Screen.h"
 #include "FileSystemUtils.h"
+#include "UtilityClass.h"
 #include <utf8/unchecked.h>
 #include <stdio.h>
 #include <stdlib.h>

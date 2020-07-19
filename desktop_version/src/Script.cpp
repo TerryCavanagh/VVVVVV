@@ -1,10 +1,13 @@
 #include "Script.h"
 #include "Graphics.h"
 
+#include "editor.h"
 #include "Entity.h"
+#include "Enums.h"
 #include "Music.h"
 #include "KeyPoll.h"
 #include "Map.h"
+#include "UtilityClass.h"
 
 scriptclass::scriptclass()
 {

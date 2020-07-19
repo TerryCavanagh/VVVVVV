@@ -1,4 +1,4 @@
-#include "Network.h"
+#include <stdint.h>
 
 #define UNUSED(expr) (void)(expr)
 

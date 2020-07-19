@@ -1,8 +1,16 @@
-#include "Logic.h"
 #include "Script.h"
 #include "Network.h"
 #include "FileSystemUtils.h"
 #include "Credits.h"
+
+#include "editor.h"
+#include "Entity.h"
+#include "Enums.h"
+#include "Game.h"
+#include "Graphics.h"
+#include "Map.h"
+#include "Music.h"
+#include "UtilityClass.h"
 
 void titleupdatetextcol()
 {

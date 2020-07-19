@@ -3,6 +3,13 @@
 
 #include "MakeAndPlay.h"
 
+#include "editor.h"
+#include "Entity.h"
+#include "Game.h"
+#include "Graphics.h"
+#include "Music.h"
+#include "UtilityClass.h"
+
 mapclass::mapclass()
 {
 	//Start here!

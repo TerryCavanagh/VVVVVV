@@ -1,6 +1,9 @@
 #include "preloader.h"
 
 #include "Enums.h"
+#include "Game.h"
+#include "Graphics.h"
+#include "UtilityClass.h"
 
 int pre_fakepercent=0, pre_transition=30;
 bool pre_startgame=false;

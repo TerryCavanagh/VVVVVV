@@ -4,6 +4,7 @@
 #include "Maths.h"
 #include "Ent.h"
 #include "BlockV.h"
+#include "Game.h"
 
 #include <vector>
 #include <string>

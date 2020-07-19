@@ -7,11 +7,9 @@
 #include "Labclass.h"
 #include "Spacestation2.h"
 #include "Otherlevel.h"
-#include "Entity.h"
-#include "Graphics.h"
 #include <vector>
-#include "Music.h"
-#include "editor.h"
+
+#include "Maths.h"
 
 struct Roomtext
 {
