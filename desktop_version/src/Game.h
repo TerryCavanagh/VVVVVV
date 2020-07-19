@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include "SDL.h"
+#include <SDL.h>
 #include "Maths.h"
 #include "UtilityClass.h"
 #include "GraphicsUtil.h"
