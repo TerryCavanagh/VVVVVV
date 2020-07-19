@@ -20,9 +20,9 @@ public:
 
     void loadmap();
 
-    int back[40 * 120];
-    int contents[40 * 700];
-    int minitower[40 * 100];
+    short back[40 * 120];
+    short contents[40 * 700];
+    short minitower[40 * 100];
     int vmult[40 * 700];
 
     bool minitowermode;

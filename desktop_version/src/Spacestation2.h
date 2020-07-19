@@ -9,7 +9,7 @@
 class spacestation2class
 {
 public:
-	const int* loadlevel(int rx, int ry);
+	const short* loadlevel(int rx, int ry);
 	std::string roomname;
 };
 
