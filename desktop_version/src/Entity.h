@@ -1,13 +1,13 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include <string>
+#include <vector>
+
 #include "Maths.h"
 #include "Ent.h"
 #include "BlockV.h"
 #include "Game.h"
-
-#include <vector>
-#include <string>
 
 #define removeentity_iter(index) { if (obj.removeentity(index)) index--; }
 #define removeblock_iter(index) { obj.removeblock(index); index--; }

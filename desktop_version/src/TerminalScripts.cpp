@@ -1,4 +1,5 @@
 #include "Script.h"
+
 #include <SDL.h>
 
 void scriptclass::loadother(const char* t)

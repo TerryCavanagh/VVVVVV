@@ -1,21 +1,18 @@
-#include "Logic.h"
-#include "Script.h"
-#include "Credits.h"
-
-#include "MakeAndPlay.h"
-
 #include <tinyxml2.h>
 
-#include "FileSystemUtils.h"
-
+#include "Credits.h"
 #include "editor.h"
 #include "Entity.h"
 #include "Enums.h"
+#include "FileSystemUtils.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
+#include "Logic.h"
+#include "MakeAndPlay.h"
 #include "Map.h"
 #include "Music.h"
+#include "Script.h"
 
 void updatebuttonmappings(int bind)
 {

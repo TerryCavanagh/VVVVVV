@@ -1,10 +1,10 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-#include "SoundSystem.h"
-#include "BinaryBlob.h"
-
 #include <vector>
+
+#include "BinaryBlob.h"
+#include "SoundSystem.h"
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 

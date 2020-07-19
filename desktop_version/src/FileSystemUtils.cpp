@@ -1,21 +1,16 @@
-#include <vector>
-#include <string>
-
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <physfs.h>
+#include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string>
+#include <tinyxml2.h>
+#include <vector>
 
 #include "Graphics.h"
 #include "UtilityClass.h"
-
-#include <iterator>
-#include <algorithm>
-#include <iostream>
-
-#include <SDL.h>
-#include <physfs.h>
-
-#include <tinyxml2.h>
 
 /* These are needed for PLATFORM_* crap */
 #if defined(_WIN32)

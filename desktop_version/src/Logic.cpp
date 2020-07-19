@@ -1,15 +1,14 @@
-#include "Script.h"
-#include "Network.h"
-#include "FileSystemUtils.h"
 #include "Credits.h"
-
 #include "editor.h"
 #include "Entity.h"
 #include "Enums.h"
+#include "FileSystemUtils.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "Map.h"
 #include "Music.h"
+#include "Network.h"
+#include "Script.h"
 #include "UtilityClass.h"
 
 void titleupdatetextcol()

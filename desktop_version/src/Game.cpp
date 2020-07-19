@@ -1,27 +1,22 @@
-#include "Enums.h"
-
-#include "editor.h"
 #include "Game.h"
-#include "Graphics.h"
-#include "Entity.h"
-#include "Map.h"
-#include "Music.h"
-#include "Script.h"
-#include "UtilityClass.h"
 
+#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include <sstream>
-
-#include "FileSystemUtils.h"
-
 #include <tinyxml2.h>
 
-#include "Network.h"
-
+#include "editor.h"
+#include "Entity.h"
+#include "Enums.h"
+#include "FileSystemUtils.h"
+#include "Graphics.h"
 #include "MakeAndPlay.h"
+#include "Map.h"
+#include "Music.h"
+#include "Network.h"
+#include "Script.h"
+#include "UtilityClass.h"
 
 // lol, Win32 -flibit
 #ifdef _WIN32

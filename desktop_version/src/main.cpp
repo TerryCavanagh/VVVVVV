@@ -1,36 +1,25 @@
 #include <SDL.h>
-#include "SoundSystem.h"
-
-#include "UtilityClass.h"
-#include "Enums.h"
-#include "Entity.h"
-#include "Game.h"
-#include "Graphics.h"
-#include "KeyPoll.h"
-#include "Render.h"
-
-#include "Tower.h"
-#include "WarpClass.h"
-#include "Labclass.h"
-#include "Finalclass.h"
-#include "Map.h"
-#include "Music.h"
-
-#include "Screen.h"
-
-#include "Script.h"
-
-#include "Logic.h"
-
-#include "Input.h"
-#include "editor.h"
-#include "preloader.h"
-
-#include "FileSystemUtils.h"
-#include "Network.h"
-
 #include <stdio.h>
 #include <string.h>
+
+#include "editor.h"
+#include "Enums.h"
+#include "Entity.h"
+#include "FileSystemUtils.h"
+#include "Game.h"
+#include "Graphics.h"
+#include "Input.h"
+#include "KeyPoll.h"
+#include "Logic.h"
+#include "Map.h"
+#include "Music.h"
+#include "Network.h"
+#include "preloader.h"
+#include "Render.h"
+#include "Screen.h"
+#include "Script.h"
+#include "SoundSystem.h"
+#include "UtilityClass.h"
 
 scriptclass script;
 

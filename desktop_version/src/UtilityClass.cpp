@@ -1,8 +1,7 @@
 #include "UtilityClass.h"
 
-#include <SDL.h>
-
 #include <cctype>
+#include <SDL.h>
 #include <sstream>
 
 /* Used by UtilityClass::GCString to generate a button list */

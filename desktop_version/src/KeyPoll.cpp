@@ -1,10 +1,12 @@
 #include "KeyPoll.h"
-#include "Game.h"
-#include "Graphics.h"
-#include "Music.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <utf8/unchecked.h>
+
+#include "Game.h"
+#include "Graphics.h"
+#include "Music.h"
 
 void KeyPoll::setSensitivity(int _value)
 {

@@ -3,10 +3,9 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include <vector>
-#include <string>
-
 #include <SDL.h>
+#include <string>
+#include <vector>
 
 // Text entry field type
 enum textmode {

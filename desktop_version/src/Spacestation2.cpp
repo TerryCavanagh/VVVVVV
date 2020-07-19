@@ -1,9 +1,8 @@
 #include "Spacestation2.h"
 
-#include "MakeAndPlay.h"
-
 #include "Game.h"
 #include "Entity.h"
+#include "MakeAndPlay.h"
 #include "UtilityClass.h"
 
 const short* spacestation2class::loadlevel(int rx, int ry)

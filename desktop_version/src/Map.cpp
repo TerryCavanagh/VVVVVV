@@ -1,13 +1,12 @@
 #include "Map.h"
-#include "Script.h"
-
-#include "MakeAndPlay.h"
 
 #include "editor.h"
 #include "Entity.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "MakeAndPlay.h"
 #include "Music.h"
+#include "Script.h"
 #include "UtilityClass.h"
 
 mapclass::mapclass()

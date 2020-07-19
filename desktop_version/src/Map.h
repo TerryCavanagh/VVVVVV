@@ -1,15 +1,15 @@
 #ifndef MAPGAME_H
 #define MAPGAME_H
 
-#include "Tower.h"
-#include "WarpClass.h"
-#include "Finalclass.h"
-#include "Labclass.h"
-#include "Spacestation2.h"
-#include "Otherlevel.h"
 #include <vector>
 
+#include "Finalclass.h"
+#include "Labclass.h"
 #include "Maths.h"
+#include "Otherlevel.h"
+#include "Spacestation2.h"
+#include "Tower.h"
+#include "WarpClass.h"
 
 struct Roomtext
 {

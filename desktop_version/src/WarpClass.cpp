@@ -1,9 +1,8 @@
 #include "WarpClass.h"
 
-#include "MakeAndPlay.h"
-
 #include "Game.h"
 #include "Entity.h"
+#include "MakeAndPlay.h"
 #include "UtilityClass.h"
 
 const short* warpclass::loadlevel(int rx, int ry)

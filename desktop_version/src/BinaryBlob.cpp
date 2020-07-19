@@ -1,11 +1,9 @@
 #include "BinaryBlob.h"
 
+#include <physfs.h> /* FIXME: Abstract to FileSystemUtils! */
+#include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
-
-/* FIXME: Abstract to FileSystemUtils! */
-#include <physfs.h>
 
 binaryBlob::binaryBlob()
 {

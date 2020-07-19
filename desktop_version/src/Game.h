@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <vector>
-#include <string>
 #include <SDL.h>
+#include <string>
+#include <vector>
 
 struct MenuOption
 {

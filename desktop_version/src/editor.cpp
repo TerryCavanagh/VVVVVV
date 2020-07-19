@@ -2,23 +2,21 @@
 
 #include "editor.h"
 
-#include "Graphics.h"
+#include <physfs.h>
+#include <stdio.h>
+#include <string>
+#include <tinyxml2.h>
+#include <utf8/unchecked.h>
+
 #include "Entity.h"
-#include "Music.h"
+#include "Enums.h"
+#include "FileSystemUtils.h"
+#include "Graphics.h"
 #include "KeyPoll.h"
 #include "Map.h"
+#include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
-
-#include <tinyxml2.h>
-
-#include "Enums.h"
-
-#include "FileSystemUtils.h"
-
-#include <string>
-#include <utf8/unchecked.h>
-#include <physfs.h>
 
 #ifndef __STDC_FORMAT_MACROS
 #define __STDC_FORMAT_MACROS
@@ -27,7 +25,6 @@
 #define _POSIX_SOURCE
 #endif
 #include <inttypes.h>
-#include <cstdio>
 
 edlevelclass::edlevelclass()
 {

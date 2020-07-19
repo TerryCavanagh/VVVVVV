@@ -1,15 +1,14 @@
+#include "Credits.h"
 #include "editor.h"
-#include "Graphics.h"
-#include "UtilityClass.h"
-#include "Maths.h"
 #include "Entity.h"
+#include "FileSystemUtils.h"
+#include "Graphics.h"
+#include "MakeAndPlay.h"
 #include "Map.h"
+#include "Maths.h"
 #include "Music.h"
 #include "Script.h"
-#include "FileSystemUtils.h"
-#include "Credits.h"
-
-#include "MakeAndPlay.h"
+#include "UtilityClass.h"
 
 int tr;
 int tg;

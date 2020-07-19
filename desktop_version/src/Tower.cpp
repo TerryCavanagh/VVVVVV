@@ -1,7 +1,6 @@
 #include "Tower.h"
 
 #include "MakeAndPlay.h"
-
 #include "UtilityClass.h"
 
 towerclass::towerclass()

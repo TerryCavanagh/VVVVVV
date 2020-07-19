@@ -1,6 +1,8 @@
+#include "Music.h"
+
 #include <SDL.h>
 #include <stdio.h>
-#include "Music.h"
+
 #include "BinaryBlob.h"
 #include "Map.h"
 #include "UtilityClass.h"
