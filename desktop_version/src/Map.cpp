@@ -889,7 +889,7 @@ void mapclass::warpto(int rx, int ry , int t, int tx, int ty)
 {
 	gotoroom(rx, ry);
 	game.teleport = false;
-	if (t >= 0 && t < (int) obj.entities.size())
+	if (INBOUNDS(t, obj.entities))
 	{
 		obj.entities[t].xp = tx * 8;
 		obj.entities[t].yp = (ty * 8) - obj.entities[t].h;
