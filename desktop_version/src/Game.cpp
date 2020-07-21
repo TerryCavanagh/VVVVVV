@@ -1979,6 +1979,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                 }
                 obj.entities[i].ay = -6;
                 obj.entities[i].ax = 6;
@@ -3322,6 +3324,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3435,6 +3439,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3532,6 +3538,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3629,6 +3637,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3731,6 +3741,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3833,6 +3845,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3933,6 +3947,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -4030,6 +4046,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -4127,6 +4145,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
