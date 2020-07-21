@@ -893,6 +893,8 @@ void mapclass::warpto(int rx, int ry , int t, int tx, int ty)
 	{
 		obj.entities[t].xp = tx * 8;
 		obj.entities[t].yp = (ty * 8) - obj.entities[t].h;
+		obj.entities[t].oldxp = obj.entities[t].xp;
+		obj.entities[t].oldyp = obj.entities[t].yp;
 	}
 	game.gravitycontrol = 0;
 }
