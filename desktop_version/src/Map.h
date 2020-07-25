@@ -1,17 +1,21 @@
 #ifndef MAPGAME_H
 #define MAPGAME_H
 
-#include "Tower.h"
-#include "WarpClass.h"
+#include <vector>
+
 #include "Finalclass.h"
 #include "Labclass.h"
-#include "Spacestation2.h"
+#include "Maths.h"
 #include "Otherlevel.h"
-#include "Entity.h"
-#include "Graphics.h"
-#include <vector>
-#include "Music.h"
-#include "editor.h"
+#include "Spacestation2.h"
+#include "Tower.h"
+#include "WarpClass.h"
+
+struct Roomtext
+{
+    int x, y;
+    std::string text;
+};
 
 class mapclass
 {
@@ -82,7 +86,7 @@ public:
     int roomdeaths[20 * 20];
     int roomdeathsfinal[20 * 20];
     static const int areamap[20 * 20];
-    int contents[40 * 30];
+    short contents[40 * 30];
     bool explored[20 * 20];
     int vmult[30];
 

@@ -1,29 +1,21 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "GraphicsResources.h"
-#include <vector>
-#include <map>
-
-
-
-#include "Maths.h"
-#include "Textbox.h"
-#include "UtilityClass.h"
-#include "Game.h"
-
-
-#include <string>
 #include <algorithm>
+#include <map>
+#include <string>
+#include <vector>
 
+#include "GraphicsResources.h"
 #include "GraphicsUtil.h"
+#include "Maths.h"
 #include "Screen.h"
+#include "Textbox.h"
 
 class Graphics
 {
 public:
 	void init();
-	~Graphics();
 
 	GraphicsResources grphx;
 

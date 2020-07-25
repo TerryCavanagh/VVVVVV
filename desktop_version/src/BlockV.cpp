@@ -14,11 +14,12 @@ blockclass::blockclass()
 	rect.w = wp;
 	rect.h = hp;
 
-	prompt = "";
-	script = "";
 	r = 0;
 	g = 0;
 	b = 0;
+
+	x = 0.0f;
+	y = 0.0f;
 }
 
 void blockclass::rectset(const int xi, const int yi, const int wi, const int hi)

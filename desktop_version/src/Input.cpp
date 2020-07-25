@@ -1,13 +1,18 @@
-#include "Input.h"
-#include "Logic.h"
-#include "Script.h"
+#include <tinyxml2.h>
+
 #include "Credits.h"
-
-#include "MakeAndPlay.h"
-
-#include "tinyxml2.h"
-
+#include "editor.h"
+#include "Entity.h"
+#include "Enums.h"
 #include "FileSystemUtils.h"
+#include "Game.h"
+#include "Graphics.h"
+#include "KeyPoll.h"
+#include "Logic.h"
+#include "MakeAndPlay.h"
+#include "Map.h"
+#include "Music.h"
+#include "Script.h"
 
 void updatebuttonmappings(int bind)
 {
@@ -370,9 +375,11 @@ void menuactionpress()
         case 6:
             //toggle vsync
             music.playef(11);
+#ifndef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
             graphics.screenbuffer->vsync = !graphics.screenbuffer->vsync;
             graphics.screenbuffer->resetRendererWorkaround();
             game.savestats();
+#endif
             break;
         default:
             //back
@@ -632,6 +639,23 @@ void menuactionpress()
             else
             {
                 music.playef(11);
+            }
+            // Fix wrong area music in Tower (Positive Force vs. ecroF evitisoP)
+            if (map.custommode)
+            {
+                break;
+            }
+            int area = map.area(game.roomx, game.roomy);
+            if (area == 3 || area == 11)
+            {
+                if (graphics.setflipmode)
+                {
+                    music.play(9); // ecroF evitisoP
+                }
+                else
+                {
+                    music.play(2); // Positive Force
+                }
             }
         }
             break;
@@ -1701,6 +1725,8 @@ void gameinput()
             //Return to level editor
             if (game.activeactivity > -1 && game.press_map){
                 //pass, let code block below handle it
+            }else if(game.activetele && game.readytotele > 20 && game.press_map){
+                //pass, let code block below handle it
             }else{
                 game.shouldreturntoeditor = true;
                 game.mapheld = true;
@@ -1722,10 +1748,6 @@ void gameinput()
 
                     if (game.activetele && game.readytotele > 20 && !game.intimetrial)
                     {
-                        if(!graphics.flipmode)
-                        {
-                            obj.flags[73] = true; //Flip mode test
-                        }
                         if(int(std::abs(obj.entities[ie].vx))<=1 && int(obj.entities[ie].vy)==0)
                         {
                             //wait! space station 2 debug thingy
@@ -2054,8 +2076,8 @@ void mapinput()
     }
 
     if(graphics.menuoffset==0
-    && (!game.glitchrunnermode || graphics.fademode == 0)
-    && game.fadetomenudelay <= 0 && game.fadetolabdelay <= 0)
+    && ((!game.glitchrunnermode && game.fadetomenudelay <= 0 && game.fadetolabdelay <= 0)
+    || graphics.fademode == 0))
     {
         if (graphics.flipmode)
         {
@@ -2248,8 +2270,11 @@ void mapmenuactionpress()
         game.swnmode = false;
         graphics.fademode = 2;
         music.fadeout();
-        game.fadetolab = true;
-        game.fadetolabdelay = 16;
+        if (!game.glitchrunnermode)
+        {
+            game.fadetolab = true;
+            game.fadetolabdelay = 16;
+        }
         break;
     case 30:
         // Return to game
@@ -2317,10 +2342,18 @@ void teleporterinput()
 
         if (key.isDown(27))
         {
-            // Go to "Do you want to quit?" screen
-            game.mapheld = true;
-            game.menupage = 10;
-            game.gamestate = MAPMODE;
+            if (!map.custommode || map.custommodeforreal)
+            {
+                // Go to pause menu
+                game.mapheld = true;
+                game.menupage = 30;
+                game.gamestate = MAPMODE;
+            }
+            else
+            {
+                // Close teleporter menu
+                graphics.resumegamemode = true;
+            }
         }
     }
     else

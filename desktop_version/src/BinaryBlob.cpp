@@ -1,16 +1,15 @@
 #include "BinaryBlob.h"
 
+#include <physfs.h> /* FIXME: Abstract to FileSystemUtils! */
+#include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
-
-/* FIXME: Abstract to FileSystemUtils! */
-#include <physfs.h>
 
 binaryBlob::binaryBlob()
 {
 	numberofHeaders = 0;
 	SDL_memset(m_headers, 0, sizeof(m_headers));
+	SDL_memset(m_memblocks, 0, sizeof(m_memblocks));
 }
 
 #ifdef VVV_COMPILEMUSIC

@@ -1,13 +1,10 @@
 #ifndef KEYPOLL_H
 #define KEYPOLL_H
 
+#include <map> // FIXME: I should feel very bad for using C++ -flibit
+#include <SDL.h>
 #include <string>
 #include <vector>
-#include <map> // FIXME: I should feel very bad for using C++ -flibit
-
-#include "SDL.h"
-
-#include "Screen.h"
 
 enum Kybrd
 {
@@ -40,7 +37,6 @@ public:
 
 	bool resetWindow;
 
-	bool escapeWasPressedPreviously;
 	bool quitProgram;
 	bool toggleFullscreen;
 
@@ -70,7 +66,6 @@ public:
 	int mx, my;
 
 	bool textentrymode;
-	int keyentered, keybufferlen;
 	bool pressedbackspace;
 	std::string keybuffer;
 

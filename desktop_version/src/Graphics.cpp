@@ -1,12 +1,16 @@
 #include "Graphics.h"
-#include "Maths.h"
-#include "Entity.h"
-#include "Map.h"
-#include "Screen.h"
-#include "FileSystemUtils.h"
-#include <utf8/unchecked.h>
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <utf8/unchecked.h>
+
+#include "editor.h"
+#include "Entity.h"
+#include "FileSystemUtils.h"
+#include "Map.h"
+#include "Music.h"
+#include "Screen.h"
+#include "UtilityClass.h"
 
 void Graphics::init()
 {
@@ -114,6 +118,8 @@ void Graphics::init()
     tl = point();
     towerbuffer = NULL;
     towerbuffer_lerp = NULL;
+    footerbuffer = NULL;
+    ghostbuffer = NULL;
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;
@@ -157,11 +163,6 @@ int Graphics::font_idx(uint32_t ch) {
     } else {
         return ch;
     }
-}
-
-Graphics::~Graphics()
-{
-
 }
 
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
@@ -1342,7 +1343,8 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
             {
                 // Uppercase the text
                 // FIXME: This isn't UTF-8 aware!
-                for (size_t ii = 0; ii < SDL_arraysize(tempstring); ii++)
+                size_t templen = SDL_strlen(tempstring);
+                for (size_t ii = 0; ii < templen; ii++)
                 {
                     tempstring[ii] = SDL_toupper(tempstring[ii]);
                 }

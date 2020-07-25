@@ -1,17 +1,14 @@
 #ifndef LABCLASS_H
 #define LABCLASS_H
 
-#include "Game.h"
-#include "Entity.h"
-
 #include <string>
 
 class labclass
 {
 public:
-    const int* loadlevel(int rx, int ry);
+    const short* loadlevel(int rx, int ry);
 
     std::string roomname;
-    int coin, rcol;
+    int rcol;
 };
 #endif /* LABCLASS_H */

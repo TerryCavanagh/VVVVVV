@@ -1,24 +1,22 @@
-#include "Enums.h"
-
 #include "Game.h"
-#include "Graphics.h"
-#include "Entity.h"
-#include "Map.h"
-#include "Script.h"
 
+#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <tinyxml2.h>
 
-#include <sstream>
-
+#include "editor.h"
+#include "Entity.h"
+#include "Enums.h"
 #include "FileSystemUtils.h"
-
-#include "tinyxml2.h"
-
-#include "Network.h"
-
+#include "Graphics.h"
 #include "MakeAndPlay.h"
+#include "Map.h"
+#include "Music.h"
+#include "Network.h"
+#include "Script.h"
+#include "UtilityClass.h"
 
 // lol, Win32 -flibit
 #ifdef _WIN32
@@ -140,7 +138,6 @@ void Game::init(void)
     roomchange = false;
 
 
-    teleportscript = "";
     savemystats = false;
     quickrestartkludge = false;
 
@@ -151,7 +148,6 @@ void Game::init(void)
     press_left = 0;
 
 
-    advancetext = false;
     pausescript = false;
     completestop = false;
     activeactivity = -1;
@@ -159,7 +155,6 @@ void Game::init(void)
     prev_act_fade = 0;
     backgroundtext = false;
     startscript = false;
-    newscript = "";
     inintermission = false;
 
     alarmon = false;
@@ -176,7 +171,6 @@ void Game::init(void)
     activetele = false;
     readytotele = 0;
     oldreadytotele = 0;
-    activity_lastprompt = "";
     activity_r = 0;
     activity_g = 0;
     activity_b = 0;
@@ -195,18 +189,12 @@ void Game::init(void)
     fullscreen = false;// true; //Assumed true at first unless overwritten at some point!
     stretchMode = 0;
     useLinearFilter = false;
-    advanced_mode = false;
-    fullScreenEffect_badSignal = false;
     // 0..5
     controllerSensitivity = 2;
 
     nodeathmode = false;
     nocutscenes = false;
 
-    for(int i=0; i<50; i++)
-    {
-        customscript[i]="";
-    }
     customcol=0;
 
     SDL_memset(crewstats, false, sizeof(crewstats));
@@ -239,7 +227,6 @@ void Game::init(void)
     menucountdown = 0;
     levelpage=0;
     playcustomlevel=0;
-    customleveltitle="";
     createmenu(Menu::mainmenu);
 
     deathcounts = 0;
@@ -403,10 +390,6 @@ void Game::init(void)
     shouldreturntopausemenu = false;
 
     disablepause = false;
-}
-
-Game::~Game(void)
-{
 }
 
 void Game::lifesequence()
@@ -1700,225 +1683,45 @@ void Game::updatestate()
 
         // WARNING: If updating this code, make sure to update Map.cpp mapclass::twoframedelayfix()
         case 300:
-            startscript = true;
-            newscript="custom_"+customscript[0];
-            obj.removetrigger(300);
-            state = 0;
-            break;
         case 301:
-            startscript = true;
-            newscript="custom_"+customscript[1];
-            obj.removetrigger(301);
-            state = 0;
-            break;
         case 302:
-            startscript = true;
-            newscript="custom_"+customscript[2];
-            obj.removetrigger(302);
-            state = 0;
-            break;
         case 303:
-            startscript = true;
-            newscript="custom_"+customscript[3];
-            obj.removetrigger(303);
-            state = 0;
-            break;
         case 304:
-            startscript = true;
-            newscript="custom_"+customscript[4];
-            obj.removetrigger(304);
-            state = 0;
-            break;
         case 305:
-            startscript = true;
-            newscript="custom_"+customscript[5];
-            obj.removetrigger(305);
-            state = 0;
-            break;
         case 306:
-            startscript = true;
-            newscript="custom_"+customscript[6];
-            obj.removetrigger(306);
-            state = 0;
-            break;
         case 307:
-            startscript = true;
-            newscript="custom_"+customscript[7];
-            obj.removetrigger(307);
-            state = 0;
-            break;
         case 308:
-            startscript = true;
-            newscript="custom_"+customscript[8];
-            obj.removetrigger(308);
-            state = 0;
-            break;
         case 309:
-            startscript = true;
-            newscript="custom_"+customscript[9];
-            obj.removetrigger(309);
-            state = 0;
-            break;
         case 310:
-            startscript = true;
-            newscript="custom_"+customscript[10];
-            obj.removetrigger(310);
-            state = 0;
-            break;
         case 311:
-            startscript = true;
-            newscript="custom_"+customscript[11];
-            obj.removetrigger(311);
-            state = 0;
-            break;
         case 312:
-            startscript = true;
-            newscript="custom_"+customscript[12];
-            obj.removetrigger(312);
-            state = 0;
-            break;
         case 313:
-            startscript = true;
-            newscript="custom_"+customscript[13];
-            obj.removetrigger(313);
-            state = 0;
-            break;
         case 314:
-            startscript = true;
-            newscript="custom_"+customscript[14];
-            obj.removetrigger(314);
-            state = 0;
-            break;
         case 315:
-            startscript = true;
-            newscript="custom_"+customscript[15];
-            obj.removetrigger(315);
-            state = 0;
-            break;
         case 316:
-            startscript = true;
-            newscript="custom_"+customscript[16];
-            obj.removetrigger(316);
-            state = 0;
-            break;
         case 317:
-            startscript = true;
-            newscript="custom_"+customscript[17];
-            obj.removetrigger(317);
-            state = 0;
-            break;
         case 318:
-            startscript = true;
-            newscript="custom_"+customscript[18];
-            obj.removetrigger(318);
-            state = 0;
-            break;
         case 319:
-            startscript = true;
-            newscript="custom_"+customscript[19];
-            obj.removetrigger(319);
-            state = 0;
-            break;
         case 320:
-            startscript = true;
-            newscript="custom_"+customscript[20];
-            obj.removetrigger(320);
-            state = 0;
-            break;
         case 321:
-            startscript = true;
-            newscript="custom_"+customscript[21];
-            obj.removetrigger(321);
-            state = 0;
-            break;
         case 322:
-            startscript = true;
-            newscript="custom_"+customscript[22];
-            obj.removetrigger(322);
-            state = 0;
-            break;
         case 323:
-            startscript = true;
-            newscript="custom_"+customscript[23];
-            obj.removetrigger(323);
-            state = 0;
-            break;
         case 324:
-            startscript = true;
-            newscript="custom_"+customscript[24];
-            obj.removetrigger(324);
-            state = 0;
-            break;
         case 325:
-            startscript = true;
-            newscript="custom_"+customscript[25];
-            obj.removetrigger(325);
-            state = 0;
-            break;
         case 326:
-            startscript = true;
-            newscript="custom_"+customscript[26];
-            obj.removetrigger(326);
-            state = 0;
-            break;
         case 327:
-            startscript = true;
-            newscript="custom_"+customscript[27];
-            obj.removetrigger(327);
-            state = 0;
-            break;
         case 328:
-            startscript = true;
-            newscript="custom_"+customscript[28];
-            obj.removetrigger(328);
-            state = 0;
-            break;
         case 329:
-            startscript = true;
-            newscript="custom_"+customscript[29];
-            obj.removetrigger(329);
-            state = 0;
-            break;
         case 330:
-            startscript = true;
-            newscript="custom_"+customscript[30];
-            obj.removetrigger(330);
-            state = 0;
-            break;
         case 331:
-            startscript = true;
-            newscript="custom_"+customscript[31];
-            obj.removetrigger(331);
-            state = 0;
-            break;
         case 332:
-            startscript = true;
-            newscript="custom_"+customscript[32];
-            obj.removetrigger(332);
-            state = 0;
-            break;
         case 333:
-            startscript = true;
-            newscript="custom_"+customscript[33];
-            obj.removetrigger(333);
-            state = 0;
-            break;
         case 334:
-            startscript = true;
-            newscript="custom_"+customscript[34];
-            obj.removetrigger(334);
-            state = 0;
-            break;
         case 335:
-            startscript = true;
-            newscript="custom_"+customscript[35];
-            obj.removetrigger(335);
-            state = 0;
-            break;
         case 336:
             startscript = true;
-            newscript="custom_"+customscript[36];
-            obj.removetrigger(336);
+            newscript="custom_"+customscript[state - 300];
+            obj.removetrigger(state);
             state = 0;
             break;
 
@@ -2073,8 +1876,7 @@ void Game::updatestate()
                 }
                 else
                 {
-                    gamestate = EDITORMODE;
-                    graphics.backgrounddrawn=false;
+                    shouldreturntoeditor = true;
                     if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
                     if(ed.levmusic>0) music.fadeout();
                 }
@@ -2120,7 +1922,7 @@ void Game::updatestate()
 
         case 2000:
             //Game Saved!
-            if (intimetrial || nodeathmode || inintermission)
+            if (inspecial() || map.custommode)
             {
                 state = 0;
             }
@@ -2177,6 +1979,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                 }
                 obj.entities[i].ay = -6;
                 obj.entities[i].ax = 6;
@@ -3520,6 +3324,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3633,6 +3439,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3730,6 +3538,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3827,6 +3637,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -3929,6 +3741,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -4031,6 +3845,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -4131,6 +3947,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -4228,6 +4046,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -4325,6 +4145,8 @@ void Game::updatestate()
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
+                    obj.entities[i].oldxp = obj.entities[i].xp;
+                    obj.entities[i].oldyp = obj.entities[i].yp;
                     obj.entities[j].tile = 2;
                     obj.entities[j].colour = 101;
                 }
@@ -4494,7 +4316,7 @@ void Game::unlocknum( int t )
 
 #define LOAD_ARRAY(ARRAY_NAME) LOAD_ARRAY_RENAME(ARRAY_NAME, ARRAY_NAME)
 
-void Game::loadstats()
+void Game::loadstats(int *width, int *height, bool *vsync)
 {
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc))
@@ -4520,10 +4342,6 @@ void Game::loadstats()
         // save this for later
         hRoot=tinyxml2::XMLHandle(pElem);
     }
-
-    // WINDOW DIMS, ADDED AT PATCH 22
-    int width = 320;
-    int height = 240;
 
     for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
     {
@@ -4575,11 +4393,11 @@ void Game::loadstats()
 
         if (pKey == "window_width")
         {
-            width = atoi(pText);
+            *width = atoi(pText);
         }
         if (pKey == "window_height")
         {
-            height = atoi(pText);
+            *height = atoi(pText);
         }
 
 
@@ -4637,15 +4455,9 @@ void Game::loadstats()
             swnrecord = atoi(pText);
         }
 
-        if (pKey == "advanced_mode")
-        {
-            advanced_mode = atoi(pText);
-        }
-
         if (pKey == "advanced_smoothing")
         {
             fullScreenEffect_badSignal = atoi(pText);
-            graphics.screenbuffer->badSignalEffect = fullScreenEffect_badSignal;
         }
 
         if (pKey == "usingmmmmmm")
@@ -4684,7 +4496,7 @@ void Game::loadstats()
 
         if (pKey == "vsync")
         {
-            graphics.screenbuffer->vsync = atoi(pText);
+            *vsync = atoi(pText);
         }
 
         if (pKey == "notextoutline")
@@ -4735,20 +4547,6 @@ void Game::loadstats()
         }
 
     }
-
-    if(fullscreen)
-    {
-        graphics.screenbuffer->toggleFullScreen();
-    }
-    for (int i = 0; i < stretchMode; i += 1)
-    {
-        graphics.screenbuffer->toggleStretchMode();
-    }
-    if (useLinearFilter)
-    {
-        graphics.screenbuffer->toggleLinearFilter();
-    }
-    graphics.screenbuffer->ResizeScreen(width, height);
 
     if (graphics.showmousecursor == true)
     {
@@ -4871,7 +4669,15 @@ void Game::savestats()
     dataNode->LinkEndChild( msg );
 
     int width, height;
-    graphics.screenbuffer->GetWindowSize(&width, &height);
+    if (graphics.screenbuffer != NULL)
+    {
+        graphics.screenbuffer->GetWindowSize(&width, &height);
+    }
+    else
+    {
+        width = 320;
+        height = 240;
+    }
     msg = doc.NewElement( "window_width" );
     msg->LinkEndChild( doc.NewText( help.String(width).c_str()));
     dataNode->LinkEndChild( msg );
@@ -4907,10 +4713,6 @@ void Game::savestats()
     msg->LinkEndChild( doc.NewText( help.String(swnrecord).c_str()));
     dataNode->LinkEndChild( msg );
 
-
-    msg = doc.NewElement( "advanced_mode" );
-    msg->LinkEndChild( doc.NewText( help.String(advanced_mode).c_str()));
-    dataNode->LinkEndChild( msg );
 
     msg = doc.NewElement( "advanced_smoothing" );
     msg->LinkEndChild( doc.NewText( help.String(fullScreenEffect_badSignal).c_str()));
@@ -4953,8 +4755,17 @@ void Game::savestats()
     msg->LinkEndChild(doc.NewText(help.String((int) glitchrunnermode).c_str()));
     dataNode->LinkEndChild(msg);
 
+    int vsyncOption;
     msg = doc.NewElement("vsync");
-    msg->LinkEndChild(doc.NewText(help.String((int) graphics.screenbuffer->vsync).c_str()));
+    if (graphics.screenbuffer != NULL)
+    {
+        vsyncOption = (int) graphics.screenbuffer->vsync;
+    }
+    else
+    {
+        vsyncOption = 0;
+    }
+    msg->LinkEndChild(doc.NewText(help.String(vsyncOption).c_str()));
     dataNode->LinkEndChild(msg);
 
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
@@ -5386,6 +5197,7 @@ void Game::customloadquick(std::string savfile)
         saverx = playrx;
         savery = playry;
         savegc = playgc;
+        music.play(playmusic);
         return;
     }
 
@@ -6336,7 +6148,7 @@ void Game::customsavequick(std::string savfile)
     else
     {
         printf("Could Not Save game!\n");
-        printf("Failed: %s%s%s", saveFilePath.c_str(), levelfile.c_str(), ".vvv");
+        printf("Failed: %s%s%s\n", saveFilePath.c_str(), levelfile.c_str(), ".vvv");
     }
 }
 
@@ -6789,6 +6601,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                             prefix = tmp;
                             break;
                         }
+                        default:
+                            SDL_assert(0 && "Unhandled menu text prefix!");
+                            prefix = "";
+                            break;
                         }
                     }
                     else
@@ -7504,13 +7320,19 @@ void Game::returntoeditor()
 {
     game.gamestate = EDITORMODE;
 
-    graphics.textboxremove();
+    graphics.textbox.clear();
     game.hascontrol = true;
     game.advancetext = false;
     game.completestop = false;
     game.state = 0;
     graphics.showcutscenebars = false;
     graphics.fademode = 0;
+
+    ed.keydelay = 6;
+    ed.settingskey = true;
+    ed.oldnotedelay = 0;
+    ed.notedelay = 0;
+    ed.roomnamehide = 0;
 
     graphics.backgrounddrawn=false;
     music.fadeout();
@@ -7536,5 +7358,9 @@ void Game::returntopausemenu()
     graphics.backgrounddrawn = false;
     game.mapheld = true;
     graphics.flipmode = graphics.setflipmode;
+    if (!map.custommode && !graphics.flipmode)
+    {
+        obj.flags[73] = true;
+    }
     game.shouldreturntopausemenu = true;
 }

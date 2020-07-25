@@ -1,9 +1,12 @@
 #include "KeyPoll.h"
-#include "Graphics.h"
-#include "Music.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <utf8/unchecked.h>
+
+#include "Game.h"
+#include "Graphics.h"
+#include "Music.h"
 
 void KeyPoll::setSensitivity(int _value)
 {
@@ -57,6 +60,8 @@ KeyPoll::KeyPoll()
 	linealreadyemptykludge = false;
 
 	pauseStart = 0;
+
+	isActive = true;
 }
 
 void KeyPoll::enabletextentry()

@@ -1,15 +1,14 @@
-#include "Render.h"
-
-#include "Graphics.h"
-#include "UtilityClass.h"
-#include "Maths.h"
-#include "Entity.h"
-#include "Map.h"
-#include "Script.h"
-#include "FileSystemUtils.h"
 #include "Credits.h"
-
+#include "editor.h"
+#include "Entity.h"
+#include "FileSystemUtils.h"
+#include "Graphics.h"
 #include "MakeAndPlay.h"
+#include "Map.h"
+#include "Maths.h"
+#include "Music.h"
+#include "Script.h"
+#include "UtilityClass.h"
 
 int tr;
 int tg;
@@ -230,7 +229,11 @@ void menurender()
             break;
         case 6:
             graphics.bigprint(-1, 30, "Toggle VSync", tr, tg, tb, true);
+#ifdef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
+            graphics.Print(-1, 65, "Edit the config file on Haiku!", tr, tg, tb, true);
+#else
             graphics.Print(-1, 65, "Turn VSync on or off.", tr, tg, tb, true);
+#endif
 
             if (!graphics.screenbuffer->vsync)
             {

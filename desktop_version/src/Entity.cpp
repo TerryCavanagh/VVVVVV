@@ -1,6 +1,10 @@
 #include "Entity.h"
+
+#include "editor.h"
 #include "Game.h"
+#include "Graphics.h"
 #include "Map.h"
+#include "Music.h"
 #include "UtilityClass.h"
 
 bool entityclass::checktowerspikes(int t)
@@ -72,6 +76,28 @@ void entityclass::init()
     resetallflags();
     SDL_memset(collect, false, sizeof(collect));
     SDL_memset(customcollect, false, sizeof(customcollect));
+
+    colpoint1 = point();
+    colpoint2 = point();
+    tempx = 0;
+    tempy = 0;
+    tempw = 0;
+    temph = 0;
+    temp = 0;
+    temp2 = 0;
+    tpx1 = 0;
+    tpy1 = 0;
+    tpx2 = 0;
+    tpy2 = 0;
+    x = 0;
+    k = 0;
+    dx = 0.0f;
+    dy = 0.0f;
+    dr = 0.0f;
+    px = 0;
+    py = 0;
+    linetemp = 0;
+    activetrigger = 0;
 }
 
 void entityclass::resetallflags()
@@ -748,7 +774,7 @@ void entityclass::generateswnwave( int t )
     }
 }
 
-void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/ )
+void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/, const std::string& script /*= ""*/ )
 {
     k = blocks.size();
 
@@ -771,6 +797,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         block.hp = h;
         block.rectset(xp, yp, w, h);
         block.trigger = trig;
+        block.script = script;
         break;
     case DAMAGE: //Damage
         block.type = DAMAGE;
@@ -3186,7 +3213,6 @@ bool entityclass::updateentities( int i )
                 if (entities[i].tile == 1)
                 {
                     music.playef(18);
-                    entities[i].onentity = 0;
                     entities[i].tile = 2;
                     entities[i].colour = 101;
                     if(!game.intimetrial && !game.nodeathmode)
@@ -3224,9 +3250,9 @@ bool entityclass::updateentities( int i )
                     {
                         game.savedir = entities[player].dir;
                     }
-                    entities[i].state = 0;
                 }
 
+                entities[i].onentity = 0;
                 entities[i].state = 0;
             }
             else if (entities[i].state == 2)
@@ -3853,9 +3879,11 @@ void entityclass::settemprect( int t )
     rectset(tempx, tempy, tempw, temph);
 }
 
-int entityclass::checktrigger()
+int entityclass::checktrigger(int* block_idx)
 {
     //Returns an int player entity (rule 0) collides with a trigger
+    //Also returns the index of the block
+    *block_idx = -1;
     for(size_t i=0; i < entities.size(); i++)
     {
         if(entities[i].rule==0)
@@ -3871,6 +3899,7 @@ int entityclass::checktrigger()
                 if (blocks[j].type == TRIGGER && help.intersects(blocks[j].rect, temprect))
                 {
                     activetrigger = blocks[j].trigger;
+                    *block_idx = j;
                     return blocks[j].trigger;
                 }
             }
@@ -4793,9 +4822,20 @@ void entityclass::entitycollisioncheck()
 
     // WARNING: If updating this code, don't forget to update Map.cpp mapclass::twoframedelayfix()
     activetrigger = -1;
-    if (checktrigger() > -1)
+    int block_idx = -1;
+    if (checktrigger(&block_idx) > -1 && block_idx > -1)
     {
-        game.state = activetrigger;
+        if (blocks[block_idx].script != "")
+        {
+            game.startscript = true;
+            game.newscript = blocks[block_idx].script;
+            removetrigger(activetrigger);
+            game.state = 0;
+        }
+        else
+        {
+            game.state = activetrigger;
+        }
         game.statedelay = 0;
     }
 }

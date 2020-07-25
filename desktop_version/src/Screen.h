@@ -6,7 +6,15 @@
 class Screen
 {
 public:
-	void init();
+	void init(
+		int windowWidth,
+		int windowHeight,
+		bool fullscreen,
+		bool useVsync,
+		int stretch,
+		bool linearFilter,
+		bool badSignal
+	);
 
 	void ResizeScreen(int x, int y);
 	void ResizeToNearestMultiple();

@@ -1,10 +1,13 @@
 #include "Script.h"
-#include "Graphics.h"
 
+#include "editor.h"
 #include "Entity.h"
-#include "Music.h"
+#include "Enums.h"
+#include "Graphics.h"
 #include "KeyPoll.h"
 #include "Map.h"
+#include "Music.h"
+#include "UtilityClass.h"
 
 scriptclass::scriptclass()
 {
@@ -2633,6 +2636,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
+		else obj.flags[73] = true;
 
 		if(obj.entities.empty())
 		{
@@ -2657,6 +2661,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
+		else obj.flags[73] = true;
 
 		if(obj.entities.empty())
 		{
@@ -2680,6 +2685,7 @@ void scriptclass::startgamemode( int t )
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
+		else obj.flags[73] = true;
 
 		if(obj.entities.empty())
 		{
@@ -3421,6 +3427,8 @@ void scriptclass::teleport()
 		obj.entities[i].xp = 150;
 		obj.entities[i].yp = 110;
 		if(game.teleport_to_x==17 && game.teleport_to_y==17) obj.entities[i].xp = 88; //prevent falling!
+		obj.entities[i].oldxp = obj.entities[i].xp;
+		obj.entities[i].oldyp = obj.entities[i].yp;
 	}
 
 	if (game.teleportscript == "levelonecomplete")
@@ -3645,7 +3653,7 @@ void scriptclass::hardreset()
 
 	//dwgraphicsclass
 	graphics.backgrounddrawn = false;
-	graphics.textboxremovefast();
+	graphics.textbox.clear();
 	graphics.flipmode = false; //This will be reset if needs be elsewhere
 	graphics.showcutscenebars = false;
 	graphics.cutscenebarspos = 0;
@@ -3710,7 +3718,7 @@ void scriptclass::hardreset()
 	// Remove duplicate player entities
 	for (int i = 0; i < (int) obj.entities.size(); i++)
 	{
-		if (i != theplayer)
+		if (obj.entities[i].rule == 0 && i != theplayer)
 		{
 			removeentity_iter(i);
 			theplayer--; // just in case indice of player is not 0

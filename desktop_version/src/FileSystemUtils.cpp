@@ -1,22 +1,16 @@
-#include "FileSystemUtils.h"
-
-#include <vector>
-#include <string>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "Graphics.h"
-
-#include <iterator>
 #include <algorithm>
 #include <iostream>
-
-#include <SDL.h>
+#include <iterator>
 #include <physfs.h>
+#include <SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <tinyxml2.h>
+#include <vector>
 
-#include "tinyxml2.h"
+#include "Graphics.h"
+#include "UtilityClass.h"
 
 /* These are needed for PLATFORM_* crap */
 #if defined(_WIN32)
@@ -34,8 +28,8 @@
 #define MAX_PATH PATH_MAX
 #endif
 
-char saveDir[MAX_PATH];
-char levelDir[MAX_PATH];
+char saveDir[MAX_PATH] = {'\0'};
+char levelDir[MAX_PATH] = {'\0'};
 
 void PLATFORM_getOSDirectory(char* output);
 void PLATFORM_migrateSaveData(char* output);
@@ -230,6 +224,8 @@ void FILESYSTEM_unmountassets()
 	}
 	FILESYSTEM_assetsmounted = false;
 }
+
+void FILESYSTEM_freeMemory(unsigned char **mem);
 
 void FILESYSTEM_loadFileToMemory(
 	const char *name,

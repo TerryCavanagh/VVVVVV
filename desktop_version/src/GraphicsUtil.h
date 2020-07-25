@@ -1,7 +1,7 @@
 #ifndef GRAPHICSUTIL_H
 #define GRAPHICSUTIL_H
 
-#include "SDL.h"
+#include <SDL.h>
 
 struct colourTransform
 {

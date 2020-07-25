@@ -1,9 +1,9 @@
 #include "Screen.h"
 
+#include <stdlib.h>
+
 #include "FileSystemUtils.h"
 #include "GraphicsUtil.h"
-
-#include <stdlib.h>
 
 // Used to create the window icon
 extern "C"
@@ -17,21 +17,38 @@ extern "C"
 	);
 }
 
-void Screen::init()
-{
+void Screen::init(
+	int windowWidth,
+	int windowHeight,
+	bool fullscreen,
+	bool useVsync,
+	int stretch,
+	bool linearFilter,
+	bool badSignal
+) {
 	m_window = NULL;
 	m_renderer = NULL;
 	m_screenTexture = NULL;
 	m_screen = NULL;
-	isWindowed = true;
-	stretchMode = 0;
-	isFiltered = false;
-	vsync = false;
+	isWindowed = !fullscreen;
+	stretchMode = stretch;
+	isFiltered = linearFilter;
+	vsync = useVsync;
 	filterSubrect.x = 1;
 	filterSubrect.y = 1;
 	filterSubrect.w = 318;
 	filterSubrect.h = 238;
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+
+	SDL_SetHintWithPriority(
+		SDL_HINT_RENDER_SCALE_QUALITY,
+		isFiltered ? "linear" : "nearest",
+		SDL_HINT_OVERRIDE
+	);
+	SDL_SetHintWithPriority(
+		SDL_HINT_RENDER_VSYNC,
+		vsync ? "1" : "0",
+		SDL_HINT_OVERRIDE
+	);
 
 	// Uncomment this next line when you need to debug -flibit
 	// SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
@@ -87,7 +104,9 @@ void Screen::init()
 		240
 	);
 
-	badSignalEffect = false;
+	badSignalEffect = badSignal;
+
+	ResizeScreen(windowWidth, windowHeight);
 }
 
 void Screen::ResizeScreen(int x, int y)
@@ -278,7 +297,11 @@ void Screen::toggleStretchMode()
 void Screen::toggleLinearFilter()
 {
 	isFiltered = !isFiltered;
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, isFiltered ? "linear" : "nearest");
+	SDL_SetHintWithPriority(
+		SDL_HINT_RENDER_SCALE_QUALITY,
+		isFiltered ? "linear" : "nearest",
+		SDL_HINT_OVERRIDE
+	);
 	SDL_DestroyTexture(m_screenTexture);
 	m_screenTexture = SDL_CreateTexture(
 		m_renderer,

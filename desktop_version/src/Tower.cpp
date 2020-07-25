@@ -1,7 +1,6 @@
 #include "Tower.h"
 
 #include "MakeAndPlay.h"
-
 #include "UtilityClass.h"
 
 towerclass::towerclass()
@@ -96,7 +95,7 @@ void towerclass::loadminitower1()
 {
 	//Loads the first minitower into the array.
 #if !defined(MAKEANDPLAY)
-	static const int tmap[] = {
+	static const short tmap[] = {
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
@@ -199,7 +198,7 @@ void towerclass::loadminitower1()
 	12,12,12,12,12,12,12,12,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,12,12,12,12,12,
 	};
 #else
-	static const int tmap[100*40] = {0};
+	static const short tmap[100*40] = {0};
 #endif
 
 	SDL_memcpy(minitower, tmap, sizeof(minitower));
@@ -208,7 +207,7 @@ void towerclass::loadminitower1()
 void towerclass::loadminitower2()
 {
 #if !defined(MAKEANDPLAY)
-	static const int tmap[] = {
+	static const short tmap[] = {
 	12,12,21,10,0,0,0,0,0,0,0,0,0,0,0,0,11,20,21,10,0,20,21,28,28,20,21,28,28,20,12,12,12,12,12,12,12,12,12,12,
 	12,12,21,10,0,0,0,0,0,0,0,0,0,0,0,0,11,20,21,10,0,20,21,28,28,20,21,28,28,20,12,12,12,12,12,12,12,12,12,12,
 	12,12,21,10,0,0,0,0,0,0,0,0,0,0,0,0,11,20,21,10,0,20,21,28,28,20,21,28,28,20,12,12,12,12,12,12,12,12,12,12,
@@ -311,7 +310,7 @@ void towerclass::loadminitower2()
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,21,28,28,0,0,0,0,0,0,0,0,0,20,12,12,12,12,12,
 	};
 #else
-	static const int tmap[100*40] = {0};
+	static const short tmap[100*40] = {0};
 #endif
 
 	SDL_memcpy(minitower, tmap, sizeof(minitower));
@@ -321,7 +320,7 @@ void towerclass::loadminitower2()
 void towerclass::loadbackground()
 {
 	//Loads the background into the array.
-	static const int tmap[] = {
+	static const short tmap[] = {
 	1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0,0,0,5,4,0,0,
 	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0,0,0,5,1,1,4,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,2,0,0,0,0,0,0,0,0,0,0,0,0,5,1,1,1,1,4,
@@ -450,7 +449,7 @@ void towerclass::loadmap()
 {
 	//Loads the map into the array.
 #if !defined(MAKEANDPLAY)
-	static const int tmap[] = {
+	static const short tmap[] = {
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
@@ -1153,7 +1152,7 @@ void towerclass::loadmap()
 	12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
 	};
 #else
-	static const int tmap[700*40] = {0};
+	static const short tmap[700*40] = {0};
 #endif
 
 	SDL_memcpy(contents, tmap, sizeof(contents));
