@@ -3,7 +3,7 @@ untilbars()
 
 squeak(terminal)
 text(gray,0,60,1)
--= PERSONAL LOG =- 
+        -= PERSONAL LOG =-         
 position(centerx)
 backgroundtext
 flipme

@@ -6,10 +6,10 @@ text(gray,0,114,9)
 * DIMENSIONAL STABILITY GENERATOR *
 
      [ Currently Generating ]      
-Maximum Stability    
+        Maximum Stability    
 
-    [ Status ]
-      Online
+            [ Status ]
+              Online
 
 READY _
 position(center)
@@ -20,7 +20,7 @@ delay(10)
 
 squeak(player)
 text(cyan,0,0,2)
-Aha! This must be what's ,
+Aha! This must be what's
 causing the interference!
 position(player,above)
 speak_active

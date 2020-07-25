@@ -3,7 +3,7 @@ untilbars()
 
 squeak(terminal)
 text(gray,0,114,7)
-  -= JUKEBOX =-       
+          -= JUKEBOX =-       
 
    Songs will continue to play   
    until you leave the ship.

@@ -3,7 +3,7 @@ untilbars()
 
 squeak(terminal)
 text(gray,0,60,1)
--= PERSONAL LOG =- 
+        -= PERSONAL LOG =-         
 position(centerx)
 backgroundtext
 flipme
@@ -15,7 +15,7 @@ text(gray,0,120,6)
  station now. The rest of us 
  are leaving in a couple of  
  days, once our research has 
- been completed.     
+ been completed.             
 position(center)
 speak
 

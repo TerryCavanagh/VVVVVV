@@ -19,7 +19,7 @@ delay(1)
 squeak(green)
 
 text(purple,0,0,1)
-Captain!
+Captain!        
 position(purple,above)
 backgroundtext
 speak
