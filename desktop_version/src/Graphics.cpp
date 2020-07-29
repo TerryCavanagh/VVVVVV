@@ -1630,8 +1630,8 @@ void Graphics::drawentities()
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
             //screenwrapping!
             if (map.warpx ||
-            (map.towermode && !map.minitowermode
-            && map.ypos >= 500 && map.ypos <= 5000))   //The "wrapping" area of the tower
+				(map.towermode && !map.minitowermode
+				&& map.ypos >= 500 && map.ypos <= 5000))   //The "wrapping" area of the tower
             {
                 if (tpoint.x < 0)
                 {
@@ -1650,7 +1650,7 @@ void Graphics::drawentities()
                     BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                 }
             }
-            else if (map.warpy)
+            if (map.warpy)
             {
                 if (tpoint.y < 0)
                 {
@@ -1669,6 +1669,43 @@ void Graphics::drawentities()
                     BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
                 }
             }
+			if (map.warpx && map.warpy)
+			{
+				bool drawWrappedSprite = false;
+				
+				if (tpoint.x < 0 && tpoint.y < 0)
+				{
+					tpoint.x += 320;
+					tpoint.y += 230;
+					drawWrappedSprite = true;
+				}
+				else if (tpoint.x > 300 && tpoint.y < 0)
+				{
+					tpoint.x -= 320;
+					tpoint.y += 230;
+					drawWrappedSprite = true;
+				}
+				else if (tpoint.x < 0 && tpoint.y > 210)
+				{
+					tpoint.x += 320;
+					tpoint.y -= 230;
+					drawWrappedSprite = true;
+				}
+				else if (tpoint.x > 300 && tpoint.y > 210)
+				{
+					tpoint.x -= 320;
+					tpoint.y -= 230;
+					drawWrappedSprite = true;
+				}
+				
+				if (drawWrappedSprite)
+				{
+					drawRect = sprites_rect;
+					drawRect.x += tpoint.x;
+					drawRect.y += tpoint.y;
+                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+				}
+			}
             break;
         case 1:
             // Tiles
