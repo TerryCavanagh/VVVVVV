@@ -1768,6 +1768,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
                 entity.tile = 188 + vx;
                 entity.colour = 37;
                 entity.h += 3;
+                entity.oldyp -= 3;
                 entity.yp -= 3;
             }
             break;
