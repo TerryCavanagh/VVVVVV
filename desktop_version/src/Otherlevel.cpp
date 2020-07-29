@@ -8936,27 +8936,27 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,295,
 		};
 
-		obj.createentity(96, 48, 25, 0, 1); //Terminal
-		obj.createentity(128, 48, 25, 0, 2); //Terminal
-		obj.createentity(160, 48, 25, 0, 3); //Terminal
-		obj.createentity(192, 48, 25, 0, 4); //Terminal
-		obj.createentity(224, 48, 25, 0, 5); //Terminal
-		obj.createentity(256, 48, 25, 0, 6); //Terminal
+		obj.createentity(96, 48, 25, 0, 1); // Trophy
+		obj.createentity(128, 48, 25, 0, 2); // Trophy
+		obj.createentity(160, 48, 25, 0, 3); // Trophy
+		obj.createentity(192, 48, 25, 0, 4); // Trophy
+		obj.createentity(224, 48, 25, 0, 5); // Trophy
+		obj.createentity(256, 48, 25, 0, 6); // Trophy
 
-		obj.createentity(96, 88, 25, 1, 13); //Terminal
-		obj.createentity(128, 88, 25, 1, 14); //Terminal
-		obj.createentity(160, 88, 25, 1, 15); //Terminal
-		obj.createentity(192, 88, 25, 1, 16); //Terminal
-		obj.createentity(224, 88, 25, 1, 17); //Terminal
-		obj.createentity(256, 88, 25, 1, 18); //Terminal
+		obj.createentity(96, 88, 25, 1, 13); // Trophy
+		obj.createentity(128, 88, 25, 1, 14); // Trophy
+		obj.createentity(160, 88, 25, 1, 15); // Trophy
+		obj.createentity(192, 88, 25, 1, 16); // Trophy
+		obj.createentity(224, 88, 25, 1, 17); // Trophy
+		obj.createentity(256, 88, 25, 1, 18); // Trophy
 
-		obj.createentity(96, 128-3, 25, 0, 7); //Terminal
-		obj.createentity(96, 168, 25, 1, 8); //Terminal
+		obj.createentity(96, 128, 25, 0, 7); // Trophy
+		obj.createentity(96, 168, 25, 1, 8); // Trophy
 
-		obj.createentity(160, 128, 25, 0, 12); //Terminal
-		obj.createentity(192, 128, 25, 0, 11); //Terminal
-		obj.createentity(224, 128, 25, 0, 10); //Terminal
-		obj.createentity(256, 128, 25, 0, 9); //Terminal
+		obj.createentity(160, 128, 25, 0, 12); // Trophy
+		obj.createentity(192, 128, 25, 0, 11); // Trophy
+		obj.createentity(224, 128, 25, 0, 10); // Trophy
+		obj.createentity(256, 128, 25, 0, 9); // Trophy
 		result = contents;
 		break;
 	}
@@ -8997,8 +8997,8 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,
 		};
 
-		obj.createentity(152, 168, 25, 0, 20); //Terminal
-		obj.createentity(152, 168, 25, 0, 19); //Terminal
+		obj.createentity(152, 168, 25, 0, 19); // Trophy
+		obj.createentity(152, 168, 25, 0, 20); // Trophy placeholder
 		result = contents;
 		break;
 	}
