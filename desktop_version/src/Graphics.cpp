@@ -1615,6 +1615,7 @@ void Graphics::drawentities()
         switch (obj.entities[i].size)
         {
         case 0:
+        {
             // Sprites
             if (!INBOUNDS(obj.entities[i].drawframe, (*spritesvec)))
             {
@@ -1627,49 +1628,61 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+            
             //screenwrapping!
-            if (map.warpx ||
-            (map.towermode && !map.minitowermode
-            && map.ypos >= 500 && map.ypos <= 5000))   //The "wrapping" area of the tower
+            point wrappedPoint;
+            bool wrapX = false;
+            bool wrapY = false;
+
+            wrappedPoint.x = tpoint.x;
+            if (tpoint.x < 0)
             {
-                if (tpoint.x < 0)
-                {
-                    tpoint.x += 320;
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                }
-                else if (tpoint.x > 300)
-                {
-                    tpoint.x -= 320;
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                }
+                wrapX = true;
+                wrappedPoint.x += 320;
             }
-            else if (map.warpy)
+            else if (tpoint.x > 300)
             {
-                if (tpoint.y < 0)
-                {
-                    tpoint.y += 230;
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                }
-                else if (tpoint.y > 210)
-                {
-                    tpoint.y -= 230;
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                }
+                wrapX = true;
+                wrappedPoint.x -= 320;
+            }
+
+            wrappedPoint.y = tpoint.y;
+            if (tpoint.y < 0)
+            {
+                wrapY = true;
+                wrappedPoint.y += 230;
+            }
+            else if (tpoint.y > 210)
+            {
+                wrapY = true;
+                wrappedPoint.y -= 230;
+            }
+
+            bool isInWrappingAreaOfTower = map.towermode && !map.minitowermode && map.ypos >= 500 && map.ypos <= 5000;
+            if (wrapX && (map.warpx || isInWrappingAreaOfTower))
+            {
+                drawRect = sprites_rect;
+                drawRect.x += wrappedPoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+            }
+            if (wrapY && map.warpy)
+            {
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += wrappedPoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+            }
+            if (wrapX && wrapY && map.warpx && map.warpy)
+            {
+                drawRect = sprites_rect;
+                drawRect.x += wrappedPoint.x;
+                drawRect.y += wrappedPoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             }
             break;
+        }
         case 1:
             // Tiles
             if (!INBOUNDS(obj.entities[i].drawframe, tiles))
