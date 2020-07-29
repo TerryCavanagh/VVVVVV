@@ -4711,19 +4711,12 @@ void editorinput()
                             //Checkpoint spawn
                             int tx=(edentity[testeditor].x-(edentity[testeditor].x%40))/40;
                             int ty=(edentity[testeditor].y-(edentity[testeditor].y%30))/30;
-                            game.edsavex = (edentity[testeditor].x%40)*8;
+                            game.edsavex = (edentity[testeditor].x%40)*8 - 4;
                             game.edsavey = (edentity[testeditor].y%30)*8;
                             game.edsaverx = 100+tx;
                             game.edsavery = 100+ty;
-                            game.edsavegc = edentity[testeditor].p1;
-                            if(game.edsavegc==0)
-                            {
-                                game.edsavey--;
-                            }
-                            else
-                            {
-                                game.edsavey-=8;
-                            }
+                            game.edsavegc = 1-edentity[testeditor].p1;
+                            game.edsavey--;
                             game.edsavedir = 0;
                         }
                         else
@@ -4731,7 +4724,7 @@ void editorinput()
                             //Start point spawn
                             int tx=(edentity[testeditor].x-(edentity[testeditor].x%40))/40;
                             int ty=(edentity[testeditor].y-(edentity[testeditor].y%30))/30;
-                            game.edsavex = ((edentity[testeditor].x%40)*8)-4;
+                            game.edsavex = (edentity[testeditor].x%40)*8 - 4;
                             game.edsavey = (edentity[testeditor].y%30)*8;
                             game.edsaverx = 100+tx;
                             game.edsavery = 100+ty;
