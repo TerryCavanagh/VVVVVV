@@ -1631,62 +1631,59 @@ void Graphics::drawentities()
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             
             //screenwrapping!
+            point wrappedPoint;
             bool wrapX = false;
             bool wrapY = false;
 
-            int wrappedXCoord = tpoint.x;
-            if (tpoint.x < 0) {
+            wrappedPoint.x = tpoint.x;
+            if (tpoint.x < 0)
+            {
                 wrapX = true;
-                wrappedXCoord += 320;
+                wrappedPoint.x += 320;
             }
-            else if (tpoint.x > 300) {
+            else if (tpoint.x > 300)
+            {
                 wrapX = true;
-                wrappedXCoord -= 320;
+                wrappedPoint.x -= 320;
             }
 
-            int wrappedYCoord = tpoint.y;
-            if (tpoint.y < 0) {
+            wrappedPoint.y = tpoint.y;
+            if (tpoint.y < 0)
+            {
                 wrapY = true;
-                wrappedYCoord += 230;
+                wrappedPoint.y += 230;
             }
-            else if (tpoint.y > 210) {
+            else if (tpoint.y > 210)
+            {
                 wrapY = true;
-                wrappedYCoord -= 230;
+                wrappedPoint.y -= 230;
             }
 
             if (map.warpx ||
                 (map.towermode && !map.minitowermode
                     && map.ypos >= 500 && map.ypos <= 5000))   //The "wrapping" area of the tower
             {
-                drawRect = sprites_rect;
-                drawRect.x += wrappedXCoord;
-                drawRect.y += tpoint.y;
-
-                if (wrapX) {
+                if (wrapX)
+                {
+                    drawRect = sprites_rect;
+                    drawRect.x += wrappedPoint.x;
+                    drawRect.y += tpoint.y;
                     BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
                 }
             }
-            if (map.warpy)
+            if (map.warpy && wrapY)
             {
                 drawRect = sprites_rect;
                 drawRect.x += tpoint.x;
-                drawRect.y += wrappedYCoord;
-
-                if (wrapY)
-                {
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
-                }
+                drawRect.y += wrappedPoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             }
-            if (map.warpx && map.warpy)
+            if (map.warpx && map.warpy && wrapX && wrapY)
             {
                 drawRect = sprites_rect;
-                drawRect.x += wrappedXCoord;
-                drawRect.y += wrappedYCoord;
-
-                if (wrapX && wrapY)
-                {
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
-                }
+                drawRect.x += wrappedPoint.x;
+                drawRect.y += wrappedPoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             }
             break;
         }
