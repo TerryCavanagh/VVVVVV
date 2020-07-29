@@ -1659,26 +1659,22 @@ void Graphics::drawentities()
                 wrappedPoint.y -= 230;
             }
 
-            if (map.warpx ||
-                (map.towermode && !map.minitowermode
-                    && map.ypos >= 500 && map.ypos <= 5000))   //The "wrapping" area of the tower
+            bool isInWrappingAreaOfTower = map.towermode && !map.minitowermode && map.ypos >= 500 && map.ypos <= 5000;
+            if (wrapX && (map.warpx || isInWrappingAreaOfTower))
             {
-                if (wrapX)
-                {
-                    drawRect = sprites_rect;
-                    drawRect.x += wrappedPoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
-                }
+                drawRect = sprites_rect;
+                drawRect.x += wrappedPoint.x;
+                drawRect.y += tpoint.y;
+                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             }
-            if (map.warpy && wrapY)
+            if (wrapY && map.warpy)
             {
                 drawRect = sprites_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += wrappedPoint.y;
                 BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             }
-            if (map.warpx && map.warpy && wrapX && wrapY)
+            if (wrapX && wrapY && map.warpx && map.warpy)
             {
                 drawRect = sprites_rect;
                 drawRect.x += wrappedPoint.x;
