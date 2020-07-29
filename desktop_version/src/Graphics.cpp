@@ -1615,6 +1615,7 @@ void Graphics::drawentities()
         switch (obj.entities[i].size)
         {
         case 0:
+        {
             // Sprites
             if (!INBOUNDS(obj.entities[i].drawframe, (*spritesvec)))
             {
@@ -1627,86 +1628,68 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+            
             //screenwrapping!
+            bool wrapX = false;
+            bool wrapY = false;
+
+            int wrappedXCoord = tpoint.x;
+            if (tpoint.x < 0) {
+                wrapX = true;
+                wrappedXCoord += 320;
+            }
+            else if (tpoint.x > 300) {
+                wrapX = true;
+                wrappedXCoord -= 320;
+            }
+
+            int wrappedYCoord = tpoint.y;
+            if (tpoint.y < 0) {
+                wrapY = true;
+                wrappedYCoord += 230;
+            }
+            else if (tpoint.y > 210) {
+                wrapY = true;
+                wrappedYCoord -= 230;
+            }
+
             if (map.warpx ||
-				(map.towermode && !map.minitowermode
-				&& map.ypos >= 500 && map.ypos <= 5000))   //The "wrapping" area of the tower
+                (map.towermode && !map.minitowermode
+                    && map.ypos >= 500 && map.ypos <= 5000))   //The "wrapping" area of the tower
             {
-                if (tpoint.x < 0)
-                {
-                    tpoint.x += 320;
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                }
-                else if (tpoint.x > 300)
-                {
-                    tpoint.x -= 320;
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                drawRect = sprites_rect;
+                drawRect.x += wrappedXCoord;
+                drawRect.y += tpoint.y;
+
+                if (wrapX) {
+                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
                 }
             }
             if (map.warpy)
             {
-                if (tpoint.y < 0)
+                drawRect = sprites_rect;
+                drawRect.x += tpoint.x;
+                drawRect.y += wrappedYCoord;
+
+                if (wrapY)
                 {
-                    tpoint.y += 230;
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-                }
-                else if (tpoint.y > 210)
-                {
-                    tpoint.y -= 230;
-                    drawRect = sprites_rect;
-                    drawRect.x += tpoint.x;
-                    drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
                 }
             }
-			if (map.warpx && map.warpy)
-			{
-				bool drawWrappedSprite = false;
-				
-				if (tpoint.x < 0 && tpoint.y < 0)
-				{
-					tpoint.x += 320;
-					tpoint.y += 230;
-					drawWrappedSprite = true;
-				}
-				else if (tpoint.x > 300 && tpoint.y < 0)
-				{
-					tpoint.x -= 320;
-					tpoint.y += 230;
-					drawWrappedSprite = true;
-				}
-				else if (tpoint.x < 0 && tpoint.y > 210)
-				{
-					tpoint.x += 320;
-					tpoint.y -= 230;
-					drawWrappedSprite = true;
-				}
-				else if (tpoint.x > 300 && tpoint.y > 210)
-				{
-					tpoint.x -= 320;
-					tpoint.y -= 230;
-					drawWrappedSprite = true;
-				}
-				
-				if (drawWrappedSprite)
-				{
-					drawRect = sprites_rect;
-					drawRect.x += tpoint.x;
-					drawRect.y += tpoint.y;
-                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-				}
-			}
+            if (map.warpx && map.warpy)
+            {
+                drawRect = sprites_rect;
+                drawRect.x += wrappedXCoord;
+                drawRect.y += wrappedYCoord;
+
+                if (wrapX && wrapY)
+                {
+                    BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+                }
+            }
             break;
+        }
         case 1:
             // Tiles
             if (!INBOUNDS(obj.entities[i].drawframe, tiles))
