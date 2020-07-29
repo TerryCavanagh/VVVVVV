@@ -94,6 +94,7 @@ static const char* githubfriends[] = {
     "Daniel Lee",
     "Fredrik Ljungdahl",
     "Matt Penny",
+    "Tynan Richards",
     "Elliott Saltar",
     "Marvin Scholz",
     "Keith Stellyes",
