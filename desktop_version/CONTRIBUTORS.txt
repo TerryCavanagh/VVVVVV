@@ -13,6 +13,7 @@ Contributors
 * Daniel Lee (@ddm999)
 * Fredrik Ljungdahl (@FredrIQ)
 * Matt Penny (@mwpenny)
+* Tynan Richards (@tzann)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
 * Keith Stellyes (@keithstellyes)
