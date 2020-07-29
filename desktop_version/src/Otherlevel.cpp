@@ -8997,8 +8997,8 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,283,
 		};
 
-		obj.createentity(152, 168, 25, 0, 19); // Trophy
 		obj.createentity(152, 168, 25, 0, 20); // Trophy placeholder
+		obj.createentity(152, 168, 25, 0, 19); // Trophy
 		result = contents;
 		break;
 	}
