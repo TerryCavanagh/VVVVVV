@@ -113,6 +113,7 @@ set(VVV_SRC
 	src/Network.c
 	src/ThirdPartyDeps.c
 	src/Xoshiro.c
+	../third_party/physfs/physfsrwops.c
 )
 if(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
 	list(APPEND VVV_SRC src/editor.cpp)
@@ -174,7 +175,6 @@ set(PFS_SRC
 	../third_party/physfs/physfs_platform_unix.c
 	../third_party/physfs/physfs_platform_windows.c
 	../third_party/physfs/physfs_platform_haiku.cpp
-	../third_party/physfs/physfsrwops.c
 )
 if(APPLE)
 	# Are you noticing a pattern with this Apple crap yet?
