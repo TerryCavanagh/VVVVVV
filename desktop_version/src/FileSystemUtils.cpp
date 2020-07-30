@@ -770,7 +770,7 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 {
 	PHYSFS_sint64 size;
 	PHYSFS_File* handle;
-	int offset;
+	int valid, offset;
 	size_t i;
 	char path[MAX_PATH];
 
@@ -796,6 +796,7 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 		sizeof(blob->m_headers)
 	);
 
+	valid = 0;
 	offset = sizeof(blob->m_headers);
 
 	for (i = 0; i < SDL_arraysize(blob->m_headers); ++i)
@@ -828,14 +829,19 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 		}
 		PHYSFS_readBytes(handle, *memblock, header->size);
 		offset += header->size;
+		valid += 1;
 
 		continue;
-
 fail:
 		header->valid = false;
 	}
 
 	PHYSFS_close(handle);
+
+	if (valid == 0)
+	{
+		return false;
+	}
 
 	printf("The complete reloaded file size: %lli\n", size);
 
