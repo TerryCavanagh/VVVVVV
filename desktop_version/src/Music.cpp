@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <stdio.h>
+#include <physfsrwops.h>
 
 #include "BinaryBlob.h"
 #include "Game.h"
@@ -62,7 +63,7 @@ void musicclass::init(void)
 
 #ifdef VVV_COMPILEMUSIC
 	binaryBlob musicWriteBlob;
-#define FOREACH_TRACK(blob, track_name) blob.AddFileToBinaryBlob(track_name);
+#define FOREACH_TRACK(blob, track_name) blob.AddFileToBinaryBlob("data/" track_name);
 	TRACK_NAMES(musicWriteBlob)
 #undef FOREACH_TRACK
 
@@ -75,19 +76,46 @@ void musicclass::init(void)
 
 	if (!mmmmmm_blob.unPackBinary("mmmmmm.vvv"))
 	{
-		mmmmmm = false;
-		usingmmmmmm=false;
-		bool ohCrap = pppppp_blob.unPackBinary("vvvvvvmusic.vvv");
-		SDL_assert(ohCrap && "Music not found!");
+		if (pppppp_blob.unPackBinary("vvvvvvmusic.vvv")) {
+			puts("Loading music from PPPPPP blob...");
+
+			mmmmmm = false;
+			usingmmmmmm=false;
+
+			int index;
+			SDL_RWops* rw;
+
+#define FOREACH_TRACK(blob, track_name) \
+	index = blob.getIndex("data/" track_name); \
+	rw = SDL_RWFromMem(blob.getAddress(index), blob.getSize(index)); \
+	musicTracks.push_back(MusicTrack( rw ));
+
+			TRACK_NAMES(pppppp_blob)
+
+#undef FOREACH_TRACK
+		} else {
+			puts("Loading music from loose files...");
+
+			SDL_RWops* rw;
+#define FOREACH_TRACK(_, track_name) \
+	rw = PHYSFSRWOPS_openRead(track_name); \
+	musicTracks.push_back(MusicTrack( rw ));
+
+			TRACK_NAMES(_)
+
+#undef FOREACH_TRACK
+		}
 	}
 	else
 	{
+		puts("Loading PPPPPP and MMMMMM blobs...");
+
 		mmmmmm = true;
 		int index;
 		SDL_RWops *rw;
 
 #define FOREACH_TRACK(blob, track_name) \
-	index = blob.getIndex(track_name); \
+	index = blob.getIndex("data/" track_name); \
 	if (index >= 0 && index < blob.max_headers) \
 	{ \
 		rw = SDL_RWFromConstMem(blob.getAddress(index), blob.getSize(index)); \
@@ -117,17 +145,15 @@ void musicclass::init(void)
 
 		bool ohCrap = pppppp_blob.unPackBinary("vvvvvvmusic.vvv");
 		SDL_assert(ohCrap && "Music not found!");
-	}
-
-	int index;
-	SDL_RWops *rw;
 
 	TRACK_NAMES(pppppp_blob)
 
 #undef FOREACH_TRACK
+	}
 
 	num_pppppp_tracks += musicTracks.size() - num_mmmmmm_tracks;
 
+	SDL_RWops* rw;
 	size_t index_ = 0;
 	while (pppppp_blob.nextExtra(&index_))
 	{

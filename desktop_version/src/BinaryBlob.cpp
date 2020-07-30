@@ -134,9 +134,8 @@ bool binaryBlob::nextExtra(size_t* start)
 	for (idx = start; *idx < SDL_arraysize(m_headers); *idx += 1)
 	{
 		if (m_headers[*idx].valid
-#define FOREACH_TRACK(_, track_name) && SDL_strcmp(m_headers[*idx].name, track_name) != 0
+#define FOREACH_TRACK(_, track_name) && SDL_strcmp(m_headers[*idx].name, "data/" track_name) != 0
 		TRACK_NAMES(_)
-#undef FOREACH_TRACK
 		) {
 			return true;
 		}
