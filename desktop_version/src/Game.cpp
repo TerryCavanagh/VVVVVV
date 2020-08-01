@@ -1894,12 +1894,6 @@ void Game::updatestate()
             if(graphics.fademode == 1)	state++;
             break;
         case 1015:
-            graphics.flipmode = false;
-            gamestate = TITLEMODE;
-            graphics.fademode = 4;
-            music.play(6);
-            graphics.backgrounddrawn = true;
-            map.tdrawback = true;
 #if !defined(NO_CUSTOM_LEVELS)
             //Update level stats
             if(ed.numcrewmates()-crewmates()==0)
@@ -1916,6 +1910,7 @@ void Game::updatestate()
                 }
             }
 #endif
+			quittomenu();
             state = 0;
             break;
 
