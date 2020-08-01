@@ -3046,30 +3046,32 @@ void editorrender()
 
     if(ed.drawmode<3)
     {
-        if(ed.zmod && ed.drawmode<2)
+        if(ed.bmod && ed.drawmode<2)
         {
-            fillboxabs((ed.tilex*8)-8,(ed.tiley*8)-8,24,24, graphics.getRGB(200,32,32));
-        }
-        else if(ed.xmod && ed.drawmode<2)
-        {
-            fillboxabs((ed.tilex*8)-16,(ed.tiley*8)-16,24+16,24+16, graphics.getRGB(200,32,32));
-        }
-        else if(ed.cmod && ed.drawmode<2)
-        {
-            fillboxabs((ed.tilex*8)-24,(ed.tiley*8)-24,24+32,24+32, graphics.getRGB(200,32,32));
-        }
-        else if(ed.vmod && ed.drawmode<2)
-        {
-            fillboxabs((ed.tilex*8)-32,(ed.tiley*8)-32,24+48,24+48, graphics.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8),0,8,240,graphics.getRGB(200,32,32));
         }
         else if(ed.hmod && ed.drawmode<2)
         {
             fillboxabs(0,(ed.tiley*8),320,8,graphics.getRGB(200,32,32));
         }
-        else if(ed.bmod && ed.drawmode<2)
+        else if(ed.vmod && ed.drawmode<2)
         {
-            fillboxabs((ed.tilex*8),0,8,240,graphics.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8)-32,(ed.tiley*8)-32,24+48,24+48, graphics.getRGB(200,32,32));
         }
+        else if(ed.cmod && ed.drawmode<2)
+        {
+            fillboxabs((ed.tilex*8)-24,(ed.tiley*8)-24,24+32,24+32, graphics.getRGB(200,32,32));
+        }
+        else if(ed.xmod && ed.drawmode<2)
+        {
+            fillboxabs((ed.tilex*8)-16,(ed.tiley*8)-16,24+16,24+16, graphics.getRGB(200,32,32));
+        }
+        else if(ed.zmod && ed.drawmode<2)
+        {
+            fillboxabs((ed.tilex*8)-8,(ed.tiley*8)-8,24,24, graphics.getRGB(200,32,32));
+        }
+
+
     }
 
     //If in directmode, show current directmode tile
@@ -5328,58 +5330,64 @@ void editorinput()
                 if(key.rightbutton)
                 {
                     //place tiles
-                    if(ed.bmod)
-                    {
-                        for(int i=0; i<30; i++)
+                    if(ed.drawmode < 2) {
+                        if(ed.bmod)
                         {
-                            ed.placetilelocal(ed.tilex, i, 0);
-                        }
-                    }
-                    else if(ed.hmod)
-                    {
-                        for(int i=0; i<40; i++)
-                        {
-                            ed.placetilelocal(i, ed.tiley, 0);
-                        }
-                    }
-                    else if(ed.vmod)
-                    {
-                        for(int j=-4; j<5; j++)
-                        {
-                            for(int i=-4; i<5; i++)
+                            for(int i=0; i<30; i++)
                             {
-                                ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                                ed.placetilelocal(ed.tilex, i, 0);
                             }
                         }
-                    }
-                    else if(ed.cmod)
-                    {
-                        for(int j=-3; j<4; j++)
+                        else if(ed.hmod)
                         {
-                            for(int i=-3; i<4; i++)
+                            for(int i=0; i<40; i++)
                             {
-                                ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                                ed.placetilelocal(i, ed.tiley, 0);
                             }
                         }
-                    }
-                    else if(ed.xmod)
-                    {
-                        for(int j=-2; j<3; j++)
+                        else if(ed.vmod)
                         {
-                            for(int i=-2; i<3; i++)
+                            for(int j=-4; j<5; j++)
                             {
-                                ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                                for(int i=-4; i<5; i++)
+                                {
+                                    ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                                }
                             }
                         }
-                    }
-                    else if(ed.zmod)
-                    {
-                        for(int j=-1; j<2; j++)
+                        else if(ed.cmod)
                         {
-                            for(int i=-1; i<2; i++)
+                            for(int j=-3; j<4; j++)
                             {
-                                ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                                for(int i=-3; i<4; i++)
+                                {
+                                    ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                                }
                             }
+                        }
+                        else if(ed.xmod)
+                        {
+                            for(int j=-2; j<3; j++)
+                            {
+                                for(int i=-2; i<3; i++)
+                                {
+                                    ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                                }
+                            }
+                        }
+                        else if(ed.zmod)
+                        {
+                            for(int j=-1; j<2; j++)
+                            {
+                                for(int i=-1; i<2; i++)
+                                {
+                                    ed.placetilelocal(ed.tilex+i, ed.tiley+j, 0);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ed.placetilelocal(ed.tilex, ed.tiley, 0);
                         }
                     }
                     else
