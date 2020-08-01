@@ -1910,7 +1910,7 @@ void Game::updatestate()
                 }
             }
 #endif
-			quittomenu();
+            quittomenu();
             state = 0;
             break;
 
