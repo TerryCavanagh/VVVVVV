@@ -1339,12 +1339,12 @@ void Game::updatestate()
             {
                 bestrank[timetriallevel] = timetrialrank;
                 if(timetrialrank>=3){
-                    if(timetriallevel==0) NETWORK_unlockAchievement("vvvvvvtimetrial_station1_fixed");
-                    if(timetriallevel==1) NETWORK_unlockAchievement("vvvvvvtimetrial_lab_fixed");
-                    if(timetriallevel==2) NETWORK_unlockAchievement("vvvvvvtimetrial_tower_fixed");
-                    if(timetriallevel==3) NETWORK_unlockAchievement("vvvvvvtimetrial_station2_fixed");
-                    if(timetriallevel==4) NETWORK_unlockAchievement("vvvvvvtimetrial_warp_fixed");
-                    if(timetriallevel==5) NETWORK_unlockAchievement("vvvvvvtimetrial_final_fixed");
+                    if(timetriallevel==0) unlockAchievement("vvvvvvtimetrial_station1_fixed");
+                    if(timetriallevel==1) unlockAchievement("vvvvvvtimetrial_lab_fixed");
+                    if(timetriallevel==2) unlockAchievement("vvvvvvtimetrial_tower_fixed");
+                    if(timetriallevel==3) unlockAchievement("vvvvvvtimetrial_station2_fixed");
+                    if(timetriallevel==4) unlockAchievement("vvvvvvtimetrial_warp_fixed");
+                    if(timetriallevel==5) unlockAchievement("vvvvvvtimetrial_final_fixed");
                 }
             }
 
@@ -2944,7 +2944,7 @@ void Game::updatestate()
             break;
         case 3501:
             //Game complete!
-            NETWORK_unlockAchievement("vvvvvvgamecomplete");
+            unlockAchievement("vvvvvvgamecomplete");
             unlocknum(5);
             crewstats[0] = true;
             state++;
@@ -3091,7 +3091,7 @@ void Game::updatestate()
             if (!obj.flags[73])
             {
                 //flip mode complete
-                NETWORK_unlockAchievement("vvvvvvgamecompleteflip");
+                unlockAchievement("vvvvvvgamecompleteflip");
                 unlocknum(19);
             }
 
@@ -3109,16 +3109,16 @@ void Game::updatestate()
 
             if (bestgamedeaths > -1) {
                 if (bestgamedeaths <= 500) {
-                    NETWORK_unlockAchievement("vvvvvvcomplete500");
+                    unlockAchievement("vvvvvvcomplete500");
                 }
             if (bestgamedeaths <= 250) {
-                NETWORK_unlockAchievement("vvvvvvcomplete250");
+                unlockAchievement("vvvvvvcomplete250");
             }
             if (bestgamedeaths <= 100) {
-                NETWORK_unlockAchievement("vvvvvvcomplete100");
+                unlockAchievement("vvvvvvcomplete100");
             }
             if (bestgamedeaths <= 50) {
-                NETWORK_unlockAchievement("vvvvvvcomplete50");
+                unlockAchievement("vvvvvvcomplete50");
             }
         }
 
@@ -3126,7 +3126,7 @@ void Game::updatestate()
             savestats();
             if (nodeathmode)
             {
-                NETWORK_unlockAchievement("vvvvvvmaster"); //bloody hell
+                unlockAchievement("vvvvvvmaster"); //bloody hell
                 unlocknum(20);
                 state = 3520;
                 statedelay = 0;
@@ -4285,6 +4285,7 @@ void Game::deletestats()
 
 void Game::unlocknum( int t )
 {
+#if !defined(MAKEANDPLAY)
     if (map.custommode)
     {
         //Don't let custom levels unlock things!
@@ -4293,6 +4294,7 @@ void Game::unlocknum( int t )
 
     unlock[t] = true;
     savestats();
+#endif
 }
 
 #define LOAD_ARRAY_RENAME(ARRAY_NAME, DEST) \
@@ -7358,4 +7360,10 @@ void Game::returntopausemenu()
         obj.flags[73] = true;
     }
     game.shouldreturntopausemenu = true;
+}
+
+void Game::unlockAchievement(const char *name) {
+#if !defined(MAKEANDPLAY)
+    if (!map.custommode) NETWORK_unlockAchievement(name);
+#endif
 }
