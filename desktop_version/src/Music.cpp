@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "BinaryBlob.h"
+#include "Game.h"
 #include "Map.h"
 #include "UtilityClass.h"
 
@@ -249,8 +250,11 @@ void musicclass::fadeout()
 
 void musicclass::processmusicfadein()
 {
+	// Instead of returning early if music is muted, this should still increase `musicVolume`
+	// so that anything that relies on this won't break. We'll simply just not set the volume
+	// if the music is muted
 	musicVolume += FadeVolAmountPerFrame;
-	Mix_VolumeMusic(musicVolume);
+	if (!game.musicmuted) Mix_VolumeMusic(musicVolume);
 	if (musicVolume >= MIX_MAX_VOLUME)
 	{
 		m_doFadeInVol = false;
