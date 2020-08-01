@@ -413,7 +413,7 @@ public:
 
     bool shouldreturntopausemenu;
     void returntopausemenu();
-	void unlockAchievement(const char *name);
+    void unlockAchievement(const char *name);
 
     bool disablepause;
 };
