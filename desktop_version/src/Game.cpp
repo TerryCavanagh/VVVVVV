@@ -649,6 +649,12 @@ void Game::updatestate()
         {
         case 0:
             //Do nothing here! Standard game state
+
+            //Prevent softlocks if there's no cutscene running right now
+            if (!script.running)
+            {
+                hascontrol = true;
+            }
             break;
         case 1:
             //Game initilisation
