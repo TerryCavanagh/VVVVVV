@@ -633,7 +633,7 @@ void menurender()
         {
         case 0:
             //Show teleporter save info
-            graphics.drawpixeltextbox(25, 65-20, 270, 90, 34,12, 65, 185, 207,0,4);
+            graphics.drawpixeltextbox(17, 65-20, 286, 90, 36,12, 65, 185, 207,0,4);
 
             graphics.bigprint(-1, 20, "Tele Save", tr, tg, tb, true);
             graphics.Print(0, 80-20, game.tele_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
@@ -649,7 +649,7 @@ void menurender()
             break;
         case 1:
             //Show quick save info
-            graphics.drawpixeltextbox(25, 65-20, 270, 90, 34,12, 65, 185, 207,0,4);
+            graphics.drawpixeltextbox(17, 65-20, 286, 90, 36,12, 65, 185, 207,0,4);
 
             graphics.bigprint(-1, 20, "Quick Save", tr, tg, tb, true);
             graphics.Print(0, 80-20, game.quick_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
@@ -2215,7 +2215,7 @@ void maprender()
             {
                 graphics.Print(0, 36, "Game saved ok!", 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2), true);
 
-                graphics.drawpixeltextbox(25, 65, 270, 90, 34,12, 65, 185, 207,0,4);
+                graphics.drawpixeltextbox(17, 65, 286, 90, 36,12, 65, 185, 207,0,4);
 
                 if (graphics.flipmode)
                 {
@@ -2258,7 +2258,7 @@ void maprender()
             {
                 graphics.Print(0, 36, "Game saved ok!", 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2), true);
 
-                graphics.drawpixeltextbox(25, 65, 270, 90, 34,12, 65, 185, 207,0,4);
+                graphics.drawpixeltextbox(17, 65, 286, 90, 36,12, 65, 185, 207,0,4);
 
                 if (graphics.flipmode)
                 {
