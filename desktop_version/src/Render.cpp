@@ -632,6 +632,7 @@ void menurender()
         switch (game.currentmenuoption)
         {
         case 0:
+        {
             //Show teleporter save info
             graphics.drawpixeltextbox(17, 65-20, 286, 90, 36,12, 65, 185, 207,0,4);
 
@@ -641,13 +642,16 @@ void menurender()
             {
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.tele_crewstats[i], true);
             }
-            graphics.Print(160 - 84, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            graphics.Print(160 + 40, 132-20, help.number(game.tele_trinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            graphics.Print(59, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            const std::string& trinketcount = help.number(game.tele_trinkets);
+            graphics.Print(262-graphics.len(trinketcount), 132-20, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-            graphics.drawsprite(50, 126-20, 50, graphics.col_clock);
-            graphics.drawsprite(175, 126-20, 22, graphics.col_trinket);
+            graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
+            graphics.drawsprite(270, 126-20, 22, graphics.col_trinket);
             break;
+        }
         case 1:
+        {
             //Show quick save info
             graphics.drawpixeltextbox(17, 65-20, 286, 90, 36,12, 65, 185, 207,0,4);
 
@@ -657,12 +661,14 @@ void menurender()
             {
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.quick_crewstats[i], true);
             }
-            graphics.Print(160 - 84, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            graphics.Print(160 + 40, 132-20, help.number(game.quick_trinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            graphics.Print(59, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            const std::string& trinketcount = help.number(game.quick_trinkets);
+            graphics.Print(262-graphics.len(trinketcount), 132-20, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-            graphics.drawsprite(50, 126-20, 50, graphics.col_clock);
-            graphics.drawsprite(175, 126-20, 22, graphics.col_trinket);
+            graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
+            graphics.drawsprite(270, 126-20, 22, graphics.col_trinket);
             break;
+        }
         }
         break;
     case Menu::gameover:
@@ -2220,20 +2226,22 @@ void maprender()
                 if (graphics.flipmode)
                 {
                     graphics.Print(0, 122, game.customleveltitle, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
-                    graphics.Print(160 - 84, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    graphics.Print(160 + 40, 78, help.number(game.savetrinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+                    graphics.Print(59, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    graphics.Print(262-graphics.len(trinketcount), 78, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-                    graphics.drawsprite(50, 74, 50, graphics.col_clock);
-                    graphics.drawsprite(175, 74, 22, graphics.col_trinket);
+                    graphics.drawsprite(34, 74, 50, graphics.col_clock);
+                    graphics.drawsprite(270, 74, 22, graphics.col_trinket);
                 }
                 else
                 {
                     graphics.Print(0, 90, game.customleveltitle, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
-                    graphics.Print(160 - 84, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    graphics.Print(160 + 40, 132, help.number(game.savetrinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+                    graphics.Print(59, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    graphics.Print(262-graphics.len(trinketcount), 132, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-                    graphics.drawsprite(50, 126, 50, graphics.col_clock);
-                    graphics.drawsprite(175, 126, 22, graphics.col_trinket);
+                    graphics.drawsprite(34, 126, 50, graphics.col_clock);
+                    graphics.drawsprite(270, 126, 22, graphics.col_trinket);
                 }
             }
             else
@@ -2267,11 +2275,12 @@ void maprender()
                     {
                         graphics.drawcrewman(169-(3*42)+(i*42), 98, i, game.crewstats[i], true);
                     }
-                    graphics.Print(160 - 84, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    graphics.Print(160 + 40, 78, help.number(game.savetrinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+                    graphics.Print(59, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    graphics.Print(262-graphics.len(trinketcount), 78, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-                    graphics.drawsprite(50, 74, 50, graphics.col_clock);
-                    graphics.drawsprite(175, 74, 22, graphics.col_trinket);
+                    graphics.drawsprite(34, 74, 50, graphics.col_clock);
+                    graphics.drawsprite(270, 74, 22, graphics.col_trinket);
                 }
                 else
                 {
@@ -2280,11 +2289,12 @@ void maprender()
                     {
                         graphics.drawcrewman(169-(3*42)+(i*42), 95, i, game.crewstats[i], true);
                     }
-                    graphics.Print(160 - 84, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    graphics.Print(160 + 40, 132, help.number(game.savetrinkets), 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+                    graphics.Print(59, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    graphics.Print(262-graphics.len(trinketcount), 132, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-                    graphics.drawsprite(50, 126, 50, graphics.col_clock);
-                    graphics.drawsprite(175, 126, 22, graphics.col_trinket);
+                    graphics.drawsprite(34, 126, 50, graphics.col_clock);
+                    graphics.drawsprite(270, 126, 22, graphics.col_trinket);
                 }
             }
             else
