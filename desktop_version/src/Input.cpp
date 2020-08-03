@@ -2027,9 +2027,10 @@ void mapinput()
         // glitchrunner mode.
         // Also have to check graphics.menuoffset so this doesn't run every frame
 
-        // Have to close the menu in order to run gamestates. This adds
-        // about an extra half second of completely black screen.
+        // Have to close the menu in order to run gamestates
         graphics.resumegamemode = true;
+        // Remove half-second delay
+        graphics.menuoffset = 250;
 
         // Technically this was in <=2.2 as well
         obj.removeallblocks();
