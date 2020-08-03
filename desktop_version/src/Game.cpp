@@ -6874,12 +6874,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
             if (temp == 1)
             {
-                createmenu(Menu::unlocktimetrial);
+                createmenu(Menu::unlocktimetrial, true);
                 savemystats = true;
             }
             else if (temp > 1)
             {
-                createmenu(Menu::unlocktimetrials);
+                createmenu(Menu::unlocktimetrials, true);
                 savemystats = true;
             }
         }
@@ -6898,7 +6898,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 //Unlock No Death Mode
                 unlocknotify[17] = true;
                 unlock[17] = true;
-                createmenu(Menu::unlocknodeathmode);
+                createmenu(Menu::unlocknodeathmode, true);
                 savemystats = true;
             }
             //Alright then! Flip mode?
@@ -6906,7 +6906,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             {
                 unlock[18] = true;
                 unlocknotify[18] = true;
-                createmenu(Menu::unlockflipmode);
+                createmenu(Menu::unlockflipmode, true);
                 savemystats = true;
             }
             //What about the intermission levels?
@@ -6914,7 +6914,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             {
                 unlock[16] = true;
                 unlocknotify[16] = true;
-                createmenu(Menu::unlockintermission);
+                createmenu(Menu::unlockintermission, true);
                 savemystats = true;
             }
             else
