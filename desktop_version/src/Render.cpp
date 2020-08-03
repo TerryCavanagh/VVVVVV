@@ -1483,7 +1483,7 @@ void gamerender()
         if (game.advancetext) graphics.bprint(5, 5, "- Press ACTION to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
 
-    if ((game.readytotele > 100 || game.oldreadytotele > 100) && !game.advancetext && game.hascontrol && !script.running && !game.intimetrial)
+    if (game.readytotele > 100 || game.oldreadytotele > 100)
     {
         int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
         if(graphics.flipmode)
@@ -1675,7 +1675,7 @@ void gamerender()
     }
 
     float act_alpha = graphics.lerp(game.prev_act_fade, game.act_fade) / 10.0f;
-    if (game.activeactivity > -1 && game.hascontrol && !script.running)
+    if (game.activeactivity > -1)
     {
         game.activity_lastprompt = obj.blocks[game.activeactivity].prompt;
         game.activity_r = obj.blocks[game.activeactivity].r;
@@ -1684,13 +1684,13 @@ void gamerender()
         graphics.drawtextbox(16, 4, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
         graphics.Print(5, 12, game.activity_lastprompt, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
     }
-    else if((game.act_fade>5 || game.prev_act_fade>5) && game.hascontrol && !script.running)
+    else if(game.act_fade>5 || game.prev_act_fade>5)
     {
         graphics.drawtextbox(16, 4, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
         graphics.Print(5, 12, game.activity_lastprompt, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
     }
 
-    if ((obj.trophytext > 0 || obj.oldtrophytext > 0) && !script.running)
+    if (obj.trophytext > 0 || obj.oldtrophytext > 0)
     {
         graphics.drawtrophytext();
     }
