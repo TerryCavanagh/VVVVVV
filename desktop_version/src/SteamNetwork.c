@@ -1,3 +1,7 @@
+#include "MakeAndPlay.h"
+
+#ifndef MAKEANDPLAY
+
 #include <stdio.h>
 #include <stdint.h>
 #include <SDL.h>
@@ -218,3 +222,5 @@ void STEAM_setAchievementProgress(const char *name, int32_t stat)
 		SteamAPI_ISteamUserStats_StoreStats(steamUserStats);
 	}
 }
+
+#endif /* MAKEANDPLAY */

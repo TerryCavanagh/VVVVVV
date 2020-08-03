@@ -1,6 +1,17 @@
 #include <stdint.h>
 
+#include "MakeAndPlay.h"
+
 #define UNUSED(expr) (void)(expr)
+
+#ifdef MAKEANDPLAY
+	#ifdef STEAM_NETWORK
+		#undef STEAM_NETWORK
+	#endif
+	#ifdef GOG_NETWORK
+		#undef GOG_NETWORK
+	#endif
+#endif
 
 #ifdef STEAM_NETWORK
 #define STEAM_NUM 1
