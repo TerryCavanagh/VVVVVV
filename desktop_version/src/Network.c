@@ -26,12 +26,12 @@
 
 #define NUM_BACKENDS (STEAM_NUM+GOG_NUM)
 #define DECLARE_BACKEND(name) \
-	extern int32_t name##_init(); \
-	extern void name##_shutdown(); \
-	extern void name##_update(); \
-	extern void name##_unlockAchievement(); \
-	extern int32_t name##_getAchievementProgress(const char *name); \
-	extern void name##_setAchievementProgress(const char *name, int32_t stat);
+	int32_t name##_init(); \
+	void name##_shutdown(); \
+	void name##_update(); \
+	void name##_unlockAchievement(); \
+	int32_t name##_getAchievementProgress(const char *name); \
+	void name##_setAchievementProgress(const char *name, int32_t stat);
 #ifdef STEAM_NETWORK
 DECLARE_BACKEND(STEAM)
 #endif
