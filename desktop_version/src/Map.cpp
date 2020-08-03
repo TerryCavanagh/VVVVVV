@@ -1721,7 +1721,7 @@ void mapclass::loadlevel(int rx, int ry)
 			const int ey = (ent.y % 30) * 8;
 
 			// Platform and enemy bounding boxes
-			int bx1, by1, bx2, by2;
+			int bx1 = 0, by1 = 0, bx2 = 0, by2 = 0;
 
 			if (ent.t == 1 || (ent.t == 2 && ent.p1 <= 4))
 			{
