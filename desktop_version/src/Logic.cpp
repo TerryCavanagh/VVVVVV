@@ -1599,7 +1599,7 @@ void gamelogic()
     game.activeactivity = obj.checkactivity();
 
     game.oldreadytotele = game.readytotele;
-    if (game.activetele)
+    if (game.activetele && !game.advancetext && game.hascontrol && !script.running && !game.intimetrial)
     {
         int i = obj.getplayer();
         if (i > -1)
@@ -1637,7 +1637,7 @@ void gamelogic()
 #endif
 
     game.prev_act_fade = game.act_fade;
-    if (game.activeactivity > -1)
+    if (game.activeactivity > -1 && game.hascontrol && !script.running)
     {
         if (game.act_fade < 5)
         {
