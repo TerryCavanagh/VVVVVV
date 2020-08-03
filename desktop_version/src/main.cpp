@@ -134,6 +134,11 @@ int main(int argc, char *argv[])
         }
 #undef ARG_INNER
 #undef ARG
+        else
+        {
+            printf("Error: invalid option: %s\n", argv[i]);
+            return 1;
+        }
     }
 
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
