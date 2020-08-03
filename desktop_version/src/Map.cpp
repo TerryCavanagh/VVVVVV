@@ -1723,12 +1723,24 @@ void mapclass::loadlevel(int rx, int ry)
 			// Platform and enemy bounding boxes
 			int bx1 = 0, by1 = 0, bx2 = 0, by2 = 0;
 
-			if (ent.t == 1 || (ent.t == 2 && ent.p1 <= 4))
+			bool enemy = ent.t == 1;
+			bool moving_plat = ent.t == 2 && ent.p1 <= 4;
+			if (enemy || moving_plat)
 			{
-				bx1 = room.platx1;
-				by1 = room.platy1;
-				bx2 = room.platx2;
-				by2 = room.platy2;
+				if (enemy)
+				{
+					bx1 = room.enemyx1;
+					by1 = room.enemyy1;
+					bx2 = room.enemyx2;
+					by2 = room.enemyy2;
+				}
+				else if (moving_plat)
+				{
+					bx1 = room.platx1;
+					by1 = room.platy1;
+					bx2 = room.platx2;
+					by2 = room.platy2;
+				}
 
 				// Enlarge bounding boxes to fix warping entities
 				if (warpx && bx1 == 0 && bx2 == 320)
