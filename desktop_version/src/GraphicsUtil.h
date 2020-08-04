@@ -39,8 +39,6 @@ void FillRect( SDL_Surface* surface, SDL_Rect& rect, const int r, int g, int b )
 
 void FillRect( SDL_Surface* surface, SDL_Rect rect, int rgba );
 
-bool intersectRect(float left1, float right1, float bottom1, float top1, float left2, float right2, float bottom2, float top2);
-
 void OverlaySurfaceKeyed(SDL_Surface* _src, SDL_Surface* _dest, Uint32 _key);
 
 void ScrollSurface(SDL_Surface* _src, int pX, int py);

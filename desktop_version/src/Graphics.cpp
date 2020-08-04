@@ -1396,7 +1396,9 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
     int r2_bottom  = p2.y;
     int r2_top = p2.y + surface2->h;
 
-    bool intersection = intersectRect(r1_left, r1_right, r1_bottom, r1_top, r2_left, r2_right, r2_bottom, r2_top);
+    SDL_Rect rect1 = {p1.x, p1.y, surface1->w, surface1->h};
+    SDL_Rect rect2 = {p2.x, p2.y, surface2->w, surface2->h};
+    bool intersection = help.intersects(rect1, rect2);
 
     if(intersection)
     {
