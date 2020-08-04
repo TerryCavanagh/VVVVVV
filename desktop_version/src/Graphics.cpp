@@ -683,7 +683,7 @@ void Graphics::drawtile2( int x, int y, int t )
 
 
 
-void Graphics::drawtile3( int x, int y, int t, int off )
+void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 0*/ )
 {
     t += off * 30;
     if (!INBOUNDS(t, tiles3))
@@ -691,8 +691,9 @@ void Graphics::drawtile3( int x, int y, int t, int off )
         WHINE_ONCE("drawtile3() out-of-bounds!")
         return;
     }
+    SDL_Rect src_rect = { 0, 0, tiles_rect.w, tiles_rect.h - height_subtract };
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
-    BlitSurfaceStandard(tiles3[t], NULL, backBuffer, &rect);
+    BlitSurfaceStandard(tiles3[t], &src_rect, backBuffer, &rect);
 }
 
 void Graphics::drawentcolours( int x, int y, int t)
@@ -2458,7 +2459,7 @@ void Graphics::drawtowerspikes()
     for (int i = 0; i < 40; i++)
     {
         drawtile3(i * 8, -8+spikeleveltop, 9, map.colstate);
-        drawtile3(i * 8, 230-spikelevelbottom, 8, map.colstate);
+        drawtile3(i * 8, 230-spikelevelbottom, 8, map.colstate, 8 - spikelevelbottom);
     }
 }
 
