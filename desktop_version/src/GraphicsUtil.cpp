@@ -171,38 +171,6 @@ SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Su
     return _ret;
 }
 
-SDL_Surface * ScaleSurfaceSlow( SDL_Surface *_surface, int Width, int Height)
-{
-    if(!_surface || !Width || !Height)
-        return 0;
-
-    SDL_Surface *_ret;
-
-    _ret = SDL_CreateRGBSurface(_surface->flags, Width, Height, _surface->format->BitsPerPixel,
-        _surface->format->Rmask, _surface->format->Gmask, _surface->format->Bmask, _surface->format->Amask);
-    if(_ret == NULL)
-    {
-        return NULL;
-    }
-
-
-
-    float  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(_surface->w)), _stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(_surface->h));
-
-
-    for(Sint32 y = 0; y < _surface->h; y++)
-        for(Sint32 x = 0; x < _surface->w; x++)
-            for(Sint32 o_y = 0; o_y < _stretch_factor_y; ++o_y)
-                for(Sint32 o_x = 0; o_x < _stretch_factor_x; ++o_x)
-                    DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
-                    static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
-
-                    // DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
-                    //static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
-
-    return _ret;
-}
-
 SDL_Surface *  FlipSurfaceHorizontal(SDL_Surface* _src)
 {
     SDL_Surface * ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, _src->format->BitsPerPixel,
