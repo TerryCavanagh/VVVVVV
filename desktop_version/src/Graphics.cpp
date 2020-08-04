@@ -685,13 +685,14 @@ void Graphics::drawtile2( int x, int y, int t )
 
 void Graphics::drawtile3( int x, int y, int t, int off )
 {
+    t += off * 30;
     if (!INBOUNDS(t, tiles3))
     {
         WHINE_ONCE("drawtile3() out-of-bounds!")
         return;
     }
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
-    BlitSurfaceStandard(tiles3[t+(off*30)], NULL, backBuffer, &rect);
+    BlitSurfaceStandard(tiles3[t], NULL, backBuffer, &rect);
 }
 
 void Graphics::drawentcolours( int x, int y, int t)
