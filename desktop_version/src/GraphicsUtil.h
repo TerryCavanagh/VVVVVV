@@ -39,8 +39,6 @@ void FillRect( SDL_Surface* surface, SDL_Rect& rect, const int r, int g, int b )
 
 void FillRect( SDL_Surface* surface, SDL_Rect rect, int rgba );
 
-void OverlaySurfaceKeyed(SDL_Surface* _src, SDL_Surface* _dest, Uint32 _key);
-
 void ScrollSurface(SDL_Surface* _src, int pX, int py);
 
 SDL_Surface * FlipSurfaceHorizontal(SDL_Surface* _src);

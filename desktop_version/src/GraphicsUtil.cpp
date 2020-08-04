@@ -501,23 +501,6 @@ void FillRect( SDL_Surface* _surface, SDL_Rect rect, int rgba )
     SDL_FillRect(_surface, &rect, rgba);
 }
 
-void OverlaySurfaceKeyed( SDL_Surface* _src, SDL_Surface* _dest, Uint32 _key )
-{
-    // const SDL_PixelFormat& fmt = *(_src->format);
-    for(int x = 0; x < _src->w; x++)
-    {
-        for(int y = 0; y < _src->h; y++)
-        {
-            Uint32 pixel = ReadPixel(_src, x,y);
-            //endian_swap(pixel);
-            if (( pixel != _key))
-            {
-                DrawPixel(_dest,x,y, pixel);
-            }
-        }
-    }
-}
-
 void ScrollSurface( SDL_Surface* _src, int _pX, int _pY )
 {
     SDL_Surface* part1 = NULL;

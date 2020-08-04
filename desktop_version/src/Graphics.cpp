@@ -2406,8 +2406,7 @@ void Graphics::drawmap()
         }
         foregrounddrawn = true;
     }
-    OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0x00000000);
-    //SDL_BlitSurface(foregroundBuffer, NULL, backBuffer, NULL);
+    SDL_BlitSurface(foregroundBuffer, NULL, backBuffer, NULL);
 
 }
 
@@ -2433,7 +2432,7 @@ void Graphics::drawfinalmap()
         foregrounddrawn=true;
     }
 
-    OverlaySurfaceKeyed(foregroundBuffer, backBuffer, 0x00000000);
+    SDL_BlitSurface(foregroundBuffer, NULL, backBuffer, NULL);
 }
 
 void Graphics::drawtowermap()
