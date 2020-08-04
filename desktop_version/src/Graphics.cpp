@@ -1420,12 +1420,8 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
                 }
             }
         }
-        return false;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 
 }
 
