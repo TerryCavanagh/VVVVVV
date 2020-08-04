@@ -1402,10 +1402,10 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
 
     if(intersection)
     {
-        int r3_left = std::max(r1_left, r2_left);
-        int r3_top = std::min(r1_top, r2_top);
-        int r3_right = std::min(r1_right, r2_right);
-        int r3_bottom= std::max(r1_bottom, r2_bottom);
+        int r3_left = SDL_max(r1_left, r2_left);
+        int r3_top = SDL_min(r1_top, r2_top);
+        int r3_right = SDL_min(r1_right, r2_right);
+        int r3_bottom= SDL_max(r1_bottom, r2_bottom);
 
         //for every pixel inside rectangle
         for(int x = r3_left; x < r3_right; x++)
