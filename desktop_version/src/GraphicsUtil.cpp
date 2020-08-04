@@ -501,11 +501,6 @@ void FillRect( SDL_Surface* _surface, SDL_Rect rect, int rgba )
     SDL_FillRect(_surface, &rect, rgba);
 }
 
-bool intersectRect( float left1, float right1, float bottom1, float top1, float left2, float right2, float bottom2, float top2 )
-{
-    return !( left2 > right1 || right2 < left1	|| top2 < bottom1 || bottom2 > top1);
-}
-
 void OverlaySurfaceKeyed( SDL_Surface* _src, SDL_Surface* _dest, Uint32 _key )
 {
     // const SDL_PixelFormat& fmt = *(_src->format);
