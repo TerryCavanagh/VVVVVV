@@ -161,7 +161,7 @@ SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Su
     for(Sint32 y = 0; y < _surface->h; y++)
         for(Sint32 x = 0; x < _surface->w; x++)
         {
-            setRect(gigantoPixel, static_cast<Sint32>((float(x)*_stretch_factor_x) -1), static_cast<Sint32>((float(y) *_stretch_factor_y)-1), static_cast<Sint32>(_stretch_factor_x +1.0),static_cast<Sint32>( _stretch_factor_y+1.0)) ;
+            setRect(gigantoPixel, static_cast<Sint32>(float(x)*_stretch_factor_x), static_cast<Sint32>(float(y) *_stretch_factor_y), static_cast<Sint32>(_stretch_factor_x),static_cast<Sint32>( _stretch_factor_y)) ;
             SDL_FillRect(_ret, &gigantoPixel, ReadPixel(_surface, x, y));
         }
 
