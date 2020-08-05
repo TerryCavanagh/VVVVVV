@@ -466,22 +466,6 @@ void inline fixedloop()
     key.Poll();
     if(key.toggleFullscreen)
     {
-        if(!gameScreen.isWindowed)
-        {
-            SDL_ShowCursor(SDL_DISABLE);
-            SDL_ShowCursor(SDL_ENABLE);
-        }
-        else
-        {
-            SDL_ShowCursor(SDL_ENABLE);
-        }
-
-
-        if(game.gamestate == EDITORMODE)
-        {
-            SDL_ShowCursor(SDL_ENABLE);
-        }
-
         gameScreen.toggleFullScreen();
         game.fullscreen = !game.fullscreen;
         key.toggleFullscreen = false;
