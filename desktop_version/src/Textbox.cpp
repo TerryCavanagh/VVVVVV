@@ -13,7 +13,6 @@ textboxclass::textboxclass()
     prev_tl = 0;
     tm = 0;
     timer = 0;
-    allowspecial = false;
 
     xp = 0;
     yp = 0;

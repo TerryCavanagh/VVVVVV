@@ -793,7 +793,11 @@ void Graphics::drawgui()
             }
         }
 
-        if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].r == 165 && textbox[i].allowspecial)
+        // Only draw special images when fully opaque
+        // This prevents flashes of special images during delta frames
+        bool drawspecial = textbox[i].tl >= 1.0;
+
+        if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].r == 165 && drawspecial)
         {
             if (flipmode)
             {
@@ -804,7 +808,7 @@ void Graphics::drawgui()
                 drawimage(0, 0, 12, true);
             }
         }
-        else if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].g == 165 && textbox[i].allowspecial)
+        else if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].g == 165 && drawspecial)
         {
             if (flipmode)
             {
@@ -817,27 +821,27 @@ void Graphics::drawgui()
         }
         if (flipmode)
         {
-            if (textbox[i].r == 175 && textbox[i].g == 175 && textbox[i].allowspecial)
+            if (textbox[i].r == 175 && textbox[i].g == 175 && drawspecial)
             {
                 //purple guy
                 drawsprite(80 - 6, 64 + 48 + 4, 6, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
             }
-            else if (textbox[i].r == 175 && textbox[i].b == 175 && textbox[i].allowspecial)
+            else if (textbox[i].r == 175 && textbox[i].b == 175 && drawspecial)
             {
                 //red guy
                 drawsprite(80 - 6, 64 + 48+ 4, 6, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
             }
-            else if (textbox[i].r == 175 && textbox[i].allowspecial)
+            else if (textbox[i].r == 175 && drawspecial)
             {
                 //green guy
                 drawsprite(80 - 6, 64 + 48 + 4, 6, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
             }
-            else if (textbox[i].g == 175 && textbox[i].allowspecial)
+            else if (textbox[i].g == 175 && drawspecial)
             {
                 //yellow guy
                 drawsprite(80 - 6, 64 + 48+ 4, 6, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
             }
-            else if (textbox[i].b == 175 && textbox[i].allowspecial)
+            else if (textbox[i].b == 175 && drawspecial)
             {
                 //blue guy
                 drawsprite(80 - 6, 64 + 48+ 4, 6, 75, 75, 255- help.glow/4 - int(fRandom()*20));
@@ -845,27 +849,27 @@ void Graphics::drawgui()
         }
         else
         {
-            if (textbox[i].r == 175 && textbox[i].g == 175 && textbox[i].allowspecial)
+            if (textbox[i].r == 175 && textbox[i].g == 175 && drawspecial)
             {
                 //purple guy
                 drawsprite(80 - 6, 64 + 32 + 4, 0, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
             }
-            else if (textbox[i].r == 175 && textbox[i].b == 175 && textbox[i].allowspecial)
+            else if (textbox[i].r == 175 && textbox[i].b == 175 && drawspecial)
             {
                 //red guy
                 drawsprite(80 - 6, 64 + 32 + 4, 0, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
             }
-            else if (textbox[i].r == 175 && textbox[i].allowspecial)
+            else if (textbox[i].r == 175 && drawspecial)
             {
                 //green guy
                 drawsprite(80 - 6, 64 + 32 + 4, 0, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
             }
-            else if (textbox[i].g == 175 && textbox[i].allowspecial)
+            else if (textbox[i].g == 175 && drawspecial)
             {
                 //yellow guy
                 drawsprite(80 - 6, 64 + 32 + 4, 0, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
             }
-            else if (textbox[i].b == 175 && textbox[i].allowspecial)
+            else if (textbox[i].b == 175 && drawspecial)
             {
                 //blue guy
                 drawsprite(80 - 6, 64 + 32 + 4, 0, 75, 75, 255- help.glow/4 - int(fRandom()*20));
@@ -1209,7 +1213,7 @@ void Graphics::textboxadjust()
 }
 
 
-void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int g/*= 255*/, int b /*= 255*/, bool allowspecial/*= false*/ )
+void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int g/*= 255*/, int b /*= 255*/ )
 {
     m = textbox.size();
 
@@ -1223,7 +1227,6 @@ void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int
         text.yp = yp;
         text.initcol(r, g, b);
         text.resize();
-        text.allowspecial = allowspecial;
         textbox.push_back(text);
     }
 }
