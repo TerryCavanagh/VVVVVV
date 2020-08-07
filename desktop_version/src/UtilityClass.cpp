@@ -211,14 +211,14 @@ bool is_positive_num(const std::string& str, bool hex)
 	{
 		if (hex)
 		{
-			if (!std::isxdigit(static_cast<unsigned char>(str[i])))
+			if (!isxdigit(static_cast<unsigned char>(str[i])))
 			{
 				return false;
 			}
 		}
 		else
 		{
-			if (!std::isdigit(static_cast<unsigned char>(str[i])))
+			if (!SDL_isdigit(static_cast<unsigned char>(str[i])))
 			{
 				return false;
 			}
