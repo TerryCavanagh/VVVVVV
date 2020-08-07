@@ -50,7 +50,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		strcpy(output, baseDir);
 
 		/* We later append to this path and assume it ends in a slash */
-		if (strcmp(std::string(1, output[strlen(output) - 1]).c_str(), pathSep) != 0)
+		if (SDL_strcmp(output + SDL_strlen(output) - SDL_strlen(pathSep), pathSep) != 0)
 		{
 			strcat(output, pathSep);
 		}
