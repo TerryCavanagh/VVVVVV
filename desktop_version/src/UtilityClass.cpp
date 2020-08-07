@@ -99,11 +99,11 @@ std::string UtilityClass::String( int _v )
 	return(os.str());
 }
 
-int UtilityClass::Int(const char* str)
+int UtilityClass::Int(const char* str, int fallback /*= 0*/)
 {
 	if (!is_number(str))
 	{
-		return 0;
+		return fallback;
 	}
 
 	return SDL_atoi(str);
