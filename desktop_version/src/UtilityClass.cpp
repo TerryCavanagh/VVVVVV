@@ -205,6 +205,18 @@ void UtilityClass::updateglow()
 	}
 }
 
+bool is_number(const char* str)
+{
+	for (int i = 0; str[i] != '\0'; i++)
+	{
+		if (!SDL_isdigit(static_cast<unsigned char>(str[i])) && (i != 0 || str[0] != '-'))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 bool is_positive_num(const std::string& str, bool hex)
 {
 	for (size_t i = 0; i < str.length(); i++)
