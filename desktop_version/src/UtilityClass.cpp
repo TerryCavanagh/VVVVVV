@@ -99,6 +99,16 @@ std::string UtilityClass::String( int _v )
 	return(os.str());
 }
 
+int UtilityClass::Int(const char* str)
+{
+	if (!is_number(str))
+	{
+		return 0;
+	}
+
+	return SDL_atoi(str);
+}
+
 std::string UtilityClass::GCString(std::vector<SDL_GameControllerButton> buttons)
 {
 	std::string retval = "";
