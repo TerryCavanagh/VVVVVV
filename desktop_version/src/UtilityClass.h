@@ -37,6 +37,8 @@ public:
 
     static std::string String(int _v);
 
+    static int Int(const char* str);
+
     static std::string GCString(std::vector<SDL_GameControllerButton> buttons);
 
     std::string twodigits(int t);
