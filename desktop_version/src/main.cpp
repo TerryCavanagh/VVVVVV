@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
         {
             ARG_INNER({
                 savefileplaytest = true;
-                int v = std::atoi(argv[i+1]);
+                int v = help.Int(argv[i+1]);
                 if (ARG("-playx")) savex = v;
                 else if (ARG("-playy")) savey = v;
                 else if (ARG("-playrx")) saverx = v;

@@ -508,7 +508,7 @@ void Game::loadcustomlevelstats()
 
                 if (stat_el->GetText() != NULL)
                 {
-                    stat.score = atoi(stat_el->GetText());
+                    stat.score = help.Int(stat_el->GetText());
                 }
 
                 if (stat_el->Attribute("name"))
@@ -542,7 +542,7 @@ void Game::loadcustomlevelstats()
                 std::vector<std::string> values = split(TextString,',');
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    customlevelscores.push_back(atoi(values[i].c_str()));
+                    customlevelscores.push_back(help.Int(values[i].c_str()));
                 }
             }
         }
@@ -4312,7 +4312,7 @@ void Game::unlocknum( int t )
             std::vector<std::string> values = split(TextString, ','); \
             for (size_t i = 0; i < SDL_min(SDL_arraysize(DEST), values.size()); i++) \
             { \
-                DEST[i] = atoi(values[i].c_str()); \
+                DEST[i] = help.Int(values[i].c_str()); \
             } \
         } \
     }
@@ -4371,62 +4371,62 @@ void Game::loadstats(int *width, int *height, bool *vsync)
 
         if (pKey == "bestgamedeaths")
         {
-            bestgamedeaths = atoi(pText);
+            bestgamedeaths = help.Int(pText);
         }
 
         if (pKey == "stat_trinkets")
         {
-            stat_trinkets = atoi(pText);
+            stat_trinkets = help.Int(pText);
         }
 
         if (pKey == "fullscreen")
         {
-            fullscreen = atoi(pText);
+            fullscreen = help.Int(pText);
         }
 
         if (pKey == "stretch")
         {
-            stretchMode = atoi(pText);
+            stretchMode = help.Int(pText);
         }
 
         if (pKey == "useLinearFilter")
         {
-            useLinearFilter = atoi(pText);
+            useLinearFilter = help.Int(pText);
         }
 
         if (pKey == "window_width")
         {
-            *width = atoi(pText);
+            *width = help.Int(pText);
         }
         if (pKey == "window_height")
         {
-            *height = atoi(pText);
+            *height = help.Int(pText);
         }
 
 
         if (pKey == "noflashingmode")
         {
-            noflashingmode = atoi(pText);
+            noflashingmode = help.Int(pText);
         }
 
         if (pKey == "colourblindmode")
         {
-            colourblindmode = atoi(pText);
+            colourblindmode = help.Int(pText);
         }
 
         if (pKey == "setflipmode")
         {
-            graphics.setflipmode = atoi(pText);
+            graphics.setflipmode = help.Int(pText);
         }
 
         if (pKey == "invincibility")
         {
-            map.invincibility = atoi(pText);
+            map.invincibility = help.Int(pText);
         }
 
         if (pKey == "slowdown")
         {
-            slowdown = atoi(pText);
+            slowdown = help.Int(pText);
             switch(slowdown)
             {
             case 30:
@@ -4450,22 +4450,22 @@ void Game::loadstats(int *width, int *height, bool *vsync)
 
         if (pKey == "swnbestrank")
         {
-            swnbestrank = atoi(pText);
+            swnbestrank = help.Int(pText);
         }
 
         if (pKey == "swnrecord")
         {
-            swnrecord = atoi(pText);
+            swnrecord = help.Int(pText);
         }
 
         if (pKey == "advanced_smoothing")
         {
-            fullScreenEffect_badSignal = atoi(pText);
+            fullScreenEffect_badSignal = help.Int(pText);
         }
 
         if (pKey == "usingmmmmmm")
         {
-            if(atoi(pText)>0){
+            if(help.Int(pText)>0){
                 usingmmmmmm = 1;
             }else{
                 usingmmmmmm = 0;
@@ -4474,47 +4474,47 @@ void Game::loadstats(int *width, int *height, bool *vsync)
 
         if (pKey == "ghostsenabled")
         {
-            ghostsenabled = atoi(pText);
+            ghostsenabled = help.Int(pText);
         }
 
         if (pKey == "skipfakeload")
         {
-            skipfakeload = atoi(pText);
+            skipfakeload = help.Int(pText);
         }
 
         if (pKey == "disablepause")
         {
-            disablepause = atoi(pText);
+            disablepause = help.Int(pText);
         }
 
         if (pKey == "over30mode")
         {
-            over30mode = atoi(pText);
+            over30mode = help.Int(pText);
         }
 
         if (pKey == "glitchrunnermode")
         {
-            glitchrunnermode = atoi(pText);
+            glitchrunnermode = help.Int(pText);
         }
 
         if (pKey == "vsync")
         {
-            *vsync = atoi(pText);
+            *vsync = help.Int(pText);
         }
 
         if (pKey == "notextoutline")
         {
-            graphics.notextoutline = atoi(pText);
+            graphics.notextoutline = help.Int(pText);
         }
 
         if (pKey == "translucentroomname")
         {
-            graphics.translucentroomname = atoi(pText);
+            graphics.translucentroomname = help.Int(pText);
         }
 
         if (pKey == "showmousecursor")
         {
-            graphics.showmousecursor = atoi(pText);
+            graphics.showmousecursor = help.Int(pText);
         }
 
         if (pKey == "flipButton")
@@ -4546,7 +4546,7 @@ void Game::loadstats(int *width, int *height, bool *vsync)
 
         if (pKey == "controllerSensitivity")
         {
-            controllerSensitivity = atoi(pText);
+            controllerSensitivity = help.Int(pText);
         }
 
     }
@@ -5064,56 +5064,56 @@ void Game::loadquick()
 
         if (pKey == "finalmode")
         {
-            map.finalmode = atoi(pText);
+            map.finalmode = help.Int(pText);
         }
         if (pKey == "finalstretch")
         {
-            map.finalstretch = atoi(pText);
+            map.finalstretch = help.Int(pText);
         }
 
         if (pKey == "finalx")
         {
-            map.finalx = atoi(pText);
+            map.finalx = help.Int(pText);
         }
         else if (pKey == "finaly")
         {
-            map.finaly = atoi(pText);
+            map.finaly = help.Int(pText);
         }
         else if (pKey == "savex")
         {
-            savex = atoi(pText);
+            savex = help.Int(pText);
         }
         else if (pKey == "savey")
         {
-            savey = atoi(pText);
+            savey = help.Int(pText);
         }
         else if (pKey == "saverx")
         {
-            saverx = atoi(pText);
+            saverx = help.Int(pText);
         }
         else if (pKey == "savery")
         {
-            savery = atoi(pText);
+            savery = help.Int(pText);
         }
         else if (pKey == "savegc")
         {
-            savegc = atoi(pText);
+            savegc = help.Int(pText);
         }
         else if (pKey == "savedir")
         {
-            savedir= atoi(pText);
+            savedir= help.Int(pText);
         }
         else if (pKey == "savepoint")
         {
-            savepoint = atoi(pText);
+            savepoint = help.Int(pText);
         }
         else if (pKey == "companion")
         {
-            companion = atoi(pText);
+            companion = help.Int(pText);
         }
         else if (pKey == "lastsaved")
         {
-            lastsaved = atoi(pText);
+            lastsaved = help.Int(pText);
         }
         else if (pKey == "teleportscript")
         {
@@ -5121,40 +5121,40 @@ void Game::loadquick()
         }
         else if (pKey == "supercrewmate")
         {
-            supercrewmate = atoi(pText);
+            supercrewmate = help.Int(pText);
         }
         else if (pKey == "scmprogress")
         {
-            scmprogress = atoi(pText);
+            scmprogress = help.Int(pText);
         }
         else if (pKey == "scmmoveme")
         {
-            scmmoveme = atoi(pText);
+            scmmoveme = help.Int(pText);
         }
         else if (pKey == "frames")
         {
-            frames = atoi(pText);
+            frames = help.Int(pText);
             frames = 0;
         }
         else if (pKey == "seconds")
         {
-            seconds = atoi(pText);
+            seconds = help.Int(pText);
         }
         else if (pKey == "minutes")
         {
-            minutes = atoi(pText);
+            minutes = help.Int(pText);
         }
         else if (pKey == "hours")
         {
-            hours = atoi(pText);
+            hours = help.Int(pText);
         }
         else if (pKey == "deathcounts")
         {
-            deathcounts = atoi(pText);
+            deathcounts = help.Int(pText);
         }
         else if (pKey == "totalflips")
         {
-            totalflips = atoi(pText);
+            totalflips = help.Int(pText);
         }
         else if (pKey == "hardestroom")
         {
@@ -5162,11 +5162,11 @@ void Game::loadquick()
         }
         else if (pKey == "hardestroomdeaths")
         {
-            hardestroomdeaths = atoi(pText);
+            hardestroomdeaths = help.Int(pText);
         }
         else if (pKey == "currentsong")
         {
-            int song = atoi(pText);
+            int song = help.Int(pText);
             if (song != -1)
             {
                 music.play(song);
@@ -5252,11 +5252,11 @@ void Game::customloadquick(std::string savfile)
 
         if (pKey == "finalmode")
         {
-            map.finalmode = atoi(pText);
+            map.finalmode = help.Int(pText);
         }
         if (pKey == "finalstretch")
         {
-            map.finalstretch = atoi(pText);
+            map.finalstretch = help.Int(pText);
         }
 
         if (map.finalmode)
@@ -5276,47 +5276,47 @@ void Game::customloadquick(std::string savfile)
 
         if (pKey == "finalx")
         {
-            map.finalx = atoi(pText);
+            map.finalx = help.Int(pText);
         }
         else if (pKey == "finaly")
         {
-            map.finaly = atoi(pText);
+            map.finaly = help.Int(pText);
         }
         else if (pKey == "savex")
         {
-            savex = atoi(pText);
+            savex = help.Int(pText);
         }
         else if (pKey == "savey")
         {
-            savey = atoi(pText);
+            savey = help.Int(pText);
         }
         else if (pKey == "saverx")
         {
-            saverx = atoi(pText);
+            saverx = help.Int(pText);
         }
         else if (pKey == "savery")
         {
-            savery = atoi(pText);
+            savery = help.Int(pText);
         }
         else if (pKey == "savegc")
         {
-            savegc = atoi(pText);
+            savegc = help.Int(pText);
         }
         else if (pKey == "savedir")
         {
-            savedir= atoi(pText);
+            savedir= help.Int(pText);
         }
         else if (pKey == "savepoint")
         {
-            savepoint = atoi(pText);
+            savepoint = help.Int(pText);
         }
         else if (pKey == "companion")
         {
-            companion = atoi(pText);
+            companion = help.Int(pText);
         }
         else if (pKey == "lastsaved")
         {
-            lastsaved = atoi(pText);
+            lastsaved = help.Int(pText);
         }
         else if (pKey == "teleportscript")
         {
@@ -5324,40 +5324,40 @@ void Game::customloadquick(std::string savfile)
         }
         else if (pKey == "supercrewmate")
         {
-            supercrewmate = atoi(pText);
+            supercrewmate = help.Int(pText);
         }
         else if (pKey == "scmprogress")
         {
-            scmprogress = atoi(pText);
+            scmprogress = help.Int(pText);
         }
         else if (pKey == "scmmoveme")
         {
-            scmmoveme = atoi(pText);
+            scmmoveme = help.Int(pText);
         }
         else if (pKey == "frames")
         {
-            frames = atoi(pText);
+            frames = help.Int(pText);
             frames = 0;
         }
         else if (pKey == "seconds")
         {
-            seconds = atoi(pText);
+            seconds = help.Int(pText);
         }
         else if (pKey == "minutes")
         {
-            minutes = atoi(pText);
+            minutes = help.Int(pText);
         }
         else if (pKey == "hours")
         {
-            hours = atoi(pText);
+            hours = help.Int(pText);
         }
         else if (pKey == "deathcounts")
         {
-            deathcounts = atoi(pText);
+            deathcounts = help.Int(pText);
         }
         else if (pKey == "totalflips")
         {
-            totalflips = atoi(pText);
+            totalflips = help.Int(pText);
         }
         else if (pKey == "hardestroom")
         {
@@ -5365,11 +5365,11 @@ void Game::customloadquick(std::string savfile)
         }
         else if (pKey == "hardestroomdeaths")
         {
-            hardestroomdeaths = atoi(pText);
+            hardestroomdeaths = help.Int(pText);
         }
         else if (pKey == "currentsong")
         {
-            int song = atoi(pText);
+            int song = help.Int(pText);
             if (song != -1)
             {
                 music.play(song);
@@ -5377,7 +5377,7 @@ void Game::customloadquick(std::string savfile)
         }
         else if (pKey == "showminimap")
         {
-            map.customshowmm = atoi(pText);
+            map.customshowmm = help.Int(pText);
         }
 
     }
@@ -5428,35 +5428,35 @@ void Game::loadsummary()
 
             else if (pKey == "seconds")
             {
-                l_second = atoi(pText);
+                l_second = help.Int(pText);
             }
             else if (pKey == "minutes")
             {
-                l_minute = atoi(pText);
+                l_minute = help.Int(pText);
             }
             else if (pKey == "hours")
             {
-                l_hours = atoi(pText);
+                l_hours = help.Int(pText);
             }
             else if (pKey == "savery")
             {
-                l_saveY = atoi(pText);
+                l_saveY = help.Int(pText);
             }
             else if (pKey == "saverx")
             {
-                l_saveX = atoi(pText);
+                l_saveX = help.Int(pText);
             }
             else if (pKey == "trinkets")
             {
-                tele_trinkets = atoi(pText);
+                tele_trinkets = help.Int(pText);
             }
             else if (pKey == "finalmode")
             {
-                map.finalmode = atoi(pText);
+                map.finalmode = help.Int(pText);
             }
             else if (pKey == "finalstretch")
             {
-                map.finalstretch = atoi(pText);
+                map.finalstretch = help.Int(pText);
             }
 
             LOAD_ARRAY_RENAME(crewstats, tele_crewstats)
@@ -5505,35 +5505,35 @@ void Game::loadsummary()
 
             else if (pKey == "seconds")
             {
-                l_second = atoi(pText);
+                l_second = help.Int(pText);
             }
             else if (pKey == "minutes")
             {
-                l_minute = atoi(pText);
+                l_minute = help.Int(pText);
             }
             else if (pKey == "hours")
             {
-                l_hours = atoi(pText);
+                l_hours = help.Int(pText);
             }
             else if (pKey == "savery")
             {
-                l_saveY = atoi(pText);
+                l_saveY = help.Int(pText);
             }
             else if (pKey == "saverx")
             {
-                l_saveX = atoi(pText);
+                l_saveX = help.Int(pText);
             }
             else if (pKey == "trinkets")
             {
-                quick_trinkets = atoi(pText);
+                quick_trinkets = help.Int(pText);
             }
             else if (pKey == "finalmode")
             {
-                map.finalmode = atoi(pText);
+                map.finalmode = help.Int(pText);
             }
             else if (pKey == "finalstretch")
             {
-                map.finalstretch = atoi(pText);
+                map.finalstretch = help.Int(pText);
             }
 
             LOAD_ARRAY_RENAME(crewstats, quick_crewstats)
@@ -6206,11 +6206,11 @@ void Game::loadtele()
 
         if (pKey == "finalmode")
         {
-            map.finalmode = atoi(pText);
+            map.finalmode = help.Int(pText);
         }
         if (pKey == "finalstretch")
         {
-            map.finalstretch = atoi(pText);
+            map.finalstretch = help.Int(pText);
         }
 
         if (map.finalmode)
@@ -6230,47 +6230,47 @@ void Game::loadtele()
 
         if (pKey == "finalx")
         {
-            map.finalx = atoi(pText);
+            map.finalx = help.Int(pText);
         }
         else if (pKey == "finaly")
         {
-            map.finaly = atoi(pText);
+            map.finaly = help.Int(pText);
         }
         else if (pKey == "savex")
         {
-            savex = atoi(pText);
+            savex = help.Int(pText);
         }
         else if (pKey == "savey")
         {
-            savey = atoi(pText);
+            savey = help.Int(pText);
         }
         else if (pKey == "saverx")
         {
-            saverx = atoi(pText);
+            saverx = help.Int(pText);
         }
         else if (pKey == "savery")
         {
-            savery = atoi(pText);
+            savery = help.Int(pText);
         }
         else if (pKey == "savegc")
         {
-            savegc = atoi(pText);
+            savegc = help.Int(pText);
         }
         else if (pKey == "savedir")
         {
-            savedir= atoi(pText);
+            savedir= help.Int(pText);
         }
         else if (pKey == "savepoint")
         {
-            savepoint = atoi(pText);
+            savepoint = help.Int(pText);
         }
         else if (pKey == "companion")
         {
-            companion = atoi(pText);
+            companion = help.Int(pText);
         }
         else if (pKey == "lastsaved")
         {
-            lastsaved = atoi(pText);
+            lastsaved = help.Int(pText);
         }
         else if (pKey == "teleportscript")
         {
@@ -6278,40 +6278,40 @@ void Game::loadtele()
         }
         else if (pKey == "supercrewmate")
         {
-            supercrewmate = atoi(pText);
+            supercrewmate = help.Int(pText);
         }
         else if (pKey == "scmprogress")
         {
-            scmprogress = atoi(pText);
+            scmprogress = help.Int(pText);
         }
         else if (pKey == "scmmoveme")
         {
-            scmmoveme = atoi(pText);
+            scmmoveme = help.Int(pText);
         }
         else if (pKey == "frames")
         {
-            frames = atoi(pText);
+            frames = help.Int(pText);
             frames = 0;
         }
         else if (pKey == "seconds")
         {
-            seconds = atoi(pText);
+            seconds = help.Int(pText);
         }
         else if (pKey == "minutes")
         {
-            minutes = atoi(pText);
+            minutes = help.Int(pText);
         }
         else if (pKey == "hours")
         {
-            hours = atoi(pText);
+            hours = help.Int(pText);
         }
         else if (pKey == "deathcounts")
         {
-            deathcounts = atoi(pText);
+            deathcounts = help.Int(pText);
         }
         else if (pKey == "totalflips")
         {
-            totalflips = atoi(pText);
+            totalflips = help.Int(pText);
         }
         else if (pKey == "hardestroom")
         {
@@ -6319,11 +6319,11 @@ void Game::loadtele()
         }
         else if (pKey == "hardestroomdeaths")
         {
-            hardestroomdeaths = atoi(pText);
+            hardestroomdeaths = help.Int(pText);
         }
         else if (pKey == "currentsong")
         {
-            int song = atoi(pText);
+            int song = help.Int(pText);
             if (song != -1)
             {
                 music.play(song);

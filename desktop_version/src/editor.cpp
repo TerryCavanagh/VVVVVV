@@ -1801,22 +1801,22 @@ bool editorclass::load(std::string& _path)
 
                 if(pKey == "onewaycol_override")
                 {
-                    onewaycol_override = atoi(pText);
+                    onewaycol_override = help.Int(pText);
                 }
             }
         }
 
         if (pKey == "mapwidth")
         {
-            mapwidth = atoi(pText);
+            mapwidth = help.Int(pText);
         }
         if (pKey == "mapheight")
         {
-            mapheight = atoi(pText);
+            mapheight = help.Int(pText);
         }
         if (pKey == "levmusic")
         {
-            levmusic = atoi(pText);
+            levmusic = help.Int(pText);
         }
 
 
@@ -1831,7 +1831,7 @@ bool editorclass::load(std::string& _path)
                 int y =0;
                 for(size_t i = 0; i < values.size(); i++)
                 {
-                    contents[x + (maxwidth*40*y)] = atoi(values[i].c_str());
+                    contents[x + (maxwidth*40*y)] = help.Int(values[i].c_str());
                     x++;
                     if(x == mapwidth*40)
                     {
@@ -1853,7 +1853,7 @@ bool editorclass::load(std::string& _path)
               contents.clear();
               for(int i = 0; i < values.size(); i++)
               {
-                contents.push_back(atoi(values[i].c_str()));
+                contents.push_back(help.Int(values[i].c_str()));
               }
             }
           }
@@ -4233,8 +4233,8 @@ void editorinput()
                     ed.notedelay = 45;
                     break;
                 }
-                ed.levx = clamp(atoi(coords[0].c_str()) - 1, 0, ed.mapwidth - 1);
-                ed.levy = clamp(atoi(coords[1].c_str()) - 1, 0, ed.mapheight - 1);
+                ed.levx = clamp(help.Int(coords[0].c_str()) - 1, 0, ed.mapwidth - 1);
+                ed.levy = clamp(help.Int(coords[1].c_str()) - 1, 0, ed.mapheight - 1);
                 graphics.backgrounddrawn = false;
                 break;
             }
