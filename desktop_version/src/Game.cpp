@@ -5166,7 +5166,11 @@ void Game::loadquick()
         }
         else if (pKey == "currentsong")
         {
-            music.play(atoi(pText));
+            int song = atoi(pText);
+            if (song != -1)
+            {
+                music.play(song);
+            }
         }
 
     }
@@ -5365,7 +5369,11 @@ void Game::customloadquick(std::string savfile)
         }
         else if (pKey == "currentsong")
         {
-            music.play(atoi(pText));
+            int song = atoi(pText);
+            if (song != -1)
+            {
+                music.play(song);
+            }
         }
         else if (pKey == "showminimap")
         {
@@ -6315,7 +6323,11 @@ void Game::loadtele()
         }
         else if (pKey == "currentsong")
         {
-            music.play(atoi(pText));
+            int song = atoi(pText);
+            if (song != -1)
+            {
+                music.play(song);
+            }
         }
 
     }
