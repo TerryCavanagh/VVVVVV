@@ -354,7 +354,7 @@ void PLATFORM_getOSDirectory(char* output)
 	WideCharToMultiByte(CP_UTF8, 0, utf16_path, -1, output, MAX_PATH, NULL, NULL);
 	SDL_strlcat(output, "\\VVVVVV\\", sizeof(output));
 #else
-	SDL_strlcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"), sizeof(output));
+	SDL_strlcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"), MAX_PATH);
 #endif
 }
 
