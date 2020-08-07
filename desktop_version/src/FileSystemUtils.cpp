@@ -45,7 +45,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	PHYSFS_permitSymbolicLinks(1);
 
 	/* Determine the OS user directory */
-	if (baseDir && strlen(baseDir) > 0)
+	if (baseDir && baseDir[0] != '\0')
 	{
 		strcpy(output, baseDir);
 
