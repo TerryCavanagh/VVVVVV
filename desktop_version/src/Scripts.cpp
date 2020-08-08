@@ -687,15 +687,17 @@ void scriptclass::load(const std::string& name)
         "cutscene()",
         "untilbars()",
 
+        "missing(purple)", //Set violet's rescue script to 0 to make the next bit easier
+
         "gotoroom(4,10)",
         "gotoposition(100,177,0)",
         "createcrewman(150,177,purple,0,faceleft)",
 
         //set all the crew as rescued to avoid companion issues!
-        "rescued(red)",
-        "rescued(green)",
-        "rescued(blue)",
-        "rescued(yellow)",
+        "flag(8,on)",
+        "flag(9,on)",
+        "flag(10,on)",
+        "flag(11,on)",
 
         "fadein()",
         "untilfade()",
@@ -872,10 +874,10 @@ void scriptclass::load(const std::string& name)
         "untilfade()",
         "showplayer()",
 
-        "missing(red)",
-        "missing(green)",
-        "missing(blue)",
-        "missing(yellow)",
+        "flag(8,off)",
+        "flag(9,off)",
+        "flag(10,off)",
+        "flag(11,off)",
 
         "changeplayercolour(cyan)",
         "changemood(player,0)",
@@ -992,6 +994,7 @@ void scriptclass::load(const std::string& name)
     else if (SDL_strcmp(t, "bigopenworldskip") == 0)
     {
         static const char* lines[] = {
+        "missing(purple)",
         "gotoroom(4,10)",
         "gotoposition(100,177,0)",
         "createcrewman(150,177,purple,0,faceleft)",
@@ -3350,6 +3353,7 @@ void scriptclass::load(const std::string& name)
     {
         static const char* lines[] = {
         "ifskip(skipfinal)",
+        "hideplayer()",
         "cutscene()",
         "untilbars()",
         "activeteleporter()",
