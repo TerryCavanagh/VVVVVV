@@ -6786,6 +6786,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("bind flip");
         option("bind enter");
         option("bind menu");
+        option("bind restart");
         option("return");
         menuyoff = 10;
         break;
