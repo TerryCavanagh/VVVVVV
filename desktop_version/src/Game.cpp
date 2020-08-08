@@ -2631,7 +2631,6 @@ void Game::updatestate()
                 state++;
                 statedelay = 30;
                 graphics.textboxremove();
-                crewstats[1] = 0; //Set violet's rescue script to 0 to make the next bit easier
                 teleportscript = "";
             }
             break;
@@ -2644,13 +2643,20 @@ void Game::updatestate()
             if(graphics.fademode==1)
             {
                 startscript = true;
-                if (nocutscenes)
+                if (crewrescued() == 6)
                 {
-                    newscript="bigopenworldskip";
+                    newscript = "startlevel_final";
                 }
                 else
                 {
-                    newscript = "bigopenworld";
+                    if (nocutscenes)
+                    {
+                        newscript="bigopenworldskip";
+                    }
+                    else
+                    {
+                        newscript = "bigopenworld";
+                    }
                 }
                 state = 0;
             }
