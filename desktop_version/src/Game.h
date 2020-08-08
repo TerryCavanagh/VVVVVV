@@ -374,6 +374,7 @@ public:
     std::vector<SDL_GameControllerButton> controllerButton_map;
     std::vector<SDL_GameControllerButton> controllerButton_flip;
     std::vector<SDL_GameControllerButton> controllerButton_esc;
+    std::vector<SDL_GameControllerButton> controllerButton_restart;
 
     bool skipfakeload;
     bool ghostsenabled;

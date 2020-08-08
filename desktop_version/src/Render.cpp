@@ -415,9 +415,11 @@ void menurender()
         case 1:
         case 2:
         case 3:
+        case 4:
             graphics.Print( -1, 85, "Flip is bound to: " + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
             graphics.Print( -1, 95, "Enter is bound to: "  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
             graphics.Print( -1, 105, "Menu is bound to: " + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
+            graphics.Print( -1, 115, "Restart is bound to: " + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb, true);
             break;
         }
 
