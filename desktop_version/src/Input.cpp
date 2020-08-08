@@ -52,6 +52,13 @@ void updatebuttonmappings(int bind)
                         game.controllerButton_esc.erase(game.controllerButton_esc.begin() + j);
                     }
                 }
+                for (size_t j = 0; j < game.controllerButton_restart.size(); j += 1)
+                {
+                    if (i == game.controllerButton_restart[j])
+                    {
+                        game.controllerButton_restart.erase(game.controllerButton_restart.begin() + j);
+                    }
+                }
             }
             if (bind == 2)
             {
@@ -81,6 +88,13 @@ void updatebuttonmappings(int bind)
                         game.controllerButton_esc.erase(game.controllerButton_esc.begin() + j);
                     }
                 }
+                for (size_t j = 0; j < game.controllerButton_restart.size(); j += 1)
+                {
+                    if (i == game.controllerButton_restart[j])
+                    {
+                        game.controllerButton_restart.erase(game.controllerButton_restart.begin() + j);
+                    }
+                }
             }
             if (bind == 3)
             {
@@ -108,6 +122,49 @@ void updatebuttonmappings(int bind)
                     if (i == game.controllerButton_map[j])
                     {
                         game.controllerButton_map.erase(game.controllerButton_map.begin() + j);
+                    }
+                }
+                for (size_t j = 0; j < game.controllerButton_restart.size(); j += 1)
+                {
+                    if (i == game.controllerButton_restart[j])
+                    {
+                        game.controllerButton_restart.erase(game.controllerButton_restart.begin() + j);
+                    }
+                }
+            }
+            if (bind == 4)
+            {
+                for (size_t j = 0; j < game.controllerButton_restart.size(); j += 1)
+                {
+                    if (i == game.controllerButton_restart[j])
+                    {
+                        dupe = true;
+                    }
+                }
+                if (!dupe)
+                {
+                    game.controllerButton_restart.push_back(i);
+                    music.playef(11);
+                }
+                for (size_t j = 0; j < game.controllerButton_flip.size(); j += 1)
+                {
+                    if (i == game.controllerButton_flip[j])
+                    {
+                        game.controllerButton_flip.erase(game.controllerButton_flip.begin() + j);
+                    }
+                }
+                for (size_t j = 0; j < game.controllerButton_map.size(); j += 1)
+                {
+                    if (i == game.controllerButton_map[j])
+                    {
+                        game.controllerButton_map.erase(game.controllerButton_map.begin() + j);
+                    }
+                }
+                for (size_t j = 0; j < game.controllerButton_esc.size(); j += 1)
+                {
+                    if (i == game.controllerButton_esc[j])
+                    {
+                        game.controllerButton_esc.erase(game.controllerButton_esc.begin() + j);
                     }
                 }
             }
@@ -1200,7 +1257,7 @@ void menuactionpress()
             }
             break;
 
-        case 4:
+        case 5:
             music.playef(11);
             game.returnmenu();
             break;
@@ -1635,7 +1692,7 @@ void titleinput()
         }
         if (    game.currentmenuname == Menu::controller &&
                 game.currentmenuoption > 0 &&
-                game.currentmenuoption < 4 &&
+                game.currentmenuoption < 5 &&
                 key.controllerButtonDown()      )
         {
             updatebuttonmappings(game.currentmenuoption);
@@ -1899,7 +1956,7 @@ void gameinput()
                     }
                 }
 
-                if (key.keymap[SDLK_r] && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
+                if ((key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart)) && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
                 {
                     game.deathseq = 30;
                 }
