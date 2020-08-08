@@ -1899,7 +1899,7 @@ void gameinput()
                     }
                 }
 
-                if (key.keymap[SDLK_r] && game.deathseq<=0)// && map.custommode) //Have fun glitchrunners!
+                if (key.keymap[SDLK_r] && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
                 {
                     game.deathseq = 30;
                 }
