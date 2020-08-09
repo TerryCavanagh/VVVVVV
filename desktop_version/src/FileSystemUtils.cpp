@@ -352,7 +352,7 @@ void PLATFORM_getOSDirectory(char* output)
 	WCHAR utf16_path[MAX_PATH];
 	SHGetFolderPathW(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, utf16_path);
 	WideCharToMultiByte(CP_UTF8, 0, utf16_path, -1, output, MAX_PATH, NULL, NULL);
-	SDL_strlcat(output, "\\VVVVVV\\", sizeof(output));
+	SDL_strlcat(output, "\\VVVVVV\\", MAX_PATH);
 #else
 	SDL_strlcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"), MAX_PATH);
 #endif
