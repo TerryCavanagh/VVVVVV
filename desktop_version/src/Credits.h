@@ -93,6 +93,7 @@ static const char* githubfriends[] = {
     "Allison Fleischer",
     "Daniel Lee",
     "Fredrik Ljungdahl",
+    "Nichole Mattera",
     "Matt Penny",
     "Tynan Richards",
     "Elliott Saltar",
