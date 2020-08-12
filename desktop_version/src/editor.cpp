@@ -495,6 +495,7 @@ void editorclass::getlin(const enum textmode mode, const std::string& prompt, st
     ed.textmod = mode;
     ed.textptr = ptr;
     ed.textdesc = prompt;
+    ed.textentry = true;
     key.enabletextentry();
     if (ptr)
     {
