@@ -617,7 +617,7 @@ void inline fixedloop()
 
     //Mute button
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-    bool inEditor = ed.textentry || ed.scripthelppage == 1;
+    bool inEditor = ed.textentry || ed.textmod != TEXT_NONE || ed.scripthelppage == 1;
 #else
     bool inEditor = false;
 #endif
