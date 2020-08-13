@@ -65,7 +65,7 @@ public:
 	int leftbutton, rightbutton, middlebutton;
 	int mx, my;
 
-	bool textentrymode;
+	bool textentry();
 	bool pressedbackspace;
 	std::string keybuffer;
 

@@ -280,7 +280,6 @@ void editorclass::reset()
     note="";
     notedelay=0;
     oldnotedelay=0;
-    textentry=false;
     deletekeyheld=false;
     textmod = TEXT_NONE;
 
@@ -3747,25 +3746,21 @@ void editormenuactionpress()
         switch (game.currentmenuoption)
         {
         case 0:
-            ed.textentry=true;
             ed.titlemod=true;
             key.enabletextentry();
             key.keybuffer=EditorData::GetInstance().title;
             break;
         case 1:
-            ed.textentry=true;
             ed.creatormod=true;
             key.enabletextentry();
             key.keybuffer=EditorData::GetInstance().creator;
             break;
         case 2:
-            ed.textentry=true;
             ed.desc1mod=true;
             key.enabletextentry();
             key.keybuffer=ed.Desc1;
             break;
         case 3:
-            ed.textentry=true;
             ed.websitemod=true;
             key.enabletextentry();
             key.keybuffer=ed.website;
@@ -3961,10 +3956,9 @@ void editorinput()
             ed.shiftmenu = false;
             ed.shiftkey = false;
         }
-        else if (ed.textentry)
+        else if (key.textentry())
         {
             key.disabletextentry();
-            ed.textentry=false;
             ed.titlemod=false;
             ed.desc1mod=false;
             ed.desc2mod=false;
@@ -4293,7 +4287,7 @@ void editorinput()
             ed.textmod = TEXT_NONE;
         }
     }
-    else if (ed.textentry)
+    else if (key.textentry())
     {
         if(ed.titlemod)
         {
@@ -4355,13 +4349,11 @@ void editorinput()
                     ed.desc3mod=false;
                 }
                 key.disabletextentry();
-                ed.textentry=false;
 
                 if(ed.desc1mod)
                 {
                     ed.desc1mod=false;
 
-                    ed.textentry=true;
                     ed.desc2mod=true;
                     key.enabletextentry();
                     key.keybuffer=ed.Desc2;
@@ -4370,7 +4362,6 @@ void editorinput()
                 {
                     ed.desc2mod=false;
 
-                    ed.textentry=true;
                     ed.desc3mod=true;
                     key.enabletextentry();
                     key.keybuffer=ed.Desc3;
