@@ -320,6 +320,7 @@ int main(int argc, char *argv[])
         game.levelpage = 0;
         game.playcustomlevel = 0;
         game.playassets = playassets;
+        game.menustart = true;
 
         ed.directoryList.clear();
         ed.directoryList.push_back(playtestname);

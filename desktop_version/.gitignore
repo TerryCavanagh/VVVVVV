@@ -12,3 +12,6 @@ VVVVVV
 
 # Game data
 data.zip
+
+# macOS files
+.DS_Store
