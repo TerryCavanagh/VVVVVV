@@ -79,7 +79,7 @@ void KeyPoll::disabletextentry()
 
 void KeyPoll::Poll()
 {
-	bool modifierPressed = false;
+	bool altpressed = false;
 	SDL_Event evt;
 	while (SDL_PollEvent(&evt))
 	{
@@ -95,12 +95,10 @@ void KeyPoll::Poll()
 				pressedbackspace = true;
 			}
 
-			modifierPressed = keymap[SDLK_LCTRL] || keymap[SDLK_RCTRL] || keymap[SDLK_LALT] || keymap[SDLK_RALT] || keymap[SDLK_LGUI] || keymap[SDLK_RGUI];
-
 #ifdef __APPLE__ /* OSX prefers the command keys over the alt keys. -flibit */
-			bool altpressed = keymap[SDLK_LGUI] || keymap[SDLK_RGUI];
+			altpressed = keymap[SDLK_LGUI] || keymap[SDLK_RGUI];
 #else
-			bool altpressed = keymap[SDLK_LALT] || keymap[SDLK_RALT];
+			altpressed = keymap[SDLK_LALT] || keymap[SDLK_RALT];
 #endif
 			bool returnpressed = evt.key.keysym.sym == SDLK_RETURN;
 			bool fpressed = evt.key.keysym.sym == SDLK_f;
@@ -138,7 +136,7 @@ void KeyPoll::Poll()
 			}
 			break;
 		case SDL_TEXTINPUT:
-			if (!modifierPressed)
+			if (!altpressed)
 			{
 				keybuffer += evt.text.text;
 			}
