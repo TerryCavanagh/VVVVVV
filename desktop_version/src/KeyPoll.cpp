@@ -38,7 +38,6 @@ KeyPoll::KeyPoll()
 	setSensitivity(2);
 
 	quitProgram = 0;
-	textentrymode=true;
 	keybuffer="";
 	leftbutton=0; rightbutton=0; middlebutton=0;
 	mx=0; my=0;
@@ -67,14 +66,17 @@ KeyPoll::KeyPoll()
 void KeyPoll::enabletextentry()
 {
 	keybuffer="";
-	textentrymode = true;
 	SDL_StartTextInput();
 }
 
 void KeyPoll::disabletextentry()
 {
-	textentrymode = false;
 	SDL_StopTextInput();
+}
+
+bool KeyPoll::textentry()
+{
+	return SDL_IsTextInputActive() == SDL_TRUE;
 }
 
 void KeyPoll::Poll()
@@ -108,7 +110,7 @@ void KeyPoll::Poll()
 				toggleFullscreen = true;
 			}
 
-			if (textentrymode)
+			if (textentry())
 			{
 				if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
 				{

@@ -209,7 +209,7 @@ class editorclass{
     int desc; // Which description row we're changing
     int textent; // Entity ID for text prompt
   };
-  bool xmod, zmod, cmod, vmod, bmod, hmod, spacemod, warpmod, textentry;
+  bool xmod, zmod, cmod, vmod, bmod, hmod, spacemod, warpmod;
   bool titlemod, creatormod, desc1mod, desc2mod, desc3mod, websitemod;
 
   int roomnamehide;
