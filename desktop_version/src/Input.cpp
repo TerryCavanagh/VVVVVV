@@ -2100,7 +2100,8 @@ void mapinput()
         else
         {
             // Produces more glitchiness! Necessary for credits warp to work.
-            script.hardreset();
+            script.running = false;
+            graphics.textbox.clear();
 
             game.state = 80;
             game.statedelay = 0;
