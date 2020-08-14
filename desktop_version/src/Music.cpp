@@ -151,12 +151,15 @@ void songend()
 
 void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fadein_ms /*= 3000*/)
 {
-	// No need to check if num_tracks is greater than 0, we wouldn't be here if it wasn't
 	if (mmmmmm && usingmmmmmm)
 	{
-		t %= num_mmmmmm_tracks;
+		// Don't conjoin this if-statement with the above one...
+		if (num_mmmmmm_tracks > 0)
+		{
+			t %= num_mmmmmm_tracks;
+		}
 	}
-	else
+	else if (num_pppppp_tracks > 0)
 	{
 		t %= num_pppppp_tracks;
 	}
