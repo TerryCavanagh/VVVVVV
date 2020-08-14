@@ -98,10 +98,12 @@ bool binaryBlob::unPackBinary(const char* name)
 		}
 		if (m_headers[i].size < 1)
 		{
+			m_headers[i].valid = false;
 			continue; /* Must be nonzero and positive */
 		}
 		if ((offset + m_headers[i].size) > size)
 		{
+			m_headers[i].valid = false;
 			continue; /* Bogus size value */
 		}
 
