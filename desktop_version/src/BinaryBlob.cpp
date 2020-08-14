@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "UtilityClass.h"
+
 binaryBlob::binaryBlob()
 {
 	numberofHeaders = 0;
@@ -159,11 +161,21 @@ int binaryBlob::getIndex(const char* _name)
 
 int binaryBlob::getSize(int _index)
 {
+	if (!INBOUNDS_ARR(_index, m_headers))
+	{
+		puts("getSize() out-of-bounds!");
+		return 0;
+	}
 	return m_headers[_index].size;
 }
 
 char* binaryBlob::getAddress(int _index)
 {
+	if (!INBOUNDS_ARR(_index, m_memblocks))
+	{
+		puts("getAddress() out-of-bounds!");
+		return NULL;
+	}
 	return m_memblocks[_index];
 }
 
