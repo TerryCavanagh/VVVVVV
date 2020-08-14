@@ -80,12 +80,15 @@ void musicclass::init()
 
 #define FOREACH_TRACK(track_name) \
 	index = musicReadBlob.getIndex(track_name); \
-	rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index)); \
-	musicTracks.push_back(MusicTrack( rw ));
+	if (index >= 0 && index < musicReadBlob.max_headers) \
+	{ \
+		rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index)); \
+		musicTracks.push_back(MusicTrack( rw )); \
+	}
 
 		TRACK_NAMES
 
-		num_mmmmmm_tracks += 16;
+		num_mmmmmm_tracks += musicTracks.size();
 
 		const std::vector<int> extra = musicReadBlob.getExtra();
 		for (size_t i = 0; i < extra.size(); i++)
@@ -108,7 +111,7 @@ void musicclass::init()
 
 #undef FOREACH_TRACK
 
-	num_pppppp_tracks += 16;
+	num_pppppp_tracks += musicTracks.size() - num_mmmmmm_tracks;
 
 	const std::vector<int> extra = musicReadBlob.getExtra();
 	for (size_t i = 0; i < extra.size(); i++)
