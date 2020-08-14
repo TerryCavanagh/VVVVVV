@@ -147,7 +147,7 @@ int binaryBlob::getIndex(const char* _name)
 {
 	for (size_t i = 0; i < SDL_arraysize(m_headers); i += 1)
 	{
-		if (strcmp(_name, m_headers[i].name) == 0)
+		if (strcmp(_name, m_headers[i].name) == 0 && m_headers[i].valid)
 		{
 			return i;
 		}
