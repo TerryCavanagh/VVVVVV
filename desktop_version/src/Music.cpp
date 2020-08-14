@@ -83,7 +83,14 @@ void musicclass::init()
 	if (index >= 0 && index < musicReadBlob.max_headers) \
 	{ \
 		rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index)); \
-		musicTracks.push_back(MusicTrack( rw )); \
+		if (rw == NULL) \
+		{ \
+			printf("Unable to read music file header: %s\n", SDL_GetError()); \
+		} \
+		else \
+		{ \
+			musicTracks.push_back(MusicTrack( rw )); \
+		} \
 	}
 
 		TRACK_NAMES
