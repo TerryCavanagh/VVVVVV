@@ -1909,12 +1909,9 @@ void gameinput()
                     else if (game.intimetrial && graphics.fademode==0)
                     {
                         //Quick restart of time trial
-                        script.hardreset();
-                        if (graphics.setflipmode) graphics.flipmode = true;
                         graphics.fademode = 2;
                         game.completestop = true;
                         music.fadeout();
-                        game.intimetrial = true;
                         game.quickrestartkludge = true;
                     }
                     else if (graphics.fademode==0)
