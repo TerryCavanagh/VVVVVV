@@ -2126,6 +2126,7 @@ void mapclass::twoframedelayfix()
 
 	int block_idx = -1;
 	if (game.glitchrunnermode
+	|| !custommode
 	|| game.deathseq != -1
 	// obj.checktrigger() sets obj.activetrigger and block_idx
 	|| obj.checktrigger(&block_idx) <= -1
