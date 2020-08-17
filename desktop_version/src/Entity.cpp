@@ -4828,7 +4828,8 @@ void entityclass::entitycollisioncheck()
     int block_idx = -1;
     if (checktrigger(&block_idx) > -1 && block_idx > -1)
     {
-        if (blocks[block_idx].script != "")
+        // Load the block's script if its gamestate is out of range
+        if (blocks[block_idx].script != "" && (activetrigger < 300 || activetrigger > 336))
         {
             game.startscript = true;
             game.newscript = blocks[block_idx].script;
