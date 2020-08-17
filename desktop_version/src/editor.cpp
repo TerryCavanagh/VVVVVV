@@ -3786,7 +3786,6 @@ void editormenuactionpress()
             music.playef(11);
             ed.scripteditmod=true;
             ed.clearscriptbuffer();
-            key.enabletextentry();
             key.keybuffer="";
             ed.hookmenupage=0;
             ed.hookmenu=0;
@@ -4070,6 +4069,7 @@ void editorinput()
                 {
                     game.mapheld=true;
                     ed.scripthelppage=1;
+                    key.enabletextentry();
                     key.keybuffer="";
                     ed.sbscript=ed.hooklist[(ed.hooklist.size()-1)-ed.hookmenu];
                     ed.loadhookineditor(ed.sbscript);
