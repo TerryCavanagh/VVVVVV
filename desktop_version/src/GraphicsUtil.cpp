@@ -11,23 +11,6 @@ void setRect( SDL_Rect& _r, int x, int y, int w, int h )
     _r.h = h;
 }
 
-unsigned int endian_swap( unsigned int x )
-{
-    return (x>>24) |
-           ((x<<8) & 0x00FF0000) |
-           ((x>>8) & 0x0000FF00) |
-           (x<<24);
-}
-
-
-template <class T>
-void endian_swap(T *objp)
-{
-    unsigned char *memp = reinterpret_cast<unsigned char*>(objp);
-    std::reverse(memp, memp + sizeof(T));
-}
-
-
 SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, int height )
 {
     // Create an SDL_Rect with the area of the _surface
