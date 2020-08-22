@@ -22,17 +22,10 @@ SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, i
 
     // Set the RGBA mask values.
     Uint32 r, g, b, a;
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-    r = 0xff000000;
-    g = 0x00ff0000;
-    b = 0x0000ff00;
-    a = 0x000000ff;
-#else
     r = 0x000000ff;
     g = 0x0000ff00;
     b = 0x00ff0000;
     a = 0xff000000;
-#endif
 
     //Convert to the correct display format after nabbing the new _surface or we will slow things down.
     SDL_Surface* preSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, r, g, b, a);
@@ -64,18 +57,9 @@ void DrawPixel( SDL_Surface *_surface, int x, int y, Uint32 pixel )
         break;
 
     case 3:
-        if(SDL_BYTEORDER != SDL_BIG_ENDIAN)
-        {
-            p[0] = (pixel >> 16) & 0xff;
-            p[1] = (pixel >> 8) & 0xff;
-            p[2] = pixel & 0xff;
-        }
-        else
-        {
-            p[0] = pixel & 0xff;
-            p[1] = (pixel >> 8) & 0xff;
-            p[2] = (pixel >> 16) & 0xff;
-        }
+        p[0] = (pixel >> 16) & 0xff;
+        p[1] = (pixel >> 8) & 0xff;
+        p[2] = pixel & 0xff;
         break;
 
     case 4:
@@ -101,11 +85,7 @@ Uint32 ReadPixel( SDL_Surface *_surface, int x, int y )
         break;
 
     case 3:
-        if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
-            return p[0] << 16 | p[1] << 8 | p[2];
-        else
-            return p[0] | p[1] << 8 | p[2] << 16;
-        break;
+        return p[0] | p[1] << 8 | p[2] << 16;
 
     case 4:
         return *(Uint32 *)p;
