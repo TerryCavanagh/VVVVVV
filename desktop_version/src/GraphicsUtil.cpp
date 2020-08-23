@@ -20,15 +20,17 @@ SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, i
     area.w = width;
     area.h = height;
 
-    // Set the RGBA mask values.
-    Uint32 r, g, b, a;
-    r = 0x000000ff;
-    g = 0x0000ff00;
-    b = 0x00ff0000;
-    a = 0xff000000;
-
     //Convert to the correct display format after nabbing the new _surface or we will slow things down.
-    SDL_Surface* preSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, r, g, b, a);
+    SDL_Surface* preSurface = SDL_CreateRGBSurface(
+        SDL_SWSURFACE,
+        width,
+        height,
+        metaSurface->format->BitsPerPixel,
+        metaSurface->format->Rmask,
+        metaSurface->format->Gmask,
+        metaSurface->format->Bmask,
+        metaSurface->format->Amask
+    );
     //SDL_Surface* subSurface = SDL_DisplayFormatAlpha(preSurface);
 
     //SDL_FreeSurface(preSurface);
@@ -337,7 +339,7 @@ void UpdateFilter()
 
 SDL_Surface* ApplyFilter( SDL_Surface* _src )
 {
-    SDL_Surface* _ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, 32,
+    SDL_Surface* _ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, _src->format->BitsPerPixel,
         _src->format->Rmask, _src->format->Gmask, _src->format->Bmask, _src->format->Amask);
 
     int redOffset = rand() % 4;
