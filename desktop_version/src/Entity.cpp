@@ -3326,6 +3326,12 @@ void entityclass::animateentities( int _i )
                 }
 
                 if (entities[_i].onroof > 0) entities[_i].drawframe += 6;
+                // Stuck in a wall? Then default to gravitycontrol
+                if (entities[_i].onground > 0 && entities[_i].onroof > 0
+                && game.gravitycontrol == 0)
+                {
+                    entities[_i].drawframe -= 6;
+                }
             }
             else
             {
