@@ -4689,8 +4689,14 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         return;
     }
 
-    if (entities[j].rule == 1 && entities[j].harmful)
+    switch (entities[j].rule)
     {
+    case 1:
+        if (!entities[j].harmful)
+        {
+            break;
+        }
+
         //person i hits enemy or enemy bullet j
         if (entitycollide(i, j) && !map.invincibility)
         {
@@ -4720,20 +4726,17 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
                 game.scmhurt = scm;
             }
         }
-    }
-    if (entities[j].rule == 2)   //Moving platforms
-    {
+        break;
+    case 2:   //Moving platforms
         if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
-    }
-    if (entities[j].rule == 3)   //Entity to entity
-    {
+        break;
+    case 3:   //Entity to entity
         if(entities[j].onentity>0)
         {
             if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
         }
-    }
-    if (entities[j].rule == 4)   //Person vs horizontal line!
-    {
+        break;
+    case 4:   //Person vs horizontal line!
         if(game.deathseq==-1)
         {
             //Here we compare the person's old position versus his new one versus the line.
@@ -4759,9 +4762,8 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
                 }
             }
         }
-    }
-    if (entities[j].rule == 5)   //Person vs vertical gravity/warp line!
-    {
+        break;
+    case 5:   //Person vs vertical gravity/warp line!
         if(game.deathseq==-1)
         {
             if(entities[j].onentity>0)
@@ -4773,9 +4775,8 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
                 }
             }
         }
-    }
-    if (entities[j].rule == 6)   //Person versus crumbly blocks! Special case
-    {
+        break;
+    case 6:   //Person versus crumbly blocks! Special case
         if (entities[j].onentity > 0)
         {
             //ok; only check the actual collision if they're in a close proximity
@@ -4789,9 +4790,8 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
                 }
             }
         }
-    }
-    if (entities[j].rule == 7) // Person versus horizontal warp line, pre-2.1
-    {
+        break;
+    case 7: // Person versus horizontal warp line, pre-2.1
         if (game.glitchrunnermode
         && game.deathseq == -1
         && entities[j].onentity > 0
@@ -4799,5 +4799,6 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         {
             entities[j].state = entities[j].onentity;
         }
+        break;
     }
 }
