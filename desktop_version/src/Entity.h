@@ -158,6 +158,8 @@ public:
 
     void entitycollisioncheck();
 
+    void collisioncheck(int i, int j, bool scm = false);
+
 
     std::vector<entclass> entities;
 

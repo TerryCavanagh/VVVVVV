@@ -4581,186 +4581,24 @@ void entityclass::customwarplinecheck(int i) {
 
 void entityclass::entitycollisioncheck()
 {
-    std::vector<SDL_Surface*>& spritesvec = graphics.flipmode ? graphics.flipsprites : graphics.sprites;
-
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if (entities[i].rule != 0)
+        bool player = entities[i].rule == 0;
+        bool scm = game.supercrewmate && entities[i].type == 14;
+        if (!player && !scm)
         {
             continue;
         }
+
         //We test entity to entity
         for (size_t j = 0; j < entities.size(); j++)
         {
-            if (i!=j)
+            if (i == j)
             {
-                if (entities[j].rule == 1 && entities[j].harmful)
-                {
-                    //player i hits enemy or enemy bullet j
-                    if (entitycollide(i, j) && !map.invincibility)
-                    {
-                        if (entities[i].size == 0 && (entities[j].size == 0 || entities[j].size == 12))
-                        {
-                            //They're both sprites, so do a per pixel collision
-                            colpoint1.x = entities[i].xp;
-                            colpoint1.y = entities[i].yp;
-                            colpoint2.x = entities[j].xp;
-                            colpoint2.y = entities[j].yp;
-                            int drawframe1 = entities[i].drawframe;
-                            int drawframe2 = entities[j].drawframe;
-                            if (INBOUNDS(drawframe1, spritesvec) && INBOUNDS(drawframe2, spritesvec)
-                            && graphics.Hitest(spritesvec[drawframe1],
-                                             colpoint1, spritesvec[drawframe2], colpoint2))
-                            {
-                                //Do the collision stuff
-                                game.deathseq = 30;
-                            }
-                        }
-                        else
-                        {
-                            //Ok, then we just assume a normal bounding box collision
-                            game.deathseq = 30;
-                        }
-                    }
-                }
-                if (entities[j].rule == 2)   //Moving platforms
-                {
-                    if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
-                }
-                if (entities[j].rule == 3)   //Entity to entity
-                {
-                    if(entities[j].onentity>0)
-                    {
-                        if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
-                    }
-                }
-                if (entities[j].rule == 4)   //Player vs horizontal line!
-                {
-                    if(game.deathseq==-1)
-                    {
-                        //Here we compare the player's old position versus his new one versus the line.
-                        //All points either be above or below it. Otherwise, there was a collision this frame.
-                        if (entities[j].onentity > 0)
-                        {
-                            if (entityhlinecollide(i, j))
-                            {
-                                music.playef(8);
-                                game.gravitycontrol = (game.gravitycontrol + 1) % 2;
-                                game.totalflips++;
-                                if (game.gravitycontrol == 0)
-                                {
-                                    if (entities[i].vy < 1) entities[i].vy = 1;
-                                }
-                                else
-                                {
-                                    if (entities[i].vy > -1) entities[i].vy = -1;
-                                }
+                continue;
+            }
 
-                                entities[j].state = entities[j].onentity;
-                                entities[j].life = 6;
-                            }
-                        }
-                    }
-                }
-                if (entities[j].rule == 5)   //Player vs vertical gravity/warp line!
-                {
-                    if(game.deathseq==-1)
-                    {
-                        if(entities[j].onentity>0)
-                        {
-                            if (entityvlinecollide(i, j))
-                            {
-                                entities[j].state = entities[j].onentity;
-                                entities[j].life = 4;
-                            }
-                        }
-                    }
-                }
-                if (entities[j].rule == 6)   //Player versus crumbly blocks! Special case
-                {
-                    if (entities[j].onentity > 0)
-                    {
-                        //ok; only check the actual collision if they're in a close proximity
-                        temp = entities[i].yp - entities[j].yp;
-                        if (temp > -30 && temp < 30)
-                        {
-                            temp = entities[i].xp - entities[j].xp;
-                            if (temp > -30 && temp < 30)
-                            {
-                                if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
-                            }
-                        }
-                    }
-                }
-                if (entities[j].rule == 7) // Player versus horizontal warp line, pre-2.1
-                {
-                    if (game.glitchrunnermode
-                    && game.deathseq == -1
-                    && entities[j].onentity > 0
-                    && entityhlinecollide(i, j))
-                    {
-                        entities[j].state = entities[j].onentity;
-                    }
-                }
-            }
-        }
-    }
-    if (game.supercrewmate)
-    {
-        for (size_t i = 0; i < entities.size(); i++)
-        {
-            //some extra collisions
-            if (entities[i].type == 14)   //i is the supercrewmate
-            {
-                for (size_t j = 0; j < entities.size(); j++)
-                {
-                    if (i != j)
-                    {
-                        if (entities[j].rule == 1 && entities[j].harmful)  //j is a harmful enemy
-                        {
-                            //player i hits enemy or enemy bullet j
-                            if (entitycollide(i, j) && !map.invincibility)
-                            {
-                                if (entities[i].size == 0 && entities[j].size == 0)
-                                {
-                                    //They're both sprites, so do a per pixel collision
-                                    colpoint1.x = entities[i].xp;
-                                    colpoint1.y = entities[i].yp;
-                                    colpoint2.x = entities[j].xp;
-                                    colpoint2.y = entities[j].yp;
-                                    int drawframe1 = entities[i].drawframe;
-                                    int drawframe2 = entities[j].drawframe;
-                                    if (INBOUNDS(drawframe1, spritesvec) && INBOUNDS(drawframe2, spritesvec)
-                                    && graphics.Hitest(spritesvec[drawframe1],
-                                                     colpoint1, spritesvec[drawframe2], colpoint2))
-                                    {
-                                        //Do the collision stuff
-                                        game.deathseq = 30;
-                                        game.scmhurt = true;
-                                    }
-                                }
-                                else
-                                {
-                                    //Ok, then we just assume a normal bounding box collision
-                                    game.deathseq = 30;
-                                    game.scmhurt = true;
-                                }
-                            }
-                        }
-                        if (entities[j].rule == 2)   //Moving platforms
-                        {
-                            if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
-                        }
-                        if (entities[j].type == 8 && entities[j].rule == 3)   //Entity to entity (well, checkpoints anyway!)
-                        {
-                            if(entities[j].onentity>0)
-                            {
-                                if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
-                            }
-                        }
-                    }
-                }
-            }
+            collisioncheck(i, j, scm);
         }
     }
 
@@ -4840,5 +4678,126 @@ void entityclass::entitycollisioncheck()
             game.state = activetrigger;
         }
         game.statedelay = 0;
+    }
+}
+
+void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
+{
+    if (!INBOUNDS(i, entities) || !INBOUNDS(j, entities))
+    {
+        puts("collisioncheck() out-of-bounds!");
+        return;
+    }
+
+    if (entities[j].rule == 1 && entities[j].harmful)
+    {
+        //person i hits enemy or enemy bullet j
+        if (entitycollide(i, j) && !map.invincibility)
+        {
+            if (entities[i].size == 0 && (entities[j].size == 0 || entities[j].size == 12))
+            {
+                //They're both sprites, so do a per pixel collision
+                colpoint1.x = entities[i].xp;
+                colpoint1.y = entities[i].yp;
+                colpoint2.x = entities[j].xp;
+                colpoint2.y = entities[j].yp;
+                int drawframe1 = entities[i].drawframe;
+                int drawframe2 = entities[j].drawframe;
+                std::vector<SDL_Surface*>& spritesvec = graphics.flipmode ? graphics.flipsprites : graphics.sprites;
+                if (INBOUNDS(drawframe1, spritesvec) && INBOUNDS(drawframe2, spritesvec)
+                && graphics.Hitest(spritesvec[drawframe1],
+                                 colpoint1, spritesvec[drawframe2], colpoint2))
+                {
+                    //Do the collision stuff
+                    game.deathseq = 30;
+                    game.scmhurt = scm;
+                }
+            }
+            else
+            {
+                //Ok, then we just assume a normal bounding box collision
+                game.deathseq = 30;
+                game.scmhurt = scm;
+            }
+        }
+    }
+    if (entities[j].rule == 2)   //Moving platforms
+    {
+        if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
+    }
+    if (entities[j].rule == 3)   //Entity to entity
+    {
+        if(entities[j].onentity>0)
+        {
+            if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
+        }
+    }
+    if (entities[j].rule == 4)   //Person vs horizontal line!
+    {
+        if(game.deathseq==-1)
+        {
+            //Here we compare the person's old position versus his new one versus the line.
+            //All points either be above or below it. Otherwise, there was a collision this frame.
+            if (entities[j].onentity > 0)
+            {
+                if (entityhlinecollide(i, j))
+                {
+                    music.playef(8);
+                    game.gravitycontrol = (game.gravitycontrol + 1) % 2;
+                    game.totalflips++;
+                    if (game.gravitycontrol == 0)
+                    {
+                        if (entities[i].vy < 1) entities[i].vy = 1;
+                    }
+                    else
+                    {
+                        if (entities[i].vy > -1) entities[i].vy = -1;
+                    }
+
+                    entities[j].state = entities[j].onentity;
+                    entities[j].life = 6;
+                }
+            }
+        }
+    }
+    if (entities[j].rule == 5)   //Person vs vertical gravity/warp line!
+    {
+        if(game.deathseq==-1)
+        {
+            if(entities[j].onentity>0)
+            {
+                if (entityvlinecollide(i, j))
+                {
+                    entities[j].state = entities[j].onentity;
+                    entities[j].life = 4;
+                }
+            }
+        }
+    }
+    if (entities[j].rule == 6)   //Person versus crumbly blocks! Special case
+    {
+        if (entities[j].onentity > 0)
+        {
+            //ok; only check the actual collision if they're in a close proximity
+            temp = entities[i].yp - entities[j].yp;
+            if (temp > -30 && temp < 30)
+            {
+                temp = entities[i].xp - entities[j].xp;
+                if (temp > -30 && temp < 30)
+                {
+                    if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
+                }
+            }
+        }
+    }
+    if (entities[j].rule == 7) // Person versus horizontal warp line, pre-2.1
+    {
+        if (game.glitchrunnermode
+        && game.deathseq == -1
+        && entities[j].onentity > 0
+        && entityhlinecollide(i, j))
+        {
+            entities[j].state = entities[j].onentity;
+        }
     }
 }
