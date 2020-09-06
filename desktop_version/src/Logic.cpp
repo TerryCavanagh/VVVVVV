@@ -892,14 +892,10 @@ void gamelogic()
                             obj.entitymapcollision(i);            // Collisions with walls
 
                             obj.createblock(0, obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].w, obj.entities[i].h);
+                            obj.movingplatformfix(i, obj.getplayer());
                             if (game.supercrewmate)
                             {
-                                obj.movingplatformfix(i);
-                                obj.scmmovingplatformfix(i);
-                            }
-                            else
-                            {
-                                obj.movingplatformfix(i);
+                                obj.movingplatformfix(i, obj.getscm());
                             }
                         }
                     }
