@@ -4603,43 +4603,12 @@ void entityclass::entitycollisioncheck()
     }
 
     //can't have the player being stuck...
-    int j = getplayer();
-    skipdirblocks = true;
-    if (j > -1 && !testwallsx(j, entities[j].xp, entities[j].yp))
-    {
-        //Let's try to get out...
-        if (entities[j].rule == 0)
-        {
-            if(game.gravitycontrol==0)
-            {
-                entities[j].yp -= 3;
-            }
-            else
-            {
-                entities[j].yp += 3;
-            }
-        }
-    }
-    skipdirblocks = false;
+    stuckprevention(getplayer());
 
     //Can't have the supercrewmate getting stuck either!
     if (game.supercrewmate)
     {
-        j = getscm();
-        skipdirblocks = true;
-        if (!testwallsx(j, entities[j].xp, entities[j].yp))
-        {
-            //Let's try to get out...
-            if(game.gravitycontrol==0)
-            {
-                entities[j].yp -= 3;
-            }
-            else
-            {
-                entities[j].yp += 3;
-            }
-        }
-        skipdirblocks = false;
+        stuckprevention(getscm());
     }
 
     //Is the player colliding with any damageblocks?
@@ -4801,4 +4770,29 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         }
         break;
     }
+}
+
+void entityclass::stuckprevention(int t)
+{
+    if (!INBOUNDS(t, entities))
+    {
+        puts("stuckprevention() out-of-bounds!");
+        return;
+    }
+
+    skipdirblocks = true;
+    // Can't have this entity (player or supercrewmate) being stuck...
+    if (!testwallsx(t, entities[t].xp, entities[t].yp))
+    {
+        // Let's try to get out...
+        if (game.gravitycontrol == 0)
+        {
+            entities[t].yp -= 3;
+        }
+        else
+        {
+            entities[t].yp += 3;
+        }
+    }
+    skipdirblocks = false;
 }

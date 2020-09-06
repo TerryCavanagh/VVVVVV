@@ -160,6 +160,8 @@ public:
 
     void collisioncheck(int i, int j, bool scm = false);
 
+    void stuckprevention(int t);
+
 
     std::vector<entclass> entities;
 
