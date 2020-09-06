@@ -1793,18 +1793,23 @@ void gameinput()
 #endif
 
     //Entity type 0 is player controled
+    bool has_control = false;
+    bool enter_pressed = game.press_map && !game.mapheld;
+    bool enter_already_processed = false;
     for (size_t ie = 0; ie < obj.entities.size(); ++ie)
     {
         if (obj.entities[ie].rule == 0)
         {
             if (game.hascontrol && game.deathseq == -1 && game.lifeseq <= 5)
             {
-                if (game.press_map && !game.mapheld)
+                has_control = true;
+                if (enter_pressed)
                 {
                     game.mapheld = true;
 
                     if (game.activetele && game.readytotele > 20 && !game.intimetrial)
                     {
+                        enter_already_processed = true;
                         if(int(std::abs(obj.entities[ie].vx))<=1 && int(obj.entities[ie].vy)==0)
                         {
                             //wait! space station 2 debug thingy
@@ -1881,6 +1886,7 @@ void gameinput()
                     }
                     else if (game.activeactivity > -1)
                     {
+                        enter_already_processed = true;
                         if((int(std::abs(obj.entities[ie].vx))<=1) && (int(obj.entities[ie].vy) == 0) )
                         {
                             script.load(obj.blocks[game.activeactivity].script);
@@ -1888,74 +1894,6 @@ void gameinput()
                             game.activeactivity = -1;
                         }
                     }
-                    else if (game.swnmode == 1 && game.swngame == 1)
-                    {
-                        //quitting the super gravitron
-                        game.mapheld = true;
-                        //Quit menu, same conditions as in game menu
-                        game.gamestate = MAPMODE;
-                        game.gamesaved = false;
-                        graphics.resumegamemode = false;
-                        game.menupage = 20; // The Map Page
-                        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
-                        graphics.menuoffset = 240; //actually this should count the roomname
-                        graphics.oldmenuoffset = 240;
-                        if (map.extrarow)
-                        {
-                            graphics.menuoffset -= 10;
-                            graphics.oldmenuoffset -= 10;
-                        }
-                    }
-                    else if (game.intimetrial && graphics.fademode==0)
-                    {
-                        //Quick restart of time trial
-                        graphics.fademode = 2;
-                        game.completestop = true;
-                        music.fadeout();
-                        game.quickrestartkludge = true;
-                    }
-                    else if (graphics.fademode==0)
-                    {
-                        //Normal map screen, do transition later
-                        game.gamestate = MAPMODE;
-                        map.cursordelay = 0;
-                        map.cursorstate = 0;
-                        game.gamesaved = false;
-                        graphics.resumegamemode = false;
-                        game.menupage = 0; // The Map Page
-                        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
-                        graphics.menuoffset = 240; //actually this should count the roomname
-                        graphics.oldmenuoffset = 240;
-                        if (map.extrarow)
-                        {
-                            graphics.menuoffset -= 10;
-                            graphics.oldmenuoffset -= 10;
-                        }
-                    }
-                }
-
-                if ((key.isDown(27) || key.isDown(game.controllerButton_esc)) && (!map.custommode || map.custommodeforreal))
-                {
-                    game.mapheld = true;
-                    //Quit menu, same conditions as in game menu
-                    game.gamestate = MAPMODE;
-                    game.gamesaved = false;
-                    graphics.resumegamemode = false;
-                    game.menupage = 30; // Pause screen
-
-                    BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
-                    graphics.menuoffset = 240; //actually this should count the roomname
-                    graphics.oldmenuoffset = 240;
-                    if (map.extrarow)
-                    {
-                        graphics.menuoffset -= 10;
-                        graphics.oldmenuoffset -= 10;
-                    }
-                }
-
-                if ((key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart)) && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
-                {
-                    game.deathseq = 30;
                 }
 
                 if (game.press_left)
@@ -2036,23 +1974,99 @@ void gameinput()
                     }
                 }
             }
-            else
-            {
-                //Simple detection of keypresses outside player control, will probably scrap this (expand on
-                //advance text function)
-                if (!game.press_action)
-                {
-                    game.jumppressed = 0;
-                    game.jumpheld = false;
-                }
-
-                if (game.press_action && !game.jumpheld)
-                {
-                    game.jumppressed = 5;
-                    game.jumpheld = true;
-                }
-            }
         }
+    }
+
+    if (!has_control)
+    {
+        //Simple detection of keypresses outside player control, will probably scrap this (expand on
+        //advance text function)
+        if (!game.press_action)
+        {
+            game.jumppressed = 0;
+            game.jumpheld = false;
+        }
+
+        if (game.press_action && !game.jumpheld)
+        {
+            game.jumppressed = 5;
+            game.jumpheld = true;
+        }
+    }
+
+    // Continuation of Enter processing. The rest of the if-tree runs only if
+    // enter_pressed && !enter_already_pressed
+    if (!enter_pressed || enter_already_processed)
+    {
+        // Do nothing
+    }
+    else if (game.swnmode == 1 && game.swngame == 1)
+    {
+        //quitting the super gravitron
+        game.mapheld = true;
+        //Quit menu, same conditions as in game menu
+        game.gamestate = MAPMODE;
+        game.gamesaved = false;
+        graphics.resumegamemode = false;
+        game.menupage = 20; // The Map Page
+        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
+        graphics.menuoffset = 240; //actually this should count the roomname
+        graphics.oldmenuoffset = 240;
+        if (map.extrarow)
+        {
+            graphics.menuoffset -= 10;
+            graphics.oldmenuoffset -= 10;
+        }
+    }
+    else if (game.intimetrial && graphics.fademode==0)
+    {
+        //Quick restart of time trial
+        graphics.fademode = 2;
+        game.completestop = true;
+        music.fadeout();
+        game.quickrestartkludge = true;
+    }
+    else if (graphics.fademode==0)
+    {
+        //Normal map screen, do transition later
+        game.gamestate = MAPMODE;
+        map.cursordelay = 0;
+        map.cursorstate = 0;
+        game.gamesaved = false;
+        graphics.resumegamemode = false;
+        game.menupage = 0; // The Map Page
+        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
+        graphics.menuoffset = 240; //actually this should count the roomname
+        graphics.oldmenuoffset = 240;
+        if (map.extrarow)
+        {
+            graphics.menuoffset -= 10;
+            graphics.oldmenuoffset -= 10;
+        }
+    }
+
+    if ((key.isDown(27) || key.isDown(game.controllerButton_esc)) && (!map.custommode || map.custommodeforreal))
+    {
+        game.mapheld = true;
+        //Quit menu, same conditions as in game menu
+        game.gamestate = MAPMODE;
+        game.gamesaved = false;
+        graphics.resumegamemode = false;
+        game.menupage = 30; // Pause screen
+
+        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
+        graphics.menuoffset = 240; //actually this should count the roomname
+        graphics.oldmenuoffset = 240;
+        if (map.extrarow)
+        {
+            graphics.menuoffset -= 10;
+            graphics.oldmenuoffset -= 10;
+        }
+    }
+
+    if (game.deathseq == -1 && (key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart)) && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
+    {
+        game.deathseq = 30;
     }
 }
 
