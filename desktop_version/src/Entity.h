@@ -100,9 +100,7 @@ public:
 
     bool entitycollide(int a, int b);
 
-    bool checkdamage();
-
-    bool scmcheckdamage();
+    bool checkdamage(bool scm = false);
 
     void settemprect(int t);
 

@@ -3859,37 +3859,12 @@ bool entityclass::entitycollide( int a, int b )
     return false;
 }
 
-bool entityclass::checkdamage()
+bool entityclass::checkdamage(bool scm /*= false*/)
 {
-    //Returns true if player entity (rule 0) collides with a damagepoint
+    //Returns true if player (or supercrewmate) collides with a damagepoint
     for(size_t i=0; i < entities.size(); i++)
     {
-        if(entities[i].rule==0)
-        {
-            tempx = entities[i].xp + entities[i].cx;
-            tempy = entities[i].yp + entities[i].cy;
-            tempw = entities[i].w;
-            temph = entities[i].h;
-            rectset(tempx, tempy, tempw, temph);
-
-            for (size_t j=0; j<blocks.size(); j++)
-            {
-                if (blocks[j].type == DAMAGE && help.intersects(blocks[j].rect, temprect))
-                {
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-
-bool entityclass::scmcheckdamage()
-{
-    //Returns true if supercrewmate collides with a damagepoint
-    for(size_t i=0; i < entities.size(); i++)
-    {
-        if(entities[i].type==14)
+        if((scm && entities[i].type == 14) || (!scm && entities[i].rule == 0))
         {
             tempx = entities[i].xp + entities[i].cx;
             tempy = entities[i].yp + entities[i].cy;
@@ -4880,7 +4855,7 @@ void entityclass::entitycollisioncheck()
     //how about the supercrewmate?
     if (game.supercrewmate)
     {
-        if (scmcheckdamage() && !map.invincibility)
+        if (checkdamage(true) && !map.invincibility)
         {
             //usual player dead stuff
             game.scmhurt = true;
