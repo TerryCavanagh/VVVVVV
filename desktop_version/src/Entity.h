@@ -152,9 +152,7 @@ public:
 
     void entitymapcollision(int t);
 
-    void movingplatformfix(int t);
-
-    void scmmovingplatformfix(int t);
+    void movingplatformfix(int t, int j);
 
     void hormovingplatformfix(int t);
 

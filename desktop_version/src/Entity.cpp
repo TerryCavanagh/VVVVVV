@@ -4497,17 +4497,16 @@ void entityclass::entitymapcollision( int t )
     }
 }
 
-void entityclass::movingplatformfix( int t )
+void entityclass::movingplatformfix( int t, int j )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS(t, entities) || !INBOUNDS(j, entities))
     {
         puts("movingplatformfix() out-of-bounds!");
         return;
     }
 
-    //If this intersects the player, then we move the player along it
-    int j = getplayer();
-    if (j > -1 && entitycollide(t, j))
+    //If this intersects the entity, then we move them along it
+    if (entitycollide(t, j))
     {
         //ok, bollox, let's make sure
         entities[j].yp = entities[j].yp + int(entities[j].vy);
@@ -4518,7 +4517,7 @@ void entityclass::movingplatformfix( int t )
             entities[j].newyp = entities[j].yp + int(entities[j].vy);
             if (testwallsy(j, entities[j].xp, entities[j].newyp))
             {
-                 if (entities[t].vy > 0)
+                if (entities[t].vy > 0)
                 {
                     entities[j].yp = entities[t].yp + entities[t].h;
                     entities[j].vy = 0;
@@ -4529,46 +4528,6 @@ void entityclass::movingplatformfix( int t )
                     entities[j].yp = entities[t].yp - entities[j].h-entities[j].cy;
                     entities[j].vy = 0;
                     entities[j].onground = true;
-                }
-            }
-            else
-            {
-                entities[t].state = entities[t].onwall;
-            }
-        }
-    }
-}
-
-void entityclass::scmmovingplatformfix( int t )
-{
-    if (t < 0 || t >= (int) entities.size())
-    {
-        puts("scmmovingplatformfix() out-of-bounds!");
-        return;
-    }
-
-    //If this intersects the SuperCrewMate, then we move them along it
-    int j = getscm();
-    if (entitycollide(t, j))
-    {
-        //ok, bollox, let's make sure
-        entities[j].yp = entities[j].yp +  (entities[j].vy);
-        if (entitycollide(t, j))
-        {
-            entities[j].yp = entities[j].yp -  (entities[j].vy);
-            entities[j].vy = entities[t].vy;
-            entities[j].newyp = static_cast<float>(entities[j].yp) + entities[j].vy;
-            if (testwallsy(j, entities[j].xp, entities[j].newyp))
-            {
-                if (entities[t].vy > 0)
-                {
-                    entities[j].yp = entities[t].yp + entities[t].h;
-                    entities[j].vy = 0;
-                }
-                else
-                {
-                    entities[j].yp = entities[t].yp - entities[j].h-entities[j].cy;
-                    entities[j].vy = 0;
                 }
             }
             else
