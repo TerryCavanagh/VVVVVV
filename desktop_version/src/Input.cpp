@@ -2018,7 +2018,7 @@ void gameinput()
             graphics.oldmenuoffset -= 10;
         }
     }
-    else if (game.intimetrial && graphics.fademode==0)
+    else if (game.intimetrial && graphics.fademode == 0)
     {
         //Quick restart of time trial
         graphics.fademode = 2;
@@ -2026,7 +2026,11 @@ void gameinput()
         music.fadeout();
         game.quickrestartkludge = true;
     }
-    else if (graphics.fademode==0)
+    else if (game.intimetrial)
+    {
+        //Do nothing if we're in a Time Trial but a fade animation is playing
+    }
+    else
     {
         //Normal map screen, do transition later
         game.gamestate = MAPMODE;
