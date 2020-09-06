@@ -1715,7 +1715,6 @@ void gameinput()
         game.press_left = false;
         game.press_right = false;
         game.press_action = false;
-        game.press_map = false;
 
         if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false))
         {
@@ -1730,10 +1729,12 @@ void gameinput()
         {
             game.press_action = true;
         };
-        if (key.isDown(KEYBOARD_ENTER) || key.isDown(SDLK_KP_ENTER) || key.isDown(game.controllerButton_map)  )
-        {
-            game.press_map = true;
-        }
+    }
+
+    game.press_map = false;
+    if (key.isDown(KEYBOARD_ENTER) || key.isDown(SDLK_KP_ENTER) || key.isDown(game.controllerButton_map)  )
+    {
+        game.press_map = true;
     }
 
     if (game.advancetext)
