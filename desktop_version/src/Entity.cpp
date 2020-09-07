@@ -2079,6 +2079,40 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
     {
         entity.drawframe++;
     }
+    // Make sure our crewmates are facing the player if applicable
+    // Also make sure they're flipped if they're flipped
+    // FIXME: Duplicated from updateentities!
+    if (entity.rule == 6 || entity.rule == 7)
+    {
+        if (entity.tile == 144 || entity.tile == 144+6)
+        {
+            entity.drawframe = 144;
+        }
+        if (entity.state == 18)
+        {
+            // Face the player
+            // FIXME: Duplicated from updateentities!
+            int j = getplayer();
+            if (j > -1 && entities[j].xp > entity.xp + 5)
+            {
+                entity.dir = 1;
+            }
+            else if (j > -1 && entities[j].xp < entity.xp - 5)
+            {
+                entity.dir = 0;
+            }
+        }
+        // Fix drawframe
+        // FIXME: Duplicated from animateentities!
+        if (entity.rule == 7)
+        {
+            entity.drawframe += 6;
+        }
+        if (entity.dir == 0)
+        {
+            entity.drawframe += 3;
+        }
+    }
 
     entities.push_back(entity);
 }
@@ -2913,6 +2947,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 18)
             {
                 //Stand still and face the player
+                //FIXME: Duplicated in createentity!
                 int j = getplayer();
                 if (j > -1 && entities[j].xp > entities[i].xp + 5)
                 {
@@ -3561,6 +3596,7 @@ void entityclass::animateentities( int _i )
         case 12:
         case 55:
         case 14: //Crew member! Very similar to hero
+            //FIXME: Duplicated in createentity!
             entities[_i].framedelay--;
             if(entities[_i].dir==1)
             {
