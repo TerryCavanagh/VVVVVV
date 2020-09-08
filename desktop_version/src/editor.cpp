@@ -2155,7 +2155,12 @@ bool editorclass::save(std::string& _path)
         scriptString += script_.name + ":|";
         for (size_t i = 0; i < script_.contents.size(); i++)
         {
-            scriptString += script_.contents[i] + "|";
+            scriptString += script_.contents[i]
+
+            // Inserts a space if the line ends with a :
+            + (script_.contents[i].back() == ':'? " " : "")
+
+            + "|";
         }
     }
     msg = doc.NewElement( "script" );
