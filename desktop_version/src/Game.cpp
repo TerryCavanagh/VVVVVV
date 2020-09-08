@@ -641,7 +641,6 @@ void Game::savecustomlevelstats()
 
 void Game::updatestate()
 {
-    int i, j;
     statedelay--;
     if(statedelay<=0){
         statedelay=0;
@@ -1469,7 +1468,7 @@ void Game::updatestate()
         {
 
 
-            i = obj.getplayer();
+            int i = obj.getplayer();
             hascontrol = false;
             if (i > -1 && obj.entities[i].onroof > 0 && gravitycontrol == 1)
             {
@@ -1487,7 +1486,7 @@ void Game::updatestate()
 
 
             companion = 6;
-            i = obj.getcompanion();
+            int i = obj.getcompanion();
             if (i > -1)
             {
                 obj.entities[i].tile = 0;
@@ -1516,7 +1515,7 @@ void Game::updatestate()
             state++;
             music.playef(2);
             graphics.textboxactive();
-            i = obj.getcompanion();
+            int i = obj.getcompanion();
             if (i > -1)
             {
                 obj.entities[i].tile = 54;
@@ -1534,7 +1533,7 @@ void Game::updatestate()
         case 110:
         {
 
-            i = obj.getcompanion();
+            int i = obj.getcompanion();
             if (i > -1)
             {
                 obj.entities[i].tile = 0;
@@ -1560,7 +1559,7 @@ void Game::updatestate()
             //                       Test script for space station, totally delete me!
             //
         {
-            i = obj.getplayer();
+            int i = obj.getplayer();
             hascontrol = false;
             state++;
         }
@@ -1596,7 +1595,7 @@ void Game::updatestate()
         case 121:
         {
 
-            i = obj.getplayer();
+            int i = obj.getplayer();
             hascontrol = false;
             if (i > -1 && obj.entities[i].onground > 0 && gravitycontrol == 0)
             {
@@ -1611,8 +1610,9 @@ void Game::updatestate()
         }
         break;
         case 122:
+        {
             companion = 7;
-            i = obj.getcompanion();
+            int i = obj.getcompanion();
             if (i > -1)
             {
                 obj.entities[i].tile = 6;
@@ -1626,14 +1626,17 @@ void Game::updatestate()
             state++;
             music.playef(14);
             break;
+        }
         case 124:
+        {
             graphics.createtextbox("I've found a teleporter, but", 60-20, 90 - 40, 255, 255, 134);
             graphics.addline("I can't get it to go anywhere...");
             state++;
             music.playef(2);
             graphics.textboxactive();
-            i = obj.getcompanion(); if (i > -1) {	/*obj.entities[i].tile = 66;	obj.entities[i].state = 0;*/	}
+            int i = obj.getcompanion(); if (i > -1) {	/*obj.entities[i].tile = 66;	obj.entities[i].state = 0;*/	}
             break;
+        }
         case 126:
             graphics.createtextbox("I can help with that!", 125, 152-40, 164, 164, 255);
             state++;
@@ -1649,17 +1652,19 @@ void Game::updatestate()
             break;
 
         case 130:
+        {
             graphics.createtextbox("Yey! Let's go home!", 60-30, 90-35, 255, 255, 134);
             state++;
             music.playef(14);
             graphics.textboxactive();
-            i = obj.getcompanion();
+            int i = obj.getcompanion();
             if (i > -1)
             {
                 obj.entities[i].tile = 6;
                 obj.entities[i].state = 1;
             }
             break;
+        }
         case 132:
             graphics.textboxremove();
             hascontrol = true;
@@ -1973,7 +1978,7 @@ void Game::updatestate()
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].colour = 0;
@@ -2002,62 +2007,76 @@ void Game::updatestate()
             break;
         }
         case 2503:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 2504:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 //obj.entities[i].xp += 10;
             }
             break;
+        }
         case 2505:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 8;
             }
             break;
+        }
         case 2506:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 6;
             }
             break;
+        }
         case 2507:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 //obj.entities[i].xp += 4;
             }
             break;
+        }
         case 2508:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 2;
             }
             break;
+        }
         case 2509:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 1;
             }
             break;
+        }
         case 2510:
             advancetext = true;
             hascontrol = false;
@@ -2123,6 +2142,7 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 3005:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 50;
@@ -2151,7 +2171,7 @@ void Game::updatestate()
                 break; //Intermission 1
             }
 
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].colour = 0;
@@ -2171,6 +2191,7 @@ void Game::updatestate()
                 obj.entities[i].colour = 100;
             }
             break;
+        }
 
         case 3006:
             //Level complete! (warp zone)
@@ -3148,8 +3169,9 @@ void Game::updatestate()
             }
             break;
         case 3511:
+        {
             //Activating a teleporter (long version for level complete)
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].colour = 102;
@@ -3161,6 +3183,7 @@ void Game::updatestate()
             screenshake = 90;
             music.playef(9);
             break;
+        }
         case 3512:
             //Activating a teleporter 2
             state++;
@@ -3183,13 +3206,14 @@ void Game::updatestate()
             music.playef(9);
             break;
         case 3515:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
 
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].colour = 0;
@@ -3200,6 +3224,7 @@ void Game::updatestate()
             music.playef(10);
             statedelay = 60;
             break;
+        }
         case 3516:
             graphics.fademode = 2;
             state++;
@@ -3272,6 +3297,7 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4002:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 10;
@@ -3280,7 +3306,7 @@ void Game::updatestate()
             //state = 3020; //Space Station
             //state = 3040; //Lab
 
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].colour = 0;
@@ -3294,6 +3320,7 @@ void Game::updatestate()
                 obj.entities[i].colour = 100;
             }
             break;
+        }
         case 4003:
             state = 0;
             statedelay = 0;
@@ -3317,12 +3344,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4012:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -3344,56 +3372,70 @@ void Game::updatestate()
                 obj.entities[i].vx = 6;
             }
             break;
+        }
         case 4013:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4014:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4015:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 8;
             }
             break;
+        }
         case 4016:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 6;
             }
             break;
+        }
         case 4017:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 3;
             }
             break;
+        }
         case 4018:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 1;
             }
             break;
+        }
         case 4019:
+        {
             if (intimetrial || nodeathmode || inintermission)
             {
             }
@@ -3401,7 +3443,7 @@ void Game::updatestate()
             {
                 savetele();
             }
-            i = obj.getteleporter();
+            int i = obj.getteleporter();
             activetele = true;
             if (i > -1)
             {
@@ -3414,6 +3456,7 @@ void Game::updatestate()
             advancetext = false;
             state = 0;
             break;
+        }
 
         case 4020:
             //Activating a teleporter (default appear)
@@ -3432,12 +3475,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4022:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -3459,55 +3503,68 @@ void Game::updatestate()
                 obj.entities[i].vx = 6;
             }
             break;
+        }
         case 4023:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 12;
             }
             break;
+        }
         case 4024:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 12;
             }
             break;
+        }
         case 4025:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4026:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 8;
             }
             break;
+        }
         case 4027:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 5;
             }
             break;
+        }
         case 4028:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 2;
             }
             break;
+        }
         case 4029:
             hascontrol = true;
             advancetext = false;
@@ -3531,12 +3588,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4032:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -3558,55 +3616,68 @@ void Game::updatestate()
                 obj.entities[i].vx = -6;
             }
             break;
+        }
         case 4033:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 12;
             }
             break;
+        }
         case 4034:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 12;
             }
             break;
+        }
         case 4035:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 10;
             }
             break;
+        }
         case 4036:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 8;
             }
             break;
+        }
         case 4037:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 5;
             }
             break;
+        }
         case 4038:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 2;
             }
             break;
+        }
         case 4039:
             hascontrol = true;
             advancetext = false;
@@ -3630,12 +3701,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4042:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -3657,60 +3729,73 @@ void Game::updatestate()
                 obj.entities[i].vx = 6;
             }
             break;
+        }
         case 4043:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 12;
                 obj.entities[i].yp -= 15;
             }
             break;
+        }
         case 4044:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 12;
                 obj.entities[i].yp -= 10;
             }
             break;
+        }
         case 4045:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 12;
                 obj.entities[i].yp -= 10;
             }
             break;
+        }
         case 4046:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 8;
                 obj.entities[i].yp -= 8;
             }
             break;
+        }
         case 4047:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 6;
                 obj.entities[i].yp -= 8;
             }
             break;
+        }
         case 4048:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 3;
             }
             break;
+        }
         case 4049:
             hascontrol = true;
             advancetext = false;
@@ -3734,12 +3819,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4052:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -3761,60 +3847,73 @@ void Game::updatestate()
                 obj.entities[i].vx = 6;
             }
             break;
+        }
         case 4053:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 4;
                 obj.entities[i].yp -= 15;
             }
             break;
+        }
         case 4054:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 4;
                 obj.entities[i].yp -= 10;
             }
             break;
+        }
         case 4055:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 4;
                 obj.entities[i].yp -= 10;
             }
             break;
+        }
         case 4056:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 4;
                 obj.entities[i].yp -= 8;
             }
             break;
+        }
         case 4057:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 2;
                 obj.entities[i].yp -= 8;
             }
             break;
+        }
         case 4058:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 1;
             }
             break;
+        }
         case 4059:
             hascontrol = true;
             advancetext = false;
@@ -3838,12 +3937,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4062:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -3865,57 +3965,70 @@ void Game::updatestate()
                 obj.entities[i].vx = -6;
             }
             break;
+        }
         case 4063:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 28;
                 obj.entities[i].yp -= 8;
             }
             break;
+        }
         case 4064:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 28;
                 obj.entities[i].yp -= 8;
             }
             break;
+        }
         case 4065:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 25;
             }
             break;
+        }
         case 4066:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 25;
             }
             break;
+        }
         case 4067:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 20;
             }
             break;
+        }
         case 4068:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp -= 16;
             }
             break;
+        }
         case 4069:
             hascontrol = true;
             advancetext = false;
@@ -3940,12 +4053,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4072:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -3967,55 +4081,68 @@ void Game::updatestate()
                 obj.entities[i].vx = 6;
             }
             break;
+        }
         case 4073:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4074:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4075:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 8;
             }
             break;
+        }
         case 4076:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 6;
             }
             break;
+        }
         case 4077:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 3;
             }
             break;
+        }
         case 4078:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 1;
             }
             break;
+        }
         case 4079:
             state = 0;
             startscript = true;
@@ -4039,12 +4166,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4082:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -4066,55 +4194,68 @@ void Game::updatestate()
                 obj.entities[i].vx = 6;
             }
             break;
+        }
         case 4083:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4084:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4085:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 8;
             }
             break;
+        }
         case 4086:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 6;
             }
             break;
+        }
         case 4087:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 3;
             }
             break;
+        }
         case 4088:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 1;
             }
             break;
+        }
         case 4089:
             startscript = true;
             newscript = "gamecomplete_ending";
@@ -4138,12 +4279,13 @@ void Game::updatestate()
             music.playef(10);
             break;
         case 4092:
+        {
             //Activating a teleporter 2
             state++;
             statedelay = 5;
 
-            i = obj.getplayer();
-            j = obj.getteleporter();
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
             if (i > -1)
             {
                 if (j != -1)
@@ -4165,55 +4307,68 @@ void Game::updatestate()
                 obj.entities[i].vx = 6;
             }
             break;
+        }
         case 4093:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4094:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 10;
             }
             break;
+        }
         case 4095:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 8;
             }
             break;
+        }
         case 4096:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 6;
             }
             break;
+        }
         case 4097:
+        {
             state++;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 3;
             }
             break;
+        }
         case 4098:
+        {
             state++;
             statedelay = 15;
-            i = obj.getplayer();
+            int i = obj.getplayer();
             if (i > -1)
             {
                 obj.entities[i].xp += 1;
             }
             break;
+        }
         case 4099:
             if (nocutscenes)
             {
