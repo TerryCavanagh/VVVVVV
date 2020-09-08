@@ -2997,7 +2997,7 @@ void editorrender()
         for (int i = 0; i < (int)ed.ghosts.size(); i++) {
             if (i <= ed.currentghosts) { // We don't want all of them to show up at once :)
                 if (ed.ghosts[i].rx != ed.levx || ed.ghosts[i].ry != ed.levy
-                || !INBOUNDS(ed.ghosts[i].frame, graphics.sprites))
+                || !INBOUNDS_VEC(ed.ghosts[i].frame, graphics.sprites))
                     continue;
                 point tpoint;
                 tpoint.x = ed.ghosts[i].x;
