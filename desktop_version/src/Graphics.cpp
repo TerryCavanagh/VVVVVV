@@ -2988,12 +2988,9 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 {
 	std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
 
-	if (r < 0) r = 0;
-	if (g < 0) g = 0;
-	if (b < 0) b = 0;
-	if (r > 255) r = 255;
-	if (g > 255) g = 255;
-	if (b > 255) b = 255;
+	r = clamp(r, 0, 255);
+	g = clamp(g, 0, 255);
+	b = clamp(b, 0, 255);
 	ct.colour = getRGB(r, g, b);
 
 	x = x /  (sc);
