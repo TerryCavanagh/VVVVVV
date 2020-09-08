@@ -4499,7 +4499,7 @@ void entityclass::entitymapcollision( int t )
 
 void entityclass::movingplatformfix( int t, int j )
 {
-    if (!INBOUNDS(t, entities) || !INBOUNDS(j, entities))
+    if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(j, entities))
     {
         puts("movingplatformfix() out-of-bounds!");
         return;
@@ -4652,7 +4652,7 @@ void entityclass::entitycollisioncheck()
 
 void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
 {
-    if (!INBOUNDS(i, entities) || !INBOUNDS(j, entities))
+    if (!INBOUNDS_VEC(i, entities) || !INBOUNDS_VEC(j, entities))
     {
         puts("collisioncheck() out-of-bounds!");
         return;
@@ -4679,7 +4679,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
                 int drawframe1 = entities[i].drawframe;
                 int drawframe2 = entities[j].drawframe;
                 std::vector<SDL_Surface*>& spritesvec = graphics.flipmode ? graphics.flipsprites : graphics.sprites;
-                if (INBOUNDS(drawframe1, spritesvec) && INBOUNDS(drawframe2, spritesvec)
+                if (INBOUNDS_VEC(drawframe1, spritesvec) && INBOUNDS_VEC(drawframe2, spritesvec)
                 && graphics.Hitest(spritesvec[drawframe1],
                                  colpoint1, spritesvec[drawframe2], colpoint2))
                 {
@@ -4774,7 +4774,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
 
 void entityclass::stuckprevention(int t)
 {
-    if (!INBOUNDS(t, entities))
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("stuckprevention() out-of-bounds!");
         return;
