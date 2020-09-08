@@ -187,9 +187,16 @@ void scriptclass::run(void)
 					for(size_t edi=0; edi<obj.entities.size(); edi++){
 						if(obj.entities[edi].type==11) obj.disableentity(edi);
 					}
-				}else if(words[1]=="platforms"){
+				}else if(words[1]=="platforms"||words[1]=="moving"){
+					bool fixed=words[1]=="moving";
 					for(size_t edi=0; edi<obj.entities.size(); edi++){
+						if(fixed) obj.disableblockat(obj.entities[edi].xp, obj.entities[edi].yp);
 						if(obj.entities[edi].rule==2 && obj.entities[edi].animate==100) obj.disableentity(edi);
+					}
+				}else if(words[1]=="disappear"){
+					for(size_t edi=0; edi<obj.entities.size(); edi++){
+						obj.disableblockat(obj.entities[edi].xp, obj.entities[edi].yp);
+						if(obj.entities[edi].type==2 && obj.entities[edi].rule==3) obj.disableentity(edi);
 					}
 				}
 			}
