@@ -1022,16 +1022,18 @@ void gamelogic()
 
         //Using warplines?
         if (obj.customwarpmode) {
-            //Rewritten system for mobile update: basically, the new logic is to
-            //check if the player is leaving the map, and if so do a special check against
-            //warp lines for collision
-            obj.customwarpmodehon = false;
-            obj.customwarpmodevon = false;
+            if (!game.glitchrunnermode) {
+                //Rewritten system for mobile update: basically, the new logic is to
+                //check if the player is leaving the map, and if so do a special check against
+                //warp lines for collision
+                obj.customwarpmodehon = false;
+                obj.customwarpmodevon = false;
 
-            int i = obj.getplayer();
-            if (i > -1 && ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16))){
-                //Player is leaving room
-                obj.customwarplinecheck(i);
+                int i = obj.getplayer();
+                if (i > -1 && ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16))){
+                    //Player is leaving room
+                    obj.customwarplinecheck(i);
+                }
             }
 
             if(obj.customwarpmodehon){ map.warpy=true;

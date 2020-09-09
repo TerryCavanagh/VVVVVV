@@ -4728,7 +4728,7 @@ void entityclass::entitycollisioncheck()
                         }
                     }
                 }
-                if (entities[j].rule == 5)   //Player vs vertical line!
+                if (entities[j].rule == 5)   //Player vs vertical gravity/warp line!
                 {
                     if(game.deathseq==-1)
                     {
@@ -4756,6 +4756,16 @@ void entityclass::entitycollisioncheck()
                                 if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
                             }
                         }
+                    }
+                }
+                if (entities[j].rule == 7) // Player versus horizontal warp line, pre-2.1
+                {
+                    if (game.glitchrunnermode
+                    && game.deathseq == -1
+                    && entities[j].onentity > 0
+                    && entityhlinecollide(i, j))
+                    {
+                        entities[j].state = entities[j].onentity;
                     }
                 }
             }
