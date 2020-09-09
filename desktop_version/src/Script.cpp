@@ -98,7 +98,7 @@ void scriptclass::run()
 			{
 				//USAGE: moveplayer(x offset, y offset)
 				int player = obj.getplayer();
-				if (player > -1)
+				if (INBOUNDS_VEC(player, obj.entities))
 				{
 					obj.entities[player].xp += ss_toi(words[1]);
 					obj.entities[player].yp += ss_toi(words[2]);
@@ -254,7 +254,7 @@ void scriptclass::run()
 			if (words[0] == "tofloor")
 			{
 				int player = obj.getplayer();
-				if(player > -1 && obj.entities[player].onroof>0)
+				if(INBOUNDS_VEC(player, obj.entities) && obj.entities[player].onroof>0)
 				{
 					game.press_action = true;
 					scriptdelay = 1;
@@ -293,7 +293,7 @@ void scriptclass::run()
 			{
 				//USAGE: gotoposition(x position, y position, gravity position)
 				int player = obj.getplayer();
-				if (player > -1)
+				if (INBOUNDS_VEC(player, obj.entities))
 				{
 					obj.entities[player].xp = ss_toi(words[1]);
 					obj.entities[player].yp = ss_toi(words[2]);
@@ -429,7 +429,7 @@ void scriptclass::run()
 				if (words[1] == "player")
 				{
 					i = obj.getplayer();
-					if (i > -1)
+					if (INBOUNDS_VEC(i, obj.entities))
 					{
 						j = obj.entities[i].dir;
 					}
@@ -485,7 +485,7 @@ void scriptclass::run()
 				}
 
 				//next is whether to position above or below
-				if (i > -1 && words[2] == "above")
+				if (INBOUNDS_VEC(i, obj.entities) && words[2] == "above")
 				{
 					if (j == 1)    //left
 					{
@@ -498,7 +498,7 @@ void scriptclass::run()
 						texty = obj.entities[i].yp - 18 - (txt.size() * 8);
 					}
 				}
-				else if (i > -1)
+				else if (INBOUNDS_VEC(i, obj.entities))
 				{
 					if (j == 1)    //left
 					{
@@ -701,7 +701,7 @@ void scriptclass::run()
 			{
 				//Create the super VVVVVV combo!
 				i = obj.getplayer();
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].xp = 30;
 					obj.entities[i].yp = 46;
@@ -716,7 +716,7 @@ void scriptclass::run()
 			{
 				//Create the super VVVVVV combo!
 				i = obj.getplayer();
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].xp = 100;
 					obj.entities[i].size = 0;
@@ -865,11 +865,11 @@ void scriptclass::run()
 					i=obj.getcrewman(1);
 				}
 
-				if (i > -1 && ss_toi(words[2]) == 0)
+				if (INBOUNDS_VEC(i, obj.entities) && ss_toi(words[2]) == 0)
 				{
 					obj.entities[i].tile = 0;
 				}
-				else if (i > -1)
+				else if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].tile = 144;
 				}
@@ -962,7 +962,7 @@ void scriptclass::run()
 					i=obj.getcrewman(1);
 				}
 
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].tile = ss_toi(words[2]);
 				}
@@ -1045,7 +1045,7 @@ void scriptclass::run()
 					i=obj.getcrewman(1);
 				}
 
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].tile +=12;
 				}
@@ -1081,11 +1081,11 @@ void scriptclass::run()
 					i=obj.getcrewman(1);
 				}
 
-				if (i > -1 && ss_toi(words[2]) == 0)
+				if (INBOUNDS_VEC(i, obj.entities) && ss_toi(words[2]) == 0)
 				{
 					obj.entities[i].dir = 0;
 				}
-				else if (i > -1)
+				else if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].dir = 1;
 				}
@@ -1150,7 +1150,7 @@ void scriptclass::run()
 				}
 
 
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].state = ss_toi(words[2]);
 					if (obj.entities[i].state == 16)
@@ -1166,7 +1166,7 @@ void scriptclass::run()
 			else if (words[0] == "activateteleporter")
 			{
 				i = obj.getteleporter();
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].tile = 6;
 					obj.entities[i].colour = 102;
@@ -1203,7 +1203,7 @@ void scriptclass::run()
 					i=obj.getcrewman(1);
 				}
 
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					if (words[2] == "cyan")
 					{
@@ -1286,7 +1286,7 @@ void scriptclass::run()
 			{
 				i = obj.getplayer();
 				game.savepoint = 0;
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					game.savex = obj.entities[i].xp ;
 					game.savey = obj.entities[i].yp;
@@ -1294,7 +1294,7 @@ void scriptclass::run()
 				game.savegc = game.gravitycontrol;
 				game.saverx = game.roomx;
 				game.savery = game.roomy;
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					game.savedir = obj.entities[i].dir;
 				}
@@ -1463,7 +1463,7 @@ void scriptclass::run()
 			else if (words[0] == "hideplayer")
 			{
 				int player = obj.getplayer();
-				if (player > -1)
+				if (INBOUNDS_VEC(player, obj.entities))
 				{
 					obj.entities[player].invis = true;
 				}
@@ -1471,7 +1471,7 @@ void scriptclass::run()
 			else if (words[0] == "showplayer")
 			{
 				int player = obj.getplayer();
-				if (player > -1)
+				if (INBOUNDS_VEC(player, obj.entities))
 				{
 					obj.entities[player].invis = false;
 				}
@@ -1535,7 +1535,7 @@ void scriptclass::run()
 
 				obj.resetallflags();
 				i = obj.getplayer();
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].tile = 0;
 				}
@@ -1711,11 +1711,11 @@ void scriptclass::run()
 					j=obj.getcrewman(1);
 				}
 
-				if (i > -1 && j > -1 && obj.entities[j].xp > obj.entities[i].xp + 5)
+				if (INBOUNDS_VEC(i, obj.entities) && INBOUNDS_VEC(j, obj.entities) && obj.entities[j].xp > obj.entities[i].xp + 5)
 				{
 					obj.entities[i].dir = 1;
 				}
-				else if (i > -1 && j > -1 && obj.entities[j].xp < obj.entities[i].xp - 5)
+				else if (INBOUNDS_VEC(i, obj.entities) && INBOUNDS_VEC(j, obj.entities) && obj.entities[j].xp < obj.entities[i].xp - 5)
 				{
 					obj.entities[i].dir = 0;
 				}
@@ -1901,7 +1901,7 @@ void scriptclass::run()
 			else if (words[0] == "restoreplayercolour")
 			{
 				i = obj.getplayer();
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].colour = 0;
 				}
@@ -1910,7 +1910,7 @@ void scriptclass::run()
 			{
 				i = obj.getplayer();
 
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					if (words[1] == "cyan")
 					{
@@ -1949,7 +1949,7 @@ void scriptclass::run()
 			else if (words[0] == "activeteleporter")
 			{
 				i = obj.getteleporter();
-				if (i > -1)
+				if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].colour = 101;
 				}
@@ -2718,7 +2718,7 @@ void scriptclass::startgamemode( int t )
 			map.resetplayer();
 
 			i = obj.getplayer();
-			if (i > -1)
+			if (INBOUNDS_VEC(i, obj.entities))
 			{
 				map.ypos = obj.entities[i].yp - 120;
 			}
@@ -3437,7 +3437,7 @@ void scriptclass::teleport()
 	game.companion = 0;
 
 	i = obj.getplayer(); //less likely to have a serious collision error if the player is centered
-	if (i > -1)
+	if (INBOUNDS_VEC(i, obj.entities))
 	{
 		obj.entities[i].xp = 150;
 		obj.entities[i].yp = 110;
@@ -3460,13 +3460,13 @@ void scriptclass::teleport()
 	game.gravitycontrol = 0;
 	map.gotoroom(100+game.teleport_to_x, 100+game.teleport_to_y);
 	j = obj.getteleporter();
-	if (j > -1)
+	if (INBOUNDS_VEC(j, obj.entities))
 	{
 		obj.entities[j].state = 2;
 	}
 	game.teleport_to_new_area = false;
 
-	if (j > -1)
+	if (INBOUNDS_VEC(j, obj.entities))
 	{
 		game.savepoint = obj.entities[j].para;
 		game.savex = obj.entities[j].xp + 44;
@@ -3477,7 +3477,7 @@ void scriptclass::teleport()
 	game.saverx = game.roomx;
 	game.savery = game.roomy;
 	int player = obj.getplayer();
-	if (player > -1)
+	if (INBOUNDS_VEC(player, obj.entities))
 	{
 		game.savedir = obj.entities[player].dir;
 	}
@@ -3730,7 +3730,7 @@ void scriptclass::hardreset()
 	i = 100; //previously a for-loop iterating over collect/customcollect set this to 100
 
 	int theplayer = obj.getplayer();
-	if (theplayer > -1){
+	if (INBOUNDS_VEC(theplayer, obj.entities)){
 		obj.entities[theplayer].tile = 0;
 	}
 

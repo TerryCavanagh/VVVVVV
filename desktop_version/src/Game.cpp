@@ -397,7 +397,7 @@ void Game::lifesequence()
     if (lifeseq > 0)
     {
         int i = obj.getplayer();
-        if (i > -1)
+        if (INBOUNDS_VEC(i, obj.entities))
         {
             obj.entities[i].invis = false;
             if (lifeseq == 2) obj.entities[i].invis = true;
@@ -407,7 +407,7 @@ void Game::lifesequence()
         if (lifeseq > 5) gravitycontrol = savegc;
 
         lifeseq--;
-        if (i > -1 && lifeseq <= 0)
+        if (INBOUNDS_VEC(i, obj.entities) && lifeseq <= 0)
         {
             obj.entities[i].invis = false;
         }
@@ -862,7 +862,7 @@ void Game::updatestate()
         {
             //leaving the naughty corner
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[obj.getplayer()].tile = 0;
             }
@@ -873,7 +873,7 @@ void Game::updatestate()
         {
             //entering the naughty corner
             int i = obj.getplayer();
-            if(i > -1 && obj.entities[i].tile == 0)
+            if(INBOUNDS_VEC(i, obj.entities) && obj.entities[i].tile == 0)
             {
                 obj.entities[i].tile = 144;
                 music.playef(2);
@@ -1470,12 +1470,12 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             hascontrol = false;
-            if (i > -1 && obj.entities[i].onroof > 0 && gravitycontrol == 1)
+            if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onroof > 0 && gravitycontrol == 1)
             {
                 gravitycontrol = 0;
                 music.playef(1);
             }
-            if (i > -1 && obj.entities[i].onground > 0)
+            if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onground > 0)
             {
                 state++;
             }
@@ -1487,7 +1487,7 @@ void Game::updatestate()
 
             companion = 6;
             int i = obj.getcompanion();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 0;
                 obj.entities[i].state = 1;
@@ -1516,7 +1516,7 @@ void Game::updatestate()
             music.playef(2);
             graphics.textboxactive();
             int i = obj.getcompanion();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 54;
                 obj.entities[i].state = 0;
@@ -1534,7 +1534,7 @@ void Game::updatestate()
         {
 
             int i = obj.getcompanion();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 0;
                 obj.entities[i].state = 1;
@@ -1594,12 +1594,12 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             hascontrol = false;
-            if (i > -1 && obj.entities[i].onground > 0 && gravitycontrol == 0)
+            if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onground > 0 && gravitycontrol == 0)
             {
                 gravitycontrol = 1;
                 music.playef(1);
             }
-            if (i > -1 && obj.entities[i].onroof > 0)
+            if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onroof > 0)
             {
                 state++;
             }
@@ -1610,7 +1610,7 @@ void Game::updatestate()
         {
             companion = 7;
             int i = obj.getcompanion();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 6;
                 obj.entities[i].state = 1;
@@ -1631,7 +1631,7 @@ void Game::updatestate()
             state++;
             music.playef(2);
             graphics.textboxactive();
-            int i = obj.getcompanion(); if (i > -1) {	/*obj.entities[i].tile = 66;	obj.entities[i].state = 0;*/	}
+            int i = obj.getcompanion(); if (INBOUNDS_VEC(i, obj.entities)) {	/*obj.entities[i].tile = 66;	obj.entities[i].state = 0;*/	}
             break;
         }
         case 126:
@@ -1655,7 +1655,7 @@ void Game::updatestate()
             music.playef(14);
             graphics.textboxactive();
             int i = obj.getcompanion();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 6;
                 obj.entities[i].state = 1;
@@ -1976,13 +1976,13 @@ void Game::updatestate()
             statedelay = 5;
 
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].colour = 0;
                 obj.entities[i].invis = false;
 
                 int j = obj.getteleporter();
-                if (j > -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -1996,7 +1996,7 @@ void Game::updatestate()
             }
 
             i = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 1;
                 obj.entities[i].colour = 101;
@@ -2007,7 +2007,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -2017,7 +2017,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 //obj.entities[i].xp += 10;
             }
@@ -2027,7 +2027,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 8;
             }
@@ -2037,7 +2037,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 6;
             }
@@ -2047,7 +2047,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 //obj.entities[i].xp += 4;
             }
@@ -2057,7 +2057,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 2;
             }
@@ -2068,7 +2068,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 1;
             }
@@ -2169,20 +2169,20 @@ void Game::updatestate()
             }
 
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].colour = 0;
                 obj.entities[i].invis = true;
             }
 
             i = obj.getcompanion();
-            if(i>-1)
+            if(INBOUNDS_VEC(i, obj.entities))
             {
                 obj.removeentity(i);
             }
 
             i = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 1;
                 obj.entities[i].colour = 100;
@@ -3169,7 +3169,7 @@ void Game::updatestate()
         {
             //Activating a teleporter (long version for level complete)
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].colour = 102;
             }
@@ -3211,7 +3211,7 @@ void Game::updatestate()
             screenshake = 0;
 
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].colour = 0;
                 obj.entities[i].invis = true;
@@ -3304,14 +3304,14 @@ void Game::updatestate()
             //state = 3040; //Lab
 
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].colour = 0;
                 obj.entities[i].invis = true;
             }
 
             i = obj.getteleporter();
-            if(i>-1)
+            if(INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].tile = 1;
                 obj.entities[i].colour = 100;
@@ -3348,9 +3348,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -3374,7 +3374,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -3384,7 +3384,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -3394,7 +3394,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 8;
             }
@@ -3404,7 +3404,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 6;
             }
@@ -3414,7 +3414,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 3;
             }
@@ -3425,7 +3425,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 1;
             }
@@ -3442,7 +3442,7 @@ void Game::updatestate()
             }
             int i = obj.getteleporter();
             activetele = true;
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 teleblock.x = obj.entities[i].xp - 32;
                 teleblock.y = obj.entities[i].yp - 32;
@@ -3479,9 +3479,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -3505,7 +3505,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 12;
             }
@@ -3515,7 +3515,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 12;
             }
@@ -3525,7 +3525,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -3535,7 +3535,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 8;
             }
@@ -3545,7 +3545,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 5;
             }
@@ -3556,7 +3556,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 2;
             }
@@ -3592,9 +3592,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -3618,7 +3618,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 12;
             }
@@ -3628,7 +3628,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 12;
             }
@@ -3638,7 +3638,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 10;
             }
@@ -3648,7 +3648,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 8;
             }
@@ -3658,7 +3658,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 5;
             }
@@ -3669,7 +3669,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 2;
             }
@@ -3705,9 +3705,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -3731,7 +3731,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 12;
                 obj.entities[i].yp -= 15;
@@ -3742,7 +3742,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 12;
                 obj.entities[i].yp -= 10;
@@ -3753,7 +3753,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 12;
                 obj.entities[i].yp -= 10;
@@ -3764,7 +3764,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 8;
                 obj.entities[i].yp -= 8;
@@ -3775,7 +3775,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 6;
                 obj.entities[i].yp -= 8;
@@ -3787,7 +3787,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 3;
             }
@@ -3823,9 +3823,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -3849,7 +3849,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 4;
                 obj.entities[i].yp -= 15;
@@ -3860,7 +3860,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 4;
                 obj.entities[i].yp -= 10;
@@ -3871,7 +3871,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 4;
                 obj.entities[i].yp -= 10;
@@ -3882,7 +3882,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 4;
                 obj.entities[i].yp -= 8;
@@ -3893,7 +3893,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 2;
                 obj.entities[i].yp -= 8;
@@ -3905,7 +3905,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 1;
             }
@@ -3941,9 +3941,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -3967,7 +3967,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 28;
                 obj.entities[i].yp -= 8;
@@ -3978,7 +3978,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 28;
                 obj.entities[i].yp -= 8;
@@ -3989,7 +3989,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 25;
             }
@@ -3999,7 +3999,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 25;
             }
@@ -4009,7 +4009,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 20;
             }
@@ -4020,7 +4020,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp -= 16;
             }
@@ -4057,9 +4057,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -4083,7 +4083,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -4093,7 +4093,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -4103,7 +4103,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 8;
             }
@@ -4113,7 +4113,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 6;
             }
@@ -4123,7 +4123,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 3;
             }
@@ -4134,7 +4134,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 1;
             }
@@ -4170,9 +4170,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -4196,7 +4196,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -4206,7 +4206,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -4216,7 +4216,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 8;
             }
@@ -4226,7 +4226,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 6;
             }
@@ -4236,7 +4236,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 3;
             }
@@ -4247,7 +4247,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 1;
             }
@@ -4283,9 +4283,9 @@ void Game::updatestate()
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
-                if (j != -1)
+                if (INBOUNDS_VEC(j, obj.entities))
                 {
                     obj.entities[i].xp = obj.entities[j].xp+44;
                     obj.entities[i].yp = obj.entities[j].yp+44;
@@ -4309,7 +4309,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -4319,7 +4319,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 10;
             }
@@ -4329,7 +4329,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 8;
             }
@@ -4339,7 +4339,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 6;
             }
@@ -4349,7 +4349,7 @@ void Game::updatestate()
         {
             state++;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 3;
             }
@@ -4360,7 +4360,7 @@ void Game::updatestate()
             state++;
             statedelay = 15;
             int i = obj.getplayer();
-            if (i > -1)
+            if (INBOUNDS_VEC(i, obj.entities))
             {
                 obj.entities[i].xp += 1;
             }
@@ -5032,7 +5032,7 @@ void Game::deathsequence()
     {
         i = obj.getplayer();
     }
-    if (i > -1)
+    if (INBOUNDS_VEC(i, obj.entities))
     {
         obj.entities[i].colour = 1;
 
@@ -5047,7 +5047,7 @@ void Game::deathsequence()
         }
         deathcounts++;
         music.playef(2);
-        if (i > -1)
+        if (INBOUNDS_VEC(i, obj.entities))
         {
             obj.entities[i].invis = true;
         }
@@ -5068,7 +5068,7 @@ void Game::deathsequence()
             }
         }
     }
-    if (i > -1)
+    if (INBOUNDS_VEC(i, obj.entities))
     {
         if (deathseq == 25) obj.entities[i].invis = true;
         if (deathseq == 20) obj.entities[i].invis = true;
@@ -5079,7 +5079,7 @@ void Game::deathsequence()
     }
     if (!nodeathmode)
     {
-        if (i > -1 && deathseq <= 1) obj.entities[i].invis = false;
+        if (INBOUNDS_VEC(i, obj.entities) && deathseq <= 1) obj.entities[i].invis = false;
     }
     else
     {
@@ -7166,7 +7166,7 @@ void Game::returntolab()
     graphics.fademode = 4;
     map.gotoroom(119, 107);
     int player = obj.getplayer();
-    if (player > -1)
+    if (INBOUNDS_VEC(player, obj.entities))
     {
         obj.entities[player].xp = 132;
         obj.entities[player].yp = 137;
@@ -7179,7 +7179,7 @@ void Game::returntolab()
     savex = 132;
     savey = 137;
     savegc = 0;
-    if (player > -1)
+    if (INBOUNDS_VEC(player, obj.entities))
     {
         savedir = obj.entities[player].dir;
     }

@@ -1677,7 +1677,7 @@ void gamerender()
     }
 
     float act_alpha = graphics.lerp(game.prev_act_fade, game.act_fade) / 10.0f;
-    if (game.activeactivity > -1)
+    if (INBOUNDS_VEC(game.activeactivity, obj.entities))
     {
         game.activity_lastprompt = obj.blocks[game.activeactivity].prompt;
         game.activity_r = obj.blocks[game.activeactivity].r;
