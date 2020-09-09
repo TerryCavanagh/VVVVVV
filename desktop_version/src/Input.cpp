@@ -13,6 +13,7 @@
 #include "Map.h"
 #include "Music.h"
 #include "Script.h"
+#include "UtilityClass.h"
 
 void updatebuttonmappings(int bind)
 {
@@ -1781,7 +1782,7 @@ void gameinput()
     if(map.custommode && !map.custommodeforreal){
         if ((game.press_map || key.isDown(27)) && !game.mapheld){
             //Return to level editor
-            if (game.activeactivity > -1 && game.press_map){
+            if (INBOUNDS_VEC(game.activeactivity, obj.blocks) && game.press_map){
                 //pass, let code block below handle it
             }else if(game.activetele && game.readytotele > 20 && game.press_map){
                 //pass, let code block below handle it
@@ -1824,13 +1825,13 @@ void gameinput()
                                 music.fadeout();
 
                                 int player = obj.getplayer();
-                                if (player > -1)
+                                if (INBOUNDS_VEC(player, obj.entities))
                                 {
                                     obj.entities[player].colour = 102;
                                 }
 
                                 int teleporter = obj.getteleporter();
-                                if (teleporter > -1)
+                                if (INBOUNDS_VEC(teleporter, obj.entities))
                                 {
                                     obj.entities[teleporter].tile = 6;
                                     obj.entities[teleporter].colour = 102;
@@ -1866,15 +1867,15 @@ void gameinput()
                                 music.fadeout();
 
                                 int player = obj.getplayer();
-                                if (player > -1)
+                                if (INBOUNDS_VEC(player, obj.entities))
                                 {
                                     obj.entities[player].colour = 102;
                                 }
                                 int companion = obj.getcompanion();
-                                if(companion>-1) obj.entities[companion].colour = 102;
+                                if(INBOUNDS_VEC(companion, obj.entities)) obj.entities[companion].colour = 102;
 
                                 int teleporter = obj.getteleporter();
-                                if (teleporter > -1)
+                                if (INBOUNDS_VEC(teleporter, obj.entities))
                                 {
                                     obj.entities[teleporter].tile = 6;
                                     obj.entities[teleporter].colour = 102;
@@ -1885,7 +1886,7 @@ void gameinput()
                             }
                         }
                     }
-                    else if (game.activeactivity > -1)
+                    else if (INBOUNDS_VEC(game.activeactivity, obj.blocks))
                     {
                         enter_already_processed = true;
                         if((int(std::abs(obj.entities[ie].vx))<=1) && (int(obj.entities[ie].vy) == 0) )
@@ -2278,7 +2279,7 @@ void mapmenuactionpress()
         game.hascontrol = false;
 
         int i = obj.getplayer();
-        if (i > -1)
+        if (INBOUNDS_VEC(i, obj.entities))
         {
             obj.entities[i].colour = 102;
         }
@@ -2506,13 +2507,13 @@ void teleporterinput()
                 game.hascontrol = false;
 
                 int i = obj.getplayer();
-                if (i > -1)
+                if (INBOUNDS_VEC(i, obj.entities))
                 {
                     obj.entities[i].colour = 102;
                 }
 
                 i = obj.getteleporter();
-                if (i > -1)
+                if (INBOUNDS_VEC(i, obj.entities))
                 {
                     obj.entities[i].tile = 6;
                     obj.entities[i].colour = 102;
