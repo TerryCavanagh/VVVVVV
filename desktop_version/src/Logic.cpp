@@ -1030,14 +1030,14 @@ void gamelogic()
 
             int i = obj.getplayer();
             if (i > -1 && ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16))){
-            //Player is leaving room
-            obj.customwarplinecheck(i);
-        }
+                //Player is leaving room
+                obj.customwarplinecheck(i);
+            }
 
-        if(obj.customwarpmodehon){ map.warpy=true;
-        }else{ map.warpy=false; }
-        if(obj.customwarpmodevon){ map.warpx=true;
-        }else{ map.warpx=false; }
+            if(obj.customwarpmodehon){ map.warpy=true;
+            }else{ map.warpy=false; }
+            if(obj.customwarpmodevon){ map.warpx=true;
+            }else{ map.warpx=false; }
         }
 
         //Finally: Are we changing room?
