@@ -1567,7 +1567,7 @@ void editorclass::switch_tileset(const bool reversed /*= false*/)
 {
     const char* tilesets[] = {"Space Station", "Outside", "Lab", "Warp Zone", "Ship"};
     const size_t roomnum = levx + levy*maxwidth;
-    if (roomnum >= SDL_arraysize(level))
+    if (!INBOUNDS_ARR(roomnum, level))
     {
         return;
     }
@@ -1601,7 +1601,7 @@ void editorclass::switch_tileset(const bool reversed /*= false*/)
 void editorclass::switch_tilecol(const bool reversed /*= false*/)
 {
     const size_t roomnum = levx + levy*maxwidth;
-    if (roomnum >= SDL_arraysize(level))
+    if (!INBOUNDS_ARR(roomnum, level))
     {
         return;
     }
@@ -1626,7 +1626,7 @@ void editorclass::switch_tilecol(const bool reversed /*= false*/)
 void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap /*= false*/)
 {
     const size_t roomnum = rx + ry*maxwidth;
-    if (roomnum >= SDL_arraysize(level))
+    if (!INBOUNDS_ARR(roomnum, level))
     {
         return;
     }
@@ -1676,7 +1676,7 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap /*= 
 void editorclass::switch_enemy(const bool reversed /*= false*/)
 {
     const size_t roomnum = levx + levy*maxwidth;
-    if (roomnum >= SDL_arraysize(level))
+    if (!INBOUNDS_ARR(roomnum, level))
     {
         return;
     }

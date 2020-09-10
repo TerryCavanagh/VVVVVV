@@ -111,7 +111,7 @@ void scriptclass::run()
 				int temprx=ss_toi(words[1])-1;
 				int tempry=ss_toi(words[2])-1;
 				int curlevel=temprx+(ed.maxwidth*(tempry));
-				bool inbounds = curlevel >= 0 && curlevel < 400;
+				bool inbounds = INBOUNDS_ARR(curlevel, ed.level);
 				if (inbounds)
 				{
 					ed.level[curlevel].warpdir=ss_toi(words[3]);
@@ -151,7 +151,7 @@ void scriptclass::run()
 			if (words[0] == "ifwarp")
 			{
 				int room = ss_toi(words[1])-1+(ed.maxwidth*(ss_toi(words[2])-1));
-				if (room >= 0 && room < 400 && ed.level[room].warpdir == ss_toi(words[3]))
+				if (INBOUNDS_ARR(room, ed.level) && ed.level[room].warpdir == ss_toi(words[3]))
 				{
 					load("custom_"+words[4]);
 					position--;
