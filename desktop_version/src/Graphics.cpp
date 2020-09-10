@@ -622,6 +622,11 @@ void Graphics::printcrewnamestatus( int x, int y, int t )
 
 void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )
 {
+    if (!INBOUNDS_VEC(t, sprites))
+    {
+        WHINE_ONCE("drawsprite() out-of-bounds!");
+    }
+
     SDL_Rect rect = { Sint16(x), Sint16(y), sprites_rect.w, sprites_rect.h };
     setcolreal(getRGB(r,g,b));
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
@@ -629,6 +634,11 @@ void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )
 
 void Graphics::drawsprite(int x, int y, int t, Uint32 c)
 {
+    if (!INBOUNDS_VEC(t, sprites))
+    {
+        WHINE_ONCE("drawsprite() out-of-bounds!");
+    }
+
     SDL_Rect rect = { Sint16(x), Sint16(y), sprites_rect.w, sprites_rect.h };
     setcolreal(c);
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
