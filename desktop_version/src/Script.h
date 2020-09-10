@@ -4,7 +4,9 @@
 #include <string>
 #include <vector>
 
-#define filllines(lines) commands.insert(commands.end(), lines, lines + sizeof(lines)/sizeof(lines[0]))
+#include <SDL.h>
+
+#define filllines(lines) commands.insert(commands.end(), lines, lines + SDL_arraysize(lines))
 
 
 struct Script
