@@ -1434,7 +1434,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 
         //Check if it's already been collected
         entity.para = vx;
-        if (collect[(int) vx]) return;
+        if (!INBOUNDS_ARR(vx, collect) || collect[(int) vx]) return;
         break;
     case 10: //Savepoint
         entity.rule = 3;
@@ -2581,7 +2581,10 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 music.playef(4);
-                collect[(int) entities[i].para] = true;
+                if (INBOUNDS_ARR(entities[i].para, customcollect))
+                {
+                    collect[(int) entities[i].para] = true;
+                }
 
                 return removeentity(i);
             }
