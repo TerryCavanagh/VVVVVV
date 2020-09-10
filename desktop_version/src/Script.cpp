@@ -82,7 +82,7 @@ void scriptclass::run()
 	short execution_counter = 0;
 	while(running && scriptdelay<=0 && !game.pausescript)
 	{
-		if (position < (int) commands.size())
+		if (INBOUNDS_VEC(position, commands))
 		{
 			//Let's split or command in an array of words
 			tokenize(commands[position]);
@@ -414,7 +414,7 @@ void scriptclass::run()
 				for (int i = 0; i < ss_toi(words[4]); i++)
 				{
 					position++;
-					if (position < (int) commands.size())
+					if (INBOUNDS_VEC(position, commands))
 					{
 						txt.push_back(commands[position]);
 					}
@@ -3997,7 +3997,7 @@ void scriptclass::loadcustom(const std::string& t)
 			int nti = ti>=0 && ti<=50 ? ti : 1;
 			for(int ti2=0; ti2<nti; ti2++){
 				i++;
-				if(i < lines.size()){
+				if(INBOUNDS_VEC(i, lines)){
 					add(lines[i]);
 				}
 			}
@@ -4022,7 +4022,7 @@ void scriptclass::loadcustom(const std::string& t)
 			int nti = ti>=0 && ti<=50 ? ti : 1;
 			for(int ti2=0; ti2<nti; ti2++){
 				i++;
-				if(i < lines.size()){
+				if(INBOUNDS_VEC(i, lines)){
 					add(lines[i]);
 				}
 			}

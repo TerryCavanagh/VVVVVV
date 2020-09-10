@@ -54,7 +54,7 @@ void menurender()
       graphics.Print( -1, 100, "ERROR: No levels found.", tr, tg, tb, true);
       }
       int tmp=game.currentmenuoption+(game.levelpage*8);
-      if(tmp>=0 && tmp < (int) ed.ListOfMetaData.size()){ // FIXME: size_t/int! -flibit
+      if(INBOUNDS_VEC(tmp, ed.ListOfMetaData)){
         //Don't show next/previous page or return to menu options here!
         if(game.menuoptions.size() - game.currentmenuoption<=3){
 
