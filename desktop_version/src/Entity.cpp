@@ -2813,110 +2813,125 @@ bool entityclass::updateentities( int i )
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
                 int j=getcrewman(1); //purple
-                if (entities[j].xp > entities[i].xp + 5)
+                if (INBOUNDS_VEC(j, entities))
                 {
-                    entities[i].dir = 1;
-                }
-                else if (entities[j].xp < entities[i].xp - 5)
-                {
-                    entities[i].dir = 0;
-                }
+                    if (entities[j].xp > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
 
-                if (entities[j].xp > entities[i].xp + 45)
-                {
-                    entities[i].ax = 3;
-                }
-                else if (entities[j].xp < entities[i].xp - 45)
-                {
-                    entities[i].ax = -3;
+                    if (entities[j].xp > entities[i].xp + 45)
+                    {
+                        entities[i].ax = 3;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 45)
+                    {
+                        entities[i].ax = -3;
+                    }
                 }
             }
             else if (entities[i].state == 12)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
                 int j=getcrewman(2); //yellow
-                if (entities[j].xp > entities[i].xp + 5)
+                if (INBOUNDS_VEC(j, entities))
                 {
-                    entities[i].dir = 1;
-                }
-                else if (entities[j].xp < entities[i].xp - 5)
-                {
-                    entities[i].dir = 0;
-                }
+                    if (entities[j].xp > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
 
-                if (entities[j].xp > entities[i].xp + 45)
-                {
-                    entities[i].ax = 3;
-                }
-                else if (entities[j].xp < entities[i].xp - 45)
-                {
-                    entities[i].ax = -3;
+                    if (entities[j].xp > entities[i].xp + 45)
+                    {
+                        entities[i].ax = 3;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 45)
+                    {
+                        entities[i].ax = -3;
+                    }
                 }
             }
             else if (entities[i].state == 13)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
                 int j=getcrewman(3); //red
-                if (entities[j].xp > entities[i].xp + 5)
+                if (INBOUNDS_VEC(j, entities))
                 {
-                    entities[i].dir = 1;
-                }
-                else if (entities[j].xp < entities[i].xp - 5)
-                {
-                    entities[i].dir = 0;
-                }
+                    if (entities[j].xp > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
 
-                if (entities[j].xp > entities[i].xp + 45)
-                {
-                    entities[i].ax = 3;
-                }
-                else if (entities[j].xp < entities[i].xp - 45)
-                {
-                    entities[i].ax = -3;
+                    if (entities[j].xp > entities[i].xp + 45)
+                    {
+                        entities[i].ax = 3;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 45)
+                    {
+                        entities[i].ax = -3;
+                    }
                 }
             }
             else if (entities[i].state == 14)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
                 int j=getcrewman(4); //green
-                if (entities[j].xp > entities[i].xp + 5)
+                if (INBOUNDS_VEC(j, entities))
                 {
-                    entities[i].dir = 1;
-                }
-                else if (entities[j].xp < entities[i].xp - 5)
-                {
-                    entities[i].dir = 0;
-                }
+                    if (entities[j].xp > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
 
-                if (entities[j].xp > entities[i].xp + 45)
-                {
-                    entities[i].ax = 3;
-                }
-                else if (entities[j].xp < entities[i].xp - 45)
-                {
-                    entities[i].ax = -3;
+                    if (entities[j].xp > entities[i].xp + 45)
+                    {
+                        entities[i].ax = 3;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 45)
+                    {
+                        entities[i].ax = -3;
+                    }
                 }
             }
             else if (entities[i].state == 15)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
                 int j=getcrewman(5); //blue
-                if (entities[j].xp > entities[i].xp + 5)
+                if (INBOUNDS_VEC(j, entities))
                 {
-                    entities[i].dir = 1;
-                }
-                else if (entities[j].xp < entities[i].xp - 5)
-                {
-                    entities[i].dir = 0;
-                }
+                    if (entities[j].xp > entities[i].xp + 5)
+                    {
+                        entities[i].dir = 1;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 5)
+                    {
+                        entities[i].dir = 0;
+                    }
 
-                if (entities[j].xp > entities[i].xp + 45)
-                {
-                    entities[i].ax = 3;
-                }
-                else if (entities[j].xp < entities[i].xp - 45)
-                {
-                    entities[i].ax = -3;
+                    if (entities[j].xp > entities[i].xp + 45)
+                    {
+                        entities[i].ax = 3;
+                    }
+                    else if (entities[j].xp < entities[i].xp - 45)
+                    {
+                        entities[i].ax = -3;
+                    }
                 }
             }
             else if (entities[i].state == 16)

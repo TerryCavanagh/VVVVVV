@@ -769,12 +769,16 @@ void gamelogic()
             }
             else if (game.swngame == 3)    //extend line
             {
-                obj.entities[obj.getlineat(84 - 32)].w += 24;
-                if (obj.entities[obj.getlineat(84 - 32)].w > 332)
+                int line = obj.getlineat(84 - 32);
+                if (INBOUNDS_VEC(line, obj.entities))
                 {
-                    obj.entities[obj.getlineat(84 - 32)].w = 332;
-                    game.swngame = 2;
-                    graphics.kludgeswnlinewidth = true;
+                    obj.entities[line].w += 24;
+                    if (obj.entities[line].w > 332)
+                    {
+                        obj.entities[line].w = 332;
+                        game.swngame = 2;
+                        graphics.kludgeswnlinewidth = true;
+                    }
                 }
             }
             else if (game.swngame == 4)    //create top line
@@ -786,12 +790,16 @@ void gamelogic()
             }
             else if (game.swngame == 5)    //remove line
             {
-                obj.entities[obj.getlineat(148 + 32)].xp += 24;
-                if (obj.entities[obj.getlineat(148 + 32)].xp > 320)
+                int line = obj.getlineat(148 + 32);
+                if (INBOUNDS_VEC(line, obj.entities))
                 {
-                    obj.removeentity(obj.getlineat(148 + 32));
-                    game.swnmode = false;
-                    game.swngame = 6;
+                    obj.entities[line].xp += 24;
+                    if (obj.entities[line].xp > 320)
+                    {
+                        obj.removeentity(line);
+                        game.swnmode = false;
+                        game.swngame = 6;
+                    }
                 }
             }
             else if (game.swngame == 6)    //Init the super gravitron
@@ -1587,7 +1595,12 @@ void gamelogic()
 
                 if (game.scmmoveme)
                 {
-                    obj.entities[obj.getscm()].xp = obj.entities[obj.getplayer()].xp;
+                    int scm = obj.getscm();
+                    int player = obj.getplayer();
+                    if (INBOUNDS_VEC(scm, obj.entities) && INBOUNDS_VEC(player, obj.entities))
+                    {
+                        obj.entities[scm].xp = obj.entities[player].xp;
+                    }
                     game.scmmoveme = false;
                 }
                 break;

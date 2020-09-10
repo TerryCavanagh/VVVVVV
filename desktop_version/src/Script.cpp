@@ -582,7 +582,7 @@ void scriptclass::run()
 				}
 
 				//next is whether to position above or below
-				if (words[2] == "above")
+				if (INBOUNDS_VEC(i, obj.entities) && words[2] == "above")
 				{
 					if (j == 1)    //left
 					{
@@ -595,7 +595,7 @@ void scriptclass::run()
 						texty = obj.entities[i].yp - 18 - (txt.size() * 8);
 					}
 				}
-				else
+				else if (INBOUNDS_VEC(i, obj.entities))
 				{
 					if (j == 1)    //left
 					{
@@ -922,11 +922,11 @@ void scriptclass::run()
 					obj.customcrewmoods[1]=ss_toi(words[2]);
 				}
 
-				if (ss_toi(words[2]) == 0)
+				if (INBOUNDS_VEC(i, obj.entities) && ss_toi(words[2]) == 0)
 				{
 					obj.entities[i].tile = 0;
 				}
-				else
+				else if (INBOUNDS_VEC(i, obj.entities))
 				{
 					obj.entities[i].tile = 144;
 				}
@@ -1001,12 +1001,12 @@ void scriptclass::run()
 						i=obj.getcrewman(1);
 					}
 
-					if (obj.entities[i].rule == 7)
+					if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].rule == 7)
 					{
 						obj.entities[i].rule = 6;
 						obj.entities[i].tile = 0;
 					}
-					else if (obj.getplayer() != i) // Don't destroy player entity
+					else if (INBOUNDS_VEC(i, obj.entities) && obj.getplayer() != i) // Don't destroy player entity
 					{
 						obj.entities[i].rule = 7;
 						obj.entities[i].tile = 6;
@@ -1863,13 +1863,14 @@ void scriptclass::run()
 					i=1;
 				}
 
-				if (i == 4)
+				int crewman = obj.getcrewman(i);
+				if (INBOUNDS_VEC(crewman, obj.entities) && i == 4)
 				{
-					obj.createblock(5, obj.entities[obj.getcrewman(i)].xp - 32, obj.entities[obj.getcrewman(i)].yp-20, 96, 60, i);
+					obj.createblock(5, obj.entities[crewman].xp - 32, obj.entities[crewman].yp-20, 96, 60, i);
 				}
-				else
+				else if (INBOUNDS_VEC(crewman, obj.entities))
 				{
-					obj.createblock(5, obj.entities[obj.getcrewman(i)].xp - 32, 0, 96, 240, i);
+					obj.createblock(5, obj.entities[crewman].xp - 32, 0, 96, 240, i);
 				}
 			}
 			else if (words[0] == "createrescuedcrew")
@@ -2097,7 +2098,10 @@ void scriptclass::run()
 
 				obj.createentity(200, 153, 18, r, 0, 19, 30);
 				i = obj.getcrewman(game.lastsaved);
-				obj.entities[i].dir = 1;
+				if (INBOUNDS_VEC(i, obj.entities))
+				{
+					obj.entities[i].dir = 1;
+				}
 			}
 			else if (words[0] == "specialline")
 			{
