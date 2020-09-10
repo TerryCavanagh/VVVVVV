@@ -2124,7 +2124,7 @@ bool editorclass::save(std::string& _path)
     data->LinkEndChild( msg );
 
     msg = doc.NewElement( "levelMetaData" );
-    for(int i = 0; i < 400; i++)
+    for(size_t i = 0; i < SDL_arraysize(level); i++)
     {
         tinyxml2::XMLElement *edlevelclassElement = doc.NewElement( "edLevelClass" );
         edlevelclassElement->SetAttribute( "tileset", level[i].tileset);
