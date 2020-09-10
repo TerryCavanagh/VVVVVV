@@ -10,7 +10,7 @@
 
 bool entityclass::checktowerspikes(int t)
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("checktowerspikes() out-of-bounds!");
         return false;
@@ -1063,7 +1063,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
 // Remove entity, and return true if entity was successfully removed
 bool entityclass::removeentity(int t)
 {
-    if (t < 0 || t > (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("removeentity() out-of-bounds!");
         return true;
@@ -1084,7 +1084,7 @@ void entityclass::removeallblocks()
 
 void entityclass::removeblock( int t )
 {
-    if (t < 0 || t > (int) blocks.size())
+    if (!INBOUNDS_VEC(t, blocks))
     {
         puts("removeblock() out-of-bounds!");
         return;
@@ -1113,7 +1113,7 @@ void entityclass::removetrigger( int t )
 
 void entityclass::copylinecross( int t )
 {
-    if (t < 0 || t > (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("copylinecross() out-of-bounds!");
         return;
@@ -1124,7 +1124,7 @@ void entityclass::copylinecross( int t )
 
 void entityclass::revertlinecross( int t, int s )
 {
-    if (t < 0 || t > (int) entities.size() || s < 0 || s > (int) linecrosskludge.size())
+    if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(s, linecrosskludge))
     {
         puts("revertlinecross() out-of-bounds!");
         return;
@@ -2120,7 +2120,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 //Returns true if entity is removed
 bool entityclass::updateentities( int i )
 {
-    if (i < 0 || i >= (int) entities.size())
+    if (!INBOUNDS_VEC(i, entities))
     {
         puts("updateentities() out-of-bounds!");
         return true;
@@ -3325,7 +3325,7 @@ bool entityclass::updateentities( int i )
 
 void entityclass::animateentities( int _i )
 {
-    if (_i < 0 || _i >= (int) entities.size())
+    if (!INBOUNDS_VEC(_i, entities))
     {
         puts("animateentities() out-of-bounds!");
         return;
@@ -3836,7 +3836,7 @@ void entityclass::rect2set( int xi, int yi, int wi, int hi )
 
 bool entityclass::entitycollide( int a, int b )
 {
-    if (a < 0 || a > (int) entities.size() || b < 0 || b > (int) entities.size())
+    if (!INBOUNDS_VEC(a, entities) || !INBOUNDS_VEC(b, entities))
     {
         puts("entitycollide() out-of-bounds!");
         return false;
@@ -3886,7 +3886,7 @@ bool entityclass::checkdamage(bool scm /*= false*/)
 
 void entityclass::settemprect( int t )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         return;
     }
@@ -4077,7 +4077,7 @@ int entityclass::yline( int a, int b )
 
 bool entityclass::entityhlinecollide( int t, int l )
 {
-    if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
     {
         puts("entityhlinecollide() out-of-bounds!");
         return false;
@@ -4104,7 +4104,7 @@ bool entityclass::entityhlinecollide( int t, int l )
 
 bool entityclass::entityvlinecollide( int t, int l )
 {
-    if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
     {
         puts("entityvlinecollide() out-of-bounds!");
         return false;
@@ -4128,7 +4128,7 @@ bool entityclass::entityvlinecollide( int t, int l )
 }
 
 bool entityclass::entitywarphlinecollide(int t, int l) {
-    if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
     {
         puts("entitywarphlinecollide() out-of-bounds!");
         return false;
@@ -4166,7 +4166,7 @@ bool entityclass::entitywarphlinecollide(int t, int l) {
 }
 
 bool entityclass::entitywarpvlinecollide(int t, int l) {
-    if (t < 0 || t >= (int) entities.size() || l < 0 || l >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
     {
         puts("entitywarpvlinecollide() out-of-bounds!");
         return false;
@@ -4201,7 +4201,7 @@ bool entityclass::entitywarpvlinecollide(int t, int l) {
 
 float entityclass::entitycollideplatformroof( int t )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("entitycollideplatformroof() out-of-bounds!");
         return -1000;
@@ -4223,7 +4223,7 @@ float entityclass::entitycollideplatformroof( int t )
 
 float entityclass::entitycollideplatformfloor( int t )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("entitycollideplatformfloor() out-of-bounds!");
         return -1000;
@@ -4245,7 +4245,7 @@ float entityclass::entitycollideplatformfloor( int t )
 
 bool entityclass::entitycollidefloor( int t )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("entitycollidefloor() out-of-bounds!");
         return false;
@@ -4264,7 +4264,7 @@ bool entityclass::entitycollidefloor( int t )
 
 bool entityclass::entitycollideroof( int t )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("entitycollideroof() out-of-bounds!");
         return false;
@@ -4283,7 +4283,7 @@ bool entityclass::entitycollideroof( int t )
 
 bool entityclass::testwallsx( int t, int tx, int ty )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("testwallsx() out-of-bounds!");
         return false;
@@ -4335,7 +4335,7 @@ bool entityclass::testwallsx( int t, int tx, int ty )
 
 bool entityclass::testwallsy( int t, float tx, float ty )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("testwallsy() out-of-bounds!");
         return false;
@@ -4388,7 +4388,7 @@ bool entityclass::testwallsy( int t, float tx, float ty )
 
 void entityclass::fixfriction( int t, float xfix, float xrate, float yrate )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("fixfriction() out-of-bounds!");
         return;
@@ -4409,7 +4409,7 @@ void entityclass::fixfriction( int t, float xfix, float xrate, float yrate )
 
 void entityclass::applyfriction( int t, float xrate, float yrate )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("applyfriction() out-of-bounds!");
         return;
@@ -4430,7 +4430,7 @@ void entityclass::applyfriction( int t, float xrate, float yrate )
 
 void entityclass::updateentitylogic( int t )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("updateentitylogic() out-of-bounds!");
         return;
@@ -4470,7 +4470,7 @@ void entityclass::updateentitylogic( int t )
 
 void entityclass::entitymapcollision( int t )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("entitymapcollision() out-of-bounds!");
         return;
@@ -4540,7 +4540,7 @@ void entityclass::movingplatformfix( int t, int j )
 
 void entityclass::hormovingplatformfix( int t )
 {
-    if (t < 0 || t >= (int) entities.size())
+    if (!INBOUNDS_VEC(t, entities))
     {
         puts("hormovingplatformfix() out-of-bounds!");
         return;
@@ -4552,7 +4552,7 @@ void entityclass::hormovingplatformfix( int t )
 }
 
 void entityclass::customwarplinecheck(int i) {
-    if (i < 0 || i >= (int) entities.size())
+    if (!INBOUNDS_VEC(i, entities))
     {
         puts("customwarplinecheck() out-of-bounds!");
         return;
