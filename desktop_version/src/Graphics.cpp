@@ -1632,7 +1632,7 @@ void Graphics::drawentities()
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
-            
+
             //screenwrapping!
             point wrappedPoint;
             bool wrapX = false;
