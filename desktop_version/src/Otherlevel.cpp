@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Entity.h"
 #include "MakeAndPlay.h"
+#include "UtilityClass.h"
 
 const short* otherlevelclass::loadlevel(int rx, int ry)
 {
@@ -8892,8 +8893,12 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 
 			//violet
 			obj.createentity(83, 126, 18, 20, 0, 18);
-			obj.entities[obj.getcrewman(1)].rule = 7;
-			obj.entities[obj.getcrewman(1)].tile +=6;
+			int crewman = obj.getcrewman(1);
+			if (INBOUNDS_VEC(crewman, obj.entities))
+			{
+				obj.entities[crewman].rule = 7;
+				obj.entities[crewman].tile +=6;
+			}
 			obj.createblock(5, 83 - 32, 0, 32 + 32 + 32, 240, 1);
 		}
 		result = contents;
