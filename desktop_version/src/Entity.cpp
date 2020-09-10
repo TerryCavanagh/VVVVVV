@@ -1190,7 +1190,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 #if !defined(NO_CUSTOM_LEVELS)
     // Special case for gray Warp Zone tileset!
     int room = game.roomx-100 + (game.roomy-100) * ed.maxwidth;
-    bool custom_gray = room >= 0 && room < 400
+    bool custom_gray = INBOUNDS_ARR(room, ed.level)
     && ed.level[room].tileset == 3 && ed.level[room].tilecol == 6;
 #else
     bool custom_gray = false;
