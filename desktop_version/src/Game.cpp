@@ -5051,6 +5051,11 @@ void Game::loadquick()
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc)) return;
 
+    readmaingamesave(doc);
+}
+
+void Game::readmaingamesave(tinyxml2::XMLDocument& doc)
+{
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
     tinyxml2::XMLHandle hRoot(NULL);
@@ -5587,8 +5592,6 @@ void Game::initteleportermode()
 
 void Game::savetele()
 {
-    //TODO make this code a bit cleaner.
-
     if (map.custommode || inspecial())
     {
         //Don't trash save data!
@@ -5596,6 +5599,54 @@ void Game::savetele()
     }
 
     tinyxml2::XMLDocument doc;
+    telesummary = writemaingamesave(doc);
+
+    if(FILESYSTEM_saveTiXml2Document("saves/tsave.vvv", doc))
+    {
+        printf("Game saved\n");
+    }
+    else
+    {
+        printf("Could Not Save game!\n");
+        printf("Failed: %s%s\n", saveFilePath.c_str(), "tsave.vvv");
+    }
+}
+
+
+void Game::savequick()
+{
+    if (map.custommode || inspecial())
+    {
+        //Don't trash save data!
+        return;
+    }
+
+    tinyxml2::XMLDocument doc;
+    quicksummary = writemaingamesave(doc);
+
+    if(FILESYSTEM_saveTiXml2Document("saves/qsave.vvv", doc))
+    {
+        printf("Game saved\n");
+    }
+    else
+    {
+        printf("Could Not Save game!\n");
+        printf("Failed: %s%s\n", saveFilePath.c_str(), "qsave.vvv");
+    }
+
+}
+
+// Returns summary of save
+std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
+{
+    //TODO make this code a bit cleaner.
+
+    if (map.custommode || inspecial())
+    {
+        //Don't trash save data!
+        return "";
+    }
+
     tinyxml2::XMLElement* msg;
     tinyxml2::XMLDeclaration* decl = doc.NewDeclaration();
     doc.LinkEndChild( decl );
@@ -5769,214 +5820,9 @@ void Game::savetele()
     msg->LinkEndChild( doc.NewText( summary.c_str() ));
     msgs->LinkEndChild( msg );
 
-    telesummary = summary;
-
-    if(FILESYSTEM_saveTiXml2Document("saves/tsave.vvv", doc))
-    {
-        printf("Game saved\n");
-    }
-    else
-    {
-        printf("Could Not Save game!\n");
-        printf("Failed: %s%s\n", saveFilePath.c_str(), "tsave.vvv");
-    }
+    return summary;
 }
 
-
-void Game::savequick()
-{
-    if (map.custommode || inspecial())
-    {
-        //Don't trash save data!
-        return;
-    }
-
-    tinyxml2::XMLDocument doc;
-    tinyxml2::XMLElement* msg;
-    tinyxml2::XMLDeclaration* decl = doc.NewDeclaration();
-    doc.LinkEndChild( decl );
-
-    tinyxml2::XMLElement * root = doc.NewElement( "Save" );
-    doc.LinkEndChild( root );
-
-    tinyxml2::XMLComment * comment = doc.NewComment(" Save file " );
-    root->LinkEndChild( comment );
-
-    tinyxml2::XMLElement * msgs = doc.NewElement( "Data" );
-    root->LinkEndChild( msgs );
-
-
-    //Flags, map and stats
-
-    std::string mapExplored;
-    for(size_t i = 0; i < SDL_arraysize(map.explored); i++ )
-    {
-        mapExplored += help.String(map.explored[i]) + ",";
-    }
-    msg = doc.NewElement( "worldmap" );
-    msg->LinkEndChild( doc.NewText( mapExplored.c_str() ));
-    msgs->LinkEndChild( msg );
-
-    std::string flags;
-    for(size_t i = 0; i < SDL_arraysize(obj.flags); i++ )
-    {
-        flags += help.String((int) obj.flags[i]) + ",";
-    }
-    msg = doc.NewElement( "flags" );
-    msg->LinkEndChild( doc.NewText( flags.c_str() ));
-    msgs->LinkEndChild( msg );
-
-    std::string crewstatsString;
-    for(size_t i = 0; i < SDL_arraysize(crewstats); i++ )
-    {
-        crewstatsString += help.String(crewstats[i]) + ",";
-    }
-    msg = doc.NewElement( "crewstats" );
-    msg->LinkEndChild( doc.NewText( crewstatsString.c_str() ));
-    msgs->LinkEndChild( msg );
-
-    std::string collect;
-    for(size_t i = 0; i < SDL_arraysize(obj.collect); i++ )
-    {
-        collect += help.String((int) obj.collect[i]) + ",";
-    }
-    msg = doc.NewElement( "collect" );
-    msg->LinkEndChild( doc.NewText( collect.c_str() ));
-    msgs->LinkEndChild( msg );
-
-    //Position
-
-    msg = doc.NewElement( "finalx" );
-    msg->LinkEndChild( doc.NewText( help.String(map.finalx).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "finaly" );
-    msg->LinkEndChild( doc.NewText( help.String(map.finaly).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "savex" );
-    msg->LinkEndChild( doc.NewText( help.String(savex).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "savey" );
-    msg->LinkEndChild( doc.NewText( help.String(savey).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "saverx" );
-    msg->LinkEndChild( doc.NewText( help.String(saverx).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "savery" );
-    msg->LinkEndChild( doc.NewText( help.String(savery).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "savegc" );
-    msg->LinkEndChild( doc.NewText( help.String(savegc).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "savedir" );
-    msg->LinkEndChild( doc.NewText( help.String(savedir).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "savepoint" );
-    msg->LinkEndChild( doc.NewText( help.String(savepoint).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "trinkets" );
-    msg->LinkEndChild( doc.NewText( help.String(trinkets()).c_str() ));
-    msgs->LinkEndChild( msg );
-
-
-    //Special stats
-
-    if(music.nicefade==1)
-    {
-        msg = doc.NewElement( "currentsong" );
-        msg->LinkEndChild( doc.NewText( help.String(music.nicechange).c_str() ));
-        msgs->LinkEndChild( msg );
-    }
-    else
-    {
-        msg = doc.NewElement( "currentsong" );
-        msg->LinkEndChild( doc.NewText( help.String(music.currentsong).c_str() ));
-        msgs->LinkEndChild( msg );
-    }
-
-    msg = doc.NewElement( "teleportscript" );
-    msg->LinkEndChild( doc.NewText( teleportscript.c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "companion" );
-    msg->LinkEndChild( doc.NewText( help.String(companion).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "lastsaved" );
-    msg->LinkEndChild( doc.NewText( help.String(lastsaved).c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "supercrewmate" );
-    msg->LinkEndChild( doc.NewText( BoolToString(supercrewmate) ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "scmprogress" );
-    msg->LinkEndChild( doc.NewText( help.String(scmprogress).c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "scmmoveme" );
-    msg->LinkEndChild( doc.NewText( BoolToString(scmmoveme) ));
-    msgs->LinkEndChild( msg );
-
-
-    msg = doc.NewElement( "finalmode" );
-    msg->LinkEndChild( doc.NewText( BoolToString(map.finalmode) ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "finalstretch" );
-    msg->LinkEndChild( doc.NewText( BoolToString(map.finalstretch) ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "frames" );
-    msg->LinkEndChild( doc.NewText( help.String(frames).c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "seconds" );
-    msg->LinkEndChild( doc.NewText( help.String(seconds).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "minutes" );
-    msg->LinkEndChild( doc.NewText( help.String(minutes).c_str()) );
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "hours" );
-    msg->LinkEndChild( doc.NewText( help.String(hours).c_str()) );
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "deathcounts" );
-    msg->LinkEndChild( doc.NewText( help.String(deathcounts).c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "totalflips" );
-    msg->LinkEndChild( doc.NewText( help.String(totalflips).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "hardestroom" );
-    msg->LinkEndChild( doc.NewText( hardestroom.c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "hardestroomdeaths" );
-    msg->LinkEndChild( doc.NewText( help.String(hardestroomdeaths).c_str() ));
-    msgs->LinkEndChild( msg );
-
-    msg = doc.NewElement( "summary" );
-    std::string summary = savearea + ", " + timestring();
-    msg->LinkEndChild( doc.NewText( summary.c_str() ));
-    msgs->LinkEndChild( msg );
-
-    quicksummary = summary;
-
-    if(FILESYSTEM_saveTiXml2Document("saves/qsave.vvv", doc))
-    {
-        printf("Game saved\n");
-    }
-    else
-    {
-        printf("Could Not Save game!\n");
-        printf("Failed: %s%s\n", saveFilePath.c_str(), "qsave.vvv");
-    }
-
-}
 
 void Game::customsavequick(std::string savfile)
 {
@@ -6192,172 +6038,7 @@ void Game::loadtele()
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc)) return;
 
-    tinyxml2::XMLHandle hDoc(&doc);
-    tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
-
-
-    {
-        pElem=hDoc.FirstChildElement().ToElement();
-        // should always have a valid root but handle gracefully if it does
-        if (!pElem)
-        {
-            printf("Save Not Found\n");
-        }
-
-        // save this for later
-        hRoot=tinyxml2::XMLHandle(pElem);
-    }
-
-
-    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
-    {
-        std::string pKey(pElem->Value());
-        const char* pText = pElem->GetText() ;
-        if(pText == NULL)
-        {
-            pText = "";
-        }
-
-        LOAD_ARRAY_RENAME(worldmap, map.explored)
-
-        LOAD_ARRAY_RENAME(flags, obj.flags)
-
-        LOAD_ARRAY(crewstats)
-
-        LOAD_ARRAY_RENAME(collect, obj.collect)
-
-        if (pKey == "finalmode")
-        {
-            map.finalmode = help.Int(pText);
-        }
-        if (pKey == "finalstretch")
-        {
-            map.finalstretch = help.Int(pText);
-        }
-
-        if (map.finalmode)
-        {
-            map.final_colormode = false;
-            map.final_mapcol = 0;
-            map.final_colorframe = 0;
-        }
-        if (map.finalstretch)
-        {
-            map.finalstretch = true;
-            map.final_colormode = true;
-            map.final_mapcol = 0;
-            map.final_colorframe = 1;
-        }
-
-
-        if (pKey == "finalx")
-        {
-            map.finalx = help.Int(pText);
-        }
-        else if (pKey == "finaly")
-        {
-            map.finaly = help.Int(pText);
-        }
-        else if (pKey == "savex")
-        {
-            savex = help.Int(pText);
-        }
-        else if (pKey == "savey")
-        {
-            savey = help.Int(pText);
-        }
-        else if (pKey == "saverx")
-        {
-            saverx = help.Int(pText);
-        }
-        else if (pKey == "savery")
-        {
-            savery = help.Int(pText);
-        }
-        else if (pKey == "savegc")
-        {
-            savegc = help.Int(pText);
-        }
-        else if (pKey == "savedir")
-        {
-            savedir= help.Int(pText);
-        }
-        else if (pKey == "savepoint")
-        {
-            savepoint = help.Int(pText);
-        }
-        else if (pKey == "companion")
-        {
-            companion = help.Int(pText);
-        }
-        else if (pKey == "lastsaved")
-        {
-            lastsaved = help.Int(pText);
-        }
-        else if (pKey == "teleportscript")
-        {
-            teleportscript = pText;
-        }
-        else if (pKey == "supercrewmate")
-        {
-            supercrewmate = help.Int(pText);
-        }
-        else if (pKey == "scmprogress")
-        {
-            scmprogress = help.Int(pText);
-        }
-        else if (pKey == "scmmoveme")
-        {
-            scmmoveme = help.Int(pText);
-        }
-        else if (pKey == "frames")
-        {
-            frames = help.Int(pText);
-            frames = 0;
-        }
-        else if (pKey == "seconds")
-        {
-            seconds = help.Int(pText);
-        }
-        else if (pKey == "minutes")
-        {
-            minutes = help.Int(pText);
-        }
-        else if (pKey == "hours")
-        {
-            hours = help.Int(pText);
-        }
-        else if (pKey == "deathcounts")
-        {
-            deathcounts = help.Int(pText);
-        }
-        else if (pKey == "totalflips")
-        {
-            totalflips = help.Int(pText);
-        }
-        else if (pKey == "hardestroom")
-        {
-            hardestroom = pText;
-        }
-        else if (pKey == "hardestroomdeaths")
-        {
-            hardestroomdeaths = help.Int(pText);
-        }
-        else if (pKey == "currentsong")
-        {
-            int song = help.Int(pText);
-            if (song != -1)
-            {
-                music.play(song);
-            }
-        }
-
-    }
-
-    map.showteleporters = true;
-    if(obj.flags[12]) map.showtargets = true;
-    if (obj.flags[42]) map.showtrinkets = true;
+    readmaingamesave(doc);
 }
 
 std::string Game::unrescued()

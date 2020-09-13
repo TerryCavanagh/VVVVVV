@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 
+// Forward decl without including all of <tinyxml2.h>
+namespace tinyxml2 { class XMLDocument; }
+
 struct MenuOption
 {
     char text[161]; // 40 chars (160 bytes) covers the entire screen, + 1 more for null terminator
@@ -151,6 +154,9 @@ public:
     void loadquick();
 
     void loadsummary();
+
+    void readmaingamesave(tinyxml2::XMLDocument& doc);
+    std::string writemaingamesave(tinyxml2::XMLDocument& doc);
 
     void initteleportermode();
 
