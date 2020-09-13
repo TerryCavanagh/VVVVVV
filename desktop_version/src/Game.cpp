@@ -438,10 +438,14 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
             break;
         }
     }
-    if(tvar>=0 && cscore > customlevelstats[tvar].score)
+    if(tvar>=0)
     {
-        //update existing entry
-        customlevelstats[tvar].score=cscore;
+        // We have an existing entry
+        // Don't update it unless it's a higher score
+        if (cscore > customlevelstats[tvar].score)
+        {
+            customlevelstats[tvar].score=cscore;
+        }
     }
     else
     {
