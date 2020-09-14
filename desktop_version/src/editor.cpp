@@ -2158,7 +2158,7 @@ bool editorclass::save(std::string& _path)
             scriptString += script_.contents[i]
 
             // Inserts a space if the line ends with a :
-            + (script_.contents[i].back() == ':'? " " : "")
+            + (script_.contents[i].length() != 0 && *script_.contents[i].rbegin() == ':' ? " " : "")
 
             + "|";
         }
