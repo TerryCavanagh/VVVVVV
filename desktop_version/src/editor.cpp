@@ -2676,6 +2676,10 @@ void editorrender()
                 fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getBGR(255,164,255));
                 break;
             case 2: //Threadmills & platforms
+                if (!INBOUNDS_VEC(obj.customplatformtile, graphics.entcolours))
+                {
+                    continue;
+                }
                 tpoint.x = (edentity[i].x*8)- (ed.levx*40*8);
                 tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
                 drawRect = graphics.tiles_rect;
@@ -2733,6 +2737,10 @@ void editorrender()
                 }
                 break;
             case 3: //Disappearing Platform
+                if (!INBOUNDS_VEC(obj.customplatformtile, graphics.entcolours))
+                {
+                    continue;
+                }
                 tpoint.x = (edentity[i].x*8)- (ed.levx*40*8);
                 tpoint.y = (edentity[i].y*8)- (ed.levy*30*8);
                 drawRect = graphics.tiles_rect;
