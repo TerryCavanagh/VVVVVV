@@ -2644,7 +2644,8 @@ void editorrender()
 
     // Special case for drawing gray entities
     int current_room = (ed.levx+(ed.levy*ed.maxwidth));
-    bool custom_gray = ed.level[current_room].tileset == 3 && ed.level[current_room].tilecol == 6;
+    bool custom_gray = INBOUNDS_ARR(current_room, ed.level)
+    && ed.level[current_room].tileset == 3 && ed.level[current_room].tilecol == 6;
     colourTransform gray_ct;
     gray_ct.colour = 0xFFFFFFFF;
 
