@@ -14,6 +14,7 @@ Contributors
 * Fredrik Ljungdahl (@FredrIQ)
 * Nichole Mattera (@NicholeMattera)
 * Matt Penny (@mwpenny)
+* MAO3J1m0Op (@MAO3J1m0Op)
 * Tynan Richards (@tzann)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
