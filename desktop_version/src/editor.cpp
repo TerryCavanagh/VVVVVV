@@ -1959,10 +1959,21 @@ bool editorclass::load(std::string& _path)
 
         if (pKey == "script")
         {
+            // load in the linebreak attribute
+            linebreak = "default";
+            pElem->QueryStringAttribute("linebreak", &linebreak);
+            char splitvalue = linebreak[0];
+            // "default" is the only value where splitvalue and linebreak are different
+            if (std::strcmp(linebreak, "default") == 0)
+            {
+                splitvalue = '|'; // To keep compatibility with older levels
+                linebreak = "\n"; // So this conversion only happens once
+            }
+
             std::string TextString = (pText);
             if(TextString.length())
             {
-                std::vector<std::string> values = split(TextString,'|');
+                std::vector<std::string> values = split(TextString, splitvalue);
                 script.clearcustom();
                 Script script_;
                 bool headerfound = false;
@@ -2152,7 +2163,7 @@ bool editorclass::save(std::string& _path)
     {
         Script& script_ = script.customscripts[i];
 
-        scriptString += script_.name + ":|";
+        scriptString += script_.name + ":" + linebreak[0];
         for (size_t i = 0; i < script_.contents.size(); i++)
         {
             scriptString += script_.contents[i];
@@ -2163,11 +2174,12 @@ bool editorclass::save(std::string& _path)
                 scriptString += " ";
             }
 
-            scriptString += "|";
+            scriptString += linebreak[0];
         }
     }
     msg = doc.NewElement( "script" );
     msg->LinkEndChild( doc.NewText( scriptString.c_str() ));
+    msg->SetAttribute( "linebreak", linebreak );
     data->LinkEndChild( msg );
 
     return FILESYSTEM_saveTiXml2Document(("levels/" + _path).c_str(), doc);
