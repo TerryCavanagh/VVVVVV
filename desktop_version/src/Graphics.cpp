@@ -2717,7 +2717,7 @@ void Graphics::setcol( int t )
 		break;
 
 	default:
-		ct.colour = 0xFFFFFF;
+		ct.colour = getRGB(255, 255, 255);
 		break;
 	}
 }
