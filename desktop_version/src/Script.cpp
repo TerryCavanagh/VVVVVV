@@ -1006,7 +1006,7 @@ void scriptclass::run()
 						obj.entities[i].rule = 7;
 						obj.entities[i].tile = 6;
 					}
-					else if (obj.entities[i].rule != 0) // Don't destroy player entity (rule 0)
+					else if (obj.getplayer() != i) // Don't destroy player entity
 					{
 						obj.entities[i].rule = 6;
 						obj.entities[i].tile = 0;
