@@ -1960,11 +1960,11 @@ bool editorclass::load(std::string& _path)
         if (pKey == "script")
         {
             // load in the linebreak attribute
-            linebreak = "default";
+            linebreak = "";
             pElem->QueryStringAttribute("linebreak", &linebreak);
             char splitvalue = linebreak[0];
-            // "default" is the only value where splitvalue and linebreak are different
-            if (std::strcmp(linebreak, "default") == 0)
+            // "" is the only value where splitvalue and linebreak are different
+            if (std::strcmp(linebreak, "") == 0)
             {
                 splitvalue = '|'; // To keep compatibility with older levels
                 linebreak = "\n"; // So this conversion only happens once
