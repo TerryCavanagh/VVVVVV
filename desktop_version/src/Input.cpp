@@ -1909,95 +1909,95 @@ void gameinput()
                 }
             }
         }
+    }
 
-        if (game.press_left)
+    if (game.press_left)
+    {
+        game.tapleft++;
+    }
+    else
+    {
+        if (game.tapleft <= 4 && game.tapleft > 0)
         {
-            game.tapleft++;
-        }
-        else
-        {
-            if (game.tapleft <= 4 && game.tapleft > 0)
+            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
             {
-                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+                if (obj.entities[ie].rule == 0)
                 {
-                    if (obj.entities[ie].rule == 0)
+                    if (obj.entities[ie].vx < 0.0f)
                     {
-                        if (obj.entities[ie].vx < 0.0f)
-                        {
-                            obj.entities[ie].vx = 0.0f;
-                        }
+                        obj.entities[ie].vx = 0.0f;
                     }
                 }
             }
-            game.tapleft = 0;
         }
-        if (game.press_right)
+        game.tapleft = 0;
+    }
+    if (game.press_right)
+    {
+        game.tapright++;
+    }
+    else
+    {
+        if (game.tapright <= 4 && game.tapright > 0)
         {
-            game.tapright++;
-        }
-        else
-        {
-            if (game.tapright <= 4 && game.tapright > 0)
+            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
             {
-                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+                if (obj.entities[ie].rule == 0)
                 {
-                    if (obj.entities[ie].rule == 0)
+                    if (obj.entities[ie].vx > 0.0f)
                     {
-                        if (obj.entities[ie].vx > 0.0f)
-                        {
-                            obj.entities[ie].vx = 0.0f;
-                        }
+                        obj.entities[ie].vx = 0.0f;
                     }
                 }
             }
-            game.tapright = 0;
         }
+        game.tapright = 0;
+    }
 
-        if (!game.press_action)
+    if (!game.press_action)
+    {
+        game.jumppressed = 0;
+        game.jumpheld = false;
+    }
+
+    if (game.press_action && !game.jumpheld)
+    {
+        game.jumppressed = 5;
+        game.jumpheld = true;
+    }
+
+    if (game.jumppressed > 0)
+    {
+        game.jumppressed--;
+        if (obj.entities[obj.getplayer()].onground>0 && game.gravitycontrol == 0)
         {
+            game.gravitycontrol = 1;
+            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+            {
+                if (obj.entities[ie].rule == 0)
+                {
+                    obj.entities[ie].vy = -4;
+                    obj.entities[ie].ay = -3;
+                }
+            }
+            music.playef(0);
             game.jumppressed = 0;
-            game.jumpheld = false;
+            game.totalflips++;
         }
-
-        if (game.press_action && !game.jumpheld)
+        if (obj.entities[obj.getplayer()].onroof>0 && game.gravitycontrol == 1)
         {
-            game.jumppressed = 5;
-            game.jumpheld = true;
-        }
-
-        if (game.jumppressed > 0)
-        {
-            game.jumppressed--;
-            if (obj.entities[obj.getplayer()].onground>0 && game.gravitycontrol == 0)
+            game.gravitycontrol = 0;
+            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
             {
-                game.gravitycontrol = 1;
-                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+                if (obj.entities[ie].rule == 0)
                 {
-                    if (obj.entities[ie].rule == 0)
-                    {
-                        obj.entities[ie].vy = -4;
-                        obj.entities[ie].ay = -3;
-                    }
+                    obj.entities[ie].vy = 4;
+                    obj.entities[ie].ay = 3;
                 }
-                music.playef(0);
-                game.jumppressed = 0;
-                game.totalflips++;
             }
-            if (obj.entities[obj.getplayer()].onroof>0 && game.gravitycontrol == 1)
-            {
-                game.gravitycontrol = 0;
-                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
-                {
-                    if (obj.entities[ie].rule == 0)
-                    {
-                        obj.entities[ie].vy = 4;
-                        obj.entities[ie].ay = 3;
-                    }
-                }
-                music.playef(1);
-                game.jumppressed = 0;
-                game.totalflips++;
-            }
+            music.playef(1);
+            game.jumppressed = 0;
+            game.totalflips++;
         }
     }
 
