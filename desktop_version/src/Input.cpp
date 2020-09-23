@@ -2063,6 +2063,8 @@ void gameinput(void)
     bool has_control = false;
     bool enter_pressed = game.press_map && !game.mapheld;
     bool enter_already_processed = false;
+    bool any_onground = false;
+    bool any_onroof = false;
     bool interact_pressed;
     if (game.separate_interact)
     {
@@ -2179,6 +2181,12 @@ void gameinput(void)
                     obj.entities[ie].dir = 1;
                 }
             }
+
+            if (obj.entities[ie].onground > 0) {
+              any_onground = true;
+            } else if (obj.entities[ie].onroof > 0) {
+              any_onroof = true;
+            }
         }
     }
 
@@ -2240,7 +2248,7 @@ void gameinput(void)
     if (game.jumppressed > 0)
     {
         game.jumppressed--;
-        if (obj.entities[obj.getplayer()].onground>0 && game.gravitycontrol == 0)
+        if (any_onground && game.gravitycontrol == 0)
         {
             game.gravitycontrol = 1;
             for (size_t ie = 0; ie < obj.entities.size(); ++ie)
@@ -2255,7 +2263,7 @@ void gameinput(void)
             game.jumppressed = 0;
             game.totalflips++;
         }
-        if (obj.entities[obj.getplayer()].onroof>0 && game.gravitycontrol == 1)
+        if (any_onroof && game.gravitycontrol == 1)
         {
             game.gravitycontrol = 0;
             for (size_t ie = 0; ie < obj.entities.size(); ++ie)
