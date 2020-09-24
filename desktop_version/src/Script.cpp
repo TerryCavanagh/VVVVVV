@@ -1001,15 +1001,15 @@ void scriptclass::run()
 						i=obj.getcrewman(1);
 					}
 
-					if (obj.entities[i].rule == 6)
-					{
-						obj.entities[i].rule = 7;
-						obj.entities[i].tile = 6;
-					}
-					else if (obj.getplayer() != i) // Don't destroy player entity
+					if (obj.entities[i].rule == 7)
 					{
 						obj.entities[i].rule = 6;
 						obj.entities[i].tile = 0;
+					}
+					else if (obj.getplayer() != i) // Don't destroy player entity
+					{
+						obj.entities[i].rule = 7;
+						obj.entities[i].tile = 6;
 					}
 				}
 			}
