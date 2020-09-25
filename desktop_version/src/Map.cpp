@@ -2101,7 +2101,7 @@ void mapclass::twoframedelayfix()
 	|| !custommode
 	|| game.deathseq != -1
 	// obj.checktrigger() sets obj.activetrigger and block_idx
-	|| !INBOUNDS_VEC(obj.checktrigger(&block_idx), obj.entities)
+	|| obj.checktrigger(&block_idx) <= -1
 	|| !INBOUNDS_VEC(block_idx, obj.blocks)
 	|| obj.activetrigger < 300)
 	{
