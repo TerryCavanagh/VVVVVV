@@ -25,19 +25,6 @@
 #define strcasecmp stricmp
 #endif
 
-//TODO: Non Urgent code cleanup
-const char* BoolToString(bool _b)
-{
-    if(_b)
-    {
-        return "1";
-    }
-    else
-    {
-        return "0";
-    }
-}
-
 bool GetButtonFromString(const char *pText, SDL_GameControllerButton *button)
 {
     if (*pText == '0' ||
@@ -5855,10 +5842,10 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
     xml::update_tag(msgs, "companion", companion);
 
     xml::update_tag(msgs, "lastsaved", lastsaved);
-    xml::update_tag(msgs, "supercrewmate", BoolToString(supercrewmate));
+    xml::update_tag(msgs, "supercrewmate", (int) supercrewmate);
 
     xml::update_tag(msgs, "scmprogress", scmprogress);
-    xml::update_tag(msgs, "scmmoveme", BoolToString(scmmoveme));
+    xml::update_tag(msgs, "scmmoveme", (int) scmmoveme);
 
 
     xml::update_tag(msgs, "frames", frames);
@@ -5873,8 +5860,8 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
     xml::update_tag(msgs, "hardestroom", hardestroom.c_str());
     xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
 
-    xml::update_tag(msgs, "finalmode", BoolToString(map.finalmode));
-    xml::update_tag(msgs, "finalstretch", BoolToString(map.finalstretch));
+    xml::update_tag(msgs, "finalmode", (int) map.finalmode);
+    xml::update_tag(msgs, "finalstretch", (int) map.finalstretch);
 
 
     std::string summary = savearea + ", " + timestring();
@@ -5988,10 +5975,10 @@ void Game::customsavequick(std::string savfile)
     xml::update_tag(msgs, "companion", companion);
 
     xml::update_tag(msgs, "lastsaved", lastsaved);
-    xml::update_tag(msgs, "supercrewmate", BoolToString(supercrewmate));
+    xml::update_tag(msgs, "supercrewmate", (int) supercrewmate);
 
     xml::update_tag(msgs, "scmprogress", scmprogress);
-    xml::update_tag(msgs, "scmmoveme", BoolToString(scmmoveme));
+    xml::update_tag(msgs, "scmmoveme", (int) scmmoveme);
 
 
     xml::update_tag(msgs, "frames", frames);
@@ -6006,7 +5993,7 @@ void Game::customsavequick(std::string savfile)
     xml::update_tag(msgs, "hardestroom", hardestroom.c_str());
     xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
 
-    xml::update_tag(msgs, "showminimap", BoolToString(map.customshowmm));
+    xml::update_tag(msgs, "showminimap", (int) map.customshowmm);
 
     std::string summary = savearea + ", " + timestring();
     xml::update_tag(msgs, "summary", summary.c_str());
