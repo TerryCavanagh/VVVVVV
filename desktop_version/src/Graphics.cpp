@@ -267,6 +267,8 @@ void Graphics::Makebfont()
             ++pos;
         }
         FILESYSTEM_freeMemory(&charmap);
+    } else {
+        font_positions.clear();
     }
 }
 
