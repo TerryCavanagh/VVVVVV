@@ -4747,100 +4747,78 @@ void Game::loadstats(int *width, int *height, bool *vsync)
 void Game::savestats()
 {
     tinyxml2::XMLDocument doc;
-    tinyxml2::XMLElement * msg;
-    tinyxml2::XMLDeclaration * decl = doc.NewDeclaration();
-    doc.LinkEndChild( decl );
+    bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
+    if (!already_exists)
+    {
+        puts("No unlock.vvv found. Creating new file");
+    }
 
-    tinyxml2::XMLElement * root = doc.NewElement( "Save" );
-    doc.LinkEndChild( root );
+    xml::update_declaration(doc);
 
-    tinyxml2::XMLComment * comment = doc.NewComment(" Save file " );
-    root->LinkEndChild( comment );
+    tinyxml2::XMLElement * root = xml::update_element(doc, "Save");
 
-    tinyxml2::XMLElement * dataNode = doc.NewElement( "Data" );
-    root->LinkEndChild( dataNode );
+    xml::update_comment(root, " Save file " );
+
+    tinyxml2::XMLElement * dataNode = xml::update_element(root, "Data");
 
     std::string s_unlock;
     for(size_t i = 0; i < SDL_arraysize(unlock); i++ )
     {
         s_unlock += help.String(unlock[i]) + ",";
     }
-    msg = doc.NewElement( "unlock" );
-    msg->LinkEndChild( doc.NewText( s_unlock.c_str() ));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "unlock", s_unlock.c_str());
 
     std::string s_unlocknotify;
     for(size_t i = 0; i < SDL_arraysize(unlocknotify); i++ )
     {
         s_unlocknotify += help.String(unlocknotify[i]) + ",";
     }
-    msg = doc.NewElement( "unlocknotify" );
-    msg->LinkEndChild( doc.NewText( s_unlocknotify.c_str() ));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "unlocknotify", s_unlocknotify.c_str());
 
     std::string s_besttimes;
     for(size_t i = 0; i < SDL_arraysize(besttimes); i++ )
     {
         s_besttimes += help.String(besttimes[i]) + ",";
     }
-    msg = doc.NewElement( "besttimes" );
-    msg->LinkEndChild( doc.NewText( s_besttimes.c_str() ));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "besttimes", s_besttimes.c_str());
 
     std::string s_bestframes;
     for (size_t i = 0; i < SDL_arraysize(bestframes); i++)
     {
         s_bestframes += help.String(bestframes[i]) + ",";
     }
-    msg = doc.NewElement( "bestframes" );
-    msg->LinkEndChild( doc.NewText( s_bestframes.c_str() ) );
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "bestframes", s_bestframes.c_str());
 
     std::string s_besttrinkets;
     for(size_t i = 0; i < SDL_arraysize(besttrinkets); i++ )
     {
         s_besttrinkets += help.String(besttrinkets[i]) + ",";
     }
-    msg = doc.NewElement( "besttrinkets" );
-    msg->LinkEndChild( doc.NewText( s_besttrinkets.c_str() ));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "besttrinkets", s_besttrinkets.c_str());
 
     std::string s_bestlives;
     for(size_t i = 0; i < SDL_arraysize(bestlives); i++ )
     {
         s_bestlives += help.String(bestlives[i]) + ",";
     }
-    msg = doc.NewElement( "bestlives" );
-    msg->LinkEndChild( doc.NewText( s_bestlives.c_str() ));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "bestlives", s_bestlives.c_str());
 
     std::string s_bestrank;
     for(size_t i = 0; i < SDL_arraysize(bestrank); i++ )
     {
         s_bestrank += help.String(bestrank[i]) + ",";
     }
-    msg = doc.NewElement( "bestrank" );
-    msg->LinkEndChild( doc.NewText( s_bestrank.c_str() ));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "bestrank", s_bestrank.c_str());
 
-    msg = doc.NewElement( "bestgamedeaths" );
-    msg->LinkEndChild( doc.NewText( help.String(bestgamedeaths).c_str() ));
-    dataNode->LinkEndChild( msg );
-    msg = doc.NewElement( "stat_trinkets" );
-    msg->LinkEndChild( doc.NewText( help.String(stat_trinkets).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "bestgamedeaths", bestgamedeaths);
 
-    msg = doc.NewElement( "fullscreen" );
-    msg->LinkEndChild( doc.NewText( help.String(fullscreen).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "stat_trinkets", stat_trinkets);
 
-    msg = doc.NewElement( "stretch" );
-    msg->LinkEndChild( doc.NewText( help.String(stretchMode).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "fullscreen", fullscreen);
 
-    msg = doc.NewElement( "useLinearFilter" );
-    msg->LinkEndChild( doc.NewText( help.String(useLinearFilter).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "stretch", stretchMode);
+
+    xml::update_tag(dataNode, "useLinearFilter", useLinearFilter);
 
     int width, height;
     if (graphics.screenbuffer != NULL)
@@ -4852,85 +4830,47 @@ void Game::savestats()
         width = 320;
         height = 240;
     }
-    msg = doc.NewElement( "window_width" );
-    msg->LinkEndChild( doc.NewText( help.String(width).c_str()));
-    dataNode->LinkEndChild( msg );
-    msg = doc.NewElement( "window_height" );
-    msg->LinkEndChild( doc.NewText( help.String(height).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "window_width", width);
 
-    msg = doc.NewElement( "noflashingmode" );
-    msg->LinkEndChild( doc.NewText( help.String(noflashingmode).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "window_height", height);
 
-    msg = doc.NewElement( "colourblindmode" );
-    msg->LinkEndChild( doc.NewText( help.String(colourblindmode).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "noflashingmode", noflashingmode);
 
-    msg = doc.NewElement( "setflipmode" );
-    msg->LinkEndChild( doc.NewText( help.String(graphics.setflipmode).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "colourblindmode", colourblindmode);
 
-    msg = doc.NewElement( "invincibility" );
-    msg->LinkEndChild( doc.NewText( help.String(map.invincibility).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "setflipmode", graphics.setflipmode);
 
-    msg = doc.NewElement( "slowdown" );
-    msg->LinkEndChild( doc.NewText( help.String(slowdown).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "invincibility", map.invincibility);
 
-    msg = doc.NewElement( "swnbestrank" );
-    msg->LinkEndChild( doc.NewText( help.String(swnbestrank).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "slowdown", slowdown);
 
-    msg = doc.NewElement( "swnrecord" );
-    msg->LinkEndChild( doc.NewText( help.String(swnrecord).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "swnbestrank", swnbestrank);
+
+    xml::update_tag(dataNode, "swnrecord", swnrecord);
 
 
-    msg = doc.NewElement( "advanced_smoothing" );
-    msg->LinkEndChild( doc.NewText( help.String(fullScreenEffect_badSignal).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "advanced_smoothing", fullScreenEffect_badSignal);
 
 
-    msg = doc.NewElement( "usingmmmmmm" );
-    msg->LinkEndChild( doc.NewText( help.String(usingmmmmmm).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "usingmmmmmm", usingmmmmmm);
 
-    msg = doc.NewElement("ghostsenabled");
-    msg->LinkEndChild(doc.NewText(help.String((int) ghostsenabled).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "ghostsenabled", (int) ghostsenabled);
 
-    msg = doc.NewElement("skipfakeload");
-    msg->LinkEndChild(doc.NewText(help.String((int) skipfakeload).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "skipfakeload", (int) skipfakeload);
 
-    msg = doc.NewElement("disablepause");
-    msg->LinkEndChild(doc.NewText(help.String((int) disablepause).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "disablepause", (int) disablepause);
 
-    msg = doc.NewElement("notextoutline");
-    msg->LinkEndChild(doc.NewText(help.String((int) graphics.notextoutline).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "notextoutline", (int) graphics.notextoutline);
 
-    msg = doc.NewElement("translucentroomname");
-    msg->LinkEndChild(doc.NewText(help.String((int) graphics.translucentroomname).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "translucentroomname", (int) graphics.translucentroomname);
 
-    msg = doc.NewElement("showmousecursor");
-    msg->LinkEndChild(doc.NewText(help.String((int)graphics.showmousecursor).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "showmousecursor", (int) graphics.showmousecursor);
 
-    msg = doc.NewElement("over30mode");
-    msg->LinkEndChild(doc.NewText(help.String((int) over30mode).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "over30mode", (int) over30mode);
 
-    msg = doc.NewElement("glitchrunnermode");
-    msg->LinkEndChild(doc.NewText(help.String((int) glitchrunnermode).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "glitchrunnermode", (int) glitchrunnermode);
 
     int vsyncOption;
-    msg = doc.NewElement("vsync");
     if (graphics.screenbuffer != NULL)
     {
         vsyncOption = (int) graphics.screenbuffer->vsync;
@@ -4939,37 +4879,64 @@ void Game::savestats()
     {
         vsyncOption = 0;
     }
-    msg->LinkEndChild(doc.NewText(help.String(vsyncOption).c_str()));
-    dataNode->LinkEndChild(msg);
+    xml::update_tag(dataNode, "vsync", vsyncOption);
 
+    // Delete all controller buttons we had previously.
+    // dataNode->FirstChildElement() shouldn't be NULL at this point...
+    // we've already added a bunch of elements
+    for (tinyxml2::XMLElement* element = dataNode->FirstChildElement();
+    element != NULL;
+    /* Increment code handled separately */)
+    {
+        const char* name = element->Name();
+
+        if (SDL_strcmp(name, "flipButton") == 0
+        || SDL_strcmp(name, "enterButton") == 0
+        || SDL_strcmp(name, "escButton") == 0
+        || SDL_strcmp(name, "restartButton") == 0)
+        {
+            // Can't just doc.DeleteNode(element) and then go to next,
+            // element->NextSiblingElement() will be NULL.
+            // Instead, store pointer of element we want to delete. Then
+            // increment `element`. And THEN delete the element.
+            tinyxml2::XMLElement* delete_this = element;
+
+            element = element->NextSiblingElement();
+
+            doc.DeleteNode(delete_this);
+            continue;
+        }
+
+        element = element->NextSiblingElement();
+    }
+
+    // Now add them
     for (size_t i = 0; i < controllerButton_flip.size(); i += 1)
     {
-        msg = doc.NewElement("flipButton");
+        tinyxml2::XMLElement* msg = doc.NewElement("flipButton");
         msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_flip[i]).c_str()));
         dataNode->LinkEndChild(msg);
     }
     for (size_t i = 0; i < controllerButton_map.size(); i += 1)
     {
-        msg = doc.NewElement("enterButton");
+        tinyxml2::XMLElement* msg = doc.NewElement("enterButton");
         msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_map[i]).c_str()));
         dataNode->LinkEndChild(msg);
     }
     for (size_t i = 0; i < controllerButton_esc.size(); i += 1)
     {
-        msg = doc.NewElement("escButton");
+        tinyxml2::XMLElement* msg = doc.NewElement("escButton");
         msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_esc[i]).c_str()));
         dataNode->LinkEndChild(msg);
     }
     for (size_t i = 0; i < controllerButton_restart.size(); i += 1)
     {
-        msg = doc.NewElement("restartButton");
+        tinyxml2::XMLElement* msg = doc.NewElement("restartButton");
         msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_restart[i]).c_str()));
         dataNode->LinkEndChild(msg);
     }
 
-    msg = doc.NewElement( "controllerSensitivity" );
-    msg->LinkEndChild( doc.NewText( help.String(controllerSensitivity).c_str()));
-    dataNode->LinkEndChild( msg );
+    xml::update_tag(dataNode, "controllerSensitivity", controllerSensitivity);
 
     FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
 }
