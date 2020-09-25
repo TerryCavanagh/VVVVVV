@@ -18,6 +18,7 @@
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "XMLUtils.h"
 
 #ifndef __STDC_FORMAT_MACROS
 #define __STDC_FORMAT_MACROS
@@ -2017,79 +2018,64 @@ bool editorclass::load(std::string& _path)
 bool editorclass::save(std::string& _path)
 {
     tinyxml2::XMLDocument doc;
+    bool already_exists = FILESYSTEM_loadTiXml2Document(("levels/" + _path).c_str(), doc);
+    if (!already_exists)
+    {
+        printf("No %s found. Creating new file\n", _path.c_str());
+    }
     tinyxml2::XMLElement* msg;
-    tinyxml2::XMLDeclaration* decl = doc.NewDeclaration();
-    doc.LinkEndChild( decl );
 
-    tinyxml2::XMLElement * root = doc.NewElement( "MapData" );
+    xml::update_declaration(doc);
+
+    tinyxml2::XMLElement * root = xml::update_element(doc, "MapData");
     root->SetAttribute("version",version);
-    doc.LinkEndChild( root );
 
-    tinyxml2::XMLComment * comment = doc.NewComment(" Save file " );
-    root->LinkEndChild( comment );
+    xml::update_comment(root, " Save file ");
 
-    tinyxml2::XMLElement * data = doc.NewElement( "Data" );
-    root->LinkEndChild( data );
+    tinyxml2::XMLElement * data = xml::update_element(root, "Data");
 
-    msg = doc.NewElement( "MetaData" );
+    msg = xml::update_element(data, "MetaData");
 
     //getUser
-    tinyxml2::XMLElement* meta = doc.NewElement( "Creator" );
-    meta->LinkEndChild( doc.NewText( EditorData::GetInstance().creator.c_str() ));
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "Creator", EditorData::GetInstance().creator.c_str());
 
-    meta = doc.NewElement( "Title" );
-    meta->LinkEndChild( doc.NewText( EditorData::GetInstance().title.c_str() ));
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "Title", EditorData::GetInstance().title.c_str());
 
-    meta = doc.NewElement( "Created" );
-    meta->LinkEndChild( doc.NewText( help.String(version).c_str() ));
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "Created", version);
 
-    meta = doc.NewElement( "Modified" );
-    meta->LinkEndChild( doc.NewText( EditorData::GetInstance().modifier.c_str() ) );
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "Modified", EditorData::GetInstance().modifier.c_str());
 
-    meta = doc.NewElement( "Modifiers" );
-    meta->LinkEndChild( doc.NewText( help.String(version).c_str() ));
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "Modifiers", version);
 
-    meta = doc.NewElement( "Desc1" );
-    meta->LinkEndChild( doc.NewText( Desc1.c_str() ));
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "Desc1", Desc1.c_str());
 
-    meta = doc.NewElement( "Desc2" );
-    meta->LinkEndChild( doc.NewText( Desc2.c_str() ));
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "Desc2", Desc2.c_str());
 
-    meta = doc.NewElement( "Desc3" );
-    meta->LinkEndChild( doc.NewText( Desc3.c_str() ));
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "Desc3", Desc3.c_str());
 
-    meta = doc.NewElement( "website" );
-    meta->LinkEndChild( doc.NewText( website.c_str() ));
-    msg->LinkEndChild( meta );
+    xml::update_tag(msg, "website", website.c_str());
 
     if (onewaycol_override)
     {
-        meta = doc.NewElement( "onewaycol_override" );
-        meta->LinkEndChild( doc.NewText( help.String(onewaycol_override).c_str() ));
-        msg->LinkEndChild( meta );
+        xml::update_tag(msg, "onewaycol_override", onewaycol_override);
+    }
+    else
+    {
+        // Delete the element. I could just delete one, but just to be sure,
+        // I will delete all of them if there are more than one
+        tinyxml2::XMLElement* element;
+        while ((element = msg->FirstChildElement("onewaycol_override"))
+        != NULL)
+        {
+            doc.DeleteNode(element);
+        }
     }
 
-    data->LinkEndChild( msg );
+    xml::update_tag(data, "mapwidth", mapwidth);
 
-    msg = doc.NewElement( "mapwidth" );
-    msg->LinkEndChild( doc.NewText( help.String(mapwidth).c_str() ));
-    data->LinkEndChild( msg );
+    xml::update_tag(data, "mapheight", mapheight);
 
-    msg = doc.NewElement( "mapheight" );
-    msg->LinkEndChild( doc.NewText( help.String(mapheight).c_str() ));
-    data->LinkEndChild( msg );
-
-    msg = doc.NewElement( "levmusic" );
-    msg->LinkEndChild( doc.NewText( help.String(levmusic).c_str() ));
-    data->LinkEndChild( msg );
+    xml::update_tag(data, "levmusic", levmusic);
 
     //New save format
     std::string contentsString="";
@@ -2100,12 +2086,10 @@ bool editorclass::save(std::string& _path)
             contentsString += help.String(contents[x + (maxwidth*40*y)]) + ",";
         }
     }
-    msg = doc.NewElement( "contents" );
-    msg->LinkEndChild( doc.NewText( contentsString.c_str() ));
-    data->LinkEndChild( msg );
+    xml::update_tag(data, "contents", contentsString.c_str());
 
 
-    msg = doc.NewElement( "edEntities" );
+    msg = xml::update_element_delete_contents(data, "edEntities");
     for(size_t i = 0; i < edentity.size(); i++)
     {
         tinyxml2::XMLElement *edentityElement = doc.NewElement( "edentity" );
@@ -2122,9 +2106,7 @@ bool editorclass::save(std::string& _path)
         msg->LinkEndChild( edentityElement );
     }
 
-    data->LinkEndChild( msg );
-
-    msg = doc.NewElement( "levelMetaData" );
+    msg = xml::update_element_delete_contents(data, "levelMetaData");
     for(size_t i = 0; i < SDL_arraysize(level); i++)
     {
         tinyxml2::XMLElement *edlevelclassElement = doc.NewElement( "edLevelClass" );
@@ -2146,7 +2128,6 @@ bool editorclass::save(std::string& _path)
         edlevelclassElement->LinkEndChild( doc.NewText( level[i].roomname.c_str() )) ;
         msg->LinkEndChild( edlevelclassElement );
     }
-    data->LinkEndChild( msg );
 
     std::string scriptString;
     for(size_t i = 0; i < script.customscripts.size(); i++)
@@ -2167,9 +2148,7 @@ bool editorclass::save(std::string& _path)
             scriptString += "|";
         }
     }
-    msg = doc.NewElement( "script" );
-    msg->LinkEndChild( doc.NewText( scriptString.c_str() ));
-    data->LinkEndChild( msg );
+    xml::update_tag(data, "script", scriptString.c_str());
 
     return FILESYSTEM_saveTiXml2Document(("levels/" + _path).c_str(), doc);
 }
