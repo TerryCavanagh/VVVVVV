@@ -5886,19 +5886,22 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 
 void Game::customsavequick(std::string savfile)
 {
+    const std::string levelfile = savfile.substr(7);
+
     tinyxml2::XMLDocument doc;
-    tinyxml2::XMLElement* msg;
-    tinyxml2::XMLDeclaration* decl = doc.NewDeclaration();
-    doc.LinkEndChild( decl );
+    bool already_exists = FILESYSTEM_loadTiXml2Document(("saves/" + levelfile + ".vvv").c_str(), doc);
+    if (!already_exists)
+    {
+        printf("No %s.vvv found. Creating new file\n", levelfile.c_str());
+    }
 
-    tinyxml2::XMLElement * root = doc.NewElement( "Save" );
-    doc.LinkEndChild( root );
+    xml::update_declaration(doc);
 
-    tinyxml2::XMLComment * comment = doc.NewComment(" Save file " );
-    root->LinkEndChild( comment );
+    tinyxml2::XMLElement * root = xml::update_element(doc, "Save");
 
-    tinyxml2::XMLElement * msgs = doc.NewElement( "Data" );
-    root->LinkEndChild( msgs );
+    xml::update_comment(root, " Save file ");
+
+    tinyxml2::XMLElement * msgs = xml::update_element(root, "Data");
 
 
     //Flags, map and stats
@@ -5908,179 +5911,108 @@ void Game::customsavequick(std::string savfile)
     {
         mapExplored += help.String(map.explored[i]) + ",";
     }
-    msg = doc.NewElement( "worldmap" );
-    msg->LinkEndChild( doc.NewText( mapExplored.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "worldmap", mapExplored.c_str());
 
     std::string flags;
     for(size_t i = 0; i < SDL_arraysize(obj.flags); i++ )
     {
         flags += help.String((int) obj.flags[i]) + ",";
     }
-    msg = doc.NewElement( "flags" );
-    msg->LinkEndChild( doc.NewText( flags.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "flags", flags.c_str());
 
     std::string moods;
     for(size_t i = 0; i < SDL_arraysize(obj.customcrewmoods); i++ )
     {
         moods += help.String(obj.customcrewmoods[i]) + ",";
     }
-    msg = doc.NewElement( "moods" );
-    msg->LinkEndChild( doc.NewText( moods.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "moods", moods.c_str());
 
     std::string crewstatsString;
     for(size_t i = 0; i < SDL_arraysize(crewstats); i++ )
     {
         crewstatsString += help.String(crewstats[i]) + ",";
     }
-    msg = doc.NewElement( "crewstats" );
-    msg->LinkEndChild( doc.NewText( crewstatsString.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "crewstats", crewstatsString.c_str());
 
     std::string collect;
     for(size_t i = 0; i < SDL_arraysize(obj.collect); i++ )
     {
         collect += help.String((int) obj.collect[i]) + ",";
     }
-    msg = doc.NewElement( "collect" );
-    msg->LinkEndChild( doc.NewText( collect.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "collect", collect.c_str());
 
     std::string customcollect;
     for(size_t i = 0; i < SDL_arraysize(obj.customcollect); i++ )
     {
         customcollect += help.String((int) obj.customcollect[i]) + ",";
     }
-    msg = doc.NewElement( "customcollect" );
-    msg->LinkEndChild( doc.NewText( customcollect.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "customcollect", customcollect.c_str());
 
     //Position
 
-    msg = doc.NewElement( "finalx" );
-    msg->LinkEndChild( doc.NewText( help.String(map.finalx).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "finalx", map.finalx);
 
-    msg = doc.NewElement( "finaly" );
-    msg->LinkEndChild( doc.NewText( help.String(map.finaly).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "finaly", map.finaly);
 
-    msg = doc.NewElement( "savex" );
-    msg->LinkEndChild( doc.NewText( help.String(savex).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "savex", savex);
 
-    msg = doc.NewElement( "savey" );
-    msg->LinkEndChild( doc.NewText( help.String(savey).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "savey", savey);
 
-    msg = doc.NewElement( "saverx" );
-    msg->LinkEndChild( doc.NewText( help.String(saverx).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "saverx", saverx);
 
-    msg = doc.NewElement( "savery" );
-    msg->LinkEndChild( doc.NewText( help.String(savery).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "savery", savery);
 
-    msg = doc.NewElement( "savegc" );
-    msg->LinkEndChild( doc.NewText( help.String(savegc).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "savegc", savegc);
 
-    msg = doc.NewElement( "savedir" );
-    msg->LinkEndChild( doc.NewText( help.String(savedir).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "savedir", savedir);
 
-    msg = doc.NewElement( "savepoint" );
-    msg->LinkEndChild( doc.NewText( help.String(savepoint).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "savepoint", savepoint);
 
-    msg = doc.NewElement( "trinkets" );
-    msg->LinkEndChild( doc.NewText( help.String(trinkets()).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "trinkets", trinkets());
 
-    msg = doc.NewElement( "crewmates" );
-    msg->LinkEndChild( doc.NewText( help.String(crewmates()).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "crewmates", crewmates());
 
 
     //Special stats
 
     if(music.nicefade==1)
     {
-        msg = doc.NewElement( "currentsong" );
-        msg->LinkEndChild( doc.NewText( help.String(music.nicechange).c_str() ));
-        msgs->LinkEndChild( msg );
+        xml::update_tag(msgs, "currentsong", music.nicechange );
     }
     else
     {
-        msg = doc.NewElement( "currentsong" );
-        msg->LinkEndChild( doc.NewText( help.String(music.currentsong).c_str() ));
-        msgs->LinkEndChild( msg );
+        xml::update_tag(msgs, "currentsong", music.currentsong);
     }
 
-    msg = doc.NewElement( "teleportscript" );
-    msg->LinkEndChild( doc.NewText( teleportscript.c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "companion" );
-    msg->LinkEndChild( doc.NewText( help.String(companion).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "teleportscript", teleportscript.c_str());
+    xml::update_tag(msgs, "companion", companion);
 
-    msg = doc.NewElement( "lastsaved" );
-    msg->LinkEndChild( doc.NewText( help.String(lastsaved).c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "supercrewmate" );
-    msg->LinkEndChild( doc.NewText( BoolToString(supercrewmate) ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "lastsaved", lastsaved);
+    xml::update_tag(msgs, "supercrewmate", BoolToString(supercrewmate));
 
-    msg = doc.NewElement( "scmprogress" );
-    msg->LinkEndChild( doc.NewText( help.String(scmprogress).c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "scmmoveme" );
-    msg->LinkEndChild( doc.NewText( BoolToString(scmmoveme) ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "scmprogress", scmprogress);
+    xml::update_tag(msgs, "scmmoveme", BoolToString(scmmoveme));
 
 
-    msg = doc.NewElement( "frames" );
-    msg->LinkEndChild( doc.NewText( help.String(frames).c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "seconds" );
-    msg->LinkEndChild( doc.NewText( help.String(seconds).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "frames", frames);
+    xml::update_tag(msgs, "seconds", seconds);
 
-    msg = doc.NewElement( "minutes" );
-    msg->LinkEndChild( doc.NewText( help.String(minutes).c_str()) );
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "hours" );
-    msg->LinkEndChild( doc.NewText( help.String(hours).c_str()) );
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "minutes", minutes);
+    xml::update_tag(msgs, "hours", hours);
 
-    msg = doc.NewElement( "deathcounts" );
-    msg->LinkEndChild( doc.NewText( help.String(deathcounts).c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "totalflips" );
-    msg->LinkEndChild( doc.NewText( help.String(totalflips).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "deathcounts", deathcounts);
+    xml::update_tag(msgs, "totalflips", totalflips);
 
-    msg = doc.NewElement( "hardestroom" );
-    msg->LinkEndChild( doc.NewText( hardestroom.c_str() ));
-    msgs->LinkEndChild( msg );
-    msg = doc.NewElement( "hardestroomdeaths" );
-    msg->LinkEndChild( doc.NewText( help.String(hardestroomdeaths).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "hardestroom", hardestroom.c_str());
+    xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
 
-    msg = doc.NewElement( "showminimap" );
-    msg->LinkEndChild( doc.NewText( BoolToString(map.customshowmm) ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "showminimap", BoolToString(map.customshowmm));
 
-    msg = doc.NewElement( "summary" );
     std::string summary = savearea + ", " + timestring();
-    msg->LinkEndChild( doc.NewText( summary.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "summary", summary.c_str());
 
     customquicksummary = summary;
 
-    std::string levelfile = savfile.substr(7);
     if(FILESYSTEM_saveTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))
     {
         printf("Game saved\n");
