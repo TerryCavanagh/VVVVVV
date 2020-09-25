@@ -5,6 +5,7 @@ Contributors
 
 * Matt "Fußmatte" Aaldenberg
 * AlexApps99 (@AlexApps99)
+* AllyTally (@AllyTally)
 * Christoph Böhmwalder (@chrboe)
 * Charlie Bruce (@charliebruce)
 * Brian Callahan (@ibara)
@@ -22,7 +23,6 @@ Contributors
 * Elijah Stone
 * Thomas Sänger (@HorayNarea)
 * Info Teddy (@InfoTeddy)
-* Alexandra Tildea (@AllyTally)
 * Pierre-Alain TORET (@daftaupe)
 * leo60228 (@leo60228)
 * Emmanuel Vadot (@evadot)
