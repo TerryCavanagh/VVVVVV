@@ -105,6 +105,7 @@ SET(VVV_SRC
 	src/Tower.cpp
 	src/UtilityClass.cpp
 	src/WarpClass.cpp
+	src/XMLUtils.cpp
 	src/main.cpp
 	src/Network.c
 )
