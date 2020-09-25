@@ -2736,8 +2736,8 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 //happy!
-                if (entities[k].rule == 6)	entities[k].tile = 0;
-                if (entities[k].rule == 7)	entities[k].tile = 6;
+                if (INBOUNDS_VEC(k, entities) && entities[k].rule == 6)	entities[k].tile = 0;
+                if (INBOUNDS_VEC(k, entities) && entities[k].rule == 7)	entities[k].tile = 6;
                 //Stay close to the hero!
                 int j = getplayer();
                 if (INBOUNDS_VEC(j, entities) && entities[j].xp > entities[i].xp + 5)
