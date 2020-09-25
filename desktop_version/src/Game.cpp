@@ -18,6 +18,7 @@
 #include "Network.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "XMLUtils.h"
 
 // lol, Win32 -flibit
 #ifdef _WIN32
@@ -577,45 +578,40 @@ void Game::loadcustomlevelstats()
 void Game::savecustomlevelstats()
 {
     tinyxml2::XMLDocument doc;
-    tinyxml2::XMLElement* msg;
-    tinyxml2::XMLDeclaration* decl = doc.NewDeclaration();
-    doc.LinkEndChild( decl );
+    bool already_exists = FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc);
+    if (!already_exists)
+    {
+        puts("No levelstats.vvv found. Creating new file");
+    }
 
-    tinyxml2::XMLElement * root = doc.NewElement( "Levelstats" );
-    doc.LinkEndChild( root );
+    xml::update_declaration(doc);
 
-    tinyxml2::XMLComment * comment = doc.NewComment(" Levelstats Save file " );
-    root->LinkEndChild( comment );
+    tinyxml2::XMLElement * root = xml::update_element(doc, "Levelstats");
 
-    tinyxml2::XMLElement * msgs = doc.NewElement( "Data" );
-    root->LinkEndChild( msgs );
+    xml::update_comment(root, " Levelstats Save file ");
+
+    tinyxml2::XMLElement * msgs = xml::update_element(root, "Data");
 
     int numcustomlevelstats = customlevelstats.size();
     if(numcustomlevelstats>=200)numcustomlevelstats=199;
-    msg = doc.NewElement( "numcustomlevelstats" );
-    msg->LinkEndChild( doc.NewText( help.String(numcustomlevelstats).c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "numcustomlevelstats", numcustomlevelstats);
 
     std::string customlevelscorestr;
     for(int i = 0; i < numcustomlevelstats; i++ )
     {
         customlevelscorestr += help.String(customlevelstats[i].score) + ",";
     }
-    msg = doc.NewElement( "customlevelscore" );
-    msg->LinkEndChild( doc.NewText( customlevelscorestr.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "customlevelscore", customlevelscorestr.c_str());
 
     std::string customlevelstatsstr;
     for(int i = 0; i < numcustomlevelstats; i++ )
     {
         customlevelstatsstr += customlevelstats[i].name + "|";
     }
-    msg = doc.NewElement( "customlevelstats" );
-    msg->LinkEndChild( doc.NewText( customlevelstatsstr.c_str() ));
-    msgs->LinkEndChild( msg );
+    xml::update_tag(msgs, "customlevelstats", customlevelstatsstr.c_str());
 
     // New system
-    msg = doc.NewElement("stats");
+    tinyxml2::XMLElement* msg = xml::update_element_delete_contents(msgs, "stats");
     tinyxml2::XMLElement* stat_el;
     for (size_t i = 0; i < customlevelstats.size(); i++)
     {
@@ -627,7 +623,6 @@ void Game::savecustomlevelstats()
 
         msg->LinkEndChild(stat_el);
     }
-    msgs->LinkEndChild(msg);
 
     if(FILESYSTEM_saveTiXml2Document("saves/levelstats.vvv", doc))
     {
