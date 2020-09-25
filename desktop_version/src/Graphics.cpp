@@ -257,25 +257,33 @@ void Graphics::Makebfont()
     unsigned char* charmap = NULL;
     size_t length;
     FILESYSTEM_loadFileToMemory("graphics/font.txt", &charmap, &length);
-    if (charmap != NULL) {
+    if (charmap != NULL)
+    {
         unsigned char* current = charmap;
         unsigned char* end = charmap + length;
         int pos = 0;
-        while (current != end) {
+        while (current != end)
+        {
             int codepoint = utf8::unchecked::next(current);
             font_positions[codepoint] = pos;
             ++pos;
         }
         FILESYSTEM_freeMemory(&charmap);
-    } else {
+    }
+    else
+    {
         font_positions.clear();
     }
 }
 
-int Graphics::bfontlen(uint32_t ch) {
-    if (ch < 32) {
+int Graphics::bfontlen(uint32_t ch)
+{
+    if (ch < 32)
+    {
         return 6;
-    } else {
+    }
+    else
+    {
         return 8;
     }
 }
