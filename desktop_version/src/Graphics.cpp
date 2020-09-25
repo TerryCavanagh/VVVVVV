@@ -1430,7 +1430,7 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
 
 void Graphics::drawgravityline( int t )
 {
-    if (obj.entities[t].life == 0)
+    if (obj.entities[t].life == 0 || obj.entities[t].onentity == 1) // FIXME: Remove 'onentity == 1' when game loop order is fixed!
     {
         switch(linestate)
         {
