@@ -4650,7 +4650,7 @@ void entityclass::entitycollisioncheck()
     // WARNING: If updating this code, don't forget to update Map.cpp mapclass::twoframedelayfix()
     activetrigger = -1;
     int block_idx = -1;
-    if (INBOUNDS_VEC(checktrigger(&block_idx), entities) && INBOUNDS_VEC(block_idx, blocks))
+    if (checktrigger(&block_idx) > -1 && INBOUNDS_VEC(block_idx, blocks))
     {
         // Load the block's script if its gamestate is out of range
         if (blocks[block_idx].script != "" && (activetrigger < 300 || activetrigger > 336))
