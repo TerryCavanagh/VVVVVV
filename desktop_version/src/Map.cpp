@@ -2096,20 +2096,23 @@ void mapclass::twoframedelayfix()
 	// and when the script gets loaded script.run() has already ran for that frame, too.
 	// A bit kludge-y, but it's the least we can do without changing the frame ordering.
 
-	int block_idx = -1;
 	if (game.glitchrunnermode
 	|| !custommode
-	|| game.deathseq != -1
-	// obj.checktrigger() sets obj.activetrigger and block_idx
-	|| obj.checktrigger(&block_idx) <= -1
+	|| game.deathseq != -1)
+		return;
+
+	int block_idx = -1;
+	// obj.checktrigger() sets block_idx
+	int activetrigger = obj.checktrigger(&block_idx);
+	if (activetrigger <= -1
 	|| !INBOUNDS_VEC(block_idx, obj.blocks)
-	|| obj.activetrigger < 300)
+	|| activetrigger < 300)
 	{
 		return;
 	}
 
 	game.newscript = obj.blocks[block_idx].script;
-	obj.removetrigger(obj.activetrigger);
+	obj.removetrigger(activetrigger);
 	game.state = 0;
 	game.statedelay = 0;
 	script.load(game.newscript);
