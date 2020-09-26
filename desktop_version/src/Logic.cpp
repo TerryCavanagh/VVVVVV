@@ -1614,11 +1614,15 @@ void gamelogic()
     if (game.activetele && !game.advancetext && game.hascontrol && !script.running && !game.intimetrial)
     {
         int i = obj.getplayer();
+        SDL_Rect temprect = SDL_Rect();
         if (INBOUNDS_VEC(i, obj.entities))
         {
-            obj.settemprect(i);
+            temprect.x = obj.entities[i].xp + obj.entities[i].cx;
+            temprect.y = obj.entities[i].yp + obj.entities[i].cy;
+            temprect.w = obj.entities[i].w;
+            temprect.h = obj.entities[i].h;
         }
-        if (help.intersects(game.teleblock, obj.temprect))
+        if (help.intersects(game.teleblock, temprect))
         {
             game.readytotele += 25;
             if (game.readytotele >= 255) game.readytotele = 255;

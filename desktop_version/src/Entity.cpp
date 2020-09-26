@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+#include <SDL.h>
+
 #include "editor.h"
 #include "Game.h"
 #include "Graphics.h"
@@ -16,23 +18,23 @@ bool entityclass::checktowerspikes(int t)
         return false;
     }
 
-    tempx = entities[t].xp + entities[t].cx;
-    tempy = entities[t].yp + entities[t].cy;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
+    SDL_Rect temprect;
+    temprect.x = entities[t].xp + entities[t].cx;
+    temprect.y = entities[t].yp + entities[t].cy;
+    temprect.w = entities[t].w;
+    temprect.h = entities[t].h;
 
-    tempx = getgridpoint(temprect.x);
-    tempy = getgridpoint(temprect.y);
-    tempw = getgridpoint(temprect.x + temprect.w - 1);
-    temph = getgridpoint(temprect.y + temprect.h - 1);
+    int tempx = getgridpoint(temprect.x);
+    int tempy = getgridpoint(temprect.y);
+    int tempw = getgridpoint(temprect.x + temprect.w - 1);
+    int temph = getgridpoint(temprect.y + temprect.h - 1);
     if (map.spikecollide(tempx, tempy)) return true;
     if (map.spikecollide(tempw, tempy)) return true;
     if (map.spikecollide(tempx, temph)) return true;
     if (map.spikecollide(tempw, temph)) return true;
     if (temprect.h >= 12)
     {
-        tpy1 = getgridpoint(temprect.y + 6);
+        int tpy1 = getgridpoint(temprect.y + 6);
         if (map.spikecollide(tempx, tpy1)) return true;
         if (map.spikecollide(tempw, tpy1)) return true;
         if (temprect.h >= 18)
@@ -53,8 +55,6 @@ bool entityclass::checktowerspikes(int t)
 
 void entityclass::init()
 {
-    skipblocks = false;
-    skipdirblocks = false;
     platformtile = 0;
     customplatformtile=0;
     vertplatforms = false;
@@ -78,27 +78,7 @@ void entityclass::init()
     SDL_memset(collect, false, sizeof(collect));
     SDL_memset(customcollect, false, sizeof(customcollect));
 
-    colpoint1 = point();
-    colpoint2 = point();
-    tempx = 0;
-    tempy = 0;
-    tempw = 0;
-    temph = 0;
-    temp = 0;
-    temp2 = 0;
-    tpx1 = 0;
-    tpy1 = 0;
-    tpx2 = 0;
-    tpy2 = 0;
-    x = 0;
     k = 0;
-    dx = 0.0f;
-    dy = 0.0f;
-    dr = 0.0f;
-    px = 0;
-    py = 0;
-    linetemp = 0;
-    activetrigger = 0;
 }
 
 void entityclass::resetallflags()
@@ -2680,7 +2660,7 @@ bool entityclass::updateentities( int i )
                 music.playef(8);
                 game.gravitycontrol = (game.gravitycontrol + 1) % 2;
                 game.totalflips++;
-                temp = getplayer();
+                int temp = getplayer();
                 if (game.gravitycontrol == 0)
                 {
                     if (INBOUNDS_VEC(temp, entities) && entities[temp].vy < 3) entities[temp].vy = 3;
@@ -3836,22 +3816,6 @@ int entityclass::getteleporter()
     return -1;
 }
 
-void entityclass::rectset( int xi, int yi, int wi, int hi )
-{
-    temprect.x = xi;
-    temprect.y = yi;
-    temprect.w = wi;
-    temprect.h = hi;
-}
-
-void entityclass::rect2set( int xi, int yi, int wi, int hi )
-{
-    temprect2.x = xi;
-    temprect2.y = yi;
-    temprect2.w = wi;
-    temprect2.h = hi;
-}
-
 bool entityclass::entitycollide( int a, int b )
 {
     if (!INBOUNDS_VEC(a, entities) || !INBOUNDS_VEC(b, entities))
@@ -3861,17 +3825,17 @@ bool entityclass::entitycollide( int a, int b )
     }
 
     //Do entities a and b collide?
-    tempx = entities[a].xp + entities[a].cx;
-    tempy = entities[a].yp + entities[a].cy;
-    tempw = entities[a].w;
-    temph = entities[a].h;
-    rectset(tempx, tempy, tempw, temph);
+    SDL_Rect temprect;
+    temprect.x = entities[a].xp + entities[a].cx;
+    temprect.y = entities[a].yp + entities[a].cy;
+    temprect.w = entities[a].w;
+    temprect.h = entities[a].h;
 
-    tempx = entities[b].xp + entities[b].cx;
-    tempy = entities[b].yp + entities[b].cy;
-    tempw = entities[b].w;
-    temph = entities[b].h;
-    rect2set(tempx, tempy, tempw, temph);
+    SDL_Rect temprect2;
+    temprect2.x = entities[b].xp + entities[b].cx;
+    temprect2.y = entities[b].yp + entities[b].cy;
+    temprect2.w = entities[b].w;
+    temprect2.h = entities[b].h;
 
     if (help.intersects(temprect, temprect2)) return true;
     return false;
@@ -3884,11 +3848,11 @@ bool entityclass::checkdamage(bool scm /*= false*/)
     {
         if((scm && entities[i].type == 14) || (!scm && entities[i].rule == 0))
         {
-            tempx = entities[i].xp + entities[i].cx;
-            tempy = entities[i].yp + entities[i].cy;
-            tempw = entities[i].w;
-            temph = entities[i].h;
-            rectset(tempx, tempy, tempw, temph);
+            SDL_Rect temprect;
+            temprect.x = entities[i].xp + entities[i].cx;
+            temprect.y = entities[i].yp + entities[i].cy;
+            temprect.w = entities[i].w;
+            temprect.h = entities[i].h;
 
             for (size_t j=0; j<blocks.size(); j++)
             {
@@ -3902,21 +3866,6 @@ bool entityclass::checkdamage(bool scm /*= false*/)
     return false;
 }
 
-void entityclass::settemprect( int t )
-{
-    if (!INBOUNDS_VEC(t, entities))
-    {
-        return;
-    }
-
-    //setup entity t in temprect
-    tempx = entities[t].xp + entities[t].cx;
-    tempy = entities[t].yp + entities[t].cy;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
-}
-
 int entityclass::checktrigger(int* block_idx)
 {
     //Returns an int player entity (rule 0) collides with a trigger
@@ -3926,17 +3875,16 @@ int entityclass::checktrigger(int* block_idx)
     {
         if(entities[i].rule==0)
         {
-            tempx = entities[i].xp + entities[i].cx;
-            tempy = entities[i].yp + entities[i].cy;
-            tempw = entities[i].w;
-            temph = entities[i].h;
-            rectset(tempx, tempy, tempw, temph);
+            SDL_Rect temprect;
+            temprect.x = entities[i].xp + entities[i].cx;
+            temprect.y = entities[i].yp + entities[i].cy;
+            temprect.w = entities[i].w;
+            temprect.h = entities[i].h;
 
             for (size_t j=0; j<blocks.size(); j++)
             {
                 if (blocks[j].type == TRIGGER && help.intersects(blocks[j].rect, temprect))
                 {
-                    activetrigger = blocks[j].trigger;
                     *block_idx = j;
                     return blocks[j].trigger;
                 }
@@ -3953,11 +3901,11 @@ int entityclass::checkactivity()
     {
         if(entities[i].rule==0)
         {
-            tempx = entities[i].xp + entities[i].cx;
-            tempy = entities[i].yp + entities[i].cy;
-            tempw = entities[i].w;
-            temph = entities[i].h;
-            rectset(tempx, tempy, tempw, temph);
+            SDL_Rect temprect;
+            temprect.x = entities[i].xp + entities[i].cx;
+            temprect.y = entities[i].yp + entities[i].cy;
+            temprect.w = entities[i].w;
+            temprect.h = entities[i].h;
 
             for (size_t j=0; j<blocks.size(); j++)
             {
@@ -3977,22 +3925,22 @@ int entityclass::getgridpoint( int t )
     return t;
 }
 
-bool entityclass::checkplatform()
+bool entityclass::checkplatform(const SDL_Rect& temprect, int* px, int* py)
 {
     //Return true if rectset intersects a moving platform, setups px & py to the platform x & y
     for (size_t i = 0; i < blocks.size(); i++)
     {
         if (blocks[i].type == BLOCK && help.intersects(blocks[i].rect, temprect))
         {
-            px = blocks[i].xp;
-            py = blocks[i].yp;
+            *px = blocks[i].xp;
+            *py = blocks[i].yp;
             return true;
         }
     }
     return false;
 }
 
-bool entityclass::checkblocks()
+bool entityclass::checkblocks(const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipdirblocks)
 {
     for (size_t i = 0; i < blocks.size(); i++)
     {
@@ -4015,29 +3963,25 @@ bool entityclass::checkblocks()
     return false;
 }
 
-bool entityclass::checkwall()
+bool entityclass::checkwall(const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipblocks, const bool skipdirblocks)
 {
     //Returns true if entity setup in temprect collides with a wall
-    //used for proper collision functions; you can't just, like, call it
-    //whenever you feel like it and expect a response
-    //
-    //that won't work at all
     if(skipblocks)
     {
-        if (checkblocks()) return true;
+        if (checkblocks(temprect, dx, dy, dr, skipdirblocks)) return true;
     }
 
-    tempx = getgridpoint(temprect.x);
-    tempy = getgridpoint(temprect.y);
-    tempw = getgridpoint(temprect.x + temprect.w - 1);
-    temph = getgridpoint(temprect.y + temprect.h - 1);
+    int tempx = getgridpoint(temprect.x);
+    int tempy = getgridpoint(temprect.y);
+    int tempw = getgridpoint(temprect.x + temprect.w - 1);
+    int temph = getgridpoint(temprect.y + temprect.h - 1);
     if (map.collide(tempx, tempy)) return true;
     if (map.collide(tempw, tempy)) return true;
     if (map.collide(tempx, temph)) return true;
     if (map.collide(tempw, temph)) return true;
     if (temprect.h >= 12)
     {
-        tpy1 = getgridpoint(temprect.y + 6);
+        int tpy1 = getgridpoint(temprect.y + 6);
         if (map.collide(tempx, tpy1)) return true;
         if (map.collide(tempw, tpy1)) return true;
         if (temprect.h >= 18)
@@ -4055,14 +3999,20 @@ bool entityclass::checkwall()
     }
     if (temprect.w >= 12)
     {
-        tpx1 = getgridpoint(temprect.x + 6);
+        int tpx1 = getgridpoint(temprect.x + 6);
         if (map.collide(tpx1, tempy)) return true;
         if (map.collide(tpx1, temph)) return true;
     }
     return false;
 }
 
-float entityclass::hplatformat()
+bool entityclass::checkwall(const SDL_Rect& temprect)
+{
+    // Same as above but use default arguments for blocks
+    return checkwall(temprect, 0, 0, 0, true, false);
+}
+
+float entityclass::hplatformat(const int px, const int py)
 {
     //Returns first entity of horizontal platform at (px, py), -1000 otherwise.
     for (size_t i = 0; i < entities.size(); i++)
@@ -4106,7 +4056,7 @@ bool entityclass::entityhlinecollide( int t, int l )
     {
         if(entities[t].xp + entities[t].cx<=entities[l].xp+entities[l].w)
         {
-            linetemp = 0;
+            int linetemp = 0;
 
             linetemp += yline(entities[t].yp, entities[l].yp);
             linetemp += yline(entities[t].yp + entities[t].h, entities[l].yp);
@@ -4132,7 +4082,7 @@ bool entityclass::entityvlinecollide( int t, int l )
     if(entities[t].yp + entities[t].cy+entities[t].h>=entities[l].yp
     && entities[t].yp + entities[t].cy<=entities[l].yp+entities[l].h)
     {
-        linetemp = 0;
+        int linetemp = 0;
 
         linetemp += yline(entities[t].xp + entities[t].cx+1, entities[l].xp);
         linetemp += yline(entities[t].xp + entities[t].cx+1 + entities[t].w, entities[l].xp);
@@ -4155,7 +4105,7 @@ bool entityclass::entitywarphlinecollide(int t, int l) {
     //Returns true is entity t collided with the horizontal line l.
     if(entities[t].xp + entities[t].cx+entities[t].w>=entities[l].xp
     &&entities[t].xp + entities[t].cx<=entities[l].xp+entities[l].w){
-        linetemp = 0;
+        int linetemp = 0;
         if (entities[l].yp < 120) {
             //Top line
             if (entities[t].vy < 0) {
@@ -4193,7 +4143,7 @@ bool entityclass::entitywarpvlinecollide(int t, int l) {
     //Returns true is entity t collided with the vertical warp line l.
     if(entities[t].yp + entities[t].cy+entities[t].h>=entities[l].yp
     && entities[t].yp + entities[t].cy <= entities[l].yp + entities[l].h) {
-        linetemp = 0;
+        int linetemp = 0;
         if (entities[l].xp < 160) {
             //Left hand line
             if (entities[t].xp + entities[t].cx + 1 < entities[l].xp + 10) linetemp++;
@@ -4225,16 +4175,17 @@ float entityclass::entitycollideplatformroof( int t )
         return -1000;
     }
 
-    tempx = entities[t].xp + entities[t].cx;
-    tempy = entities[t].yp + entities[t].cy -1;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
+    SDL_Rect temprect;
+    temprect.x = entities[t].xp + entities[t].cx;
+    temprect.y = entities[t].yp + entities[t].cy -1;
+    temprect.w = entities[t].w;
+    temprect.h = entities[t].h;
 
-    if (checkplatform())
+    int px = 0, py = 0;
+    if (checkplatform(temprect, &px, &py))
     {
         //px and py now contain an x y coordinate for a platform, find it
-        return hplatformat();
+        return hplatformat(px, py);
     }
     return -1000;
 }
@@ -4247,16 +4198,17 @@ float entityclass::entitycollideplatformfloor( int t )
         return -1000;
     }
 
-    tempx = entities[t].xp + entities[t].cx;
-    tempy = entities[t].yp + entities[t].cy + 1;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
+    SDL_Rect temprect;
+    temprect.x = entities[t].xp + entities[t].cx;
+    temprect.y = entities[t].yp + entities[t].cy + 1;
+    temprect.w = entities[t].w;
+    temprect.h = entities[t].h;
 
-    if (checkplatform())
+    int px = 0, py = 0;
+    if (checkplatform(temprect, &px, &py))
     {
         //px and py now contain an x y coordinate for a platform, find it
-        return hplatformat();
+        return hplatformat(px, py);
     }
     return -1000;
 }
@@ -4269,14 +4221,13 @@ bool entityclass::entitycollidefloor( int t )
         return false;
     }
 
-    //see? like here, for example!
-    tempx = entities[t].xp + entities[t].cx;
-    tempy = entities[t].yp + entities[t].cy + 1;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
+    SDL_Rect temprect;
+    temprect.x = entities[t].xp + entities[t].cx;
+    temprect.y = entities[t].yp + entities[t].cy + 1;
+    temprect.w = entities[t].w;
+    temprect.h = entities[t].h;
 
-    if (checkwall()) return true;
+    if (checkwall(temprect)) return true;
     return false;
 }
 
@@ -4288,18 +4239,17 @@ bool entityclass::entitycollideroof( int t )
         return false;
     }
 
-    //and here!
-    tempx = entities[t].xp + entities[t].cx;
-    tempy = entities[t].yp + entities[t].cy - 1;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
+    SDL_Rect temprect;
+    temprect.x = entities[t].xp + entities[t].cx;
+    temprect.y = entities[t].yp + entities[t].cy - 1;
+    temprect.w = entities[t].w;
+    temprect.h = entities[t].h;
 
-    if (checkwall()) return true;
+    if (checkwall(temprect)) return true;
     return false;
 }
 
-bool entityclass::testwallsx( int t, int tx, int ty )
+bool entityclass::testwallsx( int t, int tx, int ty, const bool skipdirblocks )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
@@ -4307,40 +4257,32 @@ bool entityclass::testwallsx( int t, int tx, int ty )
         return false;
     }
 
-    tempx = tx + entities[t].cx;
-    tempy = ty + entities[t].cy;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
+    SDL_Rect temprect;
+    temprect.x = tx + entities[t].cx;
+    temprect.y = ty + entities[t].cy;
+    temprect.w = entities[t].w;
+    temprect.h = entities[t].h;
 
-    if (entities[t].rule < 2)
-    {
-        skipblocks = true;
-    }
-    else
-    {
-        skipblocks = false;
-    }
-    if (entities[t].type == 14) skipblocks = true;
-    dx = 0;
-    dy = 0;
+    bool skipblocks = entities[t].rule < 2 || entities[t].type == 14;
+    float dx = 0;
+    float dy = 0;
     if (entities[t].rule == 0) dx = entities[t].vx;
-    dr = entities[t].rule;
+    float dr = entities[t].rule;
 
     //Ok, now we check walls
-    if (checkwall())
+    if (checkwall(temprect, dx, dy, dr, skipblocks, skipdirblocks))
     {
         if (entities[t].vx > 1.0f)
         {
             entities[t].vx--;
             entities[t].newxp = entities[t].xp + entities[t].vx;
-            return testwallsx(t, entities[t].newxp, entities[t].yp);
+            return testwallsx(t, entities[t].newxp, entities[t].yp, skipdirblocks);
         }
         else if (entities[t].vx < -1.0f)
         {
             entities[t].vx++;
             entities[t].newxp = entities[t].xp + entities[t].vx;
-            return testwallsx(t, entities[t].newxp, entities[t].yp);
+            return testwallsx(t, entities[t].newxp, entities[t].yp, skipdirblocks);
         }
         else
         {
@@ -4359,29 +4301,21 @@ bool entityclass::testwallsy( int t, float tx, float ty )
         return false;
     }
 
-    tempx = static_cast<int>(tx) + entities[t].cx;
-    tempy = static_cast<int>(ty) + entities[t].cy;
-    tempw = entities[t].w;
-    temph = entities[t].h;
-    rectset(tempx, tempy, tempw, temph);
+    SDL_Rect temprect;
+    temprect.x = static_cast<int>(tx) + entities[t].cx;
+    temprect.y = static_cast<int>(ty) + entities[t].cy;
+    temprect.w = entities[t].w;
+    temprect.h = entities[t].h;
 
-    if (entities[t].rule < 2)
-    {
-        skipblocks = true;
-    }
-    else
-    {
-        skipblocks = false;
-    }
-    if (entities[t].type == 14) skipblocks = true;
+    bool skipblocks = entities[t].rule < 2 || entities[t].type == 14;
 
-    dx = 0;
-    dy = 0;
+    float dx = 0;
+    float dy = 0;
     if (entities[t].rule == 0) dy = entities[t].vy;
-    dr = entities[t].rule;
+    float dr = entities[t].rule;
 
     //Ok, now we check walls
-    if (checkwall())
+    if (checkwall(temprect, dx, dy, dr, skipblocks, false))
     {
         if (entities[t].vy > 1)
         {
@@ -4494,7 +4428,7 @@ void entityclass::entitymapcollision( int t )
         return;
     }
 
-    if (testwallsx(t, entities[t].newxp, entities[t].yp))
+    if (testwallsx(t, entities[t].newxp, entities[t].yp, false))
     {
         entities[t].xp = entities[t].newxp;
     }
@@ -4648,9 +4582,9 @@ void entityclass::entitycollisioncheck()
     }
 
     // WARNING: If updating this code, don't forget to update Map.cpp mapclass::twoframedelayfix()
-    activetrigger = -1;
     int block_idx = -1;
-    if (checktrigger(&block_idx) > -1 && INBOUNDS_VEC(block_idx, blocks))
+    int activetrigger = checktrigger(&block_idx);
+    if (activetrigger > -1 && INBOUNDS_VEC(block_idx, blocks))
     {
         // Load the block's script if its gamestate is out of range
         if (blocks[block_idx].script != "" && (activetrigger < 300 || activetrigger > 336))
@@ -4690,8 +4624,10 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
             if (entities[i].size == 0 && (entities[j].size == 0 || entities[j].size == 12))
             {
                 //They're both sprites, so do a per pixel collision
+                point colpoint1;
                 colpoint1.x = entities[i].xp;
                 colpoint1.y = entities[i].yp;
+                point colpoint2;
                 colpoint2.x = entities[j].xp;
                 colpoint2.y = entities[j].yp;
                 int drawframe1 = entities[i].drawframe;
@@ -4767,7 +4703,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         if (entities[j].onentity > 0)
         {
             //ok; only check the actual collision if they're in a close proximity
-            temp = entities[i].yp - entities[j].yp;
+            int temp = entities[i].yp - entities[j].yp;
             if (temp > -30 && temp < 30)
             {
                 temp = entities[i].xp - entities[j].xp;
@@ -4798,9 +4734,8 @@ void entityclass::stuckprevention(int t)
         return;
     }
 
-    skipdirblocks = true;
     // Can't have this entity (player or supercrewmate) being stuck...
-    if (!testwallsx(t, entities[t].xp, entities[t].yp))
+    if (!testwallsx(t, entities[t].xp, entities[t].yp, true))
     {
         // Let's try to get out...
         if (game.gravitycontrol == 0)
@@ -4812,5 +4747,4 @@ void entityclass::stuckprevention(int t)
             entities[t].yp += 3;
         }
     }
-    skipdirblocks = false;
 }
