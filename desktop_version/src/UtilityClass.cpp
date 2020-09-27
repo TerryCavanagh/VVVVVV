@@ -106,7 +106,7 @@ int UtilityClass::Int(const char* str, int fallback /*= 0*/)
 		return fallback;
 	}
 
-	return SDL_atoi(str);
+	return (int) SDL_strtol(str, NULL, 0);
 }
 
 std::string UtilityClass::GCString(std::vector<SDL_GameControllerButton> buttons)
