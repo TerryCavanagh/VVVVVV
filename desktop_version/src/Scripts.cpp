@@ -11,10 +11,7 @@ void scriptclass::load(const std::string& name)
 
     const char* t = name.c_str();
 
-    char customstring[8] = {'\0'};
-    SDL_strlcpy(customstring, t, sizeof(customstring));
-
-    if (strcmp(customstring, "custom_") == 0)
+    if (SDL_strncmp(t, "custom_", 7) == 0)
     {
         loadcustom(name);
     }
