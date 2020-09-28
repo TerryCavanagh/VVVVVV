@@ -4446,7 +4446,6 @@ void entityclass::entitymapcollision( int t )
     {
         if (entities[t].onwall > 0) entities[t].state = entities[t].onwall;
         if (entities[t].onywall > 0) entities[t].state = entities[t].onywall;
-        entities[t].jumpframe = 0;
     }
 }
 

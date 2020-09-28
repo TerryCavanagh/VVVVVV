@@ -42,10 +42,8 @@ public:
     int onwall, onxwall, onywall;
 
     //Platforming specific
-    bool jumping;
     bool gravity;
     int onground, onroof;
-    int jumpframe;
     //Animation
     int framedelay, drawframe, walkingframe, dir, actionframe;
     int yp;int xp;
