@@ -1,3 +1,4 @@
+#define OBJ_DEFINITION
 #include "Entity.h"
 
 #include <SDL.h>

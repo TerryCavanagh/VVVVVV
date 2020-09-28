@@ -293,7 +293,9 @@ void editorlogic();
 void editorinput();
 #endif
 
+#ifndef ED_DEFINITION
 extern editorclass ed;
+#endif
 
 #endif /* EDITOR_H */
 

@@ -1,3 +1,4 @@
+#define SCRIPT_DEFINITION
 #include "Script.h"
 
 #include "editor.h"

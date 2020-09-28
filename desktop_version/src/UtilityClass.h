@@ -58,6 +58,8 @@ public:
     int splitseconds[30];
 };
 
+#ifndef HELP_DEFINITION
 extern UtilityClass help;
+#endif
 
 #endif /* UTILITYCLASS_H */

@@ -1,3 +1,4 @@
+#define GRAPHICS_DEFINITION
 #include "Graphics.h"
 
 #include <stdio.h>
@@ -2991,16 +2992,16 @@ void Graphics::renderwithscreeneffects()
 {
 	if (game.flashlight > 0 && !game.noflashingmode)
 	{
-		graphics.flashlight();
+		flashlight();
 	}
 
 	if (game.screenshake > 0 && !game.noflashingmode)
 	{
-		graphics.screenshake();
+		screenshake();
 	}
 	else
 	{
-		graphics.render();
+		render();
 	}
 }
 

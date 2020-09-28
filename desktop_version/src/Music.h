@@ -58,6 +58,8 @@ public:
 	Uint64 songEnd;
 };
 
+#ifndef MUSIC_DEFINITION
 extern musicclass music;
+#endif
 
 #endif /* MUSIC_H */

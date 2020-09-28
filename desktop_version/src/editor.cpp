@@ -1,5 +1,6 @@
 #if !defined(NO_CUSTOM_LEVELS)
 
+#define ED_DEFINITION
 #include "editor.h"
 
 #include <physfs.h>
@@ -491,9 +492,9 @@ void editorclass::insertline(int t)
 
 void editorclass::getlin(const enum textmode mode, const std::string& prompt, std::string* ptr)
 {
-    ed.textmod = mode;
-    ed.textptr = ptr;
-    ed.textdesc = prompt;
+    textmod = mode;
+    textptr = ptr;
+    textdesc = prompt;
     key.enabletextentry();
     if (ptr)
     {
@@ -502,10 +503,10 @@ void editorclass::getlin(const enum textmode mode, const std::string& prompt, st
     else
     {
         key.keybuffer = "";
-        ed.textptr = &(key.keybuffer);
+        textptr = &(key.keybuffer);
     }
 
-    ed.oldenttext = key.keybuffer;
+    oldenttext = key.keybuffer;
 }
 
 const short* editorclass::loadlevel( int rxi, int ryi )
@@ -2272,22 +2273,22 @@ void editorclass::generatecustomminimap()
     int tm=0;
     int temp=0;
     //Scan over the map size
-    if(ed.mapheight<=5 && ed.mapwidth<=5)
+    if(mapheight<=5 && mapwidth<=5)
     {
         //4x map
-        for(int j2=0; j2<ed.mapheight; j2++)
+        for(int j2=0; j2<mapheight; j2++)
         {
-            for(int i2=0; i2<ed.mapwidth; i2++)
+            for(int i2=0; i2<mapwidth; i2++)
             {
                 //Ok, now scan over each square
                 tm=196;
-                if(ed.level[i2 + (j2*ed.maxwidth)].tileset==1) tm=96;
+                if(level[i2 + (j2*maxwidth)].tileset==1) tm=96;
 
                 for(int j=0; j<36; j++)
                 {
                     for(int i=0; i<48; i++)
                     {
-                        temp=ed.absfree(int(i*0.83) + (i2*40),int(j*0.83)+(j2*30));
+                        temp=absfree(int(i*0.83) + (i2*40),int(j*0.83)+(j2*30));
                         if(temp>=1)
                         {
                             //Fill in this pixel
@@ -2298,22 +2299,22 @@ void editorclass::generatecustomminimap()
             }
         }
     }
-    else if(ed.mapheight<=10 && ed.mapwidth<=10)
+    else if(mapheight<=10 && mapwidth<=10)
     {
         //2x map
-        for(int j2=0; j2<ed.mapheight; j2++)
+        for(int j2=0; j2<mapheight; j2++)
         {
-            for(int i2=0; i2<ed.mapwidth; i2++)
+            for(int i2=0; i2<mapwidth; i2++)
             {
                 //Ok, now scan over each square
                 tm=196;
-                if(ed.level[i2 + (j2*ed.maxwidth)].tileset==1) tm=96;
+                if(level[i2 + (j2*maxwidth)].tileset==1) tm=96;
 
                 for(int j=0; j<18; j++)
                 {
                     for(int i=0; i<24; i++)
                     {
-                        temp=ed.absfree(int(i*1.6) + (i2*40),int(j*1.6)+(j2*30));
+                        temp=absfree(int(i*1.6) + (i2*40),int(j*1.6)+(j2*30));
                         if(temp>=1)
                         {
                             //Fill in this pixel
@@ -2326,19 +2327,19 @@ void editorclass::generatecustomminimap()
     }
     else
     {
-        for(int j2=0; j2<ed.mapheight; j2++)
+        for(int j2=0; j2<mapheight; j2++)
         {
-            for(int i2=0; i2<ed.mapwidth; i2++)
+            for(int i2=0; i2<mapwidth; i2++)
             {
                 //Ok, now scan over each square
                 tm=196;
-                if(ed.level[i2 + (j2*ed.maxwidth)].tileset==1) tm=96;
+                if(level[i2 + (j2*maxwidth)].tileset==1) tm=96;
 
                 for(int j=0; j<9; j++)
                 {
                     for(int i=0; i<12; i++)
                     {
-                        temp=ed.absfree(3+(i*3) + (i2*40),(j*3)+(j2*30));
+                        temp=absfree(3+(i*3) + (i2*40),(j*3)+(j2*30));
                         if(temp>=1)
                         {
                             //Fill in this pixel
@@ -2354,6 +2355,7 @@ void editorclass::generatecustomminimap()
 #if !defined(NO_EDITOR)
 void editormenurender(int tr, int tg, int tb)
 {
+    extern editorclass ed;
     switch (game.currentmenuname)
     {
     case Menu::ed_settings:
@@ -2532,6 +2534,7 @@ void editormenurender(int tr, int tg, int tb)
 
 void editorrender()
 {
+    extern editorclass ed;
     if (game.shouldreturntoeditor)
     {
         graphics.backgrounddrawn = false;
@@ -3660,6 +3663,7 @@ void editorrender()
 
 void editorlogic()
 {
+    extern editorclass ed;
     //Misc
     help.updateglow();
     graphics.updatetitlecolours();
@@ -3760,6 +3764,7 @@ void editorlogic()
 
 void editormenuactionpress()
 {
+    extern editorclass ed;
     switch (game.currentmenuname)
     {
     case Menu::ed_desc:
@@ -3912,6 +3917,7 @@ void editormenuactionpress()
 
 void editorinput()
 {
+    extern editorclass ed;
     game.mx = (float) key.mx;
     game.my = (float) key.my;
     ed.tilex=(game.mx - (game.mx%8))/8;
@@ -5706,7 +5712,7 @@ Uint32 editorclass::getonewaycol(const int rx, const int ry)
 Uint32 editorclass::getonewaycol()
 {
     if (game.gamestate == EDITORMODE)
-        return getonewaycol(ed.levx, ed.levy);
+        return getonewaycol(levx, levy);
     else if (map.custommode)
         return getonewaycol(game.roomx - 100, game.roomy - 100);
 
