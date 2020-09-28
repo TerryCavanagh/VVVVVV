@@ -190,6 +190,8 @@ public:
     }
 };
 
+#ifndef MAP_DEFINITION
 extern mapclass map;
+#endif
 
 #endif /* MAPGAME_H */

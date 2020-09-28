@@ -1,3 +1,4 @@
+#define MAP_DEFINITION
 #include "Map.h"
 
 #include "editor.h"

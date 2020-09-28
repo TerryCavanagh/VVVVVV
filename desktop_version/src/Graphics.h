@@ -317,6 +317,8 @@ public:
 	Uint32 crewcolourreal(int t);
 };
 
+#ifndef GRAPHICS_DEFINITION
 extern Graphics graphics;
+#endif
 
 #endif /* GRAPHICS_H */

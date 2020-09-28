@@ -68,6 +68,8 @@ public:
     std::vector<Script> customscripts;
 };
 
+#ifndef SCRIPT_DEFINITION
 extern scriptclass script;
+#endif
 
 #endif /* SCRIPT_H */

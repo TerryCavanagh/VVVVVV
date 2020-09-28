@@ -1,3 +1,4 @@
+#define HELP_DEFINITION
 #include "UtilityClass.h"
 
 #include <cctype>

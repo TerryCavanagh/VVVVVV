@@ -1,3 +1,4 @@
+#define KEY_DEFINITION
 #include "KeyPoll.h"
 
 #include <stdio.h>

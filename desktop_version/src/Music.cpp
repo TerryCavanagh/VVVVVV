@@ -1,3 +1,4 @@
+#define MUSIC_DEFINITION
 #include "Music.h"
 
 #include <SDL.h>
@@ -152,6 +153,7 @@ void musicclass::init()
 
 void songend()
 {
+	extern musicclass music;
 	music.songEnd = SDL_GetPerformanceCounter();
 	music.currentsong = -1;
 }

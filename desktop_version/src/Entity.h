@@ -10,8 +10,22 @@
 #include "BlockV.h"
 #include "Game.h"
 
-#define removeentity_iter(index) { if (obj.removeentity(index)) index--; }
-#define removeblock_iter(index) { obj.removeblock(index); index--; }
+#define removeentity_iter(index) \
+    do \
+    { \
+        extern entityclass obj; \
+        if (obj.removeentity(index)) \
+        { \
+            index--; \
+        } \
+    } while (false)
+#define removeblock_iter(index) \
+    do \
+    { \
+        extern entityclass obj; \
+        obj.removeblock(index); \
+        index--; \
+    } while (false)
 
 enum
 {
@@ -193,6 +207,8 @@ public:
     bool customcrewmoods[Game::numcrew];
 };
 
+#ifndef OBJ_DEFINITION
 extern entityclass obj;
+#endif
 
 #endif /* ENTITY_H */
