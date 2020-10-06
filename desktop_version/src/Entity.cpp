@@ -4473,11 +4473,13 @@ void entityclass::movingplatformfix( int t, int j )
                 {
                     entities[j].yp = entities[t].yp + entities[t].h;
                     entities[j].vy = 0;
+                    entities[j].onroof = 2;
                 }
                 else
                 {
                     entities[j].yp = entities[t].yp - entities[j].h-entities[j].cy;
                     entities[j].vy = 0;
+                    entities[j].onground = 2;
                 }
             }
             else
