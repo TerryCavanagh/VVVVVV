@@ -1526,7 +1526,7 @@ void editorclass::findstartpoint()
         game.edsaverx = 100+tx;
         game.edsavery = 100+ty;
         game.edsavegc = 0;
-        game.edsavey--;
+        game.edsavey++;
         game.edsavedir=1-edentity[testeditor].p1;
     }
 }
@@ -4719,12 +4719,13 @@ void editorinput()
                             if (edentity[testeditor].p1 == 0) // NOT a bool check!
                             {
                                 game.edsavegc = 1;
+                                game.edsavey -= 2;
                             }
                             else
                             {
                                 game.edsavegc = 0;
+                                game.edsavey -= 7;
                             }
-                            game.edsavey--;
                             game.edsavedir = 0;
                         }
                         else
@@ -4737,7 +4738,7 @@ void editorinput()
                             game.edsaverx = 100+tx;
                             game.edsavery = 100+ty;
                             game.edsavegc = 0;
-                            game.edsavey--;
+                            game.edsavey++;
                             game.edsavedir=1-edentity[testeditor].p1;
                         }
 
