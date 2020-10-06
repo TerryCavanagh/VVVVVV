@@ -888,10 +888,12 @@ void gamelogic()
             {
                 for (int i = obj.entities.size() - 1; i >= 0;  i--)
                 {
-                    if (obj.entities[i].isplatform)
+                    if (!obj.entities[i].isplatform
+                    || SDL_abs(obj.entities[i].vx) >= 0.000001f)
                     {
-                        if(SDL_abs(obj.entities[i].vx) < 0.000001f)
-                        {
+                        continue;
+                    }
+
                             obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
 
                             bool entitygone = obj.updateentities(i);                // Behavioral logic
@@ -905,8 +907,6 @@ void gamelogic()
                             {
                                 obj.movingplatformfix(i, obj.getscm());
                             }
-                        }
-                    }
                 }
             }
 
@@ -914,10 +914,12 @@ void gamelogic()
             {
                 for (int ie = obj.entities.size() - 1; ie >= 0;  ie--)
                 {
-                    if (obj.entities[ie].isplatform)
+                    if (!obj.entities[ie].isplatform
+                    || SDL_abs(obj.entities[ie].vy) >= 0.000001f)
                     {
-                        if(SDL_abs(obj.entities[ie].vy) < 0.000001f)
-                        {
+                        continue;
+                    }
+
                             obj.removeblockat(obj.entities[ie].xp, obj.entities[ie].yp);
 
                             bool entitygone = obj.updateentities(ie);                // Behavioral logic
@@ -926,8 +928,6 @@ void gamelogic()
                             obj.entitymapcollision(ie);            // Collisions with walls
 
                             obj.hormovingplatformfix(ie);
-                        }
-                    }
                 }
                 //is the player standing on a moving platform?
                 int i = obj.getplayer();
@@ -950,13 +950,15 @@ void gamelogic()
 
             for (int ie = obj.entities.size() - 1; ie >= 0;  ie--)
             {
-                if (!obj.entities[ie].isplatform)
+                if (obj.entities[ie].isplatform)
                 {
+                    continue;
+                }
+
                     bool entitygone = obj.updateentities(ie);          // Behavioral logic
                     if (entitygone) continue;
                     obj.updateentitylogic(ie);       // Basic Physics
                     obj.entitymapcollision(ie);      // Collisions with walls
-                }
             }
 
             obj.entitycollisioncheck();         // Check ent v ent collisions, update states
