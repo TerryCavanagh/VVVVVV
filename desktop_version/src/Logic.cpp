@@ -890,7 +890,7 @@ void gamelogic()
                 {
                     if (obj.entities[i].isplatform)
                     {
-                        if(abs(obj.entities[i].vx) < 0.000001f)
+                        if(SDL_abs(obj.entities[i].vx) < 0.000001f)
                         {
                             obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
 
@@ -916,7 +916,7 @@ void gamelogic()
                 {
                     if (obj.entities[ie].isplatform)
                     {
-                        if(abs(obj.entities[ie].vy) < 0.000001f)
+                        if(SDL_abs(obj.entities[ie].vy) < 0.000001f)
                         {
                             obj.removeblockat(obj.entities[ie].xp, obj.entities[ie].yp);
 
