@@ -894,19 +894,19 @@ void gamelogic()
                         continue;
                     }
 
-                            obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
+                    obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
 
-                            bool entitygone = obj.updateentities(i);                // Behavioral logic
-                            if (entitygone) continue;
-                            obj.updateentitylogic(i);             // Basic Physics
-                            obj.entitymapcollision(i);            // Collisions with walls
+                    bool entitygone = obj.updateentities(i);                // Behavioral logic
+                    if (entitygone) continue;
+                    obj.updateentitylogic(i);             // Basic Physics
+                    obj.entitymapcollision(i);            // Collisions with walls
 
-                            obj.createblock(0, obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].w, obj.entities[i].h);
-                            obj.movingplatformfix(i, obj.getplayer());
-                            if (game.supercrewmate)
-                            {
-                                obj.movingplatformfix(i, obj.getscm());
-                            }
+                    obj.createblock(0, obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].w, obj.entities[i].h);
+                    obj.movingplatformfix(i, obj.getplayer());
+                    if (game.supercrewmate)
+                    {
+                        obj.movingplatformfix(i, obj.getscm());
+                    }
                 }
             }
 
@@ -920,14 +920,14 @@ void gamelogic()
                         continue;
                     }
 
-                            obj.removeblockat(obj.entities[ie].xp, obj.entities[ie].yp);
+                    obj.removeblockat(obj.entities[ie].xp, obj.entities[ie].yp);
 
-                            bool entitygone = obj.updateentities(ie);                // Behavioral logic
-                            if (entitygone) continue;
-                            obj.updateentitylogic(ie);             // Basic Physics
-                            obj.entitymapcollision(ie);            // Collisions with walls
+                    bool entitygone = obj.updateentities(ie);                // Behavioral logic
+                    if (entitygone) continue;
+                    obj.updateentitylogic(ie);             // Basic Physics
+                    obj.entitymapcollision(ie);            // Collisions with walls
 
-                            obj.hormovingplatformfix(ie);
+                    obj.hormovingplatformfix(ie);
                 }
                 //is the player standing on a moving platform?
                 int i = obj.getplayer();
@@ -955,10 +955,10 @@ void gamelogic()
                     continue;
                 }
 
-                    bool entitygone = obj.updateentities(ie);          // Behavioral logic
-                    if (entitygone) continue;
-                    obj.updateentitylogic(ie);       // Basic Physics
-                    obj.entitymapcollision(ie);      // Collisions with walls
+                bool entitygone = obj.updateentities(ie);          // Behavioral logic
+                if (entitygone) continue;
+                obj.updateentitylogic(ie);       // Basic Physics
+                obj.entitymapcollision(ie);      // Collisions with walls
             }
 
             obj.entitycollisioncheck();         // Check ent v ent collisions, update states
