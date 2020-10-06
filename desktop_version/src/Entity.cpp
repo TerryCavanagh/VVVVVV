@@ -2619,12 +2619,12 @@ bool entityclass::updateentities( int i )
 
                 if (entities[i].tile == 20)
                 {
-                    game.savey = entities[i].yp - 1;
+                    game.savey = entities[i].yp - 2;
                     game.savegc = 1;
                 }
                 else if (entities[i].tile == 21)
                 {
-                    game.savey = entities[i].yp-8;
+                    game.savey = entities[i].yp - 7;
                     game.savegc = 0;
                 }
 
