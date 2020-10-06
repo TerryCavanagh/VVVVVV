@@ -4716,7 +4716,14 @@ void editorinput()
                             game.edsavey = (edentity[testeditor].y%30)*8;
                             game.edsaverx = 100+tx;
                             game.edsavery = 100+ty;
-                            game.edsavegc = 1-edentity[testeditor].p1;
+                            if (edentity[testeditor].p1 == 0) // NOT a bool check!
+                            {
+                                game.edsavegc = 1;
+                            }
+                            else
+                            {
+                                game.edsavegc = 0;
+                            }
                             game.edsavey--;
                             game.edsavedir = 0;
                         }
