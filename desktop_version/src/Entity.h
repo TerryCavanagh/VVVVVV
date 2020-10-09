@@ -79,6 +79,8 @@ public:
 
     void removeblockat(int x, int y);
 
+    void nocollisionat(int x, int y);
+
     void removetrigger(int t);
 
     void copylinecross(int t);

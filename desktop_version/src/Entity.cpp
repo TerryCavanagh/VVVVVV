@@ -1081,6 +1081,21 @@ void entityclass::removeblockat( int x, int y )
     }
 }
 
+void entityclass::nocollisionat(int x, int y)
+{
+    for (size_t i = 0; i < blocks.size(); i++)
+    {
+        if (blocks[i].xp == x && blocks[i].yp == y)
+        {
+            blocks[i].wp = 0;
+            blocks[i].hp = 0;
+
+            blocks[i].rect.w = blocks[i].wp;
+            blocks[i].rect.h = blocks[i].hp;
+        }
+    }
+}
+
 void entityclass::removetrigger( int t )
 {
     for(size_t i=0; i<blocks.size(); i++)
