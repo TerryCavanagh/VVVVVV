@@ -894,8 +894,8 @@ void mapclass::warpto(int rx, int ry , int t, int tx, int ty)
 	{
 		obj.entities[t].xp = tx * 8;
 		obj.entities[t].yp = (ty * 8) - obj.entities[t].h;
-		obj.entities[t].oldxp = obj.entities[t].xp;
-		obj.entities[t].oldyp = obj.entities[t].yp;
+		obj.entities[t].lerpoldxp = obj.entities[t].xp;
+		obj.entities[t].lerpoldyp = obj.entities[t].yp;
 	}
 	game.gravitycontrol = 0;
 }
@@ -1100,8 +1100,8 @@ void mapclass::gotoroom(int rx, int ry)
 	temp = obj.getplayer();
 	if(INBOUNDS_VEC(temp, obj.entities))
 	{
-		obj.entities[temp].oldxp = obj.entities[temp].xp - int(obj.entities[temp].vx);
-		obj.entities[temp].oldyp = obj.entities[temp].yp - int(obj.entities[temp].vy);
+		obj.entities[temp].lerpoldxp = obj.entities[temp].xp - int(obj.entities[temp].vx);
+		obj.entities[temp].lerpoldyp = obj.entities[temp].yp - int(obj.entities[temp].vy);
 	}
 
 	for (size_t i = 0; i < obj.entities.size(); i++)

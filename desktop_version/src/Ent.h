@@ -49,6 +49,7 @@ public:
     int yp;int xp;
 
     Uint32 realcol;
+    int lerpoldxp, lerpoldyp;
 };
 
 #endif /* ENT_H */

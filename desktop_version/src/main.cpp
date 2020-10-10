@@ -542,11 +542,11 @@ void inline fixedloop()
                 script.run();
             }
 
-            //Update old positions of entities - has to be done BEFORE gameinput!
+            //Update old lerp positions of entities - has to be done BEFORE gameinput!
             for (size_t i = 0; i < obj.entities.size(); i++)
             {
-                obj.entities[i].oldxp = obj.entities[i].xp;
-                obj.entities[i].oldyp = obj.entities[i].yp;
+                obj.entities[i].lerpoldxp = obj.entities[i].xp;
+                obj.entities[i].lerpoldyp = obj.entities[i].yp;
             }
 
             gameinput();

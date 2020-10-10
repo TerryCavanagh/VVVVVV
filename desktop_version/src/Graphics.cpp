@@ -1633,8 +1633,8 @@ void Graphics::drawentities()
             continue;
         }
 
-        int xp = lerp(obj.entities[i].oldxp, obj.entities[i].xp);
-        int yp = lerp(obj.entities[i].oldyp, obj.entities[i].yp);
+        int xp = lerp(obj.entities[i].lerpoldxp, obj.entities[i].xp);
+        int yp = lerp(obj.entities[i].lerpoldyp, obj.entities[i].yp);
 
         switch (obj.entities[i].size)
         {
