@@ -1081,6 +1081,24 @@ void entityclass::removeblockat( int x, int y )
     }
 }
 
+void entityclass::moveblockto(int x1, int y1, int x2, int y2, int w, int h)
+{
+    for (size_t i = 0; i < blocks.size(); i++)
+    {
+        if (blocks[i].xp == x1 && blocks[i].yp == y1)
+        {
+            blocks[i].xp = x2;
+            blocks[i].yp = y2;
+
+            blocks[i].wp = w;
+            blocks[i].hp = h;
+
+            blocks[i].rectset(blocks[i].xp, blocks[i].yp, blocks[i].wp, blocks[i].hp);
+            break;
+        }
+    }
+}
+
 void entityclass::nocollisionat(int x, int y)
 {
     for (size_t i = 0; i < blocks.size(); i++)
