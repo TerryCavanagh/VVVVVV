@@ -4523,19 +4523,6 @@ void entityclass::movingplatformfix( int t, int j )
     }
 }
 
-void entityclass::hormovingplatformfix( int t )
-{
-    if (!INBOUNDS_VEC(t, entities))
-    {
-        puts("hormovingplatformfix() out-of-bounds!");
-        return;
-    }
-
-    //If this intersects the player, then we move the player along it
-    //for horizontal platforms, this is simplier
-    createblock(0, entities[t].xp, entities[t].yp, entities[t].w, entities[t].h);
-}
-
 void entityclass::customwarplinecheck(int i) {
     if (!INBOUNDS_VEC(i, entities))
     {
