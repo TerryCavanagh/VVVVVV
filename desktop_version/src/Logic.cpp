@@ -1061,13 +1061,13 @@ void gamelogic()
                         {
                             if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                             obj.entities[i].xp += 400;
-                            obj.entities[i].oldxp += 400;
+                            obj.entities[i].lerpoldxp += 400;
                         }
                         else if (obj.entities[i].xp > 320)
                         {
                             if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                             obj.entities[i].xp -= 400;
-                            obj.entities[i].oldxp -= 400;
+                            obj.entities[i].lerpoldxp -= 400;
                         }
                     }
                     else
@@ -1076,13 +1076,13 @@ void gamelogic()
                         {
                             if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                             obj.entities[i].xp += 320;
-                            obj.entities[i].oldxp += 320;
+                            obj.entities[i].lerpoldxp += 320;
                         }
                         else if (obj.entities[i].xp > 310)
                         {
                             if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                             obj.entities[i].xp -= 320;
-                            obj.entities[i].oldxp -= 320;
+                            obj.entities[i].lerpoldxp -= 320;
                         }
                     }
                 }
@@ -1098,13 +1098,13 @@ void gamelogic()
                     {
                         if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                         obj.entities[i].yp += 232;
-                        obj.entities[i].oldyp += 232;
+                        obj.entities[i].lerpoldyp += 232;
                     }
                     else if (obj.entities[i].yp > 226)
                     {
                         if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                         obj.entities[i].yp -= 232;
-                        obj.entities[i].oldyp -= 232;
+                        obj.entities[i].lerpoldyp -= 232;
                     }
                 }
             }
@@ -1122,13 +1122,13 @@ void gamelogic()
                     {
                         if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                         obj.entities[i].xp += 350;
-                        obj.entities[i].oldxp += 350;
+                        obj.entities[i].lerpoldxp += 350;
                     }
                     else if (obj.entities[i].xp > 320)
                     {
                         if (obj.entities[i].isplatform) obj.removeblockat(obj.entities[i].xp, obj.entities[i].yp);
                         obj.entities[i].xp -= 350;
-                        obj.entities[i].oldxp -= 350;
+                        obj.entities[i].lerpoldxp -= 350;
                     }
                 }
             }
@@ -1226,12 +1226,12 @@ void gamelogic()
                     if (obj.entities[i].xp <= -10)
                     {
                         obj.entities[i].xp += 320;
-                        obj.entities[i].oldxp += 320;
+                        obj.entities[i].lerpoldxp += 320;
                     }
                     else if (obj.entities[i].xp > 310)
                     {
                         obj.entities[i].xp -= 320;
-                        obj.entities[i].oldxp -= 320;
+                        obj.entities[i].lerpoldxp -= 320;
                     }
                 }
             }

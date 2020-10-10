@@ -3447,8 +3447,8 @@ void scriptclass::teleport()
 		obj.entities[i].xp = 150;
 		obj.entities[i].yp = 110;
 		if(game.teleport_to_x==17 && game.teleport_to_y==17) obj.entities[i].xp = 88; //prevent falling!
-		obj.entities[i].oldxp = obj.entities[i].xp;
-		obj.entities[i].oldyp = obj.entities[i].yp;
+		obj.entities[i].lerpoldxp = obj.entities[i].xp;
+		obj.entities[i].lerpoldyp = obj.entities[i].yp;
 	}
 
 	if (game.teleportscript == "levelonecomplete")

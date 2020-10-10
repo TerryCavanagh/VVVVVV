@@ -56,6 +56,8 @@ entclass::entclass()
 	actionframe = 0;
 
 	realcol = 0;
+	lerpoldxp = 0;
+	lerpoldyp = 0;
 }
 
 bool entclass::outside()

@@ -1180,8 +1180,8 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
     entclass entity;
     entity.xp = xp;
     entity.yp = yp;
-    entity.oldxp = xp;
-    entity.oldyp = yp;
+    entity.lerpoldxp = xp;
+    entity.lerpoldyp = yp;
     entity.type = t;
     switch(t)
     {
@@ -1750,7 +1750,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
                 entity.tile = 188 + vx;
                 entity.colour = 37;
                 entity.h += 3;
-                entity.oldyp -= 3;
+                entity.lerpoldyp -= 3;
                 entity.yp -= 3;
             }
             break;
@@ -2407,20 +2407,20 @@ bool entityclass::updateentities( int i )
                     {
                         entities[i].tile = 120;
                         entities[i].yp = (28*8)-62;
-                        entities[i].oldyp = (28*8)-62;
+                        entities[i].lerpoldyp = (28*8)-62;
                     }
                     else
                     {
                         entities[i].tile = 96;
                         entities[i].yp = 24;
-                        entities[i].oldyp = 24;
+                        entities[i].lerpoldyp = 24;
                     }
                     //now, x position
                     if (INBOUNDS_VEC(player, entities) && entities[player].xp > 20 * 8)
                     {
                         //approach from the left
                         entities[i].xp = -64;
-                        entities[i].oldxp = -64;
+                        entities[i].lerpoldxp = -64;
                         entities[i].state = 2;
                         bool entitygone = updateentities(i); //right
                         if (entitygone) return true;
@@ -2429,7 +2429,7 @@ bool entityclass::updateentities( int i )
                     {
                         //approach from the left
                         entities[i].xp = 320;
-                        entities[i].oldxp = 320;
+                        entities[i].lerpoldxp = 320;
                         entities[i].state = 3;
                         bool entitygone = updateentities(i); //left
                         if (entitygone) return true;
@@ -2458,7 +2458,7 @@ bool entityclass::updateentities( int i )
                 {
                     entities[i].statedelay = 6;
                     entities[i].xp -=  int(entities[i].para);
-                    entities[i].oldxp -=  int(entities[i].para);
+                    entities[i].lerpoldxp -=  int(entities[i].para);
                 }
                 break;
             case 18: //Special for ASCII Snake (right)
@@ -2466,7 +2466,7 @@ bool entityclass::updateentities( int i )
                 {
                     entities[i].statedelay = 6;
                     entities[i].xp += int(entities[i].para);
-                    entities[i].oldxp += int(entities[i].para);
+                    entities[i].lerpoldxp += int(entities[i].para);
                 }
                 break;
             }
@@ -4388,6 +4388,9 @@ void entityclass::updateentitylogic( int t )
         puts("updateentitylogic() out-of-bounds!");
         return;
     }
+
+    entities[t].oldxp = entities[t].xp;
+    entities[t].oldyp = entities[t].yp;
 
     entities[t].vx = entities[t].vx + entities[t].ax;
     entities[t].vy = entities[t].vy + entities[t].ay;
