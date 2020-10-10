@@ -168,8 +168,6 @@ public:
 
     void movingplatformfix(int t, int j);
 
-    void hormovingplatformfix(int t);
-
     void entitycollisioncheck();
 
     void collisioncheck(int i, int j, bool scm = false);
