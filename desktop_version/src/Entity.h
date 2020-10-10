@@ -79,6 +79,8 @@ public:
 
     void removeblockat(int x, int y);
 
+    void moveblockto(int x1, int y1, int x2, int y2, int w, int h);
+
     void nocollisionat(int x, int y);
 
     void removetrigger(int t);
