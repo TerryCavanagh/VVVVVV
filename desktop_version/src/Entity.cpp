@@ -4684,7 +4684,12 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         }
         break;
     case 2:   //Moving platforms
-        if (entitycollide(i, j)) removeblockat(entities[j].xp, entities[j].yp);
+        if (entitycollide(i, j))
+        {
+            //Disable collision temporarily so we don't push the person out!
+            //Collision will be restored at end of platform update loop in gamelogic
+            nocollisionat(entities[j].xp, entities[j].yp);
+        }
         break;
     case 3:   //Entity to entity
         if(entities[j].onentity>0)
