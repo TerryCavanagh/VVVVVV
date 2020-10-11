@@ -177,7 +177,7 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 		t += num_mmmmmm_tracks;
 	}
 	safeToProcessMusic = true;
-	Mix_VolumeMusic(MIX_MAX_VOLUME);
+	musicVolume = MIX_MAX_VOLUME;
 	if (currentsong !=t)
 	{
 		if (t != -1)
@@ -246,7 +246,6 @@ void musicclass::haltdasmusik()
 
 void musicclass::silencedasmusik()
 {
-	Mix_VolumeMusic(0) ;
 	musicVolume = 0;
 }
 
@@ -265,7 +264,6 @@ void musicclass::fadeout()
 void musicclass::processmusicfadein()
 {
 	musicVolume += FadeVolAmountPerFrame;
-	Mix_VolumeMusic(musicVolume);
 	if (musicVolume >= MIX_MAX_VOLUME)
 	{
 		m_doFadeInVol = false;
