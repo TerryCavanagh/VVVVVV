@@ -132,7 +132,7 @@ void musicclass::init()
 
 	safeToProcessMusic= false;
 	m_doFadeInVol = false;
-	musicVolume = 128;
+	musicVolume = MIX_MAX_VOLUME;
 	FadeVolAmountPerFrame = 0;
 
 	currentsong = 0;
@@ -177,7 +177,7 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 		t += num_mmmmmm_tracks;
 	}
 	safeToProcessMusic = true;
-	Mix_VolumeMusic(128);
+	Mix_VolumeMusic(MIX_MAX_VOLUME);
 	if (currentsong !=t)
 	{
 		if (t != -1)
