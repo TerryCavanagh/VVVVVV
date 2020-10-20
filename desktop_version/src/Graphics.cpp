@@ -1598,25 +1598,9 @@ void Graphics::drawentities()
     bool custom_gray = false;
 #endif
 
-    std::vector<SDL_Surface*> *tilesvec;
-    if (map.custommode && !map.finalmode)
-    {
-        tilesvec = &entcolours;
-    }
-    else
-    {
-        tilesvec = &tiles;
-    }
+    std::vector<SDL_Surface*>& tilesvec = (map.custommode && !map.finalmode) ? entcolours : tiles;
 
-    std::vector<SDL_Surface*> *spritesvec;
-    if (flipmode)
-    {
-        spritesvec = &flipsprites;
-    }
-    else
-    {
-        spritesvec = &sprites;
-    }
+    std::vector<SDL_Surface*>& spritesvec = flipmode ? flipsprites : sprites;
 
     int yoff;
     if (map.towermode)
@@ -1643,7 +1627,7 @@ void Graphics::drawentities()
         case 0:
         {
             // Sprites
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, (*spritesvec)))
+            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
                 continue;
             }
@@ -1654,7 +1638,7 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
 
             //screenwrapping!
             point wrappedPoint;
@@ -1691,21 +1675,21 @@ void Graphics::drawentities()
                 drawRect = sprites_rect;
                 drawRect.x += wrappedPoint.x;
                 drawRect.y += tpoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+                BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             }
             if (wrapY && map.warpy)
             {
                 drawRect = sprites_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += wrappedPoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+                BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             }
             if (wrapX && wrapY && map.warpx && map.warpy)
             {
                 drawRect = sprites_rect;
                 drawRect.x += wrappedPoint.x;
                 drawRect.y += wrappedPoint.y;
-                BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+                BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
             }
             break;
         }
@@ -1726,7 +1710,7 @@ void Graphics::drawentities()
         case 8:
         {
             // Special: Moving platform, 4 tiles or 8 tiles
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, (*tilesvec)))
+            if (!INBOUNDS_VEC(obj.entities[i].drawframe, tilesvec))
             {
                 continue;
             }
@@ -1747,11 +1731,11 @@ void Graphics::drawentities()
                 {
                     colourTransform temp_ct;
                     temp_ct.colour = 0xFFFFFFFF;
-                    BlitSurfaceTinted((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, temp_ct);
+                    BlitSurfaceTinted(tilesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, temp_ct);
                 }
                 else
                 {
-                    BlitSurfaceStandard((*tilesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
+                    BlitSurfaceStandard(tilesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
                 }
             }
             break;
@@ -1793,7 +1777,7 @@ void Graphics::drawentities()
             // Note: This code is in the 4-tile code
             break;
         case 9:         // Really Big Sprite! (2x2)
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, (*spritesvec)))
+            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
                 continue;
             }
@@ -1805,7 +1789,7 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
             tpoint.x = xp+32;
             tpoint.y = yp - yoff;
@@ -1813,7 +1797,7 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
 
             tpoint.x = xp;
             tpoint.y = yp+32 - yoff;
@@ -1821,7 +1805,7 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
 
             tpoint.x = xp+32;
             tpoint.y = yp+32 - yoff;
@@ -1829,10 +1813,10 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
             break;
         case 10:         // 2x1 Sprite
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, (*spritesvec)))
+            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
                 continue;
             }
@@ -1844,7 +1828,7 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
             tpoint.x = xp+32;
             tpoint.y = yp - yoff;
@@ -1852,14 +1836,14 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
             break;
         case 11:    //The fucking elephant
             setcolreal(obj.entities[i].realcol);
             drawimagecol(3, xp, yp - yoff);
             break;
         case 12:         // Regular sprites that don't wrap
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, (*spritesvec)))
+            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
                 continue;
             }
@@ -1870,7 +1854,7 @@ void Graphics::drawentities()
             drawRect = sprites_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured((*spritesvec)[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
 
             //if we're outside the screen, we need to draw indicators
@@ -1918,7 +1902,7 @@ void Graphics::drawentities()
         case 13:
         {
             //Special for epilogue: huge hero!
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, (*spritesvec)))
+            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
                 continue;
             }
@@ -1926,7 +1910,7 @@ void Graphics::drawentities()
             tpoint.x = xp; tpoint.y = yp - yoff;
             setcolreal(obj.entities[i].realcol);
             SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
-            SDL_Surface* TempSurface = ScaleSurface( (*spritesvec)[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
+            SDL_Surface* TempSurface = ScaleSurface( spritesvec[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
             BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
             SDL_FreeSurface(TempSurface);
 
