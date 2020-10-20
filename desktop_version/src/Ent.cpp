@@ -644,3 +644,11 @@ void entclass::updatecolour()
 		break;
 	}
 }
+
+bool entclass::ishumanoid()
+{
+	return type == 0
+		|| type == 12
+		|| type == 14
+		|| type == 55;
+}

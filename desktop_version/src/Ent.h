@@ -20,6 +20,8 @@ public:
 
     void updatecolour();
 
+    bool ishumanoid();
+
 public:
     //Fundamentals
     bool invis;
