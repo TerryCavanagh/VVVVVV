@@ -1593,26 +1593,18 @@ void Graphics::drawentities()
 
 #if !defined(NO_CUSTOM_LEVELS)
     // Special case for gray Warp Zone tileset!
-    int room = game.roomx-100 + (game.roomy-100) * ed.maxwidth;
-    bool custom_gray = INBOUNDS_ARR(room, ed.level)
+    const int room = game.roomx-100 + (game.roomy-100) * ed.maxwidth;
+    const bool custom_gray = INBOUNDS_ARR(room, ed.level)
     && ed.level[room].tileset == 3 && ed.level[room].tilecol == 6;
 #else
-    bool custom_gray = false;
+    const bool custom_gray = false;
 #endif
 
     std::vector<SDL_Surface*>& tilesvec = (map.custommode && !map.finalmode) ? entcolours : tiles;
 
     std::vector<SDL_Surface*>& spritesvec = flipmode ? flipsprites : sprites;
 
-    int yoff;
-    if (map.towermode)
-    {
-        yoff = lerp(map.oldypos, map.ypos);
-    }
-    else
-    {
-        yoff = 0;
-    }
+    const int yoff = map.towermode ? lerp(map.oldypos, map.ypos) : 0;
 
     for (int i = obj.entities.size() - 1; i >= 0; i--)
     {
@@ -1621,8 +1613,8 @@ void Graphics::drawentities()
             continue;
         }
 
-        int xp = lerp(obj.entities[i].lerpoldxp, obj.entities[i].xp);
-        int yp = lerp(obj.entities[i].lerpoldyp, obj.entities[i].yp);
+        const int xp = lerp(obj.entities[i].lerpoldxp, obj.entities[i].xp);
+        const int yp = lerp(obj.entities[i].lerpoldyp, obj.entities[i].yp);
 
         switch (obj.entities[i].size)
         {
@@ -1671,7 +1663,7 @@ void Graphics::drawentities()
                 wrappedPoint.y -= 230;
             }
 
-            bool isInWrappingAreaOfTower = map.towermode && !map.minitowermode && map.ypos >= 500 && map.ypos <= 5000;
+            const bool isInWrappingAreaOfTower = map.towermode && !map.minitowermode && map.ypos >= 500 && map.ypos <= 5000;
             if (wrapX && (map.warpx || isInWrappingAreaOfTower))
             {
                 drawRect = sprites_rect;
