@@ -1609,10 +1609,10 @@ void Graphics::drawentity(const int i, const int yoff)
         return;
     }
 
-        if (obj.entities[i].invis)
-        {
-            return;
-        }
+    if (obj.entities[i].invis)
+    {
+        return;
+    }
 
     point tpoint;
 
@@ -1631,306 +1631,306 @@ void Graphics::drawentity(const int i, const int yoff)
 
     std::vector<SDL_Surface*>& spritesvec = flipmode ? flipsprites : sprites;
 
-        const int xp = lerp(obj.entities[i].lerpoldxp, obj.entities[i].xp);
-        const int yp = lerp(obj.entities[i].lerpoldyp, obj.entities[i].yp);
+    const int xp = lerp(obj.entities[i].lerpoldxp, obj.entities[i].xp);
+    const int yp = lerp(obj.entities[i].lerpoldyp, obj.entities[i].yp);
 
-        switch (obj.entities[i].size)
+    switch (obj.entities[i].size)
+    {
+    case 0:
+    {
+        // Sprites
+        if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
         {
-        case 0:
-        {
-            // Sprites
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
-            {
-                return;
-            }
-            tpoint.x = xp;
-            tpoint.y = yp - yoff;
-            setcolreal(obj.entities[i].realcol);
+            return;
+        }
+        tpoint.x = xp;
+        tpoint.y = yp - yoff;
+        setcolreal(obj.entities[i].realcol);
 
+        drawRect = sprites_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+
+        //screenwrapping!
+        point wrappedPoint;
+        bool wrapX = false;
+        bool wrapY = false;
+
+        wrappedPoint.x = tpoint.x;
+        if (tpoint.x < 0)
+        {
+            wrapX = true;
+            wrappedPoint.x += 320;
+        }
+        else if (tpoint.x > 300)
+        {
+            wrapX = true;
+            wrappedPoint.x -= 320;
+        }
+
+        wrappedPoint.y = tpoint.y;
+        if (tpoint.y < 0)
+        {
+            wrapY = true;
+            wrappedPoint.y += 230;
+        }
+        else if (tpoint.y > 210)
+        {
+            wrapY = true;
+            wrappedPoint.y -= 230;
+        }
+
+        const bool isInWrappingAreaOfTower = map.towermode && !map.minitowermode && map.ypos >= 500 && map.ypos <= 5000;
+        if (wrapX && (map.warpx || isInWrappingAreaOfTower))
+        {
             drawRect = sprites_rect;
-            drawRect.x += tpoint.x;
+            drawRect.x += wrappedPoint.x;
             drawRect.y += tpoint.y;
             BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
-
-            //screenwrapping!
-            point wrappedPoint;
-            bool wrapX = false;
-            bool wrapY = false;
-
-            wrappedPoint.x = tpoint.x;
-            if (tpoint.x < 0)
-            {
-                wrapX = true;
-                wrappedPoint.x += 320;
-            }
-            else if (tpoint.x > 300)
-            {
-                wrapX = true;
-                wrappedPoint.x -= 320;
-            }
-
-            wrappedPoint.y = tpoint.y;
-            if (tpoint.y < 0)
-            {
-                wrapY = true;
-                wrappedPoint.y += 230;
-            }
-            else if (tpoint.y > 210)
-            {
-                wrapY = true;
-                wrappedPoint.y -= 230;
-            }
-
-            const bool isInWrappingAreaOfTower = map.towermode && !map.minitowermode && map.ypos >= 500 && map.ypos <= 5000;
-            if (wrapX && (map.warpx || isInWrappingAreaOfTower))
-            {
-                drawRect = sprites_rect;
-                drawRect.x += wrappedPoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
-            }
-            if (wrapY && map.warpy)
-            {
-                drawRect = sprites_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += wrappedPoint.y;
-                BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
-            }
-            if (wrapX && wrapY && map.warpx && map.warpy)
-            {
-                drawRect = sprites_rect;
-                drawRect.x += wrappedPoint.x;
-                drawRect.y += wrappedPoint.y;
-                BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
-            }
-            break;
         }
-        case 1:
-            // Tiles
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, tiles))
-            {
-                return;
-            }
-            tpoint.x = xp;
-            tpoint.y = yp - yoff;
+        if (wrapY && map.warpy)
+        {
+            drawRect = sprites_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += wrappedPoint.y;
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+        }
+        if (wrapX && wrapY && map.warpx && map.warpy)
+        {
+            drawRect = sprites_rect;
+            drawRect.x += wrappedPoint.x;
+            drawRect.y += wrappedPoint.y;
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, ct);
+        }
+        break;
+    }
+    case 1:
+        // Tiles
+        if (!INBOUNDS_VEC(obj.entities[i].drawframe, tiles))
+        {
+            return;
+        }
+        tpoint.x = xp;
+        tpoint.y = yp - yoff;
+        drawRect = tiles_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceStandard(tiles[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
+        break;
+    case 2:
+    case 8:
+    {
+        // Special: Moving platform, 4 tiles or 8 tiles
+        if (!INBOUNDS_VEC(obj.entities[i].drawframe, tilesvec))
+        {
+            return;
+        }
+        tpoint.x = xp;
+        tpoint.y = yp - yoff;
+        int thiswidth = 4;
+        if (obj.entities[i].size == 8)
+        {
+            thiswidth = 8;
+        }
+        for (int ii = 0; ii < thiswidth; ii++)
+        {
             drawRect = tiles_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceStandard(tiles[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
-            break;
-        case 2:
-        case 8:
+            drawRect.x += 8 * ii;
+            if (custom_gray)
+            {
+                colourTransform temp_ct;
+                temp_ct.colour = 0xFFFFFFFF;
+                BlitSurfaceTinted(tilesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, temp_ct);
+            }
+            else
+            {
+                BlitSurfaceStandard(tilesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
+            }
+        }
+        break;
+    }
+    case 3:    // Big chunky pixels!
+        prect.x = xp;
+        prect.y = yp - yoff;
+        FillRect(backBuffer, prect, obj.entities[i].realcol);
+        break;
+    case 4:    // Small pickups
+        setcolreal(obj.entities[i].realcol);
+        drawhuetile(xp, yp - yoff, obj.entities[i].tile);
+        break;
+    case 5:    //Horizontal Line
+    {
+        int oldw = obj.entities[i].w;
+        if ((game.swngame == 3 || kludgeswnlinewidth) && obj.getlineat(84 - 32) == i)
         {
-            // Special: Moving platform, 4 tiles or 8 tiles
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, tilesvec))
-            {
-                return;
-            }
-            tpoint.x = xp;
-            tpoint.y = yp - yoff;
-            int thiswidth = 4;
-            if (obj.entities[i].size == 8)
-            {
-                thiswidth = 8;
-            }
-            for (int ii = 0; ii < thiswidth; ii++)
-            {
-                drawRect = tiles_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                drawRect.x += 8 * ii;
-                if (custom_gray)
-                {
-                    colourTransform temp_ct;
-                    temp_ct.colour = 0xFFFFFFFF;
-                    BlitSurfaceTinted(tilesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, temp_ct);
-                }
-                else
-                {
-                    BlitSurfaceStandard(tilesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect);
-                }
-            }
-            break;
+            oldw -= 24;
         }
-        case 3:    // Big chunky pixels!
-            prect.x = xp;
-            prect.y = yp - yoff;
-            FillRect(backBuffer, prect, obj.entities[i].realcol);
-            break;
-        case 4:    // Small pickups
-            setcolreal(obj.entities[i].realcol);
-            drawhuetile(xp, yp - yoff, obj.entities[i].tile);
-            break;
-        case 5:    //Horizontal Line
+        line_rect.x = xp;
+        line_rect.y = yp - yoff;
+        line_rect.w = lerp(oldw, obj.entities[i].w);
+        line_rect.h = 1;
+        drawgravityline(i);
+        break;
+    }
+    case 6:    //Vertical Line
+        line_rect.x = xp;
+        line_rect.y = yp - yoff;
+        line_rect.w = 1;
+        line_rect.h = obj.entities[i].h;
+        drawgravityline(i);
+        break;
+    case 7:    //Teleporter
+        drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].realcol);
+        break;
+    //case 8:    // Special: Moving platform, 8 tiles
+        // Note: This code is in the 4-tile code
+        break;
+    case 9:         // Really Big Sprite! (2x2)
+        if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
         {
-            int oldw = obj.entities[i].w;
-            if ((game.swngame == 3 || kludgeswnlinewidth) && obj.getlineat(84 - 32) == i)
-            {
-                oldw -= 24;
-            }
-            line_rect.x = xp;
-            line_rect.y = yp - yoff;
-            line_rect.w = lerp(oldw, obj.entities[i].w);
-            line_rect.h = 1;
-            drawgravityline(i);
-            break;
+            return;
         }
-        case 6:    //Vertical Line
-            line_rect.x = xp;
-            line_rect.y = yp - yoff;
-            line_rect.w = 1;
-            line_rect.h = obj.entities[i].h;
-            drawgravityline(i);
-            break;
-        case 7:    //Teleporter
-            drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].realcol);
-            break;
-        //case 8:    // Special: Moving platform, 8 tiles
-            // Note: This code is in the 4-tile code
-            break;
-        case 9:         // Really Big Sprite! (2x2)
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
-            {
-                return;
-            }
-            setcolreal(obj.entities[i].realcol);
+        setcolreal(obj.entities[i].realcol);
 
-            tpoint.x = xp;
-            tpoint.y = yp - yoff;
+        tpoint.x = xp;
+        tpoint.y = yp - yoff;
 
-            drawRect = sprites_rect;
-            drawRect.x += tpoint.x;
-            drawRect.y += tpoint.y;
-            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+        drawRect = sprites_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
 
-            tpoint.x = xp+32;
-            tpoint.y = yp - yoff;
-            //
-            drawRect = sprites_rect;
-            drawRect.x += tpoint.x;
-            drawRect.y += tpoint.y;
-            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+        tpoint.x = xp+32;
+        tpoint.y = yp - yoff;
+        //
+        drawRect = sprites_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
 
-            tpoint.x = xp;
-            tpoint.y = yp+32 - yoff;
-            //
-            drawRect = sprites_rect;
-            drawRect.x += tpoint.x;
-            drawRect.y += tpoint.y;
-            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
+        tpoint.x = xp;
+        tpoint.y = yp+32 - yoff;
+        //
+        drawRect = sprites_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
 
-            tpoint.x = xp+32;
-            tpoint.y = yp+32 - yoff;
-            //
-            drawRect = sprites_rect;
-            drawRect.x += tpoint.x;
-            drawRect.y += tpoint.y;
-            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
-            break;
-        case 10:         // 2x1 Sprite
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
-            {
-                return;
-            }
-            setcolreal(obj.entities[i].realcol);
-
-            tpoint.x = xp;
-            tpoint.y = yp - yoff;
-            //
-            drawRect = sprites_rect;
-            drawRect.x += tpoint.x;
-            drawRect.y += tpoint.y;
-            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-
-            tpoint.x = xp+32;
-            tpoint.y = yp - yoff;
-            //
-            drawRect = sprites_rect;
-            drawRect.x += tpoint.x;
-            drawRect.y += tpoint.y;
-            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
-            break;
-        case 11:    //The fucking elephant
-            setcolreal(obj.entities[i].realcol);
-            drawimagecol(3, xp, yp - yoff);
-            break;
-        case 12:         // Regular sprites that don't wrap
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
-            {
-                return;
-            }
-            tpoint.x = xp;
-            tpoint.y = yp - yoff;
-            setcolreal(obj.entities[i].realcol);
-            //
-            drawRect = sprites_rect;
-            drawRect.x += tpoint.x;
-            drawRect.y += tpoint.y;
-            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
-
-
-            //if we're outside the screen, we need to draw indicators
-
-            if (obj.entities[i].xp < -20 && obj.entities[i].vx > 0)
-            {
-                if (obj.entities[i].xp < -100)
-                {
-                    tpoint.x = -5 + (int(( -obj.entities[i].xp) / 10));
-                }
-                else
-                {
-                    tpoint.x = 5;
-                }
-
-                tpoint.y = tpoint.y+4;
-
-
-                drawRect = tiles_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured(tiles[1167],NULL, backBuffer, &drawRect, ct);
-
-            }
-            else if (obj.entities[i].xp > 340 && obj.entities[i].vx < 0)
-            {
-                if (obj.entities[i].xp > 420)
-                {
-                    tpoint.x = 320 - (int(( obj.entities[i].xp-320) / 10));
-                }
-                else
-                {
-                    tpoint.x = 310;
-                }
-
-                tpoint.y = tpoint.y+4;
-                //
-
-                drawRect = tiles_rect;
-                drawRect.x += tpoint.x;
-                drawRect.y += tpoint.y;
-                BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
-            }
-            break;
-        case 13:
+        tpoint.x = xp+32;
+        tpoint.y = yp+32 - yoff;
+        //
+        drawRect = sprites_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
+        break;
+    case 10:         // 2x1 Sprite
+        if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
         {
-            //Special for epilogue: huge hero!
-            if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
+            return;
+        }
+        setcolreal(obj.entities[i].realcol);
+
+        tpoint.x = xp;
+        tpoint.y = yp - yoff;
+        //
+        drawRect = sprites_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+
+        tpoint.x = xp+32;
+        tpoint.y = yp - yoff;
+        //
+        drawRect = sprites_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+        break;
+    case 11:    //The fucking elephant
+        setcolreal(obj.entities[i].realcol);
+        drawimagecol(3, xp, yp - yoff);
+        break;
+    case 12:         // Regular sprites that don't wrap
+        if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
+        {
+            return;
+        }
+        tpoint.x = xp;
+        tpoint.y = yp - yoff;
+        setcolreal(obj.entities[i].realcol);
+        //
+        drawRect = sprites_rect;
+        drawRect.x += tpoint.x;
+        drawRect.y += tpoint.y;
+        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+
+
+        //if we're outside the screen, we need to draw indicators
+
+        if (obj.entities[i].xp < -20 && obj.entities[i].vx > 0)
+        {
+            if (obj.entities[i].xp < -100)
             {
-                return;
+                tpoint.x = -5 + (int(( -obj.entities[i].xp) / 10));
+            }
+            else
+            {
+                tpoint.x = 5;
             }
 
-            tpoint.x = xp; tpoint.y = yp - yoff;
-            setcolreal(obj.entities[i].realcol);
-            SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
-            SDL_Surface* TempSurface = ScaleSurface( spritesvec[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
-            BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
-            SDL_FreeSurface(TempSurface);
+            tpoint.y = tpoint.y+4;
 
 
+            drawRect = tiles_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured(tiles[1167],NULL, backBuffer, &drawRect, ct);
 
-            break;
         }
+        else if (obj.entities[i].xp > 340 && obj.entities[i].vx < 0)
+        {
+            if (obj.entities[i].xp > 420)
+            {
+                tpoint.x = 320 - (int(( obj.entities[i].xp-320) / 10));
+            }
+            else
+            {
+                tpoint.x = 310;
+            }
+
+            tpoint.y = tpoint.y+4;
+            //
+
+            drawRect = tiles_rect;
+            drawRect.x += tpoint.x;
+            drawRect.y += tpoint.y;
+            BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
         }
+        break;
+    case 13:
+    {
+        //Special for epilogue: huge hero!
+        if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
+        {
+            return;
+        }
+
+        tpoint.x = xp; tpoint.y = yp - yoff;
+        setcolreal(obj.entities[i].realcol);
+        SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
+        SDL_Surface* TempSurface = ScaleSurface( spritesvec[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
+        BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
+        SDL_FreeSurface(TempSurface);
+
+
+
+        break;
+    }
+    }
 }
 
 void Graphics::drawbackground( int t )
