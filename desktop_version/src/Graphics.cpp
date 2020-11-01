@@ -1591,6 +1591,27 @@ void Graphics::drawtrophytext()
 
 void Graphics::drawentities()
 {
+    const int yoff = map.towermode ? lerp(map.oldypos, map.ypos) : 0;
+
+    for (int i = obj.entities.size() - 1; i >= 0; i--)
+    {
+        drawentity(i, yoff);
+    }
+}
+
+void Graphics::drawentity(const int i, const int yoff)
+{
+    if (!INBOUNDS_VEC(i, obj.entities))
+    {
+        WHINE_ONCE("drawentity() out-of-bounds!");
+        return;
+    }
+
+        if (obj.entities[i].invis)
+        {
+            return;
+        }
+
     point tpoint;
 
     SDL_Rect drawRect;
@@ -1608,15 +1629,6 @@ void Graphics::drawentities()
 
     std::vector<SDL_Surface*>& spritesvec = flipmode ? flipsprites : sprites;
 
-    const int yoff = map.towermode ? lerp(map.oldypos, map.ypos) : 0;
-
-    for (int i = obj.entities.size() - 1; i >= 0; i--)
-    {
-        if (obj.entities[i].invis)
-        {
-            continue;
-        }
-
         const int xp = lerp(obj.entities[i].lerpoldxp, obj.entities[i].xp);
         const int yp = lerp(obj.entities[i].lerpoldyp, obj.entities[i].yp);
 
@@ -1627,7 +1639,7 @@ void Graphics::drawentities()
             // Sprites
             if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
-                continue;
+                return;
             }
             tpoint.x = xp;
             tpoint.y = yp - yoff;
@@ -1695,7 +1707,7 @@ void Graphics::drawentities()
             // Tiles
             if (!INBOUNDS_VEC(obj.entities[i].drawframe, tiles))
             {
-                continue;
+                return;
             }
             tpoint.x = xp;
             tpoint.y = yp - yoff;
@@ -1710,7 +1722,7 @@ void Graphics::drawentities()
             // Special: Moving platform, 4 tiles or 8 tiles
             if (!INBOUNDS_VEC(obj.entities[i].drawframe, tilesvec))
             {
-                continue;
+                return;
             }
             tpoint.x = xp;
             tpoint.y = yp - yoff;
@@ -1777,7 +1789,7 @@ void Graphics::drawentities()
         case 9:         // Really Big Sprite! (2x2)
             if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
-                continue;
+                return;
             }
             setcolreal(obj.entities[i].realcol);
 
@@ -1816,7 +1828,7 @@ void Graphics::drawentities()
         case 10:         // 2x1 Sprite
             if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
-                continue;
+                return;
             }
             setcolreal(obj.entities[i].realcol);
 
@@ -1843,7 +1855,7 @@ void Graphics::drawentities()
         case 12:         // Regular sprites that don't wrap
             if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
-                continue;
+                return;
             }
             tpoint.x = xp;
             tpoint.y = yp - yoff;
@@ -1902,7 +1914,7 @@ void Graphics::drawentities()
             //Special for epilogue: huge hero!
             if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
             {
-                continue;
+                return;
             }
 
             tpoint.x = xp; tpoint.y = yp - yoff;
@@ -1917,7 +1929,6 @@ void Graphics::drawentities()
             break;
         }
         }
-    }
 }
 
 void Graphics::drawbackground( int t )
