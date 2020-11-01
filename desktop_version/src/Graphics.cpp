@@ -1593,9 +1593,30 @@ void Graphics::drawentities()
 {
     const int yoff = map.towermode ? lerp(map.oldypos, map.ypos) : 0;
 
-    for (int i = obj.entities.size() - 1; i >= 0; i--)
+    if (!map.custommode)
     {
-        drawentity(i, yoff);
+        for (int i = obj.entities.size() - 1; i >= 0; i--)
+        {
+            if (!obj.entities[i].ishumanoid())
+            {
+                drawentity(i, yoff);
+            }
+        }
+
+        for (int i = obj.entities.size() - 1; i >= 0; i--)
+        {
+            if (obj.entities[i].ishumanoid())
+            {
+                drawentity(i, yoff);
+            }
+        }
+    }
+    else
+    {
+        for (int i = obj.entities.size() - 1; i >= 0; i--)
+        {
+            drawentity(i, yoff);
+        }
     }
 }
 
