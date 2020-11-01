@@ -16,6 +16,8 @@ public:
 		bool badSignal
 	);
 
+	void LoadIcon();
+
 	void ResizeScreen(int x, int y);
 	void ResizeToNearestMultiple();
 	void GetWindowSize(int* x, int* y);
