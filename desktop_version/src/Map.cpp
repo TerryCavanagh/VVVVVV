@@ -1100,6 +1100,8 @@ void mapclass::gotoroom(int rx, int ry)
 	temp = obj.getplayer();
 	if(INBOUNDS_VEC(temp, obj.entities))
 	{
+		obj.entities[temp].oldxp = obj.entities[temp].xp;
+		obj.entities[temp].oldyp = obj.entities[temp].yp;
 		obj.entities[temp].lerpoldxp = obj.entities[temp].xp - int(obj.entities[temp].vx);
 		obj.entities[temp].lerpoldyp = obj.entities[temp].yp - int(obj.entities[temp].vy);
 	}
