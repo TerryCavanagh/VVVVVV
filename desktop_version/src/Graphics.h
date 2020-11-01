@@ -139,6 +139,8 @@ public:
 
 	void drawentities();
 
+	void drawentity(const int i, const int yoff);
+
 	void drawtrophytext();
 
 	void bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
