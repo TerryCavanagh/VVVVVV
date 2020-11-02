@@ -104,8 +104,6 @@ void Graphics::init()
 
     // initialize everything else to zero
     backBuffer = NULL;
-    bcol = 0;
-    bcol2 = 0;
     ct = colourTransform();
     foot_rect = SDL_Rect();
     foregrounddrawn = false;
@@ -1966,6 +1964,9 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 2:
+    {
+        int bcol, bcol2;
+
             //Lab
             switch(rcol)
             {
@@ -2112,6 +2113,7 @@ void Graphics::drawbackground( int t )
             FillRect(backBuffer,backboxrect, bcol2);
         }
         break;
+    }
     case 3: //Warp zone (horizontal)
         FillRect(backBuffer, 0x000000);
         BlitSurfaceStandard(towerbuffer, NULL, towerbuffer_lerp, NULL);
