@@ -26,6 +26,7 @@ void Graphics::init()
     setRect(prect, 0, 0, 4, 4);
     setRect(line_rect, 0,0,0,0);
     setRect(tele_rect,0,0,96,96);
+    setRect(towerbuffer_rect, 8, 8, 320, 240);
 
 
     //We initialise a few things
@@ -735,6 +736,8 @@ void Graphics::drawtowertile( int x, int y, int t )
         WHINE_ONCE("drawtowertile() out-of-bounds!")
         return;
     }
+    x += 8;
+    y += 8;
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
     BlitSurfaceStandard(tiles2[t], NULL, towerbuffer, &rect);
 }
@@ -748,6 +751,8 @@ void Graphics::drawtowertile3( int x, int y, int t, int off )
         WHINE_ONCE("drawtowertile3() out-of-bounds!")
         return;
     }
+    x += 8;
+    y += 8;
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
     BlitSurfaceStandard(tiles3[t], NULL, towerbuffer, &rect);
 }
@@ -2112,13 +2117,13 @@ void Graphics::drawbackground( int t )
         FillRect(backBuffer, 0x000000);
         BlitSurfaceStandard(towerbuffer, NULL, towerbuffer_lerp, NULL);
         ScrollSurface(towerbuffer_lerp, lerp(0, -3), 0);
-        BlitSurfaceStandard(towerbuffer_lerp, NULL, backBuffer, NULL);
+        BlitSurfaceStandard(towerbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
         break;
     case 4: //Warp zone (vertical)
         FillRect(backBuffer, 0x000000);
         SDL_BlitSurface(towerbuffer, NULL, towerbuffer_lerp, NULL);
         ScrollSurface(towerbuffer_lerp, 0, lerp(0, -3));
-        SDL_BlitSurface(towerbuffer_lerp,NULL, backBuffer,NULL);
+        SDL_BlitSurface(towerbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
         break;
     case 5:
         //Warp zone, central
@@ -2489,7 +2494,7 @@ void Graphics::drawtowerbackground()
     FillRect(backBuffer, 0x000000);
     SDL_BlitSurface(towerbuffer, NULL, towerbuffer_lerp, NULL);
     ScrollSurface(towerbuffer_lerp, 0, lerp(0, -map.bscroll));
-    SDL_BlitSurface(towerbuffer_lerp,NULL, backBuffer,NULL);
+    SDL_BlitSurface(towerbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
 }
 
 void Graphics::updatetowerbackground()

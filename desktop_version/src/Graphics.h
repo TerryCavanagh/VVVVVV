@@ -238,6 +238,7 @@ public:
 	SDL_Rect bg_rect;
 	SDL_Rect line_rect;
 	SDL_Rect tele_rect;
+	SDL_Rect towerbuffer_rect;
 
 	SDL_Rect foot_rect;
 	SDL_Rect prect;
