@@ -91,7 +91,6 @@ mapclass::mapclass()
 	scrolldir = 0;
 	check = 0;
 	cmode = 0;
-	towercol = 0;
 	tdrawback = false;
 	bscroll = 0;
 	roomtexton = false;
@@ -632,7 +631,6 @@ void mapclass::updatetowerglow()
 		if (colsuperstate > 0) colstatedelay = 0;
 
 		tdrawback = true;
-		towercol = RGB(r*0.04f, g*0.04f, b*0.04f);
 	}
 	else
 	{
@@ -670,7 +668,6 @@ void mapclass::nexttowercolour()
 	}
 
 	tdrawback = true;
-	towercol = RGB(r*0.04, g*0.04, b*0.04);
 }
 
 void mapclass::settowercolour(int t)
@@ -703,7 +700,6 @@ void mapclass::settowercolour(int t)
 	}
 
 	tdrawback = true;
-	towercol = RGB(r*0.04, g*0.04, b*0.04);
 }
 
 bool mapclass::spikecollide(int x, int y)
