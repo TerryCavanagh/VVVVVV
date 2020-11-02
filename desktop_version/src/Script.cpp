@@ -194,8 +194,8 @@ void scriptclass::run()
 			}
 			else if (words[0] == "customifflag")
 			{
-				size_t flag = ss_toi(words[1]);
-				if (flag < SDL_arraysize(obj.flags) && obj.flags[flag])
+				int flag = ss_toi(words[1]);
+				if (INBOUNDS_ARR(flag, obj.flags) && obj.flags[flag])
 				{
 					load("custom_"+words[2]);
 					position--;
@@ -216,11 +216,16 @@ void scriptclass::run()
 			}
 			if (words[0] == "flag")
 			{
-				if(ss_toi(words[1])>=0 && ss_toi(words[1])<100){
-					if(words[2]=="on"){
-						obj.flags[ss_toi(words[1])] = true;
-					}else if(words[2]=="off"){
-						obj.flags[ss_toi(words[1])] = false;
+				int flag = ss_toi(words[1]);
+				if (INBOUNDS_ARR(flag, obj.flags))
+				{
+					if (words[2] == "on")
+					{
+						obj.flags[flag] = true;
+					}
+					else if (words[2] == "off")
+					{
+						obj.flags[flag] = false;
 					}
 				}
 			}
@@ -1359,8 +1364,8 @@ void scriptclass::run()
 			}
 			else if (words[0] == "ifflag")
 			{
-				size_t flag = ss_toi(words[1]);
-				if (flag < SDL_arraysize(obj.flags) && obj.flags[flag])
+				int flag = ss_toi(words[1]);
+				if (INBOUNDS_ARR(flag, obj.flags) && obj.flags[flag])
 				{
 					load(words[2]);
 					position--;
@@ -1368,8 +1373,8 @@ void scriptclass::run()
 			}
 			else if (words[0] == "ifcrewlost")
 			{
-				size_t crewmate = ss_toi(words[1]);
-				if (crewmate < SDL_arraysize(game.crewstats) && game.crewstats[crewmate]==false)
+				int crewmate = ss_toi(words[1]);
+				if (INBOUNDS_ARR(crewmate, game.crewstats) && !game.crewstats[crewmate])
 				{
 					load(words[2]);
 					position--;
