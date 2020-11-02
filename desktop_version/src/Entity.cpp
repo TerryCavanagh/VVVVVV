@@ -2773,7 +2773,7 @@ bool entityclass::updateentities( int i )
                 }
 
                 //Special rules:
-                if (game.roomx == 110 && game.roomy == 105)
+                if (game.roomx == 110 && game.roomy == 105 && !map.custommode)
                 {
                     if (entities[i].xp < 155)
                     {
