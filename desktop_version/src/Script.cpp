@@ -2642,7 +2642,7 @@ void scriptclass::resetgametomenu()
 	graphics.flipmode = false;
 	obj.entities.clear();
 	graphics.fademode = 4;
-	graphics.towerbg.tdrawback = true;
+	graphics.titlebg.tdrawback = true;
 	game.createmenu(Menu::gameover);
 }
 

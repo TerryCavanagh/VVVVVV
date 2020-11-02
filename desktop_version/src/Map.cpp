@@ -628,10 +628,10 @@ void mapclass::updatetowerglow(TowerBG& bg_obj)
 
 void mapclass::nexttowercolour()
 {
-	graphics.towerbg.colstate+=5;
-	if (graphics.towerbg.colstate >= 30) graphics.towerbg.colstate = 0;
-	int check = graphics.towerbg.colstate % 5; //current state of phase
-	int cmode = (graphics.towerbg.colstate - check) / 5; // current colour transition
+	graphics.titlebg.colstate+=5;
+	if (graphics.titlebg.colstate >= 30) graphics.titlebg.colstate = 0;
+	int check = graphics.titlebg.colstate % 5; //current state of phase
+	int cmode = (graphics.titlebg.colstate - check) / 5; // current colour transition
 
 	switch(cmode)
 	{
@@ -655,15 +655,15 @@ void mapclass::nexttowercolour()
 		break;
 	}
 
-	graphics.towerbg.tdrawback = true;
+	graphics.titlebg.tdrawback = true;
 }
 
 void mapclass::settowercolour(int t)
 {
-	graphics.towerbg.colstate=t*5;
-	if (graphics.towerbg.colstate >= 30) graphics.towerbg.colstate = 0;
-	int check = graphics.towerbg.colstate % 5; //current state of phase
-	int cmode = (graphics.towerbg.colstate - check) / 5; // current colour transition
+	graphics.titlebg.colstate=t*5;
+	if (graphics.titlebg.colstate >= 30) graphics.titlebg.colstate = 0;
+	int check = graphics.titlebg.colstate % 5; //current state of phase
+	int cmode = (graphics.titlebg.colstate - check) / 5; // current colour transition
 
 	switch(cmode)
 	{
@@ -687,7 +687,7 @@ void mapclass::settowercolour(int t)
 		break;
 	}
 
-	graphics.towerbg.tdrawback = true;
+	graphics.titlebg.tdrawback = true;
 }
 
 bool mapclass::spikecollide(int x, int y)

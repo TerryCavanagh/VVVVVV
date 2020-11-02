@@ -27,15 +27,15 @@ void titleupdatetextcol()
 void titlelogic()
 {
     //Misc
-    //map.updatetowerglow(graphics.towerbg);
+    //map.updatetowerglow(graphics.titlebg);
     help.updateglow();
 
-    graphics.towerbg.bypos -= 2;
-    graphics.towerbg.bscroll = -2;
+    graphics.titlebg.bypos -= 2;
+    graphics.titlebg.bscroll = -2;
 
     if (!game.colourblindmode)
     {
-        graphics.updatetowerbackground(graphics.towerbg);
+        graphics.updatetowerbackground(graphics.titlebg);
     }
 
     if (!game.menustart)
@@ -149,10 +149,10 @@ void maplogic()
 void gamecompletelogic()
 {
     //Misc
-    map.updatetowerglow(graphics.towerbg);
+    map.updatetowerglow(graphics.titlebg);
     help.updateglow();
     graphics.crewframe = 0;
-    graphics.towerbg.scrolldir = 1;
+    graphics.titlebg.scrolldir = 1;
     graphics.updatetitlecolours();
 
     graphics.col_tr = map.r - (help.glow / 4) - fRandom() * 4;
@@ -169,11 +169,11 @@ void gamecompletelogic()
     if (game.creditposition <= -Credits::creditmaxposition)
     {
         game.creditposition = -Credits::creditmaxposition;
-        graphics.towerbg.bscroll = 0;
+        graphics.titlebg.bscroll = 0;
     }
     else if (!game.press_action)
     {
-        graphics.towerbg.bscroll = +1;
+        graphics.titlebg.bscroll = +1;
     }
 
     if (graphics.fademode == 1)
@@ -182,8 +182,8 @@ void gamecompletelogic()
         graphics.showcutscenebars = false;
         graphics.cutscenebarspos = 0;
         graphics.oldcutscenebarspos = 0;
-        graphics.towerbg.scrolldir = 0;
-        graphics.towerbg.bypos = 0;
+        graphics.titlebg.scrolldir = 0;
+        graphics.titlebg.bypos = 0;
         //Return to game
         game.gamestate = GAMECOMPLETE2;
         graphics.fademode = 4;
@@ -193,7 +193,7 @@ void gamecompletelogic()
 void gamecompletelogic2()
 {
     //Misc
-    map.updatetowerglow(graphics.towerbg);
+    map.updatetowerglow(graphics.titlebg);
     help.updateglow();
 
     game.creditposdelay--;
@@ -222,7 +222,7 @@ void gamecompletelogic2()
         game.savetele();
         music.currentsong=tmp;
         //Return to game
-        graphics.towerbg.colstate = 10;
+        graphics.titlebg.colstate = 10;
         game.gamestate = TITLEMODE;
         graphics.fademode = 4;
         FILESYSTEM_unmountassets(); // should be before music.playef(18)

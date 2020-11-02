@@ -230,6 +230,7 @@ public:
 	SDL_Surface* tempBuffer;
 
 	TowerBG towerbg;
+	TowerBG titlebg;
 
 	SDL_Rect bfont_rect;
 	SDL_Rect tiles_rect;

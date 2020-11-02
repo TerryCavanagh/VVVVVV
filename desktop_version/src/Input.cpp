@@ -580,6 +580,7 @@ void menuactionpress()
             game.colourblindmode = !game.colourblindmode;
             game.savestats();
             graphics.towerbg.tdrawback = true;
+            graphics.titlebg.tdrawback = true;
             music.playef(11);
             break;
         case 1:
@@ -1683,7 +1684,7 @@ void titleinput()
                 music.playef(18);
                 game.screenshake = 10;
                 game.flashlight = 5;
-                graphics.towerbg.colstate = 10;
+                graphics.titlebg.colstate = 10;
                 map.nexttowercolour();
             }
             else
@@ -2381,13 +2382,13 @@ void mapmenuactionpress()
         map.bg_to_kludge();
         game.kludge_ingametemp = game.currentmenuname;
 
-        graphics.towerbg.scrolldir = 0;
-        graphics.towerbg.colstate = ((int) (graphics.towerbg.colstate / 5)) * 5;
-        graphics.towerbg.bypos = 0;
+        graphics.titlebg.scrolldir = 0;
+        graphics.titlebg.colstate = ((int) (graphics.titlebg.colstate / 5)) * 5;
+        graphics.titlebg.bypos = 0;
         map.nexttowercolour();
 
         // Fix delta rendering glitch
-        graphics.updatetowerbackground(graphics.towerbg);
+        graphics.updatetowerbackground(graphics.titlebg);
         titleupdatetextcol();
         break;
     }
@@ -2536,11 +2537,11 @@ void gamecompleteinput()
     //Do this before we update map.bypos
     if (!game.colourblindmode)
     {
-        graphics.updatetowerbackground(graphics.towerbg);
+        graphics.updatetowerbackground(graphics.titlebg);
     }
 
     //Do these here because input comes first
-    graphics.towerbg.bypos += graphics.towerbg.bscroll;
+    graphics.titlebg.bypos += graphics.titlebg.bscroll;
     game.oldcreditposition = game.creditposition;
 
     if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
@@ -2556,7 +2557,7 @@ void gamecompleteinput()
         }
         else
         {
-            graphics.towerbg.bscroll = +7;
+            graphics.titlebg.bscroll = +7;
         }
         game.press_action = true;
     }
