@@ -22,8 +22,6 @@ class mapclass
 public:
     mapclass();
 
-    int RGB(int red,int green,int blue);
-
     int intpol(int a, int b, float c);
 
     void setteleporter(int x, int y);

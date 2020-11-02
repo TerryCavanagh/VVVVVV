@@ -123,11 +123,6 @@ const int mapclass::areamap[] = {
 	2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0,
 };
 
-int mapclass::RGB(int red,int green,int blue)
-{
-	return (blue | (green << 8) | (red << 16));
-}
-
 int mapclass::intpol(int a, int b, float c)
 {
 	return static_cast<int>(a + ((b - a) * c));
