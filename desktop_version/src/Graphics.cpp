@@ -117,7 +117,6 @@ void Graphics::init()
     menubuffer = NULL;
     screenbuffer = NULL;
     tempBuffer = NULL;
-    tl = point();
     towerbuffer = NULL;
     towerbuffer_lerp = NULL;
     footerbuffer = NULL;
