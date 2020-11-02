@@ -1182,7 +1182,7 @@ void titlerender()
     }
     else
     {
-        if(!game.colourblindmode) graphics.drawtowerbackground();
+        if(!game.colourblindmode) graphics.drawtowerbackground(graphics.towerbg);
 
         tr = graphics.col_tr;
         tg = graphics.col_tg;
@@ -1211,7 +1211,7 @@ void gamecompleterender()
 {
     FillRect(graphics.backBuffer, 0x000000);
 
-    if(!game.colourblindmode) graphics.drawtowerbackground();
+    if(!game.colourblindmode) graphics.drawtowerbackground(graphics.towerbg);
 
     tr = graphics.col_tr;
     tg = graphics.col_tg;
@@ -1397,7 +1397,7 @@ void gamerender()
         {
             if (!game.colourblindmode)
             {
-                graphics.drawtowerbackground();
+                graphics.drawtowerbackground(graphics.towerbg);
             }
             else
             {

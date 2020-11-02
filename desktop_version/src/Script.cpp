@@ -1537,7 +1537,7 @@ void scriptclass::run()
 				map.resetnames();
 				map.resetmap();
 				map.resetplayer();
-				map.tdrawback = true;
+				graphics.towerbg.tdrawback = true;
 
 				obj.resetallflags();
 				i = obj.getplayer();
@@ -2642,7 +2642,7 @@ void scriptclass::resetgametomenu()
 	graphics.flipmode = false;
 	obj.entities.clear();
 	graphics.fademode = 4;
-	map.tdrawback = true;
+	graphics.towerbg.tdrawback = true;
 	game.createmenu(Menu::gameover);
 }
 
@@ -2732,7 +2732,7 @@ void scriptclass::startgamemode( int t )
 			{
 				map.ypos = obj.entities[i].yp - 120;
 			}
-			map.bypos = map.ypos / 2;
+			graphics.towerbg.bypos = map.ypos / 2;
 			map.cameramode = 0;
 			map.colsuperstate = 0;
 		}
@@ -3714,7 +3714,7 @@ void scriptclass::hardreset()
 	}
 	map.cameraseekframe = 0;
 	map.resumedelay = 0;
-	map.scrolldir = 0;
+	graphics.towerbg.scrolldir = 0;
 	map.customshowmm=true;
 
 	SDL_memset(map.roomdeaths, 0, sizeof(map.roomdeaths));

@@ -11,6 +11,7 @@
 #include "Maths.h"
 #include "Screen.h"
 #include "Textbox.h"
+#include "TowerBG.h"
 
 class Graphics
 {
@@ -168,7 +169,7 @@ public:
 	void drawtile2( int x, int y, int t );
 	void drawtile( int x, int y, int t );
 	void drawtowertile( int x, int y, int t );
-	void drawtowertile3( int x, int y, int t, int off );
+	void drawtowertile3( int x, int y, int t, TowerBG& bg_obj );
 
 	void drawmap();
 
@@ -192,8 +193,8 @@ public:
 
 	void menuoffrender();
 
-	void drawtowerbackground();
-	void updatetowerbackground();
+	void drawtowerbackground(const TowerBG& bg_obj);
+	void updatetowerbackground(TowerBG& bg_obj);
 
 	void setcol(int t);
 	void drawfinalmap();
@@ -225,10 +226,10 @@ public:
 	SDL_Surface* backBuffer;
 	Screen* screenbuffer;
 	SDL_Surface* menubuffer;
-	SDL_Surface* towerbuffer;
-	SDL_Surface* towerbuffer_lerp;
 	SDL_Surface* foregroundBuffer;
 	SDL_Surface* tempBuffer;
+
+	TowerBG towerbg;
 
 	SDL_Rect bfont_rect;
 	SDL_Rect tiles_rect;

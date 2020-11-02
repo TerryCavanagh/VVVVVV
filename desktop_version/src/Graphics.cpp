@@ -115,10 +115,9 @@ void Graphics::init()
     menubuffer = NULL;
     screenbuffer = NULL;
     tempBuffer = NULL;
-    towerbuffer = NULL;
-    towerbuffer_lerp = NULL;
     footerbuffer = NULL;
     ghostbuffer = NULL;
+    towerbg = TowerBG();
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;
@@ -736,13 +735,13 @@ void Graphics::drawtowertile( int x, int y, int t )
     x += 8;
     y += 8;
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
-    BlitSurfaceStandard(tiles2[t], NULL, towerbuffer, &rect);
+    BlitSurfaceStandard(tiles2[t], NULL, towerbg.buffer, &rect);
 }
 
 
-void Graphics::drawtowertile3( int x, int y, int t, int off )
+void Graphics::drawtowertile3( int x, int y, int t, TowerBG& bg_obj )
 {
-    t += off*30;
+    t += bg_obj.colstate*30;
     if (!INBOUNDS_VEC(t, tiles3))
     {
         WHINE_ONCE("drawtowertile3() out-of-bounds!")
@@ -751,7 +750,7 @@ void Graphics::drawtowertile3( int x, int y, int t, int off )
     x += 8;
     y += 8;
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
-    BlitSurfaceStandard(tiles3[t], NULL, towerbuffer, &rect);
+    BlitSurfaceStandard(tiles3[t], NULL, bg_obj.buffer, &rect);
 }
 
 void Graphics::drawgui()
@@ -2116,15 +2115,15 @@ void Graphics::drawbackground( int t )
     }
     case 3: //Warp zone (horizontal)
         FillRect(backBuffer, 0x000000);
-        BlitSurfaceStandard(towerbuffer, NULL, towerbuffer_lerp, NULL);
-        ScrollSurface(towerbuffer_lerp, lerp(0, -3), 0);
-        BlitSurfaceStandard(towerbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
+        BlitSurfaceStandard(towerbg.buffer, NULL, towerbg.buffer_lerp, NULL);
+        ScrollSurface(towerbg.buffer_lerp, lerp(0, -3), 0);
+        BlitSurfaceStandard(towerbg.buffer_lerp, &towerbuffer_rect, backBuffer, NULL);
         break;
     case 4: //Warp zone (vertical)
         FillRect(backBuffer, 0x000000);
-        SDL_BlitSurface(towerbuffer, NULL, towerbuffer_lerp, NULL);
-        ScrollSurface(towerbuffer_lerp, 0, lerp(0, -3));
-        SDL_BlitSurface(towerbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
+        SDL_BlitSurface(towerbg.buffer, NULL, towerbg.buffer_lerp, NULL);
+        ScrollSurface(towerbg.buffer_lerp, 0, lerp(0, -3));
+        SDL_BlitSurface(towerbg.buffer_lerp, &towerbuffer_rect, backBuffer, NULL);
         break;
     case 5:
         //Warp zone, central
@@ -2301,7 +2300,7 @@ void Graphics::updatebackground(int t)
 
         if (backgrounddrawn)
         {
-            ScrollSurface(towerbuffer, -3, 0 );
+            ScrollSurface(towerbg.buffer, -3, 0 );
             for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 2; i++)
@@ -2317,7 +2316,7 @@ void Graphics::updatebackground(int t)
         {
             //draw the whole thing for the first time!
             backoffset = 0;
-            FillRect(towerbuffer, 0x000000);
+            FillRect(towerbg.buffer, 0x000000);
             for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 21; i++)
@@ -2340,7 +2339,7 @@ void Graphics::updatebackground(int t)
 
         if (backgrounddrawn)
         {
-            ScrollSurface(towerbuffer,0,-3);
+            ScrollSurface(towerbg.buffer,0,-3);
             for (int j = 0; j < 2; j++)
             {
                 for (int i = 0; i < 21; i++)
@@ -2356,7 +2355,7 @@ void Graphics::updatebackground(int t)
         {
             //draw the whole thing for the first time!
             backoffset = 0;
-            FillRect(towerbuffer,0x000000 );
+            FillRect(towerbg.buffer,0x000000 );
             for (int j = 0; j < 16; j++)
             {
                 for (int i = 0; i < 21; i++)
@@ -2474,7 +2473,7 @@ void Graphics::drawtowermap()
         for (int i = 0; i < 40; i++)
         {
             temp = map.tower.at(i, j, yoff);
-            if (temp > 0) drawtile3(i * 8, (j * 8) - (yoff % 8), temp, map.colstate);
+            if (temp > 0) drawtile3(i * 8, (j * 8) - (yoff % 8), temp, towerbg.colstate);
         }
     }
 }
@@ -2485,66 +2484,66 @@ void Graphics::drawtowerspikes()
     int spikelevelbottom = lerp(map.oldspikelevelbottom, map.spikelevelbottom);
     for (int i = 0; i < 40; i++)
     {
-        drawtile3(i * 8, -8+spikeleveltop, 9, map.colstate);
-        drawtile3(i * 8, 230-spikelevelbottom, 8, map.colstate, 8 - spikelevelbottom);
+        drawtile3(i * 8, -8+spikeleveltop, 9, towerbg.colstate);
+        drawtile3(i * 8, 230-spikelevelbottom, 8, towerbg.colstate, 8 - spikelevelbottom);
     }
 }
 
-void Graphics::drawtowerbackground()
+void Graphics::drawtowerbackground(const TowerBG& bg_obj)
 {
     FillRect(backBuffer, 0x000000);
-    SDL_BlitSurface(towerbuffer, NULL, towerbuffer_lerp, NULL);
-    ScrollSurface(towerbuffer_lerp, 0, lerp(0, -map.bscroll));
-    SDL_BlitSurface(towerbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
+    SDL_BlitSurface(bg_obj.buffer, NULL, bg_obj.buffer_lerp, NULL);
+    ScrollSurface(bg_obj.buffer_lerp, 0, lerp(0, -bg_obj.bscroll));
+    SDL_BlitSurface(bg_obj.buffer_lerp, &towerbuffer_rect, backBuffer, NULL);
 }
 
-void Graphics::updatetowerbackground()
+void Graphics::updatetowerbackground(TowerBG& bg_obj)
 {
     int temp;
 
-    if (map.bypos < 0) map.bypos += 120 * 8;
+    if (bg_obj.bypos < 0) bg_obj.bypos += 120 * 8;
 
-    if (map.tdrawback)
+    if (bg_obj.tdrawback)
     {
-        int off = map.scrolldir == 0 ? 0 : map.bscroll;
+        int off = bg_obj.scrolldir == 0 ? 0 : bg_obj.bscroll;
         //Draw the whole thing; needed for every colour cycle!
         for (int j = -1; j < 32; j++)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp = map.tower.backat(i, j, map.bypos);
-                drawtowertile3(i * 8, (j * 8) - (map.bypos % 8) - off, temp, map.colstate);
+                temp = map.tower.backat(i, j, bg_obj.bypos);
+                drawtowertile3(i * 8, (j * 8) - (bg_obj.bypos % 8) - off, temp, bg_obj);
             }
         }
 
-        map.tdrawback = false;
+        bg_obj.tdrawback = false;
     }
     else
     {
         //just update the bottom
-        ScrollSurface(towerbuffer, 0, -map.bscroll);
-        if (map.scrolldir == 0)
+        ScrollSurface(bg_obj.buffer, 0, -bg_obj.bscroll);
+        if (bg_obj.scrolldir == 0)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp = map.tower.backat(i, -1, map.bypos);
-                drawtowertile3(i * 8, -1*8 - (map.bypos % 8), temp, map.colstate);
-                temp = map.tower.backat(i, 0, map.bypos);
-                drawtowertile3(i * 8, -(map.bypos % 8), temp, map.colstate);
+                temp = map.tower.backat(i, -1, bg_obj.bypos);
+                drawtowertile3(i * 8, -1*8 - (bg_obj.bypos % 8), temp, bg_obj);
+                temp = map.tower.backat(i, 0, bg_obj.bypos);
+                drawtowertile3(i * 8, -(bg_obj.bypos % 8), temp, bg_obj);
             }
         }
         else
         {
             for (int i = 0; i < 40; i++)
             {
-                temp = map.tower.backat(i, 29, map.bypos);
-                drawtowertile3(i * 8, 29*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
-                temp = map.tower.backat(i, 30, map.bypos);
-                drawtowertile3(i * 8, 30*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
-                temp = map.tower.backat(i, 31, map.bypos);
-                drawtowertile3(i * 8, 31*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
-                temp = map.tower.backat(i, 32, map.bypos);
-                drawtowertile3(i * 8, 32*8 - (map.bypos % 8) - map.bscroll, temp, map.colstate);
+                temp = map.tower.backat(i, 29, bg_obj.bypos);
+                drawtowertile3(i * 8, 29*8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                temp = map.tower.backat(i, 30, bg_obj.bypos);
+                drawtowertile3(i * 8, 30*8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                temp = map.tower.backat(i, 31, bg_obj.bypos);
+                drawtowertile3(i * 8, 31*8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                temp = map.tower.backat(i, 32, bg_obj.bypos);
+                drawtowertile3(i * 8, 32*8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
             }
         }
     }

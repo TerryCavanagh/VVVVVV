@@ -579,7 +579,7 @@ void menuactionpress()
             //disable animated backgrounds
             game.colourblindmode = !game.colourblindmode;
             game.savestats();
-            map.tdrawback = true;
+            graphics.towerbg.tdrawback = true;
             music.playef(11);
             break;
         case 1:
@@ -1683,7 +1683,7 @@ void titleinput()
                 music.playef(18);
                 game.screenshake = 10;
                 game.flashlight = 5;
-                map.colstate = 10;
+                graphics.towerbg.colstate = 10;
                 map.nexttowercolour();
             }
             else
@@ -2381,13 +2381,13 @@ void mapmenuactionpress()
         map.bg_to_kludge();
         game.kludge_ingametemp = game.currentmenuname;
 
-        map.scrolldir = 0;
-        map.colstate = ((int) (map.colstate / 5)) * 5;
-        map.bypos = 0;
+        graphics.towerbg.scrolldir = 0;
+        graphics.towerbg.colstate = ((int) (graphics.towerbg.colstate / 5)) * 5;
+        graphics.towerbg.bypos = 0;
         map.nexttowercolour();
 
         // Fix delta rendering glitch
-        graphics.updatetowerbackground();
+        graphics.updatetowerbackground(graphics.towerbg);
         titleupdatetextcol();
         break;
     }
@@ -2536,11 +2536,11 @@ void gamecompleteinput()
     //Do this before we update map.bypos
     if (!game.colourblindmode)
     {
-        graphics.updatetowerbackground();
+        graphics.updatetowerbackground(graphics.towerbg);
     }
 
     //Do these here because input comes first
-    map.bypos += map.bscroll;
+    graphics.towerbg.bypos += graphics.towerbg.bscroll;
     game.oldcreditposition = game.creditposition;
 
     if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
@@ -2556,7 +2556,7 @@ void gamecompleteinput()
         }
         else
         {
-            map.bscroll = +7;
+            graphics.towerbg.bscroll = +7;
         }
         game.press_action = true;
     }
