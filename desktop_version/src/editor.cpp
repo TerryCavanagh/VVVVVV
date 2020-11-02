@@ -3292,7 +3292,7 @@ void editorrender()
     {
         if(!game.colourblindmode)
         {
-            graphics.drawtowerbackground(graphics.towerbg);
+            graphics.drawtowerbackground(graphics.titlebg);
         }
         else
         {
@@ -3679,8 +3679,8 @@ void editorlogic()
         game.shouldreturntoeditor = false;
     }
 
-    graphics.towerbg.bypos -= 2;
-    graphics.towerbg.bscroll = -2;
+    graphics.titlebg.bypos -= 2;
+    graphics.titlebg.bscroll = -2;
 
     ed.entframedelay--;
     if(ed.entframedelay<=0)
@@ -3740,14 +3740,14 @@ void editorlogic()
     }
     else if (!game.colourblindmode)
     {
-        graphics.updatetowerbackground(graphics.towerbg);
+        graphics.updatetowerbackground(graphics.titlebg);
     }
 
     if (graphics.fademode == 1)
     {
         //Return to game
         map.nexttowercolour();
-        graphics.towerbg.colstate = 10;
+        graphics.titlebg.colstate = 10;
         game.gamestate = TITLEMODE;
         script.hardreset();
         graphics.fademode = 4;

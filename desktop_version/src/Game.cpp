@@ -1373,7 +1373,7 @@ void Game::updatestate()
             gamestate = TITLEMODE;
             graphics.fademode = 4;
             graphics.backgrounddrawn = true;
-            graphics.towerbg.tdrawback = true;
+            graphics.titlebg.tdrawback = true;
             createmenu(Menu::timetrialcomplete);
             state = 0;
             break;
@@ -2942,7 +2942,7 @@ void Game::updatestate()
             gamestate = TITLEMODE;
             graphics.fademode = 4;
             graphics.backgrounddrawn = true;
-            graphics.towerbg.tdrawback = true;
+            graphics.titlebg.tdrawback = true;
             music.play(6);
             state = 0;
             break;
@@ -3278,7 +3278,7 @@ void Game::updatestate()
             gamestate = TITLEMODE;
             graphics.fademode = 4;
             graphics.backgrounddrawn = true;
-            graphics.towerbg.tdrawback = true;
+            graphics.titlebg.tdrawback = true;
             createmenu(Menu::nodeathmodecomplete);
             state = 0;
             break;
@@ -7129,7 +7129,7 @@ void Game::quittomenu()
     FILESYSTEM_unmountassets(); // should be before music.play(6)
     music.play(6);
     graphics.backgrounddrawn = false;
-    graphics.towerbg.tdrawback = true;
+    graphics.titlebg.tdrawback = true;
     graphics.flipmode = false;
     //Don't be stuck on the summary screen,
     //or "who do you want to play the level with?"
@@ -7223,7 +7223,7 @@ void Game::returntoeditor()
            ed.level[i+(j*ed.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*ed.maxwidth)];
         }
     }
-    graphics.towerbg.scrolldir = 0;
+    graphics.titlebg.scrolldir = 0;
 }
 #endif
 
@@ -7233,7 +7233,7 @@ void Game::returntopausemenu()
     returntomenu(kludge_ingametemp);
     gamestate = MAPMODE;
     map.kludge_to_bg();
-    graphics.towerbg.tdrawback = true;
+    graphics.titlebg.tdrawback = true;
     graphics.backgrounddrawn = false;
     mapheld = true;
     graphics.flipmode = graphics.setflipmode;

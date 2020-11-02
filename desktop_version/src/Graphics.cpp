@@ -118,6 +118,7 @@ void Graphics::init()
     footerbuffer = NULL;
     ghostbuffer = NULL;
     towerbg = TowerBG();
+    titlebg = TowerBG();
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;
