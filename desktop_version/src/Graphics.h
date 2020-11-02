@@ -200,7 +200,7 @@ public:
 
 	colourTransform ct;
 
-	int bcol, bcol2, rcol;
+	int rcol;
 
 
 
