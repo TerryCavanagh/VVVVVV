@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
     game.mainmenu = 0;
 
     map.ypos = (700-29) * 8;
-    map.bypos = map.ypos / 2;
+    graphics.towerbg.bypos = map.ypos / 2;
 
     //Moved screensetting init here from main menu V2.1
     int width = 320;
@@ -256,11 +256,11 @@ int main(int argc, char *argv[])
     graphics.menubuffer = CREATE_SURFACE(320, 240);
     SDL_SetSurfaceBlendMode(graphics.menubuffer, SDL_BLENDMODE_NONE);
 
-    graphics.towerbuffer =  CREATE_SURFACE(320 + 16, 240 + 16);
-    SDL_SetSurfaceBlendMode(graphics.towerbuffer, SDL_BLENDMODE_NONE);
+    graphics.towerbg.buffer =  CREATE_SURFACE(320 + 16, 240 + 16);
+    SDL_SetSurfaceBlendMode(graphics.towerbg.buffer, SDL_BLENDMODE_NONE);
 
-    graphics.towerbuffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
-    SDL_SetSurfaceBlendMode(graphics.towerbuffer_lerp, SDL_BLENDMODE_NONE);
+    graphics.towerbg.buffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
+    SDL_SetSurfaceBlendMode(graphics.towerbg.buffer_lerp, SDL_BLENDMODE_NONE);
 
     graphics.tempBuffer = CREATE_SURFACE(320, 240);
     SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);
