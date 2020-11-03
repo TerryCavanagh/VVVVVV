@@ -89,8 +89,6 @@ mapclass::mapclass()
 	cameraseek = 0;
 	minitowermode = false;
 	scrolldir = 0;
-	check = 0;
-	cmode = 0;
 	tdrawback = false;
 	bscroll = 0;
 	roomtexton = false;
@@ -590,8 +588,8 @@ void mapclass::updatetowerglow()
 		if (colsuperstate > 0) colstate--;
 		colstate++;
 		if (colstate >= 30) colstate = 0;
-		check = colstate % 5; //current state of phase
-		cmode = (colstate - check) / 5; // current colour transition
+		int check = colstate % 5; //current state of phase
+		int cmode = (colstate - check) / 5; // current colour transition
 
 		switch(cmode)
 		{
@@ -637,8 +635,8 @@ void mapclass::nexttowercolour()
 {
 	colstate+=5;
 	if (colstate >= 30) colstate = 0;
-	check = colstate % 5; //current state of phase
-	cmode = (colstate - check) / 5; // current colour transition
+	int check = colstate % 5; //current state of phase
+	int cmode = (colstate - check) / 5; // current colour transition
 
 	switch(cmode)
 	{
@@ -669,8 +667,8 @@ void mapclass::settowercolour(int t)
 {
 	colstate=t*5;
 	if (colstate >= 30) colstate = 0;
-	check = colstate % 5; //current state of phase
-	cmode = (colstate - check) / 5; // current colour transition
+	int check = colstate % 5; //current state of phase
+	int cmode = (colstate - check) / 5; // current colour transition
 
 	switch(cmode)
 	{
