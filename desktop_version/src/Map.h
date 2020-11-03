@@ -111,7 +111,6 @@ public:
 
     //This is the old colour cycle
     int r, g,b;
-    int check, cmode;
     int colstate, colstatedelay;
     int colsuperstate;
     int spikeleveltop, spikelevelbottom;
