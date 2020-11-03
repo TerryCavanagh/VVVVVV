@@ -191,6 +191,7 @@ class editorclass{
   std::string note;
   std::string keybuffer;
   std::string filename;
+  std::string loaded_filepath;
 
   int drawmode;
   int tilex, tiley;
