@@ -2379,7 +2379,6 @@ void mapmenuactionpress()
         {
             game.createmenu(Menu::options);
         }
-        map.bg_to_kludge();
         game.kludge_ingametemp = game.currentmenuname;
 
         graphics.titlebg.scrolldir = 0;
