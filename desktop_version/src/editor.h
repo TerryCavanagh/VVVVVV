@@ -240,10 +240,6 @@ class editorclass{
   int sbx, sby;
   int pagey;
 
-  std::string author;
-  std::string description;
-  std::string title;
-
   //Functions for interfacing with the script:
   void addhook(std::string t);
   void removehook(std::string t);
