@@ -3082,7 +3082,7 @@ void Graphics::drawtele(int x, int y, int t, Uint32 c)
 
 	setcolreal(c);
 	if (t > 9) t = 8;
-	if (t < 0) t = 0;
+	if (t < 1) t = 1;
 
 	setRect(telerect, x , y, tele_rect.w, tele_rect.h );
 	if (INBOUNDS_VEC(t, tele))
