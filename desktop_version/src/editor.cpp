@@ -383,6 +383,8 @@ void editorclass::reset()
     currentghosts = 0;
 
     onewaycol_override = false;
+
+    loaded_filepath = "";
 }
 
 void editorclass::gethooks()
@@ -1730,6 +1732,7 @@ bool editorclass::load(std::string& _path)
         return false;
     }
 
+    loaded_filepath = _path;
 
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
@@ -2018,11 +2021,18 @@ bool editorclass::load(std::string& _path)
 bool editorclass::save(std::string& _path)
 {
     tinyxml2::XMLDocument doc;
-    bool already_exists = FILESYSTEM_loadTiXml2Document(("levels/" + _path).c_str(), doc);
-    if (!already_exists)
+
+    std::string newpath("levels/" + _path);
+
+    // Try to preserve the XML of the currently-loaded one
+    bool already_exists = !loaded_filepath.empty() && FILESYSTEM_loadTiXml2Document(loaded_filepath.c_str(), doc);
+    if (!already_exists && !loaded_filepath.empty())
     {
-        printf("No %s found. Creating new file\n", _path.c_str());
+        printf("Currently-loaded %s not found\n", loaded_filepath.c_str());
     }
+
+    loaded_filepath = newpath;
+
     tinyxml2::XMLElement* msg;
 
     xml::update_declaration(doc);
@@ -2150,7 +2160,7 @@ bool editorclass::save(std::string& _path)
     }
     xml::update_tag(data, "script", scriptString.c_str());
 
-    return FILESYSTEM_saveTiXml2Document(("levels/" + _path).c_str(), doc);
+    return FILESYSTEM_saveTiXml2Document(newpath.c_str(), doc);
 }
 
 
