@@ -7232,7 +7232,6 @@ void Game::returntopausemenu()
     ingame_titlemode = false;
     returntomenu(kludge_ingametemp);
     gamestate = MAPMODE;
-    map.kludge_to_bg();
     graphics.titlebg.tdrawback = true;
     graphics.backgrounddrawn = false;
     mapheld = true;

@@ -165,12 +165,6 @@ public:
 
     //Map cursor
     int cursorstate, cursordelay;
-
-    int kludge_bypos;
-    int kludge_colstate;
-    int kludge_scrolldir;
-    void bg_to_kludge();
-    void kludge_to_bg();
 };
 
 #ifndef MAP_DEFINITION

@@ -87,9 +87,6 @@ mapclass::mapclass()
 	cameraseek = 0;
 	minitowermode = false;
 	roomtexton = false;
-	kludge_bypos = 0;
-	kludge_colstate = 0;
-	kludge_scrolldir = 0;
 }
 
 //Areamap starts at 100,100 and extends 20x20
@@ -2108,18 +2105,4 @@ void mapclass::twoframedelayfix()
 		script.run();
 		script.dontrunnextframe = true;
 	}
-}
-
-void mapclass::bg_to_kludge()
-{
-	kludge_bypos = graphics.towerbg.bypos;
-	kludge_colstate = graphics.towerbg.colstate;
-	kludge_scrolldir = graphics.towerbg.scrolldir;
-}
-
-void mapclass::kludge_to_bg()
-{
-	graphics.towerbg.bypos = kludge_bypos;
-	graphics.towerbg.colstate = kludge_colstate;
-	graphics.towerbg.scrolldir = kludge_scrolldir;
 }
