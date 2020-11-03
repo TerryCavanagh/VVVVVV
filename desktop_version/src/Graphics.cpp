@@ -115,6 +115,8 @@ void Graphics::init()
     menubuffer = NULL;
     screenbuffer = NULL;
     tempBuffer = NULL;
+    warpbuffer = NULL;
+    warpbuffer_lerp = NULL;
     footerbuffer = NULL;
     ghostbuffer = NULL;
     towerbg = TowerBG();
@@ -736,7 +738,7 @@ void Graphics::drawtowertile( int x, int y, int t )
     x += 8;
     y += 8;
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
-    BlitSurfaceStandard(tiles2[t], NULL, towerbg.buffer, &rect);
+    BlitSurfaceStandard(tiles2[t], NULL, warpbuffer, &rect);
 }
 
 
@@ -2116,15 +2118,15 @@ void Graphics::drawbackground( int t )
     }
     case 3: //Warp zone (horizontal)
         FillRect(backBuffer, 0x000000);
-        BlitSurfaceStandard(towerbg.buffer, NULL, towerbg.buffer_lerp, NULL);
-        ScrollSurface(towerbg.buffer_lerp, lerp(0, -3), 0);
-        BlitSurfaceStandard(towerbg.buffer_lerp, &towerbuffer_rect, backBuffer, NULL);
+        BlitSurfaceStandard(warpbuffer, NULL, warpbuffer_lerp, NULL);
+        ScrollSurface(warpbuffer_lerp, lerp(0, -3), 0);
+        BlitSurfaceStandard(warpbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
         break;
     case 4: //Warp zone (vertical)
         FillRect(backBuffer, 0x000000);
-        SDL_BlitSurface(towerbg.buffer, NULL, towerbg.buffer_lerp, NULL);
-        ScrollSurface(towerbg.buffer_lerp, 0, lerp(0, -3));
-        SDL_BlitSurface(towerbg.buffer_lerp, &towerbuffer_rect, backBuffer, NULL);
+        SDL_BlitSurface(warpbuffer, NULL, warpbuffer_lerp, NULL);
+        ScrollSurface(warpbuffer_lerp, 0, lerp(0, -3));
+        SDL_BlitSurface(warpbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
         break;
     case 5:
         //Warp zone, central
@@ -2301,7 +2303,7 @@ void Graphics::updatebackground(int t)
 
         if (backgrounddrawn)
         {
-            ScrollSurface(towerbg.buffer, -3, 0 );
+            ScrollSurface(warpbuffer, -3, 0 );
             for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 2; i++)
@@ -2317,7 +2319,7 @@ void Graphics::updatebackground(int t)
         {
             //draw the whole thing for the first time!
             backoffset = 0;
-            FillRect(towerbg.buffer, 0x000000);
+            FillRect(warpbuffer, 0x000000);
             for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 21; i++)
@@ -2340,7 +2342,7 @@ void Graphics::updatebackground(int t)
 
         if (backgrounddrawn)
         {
-            ScrollSurface(towerbg.buffer,0,-3);
+            ScrollSurface(warpbuffer,0,-3);
             for (int j = 0; j < 2; j++)
             {
                 for (int i = 0; i < 21; i++)
@@ -2356,7 +2358,7 @@ void Graphics::updatebackground(int t)
         {
             //draw the whole thing for the first time!
             backoffset = 0;
-            FillRect(towerbg.buffer,0x000000 );
+            FillRect(warpbuffer,0x000000 );
             for (int j = 0; j < 16; j++)
             {
                 for (int i = 0; i < 21; i++)

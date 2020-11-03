@@ -228,6 +228,8 @@ public:
 	SDL_Surface* menubuffer;
 	SDL_Surface* foregroundBuffer;
 	SDL_Surface* tempBuffer;
+	SDL_Surface* warpbuffer;
+	SDL_Surface* warpbuffer_lerp;
 
 	TowerBG towerbg;
 	TowerBG titlebg;
