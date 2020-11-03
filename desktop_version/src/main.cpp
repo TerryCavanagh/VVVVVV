@@ -257,6 +257,12 @@ int main(int argc, char *argv[])
     graphics.menubuffer = CREATE_SURFACE(320, 240);
     SDL_SetSurfaceBlendMode(graphics.menubuffer, SDL_BLENDMODE_NONE);
 
+    graphics.warpbuffer = CREATE_SURFACE(320 + 16, 240 + 16);
+    SDL_SetSurfaceBlendMode(graphics.warpbuffer, SDL_BLENDMODE_NONE);
+
+    graphics.warpbuffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
+    SDL_SetSurfaceBlendMode(graphics.warpbuffer_lerp, SDL_BLENDMODE_NONE);
+
     graphics.towerbg.buffer =  CREATE_SURFACE(320 + 16, 240 + 16);
     SDL_SetSurfaceBlendMode(graphics.towerbg.buffer, SDL_BLENDMODE_NONE);
 
