@@ -2010,6 +2010,7 @@ void gameinput()
         //Quit menu, same conditions as in game menu
         game.gamestate = MAPMODE;
         game.gamesaved = false;
+        game.gamesavefailed = false;
         graphics.resumegamemode = false;
         game.menupage = 20; // The Map Page
         BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
@@ -2040,6 +2041,7 @@ void gameinput()
         map.cursordelay = 0;
         map.cursorstate = 0;
         game.gamesaved = false;
+        game.gamesavefailed = false;
         graphics.resumegamemode = false;
         game.menupage = 0; // The Map Page
         BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
@@ -2058,6 +2060,7 @@ void gameinput()
         //Quit menu, same conditions as in game menu
         game.gamestate = MAPMODE;
         game.gamesaved = false;
+        game.gamesavefailed = false;
         graphics.resumegamemode = false;
         game.menupage = 30; // Pause screen
 
@@ -2291,12 +2294,11 @@ void mapmenuactionpress()
     }
         break;
     case 3:
-    if (!game.gamesaved && !game.inspecial())
+    if (!game.gamesaved && !game.gamesavefailed && !game.inspecial())
     {
         game.flashlight = 5;
         game.screenshake = 10;
         music.playef(18);
-        game.gamesaved = true;
 
         game.savetime = game.timestring();
         game.savearea = map.currentarea(map.area(game.roomx, game.roomy));
@@ -2304,16 +2306,19 @@ void mapmenuactionpress()
 
         if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = "The Ship";
 
+        bool success;
 #if !defined(NO_CUSTOM_LEVELS)
         if(map.custommodeforreal)
         {
-            game.customsavequick(ed.ListOfMetaData[game.playcustomlevel].filename);
+            success = game.customsavequick(ed.ListOfMetaData[game.playcustomlevel].filename);
         }
         else
 #endif
         {
-            game.savequick();
+            success = game.savequick();
         }
+        game.gamesaved = success;
+        game.gamesavefailed = !success;
     }
         break;
 

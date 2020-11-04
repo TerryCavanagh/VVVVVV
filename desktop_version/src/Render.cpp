@@ -2215,6 +2215,10 @@ void maprender()
         {
             graphics.Print(0, 115, "Cannot Save in Secret Lab", 146, 146, 180, true);
         }
+        else if (game.gamesavefailed)
+        {
+            graphics.Print(0, 115, "ERROR: Could not save game!", 146, 146, 180, true);
+        }
         else if (map.custommode)
         {
             if (game.gamesaved)

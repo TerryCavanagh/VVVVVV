@@ -225,6 +225,7 @@ void Game::init(void)
     minutes = 0;
     hours = 0;
     gamesaved = false;
+    gamesavefailed = false;
     savetime = "00:00";
     savearea = "nowhere";
     savetrinkets = 0;
@@ -5724,12 +5725,12 @@ bool Game::savetele()
 }
 
 
-void Game::savequick()
+bool Game::savequick()
 {
     if (map.custommode || inspecial())
     {
         //Don't trash save data!
-        return;
+        return false;
     }
 
     tinyxml2::XMLDocument doc;
@@ -5740,16 +5741,14 @@ void Game::savequick()
     }
     quicksummary = writemaingamesave(doc);
 
-    if(FILESYSTEM_saveTiXml2Document("saves/qsave.vvv", doc))
-    {
-        printf("Game saved\n");
-    }
-    else
+    if(!FILESYSTEM_saveTiXml2Document("saves/qsave.vvv", doc))
     {
         printf("Could Not Save game!\n");
         printf("Failed: %s%s\n", saveFilePath.c_str(), "qsave.vvv");
+        return false;
     }
-
+    printf("Game saved\n");
+    return true;
 }
 
 // Returns summary of save
@@ -5869,7 +5868,7 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 }
 
 
-void Game::customsavequick(std::string savfile)
+bool Game::customsavequick(std::string savfile)
 {
     const std::string levelfile = savfile.substr(7);
 
@@ -5998,15 +5997,14 @@ void Game::customsavequick(std::string savfile)
 
     customquicksummary = summary;
 
-    if(FILESYSTEM_saveTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))
-    {
-        printf("Game saved\n");
-    }
-    else
+    if(!FILESYSTEM_saveTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))
     {
         printf("Could Not Save game!\n");
         printf("Failed: %s%s%s\n", saveFilePath.c_str(), levelfile.c_str(), ".vvv");
+        return false;
     }
+    printf("Game saved\n");
+    return true;
 }
 
 

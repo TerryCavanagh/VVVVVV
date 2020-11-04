@@ -3614,6 +3614,7 @@ void scriptclass::hardreset()
 	game.minutes = 0;
 	game.hours = 0;
 	game.gamesaved = false;
+	game.gamesavefailed = false;
 	game.savetime = "00:00";
 	game.savearea = "nowhere";
 	game.savetrinkets = 0;
