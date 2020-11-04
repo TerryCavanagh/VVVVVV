@@ -100,8 +100,8 @@ void musicclass::init()
 		const std::vector<int> extra = musicReadBlob.getExtra();
 		for (size_t i = 0; i < extra.size(); i++)
 		{
-			const int& index = extra[i];
-			rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index));
+			const int& index_ = extra[i];
+			rw = SDL_RWFromMem(musicReadBlob.getAddress(index_), musicReadBlob.getSize(index_));
 			musicTracks.push_back(MusicTrack( rw ));
 
 			num_mmmmmm_tracks++;
@@ -123,8 +123,8 @@ void musicclass::init()
 	const std::vector<int> extra = musicReadBlob.getExtra();
 	for (size_t i = 0; i < extra.size(); i++)
 	{
-		const int& index = extra[i];
-		rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index));
+		const int& index_ = extra[i];
+		rw = SDL_RWFromMem(musicReadBlob.getAddress(index_), musicReadBlob.getSize(index_));
 		musicTracks.push_back(MusicTrack( rw ));
 
 		num_pppppp_tracks++;
