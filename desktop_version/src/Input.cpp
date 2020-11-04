@@ -1280,6 +1280,7 @@ void menuactionpress()
             game.deletequick();
             game.deletetele();
             game.deletestats();
+            game.deletesettings();
             game.flashlight = 5;
             game.screenshake = 15;
             game.createmenu(Menu::mainmenu);

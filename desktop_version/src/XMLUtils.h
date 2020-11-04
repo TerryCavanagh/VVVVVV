@@ -11,6 +11,8 @@ namespace tinyxml2
 namespace xml
 {
 
+tinyxml2::XMLDocument& get_document(tinyxml2::XMLNode* parent);
+
 tinyxml2::XMLElement* update_element(tinyxml2::XMLNode* parent, const char* name);
 // Same thing as above, but takes &parent instead of *parent
 tinyxml2::XMLElement* update_element(tinyxml2::XMLNode& parent, const char* name);

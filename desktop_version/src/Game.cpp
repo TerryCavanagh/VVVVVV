@@ -4436,6 +4436,14 @@ void Game::deletestats()
     }
 }
 
+void Game::deletesettings()
+{
+    if (!FILESYSTEM_delete("saves/settings.vvv"))
+    {
+        puts("Error deleting saves/settings.vvv");
+    }
+}
+
 void Game::unlocknum( int t )
 {
 #if !defined(MAKEANDPLAY)
@@ -4471,7 +4479,10 @@ void Game::loadstats(int *width, int *height, bool *vsync)
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc))
     {
-        savestats();
+        // Save unlock.vvv only. Maybe we have a settings.vvv laying around too,
+        // and we don't want to overwrite that!
+        savestats(true);
+
         printf("No Stats found. Assuming a new player\n");
     }
 
@@ -4493,7 +4504,9 @@ void Game::loadstats(int *width, int *height, bool *vsync)
         hRoot=tinyxml2::XMLHandle(pElem);
     }
 
-    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+    tinyxml2::XMLElement* dataNode = hRoot.FirstChildElement("Data").FirstChild().ToElement();
+
+    for( pElem = dataNode; pElem; pElem=pElem->NextSiblingElement())
     {
         std::string pKey(pElem->Value());
         const char* pText = pElem->GetText() ;
@@ -4525,6 +4538,35 @@ void Game::loadstats(int *width, int *height, bool *vsync)
         {
             stat_trinkets = help.Int(pText);
         }
+
+        if (pKey == "swnbestrank")
+        {
+            swnbestrank = help.Int(pText);
+        }
+
+        if (pKey == "swnrecord")
+        {
+            swnrecord = help.Int(pText);
+        }
+    }
+
+    deserializesettings(dataNode, width, height, vsync);
+}
+
+void Game::deserializesettings(tinyxml2::XMLElement* dataNode, int* width, int* height, bool* vsync)
+{
+    // Don't duplicate controller buttons!
+    controllerButton_flip.clear();
+    controllerButton_map.clear();
+    controllerButton_esc.clear();
+    controllerButton_restart.clear();
+
+    for (tinyxml2::XMLElement* pElem = dataNode;
+    pElem != NULL;
+    pElem = pElem->NextSiblingElement())
+    {
+        std::string pKey(pElem->Value());
+        const char* pText = pElem->GetText();
 
         if (pKey == "fullscreen")
         {
@@ -4593,16 +4635,6 @@ void Game::loadstats(int *width, int *height, bool *vsync)
                 break;
             }
 
-        }
-
-        if (pKey == "swnbestrank")
-        {
-            swnbestrank = help.Int(pText);
-        }
-
-        if (pKey == "swnrecord")
-        {
-            swnrecord = help.Int(pText);
         }
 
         if (pKey == "advanced_smoothing")
@@ -4734,7 +4766,7 @@ void Game::loadstats(int *width, int *height, bool *vsync)
     }
 }
 
-void Game::savestats()
+void Game::savestats(const bool stats_only /*= true*/)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
@@ -4804,6 +4836,24 @@ void Game::savestats()
 
     xml::update_tag(dataNode, "stat_trinkets", stat_trinkets);
 
+    xml::update_tag(dataNode, "swnbestrank", swnbestrank);
+
+    xml::update_tag(dataNode, "swnrecord", swnrecord);
+
+    serializesettings(dataNode);
+
+    FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
+
+    if (!stats_only)
+    {
+        savesettings();
+    }
+}
+
+void Game::serializesettings(tinyxml2::XMLElement* dataNode)
+{
+    tinyxml2::XMLDocument& doc = xml::get_document(dataNode);
+
     xml::update_tag(dataNode, "fullscreen", fullscreen);
 
     xml::update_tag(dataNode, "stretch", stretchMode);
@@ -4833,10 +4883,6 @@ void Game::savestats()
     xml::update_tag(dataNode, "invincibility", map.invincibility);
 
     xml::update_tag(dataNode, "slowdown", slowdown);
-
-    xml::update_tag(dataNode, "swnbestrank", swnbestrank);
-
-    xml::update_tag(dataNode, "swnrecord", swnrecord);
 
 
     xml::update_tag(dataNode, "advanced_smoothing", fullScreenEffect_badSignal);
@@ -4927,8 +4973,58 @@ void Game::savestats()
     }
 
     xml::update_tag(dataNode, "controllerSensitivity", controllerSensitivity);
+}
 
-    FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
+void Game::loadsettings(int* width, int* height, bool* vsync)
+{
+    tinyxml2::XMLDocument doc;
+    if (!FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc))
+    {
+        savesettings();
+        puts("No settings.vvv found");
+    }
+
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLHandle hRoot(NULL);
+
+    {
+        pElem = hDoc.FirstChildElement().ToElement();
+        // should always have a valid root but handle gracefully if it doesn't
+        if (!pElem)
+        {
+        }
+        ;
+
+        // save this for later
+        hRoot = tinyxml2::XMLHandle(pElem);
+    }
+
+    tinyxml2::XMLElement* dataNode = hRoot.FirstChildElement("Data").FirstChild().ToElement();
+
+    deserializesettings(dataNode, width, height, vsync);
+}
+
+void Game::savesettings()
+{
+    tinyxml2::XMLDocument doc;
+    bool already_exists = FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc);
+    if (!already_exists)
+    {
+        puts("No settings.vvv found. Creating new file");
+    }
+
+    xml::update_declaration(doc);
+
+    tinyxml2::XMLElement* root = xml::update_element(doc, "Settings");
+
+    xml::update_comment(root, " Settings (duplicated from unlock.vvv) ");
+
+    tinyxml2::XMLElement* dataNode = xml::update_element(root, "Data");
+
+    serializesettings(dataNode);
+
+    FILESYSTEM_saveTiXml2Document("saves/settings.vvv", doc);
 }
 
 void Game::customstart()

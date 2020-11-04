@@ -4,16 +4,15 @@
 namespace xml
 {
 
-// Helper functions for these utils (not exported)
-
-static inline tinyxml2::XMLDocument& get_document(tinyxml2::XMLNode* parent)
+// Just get the document, because TinyXML-2 is annoying.
+// Useful outside of this file.
+// TODO: But XML handling should really be put in a separate file (maybe this
+// one renamed?) instead of lumped in with Game.cpp, and when that happens
+// maybe this will be unexported again?
+tinyxml2::XMLDocument& get_document(tinyxml2::XMLNode* parent)
 {
     return *(parent->GetDocument());
 }
-
-
-// EXPORTED FUNCTIONS
-
 
 // Create a new element if it doesn't exist. Returns the element.
 tinyxml2::XMLElement* update_element(tinyxml2::XMLNode* parent, const char* name)
