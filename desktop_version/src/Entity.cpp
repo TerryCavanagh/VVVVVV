@@ -4674,7 +4674,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         }
         break;
     case 2:   //Moving platforms
-        if (entities[j].behave >= 8 || entities[j].behave < 10)
+        if (entities[j].behave >= 8 && entities[j].behave < 10)
         {
             //We don't want conveyors, moving platforms only
             break;
