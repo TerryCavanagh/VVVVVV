@@ -97,8 +97,8 @@ public:
 
     void resetgameclock();
 
-    void customsavequick(std::string savfile);
-    void savequick();
+    bool customsavequick(std::string savfile);
+    bool savequick();
 
     void gameclock();
 
@@ -204,6 +204,7 @@ public:
 
     int frames, seconds, minutes, hours;
     bool gamesaved;
+    bool gamesavefailed;
     std::string savetime;
     std::string savearea;
     int savetrinkets;
