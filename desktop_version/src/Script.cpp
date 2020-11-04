@@ -3552,17 +3552,16 @@ void scriptclass::teleport()
 		}
 		if (!game.intimetrial && !game.nodeathmode && !game.inintermission)
 		{
-			if (graphics.flipmode)
+			if (game.savetele())
 			{
-				graphics.createtextbox("    Game Saved    ", -1, 202, 174, 174, 174);
+				graphics.createtextbox("    Game Saved    ", -1, graphics.flipmode ? 202 : 12, 174, 174, 174);
 				graphics.textboxtimer(25);
 			}
 			else
 			{
-				graphics.createtextbox("    Game Saved    ", -1, 12, 174, 174, 174);
-				graphics.textboxtimer(25);
+				graphics.createtextbox("  ERROR: Could not save game!  ", -1, graphics.flipmode ? 202 : 12, 255, 60, 60);
+				graphics.textboxtimer(50);
 			}
-			game.savetele();
 		}
 	}
 }

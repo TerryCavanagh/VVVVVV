@@ -132,7 +132,7 @@ public:
 
     void deletequick();
 
-    void savetele();
+    bool savetele();
 
     void loadtele();
 
