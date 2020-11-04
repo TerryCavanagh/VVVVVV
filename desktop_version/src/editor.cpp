@@ -1766,46 +1766,46 @@ bool editorclass::load(std::string& _path)
 
             for( tinyxml2::XMLElement* subElem = pElem->FirstChildElement(); subElem; subElem= subElem->NextSiblingElement())
             {
-                std::string pKey(subElem->Value());
-                const char* pText = subElem->GetText() ;
-                if(pText == NULL)
+                std::string pKey_(subElem->Value());
+                const char* pText_ = subElem->GetText() ;
+                if(pText_ == NULL)
                 {
-                    pText = "";
+                    pText_ = "";
                 }
 
-                if(pKey == "Creator")
+                if(pKey_ == "Creator")
                 {
-                    EditorData::GetInstance().creator = pText;
+                    EditorData::GetInstance().creator = pText_;
                 }
 
-                if(pKey == "Title")
+                if(pKey_ == "Title")
                 {
-                    EditorData::GetInstance().title = pText;
+                    EditorData::GetInstance().title = pText_;
                 }
 
-                if(pKey == "Desc1")
+                if(pKey_ == "Desc1")
                 {
-                    Desc1 = pText;
+                    Desc1 = pText_;
                 }
 
-                if(pKey == "Desc2")
+                if(pKey_ == "Desc2")
                 {
-                    Desc2 = pText;
+                    Desc2 = pText_;
                 }
 
-                if(pKey == "Desc3")
+                if(pKey_ == "Desc3")
                 {
-                    Desc3 = pText;
+                    Desc3 = pText_;
                 }
 
-                if(pKey == "website")
+                if(pKey_ == "website")
                 {
-                    website = pText;
+                    website = pText_;
                 }
 
-                if(pKey == "onewaycol_override")
+                if(pKey_ == "onewaycol_override")
                 {
-                    onewaycol_override = help.Int(pText);
+                    onewaycol_override = help.Int(pText_);
                 }
             }
         }
@@ -2145,12 +2145,12 @@ bool editorclass::save(std::string& _path)
         Script& script_ = script.customscripts[i];
 
         scriptString += script_.name + ":|";
-        for (size_t i = 0; i < script_.contents.size(); i++)
+        for (size_t ii = 0; ii < script_.contents.size(); i++)
         {
-            scriptString += script_.contents[i];
+            scriptString += script_.contents[ii];
 
             // Inserts a space if the line ends with a :
-            if (script_.contents[i].length() && *script_.contents[i].rbegin() == ':')
+            if (script_.contents[ii].length() && *script_.contents[ii].rbegin() == ':')
             {
                 scriptString += " ";
             }
@@ -2644,14 +2644,11 @@ void editorrender()
     // Draw entities backward to remain accurate with ingame
     for (int i = edentity.size() - 1; i >= 0; i--)
     {
-        //if() on screen
-        int tx=(edentity[i].x-(edentity[i].x%40))/40;
-        int ty=(edentity[i].y-(edentity[i].y%30))/30;
-
         point tpoint;
         SDL_Rect drawRect;
 
-        if(tx==ed.levx && ty==ed.levy)
+        //if() on screen
+        if(edentity[i].x % 40 == ed.levx && edentity[i].y % 30 == ed.levy)
         {
             switch(edentity[i].t)
             {
@@ -2928,9 +2925,7 @@ void editorrender()
         //Need to also check warp point destinations
         if(edentity[i].t==13 && ed.warpent!=i)
         {
-            tx=(edentity[i].p1-(edentity[i].p1%40))/40;
-            ty=(edentity[i].p2-(edentity[i].p2%30))/30;
-            if(tx==ed.levx && ty==ed.levy)
+            if (edentity[i].p1 % 40 == ed.levx && edentity[i].p2 % 30 == ed.levy)
             {
                 graphics.drawsprite((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),18+(ed.entframe%2),64,64,64);
                 fillboxabs((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),16,16,graphics.getRGB(64,64,96));

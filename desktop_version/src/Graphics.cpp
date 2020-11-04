@@ -1942,7 +1942,7 @@ void Graphics::drawentity(const int i, const int yoff)
 
         tpoint.x = xp; tpoint.y = yp - yoff;
         setcolreal(obj.entities[i].realcol);
-        SDL_Rect drawRect = {Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) };
+        setRect(drawRect, Sint16(obj.entities[i].xp ), Sint16(obj.entities[i].yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) );
         SDL_Surface* TempSurface = ScaleSurface( spritesvec[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
         BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
         SDL_FreeSurface(TempSurface);
