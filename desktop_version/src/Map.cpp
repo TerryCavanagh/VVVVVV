@@ -887,6 +887,7 @@ void mapclass::gotoroom(int rx, int ry)
 	obj.removeallblocks();
 	game.activetele = false;
 	game.readytotele = 0;
+	game.oldreadytotele = 0;
 
 	//Ok, let's save the position of all lines on the screen
 	obj.linecrosskludge.clear();
