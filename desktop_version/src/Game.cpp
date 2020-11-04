@@ -4429,7 +4429,9 @@ void Game::deletestats()
             bestlives[i] = -1;
             bestrank[i] = -1;
         }
+#ifndef MAKEANDPLAY
         graphics.setflipmode = false;
+#endif
         stat_trinkets = 0;
     }
 }
