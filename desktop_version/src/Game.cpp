@@ -4707,11 +4707,12 @@ void Game::loadstats(int *width, int *height, bool *vsync)
 
     }
 
-    if (graphics.showmousecursor == true)
+    if (graphics.showmousecursor)
     {
         SDL_ShowCursor(SDL_ENABLE);
     }
-    else {
+    else
+    {
         SDL_ShowCursor(SDL_DISABLE);
     }
 
