@@ -217,7 +217,12 @@ int main(int argc, char *argv[])
     int width = 320;
     int height = 240;
     bool vsync = false;
+
+    // Prioritize unlock.vvv first (2.2 and below),
+    // but settings have been migrated to settings.vvv (2.3 and up)
     game.loadstats(&width, &height, &vsync);
+    game.loadsettings(&width, &height, &vsync);
+
     gameScreen.init(
         width,
         height,

@@ -6,7 +6,11 @@
 #include <vector>
 
 // Forward decl without including all of <tinyxml2.h>
-namespace tinyxml2 { class XMLDocument; }
+namespace tinyxml2
+{
+    class XMLDocument;
+    class XMLElement;
+}
 
 struct MenuOption
 {
@@ -126,9 +130,19 @@ public:
 
     void loadstats(int *width, int *height, bool *vsync);
 
-    void  savestats();
+    void  savestats(const bool stats_only = false);
 
     void deletestats();
+
+    void deserializesettings(tinyxml2::XMLElement* dataNode, int* width, int* height, bool* vsync);
+
+    void serializesettings(tinyxml2::XMLElement* dataNode);
+
+    void loadsettings(int* width, int* height, bool* vsync);
+
+    void savesettings();
+
+    void deletesettings();
 
     void deletequick();
 
