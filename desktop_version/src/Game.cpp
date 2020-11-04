@@ -1918,16 +1918,15 @@ void Game::updatestate()
             }
             else
             {
-                savetele();
-                if (graphics.flipmode)
+                if (savetele())
                 {
-                    graphics.createtextbox("    Game Saved    ", -1, 202, 174, 174, 174);
+                    graphics.createtextbox("    Game Saved    ", -1, graphics.flipmode ? 202 : 12, 174, 174, 174);
                     graphics.textboxtimer(25);
                 }
                 else
                 {
-                    graphics.createtextbox("    Game Saved    ", -1, 12, 174, 174, 174);
-                    graphics.textboxtimer(25);
+                    graphics.createtextbox("  ERROR: Could not save game!  ", -1, graphics.flipmode ? 202 : 12, 255, 60, 60);
+                    graphics.textboxtimer(50);
                 }
                 state = 0;
             }
@@ -5698,12 +5697,12 @@ void Game::initteleportermode()
     }
 }
 
-void Game::savetele()
+bool Game::savetele()
 {
     if (map.custommode || inspecial())
     {
         //Don't trash save data!
-        return;
+        return false;
     }
 
     tinyxml2::XMLDocument doc;
@@ -5714,15 +5713,14 @@ void Game::savetele()
     }
     telesummary = writemaingamesave(doc);
 
-    if(FILESYSTEM_saveTiXml2Document("saves/tsave.vvv", doc))
-    {
-        printf("Game saved\n");
-    }
-    else
+    if(!FILESYSTEM_saveTiXml2Document("saves/tsave.vvv", doc))
     {
         printf("Could Not Save game!\n");
         printf("Failed: %s%s\n", saveFilePath.c_str(), "tsave.vvv");
+        return false;
     }
+    printf("Game saved\n");
+    return true;
 }
 
 
