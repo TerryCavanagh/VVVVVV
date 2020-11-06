@@ -18,7 +18,7 @@ public:
 	void haltdasmusik();
 	void silencedasmusik();
 	void fadeMusicVolumeIn(int ms);
-	void fadeout();
+	void fadeout(const bool quick_fade_ = true);
 	void fadein();
 	void processmusicfadein();
 	void processmusic();
@@ -43,7 +43,7 @@ public:
 	int FadeVolAmountPerFrame;
 	int musicVolume;
 
-	bool dontquickfade;
+	bool quick_fade;
 
 	// MMMMMM mod settings
 	bool mmmmmm;

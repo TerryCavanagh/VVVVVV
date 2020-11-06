@@ -284,8 +284,7 @@ void scriptclass::run()
 			}
 			if (words[0] == "musicfadeout")
 			{
-				music.fadeout();
-				music.dontquickfade = true;
+				music.fadeout(false);
 			}
 			if (words[0] == "musicfadein")
 			{
