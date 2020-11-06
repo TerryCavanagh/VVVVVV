@@ -37,7 +37,7 @@ public:
 	bool safeToProcessMusic;
 
 	int nicechange;
-	int nicefade;
+	bool nicefade;
 
 	bool m_doFadeInVol;
 	int FadeVolAmountPerFrame;

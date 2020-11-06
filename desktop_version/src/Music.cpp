@@ -137,7 +137,7 @@ void musicclass::init()
 
 	currentsong = 0;
 	nicechange = 0;
-	nicefade = 0;
+	nicefade = false;
 	resumesong = 0;
 	fadeoutqueuesong = -1;
 	dontquickfade = false;
@@ -282,10 +282,11 @@ void musicclass::processmusic()
 		fadeoutqueuesong = -1;
 	}
 
-	if (nicefade == 1 && Mix_PlayingMusic() == 0)
+	if (nicefade && Mix_PlayingMusic() == 0)
 	{
 		play(nicechange);
-		nicechange = -1; nicefade = 0;
+		nicechange = -1;
+		nicefade = false;
 	}
 
 	if(m_doFadeInVol)
@@ -305,7 +306,7 @@ void musicclass::niceplay(int t)
 			dontquickfade = true;
 			fadeout();
 		}
-		nicefade = 1;
+		nicefade = true;
 		nicechange = t;
 	}
 }
