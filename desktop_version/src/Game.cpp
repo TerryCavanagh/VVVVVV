@@ -5925,7 +5925,7 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 
     //Special stats
 
-    if(music.nicefade==1)
+    if (music.nicefade)
     {
         xml::update_tag(msgs, "currentsong", music.nicechange);
     }
@@ -6058,7 +6058,7 @@ bool Game::customsavequick(std::string savfile)
 
     //Special stats
 
-    if(music.nicefade==1)
+    if (music.nicefade)
     {
         xml::update_tag(msgs, "currentsong", music.nicechange );
     }
