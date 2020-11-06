@@ -2157,7 +2157,7 @@ void mapinput()
     }
 
     if(graphics.menuoffset==0
-    && ((!game.glitchrunnermode && game.fadetomenudelay <= 0 && game.fadetolabdelay <= 0)
+    && ((!game.glitchrunnermode && !game.fadetomenu && game.fadetomenudelay <= 0 && !game.fadetolab && game.fadetolabdelay <= 0)
     || graphics.fademode == 0))
     {
         if (graphics.flipmode)
