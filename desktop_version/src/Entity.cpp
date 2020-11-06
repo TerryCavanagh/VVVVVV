@@ -2361,7 +2361,7 @@ bool entityclass::updateentities( int i )
                     {
                         return removeentity(i);
                     }
-                    if (game.roomy == 108)
+                    if (game.roomx == 113 && game.roomy == 108)
                     {
                         if (entities[i].yp <= 60)
                         {
