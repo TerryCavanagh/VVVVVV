@@ -189,7 +189,7 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 				currentsong = -1;
 				return;
 			}
-			if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_pppppp_tracks || currentsong == 7+num_pppppp_tracks)))
+			if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_mmmmmm_tracks || currentsong == 7+num_mmmmmm_tracks)))
 			{
 				// Level Complete theme, no fade in or repeat
 				if(Mix_FadeInMusicPos(musicTracks[t].m_music, 0, 0, position_sec)==-1)
