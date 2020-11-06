@@ -139,7 +139,6 @@ void musicclass::init()
 	nicechange = -1;
 	nicefade = false;
 	resumesong = 0;
-	fadeoutqueuesong = -1;
 	dontquickfade = false;
 
 	songStart = 0;
@@ -199,14 +198,20 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 			}
 			else
 			{
-				if (Mix_FadingMusic() == MIX_FADING_OUT) {
+				if (Mix_FadingMusic() == MIX_FADING_OUT)
+				{
 					// We're already fading out
-					fadeoutqueuesong = t;
+					nicechange = t;
+					nicefade = true;
 					currentsong = -1;
 					if (!dontquickfade)
+					{
 						Mix_FadeOutMusic(500); // fade out quicker
+					}
 					else
+					{
 						dontquickfade = false;
+					}
 				}
 				else if(Mix_FadeInMusicPos(musicTracks[t].m_music, -1, fadein_ms, position_sec)==-1)
 				{
@@ -275,11 +280,6 @@ void musicclass::processmusic()
 	if(!safeToProcessMusic)
 	{
 		return;
-	}
-
-	if (fadeoutqueuesong != -1 && Mix_PlayingMusic() == 0) {
-		play(fadeoutqueuesong);
-		fadeoutqueuesong = -1;
 	}
 
 	if (nicefade && Mix_PlayingMusic() == 0)

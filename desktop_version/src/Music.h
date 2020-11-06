@@ -36,14 +36,13 @@ public:
 	SoundSystem soundSystem;
 	bool safeToProcessMusic;
 
-	int nicechange;
+	int nicechange; // -1 if no song queued
 	bool nicefade;
 
 	bool m_doFadeInVol;
 	int FadeVolAmountPerFrame;
 	int musicVolume;
 
-	int fadeoutqueuesong; // -1 if no song queued
 	bool dontquickfade;
 
 	// MMMMMM mod settings
