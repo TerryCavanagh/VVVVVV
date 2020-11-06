@@ -435,7 +435,7 @@ void inline deltaloop()
 
     while (accumulator >= timesteplimit)
     {
-        accumulator = fmodf(accumulator, timesteplimit);
+        accumulator = SDL_fmodf(accumulator, timesteplimit);
 
         fixedloop();
     }
