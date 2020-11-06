@@ -136,7 +136,7 @@ void musicclass::init()
 	FadeVolAmountPerFrame = 0;
 
 	currentsong = 0;
-	nicechange = 0;
+	nicechange = -1;
 	nicefade = false;
 	resumesong = 0;
 	fadeoutqueuesong = -1;
