@@ -73,8 +73,293 @@ static inline Uint32 get_framerate(const int slowdown)
     return 34;
 }
 
+enum FuncType
+{
+    Func_null,
+    Func_fixed,
+    Func_delta
+};
+
+struct ImplFunc
+{
+    enum FuncType type;
+    void (*func)(void);
+};
+
+static void runscript(void)
+{
+    script.run();
+}
+
+static void gamemodefunc1(void)
+{
+    // WARNING: If updating this code, don't forget to update Map.cpp mapclass::twoframedelayfix()
+
+    // Ugh, I hate this kludge variable but it's the only way to do it
+    if (script.dontrunnextframe)
+    {
+        script.dontrunnextframe = false;
+    }
+    else
+    {
+        runscript();
+    }
+
+    //Update old lerp positions of entities - has to be done BEFORE gameinput!
+    for (size_t i = 0; i < obj.entities.size(); i++)
+    {
+        obj.entities[i].lerpoldxp = obj.entities[i].xp;
+        obj.entities[i].lerpoldyp = obj.entities[i].yp;
+    }
+}
+
+static void teleportermodeinput(void)
+{
+    if (game.useteleporter)
+    {
+        teleporterinput();
+    }
+    else
+    {
+        script.run();
+        gameinput();
+    }
+}
+
+/* Only gets used in EDITORMODE. I assume the compiler will optimize this away
+ * if this is a NO_CUSTOM_LEVELS or NO_EDITOR build
+ */
+static void flipmodeoff(void)
+{
+    graphics.flipmode = false;
+}
+
+static void focused_begin(void);
+static void focused_end(void);
+
+static const inline struct ImplFunc* get_gamestate_funcs(
+    const int gamestate,
+    int* num_implfuncs
+) {
+    switch (gamestate)
+    {
+
+#define FUNC_LIST_BEGIN(GAMESTATE) \
+    case GAMESTATE: \
+    { \
+        static const struct ImplFunc implfuncs[] = { \
+            {Func_fixed, focused_begin},
+
+#define FUNC_LIST_END \
+            {Func_fixed, focused_end} \
+        }; \
+        *num_implfuncs = SDL_arraysize(implfuncs); \
+        return implfuncs; \
+    }
+
+    FUNC_LIST_BEGIN(GAMEMODE)
+        {Func_fixed, gamemodefunc1},
+        {Func_fixed, gameinput},
+        {Func_fixed, gamerenderfixed},
+        {Func_delta, gamerender},
+        {Func_fixed, gamelogic},
+    FUNC_LIST_END
+
+    FUNC_LIST_BEGIN(TITLEMODE)
+        {Func_fixed, titleinput},
+        {Func_fixed, titlerenderfixed},
+        {Func_delta, titlerender},
+        {Func_fixed, titlelogic},
+    FUNC_LIST_END
+
+    FUNC_LIST_BEGIN(MAPMODE)
+        {Func_fixed, maprenderfixed},
+        {Func_delta, maprender},
+        {Func_fixed, mapinput},
+        {Func_fixed, maplogic},
+    FUNC_LIST_END
+
+    FUNC_LIST_BEGIN(TELEPORTERMODE)
+        {Func_fixed, maprenderfixed},
+        {Func_delta, teleporterrender},
+        {Func_fixed, teleportermodeinput},
+        {Func_fixed, maplogic},
+    FUNC_LIST_END
+
+    FUNC_LIST_BEGIN(GAMECOMPLETE)
+        {Func_fixed, gamecompleterenderfixed},
+        {Func_delta, gamecompleterender},
+        {Func_fixed, gamecompleteinput},
+        {Func_fixed, gamecompletelogic},
+    FUNC_LIST_END
+
+    FUNC_LIST_BEGIN(GAMECOMPLETE2)
+        {Func_delta, gamecompleterender2},
+        {Func_fixed, gamecompleteinput2},
+        {Func_fixed, gamecompletelogic2},
+    FUNC_LIST_END
+
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+    FUNC_LIST_BEGIN(EDITORMODE)
+        {Func_fixed, flipmodeoff},
+        {Func_fixed, editorinput},
+        {Func_fixed, editorrenderfixed},
+        {Func_delta, editorrender},
+        {Func_fixed, editorlogic},
+    FUNC_LIST_END
+#endif
+
+    FUNC_LIST_BEGIN(PRELOADER)
+        {Func_fixed, preloaderinput},
+        {Func_fixed, preloaderrenderfixed},
+        {Func_delta, preloaderrender},
+    FUNC_LIST_END
+
+#undef FUNC_LIST_END
+#undef FUNC_LIST_BEGIN
+
+    }
+
+    SDL_assert(0 && "Invalid gamestate!");
+    return NULL;
+}
+
+enum IndexCode
+{
+    Index_none,
+    Index_end
+};
+
+static const struct ImplFunc* gamestate_funcs = NULL;
+static int num_gamestate_funcs = 0;
+static int gamestate_func_index = -1;
+
+static enum IndexCode increment_gamestate_func_index(void)
+{
+    gamestate_func_index++;
+
+    if (gamestate_func_index == num_gamestate_funcs)
+    {
+        /* Reached the end of current gamestate order.
+         * Re-fetch for new order if gamestate changed.
+         */
+        gamestate_funcs = get_gamestate_funcs(
+            game.gamestate,
+            &num_gamestate_funcs
+        );
+
+        gamestate_func_index = 0;
+
+        return Index_end;
+    }
+
+    return Index_none;
+}
+
+static void unfocused_run(void);
+
+static const struct ImplFunc unfocused_func_list[] = {
+    Func_fixed,
+    unfocused_run
+};
+static const struct ImplFunc* unfocused_funcs = unfocused_func_list;
+static int num_unfocused_funcs = SDL_arraysize(unfocused_func_list);
+static int unfocused_func_index = -1;
+
+static enum IndexCode increment_unfocused_func_index(void)
+{
+    unfocused_func_index++;
+
+    if (unfocused_func_index == num_unfocused_funcs)
+    {
+        unfocused_func_index = 0;
+
+        return Index_end;
+    }
+
+    return Index_none;
+}
+
+static const struct ImplFunc** active_funcs = NULL;
+static int* num_active_funcs = NULL;
+static int* active_func_index = NULL;
+static enum IndexCode (*increment_func_index)(void) = NULL;
+
+enum LoopCode
+{
+    Loop_continue,
+    Loop_stop
+};
+
+static enum LoopCode loop_assign_active_funcs(void)
+{
+    if (key.isActive)
+    {
+        active_funcs = &gamestate_funcs;
+        num_active_funcs = &num_gamestate_funcs;
+        active_func_index = &gamestate_func_index;
+        increment_func_index = &increment_gamestate_func_index;
+    }
+    else
+    {
+        active_funcs = &unfocused_funcs;
+        num_active_funcs = &num_unfocused_funcs;
+        active_func_index = &unfocused_func_index;
+        increment_func_index = &increment_unfocused_func_index;
+    }
+    return Loop_continue;
+}
+
+static enum LoopCode loop_run_active_funcs(void)
+{
+    while ((*active_funcs)[*active_func_index].type != Func_delta)
+    {
+        const struct ImplFunc* implfunc = &(*active_funcs)[*active_func_index];
+        enum IndexCode index_code;
+
+        if (implfunc->type != Func_null && implfunc->func != NULL)
+        {
+            implfunc->func();
+        }
+
+        index_code = increment_func_index();
+
+        if (index_code == Index_end)
+        {
+            return Loop_continue;
+        }
+    }
+
+    return Loop_stop;
+}
+
+static enum LoopCode loop_begin(void);
+static enum LoopCode loop_end(void);
+
+static enum LoopCode (*const meta_funcs[])(void) = {
+    loop_begin,
+    loop_assign_active_funcs,
+    loop_run_active_funcs,
+    loop_end
+};
+static int meta_func_index = 0;
+
+static void inline fixedloop(void)
+{
+    while (true)
+    {
+        enum LoopCode loop_code = meta_funcs[meta_func_index]();
+
+        if (loop_code == Loop_stop)
+        {
+            break;
+        }
+
+        meta_func_index = (meta_func_index + 1) % SDL_arraysize(meta_funcs);
+    }
+}
+
 static void inline deltaloop(void);
-static void inline fixedloop(void);
 
 static void cleanup(void);
 
@@ -336,6 +621,9 @@ int main(int argc, char *argv[])
     key.isActive = true;
     game.gametimer = 0;
 
+    gamestate_funcs = get_gamestate_funcs(game.gamestate, &num_gamestate_funcs);
+    loop_assign_active_funcs();
+
     while(!key.quitProgram)
     {
         f_time = SDL_GetTicks();
@@ -402,6 +690,8 @@ static void inline deltaloop(void)
 
     while (accumulator >= timesteplimit)
     {
+        increment_func_index();
+
         accumulator = SDL_fmodf(accumulator, timesteplimit);
 
         fixedloop();
@@ -409,54 +699,39 @@ static void inline deltaloop(void)
     const float alpha = game.over30mode ? static_cast<float>(accumulator) / timesteplimit : 1.0f;
     graphics.alpha = alpha;
 
-    if (key.isActive)
+    if (active_func_index == NULL
+    || *active_func_index == -1
+    || active_funcs == NULL)
     {
-        switch (game.gamestate)
+        /* Somehow the first deltatime has been too small and things haven't
+         * initialized. We'll just no-op for now.
+         */
+    }
+    else
+    {
+        const struct ImplFunc* implfunc = &(*active_funcs)[*active_func_index];
+
+        if (implfunc->type == Func_delta && implfunc->func != NULL)
         {
-        case PRELOADER:
-            preloaderrender();
-            break;
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-        case EDITORMODE:
-            graphics.flipmode = false;
-            editorrender();
-            break;
-#endif
-        case TITLEMODE:
-            titlerender();
-            break;
-        case GAMEMODE:
-            gamerender();
-            break;
-        case MAPMODE:
-            maprender();
-            break;
-        case TELEPORTERMODE:
-            teleporterrender();
-            break;
-        case GAMECOMPLETE:
-            gamecompleterender();
-            break;
-        case GAMECOMPLETE2:
-            gamecompleterender2();
-            break;
-        case CLICKTOSTART:
-            help.updateglow();
-            break;
+            implfunc->func();
+
+            gameScreen.FlipScreen();
         }
-        gameScreen.FlipScreen();
     }
 }
 
-static void inline fixedloop(void)
+static enum LoopCode loop_begin(void)
 {
     // Update network per frame.
     NETWORK_update();
 
     key.Poll();
 
-    if(!key.isActive)
-    {
+    return Loop_continue;
+}
+
+static void unfocused_run(void)
+{
         Mix_Pause(-1);
         Mix_PauseMusic();
 
@@ -472,116 +747,31 @@ static void inline fixedloop(void)
         gameScreen.FlipScreen();
         //We are minimised, so lets put a bit of a delay to save CPU
         SDL_Delay(100);
-    }
-    else
-    {
+}
+
+static void focused_begin(void)
+{
         Mix_Resume(-1);
         Mix_ResumeMusic();
         game.gametimer++;
+}
 
-        switch(game.gamestate)
-        {
-        case PRELOADER:
-            preloaderinput();
-            preloaderrenderfixed();
-            break;
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-        case EDITORMODE:
-            //Input
-            editorinput();
-            ////Logic
-            editorlogic();
-
-            editorrenderfixed();
-            break;
-#endif
-        case TITLEMODE:
-            //Input
-            titleinput();
-            ////Logic
-            titlelogic();
-
-            titlerenderfixed();
-            break;
-        case GAMEMODE:
-            // WARNING: If updating this code, don't forget to update Map.cpp mapclass::twoframedelayfix()
-
-            // Ugh, I hate this kludge variable but it's the only way to do it
-            if (script.dontrunnextframe)
-            {
-                script.dontrunnextframe = false;
-            }
-            else
-            {
-                script.run();
-            }
-
-            //Update old lerp positions of entities - has to be done BEFORE gameinput!
-            for (size_t i = 0; i < obj.entities.size(); i++)
-            {
-                obj.entities[i].lerpoldxp = obj.entities[i].xp;
-                obj.entities[i].lerpoldyp = obj.entities[i].yp;
-            }
-
-            gameinput();
-            gamerenderfixed();
-            gamelogic();
-
-
-            break;
-        case MAPMODE:
-            mapinput();
-            maplogic();
-            maprenderfixed();
-            break;
-        case TELEPORTERMODE:
-            if(game.useteleporter)
-            {
-                teleporterinput();
-            }
-            else
-            {
-                script.run();
-                gameinput();
-            }
-            maplogic();
-            teleporterrenderfixed();
-            break;
-        case GAMECOMPLETE:
-            //Input
-            gamecompleteinput();
-            //Logic
-            gamecompletelogic();
-
-            gamecompleterenderfixed();
-            break;
-        case GAMECOMPLETE2:
-            //Input
-            gamecompleteinput2();
-            //Logic
-            gamecompletelogic2();
-            break;
-        case CLICKTOSTART:
-            break;
-        default:
-
-            break;
-
-        }
-
-    }
-
+static void focused_end(void)
+{
     //Screen effects timers
-    if (key.isActive && game.flashlight > 0)
+    if (game.flashlight > 0)
     {
         game.flashlight--;
     }
-    if (key.isActive && game.screenshake > 0)
+    if (game.screenshake > 0)
     {
         game.screenshake--;
         graphics.updatescreenshake();
     }
+}
 
+static enum LoopCode loop_end(void)
+{
     if (graphics.screenbuffer->badSignalEffect)
     {
         UpdateFilter();
@@ -646,4 +836,6 @@ static void inline fixedloop(void)
     music.processmusic();
     graphics.processfade();
     game.gameclock();
+
+    return Loop_continue;
 }
