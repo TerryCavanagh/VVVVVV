@@ -117,6 +117,7 @@ SET(VVV_SRC
 	src/Otherlevel.cpp
 	src/preloader.cpp
 	src/Render.cpp
+	src/RenderFixed.cpp
 	src/Screen.cpp
 	src/Script.cpp
 	src/Scripts.cpp
