@@ -7146,8 +7146,6 @@ void Game::returntopausemenu()
     ingame_titlemode = false;
     returntomenu(kludge_ingametemp);
     gamestate = MAPMODE;
-    graphics.titlebg.tdrawback = true;
-    graphics.backgrounddrawn = false;
     mapheld = true;
     graphics.flipmode = graphics.setflipmode;
     if (!map.custommode && !graphics.flipmode)
