@@ -16,6 +16,7 @@
 #include "Network.h"
 #include "preloader.h"
 #include "Render.h"
+#include "RenderFixed.h"
 #include "Screen.h"
 #include "Script.h"
 #include "SoundSystem.h"
@@ -526,7 +527,7 @@ void inline fixedloop()
         switch(game.gamestate)
         {
         case PRELOADER:
-            preloaderlogic();
+            preloaderrenderfixed();
             break;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
         case EDITORMODE:
@@ -534,6 +535,8 @@ void inline fixedloop()
             editorinput();
             ////Logic
             editorlogic();
+
+            editorrenderfixed();
             break;
 #endif
         case TITLEMODE:
@@ -541,6 +544,8 @@ void inline fixedloop()
             titleinput();
             ////Logic
             titlelogic();
+
+            titlerenderfixed();
             break;
         case GAMEMODE:
             // WARNING: If updating this code, don't forget to update Map.cpp mapclass::twoframedelayfix()
@@ -564,12 +569,14 @@ void inline fixedloop()
 
             gameinput();
             gamelogic();
+            gamerenderfixed();
 
 
             break;
         case MAPMODE:
             mapinput();
             maplogic();
+            maprenderfixed();
             break;
         case TELEPORTERMODE:
             if(game.useteleporter)
@@ -585,12 +592,15 @@ void inline fixedloop()
                 gameinput();
             }
             maplogic();
+            maprenderfixed();
             break;
         case GAMECOMPLETE:
             //Input
             gamecompleteinput();
             //Logic
             gamecompletelogic();
+
+            gamecompleterenderfixed();
             break;
         case GAMECOMPLETE2:
             //Input

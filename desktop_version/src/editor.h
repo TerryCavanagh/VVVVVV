@@ -285,6 +285,8 @@ void fillboxabs(int x, int y, int x2, int y2, int c);
 #if !defined(NO_EDITOR)
 void editorrender();
 
+void editorrenderfixed();
+
 void editorlogic();
 
 void editorinput();

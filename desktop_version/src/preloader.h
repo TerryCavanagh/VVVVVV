@@ -3,6 +3,6 @@
 
 void preloaderrender();
 
-void preloaderlogic();
+void preloaderrenderfixed();
 
 #endif /* PRELOADER_H */

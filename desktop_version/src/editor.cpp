@@ -3645,11 +3645,9 @@ void editorrender()
     graphics.render();
 }
 
-void editorlogic()
+void editorrenderfixed()
 {
     extern editorclass ed;
-    //Misc
-    help.updateglow();
     graphics.updatetitlecolours();
 
     game.customcol=ed.getlevelcol(ed.levx+(ed.levy*ed.maxwidth))+1;
@@ -3657,27 +3655,6 @@ void editorlogic()
 
     graphics.setcol(ed.entcol);
     ed.entcolreal = graphics.ct.colour;
-
-    if (game.shouldreturntoeditor)
-    {
-        game.shouldreturntoeditor = false;
-    }
-
-    graphics.titlebg.bypos -= 2;
-    graphics.titlebg.bscroll = -2;
-
-    ed.entframedelay--;
-    if(ed.entframedelay<=0)
-    {
-        ed.entframe=(ed.entframe+1)%4;
-        ed.entframedelay=8;
-    }
-
-    ed.oldnotedelay = ed.notedelay;
-    if(ed.notedelay>0)
-    {
-        ed.notedelay--;
-    }
 
     if (game.ghostsenabled)
     {
@@ -3725,6 +3702,34 @@ void editorlogic()
     else if (!game.colourblindmode)
     {
         graphics.updatetowerbackground(graphics.titlebg);
+    }
+}
+
+void editorlogic()
+{
+    extern editorclass ed;
+    //Misc
+    help.updateglow();
+
+    if (game.shouldreturntoeditor)
+    {
+        game.shouldreturntoeditor = false;
+    }
+
+    graphics.titlebg.bypos -= 2;
+    graphics.titlebg.bscroll = -2;
+
+    ed.entframedelay--;
+    if(ed.entframedelay<=0)
+    {
+        ed.entframe=(ed.entframe+1)%4;
+        ed.entframedelay=8;
+    }
+
+    ed.oldnotedelay = ed.notedelay;
+    if(ed.notedelay>0)
+    {
+        ed.notedelay--;
     }
 
     if (graphics.fademode == 1)

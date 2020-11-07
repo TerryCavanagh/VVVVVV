@@ -8,10 +8,10 @@
 #include "Game.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
-#include "Logic.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Music.h"
+#include "RenderFixed.h"
 #include "Script.h"
 #include "UtilityClass.h"
 
