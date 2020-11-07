@@ -433,7 +433,6 @@ public:
 
     bool ingame_titlemode;
 
-    bool shouldreturntopausemenu;
     void returntopausemenu();
     void unlockAchievement(const char *name);
 

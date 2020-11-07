@@ -377,7 +377,6 @@ void Game::init(void)
 
     ingame_titlemode = false;
     kludge_ingametemp = Menu::mainmenu;
-    shouldreturntopausemenu = false;
 
     disablepause = false;
 }
@@ -7155,7 +7154,6 @@ void Game::returntopausemenu()
     {
         obj.flags[73] = true;
     }
-    shouldreturntopausemenu = true;
 }
 
 void Game::unlockAchievement(const char *name) {
