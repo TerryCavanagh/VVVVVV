@@ -2387,9 +2387,6 @@ void mapmenuactionpress()
         }
         game.kludge_ingametemp = game.currentmenuname;
 
-        graphics.titlebg.scrolldir = 0;
-        graphics.titlebg.colstate = ((int) (graphics.titlebg.colstate / 5)) * 5;
-        graphics.titlebg.bypos = 0;
         map.nexttowercolour();
 
         // Fix delta rendering glitch
