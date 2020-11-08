@@ -93,18 +93,6 @@ static void runscript(void)
 
 static void gamemodefunc1(void)
 {
-    // WARNING: If updating this code, don't forget to update Map.cpp mapclass::twoframedelayfix()
-
-    // Ugh, I hate this kludge variable but it's the only way to do it
-    if (script.dontrunnextframe)
-    {
-        script.dontrunnextframe = false;
-    }
-    else
-    {
-        runscript();
-    }
-
     //Update old lerp positions of entities - has to be done BEFORE gameinput!
     for (size_t i = 0; i < obj.entities.size(); i++)
     {
@@ -158,6 +146,7 @@ static const inline struct ImplFunc* get_gamestate_funcs(
     }
 
     FUNC_LIST_BEGIN(GAMEMODE)
+        {Func_fixed, runscript},
         {Func_fixed, gamemodefunc1},
         {Func_fixed, gameinput},
         {Func_fixed, gamerenderfixed},

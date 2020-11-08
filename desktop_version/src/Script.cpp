@@ -18,7 +18,6 @@ scriptclass::scriptclass(void)
 	position = 0;
 	scriptdelay = 0;
 	running = false;
-	dontrunnextframe = false;
 
 	b = 0;
 	g = 0;
@@ -3492,10 +3491,6 @@ void scriptclass::teleport(void)
 		game.state = 0;
 		load(game.teleportscript);
 		game.teleportscript = "";
-
-		// FIXME: Remove this once game loop order is fixed in 2.4!
-		run();
-		dontrunnextframe = true;
 	}
 	else
 	{
