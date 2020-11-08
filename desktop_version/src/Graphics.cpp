@@ -1541,7 +1541,7 @@ void Graphics::drawgravityline( int t )
         return;
     }
 
-    if (obj.entities[t].life == 0 || obj.entities[t].onentity == 1) // FIXME: Remove 'onentity == 1' when game loop order is fixed!
+    if (obj.entities[t].life == 0)
     {
         switch(linestate)
         {
