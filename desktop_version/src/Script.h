@@ -54,7 +54,7 @@ public:
     int looppoint, loopcount;
 
     int scriptdelay;
-    bool running, dontrunnextframe;
+    bool running;
 
     //Textbox stuff
     int textx;
