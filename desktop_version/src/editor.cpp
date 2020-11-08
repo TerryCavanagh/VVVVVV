@@ -2648,7 +2648,7 @@ void editorrender()
         SDL_Rect drawRect;
 
         //if() on screen
-        if(edentity[i].x % 40 == ed.levx && edentity[i].y % 30 == ed.levy)
+        if(edentity[i].x / 40 == ed.levx && edentity[i].y / 30 == ed.levy)
         {
             switch(edentity[i].t)
             {
@@ -2925,7 +2925,7 @@ void editorrender()
         //Need to also check warp point destinations
         if(edentity[i].t==13 && ed.warpent!=i)
         {
-            if (edentity[i].p1 % 40 == ed.levx && edentity[i].p2 % 30 == ed.levy)
+            if (edentity[i].p1 / 40 == ed.levx && edentity[i].p2 / 30 == ed.levy)
             {
                 graphics.drawsprite((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),18+(ed.entframe%2),64,64,64);
                 fillboxabs((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8),16,16,graphics.getRGB(64,64,96));
