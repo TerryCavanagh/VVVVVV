@@ -382,8 +382,8 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
                 blue =  static_cast<Uint8>(blue / 1.2f);
             }
 
-            int distX =  static_cast<int>((abs (160.0f -x ) / 160.0f) *16);
-            int distY =  static_cast<int>((abs (120.0f -y ) / 120.0f)*32);
+            int distX =  static_cast<int>((SDL_abs (160.0f -x ) / 160.0f) *16);
+            int distY =  static_cast<int>((SDL_abs (120.0f -y ) / 120.0f)*32);
 
             red = std::max(red - ( distX +distY), 0);
             green = std::max(green - ( distX +distY), 0);
