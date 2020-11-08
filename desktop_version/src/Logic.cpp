@@ -122,6 +122,13 @@ void gamecompletelogic2(void)
 
 void gamelogic(void)
 {
+    /* Update old lerp positions of entities */
+    {size_t i; for (i = 0; i < obj.entities.size(); ++i)
+    {
+        obj.entities[i].lerpoldxp = obj.entities[i].xp;
+        obj.entities[i].lerpoldyp = obj.entities[i].yp;
+    }}
+
     //Misc
     if (map.towermode)
     {

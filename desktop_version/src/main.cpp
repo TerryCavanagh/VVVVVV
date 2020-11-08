@@ -91,16 +91,6 @@ static void runscript(void)
     script.run();
 }
 
-static void gamemodefunc1(void)
-{
-    //Update old lerp positions of entities - has to be done BEFORE gameinput!
-    for (size_t i = 0; i < obj.entities.size(); i++)
-    {
-        obj.entities[i].lerpoldxp = obj.entities[i].xp;
-        obj.entities[i].lerpoldyp = obj.entities[i].yp;
-    }
-}
-
 static void teleportermodeinput(void)
 {
     if (game.useteleporter)
@@ -147,7 +137,6 @@ static const inline struct ImplFunc* get_gamestate_funcs(
 
     FUNC_LIST_BEGIN(GAMEMODE)
         {Func_fixed, runscript},
-        {Func_fixed, gamemodefunc1},
         {Func_fixed, gameinput},
         {Func_fixed, gamerenderfixed},
         {Func_delta, gamerender},
