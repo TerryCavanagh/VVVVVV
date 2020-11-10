@@ -11,7 +11,6 @@
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Music.h"
-#include "RenderFixed.h"
 #include "Script.h"
 #include "UtilityClass.h"
 
@@ -2350,10 +2349,6 @@ static void mapmenuactionpress(void)
         }
 
         map.nexttowercolour();
-
-        // Fix delta rendering glitch
-        graphics.updatetowerbackground(graphics.titlebg);
-        titleupdatetextcol();
         break;
     }
 }

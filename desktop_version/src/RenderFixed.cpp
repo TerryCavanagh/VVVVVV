@@ -7,7 +7,7 @@
 #include "Script.h"
 #include "UtilityClass.h"
 
-void titleupdatetextcol(void)
+static inline void titleupdatetextcol(void)
 {
     graphics.col_tr = graphics.titlebg.r - (help.glow / 4) - int(fRandom() * 4);
     graphics.col_tg = graphics.titlebg.g - (help.glow / 4) - int(fRandom() * 4);
