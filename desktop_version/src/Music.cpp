@@ -10,6 +10,27 @@
 
 void songend();
 
+musicclass::musicclass()
+{
+	safeToProcessMusic= false;
+	m_doFadeInVol = false;
+	musicVolume = MIX_MAX_VOLUME;
+	FadeVolAmountPerFrame = 0;
+
+	currentsong = 0;
+	nicechange = -1;
+	nicefade = false;
+	resumesong = 0;
+	quick_fade = true;
+
+	songStart = 0;
+	songEnd = 0;
+
+	Mix_HookMusicFinished(&songend);
+
+	usingmmmmmm = false;
+}
+
 void musicclass::init()
 {
 	for (size_t i = 0; i < soundTracks.size(); ++i) {
@@ -129,24 +150,6 @@ void musicclass::init()
 
 		num_pppppp_tracks++;
 	}
-
-	safeToProcessMusic= false;
-	m_doFadeInVol = false;
-	musicVolume = MIX_MAX_VOLUME;
-	FadeVolAmountPerFrame = 0;
-
-	currentsong = 0;
-	nicechange = -1;
-	nicefade = false;
-	resumesong = 0;
-	quick_fade = true;
-
-	songStart = 0;
-	songEnd = 0;
-
-	Mix_HookMusicFinished(&songend);
-
-	usingmmmmmm = false;
 }
 
 void songend()
