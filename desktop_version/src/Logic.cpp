@@ -465,8 +465,17 @@ void gamelogic()
                 {
                     if (obj.entities[i].xp < 152)
                     {
+                        //Move the platform to the right side of the disappearing platform,
+                        //otherwise it will get stuck on the kludge 18,9 tile we placed
+                        //(and if the tile wasn't there it would pass straight through again)
+                        int prevx = obj.entities[i].xp;
+                        int prevy = obj.entities[i].yp;
+                        obj.nocollisionat(prevx, prevy);
+
                         obj.entities[i].xp = 152;
                         obj.entities[i].newxp = 152;
+
+                        obj.moveblockto(prevx, prevy, obj.entities[i].xp, obj.entities[i].yp, obj.entities[i].w, obj.entities[i].h);
                     }
                 }
             }
