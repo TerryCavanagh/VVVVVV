@@ -275,7 +275,6 @@ public:
     bool  colourblindmode;
     bool noflashingmode;
     int slowdown;
-    Uint32 gameframerate;
 
     bool nodeathmode;
     int gameoverdelay;

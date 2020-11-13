@@ -25,6 +25,25 @@ int inline FLIP(int ypos)
     return ypos;
 }
 
+static inline void drawslowdowntext()
+{
+    switch (game.slowdown)
+    {
+    case 30:
+        graphics.Print( -1, 105, "Game speed is normal.", tr/2, tg/2, tb/2, true);
+        break;
+    case 24:
+        graphics.Print( -1, 105, "Game speed is at 80%", tr, tg, tb, true);
+        break;
+    case 18:
+        graphics.Print( -1, 105, "Game speed is at 60%", tr, tg, tb, true);
+        break;
+    case 12:
+        graphics.Print( -1, 105, "Game speed is at 40%", tr, tg, tb, true);
+        break;
+    }
+}
+
 void menurender()
 {
     int temp = 50;
@@ -369,21 +388,7 @@ void menurender()
     case Menu::setslowdown:
         graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
         graphics.Print( -1, 75, "Select a new game speed below.", tr, tg, tb, true);
-        switch (game.gameframerate)
-        {
-        case 34:
-            graphics.Print( -1, 105, "Game speed is normal.", tr/2, tg/2, tb/2, true);
-            break;
-        case 41:
-            graphics.Print( -1, 105, "Game speed is at 80%", tr, tg, tb, true);
-            break;
-        case 55:
-            graphics.Print( -1, 105, "Game speed is at 60%", tr, tg, tb, true);
-            break;
-        case 83:
-            graphics.Print( -1, 105, "Game speed is at 40%", tr, tg, tb, true);
-            break;
-        }
+        drawslowdowntext();
         break;
     case Menu::newgamewarning:
         graphics.Print( -1, 100, "Are you sure? This will", tr, tg, tb, true);
@@ -556,23 +561,7 @@ void menurender()
             graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
             graphics.Print( -1, 75, "May be useful for disabled gamers", tr, tg, tb, true);
             graphics.Print( -1, 85, "using one switch devices.", tr, tg, tb, true);
-            if (game.gameframerate==34)
-            {
-                graphics.Print( -1, 105, "Game speed is normal.", tr/2, tg/2, tb/2, true);
-            }
-            else if (game.gameframerate==41)
-            {
-                graphics.Print( -1, 105, "Game speed is at 80%", tr, tg, tb, true);
-            }
-            else if (game.gameframerate==55)
-            {
-                graphics.Print( -1, 105, "Game speed is at 60%", tr, tg, tb, true);
-            }
-            else if (game.gameframerate==83)
-            {
-                graphics.Print( -1, 105, "Game speed is at 40%", tr, tg, tb, true);
-            }
-            break;
+            drawslowdowntext();
         }
         break;
     case Menu::playint1:
@@ -588,7 +577,7 @@ void menurender()
             graphics.Print( -1, 65, "Replay any level in the game in", tr, tg, tb, true);
             graphics.Print( -1, 75, "a competitive time trial mode.", tr, tg, tb, true);
 
-            if (game.gameframerate > 34 || map.invincibility)
+            if (game.slowdown < 30 || map.invincibility)
             {
                 graphics.Print( -1, 105, "Time Trials are not available", tr, tg, tb, true);
                 graphics.Print( -1, 115, "with slowdown or invincibility.", tr, tg, tb, true);
@@ -609,7 +598,7 @@ void menurender()
             graphics.Print( -1, 65, "Play the entire game", tr, tg, tb, true);
             graphics.Print( -1, 75, "without dying once.", tr, tg, tb, true);
 
-            if (game.gameframerate > 34 || map.invincibility)
+            if (game.slowdown < 30 || map.invincibility)
             {
                 graphics.Print( -1, 105, "No Death Mode is not available", tr, tg, tb, true);
                 graphics.Print( -1, 115, "with slowdown or invincibility.", tr, tg, tb, true);

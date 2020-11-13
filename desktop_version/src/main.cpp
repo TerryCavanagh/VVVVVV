@@ -55,6 +55,23 @@ volatile Uint32 accumulator = 0;
 volatile Uint32 f_time = 0;
 volatile Uint32 f_timePrev = 0;
 
+static inline Uint32 get_framerate(const int slowdown)
+{
+    switch (slowdown)
+    {
+    case 30:
+        return 34;
+    case 24:
+        return 41;
+    case 18:
+        return 55;
+    case 12:
+        return 83;
+    }
+
+    return 34;
+}
+
 void inline deltaloop();
 void inline fixedloop();
 
@@ -278,14 +295,6 @@ int main(int argc, char *argv[])
         game.gamestate = TITLEMODE;
     if (game.slowdown == 0) game.slowdown = 30;
 
-    switch(game.slowdown){
-        case 30: game.gameframerate=34; break;
-        case 24: game.gameframerate=41; break;
-        case 18: game.gameframerate=55; break;
-        case 12: game.gameframerate=83; break;
-        default: game.gameframerate=34; break;
-    }
-
     //Check to see if you've already unlocked some achievements here from before the update
     if (game.swnbestrank > 0){
         if(game.swnbestrank >= 1) game.unlockAchievement("vvvvvvsupgrav5");
@@ -413,7 +422,7 @@ void inline deltaloop()
     }
     else if (game.gamestate == GAMEMODE)
     {
-        timesteplimit = game.gameframerate;
+        timesteplimit = get_framerate(game.slowdown);
     }
     else
     {
