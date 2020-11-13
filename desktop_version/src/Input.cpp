@@ -748,11 +748,6 @@ void menuactionpress()
         else if (game.currentmenuoption == 6+offset && music.mmmmmm)
         {
             //**** TOGGLE MMMMMM
-            if(game.usingmmmmmm > 0){
-                game.usingmmmmmm=0;
-            }else{
-                game.usingmmmmmm=1;
-            }
             music.usingmmmmmm = !music.usingmmmmmm;
             music.playef(11);
             music.play(music.currentsong);
