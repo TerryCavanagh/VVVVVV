@@ -9,26 +9,23 @@
 #include "Graphics.h"
 #include "Music.h"
 
-void KeyPoll::setSensitivity(int _value)
+int inline KeyPoll::getThreshold()
 {
-	switch (_value)
+	switch (sensitivity)
 	{
-		case 0:
-			sensitivity = 28000;
-			break;
-		case 1:
-			sensitivity = 16000;
-			break;
-		case 2:
-			sensitivity = 8000;
-			break;
-		case 3:
-			sensitivity = 4000;
-			break;
-		case 4:
-			sensitivity = 2000;
-			break;
+	case 0:
+		return 28000;
+	case 1:
+		return 16000;
+	case 2:
+		return 8000;
+	case 3:
+		return 4000;
+	case 4:
+		return 2000;
 	}
+
+	return 8000;
 
 }
 
@@ -36,7 +33,8 @@ KeyPoll::KeyPoll()
 {
 	xVel = 0;
 	yVel = 0;
-	setSensitivity(2);
+	// 0..5
+	sensitivity = 2;
 
 	quitProgram = 0;
 	keybuffer="";
@@ -199,11 +197,13 @@ void KeyPoll::Poll()
 			buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = false;
 			break;
 		case SDL_CONTROLLERAXISMOTION:
+		{
+			const int threshold = getThreshold();
 			switch (evt.caxis.axis)
 			{
 			case SDL_CONTROLLER_AXIS_LEFTX:
-				if (	evt.caxis.value > -sensitivity &&
-					evt.caxis.value < sensitivity	)
+				if (	evt.caxis.value > -threshold &&
+					evt.caxis.value < threshold	)
 				{
 					xVel = 0;
 				}
@@ -213,8 +213,8 @@ void KeyPoll::Poll()
 				}
 				break;
 			case SDL_CONTROLLER_AXIS_LEFTY:
-				if (	evt.caxis.value > -sensitivity &&
-					evt.caxis.value < sensitivity	)
+				if (	evt.caxis.value > -threshold &&
+					evt.caxis.value < threshold	)
 				{
 					yVel = 0;
 				}
@@ -225,6 +225,7 @@ void KeyPoll::Poll()
 				break;
 			}
 			break;
+		}
 		case SDL_CONTROLLERDEVICEADDED:
 		{
 			SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);

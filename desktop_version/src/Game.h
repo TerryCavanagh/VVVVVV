@@ -366,8 +366,6 @@ public:
     bool savemystats;
 
 
-    int controllerSensitivity;
-
     bool quickrestartkludge;
 
     //Custom stuff

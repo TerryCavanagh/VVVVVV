@@ -42,7 +42,7 @@ public:
 
 	int sensitivity;
 
-	void setSensitivity(int _value);
+	int inline getThreshold();
 
 	KeyPoll();
 
