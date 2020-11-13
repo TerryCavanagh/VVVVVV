@@ -171,7 +171,6 @@ void Game::init(void)
     colourblindmode = false;
     noflashingmode = false;
     slowdown = 30;
-    gameframerate=34;
 
     // 0..5
     controllerSensitivity = 2;
@@ -4610,25 +4609,6 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
         if (pKey == "slowdown")
         {
             slowdown = help.Int(pText);
-            switch(slowdown)
-            {
-            case 30:
-                gameframerate=34;
-                break;
-            case 24:
-                gameframerate=41;
-                break;
-            case 18:
-                gameframerate=55;
-                break;
-            case 12:
-                gameframerate=83;
-                break;
-            default:
-                gameframerate=34;
-                break;
-            }
-
         }
 
         if (pKey == "advanced_smoothing")

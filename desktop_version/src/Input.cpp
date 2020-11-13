@@ -488,7 +488,6 @@ void menuactionpress()
         {
         case 0:
             //back
-            game.gameframerate=34;
             game.slowdown = 30;
             game.savestats();
             music.playef(11);
@@ -497,7 +496,6 @@ void menuactionpress()
             map.nexttowercolour();
             break;
         case 1:
-            game.gameframerate=41;
             game.slowdown = 24;
             game.savestats();
             music.playef(11);
@@ -506,7 +504,6 @@ void menuactionpress()
             map.nexttowercolour();
             break;
         case 2:
-            game.gameframerate=55;
             game.slowdown = 18;
             game.savestats();
             music.playef(11);
@@ -515,7 +512,6 @@ void menuactionpress()
             map.nexttowercolour();
             break;
         case 3:
-            game.gameframerate=83;
             game.slowdown = 12;
             game.savestats();
             music.playef(11);
@@ -630,7 +626,7 @@ void menuactionpress()
             else
             {
                 music.playef(2);
-                game.gameframerate = 34;
+                game.slowdown = 30;
             }
             break;
         case 5:
