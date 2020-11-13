@@ -167,17 +167,12 @@ void Game::init(void)
     oldcreditposition = 0;
     bestgamedeaths = -1;
 
-    fullScreenEffect_badSignal = false;
-
     //Accessibility Options
     colourblindmode = false;
     noflashingmode = false;
     slowdown = 30;
     gameframerate=34;
 
-    fullscreen = false;// true; //Assumed true at first unless overwritten at some point!
-    stretchMode = 0;
-    useLinearFilter = false;
     // 0..5
     controllerSensitivity = 2;
 
@@ -4473,7 +4468,7 @@ void Game::unlocknum( int t )
 
 #define LOAD_ARRAY(ARRAY_NAME) LOAD_ARRAY_RENAME(ARRAY_NAME, ARRAY_NAME)
 
-void Game::loadstats(int *width, int *height, bool *vsync)
+void Game::loadstats(ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc))
@@ -4549,10 +4544,10 @@ void Game::loadstats(int *width, int *height, bool *vsync)
         }
     }
 
-    deserializesettings(dataNode, width, height, vsync);
+    deserializesettings(dataNode, screen_settings);
 }
 
-void Game::deserializesettings(tinyxml2::XMLElement* dataNode, int* width, int* height, bool* vsync)
+void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* screen_settings)
 {
     // Don't duplicate controller buttons!
     controllerButton_flip.clear();
@@ -4569,26 +4564,26 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, int* width, int* 
 
         if (pKey == "fullscreen")
         {
-            fullscreen = help.Int(pText);
+            screen_settings->fullscreen = help.Int(pText);
         }
 
         if (pKey == "stretch")
         {
-            stretchMode = help.Int(pText);
+            screen_settings->stretch = help.Int(pText);
         }
 
         if (pKey == "useLinearFilter")
         {
-            useLinearFilter = help.Int(pText);
+            screen_settings->linearFilter = help.Int(pText);
         }
 
         if (pKey == "window_width")
         {
-            *width = help.Int(pText);
+            screen_settings->windowWidth = help.Int(pText);
         }
         if (pKey == "window_height")
         {
-            *height = help.Int(pText);
+            screen_settings->windowHeight = help.Int(pText);
         }
 
 
@@ -4638,7 +4633,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, int* width, int* 
 
         if (pKey == "advanced_smoothing")
         {
-            fullScreenEffect_badSignal = help.Int(pText);
+            screen_settings->badSignal = help.Int(pText);
         }
 
         if (pKey == "usingmmmmmm")
@@ -4677,7 +4672,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, int* width, int* 
 
         if (pKey == "vsync")
         {
-            *vsync = help.Int(pText);
+            screen_settings->useVsync = help.Int(pText);
         }
 
         if (pKey == "notextoutline")
@@ -4853,11 +4848,11 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode)
 {
     tinyxml2::XMLDocument& doc = xml::get_document(dataNode);
 
-    xml::update_tag(dataNode, "fullscreen", fullscreen);
+    xml::update_tag(dataNode, "fullscreen", !graphics.screenbuffer->isWindowed);
 
-    xml::update_tag(dataNode, "stretch", stretchMode);
+    xml::update_tag(dataNode, "stretch", graphics.screenbuffer->stretchMode);
 
-    xml::update_tag(dataNode, "useLinearFilter", useLinearFilter);
+    xml::update_tag(dataNode, "useLinearFilter", graphics.screenbuffer->isFiltered);
 
     int width, height;
     if (graphics.screenbuffer != NULL)
@@ -4884,7 +4879,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode)
     xml::update_tag(dataNode, "slowdown", slowdown);
 
 
-    xml::update_tag(dataNode, "advanced_smoothing", fullScreenEffect_badSignal);
+    xml::update_tag(dataNode, "advanced_smoothing", graphics.screenbuffer->badSignalEffect);
 
 
     xml::update_tag(dataNode, "usingmmmmmm", usingmmmmmm);
@@ -4974,7 +4969,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode)
     xml::update_tag(dataNode, "controllerSensitivity", controllerSensitivity);
 }
 
-void Game::loadsettings(int* width, int* height, bool* vsync)
+void Game::loadsettings(ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc))
@@ -5001,7 +4996,7 @@ void Game::loadsettings(int* width, int* height, bool* vsync)
 
     tinyxml2::XMLElement* dataNode = hRoot.FirstChildElement("Data").FirstChild().ToElement();
 
-    deserializesettings(dataNode, width, height, vsync);
+    deserializesettings(dataNode, screen_settings);
 }
 
 void Game::savesettings()

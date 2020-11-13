@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "ScreenSettings.h"
+
 // Forward decl without including all of <tinyxml2.h>
 namespace tinyxml2
 {
@@ -128,17 +130,17 @@ public:
 
     void unlocknum(int t);
 
-    void loadstats(int *width, int *height, bool *vsync);
+    void loadstats(ScreenSettings* screen_settings);
 
     void  savestats(const bool stats_only = false);
 
     void deletestats();
 
-    void deserializesettings(tinyxml2::XMLElement* dataNode, int* width, int* height, bool* vsync);
+    void deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* screen_settings);
 
     void serializesettings(tinyxml2::XMLElement* dataNode);
 
-    void loadsettings(int* width, int* height, bool* vsync);
+    void loadsettings(ScreenSettings* screen_settings);
 
     void savesettings();
 
@@ -308,7 +310,6 @@ public:
     bool unlocknotify[numunlock];
     bool anything_unlocked();
     int stat_trinkets;
-    bool fullscreen;
     int bestgamedeaths;
 
 
@@ -368,9 +369,6 @@ public:
     bool savemystats;
 
 
-    bool fullScreenEffect_badSignal;
-    bool useLinearFilter;
-    int stretchMode;
     int controllerSensitivity;
 
     bool quickrestartkludge;

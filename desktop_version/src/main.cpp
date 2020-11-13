@@ -213,25 +213,14 @@ int main(int argc, char *argv[])
     graphics.towerbg.bypos = map.ypos / 2;
     graphics.titlebg.bypos = map.ypos / 2;
 
-    //Moved screensetting init here from main menu V2.1
-    int width = 320;
-    int height = 240;
-    bool vsync = false;
-
-    // Prioritize unlock.vvv first (2.2 and below),
-    // but settings have been migrated to settings.vvv (2.3 and up)
-    game.loadstats(&width, &height, &vsync);
-    game.loadsettings(&width, &height, &vsync);
-
-    gameScreen.init(
-        width,
-        height,
-        game.fullscreen,
-        vsync,
-        game.stretchMode,
-        game.useLinearFilter,
-        game.fullScreenEffect_badSignal
-    );
+    {
+        // Prioritize unlock.vvv first (2.2 and below),
+        // but settings have been migrated to settings.vvv (2.3 and up)
+        ScreenSettings screen_settings;
+        game.loadstats(&screen_settings);
+        game.loadsettings(&screen_settings);
+        gameScreen.init(screen_settings);
+    }
     graphics.screenbuffer = &gameScreen;
 
     const SDL_PixelFormat* fmt = gameScreen.GetFormat();
@@ -490,7 +479,6 @@ void inline fixedloop()
     if(key.toggleFullscreen)
     {
         gameScreen.toggleFullScreen();
-        game.fullscreen = !game.fullscreen;
         key.toggleFullscreen = false;
 
         key.keymap.clear(); //we lost the input due to a new window.
