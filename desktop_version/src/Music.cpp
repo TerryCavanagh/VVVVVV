@@ -95,7 +95,6 @@ void musicclass::init()
 	else
 	{
 		mmmmmm = true;
-		usingmmmmmm = true;
 		int index;
 		SDL_RWops *rw;
 
