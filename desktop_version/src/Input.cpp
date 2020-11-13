@@ -385,7 +385,6 @@ void menuactionpress()
         case 0:
             music.playef(11);
             graphics.screenbuffer->toggleFullScreen();
-            game.fullscreen = !game.fullscreen;
             game.savestats();
 
             // Recreate menu to update "resize to nearest"
@@ -395,7 +394,6 @@ void menuactionpress()
         case 1:
             music.playef(11);
             graphics.screenbuffer->toggleStretchMode();
-            game.stretchMode = (game.stretchMode + 1) % 3;
             game.savestats();
             break;
         case 2:
@@ -414,13 +412,11 @@ void menuactionpress()
         case 3:
             music.playef(11);
             graphics.screenbuffer->toggleLinearFilter();
-            game.useLinearFilter = !game.useLinearFilter;
             game.savestats();
             break;
         case 4:
             //change smoothing
             music.playef(11);
-            game.fullScreenEffect_badSignal = !game.fullScreenEffect_badSignal;
             graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
             game.savestats();
             break;

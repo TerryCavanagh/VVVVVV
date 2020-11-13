@@ -173,10 +173,13 @@ void menurender()
             graphics.bigprint( -1, 30, "Toggle Fullscreen", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to fullscreen/windowed mode.", tr, tg, tb, true);
 
-            if(game.fullscreen){
-              graphics.Print( -1, 85, "Current mode: FULLSCREEN", tr, tg, tb, true);
-            }else{
-              graphics.Print( -1, 85, "Current mode: WINDOWED", tr, tg, tb, true);
+            if (graphics.screenbuffer->isWindowed)
+            {
+                graphics.Print( -1, 85, "Current mode: WINDOWED", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 85, "Current mode: FULLSCREEN", tr, tg, tb, true);
             }
             break;
 
@@ -184,12 +187,17 @@ void menurender()
             graphics.bigprint( -1, 30, "Scaling Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
 
-            if(game.stretchMode == 2){
-              graphics.Print( -1, 85, "Current mode: INTEGER", tr, tg, tb, true);
-            }else if (game.stretchMode == 1){
-              graphics.Print( -1, 85, "Current mode: STRETCH", tr, tg, tb, true);
-            }else{
-              graphics.Print( -1, 85, "Current mode: LETTERBOX", tr, tg, tb, true);
+            switch (graphics.screenbuffer->stretchMode)
+            {
+            case 2:
+                graphics.Print( -1, 85, "Current mode: INTEGER", tr, tg, tb, true);
+                break;
+            case 1:
+                graphics.Print( -1, 85, "Current mode: STRETCH", tr, tg, tb, true);
+                break;
+            default:
+                graphics.Print( -1, 85, "Current mode: LETTERBOX", tr, tg, tb, true);
+                break;
             }
             break;
         case 2:
@@ -206,10 +214,13 @@ void menurender()
             graphics.bigprint( -1, 30, "Toggle Filter", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to nearest/linear filter.", tr, tg, tb, true);
 
-            if(game.useLinearFilter){
-              graphics.Print( -1, 85, "Current mode: LINEAR", tr, tg, tb, true);
-            }else{
-              graphics.Print( -1, 85, "Current mode: NEAREST", tr, tg, tb, true);
+            if (graphics.screenbuffer->isFiltered)
+            {
+                graphics.Print( -1, 85, "Current mode: LINEAR", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print( -1, 85, "Current mode: NEAREST", tr, tg, tb, true);
             }
             break;
 
