@@ -3,18 +3,12 @@
 
 #include <SDL.h>
 
+#include "ScreenSettings.h"
+
 class Screen
 {
 public:
-	void init(
-		int windowWidth,
-		int windowHeight,
-		bool fullscreen,
-		bool useVsync,
-		int stretch,
-		bool linearFilter,
-		bool badSignal
-	);
+	void init(const ScreenSettings& settings);
 
 	void LoadIcon();
 
