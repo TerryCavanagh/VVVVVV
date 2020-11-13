@@ -1238,11 +1238,11 @@ void menuactionpress()
         switch (game.currentmenuoption)
         {
         case 0:
-            game.controllerSensitivity++;
+            key.sensitivity++;
             music.playef(11);
-            if(game.controllerSensitivity > 4)
+            if(key.sensitivity > 4)
             {
-                game.controllerSensitivity = 0;
+                key.sensitivity = 0;
             }
             break;
 
@@ -1594,9 +1594,6 @@ void titleinput()
 {
     //game.mx = (mouseX / 4);
     //game.my = (mouseY / 4);
-
-    //TODO bit wasteful doing this every poll
-    key.setSensitivity(game.controllerSensitivity);
 
     game.press_left = false;
     game.press_right = false;

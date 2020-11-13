@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
+#include "KeyPoll.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Maths.h"
@@ -410,7 +411,7 @@ void menurender()
         switch (game.currentmenuoption)
         {
         case 0:
-            switch(game.controllerSensitivity)
+            switch(key.sensitivity)
             {
             case 0:
                 graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);

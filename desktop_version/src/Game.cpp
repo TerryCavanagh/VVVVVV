@@ -12,6 +12,7 @@
 #include "Enums.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
+#include "KeyPoll.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Music.h"
@@ -171,9 +172,6 @@ void Game::init(void)
     colourblindmode = false;
     noflashingmode = false;
     slowdown = 30;
-
-    // 0..5
-    controllerSensitivity = 2;
 
     nodeathmode = false;
     nocutscenes = false;
@@ -4704,7 +4702,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
         if (pKey == "controllerSensitivity")
         {
-            controllerSensitivity = help.Int(pText);
+            key.sensitivity = help.Int(pText);
         }
 
     }
@@ -4942,7 +4940,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode)
         dataNode->LinkEndChild(msg);
     }
 
-    xml::update_tag(dataNode, "controllerSensitivity", controllerSensitivity);
+    xml::update_tag(dataNode, "controllerSensitivity", key.sensitivity);
 }
 
 void Game::loadsettings(ScreenSettings* screen_settings)
