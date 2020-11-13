@@ -198,8 +198,6 @@ public:
 
     bool glitchrunkludge;
 
-    int usingmmmmmm;
-
     int gamestate;
     bool hascontrol, jumpheld;
     int jumppressed;

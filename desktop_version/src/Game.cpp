@@ -4638,11 +4638,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
         if (pKey == "usingmmmmmm")
         {
-            if(help.Int(pText)>0){
-                usingmmmmmm = 1;
-            }else{
-                usingmmmmmm = 0;
-            }
+            music.usingmmmmmm = (bool) help.Int(pText);
         }
 
         if (pKey == "ghostsenabled")
@@ -4882,7 +4878,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode)
     xml::update_tag(dataNode, "advanced_smoothing", graphics.screenbuffer->badSignalEffect);
 
 
-    xml::update_tag(dataNode, "usingmmmmmm", usingmmmmmm);
+    xml::update_tag(dataNode, "usingmmmmmm", music.usingmmmmmm);
 
     xml::update_tag(dataNode, "ghostsenabled", (int) ghostsenabled);
 
