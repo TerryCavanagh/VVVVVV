@@ -2028,7 +2028,14 @@ void gameinput()
         game.gamesaved = false;
         game.gamesavefailed = false;
         graphics.resumegamemode = false;
-        game.menupage = 0; // The Map Page
+        if (script.running)
+        {
+            game.menupage = 3; // Only allow saving
+        }
+        else
+        {
+            game.menupage = 0; // The Map Page
+        }
         BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
         graphics.menuoffset = 240; //actually this should count the roomname
         graphics.oldmenuoffset = 240;
@@ -2221,7 +2228,11 @@ void mapinput()
             game.jumpheld = true;
         }
 
-        if (game.press_left)
+        if (script.running && game.menupage == 3)
+        {
+            // Force the player to stay in the SAVE tab while in a cutscene
+        }
+        else if (game.press_left)
         {
             game.menupage--;
         }
