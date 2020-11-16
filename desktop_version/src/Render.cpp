@@ -1735,7 +1735,12 @@ void maprender()
 
     // Draw the selected page name at the bottom
     // menupage 0 - 3 is the pause screen
-    if (game.menupage <= 3)
+    if (script.running && game.menupage == 3)
+    {
+        // While in a cutscene, you can only save
+        graphics.Print(-1, 220, "[SAVE]", 196, 196, 255 - help.glow, true);
+    }
+    else if (game.menupage <= 3)
     {
         std::string tab1;
         if (game.insecretlab)
