@@ -1,7 +1,7 @@
 #ifndef MATHGAME_H
 #define MATHGAME_H
 
-#include <cmath>
+#include <math.h>
 #include <stdlib.h>
 
 //// This header holds Maths functions that emulate the functionality of flash's
