@@ -788,8 +788,7 @@ void gamelogic()
                     if (obj.entities[line].xp > 320)
                     {
                         obj.removeentity(line);
-                        game.swnmode = false;
-                        game.swngame = 6;
+                        game.swngame = 8;
                     }
                 }
             }
@@ -808,6 +807,22 @@ void gamelogic()
                     game.swntimer = 0;
                     game.swncolstate = 3;
                     game.swncoldelay = 30;
+                }
+            }
+            else if (game.swngame == 8)    //extra kludge if player dies after game a ends
+            {
+                bool square_onscreen = false;
+                for (size_t i = 0; i < obj.entities.size(); i++)
+                {
+                    if (obj.entities[i].type == 23)
+                    {
+                        square_onscreen = true;
+                        break;
+                    }
+                }
+                if (!square_onscreen)
+                {
+                    game.swnmode = false;
                 }
             }
         }
