@@ -45,7 +45,7 @@ void menurender()
         graphics.Print( 310 - (10*8), 210, COMMIT_DATE, tr/2, tg/2, tb/2);
 #endif
 #ifdef INTERIM_COMMIT
-        graphics.Print( 310 - (8*8), 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
+        graphics.Print( 310 - SDL_strlen(INTERIM_COMMIT) * 8, 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
 #endif
         graphics.Print( 310 - (4*8), 230, "v2.3", tr/2, tg/2, tb/2);
 
