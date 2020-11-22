@@ -4816,7 +4816,7 @@ bool Game::savestats(const bool stats_only /*= true*/)
 
     if (!stats_only)
     {
-        success = success && savesettings();
+        success &= savesettings();
     }
 
     return success;
