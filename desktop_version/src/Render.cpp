@@ -1158,8 +1158,8 @@ void menurender()
         break;
     }
     case Menu::errorsavingsettings:
-      graphics.Print( -1, 95, "ERROR: Could not save settings file!", tr, tg, tb, true);
-      break;
+        graphics.Print( -1, 95, "ERROR: Could not save settings file!", tr, tg, tb, true);
+        break;
     default:
         break;
     }
