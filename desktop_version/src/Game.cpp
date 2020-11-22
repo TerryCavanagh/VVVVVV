@@ -210,6 +210,8 @@ void Game::init(void)
     playcustomlevel=0;
     createmenu(Menu::mainmenu);
 
+    silence_settings_error = false;
+
     deathcounts = 0;
     gameoverdelay = 0;
     frames = 0;
@@ -4734,7 +4736,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
     }
 }
 
-void Game::savestats(const bool stats_only /*= true*/)
+bool Game::savestats(const bool stats_only /*= true*/)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
@@ -4810,11 +4812,23 @@ void Game::savestats(const bool stats_only /*= true*/)
 
     serializesettings(dataNode);
 
-    FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
+    bool success = FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
 
     if (!stats_only)
     {
-        savesettings();
+        success = success && savesettings();
+    }
+
+    return success;
+}
+
+void Game::savestats_menu()
+{
+    // Call Game::savestats(), but upon failure, go to the save error screen
+    if (!savestats() && !silence_settings_error)
+    {
+        createmenu(Menu::errorsavingsettings);
+        map.nexttowercolour();
     }
 }
 
@@ -4973,7 +4987,7 @@ void Game::loadsettings(ScreenSettings* screen_settings)
     deserializesettings(dataNode, screen_settings);
 }
 
-void Game::savesettings()
+bool Game::savesettings()
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc);
@@ -4992,7 +5006,7 @@ void Game::savesettings()
 
     serializesettings(dataNode);
 
-    FILESYSTEM_saveTiXml2Document("saves/settings.vvv", doc);
+    return FILESYSTEM_saveTiXml2Document("saves/settings.vvv", doc);
 }
 
 void Game::customstart()
@@ -6821,6 +6835,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::gamecompletecontinue:
         option("return to play menu");
         menuyoff = 70;
+        break;
+    case Menu::errorsavingsettings:
+        option("ok");
+        option("silence");
+        menuyoff = 10;
         break;
     }
 

@@ -32,6 +32,7 @@ namespace Menu
         quickloadlevel,
         youwannaquit,
         errornostart,
+        errorsavingsettings,
         graphicoptions,
         ed_settings,
         ed_desc,
@@ -132,7 +133,8 @@ public:
 
     void loadstats(ScreenSettings* screen_settings);
 
-    void  savestats(const bool stats_only = false);
+    bool savestats(const bool stats_only = false);
+    void savestats_menu();
 
     void deletestats();
 
@@ -142,7 +144,7 @@ public:
 
     void loadsettings(ScreenSettings* screen_settings);
 
-    void savesettings();
+    bool savesettings();
 
     void deletesettings();
 
@@ -259,6 +261,8 @@ public:
 
     int creditposx, creditposy, creditposdelay;
     int oldcreditposx;
+
+    bool silence_settings_error;
 
 
     //Sine Wave Ninja Minigame
