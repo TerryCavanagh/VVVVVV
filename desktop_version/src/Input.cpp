@@ -385,16 +385,17 @@ void menuactionpress()
         case 0:
             music.playef(11);
             graphics.screenbuffer->toggleFullScreen();
-            game.savestats();
 
             // Recreate menu to update "resize to nearest"
             game.createmenu(game.currentmenuname, true);
             game.currentmenuoption = 0;
+
+            game.savestats_menu();
             break;
         case 1:
             music.playef(11);
             graphics.screenbuffer->toggleStretchMode();
-            game.savestats();
+            game.savestats_menu();
             break;
         case 2:
             // resize to nearest multiple
@@ -402,7 +403,7 @@ void menuactionpress()
             {
                 music.playef(11);
                 graphics.screenbuffer->ResizeToNearestMultiple();
-                game.savestats();
+                game.savestats_menu();
             }
             else
             {
@@ -412,19 +413,19 @@ void menuactionpress()
         case 3:
             music.playef(11);
             graphics.screenbuffer->toggleLinearFilter();
-            game.savestats();
+            game.savestats_menu();
             break;
         case 4:
             //change smoothing
             music.playef(11);
             graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
-            game.savestats();
+            game.savestats_menu();
             break;
         case 5:
             //toggle 30+ fps
             music.playef(11);
             game.over30mode = !game.over30mode;
-            game.savestats();
+            game.savestats_menu();
             break;
         case 6:
             //toggle vsync
@@ -432,7 +433,7 @@ void menuactionpress()
 #ifndef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
             graphics.screenbuffer->vsync = !graphics.screenbuffer->vsync;
             graphics.screenbuffer->resetRendererWorkaround();
-            game.savestats();
+            game.savestats_menu();
 #endif
             break;
         default:
@@ -476,10 +477,10 @@ void menuactionpress()
             break;
         default:
             map.invincibility = !map.invincibility;
-            game.savestats();
             music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
+            game.savestats_menu();
             break;
         }
         break;
@@ -489,35 +490,35 @@ void menuactionpress()
         case 0:
             //back
             game.slowdown = 30;
-            game.savestats();
             music.playef(11);
             game.returnmenu();
             game.currentmenuoption = 4;
             map.nexttowercolour();
+            game.savestats_menu();
             break;
         case 1:
             game.slowdown = 24;
-            game.savestats();
             music.playef(11);
             game.returnmenu();
             game.currentmenuoption = 4;
             map.nexttowercolour();
+            game.savestats_menu();
             break;
         case 2:
             game.slowdown = 18;
-            game.savestats();
             music.playef(11);
             game.returnmenu();
             game.currentmenuoption = 4;
             map.nexttowercolour();
+            game.savestats_menu();
             break;
         case 3:
             game.slowdown = 12;
-            game.savestats();
             music.playef(11);
             game.returnmenu();
             game.currentmenuoption = 4;
             map.nexttowercolour();
+            game.savestats_menu();
             break;
         }
         break;
@@ -535,26 +536,31 @@ void menuactionpress()
                 SDL_ShowCursor(SDL_ENABLE);
                 graphics.showmousecursor = true;
             }
+            game.savestats_menu();
             break;
         case 1:
             // toggle unfocus pause
             game.disablepause = !game.disablepause;
+            game.savestats_menu();
             music.playef(11);
             break;
         case 2:
             // toggle fake load screen
             game.skipfakeload = !game.skipfakeload;
+            game.savestats_menu();
             music.playef(11);
             break;
         case 3:
             // toggle translucent roomname BG
             graphics.translucentroomname = !graphics.translucentroomname;
+            game.savestats_menu();
             music.playef(11);
             break;
         case 4:
             // Glitchrunner mode
             music.playef(11);
             game.glitchrunnermode = !game.glitchrunnermode;
+            game.savestats_menu();
             break;
         case 5:
             //back
@@ -570,7 +576,7 @@ void menuactionpress()
         case 0:
             //disable animated backgrounds
             game.colourblindmode = !game.colourblindmode;
-            game.savestats();
+            game.savestats_menu();
             graphics.towerbg.tdrawback = true;
             graphics.titlebg.tdrawback = true;
             music.playef(11);
@@ -578,7 +584,7 @@ void menuactionpress()
         case 1:
             //disable screeneffects
             game.noflashingmode = !game.noflashingmode;
-            game.savestats();
+            game.savestats_menu();
             if (!game.noflashingmode)
             {
                 music.playef(18);
@@ -591,7 +597,7 @@ void menuactionpress()
         case 2:
             //disable text outline
             graphics.notextoutline = !graphics.notextoutline;
-            game.savestats();
+            game.savestats_menu();
             music.playef(11);
             break;
         case 3:
@@ -606,6 +612,7 @@ void menuactionpress()
                 else
                 {
                     map.invincibility = !map.invincibility;
+                    game.savestats_menu();
                 }
                 music.playef(11);
             }
@@ -775,49 +782,49 @@ void menuactionpress()
             game.unlock[9] = true;
             game.unlocknotify[9] = true;
             music.playef(11);
-            game.savestats();
             game.createmenu(Menu::unlockmenutrials, true);
             game.currentmenuoption = 0;
+            game.savestats_menu();
             break;
         case 1:   	//unlock 2
             game.unlock[10] = true;
             game.unlocknotify[10] = true;
             music.playef(11);
-            game.savestats();
             game.createmenu(Menu::unlockmenutrials, true);
             game.currentmenuoption = 1;
+            game.savestats_menu();
             break;
         case 2:   	//unlock 3
             game.unlock[11] = true;
             game.unlocknotify[11] = true;
             music.playef(11);
-            game.savestats();
             game.createmenu(Menu::unlockmenutrials, true);
             game.currentmenuoption = 2;
+            game.savestats_menu();
             break;
         case 3:   	//unlock 4
             game.unlock[12] = true;
             game.unlocknotify[12] = true;
             music.playef(11);
-            game.savestats();
             game.createmenu(Menu::unlockmenutrials, true);
             game.currentmenuoption = 3;
+            game.savestats_menu();
             break;
         case 4:   	//unlock 5
             game.unlock[13] = true;
             game.unlocknotify[13] = true;
             music.playef(11);
-            game.savestats();
             game.createmenu(Menu::unlockmenutrials, true);
             game.currentmenuoption = 4;
+            game.savestats_menu();
             break;
         case 5:   	//unlock 6
             game.unlock[14] = true;
             game.unlocknotify[14] = true;
             music.playef(11);
-            game.savestats();
             game.createmenu(Menu::unlockmenutrials, true);
             game.currentmenuoption = 5;
+            game.savestats_menu();
             break;
         case 6:   	//back
             //back
@@ -843,44 +850,44 @@ void menuactionpress()
             game.unlocknotify[16] = true;
             game.unlock[6] = true;
             game.unlock[7] = true;
-            game.savestats();
             game.createmenu(Menu::unlockmenu, true);
             game.currentmenuoption = 1;
+            game.savestats_menu();
             break;
         case 2:
             //unlock no death mode
             music.playef(11);
             game.unlock[17] = true;
             game.unlocknotify[17] = true;
-            game.savestats();
             game.createmenu(Menu::unlockmenu, true);
             game.currentmenuoption = 2;
+            game.savestats_menu();
             break;
         case 3:
             //unlock flip mode
             music.playef(11);
             game.unlock[18] = true;
             game.unlocknotify[18] = true;
-            game.savestats();
             game.createmenu(Menu::unlockmenu, true);
             game.currentmenuoption = 3;
+            game.savestats_menu();
             break;
         case 4:
             //unlock jukebox
             music.playef(11);
             game.stat_trinkets = 20;
-            game.savestats();
             game.createmenu(Menu::unlockmenu, true);
             game.currentmenuoption = 4;
+            game.savestats_menu();
             break;
         case 5:
             //unlock secret lab
             music.playef(11);
             game.unlock[8] = true;
             game.unlocknotify[8] = true;
-            game.savestats();
             game.createmenu(Menu::unlockmenu, true);
             game.currentmenuoption = 5;
+            game.savestats_menu();
             break;
         default:
             //back
@@ -1244,6 +1251,7 @@ void menuactionpress()
             {
                 key.sensitivity = 0;
             }
+            game.savestats_menu();
             break;
 
         case 5:
@@ -1581,6 +1589,15 @@ void menuactionpress()
     case Menu::gamecompletecontinue:
     case Menu::nodeathmodecomplete2:
         music.play(6);
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
+        break;
+    case Menu::errorsavingsettings:
+        if (game.currentmenuoption == 1)
+        {
+            game.silence_settings_error = true;
+        }
         music.playef(11);
         game.returnmenu();
         map.nexttowercolour();
