@@ -305,6 +305,8 @@ void scriptclass::run(void)
 				{
 					obj.entities[player].xp = ss_toi(words[1]);
 					obj.entities[player].yp = ss_toi(words[2]);
+					obj.entities[player].lerpoldxp = obj.entities[player].xp;
+					obj.entities[player].lerpoldyp = obj.entities[player].yp;
 				}
 				game.gravitycontrol = ss_toi(words[3]);
 
