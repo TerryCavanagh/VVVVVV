@@ -1,6 +1,7 @@
 #include "Enums.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "KeyPoll.h"
 #include "UtilityClass.h"
 
 int pre_fakepercent=0, pre_transition=30;
@@ -9,6 +10,21 @@ int pre_darkcol=0, pre_lightcol=0, pre_curcol=0, pre_coltimer=0, pre_offset=0;
 
 int pre_frontrectx=30, pre_frontrecty=20, pre_frontrectw=260, pre_frontrecth=200;
 int pre_temprectx=0, pre_temprecty=0, pre_temprectw=320, pre_temprecth=240;
+
+void preloaderinput()
+{
+  game.press_action = false;
+
+  if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip)) {
+    game.press_action = true;
+  }
+
+  if (game.press_action) {
+    //Skip to TITLEMODE immediately
+    game.gamestate = TITLEMODE;
+    game.jumpheld = true;
+  }
+}
 
 void preloaderrenderfixed()
 {

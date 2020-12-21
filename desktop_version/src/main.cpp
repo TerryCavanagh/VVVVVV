@@ -527,6 +527,7 @@ void inline fixedloop()
         switch(game.gamestate)
         {
         case PRELOADER:
+            preloaderinput();
             preloaderrenderfixed();
             break;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
