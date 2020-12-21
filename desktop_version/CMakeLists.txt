@@ -7,6 +7,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
 OPTION(ENABLE_WARNINGS "Enable compilation warnings" ON)
 OPTION(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
+SET(BUNDLE_DEPENDENCIES ON CACHE BOOL "Use bundled TinyXML-2, PhysicsFS, and UTF8-CPP (if disabled, TinyXML-2 and PhysicsFS will be dynamically linked, LodePNG and UTF8-CPP will still be statically linked)")
+
 SET(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
 SET_PROPERTY(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
 
@@ -74,13 +76,20 @@ IF(NOT WIN32)
 ENDIF()
 
 # Include Directories
-INCLUDE_DIRECTORIES(
-	src
-	../third_party/tinyxml2
-	../third_party/physfs
-	../third_party/lodepng
-	../third_party/utfcpp/source
-)
+IF(BUNDLE_DEPENDENCIES)
+	INCLUDE_DIRECTORIES(
+		src
+		../third_party/tinyxml2
+		../third_party/physfs
+		../third_party/lodepng
+		../third_party/utfcpp/source
+	)
+ELSE()
+	INCLUDE_DIRECTORIES(
+		src
+		../third_party/lodepng
+	)
+ENDIF()
 
 # Source Lists
 SET(VVV_SRC
@@ -233,9 +242,7 @@ ENDIF()
 SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_STANDARD 98)
 SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_EXTENSIONS FALSE)
 
-# Library information
-ADD_LIBRARY(tinyxml2-static STATIC ${XML2_SRC})
-ADD_LIBRARY(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
+# Unfortunately, it doesn't seem like distros package LodePNG
 ADD_LIBRARY(lodepng-static STATIC ${PNG_SRC})
 
 TARGET_COMPILE_DEFINITIONS(lodepng-static PRIVATE
@@ -244,8 +251,16 @@ TARGET_COMPILE_DEFINITIONS(lodepng-static PRIVATE
 	-DLODEPNG_NO_COMPILE_ENCODER
 )
 
-# Static Dependencies
-TARGET_LINK_LIBRARIES(VVVVVV physfs-static tinyxml2-static lodepng-static)
+IF(BUNDLE_DEPENDENCIES)
+	ADD_LIBRARY(tinyxml2-static STATIC ${XML2_SRC})
+	ADD_LIBRARY(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
+
+	TARGET_LINK_LIBRARIES(VVVVVV physfs-static tinyxml2-static lodepng-static)
+ELSE()
+	FIND_PACKAGE(utf8cpp CONFIG)
+
+	TARGET_LINK_LIBRARIES(VVVVVV physfs tinyxml2 utf8cpp lodepng-static)
+ENDIF()
 
 # SDL2 Dependency (Detection pulled from FAudio)
 if (DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
