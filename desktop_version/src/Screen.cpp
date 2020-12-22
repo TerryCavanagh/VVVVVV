@@ -93,6 +93,21 @@ void Screen::init(const ScreenSettings& settings)
 	ResizeScreen(settings.windowWidth, settings.windowHeight);
 }
 
+void Screen::GetSettings(ScreenSettings* settings)
+{
+	int width, height;
+	GetWindowSize(&width, &height);
+
+	settings->windowWidth = width;
+	settings->windowHeight = height;
+
+	settings->fullscreen = !isWindowed;
+	settings->useVsync = vsync;
+	settings->stretch = stretchMode;
+	settings->linearFilter = isFiltered;
+	settings->badSignal = badSignalEffect;
+}
+
 void Screen::LoadIcon()
 {
 	unsigned char *fileIn = NULL;

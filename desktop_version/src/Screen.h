@@ -10,6 +10,8 @@ class Screen
 public:
 	void init(const ScreenSettings& settings);
 
+	void GetSettings(ScreenSettings* settings);
+
 	void LoadIcon();
 
 	void ResizeScreen(int x, int y);

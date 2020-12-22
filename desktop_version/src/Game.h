@@ -133,16 +133,18 @@ public:
 
     void loadstats(ScreenSettings* screen_settings);
 
+    bool savestats(const ScreenSettings* screen_settings);
     bool savestats();
 
     void deletestats();
 
     void deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* screen_settings);
 
-    void serializesettings(tinyxml2::XMLElement* dataNode);
+    void serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSettings* screen_settings);
 
     void loadsettings(ScreenSettings* screen_settings);
 
+    bool savesettings(const ScreenSettings* screen_settings);
     bool savesettings();
 
     bool savestatsandsettings();
