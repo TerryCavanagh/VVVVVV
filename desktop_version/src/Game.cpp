@@ -4474,7 +4474,7 @@ void Game::loadstats(ScreenSettings* screen_settings)
     {
         // Save unlock.vvv only. Maybe we have a settings.vvv laying around too,
         // and we don't want to overwrite that!
-        savestats();
+        savestats(screen_settings);
 
         printf("No Stats found. Assuming a new player\n");
     }
@@ -4953,7 +4953,7 @@ void Game::loadsettings(ScreenSettings* screen_settings)
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc))
     {
-        savesettings();
+        savesettings(screen_settings);
         puts("No settings.vvv found");
     }
 
