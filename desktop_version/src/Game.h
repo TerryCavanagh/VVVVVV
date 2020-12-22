@@ -133,8 +133,7 @@ public:
 
     void loadstats(ScreenSettings* screen_settings);
 
-    bool savestats(const bool stats_only = false);
-    void savestats_menu();
+    bool savestats();
 
     void deletestats();
 
@@ -145,6 +144,10 @@ public:
     void loadsettings(ScreenSettings* screen_settings);
 
     bool savesettings();
+
+    bool savestatsandsettings();
+
+    void savestatsandsettings_menu();
 
     void deletesettings();
 

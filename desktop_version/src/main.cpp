@@ -402,7 +402,7 @@ int main(int argc, char *argv[])
         deltaloop();
     }
 
-    game.savestats();
+    game.savestatsandsettings();
     NETWORK_shutdown();
     SDL_Quit();
     FILESYSTEM_deinit();
@@ -641,7 +641,7 @@ void inline fixedloop()
     if (game.savemystats)
     {
         game.savemystats = false;
-        game.savestats();
+        game.savestatsandsettings();
     }
 
     //Mute button

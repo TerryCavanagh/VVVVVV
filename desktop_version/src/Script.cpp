@@ -3431,7 +3431,7 @@ void scriptclass::startgamemode( int t )
 	}
 #endif
 	case 100:
-		game.savestats();
+		game.savestatsandsettings();
 
 		SDL_Quit();
 		exit(0);

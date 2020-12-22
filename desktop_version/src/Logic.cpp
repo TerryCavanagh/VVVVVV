@@ -432,7 +432,7 @@ void gamelogic()
                     if (game.swnmessage == 0)
                     {
                         music.playef(25);
-                        game.savestats();
+                        game.savestatsandsettings();
                     }
                     game.swnmessage = 1;
                 }
