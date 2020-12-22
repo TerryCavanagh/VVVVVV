@@ -1334,7 +1334,7 @@ void Game::updatestate()
                 }
             }
 
-            savestats();
+            savestatsandsettings();
 
             graphics.fademode = 2;
             music.fadeout();
@@ -3133,7 +3133,7 @@ void Game::updatestate()
         }
 
 
-            savestats();
+            savestatsandsettings();
             if (nodeathmode)
             {
                 unlockAchievement("vvvvvvmaster"); //bloody hell
@@ -4447,7 +4447,7 @@ void Game::unlocknum( int t )
     }
 
     unlock[t] = true;
-    savestats();
+    savestatsandsettings();
 #endif
 }
 
@@ -4474,7 +4474,7 @@ void Game::loadstats(ScreenSettings* screen_settings)
     {
         // Save unlock.vvv only. Maybe we have a settings.vvv laying around too,
         // and we don't want to overwrite that!
-        savestats(true);
+        savestats();
 
         printf("No Stats found. Assuming a new player\n");
     }
@@ -4736,7 +4736,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
     }
 }
 
-bool Game::savestats(const bool stats_only /*= true*/)
+bool Game::savestats()
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
@@ -4812,20 +4812,22 @@ bool Game::savestats(const bool stats_only /*= true*/)
 
     serializesettings(dataNode);
 
-    bool success = FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
-
-    if (!stats_only)
-    {
-        success &= savesettings();
-    }
-
-    return success;
+    return FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
 }
 
-void Game::savestats_menu()
+bool Game::savestatsandsettings()
 {
-    // Call Game::savestats(), but upon failure, go to the save error screen
-    if (!savestats() && !silence_settings_error)
+    const bool stats_saved = savestats();
+
+    const bool settings_saved = savesettings();
+
+    return stats_saved && settings_saved; // Not the same as `savestats() && savesettings()`!
+}
+
+void Game::savestatsandsettings_menu()
+{
+    // Call Game::savestatsandsettings(), but upon failure, go to the save error screen
+    if (!savestatsandsettings() && !silence_settings_error)
     {
         createmenu(Menu::errorsavingsettings);
         map.nexttowercolour();
