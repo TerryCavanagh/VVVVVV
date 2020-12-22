@@ -4738,6 +4738,14 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
 bool Game::savestats()
 {
+    ScreenSettings screen_settings;
+    graphics.screenbuffer->GetSettings(&screen_settings);
+
+    return savestats(&screen_settings);
+}
+
+bool Game::savestats(const ScreenSettings* screen_settings)
+{
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
     if (!already_exists)
@@ -4810,7 +4818,7 @@ bool Game::savestats()
 
     xml::update_tag(dataNode, "swnrecord", swnrecord);
 
-    serializesettings(dataNode);
+    serializesettings(dataNode, screen_settings);
 
     return FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
 }
@@ -4834,29 +4842,19 @@ void Game::savestatsandsettings_menu()
     }
 }
 
-void Game::serializesettings(tinyxml2::XMLElement* dataNode)
+void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument& doc = xml::get_document(dataNode);
 
-    xml::update_tag(dataNode, "fullscreen", !graphics.screenbuffer->isWindowed);
+    xml::update_tag(dataNode, "fullscreen", (int) screen_settings->fullscreen);
 
-    xml::update_tag(dataNode, "stretch", graphics.screenbuffer->stretchMode);
+    xml::update_tag(dataNode, "stretch", screen_settings->stretch);
 
-    xml::update_tag(dataNode, "useLinearFilter", graphics.screenbuffer->isFiltered);
+    xml::update_tag(dataNode, "useLinearFilter", (int) screen_settings->linearFilter);
 
-    int width, height;
-    if (graphics.screenbuffer != NULL)
-    {
-        graphics.screenbuffer->GetWindowSize(&width, &height);
-    }
-    else
-    {
-        width = 320;
-        height = 240;
-    }
-    xml::update_tag(dataNode, "window_width", width);
+    xml::update_tag(dataNode, "window_width", screen_settings->windowWidth);
 
-    xml::update_tag(dataNode, "window_height", height);
+    xml::update_tag(dataNode, "window_height", screen_settings->windowHeight);
 
     xml::update_tag(dataNode, "noflashingmode", noflashingmode);
 
@@ -4869,7 +4867,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode)
     xml::update_tag(dataNode, "slowdown", slowdown);
 
 
-    xml::update_tag(dataNode, "advanced_smoothing", graphics.screenbuffer->badSignalEffect);
+    xml::update_tag(dataNode, "advanced_smoothing", (int) screen_settings->badSignal);
 
 
     xml::update_tag(dataNode, "usingmmmmmm", music.usingmmmmmm);
@@ -4890,16 +4888,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode)
 
     xml::update_tag(dataNode, "glitchrunnermode", (int) glitchrunnermode);
 
-    int vsyncOption;
-    if (graphics.screenbuffer != NULL)
-    {
-        vsyncOption = (int) graphics.screenbuffer->vsync;
-    }
-    else
-    {
-        vsyncOption = 0;
-    }
-    xml::update_tag(dataNode, "vsync", vsyncOption);
+    xml::update_tag(dataNode, "vsync", (int) screen_settings->useVsync);
 
     // Delete all controller buttons we had previously.
     // dataNode->FirstChildElement() shouldn't be NULL at this point...
@@ -4991,6 +4980,14 @@ void Game::loadsettings(ScreenSettings* screen_settings)
 
 bool Game::savesettings()
 {
+    ScreenSettings screen_settings;
+    graphics.screenbuffer->GetSettings(&screen_settings);
+
+    return savesettings(&screen_settings);
+}
+
+bool Game::savesettings(const ScreenSettings* screen_settings)
+{
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc);
     if (!already_exists)
@@ -5006,7 +5003,7 @@ bool Game::savesettings()
 
     tinyxml2::XMLElement* dataNode = xml::update_element(root, "Data");
 
-    serializesettings(dataNode);
+    serializesettings(dataNode, screen_settings);
 
     return FILESYSTEM_saveTiXml2Document("saves/settings.vvv", doc);
 }
