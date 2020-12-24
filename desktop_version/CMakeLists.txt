@@ -125,6 +125,7 @@ SET(VVV_SRC
 	src/WarpClass.cpp
 	src/XMLUtils.cpp
 	src/main.cpp
+	src/DeferCallbacks.c
 	src/Network.c
 	src/ThirdPartyDeps.c
 )

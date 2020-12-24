@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <stdio.h>
 
+#include "DeferCallbacks.h"
 #include "editor.h"
 #include "Enums.h"
 #include "Entity.h"
@@ -225,6 +226,9 @@ static enum IndexCode increment_gamestate_func_index(void)
             game.gamestate,
             &num_gamestate_funcs
         );
+
+        /* Also run callbacks that were deferred to end of func sequence. */
+        DEFER_execute_callbacks();
 
         gamestate_func_index = 0;
 
