@@ -2101,9 +2101,6 @@ void mapclass::twoframedelayfix()
 	game.state = 0;
 	game.statedelay = 0;
 	script.load(game.newscript);
-	if (script.running)
-	{
-		script.run();
-		script.dontrunnextframe = true;
-	}
+	script.run();
+	script.dontrunnextframe = true;
 }

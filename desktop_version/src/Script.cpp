@@ -79,6 +79,11 @@ void scriptclass::tokenize( const std::string& t )
 
 void scriptclass::run()
 {
+	if (!running)
+	{
+		return;
+	}
+
 	// This counter here will stop the function when it gets too high
 	short execution_counter = 0;
 	while(running && scriptdelay<=0 && !game.pausescript)

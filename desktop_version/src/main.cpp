@@ -556,7 +556,7 @@ void inline fixedloop()
             {
                 script.dontrunnextframe = false;
             }
-            else if (script.running)
+            else
             {
                 script.run();
             }
@@ -586,10 +586,7 @@ void inline fixedloop()
             }
             else
             {
-                if (script.running)
-                {
-                    script.run();
-                }
+                script.run();
                 gameinput();
             }
             maplogic();
