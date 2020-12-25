@@ -10,6 +10,7 @@
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "Version.h"
 
 int tr;
 int tg;
