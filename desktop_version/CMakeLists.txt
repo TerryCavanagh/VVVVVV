@@ -28,15 +28,20 @@ ELSE()
 			ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE
 		)
 
-		ADD_DEFINITIONS(-DINTERIM_COMMIT="${INTERIM_COMMIT}")
-
 		EXECUTE_PROCESS(
 			COMMAND "${GIT_EXECUTABLE}" log -1 --format=%cs
 			OUTPUT_VARIABLE COMMIT_DATE
 			ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE
 		)
 
-		ADD_DEFINITIONS(-DCOMMIT_DATE="${COMMIT_DATE}")
+		MESSAGE(STATUS "This is interim commit ${INTERIM_COMMIT} (committed ${COMMIT_DATE})")
+
+		# Take template file and replace the macros with what we have
+		# Unfortunately the output is taken relative to binary path so we have to qualify it
+		CONFIGURE_FILE(src/Version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.out)
+
+		# This lets Version.h know that Version.h.out exists
+		ADD_DEFINITIONS(-DVERSION_H_OUT_EXISTS)
 	ENDIF()
 ENDIF()
 
