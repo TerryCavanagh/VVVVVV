@@ -2389,6 +2389,10 @@ void mapmenuactionpress()
         game.gamestate = TITLEMODE;
         graphics.flipmode = false;
         game.ingame_titlemode = true;
+
+        // Set this before we create the menu
+        game.kludge_ingametemp = game.currentmenuname;
+
         if (game.menupage == 32)
         {
             game.createmenu(Menu::graphicoptions);
@@ -2397,7 +2401,6 @@ void mapmenuactionpress()
         {
             game.createmenu(Menu::options);
         }
-        game.kludge_ingametemp = game.currentmenuname;
 
         map.nexttowercolour();
 
