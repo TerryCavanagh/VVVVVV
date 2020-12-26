@@ -18,31 +18,6 @@ SET(OFFICIAL_BUILD OFF CACHE BOOL "Compile an official build of the game")
 IF(OFFICIAL_BUILD)
 	SET(STEAM ON)
 	SET(GOG ON)
-ELSE()
-	# Get interim commit and date of commit
-	FIND_PACKAGE(Git)
-	IF(GIT_FOUND)
-		EXECUTE_PROCESS(
-			COMMAND "${GIT_EXECUTABLE}" log -1 --format=%h
-			OUTPUT_VARIABLE INTERIM_COMMIT
-			ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE
-		)
-
-		EXECUTE_PROCESS(
-			COMMAND "${GIT_EXECUTABLE}" log -1 --format=%cs
-			OUTPUT_VARIABLE COMMIT_DATE
-			ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE
-		)
-
-		MESSAGE(STATUS "This is interim commit ${INTERIM_COMMIT} (committed ${COMMIT_DATE})")
-
-		# Take template file and replace the macros with what we have
-		# Unfortunately the output is taken relative to binary path so we have to qualify it
-		CONFIGURE_FILE(src/Version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.out)
-
-		# This lets Version.h know that Version.h.out exists
-		ADD_DEFINITIONS(-DVERSION_H_OUT_EXISTS)
-	ENDIF()
 ENDIF()
 
 # Set standard to C++98/C++03
@@ -175,6 +150,38 @@ IF(WIN32)
 	ADD_EXECUTABLE(VVVVVV WIN32 ${VVV_SRC})
 ELSE()
 	ADD_EXECUTABLE(VVVVVV ${VVV_SRC})
+ENDIF()
+
+IF(NOT OFFICIAL_BUILD)
+	# Add interim commit hash and its date to the build
+
+	# FIND_PACKAGE sets GIT_FOUND and GIT_EXECUTABLE
+	FIND_PACKAGE(Git)
+
+	IF(GIT_FOUND)
+		# These filenames have to be qualified, because when we run
+		# the CMake script, its work dir gets set to the build folder
+		SET(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in)
+		SET(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.out)
+
+		ADD_CUSTOM_TARGET(
+			GenerateVersion ALL
+			# This BYPRODUCTS line is required for this to be ran every time
+			BYPRODUCTS ${VERSION_OUTPUT_FILE}
+			COMMAND ${CMAKE_COMMAND}
+			# These args have to be passed through, otherwise the script can't see them
+			# Also, these args have to come BEFORE `-P`! (Otherwise it fails with an unclear error)
+			-DGIT_EXECUTABLE=${GIT_EXECUTABLE}
+			-DINPUT_FILE=${VERSION_INPUT_FILE}
+			-DOUTPUT_FILE=${VERSION_OUTPUT_FILE}
+			-P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
+		)
+
+		ADD_DEPENDENCIES(VVVVVV GenerateVersion)
+
+		# This lets Version.h know that Version.h.out exists
+		ADD_DEFINITIONS(-DVERSION_H_OUT_EXISTS)
+	ENDIF()
 ENDIF()
 
 # Build options
