@@ -2173,7 +2173,7 @@ void Game::updatestate()
             i = obj.getcompanion();
             if(INBOUNDS_VEC(i, obj.entities))
             {
-                obj.removeentity(i);
+                obj.disableentity(i);
             }
 
             i = obj.getteleporter();

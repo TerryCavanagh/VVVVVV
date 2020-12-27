@@ -347,7 +347,7 @@ void gamelogic()
                         //(and if the tile wasn't there it would pass straight through again)
                         int prevx = obj.entities[i].xp;
                         int prevy = obj.entities[i].yp;
-                        obj.nocollisionat(prevx, prevy);
+                        obj.disableblockat(prevx, prevy);
 
                         obj.entities[i].xp = 152;
                         obj.entities[i].newxp = 152;
@@ -668,7 +668,7 @@ void gamelogic()
                     obj.entities[line].xp += 24;
                     if (obj.entities[line].xp > 320)
                     {
-                        obj.removeentity(line);
+                        obj.disableentity(line);
                         game.swngame = 8;
                     }
                 }
@@ -783,7 +783,7 @@ void gamelogic()
 
                     int prevx = obj.entities[i].xp;
                     int prevy = obj.entities[i].yp;
-                    obj.nocollisionat(prevx, prevy);
+                    obj.disableblockat(prevx, prevy);
 
                     bool entitygone = obj.updateentities(i);                // Behavioral logic
                     if (entitygone) continue;
@@ -811,7 +811,7 @@ void gamelogic()
 
                     int prevx = obj.entities[ie].xp;
                     int prevy = obj.entities[ie].yp;
-                    obj.nocollisionat(prevx, prevy);
+                    obj.disableblockat(prevx, prevy);
 
                     bool entitygone = obj.updateentities(ie);                // Behavioral logic
                     if (entitygone) continue;

@@ -5,6 +5,11 @@
 
 entclass::entclass()
 {
+	clear();
+}
+
+void entclass::clear()
+{
 	invis = false;
 	type = 0;
 	size = 0;

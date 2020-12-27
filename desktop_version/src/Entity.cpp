@@ -760,7 +760,35 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
 {
     k = blocks.size();
 
-    blockclass block;
+    blockclass newblock;
+    blockclass* blockptr;
+
+    /* Can we reuse the slot of a disabled block? */
+    bool reuse = false;
+    for (size_t i = 0; i < blocks.size(); ++i)
+    {
+        if (blocks[i].type == -1
+        && blocks[i].wp == 0
+        && blocks[i].hp == 0
+        && blocks[i].rect.w == 0
+        && blocks[i].rect.h == 0)
+        {
+            reuse = true;
+            blockptr = &blocks[i];
+            break;
+        }
+    }
+
+    if (!reuse)
+    {
+        blockptr = &newblock;
+    }
+    else
+    {
+        blockptr->clear();
+    }
+
+    blockclass& block = *blockptr;
     switch(t)
     {
     case BLOCK: //Block
@@ -1038,23 +1066,31 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         break;
     }
 
-    blocks.push_back(block);
+    if (!reuse)
+    {
+        blocks.push_back(block);
+    }
 }
 
-// Remove entity, and return true if entity was successfully removed
-bool entityclass::removeentity(int t)
+/* Disable entity, and return true if entity was successfully disabled */
+bool entityclass::disableentity(int t)
 {
     if (!INBOUNDS_VEC(t, entities))
     {
-        puts("removeentity() out-of-bounds!");
+        puts("disableentity() out-of-bounds!");
         return true;
     }
     if (entities[t].rule == 0 && t == getplayer())
     {
-        // Don't remove the player entity!
+        /* Don't disable the player entity! */
         return false;
     }
-    entities.erase(entities.begin() + t);
+
+    entities[t].invis = true;
+    entities[t].size = -1;
+    entities[t].type = -1;
+    entities[t].rule = -1;
+
     return true;
 }
 
@@ -1063,22 +1099,21 @@ void entityclass::removeallblocks()
     blocks.clear();
 }
 
-void entityclass::removeblock( int t )
+void entityclass::disableblock( int t )
 {
     if (!INBOUNDS_VEC(t, blocks))
     {
-        puts("removeblock() out-of-bounds!");
+        puts("disableblock() out-of-bounds!");
         return;
     }
-    blocks.erase(blocks.begin() + t);
-}
 
-void entityclass::removeblockat( int x, int y )
-{
-    for (size_t i = 0; i < blocks.size(); i++)
-    {
-        if(blocks[i].xp == int(x) && blocks[i].yp == int(y)) removeblock_iter(i);
-    }
+    blocks[t].type = -1;
+
+    blocks[t].wp = 0;
+    blocks[t].hp = 0;
+
+    blocks[t].rect.w = blocks[t].wp;
+    blocks[t].rect.h = blocks[t].hp;
 }
 
 void entityclass::moveblockto(int x1, int y1, int x2, int y2, int w, int h)
@@ -1099,17 +1134,13 @@ void entityclass::moveblockto(int x1, int y1, int x2, int y2, int w, int h)
     }
 }
 
-void entityclass::nocollisionat(int x, int y)
+void entityclass::disableblockat(int x, int y)
 {
     for (size_t i = 0; i < blocks.size(); i++)
     {
         if (blocks[i].xp == x && blocks[i].yp == y)
         {
-            blocks[i].wp = 0;
-            blocks[i].hp = 0;
-
-            blocks[i].rect.w = blocks[i].wp;
-            blocks[i].rect.h = blocks[i].hp;
+            disableblock(i);
         }
     }
 }
@@ -1120,7 +1151,7 @@ void entityclass::removetrigger( int t )
     {
         if(blocks[i].type == TRIGGER && blocks[i].trigger == t)
         {
-            removeblock_iter(i);
+            disableblock(i);
         }
     }
 }
@@ -1186,6 +1217,33 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
 {
     k = entities.size();
 
+    entclass newent;
+    entclass* entptr;
+
+    /* Can we reuse the slot of a disabled entity? */
+    bool reuse = false;
+    for (size_t i = 0; i < entities.size(); ++i)
+    {
+        if (entities[i].invis
+        && entities[i].size == -1
+        && entities[i].type == -1
+        && entities[i].rule == -1)
+        {
+            reuse = true;
+            entptr = &entities[i];
+            break;
+        }
+    }
+
+    if (!reuse)
+    {
+        entptr = &newent;
+    }
+    else
+    {
+        entptr->clear();
+    }
+
     //Size 0 is a sprite
     //Size 1 is a tile
     //Beyond that are special cases (to do)
@@ -1210,7 +1268,7 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
     bool custom_gray = false;
 #endif
 
-    entclass entity;
+    entclass& entity = *entptr;
     entity.xp = xp;
     entity.yp = yp;
     entity.lerpoldxp = xp;
@@ -2128,7 +2186,10 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         }
     }
 
-    entities.push_back(entity);
+    if (!reuse)
+    {
+        entities.push_back(entity);
+    }
 }
 
 //Returns true if entity is removed
@@ -2324,13 +2385,13 @@ bool entityclass::updateentities( int i )
                 {
                     if (entities[i].xp >= 335)
                     {
-                        return removeentity(i);
+                        return disableentity(i);
                     }
                     if (game.roomx == 117)
                     {
                         if (entities[i].xp >= (33*8)-32)
                         {
-                            return removeentity(i);
+                            return disableentity(i);
                         }
                         //collector for LIES
                     }
@@ -2359,13 +2420,13 @@ bool entityclass::updateentities( int i )
                 {
                     if (entities[i].yp <= -60)
                     {
-                        return removeentity(i);
+                        return disableentity(i);
                     }
                     if (game.roomx == 113 && game.roomy == 108)
                     {
                         if (entities[i].yp <= 60)
                         {
-                            return removeentity(i);
+                            return disableentity(i);
                         }
                         //collector for factory
                     }
@@ -2520,7 +2581,7 @@ bool entityclass::updateentities( int i )
                 if (entities[i].life % 3 == 0) entities[i].tile++;
                 if (entities[i].life <= 0)
                 {
-                    removeblockat(entities[i].xp, entities[i].yp);
+                    disableblockat(entities[i].xp, entities[i].yp);
                     entities[i].state = 3;// = false;
                     entities[i].invis = true;
                 }
@@ -2566,8 +2627,8 @@ bool entityclass::updateentities( int i )
                 entities[i].tile++;
                 if (entities[i].life <= 0)
                 {
-                    removeblockat(entities[i].xp, entities[i].yp);
-                    return removeentity(i);
+                    disableblockat(entities[i].xp, entities[i].yp);
+                    return disableentity(i);
                 }
             }
             break;
@@ -2576,7 +2637,7 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 game.gravitycontrol = (game.gravitycontrol + 1) % 2;
-                return removeentity(i);
+                return disableentity(i);
 
             }
             break;
@@ -2586,7 +2647,7 @@ bool entityclass::updateentities( int i )
                 entities[i].life--;
                 if (entities[i].life < 0)
                 {
-                    return removeentity(i);
+                    return disableentity(i);
                 }
             }
             break;
@@ -2600,7 +2661,7 @@ bool entityclass::updateentities( int i )
                     collect[(int) entities[i].para] = true;
                 }
 
-                return removeentity(i);
+                return disableentity(i);
             }
             break;
         case 7: //Found a trinket
@@ -2627,7 +2688,7 @@ bool entityclass::updateentities( int i )
                     }
                 }
 
-                return removeentity(i);
+                return disableentity(i);
             }
             break;
         case 8: //Savepoints
@@ -3143,7 +3204,7 @@ bool entityclass::updateentities( int i )
                 if (entities[i].xp >= 310)
                 {
                     game.scmprogress++;
-                    return removeentity(i);
+                    return disableentity(i);
                 }
             }
             break;
@@ -3168,7 +3229,7 @@ bool entityclass::updateentities( int i )
                     entities[i].vx = 7;
                     if (entities[i].xp > 320)
                     {
-                        return removeentity(i);
+                        return disableentity(i);
                     }
                 }
                 break;
@@ -3178,7 +3239,7 @@ bool entityclass::updateentities( int i )
                     entities[i].vx = -7;
                     if (entities[i].xp <-20)
                     {
-                        return removeentity(i);
+                        return disableentity(i);
                     }
                 }
                 break;
@@ -3273,7 +3334,7 @@ bool entityclass::updateentities( int i )
                     music.playef(27);
                 }
 
-                return removeentity(i);
+                return disableentity(i);
             }
             break;
         case 100: //The teleporter
@@ -4662,7 +4723,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         {
             //Disable collision temporarily so we don't push the person out!
             //Collision will be restored at end of platform update loop in gamelogic
-            nocollisionat(entities[j].xp, entities[j].yp);
+            disableblockat(entities[j].xp, entities[j].yp);
         }
         break;
     case 3:   //Entity to entity

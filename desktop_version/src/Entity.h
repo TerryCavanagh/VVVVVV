@@ -10,23 +10,6 @@
 #include "BlockV.h"
 #include "Game.h"
 
-#define removeentity_iter(index) \
-    do \
-    { \
-        extern entityclass obj; \
-        if (obj.removeentity(index)) \
-        { \
-            index--; \
-        } \
-    } while (false)
-#define removeblock_iter(index) \
-    do \
-    { \
-        extern entityclass obj; \
-        obj.removeblock(index); \
-        index--; \
-    } while (false)
-
 enum
 {
     BLOCK = 0,
@@ -71,17 +54,15 @@ public:
 
     void createblock(int t, int xp, int yp, int w, int h, int trig = 0, const std::string& script = "");
 
-    bool removeentity(int t);
+    bool disableentity(int t);
 
     void removeallblocks();
 
-    void removeblock(int t);
+    void disableblock(int t);
 
-    void removeblockat(int x, int y);
+    void disableblockat(int x, int y);
 
     void moveblockto(int x1, int y1, int x2, int y2, int w, int h);
-
-    void nocollisionat(int x, int y);
 
     void removetrigger(int t);
 

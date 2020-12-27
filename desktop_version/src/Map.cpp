@@ -871,11 +871,25 @@ void mapclass::gotoroom(int rx, int ry)
 		}
 	}
 
-	for (size_t i = 0; i < obj.entities.size(); i++)
+	/* Disable all entities in the room, and deallocate any unnecessary entity slots. */
+	/* However don't disable player entities, but do preserve holes between them (if any). */
+	bool player_found = false;
+	for (int i = obj.entities.size() - 1; i >= 0; --i)
 	{
-		if (obj.entities[i].rule != 0)
+		/* Iterate in reverse order to prevent unnecessary indice shifting */
+		if (obj.entities[i].rule == 0)
 		{
-			removeentity_iter(i);
+			player_found = true;
+			continue;
+		}
+
+		if (!player_found)
+		{
+			obj.entities.erase(obj.entities.begin() + i);
+		}
+		else
+		{
+			obj.disableentity(i);
 		}
 	}
 
