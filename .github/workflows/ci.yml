@@ -33,11 +33,40 @@ jobs:
       if: startsWith(matrix.os, 'macos')
       run: brew install ninja sdl2 sdl2_mixer
 
-    - name: CMake configure
+    - name: CMake configure (default version)
       run: |
         mkdir ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
         cmake -GNinja ..
-    - name: Build
+    - name: Build (default version)
+      run: ninja -C ${SRC_DIR_PATH}/build
+
+    - name: CMake configure (official)
+      run: |
+        cd ${SRC_DIR_PATH}/build
+        cmake -DOFFICIAL_BUILD=ON ..
+    - name: Build (official)
+      run: |
+        ninja -C ${SRC_DIR_PATH}/build
+
+    - name: CMake configure (M&P)
+      run: |
+        cd ${SRC_DIR_PATH}/build
+        cmake -DOFFICIAL_BUILD=OFF -DMAKEANDPLAY=ON ..
+    - name: Build (M&P)
+      run: ninja -C ${SRC_DIR_PATH}/build
+
+    - name: CMake configure (no custom levels)
+      run: |
+        cd ${SRC_DIR_PATH}/build
+        cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED ..
+    - name: Build (no custom levels)
+      run: ninja -C ${SRC_DIR_PATH}/build
+
+    - name: CMake configure (no editor)
+      run: |
+        cd ${SRC_DIR_PATH}/build
+        cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR ..
+    - name: Build (no editor)
       run: ninja -C ${SRC_DIR_PATH}/build
 
   build-win:
@@ -52,7 +81,7 @@ jobs:
       run: |
         vcpkg install sdl2 sdl2-mixer
 
-    - name: CMake configure
+    - name: CMake configure (default version)
       run: |
         cd $env:SRC_DIR_PATH
         $env:LDFLAGS =  "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib "
@@ -60,7 +89,43 @@ jobs:
         cmake -G "Visual Studio 16 2019" -A Win32 `
               -DSDL2_INCLUDE_DIRS="$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\include\SDL2" `
               -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" .
-    - name: Build
+    - name: Build (default version)
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake --build .
+
+    - name: CMake configure (official)
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake -DOFFICIAL_BUILD=ON .
+    - name: Build (official)
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake --build .
+
+    - name: CMake configure (M&P)
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake -DOFFICIAL_BUILD=OFF -DMAKEANDPLAY=ON .
+    - name: Build (M&P)
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake --build .
+
+    - name: CMake configure (no custom levels)
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED .
+    - name: Build (no custom levels)
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake --build .
+
+    - name: CMake configure (no editor)
+      run: |
+        cd $env:SRC_DIR_PATH
+        cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR .
+    - name: Build (no editor)
       run: |
         cd $env:SRC_DIR_PATH
         cmake --build .

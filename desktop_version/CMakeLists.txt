@@ -15,9 +15,15 @@ SET(GOG OFF CACHE BOOL "Use the GOG API")
 
 SET(OFFICIAL_BUILD OFF CACHE BOOL "Compile an official build of the game")
 
-IF(OFFICIAL_BUILD)
+SET(MAKEANDPLAY OFF CACHE BOOL "Compile a version of the game without the main campaign (provided for convenience; consider modifying MakeAndPlay.h instead")
+
+IF(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
 	SET(STEAM ON)
 	SET(GOG ON)
+ENDIF()
+
+IF(MAKEANDPLAY)
+	ADD_DEFINITIONS(-DMAKEANDPLAY)
 ENDIF()
 
 # Set standard to C++98/C++03
