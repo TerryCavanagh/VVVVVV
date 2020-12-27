@@ -2,6 +2,11 @@
 
 blockclass::blockclass()
 {
+	clear();
+}
+
+void blockclass::clear()
+{
 	type = 0;
 	trigger = 0;
 
@@ -20,6 +25,11 @@ blockclass::blockclass()
 
 	x = 0.0f;
 	y = 0.0f;
+
+	/* std::strings get initialized automatically, but this is */
+	/* in case this function gets called again after construction */
+	script.clear();
+	prompt.clear();
 }
 
 void blockclass::rectset(const int xi, const int yi, const int wi, const int hi)

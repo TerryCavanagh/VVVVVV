@@ -1891,7 +1891,7 @@ void gameinput()
                         if((int(SDL_fabsf(obj.entities[ie].vx))<=1) && (int(obj.entities[ie].vy) == 0) )
                         {
                             script.load(obj.blocks[game.activeactivity].script);
-                            obj.removeblock(game.activeactivity);
+                            obj.disableblock(game.activeactivity);
                             game.activeactivity = -1;
                         }
                     }

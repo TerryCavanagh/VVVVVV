@@ -167,16 +167,16 @@ void scriptclass::run()
 			{
 				if(words[1]=="gravitylines"){
 					for(size_t edi=0; edi<obj.entities.size(); edi++){
-						if(obj.entities[edi].type==9) removeentity_iter(edi);
-						if(obj.entities[edi].type==10) removeentity_iter(edi);
+						if(obj.entities[edi].type==9) obj.disableentity(edi);
+						if(obj.entities[edi].type==10) obj.disableentity(edi);
 					}
 				}else if(words[1]=="warptokens"){
 					for(size_t edi=0; edi<obj.entities.size(); edi++){
-						if(obj.entities[edi].type==11) removeentity_iter(edi);
+						if(obj.entities[edi].type==11) obj.disableentity(edi);
 					}
 				}else if(words[1]=="platforms"){
 					for(size_t edi=0; edi<obj.entities.size(); edi++){
-						if(obj.entities[edi].rule==2 && obj.entities[edi].animate==100) removeentity_iter(edi);
+						if(obj.entities[edi].rule==2 && obj.entities[edi].animate==100) obj.disableentity(edi);
 					}
 				}
 			}
@@ -3701,13 +3701,12 @@ void scriptclass::hardreset()
 		obj.entities[theplayer].tile = 0;
 	}
 
-	// Remove duplicate player entities
+	/* Disable duplicate player entities */
 	for (int i = 0; i < (int) obj.entities.size(); i++)
 	{
 		if (obj.entities[i].rule == 0 && i != theplayer)
 		{
-			removeentity_iter(i);
-			theplayer--; // just in case indice of player is not 0
+			obj.disableentity(i);
 		}
 	}
 
