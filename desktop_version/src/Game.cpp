@@ -117,6 +117,8 @@ void Game::init(void)
     musicmutebutton = 0;
 
     glitchrunkludge = false;
+    gamestate = TITLEMODE;
+    prevgamestate = TITLEMODE;
     hascontrol = true;
     jumpheld = false;
     advancetext = false;
@@ -7149,13 +7151,22 @@ void Game::unlockAchievement(const char *name) {
 
 void Game::mapmenuchange(const int newgamestate)
 {
+    prevgamestate = gamestate;
     gamestate = newgamestate;
     graphics.resumegamemode = false;
+    mapheld = true;
 
-    graphics.menuoffset = 240;
-    if (map.extrarow)
+    if (prevgamestate == GAMEMODE)
     {
-        graphics.menuoffset -= 10;
+        graphics.menuoffset = 240;
+        if (map.extrarow)
+        {
+            graphics.menuoffset -= 10;
+        }
+    }
+    else
+    {
+        graphics.menuoffset = 0;
     }
     graphics.oldmenuoffset = graphics.menuoffset;
 }
