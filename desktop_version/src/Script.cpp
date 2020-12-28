@@ -2675,6 +2675,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2700,6 +2701,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2740,6 +2742,7 @@ void scriptclass::startgamemode( int t )
 			map.cameramode = 0;
 			map.colsuperstate = 0;
 		}
+		game.lifeseq = 0;
 		graphics.fademode = 4;
 		break;
 	case 3:
@@ -2767,6 +2770,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2796,6 +2800,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2825,6 +2830,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2854,6 +2860,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2883,6 +2890,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2918,6 +2926,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2943,6 +2952,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2972,6 +2982,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3008,6 +3019,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		music.play(11);
@@ -3044,6 +3056,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3080,6 +3093,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3116,6 +3130,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3152,6 +3167,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3185,6 +3201,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3218,6 +3235,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3251,6 +3269,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3284,6 +3303,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3308,6 +3328,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -3344,6 +3365,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		if(ed.levmusic>0){
@@ -3382,6 +3404,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3428,6 +3451,7 @@ void scriptclass::startgamemode( int t )
 		{
 			map.resetplayer();
 		}
+		game.lifeseq = 0;
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		ed.generatecustomminimap();
