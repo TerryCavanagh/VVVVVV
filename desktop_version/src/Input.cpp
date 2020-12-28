@@ -1846,18 +1846,7 @@ void gameinput()
                             else if (game.companion == 0)
                             {
                                 //Alright, normal teleporting
-                                game.gamestate = TELEPORTERMODE;
-                                graphics.menuoffset = 240; //actually this should count the roomname
-                                graphics.oldmenuoffset = 240;
-                                if (map.extrarow)
-                                {
-                                    graphics.menuoffset -= 10;
-                                    graphics.oldmenuoffset -= 10;
-                                }
-
-                                BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
-
-                                graphics.resumegamemode = false;
+                                game.mapmenuchange(TELEPORTERMODE);
 
                                 game.useteleporter = true;
                                 game.initteleportermode();
@@ -2010,19 +1999,10 @@ void gameinput()
         //quitting the super gravitron
         game.mapheld = true;
         //Quit menu, same conditions as in game menu
-        game.gamestate = MAPMODE;
+        game.mapmenuchange(MAPMODE);
         game.gamesaved = false;
         game.gamesavefailed = false;
-        graphics.resumegamemode = false;
         game.menupage = 20; // The Map Page
-        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
-        graphics.menuoffset = 240; //actually this should count the roomname
-        graphics.oldmenuoffset = 240;
-        if (map.extrarow)
-        {
-            graphics.menuoffset -= 10;
-            graphics.oldmenuoffset -= 10;
-        }
     }
     else if (game.intimetrial && graphics.fademode == 0)
     {
@@ -2039,12 +2019,11 @@ void gameinput()
     else
     {
         //Normal map screen, do transition later
-        game.gamestate = MAPMODE;
+        game.mapmenuchange(MAPMODE);
         map.cursordelay = 0;
         map.cursorstate = 0;
         game.gamesaved = false;
         game.gamesavefailed = false;
-        graphics.resumegamemode = false;
         if (script.running)
         {
             game.menupage = 3; // Only allow saving
@@ -2053,34 +2032,16 @@ void gameinput()
         {
             game.menupage = 0; // The Map Page
         }
-        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
-        graphics.menuoffset = 240; //actually this should count the roomname
-        graphics.oldmenuoffset = 240;
-        if (map.extrarow)
-        {
-            graphics.menuoffset -= 10;
-            graphics.oldmenuoffset -= 10;
-        }
     }
 
     if ((key.isDown(27) || key.isDown(game.controllerButton_esc)) && (!map.custommode || map.custommodeforreal))
     {
         game.mapheld = true;
         //Quit menu, same conditions as in game menu
-        game.gamestate = MAPMODE;
+        game.mapmenuchange(MAPMODE);
         game.gamesaved = false;
         game.gamesavefailed = false;
-        graphics.resumegamemode = false;
         game.menupage = 30; // Pause screen
-
-        BlitSurfaceStandard(graphics.menubuffer,NULL,graphics.backBuffer, NULL);
-        graphics.menuoffset = 240; //actually this should count the roomname
-        graphics.oldmenuoffset = 240;
-        if (map.extrarow)
-        {
-            graphics.menuoffset -= 10;
-            graphics.oldmenuoffset -= 10;
-        }
     }
 
     if (game.deathseq == -1 && (key.isDown(SDLK_r) || key.isDown(game.controllerButton_restart)) && !game.nodeathmode)// && map.custommode) //Have fun glitchrunners!
