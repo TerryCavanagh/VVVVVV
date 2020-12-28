@@ -218,6 +218,7 @@ public:
     int tapleft, tapright;
 
     //Menu interaction stuff
+    void mapmenuchange(const int newgamestate);
     bool mapheld;
     int menupage;
     int lastsaved;

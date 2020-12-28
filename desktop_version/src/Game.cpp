@@ -7146,3 +7146,16 @@ void Game::unlockAchievement(const char *name) {
     if (!map.custommode) NETWORK_unlockAchievement(name);
 #endif
 }
+
+void Game::mapmenuchange(const int newgamestate)
+{
+    gamestate = newgamestate;
+    graphics.resumegamemode = false;
+
+    graphics.menuoffset = 240;
+    if (map.extrarow)
+    {
+        graphics.menuoffset -= 10;
+    }
+    graphics.oldmenuoffset = graphics.menuoffset;
+}

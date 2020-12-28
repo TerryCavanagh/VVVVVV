@@ -1322,17 +1322,7 @@ void scriptclass::run()
 			{
 				if (words[1] == "teleporter")
 				{
-					//TODO this draw the teleporter screen. This is a problem. :(
-					game.gamestate = TELEPORTERMODE;
-					graphics.menuoffset = 240; //actually this should count the roomname
-					graphics.oldmenuoffset = 240;
-					if (map.extrarow)
-					{
-						graphics.menuoffset -= 10;
-						graphics.oldmenuoffset -= 10;
-					}
-
-					graphics.resumegamemode = false;
+					game.mapmenuchange(TELEPORTERMODE);
 
 					game.useteleporter = false; //good heavens don't actually use it
 				}
