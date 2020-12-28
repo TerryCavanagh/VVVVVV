@@ -1769,7 +1769,16 @@ void gameinput()
         }
     }
 
-    if (!game.press_map) game.mapheld = false;
+    if (!game.press_map
+    //Extra conditionals as a kludge fix so if you open the quit menu during
+    //the script command gamemode(teleporter) and close it with Esc, it won't
+    //immediately open again
+    //We really need a better input system soon...
+    && !key.isDown(27)
+    && !key.isDown(game.controllerButton_esc))
+    {
+        game.mapheld = false;
+    }
 
     if (game.intimetrial && graphics.fademode == 1 && game.quickrestartkludge)
     {
@@ -2034,7 +2043,9 @@ void gameinput()
         }
     }
 
-    if ((key.isDown(27) || key.isDown(game.controllerButton_esc)) && (!map.custommode || map.custommodeforreal))
+    if (!game.mapheld
+    && (key.isDown(27) || key.isDown(game.controllerButton_esc))
+    && (!map.custommode || map.custommodeforreal))
     {
         game.mapheld = true;
         //Quit menu, same conditions as in game menu

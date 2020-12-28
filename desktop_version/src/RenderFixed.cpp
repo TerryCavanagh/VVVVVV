@@ -197,14 +197,27 @@ void maprenderfixed()
     graphics.oldmenuoffset = graphics.menuoffset;
     if (graphics.resumegamemode)
     {
-        graphics.menuoffset += 25;
-        int threshold = map.extrarow ? 230 : 240;
-        if (graphics.menuoffset >= threshold)
+        if (game.prevgamestate == GAMEMODE
+        //Failsafe: if the script command gamemode(teleporter) got ran and the
+        //cutscene stopped without doing gamemode(game), then we need to go
+        //back to GAMEMODE, not game.prevgamestate (TELEPORTERMODE)
+        || !script.running)
         {
-            graphics.menuoffset = threshold;
-            //go back to gamemode!
+            graphics.menuoffset += 25;
+            int threshold = map.extrarow ? 230 : 240;
+            if (graphics.menuoffset >= threshold)
+            {
+                graphics.menuoffset = threshold;
+                //go back to gamemode!
+                game.mapheld = true;
+                game.gamestate = GAMEMODE;
+            }
+        }
+        else
+        {
             game.mapheld = true;
-            game.gamestate = GAMEMODE;
+            game.gamestate = game.prevgamestate;
+            graphics.resumegamemode = false;
         }
     }
     else if (graphics.menuoffset > 0)

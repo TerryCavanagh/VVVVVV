@@ -1329,6 +1329,7 @@ void scriptclass::run()
 				else if (words[1] == "game")
 				{
 					graphics.resumegamemode = true;
+					game.prevgamestate = GAMEMODE;
 				}
 			}
 			else if (words[0] == "ifexplored")

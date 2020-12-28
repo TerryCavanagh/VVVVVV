@@ -206,6 +206,7 @@ public:
     bool glitchrunkludge;
 
     int gamestate;
+    int prevgamestate; //only used sometimes
     bool hascontrol, jumpheld;
     int jumppressed;
     int gravitycontrol;
