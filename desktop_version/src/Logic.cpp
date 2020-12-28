@@ -470,7 +470,7 @@ void gamelogic()
 
                 game.gravitycontrol = game.savegc;
                 graphics.textboxremove();
-                map.resetplayer();
+                map.resetplayer(true);
             }
         }
     }
