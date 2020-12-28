@@ -831,6 +831,10 @@ void mapclass::resetplayer(const bool player_died)
 			game.lifeseq = 10;
 			obj.entities[i].invis = true;
 		}
+		else
+		{
+			obj.entities[i].invis = false;
+		}
 		if (!game.glitchrunnermode)
 		{
 			obj.entities[i].size = 0;
