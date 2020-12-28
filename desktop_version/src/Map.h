@@ -69,6 +69,7 @@ public:
 
     void showship();
 
+    void resetplayer(const bool player_died);
     void resetplayer();
 
     void warpto(int rx, int ry , int t, int tx, int ty);

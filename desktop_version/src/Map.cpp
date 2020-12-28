@@ -803,6 +803,11 @@ void mapclass::showship()
 
 void mapclass::resetplayer()
 {
+	resetplayer(false);
+}
+
+void mapclass::resetplayer(const bool player_died)
+{
 	bool was_in_tower = towermode;
 	if (game.roomx != game.saverx || game.roomy != game.savery)
 	{
@@ -821,8 +826,11 @@ void mapclass::resetplayer()
 		obj.entities[i].yp = game.savey;
 		obj.entities[i].dir = game.savedir;
 		obj.entities[i].colour = 0;
-		game.lifeseq = 10;
-		obj.entities[i].invis = true;
+		if (player_died)
+		{
+			game.lifeseq = 10;
+			obj.entities[i].invis = true;
+		}
 		if (!game.glitchrunnermode)
 		{
 			obj.entities[i].size = 0;
