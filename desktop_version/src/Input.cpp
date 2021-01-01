@@ -1824,7 +1824,7 @@ void gameinput()
                     if (game.activetele && game.readytotele > 20 && !game.intimetrial)
                     {
                         enter_already_processed = true;
-                        if(int(std::abs(obj.entities[ie].vx))<=1 && int(obj.entities[ie].vy)==0)
+                        if(int(SDL_abs(obj.entities[ie].vx))<=1 && int(obj.entities[ie].vy)==0)
                         {
                             //wait! space station 2 debug thingy
                             if (game.teleportscript != "")
@@ -1890,7 +1890,7 @@ void gameinput()
                     else if (INBOUNDS_VEC(game.activeactivity, obj.blocks))
                     {
                         enter_already_processed = true;
-                        if((int(std::abs(obj.entities[ie].vx))<=1) && (int(obj.entities[ie].vy) == 0) )
+                        if((int(SDL_abs(obj.entities[ie].vx))<=1) && (int(obj.entities[ie].vy) == 0) )
                         {
                             script.load(obj.blocks[game.activeactivity].script);
                             obj.removeblock(game.activeactivity);
