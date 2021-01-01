@@ -22,6 +22,10 @@
 #include "SoundSystem.h"
 #include "UtilityClass.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 scriptclass script;
 
 #if !defined(NO_CUSTOM_LEVELS)
@@ -158,6 +162,10 @@ int main(int argc, char *argv[])
             return 1;
         }
     }
+
+#ifdef _WIN32
+    SetProcessDPIAware();
+#endif
 
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
     {
