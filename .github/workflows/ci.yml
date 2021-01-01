@@ -61,7 +61,8 @@ jobs:
   build-lin:
     name: Build (ubuntu-18.04)
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+    container: ghcr.io/leo60228/vvvvvv-build:latest
 
     env:
       CXXFLAGS: -I/usr/local/include/SDL2
@@ -69,11 +70,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-
-    - name: Install dependencies
-      run: |
-        apt-get update
-        apt-get install -y ninja-build cmake libsdl2-dev libsdl2-mixer-dev
 
     - name: CMake configure (default version)
       run: |
