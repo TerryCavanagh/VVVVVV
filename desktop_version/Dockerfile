@@ -9,19 +9,21 @@ RUN curl -O https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.t
 RUN tar -xf SDL2_mixer-2.0.4.tar.gz
 RUN mkdir SDL2_mixer-2.0.4/build
 
+# add EPEL (for SDL2)
+RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+# install dependencies
 RUN yum -y install \
-    # SDL2 dependencies, adapted from https://hg.libsdl.org/SDL/file/default/docs/README-linux.md
-    cmake make autoconf automake \
-    libtool alsa-lib-devel pulseaudio-libs-devel libX11-devel libXext-devel \
-    libXrandr-devel libXcursor-devel libXi-devel libXinerama-devel libXxf86vm-devel \
-    mesa-libGL-devel dbus-devel libudev-devel \
-    ibus-devel libsamplerate-devel \
-    wayland-devel libxkbcommon-devel \
+    # used below
+    yum-utils \
     # SDL2_mixer dependencies
     libogg-devel libvorbis-devel \
     # VVVVVV dependencies
-    gcc-c++ && \
-    yum clean all
+    gcc-c++ cmake make
+
+RUN yum-builddep -y SDL2
+
+RUN yum clean all
 
 WORKDIR /tmp/SDL2-2.0.14/build
 RUN ../configure
