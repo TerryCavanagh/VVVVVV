@@ -72,8 +72,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y ninja-build libsdl2-dev libsdl2-mixer-dev
+        apt-get update
+        apt-get install -y ninja-build libsdl2-dev libsdl2-mixer-dev
 
     - name: CMake configure (default version)
       run: |
