@@ -4389,8 +4389,8 @@ void entityclass::fixfriction( int t, float xfix, float xrate, float yrate )
     if (entities[t].vx > 6) entities[t].vx = 6.0f;
     if (entities[t].vx < -6) entities[t].vx = -6.0f;
 
-    if (std::abs(entities[t].vx-xfix) <= xrate) entities[t].vx = xfix;
-    if (std::abs(entities[t].vy) < yrate) entities[t].vy = 0;
+    if (SDL_abs(entities[t].vx-xfix) <= xrate) entities[t].vx = xfix;
+    if (SDL_abs(entities[t].vy) < yrate) entities[t].vy = 0;
 }
 
 void entityclass::applyfriction( int t, float xrate, float yrate )
@@ -4410,8 +4410,8 @@ void entityclass::applyfriction( int t, float xrate, float yrate )
     if (entities[t].vx > 6.00f) entities[t].vx = 6.0f;
     if (entities[t].vx < -6.00f) entities[t].vx = -6.0f;
 
-    if (std::abs(entities[t].vx) < xrate) entities[t].vx = 0.0f;
-    if (std::abs(entities[t].vy) < yrate) entities[t].vy = 0.0f;
+    if (SDL_abs(entities[t].vx) < xrate) entities[t].vx = 0.0f;
+    if (SDL_abs(entities[t].vy) < yrate) entities[t].vy = 0.0f;
 }
 
 void entityclass::updateentitylogic( int t )
