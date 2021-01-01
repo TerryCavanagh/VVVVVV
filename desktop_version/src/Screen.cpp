@@ -170,7 +170,7 @@ void Screen::ResizeScreen(int x, int y)
 	if (stretchMode == 1)
 	{
 		int winX, winY;
-		SDL_GetWindowSize(m_window, &winX, &winY);
+		SDL_GetRendererOutputSize(m_renderer, &winX, &winY);
 		int result = SDL_RenderSetLogicalSize(m_renderer, winX, winY);
 		if (result != 0)
 		{
@@ -256,7 +256,7 @@ void Screen::ResizeToNearestMultiple()
 
 void Screen::GetWindowSize(int* x, int* y)
 {
-	SDL_GetWindowSize(m_window, x, y);
+	SDL_GetRendererOutputSize(m_renderer, x, y);
 }
 
 void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect )
