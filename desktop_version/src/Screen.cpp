@@ -170,7 +170,7 @@ void Screen::ResizeScreen(int x, int y)
 	if (stretchMode == 1)
 	{
 		int winX, winY;
-		SDL_GetRendererOutputSize(m_renderer, &winX, &winY);
+		GetWindowSize(&winX, &winY);
 		int result = SDL_RenderSetLogicalSize(m_renderer, winX, winY);
 		if (result != 0)
 		{
