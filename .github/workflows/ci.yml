@@ -7,31 +7,73 @@ env:
   SRC_DIR_PATH: desktop_version
 
 jobs:
-  build:
-    name: Build
+  build-mac:
+    name: Build (macos-latest)
 
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
 
     env:
       CXXFLAGS: -I/usr/local/include/SDL2
       LDFLAGS: -L/usr/local/lib
 
-    strategy:
-      matrix:
-        os: [ubuntu-18.04, macos-latest]
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Install dependencies
+      run: brew install ninja sdl2 sdl2_mixer
+
+    - name: CMake configure (default version)
+      run: |
+        mkdir ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
+        cmake -GNinja ..
+    - name: Build (default version)
+      run: ninja -C ${SRC_DIR_PATH}/build
+
+    - name: CMake configure (official)
+      run: |
+        cd ${SRC_DIR_PATH}/build
+        cmake -DOFFICIAL_BUILD=ON ..
+    - name: Build (official)
+      run: |
+        ninja -C ${SRC_DIR_PATH}/build
+
+    - name: CMake configure (M&P)
+      run: |
+        cd ${SRC_DIR_PATH}/build
+        cmake -DOFFICIAL_BUILD=OFF -DMAKEANDPLAY=ON ..
+    - name: Build (M&P)
+      run: ninja -C ${SRC_DIR_PATH}/build
+
+    - name: CMake configure (no custom levels)
+      run: |
+        cd ${SRC_DIR_PATH}/build
+        cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED ..
+    - name: Build (no custom levels)
+      run: ninja -C ${SRC_DIR_PATH}/build
+
+    - name: CMake configure (no editor)
+      run: |
+        cd ${SRC_DIR_PATH}/build
+        cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR ..
+    - name: Build (no editor)
+      run: ninja -C ${SRC_DIR_PATH}/build
+
+  build-lin:
+    name: Build (ubuntu-18.04)
+
+    runs-on: ubuntu-18.04
+
+    env:
+      CXXFLAGS: -I/usr/local/include/SDL2
+      LDFLAGS: -L/usr/local/lib
 
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install dependencies (Linux)
-      if: startsWith(matrix.os, 'ubuntu')
+    - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y ninja-build libsdl2-dev libsdl2-mixer-dev
-
-    - name: Install dependencies (macOS)
-      if: startsWith(matrix.os, 'macos')
-      run: brew install ninja sdl2 sdl2_mixer
 
     - name: CMake configure (default version)
       run: |
