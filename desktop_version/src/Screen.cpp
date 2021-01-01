@@ -60,7 +60,7 @@ void Screen::init(const ScreenSettings& settings)
 	SDL_CreateWindowAndRenderer(
 		640,
 		480,
-		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE,
+		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI,
 		&m_window,
 		&m_renderer
 	);
