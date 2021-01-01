@@ -74,9 +74,9 @@ jobs:
     - name: CMake configure (default version)
       run: |
         mkdir ${SRC_DIR_PATH}/build && cd ${SRC_DIR_PATH}/build
-        cmake -GNinja ..
+        cmake ..
     - name: Build (default version)
-      run: ninja -C ${SRC_DIR_PATH}/build
+      run: make -j $(nproc) -C ${SRC_DIR_PATH}/build
 
     - name: CMake configure (official)
       run: |
@@ -84,28 +84,28 @@ jobs:
         cmake -DOFFICIAL_BUILD=ON ..
     - name: Build (official)
       run: |
-        ninja -C ${SRC_DIR_PATH}/build
+        make -j $(nproc) -C ${SRC_DIR_PATH}/build
 
     - name: CMake configure (M&P)
       run: |
         cd ${SRC_DIR_PATH}/build
         cmake -DOFFICIAL_BUILD=OFF -DMAKEANDPLAY=ON ..
     - name: Build (M&P)
-      run: ninja -C ${SRC_DIR_PATH}/build
+      run: make -j $(nproc) -C ${SRC_DIR_PATH}/build
 
     - name: CMake configure (no custom levels)
       run: |
         cd ${SRC_DIR_PATH}/build
         cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED ..
     - name: Build (no custom levels)
-      run: ninja -C ${SRC_DIR_PATH}/build
+      run: make -j $(nproc) -C ${SRC_DIR_PATH}/build
 
     - name: CMake configure (no editor)
       run: |
         cd ${SRC_DIR_PATH}/build
         cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR ..
     - name: Build (no editor)
-      run: ninja -C ${SRC_DIR_PATH}/build
+      run: make -j $(nproc) -C ${SRC_DIR_PATH}/build
 
   build-win:
     name: Build (windows-latest)
