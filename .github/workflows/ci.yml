@@ -59,7 +59,7 @@ jobs:
       run: ninja -C ${SRC_DIR_PATH}/build
 
   build-lin:
-    name: Build (ubuntu-18.04)
+    name: Build (CentOS 7)
 
     runs-on: ubuntu-latest
     container: ghcr.io/leo60228/vvvvvv-build:latest
