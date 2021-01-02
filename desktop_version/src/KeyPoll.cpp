@@ -323,11 +323,6 @@ bool KeyPoll::isDown(SDL_Keycode key)
 	return keymap[key];
 }
 
-bool KeyPoll::isUp(SDL_Keycode key)
-{
-	return !keymap[key];
-}
-
 bool KeyPoll::isDown(std::vector<SDL_GameControllerButton> buttons)
 {
 	for (size_t i = 0; i < buttons.size(); i += 1)
