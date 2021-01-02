@@ -455,10 +455,6 @@ int Graphics::len(std::string t)
     return bfontpos;
 }
 
-void Graphics::PrintOff( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ ) {
-    PrintOffAlpha(_x,_y,_s,r,g,b,255,cen);
-}
-
 void Graphics::PrintOffAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
 {
     std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
