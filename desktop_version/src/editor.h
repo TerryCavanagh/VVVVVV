@@ -276,8 +276,6 @@ void removeedentity(int t);
 int edentat(int xp, int yp);
 
 
-bool edentclear(int xp, int yp);
-
 void fillbox(int x, int y, int x2, int y2, int c);
 
 void fillboxabs(int x, int y, int x2, int y2, int c);

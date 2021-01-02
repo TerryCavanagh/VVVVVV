@@ -2196,15 +2196,6 @@ int edentat( int xp, int yp )
     return -1;
 }
 
-bool edentclear( int xp, int yp )
-{
-    for(size_t i=0; i<edentity.size(); i++)
-    {
-        if(edentity[i].x==xp && edentity[i].y==yp) return false;
-    }
-    return true;
-}
-
 void fillbox( int x, int y, int x2, int y2, int c )
 {
     FillRect(graphics.backBuffer, x, y, x2-x, 1, c);
