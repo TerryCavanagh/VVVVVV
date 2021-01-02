@@ -141,7 +141,6 @@ class editorclass{
   int absfree(int x, int y);
 
   int match(int x, int y);
-  int warpzonematch(int x, int y);
   int outsidematch(int x, int y);
 
   int backmatch(int x, int y);
