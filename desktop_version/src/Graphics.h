@@ -53,8 +53,6 @@ public:
 
 	int textboxwidth();
 
-	void textboxmove(int xo, int yo);
-
 	void textboxmoveto(int xo);
 
 	void textboxcentery();

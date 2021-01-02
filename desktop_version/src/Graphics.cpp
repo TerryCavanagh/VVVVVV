@@ -2836,18 +2836,6 @@ int Graphics::textboxwidth()
 	return textbox[m].w;
 }
 
-void Graphics::textboxmove(int xo, int yo)
-{
-	if (!INBOUNDS_VEC(m, textbox))
-	{
-		puts("textboxmove() out-of-bounds!");
-		return;
-	}
-
-	textbox[m].xp += xo;
-	textbox[m].yp += yo;
-}
-
 void Graphics::textboxmoveto(int xo)
 {
 	if (!INBOUNDS_VEC(m, textbox))
