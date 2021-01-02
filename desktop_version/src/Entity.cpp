@@ -4372,27 +4372,6 @@ bool entityclass::testwallsy( int t, float tx, float ty )
     return true;
 }
 
-void entityclass::fixfriction( int t, float xfix, float xrate, float yrate )
-{
-    if (!INBOUNDS_VEC(t, entities))
-    {
-        puts("fixfriction() out-of-bounds!");
-        return;
-    }
-
-    if (entities[t].vx > xfix) entities[t].vx -= xrate;
-    if (entities[t].vx < xfix) entities[t].vx += xrate;
-    if (entities[t].vy > 0) entities[t].vy -= yrate;
-    if (entities[t].vy < 0) entities[t].vy += yrate;
-    if (entities[t].vy > 10) entities[t].vy = 10;
-    if (entities[t].vy < -10) entities[t].vy = -10;
-    if (entities[t].vx > 6) entities[t].vx = 6.0f;
-    if (entities[t].vx < -6) entities[t].vx = -6.0f;
-
-    if (SDL_fabsf(entities[t].vx-xfix) <= xrate) entities[t].vx = xfix;
-    if (SDL_fabsf(entities[t].vy) < yrate) entities[t].vy = 0;
-}
-
 void entityclass::applyfriction( int t, float xrate, float yrate )
 {
     if (!INBOUNDS_VEC(t, entities))
