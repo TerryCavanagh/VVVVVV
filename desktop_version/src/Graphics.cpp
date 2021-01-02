@@ -679,17 +679,6 @@ void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 
     BlitSurfaceStandard(tiles3[t], &src_rect, backBuffer, &rect);
 }
 
-void Graphics::drawentcolours( int x, int y, int t)
-{
-    if (!INBOUNDS_VEC(t, entcolours))
-    {
-        WHINE_ONCE("drawentcolours() out-of-bounds!")
-        return;
-    }
-    SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
-    BlitSurfaceStandard(entcolours[t], NULL, backBuffer, &rect);
-}
-
 void Graphics::drawtowertile( int x, int y, int t )
 {
     if (!INBOUNDS_VEC(t, tiles2))
