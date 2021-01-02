@@ -932,14 +932,6 @@ int editorclass::getenemyframe(int t)
 }
 
 
-void editorclass::placetile( int x, int y, int t )
-{
-    if(x>=0 && y>=0 && x<mapwidth*40 && y<mapheight*30)
-    {
-        contents[x+(levx*40)+vmult[y+(levy*30)]]=t;
-    }
-}
-
 void editorclass::placetilelocal( int x, int y, int t )
 {
     if(x>=0 && y>=0 && x<40 && y<30)
