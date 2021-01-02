@@ -121,8 +121,6 @@ class editorclass{
   void getlin(const enum textmode mode, const std::string& prompt, std::string* ptr);
   const short* loadlevel(int rxi, int ryi);
 
-  void placetile(int x, int y, int t);
-
   void placetilelocal(int x, int y, int t);
 
   int getenemyframe(int t);
