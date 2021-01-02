@@ -2814,18 +2814,6 @@ void Graphics::setwarprect( int a, int b, int c, int d )
 	warprect.h = d;
 }
 
-void Graphics::textboxcenter()
-{
-	if (!INBOUNDS_VEC(m, textbox))
-	{
-		puts("textboxcenter() out-of-bounds!");
-		return;
-	}
-
-	textbox[m].centerx();
-	textbox[m].centery();
-}
-
 void Graphics::textboxcenterx()
 {
 	if (!INBOUNDS_VEC(m, textbox))
