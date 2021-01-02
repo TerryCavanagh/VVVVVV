@@ -1824,7 +1824,6 @@ void gameinput()
                     if (game.activetele && game.readytotele > 20 && !game.intimetrial)
                     {
                         enter_already_processed = true;
-                        // This should *not* be changed to use SDL_fabsf, which would prevent activating an teleporter when `vx > 1.0 && vx < 2.0`.
                         if(int(SDL_abs(obj.entities[ie].vx))<=1 && int(obj.entities[ie].vy)==0)
                         {
                             //wait! space station 2 debug thingy
@@ -1891,7 +1890,6 @@ void gameinput()
                     else if (INBOUNDS_VEC(game.activeactivity, obj.blocks))
                     {
                         enter_already_processed = true;
-                        // This should *not* be changed to use SDL_fabsf, which would prevent activating an activity zone when `vx > 1.0 && vx < 2.0`.
                         if((int(SDL_abs(obj.entities[ie].vx))<=1) && (int(obj.entities[ie].vy) == 0) )
                         {
                             script.load(obj.blocks[game.activeactivity].script);
