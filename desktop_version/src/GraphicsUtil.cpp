@@ -136,28 +136,6 @@ SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Su
     return _ret;
 }
 
-SDL_Surface *  FlipSurfaceHorizontal(SDL_Surface* _src)
-{
-    SDL_Surface * ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, _src->format->BitsPerPixel,
-        _src->format->Rmask, _src->format->Gmask, _src->format->Bmask, _src->format->Amask);
-    if(ret == NULL)
-    {
-        return NULL;
-    }
-
-    for(Sint32 y = 0; y < _src->h; y++)
-    {
-        for(Sint32 x = 0; x < _src->w; x++)
-        {
-            DrawPixel(ret,(_src->w -1) -x,y,ReadPixel(_src, x, y));
-        }
-
-
-    }
-
-    return ret;
-}
-
 SDL_Surface *  FlipSurfaceVerticle(SDL_Surface* _src)
 {
     SDL_Surface * ret = SDL_CreateRGBSurface(_src->flags, _src->w, _src->h, _src->format->BitsPerPixel,
