@@ -59,15 +59,3 @@ SoundSystem::SoundSystem()
 		SDL_assert(0 && "Unable to initialize audio!");
 	}
 }
-
-void SoundSystem::playMusic(MusicTrack* music)
-{
-	if(!music->m_isValid)
-	{
-		fprintf(stderr, "Invalid mix specified: %s\n", Mix_GetError());
-	}
-	if(Mix_PlayMusic(music->m_music, 0) == -1)
-	{
-		fprintf(stderr, "Unable to play Ogg file: %s\n", Mix_GetError());
-	}
-}

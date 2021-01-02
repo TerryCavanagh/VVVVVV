@@ -23,7 +23,6 @@ class SoundSystem
 {
 public:
 	SoundSystem();
-	void playMusic(MusicTrack* music);
 };
 
 #endif /* SOUNDSYSTEM_H */
