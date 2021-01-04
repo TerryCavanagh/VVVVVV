@@ -2319,9 +2319,7 @@ void mapmenuactionpress()
         //This fixes an apparent frame flicker.
         FillRect(graphics.tempBuffer, 0x000000);
         graphics.fademode = 2;
-        if (music.currentsong != 6) {
-            music.fadeout();
-        }
+        music.fadeout();
         map.nexttowercolour();
         if (!game.glitchrunnermode)
         {
