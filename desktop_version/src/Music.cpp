@@ -193,9 +193,12 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 		return;
 	}
 
-		if (t != -1)
+	currentsong = t;
+
+		if (t == -1)
 		{
-			currentsong = t;
+			return;
+		}
 
 			if (!INBOUNDS_VEC(t, musicTracks))
 			{
@@ -237,11 +240,6 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 			}
 
 			songStart = SDL_GetPerformanceCounter();
-		}
-		else
-		{
-			currentsong = -1;
-		}
 }
 
 void musicclass::resume(const int fadein_ms /*= 0*/)
