@@ -188,8 +188,11 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 	safeToProcessMusic = true;
 	musicVolume = MIX_MAX_VOLUME;
 
-	if (currentsong != t)
+	if (currentsong == t)
 	{
+		return;
+	}
+
 		if (t != -1)
 		{
 			currentsong = t;
@@ -239,7 +242,6 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 		{
 			currentsong = -1;
 		}
-	}
 }
 
 void musicclass::resume(const int fadein_ms /*= 0*/)
