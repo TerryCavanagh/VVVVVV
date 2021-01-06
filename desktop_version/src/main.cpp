@@ -227,6 +227,10 @@ int main(int argc, char *argv[])
     game.menustart = false;
     game.mainmenu = 0;
 
+    // Initialize title screen to cyan
+    graphics.titlebg.colstate = 10;
+    map.nexttowercolour();
+
     map.ypos = (700-29) * 8;
     graphics.towerbg.bypos = map.ypos / 2;
     graphics.titlebg.bypos = map.ypos / 2;
