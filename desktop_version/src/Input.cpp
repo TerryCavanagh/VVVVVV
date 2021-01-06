@@ -1686,8 +1686,6 @@ void titleinput()
                 music.playef(18);
                 game.screenshake = 10;
                 game.flashlight = 5;
-                graphics.titlebg.colstate = 10;
-                map.nexttowercolour();
             }
             else
             {
