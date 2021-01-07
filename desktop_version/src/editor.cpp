@@ -3627,18 +3627,11 @@ void editorlogic()
     if (graphics.fademode == 1)
     {
         //Return to game
-        map.nexttowercolour();
         graphics.titlebg.colstate = 10;
-        game.gamestate = TITLEMODE;
-        script.hardreset();
-        graphics.fademode = 4;
-        music.haltdasmusik();
-        FILESYSTEM_unmountassets(); // should be before music.play(6)
-        music.play(6);
         map.nexttowercolour();
+        game.quittomenu();
+        music.play(6); //should be before game.quittomenu()
         ed.settingsmod=false;
-        graphics.backgrounddrawn=false;
-        game.returntomenu(Menu::playerworlds);
     }
 }
 

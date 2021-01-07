@@ -2627,11 +2627,8 @@ void scriptclass::run()
 
 void scriptclass::resetgametomenu()
 {
-	game.gamestate = TITLEMODE;
-	graphics.flipmode = false;
 	obj.entities.clear();
-	graphics.fademode = 4;
-	graphics.titlebg.tdrawback = true;
+	game.quittomenu();
 	game.createmenu(Menu::gameover);
 }
 
@@ -3262,6 +3259,8 @@ void scriptclass::startgamemode( int t )
 		hardreset();
 		ed.reset();
 		music.fadeout();
+		map.custommode = true;
+		map.custommodeforreal = false;
 
 		game.gamestate = EDITORMODE;
 		game.jumpheld = true;

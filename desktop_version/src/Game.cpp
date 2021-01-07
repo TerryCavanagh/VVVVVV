@@ -1288,6 +1288,7 @@ void Game::updatestate()
             break;
         case 81:
             quittomenu();
+            music.play(6); //should be after quittomenu()
             state = 0;
             break;
 
@@ -1341,11 +1342,7 @@ void Game::updatestate()
             if(graphics.fademode == 1)	state++;
             break;
         case 84:
-            graphics.flipmode = false;
-            gamestate = TITLEMODE;
-            graphics.fademode = 4;
-            graphics.backgrounddrawn = true;
-            graphics.titlebg.tdrawback = true;
+            quittomenu();
             createmenu(Menu::timetrialcomplete);
             state = 0;
             break;
@@ -1871,7 +1868,6 @@ void Game::updatestate()
                 if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
             }
             graphics.showcutscenebars = false;
-            returntomenu(Menu::levellist);
             break;
 #endif
         case 1014:
@@ -1896,6 +1892,7 @@ void Game::updatestate()
             }
 #endif
             quittomenu();
+            music.play(6); //should be after quittomenu()
             state = 0;
             break;
 
@@ -2852,7 +2849,6 @@ void Game::updatestate()
             {
                 graphics.fademode = 2;
                 companion = 0;
-                returnmenu();
                 state=3100;
             }
             else
@@ -2883,7 +2879,6 @@ void Game::updatestate()
                 state++;
                 graphics.fademode = 2;
                 music.fadeout();
-                returnmenu();
                 state=3100;
             }
             else
@@ -2909,12 +2904,8 @@ void Game::updatestate()
             if(graphics.fademode == 1)	state++;
             break;
         case 3101:
-            graphics.flipmode = false;
-            gamestate = TITLEMODE;
-            graphics.fademode = 4;
-            graphics.backgrounddrawn = true;
-            graphics.titlebg.tdrawback = true;
-            music.play(6);
+            quittomenu();
+            music.play(6); //should be after quittomenu();
             state = 0;
             break;
 
@@ -3218,11 +3209,7 @@ void Game::updatestate()
             if(graphics.fademode == 1)	state++;
             break;
         case 3522:
-            graphics.flipmode = false;
-            gamestate = TITLEMODE;
-            graphics.fademode = 4;
-            graphics.backgrounddrawn = true;
-            graphics.titlebg.tdrawback = true;
+            quittomenu();
             createmenu(Menu::nodeathmodecomplete);
             state = 0;
             break;
@@ -6972,9 +6959,7 @@ void Game::quittomenu()
 {
     gamestate = TITLEMODE;
     graphics.fademode = 4;
-    FILESYSTEM_unmountassets(); // should be before music.play(6)
-    music.play(6);
-    graphics.backgrounddrawn = false;
+    FILESYSTEM_unmountassets();
     graphics.titlebg.tdrawback = true;
     graphics.flipmode = false;
     //Don't be stuck on the summary screen,
@@ -6995,7 +6980,15 @@ void Game::quittomenu()
     }
     else if (map.custommode)
     {
-        returntomenu(Menu::levellist);
+        if (map.custommodeforreal)
+        {
+            returntomenu(Menu::levellist);
+        }
+        else
+        {
+            //Returning from editor
+            returntomenu(Menu::playerworlds);
+        }
     }
     else if (save_exists() || anything_unlocked())
     {
