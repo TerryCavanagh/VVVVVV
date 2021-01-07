@@ -113,13 +113,9 @@ void gamecompletelogic2()
         game.savetele();
         music.currentsong=tmp;
         //Return to game
-        graphics.titlebg.colstate = 10;
-        game.gamestate = TITLEMODE;
-        graphics.fademode = 4;
-        FILESYSTEM_unmountassets(); // should be before music.playef(18)
-        music.playef(18);
-        game.returntomenu(Menu::play);
+        game.quittomenu();
         game.createmenu(Menu::gamecompletecontinue);
+        graphics.titlebg.colstate = 10;
         map.nexttowercolour();
     }
 }
