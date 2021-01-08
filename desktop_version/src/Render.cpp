@@ -752,30 +752,30 @@ static void menurender()
     {
         graphics.bigprint( -1, 20, "Results", tr, tg, tb, true, 3);
 
-        std::string tempstring = game.resulttimestring() + " / " + game.partimestring() + ".99";
+        std::string tempstring = game.resulttimestring() + " / " + game.timetstring(game.timetrialresultpar) + ".99";
 
         graphics.drawspritesetcol(30, 80-15, 50, 22);
         graphics.Print(65, 80-15, "TIME TAKEN:", 255, 255, 255);
         graphics.Print(65, 90-15, tempstring, tr, tg, tb);
-        if (game.timetrialresulttime <= game.timetrialpar)
+        if (game.timetrialresulttime <= game.timetrialresultpar)
         {
             graphics.Print(220, 85-15, "+1 Rank!", 255, 255, 255);
         }
 
-        tempstring = help.String(game.deathcounts);
+        tempstring = help.String(game.timetrialresultdeaths);
         graphics.drawspritesetcol(30-4, 80+20-4, 12, 22);
         graphics.Print(65, 80+20, "NUMBER OF DEATHS:", 255, 255, 255);
         graphics.Print(65, 90+20, tempstring, tr, tg, tb);
-        if (game.deathcounts == 0)
+        if (game.timetrialresultdeaths == 0)
         {
             graphics.Print(220, 85+20, "+1 Rank!", 255, 255, 255);
         }
 
-        tempstring = help.String(game.trinkets()) + " of " + help.String(game.timetrialshinytarget);
+        tempstring = help.String(game.timetrialresulttrinkets) + " of " + help.String(game.timetrialresultshinytarget);
         graphics.drawspritesetcol(30, 80+55, 22, 22);
         graphics.Print(65, 80+55, "SHINY TRINKETS:", 255, 255, 255);
         graphics.Print(65, 90+55, tempstring, tr, tg, tb);
-        if (game.trinkets() >= game.timetrialshinytarget)
+        if (game.timetrialresulttrinkets >= game.timetrialresultshinytarget)
         {
             graphics.Print(220, 85+55, "+1 Rank!", 255, 255, 255);
         }
