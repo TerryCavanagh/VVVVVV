@@ -46,7 +46,9 @@ public:
 
     void changefinalcol(int t);
 
-    void setcol(const int r1, const int g1, const int b1 , const int r2, const  int g2, const int b2, const int c);
+    void setcol(TowerBG& bg_obj, const int r1, const int g1, const int b1 , const int r2, const  int g2, const int b2, const int c);
+
+    void updatebgobj(TowerBG& bg_obj);
 
     void updatetowerglow(TowerBG& bg_obj);
 
@@ -109,8 +111,6 @@ public:
     int resumedelay;
     bool minitowermode;
 
-    //This is the old colour cycle
-    int r, g,b;
     int colstatedelay;
     int colsuperstate;
     int spikeleveltop, spikelevelbottom;

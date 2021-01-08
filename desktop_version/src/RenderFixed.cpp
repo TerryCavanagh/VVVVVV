@@ -9,9 +9,9 @@
 
 void titleupdatetextcol()
 {
-    graphics.col_tr = map.r - (help.glow / 4) - int(fRandom() * 4);
-    graphics.col_tg = map.g - (help.glow / 4) - int(fRandom() * 4);
-    graphics.col_tb = map.b - (help.glow / 4) - int(fRandom() * 4);
+    graphics.col_tr = graphics.titlebg.r - (help.glow / 4) - int(fRandom() * 4);
+    graphics.col_tg = graphics.titlebg.g - (help.glow / 4) - int(fRandom() * 4);
+    graphics.col_tb = graphics.titlebg.b - (help.glow / 4) - int(fRandom() * 4);
     if (graphics.col_tr < 0) graphics.col_tr = 0;
     if(graphics.col_tr>255) graphics.col_tr=255;
     if (graphics.col_tg < 0) graphics.col_tg = 0;

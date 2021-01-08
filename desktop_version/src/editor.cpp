@@ -3194,9 +3194,9 @@ void editorrender()
             FillRect(graphics.backBuffer, 0, 0, 320, 240, 0x00000000);
         }
 
-        int tr = map.r - (help.glow / 4) - int(fRandom() * 4);
-        int tg = map.g - (help.glow / 4) - int(fRandom() * 4);
-        int tb = map.b - (help.glow / 4) - int(fRandom() * 4);
+        int tr = graphics.titlebg.r - (help.glow / 4) - int(fRandom() * 4);
+        int tg = graphics.titlebg.g - (help.glow / 4) - int(fRandom() * 4);
+        int tb = graphics.titlebg.b - (help.glow / 4) - int(fRandom() * 4);
         if (tr < 0) tr = 0;
         if(tr>255) tr=255;
         if (tg < 0) tg = 0;
