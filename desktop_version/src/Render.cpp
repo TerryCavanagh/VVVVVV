@@ -686,22 +686,22 @@ static void menurender()
     {
         graphics.bigprint( -1, 25, "GAME OVER", tr, tg, tb, true, 3);
 
-        for (int i = 0; i < 6; i++)
+        for (size_t i = 0; i < SDL_arraysize(game.ndmresultcrewstats); i++)
         {
-            graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.crewstats[i], true);
+            graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
         std::string tempstring;
-        tempstring = "You rescued " + help.number(game.crewrescued()) + (game.crewrescued() == 1 ? " crewmate" : " crewmates");
+        tempstring = "You rescued " + help.number(game.ndmresultcrewrescued) + (game.ndmresultcrewrescued == 1 ? " crewmate" : " crewmates");
         graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
-        tempstring = "and found " + help.number(game.trinkets()) + (game.trinkets() == 1 ? " trinket." : " trinkets.");
+        tempstring = "and found " + help.number(game.ndmresulttrinkets) + (game.ndmresulttrinkets == 1 ? " trinket." : " trinkets.");
         graphics.Print(0, 110, tempstring, tr, tg, tb, true);
 
         tempstring = "You managed to reach:";
         graphics.Print(0, 145, tempstring, tr, tg, tb, true);
-        graphics.Print(0, 155, game.hardestroom, tr, tg, tb, true);
+        graphics.Print(0, 155, game.ndmresulthardestroom, tr, tg, tb, true);
 
-        switch (game.crewrescued())
+        switch (game.ndmresultcrewrescued)
         {
         case 1:
             tempstring = "Keep trying! You'll get there!";
@@ -731,14 +731,14 @@ static void menurender()
     {
         graphics.bigprint( -1, 8, "WOW", tr, tg, tb, true, 4);
 
-        for (int i = 0; i < 6; i++)
+        for (size_t i = 0; i < SDL_arraysize(game.ndmresultcrewstats); i++)
         {
-            graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.crewstats[i], true);
+            graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
         std::string tempstring = "You rescued all the crewmates!";
         graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
-        tempstring = "And you found " + help.number(game.trinkets()) + " trinkets.";
+        tempstring = "And you found " + help.number(game.ndmresulttrinkets) + " trinkets.";
         graphics.Print(0, 110, tempstring, tr, tg, tb, true);
 
         graphics.Print(0, 160, "A new trophy has been awarded and", tr, tg, tb, true);

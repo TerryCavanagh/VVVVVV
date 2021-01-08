@@ -445,7 +445,11 @@ void gamelogic()
                 game.gethardestroom();
                 //start depressing sequence here...
                 if (game.gameoverdelay <= -10 && graphics.fademode==0) graphics.fademode = 2;
-                if (graphics.fademode == 1) script.resetgametomenu();
+                if (graphics.fademode == 1)
+                {
+                    game.copyndmresults();
+                    script.resetgametomenu();
+                }
             }
             else
             {

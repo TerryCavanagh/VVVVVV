@@ -171,10 +171,13 @@ void Game::init(void)
 
     nodeathmode = false;
     nocutscenes = false;
+    ndmresultcrewrescued = 0;
+    ndmresulttrinkets = 0;
 
     customcol=0;
 
     SDL_memset(crewstats, false, sizeof(crewstats));
+    SDL_memset(ndmresultcrewstats, false, sizeof(ndmresultcrewstats));
     SDL_memset(tele_crewstats, false, sizeof(tele_crewstats));
     SDL_memset(quick_crewstats, false, sizeof(quick_crewstats));
     SDL_memset(besttimes, -1, sizeof(besttimes));
@@ -3219,6 +3222,7 @@ void Game::updatestate()
             if(graphics.fademode == 1)	state++;
             break;
         case 3522:
+            copyndmresults();
             quittomenu();
             createmenu(Menu::nodeathmodecomplete);
             state = 0;
@@ -7115,4 +7119,12 @@ void Game::mapmenuchange(const int newgamestate)
         graphics.menuoffset = 0;
     }
     graphics.oldmenuoffset = graphics.menuoffset;
+}
+
+void Game::copyndmresults()
+{
+    ndmresultcrewrescued = crewrescued();
+    ndmresulttrinkets = trinkets();
+    ndmresulthardestroom = hardestroom;
+    SDL_memcpy(ndmresultcrewstats, crewstats, sizeof(ndmresultcrewstats));
 }
