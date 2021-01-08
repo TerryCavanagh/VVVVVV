@@ -295,6 +295,8 @@ public:
     bool intimetrial, timetrialparlost;
     int timetrialcountdown, timetrialshinytarget, timetriallevel;
     int timetrialpar, timetrialresulttime, timetrialresultframes, timetrialrank;
+    int timetrialresultshinytarget, timetrialresulttrinkets, timetrialresultpar;
+    int timetrialresultdeaths;
 
     int creditposition;
     int oldcreditposition;

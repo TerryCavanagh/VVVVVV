@@ -3594,7 +3594,6 @@ void scriptclass::hardreset()
 	game.timetrialshinytarget = 0;
 	game.timetrialparlost = false;
 	game.timetrialpar = 0;
-	game.timetrialresulttime = 0;
 
 	game.totalflips = 0;
 	game.hardestroom = "Welcome Aboard";

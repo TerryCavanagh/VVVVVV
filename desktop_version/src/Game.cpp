@@ -227,6 +227,10 @@ void Game::init(void)
     timetrialpar = 0;
     timetrialresulttime = 0;
     timetrialresultframes = 0;
+    timetrialresultshinytarget = 0;
+    timetrialresulttrinkets = 0;
+    timetrialresultpar = 0;
+    timetrialresultdeaths = 0;
 
     totalflips = 0;
     hardestroom = "Welcome Aboard";
@@ -1296,8 +1300,14 @@ void Game::updatestate()
             //Time Trial Complete!
             obj.removetrigger(82);
             hascontrol = false;
+
             timetrialresulttime = seconds + (minutes * 60) + (hours * 60 * 60);
             timetrialresultframes = frames;
+            timetrialresulttrinkets = trinkets();
+            timetrialresultshinytarget = timetrialshinytarget;
+            timetrialresultpar = timetrialpar;
+            timetrialresultdeaths = deathcounts;
+
             timetrialrank = 0;
             if (timetrialresulttime <= timetrialpar) timetrialrank++;
             if (trinkets() >= timetrialshinytarget) timetrialrank++;
@@ -1310,7 +1320,7 @@ void Game::updatestate()
                 besttimes[timetriallevel] = timetrialresulttime;
                 bestframes[timetriallevel] = timetrialresultframes;
             }
-            if (trinkets() > besttrinkets[timetriallevel] || besttrinkets[timetriallevel]==-1)
+            if (timetrialresulttrinkets > besttrinkets[timetriallevel] || besttrinkets[timetriallevel]==-1)
             {
                 besttrinkets[timetriallevel] = trinkets();
             }
