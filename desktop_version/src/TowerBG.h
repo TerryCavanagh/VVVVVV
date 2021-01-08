@@ -12,6 +12,9 @@ struct TowerBG
 	int bscroll;
 	int colstate;
 	int scrolldir;
+	int r;
+	int g;
+	int b;
 };
 
 #endif /* TOWERBG_H */
