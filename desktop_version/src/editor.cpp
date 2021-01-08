@@ -1508,7 +1508,7 @@ void editorclass::switch_tileset(const bool reversed /*= false*/)
         tiles++;
     }
 
-    const size_t modulus = SDL_arraysize(tilesets);
+    const int modulus = SDL_arraysize(tilesets);
     tiles = (tiles % modulus + modulus) % modulus;
     room.tileset = tiles;
 
