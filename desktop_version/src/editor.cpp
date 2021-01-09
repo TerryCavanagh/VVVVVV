@@ -4745,7 +4745,7 @@ void editorinput()
                         }
                         else if(ed.boundarymod==2)
                         {
-                            if((ed.tilex*8)+8>=ed.boundx1 || (ed.tiley*8)+8>=ed.boundy1)
+                            if((ed.tilex*8)+8>=ed.boundx1 && (ed.tiley*8)+8>=ed.boundy1)
                             {
                                 ed.boundx2=(ed.tilex*8)+8;
                                 ed.boundy2=(ed.tiley*8)+8;
