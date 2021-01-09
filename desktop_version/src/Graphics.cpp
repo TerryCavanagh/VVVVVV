@@ -2618,7 +2618,7 @@ void Graphics::setcol( int t )
 		break;
 
 		//Trophies
-		//cyan
+		//Yellow
 	case 30:
 		ct.colour = RGBf(160, 200, 220);
 		break;
@@ -2626,11 +2626,11 @@ void Graphics::setcol( int t )
 	case 31:
 		ct.colour = RGBf(220, 120, 210);
 		break;
-		//Yellow
+		//cyan
 	case 32:
 		ct.colour = RGBf(220, 210, 120);
 		break;
-		//red
+		//Blue
 	case 33:
 		ct.colour = RGBf(255, 70, 70);
 		break;
@@ -2638,7 +2638,7 @@ void Graphics::setcol( int t )
 	case 34:
 		ct.colour = RGBf(120, 220, 120);
 		break;
-		//Blue
+		//red
 	case 35:
 		ct.colour = RGBf(75, 75, 255);
 		break;
