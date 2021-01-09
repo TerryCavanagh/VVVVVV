@@ -2641,6 +2641,9 @@ void Game::updatestate()
                 startscript = true;
                 if (crewrescued() == 6)
                 {
+                    // Randomize between everyone except Viridian and Violet (2..5)
+                    // Prevents having two Violets in the same room
+                    lastsaved = 2 + fRandom() * 3;
                     newscript = "startlevel_final";
                 }
                 else
