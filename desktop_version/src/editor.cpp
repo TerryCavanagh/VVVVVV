@@ -2419,11 +2419,6 @@ static void editormenurender(int tr, int tg, int tb)
 void editorrender(void)
 {
     extern editorclass ed;
-    if (game.shouldreturntoeditor)
-    {
-        graphics.backgrounddrawn = false;
-    }
-
     //Draw grid
 
     ClearSurface(graphics.backBuffer);
@@ -3646,11 +3641,6 @@ void editorlogic(void)
     extern editorclass ed;
     //Misc
     help.updateglow();
-
-    if (game.shouldreturntoeditor)
-    {
-        game.shouldreturntoeditor = false;
-    }
 
     graphics.titlebg.bypos -= 2;
     graphics.titlebg.bscroll = -2;

@@ -428,7 +428,6 @@ public:
 
 #if !defined(NO_CUSTOM_LEVELS)
     void returntoeditor(void);
-    bool shouldreturntoeditor;
 #endif
 
     int gametimer;

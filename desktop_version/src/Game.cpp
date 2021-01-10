@@ -7,6 +7,7 @@
 #include <string.h>
 #include <tinyxml2.h>
 
+#include "DeferCallbacks.h"
 #include "editor.h"
 #include "Entity.h"
 #include "Enums.h"
@@ -364,10 +365,6 @@ void Game::init(void)
     fadetomenudelay = 0;
     fadetolab = false;
     fadetolabdelay = 0;
-
-#if !defined(NO_CUSTOM_LEVELS)
-    shouldreturntoeditor = false;
-#endif
 
     over30mode = false;
     glitchrunnermode = false;
@@ -1887,7 +1884,7 @@ void Game::updatestate(void)
                 }
                 else
                 {
-                    shouldreturntoeditor = true;
+                    returntoeditor();
                     if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
                     if(ed.levmusic>0) music.fadeout();
                 }
@@ -7049,6 +7046,11 @@ void Game::returntolab(void)
 }
 
 #if !defined(NO_CUSTOM_LEVELS)
+static void resetbg(void)
+{
+    graphics.backgrounddrawn = false;
+}
+
 void Game::returntoeditor(void)
 {
     gamestate = EDITORMODE;
@@ -7067,7 +7069,7 @@ void Game::returntoeditor(void)
     ed.notedelay = 0;
     ed.roomnamehide = 0;
 
-    graphics.backgrounddrawn=false;
+    DEFER_CALLBACK(resetbg);
     music.fadeout();
     //If warpdir() is used during playtesting, we need to set it back after!
     for (int j = 0; j < ed.maxheight; j++)
