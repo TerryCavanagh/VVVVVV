@@ -24,7 +24,7 @@ extern "C"
 	);
 }
 
-SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool noAlpha = false)
+static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool noAlpha = false)
 {
 	//Temporary storage for the image that's loaded
 	SDL_Surface* loadedImage = NULL;

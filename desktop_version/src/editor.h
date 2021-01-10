@@ -265,17 +265,6 @@ class editorclass{
   int currentghosts;
 };
 
-void addedentity(int xp, int yp, int tp, int p1=0, int p2=0, int p3=0, int p4=0, int p5=320, int p6=240);
-
-void removeedentity(int t);
-
-int edentat(int xp, int yp);
-
-
-void fillbox(int x, int y, int x2, int y2, int c);
-
-void fillboxabs(int x, int y, int x2, int y2, int c);
-
 #if !defined(NO_EDITOR)
 void editorrender();
 

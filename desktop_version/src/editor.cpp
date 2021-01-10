@@ -60,7 +60,7 @@ editorclass::editorclass()
 }
 
 // comparison, not case sensitive.
-bool compare_nocase (std::string first, std::string second)
+static bool compare_nocase (std::string first, std::string second)
 {
     unsigned int i=0;
     while ( (i<first.length()) && (i<second.length()) )
@@ -2084,7 +2084,7 @@ bool editorclass::save(std::string& _path)
 }
 
 
-void addedentity( int xp, int yp, int tp, int p1/*=0*/, int p2/*=0*/, int p3/*=0*/, int p4/*=0*/, int p5/*=320*/, int p6/*=240*/)
+static void addedentity( int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240)
 {
     edentities entity;
 
@@ -2102,12 +2102,12 @@ void addedentity( int xp, int yp, int tp, int p1/*=0*/, int p2/*=0*/, int p3/*=0
     edentity.push_back(entity);
 }
 
-void removeedentity( int t )
+static void removeedentity( int t )
 {
     edentity.erase(edentity.begin() + t);
 }
 
-int edentat( int xp, int yp )
+static int edentat( int xp, int yp )
 {
     for(size_t i=0; i<edentity.size(); i++)
     {
@@ -2116,7 +2116,7 @@ int edentat( int xp, int yp )
     return -1;
 }
 
-void fillbox( int x, int y, int x2, int y2, int c )
+static void fillbox( int x, int y, int x2, int y2, int c )
 {
     FillRect(graphics.backBuffer, x, y, x2-x, 1, c);
     FillRect(graphics.backBuffer, x, y2-1, x2-x, 1, c);
@@ -2124,7 +2124,7 @@ void fillbox( int x, int y, int x2, int y2, int c )
     FillRect(graphics.backBuffer, x2-1, y, 1, y2-y, c);
 }
 
-void fillboxabs( int x, int y, int x2, int y2, int c )
+static void fillboxabs( int x, int y, int x2, int y2, int c )
 {
     FillRect(graphics.backBuffer, x, y, x2, 1, c);
     FillRect(graphics.backBuffer, x, y+y2-1, x2, 1, c);
@@ -2253,7 +2253,7 @@ void editorclass::generatecustomminimap()
 }
 
 #if !defined(NO_EDITOR)
-void editormenurender(int tr, int tg, int tb)
+static void editormenurender(int tr, int tg, int tb)
 {
     extern editorclass ed;
     switch (game.currentmenuname)
@@ -3662,7 +3662,7 @@ void editorlogic()
 }
 
 
-void editormenuactionpress()
+static void editormenuactionpress()
 {
     extern editorclass ed;
     switch (game.currentmenuname)

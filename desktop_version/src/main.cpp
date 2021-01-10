@@ -38,23 +38,23 @@ mapclass map;
 entityclass obj;
 Screen gameScreen;
 
-bool startinplaytest = false;
-bool savefileplaytest = false;
-int savex = 0;
-int savey = 0;
-int saverx = 0;
-int savery = 0;
-int savegc = 0;
-int savemusic = 0;
-std::string playassets;
+static bool startinplaytest = false;
+static bool savefileplaytest = false;
+static int savex = 0;
+static int savey = 0;
+static int saverx = 0;
+static int savery = 0;
+static int savegc = 0;
+static int savemusic = 0;
+static std::string playassets;
 
-std::string playtestname;
+static std::string playtestname;
 
-volatile Uint32 time_ = 0;
-volatile Uint32 timePrev = 0;
-volatile Uint32 accumulator = 0;
-volatile Uint32 f_time = 0;
-volatile Uint32 f_timePrev = 0;
+static volatile Uint32 time_ = 0;
+static volatile Uint32 timePrev = 0;
+static volatile Uint32 accumulator = 0;
+static volatile Uint32 f_time = 0;
+static volatile Uint32 f_timePrev = 0;
 
 static inline Uint32 get_framerate(const int slowdown)
 {
@@ -73,8 +73,8 @@ static inline Uint32 get_framerate(const int slowdown)
     return 34;
 }
 
-void inline deltaloop();
-void inline fixedloop();
+static void inline deltaloop();
+static void inline fixedloop();
 
 int main(int argc, char *argv[])
 {
@@ -414,7 +414,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void inline deltaloop()
+static void inline deltaloop()
 {
     //timestep limit to 30
     const float rawdeltatime = static_cast<float>(time_ - timePrev);
@@ -482,7 +482,7 @@ void inline deltaloop()
     }
 }
 
-void inline fixedloop()
+static void inline fixedloop()
 {
     // Update network per frame.
     NETWORK_update();

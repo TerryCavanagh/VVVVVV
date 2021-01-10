@@ -26,7 +26,7 @@
 #define strcasecmp stricmp
 #endif
 
-bool GetButtonFromString(const char *pText, SDL_GameControllerButton *button)
+static bool GetButtonFromString(const char *pText, SDL_GameControllerButton *button)
 {
     if (*pText == '0' ||
         *pText == 'a' ||
