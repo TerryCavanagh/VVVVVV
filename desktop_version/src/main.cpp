@@ -573,8 +573,8 @@ void inline fixedloop()
             }
 
             gameinput();
-            gamelogic();
             gamerenderfixed();
+            gamelogic();
 
 
             break;
