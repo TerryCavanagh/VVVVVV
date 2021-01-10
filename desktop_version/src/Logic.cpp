@@ -1576,11 +1576,4 @@ void gamelogic(void)
 
     if (game.teleport_to_new_area)
         script.teleport();
-
-#if !defined(NO_CUSTOM_LEVELS)
-    if (game.shouldreturntoeditor)
-    {
-        game.returntoeditor();
-    }
-#endif
 }

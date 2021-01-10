@@ -1779,7 +1779,7 @@ void gameinput(void)
             }else if(game.activetele && game.readytotele > 20 && game.press_map){
                 //pass, let code block below handle it
             }else{
-                game.shouldreturntoeditor = true;
+                game.returntoeditor();
                 game.mapheld = true;
             }
         }
