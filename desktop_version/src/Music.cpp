@@ -8,7 +8,7 @@
 #include "Map.h"
 #include "UtilityClass.h"
 
-void songend();
+static void songend();
 
 musicclass::musicclass()
 {
@@ -158,7 +158,7 @@ void musicclass::init()
 	}
 }
 
-void songend()
+static void songend()
 {
 	extern musicclass music;
 	music.songEnd = SDL_GetPerformanceCounter();

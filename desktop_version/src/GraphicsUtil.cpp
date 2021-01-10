@@ -42,7 +42,7 @@ SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, i
     return preSurface;
 }
 
-void DrawPixel( SDL_Surface *_surface, int x, int y, Uint32 pixel )
+static void DrawPixel( SDL_Surface *_surface, int x, int y, Uint32 pixel )
 {
     int bpp = _surface->format->BytesPerPixel;
     /* Here p is the address to the pixel we want to set */
@@ -294,9 +294,9 @@ void BlitSurfaceTinted(
 }
 
 
-int oldscrollamount = 0;
-int scrollamount = 0;
-bool isscrolling = 0;
+static int oldscrollamount = 0;
+static int scrollamount = 0;
+static bool isscrolling = 0;
 
 void UpdateFilter()
 {

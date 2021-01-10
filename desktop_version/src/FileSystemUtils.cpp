@@ -28,12 +28,12 @@
 #define MAX_PATH PATH_MAX
 #endif
 
-char saveDir[MAX_PATH] = {'\0'};
-char levelDir[MAX_PATH] = {'\0'};
+static char saveDir[MAX_PATH] = {'\0'};
+static char levelDir[MAX_PATH] = {'\0'};
 
-void PLATFORM_getOSDirectory(char* output);
-void PLATFORM_migrateSaveData(char* output);
-void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
+static void PLATFORM_getOSDirectory(char* output);
+static void PLATFORM_migrateSaveData(char* output);
+static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
 int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
@@ -345,7 +345,7 @@ std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
 	return list;
 }
 
-void PLATFORM_getOSDirectory(char* output)
+static void PLATFORM_getOSDirectory(char* output)
 {
 #ifdef _WIN32
 	/* This block is here for compatibility, do not touch it! */
@@ -358,7 +358,7 @@ void PLATFORM_getOSDirectory(char* output)
 #endif
 }
 
-void PLATFORM_migrateSaveData(char* output)
+static void PLATFORM_migrateSaveData(char* output)
 {
 	char oldLocation[MAX_PATH];
 	char newLocation[MAX_PATH];
@@ -521,7 +521,7 @@ void PLATFORM_migrateSaveData(char* output)
 #endif
 }
 
-void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
+static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 {
 	char *data;
 	size_t length, bytes_read, bytes_written;
