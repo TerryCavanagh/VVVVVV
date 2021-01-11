@@ -29,8 +29,6 @@ mapclass::mapclass()
 
 	finalmode = false;
 	finalstretch = false;
-	finalx = 50;
-	finaly = 50;
 
 	cursorstate = 0;
 	cursordelay = 0;
@@ -48,7 +46,6 @@ mapclass::mapclass()
 
 	custommode=false;
 	custommodeforreal=false;
-	customx=0; customy=0;
 	customwidth=20; customheight=20;
 	custommmxoff=0; custommmyoff=0; custommmxsize=0; custommmysize=0;
 	customzoom=0;
@@ -897,18 +894,13 @@ void mapclass::gotoroom(int rx, int ry)
 	if (finalmode)
 	{
 		//Ok, what way are we moving?
-		finalx = rx;
-		finaly = ry;
-		game.roomx = finalx;
-		game.roomy = finaly;
+		game.roomx = rx;
+		game.roomy = ry;
 		game.roomchange = true;
-		rx = finalx;
-		ry = finaly;
 
 		if (game.roomy < 10)
 		{
 			game.roomy = 11;
-			finaly = 11;
 		}
 
 		if(game.roomx>=41 && game.roomy>=48 && game.roomx<61 && game.roomy<68 )
@@ -1377,7 +1369,7 @@ void mapclass::loadlevel(int rx, int ry)
 	}
 	case 6: //final level
 	{
-		const short* tmap = finallevel.loadlevel(finalx, finaly);
+		const short* tmap = finallevel.loadlevel(rx, ry);
 		SDL_memcpy(contents, tmap, sizeof(contents));
 		roomname = finallevel.roomname;
 		tileset = 1;
@@ -1452,7 +1444,6 @@ void mapclass::loadlevel(int rx, int ry)
 			obj.entities[i].yp += (71 * 8);
 		}
 		game.roomy--;
-		finaly--;
 
 		ypos = (100-29) * 8;
 		oldypos = ypos;
@@ -1497,7 +1488,6 @@ void mapclass::loadlevel(int rx, int ry)
 			obj.entities[i].yp += (71 * 8);
 		}
 		game.roomy--;
-		finaly--;
 
 		ypos = (100-29) * 8;
 		oldypos = ypos;

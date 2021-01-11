@@ -1584,11 +1584,7 @@ void scriptclass::run()
 			else if (words[0] == "finalmode")
 			{
 				map.finalmode = true;
-				map.finalx = ss_toi(words[1]);
-				map.finaly = ss_toi(words[2]);
-				game.roomx = map.finalx;
-				game.roomy = map.finaly;
-				map.gotoroom(game.roomx, game.roomy);
+				map.gotoroom(ss_toi(words[1]), ss_toi(words[2]));
 			}
 			else if (words[0] == "rescued")
 			{
@@ -2056,8 +2052,6 @@ void scriptclass::run()
 			else if (words[0] == "startintermission2")
 			{
 				map.finalmode = true; //Enable final level mode
-				map.finalx = 46;
-				map.finaly = 54; //Current
 
 				game.savex = 228;
 				game.savey = 129;
@@ -2891,8 +2885,6 @@ void scriptclass::startgamemode( int t )
 
 		music.fadeout();
 		map.finalmode = true; //Enable final level mode
-		map.finalx = 46;
-		map.finaly = 54; //Current
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3017,8 +3009,6 @@ void scriptclass::startgamemode( int t )
 		game.supercrewmate = true;
 		game.scmprogress = 0;
 		map.finalmode = true;
-		map.finalx = 41;
-		map.finaly = 56;
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3053,8 +3043,6 @@ void scriptclass::startgamemode( int t )
 		game.supercrewmate = true;
 		game.scmprogress = 0;
 		map.finalmode = true;
-		map.finalx = 41;
-		map.finaly = 56;
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3089,8 +3077,6 @@ void scriptclass::startgamemode( int t )
 		game.supercrewmate = true;
 		game.scmprogress = 0;
 		map.finalmode = true;
-		map.finalx = 41;
-		map.finaly = 56;
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3125,8 +3111,6 @@ void scriptclass::startgamemode( int t )
 		game.supercrewmate = true;
 		game.scmprogress = 0;
 		map.finalmode = true;
-		map.finalx = 41;
-		map.finaly = 56;
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3158,8 +3142,6 @@ void scriptclass::startgamemode( int t )
 		game.crewstats[game.lastsaved] = true;
 		game.inintermission = true;
 		map.finalmode = true;
-		map.finalx = 41;
-		map.finaly = 56;
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3191,8 +3173,6 @@ void scriptclass::startgamemode( int t )
 		game.crewstats[game.lastsaved] = true;
 		game.inintermission = true;
 		map.finalmode = true;
-		map.finalx = 41;
-		map.finaly = 56;
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3224,8 +3204,6 @@ void scriptclass::startgamemode( int t )
 		game.crewstats[game.lastsaved] = true;
 		game.inintermission = true;
 		map.finalmode = true;
-		map.finalx = 41;
-		map.finaly = 56;
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3257,8 +3235,6 @@ void scriptclass::startgamemode( int t )
 		game.crewstats[game.lastsaved] = true;
 		game.inintermission = true;
 		map.finalmode = true;
-		map.finalx = 41;
-		map.finaly = 56;
 		map.final_colormode = false;
 		map.final_mapcol = 0;
 		map.final_colorframe = 0;
@@ -3321,8 +3297,6 @@ void scriptclass::startgamemode( int t )
 		ed.ghosts.clear();
 
 		map.custommode = true;
-		map.customx = 100;
-		map.customy = 100;
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
@@ -3359,8 +3333,6 @@ void scriptclass::startgamemode( int t )
 
 		map.custommodeforreal = true;
 		map.custommode = true;
-		map.customx = 100;
-		map.customy = 100;
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
@@ -3399,8 +3371,6 @@ void scriptclass::startgamemode( int t )
 		hardreset();
 		map.custommodeforreal = true;
 		map.custommode = true;
-		map.customx = 100;
-		map.customy = 100;
 
 		game.customstart();
 		game.customloadquick(ed.ListOfMetaData[game.playcustomlevel].filename);
@@ -3690,8 +3660,6 @@ void scriptclass::hardreset()
 	map.showtrinkets = false;
 	map.finalmode = false;
 	map.finalstretch = false;
-	map.finalx = 50;
-	map.finaly = 50;
 	map.final_colormode = false;
 	map.final_colorframe = 0;
 	map.final_colorframedelay = 0;
