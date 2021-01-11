@@ -3287,22 +3287,15 @@ void editorrender()
                 tx+=tg;
                 FillRect(graphics.backBuffer, tx+2,ty+8,12,1,graphics.getRGB(255,255,255));
 
-                for(int i=0; i<9; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     fillboxabs(4+(i*tg), 209,20,20,graphics.getRGB(96,96,96));
-                    graphics.Print(22+(i*tg)-4, 225-4,help.String(i+1),164,164,164,false);
+                    const int col = i == ed.drawmode ? 255 : 164;
+                    const std::string glyph = i == 9 ? "0" : help.String(i + 1);
+                    graphics.Print(22 + i*tg - 4, 225 - 4, glyph, col, col, col, false);
                 }
-
-                if(ed.drawmode==9)graphics.Print(22+(ed.drawmode*tg)-4, 225-4,"0",255,255,255,false);
-
-                fillboxabs(4+(9*tg), 209,20,20,graphics.getRGB(96,96,96));
-                graphics.Print(22+(9*tg)-4, 225-4, "0",164,164,164,false);
 
                 fillboxabs(4+(ed.drawmode*tg), 209,20,20,graphics.getRGB(200,200,200));
-                if(ed.drawmode<9)
-                {
-                    graphics.Print(22+(ed.drawmode*tg)-4, 225-4,help.String(ed.drawmode+1),255,255,255,false);
-                }
 
                 graphics.Print(4, 232, "1/2", 196, 196, 255 - help.glow, false);
             }
@@ -3337,28 +3330,15 @@ void editorrender()
                 tx+=tg;
                 graphics.drawsprite(tx,ty,184,graphics.col_crewcyan);
 
-                if(ed.drawmode==10)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"R",255,255,255,false);
-                if(ed.drawmode==11)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"T",255,255,255,false);
-                if(ed.drawmode==12)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"Y",255,255,255,false);
-                if(ed.drawmode==13)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"U",255,255,255,false);
-                if(ed.drawmode==14)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"I",255,255,255,false);
-                if(ed.drawmode==15)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"O",255,255,255,false);
-                if(ed.drawmode==16)graphics.Print(22+((ed.drawmode-10)*tg)-4, 225-4,"P",255,255,255,false);
+                for (int i = 0; i < 7; i++)
+                {
+                    fillboxabs(4 +  i*tg, 209, 20, 20, graphics.getRGB(96, 96, 96));
+                    const int col = i + 10 == ed.drawmode ? 255 : 164;
+                    static const char glyphs[] = "RTYUIOP";
+                    graphics.Print(22 + i*tg - 4, 225 - 4, std::string(1, glyphs[i]), col, col, col, false);
+                }
 
-                fillboxabs(4+(0*tg), 209,20,20,graphics.getRGB(96,96,96));
-                graphics.Print(22+(0*tg)-4, 225-4, "R",164,164,164,false);
-                fillboxabs(4+(1*tg), 209,20,20,graphics.getRGB(96,96,96));
-                graphics.Print(22+(1*tg)-4, 225-4, "T",164,164,164,false);
-                fillboxabs(4+(2*tg), 209,20,20,graphics.getRGB(96,96,96));
-                graphics.Print(22+(2*tg)-4, 225-4, "Y",164,164,164,false);
-                fillboxabs(4+(3*tg), 209,20,20,graphics.getRGB(96,96,96));
-                graphics.Print(22+(3*tg)-4, 225-4, "U",164,164,164,false);
-                fillboxabs(4+(4*tg), 209,20,20,graphics.getRGB(96,96,96));
-                graphics.Print(22+(4*tg)-4, 225-4, "I",164,164,164,false);
-                fillboxabs(4+(5*tg), 209,20,20,graphics.getRGB(96,96,96));
-                graphics.Print(22+(5*tg)-4, 225-4, "O",164,164,164,false);
-                fillboxabs(4+(6*tg), 209,20,20,graphics.getRGB(96,96,96));
-                graphics.Print(22+(6*tg)-4, 225-4, "P",164,164,164,false);
+                fillboxabs(4 + (ed.drawmode - 10) * tg, 209, 20, 20, graphics.getRGB(200, 200, 200));
 
                 graphics.Print(4, 232, "2/2", 196, 196, 255 - help.glow, false);
             }
