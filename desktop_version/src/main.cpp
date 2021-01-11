@@ -639,12 +639,6 @@ static void inline fixedloop()
     //We did editorinput, now it's safe to turn this off
     key.linealreadyemptykludge = false;
 
-    if (game.savemystats)
-    {
-        game.savemystats = false;
-        game.savestatsandsettings();
-    }
-
     //Mute button
     if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !key.textentry())
     {
