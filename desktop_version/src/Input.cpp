@@ -687,7 +687,7 @@ static void menuactionpress()
         {
             // toggle Flip Mode
             graphics.setflipmode = !graphics.setflipmode;
-            game.savemystats = true;
+            game.savestatsandsettings();
             if (graphics.setflipmode)
             {
                 music.playef(18);
@@ -1307,7 +1307,7 @@ static void menuactionpress()
         {
             // WARNING: Partially duplicated in Menu::options
             graphics.setflipmode = !graphics.setflipmode;
-            game.savemystats = true;
+            game.savestatsandsettings();
             if (graphics.setflipmode)
             {
                 music.playef(18);
