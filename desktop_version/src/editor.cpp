@@ -3463,14 +3463,15 @@ void editorrender()
 
         if(ed.shiftmenu)
         {
-            fillboxabs(0, 127,161+8,140,graphics.getRGB(64,64,64));
-            FillRect(graphics.backBuffer, 0,128,160+8,140, graphics.getRGB(0,0,0));
-            graphics.Print(4, 130, "F1: Change Tileset",164,164,164,false);
-            graphics.Print(4, 140, "F2: Change Colour",164,164,164,false);
-            graphics.Print(4, 150, "F3: Change Enemies",164,164,164,false);
-            graphics.Print(4, 160, "F4: Enemy Bounds",164,164,164,false);
-            graphics.Print(4, 170, "F5: Platform Bounds",164,164,164,false);
+            fillboxabs(0, 117,171+8,140,graphics.getRGB(64,64,64));
+            FillRect(graphics.backBuffer, 0,118,170+8,140, graphics.getRGB(0,0,0));
+            graphics.Print(4, 120, "F1: Change Tileset",164,164,164,false);
+            graphics.Print(4, 130, "F2: Change Colour",164,164,164,false);
+            graphics.Print(4, 140, "F3: Change Enemies",164,164,164,false);
+            graphics.Print(4, 150, "F4: Enemy Bounds",164,164,164,false);
+            graphics.Print(4, 160, "F5: Platform Bounds",164,164,164,false);
 
+            graphics.Print(4, 180, "F9: Reload Resources",164,164,164,false);
             graphics.Print(4, 190, "F10: Direct Mode",164,164,164,false);
 
             graphics.Print(4, 210, "W: Change Warp Dir",164,164,164,false);
