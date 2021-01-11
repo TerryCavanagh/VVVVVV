@@ -1,5 +1,4 @@
-#ifndef FINALCLASS_H
-#define FINALCLASS_H
+#pragma once
 
 #include <string>
 
@@ -11,5 +10,3 @@ public:
     std::string roomname;
     bool warpx, warpy;
 };
-
-#endif /* FINALCLASS_H */

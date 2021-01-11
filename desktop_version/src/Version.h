@@ -1,8 +1,5 @@
-#ifndef VERSION_H
-#define VERSION_H
+#pragma once
 
 #ifdef VERSION_H_OUT_EXISTS
 #include "Version.h.out"
 #endif
-
-#endif /* VERSION_H */

@@ -1,5 +1,4 @@
-#ifndef MAPGAME_H
-#define MAPGAME_H
+#pragma once
 
 #include <vector>
 
@@ -168,5 +167,3 @@ public:
 #ifndef MAP_DEFINITION
 extern mapclass map;
 #endif
-
-#endif /* MAPGAME_H */

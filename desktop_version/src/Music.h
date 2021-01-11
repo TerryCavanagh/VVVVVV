@@ -1,5 +1,4 @@
-#ifndef MUSIC_H
-#define MUSIC_H
+#pragma once
 
 #include <vector>
 
@@ -61,5 +60,3 @@ public:
 #ifndef MUSIC_DEFINITION
 extern musicclass music;
 #endif
-
-#endif /* MUSIC_H */

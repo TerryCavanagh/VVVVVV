@@ -1,5 +1,4 @@
-#ifndef FILESYSTEMUTILS_H
-#define FILESYSTEMUTILS_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -31,5 +30,3 @@ bool FILESYSTEM_openDirectoryEnabled();
 bool FILESYSTEM_openDirectory(const char *dname);
 
 bool FILESYSTEM_delete(const char *name);
-
-#endif /* FILESYSTEMUTILS_H */

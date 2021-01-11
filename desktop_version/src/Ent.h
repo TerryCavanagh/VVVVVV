@@ -1,5 +1,4 @@
-#ifndef ENT_H
-#define ENT_H
+#pragma once
 
 #include <SDL.h>
 
@@ -53,5 +52,3 @@ public:
     Uint32 realcol;
     int lerpoldxp, lerpoldyp;
 };
-
-#endif /* ENT_H */

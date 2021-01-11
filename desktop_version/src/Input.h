@@ -1,5 +1,4 @@
-#ifndef INPUT_H
-#define INPUT_H
+#pragma once
 
 void titleinput();
 
@@ -12,5 +11,3 @@ void teleporterinput();
 void gamecompleteinput();
 
 void gamecompleteinput2();
-
-#endif /* INPUT_H */

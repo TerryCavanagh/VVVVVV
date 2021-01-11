@@ -1,5 +1,4 @@
-#ifndef GRAPHICSUTIL_H
-#define GRAPHICSUTIL_H
+#pragma once
 
 #include <SDL.h>
 
@@ -40,5 +39,3 @@ void ScrollSurface(SDL_Surface* _src, int pX, int py);
 SDL_Surface * FlipSurfaceVerticle(SDL_Surface* _src);
 void UpdateFilter();
 SDL_Surface* ApplyFilter( SDL_Surface* _src );
-
-#endif /* GRAPHICSUTIL_H */

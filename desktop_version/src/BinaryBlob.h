@@ -1,5 +1,4 @@
-#ifndef BINARYBLOB_H
-#define BINARYBLOB_H
+#pragma once
 
 #include <vector>
 
@@ -62,6 +61,3 @@ private:
 	resourceheader m_headers[max_headers];
 	char* m_memblocks[max_headers];
 };
-
-
-#endif /* BINARYBLOB_H */

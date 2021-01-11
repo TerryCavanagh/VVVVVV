@@ -1,5 +1,4 @@
-#ifndef KEYPOLL_H
-#define KEYPOLL_H
+#pragma once
 
 #include <map> // FIXME: I should feel very bad for using C++ -flibit
 #include <SDL.h>
@@ -82,5 +81,3 @@ private:
 #ifndef KEY_DEFINITION
 extern KeyPoll key;
 #endif
-
-#endif /* KEYPOLL_H */

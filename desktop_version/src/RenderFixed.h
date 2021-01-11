@@ -1,5 +1,4 @@
-#ifndef RENDERFIXED_H
-#define RENDERFIXED_H
+#pragma once
 
 void titleupdatetextcol();
 
@@ -10,5 +9,3 @@ void titlerenderfixed();
 void maprenderfixed();
 
 void gamecompleterenderfixed();
-
-#endif /* RENDERFIXED_H */

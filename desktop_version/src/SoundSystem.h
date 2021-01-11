@@ -1,5 +1,4 @@
-#ifndef SOUNDSYSTEM_H
-#define SOUNDSYSTEM_H
+#pragma once
 
 #include <SDL_mixer.h>
 
@@ -24,5 +23,3 @@ class SoundSystem
 public:
 	SoundSystem();
 };
-
-#endif /* SOUNDSYSTEM_H */

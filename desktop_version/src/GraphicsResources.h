@@ -1,5 +1,4 @@
-#ifndef GRAPHICSRESOURCES_H
-#define GRAPHICSRESOURCES_H
+#pragma once
 
 #include <SDL.h>
 
@@ -31,5 +30,3 @@ public:
     SDL_Surface* im_image11;
     SDL_Surface* im_image12;
 };
-
-#endif /* GRAPHICSRESOURCES_H */

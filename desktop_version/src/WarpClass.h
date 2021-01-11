@@ -1,5 +1,4 @@
-#ifndef WARPCLASS_H
-#define WARPCLASS_H
+#pragma once
 
 #include <string>
 
@@ -11,5 +10,3 @@ public:
 	int rcol;
 	bool warpx, warpy;
 };
-
-#endif /* WARPCLASS_H */

@@ -1,5 +1,4 @@
-#ifndef SCREENSETTINGS_H
-#define SCREENSETTINGS_H
+#pragma once
 
 struct ScreenSettings
 {
@@ -13,5 +12,3 @@ struct ScreenSettings
 	bool linearFilter;
 	bool badSignal;
 };
-
-#endif /* SCREENSETTINGS_H */

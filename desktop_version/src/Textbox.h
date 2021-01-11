@@ -1,5 +1,4 @@
-#ifndef TEXTBOX_H
-#define TEXTBOX_H
+#pragma once
 
 #include <SDL.h>
 #include <string>
@@ -46,5 +45,3 @@ public:
     int max;
 
 };
-
-#endif /* TEXTBOX_H */

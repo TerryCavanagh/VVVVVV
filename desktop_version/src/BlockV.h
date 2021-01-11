@@ -1,5 +1,4 @@
-#ifndef BLOCKV_H
-#define BLOCKV_H
+#pragma once
 
 #include <SDL.h>
 #include <string>
@@ -26,5 +25,3 @@ public:
     float y;
 
 };
-
-#endif /* BLOCKV_H */

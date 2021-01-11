@@ -1,5 +1,4 @@
-#ifndef SCRIPT_H
-#define SCRIPT_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -71,5 +70,3 @@ public:
 #ifndef SCRIPT_DEFINITION
 extern scriptclass script;
 #endif
-
-#endif /* SCRIPT_H */

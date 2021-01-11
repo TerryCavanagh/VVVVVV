@@ -1,7 +1,6 @@
 #if !defined(NO_CUSTOM_LEVELS)
 
-#ifndef EDITOR_H
-#define EDITOR_H
+#pragma once
 
 #include <SDL.h>
 #include <string>
@@ -278,7 +277,5 @@ void editorinput();
 #ifndef ED_DEFINITION
 extern editorclass ed;
 #endif
-
-#endif /* EDITOR_H */
 
 #endif /* NO_CUSTOM_LEVELS */

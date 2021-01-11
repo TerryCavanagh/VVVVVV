@@ -1,5 +1,4 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#pragma once
 
 #include <algorithm>
 #include <map>
@@ -317,5 +316,3 @@ public:
 #ifndef GRAPHICS_DEFINITION
 extern Graphics graphics;
 #endif
-
-#endif /* GRAPHICS_H */

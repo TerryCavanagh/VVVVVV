@@ -1,5 +1,4 @@
-#ifndef OTHERLEVEL_H
-#define OTHERLEVEL_H
+#pragma once
 
 #include <string>
 
@@ -12,5 +11,3 @@ public:
 
     int roomtileset;
 };
-
-#endif /* OTHERLEVEL_H */

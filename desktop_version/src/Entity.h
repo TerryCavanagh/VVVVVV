@@ -1,5 +1,4 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#pragma once
 
 #include <SDL.h>
 #include <string>
@@ -210,5 +209,3 @@ public:
 #ifndef OBJ_DEFINITION
 extern entityclass obj;
 #endif
-
-#endif /* ENTITY_H */

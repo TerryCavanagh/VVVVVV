@@ -1,5 +1,4 @@
-#ifndef TOWERBG_H
-#define TOWERBG_H
+#pragma once
 
 #include <SDL.h>
 
@@ -16,5 +15,3 @@ struct TowerBG
 	int g;
 	int b;
 };
-
-#endif /* TOWERBG_H */

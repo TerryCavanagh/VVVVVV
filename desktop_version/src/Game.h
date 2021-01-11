@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include <SDL.h>
 #include <string>
@@ -444,5 +443,3 @@ public:
 #ifndef GAME_DEFINITION
 extern Game game;
 #endif
-
-#endif /* GAME_H */

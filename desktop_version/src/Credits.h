@@ -1,5 +1,4 @@
-#ifndef CREDITS_H
-#define CREDITS_H
+#pragma once
 
 #include <SDL.h>
 
@@ -117,5 +116,3 @@ static const int creditmaxposition = 1050 + (10 * (
 ));
 
 }; /* namespace Credits */
-
-#endif /* CREDITS_H */

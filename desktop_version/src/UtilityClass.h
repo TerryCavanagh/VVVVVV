@@ -1,5 +1,4 @@
-#ifndef UTILITYCLASS_H
-#define UTILITYCLASS_H
+#pragma once
 
 #include <SDL.h>
 #include <string>
@@ -61,5 +60,3 @@ public:
 #ifndef HELP_DEFINITION
 extern UtilityClass help;
 #endif
-
-#endif /* UTILITYCLASS_H */

@@ -1,5 +1,4 @@
-#ifndef TOWER_H
-#define TOWER_H
+#pragma once
 
 class towerclass
 {
@@ -27,9 +26,3 @@ public:
 
     bool minitowermode;
 };
-
-
-
-
-
-#endif /* TOWER_H */

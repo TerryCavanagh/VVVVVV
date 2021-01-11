@@ -1,5 +1,4 @@
-#ifndef LABCLASS_H
-#define LABCLASS_H
+#pragma once
 
 #include <string>
 
@@ -11,4 +10,3 @@ public:
     std::string roomname;
     int rcol;
 };
-#endif /* LABCLASS_H */
