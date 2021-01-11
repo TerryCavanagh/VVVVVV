@@ -116,15 +116,12 @@ public:
     int spikeleveltop, spikelevelbottom;
     int oldspikeleveltop, oldspikelevelbottom;
     //final level navigation
-    int finalx;
-    int finaly;
     bool finalmode;
     bool finalstretch;
 
     //Variables for playing custom levels
     bool custommode;
     bool custommodeforreal;
-    int customx, customy;
     int customwidth, customheight;
     int custommmxoff, custommmyoff, custommmxsize, custommmysize;
     int customzoom;

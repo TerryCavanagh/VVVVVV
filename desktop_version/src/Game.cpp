@@ -3229,8 +3229,6 @@ void Game::updatestate()
             map.final_mapcol = 0;
             map.final_colorframe = 0;
             map.finalstretch = false;
-            map.finalx = 100;
-            map.finaly = 100;
 
             graphics.cutscenebarspos = 320;
             graphics.oldcutscenebarspos = 320;
@@ -5289,15 +5287,7 @@ void Game::readmaingamesave(tinyxml2::XMLDocument& doc)
             map.finalstretch = help.Int(pText);
         }
 
-        if (pKey == "finalx")
-        {
-            map.finalx = help.Int(pText);
-        }
-        else if (pKey == "finaly")
-        {
-            map.finaly = help.Int(pText);
-        }
-        else if (pKey == "savex")
+        if (pKey == "savex")
         {
             savex = help.Int(pText);
         }
@@ -5492,15 +5482,7 @@ void Game::customloadquick(std::string savfile)
         }
 
 
-        if (pKey == "finalx")
-        {
-            map.finalx = help.Int(pText);
-        }
-        else if (pKey == "finaly")
-        {
-            map.finaly = help.Int(pText);
-        }
-        else if (pKey == "savex")
+        if (pKey == "savex")
         {
             savex = help.Int(pText);
         }
@@ -5885,10 +5867,6 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 
     //Position
 
-    xml::update_tag(msgs, "finalx", map.finalx);
-
-    xml::update_tag(msgs, "finaly", map.finaly);
-
     xml::update_tag(msgs, "savex", savex);
 
     xml::update_tag(msgs, "savey", savey);
@@ -6015,10 +5993,6 @@ bool Game::customsavequick(std::string savfile)
     xml::update_tag(msgs, "customcollect", customcollect.c_str());
 
     //Position
-
-    xml::update_tag(msgs, "finalx", map.finalx);
-
-    xml::update_tag(msgs, "finaly", map.finaly);
 
     xml::update_tag(msgs, "savex", savex);
 
