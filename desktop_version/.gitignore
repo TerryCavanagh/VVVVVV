@@ -9,7 +9,7 @@ VVVVVV.exe
 VVVVVV
 *.a
 *.gch
-src/Version.h.out
+src/Version.h
 
 # Game data
 data.zip

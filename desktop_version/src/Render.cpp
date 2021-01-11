@@ -63,12 +63,9 @@ static void menurender()
         graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
 #endif
 #ifdef COMMIT_DATE
-        graphics.Print( 310 - (10*8), 210, COMMIT_DATE, tr/2, tg/2, tb/2);
+        graphics.Print( 310 - (10*8), 220, COMMIT_DATE, tr/2, tg/2, tb/2);
 #endif
-#ifdef INTERIM_COMMIT
-        graphics.Print( 310 - (SDL_arraysize(INTERIM_COMMIT) - 1) * 8, 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
-#endif
-        graphics.Print( 310 - (4*8), 230, "v2.3", tr/2, tg/2, tb/2);
+        graphics.Print( 310 - (SDL_arraysize(VERSION) - 1) * 8, 230, VERSION, tr/2, tg/2, tb/2);
 
         if(music.mmmmmm){
             graphics.Print( 10, 230, "[MMMMMM Mod Installed]", tr/2, tg/2, tb/2);

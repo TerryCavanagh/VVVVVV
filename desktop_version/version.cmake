@@ -2,7 +2,7 @@
 
 # Get interim commit and date of commit
 EXECUTE_PROCESS(
-	COMMAND "${GIT_EXECUTABLE}" log -1 --format=%h
+	COMMAND "${GIT_EXECUTABLE}" describe --dirty --tags
 	OUTPUT_VARIABLE INTERIM_COMMIT
 	OUTPUT_STRIP_TRAILING_WHITESPACE
 )

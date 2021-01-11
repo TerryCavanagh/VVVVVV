@@ -158,37 +158,31 @@ ELSE()
 	ADD_EXECUTABLE(VVVVVV ${VVV_SRC})
 ENDIF()
 
-IF(NOT OFFICIAL_BUILD)
-	# Add interim commit hash and its date to the build
+FIND_PACKAGE(Git REQUIRED)
 
-	# FIND_PACKAGE sets GIT_FOUND and GIT_EXECUTABLE
-	FIND_PACKAGE(Git)
+# These filenames have to be qualified, because when we run
+# the CMake script, its work dir gets set to the build folder
+SET(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in)
+SET(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h)
 
-	IF(GIT_FOUND)
-		# These filenames have to be qualified, because when we run
-		# the CMake script, its work dir gets set to the build folder
-		SET(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in)
-		SET(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.out)
+ADD_CUSTOM_TARGET(
+	GenerateVersion ALL
+	# This BYPRODUCTS line is required for this to be ran every time
+	BYPRODUCTS ${VERSION_OUTPUT_FILE}
+	COMMAND ${CMAKE_COMMAND}
+	# These args have to be passed through, otherwise the script can't see them
+	# Also, these args have to come BEFORE `-P`! (Otherwise it fails with an unclear error)
+	-DGIT_EXECUTABLE=${GIT_EXECUTABLE}
+	-DINPUT_FILE=${VERSION_INPUT_FILE}
+	-DOUTPUT_FILE=${VERSION_OUTPUT_FILE}
+	-P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
+)
 
-		ADD_CUSTOM_TARGET(
-			GenerateVersion ALL
-			# This BYPRODUCTS line is required for this to be ran every time
-			BYPRODUCTS ${VERSION_OUTPUT_FILE}
-			COMMAND ${CMAKE_COMMAND}
-			# These args have to be passed through, otherwise the script can't see them
-			# Also, these args have to come BEFORE `-P`! (Otherwise it fails with an unclear error)
-			-DGIT_EXECUTABLE=${GIT_EXECUTABLE}
-			-DINPUT_FILE=${VERSION_INPUT_FILE}
-			-DOUTPUT_FILE=${VERSION_OUTPUT_FILE}
-			-P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
-		)
-
-		ADD_DEPENDENCIES(VVVVVV GenerateVersion)
-
-		# This lets Version.h know that Version.h.out exists
-		ADD_DEFINITIONS(-DVERSION_H_OUT_EXISTS)
-	ENDIF()
+IF(OFFICIAL_BUILD)
+	ADD_DEFINITIONS(-DOFFICIAL_BUILD)
 ENDIF()
+
+ADD_DEPENDENCIES(VVVVVV GenerateVersion)
 
 # Build options
 IF(ENABLE_WARNINGS)
