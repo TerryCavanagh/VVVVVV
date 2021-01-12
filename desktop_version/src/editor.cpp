@@ -2660,14 +2660,7 @@ void editorrender()
                 fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
                 break;
             case 10: //Checkpoints
-                if(edentity[i].p1==0)  //From roof
-                {
-                    graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),20,196,196,196);
-                }
-                else if(edentity[i].p1==1)   //From floor
-                {
-                    graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),21,196,196,196);
-                }
+                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),20 + edentity[i].p1,196,196,196);
                 fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
                 break;
             case 11: //Gravity lines
@@ -2767,13 +2760,27 @@ void editorrender()
                 graphics.Print((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8), edentity[i].scriptname, 196, 196, 255 - help.glow);
                 break;
             case 18: //Terminals
-                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)+8,17,96,96,96);
+            {
+                int usethistile = edentity[i].p1;
+                int usethisy = (edentity[i].y % 30) * 8;
+                // Not a boolean: just swapping 0 and 1, leaving the rest alone
+                if (usethistile == 0)
+                {
+                    usethistile = 1; // Unflipped
+                }
+                else if (usethistile == 1)
+                {
+                    usethistile = 0; // Flipped;
+                    usethisy -= 8;
+                }
+                graphics.drawsprite((edentity[i].x*8)- (ed.levx*40*8), usethisy + 8, usethistile + 16, 96,96,96);
                 fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
                 if(temp2==i)
                 {
                     graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,edentity[i].scriptname,210,210,255);
                 }
                 break;
+            }
             case 19: //Script Triggers
                 fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),edentity[i].p1*8,edentity[i].p2*8,graphics.getRGB(255,164,255));
                 fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,255));
@@ -5163,7 +5170,11 @@ void editorinput()
                         }
                         else if(edentity[tmp].t==10)
                         {
-                            edentity[tmp].p1=(edentity[tmp].p1+1)%2;
+                            // If it's not textured as a checkpoint, leave it alone
+                            if (edentity[tmp].p1 == 0 || edentity[tmp].p1 == 1)
+                            {
+                                edentity[tmp].p1=(edentity[tmp].p1+1)%2;
+                            }
                             ed.lclickdelay=1;
                         }
                         else if(edentity[tmp].t==11)
@@ -5192,6 +5203,12 @@ void editorinput()
                             ed.lclickdelay=1;
                             ed.textent=tmp;
                             ed.getlin(TEXT_SCRIPT, "Enter script name:", &(edentity[ed.textent].scriptname));
+                            if (edentity[tmp].t == 18
+                            && (edentity[tmp].p1 == 0 || edentity[tmp].p1 == 1))
+                            {
+                                // Flip the terminal, but if it's not textured as a terminal leave it alone
+                                edentity[tmp].p1 = (edentity[tmp].p1 + 1) % 2;
+                            }
                         }
                     }
                 }
