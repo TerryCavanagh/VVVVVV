@@ -45,13 +45,13 @@ KeyPoll::KeyPoll()
 	pressedbackspace=false;
 
 	useFullscreenSpaces = false;
-	if (strcmp(SDL_GetPlatform(), "Mac OS X") == 0)
+	if (SDL_strcmp(SDL_GetPlatform(), "Mac OS X") == 0)
 	{
 		useFullscreenSpaces = true;
 		const char *hint = SDL_GetHint(SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES);
 		if (hint != NULL)
 		{
-			useFullscreenSpaces = (strcmp(hint, "1") == 0);
+			useFullscreenSpaces = (SDL_strcmp(hint, "1") == 0);
 		}
 	}
 

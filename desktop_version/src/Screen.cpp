@@ -130,7 +130,7 @@ void Screen::LoadIcon()
 	);
 	SDL_SetWindowIcon(m_window, icon);
 	SDL_FreeSurface(icon);
-	free(data);
+	SDL_free(data);
 }
 
 void Screen::ResizeScreen(int x, int y)

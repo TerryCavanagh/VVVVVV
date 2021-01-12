@@ -315,7 +315,7 @@ static void menurender()
         graphics.Print( 40, 30, "the following patrons", tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = std::min(startidx + 9, (int)SDL_arraysize(Credits::superpatrons));
+        int endidx = VVV_min(startidx + 9, (int)SDL_arraysize(Credits::superpatrons));
 
         int xofs = 80 - 16;
         int yofs = 40 + 20;
@@ -333,7 +333,7 @@ static void menurender()
         graphics.Print( -1, 20, "and also by", tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = std::min(startidx + 14, (int)SDL_arraysize(Credits::patrons));
+        int endidx = VVV_min(startidx + 14, (int)SDL_arraysize(Credits::patrons));
 
         int maxheight = 10 * 14;
         int totalheight = (endidx - startidx) * 10;
@@ -354,7 +354,7 @@ static void menurender()
         graphics.Print( 40, 30, "GitHub from", tr, tg, tb, true);
 
         int startidx = game.current_credits_list_index;
-        int endidx = std::min(startidx + 9, (int)SDL_arraysize(Credits::githubfriends));
+        int endidx = VVV_min(startidx + 9, (int)SDL_arraysize(Credits::githubfriends));
 
         int maxheight = 14 * 9;
         int totalheight = (endidx - startidx) * 14;

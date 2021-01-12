@@ -117,6 +117,7 @@ SET(VVV_SRC
 	src/XMLUtils.cpp
 	src/main.cpp
 	src/Network.c
+	src/ThirdPartyDeps.c
 )
 IF(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
 	LIST(APPEND VVV_SRC src/editor.cpp)
@@ -231,6 +232,8 @@ SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_EXTENSIONS FALSE)
 ADD_LIBRARY(tinyxml2-static STATIC ${XML2_SRC})
 ADD_LIBRARY(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
 ADD_LIBRARY(lodepng-static STATIC ${PNG_SRC})
+
+TARGET_COMPILE_DEFINITIONS(lodepng-static PRIVATE -DLODEPNG_NO_COMPILE_ALLOCATORS)
 
 # Static Dependencies
 TARGET_LINK_LIBRARIES(VVVVVV physfs-static tinyxml2-static lodepng-static)

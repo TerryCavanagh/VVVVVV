@@ -235,7 +235,7 @@ void FILESYSTEM_loadFileToMemory(
 	size_t *len,
 	bool addnull
 ) {
-	if (strcmp(name, "levels/special/stdin.vvvvvv") == 0)
+	if (SDL_strcmp(name, "levels/special/stdin.vvvvvv") == 0)
 	{
 		// this isn't *technically* necessary when piping directly from a file, but checking for that is annoying
 		static std::vector<char> STDIN_BUFFER;
@@ -255,7 +255,7 @@ void FILESYSTEM_loadFileToMemory(
 		}
 
 		++length;
-		*mem = static_cast<unsigned char*>(malloc(length)); // STDIN_BUFFER.data() causes double-free
+		*mem = static_cast<unsigned char*>(SDL_malloc(length)); // STDIN_BUFFER.data() causes double-free
 		std::copy(STDIN_BUFFER.begin(), STDIN_BUFFER.end(), reinterpret_cast<char*>(*mem));
 		return;
 	}
@@ -272,12 +272,12 @@ void FILESYSTEM_loadFileToMemory(
 	}
 	if (addnull)
 	{
-		*mem = (unsigned char *) malloc(length + 1);
+		*mem = (unsigned char *) SDL_malloc(length + 1);
 		(*mem)[length] = 0;
 	}
 	else
 	{
-		*mem = (unsigned char*) malloc(length);
+		*mem = (unsigned char*) SDL_malloc(length);
 	}
 	int success = PHYSFS_readBytes(handle, *mem, length);
 	if (success == -1)
@@ -289,7 +289,7 @@ void FILESYSTEM_loadFileToMemory(
 
 void FILESYSTEM_freeMemory(unsigned char **mem)
 {
-	free(*mem);
+	SDL_free(*mem);
 	*mem = NULL;
 }
 
@@ -331,7 +331,7 @@ std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
 
 	for (i = fileList; *i != NULL; i++)
 	{
-		if (strcmp(*i, "data") == 0)
+		if (SDL_strcmp(*i, "data") == 0)
 		{
 			continue; /* FIXME: lolwut -flibit */
 		}
@@ -369,18 +369,19 @@ static void PLATFORM_migrateSaveData(char* output)
 	DIR *subDir = NULL;
 	struct dirent *subDe = NULL;
 	char subDirLocation[MAX_PATH];
-	const char *homeDir = getenv("HOME");
+	const char *homeDir = SDL_getenv("HOME");
 	if (homeDir == NULL)
 	{
 		/* Uhh, I don't want to get near this. -flibit */
 		return;
 	}
-	strcpy(oldDirectory, homeDir);
+	const char oldPath[] =
  #if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
-	strcat(oldDirectory, "/.vvvvvv/");
+		"/.vvvvvv/";
  #elif defined(__APPLE__)
-	strcat(oldDirectory, "/Documents/VVVVVV/");
+		"/Documents/VVVVVV/";
  #endif
+	SDL_snprintf(oldDirectory, sizeof(oldDirectory), "%s%s", homeDir, oldPath);
 	dir = opendir(oldDirectory);
 	if (!dir)
 	{
@@ -391,47 +392,37 @@ static void PLATFORM_migrateSaveData(char* output)
 	printf("Migrating old savedata to new location...\n");
 	for (de = readdir(dir); de != NULL; de = readdir(dir))
 	{
-		if (	strcmp(de->d_name, "..") == 0 ||
-			strcmp(de->d_name, ".") == 0	)
+		if (	SDL_strcmp(de->d_name, "..") == 0 ||
+			SDL_strcmp(de->d_name, ".") == 0	)
 		{
 			continue;
 		}
 		#define COPY_SAVEFILE(name) \
-			else if (strcmp(de->d_name, name) == 0) \
+			else if (SDL_strcmp(de->d_name, name) == 0) \
 			{ \
-				strcpy(oldLocation, oldDirectory); \
-				strcat(oldLocation, name); \
-				strcpy(newLocation, output); \
-				strcat(newLocation, "saves/"); \
-				strcat(newLocation, name); \
+				SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", oldDirectory, name); \
+				SDL_snprintf(newLocation, sizeof(newLocation), "%ssaves/%s", output, name); \
 				PLATFORM_copyFile(oldLocation, newLocation); \
 			}
 		COPY_SAVEFILE("unlock.vvv")
 		COPY_SAVEFILE("tsave.vvv")
 		COPY_SAVEFILE("qsave.vvv")
 		#undef COPY_SAVEFILE
-		else if (strstr(de->d_name, ".vvvvvv.vvv") != NULL)
+		else if (SDL_strstr(de->d_name, ".vvvvvv.vvv") != NULL)
 		{
-			strcpy(oldLocation, oldDirectory);
-			strcat(oldLocation, de->d_name);
-			strcpy(newLocation, output);
-			strcat(newLocation, "saves/");
-			strcat(newLocation, de->d_name);
+			SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", oldDirectory, de->d_name);
+			SDL_snprintf(newLocation, sizeof(newLocation), "%ssaves/%s", output, de->d_name);
 			PLATFORM_copyFile(oldLocation, newLocation);
 		}
-		else if (strstr(de->d_name, ".vvvvvv") != NULL)
+		else if (SDL_strstr(de->d_name, ".vvvvvv") != NULL)
 		{
-			strcpy(oldLocation, oldDirectory);
-			strcat(oldLocation, de->d_name);
-			strcpy(newLocation, output);
-			strcat(newLocation, "levels/");
-			strcat(newLocation, de->d_name);
+			SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", oldDirectory, de->d_name);
+			SDL_snprintf(newLocation, sizeof(newLocation), "%slevels/%s", output, de->d_name);
 			PLATFORM_copyFile(oldLocation, newLocation);
 		}
-		else if (strcmp(de->d_name, "Saves") == 0)
+		else if (SDL_strcmp(de->d_name, "Saves") == 0)
 		{
-			strcpy(subDirLocation, oldDirectory);
-			strcat(subDirLocation, "Saves/");
+			SDL_snprintf(subDirLocation, sizeof(subDirLocation), "%sSaves/", oldDirectory);
 			subDir = opendir(subDirLocation);
 			if (!subDir)
 			{
@@ -444,13 +435,10 @@ static void PLATFORM_migrateSaveData(char* output)
 				subDe = readdir(subDir)
 			) {
 				#define COPY_SAVEFILE(name) \
-					(strcmp(subDe->d_name, name) == 0) \
+					(SDL_strcmp(subDe->d_name, name) == 0) \
 					{ \
-						strcpy(oldLocation, subDirLocation); \
-						strcat(oldLocation, name); \
-						strcpy(newLocation, output); \
-						strcat(newLocation, "saves/"); \
-						strcat(newLocation, name); \
+						SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", subDirLocation, name); \
+						SDL_snprintf(newLocation, sizeof(newLocation), "%ssaves/%s", output, name); \
 						PLATFORM_copyFile(oldLocation, newLocation); \
 					}
 				if COPY_SAVEFILE("unlock.vvv")
@@ -466,39 +454,9 @@ static void PLATFORM_migrateSaveData(char* output)
 	char fileSearch[MAX_PATH];
 
 	/* Same place, different layout. */
-	strcpy(oldDirectory, output);
+	SDL_strlcpy(oldDirectory, output, sizeof(oldDirectory));
 
-	/* In theory we don't need to worry about this, thanks case insensitivity!
-	sprintf(fileSearch, "%s\\Saves\\*.vvv", oldDirectory);
-	hFind = FindFirstFile(fileSearch, &findHandle);
-	if (hFind == INVALID_HANDLE_VALUE)
-	{
-		printf("Could not find directory %s\\Saves\\\n", oldDirectory);
-	}
-	else do
-	{
-		if ((findHandle.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
-		{
-			#define COPY_SAVEFILE(name) \
-				(strcmp(findHandle.cFileName, name) == 0) \
-				{ \
-					strcpy(oldLocation, oldDirectory); \
-					strcat(oldLocation, "Saves\\"); \
-					strcat(oldLocation, name); \
-					strcpy(newLocation, output); \
-					strcat(newLocation, "saves\\"); \
-					strcat(newLocation, name); \
-					PLATFORM_copyFile(oldLocation, newLocation); \
-				}
-			if COPY_SAVEFILE("unlock.vvv")
-			else if COPY_SAVEFILE("tsave.vvv")
-			else if COPY_SAVEFILE("qsave.vvv")
-			#undef COPY_SAVEFILE
-		}
-	} while (FindNextFile(hFind, &findHandle));
-	*/
-
-	sprintf(fileSearch, "%s\\*.vvvvvv", oldDirectory);
+	SDL_snprintf(fileSearch, sizeof(fileSearch), "%s\\*.vvvvvv", oldDirectory);
 	hFind = FindFirstFile(fileSearch, &findHandle);
 	if (hFind == INVALID_HANDLE_VALUE)
 	{
@@ -508,11 +466,8 @@ static void PLATFORM_migrateSaveData(char* output)
 	{
 		if ((findHandle.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
 		{
-			strcpy(oldLocation, oldDirectory);
-			strcat(oldLocation, findHandle.cFileName);
-			strcpy(newLocation, output);
-			strcat(newLocation, "levels\\");
-			strcat(newLocation, findHandle.cFileName);
+			SDL_snprintf(oldLocation, sizeof(oldLocation), "%s%s", oldDirectory, findHandle.cFileName);
+			SDL_snprintf(newLocation, sizeof(newLocation), "%slevels\\%s", output, findHandle.cFileName);
 			PLATFORM_copyFile(oldLocation, newLocation);
 		}
 	} while (FindNextFile(hFind, &findHandle));
@@ -536,13 +491,13 @@ static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 	fseek(file, 0, SEEK_END);
 	length = ftell(file);
 	fseek(file, 0, SEEK_SET);
-	data = (char*) malloc(length);
+	data = (char*) SDL_malloc(length);
 	bytes_read = fread(data, 1, length, file);
 	fclose(file);
 	if (bytes_read != length)
 	{
 		printf("An error occurred when reading from %s\n", oldLocation);
-		free(data);
+		SDL_free(data);
 		return;
 	}
 
@@ -551,12 +506,12 @@ static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 	if (!file)
 	{
 		printf("Could not write to %s\n", newLocation);
-		free(data);
+		SDL_free(data);
 		return;
 	}
 	bytes_written = fwrite(data, 1, length, file);
 	fclose(file);
-	free(data);
+	SDL_free(data);
 
 	/* WTF did we just do */
 	printf("Copied:\n\tOld: %s\n\tNew: %s\n", oldLocation, newLocation);

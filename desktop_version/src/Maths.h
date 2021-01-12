@@ -25,4 +25,28 @@ struct point
     int y;
 };
 
+inline int VVV_min(const int a, const int b)
+{
+    if (a < b)
+    {
+        return a;
+    }
+    else
+    {
+        return b;
+    }
+}
+
+inline int VVV_max(const int a, const int b)
+{
+    if (a > b)
+    {
+        return a;
+    }
+    else
+    {
+        return b;
+    }
+}
+
 #endif /* MATHGAME_H */

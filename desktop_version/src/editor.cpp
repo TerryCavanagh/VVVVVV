@@ -159,11 +159,11 @@ std::string find_tag(const std::string& buf, const std::string& start, const std
         uint32_t character = 0;
         if (hex)
         {
-            sscanf(number.c_str(), "%" SCNx32, &character);
+            SDL_sscanf(number.c_str(), "%" SCNx32, &character);
         }
         else
         {
-            sscanf(number.c_str(), "%" SCNu32, &character);
+            SDL_sscanf(number.c_str(), "%" SCNu32, &character);
         }
         uint32_t utf32[] = {character, 0};
         std::string utf8;
@@ -1630,7 +1630,7 @@ bool editorclass::load(std::string& _path)
     reset();
 
     static const char *levelDir = "levels/";
-    if (_path.compare(0, strlen(levelDir), levelDir) != 0)
+    if (_path.compare(0, SDL_strlen(levelDir), levelDir) != 0)
     {
         _path = levelDir + _path;
     }

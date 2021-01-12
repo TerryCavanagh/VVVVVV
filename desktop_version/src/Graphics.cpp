@@ -412,7 +412,7 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
 
     if (cen)
     {
-        _x = std::max(160 - (int((len(_s)/ 2.0)*sc)), 0 );
+        _x = VVV_max(160 - (int((len(_s)/ 2.0)*sc)), 0 );
     }
 
     int bfontpos = 0;
@@ -978,13 +978,13 @@ void Graphics::cutscenebarstimer()
     if (showcutscenebars)
     {
         cutscenebarspos += 25;
-        cutscenebarspos = std::min(cutscenebarspos, 361);
+        cutscenebarspos = VVV_min(cutscenebarspos, 361);
     }
     else if (cutscenebarspos > 0)
     {
         //disappearing
         cutscenebarspos -= 25;
-        cutscenebarspos = std::max(cutscenebarspos, 0);
+        cutscenebarspos = VVV_max(cutscenebarspos, 0);
     }
 }
 
@@ -1381,10 +1381,10 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
 
     if(intersection)
     {
-        int r3_left = SDL_max(r1_left, r2_left);
-        int r3_top = SDL_min(r1_top, r2_top);
-        int r3_right = SDL_min(r1_right, r2_right);
-        int r3_bottom= SDL_max(r1_bottom, r2_bottom);
+        int r3_left = VVV_max(r1_left, r2_left);
+        int r3_top = VVV_min(r1_top, r2_top);
+        int r3_right = VVV_min(r1_right, r2_right);
+        int r3_bottom= VVV_max(r1_bottom, r2_bottom);
 
         //for every pixel inside rectangle
         for(int x = r3_left; x < r3_right; x++)
@@ -2971,7 +2971,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 
 	if (cen)
 	{
-		x = std::max(160 - (int((len(t)/ 2.0)*sc)), 0 );
+		x = VVV_max(160 - (int((len(t)/ 2.0)*sc)), 0 );
 	}
 	else
 	{

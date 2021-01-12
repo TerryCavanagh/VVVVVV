@@ -67,7 +67,7 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
 			0
 		);
 		SDL_FreeSurface( loadedImage );
-		free(data);
+		SDL_free(data);
 		if (noBlend)
 		{
 			SDL_SetSurfaceBlendMode(optimizedImage, SDL_BLENDMODE_BLEND);
