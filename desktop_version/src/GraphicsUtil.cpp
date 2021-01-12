@@ -336,20 +336,20 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
             Uint8 green = (pixel & _src->format->Gmask) >> 8;
             Uint8 blue = (pixel & _src->format->Bmask) >> 0;
 
-            Uint32 pixelOffset = ReadPixel(_src, std::min(x+redOffset, 319), sampley) ;
+            Uint32 pixelOffset = ReadPixel(_src, VVV_min(x+redOffset, 319), sampley) ;
             Uint8 red = (pixelOffset & _src->format->Rmask) >> 16 ;
 
             if(isscrolling && sampley > 220 && ((rand() %10) < 4))
             {
-                red = std::min(int(red+(fRandom() * 0.6)  * 254) , 255);
-                green = std::min(int(green+(fRandom() * 0.6)  * 254) , 255);
-                blue = std::min(int(blue+(fRandom() * 0.6)  * 254) , 255);
+                red = VVV_min(int(red+(fRandom() * 0.6)  * 254) , 255);
+                green = VVV_min(int(green+(fRandom() * 0.6)  * 254) , 255);
+                blue = VVV_min(int(blue+(fRandom() * 0.6)  * 254) , 255);
             }
             else
             {
-                red = std::min(int(red+(fRandom() * 0.2)  * 254) , 255);
-                green = std::min(int(green+(fRandom() * 0.2)  * 254) , 255);
-                blue = std::min(int(blue+(fRandom() * 0.2)  * 254) , 255);
+                red = VVV_min(int(red+(fRandom() * 0.2)  * 254) , 255);
+                green = VVV_min(int(green+(fRandom() * 0.2)  * 254) , 255);
+                blue = VVV_min(int(blue+(fRandom() * 0.2)  * 254) , 255);
             }
 
 
@@ -363,9 +363,9 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
             int distX =  static_cast<int>((SDL_abs (160.0f -x ) / 160.0f) *16);
             int distY =  static_cast<int>((SDL_abs (120.0f -y ) / 120.0f)*32);
 
-            red = std::max(red - ( distX +distY), 0);
-            green = std::max(green - ( distX +distY), 0);
-            blue = std::max(blue - ( distX +distY), 0);
+            red = VVV_max(red - ( distX +distY), 0);
+            green = VVV_max(green - ( distX +distY), 0);
+            blue = VVV_max(blue - ( distX +distY), 0);
 
             Uint32 finalPixel = ((red<<16) + (green<<8) + (blue<<0)) | (pixel &_src->format->Amask);
             DrawPixel(_ret,x,y,  finalPixel);

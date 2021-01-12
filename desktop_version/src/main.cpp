@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 
     for (int i = 1; i < argc; ++i)
     {
-#define ARG(name) (strcmp(argv[i], name) == 0)
+#define ARG(name) (SDL_strcmp(argv[i], name) == 0)
 #define ARG_INNER(code) \
     if (i + 1 < argc) \
     { \

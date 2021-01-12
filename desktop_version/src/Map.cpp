@@ -472,8 +472,7 @@ int mapclass::finalat(int x, int y)
 		//Special case: animated tiles
 		if (final_mapcol == 1)
 		{
-			// Windows hits fRandom() == 1 frequently! For fuck sake! -flibit
-			return 737 + (std::min(int(fRandom() * 12), 11) * 40);
+			return 737 + (int(fRandom() * 11) * 40);
 		}
 		else
 		{
@@ -713,7 +712,6 @@ int mapclass::area(int _rx, int _ry)
 	else
 	{
 		int lookup = (_rx - 100) + ((_ry - 100) * 20);
-		//lookup = std::max(0,lookup);
 		if(_rx-100>=0 && _rx-100<20 && _ry-100>=0 && _ry-100<20){
 			return areamap[lookup];
 		}
