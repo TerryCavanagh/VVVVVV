@@ -6618,6 +6618,12 @@ void Game::returntoeditor(void)
 }
 #endif
 
+static void returntoingametemp(void)
+{
+    extern Game game;
+    game.returntomenu(game.kludge_ingametemp);
+}
+
 void Game::returntoingame(void)
 {
     ingame_titlemode = false;
@@ -6633,7 +6639,7 @@ void Game::returntoingame(void)
     else
 #endif
     {
-        returntomenu(kludge_ingametemp);
+        DEFER_CALLBACK(returntoingametemp);
         gamestate = MAPMODE;
         graphics.flipmode = graphics.setflipmode;
         if (!map.custommode && !graphics.flipmode)
