@@ -265,8 +265,6 @@ int main(int argc, char *argv[])
     SDL_SetSurfaceBlendMode(graphics.ghostbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(graphics.ghostbuffer, 127);
 
-    graphics.Makebfont();
-
     graphics.foregroundBuffer =  CREATE_SURFACE(320, 240);
     SDL_SetSurfaceBlendMode(graphics.foregroundBuffer, SDL_BLENDMODE_BLEND);
 
