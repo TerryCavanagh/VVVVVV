@@ -1932,7 +1932,7 @@ void Graphics::drawbackground( int t )
         break;
     case 2:
     {
-        int bcol, bcol2;
+        int bcol = 0, bcol2 = 0;
 
             //Lab
             switch(rcol)
