@@ -76,6 +76,7 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
 	}
 	else
 	{
+		SDL_free(data);
 		fprintf(stderr,"Image not found: %s\n", filename);
 		SDL_assert(0 && "Image not found! See stderr.");
 		return NULL;
