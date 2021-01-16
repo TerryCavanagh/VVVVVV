@@ -188,7 +188,7 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 	safeToProcessMusic = true;
 	musicVolume = MIX_MAX_VOLUME;
 
-	if (currentsong == t && Mix_PlayingMusic() != MIX_FADING_OUT)
+	if (currentsong == t && Mix_FadingMusic() != MIX_FADING_OUT)
 	{
 		return;
 	}
