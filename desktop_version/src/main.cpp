@@ -732,28 +732,28 @@ static enum LoopCode loop_begin(void)
 
 static void unfocused_run(void)
 {
-        Mix_Pause(-1);
-        Mix_PauseMusic();
+    Mix_Pause(-1);
+    Mix_PauseMusic();
 
-        if (!game.blackout)
-        {
-            ClearSurface(graphics.backBuffer);
-            graphics.bprint(5, 110, "Game paused", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
-            graphics.bprint(5, 120, "[click to resume]", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
-            graphics.bprint(5, 220, "Press M to mute in game", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);
-            graphics.bprint(5, 230, "Press N to mute music only", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);
-        }
-        graphics.render();
-        gameScreen.FlipScreen();
-        //We are minimised, so lets put a bit of a delay to save CPU
-        SDL_Delay(100);
+    if (!game.blackout)
+    {
+        ClearSurface(graphics.backBuffer);
+        graphics.bprint(5, 110, "Game paused", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
+        graphics.bprint(5, 120, "[click to resume]", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
+        graphics.bprint(5, 220, "Press M to mute in game", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);
+        graphics.bprint(5, 230, "Press N to mute music only", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);
+    }
+    graphics.render();
+    gameScreen.FlipScreen();
+    //We are minimised, so lets put a bit of a delay to save CPU
+    SDL_Delay(100);
 }
 
 static void focused_begin(void)
 {
-        Mix_Resume(-1);
-        Mix_ResumeMusic();
-        game.gametimer++;
+    Mix_Resume(-1);
+    Mix_ResumeMusic();
+    game.gametimer++;
 }
 
 static void focused_end(void)
