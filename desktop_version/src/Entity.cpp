@@ -2108,72 +2108,6 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
     }
 
     entity.drawframe = entity.tile;
-    if (!entity.invis)
-    {
-        entity.updatecolour();
-    }
-    if (entity.type == 1)
-    {
-        switch (entity.animate)
-        {
-        case 0: // Simple Loop
-        case 1: // Simple Loop
-        case 2: // Simpler Loop (just two frames)
-        case 5: // Simpler Loop (just two frames) (slower)
-        case 7: // Simpler Loop (just two frames) (slower) (with directions!)
-        case 11: // Conveyor right
-            entity.drawframe++;
-            break;
-        case 3: // Simpler Loop (just two frames, but double sized)
-        case 4: // Simpler Loop (just two frames, but double sized) (as above, but slower)
-        case 6: // Normal Loop (four frames, double sized)
-            entity.drawframe += 2;
-            break;
-        case 10: // Conveyor left
-            entity.drawframe += 3;
-            break;
-        default:
-            break;
-        }
-    }
-    else if (entity.type == 2 && entity.animate == 2)
-    {
-        entity.drawframe++;
-    }
-    // Make sure our crewmates are facing the player if applicable
-    // Also make sure they're flipped if they're flipped
-    // FIXME: Duplicated from updateentities!
-    if (entity.rule == 6 || entity.rule == 7)
-    {
-        if (entity.tile == 144 || entity.tile == 144+6)
-        {
-            entity.drawframe = 144;
-        }
-        if (entity.state == 18)
-        {
-            // Face the player
-            // FIXME: Duplicated from updateentities!
-            int j = getplayer();
-            if (INBOUNDS_VEC(j, entities) && entities[j].xp > entity.xp + 5)
-            {
-                entity.dir = 1;
-            }
-            else if (INBOUNDS_VEC(j, entities) && entities[j].xp < entity.xp - 5)
-            {
-                entity.dir = 0;
-            }
-        }
-        // Fix drawframe
-        // FIXME: Duplicated from animateentities!
-        if (entity.rule == 7)
-        {
-            entity.drawframe += 6;
-        }
-        if (entity.dir == 0)
-        {
-            entity.drawframe += 3;
-        }
-    }
 
     if (!reuse)
     {
@@ -3029,7 +2963,6 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 18)
             {
                 //Stand still and face the player
-                //FIXME: Duplicated in createentity!
                 int j = getplayer();
                 if (INBOUNDS_VEC(j, entities) && entities[j].xp > entities[i].xp + 5)
                 {
@@ -3678,7 +3611,6 @@ void entityclass::animateentities( int _i )
         case 12:
         case 55:
         case 14: //Crew member! Very similar to hero
-            //FIXME: Duplicated in createentity!
             entities[_i].framedelay--;
             if(entities[_i].dir==1)
             {
