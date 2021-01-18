@@ -2113,6 +2113,24 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
     {
         entities.push_back(entity);
     }
+
+    /* Fix crewmate facing directions
+     * This is a bit kludge-y but it's better than copy-pasting
+     * and is okay to do because entity 12 does not change state on its own
+     */
+    if (entity.type == 12)
+    {
+        size_t indice;
+        if (reuse)
+        {
+            indice = entptr - entities.data();
+        }
+        else
+        {
+            indice = entities.size() - 1;
+        }
+        updateentities(indice);
+    }
 }
 
 //Returns true if entity is removed
