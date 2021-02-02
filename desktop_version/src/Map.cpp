@@ -775,6 +775,11 @@ void mapclass::resetplayer(const bool player_died)
 		obj.entities[i].ay = 0;
 		obj.entities[i].xp = game.savex;
 		obj.entities[i].yp = game.savey;
+
+		//Fix conveyor death loop glitch
+		obj.entities[i].newxp = obj.entities[i].xp;
+		obj.entities[i].newyp = obj.entities[i].yp;
+
 		obj.entities[i].dir = game.savedir;
 		obj.entities[i].colour = 0;
 		if (player_died)
