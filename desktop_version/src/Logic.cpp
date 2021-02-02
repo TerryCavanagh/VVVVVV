@@ -826,7 +826,6 @@ void gamelogic()
                 if (INBOUNDS_VEC(i, obj.entities) && j > -1000)
                 {
                     obj.entities[i].newxp = obj.entities[i].xp + j;
-                    obj.entities[i].newyp = obj.entities[i].yp;
                     obj.entitymapcollision(i);
                 }
                 else
@@ -835,7 +834,6 @@ void gamelogic()
                     if (INBOUNDS_VEC(i, obj.entities) && j > -1000)
                     {
                         obj.entities[i].newxp = obj.entities[i].xp + j;
-                        obj.entities[i].newyp = obj.entities[i].yp;
                         obj.entitymapcollision(i);
                     }
                 }
