@@ -119,7 +119,7 @@ int UtilityClass::Int(const char* str, int fallback /*= 0*/)
 	return (int) SDL_strtol(str, NULL, 0);
 }
 
-std::string UtilityClass::GCString(std::vector<SDL_GameControllerButton> buttons)
+std::string UtilityClass::GCString(const std::vector<SDL_GameControllerButton>& buttons)
 {
 	std::string retval = "";
 	for (size_t i = 0; i < buttons.size(); i += 1)
