@@ -1,7 +1,6 @@
 #define HELP_DEFINITION
 #include "UtilityClass.h"
 
-#include <cctype>
 #include <SDL.h>
 #include <sstream>
 
