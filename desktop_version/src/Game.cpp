@@ -6074,12 +6074,6 @@ std::string Game::unrescued()
 
 void Game::gameclock()
 {
-/*
-test = true;
-std::ostringstream os;
-    os << hours << ":" << minutes << ":" << seconds << ", " << frames;
-teststring = os.str();
-*/
     frames++;
     if (frames >= 30)
     {
