@@ -1767,23 +1767,6 @@ bool editorclass::load(std::string& _path)
             }
         }
 
-        /*else if(version==1){
-          if (pKey == "contents")
-          {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-              std::vector<std::string> values = split(TextString,',');
-              contents.clear();
-              for(int i = 0; i < values.size(); i++)
-              {
-                contents.push_back(help.Int(values[i].c_str()));
-              }
-            }
-          }
-        //}
-        */
-
 
         if (pKey == "edEntities")
         {
