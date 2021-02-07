@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-int ss_toi(std::string _s);
+int ss_toi(const std::string& str);
 
 std::vector<std::string> split(const std::string &s, char delim, std::vector<std::string> &elems);
 
