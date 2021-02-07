@@ -36,12 +36,41 @@ static const char* GCChar(const SDL_GameControllerButton button)
 	}
 }
 
-int ss_toi( std::string _s )
+int ss_toi(const std::string& str)
 {
-	std::istringstream i(_s);
-	int x = 0;
-	i >> x;
-	return x;
+	int retval = 0;
+	int place = 1;
+	bool negative = false;
+	const int radix = 10;
+
+	for (size_t i = 0; i < str.size(); ++i)
+	{
+		const char chr = str[i];
+
+		if (i == 0 && chr == '-')
+		{
+			negative = true;
+			continue;
+		}
+
+		if (SDL_isdigit(chr))
+		{
+			retval *= place;
+			retval += chr - '0';
+			place *= radix;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	if (negative)
+	{
+		return -retval;
+	}
+
+	return retval;
 }
 
 std::vector<std::string> split( const std::string &s, char delim, std::vector<std::string> &elems )
