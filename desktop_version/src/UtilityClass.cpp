@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <sstream>
 
-static const char *GCChar(SDL_GameControllerButton button)
+static const char* GCChar(const SDL_GameControllerButton button)
 {
 	if (button == SDL_CONTROLLER_BUTTON_A)
 	{
