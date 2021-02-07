@@ -4,7 +4,6 @@
 #include <SDL.h>
 #include <sstream>
 
-/* Used by UtilityClass::GCString to generate a button list */
 static const char *GCChar(SDL_GameControllerButton button)
 {
 	if (button == SDL_CONTROLLER_BUTTON_A)
