@@ -1878,14 +1878,7 @@ bool editorclass::load(std::string& _path)
                 {
                     std::string& line = values[i];
 
-                    //Comparing line[line.length()-1] directly to a string literal is UB
-                    //Workaround: assign line[line.length()-1] to a string first
-                    std::string temp;
-                    if(line.length())
-                    {
-                        temp = line[line.length()-1];
-                    }
-                    if(temp == ":")
+                    if(line.length() && line[line.length() - 1] == ':')
                     {
                         if(headerfound)
                         {
