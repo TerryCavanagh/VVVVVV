@@ -6,52 +6,34 @@
 
 static const char* GCChar(const SDL_GameControllerButton button)
 {
-	if (button == SDL_CONTROLLER_BUTTON_A)
+	switch (button)
 	{
+	case SDL_CONTROLLER_BUTTON_A:
 		return "A";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_B)
-	{
+	case SDL_CONTROLLER_BUTTON_B:
 		return "B";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_X)
-	{
+	case SDL_CONTROLLER_BUTTON_X:
 		return "X";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_Y)
-	{
+	case SDL_CONTROLLER_BUTTON_Y:
 		return "Y";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_BACK)
-	{
+	case SDL_CONTROLLER_BUTTON_BACK:
 		return "BACK";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_GUIDE)
-	{
+	case SDL_CONTROLLER_BUTTON_GUIDE:
 		return "GUIDE";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_START)
-	{
+	case SDL_CONTROLLER_BUTTON_START:
 		return "START";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_LEFTSTICK)
-	{
+	case SDL_CONTROLLER_BUTTON_LEFTSTICK:
 		return "L3";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_RIGHTSTICK)
-	{
+	case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
 		return "R3";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_LEFTSHOULDER)
-	{
+	case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
 		return "LB";
-	}
-	else if (button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
-	{
+	case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
 		return "RB";
+	default:
+		SDL_assert(0 && "Unhandled button!");
+		return NULL;
 	}
-	SDL_assert(0 && "Unhandled button!");
-	return NULL;
 }
 
 int ss_toi( std::string _s )
