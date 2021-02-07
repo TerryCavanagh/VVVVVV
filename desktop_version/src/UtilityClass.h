@@ -39,7 +39,7 @@ public:
 
     static int Int(const char* str, int fallback = 0);
 
-    static std::string GCString(std::vector<SDL_GameControllerButton> buttons);
+    static std::string GCString(const std::vector<SDL_GameControllerButton>& buttons);
 
     std::string twodigits(int t);
 
