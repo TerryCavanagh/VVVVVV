@@ -39,7 +39,6 @@ static const char* GCChar(const SDL_GameControllerButton button)
 int ss_toi(const std::string& str)
 {
 	int retval = 0;
-	int place = 1;
 	bool negative = false;
 	const int radix = 10;
 
@@ -55,9 +54,8 @@ int ss_toi(const std::string& str)
 
 		if (SDL_isdigit(chr))
 		{
-			retval *= place;
+			retval *= radix;
 			retval += chr - '0';
-			place *= radix;
 		}
 		else
 		{
