@@ -40,7 +40,7 @@ int ss_toi(const std::string& str)
 {
 	int retval = 0;
 	bool negative = false;
-	const int radix = 10;
+	static const int radix = 10;
 
 	for (size_t i = 0; i < str.size(); ++i)
 	{
