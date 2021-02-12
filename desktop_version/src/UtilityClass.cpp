@@ -284,9 +284,9 @@ static bool VVV_isxdigit(const unsigned char digit)
 	|| SDL_isdigit(digit);
 }
 
-bool is_positive_num(const std::string& str, const bool hex)
+bool is_positive_num(const char* str, const bool hex)
 {
-	for (size_t i = 0; i < str.length(); i++)
+	for (size_t i = 0; str[i] != '\0'; ++i)
 	{
 		if (hex)
 		{

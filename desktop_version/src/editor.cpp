@@ -162,7 +162,7 @@ std::string find_tag(const std::string& buf, const std::string& start, const std
         size_t real_start = start_pos + 2 + ((int) hex);
         std::string number(value.substr(real_start, end - real_start));
 
-        if (!is_positive_num(number, hex))
+        if (!is_positive_num(number.c_str(), hex))
         {
             return "";
         }
