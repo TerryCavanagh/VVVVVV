@@ -1755,21 +1755,21 @@ bool editorclass::load(std::string& _path)
         if (pKey == "contents" && pText[0] != '\0')
         {
             std::string TextString = (pText);
-                std::vector<std::string> values = split(TextString,',');
-                SDL_memset(contents, 0, sizeof(contents));
-                int x =0;
-                int y =0;
-                for(size_t i = 0; i < values.size(); i++)
+            std::vector<std::string> values = split(TextString,',');
+            SDL_memset(contents, 0, sizeof(contents));
+            int x =0;
+            int y =0;
+            for(size_t i = 0; i < values.size(); i++)
+            {
+                contents[x + (maxwidth*40*y)] = help.Int(values[i].c_str());
+                x++;
+                if(x == mapwidth*40)
                 {
-                    contents[x + (maxwidth*40*y)] = help.Int(values[i].c_str());
-                    x++;
-                    if(x == mapwidth*40)
-                    {
-                        x=0;
-                        y++;
-                    }
-
+                    x=0;
+                    y++;
                 }
+
+             }
         }
 
 
@@ -1873,38 +1873,38 @@ bool editorclass::load(std::string& _path)
         if (pKey == "script" && pText[0] != '\0')
         {
             std::string TextString = (pText);
-                std::vector<std::string> values = split(TextString,'|');
-                script.clearcustom();
-                Script script_;
-                bool headerfound = false;
-                for(size_t i = 0; i < values.size(); i++)
+            std::vector<std::string> values = split(TextString,'|');
+            script.clearcustom();
+            Script script_;
+            bool headerfound = false;
+            for(size_t i = 0; i < values.size(); i++)
+            {
+                std::string& line = values[i];
+
+                if(line.length() && line[line.length() - 1] == ':')
                 {
-                    std::string& line = values[i];
-
-                    if(line.length() && line[line.length() - 1] == ':')
-                    {
-                        if(headerfound)
-                        {
-                            //Add the script if we have a preceding header
-                            script.customscripts.push_back(script_);
-                        }
-                        script_.name = line.substr(0, line.length()-1);
-                        script_.contents.clear();
-                        headerfound = true;
-                        continue;
-                    }
-
                     if(headerfound)
                     {
-                        script_.contents.push_back(line);
+                        //Add the script if we have a preceding header
+                        script.customscripts.push_back(script_);
                     }
+                    script_.name = line.substr(0, line.length()-1);
+                    script_.contents.clear();
+                    headerfound = true;
+                    continue;
                 }
-                //Add the last script
+
                 if(headerfound)
                 {
-                    //Add the script if we have a preceding header
-                    script.customscripts.push_back(script_);
+                    script_.contents.push_back(line);
                 }
+            }
+            //Add the last script
+            if(headerfound)
+            {
+                //Add the script if we have a preceding header
+                script.customscripts.push_back(script_);
+            }
         }
 
     }
