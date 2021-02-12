@@ -540,18 +540,7 @@ void Game::loadcustomlevelstats()
             pText = "";
         }
 
-        if (pKey == "customlevelscore")
-        {
-            std::string TextString = (pText);
-            if(TextString.length())
-            {
-                std::vector<std::string> values = split(TextString,',');
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    customlevelscores.push_back(help.Int(values[i].c_str()));
-                }
-            }
-        }
+        LOAD_ARRAY_RENAME(customlevelscore, customlevelscores)
 
         if (pKey == "customlevelstats")
         {
