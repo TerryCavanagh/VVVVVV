@@ -4114,15 +4114,34 @@ void editorinput()
             {
             case TEXT_GOTOROOM:
             {
-                std::vector<std::string> coords = split(key.keybuffer, ',');
-                if (coords.size() != 2)
+                char coord_x[16];
+                char coord_y[16];
+
+                const char* comma = SDL_strchr(key.keybuffer.c_str(), ',');
+
+                bool valid_input = comma != NULL;
+
+                if (valid_input)
+                {
+                    SDL_strlcpy(
+                        coord_x,
+                        key.keybuffer.c_str(),
+                        VVV_min(comma - key.keybuffer.c_str() + 1, sizeof(coord_x))
+                    );
+                    SDL_strlcpy(coord_y, &comma[1], sizeof(coord_y));
+
+                    valid_input = is_number(coord_x) && is_number(coord_y);
+                }
+
+                if (!valid_input)
                 {
                     ed.note = "[ ERROR: Invalid format ]";
                     ed.notedelay = 45;
                     break;
                 }
-                ed.levx = clamp(help.Int(coords[0].c_str()) - 1, 0, ed.mapwidth - 1);
-                ed.levy = clamp(help.Int(coords[1].c_str()) - 1, 0, ed.mapheight - 1);
+
+                ed.levx = clamp(help.Int(coord_x) - 1, 0, ed.mapwidth - 1);
+                ed.levy = clamp(help.Int(coord_y) - 1, 0, ed.mapheight - 1);
                 graphics.backgrounddrawn = false;
                 break;
             }
