@@ -442,6 +442,22 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
     savecustomlevelstats();
 }
 
+#define LOAD_ARRAY_RENAME(ARRAY_NAME, DEST) \
+    if (pKey == #ARRAY_NAME) \
+    { \
+        std::string TextString = pText; \
+        if (TextString.length()) \
+        { \
+            std::vector<std::string> values = split(TextString, ','); \
+            for (int i = 0; i < VVV_min(SDL_arraysize(DEST), values.size()); i++) \
+            { \
+                DEST[i] = help.Int(values[i].c_str()); \
+            } \
+        } \
+    }
+
+#define LOAD_ARRAY(ARRAY_NAME) LOAD_ARRAY_RENAME(ARRAY_NAME, ARRAY_NAME)
+
 void Game::loadcustomlevelstats()
 {
     //testing
@@ -4420,22 +4436,6 @@ void Game::unlocknum( int t )
     savestatsandsettings();
 #endif
 }
-
-#define LOAD_ARRAY_RENAME(ARRAY_NAME, DEST) \
-    if (pKey == #ARRAY_NAME) \
-    { \
-        std::string TextString = pText; \
-        if (TextString.length()) \
-        { \
-            std::vector<std::string> values = split(TextString, ','); \
-            for (int i = 0; i < VVV_min(SDL_arraysize(DEST), values.size()); i++) \
-            { \
-                DEST[i] = help.Int(values[i].c_str()); \
-            } \
-        } \
-    }
-
-#define LOAD_ARRAY(ARRAY_NAME) LOAD_ARRAY_RENAME(ARRAY_NAME, ARRAY_NAME)
 
 void Game::loadstats(ScreenSettings* screen_settings)
 {
