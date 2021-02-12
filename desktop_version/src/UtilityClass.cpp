@@ -269,7 +269,7 @@ bool is_number(const char* str)
 {
 	for (int i = 0; str[i] != '\0'; i++)
 	{
-		if (!SDL_isdigit(static_cast<unsigned char>(str[i])) && (i != 0 || str[0] != '-'))
+		if (!SDL_isdigit(str[i]) && (i != 0 || str[0] != '-'))
 		{
 			return false;
 		}
