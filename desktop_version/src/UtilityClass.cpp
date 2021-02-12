@@ -290,14 +290,14 @@ bool is_positive_num(const std::string& str, bool hex)
 	{
 		if (hex)
 		{
-			if (!VVV_isxdigit(static_cast<unsigned char>(str[i])))
+			if (!VVV_isxdigit(str[i]))
 			{
 				return false;
 			}
 		}
 		else
 		{
-			if (!SDL_isdigit(static_cast<unsigned char>(str[i])))
+			if (!SDL_isdigit(str[i]))
 			{
 				return false;
 			}
