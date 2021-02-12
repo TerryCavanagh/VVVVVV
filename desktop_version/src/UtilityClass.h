@@ -24,7 +24,7 @@ bool next_split_s(
 
 bool is_number(const char* str);
 
-bool is_positive_num(const std::string& str, bool hex);
+bool is_positive_num(const std::string& str, const bool hex);
 
 bool endsWith(const std::string& str, const std::string& suffix);
 
