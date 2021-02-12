@@ -146,8 +146,19 @@ std::string find_tag(const std::string& buf, const std::string& start, const std
     size_t start_pos = 0;
     while ((start_pos = value.find("&#", start_pos)) != std::string::npos)
     {
+        if (start_pos + 2 >= value.length())
+        {
+            return "";
+        }
+
         bool hex = value[start_pos + 2] == 'x';
         size_t end = value.find(';', start_pos);
+
+        if (end == std::string::npos)
+        {
+            return "";
+        }
+
         size_t real_start = start_pos + 2 + ((int) hex);
         std::string number(value.substr(real_start, end - real_start));
 
