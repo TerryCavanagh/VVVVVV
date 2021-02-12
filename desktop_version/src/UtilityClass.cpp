@@ -313,6 +313,7 @@ bool is_positive_num(const char* str, const bool hex)
 			}
 		}
 	}
+
 	return true;
 }
 
