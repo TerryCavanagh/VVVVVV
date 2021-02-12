@@ -446,11 +446,11 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
     if (pKey == #ARRAY_NAME && pText[0] != '\0') \
     { \
         std::string TextString = pText; \
-            std::vector<std::string> values = split(TextString, ','); \
-            for (int i = 0; i < VVV_min(SDL_arraysize(DEST), values.size()); i++) \
-            { \
-                DEST[i] = help.Int(values[i].c_str()); \
-            } \
+        std::vector<std::string> values = split(TextString, ','); \
+        for (int i = 0; i < VVV_min(SDL_arraysize(DEST), values.size()); i++) \
+        { \
+            DEST[i] = help.Int(values[i].c_str()); \
+        } \
     }
 
 #define LOAD_ARRAY(ARRAY_NAME) LOAD_ARRAY_RENAME(ARRAY_NAME, ARRAY_NAME)
@@ -542,11 +542,11 @@ void Game::loadcustomlevelstats()
         if (pKey == "customlevelstats" && pText[0] != '\0')
         {
             std::string TextString = (pText);
-                std::vector<std::string> values = split(TextString,'|');
-                for(size_t i = 0; i < values.size(); i++)
-                {
-                    customlevelnames.push_back(values[i]);
-                }
+            std::vector<std::string> values = split(TextString,'|');
+            for(size_t i = 0; i < values.size(); i++)
+            {
+                customlevelnames.push_back(values[i]);
+            }
         }
     }
 
