@@ -1752,11 +1752,9 @@ bool editorclass::load(std::string& _path)
         }
 
 
-        if (pKey == "contents")
+        if (pKey == "contents" && pText[0] != '\0')
         {
             std::string TextString = (pText);
-            if(TextString.length())
-            {
                 std::vector<std::string> values = split(TextString,',');
                 SDL_memset(contents, 0, sizeof(contents));
                 int x =0;
@@ -1772,7 +1770,6 @@ bool editorclass::load(std::string& _path)
                     }
 
                 }
-            }
         }
 
 
@@ -1873,11 +1870,9 @@ bool editorclass::load(std::string& _path)
             }
         }
 
-        if (pKey == "script")
+        if (pKey == "script" && pText[0] != '\0')
         {
             std::string TextString = (pText);
-            if(TextString.length())
-            {
                 std::vector<std::string> values = split(TextString,'|');
                 script.clearcustom();
                 Script script_;
@@ -1910,8 +1905,6 @@ bool editorclass::load(std::string& _path)
                     //Add the script if we have a preceding header
                     script.customscripts.push_back(script_);
                 }
-
-            }
         }
 
     }
