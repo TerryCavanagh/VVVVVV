@@ -272,7 +272,7 @@ bool is_number(const char* str)
 		return false;
 	}
 
-	for (size_t i = 1; str[i] != '\0'; i++)
+	for (size_t i = 1; str[i] != '\0'; ++i)
 	{
 		if (!SDL_isdigit(str[i]))
 		{
