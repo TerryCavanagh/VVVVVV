@@ -15,9 +15,6 @@
 
 scriptclass::scriptclass()
 {
-	//Start SDL
-
-	//Init
 	position = 0;
 	scriptdelay = 0;
 	running = false;
