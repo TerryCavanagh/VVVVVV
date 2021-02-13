@@ -364,13 +364,7 @@ void editorclass::reset()
         }
     }
 
-    for (int j = 0; j < 30 * maxheight; j++)
-    {
-        for (int i = 0; i < 40 * maxwidth; i++)
-        {
-            contents[i+(j*40*maxwidth)]=0;
-        }
-    }
+    SDL_zeroa(contents);
 
     hooklist.clear();
 
@@ -387,7 +381,7 @@ void editorclass::reset()
 
     hookmenupage=0;
     hookmenu=0;
-    script.customscripts.clear();
+    script.clearcustom();
 
     returneditoralpha = 0;
     oldreturneditoralpha = 0;
@@ -1756,7 +1750,6 @@ bool editorclass::load(std::string& _path)
         {
             std::string TextString = (pText);
             std::vector<std::string> values = split(TextString,',');
-            SDL_memset(contents, 0, sizeof(contents));
             int x =0;
             int y =0;
             for(size_t i = 0; i < values.size(); i++)
@@ -1874,7 +1867,6 @@ bool editorclass::load(std::string& _path)
         {
             std::string TextString = (pText);
             std::vector<std::string> values = split(TextString,'|');
-            script.clearcustom();
             Script script_;
             bool headerfound = false;
             for(size_t i = 0; i < values.size(); i++)

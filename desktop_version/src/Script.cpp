@@ -35,7 +35,8 @@ scriptclass::scriptclass()
 	texty = 0;
 }
 
-void scriptclass::clearcustom(){
+void scriptclass::clearcustom()
+{
 	customscripts.clear();
 }
 
