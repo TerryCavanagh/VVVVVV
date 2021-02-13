@@ -1748,21 +1748,29 @@ bool editorclass::load(std::string& _path)
 
         if (pKey == "contents" && pText[0] != '\0')
         {
-            std::string TextString = (pText);
-            std::vector<std::string> values = split(TextString,',');
-            int x =0;
-            int y =0;
-            for(size_t i = 0; i < values.size(); i++)
+            int x = 0;
+            int y = 0;
+
+            char buffer[16];
+            size_t start = 0;
+
+            while (next_split_s(buffer, sizeof(buffer), &start, pText, ','))
             {
-                contents[x + (maxwidth*40*y)] = help.Int(values[i].c_str());
-                x++;
-                if(x == mapwidth*40)
+                const int idx = x + maxwidth*40*y;
+
+                if (INBOUNDS_ARR(idx, contents))
                 {
-                    x=0;
-                    y++;
+                    contents[idx] = help.Int(buffer);
                 }
 
-             }
+                ++x;
+
+                if (x == mapwidth*40)
+                {
+                    x = 0;
+                    ++y;
+                }
+            }
         }
 
 
@@ -1865,30 +1873,36 @@ bool editorclass::load(std::string& _path)
 
         if (pKey == "script" && pText[0] != '\0')
         {
-            std::string TextString = (pText);
-            std::vector<std::string> values = split(TextString,'|');
             Script script_;
             bool headerfound = false;
-            for(size_t i = 0; i < values.size(); i++)
-            {
-                std::string& line = values[i];
 
-                if (line.length() && line[line.length() - 1] == ':')
+            size_t start = 0;
+            size_t len = 0;
+            size_t prev_start = 0;
+
+            while (next_split(&start, &len, &pText[start], '|'))
+            {
+                if (len > 0 && pText[prev_start + len - 1] == ':')
                 {
                     if (headerfound)
                     {
                         script.customscripts.push_back(script_);
                     }
-                    script_.name = line.substr(0, line.length()-1);
+
+                    script_.name = std::string(&pText[prev_start], len - 1);
                     script_.contents.clear();
                     headerfound = true;
-                    continue;
+
+                    goto next;
                 }
 
                 if (headerfound)
                 {
-                    script_.contents.push_back(line);
+                    script_.contents.push_back(std::string(&pText[prev_start], len));
                 }
+
+next:
+                prev_start = start;
             }
 
             /* Add the last script */

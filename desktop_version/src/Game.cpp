@@ -445,11 +445,21 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
 #define LOAD_ARRAY_RENAME(ARRAY_NAME, DEST) \
     if (pKey == #ARRAY_NAME && pText[0] != '\0') \
     { \
-        std::string TextString = pText; \
-        std::vector<std::string> values = split(TextString, ','); \
-        for (int i = 0; i < VVV_min(SDL_arraysize(DEST), values.size()); i++) \
+        /* We're loading in 32-bit integers. If we need more than 16 chars,
+         * something is seriously wrong */ \
+        char buffer[16]; \
+        size_t start = 0; \
+        size_t i = 0; \
+        \
+        while (next_split_s(buffer, sizeof(buffer), &start, pText, ',')) \
         { \
-            DEST[i] = help.Int(values[i].c_str()); \
+            if (i >= SDL_arraysize(DEST)) \
+            { \
+                break; \
+            } \
+            \
+            DEST[i] = help.Int(buffer); \
+            ++i; \
         } \
     }
 
@@ -541,11 +551,15 @@ void Game::loadcustomlevelstats()
 
         if (pKey == "customlevelstats" && pText[0] != '\0')
         {
-            std::string TextString = (pText);
-            std::vector<std::string> values = split(TextString,'|');
-            for(size_t i = 0; i < values.size(); i++)
+            size_t start = 0;
+            size_t len = 0;
+            size_t prev_start = 0;
+
+            while (next_split(&start, &len, &pText[start], '|'))
             {
-                customlevelnames.push_back(values[i]);
+                customlevelnames.push_back(std::string(&pText[prev_start], len));
+
+                prev_start = start;
             }
         }
     }

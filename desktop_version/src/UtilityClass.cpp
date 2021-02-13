@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <sstream>
 
+#include "Maths.h"
+
 static const char* GCChar(const SDL_GameControllerButton button)
 {
 	switch (button)
@@ -71,21 +73,61 @@ int ss_toi(const std::string& str)
 	return retval;
 }
 
-std::vector<std::string> split( const std::string &s, char delim, std::vector<std::string> &elems )
-{
-	std::stringstream ss(s);
-	std::string item;
-	while(std::getline(ss, item, delim))
+bool next_split(
+	size_t* start,
+	size_t* len,
+	const char* str,
+	const char delim
+) {
+	size_t idx = 0;
+	*len = 0;
+
+	if (str[idx] == '\0')
 	{
-		elems.push_back(item);
+		return false;
 	}
-	return elems;
+
+	while (true)
+	{
+		if (str[idx] == delim)
+		{
+			*start += 1;
+			return true;
+		}
+		else if (str[idx] == '\0')
+		{
+			return true;
+		}
+
+		idx += 1;
+		*start += 1;
+		*len += 1;
+	}
 }
 
-std::vector<std::string> split( const std::string &s, char delim )
-{
-	std::vector<std::string> elems;
-	return split(s, delim, elems);
+bool next_split_s(
+	char buffer[],
+	const size_t buffer_size,
+	size_t* start,
+	const char* str,
+	const char delim
+) {
+	size_t len = 0;
+	const size_t prev_start = *start;
+
+	const bool retval = next_split(start, &len, &str[*start], delim);
+
+	if (retval)
+	{
+		/* Using SDL_strlcpy() here results in calling SDL_strlen() */
+		/* on the whole string, which results in a visible freeze */
+		/* if it's a very large string */
+		const size_t length = VVV_min(buffer_size, len);
+		SDL_memcpy(buffer, &str[prev_start], length);
+		buffer[length] = '\0';
+	}
+
+	return retval;
 }
 
 UtilityClass::UtilityClass() :
