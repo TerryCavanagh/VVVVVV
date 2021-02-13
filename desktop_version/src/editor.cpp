@@ -1881,9 +1881,9 @@ bool editorclass::load(std::string& _path)
             {
                 std::string& line = values[i];
 
-                if(line.length() && line[line.length() - 1] == ':')
+                if (line.length() && line[line.length() - 1] == ':')
                 {
-                    if(headerfound)
+                    if (headerfound)
                     {
                         //Add the script if we have a preceding header
                         script.customscripts.push_back(script_);
@@ -1894,19 +1894,19 @@ bool editorclass::load(std::string& _path)
                     continue;
                 }
 
-                if(headerfound)
+                if (headerfound)
                 {
                     script_.contents.push_back(line);
                 }
             }
+
             //Add the last script
-            if(headerfound)
+            if (headerfound)
             {
                 //Add the script if we have a preceding header
                 script.customscripts.push_back(script_);
             }
         }
-
     }
 
     gethooks();
