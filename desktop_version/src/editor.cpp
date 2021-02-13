@@ -1885,7 +1885,6 @@ bool editorclass::load(std::string& _path)
                 {
                     if (headerfound)
                     {
-                        //Add the script if we have a preceding header
                         script.customscripts.push_back(script_);
                     }
                     script_.name = line.substr(0, line.length()-1);
@@ -1900,10 +1899,9 @@ bool editorclass::load(std::string& _path)
                 }
             }
 
-            //Add the last script
+            /* Add the last script */
             if (headerfound)
             {
-                //Add the script if we have a preceding header
                 script.customscripts.push_back(script_);
             }
         }
