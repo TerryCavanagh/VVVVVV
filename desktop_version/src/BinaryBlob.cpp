@@ -10,8 +10,8 @@
 binaryBlob::binaryBlob()
 {
 	numberofHeaders = 0;
-	SDL_memset(m_headers, 0, sizeof(m_headers));
-	SDL_memset(m_memblocks, 0, sizeof(m_memblocks));
+	SDL_zeroa(m_headers);
+	SDL_zeroa(m_memblocks);
 }
 
 #ifdef VVV_COMPILEMUSIC
