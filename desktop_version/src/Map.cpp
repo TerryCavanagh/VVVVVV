@@ -487,7 +487,6 @@ int mapclass::finalat(int x, int y)
 	{
 		return contents[x + vmult[y]];
 	}
-	return 0;
 }
 
 int mapclass::maptiletoenemycol(int t)

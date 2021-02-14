@@ -661,7 +661,6 @@ int editorclass::getenemycol(int t)
         return 6;
         break;
     }
-    return 0;
 }
 
 int editorclass::getwarpbackground(int rx, int ry)
@@ -939,7 +938,6 @@ int editorclass::getenemyframe(int t)
         return 78;
         break;
     }
-    return 78;
 }
 
 
@@ -1334,7 +1332,6 @@ int editorclass::edgetile( int x, int y )
         return 0;
         break;
     }
-    return 0;
 }
 
 int editorclass::outsideedgetile( int x, int y )
@@ -1352,7 +1349,6 @@ int editorclass::outsideedgetile( int x, int y )
         return 2;
         break;
     }
-    return 2;
 }
 
 
@@ -1404,7 +1400,6 @@ int editorclass::backedgetile( int x, int y )
         return 0;
         break;
     }
-    return 0;
 }
 
 int editorclass::labspikedir( int x, int y, int t )
