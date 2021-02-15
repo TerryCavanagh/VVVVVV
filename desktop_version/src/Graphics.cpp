@@ -3148,7 +3148,6 @@ bool Graphics::onscreen(int t)
 void Graphics::reloadresources()
 {
 	grphx.destroy();
-	grphx = GraphicsResources();
 	grphx.init();
 
 	#define CLEAR_ARRAY(name) \
