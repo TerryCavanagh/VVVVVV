@@ -252,7 +252,12 @@ void KeyPoll::Poll()
 			{
 			/* Window Resize */
 			case SDL_WINDOWEVENT_RESIZED:
-				resetWindow = true;
+				if (SDL_GetWindowFlags(
+					SDL_GetWindowFromID(evt.window.windowID)
+				) & SDL_WINDOW_INPUT_FOCUS)
+				{
+					resetWindow = true;
+				}
 				break;
 
 			/* Window Focus */
