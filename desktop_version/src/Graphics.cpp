@@ -3145,7 +3145,8 @@ bool Graphics::onscreen(int t)
 	return (t >= -40 && t <= 280);
 }
 
-void Graphics::reloadresources() {
+void Graphics::reloadresources()
+{
 	grphx.destroy();
 	grphx = GraphicsResources();
 	grphx.init();
