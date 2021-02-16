@@ -19,6 +19,8 @@ public:
 	void init();
 	void destroy();
 
+	void destroy_buffers();
+
 	GraphicsResources grphx;
 
 	int bfontlen(uint32_t ch);
