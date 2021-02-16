@@ -183,8 +183,8 @@ std::vector<int> binaryBlob::getExtra()
 	for (size_t i = 0; i < SDL_arraysize(m_headers); i += 1)
 	{
 		if (m_headers[i].valid
-#define FOREACH_TRACK(track_name) && SDL_strcmp(m_headers[i].name, track_name) != 0
-		TRACK_NAMES
+#define FOREACH_TRACK(_, track_name) && SDL_strcmp(m_headers[i].name, track_name) != 0
+		TRACK_NAMES(_)
 #undef FOREACH_TRACK
 		) {
 			result.push_back(i);

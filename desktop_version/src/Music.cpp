@@ -64,8 +64,8 @@ void musicclass::init()
 
 #ifdef VVV_COMPILEMUSIC
 	binaryBlob musicWriteBlob;
-#define FOREACH_TRACK(track_name) musicWriteBlob.AddFileToBinaryBlob(track_name);
-	TRACK_NAMES
+#define FOREACH_TRACK(blob, track_name) blob.AddFileToBinaryBlob(track_name);
+	TRACK_NAMES(musicWriteBlob)
 #undef FOREACH_TRACK
 
 	musicWriteBlob.writeBinaryBlob("data/BinaryMusic.vvv");
@@ -87,11 +87,11 @@ void musicclass::init()
 		int index;
 		SDL_RWops *rw;
 
-#define FOREACH_TRACK(track_name) \
-	index = musicReadBlob.getIndex(track_name); \
-	if (index >= 0 && index < musicReadBlob.max_headers) \
+#define FOREACH_TRACK(blob, track_name) \
+	index = blob.getIndex(track_name); \
+	if (index >= 0 && index < blob.max_headers) \
 	{ \
-		rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index)); \
+		rw = SDL_RWFromMem(blob.getAddress(index), blob.getSize(index)); \
 		if (rw == NULL) \
 		{ \
 			printf("Unable to read music file header: %s\n", SDL_GetError()); \
@@ -102,7 +102,7 @@ void musicclass::init()
 		} \
 	}
 
-		TRACK_NAMES
+		TRACK_NAMES(musicReadBlob)
 
 		num_mmmmmm_tracks += musicTracks.size();
 
@@ -123,7 +123,7 @@ void musicclass::init()
 	int index;
 	SDL_RWops *rw;
 
-	TRACK_NAMES
+	TRACK_NAMES(musicReadBlob)
 
 #undef FOREACH_TRACK
 
