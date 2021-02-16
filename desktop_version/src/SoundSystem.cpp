@@ -33,6 +33,11 @@ SoundTrack::SoundTrack(const char* fileName)
 	unsigned char *mem;
 	size_t length = 0;
 	FILESYSTEM_loadFileToMemory(fileName, &mem, &length);
+	if (mem == NULL)
+	{
+		fprintf(stderr, "Unable to load WAV file %s\n", fileName);
+		return;
+	}
 	SDL_RWops *fileIn = SDL_RWFromMem(mem, length);
 	sound = Mix_LoadWAV_RW(fileIn, 1);
 	FILESYSTEM_freeMemory(&mem);
