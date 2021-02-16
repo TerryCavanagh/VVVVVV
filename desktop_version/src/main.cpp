@@ -377,6 +377,12 @@ static void cleanup()
     FILESYSTEM_deinit();
 }
 
+void VVV_exit(const int exit_code)
+{
+    cleanup();
+    exit(exit_code);
+}
+
 static void inline deltaloop()
 {
     //timestep limit to 30
