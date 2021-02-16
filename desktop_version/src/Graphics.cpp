@@ -341,7 +341,10 @@ void Graphics::updatetitlecolours()
             \
             extra_code \
         } \
-    }
+    } \
+    \
+    SDL_FreeSurface(grphx.im_##tilesheet); \
+    grphx.im_##tilesheet = NULL;
 
 #define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
     PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
