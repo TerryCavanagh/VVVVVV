@@ -148,6 +148,28 @@ void Graphics::init()
     kludgeswnlinewidth = false;
 }
 
+void Graphics::destroy()
+{
+    #define CLEAR_ARRAY(name) \
+        for (size_t i = 0; i < name.size(); i += 1) \
+        { \
+            SDL_FreeSurface(name[i]); \
+        } \
+        name.clear();
+
+    CLEAR_ARRAY(tiles)
+    CLEAR_ARRAY(tiles2)
+    CLEAR_ARRAY(tiles3)
+    CLEAR_ARRAY(entcolours)
+    CLEAR_ARRAY(sprites)
+    CLEAR_ARRAY(flipsprites)
+    CLEAR_ARRAY(tele)
+    CLEAR_ARRAY(bfont)
+    CLEAR_ARRAY(flipbfont)
+
+    #undef CLEAR_ARRAY
+}
+
 int Graphics::font_idx(uint32_t ch) {
     if (font_positions.size() > 0) {
         std::map<int, int>::iterator iter = font_positions.find(ch);
@@ -3150,24 +3172,7 @@ void Graphics::reloadresources()
 	grphx.destroy();
 	grphx.init();
 
-	#define CLEAR_ARRAY(name) \
-		for (size_t i = 0; i < name.size(); i += 1) \
-		{ \
-			SDL_FreeSurface(name[i]); \
-		} \
-		name.clear();
-
-	CLEAR_ARRAY(tiles)
-	CLEAR_ARRAY(tiles2)
-	CLEAR_ARRAY(tiles3)
-	CLEAR_ARRAY(entcolours)
-	CLEAR_ARRAY(sprites)
-	CLEAR_ARRAY(flipsprites)
-	CLEAR_ARRAY(tele)
-	CLEAR_ARRAY(bfont)
-	CLEAR_ARRAY(flipbfont)
-
-	#undef CLEAR_ARRAY
+	destroy();
 
 	MakeTileArray();
 	MakeSpriteArray();

@@ -17,6 +17,7 @@ class Graphics
 {
 public:
 	void init();
+	void destroy();
 
 	GraphicsResources grphx;
 
