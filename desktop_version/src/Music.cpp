@@ -33,24 +33,6 @@ musicclass::musicclass()
 
 void musicclass::init()
 {
-	for (size_t i = 0; i < soundTracks.size(); ++i)
-	{
-		Mix_FreeChunk(soundTracks[i].sound);
-	}
-	soundTracks.clear();
-
-	// Before we free all the music: stop playing music, else SDL2_mixer
-	// will call SDL_Delay() if we are fading, resulting in no-draw frames
-	Mix_HaltMusic();
-
-	for (size_t i = 0; i < musicTracks.size(); ++i)
-	{
-		Mix_FreeMusic(musicTracks[i].m_music);
-	}
-	musicTracks.clear();
-
-	musicReadBlob.clear();
-
 	soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
 	soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));
 	soundTracks.push_back(SoundTrack( "sounds/hurt.wav" ));
@@ -163,6 +145,27 @@ static void songend()
 	extern musicclass music;
 	music.songEnd = SDL_GetPerformanceCounter();
 	music.currentsong = -1;
+}
+
+void musicclass::destroy()
+{
+	for (size_t i = 0; i < soundTracks.size(); ++i)
+	{
+		Mix_FreeChunk(soundTracks[i].sound);
+	}
+	soundTracks.clear();
+
+	// Before we free all the music: stop playing music, else SDL2_mixer
+	// will call SDL_Delay() if we are fading, resulting in no-draw frames
+	Mix_HaltMusic();
+
+	for (size_t i = 0; i < musicTracks.size(); ++i)
+	{
+		Mix_FreeMusic(musicTracks[i].m_music);
+	}
+	musicTracks.clear();
+
+	musicReadBlob.clear();
 }
 
 void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fadein_ms /*= 3000*/)

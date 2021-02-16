@@ -3280,6 +3280,7 @@ void Graphics::reloadresources()
 		screenbuffer->LoadIcon();
 	}
 
+	music.destroy();
 	music.init();
 }
 
