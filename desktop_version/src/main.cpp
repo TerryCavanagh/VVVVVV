@@ -245,54 +245,7 @@ int main(int argc, char *argv[])
     }
     graphics.screenbuffer = &gameScreen;
 
-    const SDL_PixelFormat* fmt = gameScreen.GetFormat();
-    #define CREATE_SURFACE(w, h) \
-        SDL_CreateRGBSurface( \
-            SDL_SWSURFACE, \
-            w, h, \
-            fmt->BitsPerPixel, \
-            fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask \
-        )
-    graphics.backBuffer = CREATE_SURFACE(320, 240);
-    SDL_SetSurfaceBlendMode(graphics.backBuffer, SDL_BLENDMODE_NONE);
-
-    graphics.footerbuffer = CREATE_SURFACE(320, 10);
-    SDL_SetSurfaceBlendMode(graphics.footerbuffer, SDL_BLENDMODE_BLEND);
-    SDL_SetSurfaceAlphaMod(graphics.footerbuffer, 127);
-    FillRect(graphics.footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
-
-    graphics.ghostbuffer = CREATE_SURFACE(320, 240);
-    SDL_SetSurfaceBlendMode(graphics.ghostbuffer, SDL_BLENDMODE_BLEND);
-    SDL_SetSurfaceAlphaMod(graphics.ghostbuffer, 127);
-
-    graphics.foregroundBuffer =  CREATE_SURFACE(320, 240);
-    SDL_SetSurfaceBlendMode(graphics.foregroundBuffer, SDL_BLENDMODE_BLEND);
-
-    graphics.menubuffer = CREATE_SURFACE(320, 240);
-    SDL_SetSurfaceBlendMode(graphics.menubuffer, SDL_BLENDMODE_NONE);
-
-    graphics.warpbuffer = CREATE_SURFACE(320 + 16, 240 + 16);
-    SDL_SetSurfaceBlendMode(graphics.warpbuffer, SDL_BLENDMODE_NONE);
-
-    graphics.warpbuffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
-    SDL_SetSurfaceBlendMode(graphics.warpbuffer_lerp, SDL_BLENDMODE_NONE);
-
-    graphics.towerbg.buffer =  CREATE_SURFACE(320 + 16, 240 + 16);
-    SDL_SetSurfaceBlendMode(graphics.towerbg.buffer, SDL_BLENDMODE_NONE);
-
-    graphics.towerbg.buffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
-    SDL_SetSurfaceBlendMode(graphics.towerbg.buffer_lerp, SDL_BLENDMODE_NONE);
-
-    graphics.titlebg.buffer = CREATE_SURFACE(320 + 16, 240 + 16);
-    SDL_SetSurfaceBlendMode(graphics.titlebg.buffer, SDL_BLENDMODE_NONE);
-
-    graphics.titlebg.buffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
-    SDL_SetSurfaceBlendMode(graphics.titlebg.buffer_lerp, SDL_BLENDMODE_NONE);
-
-    graphics.tempBuffer = CREATE_SURFACE(320, 240);
-    SDL_SetSurfaceBlendMode(graphics.tempBuffer, SDL_BLENDMODE_NONE);
-
-    #undef CREATE_SURFACE
+    graphics.create_buffers(gameScreen.GetFormat());
 
     if (game.skipfakeload)
         game.gamestate = TITLEMODE;
