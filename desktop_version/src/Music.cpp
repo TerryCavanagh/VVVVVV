@@ -74,11 +74,11 @@ void musicclass::init()
 	num_mmmmmm_tracks = 0;
 	num_pppppp_tracks = 0;
 
-	if (!musicReadBlob.unPackBinary("mmmmmm.vvv"))
+	if (!mmmmmm_blob.unPackBinary("mmmmmm.vvv"))
 	{
 		mmmmmm = false;
 		usingmmmmmm=false;
-		bool ohCrap = musicReadBlob.unPackBinary("vvvvvvmusic.vvv");
+		bool ohCrap = pppppp_blob.unPackBinary("vvvvvvmusic.vvv");
 		SDL_assert(ohCrap && "Music not found!");
 	}
 	else
@@ -102,38 +102,38 @@ void musicclass::init()
 		} \
 	}
 
-		TRACK_NAMES(musicReadBlob)
+		TRACK_NAMES(mmmmmm_blob)
 
 		num_mmmmmm_tracks += musicTracks.size();
 
-		const std::vector<int> extra = musicReadBlob.getExtra();
+		const std::vector<int> extra = mmmmmm_blob.getExtra();
 		for (size_t i = 0; i < extra.size(); i++)
 		{
 			const int& index_ = extra[i];
-			rw = SDL_RWFromMem(musicReadBlob.getAddress(index_), musicReadBlob.getSize(index_));
+			rw = SDL_RWFromMem(mmmmmm_blob.getAddress(index_), mmmmmm_blob.getSize(index_));
 			musicTracks.push_back(MusicTrack( rw ));
 
 			num_mmmmmm_tracks++;
 		}
 
-		bool ohCrap = musicReadBlob.unPackBinary("vvvvvvmusic.vvv");
+		bool ohCrap = pppppp_blob.unPackBinary("vvvvvvmusic.vvv");
 		SDL_assert(ohCrap && "Music not found!");
 	}
 
 	int index;
 	SDL_RWops *rw;
 
-	TRACK_NAMES(musicReadBlob)
+	TRACK_NAMES(pppppp_blob)
 
 #undef FOREACH_TRACK
 
 	num_pppppp_tracks += musicTracks.size() - num_mmmmmm_tracks;
 
-	const std::vector<int> extra = musicReadBlob.getExtra();
+	const std::vector<int> extra = pppppp_blob.getExtra();
 	for (size_t i = 0; i < extra.size(); i++)
 	{
 		const int& index_ = extra[i];
-		rw = SDL_RWFromMem(musicReadBlob.getAddress(index_), musicReadBlob.getSize(index_));
+		rw = SDL_RWFromMem(pppppp_blob.getAddress(index_), pppppp_blob.getSize(index_));
 		musicTracks.push_back(MusicTrack( rw ));
 
 		num_pppppp_tracks++;
@@ -165,7 +165,8 @@ void musicclass::destroy()
 	}
 	musicTracks.clear();
 
-	musicReadBlob.clear();
+	pppppp_blob.clear();
+	mmmmmm_blob.clear();
 }
 
 void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fadein_ms /*= 3000*/)

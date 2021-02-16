@@ -51,7 +51,8 @@ public:
 	bool mmmmmm;
 	bool usingmmmmmm;
 
-	binaryBlob musicReadBlob;
+	binaryBlob pppppp_blob;
+	binaryBlob mmmmmm_blob;
 	int num_pppppp_tracks;
 	int num_mmmmmm_tracks;
 
