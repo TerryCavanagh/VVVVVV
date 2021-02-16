@@ -13,6 +13,7 @@ class musicclass
 public:
 	musicclass();
 	void init();
+	void destroy();
 
 	void play(int t, const double position_sec = 0.0, const int fadein_ms = 3000);
 	void resume(const int fadein_ms = 0);
