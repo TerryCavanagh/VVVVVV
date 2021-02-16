@@ -6338,7 +6338,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     }
                     char text[menutextbytes];
                     SDL_snprintf(text, sizeof(text), "%s%s", prefix, ed.ListOfMetaData[i].title.c_str());
-                    for (size_t ii = 0; ii < SDL_arraysize(text); ii++)
+                    for (size_t ii = 0; text[ii] != '\0'; ++ii)
                     {
                         text[ii] = SDL_tolower(text[ii]);
                     }
