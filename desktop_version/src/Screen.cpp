@@ -93,6 +93,21 @@ void Screen::init(const ScreenSettings& settings)
 	ResizeScreen(settings.windowWidth, settings.windowHeight);
 }
 
+void Screen::destroy()
+{
+#define X(CLEANUP, POINTER) \
+	CLEANUP(POINTER); \
+	POINTER = NULL;
+
+	/* Order matters! */
+	X(SDL_DestroyTexture, m_screenTexture);
+	X(SDL_FreeSurface, m_screen);
+	X(SDL_DestroyRenderer, m_renderer);
+	X(SDL_DestroyWindow, m_window);
+
+#undef X
+}
+
 void Screen::GetSettings(ScreenSettings* settings)
 {
 	int width, height;

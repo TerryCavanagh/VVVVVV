@@ -9,6 +9,7 @@ class Screen
 {
 public:
 	void init(const ScreenSettings& settings);
+	void destroy();
 
 	void GetSettings(ScreenSettings* settings);
 
