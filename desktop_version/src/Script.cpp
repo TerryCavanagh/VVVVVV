@@ -1,6 +1,8 @@
 #define SCRIPT_DEFINITION
 #include "Script.h"
 
+#include <limits.h>
+
 #include "editor.h"
 #include "Entity.h"
 #include "Enums.h"
@@ -9,8 +11,6 @@
 #include "Map.h"
 #include "Music.h"
 #include "UtilityClass.h"
-
-#include <limits.h>
 
 scriptclass::scriptclass()
 {
