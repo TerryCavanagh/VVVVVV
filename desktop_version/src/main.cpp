@@ -4,6 +4,7 @@
 #include "editor.h"
 #include "Enums.h"
 #include "Entity.h"
+#include "Exit.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
 #include "Graphics.h"
@@ -93,7 +94,7 @@ int main(int argc, char *argv[])
     else \
     { \
         printf("%s option requires one argument.\n", argv[i]); \
-        return 1; \
+        VVV_exit(1); \
     }
 
         if (ARG("-renderer"))
@@ -156,14 +157,14 @@ int main(int argc, char *argv[])
         else
         {
             printf("Error: invalid option: %s\n", argv[i]);
-            return 1;
+            VVV_exit(1);
         }
     }
 
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
     {
         puts("Unable to initialize filesystem!");
-        return 1;
+        VVV_exit(1);
     }
 
     SDL_Init(
@@ -311,7 +312,7 @@ int main(int argc, char *argv[])
                 ed.ListOfMetaData.push_back(meta);
             } else {
                 printf("Level not found\n");
-                return 1;
+                VVV_exit(1);
             }
         }
 

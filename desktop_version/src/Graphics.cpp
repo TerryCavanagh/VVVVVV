@@ -2,11 +2,11 @@
 #include "Graphics.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <utf8/unchecked.h>
 
 #include "editor.h"
 #include "Entity.h"
+#include "Exit.h"
 #include "FileSystemUtils.h"
 #include "Map.h"
 #include "Music.h"
@@ -254,7 +254,7 @@ int Graphics::font_idx(uint32_t ch)
             if (iter == font_positions.end())
             {
                 puts("font.txt missing fallback character!");
-                exit(1);
+                VVV_exit(1);
             }
         }
         return iter->second;
@@ -322,7 +322,7 @@ void Graphics::updatetitlecolours()
             NULL \
         ); \
         \
-        exit(1); \
+        VVV_exit(1); \
     }
 
 #define PROCESS_TILESHEET_RENAME(tilesheet, vector, tile_square, extra_code) \

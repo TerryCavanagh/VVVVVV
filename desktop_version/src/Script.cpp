@@ -6,6 +6,7 @@
 #include "editor.h"
 #include "Entity.h"
 #include "Enums.h"
+#include "Exit.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "Map.h"
@@ -3396,10 +3397,7 @@ void scriptclass::startgamemode( int t )
 	}
 #endif
 	case 100:
-		game.savestatsandsettings();
-
-		SDL_Quit();
-		exit(0);
+		VVV_exit(0);
 		break;
 	}
 }
