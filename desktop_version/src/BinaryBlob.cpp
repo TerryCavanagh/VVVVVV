@@ -28,6 +28,10 @@ void binaryBlob::AddFileToBinaryBlob(const char* _path)
 		fseek(file, 0, SEEK_SET);
 
 		memblock = (char*) SDL_malloc(size);
+		if (memblock == NULL)
+		{
+			VVV_exit(1);
+		}
 		fread(memblock, 1, size, file);
 
 		fclose(file);
