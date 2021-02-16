@@ -17,7 +17,7 @@ MusicTrack::MusicTrack(const char* fileName)
 
 MusicTrack::MusicTrack(SDL_RWops *rw)
 {
-	m_music = Mix_LoadMUS_RW(rw, 0);
+	m_music = Mix_LoadMUS_RW(rw, 1);
 	m_isValid = true;
 	if(m_music == NULL)
 	{
