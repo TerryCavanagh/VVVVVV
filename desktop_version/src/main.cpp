@@ -365,7 +365,13 @@ int main(int argc, char *argv[])
 
 static void cleanup()
 {
+    /* Order matters! */
     game.savestatsandsettings();
+    gameScreen.destroy();
+    graphics.grphx.destroy();
+    graphics.destroy_buffers();
+    graphics.destroy();
+    music.destroy();
     NETWORK_shutdown();
     SDL_Quit();
     FILESYSTEM_deinit();
