@@ -4708,6 +4708,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
 bool Game::savestats()
 {
+    if (graphics.screenbuffer == NULL)
+    {
+        return false;
+    }
+
     ScreenSettings screen_settings;
     graphics.screenbuffer->GetSettings(&screen_settings);
 
@@ -4950,6 +4955,11 @@ void Game::loadsettings(ScreenSettings* screen_settings)
 
 bool Game::savesettings()
 {
+    if (graphics.screenbuffer == NULL)
+    {
+        return false;
+    }
+
     ScreenSettings screen_settings;
     graphics.screenbuffer->GetSettings(&screen_settings);
 
