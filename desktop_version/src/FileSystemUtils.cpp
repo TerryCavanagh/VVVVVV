@@ -134,7 +134,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 
 void FILESYSTEM_deinit()
 {
-	PHYSFS_deinit();
+	if (PHYSFS_isInit())
+	{
+		PHYSFS_deinit();
+	}
 }
 
 char *FILESYSTEM_getUserSaveDirectory()
