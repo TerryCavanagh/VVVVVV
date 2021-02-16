@@ -290,8 +290,8 @@ bool is_number(const char* str)
 
 static bool VVV_isxdigit(const unsigned char digit)
 {
-	return (digit >= 'a' && digit <= 'z')
-	|| (digit >= 'A' && digit <= 'Z')
+	return (digit >= 'a' && digit <= 'f')
+	|| (digit >= 'A' && digit <= 'F')
 	|| SDL_isdigit(digit);
 }
 
