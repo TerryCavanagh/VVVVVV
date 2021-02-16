@@ -3,8 +3,8 @@
 #include <physfs.h> /* FIXME: Abstract to FileSystemUtils! */
 #include <SDL.h>
 #include <stdio.h>
-#include <stdlib.h>
 
+#include "Exit.h"
 #include "UtilityClass.h"
 
 binaryBlob::binaryBlob()
@@ -113,7 +113,7 @@ bool binaryBlob::unPackBinary(const char* name)
 		m_memblocks[i] = (char*) SDL_malloc(m_headers[i].size);
 		if (m_memblocks[i] == NULL)
 		{
-			exit(1); /* Oh god we're out of memory, just bail */
+			VVV_exit(1); /* Oh god we're out of memory, just bail */
 		}
 		PHYSFS_readBytes(handle, m_memblocks[i], m_headers[i].size);
 		offset += m_headers[i].size;
