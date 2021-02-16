@@ -170,6 +170,28 @@ void Graphics::destroy()
     #undef CLEAR_ARRAY
 }
 
+void Graphics::destroy_buffers()
+{
+#define FREE_SURFACE(SURFACE) \
+    SDL_FreeSurface(SURFACE); \
+    SURFACE = NULL;
+
+    FREE_SURFACE(backBuffer)
+    FREE_SURFACE(footerbuffer)
+    FREE_SURFACE(ghostbuffer)
+    FREE_SURFACE(foregroundBuffer)
+    FREE_SURFACE(menubuffer)
+    FREE_SURFACE(warpbuffer)
+    FREE_SURFACE(warpbuffer_lerp)
+    FREE_SURFACE(towerbg.buffer)
+    FREE_SURFACE(towerbg.buffer_lerp)
+    FREE_SURFACE(titlebg.buffer)
+    FREE_SURFACE(titlebg.buffer_lerp)
+    FREE_SURFACE(tempBuffer)
+
+#undef FREE_SURFACE
+}
+
 int Graphics::font_idx(uint32_t ch) {
     if (font_positions.size() > 0) {
         std::map<int, int>::iterator iter = font_positions.find(ch);
