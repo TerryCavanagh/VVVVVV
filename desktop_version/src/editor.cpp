@@ -247,6 +247,8 @@ bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
 
     std::string buf((char*) uMem);
 
+    FILESYSTEM_freeMemory(&uMem);
+
     if (find_metadata(buf) == "")
     {
         printf("Couldn't load metadata for %s\n", _path.c_str());
