@@ -243,18 +243,24 @@ void Graphics::destroy_buffers()
 #undef FREE_SURFACE
 }
 
-int Graphics::font_idx(uint32_t ch) {
-    if (font_positions.size() > 0) {
+int Graphics::font_idx(uint32_t ch)
+{
+    if (font_positions.size() > 0)
+    {
         std::map<int, int>::iterator iter = font_positions.find(ch);
-        if (iter == font_positions.end()) {
+        if (iter == font_positions.end())
+        {
             iter = font_positions.find('?');
-            if (iter == font_positions.end()) {
+            if (iter == font_positions.end())
+            {
                 puts("font.txt missing fallback character!");
                 exit(1);
             }
         }
         return iter->second;
-    } else {
+    }
+    else
+    {
         return ch;
     }
 }
