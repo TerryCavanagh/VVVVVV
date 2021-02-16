@@ -69,6 +69,7 @@ void musicclass::init()
 #undef FOREACH_TRACK
 
 	musicWriteBlob.writeBinaryBlob("data/BinaryMusic.vvv");
+	musicWriteBlob.clear();
 #endif
 
 	num_mmmmmm_tracks = 0;
