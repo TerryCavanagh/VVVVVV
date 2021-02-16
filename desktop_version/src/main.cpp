@@ -76,6 +76,8 @@ static inline Uint32 get_framerate(const int slowdown)
 static void inline deltaloop();
 static void inline fixedloop();
 
+static void cleanup();
+
 int main(int argc, char *argv[])
 {
     char* baseDir = NULL;
@@ -357,12 +359,16 @@ int main(int argc, char *argv[])
         deltaloop();
     }
 
+    cleanup();
+    return 0;
+}
+
+static void cleanup()
+{
     game.savestatsandsettings();
     NETWORK_shutdown();
     SDL_Quit();
     FILESYSTEM_deinit();
-
-    return 0;
 }
 
 static void inline deltaloop()
