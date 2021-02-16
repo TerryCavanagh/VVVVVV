@@ -2046,7 +2046,7 @@ bool editorclass::save(std::string& _path)
         Script& script_ = script.customscripts[i];
 
         scriptString += script_.name + ":|";
-        for (size_t ii = 0; ii < script_.contents.size(); i++)
+        for (size_t ii = 0; ii < script_.contents.size(); ++ii)
         {
             scriptString += script_.contents[ii];
 
