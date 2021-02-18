@@ -1,7 +1,7 @@
 #ifndef BINARYBLOB_H
 #define BINARYBLOB_H
 
-#include <vector>
+#include <stddef.h>
 
 /* Laaaazyyyyyyy -flibit */
 // #define VVV_COMPILEMUSIC
@@ -49,7 +49,7 @@ public:
 
 	int getSize(int _index);
 
-	std::vector<int> getExtra();
+	bool nextExtra(size_t* start);
 
 	char* getAddress(int _index);
 
