@@ -97,7 +97,7 @@ void editorclass::loadZips()
     if (needsReload) directoryList = FILESYSTEM_getLevelDirFileNames();
 }
 
-void replace_all(std::string& str, const std::string& from, const std::string& to)
+static void replace_all(std::string& str, const std::string& from, const std::string& to)
 {
     if (from.empty())
     {
@@ -113,7 +113,7 @@ void replace_all(std::string& str, const std::string& from, const std::string& t
     }
 }
 
-std::string find_tag(const std::string& buf, const std::string& start, const std::string& end)
+static std::string find_tag(const std::string& buf, const std::string& start, const std::string& end)
 {
     size_t tag = buf.find(start);
 
@@ -186,7 +186,7 @@ std::string find_tag(const std::string& buf, const std::string& start, const std
 }
 
 #define TAG_FINDER(NAME, TAG) \
-std::string NAME(const std::string& buf) \
+static std::string NAME(const std::string& buf) \
 { \
     return find_tag(buf, "<" TAG ">", "</" TAG ">"); \
 }
