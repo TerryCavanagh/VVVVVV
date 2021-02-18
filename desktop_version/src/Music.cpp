@@ -107,14 +107,14 @@ void musicclass::init()
 
 		num_mmmmmm_tracks += musicTracks.size();
 
-		const std::vector<int> extra = mmmmmm_blob.getExtra();
-		for (size_t i = 0; i < extra.size(); i++)
+		size_t index_ = 0;
+		while (mmmmmm_blob.nextExtra(&index_))
 		{
-			const int& index_ = extra[i];
 			rw = SDL_RWFromMem(mmmmmm_blob.getAddress(index_), mmmmmm_blob.getSize(index_));
 			musicTracks.push_back(MusicTrack( rw ));
 
 			num_mmmmmm_tracks++;
+			index_++;
 		}
 
 		bool ohCrap = pppppp_blob.unPackBinary("vvvvvvmusic.vvv");
@@ -130,14 +130,14 @@ void musicclass::init()
 
 	num_pppppp_tracks += musicTracks.size() - num_mmmmmm_tracks;
 
-	const std::vector<int> extra = pppppp_blob.getExtra();
-	for (size_t i = 0; i < extra.size(); i++)
+	size_t index_ = 0;
+	while (pppppp_blob.nextExtra(&index_))
 	{
-		const int& index_ = extra[i];
 		rw = SDL_RWFromMem(pppppp_blob.getAddress(index_), pppppp_blob.getSize(index_));
 		musicTracks.push_back(MusicTrack( rw ));
 
 		num_pppppp_tracks++;
+		index_++;
 	}
 }
 
