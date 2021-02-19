@@ -240,10 +240,7 @@ void FILESYSTEM_mountassets(const char* path)
 
 		FILESYSTEM_assetsmounted = true;
 	}
-	else if (zip_normal != NULL
-	&& SDL_strcmp(zip_normal, "data.zip") != 0
-	&& !endsWith(zip_normal, "/data.zip")
-	&& endsWith(zip_normal, ".zip"))
+	else if (zip_normal != NULL && endsWith(zip_normal, ".zip"))
 	{
 		PHYSFS_File* zip = PHYSFS_openRead(zip_normal);
 
