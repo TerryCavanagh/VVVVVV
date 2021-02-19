@@ -346,10 +346,6 @@ std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
 
 	for (i = fileList; *i != NULL; i++)
 	{
-		if (SDL_strcmp(*i, "data") == 0)
-		{
-			continue; /* FIXME: lolwut -flibit */
-		}
 		builtLocation = "levels/";
 		builtLocation += *i;
 		list.push_back(builtLocation);
