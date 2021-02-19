@@ -767,8 +767,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
     bool reuse = false;
     for (size_t i = 0; i < blocks.size(); ++i)
     {
-        if (blocks[i].type == -1
-        && blocks[i].wp == 0
+        if (blocks[i].wp == 0
         && blocks[i].hp == 0
         && blocks[i].rect.w == 0
         && blocks[i].rect.h == 0)
@@ -1106,8 +1105,6 @@ void entityclass::disableblock( int t )
         puts("disableblock() out-of-bounds!");
         return;
     }
-
-    blocks[t].type = -1;
 
     blocks[t].wp = 0;
     blocks[t].hp = 0;
