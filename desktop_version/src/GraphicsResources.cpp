@@ -50,23 +50,20 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
     }
     FILESYSTEM_freeMemory(&fileIn);
 
-    loadedImage = SDL_CreateRGBSurfaceFrom(
+    loadedImage = SDL_CreateRGBSurfaceWithFormatFrom(
         data,
         width,
         height,
         noAlpha ? 24 : 32,
         width * (noAlpha ? 3 : 4),
-        0x000000FF,
-        0x0000FF00,
-        0x00FF0000,
-        noAlpha ? 0x00000000 : 0xFF000000
+        noAlpha ? SDL_PIXELFORMAT_RGB24 : SDL_PIXELFORMAT_ABGR8888
     );
 
     if (loadedImage != NULL)
     {
         optimizedImage = SDL_ConvertSurfaceFormat(
             loadedImage,
-            SDL_PIXELFORMAT_ABGR8888, // FIXME: Format? -flibit
+            SDL_PIXELFORMAT_ARGB8888,
             0
         );
         SDL_FreeSurface( loadedImage );

@@ -135,16 +135,13 @@ void Screen::LoadIcon(void)
     FILESYSTEM_loadAssetToMemory("VVVVVV.png", &fileIn, &length, false);
     lodepng_decode24(&data, &width, &height, fileIn, length);
     FILESYSTEM_freeMemory(&fileIn);
-    SDL_Surface *icon = SDL_CreateRGBSurfaceFrom(
+    SDL_Surface *icon = SDL_CreateRGBSurfaceWithFormatFrom(
         data,
         width,
         height,
         24,
         width * 3,
-        0x000000FF,
-        0x0000FF00,
-        0x00FF0000,
-        0x00000000
+        SDL_PIXELFORMAT_RGB24
     );
     SDL_SetWindowIcon(m_window, icon);
     SDL_FreeSurface(icon);

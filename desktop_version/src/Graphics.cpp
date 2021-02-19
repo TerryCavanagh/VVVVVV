@@ -3250,12 +3250,12 @@ void Graphics::drawtele(int x, int y, int t, Uint32 c)
 
 Uint32 Graphics::getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-    return SDL_MapRGBA(backBuffer->format, b, g, r, a);
+    return SDL_MapRGBA(backBuffer->format, r, g, b, a);
 }
 
 Uint32 Graphics::getRGB(Uint8 r, Uint8 g, Uint8 b)
 {
-    return SDL_MapRGB(backBuffer->format, b, g, r);
+    return SDL_MapRGB(backBuffer->format, r, g, b);
 }
 
 Uint32 Graphics::getBGR(Uint8 r, Uint8 g, Uint8 b)
