@@ -87,7 +87,11 @@ void editorclass::loadZips()
         if (endsWith(directoryList[i], ".zip")) {
             PHYSFS_File* zip = PHYSFS_openRead(directoryList[i].c_str());
             if (!PHYSFS_mountHandle(zip, directoryList[i].c_str(), "levels", 1)) {
-                printf("%s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+                printf(
+                    "Could not mount %s: %s\n",
+                    filename_.c_str(),
+                    PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+                );
             } else {
                 needsReload = true;
             }
