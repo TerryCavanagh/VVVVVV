@@ -122,7 +122,7 @@ bool next_split_s(
 		/* Using SDL_strlcpy() here results in calling SDL_strlen() */
 		/* on the whole string, which results in a visible freeze */
 		/* if it's a very large string */
-		const size_t length = VVV_min(buffer_size, len);
+		const size_t length = VVV_min(buffer_size - 1, len);
 		SDL_memcpy(buffer, &str[prev_start], length);
 		buffer[length] = '\0';
 	}
