@@ -1,8 +1,7 @@
 #ifndef FILESYSTEMUTILS_H
 #define FILESYSTEMUTILS_H
 
-#include <string>
-#include <vector>
+#include <stddef.h>
 
 // Forward declaration, including the entirety of tinyxml2.h across all files this file is included in is unnecessary
 namespace tinyxml2 { class XMLDocument; }
@@ -25,7 +24,7 @@ void FILESYSTEM_freeMemory(unsigned char **mem);
 bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc);
 bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc);
 
-std::vector<std::string> FILESYSTEM_getLevelDirFileNames();
+void FILESYSTEM_enumerateLevelDirFileNames(void (*callback)(const char* filename));
 
 bool FILESYSTEM_openDirectoryEnabled();
 bool FILESYSTEM_openDirectory(const char *dname);

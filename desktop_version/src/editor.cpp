@@ -77,28 +77,28 @@ static bool compare_nocase (std::string first, std::string second)
         return false;
 }
 
-void editorclass::loadZips()
+static void levelZipCallback(const char* filename)
 {
-    directoryList = FILESYSTEM_getLevelDirFileNames();
-    bool needsReload = false;
+    std::string filename_ = filename;
 
-    for(size_t i = 0; i < directoryList.size(); i++)
+    if (endsWith(filename_, ".zip"))
     {
-        if (endsWith(directoryList[i], ".zip")) {
-            PHYSFS_File* zip = PHYSFS_openRead(directoryList[i].c_str());
-            if (!PHYSFS_mountHandle(zip, directoryList[i].c_str(), "levels", 1)) {
-                printf(
-                    "Could not mount %s: %s\n",
-                    filename_.c_str(),
-                    PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
-                );
-            } else {
-                needsReload = true;
-            }
+        PHYSFS_File* zip = PHYSFS_openRead(filename_.c_str());
+
+        if (!PHYSFS_mountHandle(zip, filename_.c_str(), "levels", 1))
+        {
+            printf(
+                "Could not mount %s: %s\n",
+                filename_.c_str(),
+                PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+            );
         }
     }
+}
 
-    if (needsReload) directoryList = FILESYSTEM_getLevelDirFileNames();
+void editorclass::loadZips()
+{
+    FILESYSTEM_enumerateLevelDirFileNames(levelZipCallback);
 }
 
 static void replace_all(std::string& str, const std::string& from, const std::string& to)
@@ -206,24 +206,26 @@ TAG_FINDER(find_website, "website");
 
 #undef TAG_FINDER
 
+static void levelMetaDataCallback(const char* filename)
+{
+    extern editorclass ed;
+    LevelMetaData temp;
+    std::string filename_ = filename;
+
+    if (ed.getLevelMetaData(filename_, temp))
+    {
+        ed.ListOfMetaData.push_back(temp);
+    }
+}
+
 void editorclass::getDirectoryData()
 {
 
     ListOfMetaData.clear();
-    directoryList.clear();
 
     loadZips();
 
-    directoryList = FILESYSTEM_getLevelDirFileNames();
-
-    for(size_t i = 0; i < directoryList.size(); i++)
-    {
-        LevelMetaData temp;
-        if (getLevelMetaData( directoryList[i], temp))
-        {
-            ListOfMetaData.push_back(temp);
-        }
-    }
+    FILESYSTEM_enumerateLevelDirFileNames(levelMetaDataCallback);
 
     for(size_t i = 0; i < ListOfMetaData.size(); i++)
     {
@@ -232,7 +234,6 @@ void editorclass::getDirectoryData()
             if(compare_nocase(ListOfMetaData[i].title, ListOfMetaData[k].title ))
             {
                 std::swap(ListOfMetaData[i] , ListOfMetaData[k]);
-                std::swap(directoryList[i], directoryList[k]);
             }
         }
     }

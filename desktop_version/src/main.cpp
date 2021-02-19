@@ -298,9 +298,6 @@ int main(int argc, char *argv[])
         game.playassets = playassets;
         game.menustart = true;
 
-        ed.directoryList.clear();
-        ed.directoryList.push_back(playtestname);
-
         LevelMetaData meta;
         if (ed.getLevelMetaData(playtestname, meta)) {
             ed.ListOfMetaData.clear();

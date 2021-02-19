@@ -337,23 +337,31 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 	return true;
 }
 
-std::vector<std::string> FILESYSTEM_getLevelDirFileNames()
-{
-	std::vector<std::string> list;
-	char **fileList = PHYSFS_enumerateFiles("/levels");
-	char **i;
-	std::string builtLocation;
+static PHYSFS_EnumerateCallbackResult enumerateCallback(
+	void* data,
+	const char* origdir,
+	const char* filename
+) {
+	void (*callback)(const char*) = (void (*)(const char*)) data;
+	char builtLocation[MAX_PATH];
 
-	for (i = fileList; *i != NULL; i++)
-	{
-		builtLocation = "levels/";
-		builtLocation += *i;
-		list.push_back(builtLocation);
-	}
+	SDL_snprintf(
+		builtLocation,
+		sizeof(builtLocation),
+		"%s/%s",
+		origdir,
+		filename
+	);
 
-	PHYSFS_freeList(fileList);
+	callback(builtLocation);
 
-	return list;
+	return PHYSFS_ENUM_OK;
+}
+
+void FILESYSTEM_enumerateLevelDirFileNames(
+	void (*callback)(const char* filename)
+) {
+	PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
 }
 
 static void PLATFORM_getOSDirectory(char* output)
