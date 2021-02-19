@@ -110,7 +110,6 @@ class editorclass{
   std::string Desc3;
   std::string website;
 
-  std::vector<std::string> directoryList;
   std::vector<LevelMetaData> ListOfMetaData;
 
   void loadZips();
