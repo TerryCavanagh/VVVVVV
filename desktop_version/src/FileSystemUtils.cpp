@@ -361,7 +361,15 @@ static PHYSFS_EnumerateCallbackResult enumerateCallback(
 void FILESYSTEM_enumerateLevelDirFileNames(
 	void (*callback)(const char* filename)
 ) {
-	PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
+	int success = PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
+
+	if (success == 0)
+	{
+		printf(
+			"Could not get list of levels: %s\n",
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+	}
 }
 
 static void PLATFORM_getOSDirectory(char* output)
