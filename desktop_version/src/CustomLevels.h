@@ -115,7 +115,6 @@ struct GhostInfo {
 };
 
 class editorclass{
-  //Special class to handle ALL editor variables locally
   public:
   editorclass(void);
 
