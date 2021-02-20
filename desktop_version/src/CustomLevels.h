@@ -150,7 +150,7 @@ public:
     int vmult[30 * maxheight];
     int numtrinkets(void);
     int numcrewmates(void);
-    RoomProperty level[numrooms]; //Maxwidth*maxheight
+    RoomProperty roomproperties[numrooms]; //Maxwidth*maxheight
 
     int levmusic;
     int mapwidth, mapheight; //Actual width and height of stage

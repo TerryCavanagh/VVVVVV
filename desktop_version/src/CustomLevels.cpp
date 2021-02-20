@@ -297,21 +297,21 @@ void customlevelclass::reset(void)
     {
         for (int i = 0; i < maxwidth; i++)
         {
-            level[i+(j*maxwidth)].tileset=0;
-            level[i+(j*maxwidth)].tilecol=(i+j)%32;
-            level[i+(j*maxwidth)].roomname="";
-            level[i+(j*maxwidth)].warpdir=0;
-            level[i+(j*maxwidth)].platx1=0;
-            level[i+(j*maxwidth)].platy1=0;
-            level[i+(j*maxwidth)].platx2=320;
-            level[i+(j*maxwidth)].platy2=240;
-            level[i+(j*maxwidth)].platv=4;
-            level[i+(j*maxwidth)].enemyx1=0;
-            level[i+(j*maxwidth)].enemyy1=0;
-            level[i+(j*maxwidth)].enemyx2=320;
-            level[i+(j*maxwidth)].enemyy2=240;
-            level[i+(j*maxwidth)].enemytype=0;
-            level[i+(j*maxwidth)].directmode=0;
+            roomproperties[i+(j*maxwidth)].tileset=0;
+            roomproperties[i+(j*maxwidth)].tilecol=(i+j)%32;
+            roomproperties[i+(j*maxwidth)].roomname="";
+            roomproperties[i+(j*maxwidth)].warpdir=0;
+            roomproperties[i+(j*maxwidth)].platx1=0;
+            roomproperties[i+(j*maxwidth)].platy1=0;
+            roomproperties[i+(j*maxwidth)].platx2=320;
+            roomproperties[i+(j*maxwidth)].platy2=240;
+            roomproperties[i+(j*maxwidth)].platv=4;
+            roomproperties[i+(j*maxwidth)].enemyx1=0;
+            roomproperties[i+(j*maxwidth)].enemyy1=0;
+            roomproperties[i+(j*maxwidth)].enemyx2=320;
+            roomproperties[i+(j*maxwidth)].enemyy2=240;
+            roomproperties[i+(j*maxwidth)].enemytype=0;
+            roomproperties[i+(j*maxwidth)].directmode=0;
         }
     }
 
@@ -790,9 +790,9 @@ const RoomProperty* customlevelclass::getroomprop(const int rx, const int ry)
 {
     const int idx = getroompropidx(rx, ry);
 
-    if (INBOUNDS_ARR(idx, level))
+    if (INBOUNDS_ARR(idx, roomproperties))
     {
-        return &level[idx];
+        return &roomproperties[idx];
     }
 
     static RoomProperty blank;
@@ -808,12 +808,12 @@ void customlevelclass::setroom##NAME(const int rx, const int ry, const TYPE NAME
 { \
     const int idx = getroompropidx(rx, ry); \
     \
-    if (!INBOUNDS_ARR(idx, level)) \
+    if (!INBOUNDS_ARR(idx, roomproperties)) \
     { \
         return; \
     } \
     \
-    level[idx].NAME = NAME; \
+    roomproperties[idx].NAME = NAME; \
 }
 
 ROOM_PROPERTIES
@@ -1139,31 +1139,31 @@ bool customlevelclass::load(std::string& _path)
             int i = 0;
             for( tinyxml2::XMLElement* edLevelClassElement = pElem->FirstChildElement(); edLevelClassElement; edLevelClassElement=edLevelClassElement->NextSiblingElement())
             {
-                if (!INBOUNDS_ARR(i, level))
+                if (!INBOUNDS_ARR(i, roomproperties))
                 {
                     continue;
                 }
 
                 if(edLevelClassElement->GetText() != NULL)
                 {
-                    level[i].roomname = std::string(edLevelClassElement->GetText()) ;
+                    roomproperties[i].roomname = std::string(edLevelClassElement->GetText()) ;
                 }
 
-                edLevelClassElement->QueryIntAttribute("tileset", &level[i].tileset);
-                edLevelClassElement->QueryIntAttribute("tilecol", &level[i].tilecol);
-                edLevelClassElement->QueryIntAttribute("platx1", &level[i].platx1);
-                edLevelClassElement->QueryIntAttribute("platy1", &level[i].platy1);
-                edLevelClassElement->QueryIntAttribute("platx2", &level[i].platx2);
-                edLevelClassElement->QueryIntAttribute("platy2", &level[i].platy2);
-                edLevelClassElement->QueryIntAttribute("platv", &level[i].platv);
-                edLevelClassElement->QueryIntAttribute("enemyx1", &level[i].enemyx1);
-                edLevelClassElement->QueryIntAttribute("enemyy1", &level[i].enemyy1);
-                edLevelClassElement->QueryIntAttribute("enemyx2", &level[i].enemyx2);
-                edLevelClassElement->QueryIntAttribute("enemyy2", &level[i].enemyy2);
-                edLevelClassElement->QueryIntAttribute("enemytype", &level[i].enemytype);
-                edLevelClassElement->QueryIntAttribute("directmode", &level[i].directmode);
+                edLevelClassElement->QueryIntAttribute("tileset", &roomproperties[i].tileset);
+                edLevelClassElement->QueryIntAttribute("tilecol", &roomproperties[i].tilecol);
+                edLevelClassElement->QueryIntAttribute("platx1", &roomproperties[i].platx1);
+                edLevelClassElement->QueryIntAttribute("platy1", &roomproperties[i].platy1);
+                edLevelClassElement->QueryIntAttribute("platx2", &roomproperties[i].platx2);
+                edLevelClassElement->QueryIntAttribute("platy2", &roomproperties[i].platy2);
+                edLevelClassElement->QueryIntAttribute("platv", &roomproperties[i].platv);
+                edLevelClassElement->QueryIntAttribute("enemyx1", &roomproperties[i].enemyx1);
+                edLevelClassElement->QueryIntAttribute("enemyy1", &roomproperties[i].enemyy1);
+                edLevelClassElement->QueryIntAttribute("enemyx2", &roomproperties[i].enemyx2);
+                edLevelClassElement->QueryIntAttribute("enemyy2", &roomproperties[i].enemyy2);
+                edLevelClassElement->QueryIntAttribute("enemytype", &roomproperties[i].enemytype);
+                edLevelClassElement->QueryIntAttribute("directmode", &roomproperties[i].directmode);
 
-                edLevelClassElement->QueryIntAttribute("warpdir", &level[i].warpdir);
+                edLevelClassElement->QueryIntAttribute("warpdir", &roomproperties[i].warpdir);
 
                 i++;
 
@@ -1223,7 +1223,7 @@ next:
 
         for (i = 0; i < numrooms; ++i)
         {
-            temp_platv[i] = level[i].platv;
+            temp_platv[i] = roomproperties[i].platv;
         }
 
         for (i = 0; i < numrooms; ++i)
@@ -1233,12 +1233,12 @@ next:
                 const int platv_idx = x + y * mapwidth;
                 if (INBOUNDS_ARR(platv_idx, temp_platv))
                 {
-                    level[i].platv = temp_platv[platv_idx];
+                    roomproperties[i].platv = temp_platv[platv_idx];
                 }
             }
             else
             {
-                level[i].platv = 4; /* default */
+                roomproperties[i].platv = 4; /* default */
             }
 
             ++x;
@@ -1382,7 +1382,7 @@ bool customlevelclass::save(std::string& _path)
                 const int platv_idx = x + y * mapwidth;
                 if (INBOUNDS_ARR(platv_idx, temp_platv))
                 {
-                    temp_platv[platv_idx] = level[i].platv;
+                    temp_platv[platv_idx] = roomproperties[i].platv;
                 }
             }
 
@@ -1398,25 +1398,25 @@ bool customlevelclass::save(std::string& _path)
         }
     }
 
-    for(size_t i = 0; i < SDL_arraysize(level); i++)
+    for(size_t i = 0; i < SDL_arraysize(roomproperties); i++)
     {
         tinyxml2::XMLElement *roompropertyElement = doc.NewElement( "edLevelClass" );
-        roompropertyElement->SetAttribute( "tileset", level[i].tileset);
-        roompropertyElement->SetAttribute(  "tilecol", level[i].tilecol);
-        roompropertyElement->SetAttribute(  "platx1", level[i].platx1);
-        roompropertyElement->SetAttribute(  "platy1", level[i].platy1);
-        roompropertyElement->SetAttribute(  "platx2", level[i].platx2);
-        roompropertyElement->SetAttribute( "platy2", level[i].platy2);
+        roompropertyElement->SetAttribute( "tileset", roomproperties[i].tileset);
+        roompropertyElement->SetAttribute(  "tilecol", roomproperties[i].tilecol);
+        roompropertyElement->SetAttribute(  "platx1", roomproperties[i].platx1);
+        roompropertyElement->SetAttribute(  "platy1", roomproperties[i].platy1);
+        roompropertyElement->SetAttribute(  "platx2", roomproperties[i].platx2);
+        roompropertyElement->SetAttribute( "platy2", roomproperties[i].platy2);
         roompropertyElement->SetAttribute( "platv", temp_platv[i]);
-        roompropertyElement->SetAttribute(  "enemyx1", level[i].enemyx1);
-        roompropertyElement->SetAttribute(  "enemyy1", level[i].enemyy1);
-        roompropertyElement->SetAttribute(  "enemyx2", level[i].enemyx2);
-        roompropertyElement->SetAttribute(  "enemyy2", level[i].enemyy2);
-        roompropertyElement->SetAttribute(  "enemytype", level[i].enemytype);
-        roompropertyElement->SetAttribute(  "directmode", level[i].directmode);
-        roompropertyElement->SetAttribute(  "warpdir", level[i].warpdir);
+        roompropertyElement->SetAttribute(  "enemyx1", roomproperties[i].enemyx1);
+        roompropertyElement->SetAttribute(  "enemyy1", roomproperties[i].enemyy1);
+        roompropertyElement->SetAttribute(  "enemyx2", roomproperties[i].enemyx2);
+        roompropertyElement->SetAttribute(  "enemyy2", roomproperties[i].enemyy2);
+        roompropertyElement->SetAttribute(  "enemytype", roomproperties[i].enemytype);
+        roompropertyElement->SetAttribute(  "directmode", roomproperties[i].directmode);
+        roompropertyElement->SetAttribute(  "warpdir", roomproperties[i].warpdir);
 
-        roompropertyElement->LinkEndChild( doc.NewText( level[i].roomname.c_str() )) ;
+        roompropertyElement->LinkEndChild( doc.NewText( roomproperties[i].roomname.c_str() )) ;
         msg->LinkEndChild( roompropertyElement );
     }
 

@@ -6788,7 +6788,7 @@ void Game::returntoeditor(void)
     {
         for (int i = 0; i < cl.maxwidth; i++)
         {
-           cl.level[i+(j*cl.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*cl.maxwidth)];
+           cl.roomproperties[i+(j*cl.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*cl.maxwidth)];
         }
     }
     graphics.titlebg.scrolldir = 0;
