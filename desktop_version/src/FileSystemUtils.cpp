@@ -16,15 +16,11 @@
 #if defined(_WIN32)
 #include <windows.h>
 #include <shlobj.h>
-#include <shellapi.h>
 #elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
 #include <unistd.h>
 #include <dirent.h>
 #include <limits.h>
 #include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <spawn.h>
 #define MAX_PATH PATH_MAX
 #endif
 
