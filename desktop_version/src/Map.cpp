@@ -1562,7 +1562,7 @@ void mapclass::loadlevel(int rx, int ry)
 #if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
 	{
-		const edlevelclass* const room = cl.getroomprop(rx - 100, ry - 100);
+		const RoomProperty* const room = cl.getroomprop(rx - 100, ry - 100);
 		game.customcol = cl.getlevelcol(room->tileset, room->tilecol) + 1;
 		obj.customplatformtile = game.customcol * 12;
 
