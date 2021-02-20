@@ -453,7 +453,7 @@ void mapclass::initcustommapdata(void)
 #if !defined(NO_CUSTOM_LEVELS)
 	for (size_t i = 0; i < edentity.size(); i++)
 	{
-		const edentities& ent = edentity[i];
+		const CustomEntity& ent = edentity[i];
 		if (ent.t != 9)
 		{
 			continue;
@@ -1637,7 +1637,7 @@ void mapclass::loadlevel(int rx, int ry)
 		for (size_t edi = 0; edi < edentity.size(); edi++)
 		{
 			// If entity is in this room, create it
-			const edentities& ent = edentity[edi];
+			const CustomEntity& ent = edentity[edi];
 			const int tsx = ent.x / 40;
 			const int tsy = ent.y / 30;
 
