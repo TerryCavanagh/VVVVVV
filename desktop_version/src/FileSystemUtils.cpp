@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <iostream>
 #include <iterator>
 #include <physfs.h>
