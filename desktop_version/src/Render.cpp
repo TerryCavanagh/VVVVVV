@@ -1,7 +1,7 @@
 #include <SDL.h>
 
 #include "Credits.h"
-#include "editor.h"
+#include "CustomLevels.h"
 #include "Entity.h"
 #include "FileSystemUtils.h"
 #include "GlitchrunnerMode.h"

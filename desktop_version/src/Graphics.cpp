@@ -3,7 +3,7 @@
 
 #include <utf8/unchecked.h>
 
-#include "editor.h"
+#include "CustomLevels.h"
 #include "Entity.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"

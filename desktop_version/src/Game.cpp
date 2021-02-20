@@ -6,8 +6,8 @@
 #include <string.h>
 #include <tinyxml2.h>
 
+#include "CustomLevels.h"
 #include "DeferCallbacks.h"
-#include "editor.h"
 #include "Entity.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"

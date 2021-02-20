@@ -1,7 +1,7 @@
 #include <tinyxml2.h>
 
 #include "Credits.h"
-#include "editor.h"
+#include "CustomLevels.h"
 #include "Entity.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"

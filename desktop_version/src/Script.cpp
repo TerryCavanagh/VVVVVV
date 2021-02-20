@@ -4,7 +4,7 @@
 #include <limits.h>
 #include <SDL_timer.h>
 
-#include "editor.h"
+#include "CustomLevels.h"
 #include "Entity.h"
 #include "Enums.h"
 #include "Exit.h"
