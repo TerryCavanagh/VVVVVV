@@ -2845,7 +2845,7 @@ void scriptclass::startgamemode( int t )
 		{
 			for (int i = 0; i < cl.maxwidth; i++)
 			{
-				ed.kludgewarpdir[i+(j*cl.maxwidth)]=cl.level[i+(j*cl.maxwidth)].warpdir;
+				ed.kludgewarpdir[i+(j*cl.maxwidth)]=cl.roomproperties[i+(j*cl.maxwidth)].warpdir;
 			}
 		}
 		game.customstart();
