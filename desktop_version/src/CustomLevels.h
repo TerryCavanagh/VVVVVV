@@ -7,7 +7,8 @@
 #include <string>
 #include <vector>
 
-class edentities{
+class CustomEntity
+{
 public:
     int x, y, t;
     //parameters
@@ -60,7 +61,7 @@ struct LevelMetaData
 };
 
 
-extern std::vector<edentities> edentity;
+extern std::vector<CustomEntity> edentity;
 
 class EditorData
 {

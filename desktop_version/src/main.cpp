@@ -32,7 +32,7 @@
 scriptclass script;
 
 #ifndef NO_CUSTOM_LEVELS
-std::vector<edentities> edentity;
+std::vector<CustomEntity> edentity;
 customlevelclass cl;
 # ifndef NO_EDITOR
 editorclass ed;

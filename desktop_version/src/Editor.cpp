@@ -245,7 +245,7 @@ void editorclass::getlin(const enum textmode mode, const std::string& prompt, st
 
 static void addedentity( int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240)
 {
-    edentities entity;
+    CustomEntity entity;
 
     entity.x=xp;
     entity.y=yp;
