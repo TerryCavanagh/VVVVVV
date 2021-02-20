@@ -2,6 +2,7 @@
 
 #include "Credits.h"
 #include "CustomLevels.h"
+#include "Editor.h"
 #include "Entity.h"
 #include "FileSystemUtils.h"
 #include "GlitchrunnerMode.h"
@@ -168,22 +169,22 @@ static void menurender(void)
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
-      if(ed.ListOfMetaData.size()==0){
+      if(cl.ListOfMetaData.size()==0){
       graphics.Print( -1, 100, "ERROR: No levels found.", tr, tg, tb, true);
       }
       int tmp=game.currentmenuoption+(game.levelpage*8);
-      if(INBOUNDS_VEC(tmp, ed.ListOfMetaData)){
-        const bool nextlastoptions = ed.ListOfMetaData.size() > 8;
+      if(INBOUNDS_VEC(tmp, cl.ListOfMetaData)){
+        const bool nextlastoptions = cl.ListOfMetaData.size() > 8;
         //Don't show next/previous page or return to menu options here!
         if(nextlastoptions && game.menuoptions.size() - game.currentmenuoption<=3){
 
         }else{
-          graphics.bigprint( -1, 15, ed.ListOfMetaData[tmp].title, tr, tg, tb, true);
-          graphics.Print( -1, 40, "by " + ed.ListOfMetaData[tmp].creator, tr, tg, tb, true);
-          graphics.Print( -1, 50, ed.ListOfMetaData[tmp].website, tr, tg, tb, true);
-          graphics.Print( -1, 70, ed.ListOfMetaData[tmp].Desc1, tr, tg, tb, true);
-          graphics.Print( -1, 80, ed.ListOfMetaData[tmp].Desc2, tr, tg, tb, true);
-          graphics.Print( -1, 90, ed.ListOfMetaData[tmp].Desc3, tr, tg, tb, true);
+          graphics.bigprint( -1, 15, cl.ListOfMetaData[tmp].title, tr, tg, tb, true);
+          graphics.Print( -1, 40, "by " + cl.ListOfMetaData[tmp].creator, tr, tg, tb, true);
+          graphics.Print( -1, 50, cl.ListOfMetaData[tmp].website, tr, tg, tb, true);
+          graphics.Print( -1, 70, cl.ListOfMetaData[tmp].Desc1, tr, tg, tb, true);
+          graphics.Print( -1, 80, cl.ListOfMetaData[tmp].Desc2, tr, tg, tb, true);
+          graphics.Print( -1, 90, cl.ListOfMetaData[tmp].Desc3, tr, tg, tb, true);
         }
       }
       break;
@@ -1767,7 +1768,7 @@ void gamerender(void)
         }
     }
 
-#if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
      if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
         int alpha = graphics.lerp(ed.oldreturneditoralpha, ed.returneditoralpha);
@@ -2388,7 +2389,7 @@ void maprender(void)
         }
 #if !defined(NO_CUSTOM_LEVELS)
         else if(map.custommode){
-            LevelMetaData& meta = ed.ListOfMetaData[game.playcustomlevel];
+            LevelMetaData& meta = cl.ListOfMetaData[game.playcustomlevel];
 
             graphics.bigprint( -1, FLIP(45), meta.title, 196, 196, 255 - help.glow, true);
             graphics.Print( -1, FLIP(70), "by " + meta.creator, 196, 196, 255 - help.glow, true);
@@ -2397,7 +2398,7 @@ void maprender(void)
             graphics.Print( -1, FLIP(110), meta.Desc2, 196, 196, 255 - help.glow, true);
             graphics.Print( -1, FLIP(120), meta.Desc3, 196, 196, 255 - help.glow, true);
 
-            int remaining = ed.numcrewmates() - game.crewmates();
+            int remaining = cl.numcrewmates() - game.crewmates();
 
             if(remaining==1){
                 graphics.Print(1,FLIP(165), help.number(remaining)+ " crewmate remains", 196, 196, 255 - help.glow, true);
@@ -2475,7 +2476,7 @@ void maprender(void)
           if (graphics.flipmode)
           {
               graphics.Print(0, 164, "[Trinkets found]", 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 152, help.number(game.trinkets()) + " out of " + help.number(ed.numtrinkets()), 96,96,96, true);
+              graphics.Print(0, 152, help.number(game.trinkets()) + " out of " + help.number(cl.numtrinkets()), 96,96,96, true);
 
               graphics.Print(0, 114, "[Number of Deaths]", 196, 196, 255 - help.glow, true);
               graphics.Print(0, 102,help.String(game.deathcounts),  96,96,96, true);
@@ -2486,7 +2487,7 @@ void maprender(void)
           else
           {
               graphics.Print(0, 52, "[Trinkets found]", 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 64, help.number(game.trinkets()) + " out of "+help.number(ed.numtrinkets()), 96,96,96, true);
+              graphics.Print(0, 64, help.number(game.trinkets()) + " out of "+help.number(cl.numtrinkets()), 96,96,96, true);
 
               graphics.Print(0, 102, "[Number of Deaths]", 196, 196, 255 - help.glow, true);
               graphics.Print(0, 114,help.String(game.deathcounts),  96,96,96, true);

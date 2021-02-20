@@ -1,6 +1,6 @@
 #if !defined(NO_CUSTOM_LEVELS)
 
-#define ED_DEFINITION
+#define CL_DEFINITION
 #include "CustomLevels.h"
 
 #include <physfs.h>
@@ -9,6 +9,7 @@
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
 
+#include "Editor.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
@@ -52,7 +53,7 @@ edlevelclass::edlevelclass(void)
     directmode=0;
 }
 
-editorclass::editorclass(void)
+customlevelclass::customlevelclass(void)
 {
     for (size_t i = 0; i < SDL_arraysize(vmult); i++)
     {
@@ -93,7 +94,7 @@ static void levelZipCallback(const char* filename)
     }
 }
 
-void editorclass::loadZips(void)
+void customlevelclass::loadZips(void)
 {
     FILESYSTEM_enumerateLevelDirFileNames(levelZipCallback);
 }
@@ -205,7 +206,7 @@ TAG_FINDER(find_website, "website")
 
 static void levelMetaDataCallback(const char* filename)
 {
-    extern editorclass ed;
+    extern customlevelclass cl;
     LevelMetaData temp;
     std::string filename_ = filename;
 
@@ -216,13 +217,13 @@ static void levelMetaDataCallback(const char* filename)
         return;
     }
 
-    if (ed.getLevelMetaData(filename_, temp))
+    if (cl.getLevelMetaData(filename_, temp))
     {
-        ed.ListOfMetaData.push_back(temp);
+        cl.ListOfMetaData.push_back(temp);
     }
 }
 
-void editorclass::getDirectoryData(void)
+void customlevelclass::getDirectoryData(void)
 {
 
     ListOfMetaData.clear();
@@ -245,7 +246,7 @@ void editorclass::getDirectoryData(void)
     }
 
 }
-bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
+bool customlevelclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
 {
     unsigned char *uMem;
     FILESYSTEM_loadFileToMemory(_path.c_str(), &uMem, NULL, true);
@@ -277,7 +278,7 @@ bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
     return true;
 }
 
-void editorclass::reset(void)
+void customlevelclass::reset(void)
 {
     version=2; //New smaller format change is 2
 
@@ -286,68 +287,8 @@ void editorclass::reset(void)
 
     EditorData::GetInstance().title="Untitled Level";
     EditorData::GetInstance().creator="Unknown";
-    Desc1="";
-    Desc2="";
-    Desc3="";
-    website="";
 
-    roomnamehide=0;
-    zmod=false;
-    xmod=false;
-    cmod=false;
-    vmod=false;
-    hmod=false;
-    bmod=false;
-    spacemod=false;
-    spacemenu=0;
-    shiftmenu=false;
-    shiftkey=false;
-    saveandquit=false;
-    note="";
-    notedelay=0;
-    oldnotedelay=0;
-    deletekeyheld=false;
-    textmod = TEXT_NONE;
-
-    titlemod=false;
-    creatormod=false;
-    desc1mod=false;
-    desc2mod=false;
-    desc3mod=false;
-    websitemod=false;
-    settingsmod=false;
-    warpmod=false; //Two step process
-    warpent=-1;
-
-    boundarymod=0;
-    boundarytype=0;
-    boundx1=0;
-    boundx2=0;
-    boundy1=0;
-    boundy2=0;
-
-    textent=0;
-    scripttexttype=0;
-
-    drawmode=0;
-    dmtile=0;
-    dmtileeditor=0;
-    entcol=0;
-
-    tilex=0;
-    tiley=0;
-    levx=0;
-    levy=0;
-    keydelay=0;
-    lclickdelay=0;
-    savekey=false;
-    loadkey=false;
-    updatetiles=true;
-    changeroom=true;
     levmusic=0;
-
-    entframe=0;
-    entframedelay=0;
 
     edentity.clear();
     levmusic=0;
@@ -371,173 +312,17 @@ void editorclass::reset(void)
             level[i+(j*maxwidth)].enemyy2=240;
             level[i+(j*maxwidth)].enemytype=0;
             level[i+(j*maxwidth)].directmode=0;
-            kludgewarpdir[i+(j*maxwidth)]=0;
         }
     }
 
     SDL_zeroa(contents);
 
-    hooklist.clear();
-
-    sb.clear();
-
-    clearscriptbuffer();
-    sbx=0;
-    sby=0;
-    pagey=0;
-    scripteditmod=false;
-    sbscript="null";
-    scripthelppage=0;
-    scripthelppagedelay=0;
-
-    hookmenupage=0;
-    hookmenu=0;
     script.clearcustom();
 
-    returneditoralpha = 0;
-    oldreturneditoralpha = 0;
-
-    ghosts.clear();
-    currentghosts = 0;
-
     onewaycol_override = false;
-
-    loaded_filepath = "";
 }
 
-void editorclass::gethooks(void)
-{
-    //Scan through the script and create a hooks list based on it
-    hooklist.clear();
-    for (size_t i = 0; i < script.customscripts.size(); i++)
-    {
-        Script& script_ = script.customscripts[i];
-
-        hooklist.push_back(script_.name);
-    }
-}
-
-void editorclass::loadhookineditor(std::string t)
-{
-    //Find hook t in the scriptclass, then load it into the editor
-    clearscriptbuffer();
-
-    for(size_t i = 0; i < script.customscripts.size(); i++)
-    {
-        Script& script_ = script.customscripts[i];
-
-        if(script_.name == t)
-        {
-            sb = script_.contents;
-            break;
-        }
-    }
-
-    if(sb.empty())
-    {
-        //Always have one line or we'll have problems
-        sb.resize(1);
-    }
-}
-
-void editorclass::addhooktoscript(std::string t)
-{
-    //Adds hook+the scriptbuffer to the end of the scriptclass
-    removehookfromscript(t);
-    Script script_;
-    script_.name = t;
-    script_.contents = sb;
-    script.customscripts.push_back(script_);
-}
-
-void editorclass::removehookfromscript(std::string t)
-{
-    /* Find hook t in the scriptclass, then removes it (and any other code with it)
-     * When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
-    size_t i;
-    for (i = script.customscripts.size() - 1; i + 1 > 0; --i)
-    {
-        if (script.customscripts[i].name == t)
-        {
-            script.customscripts.erase(script.customscripts.begin() + i);
-        }
-    }
-}
-
-void editorclass::removehook(std::string t)
-{
-    //Check the hooklist for the hook t. If it's there, remove it from here and the script
-    size_t i;
-    removehookfromscript(t);
-    /* When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
-    for (i = hooklist.size() - 1; i + 1 > 0; --i)
-    {
-        if (hooklist[i] == t)
-        {
-            hooklist.erase(hooklist.begin() + i);
-        }
-    }
-}
-
-void editorclass::addhook(std::string t)
-{
-    //Add an empty function to the list in both editor and script
-    removehook(t);
-    hooklist.push_back(t);
-    addhooktoscript(t);
-}
-
-bool editorclass::checkhook(std::string t)
-{
-    //returns true if hook t already is in the list
-    for(size_t i=0; i<hooklist.size(); i++)
-    {
-        if(hooklist[i]==t) return true;
-    }
-    return false;
-}
-
-
-void editorclass::clearscriptbuffer(void)
-{
-    sb.clear();
-}
-
-void editorclass::removeline(int t)
-{
-    //Remove line t from the script
-    if((int)sb.size()>1)
-    {
-        sb.erase(sb.begin() + t);
-    }
-}
-
-void editorclass::insertline(int t)
-{
-    //insert a blank line into script at line t
-    sb.insert(sb.begin() + t, "");
-}
-
-void editorclass::getlin(const enum textmode mode, const std::string& prompt, std::string* ptr)
-{
-    textmod = mode;
-    textptr = ptr;
-    textdesc = prompt;
-    key.enabletextentry();
-    if (ptr)
-    {
-        key.keybuffer = *ptr;
-    }
-    else
-    {
-        key.keybuffer = "";
-        textptr = &(key.keybuffer);
-    }
-
-    oldenttext = key.keybuffer;
-}
-
-const int* editorclass::loadlevel( int rxi, int ryi )
+const int* customlevelclass::loadlevel( int rxi, int ryi )
 {
     //Set up our buffer array to be picked up by mapclass
     rxi -= 100;
@@ -560,7 +345,7 @@ const int* editorclass::loadlevel( int rxi, int ryi )
     return result;
 }
 
-int editorclass::getlevelcol(const int tileset, const int tilecol)
+int customlevelclass::getlevelcol(const int tileset, const int tilecol)
 {
     if(tileset==0)  //Space Station
     {
@@ -585,7 +370,7 @@ int editorclass::getlevelcol(const int tileset, const int tilecol)
     return 0;
 }
 
-int editorclass::getenemycol(int t)
+int customlevelclass::getenemycol(int t)
 {
     switch(t)
     {
@@ -677,7 +462,7 @@ int editorclass::getenemycol(int t)
     }
 }
 
-int editorclass::getwarpbackground(int rx, int ry)
+int customlevelclass::getwarpbackground(int rx, int ry)
 {
     const edlevelclass* const room = getroomprop(rx, ry);
     switch(room->tileset)
@@ -914,47 +699,7 @@ int editorclass::getwarpbackground(int rx, int ry)
     }
 }
 
-int editorclass::getenemyframe(int t)
-{
-    switch(t)
-    {
-    case 0:
-        return 78;
-        break;
-    case 1:
-        return 88;
-        break;
-    case 2:
-        return 36;
-        break;
-    case 3:
-        return 164;
-        break;
-    case 4:
-        return 68;
-        break;
-    case 5:
-        return 48;
-        break;
-    case 6:
-        return 176;
-        break;
-    case 7:
-        return 168;
-        break;
-    case 8:
-        return 112;
-        break;
-    case 9:
-        return 114;
-        break;
-    default:
-        return 78;
-        break;
-    }
-}
-
-int editorclass::gettileidx(
+int customlevelclass::gettileidx(
     const int rx,
     const int ry,
     const int x,
@@ -978,7 +723,7 @@ int editorclass::gettileidx(
     return idx;
 }
 
-void editorclass::settile(
+void customlevelclass::settile(
     const int rx,
     const int ry,
     const int x,
@@ -995,7 +740,7 @@ void editorclass::settile(
     contents[idx] = t;
 }
 
-int editorclass::gettile(
+int customlevelclass::gettile(
     const int rx,
     const int ry,
     const int x,
@@ -1011,7 +756,7 @@ int editorclass::gettile(
     return contents[idx];
 }
 
-int editorclass::getabstile(const int x, const int y)
+int customlevelclass::getabstile(const int x, const int y)
 {
     int idx;
     int yoff;
@@ -1036,12 +781,12 @@ int editorclass::getabstile(const int x, const int y)
 }
 
 
-int editorclass::getroompropidx(const int rx, const int ry)
+int customlevelclass::getroompropidx(const int rx, const int ry)
 {
     return rx + ry*maxwidth;
 }
 
-const edlevelclass* editorclass::getroomprop(const int rx, const int ry)
+const edlevelclass* customlevelclass::getroomprop(const int rx, const int ry)
 {
     const int idx = getroompropidx(rx, ry);
 
@@ -1059,7 +804,7 @@ const edlevelclass* editorclass::getroomprop(const int rx, const int ry)
 }
 
 #define FOREACH_PROP(NAME, TYPE) \
-void editorclass::setroom##NAME(const int rx, const int ry, const TYPE NAME) \
+void customlevelclass::setroom##NAME(const int rx, const int ry, const TYPE NAME) \
 { \
     const int idx = getroompropidx(rx, ry); \
     \
@@ -1076,271 +821,7 @@ ROOM_PROPERTIES
 #undef FOREACH_PROP
 
 
-void editorclass::placetilelocal( int x, int y, int t )
-{
-    if(x>=0 && y>=0 && x<40 && y<30)
-    {
-        settile(levx, levy, x, y, t);
-    }
-    updatetiles=true;
-}
-
-int editorclass::base( int x, int y )
-{
-    //Return the base tile for the given tileset and colour
-    const edlevelclass* const room = getroomprop(x, y);
-    if(room->tileset==0)  //Space Station
-    {
-        if(room->tilecol>=22)
-        {
-            return 483 + ((room->tilecol-22)*3);
-        }
-        else if(room->tilecol>=11)
-        {
-            return 283 + ((room->tilecol-11)*3);
-        }
-        else
-        {
-            return 83 + (room->tilecol*3);
-        }
-    }
-    else if(room->tileset==1)   //Outside
-    {
-        return 480 + (room->tilecol*3);
-    }
-    else if(room->tileset==2)   //Lab
-    {
-        return 280 + (room->tilecol*3);
-    }
-    else if(room->tileset==3)   //Warp Zone/Intermission
-    {
-        return 80 + (room->tilecol*3);
-    }
-    else if(room->tileset==4)   //SHIP
-    {
-        return 101 + (room->tilecol*3);
-    }
-    return 0;
-}
-
-int editorclass::backbase( int x, int y )
-{
-    //Return the base tile for the background of the given tileset and colour
-    const edlevelclass* const room = getroomprop(x, y);
-    if(room->tileset==0)  //Space Station
-    {
-        //Pick depending on tilecol
-        switch(room->tilecol)
-        {
-        case 0:
-        case 5:
-        case 26:
-            return 680; //Blue
-            break;
-        case 3:
-        case 16:
-        case 23:
-            return 683; //Yellow
-            break;
-        case 9:
-        case 12:
-        case 21:
-            return 686; //Greeny Cyan
-            break;
-        case 4:
-        case 8:
-        case 24:
-        case 28:
-        case 30:
-            return 689; //Green
-            break;
-        case 20:
-        case 29:
-            return 692; //Orange
-            break;
-        case 2:
-        case 6:
-        case 11:
-        case 22:
-        case 27:
-            return 695; //Red
-            break;
-        case 1:
-        case 10:
-        case 15:
-        case 19:
-        case 31:
-            return 698; //Pink
-            break;
-        case 14:
-        case 18:
-            return 701; //Dark Blue
-            break;
-        case 7:
-        case 13:
-        case 17:
-        case 25:
-            return 704; //Cyan
-            break;
-        default:
-            return 680;
-            break;
-        }
-
-    }
-    else if(room->tileset==1)   //outside
-    {
-        return 680 + (room->tilecol*3);
-    }
-    else if(room->tileset==2)   //Lab
-    {
-        return 0;
-    }
-    else if(room->tileset==3)   //Warp Zone/Intermission
-    {
-        return 120 + (room->tilecol*3);
-    }
-    else if(room->tileset==4)   //SHIP
-    {
-        return 741 + (room->tilecol*3);
-    }
-    return 0;
-}
-
-int editorclass::at( int x, int y )
-{
-    if(x<0) return at(0,y);
-    if(y<0) return at(x,0);
-    if(x>=40) return at(39,y);
-    if(y>=30) return at(x,29);
-
-    if(x>=0 && y>=0 && x<40 && y<30)
-    {
-        return gettile(levx, levy, x, y);
-    }
-    return 0;
-}
-
-
-int editorclass::freewrap( int x, int y )
-{
-    if(x<0) return freewrap(x+(mapwidth*40),y);
-    if(y<0) return freewrap(x,y+(mapheight*30));
-    if(x>=(mapwidth*40)) return freewrap(x-(mapwidth*40),y);
-    if(y>=(mapheight*30)) return freewrap(x,y-(mapheight*30));
-
-    if(x>=0 && y>=0 && x<(mapwidth*40) && y<(mapheight*30))
-    {
-        if(getabstile(x, y)==0)
-        {
-            return 0;
-        }
-        else
-        {
-            if(getabstile(x, y)>=2 && getabstile(x, y)<80)
-            {
-                return 0;
-            }
-            if(getabstile(x, y)>=680)
-            {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-
-int editorclass::backonlyfree( int x, int y )
-{
-    //Returns 1 if tile is a background tile, 0 otherwise
-    if(x<0) return backonlyfree(0,y);
-    if(y<0) return backonlyfree(x,0);
-    if(x>=40) return backonlyfree(39,y);
-    if(y>=30) return backonlyfree(x,29);
-
-    if(x>=0 && y>=0 && x<40 && y<30)
-    {
-        if(gettile(levx, levy, x, y)>=680)
-        {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-int editorclass::backfree( int x, int y )
-{
-    //Returns 0 if tile is not a block or background tile, 1 otherwise
-    if(x<0) return backfree(0,y);
-    if(y<0) return backfree(x,0);
-    if(x>=40) return backfree(39,y);
-    if(y>=30) return backfree(x,29);
-
-    if(x>=0 && y>=0 && x<40 && y<30)
-    {
-        if(gettile(levx, levy, x, y)==0)
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
-
-int editorclass::spikefree( int x, int y )
-{
-    //Returns 0 if tile is not a block or spike, 1 otherwise
-    if(x==-1) return free(0,y);
-    if(y==-1) return free(x,0);
-    if(x==40) return free(39,y);
-    if(y==30) return free(x,29);
-
-    if(x>=0 && y>=0 && x<40 && y<30)
-    {
-        if(gettile(levx, levy, x, y)==0)
-        {
-            return 0;
-        }
-        else
-        {
-            if(gettile(levx, levy, x, y)>=680)
-            {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-
-int editorclass::free( int x, int y )
-{
-    //Returns 0 if tile is not a block, 1 otherwise
-    if(x==-1) return free(0,y);
-    if(y==-1) return free(x,0);
-    if(x==40) return free(39,y);
-    if(y==30) return free(x,29);
-
-    if(x>=0 && y>=0 && x<40 && y<30)
-    {
-        if(gettile(levx, levy, x, y)==0)
-        {
-            return 0;
-        }
-        else
-        {
-            if(gettile(levx, levy, x, y)>=2 && gettile(levx, levy, x, y)<80)
-            {
-                return 0;
-            }
-            if(gettile(levx, levy, x, y)>=680)
-            {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-
-int editorclass::absfree( int x, int y )
+int customlevelclass::absfree( int x, int y )
 {
     //Returns 0 if tile is not a block, 1 otherwise, abs on grid
     if(x>=0 && y>=0 && x<mapwidth*40 && y<mapheight*30)
@@ -1364,199 +845,7 @@ int editorclass::absfree( int x, int y )
     return 1;
 }
 
-int editorclass::match( int x, int y )
-{
-    if(free(x-1,y)==0 && free(x,y-1)==0 && free(x+1,y)==0 && free(x,y+1)==0) return 0;
-
-    if(free(x-1,y)==0 && free(x,y-1)==0) return 10;
-    if(free(x+1,y)==0 && free(x,y-1)==0) return 11;
-    if(free(x-1,y)==0 && free(x,y+1)==0) return 12;
-    if(free(x+1,y)==0 && free(x,y+1)==0) return 13;
-
-    if(free(x,y-1)==0) return 1;
-    if(free(x-1,y)==0) return 2;
-    if(free(x,y+1)==0) return 3;
-    if(free(x+1,y)==0) return 4;
-    if(free(x-1,y-1)==0) return 5;
-    if(free(x+1,y-1)==0) return 6;
-    if(free(x-1,y+1)==0) return 7;
-    if(free(x+1,y+1)==0) return 8;
-
-    return 0;
-}
-
-int editorclass::outsidematch( int x, int y )
-{
-
-    if(backonlyfree(x-1,y)==0 && backonlyfree(x+1,y)==0) return 2;
-    if(backonlyfree(x,y-1)==0 && backonlyfree(x,y+1)==0) return 1;
-
-    return 0;
-}
-
-int editorclass::backmatch( int x, int y )
-{
-    //Returns the first position match for a border
-    // 5 1 6
-    // 2 X 4
-    // 7 3 8
-    if(backfree(x-1,y)==0 && backfree(x,y-1)==0 && backfree(x+1,y)==0 && backfree(x,y+1)==0) return 0;
-
-    if(backfree(x-1,y)==0 && backfree(x,y-1)==0) return 10;
-    if(backfree(x+1,y)==0 && backfree(x,y-1)==0) return 11;
-    if(backfree(x-1,y)==0 && backfree(x,y+1)==0) return 12;
-    if(backfree(x+1,y)==0 && backfree(x,y+1)==0) return 13;
-
-    if(backfree(x,y-1)==0) return 1;
-    if(backfree(x-1,y)==0) return 2;
-    if(backfree(x,y+1)==0) return 3;
-    if(backfree(x+1,y)==0) return 4;
-    if(backfree(x-1,y-1)==0) return 5;
-    if(backfree(x+1,y-1)==0) return 6;
-    if(backfree(x-1,y+1)==0) return 7;
-    if(backfree(x+1,y+1)==0) return 8;
-
-    return 0;
-}
-
-int editorclass::edgetile( int x, int y )
-{
-    switch(match(x,y))
-    {
-    case 14:
-        return 0;
-        break;
-    case 10:
-        return 80;
-        break;
-    case 11:
-        return 82;
-        break;
-    case 12:
-        return 160;
-        break;
-    case 13:
-        return 162;
-        break;
-    case 1:
-        return 81;
-        break;
-    case 2:
-        return 120;
-        break;
-    case 3:
-        return 161;
-        break;
-    case 4:
-        return 122;
-        break;
-    case 5:
-        return 42;
-        break;
-    case 6:
-        return 41;
-        break;
-    case 7:
-        return 2;
-        break;
-    case 8:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 0;
-        break;
-    }
-}
-
-int editorclass::outsideedgetile( int x, int y )
-{
-    switch(outsidematch(x,y))
-    {
-    case 2:
-        return 0;
-        break;
-    case 1:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 2;
-        break;
-    }
-}
-
-
-int editorclass::backedgetile( int x, int y )
-{
-    switch(backmatch(x,y))
-    {
-    case 14:
-        return 0;
-        break;
-    case 10:
-        return 80;
-        break;
-    case 11:
-        return 82;
-        break;
-    case 12:
-        return 160;
-        break;
-    case 13:
-        return 162;
-        break;
-    case 1:
-        return 81;
-        break;
-    case 2:
-        return 120;
-        break;
-    case 3:
-        return 161;
-        break;
-    case 4:
-        return 122;
-        break;
-    case 5:
-        return 42;
-        break;
-    case 6:
-        return 41;
-        break;
-    case 7:
-        return 2;
-        break;
-    case 8:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 0;
-        break;
-    }
-}
-
-int editorclass::labspikedir( int x, int y, int t )
-{
-    // a slightly more tricky case
-    if(free(x,y+1)==1) return 63 + (t*2);
-    if(free(x,y-1)==1) return 64 + (t*2);
-    if(free(x-1,y)==1) return 51 + (t*2);
-    if(free(x+1,y)==1) return 52 + (t*2);
-    return 63 + (t*2);
-}
-
-int editorclass::spikedir( int x, int y )
-{
-    if(free(x,y+1)==1) return 8;
-    if(free(x,y-1)==1) return 9;
-    if(free(x-1,y)==1) return 49;
-    if(free(x+1,y)==1) return 50;
-    return 8;
-}
-
-void editorclass::findstartpoint(void)
+void customlevelclass::findstartpoint(void)
 {
     //Ok! Scan the room for the closest checkpoint
     int testeditor=-1;
@@ -1595,7 +884,7 @@ void editorclass::findstartpoint(void)
     }
 }
 
-int editorclass::findtrinket(int t)
+int customlevelclass::findtrinket(int t)
 {
     int ttrinket=0;
     for(int i=0; i<(int)edentity.size(); i++)
@@ -1606,7 +895,7 @@ int editorclass::findtrinket(int t)
     return 0;
 }
 
-int editorclass::findcrewmate(int t)
+int customlevelclass::findcrewmate(int t)
 {
     int ttrinket=0;
     for(int i=0; i<(int)edentity.size(); i++)
@@ -1617,7 +906,7 @@ int editorclass::findcrewmate(int t)
     return 0;
 }
 
-int editorclass::findwarptoken(int t)
+int customlevelclass::findwarptoken(int t)
 {
     int ttrinket=0;
     for(int i=0; i<(int)edentity.size(); i++)
@@ -1628,175 +917,17 @@ int editorclass::findwarptoken(int t)
     return 0;
 }
 
-void editorclass::switch_tileset(const bool reversed)
-{
-    const char* tilesets[] = {"Space Station", "Outside", "Lab", "Warp Zone", "Ship"};
 
-    int tiles = getroomprop(levx, levy)->tileset;
-
-    if (reversed)
-    {
-        tiles--;
-    }
-    else
-    {
-        tiles++;
-    }
-
-    const int modulus = SDL_arraysize(tilesets);
-    tiles = (tiles % modulus + modulus) % modulus;
-    setroomtileset(levx, levy, tiles);
-
-    clamp_tilecol(levx, levy, false);
-
-    char buffer[64];
-    SDL_snprintf(buffer, sizeof(buffer), "Now using %s Tileset", tilesets[tiles]);
-
-    note = buffer;
-    notedelay = 45;
-    updatetiles = true;
-}
-
-void editorclass::switch_tilecol(const bool reversed)
-{
-    int tilecol = getroomprop(levx, levy)->tilecol;
-
-    if (reversed)
-    {
-        tilecol--;
-    }
-    else
-    {
-        tilecol++;
-    }
-
-    setroomtilecol(levx, levy, tilecol);
-
-    clamp_tilecol(levx, levy, true);
-
-    notedelay = 45;
-    note = "Tileset Colour Changed";
-    updatetiles = true;
-}
-
-void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
-{
-    const edlevelclass* const room = getroomprop(rx, ry);
-    const int tileset = room->tileset;
-    int tilecol = room->tilecol;
-
-    int mincol = -1;
-    int maxcol = 5;
-
-    // Only Space Station allows tileset -1
-    if (tileset != 0)
-    {
-        mincol = 0;
-    }
-
-    switch (tileset)
-    {
-    case 0:
-        maxcol = 31;
-        break;
-    case 1:
-        maxcol = 7;
-        break;
-    case 2:
-        if (room->directmode)
-        {
-            maxcol = 6;
-        }
-        break;
-    case 3:
-        maxcol = 6;
-        break;
-    case 5:
-        maxcol = 29;
-        break;
-    }
-
-    // If wrap is true, wrap-around, otherwise just cap
-    if (tilecol > maxcol)
-    {
-        tilecol = (wrap ? mincol : maxcol);
-    }
-    if (tilecol < mincol)
-    {
-        tilecol = (wrap ? maxcol : mincol);
-    }
-
-    setroomtilecol(rx, ry, tilecol);
-}
-
-void editorclass::switch_enemy(const bool reversed)
-{
-    const edlevelclass* const room = getroomprop(levx, levy);
-
-    int enemy = room->enemytype;
-
-    if (reversed)
-    {
-        enemy--;
-    }
-    else
-    {
-        enemy++;
-    }
-
-    const int modulus = 10;
-    enemy = (enemy % modulus + modulus) % modulus;
-    setroomenemytype(levx, levy, enemy);
-
-    note = "Enemy Type Changed";
-    notedelay = 45;
-}
-
-void editorclass::switch_warpdir(const bool reversed)
-{
-    static const int modulus = 4;
-    const edlevelclass* const room = getroomprop(levx, levy);
-
-    int warpdir = room->warpdir;
-
-    if (reversed)
-    {
-        --warpdir;
-    }
-    else
-    {
-        ++warpdir;
-    }
-
-    warpdir = (warpdir % modulus + modulus) % modulus;
-    setroomwarpdir(levx, levy, warpdir);
-
-    switch (warpdir)
-    {
-    default:
-        note = "Room warping disabled";
-        break;
-    case 1:
-        note = "Room warps horizontally";
-        break;
-    case 2:
-        note = "Room warps vertically";
-        break;
-    case 3:
-        note = "Room warps in all directions";
-        break;
-    }
-
-    notedelay = 45;
-}
-
-bool editorclass::load(std::string& _path)
+bool customlevelclass::load(std::string& _path)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
 
     reset();
+#ifndef NO_EDITOR
+    ed.reset();
+#endif
 
     static const char *levelDir = "levels/";
     if (_path.compare(0, SDL_strlen(levelDir), levelDir) != 0)
@@ -1826,7 +957,9 @@ bool editorclass::load(std::string& _path)
         goto fail;
     }
 
-    loaded_filepath = _path;
+#ifndef NO_EDITOR
+    ed.loaded_filepath = _path;
+#endif
 
     version = 0;
 
@@ -2118,7 +1251,10 @@ next:
         }
     }
 
-    gethooks();
+#ifndef NO_EDITOR
+    ed.gethooks();
+#endif
+
     version=2;
 
     return true;
@@ -2127,20 +1263,22 @@ fail:
     return false;
 }
 
-bool editorclass::save(std::string& _path)
+#ifndef NO_EDITOR
+bool customlevelclass::save(std::string& _path)
 {
     tinyxml2::XMLDocument doc;
 
     std::string newpath("levels/" + _path);
 
     // Try to preserve the XML of the currently-loaded one
-    bool already_exists = !loaded_filepath.empty() && FILESYSTEM_loadTiXml2Document(loaded_filepath.c_str(), doc);
-    if (!already_exists && !loaded_filepath.empty())
+    bool already_exists = !ed.loaded_filepath.empty()
+    && FILESYSTEM_loadTiXml2Document(ed.loaded_filepath.c_str(), doc);
+    if (!already_exists && !ed.loaded_filepath.empty())
     {
-        vlog_error("Currently-loaded %s not found", loaded_filepath.c_str());
+        vlog_error("Currently-loaded %s not found", ed.loaded_filepath.c_str());
     }
 
-    loaded_filepath = newpath;
+    ed.loaded_filepath = newpath;
 
     tinyxml2::XMLElement* msg;
 
@@ -2305,9 +1443,10 @@ bool editorclass::save(std::string& _path)
 
     return FILESYSTEM_saveTiXml2Document(newpath.c_str(), doc);
 }
+#endif /* NO_EDITOR */
 
 
-void editorclass::generatecustomminimap(void)
+void customlevelclass::generatecustomminimap(void)
 {
     map.customwidth=mapwidth;
     map.customheight=mapheight;
@@ -2428,7 +1567,7 @@ void editorclass::generatecustomminimap(void)
 
 // Return a graphics-ready color based off of the given tileset and tilecol
 // Much kudos to Dav999 for saving me a lot of work, because I stole these colors from const.lua in Ved! -Info Teddy
-Uint32 editorclass::getonewaycol(const int rx, const int ry)
+Uint32 customlevelclass::getonewaycol(const int rx, const int ry)
 {
     const edlevelclass* const room = getroomprop(rx, ry);
     switch (room->tileset) {
@@ -2587,18 +1726,25 @@ Uint32 editorclass::getonewaycol(const int rx, const int ry)
 }
 
 // This version detects the room automatically
-Uint32 editorclass::getonewaycol(void)
+Uint32 customlevelclass::getonewaycol(void)
 {
+#ifndef NO_EDITOR
     if (game.gamestate == EDITORMODE)
-        return getonewaycol(levx, levy);
-    else if (map.custommode)
+    {
+        return getonewaycol(ed.levx, ed.levy);
+    }
+    else
+#endif
+    if (map.custommode)
+    {
         return getonewaycol(game.roomx - 100, game.roomy - 100);
+    }
 
     // Uh, I guess return solid white
     return graphics.getRGB(255, 255, 255);
 }
 
-int editorclass::numtrinkets(void)
+int customlevelclass::numtrinkets(void)
 {
     int temp = 0;
     for (size_t i = 0; i < edentity.size(); i++)
@@ -2611,7 +1757,7 @@ int editorclass::numtrinkets(void)
     return temp;
 }
 
-int editorclass::numcrewmates(void)
+int customlevelclass::numcrewmates(void)
 {
     int temp = 0;
     for (size_t i = 0; i < edentity.size(); i++)

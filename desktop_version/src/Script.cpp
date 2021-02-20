@@ -5,6 +5,7 @@
 #include <SDL_timer.h>
 
 #include "CustomLevels.h"
+#include "Editor.h"
 #include "Entity.h"
 #include "Enums.h"
 #include "Exit.h"
@@ -159,9 +160,9 @@ void scriptclass::run(void)
 				int temprx=ss_toi(words[1])-1;
 				int tempry=ss_toi(words[2])-1;
 				const edlevelclass* room;
-				ed.setroomwarpdir(temprx, tempry, ss_toi(words[3]));
+				cl.setroomwarpdir(temprx, tempry, ss_toi(words[3]));
 
-				room = ed.getroomprop(temprx, tempry);
+				room = cl.getroomprop(temprx, tempry);
 
 				//Do we update our own room?
 				if(game.roomx-100==temprx && game.roomy-100==tempry){
@@ -182,21 +183,21 @@ void scriptclass::run(void)
 					}else if(room->warpdir==1){
 						map.warpx=true;
 						map.background=3;
-						graphics.rcol = ed.getwarpbackground(temprx,tempry);
+						graphics.rcol = cl.getwarpbackground(temprx,tempry);
 					}else if(room->warpdir==2){
 						map.warpy=true;
 						map.background=4;
-						graphics.rcol = ed.getwarpbackground(temprx,tempry);
+						graphics.rcol = cl.getwarpbackground(temprx,tempry);
 					}else if(room->warpdir==3){
 						map.warpx=true; map.warpy=true;
 						map.background = 5;
-						graphics.rcol = ed.getwarpbackground(temprx,tempry);
+						graphics.rcol = cl.getwarpbackground(temprx,tempry);
 					}
 				}
 			}
 			if (words[0] == "ifwarp")
 			{
-				const edlevelclass* const room = ed.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
+				const edlevelclass* const room = cl.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
 				if (room->warpdir == ss_toi(words[3]))
 				{
 					load("custom_"+words[4]);
@@ -1704,7 +1705,7 @@ void scriptclass::run(void)
 #if !defined(NO_CUSTOM_LEVELS)
 				if (map.custommode)
 				{
-					usethisnum = help.number(ed.numtrinkets());
+					usethisnum = help.number(cl.numtrinkets());
 				}
 				else
 #endif
@@ -2811,10 +2812,12 @@ void scriptclass::startgamemode( int t )
 
 		load("intermission_2");
 		break;
-#if !defined(NO_CUSTOM_LEVELS)
+#ifndef NO_CUSTOM_LEVELS
+# ifndef NO_EDITOR
 	case 20:
 		//Level editor
 		hardreset();
+		cl.reset();
 		ed.reset();
 		music.fadeout();
 		map.custommode = true;
@@ -2838,11 +2841,11 @@ void scriptclass::startgamemode( int t )
 		music.fadeout();
 		hardreset();
 		//If warpdir() is used during playtesting, we need to set it back after!
-		for (int j = 0; j < ed.maxheight; j++)
+		for (int j = 0; j < cl.maxheight; j++)
 		{
-			for (int i = 0; i < ed.maxwidth; i++)
+			for (int i = 0; i < cl.maxwidth; i++)
 			{
-				ed.kludgewarpdir[i+(j*ed.maxwidth)]=ed.level[i+(j*ed.maxwidth)].warpdir;
+				ed.kludgewarpdir[i+(j*cl.maxwidth)]=cl.level[i+(j*cl.maxwidth)].warpdir;
 			}
 		}
 		game.customstart();
@@ -2862,23 +2865,24 @@ void scriptclass::startgamemode( int t )
 		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
-		if(ed.levmusic>0){
-			music.play(ed.levmusic);
+		if(cl.levmusic>0){
+			music.play(cl.levmusic);
 		}else{
 			music.currentsong=-1;
 		}
 		break;
+# endif /* NO_EDITOR */
 	case 22:  //play custom level (in game)
 	{
 		//Initilise the level
 		//First up, find the start point
-		std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-		if (!ed.load(filename))
+		std::string filename = std::string(cl.ListOfMetaData[game.playcustomlevel].filename);
+		if (!cl.load(filename))
 		{
 			gotoerrorloadinglevel();
 			break;
 		}
-		ed.findstartpoint();
+		cl.findstartpoint();
 
 		game.gamestate = GAMEMODE;
 		music.fadeout();
@@ -2900,10 +2904,10 @@ void scriptclass::startgamemode( int t )
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
-		ed.generatecustomminimap();
+		cl.generatecustomminimap();
 		map.customshowmm=true;
-		if(ed.levmusic>0){
-			music.play(ed.levmusic);
+		if(cl.levmusic>0){
+			music.play(cl.levmusic);
 		}else{
 			music.currentsong=-1;
 		}
@@ -2914,13 +2918,13 @@ void scriptclass::startgamemode( int t )
 	{
 		//Initilise the level
 		//First up, find the start point
-		std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-		if (!ed.load(filename))
+		std::string filename = std::string(cl.ListOfMetaData[game.playcustomlevel].filename);
+		if (!cl.load(filename))
 		{
 			gotoerrorloadinglevel();
 			break;
 		}
-		ed.findstartpoint();
+		cl.findstartpoint();
 
 		game.gamestate = GAMEMODE;
 		music.fadeout();
@@ -2929,7 +2933,7 @@ void scriptclass::startgamemode( int t )
 		map.custommode = true;
 
 		game.customstart();
-		game.customloadquick(ed.ListOfMetaData[game.playcustomlevel].filename);
+		game.customloadquick(cl.ListOfMetaData[game.playcustomlevel].filename);
 		game.jumpheld = true;
 		game.gravitycontrol = game.savegc;
 
@@ -2944,11 +2948,11 @@ void scriptclass::startgamemode( int t )
 		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
-		ed.generatecustomminimap();
+		cl.generatecustomminimap();
 		graphics.fademode = 4;
 		break;
 	}
-#endif
+#endif /* NO_CUSTOM_LEVELS */
 	case 100:
 		VVV_exit(0);
 		break;

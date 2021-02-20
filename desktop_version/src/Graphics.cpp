@@ -867,7 +867,7 @@ bool Graphics::shouldrecoloroneway(const int tilenum, const bool mounted)
 {
     return (tilenum >= 14 && tilenum <= 17
     && (!mounted
-    || ed.onewaycol_override));
+    || cl.onewaycol_override));
 }
 #endif
 
@@ -884,7 +884,7 @@ void Graphics::drawtile( int x, int y, int t )
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles1_mounted))
     {
-        colourTransform thect = {ed.getonewaycol()};
+        colourTransform thect = {cl.getonewaycol()};
         BlitSurfaceTinted(tiles[t], NULL, backBuffer, &rect, thect);
     }
     else
@@ -908,7 +908,7 @@ void Graphics::drawtile2( int x, int y, int t )
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles2_mounted))
     {
-        colourTransform thect = {ed.getonewaycol()};
+        colourTransform thect = {cl.getonewaycol()};
         BlitSurfaceTinted(tiles2[t], NULL, backBuffer, &rect, thect);
     }
     else
@@ -1597,7 +1597,7 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
         if (levelmenu)
         {
             size_t separator;
-            if (ed.ListOfMetaData.size() > 8)
+            if (cl.ListOfMetaData.size() > 8)
             {
                 separator = 3;
             }
@@ -1896,7 +1896,7 @@ void Graphics::drawentity(const int i, const int yoff)
 
 #if !defined(NO_CUSTOM_LEVELS)
     // Special case for gray Warp Zone tileset!
-    const edlevelclass* const room = ed.getroomprop(game.roomx - 100, game.roomy - 100);
+    const edlevelclass* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
     const bool custom_gray = room->tileset == 3 && room->tilecol == 6;
 #else
     const bool custom_gray = false;
@@ -3368,7 +3368,7 @@ void Graphics::drawforetile(int x, int y, int t)
 #if !defined(NO_CUSTOM_LEVELS)
 	if (shouldrecoloroneway(t, tiles1_mounted))
 	{
-		colourTransform thect = {ed.getonewaycol()};
+		colourTransform thect = {cl.getonewaycol()};
 		BlitSurfaceTinted(tiles[t], NULL, foregroundBuffer, &rect, thect);
 	}
 	else
@@ -3392,7 +3392,7 @@ void Graphics::drawforetile2(int x, int y, int t)
 #if !defined(NO_CUSTOM_LEVELS)
 	if (shouldrecoloroneway(t, tiles2_mounted))
 	{
-		colourTransform thect = {ed.getonewaycol()};
+		colourTransform thect = {cl.getonewaycol()};
 		BlitSurfaceTinted(tiles2[t], NULL, foregroundBuffer, &rect, thect);
 	}
 	else

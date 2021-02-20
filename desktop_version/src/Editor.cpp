@@ -1,10 +1,12 @@
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
 
-#include "CustomLevels.h"
+#define ED_DEFINITION
+#include "Editor.h"
 
 #include <string>
 #include <utf8/unchecked.h>
 
+#include "CustomLevels.h"
 #include "DeferCallbacks.h"
 #include "Entity.h"
 #include "Enums.h"
@@ -16,6 +18,230 @@
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
+
+editorclass::editorclass(void)
+{
+    reset();
+}
+
+void editorclass::reset(void)
+{
+    roomnamehide=0;
+    zmod=false;
+    xmod=false;
+    cmod=false;
+    vmod=false;
+    hmod=false;
+    bmod=false;
+    spacemod=false;
+    spacemenu=0;
+    shiftmenu=false;
+    shiftkey=false;
+    saveandquit=false;
+    note="";
+    notedelay=0;
+    oldnotedelay=0;
+    deletekeyheld=false;
+    textmod = TEXT_NONE;
+
+    titlemod=false;
+    creatormod=false;
+    desc1mod=false;
+    desc2mod=false;
+    desc3mod=false;
+    websitemod=false;
+    settingsmod=false;
+    warpmod=false; //Two step process
+    warpent=-1;
+
+    boundarymod=0;
+    boundarytype=0;
+    boundx1=0;
+    boundx2=0;
+    boundy1=0;
+    boundy2=0;
+
+    textent=0;
+    scripttexttype=0;
+
+    drawmode=0;
+    dmtile=0;
+    dmtileeditor=0;
+    entcol=0;
+
+    tilex=0;
+    tiley=0;
+    levx=0;
+    levy=0;
+    keydelay=0;
+    lclickdelay=0;
+    savekey=false;
+    loadkey=false;
+    updatetiles=true;
+    changeroom=true;
+
+    entframe=0;
+    entframedelay=0;
+
+    SDL_zeroa(kludgewarpdir);
+
+    hooklist.clear();
+
+    sb.clear();
+
+    clearscriptbuffer();
+    sbx=0;
+    sby=0;
+    pagey=0;
+    scripteditmod=false;
+    sbscript="null";
+    scripthelppage=0;
+    scripthelppagedelay=0;
+
+    hookmenupage=0;
+    hookmenu=0;
+
+    returneditoralpha = 0;
+    oldreturneditoralpha = 0;
+
+    ghosts.clear();
+    currentghosts = 0;
+
+    loaded_filepath = "";
+}
+
+void editorclass::gethooks(void)
+{
+    //Scan through the script and create a hooks list based on it
+    hooklist.clear();
+    for (size_t i = 0; i < script.customscripts.size(); i++)
+    {
+        Script& script_ = script.customscripts[i];
+
+        hooklist.push_back(script_.name);
+    }
+}
+
+void editorclass::loadhookineditor(std::string t)
+{
+    //Find hook t in the scriptclass, then load it into the editor
+    clearscriptbuffer();
+
+    for(size_t i = 0; i < script.customscripts.size(); i++)
+    {
+        Script& script_ = script.customscripts[i];
+
+        if(script_.name == t)
+        {
+            sb = script_.contents;
+            break;
+        }
+    }
+
+    if(sb.empty())
+    {
+        //Always have one line or we'll have problems
+        sb.resize(1);
+    }
+}
+
+void editorclass::addhooktoscript(std::string t)
+{
+    //Adds hook+the scriptbuffer to the end of the scriptclass
+    removehookfromscript(t);
+    Script script_;
+    script_.name = t;
+    script_.contents = sb;
+    script.customscripts.push_back(script_);
+}
+
+void editorclass::removehookfromscript(std::string t)
+{
+    /* Find hook t in the scriptclass, then removes it (and any other code with it)
+     * When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
+    size_t i;
+    for (i = script.customscripts.size() - 1; i + 1 > 0; --i)
+    {
+        if (script.customscripts[i].name == t)
+        {
+            script.customscripts.erase(script.customscripts.begin() + i);
+        }
+    }
+}
+
+void editorclass::removehook(std::string t)
+{
+    //Check the hooklist for the hook t. If it's there, remove it from here and the script
+    size_t i;
+    removehookfromscript(t);
+    /* When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
+    for (i = hooklist.size() - 1; i + 1 > 0; --i)
+    {
+        if (hooklist[i] == t)
+        {
+            hooklist.erase(hooklist.begin() + i);
+        }
+    }
+}
+
+void editorclass::addhook(std::string t)
+{
+    //Add an empty function to the list in both editor and script
+    removehook(t);
+    hooklist.push_back(t);
+    addhooktoscript(t);
+}
+
+bool editorclass::checkhook(std::string t)
+{
+    //returns true if hook t already is in the list
+    for(size_t i=0; i<hooklist.size(); i++)
+    {
+        if(hooklist[i]==t) return true;
+    }
+    return false;
+}
+
+
+void editorclass::clearscriptbuffer(void)
+{
+    sb.clear();
+}
+
+void editorclass::removeline(int t)
+{
+    //Remove line t from the script
+    if((int)sb.size()>1)
+    {
+        sb.erase(sb.begin() + t);
+    }
+}
+
+void editorclass::insertline(int t)
+{
+    //insert a blank line into script at line t
+    sb.insert(sb.begin() + t, "");
+}
+
+void editorclass::getlin(const enum textmode mode, const std::string& prompt, std::string* ptr)
+{
+    textmod = mode;
+    textptr = ptr;
+    textdesc = prompt;
+    key.enabletextentry();
+    if (ptr)
+    {
+        key.keybuffer = *ptr;
+    }
+    else
+    {
+        key.keybuffer = "";
+        textptr = &(key.keybuffer);
+    }
+
+    oldenttext = key.keybuffer;
+}
+
 
 static void addedentity( int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240)
 {
@@ -68,6 +294,7 @@ static void fillboxabs( int x, int y, int x2, int y2, int c )
 
 static void editormenurender(int tr, int tg, int tb)
 {
+    extern editorclass ed;
     switch (game.currentmenuname)
     {
     case Menu::ed_settings:
@@ -124,7 +351,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            graphics.Print( -1, 70, ed.website, tr, tg, tb, true);
+            graphics.Print( -1, 70, cl.website, tr, tg, tb, true);
         }
         if(ed.desc1mod)
         {
@@ -139,7 +366,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            graphics.Print( -1, 90, ed.Desc1, tr, tg, tb, true);
+            graphics.Print( -1, 90, cl.Desc1, tr, tg, tb, true);
         }
         if(ed.desc2mod)
         {
@@ -154,7 +381,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            graphics.Print( -1, 100, ed.Desc2, tr, tg, tb, true);
+            graphics.Print( -1, 100, cl.Desc2, tr, tg, tb, true);
         }
         if(ed.desc3mod)
         {
@@ -169,7 +396,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            graphics.Print( -1, 110, ed.Desc3, tr, tg, tb, true);
+            graphics.Print( -1, 110, cl.Desc3, tr, tg, tb, true);
         }
         break;
     case Menu::ed_music:
@@ -178,7 +405,7 @@ static void editormenurender(int tr, int tg, int tb)
 
         graphics.Print( -1, 85, "Current map music:", tr, tg, tb, true);
         std::string songname;
-        switch(ed.levmusic)
+        switch(cl.levmusic)
         {
         case 0:
             songname = "No background music";
@@ -247,7 +474,7 @@ static void editormenurender(int tr, int tg, int tb)
 void editorrender(void)
 {
     extern editorclass ed;
-    const edlevelclass* const room = ed.getroomprop(ed.levx, ed.levy);
+    const edlevelclass* const room = cl.getroomprop(ed.levx, ed.levy);
 
     //Draw grid
 
@@ -278,15 +505,15 @@ void editorrender(void)
         switch(room->warpdir)
         {
         case 1:
-            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
             graphics.drawbackground(3);
             break;
         case 2:
-            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
             graphics.drawbackground(4);
             break;
         case 3:
-            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
             graphics.drawbackground(5);
             break;
         default:
@@ -302,7 +529,7 @@ void editorrender(void)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp=ed.gettile(ed.levx, ed.levy, i, j);
+                temp=cl.gettile(ed.levx, ed.levy, i, j);
                 if(temp>0) graphics.drawtile(i*8,j*8,temp);
             }
         }
@@ -313,7 +540,7 @@ void editorrender(void)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp=ed.gettile(ed.levx, ed.levy, i, j);
+                temp=cl.gettile(ed.levx, ed.levy, i, j);
                 if(temp>0) graphics.drawtile2(i*8,j*8,temp);
             }
         }
@@ -498,7 +725,7 @@ void editorrender(void)
                 }
                 else
                 {
-                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),210,210,255);
+                    graphics.bprint((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),210,210,255);
                 }
                 break;
             case 15: //Crewmates
@@ -631,7 +858,7 @@ void editorrender(void)
                 }
                 else
                 {
-                    graphics.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,help.String(ed.findwarptoken(i)),190,190,225);
+                    graphics.bprint((edentity[i].p1*8)- (ed.levx*40*8),(edentity[i].p2*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),190,190,225);
                 }
             }
         }
@@ -1318,11 +1545,11 @@ void editorrender(void)
 void editorrenderfixed(void)
 {
     extern editorclass ed;
-    const edlevelclass* const room = ed.getroomprop(ed.levx, ed.levy);
+    const edlevelclass* const room = cl.getroomprop(ed.levx, ed.levy);
     graphics.updatetitlecolours();
 
-    game.customcol=ed.getlevelcol(room->tileset, room->tilecol)+1;
-    ed.entcol=ed.getenemycol(game.customcol);
+    game.customcol=cl.getlevelcol(room->tileset, room->tilecol)+1;
+    ed.entcol=cl.getenemycol(game.customcol);
 
     graphics.setcol(ed.entcol);
     ed.entcolreal = graphics.ct.colour;
@@ -1355,15 +1582,15 @@ void editorrenderfixed(void)
         switch(room->warpdir)
         {
         case 1:
-            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
             graphics.updatebackground(3);
             break;
         case 2:
-            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
             graphics.updatebackground(4);
             break;
         case 3:
-            graphics.rcol=ed.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
             graphics.updatebackground(5);
             break;
         default:
@@ -1426,7 +1653,7 @@ void editorrenderfixed(void)
         }
     }
 
-    if (ed.getroomprop(ed.levx, ed.levy)->directmode == 1)
+    if (cl.getroomprop(ed.levx, ed.levy)->directmode == 1)
     {
         if (ed.dmtileeditor > 0)
         {
@@ -1438,7 +1665,7 @@ void editorrenderfixed(void)
         ed.dmtileeditor = 0;
     }
 
-    if (ed.getroomprop(ed.levx, ed.levy)->roomname != "")
+    if (cl.getroomprop(ed.levx, ed.levy)->roomname != "")
     {
         if (ed.tiley < 28)
         {
@@ -1513,6 +1740,7 @@ static void nextbgcolor(void)
 
 static void editormenuactionpress(void)
 {
+    extern editorclass ed;
     switch (game.currentmenuname)
     {
     case Menu::ed_desc:
@@ -1531,12 +1759,12 @@ static void editormenuactionpress(void)
         case 2:
             ed.desc1mod=true;
             key.enabletextentry();
-            key.keybuffer=ed.Desc1;
+            key.keybuffer=cl.Desc1;
             break;
         case 3:
             ed.websitemod=true;
             key.enabletextentry();
-            key.keybuffer=ed.website;
+            key.keybuffer=cl.website;
             break;
         case 4:
             game.returnmenu();
@@ -1571,7 +1799,7 @@ static void editormenuactionpress(void)
             music.playef(11);
             game.createmenu(Menu::ed_music);
             map.nexttowercolour();
-            if(ed.levmusic>0) music.play(ed.levmusic);
+            if(cl.levmusic>0) music.play(cl.levmusic);
             break;
         case 3:
             music.playef(11);
@@ -1623,16 +1851,16 @@ static void editormenuactionpress(void)
             switch (game.currentmenuoption)
             {
             case 0:
-                ed.levmusic++;
+                cl.levmusic++;
                 break;
             case 1:
-                ed.levmusic--;
+                cl.levmusic--;
                 break;
             }
-            ed.levmusic = (ed.levmusic % 16 + 16) % 16;
-            if(ed.levmusic>0)
+            cl.levmusic = (cl.levmusic % 16 + 16) % 16;
+            if(cl.levmusic>0)
             {
-                music.play(ed.levmusic);
+                music.play(cl.levmusic);
             }
             else
             {
@@ -2077,15 +2305,15 @@ void editorinput(void)
                     break;
                 }
 
-                ed.levx = clamp(help.Int(coord_x) - 1, 0, ed.mapwidth - 1);
-                ed.levy = clamp(help.Int(coord_y) - 1, 0, ed.mapheight - 1);
+                ed.levx = clamp(help.Int(coord_x) - 1, 0, cl.mapwidth - 1);
+                ed.levy = clamp(help.Int(coord_y) - 1, 0, cl.mapheight - 1);
                 graphics.backgrounddrawn = false;
                 break;
             }
             case TEXT_LOAD:
             {
                 std::string loadstring = ed.filename + ".vvvvvv";
-                if (ed.load(loadstring))
+                if (cl.load(loadstring))
                 {
                     // don't use filename, it has the full path
                     char buffer[64];
@@ -2102,7 +2330,7 @@ void editorinput(void)
             case TEXT_SAVE:
             {
                 std::string savestring = ed.filename + ".vvvvvv";
-                if (ed.save(savestring))
+                if (cl.save(savestring))
                 {
                     char buffer[64];
                     SDL_snprintf(buffer, sizeof(buffer), "[ Saved map: %s.vvvvvv ]", ed.filename.c_str());
@@ -2149,19 +2377,19 @@ void editorinput(void)
         }
         else if(ed.websitemod)
         {
-            ed.website=key.keybuffer;
+            cl.website=key.keybuffer;
         }
         else if(ed.desc1mod)
         {
-            ed.Desc1=key.keybuffer;
+            cl.Desc1=key.keybuffer;
         }
         else if(ed.desc2mod)
         {
-            ed.Desc2=key.keybuffer;
+            cl.Desc2=key.keybuffer;
         }
         else if(ed.desc3mod)
         {
-            ed.Desc3=key.keybuffer;
+            cl.Desc3=key.keybuffer;
         }
 
         if(!game.press_map && !key.isDown(27)) game.mapheld=false;
@@ -2182,20 +2410,20 @@ void editorinput(void)
                 }
                 else if(ed.websitemod)
                 {
-                    ed.website=key.keybuffer;
+                    cl.website=key.keybuffer;
                     ed.websitemod=false;
                 }
                 else if(ed.desc1mod)
                 {
-                    ed.Desc1=key.keybuffer;
+                    cl.Desc1=key.keybuffer;
                 }
                 else if(ed.desc2mod)
                 {
-                    ed.Desc2=key.keybuffer;
+                    cl.Desc2=key.keybuffer;
                 }
                 else if(ed.desc3mod)
                 {
-                    ed.Desc3=key.keybuffer;
+                    cl.Desc3=key.keybuffer;
                     ed.desc3mod=false;
                 }
                 key.disabletextentry();
@@ -2206,7 +2434,7 @@ void editorinput(void)
 
                     ed.desc2mod=true;
                     key.enabletextentry();
-                    key.keybuffer=ed.Desc2;
+                    key.keybuffer=cl.Desc2;
                 }
                 else if(ed.desc2mod)
                 {
@@ -2214,7 +2442,7 @@ void editorinput(void)
 
                     ed.desc3mod=true;
                     key.enabletextentry();
-                    key.keybuffer=ed.Desc3;
+                    key.keybuffer=cl.Desc3;
                 }
                 music.playef(11);
             }
@@ -2263,7 +2491,7 @@ void editorinput(void)
         {
             // Ctrl modifiers
             int numtiles;
-            if (ed.getroomprop(ed.levx, ed.levy)->tileset == 0)
+            if (cl.getroomprop(ed.levx, ed.levy)->tileset == 0)
             {
                 numtiles = (((int) graphics.tiles.size()) / 40) * 40;
             }
@@ -2331,26 +2559,26 @@ void editorinput(void)
                 ed.keydelay=6;
                 if(up_pressed)
                 {
-                    ed.mapheight--;
+                    cl.mapheight--;
                 }
                 else if(down_pressed)
                 {
-                    ed.mapheight++;
+                    cl.mapheight++;
                 }
                 else if(left_pressed)
                 {
-                    ed.mapwidth--;
+                    cl.mapwidth--;
                 }
                 else if(right_pressed)
                 {
-                    ed.mapwidth++;
+                    cl.mapwidth++;
                 }
 
-                if(ed.mapwidth<1) ed.mapwidth=1;
-                if(ed.mapheight<1) ed.mapheight=1;
-                if(ed.mapwidth>=ed.maxwidth) ed.mapwidth=ed.maxwidth;
-                if(ed.mapheight>=ed.maxheight) ed.mapheight=ed.maxheight;
-                ed.note = "Mapsize is now [" + help.String(ed.mapwidth) + "," + help.String(ed.mapheight) + "]";
+                if(cl.mapwidth<1) cl.mapwidth=1;
+                if(cl.mapheight<1) cl.mapheight=1;
+                if(cl.mapwidth>=cl.maxwidth) cl.mapwidth=cl.maxwidth;
+                if(cl.mapheight>=cl.maxheight) cl.mapheight=cl.maxheight;
+                ed.note = "Mapsize is now [" + help.String(cl.mapwidth) + "," + help.String(cl.mapheight) + "]";
                 ed.notedelay=45;
             }
 
@@ -2402,20 +2630,20 @@ void editorinput(void)
             }
             if(key.keymap[SDLK_F10])
             {
-                if(ed.getroomprop(ed.levx, ed.levy)->directmode==1)
+                if(cl.getroomprop(ed.levx, ed.levy)->directmode==1)
                 {
-                    ed.setroomdirectmode(ed.levx, ed.levy, 0);
+                    cl.setroomdirectmode(ed.levx, ed.levy, 0);
                     ed.note="Direct Mode Disabled";
                     /* Kludge fix for rainbow BG here... */
-                    if (ed.getroomprop(ed.levx, ed.levy)->tileset == 2
-                    && ed.getroomprop(ed.levx, ed.levy)->tilecol == 6)
+                    if (cl.getroomprop(ed.levx, ed.levy)->tileset == 2
+                    && cl.getroomprop(ed.levx, ed.levy)->tilecol == 6)
                     {
-                        ed.setroomtilecol(ed.levx, ed.levy, 0);
+                        cl.setroomtilecol(ed.levx, ed.levy, 0);
                     }
                 }
                 else
                 {
-                    ed.setroomdirectmode(ed.levx, ed.levy, 1);
+                    cl.setroomdirectmode(ed.levx, ed.levy, 1);
                     ed.note="Direct Mode Enabled";
                 }
                 graphics.backgrounddrawn=false;
@@ -2451,7 +2679,7 @@ void editorinput(void)
             if(key.keymap[SDLK_e])
             {
                 ed.keydelay = 6;
-                ed.getlin(TEXT_ROOMNAME, "Enter new room name:", const_cast<std::string*>(&(ed.getroomprop(ed.levx, ed.levy)->roomname)));
+                ed.getlin(TEXT_ROOMNAME, "Enter new room name:", const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
                 game.mapheld=true;
             }
             if (key.keymap[SDLK_g])
@@ -2637,10 +2865,10 @@ void editorinput(void)
                 ed.changeroom=true;
             }
 
-            if(ed.levx<0) ed.levx+=ed.mapwidth;
-            if(ed.levx>= ed.mapwidth) ed.levx-=ed.mapwidth;
-            if(ed.levy<0) ed.levy+=ed.mapheight;
-            if(ed.levy>=ed.mapheight) ed.levy-=ed.mapheight;
+            if(ed.levx<0) ed.levx+=cl.mapwidth;
+            if(ed.levx>= cl.mapwidth) ed.levx-=cl.mapwidth;
+            if(ed.levy<0) ed.levy+=cl.mapheight;
+            if(ed.levy>=cl.mapheight) ed.levy-=cl.mapheight;
             if(key.keymap[SDLK_SPACE])
             {
                 ed.spacemod = !ed.spacemod;
@@ -2688,18 +2916,18 @@ void editorinput(void)
                             else if(ed.boundarytype==1)
                             {
                                 //Enemy bounds
-                                ed.setroomenemyx1(ed.levx, ed.levy, ed.boundx1);
-                                ed.setroomenemyy1(ed.levx, ed.levy, ed.boundy1);
-                                ed.setroomenemyx2(ed.levx, ed.levy, ed.boundx2);
-                                ed.setroomenemyy2(ed.levx, ed.levy, ed.boundy2);
+                                cl.setroomenemyx1(ed.levx, ed.levy, ed.boundx1);
+                                cl.setroomenemyy1(ed.levx, ed.levy, ed.boundy1);
+                                cl.setroomenemyx2(ed.levx, ed.levy, ed.boundx2);
+                                cl.setroomenemyy2(ed.levx, ed.levy, ed.boundy2);
                             }
                             else if(ed.boundarytype==2)
                             {
                                 //Platform bounds
-                                ed.setroomplatx1(ed.levx, ed.levy, ed.boundx1);
-                                ed.setroomplaty1(ed.levx, ed.levy, ed.boundy1);
-                                ed.setroomplatx2(ed.levx, ed.levy, ed.boundx2);
-                                ed.setroomplaty2(ed.levx, ed.levy, ed.boundy2);
+                                cl.setroomplatx1(ed.levx, ed.levy, ed.boundx1);
+                                cl.setroomplaty1(ed.levx, ed.levy, ed.boundy1);
+                                cl.setroomplatx2(ed.levx, ed.levy, ed.boundx2);
+                                cl.setroomplaty2(ed.levx, ed.levy, ed.boundy2);
                             }
                             else if(ed.boundarytype==3)
                             {
@@ -2759,7 +2987,7 @@ void editorinput(void)
                         {
                             //place tiles
                             //Are we in direct mode?
-                            if(ed.getroomprop(ed.levx, ed.levy)->directmode>=1)
+                            if(cl.getroomprop(ed.levx, ed.levy)->directmode>=1)
                             {
                                 if(ed.bmod)
                                 {
@@ -2974,7 +3202,7 @@ void editorinput(void)
                         {
                             if(ed.drawmode==3)
                             {
-                                if(ed.numtrinkets()<100)
+                                if(cl.numtrinkets()<100)
                                 {
                                     addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),9);
                                     ed.lclickdelay=1;
@@ -3057,7 +3285,7 @@ void editorinput(void)
                             }
                             else if(ed.drawmode==15)  //Crewmate
                             {
-                                if(ed.numcrewmates()<100)
+                                if(cl.numcrewmates()<100)
                                 {
                                     addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),15,int(fRandom() * 6));
                                     ed.lclickdelay=1;
@@ -3232,33 +3460,33 @@ void editorinput(void)
 
                 if(key.middlebutton)
                 {
-                    ed.dmtile=ed.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley);
+                    ed.dmtile=cl.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley);
                 }
             }
         }
     }
 
-    if(ed.updatetiles && ed.getroomprop(ed.levx, ed.levy)->directmode==0)
+    if(ed.updatetiles && cl.getroomprop(ed.levx, ed.levy)->directmode==0)
     {
         ed.updatetiles=false;
         //Correctly set the tiles in the current room
-        switch(ed.getroomprop(ed.levx, ed.levy)->tileset)
+        switch(cl.getroomprop(ed.levx, ed.levy)->tileset)
         {
         case 0: //The Space Station
             for(int j=0; j<30; j++)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
                     if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
+                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
                     else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3269,7 +3497,7 @@ void editorinput(void)
                     else if(temp>0)
                     {
                         //Fix tiles
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3285,16 +3513,16 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
                     if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
+                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
                     else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3305,7 +3533,7 @@ void editorinput(void)
                     else if(temp>0)
                     {
                         //Fix tiles
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3321,11 +3549,11 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
                     if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3333,19 +3561,19 @@ void editorinput(void)
                             ed.labspikedir(
                                 i,
                                 j,
-                                ed.getroomprop(ed.levx, ed.levy)->tilecol
+                                cl.getroomprop(ed.levx, ed.levy)->tilecol
                             )
                         );
                     }
                     else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.settile(ed.levx, ed.levy, i, j, 713);
+                        cl.settile(ed.levx, ed.levy, i, j, 713);
                     }
                     else if(temp>0)
                     {
                         //Fix tiles
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3361,21 +3589,21 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
                     if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
+                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
                     else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.settile(ed.levx, ed.levy, i, j, 713);
+                        cl.settile(ed.levx, ed.levy, i, j, 713);
                     }
                     else if(temp>0)
                     {
                         //Fix tiles
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3391,16 +3619,16 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
                     if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
+                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
                     else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3411,7 +3639,7 @@ void editorinput(void)
                     else if(temp>0)
                     {
                         //Fix tiles
-                        ed.settile(
+                        cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
@@ -3435,4 +3663,656 @@ void editorinput(void)
         }
     }
 }
+
+int editorclass::getenemyframe(int t)
+{
+    switch(t)
+    {
+    case 0:
+        return 78;
+        break;
+    case 1:
+        return 88;
+        break;
+    case 2:
+        return 36;
+        break;
+    case 3:
+        return 164;
+        break;
+    case 4:
+        return 68;
+        break;
+    case 5:
+        return 48;
+        break;
+    case 6:
+        return 176;
+        break;
+    case 7:
+        return 168;
+        break;
+    case 8:
+        return 112;
+        break;
+    case 9:
+        return 114;
+        break;
+    default:
+        return 78;
+        break;
+    }
+}
+
+void editorclass::placetilelocal( int x, int y, int t )
+{
+    if(x>=0 && y>=0 && x<40 && y<30)
+    {
+        cl.settile(levx, levy, x, y, t);
+    }
+    updatetiles=true;
+}
+
+int editorclass::base( int x, int y )
+{
+    //Return the base tile for the given tileset and colour
+    const edlevelclass* const room = cl.getroomprop(x, y);
+    if(room->tileset==0)  //Space Station
+    {
+        if(room->tilecol>=22)
+        {
+            return 483 + ((room->tilecol-22)*3);
+        }
+        else if(room->tilecol>=11)
+        {
+            return 283 + ((room->tilecol-11)*3);
+        }
+        else
+        {
+            return 83 + (room->tilecol*3);
+        }
+    }
+    else if(room->tileset==1)   //Outside
+    {
+        return 480 + (room->tilecol*3);
+    }
+    else if(room->tileset==2)   //Lab
+    {
+        return 280 + (room->tilecol*3);
+    }
+    else if(room->tileset==3)   //Warp Zone/Intermission
+    {
+        return 80 + (room->tilecol*3);
+    }
+    else if(room->tileset==4)   //SHIP
+    {
+        return 101 + (room->tilecol*3);
+    }
+    return 0;
+}
+
+int editorclass::backbase( int x, int y )
+{
+    //Return the base tile for the background of the given tileset and colour
+    const edlevelclass* const room = cl.getroomprop(x, y);
+    if(room->tileset==0)  //Space Station
+    {
+        //Pick depending on tilecol
+        switch(room->tilecol)
+        {
+        case 0:
+        case 5:
+        case 26:
+            return 680; //Blue
+            break;
+        case 3:
+        case 16:
+        case 23:
+            return 683; //Yellow
+            break;
+        case 9:
+        case 12:
+        case 21:
+            return 686; //Greeny Cyan
+            break;
+        case 4:
+        case 8:
+        case 24:
+        case 28:
+        case 30:
+            return 689; //Green
+            break;
+        case 20:
+        case 29:
+            return 692; //Orange
+            break;
+        case 2:
+        case 6:
+        case 11:
+        case 22:
+        case 27:
+            return 695; //Red
+            break;
+        case 1:
+        case 10:
+        case 15:
+        case 19:
+        case 31:
+            return 698; //Pink
+            break;
+        case 14:
+        case 18:
+            return 701; //Dark Blue
+            break;
+        case 7:
+        case 13:
+        case 17:
+        case 25:
+            return 704; //Cyan
+            break;
+        default:
+            return 680;
+            break;
+        }
+
+    }
+    else if(room->tileset==1)   //outside
+    {
+        return 680 + (room->tilecol*3);
+    }
+    else if(room->tileset==2)   //Lab
+    {
+        return 0;
+    }
+    else if(room->tileset==3)   //Warp Zone/Intermission
+    {
+        return 120 + (room->tilecol*3);
+    }
+    else if(room->tileset==4)   //SHIP
+    {
+        return 741 + (room->tilecol*3);
+    }
+    return 0;
+}
+
+int editorclass::at( int x, int y )
+{
+    if(x<0) return at(0,y);
+    if(y<0) return at(x,0);
+    if(x>=40) return at(39,y);
+    if(y>=30) return at(x,29);
+
+    if(x>=0 && y>=0 && x<40 && y<30)
+    {
+        return cl.gettile(levx, levy, x, y);
+    }
+    return 0;
+}
+
+int editorclass::freewrap( int x, int y )
+{
+    if(x<0) return freewrap(x+(cl.mapwidth*40),y);
+    if(y<0) return freewrap(x,y+(cl.mapheight*30));
+    if(x>=(cl.mapwidth*40)) return freewrap(x-(cl.mapwidth*40),y);
+    if(y>=(cl.mapheight*30)) return freewrap(x,y-(cl.mapheight*30));
+
+    if(x>=0 && y>=0 && x<(cl.mapwidth*40) && y<(cl.mapheight*30))
+    {
+        if(cl.getabstile(x, y)==0)
+        {
+            return 0;
+        }
+        else
+        {
+            if(cl.getabstile(x, y)>=2 && cl.getabstile(x, y)<80)
+            {
+                return 0;
+            }
+            if(cl.getabstile(x, y)>=680)
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int editorclass::backonlyfree( int x, int y )
+{
+    //Returns 1 if tile is a background tile, 0 otherwise
+    if(x<0) return backonlyfree(0,y);
+    if(y<0) return backonlyfree(x,0);
+    if(x>=40) return backonlyfree(39,y);
+    if(y>=30) return backonlyfree(x,29);
+
+    if(x>=0 && y>=0 && x<40 && y<30)
+    {
+        if(cl.gettile(levx, levy, x, y)>=680)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int editorclass::backfree( int x, int y )
+{
+    //Returns 0 if tile is not a block or background tile, 1 otherwise
+    if(x<0) return backfree(0,y);
+    if(y<0) return backfree(x,0);
+    if(x>=40) return backfree(39,y);
+    if(y>=30) return backfree(x,29);
+
+    if(x>=0 && y>=0 && x<40 && y<30)
+    {
+        if(cl.gettile(levx, levy, x, y)==0)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int editorclass::spikefree( int x, int y )
+{
+    //Returns 0 if tile is not a block or spike, 1 otherwise
+    if(x==-1) return free(0,y);
+    if(y==-1) return free(x,0);
+    if(x==40) return free(39,y);
+    if(y==30) return free(x,29);
+
+    if(x>=0 && y>=0 && x<40 && y<30)
+    {
+        if(cl.gettile(levx, levy, x, y)==0)
+        {
+            return 0;
+        }
+        else
+        {
+            if(cl.gettile(levx, levy, x, y)>=680)
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int editorclass::free( int x, int y )
+{
+    //Returns 0 if tile is not a block, 1 otherwise
+    if(x==-1) return free(0,y);
+    if(y==-1) return free(x,0);
+    if(x==40) return free(39,y);
+    if(y==30) return free(x,29);
+
+    if(x>=0 && y>=0 && x<40 && y<30)
+    {
+        if(cl.gettile(levx, levy, x, y)==0)
+        {
+            return 0;
+        }
+        else
+        {
+            if(cl.gettile(levx, levy, x, y)>=2 && cl.gettile(levx, levy, x, y)<80)
+            {
+                return 0;
+            }
+            if(cl.gettile(levx, levy, x, y)>=680)
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int editorclass::match( int x, int y )
+{
+    if(free(x-1,y)==0 && free(x,y-1)==0 && free(x+1,y)==0 && free(x,y+1)==0) return 0;
+
+    if(free(x-1,y)==0 && free(x,y-1)==0) return 10;
+    if(free(x+1,y)==0 && free(x,y-1)==0) return 11;
+    if(free(x-1,y)==0 && free(x,y+1)==0) return 12;
+    if(free(x+1,y)==0 && free(x,y+1)==0) return 13;
+
+    if(free(x,y-1)==0) return 1;
+    if(free(x-1,y)==0) return 2;
+    if(free(x,y+1)==0) return 3;
+    if(free(x+1,y)==0) return 4;
+    if(free(x-1,y-1)==0) return 5;
+    if(free(x+1,y-1)==0) return 6;
+    if(free(x-1,y+1)==0) return 7;
+    if(free(x+1,y+1)==0) return 8;
+
+    return 0;
+}
+
+int editorclass::outsidematch( int x, int y )
+{
+
+    if(backonlyfree(x-1,y)==0 && backonlyfree(x+1,y)==0) return 2;
+    if(backonlyfree(x,y-1)==0 && backonlyfree(x,y+1)==0) return 1;
+
+    return 0;
+}
+
+int editorclass::backmatch( int x, int y )
+{
+    //Returns the first position match for a border
+    // 5 1 6
+    // 2 X 4
+    // 7 3 8
+    if(backfree(x-1,y)==0 && backfree(x,y-1)==0 && backfree(x+1,y)==0 && backfree(x,y+1)==0) return 0;
+
+    if(backfree(x-1,y)==0 && backfree(x,y-1)==0) return 10;
+    if(backfree(x+1,y)==0 && backfree(x,y-1)==0) return 11;
+    if(backfree(x-1,y)==0 && backfree(x,y+1)==0) return 12;
+    if(backfree(x+1,y)==0 && backfree(x,y+1)==0) return 13;
+
+    if(backfree(x,y-1)==0) return 1;
+    if(backfree(x-1,y)==0) return 2;
+    if(backfree(x,y+1)==0) return 3;
+    if(backfree(x+1,y)==0) return 4;
+    if(backfree(x-1,y-1)==0) return 5;
+    if(backfree(x+1,y-1)==0) return 6;
+    if(backfree(x-1,y+1)==0) return 7;
+    if(backfree(x+1,y+1)==0) return 8;
+
+    return 0;
+}
+
+int editorclass::edgetile( int x, int y )
+{
+    switch(match(x,y))
+    {
+    case 14:
+        return 0;
+        break;
+    case 10:
+        return 80;
+        break;
+    case 11:
+        return 82;
+        break;
+    case 12:
+        return 160;
+        break;
+    case 13:
+        return 162;
+        break;
+    case 1:
+        return 81;
+        break;
+    case 2:
+        return 120;
+        break;
+    case 3:
+        return 161;
+        break;
+    case 4:
+        return 122;
+        break;
+    case 5:
+        return 42;
+        break;
+    case 6:
+        return 41;
+        break;
+    case 7:
+        return 2;
+        break;
+    case 8:
+        return 1;
+        break;
+    case 0:
+    default:
+        return 0;
+        break;
+    }
+}
+
+int editorclass::outsideedgetile( int x, int y )
+{
+    switch(outsidematch(x,y))
+    {
+    case 2:
+        return 0;
+        break;
+    case 1:
+        return 1;
+        break;
+    case 0:
+    default:
+        return 2;
+        break;
+    }
+}
+
+
+int editorclass::backedgetile( int x, int y )
+{
+    switch(backmatch(x,y))
+    {
+    case 14:
+        return 0;
+        break;
+    case 10:
+        return 80;
+        break;
+    case 11:
+        return 82;
+        break;
+    case 12:
+        return 160;
+        break;
+    case 13:
+        return 162;
+        break;
+    case 1:
+        return 81;
+        break;
+    case 2:
+        return 120;
+        break;
+    case 3:
+        return 161;
+        break;
+    case 4:
+        return 122;
+        break;
+    case 5:
+        return 42;
+        break;
+    case 6:
+        return 41;
+        break;
+    case 7:
+        return 2;
+        break;
+    case 8:
+        return 1;
+        break;
+    case 0:
+    default:
+        return 0;
+        break;
+    }
+}
+
+int editorclass::labspikedir( int x, int y, int t )
+{
+    // a slightly more tricky case
+    if(free(x,y+1)==1) return 63 + (t*2);
+    if(free(x,y-1)==1) return 64 + (t*2);
+    if(free(x-1,y)==1) return 51 + (t*2);
+    if(free(x+1,y)==1) return 52 + (t*2);
+    return 63 + (t*2);
+}
+
+int editorclass::spikedir( int x, int y )
+{
+    if(free(x,y+1)==1) return 8;
+    if(free(x,y-1)==1) return 9;
+    if(free(x-1,y)==1) return 49;
+    if(free(x+1,y)==1) return 50;
+    return 8;
+}
+
+void editorclass::switch_tileset(const bool reversed)
+{
+    const char* tilesets[] = {"Space Station", "Outside", "Lab", "Warp Zone", "Ship"};
+
+    int tiles = cl.getroomprop(levx, levy)->tileset;
+
+    if (reversed)
+    {
+        tiles--;
+    }
+    else
+    {
+        tiles++;
+    }
+
+    const int modulus = SDL_arraysize(tilesets);
+    tiles = (tiles % modulus + modulus) % modulus;
+    cl.setroomtileset(levx, levy, tiles);
+
+    clamp_tilecol(levx, levy, false);
+
+    char buffer[64];
+    SDL_snprintf(buffer, sizeof(buffer), "Now using %s Tileset", tilesets[tiles]);
+
+    note = buffer;
+    notedelay = 45;
+    updatetiles = true;
+}
+
+void editorclass::switch_tilecol(const bool reversed)
+{
+    int tilecol = cl.getroomprop(levx, levy)->tilecol;
+
+    if (reversed)
+    {
+        tilecol--;
+    }
+    else
+    {
+        tilecol++;
+    }
+
+    cl.setroomtilecol(levx, levy, tilecol);
+
+    clamp_tilecol(levx, levy, true);
+
+    notedelay = 45;
+    note = "Tileset Colour Changed";
+    updatetiles = true;
+}
+
+void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
+{
+    const edlevelclass* const room = cl.getroomprop(rx, ry);
+    const int tileset = room->tileset;
+    int tilecol = room->tilecol;
+
+    int mincol = -1;
+    int maxcol = 5;
+
+    // Only Space Station allows tileset -1
+    if (tileset != 0)
+    {
+        mincol = 0;
+    }
+
+    switch (tileset)
+    {
+    case 0:
+        maxcol = 31;
+        break;
+    case 1:
+        maxcol = 7;
+        break;
+    case 3:
+        maxcol = 6;
+        break;
+    case 5:
+        maxcol = 29;
+        break;
+    }
+
+    // If wrap is true, wrap-around, otherwise just cap
+    if (tilecol > maxcol)
+    {
+        tilecol = (wrap ? mincol : maxcol);
+    }
+    if (tilecol < mincol)
+    {
+        tilecol = (wrap ? maxcol : mincol);
+    }
+
+    cl.setroomtilecol(rx, ry, tilecol);
+}
+
+void editorclass::switch_enemy(const bool reversed)
+{
+    const edlevelclass* const room = cl.getroomprop(levx, levy);
+
+    int enemy = room->enemytype;
+
+    if (reversed)
+    {
+        enemy--;
+    }
+    else
+    {
+        enemy++;
+    }
+
+    const int modulus = 10;
+    enemy = (enemy % modulus + modulus) % modulus;
+    cl.setroomenemytype(levx, levy, enemy);
+
+    note = "Enemy Type Changed";
+    notedelay = 45;
+}
+
+void editorclass::switch_warpdir(const bool reversed)
+{
+    static const int modulus = 4;
+    const edlevelclass* const room = cl.getroomprop(levx, levy);
+
+    int warpdir = room->warpdir;
+
+    if (reversed)
+    {
+        --warpdir;
+    }
+    else
+    {
+        ++warpdir;
+    }
+
+    warpdir = (warpdir % modulus + modulus) % modulus;
+    cl.setroomwarpdir(levx, levy, warpdir);
+
+    switch (warpdir)
+    {
+    default:
+        note = "Room warping disabled";
+        break;
+    case 1:
+        note = "Room warps horizontally";
+        break;
+    case 2:
+        note = "Room warps vertically";
+        break;
+    case 3:
+        note = "Room warps in all directions";
+        break;
+    }
+
+    notedelay = 45;
+}
+
 #endif /* NO_CUSTOM_LEVELS and NO_EDITOR */

@@ -993,10 +993,10 @@ void mapclass::gotoroom(int rx, int ry)
 	{
 		game.roomx = rx;
 		game.roomy = ry;
-		if (game.roomx < 100) game.roomx = 100 + ed.mapwidth-1;
-		if (game.roomy < 100) game.roomy = 100 + ed.mapheight-1;
-		if (game.roomx > 100 + ed.mapwidth-1) game.roomx = 100;
-		if (game.roomy > 100 + ed.mapheight-1) game.roomy = 100;
+		if (game.roomx < 100) game.roomx = 100 + cl.mapwidth-1;
+		if (game.roomy < 100) game.roomy = 100 + cl.mapheight-1;
+		if (game.roomx > 100 + cl.mapwidth-1) game.roomx = 100;
+		if (game.roomy > 100 + cl.mapheight-1) game.roomy = 100;
 	}
 #endif
 	else
@@ -1562,8 +1562,8 @@ void mapclass::loadlevel(int rx, int ry)
 #if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
 	{
-		const edlevelclass* const room = ed.getroomprop(rx - 100, ry - 100);
-		game.customcol = ed.getlevelcol(room->tileset, room->tilecol) + 1;
+		const edlevelclass* const room = cl.getroomprop(rx - 100, ry - 100);
+		game.customcol = cl.getlevelcol(room->tileset, room->tilecol) + 1;
 		obj.customplatformtile = game.customcol * 12;
 
 		switch (room->tileset)
@@ -1607,24 +1607,24 @@ void mapclass::loadlevel(int rx, int ry)
 		case 1:
 			warpx = true;
 			background = 3;
-			graphics.rcol = ed.getwarpbackground(rx - 100, ry - 100);
+			graphics.rcol = cl.getwarpbackground(rx - 100, ry - 100);
 			break;
 		case 2:
 			warpy = true;
 			background = 4;
-			graphics.rcol = ed.getwarpbackground(rx - 100, ry - 100);
+			graphics.rcol = cl.getwarpbackground(rx - 100, ry - 100);
 			break;
 		case 3:
 			warpx = true;
 			warpy = true;
 			background = 5;
-			graphics.rcol = ed.getwarpbackground(rx - 100, ry - 100);
+			graphics.rcol = cl.getwarpbackground(rx - 100, ry - 100);
 			break;
 		}
 
 		roomname = room->roomname;
 		extrarow = 1;
-		const int* tmap = ed.loadlevel(rx, ry);
+		const int* tmap = cl.loadlevel(rx, ry);
 		SDL_memcpy(contents, tmap, sizeof(contents));
 
 
@@ -1704,7 +1704,7 @@ void mapclass::loadlevel(int rx, int ry)
 				obj.createentity(ex, ey, 3);
 				break;
 			case 9: // Trinkets
-				obj.createentity(ex, ey, 9, ed.findtrinket(edi));
+				obj.createentity(ex, ey, 9, cl.findtrinket(edi));
 				break;
 			case 10: // Checkpoints
 				obj.createentity(ex, ey, 10, ent.p1, (rx + ry*100) * 20 + tempcheckpoints);
@@ -1724,7 +1724,7 @@ void mapclass::loadlevel(int rx, int ry)
 				obj.createentity(ex, ey, 13, ent.p1, ent.p2);
 				break;
 			case 15: // Collectable crewmate
-				obj.createentity(ex - 4, ey + 1, 55, ed.findcrewmate(edi), ent.p1, ent.p2);
+				obj.createentity(ex - 4, ey + 1, 55, cl.findcrewmate(edi), ent.p1, ent.p2);
 				break;
 			case 17: // Roomtext!
 			{

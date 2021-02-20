@@ -8,6 +8,7 @@
 
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
+#include "Editor.h"
 #include "Entity.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
@@ -1836,7 +1837,7 @@ void Game::updatestate(void)
 #if !defined(NO_CUSTOM_LEVELS)
             if(map.custommode)
             {
-                graphics.createtextboxflipme(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets())+ " ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(" " + help.number(trinkets()) + " out of " + help.number(cl.numtrinkets())+ " ", 50, 135, 174, 174, 174);
                 graphics.textboxcenterx();
             }
             else
@@ -1880,17 +1881,17 @@ void Game::updatestate(void)
             graphics.addline("You have found a lost crewmate!");
             graphics.textboxcenterx();
 
-            if(ed.numcrewmates()-crewmates()==0)
+            if(cl.numcrewmates()-crewmates()==0)
             {
                 graphics.createtextboxflipme("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
             }
-            else if(ed.numcrewmates()-crewmates()==1)
+            else if(cl.numcrewmates()-crewmates()==1)
             {
-                graphics.createtextboxflipme("    " + help.number(ed.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme("    " + help.number(cl.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
             }
             else
             {
-                graphics.createtextboxflipme("     " + help.number(ed.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme("     " + help.number(cl.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
             }
             graphics.textboxcenterx();
             break;
@@ -1908,25 +1909,27 @@ void Game::updatestate(void)
             completestop = false;
             state = 0;
 
-            if(ed.numcrewmates()-crewmates()==0)
+            if(cl.numcrewmates()-crewmates()==0)
             {
                 if(map.custommodeforreal)
                 {
                     graphics.fademode = 2;
-                    if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
-                    if(ed.levmusic>0) music.fadeout();
+                    if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
+                    if(cl.levmusic>0) music.fadeout();
                     state=1014;
                 }
+#ifndef NO_EDITOR
                 else
                 {
                     returntoeditor();
-                    if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
-                    if(ed.levmusic>0) music.fadeout();
+                    if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
+                    if(cl.levmusic>0) music.fadeout();
                 }
+#endif
             }
             else
             {
-                if(!muted && ed.levmusic>0) music.fadeMusicVolumeIn(3000);
+                if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
             }
             graphics.showcutscenebars = false;
             break;
@@ -1938,10 +1941,10 @@ void Game::updatestate(void)
         case 1015:
 #if !defined(NO_CUSTOM_LEVELS)
             //Update level stats
-            if(ed.numcrewmates()-crewmates()==0)
+            if(cl.numcrewmates()-crewmates()==0)
             {
                 //Finished level
-                if (trinkets() >= ed.numtrinkets())
+                if (trinkets() >= cl.numtrinkets())
                 {
                     //and got all the trinkets!
                     updatecustomlevelstats(customlevelfilename, 3);
@@ -5914,14 +5917,14 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 15;
         break;
     case Menu::levellist:
-        if(ed.ListOfMetaData.size()==0)
+        if(cl.ListOfMetaData.size()==0)
         {
             option("ok");
             menuyoff = -20;
         }
         else
         {
-            for(int i=0; i<(int) ed.ListOfMetaData.size(); i++) // FIXME: int/size_t! -flibit
+            for(int i=0; i<(int) cl.ListOfMetaData.size(); i++) // FIXME: int/size_t! -flibit
             {
                 if(i>=levelpage*8 && i< (levelpage*8)+8)
                 {
@@ -5929,7 +5932,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     int tvar=-1;
                     for(size_t j=0; j<customlevelstats.size(); j++)
                     {
-                        if(ed.ListOfMetaData[i].filename.substr(7) == customlevelstats[j].name)
+                        if(cl.ListOfMetaData[i].filename.substr(7) == customlevelstats[j].name)
                         {
                             tvar=j;
                             break;
@@ -5970,7 +5973,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                         prefix = tmp;
                     }
                     char text[MENU_TEXT_BYTES];
-                    SDL_snprintf(text, sizeof(text), "%s%s", prefix, ed.ListOfMetaData[i].title.c_str());
+                    SDL_snprintf(text, sizeof(text), "%s%s", prefix, cl.ListOfMetaData[i].title.c_str());
                     for (size_t ii = 0; text[ii] != '\0'; ++ii)
                     {
                         text[ii] = SDL_tolower(text[ii]);
@@ -5978,9 +5981,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     option(text);
                 }
             }
-            if (ed.ListOfMetaData.size() > 8)
+            if (cl.ListOfMetaData.size() > 8)
             {
-                if((size_t) ((levelpage*8)+8) <ed.ListOfMetaData.size())
+                if((size_t) ((levelpage*8)+8) <cl.ListOfMetaData.size())
                 {
                     option("next page");
                 }
@@ -6754,7 +6757,7 @@ void Game::returntolab(void)
     music.play(11);
 }
 
-#if !defined(NO_CUSTOM_LEVELS)
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
 static void resetbg(void)
 {
     graphics.backgrounddrawn = false;
@@ -6781,11 +6784,11 @@ void Game::returntoeditor(void)
     DEFER_CALLBACK(resetbg);
     music.fadeout();
     //If warpdir() is used during playtesting, we need to set it back after!
-    for (int j = 0; j < ed.maxheight; j++)
+    for (int j = 0; j < cl.maxheight; j++)
     {
-        for (int i = 0; i < ed.maxwidth; i++)
+        for (int i = 0; i < cl.maxwidth; i++)
         {
-           ed.level[i+(j*ed.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*ed.maxwidth)];
+           cl.level[i+(j*cl.maxwidth)].warpdir=ed.kludgewarpdir[i+(j*cl.maxwidth)];
         }
     }
     graphics.titlebg.scrolldir = 0;

@@ -1,6 +1,7 @@
 #include "CustomLevels.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "Editor.h"
 #include "Entity.h"
 #include "Enums.h"
 #include "Map.h"
@@ -118,7 +119,7 @@ void gamerenderfixed(void)
         map.glitchname = map.getglitchname(game.roomx, game.roomy);
     }
 
-#ifndef NO_CUSTOM_LEVELS
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     ed.oldreturneditoralpha = ed.returneditoralpha;
     if (map.custommode && !map.custommodeforreal && ed.returneditoralpha > 0)
     {
