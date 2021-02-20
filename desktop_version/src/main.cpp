@@ -2,6 +2,7 @@
 
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
+#include "Editor.h"
 #include "Enums.h"
 #include "Entity.h"
 #include "Exit.h"
