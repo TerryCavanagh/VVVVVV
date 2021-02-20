@@ -565,8 +565,9 @@ bool FILESYSTEM_openDirectory(const char *dname)
 {
 	char url[MAX_PATH];
 	SDL_snprintf(url, sizeof(url), "file://%s", dname);
-	if (SDL_OpenURL(url))
+	if (SDL_OpenURL(url) == -1)
 	{
+		printf("Error opening directory: %s\n", SDL_GetError());
 		return false;
 	}
 	return true;
