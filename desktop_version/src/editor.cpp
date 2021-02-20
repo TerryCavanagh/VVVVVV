@@ -3,6 +3,7 @@
 #define ED_DEFINITION
 #include "editor.h"
 
+#include <algorithm>
 #include <physfs.h>
 #include <stdio.h>
 #include <string>
