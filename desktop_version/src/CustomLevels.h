@@ -33,9 +33,10 @@ public:
     FOREACH_PROP(enemytype, int) \
     FOREACH_PROP(directmode, int)
 
-class edlevelclass{
+class RoomProperty
+{
 public:
-    edlevelclass(void);
+    RoomProperty(void);
 #define FOREACH_PROP(NAME, TYPE) TYPE NAME;
     ROOM_PROPERTIES
 #undef FOREACH_PROP
@@ -119,7 +120,7 @@ public:
     int getabstile(const int x, const int y);
   
     int getroompropidx(const int rx, const int ry);
-    const edlevelclass* getroomprop(const int rx, const int ry);
+    const RoomProperty* getroomprop(const int rx, const int ry);
 #define FOREACH_PROP(NAME, TYPE) \
     void setroom##NAME(const int rx, const int ry, const TYPE NAME);
     ROOM_PROPERTIES
@@ -149,8 +150,8 @@ public:
     int vmult[30 * maxheight];
     int numtrinkets(void);
     int numcrewmates(void);
-    edlevelclass level[numrooms]; //Maxwidth*maxheight
-  
+    RoomProperty level[numrooms]; //Maxwidth*maxheight
+
     int levmusic;
     int mapwidth, mapheight; //Actual width and height of stage
   

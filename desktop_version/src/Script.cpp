@@ -159,7 +159,7 @@ void scriptclass::run(void)
 			{
 				int temprx=ss_toi(words[1])-1;
 				int tempry=ss_toi(words[2])-1;
-				const edlevelclass* room;
+				const RoomProperty* room;
 				cl.setroomwarpdir(temprx, tempry, ss_toi(words[3]));
 
 				room = cl.getroomprop(temprx, tempry);
@@ -197,7 +197,7 @@ void scriptclass::run(void)
 			}
 			if (words[0] == "ifwarp")
 			{
-				const edlevelclass* const room = cl.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
+				const RoomProperty* const room = cl.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
 				if (room->warpdir == ss_toi(words[3]))
 				{
 					load("custom_"+words[4]);

@@ -1257,7 +1257,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
 #if !defined(NO_CUSTOM_LEVELS)
     // Special case for gray Warp Zone tileset!
-    const edlevelclass* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
+    const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
     bool custom_gray = room->tileset == 3 && room->tilecol == 6;
 #else
     bool custom_gray = false;
