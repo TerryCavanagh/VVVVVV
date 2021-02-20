@@ -561,42 +561,16 @@ bool FILESYSTEM_openDirectoryEnabled()
 	return !SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
 }
 
-#ifdef _WIN32
 bool FILESYSTEM_openDirectory(const char *dname)
 {
-	ShellExecute(NULL, "open", dname, NULL, NULL, SW_SHOWMINIMIZED);
+	char url[MAX_PATH];
+	SDL_snprintf(url, sizeof(url), "file://%s", dname);
+	if (SDL_OpenURL(url))
+	{
+		return false;
+	}
 	return true;
 }
-#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
- #if defined(__APPLE__) || defined(__HAIKU__)
-const char* open_cmd = "open";
- #else
-const char* open_cmd = "xdg-open";
- #endif
-
-extern "C" char** environ;
-
-bool FILESYSTEM_openDirectory(const char *dname)
-{
-	pid_t child;
-	// This const_cast is legal (ctrl-f "The statement" at https://pubs.opengroup.org/onlinepubs/9699919799/functions/exec.html
-	char* argv[3] =
-	{
-		const_cast<char*>(open_cmd),
-		const_cast<char*>(dname),
-		NULL
-	};
-	posix_spawnp(&child, open_cmd, NULL, NULL, argv, environ);
-	int status = 0;
-	waitpid(child, &status, 0);
-	return WIFEXITED(status) && WEXITSTATUS(status) == 0;
-}
-#else
-bool FILESYSTEM_openDirectory(const char *dname)
-{
-	return false;
-}
-#endif
 
 bool FILESYSTEM_delete(const char *name)
 {
