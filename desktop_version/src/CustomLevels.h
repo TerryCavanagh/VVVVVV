@@ -1,7 +1,7 @@
 #if !defined(NO_CUSTOM_LEVELS)
 
-#ifndef EDITOR_H
-#define EDITOR_H
+#ifndef CUSTOMLEVELS_H
+#define CUSTOMLEVELS_H
 
 #include <SDL.h>
 #include <string>
@@ -307,20 +307,10 @@ class editorclass{
   int currentghosts;
 };
 
-#if !defined(NO_EDITOR)
-void editorrender(void);
-
-void editorrenderfixed(void);
-
-void editorlogic(void);
-
-void editorinput(void);
-#endif
-
 #ifndef ED_DEFINITION
 extern editorclass ed;
 #endif
 
-#endif /* EDITOR_H */
+#endif /* CUSTOMLEVELS_H */
 
 #endif /* NO_CUSTOM_LEVELS */
