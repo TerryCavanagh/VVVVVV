@@ -1,7 +1,7 @@
 #if !defined(NO_CUSTOM_LEVELS)
 
 #define ED_DEFINITION
-#include "editor.h"
+#include "CustomLevels.h"
 
 #include <physfs.h>
 #include <stdio.h>

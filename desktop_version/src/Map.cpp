@@ -1,7 +1,7 @@
 #define MAP_DEFINITION
 #include "Map.h"
 
-#include "editor.h"
+#include "CustomLevels.h"
 #include "Entity.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"

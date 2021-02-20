@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 
-#include "editor.h"
+#include "CustomLevels.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"

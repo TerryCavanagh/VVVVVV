@@ -1,7 +1,7 @@
 #include <SDL.h>
 
+#include "CustomLevels.h"
 #include "DeferCallbacks.h"
-#include "editor.h"
 #include "Enums.h"
 #include "Entity.h"
 #include "Exit.h"

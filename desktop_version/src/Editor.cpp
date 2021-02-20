@@ -1,6 +1,6 @@
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
 
-#include "editor.h"
+#include "CustomLevels.h"
 
 #include <string>
 #include <utf8/unchecked.h>
