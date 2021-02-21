@@ -63,28 +63,14 @@ struct LevelMetaData
 
 extern std::vector<CustomEntity> customentities;
 
-class EditorData
-{
-    public:
-
-    static EditorData& GetInstance(void)
-    {
-        static EditorData  instance; // Guaranteed to be destroyed.
-        // Instantiated on first use.
-        return instance;
-    }
-
-
-    std::string title;
-    std::string creator;
-
-    std::string modifier;
-};
-
 class customlevelclass
 {
 public:
     customlevelclass(void);
+
+    std::string title;
+    std::string creator;
+    std::string modifier;
     std::string Desc1;
     std::string Desc2;
     std::string Desc3;
