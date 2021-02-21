@@ -285,8 +285,8 @@ void customlevelclass::reset(void)
     mapwidth=5;
     mapheight=5;
 
-    EditorData::GetInstance().title="Untitled Level";
-    EditorData::GetInstance().creator="Unknown";
+    title="Untitled Level";
+    creator="Unknown";
 
     levmusic=0;
 
@@ -992,12 +992,12 @@ bool customlevelclass::load(std::string& _path)
 
                 if(SDL_strcmp(pKey_, "Creator") == 0)
                 {
-                    EditorData::GetInstance().creator = pText_;
+                    creator = pText_;
                 }
 
                 if(SDL_strcmp(pKey_, "Title") == 0)
                 {
-                    EditorData::GetInstance().title = pText_;
+                    title = pText_;
                 }
 
                 if(SDL_strcmp(pKey_, "Desc1") == 0)
@@ -1294,13 +1294,13 @@ bool customlevelclass::save(std::string& _path)
     msg = xml::update_element(data, "MetaData");
 
     //getUser
-    xml::update_tag(msg, "Creator", EditorData::GetInstance().creator.c_str());
+    xml::update_tag(msg, "Creator", creator.c_str());
 
-    xml::update_tag(msg, "Title", EditorData::GetInstance().title.c_str());
+    xml::update_tag(msg, "Title", title.c_str());
 
     xml::update_tag(msg, "Created", version);
 
-    xml::update_tag(msg, "Modified", EditorData::GetInstance().modifier.c_str());
+    xml::update_tag(msg, "Modified", modifier.c_str());
 
     xml::update_tag(msg, "Modifiers", version);
 

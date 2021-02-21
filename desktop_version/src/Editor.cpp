@@ -321,7 +321,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            graphics.bigprint( -1, 35, EditorData::GetInstance().title, tr, tg, tb, true);
+            graphics.bigprint( -1, 35, cl.title, tr, tg, tb, true);
         }
         if(ed.creatormod)
         {
@@ -336,7 +336,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            graphics.Print( -1, 60, "by " + EditorData::GetInstance().creator, tr, tg, tb, true);
+            graphics.Print( -1, 60, "by " + cl.creator, tr, tg, tb, true);
         }
         if(ed.websitemod)
         {
@@ -1749,12 +1749,12 @@ static void editormenuactionpress(void)
         case 0:
             ed.titlemod=true;
             key.enabletextentry();
-            key.keybuffer=EditorData::GetInstance().title;
+            key.keybuffer=cl.title;
             break;
         case 1:
             ed.creatormod=true;
             key.enabletextentry();
-            key.keybuffer=EditorData::GetInstance().creator;
+            key.keybuffer=cl.creator;
             break;
         case 2:
             ed.desc1mod=true;
@@ -2369,11 +2369,11 @@ void editorinput(void)
     {
         if(ed.titlemod)
         {
-            EditorData::GetInstance().title=key.keybuffer;
+            cl.title=key.keybuffer;
         }
         else if(ed.creatormod)
         {
-            EditorData::GetInstance().creator=key.keybuffer;
+            cl.creator=key.keybuffer;
         }
         else if(ed.websitemod)
         {
@@ -2400,12 +2400,12 @@ void editorinput(void)
                 game.mapheld=true;
                 if(ed.titlemod)
                 {
-                    EditorData::GetInstance().title=key.keybuffer;
+                    cl.title=key.keybuffer;
                     ed.titlemod=false;
                 }
                 else if(ed.creatormod)
                 {
-                    EditorData::GetInstance().creator=key.keybuffer;
+                    cl.creator=key.keybuffer;
                     ed.creatormod=false;
                 }
                 else if(ed.websitemod)
