@@ -290,7 +290,7 @@ void customlevelclass::reset(void)
 
     levmusic=0;
 
-    edentity.clear();
+    customentities.clear();
     levmusic=0;
 
     for (int j = 0; j < maxheight; j++)
@@ -850,10 +850,10 @@ void customlevelclass::findstartpoint(void)
     //Ok! Scan the room for the closest checkpoint
     int testeditor=-1;
     //First up; is there a start point on this screen?
-    for(size_t i=0; i<edentity.size(); i++)
+    for(size_t i=0; i<customentities.size(); i++)
     {
         //if() on screen
-        if(edentity[i].t==16 && testeditor==-1)
+        if(customentities[i].t==16 && testeditor==-1)
         {
             testeditor=i;
         }
@@ -872,25 +872,25 @@ void customlevelclass::findstartpoint(void)
     else
     {
         //Start point spawn
-        int tx=(edentity[testeditor].x-(edentity[testeditor].x%40))/40;
-        int ty=(edentity[testeditor].y-(edentity[testeditor].y%30))/30;
-        game.edsavex = ((edentity[testeditor].x%40)*8)-4;
-        game.edsavey = (edentity[testeditor].y%30)*8;
+        int tx=(customentities[testeditor].x-(customentities[testeditor].x%40))/40;
+        int ty=(customentities[testeditor].y-(customentities[testeditor].y%30))/30;
+        game.edsavex = ((customentities[testeditor].x%40)*8)-4;
+        game.edsavey = (customentities[testeditor].y%30)*8;
         game.edsaverx = 100+tx;
         game.edsavery = 100+ty;
         game.edsavegc = 0;
         game.edsavey++;
-        game.edsavedir=1-edentity[testeditor].p1;
+        game.edsavedir=1-customentities[testeditor].p1;
     }
 }
 
 int customlevelclass::findtrinket(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<(int)edentity.size(); i++)
+    for(int i=0; i<(int)customentities.size(); i++)
     {
         if(i==t) return ttrinket;
-        if(edentity[i].t==9) ttrinket++;
+        if(customentities[i].t==9) ttrinket++;
     }
     return 0;
 }
@@ -898,10 +898,10 @@ int customlevelclass::findtrinket(int t)
 int customlevelclass::findcrewmate(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<(int)edentity.size(); i++)
+    for(int i=0; i<(int)customentities.size(); i++)
     {
         if(i==t) return ttrinket;
-        if(edentity[i].t==15) ttrinket++;
+        if(customentities[i].t==15) ttrinket++;
     }
     return 0;
 }
@@ -909,10 +909,10 @@ int customlevelclass::findcrewmate(int t)
 int customlevelclass::findwarptoken(int t)
 {
     int ttrinket=0;
-    for(int i=0; i<(int)edentity.size(); i++)
+    for(int i=0; i<(int)customentities.size(); i++)
     {
         if(i==t) return ttrinket;
-        if(edentity[i].t==13) ttrinket++;
+        if(customentities[i].t==13) ttrinket++;
     }
     return 0;
 }
@@ -1130,7 +1130,7 @@ bool customlevelclass::load(std::string& _path)
                 edEntityEl->QueryIntAttribute("p5", &entity.p5);
                 edEntityEl->QueryIntAttribute("p6", &entity.p6);
 
-                edentity.push_back(entity);
+                customentities.push_back(entity);
             }
         }
 
@@ -1347,19 +1347,19 @@ bool customlevelclass::save(std::string& _path)
 
 
     msg = xml::update_element_delete_contents(data, "edEntities");
-    for(size_t i = 0; i < edentity.size(); i++)
+    for(size_t i = 0; i < customentities.size(); i++)
     {
         tinyxml2::XMLElement *edentityElement = doc.NewElement( "edentity" );
-        edentityElement->SetAttribute( "x", edentity[i].x);
-        edentityElement->SetAttribute(  "y", edentity[i].y);
-        edentityElement->SetAttribute(  "t", edentity[i].t);
-        edentityElement->SetAttribute(  "p1", edentity[i].p1);
-        edentityElement->SetAttribute(  "p2", edentity[i].p2);
-        edentityElement->SetAttribute(  "p3", edentity[i].p3);
-        edentityElement->SetAttribute( "p4", edentity[i].p4);
-        edentityElement->SetAttribute( "p5", edentity[i].p5);
-        edentityElement->SetAttribute(  "p6", edentity[i].p6);
-        edentityElement->LinkEndChild( doc.NewText( edentity[i].scriptname.c_str() )) ;
+        edentityElement->SetAttribute( "x", customentities[i].x);
+        edentityElement->SetAttribute(  "y", customentities[i].y);
+        edentityElement->SetAttribute(  "t", customentities[i].t);
+        edentityElement->SetAttribute(  "p1", customentities[i].p1);
+        edentityElement->SetAttribute(  "p2", customentities[i].p2);
+        edentityElement->SetAttribute(  "p3", customentities[i].p3);
+        edentityElement->SetAttribute( "p4", customentities[i].p4);
+        edentityElement->SetAttribute( "p5", customentities[i].p5);
+        edentityElement->SetAttribute(  "p6", customentities[i].p6);
+        edentityElement->LinkEndChild( doc.NewText( customentities[i].scriptname.c_str() )) ;
         msg->LinkEndChild( edentityElement );
     }
 
@@ -1747,9 +1747,9 @@ Uint32 customlevelclass::getonewaycol(void)
 int customlevelclass::numtrinkets(void)
 {
     int temp = 0;
-    for (size_t i = 0; i < edentity.size(); i++)
+    for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (edentity[i].t == 9)
+        if (customentities[i].t == 9)
         {
             temp++;
         }
@@ -1760,9 +1760,9 @@ int customlevelclass::numtrinkets(void)
 int customlevelclass::numcrewmates(void)
 {
     int temp = 0;
-    for (size_t i = 0; i < edentity.size(); i++)
+    for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (edentity[i].t == 15)
+        if (customentities[i].t == 15)
         {
             temp++;
         }

@@ -451,9 +451,9 @@ void mapclass::initcustommapdata(void)
 	shinytrinkets.clear();
 
 #if !defined(NO_CUSTOM_LEVELS)
-	for (size_t i = 0; i < edentity.size(); i++)
+	for (size_t i = 0; i < customentities.size(); i++)
 	{
-		const CustomEntity& ent = edentity[i];
+		const CustomEntity& ent = customentities[i];
 		if (ent.t != 9)
 		{
 			continue;
@@ -1634,10 +1634,10 @@ void mapclass::loadlevel(int rx, int ry)
 		// Entities have to be created HERE, akwardly
 		int tempcheckpoints = 0;
 		int tempscriptbox = 0;
-		for (size_t edi = 0; edi < edentity.size(); edi++)
+		for (size_t edi = 0; edi < customentities.size(); edi++)
 		{
 			// If entity is in this room, create it
-			const CustomEntity& ent = edentity[edi];
+			const CustomEntity& ent = customentities[edi];
 			const int tsx = ent.x / 40;
 			const int tsy = ent.y / 30;
 
