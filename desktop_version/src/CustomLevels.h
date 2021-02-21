@@ -61,7 +61,7 @@ struct LevelMetaData
 };
 
 
-extern std::vector<CustomEntity> edentity;
+extern std::vector<CustomEntity> customentities;
 
 class EditorData
 {
