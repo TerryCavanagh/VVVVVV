@@ -261,10 +261,9 @@ static void menuactionpress(void)
  #define MPOFFSET -2
 #endif
         case OFFSET+5:
-            //bye!
-            music.playef(2);
-            game.mainmenu = 100;
-            graphics.fademode = 2;
+            music.playef(11);
+            game.createmenu(Menu::youwannaquit);
+            map.nexttowercolour();
             break;
 #undef OFFSET
 #undef NOCUSTOMSOFFSET
@@ -477,8 +476,8 @@ static void menuactionpress(void)
             break;
         default:
             music.playef(11);
-            map.nexttowercolour(); //This goes first, otherwise mismatching continuemenu color is possible
             game.returnmenu();
+            map.nexttowercolour();
         }
         break;
     case Menu::setinvincibility:
@@ -1610,28 +1609,40 @@ void titleinput(void)
     if (key.isDown(KEYBOARD_ENTER)) game.press_map = true;
 
     //In the menu system, all keypresses are single taps rather than holds. Therefore this test has to be done for all presses
-    if (!game.press_action && !game.press_left && !game.press_right) game.jumpheld = false;
+    if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_esc)) game.jumpheld = false;
     if (!game.press_map) game.mapheld = false;
 
     if (!game.jumpheld && graphics.fademode==0)
     {
-        if (game.press_action || game.press_left || game.press_right || game.press_map)
+        if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_esc))
         {
             game.jumpheld = true;
         }
 
-        if (key.isDown(27) && game.currentmenuname != Menu::youwannaquit && game.menustart)
+        if (game.menustart
+        && game.menucountdown <= 0
+        && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
         {
             music.playef(11);
-            if (game.ingame_titlemode)
+            if (game.currentmenuname == Menu::mainmenu)
             {
-                game.returntopausemenu();
+                game.createmenu(Menu::youwannaquit);
             }
             else
             {
-                game.createmenu(Menu::youwannaquit);
-                map.nexttowercolour();
+                if (game.ingame_titlemode
+                && (game.currentmenuname == Menu::options
+                || game.currentmenuname == Menu::graphicoptions))
+                {
+                    game.returntopausemenu();
+                }
+                else
+                {
+                    game.returnmenu();
+                }
             }
+
+            map.nexttowercolour();
         }
 
         if(game.menustart)

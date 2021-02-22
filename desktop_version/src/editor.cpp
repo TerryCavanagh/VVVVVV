@@ -3928,7 +3928,30 @@ void editorinput(void)
         else
         {
 
-            ed.settingsmod=!ed.settingsmod;
+            music.playef(11);
+            if (ed.settingsmod)
+            {
+                if (ed.scripteditmod)
+                {
+                    ed.scripteditmod = false;
+                }
+                else if (ed.settingsmod)
+                {
+                    if (game.currentmenuname == Menu::ed_settings)
+                    {
+                        ed.settingsmod = false;
+                    }
+                    else
+                    {
+                        game.returnmenu();
+                        map.nexttowercolour();
+                    }
+                }
+            }
+            else
+            {
+                ed.settingsmod = true;
+            }
             graphics.backgrounddrawn=false;
 
             if (ed.settingsmod)
@@ -4036,12 +4059,6 @@ void editorinput(void)
                     }
                     key.keybuffer=ed.sb[ed.pagey+ed.sby];
                     ed.sbx = utf8::unchecked::distance(ed.sb[ed.pagey+ed.sby].begin(), ed.sb[ed.pagey+ed.sby].end());
-                }
-
-                if (key.isDown(27))
-                {
-                    ed.scripteditmod=false;
-                    ed.settingsmod=false;
                 }
             }
         }
