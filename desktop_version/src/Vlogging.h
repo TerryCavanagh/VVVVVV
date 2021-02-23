@@ -6,6 +6,8 @@ extern "C"
 {
 #endif
 
+void vlog_init(void);
+
 int vlog_info(const char* text, ...);
 
 int vlog_warn(const char* text, ...);
