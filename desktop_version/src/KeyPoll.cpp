@@ -1,7 +1,6 @@
 #define KEY_DEFINITION
 #include "KeyPoll.h"
 
-#include <stdio.h>
 #include <string.h>
 #include <utf8/unchecked.h>
 
@@ -10,6 +9,7 @@
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Music.h"
+#include "Vlogging.h"
 
 int inline KeyPoll::getThreshold(void)
 {
@@ -291,8 +291,8 @@ void KeyPoll::Poll(void)
 		case SDL_CONTROLLERDEVICEADDED:
 		{
 			SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);
-			printf(
-				"Opened SDL_GameController ID #%i, %s\n",
+			vlog_info(
+				"Opened SDL_GameController ID #%i, %s",
 				evt.cdevice.which,
 				SDL_GameControllerName(toOpen)
 			);
@@ -303,7 +303,7 @@ void KeyPoll::Poll(void)
 		{
 			SDL_GameController *toClose = controllers[evt.cdevice.which];
 			controllers.erase(evt.cdevice.which);
-			printf("Closing %s\n", SDL_GameControllerName(toClose));
+			vlog_info("Closing %s", SDL_GameControllerName(toClose));
 			SDL_GameControllerClose(toClose);
 			break;
 		}

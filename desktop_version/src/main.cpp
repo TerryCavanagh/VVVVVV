@@ -1,5 +1,4 @@
 #include <SDL.h>
-#include <stdio.h>
 
 #include "DeferCallbacks.h"
 #include "editor.h"
@@ -22,6 +21,7 @@
 #include "Script.h"
 #include "SoundSystem.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -371,7 +371,7 @@ int main(int argc, char *argv[])
     } \
     else \
     { \
-        printf("%s option requires one argument.\n", argv[i]); \
+        vlog_error("%s option requires one argument.", argv[i]); \
         VVV_exit(1); \
     }
 
@@ -434,14 +434,14 @@ int main(int argc, char *argv[])
 #undef ARG
         else
         {
-            printf("Error: invalid option: %s\n", argv[i]);
+            vlog_error("Error: invalid option: %s", argv[i]);
             VVV_exit(1);
         }
     }
 
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
     {
-        puts("Unable to initialize filesystem!");
+        vlog_error("Unable to initialize filesystem!");
         VVV_exit(1);
     }
 
@@ -458,34 +458,34 @@ int main(int argc, char *argv[])
 
     NETWORK_init();
 
-    printf("\t\t\n");
-    printf("\t\t\n");
-    printf("\t\t       VVVVVV\n");
-    printf("\t\t\n");
-    printf("\t\t\n");
-    printf("\t\t  8888888888888888  \n");
-    printf("\t\t88888888888888888888\n");
-    printf("\t\t888888    8888    88\n");
-    printf("\t\t888888    8888    88\n");
-    printf("\t\t88888888888888888888\n");
-    printf("\t\t88888888888888888888\n");
-    printf("\t\t888888            88\n");
-    printf("\t\t88888888        8888\n");
-    printf("\t\t  8888888888888888  \n");
-    printf("\t\t      88888888      \n");
-    printf("\t\t  8888888888888888  \n");
-    printf("\t\t88888888888888888888\n");
-    printf("\t\t88888888888888888888\n");
-    printf("\t\t88888888888888888888\n");
-    printf("\t\t8888  88888888  8888\n");
-    printf("\t\t8888  88888888  8888\n");
-    printf("\t\t    888888888888    \n");
-    printf("\t\t    8888    8888    \n");
-    printf("\t\t  888888    888888  \n");
-    printf("\t\t  888888    888888  \n");
-    printf("\t\t  888888    888888  \n");
-    printf("\t\t\n");
-    printf("\t\t\n");
+    vlog_info("\t\t");
+    vlog_info("\t\t");
+    vlog_info("\t\t       VVVVVV");
+    vlog_info("\t\t");
+    vlog_info("\t\t");
+    vlog_info("\t\t  8888888888888888  ");
+    vlog_info("\t\t88888888888888888888");
+    vlog_info("\t\t888888    8888    88");
+    vlog_info("\t\t888888    8888    88");
+    vlog_info("\t\t88888888888888888888");
+    vlog_info("\t\t88888888888888888888");
+    vlog_info("\t\t888888            88");
+    vlog_info("\t\t88888888        8888");
+    vlog_info("\t\t  8888888888888888  ");
+    vlog_info("\t\t      88888888      ");
+    vlog_info("\t\t  8888888888888888  ");
+    vlog_info("\t\t88888888888888888888");
+    vlog_info("\t\t88888888888888888888");
+    vlog_info("\t\t88888888888888888888");
+    vlog_info("\t\t8888  88888888  8888");
+    vlog_info("\t\t8888  88888888  8888");
+    vlog_info("\t\t    888888888888    ");
+    vlog_info("\t\t    8888    8888    ");
+    vlog_info("\t\t  888888    888888  ");
+    vlog_info("\t\t  888888    888888  ");
+    vlog_info("\t\t  888888    888888  ");
+    vlog_info("\t\t");
+    vlog_info("\t\t");
 
     //Set up screen
 
@@ -598,7 +598,7 @@ int main(int argc, char *argv[])
                 ed.ListOfMetaData.clear();
                 ed.ListOfMetaData.push_back(meta);
             } else {
-                printf("Level not found\n");
+                vlog_error("Level not found");
                 VVV_exit(1);
             }
         }

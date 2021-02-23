@@ -1,11 +1,14 @@
 #include "BinaryBlob.h"
 
 #include <SDL.h>
+#ifdef VVV_COMPILEMUSIC
 #include <stdio.h>
+#endif
 
 #include "Exit.h"
 #include "FileSystemUtils.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 binaryBlob::binaryBlob(void)
 {
@@ -36,7 +39,7 @@ void binaryBlob::AddFileToBinaryBlob(const char* _path)
 
 		fclose(file);
 
-		printf("The complete file size: %li\n", size);
+		vlog_info("The complete file size: %li", size);
 
 		m_memblocks[numberofHeaders] = memblock;
 		for (int i = 0; _path[i]; i += 1)
@@ -50,7 +53,7 @@ void binaryBlob::AddFileToBinaryBlob(const char* _path)
 	}
 	else
 	{
-		printf("Unable to open file\n");
+		vlog_info("Unable to open file");
 	}
 }
 
@@ -70,7 +73,7 @@ void binaryBlob::writeBinaryBlob(const char* _name)
 	}
 	else
 	{
-		printf("Unable to open new file for writing. Feels bad.\n");
+		vlog_info("Unable to open new file for writing. Feels bad.");
 	}
 }
 #endif
@@ -106,7 +109,7 @@ int binaryBlob::getSize(int _index)
 {
 	if (!INBOUNDS_ARR(_index, m_headers))
 	{
-		puts("getSize() out-of-bounds!");
+		vlog_error("getSize() out-of-bounds!");
 		return 0;
 	}
 	return m_headers[_index].size;
@@ -116,7 +119,7 @@ char* binaryBlob::getAddress(int _index)
 {
 	if (!INBOUNDS_ARR(_index, m_memblocks))
 	{
-		puts("getAddress() out-of-bounds!");
+		vlog_error("getAddress() out-of-bounds!");
 		return NULL;
 	}
 	return m_memblocks[_index];

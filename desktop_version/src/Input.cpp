@@ -14,6 +14,7 @@
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 static void updatebuttonmappings(int bind)
 {

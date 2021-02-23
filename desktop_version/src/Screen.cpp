@@ -1,11 +1,11 @@
 #include "Screen.h"
 
 #include <SDL.h>
-#include <stdio.h>
 
 #include "FileSystemUtils.h"
 #include "Game.h"
 #include "GraphicsUtil.h"
+#include "Vlogging.h"
 
 // Used to create the window icon
 extern "C"
@@ -168,7 +168,7 @@ void Screen::ResizeScreen(int x, int y)
 		int result = SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 		if (result != 0)
 		{
-			printf("Error: could not set the game to fullscreen mode: %s\n", SDL_GetError());
+			vlog_error("Error: could not set the game to fullscreen mode: %s", SDL_GetError());
 			return;
 		}
 	}
@@ -177,7 +177,7 @@ void Screen::ResizeScreen(int x, int y)
 		int result = SDL_SetWindowFullscreen(m_window, 0);
 		if (result != 0)
 		{
-			printf("Error: could not set the game to windowed mode: %s\n", SDL_GetError());
+			vlog_error("Error: could not set the game to windowed mode: %s", SDL_GetError());
 			return;
 		}
 		if (x != -1 && y != -1)
@@ -193,13 +193,13 @@ void Screen::ResizeScreen(int x, int y)
 		int result = SDL_RenderSetLogicalSize(m_renderer, winX, winY);
 		if (result != 0)
 		{
-			printf("Error: could not set logical size: %s\n", SDL_GetError());
+			vlog_error("Error: could not set logical size: %s", SDL_GetError());
 			return;
 		}
 		result = SDL_RenderSetIntegerScale(m_renderer, SDL_FALSE);
 		if (result != 0)
 		{
-			printf("Error: could not set scale: %s\n", SDL_GetError());
+			vlog_error("Error: could not set scale: %s", SDL_GetError());
 			return;
 		}
 	}
@@ -209,7 +209,7 @@ void Screen::ResizeScreen(int x, int y)
 		int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (stretchMode == 2));
 		if (result != 0)
 		{
-			printf("Error: could not set scale: %s\n", SDL_GetError());
+			vlog_error("Error: could not set scale: %s", SDL_GetError());
 			return;
 		}
 	}

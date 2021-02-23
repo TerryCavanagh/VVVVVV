@@ -1,9 +1,7 @@
 #include "GraphicsResources.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "FileSystemUtils.h"
+#include "Vlogging.h"
 
 // Used to load PNG data
 extern "C"
@@ -82,7 +80,7 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
 	else
 	{
 		SDL_free(data);
-		fprintf(stderr,"Image not found: %s\n", filename);
+		vlog_error("Image not found: %s", filename);
 		SDL_assert(0 && "Image not found! See stderr.");
 		return NULL;
 	}

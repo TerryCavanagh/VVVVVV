@@ -42,7 +42,7 @@ void VVV_fillstring(
     if (whine) \
     { \
         whine = false; \
-        puts(message); \
+        vlog_error(message); \
     } \
     do { } while (false)
 
