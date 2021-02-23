@@ -92,7 +92,7 @@ void musicclass::init(void)
 	index = blob.getIndex(track_name); \
 	if (index >= 0 && index < blob.max_headers) \
 	{ \
-		rw = SDL_RWFromMem(blob.getAddress(index), blob.getSize(index)); \
+		rw = SDL_RWFromConstMem(blob.getAddress(index), blob.getSize(index)); \
 		if (rw == NULL) \
 		{ \
 			printf("Unable to read music file header: %s\n", SDL_GetError()); \
@@ -110,7 +110,7 @@ void musicclass::init(void)
 		size_t index_ = 0;
 		while (mmmmmm_blob.nextExtra(&index_))
 		{
-			rw = SDL_RWFromMem(mmmmmm_blob.getAddress(index_), mmmmmm_blob.getSize(index_));
+			rw = SDL_RWFromConstMem(mmmmmm_blob.getAddress(index_), mmmmmm_blob.getSize(index_));
 			musicTracks.push_back(MusicTrack( rw ));
 
 			num_mmmmmm_tracks++;
@@ -133,7 +133,7 @@ void musicclass::init(void)
 	size_t index_ = 0;
 	while (pppppp_blob.nextExtra(&index_))
 	{
-		rw = SDL_RWFromMem(pppppp_blob.getAddress(index_), pppppp_blob.getSize(index_));
+		rw = SDL_RWFromConstMem(pppppp_blob.getAddress(index_), pppppp_blob.getSize(index_));
 		musicTracks.push_back(MusicTrack( rw ));
 
 		num_pppppp_tracks++;
