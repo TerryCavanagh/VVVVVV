@@ -112,6 +112,7 @@ set(VVV_SRC
 	src/GlitchrunnerMode.c
 	src/Network.c
 	src/ThirdPartyDeps.c
+	src/Vlogging.c
 	src/Xoshiro.c
 	../third_party/physfs/extras/physfsrwops.c
 )
