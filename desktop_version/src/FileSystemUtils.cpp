@@ -30,12 +30,31 @@ static void PLATFORM_getOSDirectory(char* output);
 static void PLATFORM_migrateSaveData(char* output);
 static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
+static void* bridged_malloc(PHYSFS_uint64 size)
+{
+	return SDL_malloc(size);
+}
+
+static void* bridged_realloc(void* ptr, PHYSFS_uint64 size)
+{
+	return SDL_realloc(ptr, size);
+}
+
+static const PHYSFS_Allocator allocator = {
+	NULL,
+	NULL,
+	bridged_malloc,
+	bridged_realloc,
+	SDL_free
+};
+
 int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
 	char output[MAX_PATH];
 	int mkdirResult;
 	const char* pathSep = PHYSFS_getDirSeparator();
 
+	PHYSFS_setAllocator(&allocator);
 	PHYSFS_init(argvZero);
 	PHYSFS_permitSymbolicLinks(1);
 
