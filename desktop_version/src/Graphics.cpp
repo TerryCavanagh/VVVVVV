@@ -1,7 +1,6 @@
 #define GRAPHICS_DEFINITION
 #include "Graphics.h"
 
-#include <stdio.h>
 #include <utf8/unchecked.h>
 
 #include "editor.h"
@@ -13,6 +12,7 @@
 #include "Music.h"
 #include "Screen.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
 void Graphics::init(void)
 {
@@ -323,7 +323,7 @@ void Graphics::updatetitlecolours(void)
         SDL_snprintf(error, sizeof(error), error_fmt, #tilesheet, tile_square); \
         SDL_snprintf(error_title, sizeof(error_title), error_title_fmt, #tilesheet); \
         \
-        puts(error); \
+        vlog_error(error); \
         \
         return false; \
     }
@@ -1416,7 +1416,7 @@ void Graphics::textboxtimer( int t )
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
-        puts("textboxtimer() out-of-bounds!");
+        vlog_error("textboxtimer() out-of-bounds!");
         return;
     }
 
@@ -1427,7 +1427,7 @@ void Graphics::addline( std::string t )
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
-        puts("addline() out-of-bounds!");
+        vlog_error("addline() out-of-bounds!");
         return;
     }
 
@@ -1438,7 +1438,7 @@ void Graphics::textboxadjust(void)
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
-        puts("textboxadjust() out-of-bounds!");
+        vlog_error("textboxadjust() out-of-bounds!");
         return;
     }
 
@@ -3133,7 +3133,7 @@ void Graphics::textboxcenterx(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
-		puts("textboxcenterx() out-of-bounds!");
+		vlog_error("textboxcenterx() out-of-bounds!");
 		return;
 	}
 
@@ -3144,7 +3144,7 @@ int Graphics::textboxwidth(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
-		puts("textboxwidth() out-of-bounds!");
+		vlog_error("textboxwidth() out-of-bounds!");
 		return 0;
 	}
 
@@ -3155,7 +3155,7 @@ void Graphics::textboxmoveto(int xo)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
-		puts("textboxmoveto() out-of-bounds!");
+		vlog_error("textboxmoveto() out-of-bounds!");
 		return;
 	}
 
@@ -3166,7 +3166,7 @@ void Graphics::textboxcentery(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
-		puts("textboxcentery() out-of-bounds!");
+		vlog_error("textboxcentery() out-of-bounds!");
 		return;
 	}
 

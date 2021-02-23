@@ -6,6 +6,8 @@
 #include <stdint.h>
 #include <SDL.h>
 
+#include "Vlogging.h"
+
 /* Steamworks interface versions */
 
 #define VVVVVV_STEAMCLIENT "SteamClient017"
@@ -108,7 +110,7 @@ int32_t STEAM_init(void)
 	libHandle = SDL_LoadObject(STEAM_LIBRARY);
 	if (!libHandle)
 	{
-		printf("%s not found!\n", STEAM_LIBRARY);
+		vlog_info("%s not found!", STEAM_LIBRARY);
 		return 0;
 	}
 
@@ -116,7 +118,7 @@ int32_t STEAM_init(void)
 		name = (name##Func) SDL_LoadFunction(libHandle, #name); \
 		if (!name) \
 		{ \
-			printf("%s symbol %s not found!\n", STEAM_LIBRARY, #name); \
+			vlog_error("%s symbol %s not found!", STEAM_LIBRARY, #name); \
 			ClearPointers(); \
 			return 0; \
 		}
@@ -136,7 +138,7 @@ int32_t STEAM_init(void)
 
 	if (!SteamAPI_Init())
 	{
-		printf("Steamworks not initialized!\n");
+		vlog_error("Steamworks not initialized!");
 		ClearPointers();
 		return 0;
 	}
@@ -146,7 +148,7 @@ int32_t STEAM_init(void)
 	if (!steamClient || !steamUser || !steamPipe)
 	{
 		SteamAPI_Shutdown();
-		printf(VVVVVV_STEAMCLIENT " not created!\n");
+		vlog_error(VVVVVV_STEAMCLIENT " not created!");
 		ClearPointers();
 		return 0;
 	}
@@ -159,7 +161,7 @@ int32_t STEAM_init(void)
 	if (!steamUserStats)
 	{
 		SteamAPI_Shutdown();
-		printf(VVVVVV_STEAMUSERSTATS " not created!\n");
+		vlog_error(VVVVVV_STEAMUSERSTATS " not created!");
 		ClearPointers();
 		return 0;
 	}

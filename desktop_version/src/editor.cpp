@@ -3,7 +3,6 @@
 #define ED_DEFINITION
 #include "editor.h"
 
-#include <stdio.h>
 #include <string>
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
@@ -18,6 +17,7 @@
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 #include "XMLUtils.h"
 
 #ifdef _WIN32
@@ -254,7 +254,7 @@ bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
 
     if (uMem == NULL)
     {
-        printf("Level %s not found :(\n", _path.c_str());
+        vlog_warn("Level %s not found :(", _path.c_str());
         return false;
     }
 
@@ -264,7 +264,7 @@ bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
 
     if (find_metadata(buf) == "")
     {
-        printf("Couldn't load metadata for %s\n", _path.c_str());
+        vlog_warn("Couldn't load metadata for %s", _path.c_str());
         return false;
     }
 
@@ -1819,7 +1819,7 @@ bool editorclass::load(std::string& _path)
 
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))
     {
-        printf("No level %s to load :(\n", _path.c_str());
+        vlog_warn("No level %s to load :(", _path.c_str());
         return false;
     }
 
@@ -1832,7 +1832,7 @@ bool editorclass::load(std::string& _path)
         // should always have a valid root but handle gracefully if it does
         if (!pElem)
         {
-            printf("No valid root! Corrupt level file?\n");
+            vlog_error("No valid root! Corrupt level file?");
         }
 
         pElem->QueryIntAttribute("version", &version);
@@ -2141,7 +2141,7 @@ bool editorclass::save(std::string& _path)
     bool already_exists = !loaded_filepath.empty() && FILESYSTEM_loadTiXml2Document(loaded_filepath.c_str(), doc);
     if (!already_exists && !loaded_filepath.empty())
     {
-        printf("Currently-loaded %s not found\n", loaded_filepath.c_str());
+        vlog_error("Currently-loaded %s not found", loaded_filepath.c_str());
     }
 
     loaded_filepath = newpath;

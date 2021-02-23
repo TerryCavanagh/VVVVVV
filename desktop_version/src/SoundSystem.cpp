@@ -1,9 +1,9 @@
 #include "SoundSystem.h"
 
 #include <SDL.h>
-#include <stdio.h>
 
 #include "FileSystemUtils.h"
+#include "Vlogging.h"
 
 MusicTrack::MusicTrack(const char* fileName)
 {
@@ -11,7 +11,7 @@ MusicTrack::MusicTrack(const char* fileName)
 	m_isValid = true;
 	if(m_music == NULL)
 	{
-		fprintf(stderr, "Unable to load Ogg Music file: %s\n", Mix_GetError());
+		vlog_error("Unable to load Ogg Music file: %s", Mix_GetError());
 		m_isValid = false;
 	}
 }
@@ -22,7 +22,7 @@ MusicTrack::MusicTrack(SDL_RWops *rw)
 	m_isValid = true;
 	if(m_music == NULL)
 	{
-		fprintf(stderr, "Unable to load Magic Binary Music file: %s\n", Mix_GetError());
+		vlog_error("Unable to load Magic Binary Music file: %s", Mix_GetError());
 		m_isValid = false;
 	}
 }
@@ -37,7 +37,7 @@ SoundTrack::SoundTrack(const char* fileName)
 	FILESYSTEM_loadAssetToMemory(fileName, &mem, &length, false);
 	if (mem == NULL)
 	{
-		fprintf(stderr, "Unable to load WAV file %s\n", fileName);
+		vlog_error("Unable to load WAV file %s", fileName);
 		SDL_assert(0 && "WAV file missing!");
 		return;
 	}
@@ -47,7 +47,7 @@ SoundTrack::SoundTrack(const char* fileName)
 
 	if (sound == NULL)
 	{
-		fprintf(stderr, "Unable to load WAV file: %s\n", Mix_GetError());
+		vlog_error("Unable to load WAV file: %s", Mix_GetError());
 	}
 }
 
@@ -60,7 +60,7 @@ SoundSystem::SoundSystem(void)
 
 	if (Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
 	{
-		fprintf(stderr, "Unable to initialize audio: %s\n", Mix_GetError());
+		vlog_error("Unable to initialize audio: %s", Mix_GetError());
 		SDL_assert(0 && "Unable to initialize audio!");
 	}
 }
