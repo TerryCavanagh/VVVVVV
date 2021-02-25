@@ -1169,7 +1169,7 @@ static void menurender(void)
 void titlerender()
 {
 
-    FillRect(graphics.backBuffer, 0,0,graphics.backBuffer->w, graphics.backBuffer->h, 0x00000000 );
+    ClearSurface(graphics.backBuffer);
 
     if (!game.menustart)
     {
@@ -1220,7 +1220,7 @@ void titlerender()
 
 void gamecompleterender(void)
 {
-    FillRect(graphics.backBuffer, 0x000000);
+    ClearSurface(graphics.backBuffer);
 
     if(!game.colourblindmode) graphics.drawtowerbackground(graphics.titlebg);
 
@@ -1366,7 +1366,7 @@ void gamecompleterender(void)
 
 void gamecompleterender2(void)
 {
-    FillRect(graphics.backBuffer, 0x000000);
+    ClearSurface(graphics.backBuffer);
 
     graphics.drawimage(10, 0, 0);
 
@@ -1412,7 +1412,7 @@ void gamerender(void)
             }
             else
             {
-                FillRect(graphics.backBuffer,0x00000);
+                ClearSurface(graphics.backBuffer);
             }
             graphics.drawtowermap();
         }
@@ -1424,7 +1424,7 @@ void gamerender(void)
             }
             else
             {
-                FillRect(graphics.backBuffer,0x00000);
+                ClearSurface(graphics.backBuffer);
             }
             if (map.final_colormode)
             {
@@ -1712,7 +1712,7 @@ void gamerender(void)
 
 void maprender(void)
 {
-    FillRect(graphics.backBuffer, 0x000000);
+    ClearSurface(graphics.backBuffer);
 
     //draw screen alliteration
     //Roomname:
@@ -2469,7 +2469,7 @@ void maprender(void)
 
 void teleporterrender(void)
 {
-    FillRect(graphics.backBuffer, 0x000000);
+    ClearSurface(graphics.backBuffer);
     int tempx;
     int tempy;
     //draw screen alliteration

@@ -2316,7 +2316,7 @@ static void mapmenuactionpress(void)
 
         //Kill contents of offset render buffer, since we do that for some reason.
         //This fixes an apparent frame flicker.
-        FillRect(graphics.tempBuffer, 0x000000);
+        ClearSurface(graphics.tempBuffer);
         graphics.fademode = 2;
         music.fadeout();
         map.nexttowercolour();

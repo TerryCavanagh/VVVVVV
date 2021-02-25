@@ -476,7 +476,7 @@ static void inline fixedloop(void)
 
         if (!game.blackout)
         {
-            FillRect(graphics.backBuffer, 0x00000000);
+            ClearSurface(graphics.backBuffer);
             graphics.bprint(5, 110, "Game paused", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
             graphics.bprint(5, 120, "[click to resume]", 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
             graphics.bprint(5, 220, "Press M to mute in game", 164 - help.glow, 196 - help.glow, 164 - help.glow, true);

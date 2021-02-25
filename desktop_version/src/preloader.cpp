@@ -110,7 +110,7 @@ void preloaderrender(void)
   }else if (pre_transition <= -10) {
     //Switch to TITLEMODE (handled by preloaderrenderfixed)
   }else if (pre_transition < 5) {
-    FillRect(graphics.backBuffer, 0, 0, 320,240, graphics.getBGR(0,0,0));
+    ClearSurface(graphics.backBuffer);
   }else if (pre_transition < 20) {
     pre_temprecty = 0;
     pre_temprecth = 240;
