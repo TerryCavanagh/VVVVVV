@@ -1304,7 +1304,7 @@ void Graphics::drawfade(void)
     int usethisamount = lerp(oldfadeamount, fadeamount);
     if ((fademode == 1)||(fademode == 4))
     {
-        FillRect(backBuffer, 0, 0, backBuffer->w, backBuffer->h, 0x000000);
+        ClearSurface(backBuffer);
     }
     else if(fademode==3)
     {
@@ -2005,7 +2005,7 @@ void Graphics::drawbackground( int t )
     {
     case 1:
         //Starfield
-        FillRect(backBuffer,0x00000);
+        ClearSurface(backBuffer);
         for (int i = 0; i < numstars; i++)
         {
             stars[i].w = 2;
@@ -2174,13 +2174,13 @@ void Graphics::drawbackground( int t )
         break;
     }
     case 3: //Warp zone (horizontal)
-        FillRect(backBuffer, 0x000000);
+        ClearSurface(backBuffer);
         BlitSurfaceStandard(warpbuffer, NULL, warpbuffer_lerp, NULL);
         ScrollSurface(warpbuffer_lerp, lerp(0, -3), 0);
         BlitSurfaceStandard(warpbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
         break;
     case 4: //Warp zone (vertical)
-        FillRect(backBuffer, 0x000000);
+        ClearSurface(backBuffer);
         SDL_BlitSurface(warpbuffer, NULL, warpbuffer_lerp, NULL);
         ScrollSurface(warpbuffer_lerp, 0, lerp(0, -3));
         SDL_BlitSurface(warpbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
@@ -2239,7 +2239,7 @@ void Graphics::drawbackground( int t )
         break;
     case 6:
         //Final Starfield
-        FillRect(backBuffer,0x000000);
+        ClearSurface(backBuffer);
         for (int i = 0; i < numstars; i++)
         {
             stars[i].w = 2;
@@ -2287,7 +2287,7 @@ void Graphics::drawbackground( int t )
         }
         break;
     default:
-        FillRect(backBuffer, 0x000000 );
+        ClearSurface(backBuffer);
 
         break;
     }
@@ -2376,7 +2376,7 @@ void Graphics::updatebackground(int t)
         {
             //draw the whole thing for the first time!
             backoffset = 0;
-            FillRect(warpbuffer, 0x000000);
+            ClearSurface(warpbuffer);
             for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 21; i++)
@@ -2415,7 +2415,7 @@ void Graphics::updatebackground(int t)
         {
             //draw the whole thing for the first time!
             backoffset = 0;
-            FillRect(warpbuffer,0x000000 );
+            ClearSurface(warpbuffer);
             for (int j = 0; j < 16; j++)
             {
                 for (int i = 0; i < 21; i++)
@@ -2462,7 +2462,7 @@ void Graphics::drawmap(void)
 {
     if (!foregrounddrawn)
     {
-        FillRect(foregroundBuffer, 0x00000000);
+        ClearSurface(foregroundBuffer);
         if(map.tileset==0)
         {
             for (int j = 0; j < 30; j++)
@@ -2502,7 +2502,7 @@ void Graphics::drawmap(void)
 void Graphics::drawfinalmap(void)
 {
     if (!foregrounddrawn) {
-        FillRect(foregroundBuffer, 0x00000000);
+        ClearSurface(foregroundBuffer);
         if(map.tileset==0){
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
@@ -2551,7 +2551,7 @@ void Graphics::drawtowerspikes(void)
 
 void Graphics::drawtowerbackground(const TowerBG& bg_obj)
 {
-    FillRect(backBuffer, 0x000000);
+    ClearSurface(backBuffer);
     SDL_BlitSurface(bg_obj.buffer, NULL, bg_obj.buffer_lerp, NULL);
     ScrollSurface(bg_obj.buffer_lerp, 0, lerp(0, -bg_obj.bscroll));
     SDL_BlitSurface(bg_obj.buffer_lerp, &towerbuffer_rect, backBuffer, NULL);
@@ -2825,7 +2825,7 @@ void Graphics::menuoffrender(void)
 	{
 		SDL_Surface* tempbufferFlipped = FlipSurfaceVerticle(tempBuffer);
 		//put the stored backbuffer in the backbuffer.
-		SDL_FillRect(backBuffer, NULL, 0x00000000);
+		ClearSurface(backBuffer);
 		BlitSurfaceStandard(tempbufferFlipped, NULL, backBuffer, NULL);
 		SDL_FreeSurface(tempbufferFlipped);
 		SDL_Rect offsetRect;
@@ -2847,7 +2847,7 @@ void Graphics::menuoffrender(void)
 	SDL_Rect rect;
 	setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
 	screenbuffer->UpdateScreen(backBuffer,&rect);
-	FillRect(backBuffer, 0x000000);
+	ClearSurface(backBuffer);
 }
 
 void Graphics::drawhuetile( int x, int y, int t )
@@ -2981,7 +2981,7 @@ void Graphics::screenshake(void)
 		screenbuffer->UpdateScreen( backBuffer, &shakeRect);
 	}
 
-	FillRect(backBuffer, 0x000000 );
+	ClearSurface(backBuffer);
 }
 
 void Graphics::updatescreenshake(void)

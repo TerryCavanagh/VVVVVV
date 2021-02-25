@@ -287,7 +287,7 @@ void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect )
 	}
 
 
-	FillRect(m_screen, 0x000);
+	ClearSurface(m_screen);
 	BlitSurfaceStandard(buffer,NULL,m_screen,rect);
 
 	if(badSignalEffect)
@@ -318,7 +318,7 @@ void Screen::FlipScreen(void)
 	);
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);
-	SDL_FillRect(m_screen, NULL, 0x00000000);
+	ClearSurface(m_screen);
 }
 
 void Screen::toggleFullScreen(void)

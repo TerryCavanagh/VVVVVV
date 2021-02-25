@@ -2155,7 +2155,7 @@ void editorclass::generatecustomminimap(void)
         map.custommmysize=180-(map.custommmyoff*2);
     }
 
-    FillRect(graphics.images[12], graphics.getRGB(0,0,0));
+    ClearSurface(graphics.images[12]);
 
     int tm=0;
     int temp=0;
@@ -2429,7 +2429,7 @@ void editorrender(void)
 
     //Draw grid
 
-    FillRect(graphics.backBuffer, 0, 0, 320,240, graphics.getRGB(0,0,0));
+    ClearSurface(graphics.backBuffer);
     for(int j=0; j<30; j++)
     {
         for(int i=0; i<40; i++)
@@ -2893,7 +2893,7 @@ void editorrender(void)
 
     //Draw ghosts (spooky!)
     if (game.ghostsenabled) {
-        SDL_FillRect(graphics.ghostbuffer, NULL, SDL_MapRGBA(graphics.ghostbuffer->format, 0, 0, 0, 0));
+        ClearSurface(graphics.ghostbuffer);
         for (int i = 0; i < (int)ed.ghosts.size(); i++) {
             if (i <= ed.currentghosts) { // We don't want all of them to show up at once :)
                 if (ed.ghosts[i].rx != ed.levx || ed.ghosts[i].ry != ed.levy
@@ -3185,7 +3185,7 @@ void editorrender(void)
         }
         else
         {
-            FillRect(graphics.backBuffer, 0, 0, 320, 240, 0x00000000);
+            ClearSurface(graphics.backBuffer);
         }
 
         int tr = graphics.titlebg.r - (help.glow / 4) - int(fRandom() * 4);
