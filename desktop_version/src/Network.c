@@ -29,7 +29,7 @@
 	int32_t name##_init(void); \
 	void name##_shutdown(void); \
 	void name##_update(void); \
-	void name##_unlockAchievement(void); \
+	void name##_unlockAchievement(const char *name); \
 	int32_t name##_getAchievementProgress(const char *name); \
 	void name##_setAchievementProgress(const char *name, int32_t stat);
 #ifdef STEAM_NETWORK
@@ -46,7 +46,7 @@ typedef struct NetworkBackend
 	int32_t (*Init)(void);
 	void (*Shutdown)(void);
 	void (*Update)(void);
-	void (*UnlockAchievement)(void);
+	void (*UnlockAchievement)(const char*);
 	int32_t (*GetAchievementProgress)(const char*);
 	void (*SetAchievementProgress)(const char*, int32_t);
 } NetworkBackend;
