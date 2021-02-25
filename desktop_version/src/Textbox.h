@@ -8,25 +8,25 @@
 class textboxclass
 {
 public:
-    textboxclass();
+    textboxclass(void);
 
-    void centerx();
+    void centerx(void);
 
-    void centery();
+    void centery(void);
 
-    void adjust();
+    void adjust(void);
 
     void initcol(int rr, int gg, int bb);
 
     void setcol(int rr, int gg, int bb);
 
-    void update();
+    void update(void);
 
-    void remove();
+    void remove(void);
 
-    void removefast();
+    void removefast(void);
 
-    void resize();
+    void resize(void);
 
     void addline(std::string t);
 public:

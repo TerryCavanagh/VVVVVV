@@ -73,10 +73,10 @@ static inline Uint32 get_framerate(const int slowdown)
     return 34;
 }
 
-static void inline deltaloop();
-static void inline fixedloop();
+static void inline deltaloop(void);
+static void inline fixedloop(void);
 
-static void cleanup();
+static void cleanup(void);
 
 int main(int argc, char *argv[])
 {
@@ -360,7 +360,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-static void cleanup()
+static void cleanup(void)
 {
     /* Order matters! */
     game.savestatsandsettings();
@@ -380,7 +380,7 @@ void VVV_exit(const int exit_code)
     exit(exit_code);
 }
 
-static void inline deltaloop()
+static void inline deltaloop(void)
 {
     //timestep limit to 30
     const float rawdeltatime = static_cast<float>(time_ - timePrev);
@@ -448,7 +448,7 @@ static void inline deltaloop()
     }
 }
 
-static void inline fixedloop()
+static void inline fixedloop(void)
 {
     // Update network per frame.
     NETWORK_update();

@@ -54,7 +54,7 @@ bool entityclass::checktowerspikes(int t)
     return false;
 }
 
-void entityclass::init()
+void entityclass::init(void)
 {
     platformtile = 0;
     customplatformtile=0;
@@ -82,7 +82,7 @@ void entityclass::init()
     k = 0;
 }
 
-void entityclass::resetallflags()
+void entityclass::resetallflags(void)
 {
     SDL_memset(flags, false, sizeof(flags));
 }
@@ -1093,7 +1093,7 @@ bool entityclass::disableentity(int t)
     return true;
 }
 
-void entityclass::removeallblocks()
+void entityclass::removeallblocks(void)
 {
     blocks.clear();
 }
@@ -3787,7 +3787,7 @@ void entityclass::animateentities( int _i )
     }
 }
 
-int entityclass::getcompanion()
+int entityclass::getcompanion(void)
 {
     //Returns the index of the companion with rule t
     for (size_t i = 0; i < entities.size(); i++)
@@ -3801,7 +3801,7 @@ int entityclass::getcompanion()
     return -1;
 }
 
-int entityclass::getplayer()
+int entityclass::getplayer(void)
 {
     //Returns the index of the first player entity
     for (size_t i = 0; i < entities.size(); i++)
@@ -3815,7 +3815,7 @@ int entityclass::getplayer()
     return -1;
 }
 
-int entityclass::getscm()
+int entityclass::getscm(void)
 {
     //Returns the supercrewmate
     for (size_t i = 0; i < entities.size(); i++)
@@ -3895,7 +3895,7 @@ int entityclass::getcustomcrewman( int t )
     return 0;
 }
 
-int entityclass::getteleporter()
+int entityclass::getteleporter(void)
 {
     for (size_t i = 0; i < entities.size(); i++)
     {
@@ -3986,7 +3986,7 @@ int entityclass::checktrigger(int* block_idx)
     return -1;
 }
 
-int entityclass::checkactivity()
+int entityclass::checkactivity(void)
 {
     //Returns an int player entity (rule 0) collides with an activity
     for(size_t i=0; i < entities.size(); i++)
@@ -4591,7 +4591,7 @@ void entityclass::customwarplinecheck(int i) {
     }
 }
 
-void entityclass::entitycollisioncheck()
+void entityclass::entitycollisioncheck(void)
 {
     for (size_t i = 0; i < entities.size(); i++)
     {

@@ -7,8 +7,8 @@
 class blockclass
 {
 public:
-    blockclass();
-    void clear();
+    blockclass(void);
+    void clear(void);
 
     void rectset(const int xi, const int yi, const int wi, const int hi);
 

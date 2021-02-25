@@ -38,7 +38,7 @@ void FillRect( SDL_Surface* surface, SDL_Rect rect, int rgba );
 void ScrollSurface(SDL_Surface* _src, int pX, int py);
 
 SDL_Surface * FlipSurfaceVerticle(SDL_Surface* _src);
-void UpdateFilter();
+void UpdateFilter(void);
 SDL_Surface* ApplyFilter( SDL_Surface* _src );
 
 #endif /* GRAPHICSUTIL_H */

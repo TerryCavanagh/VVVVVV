@@ -22,7 +22,7 @@ public:
 class SoundSystem
 {
 public:
-	SoundSystem();
+	SoundSystem(void);
 };
 
 #endif /* SOUNDSYSTEM_H */

@@ -9,7 +9,7 @@
 
 //random
 //Returns 0..1
-float inline fRandom()
+float inline fRandom(void)
 {
     return ( float(rand()) / float(RAND_MAX)) ;
 }

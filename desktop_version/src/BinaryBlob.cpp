@@ -7,7 +7,7 @@
 #include "Exit.h"
 #include "UtilityClass.h"
 
-binaryBlob::binaryBlob()
+binaryBlob::binaryBlob(void)
 {
 	numberofHeaders = 0;
 	SDL_zeroa(m_headers);
@@ -139,7 +139,7 @@ bool binaryBlob::unPackBinary(const char* name)
 	return true;
 }
 
-void binaryBlob::clear()
+void binaryBlob::clear(void)
 {
 	for (size_t i = 0; i < SDL_arraysize(m_headers); i += 1)
 	{

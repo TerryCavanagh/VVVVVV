@@ -15,18 +15,18 @@
 class Graphics
 {
 public:
-	void init();
-	void destroy();
+	void init(void);
+	void destroy(void);
 
 	void create_buffers(const SDL_PixelFormat* fmt);
-	void destroy_buffers();
+	void destroy_buffers(void);
 
 	GraphicsResources grphx;
 
 	int bfontlen(uint32_t ch);
 	int font_idx(uint32_t ch);
 
-	void Makebfont();
+	void Makebfont(void);
 
 	void drawhuetile(int x, int y, int t);
 	void huetilesetcol(int t);
@@ -34,43 +34,43 @@ public:
 
 	void drawgravityline(int t);
 
-	void MakeTileArray();
+	void MakeTileArray(void);
 
-	void MakeSpriteArray();
+	void MakeSpriteArray(void);
 
-	void maketelearray();
+	void maketelearray(void);
 
 	void drawcoloredtile(int x, int y, int t, int r, int g, int b);
 
 	void drawmenu(int cr, int cg, int cb, bool levelmenu = false);
 
-	void processfade();
+	void processfade(void);
 
-	void drawfade();
+	void drawfade(void);
 
 	void setwarprect(int a, int b, int c, int d);
 
 	void createtextbox(std::string t, int xp, int yp, int r= 255, int g= 255, int b = 255);
 
-	void textboxcenterx();
+	void textboxcenterx(void);
 
-	int textboxwidth();
+	int textboxwidth(void);
 
 	void textboxmoveto(int xo);
 
-	void textboxcentery();
+	void textboxcentery(void);
 
-	void textboxadjust();
+	void textboxadjust(void);
 
 	void addline(std::string t);
 
 	void textboxtimer(int t);
 
-	void textboxremove();
+	void textboxremove(void);
 
-	void textboxremovefast();
+	void textboxremovefast(void);
 
-	void textboxactive();
+	void textboxactive(void);
 
 	void drawtextbox(int x, int y, int w, int h, int r, int g, int b);
 
@@ -81,8 +81,8 @@ public:
 
 	int crewcolour(const int t);
 
-	void cutscenebars();
-	void cutscenebarstimer();
+	void cutscenebars(void);
+	void cutscenebarstimer(void);
 
 	void drawpartimage(int t, int xp, int yp, int wp, int hp);
 
@@ -90,8 +90,8 @@ public:
 
 	void drawimagecol(int t, int xp, int yp, int r, int g, int b, bool cent= false);
 
-	void updatetextboxes();
-	void drawgui();
+	void updatetextboxes(void);
+	void drawgui(void);
 
 	void drawsprite(int x, int y, int t, int r, int g, int b);
 	void drawsprite(int x, int y, int t, Uint32 c);
@@ -121,23 +121,23 @@ public:
 	void drawspritesetcol(int x, int y, int t, int c);
 
 
-	void flashlight();
-	void screenshake();
-	void updatescreenshake();
+	void flashlight(void);
+	void screenshake(void);
+	void updatescreenshake(void);
 
 	int screenshake_x;
 	int screenshake_y;
 
-	void render();
-	void renderwithscreeneffects();
+	void render(void);
+	void renderwithscreeneffects(void);
 
 	bool Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, point p2);
 
-	void drawentities();
+	void drawentities(void);
 
 	void drawentity(const int i, const int yoff);
 
-	void drawtrophytext();
+	void drawtrophytext(void);
 
 	void bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
 
@@ -167,7 +167,7 @@ public:
 	void drawtowertile( int x, int y, int t );
 	void drawtowertile3( int x, int y, int t, TowerBG& bg_obj );
 
-	void drawmap();
+	void drawmap(void);
 
 	void drawforetile(int x, int y, int t);
 
@@ -177,23 +177,23 @@ public:
 
 	void drawrect(int x, int y, int w, int h, int r, int g, int b);
 
-	void drawtowermap();
+	void drawtowermap(void);
 
-	void drawtowerspikes();
+	void drawtowerspikes(void);
 
 	bool onscreen(int t);
 
-	void reloadresources();
+	void reloadresources(void);
 	std::string assetdir;
 
 
-	void menuoffrender();
+	void menuoffrender(void);
 
 	void drawtowerbackground(const TowerBG& bg_obj);
 	void updatetowerbackground(TowerBG& bg_obj);
 
 	void setcol(int t);
-	void drawfinalmap();
+	void drawfinalmap(void);
 
 	colourTransform ct;
 
@@ -310,7 +310,7 @@ public:
 	int col_tr;
 	int col_tg;
 	int col_tb;
-	void updatetitlecolours();
+	void updatetitlecolours(void);
 
 	bool kludgeswnlinewidth;
 

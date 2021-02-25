@@ -378,7 +378,7 @@ void Game::init(void)
     disablepause = false;
 }
 
-void Game::lifesequence()
+void Game::lifesequence(void)
 {
     if (lifeseq > 0)
     {
@@ -400,7 +400,7 @@ void Game::lifesequence()
     }
 }
 
-void Game::clearcustomlevelstats()
+void Game::clearcustomlevelstats(void)
 {
     //just clearing the array
     customlevelstats.clear();
@@ -465,7 +465,7 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
 
 #define LOAD_ARRAY(ARRAY_NAME) LOAD_ARRAY_RENAME(ARRAY_NAME, ARRAY_NAME)
 
-void Game::loadcustomlevelstats()
+void Game::loadcustomlevelstats(void)
 {
     //testing
     if(customlevelstatsloaded)
@@ -572,7 +572,7 @@ void Game::loadcustomlevelstats()
     }
 }
 
-void Game::savecustomlevelstats()
+void Game::savecustomlevelstats(void)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc);
@@ -632,7 +632,7 @@ void Game::savecustomlevelstats()
     }
 }
 
-void Game::updatestate()
+void Game::updatestate(void)
 {
     statedelay--;
     if(statedelay<=0){
@@ -4348,7 +4348,7 @@ void Game::updatestate()
     }
 }
 
-void Game::gethardestroom()
+void Game::gethardestroom(void)
 {
     if (currentroomdeaths > hardestroomdeaths)
     {
@@ -4384,7 +4384,7 @@ void Game::gethardestroom()
     }
 }
 
-void Game::deletestats()
+void Game::deletestats(void)
 {
     if (!FILESYSTEM_delete("saves/unlock.vvv"))
     {
@@ -4412,7 +4412,7 @@ void Game::deletestats()
     }
 }
 
-void Game::deletesettings()
+void Game::deletesettings(void)
 {
     if (!FILESYSTEM_delete("saves/settings.vvv"))
     {
@@ -4703,7 +4703,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
     }
 }
 
-bool Game::savestats()
+bool Game::savestats(void)
 {
     if (graphics.screenbuffer == NULL)
     {
@@ -4795,7 +4795,7 @@ bool Game::savestats(const ScreenSettings* screen_settings)
     return FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
 }
 
-bool Game::savestatsandsettings()
+bool Game::savestatsandsettings(void)
 {
     const bool stats_saved = savestats();
 
@@ -4804,7 +4804,7 @@ bool Game::savestatsandsettings()
     return stats_saved && settings_saved; // Not the same as `savestats() && savesettings()`!
 }
 
-void Game::savestatsandsettings_menu()
+void Game::savestatsandsettings_menu(void)
 {
     // Call Game::savestatsandsettings(), but upon failure, go to the save error screen
     if (!savestatsandsettings() && !silence_settings_error)
@@ -4950,7 +4950,7 @@ void Game::loadsettings(ScreenSettings* screen_settings)
     deserializesettings(dataNode, screen_settings);
 }
 
-bool Game::savesettings()
+bool Game::savesettings(void)
 {
     if (graphics.screenbuffer == NULL)
     {
@@ -4985,7 +4985,7 @@ bool Game::savesettings(const ScreenSettings* screen_settings)
     return FILESYSTEM_saveTiXml2Document("saves/settings.vvv", doc);
 }
 
-void Game::customstart()
+void Game::customstart(void)
 {
     jumpheld = true;
 
@@ -5010,7 +5010,7 @@ void Game::customstart()
     //if (!nocutscenes) music.play(5);
 }
 
-void Game::start()
+void Game::start(void)
 {
     jumpheld = true;
 
@@ -5034,7 +5034,7 @@ void Game::start()
     if (!nocutscenes) music.play(5);
 }
 
-void Game::deathsequence()
+void Game::deathsequence(void)
 {
     int i;
     if (supercrewmate && scmhurt)
@@ -5211,7 +5211,7 @@ void Game::starttrial( int t )
     lifeseq = 0;
 }
 
-void Game::loadquick()
+void Game::loadquick(void)
 {
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc)) return;
@@ -5564,7 +5564,7 @@ void Game::customloadquick(std::string savfile)
 
 }
 
-void Game::loadsummary()
+void Game::loadsummary(void)
 {
     tinyxml2::XMLDocument docTele;
     if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", docTele))
@@ -5725,7 +5725,7 @@ void Game::loadsummary()
 
 }
 
-void Game::initteleportermode()
+void Game::initteleportermode(void)
 {
     //Set the teleporter variable to the right position!
     teleport_to_teleporter = 0;
@@ -5739,7 +5739,7 @@ void Game::initteleportermode()
     }
 }
 
-bool Game::savetele()
+bool Game::savetele(void)
 {
     if (map.custommode || inspecial())
     {
@@ -5766,7 +5766,7 @@ bool Game::savetele()
 }
 
 
-bool Game::savequick()
+bool Game::savequick(void)
 {
     if (map.custommode || inspecial())
     {
@@ -6049,7 +6049,7 @@ void Game::loadtele()
     readmaingamesave(doc);
 }
 
-std::string Game::unrescued()
+std::string Game::unrescued(void)
 {
     //Randomly return the name of an unrescued crewmate
     if (fRandom() * 100 > 50)
@@ -6079,7 +6079,7 @@ std::string Game::unrescued()
     return "you";
 }
 
-void Game::gameclock()
+void Game::gameclock(void)
 {
     frames++;
     if (frames >= 30)
@@ -6110,7 +6110,7 @@ std::string Game::giventimestring( int hrs, int min, int sec )
     return tempstring;
 }
 
-std::string Game::timestring()
+std::string Game::timestring(void)
 {
     std::string tempstring = "";
     if (hours > 0)
@@ -6121,7 +6121,7 @@ std::string Game::timestring()
     return tempstring;
 }
 
-std::string Game::partimestring()
+std::string Game::partimestring(void)
 {
     //given par time in seconds:
     std::string tempstring = "";
@@ -6136,7 +6136,7 @@ std::string Game::partimestring()
     return tempstring;
 }
 
-std::string Game::resulttimestring()
+std::string Game::resulttimestring(void)
 {
     //given result time in seconds:
     std::string tempstring = "";
@@ -6168,7 +6168,7 @@ std::string Game::timetstring( int t )
     return tempstring;
 }
 
-void Game::returnmenu()
+void Game::returnmenu(void)
 {
     if (menustack.empty())
     {
@@ -6810,7 +6810,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     menuxoff = (320-menuwidth)/2;
 }
 
-void Game::deletequick()
+void Game::deletequick(void)
 {
     if( !FILESYSTEM_delete( "saves/qsave.vvv" ) )
         puts("Error deleting saves/qsave.vvv");
@@ -6818,7 +6818,7 @@ void Game::deletequick()
         quicksummary = "";
 }
 
-void Game::deletetele()
+void Game::deletetele(void)
 {
     if( !FILESYSTEM_delete( "saves/tsave.vvv" ) )
         puts("Error deleting saves/tsave.vvv");
@@ -6826,7 +6826,7 @@ void Game::deletetele()
         telesummary = "";
 }
 
-void Game::swnpenalty()
+void Game::swnpenalty(void)
 {
     //set the SWN clock back to the closest 5 second interval
     if (swntimer <= 150)
@@ -6901,7 +6901,7 @@ void Game::swnpenalty()
     }
 }
 
-int Game::crewrescued()
+int Game::crewrescued(void)
 {
     int temp = 0;
     for (size_t i = 0; i < SDL_arraysize(crewstats); i++)
@@ -6914,7 +6914,7 @@ int Game::crewrescued()
     return temp;
 }
 
-void Game::resetgameclock()
+void Game::resetgameclock(void)
 {
     frames = 0;
     seconds = 0;
@@ -6922,7 +6922,7 @@ void Game::resetgameclock()
     hours = 0;
 }
 
-int Game::trinkets()
+int Game::trinkets(void)
 {
     int temp = 0;
     for (size_t i = 0; i < SDL_arraysize(obj.collect); i++)
@@ -6935,7 +6935,7 @@ int Game::trinkets()
     return temp;
 }
 
-int Game::crewmates()
+int Game::crewmates(void)
 {
     int temp = 0;
     for (size_t i = 0; i < SDL_arraysize(obj.customcollect); i++)
@@ -6948,7 +6948,7 @@ int Game::crewmates()
     return temp;
 }
 
-bool Game::anything_unlocked()
+bool Game::anything_unlocked(void)
 {
     for (size_t i = 0; i < SDL_arraysize(unlock); i++)
     {
@@ -6965,12 +6965,12 @@ bool Game::anything_unlocked()
     return false;
 }
 
-bool Game::save_exists()
+bool Game::save_exists(void)
 {
     return telesummary != "" || quicksummary != "";
 }
 
-void Game::quittomenu()
+void Game::quittomenu(void)
 {
     gamestate = TITLEMODE;
     graphics.fademode = 4;
@@ -7021,7 +7021,7 @@ void Game::quittomenu()
     script.hardreset();
 }
 
-void Game::returntolab()
+void Game::returntolab(void)
 {
     gamestate = GAMEMODE;
     graphics.fademode = 4;
@@ -7049,7 +7049,7 @@ void Game::returntolab()
 }
 
 #if !defined(NO_CUSTOM_LEVELS)
-void Game::returntoeditor()
+void Game::returntoeditor(void)
 {
     gamestate = EDITORMODE;
 
@@ -7081,7 +7081,7 @@ void Game::returntoeditor()
 }
 #endif
 
-void Game::returntopausemenu()
+void Game::returntopausemenu(void)
 {
     ingame_titlemode = false;
     returntomenu(kludge_ingametemp);
@@ -7122,7 +7122,7 @@ void Game::mapmenuchange(const int newgamestate)
     graphics.oldmenuoffset = graphics.menuoffset;
 }
 
-void Game::copyndmresults()
+void Game::copyndmresults(void)
 {
     ndmresultcrewrescued = crewrescued();
     ndmresulttrinkets = trinkets();

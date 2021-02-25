@@ -29,7 +29,7 @@
 #endif
 #include <inttypes.h>
 
-edlevelclass::edlevelclass()
+edlevelclass::edlevelclass(void)
 {
     tileset=0;
     tilecol=0;
@@ -47,7 +47,7 @@ edlevelclass::edlevelclass()
     directmode=0;
 }
 
-editorclass::editorclass()
+editorclass::editorclass(void)
 {
     //We create a blank map
     SDL_memset(contents, 0, sizeof(contents));
@@ -97,7 +97,7 @@ static void levelZipCallback(const char* filename)
     }
 }
 
-void editorclass::loadZips()
+void editorclass::loadZips(void)
 {
     FILESYSTEM_enumerateLevelDirFileNames(levelZipCallback);
 }
@@ -219,7 +219,7 @@ static void levelMetaDataCallback(const char* filename)
     }
 }
 
-void editorclass::getDirectoryData()
+void editorclass::getDirectoryData(void)
 {
 
     ListOfMetaData.clear();
@@ -272,7 +272,7 @@ bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
     return true;
 }
 
-void editorclass::reset()
+void editorclass::reset(void)
 {
     version=2; //New smaller format change is 2
 
@@ -400,7 +400,7 @@ void editorclass::reset()
     loaded_filepath = "";
 }
 
-void editorclass::gethooks()
+void editorclass::gethooks(void)
 {
     //Scan through the script and create a hooks list based on it
     hooklist.clear();
@@ -486,7 +486,7 @@ bool editorclass::checkhook(std::string t)
 }
 
 
-void editorclass::clearscriptbuffer()
+void editorclass::clearscriptbuffer(void)
 {
     sb.clear();
 }
@@ -1423,7 +1423,7 @@ int editorclass::spikedir( int x, int y )
     return 8;
 }
 
-void editorclass::findstartpoint()
+void editorclass::findstartpoint(void)
 {
     //Ok! Scan the room for the closest checkpoint
     int testeditor=-1;
@@ -2120,7 +2120,7 @@ static void fillboxabs( int x, int y, int x2, int y2, int c )
 }
 
 
-void editorclass::generatecustomminimap()
+void editorclass::generatecustomminimap(void)
 {
     map.customwidth=mapwidth;
     map.customheight=mapheight;
@@ -2419,7 +2419,7 @@ static void editormenurender(int tr, int tg, int tb)
     }
 }
 
-void editorrender()
+void editorrender(void)
 {
     extern editorclass ed;
     if (game.shouldreturntoeditor)
@@ -3531,7 +3531,7 @@ void editorrender()
     graphics.render();
 }
 
-void editorrenderfixed()
+void editorrenderfixed(void)
 {
     extern editorclass ed;
     graphics.updatetitlecolours();
@@ -3591,7 +3591,7 @@ void editorrenderfixed()
     }
 }
 
-void editorlogic()
+void editorlogic(void)
 {
     extern editorclass ed;
     //Misc
@@ -3783,7 +3783,7 @@ static void editormenuactionpress()
     }
 }
 
-void editorinput()
+void editorinput(void)
 {
     extern editorclass ed;
     game.mx = (float) key.mx;
@@ -5614,7 +5614,7 @@ Uint32 editorclass::getonewaycol(const int rx, const int ry)
 }
 
 // This version detects the room automatically
-Uint32 editorclass::getonewaycol()
+Uint32 editorclass::getonewaycol(void)
 {
     if (game.gamestate == EDITORMODE)
         return getonewaycol(levx, levy);
@@ -5625,7 +5625,7 @@ Uint32 editorclass::getonewaycol()
     return graphics.getRGB(255, 255, 255);
 }
 
-int editorclass::numtrinkets()
+int editorclass::numtrinkets(void)
 {
     int temp = 0;
     for (size_t i = 0; i < edentity.size(); i++)
@@ -5638,7 +5638,7 @@ int editorclass::numtrinkets()
     return temp;
 }
 
-int editorclass::numcrewmates()
+int editorclass::numcrewmates(void)
 {
     int temp = 0;
     for (size_t i = 0; i < edentity.size(); i++)

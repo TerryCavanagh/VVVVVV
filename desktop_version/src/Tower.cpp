@@ -3,7 +3,7 @@
 #include "MakeAndPlay.h"
 #include "UtilityClass.h"
 
-towerclass::towerclass()
+towerclass::towerclass(void)
 {
 	minitowermode = false;
 	//We init the lookup table:
@@ -91,7 +91,7 @@ int towerclass::miniat(int xp, int yp, int yoff)
 	return 0;
 }
 
-void towerclass::loadminitower1()
+void towerclass::loadminitower1(void)
 {
 	//Loads the first minitower into the array.
 #if !defined(MAKEANDPLAY)
@@ -202,7 +202,7 @@ void towerclass::loadminitower1()
 #endif
 }
 
-void towerclass::loadminitower2()
+void towerclass::loadminitower2(void)
 {
 #if !defined(MAKEANDPLAY)
 	static const short tmap[] = {
@@ -313,7 +313,7 @@ void towerclass::loadminitower2()
 }
 
 
-void towerclass::loadbackground()
+void towerclass::loadbackground(void)
 {
 	//Loads the background into the array.
 	static const short tmap[] = {
@@ -441,7 +441,7 @@ void towerclass::loadbackground()
 	SDL_memcpy(back, tmap, sizeof(back));
 }
 
-void towerclass::loadmap()
+void towerclass::loadmap(void)
 {
 	//Loads the map into the array.
 #if !defined(MAKEANDPLAY)

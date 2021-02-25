@@ -298,7 +298,7 @@ static int oldscrollamount = 0;
 static int scrollamount = 0;
 static bool isscrolling = 0;
 
-void UpdateFilter()
+void UpdateFilter(void)
 {
     if (rand() % 4000 < 8)
     {

@@ -10,7 +10,7 @@
 #include "Script.h"
 #include "UtilityClass.h"
 
-void titlelogic()
+void titlelogic(void)
 {
     //Misc
     //map.updatetowerglow(graphics.titlebg);
@@ -41,14 +41,14 @@ void titlelogic()
     }
 }
 
-void maplogic()
+void maplogic(void)
 {
     //Misc
     help.updateglow();
 }
 
 
-void gamecompletelogic()
+void gamecompletelogic(void)
 {
     //Misc
     map.updatetowerglow(graphics.titlebg);
@@ -81,7 +81,7 @@ void gamecompletelogic()
     }
 }
 
-void gamecompletelogic2()
+void gamecompletelogic2(void)
 {
     //Misc
     map.updatetowerglow(graphics.titlebg);
@@ -121,7 +121,7 @@ void gamecompletelogic2()
 }
 
 
-void gamelogic()
+void gamelogic(void)
 {
     //Misc
     if (map.towermode)

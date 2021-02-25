@@ -1,14 +1,14 @@
 #ifndef RENDERFIXED_H
 #define RENDERFIXED_H
 
-void titleupdatetextcol();
+void titleupdatetextcol(void);
 
-void gamerenderfixed();
+void gamerenderfixed(void);
 
-void titlerenderfixed();
+void titlerenderfixed(void);
 
-void maprenderfixed();
+void maprenderfixed(void);
 
-void gamecompleterenderfixed();
+void gamecompleterenderfixed(void);
 
 #endif /* RENDERFIXED_H */

@@ -13,7 +13,7 @@
 #include "Screen.h"
 #include "UtilityClass.h"
 
-void Graphics::init()
+void Graphics::init(void)
 {
     flipmode = false;
     setRect(tiles_rect, 0,0,8,8);
@@ -148,7 +148,7 @@ void Graphics::init()
     kludgeswnlinewidth = false;
 }
 
-void Graphics::destroy()
+void Graphics::destroy(void)
 {
     #define CLEAR_ARRAY(name) \
         for (size_t i = 0; i < name.size(); i += 1) \
@@ -221,7 +221,7 @@ void Graphics::create_buffers(const SDL_PixelFormat* fmt)
     #undef CREATE_SURFACE
 }
 
-void Graphics::destroy_buffers()
+void Graphics::destroy_buffers(void)
 {
 #define FREE_SURFACE(SURFACE) \
     SDL_FreeSurface(SURFACE); \
@@ -278,7 +278,7 @@ void Graphics::drawspritesetcol(int x, int y, int t, int c)
     BlitSurfaceColoured(sprites[t],NULL,backBuffer, &rect, ct);
 }
 
-void Graphics::updatetitlecolours()
+void Graphics::updatetitlecolours(void)
 {
     setcol(15);
     col_crewred = ct.colour;
@@ -349,7 +349,7 @@ void Graphics::updatetitlecolours()
 #define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
     PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
 
-void Graphics::Makebfont()
+void Graphics::Makebfont(void)
 {
     PROCESS_TILESHEET(bfont, 8,
     {
@@ -391,7 +391,7 @@ int Graphics::bfontlen(uint32_t ch)
     }
 }
 
-void Graphics::MakeTileArray()
+void Graphics::MakeTileArray(void)
 {
     PROCESS_TILESHEET(tiles, 8, )
     PROCESS_TILESHEET(tiles2, 8, )
@@ -399,12 +399,12 @@ void Graphics::MakeTileArray()
     PROCESS_TILESHEET(entcolours, 8, )
 }
 
-void Graphics::maketelearray()
+void Graphics::maketelearray(void)
 {
     PROCESS_TILESHEET_RENAME(teleporter, tele, 96, )
 }
 
-void Graphics::MakeSpriteArray()
+void Graphics::MakeSpriteArray(void)
 {
     PROCESS_TILESHEET(sprites, 32, )
     PROCESS_TILESHEET(flipsprites, 32, )
@@ -809,7 +809,7 @@ void Graphics::drawtowertile3( int x, int y, int t, TowerBG& bg_obj )
     BlitSurfaceStandard(tiles3[t], NULL, bg_obj.buffer, &rect);
 }
 
-void Graphics::drawgui()
+void Graphics::drawgui(void)
 {
     //Draw all the textboxes to the screen
     for (size_t i = 0; i<textbox.size(); i++)
@@ -956,7 +956,7 @@ void Graphics::drawgui()
     }
 }
 
-void Graphics::updatetextboxes()
+void Graphics::updatetextboxes(void)
 {
     for (size_t i = 0; i < textbox.size(); i++)
     {
@@ -1058,7 +1058,7 @@ void Graphics::drawpartimage( int t, int xp, int yp, int wp, int hp)
   BlitSurfaceStandard(images[t], &trect2, backBuffer, &trect);
 }
 
-void Graphics::cutscenebars()
+void Graphics::cutscenebars(void)
 {
     int usethispos = lerp(oldcutscenebarspos, cutscenebarspos);
     if (showcutscenebars)
@@ -1074,7 +1074,7 @@ void Graphics::cutscenebars()
     }
 }
 
-void Graphics::cutscenebarstimer()
+void Graphics::cutscenebarstimer(void)
 {
     oldcutscenebarspos = cutscenebarspos;
     if (showcutscenebars)
@@ -1230,7 +1230,7 @@ void Graphics::drawtextbox( int x, int y, int w, int h, int r, int g, int b )
     }
 }
 
-void Graphics::textboxactive()
+void Graphics::textboxactive(void)
 {
     //Remove all but the most recent textbox
     for (int i = 0; i < (int) textbox.size(); i++)
@@ -1239,7 +1239,7 @@ void Graphics::textboxactive()
     }
 }
 
-void Graphics::textboxremovefast()
+void Graphics::textboxremovefast(void)
 {
     //Remove all textboxes
     for (size_t i = 0; i < textbox.size(); i++)
@@ -1248,7 +1248,7 @@ void Graphics::textboxremovefast()
     }
 }
 
-void Graphics::textboxremove()
+void Graphics::textboxremove(void)
 {
     //Remove all textboxes
     for (size_t i = 0; i < textbox.size(); i++)
@@ -1279,7 +1279,7 @@ void Graphics::addline( std::string t )
     textbox[m].addline(t);
 }
 
-void Graphics::textboxadjust()
+void Graphics::textboxadjust(void)
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
@@ -1309,7 +1309,7 @@ void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int
     }
 }
 
-void Graphics::drawfade()
+void Graphics::drawfade(void)
 {
     int usethisamount = lerp(oldfadeamount, fadeamount);
     if ((fademode == 1)||(fademode == 4))
@@ -1333,7 +1333,7 @@ void Graphics::drawfade()
 
 }
 
-void Graphics::processfade()
+void Graphics::processfade(void)
 {
     oldfadeamount = fadeamount;
     if (fademode > 1)
@@ -1556,7 +1556,7 @@ void Graphics::drawgravityline( int t )
     }
 }
 
-void Graphics::drawtrophytext()
+void Graphics::drawtrophytext(void)
 {
     int temp, temp2, temp3;
 
@@ -1644,7 +1644,7 @@ void Graphics::drawtrophytext()
     }
 }
 
-void Graphics::drawentities()
+void Graphics::drawentities(void)
 {
     const int yoff = map.towermode ? lerp(map.oldypos, map.ypos) : 0;
 
@@ -2468,7 +2468,7 @@ void Graphics::updatebackground(int t)
     }
 }
 
-void Graphics::drawmap()
+void Graphics::drawmap(void)
 {
     if (!foregrounddrawn)
     {
@@ -2509,7 +2509,7 @@ void Graphics::drawmap()
 
 }
 
-void Graphics::drawfinalmap()
+void Graphics::drawfinalmap(void)
 {
     if (!foregrounddrawn) {
         FillRect(foregroundBuffer, 0x00000000);
@@ -2534,7 +2534,7 @@ void Graphics::drawfinalmap()
     SDL_BlitSurface(foregroundBuffer, NULL, backBuffer, NULL);
 }
 
-void Graphics::drawtowermap()
+void Graphics::drawtowermap(void)
 {
     int temp;
     int yoff = lerp(map.oldypos, map.ypos);
@@ -2548,7 +2548,7 @@ void Graphics::drawtowermap()
     }
 }
 
-void Graphics::drawtowerspikes()
+void Graphics::drawtowerspikes(void)
 {
     int spikeleveltop = lerp(map.oldspikeleveltop, map.spikeleveltop);
     int spikelevelbottom = lerp(map.oldspikelevelbottom, map.spikelevelbottom);
@@ -2820,7 +2820,7 @@ void Graphics::setcol( int t )
 	}
 }
 
-void Graphics::menuoffrender()
+void Graphics::menuoffrender(void)
 {
 	SDL_Rect offsetRect1;
 	setRect (offsetRect1, 0, 0, backBuffer->w ,backBuffer->h);
@@ -2916,7 +2916,7 @@ void Graphics::setwarprect( int a, int b, int c, int d )
 	warprect.h = d;
 }
 
-void Graphics::textboxcenterx()
+void Graphics::textboxcenterx(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
@@ -2927,7 +2927,7 @@ void Graphics::textboxcenterx()
 	textbox[m].centerx();
 }
 
-int Graphics::textboxwidth()
+int Graphics::textboxwidth(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
@@ -2949,7 +2949,7 @@ void Graphics::textboxmoveto(int xo)
 	textbox[m].xp = xo;
 }
 
-void Graphics::textboxcentery()
+void Graphics::textboxcentery(void)
 {
 	if (!INBOUNDS_VEC(m, textbox))
 	{
@@ -2972,12 +2972,12 @@ int Graphics::crewcolour(const int t)
 	return 0;
 }
 
-void Graphics::flashlight()
+void Graphics::flashlight(void)
 {
 	FillRect(backBuffer, 0xBBBBBBBB);
 }
 
-void Graphics::screenshake()
+void Graphics::screenshake(void)
 {
 	if(flipmode)
 	{
@@ -3006,13 +3006,13 @@ void Graphics::screenshake()
 	FillRect(backBuffer, 0x000000 );
 }
 
-void Graphics::updatescreenshake()
+void Graphics::updatescreenshake(void)
 {
 	screenshake_x =  static_cast<Sint32>((fRandom() * 7) - 4);
 	screenshake_y =  static_cast<Sint32>((fRandom() * 7) - 4);
 }
 
-void Graphics::render()
+void Graphics::render(void)
 {
 	if(screenbuffer == NULL)
 	{
@@ -3041,7 +3041,7 @@ void Graphics::render()
 	}
 }
 
-void Graphics::renderwithscreeneffects()
+void Graphics::renderwithscreeneffects(void)
 {
 	if (game.flashlight > 0 && !game.noflashingmode)
 	{

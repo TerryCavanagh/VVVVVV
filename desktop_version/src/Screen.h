@@ -9,25 +9,25 @@ class Screen
 {
 public:
 	void init(const ScreenSettings& settings);
-	void destroy();
+	void destroy(void);
 
 	void GetSettings(ScreenSettings* settings);
 
-	void LoadIcon();
+	void LoadIcon(void);
 
 	void ResizeScreen(int x, int y);
-	void ResizeToNearestMultiple();
+	void ResizeToNearestMultiple(void);
 	void GetWindowSize(int* x, int* y);
 
 	void UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect);
-	void FlipScreen();
+	void FlipScreen(void);
 
-	const SDL_PixelFormat* GetFormat();
+	const SDL_PixelFormat* GetFormat(void);
 
-	void toggleFullScreen();
-	void toggleStretchMode();
-	void toggleLinearFilter();
-	void resetRendererWorkaround();
+	void toggleFullScreen(void);
+	void toggleStretchMode(void);
+	void toggleLinearFilter(void);
+	void resetRendererWorkaround(void);
 
 	bool isWindowed;
 	bool isFiltered;
