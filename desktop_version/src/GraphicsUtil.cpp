@@ -360,16 +360,13 @@ void FillRect( SDL_Surface* _surface, const int _x, const int _y, const int _w, 
 
 void FillRect( SDL_Surface* _surface, const int r, int g, int b )
 {
-    SDL_Rect rect = {0,0,Uint16(_surface->w) ,Uint16(_surface->h) };
-    Uint32 color;
-    color = SDL_MapRGB(_surface->format, r, g, b);
-    SDL_FillRect(_surface, &rect, color);
+    Uint32 color = SDL_MapRGB(_surface->format, r, g, b);
+    SDL_FillRect(_surface, NULL, color);
 }
 
 void FillRect( SDL_Surface* _surface, const int color )
 {
-    SDL_Rect rect = {0,0,Uint16(_surface->w) ,Uint16(_surface->h) };
-    SDL_FillRect(_surface, &rect, color);
+    SDL_FillRect(_surface, NULL, color);
 }
 
 void FillRect( SDL_Surface* _surface, const int x, const int y, const int w, const int h, int rgba )
