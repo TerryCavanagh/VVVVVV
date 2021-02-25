@@ -390,6 +390,11 @@ void FillRect( SDL_Surface* _surface, SDL_Rect rect, int rgba )
     SDL_FillRect(_surface, &rect, rgba);
 }
 
+void ClearSurface(SDL_Surface* surface)
+{
+    SDL_FillRect(surface, NULL, 0x00000000);
+}
+
 void ScrollSurface( SDL_Surface* _src, int _pX, int _pY )
 {
     SDL_Surface* part1 = NULL;
