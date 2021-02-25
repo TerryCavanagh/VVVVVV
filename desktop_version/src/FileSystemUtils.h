@@ -7,16 +7,16 @@
 namespace tinyxml2 { class XMLDocument; }
 
 int FILESYSTEM_init(char *argvZero, char* baseDir, char* assetsPath);
-void FILESYSTEM_deinit();
+void FILESYSTEM_deinit(void);
 
-char *FILESYSTEM_getUserSaveDirectory();
-char *FILESYSTEM_getUserLevelDirectory();
+char *FILESYSTEM_getUserSaveDirectory(void);
+char *FILESYSTEM_getUserLevelDirectory(void);
 
 bool FILESYSTEM_directoryExists(const char *fname);
 void FILESYSTEM_mount(const char *fname);
 extern bool FILESYSTEM_assetsmounted;
 void FILESYSTEM_mountassets(const char *path);
-void FILESYSTEM_unmountassets();
+void FILESYSTEM_unmountassets(void);
 
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
                                  size_t *len, bool addnull = false);
@@ -26,7 +26,7 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 
 void FILESYSTEM_enumerateLevelDirFileNames(void (*callback)(const char* filename));
 
-bool FILESYSTEM_openDirectoryEnabled();
+bool FILESYSTEM_openDirectoryEnabled(void);
 bool FILESYSTEM_openDirectory(const char *dname);
 
 bool FILESYSTEM_delete(const char *name);

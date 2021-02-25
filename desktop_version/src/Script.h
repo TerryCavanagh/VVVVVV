@@ -20,7 +20,7 @@ class scriptclass
 public:
 
 
-    scriptclass();
+    scriptclass(void);
 
     void load(const std::string& name);
     void loadother(const char* t);
@@ -31,19 +31,19 @@ public:
         commands.push_back(t);
     }
 
-    void clearcustom();
+    void clearcustom(void);
 
     void tokenize(const std::string& t);
 
-    void run();
+    void run(void);
 
-    void resetgametomenu();
+    void resetgametomenu(void);
 
     void startgamemode(int t);
 
-    void teleport();
+    void teleport(void);
 
-    void hardreset();
+    void hardreset(void);
 
     //Script contents
     std::vector<std::string> commands;

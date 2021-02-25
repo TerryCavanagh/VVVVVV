@@ -1,16 +1,16 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-void titleinput();
+void titleinput(void);
 
-void gameinput();
+void gameinput(void);
 
-void mapinput();
+void mapinput(void);
 
-void teleporterinput();
+void teleporterinput(void);
 
-void gamecompleteinput();
+void gamecompleteinput(void);
 
-void gamecompleteinput2();
+void gamecompleteinput2(void);
 
 #endif /* INPUT_H */

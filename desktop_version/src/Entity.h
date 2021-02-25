@@ -23,23 +23,23 @@ enum
 class entityclass
 {
 public:
-    void init();
+    void init(void);
 
-    void resetallflags();
+    void resetallflags(void);
 
-    void fatal_top()
+    void fatal_top(void)
     {
         createblock(DAMAGE, -8, -8, 384, 16);
     }
-    void fatal_bottom()
+    void fatal_bottom(void)
     {
         createblock(DAMAGE, -8, 224, 384, 16);
     }
-    void fatal_left()
+    void fatal_left(void)
     {
         createblock(DAMAGE, -8, -8, 16, 260);
     }
-    void fatal_right()
+    void fatal_right(void)
     {
         createblock(DAMAGE, 312, -8, 16, 260);
     }
@@ -56,7 +56,7 @@ public:
 
     bool disableentity(int t);
 
-    void removeallblocks();
+    void removeallblocks(void);
 
     void disableblock(int t);
 
@@ -81,18 +81,18 @@ public:
 
     void animateentities(int i);
 
-    int getcompanion();
+    int getcompanion(void);
 
-    int getplayer();
+    int getplayer(void);
 
-    int getscm();
+    int getscm(void);
 
     int getlineat(int t);
 
     int getcrewman(int t);
     int getcustomcrewman(int t);
 
-    int getteleporter();
+    int getteleporter(void);
 
     bool entitycollide(int a, int b);
 
@@ -100,7 +100,7 @@ public:
 
     int checktrigger(int* block_idx);
 
-    int checkactivity();
+    int checkactivity(void);
 
     int getgridpoint(int t);
 
@@ -147,7 +147,7 @@ public:
 
     void movingplatformfix(int t, int j);
 
-    void entitycollisioncheck();
+    void entitycollisioncheck(void);
 
     void collisioncheck(int i, int j, bool scm = false);
 

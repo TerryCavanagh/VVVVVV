@@ -8,9 +8,9 @@
 #include "Map.h"
 #include "UtilityClass.h"
 
-static void songend();
+static void songend(void);
 
-musicclass::musicclass()
+musicclass::musicclass(void)
 {
 	safeToProcessMusic= false;
 	m_doFadeInVol = false;
@@ -31,7 +31,7 @@ musicclass::musicclass()
 	usingmmmmmm = false;
 }
 
-void musicclass::init()
+void musicclass::init(void)
 {
 	soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
 	soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));
@@ -141,14 +141,14 @@ void musicclass::init()
 	}
 }
 
-static void songend()
+static void songend(void)
 {
 	extern musicclass music;
 	music.songEnd = SDL_GetPerformanceCounter();
 	music.currentsong = -1;
 }
 
-void musicclass::destroy()
+void musicclass::destroy(void)
 {
 	for (size_t i = 0; i < soundTracks.size(); ++i)
 	{
@@ -257,18 +257,18 @@ void musicclass::resume(const int fadein_ms /*= 0*/)
 	play(resumesong, position_sec, fadein_ms);
 }
 
-void musicclass::fadein()
+void musicclass::fadein(void)
 {
 	resume(3000); // 3000 ms fadein
 }
 
-void musicclass::haltdasmusik()
+void musicclass::haltdasmusik(void)
 {
 	Mix_HaltMusic();
 	resumesong = currentsong;
 }
 
-void musicclass::silencedasmusik()
+void musicclass::silencedasmusik(void)
 {
 	musicVolume = 0;
 }
@@ -286,7 +286,7 @@ void musicclass::fadeout(const bool quick_fade_ /*= true*/)
 	quick_fade = quick_fade_;
 }
 
-void musicclass::processmusicfadein()
+void musicclass::processmusicfadein(void)
 {
 	musicVolume += FadeVolAmountPerFrame;
 	if (musicVolume >= MIX_MAX_VOLUME)
@@ -295,7 +295,7 @@ void musicclass::processmusicfadein()
 	}
 }
 
-void musicclass::processmusic()
+void musicclass::processmusic(void)
 {
 	if(!safeToProcessMusic)
 	{

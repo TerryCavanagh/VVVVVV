@@ -7,7 +7,7 @@
 #include "Script.h"
 #include "UtilityClass.h"
 
-void titleupdatetextcol()
+void titleupdatetextcol(void)
 {
     graphics.col_tr = graphics.titlebg.r - (help.glow / 4) - int(fRandom() * 4);
     graphics.col_tg = graphics.titlebg.g - (help.glow / 4) - int(fRandom() * 4);
@@ -20,7 +20,7 @@ void titleupdatetextcol()
     if(graphics.col_tb>255) graphics.col_tb=255;
 }
 
-void gamerenderfixed()
+void gamerenderfixed(void)
 {
     if (!game.blackout && !game.completestop)
     {
@@ -154,7 +154,7 @@ void gamerenderfixed()
 #endif
 }
 
-void titlerenderfixed()
+void titlerenderfixed(void)
 {
     if (!game.colourblindmode)
     {
@@ -182,7 +182,7 @@ void titlerenderfixed()
     }
 }
 
-void maprenderfixed()
+void maprenderfixed(void)
 {
     graphics.updatetextboxes();
     graphics.updatetitlecolours();
@@ -248,7 +248,7 @@ void maprenderfixed()
     }
 }
 
-void gamecompleterenderfixed()
+void gamecompleterenderfixed(void)
 {
     graphics.updatetitlecolours();
 

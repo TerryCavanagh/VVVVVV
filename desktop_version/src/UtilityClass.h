@@ -44,7 +44,7 @@ bool endsWith(const std::string& str, const std::string& suffix);
 class UtilityClass
 {
 public:
-    UtilityClass();
+    UtilityClass(void);
 
     static std::string String(int _v);
 
@@ -61,7 +61,7 @@ public:
 
     static bool intersects( SDL_Rect A, SDL_Rect B );
 
-    void updateglow();
+    void updateglow(void);
 
     int glow;
     int slowsine;

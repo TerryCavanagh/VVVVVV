@@ -13,7 +13,7 @@
 #include "Music.h"
 #include "UtilityClass.h"
 
-scriptclass::scriptclass()
+scriptclass::scriptclass(void)
 {
 	position = 0;
 	scriptdelay = 0;
@@ -32,7 +32,7 @@ scriptclass::scriptclass()
 	texty = 0;
 }
 
-void scriptclass::clearcustom()
+void scriptclass::clearcustom(void)
 {
 	customscripts.clear();
 }
@@ -76,7 +76,7 @@ void scriptclass::tokenize( const std::string& t )
 	}
 }
 
-void scriptclass::run()
+void scriptclass::run(void)
 {
 	if (!running)
 	{
@@ -2624,7 +2624,7 @@ void scriptclass::run()
 	}
 }
 
-void scriptclass::resetgametomenu()
+void scriptclass::resetgametomenu(void)
 {
 	obj.entities.clear();
 	game.quittomenu();
@@ -3400,7 +3400,7 @@ void scriptclass::startgamemode( int t )
 	}
 }
 
-void scriptclass::teleport()
+void scriptclass::teleport(void)
 {
 	//er, ok! Teleport to a new area, so!
 	//A general rule of thumb: if you teleport with a companion, get rid of them!
@@ -3526,7 +3526,7 @@ void scriptclass::teleport()
 	}
 }
 
-void scriptclass::hardreset()
+void scriptclass::hardreset(void)
 {
 	//Game:
 	game.hascontrol = true;

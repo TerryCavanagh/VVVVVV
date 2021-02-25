@@ -26,10 +26,10 @@
 
 #define NUM_BACKENDS (STEAM_NUM+GOG_NUM)
 #define DECLARE_BACKEND(name) \
-	int32_t name##_init(); \
-	void name##_shutdown(); \
-	void name##_update(); \
-	void name##_unlockAchievement(); \
+	int32_t name##_init(void); \
+	void name##_shutdown(void); \
+	void name##_update(void); \
+	void name##_unlockAchievement(void); \
 	int32_t name##_getAchievementProgress(const char *name); \
 	void name##_setAchievementProgress(const char *name, int32_t stat);
 #ifdef STEAM_NETWORK
@@ -43,10 +43,10 @@ DECLARE_BACKEND(GOG)
 typedef struct NetworkBackend
 {
 	int32_t IsInit;
-	int32_t (*Init)();
-	void (*Shutdown)();
-	void (*Update)();
-	void (*UnlockAchievement)();
+	int32_t (*Init)(void);
+	void (*Shutdown)(void);
+	void (*Update)(void);
+	void (*UnlockAchievement)(void);
 	int32_t (*GetAchievementProgress)(const char*);
 	void (*SetAchievementProgress)(const char*, int32_t);
 } NetworkBackend;
@@ -55,7 +55,7 @@ typedef struct NetworkBackend
 static NetworkBackend backends[NUM_BACKENDS];
 #endif
 
-int NETWORK_init()
+int NETWORK_init(void)
 {
 	int32_t any = 0;
 	#define ASSIGN_BACKEND(name, index) \
@@ -83,7 +83,7 @@ int NETWORK_init()
 	return any;
 }
 
-void NETWORK_shutdown()
+void NETWORK_shutdown(void)
 {
 	#if NUM_BACKENDS > 0
 	int32_t i;
@@ -95,7 +95,7 @@ void NETWORK_shutdown()
 	#endif
 }
 
-void NETWORK_update()
+void NETWORK_update(void)
 {
 	#if NUM_BACKENDS > 0
 	int32_t i;

@@ -11,19 +11,19 @@
 class musicclass
 {
 public:
-	musicclass();
-	void init();
-	void destroy();
+	musicclass(void);
+	void init(void);
+	void destroy(void);
 
 	void play(int t, const double position_sec = 0.0, const int fadein_ms = 3000);
 	void resume(const int fadein_ms = 0);
-	void haltdasmusik();
-	void silencedasmusik();
+	void haltdasmusik(void);
+	void silencedasmusik(void);
 	void fadeMusicVolumeIn(int ms);
 	void fadeout(const bool quick_fade_ = true);
-	void fadein();
-	void processmusicfadein();
-	void processmusic();
+	void fadein(void);
+	void processmusicfadein(void);
+	void processmusic(void);
 	void niceplay(int t);
 
 	void changemusicarea(int x, int y);

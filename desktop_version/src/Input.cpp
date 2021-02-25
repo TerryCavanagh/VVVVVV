@@ -173,7 +173,7 @@ static void updatebuttonmappings(int bind)
     }
 }
 
-static void menuactionpress()
+static void menuactionpress(void)
 {
     switch (game.currentmenuname)
     {
@@ -1607,7 +1607,7 @@ static void menuactionpress()
     }
 }
 
-void titleinput()
+void titleinput(void)
 {
     //game.mx = (mouseX / 4);
     //game.my = (mouseY / 4);
@@ -1706,7 +1706,7 @@ void titleinput()
         script.startgamemode(game.mainmenu);
 }
 
-void gameinput()
+void gameinput(void)
 {
     //TODO mouse input
     //game.mx = (mouseX / 2);
@@ -2059,9 +2059,9 @@ void gameinput()
     }
 }
 
-static void mapmenuactionpress();
+static void mapmenuactionpress(void);
 
-void mapinput()
+void mapinput(void)
 {
     //TODO Mouse Input!
     //game.mx = (mouseX / 2);
@@ -2248,7 +2248,7 @@ void mapinput()
     }
 }
 
-static void mapmenuactionpress()
+static void mapmenuactionpress(void)
 {
     switch (game.menupage)
     {
@@ -2380,7 +2380,7 @@ static void mapmenuactionpress()
     }
 }
 
-void teleporterinput()
+void teleporterinput(void)
 {
     //Todo Mouseinput!
     //game.mx = (mouseX / 2);
@@ -2513,7 +2513,7 @@ void teleporterinput()
     }
 }
 
-void gamecompleteinput()
+void gamecompleteinput(void)
 {
     game.press_left = false;
     game.press_right = false;
@@ -2562,7 +2562,7 @@ void gamecompleteinput()
     }
 }
 
-void gamecompleteinput2()
+void gamecompleteinput2(void)
 {
     game.press_left = false;
     game.press_right = false;

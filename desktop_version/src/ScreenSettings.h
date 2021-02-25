@@ -3,7 +3,7 @@
 
 struct ScreenSettings
 {
-	ScreenSettings();
+	ScreenSettings(void);
 
 	int windowWidth;
 	int windowHeight;

@@ -35,7 +35,7 @@ struct resourceheader
 class binaryBlob
 {
 public:
-	binaryBlob();
+	binaryBlob(void);
 
 #ifdef VVV_COMPILEMUSIC
 	void AddFileToBinaryBlob(const char* _path);
@@ -53,7 +53,7 @@ public:
 
 	char* getAddress(int _index);
 
-	void clear();
+	void clear(void);
 
 	static const int max_headers = 128;
 

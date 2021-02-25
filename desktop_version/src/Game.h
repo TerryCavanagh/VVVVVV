@@ -98,45 +98,45 @@ public:
     void init(void);
 
 
-    int crewrescued();
+    int crewrescued(void);
 
-    std::string unrescued();
+    std::string unrescued(void);
 
-    void resetgameclock();
+    void resetgameclock(void);
 
     bool customsavequick(std::string savfile);
-    bool savequick();
+    bool savequick(void);
 
-    void gameclock();
+    void gameclock(void);
 
     std::string giventimestring(int hrs, int min, int sec);
 
-    std::string  timestring();
+    std::string  timestring(void);
 
-    std::string partimestring();
+    std::string partimestring(void);
 
-    std::string resulttimestring();
+    std::string resulttimestring(void);
 
     std::string timetstring(int t);
 
-    void returnmenu();
+    void returnmenu(void);
     void returntomenu(enum Menu::MenuName t);
     void  createmenu(enum Menu::MenuName t, bool samemenu = false);
 
-    void lifesequence();
+    void lifesequence(void);
 
-    void gethardestroom();
+    void gethardestroom(void);
 
-    void updatestate();
+    void updatestate(void);
 
     void unlocknum(int t);
 
     void loadstats(ScreenSettings* screen_settings);
 
     bool savestats(const ScreenSettings* screen_settings);
-    bool savestats();
+    bool savestats(void);
 
-    void deletestats();
+    void deletestats(void);
 
     void deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* screen_settings);
 
@@ -145,43 +145,43 @@ public:
     void loadsettings(ScreenSettings* screen_settings);
 
     bool savesettings(const ScreenSettings* screen_settings);
-    bool savesettings();
+    bool savesettings(void);
 
-    bool savestatsandsettings();
+    bool savestatsandsettings(void);
 
-    void savestatsandsettings_menu();
+    void savestatsandsettings_menu(void);
 
-    void deletesettings();
+    void deletesettings(void);
 
-    void deletequick();
+    void deletequick(void);
 
-    bool savetele();
+    bool savetele(void);
 
-    void loadtele();
+    void loadtele(void);
 
-    void deletetele();
+    void deletetele(void);
 
-    void customstart();
+    void customstart(void);
 
-    void start();
+    void start(void);
 
     void startspecial(int t);
 
     void starttrial(int t);
 
-    void swnpenalty();
+    void swnpenalty(void);
 
-    void deathsequence();
+    void deathsequence(void);
 
     void customloadquick(std::string savfile);
-    void loadquick();
+    void loadquick(void);
 
-    void loadsummary();
+    void loadsummary(void);
 
     void readmaingamesave(tinyxml2::XMLDocument& doc);
     std::string writemaingamesave(tinyxml2::XMLDocument& doc);
 
-    void initteleportermode();
+    void initteleportermode(void);
 
     std::string saveFilePath;
 
@@ -293,7 +293,7 @@ public:
     int ndmresultcrewrescued;
     int ndmresulttrinkets;
     std::string ndmresulthardestroom;
-    void copyndmresults();
+    void copyndmresults(void);
 
     //Time Trials
     bool intimetrial, timetrialparlost;
@@ -323,7 +323,7 @@ public:
     static const int numunlock = 25;
     bool unlock[numunlock];
     bool unlocknotify[numunlock];
-    bool anything_unlocked();
+    bool anything_unlocked(void);
     int stat_trinkets;
     int bestgamedeaths;
 
@@ -348,8 +348,8 @@ public:
 
     int deathseq, lifeseq;
 
-    int trinkets();
-    int crewmates();
+    int trinkets(void);
+    int crewmates(void);
     int savepoint, teleportxpos;
     bool teleport;
     int edteleportent;
@@ -367,7 +367,7 @@ public:
     std::string activity_lastprompt;
 
     std::string telesummary, quicksummary, customquicksummary;
-    bool save_exists();
+    bool save_exists(void);
 
     bool backgroundtext;
 
@@ -392,9 +392,9 @@ public:
     std::string customleveltitle;
     std::string customlevelfilename;
 
-    void clearcustomlevelstats();
-    void loadcustomlevelstats();
-    void savecustomlevelstats();
+    void clearcustomlevelstats(void);
+    void loadcustomlevelstats(void);
+    void savecustomlevelstats(void);
     void updatecustomlevelstats(std::string clevel, int cscore);
 
     std::vector<CustomLevelStat> customlevelstats;
@@ -418,21 +418,21 @@ public:
     int playmusic;
     std::string playassets;
 
-    void quittomenu();
-    void returntolab();
+    void quittomenu(void);
+    void returntolab(void);
     bool fadetomenu;
     int fadetomenudelay;
     bool fadetolab;
     int fadetolabdelay;
 
 #if !defined(NO_CUSTOM_LEVELS)
-    void returntoeditor();
+    void returntoeditor(void);
     bool shouldreturntoeditor;
 #endif
 
     int gametimer;
 
-    bool inline inspecial()
+    bool inline inspecial(void)
     {
         return inintermission || insecretlab || intimetrial || nodeathmode;
     }
@@ -442,7 +442,7 @@ public:
 
     bool ingame_titlemode;
 
-    void returntopausemenu();
+    void returntopausemenu(void);
     void unlockAchievement(const char *name);
 
     bool disablepause;

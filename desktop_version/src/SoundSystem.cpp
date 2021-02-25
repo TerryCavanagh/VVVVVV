@@ -48,7 +48,7 @@ SoundTrack::SoundTrack(const char* fileName)
 	}
 }
 
-SoundSystem::SoundSystem()
+SoundSystem::SoundSystem(void)
 {
 	int audio_rate = 44100;
 	Uint16 audio_format = AUDIO_S16SYS;

@@ -130,7 +130,7 @@ bool next_split_s(
 	return retval;
 }
 
-UtilityClass::UtilityClass() :
+UtilityClass::UtilityClass(void) :
 glow(0),
 	glowdir(0)
 {
@@ -251,7 +251,7 @@ bool UtilityClass::intersects( SDL_Rect A, SDL_Rect B )
 	return (SDL_HasIntersection(&A, &B) == SDL_TRUE);
 }
 
-void UtilityClass::updateglow()
+void UtilityClass::updateglow(void)
 {
 	slowsine++;
 	if (slowsine >= 64) slowsine = 0;

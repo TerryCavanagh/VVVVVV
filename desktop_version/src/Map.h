@@ -21,7 +21,7 @@ struct Roomtext
 class mapclass
 {
 public:
-    mapclass();
+    mapclass(void);
 
     int intpol(int a, int b, float c);
 
@@ -29,16 +29,16 @@ public:
 
     void settrinket(int x, int y);
 
-    void resetmap();
+    void resetmap(void);
 
-    void resetnames();
+    void resetnames(void);
 
     void transformname(int t);
 
     std::string getglitchname(int x, int y);
 
-    void initmapdata();
-    void initcustommapdata();
+    void initmapdata(void);
+    void initcustommapdata(void);
 
     int finalat(int x, int y);
 
@@ -52,7 +52,7 @@ public:
 
     void updatetowerglow(TowerBG& bg_obj);
 
-    void nexttowercolour();
+    void nexttowercolour(void);
 
     void settowercolour(int t);
 
@@ -65,14 +65,14 @@ public:
 
     int area(int _rx, int _ry);
 
-    void exploretower();
+    void exploretower(void);
 
-    void hideship();
+    void hideship(void);
 
-    void showship();
+    void showship(void);
 
     void resetplayer(const bool player_died);
-    void resetplayer();
+    void resetplayer(void);
 
     void warpto(int rx, int ry , int t, int tx, int ty);
 
@@ -82,7 +82,7 @@ public:
 
     void loadlevel(int rx, int ry);
 
-    void twoframedelayfix();
+    void twoframedelayfix(void);
 
 
     int roomdeaths[20 * 20];

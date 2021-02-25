@@ -27,7 +27,7 @@ static int inline FLIP(int ypos)
     return ypos;
 }
 
-static inline void drawslowdowntext()
+static inline void drawslowdowntext(void)
 {
     switch (game.slowdown)
     {
@@ -46,7 +46,7 @@ static inline void drawslowdowntext()
     }
 }
 
-static void menurender()
+static void menurender(void)
 {
     int temp = 50;
 
@@ -1218,7 +1218,7 @@ void titlerender()
     graphics.renderwithscreeneffects();
 }
 
-void gamecompleterender()
+void gamecompleterender(void)
 {
     FillRect(graphics.backBuffer, 0x000000);
 
@@ -1364,7 +1364,7 @@ void gamecompleterender()
     graphics.render();
 }
 
-void gamecompleterender2()
+void gamecompleterender2(void)
 {
     FillRect(graphics.backBuffer, 0x000000);
 
@@ -1396,7 +1396,7 @@ void gamecompleterender2()
     graphics.render();
 }
 
-void gamerender()
+void gamerender(void)
 {
 
 
@@ -1710,7 +1710,7 @@ void gamerender()
     graphics.renderwithscreeneffects();
 }
 
-void maprender()
+void maprender(void)
 {
     FillRect(graphics.backBuffer, 0x000000);
 
@@ -2467,7 +2467,7 @@ void maprender()
     }
 }
 
-void teleporterrender()
+void teleporterrender(void)
 {
     FillRect(graphics.backBuffer, 0x000000);
     int tempx;

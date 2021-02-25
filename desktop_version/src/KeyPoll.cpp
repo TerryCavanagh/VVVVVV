@@ -9,7 +9,7 @@
 #include "Graphics.h"
 #include "Music.h"
 
-int inline KeyPoll::getThreshold()
+int inline KeyPoll::getThreshold(void)
 {
 	switch (sensitivity)
 	{
@@ -29,7 +29,7 @@ int inline KeyPoll::getThreshold()
 
 }
 
-KeyPoll::KeyPoll()
+KeyPoll::KeyPoll(void)
 {
 	xVel = 0;
 	yVel = 0;
@@ -62,23 +62,23 @@ KeyPoll::KeyPoll()
 	isActive = true;
 }
 
-void KeyPoll::enabletextentry()
+void KeyPoll::enabletextentry(void)
 {
 	keybuffer="";
 	SDL_StartTextInput();
 }
 
-void KeyPoll::disabletextentry()
+void KeyPoll::disabletextentry(void)
 {
 	SDL_StopTextInput();
 }
 
-bool KeyPoll::textentry()
+bool KeyPoll::textentry(void)
 {
 	return SDL_IsTextInputActive() == SDL_TRUE;
 }
 
-void KeyPoll::Poll()
+void KeyPoll::Poll(void)
 {
 	bool altpressed = false;
 	SDL_Event evt;
@@ -345,7 +345,7 @@ bool KeyPoll::isDown(SDL_GameControllerButton button)
 	return buttonmap[button];
 }
 
-bool KeyPoll::controllerButtonDown()
+bool KeyPoll::controllerButtonDown(void)
 {
 	for (
 		SDL_GameControllerButton button = SDL_CONTROLLER_BUTTON_A;

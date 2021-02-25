@@ -1,11 +1,11 @@
 #include "BlockV.h"
 
-blockclass::blockclass()
+blockclass::blockclass(void)
 {
 	clear();
 }
 
-void blockclass::clear()
+void blockclass::clear(void)
 {
 	type = 0;
 	trigger = 0;

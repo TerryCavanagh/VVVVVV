@@ -127,7 +127,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	return 1;
 }
 
-void FILESYSTEM_deinit()
+void FILESYSTEM_deinit(void)
 {
 	if (PHYSFS_isInit())
 	{
@@ -135,12 +135,12 @@ void FILESYSTEM_deinit()
 	}
 }
 
-char *FILESYSTEM_getUserSaveDirectory()
+char *FILESYSTEM_getUserSaveDirectory(void)
 {
 	return saveDir;
 }
 
-char *FILESYSTEM_getUserLevelDirectory()
+char *FILESYSTEM_getUserLevelDirectory(void)
 {
 	return levelDir;
 }
@@ -209,7 +209,7 @@ void FILESYSTEM_mountassets(const char* path)
 	}
 }
 
-void FILESYSTEM_unmountassets()
+void FILESYSTEM_unmountassets(void)
 {
 	if (graphics.assetdir != "")
 	{
@@ -547,7 +547,7 @@ static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation)
 	}
 }
 
-bool FILESYSTEM_openDirectoryEnabled()
+bool FILESYSTEM_openDirectoryEnabled(void)
 {
 	/* This is just a check to see if we're on a desktop or tenfoot setup.
 	 * If you're working on a tenfoot-only build, add a def that always
