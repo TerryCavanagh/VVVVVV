@@ -31,9 +31,6 @@ SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, i
         metaSurface->format->Bmask,
         metaSurface->format->Amask
     );
-    //SDL_Surface* subSurface = SDL_DisplayFormatAlpha(preSurface);
-
-    //SDL_FreeSurface(preSurface);
 
     // Lastly, apply the area from the meta _surface onto the whole of the sub _surface.
     SDL_BlitSurface(metaSurface, &area, preSurface, 0);
@@ -130,9 +127,6 @@ SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Su
             SDL_FillRect(_ret, &gigantoPixel, ReadPixel(_surface, x, y));
         }
 
-            // DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
-                       //static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(_surface, x, y));
-
     return _ret;
 }
 
@@ -160,25 +154,7 @@ SDL_Surface *  FlipSurfaceVerticle(SDL_Surface* _src)
 
 void BlitSurfaceStandard( SDL_Surface* _src, SDL_Rect* _srcRect, SDL_Surface* _dest, SDL_Rect* _destRect )
 {
-    //SDL_Rect tempRect = *_destRect;
-    //tempRect.w  ;
-    //tempRect.h  ;
-    //tempRect.x *=globalScale;
-    //tempRect.y *=globalScale;
-
-
-    //if(globalScale != 1)
-    //{
-    //	SDL_Surface* tempScaled = ScaleSurface(_src, tempRect.w, tempRect.h);
-
-    //	SDL_BlitSurface( tempScaled, _srcRect, _dest, &tempRect );
-
-    //	SDL_FreeSurface(tempScaled);
-    //}
-    //else
-    //{
     SDL_BlitSurface( _src, _srcRect, _dest, _destRect );
-    //}
 }
 
 void BlitSurfaceColoured(
@@ -191,7 +167,6 @@ void BlitSurfaceColoured(
     SDL_Rect *tempRect = _destRect;
 
     const SDL_PixelFormat& fmt = *(_src->format);
-    // const SDL_PixelFormat& destfmt = *(_dest->format);
 
     SDL_Surface* tempsurface =  SDL_CreateRGBSurface(
         SDL_SWSURFACE,

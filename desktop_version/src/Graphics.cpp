@@ -524,16 +524,6 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
     while (iter != _s.end()) {
         curr = utf8::unchecked::next(iter);
 
-        /*
-        point tpoint;
-        tpoint.x = _x + bfontpos;
-        tpoint.y = _y;
-
-        SDL_Rect fontRect = bfont_rect;
-        fontRect.x = tpoint.x ;
-        fontRect.y = tpoint.y ;
-        */
-
         idx = font_idx(curr);
         if (INBOUNDS_VEC(idx, font))
         {
@@ -2833,9 +2823,6 @@ void Graphics::menuoffrender(void)
 	int usethisoffset = lerp(oldmenuoffset, menuoffset);
 	if(flipmode)
 	{
-		//	flipmatrix.translate(0, menuoffset);
-		//	screenbuffer.draw(backbuffer, flipmatrix);
-		//	flipmatrix.translate(0, -menuoffset);
 		SDL_Surface* tempbufferFlipped = FlipSurfaceVerticle(tempBuffer);
 		//put the stored backbuffer in the backbuffer.
 		SDL_FillRect(backBuffer, NULL, 0x00000000);
@@ -2981,11 +2968,6 @@ void Graphics::screenshake(void)
 {
 	if(flipmode)
 	{
-		//	tpoint.x = int((Math.random() * 7) - 4); tpoint.y = int((Math.random() * 7) - 4);
-		//	flipmatrix.translate(tpoint.x, tpoint.y);
-		//	screenbuffer.draw(backbuffer, flipmatrix);
-		//	flipmatrix.translate(-tpoint.x, -tpoint.y);
-
 		SDL_Rect shakeRect;
 		setRect(shakeRect,screenshake_x, screenshake_y, backBuffer->w, backBuffer->h);
 		SDL_Surface* flipBackBuffer = FlipSurfaceVerticle(backBuffer);
@@ -2994,10 +2976,6 @@ void Graphics::screenshake(void)
 	}
 	else
 	{
-		//FillRect(screenbuffer, 0x000);
-		//SDL_Rect rect;
-		//setRect(rect, blackBars/2, 0, screenbuffer->w, screenbuffer->h);
-		//SDL_BlitSurface(backBuffer, NULL, screenbuffer, &rect);
 		SDL_Rect shakeRect;
 		setRect(shakeRect,screenshake_x, screenshake_y, backBuffer->w, backBuffer->h);
 		screenbuffer->UpdateScreen( backBuffer, &shakeRect);
@@ -3022,8 +3000,6 @@ void Graphics::render(void)
 	{
 		SDL_Rect rect;
 		setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-		//setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-		//SDL_BlitSurface(backBuffer, NULL, screenbuffer, &rect);
 		SDL_Surface* tempsurface = FlipSurfaceVerticle(backBuffer);
 		if(tempsurface != NULL)
 		{
@@ -3035,8 +3011,6 @@ void Graphics::render(void)
 	{
 		SDL_Rect rect;
 		setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-		//setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-		//SDL_BlitSurface(backBuffer, NULL, screenbuffer, &rect);
 		screenbuffer->UpdateScreen( backBuffer, &rect);
 	}
 }
