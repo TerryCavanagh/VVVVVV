@@ -353,8 +353,7 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
 void FillRect( SDL_Surface* _surface, const int _x, const int _y, const int _w, const int _h, const int r, int g, int b )
 {
     SDL_Rect rect = {Sint16(_x),Sint16(_y),Sint16(_w),Sint16(_h)};
-    Uint32 color;
-    color = SDL_MapRGB(_surface->format, r, g, b);
+    Uint32 color = SDL_MapRGB(_surface->format, r, g, b);
     SDL_FillRect(_surface, &rect, color);
 }
 
@@ -377,8 +376,7 @@ void FillRect( SDL_Surface* _surface, const int x, const int y, const int w, con
 
 void FillRect( SDL_Surface* _surface, SDL_Rect& _rect, const int r, int g, int b )
 {
-    Uint32 color;
-    color = SDL_MapRGB(_surface->format, r, g, b);
+    Uint32 color = SDL_MapRGB(_surface->format, r, g, b);
     SDL_FillRect(_surface, &_rect, color);
 }
 
