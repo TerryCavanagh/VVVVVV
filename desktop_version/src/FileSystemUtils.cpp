@@ -204,7 +204,7 @@ void FILESYSTEM_mountassets(const char* path)
 		FILESYSTEM_mount(zippath.c_str());
 		graphics.reloadresources();
 		FILESYSTEM_assetsmounted = true;
-	} else if (zip_path != "data.zip" && !endsWith(zip_path, "/data.zip") && endsWith(zip_path, ".zip")) {
+	} else if (zip_path != "data.zip" && !endsWith(zip_path.c_str(), "/data.zip") && endsWith(zip_path.c_str(), ".zip")) {
 		printf("Custom asset directory is .zip at %s\n", zip_path.c_str());
 		PHYSFS_File* zip = PHYSFS_openRead(zip_path.c_str());
 		zip_path += ".data.zip";
