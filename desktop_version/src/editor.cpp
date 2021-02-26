@@ -82,7 +82,7 @@ static void levelZipCallback(const char* filename)
 {
     std::string filename_ = filename;
 
-    if (endsWith(filename_, ".zip"))
+    if (endsWith(filename_.c_str(), ".zip"))
     {
         PHYSFS_File* zip = PHYSFS_openRead(filename_.c_str());
 
@@ -1822,7 +1822,7 @@ bool editorclass::load(std::string& _path)
                     // the linefeed + the extremely specific amount of
                     // whitespace at the end of the contents.
 
-                    if (endsWith(text, "\n            ")) // linefeed + exactly 12 spaces
+                    if (endsWith(text.c_str(), "\n            ")) // linefeed + exactly 12 spaces
                     {
                         // 12 spaces + 1 linefeed = 13 chars
                         text = text.substr(0, text.length()-13);

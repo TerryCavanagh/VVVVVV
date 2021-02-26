@@ -323,15 +323,15 @@ bool is_positive_num(const char* str, const bool hex)
 	return true;
 }
 
-bool endsWith(const std::string& str, const std::string& suffix)
+bool endsWith(const char* str, const char* suffix)
 {
-	if (str.size() < suffix.size())
+	const size_t str_size = SDL_strlen(str);
+	const size_t suffix_size = SDL_strlen(suffix);
+
+	if (str_size < suffix_size)
 	{
 		return false;
 	}
-	return str.compare(
-		str.size() - suffix.size(),
-		suffix.size(),
-		suffix
-	) == 0;
+
+	return SDL_strcmp(&str[str_size - suffix_size], suffix) == 0;
 }
