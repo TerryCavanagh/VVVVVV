@@ -80,17 +80,15 @@ static bool compare_nocase (std::string first, std::string second)
 
 static void levelZipCallback(const char* filename)
 {
-    std::string filename_ = filename;
-
-    if (endsWith(filename_.c_str(), ".zip"))
+    if (endsWith(filename, ".zip"))
     {
-        PHYSFS_File* zip = PHYSFS_openRead(filename_.c_str());
+        PHYSFS_File* zip = PHYSFS_openRead(filename);
 
-        if (!PHYSFS_mountHandle(zip, filename_.c_str(), "levels", 1))
+        if (!PHYSFS_mountHandle(zip, filename, "levels", 1))
         {
             printf(
                 "Could not mount %s: %s\n",
-                filename_.c_str(),
+                filename,
                 PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
             );
         }
