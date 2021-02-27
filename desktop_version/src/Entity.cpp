@@ -800,8 +800,6 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         break;
     case TRIGGER: //Trigger
         block.type = TRIGGER;
-        block.x = xp;
-        block.y = yp;
         block.wp = w;
         block.hp = h;
         block.rectset(xp, yp, w, h);
@@ -810,16 +808,12 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         break;
     case DAMAGE: //Damage
         block.type = DAMAGE;
-        block.x = xp;
-        block.y = yp;
         block.wp = w;
         block.hp = h;
         block.rectset(xp, yp, w, h);
         break;
     case DIRECTIONAL: //Directional
         block.type = DIRECTIONAL;
-        block.x = xp;
-        block.y = yp;
         block.wp = w;
         block.hp = h;
         block.rectset(xp, yp, w, h);
@@ -835,8 +829,6 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
         break;
     case ACTIVITY: //Activity Zone
         block.type = ACTIVITY;
-        block.x = xp;
-        block.y = yp;
         block.wp = w;
         block.hp = h;
         block.rectset(xp, yp, w, h);

@@ -23,9 +23,6 @@ void blockclass::clear(void)
 	g = 0;
 	b = 0;
 
-	x = 0.0f;
-	y = 0.0f;
-
 	/* std::strings get initialized automatically, but this is */
 	/* in case this function gets called again after construction */
 	script.clear();
