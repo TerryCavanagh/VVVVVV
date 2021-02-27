@@ -1783,11 +1783,11 @@ bool editorclass::load(std::string& _path)
             for( tinyxml2::XMLElement* edEntityEl = pElem->FirstChildElement(); edEntityEl; edEntityEl=edEntityEl->NextSiblingElement())
             {
                 edentities entity;
+                const char* text = edEntityEl->GetText();
 
-                std::string pKey(edEntityEl->Value());
-                if (edEntityEl->GetText() != NULL)
+                if (text != NULL)
                 {
-                    std::string text(edEntityEl->GetText());
+                    size_t len = SDL_strlen(text);
 
                     // And now we come to the part where we have to deal with
                     // the terrible decisions of the past.
@@ -1820,13 +1820,13 @@ bool editorclass::load(std::string& _path)
                     // the linefeed + the extremely specific amount of
                     // whitespace at the end of the contents.
 
-                    if (endsWith(text.c_str(), "\n            ")) // linefeed + exactly 12 spaces
+                    if (endsWith(text, "\n            ")) // linefeed + exactly 12 spaces
                     {
                         // 12 spaces + 1 linefeed = 13 chars
-                        text = text.substr(0, text.length()-13);
+                        len -= 13;
                     }
 
-                    entity.scriptname = text;
+                    entity.scriptname = std::string(text, len);
                 }
                 edEntityEl->QueryIntAttribute("x", &entity.x);
                 edEntityEl->QueryIntAttribute("y", &entity.y);
