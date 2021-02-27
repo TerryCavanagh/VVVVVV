@@ -208,6 +208,14 @@ void FILESYSTEM_mountassets(const char* path)
 	const char* zip_normal;
 	char dir[MAX_PATH];
 
+	/* path is going to look like "levels/LEVELNAME.vvvvvv".
+	 * We want LEVELNAME, which entails starting from index 7
+	 * (which is how long "levels/" is)
+	 * and then grabbing path_size-14 characters
+	 * (14 chars because "levels/" and ".vvvvvv" are both 7 chars).
+	 * We also add 1 when calculating the amount of bytes to grab
+	 * to account for the null terminator.
+	 */
 	SDL_strlcpy(
 		filename,
 		&path[7],
