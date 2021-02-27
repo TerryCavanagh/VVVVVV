@@ -164,7 +164,7 @@ char *FILESYSTEM_getUserLevelDirectory(void)
 	return levelDir;
 }
 
-static bool FILESYSTEM_directoryExists(const char *fname)
+static bool FILESYSTEM_exists(const char *fname)
 {
 	return PHYSFS_exists(fname);
 }
@@ -199,7 +199,7 @@ void FILESYSTEM_mountassets(const char* path)
 		zip_path = cstr;
 	}
 
-	if (cstr && FILESYSTEM_directoryExists(zippath.c_str())) {
+	if (cstr && FILESYSTEM_exists(zippath.c_str())) {
 		printf("Custom asset directory is .data.zip at %s\n", zippath.c_str());
 		FILESYSTEM_mount(zippath.c_str());
 		graphics.reloadresources();
@@ -223,7 +223,7 @@ void FILESYSTEM_mountassets(const char* path)
 		}
 		FILESYSTEM_assetsmounted = true;
 		graphics.reloadresources();
-	} else if (FILESYSTEM_directoryExists(dirpath.c_str())) {
+	} else if (FILESYSTEM_exists(dirpath.c_str())) {
 		printf("Custom asset directory exists at %s\n",dirpath.c_str());
 		FILESYSTEM_mount(dirpath.c_str());
 		graphics.reloadresources();
