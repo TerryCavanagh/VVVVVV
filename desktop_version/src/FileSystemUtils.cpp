@@ -171,16 +171,30 @@ static bool FILESYSTEM_exists(const char *fname)
 
 void FILESYSTEM_mount(const char *fname)
 {
-	std::string path(PHYSFS_getRealDir(fname));
-	path += PHYSFS_getDirSeparator();
-	path += fname;
-	if (!PHYSFS_mount(path.c_str(), NULL, 0))
+	const char* real_dir = PHYSFS_getRealDir(fname);
+	const char* dir_separator;
+	char path[MAX_PATH];
+
+	if (real_dir == NULL)
+	{
+		printf(
+			"Could not mount %s: real directory doesn't exist\n",
+			fname
+		);
+		return;
+	}
+
+	dir_separator = PHYSFS_getDirSeparator();
+
+	SDL_snprintf(path, sizeof(path), "%s%s%s", real_dir, dir_separator, fname);
+
+	if (!PHYSFS_mount(path, NULL, 0))
 	{
 		printf("Error mounting: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
 	}
 	else
 	{
-		graphics.assetdir = path.c_str();
+		graphics.assetdir = std::string(path);
 	}
 }
 
@@ -188,48 +202,97 @@ bool FILESYSTEM_assetsmounted = false;
 
 void FILESYSTEM_mountassets(const char* path)
 {
-	const std::string _path(path);
+	const size_t path_size = SDL_strlen(path);
+	char filename[MAX_PATH];
+	char zip_data[MAX_PATH];
+	const char* zip_normal;
+	char dir[MAX_PATH];
 
-	std::string zippath = "levels/" + _path.substr(7,_path.size()-14) + ".data.zip";
-	std::string dirpath = "levels/" + _path.substr(7,_path.size()-14) + "/";
-	std::string zip_path;
-	const char* cstr = PHYSFS_getRealDir(_path.c_str());
+	SDL_strlcpy(
+		filename,
+		&path[7],
+		VVV_min((path_size - 14) + 1, sizeof(filename))
+	);
 
-	if (cstr) {
-		zip_path = cstr;
-	}
+	SDL_snprintf(
+		zip_data,
+		sizeof(zip_data),
+		"levels/%s.data.zip",
+		filename
+	);
 
-	if (cstr && FILESYSTEM_exists(zippath.c_str())) {
-		printf("Custom asset directory is .data.zip at %s\n", zippath.c_str());
-		FILESYSTEM_mount(zippath.c_str());
+	zip_normal = PHYSFS_getRealDir(path);
+
+	SDL_snprintf(
+		dir,
+		sizeof(dir),
+		"levels/%s/",
+		filename
+	);
+
+	if (FILESYSTEM_exists(zip_data))
+	{
+		printf("Custom asset directory is .data.zip at %s\n", zip_data);
+
+		FILESYSTEM_mount(zip_data);
+
 		graphics.reloadresources();
+
 		FILESYSTEM_assetsmounted = true;
-	} else if (zip_path != "data.zip" && !endsWith(zip_path.c_str(), "/data.zip") && endsWith(zip_path.c_str(), ".zip")) {
-		printf("Custom asset directory is .zip at %s\n", zip_path.c_str());
-		PHYSFS_File* zip = PHYSFS_openRead(zip_path.c_str());
-		zip_path += ".data.zip";
-		if (zip == NULL) {
+	}
+	else if (zip_normal != NULL
+	&& SDL_strcmp(zip_normal, "data.zip") != 0
+	&& !endsWith(zip_normal, "/data.zip")
+	&& endsWith(zip_normal, ".zip"))
+	{
+		PHYSFS_File* zip = PHYSFS_openRead(zip_normal);
+
+		printf("Custom asset directory is .zip at %s\n", zip_normal);
+
+		SDL_snprintf(
+			zip_data,
+			sizeof(zip_data),
+			"%s.data.zip",
+			zip_normal
+		);
+
+		if (zip == NULL)
+		{
 			printf(
 				"Error loading .zip: %s\n",
 				PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 			);
-		} else if (PHYSFS_mountHandle(zip, zip_path.c_str(), "/", 0) == 0) {
+		}
+		else if (PHYSFS_mountHandle(zip, zip_data, "/", 0) == 0)
+		{
 			printf(
 				"Error mounting .zip: %s\n",
 				PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 			);
-		} else {
-			graphics.assetdir = zip_path;
 		}
+		else
+		{
+			graphics.assetdir = std::string(zip_data);
+		}
+
 		FILESYSTEM_assetsmounted = true;
+
 		graphics.reloadresources();
-	} else if (FILESYSTEM_exists(dirpath.c_str())) {
-		printf("Custom asset directory exists at %s\n",dirpath.c_str());
-		FILESYSTEM_mount(dirpath.c_str());
+	}
+	else if (FILESYSTEM_exists(dir))
+	{
+		printf("Custom asset directory exists at %s\n", dir);
+
+		FILESYSTEM_mount(dir);
+
 		graphics.reloadresources();
+
 		FILESYSTEM_assetsmounted = true;
-	} else {
+	}
+	else
+	{
 		puts("Custom asset directory does not exist");
+
 		FILESYSTEM_assetsmounted = false;
 	}
 }
