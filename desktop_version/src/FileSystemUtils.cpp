@@ -164,7 +164,7 @@ char *FILESYSTEM_getUserLevelDirectory(void)
 	return levelDir;
 }
 
-bool FILESYSTEM_directoryExists(const char *fname)
+static bool FILESYSTEM_directoryExists(const char *fname)
 {
 	return PHYSFS_exists(fname);
 }
