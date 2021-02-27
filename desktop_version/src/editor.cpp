@@ -1848,7 +1848,6 @@ bool editorclass::load(std::string& _path)
             int i = 0;
             for( tinyxml2::XMLElement* edLevelClassElement = pElem->FirstChildElement(); edLevelClassElement; edLevelClassElement=edLevelClassElement->NextSiblingElement())
             {
-                std::string pKey(edLevelClassElement->Value());
                 if(edLevelClassElement->GetText() != NULL)
                 {
                     level[i].roomname = std::string(edLevelClassElement->GetText()) ;
