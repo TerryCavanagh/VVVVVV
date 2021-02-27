@@ -200,7 +200,7 @@ void FILESYSTEM_mountassets(const char* path)
 	}
 
 	if (cstr && FILESYSTEM_directoryExists(zippath.c_str())) {
-		printf("Custom asset directory exists at %s\n", zippath.c_str());
+		printf("Custom asset directory is .data.zip at %s\n", zippath.c_str());
 		FILESYSTEM_mount(zippath.c_str());
 		graphics.reloadresources();
 		FILESYSTEM_assetsmounted = true;
@@ -209,9 +209,15 @@ void FILESYSTEM_mountassets(const char* path)
 		PHYSFS_File* zip = PHYSFS_openRead(zip_path.c_str());
 		zip_path += ".data.zip";
 		if (zip == NULL) {
-			printf("error loading .zip: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+			printf(
+				"Error loading .zip: %s\n",
+				PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+			);
 		} else if (PHYSFS_mountHandle(zip, zip_path.c_str(), "/", 0) == 0) {
-			printf("error mounting .zip: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+			printf(
+				"Error mounting .zip: %s\n",
+				PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+			);
 		} else {
 			graphics.assetdir = zip_path;
 		}
@@ -223,7 +229,7 @@ void FILESYSTEM_mountassets(const char* path)
 		graphics.reloadresources();
 		FILESYSTEM_assetsmounted = true;
 	} else {
-		printf("Custom asset directory does not exist\n");
+		puts("Custom asset directory does not exist");
 		FILESYSTEM_assetsmounted = false;
 	}
 }
