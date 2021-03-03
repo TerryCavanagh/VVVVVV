@@ -2152,7 +2152,7 @@ void editorclass::generatecustomminimap(void)
         map.custommmysize=180-(map.custommmyoff*2);
     }
 
-    ClearSurface(graphics.images[12]);
+    FillRect(graphics.images[12], graphics.getRGB(0, 0, 0));
 
     int tm=0;
     int temp=0;
