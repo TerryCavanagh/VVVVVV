@@ -363,6 +363,10 @@ void FILESYSTEM_loadFileToMemory(
 	PHYSFS_sint64 length = PHYSFS_fileLength(handle);
 	if (len != NULL)
 	{
+		if (length < 0)
+		{
+			length = 0;
+		}
 		*len = length;
 	}
 	if (addnull)
