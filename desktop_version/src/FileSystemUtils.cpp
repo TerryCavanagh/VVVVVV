@@ -386,7 +386,7 @@ void FILESYSTEM_loadFileToMemory(
 			VVV_exit(1);
 		}
 	}
-	int success = PHYSFS_readBytes(handle, *mem, length);
+	PHYSFS_sint64 success = PHYSFS_readBytes(handle, *mem, length);
 	if (success == -1)
 	{
 		FILESYSTEM_freeMemory(mem);
