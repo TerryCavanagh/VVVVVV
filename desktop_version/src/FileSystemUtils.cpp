@@ -360,7 +360,7 @@ void FILESYSTEM_loadFileToMemory(
 	{
 		return;
 	}
-	PHYSFS_uint32 length = PHYSFS_fileLength(handle);
+	PHYSFS_sint64 length = PHYSFS_fileLength(handle);
 	if (len != NULL)
 	{
 		*len = length;
