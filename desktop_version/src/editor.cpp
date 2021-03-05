@@ -4,7 +4,6 @@
 #include "editor.h"
 
 #include <algorithm>
-#include <physfs.h>
 #include <stdio.h>
 #include <string>
 #include <tinyxml2.h>
@@ -82,16 +81,7 @@ static void levelZipCallback(const char* filename)
 {
     if (endsWith(filename, ".zip"))
     {
-        PHYSFS_File* zip = PHYSFS_openRead(filename);
-
-        if (!PHYSFS_mountHandle(zip, filename, "levels", 1))
-        {
-            printf(
-                "Could not mount %s: %s\n",
-                filename,
-                PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
-            );
-        }
+        FILESYSTEM_loadZip(filename);
     }
 }
 

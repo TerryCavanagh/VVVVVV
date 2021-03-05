@@ -13,6 +13,7 @@ char *FILESYSTEM_getUserSaveDirectory(void);
 char *FILESYSTEM_getUserLevelDirectory(void);
 
 void FILESYSTEM_mount(const char *fname);
+void FILESYSTEM_loadZip(const char* filename);
 extern bool FILESYSTEM_assetsmounted;
 void FILESYSTEM_mountassets(const char *path);
 void FILESYSTEM_unmountassets(void);
