@@ -164,6 +164,28 @@ char *FILESYSTEM_getUserLevelDirectory(void)
 	return levelDir;
 }
 
+bool FILESYSTEM_isFile(const char* filename)
+{
+	PHYSFS_Stat stat;
+
+	bool success = PHYSFS_stat(filename, &stat);
+
+	if (!success)
+	{
+		printf(
+			"Could not stat file: %s\n",
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+		return false;
+	}
+
+	/* We unfortunately cannot follow symlinks (PhysFS limitation).
+	 * Let the caller deal with them.
+	 */
+	return stat.filetype == PHYSFS_FILETYPE_REGULAR
+	|| stat.filetype == PHYSFS_FILETYPE_SYMLINK;
+}
+
 static bool FILESYSTEM_exists(const char *fname)
 {
 	return PHYSFS_exists(fname);
