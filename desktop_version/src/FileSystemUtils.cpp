@@ -198,6 +198,20 @@ void FILESYSTEM_mount(const char *fname)
 	}
 }
 
+void FILESYSTEM_loadZip(const char* filename)
+{
+	PHYSFS_File* zip = PHYSFS_openRead(filename);
+
+	if (!PHYSFS_mountHandle(zip, filename, "levels", 1))
+	{
+		printf(
+			"Could not mount %s: %s\n",
+			filename,
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+	}
+}
+
 bool FILESYSTEM_assetsmounted = false;
 
 void FILESYSTEM_mountassets(const char* path)
