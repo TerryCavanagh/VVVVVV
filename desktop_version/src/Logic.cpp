@@ -1527,7 +1527,8 @@ void gamelogic(void)
 
     game.activeactivity = obj.checkactivity();
 
-    if (INBOUNDS_VEC(game.activeactivity, obj.entities))
+    if (game.hascontrol && !script.running
+    && INBOUNDS_VEC(game.activeactivity, obj.entities))
     {
         game.activity_lastprompt = obj.blocks[game.activeactivity].prompt;
         game.activity_r = obj.blocks[game.activeactivity].r;
