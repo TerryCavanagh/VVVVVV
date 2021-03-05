@@ -143,62 +143,62 @@ void entityclass::generateswnwave( int t )
                     game.swnstate = 9;
                     game.swndelay = 8;
                 }
-                else	if (game.swntimer <= 300)    //less than 10 seconds
+                else    if (game.swntimer <= 300)    //less than 10 seconds
                 {
                     game.swnstate = 6;
                     game.swndelay = 12;
                 }
-                else	if (game.swntimer <= 360)    //less than 12 seconds
+                else    if (game.swntimer <= 360)    //less than 12 seconds
                 {
                     game.swnstate = 5+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 420)    //less than 14 seconds
+                else    if (game.swntimer <= 420)    //less than 14 seconds
                 {
                     game.swnstate = 7+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 480)    //less than 16 seconds
+                else    if (game.swntimer <= 480)    //less than 16 seconds
                 {
                     game.swnstate = 5+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 540)    //less than 18 seconds
+                else    if (game.swntimer <= 540)    //less than 18 seconds
                 {
                     game.swnstate = 7+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 600)    //less than 20 seconds
+                else    if (game.swntimer <= 600)    //less than 20 seconds
                 {
                     game.swnstate = 5+game.swnstate2;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 900)    //less than 30 seconds
+                else    if (game.swntimer <= 900)    //less than 30 seconds
                 {
                     game.swnstate = 4;
                     game.swndelay = 20;
                 }
-                else	if (game.swntimer <= 1050)    //less than 35 seconds
+                else    if (game.swntimer <= 1050)    //less than 35 seconds
                 {
                     game.swnstate = 3;
                     game.swndelay = 10;
                 }
-                else	if (game.swntimer <= 1200)    //less than 40 seconds
+                else    if (game.swntimer <= 1200)    //less than 40 seconds
                 {
                     game.swnstate = 3;
                     game.swndelay = 20;
                 }
-                else	if (game.swntimer <= 1500)    //less than 50 seconds
+                else    if (game.swntimer <= 1500)    //less than 50 seconds
                 {
                     game.swnstate = 2;
                     game.swndelay = 10;
                 }
-                else	if (game.swntimer <= 1650)    //less than 55 seconds
+                else    if (game.swntimer <= 1650)    //less than 55 seconds
                 {
                     game.swnstate = 1;
                     game.swndelay = 15;
                 }
-                else	if (game.swntimer <= 1800)    //less than 60 seconds
+                else    if (game.swntimer <= 1800)    //less than 60 seconds
                 {
                     game.swnstate = 1;
                     game.swndelay = 25;
@@ -2800,8 +2800,8 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 //happy!
-                if (INBOUNDS_VEC(k, entities) && entities[k].rule == 6)	entities[k].tile = 0;
-                if (INBOUNDS_VEC(k, entities) && entities[k].rule == 7)	entities[k].tile = 6;
+                if (INBOUNDS_VEC(k, entities) && entities[k].rule == 6)    entities[k].tile = 0;
+                if (INBOUNDS_VEC(k, entities) && entities[k].rule == 7)    entities[k].tile = 6;
                 //Stay close to the hero!
                 int j = getplayer();
                 if (INBOUNDS_VEC(j, entities) && entities[j].xp > entities[i].xp + 5)
@@ -3083,7 +3083,7 @@ bool entityclass::updateentities( int i )
                         entities[i].para = 30;
                     }
                 }
-                else	if (entities[i].life == 1)
+                else    if (entities[i].life == 1)
                 {
                     //Stand around for a bit
                     entities[i].para--;
@@ -3119,7 +3119,7 @@ bool entityclass::updateentities( int i )
                         entities[i].para = 30;
                     }
                 }
-                else	if (entities[i].life == 3)
+                else    if (entities[i].life == 3)
                 {
                     //Stand around for a bit
                     entities[i].para--;
@@ -3709,7 +3709,7 @@ void entityclass::animateentities( int _i )
             {
                 entities[_i].drawframe ++;
                 //if (game.gravitycontrol == 1) {
-                //	entities[_i].drawframe += 6;
+                //    entities[_i].drawframe += 6;
                 //}
             }
 

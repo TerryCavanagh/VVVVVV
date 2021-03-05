@@ -530,7 +530,7 @@ void gamelogic(void)
         }
 
         //SWN Minigame Logic
-        if (game.swnmode)  	//which game?
+        if (game.swnmode)      //which game?
         {
             if(game.swngame==0)  //intermission, survive 60 seconds game
             {
@@ -927,7 +927,7 @@ void gamelogic(void)
                 obj.customwarpmodevon = false;
 
                 int i = obj.getplayer();
-                if (INBOUNDS_VEC(i, obj.entities) && ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||	(game.door_left > -2 && obj.entities[i].xp < -14+16) ||	(game.door_right > -2 && obj.entities[i].xp >= 308-16))){
+                if (INBOUNDS_VEC(i, obj.entities) && ((game.door_down > -2 && obj.entities[i].yp >= 226-16) || (game.door_up > -2 && obj.entities[i].yp < -2+16) ||    (game.door_left > -2 && obj.entities[i].xp < -14+16) ||    (game.door_right > -2 && obj.entities[i].xp >= 308-16))){
                     //Player is leaving room
                     obj.customwarplinecheck(i);
                 }
@@ -1426,7 +1426,7 @@ void gamelogic(void)
                         }
                     }
                 }
-                else	if (game.roomy >= 52)
+                else    if (game.roomy >= 52)
                 {
                     if (obj.flags[59])
                     {

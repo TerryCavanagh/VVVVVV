@@ -1304,7 +1304,7 @@ void Game::updatestate(void)
 
         case 80:
             //Used to return to menu from the game
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 81:
             quittomenu();
@@ -1365,7 +1365,7 @@ void Game::updatestate(void)
             break;
         case 83:
             frames--;
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 84:
             quittomenu();
@@ -1442,7 +1442,7 @@ void Game::updatestate(void)
 
         case 96:
             //Used to return to gravitron to game
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 97:
             returntolab();
@@ -1627,7 +1627,7 @@ void Game::updatestate(void)
             state++;
             music.playef(2);
             graphics.textboxactive();
-            int i = obj.getcompanion(); if (INBOUNDS_VEC(i, obj.entities)) {	/*obj.entities[i].tile = 66;	obj.entities[i].state = 0;*/	}
+            int i = obj.getcompanion(); if (INBOUNDS_VEC(i, obj.entities)) {    /*obj.entities[i].tile = 66;    obj.entities[i].state = 0;*/    }
             break;
         }
         case 126:
@@ -1898,7 +1898,7 @@ void Game::updatestate(void)
 #endif
         case 1014:
             frames--;
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 1015:
 #if !defined(NO_CUSTOM_LEVELS)
@@ -2207,7 +2207,7 @@ void Game::updatestate(void)
             graphics.addline("");
             graphics.textboxcenterx();
 
-            /*												advancetext = true;
+            /*                                                advancetext = true;
             hascontrol = false;
             state = 3;
             graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
@@ -2324,7 +2324,7 @@ void Game::updatestate(void)
             graphics.addline("");
             graphics.textboxcenterx();
 
-            /*												advancetext = true;
+            /*                                                advancetext = true;
             hascontrol = false;
             state = 3;
             graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
@@ -2440,7 +2440,7 @@ void Game::updatestate(void)
             graphics.addline("");
             graphics.textboxcenterx();
 
-            /*												advancetext = true;
+            /*                                                advancetext = true;
             hascontrol = false;
             state = 3;
             graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
@@ -2557,7 +2557,7 @@ void Game::updatestate(void)
             graphics.addline("");
             graphics.textboxcenterx();
 
-            /*												advancetext = true;
+            /*                                                advancetext = true;
             hascontrol = false;
             state = 3;
             graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
@@ -2698,7 +2698,7 @@ void Game::updatestate(void)
             graphics.addline("");
             graphics.textboxcenterx();
 
-            /*												advancetext = true;
+            /*                                                advancetext = true;
             hascontrol = false;
             state = 3;
             graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
@@ -2927,7 +2927,7 @@ void Game::updatestate(void)
             break;
 
         case 3100:
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 3101:
             quittomenu();
@@ -3232,7 +3232,7 @@ void Game::updatestate(void)
             state++;
             break;
         case 3521:
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 3522:
             copyndmresults();

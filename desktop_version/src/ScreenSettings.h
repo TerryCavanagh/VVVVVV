@@ -3,15 +3,15 @@
 
 struct ScreenSettings
 {
-	ScreenSettings(void);
+    ScreenSettings(void);
 
-	int windowWidth;
-	int windowHeight;
-	bool fullscreen;
-	bool useVsync;
-	int stretch;
-	bool linearFilter;
-	bool badSignal;
+    int windowWidth;
+    int windowHeight;
+    bool fullscreen;
+    bool useVsync;
+    int stretch;
+    bool linearFilter;
+    bool badSignal;
 };
 
 #endif /* SCREENSETTINGS_H */

@@ -416,7 +416,7 @@ void scriptclass::loadother(const char* t)
 
 
         static const char* lines[] = {
-        //"delay(15)",	"flash(5)", "shake(20)", "playef(9)",
+        //"delay(15)",    "flash(5)", "shake(20)", "playef(9)",
 
         "text(gray,0,114,3)",
         "          -= WARNING =-         ",
