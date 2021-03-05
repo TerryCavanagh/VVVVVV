@@ -1121,7 +1121,6 @@ static void menuactionpress(void)
             music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
-            music.niceplay(6);
             break;
         }
         break;
