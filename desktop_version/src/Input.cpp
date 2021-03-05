@@ -1233,6 +1233,7 @@ static void menuactionpress(void)
         case 5:
             music.playef(11);
             game.returnmenu();
+            map.nexttowercolour();
             break;
         }
         break;
