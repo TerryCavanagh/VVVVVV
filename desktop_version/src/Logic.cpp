@@ -1527,6 +1527,14 @@ void gamelogic(void)
 
     game.activeactivity = obj.checkactivity();
 
+    if (INBOUNDS_VEC(game.activeactivity, obj.entities))
+    {
+        game.activity_lastprompt = obj.blocks[game.activeactivity].prompt;
+        game.activity_r = obj.blocks[game.activeactivity].r;
+        game.activity_g = obj.blocks[game.activeactivity].g;
+        game.activity_b = obj.blocks[game.activeactivity].b;
+    }
+
     game.oldreadytotele = game.readytotele;
     if (game.activetele && !game.advancetext && game.hascontrol && !script.running && !game.intimetrial)
     {
