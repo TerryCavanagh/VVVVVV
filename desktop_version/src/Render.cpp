@@ -1688,13 +1688,6 @@ void gamerender(void)
     }
 
     float act_alpha = graphics.lerp(game.prev_act_fade, game.act_fade) / 10.0f;
-    if (INBOUNDS_VEC(game.activeactivity, obj.entities))
-    {
-        game.activity_lastprompt = obj.blocks[game.activeactivity].prompt;
-        game.activity_r = obj.blocks[game.activeactivity].r;
-        game.activity_g = obj.blocks[game.activeactivity].g;
-        game.activity_b = obj.blocks[game.activeactivity].b;
-    }
     if(game.act_fade>5 || game.prev_act_fade>5)
     {
         graphics.drawtextbox(16, 4, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
