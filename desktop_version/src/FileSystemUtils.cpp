@@ -186,6 +186,11 @@ bool FILESYSTEM_isFile(const char* filename)
 	|| stat.filetype == PHYSFS_FILETYPE_SYMLINK;
 }
 
+bool FILESYSTEM_isMounted(const char* filename)
+{
+	return PHYSFS_getMountPoint(filename) != NULL;
+}
+
 static bool FILESYSTEM_exists(const char *fname)
 {
 	return PHYSFS_exists(fname);
