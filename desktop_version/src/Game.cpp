@@ -6239,9 +6239,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         frame.option = currentmenuoption;
         frame.name = currentmenuname;
         menustack.push_back(frame);
+        currentmenuoption = 0;
     }
 
-    currentmenuoption = 0;
     currentmenuname = t;
     menuyoff = 0;
     int maxspacing = 30; // maximum value for menuspacing, can only become lower.
