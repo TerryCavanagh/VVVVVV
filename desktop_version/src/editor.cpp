@@ -79,6 +79,11 @@ static bool compare_nocase (std::string first, std::string second)
 
 static void levelZipCallback(const char* filename)
 {
+    if (!FILESYSTEM_isFile(filename))
+    {
+        return;
+    }
+
     if (endsWith(filename, ".zip"))
     {
         FILESYSTEM_loadZip(filename);
@@ -200,6 +205,11 @@ static void levelMetaDataCallback(const char* filename)
     extern editorclass ed;
     LevelMetaData temp;
     std::string filename_ = filename;
+
+    if (!FILESYSTEM_isFile(filename))
+    {
+        return;
+    }
 
     if (ed.getLevelMetaData(filename_, temp))
     {
