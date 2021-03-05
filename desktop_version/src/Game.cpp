@@ -6417,6 +6417,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::ed_music:
         option("next song");
+        option("previous song");
         option("back");
         menuyoff = 16;
         maxspacing = 15;

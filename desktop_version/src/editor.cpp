@@ -3726,8 +3726,17 @@ static void editormenuactionpress()
         switch (game.currentmenuoption)
         {
         case 0:
-            ed.levmusic++;
-            if(ed.levmusic==16) ed.levmusic=0;
+        case 1:
+            switch (game.currentmenuoption)
+            {
+            case 0:
+                ed.levmusic++;
+                break;
+            case 1:
+                ed.levmusic--;
+                break;
+            }
+            ed.levmusic = (ed.levmusic % 16 + 16) % 16;
             if(ed.levmusic>0)
             {
                 music.play(ed.levmusic);
@@ -3738,7 +3747,7 @@ static void editormenuactionpress()
             }
             music.playef(11);
             break;
-        case 1:
+        case 2:
             music.playef(11);
             music.fadeout();
             game.returnmenu();
