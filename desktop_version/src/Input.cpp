@@ -1795,7 +1795,10 @@ void gameinput(void)
                 if (enter_pressed)
                 {
                     game.mapheld = true;
+                }
 
+                if (enter_pressed && !script.running)
+                {
                     if (game.activetele && game.readytotele > 20 && !game.intimetrial)
                     {
                         enter_already_processed = true;
