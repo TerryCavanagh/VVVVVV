@@ -161,6 +161,9 @@ public:
 
 	void drawbackground(int t);
 	void updatebackground(int t);
+#ifndef NO_CUSTOM_LEVELS
+	bool shouldrecoloroneway(const int tilenum);
+#endif
 	void drawtile3( int x, int y, int t, int off, int height_subtract = 0 );
 	void drawtile2( int x, int y, int t );
 	void drawtile( int x, int y, int t );

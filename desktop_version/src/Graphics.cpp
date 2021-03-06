@@ -709,6 +709,15 @@ void Graphics::drawsprite(int x, int y, int t, Uint32 c)
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
 }
 
+#ifndef NO_CUSTOM_LEVELS
+bool Graphics::shouldrecoloroneway(const int tilenum)
+{
+    return (tilenum >= 14 && tilenum <= 17
+    && (!FILESYSTEM_assetsmounted
+    || ed.onewaycol_override));
+}
+#endif
+
 void Graphics::drawtile( int x, int y, int t )
 {
     if (!INBOUNDS_VEC(t, tiles))
@@ -720,7 +729,7 @@ void Graphics::drawtile( int x, int y, int t )
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
 
 #if !defined(NO_CUSTOM_LEVELS)
-    if (t >= 14 && t <= 17 && (!FILESYSTEM_assetsmounted || ed.onewaycol_override))
+    if (shouldrecoloroneway(t))
     {
         colourTransform thect = {ed.getonewaycol()};
         BlitSurfaceTinted(tiles[t], NULL, backBuffer, &rect, thect);
@@ -744,7 +753,7 @@ void Graphics::drawtile2( int x, int y, int t )
     SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
 
 #if !defined(NO_CUSTOM_LEVELS)
-    if (t >= 14 && t <= 17 && (!FILESYSTEM_assetsmounted || ed.onewaycol_override))
+    if (shouldrecoloroneway(t))
     {
         colourTransform thect = {ed.getonewaycol()};
         BlitSurfaceTinted(tiles2[t], NULL, backBuffer, &rect, thect);
@@ -3144,7 +3153,7 @@ void Graphics::drawforetile(int x, int y, int t)
 	setRect(rect, x,y,tiles_rect.w, tiles_rect.h);
 
 #if !defined(NO_CUSTOM_LEVELS)
-	if (t >= 14 && t <= 17 && (!FILESYSTEM_assetsmounted || ed.onewaycol_override))
+	if (shouldrecoloroneway(t))
 	{
 		colourTransform thect = {ed.getonewaycol()};
 		BlitSurfaceTinted(tiles[t], NULL, foregroundBuffer, &rect, thect);
@@ -3168,7 +3177,7 @@ void Graphics::drawforetile2(int x, int y, int t)
 	setRect(rect, x,y,tiles_rect.w, tiles_rect.h);
 
 #if !defined(NO_CUSTOM_LEVELS)
-	if (t >= 14 && t <= 17 && (!FILESYSTEM_assetsmounted || ed.onewaycol_override))
+	if (shouldrecoloroneway(t))
 	{
 		colourTransform thect = {ed.getonewaycol()};
 		BlitSurfaceTinted(tiles2[t], NULL, foregroundBuffer, &rect, thect);
