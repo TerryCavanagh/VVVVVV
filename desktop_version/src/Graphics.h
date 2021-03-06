@@ -184,7 +184,6 @@ public:
 	bool onscreen(int t);
 
 	void reloadresources(void);
-	std::string assetdir;
 
 
 	void menuoffrender(void);
