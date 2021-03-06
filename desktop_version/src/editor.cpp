@@ -1680,77 +1680,77 @@ bool editorclass::load(std::string& _path)
 
     for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
     {
-        std::string pKey(pElem->Value());
+        const char* pKey = pElem->Value();
         const char* pText = pElem->GetText() ;
         if(pText == NULL)
         {
             pText = "";
         }
 
-        if (pKey == "MetaData")
+        if (SDL_strcmp(pKey, "MetaData") == 0)
         {
 
             for( tinyxml2::XMLElement* subElem = pElem->FirstChildElement(); subElem; subElem= subElem->NextSiblingElement())
             {
-                std::string pKey_(subElem->Value());
+                const char* pKey_ = subElem->Value();
                 const char* pText_ = subElem->GetText() ;
                 if(pText_ == NULL)
                 {
                     pText_ = "";
                 }
 
-                if(pKey_ == "Creator")
+                if(SDL_strcmp(pKey_, "Creator") == 0)
                 {
                     EditorData::GetInstance().creator = pText_;
                 }
 
-                if(pKey_ == "Title")
+                if(SDL_strcmp(pKey_, "Title") == 0)
                 {
                     EditorData::GetInstance().title = pText_;
                 }
 
-                if(pKey_ == "Desc1")
+                if(SDL_strcmp(pKey_, "Desc1") == 0)
                 {
                     Desc1 = pText_;
                 }
 
-                if(pKey_ == "Desc2")
+                if(SDL_strcmp(pKey_, "Desc2") == 0)
                 {
                     Desc2 = pText_;
                 }
 
-                if(pKey_ == "Desc3")
+                if(SDL_strcmp(pKey_, "Desc3") == 0)
                 {
                     Desc3 = pText_;
                 }
 
-                if(pKey_ == "website")
+                if(SDL_strcmp(pKey_, "website") == 0)
                 {
                     website = pText_;
                 }
 
-                if(pKey_ == "onewaycol_override")
+                if(SDL_strcmp(pKey_, "onewaycol_override") == 0)
                 {
                     onewaycol_override = help.Int(pText_);
                 }
             }
         }
 
-        if (pKey == "mapwidth")
+        if (SDL_strcmp(pKey, "mapwidth") == 0)
         {
             mapwidth = help.Int(pText);
         }
-        if (pKey == "mapheight")
+        if (SDL_strcmp(pKey, "mapheight") == 0)
         {
             mapheight = help.Int(pText);
         }
-        if (pKey == "levmusic")
+        if (SDL_strcmp(pKey, "levmusic") == 0)
         {
             levmusic = help.Int(pText);
         }
 
 
-        if (pKey == "contents" && pText[0] != '\0')
+        if (SDL_strcmp(pKey, "contents") == 0 && pText[0] != '\0')
         {
             int x = 0;
             int y = 0;
@@ -1778,7 +1778,7 @@ bool editorclass::load(std::string& _path)
         }
 
 
-        if (pKey == "edEntities")
+        if (SDL_strcmp(pKey, "edEntities") == 0)
         {
             for( tinyxml2::XMLElement* edEntityEl = pElem->FirstChildElement(); edEntityEl; edEntityEl=edEntityEl->NextSiblingElement())
             {
@@ -1843,7 +1843,7 @@ bool editorclass::load(std::string& _path)
             }
         }
 
-        if (pKey == "levelMetaData")
+        if (SDL_strcmp(pKey, "levelMetaData") == 0)
         {
             int i = 0;
             for( tinyxml2::XMLElement* edLevelClassElement = pElem->FirstChildElement(); edLevelClassElement; edLevelClassElement=edLevelClassElement->NextSiblingElement())
@@ -1874,7 +1874,7 @@ bool editorclass::load(std::string& _path)
             }
         }
 
-        if (pKey == "script" && pText[0] != '\0')
+        if (SDL_strcmp(pKey, "script") == 0 && pText[0] != '\0')
         {
             Script script_;
             bool headerfound = false;
