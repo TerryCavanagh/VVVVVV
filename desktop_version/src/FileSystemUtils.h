@@ -20,6 +20,7 @@ void FILESYSTEM_loadZip(const char* filename);
 extern bool FILESYSTEM_assetsmounted;
 void FILESYSTEM_mountassets(const char *path);
 void FILESYSTEM_unmountassets(void);
+bool FILESYSTEM_isAssetMounted(const char* filename);
 
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
                                  size_t *len, bool addnull = false);
