@@ -12,6 +12,7 @@ public:
 	void destroy(void);
 
 	void CreateRenderer(void);
+	void CreateScreenTexture(void);
 
 	void GetSettings(ScreenSettings* settings);
 

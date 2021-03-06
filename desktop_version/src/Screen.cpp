@@ -34,6 +34,17 @@ void Screen::CreateRenderer(void)
 	m_renderer = SDL_CreateRenderer(m_window, -1, 0);
 }
 
+void Screen::CreateScreenTexture(void)
+{
+	m_screenTexture = SDL_CreateTexture(
+		m_renderer,
+		SDL_PIXELFORMAT_ARGB8888,
+		SDL_TEXTUREACCESS_STREAMING,
+		320,
+		240
+	);
+}
+
 void Screen::init(const ScreenSettings& settings)
 {
 	m_window = NULL;
@@ -86,14 +97,7 @@ void Screen::init(const ScreenSettings& settings)
 		0x000000FF,
 		0xFF000000
 	);
-	// ALSO FIXME: This SDL_CreateTexture() is duplicated twice in this file!
-	m_screenTexture = SDL_CreateTexture(
-		m_renderer,
-		SDL_PIXELFORMAT_ARGB8888,
-		SDL_TEXTUREACCESS_STREAMING,
-		320,
-		240
-	);
+	CreateScreenTexture();
 
 	badSignalEffect = settings.badSignal;
 
@@ -390,13 +394,7 @@ void Screen::resetRendererWorkaround(void)
 	SDL_DestroyRenderer(m_renderer);
 
 	CreateRenderer();
-	m_screenTexture = SDL_CreateTexture(
-		m_renderer,
-		SDL_PIXELFORMAT_ARGB8888,
-		SDL_TEXTUREACCESS_STREAMING,
-		320,
-		240
-	);
+	CreateScreenTexture();
 
 	/* Ugh, have to make sure to re-apply graphics options after doing the
 	 * above, otherwise letterbox/integer won't be applied...
