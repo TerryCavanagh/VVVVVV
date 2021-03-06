@@ -1,6 +1,5 @@
 #include "GraphicsUtil.h"
 
-#include <math.h>
 #include <SDL.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -264,7 +263,7 @@ void BlitSurfaceTinted(
             double temp_pixgreen = pixgreen * 0.587;
             double temp_pixblue = pixblue * 0.114;
 
-            double gray = floor((temp_pixred + temp_pixgreen + temp_pixblue + 0.5));
+            double gray = SDL_floor((temp_pixred + temp_pixgreen + temp_pixblue + 0.5));
 
             Uint8 ctred = (ct.colour & graphics.backBuffer->format->Rmask) >> 16;
             Uint8 ctgreen = (ct.colour & graphics.backBuffer->format->Gmask) >> 8;
