@@ -1,4 +1,12 @@
+#include "GraphicsUtil.h"
+
+#include <math.h>
+#include <SDL.h>
+#include <stddef.h>
+#include <stdlib.h>
+
 #include "Graphics.h"
+#include "Maths.h"
 
 
 
