@@ -26,6 +26,8 @@
 static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
 
+static char assetDir[MAX_PATH] = {'\0'};
+
 static void PLATFORM_getOSDirectory(char* output);
 static void PLATFORM_migrateSaveData(char* output);
 static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
@@ -221,7 +223,7 @@ void FILESYSTEM_mount(const char *fname)
 	}
 	else
 	{
-		graphics.assetdir = std::string(path);
+		SDL_strlcpy(assetDir, path, sizeof(assetDir));
 	}
 }
 
@@ -318,7 +320,7 @@ void FILESYSTEM_mountassets(const char* path)
 		}
 		else
 		{
-			graphics.assetdir = std::string(zip_data);
+			SDL_strlcpy(assetDir, zip_data, sizeof(assetDir));
 		}
 
 		FILESYSTEM_assetsmounted = true;
@@ -345,11 +347,11 @@ void FILESYSTEM_mountassets(const char* path)
 
 void FILESYSTEM_unmountassets(void)
 {
-	if (graphics.assetdir != "")
+	if (assetDir[0] != '\0')
 	{
-		printf("Unmounting %s\n", graphics.assetdir.c_str());
-		PHYSFS_unmount(graphics.assetdir.c_str());
-		graphics.assetdir = "";
+		printf("Unmounting %s\n", assetDir);
+		PHYSFS_unmount(assetDir);
+		assetDir[0] = '\0';
 		graphics.reloadresources();
 	}
 	else
