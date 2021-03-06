@@ -17,6 +17,7 @@ static SDL_Surface* RecreateSurfaceWithDimensions(
     const int height
 ) {
     SDL_Surface* retval;
+    SDL_BlendMode blend_mode;
 
     if (surface == NULL)
     {
@@ -38,6 +39,9 @@ static SDL_Surface* RecreateSurfaceWithDimensions(
     {
         return NULL;
     }
+
+    SDL_GetSurfaceBlendMode(surface, &blend_mode);
+    SDL_SetSurfaceBlendMode(retval, blend_mode);
 
     return retval;
 }
