@@ -628,7 +628,7 @@ void Game::savecustomlevelstats(void)
     else
     {
         printf("Could Not Save level stats!\n");
-        printf("Failed: %s%s\n", saveFilePath.c_str(), "levelstats.vvv");
+        printf("Failed: %s%s\n", saveFilePath, "levelstats.vvv");
     }
 }
 
@@ -5758,7 +5758,7 @@ bool Game::savetele(void)
     if(!FILESYSTEM_saveTiXml2Document("saves/tsave.vvv", doc))
     {
         printf("Could Not Save game!\n");
-        printf("Failed: %s%s\n", saveFilePath.c_str(), "tsave.vvv");
+        printf("Failed: %s%s\n", saveFilePath, "tsave.vvv");
         return false;
     }
     printf("Game saved\n");
@@ -5785,7 +5785,7 @@ bool Game::savequick(void)
     if(!FILESYSTEM_saveTiXml2Document("saves/qsave.vvv", doc))
     {
         printf("Could Not Save game!\n");
-        printf("Failed: %s%s\n", saveFilePath.c_str(), "qsave.vvv");
+        printf("Failed: %s%s\n", saveFilePath, "qsave.vvv");
         return false;
     }
     printf("Game saved\n");
@@ -6033,7 +6033,7 @@ bool Game::customsavequick(std::string savfile)
     if(!FILESYSTEM_saveTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))
     {
         printf("Could Not Save game!\n");
-        printf("Failed: %s%s%s\n", saveFilePath.c_str(), levelfile.c_str(), ".vvv");
+        printf("Failed: %s%s%s\n", saveFilePath, levelfile.c_str(), ".vvv");
         return false;
     }
     printf("Game saved\n");
