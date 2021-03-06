@@ -288,10 +288,10 @@ void Game::init(void)
 
         for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
         {
-            std::string pKey(pElem->Value());
+            const char* pKey = pElem->Value();
             const char* pText = pElem->GetText() ;
 
-            if (pKey == "summary")
+            if (SDL_strcmp(pKey, "summary") == 0)
             {
                 quicksummary = pText;
             }
@@ -328,10 +328,10 @@ void Game::init(void)
 
         for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
         {
-            std::string pKey(pElem->Value());
+            const char* pKey = pElem->Value();
             const char* pText = pElem->GetText() ;
 
-            if (pKey == "summary")
+            if (SDL_strcmp(pKey, "summary") == 0)
             {
                 telesummary = pText;
             }
@@ -443,7 +443,7 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
 }
 
 #define LOAD_ARRAY_RENAME(ARRAY_NAME, DEST) \
-    if (pKey == #ARRAY_NAME && pText[0] != '\0') \
+    if (SDL_strcmp(pKey, #ARRAY_NAME) == 0 && pText[0] != '\0') \
     { \
         /* We're loading in 32-bit integers. If we need more than 16 chars,
          * something is seriously wrong */ \
@@ -506,14 +506,14 @@ void Game::loadcustomlevelstats(void)
     // If they don't exist, then fall back to the old system
     for (pElem = hRoot.FirstChildElement("Data").FirstChild().ToElement(); pElem; pElem = pElem->NextSiblingElement())
     {
-        std::string pKey(pElem->Value());
+        const char* pKey = pElem->Value();
         const char* pText = pElem->GetText();
         if (pText == NULL)
         {
             pText = "";
         }
 
-        if (pKey == "stats")
+        if (SDL_strcmp(pKey, "stats") == 0)
         {
             for (tinyxml2::XMLElement* stat_el = pElem->FirstChildElement(); stat_el; stat_el = stat_el->NextSiblingElement())
             {
@@ -540,7 +540,7 @@ void Game::loadcustomlevelstats(void)
     // Since we're still here, we must be on the old system
     for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
     {
-        std::string pKey(pElem->Value());
+        const char* pKey = pElem->Value();
         const char* pText = pElem->GetText() ;
         if(pText == NULL)
         {
@@ -549,7 +549,7 @@ void Game::loadcustomlevelstats(void)
 
         LOAD_ARRAY_RENAME(customlevelscore, customlevelscores)
 
-        if (pKey == "customlevelstats" && pText[0] != '\0')
+        if (SDL_strcmp(pKey, "customlevelstats") == 0 && pText[0] != '\0')
         {
             size_t start = 0;
             size_t len = 0;
@@ -4468,7 +4468,7 @@ void Game::loadstats(ScreenSettings* screen_settings)
 
     for( pElem = dataNode; pElem; pElem=pElem->NextSiblingElement())
     {
-        std::string pKey(pElem->Value());
+        const char* pKey = pElem->Value();
         const char* pText = pElem->GetText() ;
 
         LOAD_ARRAY(unlock)
@@ -4489,22 +4489,22 @@ void Game::loadstats(ScreenSettings* screen_settings)
 
 
 
-        if (pKey == "bestgamedeaths")
+        if (SDL_strcmp(pKey, "bestgamedeaths") == 0)
         {
             bestgamedeaths = help.Int(pText);
         }
 
-        if (pKey == "stat_trinkets")
+        if (SDL_strcmp(pKey, "stat_trinkets") == 0)
         {
             stat_trinkets = help.Int(pText);
         }
 
-        if (pKey == "swnbestrank")
+        if (SDL_strcmp(pKey, "swnbestrank") == 0)
         {
             swnbestrank = help.Int(pText);
         }
 
-        if (pKey == "swnrecord")
+        if (SDL_strcmp(pKey, "swnrecord") == 0)
         {
             swnrecord = help.Int(pText);
         }
@@ -4525,115 +4525,115 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
     pElem != NULL;
     pElem = pElem->NextSiblingElement())
     {
-        std::string pKey(pElem->Value());
+        const char* pKey = pElem->Value();
         const char* pText = pElem->GetText();
 
-        if (pKey == "fullscreen")
+        if (SDL_strcmp(pKey, "fullscreen") == 0)
         {
             screen_settings->fullscreen = help.Int(pText);
         }
 
-        if (pKey == "stretch")
+        if (SDL_strcmp(pKey, "stretch") == 0)
         {
             screen_settings->stretch = help.Int(pText);
         }
 
-        if (pKey == "useLinearFilter")
+        if (SDL_strcmp(pKey, "useLinearFilter") == 0)
         {
             screen_settings->linearFilter = help.Int(pText);
         }
 
-        if (pKey == "window_width")
+        if (SDL_strcmp(pKey, "window_width") == 0)
         {
             screen_settings->windowWidth = help.Int(pText);
         }
-        if (pKey == "window_height")
+        if (SDL_strcmp(pKey, "window_height") == 0)
         {
             screen_settings->windowHeight = help.Int(pText);
         }
 
 
-        if (pKey == "noflashingmode")
+        if (SDL_strcmp(pKey, "noflashingmode") == 0)
         {
             noflashingmode = help.Int(pText);
         }
 
-        if (pKey == "colourblindmode")
+        if (SDL_strcmp(pKey, "colourblindmode") == 0)
         {
             colourblindmode = help.Int(pText);
         }
 
-        if (pKey == "setflipmode")
+        if (SDL_strcmp(pKey, "setflipmode") == 0)
         {
             graphics.setflipmode = help.Int(pText);
         }
 
-        if (pKey == "invincibility")
+        if (SDL_strcmp(pKey, "invincibility") == 0)
         {
             map.invincibility = help.Int(pText);
         }
 
-        if (pKey == "slowdown")
+        if (SDL_strcmp(pKey, "slowdown") == 0)
         {
             slowdown = help.Int(pText);
         }
 
-        if (pKey == "advanced_smoothing")
+        if (SDL_strcmp(pKey, "advanced_smoothing") == 0)
         {
             screen_settings->badSignal = help.Int(pText);
         }
 
-        if (pKey == "usingmmmmmm")
+        if (SDL_strcmp(pKey, "usingmmmmmm") == 0)
         {
             music.usingmmmmmm = (bool) help.Int(pText);
         }
 
-        if (pKey == "ghostsenabled")
+        if (SDL_strcmp(pKey, "ghostsenabled") == 0)
         {
             ghostsenabled = help.Int(pText);
         }
 
-        if (pKey == "skipfakeload")
+        if (SDL_strcmp(pKey, "skipfakeload") == 0)
         {
             skipfakeload = help.Int(pText);
         }
 
-        if (pKey == "disablepause")
+        if (SDL_strcmp(pKey, "disablepause") == 0)
         {
             disablepause = help.Int(pText);
         }
 
-        if (pKey == "over30mode")
+        if (SDL_strcmp(pKey, "over30mode") == 0)
         {
             over30mode = help.Int(pText);
         }
 
-        if (pKey == "glitchrunnermode")
+        if (SDL_strcmp(pKey, "glitchrunnermode") == 0)
         {
             glitchrunnermode = help.Int(pText);
         }
 
-        if (pKey == "vsync")
+        if (SDL_strcmp(pKey, "vsync") == 0)
         {
             screen_settings->useVsync = help.Int(pText);
         }
 
-        if (pKey == "notextoutline")
+        if (SDL_strcmp(pKey, "notextoutline") == 0)
         {
             graphics.notextoutline = help.Int(pText);
         }
 
-        if (pKey == "translucentroomname")
+        if (SDL_strcmp(pKey, "translucentroomname") == 0)
         {
             graphics.translucentroomname = help.Int(pText);
         }
 
-        if (pKey == "showmousecursor")
+        if (SDL_strcmp(pKey, "showmousecursor") == 0)
         {
             graphics.showmousecursor = help.Int(pText);
         }
 
-        if (pKey == "flipButton")
+        if (SDL_strcmp(pKey, "flipButton") == 0)
         {
             SDL_GameControllerButton newButton;
             if (GetButtonFromString(pText, &newButton))
@@ -4642,7 +4642,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             }
         }
 
-        if (pKey == "enterButton")
+        if (SDL_strcmp(pKey, "enterButton") == 0)
         {
             SDL_GameControllerButton newButton;
             if (GetButtonFromString(pText, &newButton))
@@ -4651,7 +4651,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             }
         }
 
-        if (pKey == "escButton")
+        if (SDL_strcmp(pKey, "escButton") == 0)
         {
             SDL_GameControllerButton newButton;
             if (GetButtonFromString(pText, &newButton))
@@ -4660,7 +4660,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             }
         }
 
-        if (pKey == "restartButton")
+        if (SDL_strcmp(pKey, "restartButton") == 0)
         {
             SDL_GameControllerButton newButton;
             if (GetButtonFromString(pText, &newButton))
@@ -4669,7 +4669,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             }
         }
 
-        if (pKey == "controllerSensitivity")
+        if (SDL_strcmp(pKey, "controllerSensitivity") == 0)
         {
             key.sensitivity = help.Int(pText);
         }
@@ -5240,7 +5240,7 @@ void Game::readmaingamesave(tinyxml2::XMLDocument& doc)
 
     for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
     {
-        std::string pKey(pElem->Value());
+        const char* pKey = pElem->Value();;
         const char* pText = pElem->GetText() ;
         if(pText == NULL)
         {
@@ -5255,101 +5255,101 @@ void Game::readmaingamesave(tinyxml2::XMLDocument& doc)
 
         LOAD_ARRAY_RENAME(collect, obj.collect)
 
-        if (pKey == "finalmode")
+        if (SDL_strcmp(pKey, "finalmode") == 0)
         {
             map.finalmode = help.Int(pText);
         }
-        if (pKey == "finalstretch")
+        if (SDL_strcmp(pKey, "finalstretch") == 0)
         {
             map.finalstretch = help.Int(pText);
         }
 
-        if (pKey == "savex")
+        if (SDL_strcmp(pKey, "savex") == 0)
         {
             savex = help.Int(pText);
         }
-        else if (pKey == "savey")
+        else if (SDL_strcmp(pKey, "savey") == 0)
         {
             savey = help.Int(pText);
         }
-        else if (pKey == "saverx")
+        else if (SDL_strcmp(pKey, "saverx") == 0)
         {
             saverx = help.Int(pText);
         }
-        else if (pKey == "savery")
+        else if (SDL_strcmp(pKey, "savery") == 0)
         {
             savery = help.Int(pText);
         }
-        else if (pKey == "savegc")
+        else if (SDL_strcmp(pKey, "savegc") == 0)
         {
             savegc = help.Int(pText);
         }
-        else if (pKey == "savedir")
+        else if (SDL_strcmp(pKey, "savedir") == 0)
         {
             savedir= help.Int(pText);
         }
-        else if (pKey == "savepoint")
+        else if (SDL_strcmp(pKey, "savepoint") == 0)
         {
             savepoint = help.Int(pText);
         }
-        else if (pKey == "companion")
+        else if (SDL_strcmp(pKey, "companion") == 0)
         {
             companion = help.Int(pText);
         }
-        else if (pKey == "lastsaved")
+        else if (SDL_strcmp(pKey, "lastsaved") == 0)
         {
             lastsaved = help.Int(pText);
         }
-        else if (pKey == "teleportscript")
+        else if (SDL_strcmp(pKey, "teleportscript") == 0)
         {
             teleportscript = pText;
         }
-        else if (pKey == "supercrewmate")
+        else if (SDL_strcmp(pKey, "supercrewmate") == 0)
         {
             supercrewmate = help.Int(pText);
         }
-        else if (pKey == "scmprogress")
+        else if (SDL_strcmp(pKey, "scmprogress") == 0)
         {
             scmprogress = help.Int(pText);
         }
-        else if (pKey == "scmmoveme")
+        else if (SDL_strcmp(pKey, "scmmoveme") == 0)
         {
             scmmoveme = help.Int(pText);
         }
-        else if (pKey == "frames")
+        else if (SDL_strcmp(pKey, "frames") == 0)
         {
             frames = help.Int(pText);
             frames = 0;
         }
-        else if (pKey == "seconds")
+        else if (SDL_strcmp(pKey, "seconds") == 0)
         {
             seconds = help.Int(pText);
         }
-        else if (pKey == "minutes")
+        else if (SDL_strcmp(pKey, "minutes") == 0)
         {
             minutes = help.Int(pText);
         }
-        else if (pKey == "hours")
+        else if (SDL_strcmp(pKey, "hours") == 0)
         {
             hours = help.Int(pText);
         }
-        else if (pKey == "deathcounts")
+        else if (SDL_strcmp(pKey, "deathcounts") == 0)
         {
             deathcounts = help.Int(pText);
         }
-        else if (pKey == "totalflips")
+        else if (SDL_strcmp(pKey, "totalflips") == 0)
         {
             totalflips = help.Int(pText);
         }
-        else if (pKey == "hardestroom")
+        else if (SDL_strcmp(pKey, "hardestroom") == 0)
         {
             hardestroom = pText;
         }
-        else if (pKey == "hardestroomdeaths")
+        else if (SDL_strcmp(pKey, "hardestroomdeaths") == 0)
         {
             hardestroomdeaths = help.Int(pText);
         }
-        else if (pKey == "currentsong")
+        else if (SDL_strcmp(pKey, "currentsong") == 0)
         {
             int song = help.Int(pText);
             if (song != -1)
@@ -5416,7 +5416,7 @@ void Game::customloadquick(std::string savfile)
 
     for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
     {
-        std::string pKey(pElem->Value());
+        const char* pKey = pElem->Value();
         const char* pText = pElem->GetText() ;
         if(pText == NULL)
         {
@@ -5435,11 +5435,11 @@ void Game::customloadquick(std::string savfile)
 
         LOAD_ARRAY_RENAME(customcollect, obj.customcollect)
 
-        if (pKey == "finalmode")
+        if (SDL_strcmp(pKey, "finalmode") == 0)
         {
             map.finalmode = help.Int(pText);
         }
-        if (pKey == "finalstretch")
+        if (SDL_strcmp(pKey, "finalstretch") == 0)
         {
             map.finalstretch = help.Int(pText);
         }
@@ -5459,92 +5459,92 @@ void Game::customloadquick(std::string savfile)
         }
 
 
-        if (pKey == "savex")
+        if (SDL_strcmp(pKey, "savex") == 0)
         {
             savex = help.Int(pText);
         }
-        else if (pKey == "savey")
+        else if (SDL_strcmp(pKey, "savey") == 0)
         {
             savey = help.Int(pText);
         }
-        else if (pKey == "saverx")
+        else if (SDL_strcmp(pKey, "saverx") == 0)
         {
             saverx = help.Int(pText);
         }
-        else if (pKey == "savery")
+        else if (SDL_strcmp(pKey, "savery") == 0)
         {
             savery = help.Int(pText);
         }
-        else if (pKey == "savegc")
+        else if (SDL_strcmp(pKey, "savegc") == 0)
         {
             savegc = help.Int(pText);
         }
-        else if (pKey == "savedir")
+        else if (SDL_strcmp(pKey, "savedir") == 0)
         {
             savedir= help.Int(pText);
         }
-        else if (pKey == "savepoint")
+        else if (SDL_strcmp(pKey, "savepoint") == 0)
         {
             savepoint = help.Int(pText);
         }
-        else if (pKey == "companion")
+        else if (SDL_strcmp(pKey, "companion") == 0)
         {
             companion = help.Int(pText);
         }
-        else if (pKey == "lastsaved")
+        else if (SDL_strcmp(pKey, "lastsaved") == 0)
         {
             lastsaved = help.Int(pText);
         }
-        else if (pKey == "teleportscript")
+        else if (SDL_strcmp(pKey, "teleportscript") == 0)
         {
             teleportscript = pText;
         }
-        else if (pKey == "supercrewmate")
+        else if (SDL_strcmp(pKey, "supercrewmate") == 0)
         {
             supercrewmate = help.Int(pText);
         }
-        else if (pKey == "scmprogress")
+        else if (SDL_strcmp(pKey, "scmprogress") == 0)
         {
             scmprogress = help.Int(pText);
         }
-        else if (pKey == "scmmoveme")
+        else if (SDL_strcmp(pKey, "scmmoveme") == 0)
         {
             scmmoveme = help.Int(pText);
         }
-        else if (pKey == "frames")
+        else if (SDL_strcmp(pKey, "frames") == 0)
         {
             frames = help.Int(pText);
             frames = 0;
         }
-        else if (pKey == "seconds")
+        else if (SDL_strcmp(pKey, "seconds") == 0)
         {
             seconds = help.Int(pText);
         }
-        else if (pKey == "minutes")
+        else if (SDL_strcmp(pKey, "minutes") == 0)
         {
             minutes = help.Int(pText);
         }
-        else if (pKey == "hours")
+        else if (SDL_strcmp(pKey, "hours") == 0)
         {
             hours = help.Int(pText);
         }
-        else if (pKey == "deathcounts")
+        else if (SDL_strcmp(pKey, "deathcounts") == 0)
         {
             deathcounts = help.Int(pText);
         }
-        else if (pKey == "totalflips")
+        else if (SDL_strcmp(pKey, "totalflips") == 0)
         {
             totalflips = help.Int(pText);
         }
-        else if (pKey == "hardestroom")
+        else if (SDL_strcmp(pKey, "hardestroom") == 0)
         {
             hardestroom = pText;
         }
-        else if (pKey == "hardestroomdeaths")
+        else if (SDL_strcmp(pKey, "hardestroomdeaths") == 0)
         {
             hardestroomdeaths = help.Int(pText);
         }
-        else if (pKey == "currentsong")
+        else if (SDL_strcmp(pKey, "currentsong") == 0)
         {
             int song = help.Int(pText);
             if (song != -1)
@@ -5552,7 +5552,7 @@ void Game::customloadquick(std::string savfile)
                 music.play(song);
             }
         }
-        else if (pKey == "showminimap")
+        else if (SDL_strcmp(pKey, "showminimap") == 0)
         {
             map.customshowmm = help.Int(pText);
         }
@@ -5595,43 +5595,43 @@ void Game::loadsummary(void)
         int l_saveY = 0;
         for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
         {
-            std::string pKey(pElem->Value());
+            const char* pKey = pElem->Value();
             const char* pText = pElem->GetText() ;
 
-            if (pKey == "summary")
+            if (SDL_strcmp(pKey, "summary") == 0)
             {
                 telesummary = pText;
             }
 
-            else if (pKey == "seconds")
+            else if (SDL_strcmp(pKey, "seconds") == 0)
             {
                 l_second = help.Int(pText);
             }
-            else if (pKey == "minutes")
+            else if (SDL_strcmp(pKey, "minutes") == 0)
             {
                 l_minute = help.Int(pText);
             }
-            else if (pKey == "hours")
+            else if (SDL_strcmp(pKey, "hours") == 0)
             {
                 l_hours = help.Int(pText);
             }
-            else if (pKey == "savery")
+            else if (SDL_strcmp(pKey, "savery") == 0)
             {
                 l_saveY = help.Int(pText);
             }
-            else if (pKey == "saverx")
+            else if (SDL_strcmp(pKey, "saverx") == 0)
             {
                 l_saveX = help.Int(pText);
             }
-            else if (pKey == "trinkets")
+            else if (SDL_strcmp(pKey, "trinkets") == 0)
             {
                 tele_trinkets = help.Int(pText);
             }
-            else if (pKey == "finalmode")
+            else if (SDL_strcmp(pKey, "finalmode") == 0)
             {
                 map.finalmode = help.Int(pText);
             }
-            else if (pKey == "finalstretch")
+            else if (SDL_strcmp(pKey, "finalstretch") == 0)
             {
                 map.finalstretch = help.Int(pText);
             }
@@ -5672,43 +5672,43 @@ void Game::loadsummary(void)
         int l_saveY = 0;
         for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
         {
-            std::string pKey(pElem->Value());
+            const char* pKey = pElem->Value();
             const char* pText = pElem->GetText() ;
 
-            if (pKey == "summary")
+            if (SDL_strcmp(pKey, "summary") == 0)
             {
                 quicksummary = pText;
             }
 
-            else if (pKey == "seconds")
+            else if (SDL_strcmp(pKey, "seconds") == 0)
             {
                 l_second = help.Int(pText);
             }
-            else if (pKey == "minutes")
+            else if (SDL_strcmp(pKey, "minutes") == 0)
             {
                 l_minute = help.Int(pText);
             }
-            else if (pKey == "hours")
+            else if (SDL_strcmp(pKey, "hours") == 0)
             {
                 l_hours = help.Int(pText);
             }
-            else if (pKey == "savery")
+            else if (SDL_strcmp(pKey, "savery") == 0)
             {
                 l_saveY = help.Int(pText);
             }
-            else if (pKey == "saverx")
+            else if (SDL_strcmp(pKey, "saverx") == 0)
             {
                 l_saveX = help.Int(pText);
             }
-            else if (pKey == "trinkets")
+            else if (SDL_strcmp(pKey, "trinkets") == 0)
             {
                 quick_trinkets = help.Int(pText);
             }
-            else if (pKey == "finalmode")
+            else if (SDL_strcmp(pKey, "finalmode") == 0)
             {
                 map.finalmode = help.Int(pText);
             }
-            else if (pKey == "finalstretch")
+            else if (SDL_strcmp(pKey, "finalstretch") == 0)
             {
                 map.finalstretch = help.Int(pText);
             }
