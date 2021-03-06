@@ -176,7 +176,7 @@ static void updatebuttonmappings(int bind)
 static void toggleflipmode(void)
 {
     graphics.setflipmode = !graphics.setflipmode;
-    game.savestatsandsettings();
+    game.savestatsandsettings_menu();
     if (graphics.setflipmode)
     {
         music.playef(18);
@@ -756,7 +756,7 @@ static void menuactionpress(void)
             {
                 music.play(music.currentsong);
             }
-            game.savestatsandsettings();
+            game.savestatsandsettings_menu();
         }
 
         offset += mmmmmm_offset;
