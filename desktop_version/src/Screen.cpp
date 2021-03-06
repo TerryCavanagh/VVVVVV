@@ -29,6 +29,11 @@ ScreenSettings::ScreenSettings(void)
 	badSignal = false;
 }
 
+void Screen::CreateRenderer(void)
+{
+	m_renderer = SDL_CreateRenderer(m_window, -1, 0);
+}
+
 void Screen::init(const ScreenSettings& settings)
 {
 	m_window = NULL;
@@ -57,14 +62,15 @@ void Screen::init(const ScreenSettings& settings)
 
 	// Uncomment this next line when you need to debug -flibit
 	// SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
-	// FIXME: m_renderer is also created in resetRendererWorkaround()!
-	SDL_CreateWindowAndRenderer(
+	m_window = SDL_CreateWindow(
+		NULL,
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
 		640,
 		480,
-		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI,
-		&m_window,
-		&m_renderer
+		SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI
 	);
+	CreateRenderer();
 	SDL_SetWindowTitle(m_window, "VVVVVV");
 
 	LoadIcon();
@@ -383,7 +389,7 @@ void Screen::resetRendererWorkaround(void)
 	SDL_DestroyTexture(m_screenTexture);
 	SDL_DestroyRenderer(m_renderer);
 
-	m_renderer = SDL_CreateRenderer(m_window, -1, 0);
+	CreateRenderer();
 	m_screenTexture = SDL_CreateTexture(
 		m_renderer,
 		SDL_PIXELFORMAT_ARGB8888,

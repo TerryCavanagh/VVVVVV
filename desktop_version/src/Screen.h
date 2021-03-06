@@ -11,6 +11,8 @@ public:
 	void init(const ScreenSettings& settings);
 	void destroy(void);
 
+	void CreateRenderer(void);
+
 	void GetSettings(ScreenSettings* settings);
 
 	void LoadIcon(void);
