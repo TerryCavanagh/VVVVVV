@@ -2829,7 +2829,7 @@ void Graphics::menuoffrender(void)
 		BlitSurfaceStandard(tempbufferFlipped, NULL, backBuffer, NULL);
 		SDL_FreeSurface(tempbufferFlipped);
 		SDL_Rect offsetRect;
-		setRect (offsetRect, 0, usethisoffset, backBuffer->w ,backBuffer->h);
+		setRect (offsetRect, 0, -usethisoffset, backBuffer->w ,backBuffer->h);
 		SDL_Surface* temp = FlipSurfaceVerticle(menubuffer);
 		BlitSurfaceStandard(temp,NULL,backBuffer,&offsetRect);
 		SDL_FreeSurface(temp);
