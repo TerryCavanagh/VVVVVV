@@ -748,7 +748,10 @@ static void menuactionpress(void)
             //**** TOGGLE MMMMMM
             music.usingmmmmmm = !music.usingmmmmmm;
             music.playef(11);
-            music.play(music.currentsong);
+            if (music.currentsong > -1)
+            {
+                music.play(music.currentsong);
+            }
             game.savestatsandsettings();
         }
 
