@@ -162,7 +162,7 @@ public:
 	void drawbackground(int t);
 	void updatebackground(int t);
 #ifndef NO_CUSTOM_LEVELS
-	bool shouldrecoloroneway(const int tilenum);
+	bool shouldrecoloroneway(const int tilenum, const bool mounted);
 #endif
 	void drawtile3( int x, int y, int t, int off, int height_subtract = 0 );
 	void drawtile2( int x, int y, int t );
@@ -187,6 +187,10 @@ public:
 	bool onscreen(int t);
 
 	void reloadresources(void);
+#ifndef NO_CUSTOM_LEVELS
+	bool tiles1_mounted;
+	bool tiles2_mounted;
+#endif
 
 
 	void menuoffrender(void);
