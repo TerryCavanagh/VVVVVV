@@ -361,6 +361,26 @@ void FILESYSTEM_unmountassets(void)
 	FILESYSTEM_assetsmounted = false;
 }
 
+bool FILESYSTEM_isAssetMounted(const char* filename)
+{
+	const char* realDir;
+
+	/* Fast path */
+	if (assetDir[0] == '\0')
+	{
+		return false;
+	}
+
+	realDir = PHYSFS_getRealDir(filename);
+
+	if (realDir == NULL)
+	{
+		return false;
+	}
+
+	return SDL_strcmp(assetDir, realDir) == 0;
+}
+
 void FILESYSTEM_freeMemory(unsigned char **mem);
 
 void FILESYSTEM_loadFileToMemory(
