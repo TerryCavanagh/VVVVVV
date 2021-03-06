@@ -183,7 +183,7 @@ public:
 
     void initteleportermode(void);
 
-    std::string saveFilePath;
+    const char* saveFilePath;
 
 
     int door_left;
