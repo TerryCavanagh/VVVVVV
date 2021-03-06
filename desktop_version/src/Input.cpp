@@ -173,6 +173,22 @@ static void updatebuttonmappings(int bind)
     }
 }
 
+static void toggleflipmode(void)
+{
+    graphics.setflipmode = !graphics.setflipmode;
+    game.savestatsandsettings();
+    if (graphics.setflipmode)
+    {
+        music.playef(18);
+        game.screenshake = 10;
+        game.flashlight = 5;
+    }
+    else
+    {
+        music.playef(11);
+    }
+}
+
 static void menuactionpress(void)
 {
     switch (game.currentmenuname)
@@ -680,19 +696,7 @@ static void menuactionpress(void)
         if (game.ingame_titlemode && game.unlock[18])
 #endif
         {
-            // toggle Flip Mode
-            graphics.setflipmode = !graphics.setflipmode;
-            game.savestatsandsettings();
-            if (graphics.setflipmode)
-            {
-                music.playef(18);
-                game.screenshake = 10;
-                game.flashlight = 5;
-            }
-            else
-            {
-                music.playef(11);
-            }
+            toggleflipmode();
             // Fix wrong area music in Tower (Positive Force vs. ecroF evitisoP)
             if (map.custommode)
             {
@@ -1285,19 +1289,7 @@ static void menuactionpress(void)
         }
         else if (game.currentmenuoption == 3 && game.unlock[18])    //enable/disable flip mode
         {
-            // WARNING: Partially duplicated in Menu::options
-            graphics.setflipmode = !graphics.setflipmode;
-            game.savestatsandsettings();
-            if (graphics.setflipmode)
-            {
-                music.playef(18);
-                game.screenshake = 10;
-                game.flashlight = 5;
-            }
-            else
-            {
-                music.playef(11);
-            }
+            toggleflipmode();
         }
         else if (game.currentmenuoption == 4)
         {
