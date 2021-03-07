@@ -6327,7 +6327,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                         static const char tmp[] = "   ";
                         prefix = tmp;
                     }
-                    char text[menutextbytes];
+                    char text[MENU_TEXT_BYTES];
                     SDL_snprintf(text, sizeof(text), "%s%s", prefix, ed.ListOfMetaData[i].title.c_str());
                     for (size_t ii = 0; text[ii] != '\0'; ++ii)
                     {
