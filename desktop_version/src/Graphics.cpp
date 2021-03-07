@@ -1420,10 +1420,10 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
             }
         }
 
-        char tempstring[Game::menutextbytes];
+        char tempstring[MENU_TEXT_BYTES];
         SDL_strlcpy(tempstring, opt.text, sizeof(tempstring));
 
-        char buffer[Game::menutextbytes];
+        char buffer[MENU_TEXT_BYTES];
         if ((int) i == game.currentmenuoption)
         {
             if (opt.active)
