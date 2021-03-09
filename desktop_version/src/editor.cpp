@@ -2959,7 +2959,6 @@ void editorrender(void)
         int t2=0;
         if(ed.dmtileeditor>0)
         {
-            ed.dmtileeditor--;
             if(ed.dmtileeditor<=4)
             {
                 t2=(4-ed.dmtileeditor)*12;
@@ -3605,6 +3604,14 @@ void editorrenderfixed(void)
             ++ty;
             edentity[i].p2 = ty;
             edentity[i].p3 = (ty2 - ty) * 8;
+        }
+    }
+
+    if (ed.level[ed.levx + ed.maxwidth*ed.levy].directmode == 1)
+    {
+        if (ed.dmtileeditor > 0)
+        {
+            ed.dmtileeditor--;
         }
     }
 }
