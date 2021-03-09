@@ -2961,7 +2961,7 @@ void editorrender(void)
         {
             if(ed.dmtileeditor<=4)
             {
-                t2=(4-ed.dmtileeditor)*12;
+                t2=graphics.lerp((4-ed.dmtileeditor+1)*12, (4-ed.dmtileeditor)*12);
             }
 
             //Draw five lines of the editor
