@@ -2650,47 +2650,17 @@ void editorrender(void)
             case 11: //Gravity lines
                 if(edentity[i].p1==0)  //Horizontal
                 {
-                    int tx=edentity[i].x-(ed.levx*40);
-                    int tx2=edentity[i].x-(ed.levx*40);
-                    int ty=edentity[i].y-(ed.levy*30);
-                    if (edentity[i].p4 != 1)
-                    {
-                        // Unlocked
-                        while(ed.spikefree(tx,ty)==0) tx--;
-                        while(ed.spikefree(tx2,ty)==0) tx2++;
-                        tx++;
-                        edentity[i].p2=tx;
-                        edentity[i].p3=(tx2-tx)*8;
-                    }
-                    else
-                    {
-                        // Locked
-                        tx = edentity[i].p2;
-                        tx2 = tx + edentity[i].p3/8;
-                    }
+                    int tx = edentity[i].p2;
+                    int tx2 = tx + edentity[i].p3/8;
+                    int ty = edentity[i].y % 30;
                     FillRect(graphics.backBuffer, (tx*8),(ty*8)+4, (tx2-tx)*8,1, graphics.getRGB(194,194,194));
                     fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164,255,164));
                 }
                 else  //Vertical
                 {
-                    int tx=edentity[i].x-(ed.levx*40);
-                    int ty=edentity[i].y-(ed.levy*30);
-                    int ty2=edentity[i].y-(ed.levy*30);
-                    if (edentity[i].p4 != 1)
-                    {
-                        // Unlocked
-                        while(ed.spikefree(tx,ty)==0) ty--;
-                        while(ed.spikefree(tx,ty2)==0) ty2++;
-                        ty++;
-                        edentity[i].p2=ty;
-                        edentity[i].p3=(ty2-ty)*8;
-                    }
-                    else
-                    {
-                        // Locked
-                        ty = edentity[i].p2;
-                        ty2 = ty + edentity[i].p3/8;
-                    }
+                    int tx = edentity[i].x % 40;
+                    int ty = edentity[i].p2;
+                    int ty2 = ty + edentity[i].p3/8;
                     FillRect(graphics.backBuffer, (tx*8)+3,(ty*8), 1,(ty2-ty)*8, graphics.getRGB(194,194,194));
                     fillboxabs((edentity[i].x*8)- (ed.levx*40*8),(edentity[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164,255,164));
                 }
@@ -3585,6 +3555,57 @@ void editorrenderfixed(void)
     else if (!game.colourblindmode)
     {
         graphics.updatetowerbackground(graphics.titlebg);
+    }
+
+    /* Correct gravity lines */
+    for (size_t i = 0; i < edentity.size(); ++i)
+    {
+        if (edentity[i].x / 40 != ed.levx
+        || edentity[i].y / 30 != ed.levy
+        || edentity[i].t != 11
+        /* Is the gravity line locked? */
+        || edentity[i].p4 == 1)
+        {
+            continue;
+        }
+
+        if (edentity[i].p1 == 0)
+        {
+            /* Horizontal */
+            int tx = edentity[i].x % 40;
+            int tx2 = tx;
+            int ty = edentity[i].y % 30;
+            while (!ed.spikefree(tx, ty))
+            {
+                --tx;
+            }
+            while (!ed.spikefree(tx2, ty))
+            {
+                ++tx2;
+            }
+            ++tx;
+            edentity[i].p2 = tx;
+            edentity[i].p3 = (tx2 - tx) * 8;
+        }
+        else
+        {
+            /* Vertical */
+            int tx = edentity[i].x % 40;
+            int ty = edentity[i].y % 30;
+            int ty2 = ty;
+            /* Unlocked */
+            while (!ed.spikefree(tx, ty))
+            {
+                --ty;
+            }
+            while (!ed.spikefree(tx, ty2))
+            {
+                ++ty2;
+            }
+            ++ty;
+            edentity[i].p2 = ty;
+            edentity[i].p3 = (ty2 - ty) * 8;
+        }
     }
 }
 
