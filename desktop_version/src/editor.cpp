@@ -3373,14 +3373,6 @@ void editorrender(void)
             //FillRect(graphics.backBuffer, 0,231,71,240, graphics.RGB(0,0,0));
             if(ed.level[ed.levx+(ed.maxwidth*ed.levy)].roomname!="")
             {
-                if(ed.tiley<28)
-                {
-                    if(ed.roomnamehide>0) ed.roomnamehide--;
-                }
-                else
-                {
-                    if(ed.roomnamehide<12) ed.roomnamehide++;
-                }
                 if (graphics.translucentroomname)
                 {
                     graphics.footerrect.y = 230+ed.roomnamehide;
@@ -3612,6 +3604,24 @@ void editorrenderfixed(void)
         if (ed.dmtileeditor > 0)
         {
             ed.dmtileeditor--;
+        }
+    }
+
+    if (ed.level[ed.levx + ed.maxwidth*ed.levy].roomname != "")
+    {
+        if (ed.tiley < 28)
+        {
+            if (ed.roomnamehide > 0)
+            {
+                ed.roomnamehide--;
+            }
+        }
+        else
+        {
+            if (ed.roomnamehide < 12)
+            {
+                ed.roomnamehide++;
+            }
         }
     }
 }
