@@ -145,6 +145,7 @@ static void songend(void)
 {
 	extern musicclass music;
 	music.songEnd = SDL_GetPerformanceCounter();
+	music.resumesong = music.currentsong;
 	music.currentsong = -1;
 }
 
@@ -265,7 +266,6 @@ void musicclass::fadein(void)
 void musicclass::haltdasmusik(void)
 {
 	Mix_HaltMusic();
-	resumesong = currentsong;
 }
 
 void musicclass::silencedasmusik(void)
