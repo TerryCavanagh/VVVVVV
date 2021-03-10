@@ -3628,6 +3628,17 @@ void editorrenderfixed(void)
             }
         }
     }
+    else
+    {
+        if (ed.tiley < 28)
+        {
+            ed.roomnamehide = 0;
+        }
+        else
+        {
+            ed.roomnamehide = 12;
+        }
+    }
 }
 
 void editorlogic(void)
