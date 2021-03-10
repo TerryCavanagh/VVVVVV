@@ -3606,6 +3606,10 @@ void editorrenderfixed(void)
             ed.dmtileeditor--;
         }
     }
+    else
+    {
+        ed.dmtileeditor = 0;
+    }
 
     if (ed.level[ed.levx + ed.maxwidth*ed.levy].roomname != "")
     {
