@@ -78,6 +78,7 @@ enum FuncType
 {
     Func_null,
     Func_fixed,
+    Func_input,
     Func_delta
 };
 
@@ -138,14 +139,14 @@ static const inline struct ImplFunc* get_gamestate_funcs(
 
     FUNC_LIST_BEGIN(GAMEMODE)
         {Func_fixed, runscript},
-        {Func_fixed, gameinput},
+        {Func_input, gameinput},
         {Func_fixed, gamerenderfixed},
         {Func_delta, gamerender},
         {Func_fixed, gamelogic},
     FUNC_LIST_END
 
     FUNC_LIST_BEGIN(TITLEMODE)
-        {Func_fixed, titleinput},
+        {Func_input, titleinput},
         {Func_fixed, titlerenderfixed},
         {Func_delta, titlerender},
         {Func_fixed, titlelogic},
@@ -154,34 +155,34 @@ static const inline struct ImplFunc* get_gamestate_funcs(
     FUNC_LIST_BEGIN(MAPMODE)
         {Func_fixed, maprenderfixed},
         {Func_delta, maprender},
-        {Func_fixed, mapinput},
+        {Func_input, mapinput},
         {Func_fixed, maplogic},
     FUNC_LIST_END
 
     FUNC_LIST_BEGIN(TELEPORTERMODE)
         {Func_fixed, maprenderfixed},
         {Func_delta, teleporterrender},
-        {Func_fixed, teleportermodeinput},
+        {Func_input, teleportermodeinput},
         {Func_fixed, maplogic},
     FUNC_LIST_END
 
     FUNC_LIST_BEGIN(GAMECOMPLETE)
         {Func_fixed, gamecompleterenderfixed},
         {Func_delta, gamecompleterender},
-        {Func_fixed, gamecompleteinput},
+        {Func_input, gamecompleteinput},
         {Func_fixed, gamecompletelogic},
     FUNC_LIST_END
 
     FUNC_LIST_BEGIN(GAMECOMPLETE2)
         {Func_delta, gamecompleterender2},
-        {Func_fixed, gamecompleteinput2},
+        {Func_input, gamecompleteinput2},
         {Func_fixed, gamecompletelogic2},
     FUNC_LIST_END
 
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     FUNC_LIST_BEGIN(EDITORMODE)
         {Func_fixed, flipmodeoff},
-        {Func_fixed, editorinput},
+        {Func_input, editorinput},
         {Func_fixed, editorrenderfixed},
         {Func_delta, editorrender},
         {Func_fixed, editorlogic},
@@ -189,7 +190,7 @@ static const inline struct ImplFunc* get_gamestate_funcs(
 #endif
 
     FUNC_LIST_BEGIN(PRELOADER)
-        {Func_fixed, preloaderinput},
+        {Func_input, preloaderinput},
         {Func_fixed, preloaderrenderfixed},
         {Func_delta, preloaderrender},
     FUNC_LIST_END
@@ -241,7 +242,7 @@ static enum IndexCode increment_gamestate_func_index(void)
 static void unfocused_run(void);
 
 static const struct ImplFunc unfocused_func_list[] = {
-    Func_fixed,
+    Func_input, /* we still need polling when unfocused */
     unfocused_run
 };
 static const struct ImplFunc* unfocused_funcs = unfocused_func_list;
@@ -298,6 +299,11 @@ static enum LoopCode loop_run_active_funcs(void)
     {
         const struct ImplFunc* implfunc = &(*active_funcs)[*active_func_index];
         enum IndexCode index_code;
+
+        if (implfunc->type == Func_input)
+        {
+            key.Poll();
+        }
 
         if (implfunc->type != Func_null && implfunc->func != NULL)
         {
@@ -706,8 +712,6 @@ static enum LoopCode loop_begin(void)
 {
     // Update network per frame.
     NETWORK_update();
-
-    key.Poll();
 
     return Loop_continue;
 }
