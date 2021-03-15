@@ -139,9 +139,9 @@ static const inline struct ImplFunc* get_gamestate_funcs(
 
     FUNC_LIST_BEGIN(GAMEMODE)
         {Func_fixed, runscript},
-        {Func_input, gameinput},
         {Func_fixed, gamerenderfixed},
         {Func_delta, gamerender},
+        {Func_input, gameinput},
         {Func_fixed, gamelogic},
     FUNC_LIST_END
 
