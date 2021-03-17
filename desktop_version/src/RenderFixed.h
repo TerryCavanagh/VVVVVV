@@ -9,6 +9,8 @@ void titlerenderfixed(void);
 
 void maprenderfixed(void);
 
+void teleporterrenderfixed(void);
+
 void gamecompleterenderfixed(void);
 
 #endif /* RENDERFIXED_H */
