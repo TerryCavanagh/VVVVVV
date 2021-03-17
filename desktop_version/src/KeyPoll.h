@@ -38,7 +38,7 @@ public:
 	bool resetWindow;
 
 	bool quitProgram;
-	bool toggleFullscreen;
+	void toggleFullscreen(void);
 
 	int sensitivity;
 
