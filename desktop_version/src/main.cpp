@@ -454,20 +454,6 @@ static void inline fixedloop(void)
     NETWORK_update();
 
     key.Poll();
-    if(key.toggleFullscreen)
-    {
-        gameScreen.toggleFullScreen();
-        key.toggleFullscreen = false;
-
-        key.keymap.clear(); //we lost the input due to a new window.
-        if (game.glitchrunnermode)
-        {
-            game.press_left = false;
-            game.press_right = false;
-            game.press_action = true;
-            game.press_map = false;
-        }
-    }
 
     if(!key.isActive)
     {

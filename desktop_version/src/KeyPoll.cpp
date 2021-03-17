@@ -41,7 +41,6 @@ KeyPoll::KeyPoll(void)
 	leftbutton=0; rightbutton=0; middlebutton=0;
 	mx=0; my=0;
 	resetWindow = 0;
-	toggleFullscreen = false;
 	pressedbackspace=false;
 
 	useFullscreenSpaces = false;
@@ -78,9 +77,27 @@ bool KeyPoll::textentry(void)
 	return SDL_IsTextInputActive() == SDL_TRUE;
 }
 
+void KeyPoll::toggleFullscreen(void)
+{
+	if (graphics.screenbuffer != NULL)
+	{
+		graphics.screenbuffer->toggleFullScreen();
+	}
+
+	keymap.clear(); /* we lost the input due to a new window. */
+	if (game.glitchrunnermode)
+	{
+		game.press_left = false;
+		game.press_right = false;
+		game.press_action = true;
+		game.press_map = false;
+	}
+}
+
 void KeyPoll::Poll(void)
 {
 	bool altpressed = false;
+	bool fullscreenkeybind = false;
 	SDL_Event evt;
 	while (SDL_PollEvent(&evt))
 	{
@@ -106,7 +123,7 @@ void KeyPoll::Poll(void)
 			bool f11pressed = evt.key.keysym.sym == SDLK_F11;
 			if ((altpressed && (returnpressed || fpressed)) || f11pressed)
 			{
-				toggleFullscreen = true;
+				fullscreenkeybind = true;
 			}
 
 			if (textentry())
@@ -320,6 +337,11 @@ void KeyPoll::Poll(void)
 			quitProgram = true;
 			break;
 		}
+	}
+
+	if (fullscreenkeybind)
+	{
+		toggleFullscreen();
 	}
 }
 
