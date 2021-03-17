@@ -72,6 +72,8 @@ void gamerenderfixed(void)
         obj.trophytext--;
     }
 
+    graphics.cutscenebarstimer();
+
     graphics.updatetextboxes();
 
     if (!game.colourblindmode)
@@ -246,6 +248,13 @@ void maprenderfixed(void)
     {
         map.glitchname = map.getglitchname(game.roomx, game.roomy);
     }
+}
+
+void teleporterrenderfixed(void)
+{
+    maprenderfixed();
+
+    graphics.cutscenebarstimer();
 }
 
 void gamecompleterenderfixed(void)

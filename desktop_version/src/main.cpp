@@ -478,7 +478,6 @@ static void inline fixedloop(void)
         Mix_Resume(-1);
         Mix_ResumeMusic();
         game.gametimer++;
-        graphics.cutscenebarstimer();
 
         switch(game.gamestate)
         {
@@ -546,7 +545,7 @@ static void inline fixedloop(void)
                 gameinput();
             }
             maplogic();
-            maprenderfixed();
+            teleporterrenderfixed();
             break;
         case GAMECOMPLETE:
             //Input
