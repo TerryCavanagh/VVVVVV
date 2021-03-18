@@ -318,6 +318,9 @@ static enum LoopCode loop_run_active_funcs(void)
         }
     }
 
+    /* About to switch over to rendering... but call this first. */
+    graphics.renderfixedpre();
+
     return Loop_stop;
 }
 
@@ -682,6 +685,9 @@ static void inline deltaloop(void)
 
         accumulator = SDL_fmodf(accumulator, timesteplimit);
 
+        /* We are done rendering. */
+        graphics.renderfixedpost();
+
         fixedloop();
     }
     const float alpha = game.over30mode ? static_cast<float>(accumulator) / timesteplimit : 1.0f;
@@ -744,25 +750,11 @@ static void focused_begin(void)
 
 static void focused_end(void)
 {
-    //Screen effects timers
-    if (game.flashlight > 0)
-    {
-        game.flashlight--;
-    }
-    if (game.screenshake > 0)
-    {
-        game.screenshake--;
-        graphics.updatescreenshake();
-    }
+    /* no-op. */
 }
 
 static enum LoopCode loop_end(void)
 {
-    if (graphics.screenbuffer->badSignalEffect)
-    {
-        UpdateFilter();
-    }
-
     //We did editorinput, now it's safe to turn this off
     key.linealreadyemptykludge = false;
 

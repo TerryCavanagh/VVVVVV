@@ -130,6 +130,8 @@ public:
 
 	void render(void);
 	void renderwithscreeneffects(void);
+	void renderfixedpre(void);
+	void renderfixedpost(void);
 
 	bool Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, point p2);
 
