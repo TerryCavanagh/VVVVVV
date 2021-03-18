@@ -129,6 +129,32 @@ void gamelogic(void)
         obj.entities[i].lerpoldyp = obj.entities[i].yp;
     }}
 
+    if (!game.blackout && !game.completestop)
+    {
+        size_t i;
+        for (i = 0; i < obj.entities.size(); ++i)
+        {
+            /* Is this entity on the ground? (needed for jumping) */
+            if (obj.entitycollidefloor(i))
+            {
+                obj.entities[i].onground = 2;
+            }
+            else
+            {
+                --obj.entities[i].onground;
+            }
+
+            if (obj.entitycollideroof(i))
+            {
+                obj.entities[i].onroof = 2;
+            }
+            else
+            {
+                --obj.entities[i].onroof;
+            }
+        }
+    }
+
     //Misc
     if (map.towermode)
     {
