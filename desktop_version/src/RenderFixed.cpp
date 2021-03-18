@@ -26,27 +26,23 @@ void gamerenderfixed(void)
     {
         for (size_t i = 0; i < obj.entities.size(); i++)
         {
-            //Is this entity on the ground? (needed for jumping)
             if (obj.entitycollidefloor(i))
             {
-                obj.entities[i].onground = 2;
+                obj.entities[i].visualonground = 2;
             }
             else
             {
-                obj.entities[i].onground--;
+                --obj.entities[i].visualonground;
             }
 
             if (obj.entitycollideroof(i))
             {
-                obj.entities[i].onroof = 2;
+                obj.entities[i].visualonroof = 2;
             }
             else
             {
-                obj.entities[i].onroof--;
+                --obj.entities[i].visualonroof;
             }
-
-            obj.entities[i].visualonground = obj.entities[i].onground;
-            obj.entities[i].visualonroof = obj.entities[i].onroof;
 
             //Animate the entities
             obj.animateentities(i);
