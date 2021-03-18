@@ -3379,7 +3379,7 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe=entities[_i].tile+3;
             }
 
-            if(entities[_i].onground>0 || entities[_i].onroof>0)
+            if(entities[_i].visualonground>0 || entities[_i].visualonroof>0)
             {
                 if(entities[_i].vx > 0.00f || entities[_i].vx < -0.00f)
                 {
@@ -3393,9 +3393,9 @@ void entityclass::animateentities( int _i )
                     entities[_i].drawframe += entities[_i].walkingframe + 1;
                 }
 
-                if (entities[_i].onroof > 0) entities[_i].drawframe += 6;
+                if (entities[_i].visualonroof > 0) entities[_i].drawframe += 6;
                 // Stuck in a wall? Then default to gravitycontrol
-                if (entities[_i].onground > 0 && entities[_i].onroof > 0
+                if (entities[_i].visualonground > 0 && entities[_i].visualonroof > 0
                 && game.gravitycontrol == 0)
                 {
                     entities[_i].drawframe -= 6;
@@ -3639,7 +3639,7 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe=entities[_i].tile+3;
             }
 
-            if(entities[_i].onground>0 || entities[_i].onroof>0)
+            if(entities[_i].visualonground>0 || entities[_i].visualonroof>0)
             {
                 if(entities[_i].vx > 0.0000f || entities[_i].vx < -0.000f)
                 {
@@ -3653,7 +3653,7 @@ void entityclass::animateentities( int _i )
                     entities[_i].drawframe += entities[_i].walkingframe + 1;
                 }
 
-                //if (entities[_i].onroof > 0) entities[_i].drawframe += 6;
+                //if (entities[_i].visualonroof > 0) entities[_i].drawframe += 6;
             }
             else
             {
@@ -4489,12 +4489,14 @@ void entityclass::movingplatformfix( int t, int j )
                     entities[j].yp = entities[t].yp + entities[t].h;
                     entities[j].vy = 0;
                     entities[j].onroof = 2;
+                    entities[j].visualonroof = entities[j].onroof;
                 }
                 else
                 {
                     entities[j].yp = entities[t].yp - entities[j].h-entities[j].cy;
                     entities[j].vy = 0;
                     entities[j].onground = 2;
+                    entities[j].visualonground = entities[j].onground;
                 }
             }
             else
