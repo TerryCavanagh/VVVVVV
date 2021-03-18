@@ -45,6 +45,9 @@ void gamerenderfixed(void)
                 obj.entities[i].onroof--;
             }
 
+            obj.entities[i].visualonground = obj.entities[i].onground;
+            obj.entities[i].visualonroof = obj.entities[i].onroof;
+
             //Animate the entities
             obj.animateentities(i);
         }

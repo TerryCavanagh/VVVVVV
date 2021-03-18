@@ -46,6 +46,8 @@ void entclass::clear(void)
 	gravity = false;
 	onground = 0;
 	onroof = 0;
+	visualonground = 0;
+	visualonroof = 0;
 
 	onentity = 0;
 	harmful = false;

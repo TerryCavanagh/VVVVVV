@@ -49,6 +49,7 @@ public:
     int onground, onroof;
     //Animation
     int framedelay, drawframe, walkingframe, dir, actionframe;
+    int visualonground, visualonroof;
     int yp;int xp;
 
     Uint32 realcol;
