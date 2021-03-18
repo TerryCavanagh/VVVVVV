@@ -8,6 +8,7 @@
 #include "Entity.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
+#include "GraphicsUtil.h"
 #include "Map.h"
 #include "Music.h"
 #include "Screen.h"
@@ -3066,6 +3067,32 @@ void Graphics::renderwithscreeneffects(void)
 	else
 	{
 		render();
+	}
+}
+
+void Graphics::renderfixedpre(void)
+{
+	if (game.screenshake > 0)
+	{
+		updatescreenshake();
+	}
+
+	if (screenbuffer != NULL && screenbuffer->badSignalEffect)
+	{
+		UpdateFilter();
+	}
+}
+
+void Graphics::renderfixedpost(void)
+{
+	/* Screen effects timers */
+	if (game.flashlight > 0)
+	{
+		--game.flashlight;
+	}
+	if (game.screenshake > 0)
+	{
+		--game.screenshake;
 	}
 }
 
