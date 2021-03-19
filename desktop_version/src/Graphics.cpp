@@ -816,13 +816,19 @@ void Graphics::drawtowertile3( int x, int y, int t, TowerBG& bg_obj )
 void Graphics::drawgui(void)
 {
     int text_sign;
+    int crew_yp;
+    int crew_sprite;
     if (flipmode)
     {
         text_sign = -1;
+        crew_yp = 64 + 48 + 4;
+        crew_sprite = 6;
     }
     else
     {
         text_sign = 1;
+        crew_yp = 64 + 32 + 4;
+        crew_sprite = 0;
     }
 
     //Draw all the textboxes to the screen
@@ -901,61 +907,30 @@ void Graphics::drawgui(void)
                 drawimage(4, 0, 12, true);
             }
         }
-        if (flipmode)
+        if (textbox[i].r == 175 && textbox[i].g == 175 && drawspecial)
         {
-            if (textbox[i].r == 175 && textbox[i].g == 175 && drawspecial)
-            {
-                //purple guy
-                drawsprite(80 - 6, 64 + 48 + 4, 6, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
-            }
-            else if (textbox[i].r == 175 && textbox[i].b == 175 && drawspecial)
-            {
-                //red guy
-                drawsprite(80 - 6, 64 + 48+ 4, 6, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
-            }
-            else if (textbox[i].r == 175 && drawspecial)
-            {
-                //green guy
-                drawsprite(80 - 6, 64 + 48 + 4, 6, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
-            }
-            else if (textbox[i].g == 175 && drawspecial)
-            {
-                //yellow guy
-                drawsprite(80 - 6, 64 + 48+ 4, 6, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
-            }
-            else if (textbox[i].b == 175 && drawspecial)
-            {
-                //blue guy
-                drawsprite(80 - 6, 64 + 48+ 4, 6, 75, 75, 255- help.glow/4 - int(fRandom()*20));
-            }
+            //purple guy
+            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
         }
-        else
+        else if (textbox[i].r == 175 && textbox[i].b == 175 && drawspecial)
         {
-            if (textbox[i].r == 175 && textbox[i].g == 175 && drawspecial)
-            {
-                //purple guy
-                drawsprite(80 - 6, 64 + 32 + 4, 0, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
-            }
-            else if (textbox[i].r == 175 && textbox[i].b == 175 && drawspecial)
-            {
-                //red guy
-                drawsprite(80 - 6, 64 + 32 + 4, 0, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
-            }
-            else if (textbox[i].r == 175 && drawspecial)
-            {
-                //green guy
-                drawsprite(80 - 6, 64 + 32 + 4, 0, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
-            }
-            else if (textbox[i].g == 175 && drawspecial)
-            {
-                //yellow guy
-                drawsprite(80 - 6, 64 + 32 + 4, 0, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
-            }
-            else if (textbox[i].b == 175 && drawspecial)
-            {
-                //blue guy
-                drawsprite(80 - 6, 64 + 32 + 4, 0, 75, 75, 255- help.glow/4 - int(fRandom()*20));
-            }
+            //red guy
+            drawsprite(80 - 6, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
+        }
+        else if (textbox[i].r == 175 && drawspecial)
+        {
+            //green guy
+            drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
+        }
+        else if (textbox[i].g == 175 && drawspecial)
+        {
+            //yellow guy
+            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
+        }
+        else if (textbox[i].b == 175 && drawspecial)
+        {
+            //blue guy
+            drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - int(fRandom()*20));
         }
     }
 }
