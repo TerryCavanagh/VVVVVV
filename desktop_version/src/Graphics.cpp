@@ -815,28 +815,38 @@ void Graphics::drawtowertile3( int x, int y, int t, TowerBG& bg_obj )
 
 void Graphics::drawgui(void)
 {
+    int text_sign;
+    if (flipmode)
+    {
+        text_sign = -1;
+    }
+    else
+    {
+        text_sign = 1;
+    }
+
     //Draw all the textboxes to the screen
     for (size_t i = 0; i<textbox.size(); i++)
     {
+        int text_yoff;
+        if (flipmode)
+        {
+            text_yoff = textbox[i].line.size() * 8;
+        }
+        else
+        {
+            text_yoff = 8;
+        }
+
         //This routine also updates textbox colors
         float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
         textbox[i].setcol(textbox[i].tr * tl_lerp, textbox[i].tg * tl_lerp, textbox[i].tb * tl_lerp);
 
         if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
         {
-            if(flipmode)
+            for (size_t j = 0; j < textbox[i].line.size(); j++)
             {
-                for (size_t j = 0; j < textbox[i].line.size(); j++)
-                {
-                    Print(textbox[i].xp + 8, textbox[i].yp + (textbox[i].line.size()*8) - (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
-                }
-            }
-            else
-            {
-                for (size_t j = 0; j < textbox[i].line.size(); j++)
-                {
-                    Print(textbox[i].xp + 8, textbox[i].yp + 8 + (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
-                }
+                Print(textbox[i].xp + 8, textbox[i].yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
             }
         }
         else
@@ -859,19 +869,9 @@ void Graphics::drawgui(void)
                 drawcoloredtile(textbox[i].xp + textbox[i].w-8, textbox[i].yp + 8 + (k * 8), 44, textbox[i].r, textbox[i].g, textbox[i].b);
             }
 
-            if(flipmode)
+            for (size_t j = 0; j < textbox[i].line.size(); j++)
             {
-                for (size_t j = 0; j < textbox[i].line.size(); j++)
-                {
-                    Print(textbox[i].xp + 8, textbox[i].yp  + (textbox[i].line.size()*8) - (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
-                }
-            }
-            else
-            {
-                for (size_t j = 0; j < textbox[i].line.size(); j++)
-                {
-                    Print(textbox[i].xp + 8, textbox[i].yp +8 + (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
-                }
+                Print(textbox[i].xp + 8, textbox[i].yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
             }
         }
 
