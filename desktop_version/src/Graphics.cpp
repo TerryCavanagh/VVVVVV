@@ -860,7 +860,7 @@ void Graphics::drawgui(void)
         {
             for (size_t j = 0; j < textbox[i].line.size(); j++)
             {
-                Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
+                bprint(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
             }
         }
         else
