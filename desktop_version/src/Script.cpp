@@ -1953,7 +1953,6 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "foundtrinket")
 			{
-				//music.silencedasmusik();
 				music.haltdasmusik();
 				music.playef(3);
 
