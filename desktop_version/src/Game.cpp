@@ -7089,6 +7089,14 @@ static void returntoingametemp(void)
     game.returntomenu(game.kludge_ingametemp);
 }
 
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+static void returntoedsettings(void)
+{
+    extern Game game;
+    game.returntomenu(Menu::ed_settings);
+}
+#endif
+
 void Game::returntoingame(void)
 {
     ingame_titlemode = false;
@@ -7097,7 +7105,7 @@ void Game::returntoingame(void)
     if (ingame_editormode)
     {
         ingame_editormode = false;
-        returntomenu(Menu::ed_settings);
+        DEFER_CALLBACK(returntoedsettings);
         gamestate = EDITORMODE;
         ed.settingskey = true;
     }
