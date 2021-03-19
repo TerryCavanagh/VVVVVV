@@ -9,6 +9,7 @@
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
 
+#include "DeferCallbacks.h"
 #include "Entity.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
@@ -3669,6 +3670,20 @@ void editorlogic(void)
     }
 }
 
+static void creategraphicoptions(void)
+{
+    game.createmenu(Menu::graphicoptions);
+}
+
+static void creategameoptions(void)
+{
+    game.createmenu(Menu::options);
+}
+
+static void nextbgcolor(void)
+{
+    map.nexttowercolour();
+}
 
 static void editormenuactionpress(void)
 {
@@ -3768,14 +3783,14 @@ static void editormenuactionpress(void)
 
             if (game.currentmenuoption == 6)
             {
-                game.createmenu(Menu::graphicoptions);
+                DEFER_CALLBACK(creategraphicoptions);
             }
             else
             {
-                game.createmenu(Menu::options);
+                DEFER_CALLBACK(creategameoptions);
             }
 
-            map.nexttowercolour();
+            DEFER_CALLBACK(nextbgcolor);
             break;
         default:
             music.playef(11);
