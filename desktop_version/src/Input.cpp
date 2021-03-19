@@ -455,7 +455,7 @@ static void menuactionpress(void)
             music.playef(11);
             if (game.ingame_titlemode)
             {
-                game.returntopausemenu();
+                game.returntoingame();
             }
             else
             {
@@ -766,7 +766,7 @@ static void menuactionpress(void)
             music.playef(11);
             if (game.ingame_titlemode)
             {
-                game.returntopausemenu();
+                game.returntoingame();
             }
             else
             {
@@ -1634,7 +1634,7 @@ void titleinput(void)
                 && (game.currentmenuname == Menu::options
                 || game.currentmenuname == Menu::graphicoptions))
                 {
-                    game.returntopausemenu();
+                    game.returntoingame();
                 }
                 else
                 {

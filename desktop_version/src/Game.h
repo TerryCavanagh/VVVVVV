@@ -442,8 +442,11 @@ public:
     bool glitchrunnermode; // Have fun speedrunners! <3 Misa
 
     bool ingame_titlemode;
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+    bool ingame_editormode;
+#endif
 
-    void returntopausemenu(void);
+    void returntoingame(void);
     void unlockAchievement(const char *name);
 
     bool disablepause;
