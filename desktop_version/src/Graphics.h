@@ -144,6 +144,7 @@ public:
 
 	int len(std::string t);
 	void bigprint( int _x, int _y, std::string _s, int r, int g, int b, bool cen = false, int sc = 2 );
+	void bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen = false, int sc = 2);
 	void drawspritesetcol(int x, int y, int t, int c);
 
 

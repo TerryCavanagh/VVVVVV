@@ -541,6 +541,28 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
     }
 }
 
+void Graphics::bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen, int sc)
+{
+    if (!notextoutline)
+    {
+        bigprint(x, y - sc, s, 0, 0, 0, cen, sc);
+        if (cen)
+        {
+            int x_cen = VVV_max(160 - (len(s) / 2) * sc, 0);
+            bigprint(x_cen - sc, y, s, 0, 0, 0, false, sc);
+            bigprint(x_cen + sc, y, s, 0, 0, 0, false, sc);
+        }
+        else
+        {
+            bigprint(x - sc, y, s, 0, 0, 0, cen, sc);
+            bigprint(x + sc, y, s, 0, 0, 0, cen, sc);
+        }
+        bigprint(x, y + sc, s, 0, 0, 0, cen, sc);
+    }
+
+    bigprint(x, y, s, r, g, b, cen, sc);
+}
+
 int Graphics::len(std::string t)
 {
     int bfontpos = 0;
