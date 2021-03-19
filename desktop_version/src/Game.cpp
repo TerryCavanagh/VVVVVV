@@ -373,6 +373,9 @@ void Game::init(void)
     glitchrunnermode = false;
 
     ingame_titlemode = false;
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+    ingame_editormode = false;
+#endif
     kludge_ingametemp = Menu::mainmenu;
 
     disablepause = false;
@@ -6394,6 +6397,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("editor ghosts");
         option("load level");
         option("save level");
+        option("graphic options");
+        option("game options");
         option("quit to main menu");
 
         menuyoff = -20;
@@ -7076,16 +7081,28 @@ void Game::returntoeditor(void)
 }
 #endif
 
-void Game::returntopausemenu(void)
+void Game::returntoingame(void)
 {
     ingame_titlemode = false;
-    returntomenu(kludge_ingametemp);
-    gamestate = MAPMODE;
     mapheld = true;
-    graphics.flipmode = graphics.setflipmode;
-    if (!map.custommode && !graphics.flipmode)
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+    if (ingame_editormode)
     {
-        obj.flags[73] = true;
+        ingame_editormode = false;
+        returntomenu(Menu::ed_settings);
+        gamestate = EDITORMODE;
+        ed.settingskey = true;
+    }
+    else
+#endif
+    {
+        returntomenu(kludge_ingametemp);
+        gamestate = MAPMODE;
+        graphics.flipmode = graphics.setflipmode;
+        if (!map.custommode && !graphics.flipmode)
+        {
+            obj.flags[73] = true;
+        }
     }
 }
 

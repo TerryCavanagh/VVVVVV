@@ -3769,6 +3769,25 @@ static void editormenuactionpress()
             graphics.backgrounddrawn=false;
             break;
         case 6:
+        case 7:
+            /* Graphic options and game options */
+            music.playef(11);
+            game.gamestate = TITLEMODE;
+            game.ingame_titlemode = true;
+            game.ingame_editormode = true;
+
+            if (game.currentmenuoption == 6)
+            {
+                game.createmenu(Menu::graphicoptions);
+            }
+            else
+            {
+                game.createmenu(Menu::options);
+            }
+
+            map.nexttowercolour();
+            break;
+        default:
             music.playef(11);
             game.createmenu(Menu::ed_quit);
             map.nexttowercolour();
