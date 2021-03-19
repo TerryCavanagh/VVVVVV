@@ -470,7 +470,6 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
 
 void Game::loadcustomlevelstats(void)
 {
-    //testing
     if(customlevelstatsloaded)
     {
         return;
@@ -678,10 +677,6 @@ void Game::updatestate(void)
             //Demo over
             advancetext = true;
             hascontrol = false;
-            /*graphics.createtextbox("   Prototype Complete    ", 50, 80, 164, 164, 255);
-            graphics.addline("Congrats! More Info Soon!");
-            graphics.textboxcenter();
-            */
 
             startscript = true;
             newscript="returntohub";
@@ -1630,7 +1625,6 @@ void Game::updatestate(void)
             state++;
             music.playef(2);
             graphics.textboxactive();
-            int i = obj.getcompanion(); if (INBOUNDS_VEC(i, obj.entities)) {	/*obj.entities[i].tile = 66;	obj.entities[i].state = 0;*/	}
             break;
         }
         case 126:
@@ -1673,7 +1667,6 @@ void Game::updatestate(void)
             //Init final stretch
             state++;
             music.playef(9);
-            //music.play(2);
             obj.flags[72] = true;
 
             screenshake = 10;
@@ -1801,7 +1794,6 @@ void Game::updatestate(void)
             advancetext = false;
             completestop = false;
             state = 0;
-            //music.play(music.resumesong);
             if(!muted && music.currentsong>-1) music.fadeMusicVolumeIn(3000);
             graphics.showcutscenebars = false;
             break;
@@ -2044,11 +2036,6 @@ void Game::updatestate(void)
         case 2507:
         {
             state++;
-            int i = obj.getplayer();
-            if (INBOUNDS_VEC(i, obj.entities))
-            {
-                //obj.entities[i].xp += 4;
-            }
             break;
         }
         case 2508:
@@ -2141,9 +2128,6 @@ void Game::updatestate(void)
             //Activating a teleporter 2
             state++;
             statedelay = 50;
-            //testing!
-            //state = 3006; //Warp Zone
-            //state = 3020; //Space Station
             switch(companion)
             {
             case 6:
@@ -2204,17 +2188,10 @@ void Game::updatestate(void)
             {
                 graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            graphics.addline("intro to story!");*/
             break;
         case 3007:
             state++;
@@ -2321,17 +2298,10 @@ void Game::updatestate(void)
             {
                 graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            graphics.addline("intro to story!");*/
             break;
         case 3021:
             state++;
@@ -2437,17 +2407,10 @@ void Game::updatestate(void)
             {
                 graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            graphics.addline("intro to story!");*/
             break;
         case 3041:
             state++;
@@ -2554,17 +2517,10 @@ void Game::updatestate(void)
             {
                 graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            graphics.addline("intro to story!");*/
             break;
         case 3051:
             state++;
@@ -2695,17 +2651,10 @@ void Game::updatestate(void)
             {
                 graphics.createtextbox("", -1, 12, 165, 165, 255);
             }
-            //graphics.addline("      Level Complete!      ");
             graphics.addline("                                   ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxcenterx();
-
-            /*												advancetext = true;
-            hascontrol = false;
-            state = 3;
-            graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
-            graphics.addline("intro to story!");*/
             break;
         case 3061:
             state++;
@@ -3210,8 +3159,6 @@ void Game::updatestate(void)
             graphics.fademode = 4;
             state = 0;
             statedelay = 30;
-            //music.play(5);
-            //music.play(10);
 
             map.finalmode = false;
             map.final_colormode = false;
@@ -3265,10 +3212,6 @@ void Game::updatestate(void)
             //Activating a teleporter 2
             state++;
             statedelay = 10;
-            //testing!
-            //state = 3006; //Warp Zone
-            //state = 3020; //Space Station
-            //state = 3040; //Lab
 
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -4998,18 +4941,12 @@ void Game::customstart(void)
 
     savegc = edsavegc;
     savedir = edsavedir; //Worldmap Start
-    //savex = 6 * 8; savey = 15 * 8; saverx = 46; savery = 54; savegc = 0; savedir = 1; //Final Level Current
     savepoint = 0;
     gravitycontrol = savegc;
 
-    //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
     deathseq = -1;
     lifeseq = 0;
-
-    //let's teleport in!
-    //state = 2500;
-    //if (!nocutscenes) music.play(5);
 }
 
 void Game::start(void)
@@ -5022,17 +4959,13 @@ void Game::start(void)
     savery = 110;
     savegc = 0;
     savedir = 1; //Worldmap Start
-    //savex = 6 * 8; savey = 15 * 8; saverx = 46; savery = 54; savegc = 0; savedir = 1; //Final Level Current
     savepoint = 0;
     gravitycontrol = savegc;
 
-    //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
     deathseq = -1;
     lifeseq = 0;
 
-    //let's teleport in!
-    //state = 2500;
     if (!nocutscenes) music.play(5);
 }
 
@@ -5207,7 +5140,6 @@ void Game::starttrial( int t )
     savepoint = 0;
     gravitycontrol = savegc;
 
-    //state = 2; deathseq = -1; lifeseq = 10; //Not dead, in game initilisation state
     state = 0;
     deathseq = -1;
     lifeseq = 0;
