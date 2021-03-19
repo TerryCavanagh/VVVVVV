@@ -1274,7 +1274,7 @@ void Graphics::textboxadjust(void)
 }
 
 
-void Graphics::createtextbox( std::string t, int xp, int yp, int r/*= 255*/, int g/*= 255*/, int b /*= 255*/ )
+void Graphics::createtextbox( std::string t, int xp, int yp, int r, int g, int b)
 {
     m = textbox.size();
 
