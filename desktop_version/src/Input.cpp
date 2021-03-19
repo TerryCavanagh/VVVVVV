@@ -1638,10 +1638,9 @@ void titleinput(void)
                 else
                 {
                     game.returnmenu();
+                    map.nexttowercolour();
                 }
             }
-
-            map.nexttowercolour();
         }
 
         if(game.menustart)

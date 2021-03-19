@@ -7097,6 +7097,11 @@ static void returntoedsettings(void)
 }
 #endif
 
+static void nextbgcolor(void)
+{
+    map.nexttowercolour();
+}
+
 void Game::returntoingame(void)
 {
     ingame_titlemode = false;
@@ -7120,6 +7125,7 @@ void Game::returntoingame(void)
             obj.flags[73] = true;
         }
     }
+    DEFER_CALLBACK(nextbgcolor);
 }
 
 void Game::unlockAchievement(const char *name) {
