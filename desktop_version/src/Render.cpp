@@ -1166,7 +1166,7 @@ static void menurender(void)
     }
 }
 
-void titlerender()
+void titlerender(void)
 {
 
     ClearSurface(graphics.backBuffer);

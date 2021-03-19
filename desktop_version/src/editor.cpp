@@ -3680,7 +3680,7 @@ void editorlogic(void)
 }
 
 
-static void editormenuactionpress()
+static void editormenuactionpress(void)
 {
     extern editorclass ed;
     switch (game.currentmenuname)

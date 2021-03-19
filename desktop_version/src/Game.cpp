@@ -6044,7 +6044,7 @@ bool Game::customsavequick(std::string savfile)
 }
 
 
-void Game::loadtele()
+void Game::loadtele(void)
 {
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc)) return;
