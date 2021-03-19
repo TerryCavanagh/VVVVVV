@@ -1408,14 +1408,6 @@ void mapclass::loadlevel(int rx, int ry)
 
 		graphics.rcol = 6;
 		changefinalcol(final_mapcol);
-		for (size_t i = 0; i < obj.entities.size(); i++)
-		{
-			if (obj.entities[i].type == 1 || obj.entities[i].type == 2)
-			{
-				//Fix 1-frame glitch
-				obj.entities[i].drawframe = obj.entities[i].tile;
-			}
-		}
 		break;
 	}
 	case 7: //Final Level, Tower 1
