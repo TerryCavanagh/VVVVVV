@@ -133,6 +133,7 @@ public:
     void crewmate_textbox(const int r, const int g, const int b);
     void remaining_textbox(void);
     void actionprompt_textbox(void);
+    void savetele_textbox(void);
 
     void updatestate(void);
 

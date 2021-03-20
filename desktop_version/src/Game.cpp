@@ -714,6 +714,25 @@ void Game::actionprompt_textbox(void)
     graphics.textboxcenterx();
 }
 
+void Game::savetele_textbox(void)
+{
+    if (inspecial() || map.custommode)
+    {
+        return;
+    }
+
+    if (savetele())
+    {
+        graphics.createtextboxflipme("    Game Saved    ", -1, 12, 174, 174, 174);
+        graphics.textboxtimer(25);
+    }
+    else
+    {
+        graphics.createtextboxflipme("  ERROR: Could not save game!  ", -1, 12, 255, 60, 60);
+        graphics.textboxtimer(50);
+    }
+}
+
 void Game::updatestate(void)
 {
     statedelay--;
@@ -2000,24 +2019,8 @@ void Game::updatestate(void)
 
         case 2000:
             //Game Saved!
-            if (inspecial() || map.custommode)
-            {
-                state = 0;
-            }
-            else
-            {
-                if (savetele())
-                {
-                    graphics.createtextbox("    Game Saved    ", -1, graphics.flipmode ? 202 : 12, 174, 174, 174);
-                    graphics.textboxtimer(25);
-                }
-                else
-                {
-                    graphics.createtextbox("  ERROR: Could not save game!  ", -1, graphics.flipmode ? 202 : 12, 255, 60, 60);
-                    graphics.textboxtimer(50);
-                }
-                state = 0;
-            }
+            savetele_textbox();
+            state = 0;
             break;
 
         case 2500:
