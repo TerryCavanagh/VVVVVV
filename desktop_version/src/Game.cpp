@@ -6666,6 +6666,11 @@ static void nextbgcolor(void)
     map.nexttowercolour();
 }
 
+static void setfademode(void)
+{
+    graphics.fademode = graphics.ingame_fademode;
+}
+
 void Game::returntoingame(void)
 {
     ingame_titlemode = false;
@@ -6684,6 +6689,7 @@ void Game::returntoingame(void)
         DEFER_CALLBACK(returntoingametemp);
         gamestate = MAPMODE;
         graphics.flipmode = graphics.setflipmode;
+        DEFER_CALLBACK(setfademode);
         if (!map.custommode && !graphics.flipmode)
         {
             obj.flags[73] = true;

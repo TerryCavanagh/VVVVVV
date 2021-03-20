@@ -98,6 +98,7 @@ void Graphics::init(void)
 
     setfade(0);
     fademode = 0;
+    ingame_fademode = 0;
 
     // initialize everything else to zero
     backBuffer = NULL;
