@@ -1966,7 +1966,7 @@ void scriptclass::run(void)
 
 				graphics.textboxremovefast();
 
-				graphics.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
+				graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
 				graphics.addline("");
 				graphics.addline("You have found a shiny trinket!");
 				graphics.textboxcenterx();
@@ -1982,7 +1982,7 @@ void scriptclass::run(void)
 				{
 					usethisnum = "Twenty";
 				}
-				graphics.createtextbox(" " + help.number(game.trinkets()) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
+				graphics.createtextboxflipme(" " + help.number(game.trinkets()) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
 				graphics.textboxcenterx();
 
 				if (!game.backgroundtext)
