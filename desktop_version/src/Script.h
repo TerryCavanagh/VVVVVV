@@ -60,6 +60,7 @@ public:
     int textx;
     int texty;
     int r,g,b;
+    bool textflipme;
 
     //Misc
     int i, j, k;
