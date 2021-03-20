@@ -30,6 +30,7 @@ scriptclass::scriptclass(void)
 	r = 0;
 	textx = 0;
 	texty = 0;
+	textflipme = false;
 }
 
 void scriptclass::clearcustom(void)
@@ -624,7 +625,7 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "flipme")
 			{
-				if(graphics.flipmode) texty += 2*(120 - texty) - 8*(txt.size()+2);
+				textflipme = !textflipme;
 			}
 			else if (words[0] == "speak_active" || words[0] == "speak")
 			{
@@ -634,7 +635,8 @@ void scriptclass::run(void)
 				{
 					txt.resize(1);
 				}
-				graphics.createtextbox(txt[0], textx, texty, r, g, b);
+				graphics.createtextboxreal(txt[0], textx, texty, r, g, b, textflipme);
+				textflipme = false;
 				if ((int) txt.size() > 1)
 				{
 					for (i = 1; i < (int) txt.size(); i++)
