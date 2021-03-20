@@ -2320,6 +2320,8 @@ static void mapmenuactionpress(void)
         game.gamestate = TITLEMODE;
         graphics.flipmode = false;
         game.ingame_titlemode = true;
+        graphics.ingame_fademode = graphics.fademode;
+        graphics.fademode = 0;
 
         // Set this before we create the menu
         game.kludge_ingametemp = game.currentmenuname;

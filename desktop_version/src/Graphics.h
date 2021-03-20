@@ -295,6 +295,7 @@ public:
 	int fadeamount;
 	int oldfadeamount;
 	int fadebars[15];
+	int ingame_fademode;
 
 	bool trinketcolset;
 	int trinketr, trinketg, trinketb;
