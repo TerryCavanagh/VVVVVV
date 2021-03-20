@@ -855,8 +855,9 @@ void Graphics::drawgui(void)
         }
         else
         {
+            SDL_Rect textrect = {textbox[i].xp, textbox[i].yp, textbox[i].w, textbox[i].h};
 
-            FillRect(backBuffer,textbox[i].textrect, textbox[i].r/6, textbox[i].g/6, textbox[i].b / 6 );
+            FillRect(backBuffer, textrect, textbox[i].r/6, textbox[i].g/6, textbox[i].b / 6 );
 
             drawcoloredtile(textbox[i].xp, textbox[i].yp, 40, textbox[i].r, textbox[i].g, textbox[i].b);
             drawcoloredtile(textbox[i].xp+textbox[i].w-8, textbox[i].yp, 42, textbox[i].r, textbox[i].g, textbox[i].b);

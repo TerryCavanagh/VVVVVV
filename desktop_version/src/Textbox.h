@@ -35,7 +35,6 @@ public:
     int xp, yp, lw, w, h;
     int r,g,b;
     int tr,tg,tb;
-    SDL_Rect textrect;
     int timer;
 
     float tl;
