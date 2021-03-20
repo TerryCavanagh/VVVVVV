@@ -95,8 +95,7 @@ void Graphics::init(void)
     //Fading stuff
     SDL_memset(fadebars, 0, sizeof(fadebars));
 
-    fadeamount = 0;
-    oldfadeamount = 0;
+    setfade(0);
     fademode = 0;
 
     // initialize everything else to zero
@@ -1354,7 +1353,7 @@ void Graphics::processfade(void)
             {
                 fadebars[i] = -int(fRandom() * 12) * 8;
             }
-            fadeamount = 0;
+            setfade(0);
             fademode = 3;
         }
         else if (fademode == 3)
@@ -1372,7 +1371,7 @@ void Graphics::processfade(void)
             {
                 fadebars[i] = 320 + int(fRandom() * 12) * 8;
             }
-            fadeamount = 416;
+            setfade(416);
             fademode = 5;
         }
         else if (fademode == 5)
@@ -1384,6 +1383,12 @@ void Graphics::processfade(void)
             }
         }
     }
+}
+
+void Graphics::setfade(const int amount)
+{
+    fadeamount = amount;
+    oldfadeamount = amount;
 }
 
 void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )

@@ -45,6 +45,7 @@ public:
 	void drawmenu(int cr, int cg, int cb, bool levelmenu = false);
 
 	void processfade(void);
+	void setfade(const int amount);
 
 	void drawfade(void);
 
