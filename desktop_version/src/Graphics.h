@@ -83,6 +83,7 @@ public:
 
 	void cutscenebars(void);
 	void cutscenebarstimer(void);
+	void setbars(const int position);
 
 	void drawpartimage(int t, int xp, int yp, int wp, int hp);
 
