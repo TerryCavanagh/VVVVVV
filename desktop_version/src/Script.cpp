@@ -1498,7 +1498,7 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "befadein")
 			{
-				graphics.fadeamount = 0;
+				graphics.setfade(0);
 				graphics.fademode= 0;
 			}
 			else if (words[0] == "fadein")
