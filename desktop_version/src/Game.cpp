@@ -636,14 +636,7 @@ void Game::savecustomlevelstats(void)
 
 void Game::levelcomplete_textbox(void)
 {
-    if (graphics.flipmode)
-    {
-        graphics.createtextbox("", -1, 180, 165, 165, 255);
-    }
-    else
-    {
-        graphics.createtextbox("", -1, 12, 165, 165, 255);
-    }
+    graphics.createtextboxflipme("", -1, 12, 165, 165, 255);
     graphics.addline("                                   ");
     graphics.addline("");
     graphics.addline("");
@@ -652,14 +645,7 @@ void Game::levelcomplete_textbox(void)
 
 void Game::crewmate_textbox(const int r, const int g, const int b)
 {
-    if (graphics.flipmode)
-    {
-        graphics.createtextbox("", -1, 104, r, g, b);
-    }
-    else
-    {
-        graphics.createtextbox("", -1, 64 + 8 + 16, r, g, b);
-    }
+    graphics.createtextboxflipme("", -1, 64 + 8 + 16, r, g, b);
     graphics.addline("     You have rescued  ");
     graphics.addline("      a crew member!   ");
     graphics.addline("");
@@ -690,27 +676,13 @@ void Game::remaining_textbox(void)
         string = "  All Crew Members Rescued!  ";
     }
 
-    if (graphics.flipmode)
-    {
-        graphics.createtextbox(string, -1, 72, 174, 174, 174);
-    }
-    else
-    {
-        graphics.createtextbox(string, -1, 128 + 16, 174, 174, 174);
-    }
+    graphics.createtextboxflipme(string, -1, 128 + 16, 174, 174, 174);
     graphics.textboxcenterx();
 }
 
 void Game::actionprompt_textbox(void)
 {
-    if (graphics.flipmode)
-    {
-        graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
-    }
-    else
-    {
-        graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
-    }
+    graphics.createtextboxflipme(" Press ACTION to continue ", -1, 196, 164, 164, 255);
     graphics.textboxcenterx();
 }
 
@@ -1839,45 +1811,22 @@ void Game::updatestate(void)
             //Found a trinket!
             advancetext = true;
             state++;
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("        Congratulations!       ", 50, 105, 174, 174, 174);
-                graphics.addline("");
-                graphics.addline("You have found a shiny trinket!");
-                graphics.textboxcenterx();
+            graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
+            graphics.addline("");
+            graphics.addline("You have found a shiny trinket!");
+            graphics.textboxcenterx();
 
 #if !defined(NO_CUSTOM_LEVELS)
-                if(map.custommode)
-                {
-                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets())+ " ", 50, 65, 174, 174, 174);
-                    graphics.textboxcenterx();
-                }
-                else
-#endif
-                {
-                    graphics.createtextbox(" " + help.number(trinkets()) + " out of Twenty ", 50, 65, 174, 174, 174);
-                    graphics.textboxcenterx();
-                }
+            if(map.custommode)
+            {
+                graphics.createtextboxflipme(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets())+ " ", 50, 135, 174, 174, 174);
+                graphics.textboxcenterx();
             }
             else
-            {
-                graphics.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
-                graphics.addline("");
-                graphics.addline("You have found a shiny trinket!");
-                graphics.textboxcenterx();
-
-#if !defined(NO_CUSTOM_LEVELS)
-                if(map.custommode)
-                {
-                    graphics.createtextbox(" " + help.number(trinkets()) + " out of " + help.number(ed.numtrinkets())+ " ", 50, 135, 174, 174, 174);
-                    graphics.textboxcenterx();
-                }
-                else
 #endif
-                {
-                    graphics.createtextbox(" " + help.number(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
-                    graphics.textboxcenterx();
-                }
+            {
+                graphics.createtextboxflipme(" " + help.number(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
+                graphics.textboxcenterx();
             }
             break;
         case 1002:
@@ -1909,49 +1858,24 @@ void Game::updatestate(void)
             //Found a crewmate!
             advancetext = true;
             state++;
-            if (graphics.flipmode)
+            graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
+            graphics.addline("");
+            graphics.addline("You have found a lost crewmate!");
+            graphics.textboxcenterx();
+
+            if(ed.numcrewmates()-crewmates()==0)
             {
-                graphics.createtextbox("        Congratulations!       ", 50, 105, 174, 174, 174);
-                graphics.addline("");
-                graphics.addline("You have found a lost crewmate!");
-                graphics.textboxcenterx();
-
-                if(ed.numcrewmates()-crewmates()==0)
-                {
-                    graphics.createtextbox("     All crewmates rescued!    ", 50, 65, 174, 174, 174);
-                }
-                else if(ed.numcrewmates()-crewmates()==1)
-                {
-                    graphics.createtextbox("    " + help.number(ed.numcrewmates()-crewmates())+ " remains    ", 50, 65, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox("     " + help.number(ed.numcrewmates()-crewmates())+ " remain    ", 50, 65, 174, 174, 174);
-                }
-                graphics.textboxcenterx();
-
+                graphics.createtextboxflipme("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
+            }
+            else if(ed.numcrewmates()-crewmates()==1)
+            {
+                graphics.createtextboxflipme("    " + help.number(ed.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
             }
             else
             {
-                graphics.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
-                graphics.addline("");
-                graphics.addline("You have found a lost crewmate!");
-                graphics.textboxcenterx();
-
-                if(ed.numcrewmates()-crewmates()==0)
-                {
-                    graphics.createtextbox("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
-                }
-                else if(ed.numcrewmates()-crewmates()==1)
-                {
-                    graphics.createtextbox("    " + help.number(ed.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox("     " + help.number(ed.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
-                }
-                graphics.textboxcenterx();
+                graphics.createtextboxflipme("     " + help.number(ed.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
             }
+            graphics.textboxcenterx();
             break;
         case 1012:
             if (!advancetext)
@@ -2644,14 +2568,7 @@ void Game::updatestate(void)
             statedelay = 75;
             music.play(7);
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 180, 164, 165, 255);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 12, 164, 165, 255);
-            }
+            graphics.createtextboxflipme("", -1, 12, 164, 165, 255);
             graphics.addline("                                   ");
             graphics.addline("");
             graphics.addline("");
@@ -2661,14 +2578,7 @@ void Game::updatestate(void)
             state++;
             statedelay = 45+15;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("  All Crew Members Rescued!  ", -1, 175-24, 0, 0, 0);
-            }
-            else
-            {
-                graphics.createtextbox("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
-            }
+            graphics.createtextboxflipme("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
             savetime = timestring();
             savetime += "." + help.twodigits(frames*100 / 30);
             break;
@@ -2678,16 +2588,8 @@ void Game::updatestate(void)
             statedelay = 45;
 
             std::string tempstring = help.number(trinkets());
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("Trinkets Found:", 48, 155-24, 0,0,0);
-                graphics.createtextbox(tempstring, 180, 155-24, 0, 0, 0);
-            }
-            else
-            {
-                graphics.createtextbox("Trinkets Found:", 48, 84, 0,0,0);
-                graphics.createtextbox(tempstring, 180, 84, 0, 0, 0);
-            }
+            graphics.createtextboxflipme("Trinkets Found:", 48, 84, 0,0,0);
+            graphics.createtextboxflipme(tempstring, 180, 84, 0, 0, 0);
             break;
         }
         case 3504:
@@ -2696,65 +2598,32 @@ void Game::updatestate(void)
             statedelay = 45+15;
 
             std::string tempstring = savetime;
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("   Game Time:", 64, 143-24, 0,0,0);
-                graphics.createtextbox(tempstring, 180, 143-24, 0, 0, 0);
-            }
-            else
-            {
-                graphics.createtextbox("   Game Time:", 64, 96, 0,0,0);
-                graphics.createtextbox(tempstring, 180, 96, 0, 0, 0);
-            }
+            graphics.createtextboxflipme("   Game Time:", 64, 96, 0,0,0);
+            graphics.createtextboxflipme(tempstring, 180, 96, 0, 0, 0);
             break;
         }
         case 3505:
             state++;
             statedelay = 45;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox(" Total Flips:", 64, 116-24, 0,0,0);
-                graphics.createtextbox(help.String(totalflips), 180, 116-24, 0, 0, 0);
-            }
-            else
-            {
-                graphics.createtextbox(" Total Flips:", 64, 123, 0,0,0);
-                graphics.createtextbox(help.String(totalflips), 180, 123, 0, 0, 0);
-            }
+            graphics.createtextboxflipme(" Total Flips:", 64, 123, 0,0,0);
+            graphics.createtextboxflipme(help.String(totalflips), 180, 123, 0, 0, 0);
             break;
         case 3506:
             state++;
             statedelay = 45+15;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("Total Deaths:", 64, 104-24, 0,0,0);
-                graphics.createtextbox(help.String(deathcounts), 180, 104-24, 0, 0, 0);
-            }
-            else
-            {
-                graphics.createtextbox("Total Deaths:", 64, 135, 0,0,0);
-                graphics.createtextbox(help.String(deathcounts), 180, 135, 0, 0, 0);
-            }
+            graphics.createtextboxflipme("Total Deaths:", 64, 135, 0,0,0);
+            graphics.createtextboxflipme(help.String(deathcounts), 180, 135, 0, 0, 0);
             break;
         case 3507:
         {
             state++;
             statedelay = 45+15;
 
-            if (graphics.flipmode)
-            {
-                std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
-                graphics.createtextbox(tempstring, -1, 81-24, 0,0,0);
-                graphics.createtextbox(hardestroom, -1, 69-24, 0, 0, 0);
-            }
-            else
-            {
-                std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
-                graphics.createtextbox(tempstring, -1, 158, 0,0,0);
-                graphics.createtextbox(hardestroom, -1, 170, 0, 0, 0);
-            }
+            std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
+            graphics.createtextboxflipme(tempstring, -1, 158, 0,0,0);
+            graphics.createtextboxflipme(hardestroom, -1, 170, 0, 0, 0);
             break;
         }
         case 3508:
