@@ -1282,8 +1282,15 @@ void Graphics::textboxadjust(void)
 }
 
 
-void Graphics::createtextbox( std::string t, int xp, int yp, int r, int g, int b)
-{
+void Graphics::createtextboxreal(
+    std::string t,
+    int xp,
+    int yp,
+    int r,
+    int g,
+    int b,
+    bool flipme
+) {
     m = textbox.size();
 
     if(m<20)
@@ -1295,9 +1302,32 @@ void Graphics::createtextbox( std::string t, int xp, int yp, int r, int g, int b
         if (xp == -1) text.xp = 160 - (((length / 2) + 1) * 8);
         text.yp = yp;
         text.initcol(r, g, b);
+        text.flipme = flipme;
         text.resize();
         textbox.push_back(text);
     }
+}
+
+void Graphics::createtextbox(
+    std::string t,
+    int xp,
+    int yp,
+    int r,
+    int g,
+    int b
+) {
+    createtextboxreal(t, xp, yp, r, g, b, false);
+}
+
+void Graphics::createtextboxflipme(
+    std::string t,
+    int xp,
+    int yp,
+    int r,
+    int g,
+    int b
+) {
+    createtextboxreal(t, xp, yp, r, g, b, true);
 }
 
 void Graphics::drawfade(void)
