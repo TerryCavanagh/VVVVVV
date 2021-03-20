@@ -634,6 +634,86 @@ void Game::savecustomlevelstats(void)
     }
 }
 
+void Game::levelcomplete_textbox(void)
+{
+    if (graphics.flipmode)
+    {
+        graphics.createtextbox("", -1, 180, 165, 165, 255);
+    }
+    else
+    {
+        graphics.createtextbox("", -1, 12, 165, 165, 255);
+    }
+    graphics.addline("                                   ");
+    graphics.addline("");
+    graphics.addline("");
+    graphics.textboxcenterx();
+}
+
+void Game::crewmate_textbox(const int r, const int g, const int b)
+{
+    if (graphics.flipmode)
+    {
+        graphics.createtextbox("", -1, 104, r, g, b);
+    }
+    else
+    {
+        graphics.createtextbox("", -1, 64 + 8 + 16, r, g, b);
+    }
+    graphics.addline("     You have rescued  ");
+    graphics.addline("      a crew member!   ");
+    graphics.addline("");
+    graphics.textboxcenterx();
+}
+
+void Game::remaining_textbox(void)
+{
+    const int remaining = 6 - crewrescued();
+    const char* string;
+    char buffer[161]; /* 4 bytes per 40 chars (whole screen) plus 1 for null terminator */
+    if (remaining == 1)
+    {
+        string = "  One remains  ";
+    }
+    else if (remaining > 0)
+    {
+        SDL_snprintf(
+            buffer,
+            sizeof(buffer),
+            "  %s remain  ",
+            help.number(remaining).c_str()
+        );
+        string = buffer;
+    }
+    else
+    {
+        string = "  All Crew Members Rescued!  ";
+    }
+
+    if (graphics.flipmode)
+    {
+        graphics.createtextbox(string, -1, 72, 174, 174, 174);
+    }
+    else
+    {
+        graphics.createtextbox(string, -1, 128 + 16, 174, 174, 174);
+    }
+    graphics.textboxcenterx();
+}
+
+void Game::actionprompt_textbox(void)
+{
+    if (graphics.flipmode)
+    {
+        graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
+    }
+    else
+    {
+        graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+    }
+    graphics.textboxcenterx();
+}
+
 void Game::updatestate(void)
 {
     statedelay--;
@@ -2180,93 +2260,25 @@ void Game::updatestate(void)
             state++;
             statedelay = 75;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
-            }
-            graphics.addline("                                   ");
-            graphics.addline("");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            levelcomplete_textbox();
             break;
         case 3007:
             state++;
             statedelay = 45;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 104, 175,174,174);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 64+8+16, 175,174,174);
-            }
-            graphics.addline("     You have rescued  ");
-            graphics.addline("      a crew member!   ");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            crewmate_textbox(175, 174, 174);
             break;
         case 3008:
-        {
             state++;
             statedelay = 45;
 
-            int temp = 6 - crewrescued();
-            if (temp == 1)
-            {
-                std::string tempstring = "  One remains  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else if (temp > 0)
-            {
-                std::string tempstring = "  " + help.number(temp) + " remain  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else
-            {
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
-                }
-            }
-            graphics.textboxcenterx();
+            remaining_textbox();
             break;
-        }
         case 3009:
             state++;
             statedelay = 0;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
-            }
-            else
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
-            }
-            graphics.textboxcenterx();
+            actionprompt_textbox();
             break;
         case 3010:
             if (jumppressed)
@@ -2290,93 +2302,25 @@ void Game::updatestate(void)
             statedelay = 75;
 
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
-            }
-            graphics.addline("                                   ");
-            graphics.addline("");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            levelcomplete_textbox();
             break;
         case 3021:
             state++;
             statedelay = 45;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 104, 174,175,174);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 64+8+16, 174,175,174);
-            }
-            graphics.addline("     You have rescued  ");
-            graphics.addline("      a crew member!   ");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            crewmate_textbox(174, 175, 174);
             break;
         case 3022:
-        {
             state++;
             statedelay = 45;
 
-            int temp = 6 - crewrescued();
-            if (temp == 1)
-            {
-                std::string tempstring = "  One remains  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else if (temp > 0)
-            {
-                std::string tempstring = "  " + help.number(temp) + " remain  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else
-            {
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
-                }
-            }
-            graphics.textboxcenterx();
+            remaining_textbox();
             break;
-        }
         case 3023:
             state++;
             statedelay = 0;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
-            }
-            else
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
-            }
-            graphics.textboxcenterx();
+            actionprompt_textbox();
             break;
         case 3024:
             if (jumppressed)
@@ -2399,93 +2343,25 @@ void Game::updatestate(void)
             state++;
             statedelay = 75;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
-            }
-            graphics.addline("                                   ");
-            graphics.addline("");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            levelcomplete_textbox();
             break;
         case 3041:
             state++;
             statedelay = 45;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 104, 174,174,175);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 64+8+16, 174,174,175);
-            }
-            graphics.addline("     You have rescued  ");
-            graphics.addline("      a crew member!   ");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            crewmate_textbox(174, 174, 175);
             break;
         case 3042:
-        {
             state++;
             statedelay = 45;
 
-            int temp = 6 - crewrescued();
-            if (temp == 1)
-            {
-                std::string tempstring = "  One remains  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else if (temp > 0)
-            {
-                std::string tempstring = "  " + help.number(temp) + " remain  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else
-            {
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
-                }
-            }
-            graphics.textboxcenterx();
+            remaining_textbox();
             break;
-        }
         case 3043:
             state++;
             statedelay = 0;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
-            }
-            else
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
-            }
-            graphics.textboxcenterx();
+            actionprompt_textbox();
             break;
         case 3044:
             if (jumppressed)
@@ -2509,93 +2385,25 @@ void Game::updatestate(void)
             statedelay = 75;
 
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
-            }
-            graphics.addline("                                   ");
-            graphics.addline("");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            levelcomplete_textbox();
             break;
         case 3051:
             state++;
             statedelay = 45;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 104, 175,175,174);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 64+8+16, 175,175,174);
-            }
-            graphics.addline("     You have rescued  ");
-            graphics.addline("      a crew member!   ");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            crewmate_textbox(175, 175, 174);
             break;
         case 3052:
-        {
             state++;
             statedelay = 45;
 
-            int temp = 6 - crewrescued();
-            if (temp == 1)
-            {
-                std::string tempstring = "  One remains  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else if (temp > 0)
-            {
-                std::string tempstring = "  " + help.number(temp) + " remain  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else
-            {
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
-                }
-            }
-            graphics.textboxcenterx();
+            remaining_textbox();
             break;
-        }
         case 3053:
             state++;
             statedelay = 0;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
-            }
-            else
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
-            }
-            graphics.textboxcenterx();
+            actionprompt_textbox();
             break;
         case 3054:
             if (jumppressed)
@@ -2643,93 +2451,25 @@ void Game::updatestate(void)
             state++;
             statedelay = 75;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 180, 165, 165, 255);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 12, 165, 165, 255);
-            }
-            graphics.addline("                                   ");
-            graphics.addline("");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            levelcomplete_textbox();
             break;
         case 3061:
             state++;
             statedelay = 45;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox("", -1, 104, 175,174,175);
-            }
-            else
-            {
-                graphics.createtextbox("", -1, 64+8+16, 175,174,175);
-            }
-            graphics.addline("     You have rescued  ");
-            graphics.addline("      a crew member!   ");
-            graphics.addline("");
-            graphics.textboxcenterx();
+            crewmate_textbox(175, 174, 175);
             break;
         case 3062:
-        {
             state++;
             statedelay = 45;
 
-            int temp = 6 - crewrescued();
-            if (temp == 1)
-            {
-                std::string tempstring = "  One remains  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else if (temp > 0)
-            {
-                std::string tempstring = "  " + help.number(temp) + " remain  ";
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox(tempstring, -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox(tempstring, -1, 128+16, 174, 174, 174);
-                }
-            }
-            else
-            {
-                if (graphics.flipmode)
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 72, 174, 174, 174);
-                }
-                else
-                {
-                    graphics.createtextbox("  All Crew Members Rescued!  ", -1, 128+16, 174, 174, 174);
-                }
-            }
-            graphics.textboxcenterx();
+            remaining_textbox();
             break;
-        }
         case 3063:
             state++;
             statedelay = 0;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
-            }
-            else
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
-            }
-            graphics.textboxcenterx();
+            actionprompt_textbox();
             break;
         case 3064:
             if (jumppressed)
@@ -3018,15 +2758,7 @@ void Game::updatestate(void)
             state++;
             statedelay = 0;
 
-            if (graphics.flipmode)
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 20, 164, 164, 255);
-            }
-            else
-            {
-                graphics.createtextbox(" Press ACTION to continue ", -1, 196, 164, 164, 255);
-            }
-            graphics.textboxcenterx();
+            actionprompt_textbox();
             break;
         case 3509:
             if (jumppressed)
