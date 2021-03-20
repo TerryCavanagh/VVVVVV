@@ -242,7 +242,6 @@ public:
     bool startscript;
     std::string newscript;
 
-    int mainmenu;
     bool menustart;
 
     //Teleporting
