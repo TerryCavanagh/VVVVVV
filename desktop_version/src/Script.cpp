@@ -2641,8 +2641,7 @@ void scriptclass::startgamemode( int t )
 		game.start();
 		game.jumpheld = true;
 		graphics.showcutscenebars = true;
-		graphics.cutscenebarspos = 320;
-		graphics.oldcutscenebarspos = 320;
+		graphics.setbars(320);
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
@@ -2908,8 +2907,7 @@ void scriptclass::startgamemode( int t )
 		game.start();
 		game.jumpheld = true;
 		graphics.showcutscenebars = true;
-		graphics.cutscenebarspos = 320;
-		graphics.oldcutscenebarspos = 320;
+		graphics.setbars(320);
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
@@ -2937,8 +2935,7 @@ void scriptclass::startgamemode( int t )
 		game.start();
 		game.jumpheld = true;
 		graphics.showcutscenebars = true;
-		graphics.cutscenebarspos = 320;
-		graphics.oldcutscenebarspos = 320;
+		graphics.setbars(320);
 
 		//set flipmode
 		if (graphics.setflipmode) graphics.flipmode = true;
@@ -3644,7 +3641,7 @@ void scriptclass::hardreset(void)
 	graphics.textbox.clear();
 	graphics.flipmode = false; //This will be reset if needs be elsewhere
 	graphics.showcutscenebars = false;
-	graphics.cutscenebarspos = 0;
+	graphics.setbars(0);
 
 	//mapclass
 	map.warpx = false;

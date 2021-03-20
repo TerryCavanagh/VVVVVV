@@ -35,8 +35,7 @@ void Graphics::init(void)
     trinketcolset = false;
 
     showcutscenebars = false;
-    cutscenebarspos = 0;
-    oldcutscenebarspos = 0;
+    setbars(0);
     notextoutline = false;
 
     flipmode = false;
@@ -1092,6 +1091,12 @@ void Graphics::cutscenebarstimer(void)
         cutscenebarspos -= 25;
         cutscenebarspos = VVV_max(cutscenebarspos, 0);
     }
+}
+
+void Graphics::setbars(const int position)
+{
+    cutscenebarspos = position;
+    oldcutscenebarspos = position;
 }
 
 void Graphics::drawcrewman( int x, int y, int t, bool act, bool noshift /*=false*/ )

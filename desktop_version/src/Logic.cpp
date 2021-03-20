@@ -71,8 +71,7 @@ void gamecompletelogic(void)
     {
         //Fix some graphical things
         graphics.showcutscenebars = false;
-        graphics.cutscenebarspos = 0;
-        graphics.oldcutscenebarspos = 0;
+        graphics.setbars(0);
         graphics.titlebg.scrolldir = 0;
         graphics.titlebg.bypos = 0;
         //Return to game
@@ -104,7 +103,7 @@ void gamecompletelogic2(void)
     {
         //Fix some graphical things
         graphics.showcutscenebars = false;
-        graphics.cutscenebarspos = 0;
+        graphics.setbars(0);
         //Fix the save thingy
         game.deletequick();
         int tmp=music.currentsong;

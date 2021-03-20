@@ -3219,8 +3219,7 @@ void Game::updatestate(void)
             map.final_colorframe = 0;
             map.finalstretch = false;
 
-            graphics.cutscenebarspos = 320;
-            graphics.oldcutscenebarspos = 320;
+            graphics.setbars(320);
 
             teleport_to_new_area = true;
             teleportscript = "gamecomplete";
