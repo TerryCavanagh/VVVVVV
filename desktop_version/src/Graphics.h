@@ -51,7 +51,31 @@ public:
 
 	void setwarprect(int a, int b, int c, int d);
 
-	void createtextbox(std::string t, int xp, int yp, int r, int g, int b);
+	void createtextboxreal(
+		std::string t,
+		int xp,
+		int yp,
+		int r,
+		int g,
+		int b,
+		bool flipme
+	);
+	void createtextbox(
+		std::string t,
+		int xp,
+		int yp,
+		int r,
+		int g,
+		int b
+	);
+	void createtextboxflipme(
+		std::string t,
+		int xp,
+		int yp,
+		int r,
+		int g,
+		int b
+	);
 
 	void textboxcenterx(void);
 
