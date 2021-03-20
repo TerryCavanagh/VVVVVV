@@ -21,10 +21,6 @@ textboxclass::textboxclass(void)
     tg = 0;
     tb = 0;
     max = 0;
-    textrect.x = 0;
-    textrect.y = 0;
-    textrect.w = 0;
-    textrect.h = 0;
 }
 
 void textboxclass::centerx(void)
@@ -121,10 +117,6 @@ void textboxclass::resize(void)
     lw = max;
     w = (max +2) * 8;
     h = (line.size() + 2) * 8;
-    textrect.x = xp;
-    textrect.y = yp;
-    textrect.w = w;
-    textrect.h = h;
 }
 
 void textboxclass::addline(std::string t)
