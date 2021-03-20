@@ -43,6 +43,8 @@ public:
 
     int max;
 
+    /* Whether to flip text box y-position in Flip Mode. */
+    bool flipme;
 };
 
 #endif /* TEXTBOX_H */

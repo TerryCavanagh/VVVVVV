@@ -21,6 +21,8 @@ textboxclass::textboxclass(void)
     tg = 0;
     tb = 0;
     max = 0;
+
+    flipme = false;
 }
 
 void textboxclass::centerx(void)
