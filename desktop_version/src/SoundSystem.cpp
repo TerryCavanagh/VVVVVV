@@ -1,6 +1,7 @@
 #include "SoundSystem.h"
 
 #include <SDL.h>
+#include <stdio.h>
 
 #include "FileSystemUtils.h"
 
