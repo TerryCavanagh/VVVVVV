@@ -835,6 +835,7 @@ void Graphics::drawgui(void)
     {
         int text_yoff;
         int yp;
+        bool opaque;
         if (flipmode)
         {
             text_yoff = textbox[i].line.size() * 8;
@@ -854,7 +855,7 @@ void Graphics::drawgui(void)
         float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
         textbox[i].setcol(textbox[i].tr * tl_lerp, textbox[i].tg * tl_lerp, textbox[i].tb * tl_lerp);
 
-        if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
+        if (textbox[i].tr == 0 && textbox[i].tg == 0 && textbox[i].tb == 0)
         {
             for (size_t j = 0; j < textbox[i].line.size(); j++)
             {
@@ -888,11 +889,14 @@ void Graphics::drawgui(void)
             }
         }
 
-        // Only draw special images when fully opaque
-        // This prevents flashes of special images during delta frames
-        bool drawspecial = textbox[i].tl >= 1.0;
+        opaque = textbox[i].tl >= 1.0;
 
-        if (textbox[i].yp == 12 && textbox[i].r == 165 && drawspecial)
+        if (!opaque)
+        {
+            continue;
+        }
+
+        if (textbox[i].yp == 12 && textbox[i].tr == 165)
         {
             if (flipmode)
             {
@@ -903,7 +907,7 @@ void Graphics::drawgui(void)
                 drawimage(0, 0, 12, true);
             }
         }
-        else if (textbox[i].yp == 12 && textbox[i].g == 165 && drawspecial)
+        else if (textbox[i].yp == 12 && textbox[i].tg == 165)
         {
             if (flipmode)
             {
@@ -914,27 +918,27 @@ void Graphics::drawgui(void)
                 drawimage(4, 0, 12, true);
             }
         }
-        if (textbox[i].r == 175 && textbox[i].g == 175 && drawspecial)
+        if (textbox[i].tr == 175 && textbox[i].tg == 175)
         {
             //purple guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
         }
-        else if (textbox[i].r == 175 && textbox[i].b == 175 && drawspecial)
+        else if (textbox[i].tr == 175 && textbox[i].tb == 175)
         {
             //red guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
         }
-        else if (textbox[i].r == 175 && drawspecial)
+        else if (textbox[i].tr == 175)
         {
             //green guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
         }
-        else if (textbox[i].g == 175 && drawspecial)
+        else if (textbox[i].tg == 175)
         {
             //yellow guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
         }
-        else if (textbox[i].b == 175 && drawspecial)
+        else if (textbox[i].tb == 175)
         {
             //blue guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - int(fRandom()*20));
