@@ -249,7 +249,7 @@ static const struct ImplFunc unfocused_func_list[] = {
 };
 static const struct ImplFunc* unfocused_funcs = unfocused_func_list;
 static int num_unfocused_funcs = SDL_arraysize(unfocused_func_list);
-static int unfocused_func_index = -1;
+static int unfocused_func_index = 0; // This does not get incremented on start, do NOT use -1!
 
 static enum IndexCode increment_unfocused_func_index(void)
 {
