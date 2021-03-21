@@ -891,7 +891,7 @@ void Graphics::drawgui(void)
         // This prevents flashes of special images during delta frames
         bool drawspecial = textbox[i].tl >= 1.0;
 
-        if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].r == 165 && drawspecial)
+        if (textbox[i].yp == 12 && textbox[i].r == 165 && drawspecial)
         {
             if (flipmode)
             {
@@ -902,7 +902,7 @@ void Graphics::drawgui(void)
                 drawimage(0, 0, 12, true);
             }
         }
-        else if ((textbox[i].yp == 12 || textbox[i].yp == 180) && textbox[i].g == 165 && drawspecial)
+        else if (textbox[i].yp == 12 && textbox[i].g == 165 && drawspecial)
         {
             if (flipmode)
             {
