@@ -130,7 +130,7 @@ void gamerenderfixed(void)
     {
         if (map.custommode && !map.custommodeforreal)
         {
-            if (game.gametimer % 3 == 0)
+            if (game.frames % 3 == 0)
             {
                 int i = obj.getplayer();
                 GhostInfo ghost;
