@@ -612,7 +612,6 @@ int main(int argc, char *argv[])
 #endif
 
     key.isActive = true;
-    game.gametimer = 0;
 
     gamestate_funcs = get_gamestate_funcs(game.gamestate, &num_gamestate_funcs);
     loop_assign_active_funcs();
@@ -747,7 +746,6 @@ static void focused_begin(void)
 {
     Mix_Resume(-1);
     Mix_ResumeMusic();
-    game.gametimer++;
 }
 
 static void focused_end(void)

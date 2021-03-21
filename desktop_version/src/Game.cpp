@@ -352,7 +352,6 @@ void Game::init(void)
     skipfakeload = false;
 
     ghostsenabled = false;
-    gametimer = 0;
 
     cliplaytest = false;
     playx = 0;
