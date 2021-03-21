@@ -242,8 +242,10 @@ static enum IndexCode increment_gamestate_func_index(void)
 static void unfocused_run(void);
 
 static const struct ImplFunc unfocused_func_list[] = {
-    Func_input, /* we still need polling when unfocused */
-    unfocused_run
+    {
+        Func_input, /* we still need polling when unfocused */
+        unfocused_run
+    }
 };
 static const struct ImplFunc* unfocused_funcs = unfocused_func_list;
 static int num_unfocused_funcs = SDL_arraysize(unfocused_func_list);
