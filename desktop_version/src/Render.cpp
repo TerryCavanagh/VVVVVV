@@ -535,7 +535,7 @@ static void menurender(void)
             break;
         case 2:
             graphics.bigprint( -1, 40, "Text Outline", tr, tg, tb, true);
-            graphics.Print( -1, 75, "Disables outline on game text", tr, tg, tb, true);
+            graphics.Print( -1, 75, "Disables outline on game text.", tr, tg, tb, true);
             // FIXME: Maybe do an outlined print instead? -flibit
             if (!graphics.notextoutline)
             {
