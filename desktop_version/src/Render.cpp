@@ -556,7 +556,7 @@ static void menurender(void)
             }
             else
             {
-                graphics.Print( -1, 105, "Invincibility is off.", tr/2, tg/2, tb/2, true);
+                graphics.Print( -1, 105, "Invincibility is OFF.", tr/2, tg/2, tb/2, true);
             }
             break;
         case 4:
