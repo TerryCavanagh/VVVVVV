@@ -412,8 +412,6 @@ void Game::clearcustomlevelstats(void)
 {
     //just clearing the array
     customlevelstats.clear();
-
-    customlevelstatsloaded=false; //To ensure we don't load it where it isn't needed
 }
 
 
@@ -475,11 +473,6 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
 
 void Game::loadcustomlevelstats(void)
 {
-    if(customlevelstatsloaded)
-    {
-        return;
-    }
-
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc))
     {

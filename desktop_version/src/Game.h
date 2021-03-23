@@ -416,7 +416,6 @@ public:
     void updatecustomlevelstats(std::string clevel, int cscore);
 
     std::vector<CustomLevelStat> customlevelstats;
-    bool customlevelstatsloaded;
 
 
     std::vector<SDL_GameControllerButton> controllerButton_map;
