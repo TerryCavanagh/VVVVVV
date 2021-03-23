@@ -955,7 +955,7 @@ void Graphics::drawgui(void)
         if (textbox[i].tr == 175 && textbox[i].tg == 175)
         {
             //purple guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - int(fRandom()*20), 120- help.glow/4, 210 - help.glow/4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 120- help.glow/4, 210 - help.glow/4);
         }
         else if (textbox[i].tr == 175 && textbox[i].tb == 175)
         {
@@ -965,17 +965,17 @@ void Graphics::drawgui(void)
         else if (textbox[i].tr == 175)
         {
             //green guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - int(fRandom() * 20), 220 - help.glow / 4, 120 - help.glow / 4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - textbox[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
         }
         else if (textbox[i].tg == 175)
         {
             //yellow guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - int(fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 210 - help.glow/4, 120- help.glow/4);
         }
         else if (textbox[i].tb == 175)
         {
             //blue guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - int(fRandom()*20));
+            drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textbox[i].rand);
         }
     }
 }
@@ -991,6 +991,16 @@ void Graphics::updatetextboxes(void)
             textbox.erase(textbox.begin() + i);
             i--;
             continue;
+        }
+
+        if (textbox[i].tl >= 1.0f
+        && ((textbox[i].tr == 175 && textbox[i].tg == 175)
+        || textbox[i].tr == 175
+        || textbox[i].tg == 175
+        || textbox[i].tb == 175)
+        && (textbox[i].tr != 175 || textbox[i].tb != 175))
+        {
+            textbox[i].rand = fRandom() * 20;
         }
     }
 }
