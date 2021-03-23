@@ -23,6 +23,8 @@ textboxclass::textboxclass(void)
     max = 0;
 
     flipme = false;
+
+    rand = 0;
 }
 
 void textboxclass::centerx(void)

@@ -45,6 +45,8 @@ public:
 
     /* Whether to flip text box y-position in Flip Mode. */
     bool flipme;
+
+    int rand;
 };
 
 #endif /* TEXTBOX_H */
