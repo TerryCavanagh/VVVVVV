@@ -5187,175 +5187,140 @@ void Game::customloadquick(std::string savfile)
 
 }
 
+struct Summary
+{
+    const char* summary;
+    int seconds;
+    int minutes;
+    int hours;
+    int savex;
+    int savey;
+    int trinkets;
+    bool finalmode;
+    bool crewstats[Game::numcrew];
+};
+
+static void loadthissummary(
+    struct Summary* summary,
+    tinyxml2::XMLDocument& doc
+) {
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLHandle hRoot(NULL);
+
+
+    {
+        pElem=hDoc.FirstChildElement().ToElement();
+        // should always have a valid root but handle gracefully if it does
+        if (!pElem)
+        {
+            vlog_error("Save Not Found");
+        }
+
+        // save this for later
+        hRoot=tinyxml2::XMLHandle(pElem);
+    }
+    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+    {
+        const char* pKey = pElem->Value();
+        const char* pText = pElem->GetText() ;
+
+        if (pText == NULL)
+        {
+            pText = "";
+        }
+
+        if (SDL_strcmp(pKey, "summary") == 0)
+        {
+            summary->summary = pText;
+        }
+
+        else if (SDL_strcmp(pKey, "seconds") == 0)
+        {
+            summary->seconds = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "minutes") == 0)
+        {
+            summary->minutes = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hours") == 0)
+        {
+            summary->hours = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "saverx") == 0)
+        {
+            summary->savex = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "savery") == 0)
+        {
+            summary->savey = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "trinkets") == 0)
+        {
+            summary->trinkets = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "finalmode") == 0)
+        {
+            map.finalmode = help.Int(pText);
+        }
+
+        LOAD_ARRAY_RENAME(crewstats, summary->crewstats)
+    }
+}
+
 void Game::loadsummary(void)
 {
-    tinyxml2::XMLDocument docTele;
-    if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", docTele))
+    tinyxml2::XMLDocument doc;
+
+    if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc))
     {
         telesummary = "";
     }
     else
     {
-        tinyxml2::XMLHandle hDoc(&docTele);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
+        struct Summary summary;
+        SDL_zero(summary);
 
+        loadthissummary(&summary, doc);
 
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            // should always have a valid root but handle gracefully if it does
-            if (!pElem)
-            {
-                vlog_error("Save Not Found");
-            }
-
-            // save this for later
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-        int l_minute, l_second, l_hours;
-        l_minute = l_second= l_hours = 0;
-        int l_saveX = 0;
-        int l_saveY = 0;
-        for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
-        {
-            const char* pKey = pElem->Value();
-            const char* pText = pElem->GetText() ;
-
-            if (pText == NULL)
-            {
-                pText = "";
-            }
-
-            if (SDL_strcmp(pKey, "summary") == 0)
-            {
-                telesummary = pText;
-            }
-
-            else if (SDL_strcmp(pKey, "seconds") == 0)
-            {
-                l_second = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "minutes") == 0)
-            {
-                l_minute = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "hours") == 0)
-            {
-                l_hours = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "savery") == 0)
-            {
-                l_saveY = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "saverx") == 0)
-            {
-                l_saveX = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "trinkets") == 0)
-            {
-                tele_trinkets = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "finalmode") == 0)
-            {
-                map.finalmode = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "finalstretch") == 0)
-            {
-                map.finalstretch = help.Int(pText);
-            }
-
-            LOAD_ARRAY_RENAME(crewstats, tele_crewstats)
-
-        }
-        tele_gametime = giventimestring(l_hours,l_minute, l_second);
-        tele_currentarea = map.currentarea(map.area(l_saveX, l_saveY));
+        telesummary = summary.summary;
+        tele_gametime = giventimestring(
+            summary.hours,
+            summary.minutes,
+            summary.seconds
+        );
+        map.finalmode = summary.finalmode;
+        tele_currentarea = map.currentarea(
+            map.area(summary.savex, summary.savey)
+        );
+        SDL_memcpy(tele_crewstats, summary.crewstats, sizeof(tele_crewstats));
+        tele_trinkets = summary.trinkets;
     }
 
-    tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc))
     {
         quicksummary = "";
     }
     else
     {
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
+        struct Summary summary;
+        SDL_zero(summary);
 
+        loadthissummary(&summary, doc);
 
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            // should always have a valid root but handle gracefully if it does
-            if (!pElem)
-            {
-                vlog_error("Save Not Found");
-            }
-
-            // save this for later
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-        int l_minute, l_second, l_hours;
-        l_minute = l_second= l_hours = 0;
-        int l_saveX = 0;
-        int l_saveY = 0;
-        for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
-        {
-            const char* pKey = pElem->Value();
-            const char* pText = pElem->GetText() ;
-
-            if (pText == NULL)
-            {
-                pText = "";
-            }
-
-            if (SDL_strcmp(pKey, "summary") == 0)
-            {
-                quicksummary = pText;
-            }
-
-            else if (SDL_strcmp(pKey, "seconds") == 0)
-            {
-                l_second = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "minutes") == 0)
-            {
-                l_minute = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "hours") == 0)
-            {
-                l_hours = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "savery") == 0)
-            {
-                l_saveY = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "saverx") == 0)
-            {
-                l_saveX = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "trinkets") == 0)
-            {
-                quick_trinkets = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "finalmode") == 0)
-            {
-                map.finalmode = help.Int(pText);
-            }
-            else if (SDL_strcmp(pKey, "finalstretch") == 0)
-            {
-                map.finalstretch = help.Int(pText);
-            }
-
-            LOAD_ARRAY_RENAME(crewstats, quick_crewstats)
-
-        }
-
-        quick_gametime = giventimestring(l_hours,l_minute, l_second);
-        quick_currentarea = map.currentarea(map.area(l_saveX, l_saveY));
+        quicksummary = summary.summary;
+        quick_gametime = giventimestring(
+            summary.hours,
+            summary.minutes,
+            summary.seconds
+        );
+        map.finalmode = summary.finalmode;
+        quick_currentarea = map.currentarea(
+            map.area(summary.savex, summary.savey)
+        );
+        SDL_memcpy(quick_crewstats, summary.crewstats, sizeof(quick_crewstats));
+        quick_trinkets = summary.trinkets;
     }
-
-
-
 }
 
 void Game::initteleportermode(void)
