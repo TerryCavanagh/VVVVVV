@@ -98,6 +98,52 @@ static bool GetButtonFromString(const char *pText, SDL_GameControllerButton *but
     return false;
 }
 
+static const char* get_summary(
+    const char* filename,
+    const char* save,
+    tinyxml2::XMLDocument& doc
+) {
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLHandle hRoot(NULL);
+    bool success;
+    const char* retval = "";
+
+    success = FILESYSTEM_loadTiXml2Document(filename, doc);
+    if (!success)
+    {
+        vlog_info("%s Not Found", save);
+        return "";
+    }
+
+    pElem = hDoc.FirstChildElement().ToElement();
+
+    if (!pElem)
+    {
+        vlog_error("%s Appears Corrupted: No XML Root", save);
+    }
+
+    // save this for later
+    hRoot = tinyxml2::XMLHandle(pElem);
+
+    for (pElem = hRoot.FirstChildElement("Data").FirstChild().ToElement(); pElem; pElem = pElem->NextSiblingElement())
+    {
+        const char* pKey = pElem->Value();
+        const char* pText = pElem->GetText();
+
+        if (pText == NULL)
+        {
+            pText = "";
+        }
+
+        if (SDL_strcmp(pKey, "summary") == 0)
+        {
+            retval = pText;
+        }
+    }
+
+    return retval;
+}
 
 void Game::init(void)
 {
@@ -270,89 +316,11 @@ void Game::init(void)
     saveFilePath = FILESYSTEM_getUserSaveDirectory();
 
     tinyxml2::XMLDocument doc;
-    if (!FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc))
-    {
-        quicksummary = "";
-        vlog_info("Quick Save Not Found");
-    }
-    else
-    {
-        tinyxml2::XMLHandle hDoc(&doc);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-        pElem=hDoc.FirstChildElement().ToElement();
-        if (!pElem)
-        {
-            vlog_error("Quick Save Appears Corrupted: No XML Root");
-        }
-
-        // save this for later
-        hRoot=tinyxml2::XMLHandle(pElem);
-
-        for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
-        {
-            const char* pKey = pElem->Value();
-            const char* pText = pElem->GetText() ;
-
-            if (pText == NULL)
-            {
-                pText = "";
-            }
-
-            if (SDL_strcmp(pKey, "summary") == 0)
-            {
-                quicksummary = pText;
-            }
-
-
-        }
-    }
+    quicksummary = get_summary("saves/qsave.vvv", "Quick Save", doc);
 
 
     tinyxml2::XMLDocument docTele;
-    if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", docTele))
-    {
-        telesummary = "";
-        vlog_info("Teleporter Save Not Found");
-    }
-    else
-    {
-        tinyxml2::XMLHandle hDoc(&docTele);
-        tinyxml2::XMLElement* pElem;
-        tinyxml2::XMLHandle hRoot(NULL);
-
-
-        {
-            pElem=hDoc.FirstChildElement().ToElement();
-            // should always have a valid root but handle gracefully if it does
-            if (!pElem)
-            {
-                vlog_error("Teleporter Save Appears Corrupted: No XML Root");
-            }
-
-            // save this for later
-            hRoot=tinyxml2::XMLHandle(pElem);
-        }
-
-        for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
-        {
-            const char* pKey = pElem->Value();
-            const char* pText = pElem->GetText() ;
-
-            if (pText == NULL)
-            {
-                pText = "";
-            }
-
-            if (SDL_strcmp(pKey, "summary") == 0)
-            {
-                telesummary = pText;
-            }
-
-
-        }
-    }
+    telesummary = get_summary("saves/tsave.vvv", "Teleporter Save", doc);
 
     screenshake = flashlight = 0 ;
 
