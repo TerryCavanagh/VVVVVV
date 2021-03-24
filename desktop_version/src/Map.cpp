@@ -721,34 +721,46 @@ int mapclass::area(int _rx, int _ry)
 	}
 }
 
+bool mapclass::isexplored(const int rx, const int ry)
+{
+	const int roomnum = rx + ry*20;
+	return explored[roomnum];
+}
+
+void mapclass::setexplored(const int rx, const int ry, const bool status)
+{
+	const int roomnum = rx + ry*20;
+	explored[roomnum] = status;
+}
+
 void mapclass::exploretower(void)
 {
 	for (int i = 0; i < 20; i++)
 	{
-		explored[9 + (i * 20)] = 1;
+		setexplored(9, i, true);
 	}
 }
 
 void mapclass::hideship(void)
 {
 	//remove the ship from the explored areas
-	explored[2 + (10 * 20)] = 0;
-	explored[3 + (10 * 20)] = 0;
-	explored[4 + (10 * 20)] = 0;
-	explored[2 + (11 * 20)] = 0;
-	explored[3 + (11 * 20)] = 0;
-	explored[4 + (11 * 20)] = 0;
+	setexplored(2, 10, false);
+	setexplored(3, 10, false);
+	setexplored(4, 10, false);
+	setexplored(2, 11, false);
+	setexplored(3, 11, false);
+	setexplored(4, 11, false);
 }
 
 void mapclass::showship(void)
 {
-	//remove the ship from the explored areas
-	explored[2 + (10 * 20)] = 1;
-	explored[3 + (10 * 20)] = 1;
-	explored[4 + (10 * 20)] = 1;
-	explored[2 + (11 * 20)] = 1;
-	explored[3 + (11 * 20)] = 1;
-	explored[4 + (11 * 20)] = 1;
+	//show the ship in the explored areas
+	setexplored(2, 10, true);
+	setexplored(3, 10, true);
+	setexplored(4, 10, true);
+	setexplored(2, 11, true);
+	setexplored(3, 11, true);
+	setexplored(4, 11, true);
 }
 
 void mapclass::resetplayer(void)
@@ -1148,7 +1160,7 @@ void mapclass::loadlevel(int rx, int ry)
 	int t;
 	if (!finalmode)
 	{
-		explored[rx - 100 + ((ry - 100) * 20)] = true;
+		setexplored(rx - 100, ry - 100, true);
 		if (rx == 109 && !custommode)
 		{
 			exploretower();

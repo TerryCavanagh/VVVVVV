@@ -1813,7 +1813,7 @@ void maprender(void)
           if(map.customzoom==4){
             for (int j = 0; j < map.customheight; j++){
               for (int i = 0; i < map.customwidth; i++){
-                if(map.explored[i+(j*20)]==0){
+                if(!map.isexplored(i, j)){
                   //Draw the fog of war on the map
                   graphics.drawimage(2, map.custommmxoff+40 + (i * 48), map.custommmyoff+21 + (j * 36), false);
                   graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48), map.custommmyoff+21 + (j * 36), false);
@@ -1840,7 +1840,7 @@ void maprender(void)
           }else if(map.customzoom==2){
             for (int j = 0; j < map.customheight; j++){
               for (int i = 0; i < map.customwidth; i++){
-                if(map.explored[i+(j*20)]==0){
+                if(!map.isexplored(i, j)){
                   //Draw the fog of war on the map
                   graphics.drawimage(2, map.custommmxoff+40 + (i * 24), map.custommmyoff+21 + (j * 18), false);
                   graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 24), map.custommmyoff+21 + (j * 18), false);
@@ -1852,7 +1852,7 @@ void maprender(void)
           }else{
             for (int j = 0; j < map.customheight; j++){
               for (int i = 0; i < map.customwidth; i++){
-                if(map.explored[i+(j*20)]==0){
+                if(!map.isexplored(i, j)){
                   //Draw the fog of war on the map
                   graphics.drawimage(2, map.custommmxoff+40 + (i * 12), map.custommmyoff+21 + (j * 9), false);
                 }
@@ -1923,7 +1923,7 @@ void maprender(void)
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    if(map.explored[i+(j*20)]==0)
+                    if(!map.isexplored(i, j))
                     {
                         //Draw the fog of war on the map
                         graphics.drawimage(2, 40 + (i * 12), 21 + (j * 9), false);
@@ -1973,15 +1973,15 @@ void maprender(void)
             //draw legend details
             for (size_t i = 0; i < map.teleporters.size(); i++)
             {
-                if (map.showteleporters && map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)] > 0)
+                if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
                 {
-                    int temp = 1126 + map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)];
+                    int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
                     if (graphics.flipmode) temp += 3;
                     graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
                 }
-                else if(map.showtargets && map.explored[map.teleporters[i].x+(20*map.teleporters[i].y)]==0)
+                else if(map.showtargets && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
                 {
-                    int temp = 1126 + map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)];
+                    int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
                     if (graphics.flipmode) temp += 3;
                     graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
                 }
@@ -2492,9 +2492,8 @@ void teleporterrender(void)
     {
         for (int i = 0; i < 20; i++)
         {
-            if(map.explored[i+(j*20)]==0)
+            if(!map.isexplored(i, j))
             {
-                //graphics.drawfillrect(10 + (i * 12), 21 + (j * 9), 12, 9, 16, 16, 16);
                 graphics.drawimage(2, 40 + (i * 12), 21 + (j * 9), false);
             }
         }
@@ -2525,15 +2524,15 @@ void teleporterrender(void)
     //draw legend details
     for (size_t i = 0; i < map.teleporters.size(); i++)
     {
-        if (map.showteleporters && map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)] > 0)
+        if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            temp = 1126 + map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)];
+            temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
             if (graphics.flipmode) temp += 3;
             graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
         }
-        else if(map.showtargets && map.explored[map.teleporters[i].x+(20*map.teleporters[i].y)]==0)
+        else if(map.showtargets && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            temp = 1126 + map.explored[map.teleporters[i].x + (20 * map.teleporters[i].y)];
+            temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
             if (graphics.flipmode) temp += 3;
             graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
         }

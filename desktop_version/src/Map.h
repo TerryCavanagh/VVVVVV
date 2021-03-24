@@ -92,6 +92,9 @@ public:
     bool explored[20 * 20];
     int vmult[30];
 
+    bool isexplored(const int rx, const int ry);
+    void setexplored(const int rx, const int ry, const bool status);
+
     int background;
     int rcol;
     int tileset;

@@ -2413,7 +2413,7 @@ void teleporterinput(void)
             {
                 point& tele = map.teleporters[i];
 
-                if (map.explored[tele.x + tele.y*20])
+                if (map.isexplored(tele.x, tele.y))
                 {
                     any_tele_unlocked = true;
                     break;
@@ -2430,7 +2430,7 @@ void teleporterinput(void)
                 tempx = map.teleporters[game.teleport_to_teleporter].x;
                 tempy = map.teleporters[game.teleport_to_teleporter].y;
             }
-            while (map.explored[tempx + (20 * tempy)] == 0);
+            while (!map.isexplored(tempx, tempy));
         }
         else if (game.press_right && any_tele_unlocked)
         {
@@ -2441,7 +2441,7 @@ void teleporterinput(void)
                 tempx = map.teleporters[game.teleport_to_teleporter].x;
                 tempy = map.teleporters[game.teleport_to_teleporter].y;
             }
-            while (map.explored[tempx + (20 * tempy)] == 0);
+            while (!map.isexplored(tempx, tempy));
         }
 
         if (game.press_map)
