@@ -1336,8 +1336,7 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "ifexplored")
 			{
-				int room = ss_toi(words[1]) + (20 * ss_toi(words[2]));
-				if (INBOUNDS_ARR(room, map.explored) && map.explored[room] == 1)
+				if (map.isexplored(ss_toi(words[1]), ss_toi(words[2])))
 				{
 					load(words[3]);
 					position--;
@@ -1395,19 +1394,11 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "hidecoordinates")
 			{
-				int room = ss_toi(words[1]) + (20 * ss_toi(words[2]));
-				if (INBOUNDS_ARR(room, map.explored))
-				{
-					map.explored[room] = false;
-				}
+				map.setexplored(ss_toi(words[1]), ss_toi(words[2]), false);
 			}
 			else if (words[0] == "showcoordinates")
 			{
-				int room = ss_toi(words[1]) + (20 * ss_toi(words[2]));
-				if (INBOUNDS_ARR(room, map.explored))
-				{
-					map.explored[room] = true;
-				}
+				map.setexplored(ss_toi(words[1]), ss_toi(words[2]), true);
 			}
 			else if (words[0] == "hideship")
 			{
@@ -1419,25 +1410,25 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "showsecretlab")
 			{
-				map.explored[16 + (20 * 5)] = 1;
-				map.explored[17 + (20 * 5)] = 1;
-				map.explored[18 + (20 * 5)] = 1;
-				map.explored[17 + (20 * 6)] = 1;
-				map.explored[18 + (20 * 6)] = 1;
-				map.explored[19 + (20 * 6)] = 1;
-				map.explored[19 + (20 * 7)] = 1;
-				map.explored[19 + (20 * 8)] = 1;
+				map.setexplored(16, 5, true);
+				map.setexplored(17, 5, true);
+				map.setexplored(18, 5, true);
+				map.setexplored(17, 6, true);
+				map.setexplored(18, 6, true);
+				map.setexplored(19, 6, true);
+				map.setexplored(19, 7, true);
+				map.setexplored(19, 8, true);
 			}
 			else if (words[0] == "hidesecretlab")
 			{
-				map.explored[16 + (20 * 5)] = 0;
-				map.explored[17 + (20 * 5)] = 0;
-				map.explored[18 + (20 * 5)] = 0;
-				map.explored[17 + (20 * 6)] = 0;
-				map.explored[18 + (20 * 6)] = 0;
-				map.explored[19 + (20 * 6)] = 0;
-				map.explored[19 + (20 * 7)] = 0;
-				map.explored[19 + (20 * 8)] = 0;
+				map.setexplored(16, 5, false);
+				map.setexplored(17, 5, false);
+				map.setexplored(18, 5, false);
+				map.setexplored(17, 6, false);
+				map.setexplored(18, 6, false);
+				map.setexplored(19, 6, false);
+				map.setexplored(19, 7, false);
+				map.setexplored(19, 8, false);
 			}
 			else if (words[0] == "showteleporters")
 			{
@@ -2969,7 +2960,7 @@ void scriptclass::startgamemode( int t )
 			obj.collect[j] = true;
 			for (i = 0; i < 20; i++)
 			{
-				map.explored[i + (j * 20)] = 1;
+				map.setexplored(i, j, true);
 			}
 		}
 		game.insecretlab = true;
