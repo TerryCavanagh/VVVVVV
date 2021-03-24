@@ -1895,10 +1895,6 @@ void Graphics::drawentity(const int i, const int yoff)
         // Note: This code is in the 4-tile code
         break;
     case 9:         // Really Big Sprite! (2x2)
-        if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
-        {
-            return;
-        }
         setcolreal(obj.entities[i].realcol);
 
         tpoint.x = xp;
@@ -1907,7 +1903,10 @@ void Graphics::drawentity(const int i, const int yoff)
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
-        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+        if (INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
+        {
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+        }
 
         tpoint.x = xp+32;
         tpoint.y = yp - yoff;
@@ -1915,7 +1914,10 @@ void Graphics::drawentity(const int i, const int yoff)
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
-        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+        if (INBOUNDS_VEC(obj.entities[i].drawframe+1, spritesvec))
+        {
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+        }
 
         tpoint.x = xp;
         tpoint.y = yp+32 - yoff;
@@ -1923,7 +1925,10 @@ void Graphics::drawentity(const int i, const int yoff)
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
-        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
+        if (INBOUNDS_VEC(obj.entities[i].drawframe+12, spritesvec))
+        {
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+12],NULL, backBuffer, &drawRect, ct);
+        }
 
         tpoint.x = xp+32;
         tpoint.y = yp+32 - yoff;
@@ -1931,13 +1936,12 @@ void Graphics::drawentity(const int i, const int yoff)
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
-        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
+        if (INBOUNDS_VEC(obj.entities[i].drawframe+13, spritesvec))
+        {
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe + 13],NULL, backBuffer, &drawRect, ct);
+        }
         break;
     case 10:         // 2x1 Sprite
-        if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
-        {
-            return;
-        }
         setcolreal(obj.entities[i].realcol);
 
         tpoint.x = xp;
@@ -1946,7 +1950,10 @@ void Graphics::drawentity(const int i, const int yoff)
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
-        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+        if (INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
+        {
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+        }
 
         tpoint.x = xp+32;
         tpoint.y = yp - yoff;
@@ -1954,17 +1961,16 @@ void Graphics::drawentity(const int i, const int yoff)
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
-        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+        if (INBOUNDS_VEC(obj.entities[i].drawframe+1, spritesvec))
+        {
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe+1],NULL, backBuffer, &drawRect, ct);
+        }
         break;
     case 11:    //The fucking elephant
         setcolreal(obj.entities[i].realcol);
         drawimagecol(3, xp, yp - yoff);
         break;
     case 12:         // Regular sprites that don't wrap
-        if (!INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
-        {
-            return;
-        }
         tpoint.x = xp;
         tpoint.y = yp - yoff;
         setcolreal(obj.entities[i].realcol);
@@ -1972,7 +1978,10 @@ void Graphics::drawentity(const int i, const int yoff)
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
-        BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+        if (INBOUNDS_VEC(obj.entities[i].drawframe, spritesvec))
+        {
+            BlitSurfaceColoured(spritesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, ct);
+        }
 
 
         //if we're outside the screen, we need to draw indicators
@@ -1994,7 +2003,10 @@ void Graphics::drawentity(const int i, const int yoff)
             drawRect = tiles_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured(tiles[1167],NULL, backBuffer, &drawRect, ct);
+            if (INBOUNDS_VEC(1167, tiles))
+            {
+                BlitSurfaceColoured(tiles[1167],NULL, backBuffer, &drawRect, ct);
+            }
 
         }
         else if (obj.entities[i].xp > 340 && obj.entities[i].vx < 0)
@@ -2014,7 +2026,10 @@ void Graphics::drawentity(const int i, const int yoff)
             drawRect = tiles_rect;
             drawRect.x += tpoint.x;
             drawRect.y += tpoint.y;
-            BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
+            if (INBOUNDS_VEC(1166, tiles))
+            {
+                BlitSurfaceColoured(tiles[1166],NULL, backBuffer, &drawRect, ct);
+            }
         }
         break;
     case 13:
