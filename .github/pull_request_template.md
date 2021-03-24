@@ -29,8 +29,7 @@ Describe your patch here!
 
 By submitting this pull request, I confirm that...
 
-- [ ] My changes may be used in a future commercial release of VVVVVV (for
-  example, a 2.3 update on Steam for Windows/macOS/Linux)
+- [ ] My changes may be used in a future commercial release of VVVVVV
 - [ ] I will be credited in a `CONTRIBUTORS` file and the "GitHub Friends"
   section of the credits for all of said releases, but will NOT be compensated
   for these changes
