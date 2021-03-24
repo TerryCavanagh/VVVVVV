@@ -4005,8 +4005,6 @@ void Game::loadstats(ScreenSettings* screen_settings)
         // Save unlock.vvv only. Maybe we have a settings.vvv laying around too,
         // and we don't want to overwrite that!
         savestats(screen_settings);
-
-        vlog_info("No Stats found. Assuming a new player");
     }
 
     tinyxml2::XMLHandle hDoc(&doc);
@@ -4550,7 +4548,7 @@ void Game::loadsettings(ScreenSettings* screen_settings)
     if (!FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc))
     {
         savesettings(screen_settings);
-        vlog_info("No settings.vvv found");
+        return;
     }
 
     tinyxml2::XMLHandle hDoc(&doc);
