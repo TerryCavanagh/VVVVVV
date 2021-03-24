@@ -203,7 +203,7 @@ public:
 
     void loadsummary(void);
 
-    void readmaingamesave(tinyxml2::XMLDocument& doc);
+    void readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc);
     std::string writemaingamesave(tinyxml2::XMLDocument& doc);
 
     void initteleportermode(void);

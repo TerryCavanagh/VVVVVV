@@ -100,33 +100,34 @@ static bool GetButtonFromString(const char *pText, SDL_GameControllerButton *but
 
 static const char* get_summary(
     const char* filename,
-    const char* save,
+    const char* savename,
     tinyxml2::XMLDocument& doc
 ) {
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
     bool success;
     const char* retval = "";
 
     success = FILESYSTEM_loadTiXml2Document(filename, doc);
     if (!success)
     {
-        vlog_info("%s Not Found", save);
-        return "";
+        vlog_info("%s not found", savename);
+        goto end;
     }
 
-    pElem = hDoc.FirstChildElement().ToElement();
-
-    if (!pElem)
+    if (doc.Error())
     {
-        vlog_error("%s Appears Corrupted: No XML Root", save);
+        vlog_error("Error parsing %s: %s", savename, doc.ErrorStr());
+        goto end;
     }
 
-    // save this for later
-    hRoot = tinyxml2::XMLHandle(pElem);
-
-    for (pElem = hRoot.FirstChildElement("Data").FirstChild().ToElement(); pElem; pElem = pElem->NextSiblingElement())
+    for (pElem = hDoc
+        .FirstChildElement()
+        .FirstChildElement("Data")
+        .FirstChildElement()
+        .ToElement();
+    pElem != NULL;
+    pElem = pElem->NextSiblingElement())
     {
         const char* pKey = pElem->Value();
         const char* pText = pElem->GetText();
@@ -142,6 +143,7 @@ static const char* get_summary(
         }
     }
 
+end:
     return retval;
 }
 
@@ -316,11 +318,11 @@ void Game::init(void)
     saveFilePath = FILESYSTEM_getUserSaveDirectory();
 
     tinyxml2::XMLDocument doc;
-    quicksummary = get_summary("saves/qsave.vvv", "Quick Save", doc);
+    quicksummary = get_summary("saves/qsave.vvv", "qsave.vvv", doc);
 
 
     tinyxml2::XMLDocument docTele;
-    telesummary = get_summary("saves/tsave.vvv", "Teleporter Save", doc);
+    telesummary = get_summary("saves/tsave.vvv", "tsave.vvv", doc);
 
     screenshake = flashlight = 0 ;
 
@@ -460,6 +462,8 @@ void Game::deletecustomlevelstats(void)
 void Game::loadcustomlevelstats(void)
 {
     tinyxml2::XMLDocument doc;
+    tinyxml2::XMLHandle hDoc(&doc);
+
     if (!FILESYSTEM_loadTiXml2Document("saves/levelstats.vvv", doc))
     {
         //No levelstats file exists; start new
@@ -468,29 +472,28 @@ void Game::loadcustomlevelstats(void)
         return;
     }
 
+    if (doc.Error())
+    {
+        vlog_error("Error parsing levelstats.vvv: %s", doc.ErrorStr());
+        return;
+    }
+
     // Old system
     std::vector<std::string> customlevelnames;
     std::vector<int> customlevelscores;
 
-    tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
+    tinyxml2::XMLElement* firstElement;
 
-    {
-        pElem=hDoc.FirstChildElement().ToElement();
-        // should always have a valid root but handle gracefully if it does
-        if (!pElem)
-        {
-            vlog_error("Error: Levelstats file corrupted");
-        }
-
-        // save this for later
-        hRoot=tinyxml2::XMLHandle(pElem);
-    }
+    firstElement = hDoc
+        .FirstChildElement()
+        .FirstChildElement("Data")
+        .FirstChildElement()
+        .ToElement();
 
     // First pass, look for the new system of storing stats
     // If they don't exist, then fall back to the old system
-    for (pElem = hRoot.FirstChildElement("Data").FirstChild().ToElement(); pElem; pElem = pElem->NextSiblingElement())
+    for (pElem = firstElement; pElem != NULL; pElem = pElem->NextSiblingElement())
     {
         const char* pKey = pElem->Value();
         const char* pText = pElem->GetText();
@@ -524,7 +527,7 @@ void Game::loadcustomlevelstats(void)
 
 
     // Since we're still here, we must be on the old system
-    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+    for (pElem = firstElement; pElem; pElem=pElem->NextSiblingElement())
     {
         const char* pKey = pElem->Value();
         const char* pText = pElem->GetText() ;
@@ -574,6 +577,11 @@ void Game::savecustomlevelstats(void)
     if (!already_exists)
     {
         vlog_info("No levelstats.vvv found. Creating new file");
+    }
+    else if (doc.Error())
+    {
+        vlog_error("Error parsing existing levelstats.vvv: %s", doc.ErrorStr());
+        vlog_info("Creating new levelstats.vvv");
     }
 
     xml::update_declaration(doc);
@@ -4000,34 +4008,31 @@ void Game::unlocknum( int t )
 void Game::loadstats(ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLElement* dataNode;
+
     if (!FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc))
     {
         // Save unlock.vvv only. Maybe we have a settings.vvv laying around too,
         // and we don't want to overwrite that!
         savestats(screen_settings);
+        return;
     }
 
-    tinyxml2::XMLHandle hDoc(&doc);
-    tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
-
-
+    if (doc.Error())
     {
-        pElem=hDoc.FirstChildElement().ToElement();
-        // should always have a valid root but handle gracefully if it does
-        if (!pElem)
-        {
-
-        }
-        ;
-
-        // save this for later
-        hRoot=tinyxml2::XMLHandle(pElem);
+        vlog_error("Error parsing unlock.vvv: %s", doc.ErrorStr());
+        return;
     }
 
-    tinyxml2::XMLElement* dataNode = hRoot.FirstChildElement("Data").FirstChild().ToElement();
+    dataNode = hDoc
+        .FirstChildElement()
+        .FirstChildElement("Data")
+        .FirstChildElement()
+        .ToElement();
 
-    for( pElem = dataNode; pElem; pElem=pElem->NextSiblingElement())
+    for (pElem = dataNode; pElem != NULL; pElem=pElem->NextSiblingElement())
     {
         const char* pKey = pElem->Value();
         const char* pText = pElem->GetText() ;
@@ -4325,6 +4330,11 @@ bool Game::savestats(const ScreenSettings* screen_settings)
     {
         vlog_info("No unlock.vvv found. Creating new file");
     }
+    else if (doc.Error())
+    {
+        vlog_error("Error parsing existing unlock.vvv: %s", doc.ErrorStr());
+        vlog_info("Creating new unlock.vvv");
+    }
 
     xml::update_declaration(doc);
 
@@ -4545,29 +4555,26 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
 void Game::loadsettings(ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* dataNode;
+
     if (!FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc))
     {
         savesettings(screen_settings);
         return;
     }
 
-    tinyxml2::XMLHandle hDoc(&doc);
-    tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
-
+    if (doc.Error())
     {
-        pElem = hDoc.FirstChildElement().ToElement();
-        // should always have a valid root but handle gracefully if it doesn't
-        if (!pElem)
-        {
-        }
-        ;
-
-        // save this for later
-        hRoot = tinyxml2::XMLHandle(pElem);
+        vlog_error("Error parsing settings.vvv: %s", doc.ErrorStr());
+        return;
     }
 
-    tinyxml2::XMLElement* dataNode = hRoot.FirstChildElement("Data").FirstChild().ToElement();
+    dataNode = hDoc
+        .FirstChildElement()
+        .FirstChildElement("Data")
+        .FirstChildElement()
+        .ToElement();
 
     deserializesettings(dataNode, screen_settings);
 }
@@ -4592,6 +4599,11 @@ bool Game::savesettings(const ScreenSettings* screen_settings)
     if (!already_exists)
     {
         vlog_info("No settings.vvv found. Creating new file");
+    }
+    else if (doc.Error())
+    {
+        vlog_error("Error parsing existing settings.vvv: %s", doc.ErrorStr());
+        vlog_info("Creating new settings.vvv");
     }
 
     xml::update_declaration(doc);
@@ -4827,32 +4839,30 @@ void Game::loadquick(void)
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc)) return;
 
-    readmaingamesave(doc);
+    readmaingamesave("qsave.vvv", doc);
 }
 
-void Game::readmaingamesave(tinyxml2::XMLDocument& doc)
+void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
 {
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
 
-
+    if (doc.Error())
     {
-        pElem=hDoc.FirstChildElement().ToElement();
-        // should always have a valid root but handle gracefully if it does
-        if (!pElem)
-        {
-            vlog_error("Save Not Found");
-        }
-
-        // save this for later
-        hRoot=tinyxml2::XMLHandle(pElem);
+        vlog_error("Error parsing %s: %s", savename, doc.ErrorStr());
+        return;
     }
 
-    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+    for (pElem = hDoc
+        .FirstChildElement()
+        .FirstChildElement("Data")
+        .FirstChildElement()
+        .ToElement();
+    pElem != NULL;
+    pElem = pElem->NextSiblingElement())
     {
-        const char* pKey = pElem->Value();;
-        const char* pText = pElem->GetText() ;
+        const char* pKey = pElem->Value();
+        const char* pText = pElem->GetText();
         if(pText == NULL)
         {
             pText = "";
@@ -4997,7 +5007,13 @@ void Game::readmaingamesave(tinyxml2::XMLDocument& doc)
 
 void Game::customloadquick(std::string savfile)
 {
-    if (cliplaytest) {
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    std::string levelfile;
+
+    if (cliplaytest)
+    {
         savex = playx;
         savey = playy;
         saverx = playrx;
@@ -5007,28 +5023,26 @@ void Game::customloadquick(std::string savfile)
         return;
     }
 
-    std::string levelfile = savfile.substr(7);
-    tinyxml2::XMLDocument doc;
-    if (!FILESYSTEM_loadTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc)) return;
-
-    tinyxml2::XMLHandle hDoc(&doc);
-    tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
-
-
+    levelfile = savfile.substr(7);
+    if (!FILESYSTEM_loadTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))
     {
-        pElem=hDoc.FirstChildElement().ToElement();
-        // should always have a valid root but handle gracefully if it does
-        if (!pElem)
-        {
-            vlog_error("Save Not Found");
-        }
-
-        // save this for later
-        hRoot=tinyxml2::XMLHandle(pElem);
+        vlog_error("%s.vvv not found", levelfile.c_str());
+        return;
     }
 
-    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+    if (doc.Error())
+    {
+        vlog_error("Error parsing %s.vvv: %s", levelfile.c_str(), doc.ErrorStr());
+        return;
+    }
+
+    for (pElem = hDoc
+        .FirstChildElement()
+        .FirstChildElement("Data")
+        .FirstChildElement()
+        .ToElement();
+    pElem != NULL;
+    pElem = pElem->NextSiblingElement())
     {
         const char* pKey = pElem->Value();
         const char* pText = pElem->GetText() ;
@@ -5199,29 +5213,34 @@ struct Summary
 };
 
 static void loadthissummary(
+    const char* filename,
     struct Summary* summary,
     tinyxml2::XMLDocument& doc
 ) {
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
 
-
+    if (doc.Error())
     {
-        pElem=hDoc.FirstChildElement().ToElement();
-        // should always have a valid root but handle gracefully if it does
-        if (!pElem)
-        {
-            vlog_error("Save Not Found");
-        }
-
-        // save this for later
-        hRoot=tinyxml2::XMLHandle(pElem);
+        vlog_error("Error parsing %s: %s", filename, doc.ErrorStr());
+        return;
     }
-    for( pElem = hRoot.FirstChildElement( "Data" ).FirstChild().ToElement(); pElem; pElem=pElem->NextSiblingElement())
+
+    for (pElem = hDoc
+        .FirstChildElement()
+        .FirstChildElement("Data")
+        .FirstChildElement()
+        .ToElement();
+    pElem != NULL;
+    pElem = pElem->NextSiblingElement())
     {
         const char* pKey = pElem->Value();
-        const char* pText = pElem->GetText() ;
+        const char* pText = pElem->GetText();
+
+        if (pText == NULL)
+        {
+            pText = "";
+        }
 
         if (pText == NULL)
         {
@@ -5279,7 +5298,7 @@ void Game::loadsummary(void)
         struct Summary summary;
         SDL_zero(summary);
 
-        loadthissummary(&summary, doc);
+        loadthissummary("tsave.vvv", &summary, doc);
 
         telesummary = summary.summary;
         tele_gametime = giventimestring(
@@ -5304,7 +5323,7 @@ void Game::loadsummary(void)
         struct Summary summary;
         SDL_zero(summary);
 
-        loadthissummary(&summary, doc);
+        loadthissummary("qsave.vvv", &summary, doc);
 
         quicksummary = summary.summary;
         quick_gametime = giventimestring(
@@ -5349,6 +5368,12 @@ bool Game::savetele(void)
     {
         vlog_info("No tsave.vvv found. Creating new file");
     }
+    else if (doc.Error())
+    {
+        vlog_error("Error parsing existing tsave.vvv: %s", doc.ErrorStr());
+        vlog_info("Creating new tsave.vvv");
+    }
+
     telesummary = writemaingamesave(doc);
 
     if(!FILESYSTEM_saveTiXml2Document("saves/tsave.vvv", doc))
@@ -5376,6 +5401,12 @@ bool Game::savequick(void)
     {
         vlog_info("No qsave.vvv found. Creating new file");
     }
+    else if (doc.Error())
+    {
+        vlog_error("Error parsing existing qsave.vvv: %s", doc.ErrorStr());
+        vlog_info("Creating new qsave.vvv");
+    }
+
     quicksummary = writemaingamesave(doc);
 
     if(!FILESYSTEM_saveTiXml2Document("saves/qsave.vvv", doc))
@@ -5513,6 +5544,11 @@ bool Game::customsavequick(std::string savfile)
     {
         vlog_info("No %s.vvv found. Creating new file", levelfile.c_str());
     }
+    else if (doc.Error())
+    {
+        vlog_error("Error parsing existing %s.vvv: %s", levelfile.c_str(), doc.ErrorStr());
+        vlog_info("Creating new %s.vvv", levelfile.c_str());
+    }
 
     xml::update_declaration(doc);
 
@@ -5648,7 +5684,7 @@ void Game::loadtele(void)
     tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc)) return;
 
-    readmaingamesave(doc);
+    readmaingamesave("tsave.vvv", doc);
 }
 
 std::string Game::unrescued(void)
