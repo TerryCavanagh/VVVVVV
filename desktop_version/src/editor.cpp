@@ -540,7 +540,7 @@ const short* editorclass::loadlevel( int rxi, int ryi )
     {
         for (int i = 0; i < 40; i++)
         {
-            result[i + j*40] = contents[i+(rxi*40)+vmult[j+(ryi*30)]];
+            result[i + j*40] = gettile(rxi, ryi, i, j);
         }
     }
 
@@ -941,12 +941,64 @@ int editorclass::getenemyframe(int t)
     }
 }
 
+int editorclass::gettileidx(
+    const int rx,
+    const int ry,
+    const int x,
+    const int y
+) {
+    const int yoff = y + ry*30;
+    int mult;
+    int idx;
+
+    mult = vmult[yoff];
+
+    idx = x + rx*40 + mult;
+
+    return idx;
+}
+
+void editorclass::settile(
+    const int rx,
+    const int ry,
+    const int x,
+    const int y,
+    const int t
+) {
+    const int idx = gettileidx(rx, ry, x, y);
+
+    contents[idx] = t;
+}
+
+int editorclass::gettile(
+    const int rx,
+    const int ry,
+    const int x,
+    const int y
+) {
+    const int idx = gettileidx(rx, ry, x, y);
+
+    return contents[idx];
+}
+
+int editorclass::getabstile(const int x, const int y)
+{
+    int idx;
+    int yoff;
+
+    yoff = vmult[y];
+
+    idx = x + yoff;
+
+    return contents[idx];
+}
+
 
 void editorclass::placetilelocal( int x, int y, int t )
 {
     if(x>=0 && y>=0 && x<40 && y<30)
     {
-        contents[x+(levx*40)+vmult[y+(levy*30)]]=t;
+        settile(levx, levy, x, y, t);
     }
     updatetiles=true;
 }
@@ -1082,7 +1134,7 @@ int editorclass::at( int x, int y )
 
     if(x>=0 && y>=0 && x<40 && y<30)
     {
-        return contents[x+(levx*40)+vmult[y+(levy*30)]];
+        return gettile(levx, levy, x, y);
     }
     return 0;
 }
@@ -1097,17 +1149,17 @@ int editorclass::freewrap( int x, int y )
 
     if(x>=0 && y>=0 && x<(mapwidth*40) && y<(mapheight*30))
     {
-        if(contents[x+vmult[y]]==0)
+        if(getabstile(x, y)==0)
         {
             return 0;
         }
         else
         {
-            if(contents[x+vmult[y]]>=2 && contents[x+vmult[y]]<80)
+            if(getabstile(x, y)>=2 && getabstile(x, y)<80)
             {
                 return 0;
             }
-            if(contents[x+vmult[y]]>=680)
+            if(getabstile(x, y)>=680)
             {
                 return 0;
             }
@@ -1126,7 +1178,7 @@ int editorclass::backonlyfree( int x, int y )
 
     if(x>=0 && y>=0 && x<40 && y<30)
     {
-        if(contents[x+(levx*40)+vmult[y+(levy*30)]]>=680)
+        if(gettile(levx, levy, x, y)>=680)
         {
             return 1;
         }
@@ -1144,7 +1196,7 @@ int editorclass::backfree( int x, int y )
 
     if(x>=0 && y>=0 && x<40 && y<30)
     {
-        if(contents[x+(levx*40)+vmult[y+(levy*30)]]==0)
+        if(gettile(levx, levy, x, y)==0)
         {
             return 0;
         }
@@ -1162,13 +1214,13 @@ int editorclass::spikefree( int x, int y )
 
     if(x>=0 && y>=0 && x<40 && y<30)
     {
-        if(contents[x+(levx*40)+vmult[y+(levy*30)]]==0)
+        if(gettile(levx, levy, x, y)==0)
         {
             return 0;
         }
         else
         {
-            if(contents[x+(levx*40)+vmult[y+(levy*30)]]>=680)
+            if(gettile(levx, levy, x, y)>=680)
             {
                 return 0;
             }
@@ -1187,17 +1239,17 @@ int editorclass::free( int x, int y )
 
     if(x>=0 && y>=0 && x<40 && y<30)
     {
-        if(contents[x+(levx*40)+vmult[y+(levy*30)]]==0)
+        if(gettile(levx, levy, x, y)==0)
         {
             return 0;
         }
         else
         {
-            if(contents[x+(levx*40)+vmult[y+(levy*30)]]>=2 && contents[x+(levx*40)+vmult[y+(levy*30)]]<80)
+            if(gettile(levx, levy, x, y)>=2 && gettile(levx, levy, x, y)<80)
             {
                 return 0;
             }
-            if(contents[x+(levx*40)+vmult[y+(levy*30)]]>=680)
+            if(gettile(levx, levy, x, y)>=680)
             {
                 return 0;
             }
@@ -1211,17 +1263,17 @@ int editorclass::absfree( int x, int y )
     //Returns 0 if tile is not a block, 1 otherwise, abs on grid
     if(x>=0 && y>=0 && x<mapwidth*40 && y<mapheight*30)
     {
-        if(contents[x+vmult[y]]==0)
+        if(getabstile(x, y)==0)
         {
             return 0;
         }
         else
         {
-            if(contents[x+vmult[y]]>=2 && contents[x+vmult[y]]<80)
+            if(getabstile(x, y)>=2 && getabstile(x, y)<80)
             {
                 return 0;
             }
-            if(contents[x+vmult[y]]>=680)
+            if(getabstile(x, y)>=680)
             {
                 return 0;
             }
@@ -1998,7 +2050,7 @@ bool editorclass::save(std::string& _path)
     {
         for(int x = 0; x < mapwidth*40; x++ )
         {
-            contentsString += help.String(contents[x + (maxwidth*40*y)]) + ",";
+            contentsString += help.String(getabstile(x, y)) + ",";
         }
     }
     xml::update_tag(data, "contents", contentsString.c_str());
@@ -2473,7 +2525,7 @@ void editorrender(void)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp=ed.contents[i + (ed.levx*40) + ed.vmult[j+(ed.levy*30)]];
+                temp=ed.gettile(ed.levx, ed.levy, i, j);
                 if(temp>0) graphics.drawtile(i*8,j*8,temp);
             }
         }
@@ -2484,7 +2536,7 @@ void editorrender(void)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp=ed.contents[i + (ed.levx*40) + ed.vmult[j+(ed.levy*30)]];
+                temp=ed.gettile(ed.levx, ed.levy, i, j);
                 if(temp>0) graphics.drawtile2(i*8,j*8,temp);
             }
         }
@@ -5401,7 +5453,7 @@ void editorinput(void)
 
                 if(key.middlebutton)
                 {
-                    ed.dmtile=ed.contents[ed.tilex + (ed.levx*40) + ed.vmult[ed.tiley + (ed.levy*30)]];
+                    ed.dmtile=ed.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley);
                 }
             }
         }
@@ -5418,21 +5470,33 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
-                    if(ed.contents[temp]>=3 && ed.contents[temp]<80)
+                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.contents[temp]=ed.spikedir(i,j);
+                        ed.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
-                    else if(ed.contents[temp]==2 || ed.contents[temp]>=680)
+                    else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.contents[temp]=ed.backedgetile(i,j)+ed.backbase(ed.levx,ed.levy);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.backedgetile(i, j) + ed.backbase(ed.levx, ed.levy)
+                        );
                     }
-                    else if(ed.contents[temp]>0)
+                    else if(temp>0)
                     {
                         //Fix tiles
-                        ed.contents[temp]=ed.edgetile(i,j)+ed.base(ed.levx,ed.levy);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                        );
                     }
                 }
             }
@@ -5442,21 +5506,33 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
-                    if(ed.contents[temp]>=3 && ed.contents[temp]<80)
+                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.contents[temp]=ed.spikedir(i,j);
+                        ed.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
-                    else if(ed.contents[temp]==2 || ed.contents[temp]>=680)
+                    else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.contents[temp]=ed.outsideedgetile(i,j)+ed.backbase(ed.levx,ed.levy);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.outsideedgetile(i, j) + ed.backbase(ed.levx, ed.levy)
+                        );
                     }
-                    else if(ed.contents[temp]>0)
+                    else if(temp>0)
                     {
                         //Fix tiles
-                        ed.contents[temp]=ed.edgetile(i,j)+ed.base(ed.levx,ed.levy);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                        );
                     }
                 }
             }
@@ -5466,21 +5542,37 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
-                    if(ed.contents[temp]>=3 && ed.contents[temp]<80)
+                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.contents[temp]=ed.labspikedir(i,j, ed.level[ed.levx + (ed.maxwidth*ed.levy)].tilecol);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.labspikedir(
+                                i,
+                                j,
+                                ed.level[ed.levx + (ed.maxwidth*ed.levy)].tilecol
+                            )
+                        );
                     }
-                    else if(ed.contents[temp]==2 || ed.contents[temp]>=680)
+                    else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.contents[temp]=713;
+                        ed.settile(ed.levx, ed.levy, i, j, 713);
                     }
-                    else if(ed.contents[temp]>0)
+                    else if(temp>0)
                     {
                         //Fix tiles
-                        ed.contents[temp]=ed.edgetile(i,j)+ed.base(ed.levx,ed.levy);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                        );
                     }
                 }
             }
@@ -5490,21 +5582,27 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
-                    if(ed.contents[temp]>=3 && ed.contents[temp]<80)
+                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.contents[temp]=ed.spikedir(i,j);
+                        ed.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
-                    else if(ed.contents[temp]==2 || ed.contents[temp]>=680)
+                    else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.contents[temp]=713;
+                        ed.settile(ed.levx, ed.levy, i, j, 713);
                     }
-                    else if(ed.contents[temp]>0)
+                    else if(temp>0)
                     {
                         //Fix tiles
-                        ed.contents[temp]=ed.edgetile(i,j)+ed.base(ed.levx,ed.levy);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                        );
                     }
                 }
             }
@@ -5514,21 +5612,33 @@ void editorinput(void)
             {
                 for(int i=0; i<40; i++)
                 {
-                    int temp=i+(ed.levx*40) + ed.vmult[j+(ed.levy*30)];
-                    if(ed.contents[temp]>=3 && ed.contents[temp]<80)
+                    int temp=ed.gettile(ed.levx, ed.levy, i, j);
+                    if(temp>=3 && temp<80)
                     {
                         //Fix spikes
-                        ed.contents[temp]=ed.spikedir(i,j);
+                        ed.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
-                    else if(ed.contents[temp]==2 || ed.contents[temp]>=680)
+                    else if(temp==2 || temp>=680)
                     {
                         //Fix background
-                        ed.contents[temp]=ed.backedgetile(i,j)+ed.backbase(ed.levx,ed.levy);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.backedgetile(i, j) + ed.backbase(ed.levx, ed.levy)
+                        );
                     }
-                    else if(ed.contents[temp]>0)
+                    else if(temp>0)
                     {
                         //Fix tiles
-                        ed.contents[temp]=ed.edgetile(i,j)+ed.base(ed.levx,ed.levy);
+                        ed.settile(
+                            ed.levx,
+                            ed.levy,
+                            i,
+                            j,
+                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                        );
                     }
                 }
             }
