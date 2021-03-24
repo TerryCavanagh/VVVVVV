@@ -951,7 +951,14 @@ int editorclass::gettileidx(
     int mult;
     int idx;
 
-    mult = vmult[yoff];
+    if (INBOUNDS_ARR(yoff, vmult))
+    {
+        mult = vmult[yoff];
+    }
+    else
+    {
+        mult = 0;
+    }
 
     idx = x + rx*40 + mult;
 
@@ -967,6 +974,11 @@ void editorclass::settile(
 ) {
     const int idx = gettileidx(rx, ry, x, y);
 
+    if (!INBOUNDS_ARR(idx, contents))
+    {
+        return;
+    }
+
     contents[idx] = t;
 }
 
@@ -978,6 +990,11 @@ int editorclass::gettile(
 ) {
     const int idx = gettileidx(rx, ry, x, y);
 
+    if (!INBOUNDS_ARR(idx, contents))
+    {
+        return 0;
+    }
+
     return contents[idx];
 }
 
@@ -986,9 +1003,21 @@ int editorclass::getabstile(const int x, const int y)
     int idx;
     int yoff;
 
-    yoff = vmult[y];
+    if (INBOUNDS_ARR(y, vmult))
+    {
+        yoff = vmult[y];
+    }
+    else
+    {
+        yoff = 0;
+    }
 
     idx = x + yoff;
+
+    if (!INBOUNDS_ARR(idx, contents))
+    {
+        return 0;
+    }
 
     return contents[idx];
 }
