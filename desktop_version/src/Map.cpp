@@ -724,13 +724,20 @@ int mapclass::area(int _rx, int _ry)
 bool mapclass::isexplored(const int rx, const int ry)
 {
 	const int roomnum = rx + ry*20;
-	return explored[roomnum];
+	if (INBOUNDS_ARR(roomnum, explored))
+	{
+		return explored[roomnum];
+	}
+	return false;
 }
 
 void mapclass::setexplored(const int rx, const int ry, const bool status)
 {
 	const int roomnum = rx + ry*20;
-	explored[roomnum] = status;
+	if (INBOUNDS_ARR(roomnum, explored))
+	{
+		explored[roomnum] = status;
+	}
 }
 
 void mapclass::exploretower(void)
