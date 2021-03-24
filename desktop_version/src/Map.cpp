@@ -1571,24 +1571,11 @@ void mapclass::loadlevel(int rx, int ry)
 #if !defined(NO_CUSTOM_LEVELS)
 	case 12: //Custom level
 	{
-		const int curlevel = rx-100 + (ry-100) * ed.maxwidth;
-		const edlevelclass* room_ptr = NULL;
-		if (!INBOUNDS_ARR(curlevel, ed.level))
-		{
-			static edlevelclass blank;
-			blank.tileset = 1;
-			room_ptr = &blank;
-		}
-		else
-		{
-			room_ptr = &ed.level[curlevel];
-		}
-		const edlevelclass& room = *room_ptr;
-
-		game.customcol = ed.getlevelcol(curlevel) + 1;
+		const edlevelclass* const room = ed.getroomprop(rx - 100, ry - 100);
+		game.customcol = ed.getlevelcol(room->tileset, room->tilecol) + 1;
 		obj.customplatformtile = game.customcol * 12;
 
-		switch (room.tileset)
+		switch (room->tileset)
 		{
 		case 0: // Space Station
 			tileset = 0;
@@ -1601,7 +1588,7 @@ void mapclass::loadlevel(int rx, int ry)
 		case 2: // Lab
 			tileset = 1;
 			background = 2;
-			graphics.rcol = room.tilecol;
+			graphics.rcol = room->tilecol;
 			break;
 		case 3: // Warp Zone/intermission
 			tileset = 1;
@@ -1624,7 +1611,7 @@ void mapclass::loadlevel(int rx, int ry)
 			graphics.backgrounddrawn = false;
 		}
 
-		switch (room.warpdir)
+		switch (room->warpdir)
 		{
 		case 1:
 			warpx = true;
@@ -1644,7 +1631,7 @@ void mapclass::loadlevel(int rx, int ry)
 			break;
 		}
 
-		roomname = room.roomname;
+		roomname = room->roomname;
 		extrarow = 1;
 		const short* tmap = ed.loadlevel(rx, ry);
 		SDL_memcpy(contents, tmap, sizeof(contents));
@@ -1680,17 +1667,17 @@ void mapclass::loadlevel(int rx, int ry)
 			{
 				if (enemy)
 				{
-					bx1 = room.enemyx1;
-					by1 = room.enemyy1;
-					bx2 = room.enemyx2;
-					by2 = room.enemyy2;
+					bx1 = room->enemyx1;
+					by1 = room->enemyy1;
+					bx2 = room->enemyx2;
+					by2 = room->enemyy2;
 				}
 				else if (moving_plat)
 				{
-					bx1 = room.platx1;
-					by1 = room.platy1;
-					bx2 = room.platx2;
-					by2 = room.platy2;
+					bx1 = room->platx1;
+					by1 = room->platy1;
+					bx2 = room->platx2;
+					by2 = room->platy2;
 				}
 
 				// Enlarge bounding boxes to fix warping entities
@@ -1709,13 +1696,13 @@ void mapclass::loadlevel(int rx, int ry)
 			switch (ent.t)
 			{
 			case 1: // Enemies
-				obj.customenemy = room.enemytype;
+				obj.customenemy = room->enemytype;
 				obj.createentity(ex, ey, 56, ent.p1, 4, bx1, by1, bx2, by2);
 				break;
 			case 2: // Platforms and conveyors
 				if (ent.p1 <= 4)
 				{
-					obj.createentity(ex, ey, 2, ent.p1, room.platv, bx1, by1, bx2, by2);
+					obj.createentity(ex, ey, 2, ent.p1, room->platv, bx1, by1, bx2, by2);
 				}
 				else if (ent.p1 >= 5 && ent.p1 <= 8) // Conveyor
 				{

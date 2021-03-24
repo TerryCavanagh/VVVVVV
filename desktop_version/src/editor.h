@@ -41,15 +41,29 @@ public:
 };
 
 
+#define ROOM_PROPERTIES \
+  FOREACH_PROP(tileset, int) \
+  FOREACH_PROP(tilecol, int) \
+  FOREACH_PROP(roomname, std::string) \
+  FOREACH_PROP(warpdir, int) \
+  FOREACH_PROP(platx1, int) \
+  FOREACH_PROP(platy1, int) \
+  FOREACH_PROP(platx2, int) \
+  FOREACH_PROP(platy2, int) \
+  FOREACH_PROP(platv, int) \
+  FOREACH_PROP(enemyx1, int) \
+  FOREACH_PROP(enemyy1, int) \
+  FOREACH_PROP(enemyx2, int) \
+  FOREACH_PROP(enemyy2, int) \
+  FOREACH_PROP(enemytype, int) \
+  FOREACH_PROP(directmode, int)
+
 class edlevelclass{
 public:
   edlevelclass(void);
-  int tileset, tilecol;
-  std::string roomname;
-  int warpdir;
-  int platx1, platy1, platx2, platy2, platv;
-  int enemyx1, enemyy1, enemyx2, enemyy2, enemytype;
-  int directmode;
+#define FOREACH_PROP(NAME, TYPE) TYPE NAME;
+  ROOM_PROPERTIES
+#undef FOREACH_PROP
 };
 
 struct LevelMetaData
@@ -141,6 +155,13 @@ class editorclass{
   );
   int getabstile(const int x, const int y);
 
+  int getroompropidx(const int rx, const int ry);
+  const edlevelclass* getroomprop(const int rx, const int ry);
+#define FOREACH_PROP(NAME, TYPE) \
+  void setroom##NAME(const int rx, const int ry, const TYPE NAME);
+  ROOM_PROPERTIES
+#undef FOREACH_PROP
+
   void placetilelocal(int x, int y, int t);
 
   int getenemyframe(int t);
@@ -184,7 +205,7 @@ class editorclass{
   int findcrewmate(int t);
   int findwarptoken(int t);
   void findstartpoint(void);
-  int getlevelcol(int t);
+  int getlevelcol(const int tileset, const int tilecol);
   int getenemycol(int t);
   int entcol;
   Uint32 entcolreal;
