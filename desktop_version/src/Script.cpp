@@ -117,38 +117,36 @@ void scriptclass::run(void)
 			{
 				int temprx=ss_toi(words[1])-1;
 				int tempry=ss_toi(words[2])-1;
-				int curlevel=temprx+(ed.maxwidth*(tempry));
-				bool inbounds = INBOUNDS_ARR(curlevel, ed.level);
-				if (inbounds)
-				{
-					ed.level[curlevel].warpdir=ss_toi(words[3]);
-				}
+				const edlevelclass* room;
+				ed.setroomwarpdir(temprx, tempry, ss_toi(words[3]));
+
+				room = ed.getroomprop(temprx, tempry);
 
 				//Do we update our own room?
-				if(inbounds && game.roomx-100==temprx && game.roomy-100==tempry){
+				if(game.roomx-100==temprx && game.roomy-100==tempry){
 					//If screen warping, then override all that:
 					graphics.backgrounddrawn = false;
 					map.warpx=false; map.warpy=false;
-					if(ed.level[curlevel].warpdir==0){
+					if(room->warpdir==0){
 						map.background = 1;
 						//Be careful, we could be in a Lab or Warp Zone room...
-						if(ed.level[curlevel].tileset==2){
+						if(room->tileset==2){
 							//Lab
 							map.background = 2;
-							graphics.rcol = ed.level[curlevel].tilecol;
-						}else if(ed.level[curlevel].tileset==3){
+							graphics.rcol = room->tilecol;
+						}else if(room->tileset==3){
 							//Warp Zone
 							map.background = 6;
 						}
-					}else if(ed.level[curlevel].warpdir==1){
+					}else if(room->warpdir==1){
 						map.warpx=true;
 						map.background=3;
 						graphics.rcol = ed.getwarpbackground(temprx,tempry);
-					}else if(ed.level[curlevel].warpdir==2){
+					}else if(room->warpdir==2){
 						map.warpy=true;
 						map.background=4;
 						graphics.rcol = ed.getwarpbackground(temprx,tempry);
-					}else if(ed.level[curlevel].warpdir==3){
+					}else if(room->warpdir==3){
 						map.warpx=true; map.warpy=true;
 						map.background = 5;
 						graphics.rcol = ed.getwarpbackground(temprx,tempry);
@@ -157,8 +155,8 @@ void scriptclass::run(void)
 			}
 			if (words[0] == "ifwarp")
 			{
-				int room = ss_toi(words[1])-1+(ed.maxwidth*(ss_toi(words[2])-1));
-				if (INBOUNDS_ARR(room, ed.level) && ed.level[room].warpdir == ss_toi(words[3]))
+				const edlevelclass* const room = ed.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
+				if (room->warpdir == ss_toi(words[3]))
 				{
 					load("custom_"+words[4]);
 					position--;
