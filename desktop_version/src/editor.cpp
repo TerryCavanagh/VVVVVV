@@ -1032,13 +1032,28 @@ const edlevelclass* editorclass::getroomprop(const int rx, const int ry)
 {
     const int idx = getroompropidx(rx, ry);
 
-    return &level[idx];
+    if (INBOUNDS_ARR(idx, level))
+    {
+        return &level[idx];
+    }
+
+    static edlevelclass blank;
+    blank.tileset = 1;
+    blank.directmode = 1;
+    blank.roomname.clear();
+
+    return &blank;
 }
 
 #define FOREACH_PROP(NAME, TYPE) \
 void editorclass::setroom##NAME(const int rx, const int ry, const TYPE NAME) \
 { \
     const int idx = getroompropidx(rx, ry); \
+    \
+    if (!INBOUNDS_ARR(idx, level)) \
+    { \
+        return; \
+    } \
     \
     level[idx].NAME = NAME; \
 }
