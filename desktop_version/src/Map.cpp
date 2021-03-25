@@ -1491,7 +1491,6 @@ void mapclass::loadlevel(int rx, int ry)
 		tower.minitowermode = true;
 		graphics.towerbg.scrolldir = 0;
 		setbgobjlerp(graphics.towerbg);
-		final_colorframe = 2;
 
 		roomname = "The Final Challenge";
 		tileset = 1;
@@ -1537,7 +1536,6 @@ void mapclass::loadlevel(int rx, int ry)
 		tower.minitowermode = true;
 		graphics.towerbg.scrolldir = 0;
 		setbgobjlerp(graphics.towerbg);
-		final_colorframe = 2;
 
 		roomname = "The Final Challenge";
 		tileset = 1;
