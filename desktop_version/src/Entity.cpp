@@ -2005,7 +2005,8 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         //2 - colour
         entity.rule = 3;
         entity.type = 55;
-        if(customcrewmoods[int(vy)]==1){
+        if(INBOUNDS_ARR((int) vy, customcrewmoods)
+        && customcrewmoods[int(vy)]==1){
           entity.tile = 144;
         }else{
           entity.tile = 0;
