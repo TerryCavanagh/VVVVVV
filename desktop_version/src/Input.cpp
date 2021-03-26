@@ -188,10 +188,15 @@ static void toggleflipmode(void)
     }
 }
 
+static bool fadetomode = false;
+static int fadetomodedelay = 0;
+
 static void startmode(const int mode)
 {
     game.mainmenu = mode;
     graphics.fademode = 2; /* fading out */
+    fadetomode = true;
+    fadetomodedelay = 16;
 }
 
 static void menuactionpress(void)
@@ -1654,8 +1659,18 @@ void titleinput(void)
 
     }
 
-    if (graphics.fademode == 1)
-        script.startgamemode(game.mainmenu);
+    if (fadetomode)
+    {
+        if (fadetomodedelay > 0)
+        {
+            --fadetomodedelay;
+        }
+        else
+        {
+            fadetomode = false;
+            script.startgamemode(game.mainmenu);
+        }
+    }
 }
 
 void gameinput(void)
