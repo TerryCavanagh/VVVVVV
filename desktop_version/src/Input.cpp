@@ -1603,6 +1603,7 @@ void titleinput(void)
             if (game.currentmenuname == Menu::mainmenu)
             {
                 game.createmenu(Menu::youwannaquit);
+                map.nexttowercolour();
             }
             else
             {
