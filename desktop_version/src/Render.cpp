@@ -1979,7 +1979,7 @@ void maprender(void)
                     if (graphics.flipmode) temp += 3;
                     graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
                 }
-                else if(map.showtargets && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
+                else if(map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
                 {
                     int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
                     if (graphics.flipmode) temp += 3;
@@ -2530,7 +2530,7 @@ void teleporterrender(void)
             if (graphics.flipmode) temp += 3;
             graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
         }
-        else if(map.showtargets && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
+        else if(map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
             temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
             if (graphics.flipmode) temp += 3;
