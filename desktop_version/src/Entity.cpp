@@ -1983,6 +1983,8 @@ void entityclass::createentity( float xp, float yp, int t, float vx /*= 0*/, flo
         if (map.custommode)
         {
             customwarpmode = true;
+            map.warpx = false;
+            map.warpy = false;
         }
         break;
       case 55: // Crew Member (custom, collectable)
