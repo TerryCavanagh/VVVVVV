@@ -896,17 +896,25 @@ void gamelogic(void)
                 }
                 else if (INBOUNDS_VEC(player, obj.entities))
                 {
-                    if (obj.entities[player].yp-map.ypos <= 0)
+                    const bool above_screen = obj.entities[player].yp-map.ypos <= 8;
+                    const bool below_screen = obj.entities[player].yp-map.ypos >= 200;
+
+                    if (above_screen)
                     {
                         map.ypos-=10;
-                        graphics.towerbg.bypos = map.ypos / 2;
-                        graphics.towerbg.bscroll = 0;
                     }
-                    else if (obj.entities[player].yp-map.ypos >= 208)
+                    else if (below_screen)
                     {
                         map.ypos+=2;
+                    }
+
+                    if (above_screen || below_screen)
+                    {
                         graphics.towerbg.bypos = map.ypos / 2;
-                        graphics.towerbg.bscroll = 0;
+                        graphics.towerbg.bscroll = (map.ypos - map.oldypos) / 2;
+
+                        /* The buffer isn't big enough; we have to redraw */
+                        graphics.towerbg.tdrawback = true;
                     }
                 }
 
