@@ -118,7 +118,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	else
 	{
 		SDL_snprintf(output, sizeof(output), "%s%s",
-			PHYSFS_getBaseDir(),
+			SDL_GetBasePath(),
 			"data.zip"
 		);
 	}
