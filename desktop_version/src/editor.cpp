@@ -21,6 +21,10 @@
 #include "UtilityClass.h"
 #include "XMLUtils.h"
 
+#ifdef _WIN32
+#define SCNx32 "x"
+#define SCNu32 "u"
+#else
 #ifndef __STDC_FORMAT_MACROS
 #define __STDC_FORMAT_MACROS
 #endif
@@ -28,6 +32,7 @@
 #define _POSIX_SOURCE
 #endif
 #include <inttypes.h>
+#endif
 
 edlevelclass::edlevelclass(void)
 {
