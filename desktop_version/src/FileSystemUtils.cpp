@@ -54,7 +54,9 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
 	char output[MAX_PATH];
 	int mkdirResult;
+	int retval;
 	const char* pathSep = PHYSFS_getDirSeparator();
+	char* basePath;
 
 	PHYSFS_setAllocator(&allocator);
 	PHYSFS_init(argvZero);
@@ -110,6 +112,14 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		PLATFORM_migrateSaveData(output);
 	}
 
+	basePath = SDL_GetBasePath();
+
+	if (basePath == NULL)
+	{
+		puts("Unable to get base path!");
+		return 0;
+	}
+
 	/* Mount the stock content last */
 	if (assetsPath)
 	{
@@ -117,12 +127,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	}
 	else
 	{
-		char *basePath = SDL_GetBasePath();
 		SDL_snprintf(output, sizeof(output), "%s%s",
 			basePath,
 			"data.zip"
 		);
-		SDL_free(basePath);
 	}
 	if (!PHYSFS_mount(output, NULL, 1))
 	{
@@ -139,15 +147,20 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 			"\nor get it from the free Make and Play Edition.",
 			NULL
 		);
-		return 0;
+		retval = 0;
+		goto end;
 	}
 
-	SDL_snprintf(output, sizeof(output), "%s%s", PHYSFS_getBaseDir(), "gamecontrollerdb.txt");
+	SDL_snprintf(output, sizeof(output), "%s%s", basePath, "gamecontrollerdb.txt");
 	if (SDL_GameControllerAddMappingsFromFile(output) < 0)
 	{
 		printf("gamecontrollerdb.txt not found!\n");
 	}
-	return 1;
+	retval = 1;
+
+end:
+	SDL_free(basePath);
+	return retval;
 }
 
 void FILESYSTEM_deinit(void)
