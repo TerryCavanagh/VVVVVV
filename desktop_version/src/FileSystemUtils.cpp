@@ -117,10 +117,12 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	}
 	else
 	{
+		char *basePath = SDL_GetBasePath();
 		SDL_snprintf(output, sizeof(output), "%s%s",
-			SDL_GetBasePath(),
+			basePath,
 			"data.zip"
 		);
+		SDL_free(basePath);
 	}
 	if (!PHYSFS_mount(output, NULL, 1))
 	{
