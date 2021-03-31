@@ -348,7 +348,7 @@ static void inline deltaloop(void);
 static void cleanup(void);
 
 #ifdef __EMSCRIPTEN__
-void emscriptenloop()
+void emscriptenloop(void)
 {
     timePrev = time_;
     time_ = SDL_GetTicks();
