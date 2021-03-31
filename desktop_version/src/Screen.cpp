@@ -126,6 +126,7 @@ void Screen::GetSettings(ScreenSettings* settings)
 
 void Screen::LoadIcon(void)
 {
+#ifndef __APPLE__
 	unsigned char *fileIn = NULL;
 	size_t length = 0;
 	unsigned char *data;
@@ -147,6 +148,7 @@ void Screen::LoadIcon(void)
 	SDL_SetWindowIcon(m_window, icon);
 	SDL_FreeSurface(icon);
 	SDL_free(data);
+#endif /* __APPLE__ */
 }
 
 void Screen::ResizeScreen(int x, int y)
