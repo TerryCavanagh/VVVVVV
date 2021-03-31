@@ -360,8 +360,21 @@ static void menurender(void)
         int totalheight = (endidx - startidx) * 14;
         int emptyspace = maxheight - totalheight;
 
-        int xofs = 80 - 16;
-        int yofs = 40 + 20 + (emptyspace / 2);
+        int xofs, yofs;
+
+        if (startidx == 0)
+        {
+            graphics.Print(-1, 60, Credits::githubfriends[0], tr, tg, tb, true);
+            graphics.Print(-1, 80, Credits::githubfriends[2], tr, tg, tb, true);
+            startidx += 4; // Skip the superfriends now that we've drawn them...
+            xofs = 80 - 28;
+            yofs = 80 + 20 + (emptyspace / 2);
+        }
+        else
+        {
+            xofs = 80 - 16;
+            yofs = 40 + 20 + (emptyspace / 2);
+        }
 
         for (int i = startidx; i < endidx; ++i)
         {

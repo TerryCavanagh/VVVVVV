@@ -84,6 +84,10 @@ static const char* patrons[] = {
 
 /* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by last name */
 static const char* githubfriends[] = {
+    "Misa \"Info Teddy\" Elizabeth",
+    "",
+    "and",
+    "",
     "Matt \"Fussmatte\" Aaldenberg", // TODO: Change to "Fußmatte" if/when UTF-8 support is added
     "AlexApps99",
     "AllyTally",
@@ -103,7 +107,6 @@ static const char* githubfriends[] = {
     "Keith Stellyes",
     "Elijah Stone",
     "Thomas S|nger",
-    "Info Teddy",
     "Pierre-Alain TORET",
     "leo60228",
     "Emmanuel Vadot",
