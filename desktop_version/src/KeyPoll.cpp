@@ -141,7 +141,12 @@ void KeyPoll::Poll(void)
 				else if (	evt.key.keysym.sym == SDLK_v &&
 						keymap[SDLK_LCTRL]	)
 				{
-					keybuffer += SDL_GetClipboardText();
+					char* text = SDL_GetClipboardText();
+					if (text != NULL)
+					{
+						keybuffer += text;
+						SDL_free(text);
+					}
 				}
 			}
 			break;
