@@ -104,6 +104,7 @@ static const char* githubfriends[] = {
     "Elijah Stone",
     "Thomas S|nger",
     "Info Teddy",
+    "Pierre-Alain TORET",
     "leo60228",
     "Emmanuel Vadot",
     "Remi Verschelde", // TODO: Change to "Rémi" if/when UTF-8 support is added
