@@ -25,7 +25,7 @@ int mkdir(char* path, int mode)
 	MultiByteToWideChar(CP_UTF8, 0, path, -1, utf16_path, MAX_PATH);
 	return CreateDirectoryW(utf16_path, NULL);
 }
-#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
+#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__) || defined(__EMSCRIPTEN__)
 #include <limits.h>
 #include <sys/stat.h>
 #define MAX_PATH PATH_MAX
@@ -996,6 +996,12 @@ bool FILESYSTEM_openDirectoryEnabled(void)
 	return !SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
 }
 
+#if defined(__EMSCRIPTEN__)
+bool FILESYSTEM_openDirectory(const char *dname)
+{
+	return false;
+}
+#else
 bool FILESYSTEM_openDirectory(const char *dname)
 {
 	char url[MAX_PATH];
@@ -1007,6 +1013,7 @@ bool FILESYSTEM_openDirectory(const char *dname)
 	}
 	return true;
 }
+#endif
 
 bool FILESYSTEM_delete(const char *name)
 {
