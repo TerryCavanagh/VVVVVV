@@ -508,7 +508,7 @@ static void menurender(void)
         case 4:
             graphics.bigprint( -1, 30, "Glitchrunner Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Re-enable glitches that existed", tr, tg, tb, true);
-            graphics.Print( -1, 75, "in previous versions of the game", tr, tg, tb, true);
+            graphics.Print( -1, 75, "in previous versions of the game.", tr, tg, tb, true);
             if (game.glitchrunnermode)
             {
                 graphics.Print( -1, 95, "Glitchrunner mode is ON", tr, tg, tb, true);
