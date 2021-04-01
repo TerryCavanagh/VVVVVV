@@ -5,6 +5,7 @@
 #include <string.h>
 #include <utf8/unchecked.h>
 
+#include "Exit.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "Music.h"
@@ -36,7 +37,6 @@ KeyPoll::KeyPoll(void)
 	// 0..5
 	sensitivity = 2;
 
-	quitProgram = 0;
 	keybuffer="";
 	leftbutton=0; rightbutton=0; middlebutton=0;
 	mx=0; my=0;
@@ -339,7 +339,7 @@ void KeyPoll::Poll(void)
 
 		/* Quit Event */
 		case SDL_QUIT:
-			quitProgram = true;
+			VVV_exit(0);
 			break;
 		}
 	}

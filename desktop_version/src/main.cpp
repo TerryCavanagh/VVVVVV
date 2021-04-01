@@ -615,7 +615,7 @@ int main(int argc, char *argv[])
     gamestate_funcs = get_gamestate_funcs(game.gamestate, &num_gamestate_funcs);
     loop_assign_active_funcs();
 
-    while(!key.quitProgram)
+    while (true)
     {
         f_time = SDL_GetTicks();
 
