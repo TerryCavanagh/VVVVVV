@@ -578,6 +578,12 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             break;
         case 5:
+            /* Input delay */
+            music.playef(11);
+            game.inputdelay = !game.inputdelay;
+            game.savestatsandsettings_menu();
+            break;
+        default:
             //back
             music.playef(11);
             game.returnmenu();

@@ -302,7 +302,7 @@ static enum LoopCode loop_run_active_funcs(void)
         const struct ImplFunc* implfunc = &(*active_funcs)[*active_func_index];
         enum IndexCode index_code;
 
-        if (implfunc->type == Func_input)
+        if (implfunc->type == Func_input && !game.inputdelay)
         {
             key.Poll();
         }
@@ -721,6 +721,11 @@ static void inline deltaloop(void)
 
 static enum LoopCode loop_begin(void)
 {
+    if (game.inputdelay)
+    {
+        key.Poll();
+    }
+
     // Update network per frame.
     NETWORK_update();
 
