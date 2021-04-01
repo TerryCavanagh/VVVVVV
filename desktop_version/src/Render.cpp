@@ -518,6 +518,19 @@ static void menurender(void)
                 graphics.Print( -1, 95, "Glitchrunner mode is OFF", tr/2, tg/2, tb/2, true);
             }
             break;
+        case 5:
+            graphics.bigprint(-1, 30, "Input Delay", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Re-enable the 1-frame input delay", tr, tg, tb, true);
+            graphics.Print(-1, 75, "from previous versions of the game.", tr, tg, tb, true);
+            if (game.inputdelay)
+            {
+                graphics.Print(-1, 95, "Input delay is ON", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print(-1, 95, "Input delay is OFF", tr/2, tg/2, tb/2, true);
+            }
+            break;
         }
         break;
     case Menu::accessibility:

@@ -452,6 +452,7 @@ public:
     void unlockAchievement(const char *name);
 
     bool disablepause;
+    bool inputdelay;
 };
 
 #ifndef GAME_DEFINITION

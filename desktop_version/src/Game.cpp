@@ -385,6 +385,7 @@ void Game::init(void)
     kludge_ingametemp = Menu::mainmenu;
 
     disablepause = false;
+    inputdelay = false;
 }
 
 void Game::lifesequence(void)
@@ -4173,6 +4174,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             over30mode = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "inputdelay") == 0)
+        {
+            inputdelay = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "glitchrunnermode") == 0)
         {
             glitchrunnermode = help.Int(pText);
@@ -4422,6 +4428,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
     xml::update_tag(dataNode, "showmousecursor", (int) graphics.showmousecursor);
 
     xml::update_tag(dataNode, "over30mode", (int) over30mode);
+
+    xml::update_tag(dataNode, "inputdelay", (int) inputdelay);
 
     xml::update_tag(dataNode, "glitchrunnermode", (int) glitchrunnermode);
 
@@ -6017,6 +6025,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("fake load screen");
         option("room name background");
         option("glitchrunner mode");
+        option("input delay");
         option("return");
         menuyoff = 0;
         break;
