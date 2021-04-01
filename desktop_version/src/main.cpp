@@ -681,7 +681,12 @@ static void inline deltaloop(void)
 
     while (accumulator >= timesteplimit)
     {
-        increment_func_index();
+        enum IndexCode index_code = increment_func_index();
+
+        if (index_code == Index_end)
+        {
+            loop_assign_active_funcs();
+        }
 
         accumulator = SDL_fmodf(accumulator, timesteplimit);
 
