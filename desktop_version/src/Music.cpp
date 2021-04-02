@@ -264,6 +264,11 @@ void musicclass::fadein(void)
 	resume(3000); // 3000 ms fadein
 }
 
+void musicclass::pause(void)
+{
+	Mix_PauseMusic();
+}
+
 void musicclass::haltdasmusik(void)
 {
 	Mix_HaltMusic();
@@ -390,4 +395,14 @@ void musicclass::playef(int t)
 	{
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 	}
+}
+
+void musicclass::pauseef(void)
+{
+	Mix_Pause(-1);
+}
+
+void musicclass::resumeef(void)
+{
+	Mix_Resume(-1);
 }

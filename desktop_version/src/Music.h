@@ -17,6 +17,7 @@ public:
 
 	void play(int t, const double position_sec = 0.0, const int fadein_ms = 3000);
 	void resume(const int fadein_ms = 0);
+	void pause(void);
 	void haltdasmusik(void);
 	void silencedasmusik(void);
 	void setfadeamount(const int fade_ms);
@@ -33,6 +34,8 @@ public:
 	int resumesong;
 
 	void playef(int t);
+	void pauseef(void);
+	void resumeef(void);
 
 	std::vector<SoundTrack> soundTracks;
 	std::vector<MusicTrack> musicTracks;
