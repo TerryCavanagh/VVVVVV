@@ -541,6 +541,28 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
     }
 }
 
+void Graphics::bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen, int sc)
+{
+    if (!notextoutline)
+    {
+        bigprint(x, y - sc, s, 0, 0, 0, cen, sc);
+        if (cen)
+        {
+            int x_cen = VVV_max(160 - (len(s) / 2) * sc, 0);
+            bigprint(x_cen - sc, y, s, 0, 0, 0, false, sc);
+            bigprint(x_cen + sc, y, s, 0, 0, 0, false, sc);
+        }
+        else
+        {
+            bigprint(x - sc, y, s, 0, 0, 0, cen, sc);
+            bigprint(x + sc, y, s, 0, 0, 0, cen, sc);
+        }
+        bigprint(x, y + sc, s, 0, 0, 0, cen, sc);
+    }
+
+    bigprint(x, y, s, r, g, b, cen, sc);
+}
+
 int Graphics::len(std::string t)
 {
     int bfontpos = 0;
@@ -860,7 +882,7 @@ void Graphics::drawgui(void)
         {
             for (size_t j = 0; j < textbox[i].line.size(); j++)
             {
-                Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
+                bprint(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
             }
         }
         else
@@ -3153,6 +3175,30 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 		}
 		bfontpos+=bfontlen(cur)* sc;
 	}
+}
+
+void Graphics::bigbrprint(int x, int y, std::string& s, int r, int g, int b, bool cen, float sc)
+{
+	if (!notextoutline)
+	{
+		int x_o = x / sc - len(s);
+		bigrprint(x, y - sc, s, 0, 0, 0, cen, sc);
+		if (cen)
+		{
+			x_o = VVV_max(160 - (len(s) / 2) * sc, 0);
+			bigprint(x_o - sc, y, s, 0, 0, 0, false, sc);
+			bigprint(x_o + sc, y, s, 0, 0, 0, false, sc);
+		}
+		else
+		{
+			x_o *= sc;
+			bigprint(x_o - sc, y, s, 0, 0, 0, false, sc);
+			bigprint(x_o + sc, y, s, 0, 0, 0, false, sc);
+		}
+		bigrprint(x, y + sc, s, 0, 0, 0, cen, sc);
+	}
+
+	bigrprint(x, y, s, r, g, b, cen, sc);
 }
 
 void Graphics::drawtele(int x, int y, int t, Uint32 c)
