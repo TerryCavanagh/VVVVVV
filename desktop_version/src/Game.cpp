@@ -6742,3 +6742,33 @@ void Game::copyndmresults(void)
     ndmresulthardestroom = hardestroom;
     SDL_memcpy(ndmresultcrewstats, crewstats, sizeof(ndmresultcrewstats));
 }
+
+static inline int get_framerate(const int slowdown)
+{
+    switch (slowdown)
+    {
+    case 30:
+        return 34;
+    case 24:
+        return 41;
+    case 18:
+        return 55;
+    case 12:
+        return 83;
+    }
+
+    return 34;
+}
+
+int Game::get_timestep(void)
+{
+    switch (gamestate)
+    {
+    case EDITORMODE:
+        return 24;
+    case GAMEMODE:
+        return get_framerate(slowdown);
+    default:
+        return 34;
+    }
+}

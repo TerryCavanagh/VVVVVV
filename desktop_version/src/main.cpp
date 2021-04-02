@@ -57,23 +57,6 @@ static volatile Uint32 accumulator = 0;
 static volatile Uint32 f_time = 0;
 static volatile Uint32 f_timePrev = 0;
 
-static inline Uint32 get_framerate(const int slowdown)
-{
-    switch (slowdown)
-    {
-    case 30:
-        return 34;
-    case 24:
-        return 41;
-    case 18:
-        return 55;
-    case 12:
-        return 83;
-    }
-
-    return 34;
-}
-
 enum FuncType
 {
     Func_null,
@@ -665,19 +648,7 @@ static void inline deltaloop(void)
     const float rawdeltatime = static_cast<float>(time_ - timePrev);
     accumulator += rawdeltatime;
 
-    Uint32 timesteplimit;
-    if (game.gamestate == EDITORMODE)
-    {
-        timesteplimit = 24;
-    }
-    else if (game.gamestate == GAMEMODE)
-    {
-        timesteplimit = get_framerate(game.slowdown);
-    }
-    else
-    {
-        timesteplimit = 34;
-    }
+    Uint32 timesteplimit = game.get_timestep();
 
     while (accumulator >= timesteplimit)
     {
