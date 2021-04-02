@@ -68,8 +68,6 @@ public:
 
 	bool linealreadyemptykludge;
 
-	Uint64 pauseStart;
-
 private:
 	std::map<SDL_JoystickID, SDL_GameController*> controllers;
 	std::map<SDL_GameControllerButton, bool> buttonmap;

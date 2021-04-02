@@ -705,9 +705,6 @@ static enum LoopCode loop_begin(void)
 
 static void unfocused_run(void)
 {
-    Mix_Pause(-1);
-    Mix_PauseMusic();
-
     if (!game.blackout)
     {
         ClearSurface(graphics.backBuffer);
@@ -726,8 +723,7 @@ static void unfocused_run(void)
 
 static void focused_begin(void)
 {
-    Mix_Resume(-1);
-    Mix_ResumeMusic();
+    /* no-op. */
 }
 
 static void focused_end(void)

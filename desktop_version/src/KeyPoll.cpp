@@ -56,8 +56,6 @@ KeyPoll::KeyPoll(void)
 
 	linealreadyemptykludge = false;
 
-	pauseStart = 0;
-
 	isActive = true;
 }
 
@@ -287,6 +285,8 @@ void KeyPoll::Poll(void)
 				if (!game.disablepause)
 				{
 					isActive = true;
+					music.resume();
+					music.resumeef();
 				}
 				if (!useFullscreenSpaces)
 				{
@@ -300,16 +300,13 @@ void KeyPoll::Poll(void)
 					}
 				}
 				SDL_DisableScreenSaver();
-				if (!game.disablepause && Mix_PlayingMusic())
-				{
-					// Correct songStart for how long we were paused
-					music.songStart += SDL_GetPerformanceCounter() - pauseStart;
-				}
 				break;
 			case SDL_WINDOWEVENT_FOCUS_LOST:
 				if (!game.disablepause)
 				{
 					isActive = false;
+					music.pause();
+					music.pauseef();
 				}
 				if (!useFullscreenSpaces)
 				{
@@ -321,10 +318,6 @@ void KeyPoll::Poll(void)
 					);
 				}
 				SDL_EnableScreenSaver();
-				if (!game.disablepause)
-				{
-					pauseStart = SDL_GetPerformanceCounter();
-				}
 				break;
 
 			/* Mouse Focus */
