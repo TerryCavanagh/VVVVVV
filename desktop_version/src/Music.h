@@ -19,6 +19,7 @@ public:
 	void resume(const int fadein_ms = 0);
 	void haltdasmusik(void);
 	void silencedasmusik(void);
+	void setfadeamount(const int fade_ms);
 	void fadeMusicVolumeIn(int ms);
 	void fadeout(const bool quick_fade_ = true);
 	void fadein(void);
