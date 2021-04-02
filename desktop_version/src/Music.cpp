@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 #include "BinaryBlob.h"
+#include "Game.h"
 #include "Map.h"
 #include "UtilityClass.h"
 
@@ -273,10 +274,20 @@ void musicclass::silencedasmusik(void)
 	musicVolume = 0;
 }
 
+void musicclass::setfadeamount(const int fade_ms)
+{
+	if (fade_ms == 0)
+	{
+		FadeVolAmountPerFrame = MIX_MAX_VOLUME;
+		return;
+	}
+	FadeVolAmountPerFrame = MIX_MAX_VOLUME / (fade_ms / game.get_timestep());
+}
+
 void musicclass::fadeMusicVolumeIn(int ms)
 {
 	m_doFadeInVol = true;
-	FadeVolAmountPerFrame =  MIX_MAX_VOLUME / (ms / 33);
+	setfadeamount(ms);
 }
 
 void musicclass::fadeout(const bool quick_fade_ /*= true*/)
