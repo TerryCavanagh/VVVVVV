@@ -2506,7 +2506,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 2)
             {
                 entities[i].life--;
-                if (entities[i].life % 3 == 0) entities[i].tile++;
+                if (entities[i].life % 3 == 0) entities[i].walkingframe++;
                 if (entities[i].life <= 0)
                 {
                     disableblockat(entities[i].xp, entities[i].yp);
@@ -2524,19 +2524,19 @@ bool entityclass::updateentities( int i )
                 createblock(0, entities[i].xp, entities[i].yp, 32, 8);
                 entities[i].state = 4;
                 entities[i].invis = false;
-                entities[i].tile--;
+                entities[i].walkingframe--;
                 entities[i].state++;
                 entities[i].onentity = 1;
             }
             else if (entities[i].state == 5)
             {
                 entities[i].life+=3;
-                if (entities[i].life % 3 == 0) entities[i].tile--;
+                if (entities[i].life % 3 == 0) entities[i].walkingframe--;
                 if (entities[i].life >= 12)
                 {
                     entities[i].life = 12;
                     entities[i].state = 0;
-                    entities[i].tile++;
+                    entities[i].walkingframe++;
                 }
             }
             break;
@@ -3592,6 +3592,9 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe = entities[_i].tile;
                 break;
             }
+            break;
+        case 2: //Disappearing platforms
+            entities[_i].drawframe = entities[_i].tile + entities[_i].walkingframe;
             break;
         case 11:
             entities[_i].drawframe = entities[_i].tile;

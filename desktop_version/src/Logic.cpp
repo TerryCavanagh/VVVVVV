@@ -418,21 +418,6 @@ void gamelogic(void)
                 }
                 if (!entitygone) obj.entities[i].state = 4;
             }
-            else if (map.finalstretch && obj.entities[i].type == 2)
-            {
-                //for the final level. probably something 99% of players won't see.
-                bool entitygone = false;
-                while (obj.entities[i].state == 2)
-                {
-                    entitygone = obj.updateentities(i);
-                    if (entitygone)
-                    {
-                        i--;
-                        break;
-                    }
-                }
-                if (!entitygone) obj.entities[i].state = 4;
-            }
             else if (obj.entities[i].type == 23 && game.swnmode && game.deathseq<15)
             {
                 //if playing SWN, get the enemies offscreen.
