@@ -292,6 +292,7 @@ public:
     bool  colourblindmode;
     bool noflashingmode;
     int slowdown;
+    int get_timestep(void);
 
     bool nodeathmode;
     int gameoverdelay;
