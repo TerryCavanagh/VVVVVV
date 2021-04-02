@@ -284,7 +284,7 @@ void scriptclass::run(void)
 			}
 			if (words[0] == "resumemusic")
 			{
-				music.resume();
+				music.resumefade(0);
 			}
 			if (words[0] == "musicfadeout")
 			{

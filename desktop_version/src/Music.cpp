@@ -9,25 +9,18 @@
 #include "Map.h"
 #include "UtilityClass.h"
 
-static void songend(void);
-
 musicclass::musicclass(void)
 {
 	safeToProcessMusic= false;
 	m_doFadeInVol = false;
-	musicVolume = MIX_MAX_VOLUME;
+	m_doFadeOutVol = false;
+	musicVolume = 0;
 	FadeVolAmountPerFrame = 0;
 
 	currentsong = 0;
 	nicechange = -1;
 	nicefade = false;
-	resumesong = 0;
 	quick_fade = true;
-
-	songStart = 0;
-	songEnd = 0;
-
-	Mix_HookMusicFinished(&songend);
 
 	usingmmmmmm = false;
 }
@@ -142,14 +135,6 @@ void musicclass::init(void)
 	}
 }
 
-static void songend(void)
-{
-	extern musicclass music;
-	music.songEnd = SDL_GetPerformanceCounter();
-	music.resumesong = music.currentsong;
-	music.currentsong = -1;
-}
-
 void musicclass::destroy(void)
 {
 	for (size_t i = 0; i < soundTracks.size(); ++i)
@@ -172,7 +157,7 @@ void musicclass::destroy(void)
 	mmmmmm_blob.clear();
 }
 
-void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fadein_ms /*= 3000*/)
+void musicclass::play(int t)
 {
 	if (mmmmmm && usingmmmmmm)
 	{
@@ -193,9 +178,8 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 	}
 
 	safeToProcessMusic = true;
-	musicVolume = MIX_MAX_VOLUME;
 
-	if (currentsong == t && Mix_FadingMusic() != MIX_FADING_OUT)
+	if (currentsong == t && !m_doFadeOutVol)
 	{
 		return;
 	}
@@ -217,14 +201,18 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 	if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_mmmmmm_tracks || currentsong == 7+num_mmmmmm_tracks)))
 	{
 		// Level Complete theme, no fade in or repeat
-		if (Mix_FadeInMusicPos(musicTracks[t].m_music, 0, 0, position_sec) == -1)
+		if (Mix_PlayMusic(musicTracks[t].m_music, 0) == -1)
 		{
-			printf("Mix_FadeInMusicPos: %s\n", Mix_GetError());
+			printf("Mix_PlayMusic: %s\n", Mix_GetError());
+		}
+		else
+		{
+			musicVolume = MIX_MAX_VOLUME;
 		}
 	}
 	else
 	{
-		if (Mix_FadingMusic() == MIX_FADING_OUT)
+		if (m_doFadeOutVol)
 		{
 			// We're already fading out
 			nicechange = t;
@@ -233,35 +221,39 @@ void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fade
 
 			if (quick_fade)
 			{
-				Mix_FadeOutMusic(500); // fade out quicker
+				fadeMusicVolumeOut(500); // fade out quicker
 			}
 			else
 			{
 				quick_fade = true;
 			}
 		}
-		else if (Mix_FadeInMusicPos(musicTracks[t].m_music, -1, fadein_ms, position_sec) == -1)
+		else if (Mix_PlayMusic(musicTracks[t].m_music, -1) == -1)
 		{
-			printf("Mix_FadeInMusicPos: %s\n", Mix_GetError());
+			printf("Mix_PlayMusic: %s\n", Mix_GetError());
+		}
+		else
+		{
+			fadeMusicVolumeIn(3000);
+			musicVolume = 0;
 		}
 	}
-
-	songStart = SDL_GetPerformanceCounter();
 }
 
-void musicclass::resume(const int fadein_ms /*= 0*/)
+void musicclass::resume()
 {
-	const double offset = static_cast<double>(songEnd - songStart);
-	const double frequency = static_cast<double>(SDL_GetPerformanceFrequency());
+	Mix_ResumeMusic();
+}
 
-	const double position_sec = offset / frequency;
-
-	play(resumesong, position_sec, fadein_ms);
+void musicclass::resumefade(const int fadein_ms)
+{
+	resume();
+	fadeMusicVolumeIn(fadein_ms);
 }
 
 void musicclass::fadein(void)
 {
-	resume(3000); // 3000 ms fadein
+	resumefade(3000); // 3000 ms fadein
 }
 
 void musicclass::pause(void)
@@ -271,7 +263,8 @@ void musicclass::pause(void)
 
 void musicclass::haltdasmusik(void)
 {
-	Mix_HaltMusic();
+	/* Just pauses music. This is intended. */
+	pause();
 }
 
 void musicclass::silencedasmusik(void)
@@ -292,13 +285,20 @@ void musicclass::setfadeamount(const int fade_ms)
 void musicclass::fadeMusicVolumeIn(int ms)
 {
 	m_doFadeInVol = true;
+	m_doFadeOutVol = false;
 	setfadeamount(ms);
+}
+
+void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
+{
+	m_doFadeInVol = false;
+	m_doFadeOutVol = true;
+	setfadeamount(fadeout_ms);
 }
 
 void musicclass::fadeout(const bool quick_fade_ /*= true*/)
 {
-	Mix_FadeOutMusic(2000);
-	resumesong = currentsong;
+	fadeMusicVolumeOut(2000);
 	quick_fade = quick_fade_;
 }
 
@@ -311,6 +311,17 @@ void musicclass::processmusicfadein(void)
 	}
 }
 
+void musicclass::processmusicfadeout(void)
+{
+	musicVolume -= FadeVolAmountPerFrame;
+	if (musicVolume < 0)
+	{
+		musicVolume = 0;
+		m_doFadeOutVol = false;
+		pause();
+	}
+}
+
 void musicclass::processmusic(void)
 {
 	if(!safeToProcessMusic)
@@ -318,7 +329,7 @@ void musicclass::processmusic(void)
 		return;
 	}
 
-	if (nicefade && Mix_PlayingMusic() == 0)
+	if (nicefade && Mix_PausedMusic() == 1)
 	{
 		play(nicechange);
 		nicechange = -1;
@@ -328,6 +339,11 @@ void musicclass::processmusic(void)
 	if(m_doFadeInVol)
 	{
 		processmusicfadein();
+	}
+
+	if (m_doFadeOutVol)
+	{
+		processmusicfadeout();
 	}
 }
 
