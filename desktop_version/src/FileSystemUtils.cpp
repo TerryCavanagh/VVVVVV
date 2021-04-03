@@ -213,7 +213,7 @@ static bool FILESYSTEM_exists(const char *fname)
 	return PHYSFS_exists(fname);
 }
 
-static bool FILESYSTEM_mount(const char *fname)
+static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 {
 	const char* real_dir = PHYSFS_getRealDir(fname);
 	const char* dir_separator;
@@ -298,7 +298,7 @@ void FILESYSTEM_mountAssets(const char* path)
 	{
 		printf("Custom asset directory is .data.zip at %s\n", zip_data);
 
-		if (!FILESYSTEM_mount(zip_data))
+		if (!FILESYSTEM_mountAssetsFrom(zip_data))
 		{
 			return;
 		}
@@ -309,7 +309,7 @@ void FILESYSTEM_mountAssets(const char* path)
 	{
 		printf("Custom asset directory is .zip at %s\n", zip_normal);
 
-		if (!FILESYSTEM_mount(zip_normal))
+		if (!FILESYSTEM_mountAssetsFrom(zip_normal))
 		{
 			return;
 		}
@@ -320,7 +320,7 @@ void FILESYSTEM_mountAssets(const char* path)
 	{
 		printf("Custom asset directory exists at %s\n", dir);
 
-		if (!FILESYSTEM_mount(dir))
+		if (!FILESYSTEM_mountAssetsFrom(dir))
 		{
 			return;
 		}
