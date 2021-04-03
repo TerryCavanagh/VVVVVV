@@ -16,8 +16,8 @@ bool FILESYSTEM_isFile(const char* filename);
 bool FILESYSTEM_isMounted(const char* filename);
 
 void FILESYSTEM_loadZip(const char* filename);
-void FILESYSTEM_mountassets(const char *path);
-void FILESYSTEM_unmountassets(void);
+void FILESYSTEM_mountAssets(const char *path);
+void FILESYSTEM_unmountAssets(void);
 bool FILESYSTEM_isAssetMounted(const char* filename);
 
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,

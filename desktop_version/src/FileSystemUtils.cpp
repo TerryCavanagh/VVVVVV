@@ -256,7 +256,7 @@ void FILESYSTEM_loadZip(const char* filename)
 	}
 }
 
-void FILESYSTEM_mountassets(const char* path)
+void FILESYSTEM_mountAssets(const char* path)
 {
 	const size_t path_size = SDL_strlen(path);
 	char filename[MAX_PATH];
@@ -356,7 +356,7 @@ void FILESYSTEM_mountassets(const char* path)
 	}
 }
 
-void FILESYSTEM_unmountassets(void)
+void FILESYSTEM_unmountAssets(void)
 {
 	if (assetDir[0] != '\0')
 	{
