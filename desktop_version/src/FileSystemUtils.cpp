@@ -307,35 +307,12 @@ void FILESYSTEM_mountAssets(const char* path)
 	}
 	else if (zip_normal != NULL && endsWith(zip_normal, ".zip"))
 	{
-		PHYSFS_File* zip = PHYSFS_openRead(zip_normal);
-
 		printf("Custom asset directory is .zip at %s\n", zip_normal);
 
-		SDL_snprintf(
-			zip_data,
-			sizeof(zip_data),
-			"%s.data.zip",
-			zip_normal
-		);
-
-		if (zip == NULL)
+		if (!FILESYSTEM_mount(zip_normal))
 		{
-			printf(
-				"Error loading .zip: %s\n",
-				PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
-			);
 			return;
 		}
-		if (PHYSFS_mountHandle(zip, zip_data, "/", 0) == 0)
-		{
-			printf(
-				"Error mounting .zip: %s\n",
-				PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
-			);
-			return;
-		}
-
-		SDL_strlcpy(assetDir, zip_data, sizeof(assetDir));
 
 		graphics.reloadresources();
 	}
