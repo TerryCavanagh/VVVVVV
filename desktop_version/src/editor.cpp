@@ -1748,14 +1748,14 @@ bool editorclass::load(std::string& _path)
         _path = levelDir + _path;
     }
 
-    FILESYSTEM_unmountassets();
+    FILESYSTEM_unmountAssets();
     if (game.playassets != "")
     {
-        FILESYSTEM_mountassets(game.playassets.c_str());
+        FILESYSTEM_mountAssets(game.playassets.c_str());
     }
     else
     {
-        FILESYSTEM_mountassets(_path.c_str());
+        FILESYSTEM_mountAssets(_path.c_str());
     }
 
     tinyxml2::XMLDocument doc;

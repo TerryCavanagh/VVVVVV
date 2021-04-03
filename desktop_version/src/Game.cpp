@@ -6544,7 +6544,7 @@ void Game::quittomenu(void)
 {
     gamestate = TITLEMODE;
     graphics.fademode = 4;
-    FILESYSTEM_unmountassets();
+    FILESYSTEM_unmountAssets();
     graphics.titlebg.tdrawback = true;
     graphics.flipmode = false;
     //Don't be stuck on the summary screen,

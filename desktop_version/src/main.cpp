@@ -409,7 +409,7 @@ int main(int argc, char *argv[])
         {
             ARG_INNER({
                 i++;
-                // Even if this is a directory, FILESYSTEM_mountassets() expects '.vvvvvv' on the end
+                // Even if this is a directory, FILESYSTEM_mountAssets() expects '.vvvvvv' on the end
                 playassets = "levels/" + std::string(argv[i]) + ".vvvvvv";
             })
         }
