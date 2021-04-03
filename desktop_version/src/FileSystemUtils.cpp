@@ -216,7 +216,6 @@ static bool FILESYSTEM_exists(const char *fname)
 static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 {
 	const char* real_dir = PHYSFS_getRealDir(fname);
-	const char* dir_separator;
 	char path[MAX_PATH];
 
 	if (real_dir == NULL)
@@ -228,9 +227,7 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 		return false;
 	}
 
-	dir_separator = PHYSFS_getDirSeparator();
-
-	SDL_snprintf(path, sizeof(path), "%s%s%s", real_dir, dir_separator, fname);
+	SDL_snprintf(path, sizeof(path), "%s/%s", real_dir, fname);
 
 	if (!PHYSFS_mount(path, NULL, 0))
 	{
