@@ -213,7 +213,7 @@ static bool FILESYSTEM_exists(const char *fname)
 	return PHYSFS_exists(fname);
 }
 
-void FILESYSTEM_mount(const char *fname)
+static void FILESYSTEM_mount(const char *fname)
 {
 	const char* real_dir = PHYSFS_getRealDir(fname);
 	const char* dir_separator;
