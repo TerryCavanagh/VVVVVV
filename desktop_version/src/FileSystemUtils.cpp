@@ -213,7 +213,7 @@ static bool FILESYSTEM_exists(const char *fname)
 	return PHYSFS_exists(fname);
 }
 
-static void FILESYSTEM_mount(const char *fname)
+static bool FILESYSTEM_mount(const char *fname)
 {
 	const char* real_dir = PHYSFS_getRealDir(fname);
 	const char* dir_separator;
@@ -225,7 +225,7 @@ static void FILESYSTEM_mount(const char *fname)
 			"Could not mount %s: real directory doesn't exist\n",
 			fname
 		);
-		return;
+		return false;
 	}
 
 	dir_separator = PHYSFS_getDirSeparator();
@@ -235,11 +235,11 @@ static void FILESYSTEM_mount(const char *fname)
 	if (!PHYSFS_mount(path, NULL, 0))
 	{
 		printf("Error mounting: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+		return false;
 	}
-	else
-	{
-		SDL_strlcpy(assetDir, path, sizeof(assetDir));
-	}
+
+	SDL_strlcpy(assetDir, path, sizeof(assetDir));
+	return true;
 }
 
 void FILESYSTEM_loadZip(const char* filename)
@@ -298,7 +298,10 @@ void FILESYSTEM_mountassets(const char* path)
 	{
 		printf("Custom asset directory is .data.zip at %s\n", zip_data);
 
-		FILESYSTEM_mount(zip_data);
+		if (!FILESYSTEM_mount(zip_data))
+		{
+			return;
+		}
 
 		graphics.reloadresources();
 	}
@@ -321,18 +324,18 @@ void FILESYSTEM_mountassets(const char* path)
 				"Error loading .zip: %s\n",
 				PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 			);
+			return;
 		}
-		else if (PHYSFS_mountHandle(zip, zip_data, "/", 0) == 0)
+		if (PHYSFS_mountHandle(zip, zip_data, "/", 0) == 0)
 		{
 			printf(
 				"Error mounting .zip: %s\n",
 				PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
 			);
+			return;
 		}
-		else
-		{
-			SDL_strlcpy(assetDir, zip_data, sizeof(assetDir));
-		}
+
+		SDL_strlcpy(assetDir, zip_data, sizeof(assetDir));
 
 		graphics.reloadresources();
 	}
@@ -340,7 +343,10 @@ void FILESYSTEM_mountassets(const char* path)
 	{
 		printf("Custom asset directory exists at %s\n", dir);
 
-		FILESYSTEM_mount(dir);
+		if (!FILESYSTEM_mount(dir))
+		{
+			return;
+		}
 
 		graphics.reloadresources();
 	}
