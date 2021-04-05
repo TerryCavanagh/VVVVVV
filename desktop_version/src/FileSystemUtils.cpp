@@ -441,6 +441,19 @@ void FILESYSTEM_loadFileToMemory(
 	PHYSFS_close(handle);
 }
 
+void FILESYSTEM_loadAssetToMemory(
+	const char* name,
+	unsigned char** mem,
+	size_t* len,
+	const bool addnull
+) {
+	const char* path;
+
+	path = name;
+
+	FILESYSTEM_loadFileToMemory(path, mem, len, addnull);
+}
+
 void FILESYSTEM_freeMemory(unsigned char **mem)
 {
 	SDL_free(*mem);
