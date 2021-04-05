@@ -9,6 +9,7 @@ public:
     const short* loadlevel(int rx, int ry);
 
     std::string roomname;
+    std::string hiddenname;
 
     int roomtileset;
 };

@@ -15,6 +15,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 	t = rx + (ry * 100);
 	const short* result;
 	roomname = "";
+	hiddenname = "Dimension VVVVVV";
 
 	switch(t)
 	{
@@ -1643,6 +1644,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 			obj.createentity(90, 52, 26, 0);  // (super warp)
 			result = contents;
 		}
+		hiddenname = "The Ship";
 
 		break;
 
@@ -1683,6 +1685,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		};
 
 		obj.createentity(64, 64, 14); //Teleporter!
+		hiddenname = "The Ship";
 		result = contents;
 		break;
 	}
@@ -1722,6 +1725,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		};
+		hiddenname = "The Ship";
 		result = contents;
 		break;
 	}
@@ -2220,6 +2224,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 
 		obj.createentity(152, 40, 21, 0); //Terminal (jukebox instructions)
 		obj.createblock(5, 152 - 4, 40, 20, 16, 24);
+		hiddenname = "The Ship";
 		result = contents;
 		break;
 	}
@@ -2259,6 +2264,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,
 		107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,107,
 		};
+		hiddenname = "The Ship";
 		result = contents;
 		break;
 	}
@@ -2584,6 +2590,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		obj.createentity(232, 184, 20, 1); //Terminal
 		obj.createentity(208, 184, 20, 1); //Terminal
 		obj.createblock(5, 208 + 4, 184, 56, 16, 23);
+		hiddenname = "The Ship";
 		result = contents;
 		break;
 	}
@@ -2623,6 +2630,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,238,0,0,0,0,0,0,0,0,0,0,236,116,116,116,116,116,116,116,116,116,116,116,
 		116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,238,0,0,0,0,0,0,0,0,0,0,236,116,116,116,116,116,116,116,116,116,116,116,
 		};
+		hiddenname = "The Ship";
 		result = contents;
 		break;
 	}
@@ -8799,6 +8807,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 			};
 			result = contents;
 		}
+		hiddenname = "Secret Lab";
 		break;
 
 	case rn(18,6):
@@ -8836,6 +8845,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,
 		280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,280,
 		};
+		hiddenname = "Secret Lab";
 		result = contents;
 		break;
 	}
@@ -8901,6 +8911,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 			}
 			obj.createblock(5, 83 - 32, 0, 32 + 32 + 32, 240, 1);
 		}
+		hiddenname = "Secret Lab";
 		result = contents;
 		break;
 	}
@@ -8962,6 +8973,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		obj.createentity(192, 128, 25, 0, 11); // Trophy
 		obj.createentity(224, 128, 25, 0, 10); // Trophy
 		obj.createentity(256, 128, 25, 0, 9); // Trophy
+		hiddenname = "Secret Lab";
 		result = contents;
 		break;
 	}
@@ -9004,6 +9016,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 
 		obj.createentity(152, 168, 25, 0, 20); // Trophy placeholder
 		obj.createentity(152, 168, 25, 0, 19); // Trophy
+		hiddenname = "Secret Lab";
 		result = contents;
 		break;
 	}
@@ -9060,6 +9073,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		//victoria:
 		obj.createentity(193, 89, 18, 16, 0, 18);
 		obj.createblock(5, 193-16, 0, 32+32, 240, 5);
+		hiddenname = "Secret Lab";
 		result = contents;
 		break;
 	}
@@ -9112,6 +9126,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		//naughty corner!
 		obj.createblock(1, 30, 0, 20, 50, 15);
 		obj.createblock(1, 90, 0, 20, 50, 16);
+		hiddenname = "Secret Lab";
 		result = contents;
 		break;
 	}
@@ -9157,6 +9172,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		obj.createentity(-8, 84-32, 11, 328+8);  // (horizontal gravity line)
 		obj.createentity(-8, 148 + 32, 11, 328+8);  // (horizontal gravity line)
 		obj.createblock(1, -10, 84 - 16, 340, 32, 9); //start the game
+		hiddenname = "The Super Gravitron";
 		result = contents;
 		break;
 	}

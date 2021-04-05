@@ -1349,17 +1349,8 @@ void mapclass::loadlevel(int rx, int ry)
 		const short* tmap = otherlevel.loadlevel(rx, ry);
 		SDL_memcpy(contents, tmap, sizeof(contents));
 		roomname = otherlevel.roomname;
+		hiddenname = otherlevel.hiddenname;
 		tileset = otherlevel.roomtileset;
-		//do the appear/remove roomname here
-
-		if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111)
-		{
-			hiddenname = "The Ship";
-		}
-		else
-		{
-			hiddenname = "Dimension VVVVVV";
-		}
 		break;
 	}
 	case 2: //The Lab
