@@ -231,7 +231,11 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 
 	if (!PHYSFS_mount(path, NULL, 0))
 	{
-		printf("Error mounting: %s\n", PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode()));
+		printf(
+			"Error mounting %s: %s\n",
+			fname,
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
 		return false;
 	}
 
