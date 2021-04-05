@@ -9,6 +9,7 @@
 
 #include "Exit.h"
 #include "Graphics.h"
+#include "Maths.h"
 #include "UtilityClass.h"
 
 /* These are needed for PLATFORM_* crap */
@@ -27,6 +28,7 @@ static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
 
 static char assetDir[MAX_PATH] = {'\0'};
+static char virtualMountPath[MAX_PATH] = {'\0'};
 
 static void PLATFORM_getOSDirectory(char* output);
 static void PLATFORM_migrateSaveData(char* output);
@@ -213,6 +215,33 @@ static bool FILESYSTEM_exists(const char *fname)
 	return PHYSFS_exists(fname);
 }
 
+static void generateVirtualMountPath(char* path, const size_t path_size)
+{
+	char random[6 + 1] = {'\0'};
+	size_t i;
+	for (i = 0; i < SDL_arraysize(random) - 1; ++i)
+	{
+		/* Generate a-z0-9 (base 36) */
+		char randchar = fRandom() * 36;
+		if (randchar <= 26)
+		{
+			randchar += 'a';
+		}
+		else
+		{
+			randchar -= 26;
+			randchar += '0';
+		}
+		random[i] = randchar;
+	}
+	SDL_snprintf(
+		path,
+		path_size,
+		".vvv-mnt-virtual-%s/custom-assets/",
+		random
+	);
+}
+
 static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 {
 	const char* real_dir = PHYSFS_getRealDir(fname);
@@ -229,7 +258,9 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 
 	SDL_snprintf(path, sizeof(path), "%s/%s", real_dir, fname);
 
-	if (!PHYSFS_mount(path, NULL, 0))
+	generateVirtualMountPath(virtualMountPath, sizeof(virtualMountPath));
+
+	if (!PHYSFS_mount(path, virtualMountPath, 0))
 	{
 		printf(
 			"Error mounting %s: %s\n",
@@ -452,8 +483,28 @@ void FILESYSTEM_loadAssetToMemory(
 	const bool addnull
 ) {
 	const char* path;
+	const bool assets_mounted = assetDir[0] != '\0';
+	char mounted_path[MAX_PATH];
 
-	path = name;
+	if (assets_mounted)
+	{
+		SDL_snprintf(
+			mounted_path,
+			sizeof(mounted_path),
+			"%s%s",
+			virtualMountPath,
+			name
+		);
+	}
+
+	if (assets_mounted && PHYSFS_exists(mounted_path))
+	{
+		path = mounted_path;
+	}
+	else
+	{
+		path = name;
+	}
 
 	FILESYSTEM_loadFileToMemory(path, mem, len, addnull);
 }
