@@ -33,7 +33,7 @@ SoundTrack::SoundTrack(const char* fileName)
 
 	unsigned char *mem;
 	size_t length = 0;
-	FILESYSTEM_loadFileToMemory(fileName, &mem, &length);
+	FILESYSTEM_loadFileToMemory(fileName, &mem, &length, false);
 	if (mem == NULL)
 	{
 		fprintf(stderr, "Unable to load WAV file %s\n", fileName);

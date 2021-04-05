@@ -364,7 +364,7 @@ void Graphics::Makebfont(void)
 
     unsigned char* charmap = NULL;
     size_t length;
-    FILESYSTEM_loadFileToMemory("graphics/font.txt", &charmap, &length);
+    FILESYSTEM_loadFileToMemory("graphics/font.txt", &charmap, &length, false);
     if (charmap != NULL)
     {
         unsigned char* current = charmap;
