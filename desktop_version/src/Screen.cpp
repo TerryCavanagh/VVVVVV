@@ -131,7 +131,7 @@ void Screen::LoadIcon(void)
 	size_t length = 0;
 	unsigned char *data;
 	unsigned int width, height;
-	FILESYSTEM_loadFileToMemory("VVVVVV.png", &fileIn, &length, false);
+	FILESYSTEM_loadAssetToMemory("VVVVVV.png", &fileIn, &length, false);
 	lodepng_decode24(&data, &width, &height, fileIn, length);
 	FILESYSTEM_freeMemory(&fileIn);
 	SDL_Surface *icon = SDL_CreateRGBSurfaceFrom(
