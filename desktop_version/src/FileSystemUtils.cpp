@@ -94,7 +94,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	SDL_snprintf(saveDir, sizeof(saveDir), "%s%s%s",
 		output,
 		"saves",
-		PHYSFS_getDirSeparator()
+		pathSep
 	);
 	printf("Save directory: %s\n", saveDir);
 
@@ -102,7 +102,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	SDL_snprintf(levelDir, sizeof(levelDir), "%s%s%s",
 		output,
 		"levels",
-		PHYSFS_getDirSeparator()
+		pathSep
 	);
 	printf("Level directory: %s\n", levelDir);
 
