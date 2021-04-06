@@ -212,7 +212,9 @@ static void levelMetaDataCallback(const char* filename)
     LevelMetaData temp;
     std::string filename_ = filename;
 
-    if (!FILESYSTEM_isFile(filename) || FILESYSTEM_isMounted(filename))
+    if (!endsWith(filename, ".vvvvvv")
+    || !FILESYSTEM_isFile(filename)
+    || FILESYSTEM_isMounted(filename))
     {
         return;
     }
