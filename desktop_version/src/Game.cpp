@@ -556,7 +556,16 @@ void Game::loadcustomlevelstats(void)
             pText = "";
         }
 
-        LOAD_ARRAY_RENAME(customlevelscore, customlevelscores)
+        if (SDL_strcmp(pKey, "customlevelscore") == 0 && pText[0] != '\0')
+        {
+            char buffer[16];
+            size_t start = 0;
+
+            while (next_split_s(buffer, sizeof(buffer), &start, pText, ','))
+            {
+                customlevelscores.push_back(help.Int(buffer));
+            }
+        }
 
         if (SDL_strcmp(pKey, "customlevelstats") == 0 && pText[0] != '\0')
         {
