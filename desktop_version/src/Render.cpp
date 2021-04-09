@@ -98,122 +98,122 @@ static void menurender(void)
     }
 #endif
     case Menu::errornostart:
-		graphics.Print( -1, 65, "ERROR: This level has", tr, tg, tb, true);
-		graphics.Print( -1, 75, "no start point!", tr, tg, tb, true);
-		break;
-	case Menu::gameplayoptions:
-	{
-		int gameplayoptionsoffset = 0;
+        graphics.Print( -1, 65, "ERROR: This level has", tr, tg, tb, true);
+        graphics.Print( -1, 75, "no start point!", tr, tg, tb, true);
+        break;
+    case Menu::gameplayoptions:
+    {
+        int gameplayoptionsoffset = 0;
 #if !defined(MAKEANDPLAY)
-		if (game.ingame_titlemode && game.unlock[18])
+        if (game.ingame_titlemode && game.unlock[18])
 #endif
-		{
-			gameplayoptionsoffset = 1;
-			if (game.currentmenuoption == 0) {
-				graphics.bigprint(-1, 30, "Flip Mode", tr, tg, tb, true);
-				graphics.Print(-1, 65, "Flip the entire game vertically.", tr, tg, tb, true);
-				if (graphics.setflipmode)
-				{
-					graphics.Print(-1, 85, "Currently ENABLED!", tr, tg, tb, true);
-				}
-				else
-				{
-					graphics.Print(-1, 85, "Currently Disabled.", tr / 2, tg / 2, tb / 2, true);
-				}
-			}
-		}
+        {
+            gameplayoptionsoffset = 1;
+            if (game.currentmenuoption == 0) {
+                graphics.bigprint(-1, 30, "Flip Mode", tr, tg, tb, true);
+                graphics.Print(-1, 65, "Flip the entire game vertically.", tr, tg, tb, true);
+                if (graphics.setflipmode)
+                {
+                    graphics.Print(-1, 85, "Currently ENABLED!", tr, tg, tb, true);
+                }
+                else
+                {
+                    graphics.Print(-1, 85, "Currently Disabled.", tr / 2, tg / 2, tb / 2, true);
+                }
+            }
+        }
 
-		if (game.currentmenuoption == gameplayoptionsoffset + 0)
-		{
-			//Toggle FPS
-			graphics.bigprint(-1, 30, "Toggle 30+ FPS", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Change whether the game", tr, tg, tb, true);
-			graphics.Print(-1, 75, "runs at 30 or over 30 FPS.", tr, tg, tb, true);
+        if (game.currentmenuoption == gameplayoptionsoffset + 0)
+        {
+            //Toggle FPS
+            graphics.bigprint(-1, 30, "Toggle 30+ FPS", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Change whether the game", tr, tg, tb, true);
+            graphics.Print(-1, 75, "runs at 30 or over 30 FPS.", tr, tg, tb, true);
 
-			if (!game.over30mode)
-			{
-				graphics.Print(-1, 95, "Current mode: 30 FPS", tr / 2, tg / 2, tb / 2, true);
-			}
-			else
-			{
-				graphics.Print(-1, 95, "Current mode: Over 30 FPS", tr, tg, tb, true);
-			}
-			break;
-		}
-		else if (game.currentmenuoption == gameplayoptionsoffset + 1)
-		{
-			//Speedrunner options
-			graphics.bigprint(-1, 30, "Speedrunner Options", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Access some advanced settings that", tr, tg, tb, true);
-			graphics.Print(-1, 75, "might be of interest to speedrunners", tr, tg, tb, true);
-		}
-		else if (game.currentmenuoption == gameplayoptionsoffset + 2)
-		{
-			//Advanced options
-			graphics.bigprint(-1, 30, "Advanced Options", tr, tg, tb, true);
-			graphics.Print(-1, 65, "All other settings", tr, tg, tb, true);
-		}
-		else if (game.currentmenuoption == gameplayoptionsoffset + 3)
-		{
-			//Clear Data
-			graphics.bigprint(-1, 30, "Clear Data", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Delete your save data", tr, tg, tb, true);
-			graphics.Print(-1, 75, "and unlocked play modes", tr, tg, tb, true);
-		}
+            if (!game.over30mode)
+            {
+                graphics.Print(-1, 95, "Current mode: 30 FPS", tr / 2, tg / 2, tb / 2, true);
+            }
+            else
+            {
+                graphics.Print(-1, 95, "Current mode: Over 30 FPS", tr, tg, tb, true);
+            }
+            break;
+        }
+        else if (game.currentmenuoption == gameplayoptionsoffset + 1)
+        {
+            //Speedrunner options
+            graphics.bigprint(-1, 30, "Speedrunner Options", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Access some advanced settings that", tr, tg, tb, true);
+            graphics.Print(-1, 75, "might be of interest to speedrunners", tr, tg, tb, true);
+        }
+        else if (game.currentmenuoption == gameplayoptionsoffset + 2)
+        {
+            //Advanced options
+            graphics.bigprint(-1, 30, "Advanced Options", tr, tg, tb, true);
+            graphics.Print(-1, 65, "All other settings", tr, tg, tb, true);
+        }
+        else if (game.currentmenuoption == gameplayoptionsoffset + 3)
+        {
+            //Clear Data
+            graphics.bigprint(-1, 30, "Clear Data", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Delete your save data", tr, tg, tb, true);
+            graphics.Print(-1, 75, "and unlocked play modes", tr, tg, tb, true);
+        }
 
-		break;
-	}
+        break;
+    }
     case Menu::options:
-	{
+    {
 #if defined(MAKEANDPLAY)
-		int flipmode_offset = 0;
+        int flipmode_offset = 0;
 #else
-		int flipmode_offset = game.ingame_titlemode && game.unlock[18] ? 0 : -1;
+        int flipmode_offset = game.ingame_titlemode && game.unlock[18] ? 0 : -1;
 #endif
 
 #if defined(MAKEANDPLAY)
-		int unlockmode_offset = -1;
+        int unlockmode_offset = -1;
 #else
-		int unlockmode_offset = 0;
+        int unlockmode_offset = 0;
 #endif
 
-		int offset = 0;
+        int offset = 0;
 
-		switch (game.currentmenuoption)
-		{
-		case 0:
-			graphics.bigprint(-1, 30, "Gameplay Options", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Adjust various gameplay options", tr, tg, tb, true);
-			break;
-		case 1:
-			graphics.bigprint(-1, 30, "Graphics Options", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Adjust screen settings", tr, tg, tb, true);
-			break;
-		case 2:
-			graphics.bigprint(-1, 30, "Game Pad Options", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
-			graphics.Print(-1, 75, "and adjust sensitivity", tr, tg, tb, true);
-			break;
-		case 3:
-			graphics.bigprint(-1, 30, "Accessibility", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Disable screen effects, enable", tr, tg, tb, true);
-			graphics.Print(-1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
-			break;
-		}
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            graphics.bigprint(-1, 30, "Gameplay Options", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Adjust various gameplay options", tr, tg, tb, true);
+            break;
+        case 1:
+            graphics.bigprint(-1, 30, "Graphics Options", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Adjust screen settings", tr, tg, tb, true);
+            break;
+        case 2:
+            graphics.bigprint(-1, 30, "Game Pad Options", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
+            graphics.Print(-1, 75, "and adjust sensitivity", tr, tg, tb, true);
+            break;
+        case 3:
+            graphics.bigprint(-1, 30, "Accessibility", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Disable screen effects, enable", tr, tg, tb, true);
+            graphics.Print(-1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
+            break;
+        }
 
-		if (game.currentmenuoption == 4 && music.mmmmmm)
-		{
-			graphics.bigprint(-1, 30, "Soundtrack", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
-			if (music.usingmmmmmm) {
-				graphics.Print(-1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
-			}
-			else {
-				graphics.Print(-1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
-			}
-		}
-		break;
-	}
+        if (game.currentmenuoption == 4 && music.mmmmmm)
+        {
+            graphics.bigprint(-1, 30, "Soundtrack", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
+            if (music.usingmmmmmm) {
+                graphics.Print(-1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
+            }
+            else {
+                graphics.Print(-1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
+            }
+        }
+        break;
+    }
     case Menu::graphicoptions:
         switch (game.currentmenuoption)
         {
@@ -475,44 +475,44 @@ static void menurender(void)
 
 
         break;
-	case Menu::speedrunneroptions:
-		switch (game.currentmenuoption)
-		{
-		case 0:
-			graphics.bigprint(-1, 30, "Glitchrunner Mode", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Re-enable glitches that existed", tr, tg, tb, true);
-			graphics.Print(-1, 75, "in previous versions of the game.", tr, tg, tb, true);
-			if (game.glitchrunnermode)
-			{
-				graphics.Print(-1, 95, "Glitchrunner mode is ON", tr, tg, tb, true);
-			}
-			else
-			{
-				graphics.Print(-1, 95, "Glitchrunner mode is OFF", tr / 2, tg / 2, tb / 2, true);
-			}
-			break;
-		case 1:
-			graphics.bigprint(-1, 30, "Input Delay", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Re-enable the 1-frame input delay", tr, tg, tb, true);
-			graphics.Print(-1, 75, "from previous versions of the game.", tr, tg, tb, true);
-			if (game.inputdelay)
-			{
-				graphics.Print(-1, 95, "Input delay is ON", tr, tg, tb, true);
-			}
-			else
-			{
-				graphics.Print(-1, 95, "Input delay is OFF", tr / 2, tg / 2, tb / 2, true);
-			}
-			break;
-		case 2:
-			graphics.bigprint(-1, 30, "Fake Load Screen", tr, tg, tb, true);
-			if (game.skipfakeload)
-				graphics.Print(-1, 65, "Fake loading screen is OFF", tr / 2, tg / 2, tb / 2, true);
-			else
-				graphics.Print(-1, 65, "Fake loading screen is ON", tr, tg, tb, true);
-			break;
-		}
-		break;
+    case Menu::speedrunneroptions:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            graphics.bigprint(-1, 30, "Glitchrunner Mode", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Re-enable glitches that existed", tr, tg, tb, true);
+            graphics.Print(-1, 75, "in previous versions of the game.", tr, tg, tb, true);
+            if (game.glitchrunnermode)
+            {
+                graphics.Print(-1, 95, "Glitchrunner mode is ON", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print(-1, 95, "Glitchrunner mode is OFF", tr / 2, tg / 2, tb / 2, true);
+            }
+            break;
+        case 1:
+            graphics.bigprint(-1, 30, "Input Delay", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Re-enable the 1-frame input delay", tr, tg, tb, true);
+            graphics.Print(-1, 75, "from previous versions of the game.", tr, tg, tb, true);
+            if (game.inputdelay)
+            {
+                graphics.Print(-1, 95, "Input delay is ON", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print(-1, 95, "Input delay is OFF", tr / 2, tg / 2, tb / 2, true);
+            }
+            break;
+        case 2:
+            graphics.bigprint(-1, 30, "Fake Load Screen", tr, tg, tb, true);
+            if (game.skipfakeload)
+                graphics.Print(-1, 65, "Fake loading screen is OFF", tr / 2, tg / 2, tb / 2, true);
+            else
+                graphics.Print(-1, 65, "Fake loading screen is ON", tr, tg, tb, true);
+            break;
+        }
+        break;
     case Menu::advancedoptions:
         switch (game.currentmenuoption)
         {
@@ -552,71 +552,71 @@ static void menurender(void)
         }
         break;
     case Menu::accessibility:
-	{
-		int accessibilityoffset = 0;
+    {
+        int accessibilityoffset = 0;
 #if !defined(MAKEANDPLAY)
-		accessibilityoffset = 1;
-		if (game.currentmenuoption == 0) {
-			graphics.bigprint(-1, 30, "Unlock Play Modes", tr, tg, tb, true);
-			graphics.Print(-1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
-			graphics.Print(-1, 75, "unlocked as you progress", tr, tg, tb, true);
-		}
+        accessibilityoffset = 1;
+        if (game.currentmenuoption == 0) {
+            graphics.bigprint(-1, 30, "Unlock Play Modes", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
+            graphics.Print(-1, 75, "unlocked as you progress", tr, tg, tb, true);
+        }
 #endif
-		if (game.currentmenuoption == accessibilityoffset + 0) {
-			graphics.bigprint(-1, 40, "Invincibility", tr, tg, tb, true);
-			graphics.Print(-1, 75, "Explore the game freely without", tr, tg, tb, true);
-			graphics.Print(-1, 85, "dying. (Can cause glitches.)", tr, tg, tb, true);
-			if (map.invincibility)
-			{
-				graphics.Print(-1, 105, "Invincibility is ON.", tr, tg, tb, true);
-			}
-			else
-			{
-				graphics.Print(-1, 105, "Invincibility is OFF.", tr / 2, tg / 2, tb / 2, true);
-			}
-		}else if (game.currentmenuoption == accessibilityoffset + 1) {
-			graphics.bigprint(-1, 40, "Slowdown", tr, tg, tb, true);
-			graphics.Print(-1, 75, "Reduce the game speed.", tr, tg, tb, true);
-			drawslowdowntext();
-		}
-		else if (game.currentmenuoption == accessibilityoffset + 2) {
-			graphics.bigprint(-1, 40, "Backgrounds", tr, tg, tb, true);
-			if (!game.colourblindmode)
-			{
-				graphics.Print(-1, 75, "Backgrounds are ON.", tr, tg, tb, true);
-			}
-			else
-			{
-				graphics.Print(-1, 75, "Backgrounds are OFF.", tr / 2, tg / 2, tb / 2, true);
-			}
-		}
-		else if (game.currentmenuoption == accessibilityoffset + 3) {
-			graphics.bigprint(-1, 40, "Screen Effects", tr, tg, tb, true);
-			graphics.Print(-1, 75, "Disables screen shakes and flashes.", tr, tg, tb, true);
-			if (!game.noflashingmode)
-			{
-				graphics.Print(-1, 85, "Screen Effects are ON.", tr, tg, tb, true);
-			}
-			else
-			{
-				graphics.Print(-1, 85, "Screen Effects are OFF.", tr / 2, tg / 2, tb / 2, true);
-			}
-		}
-		else if (game.currentmenuoption == accessibilityoffset + 4) {
-			graphics.bigprint(-1, 40, "Text Outline", tr, tg, tb, true);
-			graphics.Print(-1, 75, "Disables outline on game text.", tr, tg, tb, true);
-			// FIXME: Maybe do an outlined print instead? -flibit
-			if (!graphics.notextoutline)
-			{
-				graphics.Print(-1, 85, "Text outlines are ON.", tr, tg, tb, true);
-			}
-			else
-			{
-				graphics.Print(-1, 85, "Text outlines are OFF.", tr / 2, tg / 2, tb / 2, true);
-			}
-		}
-		break;
-	}
+        if (game.currentmenuoption == accessibilityoffset + 0) {
+            graphics.bigprint(-1, 40, "Invincibility", tr, tg, tb, true);
+            graphics.Print(-1, 75, "Explore the game freely without", tr, tg, tb, true);
+            graphics.Print(-1, 85, "dying. (Can cause glitches.)", tr, tg, tb, true);
+            if (map.invincibility)
+            {
+                graphics.Print(-1, 105, "Invincibility is ON.", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print(-1, 105, "Invincibility is OFF.", tr / 2, tg / 2, tb / 2, true);
+            }
+        }else if (game.currentmenuoption == accessibilityoffset + 1) {
+            graphics.bigprint(-1, 40, "Slowdown", tr, tg, tb, true);
+            graphics.Print(-1, 75, "Reduce the game speed.", tr, tg, tb, true);
+            drawslowdowntext();
+        }
+        else if (game.currentmenuoption == accessibilityoffset + 2) {
+            graphics.bigprint(-1, 40, "Backgrounds", tr, tg, tb, true);
+            if (!game.colourblindmode)
+            {
+                graphics.Print(-1, 75, "Backgrounds are ON.", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print(-1, 75, "Backgrounds are OFF.", tr / 2, tg / 2, tb / 2, true);
+            }
+        }
+        else if (game.currentmenuoption == accessibilityoffset + 3) {
+            graphics.bigprint(-1, 40, "Screen Effects", tr, tg, tb, true);
+            graphics.Print(-1, 75, "Disables screen shakes and flashes.", tr, tg, tb, true);
+            if (!game.noflashingmode)
+            {
+                graphics.Print(-1, 85, "Screen Effects are ON.", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print(-1, 85, "Screen Effects are OFF.", tr / 2, tg / 2, tb / 2, true);
+            }
+        }
+        else if (game.currentmenuoption == accessibilityoffset + 4) {
+            graphics.bigprint(-1, 40, "Text Outline", tr, tg, tb, true);
+            graphics.Print(-1, 75, "Disables outline on game text.", tr, tg, tb, true);
+            // FIXME: Maybe do an outlined print instead? -flibit
+            if (!graphics.notextoutline)
+            {
+                graphics.Print(-1, 85, "Text outlines are ON.", tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.Print(-1, 85, "Text outlines are OFF.", tr / 2, tg / 2, tb / 2, true);
+            }
+        }
+        break;
+    }
     case Menu::playint1:
     case Menu::playint2:
         graphics.Print( -1, 65, "Who do you want to play", tr, tg, tb, true);
@@ -1830,8 +1830,8 @@ void maprender(void)
     {
 #define OPTION(opt, text) graphics.map_option(opt, 4, text, game.menupage - 30 == opt)
         OPTION(0, "return to game");
-        OPTION(1, "options"); 
-		OPTION(2, "quit to menu");
+        OPTION(1, "options");
+        OPTION(2, "quit to menu");
 #undef OPTION
     }
 
