@@ -3783,11 +3783,6 @@ void editorlogic(void)
     }
 }
 
-static void creategraphicoptions(void)
-{
-    game.createmenu(Menu::graphicoptions);
-}
-
 static void creategameoptions(void)
 {
     game.createmenu(Menu::options);
