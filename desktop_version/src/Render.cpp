@@ -164,21 +164,6 @@ static void menurender(void)
         break;
     }
     case Menu::options:
-    {
-#if defined(MAKEANDPLAY)
-        int flipmode_offset = 0;
-#else
-        int flipmode_offset = game.ingame_titlemode && game.unlock[18] ? 0 : -1;
-#endif
-
-#if defined(MAKEANDPLAY)
-        int unlockmode_offset = -1;
-#else
-        int unlockmode_offset = 0;
-#endif
-
-        int offset = 0;
-
         switch (game.currentmenuoption)
         {
         case 0:
@@ -213,7 +198,6 @@ static void menurender(void)
             }
         }
         break;
-    }
     case Menu::graphicoptions:
         switch (game.currentmenuoption)
         {
