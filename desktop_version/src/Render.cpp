@@ -574,8 +574,8 @@ static void menurender(void)
             break;
         case 3:
             graphics.bigprint( -1, 40, "Invincibility", tr, tg, tb, true);
-            graphics.Print( -1, 75, "Provided to help disabled gamers", tr, tg, tb, true);
-            graphics.Print( -1, 85, "explore the game. Can cause glitches.", tr, tg, tb, true);
+            graphics.Print( -1, 75, "Explore the game freely without", tr, tg, tb, true);
+            graphics.Print( -1, 85, "dying. (Can cause glitches.)", tr, tg, tb, true);
             if (map.invincibility)
             {
                 graphics.Print( -1, 105, "Invincibility is ON.", tr, tg, tb, true);
@@ -587,8 +587,7 @@ static void menurender(void)
             break;
         case 4:
             graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
-            graphics.Print( -1, 75, "May be useful for disabled gamers", tr, tg, tb, true);
-            graphics.Print( -1, 85, "using one switch devices.", tr, tg, tb, true);
+            graphics.Print( -1, 75, "Reduce the game speed.", tr, tg, tb, true);
             drawslowdowntext();
         }
         break;
