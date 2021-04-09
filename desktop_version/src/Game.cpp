@@ -5947,21 +5947,21 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("ok");
         menuyoff = -20;
         break;
-	case Menu::gameplayoptions:
+    case Menu::gameplayoptions:
 #if !defined(MAKEANDPLAY)
-		if (ingame_titlemode && unlock[18])
+        if (ingame_titlemode && unlock[18])
 #endif
-		{
-			option("flip mode");
-		}
-		option("toggle fps");
-		option("speedrun options");
-		option("advanced options");
-		option("clear data");
-		option("return");
-		menuyoff = -10;
-		maxspacing = 15;
-		break;
+        {
+                option("flip mode");
+        }
+        option("toggle fps");
+        option("speedrun options");
+        option("advanced options");
+        option("clear data");
+        option("return");
+        menuyoff = -10;
+        maxspacing = 15;
+        break;
     case Menu::graphicoptions:
         option("toggle fullscreen");
         option("scaling mode");
@@ -5971,7 +5971,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("toggle vsync");
         option("return");
         menuyoff = -10;
-		maxspacing = 15;
+        maxspacing = 15;
         break;
     case Menu::ed_settings:
         option("change description");
@@ -6011,9 +6011,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 15;
         break;
     case Menu::options:
-		option("gameplay");
-		option("graphics");
-		option("game pad");
+        option("gameplay");
+        option("graphics");
+        option("game pad");
         option("accessibility");
         //Add extra menu for mmmmmm mod
         if(music.mmmmmm){
@@ -6022,36 +6022,36 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
         option("return");
         menuyoff = 0;
-		maxspacing = 15;
+        maxspacing = 15;
         break;
-	case Menu::speedrunneroptions:
-		option("glitchrunner mode");
-		option("input delay");
-		option("fake load screen");
-		option("return");
-		menuyoff = 0;
-		maxspacing = 15;
-		break;
+    case Menu::speedrunneroptions:
+        option("glitchrunner mode");
+        option("input delay");
+        option("fake load screen");
+        option("return");
+        menuyoff = 0;
+        maxspacing = 15;
+        break;
     case Menu::advancedoptions:
         option("toggle mouse");
         option("unfocus pause");
         option("room name background");
         option("return");
         menuyoff = 0;
-		maxspacing = 15;
+        maxspacing = 15;
         break;
     case Menu::accessibility:
 #if !defined(MAKEANDPLAY)
-		option("unlock play modes");
+        option("unlock play modes");
 #endif
-		option("invincibility", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
-		option("slowdown", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
-		option("animated backgrounds");
+        option("invincibility", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
+        option("slowdown", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
+        option("animated backgrounds");
         option("screen effects");
         option("text outline");
         option("return");
         menuyoff = 0;
-		maxspacing = 15;
+        maxspacing = 15;
         break;
     case Menu::controller:
         option("analog stick sensitivity");
@@ -6061,7 +6061,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("bind restart");
         option("return");
         menuyoff = 0;
-		maxspacing = 10;
+        maxspacing = 10;
         break;
     case Menu::cleardatamenu:
         option("no! don't delete");
