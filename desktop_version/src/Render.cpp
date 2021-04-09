@@ -537,16 +537,22 @@ static void menurender(void)
         break;
     case Menu::accessibility:
     {
-        int accessibilityoffset = 0;
+#ifdef MAKEANDPLAY
+ #define OFFSET 0
+#else
+ #define OFFSET 1
+#endif
+
+        switch (game.currentmenuoption)
+        {
 #if !defined(MAKEANDPLAY)
-        accessibilityoffset = 1;
-        if (game.currentmenuoption == 0) {
+        case 0:
             graphics.bigprint(-1, 30, "Unlock Play Modes", tr, tg, tb, true);
             graphics.Print(-1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
             graphics.Print(-1, 75, "unlocked as you progress", tr, tg, tb, true);
-        }
+            break;
 #endif
-        if (game.currentmenuoption == accessibilityoffset + 0) {
+        case OFFSET+0:
             graphics.bigprint(-1, 40, "Invincibility", tr, tg, tb, true);
             graphics.Print(-1, 75, "Explore the game freely without", tr, tg, tb, true);
             graphics.Print(-1, 85, "dying. (Can cause glitches.)", tr, tg, tb, true);
@@ -558,12 +564,13 @@ static void menurender(void)
             {
                 graphics.Print(-1, 105, "Invincibility is OFF.", tr / 2, tg / 2, tb / 2, true);
             }
-        }else if (game.currentmenuoption == accessibilityoffset + 1) {
+            break;
+        case OFFSET+1:
             graphics.bigprint(-1, 40, "Slowdown", tr, tg, tb, true);
             graphics.Print(-1, 75, "Reduce the game speed.", tr, tg, tb, true);
             drawslowdowntext();
-        }
-        else if (game.currentmenuoption == accessibilityoffset + 2) {
+            break;
+        case OFFSET+2:
             graphics.bigprint(-1, 40, "Backgrounds", tr, tg, tb, true);
             if (!game.colourblindmode)
             {
@@ -573,8 +580,8 @@ static void menurender(void)
             {
                 graphics.Print(-1, 75, "Backgrounds are OFF.", tr / 2, tg / 2, tb / 2, true);
             }
-        }
-        else if (game.currentmenuoption == accessibilityoffset + 3) {
+            break;
+        case OFFSET+3:
             graphics.bigprint(-1, 40, "Screen Effects", tr, tg, tb, true);
             graphics.Print(-1, 75, "Disables screen shakes and flashes.", tr, tg, tb, true);
             if (!game.noflashingmode)
@@ -585,8 +592,8 @@ static void menurender(void)
             {
                 graphics.Print(-1, 85, "Screen Effects are OFF.", tr / 2, tg / 2, tb / 2, true);
             }
-        }
-        else if (game.currentmenuoption == accessibilityoffset + 4) {
+            break;
+        case OFFSET+4:
             graphics.bigprint(-1, 40, "Text Outline", tr, tg, tb, true);
             graphics.Print(-1, 75, "Disables outline on game text.", tr, tg, tb, true);
             // FIXME: Maybe do an outlined print instead? -flibit
@@ -598,8 +605,11 @@ static void menurender(void)
             {
                 graphics.Print(-1, 85, "Text outlines are OFF.", tr / 2, tg / 2, tb / 2, true);
             }
+            break;
         }
         break;
+
+#undef OFFSET
     }
     case Menu::playint1:
     case Menu::playint2:
