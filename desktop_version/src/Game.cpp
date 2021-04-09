@@ -5818,17 +5818,16 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     {
     case Menu::mainmenu:
 #if !defined(MAKEANDPLAY)
-        option("start game");
+        option("play");
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
-        option("player levels");
+        option("levels");
 #endif
-        option("graphic options");
-        option("game options");
+        option("options");
 #if !defined(MAKEANDPLAY)
-        option("view credits");
+        option("credits");
 #endif
-        option("quit game");
+        option("quit");
         menuyoff = -10;
         maxspacing = 15;
         break;
@@ -5948,16 +5947,31 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("ok");
         menuyoff = -20;
         break;
+	case Menu::gameplayoptions:
+#if !defined(MAKEANDPLAY)
+		if (ingame_titlemode && unlock[18])
+#endif
+		{
+			option("flip mode");
+		}
+		option("toggle fps");
+		option("speedrun options");
+		option("advanced options");
+		option("clear data");
+		option("return");
+		menuyoff = -10;
+		maxspacing = 15;
+		break;
     case Menu::graphicoptions:
         option("toggle fullscreen");
         option("scaling mode");
         option("resize to nearest", graphics.screenbuffer->isWindowed);
         option("toggle filter");
         option("toggle analogue");
-        option("toggle fps");
         option("toggle vsync");
         option("return");
         menuyoff = -10;
+		maxspacing = 15;
         break;
     case Menu::ed_settings:
         option("change description");
@@ -5966,8 +5980,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("editor ghosts");
         option("load level");
         option("save level");
-        option("graphic options");
-        option("game options");
+        option("options");
         option("quit to main menu");
 
         menuyoff = -20;
@@ -5998,19 +6011,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 15;
         break;
     case Menu::options:
-        option("accessibility options");
-        option("advanced options");
-#if !defined(MAKEANDPLAY)
-        if (ingame_titlemode && unlock[18])
-#endif
-        {
-            option("flip mode");
-        }
-#if !defined(MAKEANDPLAY)
-        option("unlock play modes");
-#endif
-        option("game pad options");
-        option("clear data");
+		option("gameplay");
+		option("graphics");
+		option("game pad");
+        option("accessibility");
         //Add extra menu for mmmmmm mod
         if(music.mmmmmm){
             option("soundtrack");
@@ -6018,25 +6022,36 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
         option("return");
         menuyoff = 0;
+		maxspacing = 15;
         break;
+	case Menu::speedrunneroptions:
+		option("glitchrunner mode");
+		option("input delay");
+		option("fake load screen");
+		option("return");
+		menuyoff = 0;
+		maxspacing = 15;
+		break;
     case Menu::advancedoptions:
         option("toggle mouse");
         option("unfocus pause");
-        option("fake load screen");
         option("room name background");
-        option("glitchrunner mode");
-        option("input delay");
         option("return");
         menuyoff = 0;
+		maxspacing = 15;
         break;
     case Menu::accessibility:
-        option("animated backgrounds");
+#if !defined(MAKEANDPLAY)
+		option("unlock play modes");
+#endif
+		option("invincibility", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
+		option("slowdown", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
+		option("animated backgrounds");
         option("screen effects");
         option("text outline");
-        option("invincibility", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
-        option("slowdown", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
         option("return");
         menuyoff = 0;
+		maxspacing = 15;
         break;
     case Menu::controller:
         option("analog stick sensitivity");
@@ -6045,7 +6060,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("bind menu");
         option("bind restart");
         option("return");
-        menuyoff = 10;
+        menuyoff = 0;
+		maxspacing = 10;
         break;
     case Menu::cleardatamenu:
         option("no! don't delete");

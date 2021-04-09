@@ -41,6 +41,8 @@ namespace Menu
         ed_music,
         ed_quit,
         options,
+		gameplayoptions,
+		speedrunneroptions,
         advancedoptions,
         accessibility,
         controller,

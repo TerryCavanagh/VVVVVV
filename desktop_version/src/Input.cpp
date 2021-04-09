@@ -250,27 +250,21 @@ static void menuactionpress(void)
         case OFFSET+2:
             //Options
             music.playef(11);
-            game.createmenu(Menu::graphicoptions);
-            map.nexttowercolour();
-            break;
-        case OFFSET+3:
-            //Options
-            music.playef(11);
             game.createmenu(Menu::options);
             map.nexttowercolour();
             break;
 #if !defined(MAKEANDPLAY)
-        case OFFSET+4:
-            //Credits
-            music.playef(11);
-            game.createmenu(Menu::credits);
-            map.nexttowercolour();
-            break;
+        case OFFSET+3:
+			//Credits
+			music.playef(11);
+			game.createmenu(Menu::credits);
+			map.nexttowercolour();
+			break;
 #else
  #undef MPOFFSET
  #define MPOFFSET -2
 #endif
-        case OFFSET+5:
+        case OFFSET+4:
             music.playef(11);
             game.createmenu(Menu::youwannaquit);
             map.nexttowercolour();
@@ -442,12 +436,6 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             break;
         case 5:
-            //toggle 30+ fps
-            music.playef(11);
-            game.over30mode = !game.over30mode;
-            game.savestatsandsettings_menu();
-            break;
-        case 6:
             //toggle vsync
             music.playef(11);
 #ifndef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
@@ -537,6 +525,35 @@ static void menuactionpress(void)
             break;
         }
         break;
+	case Menu::speedrunneroptions:
+		switch (game.currentmenuoption)
+		{
+		case 0:
+			// Glitchrunner mode
+			music.playef(11);
+			game.glitchrunnermode = !game.glitchrunnermode;
+			game.savestatsandsettings_menu();
+			break;
+		case 1:
+			/* Input delay */
+			music.playef(11);
+			game.inputdelay = !game.inputdelay;
+			game.savestatsandsettings_menu();
+			break;
+		case 2:
+			// toggle fake load screen
+			game.skipfakeload = !game.skipfakeload;
+			game.savestatsandsettings_menu();
+			music.playef(11);
+			break;
+		default:
+			//back
+			music.playef(11);
+			game.returnmenu();
+			map.nexttowercolour();
+			break;
+		}
+		break;
     case Menu::advancedoptions:
         switch (game.currentmenuoption)
         {
@@ -560,28 +577,10 @@ static void menuactionpress(void)
             music.playef(11);
             break;
         case 2:
-            // toggle fake load screen
-            game.skipfakeload = !game.skipfakeload;
-            game.savestatsandsettings_menu();
-            music.playef(11);
-            break;
-        case 3:
             // toggle translucent roomname BG
             graphics.translucentroomname = !graphics.translucentroomname;
             game.savestatsandsettings_menu();
             music.playef(11);
-            break;
-        case 4:
-            // Glitchrunner mode
-            music.playef(11);
-            game.glitchrunnermode = !game.glitchrunnermode;
-            game.savestatsandsettings_menu();
-            break;
-        case 5:
-            /* Input delay */
-            music.playef(11);
-            game.inputdelay = !game.inputdelay;
-            game.savestatsandsettings_menu();
             break;
         default:
             //back
@@ -592,83 +591,163 @@ static void menuactionpress(void)
         }
         break;
     case Menu::accessibility:
-        switch (game.currentmenuoption)
-        {
-        case 0:
-            //disable animated backgrounds
-            game.colourblindmode = !game.colourblindmode;
-            game.savestatsandsettings_menu();
-            graphics.towerbg.tdrawback = true;
-            graphics.titlebg.tdrawback = true;
-            music.playef(11);
-            break;
-        case 1:
-            //disable screeneffects
-            game.noflashingmode = !game.noflashingmode;
-            game.savestatsandsettings_menu();
-            if (!game.noflashingmode)
-            {
-                music.playef(18);
-                game.screenshake = 10;
-                game.flashlight = 5;
-            }else{
-                music.playef(11);
-            }
-            break;
-        case 2:
-            //disable text outline
-            graphics.notextoutline = !graphics.notextoutline;
-            game.savestatsandsettings_menu();
-            music.playef(11);
-            break;
-        case 3:
-            //invincibility
-            if (!game.ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode))
-            {
-                if (!map.invincibility)
-                {
-                    game.createmenu(Menu::setinvincibility);
-                    map.nexttowercolour();
-                }
-                else
-                {
-                    map.invincibility = !map.invincibility;
-                    game.savestatsandsettings_menu();
-                }
-                music.playef(11);
-            }
-            else
-            {
-                music.playef(2);
-                map.invincibility = false;
-            }
-            break;
-        case 4:
-            //change game speed
-            if (!game.ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode))
-            {
-                game.createmenu(Menu::setslowdown);
-                map.nexttowercolour();
-                music.playef(11);
-            }
-            else
-            {
-                music.playef(2);
-                game.slowdown = 30;
-            }
-            break;
-        case 5:
-            //back
-            music.playef(11);
-            game.returnmenu();
-            map.nexttowercolour();
-            break;
-        default:
-            //Can't do yet! play sad sound
-            music.playef(2);
-            break;
-        }
-        break;
+	{
+		int accessibilityoffset = 0;
+#if !defined(MAKEANDPLAY)
+		accessibilityoffset = 1;
+		if (game.currentmenuoption == 0) {
+			//unlock play options
+			music.playef(11);
+			game.createmenu(Menu::unlockmenu);
+			map.nexttowercolour();
+		}
+#endif
+		if (game.currentmenuoption == accessibilityoffset + 0) {
+			//invincibility
+			if (!game.ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode))
+			{
+				if (!map.invincibility)
+				{
+					game.createmenu(Menu::setinvincibility);
+					map.nexttowercolour();
+				}
+				else
+				{
+					map.invincibility = !map.invincibility;
+					game.savestatsandsettings_menu();
+				}
+				music.playef(11);
+			}
+			else
+			{
+				music.playef(2);
+				map.invincibility = false;
+			}
+		}
+		else if (game.currentmenuoption == accessibilityoffset + 1) {
+			//change game speed
+			if (!game.ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode))
+			{
+				game.createmenu(Menu::setslowdown);
+				map.nexttowercolour();
+				music.playef(11);
+			}
+			else
+			{
+				music.playef(2);
+				game.slowdown = 30;
+			}
+		}
+		else if (game.currentmenuoption == accessibilityoffset + 2) {
+			//disable animated backgrounds
+			game.colourblindmode = !game.colourblindmode;
+			game.savestatsandsettings_menu();
+			graphics.towerbg.tdrawback = true;
+			graphics.titlebg.tdrawback = true;
+			music.playef(11);
+		}
+		else if (game.currentmenuoption == accessibilityoffset + 3) {
+			//disable screeneffects
+			game.noflashingmode = !game.noflashingmode;
+			game.savestatsandsettings_menu();
+			if (!game.noflashingmode)
+			{
+				music.playef(18);
+				game.screenshake = 10;
+				game.flashlight = 5;
+			}
+			else {
+				music.playef(11);
+			}
+		}
+		else if (game.currentmenuoption == accessibilityoffset + 4) {
+			//disable text outline
+			graphics.notextoutline = !graphics.notextoutline;
+			game.savestatsandsettings_menu();
+			music.playef(11);
+		}
+		else if (game.currentmenuoption == accessibilityoffset + 5) {
+			//back
+			music.playef(11);
+			game.returnmenu();
+			map.nexttowercolour();
+		}
+		break;
+	}
+	case Menu::gameplayoptions:
+	{
+		int gameplayoptionsoffset = 0;
+#if !defined(MAKEANDPLAY)
+		if (game.ingame_titlemode && game.unlock[18])
+#endif
+		{
+			gameplayoptionsoffset = 1;
+			if (game.currentmenuoption == 0) {
+				toggleflipmode();
+				// Fix wrong area music in Tower (Positive Force vs. ecroF evitisoP)
+				if (map.custommode)
+				{
+					break;
+				}
+				int area = map.area(game.roomx, game.roomy);
+				if (area == 3 || area == 11)
+				{
+					if (graphics.setflipmode)
+					{
+						music.play(9); // ecroF evitisoP
+					}
+					else
+					{
+						music.play(2); // Positive Force
+					}
+				}
+			}
+		}
+
+		if (game.currentmenuoption == gameplayoptionsoffset + 0)
+		{
+			//Toggle 30+ FPS
+			music.playef(11);
+			game.over30mode = !game.over30mode;
+			game.savestatsandsettings_menu();
+		}
+		else if (game.currentmenuoption == gameplayoptionsoffset + 1)
+		{
+			//Speedrunner options
+			music.playef(11);
+			game.createmenu(Menu::speedrunneroptions);
+			map.nexttowercolour();
+		}
+		else if (game.currentmenuoption == gameplayoptionsoffset + 2)
+		{
+			//Advanced options
+			music.playef(11);
+			game.createmenu(Menu::advancedoptions);
+			map.nexttowercolour();
+		}
+		else if (game.currentmenuoption == gameplayoptionsoffset + 3)
+		{
+			//Clear Data
+			music.playef(11);
+			game.createmenu(Menu::cleardatamenu);
+			map.nexttowercolour();
+		}
+		else if (game.currentmenuoption == gameplayoptionsoffset + 4) {
+			//return to previous menu
+			music.playef(11);
+			if (game.ingame_titlemode)
+			{
+				game.returntoingame();
+			}
+			else
+			{
+				game.returnmenu();
+				map.nexttowercolour();
+			}
+		}
+
+		break;
+	}
     case Menu::options:
     {
 #if defined(MAKEANDPLAY)
@@ -687,104 +766,61 @@ static void menuactionpress(void)
 
         int offset = 0;
 
-        switch (game.currentmenuoption)
-        {
-        case 0:
-            //accessibility options
-            music.playef(11);
-            game.createmenu(Menu::accessibility);
-            map.nexttowercolour();
-            break;
-        case 1:
-            //advanced options
-            music.playef(11);
-            game.createmenu(Menu::advancedoptions);
-            map.nexttowercolour();
-            break;
-        case 2:
-#if !defined(MAKEANDPLAY)
-        if (game.ingame_titlemode && game.unlock[18])
-#endif
-        {
-            toggleflipmode();
-            // Fix wrong area music in Tower (Positive Force vs. ecroF evitisoP)
-            if (map.custommode)
-            {
-                break;
-            }
-            int area = map.area(game.roomx, game.roomy);
-            if (area == 3 || area == 11)
-            {
-                if (graphics.setflipmode)
-                {
-                    music.play(9); // ecroF evitisoP
-                }
-                else
-                {
-                    music.play(2); // Positive Force
-                }
-            }
-        }
-            break;
-        }
+		switch (game.currentmenuoption)
+		{
+		case 0:
+			//gameplay options
+			music.playef(11);
+			game.createmenu(Menu::gameplayoptions);
+			map.nexttowercolour();
+			break;
+		case 1:
+			//graphic options
+			music.playef(11);
+			game.createmenu(Menu::graphicoptions);
+			map.nexttowercolour();
+			break;
+		case 2:
+			//gamepad options
+			music.playef(11);
+			game.createmenu(Menu::controller);
+			map.nexttowercolour();
+			break;
+		case 3:
+			//accessibility options
+			music.playef(11);
+			game.createmenu(Menu::accessibility);
+			map.nexttowercolour();
+			break;
+		}
 
-        offset += flipmode_offset;
+		if (game.currentmenuoption == 4 && music.mmmmmm)
+		{
+			//**** TOGGLE MMMMMM
+			music.usingmmmmmm = !music.usingmmmmmm;
+			music.playef(11);
+			if (music.currentsong > -1)
+			{
+				music.play(music.currentsong);
+			}
+			game.savestatsandsettings_menu();
+		}
 
-#if !defined(MAKEANDPLAY)
-        if (game.currentmenuoption == 3+offset)
-        {
-            //unlock play options
-            music.playef(11);
-            game.createmenu(Menu::unlockmenu);
-            map.nexttowercolour();
-        }
-#endif
+		if (game.currentmenuoption == 4 + (music.mmmmmm?1:0))
+		{
+			//Last option here is "return"
+			music.playef(11);
+			if (game.ingame_titlemode)
+			{
+				game.returntoingame();
+			}
+			else
+			{
+				game.returnmenu();
+				map.nexttowercolour();
+			}
+		}
 
-        offset += unlockmode_offset;
-
-        if (game.currentmenuoption == 4+offset)
-        {
-            //clear data menu
-            music.playef(11);
-            game.createmenu(Menu::controller);
-            map.nexttowercolour();
-            break;
-        }
-        else if (game.currentmenuoption == 5+offset)
-        {
-            //clear data menu
-            music.playef(11);
-            game.createmenu(Menu::cleardatamenu);
-            map.nexttowercolour();
-        }
-        else if (game.currentmenuoption == 6+offset && music.mmmmmm)
-        {
-            //**** TOGGLE MMMMMM
-            music.usingmmmmmm = !music.usingmmmmmm;
-            music.playef(11);
-            if (music.currentsong > -1)
-            {
-                music.play(music.currentsong);
-            }
-            game.savestatsandsettings_menu();
-        }
-
-        offset += mmmmmm_offset;
-
-        if (game.currentmenuoption == 7+offset)
-        {
-            //back
-            music.playef(11);
-            if (game.ingame_titlemode)
-            {
-                game.returntoingame();
-            }
-            else
-            {
-                game.returnmenu();
-                map.nexttowercolour();
-            }
-        }
         break;
     }
     case Menu::unlockmenutrials:
@@ -2213,8 +2249,8 @@ void mapinput(void)
         if (game.menupage == 19) game.menupage = 21;
         if (game.menupage == 22) game.menupage = 20;
 
-        if (game.menupage == 29) game.menupage = 33;
-        if (game.menupage == 34) game.menupage = 30;
+        if (game.menupage == 29) game.menupage = 32;
+        if (game.menupage == 33) game.menupage = 30;
     }
 }
 
@@ -2317,34 +2353,24 @@ static void mapmenuactionpress(void)
         graphics.resumegamemode = true;
         break;
     case 31:
-        // Go to quit prompt
-        music.playef(11);
-        game.menupage = 10;
-        break;
+		// Graphic options and game options
+		music.playef(11);
+		game.gamestate = TITLEMODE;
+		graphics.flipmode = false;
+		game.ingame_titlemode = true;
+		graphics.ingame_fademode = graphics.fademode;
+		graphics.fademode = 0;
+
+		// Set this before we create the menu
+		game.kludge_ingametemp = game.currentmenuname;
+		game.createmenu(Menu::options);
+		map.nexttowercolour();
+		break;
     case 32:
-    case 33:
-        // Graphic options and game options
-        music.playef(11);
-        game.gamestate = TITLEMODE;
-        graphics.flipmode = false;
-        game.ingame_titlemode = true;
-        graphics.ingame_fademode = graphics.fademode;
-        graphics.fademode = 0;
-
-        // Set this before we create the menu
-        game.kludge_ingametemp = game.currentmenuname;
-
-        if (game.menupage == 32)
-        {
-            game.createmenu(Menu::graphicoptions);
-        }
-        else
-        {
-            game.createmenu(Menu::options);
-        }
-
-        map.nexttowercolour();
-        break;
+		// Go to quit prompt
+		music.playef(11);
+		game.menupage = 10;
+		break;
     }
 }
 

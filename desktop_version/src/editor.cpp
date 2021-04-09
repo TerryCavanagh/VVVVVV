@@ -3885,22 +3885,13 @@ static void editormenuactionpress(void)
             graphics.backgrounddrawn=false;
             break;
         case 6:
-        case 7:
-            /* Graphic options and game options */
+            /* Game options */
             music.playef(11);
             game.gamestate = TITLEMODE;
             game.ingame_titlemode = true;
             game.ingame_editormode = true;
 
-            if (game.currentmenuoption == 6)
-            {
-                DEFER_CALLBACK(creategraphicoptions);
-            }
-            else
-            {
-                DEFER_CALLBACK(creategameoptions);
-            }
-
+            DEFER_CALLBACK(creategameoptions);
             DEFER_CALLBACK(nextbgcolor);
             break;
         default:
