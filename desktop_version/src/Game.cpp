@@ -739,6 +739,7 @@ void Game::updatestate(void)
             if (!script.running)
             {
                 hascontrol = true;
+                completestop = false;
             }
             break;
         case 1:
