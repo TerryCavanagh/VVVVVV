@@ -27,5 +27,5 @@ Contributors
 * leo60228 (@leo60228)
 * Emmanuel Vadot (@evadot)
 * Rémi Verschelde (@akien-mga)
-* viri (viri.me)
+* viri (viri.moe)
 * Wouter (Xesxen)
