@@ -398,21 +398,21 @@ int Graphics::bfontlen(uint32_t ch)
 
 void Graphics::MakeTileArray(void)
 {
-    PROCESS_TILESHEET(tiles, 8, )
-    PROCESS_TILESHEET(tiles2, 8, )
-    PROCESS_TILESHEET(tiles3, 8, )
-    PROCESS_TILESHEET(entcolours, 8, )
+    PROCESS_TILESHEET(tiles, 8, {})
+    PROCESS_TILESHEET(tiles2, 8, {})
+    PROCESS_TILESHEET(tiles3, 8, {})
+    PROCESS_TILESHEET(entcolours, 8, {})
 }
 
 void Graphics::maketelearray(void)
 {
-    PROCESS_TILESHEET_RENAME(teleporter, tele, 96, )
+    PROCESS_TILESHEET_RENAME(teleporter, tele, 96, {})
 }
 
 void Graphics::MakeSpriteArray(void)
 {
-    PROCESS_TILESHEET(sprites, 32, )
-    PROCESS_TILESHEET(flipsprites, 32, )
+    PROCESS_TILESHEET(sprites, 32, {})
+    PROCESS_TILESHEET(flipsprites, 32, {})
 }
 
 #undef PROCESS_TILESHEET
