@@ -16,11 +16,14 @@
 #if defined(_WIN32)
 #include <windows.h>
 #include <shlobj.h>
+#define mkdir(a, b) CreateDirectory(a, NULL)
+#define VNEEDS_MIGRATION (mkdirResult != 0)
 #elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
 #include <unistd.h>
 #include <dirent.h>
 #include <limits.h>
 #include <sys/stat.h>
+#define VNEEDS_MIGRATION (mkdirResult == 0)
 #define MAX_PATH PATH_MAX
 #endif
 
@@ -80,17 +83,13 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		PLATFORM_getOSDirectory(output);
 	}
 
-	/* Create base user directory, mount */
-	mkdirResult = PHYSFS_mkdir(output);
+	/* Create base user directory (NOT with PhysFS!), mount */
+	mkdirResult = mkdir(output, 777);
 
 	/* Mount our base user directory */
 	PHYSFS_mount(output, NULL, 0);
 	PHYSFS_setWriteDir(output);
 	printf("Base directory: %s\n", output);
-
-	/* Create the save/level folders */
-	mkdirResult |= PHYSFS_mkdir("saves");
-	mkdirResult |= PHYSFS_mkdir("levels");
 
 	/* Store full save directory */
 	SDL_snprintf(saveDir, sizeof(saveDir), "%s%s%s",
@@ -98,6 +97,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		"saves",
 		pathSep
 	);
+	mkdir(saveDir, 0777); /* FIXME: Why did I not | this? -flibit */
 	printf("Save directory: %s\n", saveDir);
 
 	/* Store full level directory */
@@ -106,10 +106,11 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		"levels",
 		pathSep
 	);
+	mkdirResult |= mkdir(levelDir, 0777);
 	printf("Level directory: %s\n", levelDir);
 
 	/* We didn't exist until now, migrate files! */
-	if (mkdirResult == 0)
+	if (VNEEDS_MIGRATION)
 	{
 		PLATFORM_migrateSaveData(output);
 	}
