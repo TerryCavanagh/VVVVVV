@@ -3606,6 +3606,7 @@ void scriptclass::hardreset(void)
 	}
 
 	game.pausescript = false;
+	game.completestop = false;
 
 	game.flashlight = 0;
 	game.screenshake = 0;
