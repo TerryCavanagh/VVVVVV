@@ -735,9 +735,17 @@ void Game::updatestate(void)
         case 0:
             //Do nothing here! Standard game state
 
-            //Prevent softlocks if there's no cutscene running right now
-            if (!script.running)
+            if (script.running)
             {
+                if (pausescript && !advancetext)
+                {
+                    /* Prevent softlocks if we somehow don't have advancetext */
+                    pausescript = false;
+                }
+            }
+            else
+            {
+                /* Prevent softlocks if there's no cutscene running right now */
                 hascontrol = true;
                 completestop = false;
             }
