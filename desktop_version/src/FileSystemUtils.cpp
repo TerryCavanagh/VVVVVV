@@ -83,9 +83,6 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		PLATFORM_getOSDirectory(output);
 	}
 
-	/* Create base user directory (NOT with PhysFS!), mount */
-	mkdirResult = mkdir(output, 0777);
-
 	/* Mount our base user directory */
 	PHYSFS_mount(output, NULL, 0);
 	PHYSFS_setWriteDir(output);
@@ -106,7 +103,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 		"levels",
 		pathSep
 	);
-	mkdirResult |= mkdir(levelDir, 0777);
+	mkdirResult = mkdir(levelDir, 0777);
 	printf("Level directory: %s\n", levelDir);
 
 	/* We didn't exist until now, migrate files! */
@@ -588,6 +585,7 @@ static void PLATFORM_getOSDirectory(char* output)
 	SHGetFolderPathW(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, utf16_path);
 	WideCharToMultiByte(CP_UTF8, 0, utf16_path, -1, output, MAX_PATH, NULL, NULL);
 	SDL_strlcat(output, "\\VVVVVV\\", MAX_PATH);
+	CreateDirectory(output, NULL);
 #else
 	SDL_strlcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"), MAX_PATH);
 #endif
