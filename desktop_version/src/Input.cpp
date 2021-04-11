@@ -2147,7 +2147,7 @@ void mapinput(void)
         {
             game.press_action = true;
         }
-        if (game.menupage < 12 || (game.menupage >= 30 && game.menupage <= 33))
+        if (game.menupage < 12 || (game.menupage >= 30 && game.menupage <= 32))
         {
             if (key.isDown(KEYBOARD_ENTER) || key.isDown(game.controllerButton_map) ) game.press_map = true;
             if (key.isDown(27) && !game.mapheld)
@@ -2159,7 +2159,7 @@ void mapinput(void)
                 }
                 else if (game.menupage < 12)
                 {
-                    game.menupage = 31;
+                    game.menupage = 32;
                 }
                 else
                 {
@@ -2297,7 +2297,7 @@ static void mapmenuactionpress(void)
     case 10:
         //return to pause menu
         music.playef(11);
-        game.menupage = 31;
+        game.menupage = 32;
         break;
     case 11:
         //quit to menu
