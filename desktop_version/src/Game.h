@@ -44,6 +44,7 @@ namespace Menu
         gameplayoptions,
         speedrunneroptions,
         advancedoptions,
+        audiooptions,
         accessibility,
         controller,
         cleardatamenu,

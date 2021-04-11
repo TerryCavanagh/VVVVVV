@@ -6031,13 +6031,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::options:
         option("gameplay");
         option("graphics");
+        option("audio");
         option("game pad");
         option("accessibility");
-        //Add extra menu for mmmmmm mod
-        if(music.mmmmmm){
-            option("soundtrack");
-        }
-
         option("return");
         menuyoff = 0;
         maxspacing = 15;
@@ -6054,6 +6050,17 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("toggle mouse");
         option("unfocus pause");
         option("room name background");
+        option("return");
+        menuyoff = 0;
+        maxspacing = 15;
+        break;
+    case Menu::audiooptions:
+        option("music volume");
+        option("sound volume");
+        if (music.mmmmmm)
+        {
+            option("soundtrack");
+        }
         option("return");
         menuyoff = 0;
         maxspacing = 15;

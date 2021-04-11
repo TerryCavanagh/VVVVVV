@@ -750,34 +750,25 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         case 2:
+            /* Audio options */
+            music.playef(11);
+            game.createmenu(Menu::audiooptions);
+            map.nexttowercolour();
+            break;
+        case 3:
             //gamepad options
             music.playef(11);
             game.createmenu(Menu::controller);
             map.nexttowercolour();
             break;
-        case 3:
+        case 4:
             //accessibility options
             music.playef(11);
             game.createmenu(Menu::accessibility);
             map.nexttowercolour();
             break;
-        }
-
-        if (game.currentmenuoption == 4 && music.mmmmmm)
-        {
-            //**** TOGGLE MMMMMM
-            music.usingmmmmmm = !music.usingmmmmmm;
-            music.playef(11);
-            if (music.currentsong > -1)
-            {
-                music.play(music.currentsong);
-            }
-            game.savestatsandsettings_menu();
-        }
-
-        if (game.currentmenuoption == 4 + (music.mmmmmm?1:0))
-        {
-            //Last option here is "return"
+        default:
+            /* Return */
             music.playef(11);
             if (game.ingame_titlemode)
             {
@@ -788,8 +779,41 @@ static void menuactionpress(void)
                 game.returnmenu();
                 map.nexttowercolour();
             }
+            break;
+        }
+        break;
+    case Menu::audiooptions:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            /* Not implemented */
+            break;
+        case 1:
+            /* Not implemented */
+            break;
+        case 2:
+            if (!music.mmmmmm)
+            {
+                break;
+            }
+
+            /* Toggle MMMMMM */
+            music.usingmmmmmm = !music.usingmmmmmm;
+            music.playef(11);
+            if (music.currentsong > -1)
+            {
+                music.play(music.currentsong);
+            }
+            game.savestatsandsettings_menu();
+            break;
         }
 
+        if (game.currentmenuoption == 2 + (int) music.mmmmmm)
+        {
+            /* Return */
+            game.returnmenu();
+            map.nexttowercolour();
+        }
         break;
     case Menu::unlockmenutrials:
         switch (game.currentmenuoption)
