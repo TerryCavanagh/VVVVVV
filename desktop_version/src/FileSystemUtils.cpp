@@ -55,7 +55,7 @@ static const PHYSFS_Allocator allocator = {
 int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
 	char output[MAX_PATH];
-	int saveDirCreated;
+	int mkdirResult;
 	int retval;
 	const char* pathSep = PHYSFS_getDirSeparator();
 	char* basePath;
@@ -81,7 +81,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	}
 
 	/* Create base user directory, mount */
-	PHYSFS_mkdir(output);
+	mkdirResult = PHYSFS_mkdir(output);
 
 	/* Mount our base user directory */
 	PHYSFS_mount(output, NULL, 0);
@@ -89,8 +89,8 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	printf("Base directory: %s\n", output);
 
 	/* Create the save/level folders */
-	saveDirCreated = PHYSFS_mkdir("saves");
-	PHYSFS_mkdir("levels");
+	mkdirResult |= PHYSFS_mkdir("saves");
+	mkdirResult |= PHYSFS_mkdir("levels");
 
 	/* Store full save directory */
 	SDL_snprintf(saveDir, sizeof(saveDir), "%s%s%s",
@@ -109,7 +109,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	printf("Level directory: %s\n", levelDir);
 
 	/* We didn't exist until now, migrate files! */
-	if (saveDirCreated != 0)
+	if (mkdirResult == 0)
 	{
 		PLATFORM_migrateSaveData(output);
 	}
