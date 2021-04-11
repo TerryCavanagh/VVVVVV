@@ -175,27 +175,23 @@ static void menurender(void)
             graphics.Print(-1, 65, "Adjust screen settings", tr, tg, tb, true);
             break;
         case 2:
+            graphics.bigprint(-1, 30, "Audio Options", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Adjust volume settings", tr, tg, tb, true);
+            if (music.mmmmmm)
+            {
+                graphics.Print(-1, 75, "and soundtrack", tr, tg, tb, true);
+            }
+            break;
+        case 3:
             graphics.bigprint(-1, 30, "Game Pad Options", tr, tg, tb, true);
             graphics.Print(-1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
             graphics.Print(-1, 75, "and adjust sensitivity", tr, tg, tb, true);
             break;
-        case 3:
+        case 4:
             graphics.bigprint(-1, 30, "Accessibility", tr, tg, tb, true);
             graphics.Print(-1, 65, "Disable screen effects, enable", tr, tg, tb, true);
             graphics.Print(-1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
             break;
-        }
-
-        if (game.currentmenuoption == 4 && music.mmmmmm)
-        {
-            graphics.bigprint(-1, 30, "Soundtrack", tr, tg, tb, true);
-            graphics.Print(-1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
-            if (music.usingmmmmmm) {
-                graphics.Print(-1, 85, "Current soundtrack: MMMMMM", tr, tg, tb, true);
-            }
-            else {
-                graphics.Print(-1, 85, "Current soundtrack: PPPPPP", tr, tg, tb, true);
-            }
         }
         break;
     case Menu::graphicoptions:
@@ -279,6 +275,44 @@ static void menurender(void)
                 graphics.Print(-1, 95, "Current mode: VSYNC ON", tr, tg, tb, true);
             }
             break;
+        }
+        break;
+    case Menu::audiooptions:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            /* Not implemented */
+            break;
+        case 1:
+            /* Not implemented */
+            break;
+        case 2:
+            if (!music.mmmmmm)
+            {
+                break;
+            }
+        {
+            /* Screen width 40 chars, 4 per char */
+            char buffer[160 + 1];
+            char soundtrack[6 + 1];
+            char letter;
+            if (music.usingmmmmmm)
+            {
+                letter = 'M';
+            }
+            else
+            {
+                letter = 'P';
+            }
+            VVV_fillstring(soundtrack, sizeof(soundtrack), letter);
+            SDL_snprintf(buffer, sizeof(buffer), "Current soundtrack: %s", soundtrack);
+
+            graphics.bigprint(-1, 30, "Soundtrack", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
+            graphics.Print(-1, 85, buffer, tr, tg, tb, true);
+            break;
+        }
+
         }
         break;
     case Menu::credits:
