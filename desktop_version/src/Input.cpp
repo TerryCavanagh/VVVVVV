@@ -447,15 +447,8 @@ static void menuactionpress(void)
         default:
             //back
             music.playef(11);
-            if (game.ingame_titlemode)
-            {
-                game.returntoingame();
-            }
-            else
-            {
-                game.returnmenu();
-                map.nexttowercolour();
-            }
+            game.returnmenu();
+            map.nexttowercolour();
             break;
         }
         break;
@@ -735,15 +728,8 @@ static void menuactionpress(void)
         else if (game.currentmenuoption == gameplayoptionsoffset + 4) {
             //return to previous menu
             music.playef(11);
-            if (game.ingame_titlemode)
-            {
-                game.returntoingame();
-            }
-            else
-            {
-                game.returnmenu();
-                map.nexttowercolour();
-            }
+            game.returnmenu();
+            map.nexttowercolour();
         }
 
         break;
@@ -1632,8 +1618,7 @@ void titleinput(void)
             else
             {
                 if (game.ingame_titlemode
-                && (game.currentmenuname == Menu::options
-                || game.currentmenuname == Menu::graphicoptions))
+                && game.currentmenuname == Menu::options)
                 {
                     game.returntoingame();
                 }
