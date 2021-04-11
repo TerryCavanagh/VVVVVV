@@ -84,7 +84,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	}
 
 	/* Create base user directory (NOT with PhysFS!), mount */
-	mkdirResult = mkdir(output, 777);
+	mkdirResult = mkdir(output, 0777);
 
 	/* Mount our base user directory */
 	PHYSFS_mount(output, NULL, 0);
