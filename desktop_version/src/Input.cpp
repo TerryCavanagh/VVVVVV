@@ -200,6 +200,56 @@ static void startmode(const int mode)
     fadetomodedelay = 16;
 }
 
+static int* user_changing_volume = NULL;
+static int previous_volume = 0;
+
+static void initvolumeslider(const int menuoption)
+{
+    switch (menuoption)
+    {
+    case 0:
+        game.slidermode = SLIDER_MUSICVOLUME;
+        user_changing_volume = &music.user_music_volume;
+        break;
+    case 1:
+        game.slidermode = SLIDER_SOUNDVOLUME;
+        user_changing_volume = &music.user_sound_volume;
+        break;
+    default:
+        SDL_assert(0 && "Unhandled volume slider option!");
+        game.slidermode = SLIDER_NONE;
+        user_changing_volume = NULL;
+        return;
+    }
+    previous_volume = *user_changing_volume;
+}
+
+static void deinitvolumeslider(void)
+{
+    user_changing_volume = NULL;
+    game.savestatsandsettings_menu();
+    game.slidermode = SLIDER_NONE;
+}
+
+static void slidermodeinput(void)
+{
+    if (user_changing_volume == NULL)
+    {
+        SDL_assert(0 && "user_changing_volume is NULL!");
+        return;
+    }
+
+    if (game.press_left)
+    {
+        *user_changing_volume -= USER_VOLUME_STEP;
+    }
+    else if (game.press_right)
+    {
+        *user_changing_volume += USER_VOLUME_STEP;
+    }
+    *user_changing_volume = clamp(*user_changing_volume, 0, USER_VOLUME_MAX);
+}
+
 static void menuactionpress(void)
 {
     switch (game.currentmenuname)
@@ -786,10 +836,16 @@ static void menuactionpress(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            /* Not implemented */
-            break;
         case 1:
-            /* Not implemented */
+            music.playef(11);
+            if (game.slidermode == SLIDER_NONE)
+            {
+                initvolumeslider(game.currentmenuoption);
+            }
+            else
+            {
+                deinitvolumeslider();
+            }
             break;
         case 2:
             if (!music.mmmmmm)
@@ -1641,7 +1697,27 @@ void titleinput(void)
             }
             else
             {
-                if (game.ingame_titlemode
+                if (game.slidermode != SLIDER_NONE)
+                {
+                    switch (game.slidermode)
+                    {
+                    /* Cancel volume change. */
+                    case SLIDER_MUSICVOLUME:
+                    case SLIDER_SOUNDVOLUME:
+                        if (user_changing_volume == NULL)
+                        {
+                            SDL_assert(0 && "user_changing_volume is NULL!");
+                            break;
+                        }
+                        *user_changing_volume = previous_volume;
+                        deinitvolumeslider();
+                        break;
+                    default:
+                        SDL_assert(0 && "Unhandled slider mode!");
+                        break;
+                    }
+                }
+                else if (game.ingame_titlemode
                 && game.currentmenuname == Menu::options)
                 {
                     game.returntoingame();
@@ -1656,13 +1732,20 @@ void titleinput(void)
 
         if(game.menustart)
         {
-            if (game.press_left)
+            if (game.slidermode == SLIDER_NONE)
             {
-                game.currentmenuoption--;
+                if (game.press_left)
+                {
+                    game.currentmenuoption--;
+                }
+                else if (game.press_right)
+                {
+                    game.currentmenuoption++;
+                }
             }
-            else if (game.press_right)
+            else
             {
-                game.currentmenuoption++;
+                slidermodeinput();
             }
         }
 

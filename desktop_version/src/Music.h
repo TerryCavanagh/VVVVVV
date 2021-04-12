@@ -11,6 +11,9 @@
 /* The amount of "space" for the scale of the user-set volume. */
 #define USER_VOLUME_MAX 256
 
+/* It is advised that USER_VOLUME_MAX be divisible by this. */
+#define USER_VOLUME_STEP 32
+
 class musicclass
 {
 public:

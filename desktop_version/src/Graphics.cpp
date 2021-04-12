@@ -1475,7 +1475,7 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
         SDL_strlcpy(tempstring, opt.text, sizeof(tempstring));
 
         char buffer[MENU_TEXT_BYTES];
-        if ((int) i == game.currentmenuoption)
+        if ((int) i == game.currentmenuoption && game.slidermode == SLIDER_NONE)
         {
             if (opt.active)
             {

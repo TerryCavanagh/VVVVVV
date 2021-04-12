@@ -46,6 +46,62 @@ static inline void drawslowdowntext(void)
     }
 }
 
+static void volumesliderrender(void)
+{
+    char buffer[40 + 1];
+
+    char slider[20 + 1];
+    int slider_length;
+
+    const char symbol[] = "[]";
+    int symbol_length;
+
+    int offset;
+    int num_positions;
+
+    const int* volume_ptr;
+
+    switch (game.currentmenuoption)
+    {
+    case 0:
+        volume_ptr = &music.user_music_volume;
+        break;
+    case 1:
+        volume_ptr = &music.user_sound_volume;
+        break;
+    default:
+        SDL_assert(0 && "Unhandled volume slider menu option!");
+        return;
+    }
+
+    VVV_fillstring(slider, sizeof(slider), '.');
+    slider_length = sizeof(slider) - 1;
+
+    symbol_length = sizeof(symbol) - 1;
+
+    num_positions = slider_length - symbol_length + 1;
+
+    offset = num_positions * (*volume_ptr) / USER_VOLUME_MAX;
+    offset = clamp(offset, 0, slider_length - symbol_length);
+
+    /* SDL_strlcpy null-terminates, which would end the string in the middle of
+     * it, which we don't want!
+     */
+    SDL_memcpy(&slider[offset], symbol, symbol_length);
+
+    if (game.slidermode == SLIDER_NONE)
+    {
+        SDL_strlcpy(buffer, slider, sizeof(buffer));
+    }
+    else
+    {
+        /* Draw selection brackets. */
+        SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", slider);
+    }
+
+    graphics.Print(-1, 85, buffer, tr, tg, tb, true);
+}
+
 static void menurender(void)
 {
     int temp = 50;
@@ -281,10 +337,14 @@ static void menurender(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            /* Not implemented */
+            graphics.bigprint(-1, 30, "Music Volume", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Change the volume of the music.", tr, tg, tb, true);
+            volumesliderrender();
             break;
         case 1:
-            /* Not implemented */
+            graphics.bigprint(-1, 30, "Sound Volume", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Change the volume of sound effects.", tr, tg, tb, true);
+            volumesliderrender();
             break;
         case 2:
             if (!music.mmmmmm)

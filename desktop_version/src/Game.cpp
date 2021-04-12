@@ -383,6 +383,7 @@ void Game::init(void)
     ingame_editormode = false;
 #endif
     kludge_ingametemp = Menu::mainmenu;
+    slidermode = SLIDER_NONE;
 
     disablepause = false;
     inputdelay = false;
