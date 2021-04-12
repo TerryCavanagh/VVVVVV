@@ -268,6 +268,7 @@ void musicclass::haltdasmusik(void)
 {
 	/* Just pauses music. This is intended. */
 	pause();
+	currentsong = -1;
 }
 
 void musicclass::silencedasmusik(void)
