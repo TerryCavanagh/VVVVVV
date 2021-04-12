@@ -238,7 +238,6 @@ void musicclass::play(int t)
 		else
 		{
 			fadeMusicVolumeIn(3000);
-			musicVolume = 0;
 		}
 	}
 }
@@ -290,6 +289,10 @@ void musicclass::fadeMusicVolumeIn(int ms)
 {
 	m_doFadeInVol = true;
 	m_doFadeOutVol = false;
+
+	/* Ensure it starts at 0 */
+	musicVolume = 0;
+
 	setfadeamount(ms);
 }
 
