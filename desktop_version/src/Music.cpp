@@ -268,6 +268,8 @@ void musicclass::haltdasmusik(void)
 	/* Just pauses music. This is intended. */
 	pause();
 	currentsong = -1;
+	m_doFadeInVol = false;
+	m_doFadeOutVol = false;
 }
 
 void musicclass::silencedasmusik(void)
