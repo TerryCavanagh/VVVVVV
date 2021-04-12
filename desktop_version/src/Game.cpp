@@ -4222,6 +4222,16 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             graphics.showmousecursor = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "musicvolume") == 0)
+        {
+            music.user_music_volume = help.Int(pText);
+        }
+
+        if (SDL_strcmp(pKey, "soundvolume") == 0)
+        {
+            music.user_sound_volume = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "flipButton") == 0)
         {
             SDL_GameControllerButton newButton;
@@ -4452,6 +4462,10 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
     xml::update_tag(dataNode, "glitchrunnermode", (int) glitchrunnermode);
 
     xml::update_tag(dataNode, "vsync", (int) screen_settings->useVsync);
+
+    xml::update_tag(dataNode, "musicvolume", music.user_music_volume);
+
+    xml::update_tag(dataNode, "soundvolume", music.user_sound_volume);
 
     // Delete all controller buttons we had previously.
     // dataNode->FirstChildElement() shouldn't be NULL at this point...

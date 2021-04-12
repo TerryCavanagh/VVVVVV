@@ -8,6 +8,9 @@
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
+/* The amount of "space" for the scale of the user-set volume. */
+#define USER_VOLUME_MAX 256
+
 class musicclass
 {
 public:
@@ -51,6 +54,10 @@ public:
 	bool m_doFadeOutVol;
 	int FadeVolAmountPerFrame;
 	int musicVolume;
+
+	/* 0..USER_VOLUME_MAX */
+	int user_music_volume;
+	int user_sound_volume;
 
 	bool quick_fade;
 

@@ -17,6 +17,9 @@ musicclass::musicclass(void)
 	musicVolume = 0;
 	FadeVolAmountPerFrame = 0;
 
+	user_music_volume = USER_VOLUME_MAX;
+	user_sound_volume = USER_VOLUME_MAX;
+
 	currentsong = 0;
 	nicechange = -1;
 	nicefade = false;
