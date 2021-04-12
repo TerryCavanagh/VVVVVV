@@ -84,6 +84,13 @@ namespace Menu
     };
 }
 
+enum SLIDERMODE
+{
+    SLIDER_NONE,
+    SLIDER_MUSICVOLUME,
+    SLIDER_SOUNDVOLUME
+};
+
 struct MenuStackFrame
 {
     int option;
@@ -259,6 +266,7 @@ public:
     int currentmenuoption ;
     enum Menu::MenuName currentmenuname;
     enum Menu::MenuName kludge_ingametemp;
+    enum SLIDERMODE slidermode;
     int current_credits_list_index;
     int menuxoff, menuyoff;
     int menuspacing;
