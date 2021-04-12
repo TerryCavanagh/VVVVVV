@@ -1947,7 +1947,7 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "foundtrinket")
 			{
-				music.haltdasmusik();
+				music.silencedasmusik();
 				music.playef(3);
 
 				size_t trinket = ss_toi(words[1]);
