@@ -771,7 +771,7 @@ static enum LoopCode loop_end(void)
     }
     else
     {
-        Mix_Volume(-1,MIX_MAX_VOLUME);
+        Mix_Volume(-1,MIX_MAX_VOLUME * music.user_sound_volume / USER_VOLUME_MAX);
 
         if (game.musicmuted)
         {
@@ -779,7 +779,7 @@ static enum LoopCode loop_end(void)
         }
         else
         {
-            Mix_VolumeMusic(music.musicVolume);
+            Mix_VolumeMusic(music.musicVolume * music.user_music_volume / USER_VOLUME_MAX);
         }
     }
 
