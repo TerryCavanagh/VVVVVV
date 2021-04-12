@@ -341,13 +341,6 @@ void musicclass::processmusic(void)
 		return;
 	}
 
-	if (nicefade && Mix_PausedMusic() == 1)
-	{
-		play(nicechange);
-		nicechange = -1;
-		nicefade = false;
-	}
-
 	if(m_doFadeInVol)
 	{
 		processmusicfadein();
@@ -356,6 +349,14 @@ void musicclass::processmusic(void)
 	if (m_doFadeOutVol)
 	{
 		processmusicfadeout();
+	}
+
+	/* This needs to come after processing fades */
+	if (nicefade && Mix_PausedMusic() == 1)
+	{
+		play(nicechange);
+		nicechange = -1;
+		nicefade = false;
 	}
 }
 
