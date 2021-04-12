@@ -335,3 +335,12 @@ bool endsWith(const char* str, const char* suffix)
 
 	return SDL_strcmp(&str[str_size - suffix_size], suffix) == 0;
 }
+
+void VVV_fillstring(
+	char* buffer,
+	const size_t buffer_size,
+	const char fillchar
+) {
+	SDL_memset(buffer, fillchar, buffer_size - 1);
+	buffer[buffer_size - 1] = '\0';
+}

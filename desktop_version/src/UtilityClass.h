@@ -28,6 +28,12 @@ bool is_positive_num(const char* str, const bool hex);
 
 bool endsWith(const char* str, const char* suffix);
 
+void VVV_fillstring(
+    char* buffer,
+    const size_t buffer_size,
+    const char fillchar
+);
+
 #define INBOUNDS_VEC(index, vector) ((int) index >= 0 && (int) index < (int) vector.size())
 #define INBOUNDS_ARR(index, array) ((int) index >= 0 && (int) index < (int) SDL_arraysize(array))
 
