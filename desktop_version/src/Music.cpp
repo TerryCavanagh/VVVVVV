@@ -293,6 +293,9 @@ void musicclass::fadeMusicVolumeIn(int ms)
 	/* Ensure it starts at 0 */
 	musicVolume = 0;
 
+	/* Fix 1-frame glitch */
+	Mix_VolumeMusic(0);
+
 	setfadeamount(ms);
 }
 
