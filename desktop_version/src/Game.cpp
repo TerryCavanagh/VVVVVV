@@ -214,10 +214,7 @@ void Game::init(void)
 
     deathcounts = 0;
     gameoverdelay = 0;
-    frames = 0;
-    seconds = 0;
-    minutes = 0;
-    hours = 0;
+    resetgameclock();
     gamesaved = false;
     gamesavefailed = false;
     savetime = "00:00";
