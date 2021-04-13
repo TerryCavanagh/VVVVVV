@@ -418,6 +418,7 @@ static void getMountedPath(
 bool FILESYSTEM_isAssetMounted(const char* filename)
 {
 	const char* realDir;
+	char path[MAX_PATH];
 
 	/* Fast path */
 	if (assetDir[0] == '\0')
@@ -425,7 +426,9 @@ bool FILESYSTEM_isAssetMounted(const char* filename)
 		return false;
 	}
 
-	realDir = PHYSFS_getRealDir(filename);
+	getMountedPath(path, sizeof(path), filename);
+
+	realDir = PHYSFS_getRealDir(path);
 
 	if (realDir == NULL)
 	{
