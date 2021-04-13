@@ -383,6 +383,38 @@ void FILESYSTEM_unmountAssets(void)
 	}
 }
 
+static void getMountedPath(
+	char* buffer,
+	const size_t buffer_size,
+	const char* filename
+) {
+	const char* path;
+	const bool assets_mounted = assetDir[0] != '\0';
+	char mounted_path[MAX_PATH];
+
+	if (assets_mounted)
+	{
+		SDL_snprintf(
+			mounted_path,
+			sizeof(mounted_path),
+			"%s%s",
+			virtualMountPath,
+			filename
+		);
+	}
+
+	if (assets_mounted && PHYSFS_exists(mounted_path))
+	{
+		path = mounted_path;
+	}
+	else
+	{
+		path = filename;
+	}
+
+	SDL_strlcpy(buffer, path, buffer_size);
+}
+
 bool FILESYSTEM_isAssetMounted(const char* filename)
 {
 	const char* realDir;
@@ -485,29 +517,9 @@ void FILESYSTEM_loadAssetToMemory(
 	size_t* len,
 	const bool addnull
 ) {
-	const char* path;
-	const bool assets_mounted = assetDir[0] != '\0';
-	char mounted_path[MAX_PATH];
+	char path[MAX_PATH];
 
-	if (assets_mounted)
-	{
-		SDL_snprintf(
-			mounted_path,
-			sizeof(mounted_path),
-			"%s%s",
-			virtualMountPath,
-			name
-		);
-	}
-
-	if (assets_mounted && PHYSFS_exists(mounted_path))
-	{
-		path = mounted_path;
-	}
-	else
-	{
-		path = name;
-	}
+	getMountedPath(path, sizeof(path), name);
 
 	FILESYSTEM_loadFileToMemory(path, mem, len, addnull);
 }
