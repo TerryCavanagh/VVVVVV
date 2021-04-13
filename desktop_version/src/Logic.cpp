@@ -731,7 +731,6 @@ void gamelogic(void)
 
             if (game.timetrialcountdown > 0)
             {
-                game.timetrialparlost = false;
                 game.hascontrol = true;
                 game.timetrialcountdown--;
                 if (game.timetrialcountdown > 30)
