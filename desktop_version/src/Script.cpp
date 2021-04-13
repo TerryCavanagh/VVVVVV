@@ -1542,10 +1542,7 @@ void scriptclass::run(void)
 				game.deathcounts = 0;
 				game.advancetext = false;
 				game.hascontrol = true;
-				game.frames = 0;
-				game.seconds = 0;
-				game.minutes = 0;
-				game.hours = 0;
+				game.resetgameclock();
 				game.gravitycontrol = 0;
 				game.teleport = false;
 				game.companion = 0;
@@ -3543,10 +3540,7 @@ void scriptclass::hardreset(void)
 
 	game.deathcounts = 0;
 	game.gameoverdelay = 0;
-	game.frames = 0;
-	game.seconds = 0;
-	game.minutes = 0;
-	game.hours = 0;
+	game.resetgameclock();
 	game.gamesaved = false;
 	game.gamesavefailed = false;
 	game.savetime = "00:00";
