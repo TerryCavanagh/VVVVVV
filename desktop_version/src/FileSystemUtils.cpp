@@ -540,13 +540,16 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 	PHYSFS_File* handle;
 	int offset;
 	size_t i;
+	char path[MAX_PATH];
 
 	if (blob == NULL || filename == NULL)
 	{
 		return false;
 	}
 
-	handle = PHYSFS_openRead(filename);
+	getMountedPath(path, sizeof(path), filename);
+
+	handle = PHYSFS_openRead(path);
 	if (handle == NULL)
 	{
 		printf("Unable to open file %s\n", filename);
