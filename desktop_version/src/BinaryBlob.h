@@ -57,7 +57,6 @@ public:
 
 	static const int max_headers = 128;
 
-private:
 	int numberofHeaders;
 	resourceheader m_headers[max_headers];
 	char* m_memblocks[max_headers];

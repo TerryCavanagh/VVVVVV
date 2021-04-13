@@ -7,6 +7,7 @@
 #include <tinyxml2.h>
 #include <vector>
 
+#include "BinaryBlob.h"
 #include "Exit.h"
 #include "Graphics.h"
 #include "Maths.h"
@@ -531,6 +532,91 @@ void FILESYSTEM_freeMemory(unsigned char **mem)
 {
 	SDL_free(*mem);
 	*mem = NULL;
+}
+
+bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
+{
+	PHYSFS_sint64 size;
+	PHYSFS_File* handle;
+	int offset;
+	size_t i;
+
+	if (blob == NULL || filename == NULL)
+	{
+		return false;
+	}
+
+	handle = PHYSFS_openRead(filename);
+	if (handle == NULL)
+	{
+		printf("Unable to open file %s\n", filename);
+		return false;
+	}
+
+	size = PHYSFS_fileLength(handle);
+
+	PHYSFS_readBytes(
+		handle,
+		&blob->m_headers,
+		sizeof(blob->m_headers)
+	);
+
+	offset = sizeof(blob->m_headers);
+
+	for (i = 0; i < SDL_arraysize(blob->m_headers); ++i)
+	{
+		resourceheader* header = &blob->m_headers[i];
+		char** memblock = &blob->m_memblocks[i];
+
+		/* Name can be stupid, just needs to be terminated */
+		static const size_t last_char = sizeof(header->name) - 1;
+		header->name[last_char] = '\0';
+
+		if (header->valid & ~0x1 || !header->valid)
+		{
+			goto fail; /* Must be EXACTLY 1 or 0 */
+		}
+		if (header->size < 1)
+		{
+			goto fail; /* Must be nonzero and positive */
+		}
+		if (offset + header->size > size)
+		{
+			goto fail; /* Bogus size value */
+		}
+
+		PHYSFS_seek(handle, offset);
+		*memblock = (char*) SDL_malloc(header->size);
+		if (*memblock == NULL)
+		{
+			VVV_exit(1); /* Oh god we're out of memory, just bail */
+		}
+		PHYSFS_readBytes(handle, *memblock, header->size);
+		offset += header->size;
+
+		continue;
+
+fail:
+		header->valid = false;
+	}
+
+	PHYSFS_close(handle);
+
+	printf("The complete reloaded file size: %lli\n", size);
+
+	for (i = 0; i < SDL_arraysize(blob->m_headers); ++i)
+	{
+		const resourceheader* header = &blob->m_headers[i];
+
+		if (!header->valid)
+		{
+			continue;
+		}
+
+		printf("%s unpacked\n", header->name);
+	}
+
+	return true;
 }
 
 bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
