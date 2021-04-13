@@ -5683,6 +5683,11 @@ std::string Game::unrescued(void)
 
 void Game::gameclock(void)
 {
+    if (timetrialcountdown > 0)
+    {
+        return;
+    }
+
     frames++;
     if (frames >= 30)
     {

@@ -1769,7 +1769,6 @@ void gamerender(void)
         {
             if (game.timetrialcountdown < 30)
             {
-                game.resetgameclock();
                 if (int(game.timetrialcountdown / 4) % 2 == 0) graphics.bigprint( -1, 100, "Go!", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
             else if (game.timetrialcountdown < 60)
