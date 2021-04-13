@@ -4911,7 +4911,6 @@ void Game::readmaingamesave(tinyxml2::XMLDocument& doc)
         else if (SDL_strcmp(pKey, "frames") == 0)
         {
             frames = help.Int(pText);
-            frames = 0;
         }
         else if (SDL_strcmp(pKey, "seconds") == 0)
         {
@@ -5106,7 +5105,6 @@ void Game::customloadquick(std::string savfile)
         else if (SDL_strcmp(pKey, "frames") == 0)
         {
             frames = help.Int(pText);
-            frames = 0;
         }
         else if (SDL_strcmp(pKey, "seconds") == 0)
         {
