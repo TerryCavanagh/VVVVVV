@@ -2095,7 +2095,6 @@ void gameinput(void)
         //Quick restart of time trial
         graphics.fademode = 2;
         game.completestop = true;
-        music.fadeout();
         game.quickrestartkludge = true;
     }
     else if (game.intimetrial)
