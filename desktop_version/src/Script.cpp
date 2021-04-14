@@ -2729,7 +2729,8 @@ void scriptclass::startgamemode( int t )
 		game.timetrialparlost = false;
 		game.timetriallevel = t - 3;
 
-		switch (t) {
+		switch (t)
+		{
 		case 3:
 			game.timetrialpar = 75;
 			game.timetrialshinytarget = 2;
