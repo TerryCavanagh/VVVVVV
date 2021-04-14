@@ -1751,7 +1751,7 @@ bool editorclass::load(std::string& _path)
     }
 
     FILESYSTEM_unmountAssets();
-    if (game.playassets != "")
+    if (game.cliplaytest && game.playassets != "")
     {
         FILESYSTEM_mountAssets(game.playassets.c_str());
     }
