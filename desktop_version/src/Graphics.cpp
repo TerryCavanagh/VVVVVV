@@ -1798,7 +1798,7 @@ void Graphics::drawentity(const int i, const int yoff)
         }
 
         wrappedPoint.y = tpoint.y;
-        if (tpoint.y < 0)
+        if (tpoint.y < 8)
         {
             wrapY = true;
             wrappedPoint.y += 232;
