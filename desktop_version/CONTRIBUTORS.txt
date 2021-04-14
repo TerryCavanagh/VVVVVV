@@ -11,6 +11,7 @@ Contributors
 * Brian Callahan (@ibara)
 * Dav999 (Dav999-v)
 * Allison Fleischer (AllisonFleischer)
+* Malte Grimm (@trelbutate)
 * Daniel Lee (@ddm999)
 * Fredrik Ljungdahl (@FredrIQ)
 * Nichole Mattera (@NicholeMattera)
