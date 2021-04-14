@@ -330,7 +330,7 @@ void musicclass::processmusicfadeout(void)
 	{
 		musicVolume = 0;
 		m_doFadeOutVol = false;
-		pause();
+		haltdasmusik();
 	}
 }
 
