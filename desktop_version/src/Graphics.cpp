@@ -1801,12 +1801,12 @@ void Graphics::drawentity(const int i, const int yoff)
         if (tpoint.y < 0)
         {
             wrapY = true;
-            wrappedPoint.y += 230;
+            wrappedPoint.y += 232;
         }
         else if (tpoint.y > 210)
         {
             wrapY = true;
-            wrappedPoint.y -= 230;
+            wrappedPoint.y -= 232;
         }
 
         const bool isInWrappingAreaOfTower = map.towermode && !map.minitowermode && map.ypos >= 500 && map.ypos <= 5000;
