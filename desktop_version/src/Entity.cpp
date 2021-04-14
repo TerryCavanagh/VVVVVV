@@ -2584,7 +2584,7 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 music.playef(4);
-                if (INBOUNDS_ARR(entities[i].para, customcollect))
+                if (INBOUNDS_ARR(entities[i].para, collect))
                 {
                     collect[(int) entities[i].para] = true;
                 }
