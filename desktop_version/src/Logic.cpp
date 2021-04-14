@@ -1188,7 +1188,7 @@ void gamelogic(void)
 
         //Warp tokens
         if (map.custommode){
-            if (game.teleport)
+            if (game.teleport && INBOUNDS_VEC(game.edteleportent, obj.entities))
             {
                 int edi=obj.entities[game.edteleportent].behave;
                 int edj=obj.entities[game.edteleportent].para;
