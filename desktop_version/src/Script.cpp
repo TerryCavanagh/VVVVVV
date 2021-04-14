@@ -2719,8 +2719,7 @@ void scriptclass::startgamemode( int t )
 	case 7:
 	case 8:
 		//Start Time Trial
-		if (!game.intimetrial)
-			music.fadeout();
+		music.fadeout();
 
 		hardreset();
 		game.nocutscenes = true;
