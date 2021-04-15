@@ -193,6 +193,8 @@ public:
     bool customwarpmode, customwarpmodevon, customwarpmodehon;
     std::string customscript;
     bool customcrewmoods[Game::numcrew];
+    std::string customactivitycolour;
+    std::string customactivitytext;
 };
 
 #ifndef OBJ_DEFINITION

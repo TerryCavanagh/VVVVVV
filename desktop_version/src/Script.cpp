@@ -1903,6 +1903,15 @@ void scriptclass::run(void)
 					obj.createblock(5, obj.entities[crewman].xp - 32, 0, 96, 240, i, "", (i == 35));
 				}
 			}
+			else if (words[0] == "setactivitycolour")
+			{
+				obj.customactivitycolour = words[1];
+			}
+			else if (words[0] == "setactivitytext")
+			{
+				position++;
+				obj.customactivitytext = commands[position];
+			}
 			else if (words[0] == "createrescuedcrew")
 			{
 				//special for final level cutscene
