@@ -759,7 +759,7 @@ void entityclass::generateswnwave( int t )
     }
 }
 
-void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/, const std::string& script /*= ""*/ )
+void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*= 0*/, const std::string& script /*= ""*/, bool custom /*= false*/)
 {
     k = blocks.size();
 
@@ -1051,7 +1051,12 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
             trig=0;
             break;
         case 35:
-            block.prompt = "Press %s to activate terminal";
+            if (custom)
+            {
+                block.prompt = "Press %s to interact";
+            } else {
+                block.prompt = "Press %s to activate terminal";
+            }
             block.script = "custom_"+customscript;
             block.setblockcolour("orange");
             trig=0;

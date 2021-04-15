@@ -52,7 +52,7 @@ public:
 
     void generateswnwave(int t);
 
-    void createblock(int t, int xp, int yp, int w, int h, int trig = 0, const std::string& script = "");
+    void createblock(int t, int xp, int yp, int w, int h, int trig = 0, const std::string& script = "", bool custom = false);
 
     bool disableentity(int t);
 
