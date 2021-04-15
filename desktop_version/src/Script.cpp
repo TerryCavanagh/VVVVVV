@@ -1896,11 +1896,11 @@ void scriptclass::run(void)
 				int crewman = obj.getcrewman(i);
 				if (INBOUNDS_VEC(crewman, obj.entities) && i == 4)
 				{
-					obj.createblock(5, obj.entities[crewman].xp - 32, obj.entities[crewman].yp-20, 96, 60, i);
+					obj.createblock(5, obj.entities[crewman].xp - 32, obj.entities[crewman].yp-20, 96, 60, i, "", (i == 35));
 				}
 				else if (INBOUNDS_VEC(crewman, obj.entities))
 				{
-					obj.createblock(5, obj.entities[crewman].xp - 32, 0, 96, 240, i);
+					obj.createblock(5, obj.entities[crewman].xp - 32, 0, 96, 240, i, "", (i == 35));
 				}
 			}
 			else if (words[0] == "createrescuedcrew")
