@@ -1,98 +1,98 @@
 # CMake File for VVVVVV
 # Written by Ethan "flibitijibibo" Lee
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
+cmake_minimum_required(VERSION 2.8.12)
 
 # CMake Options
-OPTION(ENABLE_WARNINGS "Enable compilation warnings" ON)
-OPTION(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
+option(ENABLE_WARNINGS "Enable compilation warnings" ON)
+option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
-SET(BUNDLE_DEPENDENCIES ON CACHE BOOL "Use bundled TinyXML-2, PhysicsFS, and UTF8-CPP (if disabled, TinyXML-2 and PhysicsFS will be dynamically linked, LodePNG and UTF8-CPP will still be statically linked)")
+set(BUNDLE_DEPENDENCIES ON CACHE BOOL "Use bundled TinyXML-2, PhysicsFS, and UTF8-CPP (if disabled, TinyXML-2 and PhysicsFS will be dynamically linked, LodePNG and UTF8-CPP will still be statically linked)")
 
-SET(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
-SET_PROPERTY(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
+set(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
+set_property(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
 
-SET(STEAM OFF CACHE BOOL "Use the Steam API")
-SET(GOG OFF CACHE BOOL "Use the GOG API")
+set(STEAM OFF CACHE BOOL "Use the Steam API")
+set(GOG OFF CACHE BOOL "Use the GOG API")
 
-SET(OFFICIAL_BUILD OFF CACHE BOOL "Compile an official build of the game")
+set(OFFICIAL_BUILD OFF CACHE BOOL "Compile an official build of the game")
 
-SET(MAKEANDPLAY OFF CACHE BOOL "Compile a version of the game without the main campaign (provided for convenience; consider modifying MakeAndPlay.h instead")
+set(MAKEANDPLAY OFF CACHE BOOL "Compile a version of the game without the main campaign (provided for convenience; consider modifying MakeAndPlay.h instead")
 
-IF(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
-	SET(STEAM ON)
-	SET(GOG ON)
-ENDIF()
+if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
+	set(STEAM ON)
+	set(GOG ON)
+endif()
 
-IF(MAKEANDPLAY)
-	ADD_DEFINITIONS(-DMAKEANDPLAY)
-ENDIF()
+if(MAKEANDPLAY)
+	add_definitions(-DMAKEANDPLAY)
+endif()
 
-# Set standard to C++98/C++03
-SET(CMAKE_CXX_STANDARD 98)
-SET(CMAKE_CXX_EXTENSIONS OFF) # prevent mixing stdlib implementations (dangerous!)
+# Set C++ standard to C++98/C++03
+set(CMAKE_CXX_STANDARD 98)
+set(CMAKE_CXX_EXTENSIONS OFF) # prevent mixing stdlib implementations (dangerous!)
 
 # Architecture Flags
-IF(APPLE)
+if(APPLE)
 	# Wow, Apple is a huge jerk these days huh?
-	SET(OSX_10_9_SDK_PATH /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk)
-	IF(NOT CMAKE_OSX_SYSROOT)
-		IF(IS_DIRECTORY ${OSX_10_9_SDK_PATH})
-			SET(CMAKE_OSX_SYSROOT ${OSX_10_9_SDK_PATH})
-		ELSE()
-			MESSAGE(WARNING "CMAKE_OSX_SYSROOT not set and macOS 10.9 SDK not found! Using default one.")
-		ENDIF()
-	ENDIF()
-	SET(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)
-	LINK_DIRECTORIES(/usr/local/lib)
-	ADD_COMPILE_OPTIONS(-Werror=partial-availability)
-ENDIF()
+	set(OSX_10_9_SDK_PATH /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk)
+	if(NOT CMAKE_OSX_SYSROOT)
+		if(IS_DIRECTORY ${OSX_10_9_SDK_PATH})
+			set(CMAKE_OSX_SYSROOT ${OSX_10_9_SDK_PATH})
+		else()
+			message(WARNING "CMAKE_OSX_SYSROOT not set and macOS 10.9 SDK not found! Using default one.")
+		endif()
+	endif()
+	set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)
+	link_directories(/usr/local/lib)
+	add_compile_options(-Werror=partial-availability)
+endif()
 
-PROJECT(VVVVVV)
+project(VVVVVV)
 
-IF(APPLE)
-	MESSAGE(STATUS "Using macOS SDK at ${CMAKE_OSX_SYSROOT}")
-ENDIF()
+if(APPLE)
+	message(STATUS "Using macOS SDK at ${CMAKE_OSX_SYSROOT}")
+endif()
 
 # Compiler Flags
-ADD_DEFINITIONS(-DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1)
+add_definitions(-DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1)
 
 # RPATH
-IF(NOT WIN32)
-	IF(APPLE)
-		SET(BIN_LIBROOT "osx")
-		SET(BIN_RPATH "@executable_path/osx")
-	ELSEIF(CMAKE_SIZEOF_VOID_P MATCHES "8")
-		SET(BIN_LIBROOT "lib64")
-		SET(BIN_RPATH "\$ORIGIN/lib64")
-	ELSE()
-		SET(BIN_LIBROOT "lib")
-		SET(BIN_RPATH "\$ORIGIN/lib")
-	ENDIF()
-	SET(CMAKE_SKIP_BUILD_RPATH TRUE)
-	SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-	SET(CMAKE_INSTALL_RPATH ${BIN_RPATH})
-	SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
-ENDIF()
+if(NOT WIN32)
+	if(APPLE)
+		set(BIN_LIBROOT "osx")
+		set(BIN_RPATH "@executable_path/osx")
+	elseif(CMAKE_SIZEOF_VOID_P MATCHES "8")
+		set(BIN_LIBROOT "lib64")
+		set(BIN_RPATH "\$ORIGIN/lib64")
+	else()
+		set(BIN_LIBROOT "lib")
+		set(BIN_RPATH "\$ORIGIN/lib")
+	endif()
+	set(CMAKE_SKIP_BUILD_RPATH TRUE)
+	set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+	set(CMAKE_INSTALL_RPATH ${BIN_RPATH})
+	set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
+endif()
 
 # Include Directories
-IF(BUNDLE_DEPENDENCIES)
-	INCLUDE_DIRECTORIES(
+if(BUNDLE_DEPENDENCIES)
+	include_directories(
 		src
 		../third_party/tinyxml2
 		../third_party/physfs
 		../third_party/lodepng
 		../third_party/utfcpp/source
 	)
-ELSE()
-	INCLUDE_DIRECTORIES(
+else()
+	include_directories(
 		src
 		../third_party/lodepng
 	)
-ENDIF()
+endif()
 
 # Source Lists
-SET(VVV_SRC
+set(VVV_SRC
 	src/BinaryBlob.cpp
 	src/BlockV.cpp
 	src/Ent.cpp
@@ -129,22 +129,22 @@ SET(VVV_SRC
 	src/Network.c
 	src/ThirdPartyDeps.c
 )
-IF(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
-	LIST(APPEND VVV_SRC src/editor.cpp)
-ENDIF()
-IF(STEAM)
-	LIST(APPEND VVV_SRC src/SteamNetwork.c)
-	ADD_DEFINITIONS(-DSTEAM_NETWORK)
-ENDIF()
-IF(GOG)
-	LIST(APPEND VVV_SRC src/GOGNetwork.c)
-	ADD_DEFINITIONS(-DGOG_NETWORK)
-ENDIF()
+if(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
+	list(APPEND VVV_SRC src/editor.cpp)
+endif()
+if(STEAM)
+	list(APPEND VVV_SRC src/SteamNetwork.c)
+	add_definitions(-DSTEAM_NETWORK)
+endif()
+if(GOG)
+	list(APPEND VVV_SRC src/GOGNetwork.c)
+	add_definitions(-DGOG_NETWORK)
+endif()
 
-SET(XML2_SRC
+set(XML2_SRC
 	../third_party/tinyxml2/tinyxml2.cpp
 )
-SET(PFS_SRC
+set(PFS_SRC
 	../third_party/physfs/physfs.c
 	../third_party/physfs/physfs_archiver_dir.c
 	../third_party/physfs/physfs_archiver_unpacked.c
@@ -156,32 +156,32 @@ SET(PFS_SRC
 	../third_party/physfs/physfs_platform_windows.c
 	../third_party/physfs/physfs_platform_haiku.cpp
 )
-IF(APPLE)
+if(APPLE)
 	# Are you noticing a pattern with this Apple crap yet?
-	SET(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
-ENDIF()
-SET(PNG_SRC ../third_party/lodepng/lodepng.c)
+	set(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
+endif()
+set(PNG_SRC ../third_party/lodepng/lodepng.c)
 
 # Executable information
-IF(WIN32)
-	ADD_EXECUTABLE(VVVVVV WIN32 ${VVV_SRC})
-ELSE()
-	ADD_EXECUTABLE(VVVVVV ${VVV_SRC})
-ENDIF()
+if(WIN32)
+	add_executable(VVVVVV WIN32 ${VVV_SRC})
+else()
+	add_executable(VVVVVV ${VVV_SRC})
+endif()
 
-IF(NOT OFFICIAL_BUILD)
+if(NOT OFFICIAL_BUILD)
 	# Add interim commit hash and its date to the build
 
-	# FIND_PACKAGE sets GIT_FOUND and GIT_EXECUTABLE
-	FIND_PACKAGE(Git)
+	# find_package sets GIT_FOUND and GIT_EXECUTABLE
+	find_package(Git)
 
-	IF(GIT_FOUND)
+	if(GIT_FOUND)
 		# These filenames have to be qualified, because when we run
 		# the CMake script, its work dir gets set to the build folder
-		SET(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in)
-		SET(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.out)
+		set(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in)
+		set(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.out)
 
-		ADD_CUSTOM_TARGET(
+		add_custom_target(
 			GenerateVersion ALL
 			# This BYPRODUCTS line is required for this to be ran every time
 			BYPRODUCTS ${VERSION_OUTPUT_FILE}
@@ -194,87 +194,87 @@ IF(NOT OFFICIAL_BUILD)
 			-P ${CMAKE_CURRENT_SOURCE_DIR}/version.cmake
 		)
 
-		ADD_DEPENDENCIES(VVVVVV GenerateVersion)
+		add_dependencies(VVVVVV GenerateVersion)
 
 		# This lets Version.h know that Version.h.out exists
-		ADD_DEFINITIONS(-DVERSION_H_OUT_EXISTS)
-	ENDIF()
-ENDIF()
+		add_definitions(-DVERSION_H_OUT_EXISTS)
+	endif()
+endif()
 
 # Build options
-IF(ENABLE_WARNINGS)
+if(ENABLE_WARNINGS)
 	# The weird syntax is due to CMake generator expressions.
 	# Saves quite a few lines and boilerplate at the price of readability.
-	TARGET_COMPILE_OPTIONS(VVVVVV PRIVATE
+	target_compile_options(VVVVVV PRIVATE
 		$<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
 			-Wall -Wpedantic $<$<BOOL:${ENABLE_WERROR}>:-Werror>>
 		$<$<CXX_COMPILER_ID:MSVC>:
 			/W4 $<$<BOOL:${ENABLE_WERROR}>:/WX>>)
-ENDIF()
+endif()
 
-IF(CUSTOM_LEVEL_SUPPORT STREQUAL "NO_EDITOR")
-	ADD_DEFINITIONS(-DNO_EDITOR)
-ELSEIF(CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
-	ADD_DEFINITIONS(-DNO_CUSTOM_LEVELS -DNO_EDITOR)
-ENDIF()
+if(CUSTOM_LEVEL_SUPPORT STREQUAL "NO_EDITOR")
+	add_definitions(-DNO_EDITOR)
+elseif(CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
+	add_definitions(-DNO_CUSTOM_LEVELS -DNO_EDITOR)
+endif()
 
-IF(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-	SET(SUPPORTS_IMPLICIT_FALLTHROUGH 1)
-ELSEIF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	IF(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
-		SET(SUPPORTS_IMPLICIT_FALLTHROUGH 1)
-	ELSE()
-		SET(SUPPORTS_IMPLICIT_FALLTHROUGH 0)
-	ENDIF()
-ELSE()
-	SET(SUPPORTS_IMPLICIT_FALLTHROUGH 0)
-ENDIF()
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	set(SUPPORTS_IMPLICIT_FALLTHROUGH 1)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
+		set(SUPPORTS_IMPLICIT_FALLTHROUGH 1)
+	else()
+		set(SUPPORTS_IMPLICIT_FALLTHROUGH 0)
+	endif()
+else()
+	set(SUPPORTS_IMPLICIT_FALLTHROUGH 0)
+endif()
 
 
-IF(SUPPORTS_IMPLICIT_FALLTHROUGH)
-	TARGET_COMPILE_OPTIONS(VVVVVV PRIVATE -Werror=implicit-fallthrough)
-ENDIF()
+if(SUPPORTS_IMPLICIT_FALLTHROUGH)
+	target_compile_options(VVVVVV PRIVATE -Werror=implicit-fallthrough)
+endif()
 
-IF(MSVC)
+if(MSVC)
 	# Disable MSVC warnings about implicit conversion
-	TARGET_COMPILE_OPTIONS(VVVVVV PRIVATE /wd4244)
-ENDIF()
+	target_compile_options(VVVVVV PRIVATE /wd4244)
+endif()
 
-SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_STANDARD 98)
-SET_PROPERTY(TARGET VVVVVV PROPERTY CXX_EXTENSIONS FALSE)
+set_property(TARGET VVVVVV PROPERTY CXX_STANDARD 98)
+set_property(TARGET VVVVVV PROPERTY CXX_EXTENSIONS FALSE)
 
 # Unfortunately, it doesn't seem like distros package LodePNG
-ADD_LIBRARY(lodepng-static STATIC ${PNG_SRC})
+add_library(lodepng-static STATIC ${PNG_SRC})
 
-TARGET_COMPILE_DEFINITIONS(lodepng-static PRIVATE
+target_compile_definitions(lodepng-static PRIVATE
 	-DLODEPNG_NO_COMPILE_ALLOCATORS
 	-DLODEPNG_NO_COMPILE_DISK
 	-DLODEPNG_NO_COMPILE_ENCODER
 )
 
-IF(BUNDLE_DEPENDENCIES)
-	ADD_LIBRARY(tinyxml2-static STATIC ${XML2_SRC})
-	ADD_LIBRARY(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
+if(BUNDLE_DEPENDENCIES)
+	add_library(tinyxml2-static STATIC ${XML2_SRC})
+	add_library(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
 
-	TARGET_LINK_LIBRARIES(VVVVVV physfs-static tinyxml2-static lodepng-static)
-ELSE()
-	FIND_PACKAGE(utf8cpp CONFIG)
+	target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static)
+else()
+	find_package(utf8cpp CONFIG)
 
-	TARGET_LINK_LIBRARIES(VVVVVV physfs tinyxml2 utf8cpp lodepng-static)
-ENDIF()
+	target_link_libraries(VVVVVV physfs tinyxml2 utf8cpp lodepng-static)
+endif()
 
 # SDL2 Dependency (Detection pulled from FAudio)
-if (DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
+if(DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
 	message(STATUS "Using pre-defined SDL2 variables SDL2_INCLUDE_DIRS and SDL2_LIBRARIES")
 	target_include_directories(VVVVVV SYSTEM PUBLIC "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
 	target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
 else()
 	# Only try to autodetect if both SDL2 variables aren't explicitly set
 	find_package(SDL2 CONFIG)
-	if (TARGET SDL2::SDL2)
+	if(TARGET SDL2::SDL2)
 		message(STATUS "Using TARGET SDL2::SDL2")
 		target_link_libraries(VVVVVV SDL2::SDL2 SDL2_mixer)
-	elseif (TARGET SDL2)
+	elseif(TARGET SDL2)
 		message(STATUS "Using TARGET SDL2")
 		target_link_libraries(VVVVVV SDL2 SDL2_mixer)
 	else()
@@ -286,14 +286,14 @@ else()
 endif()
 
 # Yes, more Apple Crap
-IF(APPLE)
-	FIND_LIBRARY(FOUNDATION NAMES Foundation)
-	FIND_LIBRARY(IOKIT NAMES IOKit)
-	TARGET_LINK_LIBRARIES(VVVVVV objc ${IOKIT} ${FOUNDATION})
-ENDIF()
+if(APPLE)
+	find_library(FOUNDATION NAMES Foundation)
+	find_library(IOKIT NAMES IOKit)
+	target_link_libraries(VVVVVV objc ${IOKIT} ${FOUNDATION})
+endif()
 # But hey, also some Haiku crap
-IF(HAIKU)
-	FIND_LIBRARY(BE_LIBRARY be)
-	FIND_LIBRARY(ROOT_LIBRARY root)
-	TARGET_LINK_LIBRARIES(VVVVVV ${BE_LIBRARY} ${ROOT_LIBRARY})
-ENDIF()
+if(HAIKU)
+	find_library(BE_LIBRARY be)
+	find_library(ROOT_LIBRARY root)
+	target_link_libraries(VVVVVV ${BE_LIBRARY} ${ROOT_LIBRARY})
+endif()
