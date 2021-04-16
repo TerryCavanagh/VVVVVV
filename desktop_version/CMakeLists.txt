@@ -7,17 +7,17 @@ cmake_minimum_required(VERSION 2.8.12)
 option(ENABLE_WARNINGS "Enable compilation warnings" ON)
 option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
-set(BUNDLE_DEPENDENCIES ON CACHE BOOL "Use bundled TinyXML-2, PhysicsFS, and UTF8-CPP (if disabled, TinyXML-2 and PhysicsFS will be dynamically linked, LodePNG and UTF8-CPP will still be statically linked)")
+option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and UTF8-CPP (if disabled, TinyXML-2 and PhysicsFS will be dynamically linked, LodePNG and UTF8-CPP will still be statically linked)" ON)
 
 set(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
 set_property(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
 
-set(STEAM OFF CACHE BOOL "Use the Steam API")
-set(GOG OFF CACHE BOOL "Use the GOG API")
+option(STEAM "Use the Steam API" OFF)
+option(GOG "Use the GOG API" OFF)
 
-set(OFFICIAL_BUILD OFF CACHE BOOL "Compile an official build of the game")
+option(OFFICIAL_BUILD "Compile an official build of the game" OFF)
 
-set(MAKEANDPLAY OFF CACHE BOOL "Compile a version of the game without the main campaign (provided for convenience; consider modifying MakeAndPlay.h instead")
+option(MAKEANDPLAY "Compile a version of the game without the main campaign (provided for convenience; consider modifying MakeAndPlay.h instead" OFF)
 
 if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
 	set(STEAM ON)
