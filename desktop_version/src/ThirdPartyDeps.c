@@ -1,6 +1,6 @@
 #include <SDL_stdinc.h>
 
-// Handle third-party dependencies' needs here
+/* Handle third-party dependencies' needs here */
 
 void* lodepng_malloc(size_t size)
 {
