@@ -28,9 +28,12 @@ if(MAKEANDPLAY)
 	add_definitions(-DMAKEANDPLAY)
 endif()
 
-# Set C++ standard to C++98/C++03
-set(CMAKE_CXX_STANDARD 98)
-set(CMAKE_CXX_EXTENSIONS OFF) # prevent mixing stdlib implementations (dangerous!)
+if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
+	message(WARNING "Your CMake version is too old; set -std=c++98 yourself!")
+else()
+	set(CMAKE_CXX_STANDARD 98)
+	set(CMAKE_CXX_EXTENSIONS OFF)
+endif()
 
 # Architecture Flags
 if(APPLE)
