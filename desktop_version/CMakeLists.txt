@@ -29,8 +29,11 @@ if(MAKEANDPLAY)
 endif()
 
 if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
-	message(WARNING "Your CMake version is too old; set -std=c++98 yourself!")
+	message(WARNING "Your CMake version is too old; set -std=c90 -std=c++98 yourself!")
 else()
+	set(CMAKE_C_STANDARD 90)
+	set(CMAKE_C_EXTENSIONS OFF)
+
 	set(CMAKE_CXX_STANDARD 98)
 	set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
@@ -255,6 +258,12 @@ target_compile_definitions(lodepng-static PRIVATE
 if(BUNDLE_DEPENDENCIES)
 	add_library(tinyxml2-static STATIC ${XML2_SRC})
 	add_library(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
+
+	# PhysFS needs some extensions...
+	if(${CMAKE_VERSION} VERSION_GREATER "3.1.3"
+	OR ${CMAKE_VERSION} VERSION_EQUAL "3.1.3")
+		set_property(TARGET physfs-static PROPERTY C_EXTENSIONS ON)
+	endif()
 
 	target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static)
 else()
