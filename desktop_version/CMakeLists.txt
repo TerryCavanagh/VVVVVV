@@ -240,9 +240,6 @@ if(MSVC)
 	target_compile_options(VVVVVV PRIVATE /wd4244)
 endif()
 
-set_property(TARGET VVVVVV PROPERTY CXX_STANDARD 98)
-set_property(TARGET VVVVVV PROPERTY CXX_EXTENSIONS FALSE)
-
 # Unfortunately, it doesn't seem like distros package LodePNG
 add_library(lodepng-static STATIC ${PNG_SRC})
 
