@@ -1130,8 +1130,6 @@ void gamelogic(void)
             }
         }
 
-        bool screen_transition = false;
-
         if (!map.warpy && !map.towermode)
         {
             //Normal! Just change room
@@ -1140,13 +1138,11 @@ void gamelogic(void)
             {
                 obj.entities[player].yp -= 240;
                 GOTOROOM(game.roomx, game.roomy + 1);
-                screen_transition = true;
             }
             if (INBOUNDS_VEC(player, obj.entities) && game.door_up > -2 && obj.entities[player].yp < -2)
             {
                 obj.entities[player].yp += 240;
                 GOTOROOM(game.roomx, game.roomy - 1);
-                screen_transition = true;
             }
         }
 
@@ -1158,13 +1154,11 @@ void gamelogic(void)
             {
                 obj.entities[player].xp += 320;
                 GOTOROOM(game.roomx - 1, game.roomy);
-                screen_transition = true;
             }
             if (INBOUNDS_VEC(player, obj.entities) && game.door_right > -2 && obj.entities[player].xp >= 308)
             {
                 obj.entities[player].xp -= 320;
                 GOTOROOM(game.roomx + 1, game.roomy);
-                screen_transition = true;
             }
         }
 
@@ -1384,7 +1378,7 @@ void gamelogic(void)
             }
         }
 
-        if (screen_transition)
+        if (roomchange)
         {
             map.twoframedelayfix();
         }
