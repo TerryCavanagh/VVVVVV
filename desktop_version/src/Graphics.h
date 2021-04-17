@@ -323,8 +323,6 @@ public:
 
 	bool translucentroomname;
 
-	bool showmousecursor;
-
 	std::map<int, int> font_positions;
 
 	SDL_Surface* ghostbuffer;

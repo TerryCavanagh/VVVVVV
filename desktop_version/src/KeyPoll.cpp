@@ -81,8 +81,60 @@ void KeyPoll::toggleFullscreen(void)
 	}
 }
 
+static int changemousestate(
+	int timeout,
+	const bool show,
+	const bool hide
+) {
+	int prev;
+	int new_;
+
+	if (timeout > 0)
+	{
+		return --timeout;
+	}
+
+	/* If we want to both show and hide at the same time, prioritize showing */
+	if (show)
+	{
+		new_ = SDL_ENABLE;
+	}
+	else if (hide)
+	{
+		new_ = SDL_DISABLE;
+	}
+	else
+	{
+		return timeout;
+	}
+
+	prev = SDL_ShowCursor(SDL_QUERY);
+
+	if (prev == new_)
+	{
+		return timeout;
+	}
+
+	SDL_ShowCursor(new_);
+
+	switch (new_)
+	{
+	case SDL_DISABLE:
+		timeout = 0;
+		break;
+	case SDL_ENABLE:
+		timeout = 30;
+		break;
+	}
+
+	return timeout;
+}
+
 void KeyPoll::Poll(void)
 {
+	static int mousetoggletimeout = 0;
+	bool showmouse = false;
+	bool hidemouse = false;
 	bool altpressed = false;
 	bool fullscreenkeybind = false;
 	SDL_Event evt;
@@ -324,7 +376,32 @@ void KeyPoll::Poll(void)
 			VVV_exit(0);
 			break;
 		}
+
+		switch (evt.type)
+		{
+		case SDL_KEYDOWN:
+			if (evt.key.repeat == 0)
+			{
+				hidemouse = true;
+			}
+			break;
+		case SDL_TEXTINPUT:
+		case SDL_CONTROLLERBUTTONDOWN:
+		case SDL_CONTROLLERAXISMOTION:
+			hidemouse = true;
+			break;
+		case SDL_MOUSEMOTION:
+		case SDL_MOUSEBUTTONDOWN:
+			showmouse = true;
+			break;
+		}
 	}
+
+	mousetoggletimeout = changemousestate(
+		mousetoggletimeout,
+		showmouse,
+		hidemouse
+	);
 
 	if (fullscreenkeybind)
 	{

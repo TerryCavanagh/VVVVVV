@@ -125,7 +125,6 @@ void Graphics::init(void)
     warprect = SDL_Rect();
 
     translucentroomname = false;
-    showmousecursor = true;
 
     alpha = 1.0f;
 
