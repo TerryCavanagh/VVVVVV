@@ -1202,7 +1202,7 @@ int entityclass::crewcolour( int t )
     return 0;
 }
 
-void entityclass::createentity(int xp, int yp, int t, int vx /*= 0*/, int vy /*= 0*/, int p1 /*= 0*/, int p2 /*= 0*/, int p3 /*= 320*/, int p4 /*= 240 */)
+void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, int p2, int p3, int p4)
 {
     k = entities.size();
 
@@ -2118,6 +2118,31 @@ void entityclass::createentity(int xp, int yp, int t, int vx /*= 0*/, int vy /*=
         }
         updateentities(indice);
     }
+}
+
+void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, int p2)
+{
+    createentity(xp, yp, t, vx, vy, p1, p2, 320, 240);
+}
+
+void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1)
+{
+    createentity(xp, yp, t, vx, vy, p1, 0);
+}
+
+void entityclass::createentity(int xp, int yp, int t, int vx, int vy)
+{
+    createentity(xp, yp, t, vx, vy, 0);
+}
+
+void entityclass::createentity(int xp, int yp, int t, int vx)
+{
+    createentity(xp, yp, t, vx, 0);
+}
+
+void entityclass::createentity(int xp, int yp, int t)
+{
+    createentity(xp, yp, t, 0);
 }
 
 //Returns true if entity is removed

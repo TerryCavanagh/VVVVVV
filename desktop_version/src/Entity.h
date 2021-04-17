@@ -74,8 +74,15 @@ public:
 
     int crewcolour(int t);
 
-    void createentity(int xp, int yp, int t, int vx = 0, int vy = 0,
-                      int p1 = 0, int p2 = 0, int p3 = 320, int p4 = 240);
+    void createentity(int xp, int yp, int t, int vx, int vy,
+                      int p1, int p2, int p3, int p4);
+    void createentity(int xp, int yp, int t, int vx, int vy,
+                      int p1, int p2);
+    void createentity(int xp, int yp, int t, int vx, int vy,
+                      int p1);
+    void createentity(int xp, int yp, int t, int vx, int vy);
+    void createentity(int xp, int yp, int t, int vx);
+    void createentity(int xp, int yp, int t);
 
     bool updateentities(int i);
 
