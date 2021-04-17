@@ -904,6 +904,7 @@ void mapclass::warpto(int rx, int ry , int t, int tx, int ty)
 void mapclass::gotoroom(int rx, int ry)
 {
 	int roomchangedir;
+	std::vector<entclass> linecrosskludge;
 
 	//First, destroy the current room
 	obj.removeallblocks();
@@ -912,7 +913,6 @@ void mapclass::gotoroom(int rx, int ry)
 	game.oldreadytotele = 0;
 
 	//Ok, let's save the position of all lines on the screen
-	obj.linecrosskludge.clear();
 	for (size_t i = 0; i < obj.entities.size(); i++)
 	{
 		if (obj.entities[i].type == 9)
@@ -921,7 +921,7 @@ void mapclass::gotoroom(int rx, int ry)
 			if (obj.entities[i].xp <= 0 || (obj.entities[i].xp + obj.entities[i].w) >= 312)
 			{
 				//it's on a screen edge
-				obj.copylinecross(i);
+				obj.copylinecross(linecrosskludge, i);
 			}
 		}
 	}
@@ -1069,24 +1069,24 @@ void mapclass::gotoroom(int rx, int ry)
 			if (obj.entities[i].xp <= 0 || obj.entities[i].xp + obj.entities[i].w >= 312)
 			{
 				//it's on a screen edge
-				for (size_t j = 0; j < obj.linecrosskludge.size(); j++)
+				for (size_t j = 0; j < linecrosskludge.size(); j++)
 				{
-					if (obj.entities[i].yp == obj.linecrosskludge[j].yp)
+					if (obj.entities[i].yp == linecrosskludge[j].yp)
 					{
 						//y's match, how about x's?
 						//we're moving left:
 						if (roomchangedir == 0)
 						{
-							if (obj.entities[i].xp + obj.entities[i].w >= 312 && obj.linecrosskludge[j].xp <= 0)
+							if (obj.entities[i].xp + obj.entities[i].w >= 312 && linecrosskludge[j].xp <= 0)
 							{
-								obj.revertlinecross(i, j);
+								obj.revertlinecross(linecrosskludge, i, j);
 							}
 						}
 						else
 						{
-							if (obj.entities[i].xp <= 0 && obj.linecrosskludge[j].xp + obj.linecrosskludge[j].w >= 312)
+							if (obj.entities[i].xp <= 0 && linecrosskludge[j].xp + linecrosskludge[j].w >= 312)
 							{
-								obj.revertlinecross(i, j);
+								obj.revertlinecross(linecrosskludge, i, j);
 							}
 						}
 					}

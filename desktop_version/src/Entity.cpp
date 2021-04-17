@@ -1148,7 +1148,7 @@ void entityclass::removetrigger( int t )
     }
 }
 
-void entityclass::copylinecross( int t )
+void entityclass::copylinecross(std::vector<entclass>& linecrosskludge, int t)
 {
     if (!INBOUNDS_VEC(t, entities))
     {
@@ -1159,7 +1159,7 @@ void entityclass::copylinecross( int t )
     linecrosskludge.push_back(entities[t]);
 }
 
-void entityclass::revertlinecross( int t, int s )
+void entityclass::revertlinecross(std::vector<entclass>& linecrosskludge, int t, int s)
 {
     if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(s, linecrosskludge))
     {

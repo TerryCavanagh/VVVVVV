@@ -66,9 +66,9 @@ public:
 
     void removetrigger(int t);
 
-    void copylinecross(int t);
+    void copylinecross(std::vector<entclass>& linecrosskludge, int t);
 
-    void revertlinecross(int t, int s);
+    void revertlinecross(std::vector<entclass>& linecrosskludge, int t, int s);
 
     bool gridmatch(int p1, int p2, int p3, int p4, int p11, int p21, int p31, int p41);
 
@@ -164,8 +164,6 @@ public:
 
 
     std::vector<entclass> entities;
-
-    std::vector<entclass> linecrosskludge;
 
     int k;
 
