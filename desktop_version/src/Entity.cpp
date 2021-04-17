@@ -1202,7 +1202,7 @@ int entityclass::crewcolour( int t )
     return 0;
 }
 
-void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, int p2, int p3, int p4)
+void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4)
 {
     k = entities.size();
 
@@ -1274,14 +1274,14 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.h = 21;
         entity.dir = 1;
 
-        if (vx == 1) entity.invis = true;
+        if (meta1 == 1) entity.invis = true;
 
         entity.gravity = true;
         break;
     case 1: //Simple enemy, bouncing off the walls
         entity.rule = 1;
-        entity.behave = vx;
-        entity.para = vy;
+        entity.behave = meta1;
+        entity.para = meta2;
         entity.w = 16;
         entity.h = 16;
         entity.cx = 0;
@@ -1345,35 +1345,35 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.w = 32;
         entity.h = 8;
 
-        if (vx <= 1) vertplatforms = true;
-        if (vx >= 2  && vx <= 5) horplatforms = true;
-        if (vx == 14 || vx == 15) horplatforms = true; //special case for last part of Space Station
-        if (vx >= 6  && vx <= 7) vertplatforms = true;
+        if (meta1 <= 1) vertplatforms = true;
+        if (meta1 >= 2  && meta1 <= 5) horplatforms = true;
+        if (meta1 == 14 || meta1 == 15) horplatforms = true; //special case for last part of Space Station
+        if (meta1 >= 6  && meta1 <= 7) vertplatforms = true;
 
-        if (vx >= 10  && vx <= 11)
+        if (meta1 >= 10  && meta1 <= 11)
         {
             //Double sized threadmills
             entity.w = 64;
             entity.h = 8;
-            vx -= 2;
+            meta1 -= 2;
             entity.size = 8;
         }
 
-        entity.behave = vx;
-        entity.para = vy;
+        entity.behave = meta1;
+        entity.para = meta2;
 
-        if (vx >= 8  && vx <= 9)
+        if (meta1 >= 8  && meta1 <= 9)
         {
             horplatforms = true; //threadmill!
             entity.animate = 10;
             if(customplatformtile>0){
               entity.tile = customplatformtile+4;
-              if (vx == 8) entity.tile += 4;
-              if (vx == 9) entity.animate = 11;
+              if (meta1 == 8) entity.tile += 4;
+              if (meta1 == 9) entity.animate = 11;
             }else{
               entity.settreadmillcolour(game.roomx, game.roomy);
-              if (vx == 8) entity.tile += 40;
-              if (vx == 9) entity.animate = 11;
+              if (meta1 == 8) entity.tile += 40;
+              if (meta1 == 9) entity.animate = 11;
             }
         }
         else
@@ -1400,9 +1400,9 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         {
           entity.tile=customplatformtile;
         }
-        else if (vx > 0)
+        else if (meta1 > 0)
         {
-            entity.tile = vx;
+            entity.tile = meta1;
         }
         else
         {
@@ -1413,8 +1413,8 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.cy = -1;
         entity.w = 32;
         entity.h = 10;
-        entity.behave = vx;
-        entity.para = vy;
+        entity.behave = meta1;
+        entity.para = meta2;
         entity.onentity = 1;
         entity.animate = 100;
 
@@ -1428,8 +1428,8 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.cy = -1;
         entity.w = 8;
         entity.h = 10;
-        entity.behave = vx;
-        entity.para = vy;
+        entity.behave = meta1;
+        entity.para = meta2;
         entity.onentity = 1;
         entity.animate = 100;
 
@@ -1442,8 +1442,8 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.tile = 11;
         entity.w = 16;
         entity.h = 16;
-        entity.behave = vx;
-        entity.para = vy;
+        entity.behave = meta1;
+        entity.para = meta2;
         entity.onentity = 1;
         entity.animate = 100;
         break;
@@ -1452,8 +1452,8 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.type = 5;  //Particles
         entity.colour = 1;
         entity.size = 3;
-        entity.vx = vx;
-        entity.vy = vy;
+        entity.vx = meta1;
+        entity.vy = meta2;
 
         entity.life = 12;
         break;
@@ -1462,8 +1462,8 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.type = 5;  //Particles
         entity.colour = 2;
         entity.size = 3;
-        entity.vx = vx;
-        entity.vy = vy;
+        entity.vx = meta1;
+        entity.vy = meta2;
 
         entity.life = 12;
         break;
@@ -1478,8 +1478,8 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.animate = 100;
 
         //Check if it's already been collected
-        entity.para = vx;
-        if (!INBOUNDS_ARR(vx, collect) || collect[vx]) return;
+        entity.para = meta1;
+        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return;
         break;
     case 9: //Something Shiny
         entity.rule = 3;
@@ -1493,22 +1493,22 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.animate = 100;
 
         //Check if it's already been collected
-        entity.para = vx;
-        if (!INBOUNDS_ARR(vx, collect) || collect[vx]) return;
+        entity.para = meta1;
+        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return;
         break;
     case 10: //Savepoint
         entity.rule = 3;
         entity.type = 8;
         entity.size = 0;
-        entity.tile = 20 + vx;
+        entity.tile = 20 + meta1;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 1;
         entity.animate = 100;
-        entity.para = vy;
+        entity.para = meta2;
 
-        if (game.savepoint == vy)
+        if (game.savepoint == meta2)
         {
             entity.colour = 5;
             entity.onentity = 0;
@@ -1524,7 +1524,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.type = 9;
         entity.size = 5;
         entity.life = 0;
-        entity.w = vx;
+        entity.w = meta1;
         entity.h = 1;
         entity.onentity = 1;
         break;
@@ -1534,7 +1534,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.size = 6;
         entity.life = 0;
         entity.w = 1;
-        entity.h = vx;
+        entity.h = meta1;
         //entity.colour = 0;
         entity.onentity = 1;
         break;
@@ -1549,8 +1549,8 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.onentity = 1;
         entity.animate = 2;
         //Added in port, hope it doesn't break anything
-        entity.behave = vx;
-        entity.para = vy;
+        entity.behave = meta1;
+        entity.para = meta2;
         break;
     case 14: // Teleporter
         entity.rule = 3;
@@ -1562,7 +1562,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.colour = 100;
         entity.onentity = 1;
         entity.animate = 100;
-        entity.para = vy;
+        entity.para = meta2;
         break;
     case 15: // Crew Member (warp zone)
         entity.rule = 6;
@@ -1575,7 +1575,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.h = 21;
         entity.dir = 0;
 
-        entity.state = vx;
+        entity.state = meta1;
 
         entity.gravity = true;
         break;
@@ -1590,7 +1590,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.h = 21;
         entity.dir = 1;
 
-        entity.state = vx;
+        entity.state = meta1;
 
         entity.gravity = true;
         break;
@@ -1605,7 +1605,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.h = 21;
         entity.dir = 1;
 
-        entity.state = vx;
+        entity.state = meta1;
 
         entity.gravity = true;
         break;
@@ -1613,8 +1613,8 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         //This is the scriping crewmember
         entity.rule = 6;
         entity.type = 12; //A special case!
-        entity.colour = vx;
-        if (vy == 0)
+        entity.colour = meta1;
+        if (meta2 == 0)
         {
             entity.tile = 0;
         }
@@ -1649,7 +1649,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.h = 21;
         entity.dir = 1;
 
-        entity.state = vx;
+        entity.state = meta1;
 
         entity.gravity = true;
         break;
@@ -1657,25 +1657,25 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.rule = 3;
         entity.type = 13;
         entity.size = 0;
-        entity.tile = 16 + vx;
+        entity.tile = 16 + meta1;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 1;
         entity.animate = 100;
-        entity.para = vy;
+        entity.para = meta2;
         break;
     case 21: //as above, except doesn't highlight
         entity.rule = 3;
         entity.type = 13;
         entity.size = 0;
-        entity.tile = 16 + vx;
+        entity.tile = 16 + meta1;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 0;
         entity.animate = 100;
-        entity.para = vy;
+        entity.para = meta2;
         break;
     case 22: //Fake trinkets, only appear if you've collected them
         entity.rule = 3;
@@ -1689,15 +1689,15 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.animate = 100;
 
         //Check if it's already been collected
-        entity.para = vx;
-        if (INBOUNDS_ARR(vx, collect) && !collect[vx]) return;
+        entity.para = meta1;
+        if (INBOUNDS_ARR(meta1, collect) && !collect[meta1]) return;
         break;
     case 23: //SWN Enemies
         //Given a different behavior, these enemies are especially for SWN mode and disappear outside the screen.
         entity.rule = 1;
         entity.type = 23;
-        entity.behave = vx;
-        entity.para = vy;
+        entity.behave = meta1;
+        entity.para = meta2;
         entity.w = 16;
         entity.h = 16;
         entity.cx = 0;
@@ -1725,17 +1725,17 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         //This special crewmember is way more advanced than the usual kind, and can interact with game objects
         entity.rule = 6;
         entity.type = 14; //A special case!
-        entity.colour = vx;
-        if (vx == 16)
+        entity.colour = meta1;
+        if (meta1 == 16)
         {
             //victoria is sad!
-            if (vy == 2) vy = 1;
+            if (meta2 == 2) meta2 = 1;
         }
         else
         {
-            if (vy == 2) vy = 0;
+            if (meta2 == 2) meta2 = 0;
         }
-        if (vy == 0)
+        if (meta2 == 0)
         {
             entity.tile = 0;
         }
@@ -1773,52 +1773,52 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.colour = 4;
         entity.onentity = 1;
         entity.animate = 100;
-        entity.para = vy;
+        entity.para = meta2;
 
         //Decide tile here based on given achievement: both whether you have them and what they are
         //default is just a trophy base:
-        entity.tile = 180 + vx;
-        switch (vy)
+        entity.tile = 180 + meta1;
+        switch (meta2)
         {
         case 1:
             if(game.bestrank[0]>=3)
             {
-                entity.tile = 184 + vx;
+                entity.tile = 184 + meta1;
                 entity.colour = 31;
             }
             break;
         case 2:
             if(game.bestrank[1]>=3)
             {
-                entity.tile = 186 + vx;
+                entity.tile = 186 + meta1;
                 entity.colour = 33;
             }
             break;
         case 3:
             if(game.bestrank[2]>=3)
             {
-                entity.tile = 184 + vx;
+                entity.tile = 184 + meta1;
                 entity.colour = 35;
             }
             break;
         case 4:
             if(game.bestrank[3]>=3)
             {
-                entity.tile = 184 + vx;
+                entity.tile = 184 + meta1;
                 entity.colour = 30;
             }
             break;
         case 5:
             if(game.bestrank[4]>=3)
             {
-                entity.tile = 184 + vx;
+                entity.tile = 184 + meta1;
                 entity.colour = 34;
             }
             break;
         case 6:
             if(game.bestrank[5]>=3)
             {
-                entity.tile = 184 + vx;
+                entity.tile = 184 + meta1;
                 entity.colour = 32;
             }
             break;
@@ -1826,7 +1826,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         case 7:
             if(game.unlock[5])
             {
-                entity.tile = 188 + vx;
+                entity.tile = 188 + meta1;
                 entity.colour = 37;
                 entity.h += 3;
                 entity.lerpoldyp -= 3;
@@ -1836,7 +1836,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         case 8:
             if(game.unlock[19])
             {
-                entity.tile = 188 + vx;
+                entity.tile = 188 + meta1;
                 entity.colour = 37;
                 entity.h += 3;
             }
@@ -1847,7 +1847,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
             {
                 if (game.bestgamedeaths <= 50)
                 {
-                    entity.tile = 182 + vx;
+                    entity.tile = 182 + meta1;
                     entity.colour = 40;
                 }
             }
@@ -1857,7 +1857,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
             {
                 if (game.bestgamedeaths <= 100)
                 {
-                    entity.tile = 182 + vx;
+                    entity.tile = 182 + meta1;
                     entity.colour = 36;
                 }
             }
@@ -1867,7 +1867,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
             {
                 if (game.bestgamedeaths <= 250)
                 {
-                    entity.tile = 182 + vx;
+                    entity.tile = 182 + meta1;
                     entity.colour = 38;
                 }
             }
@@ -1877,7 +1877,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
             {
                 if (game.bestgamedeaths <= 500)
                 {
-                    entity.tile = 182 + vx;
+                    entity.tile = 182 + meta1;
                     entity.colour = 39;
                 }
             }
@@ -1886,42 +1886,42 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         case 13:
             if(game.swnbestrank>=1)
             {
-                entity.tile = 182 + vx;
+                entity.tile = 182 + meta1;
                 entity.colour = 39;
             }
             break;
         case 14:
             if(game.swnbestrank>=2)
             {
-                entity.tile = 182 + vx;
+                entity.tile = 182 + meta1;
                 entity.colour = 39;
             }
             break;
         case 15:
             if(game.swnbestrank>=3)
             {
-                entity.tile = 182 + vx;
+                entity.tile = 182 + meta1;
                 entity.colour = 39;
             }
             break;
         case 16:
             if(game.swnbestrank>=4)
             {
-                entity.tile = 182 + vx;
+                entity.tile = 182 + meta1;
                 entity.colour = 38;
             }
             break;
         case 17:
             if(game.swnbestrank>=5)
             {
-                entity.tile = 182 + vx;
+                entity.tile = 182 + meta1;
                 entity.colour = 36;
             }
             break;
         case 18:
             if(game.swnbestrank>=6)
             {
-                entity.tile = 182 + vx;
+                entity.tile = 182 + meta1;
                 entity.colour = 40;
             }
             break;
@@ -1950,7 +1950,7 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         entity.colour = 3;
         entity.onentity = 0;
         entity.animate = 100;
-        entity.para = vy;
+        entity.para = meta2;
         entity.size = 13;
         break;
 
@@ -1970,13 +1970,13 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
             entity.rule = 5;
             entity.size = 6;
             entity.w = 1;
-            entity.h = vx;
+            entity.h = meta1;
             break;
         case 53:
         case 54:
             entity.rule = 7;
             entity.size = 5;
-            entity.w = vx;
+            entity.w = meta1;
             entity.h = 1;
             break;
         }
@@ -1992,13 +1992,13 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
         //2 - colour
         entity.rule = 3;
         entity.type = 55;
-        if(INBOUNDS_ARR(vy, customcrewmoods)
-        && customcrewmoods[vy]==1){
+        if(INBOUNDS_ARR(meta2, customcrewmoods)
+        && customcrewmoods[meta2]==1){
           entity.tile = 144;
         }else{
           entity.tile = 0;
         }
-        entity.colour = crewcolour(vy);
+        entity.colour = crewcolour(meta2);
         entity.cx = 6;
         entity.cy = 2;
         entity.w = 12;
@@ -2007,19 +2007,19 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
 
         entity.state = 0;
         entity.onentity = 1;
-        //entity.state = vx;
+        //entity.state = meta1;
 
         entity.gravity = true;
 
         //Check if it's already been collected
-        entity.para = vx;
-        if (!INBOUNDS_ARR(vx, customcollect) || customcollect[vx]) return;
+        entity.para = meta1;
+        if (!INBOUNDS_ARR(meta1, customcollect) || customcollect[meta1]) return;
         break;
       case 56: //Custom enemy
         entity.rule = 1;
         entity.type = 1;
-        entity.behave = vx;
-        entity.para = vy;
+        entity.behave = meta1;
+        entity.para = meta2;
         entity.w = 16;
         entity.h = 16;
         entity.cx = 0;
@@ -2120,24 +2120,24 @@ void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, in
     }
 }
 
-void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1, int p2)
+void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2)
 {
-    createentity(xp, yp, t, vx, vy, p1, p2, 320, 240);
+    createentity(xp, yp, t, meta1, meta2, p1, p2, 320, 240);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int vx, int vy, int p1)
+void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1)
 {
-    createentity(xp, yp, t, vx, vy, p1, 0);
+    createentity(xp, yp, t, meta1, meta2, p1, 0);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int vx, int vy)
+void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2)
 {
-    createentity(xp, yp, t, vx, vy, 0);
+    createentity(xp, yp, t, meta1, meta2, 0);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int vx)
+void entityclass::createentity(int xp, int yp, int t, int meta1)
 {
-    createentity(xp, yp, t, vx, 0);
+    createentity(xp, yp, t, meta1, 0);
 }
 
 void entityclass::createentity(int xp, int yp, int t)
