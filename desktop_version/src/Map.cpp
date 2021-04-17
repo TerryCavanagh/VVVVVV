@@ -903,6 +903,8 @@ void mapclass::warpto(int rx, int ry , int t, int tx, int ty)
 
 void mapclass::gotoroom(int rx, int ry)
 {
+	int roomchangedir;
+
 	//First, destroy the current room
 	obj.removeallblocks();
 	game.activetele = false;
@@ -953,11 +955,11 @@ void mapclass::gotoroom(int rx, int ry)
 
 	if (rx < game.roomx)
 	{
-		game.roomchangedir = 0;
+		roomchangedir = 0;
 	}
 	else
 	{
-		game.roomchangedir = 1;
+		roomchangedir = 1;
 	}
 
 	if (finalmode)
@@ -1073,7 +1075,7 @@ void mapclass::gotoroom(int rx, int ry)
 					{
 						//y's match, how about x's?
 						//we're moving left:
-						if (game.roomchangedir == 0)
+						if (roomchangedir == 0)
 						{
 							if (obj.entities[i].xp + obj.entities[i].w >= 312 && obj.linecrosskludge[j].xp <= 0)
 							{

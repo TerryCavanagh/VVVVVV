@@ -215,7 +215,7 @@ public:
     int door_right;
     int door_up;
     int door_down;
-    int roomx, roomy, roomchangedir;
+    int roomx, roomy;
     int prevroomx, prevroomy;
 
     int savex, savey, saverx, savery;
