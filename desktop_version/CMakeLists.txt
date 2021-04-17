@@ -261,7 +261,7 @@ target_compile_definitions(lodepng-static PRIVATE
 
 if(BUNDLE_DEPENDENCIES)
 	add_library(tinyxml2-static STATIC ${XML2_SRC})
-	add_library(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
+	add_library(physfs-static STATIC ${PFS_SRC})
 	target_compile_definitions(physfs-static PRIVATE
 		-DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1
 	)
