@@ -4215,11 +4215,6 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             graphics.translucentroomname = help.Int(pText);
         }
 
-        if (SDL_strcmp(pKey, "showmousecursor") == 0)
-        {
-            graphics.showmousecursor = help.Int(pText);
-        }
-
         if (SDL_strcmp(pKey, "musicvolume") == 0)
         {
             music.user_music_volume = help.Int(pText);
@@ -4271,15 +4266,6 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             key.sensitivity = help.Int(pText);
         }
 
-    }
-
-    if (graphics.showmousecursor)
-    {
-        SDL_ShowCursor(SDL_ENABLE);
-    }
-    else
-    {
-        SDL_ShowCursor(SDL_DISABLE);
     }
 
     if (controllerButton_flip.size() < 1)
@@ -4450,8 +4436,6 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
     xml::update_tag(dataNode, "notextoutline", (int) graphics.notextoutline);
 
     xml::update_tag(dataNode, "translucentroomname", (int) graphics.translucentroomname);
-
-    xml::update_tag(dataNode, "showmousecursor", (int) graphics.showmousecursor);
 
     xml::update_tag(dataNode, "over30mode", (int) over30mode);
 
@@ -6062,7 +6046,6 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 15;
         break;
     case Menu::advancedoptions:
-        option("toggle mouse");
         option("unfocus pause");
         option("room name background");
         option("return");

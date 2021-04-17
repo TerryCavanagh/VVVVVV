@@ -595,17 +595,6 @@ static void menurender(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            graphics.bigprint(-1, 30, "Toggle Mouse Cursor", tr, tg, tb, true);
-            graphics.Print(-1, 65, "Show/hide the system mouse cursor.", tr, tg, tb, true);
-
-            if (graphics.showmousecursor) {
-                graphics.Print(-1, 95, "Current mode: SHOW", tr, tg, tb, true);
-            }
-            else {
-                graphics.Print(-1, 95, "Current mode: HIDE", tr/2, tg/2, tb/2, true);
-            }
-            break;
-        case 1:
             graphics.bigprint( -1, 30, "Unfocus Pause", tr, tg, tb, true);
             graphics.Print( -1, 65, "Toggle if the game will pause", tr, tg, tb, true);
             graphics.Print( -1, 75, "when the window is unfocused.", tr, tg, tb, true);
@@ -618,7 +607,7 @@ static void menurender(void)
                 graphics.Print(-1, 95, "Unfocus pause is ON", tr, tg, tb, true);
             }
             break;
-        case 2:
+        case 1:
             graphics.bigprint(-1, 30, "Room Name BG", tr, tg, tb, true);
             graphics.Print( -1, 65, "Lets you see through what is behind", tr, tg, tb, true);
             graphics.Print( -1, 75, "the name at the bottom of the screen.", tr, tg, tb, true);

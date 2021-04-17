@@ -601,25 +601,12 @@ static void menuactionpress(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            //toggle mouse cursor
-            music.playef(11);
-            if (graphics.showmousecursor == true) {
-                SDL_ShowCursor(SDL_DISABLE);
-                graphics.showmousecursor = false;
-            }
-            else {
-                SDL_ShowCursor(SDL_ENABLE);
-                graphics.showmousecursor = true;
-            }
-            game.savestatsandsettings_menu();
-            break;
-        case 1:
             // toggle unfocus pause
             game.disablepause = !game.disablepause;
             game.savestatsandsettings_menu();
             music.playef(11);
             break;
-        case 2:
+        case 1:
             // toggle translucent roomname BG
             graphics.translucentroomname = !graphics.translucentroomname;
             game.savestatsandsettings_menu();
