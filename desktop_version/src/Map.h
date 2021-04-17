@@ -107,8 +107,8 @@ public:
 
     //Special tower stuff
     bool towermode;
-    float ypos;
-    float oldypos;
+    int ypos;
+    int oldypos;
     int cameramode;
     int cameraseek, cameraseekframe;
     int resumedelay;
