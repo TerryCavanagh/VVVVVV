@@ -24,10 +24,6 @@ if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
 	set(GOG ON)
 endif()
 
-if(MAKEANDPLAY)
-	add_definitions(-DMAKEANDPLAY)
-endif()
-
 if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
 	message(WARNING "Your CMake version is too old; set -std=c90 -std=c++98 yourself!")
 else()
@@ -60,9 +56,6 @@ if(APPLE)
 	message(STATUS "Using macOS SDK at ${CMAKE_OSX_SYSROOT}")
 endif()
 
-# Compiler Flags
-add_definitions(-DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1)
-
 # RPATH
 if(NOT WIN32)
 	if(APPLE)
@@ -79,22 +72,6 @@ if(NOT WIN32)
 	set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 	set(CMAKE_INSTALL_RPATH ${BIN_RPATH})
 	set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
-endif()
-
-# Include Directories
-if(BUNDLE_DEPENDENCIES)
-	include_directories(
-		src
-		../third_party/tinyxml2
-		../third_party/physfs
-		../third_party/lodepng
-		../third_party/utfcpp/source
-	)
-else()
-	include_directories(
-		src
-		../third_party/lodepng
-	)
 endif()
 
 # Source Lists
@@ -140,11 +117,45 @@ if(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
 endif()
 if(STEAM)
 	list(APPEND VVV_SRC src/SteamNetwork.c)
-	add_definitions(-DSTEAM_NETWORK)
 endif()
 if(GOG)
 	list(APPEND VVV_SRC src/GOGNetwork.c)
-	add_definitions(-DGOG_NETWORK)
+endif()
+
+# Executable information
+if(WIN32)
+	add_executable(VVVVVV WIN32 ${VVV_SRC})
+else()
+	add_executable(VVVVVV ${VVV_SRC})
+endif()
+
+# Include Directories
+if(BUNDLE_DEPENDENCIES)
+	target_include_directories(
+		VVVVVV PRIVATE
+		src
+		../third_party/tinyxml2
+		../third_party/physfs
+		../third_party/lodepng
+		../third_party/utfcpp/source
+	)
+else()
+	target_include_directories(
+		VVVVVV PRIVATE
+		src
+		../third_party/lodepng
+	)
+endif()
+
+if(MAKEANDPLAY)
+	target_compile_definitions(VVVVVV PRIVATE -DMAKEANDPLAY)
+endif()
+
+if(STEAM)
+	target_compile_definitions(VVVVVV PRIVATE -DSTEAM_NETWORK)
+endif()
+if(GOG)
+	target_compile_definitions(VVVVVV PRIVATE -DGOG_NETWORK)
 endif()
 
 set(XML2_SRC
@@ -167,13 +178,6 @@ if(APPLE)
 	set(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
 endif()
 set(PNG_SRC ../third_party/lodepng/lodepng.c)
-
-# Executable information
-if(WIN32)
-	add_executable(VVVVVV WIN32 ${VVV_SRC})
-else()
-	add_executable(VVVVVV ${VVV_SRC})
-endif()
 
 if(NOT OFFICIAL_BUILD)
 	# Add interim commit hash and its date to the build
@@ -258,6 +262,9 @@ target_compile_definitions(lodepng-static PRIVATE
 if(BUNDLE_DEPENDENCIES)
 	add_library(tinyxml2-static STATIC ${XML2_SRC})
 	add_library(physfs-static STATIC ${PFS_SRC} ${PFSP_SRC})
+	target_compile_definitions(physfs-static PRIVATE
+		-DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1
+	)
 
 	# PhysFS needs some extensions...
 	if(${CMAKE_VERSION} VERSION_GREATER "3.1.3"
