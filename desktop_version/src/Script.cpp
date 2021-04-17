@@ -1572,7 +1572,6 @@ void scriptclass::run(void)
 				game.gravitycontrol = 0;
 				game.teleport = false;
 				game.companion = 0;
-				game.roomchange = false;
 				game.teleport_to_new_area = false;
 				game.teleport_to_x = 0;
 				game.teleport_to_y = 0;
@@ -3386,7 +3385,6 @@ void scriptclass::hardreset(void)
 	game.gravitycontrol = 0;
 	game.teleport = false;
 	game.companion = 0;
-	game.roomchange = false;
 	if (!version2_2)
 	{
 		// Ironically, resetting more variables makes the janky fadeout system in glitchrunnermode even more glitchy

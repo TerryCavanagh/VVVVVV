@@ -384,7 +384,6 @@ public:
     float inertia;
 
     int companion;
-    bool roomchange;
     SDL_Rect teleblock;
     bool activetele;
     int readytotele;
