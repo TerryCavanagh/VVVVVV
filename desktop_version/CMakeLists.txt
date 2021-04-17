@@ -250,6 +250,24 @@ if(MSVC)
 	target_compile_options(VVVVVV PRIVATE /wd4244)
 endif()
 
+if(MSVC)
+	# Disable exceptions
+	string(REGEX REPLACE "/EH[a-z]+" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
+
+	# Disable RTTI
+	string(REGEX REPLACE "/GR" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GR-")
+else()
+	# Disable exceptions
+	string(REGEX REPLACE "-fexceptions" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
+
+	# Disable RTTI
+	string(REGEX REPLACE "-frtti" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+endif()
+
 # Unfortunately, it doesn't seem like distros package LodePNG
 add_library(lodepng-static STATIC ${PNG_SRC})
 
