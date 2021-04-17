@@ -124,7 +124,6 @@ void Game::init(void)
     teleport = false;
     edteleportent = 0; //Added in the port!
     companion = 0;
-    roomchange = false;
 
 
     quickrestartkludge = false;
