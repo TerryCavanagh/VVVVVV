@@ -2235,6 +2235,7 @@ void mapinput(void)
                 {
                     graphics.resumegamemode = true;
                 }
+                music.playef(11);
             }
         }
         else
@@ -2403,6 +2404,7 @@ static void mapmenuactionpress(void)
     case 30:
         // Return to game
         graphics.resumegamemode = true;
+        music.playef(11);
         break;
     case 31:
         // Graphic options and game options
