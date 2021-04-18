@@ -37,6 +37,11 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
 	unsigned char *fileIn;
 	size_t length;
 	FILESYSTEM_loadAssetToMemory(filename, &fileIn, &length, false);
+	if (fileIn == NULL)
+	{
+		SDL_assert(0 && "Image file missing!");
+		return NULL;
+	}
 	if (noAlpha)
 	{
 		lodepng_decode24(&data, &width, &height, fileIn, length);

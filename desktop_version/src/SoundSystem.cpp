@@ -38,6 +38,7 @@ SoundTrack::SoundTrack(const char* fileName)
 	if (mem == NULL)
 	{
 		fprintf(stderr, "Unable to load WAV file %s\n", fileName);
+		SDL_assert(0 && "WAV file missing!");
 		return;
 	}
 	SDL_RWops *fileIn = SDL_RWFromConstMem(mem, length);
