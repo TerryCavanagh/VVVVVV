@@ -447,11 +447,16 @@ void FILESYSTEM_loadFileToMemory(
 	size_t *len,
 	bool addnull
 ) {
+	PHYSFS_File *handle;
+	PHYSFS_sint64 length;
+	PHYSFS_sint64 success;
+
 	if (SDL_strcmp(name, "levels/special/stdin.vvvvvv") == 0)
 	{
 		// this isn't *technically* necessary when piping directly from a file, but checking for that is annoying
 		static std::vector<char> STDIN_BUFFER;
 		static bool STDIN_LOADED = false;
+		size_t stdin_length;
 		if (!STDIN_LOADED)
 		{
 			std::istreambuf_iterator<char> begin(std::cin), end;
@@ -460,14 +465,14 @@ void FILESYSTEM_loadFileToMemory(
 			STDIN_LOADED = true;
 		}
 
-		size_t length = STDIN_BUFFER.size() - 1;
+		stdin_length = STDIN_BUFFER.size() - 1;
 		if (len != NULL)
 		{
-			*len = length;
+			*len = stdin_length;
 		}
 
-		++length;
-		*mem = static_cast<unsigned char*>(SDL_malloc(length)); // STDIN_BUFFER.data() causes double-free
+		++stdin_length;
+		*mem = static_cast<unsigned char*>(SDL_malloc(stdin_length)); // STDIN_BUFFER.data() causes double-free
 		if (*mem == NULL)
 		{
 			VVV_exit(1);
@@ -476,12 +481,12 @@ void FILESYSTEM_loadFileToMemory(
 		return;
 	}
 
-	PHYSFS_File *handle = PHYSFS_openRead(name);
+	handle = PHYSFS_openRead(name);
 	if (handle == NULL)
 	{
 		return;
 	}
-	PHYSFS_sint64 length = PHYSFS_fileLength(handle);
+	length = PHYSFS_fileLength(handle);
 	if (len != NULL)
 	{
 		if (length < 0)
@@ -507,7 +512,7 @@ void FILESYSTEM_loadFileToMemory(
 			VVV_exit(1);
 		}
 	}
-	PHYSFS_sint64 success = PHYSFS_readBytes(handle, *mem, length);
+	success = PHYSFS_readBytes(handle, *mem, length);
 	if (success == -1)
 	{
 		FILESYSTEM_freeMemory(mem);
