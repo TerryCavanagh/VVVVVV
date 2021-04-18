@@ -45,7 +45,7 @@ void Graphics::init(void)
     //Background inits
     for (int i = 0; i < numstars; i++)
     {
-        SDL_Rect s = {Sint16(fRandom() * 320), Sint16(fRandom() * 240), 2, 2};
+        SDL_Rect s = {(int) (fRandom() * 320), (int) (fRandom() * 240), 2, 2};
         int s2 = 4+(fRandom()*4);
         stars[i] = s;
         starsspeed[i] = s2;
@@ -532,7 +532,7 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
         if (INBOUNDS_VEC(idx, font))
         {
             SDL_Surface* tempPrint = ScaleSurface(font[idx], font[idx]->w *sc,font[idx]->h *sc);
-            SDL_Rect printrect = { static_cast<Sint16>((_x) + bfontpos), static_cast<Sint16>(_y) , static_cast<Sint16>((bfont_rect.w*sc)+1), static_cast<Sint16>((bfont_rect.h * sc)+1)};
+            SDL_Rect printrect = {_x + bfontpos, _y, bfont_rect.w*sc + 1, bfont_rect.h*sc + 1};
             BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
             SDL_FreeSurface(tempPrint);
         }
@@ -718,7 +718,7 @@ void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )
         WHINE_ONCE("drawsprite() out-of-bounds!");
     }
 
-    SDL_Rect rect = { Sint16(x), Sint16(y), sprites_rect.w, sprites_rect.h };
+    SDL_Rect rect = {x, y, sprites_rect.w, sprites_rect.h};
     setcolreal(getRGB(r,g,b));
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
 }
@@ -730,7 +730,7 @@ void Graphics::drawsprite(int x, int y, int t, Uint32 c)
         WHINE_ONCE("drawsprite() out-of-bounds!");
     }
 
-    SDL_Rect rect = { Sint16(x), Sint16(y), sprites_rect.w, sprites_rect.h };
+    SDL_Rect rect = {x, y, sprites_rect.w, sprites_rect.h};
     setcolreal(c);
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
 }
@@ -752,7 +752,7 @@ void Graphics::drawtile( int x, int y, int t )
         return;
     }
 
-    SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
+    SDL_Rect rect = {x, y, tiles_rect.w, tiles_rect.h};
 
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles1_mounted))
@@ -776,7 +776,7 @@ void Graphics::drawtile2( int x, int y, int t )
         return;
     }
 
-    SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
+    SDL_Rect rect = {x, y, tiles_rect.w, tiles_rect.h};
 
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles2_mounted))
@@ -802,7 +802,7 @@ void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 
         return;
     }
     SDL_Rect src_rect = { 0, 0, tiles_rect.w, tiles_rect.h - height_subtract };
-    SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
+    SDL_Rect rect = {x, y, tiles_rect.w, tiles_rect.h};
     BlitSurfaceStandard(tiles3[t], &src_rect, backBuffer, &rect);
 }
 
@@ -815,7 +815,7 @@ void Graphics::drawtowertile( int x, int y, int t )
     }
     x += 8;
     y += 8;
-    SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
+    SDL_Rect rect = {x, y, tiles_rect.w, tiles_rect.h};
     BlitSurfaceStandard(tiles2[t], NULL, warpbuffer, &rect);
 }
 
@@ -830,7 +830,7 @@ void Graphics::drawtowertile3( int x, int y, int t, TowerBG& bg_obj )
     }
     x += 8;
     y += 8;
-    SDL_Rect rect = { Sint16(x), Sint16(y), tiles_rect.w, tiles_rect.h };
+    SDL_Rect rect = {x, y, tiles_rect.w, tiles_rect.h};
     BlitSurfaceStandard(tiles3[t], NULL, bg_obj.buffer, &rect);
 }
 
@@ -2063,7 +2063,7 @@ void Graphics::drawentity(const int i, const int yoff)
 
         tpoint.x = xp; tpoint.y = yp - yoff;
         setcolreal(obj.entities[i].realcol);
-        setRect(drawRect, Sint16(xp), Sint16(yp - yoff), Sint16(sprites_rect.x * 6), Sint16(sprites_rect.y * 6 ) );
+        setRect(drawRect, xp, yp - yoff, sprites_rect.x * 6, sprites_rect.y * 6);
         SDL_Surface* TempSurface = ScaleSurface( spritesvec[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
         BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
         SDL_FreeSurface(TempSurface);
@@ -2381,7 +2381,7 @@ void Graphics::updatebackground(int t)
         {
             stars[i].w = 2;
             stars[i].h = 2;
-            stars[i].x -= Sint16(starsspeed[i]);
+            stars[i].x -= starsspeed[i];
             if (stars[i].x < -10)
             {
                 stars[i].x += 340;
@@ -3168,7 +3168,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 		if (INBOUNDS_VEC(idx, font))
 		{
 			SDL_Surface* tempPrint = ScaleSurface(font[idx], font[idx]->w *sc,font[idx]->h *sc);
-			SDL_Rect printrect = { Sint16((x) + bfontpos), Sint16(y) , Sint16(bfont_rect.w*sc), Sint16(bfont_rect.h * sc)};
+			SDL_Rect printrect = {x + bfontpos, y, (int) (bfont_rect.w * sc), (int) (bfont_rect.h * sc)};
 			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
 			SDL_FreeSurface(tempPrint);
 		}
