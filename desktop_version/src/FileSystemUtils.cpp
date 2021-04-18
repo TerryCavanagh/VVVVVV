@@ -39,7 +39,7 @@ static char levelDir[MAX_PATH] = {'\0'};
 static char assetDir[MAX_PATH] = {'\0'};
 static char virtualMountPath[MAX_PATH] = {'\0'};
 
-static void PLATFORM_getOSDirectory(char* output);
+static void PLATFORM_getOSDirectory(char* output, const size_t output_size);
 static void PLATFORM_migrateSaveData(char* output);
 static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
@@ -86,7 +86,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	}
 	else
 	{
-		PLATFORM_getOSDirectory(output);
+		PLATFORM_getOSDirectory(output, sizeof(output));
 	}
 
 	/* Mount our base user directory */
@@ -707,17 +707,17 @@ void FILESYSTEM_enumerateLevelDirFileNames(
 	}
 }
 
-static void PLATFORM_getOSDirectory(char* output)
+static void PLATFORM_getOSDirectory(char* output, const size_t output_size)
 {
 #ifdef _WIN32
 	/* This block is here for compatibility, do not touch it! */
 	WCHAR utf16_path[MAX_PATH];
 	SHGetFolderPathW(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, utf16_path);
-	WideCharToMultiByte(CP_UTF8, 0, utf16_path, -1, output, MAX_PATH, NULL, NULL);
+	WideCharToMultiByte(CP_UTF8, 0, utf16_path, -1, output, output_size, NULL, NULL);
 	SDL_strlcat(output, "\\VVVVVV\\", MAX_PATH);
 	mkdir(output, 0777);
 #else
-	SDL_strlcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"), MAX_PATH);
+	SDL_strlcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"), output_size);
 #endif
 }
 
