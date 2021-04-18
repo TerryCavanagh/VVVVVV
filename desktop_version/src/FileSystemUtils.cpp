@@ -451,6 +451,11 @@ void FILESYSTEM_loadFileToMemory(
 	PHYSFS_sint64 length;
 	PHYSFS_sint64 success;
 
+	if (name == NULL || mem == NULL)
+	{
+		goto fail;
+	}
+
 	if (SDL_strcmp(name, "levels/special/stdin.vvvvvv") == 0)
 	{
 		// this isn't *technically* necessary when piping directly from a file, but checking for that is annoying
