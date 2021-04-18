@@ -306,15 +306,19 @@ void Graphics::updatetitlecolours(void)
 }
 
 #define PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
-    if (grphx.im_##tilesheet->w % tile_square != 0 \
+    if (grphx.im_##tilesheet == NULL) \
+    { \
+        /* We have already asserted; just no-op. */ \
+    } \
+    else if (grphx.im_##tilesheet->w % tile_square != 0 \
     || grphx.im_##tilesheet->h % tile_square != 0) \
     { \
         const char* error = "Error: %s.png dimensions not exact multiples of %i!"; \
         char message[128]; \
-        SDL_snprintf(message, sizeof(message), error, #tilesheet, tile_square); \
-        \
         const char* error_title = "Error with %s.png"; \
         char message_title[128]; \
+        \
+        SDL_snprintf(message, sizeof(message), error, #tilesheet, tile_square); \
         SDL_snprintf(message_title, sizeof(message_title), error_title, #tilesheet); \
         \
         puts(message); \
@@ -332,23 +336,28 @@ void Graphics::updatetitlecolours(void)
 #define PROCESS_TILESHEET_RENAME(tilesheet, vector, tile_square, extra_code) \
     PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
     \
-    for (int j = 0; j < grphx.im_##tilesheet->h / tile_square; j++) \
+    else \
     { \
-        for (int i = 0; i < grphx.im_##tilesheet->w / tile_square; i++) \
+        int j; \
+        for (j = 0; j < grphx.im_##tilesheet->h / tile_square; ++j) \
         { \
-            SDL_Surface* temp = GetSubSurface( \
-                grphx.im_##tilesheet, \
-                i * tile_square, j * tile_square, \
-                tile_square, tile_square \
-            ); \
-            vector.push_back(temp); \
-            \
-            extra_code \
+            int i; \
+            for (i = 0; i < grphx.im_##tilesheet->w / tile_square; ++i) \
+            { \
+                SDL_Surface* temp = GetSubSurface( \
+                    grphx.im_##tilesheet, \
+                    i * tile_square, j * tile_square, \
+                    tile_square, tile_square \
+                ); \
+                vector.push_back(temp); \
+                \
+                extra_code \
+            } \
         } \
-    } \
-    \
-    SDL_FreeSurface(grphx.im_##tilesheet); \
-    grphx.im_##tilesheet = NULL;
+        \
+        SDL_FreeSurface(grphx.im_##tilesheet); \
+        grphx.im_##tilesheet = NULL; \
+    }
 
 #define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
     PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
