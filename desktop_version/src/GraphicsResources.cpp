@@ -34,8 +34,8 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
 	unsigned char *data;
 	unsigned int width, height;
 
-	unsigned char *fileIn = NULL;
-	size_t length = 0;
+	unsigned char *fileIn;
+	size_t length;
 	FILESYSTEM_loadAssetToMemory(filename, &fileIn, &length, false);
 	if (noAlpha)
 	{

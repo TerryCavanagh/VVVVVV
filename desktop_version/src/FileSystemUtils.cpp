@@ -484,7 +484,7 @@ void FILESYSTEM_loadFileToMemory(
 	handle = PHYSFS_openRead(name);
 	if (handle == NULL)
 	{
-		return;
+		goto fail;
 	}
 	length = PHYSFS_fileLength(handle);
 	if (len != NULL)
@@ -518,6 +518,17 @@ void FILESYSTEM_loadFileToMemory(
 		FILESYSTEM_freeMemory(mem);
 	}
 	PHYSFS_close(handle);
+	return;
+
+fail:
+	if (mem != NULL)
+	{
+		*mem = NULL;
+	}
+	if (len != NULL)
+	{
+		*len = 0;
+	}
 }
 
 void FILESYSTEM_loadAssetToMemory(
@@ -645,7 +656,7 @@ bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 {
 	/* XMLDocument.LoadFile doesn't account for Unicode paths, PHYSFS does */
-	unsigned char *mem = NULL;
+	unsigned char *mem;
 	FILESYSTEM_loadFileToMemory(name, &mem, NULL, true);
 	if (mem == NULL)
 	{
