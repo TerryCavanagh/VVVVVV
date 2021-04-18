@@ -5286,7 +5286,7 @@ void editorinput(void)
                                 ed.lclickdelay=1;
                                 ed.textent=edentity.size();
                                 addedentity(ed.tilex+(ed.levx*40),ed.tiley+ (ed.levy*30),18,0);
-                                ed.getlin(TEXT_SCRIPT, "Enter script name", &(edentity[ed.textent].scriptname));
+                                ed.getlin(TEXT_SCRIPT, "Enter script name:", &(edentity[ed.textent].scriptname));
                             }
                             else if(ed.drawmode==13)
                             {
