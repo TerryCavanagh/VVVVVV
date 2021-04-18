@@ -39,7 +39,7 @@ static char levelDir[MAX_PATH] = {'\0'};
 static char assetDir[MAX_PATH] = {'\0'};
 static char virtualMountPath[MAX_PATH] = {'\0'};
 
-static void PLATFORM_getOSDirectory(char* output, const size_t output_size);
+static int PLATFORM_getOSDirectory(char* output, const size_t output_size);
 static void PLATFORM_migrateSaveData(char* output);
 static void PLATFORM_copyFile(const char *oldLocation, const char *newLocation);
 
@@ -70,7 +70,16 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 	char* basePath;
 
 	PHYSFS_setAllocator(&allocator);
-	PHYSFS_init(argvZero);
+
+	if (!PHYSFS_init(argvZero))
+	{
+		printf(
+			"Unable to initialize PhysFS: %s\n",
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+		return 0;
+	}
+
 	PHYSFS_permitSymbolicLinks(1);
 
 	/* Determine the OS user directory */
@@ -84,14 +93,30 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 			!trailing_pathsep ? pathSep : ""
 		);
 	}
-	else
+	else if (!PLATFORM_getOSDirectory(output, sizeof(output)))
 	{
-		PLATFORM_getOSDirectory(output, sizeof(output));
+		return 0;
 	}
 
 	/* Mount our base user directory */
-	PHYSFS_mount(output, NULL, 0);
-	PHYSFS_setWriteDir(output);
+	if (!PHYSFS_mount(output, NULL, 0))
+	{
+		printf(
+			"Could not mount %s: %s\n",
+			output,
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+		return 0;
+	}
+	if (!PHYSFS_setWriteDir(output))
+	{
+		printf(
+			"Could not set write dir to %s: %s\n",
+			output,
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+		return 0;
+	}
 	printf("Base directory: %s\n", output);
 
 	/* Store full save directory */
@@ -707,17 +732,63 @@ void FILESYSTEM_enumerateLevelDirFileNames(
 	}
 }
 
-static void PLATFORM_getOSDirectory(char* output, const size_t output_size)
+static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
 {
 #ifdef _WIN32
 	/* This block is here for compatibility, do not touch it! */
 	WCHAR utf16_path[MAX_PATH];
-	SHGetFolderPathW(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, utf16_path);
-	WideCharToMultiByte(CP_UTF8, 0, utf16_path, -1, output, output_size, NULL, NULL);
+	HRESULT retcode = SHGetFolderPathW(
+		NULL,
+		CSIDL_PERSONAL,
+		NULL,
+		SHGFP_TYPE_CURRENT,
+		utf16_path
+	);
+	int num_bytes;
+
+	if (FAILED(retcode))
+	{
+		printf(
+			"Could not get OS directory: SHGetFolderPathW returned 0x%08x\n",
+			retcode
+		);
+		return 0;
+	}
+
+	num_bytes = WideCharToMultiByte(
+		CP_UTF8,
+		0,
+		utf16_path,
+		-1,
+		output,
+		output_size,
+		NULL,
+		NULL
+	);
+	if (num_bytes == 0)
+	{
+		printf(
+			"Could not get OS directory: UTF-8 conversion failed with %d\n",
+			GetLastError()
+		);
+		return 0;
+	}
+
 	SDL_strlcat(output, "\\VVVVVV\\", MAX_PATH);
 	mkdir(output, 0777);
+	return 1;
 #else
-	SDL_strlcpy(output, PHYSFS_getPrefDir("distractionware", "VVVVVV"), output_size);
+	const char* prefDir = PHYSFS_getPrefDir("distractionware", "VVVVVV");
+	if (prefDir == NULL)
+	{
+		printf(
+			"Could not get OS directory: %s\n",
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+		return 0;
+	}
+	SDL_strlcpy(output, prefDir, output_size);
+	return 1;
 #endif
 }
 
