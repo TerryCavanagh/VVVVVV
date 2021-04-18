@@ -29,10 +29,11 @@ MusicTrack::MusicTrack(SDL_RWops *rw)
 
 SoundTrack::SoundTrack(const char* fileName)
 {
-	sound = NULL;
-
 	unsigned char *mem;
 	size_t length = 0;
+
+	sound = NULL;
+
 	FILESYSTEM_loadAssetToMemory(fileName, &mem, &length, false);
 	if (mem == NULL)
 	{
