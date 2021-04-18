@@ -4079,13 +4079,17 @@ void editorinput(void)
 
             if (ed.settingsmod)
             {
-                bool edsettings_in_stack = false;
-                for (size_t i = 0; i < game.menustack.size(); i++)
+                bool edsettings_in_stack = game.currentmenuname == Menu::ed_settings;
+                if (!edsettings_in_stack)
                 {
-                    if (game.menustack[i].name == Menu::ed_settings)
+                    size_t i;
+                    for (i = 0; i < game.menustack.size(); ++i)
                     {
-                        edsettings_in_stack = true;
-                        break;
+                        if (game.menustack[i].name == Menu::ed_settings)
+                        {
+                            edsettings_in_stack = true;
+                            break;
+                        }
                     }
                 }
                 if (edsettings_in_stack)
