@@ -716,6 +716,7 @@ void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )
     if (!INBOUNDS_VEC(t, sprites))
     {
         WHINE_ONCE("drawsprite() out-of-bounds!");
+        return;
     }
 
     SDL_Rect rect = {x, y, sprites_rect.w, sprites_rect.h};
@@ -728,6 +729,7 @@ void Graphics::drawsprite(int x, int y, int t, Uint32 c)
     if (!INBOUNDS_VEC(t, sprites))
     {
         WHINE_ONCE("drawsprite() out-of-bounds!");
+        return;
     }
 
     SDL_Rect rect = {x, y, sprites_rect.w, sprites_rect.h};
