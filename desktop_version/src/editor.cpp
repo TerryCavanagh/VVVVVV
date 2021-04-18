@@ -248,7 +248,7 @@ void editorclass::getDirectoryData(void)
 }
 bool editorclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
 {
-    unsigned char *uMem = NULL;
+    unsigned char *uMem;
     FILESYSTEM_loadFileToMemory(_path.c_str(), &uMem, NULL, true);
 
     if (uMem == NULL)

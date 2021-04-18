@@ -361,7 +361,7 @@ void Graphics::Makebfont(void)
         flipbfont.push_back(TempFlipped);
     })
 
-    unsigned char* charmap = NULL;
+    unsigned char* charmap;
     size_t length;
     FILESYSTEM_loadAssetToMemory("graphics/font.txt", &charmap, &length, false);
     if (charmap != NULL)
