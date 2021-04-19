@@ -131,8 +131,14 @@ void Game::init(void)
     tapleft = 0;
     tapright = 0;
 
-    press_right = 0;
-    press_left = 0;
+    press_right = false;
+    press_left = false;
+    press_action = false;
+    press_map = false;
+    press_interact = false;
+    interactheld = false;
+    separate_interact = false;
+    mapheld = false;
 
 
     pausescript = false;
@@ -4102,6 +4108,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
     controllerButton_map.clear();
     controllerButton_esc.clear();
     controllerButton_restart.clear();
+    controllerButton_interact.clear();
 
     for (tinyxml2::XMLElement* pElem = dataNode;
     pElem != NULL;
@@ -4230,6 +4237,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             music.user_sound_volume = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "separate_interact") == 0)
+        {
+            separate_interact = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "flipButton") == 0)
         {
             SDL_GameControllerButton newButton;
@@ -4266,6 +4278,15 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             }
         }
 
+        if (SDL_strcmp(pKey, "interactButton") == 0)
+        {
+            SDL_GameControllerButton newButton;
+            if (GetButtonFromString(pText, &newButton))
+            {
+                controllerButton_interact.push_back(newButton);
+            }
+        }
+
         if (SDL_strcmp(pKey, "controllerSensitivity") == 0)
         {
             key.sensitivity = help.Int(pText);
@@ -4288,6 +4309,10 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
     if (controllerButton_restart.size() < 1)
     {
         controllerButton_restart.push_back(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
+    }
+    if (controllerButton_interact.size() < 1)
+    {
+        controllerButton_interact.push_back(SDL_CONTROLLER_BUTTON_X);
     }
 }
 
@@ -4454,6 +4479,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
 
     xml::update_tag(dataNode, "soundvolume", music.user_sound_volume);
 
+    xml::update_tag(dataNode, "separate_interact", (int) separate_interact);
+
     // Delete all controller buttons we had previously.
     // dataNode->FirstChildElement() shouldn't be NULL at this point...
     // we've already added a bunch of elements
@@ -4466,7 +4493,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
         if (SDL_strcmp(name, "flipButton") == 0
         || SDL_strcmp(name, "enterButton") == 0
         || SDL_strcmp(name, "escButton") == 0
-        || SDL_strcmp(name, "restartButton") == 0)
+        || SDL_strcmp(name, "restartButton") == 0
+        || SDL_strcmp(name, "interactButton") == 0)
         {
             // Can't just doc.DeleteNode(element) and then go to next,
             // element->NextSiblingElement() will be NULL.
@@ -4506,6 +4534,12 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
     {
         tinyxml2::XMLElement* msg = doc.NewElement("restartButton");
         msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_restart[i]).c_str()));
+        dataNode->LinkEndChild(msg);
+    }
+    for (size_t i = 0; i < controllerButton_interact.size(); i += 1)
+    {
+        tinyxml2::XMLElement* msg = doc.NewElement("interactButton");
+        msg->LinkEndChild(doc.NewText(help.String((int) controllerButton_interact[i]).c_str()));
         dataNode->LinkEndChild(msg);
     }
 
@@ -6045,6 +6079,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::speedrunneroptions:
         option("glitchrunner mode");
         option("input delay");
+        option("interact button");
         option("fake load screen");
         option("return");
         menuyoff = 0;
@@ -6087,6 +6122,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("bind enter");
         option("bind menu");
         option("bind restart");
+        option("bind interact");
         option("return");
         menuyoff = 0;
         maxspacing = 10;
