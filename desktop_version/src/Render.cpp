@@ -1929,11 +1929,19 @@ void maprender(void)
             }
             graphics.Print(-1, 105, "NO SIGNAL", 245, 245, 245, true);
         }
+#ifndef NO_CUSTOM_LEVELS
         else if(map.custommode)
         {
           //draw the map image
           graphics.drawcustompixeltextbox(35+map.custommmxoff, 16+map.custommmyoff, map.custommmxsize+10, map.custommmysize+10, (map.custommmxsize+10)/8, (map.custommmysize+10)/8, 65, 185, 207,4,0);
-          graphics.drawpartimage(12, 40+map.custommmxoff, 21+map.custommmyoff, map.custommmxsize,map.custommmysize);
+          if (graphics.minimap_mounted)
+          {
+            graphics.drawpartimage(1, 40+map.custommmxoff, 21+map.custommmyoff, map.custommmxsize, map.custommmysize);
+          }
+          else
+          {
+            graphics.drawpartimage(12, 40+map.custommmxoff, 21+map.custommmyoff, map.custommmxsize,map.custommmysize);
+          }
 
           //Black out here
           if(map.customzoom==4){
@@ -2038,6 +2046,7 @@ void maprender(void)
             }
           }
         }
+#endif /* NO_CUSTOM_LEVELS */
         else
         {
             //draw the map image

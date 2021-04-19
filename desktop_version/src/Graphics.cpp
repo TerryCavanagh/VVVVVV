@@ -149,6 +149,7 @@ void Graphics::init(void)
 #ifndef NO_CUSTOM_LEVELS
     tiles1_mounted = false;
     tiles2_mounted = false;
+    minimap_mounted = false;
 #endif
 }
 
@@ -3402,6 +3403,7 @@ void Graphics::reloadresources(void)
 #ifndef NO_CUSTOM_LEVELS
 	tiles1_mounted = FILESYSTEM_isAssetMounted("graphics/tiles.png");
 	tiles2_mounted = FILESYSTEM_isAssetMounted("graphics/tiles2.png");
+	minimap_mounted = FILESYSTEM_isAssetMounted("graphics/minimap.png");
 #endif
 }
 

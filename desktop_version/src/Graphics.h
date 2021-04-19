@@ -220,6 +220,7 @@ public:
 #ifndef NO_CUSTOM_LEVELS
 	bool tiles1_mounted;
 	bool tiles2_mounted;
+	bool minimap_mounted;
 #endif
 
 
