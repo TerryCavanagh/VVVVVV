@@ -3,7 +3,6 @@
 #define ED_DEFINITION
 #include "editor.h"
 
-#include <algorithm>
 #include <stdio.h>
 #include <string>
 #include <tinyxml2.h>
@@ -469,8 +468,16 @@ void editorclass::removehookfromscript(std::string t)
 void editorclass::removehook(std::string t)
 {
     //Check the hooklist for the hook t. If it's there, remove it from here and the script
+    size_t i;
     removehookfromscript(t);
-    hooklist.erase(std::remove(hooklist.begin(), hooklist.end(), t), hooklist.end());
+    /* When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
+    for (i = hooklist.size() - 1; i + 1 > 0; --i)
+    {
+        if (hooklist[i] == t)
+        {
+            hooklist.erase(hooklist.begin() + i);
+        }
+    }
 }
 
 void editorclass::addhook(std::string t)
@@ -4263,8 +4270,15 @@ void editorinput(void)
                 ed.keydelay=6;
             }
 
-            // Remove all pipes, they are the line separator in the XML
-            key.keybuffer.erase(std::remove(key.keybuffer.begin(), key.keybuffer.end(), '|'), key.keybuffer.end());
+            /* Remove all pipes, they are the line separator in the XML
+             * When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
+            {size_t i; for (i = key.keybuffer.length() - 1; i + 1 > 0; --i)
+            {
+                if (key.keybuffer[i] == '|')
+                {
+                    key.keybuffer.erase(key.keybuffer.begin() + i);
+                }
+            }}
 
             ed.sb[ed.pagey+ed.sby]=key.keybuffer;
             ed.sbx = utf8::unchecked::distance(ed.sb[ed.pagey+ed.sby].begin(), ed.sb[ed.pagey+ed.sby].end());
