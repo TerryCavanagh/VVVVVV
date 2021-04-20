@@ -452,15 +452,14 @@ void editorclass::addhooktoscript(std::string t)
 
 void editorclass::removehookfromscript(std::string t)
 {
-    //Find hook t in the scriptclass, then removes it (and any other code with it)
-    for (size_t i = 0; i < script.customscripts.size(); i++)
+    /* Find hook t in the scriptclass, then removes it (and any other code with it)
+     * When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
+    size_t i;
+    for (i = script.customscripts.size() - 1; i + 1 > 0; --i)
     {
-        Script& script_ = script.customscripts[i];
-
-        if (script_.name == t)
+        if (script.customscripts[i].name == t)
         {
             script.customscripts.erase(script.customscripts.begin() + i);
-            break;
         }
     }
 }
