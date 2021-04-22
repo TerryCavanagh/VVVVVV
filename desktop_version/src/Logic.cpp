@@ -958,7 +958,8 @@ void gamelogic(void)
         //Finally: Are we changing room?
         if (map.warpx && !map.towermode)
         {
-            for (size_t i = 0; i < obj.entities.size();  i++)
+            size_t i;
+            for (i = 0; i < obj.entities.size(); ++i)
             {
                 if(obj.entities[i].type<50 //Don't warp warp lines
                 && obj.entities[i].size < 12)   //Don't wrap SWN enemies
@@ -1012,7 +1013,8 @@ void gamelogic(void)
 
         if (map.warpy && !map.towermode)
         {
-            for (size_t i = 0; i < obj.entities.size();  i++)
+            size_t i;
+            for (i = 0; i < obj.entities.size(); ++i)
             {
                 if(obj.entities[i].type<50){ //Don't warp warp lines
                     if (obj.entities[i].yp <= -12)
@@ -1039,7 +1041,8 @@ void gamelogic(void)
 
         if (map.warpy && !map.warpx && !map.towermode)
         {
-            for (size_t i = 0; i < obj.entities.size();  i++)
+            size_t i;
+            for (i = 0; i < obj.entities.size(); ++i)
             {
 
                 if(obj.entities[i].type<50 //Don't warp warp lines
