@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "FileSystemUtils.h"
+#include "Game.h"
 #include "GraphicsUtil.h"
 
 // Used to create the window icon
@@ -328,6 +329,12 @@ void Screen::toggleFullScreen(void)
 {
 	isWindowed = !isWindowed;
 	ResizeScreen(-1, -1);
+
+	if (game.currentmenuname == Menu::graphicoptions)
+	{
+		/* Recreate menu to update "resize to nearest" */
+		game.createmenu(game.currentmenuname, true);
+	}
 }
 
 void Screen::toggleStretchMode(void)
