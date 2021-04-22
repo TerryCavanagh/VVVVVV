@@ -961,9 +961,12 @@ void gamelogic(void)
             size_t i;
             for (i = 0; i < obj.entities.size(); ++i)
             {
-                if(obj.entities[i].type<50 //Don't warp warp lines
-                && obj.entities[i].size < 12)   //Don't wrap SWN enemies
+                if (obj.entities[i].type >= 50 /* Don't warp warp lines */
+                || obj.entities[i].size >= 12) /* Don't warp gravitron squares */
                 {
+                    continue;
+                }
+
                     if (game.roomx == 118 && game.roomy == 102 && obj.entities[i].rule==1 && !map.custommode)
                     {
                         //ascii snakes
@@ -1007,7 +1010,6 @@ void gamelogic(void)
                             obj.entities[i].lerpoldxp -= 320;
                         }
                     }
-                }
             }
         }
 
@@ -1016,7 +1018,11 @@ void gamelogic(void)
             size_t i;
             for (i = 0; i < obj.entities.size(); ++i)
             {
-                if(obj.entities[i].type<50){ //Don't warp warp lines
+                if (obj.entities[i].type >= 50) /* Don't warp warp lines */
+                {
+                    continue;
+                }
+
                     if (obj.entities[i].yp <= -12)
                     {
                         if (obj.entities[i].isplatform)
@@ -1035,7 +1041,6 @@ void gamelogic(void)
                         obj.entities[i].yp -= 232;
                         obj.entities[i].lerpoldyp -= 232;
                     }
-                }
             }
         }
 
@@ -1044,10 +1049,12 @@ void gamelogic(void)
             size_t i;
             for (i = 0; i < obj.entities.size(); ++i)
             {
-
-                if(obj.entities[i].type<50 //Don't warp warp lines
-                &&obj.entities[i].rule!=0)
+                if (obj.entities[i].type >= 50 /* Don't warp warp lines */
+                || obj.entities[i].rule == 0) /* Don't warp the player */
                 {
+                    continue;
+                }
+
                     if (obj.entities[i].xp <= -30)
                     {
                         if (obj.entities[i].isplatform)
@@ -1066,7 +1073,6 @@ void gamelogic(void)
                         obj.entities[i].xp -= 350;
                         obj.entities[i].lerpoldxp -= 350;
                     }
-                }
             }
         }
 
