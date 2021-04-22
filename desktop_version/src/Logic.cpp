@@ -963,7 +963,7 @@ void gamelogic(void)
             {
                 if ((obj.entities[i].type >= 51
                 && obj.entities[i].type <= 54) /* Don't warp warp lines */
-                || obj.entities[i].size >= 12) /* Don't warp gravitron squares */
+                || obj.entities[i].size == 12) /* Don't warp gravitron squares */
                 {
                     continue;
                 }
