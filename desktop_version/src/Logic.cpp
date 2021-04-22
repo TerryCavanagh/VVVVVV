@@ -961,7 +961,8 @@ void gamelogic(void)
             size_t i;
             for (i = 0; i < obj.entities.size(); ++i)
             {
-                if (obj.entities[i].type >= 50 /* Don't warp warp lines */
+                if ((obj.entities[i].type >= 51
+                && obj.entities[i].type <= 54) /* Don't warp warp lines */
                 || obj.entities[i].size >= 12) /* Don't warp gravitron squares */
                 {
                     continue;
@@ -1018,7 +1019,8 @@ void gamelogic(void)
             size_t i;
             for (i = 0; i < obj.entities.size(); ++i)
             {
-                if (obj.entities[i].type >= 50) /* Don't warp warp lines */
+                if (obj.entities[i].type >= 51
+                && obj.entities[i].type <= 54) /* Don't warp warp lines */
                 {
                     continue;
                 }
@@ -1049,7 +1051,8 @@ void gamelogic(void)
             size_t i;
             for (i = 0; i < obj.entities.size(); ++i)
             {
-                if (obj.entities[i].type >= 50 /* Don't warp warp lines */
+                if ((obj.entities[i].type >= 51
+                && obj.entities[i].type <= 54) /* Don't warp warp lines */
                 || obj.entities[i].rule == 0) /* Don't warp the player */
                 {
                     continue;
