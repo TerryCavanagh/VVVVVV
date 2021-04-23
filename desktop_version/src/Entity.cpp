@@ -1056,7 +1056,9 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
             if (custom)
             {
                 block.prompt = "Press %s to interact";
-            } else {
+            }
+            else
+            {
                 block.prompt = "Press %s to activate terminal";
             }
             block.script = "custom_"+customscript;
