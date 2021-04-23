@@ -2705,6 +2705,7 @@ void scriptclass::startgamemode( int t )
 			if (INBOUNDS_VEC(i, obj.entities))
 			{
 				map.ypos = obj.entities[i].yp - 120;
+				map.oldypos = map.ypos;
 			}
 			graphics.towerbg.bypos = map.ypos / 2;
 			map.cameramode = 0;

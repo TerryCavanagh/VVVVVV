@@ -494,6 +494,7 @@ int main(int argc, char *argv[])
     map.nexttowercolour();
 
     map.ypos = (700-29) * 8;
+    map.oldypos = map.ypos;
     graphics.towerbg.bypos = map.ypos / 2;
     graphics.titlebg.bypos = map.ypos / 2;
 
