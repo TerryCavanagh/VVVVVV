@@ -495,8 +495,8 @@ int main(int argc, char *argv[])
 
     map.ypos = (700-29) * 8;
     map.oldypos = map.ypos;
-    graphics.towerbg.bypos = map.ypos / 2;
-    graphics.titlebg.bypos = map.ypos / 2;
+    map.setbgobjlerp(graphics.towerbg);
+    map.setbgobjlerp(graphics.titlebg);
 
     {
         // Prioritize unlock.vvv first (2.2 and below),

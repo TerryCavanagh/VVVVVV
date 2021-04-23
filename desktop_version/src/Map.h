@@ -50,6 +50,8 @@ public:
 
     void updatebgobj(TowerBG& bg_obj);
 
+    void setbgobjlerp(TowerBG& bg_obj);
+
     void updatetowerglow(TowerBG& bg_obj);
 
     void nexttowercolour(void);
