@@ -595,6 +595,12 @@ void mapclass::updatebgobj(TowerBG& bg_obj)
 	bg_obj.tdrawback = true;
 }
 
+void mapclass::setbgobjlerp(TowerBG& bg_obj)
+{
+	bg_obj.bypos = ypos / 2;
+	bg_obj.bscroll = (ypos - oldypos) / 2;
+}
+
 void mapclass::updatetowerglow(TowerBG& bg_obj)
 {
 	if (colstatedelay <= 0 || colsuperstate > 0)
@@ -827,7 +833,7 @@ void mapclass::resetplayer(const bool player_died)
 				ypos = 0;
 			}
 			oldypos = ypos;
-			graphics.towerbg.bypos = ypos / 2;
+			setbgobjlerp(graphics.towerbg);
 		}
 	}
 
@@ -1249,7 +1255,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 				ypos = (700-29) * 8;
 				oldypos = ypos;
-				graphics.towerbg.bypos = ypos / 2;
+				setbgobjlerp(graphics.towerbg);
 				cameramode = 0;
 				graphics.towerbg.colstate = 0;
 				colsuperstate = 0;
@@ -1259,7 +1265,7 @@ void mapclass::loadlevel(int rx, int ry)
 				//you've entered from the top floor
 				ypos = 0;
 				oldypos = ypos;
-				graphics.towerbg.bypos = 0;
+				setbgobjlerp(graphics.towerbg);
 				cameramode = 0;
 				graphics.towerbg.colstate = 0;
 				colsuperstate = 0;
@@ -1342,14 +1348,13 @@ void mapclass::loadlevel(int rx, int ry)
 		graphics.towerbg.tdrawback = true;
 		minitowermode = false;
 		tower.minitowermode = false;
-		graphics.towerbg.bscroll = 0;
 		graphics.towerbg.scrolldir = 0;
+		setbgobjlerp(graphics.towerbg);
 
 		roomname = "The Tower";
 		tileset = 1;
 		background = 3;
 		towermode = true;
-		//graphics.towerbg.bypos = 0; ypos = 0; cameramode = 0;
 
 		//All the entities for here are just loaded here; it's essentially one room after all
 
@@ -1433,8 +1438,8 @@ void mapclass::loadlevel(int rx, int ry)
 		graphics.towerbg.tdrawback = true;
 		minitowermode = true;
 		tower.minitowermode = true;
-		graphics.towerbg.bscroll = 0;
 		graphics.towerbg.scrolldir = 1;
+		setbgobjlerp(graphics.towerbg);
 
 		roomname = "Panic Room";
 		tileset = 1;
@@ -1445,7 +1450,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 		ypos = 0;
 		oldypos = 0;
-		graphics.towerbg.bypos = 0;
+		setbgobjlerp(graphics.towerbg);
 		cameramode = 0;
 		graphics.towerbg.colstate = 0;
 		colsuperstate = 0;
@@ -1455,8 +1460,8 @@ void mapclass::loadlevel(int rx, int ry)
 		graphics.towerbg.tdrawback = true;
 		minitowermode = true;
 		tower.minitowermode = true;
-		graphics.towerbg.bscroll = 0;
 		graphics.towerbg.scrolldir = 1;
+		setbgobjlerp(graphics.towerbg);
 
 		roomname = "Panic Room";
 		tileset = 1;
@@ -1474,7 +1479,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 		ypos = (100-29) * 8;
 		oldypos = ypos;
-		graphics.towerbg.bypos = ypos/2;
+		setbgobjlerp(graphics.towerbg);
 		cameramode = 0;
 		graphics.towerbg.colstate = 0;
 		colsuperstate = 0;}
@@ -1484,8 +1489,8 @@ void mapclass::loadlevel(int rx, int ry)
 		graphics.towerbg.tdrawback = true;
 		minitowermode = true;
 		tower.minitowermode = true;
-		graphics.towerbg.bscroll = 0;
 		graphics.towerbg.scrolldir = 0;
+		setbgobjlerp(graphics.towerbg);
 		final_colorframe = 2;
 
 		roomname = "The Final Challenge";
@@ -1518,7 +1523,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 		ypos = (100-29) * 8;
 		oldypos = ypos;
-		graphics.towerbg.bypos = ypos/2;
+		setbgobjlerp(graphics.towerbg);
 		cameramode = 0;
 		graphics.towerbg.colstate = 0;
 		colsuperstate = 0;
@@ -1530,8 +1535,8 @@ void mapclass::loadlevel(int rx, int ry)
 		graphics.towerbg.tdrawback = true;
 		minitowermode = true;
 		tower.minitowermode = true;
-		graphics.towerbg.bscroll = 0;
 		graphics.towerbg.scrolldir = 0;
+		setbgobjlerp(graphics.towerbg);
 		final_colorframe = 2;
 
 		roomname = "The Final Challenge";
@@ -1557,7 +1562,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 		ypos = 0;
 		oldypos = 0;
-		graphics.towerbg.bypos = 0;
+		setbgobjlerp(graphics.towerbg);
 		cameramode = 0;
 		graphics.towerbg.colstate = 0;
 		colsuperstate = 0;

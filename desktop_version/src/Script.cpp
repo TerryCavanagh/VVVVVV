@@ -2707,7 +2707,7 @@ void scriptclass::startgamemode( int t )
 				map.ypos = obj.entities[i].yp - 120;
 				map.oldypos = map.ypos;
 			}
-			graphics.towerbg.bypos = map.ypos / 2;
+			map.setbgobjlerp(graphics.towerbg);
 			map.cameramode = 0;
 			map.colsuperstate = 0;
 		}

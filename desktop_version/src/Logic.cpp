@@ -222,7 +222,6 @@ void gamelogic(void)
                 //do nothing!
                 //a trigger will set this off in the game
                 map.cameramode = 1;
-                graphics.towerbg.bscroll = 0;
             }
             else if (map.cameramode == 1)
             {
@@ -230,20 +229,15 @@ void gamelogic(void)
                 if(graphics.towerbg.scrolldir==0)
                 {
                     map.ypos -= 2;
-                    graphics.towerbg.bypos -= 1;
-                    graphics.towerbg.bscroll = -1;
                 }
                 else
                 {
                     map.ypos += 2;
-                    graphics.towerbg.bypos += 1;
-                    graphics.towerbg.bscroll = 1;
                 }
             }
             else if (map.cameramode == 2)
             {
                 //do nothing, but cycle colours (for taking damage)
-                graphics.towerbg.bscroll = 0;
             }
             else if (map.cameramode == 4)
             {
@@ -257,8 +251,6 @@ void gamelogic(void)
                 map.cameraseekframe = 10;
 
                 map.cameramode = 5;
-
-                graphics.towerbg.bscroll = map.cameraseek/2;
             }
             else if (map.cameramode == 5)
             {
@@ -284,7 +276,6 @@ void gamelogic(void)
                         }
                     }
                     map.cameraseekframe--;
-                    graphics.towerbg.bypos = map.ypos / 2;
                 }
                 else
                 {
@@ -293,30 +284,21 @@ void gamelogic(void)
                     {
                         map.ypos = obj.entities[i].yp - 120;
                     }
-                    graphics.towerbg.bypos = map.ypos / 2;
                     map.cameramode = 0;
                     map.colsuperstate = 0;
                 }
             }
         }
-        else
-        {
-            graphics.towerbg.bscroll = 0;
-        }
 
         if (map.ypos <= 0)
         {
             map.ypos = 0;
-            graphics.towerbg.bypos = 0;
-            graphics.towerbg.bscroll = 0;
         }
         if (map.towermode && map.minitowermode)
         {
             if (map.ypos >= 568)
             {
                 map.ypos = 568;
-                graphics.towerbg.bypos = map.ypos / 2;
-                graphics.towerbg.bscroll = 0;
             } //100-29 * 8 = 568
         }
         else
@@ -324,7 +306,6 @@ void gamelogic(void)
             if (map.ypos >= 5368)
             {
                 map.ypos = 5368;    //700-29 * 8 = 5368
-                graphics.towerbg.bypos = map.ypos / 2.0;
             }
         }
 
@@ -910,9 +891,6 @@ void gamelogic(void)
 
                     if (above_screen || below_screen)
                     {
-                        graphics.towerbg.bypos = map.ypos / 2;
-                        graphics.towerbg.bscroll = (map.ypos - map.oldypos) / 2;
-
                         /* The buffer isn't big enough; we have to redraw */
                         graphics.towerbg.tdrawback = true;
                     }
@@ -1345,6 +1323,11 @@ void gamelogic(void)
         {
             map.twoframedelayfix();
         }
+    }
+
+    if (map.towermode)
+    {
+        map.setbgobjlerp(graphics.towerbg);
     }
 
     //Update colour cycling for final level
