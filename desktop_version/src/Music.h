@@ -27,7 +27,6 @@ public:
 	void pause(void);
 	void haltdasmusik(void);
 	void silencedasmusik(void);
-	void setfadeamount(const int fade_ms);
 	void fadeMusicVolumeIn(int ms);
 	void fadeMusicVolumeOut(const int fadeout_ms);
 	void fadeout(const bool quick_fade_ = true);
@@ -55,7 +54,6 @@ public:
 
 	bool m_doFadeInVol;
 	bool m_doFadeOutVol;
-	int FadeVolAmountPerFrame;
 	int musicVolume;
 
 	/* 0..USER_VOLUME_MAX */
