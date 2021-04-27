@@ -213,6 +213,7 @@ void musicclass::play(int t)
 		else
 		{
 			musicVolume = MIX_MAX_VOLUME;
+			Mix_VolumeMusic(musicVolume);
 		}
 	}
 	else
