@@ -200,6 +200,9 @@ void musicclass::play(int t)
 		return;
 	}
 
+	m_doFadeInVol = false;
+	m_doFadeOutVol = false;
+
 	if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_mmmmmm_tracks || currentsong == 7+num_mmmmmm_tracks)))
 	{
 		// Level Complete theme, no fade in or repeat
