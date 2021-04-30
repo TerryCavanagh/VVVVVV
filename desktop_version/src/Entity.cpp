@@ -418,6 +418,7 @@ void entityclass::generateswnwave( int t )
             case 3:
                 //Choose a major action
                 game.swnstate2 = int(fRandom() * 100);
+                game.swnstate4 = 0;
                 if (game.swnstate2 < 25)
                 {
                     //complex
