@@ -636,7 +636,7 @@ static void menuactionpress(void)
 #endif
         if (game.currentmenuoption == accessibilityoffset + 0) {
             //invincibility
-            if (!game.ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode))
+            if (!game.ingame_titlemode || !game.incompetitive())
             {
                 if (!map.invincibility)
                 {
@@ -658,7 +658,7 @@ static void menuactionpress(void)
         }
         else if (game.currentmenuoption == accessibilityoffset + 1) {
             //change game speed
-            if (!game.ingame_titlemode || (!game.insecretlab && !game.intimetrial && !game.nodeathmode))
+            if (!game.ingame_titlemode || !game.incompetitive())
             {
                 game.createmenu(Menu::setslowdown);
                 map.nexttowercolour();
