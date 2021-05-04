@@ -6060,8 +6060,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 #if !defined(MAKEANDPLAY)
         option("unlock play modes");
 #endif
-        option("invincibility", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
-        option("slowdown", !ingame_titlemode || (!insecretlab && !intimetrial && !nodeathmode));
+        option("invincibility", !ingame_titlemode || !incompetitive());
+        option("slowdown", !ingame_titlemode || !incompetitive());
         option("animated backgrounds");
         option("screen effects");
         option("text outline");
@@ -6804,4 +6804,9 @@ int Game::get_timestep(void)
     default:
         return 34;
     }
+}
+
+bool Game::incompetitive(void)
+{
+    return insecretlab || intimetrial || nodeathmode;
 }
