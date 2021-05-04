@@ -2672,17 +2672,22 @@ void Game::updatestate(void)
                 unlocknum(19);
             }
 
-            if (bestgamedeaths == -1)
+#ifndef MAKEANDPLAY
+            if (!map.custommode)
             {
-                bestgamedeaths = deathcounts;
-            }
-            else
-            {
-                if (deathcounts < bestgamedeaths)
+                if (bestgamedeaths == -1)
                 {
                     bestgamedeaths = deathcounts;
                 }
+                else
+                {
+                    if (deathcounts < bestgamedeaths)
+                    {
+                        bestgamedeaths = deathcounts;
+                    }
+                }
             }
+#endif
 
             if (bestgamedeaths > -1) {
                 if (bestgamedeaths <= 500) {
