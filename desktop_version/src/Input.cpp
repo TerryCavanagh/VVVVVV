@@ -1252,13 +1252,8 @@ static void menuactionpress(void)
         }
         else if (game.currentmenuoption == 1 && game.unlock[8])
         {
-            if(!game.nocompetitive()){
-                music.playef(11);
-                startmode(11);
-            }else{
-                //Can't do yet! play sad sound
-                music.playef(2);
-            }
+            music.playef(11);
+            startmode(11);
         }
         else if (game.currentmenuoption == sloffset+2)
         {
