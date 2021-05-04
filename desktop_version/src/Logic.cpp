@@ -420,7 +420,8 @@ void gamelogic(void)
                 game.swnstate3 = 0;
                 game.swnstate4 = 0;
                 game.swndelay = 0;
-                if (game.swntimer >= game.swnrecord)
+#ifndef MAKEANDPLAY
+                if (game.swntimer >= game.swnrecord && !map.custommode)
                 {
                     game.swnrecord = game.swntimer;
                     if (game.swnmessage == 0)
@@ -430,6 +431,7 @@ void gamelogic(void)
                     }
                     game.swnmessage = 1;
                 }
+#endif
             }
         }
 
@@ -546,74 +548,82 @@ void gamelogic(void)
             else if(game.swngame==1)   //super gravitron game
             {
                 game.swntimer += 1;
-                if (game.swntimer > game.swnrecord) game.swnrecord = game.swntimer;
+#ifndef MAKEANDPLAY
+                if (!map.custommode)
+                {
+                    if (game.swntimer > game.swnrecord)
+                    {
+                        game.swnrecord = game.swntimer;
+                    }
 
-                if (game.swntimer >= 150 && game.swnrank == 0)
-                {
-                    game.swnrank = 1;
-                    if (game.swnbestrank < 1)
+                    if (game.swntimer >= 150 && game.swnrank == 0)
                     {
-                        game.unlockAchievement("vvvvvvsupgrav5");
-                        game.swnbestrank = 1;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
+                        game.swnrank = 1;
+                        if (game.swnbestrank < 1)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav5");
+                            game.swnbestrank = 1;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 300 && game.swnrank == 1)
+                    {
+                        game.swnrank = 2;
+                        if (game.swnbestrank < 2)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav10");
+                            game.swnbestrank = 2;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 450 && game.swnrank == 2)
+                    {
+                        game.swnrank = 3;
+                        if (game.swnbestrank < 3)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav15");
+                            game.swnbestrank = 3;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 600 && game.swnrank == 3)
+                    {
+                        game.swnrank = 4;
+                        if (game.swnbestrank < 4)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav20");
+                            game.swnbestrank = 4;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 900 && game.swnrank == 4)
+                    {
+                        game.swnrank = 5;
+                        if (game.swnbestrank < 5)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav30");
+                            game.swnbestrank = 5;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
+                    }
+                    else if (game.swntimer >= 1800 && game.swnrank == 5)
+                    {
+                        game.swnrank = 6;
+                        if (game.swnbestrank < 6)
+                        {
+                            game.unlockAchievement("vvvvvvsupgrav60");
+                            game.swnbestrank = 6;
+                            game.swnmessage = 2+30;
+                            music.playef(26);
+                        }
                     }
                 }
-                else if (game.swntimer >= 300 && game.swnrank == 1)
-                {
-                    game.swnrank = 2;
-                    if (game.swnbestrank < 2)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav10");
-                        game.swnbestrank = 2;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
-                else if (game.swntimer >= 450 && game.swnrank == 2)
-                {
-                    game.swnrank = 3;
-                    if (game.swnbestrank < 3)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav15");
-                        game.swnbestrank = 3;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
-                else if (game.swntimer >= 600 && game.swnrank == 3)
-                {
-                    game.swnrank = 4;
-                    if (game.swnbestrank < 4)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav20");
-                        game.swnbestrank = 4;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
-                else if (game.swntimer >= 900 && game.swnrank == 4)
-                {
-                    game.swnrank = 5;
-                    if (game.swnbestrank < 5)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav30");
-                        game.swnbestrank = 5;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
-                else if (game.swntimer >= 1800 && game.swnrank == 5)
-                {
-                    game.swnrank = 6;
-                    if (game.swnbestrank < 6)
-                    {
-                        game.unlockAchievement("vvvvvvsupgrav60");
-                        game.swnbestrank = 6;
-                        game.swnmessage = 2+30;
-                        music.playef(26);
-                    }
-                }
+#endif
 
                 obj.generateswnwave(1);
 
