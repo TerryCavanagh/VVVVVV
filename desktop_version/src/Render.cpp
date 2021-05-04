@@ -713,7 +713,7 @@ static void menurender(void)
             graphics.Print( -1, 65, "Replay any level in the game in", tr, tg, tb, true);
             graphics.Print( -1, 75, "a competitive time trial mode.", tr, tg, tb, true);
 
-            if (game.slowdown < 30 || map.invincibility)
+            if (game.nocompetitive())
             {
                 graphics.Print( -1, 105, "Time Trials are not available", tr, tg, tb, true);
                 graphics.Print( -1, 115, "with slowdown or invincibility.", tr, tg, tb, true);
@@ -734,7 +734,7 @@ static void menurender(void)
             graphics.Print( -1, 65, "Play the entire game", tr, tg, tb, true);
             graphics.Print( -1, 75, "without dying once.", tr, tg, tb, true);
 
-            if (game.slowdown < 30 || map.invincibility)
+            if (game.nocompetitive())
             {
                 graphics.Print( -1, 105, "No Death Mode is not available", tr, tg, tb, true);
                 graphics.Print( -1, 115, "with slowdown or invincibility.", tr, tg, tb, true);

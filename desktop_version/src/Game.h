@@ -451,6 +451,10 @@ public:
         return inintermission || insecretlab || intimetrial || nodeathmode;
     }
 
+    bool incompetitive(void);
+
+    bool nocompetitive(void);
+
     bool over30mode;
     bool glitchrunnermode; // Have fun speedrunners! <3 Misa
 
