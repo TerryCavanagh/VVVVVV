@@ -791,6 +791,13 @@ void Game::updatestate(void)
             break;
 
         case 9:
+            if (!map.custommode && nocompetitive())
+            {
+                returntolab();
+                state = 0;
+                break;
+            }
+
             //Start SWN Minigame Mode B
             obj.removetrigger(9);
 
@@ -6251,7 +6258,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 //ok, secret lab! no notification, but test:
                 if (unlock[8])
                 {
-                    option("secret lab", !nocompetitive());
+                    option("secret lab");
                 }
                 option("play modes");
                 if (save_exists())
@@ -6808,7 +6815,13 @@ int Game::get_timestep(void)
 
 bool Game::incompetitive(void)
 {
-    return insecretlab || intimetrial || nodeathmode;
+    return (
+        !map.custommode
+        && swnmode
+        && (swngame == 1 || swngame == 6 || swngame == 7)
+    )
+    || intimetrial
+    || nodeathmode;
 }
 
 bool Game::nocompetitive(void)
