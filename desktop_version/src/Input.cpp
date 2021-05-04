@@ -2064,7 +2064,8 @@ void gameinput(void)
     {
         // Do nothing
     }
-    else if (game.swnmode == 1 && game.swngame == 1)
+    else if (game.swnmode == 1
+    && (game.swngame == 1 || game.swngame == 6 || game.swngame == 7))
     {
         //quitting the super gravitron
         game.mapheld = true;
