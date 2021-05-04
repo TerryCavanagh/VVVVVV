@@ -1252,7 +1252,7 @@ static void menuactionpress(void)
         }
         else if (game.currentmenuoption == 1 && game.unlock[8])
         {
-            if(!map.invincibility && game.slowdown == 30){
+            if(!game.nocompetitive()){
                 music.playef(11);
                 startmode(11);
             }else{
@@ -1346,7 +1346,7 @@ static void menuactionpress(void)
         }
         break;
     case Menu::playmodes:
-        if (game.currentmenuoption == 0 && game.slowdown == 30 && !map.invincibility)   //go to the time trial menu
+        if (game.currentmenuoption == 0 && !game.nocompetitive())   //go to the time trial menu
         {
             music.playef(11);
             game.createmenu(Menu::timetrials);
@@ -1359,7 +1359,7 @@ static void menuactionpress(void)
             game.createmenu(Menu::intermissionmenu);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == 2 && game.unlock[17] && game.slowdown == 30 && !map.invincibility)    //start a game in no death mode
+        else if (game.currentmenuoption == 2 && game.unlock[17] && !game.nocompetitive())    //start a game in no death mode
         {
             music.playef(11);
             game.createmenu(Menu::startnodeathmode);
