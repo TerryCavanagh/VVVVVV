@@ -6725,6 +6725,11 @@ static void setfademode(void)
     graphics.fademode = graphics.ingame_fademode;
 }
 
+static void setflipmode(void)
+{
+    graphics.flipmode = graphics.setflipmode;
+}
+
 void Game::returntoingame(void)
 {
     ingame_titlemode = false;
@@ -6742,7 +6747,7 @@ void Game::returntoingame(void)
     {
         DEFER_CALLBACK(returntoingametemp);
         gamestate = MAPMODE;
-        graphics.flipmode = graphics.setflipmode;
+        DEFER_CALLBACK(setflipmode);
         DEFER_CALLBACK(setfademode);
         if (!map.custommode && !graphics.flipmode)
         {
