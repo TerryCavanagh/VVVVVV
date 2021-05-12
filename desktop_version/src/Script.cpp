@@ -3361,13 +3361,11 @@ void scriptclass::teleport(void)
 	else
 	{
 		//change music based on location
-		if (graphics.setflipmode && game.teleport_to_x == 11 && game.teleport_to_y == 4)
+		if (game.teleport_to_x == 2 && game.teleport_to_y == 11)
 		{
-			music.niceplay(9);
-		}
-		else
-		{
-			music.changemusicarea(game.teleport_to_x, game.teleport_to_y);
+			/* Special case: Ship music needs to be set here;
+			 * ship teleporter on music map is -1 for jukebox. */
+			music.niceplay(4);
 		}
 		game.savetele_textbox();
 	}

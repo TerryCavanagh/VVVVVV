@@ -1012,65 +1012,7 @@ void mapclass::gotoroom(int rx, int ry)
 		game.currentroomdeaths = roomdeaths[game.roomx - 100 + (20 * (game.roomy - 100))];
 
 		//Alright, change music depending on where we are:
-		//Tower
-		if (game.roomx == 107 && game.roomy == 106) music.niceplay(4);
-		if (game.roomx == 107 && game.roomy == 107) music.niceplay(4);
-		if (game.roomx == 107 && game.roomy == 108) music.niceplay(4);
-		if (game.roomx == 107 && game.roomy == 109) music.niceplay(4);
-		if (game.roomx == 108 && game.roomy == 109)
-		{
-			if (graphics.setflipmode)
-			{
-				music.niceplay(9);
-			}
-			else
-			{
-				music.niceplay(2);
-			}
-		}
-		if (game.roomx == 109)
-		{
-			if (graphics.setflipmode)
-			{
-				music.niceplay(9);
-			}
-			else
-			{
-				music.niceplay(2);
-			}
-		}
-		//Warp Zone
-		if (game.roomx == 112 && game.roomy == 101) music.niceplay(4);
-		if (game.roomx == 113 && game.roomy == 101) music.niceplay(4);
-		if (game.roomx == 113 && game.roomy == 102) music.niceplay(4);
-		if (game.roomx == 114 && game.roomy == 101) music.niceplay(12);
-		if (game.roomx == 115 && game.roomy == 101) music.niceplay(12);
-		if (game.roomx == 115 && game.roomy == 102) music.niceplay(12);
-		//Lab
-		if (game.roomx == 101 && game.roomy == 115) music.niceplay(4);
-		if (game.roomx == 100 && game.roomy == 115) music.niceplay(4);
-		if (game.roomx == 101 && game.roomy == 116) music.niceplay(4);
-		if (game.roomx == 100 && game.roomy == 116) music.niceplay(4);
-		if (game.roomx == 102 && game.roomy == 116) music.niceplay(3);
-		if (game.roomx == 102 && game.roomy == 117) music.niceplay(3);
-		if (game.roomx == 101 && game.roomy == 117) music.niceplay(3);
-		//Space Station
-		if (game.intimetrial)
-		{
-			if (game.roomx == 111 && game.roomy == 112) music.niceplay(1);
-			if (game.roomx == 111 && game.roomy == 113) music.niceplay(1);
-			if (game.roomx == 112 && game.roomy == 114) music.niceplay(1);
-			if (game.roomx == 112 && game.roomy == 115) music.niceplay(1);
-		}
-		else
-		{
-			if (game.roomx == 111 && game.roomy == 112) music.niceplay(1);
-			if (game.roomx == 111 && game.roomy == 113) music.niceplay(1);
-			if (game.roomx == 112 && game.roomy == 114) music.niceplay(4);
-			if (game.roomx == 112 && game.roomy == 115) music.niceplay(4);
-		}
-		//Leaving the Ship
-		if (game.roomx == 104 && game.roomy == 112) music.niceplay(4);
+		music.changemusicarea(game.roomx - 100, game.roomy - 100);
 	}
 	int temp = rx + (ry * 100);
 	loadlevel(game.roomx, game.roomy);

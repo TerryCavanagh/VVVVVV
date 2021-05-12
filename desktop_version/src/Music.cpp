@@ -6,7 +6,9 @@
 
 #include "BinaryBlob.h"
 #include "Game.h"
+#include "Graphics.h"
 #include "Map.h"
+#include "Script.h"
 #include "UtilityClass.h"
 
 musicclass::musicclass(void)
@@ -419,40 +421,81 @@ void musicclass::niceplay(int t)
 	nicechange = t;
 }
 
+static const int areamap[] = {
+	4, 3, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4,12,12,12,12,12,12,12,
+	4, 3, 3, 3, 3, 3, 3, 4, 4,-2, 4, 4, 4, 4,12,12,12,12,12,12,
+	4, 4, 4, 4, 3, 4, 4, 4, 4,-2, 4, 4, 4, 4,12,12,12,12,12,12,
+	4, 4, 4, 4, 3, 4, 4, 4, 4,-2, 4, 4, 1, 1, 1, 1,12,12,12,12,
+	4, 4, 3, 3, 3, 4, 4, 4, 4,-2,-2,-2, 1, 1, 1, 1, 4, 4, 4, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1,11,11,-1, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1, 1,11,11,11,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1, 1, 1, 1,11,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 3,
+	4, 4, 4, 4, 4, 4, 4, 4,-2,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 4,
+	4, 4,-1,-1,-1, 4, 4, 4, 4,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 4,
+	4, 4,-1,-1,-1, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 1, 1, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 4, 1, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 4, 1, 4,
+	4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4,-1,-3, 4, 4, 4, 4, 4, 1, 4,
+	4, 4, 4, 4, 4, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	4, 4, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	4, 3, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	3, 3, 3, 3, 3, 4, 4, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+	3, 3, 3, 3, 3, 4, 4, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
+};
+
+SDL_COMPILE_TIME_ASSERT(areamap, SDL_arraysize(areamap) == 20 * 20);
+
 void musicclass::changemusicarea(int x, int y)
 {
-	switch(musicroom(x, y))
+	int room;
+	int track;
+
+	if (script.running)
 	{
-	case musicroom(11, 4):
-		niceplay(2);
-		break;
+		return;
+	}
 
-	case musicroom(2, 4):
-	case musicroom(7, 15):
-		niceplay(3);
-		break;
+	room = musicroom(x, y);
 
-	case musicroom(18, 1):
-	case musicroom(15, 0):
-		niceplay(12);
-		break;
+	if (!INBOUNDS_ARR(room, areamap))
+	{
+		SDL_assert(0 && "Music map index out-of-bounds!");
+		return;
+	}
 
-	case musicroom(0, 0):
-	case musicroom(0, 16):
-	case musicroom(2, 11):
-	case musicroom(7, 9):
-	case musicroom(8, 11):
-	case musicroom(13, 2):
-	case musicroom(17, 12):
-	case musicroom(14, 19):
-	case musicroom(17, 17):
-		niceplay(4);
-		break;
+	track = areamap[room];
 
-	default:
-		niceplay(1);
+	switch (track)
+	{
+	case -1:
+		/* Don't change music. */
+		return;
+	case -2:
+		/* Special case: Tower music, changes with Flip Mode. */
+		if (graphics.setflipmode)
+		{
+			track = 9; /* ecroF evitisoP */
+		}
+		else
+		{
+			track = 2; /* Positive Force */
+		}
+		break;
+	case -3:
+		/* Special case: start of Space Station 2. */
+		if (game.intimetrial)
+		{
+			track = 1; /* Pushing Onwards */
+		}
+		else
+		{
+			track = 4; /* Passion for Exploring */
+		}
 		break;
 	}
+
+	niceplay(track);
 }
 
 void musicclass::playef(int t)
