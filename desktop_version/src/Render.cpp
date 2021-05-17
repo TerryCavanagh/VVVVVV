@@ -1560,7 +1560,7 @@ void gamerender(void)
             {
                 ClearSurface(graphics.backBuffer);
             }
-            if (map.final_colormode)
+            if ((map.finalmode || map.custommode) && map.final_colormode)
             {
                 graphics.drawfinalmap();
             }
