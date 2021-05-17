@@ -434,7 +434,7 @@ void scriptclass::loadother(const char* t)
         "speak_active",
         "endtext",
 
-        "play(2)",
+        "play(14)",
         "changemood(player,0)",
 
         "endcutscene()",
