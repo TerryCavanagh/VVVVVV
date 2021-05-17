@@ -1259,8 +1259,6 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     entclass& entity = *entptr;
     entity.xp = xp;
     entity.yp = yp;
-    entity.lerpoldxp = xp;
-    entity.lerpoldyp = yp;
     entity.type = t;
     switch(t)
     {
@@ -1829,7 +1827,6 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
                 entity.tile = 188 + meta1;
                 entity.colour = 37;
                 entity.h += 3;
-                entity.lerpoldyp -= 3;
                 entity.yp -= 3;
             }
             break;
@@ -2094,6 +2091,8 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         break;
     }
 
+    entity.lerpoldxp = entity.xp;
+    entity.lerpoldyp = entity.yp;
     entity.drawframe = entity.tile;
 
     if (!reuse)
