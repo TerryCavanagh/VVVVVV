@@ -1,3 +1,5 @@
+#include <SDL.h>
+
 #include "Credits.h"
 #include "editor.h"
 #include "Entity.h"
@@ -525,24 +527,24 @@ static void menurender(void)
             switch(key.sensitivity)
             {
             case 0:
-                graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-                graphics.Print( -1, 95, "[]..................", tr, tg, tb, true);
+                graphics.Print( -1, 75, " Low     Medium     High", tr, tg, tb, true);
+                graphics.Print( -1, 85, "[]..................", tr, tg, tb, true);
                 break;
             case 1:
-                graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-                graphics.Print( -1, 95, ".....[].............", tr, tg, tb, true);
+                graphics.Print( -1, 75, " Low     Medium     High", tr, tg, tb, true);
+                graphics.Print( -1, 85, ".....[].............", tr, tg, tb, true);
                 break;
             case 2:
-                graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-                graphics.Print( -1, 95, ".........[].........", tr, tg, tb, true);
+                graphics.Print( -1, 75, " Low     Medium     High", tr, tg, tb, true);
+                graphics.Print( -1, 85, ".........[].........", tr, tg, tb, true);
                 break;
             case 3:
-                graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-                graphics.Print( -1, 95, ".............[].....", tr, tg, tb, true);
+                graphics.Print( -1, 75, " Low     Medium     High", tr, tg, tb, true);
+                graphics.Print( -1, 85, ".............[].....", tr, tg, tb, true);
                 break;
             case 4:
-                graphics.Print( -1, 85, " Low     Medium     High", tr, tg, tb, true);
-                graphics.Print( -1, 95, "..................[]", tr, tg, tb, true);
+                graphics.Print( -1, 75, " Low     Medium     High", tr, tg, tb, true);
+                graphics.Print( -1, 85, "..................[]", tr, tg, tb, true);
                 break;
             }
             break;
@@ -550,10 +552,12 @@ static void menurender(void)
         case 2:
         case 3:
         case 4:
-            graphics.Print( -1, 85, "Flip is bound to: " + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
-            graphics.Print( -1, 95, "Enter is bound to: "  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
-            graphics.Print( -1, 105, "Menu is bound to: " + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
-            graphics.Print( -1, 115, "Restart is bound to: " + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb, true);
+        case 5:
+            graphics.Print( -1, 75, "Flip is bound to: " + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
+            graphics.Print( -1, 85, "Enter is bound to: "  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
+            graphics.Print( -1, 95, "Menu is bound to: " + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
+            graphics.Print( -1, 105, "Restart is bound to: " + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb, true);
+            graphics.Print( -1, 115, "Interact is bound to: " + std::string(help.GCString(game.controllerButton_interact)) , tr, tg, tb, true);
             break;
         }
 
@@ -589,6 +593,29 @@ static void menurender(void)
             }
             break;
         case 2:
+        {
+            /* Screen width 40 chars, 4 per char */
+            char buffer[160 + 1];
+            const char* button;
+
+            graphics.bigprint(-1, 30, "Interact Button", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Toggle whether you interact", tr, tg, tb, true);
+            graphics.Print(-1, 75, "with prompts using ENTER or E.", tr, tg, tb, true);
+
+            if (game.separate_interact)
+            {
+                button = "E";
+            }
+            else
+            {
+                button = "ENTER";
+            }
+
+            SDL_snprintf(buffer, sizeof(buffer), "Interact button: %s", button);
+            graphics.Print(-1, 95, buffer, tr, tg, tb, true);
+            break;
+        }
+        case 3:
             graphics.bigprint(-1, 30, "Fake Load Screen", tr, tg, tb, true);
             if (game.skipfakeload)
                 graphics.Print(-1, 65, "Fake loading screen is OFF", tr / 2, tg / 2, tb / 2, true);
@@ -1530,6 +1557,35 @@ void gamecompleterender2(void)
     graphics.render();
 }
 
+static const char* interact_prompt(
+    char* buffer,
+    const size_t buffer_size,
+    const char* raw
+) {
+    const char* string_fmt_loc = SDL_strstr(raw, "%s");
+    const char* button;
+
+    if (string_fmt_loc == NULL /* No "%s". */
+    || string_fmt_loc != SDL_strchr(raw, '%') /* First "%" found is not "%s". */
+    || SDL_strchr(&string_fmt_loc[1], '%') != NULL) /* Other "%" after "%s". */
+    {
+        return raw;
+    }
+
+    if (game.separate_interact)
+    {
+        button = "E";
+    }
+    else
+    {
+        button = "ENTER";
+    }
+
+    SDL_snprintf(buffer, buffer_size, raw, button);
+
+    return buffer;
+}
+
 void gamerender(void)
 {
 
@@ -1632,15 +1688,17 @@ void gamerender(void)
 
     if (game.readytotele > 100 || game.oldreadytotele > 100)
     {
+        /* Screen width 40 chars, 4 per char */
+        char buffer[160 + 1];
+        static const char raw[] = "- Press %s to Teleport - ";
+        const char* final_string = interact_prompt(
+            buffer,
+            sizeof(buffer),
+            raw
+        );
         int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
-        if(graphics.flipmode)
-        {
-            graphics.bprint(5, 20, "- Press ENTER to Teleport -", alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
-        }
-        else
-        {
-            graphics.bprint(5, 210, "- Press ENTER to Teleport -", alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
-        }
+
+        graphics.bprint(5, graphics.flipmode ? 20 : 210, final_string, alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
     }
 
     if (game.swnmode)
@@ -1827,8 +1885,16 @@ void gamerender(void)
     float act_alpha = graphics.lerp(game.prev_act_fade, game.act_fade) / 10.0f;
     if(game.act_fade>5 || game.prev_act_fade>5)
     {
+        /* Screen width 40 chars, 4 per char */
+        char buffer[160 + 1];
+        const char* final_string = interact_prompt(
+            buffer,
+            sizeof(buffer),
+            game.activity_lastprompt.c_str()
+        );
+
         graphics.drawtextbox(16, 4, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
-        graphics.Print(5, 12, game.activity_lastprompt, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
+        graphics.Print(5, 12, final_string, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
     }
 
     if (obj.trophytext > 0 || obj.oldtrophytext > 0)
@@ -2707,9 +2773,18 @@ void teleporterrender(void)
 
     if (game.useteleporter)
     {
+        /* Screen width 40 chars, 4 per char */
+        char buffer[160 + 1];
+        static const char raw[] = "Press %s to Teleport";
+        const char* final_string = interact_prompt(
+            buffer,
+            sizeof(buffer),
+            raw
+        );
+
         //Instructions!
         graphics.Print(5, 210, "Press Left/Right to choose a Teleporter", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
-        graphics.Print(5, 225, "Press ENTER to Teleport", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        graphics.Print(5, 225, final_string, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
 
     graphics.drawgui();
