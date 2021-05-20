@@ -244,13 +244,12 @@ static bool FILESYSTEM_exists(const char *fname)
 	return PHYSFS_exists(fname);
 }
 
-static void generateVirtualMountPath(char* path, const size_t path_size)
+static void generateBase36(char* string, const size_t string_size)
 {
-	char random[6 + 1] = {'\0'};
 	size_t i;
-	for (i = 0; i < SDL_arraysize(random) - 1; ++i)
+	for (i = 0; i < string_size - 1; ++i)
 	{
-		/* Generate a-z0-9 (base 36) */
+		/* a-z0-9 */
 		char randchar = fRandom() * 36;
 		if (randchar <= 26)
 		{
@@ -261,13 +260,20 @@ static void generateVirtualMountPath(char* path, const size_t path_size)
 			randchar -= 26;
 			randchar += '0';
 		}
-		random[i] = randchar;
+		string[i] = randchar;
 	}
+	string[string_size - 1] = '\0';
+}
+
+static void generateVirtualMountPath(char* path, const size_t path_size)
+{
+	char random_str[6 + 1];
+	generateBase36(random_str, sizeof(random_str));
 	SDL_snprintf(
 		path,
 		path_size,
 		".vvv-mnt-virtual-%s/custom-assets/",
-		random
+		random_str
 	);
 }
 
