@@ -344,3 +344,18 @@ void VVV_fillstring(
 	SDL_memset(buffer, fillchar, buffer_size - 1);
 	buffer[buffer_size - 1] = '\0';
 }
+void _VVV_between(
+	const char* original,
+	const size_t left_length,
+	char* middle,
+	const size_t right_length,
+	const size_t middle_size
+) {
+	size_t middle_length = SDL_strlen(original);
+	middle_length -= left_length + right_length;
+	SDL_strlcpy(
+		middle,
+		&original[left_length],
+		VVV_min(middle_length + 1, middle_size)
+	);
+}

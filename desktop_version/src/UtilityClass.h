@@ -45,6 +45,28 @@ void VVV_fillstring(
         puts(message); \
     }
 
+/* Don't call this directly; use the VVV_between macro. */
+void _VVV_between(
+    const char* original,
+    const size_t left_length,
+    char* middle,
+    const size_t right_length,
+    const size_t middle_size
+);
+
+/* If original is "LEFTMIDDLERIGHT", VVV_between(original, "LEFT", buffer, "RIGHT")
+ * will put "MIDDLE" into buffer - assuming that sizeof(buffer) refers to length
+ * of buffer and not length of pointer to buffer.
+ */
+#define VVV_between(original, left, middle, right) \
+    _VVV_between( \
+        original, \
+        SDL_arraysize(left) - 1, \
+        middle, \
+        SDL_arraysize(right) - 1, \
+        sizeof(middle) \
+    )
+
 
 //helperClass
 class UtilityClass
