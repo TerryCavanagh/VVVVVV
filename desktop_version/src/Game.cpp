@@ -4971,6 +4971,10 @@ void Game::readmaingamesave(tinyxml2::XMLDocument& doc)
                 music.play(song);
             }
         }
+        else if (SDL_strcmp(pKey, "showtargets") == 0)
+        {
+            map.showtargets = help.Int(pText);
+        }
 
     }
 
@@ -5494,6 +5498,8 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
     {
         xml::update_tag(msgs, "currentsong", music.currentsong);
     }
+
+    xml::update_tag(msgs, "showtargets", (int) map.showtargets);
 
     xml::update_tag(msgs, "teleportscript", teleportscript.c_str());
     xml::update_tag(msgs, "companion", companion);
