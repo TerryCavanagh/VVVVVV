@@ -1,8 +1,7 @@
 #include <stdint.h>
 
 #include "MakeAndPlay.h"
-
-#define UNUSED(expr) (void)(expr)
+#include "Unused.h"
 
 #ifdef MAKEANDPLAY
 	#ifdef STEAM_NETWORK
