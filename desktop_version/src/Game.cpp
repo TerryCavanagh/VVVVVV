@@ -1478,7 +1478,7 @@ void Game::updatestate(void)
             //Init final stretch
             state++;
             music.playef(9);
-            music.play(14);
+            music.play(2);
             obj.flags[72] = true;
 
             screenshake = 10;
