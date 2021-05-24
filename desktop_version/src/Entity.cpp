@@ -1273,6 +1273,10 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.h = 21;
         entity.dir = 1;
 
+        /* Fix wrong y-position if spawning in on conveyor */
+        entity.newxp = xp;
+        entity.newyp = yp;
+
         if (meta1 == 1) entity.invis = true;
 
         entity.gravity = true;
