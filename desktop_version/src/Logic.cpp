@@ -892,11 +892,53 @@ void gamelogic(void)
 
                     if (above_screen)
                     {
-                        map.ypos-=10;
+                        if (obj.entities[player].yp - map.ypos <= 0)
+                        {
+                            if (graphics.towerbg.scrolldir == 1)
+                            {
+                                /* Descending tower:
+                                 * Counteract 10 pixels of terminal velocity
+                                 * + 2 pixels of camera movement */
+                                map.ypos -= 12;
+                            }
+                            else
+                            {
+                                /* Ascending tower:
+                                 * Move 8 out of 10 pixels of terminal velocity
+                                 * Camera movement will move 2 pixels for us */
+                                map.ypos -= 8;
+                            }
+                        }
+                        else
+                        {
+                            /* Counter 2 pixels of camera movement */
+                            map.ypos -= 2;
+                        }
                     }
                     else if (below_screen)
                     {
-                        map.ypos+=2;
+                        if (obj.entities[player].yp - map.ypos >= 208)
+                        {
+                            if (graphics.towerbg.scrolldir == 0)
+                            {
+                                /* Ascending tower:
+                                 * Counteract 10 pixels of terminal velocity
+                                 * + 2 pixels of camera movement */
+                                map.ypos += 12;
+                            }
+                            else
+                            {
+                                /* Descending tower:
+                                 * Move 8 out of 10 pixels of terminal velocity
+                                 * Camera movement will move 2 pixels for us */
+                                map.ypos += 8;
+                            }
+                        }
+                        else
+                        {
+                            /* Counter 2 pixels of camera movement */
+                            map.ypos += 2;
+                        }
                     }
 
                     if (above_screen || below_screen)
