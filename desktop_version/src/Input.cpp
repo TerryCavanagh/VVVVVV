@@ -1840,6 +1840,7 @@ void titleinput(void)
                 key.controllerButtonDown()      )
         {
             updatebuttonmappings(game.currentmenuoption);
+            music.playef(11);
             game.savestatsandsettings_menu();
         }
 
