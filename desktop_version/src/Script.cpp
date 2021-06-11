@@ -1567,9 +1567,20 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "rollcredits")
 			{
-				game.gamestate = GAMECOMPLETE;
-				graphics.fademode = 4;
-				game.creditposition = 0;
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+				if (map.custommode && !map.custommodeforreal)
+				{
+					game.returntoeditor();
+					ed.note = "Rolled credits";
+					ed.notedelay = 45;
+				}
+				else
+#endif
+				{
+					game.gamestate = GAMECOMPLETE;
+					graphics.fademode = 4;
+					game.creditposition = 0;
+				}
 			}
 			else if (words[0] == "finalmode")
 			{
