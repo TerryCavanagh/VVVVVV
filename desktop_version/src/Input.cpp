@@ -949,6 +949,7 @@ static void menuactionpress(void)
             /* Return */
             game.returnmenu();
             map.nexttowercolour();
+            music.playef(11);
         }
         break;
     case Menu::unlockmenutrials:
