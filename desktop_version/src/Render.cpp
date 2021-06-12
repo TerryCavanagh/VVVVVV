@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
+#include "GraphicsUtil.h"
 #include "KeyPoll.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
@@ -710,18 +711,27 @@ static void menurender(void)
             }
             break;
         case OFFSET+4:
+        {
+            const char* text;
+
             graphics.bigprint(-1, 40, "Text Outline", tr, tg, tb, true);
             graphics.Print(-1, 75, "Disables outline on game text.", tr, tg, tb, true);
-            // FIXME: Maybe do an outlined print instead? -flibit
+
+            FillRect(graphics.backBuffer, 0, 84, 320, 10, tr, tg, tb);
+
             if (!graphics.notextoutline)
             {
-                graphics.Print(-1, 85, "Text outlines are ON.", tr, tg, tb, true);
+                text = "Text outlines are ON.";
             }
             else
             {
-                graphics.Print(-1, 85, "Text outlines are OFF.", tr / 2, tg / 2, tb / 2, true);
+                text = "Text outlines are OFF.";
             }
+
+            graphics.bprint(-1, 85, text, 255, 255, 255, true);
             break;
+        }
+
         }
         break;
 
