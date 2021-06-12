@@ -1950,6 +1950,7 @@ void gameinput(void)
         script.startgamemode(game.timetriallevel + 3);
         game.deathseq = -1;
         game.completestop = false;
+        game.hascontrol = false;
     }
 
     //Returning to editor mode must always be possible
