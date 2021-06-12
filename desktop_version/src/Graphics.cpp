@@ -2033,7 +2033,7 @@ void Graphics::drawentity(const int i, const int yoff)
         {
             if (obj.entities[i].xp < -100)
             {
-                tpoint.x = -5 + (int(( -obj.entities[i].xp) / 10));
+                tpoint.x = -5 + (int(( -xp) / 10));
             }
             else
             {
@@ -2056,7 +2056,7 @@ void Graphics::drawentity(const int i, const int yoff)
         {
             if (obj.entities[i].xp > 420)
             {
-                tpoint.x = 320 - (int(( obj.entities[i].xp-320) / 10));
+                tpoint.x = 320 - (int(( xp-320) / 10));
             }
             else
             {
