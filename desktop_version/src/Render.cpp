@@ -1822,19 +1822,19 @@ void gamerender(void)
         {
             if (game.timetrialcountdown < 30)
             {
-                if (int(game.timetrialcountdown / 4) % 2 == 0) graphics.bigprint( -1, 100, "Go!", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                if (int(game.timetrialcountdown / 4) % 2 == 0) graphics.bigbprint( -1, 100, "Go!", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
             else if (game.timetrialcountdown < 60)
             {
-                graphics.bigprint( -1, 100, "1", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                graphics.bigbprint( -1, 100, "1", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
             else if (game.timetrialcountdown < 90)
             {
-                graphics.bigprint( -1, 100, "2", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                graphics.bigbprint( -1, 100, "2", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
             else if (game.timetrialcountdown < 120)
             {
-                graphics.bigprint( -1, 100, "3", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                graphics.bigbprint( -1, 100, "3", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
         }
         else
