@@ -3962,7 +3962,7 @@ void Game::gethardestroom(void)
         }
         else if (map.roomname == "")
         {
-            hardestroom = "Dimension VVVVVV";
+            hardestroom = map.hiddenname;
         }
     }
 }
