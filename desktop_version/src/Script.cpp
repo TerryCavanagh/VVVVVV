@@ -2840,14 +2840,9 @@ void scriptclass::startgamemode( int t )
 		game.jumpheld = true;
 
 		//Secret lab, so reveal the map, give them all 20 trinkets
-		for (int j = 0; j < 20; j++)
-		{
-			obj.collect[j] = true;
-			for (i = 0; i < 20; i++)
-			{
-				map.setexplored(i, j, true);
-			}
-		}
+		SDL_memset(obj.collect, true, sizeof(obj.collect[0]) * 20);
+		SDL_memset(map.explored, true, sizeof(map.explored));
+		i = 400; /* previously a nested for-loop set this */
 		game.insecretlab = true;
 		map.showteleporters = true;
 
