@@ -25,6 +25,7 @@ Contributors
 * Thomas Sänger (@HorayNarea)
 * Info Teddy (@InfoTeddy)
 * Pierre-Alain TORET (@daftaupe)
+* Jules de Sartiges (@strikersh)
 * leo60228 (@leo60228)
 * Emmanuel Vadot (@evadot)
 * Rémi Verschelde (@akien-mga)
