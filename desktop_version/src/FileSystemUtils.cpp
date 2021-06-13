@@ -148,8 +148,8 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 
 	if (basePath == NULL)
 	{
-		puts("Unable to get base path!");
-		return 0;
+		puts("Unable to determine base path, falling back to current directory");
+		basePath = SDL_strdup("./");
 	}
 
 	/* Mount the stock content last */
