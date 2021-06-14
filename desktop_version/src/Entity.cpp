@@ -4508,14 +4508,14 @@ void entityclass::movingplatformfix( int t, int j )
                     entities[j].yp = entities[t].yp + entities[t].h;
                     entities[j].vy = 0;
                     entities[j].onroof = 2;
-                    entities[j].visualonroof = entities[j].onroof;
+                    entities[j].visualonroof = 1;
                 }
                 else
                 {
                     entities[j].yp = entities[t].yp - entities[j].h-entities[j].cy;
                     entities[j].vy = 0;
                     entities[j].onground = 2;
-                    entities[j].visualonground = entities[j].onground;
+                    entities[j].visualonground = 1;
                 }
             }
             else
