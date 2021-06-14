@@ -2603,6 +2603,7 @@ void teleporterinput(void)
                 // Close teleporter menu
                 graphics.resumegamemode = true;
             }
+            music.playef(11);
         }
     }
     else
