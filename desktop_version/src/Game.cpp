@@ -1956,7 +1956,7 @@ void Game::updatestate(void)
             if(ed.numcrewmates()-crewmates()==0)
             {
                 //Finished level
-                if(ed.numtrinkets()-trinkets()==0)
+                if (trinkets() >= ed.numtrinkets())
                 {
                     //and got all the trinkets!
                     updatecustomlevelstats(customlevelfilename, 3);
