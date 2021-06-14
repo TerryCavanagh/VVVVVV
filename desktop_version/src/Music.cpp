@@ -351,7 +351,7 @@ void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 
 void musicclass::fadeout(const bool quick_fade_ /*= true*/)
 {
-	fadeMusicVolumeOut(2000);
+	fadeMusicVolumeOut(quick_fade_ ? 500 : 2000);
 	quick_fade = quick_fade_;
 }
 
