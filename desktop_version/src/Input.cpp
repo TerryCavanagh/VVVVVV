@@ -2512,6 +2512,7 @@ static void mapmenuactionpress(void)
             game.fadetomenu = true;
             game.fadetomenudelay = 16;
         }
+        music.playef(11);
         break;
 
     case 20:
