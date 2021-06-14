@@ -2517,6 +2517,7 @@ static void mapmenuactionpress(void)
     case 20:
         //return to game
         graphics.resumegamemode = true;
+        music.playef(11);
         break;
     case 21:
         //quit to menu
