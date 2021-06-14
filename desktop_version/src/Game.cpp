@@ -5198,6 +5198,10 @@ void Game::customloadquick(std::string savfile)
         {
             disabletemporaryaudiopause = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "showtrinkets") == 0)
+        {
+            map.showtrinkets = help.Int(pText);
+        }
 
     }
 
@@ -5680,6 +5684,8 @@ bool Game::customsavequick(std::string savfile)
     xml::update_tag(msgs, "showminimap", (int) map.customshowmm);
 
     xml::update_tag(msgs, "disabletemporaryaudiopause", (int) disabletemporaryaudiopause);
+
+    xml::update_tag(msgs, "showtrinkets", (int) map.showtrinkets);
 
     std::string summary = savearea + ", " + timestring();
     xml::update_tag(msgs, "summary", summary.c_str());
