@@ -2528,6 +2528,7 @@ static void mapmenuactionpress(void)
             game.fadetolab = true;
             game.fadetolabdelay = 16;
         }
+        music.playef(11);
         break;
     case 30:
         // Return to game
