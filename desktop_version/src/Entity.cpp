@@ -3748,6 +3748,102 @@ void entityclass::animateentities( int _i )
     }
 }
 
+void entityclass::animatehumanoidcollision(const int i)
+{
+    /* For some awful reason, drawframe is used for actual collision.
+     * And removing the input delay changes collision drawframe
+     * because vx is checked in animateentities().
+     * So we need to separate the collision drawframe from the visual drawframe
+     * and update it separately in gamelogic.
+     * Hence this function.
+     */
+    entclass* entity;
+
+    if (!INBOUNDS_VEC(i, entities))
+    {
+        puts("animatehumanoidcollision() out-of-bounds!");
+        return;
+    }
+
+    entity = &entities[i];
+
+    if (!entity->ishumanoid())
+    {
+        return;
+    }
+
+    if (entity->statedelay > 0)
+    {
+        return;
+    }
+
+    --entity->collisionframedelay;
+
+    if (entity->dir == 1)
+    {
+        entity->collisiondrawframe = entity->tile;
+    }
+    else
+    {
+        entity->collisiondrawframe = entity->tile + 3;
+    }
+
+    if (entity->visualonground > 0 || entity->visualonroof > 0)
+    {
+        if (entity->vx > 0.0f || entity->vx < -0.0f)
+        {
+            /* Walking */
+            if (entity->collisionframedelay <= 1)
+            {
+                entity->collisionframedelay = 4;
+                ++entity->collisionwalkingframe;
+            }
+
+            if (entity->collisionwalkingframe >= 2)
+            {
+                entity->collisionwalkingframe = 0;
+            }
+
+            entity->collisiondrawframe += entity->collisionwalkingframe + 1;
+        }
+
+        if (entity->visualonroof > 0)
+        {
+            entity->collisiondrawframe += 6;
+        }
+    }
+    else
+    {
+        ++entity->collisiondrawframe;
+
+        if (entity->type == 0 && game.gravitycontrol == 1)
+        {
+            entity->collisiondrawframe += 6;
+        }
+    }
+
+    /* deathseq shouldn't matter, but handling it anyway just in case */
+    if (game.deathseq > -1)
+    {
+        entity->collisiondrawframe = 13;
+
+        if (entity->dir == 1)
+        {
+            entity->collisiondrawframe = 12;
+        }
+
+        if ((entity->type == 0 && game.gravitycontrol == 1)
+        || (entity->type != 0 && entity->rule == 7))
+        {
+            entity->collisiondrawframe += 2;
+        }
+    }
+
+    entity->framedelay = entity->collisionframedelay;
+    entity->drawframe = entity->collisiondrawframe;
+    entity->walkingframe = entity->collisionwalkingframe;
+}
+
 int entityclass::getcompanion(void)
 {
     //Returns the index of the companion with rule t
@@ -4653,7 +4749,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
                 point colpoint2;
                 colpoint2.x = entities[j].xp;
                 colpoint2.y = entities[j].yp;
-                int drawframe1 = entities[i].drawframe;
+                int drawframe1 = entities[i].collisiondrawframe;
                 int drawframe2 = entities[j].drawframe;
                 std::vector<SDL_Surface*>& spritesvec = graphics.flipmode ? graphics.flipsprites : graphics.sprites;
                 if (INBOUNDS_VEC(drawframe1, spritesvec) && INBOUNDS_VEC(drawframe2, spritesvec)

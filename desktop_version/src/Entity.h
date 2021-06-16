@@ -88,6 +88,8 @@ public:
 
     void animateentities(int i);
 
+    void animatehumanoidcollision(const int i);
+
     int getcompanion(void);
 
     int getplayer(void);
