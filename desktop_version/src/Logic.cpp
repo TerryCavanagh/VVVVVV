@@ -152,6 +152,8 @@ void gamelogic(void)
             {
                 --obj.entities[i].onroof;
             }
+
+            obj.animatehumanoidcollision(i);
         }
     }
 

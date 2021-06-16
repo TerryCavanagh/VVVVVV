@@ -46,6 +46,9 @@ void entclass::clear(void)
 	gravity = false;
 	onground = 0;
 	onroof = 0;
+	collisionframedelay = 0;
+	collisiondrawframe = 0;
+	collisionwalkingframe = 0;
 	visualonground = 0;
 	visualonroof = 0;
 
