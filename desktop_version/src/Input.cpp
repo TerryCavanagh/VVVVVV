@@ -1960,8 +1960,18 @@ void gameinput(void)
     {
         if ((game.press_map || key.isDown(27)) && !game.mapheld)
         {
-            game.returntoeditor();
-            game.mapheld = true;
+            if (!game.separate_interact
+            && game.press_map
+            && (INBOUNDS_VEC(game.activeactivity, obj.blocks)
+            || (game.activetele && game.readytotele > 20)))
+            {
+                /* Pass, let code block below handle it */
+            }
+            else
+            {
+                game.returntoeditor();
+                game.mapheld = true;
+            }
         }
     }
 #endif
