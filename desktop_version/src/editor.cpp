@@ -5895,12 +5895,21 @@ Uint32 editorclass::getonewaycol(void)
     return graphics.getRGB(255, 255, 255);
 }
 
+static bool inbounds(const edentities* entity)
+{
+    extern editorclass ed;
+    return entity->x >= 0
+    && entity->y >= 0
+    && entity->x < ed.mapwidth * 40
+    && entity->y < ed.mapheight * 30;
+}
+
 int editorclass::numtrinkets(void)
 {
     int temp = 0;
     for (size_t i = 0; i < edentity.size(); i++)
     {
-        if (edentity[i].t == 9)
+        if (edentity[i].t == 9 && inbounds(&edentity[i]))
         {
             temp++;
         }
@@ -5913,7 +5922,7 @@ int editorclass::numcrewmates(void)
     int temp = 0;
     for (size_t i = 0; i < edentity.size(); i++)
     {
-        if (edentity[i].t == 15)
+        if (edentity[i].t == 15 && inbounds(&edentity[i]))
         {
             temp++;
         }
