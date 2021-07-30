@@ -380,6 +380,7 @@ void Game::init(void)
     fadetolabdelay = 0;
 
     over30mode = true;
+    showingametimer = false;
 
     ingame_titlemode = false;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
