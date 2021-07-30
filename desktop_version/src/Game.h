@@ -229,7 +229,7 @@ public:
     bool hascontrol, jumpheld;
     int jumppressed;
     int gravitycontrol;
-    bool isingamecompletescreen;
+    bool isingamecompletescreen();
 
     bool muted;
     int mutebutton;

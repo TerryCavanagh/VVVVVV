@@ -125,7 +125,6 @@ void Game::init(void)
     edteleportent = 0; //Added in the port!
     companion = 0;
     roomchange = false;
-    isingamecompletescreen = false;
 
 
     quickrestartkludge = false;
@@ -2591,7 +2590,6 @@ void Game::updatestate(void)
             break;
         case 3501:
             //Game complete!
-            isingamecompletescreen = true;
             unlockAchievement("vvvvvvgamecomplete");
             unlocknum(5);
             crewstats[0] = true;
@@ -2807,7 +2805,6 @@ void Game::updatestate(void)
             map.finalstretch = false;
 
             graphics.setbars(320);
-            isingamecompletescreen = false;
 
             teleport_to_new_area = true;
             teleportscript = "gamecomplete";
@@ -2815,7 +2812,6 @@ void Game::updatestate(void)
 
         case 3520:
             //NO DEATH MODE COMPLETE JESUS
-            isingamecompletescreen = true;
             hascontrol = false;
             crewstats[0] = true;
 
@@ -2826,7 +2822,6 @@ void Game::updatestate(void)
             if(graphics.fademode == 1)	state++;
             break;
         case 3522:
-            isingamecompletescreen = false;
             copyndmresults();
             quittomenu();
             createmenu(Menu::nodeathmodecomplete);
@@ -6908,4 +6903,9 @@ bool Game::incompetitive(void)
 bool Game::nocompetitive(void)
 {
     return slowdown < 30 || map.invincibility;
+}
+
+bool Game::isingamecompletescreen()
+{
+    return (state >= 3501 && state <= 3518) || (state >= 3520 && state <= 3522);
 }
