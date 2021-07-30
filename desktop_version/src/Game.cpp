@@ -6103,7 +6103,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("input delay");
         option("interact button");
         option("fake load screen");
-        option("show in game timer");
+        option("toggle in game timer");
         option("return");
         menuyoff = 0;
         maxspacing = 15;
