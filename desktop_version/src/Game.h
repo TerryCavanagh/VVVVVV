@@ -229,6 +229,7 @@ public:
     bool hascontrol, jumpheld;
     int jumppressed;
     int gravitycontrol;
+	bool isingamecompletescreen;
 
     bool muted;
     int mutebutton;
@@ -460,6 +461,7 @@ public:
     bool nocompetitive(void);
 
     bool over30mode;
+	bool showingametimer;
 
     bool ingame_titlemode;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
