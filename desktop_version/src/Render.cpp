@@ -648,14 +648,14 @@ static void menurender(void)
             else
                 graphics.Print(-1, 65, "Fake loading screen is ON", tr, tg, tb, true);
             break;
-		case 4:
+        case 4:
             graphics.bigprint(-1, 30, "In Game Timer", tr, tg, tb, true);
             if (game.showingametimer)
-				graphics.Print(-1, 65, "In Game Timer is ON", tr, tg, tb, true);
+                graphics.Print(-1, 65, "In Game Timer is ON", tr, tg, tb, true);
             else
-				graphics.Print(-1, 65, "In Game Timer is OFF", tr / 2, tg / 2, tb / 2, true);
+                graphics.Print(-1, 65, "In Game Timer is OFF", tr / 2, tg / 2, tb / 2, true);
             break;
-		}
+        }
         break;
     case Menu::setglitchrunner:
         graphics.bigprint(-1, 30, "Glitchrunner Mode", tr, tg, tb, true);
@@ -1682,10 +1682,10 @@ void gamerender(void)
         }
     }
 
-	if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen && game.swngame != 1 && game.showingametimer) {
-		graphics.bprint(6, 6, "TIME :",  255,255,255);
-		graphics.bprint(56, 6, game.timestring(),  196, 196, 196);
-	}
+    if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen && game.swngame != 1 && game.showingametimer) {
+        graphics.bprint(6, 6, "TIME :",  255,255,255);
+        graphics.bprint(56, 6, game.timestring(),  196, 196, 196);
+    }
 
     if(map.extrarow==0 || (map.custommode && map.roomname!=""))
     {

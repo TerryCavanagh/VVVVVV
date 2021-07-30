@@ -125,7 +125,7 @@ void Game::init(void)
     edteleportent = 0; //Added in the port!
     companion = 0;
     roomchange = false;
-	isingamecompletescreen = false;
+    isingamecompletescreen = false;
 
 
     quickrestartkludge = false;
@@ -2591,7 +2591,7 @@ void Game::updatestate(void)
             break;
         case 3501:
             //Game complete!
-			isingamecompletescreen = true;
+            isingamecompletescreen = true;
             unlockAchievement("vvvvvvgamecomplete");
             unlocknum(5);
             crewstats[0] = true;
@@ -2807,7 +2807,7 @@ void Game::updatestate(void)
             map.finalstretch = false;
 
             graphics.setbars(320);
-			isingamecompletescreen = false;
+            isingamecompletescreen = false;
 
             teleport_to_new_area = true;
             teleportscript = "gamecomplete";
@@ -2815,7 +2815,7 @@ void Game::updatestate(void)
 
         case 3520:
             //NO DEATH MODE COMPLETE JESUS
-			isingamecompletescreen = true;
+            isingamecompletescreen = true;
             hascontrol = false;
             crewstats[0] = true;
 
@@ -2826,7 +2826,7 @@ void Game::updatestate(void)
             if(graphics.fademode == 1)	state++;
             break;
         case 3522:
-			isingamecompletescreen = false;
+            isingamecompletescreen = false;
             copyndmresults();
             quittomenu();
             createmenu(Menu::nodeathmodecomplete);
@@ -4217,7 +4217,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             GlitchrunnerMode_set(GlitchrunnerMode_string_to_enum(pText));
         }
 
-		if (SDL_strcmp(pKey, "showingametimer") == 0)
+        if (SDL_strcmp(pKey, "showingametimer") == 0)
         {
             showingametimer = help.Int(pText);
         }
@@ -6103,7 +6103,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("input delay");
         option("interact button");
         option("fake load screen");
-		option("show in game timer");
+        option("show in game timer");
         option("return");
         menuyoff = 0;
         maxspacing = 15;
