@@ -2714,7 +2714,11 @@ void maprender(void)
     // We need to draw the black screen above the menu in order to disguise it
     // being jankily brought down in glitchrunner mode when exiting to the title
     // Otherwise, there's no reason to obscure the menu
-    if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2) || graphics.fademode == 3 || graphics.fademode == 5)
+    if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
+    || graphics.fademode == 3
+    || graphics.fademode == 5
+    || game.fadetomenu
+    || game.fadetolab)
     {
         graphics.drawfade();
     }
