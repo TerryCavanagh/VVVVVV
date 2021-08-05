@@ -2643,6 +2643,7 @@ bool entityclass::updateentities( int i )
                     if (game.trinkets() > game.stat_trinkets && !map.custommode)
                     {
                         game.stat_trinkets = game.trinkets();
+                        game.savestatsandsettings();
                     }
                 }
 
