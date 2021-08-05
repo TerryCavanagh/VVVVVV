@@ -5,6 +5,7 @@
 
 #include "editor.h"
 #include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Map.h"
 #include "Music.h"
@@ -4844,7 +4845,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         }
         break;
     case 7: // Person versus horizontal warp line, pre-2.1
-        if (game.glitchrunnermode
+        if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_0)
         && game.deathseq == -1
         && entities[j].onentity > 0
         && entityhlinecollide(i, j))

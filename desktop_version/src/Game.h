@@ -43,6 +43,7 @@ namespace Menu
         options,
         gameplayoptions,
         speedrunneroptions,
+        setglitchrunner,
         advancedoptions,
         audiooptions,
         accessibility,
@@ -459,7 +460,6 @@ public:
     bool nocompetitive(void);
 
     bool over30mode;
-    bool glitchrunnermode; // Have fun speedrunners! <3 Misa
 
     bool ingame_titlemode;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)

@@ -3,6 +3,7 @@
 #include "Enums.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Map.h"
 #include "Music.h"
@@ -975,7 +976,7 @@ void gamelogic(void)
 
         //Using warplines?
         if (obj.customwarpmode) {
-            if (!game.glitchrunnermode) {
+            if (!GlitchrunnerMode_less_than_or_equal(Glitchrunner2_0)) {
                 //Rewritten system for mobile update: basically, the new logic is to
                 //check if the player is leaving the map, and if so do a special check against
                 //warp lines for collision
