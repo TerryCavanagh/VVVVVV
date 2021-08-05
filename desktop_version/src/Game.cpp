@@ -380,6 +380,7 @@ void Game::init(void)
     fadetolabdelay = 0;
 
     over30mode = true;
+    showingametimer = false;
 
     ingame_titlemode = false;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
@@ -4212,6 +4213,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             GlitchrunnerMode_set(GlitchrunnerMode_string_to_enum(pText));
         }
 
+        if (SDL_strcmp(pKey, "showingametimer") == 0)
+        {
+            showingametimer = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "vsync") == 0)
         {
             screen_settings->useVsync = help.Int(pText);
@@ -4476,6 +4482,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
         "glitchrunnermode",
         GlitchrunnerMode_enum_to_string(GlitchrunnerMode_get())
     );
+
+    xml::update_tag(dataNode, "showingametimer", (int) showingametimer);
 
     xml::update_tag(dataNode, "vsync", (int) screen_settings->useVsync);
 
@@ -6091,6 +6099,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("input delay");
         option("interact button");
         option("fake load screen");
+        option("toggle in game timer");
         option("return");
         menuyoff = 0;
         maxspacing = 15;
@@ -6895,4 +6904,9 @@ bool Game::incompetitive(void)
 bool Game::nocompetitive(void)
 {
     return slowdown < 30 || map.invincibility;
+}
+
+bool Game::isingamecompletescreen()
+{
+    return (state >= 3501 && state <= 3518) || (state >= 3520 && state <= 3522);
 }

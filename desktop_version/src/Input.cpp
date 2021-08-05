@@ -684,6 +684,12 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             music.playef(11);
             break;
+        case 4:
+            // toggle in game timer
+            game.showingametimer = !game.showingametimer;
+            game.savestatsandsettings_menu();
+            music.playef(11);
+            break;
         default:
             //back
             music.playef(11);
