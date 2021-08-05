@@ -3974,6 +3974,10 @@ static void editormenuactionpress(void)
 void editorinput(void)
 {
     extern editorclass ed;
+    if (graphics.fademode == 3 /* fading out */)
+    {
+        return;
+    }
     game.mx = (float) key.mx;
     game.my = (float) key.my;
     ed.tilex=(game.mx - (game.mx%8))/8;
