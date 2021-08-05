@@ -724,7 +724,7 @@ static void unfocused_run(void)
 
 static void focused_begin(void)
 {
-    /* no-op. */
+    map.nexttowercolour_set = false;
 }
 
 static void focused_end(void)
