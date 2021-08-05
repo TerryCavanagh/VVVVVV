@@ -359,6 +359,7 @@ static bool checkZipStructure(const char* filename)
 {
 	const char* real_dir = PHYSFS_getRealDir(filename);
 	char base_name[MAX_PATH];
+	char base_name_suffixed[MAX_PATH];
 	char real_path[MAX_PATH];
 	char mount_path[MAX_PATH];
 	char check_path[MAX_PATH];
@@ -393,17 +394,24 @@ static bool checkZipStructure(const char* filename)
 	VVV_between(filename, "levels/", base_name, ".zip");
 
 	SDL_snprintf(
+		base_name_suffixed,
+		sizeof(base_name_suffixed),
+		"%s.vvvvvv",
+		base_name
+	);
+
+	SDL_snprintf(
 		check_path,
 		sizeof(check_path),
-		"%s%s.vvvvvv",
+		"%s%s",
 		mount_path,
-		base_name
+		base_name_suffixed
 	);
 
 	success = PHYSFS_exists(check_path);
 
 	SDL_zero(zip_state);
-	zip_state.filename = check_path;
+	zip_state.filename = base_name_suffixed;
 
 	PHYSFS_enumerate(mount_path, zipCheckCallback, (void*) &zip_state);
 
