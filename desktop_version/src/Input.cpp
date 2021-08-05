@@ -2527,6 +2527,7 @@ static void mapmenuactionpress(const bool version2_2)
             game.fadetomenu = true;
             game.fadetomenudelay = 16;
         }
+        music.playef(11);
         break;
 
     case 20:
