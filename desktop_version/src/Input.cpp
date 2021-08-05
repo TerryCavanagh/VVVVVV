@@ -6,6 +6,7 @@
 #include "Enums.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "MakeAndPlay.h"
@@ -661,8 +662,9 @@ static void menuactionpress(void)
         case 0:
             // Glitchrunner mode
             music.playef(11);
-            game.glitchrunnermode = !game.glitchrunnermode;
-            game.savestatsandsettings_menu();
+            game.createmenu(Menu::setglitchrunner);
+            game.currentmenuoption = GlitchrunnerMode_get();
+            map.nexttowercolour();
             break;
         case 1:
             /* Input delay */
@@ -689,6 +691,13 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         }
+        break;
+    case Menu::setglitchrunner:
+        GlitchrunnerMode_set((enum GlitchrunnerMode) game.currentmenuoption);
+        music.playef(11);
+        game.returnmenu();
+        game.savestatsandsettings_menu();
+        map.nexttowercolour();
         break;
     case Menu::advancedoptions:
         switch (game.currentmenuoption)
@@ -1919,7 +1928,11 @@ void gameinput(void)
             }
             else
             {
-                if(game.glitchrunnermode || !game.glitchrunkludge) game.state++;
+                if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_0)
+                || !game.glitchrunkludge)
+                {
+                    game.state++;
+                }
                     game.jumpheld = true;
                     game.glitchrunkludge=true;
                     //Bug fix! You should only be able to do this ONCE.
@@ -2249,10 +2262,12 @@ void gameinput(void)
     }
 }
 
-static void mapmenuactionpress(void);
+static void mapmenuactionpress(bool version2_2);
 
 void mapinput(void)
 {
+    const bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
+
     //TODO Mouse Input!
     //game.mx = (mouseX / 2);
     //game.my = (mouseY / 2);
@@ -2263,7 +2278,7 @@ void mapinput(void)
     game.press_map = false;
     game.press_interact = false;
 
-    if (game.glitchrunnermode && graphics.fademode == 1 && graphics.menuoffset == 0)
+    if (version2_2 && graphics.fademode == 1 && graphics.menuoffset == 0)
     {
         // Deliberate re-addition of the glitchy gamestate-based fadeout!
 
@@ -2299,7 +2314,7 @@ void mapinput(void)
         }
     }
 
-    if (game.fadetomenu && !game.glitchrunnermode)
+    if (game.fadetomenu && !version2_2)
     {
         if (game.fadetomenudelay > 0)
         {
@@ -2313,7 +2328,7 @@ void mapinput(void)
         }
     }
 
-    if (game.fadetolab && !game.glitchrunnermode)
+    if (game.fadetolab && !version2_2)
     {
         if (game.fadetolabdelay > 0)
         {
@@ -2327,7 +2342,7 @@ void mapinput(void)
     }
 
     if(graphics.menuoffset==0
-    && ((!game.glitchrunnermode && !game.fadetomenu && game.fadetomenudelay <= 0 && !game.fadetolab && game.fadetolabdelay <= 0)
+    && ((!version2_2 && !game.fadetomenu && game.fadetomenudelay <= 0 && !game.fadetolab && game.fadetolabdelay <= 0)
     || graphics.fademode == 0))
     {
         if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_w)|| key.controllerWantsLeft(true))
@@ -2418,7 +2433,7 @@ void mapinput(void)
 
         if (game.press_action)
         {
-            mapmenuactionpress();
+            mapmenuactionpress(version2_2);
         }
 
         if (game.menupage < 0) game.menupage = 3;
@@ -2435,7 +2450,7 @@ void mapinput(void)
     }
 }
 
-static void mapmenuactionpress(void)
+static void mapmenuactionpress(const bool version2_2)
 {
     switch (game.menupage)
     {
@@ -2507,7 +2522,7 @@ static void mapmenuactionpress(void)
         graphics.fademode = 2;
         music.fadeout();
         map.nexttowercolour();
-        if (!game.glitchrunnermode)
+        if (!version2_2)
         {
             game.fadetomenu = true;
             game.fadetomenudelay = 16;
@@ -2524,7 +2539,7 @@ static void mapmenuactionpress(void)
         game.swnmode = false;
         graphics.fademode = 2;
         music.fadeout();
-        if (!game.glitchrunnermode)
+        if (!version2_2)
         {
             game.fadetolab = true;
             game.fadetolabdelay = 16;

@@ -4,6 +4,7 @@
 #include "editor.h"
 #include "Entity.h"
 #include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "MakeAndPlay.h"
 #include "Music.h"
@@ -815,7 +816,7 @@ void mapclass::resetplayer(const bool player_died)
 		{
 			obj.entities[i].invis = false;
 		}
-		if (!game.glitchrunnermode)
+		if (!GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
 		{
 			obj.entities[i].size = 0;
 			obj.entities[i].cx = 6;
@@ -2056,7 +2057,7 @@ void mapclass::twoframedelayfix(void)
 	// and when the script gets loaded script.run() has already ran for that frame, too.
 	// A bit kludge-y, but it's the least we can do without changing the frame ordering.
 
-	if (game.glitchrunnermode
+	if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
 	|| !custommode
 	|| game.deathseq != -1)
 		return;

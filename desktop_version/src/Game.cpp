@@ -12,6 +12,7 @@
 #include "Entity.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "MakeAndPlay.h"
@@ -379,7 +380,6 @@ void Game::init(void)
     fadetolabdelay = 0;
 
     over30mode = true;
-    glitchrunnermode = false;
 
     ingame_titlemode = false;
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
@@ -4209,7 +4209,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
         if (SDL_strcmp(pKey, "glitchrunnermode") == 0)
         {
-            glitchrunnermode = help.Int(pText);
+            GlitchrunnerMode_set(GlitchrunnerMode_string_to_enum(pText));
         }
 
         if (SDL_strcmp(pKey, "vsync") == 0)
@@ -4471,7 +4471,11 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
 
     xml::update_tag(dataNode, "inputdelay", (int) inputdelay);
 
-    xml::update_tag(dataNode, "glitchrunnermode", (int) glitchrunnermode);
+    xml::update_tag(
+        dataNode,
+        "glitchrunnermode",
+        GlitchrunnerMode_enum_to_string(GlitchrunnerMode_get())
+    );
 
     xml::update_tag(dataNode, "vsync", (int) screen_settings->useVsync);
 
@@ -6091,6 +6095,18 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 0;
         maxspacing = 15;
         break;
+    case Menu::setglitchrunner:
+    {
+        int i;
+
+        option("none");
+
+        for (i = 1; i < GlitchrunnerNumVersions; ++i)
+        {
+            option(GlitchrunnerMode_enum_to_string((enum GlitchrunnerMode) i));
+        }
+        break;
+    }
     case Menu::advancedoptions:
         option("unfocus pause");
         option("room name background");

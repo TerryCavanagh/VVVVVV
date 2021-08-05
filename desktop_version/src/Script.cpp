@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "Enums.h"
 #include "Exit.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
 #include "Map.h"
@@ -3394,13 +3395,15 @@ void scriptclass::teleport(void)
 
 void scriptclass::hardreset(void)
 {
+	const bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
+
 	//Game:
 	game.hascontrol = true;
 	game.gravitycontrol = 0;
 	game.teleport = false;
 	game.companion = 0;
 	game.roomchange = false;
-	if (!game.glitchrunnermode)
+	if (!version2_2)
 	{
 		// Ironically, resetting more variables makes the janky fadeout system in glitchrunnermode even more glitchy
 		game.roomx = 0;
@@ -3441,7 +3444,7 @@ void scriptclass::hardreset(void)
 	game.savetime = "00:00";
 	game.savearea = "nowhere";
 	game.savetrinkets = 0;
-	if (!game.glitchrunnermode)
+	if (!version2_2)
 	{
 		// Ironically, resetting more variables makes the janky fadeout system in glitchrunnermode even more glitchy
 		game.saverx = 0;
@@ -3487,7 +3490,7 @@ void scriptclass::hardreset(void)
 	game.statedelay = 0;
 
 	game.hascontrol = true;
-	if (!game.glitchrunnermode)
+	if (!GlitchrunnerMode_less_than_or_equal(Glitchrunner2_0))
 	{
 		// Keep the "- Press ACTION to advance text -" prompt around,
 		// apparently the speedrunners call it the "text storage" glitch
@@ -3528,7 +3531,7 @@ void scriptclass::hardreset(void)
 	map.resetnames();
 	map.custommode=false;
 	map.custommodeforreal=false;
-	if (!game.glitchrunnermode)
+	if (!version2_2)
 	{
 		// Ironically, resetting more variables makes the janky fadeout system even more glitchy
 		map.towermode=false;

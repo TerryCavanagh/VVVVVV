@@ -7,6 +7,7 @@
 
 #include "Exit.h"
 #include "Game.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Music.h"
 
@@ -72,7 +73,7 @@ void KeyPoll::toggleFullscreen(void)
 	}
 
 	keymap.clear(); /* we lost the input due to a new window. */
-	if (game.glitchrunnermode)
+	if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
 	{
 		game.press_left = false;
 		game.press_right = false;

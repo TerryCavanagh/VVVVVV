@@ -4,6 +4,7 @@
 #include "editor.h"
 #include "Entity.h"
 #include "FileSystemUtils.h"
+#include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
@@ -103,6 +104,37 @@ static void volumesliderrender(void)
     }
 
     graphics.Print(-1, 85, buffer, tr, tg, tb, true);
+}
+
+static void inline drawglitchrunnertext(void)
+{
+    int tempr = tr;
+    int tempg = tg;
+    int tempb = tb;
+
+    /* Screen width 40 chars, 4 per char */
+    char buffer[160 + 1];
+
+    const char* mode_string;
+
+    const enum GlitchrunnerMode mode = GlitchrunnerMode_get();
+
+    if (mode == GlitchrunnerNone)
+    {
+        tempr /= 2;
+        tempg /= 2;
+        tempb /= 2;
+
+        mode_string = "OFF";
+    }
+    else
+    {
+        mode_string = GlitchrunnerMode_enum_to_string(mode);
+    }
+
+    SDL_snprintf(buffer, sizeof(buffer), "Glitchrunner mode is %s", mode_string);
+
+    graphics.Print(-1, 95, buffer, tempr, tempg, tempb, true);
 }
 
 static void menurender(void)
@@ -571,14 +603,7 @@ static void menurender(void)
             graphics.bigprint(-1, 30, "Glitchrunner Mode", tr, tg, tb, true);
             graphics.Print(-1, 65, "Re-enable glitches that existed", tr, tg, tb, true);
             graphics.Print(-1, 75, "in previous versions of the game.", tr, tg, tb, true);
-            if (game.glitchrunnermode)
-            {
-                graphics.Print(-1, 95, "Glitchrunner mode is ON", tr, tg, tb, true);
-            }
-            else
-            {
-                graphics.Print(-1, 95, "Glitchrunner mode is OFF", tr / 2, tg / 2, tb / 2, true);
-            }
+            drawglitchrunnertext();
             break;
         case 1:
             graphics.bigprint(-1, 30, "Input Delay", tr, tg, tb, true);
@@ -624,6 +649,12 @@ static void menurender(void)
                 graphics.Print(-1, 65, "Fake loading screen is ON", tr, tg, tb, true);
             break;
         }
+        break;
+    case Menu::setglitchrunner:
+        graphics.bigprint(-1, 30, "Glitchrunner Mode", tr, tg, tb, true);
+        graphics.Print(-1, 65, "Select a new glitchrunner", tr, tg, tb, true);
+        graphics.Print(-1, 75, "version below.", tr, tg, tb, true);
+        drawglitchrunnertext();
         break;
     case Menu::advancedoptions:
         switch (game.currentmenuoption)
@@ -2666,7 +2697,7 @@ void maprender(void)
     // We need to draw the black screen above the menu in order to disguise it
     // being jankily brought down in glitchrunner mode when exiting to the title
     // Otherwise, there's no reason to obscure the menu
-    if (game.glitchrunnermode || graphics.fademode == 3 || graphics.fademode == 5)
+    if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2) || graphics.fademode == 3 || graphics.fademode == 5)
     {
         graphics.drawfade();
     }
