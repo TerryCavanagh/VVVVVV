@@ -715,6 +715,12 @@ static void menuactionpress(void)
             music.playef(11);
             break;
         case 1:
+            /* toggle unfocus music pause */
+            game.disableaudiopause = !game.disableaudiopause;
+            game.savestatsandsettings_menu();
+            music.playef(11);
+            break;
+        case 2:
             // toggle translucent roomname BG
             graphics.translucentroomname = !graphics.translucentroomname;
             game.savestatsandsettings_menu();

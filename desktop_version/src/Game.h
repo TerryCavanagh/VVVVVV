@@ -472,6 +472,7 @@ public:
     void unlockAchievement(const char *name);
 
     bool disablepause;
+    bool disableaudiopause;
     bool inputdelay;
 };
 

@@ -684,6 +684,19 @@ static void menurender(void)
             }
             break;
         case 1:
+            graphics.bigprint(-1, 30, "Unfocus Audio", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Toggle if the audio will pause", tr, tg, tb, true);
+            graphics.Print(-1, 75, "when the window is unfocused.", tr, tg, tb, true);
+            if (game.disableaudiopause)
+            {
+                graphics.Print(-1, 95, "Unfocus audio pause is OFF", tr/2, tg/2, tb/2, true);
+            }
+            else
+            {
+                graphics.Print(-1, 95, "Unfocus audio pause is ON", tr, tg, tb, true);
+            }
+            break;
+        case 2:
             graphics.bigprint(-1, 30, "Room Name BG", tr, tg, tb, true);
             graphics.Print( -1, 65, "Lets you see through what is behind", tr, tg, tb, true);
             graphics.Print( -1, 75, "the name at the bottom of the screen.", tr, tg, tb, true);

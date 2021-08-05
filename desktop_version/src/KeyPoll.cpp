@@ -327,8 +327,11 @@ void KeyPoll::Poll(void)
 				if (!game.disablepause)
 				{
 					isActive = true;
-					music.resume();
-					music.resumeef();
+					if (!game.disableaudiopause)
+					{
+						music.resume();
+						music.resumeef();
+					}
 				}
 				if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0)
 				{
@@ -347,8 +350,11 @@ void KeyPoll::Poll(void)
 				if (!game.disablepause)
 				{
 					isActive = false;
-					music.pause();
-					music.pauseef();
+					if (!game.disableaudiopause)
+					{
+						music.pause();
+						music.pauseef();
+					}
 				}
 				if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0)
 				{

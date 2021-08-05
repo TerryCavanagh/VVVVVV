@@ -390,6 +390,7 @@ void Game::init(void)
     slidermode = SLIDER_NONE;
 
     disablepause = false;
+    disableaudiopause = false;
     inputdelay = false;
 }
 
@@ -4198,6 +4199,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
             disablepause = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "disableaudiopause") == 0)
+        {
+            disableaudiopause = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "over30mode") == 0)
         {
             over30mode = help.Int(pText);
@@ -4468,6 +4474,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
     xml::update_tag(dataNode, "skipfakeload", (int) skipfakeload);
 
     xml::update_tag(dataNode, "disablepause", (int) disablepause);
+
+    xml::update_tag(dataNode, "disableaudiopause", (int) disableaudiopause);
 
     xml::update_tag(dataNode, "notextoutline", (int) graphics.notextoutline);
 
@@ -6118,6 +6126,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     }
     case Menu::advancedoptions:
         option("unfocus pause");
+        option("unfocus audio pause");
         option("room name background");
         option("return");
         menuyoff = 0;
