@@ -251,8 +251,8 @@ static void generateBase36(char* string, const size_t string_size)
 	for (i = 0; i < string_size - 1; ++i)
 	{
 		/* a-z0-9 */
-		char randchar = fRandom() * 36;
-		if (randchar <= 26)
+		char randchar = fRandom() * 35;
+		if (randchar < 26)
 		{
 			randchar += 'a';
 		}
