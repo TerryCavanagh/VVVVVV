@@ -2654,10 +2654,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2679,10 +2676,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2703,10 +2697,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		//a very special case for here needs to ensure that the tower is set correctly
@@ -2783,10 +2774,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -2807,10 +2795,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2835,10 +2820,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2866,10 +2848,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		music.play(11);
@@ -2900,10 +2879,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2934,10 +2910,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -2968,10 +2941,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3002,10 +2972,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3033,10 +3000,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3064,10 +3028,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3095,10 +3056,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3126,10 +3084,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3152,10 +3107,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		graphics.fademode = 4;
@@ -3186,10 +3138,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		if(ed.levmusic>0){
@@ -3222,10 +3171,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 
@@ -3266,10 +3212,7 @@ void scriptclass::startgamemode( int t )
 		{
 			obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
 		}
-		else
-		{
-			map.resetplayer();
-		}
+		map.resetplayer();
 		map.gotoroom(game.saverx, game.savery);
 		map.initmapdata();
 		ed.generatecustomminimap();
