@@ -283,7 +283,7 @@ static void startmode(const int mode)
     gotomode = mode;
     graphics.fademode = 2; /* fading out */
     fadetomode = true;
-    fadetomodedelay = 16;
+    fadetomodedelay = 19;
 }
 
 static int* user_changing_volume = NULL;
@@ -2531,7 +2531,7 @@ static void mapmenuactionpress(const bool version2_2)
         if (!version2_2)
         {
             game.fadetomenu = true;
-            game.fadetomenudelay = 16;
+            game.fadetomenudelay = 19;
         }
         music.playef(11);
         break;
@@ -2549,7 +2549,7 @@ static void mapmenuactionpress(const bool version2_2)
         if (!version2_2)
         {
             game.fadetolab = true;
-            game.fadetolabdelay = 16;
+            game.fadetolabdelay = 19;
         }
         music.playef(11);
         break;
