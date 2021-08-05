@@ -653,8 +653,8 @@ static void menurender(void)
             if (game.showingametimer)
             {
                 graphics.Print(-1, 65, "In Game Timer is ON", tr, tg, tb, true);
-            } 
-            else 
+            }
+            else
             {
                 graphics.Print(-1, 65, "In Game Timer is OFF", tr / 2, tg / 2, tb / 2, true);
             }
@@ -1686,7 +1686,7 @@ void gamerender(void)
         }
     }
 
-    if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && game.swngame != 1 && game.showingametimer) 
+    if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && game.swngame != 1 && game.showingametimer)
     {
         graphics.bprint(6, 6, "TIME:",  255,255,255);
         graphics.bprint(46, 6, game.timestring(),  196, 196, 196);
