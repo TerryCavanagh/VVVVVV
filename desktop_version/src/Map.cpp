@@ -82,6 +82,8 @@ mapclass::mapclass(void)
 	cameraseek = 0;
 	minitowermode = false;
 	roomtexton = false;
+
+	nexttowercolour_set = false;
 }
 
 //Areamap starts at 100,100 and extends 20x20
@@ -631,6 +633,13 @@ void mapclass::updatetowerglow(TowerBG& bg_obj)
 
 void mapclass::nexttowercolour(void)
 {
+	/* Prevent cycling title BG more than once per frame. */
+	if (nexttowercolour_set)
+	{
+		return;
+	}
+	nexttowercolour_set = true;
+
 	graphics.titlebg.colstate+=5;
 	if (graphics.titlebg.colstate >= 30) graphics.titlebg.colstate = 0;
 

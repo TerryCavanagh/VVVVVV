@@ -55,6 +55,7 @@ public:
     void updatetowerglow(TowerBG& bg_obj);
 
     void nexttowercolour(void);
+    bool nexttowercolour_set;
 
     void settowercolour(int t);
 
