@@ -2988,9 +2988,9 @@ Uint32 Graphics::bigchunkygetcol(int t)
 	switch (t)
 	{
 	case 1:
-		return getRGB((fRandom() * 64), 10, 10);
+		return getBGR((fRandom() * 64), 10, 10);
 	case 2:
-		return getRGB(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
+		return getBGR(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
 	}
 	return 0x00000000;
 }
