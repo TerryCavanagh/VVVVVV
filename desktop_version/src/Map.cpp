@@ -475,11 +475,29 @@ int mapclass::finalat(int x, int y)
 		//Special case: animated tiles
 		if (final_mapcol == 1)
 		{
-			return 737 + (int(fRandom() * 11) * 40);
+			int offset;
+			if (game.noflashingmode)
+			{
+				offset = 0;
+			}
+			else
+			{
+				offset = int(fRandom() * 11) * 40;
+			}
+			return 737 + offset;
 		}
 		else
 		{
-			return contents[x + vmult[y]] - (final_mapcol * 3) + (final_aniframe * 40);
+			int offset;
+			if (game.noflashingmode)
+			{
+				offset = 0;
+			}
+			else
+			{
+				offset = final_aniframe * 40;
+			}
+			return contents[x + vmult[y]] - (final_mapcol * 3) + offset;
 		}
 	}
 	else if (contents[x + vmult[y]] >= 80)
