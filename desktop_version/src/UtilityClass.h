@@ -67,6 +67,16 @@ void _VVV_between(
         sizeof(middle) \
     )
 
+#ifndef __has_attribute
+#   define __has_attribute(x) 0
+#endif
+
+#if __has_attribute(__fallthrough__)
+#   define fallthrough __attribute__((__fallthrough__))
+#else
+#   define fallthrough do { } while (false) /* fallthrough */
+#endif
+
 
 //helperClass
 class UtilityClass
