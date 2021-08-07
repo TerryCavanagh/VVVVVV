@@ -760,7 +760,7 @@ void Graphics::drawtile( int x, int y, int t )
 {
     if (!INBOUNDS_VEC(t, tiles))
     {
-        WHINE_ONCE("drawtile() out-of-bounds!")
+        WHINE_ONCE("drawtile() out-of-bounds!");
         return;
     }
 
@@ -784,7 +784,7 @@ void Graphics::drawtile2( int x, int y, int t )
 {
     if (!INBOUNDS_VEC(t, tiles2))
     {
-        WHINE_ONCE("drawtile2() out-of-bounds!")
+        WHINE_ONCE("drawtile2() out-of-bounds!");
         return;
     }
 
@@ -810,7 +810,7 @@ void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 
     t += off * 30;
     if (!INBOUNDS_VEC(t, tiles3))
     {
-        WHINE_ONCE("drawtile3() out-of-bounds!")
+        WHINE_ONCE("drawtile3() out-of-bounds!");
         return;
     }
     SDL_Rect src_rect = { 0, 0, tiles_rect.w, tiles_rect.h - height_subtract };
@@ -822,7 +822,7 @@ void Graphics::drawtowertile( int x, int y, int t )
 {
     if (!INBOUNDS_VEC(t, tiles2))
     {
-        WHINE_ONCE("drawtowertile() out-of-bounds!")
+        WHINE_ONCE("drawtowertile() out-of-bounds!");
         return;
     }
     x += 8;
@@ -837,7 +837,7 @@ void Graphics::drawtowertile3( int x, int y, int t, TowerBG& bg_obj )
     t += bg_obj.colstate*30;
     if (!INBOUNDS_VEC(t, tiles3))
     {
-        WHINE_ONCE("drawtowertile3() out-of-bounds!")
+        WHINE_ONCE("drawtowertile3() out-of-bounds!");
         return;
     }
     x += 8;
@@ -3286,7 +3286,7 @@ void Graphics::drawforetile(int x, int y, int t)
 {
 	if (!INBOUNDS_VEC(t, tiles))
 	{
-		WHINE_ONCE("drawforetile() out-of-bounds!")
+		WHINE_ONCE("drawforetile() out-of-bounds!");
 		return;
 	}
 
@@ -3310,7 +3310,7 @@ void Graphics::drawforetile2(int x, int y, int t)
 {
 	if (!INBOUNDS_VEC(t, tiles2))
 	{
-		WHINE_ONCE("drawforetile2() out-of-bounds!")
+		WHINE_ONCE("drawforetile2() out-of-bounds!");
 		return;
 	}
 
@@ -3335,7 +3335,7 @@ void Graphics::drawforetile3(int x, int y, int t, int off)
 	t += off * 30;
 	if (!INBOUNDS_VEC(t, tiles3))
 	{
-		WHINE_ONCE("drawforetile3() out-of-bounds!")
+		WHINE_ONCE("drawforetile3() out-of-bounds!");
 		return;
 	}
 	SDL_Rect rect;

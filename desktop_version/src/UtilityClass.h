@@ -43,7 +43,8 @@ void VVV_fillstring(
     { \
         whine = false; \
         puts(message); \
-    }
+    } \
+    do { } while (false)
 
 /* Don't call this directly; use the VVV_between macro. */
 void _VVV_between(
