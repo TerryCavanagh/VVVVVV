@@ -1391,6 +1391,10 @@ static void menurender(void)
         graphics.bigprint(-1, 45, "ERROR", tr, tg, tb, true);
         graphics.PrintWrap(-1, 65, graphics.error, tr, tg, tb, true, 10, 304);
         break;
+    case Menu::warninglevellist:
+        graphics.bigprint(-1, 45, "WARNING", tr, tg, tb, true);
+        graphics.PrintWrap(-1, 65, FILESYSTEM_getLevelDirError(), tr, tg, tb, true, 10, 304);
+        break;
     default:
         break;
     }

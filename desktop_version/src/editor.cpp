@@ -229,6 +229,8 @@ void editorclass::getDirectoryData(void)
 
     ListOfMetaData.clear();
 
+    FILESYSTEM_clearLevelDirError();
+
     loadZips();
 
     FILESYSTEM_enumerateLevelDirFileNames(levelMetaDataCallback);
