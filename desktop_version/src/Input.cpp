@@ -1727,6 +1727,11 @@ static void menuactionpress(void)
         game.returnmenu();
         map.nexttowercolour();
         break;
+    case Menu::errorloadinglevel:
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
+        break;
     default:
         break;
     }

@@ -1748,6 +1748,11 @@ void editorclass::switch_enemy(const bool reversed /*= false*/)
 
 bool editorclass::load(std::string& _path)
 {
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+    tinyxml2::XMLHandle hRoot(NULL);
+
     reset();
 
     static const char *levelDir = "levels/";
@@ -1759,14 +1764,13 @@ bool editorclass::load(std::string& _path)
     FILESYSTEM_unmountAssets();
     if (game.cliplaytest && game.playassets != "")
     {
-        FILESYSTEM_mountAssets(game.playassets.c_str());
+        MAYBE_FAIL(FILESYSTEM_mountAssets(game.playassets.c_str()));
     }
     else
     {
-        FILESYSTEM_mountAssets(_path.c_str());
+        MAYBE_FAIL(FILESYSTEM_mountAssets(_path.c_str()));
     }
 
-    tinyxml2::XMLDocument doc;
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))
     {
         printf("No level %s to load :(\n", _path.c_str());
@@ -1775,9 +1779,6 @@ bool editorclass::load(std::string& _path)
 
     loaded_filepath = _path;
 
-    tinyxml2::XMLHandle hDoc(&doc);
-    tinyxml2::XMLElement* pElem;
-    tinyxml2::XMLHandle hRoot(NULL);
     version = 0;
 
     {
@@ -2040,6 +2041,9 @@ next:
     version=2;
 
     return true;
+
+fail:
+    return false;
 }
 
 bool editorclass::save(std::string& _path)

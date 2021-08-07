@@ -35,6 +35,7 @@ namespace Menu
         youwannaquit,
         errornostart,
         errorsavingsettings,
+        errorloadinglevel,
         graphicoptions,
         ed_settings,
         ed_desc,

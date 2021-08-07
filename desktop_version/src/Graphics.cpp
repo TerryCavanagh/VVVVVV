@@ -151,6 +151,9 @@ void Graphics::init(void)
     tiles2_mounted = false;
     minimap_mounted = false;
 #endif
+
+    SDL_zeroa(error);
+    SDL_zeroa(error_title);
 }
 
 void Graphics::destroy(void)
@@ -314,24 +317,15 @@ void Graphics::updatetitlecolours(void)
     else if (grphx.im_##tilesheet->w % tile_square != 0 \
     || grphx.im_##tilesheet->h % tile_square != 0) \
     { \
-        const char* error = "Error: %s.png dimensions not exact multiples of %i!"; \
-        char message[128]; \
-        const char* error_title = "Error with %s.png"; \
-        char message_title[128]; \
+        static const char error_fmt[] = "%s.png dimensions not exact multiples of %i!"; \
+        static const char error_title_fmt[] = "Error with %s.png"; \
         \
-        SDL_snprintf(message, sizeof(message), error, #tilesheet, tile_square); \
-        SDL_snprintf(message_title, sizeof(message_title), error_title, #tilesheet); \
+        SDL_snprintf(error, sizeof(error), error_fmt, #tilesheet, tile_square); \
+        SDL_snprintf(error_title, sizeof(error_title), error_title_fmt, #tilesheet); \
         \
-        puts(message); \
+        puts(error); \
         \
-        SDL_ShowSimpleMessageBox( \
-            SDL_MESSAGEBOX_ERROR, \
-            message_title, \
-            message, \
-            NULL \
-        ); \
-        \
-        VVV_exit(1); \
+        return false; \
     }
 
 #define PROCESS_TILESHEET_RENAME(tilesheet, vector, tile_square, extra_code) \
@@ -363,7 +357,7 @@ void Graphics::updatetitlecolours(void)
 #define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
     PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
 
-void Graphics::Makebfont(void)
+bool Graphics::Makebfont(void)
 {
     PROCESS_TILESHEET(bfont, 8,
     {
@@ -391,6 +385,8 @@ void Graphics::Makebfont(void)
     {
         font_positions.clear();
     }
+
+    return true;
 }
 
 int Graphics::bfontlen(uint32_t ch)
@@ -405,23 +401,29 @@ int Graphics::bfontlen(uint32_t ch)
     }
 }
 
-void Graphics::MakeTileArray(void)
+bool Graphics::MakeTileArray(void)
 {
     PROCESS_TILESHEET(tiles, 8, {})
     PROCESS_TILESHEET(tiles2, 8, {})
     PROCESS_TILESHEET(tiles3, 8, {})
     PROCESS_TILESHEET(entcolours, 8, {})
+
+    return true;
 }
 
-void Graphics::maketelearray(void)
+bool Graphics::maketelearray(void)
 {
     PROCESS_TILESHEET_RENAME(teleporter, tele, 96, {})
+
+    return true;
 }
 
-void Graphics::MakeSpriteArray(void)
+bool Graphics::MakeSpriteArray(void)
 {
     PROCESS_TILESHEET(sprites, 32, {})
     PROCESS_TILESHEET(flipsprites, 32, {})
+
+    return true;
 }
 
 #undef PROCESS_TILESHEET
@@ -3486,17 +3488,17 @@ bool Graphics::onscreen(int t)
 	return (t >= -40 && t <= 280);
 }
 
-void Graphics::reloadresources(void)
+bool Graphics::reloadresources(void)
 {
 	grphx.destroy();
 	grphx.init();
 
 	destroy();
 
-	MakeTileArray();
-	MakeSpriteArray();
-	maketelearray();
-	Makebfont();
+	MAYBE_FAIL(MakeTileArray());
+	MAYBE_FAIL(MakeSpriteArray());
+	MAYBE_FAIL(maketelearray());
+	MAYBE_FAIL(Makebfont());
 
 	images.clear();
 
@@ -3528,6 +3530,11 @@ void Graphics::reloadresources(void)
 	tiles2_mounted = FILESYSTEM_isAssetMounted("graphics/tiles2.png");
 	minimap_mounted = FILESYSTEM_isAssetMounted("graphics/minimap.png");
 #endif
+
+	return true;
+
+fail:
+	return false;
 }
 
 Uint32 Graphics::crewcolourreal(int t)
