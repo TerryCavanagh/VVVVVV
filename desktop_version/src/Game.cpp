@@ -6469,7 +6469,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 10;
         break;
     case Menu::errorloadinglevel:
+    case Menu::warninglevellist:
         option("ok");
+        menuyoff = 50;
         break;
     }
 

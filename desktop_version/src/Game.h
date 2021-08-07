@@ -36,6 +36,7 @@ namespace Menu
         errornostart,
         errorsavingsettings,
         errorloadinglevel,
+        warninglevellist,
         graphicoptions,
         ed_settings,
         ed_desc,

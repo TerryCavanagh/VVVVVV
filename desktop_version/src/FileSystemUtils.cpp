@@ -2,6 +2,7 @@
 #include <iterator>
 #include <physfs.h>
 #include <SDL.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <string>
 #include <tinyxml2.h>
@@ -346,6 +347,41 @@ static PHYSFS_EnumerateCallbackResult zipCheckCallback(
 	return PHYSFS_ENUM_OK;
 }
 
+static char levelDirError[256] = {'\0'};
+
+static bool levelDirHasError = false;
+
+bool FILESYSTEM_levelDirHasError(void)
+{
+	return levelDirHasError;
+}
+
+void FILESYSTEM_clearLevelDirError(void)
+{
+	levelDirHasError = false;
+}
+
+const char* FILESYSTEM_getLevelDirError(void)
+{
+	return levelDirError;
+}
+
+static int setLevelDirError(const char* text, ...)
+{
+	va_list list;
+	int retval;
+
+	levelDirHasError = true;
+
+	va_start(list, text);
+	retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
+	va_end(list);
+
+	puts(levelDirError);
+
+	return retval;
+}
+
 /* For technical reasons, the level file inside a zip named LEVELNAME.zip must
  * be named LEVELNAME.vvvvvv, else its custom assets won't work;
  * if there are .vvvvvv files other than LEVELNAME.vvvvvv, they would be loaded
@@ -418,9 +454,8 @@ static bool checkZipStructure(const char* filename)
 	/* If no .vvvvvv files in zip, don't print warning. */
 	if (!success && zip_state.has_extension)
 	{
-		/* FIXME: How do we print this for non-terminal users? */
-		printf(
-			"%s.zip is not structured correctly! It is missing %s.vvvvvv.\n",
+		setLevelDirError(
+			"%s.zip is not structured correctly! It is missing %s.vvvvvv.",
 			base_name,
 			base_name
 		);
@@ -431,9 +466,8 @@ static bool checkZipStructure(const char* filename)
 	/* ...But if other .vvvvvv file(s), do print warning. */
 	if (zip_state.other_level_files)
 	{
-		/* FIXME: How do we print this for non-terminal users? */
-		printf(
-			"%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv.\n",
+		setLevelDirError(
+			"%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv.",
 			base_name,
 			base_name
 		);
@@ -869,7 +903,9 @@ static PHYSFS_EnumerateCallbackResult enumerateCallback(
 void FILESYSTEM_enumerateLevelDirFileNames(
 	void (*callback)(const char* filename)
 ) {
-	int success = PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
+	int success;
+
+	success = PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
 
 	if (success == 0)
 	{

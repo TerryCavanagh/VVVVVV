@@ -492,6 +492,10 @@ static void menuactionpress(void)
             ed.getDirectoryData();
             game.loadcustomlevelstats(); //Should only load a file if it's needed
             game.createmenu(Menu::levellist);
+            if (FILESYSTEM_levelDirHasError())
+            {
+                game.createmenu(Menu::warninglevellist);
+            }
             map.nexttowercolour();
             break;
  #if !defined(NO_EDITOR)
@@ -1722,6 +1726,7 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::errorloadinglevel:
+    case Menu::warninglevellist:
         music.playef(11);
         game.returnmenu();
         map.nexttowercolour();
