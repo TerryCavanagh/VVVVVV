@@ -40,6 +40,10 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 
 void FILESYSTEM_enumerateLevelDirFileNames(void (*callback)(const char* filename));
 
+bool FILESYSTEM_levelDirHasError(void);
+void FILESYSTEM_clearLevelDirError(void);
+const char* FILESYSTEM_getLevelDirError(void);
+
 bool FILESYSTEM_openDirectoryEnabled(void);
 bool FILESYSTEM_openDirectory(const char *dname);
 
