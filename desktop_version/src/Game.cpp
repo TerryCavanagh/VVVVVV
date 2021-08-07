@@ -6477,6 +6477,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("silence");
         menuyoff = 10;
         break;
+    case Menu::errorloadinglevel:
+        option("ok");
+        break;
     }
 
     // Automatically center the menu. We must check the width of the menu with the initial horizontal spacing.

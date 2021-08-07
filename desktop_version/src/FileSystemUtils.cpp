@@ -473,7 +473,9 @@ void FILESYSTEM_loadZip(const char* filename)
 	}
 }
 
-void FILESYSTEM_mountAssets(const char* path)
+void FILESYSTEM_unmountAssets(void);
+
+bool FILESYSTEM_mountAssets(const char* path)
 {
 	char filename[MAX_PATH];
 	char zip_data[MAX_PATH];
@@ -504,10 +506,10 @@ void FILESYSTEM_mountAssets(const char* path)
 
 		if (!FILESYSTEM_mountAssetsFrom(zip_data))
 		{
-			return;
+			return false;
 		}
 
-		graphics.reloadresources();
+		MAYBE_FAIL(graphics.reloadresources());
 	}
 	else if (zip_normal != NULL && endsWith(zip_normal, ".zip"))
 	{
@@ -515,10 +517,10 @@ void FILESYSTEM_mountAssets(const char* path)
 
 		if (!FILESYSTEM_mountAssetsFrom(zip_normal))
 		{
-			return;
+			return false;
 		}
 
-		graphics.reloadresources();
+		MAYBE_FAIL(graphics.reloadresources());
 	}
 	else if (FILESYSTEM_exists(dir))
 	{
@@ -526,15 +528,21 @@ void FILESYSTEM_mountAssets(const char* path)
 
 		if (!FILESYSTEM_mountAssetsFrom(dir))
 		{
-			return;
+			return false;
 		}
 
-		graphics.reloadresources();
+		MAYBE_FAIL(graphics.reloadresources());
 	}
 	else
 	{
 		puts("Custom asset directory does not exist");
 	}
+
+	return true;
+
+fail:
+	FILESYSTEM_unmountAssets();
+	return false;
 }
 
 void FILESYSTEM_unmountAssets(void)

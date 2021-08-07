@@ -78,6 +78,15 @@ void _VVV_between(
 #   define VVV_fallthrough do { } while (false) /* fallthrough */
 #endif
 
+#define MAYBE_FAIL(expr) \
+    do \
+    { \
+        if (!expr) \
+        { \
+            goto fail; \
+        } \
+    } \
+    while (false)
 
 //helperClass
 class UtilityClass

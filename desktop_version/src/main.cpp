@@ -483,7 +483,19 @@ int main(int argc, char *argv[])
     game.init();
 
     // This loads music too...
-    graphics.reloadresources();
+    if (!graphics.reloadresources())
+    {
+        /* Something wrong with the default assets? We can't use them to
+         * display the error message, and we have to bail. */
+        SDL_ShowSimpleMessageBox(
+            SDL_MESSAGEBOX_ERROR,
+            graphics.error_title,
+            graphics.error,
+            NULL
+        );
+
+        VVV_exit(1);
+    }
 
     game.gamestate = PRELOADER;
 
