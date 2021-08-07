@@ -365,6 +365,7 @@ static bool checkZipStructure(const char* filename)
 	char check_path[MAX_PATH];
 	char random_str[6 + 1];
 	bool success;
+	bool file_exists;
 	struct ArchiveState zip_state;
 
 	if (real_dir == NULL)
@@ -408,7 +409,8 @@ static bool checkZipStructure(const char* filename)
 		base_name_suffixed
 	);
 
-	success = PHYSFS_exists(check_path);
+	file_exists = PHYSFS_exists(check_path);
+	success = file_exists;
 
 	SDL_zero(zip_state);
 	zip_state.filename = base_name_suffixed;
@@ -429,7 +431,8 @@ static bool checkZipStructure(const char* filename)
 	success &= !zip_state.other_level_files;
 
 	/* ...But if other .vvvvvv file(s), do print warning. */
-	if (zip_state.other_level_files)
+	/* This message is redundant if the correct file already DOESN'T exist. */
+	if (file_exists && zip_state.other_level_files)
 	{
 		/* FIXME: How do we print this for non-terminal users? */
 		printf(
