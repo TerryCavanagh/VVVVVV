@@ -136,6 +136,12 @@ public:
 
 	void PrintAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
 
+	bool next_wrap(size_t* start, size_t* len, const char* str, int maxwidth);
+
+	bool next_wrap_s(char buffer[], size_t buffer_size, size_t* start, const char* str, int maxwidth);
+
+	void PrintWrap(int x, int y, const char* str, int r, int g, int b, bool cen, int linespacing, int maxwidth);
+
 	void PrintOffAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
 
 	void bprint(int x, int y, std::string t, int r, int g, int b, bool cen = false);

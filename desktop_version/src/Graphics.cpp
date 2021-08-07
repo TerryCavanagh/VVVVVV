@@ -515,6 +515,119 @@ void Graphics::PrintAlpha( int _x, int _y, std::string _s, int r, int g, int b, 
     }
 }
 
+bool Graphics::next_wrap(
+    size_t* start,
+    size_t* len,
+    const char* str,
+    const int maxwidth
+) {
+    /* This function is UTF-8 aware. But start/len still are bytes. */
+    size_t idx = 0;
+    size_t lenfromlastspace = 0;
+    size_t lastspace = 0;
+    int linewidth = 0;
+    *len = 0;
+
+    if (str[idx] == '\0')
+    {
+        return false;
+    }
+
+    while (true)
+    {
+        /* FIXME: This only checks one byte, not multiple! */
+        if ((str[idx] & 0xC0) == 0x80)
+        {
+            /* Skip continuation byte. */
+            goto next;
+        }
+
+        linewidth += bfontlen(str[idx]);
+
+        switch (str[idx])
+        {
+        case ' ':
+            lenfromlastspace = idx;
+            lastspace = *start;
+            break;
+        case '\n':
+            *start += 1;
+            VVV_fallthrough;
+        case '\0':
+            return true;
+        }
+
+        if (linewidth > maxwidth)
+        {
+            if (lenfromlastspace != 0)
+            {
+                *len = lenfromlastspace;
+                *start = lastspace + 1;
+            }
+            return true;
+        }
+
+next:
+        idx += 1;
+        *start += 1;
+        *len += 1;
+    }
+}
+
+bool Graphics::next_wrap_s(
+    char buffer[],
+    const size_t buffer_size,
+    size_t* start,
+    const char* str,
+    const int maxwidth
+) {
+    size_t len = 0;
+    const size_t prev_start = *start;
+
+    const bool retval = next_wrap(start, &len, &str[*start], maxwidth);
+
+    if (retval)
+    {
+        /* Like next_split_s(), don't use SDL_strlcpy() here. */
+        const size_t length = VVV_min(buffer_size - 1, len);
+        SDL_memcpy(buffer, &str[prev_start], length);
+        buffer[length] = '\0';
+    }
+
+    return retval;
+}
+
+void Graphics::PrintWrap(
+    const int x,
+    int y,
+    const char* str,
+    const int r,
+    const int g,
+    const int b,
+    const bool cen,
+    const int linespacing,
+    const int maxwidth
+) {
+    /* Screen width is 320 pixels. The shortest a char can be is 6 pixels wide.
+     * 320 / 6 is 54, rounded up. 4 bytes per char. */
+    char buffer[54*4 + 1];
+    size_t start = 0;
+
+    while (next_wrap_s(buffer, sizeof(buffer), &start, str, maxwidth))
+    {
+        Print(x, y, buffer, r, g, b, cen);
+
+        if (flipmode)
+        {
+            y -= linespacing;
+        }
+        else
+        {
+            y += linespacing;
+        }
+    }
+}
+
 
 void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, bool cen, int sc )
 {
