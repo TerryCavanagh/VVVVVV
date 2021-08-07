@@ -258,8 +258,8 @@ int Graphics::font_idx(uint32_t ch)
             iter = font_positions.find('?');
             if (iter == font_positions.end())
             {
-                puts("font.txt missing fallback character!");
-                VVV_exit(1);
+                WHINE_ONCE("font.txt missing fallback character!");
+                return -1;
             }
         }
         return iter->second;
