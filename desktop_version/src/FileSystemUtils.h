@@ -19,7 +19,7 @@ bool FILESYSTEM_isFile(const char* filename);
 bool FILESYSTEM_isMounted(const char* filename);
 
 void FILESYSTEM_loadZip(const char* filename);
-void FILESYSTEM_mountAssets(const char *path);
+bool FILESYSTEM_mountAssets(const char *path);
 void FILESYSTEM_unmountAssets(void);
 bool FILESYSTEM_isAssetMounted(const char* filename);
 

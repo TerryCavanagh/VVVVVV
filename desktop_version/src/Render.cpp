@@ -1374,6 +1374,10 @@ static void menurender(void)
     case Menu::errorsavingsettings:
         graphics.Print( -1, 95, "ERROR: Could not save settings file!", tr, tg, tb, true);
         break;
+    case Menu::errorloadinglevel:
+        graphics.bigprint(-1, 45, "ERROR", tr, tg, tb, true);
+        graphics.PrintWrap(-1, 65, graphics.error, tr, tg, tb, true, 10, 304);
+        break;
     default:
         break;
     }

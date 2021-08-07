@@ -2634,6 +2634,14 @@ void scriptclass::resetgametomenu(void)
 	game.createmenu(Menu::gameover);
 }
 
+static void gotoerrorloadinglevel(void)
+{
+	game.createmenu(Menu::errorloadinglevel);
+	graphics.fademode = 4; /* start fade in */
+	music.currentsong = -1; /* otherwise music.play won't work */
+	music.play(6); /* title screen music */
+}
+
 void scriptclass::startgamemode( int t )
 {
 	switch(t)
@@ -3152,7 +3160,11 @@ void scriptclass::startgamemode( int t )
 		//Initilise the level
 		//First up, find the start point
 		std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-		ed.load(filename);
+		if (!ed.load(filename))
+		{
+			gotoerrorloadinglevel();
+			break;
+		}
 		ed.findstartpoint();
 
 		game.gamestate = GAMEMODE;
@@ -3190,7 +3202,11 @@ void scriptclass::startgamemode( int t )
 		//Initilise the level
 		//First up, find the start point
 		std::string filename = std::string(ed.ListOfMetaData[game.playcustomlevel].filename);
-		ed.load(filename);
+		if (!ed.load(filename))
+		{
+			gotoerrorloadinglevel();
+			break;
+		}
 		ed.findstartpoint();
 
 		game.gamestate = GAMEMODE;

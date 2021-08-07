@@ -26,7 +26,7 @@ public:
 	int bfontlen(uint32_t ch);
 	int font_idx(uint32_t ch);
 
-	void Makebfont(void);
+	bool Makebfont(void);
 
 	void drawhuetile(int x, int y, int t);
 	void huetilesetcol(int t);
@@ -34,11 +34,11 @@ public:
 
 	void drawgravityline(int t);
 
-	void MakeTileArray(void);
+	bool MakeTileArray(void);
 
-	void MakeSpriteArray(void);
+	bool MakeSpriteArray(void);
 
-	void maketelearray(void);
+	bool maketelearray(void);
 
 	void drawcoloredtile(int x, int y, int t, int r, int g, int b);
 
@@ -222,7 +222,7 @@ public:
 
 	bool onscreen(int t);
 
-	void reloadresources(void);
+	bool reloadresources(void);
 #ifndef NO_CUSTOM_LEVELS
 	bool tiles1_mounted;
 	bool tiles2_mounted;
@@ -357,6 +357,9 @@ public:
 	bool kludgeswnlinewidth;
 
 	Uint32 crewcolourreal(int t);
+
+	char error[128];
+	char error_title[128]; /* for SDL_ShowSimpleMessageBox */
 };
 
 #ifndef GRAPHICS_DEFINITION
