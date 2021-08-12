@@ -1199,33 +1199,6 @@ bool entityclass::gridmatch( int p1, int p2, int p3, int p4, int p11, int p21, i
     return false;
 }
 
-int entityclass::crewcolour( int t )
-{
-    //Return the colour of the indexed crewmate
-    switch(t)
-    {
-    case 0:
-        return 0;
-        break;
-    case 1:
-        return 20;
-        break;
-    case 2:
-        return 14;
-        break;
-    case 3:
-        return 15;
-        break;
-    case 4:
-        return 13;
-        break;
-    case 5:
-        return 16;
-        break;
-    }
-    return 0;
-}
-
 static void entityclonefix(entclass* entity)
 {
     if (entity->behave == 10 || entity->behave == 12)
@@ -2033,7 +2006,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         }else{
           entity.tile = 0;
         }
-        entity.colour = crewcolour(meta2);
+        entity.colour = graphics.crewcolour(meta2);
         entity.cx = 6;
         entity.cy = 2;
         entity.w = 12;
@@ -2883,7 +2856,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 11)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(1); //purple
+                int j=getcrewman(PURPLE); //purple
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2908,7 +2881,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 12)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(2); //yellow
+                int j=getcrewman(YELLOW); //yellow
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2933,7 +2906,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 13)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(3); //red
+                int j=getcrewman(RED); //red
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2958,7 +2931,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 14)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(4); //green
+                int j=getcrewman(GREEN); //green
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2983,7 +2956,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 15)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(5); //blue
+                int j=getcrewman(BLUE); //blue
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -3939,15 +3912,9 @@ int entityclass::getlineat( int t )
     return 0;
 }
 
-int entityclass::getcrewman( int t )
+int entityclass::getcrewman( int t, int fallback /*= 0*/ )
 {
     //Returns the index of the crewman with colour index given by t
-    if (t == 0) t = 0;
-    if (t == 1) t = 20;
-    if (t == 2) t = 14;
-    if (t == 3) t = 15;
-    if (t == 4) t = 13;
-    if (t == 5) t = 16;
 
     for (size_t i = 0; i < entities.size(); i++)
     {
@@ -3961,7 +3928,7 @@ int entityclass::getcrewman( int t )
         }
     }
 
-    return 0;
+    return fallback;
 }
 
 int entityclass::getcustomcrewman( int t )
