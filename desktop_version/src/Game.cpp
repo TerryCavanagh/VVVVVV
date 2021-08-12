@@ -391,6 +391,7 @@ void Game::init(void)
 
     disablepause = false;
     disableaudiopause = false;
+    disabletemporaryaudiopause = true;
     inputdelay = false;
 }
 
@@ -5193,6 +5194,10 @@ void Game::customloadquick(std::string savfile)
         {
             map.customshowmm = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "disabletemporaryaudiopause") == 0)
+        {
+            disabletemporaryaudiopause = help.Int(pText);
+        }
 
     }
 
@@ -5673,6 +5678,8 @@ bool Game::customsavequick(std::string savfile)
     xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
 
     xml::update_tag(msgs, "showminimap", (int) map.customshowmm);
+
+    xml::update_tag(msgs, "disabletemporaryaudiopause", (int) disabletemporaryaudiopause);
 
     std::string summary = savearea + ", " + timestring();
     xml::update_tag(msgs, "summary", summary.c_str());

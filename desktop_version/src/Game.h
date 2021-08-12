@@ -475,6 +475,7 @@ public:
 
     bool disablepause;
     bool disableaudiopause;
+    bool disabletemporaryaudiopause;
     bool inputdelay;
 };
 
