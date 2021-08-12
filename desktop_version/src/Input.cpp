@@ -412,12 +412,14 @@ static void menuactionpress(void)
         break;
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
+    {
+        const bool nextlastoptions = ed.ListOfMetaData.size() > 8;
         if(game.currentmenuoption==(int)game.menuoptions.size()-1){
             //go back to menu
             music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
-        }else if(game.currentmenuoption==(int)game.menuoptions.size()-2){
+        }else if(nextlastoptions && game.currentmenuoption==(int)game.menuoptions.size()-2){
             //previous page
             music.playef(11);
             if(game.levelpage==0){
@@ -428,7 +430,7 @@ static void menuactionpress(void)
             game.createmenu(Menu::levellist, true);
             game.currentmenuoption=game.menuoptions.size()-2;
             map.nexttowercolour();
-        }else if(game.currentmenuoption==(int)game.menuoptions.size()-3){
+        }else if(nextlastoptions && game.currentmenuoption==(int)game.menuoptions.size()-3){
             //next page
             music.playef(11);
             if((size_t) ((game.levelpage*8)+8) >= ed.ListOfMetaData.size()){
@@ -457,6 +459,7 @@ static void menuactionpress(void)
             }
         }
         break;
+    }
 #endif
     case Menu::quickloadlevel:
         switch (game.currentmenuoption)
