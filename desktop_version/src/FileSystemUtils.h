@@ -48,5 +48,6 @@ bool FILESYSTEM_openDirectoryEnabled(void);
 bool FILESYSTEM_openDirectory(const char *dname);
 
 bool FILESYSTEM_delete(const char *name);
+void FILESYSTEM_deleteLevelSaves(void);
 
 #endif /* FILESYSTEMUTILS_H */

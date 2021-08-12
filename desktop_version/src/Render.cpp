@@ -249,8 +249,14 @@ static void menurender(void)
         {
             //Clear Data
             graphics.bigprint(-1, 30, "Clear Data", tr, tg, tb, true);
-            graphics.Print(-1, 65, "Delete your save data", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Delete your main game save data", tr, tg, tb, true);
             graphics.Print(-1, 75, "and unlocked play modes", tr, tg, tb, true);
+        }
+        else if (game.currentmenuoption == gameplayoptionsoffset + 4)
+        {
+            graphics.bigprint(-1, 30, "Clear Data", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Delete your custom level save data", tr, tg, tb, true);
+            graphics.Print(-1, 75, "and completion stars", tr, tg, tb, true);
         }
 
         break;
@@ -543,6 +549,7 @@ static void menurender(void)
         graphics.Print( -1, 110, "delete your current saves...", tr, tg, tb, true);
         break;
     case Menu::cleardatamenu:
+    case Menu::clearcustomdatamenu:
         graphics.Print( -1, 100, "Are you sure you want to", tr, tg, tb, true);
         graphics.Print( -1, 110, "delete all your saved data?", tr, tg, tb, true);
         break;

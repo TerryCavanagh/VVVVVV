@@ -52,6 +52,7 @@ namespace Menu
         accessibility,
         controller,
         cleardatamenu,
+        clearcustomdatamenu,
         setinvincibility,
         setslowdown,
         unlockmenu,
@@ -423,6 +424,7 @@ public:
     void loadcustomlevelstats(void);
     void savecustomlevelstats(void);
     void updatecustomlevelstats(std::string clevel, int cscore);
+    void deletecustomlevelstats(void);
 
     std::vector<CustomLevelStat> customlevelstats;
 

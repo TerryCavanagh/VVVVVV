@@ -905,7 +905,13 @@ static void menuactionpress(void)
             game.createmenu(Menu::cleardatamenu);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == gameplayoptionsoffset + 4) {
+        else if (game.currentmenuoption == gameplayoptionsoffset + 4)
+        {
+            music.playef(11);
+            game.createmenu(Menu::clearcustomdatamenu);
+            map.nexttowercolour();
+        }
+        else if (game.currentmenuoption == gameplayoptionsoffset + 5) {
             //return to previous menu
             music.playef(11);
             game.returnmenu();
@@ -1481,6 +1487,23 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         }
+        break;
+    case Menu::clearcustomdatamenu:
+        switch (game.currentmenuoption)
+        {
+        default:
+            music.playef(11);
+            break;
+        case 1:
+            game.deletecustomlevelstats();
+            FILESYSTEM_deleteLevelSaves();
+            music.playef(23);
+            game.flashlight = 5;
+            game.screenshake = 15;
+            break;
+        }
+        game.returnmenu();
+        map.nexttowercolour();
         break;
     case Menu::playmodes:
         if (game.currentmenuoption == 0 && !game.nocompetitive())   //go to the time trial menu

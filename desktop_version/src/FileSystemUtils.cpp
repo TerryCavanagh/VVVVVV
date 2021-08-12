@@ -1185,3 +1185,33 @@ bool FILESYSTEM_delete(const char *name)
 {
 	return PHYSFS_delete(name) != 0;
 }
+
+static void levelSaveCallback(const char* filename)
+{
+	if (endsWith(filename, ".vvvvvv.vvv"))
+	{
+		if (!FILESYSTEM_delete(filename))
+		{
+			printf("Error deleting %s\n", filename);
+		}
+	}
+}
+
+void FILESYSTEM_deleteLevelSaves(void)
+{
+	int success;
+
+	success = PHYSFS_enumerate(
+		"saves",
+		enumerateCallback,
+		(void*) levelSaveCallback
+	);
+
+	if (success == 0)
+	{
+		printf(
+			"Could not enumerate saves/: %s\n",
+			PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+		);
+	}
+}

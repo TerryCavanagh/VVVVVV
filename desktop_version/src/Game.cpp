@@ -457,6 +457,16 @@ void Game::updatecustomlevelstats(std::string clevel, int cscore)
     savecustomlevelstats();
 }
 
+void Game::deletecustomlevelstats(void)
+{
+    customlevelstats.clear();
+
+    if (!FILESYSTEM_delete("saves/levelstats.vvv"))
+    {
+        puts("Error deleting levelstats.vvv");
+    }
+}
+
 #define LOAD_ARRAY_RENAME(ARRAY_NAME, DEST) \
     if (SDL_strcmp(pKey, #ARRAY_NAME) == 0 && pText[0] != '\0') \
     { \
@@ -6061,7 +6071,8 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("toggle fps");
         option("speedrun options");
         option("advanced options");
-        option("clear data");
+        option("clear main game data");
+        option("clear custom level data");
         option("return");
         menuyoff = -10;
         maxspacing = 15;
@@ -6190,6 +6201,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 10;
         break;
     case Menu::cleardatamenu:
+    case Menu::clearcustomdatamenu:
         option("no! don't delete");
         option("yes, delete everything");
         menuyoff = 64;
