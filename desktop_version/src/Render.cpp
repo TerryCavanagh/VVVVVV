@@ -546,6 +546,10 @@ static void menurender(void)
         graphics.Print( -1, 100, "Are you sure you want to", tr, tg, tb, true);
         graphics.Print( -1, 110, "delete all your saved data?", tr, tg, tb, true);
         break;
+    case Menu::deletequicklevel:
+        graphics.Print(-1, 100, "Are you sure you want to", tr, tg, tb, true);
+        graphics.Print(-1, 110, "delete your quicksave?", tr, tg, tb, true);
+        break;
     case Menu::startnodeathmode:
         graphics.Print( -1, 45, "Good luck!", tr, tg, tb, true);
         graphics.Print( -1, 80, "You cannot save in this mode.", tr, tg, tb, true);

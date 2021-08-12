@@ -32,6 +32,7 @@ namespace Menu
         playerworlds,
         levellist,
         quickloadlevel,
+        deletequicklevel,
         youwannaquit,
         errornostart,
         errorsavingsettings,
@@ -196,6 +197,8 @@ public:
 
     void customloadquick(std::string savfile);
     void loadquick(void);
+
+    void customdeletequick(const std::string& file);
 
     void loadsummary(void);
 

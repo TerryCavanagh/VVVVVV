@@ -474,12 +474,34 @@ static void menuactionpress(void)
             break;
         case 2:
             music.playef(11);
+            game.createmenu(Menu::deletequicklevel);
+            map.nexttowercolour();
+            break;
+        default:
+            music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
             break;
         }
         break;
 #if !defined(NO_CUSTOM_LEVELS)
+    case Menu::deletequicklevel:
+        switch (game.currentmenuoption)
+        {
+        default:
+            music.playef(11);
+            game.returnmenu();
+            break;
+        case 1:
+            game.customdeletequick(ed.ListOfMetaData[game.playcustomlevel].filename);
+            game.returntomenu(Menu::levellist);
+            game.flashlight = 5;
+            game.screenshake = 15;
+            music.playef(23);
+            break;
+        }
+        map.nexttowercolour();
+        break;
     case Menu::playerworlds:
  #if defined(NO_EDITOR)
   #define OFFSET -1

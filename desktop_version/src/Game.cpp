@@ -6033,8 +6033,14 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::quickloadlevel:
         option("continue from save");
         option("start from beginning");
+        option("delete save");
         option("back to levels");
         menuyoff = -30;
+        break;
+    case Menu::deletequicklevel:
+        option("no! don't delete");
+        option("yes, delete save");
+        menuyoff = 64;
         break;
     case Menu::youwannaquit:
         option("yes, quit");
@@ -6535,6 +6541,16 @@ void Game::deletetele(void)
         puts("Error deleting saves/tsave.vvv");
     else
         telesummary = "";
+}
+
+void Game::customdeletequick(const std::string& file)
+{
+    const std::string path = "saves/" + file.substr(7) + ".vvv";
+
+    if (!FILESYSTEM_delete(path.c_str()))
+    {
+        printf("Error deleting %s\n", path.c_str());
+    }
 }
 
 void Game::swnpenalty(void)
