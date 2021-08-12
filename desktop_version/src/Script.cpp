@@ -38,6 +38,8 @@ void scriptclass::clearcustom(void)
 	customscripts.clear();
 }
 
+static bool argexists[NUM_SCRIPT_ARGS];
+
 void scriptclass::tokenize( const std::string& t )
 {
 	j = 0;
@@ -71,9 +73,15 @@ void scriptclass::tokenize( const std::string& t )
 		}
 	}
 
-	if (tempword != "" && j < (int) SDL_arraysize(words))
+	SDL_zeroa(argexists);
+
+	if (j < (int) NUM_SCRIPT_ARGS)
 	{
-		words[j] = tempword;
+		argexists[j] = tempword != "";
+		if (argexists[j])
+		{
+			words[j] = tempword;
+		}
 	}
 }
 
@@ -756,10 +764,10 @@ void scriptclass::run(void)
 				std::string word7 = words[7];
 				std::string word8 = words[8];
 				std::string word9 = words[9];
-				if (words[6] == "") words[6] = "0";
-				if (words[7] == "") words[7] = "0";
-				if (words[8] == "") words[8] = "320";
-				if (words[9] == "") words[9] = "240";
+				if (!argexists[6]) words[6] = "0";
+				if (!argexists[7]) words[7] = "0";
+				if (!argexists[8]) words[8] = "320";
+				if (!argexists[9]) words[9] = "240";
 				obj.createentity(
 					ss_toi(words[1]),
 					ss_toi(words[2]),

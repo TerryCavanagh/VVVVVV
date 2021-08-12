@@ -15,6 +15,8 @@ struct Script
     std::vector<std::string> contents;
 };
 
+#define NUM_SCRIPT_ARGS 40
+
 class scriptclass
 {
 public:
@@ -47,7 +49,7 @@ public:
 
     //Script contents
     std::vector<std::string> commands;
-    std::string words[40];
+    std::string words[NUM_SCRIPT_ARGS];
     std::vector<std::string> txt;
     std::string scriptname;
     int position;
