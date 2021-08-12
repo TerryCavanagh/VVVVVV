@@ -326,6 +326,17 @@ void scriptclass::run(void)
 			{
 				graphics.showcutscenebars = false;
 			}
+			if (words[0] == "audiopause")
+			{
+				if (words[1] == "on")
+				{
+					game.disabletemporaryaudiopause = false;
+				}
+				else if (words[1] == "off")
+				{
+					game.disabletemporaryaudiopause = true;
+				}
+			}
 			if (words[0] == "untilbars")
 			{
 				if (graphics.showcutscenebars)
@@ -3464,6 +3475,8 @@ void scriptclass::hardreset(void)
 
 	game.activeactivity = -1;
 	game.act_fade = 5;
+
+	game.disabletemporaryaudiopause = true;
 
 	//dwgraphicsclass
 	graphics.backgrounddrawn = false;
