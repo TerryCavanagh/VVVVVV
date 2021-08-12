@@ -4204,6 +4204,7 @@ void editorinput(void)
                     }
                     key.keybuffer=ed.sb[ed.pagey+ed.sby];
                     ed.sbx = utf8::unchecked::distance(ed.sb[ed.pagey+ed.sby].begin(), ed.sb[ed.pagey+ed.sby].end());
+                    music.playef(11);
                 }
             }
         }
