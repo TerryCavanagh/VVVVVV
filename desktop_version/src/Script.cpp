@@ -2648,6 +2648,7 @@ void scriptclass::resetgametomenu(void)
 static void gotoerrorloadinglevel(void)
 {
 	game.createmenu(Menu::errorloadinglevel);
+	map.nexttowercolour();
 	graphics.fademode = 4; /* start fade in */
 	music.currentsong = -1; /* otherwise music.play won't work */
 	music.play(6); /* title screen music */
