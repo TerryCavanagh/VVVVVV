@@ -73,15 +73,16 @@ void scriptclass::tokenize( const std::string& t )
 		}
 	}
 
+	if (tempword != "" && j < (int) SDL_arraysize(words))
+	{
+		words[j] = tempword;
+	}
+
 	SDL_zeroa(argexists);
 
-	if (j < (int) NUM_SCRIPT_ARGS)
+	for (size_t ii = 0; ii < NUM_SCRIPT_ARGS; ++ii)
 	{
-		argexists[j] = tempword != "";
-		if (argexists[j])
-		{
-			words[j] = tempword;
-		}
+		argexists[ii] = words[ii] != "";
 	}
 }
 
