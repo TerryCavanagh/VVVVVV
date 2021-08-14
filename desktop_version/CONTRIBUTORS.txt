@@ -3,7 +3,6 @@ Contributors
 
 (Ordered alphabetically by last name.)
 
-* Matt "Fußmatte" Aaldenberg
 * AlexApps99 (@AlexApps99)
 * AllyTally (@AllyTally)
 * Christoph Böhmwalder (@chrboe)
@@ -19,6 +18,7 @@ Contributors
 * Matt Penny (@mwpenny)
 * MAO3J1m0Op (@MAO3J1m0Op)
 * Tynan Richards (@tzann)
+* Reese Rivers (@ReeseTheRivers)
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
 * Keith Stellyes (@keithstellyes)
