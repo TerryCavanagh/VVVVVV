@@ -514,7 +514,6 @@ bool FILESYSTEM_mountAssets(const char* path)
 	char filename[MAX_PATH];
 	char virtual_path[MAX_PATH];
 	const char* real_path;
-	char dir[MAX_PATH];
 
 	VVV_between(path, "levels/", filename, ".vvvvvv");
 
