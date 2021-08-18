@@ -574,11 +574,13 @@ bool FILESYSTEM_mountAssets(const char* path)
 
 				MAYBE_FAIL(graphics.reloadresources());
 			}
+#if 0 /* flibit removed this because it was noisy, maybe keep for debug? */
 			else
 			{
 				/* Wasn't a level zip, base zip, or folder! */
 				puts("Asset directory does not exist");
 			}
+#endif
 		}
 	}
 
