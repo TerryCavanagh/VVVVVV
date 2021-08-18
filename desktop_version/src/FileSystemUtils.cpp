@@ -512,55 +512,38 @@ void FILESYSTEM_unmountAssets(void);
 bool FILESYSTEM_mountAssets(const char* path)
 {
 	char filename[MAX_PATH];
-	char zip_data[MAX_PATH];
-	const char* zip_normal;
+	char virtual_path[MAX_PATH];
+	const char* real_path;
 	char dir[MAX_PATH];
 
 	VVV_between(path, "levels/", filename, ".vvvvvv");
 
+	real_path = PHYSFS_getRealDir(path);
+
+	/* Check for a zipped up level pack first */
 	SDL_snprintf(
-		zip_data,
-		sizeof(zip_data),
+		virtual_path,
+		sizeof(virtual_path),
 		"levels/%s.data.zip",
 		filename
 	);
-
-	zip_normal = PHYSFS_getRealDir(path);
-
-	SDL_snprintf(
-		dir,
-		sizeof(dir),
-		"levels/%s/",
-		filename
-	);
-
-	if (FILESYSTEM_exists(zip_data))
+	if (FILESYSTEM_exists(virtual_path))
 	{
-		printf("Custom asset directory is .data.zip at %s\n", zip_data);
+		printf("Asset directory is .data.zip at %s\n", virtual_path);
 
-		if (!FILESYSTEM_mountAssetsFrom(zip_data))
+		if (!FILESYSTEM_mountAssetsFrom(virtual_path))
 		{
 			return false;
 		}
 
 		MAYBE_FAIL(graphics.reloadresources());
 	}
-	else if (zip_normal != NULL && endsWith(zip_normal, ".zip"))
+	else if (real_path != NULL && endsWith(real_path, ".zip"))
 	{
-		printf("Custom asset directory is .zip at %s\n", zip_normal);
+		/* This is a base zip, probably the official data.zip */
+		printf("Asset directory is .zip at %s\n", real_path);
 
-		if (!FILESYSTEM_mountAssetsFrom(zip_normal))
-		{
-			return false;
-		}
-
-		MAYBE_FAIL(graphics.reloadresources());
-	}
-	else if (FILESYSTEM_exists(dir))
-	{
-		printf("Custom asset directory exists at %s\n", dir);
-
-		if (!FILESYSTEM_mountAssetsFrom(dir))
+		if (!FILESYSTEM_mountAssetsFrom(real_path))
 		{
 			return false;
 		}
@@ -569,7 +552,29 @@ bool FILESYSTEM_mountAssets(const char* path)
 	}
 	else
 	{
-		puts("Custom asset directory does not exist");
+		/* If it's not a level or base zip, look for a level folder */
+		SDL_snprintf(
+			virtual_path,
+			sizeof(virtual_path),
+			"levels/%s/",
+			filename
+		);
+		if (FILESYSTEM_exists(virtual_path))
+		{
+			printf("Asset directory exists at %s\n", virtual_path);
+
+			if (!FILESYSTEM_mountAssetsFrom(virtual_path))
+			{
+				return false;
+			}
+
+			MAYBE_FAIL(graphics.reloadresources());
+		}
+		else
+		{
+			/* Wasn't a level zip, base zip, or folder! */
+			puts("Asset directory does not exist");
+		}
 	}
 
 	return true;
