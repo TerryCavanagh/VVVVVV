@@ -1389,9 +1389,20 @@ static void menurender(void)
         graphics.Print( -1, 95, "ERROR: Could not save settings file!", tr, tg, tb, true);
         break;
     case Menu::errorloadinglevel:
+    {
+        const char* str;
+        if (FILESYSTEM_levelDirHasError())
+        {
+            str = FILESYSTEM_getLevelDirError();
+        }
+        else
+        {
+            str = graphics.error;
+        }
         graphics.bigprint(-1, 45, "ERROR", tr, tg, tb, true);
-        graphics.PrintWrap(-1, 65, graphics.error, tr, tg, tb, true, 10, 304);
+        graphics.PrintWrap(-1, 65, str, tr, tg, tb, true, 10, 304);
         break;
+    }
     case Menu::warninglevellist:
         graphics.bigprint(-1, 45, "WARNING", tr, tg, tb, true);
         graphics.PrintWrap(-1, 65, FILESYSTEM_getLevelDirError(), tr, tg, tb, true, 10, 304);

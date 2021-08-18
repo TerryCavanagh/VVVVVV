@@ -279,6 +279,41 @@ static void generateVirtualMountPath(char* path, const size_t path_size)
 	);
 }
 
+static char levelDirError[256] = {'\0'};
+
+static bool levelDirHasError = false;
+
+bool FILESYSTEM_levelDirHasError(void)
+{
+	return levelDirHasError;
+}
+
+void FILESYSTEM_clearLevelDirError(void)
+{
+	levelDirHasError = false;
+}
+
+const char* FILESYSTEM_getLevelDirError(void)
+{
+	return levelDirError;
+}
+
+static int setLevelDirError(const char* text, ...)
+{
+	va_list list;
+	int retval;
+
+	levelDirHasError = true;
+
+	va_start(list, text);
+	retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
+	va_end(list);
+
+	puts(levelDirError);
+
+	return retval;
+}
+
 static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 {
 	const char* real_dir = PHYSFS_getRealDir(fname);
@@ -286,8 +321,8 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 
 	if (real_dir == NULL)
 	{
-		printf(
-			"Could not mount %s: real directory doesn't exist\n",
+		setLevelDirError(
+			"Could not mount %s: real directory doesn't exist",
 			fname
 		);
 		return false;
@@ -345,41 +380,6 @@ static PHYSFS_EnumerateCallbackResult zipCheckCallback(
 		return PHYSFS_ENUM_STOP;
 	}
 	return PHYSFS_ENUM_OK;
-}
-
-static char levelDirError[256] = {'\0'};
-
-static bool levelDirHasError = false;
-
-bool FILESYSTEM_levelDirHasError(void)
-{
-	return levelDirHasError;
-}
-
-void FILESYSTEM_clearLevelDirError(void)
-{
-	levelDirHasError = false;
-}
-
-const char* FILESYSTEM_getLevelDirError(void)
-{
-	return levelDirError;
-}
-
-static int setLevelDirError(const char* text, ...)
-{
-	va_list list;
-	int retval;
-
-	levelDirHasError = true;
-
-	va_start(list, text);
-	retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
-	va_end(list);
-
-	puts(levelDirError);
-
-	return retval;
 }
 
 /* For technical reasons, the level file inside a zip named LEVELNAME.zip must
