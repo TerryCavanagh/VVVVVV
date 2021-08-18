@@ -17,6 +17,7 @@ char *FILESYSTEM_getUserLevelDirectory(void);
 
 bool FILESYSTEM_isFile(const char* filename);
 bool FILESYSTEM_isMounted(const char* filename);
+bool FILESYSTEM_exists(const char *filename);
 
 void FILESYSTEM_loadZip(const char* filename);
 bool FILESYSTEM_mountAssets(const char *path);

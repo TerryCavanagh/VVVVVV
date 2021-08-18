@@ -1770,7 +1770,11 @@ bool editorclass::load(std::string& _path)
     }
     else
     {
-        MAYBE_FAIL(FILESYSTEM_mountAssets(_path.c_str()));
+        /* "Sometimes a level is just a level." */
+        if (!FILESYSTEM_exists(_path.c_str()))
+        {
+            MAYBE_FAIL(FILESYSTEM_mountAssets(_path.c_str()));
+        }
     }
 
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))

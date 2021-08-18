@@ -241,7 +241,7 @@ bool FILESYSTEM_isMounted(const char* filename)
 	return PHYSFS_getMountPoint(filename) != NULL;
 }
 
-static bool FILESYSTEM_exists(const char *fname)
+bool FILESYSTEM_exists(const char *fname)
 {
 	return PHYSFS_exists(fname);
 }
