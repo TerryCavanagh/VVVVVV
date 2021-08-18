@@ -1593,6 +1593,7 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
         int x = i*game.menuspacing + game.menuxoff;
         int y = 140 + i*12 + game.menuyoff;
 
+#ifndef NO_CUSTOM_LEVELS
         if (levelmenu)
         {
             size_t separator;
@@ -1615,6 +1616,7 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
                 y += 4;
             }
         }
+#endif
 
         char tempstring[MENU_TEXT_BYTES];
         SDL_strlcpy(tempstring, opt.text, sizeof(tempstring));
