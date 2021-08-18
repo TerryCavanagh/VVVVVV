@@ -593,10 +593,12 @@ void FILESYSTEM_unmountAssets(void)
 		assetDir[0] = '\0';
 		graphics.reloadresources();
 	}
+#if 0 /* flibit removed this because it was noisy, maybe keep for debug? */
 	else
 	{
 		printf("Cannot unmount when no asset directory is mounted\n");
 	}
+#endif
 }
 
 static void getMountedPath(
