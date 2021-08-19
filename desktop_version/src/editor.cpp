@@ -2039,6 +2039,45 @@ next:
         }
     }
 
+    if (mapwidth < maxwidth)
+    {
+        /* Unscramble platv, since it was stored incorrectly
+         * in 2.2 and previous... */
+        size_t i;
+        int x = 0;
+        int y = 0;
+        int temp_platv[numrooms];
+
+        for (i = 0; i < numrooms; ++i)
+        {
+            temp_platv[i] = level[i].platv;
+        }
+
+        for (i = 0; i < numrooms; ++i)
+        {
+            if (x < mapwidth)
+            {
+                const int platv_idx = x + y * mapwidth;
+                if (INBOUNDS_ARR(platv_idx, temp_platv))
+                {
+                    level[i].platv = temp_platv[platv_idx];
+                }
+            }
+            else
+            {
+                level[i].platv = 4; /* default */
+            }
+
+            ++x;
+
+            if (x >= maxwidth)
+            {
+                x = 0;
+                ++y;
+            }
+        }
+    }
+
     gethooks();
     version=2;
 
@@ -2147,6 +2186,40 @@ bool editorclass::save(std::string& _path)
     }
 
     msg = xml::update_element_delete_contents(data, "levelMetaData");
+
+    int temp_platv[numrooms];
+    SDL_memset(temp_platv, 4 /* default */, sizeof(temp_platv));
+
+    if (mapwidth < maxwidth)
+    {
+        /* Re-scramble platv, since it was stored incorrectly
+         * in 2.2 and previous... */
+        size_t i;
+        int x = 0;
+        int y = 0;
+        for (i = 0; i < numrooms; ++i)
+        {
+            if (x < mapwidth)
+            {
+                const int platv_idx = x + y * mapwidth;
+                if (INBOUNDS_ARR(platv_idx, temp_platv))
+                {
+                    temp_platv[platv_idx] = level[i].platv;
+                }
+            }
+
+            ++x;
+
+            if (x >= mapwidth)
+            {
+                /* Skip to next actual row. */
+                i += maxwidth - mapwidth;
+                x = 0;
+                ++y;
+            }
+        }
+    }
+
     for(size_t i = 0; i < SDL_arraysize(level); i++)
     {
         tinyxml2::XMLElement *edlevelclassElement = doc.NewElement( "edLevelClass" );
@@ -2156,7 +2229,7 @@ bool editorclass::save(std::string& _path)
         edlevelclassElement->SetAttribute(  "platy1", level[i].platy1);
         edlevelclassElement->SetAttribute(  "platx2", level[i].platx2);
         edlevelclassElement->SetAttribute( "platy2", level[i].platy2);
-        edlevelclassElement->SetAttribute( "platv", level[i].platv);
+        edlevelclassElement->SetAttribute( "platv", temp_platv[i]);
         edlevelclassElement->SetAttribute(  "enemyx1", level[i].enemyx1);
         edlevelclassElement->SetAttribute(  "enemyy1", level[i].enemyy1);
         edlevelclassElement->SetAttribute(  "enemyx2", level[i].enemyx2);
