@@ -1204,6 +1204,15 @@ int entityclass::crewcolour( int t )
     return 0;
 }
 
+static void entityclonefix(entclass* entity)
+{
+    if (entity->behave == 10 || entity->behave == 12)
+    {
+        /* Fix memory leak */
+        entity->behave = -1;
+    }
+}
+
 void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4)
 {
     k = entities.size();
@@ -1324,6 +1333,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         else
         {
             entity.setenemyroom(game.roomx, game.roomy);
+            entityclonefix(&entity);
         }
         break;
     case 2: //A moving platform
@@ -2094,6 +2104,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
           entity.colour = 18;
         }
 
+        entityclonefix(&entity);
         break;
     }
 
