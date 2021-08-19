@@ -896,12 +896,18 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 	return true;
 }
 
+struct CallbackWrapper
+{
+	void (*callback)(const char* filename);
+};
+
 static PHYSFS_EnumerateCallbackResult enumerateCallback(
 	void* data,
 	const char* origdir,
 	const char* filename
 ) {
-	void (*callback)(const char*) = (void (*)(const char*)) data;
+	struct CallbackWrapper* wrapper = (struct CallbackWrapper*) data;
+	void (*callback)(const char*) = wrapper->callback;
 	char builtLocation[MAX_PATH];
 
 	SDL_snprintf(
@@ -921,8 +927,9 @@ void FILESYSTEM_enumerateLevelDirFileNames(
 	void (*callback)(const char* filename)
 ) {
 	int success;
+	struct CallbackWrapper wrapper = {callback};
 
-	success = PHYSFS_enumerate("levels", enumerateCallback, (void*) callback);
+	success = PHYSFS_enumerate("levels", enumerateCallback, (void*) &wrapper);
 
 	if (success == 0)
 	{
@@ -1200,11 +1207,12 @@ static void levelSaveCallback(const char* filename)
 void FILESYSTEM_deleteLevelSaves(void)
 {
 	int success;
+	struct CallbackWrapper wrapper = {levelSaveCallback};
 
 	success = PHYSFS_enumerate(
 		"saves",
 		enumerateCallback,
-		(void*) levelSaveCallback
+		(void*) &wrapper
 	);
 
 	if (success == 0)
