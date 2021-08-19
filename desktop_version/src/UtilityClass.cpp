@@ -288,13 +288,6 @@ bool is_number(const char* str)
     return true;
 }
 
-static bool VVV_isxdigit(const unsigned char digit)
-{
-    return (digit >= 'a' && digit <= 'f')
-    || (digit >= 'A' && digit <= 'F')
-    || SDL_isdigit(digit);
-}
-
 bool is_positive_num(const char* str, const bool hex)
 {
     if (str[0] == '\0')
@@ -306,7 +299,7 @@ bool is_positive_num(const char* str, const bool hex)
     {
         if (hex)
         {
-            if (!VVV_isxdigit(str[i]))
+            if (!SDL_isxdigit(str[i]))
             {
                 return false;
             }
