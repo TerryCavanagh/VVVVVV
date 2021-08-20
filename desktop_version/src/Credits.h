@@ -101,6 +101,7 @@ static const char* githubfriends[] = {
     "MAO3J1m0Op",
     "Nichole Mattera",
     "Matt Penny",
+    "mothbeanie",
     "Tynan Richards",
     "Reese Rivers",
     "Elliott Saltar",

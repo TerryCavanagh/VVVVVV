@@ -36,16 +36,16 @@ static inline void drawslowdowntext(void)
     switch (game.slowdown)
     {
     case 30:
-        graphics.Print( -1, 105, "Game speed is normal.", tr/2, tg/2, tb/2, true);
+        graphics.Print( -1, 85, "Game speed is normal.", tr/2, tg/2, tb/2, true);
         break;
     case 24:
-        graphics.Print( -1, 105, "Game speed is at 80%", tr, tg, tb, true);
+        graphics.Print( -1, 85, "Game speed is at 80%", tr, tg, tb, true);
         break;
     case 18:
-        graphics.Print( -1, 105, "Game speed is at 60%", tr, tg, tb, true);
+        graphics.Print( -1, 85, "Game speed is at 60%", tr, tg, tb, true);
         break;
     case 12:
-        graphics.Print( -1, 105, "Game speed is at 40%", tr, tg, tb, true);
+        graphics.Print( -1, 85, "Game speed is at 40%", tr, tg, tb, true);
         break;
     }
 }
@@ -237,26 +237,26 @@ static void menurender(void)
             //Speedrunner options
             graphics.bigprint(-1, 30, "Speedrunner Options", tr, tg, tb, true);
             graphics.Print(-1, 65, "Access some advanced settings that", tr, tg, tb, true);
-            graphics.Print(-1, 75, "might be of interest to speedrunners", tr, tg, tb, true);
+            graphics.Print(-1, 75, "might be of interest to speedrunners.", tr, tg, tb, true);
         }
         else if (game.currentmenuoption == gameplayoptionsoffset + 2)
         {
             //Advanced options
             graphics.bigprint(-1, 30, "Advanced Options", tr, tg, tb, true);
-            graphics.Print(-1, 65, "All other settings", tr, tg, tb, true);
+            graphics.Print(-1, 65, "All other gameplay settings.", tr, tg, tb, true);
         }
         else if (game.currentmenuoption == gameplayoptionsoffset + 3)
         {
             //Clear Data
             graphics.bigprint(-1, 30, "Clear Data", tr, tg, tb, true);
             graphics.Print(-1, 65, "Delete your main game save data", tr, tg, tb, true);
-            graphics.Print(-1, 75, "and unlocked play modes", tr, tg, tb, true);
+            graphics.Print(-1, 75, "and unlocked play modes.", tr, tg, tb, true);
         }
         else if (game.currentmenuoption == gameplayoptionsoffset + 4)
         {
             graphics.bigprint(-1, 30, "Clear Data", tr, tg, tb, true);
             graphics.Print(-1, 65, "Delete your custom level save data", tr, tg, tb, true);
-            graphics.Print(-1, 75, "and completion stars", tr, tg, tb, true);
+            graphics.Print(-1, 75, "and completion stars.", tr, tg, tb, true);
         }
 
         break;
@@ -266,29 +266,34 @@ static void menurender(void)
         {
         case 0:
             graphics.bigprint(-1, 30, "Gameplay Options", tr, tg, tb, true);
-            graphics.Print(-1, 65, "Adjust various gameplay options", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Adjust various gameplay settings.", tr, tg, tb, true);
             break;
         case 1:
             graphics.bigprint(-1, 30, "Graphics Options", tr, tg, tb, true);
-            graphics.Print(-1, 65, "Adjust screen settings", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Adjust screen settings.", tr, tg, tb, true);
             break;
         case 2:
+            const char* str;
             graphics.bigprint(-1, 30, "Audio Options", tr, tg, tb, true);
-            graphics.Print(-1, 65, "Adjust volume settings", tr, tg, tb, true);
             if (music.mmmmmm)
             {
-                graphics.Print(-1, 75, "and soundtrack", tr, tg, tb, true);
+                str = "Adjust volume settings and soundtrack.";
             }
+            else
+            {
+                str = "Adjust volume settings.";
+            }
+            graphics.PrintWrap(-1, 65, str, tr, tg, tb, true, 10, 304);
             break;
         case 3:
             graphics.bigprint(-1, 30, "Game Pad Options", tr, tg, tb, true);
             graphics.Print(-1, 65, "Rebind your controller's buttons", tr, tg, tb, true);
-            graphics.Print(-1, 75, "and adjust sensitivity", tr, tg, tb, true);
+            graphics.Print(-1, 75, "and adjust sensitivity.", tr, tg, tb, true);
             break;
         case 4:
             graphics.bigprint(-1, 30, "Accessibility", tr, tg, tb, true);
             graphics.Print(-1, 65, "Disable screen effects, enable", tr, tg, tb, true);
-            graphics.Print(-1, 75, "slowdown modes or invincibility", tr, tg, tb, true);
+            graphics.Print(-1, 75, "slowdown modes or invincibility.", tr, tg, tb, true);
             break;
         }
         break;
@@ -372,11 +377,11 @@ static void menurender(void)
 
             if (!graphics.screenbuffer->vsync)
             {
-                graphics.Print(-1, 95, "Current mode: VSYNC OFF", tr/2, tg/2, tb/2, true);
+                graphics.Print(-1, 85, "Current mode: VSYNC OFF", tr/2, tg/2, tb/2, true);
             }
             else
             {
-                graphics.Print(-1, 95, "Current mode: VSYNC ON", tr, tg, tb, true);
+                graphics.Print(-1, 85, "Current mode: VSYNC ON", tr, tg, tb, true);
             }
             break;
         }
@@ -416,7 +421,7 @@ static void menurender(void)
             SDL_snprintf(buffer, sizeof(buffer), "Current soundtrack: %s", soundtrack);
 
             graphics.bigprint(-1, 30, "Soundtrack", tr, tg, tb, true);
-            graphics.Print(-1, 65, "Toggle between MMMMMM and PPPPPP", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Toggle between MMMMMM and PPPPPP.", tr, tg, tb, true);
             graphics.Print(-1, 85, buffer, tr, tg, tb, true);
             break;
         }
@@ -540,8 +545,8 @@ static void menurender(void)
         graphics.Print( -1, 110, "enable invincibility?", tr, tg, tb, true);
         break;
     case Menu::setslowdown:
-        graphics.bigprint( -1, 40, "Game Speed", tr, tg, tb, true);
-        graphics.Print( -1, 75, "Select a new game speed below.", tr, tg, tb, true);
+        graphics.bigprint( -1, 30, "Game Speed", tr, tg, tb, true);
+        graphics.Print( -1, 65, "Select a new game speed below.", tr, tg, tb, true);
         drawslowdowntext();
         break;
     case Menu::newgamewarning:
@@ -655,20 +660,24 @@ static void menurender(void)
         }
         case 3:
             graphics.bigprint(-1, 30, "Fake Load Screen", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Disable the fake loading screen", tr, tg, tb, true);
+            graphics.Print(-1, 75, "which appears on game launch.", tr, tg, tb, true);
             if (game.skipfakeload)
-                graphics.Print(-1, 65, "Fake loading screen is OFF", tr / 2, tg / 2, tb / 2, true);
+                graphics.Print(-1, 95, "Fake loading screen is OFF", tr / 2, tg / 2, tb / 2, true);
             else
-                graphics.Print(-1, 65, "Fake loading screen is ON", tr, tg, tb, true);
+                graphics.Print(-1, 95, "Fake loading screen is ON", tr, tg, tb, true);
             break;
         case 4:
-            graphics.bigprint(-1, 30, "In Game Timer", tr, tg, tb, true);
+            graphics.bigprint(-1, 30, "In-Game Timer", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Toggle the in-game timer", tr, tg, tb, true);
+            graphics.Print(-1, 75, " outside of time trials.", tr, tg, tb, true);
             if (game.showingametimer)
             {
-                graphics.Print(-1, 65, "In Game Timer is ON", tr, tg, tb, true);
+                graphics.Print(-1, 95, "In-Game Timer is ON", tr, tg, tb, true);
             }
             else
             {
-                graphics.Print(-1, 65, "In Game Timer is OFF", tr / 2, tg / 2, tb / 2, true);
+                graphics.Print(-1, 95, "In-Game Timer is OFF", tr / 2, tg / 2, tb / 2, true);
             }
             break;
         }
@@ -733,41 +742,43 @@ static void menurender(void)
         case 0:
             graphics.bigprint(-1, 30, "Unlock Play Modes", tr, tg, tb, true);
             graphics.Print(-1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
-            graphics.Print(-1, 75, "unlocked as you progress", tr, tg, tb, true);
+            graphics.Print(-1, 75, "unlocked as you progress.", tr, tg, tb, true);
             break;
 #endif
         case OFFSET+0:
-            graphics.bigprint(-1, 40, "Invincibility", tr, tg, tb, true);
-            graphics.Print(-1, 75, "Explore the game freely without", tr, tg, tb, true);
-            graphics.Print(-1, 85, "dying. (Can cause glitches.)", tr, tg, tb, true);
+            graphics.bigprint(-1, 30, "Invincibility", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Explore the game freely without", tr, tg, tb, true);
+            graphics.Print(-1, 75, "dying. (Can cause glitches.)", tr, tg, tb, true);
             if (map.invincibility)
             {
-                graphics.Print(-1, 105, "Invincibility is ON.", tr, tg, tb, true);
+                graphics.Print(-1, 95, "Invincibility is ON.", tr, tg, tb, true);
             }
             else
             {
-                graphics.Print(-1, 105, "Invincibility is OFF.", tr / 2, tg / 2, tb / 2, true);
+                graphics.Print(-1, 95, "Invincibility is OFF.", tr / 2, tg / 2, tb / 2, true);
             }
             break;
         case OFFSET+1:
-            graphics.bigprint(-1, 40, "Slowdown", tr, tg, tb, true);
-            graphics.Print(-1, 75, "Reduce the game speed.", tr, tg, tb, true);
+            graphics.bigprint(-1, 30, "Slowdown", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Reduce the game speed.", tr, tg, tb, true);
             drawslowdowntext();
             break;
         case OFFSET+2:
-            graphics.bigprint(-1, 40, "Backgrounds", tr, tg, tb, true);
+            graphics.bigprint(-1, 30, "Backgrounds", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Disable animated backgrounds in menus", tr, tg, tb, true);
+            graphics.Print(-1, 75, "and during gameplay.", tr, tg, tb, true);
             if (!game.colourblindmode)
             {
-                graphics.Print(-1, 75, "Backgrounds are ON.", tr, tg, tb, true);
+                graphics.Print(-1, 95, "Backgrounds are ON.", tr, tg, tb, true);
             }
             else
             {
-                graphics.Print(-1, 75, "Backgrounds are OFF.", tr / 2, tg / 2, tb / 2, true);
+                graphics.Print(-1, 95, "Backgrounds are OFF.", tr / 2, tg / 2, tb / 2, true);
             }
             break;
         case OFFSET+3:
-            graphics.bigprint(-1, 40, "Screen Effects", tr, tg, tb, true);
-            graphics.Print(-1, 75, "Disables screen shakes and flashes.", tr, tg, tb, true);
+            graphics.bigprint(-1, 30, "Screen Effects", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Disables screen shakes and flashes.", tr, tg, tb, true);
             if (!game.noflashingmode)
             {
                 graphics.Print(-1, 85, "Screen Effects are ON.", tr, tg, tb, true);
@@ -781,8 +792,8 @@ static void menurender(void)
         {
             const char* text;
 
-            graphics.bigprint(-1, 40, "Text Outline", tr, tg, tb, true);
-            graphics.Print(-1, 75, "Disables outline on game text.", tr, tg, tb, true);
+            graphics.bigprint(-1, 30, "Text Outline", tr, tg, tb, true);
+            graphics.Print(-1, 65, "Disables outline on game text.", tr, tg, tb, true);
 
             FillRect(graphics.backBuffer, 0, 84, 320, 10, tr, tg, tb);
 
@@ -1339,11 +1350,11 @@ static void menurender(void)
         graphics.Print( -1, 130, "from the play menu.", tr, tg, tb, true);
         break;
     case Menu::unlockmenu:
-        graphics.bigprint( -1, 25, "Unlock Play Modes", tr, tg, tb, true, 2);
+        graphics.bigprint( -1, 30, "Unlock Play Modes", tr, tg, tb, true, 2);
 
-        graphics.Print( -1, 55, "From here, you may unlock parts", tr, tg, tb, true);
-        graphics.Print( -1, 65, "of the game that are normally", tr, tg, tb, true);
-        graphics.Print( -1, 75, "unlocked as you play.", tr, tg, tb, true);
+        graphics.Print( -1, 65, "From here, you may unlock parts", tr, tg, tb, true);
+        graphics.Print( -1, 75, "of the game that are normally", tr, tg, tb, true);
+        graphics.Print( -1, 85, "unlocked as you play.", tr, tg, tb, true);
         break;
     case Menu::unlocktimetrial:
         graphics.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
