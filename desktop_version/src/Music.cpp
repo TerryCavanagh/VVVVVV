@@ -404,10 +404,12 @@ void musicclass::processmusic(void)
 
 void musicclass::niceplay(int t)
 {
-	// important: do nothing if the correct song is playing!
-	if((!mmmmmm && currentsong!=t) || (mmmmmm && usingmmmmmm && currentsong!=t) || (mmmmmm && !usingmmmmmm && currentsong!=t+num_mmmmmm_tracks))
+	/* important: do nothing if the correct song is playing! */
+	if ((!mmmmmm && currentsong != t)
+	|| (mmmmmm && usingmmmmmm && currentsong != t)
+	|| (mmmmmm && !usingmmmmmm && currentsong != t + num_mmmmmm_tracks))
 	{
-		if(currentsong!=-1)
+		if (currentsong != -1)
 		{
 			fadeout(false);
 		}
