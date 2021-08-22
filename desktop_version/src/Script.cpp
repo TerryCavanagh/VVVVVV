@@ -46,12 +46,15 @@ void scriptclass::tokenize( const std::string& t )
 	std::string tempword;
 	char currentletter;
 
+	SDL_zeroa(argexists);
+
 	for (size_t i = 0; i < t.length(); i++)
 	{
 		currentletter = t[i];
 		if (currentletter == '(' || currentletter == ')' || currentletter == ',')
 		{
 			words[j] = tempword;
+			argexists[j] = words[j] != "";
 			for (size_t ii = 0; ii < words[j].length(); ii++)
 			{
 				words[j][ii] = SDL_tolower(words[j][ii]);
@@ -73,16 +76,14 @@ void scriptclass::tokenize( const std::string& t )
 		}
 	}
 
-	if (tempword != "" && j < (int) SDL_arraysize(words))
+	if (j < (int) SDL_arraysize(words))
 	{
-		words[j] = tempword;
-	}
-
-	SDL_zeroa(argexists);
-
-	for (size_t ii = 0; ii < NUM_SCRIPT_ARGS; ++ii)
-	{
-		argexists[ii] = words[ii] != "";
+		const bool lastargexists = tempword != "";
+		if (lastargexists)
+		{
+			words[j] = tempword;
+		}
+		argexists[j] = lastargexists;
 	}
 }
 
