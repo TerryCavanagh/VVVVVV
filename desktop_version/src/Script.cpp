@@ -2,6 +2,7 @@
 #include "Script.h"
 
 #include <limits.h>
+#include <SDL_timer.h>
 
 #include "editor.h"
 #include "Entity.h"
@@ -13,6 +14,7 @@
 #include "Map.h"
 #include "Music.h"
 #include "UtilityClass.h"
+#include "Xoshiro.h"
 
 scriptclass::scriptclass(void)
 {
@@ -3376,6 +3378,8 @@ void scriptclass::teleport(void)
 void scriptclass::hardreset(void)
 {
 	const bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
+
+	xoshiro_seed(SDL_GetTicks());
 
 	//Game:
 	game.hascontrol = true;

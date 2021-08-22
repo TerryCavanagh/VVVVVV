@@ -11,6 +11,7 @@
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "Xoshiro.h"
 
 bool entityclass::checktowerspikes(int t)
 {
@@ -210,7 +211,7 @@ void entityclass::generateswnwave( int t )
                 if (game.deathcounts - game.swndeaths > 25) game.swndelay += 4;
                 break;
             case 1:
-                createentity(-150, 58 + (int(fRandom() * 6) * 20), 23, 0, 0);
+                createentity(-150, 58 + (int(xoshiro_rand() * 6) * 20), 23, 0, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 break;
@@ -238,13 +239,13 @@ void entityclass::generateswnwave( int t )
                 game.swndelay = 0; //return to decision state
                 break;
             case 3:
-                createentity(320+150, 58 + (int(fRandom() * 6) * 20), 23, 1, 0);
+                createentity(320+150, 58 + (int(xoshiro_rand() * 6) * 20), 23, 1, 0);
                 game.swnstate = 0;
                 game.swndelay = 0; //return to decision state
                 break;
             case 4:
                 //left and right compliments
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
                 createentity(320+150, 58 + ((5-game.swnstate2) * 20), 23, 1, 0);
                 game.swnstate = 0;
@@ -319,7 +320,7 @@ void entityclass::generateswnwave( int t )
                 game.swnstate3 = 0;
                 game.swnstate4 = 0;
 
-                game.swnstate2 = int(fRandom() * 100);
+                game.swnstate2 = int(xoshiro_rand() * 100);
                 if (game.swnstate2 < 25)
                 {
                     //simple
@@ -336,7 +337,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 1:
                 //complex chain
-                game.swnstate2 = int(fRandom() * 8);
+                game.swnstate2 = int(xoshiro_rand() * 8);
                 if (game.swnstate2 == 0)
                 {
                     game.swnstate = 10;
@@ -382,7 +383,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 2:
                 //simple chain
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 if (game.swnstate2 == 0)
                 {
                     game.swnstate = 23;
@@ -418,7 +419,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 3:
                 //Choose a major action
-                game.swnstate2 = int(fRandom() * 100);
+                game.swnstate2 = int(xoshiro_rand() * 100);
                 game.swnstate4 = 0;
                 if (game.swnstate2 < 25)
                 {
@@ -435,7 +436,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 4:
                 //filler chain
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 if (game.swnstate2 == 0)
                 {
                     game.swnstate = 28;
@@ -624,7 +625,7 @@ void entityclass::generateswnwave( int t )
             case 22:
                 game.swnstate4++;
                 //left and right compliments
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
                 createentity(320 + 150, 58 + ((5 - game.swnstate2) * 20), 23, 1, 0);
                 if(game.swnstate4<=12)
@@ -685,7 +686,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 28:
                 game.swnstate4++;
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 createentity(-150, 58 + (game.swnstate2  * 20), 23, 0, 0);
                 if(game.swnstate4<=6)
                 {
@@ -701,7 +702,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 29:
                 game.swnstate4++;
-                game.swnstate2 = int(fRandom() * 6);
+                game.swnstate2 = int(xoshiro_rand() * 6);
                 gravcreate(game.swnstate2, 1);
                 if(game.swnstate4<=6)
                 {
@@ -717,7 +718,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 30:
                 game.swnstate4++;
-                game.swnstate2 = int(fRandom() * 3);
+                game.swnstate2 = int(xoshiro_rand() * 3);
                 gravcreate(game.swnstate2, 0);
                 gravcreate(5-game.swnstate2, 0);
                 if(game.swnstate4<=2)
@@ -734,7 +735,7 @@ void entityclass::generateswnwave( int t )
                 break;
             case 31:
                 game.swnstate4++;
-                game.swnstate2 = int(fRandom() * 3);
+                game.swnstate2 = int(xoshiro_rand() * 3);
                 gravcreate(game.swnstate2, 1);
                 gravcreate(5-game.swnstate2, 1);
                 if(game.swnstate4<=2)

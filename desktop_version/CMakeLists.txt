@@ -112,6 +112,7 @@ set(VVV_SRC
 	src/GlitchrunnerMode.c
 	src/Network.c
 	src/ThirdPartyDeps.c
+	src/Xoshiro.c
 )
 if(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
 	list(APPEND VVV_SRC src/editor.cpp)
