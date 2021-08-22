@@ -414,8 +414,8 @@ void musicclass::niceplay(int t)
 			fadeout(false);
 		}
 		nicefade = true;
-		nicechange = t;
 	}
+	nicechange = t;
 }
 
 void musicclass::changemusicarea(int x, int y)
