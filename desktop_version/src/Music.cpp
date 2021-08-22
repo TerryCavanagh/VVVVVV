@@ -344,7 +344,8 @@ void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 	m_doFadeOutVol = true;
 
 	fade.step_ms = 0;
-	fade.duration_ms = fadeout_ms;
+	/* Duration is proportional to current volume. */
+	fade.duration_ms = fadeout_ms * musicVolume / MIX_MAX_VOLUME;
 	fade.start_volume = musicVolume;
 	fade.end_volume = 0;
 }
