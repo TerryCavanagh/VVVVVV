@@ -1748,6 +1748,44 @@ void editorclass::switch_enemy(const bool reversed)
     notedelay = 45;
 }
 
+void editorclass::switch_warpdir(const bool reversed)
+{
+    static const int modulus = 4;
+    const edlevelclass* const room = getroomprop(levx, levy);
+
+    int warpdir = room->warpdir;
+
+    if (reversed)
+    {
+        --warpdir;
+    }
+    else
+    {
+        ++warpdir;
+    }
+
+    warpdir = (warpdir % modulus + modulus) % modulus;
+    setroomwarpdir(levx, levy, warpdir);
+
+    switch (warpdir)
+    {
+    default:
+        note = "Room warping disabled";
+        break;
+    case 1:
+        note = "Room warps horizontally";
+        break;
+    case 2:
+        note = "Room warps vertically";
+        break;
+    case 3:
+        note = "Room warps in all directions";
+        break;
+    }
+
+    notedelay = 45;
+}
+
 bool editorclass::load(std::string& _path)
 {
     tinyxml2::XMLDocument doc;
@@ -4791,32 +4829,9 @@ void editorinput(void)
 
             if(key.keymap[SDLK_w])
             {
-                ed.setroomwarpdir(ed.levx, ed.levy, (ed.getroomprop(ed.levx, ed.levy)->warpdir+1)%4);
-                if(ed.getroomprop(ed.levx, ed.levy)->warpdir==0)
-                {
-                    ed.note="Room warping disabled";
-                    ed.notedelay=45;
-                    graphics.backgrounddrawn=false;
-                }
-                else if(ed.getroomprop(ed.levx, ed.levy)->warpdir==1)
-                {
-                    ed.note="Room warps horizontally";
-                    ed.notedelay=45;
-                    graphics.backgrounddrawn=false;
-                }
-                else if(ed.getroomprop(ed.levx, ed.levy)->warpdir==2)
-                {
-                    ed.note="Room warps vertically";
-                    ed.notedelay=45;
-                    graphics.backgrounddrawn=false;
-                }
-                else if(ed.getroomprop(ed.levx, ed.levy)->warpdir==3)
-                {
-                    ed.note="Room warps in all directions";
-                    ed.notedelay=45;
-                    graphics.backgrounddrawn=false;
-                }
-                ed.keydelay=6;
+                ed.switch_warpdir(false);
+                graphics.backgrounddrawn = false;
+                ed.keydelay = 6;
             }
             if(key.keymap[SDLK_e])
             {
