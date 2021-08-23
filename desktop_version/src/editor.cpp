@@ -1630,7 +1630,7 @@ int editorclass::findwarptoken(int t)
     return 0;
 }
 
-void editorclass::switch_tileset(const bool reversed /*= false*/)
+void editorclass::switch_tileset(const bool reversed)
 {
     const char* tilesets[] = {"Space Station", "Outside", "Lab", "Warp Zone", "Ship"};
 
@@ -1649,7 +1649,7 @@ void editorclass::switch_tileset(const bool reversed /*= false*/)
     tiles = (tiles % modulus + modulus) % modulus;
     setroomtileset(levx, levy, tiles);
 
-    clamp_tilecol(levx, levy);
+    clamp_tilecol(levx, levy, false);
 
     char buffer[64];
     SDL_snprintf(buffer, sizeof(buffer), "Now using %s Tileset", tilesets[tiles]);
@@ -1659,7 +1659,7 @@ void editorclass::switch_tileset(const bool reversed /*= false*/)
     updatetiles = true;
 }
 
-void editorclass::switch_tilecol(const bool reversed /*= false*/)
+void editorclass::switch_tilecol(const bool reversed)
 {
     int tilecol = getroomprop(levx, levy)->tilecol;
 
@@ -1681,7 +1681,7 @@ void editorclass::switch_tilecol(const bool reversed /*= false*/)
     updatetiles = true;
 }
 
-void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap /*= false*/)
+void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
 {
     const edlevelclass* const room = getroomprop(rx, ry);
     const int tileset = room->tileset;
@@ -1725,7 +1725,7 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap /*= 
     setroomtilecol(rx, ry, tilecol);
 }
 
-void editorclass::switch_enemy(const bool reversed /*= false*/)
+void editorclass::switch_enemy(const bool reversed)
 {
     const edlevelclass* const room = getroomprop(levx, levy);
 
@@ -4726,19 +4726,19 @@ void editorinput(void)
             ed.shiftkey=false;
             if(key.keymap[SDLK_F1])
             {
-                ed.switch_tileset();
+                ed.switch_tileset(false);
                 graphics.backgrounddrawn = false;
                 ed.keydelay = 6;
             }
             if(key.keymap[SDLK_F2])
             {
-                ed.switch_tilecol();
+                ed.switch_tilecol(false);
                 graphics.backgrounddrawn = false;
                 ed.keydelay = 6;
             }
             if(key.keymap[SDLK_F3])
             {
-                ed.switch_enemy();
+                ed.switch_enemy(false);
                 ed.keydelay=6;
             }
             if(key.keymap[SDLK_F4])
