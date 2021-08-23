@@ -4716,6 +4716,12 @@ void editorinput(void)
                 ed.switch_enemy(true);
                 ed.keydelay=6;
             }
+            if (key.keymap[SDLK_w])
+            {
+                ed.switch_warpdir(true);
+                graphics.backgrounddrawn = false;
+                ed.keydelay = 6;
+            }
 
             if (up_pressed || down_pressed || left_pressed || right_pressed)
             {
