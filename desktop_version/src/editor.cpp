@@ -1704,6 +1704,12 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
     case 1:
         maxcol = 7;
         break;
+    case 2:
+        if (room->directmode)
+        {
+            maxcol = 6;
+        }
+        break;
     case 3:
         maxcol = 6;
         break;
@@ -4803,6 +4809,12 @@ void editorinput(void)
                 {
                     ed.setroomdirectmode(ed.levx, ed.levy, 0);
                     ed.note="Direct Mode Disabled";
+                    /* Kludge fix for rainbow BG here... */
+                    if (ed.getroomprop(ed.levx, ed.levy)->tileset == 2
+                    && ed.getroomprop(ed.levx, ed.levy)->tilecol == 6)
+                    {
+                        ed.setroomtilecol(ed.levx, ed.levy, 0);
+                    }
                 }
                 else
                 {
