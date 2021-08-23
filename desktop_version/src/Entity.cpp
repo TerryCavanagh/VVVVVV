@@ -2606,6 +2606,7 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 game.gravitycontrol = (game.gravitycontrol + 1) % 2;
+                ++game.totalflips;
                 return disableentity(i);
 
             }

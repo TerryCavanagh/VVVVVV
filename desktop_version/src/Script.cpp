@@ -1006,6 +1006,7 @@ void scriptclass::run(void)
 				if (words[1] == "player")
 				{
 					game.gravitycontrol = !game.gravitycontrol;
+					++game.totalflips;
 				}
 				else
 				{
