@@ -3208,24 +3208,28 @@ void editorrender(void)
             FillRect(graphics.backBuffer, 0,-t2+40,320,2, graphics.getRGB(255,255,255));
             if(room->tileset==0)
             {
+                const int numtiles = (((int) graphics.tiles.size()) / 40) * 40;
+
                 for(int i=0; i<40; i++)
                 {
-                    graphics.drawtile(i*8,0-t2,(temp+1200+i)%1200);
-                    graphics.drawtile(i*8,8-t2,(temp+1200+40+i)%1200);
-                    graphics.drawtile(i*8,16-t2,(temp+1200+80+i)%1200);
-                    graphics.drawtile(i*8,24-t2,(temp+1200+120+i)%1200);
-                    graphics.drawtile(i*8,32-t2,(temp+1200+160+i)%1200);
+                    graphics.drawtile(i*8,0-t2,(temp+numtiles+i)%numtiles);
+                    graphics.drawtile(i*8,8-t2,(temp+numtiles+40+i)%numtiles);
+                    graphics.drawtile(i*8,16-t2,(temp+numtiles+80+i)%numtiles);
+                    graphics.drawtile(i*8,24-t2,(temp+numtiles+120+i)%numtiles);
+                    graphics.drawtile(i*8,32-t2,(temp+numtiles+160+i)%numtiles);
                 }
             }
             else
             {
+                const int numtiles = (((int) graphics.tiles2.size()) / 40) * 40;
+
                 for(int i=0; i<40; i++)
                 {
-                    graphics.drawtile2(i*8,0-t2,(temp+1200+i)%1200);
-                    graphics.drawtile2(i*8,8-t2,(temp+1200+40+i)%1200);
-                    graphics.drawtile2(i*8,16-t2,(temp+1200+80+i)%1200);
-                    graphics.drawtile2(i*8,24-t2,(temp+1200+120+i)%1200);
-                    graphics.drawtile2(i*8,32-t2,(temp+1200+160+i)%1200);
+                    graphics.drawtile2(i*8,0-t2,(temp+numtiles+i)%numtiles);
+                    graphics.drawtile2(i*8,8-t2,(temp+numtiles+40+i)%numtiles);
+                    graphics.drawtile2(i*8,16-t2,(temp+numtiles+80+i)%numtiles);
+                    graphics.drawtile2(i*8,24-t2,(temp+numtiles+120+i)%numtiles);
+                    graphics.drawtile2(i*8,32-t2,(temp+numtiles+160+i)%numtiles);
                 }
             }
             //Highlight our little block
@@ -4674,32 +4678,41 @@ void editorinput(void)
         else if (key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
         {
             // Ctrl modifiers
+            int numtiles;
+            if (ed.getroomprop(ed.levx, ed.levy)->tileset == 0)
+            {
+                numtiles = (((int) graphics.tiles.size()) / 40) * 40;
+            }
+            else
+            {
+                numtiles = (((int) graphics.tiles2.size()) / 40) * 40;
+            }
             ed.dmtileeditor=10;
             if(left_pressed)
             {
                 ed.dmtile--;
                 ed.keydelay=3;
-                if(ed.dmtile<0) ed.dmtile+=1200;
+                if(ed.dmtile<0) ed.dmtile+=numtiles;
             }
             else if(right_pressed)
             {
                 ed.dmtile++;
                 ed.keydelay=3;
 
-                if(ed.dmtile>=1200) ed.dmtile-=1200;
+                if(ed.dmtile>=numtiles) ed.dmtile-=numtiles;
             }
             if(up_pressed)
             {
                 ed.dmtile-=40;
                 ed.keydelay=3;
-                if(ed.dmtile<0) ed.dmtile+=1200;
+                if(ed.dmtile<0) ed.dmtile+=numtiles;
             }
             else if(down_pressed)
             {
                 ed.dmtile+=40;
                 ed.keydelay=3;
 
-                if(ed.dmtile>=1200) ed.dmtile-=1200;
+                if(ed.dmtile>=numtiles) ed.dmtile-=numtiles;
             }
         }
         else if (key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT])
