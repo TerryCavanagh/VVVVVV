@@ -1138,6 +1138,15 @@ std::string mapclass::currentarea(int t)
 	return "???";
 }
 
+static void copy_short_to_int(int* dest, const short* src, const size_t size)
+{
+	size_t i;
+	for (i = 0; i < size; ++i)
+	{
+		dest[i] = src[i];
+	}
+}
+
 void mapclass::loadlevel(int rx, int ry)
 {
 	int t;
@@ -1289,7 +1298,7 @@ void mapclass::loadlevel(int rx, int ry)
 		tileset = 1;
 		extrarow = 1;
 		const short* tmap = otherlevel.loadlevel(rx, ry);
-		SDL_memcpy(contents, tmap, sizeof(contents));
+		copy_short_to_int(contents, tmap, SDL_arraysize(contents));
 		roomname = otherlevel.roomname;
 		hiddenname = otherlevel.hiddenname;
 		tileset = otherlevel.roomtileset;
@@ -1298,7 +1307,7 @@ void mapclass::loadlevel(int rx, int ry)
 	case 2: //The Lab
 	{
 		const short* tmap = lablevel.loadlevel(rx, ry);
-		SDL_memcpy(contents, tmap, sizeof(contents));
+		copy_short_to_int(contents, tmap, SDL_arraysize(contents));
 		roomname = lablevel.roomname;
 		tileset = 1;
 		background = 2;
@@ -1345,7 +1354,7 @@ void mapclass::loadlevel(int rx, int ry)
 	case 4: //The Warpzone
 	{
 		const short* tmap = warplevel.loadlevel(rx, ry);
-		SDL_memcpy(contents, tmap, sizeof(contents));
+		copy_short_to_int(contents, tmap, SDL_arraysize(contents));
 		roomname = warplevel.roomname;
 		tileset = 1;
 		background = 3;
@@ -1363,7 +1372,7 @@ void mapclass::loadlevel(int rx, int ry)
 	case 5: //Space station
 	{
 		const short* tmap = spacestation2.loadlevel(rx, ry);
-		SDL_memcpy(contents, tmap, sizeof(contents));
+		copy_short_to_int(contents, tmap, SDL_arraysize(contents));
 		roomname = spacestation2.roomname;
 		tileset = 0;
 		break;
@@ -1371,7 +1380,7 @@ void mapclass::loadlevel(int rx, int ry)
 	case 6: //final level
 	{
 		const short* tmap = finallevel.loadlevel(rx, ry);
-		SDL_memcpy(contents, tmap, sizeof(contents));
+		copy_short_to_int(contents, tmap, SDL_arraysize(contents));
 		roomname = finallevel.roomname;
 		tileset = 1;
 		background = 3;
@@ -1530,7 +1539,7 @@ void mapclass::loadlevel(int rx, int ry)
 	case 11: //Tower Hallways //Content is held in final level routine
 	{
 		const short* tmap = finallevel.loadlevel(rx, ry);
-		SDL_memcpy(contents, tmap, sizeof(contents));
+		copy_short_to_int(contents, tmap, SDL_arraysize(contents));
 		roomname = finallevel.roomname;
 		tileset = 2;
 		if (rx == 108)
@@ -1616,7 +1625,7 @@ void mapclass::loadlevel(int rx, int ry)
 
 		roomname = room->roomname;
 		extrarow = 1;
-		const short* tmap = ed.loadlevel(rx, ry);
+		const int* tmap = ed.loadlevel(rx, ry);
 		SDL_memcpy(contents, tmap, sizeof(contents));
 
 
