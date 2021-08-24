@@ -24,7 +24,7 @@ Contributors
 * Elliott Saltar (@eboyblue3)
 * Marvin Scholz (@ePirat)
 * Keith Stellyes (@keithstellyes)
-* Elijah Stone
+* Elijah Stone (@moon-chilled)
 * Thomas Sänger (@HorayNarea)
 * Pierre-Alain TORET (@daftaupe)
 * Jules de Sartiges (@strikersh)
