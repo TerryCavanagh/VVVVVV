@@ -33,3 +33,4 @@ Contributors
 * Tynan Richards (@tzann)
 * Wouter (@Xesxen)
 * viri (viri.moe)
+* Vittorio Romeo (@SuperV1234)
