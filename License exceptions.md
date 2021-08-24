@@ -1,6 +1,6 @@
 Exceptions granted to the VVVVVV source code license
 -------
-Last updated on January 12th, 2020.
+Last updated on November 22nd, 2020.
 
 VVVVVV's source code is made available under a [custom license](LICENSE.md), which states that you must not distribute any materials from the game (i.e. the game's assets) which are not included in this repo unless approved by us in writing. The following is a list of projects which have been given permission by Terry to distribute the assets with distributions of the game, and under what conditions.
 
