@@ -29,6 +29,17 @@ Note that on some systems, the `SDL2_LIBRARIES` list on Windows may need
 SDL2/SDL2main/SDL2_mixer to have `.lib` at the end of them. The reason for this
 inconsistency is unknown.
 
+Also note that if you're using a Visual Studio later than 2010, you will need to
+change the `-G` string accordingly; otherwise you will get a weird cryptic
+error. Refer to the list below:
+
+- VS 2012: `"Visual Studio 11 2012"`
+- VS 2013: `"Visual Studio 12 2013"`
+- VS 2015: `"Visual Studio 14 2015"`
+- VS 2017: `"Visual Studio 15 2017"`
+- VS 2019: `"Visual Studio 16 2019"`
+- VS 2022: `"Visual Studio 17 2022"`
+
 To generate everywhere else:
 ```
 mkdir flibitBuild
