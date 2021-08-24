@@ -82,7 +82,7 @@ static const char* patrons[] = {
     "Timothy Bragan",
 };
 
-/* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by last name */
+/* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by first name */
 static const char* githubfriends[] = {
     "Misa \"Info Teddy\" Kai",
     "",
