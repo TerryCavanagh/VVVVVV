@@ -120,7 +120,7 @@ static const char* githubfriends[] = {
 };
 
 /* Calculate credits length, finally. */
-static const int creditmaxposition = 1050 + (10 * (
+static const int creditmaxposition = 1040 + (10 * (
     SDL_arraysize(superpatrons) + SDL_arraysize(patrons) + SDL_arraysize(githubfriends)
 ));
 
