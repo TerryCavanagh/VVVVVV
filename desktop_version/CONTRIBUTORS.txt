@@ -11,6 +11,7 @@ Contributors
 * Dav999 (Dav999-v)
 * Allison Fleischer (AllisonFleischer)
 * Malte Grimm (@trelbutate)
+* Misa Elizabeth Kai (@InfoTeddy)
 * KyoZM (@lsaa)
 * Daniel Lee (@ddm999)
 * Fredrik Ljungdahl (@FredrIQ)
@@ -25,7 +26,6 @@ Contributors
 * Keith Stellyes (@keithstellyes)
 * Elijah Stone
 * Thomas Sänger (@HorayNarea)
-* Info Teddy (@InfoTeddy)
 * Pierre-Alain TORET (@daftaupe)
 * Jules de Sartiges (@strikersh)
 * leo60228 (@leo60228)
