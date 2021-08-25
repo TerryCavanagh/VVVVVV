@@ -3565,6 +3565,10 @@ void scriptclass::hardreset(void)
 	scriptdelay = 0;
 	scriptname = "null";
 	running = false;
+	for (size_t ii = 0; ii < SDL_arraysize(words); ++ii)
+	{
+		words[ii] = "";
+	}
 }
 
 void scriptclass::loadcustom(const std::string& t)
