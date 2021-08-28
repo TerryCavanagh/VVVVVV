@@ -114,7 +114,7 @@ void preloaderrender(void)
   }else if (pre_transition < 20) {
     pre_temprecty = 0;
     pre_temprecth = 240;
-    FillRect(graphics.backBuffer, pre_temprectx, pre_temprecty, pre_temprectw,pre_temprecth, 0x000000);
+    ClearSurface(graphics.backBuffer);
     FillRect(graphics.backBuffer, pre_frontrectx, pre_frontrecty, pre_frontrectw,pre_frontrecth, graphics.getBGR(0x3E,0x31,0xA2));
 
     graphics.Print(282-(15*8), 204, "LOADING... 100%", 124, 112, 218, false);
