@@ -126,7 +126,7 @@ endif()
 
 # Executable information
 if(WIN32)
-	add_executable(VVVVVV WIN32 ${VVV_SRC})
+	add_executable(VVVVVV WIN32 ${VVV_SRC} icon.rc)
 else()
 	add_executable(VVVVVV ${VVV_SRC})
 endif()
