@@ -3076,8 +3076,8 @@ void editorrender(void)
     else
     {
         //Draw boundaries
-        if(room->enemyx1!=0 && room->enemyy1!=0
-                && room->enemyx2!=320 && room->enemyy2!=240)
+        if(room->enemyx1!=0 || room->enemyy1!=0
+                || room->enemyx2!=320 || room->enemyy2!=240)
         {
             fillboxabs( room->enemyx1, room->enemyy1,
                        room->enemyx2-room->enemyx1,
@@ -3085,8 +3085,8 @@ void editorrender(void)
                        graphics.getBGR(255-(help.glow/2),64,64));
         }
 
-        if(room->platx1!=0 && room->platy1!=0
-                && room->platx2!=320 && room->platy2!=240)
+        if(room->platx1!=0 || room->platy1!=0
+                || room->platx2!=320 || room->platy2!=240)
         {
             fillboxabs( room->platx1, room->platy1,
                        room->platx2-room->platx1,
