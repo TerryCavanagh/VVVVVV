@@ -3041,9 +3041,9 @@ Uint32 Graphics::bigchunkygetcol(int t)
     switch (t)
     {
     case 1:
-        return getBGR((fRandom() * 64), 10, 10);
+        return getRGB((fRandom() * 64), 10, 10);
     case 2:
-        return getBGR(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
+        return getRGB(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
     }
     return 0x00000000;
 }
@@ -3254,11 +3254,6 @@ Uint32 Graphics::getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 }
 
 Uint32 Graphics::getRGB(Uint8 r, Uint8 g, Uint8 b)
-{
-    return SDL_MapRGB(backBuffer->format, r, g, b);
-}
-
-Uint32 Graphics::getBGR(Uint8 r, Uint8 g, Uint8 b)
 {
     return SDL_MapRGB(backBuffer->format, r, g, b);
 }

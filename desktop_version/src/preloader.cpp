@@ -95,7 +95,7 @@ void preloaderrender(void)
       }
     }
 
-    FillRect(graphics.backBuffer, pre_frontrectx, pre_frontrecty, pre_frontrectw,pre_frontrecth, graphics.getBGR(0x3E,0x31,0xA2));
+    FillRect(graphics.backBuffer, pre_frontrectx, pre_frontrecty, pre_frontrectw,pre_frontrecth, graphics.getRGB(0x3E,0x31,0xA2));
 
     if(pre_fakepercent==100){
       graphics.Print(282-(15*8), 204, "LOADING... " + help.String(int(pre_fakepercent))+"%", 124, 112, 218, false);
@@ -115,7 +115,7 @@ void preloaderrender(void)
     pre_temprecty = 0;
     pre_temprecth = 240;
     ClearSurface(graphics.backBuffer);
-    FillRect(graphics.backBuffer, pre_frontrectx, pre_frontrecty, pre_frontrectw,pre_frontrecth, graphics.getBGR(0x3E,0x31,0xA2));
+    FillRect(graphics.backBuffer, pre_frontrectx, pre_frontrecty, pre_frontrectw,pre_frontrecth, graphics.getRGB(0x3E,0x31,0xA2));
 
     graphics.Print(282-(15*8), 204, "LOADING... 100%", 124, 112, 218, false);
   }

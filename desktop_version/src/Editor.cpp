@@ -607,7 +607,7 @@ void editorrender(void)
                 if(customentities[i].p1==1) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow, false);
                 if(customentities[i].p1==2) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "<", 255, 255, 255 - help.glow, false);
                 if(customentities[i].p1==3) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, ">", 255, 255, 255 - help.glow, false);
-                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getBGR(255,164,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(255,164,255));
                 break;
             case 2: //Threadmills & platforms
                 if (!INBOUNDS_VEC(obj.customplatformtile, graphics.entcolours))
@@ -631,18 +631,18 @@ void editorrender(void)
                     if(customentities[i].p1==1) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "^", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
                     if(customentities[i].p1==2) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
                     if(customentities[i].p1==3) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), ">", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getRGB(255,255,255));
                 }
 
                 if(customentities[i].p1==5)
                 {
                     graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), ">>>>", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getRGB(255,255,255));
                 }
                 else if(customentities[i].p1==6)
                 {
                     graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), "<<<<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getRGB(255,255,255));
                 }
 
                 if(customentities[i].p1>=7)
@@ -662,12 +662,12 @@ void editorrender(void)
                 if(customentities[i].p1==7)
                 {
                     graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8), "> > > > ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),64,8,graphics.getBGR(255,255,255));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),64,8,graphics.getRGB(255,255,255));
                 }
                 else if(customentities[i].p1==8)
                 {
                     graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8), "< < < < ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),64,8,graphics.getBGR(255,255,255));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),64,8,graphics.getRGB(255,255,255));
                 }
                 break;
             case 3: //Disappearing Platform
@@ -687,7 +687,7 @@ void editorrender(void)
                 }
 
                 graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), "////", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getBGR(255,255,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getRGB(255,255,255));
                 break;
             case 9: //Shiny Trinket
                 graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),22,196,196,196);
@@ -894,7 +894,7 @@ void editorrender(void)
             fillboxabs( room->enemyx1, room->enemyy1,
                        room->enemyx2-room->enemyx1,
                        room->enemyy2-room->enemyy1,
-                       graphics.getBGR(255-(help.glow/2),64,64));
+                       graphics.getRGB(255-(help.glow/2),64,64));
         }
 
         if(room->platx1!=0 || room->platy1!=0
@@ -903,7 +903,7 @@ void editorrender(void)
             fillboxabs( room->platx1, room->platy1,
                        room->platx2-room->platx1,
                        room->platy2-room->platy1,
-                       graphics.getBGR(64,64,255-(help.glow/2)));
+                       graphics.getRGB(64,64,255-(help.glow/2)));
         }
     }
 
@@ -1139,7 +1139,7 @@ void editorrender(void)
     else if(ed.scripteditmod)
     {
         //Elaborate C64 BASIC menu goes here!
-        FillRect(graphics.backBuffer, 0,0,320,240, graphics.getBGR(123, 111, 218));
+        FillRect(graphics.backBuffer, 0,0,320,240, graphics.getRGB(123, 111, 218));
         FillRect(graphics.backBuffer, 14,16,292,208, graphics.getRGB(61, 48, 162));
         switch(ed.scripthelppage)
         {
