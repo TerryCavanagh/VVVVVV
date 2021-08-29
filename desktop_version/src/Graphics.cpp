@@ -3038,41 +3038,14 @@ void Graphics::setcol( int t )
 
 void Graphics::menuoffrender(void)
 {
-	SDL_Rect offsetRect1;
-	setRect (offsetRect1, 0, 0, backBuffer->w ,backBuffer->h);
+	const int usethisoffset = lerp(oldmenuoffset, menuoffset);
+	SDL_Rect offsetRect = {0, usethisoffset, backBuffer->w, backBuffer->h};
 
-	//put the back buffer in the menubuffer
 	BlitSurfaceStandard(backBuffer, NULL, menubuffer, NULL);
+	BlitSurfaceStandard(tempBuffer, NULL, backBuffer, NULL);
+	BlitSurfaceStandard(menubuffer, NULL, backBuffer, &offsetRect);
 
-
-
-	int usethisoffset = lerp(oldmenuoffset, menuoffset);
-	if(flipmode)
-	{
-		SDL_Surface* tempbufferFlipped = FlipSurfaceVerticle(tempBuffer);
-		//put the stored backbuffer in the backbuffer.
-		ClearSurface(backBuffer);
-		BlitSurfaceStandard(tempbufferFlipped, NULL, backBuffer, NULL);
-		SDL_FreeSurface(tempbufferFlipped);
-		SDL_Rect offsetRect;
-		setRect (offsetRect, 0, -usethisoffset, backBuffer->w ,backBuffer->h);
-		SDL_Surface* temp = FlipSurfaceVerticle(menubuffer);
-		BlitSurfaceStandard(temp,NULL,backBuffer,&offsetRect);
-		SDL_FreeSurface(temp);
-	}
-	else
-	{
-		//put the stored backbuffer in the backbuffer.
-		BlitSurfaceStandard(tempBuffer, NULL, backBuffer, NULL);
-
-		SDL_Rect offsetRect;
-		setRect (offsetRect, 0, usethisoffset, backBuffer->w ,backBuffer->h);
-		BlitSurfaceStandard(menubuffer,NULL,backBuffer,&offsetRect);
-	}
-
-	SDL_Rect rect;
-	setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-	screenbuffer->UpdateScreen(backBuffer,&rect);
+	screenbuffer->UpdateScreen(backBuffer, NULL);
 	ClearSurface(backBuffer);
 }
 
@@ -3192,20 +3165,8 @@ void Graphics::flashlight(void)
 
 void Graphics::screenshake(void)
 {
-	if(flipmode)
-	{
-		SDL_Rect shakeRect;
-		setRect(shakeRect,screenshake_x, screenshake_y, backBuffer->w, backBuffer->h);
-		SDL_Surface* flipBackBuffer = FlipSurfaceVerticle(backBuffer);
-		screenbuffer->UpdateScreen( flipBackBuffer, &shakeRect);
-		SDL_FreeSurface(flipBackBuffer);
-	}
-	else
-	{
-		SDL_Rect shakeRect;
-		setRect(shakeRect,screenshake_x, screenshake_y, backBuffer->w, backBuffer->h);
-		screenbuffer->UpdateScreen( backBuffer, &shakeRect);
-	}
+	SDL_Rect shakeRect = {screenshake_x, screenshake_y, backBuffer->w, backBuffer->h};
+	screenbuffer->UpdateScreen(backBuffer, &shakeRect);
 
 	ClearSurface(backBuffer);
 }
@@ -3218,27 +3179,12 @@ void Graphics::updatescreenshake(void)
 
 void Graphics::render(void)
 {
-	if(screenbuffer == NULL)
+	if (screenbuffer == NULL)
 	{
 		return;
 	}
-	if(flipmode)
-	{
-		SDL_Rect rect;
-		setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-		SDL_Surface* tempsurface = FlipSurfaceVerticle(backBuffer);
-		if(tempsurface != NULL)
-		{
-			screenbuffer->UpdateScreen( tempsurface, &rect);
-			SDL_FreeSurface(tempsurface);
-		}
-	}
-	else
-	{
-		SDL_Rect rect;
-		setRect(rect, 0, 0, backBuffer->w, backBuffer->h);
-		screenbuffer->UpdateScreen( backBuffer, &rect);
-	}
+
+	screenbuffer->UpdateScreen(backBuffer, NULL);
 }
 
 void Graphics::renderwithscreeneffects(void)

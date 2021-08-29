@@ -750,7 +750,7 @@ static void inline deltaloop(void)
         {
             implfunc->func();
 
-            gameScreen.FlipScreen();
+            gameScreen.FlipScreen(graphics.flipmode);
         }
     }
 }
@@ -781,7 +781,7 @@ static void unfocused_run(void)
 #undef FLIP
     }
     graphics.render();
-    gameScreen.FlipScreen();
+    gameScreen.FlipScreen(graphics.flipmode);
     //We are minimised, so lets put a bit of a delay to save CPU
 #ifndef __EMSCRIPTEN__
     SDL_Delay(100);

@@ -20,7 +20,7 @@ public:
 	void GetWindowSize(int* x, int* y);
 
 	void UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect);
-	void FlipScreen(void);
+	void FlipScreen(bool flipmode);
 
 	const SDL_PixelFormat* GetFormat(void);
 

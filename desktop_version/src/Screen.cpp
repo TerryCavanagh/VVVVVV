@@ -306,19 +306,32 @@ const SDL_PixelFormat* Screen::GetFormat(void)
 	return m_screen->format;
 }
 
-void Screen::FlipScreen(void)
+void Screen::FlipScreen(const bool flipmode)
 {
+	SDL_RendererFlip flip_flags;
+	if (flipmode)
+	{
+		flip_flags = SDL_FLIP_VERTICAL;
+	}
+	else
+	{
+		flip_flags = SDL_FLIP_NONE;
+	}
+
 	SDL_UpdateTexture(
 		m_screenTexture,
 		NULL,
 		m_screen->pixels,
 		m_screen->pitch
 	);
-	SDL_RenderCopy(
+	SDL_RenderCopyEx(
 		m_renderer,
 		m_screenTexture,
 		isFiltered ? &filterSubrect : NULL,
-		NULL
+		NULL,
+		0.0,
+		NULL,
+		flip_flags
 	);
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);
