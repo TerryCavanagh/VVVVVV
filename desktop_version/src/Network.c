@@ -56,7 +56,7 @@ static NetworkBackend backends[NUM_BACKENDS];
 
 int NETWORK_init(void)
 {
-	int32_t any = 0;
+	int32_t i, any = 0;
 	#define ASSIGN_BACKEND(name, index) \
 		backends[index].Init = name##_init; \
 		backends[index].Shutdown = name##_shutdown; \
@@ -72,7 +72,6 @@ int NETWORK_init(void)
 	#endif
 	#undef ASSIGN_BACKEND
 	#if NUM_BACKENDS > 0
-	int32_t i;
 	for (i = 0; i < NUM_BACKENDS; i += 1)
 	{
 		backends[i].IsInit = backends[i].Init();
