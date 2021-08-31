@@ -1798,28 +1798,10 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "createlastrescued")
 			{
-				int crew_color = 1;
-				switch (game.lastsaved)
+				r = graphics.crewcolour(game.lastsaved);
+				if (r <= 1)
 				{
-				case 2:
-					r = 14;
-					crew_color = YELLOW;
-					break;
-				case 3:
-					r = 15;
-					crew_color = RED;
-					break;
-				case 4:
-					r = 13;
-					crew_color = GREEN;
-					break;
-				case 5:
-					r = 16;
-					crew_color = BLUE;
-					break;
-				default:
-					r = 19;
-					break;
+					r = GRAY; // Default to gray if invalid color.
 				}
 
 				obj.createentity(200, 153, 18, r, 0, 19, 30);

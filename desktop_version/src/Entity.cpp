@@ -2856,7 +2856,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 11)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(PURPLE); //purple
+                int j=getcrewman(PURPLE);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2881,7 +2881,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 12)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(YELLOW); //yellow
+                int j=getcrewman(YELLOW);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2906,7 +2906,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 13)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(RED); //red
+                int j=getcrewman(RED);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2931,7 +2931,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 14)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(GREEN); //green
+                int j=getcrewman(GREEN);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
@@ -2956,7 +2956,7 @@ bool entityclass::updateentities( int i )
             else if (entities[i].state == 15)
             {
                 //11-15 means to follow a specific character, in crew order (cyan, purple, yellow, red, green, blue)
-                int j=getcrewman(BLUE); //blue
+                int j=getcrewman(BLUE);
                 if (INBOUNDS_VEC(j, entities))
                 {
                     if (entities[j].xp > entities[i].xp + 5)
