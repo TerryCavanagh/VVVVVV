@@ -3563,6 +3563,8 @@ void scriptclass::hardreset(void)
 		}
 	}
 
+	obj.customscript = "";
+
 	//Script Stuff
 	position = 0;
 	commands.clear();
