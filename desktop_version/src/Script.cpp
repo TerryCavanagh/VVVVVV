@@ -1799,7 +1799,7 @@ void scriptclass::run(void)
 			else if (words[0] == "createlastrescued")
 			{
 				r = graphics.crewcolour(game.lastsaved);
-				if (r <= 1)
+				if (r == 1 || r == PURPLE)
 				{
 					r = GRAY; // Default to gray if invalid color.
 				}
