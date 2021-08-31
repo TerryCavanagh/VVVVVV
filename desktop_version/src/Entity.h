@@ -20,6 +20,18 @@ enum
     ACTIVITY = 5
 };
 
+enum
+{
+    CYAN = 0,
+    PURPLE = 20,
+    YELLOW = 14,
+    RED = 15,
+    GREEN = 13,
+    BLUE = 16,
+    GRAY = 19,
+    TELEPORTER = 102
+};
+
 class entityclass
 {
 public:
@@ -72,8 +84,6 @@ public:
 
     bool gridmatch(int p1, int p2, int p3, int p4, int p11, int p21, int p31, int p41);
 
-    int crewcolour(int t);
-
     void createentity(int xp, int yp, int t, int meta1, int meta2,
                       int p1, int p2, int p3, int p4);
     void createentity(int xp, int yp, int t, int meta1, int meta2,
@@ -98,7 +108,7 @@ public:
 
     int getlineat(int t);
 
-    int getcrewman(int t);
+    int getcrewman(int t, int fallback = 0);
     int getcustomcrewman(int t);
 
     int getteleporter(void);

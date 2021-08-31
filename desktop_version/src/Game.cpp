@@ -3630,7 +3630,7 @@ void Game::updatestate(void)
                 }
                 obj.entities[i].invis = false;
                 obj.entities[i].dir = 1;
-                obj.entities[i].colour = obj.crewcolour(lastsaved);
+                obj.entities[i].colour = graphics.crewcolour(lastsaved);
 
                 obj.entities[i].ay = -6;
                 obj.entities[i].ax = 6;

@@ -3176,12 +3176,12 @@ void Graphics::textboxcentery(void)
 int Graphics::crewcolour(const int t)
 {
 	//given crewmate t, return colour in setcol
-	if (t == 0) return 0;
-	if (t == 1) return 20;
-	if (t == 2) return 14;
-	if (t == 3) return 15;
-	if (t == 4) return 13;
-	if (t == 5) return 16;
+	if (t == 0) return CYAN;
+	if (t == 1) return PURPLE;
+	if (t == 2) return YELLOW;
+	if (t == 3) return RED;
+	if (t == 4) return GREEN;
+	if (t == 5) return BLUE;
 	return 0;
 }
 

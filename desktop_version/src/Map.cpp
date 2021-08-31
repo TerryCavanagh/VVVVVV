@@ -2005,7 +2005,7 @@ void mapclass::loadlevel(int rx, int ry)
 			{
 				//A slight varation - she's upside down
 				obj.createentity(249, 62, 18, 16, 0, 18);
-				int j = obj.getcrewman(5);
+				int j = obj.getcrewman(BLUE);
 				if (INBOUNDS_VEC(j, obj.entities))
 				{
 					obj.entities[j].rule = 7;
