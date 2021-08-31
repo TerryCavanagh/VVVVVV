@@ -24,7 +24,7 @@ ScreenSettings::ScreenSettings(void)
 	windowWidth = 320;
 	windowHeight = 240;
 	fullscreen = false;
-	useVsync = false;
+	useVsync = true; // Now that uncapped is the default...
 	stretch = 0;
 	linearFilter = false;
 	badSignal = false;
