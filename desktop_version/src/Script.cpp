@@ -3592,6 +3592,9 @@ void scriptclass::hardreset(void)
 	{
 		words[ii] = "";
 	}
+
+    obj.customactivitycolour = "";
+    obj.customactivitytext = "";
 }
 
 void scriptclass::loadcustom(const std::string& t)
