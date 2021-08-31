@@ -6874,7 +6874,7 @@ void Game::returntoingame(void)
         gamestate = MAPMODE;
         DEFER_CALLBACK(setflipmode);
         DEFER_CALLBACK(setfademode);
-        if (!map.custommode && !graphics.flipmode)
+        if (!map.custommode && !graphics.setflipmode)
         {
             obj.flags[73] = true;
         }
