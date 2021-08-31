@@ -2182,10 +2182,13 @@ void gameinput(void)
                 }
             }
 
-            if (obj.entities[ie].onground > 0) {
-              any_onground = true;
-            } else if (obj.entities[ie].onroof > 0) {
-              any_onroof = true;
+            if (obj.entities[ie].onground > 0)
+            {
+                any_onground = true;
+            }
+            else if (obj.entities[ie].onroof > 0)
+            {
+                any_onroof = true;
             }
         }
     }
