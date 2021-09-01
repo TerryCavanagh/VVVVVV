@@ -77,6 +77,8 @@ int NETWORK_init(void)
 		backends[i].IsInit = backends[i].Init();
 		any |= backends[i].IsInit;
 	}
+	#else
+	UNUSED(i);
 	#endif
 	return any;
 }
