@@ -562,13 +562,11 @@ bool FILESYSTEM_mountAssets(const char* path)
 
 				MAYBE_FAIL(graphics.reloadresources());
 			}
-#if 0 /* flibit removed this because it was noisy, maybe keep for debug? */
 			else
 			{
 				/* Wasn't a level zip, base zip, or folder! */
-				vlog_info("Asset directory does not exist");
+				vlog_debug("Asset directory does not exist");
 			}
-#endif
 		}
 	}
 
@@ -588,12 +586,10 @@ void FILESYSTEM_unmountAssets(void)
 		assetDir[0] = '\0';
 		graphics.reloadresources();
 	}
-#if 0 /* flibit removed this because it was noisy, maybe keep for debug? */
 	else
 	{
-		vlog_info("Cannot unmount when no asset directory is mounted");
+		vlog_debug("Cannot unmount when no asset directory is mounted");
 	}
-#endif
 }
 
 static void getMountedPath(
@@ -844,7 +840,7 @@ fail:
 		return false;
 	}
 
-	vlog_info("The complete reloaded file size: %lli", size);
+	vlog_debug("The complete reloaded file size: %lli", size);
 
 	for (i = 0; i < SDL_arraysize(blob->m_headers); ++i)
 	{
@@ -855,7 +851,7 @@ fail:
 			continue;
 		}
 
-		vlog_info("%s unpacked", header->name);
+		vlog_debug("%s unpacked", header->name);
 	}
 
 	return true;
