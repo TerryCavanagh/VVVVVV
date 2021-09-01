@@ -361,6 +361,8 @@ int main(int argc, char *argv[])
     char* baseDir = NULL;
     char* assetsPath = NULL;
 
+    SDL_SetHintWithPriority(SDL_HINT_EMSCRIPTEN_ASYNCIFY, "false", SDL_HINT_OVERRIDE);
+
     for (int i = 1; i < argc; ++i)
     {
 #define ARG(name) (SDL_strcmp(argv[i], name) == 0)
