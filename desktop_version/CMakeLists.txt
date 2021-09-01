@@ -113,7 +113,7 @@ set(VVV_SRC
 	src/Network.c
 	src/ThirdPartyDeps.c
 	src/Xoshiro.c
-	../third_party/physfs/physfsrwops.c
+	../third_party/physfs/extras/physfsrwops.c
 )
 if(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
 	list(APPEND VVV_SRC src/editor.cpp)
@@ -139,6 +139,7 @@ if(BUNDLE_DEPENDENCIES)
 		src
 		../third_party/tinyxml2
 		../third_party/physfs
+		../third_party/physfs/extras
 		../third_party/lodepng
 		../third_party/utfcpp/source
 	)
@@ -147,6 +148,7 @@ else()
 		VVVVVV PRIVATE
 		src
 		../third_party/lodepng
+		../third_party/physfs/extras
 	)
 endif()
 
