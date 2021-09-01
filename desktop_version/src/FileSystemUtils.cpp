@@ -903,6 +903,8 @@ bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 		return false;
 	}
 
+	close(dirFd);
+
 	emscripten_async_call(FILESYSTEM_fsync, (void*) (intptr_t) fileFd, 0);
 #endif
 
