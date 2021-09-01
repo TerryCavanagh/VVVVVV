@@ -445,6 +445,7 @@ static void menurender(void)
         graphics.Print( -1, 110, "C++ version by", tr, tg, tb, true);
         graphics.bigprint( 40, 125, "Simon Roth", tr, tg, tb, true);
         graphics.bigprint( 40, 145, "Ethan Lee", tr, tg, tb, true);
+        graphics.bigprint( 40, 165, "Misa Kai", tr, tg, tb, true);
         break;
     case Menu::credits25:
         graphics.Print( -1, 40, "Beta Testing by", tr, tg, tb, true);
@@ -506,19 +507,8 @@ static void menurender(void)
 
         int xofs, yofs;
 
-        if (startidx == 0)
-        {
-            graphics.Print(-1, 60, Credits::githubfriends[0], tr, tg, tb, true);
-            graphics.Print(-1, 80, Credits::githubfriends[2], tr, tg, tb, true);
-            startidx += 4; // Skip the superfriends now that we've drawn them...
-            xofs = 80 - 28;
-            yofs = 80 + 20 + (emptyspace / 2);
-        }
-        else
-        {
-            xofs = 80 - 16;
-            yofs = 40 + 20 + (emptyspace / 2);
-        }
+        xofs = 80 - 16;
+        yofs = 40 + 20 + (emptyspace / 2);
 
         for (int i = startidx; i < endidx; ++i)
         {
@@ -1564,30 +1554,31 @@ void gamecompleterender(void)
         graphics.bigprint(60, 650 + position, "Bennett Foddy", tr, tg, tb);
     }
 
-    if (graphics.onscreen(680 + position))
+    if (graphics.onscreen(710 + position))
     {
         graphics.Print(40, 680 + position, "C++ Port by", tr, tg, tb);
         graphics.bigprint(60, 690 + position, "Simon Roth", tr, tg, tb);
         graphics.bigprint(60, 710 + position, "Ethan Lee", tr, tg, tb);
+        graphics.bigprint(60, 730 + position, "Misa Kai", tr, tg, tb);
     }
 
 
-    if (graphics.onscreen(740 + position))
+    if (graphics.onscreen(760 + position))
     {
-        graphics.Print(40, 740 + position, "Beta Testing by", tr, tg, tb);
-        graphics.bigprint(60, 750 + position, "Sam Kaplan", tr, tg, tb);
-        graphics.bigprint(60, 770 + position, "Pauli Kohberger", tr, tg, tb);
+        graphics.Print(40, 760 + position, "Beta Testing by", tr, tg, tb);
+        graphics.bigprint(60, 770 + position, "Sam Kaplan", tr, tg, tb);
+        graphics.bigprint(60, 790 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (graphics.onscreen(800 + position))
+    if (graphics.onscreen(820 + position))
     {
-        graphics.Print(40, 800 + position, "Ending Picture by", tr, tg, tb);
-        graphics.bigprint(60, 810 + position, "Pauli Kohberger", tr, tg, tb);
+        graphics.Print(40, 820 + position, "Ending Picture by", tr, tg, tb);
+        graphics.bigprint(60, 830 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
-    if (graphics.onscreen(890 + position)) graphics.bigprint( -1, 870 + position, "Patrons", tr, tg, tb, true, 3);
+    if (graphics.onscreen(910 + position)) graphics.bigprint( -1, 890 + position, "Patrons", tr, tg, tb, true, 3);
 
-    int creditOffset = 930;
+    int creditOffset = 950;
 
     for (size_t i = 0; i < SDL_arraysize(Credits::superpatrons); i += 1)
     {

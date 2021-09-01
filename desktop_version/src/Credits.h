@@ -82,12 +82,9 @@ static const char* patrons[] = {
     "Timothy Bragan",
 };
 
-/* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by first name */
+/* CONTRIBUTORS.txt, again listed alphabetically (according to `sort`) by first name
+ * Misa is special; she gets to be listed in C++ credits alongside Ethan */
 static const char* githubfriends[] = {
-    "Misa \"Info Teddy\" Kai",
-    "",
-    "and",
-    "",
     "AlexApps99",
     "Allison Fleischer",
     "AllyTally",
