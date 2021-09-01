@@ -47,6 +47,11 @@ void vlog_init(void)
     }
 }
 
+void vlog_toggle_color(const int enable_color)
+{
+    color_enabled = enable_color;
+}
+
 int vlog_info(const char* text, ...)
 {
     va_list list;

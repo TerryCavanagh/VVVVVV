@@ -432,6 +432,14 @@ int main(int argc, char *argv[])
                 playassets = "levels/" + std::string(argv[i]) + ".vvvvvv";
             })
         }
+        else if (ARG("-forcecolor") || ARG("-forcecolour"))
+        {
+            vlog_toggle_color(1);
+        }
+        else if (ARG("-nocolor") || ARG("-nocolour"))
+        {
+            vlog_toggle_color(0);
+        }
 #undef ARG_INNER
 #undef ARG
         else

@@ -8,6 +8,8 @@ extern "C"
 
 void vlog_init(void);
 
+void vlog_toggle_color(int enable_color);
+
 int vlog_info(const char* text, ...);
 
 int vlog_warn(const char* text, ...);
