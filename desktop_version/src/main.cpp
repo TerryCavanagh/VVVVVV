@@ -444,6 +444,10 @@ int main(int argc, char *argv[])
         {
             vlog_toggle_color(0);
         }
+        else if (ARG("-debug"))
+        {
+            vlog_toggle_debug(1);
+        }
         else if (ARG("-noinfo"))
         {
             vlog_toggle_info(0);

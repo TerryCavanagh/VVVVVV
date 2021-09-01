@@ -22,9 +22,11 @@
 #define Color_BOLD COLOR("\x1b[1m")
 #define Color_BOLD_YELLOW COLOR("\x1b[1;33m")
 #define Color_BOLD_RED COLOR("\x1b[1;31m")
+#define Color_BOLD_GRAY COLOR("\x1b[1;90m")
 
 static int output_enabled = 1;
 static int color_enabled = 0;
+static int debug_enabled = 0;
 static int info_enabled = 1;
 static int warn_enabled = 1;
 static int error_enabled = 1;
@@ -61,6 +63,11 @@ void vlog_toggle_color(const int enable_color)
     color_enabled = enable_color;
 }
 
+void vlog_toggle_debug(const int enable_debug)
+{
+    debug_enabled = enable_debug;
+}
+
 void vlog_toggle_info(const int enable_info)
 {
     info_enabled = enable_info;
@@ -74,6 +81,30 @@ void vlog_toggle_warn(const int enable_warn)
 void vlog_toggle_error(const int enable_error)
 {
     error_enabled = enable_error;
+}
+
+int vlog_debug(const char* text, ...)
+{
+    va_list list;
+    int retval;
+
+    if (!output_enabled || !debug_enabled)
+    {
+        return 0;
+    }
+
+    printf(Color_BOLD_GRAY);
+    printf("[DEBUG]");
+    printf(Color_RESET);
+    printf(" ");
+
+    va_start(list, text);
+    retval = vprintf(text, list);
+    va_end(list);
+
+    putchar('\n');
+
+    return retval;
 }
 
 int vlog_info(const char* text, ...)
