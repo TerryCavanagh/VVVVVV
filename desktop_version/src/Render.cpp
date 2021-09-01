@@ -1572,7 +1572,7 @@ void gamecompleterender(void)
     }
 
 
-    if (graphics.onscreen(740 + position))
+    if (graphics.onscreen(750 + position))
     {
         graphics.Print(40, 740 + position, "Beta Testing by", tr, tg, tb);
         graphics.bigprint(60, 750 + position, "Sam Kaplan", tr, tg, tb);
