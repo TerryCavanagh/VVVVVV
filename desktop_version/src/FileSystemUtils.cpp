@@ -25,7 +25,14 @@ int mkdir(char* path, int mode)
 	MultiByteToWideChar(CP_UTF8, 0, path, -1, utf16_path, MAX_PATH);
 	return CreateDirectoryW(utf16_path, NULL);
 }
-#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__) || defined(__EMSCRIPTEN__) || defined(__unix__)
+#elif defined(__EMSCRIPTEN__)
+#include <limits.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <emscripten.h>
+#define MAX_PATH PATH_MAX
+#elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__) || defined(__unix__)
 #include <limits.h>
 #include <sys/stat.h>
 #define MAX_PATH PATH_MAX
@@ -860,6 +867,14 @@ fail:
 	return true;
 }
 
+#ifdef __EMSCRIPTEN__
+static void FILESYSTEM_fsync(void* arg) {
+	int fd = (int) (intptr_t) arg;
+	fsync(fd);
+	close(fd);
+}
+#endif
+
 bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 {
 	/* XMLDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
@@ -872,6 +887,25 @@ bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 	}
 	PHYSFS_writeBytes(handle, printer.CStr(), printer.CStrSize() - 1); // subtract one because CStrSize includes terminating null
 	PHYSFS_close(handle);
+
+#ifdef __EMSCRIPTEN__
+	const char* writeDir = PHYSFS_getWriteDir();
+
+	int dirFd = open(writeDir, O_DIRECTORY | O_RDONLY);
+	if (dirFd == -1)
+	{
+		return false;
+	}
+
+	int fileFd = openat(dirFd, name, O_RDWR);
+	if (fileFd == -1)
+	{
+		return false;
+	}
+
+	emscripten_async_call(FILESYSTEM_fsync, (void*) (intptr_t) fileFd, 0);
+#endif
+
 	return true;
 }
 
