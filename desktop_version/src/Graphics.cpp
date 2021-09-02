@@ -1017,20 +1017,7 @@ void Graphics::drawgui(void)
 
             FillRect(backBuffer, textrect, textbox[i].r/6, textbox[i].g/6, textbox[i].b / 6 );
 
-            drawcoloredtile(textbox[i].xp, yp, 40, textbox[i].r, textbox[i].g, textbox[i].b);
-            drawcoloredtile(textbox[i].xp+textbox[i].w-8, yp, 42, textbox[i].r, textbox[i].g, textbox[i].b);
-            drawcoloredtile(textbox[i].xp, yp+textbox[i].h-8, 45, textbox[i].r, textbox[i].g, textbox[i].b);
-            drawcoloredtile(textbox[i].xp+textbox[i].w-8, yp+textbox[i].h-8, 47, textbox[i].r, textbox[i].g, textbox[i].b);
-            for (int k = 0; k < textbox[i].lw; k++)
-            {
-                drawcoloredtile(textbox[i].xp + 8 + (k * 8), yp, 41, textbox[i].r, textbox[i].g, textbox[i].b);
-                drawcoloredtile(textbox[i].xp + 8 + (k * 8), yp+textbox[i].h-8, 46, textbox[i].r, textbox[i].g, textbox[i].b);
-            }
-            for (size_t k = 0; k < textbox[i].line.size(); k++)
-            {
-                drawcoloredtile(textbox[i].xp, yp + 8 + (k * 8), 43, textbox[i].r, textbox[i].g, textbox[i].b);
-                drawcoloredtile(textbox[i].xp + textbox[i].w-8, yp + 8 + (k * 8), 44, textbox[i].r, textbox[i].g, textbox[i].b);
-            }
+            drawtextbox(textbox[i].xp, yp, textbox[i].w/8, textbox[i].h/8, textbox[i].r, textbox[i].g, textbox[i].b);
 
             for (size_t j = 0; j < textbox[i].line.size(); j++)
             {
