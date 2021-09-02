@@ -6888,8 +6888,15 @@ void Game::unlockAchievement(const char *name) {
 #endif
 }
 
-void Game::mapmenuchange(const int newgamestate)
+void Game::mapmenuchange(const int newgamestate, const bool user_initiated)
 {
+    if (user_initiated
+    && graphics.menuoffset > 0
+    && graphics.menuoffset < (map.extrarow ? 230 : 240))
+    {
+        return;
+    }
+
     prevgamestate = gamestate;
     gamestate = newgamestate;
     graphics.resumegamemode = false;

@@ -245,7 +245,7 @@ public:
     int tapleft, tapright;
 
     //Menu interaction stuff
-    void mapmenuchange(const int newgamestate);
+    void mapmenuchange(const int newgamestate, const bool user_initiated);
     bool mapheld;
     int menupage;
     int lastsaved;
