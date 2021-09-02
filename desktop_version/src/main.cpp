@@ -143,7 +143,7 @@ static const inline struct ImplFunc* get_gamestate_funcs(
     FUNC_LIST_END
 
     FUNC_LIST_BEGIN(TELEPORTERMODE)
-        {Func_fixed, maprenderfixed},
+        {Func_fixed, teleporterrenderfixed},
         {Func_delta, teleporterrender},
         {Func_input, teleportermodeinput},
         {Func_fixed, maplogic},
