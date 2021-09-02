@@ -879,7 +879,14 @@ bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 	PHYSFS_close(handle);
 
 #ifdef __EMSCRIPTEN__
-	EM_ASM(FS.syncfs(false, function(err) { if (err) abort(err); }));
+	EM_ASM(FS.syncfs(false, function(err)
+	{
+		if (err)
+		{
+			console.warn("Error saving:", err);
+			alert("Error saving. Check console for more information.");
+		}
+	}));
 #endif
 
 	return true;
