@@ -2260,7 +2260,7 @@ void gameinput(void)
                 game.gravitycontrol = 1;
                 for (size_t ie = 0; ie < obj.entities.size(); ++ie)
                 {
-                    if (obj.entities[ie].rule == 0 && obj.entities[ie].onground)
+                    if (obj.entities[ie].rule == 0 && (obj.entities[ie].onground > 0 || obj.entities[ie].onroof > 0))
                     {
                         obj.entities[ie].vy = -4;
                         obj.entities[ie].ay = -3;
@@ -2275,7 +2275,7 @@ void gameinput(void)
                 game.gravitycontrol = 0;
                 for (size_t ie = 0; ie < obj.entities.size(); ++ie)
                 {
-                    if (obj.entities[ie].rule == 0 && obj.entities[ie].onroof)
+                    if (obj.entities[ie].rule == 0 && (obj.entities[ie].onground > 0 || obj.entities[ie].onroof > 0))
                     {
                         obj.entities[ie].vy = 4;
                         obj.entities[ie].ay = 3;
