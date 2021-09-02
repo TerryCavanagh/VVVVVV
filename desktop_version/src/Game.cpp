@@ -4312,7 +4312,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
     }
 }
 
-bool Game::savestats(void)
+bool Game::savestats(bool sync /*= true*/)
 {
     if (graphics.screenbuffer == NULL)
     {
@@ -4322,10 +4322,10 @@ bool Game::savestats(void)
     ScreenSettings screen_settings;
     graphics.screenbuffer->GetSettings(&screen_settings);
 
-    return savestats(&screen_settings);
+    return savestats(&screen_settings, sync);
 }
 
-bool Game::savestats(const ScreenSettings* screen_settings)
+bool Game::savestats(const ScreenSettings* screen_settings, bool sync /*= true*/)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
@@ -4406,12 +4406,12 @@ bool Game::savestats(const ScreenSettings* screen_settings)
 
     serializesettings(dataNode, screen_settings);
 
-    return FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc);
+    return FILESYSTEM_saveTiXml2Document("saves/unlock.vvv", doc, sync);
 }
 
 bool Game::savestatsandsettings(void)
 {
-    const bool stats_saved = savestats();
+    const bool stats_saved = savestats(false);
 
     const bool settings_saved = savesettings();
 
