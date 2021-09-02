@@ -156,8 +156,8 @@ public:
 
     void loadstats(ScreenSettings* screen_settings);
 
-    bool savestats(const ScreenSettings* screen_settings);
-    bool savestats(void);
+    bool savestats(const ScreenSettings* screen_settings, bool sync = true);
+    bool savestats(bool sync = true);
 
     void deletestats(void);
 

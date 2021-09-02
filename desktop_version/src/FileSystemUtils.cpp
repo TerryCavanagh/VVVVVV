@@ -865,7 +865,7 @@ fail:
 	return true;
 }
 
-bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
+bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc, bool sync /*= true*/)
 {
 	/* XMLDocument.SaveFile doesn't account for Unicode paths, PHYSFS does */
 	tinyxml2::XMLPrinter printer;
@@ -879,14 +879,17 @@ bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 	PHYSFS_close(handle);
 
 #ifdef __EMSCRIPTEN__
-	EM_ASM(FS.syncfs(false, function(err)
+	if (sync)
 	{
-		if (err)
+		EM_ASM(FS.syncfs(false, function(err)
 		{
-			console.warn("Error saving:", err);
-			alert("Error saving. Check console for more information.");
-		}
-	}));
+			if (err)
+			{
+				console.warn("Error saving:", err);
+				alert("Error saving. Check console for more information.");
+			}
+		}));
+	}
 #endif
 
 	return true;
