@@ -231,9 +231,6 @@ void musicclass::play(int t)
 		return;
 	}
 
-	m_doFadeInVol = false;
-	m_doFadeOutVol = false;
-
 	if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_mmmmmm_tracks || currentsong == 7+num_mmmmmm_tracks)))
 	{
 		// Level Complete theme, no fade in or repeat
@@ -243,6 +240,8 @@ void musicclass::play(int t)
 		}
 		else
 		{
+			m_doFadeInVol = false;
+			m_doFadeOutVol = false;
 			musicVolume = MIX_MAX_VOLUME;
 			Mix_VolumeMusic(musicVolume);
 		}
@@ -271,6 +270,8 @@ void musicclass::play(int t)
 		}
 		else
 		{
+			m_doFadeInVol = false;
+			m_doFadeOutVol = false;
 			fadeMusicVolumeIn(3000);
 		}
 	}
