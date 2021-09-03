@@ -100,7 +100,6 @@ public:
 	void drawtextbox(int x, int y, int w, int h, int r, int g, int b);
 
 	void drawpixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo);
-	void drawcustompixeltextbox(int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo);
 
 	void drawcrewman(int x, int y, int t, bool act, bool noshift =false);
 

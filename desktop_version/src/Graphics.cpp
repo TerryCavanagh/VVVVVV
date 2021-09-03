@@ -1326,41 +1326,6 @@ void Graphics::drawpixeltextbox( int x, int y, int w, int h, int w2, int h2, int
     drawcoloredtile(x + (w) - 8, y + (h) - 8, 47, r, g, b);
 }
 
-void Graphics::drawcustompixeltextbox( int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo )
-{
-    //given these parameters, draw a textbox with a pixel width
-
-    FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
-
-    for (int k = 0; k < w2-2; k++)
-    {
-        drawcoloredtile(x + 8-xo + (k * 8), y, 41, r, g, b);
-        drawcoloredtile(x + 8-xo + (k * 8), y + (h) - 8, 46, r, g, b);
-    }
-
-
-    drawcoloredtile(x+ (w) - 16, y, 41, r, g, b);
-    drawcoloredtile(x+ (w) - 16, y + (h) - 8, 46, r, g, b);
-    drawcoloredtile(x+ (w) - 24, y, 41, r, g, b);
-    drawcoloredtile(x+ (w) - 24, y + (h) - 8, 46, r, g, b);
-
-    for (int k = 0; k < h2-2; k++)
-    {
-        drawcoloredtile(x, y + 8-yo + (k * 8), 43, r, g, b);
-        drawcoloredtile(x + (w) - 8, y + 8-yo + (k * 8), 44, r, g, b);
-    }
-
-    drawcoloredtile(x, y + (h) - 16, 43, r, g, b);
-    drawcoloredtile(x + (w) - 8, y + (h) - 16, 44, r, g, b);
-    drawcoloredtile(x, y + (h) - 24, 43, r, g, b);
-    drawcoloredtile(x + (w) - 8, y + (h) - 24, 44, r, g, b);
-
-    drawcoloredtile(x, y, 40, r, g, b);
-    drawcoloredtile(x + (w) - 8, y, 42, r, g, b);
-    drawcoloredtile(x, y + (h) - 8, 45, r, g, b);
-    drawcoloredtile(x + (w) - 8, y + (h) - 8, 47, r, g, b);
-}
-
 void Graphics::drawtextbox( int x, int y, int w, int h, int r, int g, int b )
 {
     //given these parameters, draw a textbox
