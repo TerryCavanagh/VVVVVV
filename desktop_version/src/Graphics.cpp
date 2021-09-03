@@ -1013,10 +1013,6 @@ void Graphics::drawgui(void)
         }
         else
         {
-            SDL_Rect textrect = {textbox[i].xp, yp, textbox[i].w, textbox[i].h};
-
-            FillRect(backBuffer, textrect, textbox[i].r/6, textbox[i].g/6, textbox[i].b / 6 );
-
             drawtextbox(textbox[i].xp, yp, textbox[i].w/8, textbox[i].h/8, textbox[i].r, textbox[i].g, textbox[i].b);
 
             for (size_t j = 0; j < textbox[i].line.size(); j++)
