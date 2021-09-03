@@ -1296,16 +1296,16 @@ void Graphics::drawpixeltextbox( int x, int y, int w, int h, int w2, int h2, int
     //madrect.x = x; madrect.y = y; madrect.w = w; madrect.h = h;
     FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
 
-    for (int k = 0; k < w2-2; k++)
+    for (int k = 0; k < w/8-2; k++)
     {
-        drawcoloredtile(x + 8-xo + (k * 8), y, 41, r, g, b);
-        drawcoloredtile(x + 8-xo + (k * 8), y + (h) - 8, 46, r, g, b);
+        drawcoloredtile(x + 8 + (k * 8), y, 41, r, g, b);
+        drawcoloredtile(x + 8 + (k * 8), y + (h) - 8, 46, r, g, b);
     }
 
-    for (int k = 0; k < h2-2; k++)
+    for (int k = 0; k < h/8-2; k++)
     {
-        drawcoloredtile(x, y + 8-yo + (k * 8), 43, r, g, b);
-        drawcoloredtile(x + (w) - 8, y + 8-yo + (k * 8), 44, r, g, b);
+        drawcoloredtile(x, y + 8 + (k * 8), 43, r, g, b);
+        drawcoloredtile(x + (w) - 8, y + 8 + (k * 8), 44, r, g, b);
     }
 
     drawcoloredtile(x, y, 40, r, g, b);
