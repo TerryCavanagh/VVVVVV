@@ -1328,25 +1328,7 @@ void Graphics::drawpixeltextbox( int x, int y, int w, int h, int r, int g, int b
 
 void Graphics::drawtextbox( int x, int y, int w, int h, int r, int g, int b )
 {
-    //given these parameters, draw a textbox
-    FillRect(backBuffer,x,y,w*8,h*8, r/6, g/6, b/6 );
-
-    drawcoloredtile(x, y, 40, r, g, b);
-    drawcoloredtile(x + (w*8) - 8, y, 42, r, g, b);
-    drawcoloredtile(x, y + (h*8) - 8, 45, r, g, b);
-    drawcoloredtile(x + (w*8) - 8, y + (h*8) - 8, 47, r, g, b);
-
-    for (int k = 0; k < w-2; k++)
-    {
-        drawcoloredtile(x + 8 + (k * 8), y, 41, r, g, b);
-        drawcoloredtile(x + 8 + (k * 8), y + (h * 8) - 8, 46, r, g, b);
-    }
-
-    for (int k = 0; k < h-2; k++)
-    {
-        drawcoloredtile(x, y + 8 + (k * 8), 43, r, g, b);
-        drawcoloredtile(x + (w * 8) - 8, y + 8 + (k * 8), 44, r, g, b);
-    }
+    return drawpixeltextbox(x, y, w*8, h*8, r, g, b);
 }
 
 void Graphics::textboxactive(void)
