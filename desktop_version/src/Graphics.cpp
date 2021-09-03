@@ -1289,7 +1289,7 @@ void Graphics::drawcrewman( int x, int y, int t, bool act, bool noshift /*=false
     }
 }
 
-void Graphics::drawpixeltextbox( int x, int y, int w, int h, int w2, int h2, int r, int g, int b, int xo, int yo )
+void Graphics::drawpixeltextbox( int x, int y, int w, int h, int r, int g, int b )
 {
     //given these parameters, draw a textbox with a pixel width
 
