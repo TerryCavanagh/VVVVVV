@@ -1289,45 +1289,63 @@ void Graphics::drawcrewman( int x, int y, int t, bool act, bool noshift /*=false
     }
 }
 
-void Graphics::drawpixeltextbox( int x, int y, int w, int h, int r, int g, int b )
-{
-    //given these parameters, draw a textbox with a pixel width
+void Graphics::drawpixeltextbox(
+    const int x,
+    const int y,
+    const int w,
+    const int h,
+    const int r,
+    const int g,
+    const int b
+) {
+    int k;
 
-    //madrect.x = x; madrect.y = y; madrect.w = w; madrect.h = h;
-    FillRect(backBuffer,x,y,w,h, r/6, g/6, b/6 );
+    FillRect(backBuffer, x, y, w, h, r/6, g/6, b/6);
 
-    for (int k = 0; k < w/8-2; k++)
+    /* Horizontal tiles */
+    for (k = 0; k < w/8 - 2; ++k)
     {
-        drawcoloredtile(x + 8 + (k * 8), y, 41, r, g, b);
-        drawcoloredtile(x + 8 + (k * 8), y + (h) - 8, 46, r, g, b);
+        drawcoloredtile(x + 8 + k*8, y, 41, r, g, b);
+        drawcoloredtile(x + 8 + k*8, y + h - 8, 46, r, g, b);
     }
 
     if (w % 8 != 0)
     {
+        /* Fill in horizontal gap */
         drawcoloredtile(x + w - 16, y, 41, r, g, b);
         drawcoloredtile(x + w - 16, y + h - 8, 46, r, g, b);
     }
 
-    for (int k = 0; k < h/8-2; k++)
+    /* Vertical tiles */
+    for (k = 0; k < h/8 - 2; ++k)
     {
-        drawcoloredtile(x, y + 8 + (k * 8), 43, r, g, b);
-        drawcoloredtile(x + (w) - 8, y + 8 + (k * 8), 44, r, g, b);
+        drawcoloredtile(x, y + 8 + k*8, 43, r, g, b);
+        drawcoloredtile(x + w - 8, y + 8 + k*8, 44, r, g, b);
     }
 
     if (h % 8 != 0)
     {
+        /* Fill in vertical gap */
         drawcoloredtile(x, y + h - 16, 43, r, g, b);
         drawcoloredtile(x + w - 8, y + h - 16, 44, r, g, b);
     }
 
+    /* Corners */
     drawcoloredtile(x, y, 40, r, g, b);
-    drawcoloredtile(x + (w) - 8, y, 42, r, g, b);
-    drawcoloredtile(x, y + (h) - 8, 45, r, g, b);
-    drawcoloredtile(x + (w) - 8, y + (h) - 8, 47, r, g, b);
+    drawcoloredtile(x + w - 8, y, 42, r, g, b);
+    drawcoloredtile(x, y + h - 8, 45, r, g, b);
+    drawcoloredtile(x + w - 8, y + h - 8, 47, r, g, b);
 }
 
-void Graphics::drawtextbox( int x, int y, int w, int h, int r, int g, int b )
-{
+void Graphics::drawtextbox(
+    const int x,
+    const int y,
+    const int w,
+    const int h,
+    const int r,
+    const int g,
+    const int b
+) {
     return drawpixeltextbox(x, y, w*8, h*8, r, g, b);
 }
 
