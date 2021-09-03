@@ -813,6 +813,10 @@ void Game::updatestate(void)
             if (!map.custommode && nocompetitive())
             {
                 returntolab();
+
+                startscript = true;
+                newscript = "disableaccessibility";
+
                 state = 0;
                 break;
             }
