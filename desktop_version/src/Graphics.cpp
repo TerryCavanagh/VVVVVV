@@ -1614,17 +1614,24 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
 }
 
 
-void Graphics::drawcoloredtile( int x, int y, int t, int r, int g, int b )
-{
+void Graphics::drawcoloredtile(
+    const int x,
+    const int y,
+    const int t,
+    const int r,
+    const int g,
+    const int b
+) {
+    SDL_Rect rect;
+
     if (!INBOUNDS_VEC(t, tiles))
     {
         return;
     }
-    setcolreal(getRGB(r,g,b));
 
-    SDL_Rect rect;
-    setRect(rect,x,y,tiles_rect.w,tiles_rect.h);
-    BlitSurfaceColoured(tiles[t],NULL, backBuffer, &rect, ct );
+    setcolreal(getRGB(r, g, b));
+    setRect(rect, x, y, tiles_rect.w, tiles_rect.h);
+    BlitSurfaceColoured(tiles[t], NULL, backBuffer, &rect, ct);
 }
 
 
