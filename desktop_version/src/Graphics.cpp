@@ -1302,10 +1302,22 @@ void Graphics::drawpixeltextbox( int x, int y, int w, int h, int w2, int h2, int
         drawcoloredtile(x + 8 + (k * 8), y + (h) - 8, 46, r, g, b);
     }
 
+    if (w % 8 != 0)
+    {
+        drawcoloredtile(x + w - 16, y, 41, r, g, b);
+        drawcoloredtile(x + w - 16, y + h - 8, 46, r, g, b);
+    }
+
     for (int k = 0; k < h/8-2; k++)
     {
         drawcoloredtile(x, y + 8 + (k * 8), 43, r, g, b);
         drawcoloredtile(x + (w) - 8, y + 8 + (k * 8), 44, r, g, b);
+    }
+
+    if (h % 8 != 0)
+    {
+        drawcoloredtile(x, y + h - 16, 43, r, g, b);
+        drawcoloredtile(x + w - 8, y + h - 16, 44, r, g, b);
     }
 
     drawcoloredtile(x, y, 40, r, g, b);
