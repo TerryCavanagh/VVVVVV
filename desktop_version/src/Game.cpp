@@ -6896,7 +6896,7 @@ void Game::mapmenuchange(const int newgamestate, const bool user_initiated)
 {
     if (user_initiated
     && graphics.menuoffset > 0
-    && graphics.menuoffset < (map.extrarow ? 230 : 240))
+    && graphics.menuoffset < 240)
     {
         return;
     }

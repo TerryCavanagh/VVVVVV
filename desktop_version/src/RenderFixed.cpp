@@ -205,7 +205,7 @@ void maprenderfixed(void)
         || !script.running)
         {
             graphics.menuoffset += 25;
-            int threshold = map.extrarow ? 230 : 240;
+            int threshold = 240;
             if (graphics.menuoffset >= threshold)
             {
                 graphics.menuoffset = threshold;
