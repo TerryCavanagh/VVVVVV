@@ -6894,9 +6894,7 @@ void Game::unlockAchievement(const char *name) {
 
 void Game::mapmenuchange(const int newgamestate, const bool user_initiated)
 {
-    if (user_initiated
-    && graphics.menuoffset > 0
-    && graphics.menuoffset < 240)
+    if (user_initiated && graphics.resumegamemode)
     {
         return;
     }
