@@ -213,6 +213,7 @@ void maprenderfixed(void)
                 //go back to gamemode!
                 game.mapheld = true;
                 game.gamestate = GAMEMODE;
+                graphics.resumegamemode = false;
             }
         }
         else
