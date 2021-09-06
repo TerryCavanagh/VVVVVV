@@ -6907,10 +6907,6 @@ void Game::mapmenuchange(const int newgamestate, const bool user_initiated)
     if (prevgamestate == GAMEMODE)
     {
         graphics.menuoffset = 240;
-        if (map.extrarow)
-        {
-            graphics.menuoffset -= 10;
-        }
     }
     else
     {
