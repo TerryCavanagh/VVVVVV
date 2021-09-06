@@ -363,6 +363,8 @@ void Game::init(void)
     disableaudiopause = false;
     disabletemporaryaudiopause = true;
     inputdelay = false;
+
+    respawncolour = 0;
 }
 
 void Game::lifesequence(void)
@@ -5198,6 +5200,10 @@ void Game::customloadquick(const std::string& savfile)
         {
             map.showtrinkets = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "respawncolour") == 0)
+        {
+            respawncolour = help.Int(pText);
+        }
 
     }
 
@@ -5669,6 +5675,8 @@ bool Game::customsavequick(const std::string& savfile)
     xml::update_tag(msgs, "disabletemporaryaudiopause", (int) disabletemporaryaudiopause);
 
     xml::update_tag(msgs, "showtrinkets", (int) map.showtrinkets);
+
+    xml::update_tag(msgs, "respawncolour", respawncolour);
 
     std::string summary = savearea + ", " + timestring();
     xml::update_tag(msgs, "summary", summary.c_str());

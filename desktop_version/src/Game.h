@@ -481,6 +481,8 @@ public:
     bool disableaudiopause;
     bool disabletemporaryaudiopause;
     bool inputdelay;
+
+    int respawncolour;
 };
 
 #ifndef GAME_DEFINITION

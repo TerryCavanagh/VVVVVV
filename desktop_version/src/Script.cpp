@@ -1672,6 +1672,10 @@ void scriptclass::run(void)
 					obj.entities[i].colour = getcolorfromname(words[1]);
 				}
 			}
+			else if (words[0] == "changerespawncolour")
+			{
+				game.respawncolour = getcolorfromname(words[1]);
+			}
 			else if (words[0] == "altstates")
 			{
 				obj.altstates = ss_toi(words[1]);
@@ -3183,6 +3187,8 @@ void scriptclass::hardreset(void)
 	game.act_fade = 5;
 
 	game.disabletemporaryaudiopause = true;
+
+	game.respawncolour = 0;
 
 	//dwgraphicsclass
 	graphics.backgrounddrawn = false;
