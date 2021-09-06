@@ -20,7 +20,6 @@ textboxclass::textboxclass(void)
     tr = 0;
     tg = 0;
     tb = 0;
-    max = 0;
 
     flipme = false;
 
@@ -111,7 +110,7 @@ void textboxclass::removefast(void)
 void textboxclass::resize(void)
 {
     //Set the width and height to the correct sizes
-    max = 0;
+    int max = 0;
     for (size_t iter = 0; iter < line.size(); iter++)
     {
         unsigned int len = utf8::unchecked::distance(line[iter].begin(), line[iter].end());

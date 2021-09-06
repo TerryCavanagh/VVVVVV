@@ -41,8 +41,6 @@ public:
     float prev_tl;
     int tm;
 
-    int max;
-
     /* Whether to flip text box y-position in Flip Mode. */
     bool flipme;
 
