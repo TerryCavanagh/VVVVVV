@@ -122,7 +122,7 @@ void editorclass::gethooks(void)
     }
 }
 
-void editorclass::loadhookineditor(std::string t)
+void editorclass::loadhookineditor(const std::string& t)
 {
     //Find hook t in the scriptclass, then load it into the editor
     clearscriptbuffer();
@@ -145,7 +145,7 @@ void editorclass::loadhookineditor(std::string t)
     }
 }
 
-void editorclass::addhooktoscript(std::string t)
+void editorclass::addhooktoscript(const std::string& t)
 {
     //Adds hook+the scriptbuffer to the end of the scriptclass
     removehookfromscript(t);
@@ -155,7 +155,7 @@ void editorclass::addhooktoscript(std::string t)
     script.customscripts.push_back(script_);
 }
 
-void editorclass::removehookfromscript(std::string t)
+void editorclass::removehookfromscript(const std::string& t)
 {
     /* Find hook t in the scriptclass, then removes it (and any other code with it)
      * When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
@@ -169,7 +169,7 @@ void editorclass::removehookfromscript(std::string t)
     }
 }
 
-void editorclass::removehook(std::string t)
+void editorclass::removehook(const std::string& t)
 {
     //Check the hooklist for the hook t. If it's there, remove it from here and the script
     size_t i;
@@ -184,7 +184,7 @@ void editorclass::removehook(std::string t)
     }
 }
 
-void editorclass::addhook(std::string t)
+void editorclass::addhook(const std::string& t)
 {
     //Add an empty function to the list in both editor and script
     removehook(t);
@@ -192,7 +192,7 @@ void editorclass::addhook(std::string t)
     addhooktoscript(t);
 }
 
-bool editorclass::checkhook(std::string t)
+bool editorclass::checkhook(const std::string& t)
 {
     //returns true if hook t already is in the list
     for(size_t i=0; i<hooklist.size(); i++)

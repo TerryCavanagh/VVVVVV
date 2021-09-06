@@ -80,7 +80,7 @@ public:
   
     void loadZips(void);
     void getDirectoryData(void);
-    bool getLevelMetaData(std::string& filename, LevelMetaData& _data );
+    bool getLevelMetaData(const std::string& filename, LevelMetaData& _data );
   
     void reset(void);
     const int* loadlevel(int rxi, int ryi);
@@ -117,7 +117,7 @@ public:
 
     bool load(std::string& _path);
 #ifndef NO_EDITOR
-    bool save(std::string& _path);
+    bool save(const std::string& _path);
 #endif
     void generatecustomminimap(void);
   

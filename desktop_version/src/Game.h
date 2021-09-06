@@ -121,7 +121,7 @@ public:
 
     void resetgameclock(void);
 
-    bool customsavequick(std::string savfile);
+    bool customsavequick(const std::string& savfile);
     bool savequick(void);
 
     void gameclock(void);
@@ -196,7 +196,7 @@ public:
 
     void deathsequence(void);
 
-    void customloadquick(std::string savfile);
+    void customloadquick(const std::string& savfile);
     void loadquick(void);
 
     void customdeletequick(const std::string& file);

@@ -545,11 +545,11 @@ void Graphics::do_print(
     }
 }
 
-void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ ) {
+void Graphics::Print( int _x, int _y, const std::string& _s, int r, int g, int b, bool cen /*= false*/ ) {
     return PrintAlpha(_x,_y,_s,r,g,b,255,cen);
 }
 
-void Graphics::PrintAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
+void Graphics::PrintAlpha( int _x, int _y, const std::string& _s, int r, int g, int b, int a, bool cen /*= false*/ )
 {
     if (cen)
         _x = ((160 ) - ((len(_s)) / 2));
@@ -671,7 +671,7 @@ void Graphics::PrintWrap(
 }
 
 
-void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, bool cen, int sc )
+void Graphics::bigprint(  int _x, int _y, const std::string& _s, int r, int g, int b, bool cen, int sc )
 {
     if (cen)
     {
@@ -681,7 +681,7 @@ void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, b
     return do_print(_x, _y, _s, r, g, b, 255, sc);
 }
 
-void Graphics::bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen, int sc)
+void Graphics::bigbprint(int x, int y, const std::string& s, int r, int g, int b, bool cen, int sc)
 {
     if (!notextoutline)
     {
@@ -703,10 +703,10 @@ void Graphics::bigbprint(int x, int y, std::string s, int r, int g, int b, bool 
     bigprint(x, y, s, r, g, b, cen, sc);
 }
 
-int Graphics::len(std::string t)
+int Graphics::len(const std::string& t)
 {
     int bfontpos = 0;
-    std::string::iterator iter = t.begin();
+    std::string::const_iterator iter = t.begin();
     while (iter != t.end()) {
         int cur = utf8::unchecked::next(iter);
         bfontpos += bfontlen(cur);
@@ -714,11 +714,11 @@ int Graphics::len(std::string t)
     return bfontpos;
 }
 
-void Graphics::bprint( int x, int y, std::string t, int r, int g, int b, bool cen /*= false*/ ) {
+void Graphics::bprint( int x, int y, const std::string& t, int r, int g, int b, bool cen /*= false*/ ) {
     bprintalpha(x,y,t,r,g,b,255,cen);
 }
 
-void Graphics::bprintalpha( int x, int y, std::string t, int r, int g, int b, int a, bool cen /*= false*/ )
+void Graphics::bprintalpha( int x, int y, const std::string& t, int r, int g, int b, int a, bool cen /*= false*/ )
 {
     if (!notextoutline)
     {
@@ -1370,7 +1370,7 @@ void Graphics::textboxtimer( int t )
     textbox[m].timer=t;
 }
 
-void Graphics::addline( std::string t )
+void Graphics::addline( const std::string& t )
 {
     if (!INBOUNDS_VEC(m, textbox))
     {
@@ -1394,7 +1394,7 @@ void Graphics::textboxadjust(void)
 
 
 void Graphics::createtextboxreal(
-    std::string t,
+    const std::string& t,
     int xp,
     int yp,
     int r,
@@ -1420,7 +1420,7 @@ void Graphics::createtextboxreal(
 }
 
 void Graphics::createtextbox(
-    std::string t,
+    const std::string& t,
     int xp,
     int yp,
     int r,
@@ -1431,7 +1431,7 @@ void Graphics::createtextbox(
 }
 
 void Graphics::createtextboxflipme(
-    std::string t,
+    const std::string& t,
     int xp,
     int yp,
     int r,
@@ -3184,7 +3184,7 @@ void Graphics::renderfixedpost(void)
 	}
 }
 
-void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen, float sc)
+void Graphics::bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen, float sc)
 {
 	x = x /  (sc);
 
@@ -3202,7 +3202,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 	return do_print(x, y, t, r, g, b, 255, sc);
 }
 
-void Graphics::bigbrprint(int x, int y, std::string& s, int r, int g, int b, bool cen, float sc)
+void Graphics::bigbrprint(int x, int y, const std::string& s, int r, int g, int b, bool cen, float sc)
 {
 	if (!notextoutline)
 	{

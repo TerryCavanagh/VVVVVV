@@ -246,7 +246,7 @@ void customlevelclass::getDirectoryData(void)
     }
 
 }
-bool customlevelclass::getLevelMetaData(std::string& _path, LevelMetaData& _data )
+bool customlevelclass::getLevelMetaData(const std::string& _path, LevelMetaData& _data )
 {
     unsigned char *uMem;
     FILESYSTEM_loadFileToMemory(_path.c_str(), &uMem, NULL, true);
@@ -1264,7 +1264,7 @@ fail:
 }
 
 #ifndef NO_EDITOR
-bool customlevelclass::save(std::string& _path)
+bool customlevelclass::save(const std::string& _path)
 {
     tinyxml2::XMLDocument doc;
 

@@ -107,7 +107,7 @@ void textboxclass::resize(void)
     h = (line.size() + 2) * 8;
 }
 
-void textboxclass::addline(std::string t)
+void textboxclass::addline(const std::string& t)
 {
     line.push_back(t);
     resize();

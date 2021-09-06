@@ -149,14 +149,14 @@ public:
     int pagey;
 
     //Functions for interfacing with the script:
-    void addhook(std::string t);
-    void removehook(std::string t);
-    void addhooktoscript(std::string t);
-    void removehookfromscript(std::string t);
-    void loadhookineditor(std::string t);
+    void addhook(const std::string& t);
+    void removehook(const std::string& t);
+    void addhooktoscript(const std::string& t);
+    void removehookfromscript(const std::string& t);
+    void loadhookineditor(const std::string& t);
     void clearscriptbuffer(void);
     void gethooks(void);
-    bool checkhook(std::string t);
+    bool checkhook(const std::string& t);
     std::vector<std::string> hooklist;
 
     int hookmenupage, hookmenu;

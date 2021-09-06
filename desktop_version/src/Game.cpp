@@ -5012,7 +5012,7 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
 
 }
 
-void Game::customloadquick(std::string savfile)
+void Game::customloadquick(const std::string& savfile)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -5541,7 +5541,7 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 }
 
 
-bool Game::customsavequick(std::string savfile)
+bool Game::customsavequick(const std::string& savfile)
 {
     const std::string levelfile = savfile.substr(7);
 

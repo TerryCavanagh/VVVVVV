@@ -25,7 +25,7 @@ public:
 
     void resize(void);
 
-    void addline(std::string t);
+    void addline(const std::string& t);
 public:
     //Fundamentals
     std::vector<std::string> line;
