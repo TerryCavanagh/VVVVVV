@@ -477,44 +477,84 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     }
 }
 
+static void print_char(
+    SDL_Surface* const buffer,
+    SDL_Surface* const font,
+    const int x,
+    const int y,
+    const int scale,
+    colourTransform& ct
+) {
+    SDL_Rect font_rect = {x, y, 8*scale, 8*scale};
+    SDL_Surface* surface;
+
+    if (scale > 1)
+    {
+        surface = ScaleSurface(font, 8 * scale, 8 * scale);
+        if (surface == NULL)
+        {
+            return;
+        }
+    }
+    else
+    {
+        surface = font;
+    }
+
+    BlitSurfaceColoured(surface, NULL, buffer, &font_rect, ct);
+
+    if (scale > 1)
+    {
+        SDL_FreeSurface(surface);
+    }
+}
+
+void Graphics::do_print(
+    const int x,
+    const int y,
+    const std::string& text,
+    int r,
+    int g,
+    int b,
+    int a,
+    const int scale
+) {
+    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
+
+    int position = 0;
+    std::string::const_iterator iter = text.begin();
+
+    r = clamp(r, 0, 255);
+    g = clamp(g, 0, 255);
+    b = clamp(b, 0, 255);
+    a = clamp(a, 0, 255);
+
+    ct.colour = getRGBA(r, g, b, a);
+
+    while (iter != text.end())
+    {
+        const uint32_t character = utf8::unchecked::next(iter);
+        const int idx = font_idx(character);
+
+        if (INBOUNDS_VEC(idx, font))
+        {
+            print_char(backBuffer, font[idx], x + position, y, scale, ct);
+        }
+
+        position += bfontlen(character) * scale;
+    }
+}
+
 void Graphics::Print( int _x, int _y, std::string _s, int r, int g, int b, bool cen /*= false*/ ) {
     return PrintAlpha(_x,_y,_s,r,g,b,255,cen);
 }
 
 void Graphics::PrintAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
 {
-    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
-
-    r = clamp(r,0,255);
-    g = clamp(g,0,255);
-    b = clamp(b,0,255);
-    a = clamp(a,0,255);
-
-    ct.colour = getRGBA(r, g, b, a);
-
     if (cen)
         _x = ((160 ) - ((len(_s)) / 2));
-    int bfontpos = 0;
-    int curr;
-    int idx;
-    std::string::iterator iter = _s.begin();
-    while (iter != _s.end()) {
-        curr = utf8::unchecked::next(iter);
-        point tpoint;
-        tpoint.x = _x + bfontpos;
-        tpoint.y = _y;
 
-        SDL_Rect fontRect = bfont_rect;
-        fontRect.x = tpoint.x ;
-        fontRect.y = tpoint.y ;
-
-        idx = font_idx(curr);
-        if (INBOUNDS_VEC(idx, font))
-        {
-            BlitSurfaceColoured( font[idx], NULL, backBuffer, &fontRect , ct);
-        }
-        bfontpos+=bfontlen(curr) ;
-    }
+    return do_print(_x, _y, _s, r, g, b, a, 1);
 }
 
 bool Graphics::next_wrap(
@@ -633,36 +673,12 @@ void Graphics::PrintWrap(
 
 void Graphics::bigprint(  int _x, int _y, std::string _s, int r, int g, int b, bool cen, int sc )
 {
-    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
-
-    r = clamp(r,0,255);
-    g = clamp(g,0,255);
-    b = clamp(b,0,255);
-
-    ct.colour = getRGB(r, g, b);
-
     if (cen)
     {
         _x = VVV_max(160 - (int((len(_s)/ 2.0)*sc)), 0 );
     }
 
-    int bfontpos = 0;
-    int curr;
-    int idx;
-    std::string::iterator iter = _s.begin();
-    while (iter != _s.end()) {
-        curr = utf8::unchecked::next(iter);
-
-        idx = font_idx(curr);
-        if (INBOUNDS_VEC(idx, font))
-        {
-            SDL_Surface* tempPrint = ScaleSurface(font[idx], font[idx]->w *sc,font[idx]->h *sc);
-            SDL_Rect printrect = {_x + bfontpos, _y, bfont_rect.w*sc + 1, bfont_rect.h*sc + 1};
-            BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
-            SDL_FreeSurface(tempPrint);
-        }
-        bfontpos+=bfontlen(curr) *sc;
-    }
+    return do_print(_x, _y, _s, r, g, b, 255, sc);
 }
 
 void Graphics::bigbprint(int x, int y, std::string s, int r, int g, int b, bool cen, int sc)
@@ -698,41 +714,6 @@ int Graphics::len(std::string t)
     return bfontpos;
 }
 
-void Graphics::PrintOffAlpha( int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen /*= false*/ )
-{
-    std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
-
-    r = clamp(r,0,255);
-    g = clamp(g,0,255);
-    b = clamp(b,0,255);
-    a = clamp(a,0,255);
-
-    ct.colour = getRGB(r, g, b);
-
-    if (cen)
-        _x = ((160) - (len(_s) / 2))+_x;
-    int bfontpos = 0;
-    int idx;
-    std::string::iterator iter = _s.begin();
-    while (iter != _s.end()) {
-        int curr = utf8::unchecked::next(iter);
-        point tpoint;
-        tpoint.x = _x + bfontpos;
-        tpoint.y = _y;
-
-        SDL_Rect fontRect = bfont_rect;
-        fontRect.x = tpoint.x ;
-        fontRect.y = tpoint.y ;
-
-        idx = font_idx(curr);
-        if (INBOUNDS_VEC(idx, font))
-        {
-            BlitSurfaceColoured( font[idx], NULL, backBuffer, &fontRect , ct);
-        }
-        bfontpos+=bfontlen(curr) ;
-    }
-}
-
 void Graphics::bprint( int x, int y, std::string t, int r, int g, int b, bool cen /*= false*/ ) {
     bprintalpha(x,y,t,r,g,b,255,cen);
 }
@@ -744,8 +725,9 @@ void Graphics::bprintalpha( int x, int y, std::string t, int r, int g, int b, in
         PrintAlpha(x, y - 1, t, 0, 0, 0, a, cen);
         if (cen)
         {
-            PrintOffAlpha(-1, y, t, 0, 0, 0, a, cen);
-            PrintOffAlpha(1, y, t, 0, 0, 0, a, cen);
+            const int x_cen = 160 - len(t)/2;
+            PrintAlpha(x_cen - 1, y, t, 0, 0, 0, a, cen);
+            PrintAlpha(x_cen + 1, y, t, 0, 0, 0, a, cen);
         }
         else
         {
@@ -3204,13 +3186,6 @@ void Graphics::renderfixedpost(void)
 
 void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool cen, float sc)
 {
-	std::vector<SDL_Surface*>& font = flipmode ? flipbfont : bfont;
-
-	r = clamp(r, 0, 255);
-	g = clamp(g, 0, 255);
-	b = clamp(b, 0, 255);
-	ct.colour = getRGB(r, g, b);
-
 	x = x /  (sc);
 
 	x -= (len(t));
@@ -3224,22 +3199,7 @@ void Graphics::bigrprint(int x, int y, std::string& t, int r, int g, int b, bool
 		x *=  (sc);
 	}
 
-	int bfontpos = 0;
-	int cur;
-	int idx;
-	std::string::iterator iter = t.begin();
-	while (iter != t.end()) {
-		cur = utf8::unchecked::next(iter);
-		idx = font_idx(cur);
-		if (INBOUNDS_VEC(idx, font))
-		{
-			SDL_Surface* tempPrint = ScaleSurface(font[idx], font[idx]->w *sc,font[idx]->h *sc);
-			SDL_Rect printrect = {x + bfontpos, y, (int) (bfont_rect.w * sc), (int) (bfont_rect.h * sc)};
-			BlitSurfaceColoured(tempPrint, NULL, backBuffer, &printrect, ct);
-			SDL_FreeSurface(tempPrint);
-		}
-		bfontpos+=bfontlen(cur)* sc;
-	}
+	return do_print(x, y, t, r, g, b, 255, sc);
 }
 
 void Graphics::bigbrprint(int x, int y, std::string& s, int r, int g, int b, bool cen, float sc)

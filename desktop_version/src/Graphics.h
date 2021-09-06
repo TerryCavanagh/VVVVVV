@@ -131,6 +131,8 @@ public:
 
 	void map_option(int opt, int num_opts, const std::string& text, bool selected = false);
 
+	void do_print(int x, int y, const std::string& text, int r, int g, int b, int a, int scale);
+
 	void Print(int _x, int _y, std::string _s, int r, int g, int b, bool cen = false);
 
 	void PrintAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
@@ -140,8 +142,6 @@ public:
 	bool next_wrap_s(char buffer[], size_t buffer_size, size_t* start, const char* str, int maxwidth);
 
 	void PrintWrap(int x, int y, const char* str, int r, int g, int b, bool cen, int linespacing, int maxwidth);
-
-	void PrintOffAlpha(int _x, int _y, std::string _s, int r, int g, int b, int a, bool cen = false);
 
 	void bprint(int x, int y, std::string t, int r, int g, int b, bool cen = false);
 
