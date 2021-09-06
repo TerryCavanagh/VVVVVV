@@ -966,6 +966,8 @@ void Graphics::drawgui(void)
     int text_sign;
     int crew_yp;
     int crew_sprite;
+    size_t i;
+
     if (flipmode)
     {
         text_sign = -1;
@@ -980,7 +982,7 @@ void Graphics::drawgui(void)
     }
 
     //Draw all the textboxes to the screen
-    for (size_t i = 0; i<textbox.size(); i++)
+    for (i = 0; i<textbox.size(); i++)
     {
         int text_yoff;
         int yp;
@@ -1006,16 +1008,19 @@ void Graphics::drawgui(void)
 
         if (textbox[i].tr == 0 && textbox[i].tg == 0 && textbox[i].tb == 0)
         {
-            for (size_t j = 0; j < textbox[i].line.size(); j++)
+            size_t j;
+            for (j = 0; j < textbox[i].line.size(); j++)
             {
                 bprint(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
             }
         }
         else
         {
+            size_t j;
+
             drawtextbox(textbox[i].xp, yp, textbox[i].w/8, textbox[i].h/8, textbox[i].r, textbox[i].g, textbox[i].b);
 
-            for (size_t j = 0; j < textbox[i].line.size(); j++)
+            for (j = 0; j < textbox[i].line.size(); j++)
             {
                 Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
             }
