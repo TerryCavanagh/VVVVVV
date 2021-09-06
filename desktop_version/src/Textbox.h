@@ -32,7 +32,7 @@ public:
 public:
     //Fundamentals
     std::vector<std::string> line;
-    int xp, yp, lw, w, h;
+    int xp, yp, w, h;
     int r,g,b;
     int tr,tg,tb;
     int timer;

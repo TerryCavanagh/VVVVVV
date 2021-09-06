@@ -6,7 +6,6 @@ textboxclass::textboxclass(void)
 {
     w = 0;
     h = 0;
-    lw = 0;
     tl = 0;
     prev_tl = 0;
     tm = 0;
@@ -117,7 +116,6 @@ void textboxclass::resize(void)
         if (len > (unsigned int)max) max = len;
     }
 
-    lw = max;
     w = (max +2) * 8;
     h = (line.size() + 2) * 8;
 }
