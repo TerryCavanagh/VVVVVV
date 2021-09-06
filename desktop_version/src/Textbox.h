@@ -17,8 +17,6 @@ public:
 
     void initcol(int rr, int gg, int bb);
 
-    void setcol(int rr, int gg, int bb);
-
     void update(void);
 
     void remove(void);
@@ -33,7 +31,6 @@ public:
     std::vector<std::string> line;
     int xp, yp, w, h;
     int r,g,b;
-    int tr,tg,tb;
     int timer;
 
     float tl;

@@ -1002,11 +1002,7 @@ void Graphics::drawgui(void)
             yp += 2 * (120 - yp) - 8 * (textbox[i].line.size() + 2);
         }
 
-        //This routine also updates textbox colors
-        float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
-        textbox[i].setcol(textbox[i].tr * tl_lerp, textbox[i].tg * tl_lerp, textbox[i].tb * tl_lerp);
-
-        if (textbox[i].tr == 0 && textbox[i].tg == 0 && textbox[i].tb == 0)
+        if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
         {
             size_t j;
             for (j = 0; j < textbox[i].line.size(); j++)
@@ -1016,13 +1012,17 @@ void Graphics::drawgui(void)
         }
         else
         {
+            const float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
+            const int r = textbox[i].r * tl_lerp;
+            const int g = textbox[i].g * tl_lerp;
+            const int b = textbox[i].b * tl_lerp;
             size_t j;
 
-            drawtextbox(textbox[i].xp, yp, textbox[i].w/8, textbox[i].h/8, textbox[i].r, textbox[i].g, textbox[i].b);
+            drawtextbox(textbox[i].xp, yp, textbox[i].w/8, textbox[i].h/8, r, g, b);
 
             for (j = 0; j < textbox[i].line.size(); j++)
             {
-                Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], textbox[i].r, textbox[i].g, textbox[i].b);
+                Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], r, g, b);
             }
         }
 
@@ -1033,7 +1033,7 @@ void Graphics::drawgui(void)
             continue;
         }
 
-        if (textbox[i].yp == 12 && textbox[i].tr == 165)
+        if (textbox[i].yp == 12 && textbox[i].r == 165)
         {
             if (flipmode)
             {
@@ -1044,7 +1044,7 @@ void Graphics::drawgui(void)
                 drawimage(0, 0, 12, true);
             }
         }
-        else if (textbox[i].yp == 12 && textbox[i].tg == 165)
+        else if (textbox[i].yp == 12 && textbox[i].g == 165)
         {
             if (flipmode)
             {
@@ -1055,27 +1055,27 @@ void Graphics::drawgui(void)
                 drawimage(4, 0, 12, true);
             }
         }
-        if (textbox[i].tr == 175 && textbox[i].tg == 175)
+        if (textbox[i].r == 175 && textbox[i].g == 175)
         {
             //purple guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 120- help.glow/4, 210 - help.glow/4);
         }
-        else if (textbox[i].tr == 175 && textbox[i].tb == 175)
+        else if (textbox[i].r == 175 && textbox[i].b == 175)
         {
             //red guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
         }
-        else if (textbox[i].tr == 175)
+        else if (textbox[i].r == 175)
         {
             //green guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - textbox[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
         }
-        else if (textbox[i].tg == 175)
+        else if (textbox[i].g == 175)
         {
             //yellow guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 210 - help.glow/4, 120- help.glow/4);
         }
-        else if (textbox[i].tb == 175)
+        else if (textbox[i].b == 175)
         {
             //blue guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textbox[i].rand);
@@ -1097,11 +1097,11 @@ void Graphics::updatetextboxes(void)
         }
 
         if (textbox[i].tl >= 1.0f
-        && ((textbox[i].tr == 175 && textbox[i].tg == 175)
-        || textbox[i].tr == 175
-        || textbox[i].tg == 175
-        || textbox[i].tb == 175)
-        && (textbox[i].tr != 175 || textbox[i].tb != 175))
+        && ((textbox[i].r == 175 && textbox[i].g == 175)
+        || textbox[i].r == 175
+        || textbox[i].g == 175
+        || textbox[i].b == 175)
+        && (textbox[i].r != 175 || textbox[i].b != 175))
         {
             textbox[i].rand = fRandom() * 20;
         }

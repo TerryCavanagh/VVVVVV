@@ -16,9 +16,6 @@ textboxclass::textboxclass(void)
     r = 0;
     g = 0;
     b = 0;
-    tr = 0;
-    tg = 0;
-    tb = 0;
 
     flipme = false;
 
@@ -50,20 +47,10 @@ void textboxclass::adjust(void)
 
 void textboxclass::initcol(int rr, int gg, int bb)
 {
-    tr = rr;
-    tg = gg;
-    tb = bb;
-    r = 0;
-    g = 0;
-    b = 0;
-    tl = 0.5;
-}
-
-void textboxclass::setcol(int rr, int gg, int bb)
-{
     r = rr;
     g = gg;
     b = bb;
+    tl = 0.5;
 }
 
 void textboxclass::update(void)
