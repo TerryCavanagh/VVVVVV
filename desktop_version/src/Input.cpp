@@ -1013,49 +1013,49 @@ static void menuactionpress(void)
     case Menu::unlockmenutrials:
         switch (game.currentmenuoption)
         {
-        case 0:   	//unlock 1
+        case 0:       //unlock 1
             game.unlock[9] = true;
             game.unlocknotify[9] = true;
             music.playef(11);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
-        case 1:   	//unlock 2
+        case 1:       //unlock 2
             game.unlock[10] = true;
             game.unlocknotify[10] = true;
             music.playef(11);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
-        case 2:   	//unlock 3
+        case 2:       //unlock 3
             game.unlock[11] = true;
             game.unlocknotify[11] = true;
             music.playef(11);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
-        case 3:   	//unlock 4
+        case 3:       //unlock 4
             game.unlock[12] = true;
             game.unlocknotify[12] = true;
             music.playef(11);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
-        case 4:   	//unlock 5
+        case 4:       //unlock 5
             game.unlock[13] = true;
             game.unlocknotify[13] = true;
             music.playef(11);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
-        case 5:   	//unlock 6
+        case 5:       //unlock 6
             game.unlock[14] = true;
             game.unlocknotify[14] = true;
             music.playef(11);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
-        case 6:   	//back
+        case 6:       //back
             //back
             music.playef(11);
             game.returnmenu();

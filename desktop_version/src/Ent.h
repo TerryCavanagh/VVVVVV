@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 
-#define		rn( rx,  ry) ((rx) + ((ry) * 100))
+#define        rn( rx,  ry) ((rx) + ((ry) * 100))
 
 class entclass
 {

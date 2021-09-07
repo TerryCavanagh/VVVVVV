@@ -6,8 +6,8 @@
 class spacestation2class
 {
 public:
-	const short* loadlevel(int rx, int ry);
-	std::string roomname;
+    const short* loadlevel(int rx, int ry);
+    std::string roomname;
 };
 
 #endif /* SPACESTATION2_H */

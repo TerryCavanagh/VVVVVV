@@ -1396,7 +1396,7 @@ void Game::updatestate(void)
 
         case 80:
             //Used to return to menu from the game
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 81:
             quittomenu();
@@ -1457,7 +1457,7 @@ void Game::updatestate(void)
             break;
         case 83:
             frames--;
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 84:
             quittomenu();
@@ -1534,7 +1534,7 @@ void Game::updatestate(void)
 
         case 96:
             //Used to return to gravitron to game
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 97:
             returntolab();
@@ -1941,7 +1941,7 @@ void Game::updatestate(void)
 #endif
         case 1014:
             frames--;
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 1015:
 #if !defined(NO_CUSTOM_LEVELS)
@@ -2571,7 +2571,7 @@ void Game::updatestate(void)
             break;
 
         case 3100:
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 3101:
             quittomenu();
@@ -2815,7 +2815,7 @@ void Game::updatestate(void)
             state++;
             break;
         case 3521:
-            if(graphics.fademode == 1)	state++;
+            if(graphics.fademode == 1)    state++;
             break;
         case 3522:
             copyndmresults();
