@@ -726,8 +726,8 @@ void Graphics::bprintalpha( int x, int y, const std::string& t, int r, int g, in
         if (cen)
         {
             const int x_cen = 160 - len(t)/2;
-            PrintAlpha(x_cen - 1, y, t, 0, 0, 0, a, cen);
-            PrintAlpha(x_cen + 1, y, t, 0, 0, 0, a, cen);
+            PrintAlpha(x_cen - 1, y, t, 0, 0, 0, a, false);
+            PrintAlpha(x_cen + 1, y, t, 0, 0, 0, a, false);
         }
         else
         {
