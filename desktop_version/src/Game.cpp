@@ -156,6 +156,7 @@ void Game::init(void)
     prevroomy = 0;
     saverx = 0;
     savery = 0;
+    savecolour = 0;
 
     mutebutton = 0;
     muted = false;
@@ -363,8 +364,6 @@ void Game::init(void)
     disableaudiopause = false;
     disabletemporaryaudiopause = true;
     inputdelay = false;
-
-    respawncolour = 0;
 }
 
 void Game::lifesequence(void)
@@ -5124,6 +5123,10 @@ void Game::customloadquick(const std::string& savfile)
         {
             savepoint = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "savecolour") == 0)
+        {
+            savecolour = help.Int(pText);
+        }
         else if (SDL_strcmp(pKey, "companion") == 0)
         {
             companion = help.Int(pText);
@@ -5199,10 +5202,6 @@ void Game::customloadquick(const std::string& savfile)
         else if (SDL_strcmp(pKey, "showtrinkets") == 0)
         {
             map.showtrinkets = help.Int(pText);
-        }
-        else if (SDL_strcmp(pKey, "respawncolour") == 0)
-        {
-            respawncolour = help.Int(pText);
         }
 
     }
@@ -5632,6 +5631,8 @@ bool Game::customsavequick(const std::string& savfile)
 
     xml::update_tag(msgs, "savepoint", savepoint);
 
+    xml::update_tag(msgs, "savecolour", savecolour);
+
     xml::update_tag(msgs, "trinkets", trinkets());
 
     xml::update_tag(msgs, "crewmates", crewmates());
@@ -5675,8 +5676,6 @@ bool Game::customsavequick(const std::string& savfile)
     xml::update_tag(msgs, "disabletemporaryaudiopause", (int) disabletemporaryaudiopause);
 
     xml::update_tag(msgs, "showtrinkets", (int) map.showtrinkets);
-
-    xml::update_tag(msgs, "respawncolour", respawncolour);
 
     std::string summary = savearea + ", " + timestring();
     xml::update_tag(msgs, "summary", summary.c_str());

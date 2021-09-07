@@ -220,6 +220,7 @@ public:
 
     int savex, savey, saverx, savery;
     int savegc, savedir;
+    int savecolour;
 
     //Added for port
     int edsavex, edsavey, edsaverx, edsavery;
@@ -481,8 +482,6 @@ public:
     bool disableaudiopause;
     bool disabletemporaryaudiopause;
     bool inputdelay;
-
-    int respawncolour;
 };
 
 #ifndef GAME_DEFINITION

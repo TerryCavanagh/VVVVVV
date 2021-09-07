@@ -833,7 +833,7 @@ void mapclass::resetplayer(const bool player_died)
 		obj.entities[i].newyp = obj.entities[i].yp;
 
 		obj.entities[i].dir = game.savedir;
-		obj.entities[i].colour = game.respawncolour;
+		obj.entities[i].colour = game.savecolour;
 		if (player_died)
 		{
 			game.lifeseq = 10;

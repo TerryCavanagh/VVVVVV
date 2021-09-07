@@ -1674,7 +1674,7 @@ void scriptclass::run(void)
 			}
 			else if (words[0] == "changerespawncolour")
 			{
-				game.respawncolour = getcolorfromname(words[1]);
+				game.savecolour = getcolorfromname(words[1]);
 			}
 			else if (words[0] == "altstates")
 			{
@@ -3130,6 +3130,7 @@ void scriptclass::hardreset(void)
 		game.saverx = 0;
 		game.savery = 0;
 	}
+	game.savecolour = 0;
 
 	game.intimetrial = false;
 	game.timetrialcountdown = 0;
@@ -3187,8 +3188,6 @@ void scriptclass::hardreset(void)
 	game.act_fade = 5;
 
 	game.disabletemporaryaudiopause = true;
-
-	game.respawncolour = 0;
 
 	//dwgraphicsclass
 	graphics.backgrounddrawn = false;
