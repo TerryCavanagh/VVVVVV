@@ -239,6 +239,10 @@ static void unfocused_run(void);
 static const struct ImplFunc unfocused_func_list[] = {
     {
         Func_input, /* we still need polling when unfocused */
+        NULL
+    },
+    {
+        Func_delta,
         unfocused_run
     }
 };
@@ -785,7 +789,6 @@ static void unfocused_run(void)
 #undef FLIP
     }
     graphics.render();
-    gameScreen.FlipScreen(graphics.flipmode);
     //We are minimised, so lets put a bit of a delay to save CPU
 #ifndef __EMSCRIPTEN__
     SDL_Delay(100);
