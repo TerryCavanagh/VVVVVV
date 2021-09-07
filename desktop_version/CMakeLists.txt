@@ -345,7 +345,6 @@ if(HAIKU)
     target_link_libraries(VVVVVV ${BE_LIBRARY} ${ROOT_LIBRARY})
 endif()
 if(EMSCRIPTEN)
-    target_compile_options(VVVVVV PUBLIC -sFORCE_FILESYSTEM=1)
     # 256MB is enough for everybody
     target_link_libraries(VVVVVV -sFORCE_FILESYSTEM=1 -sTOTAL_MEMORY=256MB)
 endif()
