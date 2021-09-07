@@ -1678,28 +1678,28 @@ void Graphics::drawgravityline( int t )
             FillRect(backBuffer,line_rect, getRGB(200-20, 200-20, 200-20));
             break;
         case 1:
-            FillRect(backBuffer,line_rect, getRGB(225-30, 245-30, 245-30));
-            break;
-        case 2:
             FillRect(backBuffer,line_rect, getRGB(245-30, 245-30, 225-30));
             break;
+        case 2:
+            FillRect(backBuffer,line_rect, getRGB(225-30, 245-30, 245-30));
+            break;
         case 3:
-            FillRect(backBuffer,line_rect, getRGB(164-10, 200-20, 200-20));
+            FillRect(backBuffer,line_rect, getRGB(200-20, 200-20, 164-10));
             break;
         case 4:
-            FillRect(backBuffer,line_rect, getRGB(224-20, 255-30, 196-20));
+            FillRect(backBuffer,line_rect, getRGB(196-20, 255-30, 224-20));
             break;
         case 5:
-            FillRect(backBuffer,line_rect, getRGB(205-20, 235-30, 196-20));
+            FillRect(backBuffer,line_rect, getRGB(196-20, 235-30, 205-20));
             break;
         case 6:
             FillRect(backBuffer,line_rect, getRGB(164-10, 164-10, 164-10));
             break;
         case 7:
-            FillRect(backBuffer,line_rect, getRGB(225-30, 245-30, 205-20));
+            FillRect(backBuffer,line_rect, getRGB(205-20, 245-30, 225-30));
             break;
         case 8:
-            FillRect(backBuffer,line_rect, getRGB(205-20, 255-30, 225-30));
+            FillRect(backBuffer,line_rect, getRGB(225-30, 255-30, 205-20));
             break;
         case 9:
             FillRect(backBuffer,line_rect, getRGB(245-30, 245-30, 245-30));
@@ -3355,21 +3355,21 @@ void Graphics::drawrect(int x, int y, int w, int h, int r, int g, int b)
     madrect.y = y;
     madrect.w = w;
     madrect.h = 1;
-    FillRect(backBuffer, madrect, getRGB(b,g,r));
+    FillRect(backBuffer, madrect, getRGB(r, g, b));
 
     madrect.w = 1;
     madrect.h = h;
-    FillRect(backBuffer, madrect, getRGB(b,g,r));
+    FillRect(backBuffer, madrect, getRGB(r, g, b));
 
     madrect.x = x + w - 1;
     madrect.w = 1;
     madrect.h = h;
-    FillRect(backBuffer, madrect, getRGB(b,g,r));
+    FillRect(backBuffer, madrect, getRGB(r, g, b));
     madrect.x = x;
     madrect.y = y + h - 1;
     madrect.w = w;
     madrect.h = 1;
-    FillRect(backBuffer, madrect, getRGB(b,g,r));
+    FillRect(backBuffer, madrect, getRGB(r, g, b));
 }
 
 bool Graphics::onscreen(int t)

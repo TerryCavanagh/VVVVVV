@@ -554,12 +554,12 @@ void editorrender(void)
         //left edge
         if(ed.freewrap((ed.levx*40)-1,j+(ed.levy*30))==1)
         {
-            FillRect(graphics.backBuffer, 0,j*8, 2,8, graphics.getRGB(255,255,255-help.glow));
+            FillRect(graphics.backBuffer, 0,j*8, 2,8, graphics.getRGB(255 - help.glow, 255, 255));
         }
         //right edge
         if(ed.freewrap((ed.levx*40)+40,j+(ed.levy*30))==1)
         {
-            FillRect(graphics.backBuffer, 318,j*8, 2,8, graphics.getRGB(255,255,255-help.glow));
+            FillRect(graphics.backBuffer, 318,j*8, 2,8, graphics.getRGB(255 - help.glow, 255, 255));
         }
     }
 
@@ -567,12 +567,12 @@ void editorrender(void)
     {
         if(ed.freewrap((ed.levx*40)+i,(ed.levy*30)-1)==1)
         {
-            FillRect(graphics.backBuffer, i*8,0, 8,2, graphics.getRGB(255,255,255-help.glow));
+            FillRect(graphics.backBuffer, i*8,0, 8,2, graphics.getRGB(255 - help.glow, 255, 255));
         }
 
         if(ed.freewrap((ed.levx*40)+i,30+(ed.levy*30))==1)
         {
-            FillRect(graphics.backBuffer, i*8,238, 8,2, graphics.getRGB(255,255,255-help.glow));
+            FillRect(graphics.backBuffer, i*8,238, 8,2, graphics.getRGB(255 - help.glow, 255, 255));
         }
     }
 
@@ -691,11 +691,11 @@ void editorrender(void)
                 break;
             case 9: //Shiny Trinket
                 graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),22,196,196,196);
-                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(255, 164, 164));
                 break;
             case 10: //Checkpoints
                 graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),20 + customentities[i].p1,196,196,196);
-                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(255, 164, 164));
                 break;
             case 11: //Gravity lines
                 if(customentities[i].p1==0)  //Horizontal
@@ -717,7 +717,7 @@ void editorrender(void)
                 break;
             case 13://Warp tokens
                 graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),18+(ed.entframe%2),196,196,196);
-                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(164,164,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(255, 164, 164));
                 if(temp2==i)
                 {
                     graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,
@@ -741,7 +741,7 @@ void editorrender(void)
                 {
                     graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8)-4,(customentities[i].y*8)- (ed.levy*30*8),3,graphics.col_crewcyan);
                 }
-                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,255,255));
+                fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(255, 255, 164));
                 if(ed.entframe<2)
                 {
                     graphics.bprint((customentities[i].x*8)- (ed.levx*40*8)-12,(customentities[i].y*8)- (ed.levy*30*8)-8,"START",255,255,255);
@@ -814,8 +814,8 @@ void editorrender(void)
                         tx = customentities[i].p2;
                         tx2 = tx + customentities[i].p3/8;
                     }
-                    fillboxabs((tx*8),(ty*8)+1, (tx2-tx)*8,6, graphics.getRGB(255,255,194));
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,164));
+                    fillboxabs((tx*8),(ty*8)+1, (tx2-tx)*8,6, graphics.getRGB(194, 255, 255));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164, 255, 255));
                 }
                 else  //Vertical
                 {
@@ -837,8 +837,8 @@ void editorrender(void)
                         ty = customentities[i].p2;
                         ty2 = ty + customentities[i].p3/8;
                     }
-                    fillboxabs((tx*8)+1,(ty*8), 6,(ty2-ty)*8, graphics.getRGB(255,255,194));
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,164));
+                    fillboxabs((tx*8)+1,(ty*8), 6,(ty2-ty)*8, graphics.getRGB(194, 255, 255));
+                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(164, 255, 255));
                 }
                 break;
             }
@@ -850,7 +850,7 @@ void editorrender(void)
             if (customentities[i].p1 / 40 == ed.levx && customentities[i].p2 / 30 == ed.levy)
             {
                 graphics.drawsprite((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8),18+(ed.entframe%2),64,64,64);
-                fillboxabs((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8),16,16,graphics.getRGB(64,64,96));
+                fillboxabs((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8),16,16,graphics.getRGB(96, 64, 64));
                 if(ed.tilex+(ed.levx*40)==customentities[i].p1 && ed.tiley+(ed.levy*30)==customentities[i].p2)
                 {
                     graphics.bprint((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8)-8,
@@ -868,20 +868,20 @@ void editorrender(void)
     {
         if(ed.boundarymod==1)
         {
-            fillboxabs(ed.tilex*8, ed.tiley*8, 8,8,graphics.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
-            fillboxabs((ed.tilex*8)+2, (ed.tiley*8)+2, 4,4,graphics.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
+            fillboxabs(ed.tilex*8, ed.tiley*8, 8,8,graphics.getRGB(210 + help.glow/2, 191 + help.glow, 255 - help.glow/2));
+            fillboxabs((ed.tilex*8)+2, (ed.tiley*8)+2, 4,4,graphics.getRGB(105 + help.glow/4, 100 + help.glow/2, 128 - help.glow/4));
         }
         else if(ed.boundarymod==2)
         {
             if((ed.tilex*8)+8<=ed.boundx1 || (ed.tiley*8)+8<=ed.boundy1)
             {
-                fillboxabs(ed.boundx1, ed.boundy1, 8, 8,graphics.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
-                fillboxabs(ed.boundx1+2, ed.boundy1+2, 4, 4,graphics.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
+                fillboxabs(ed.boundx1, ed.boundy1, 8, 8,graphics.getRGB(210 + help.glow/2, 191 + help.glow, 255 - help.glow/2));
+                fillboxabs(ed.boundx1+2, ed.boundy1+2, 4, 4,graphics.getRGB(105 + help.glow/4, 100 + help.glow/2, 128 - help.glow/4));
             }
             else
             {
-                fillboxabs(ed.boundx1, ed.boundy1, (ed.tilex*8)+8-ed.boundx1,(ed.tiley*8)+8-ed.boundy1,graphics.getRGB(255-(help.glow/2),191+(help.glow),210+(help.glow/2)));
-                fillboxabs(ed.boundx1+2, ed.boundy1+2, (ed.tilex*8)+8-ed.boundx1-4,(ed.tiley*8)+8-ed.boundy1-4,graphics.getRGB(128-(help.glow/4),100+(help.glow/2),105+(help.glow/4)));
+                fillboxabs(ed.boundx1, ed.boundy1, (ed.tilex*8)+8-ed.boundx1,(ed.tiley*8)+8-ed.boundy1,graphics.getRGB(210 + help.glow/2, 191 + help.glow, 255 - help.glow/2));
+                fillboxabs(ed.boundx1+2, ed.boundy1+2, (ed.tilex*8)+8-ed.boundx1-4,(ed.tiley*8)+8-ed.boundy1-4,graphics.getRGB(105 + help.glow/4, 100 + help.glow/2, 128 - help.glow/4));
             }
         }
     }
@@ -941,23 +941,23 @@ void editorrender(void)
     case 9:
     case 10:
     case 12: //Single point
-        fillboxabs((ed.tilex*8),(ed.tiley*8),8,8, graphics.getRGB(200,32,32));
+        fillboxabs((ed.tilex*8),(ed.tiley*8),8,8, graphics.getRGB(32, 32, 200));
         break;
     case 3:
     case 4:
     case 8:
     case 13://2x2
-        fillboxabs((ed.tilex*8),(ed.tiley*8),16,16, graphics.getRGB(200,32,32));
+        fillboxabs((ed.tilex*8),(ed.tiley*8),16,16, graphics.getRGB(32, 32, 200));
         break;
     case 5:
     case 6:
     case 7://Platform
-        fillboxabs((ed.tilex*8),(ed.tiley*8),32,8, graphics.getRGB(200,32,32));
+        fillboxabs((ed.tilex*8),(ed.tiley*8),32,8, graphics.getRGB(32, 32, 200));
         break;
     case 14: //X if not on edge
         if(ed.tilex==0 || ed.tilex==39 || ed.tiley==0 || ed.tiley==29)
         {
-            fillboxabs((ed.tilex*8),(ed.tiley*8),8,8, graphics.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8),(ed.tiley*8),8,8, graphics.getRGB(32, 32, 200));
         }
         else
         {
@@ -967,7 +967,7 @@ void editorrender(void)
     case 11:
     case 15:
     case 16: //2x3
-        fillboxabs((ed.tilex*8),(ed.tiley*8),16,24, graphics.getRGB(200,32,32));
+        fillboxabs((ed.tilex*8),(ed.tiley*8),16,24, graphics.getRGB(32, 32, 200));
         break;
     }
 
@@ -975,27 +975,27 @@ void editorrender(void)
     {
         if(ed.bmod && ed.drawmode<2)
         {
-            fillboxabs((ed.tilex*8),0,8,240,graphics.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8),0,8,240,graphics.getRGB(32, 32, 200));
         }
         else if(ed.hmod && ed.drawmode<2)
         {
-            fillboxabs(0,(ed.tiley*8),320,8,graphics.getRGB(200,32,32));
+            fillboxabs(0,(ed.tiley*8),320,8,graphics.getRGB(32, 32, 200));
         }
         else if(ed.vmod && ed.drawmode<2)
         {
-            fillboxabs((ed.tilex*8)-32,(ed.tiley*8)-32,24+48,24+48, graphics.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8)-32,(ed.tiley*8)-32,24+48,24+48, graphics.getRGB(32, 32, 200));
         }
         else if(ed.cmod && ed.drawmode<2)
         {
-            fillboxabs((ed.tilex*8)-24,(ed.tiley*8)-24,24+32,24+32, graphics.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8)-24,(ed.tiley*8)-24,24+32,24+32, graphics.getRGB(32, 32, 200));
         }
         else if(ed.xmod && ed.drawmode<2)
         {
-            fillboxabs((ed.tilex*8)-16,(ed.tiley*8)-16,24+16,24+16, graphics.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8)-16,(ed.tiley*8)-16,24+16,24+16, graphics.getRGB(32, 32, 200));
         }
         else if(ed.zmod && ed.drawmode<2)
         {
-            fillboxabs((ed.tilex*8)-8,(ed.tiley*8)-8,24,24, graphics.getRGB(200,32,32));
+            fillboxabs((ed.tilex*8)-8,(ed.tiley*8)-8,24,24, graphics.getRGB(32, 32, 200));
         }
 
 
@@ -1045,7 +1045,7 @@ void editorrender(void)
                 }
             }
             //Highlight our little block
-            fillboxabs(((ed.dmtile%40)*8)-2,16-t2-2,12,12,graphics.getRGB(196, 196, 255 - help.glow));
+            fillboxabs(((ed.dmtile%40)*8)-2,16-t2-2,12,12,graphics.getRGB(255 - help.glow, 196, 196));
             fillboxabs(((ed.dmtile%40)*8)-1,16-t2-1,10,10,graphics.getRGB(0,0,0));
         }
 
@@ -1053,7 +1053,7 @@ void editorrender(void)
         {
             graphics.bprint(2, 45-t2, "Tile:", 196, 196, 255 - help.glow, false);
             graphics.bprint(58, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
-            FillRect(graphics.backBuffer, 44,44-t2,10,10, graphics.getRGB(196, 196, 255 - help.glow));
+            FillRect(graphics.backBuffer, 44,44-t2,10,10, graphics.getRGB(255 - help.glow, 196, 196));
             FillRect(graphics.backBuffer, 45,45-t2,8,8, graphics.getRGB(0,0,0));
 
             if(room->tileset==0)
@@ -1069,7 +1069,7 @@ void editorrender(void)
         {
             graphics.bprint(2, 12, "Tile:", 196, 196, 255 - help.glow, false);
             graphics.bprint(58, 12, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
-            FillRect(graphics.backBuffer, 44,11,10,10, graphics.getRGB(196, 196, 255 - help.glow));
+            FillRect(graphics.backBuffer, 44,11,10,10, graphics.getRGB(255 - help.glow, 196, 196));
             FillRect(graphics.backBuffer, 45,12,8,8, graphics.getRGB(0,0,0));
 
             if(room->tileset==0)
@@ -1140,7 +1140,7 @@ void editorrender(void)
     {
         //Elaborate C64 BASIC menu goes here!
         FillRect(graphics.backBuffer, 0,0,320,240, graphics.getBGR(123, 111, 218));
-        FillRect(graphics.backBuffer, 14,16,292,208, graphics.getRGB(162,48,61));
+        FillRect(graphics.backBuffer, 14,16,292,208, graphics.getRGB(61, 48, 162));
         switch(ed.scripthelppage)
         {
         case 0:
@@ -1178,7 +1178,7 @@ void editorrender(void)
             break;
         case 1:
             //Current scriptname
-            FillRect(graphics.backBuffer, 14,226,292,12, graphics.getRGB(162,48,61));
+            FillRect(graphics.backBuffer, 14,226,292,12, graphics.getRGB(61, 48, 162));
             graphics.Print(16,228,"CURRENT SCRIPT: " + ed.sbscript, 123, 111, 218, true);
             //Draw text
             for(int i=0; i<25; i++)
