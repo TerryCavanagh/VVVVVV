@@ -347,8 +347,6 @@ void KeyPoll::Poll(void)
                 SDL_DisableScreenSaver();
                 break;
             case SDL_WINDOWEVENT_FOCUS_LOST:
-                // For some reason, SDL_WINDOWEVENT_FOCUS_GAINED doesn't seem to get sent on Emscripten.
-#ifndef __EMSCRIPTEN__
                 if (!game.disablepause)
                 {
                     isActive = false;
@@ -358,7 +356,6 @@ void KeyPoll::Poll(void)
                         music.pauseef();
                     }
                 }
-#endif
 
                 if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0)
                 {
