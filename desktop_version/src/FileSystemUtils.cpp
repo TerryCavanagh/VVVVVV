@@ -887,6 +887,8 @@ bool FILESYSTEM_saveTiXml2Document(const char *name, tinyxml2::XMLDocument& doc,
             }
         }));
     }
+#else
+    UNUSED(sync);
 #endif
 
     return true;
