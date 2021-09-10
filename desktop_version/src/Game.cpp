@@ -1865,7 +1865,10 @@ void Game::updatestate(void)
             advancetext = false;
             completestop = false;
             state = 0;
-            if(!muted && music.currentsong>-1) music.fadeMusicVolumeIn(3000);
+            if (music.currentsong > -1)
+            {
+                music.fadeMusicVolumeIn(3000);
+            }
             graphics.showcutscenebars = false;
             break;
 
@@ -1930,7 +1933,10 @@ void Game::updatestate(void)
             }
             else
             {
-                if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
+                if (cl.levmusic > 0)
+                {
+                    music.fadeMusicVolumeIn(3000);
+                }
             }
             graphics.showcutscenebars = false;
             break;
