@@ -2232,7 +2232,10 @@ bool editorclass::save(std::string& _path)
     msg = xml::update_element_delete_contents(data, "levelMetaData");
 
     int temp_platv[numrooms];
-    SDL_memset(temp_platv, 4 /* default */, sizeof(temp_platv));
+    for (size_t i = 0; i < SDL_arraysize(temp_platv); ++i)
+    {
+        temp_platv[i] = 4; /* default */
+    }
 
     if (mapwidth < maxwidth)
     {
