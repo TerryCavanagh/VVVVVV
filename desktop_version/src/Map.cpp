@@ -865,6 +865,18 @@ void mapclass::resetplayer(const bool player_died)
         }
     }
 
+    if (game.state == 0 && !script.running && game.completestop)
+    {
+        /* Looks like a collection dialogue was interrupted.
+         * Undo its effects! */
+        game.advancetext = false;
+        graphics.showcutscenebars = false;
+        if (music.currentsong > -1)
+        {
+            music.fadeMusicVolumeIn(3000);
+        }
+    }
+
     game.scmhurt = false; //Just in case the supercrewmate is fucking this up!
     if (game.supercrewmate)
     {
