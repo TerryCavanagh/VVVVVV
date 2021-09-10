@@ -1919,16 +1919,12 @@ void Game::updatestate(void)
                 if(map.custommodeforreal)
                 {
                     graphics.fademode = 2;
-                    if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
-                    if(cl.levmusic>0) music.fadeout();
                     state=1014;
                 }
 #ifndef NO_EDITOR
                 else
                 {
                     returntoeditor();
-                    if(!muted && cl.levmusic>0) music.fadeMusicVolumeIn(3000);
-                    if(cl.levmusic>0) music.fadeout();
                 }
 #endif
             }
