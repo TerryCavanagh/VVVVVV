@@ -1090,17 +1090,13 @@ void Graphics::updatetextboxes(void)
     }
 }
 
-void Graphics::drawimagecol( int t, int xp, int yp, int r = 0, int g = 0, int b = 0, bool cent/*= false*/ )
+void Graphics::drawimagecol( int t, int xp, int yp, bool cent/*= false*/ )
 {
     if (!INBOUNDS_VEC(t, images))
     {
         return;
     }
     SDL_Rect trect;
-    if(r+g+b != 0)
-    {
-        RGBf(r,g,b);
-    }
 
     point tpoint;
     if (cent)

@@ -113,7 +113,7 @@ public:
 
     void drawimage(int t, int xp, int yp, bool cent=false);
 
-    void drawimagecol(int t, int xp, int yp, int r, int g, int b, bool cent= false);
+    void drawimagecol(int t, int xp, int yp, bool cent= false);
 
     void updatetextboxes(void);
     void drawgui(void);
