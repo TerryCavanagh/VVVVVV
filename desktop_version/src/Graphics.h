@@ -268,16 +268,12 @@ public:
     TowerBG towerbg;
     TowerBG titlebg;
 
-    SDL_Rect bfont_rect;
     SDL_Rect tiles_rect;
     SDL_Rect sprites_rect;
-    SDL_Rect images_rect;
-    SDL_Rect bg_rect;
     SDL_Rect line_rect;
     SDL_Rect tele_rect;
     SDL_Rect towerbuffer_rect;
 
-    SDL_Rect foot_rect;
     SDL_Rect prect;
     SDL_Rect footerrect;
     SDL_Surface* footerbuffer;

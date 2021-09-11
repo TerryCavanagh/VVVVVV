@@ -19,8 +19,6 @@ void Graphics::init(void)
     flipmode = false;
     setRect(tiles_rect, 0,0,8,8);
     setRect(sprites_rect, 0,0,32,32);
-    setRect(bfont_rect, 0,0,8,8);
-    setRect(bg_rect, 0,0,320,240);
     setRect(footerrect, 0, 230, 320, 10);
     setRect(prect, 0, 0, 4, 4);
     setRect(line_rect, 0,0,0,0);
@@ -103,11 +101,9 @@ void Graphics::init(void)
     // initialize everything else to zero
     backBuffer = NULL;
     ct = colourTransform();
-    foot_rect = SDL_Rect();
     foregrounddrawn = false;
     foregroundBuffer = NULL;
     backgrounddrawn = false;
-    images_rect = SDL_Rect();
     m = 0;
     linedelay = 0;
     menubuffer = NULL;

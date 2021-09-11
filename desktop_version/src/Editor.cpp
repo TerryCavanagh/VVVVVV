@@ -929,7 +929,7 @@ void editorrender(void)
                 BlitSurfaceColoured(graphics.sprites[ed.ghosts[i].frame],NULL, graphics.ghostbuffer, &drawRect, graphics.ct);
             }
         }
-        SDL_BlitSurface(graphics.ghostbuffer, NULL, graphics.backBuffer, &graphics.bg_rect);
+        SDL_BlitSurface(graphics.ghostbuffer, NULL, graphics.backBuffer, NULL);
     }
 
     //Draw Cursor
