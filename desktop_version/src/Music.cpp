@@ -310,6 +310,8 @@ void musicclass::haltdasmusik(void)
 void musicclass::silencedasmusik(void)
 {
     musicVolume = 0;
+    m_doFadeInVol = false;
+    m_doFadeOutVol = false;
 }
 
 struct FadeState
