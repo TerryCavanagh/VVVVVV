@@ -2207,62 +2207,62 @@ void Graphics::drawbackground( int t )
             {
                 //Akward ordering to match tileset
             case 0:
-                bcol2 = RGBflip(0, 16*backboxint[0], 16*backboxint[0]);
+                bcol2 = getRGB(0, 16*backboxint[0], 16*backboxint[0]);
                 break; //Cyan
             case 1:
-                bcol2 = RGBflip(16*backboxint[0], 0, 0);
+                bcol2 = getRGB(16*backboxint[0], 0, 0);
                 break;  //Red
             case 2:
-                bcol2 = RGBflip(16*backboxint[0], 0, 16*backboxint[0]);
+                bcol2 = getRGB(16*backboxint[0], 0, 16*backboxint[0]);
                 break; //Purple
             case 3:
-                bcol2 = RGBflip(0, 0, 16*backboxint[0]);
+                bcol2 = getRGB(0, 0, 16*backboxint[0]);
                 break;  //Blue
             case 4:
-                bcol2 = RGBflip(16*backboxint[0], 16*backboxint[0], 0);
+                bcol2 = getRGB(16*backboxint[0], 16*backboxint[0], 0);
                 break; //Yellow
             case 5:
-                bcol2 = RGBflip(0, 16 * backboxint[0], 0);
+                bcol2 = getRGB(0, 16 * backboxint[0], 0);
                 break;  //Green
             case 6:
                 //crazy case
                 switch(spcol)
                 {
                 case 0:
-                    bcol2 = RGBflip(0, 16*backboxint[0], 16*backboxint[0]);
+                    bcol2 = getRGB(0, 16*backboxint[0], 16*backboxint[0]);
                     break; //Cyan
                 case 1:
-                    bcol2 = RGBflip(0, (spcoldel+1)*backboxint[0], 16*backboxint[0]);
+                    bcol2 = getRGB(0, (spcoldel+1)*backboxint[0], 16*backboxint[0]);
                     break; //Cyan
                 case 2:
-                    bcol2 = RGBflip(0, 0, 16*backboxint[0]);
+                    bcol2 = getRGB(0, 0, 16*backboxint[0]);
                     break;  //Blue
                 case 3:
-                    bcol2 = RGBflip((16-spcoldel)*backboxint[0], 0, 16*backboxint[0]);
+                    bcol2 = getRGB((16-spcoldel)*backboxint[0], 0, 16*backboxint[0]);
                     break;  //Blue
                 case 4:
-                    bcol2 = RGBflip(16*backboxint[0], 0, 16*backboxint[0]);
+                    bcol2 = getRGB(16*backboxint[0], 0, 16*backboxint[0]);
                     break; //Purple
                 case 5:
-                    bcol2 = RGBflip(16*backboxint[0], 0, (spcoldel+1)*backboxint[0]);
+                    bcol2 = getRGB(16*backboxint[0], 0, (spcoldel+1)*backboxint[0]);
                     break; //Purple
                 case 6:
-                    bcol2 = RGBflip(16*backboxint[0], 0, 0);
+                    bcol2 = getRGB(16*backboxint[0], 0, 0);
                     break;  //Red
                 case 7:
-                    bcol2 = RGBflip(16*backboxint[0], (16-spcoldel)*backboxint[0], 0);
+                    bcol2 = getRGB(16*backboxint[0], (16-spcoldel)*backboxint[0], 0);
                     break;  //Red
                 case 8:
-                    bcol2 = RGBflip(16*backboxint[0], 16*backboxint[0], 0);
+                    bcol2 = getRGB(16*backboxint[0], 16*backboxint[0], 0);
                     break; //Yellow
                 case 9:
-                    bcol2 = RGBflip((spcoldel+1)*backboxint[0], 16*backboxint[0], 0);
+                    bcol2 = getRGB((spcoldel+1)*backboxint[0], 16*backboxint[0], 0);
                     break; //Yellow
                 case 10:
-                    bcol2 = RGBflip(0, 16 * backboxint[0], 0);
+                    bcol2 = getRGB(0, 16 * backboxint[0], 0);
                     break;  //Green
                 case 11:
-                    bcol2 = RGBflip(0, 16 * backboxint[0], (16-spcoldel)*backboxint[0]);
+                    bcol2 = getRGB(0, 16 * backboxint[0], (16-spcoldel)*backboxint[0]);
                     break;  //Green
                 }
             break;
@@ -2275,62 +2275,62 @@ void Graphics::drawbackground( int t )
             {
                 //Akward ordering to match tileset
             case 0:
-                bcol = RGBflip(16, 128*backboxint[0], 128*backboxint[0]);
+                bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
                 break; //Cyan
             case 1:
-                bcol = RGBflip(128*backboxint[0], 16, 16);
+                bcol = getRGB(128*backboxint[0], 16, 16);
                 break;  //Red
             case 2:
-                bcol = RGBflip(128*backboxint[0], 16, 128*backboxint[0]);
+                bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
                 break; //Purple
             case 3:
-                bcol = RGBflip(16, 16, 128*backboxint[0]);
+                bcol = getRGB(16, 16, 128*backboxint[0]);
                 break;  //Blue
             case 4:
-                bcol = RGBflip(128*backboxint[0], 128*backboxint[0], 16);
+                bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
                 break; //Yellow
             case 5:
-                bcol = RGBflip(16, 128 * backboxint[0], 16);
+                bcol = getRGB(16, 128 * backboxint[0], 16);
                 break;  //Green
             case 6:
                 //crazy case
                 switch(spcol)
                 {
                 case 0:
-                    bcol = RGBflip(16, 128*backboxint[0], 128*backboxint[0]);
+                    bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
                     break; //Cyan
                 case 1:
-                    bcol = RGBflip(16, ((spcoldel+1)*8)*backboxint[0], 128*backboxint[0]);
+                    bcol = getRGB(16, ((spcoldel+1)*8)*backboxint[0], 128*backboxint[0]);
                     break; //Cyan
                 case 2:
-                    bcol = RGBflip(16, 16, 128*backboxint[0]);
+                    bcol = getRGB(16, 16, 128*backboxint[0]);
                     break;  //Blue
                 case 3:
-                    bcol = RGBflip((128-(spcoldel*8))*backboxint[0], 16, 128*backboxint[0]);
+                    bcol = getRGB((128-(spcoldel*8))*backboxint[0], 16, 128*backboxint[0]);
                     break;  //Blue
                 case 4:
-                    bcol = RGBflip(128*backboxint[0], 16, 128*backboxint[0]);
+                    bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
                     break; //Purple
                 case 5:
-                    bcol = RGBflip(128*backboxint[0], 16, ((spcoldel+1)*8)*backboxint[0]);
+                    bcol = getRGB(128*backboxint[0], 16, ((spcoldel+1)*8)*backboxint[0]);
                     break; //Purple
                 case 6:
-                    bcol = RGBflip(128*backboxint[0], 16, 16);
+                    bcol = getRGB(128*backboxint[0], 16, 16);
                     break;  //Red
                 case 7:
-                    bcol = RGBflip(128*backboxint[0], (128-(spcoldel*8))*backboxint[0], 16);
+                    bcol = getRGB(128*backboxint[0], (128-(spcoldel*8))*backboxint[0], 16);
                     break;  //Red
                 case 8:
-                    bcol = RGBflip(128*backboxint[0], 128*backboxint[0], 16);
+                    bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
                     break; //Yellow
                 case 9:
-                    bcol = RGBflip(((spcoldel+1)*8)*backboxint[0], 128*backboxint[0], 16);
+                    bcol = getRGB(((spcoldel+1)*8)*backboxint[0], 128*backboxint[0], 16);
                     break; //Yellow
                 case 10:
-                    bcol = RGBflip(16, 128 * backboxint[0], 16);
+                    bcol = getRGB(16, 128 * backboxint[0], 16);
                     break;  //Green
                 case 11:
-                    bcol = RGBflip(16, 128 * backboxint[0], (128-(spcoldel*8))*backboxint[0]);
+                    bcol = getRGB(16, 128 * backboxint[0], (128-(spcoldel*8))*backboxint[0]);
                     break;  //Green
                 }
                 break;
@@ -2367,36 +2367,36 @@ void Graphics::drawbackground( int t )
         {
             //Akward ordering to match tileset
         case 0:
-            warpbcol = RGBflip(0x0A, 0x10, 0x0E);
-            warpfcol = RGBflip(0x10, 0x22, 0x21);
+            warpbcol = getRGB(0x0A, 0x10, 0x0E);
+            warpfcol = getRGB(0x10, 0x22, 0x21);
             break; //Cyan
         case 1:
-            warpbcol = RGBflip(0x11, 0x09, 0x0B);
-            warpfcol = RGBflip(0x22, 0x10, 0x11);
+            warpbcol = getRGB(0x11, 0x09, 0x0B);
+            warpfcol = getRGB(0x22, 0x10, 0x11);
             break; //Red
         case 2:
-            warpbcol = RGBflip(0x0F, 0x0A, 0x10);
-            warpfcol = RGBflip(0x22,0x10,0x22);
+            warpbcol = getRGB(0x0F, 0x0A, 0x10);
+            warpfcol = getRGB(0x22,0x10,0x22);
             break; //Purple
         case 3:
-            warpbcol = RGBflip(0x0A, 0x0B, 0x10);
-            warpfcol = RGBflip(0x10, 0x10, 0x22);
+            warpbcol = getRGB(0x0A, 0x0B, 0x10);
+            warpfcol = getRGB(0x10, 0x10, 0x22);
             break; //Blue
         case 4:
-            warpbcol = RGBflip(0x10, 0x0D, 0x0A);
-            warpfcol = RGBflip(0x22, 0x1E, 0x10);
+            warpbcol = getRGB(0x10, 0x0D, 0x0A);
+            warpfcol = getRGB(0x22, 0x1E, 0x10);
             break; //Yellow
         case 5:
-            warpbcol = RGBflip(0x0D, 0x10, 0x0A);
-            warpfcol = RGBflip(0x14, 0x22, 0x10);
+            warpbcol = getRGB(0x0D, 0x10, 0x0A);
+            warpfcol = getRGB(0x14, 0x22, 0x10);
             break; //Green
         case 6:
-            warpbcol = RGBflip(0x0A, 0x0A, 0x0A);
-            warpfcol = RGBflip(0x12, 0x12, 0x12);
+            warpbcol = getRGB(0x0A, 0x0A, 0x0A);
+            warpfcol = getRGB(0x12, 0x12, 0x12);
             break; //Gray
         default:
-            warpbcol = RGBflip(0xFF, 0xFF, 0xFF);
-            warpfcol = RGBflip(0xFF, 0xFF, 0xFF);
+            warpbcol = getRGB(0xFF, 0xFF, 0xFF);
+            warpfcol = getRGB(0xFF, 0xFF, 0xFF);
         }
 
         for (int i = 10 ; i >= 0; i--)
@@ -3257,11 +3257,6 @@ Uint32 Graphics::getRGB(Uint8 r, Uint8 g, Uint8 b)
 Uint32 Graphics::getRGB(Uint32 _col)
 {
     return ( _col);
-}
-
-Uint32 Graphics::RGBflip(Uint8  r, Uint8  g, Uint8  b)
-{
-    return SDL_MapRGB(backBuffer->format, r, g, b);
 }
 
 Uint32 Graphics::RGBf(int r, int g, int b)

@@ -185,8 +185,6 @@ public:
 
     Uint32 getRGB(Uint32 _col);
 
-    Uint32 RGBflip(Uint8  r, Uint8  g, Uint8  b);
-
 
     Uint32 RGBf(int r, int g, int b);
 

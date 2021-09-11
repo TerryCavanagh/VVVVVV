@@ -54,32 +54,32 @@ void preloaderrender(void)
   if(pre_transition>=30){
     switch(pre_curcol) {
     case 0:
-      pre_lightcol = graphics.RGBflip(0xBF,0x59,0x6F);
-      pre_darkcol = graphics.RGBflip(0x88,0x3E,0x53);
+      pre_lightcol = graphics.getRGB(0xBF,0x59,0x6F);
+      pre_darkcol = graphics.getRGB(0x88,0x3E,0x53);
       break;
     case 1:
-      pre_lightcol = graphics.RGBflip(0x6C,0xBC,0x5C);
-      pre_darkcol = graphics.RGBflip(0x50,0x86,0x40);
+      pre_lightcol = graphics.getRGB(0x6C,0xBC,0x5C);
+      pre_darkcol = graphics.getRGB(0x50,0x86,0x40);
       break;
     case 2:
-      pre_lightcol = graphics.RGBflip(0x5D,0x57,0xAA);
-      pre_darkcol = graphics.RGBflip(0x2F,0x2F,0x6C);
+      pre_lightcol = graphics.getRGB(0x5D,0x57,0xAA);
+      pre_darkcol = graphics.getRGB(0x2F,0x2F,0x6C);
       break;
     case 3:
-      pre_lightcol = graphics.RGBflip(0xB7,0xBA,0x5E);
-      pre_darkcol = graphics.RGBflip(0x84,0x83,0x42);
+      pre_lightcol = graphics.getRGB(0xB7,0xBA,0x5E);
+      pre_darkcol = graphics.getRGB(0x84,0x83,0x42);
       break;
     case 4:
-      pre_lightcol = graphics.RGBflip(0x57,0x90,0xAA);
-      pre_darkcol = graphics.RGBflip(0x2F,0x5B,0x6C);
+      pre_lightcol = graphics.getRGB(0x57,0x90,0xAA);
+      pre_darkcol = graphics.getRGB(0x2F,0x5B,0x6C);
       break;
     case 5:
-      pre_lightcol = graphics.RGBflip(0x90,0x61,0xB1);
-      pre_darkcol = graphics.RGBflip(0x58,0x3D,0x71);
+      pre_lightcol = graphics.getRGB(0x90,0x61,0xB1);
+      pre_darkcol = graphics.getRGB(0x58,0x3D,0x71);
       break;
     default:
-      pre_lightcol = graphics.RGBflip(0x00,0x00,0x00);
-      pre_darkcol = graphics.RGBflip(0x08,0x00,0x00);
+      pre_lightcol = graphics.getRGB(0x00,0x00,0x00);
+      pre_darkcol = graphics.getRGB(0x08,0x00,0x00);
       break;
     }
 
