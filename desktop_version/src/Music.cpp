@@ -328,6 +328,11 @@ static enum FadeCode processmusicfade(struct FadeState* state, int* volume)
 
 void musicclass::fadeMusicVolumeIn(int ms)
 {
+	if (halted())
+	{
+		return;
+	}
+
 	m_doFadeInVol = true;
 	m_doFadeOutVol = false;
 
@@ -345,6 +350,11 @@ void musicclass::fadeMusicVolumeIn(int ms)
 
 void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 {
+	if (halted())
+	{
+		return;
+	}
+
 	m_doFadeInVol = false;
 	m_doFadeOutVol = true;
 
