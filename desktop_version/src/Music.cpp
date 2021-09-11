@@ -399,7 +399,7 @@ void musicclass::processmusic(void)
 	}
 
 	/* This needs to come after processing fades */
-	if (nicefade && Mix_PausedMusic() == 1)
+	if (nicefade && halted())
 	{
 		play(nicechange);
 		nicechange = -1;
@@ -524,4 +524,9 @@ void musicclass::pauseef(void)
 void musicclass::resumeef(void)
 {
 	Mix_Resume(-1);
+}
+
+bool musicclass::halted(void)
+{
+	return Mix_PausedMusic() == 1;
 }
