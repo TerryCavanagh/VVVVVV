@@ -44,6 +44,8 @@ public:
     void pauseef(void);
     void resumeef(void);
 
+    bool halted(void);
+
     std::vector<SoundTrack> soundTracks;
     std::vector<MusicTrack> musicTracks;
     SoundSystem soundSystem;
