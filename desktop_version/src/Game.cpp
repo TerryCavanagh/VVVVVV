@@ -5838,6 +5838,12 @@ void Game::returnmenu(void)
         return;
     }
 
+    /* FIXME: Super bad kludge, don't hardcode this! */
+    if (currentmenuname == Menu::ed_music)
+    {
+        music.fadeout();
+    }
+
     MenuStackFrame& frame = menustack[menustack.size()-1];
 
     //Store this in case createmenu() removes the stack frame
