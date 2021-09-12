@@ -1078,7 +1078,7 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
 
     if (customactivitycolour != "")
     {
-        block.setblockcolour(customactivitycolour);
+        block.setblockcolour(customactivitycolour.c_str());
         customactivitycolour = "";
     }
 

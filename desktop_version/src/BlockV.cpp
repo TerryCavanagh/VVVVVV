@@ -1,5 +1,7 @@
 #include "BlockV.h"
 
+#include <SDL_stdinc.h>
+
 blockclass::blockclass(void)
 {
     clear();
@@ -37,57 +39,57 @@ void blockclass::rectset(const int xi, const int yi, const int wi, const int hi)
     rect.h = hi;
 }
 
-void blockclass::setblockcolour( std::string col )
+void blockclass::setblockcolour(const char* col)
 {
-    if (col == "cyan")
+    if (SDL_strcmp(col, "cyan") == 0)
     {
         r = 164;
         g = 164;
         b = 255;
     }
-    else if (col == "red")
+    else if (SDL_strcmp(col, "red") == 0)
     {
         r = 255;
         g = 60;
         b = 60;
     }
-    else if (col == "green")
+    else if (SDL_strcmp(col, "green") == 0)
     {
         r = 144;
         g = 255;
         b = 144;
     }
-    else if (col == "yellow")
+    else if (SDL_strcmp(col, "yellow") == 0)
     {
         r = 255;
         g = 255;
         b = 134;
     }
-    else if (col == "blue")
+    else if (SDL_strcmp(col, "blue") == 0)
     {
         r = 95;
         g = 95;
         b = 255;
     }
-    else if (col == "purple")
+    else if (SDL_strcmp(col, "purple") == 0)
     {
         r = 255;
         g = 134;
         b = 255;
     }
-    else if (col == "white")
+    else if (SDL_strcmp(col, "white") == 0)
     {
         r = 244;
         g = 244;
         b = 244;
     }
-    else if (col == "gray")
+    else if (SDL_strcmp(col, "gray") == 0)
     {
         r = 174;
         g = 174;
         b = 174;
     }
-    else if (col == "orange")
+    else if (SDL_strcmp(col, "orange") == 0)
     {
         r = 255;
         g = 130;

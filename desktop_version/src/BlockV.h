@@ -12,7 +12,7 @@ public:
 
     void rectset(const int xi, const int yi, const int wi, const int hi);
 
-    void setblockcolour(std::string col);
+    void setblockcolour(const char* col);
 public:
     //Fundamentals
     SDL_Rect rect;
