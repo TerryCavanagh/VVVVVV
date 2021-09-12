@@ -1,7 +1,9 @@
 #include "Tower.h"
 
+#include <SDL_stdinc.h>
+#include <stddef.h>
+
 #include "MakeAndPlay.h"
-#include "UtilityClass.h"
 
 towerclass::towerclass(void)
 {

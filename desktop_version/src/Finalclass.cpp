@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Entity.h"
 #include "MakeAndPlay.h"
-#include "UtilityClass.h"
 
 const short* finalclass::loadlevel(int rx, int ry)
 {
@@ -13,8 +12,6 @@ const short* finalclass::loadlevel(int rx, int ry)
     const short* result;
     warpx = false;
     warpy = false;
-
-    roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
 
     switch(t)
     {

@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Entity.h"
 #include "MakeAndPlay.h"
-#include "UtilityClass.h"
 
 const short* labclass::loadlevel(int rx, int ry)
 {
@@ -25,7 +24,7 @@ const short* labclass::loadlevel(int rx, int ry)
     t = rx + (ry * 100);
     const short* result;
     rcol = 0;
-    roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
+    roomname = "";
 
     switch(t)
     {

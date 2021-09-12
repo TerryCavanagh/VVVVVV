@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Entity.h"
 #include "MakeAndPlay.h"
-#include "UtilityClass.h"
 
 const short* warpclass::loadlevel(int rx, int ry)
 {
@@ -20,7 +19,7 @@ const short* warpclass::loadlevel(int rx, int ry)
     warpx = false;
     warpy = false;
 
-    roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
+    roomname = "Untitled room";
 
     switch(t)
     {

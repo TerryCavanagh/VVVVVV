@@ -1739,7 +1739,7 @@ void gamerender(void)
         graphics.bprint(46, 6, game.timestring(),  196, 196, 196);
     }
 
-    if(map.extrarow==0 || (map.custommode && map.roomname!=""))
+    if(map.extrarow==0 || (map.custommode && SDL_strcmp(map.roomname, "") != 0))
     {
         graphics.footerrect.y = 230;
         if (graphics.translucentroomname)
@@ -2017,7 +2017,7 @@ void maprender(void)
 
     //draw screen alliteration
     //Roomname:
-    if (map.hiddenname != "")
+    if (SDL_strcmp(map.hiddenname, "") != 0)
     {
         graphics.Print(5, 2, map.hiddenname, 196, 196, 255 - help.glow, true);
     }

@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Entity.h"
 #include "MakeAndPlay.h"
-#include "UtilityClass.h"
 
 const short* spacestation2class::loadlevel(int rx, int ry)
 {
@@ -17,7 +16,7 @@ const short* spacestation2class::loadlevel(int rx, int ry)
     t = rx + (ry * 100);
 
     const short* result;
-    roomname = "Untitled room ["+help.String(rx) + "," + help.String(ry)+"]";
+    roomname = "Untitled room";
 
     switch(t)
     {

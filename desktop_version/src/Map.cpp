@@ -84,6 +84,9 @@ mapclass::mapclass(void)
     roomtexton = false;
 
     nexttowercolour_set = false;
+
+    roomname = "";
+    hiddenname = "";
 }
 
 //Areamap starts at 100,100 and extends 20x20
@@ -164,159 +167,159 @@ void mapclass::transformname(int t)
         {
         case 3:
             //Television Newsveel -> The 9 O'Clock News
-            if (specialnames[3] == "Television Newsveel")
+            if (SDL_strcmp(specialnames[3], "Television Newsveel") == 0)
             {
                 specialnames[3] = "Television Newsvel";
             }
-            else if (specialnames[3] == "Television Newsvel")
+            else if (SDL_strcmp(specialnames[3], "Television Newsvel") == 0)
             {
                 specialnames[3] = "TelevisvonvNewsvel";
             }
-            else if (specialnames[3] == "TelevisvonvNewsvel")
+            else if (SDL_strcmp(specialnames[3], "TelevisvonvNewsvel") == 0)
             {
                 specialnames[3] = "TvlvvvsvonvNevsvel";
             }
-            else if (specialnames[3] == "TvlvvvsvonvNevsvel")
+            else if (SDL_strcmp(specialnames[3], "TvlvvvsvonvNevsvel") == 0)
             {
                 specialnames[3] = "vvvvvvsvovvNe svel";
             }
-            else if (specialnames[3] == "vvvvvvsvovvNe svel")
+            else if (SDL_strcmp(specialnames[3], "vvvvvvsvovvNe svel") == 0)
             {
                 specialnames[3] = "vhv vvv'vvovv vevl";
             }
-            else if (specialnames[3] == "vhv vvv'vvovv vevl")
+            else if (SDL_strcmp(specialnames[3], "vhv vvv'vvovv vevl") == 0)
             {
                 specialnames[3] = "vhv V v'Cvovv vewv";
             }
-            else if (specialnames[3] == "vhv V v'Cvovv vewv")
+            else if (SDL_strcmp(specialnames[3], "vhv V v'Cvovv vewv") == 0)
             {
                 specialnames[3] = "vhe 9 v'Cvovv vewv";
             }
-            else if (specialnames[3] == "vhe 9 v'Cvovv vewv")
+            else if (SDL_strcmp(specialnames[3], "vhe 9 v'Cvovv vewv") == 0)
             {
                 specialnames[3] = "vhe 9 v'Cvovv Newv";
             }
-            else if (specialnames[3] == "vhe 9 v'Cvovv Newv")
+            else if (SDL_strcmp(specialnames[3], "vhe 9 v'Cvovv Newv") == 0)
             {
                 specialnames[3] = "The 9 O'Cvovk Newv";
             }
-            else if (specialnames[3] == "The 9 O'Cvovk Newv")
+            else if (SDL_strcmp(specialnames[3], "The 9 O'Cvovk Newv") == 0)
             {
                 specialnames[3] = "The 9 O'Clock News";
             }
             break;
         case 4:
             //Vwitched -> Dial M for Murder
-            if (specialnames[4] == "Vwitched")
+            if (SDL_strcmp(specialnames[4], "Vwitched") == 0)
             {
                 specialnames[4] = "Vwitvhed";
             }
-            else if (specialnames[4] == "Vwitvhed")
+            else if (SDL_strcmp(specialnames[4], "Vwitvhed") == 0)
             {
                 specialnames[4] = "vVwivcvedv";
             }
-            else if (specialnames[4] == "vVwivcvedv")
+            else if (SDL_strcmp(specialnames[4], "vVwivcvedv") == 0)
             {
                 specialnames[4] = "vvvwMvcvMdvv";
             }
-            else if (specialnames[4] == "vvvwMvcvMdvv")
+            else if (SDL_strcmp(specialnames[4], "vvvwMvcvMdvv") == 0)
             {
                 specialnames[4] = "DvvvwMvfvvMdvvv";
             }
-            else if (specialnames[4] == "DvvvwMvfvvMdvvv")
+            else if (SDL_strcmp(specialnames[4], "DvvvwMvfvvMdvvv") == 0)
             {
                 specialnames[4] = "Dvav Mvfvr Mdvvvv";
             }
-            else if (specialnames[4] == "Dvav Mvfvr Mdvvvv")
+            else if (SDL_strcmp(specialnames[4], "Dvav Mvfvr Mdvvvv") == 0)
             {
                 specialnames[4] = "Diav M for Mdrver";
             }
-            else if (specialnames[4] == "Diav M for Mdrver")
+            else if (SDL_strcmp(specialnames[4], "Diav M for Mdrver") == 0)
             {
                 specialnames[4] = "Dial M for Murder";
             }
             break;
         case 5:
             //Gvnsmoke -> Gunsmoke 1966
-            if (specialnames[5] == "Gvnsmoke")
+            if (SDL_strcmp(specialnames[5], "Gvnsmoke") == 0)
             {
                 specialnames[5] = "Gvnsmove";
             }
-            else if (specialnames[5] == "Gvnsmove")
+            else if (SDL_strcmp(specialnames[5], "Gvnsmove") == 0)
             {
                 specialnames[5] = "Gvnvmovevv";
             }
-            else if (specialnames[5] == "Gvnvmovevv")
+            else if (SDL_strcmp(specialnames[5], "Gvnvmovevv") == 0)
             {
                 specialnames[5] = "Gunvmove1vv6";
             }
-            else if (specialnames[5] == "Gunvmove1vv6")
+            else if (SDL_strcmp(specialnames[5], "Gunvmove1vv6") == 0)
             {
                 specialnames[5] = "Vunsmoke 19v6";
             }
-            else if (specialnames[5] == "Vunsmoke 19v6")
+            else if (SDL_strcmp(specialnames[5], "Vunsmoke 19v6") == 0)
             {
                 specialnames[5] = "Gunsmoke 1966";
             }
             break;
         case 6:
             //Please enjoy these repeats -> In the Margins
-            if (specialnames[6] == "Please enjoy these repeats")
+            if (SDL_strcmp(specialnames[6], "Please enjoy these repeats") == 0)
             {
                 specialnames[6] = "Please envoy theve repeats";
             }
-            else if (specialnames[6] == "Please envoy theve repeats")
+            else if (SDL_strcmp(specialnames[6], "Please envoy theve repeats") == 0)
             {
                 specialnames[6] = "Plse envoy tse rvpvas";
             }
-            else if (specialnames[6] == "Plase envoy these rvpeas")
+            else if (SDL_strcmp(specialnames[6], "Plase envoy these rvpeas") == 0)
             {
                 specialnames[6] = "Plse envoy tse rvpvas";
             }
-            else if (specialnames[6] == "Plse envoy tse rvpvas")
+            else if (SDL_strcmp(specialnames[6], "Plse envoy tse rvpvas") == 0)
             {
                 specialnames[6] = "Vl envoy te rvevs";
             }
-            else if (specialnames[6] == "Vl envoy te rvevs")
+            else if (SDL_strcmp(specialnames[6], "Vl envoy te rvevs") == 0)
             {
                 specialnames[6] = "Vv evo tv vevs";
             }
-            else if (specialnames[6] == "Vv evo tv vevs")
+            else if (SDL_strcmp(specialnames[6], "Vv evo tv vevs") == 0)
             {
                 specialnames[6] = "Iv vhv Mvrvivs";
             }
-            else if (specialnames[6] == "Iv vhv Mvrvivs")
+            else if (SDL_strcmp(specialnames[6], "Iv vhv Mvrvivs") == 0)
             {
                 specialnames[6] = "In the Margins";
             }
             break;
         case 7:
             //Try Jiggling the Antenna -> Heaven's Gate
-            if (specialnames[7] == "Try Jiggling the Antenna")
+            if (SDL_strcmp(specialnames[7], "Try Jiggling the Antenna") == 0)
             {
                 specialnames[7] = "Try Viggling the Antenna";
             }
-            else if (specialnames[7] == "Try Viggling the Antenna")
+            else if (SDL_strcmp(specialnames[7], "Try Viggling the Antenna") == 0)
             {
                 specialnames[7] = "TryJivglvng theAvtevna";
             }
-            else if (specialnames[7] == "TryJivglvng theAvtevna")
+            else if (SDL_strcmp(specialnames[7], "TryJivglvng theAvtevna") == 0)
             {
                 specialnames[7] = "Tvvivglvng thAvtvvv";
             }
-            else if (specialnames[7] == "Tvvivglvng thAvtvvv")
+            else if (SDL_strcmp(specialnames[7], "Tvvivglvng thAvtvvv") == 0)
             {
                 specialnames[7] = "Vvvgglvnv tvnvva";
             }
-            else if (specialnames[7] == "Vvvgglvnv tvnvva")
+            else if (SDL_strcmp(specialnames[7], "Vvvgglvnv tvnvva") == 0)
             {
                 specialnames[7] = "Vvavvnvs vvtv";
             }
-            else if (specialnames[7] == "Vvavvnvs vvtv")
+            else if (SDL_strcmp(specialnames[7], "Vvavvnvs vvtv") == 0)
             {
                 specialnames[7] = "Veavvn's Gvte";
             }
-            else if (specialnames[7] == "Veavvn's Gvte")
+            else if (SDL_strcmp(specialnames[7], "Veavvn's Gvte") == 0)
             {
                 specialnames[7] = "Heaven's Gate";
             }
@@ -331,10 +334,10 @@ void mapclass::transformname(int t)
     }
 }
 
-std::string mapclass::getglitchname(int x, int y)
+const char* mapclass::getglitchname(int x, int y)
 {
     //Returns the name in the final area.
-    if (roomname == "glitch")
+    if (SDL_strcmp(roomname, "glitch") == 0)
     {
         //8 Cases!
         //First, the three "glitches"
@@ -371,7 +374,7 @@ std::string mapclass::getglitchname(int x, int y)
             else return "The Untouchavles";
         }
     }
-    else if (roomname == "change")
+    else if (SDL_strcmp(roomname, "change") == 0)
     {
         if (finalstretch)
         {
@@ -1282,7 +1285,7 @@ void mapclass::spawncompanion(void)
     }
 }
 
-std::string mapclass::currentarea(int t)
+const char* mapclass::currentarea(int t)
 {
     switch(t)
     {
@@ -1811,7 +1814,7 @@ void mapclass::loadlevel(int rx, int ry)
             break;
         }
 
-        roomname = room->roomname;
+        roomname = room->roomname.c_str();
         extrarow = 1;
         const int* tmap = cl.loadlevel(rx, ry);
         SDL_memcpy(contents, tmap, sizeof(contents));
@@ -1921,7 +1924,7 @@ void mapclass::loadlevel(int rx, int ry)
                 Roomtext text;
                 text.x = ex / 8;
                 text.y = ey / 8;
-                text.text = ent.scriptname;
+                text.text = ent.scriptname.c_str();
                 roomtext.push_back(text);
                 break;
             }

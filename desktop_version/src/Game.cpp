@@ -3934,7 +3934,7 @@ void Game::gethardestroom(void)
     {
         hardestroomdeaths = currentroomdeaths;
         hardestroom = map.roomname;
-        if (map.roomname == "glitch")
+        if (SDL_strcmp(map.roomname, "glitch") == 0)
         {
             if (roomx == 42 && roomy == 51)
             {
@@ -3949,7 +3949,7 @@ void Game::gethardestroom(void)
                 hardestroom = "The Untouchavles";
             }
         }
-        else if (map.roomname == "change")
+        else if (SDL_strcmp(map.roomname, "change") == 0)
         {
             if (roomx == 45 && roomy == 51) hardestroom =map.specialnames[3];
             if (roomx == 46 && roomy == 51) hardestroom =map.specialnames[4];
@@ -3957,7 +3957,7 @@ void Game::gethardestroom(void)
             if (roomx == 50 && roomy == 53) hardestroom =map.specialnames[6];
             if (roomx == 50 && roomy == 54) hardestroom = map.specialnames[7];
         }
-        else if (map.roomname == "")
+        else if (SDL_strcmp(map.roomname, "") == 0)
         {
             hardestroom = map.hiddenname;
         }
