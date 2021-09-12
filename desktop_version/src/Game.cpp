@@ -307,7 +307,6 @@ void Game::init(void)
     supercrewmate = false;
     scmhurt = false;
     scmprogress = 0;
-    scmmoveme = false;
     swncolstate = 0;
     swncoldelay = 0;
     swnrecord = 0;
@@ -4946,10 +4945,6 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         {
             scmprogress = help.Int(pText);
         }
-        else if (SDL_strcmp(pKey, "scmmoveme") == 0)
-        {
-            scmmoveme = help.Int(pText);
-        }
         else if (SDL_strcmp(pKey, "frames") == 0)
         {
             frames = help.Int(pText);
@@ -5151,10 +5146,6 @@ void Game::customloadquick(const std::string& savfile)
         else if (SDL_strcmp(pKey, "scmprogress") == 0)
         {
             scmprogress = help.Int(pText);
-        }
-        else if (SDL_strcmp(pKey, "scmmoveme") == 0)
-        {
-            scmmoveme = help.Int(pText);
         }
         else if (SDL_strcmp(pKey, "frames") == 0)
         {
@@ -5525,7 +5516,6 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
     xml::update_tag(msgs, "supercrewmate", (int) supercrewmate);
 
     xml::update_tag(msgs, "scmprogress", scmprogress);
-    xml::update_tag(msgs, "scmmoveme", (int) scmmoveme);
 
 
     xml::update_tag(msgs, "frames", frames);
@@ -5661,7 +5651,6 @@ bool Game::customsavequick(const std::string& savfile)
     xml::update_tag(msgs, "supercrewmate", (int) supercrewmate);
 
     xml::update_tag(msgs, "scmprogress", scmprogress);
-    xml::update_tag(msgs, "scmmoveme", (int) scmmoveme);
 
 
     xml::update_tag(msgs, "frames", frames);

@@ -888,14 +888,6 @@ void mapclass::resetplayer(const bool player_died)
         {
             game.scmprogress = game.roomx - 40;
         }
-        if (game.scmprogress != 0)
-        {
-            game.scmmoveme = true;
-        }
-        else
-        {
-            game.scmmoveme = false;
-        }
     }
 }
 

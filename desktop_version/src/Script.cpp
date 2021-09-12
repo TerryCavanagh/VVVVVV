@@ -3155,7 +3155,6 @@ void scriptclass::hardreset(void)
     game.supercrewmate = false;
     game.scmhurt = false;
     game.scmprogress = 0;
-    game.scmmoveme = false;
     game.swncolstate = 0;
     game.swncoldelay = 0;
     game.swnrank = 0;

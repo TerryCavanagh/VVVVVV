@@ -1544,15 +1544,7 @@ void gamelogic(void)
                         obj.createentity(10, 177, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 3:
-                        if (game.scmmoveme)
-                        {
-                            obj.createentity(obj.entities[obj.getplayer()].xp, 185, 24, graphics.crewcolour(game.lastsaved), 2);
-                            game.scmmoveme = false;
-                        }
-                        else
-                        {
-                            obj.createentity(10, 177, 24, graphics.crewcolour(game.lastsaved), 2);
-                        }
+                        obj.createentity(10, 177, 24, graphics.crewcolour(game.lastsaved), 2);
                         break;
                     case 4:
                         obj.createentity(10, 185, 24, graphics.crewcolour(game.lastsaved), 2);
@@ -1585,17 +1577,6 @@ void gamelogic(void)
                         obj.createentity(10, 177, 24, graphics.crewcolour(game.lastsaved));
                         break;
                     }
-                }
-
-                if (game.scmmoveme)
-                {
-                    int scm = obj.getscm();
-                    int player = obj.getplayer();
-                    if (INBOUNDS_VEC(scm, obj.entities) && INBOUNDS_VEC(player, obj.entities))
-                    {
-                        obj.entities[scm].xp = obj.entities[player].xp;
-                    }
-                    game.scmmoveme = false;
                 }
                 break;
             }
