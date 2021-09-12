@@ -81,6 +81,8 @@ public:
 
     void gotoroom(int rx, int ry);
 
+    void spawncompanion(void);
+
     std::string currentarea(int t);
 
     void loadlevel(int rx, int ry);
