@@ -3958,7 +3958,7 @@ void Game::gethardestroom(void)
             if (roomx == 50 && roomy == 53) hardestroom =map.specialnames[6];
             if (roomx == 50 && roomy == 54) hardestroom = map.specialnames[7];
         }
-        else if (SDL_strcmp(map.roomname, "") == 0)
+        else if (map.roomname[0] == '\0')
         {
             hardestroom = map.hiddenname;
         }
