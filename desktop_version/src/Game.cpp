@@ -6778,7 +6778,7 @@ void Game::returntoeditor(void)
 {
     gamestate = EDITORMODE;
 
-    graphics.textbox.clear();
+    graphics.textboxes.clear();
     hascontrol = true;
     advancetext = false;
     completestop = false;

@@ -2415,7 +2415,7 @@ void mapinput(void)
         {
             // Produces more glitchiness! Necessary for credits warp to work.
             script.running = false;
-            graphics.textbox.clear();
+            graphics.textboxes.clear();
 
             game.state = 80;
             game.statedelay = 0;

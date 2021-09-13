@@ -97,19 +97,19 @@ void textboxclass::resize(void)
 {
     //Set the width and height to the correct sizes
     int max = 0;
-    for (size_t iter = 0; iter < line.size(); iter++)
+    for (size_t iter = 0; iter < lines.size(); iter++)
     {
-        unsigned int len = utf8::unchecked::distance(line[iter].begin(), line[iter].end());
+        unsigned int len = utf8::unchecked::distance(lines[iter].begin(), lines[iter].end());
         if (len > (unsigned int)max) max = len;
     }
 
     w = (max +2) * 8;
-    h = (line.size() + 2) * 8;
+    h = (lines.size() + 2) * 8;
 }
 
 void textboxclass::addline(const std::string& t)
 {
-    line.push_back(t);
+    lines.push_back(t);
     resize();
-    if ((int) line.size() >= 12) line.clear();
+    if ((int) lines.size() >= 12) lines.clear();
 }

@@ -28,7 +28,7 @@ public:
     void addline(const std::string& t);
 public:
     //Fundamentals
-    std::vector<std::string> line;
+    std::vector<std::string> lines;
     int xp, yp, w, h;
     int r,g,b;
     int timer;

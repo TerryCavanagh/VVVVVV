@@ -300,7 +300,7 @@ public:
     bool trinketcolset;
     int trinketr, trinketg, trinketb;
 
-    std::vector <textboxclass> textbox;
+    std::vector <textboxclass> textboxes;
 
     bool showcutscenebars;
     int cutscenebarspos;

@@ -3190,7 +3190,7 @@ void scriptclass::hardreset(void)
 
     //dwgraphicsclass
     graphics.backgrounddrawn = false;
-    graphics.textbox.clear();
+    graphics.textboxes.clear();
     graphics.flipmode = false; //This will be reset if needs be elsewhere
     graphics.showcutscenebars = false;
     graphics.setbars(0);

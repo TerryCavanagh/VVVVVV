@@ -960,58 +960,58 @@ void Graphics::drawgui(void)
     }
 
     //Draw all the textboxes to the screen
-    for (i = 0; i<textbox.size(); i++)
+    for (i = 0; i<textboxes.size(); i++)
     {
         int text_yoff;
         int yp;
         bool opaque;
         if (flipmode)
         {
-            text_yoff = textbox[i].line.size() * 8;
+            text_yoff = textboxes[i].lines.size() * 8;
         }
         else
         {
             text_yoff = 8;
         }
 
-        yp = textbox[i].yp;
-        if (flipmode && textbox[i].flipme)
+        yp = textboxes[i].yp;
+        if (flipmode && textboxes[i].flipme)
         {
-            yp += 2 * (120 - yp) - 8 * (textbox[i].line.size() + 2);
+            yp += 2 * (120 - yp) - 8 * (textboxes[i].lines.size() + 2);
         }
 
-        if (textbox[i].r == 0 && textbox[i].g == 0 && textbox[i].b == 0)
+        if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
         {
             size_t j;
-            for (j = 0; j < textbox[i].line.size(); j++)
+            for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                bprint(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], 196, 196, 255 - help.glow);
+                bprint(textboxes[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textboxes[i].lines[j], 196, 196, 255 - help.glow);
             }
         }
         else
         {
-            const float tl_lerp = lerp(textbox[i].prev_tl, textbox[i].tl);
-            const int r = textbox[i].r * tl_lerp;
-            const int g = textbox[i].g * tl_lerp;
-            const int b = textbox[i].b * tl_lerp;
+            const float tl_lerp = lerp(textboxes[i].prev_tl, textboxes[i].tl);
+            const int r = textboxes[i].r * tl_lerp;
+            const int g = textboxes[i].g * tl_lerp;
+            const int b = textboxes[i].b * tl_lerp;
             size_t j;
 
-            drawtextbox(textbox[i].xp, yp, textbox[i].w/8, textbox[i].h/8, r, g, b);
+            drawtextbox(textboxes[i].xp, yp, textboxes[i].w/8, textboxes[i].h/8, r, g, b);
 
-            for (j = 0; j < textbox[i].line.size(); j++)
+            for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                Print(textbox[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textbox[i].line[j], r, g, b);
+                Print(textboxes[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textboxes[i].lines[j], r, g, b);
             }
         }
 
-        opaque = textbox[i].tl >= 1.0;
+        opaque = textboxes[i].tl >= 1.0;
 
         if (!opaque)
         {
             continue;
         }
 
-        if (textbox[i].yp == 12 && textbox[i].r == 165)
+        if (textboxes[i].yp == 12 && textboxes[i].r == 165)
         {
             if (flipmode)
             {
@@ -1022,7 +1022,7 @@ void Graphics::drawgui(void)
                 drawimage(0, 0, 12, true);
             }
         }
-        else if (textbox[i].yp == 12 && textbox[i].g == 165)
+        else if (textboxes[i].yp == 12 && textboxes[i].g == 165)
         {
             if (flipmode)
             {
@@ -1033,55 +1033,55 @@ void Graphics::drawgui(void)
                 drawimage(4, 0, 12, true);
             }
         }
-        if (textbox[i].r == 175 && textbox[i].g == 175)
+        if (textboxes[i].r == 175 && textboxes[i].g == 175)
         {
             //purple guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 120- help.glow/4, 210 - help.glow/4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 120- help.glow/4, 210 - help.glow/4);
         }
-        else if (textbox[i].r == 175 && textbox[i].b == 175)
+        else if (textboxes[i].r == 175 && textboxes[i].b == 175)
         {
             //red guy
             drawsprite(80 - 6, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
         }
-        else if (textbox[i].r == 175)
+        else if (textboxes[i].r == 175)
         {
             //green guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - textbox[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 120 - help.glow / 4 - textboxes[i].rand, 220 - help.glow / 4, 120 - help.glow / 4);
         }
-        else if (textbox[i].g == 175)
+        else if (textboxes[i].g == 175)
         {
             //yellow guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textbox[i].rand, 210 - help.glow/4, 120- help.glow/4);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 210 - help.glow/4, 120- help.glow/4);
         }
-        else if (textbox[i].b == 175)
+        else if (textboxes[i].b == 175)
         {
             //blue guy
-            drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textbox[i].rand);
+            drawsprite(80 - 6, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textboxes[i].rand);
         }
     }
 }
 
 void Graphics::updatetextboxes(void)
 {
-    for (size_t i = 0; i < textbox.size(); i++)
+    for (size_t i = 0; i < textboxes.size(); i++)
     {
-        textbox[i].update();
+        textboxes[i].update();
 
-        if (textbox[i].tm == 2 && textbox[i].tl <= 0.5)
+        if (textboxes[i].tm == 2 && textboxes[i].tl <= 0.5)
         {
-            textbox.erase(textbox.begin() + i);
+            textboxes.erase(textboxes.begin() + i);
             i--;
             continue;
         }
 
-        if (textbox[i].tl >= 1.0f
-        && ((textbox[i].r == 175 && textbox[i].g == 175)
-        || textbox[i].r == 175
-        || textbox[i].g == 175
-        || textbox[i].b == 175)
-        && (textbox[i].r != 175 || textbox[i].b != 175))
+        if (textboxes[i].tl >= 1.0f
+        && ((textboxes[i].r == 175 && textboxes[i].g == 175)
+        || textboxes[i].r == 175
+        || textboxes[i].g == 175
+        || textboxes[i].b == 175)
+        && (textboxes[i].r != 175 || textboxes[i].b != 175))
         {
-            textbox[i].rand = fRandom() * 20;
+            textboxes[i].rand = fRandom() * 20;
         }
     }
 }
@@ -1327,61 +1327,61 @@ void Graphics::drawtextbox(
 void Graphics::textboxactive(void)
 {
     //Remove all but the most recent textbox
-    for (int i = 0; i < (int) textbox.size(); i++)
+    for (int i = 0; i < (int) textboxes.size(); i++)
     {
-        if (m != i) textbox[i].remove();
+        if (m != i) textboxes[i].remove();
     }
 }
 
 void Graphics::textboxremovefast(void)
 {
     //Remove all textboxes
-    for (size_t i = 0; i < textbox.size(); i++)
+    for (size_t i = 0; i < textboxes.size(); i++)
     {
-        textbox[i].removefast();
+        textboxes[i].removefast();
     }
 }
 
 void Graphics::textboxremove(void)
 {
     //Remove all textboxes
-    for (size_t i = 0; i < textbox.size(); i++)
+    for (size_t i = 0; i < textboxes.size(); i++)
     {
-        textbox[i].remove();
+        textboxes[i].remove();
     }
 }
 
 void Graphics::textboxtimer( int t )
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxtimer() out-of-bounds!");
         return;
     }
 
-    textbox[m].timer=t;
+    textboxes[m].timer=t;
 }
 
 void Graphics::addline( const std::string& t )
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("addline() out-of-bounds!");
         return;
     }
 
-    textbox[m].addline(t);
+    textboxes[m].addline(t);
 }
 
 void Graphics::textboxadjust(void)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxadjust() out-of-bounds!");
         return;
     }
 
-    textbox[m].adjust();
+    textboxes[m].adjust();
 }
 
 
@@ -1394,12 +1394,12 @@ void Graphics::createtextboxreal(
     int b,
     bool flipme
 ) {
-    m = textbox.size();
+    m = textboxes.size();
 
     if(m<20)
     {
         textboxclass text;
-        text.line.push_back(t);
+        text.lines.push_back(t);
         text.xp = xp;
         int length = utf8::unchecked::distance(t.begin(), t.end());
         if (xp == -1) text.xp = 160 - (((length / 2) + 1) * 8);
@@ -1407,7 +1407,7 @@ void Graphics::createtextboxreal(
         text.initcol(r, g, b);
         text.flipme = flipme;
         text.resize();
-        textbox.push_back(text);
+        textboxes.push_back(text);
     }
 }
 
@@ -3050,46 +3050,46 @@ void Graphics::setwarprect( int a, int b, int c, int d )
 
 void Graphics::textboxcenterx(void)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxcenterx() out-of-bounds!");
         return;
     }
 
-    textbox[m].centerx();
+    textboxes[m].centerx();
 }
 
 int Graphics::textboxwidth(void)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxwidth() out-of-bounds!");
         return 0;
     }
 
-    return textbox[m].w;
+    return textboxes[m].w;
 }
 
 void Graphics::textboxmoveto(int xo)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxmoveto() out-of-bounds!");
         return;
     }
 
-    textbox[m].xp = xo;
+    textboxes[m].xp = xo;
 }
 
 void Graphics::textboxcentery(void)
 {
-    if (!INBOUNDS_VEC(m, textbox))
+    if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxcentery() out-of-bounds!");
         return;
     }
 
-    textbox[m].centery();
+    textboxes[m].centery();
 }
 
 int Graphics::crewcolour(const int t)
