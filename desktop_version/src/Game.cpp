@@ -6,6 +6,7 @@
 #include <string.h>
 #include <tinyxml2.h>
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
 #include "Editor.h"
@@ -658,7 +659,7 @@ void Game::remaining_textbox(void)
 {
     const int remaining = 6 - crewrescued();
     const char* string;
-    char buffer[161]; /* 4 bytes per 40 chars (whole screen) plus 1 for null terminator */
+    char buffer[SCREEN_WIDTH_CHARS + 1];
     if (remaining == 1)
     {
         string = "  One remains  ";

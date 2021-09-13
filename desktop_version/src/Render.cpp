@@ -1,5 +1,6 @@
 #include <SDL.h>
 
+#include "Constants.h"
 #include "Credits.h"
 #include "CustomLevels.h"
 #include "Editor.h"
@@ -113,8 +114,7 @@ static void inline drawglitchrunnertext(void)
     int tempg = tg;
     int tempb = tb;
 
-    /* Screen width 40 chars, 4 per char */
-    char buffer[160 + 1];
+    char buffer[SCREEN_WIDTH_CHARS + 1];
 
     const char* mode_string;
 
@@ -406,8 +406,7 @@ static void menurender(void)
                 break;
             }
         {
-            /* Screen width 40 chars, 4 per char */
-            char buffer[160 + 1];
+            char buffer[SCREEN_WIDTH_CHARS + 1];
             char soundtrack[6 + 1];
             char letter;
             if (music.usingmmmmmm)
@@ -628,8 +627,7 @@ static void menurender(void)
             break;
         case 2:
         {
-            /* Screen width 40 chars, 4 per char */
-            char buffer[160 + 1];
+            char buffer[SCREEN_WIDTH_CHARS + 1];
             const char* button;
 
             graphics.bigprint(-1, 30, "Interact Button", tr, tg, tb, true);
@@ -1793,8 +1791,7 @@ void gamerender(void)
 
     if (game.readytotele > 100 || game.oldreadytotele > 100)
     {
-        /* Screen width 40 chars, 4 per char */
-        char buffer[160 + 1];
+        char buffer[SCREEN_WIDTH_CHARS + 1];
         static const char raw[] = "- Press %s to Teleport - ";
         const char* final_string = interact_prompt(
             buffer,
@@ -1990,8 +1987,7 @@ void gamerender(void)
     float act_alpha = graphics.lerp(game.prev_act_fade, game.act_fade) / 10.0f;
     if(game.act_fade>5 || game.prev_act_fade>5)
     {
-        /* Screen width 40 chars, 4 per char */
-        char buffer[160 + 1];
+        char buffer[SCREEN_WIDTH_CHARS + 1];
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
@@ -2882,8 +2878,7 @@ void teleporterrender(void)
 
     if (game.useteleporter)
     {
-        /* Screen width 40 chars, 4 per char */
-        char buffer[160 + 1];
+        char buffer[SCREEN_WIDTH_CHARS + 1];
         static const char raw[] = "Press %s to Teleport";
         const char* final_string = interact_prompt(
             buffer,
