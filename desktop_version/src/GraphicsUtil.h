@@ -11,11 +11,7 @@ struct colourTransform
 
 void setRect(SDL_Rect& _r, int x, int y, int w, int h);
 
-unsigned int endian_swap(unsigned int x);
-
 SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, int height );
-
-void DrawPixel( SDL_Surface *surface, int x, int y, Uint32 pixel );
 
 Uint32 ReadPixel( SDL_Surface *surface, int x, int y );
 
@@ -39,16 +35,12 @@ void FillRect( SDL_Surface* surface, SDL_Rect& rect, const int r, int g, int b )
 
 void FillRect( SDL_Surface* surface, SDL_Rect rect, int rgba );
 
-bool intersectRect(float left1, float right1, float bottom1, float top1, float left2, float right2, float bottom2, float top2);
-
-void OverlaySurfaceKeyed(SDL_Surface* _src, SDL_Surface* _dest, Uint32 _key);
+void ClearSurface(SDL_Surface* surface);
 
 void ScrollSurface(SDL_Surface* _src, int pX, int py);
 
-SDL_Surface * FlipSurfaceHorizontal(SDL_Surface* _src);
 SDL_Surface * FlipSurfaceVerticle(SDL_Surface* _src);
-SDL_Surface * ScaleSurfaceSlow( SDL_Surface *_surface, int Width, int Height );
-void UpdateFilter();
+void UpdateFilter(void);
 SDL_Surface* ApplyFilter( SDL_Surface* _src );
 
 #endif /* GRAPHICSUTIL_H */

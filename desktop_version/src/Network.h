@@ -7,11 +7,11 @@
 extern "C" {
 #endif
 
-int32_t NETWORK_init();
+int32_t NETWORK_init(void);
 
-void NETWORK_shutdown();
+void NETWORK_shutdown(void);
 
-void NETWORK_update();
+void NETWORK_update(void);
 
 void NETWORK_unlockAchievement(const char *name);
 

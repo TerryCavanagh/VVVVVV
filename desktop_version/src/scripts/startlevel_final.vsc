@@ -1,4 +1,5 @@
 ifskip(skipfinal)
+hideplayer()
 cutscene()
 untilbars()
 activeteleporter()

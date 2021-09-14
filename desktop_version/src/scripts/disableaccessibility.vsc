@@ -1,0 +1,14 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,3)
+Please disable invincibility
+and/or slowdown before entering
+the Super Gravitron.
+position(center)
+speak
+
+endtext
+endcutscene()
+untilbars()

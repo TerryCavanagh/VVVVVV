@@ -177,6 +177,7 @@ void scriptclass::load(const std::string& name)
     #include "scripts/generated/gamecomplete_ending.vsc.cpp"
     #include "scripts/generated/startepilogue.vsc.cpp"
     #include "scripts/generated/returntolab.vsc.cpp"
+    #include "scripts/generated/disableaccessibility.vsc.cpp"
 
     // Terminal scripts
     #include "scripts/generated/terminal_station_1.vsc.cpp"

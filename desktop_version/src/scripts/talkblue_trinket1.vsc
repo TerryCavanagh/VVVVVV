@@ -17,8 +17,7 @@ delay(30)
 # found a trinket!
 foundtrinket(18)
 endtext
-# musicfadein
-trinketscriptmusic
+musicfadein
 
 delay(30)
 createentity(136,80,22,18,0)

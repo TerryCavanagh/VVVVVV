@@ -1,3 +1,4 @@
+missing(purple)
 gotoroom(4,10)
 gotoposition(100,177,0)
 createcrewman(150,177,purple,0,faceleft)

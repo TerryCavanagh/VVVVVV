@@ -1,8 +1,10 @@
 #ifndef PRELOADER_H
 #define PRELOADER_H
 
-void preloaderrender();
+void preloaderinput(void);
 
-void preloaderlogic();
+void preloaderrender(void);
+
+void preloaderrenderfixed(void);
 
 #endif /* PRELOADER_H */

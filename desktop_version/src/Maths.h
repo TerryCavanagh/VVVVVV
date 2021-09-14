@@ -1,7 +1,7 @@
 #ifndef MATHGAME_H
 #define MATHGAME_H
 
-#include <cmath>
+#include <math.h>
 #include <stdlib.h>
 
 //// This header holds Maths functions that emulate the functionality of flash's
@@ -9,7 +9,7 @@
 
 //random
 //Returns 0..1
-float inline fRandom()
+float inline fRandom(void)
 {
     return ( float(rand()) / float(RAND_MAX)) ;
 }
@@ -24,5 +24,29 @@ struct point
     int x;
     int y;
 };
+
+inline int VVV_min(const int a, const int b)
+{
+    if (a < b)
+    {
+        return a;
+    }
+    else
+    {
+        return b;
+    }
+}
+
+inline int VVV_max(const int a, const int b)
+{
+    if (a > b)
+    {
+        return a;
+    }
+    else
+    {
+        return b;
+    }
+}
 
 #endif /* MATHGAME_H */

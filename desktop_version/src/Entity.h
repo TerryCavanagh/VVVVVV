@@ -1,6 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include <SDL.h>
 #include <string>
 #include <vector>
 
@@ -8,9 +9,6 @@
 #include "Ent.h"
 #include "BlockV.h"
 #include "Game.h"
-
-#define removeentity_iter(index) { if (obj.removeentity(index)) index--; }
-#define removeblock_iter(index) { obj.removeblock(index); index--; }
 
 enum
 {
@@ -22,26 +20,38 @@ enum
     ACTIVITY = 5
 };
 
+enum
+{
+    CYAN = 0,
+    PURPLE = 20,
+    YELLOW = 14,
+    RED = 15,
+    GREEN = 13,
+    BLUE = 16,
+    GRAY = 19,
+    TELEPORTER = 102
+};
+
 class entityclass
 {
 public:
-    void init();
+    void init(void);
 
-    void resetallflags();
+    void resetallflags(void);
 
-    void fatal_top()
+    void fatal_top(void)
     {
         createblock(DAMAGE, -8, -8, 384, 16);
     }
-    void fatal_bottom()
+    void fatal_bottom(void)
     {
         createblock(DAMAGE, -8, 224, 384, 16);
     }
-    void fatal_left()
+    void fatal_left(void)
     {
         createblock(DAMAGE, -8, -8, 16, 260);
     }
-    void fatal_right()
+    void fatal_right(void)
     {
         createblock(DAMAGE, 312, -8, 16, 260);
     }
@@ -54,73 +64,75 @@ public:
 
     void generateswnwave(int t);
 
-    void createblock(int t, int xp, int yp, int w, int h, int trig = 0, const std::string& script = "");
+    void createblock(int t, int xp, int yp, int w, int h, int trig = 0, const std::string& script = "", bool custom = false);
 
-    bool removeentity(int t);
+    bool disableentity(int t);
 
-    void removeallblocks();
+    void removeallblocks(void);
 
-    void removeblock(int t);
+    void disableblock(int t);
 
-    void removeblockat(int x, int y);
+    void disableblockat(int x, int y);
+
+    void moveblockto(int x1, int y1, int x2, int y2, int w, int h);
 
     void removetrigger(int t);
 
-    void copylinecross(int t);
+    void copylinecross(std::vector<entclass>& linecrosskludge, int t);
 
-    void revertlinecross(int t, int s);
+    void revertlinecross(std::vector<entclass>& linecrosskludge, int t, int s);
 
     bool gridmatch(int p1, int p2, int p3, int p4, int p11, int p21, int p31, int p41);
 
-    int crewcolour(int t);
-
-    void createentity(float xp, float yp, int t, float vx = 0, float vy = 0,
-                      int p1 = 0, int p2 = 0, int p3 = 320, int p4 = 240 );
+    void createentity(int xp, int yp, int t, int meta1, int meta2,
+                      int p1, int p2, int p3, int p4);
+    void createentity(int xp, int yp, int t, int meta1, int meta2,
+                      int p1, int p2);
+    void createentity(int xp, int yp, int t, int meta1, int meta2,
+                      int p1);
+    void createentity(int xp, int yp, int t, int meta1, int meta2);
+    void createentity(int xp, int yp, int t, int meta1);
+    void createentity(int xp, int yp, int t);
 
     bool updateentities(int i);
 
     void animateentities(int i);
 
-    int getcompanion();
+    void animatehumanoidcollision(const int i);
 
-    int getplayer();
+    int getcompanion(void);
 
-    int getscm();
+    int getplayer(void);
+
+    int getscm(void);
 
     int getlineat(int t);
 
-    int getcrewman(int t);
+    int getcrewman(int t, int fallback = 0);
     int getcustomcrewman(int t);
 
-    int getteleporter();
-
-    void rectset(int xi, int yi, int wi, int hi);
-
-    void rect2set(int xi, int yi, int wi, int hi);
+    int getteleporter(void);
 
     bool entitycollide(int a, int b);
 
-    bool checkdamage();
-
-    bool scmcheckdamage();
-
-    void settemprect(int t);
+    bool checkdamage(bool scm = false);
 
     int checktrigger(int* block_idx);
 
-    int checkactivity();
+    int checkactivity(void);
 
     int getgridpoint(int t);
 
-    bool checkplatform();
+    bool checkplatform(const SDL_Rect& temprect, int* px, int* py);
 
-    bool checkblocks();
+    bool checkblocks(const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipdirblocks);
 
     bool checktowerspikes(int t);
 
-    bool checkwall();
+    bool checkwall(const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipblocks, const bool skipdirblocks);
+    bool checkwall(const SDL_Rect& temprect);
 
-    float hplatformat();
+    float hplatformat(const int px, const int py);
 
     int yline(int a, int b);
 
@@ -141,11 +153,9 @@ public:
 
     bool entitycollideroof(int t);
 
-    bool testwallsx(int t, int tx, int ty);
+    bool testwallsx(int t, int tx, int ty, const bool skipdirblocks);
 
     bool testwallsy(int t, float tx, float ty);
-
-    void fixfriction(int t, float xfix, float xrate, float yrate);
 
     void applyfriction(int t, float xrate, float yrate);
 
@@ -154,40 +164,24 @@ public:
 
     void entitymapcollision(int t);
 
-    void movingplatformfix(int t);
+    void movingplatformfix(int t, int j);
 
-    void scmmovingplatformfix(int t);
+    void entitycollisioncheck(void);
 
-    void hormovingplatformfix(int t);
+    void collisioncheck(int i, int j, bool scm = false);
 
-    void entitycollisioncheck();
+    void stuckprevention(int t);
 
 
     std::vector<entclass> entities;
 
-    std::vector<entclass> linecrosskludge;
-
-    point colpoint1, colpoint2;
-
-    int tempx, tempy, tempw, temph, temp, temp2;
-    //public var tempx:int, tempy:int, tempw:int, temph:int, temp:int, temp2:int;
-    int tpx1, tpy1, tpx2, tpy2;
-
-    SDL_Rect temprect, temprect2;
-
-    int x, k;
-    float dx, dy, dr;
-
-    int px, py, linetemp;
-    int activetrigger;
+    int k;
 
 
     std::vector<blockclass> blocks;
     bool flags[100];
     bool collect[100];
     bool customcollect[100];
-
-    bool skipblocks, skipdirblocks;
 
     int platformtile;
     bool vertplatforms, horplatforms;
@@ -209,8 +203,12 @@ public:
     bool customwarpmode, customwarpmodevon, customwarpmodehon;
     std::string customscript;
     bool customcrewmoods[Game::numcrew];
+    std::string customactivitycolour;
+    std::string customactivitytext;
 };
 
+#ifndef OBJ_DEFINITION
 extern entityclass obj;
+#endif
 
 #endif /* ENTITY_H */

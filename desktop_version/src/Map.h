@@ -9,20 +9,19 @@
 #include "Otherlevel.h"
 #include "Spacestation2.h"
 #include "Tower.h"
+#include "TowerBG.h"
 #include "WarpClass.h"
 
 struct Roomtext
 {
     int x, y;
-    std::string text;
+    const char* text;
 };
 
 class mapclass
 {
 public:
-    mapclass();
-
-    int RGB(int red,int green,int blue);
+    mapclass(void);
 
     int intpol(int a, int b, float c);
 
@@ -30,16 +29,16 @@ public:
 
     void settrinket(int x, int y);
 
-    void resetmap();
+    void resetmap(void);
 
-    void resetnames();
+    void resetnames(void);
 
     void transformname(int t);
 
-    std::string getglitchname(int x, int y);
+    const char* getglitchname(int x, int y);
 
-    void initmapdata();
-    void initcustommapdata();
+    void initmapdata(void);
+    void initcustommapdata(void);
 
     int finalat(int x, int y);
 
@@ -47,11 +46,16 @@ public:
 
     void changefinalcol(int t);
 
-    void setcol(const int r1, const int g1, const int b1 , const int r2, const  int g2, const int b2, const int c);
+    void setcol(TowerBG& bg_obj, const int r1, const int g1, const int b1 , const int r2, const  int g2, const int b2, const int c);
 
-    void updatetowerglow();
+    void updatebgobj(TowerBG& bg_obj);
 
-    void nexttowercolour();
+    void setbgobjlerp(TowerBG& bg_obj);
+
+    void updatetowerglow(TowerBG& bg_obj);
+
+    void nexttowercolour(void);
+    bool nexttowercolour_set;
 
     void settowercolour(int t);
 
@@ -64,31 +68,37 @@ public:
 
     int area(int _rx, int _ry);
 
-    void exploretower();
+    void exploretower(void);
 
-    void hideship();
+    void hideship(void);
 
-    void showship();
+    void showship(void);
 
-    void resetplayer();
+    void resetplayer(const bool player_died);
+    void resetplayer(void);
 
     void warpto(int rx, int ry , int t, int tx, int ty);
 
     void gotoroom(int rx, int ry);
 
-    std::string currentarea(int t);
+    void spawncompanion(void);
+
+    const char* currentarea(int t);
 
     void loadlevel(int rx, int ry);
 
-    void twoframedelayfix();
+    void twoframedelayfix(void);
 
 
     int roomdeaths[20 * 20];
     int roomdeathsfinal[20 * 20];
     static const int areamap[20 * 20];
-    short contents[40 * 30];
+    int contents[40 * 30];
     bool explored[20 * 20];
     int vmult[30];
+
+    bool isexplored(const int rx, const int ry);
+    void setexplored(const int rx, const int ry, const bool status);
 
     int background;
     int rcol;
@@ -97,49 +107,38 @@ public:
     bool warpy;
 
 
-    std::string roomname;
-    std::string hiddenname;
+    const char* roomname;
+    const char* hiddenname;
 
     //Special tower stuff
     bool towermode;
-    float ypos;
-    float oldypos;
-    int bypos;
+    int ypos;
+    int oldypos;
     int cameramode;
     int cameraseek, cameraseekframe;
     int resumedelay;
     bool minitowermode;
-    int scrolldir;
 
-    //This is the old colour cycle
-    int r, g,b;
-    int check, cmode;
-    int towercol;
-    int colstate, colstatedelay;
+    int colstatedelay;
     int colsuperstate;
     int spikeleveltop, spikelevelbottom;
     int oldspikeleveltop, oldspikelevelbottom;
-    bool tdrawback;
-    int bscroll;
     //final level navigation
-    int finalx;
-    int finaly;
     bool finalmode;
     bool finalstretch;
 
     //Variables for playing custom levels
     bool custommode;
     bool custommodeforreal;
-    int customx, customy;
     int customwidth, customheight;
     int custommmxoff, custommmyoff, custommmxsize, custommmysize;
     int customzoom;
     bool customshowmm;
 
-    std::string specialnames[8];
+    const char* specialnames[8];
     int glitchmode;
     int glitchdelay;
-    std::string glitchname;
+    const char* glitchname;
 
     //final level colour cycling stuff
     bool final_colormode;
@@ -172,24 +171,10 @@ public:
 
     //Map cursor
     int cursorstate, cursordelay;
-
-    int kludge_bypos;
-    int kludge_colstate;
-    int kludge_scrolldir;
-    void inline bg_to_kludge()
-    {
-        kludge_bypos = bypos;
-        kludge_colstate = colstate;
-        kludge_scrolldir = scrolldir;
-    }
-    void inline kludge_to_bg()
-    {
-        bypos = kludge_bypos;
-        colstate = kludge_colstate;
-        scrolldir = kludge_scrolldir;
-    }
 };
 
+#ifndef MAP_DEFINITION
 extern mapclass map;
+#endif
 
 #endif /* MAPGAME_H */

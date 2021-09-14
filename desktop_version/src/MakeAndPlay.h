@@ -5,6 +5,6 @@
  * It's heaps faster than rebuilding everything, so here we are.
  * -flibit
  */
-// #define MAKEANDPLAY
+/* #define MAKEANDPLAY */
 
 #endif /* MAKEANDPLAY_H */

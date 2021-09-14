@@ -12,6 +12,10 @@ VVVVVV.exe
 VVVVVV
 *.a
 *.gch
+src/Version.h.out
 
 # Game data
 data.zip
+
+# macOS files
+.DS_Store

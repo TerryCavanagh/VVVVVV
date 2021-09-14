@@ -1,14 +1,12 @@
 #ifndef FINALCLASS_H
 #define FINALCLASS_H
 
-#include <string>
-
 class finalclass
 {
 public:
     const short* loadlevel(int rx, int ry);
 
-    std::string roomname;
+    const char* roomname;
     bool warpx, warpy;
 };
 

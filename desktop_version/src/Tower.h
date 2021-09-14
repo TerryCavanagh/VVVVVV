@@ -4,7 +4,7 @@
 class towerclass
 {
 public:
-    towerclass();
+    towerclass(void);
 
     int backat(int xp, int yp, int yoff);
 
@@ -12,13 +12,13 @@ public:
 
     int miniat(int xp, int yp, int yoff);
 
-    void loadminitower1();
+    void loadminitower1(void);
 
-    void loadminitower2();
+    void loadminitower2(void);
 
-    void loadbackground();
+    void loadbackground(void);
 
-    void loadmap();
+    void loadmap(void);
 
     short back[40 * 120];
     short contents[40 * 700];

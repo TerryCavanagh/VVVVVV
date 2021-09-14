@@ -1,52 +1,46 @@
 #ifndef TEXTBOX_H
 #define TEXTBOX_H
 
-#include <SDL.h>
 #include <string>
 #include <vector>
 
 class textboxclass
 {
 public:
-    textboxclass();
+    textboxclass(void);
 
-    void centerx();
+    void centerx(void);
 
-    void centery();
+    void centery(void);
 
-    void adjust();
+    void adjust(void);
 
     void initcol(int rr, int gg, int bb);
 
-    void setcol(int rr, int gg, int bb);
+    void update(void);
 
-    void update();
+    void remove(void);
 
-    void remove();
+    void removefast(void);
 
-    void removefast();
+    void resize(void);
 
-    void resize();
-
-    void addline(std::string t);
+    void addline(const std::string& t);
 public:
     //Fundamentals
-    std::vector<std::string> line;
-    int xp, yp, lw, w, h;
-    int x,y;
+    std::vector<std::string> lines;
+    int xp, yp, w, h;
     int r,g,b;
-    int tr,tg,tb;
-    SDL_Rect textrect;
     int timer;
 
     float tl;
     float prev_tl;
     int tm;
 
-    int max;
+    /* Whether to flip text box y-position in Flip Mode. */
+    bool flipme;
 
-    bool allowspecial;
-
+    int rand;
 };
 
 #endif /* TEXTBOX_H */

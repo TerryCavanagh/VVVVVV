@@ -3,14 +3,15 @@
 
 #include <SDL.h>
 
-#define		rn( rx,  ry) ((rx) + ((ry) * 100))
+#define        rn( rx,  ry) ((rx) + ((ry) * 100))
 
 class entclass
 {
 public:
-    entclass();
+    entclass(void);
+    void clear(void);
 
-    bool outside();
+    bool outside(void);
 
     void setenemy(int t);
 
@@ -18,7 +19,9 @@ public:
 
     void settreadmillcolour(int rx, int ry);
 
-    void updatecolour();
+    void updatecolour(void);
+
+    bool ishumanoid(void);
 
 public:
     //Fundamentals
@@ -42,15 +45,16 @@ public:
     int onwall, onxwall, onywall;
 
     //Platforming specific
-    bool jumping;
     bool gravity;
     int onground, onroof;
-    int jumpframe;
     //Animation
     int framedelay, drawframe, walkingframe, dir, actionframe;
+    int collisionframedelay, collisiondrawframe, collisionwalkingframe;
+    int visualonground, visualonroof;
     int yp;int xp;
 
     Uint32 realcol;
+    int lerpoldxp, lerpoldyp;
 };
 
 #endif /* ENT_H */

@@ -16,8 +16,7 @@ delay(30)
 # found a trinket!
 foundtrinket(18)
 endtext
-# musicfadein
-trinketscriptmusic
+musicfadein
 
 delay(30)
 

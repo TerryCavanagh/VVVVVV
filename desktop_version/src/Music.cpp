@@ -1,349 +1,571 @@
+#define MUSIC_DEFINITION
 #include "Music.h"
 
 #include <SDL.h>
-#include <stdio.h>
+#include <physfsrwops.h>
 
 #include "BinaryBlob.h"
+#include "Game.h"
+#include "Graphics.h"
 #include "Map.h"
+#include "Script.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 
-void songend();
-
-void musicclass::init()
+musicclass::musicclass(void)
 {
-	for (size_t i = 0; i < soundTracks.size(); ++i) {
-		Mix_FreeChunk(soundTracks[i].sound);
-	}
-	soundTracks.clear();
-	for (size_t i = 0; i < musicTracks.size(); ++i) {
-		Mix_FreeMusic(musicTracks[i].m_music);
-	}
-	musicTracks.clear();
+    safeToProcessMusic= false;
+    m_doFadeInVol = false;
+    m_doFadeOutVol = false;
+    musicVolume = 0;
 
-	musicReadBlob.clear();
+    user_music_volume = USER_VOLUME_MAX;
+    user_sound_volume = USER_VOLUME_MAX;
 
-	soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/hurt.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/souleyeminijingle.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/coin.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/save.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crumble.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/vanish.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/blip.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/preteleport.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/teleport.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crew1.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crew2.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crew3.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crew4.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crew5.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crew6.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/terminal.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/gamesaved.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crashing.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/blip2.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/countdown.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/go.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/crash.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/combine.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/newrecord.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/trophy.wav" ));
-	soundTracks.push_back(SoundTrack( "sounds/rescue.wav" ));
+    currentsong = 0;
+    nicechange = -1;
+    nicefade = false;
+    quick_fade = true;
+
+    usingmmmmmm = false;
+}
+
+void musicclass::init(void)
+{
+    soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/hurt.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/souleyeminijingle.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/coin.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/save.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crumble.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/vanish.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/blip.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/preteleport.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/teleport.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crew1.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crew2.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crew3.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crew4.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crew5.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crew6.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/terminal.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/gamesaved.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crashing.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/blip2.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/countdown.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/go.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/crash.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/combine.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/newrecord.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/trophy.wav" ));
+    soundTracks.push_back(SoundTrack( "sounds/rescue.wav" ));
 
 #ifdef VVV_COMPILEMUSIC
-	binaryBlob musicWriteBlob;
-#define FOREACH_TRACK(track_name) musicWriteBlob.AddFileToBinaryBlob(track_name);
-	TRACK_NAMES
+    binaryBlob musicWriteBlob;
+#define FOREACH_TRACK(blob, track_name) blob.AddFileToBinaryBlob("data/" track_name);
+    TRACK_NAMES(musicWriteBlob)
 #undef FOREACH_TRACK
 
-	musicWriteBlob.writeBinaryBlob("data/BinaryMusic.vvv");
+    musicWriteBlob.writeBinaryBlob("data/BinaryMusic.vvv");
+    musicWriteBlob.clear();
 #endif
 
-	num_mmmmmm_tracks = 0;
-	num_pppppp_tracks = 0;
+    num_mmmmmm_tracks = 0;
+    num_pppppp_tracks = 0;
 
-	if (!musicReadBlob.unPackBinary("mmmmmm.vvv"))
-	{
-		mmmmmm = false;
-		usingmmmmmm=false;
-		bool ohCrap = musicReadBlob.unPackBinary("vvvvvvmusic.vvv");
-		SDL_assert(ohCrap && "Music not found!");
-	}
-	else
-	{
-		mmmmmm = true;
-		usingmmmmmm = true;
-		int index;
-		SDL_RWops *rw;
+    if (!mmmmmm_blob.unPackBinary("mmmmmm.vvv"))
+    {
+        if (pppppp_blob.unPackBinary("vvvvvvmusic.vvv"))
+        {
+            vlog_info("Loading music from PPPPPP blob...");
 
-#define FOREACH_TRACK(track_name) \
-	index = musicReadBlob.getIndex(track_name); \
-	rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index)); \
-	musicTracks.push_back(MusicTrack( rw ));
+            mmmmmm = false;
+            usingmmmmmm=false;
 
-		TRACK_NAMES
+            int index;
+            SDL_RWops* rw;
 
-		num_mmmmmm_tracks += 16;
+#define FOREACH_TRACK(blob, track_name) \
+    index = blob.getIndex("data/" track_name); \
+    rw = SDL_RWFromMem(blob.getAddress(index), blob.getSize(index)); \
+    musicTracks.push_back(MusicTrack( rw ));
 
-		const std::vector<int> extra = musicReadBlob.getExtra();
-		for (size_t i = 0; i < extra.size(); i++)
-		{
-			const int& index = extra[i];
-			rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index));
-			musicTracks.push_back(MusicTrack( rw ));
-
-			num_mmmmmm_tracks++;
-		}
-
-		bool ohCrap = musicReadBlob.unPackBinary("vvvvvvmusic.vvv");
-		SDL_assert(ohCrap && "Music not found!");
-	}
-
-	int index;
-	SDL_RWops *rw;
-
-	TRACK_NAMES
+            TRACK_NAMES(pppppp_blob)
 
 #undef FOREACH_TRACK
+        }
+        else
+        {
+            vlog_info("Loading music from loose files...");
 
-	num_pppppp_tracks += 16;
+            SDL_RWops* rw;
+#define FOREACH_TRACK(_, track_name) \
+    rw = PHYSFSRWOPS_openRead(track_name); \
+    musicTracks.push_back(MusicTrack( rw ));
 
-	const std::vector<int> extra = musicReadBlob.getExtra();
-	for (size_t i = 0; i < extra.size(); i++)
-	{
-		const int& index = extra[i];
-		rw = SDL_RWFromMem(musicReadBlob.getAddress(index), musicReadBlob.getSize(index));
-		musicTracks.push_back(MusicTrack( rw ));
+            TRACK_NAMES(_)
 
-		num_pppppp_tracks++;
-	}
+#undef FOREACH_TRACK
+        }
+    }
+    else
+    {
+        vlog_info("Loading PPPPPP and MMMMMM blobs...");
 
-	safeToProcessMusic= false;
-	m_doFadeInVol = false;
-	musicVolume = 128;
-	FadeVolAmountPerFrame = 0;
+        mmmmmm = true;
+        int index;
+        SDL_RWops *rw;
 
-	currentsong = 0;
-	nicechange = 0;
-	nicefade = 0;
-	resumesong = 0;
-	fadeoutqueuesong = -1;
-	dontquickfade = false;
+#define FOREACH_TRACK(blob, track_name) \
+    index = blob.getIndex("data/" track_name); \
+    if (index >= 0 && index < blob.max_headers) \
+    { \
+        rw = SDL_RWFromConstMem(blob.getAddress(index), blob.getSize(index)); \
+        if (rw == NULL) \
+        { \
+            vlog_error("Unable to read music file header: %s", SDL_GetError()); \
+        } \
+        else \
+        { \
+            musicTracks.push_back(MusicTrack( rw )); \
+        } \
+    }
 
-	songStart = 0;
-	songEnd = 0;
+        TRACK_NAMES(mmmmmm_blob)
 
-	Mix_HookMusicFinished(&songend);
+        num_mmmmmm_tracks += musicTracks.size();
 
-	usingmmmmmm = false;
+        size_t index_ = 0;
+        while (mmmmmm_blob.nextExtra(&index_))
+        {
+            rw = SDL_RWFromConstMem(mmmmmm_blob.getAddress(index_), mmmmmm_blob.getSize(index_));
+            musicTracks.push_back(MusicTrack( rw ));
+
+            num_mmmmmm_tracks++;
+            index_++;
+        }
+
+        bool ohCrap = pppppp_blob.unPackBinary("vvvvvvmusic.vvv");
+        SDL_assert(ohCrap && "Music not found!");
+
+    TRACK_NAMES(pppppp_blob)
+
+#undef FOREACH_TRACK
+    }
+
+    num_pppppp_tracks += musicTracks.size() - num_mmmmmm_tracks;
+
+    SDL_RWops* rw;
+    size_t index_ = 0;
+    while (pppppp_blob.nextExtra(&index_))
+    {
+        rw = SDL_RWFromConstMem(pppppp_blob.getAddress(index_), pppppp_blob.getSize(index_));
+        musicTracks.push_back(MusicTrack( rw ));
+
+        num_pppppp_tracks++;
+        index_++;
+    }
 }
 
-void songend()
+void musicclass::destroy(void)
 {
-	music.songEnd = SDL_GetPerformanceCounter();
-	music.currentsong = -1;
+    for (size_t i = 0; i < soundTracks.size(); ++i)
+    {
+        Mix_FreeChunk(soundTracks[i].sound);
+    }
+    soundTracks.clear();
+
+    // Before we free all the music: stop playing music, else SDL2_mixer
+    // will call SDL_Delay() if we are fading, resulting in no-draw frames
+    Mix_HaltMusic();
+
+    for (size_t i = 0; i < musicTracks.size(); ++i)
+    {
+        Mix_FreeMusic(musicTracks[i].m_music);
+    }
+    musicTracks.clear();
+
+    pppppp_blob.clear();
+    mmmmmm_blob.clear();
 }
 
-void musicclass::play(int t, const double position_sec /*= 0.0*/, const int fadein_ms /*= 3000*/)
+void musicclass::play(int t)
 {
-	// No need to check if num_tracks is greater than 0, we wouldn't be here if it wasn't
-	if (mmmmmm && usingmmmmmm)
-	{
-		t %= num_mmmmmm_tracks;
-	}
-	else
-	{
-		t %= num_pppppp_tracks;
-	}
+    if (mmmmmm && usingmmmmmm)
+    {
+        // Don't conjoin this if-statement with the above one...
+        if (num_mmmmmm_tracks > 0)
+        {
+            t %= num_mmmmmm_tracks;
+        }
+    }
+    else if (num_pppppp_tracks > 0)
+    {
+        t %= num_pppppp_tracks;
+    }
 
-	if(mmmmmm && !usingmmmmmm)
-	{
-		t += num_mmmmmm_tracks;
-	}
-	safeToProcessMusic = true;
-	Mix_VolumeMusic(128);
-	if (currentsong !=t)
-	{
-		if (t != -1)
-		{
-			currentsong = t;
-			if (!INBOUNDS(t, musicTracks))
-			{
-				puts("play() out-of-bounds!");
-				currentsong = -1;
-				return;
-			}
-			if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_pppppp_tracks || currentsong == 7+num_pppppp_tracks)))
-			{
-				// Level Complete theme, no fade in or repeat
-				if(Mix_FadeInMusicPos(musicTracks[t].m_music, 0, 0, position_sec)==-1)
-				{
-					printf("Mix_FadeInMusicPos: %s\n", Mix_GetError());
-				}
-			}
-			else
-			{
-				if (Mix_FadingMusic() == MIX_FADING_OUT) {
-					// We're already fading out
-					fadeoutqueuesong = t;
-					currentsong = -1;
-					if (!dontquickfade)
-						Mix_FadeOutMusic(500); // fade out quicker
-					else
-						dontquickfade = false;
-				}
-				else if(Mix_FadeInMusicPos(musicTracks[t].m_music, -1, fadein_ms, position_sec)==-1)
-				{
-					printf("Mix_FadeInMusicPos: %s\n", Mix_GetError());
-				}
-			}
+    if (mmmmmm && !usingmmmmmm)
+    {
+        t += num_mmmmmm_tracks;
+    }
 
-			songStart = SDL_GetPerformanceCounter();
-		}
-		else
-		{
-			currentsong = -1;
-		}
-	}
+    safeToProcessMusic = true;
+
+    if (currentsong == t && !m_doFadeOutVol)
+    {
+        return;
+    }
+
+    currentsong = t;
+
+    if (t == -1)
+    {
+        return;
+    }
+
+    if (!INBOUNDS_VEC(t, musicTracks))
+    {
+        vlog_error("play() out-of-bounds!");
+        currentsong = -1;
+        return;
+    }
+
+    if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_mmmmmm_tracks || currentsong == 7+num_mmmmmm_tracks)))
+    {
+        // Level Complete theme, no fade in or repeat
+        if (Mix_PlayMusic(musicTracks[t].m_music, 0) == -1)
+        {
+            vlog_error("Mix_PlayMusic: %s", Mix_GetError());
+        }
+        else
+        {
+            m_doFadeInVol = false;
+            m_doFadeOutVol = false;
+            musicVolume = MIX_MAX_VOLUME;
+            Mix_VolumeMusic(musicVolume);
+        }
+    }
+    else
+    {
+        if (m_doFadeOutVol)
+        {
+            // We're already fading out
+            nicechange = t;
+            nicefade = true;
+            currentsong = -1;
+
+            if (quick_fade)
+            {
+                fadeMusicVolumeOut(500); // fade out quicker
+            }
+            else
+            {
+                quick_fade = true;
+            }
+        }
+        else if (Mix_PlayMusic(musicTracks[t].m_music, -1) == -1)
+        {
+            vlog_error("Mix_PlayMusic: %s", Mix_GetError());
+        }
+        else
+        {
+            m_doFadeInVol = false;
+            m_doFadeOutVol = false;
+            fadeMusicVolumeIn(3000);
+        }
+    }
 }
 
-void musicclass::resume(const int fadein_ms /*= 0*/)
+void musicclass::resume()
 {
-	const double offset = static_cast<double>(songEnd - songStart);
-	const double frequency = static_cast<double>(SDL_GetPerformanceFrequency());
-
-	const double position_sec = offset / frequency;
-
-	play(resumesong, position_sec, fadein_ms);
+    Mix_ResumeMusic();
 }
 
-void musicclass::fadein()
+void musicclass::resumefade(const int fadein_ms)
 {
-	resume(3000); // 3000 ms fadein
+    resume();
+    fadeMusicVolumeIn(fadein_ms);
 }
 
-void musicclass::haltdasmusik()
+void musicclass::fadein(void)
 {
-	Mix_HaltMusic();
-	resumesong = currentsong;
+    resumefade(3000); // 3000 ms fadein
 }
 
-void musicclass::silencedasmusik()
+void musicclass::pause(void)
 {
-	Mix_VolumeMusic(0) ;
-	musicVolume = 0;
+    Mix_PauseMusic();
+}
+
+void musicclass::haltdasmusik(void)
+{
+    /* Just pauses music. This is intended. */
+    pause();
+    currentsong = -1;
+    m_doFadeInVol = false;
+    m_doFadeOutVol = false;
+}
+
+void musicclass::silencedasmusik(void)
+{
+    musicVolume = 0;
+    m_doFadeInVol = false;
+    m_doFadeOutVol = false;
+}
+
+struct FadeState
+{
+    int start_volume;
+    int end_volume;
+    int duration_ms;
+    int step_ms;
+};
+
+static struct FadeState fade;
+
+enum FadeCode
+{
+    Fade_continue,
+    Fade_finished
+};
+
+static enum FadeCode processmusicfade(struct FadeState* state, int* volume)
+{
+    int range;
+    int new_volume;
+
+    if (state->duration_ms == 0 /* Fast path. */
+    || state->start_volume == state->end_volume /* Fast path. */
+    || state->step_ms >= state->duration_ms /* We're finished. */)
+    {
+        *volume = state->end_volume;
+        state->step_ms = 0;
+        return Fade_finished;
+    }
+
+    range = state->end_volume - state->start_volume;
+    new_volume = range * state->step_ms / state->duration_ms;
+    new_volume += state->start_volume;
+
+    *volume = new_volume;
+
+    state->step_ms += game.get_timestep();
+
+    return Fade_continue;
 }
 
 void musicclass::fadeMusicVolumeIn(int ms)
 {
-	m_doFadeInVol = true;
-	FadeVolAmountPerFrame =  MIX_MAX_VOLUME / (ms / 33);
+    if (halted())
+    {
+        return;
+    }
+
+    m_doFadeInVol = true;
+    m_doFadeOutVol = false;
+
+    /* Ensure it starts at 0 */
+    musicVolume = 0;
+
+    /* Fix 1-frame glitch */
+    Mix_VolumeMusic(0);
+
+    fade.step_ms = 0;
+    fade.duration_ms = ms;
+    fade.start_volume = 0;
+    fade.end_volume = MIX_MAX_VOLUME;
 }
 
-void musicclass::fadeout()
+void musicclass::fadeMusicVolumeOut(const int fadeout_ms)
 {
-	Mix_FadeOutMusic(2000);
-	resumesong = currentsong;
+    if (halted())
+    {
+        return;
+    }
+
+    m_doFadeInVol = false;
+    m_doFadeOutVol = true;
+
+    fade.step_ms = 0;
+    /* Duration is proportional to current volume. */
+    fade.duration_ms = fadeout_ms * musicVolume / MIX_MAX_VOLUME;
+    fade.start_volume = musicVolume;
+    fade.end_volume = 0;
 }
 
-void musicclass::processmusicfadein()
+void musicclass::fadeout(const bool quick_fade_ /*= true*/)
 {
-	musicVolume += FadeVolAmountPerFrame;
-	Mix_VolumeMusic(musicVolume);
-	if (musicVolume >= MIX_MAX_VOLUME)
-	{
-		m_doFadeInVol = false;
-	}
+    fadeMusicVolumeOut(quick_fade_ ? 500 : 2000);
+    quick_fade = quick_fade_;
 }
 
-void musicclass::processmusic()
+void musicclass::processmusicfadein(void)
 {
-	if(!safeToProcessMusic)
-	{
-		return;
-	}
+    enum FadeCode fade_code = processmusicfade(&fade, &musicVolume);
+    if (fade_code == Fade_finished)
+    {
+        m_doFadeInVol = false;
+    }
+}
 
-	if (fadeoutqueuesong != -1 && Mix_PlayingMusic() == 0) {
-		play(fadeoutqueuesong);
-		fadeoutqueuesong = -1;
-	}
+void musicclass::processmusicfadeout(void)
+{
+    enum FadeCode fade_code = processmusicfade(&fade, &musicVolume);
+    if (fade_code == Fade_finished)
+    {
+        musicVolume = 0;
+        m_doFadeOutVol = false;
+        haltdasmusik();
+    }
+}
 
-	if (nicefade == 1 && Mix_PlayingMusic() == 0)
-	{
-		play(nicechange);
-		nicechange = -1; nicefade = 0;
-	}
+void musicclass::processmusic(void)
+{
+    if(!safeToProcessMusic)
+    {
+        return;
+    }
 
-	if(m_doFadeInVol)
-	{
-		processmusicfadein();
-	}
+    if(m_doFadeInVol)
+    {
+        processmusicfadein();
+    }
+
+    if (m_doFadeOutVol)
+    {
+        processmusicfadeout();
+    }
+
+    /* This needs to come after processing fades */
+    if (nicefade && halted())
+    {
+        play(nicechange);
+        nicechange = -1;
+        nicefade = false;
+    }
 }
 
 
 void musicclass::niceplay(int t)
 {
-	// important: do nothing if the correct song is playing!
-	if((!mmmmmm && currentsong!=t) || (mmmmmm && usingmmmmmm && currentsong!=t) || (mmmmmm && !usingmmmmmm && currentsong!=t+16))
-	{
-		if(currentsong!=-1)
-		{
-			dontquickfade = true;
-			fadeout();
-		}
-		nicefade = 1;
-		nicechange = t;
-	}
+    /* important: do nothing if the correct song is playing! */
+    if ((!mmmmmm && currentsong != t)
+    || (mmmmmm && usingmmmmmm && currentsong != t)
+    || (mmmmmm && !usingmmmmmm && currentsong != t + num_mmmmmm_tracks))
+    {
+        if (currentsong != -1)
+        {
+            fadeout(false);
+        }
+        nicefade = true;
+    }
+    nicechange = t;
 }
+
+static const int areamap[] = {
+    4, 3, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4,12,12,12,12,12,12,12,
+    4, 3, 3, 3, 3, 3, 3, 4, 4,-2, 4, 4, 4, 4,12,12,12,12,12,12,
+    4, 4, 4, 4, 3, 4, 4, 4, 4,-2, 4, 4, 4, 4,12,12,12,12,12,12,
+    4, 4, 4, 4, 3, 4, 4, 4, 4,-2, 4, 4, 1, 1, 1, 1,12,12,12,12,
+    4, 4, 3, 3, 3, 4, 4, 4, 4,-2,-2,-2, 1, 1, 1, 1, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1,11,11,-1, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1, 1,11,11,11,
+    4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 1, 1, 1, 1, 1, 1, 1, 1, 1,11,
+    4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 3,
+    4, 4, 4, 4, 4, 4, 4, 4,-2,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 4,
+    4, 4,-1,-1,-1, 4, 4, 4, 4,-2, 4, 4, 4, 1, 1, 1, 1, 1, 1, 4,
+    4, 4,-1,-1,-1, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 1, 1, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 4, 1, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4, 1, 1, 1, 1, 1, 1, 4, 1, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4,-2, 4,-1,-3, 4, 4, 4, 4, 4, 1, 4,
+    4, 4, 4, 4, 4, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 3, 3, 3, 3, 3, 3, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    3, 3, 3, 3, 3, 4, 4, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    3, 3, 3, 3, 3, 4, 4, 3, 4,-2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
+};
+
+SDL_COMPILE_TIME_ASSERT(areamap, SDL_arraysize(areamap) == 20 * 20);
 
 void musicclass::changemusicarea(int x, int y)
 {
-	switch(musicroom(x, y))
-	{
-	case musicroom(11, 4):
-		niceplay(2);
-		break;
+    int room;
+    int track;
 
-	case musicroom(2, 4):
-	case musicroom(7, 15):
-		niceplay(3);
-		break;
+    if (script.running)
+    {
+        return;
+    }
 
-	case musicroom(18, 1):
-	case musicroom(15, 0):
-		niceplay(12);
-		break;
+    room = musicroom(x, y);
 
-	case musicroom(0, 0):
-	case musicroom(0, 16):
-	case musicroom(2, 11):
-	case musicroom(7, 9):
-	case musicroom(8, 11):
-	case musicroom(13, 2):
-	case musicroom(17, 12):
-	case musicroom(14, 19):
-	case musicroom(17, 17):
-		niceplay(4);
-		break;
+    if (!INBOUNDS_ARR(room, areamap))
+    {
+        SDL_assert(0 && "Music map index out-of-bounds!");
+        return;
+    }
 
-	default:
-		niceplay(1);
-		break;
-	}
+    track = areamap[room];
+
+    switch (track)
+    {
+    case -1:
+        /* Don't change music. */
+        return;
+    case -2:
+        /* Special case: Tower music, changes with Flip Mode. */
+        if (graphics.setflipmode)
+        {
+            track = 9; /* ecroF evitisoP */
+        }
+        else
+        {
+            track = 2; /* Positive Force */
+        }
+        break;
+    case -3:
+        /* Special case: start of Space Station 2. */
+        if (game.intimetrial)
+        {
+            track = 1; /* Pushing Onwards */
+        }
+        else
+        {
+            track = 4; /* Passion for Exploring */
+        }
+        break;
+    }
+
+    niceplay(track);
 }
 
 void musicclass::playef(int t)
 {
-	if (t < 0 || t >= (int) soundTracks.size())
-	{
-		return;
-	}
-	int channel;
+    if (!INBOUNDS_VEC(t, soundTracks))
+    {
+        return;
+    }
+    int channel;
 
-	channel = Mix_PlayChannel(-1, soundTracks[t].sound, 0);
-	if(channel == -1)
-	{
-		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
-	}
+    channel = Mix_PlayChannel(-1, soundTracks[t].sound, 0);
+    if(channel == -1)
+    {
+        vlog_error("Unable to play WAV file: %s", Mix_GetError());
+    }
+}
+
+void musicclass::pauseef(void)
+{
+    Mix_Pause(-1);
+}
+
+void musicclass::resumeef(void)
+{
+    Mix_Resume(-1);
+}
+
+bool musicclass::halted(void)
+{
+    return Mix_PausedMusic() == 1;
 }
