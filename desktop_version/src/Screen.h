@@ -27,7 +27,7 @@ public:
     void toggleFullScreen(void);
     void toggleStretchMode(void);
     void toggleLinearFilter(void);
-    void resetRendererWorkaround(void);
+    void toggleVSync(void);
 
     bool isWindowed;
     bool isFiltered;

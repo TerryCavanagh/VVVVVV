@@ -370,10 +370,12 @@ static void menurender(void)
             break;
         case 5:
             graphics.bigprint(-1, 30, "Toggle VSync", tr, tg, tb, true);
-#ifdef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
-            graphics.Print(-1, 65, "Edit the config file on Haiku!", tr, tg, tb, true);
-#else
+            /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
+#if SDL_VERSION_ATLEAST(2, 0, 17)
             graphics.Print(-1, 65, "Turn VSync on or off.", tr, tg, tb, true);
+#else
+            graphics.Print(-1, 65, "Your SDL version is too old!", tr, tg, tb, true);
+            graphics.Print(-1, 75, "Edit the config file.", tr, tg, tb, true);
 #endif
 
             if (!graphics.screenbuffer->vsync)

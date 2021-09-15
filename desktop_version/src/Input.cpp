@@ -605,11 +605,12 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             break;
         case 5:
+            /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
+#if SDL_VERSION_ATLEAST(2, 0, 17)
             //toggle vsync
             music.playef(11);
-#ifndef __HAIKU__ // FIXME: Remove after SDL VSync bug is fixed! -flibit
             graphics.screenbuffer->vsync = !graphics.screenbuffer->vsync;
-            graphics.screenbuffer->resetRendererWorkaround();
+            graphics.screenbuffer->toggleVSync();
             game.savestatsandsettings_menu();
 #endif
             break;
