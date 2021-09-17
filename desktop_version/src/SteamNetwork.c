@@ -59,7 +59,7 @@
 static void *libHandle = NULL;
 static intptr_t steamUserStats = (intptr_t) NULL;
 
-#define FOREACH_FUNC(retval, name, params) static retval (*name) params = NULL;
+#define FOREACH_FUNC(rettype, name, params) static rettype (*name) params = NULL;
 FUNC_LIST
 #undef FOREACH_FUNC
 
@@ -70,7 +70,7 @@ static void ClearPointers(void)
     SDL_UnloadObject(libHandle);
     libHandle = NULL;
     steamUserStats = (intptr_t) NULL;
-#define FOREACH_FUNC(retval, name, params) name = NULL;
+#define FOREACH_FUNC(rettype, name, params) name = NULL;
     FUNC_LIST
 #undef FOREACH_FUNC
 }
@@ -92,8 +92,8 @@ int32_t STEAM_init(void)
         return 0;
     }
 
-#define FOREACH_FUNC(retval, name, params) \
-    name = (retval (*) params) SDL_LoadFunction(libHandle, #name); \
+#define FOREACH_FUNC(rettype, name, params) \
+    name = (rettype (*) params) SDL_LoadFunction(libHandle, #name); \
     if (!name) \
     { \
         vlog_error("%s symbol %s not found!", STEAM_LIBRARY, #name); \
