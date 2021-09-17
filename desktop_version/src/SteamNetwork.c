@@ -24,56 +24,44 @@
 #error STEAM_LIBRARY: Unrecognized platform!
 #endif
 
-/* Function Pointer Types */
-
-typedef uint8_t (*SteamAPI_InitFunc)(void);
-typedef void (*SteamAPI_ShutdownFunc)(void);
-typedef void (*SteamAPI_RunCallbacksFunc)(void);
-typedef intptr_t (*SteamInternal_CreateInterfaceFunc)(const char*);
-typedef int32_t (*SteamAPI_GetHSteamUserFunc)(void);
-typedef int32_t (*SteamAPI_GetHSteamPipeFunc)(void);
-typedef intptr_t (*SteamAPI_ISteamClient_GetISteamUserStatsFunc)(
-    intptr_t,
-    int32_t,
-    int32_t,
-    const char*
-);
-typedef uint8_t (*SteamAPI_ISteamUserStats_RequestCurrentStatsFunc)(intptr_t);
-typedef uint8_t (*SteamAPI_ISteamUserStats_StoreStatsFunc)(intptr_t);
-typedef uint8_t (*SteamAPI_ISteamUserStats_GetStatFunc)(
-    intptr_t,
-    const char*,
-    int32_t*
-);
-typedef uint8_t (*SteamAPI_ISteamUserStats_SetStatFunc)(
-    intptr_t,
-    const char*,
-    int32_t
-);
-typedef uint8_t (*SteamAPI_ISteamUserStats_SetAchievementFunc)(
-    intptr_t,
-    const char*
-);
-
 /* DLL, Entry Points */
+
+#define FUNC_LIST \
+    FOREACH_FUNC(uint8_t, SteamAPI_Init, (void)) \
+    FOREACH_FUNC(void, SteamAPI_Shutdown, (void)) \
+    FOREACH_FUNC(void, SteamAPI_RunCallbacks, (void)) \
+    FOREACH_FUNC(intptr_t, SteamInternal_CreateInterface, (const char*)) \
+    FOREACH_FUNC(int32_t, SteamAPI_GetHSteamUser, (void)) \
+    FOREACH_FUNC(int32_t, SteamAPI_GetHSteamPipe, (void)) \
+    FOREACH_FUNC(intptr_t, SteamAPI_ISteamClient_GetISteamUserStats, ( \
+        intptr_t, \
+        int32_t, \
+        int32_t, \
+        const char* \
+    )) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_RequestCurrentStats, (intptr_t)) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_StoreStats, (intptr_t)) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_GetStat, ( \
+        intptr_t, \
+        const char*, \
+        int32_t* \
+    )) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_SetStat, ( \
+        intptr_t, \
+        const char*, \
+        int32_t \
+    )) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_SetAchievement, ( \
+        intptr_t, \
+        const char* \
+    ))
 
 static void *libHandle = NULL;
 static intptr_t steamUserStats = (intptr_t) NULL;
 
-#define DEFINE_FUNC(name) static name##Func name = NULL;
-DEFINE_FUNC(SteamAPI_Init)
-DEFINE_FUNC(SteamAPI_Shutdown)
-DEFINE_FUNC(SteamAPI_RunCallbacks)
-DEFINE_FUNC(SteamInternal_CreateInterface)
-DEFINE_FUNC(SteamAPI_GetHSteamUser)
-DEFINE_FUNC(SteamAPI_GetHSteamPipe)
-DEFINE_FUNC(SteamAPI_ISteamClient_GetISteamUserStats)
-DEFINE_FUNC(SteamAPI_ISteamUserStats_RequestCurrentStats)
-DEFINE_FUNC(SteamAPI_ISteamUserStats_StoreStats)
-DEFINE_FUNC(SteamAPI_ISteamUserStats_GetStat)
-DEFINE_FUNC(SteamAPI_ISteamUserStats_SetStat)
-DEFINE_FUNC(SteamAPI_ISteamUserStats_SetAchievement)
-#undef DEFINE_FUNC
+#define FOREACH_FUNC(retval, name, params) static retval (*name) params = NULL;
+FUNC_LIST
+#undef FOREACH_FUNC
 
 /* Clean up after ourselves... */
 
@@ -82,18 +70,9 @@ static void ClearPointers(void)
     SDL_UnloadObject(libHandle);
     libHandle = NULL;
     steamUserStats = (intptr_t) NULL;
-    SteamAPI_Init = NULL;
-    SteamAPI_Shutdown = NULL;
-    SteamAPI_RunCallbacks = NULL;
-    SteamInternal_CreateInterface = NULL;
-    SteamAPI_GetHSteamUser = NULL;
-    SteamAPI_GetHSteamPipe = NULL;
-    SteamAPI_ISteamClient_GetISteamUserStats = NULL;
-    SteamAPI_ISteamUserStats_RequestCurrentStats = NULL;
-    SteamAPI_ISteamUserStats_StoreStats = NULL;
-    SteamAPI_ISteamUserStats_GetStat = NULL;
-    SteamAPI_ISteamUserStats_SetStat = NULL;
-    SteamAPI_ISteamUserStats_SetAchievement = NULL;
+#define FOREACH_FUNC(retval, name, params) name = NULL;
+    FUNC_LIST
+#undef FOREACH_FUNC
 }
 
 /* NETWORK API Implementation */
@@ -113,27 +92,16 @@ int32_t STEAM_init(void)
         return 0;
     }
 
-    #define LOAD_FUNC(name) \
-        name = (name##Func) SDL_LoadFunction(libHandle, #name); \
-        if (!name) \
-        { \
-            vlog_error("%s symbol %s not found!", STEAM_LIBRARY, #name); \
-            ClearPointers(); \
-            return 0; \
-        }
-    LOAD_FUNC(SteamAPI_Init)
-    LOAD_FUNC(SteamAPI_Shutdown)
-    LOAD_FUNC(SteamAPI_RunCallbacks)
-    LOAD_FUNC(SteamInternal_CreateInterface)
-    LOAD_FUNC(SteamAPI_GetHSteamUser)
-    LOAD_FUNC(SteamAPI_GetHSteamPipe)
-    LOAD_FUNC(SteamAPI_ISteamClient_GetISteamUserStats)
-    LOAD_FUNC(SteamAPI_ISteamUserStats_RequestCurrentStats)
-    LOAD_FUNC(SteamAPI_ISteamUserStats_StoreStats)
-    LOAD_FUNC(SteamAPI_ISteamUserStats_GetStat)
-    LOAD_FUNC(SteamAPI_ISteamUserStats_SetStat)
-    LOAD_FUNC(SteamAPI_ISteamUserStats_SetAchievement)
-    #undef LOAD_FUNC
+#define FOREACH_FUNC(retval, name, params) \
+    name = (retval (*) params) SDL_LoadFunction(libHandle, #name); \
+    if (!name) \
+    { \
+        vlog_error("%s symbol %s not found!", STEAM_LIBRARY, #name); \
+        ClearPointers(); \
+        return 0; \
+    }
+    FUNC_LIST
+#undef FOREACH_FUNC
 
     if (!SteamAPI_Init())
     {
