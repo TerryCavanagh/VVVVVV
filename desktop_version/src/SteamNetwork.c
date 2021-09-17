@@ -88,7 +88,7 @@ int32_t STEAM_init(void)
     libHandle = SDL_LoadObject(STEAM_LIBRARY);
     if (!libHandle)
     {
-        vlog_info("%s not found!", STEAM_LIBRARY);
+        vlog_info(STEAM_LIBRARY " not found!");
         return 0;
     }
 
@@ -96,7 +96,7 @@ int32_t STEAM_init(void)
     name = (rettype (*) params) SDL_LoadFunction(libHandle, #name); \
     if (!name) \
     { \
-        vlog_error("%s symbol %s not found!", STEAM_LIBRARY, #name); \
+        vlog_error(STEAM_LIBRARY " symbol " #name " not found!"); \
         ClearPointers(); \
         return 0; \
     }
