@@ -2,7 +2,6 @@
 
 #ifndef MAKEANDPLAY
 
-#include <stdio.h>
 #include <stdint.h>
 #include <SDL.h>
 
