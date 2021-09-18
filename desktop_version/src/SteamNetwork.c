@@ -26,38 +26,41 @@
 
 /* DLL, Entry Points */
 
+struct ISteamClient;
+struct ISteamUserStats;
+
 #define FUNC_LIST \
     FOREACH_FUNC(uint8_t, SteamAPI_Init, (void)) \
     FOREACH_FUNC(void, SteamAPI_Shutdown, (void)) \
     FOREACH_FUNC(void, SteamAPI_RunCallbacks, (void)) \
-    FOREACH_FUNC(intptr_t, SteamInternal_CreateInterface, (const char*)) \
+    FOREACH_FUNC(struct ISteamClient*, SteamInternal_CreateInterface, (const char*)) \
     FOREACH_FUNC(int32_t, SteamAPI_GetHSteamUser, (void)) \
     FOREACH_FUNC(int32_t, SteamAPI_GetHSteamPipe, (void)) \
-    FOREACH_FUNC(intptr_t, SteamAPI_ISteamClient_GetISteamUserStats, ( \
-        intptr_t, \
+    FOREACH_FUNC(struct ISteamUserStats*, SteamAPI_ISteamClient_GetISteamUserStats, ( \
+        struct ISteamClient*, \
         int32_t, \
         int32_t, \
         const char* \
     )) \
-    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_RequestCurrentStats, (intptr_t)) \
-    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_StoreStats, (intptr_t)) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_RequestCurrentStats, (struct ISteamUserStats*)) \
+    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_StoreStats, (struct ISteamUserStats*)) \
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_GetStat, ( \
-        intptr_t, \
+        struct ISteamUserStats*, \
         const char*, \
         int32_t* \
     )) \
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_SetStat, ( \
-        intptr_t, \
+        struct ISteamUserStats*, \
         const char*, \
         int32_t \
     )) \
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_SetAchievement, ( \
-        intptr_t, \
+        struct ISteamUserStats*, \
         const char* \
     ))
 
 static void *libHandle = NULL;
-static intptr_t steamUserStats = (intptr_t) NULL;
+static struct ISteamUserStats *steamUserStats = NULL;
 
 #define FOREACH_FUNC(rettype, name, params) static rettype (*name) params = NULL;
 FUNC_LIST
@@ -69,7 +72,7 @@ static void ClearPointers(void)
 {
     SDL_UnloadObject(libHandle);
     libHandle = NULL;
-    steamUserStats = (intptr_t) NULL;
+    steamUserStats = NULL;
 #define FOREACH_FUNC(rettype, name, params) name = NULL;
     FUNC_LIST
 #undef FOREACH_FUNC
@@ -82,7 +85,7 @@ int32_t STEAM_init(void)
 #if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
     return 0;
 #endif
-    intptr_t steamClient;
+    struct ISteamClient *steamClient;
     int32_t steamUser, steamPipe;
 
     libHandle = SDL_LoadObject(STEAM_LIBRARY);
