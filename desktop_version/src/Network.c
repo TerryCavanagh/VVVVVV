@@ -28,9 +28,7 @@
     int32_t name##_init(void); \
     void name##_shutdown(void); \
     void name##_update(void); \
-    void name##_unlockAchievement(const char *name); \
-    int32_t name##_getAchievementProgress(const char *name); \
-    void name##_setAchievementProgress(const char *name, int32_t stat);
+    void name##_unlockAchievement(const char *name);
 #ifdef STEAM_NETWORK
 DECLARE_BACKEND(STEAM)
 #endif
@@ -46,8 +44,6 @@ typedef struct NetworkBackend
     void (*Shutdown)(void);
     void (*Update)(void);
     void (*UnlockAchievement)(const char*);
-    int32_t (*GetAchievementProgress)(const char*);
-    void (*SetAchievementProgress)(const char*, int32_t);
 } NetworkBackend;
 
 #if NUM_BACKENDS > 0
@@ -61,9 +57,7 @@ int NETWORK_init(void)
         backends[index].Init = name##_init; \
         backends[index].Shutdown = name##_shutdown; \
         backends[index].Update = name##_update; \
-        backends[index].UnlockAchievement = name##_unlockAchievement; \
-        backends[index].GetAchievementProgress = name##_getAchievementProgress; \
-        backends[index].SetAchievementProgress = name##_setAchievementProgress;
+        backends[index].UnlockAchievement = name##_unlockAchievement;
     #ifdef STEAM_NETWORK
     ASSIGN_BACKEND(STEAM, 0)
     #endif
@@ -118,41 +112,5 @@ void NETWORK_unlockAchievement(const char *name)
     }
     #else
     UNUSED(name);
-    #endif
-}
-
-int32_t NETWORK_getAchievementProgress(const char *name)
-{
-    /* The highest stat gets priority, will eventually pass to the others */
-    int32_t max = 0;
-    #if NUM_BACKENDS > 0
-    int32_t i, stat;
-    for (i = 0; i < NUM_BACKENDS; i += 1)
-    if (backends[i].IsInit)
-    {
-        stat = backends[i].GetAchievementProgress(name);
-        if (stat > max)
-        {
-            max = stat;
-        }
-    }
-    #else
-    UNUSED(name);
-    #endif
-    return max;
-}
-
-void NETWORK_setAchievementProgress(const char *name, int32_t stat)
-{
-    #if NUM_BACKENDS > 0
-    int32_t i;
-    for (i = 0; i < NUM_BACKENDS; i += 1)
-    if (backends[i].IsInit)
-    {
-        backends[i].SetAchievementProgress(name, stat);
-    }
-    #else
-    UNUSED(name);
-    UNUSED(stat);
     #endif
 }

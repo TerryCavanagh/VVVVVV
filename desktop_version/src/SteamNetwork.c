@@ -168,31 +168,4 @@ void STEAM_unlockAchievement(const char *name)
     }
 }
 
-int32_t STEAM_getAchievementProgress(const char *name)
-{
-    int32_t result = -1;
-    if (libHandle)
-    {
-        SteamAPI_ISteamUserStats_GetStat(
-            steamUserStats,
-            name,
-            &result
-        );
-    }
-    return result;
-}
-
-void STEAM_setAchievementProgress(const char *name, int32_t stat)
-{
-    if (libHandle)
-    {
-        SteamAPI_ISteamUserStats_SetStat(
-            steamUserStats,
-            name,
-            stat
-        );
-        SteamAPI_ISteamUserStats_StoreStats(steamUserStats);
-    }
-}
-
 #endif /* MAKEANDPLAY */
