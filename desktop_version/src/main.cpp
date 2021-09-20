@@ -1,4 +1,8 @@
 #include <SDL.h>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#include <emscripten/html5.h>
+#endif
 
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
@@ -23,11 +27,6 @@
 #include "SoundSystem.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
-
-#ifdef __EMSCRIPTEN__
-#include <emscripten.h>
-#include <emscripten/html5.h>
-#endif
 
 scriptclass script;
 
