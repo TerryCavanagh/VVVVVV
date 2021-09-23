@@ -1084,6 +1084,7 @@ bool entityclass::disableentity(int t)
     entities[t].size = -1;
     entities[t].type = -1;
     entities[t].rule = -1;
+    entities[t].isplatform = false;
 
     return true;
 }
@@ -1228,7 +1229,8 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         if (entities[i].invis
         && entities[i].size == -1
         && entities[i].type == -1
-        && entities[i].rule == -1)
+        && entities[i].rule == -1
+        && !entities[i].isplatform)
         {
             reuse = true;
             entptr = &entities[i];
