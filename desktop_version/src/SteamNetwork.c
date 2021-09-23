@@ -44,16 +44,6 @@ struct ISteamUserStats;
     )) \
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_RequestCurrentStats, (struct ISteamUserStats*)) \
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_StoreStats, (struct ISteamUserStats*)) \
-    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_GetStat, ( \
-        struct ISteamUserStats*, \
-        const char*, \
-        int32_t* \
-    )) \
-    FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_SetStat, ( \
-        struct ISteamUserStats*, \
-        const char*, \
-        int32_t \
-    )) \
     FOREACH_FUNC(uint8_t, SteamAPI_ISteamUserStats_SetAchievement, ( \
         struct ISteamUserStats*, \
         const char* \
