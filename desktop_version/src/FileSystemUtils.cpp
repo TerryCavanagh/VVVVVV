@@ -1,12 +1,8 @@
-#include <iostream>
-#include <iterator>
 #include <physfs.h>
 #include <SDL.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <string>
 #include <tinyxml2.h>
-#include <vector>
 
 #include "BinaryBlob.h"
 #include "Exit.h"
@@ -189,11 +185,19 @@ end:
     return retval;
 }
 
+static unsigned char* stdin_buffer = NULL;
+static size_t stdin_length = 0;
+
 void FILESYSTEM_deinit(void)
 {
     if (PHYSFS_isInit())
     {
         PHYSFS_deinit();
+    }
+    if (stdin_buffer != NULL)
+    {
+        SDL_free(stdin_buffer);
+        stdin_buffer = NULL;
     }
 }
 
@@ -654,6 +658,56 @@ bool FILESYSTEM_isAssetMounted(const char* filename)
 
 void FILESYSTEM_freeMemory(unsigned char **mem);
 
+static void load_stdin(void)
+{
+    size_t pos = 0;
+    /* A .vvvvvv file with nothing is at least 140K...
+     * initial size of 1K shouldn't hurt. */
+#define INITIAL_SIZE 1024
+    size_t alloc_size = INITIAL_SIZE;
+    stdin_buffer = (unsigned char*) SDL_malloc(INITIAL_SIZE);
+#undef INITIAL_SIZE
+
+    if (stdin_buffer == NULL)
+    {
+        VVV_exit(1);
+    }
+
+    while (true)
+    {
+        int ch = fgetc(stdin);
+        bool end = ch == EOF;
+        if (end)
+        {
+            /* Add null terminator. There's no observable change in
+             * behavior if addnull is always true, but not vice versa. */
+            ch = '\0';
+        }
+
+        if (pos == alloc_size)
+        {
+            unsigned char *tmp;
+            alloc_size *= 2;
+            tmp = (unsigned char*) SDL_realloc((void*) stdin_buffer, alloc_size);
+            if (tmp == NULL)
+            {
+                VVV_exit(1);
+            }
+            stdin_buffer = tmp;
+        }
+
+        stdin_buffer[pos] = ch;
+        ++pos;
+
+        if (end)
+        {
+            break;
+        }
+    }
+
+    stdin_length = pos - 1;
+}
+
 void FILESYSTEM_loadFileToMemory(
     const char *name,
     unsigned char **mem,
@@ -672,30 +726,23 @@ void FILESYSTEM_loadFileToMemory(
     if (SDL_strcmp(name, "levels/special/stdin.vvvvvv") == 0)
     {
         // this isn't *technically* necessary when piping directly from a file, but checking for that is annoying
-        static std::vector<char> STDIN_BUFFER;
-        static bool STDIN_LOADED = false;
-        size_t stdin_length;
-        if (!STDIN_LOADED)
+        if (stdin_buffer == NULL)
         {
-            std::istreambuf_iterator<char> begin(std::cin), end;
-            STDIN_BUFFER.assign(begin, end);
-            STDIN_BUFFER.push_back(0); // there's no observable change in behavior if addnull is always true, but not vice versa
-            STDIN_LOADED = true;
+            load_stdin();
         }
 
-        stdin_length = STDIN_BUFFER.size() - 1;
+        *mem = (unsigned char*) SDL_malloc(stdin_length + 1); /* + 1 for null */
+        if (*mem == NULL)
+        {
+            VVV_exit(1);
+        }
+
         if (len != NULL)
         {
             *len = stdin_length;
         }
 
-        ++stdin_length;
-        *mem = static_cast<unsigned char*>(SDL_malloc(stdin_length)); // STDIN_BUFFER.data() causes double-free
-        if (*mem == NULL)
-        {
-            VVV_exit(1);
-        }
-        std::copy(STDIN_BUFFER.begin(), STDIN_BUFFER.end(), reinterpret_cast<char*>(*mem));
+        SDL_memcpy((void*) *mem, (void*) stdin_buffer, stdin_length + 1);
         return;
     }
 
