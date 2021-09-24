@@ -23,7 +23,6 @@ public:
     short back[40 * 120];
     short contents[40 * 700];
     short minitower[40 * 100];
-    int vmult[40 * 700];
 
     bool minitowermode;
 };

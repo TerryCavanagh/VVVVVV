@@ -9,6 +9,7 @@
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
 
+#include "Constants.h"
 #include "Editor.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
@@ -35,6 +36,9 @@
 #include <inttypes.h>
 #endif
 
+#define VMULT(y) (y * SCREEN_WIDTH_TILES * maxwidth)
+#define Y_INBOUNDS(y) (y >= 0 && y < SCREEN_HEIGHT_TILES * maxheight)
+
 RoomProperty::RoomProperty(void)
 {
     tileset=0;
@@ -55,11 +59,6 @@ RoomProperty::RoomProperty(void)
 
 customlevelclass::customlevelclass(void)
 {
-    for (size_t i = 0; i < SDL_arraysize(vmult); i++)
-    {
-        vmult[i] = i * 40 * maxwidth;
-    }
-
     reset();
 }
 
@@ -709,9 +708,9 @@ int customlevelclass::gettileidx(
     int mult;
     int idx;
 
-    if (INBOUNDS_ARR(yoff, vmult))
+    if (Y_INBOUNDS(yoff))
     {
-        mult = vmult[yoff];
+        mult = VMULT(yoff);
     }
     else
     {
@@ -761,9 +760,9 @@ int customlevelclass::getabstile(const int x, const int y)
     int idx;
     int yoff;
 
-    if (INBOUNDS_ARR(y, vmult))
+    if (Y_INBOUNDS(y))
     {
-        yoff = vmult[y];
+        yoff = VMULT(y);
     }
     else
     {

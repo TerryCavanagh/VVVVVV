@@ -1,6 +1,7 @@
 #define MAP_DEFINITION
 #include "Map.h"
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "Entity.h"
 #include "Game.h"
@@ -57,11 +58,6 @@ mapclass::mapclass(void)
     //This needs to be in map instead!
     invincibility = false;
 
-    //We init the lookup table:
-    for (size_t i = 0; i < SDL_arraysize(vmult); i++)
-    {
-        vmult[i] = i * 40;
-    }
     //We create a blank map
     SDL_memset(contents, 0, sizeof(contents));
 
@@ -473,7 +469,8 @@ void mapclass::initcustommapdata(void)
 int mapclass::finalat(int x, int y)
 {
     //return the tile index of the final stretch tiles offset by the colour difference
-    if (contents[x + vmult[y]] == 740)
+    const int tile = contents[TILE_IDX(x, y)];
+    if (tile == 740)
     {
         //Special case: animated tiles
         if (final_mapcol == 1)
@@ -500,16 +497,16 @@ int mapclass::finalat(int x, int y)
             {
                 offset = final_aniframe * 40;
             }
-            return contents[x + vmult[y]] - (final_mapcol * 3) + offset;
+            return tile - (final_mapcol * 3) + offset;
         }
     }
-    else if (contents[x + vmult[y]] >= 80)
+    else if (tile >= 80)
     {
-        return contents[x + vmult[y]] - (final_mapcol * 3);
+        return tile - (final_mapcol * 3);
     }
     else
     {
-        return contents[x + vmult[y]];
+        return tile;
     }
 }
 
@@ -694,35 +691,39 @@ bool mapclass::collide(int x, int y)
     }
     else if (tileset == 2)
     {
+        int tile;
         if (y == -1) return collide(x, y + 1);
         if (y == 29+extrarow) return collide(x, y - 1);
         if (x == -1) return collide(x + 1, y);
         if (x == 40) return collide(x - 1, y);
         if (x < 0 || y < 0 || x >= 40 || y >= 29 + extrarow) return false;
-        if (contents[x + vmult[y]] >= 12 && contents[x + vmult[y]] <= 27) return true;
+        tile = contents[TILE_IDX(x, y)];
+        if (tile >= 12 && tile <= 27) return true;
         if (invincibility)
         {
-            if (contents[x + vmult[y]] >= 6 && contents[x + vmult[y]] <= 11) return true;
+            if (tile >= 6 && tile <= 11) return true;
         }
     }
     else
     {
+        int tile;
         if (y == -1) return collide(x, y + 1);
         if (y == 29+extrarow) return collide(x, y - 1);
         if (x == -1) return collide(x + 1, y);
         if (x == 40) return collide(x - 1, y);
         if (x < 0 || y < 0 || x >= 40 || y >= 29+extrarow) return false;
-        if (contents[x + vmult[y]] == 1) return true;
-        if (tileset==0 && contents[x + vmult[y]] == 59) return true;
-        if (contents[x + vmult[y]]>= 80 && contents[x + vmult[y]] < 680) return true;
-        if (contents[x + vmult[y]] == 740 && tileset==1) return true;
+        tile = contents[TILE_IDX(x, y)];
+        if (tile == 1) return true;
+        if (tileset==0 && tile == 59) return true;
+        if (tile>= 80 && tile < 680) return true;
+        if (tile == 740 && tileset==1) return true;
         if (invincibility)
         {
-            if (contents[x + vmult[y]]>= 6 && contents[x + vmult[y]] <= 9) return true;
-            if (contents[x + vmult[y]]>= 49 && contents[x + vmult[y]] <= 50) return true;
+            if (tile>= 6 && tile <= 9) return true;
+            if (tile>= 49 && tile <= 50) return true;
             if (tileset == 1)
             {
-                if (contents[x + vmult[y]]>= 49 && contents[x + vmult[y]] < 80) return true;
+                if (tile>= 49 && tile < 80) return true;
             }
         }
     }
@@ -733,7 +734,7 @@ void mapclass::settile(int xp, int yp, int t)
 {
     if (xp >= 0 && xp < 40 && yp >= 0 && yp < 29+extrarow)
     {
-        contents[xp + vmult[yp]] = t;
+        contents[TILE_IDX(xp, yp)] = t;
     }
 }
 
@@ -1995,20 +1996,21 @@ void mapclass::loadlevel(int rx, int ry)
         {
             for (int i = 0; i < 40; i++)
             {
+                int tile = contents[TILE_IDX(i, j)];
                 //Damage blocks
                 if(tileset==0)
                 {
-                    if (contents[i + vmult[j]] == 6 || contents[i + vmult[j]] == 8)
+                    if (tile == 6 || tile == 8)
                     {
                         //sticking up
                         obj.createblock(2, (i * 8), (j * 8)+4, 8, 4);
                     }
-                    if (contents[i + vmult[j]] == 7 || contents[i + vmult[j]] == 9)
+                    if (tile == 7 || tile == 9)
                     {
                         //Sticking down
                         obj.createblock(2, (i * 8), (j * 8), 8, 4);
                     }
-                    if (contents[i + vmult[j]] == 49 || contents[i + vmult[j]] == 50)
+                    if (tile == 49 || tile == 50)
                     {
                         //left or right
                         obj.createblock(2, (i * 8), (j * 8)+3, 8, 2);
@@ -2016,13 +2018,13 @@ void mapclass::loadlevel(int rx, int ry)
                 }
                 else if(tileset==1)
                 {
-                    if ((contents[i + vmult[j]] >= 63 && contents[i + vmult[j]] <= 74) ||
-                            (contents[i + vmult[j]] >= 6 && contents[i + vmult[j]] <= 9))
+                    if ((tile >= 63 && tile <= 74) ||
+                            (tile >= 6 && tile <= 9))
                     {
                         //sticking up) {
-                        if (contents[i + vmult[j]] < 10) contents[i + vmult[j]]++;
+                        if (tile < 10) tile++;
                         //sticking up
-                        if(contents[i + vmult[j]]%2==0)
+                        if(tile%2==0)
                         {
                             obj.createblock(2, (i * 8), (j * 8), 8, 4);
                         }
@@ -2031,9 +2033,9 @@ void mapclass::loadlevel(int rx, int ry)
                             //Sticking down
                             obj.createblock(2, (i * 8), (j * 8) + 4, 8, 4);
                         }
-                        if (contents[i + vmult[j]] < 11) contents[i + vmult[j]]--;
+                        if (tile < 11) tile--;
                     }
-                    if (contents[i + vmult[j]] >= 49 && contents[i + vmult[j]] <= 62)
+                    if (tile >= 49 && tile <= 62)
                     {
                         //left or right
                         obj.createblock(2, (i * 8), (j * 8)+3, 8, 2);
@@ -2041,27 +2043,27 @@ void mapclass::loadlevel(int rx, int ry)
                 }
                 else if(tileset==2)
                 {
-                    if (contents[i + vmult[j]] == 6 || contents[i + vmult[j]] == 8)
+                    if (tile == 6 || tile == 8)
                     {
                         //sticking up
                         obj.createblock(2, (i * 8), (j * 8)+4, 8, 4);
                     }
-                    if (contents[i + vmult[j]] == 7 || contents[i + vmult[j]] == 9)
+                    if (tile == 7 || tile == 9)
                     {
                         //Sticking down
                         obj.createblock(2, (i * 8), (j * 8), 8, 4);
                     }
                 }
                 //Breakable blocks
-                if (contents[i + vmult[j]] == 10)
+                if (tile == 10)
                 {
-                    contents[i + vmult[j]] = 0;
+                    tile = 0;
                     obj.createentity(i * 8, j * 8, 4);
                 }
                 //Directional blocks
-                if (contents[i + vmult[j]] >= 14 && contents[i + vmult[j]] <= 17)
+                if (tile >= 14 && tile <= 17)
                 {
-                    obj.createblock(3, i * 8, j * 8, 8, 8, contents[i + vmult[j]]-14);
+                    obj.createblock(3, i * 8, j * 8, 8, 8, tile-14);
                 }
             }
         }

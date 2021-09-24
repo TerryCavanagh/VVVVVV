@@ -12,6 +12,8 @@
 #define SCREEN_WIDTH_PIXELS (SCREEN_WIDTH_TILES * 8)
 #define SCREEN_HEIGHT_PIXELS (SCREEN_WIDTH_TILES * 8)
 
+#define TILE_IDX(x, y) (x + y * SCREEN_WIDTH_TILES)
+
 /* 4 bytes per char, for UTF-8 encoding. */
 #define SCREEN_WIDTH_CHARS (SCREEN_WIDTH_TILES * 4)
 

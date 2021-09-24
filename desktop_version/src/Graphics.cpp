@@ -3,6 +3,7 @@
 
 #include <utf8/unchecked.h>
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "Entity.h"
 #include "Exit.h"
@@ -2641,7 +2642,8 @@ void Graphics::drawmap(void)
             {
                 for (int i = 0; i < 40; i++)
                 {
-                    if(map.contents[i + map.vmult[j]]>0) drawforetile(i * 8, j * 8, map.contents[i + map.vmult[j]]);
+                    const int tile = map.contents[TILE_IDX(i, j)];
+                    if(tile>0) drawforetile(i * 8, j * 8, tile);
                 }
             }
         }
@@ -2651,7 +2653,8 @@ void Graphics::drawmap(void)
             {
                 for (int it = 0; it < 40; it++)
                 {
-                    if(map.contents[it + map.vmult[jt]]>0) drawforetile2(it * 8, jt * 8, map.contents[it + map.vmult[jt]]);
+                    const int tile = map.contents[TILE_IDX(it, jt)];
+                    if(tile>0) drawforetile2(it * 8, jt * 8, tile);
                 }
             }
         }
@@ -2661,7 +2664,8 @@ void Graphics::drawmap(void)
             {
                 for (int i = 0; i < 40; i++)
                 {
-                    if(map.contents[i + map.vmult[j]]>0) drawforetile3(i * 8, j * 8, map.contents[i + map.vmult[j]],map.rcol);
+                    const int tile = map.contents[TILE_IDX(i, j)];
+                    if(tile>0) drawforetile3(i * 8, j * 8, tile,map.rcol);
                 }
             }
         }
@@ -2678,14 +2682,14 @@ void Graphics::drawfinalmap(void)
         if(map.tileset==0){
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
-                    if((map.contents[i + map.vmult[j]])>0)
+                    if((map.contents[TILE_IDX(i, j)])>0)
                         drawforetile(i * 8, j * 8, map.finalat(i,j));
                 }
             }
         }else if (map.tileset == 1) {
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
-                    if((map.contents[i + map.vmult[j]])>0)
+                    if((map.contents[TILE_IDX(i, j)])>0)
                         drawforetile2(i * 8, j * 8, map.finalat(i,j));
                 }
             }
