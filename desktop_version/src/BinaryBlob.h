@@ -2,6 +2,7 @@
 #define BINARYBLOB_H
 
 #include <stddef.h>
+#include <stdint.h>
 
 /* Laaaazyyyyyyy -flibit */
 // #define VVV_COMPILEMUSIC
@@ -27,9 +28,9 @@
 struct resourceheader
 {
     char name[48];
-    int start_UNUSED;
-    int size;
-    bool valid;
+    int32_t start_UNUSED;
+    int32_t size;
+    uint8_t valid;
 };
 
 class binaryBlob
