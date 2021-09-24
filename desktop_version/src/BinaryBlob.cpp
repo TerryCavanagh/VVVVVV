@@ -89,7 +89,10 @@ void binaryBlob::clear(void)
 {
     for (size_t i = 0; i < SDL_arraysize(m_headers); i += 1)
     {
-        SDL_free(m_memblocks[i]);
+        if (m_memblocks[i] != NULL)
+        {
+            SDL_free(m_memblocks[i]);
+        }
     }
     SDL_zeroa(m_memblocks);
     SDL_zeroa(m_headers);
