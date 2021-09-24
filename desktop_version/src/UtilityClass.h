@@ -114,7 +114,6 @@ public:
     int glow;
     int slowsine;
     int glowdir;
-    int splitseconds[30];
 };
 
 #ifndef HELP_DEFINITION

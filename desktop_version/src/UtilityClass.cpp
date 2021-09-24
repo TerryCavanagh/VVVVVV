@@ -134,11 +134,6 @@ UtilityClass::UtilityClass(void) :
 glow(0),
     glowdir(0)
 {
-    for (size_t i = 0; i < SDL_arraysize(splitseconds); i++)
-    {
-        splitseconds[i] = (i * 100) / 30;
-    }
-
     slowsine = 0;
 }
 
@@ -194,14 +189,14 @@ std::string UtilityClass::timestring( int t )
     if (temp < 60)   //less than one minute
     {
         t = t % 30;
-        tempstring = String(temp) + ":" + twodigits(splitseconds[t]);
+        tempstring = String(temp) + ":" + twodigits(t * 100 / 30);
     }
     else
     {
         int temp2 = (temp - (temp % 60)) / 60;
         temp = temp % 60;
         t = t % 30;
-        tempstring = String(temp2) + ":" + twodigits(temp) + ":" + twodigits(splitseconds[t]);
+        tempstring = String(temp2) + ":" + twodigits(temp) + ":" + twodigits(t * 100 / 30);
     }
     return tempstring;
 }
