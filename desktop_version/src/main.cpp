@@ -708,7 +708,7 @@ static void cleanup(void)
     FILESYSTEM_deinit();
 }
 
-void VVV_exit(const int exit_code)
+VVV_NORETURN void VVV_exit(const int exit_code)
 {
     cleanup();
     exit(exit_code);
