@@ -75,16 +75,16 @@ public:
     std::string Desc2;
     std::string Desc3;
     std::string website;
-  
+
     std::vector<LevelMetaData> ListOfMetaData;
-  
+
     void loadZips(void);
     void getDirectoryData(void);
     bool getLevelMetaData(const std::string& filename, LevelMetaData& _data );
-  
+
     void reset(void);
     const int* loadlevel(int rxi, int ryi);
-  
+
     int gettileidx(
       const int rx,
       const int ry,
@@ -105,7 +105,7 @@ public:
       const int y
     );
     int getabstile(const int x, const int y);
-  
+
     int getroompropidx(const int rx, const int ry);
     const RoomProperty* getroomprop(const int rx, const int ry);
 #define FOREACH_PROP(NAME, TYPE) \
@@ -120,17 +120,17 @@ public:
     bool save(const std::string& _path);
 #endif
     void generatecustomminimap(void);
-  
+
     int findtrinket(int t);
     int findcrewmate(int t);
     int findwarptoken(int t);
     void findstartpoint(void);
     int getlevelcol(const int tileset, const int tilecol);
     int getenemycol(int t);
-  
+
     //Colouring stuff
     int getwarpbackground(int rx, int ry);
-  
+
     static const int maxwidth = 20, maxheight = 20; //Special; the physical max the engine allows
     static const int numrooms = maxwidth * maxheight;
     int contents[40 * 30 * numrooms];
@@ -141,9 +141,9 @@ public:
 
     int levmusic;
     int mapwidth, mapheight; //Actual width and height of stage
-  
+
     int version;
-  
+
     Uint32 getonewaycol(const int rx, const int ry);
     Uint32 getonewaycol(void);
     bool onewaycol_override;
