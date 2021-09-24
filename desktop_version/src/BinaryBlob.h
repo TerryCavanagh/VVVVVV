@@ -57,7 +57,9 @@ public:
 
     static const int max_headers = 128;
 
+#ifdef VVV_COMPILEMUSIC
     int numberofHeaders;
+#endif
     resourceheader m_headers[max_headers];
     char* m_memblocks[max_headers];
 };
