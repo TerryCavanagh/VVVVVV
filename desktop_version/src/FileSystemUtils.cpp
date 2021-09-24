@@ -16,7 +16,7 @@
 #if defined(_WIN32)
 #include <windows.h>
 #include <shlobj.h>
-int mkdir(char* path, int mode)
+static int mkdir(char* path, int mode)
 {
     WCHAR utf16_path[MAX_PATH];
     MultiByteToWideChar(CP_UTF8, 0, path, -1, utf16_path, MAX_PATH);
