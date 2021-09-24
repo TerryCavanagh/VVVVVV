@@ -122,7 +122,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
         "saves",
         pathSep
     );
-    mkdir(saveDir, 0777); /* FIXME: Why did I not | this? -flibit */
+    mkdir(saveDir, 0777);
     vlog_info("Save directory: %s", saveDir);
 
     /* Store full level directory */
