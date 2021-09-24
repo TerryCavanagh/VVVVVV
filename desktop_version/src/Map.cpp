@@ -2016,8 +2016,6 @@ void mapclass::loadlevel(int rx, int ry)
                 }
                 else if(tileset==1)
                 {
-                    //if (contents[i + vmult[j]] >= 6 && contents[i + vmult[j]] <= 9) obj.createblock(2, (i * 8), (j * 8)+1, 8, 6);
-                    //if (contents[i + vmult[j]] >= 49 && contents[i + vmult[j]] <= 79) obj.createblock(2, (i * 8) + 1, (j * 8) + 1, 6, 6);
                     if ((contents[i + vmult[j]] >= 63 && contents[i + vmult[j]] <= 74) ||
                             (contents[i + vmult[j]] >= 6 && contents[i + vmult[j]] <= 9))
                     {
