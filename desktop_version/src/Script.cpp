@@ -1710,14 +1710,14 @@ void scriptclass::run(void)
 #if !defined(NO_CUSTOM_LEVELS)
                 if (map.custommode)
                 {
-                    usethisnum = help.number(cl.numtrinkets());
+                    usethisnum = help.number_words(cl.numtrinkets());
                 }
                 else
 #endif
                 {
                     usethisnum = "Twenty";
                 }
-                graphics.createtextboxflipme(" " + help.number(game.trinkets()) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(" " + help.number_words(game.trinkets()) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
                 graphics.textboxcenterx();
 
                 if (!game.backgroundtext)

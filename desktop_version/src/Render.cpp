@@ -893,7 +893,7 @@ static void menurender(void)
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.tele_crewstats[i], true);
             }
             graphics.Print(59, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            const std::string& trinketcount = help.number(game.tele_trinkets);
+            const std::string& trinketcount = help.number_words(game.tele_trinkets);
             graphics.Print(262-graphics.len(trinketcount), 132-20, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
             graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
@@ -912,7 +912,7 @@ static void menurender(void)
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.quick_crewstats[i], true);
             }
             graphics.Print(59, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            const std::string& trinketcount = help.number(game.quick_trinkets);
+            const std::string& trinketcount = help.number_words(game.quick_trinkets);
             graphics.Print(262-graphics.len(trinketcount), 132-20, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
             graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
@@ -931,10 +931,10 @@ static void menurender(void)
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
         std::string tempstring;
-        tempstring = "You rescued " + help.number(game.ndmresultcrewrescued) + (game.ndmresultcrewrescued == 1 ? " crewmate" : " crewmates");
+        tempstring = "You rescued " + help.number_words(game.ndmresultcrewrescued) + (game.ndmresultcrewrescued == 1 ? " crewmate" : " crewmates");
         graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
-        tempstring = "and found " + help.number(game.ndmresulttrinkets) + (game.ndmresulttrinkets == 1 ? " trinket." : " trinkets.");
+        tempstring = "and found " + help.number_words(game.ndmresulttrinkets) + (game.ndmresulttrinkets == 1 ? " trinket." : " trinkets.");
         graphics.Print(0, 110, tempstring, tr, tg, tb, true);
 
         tempstring = "You managed to reach:";
@@ -978,7 +978,7 @@ static void menurender(void)
         std::string tempstring = "You rescued all the crewmates!";
         graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
-        tempstring = "And you found " + help.number(game.ndmresulttrinkets) + " trinkets.";
+        tempstring = "And you found " + help.number_words(game.ndmresulttrinkets) + " trinkets.";
         graphics.Print(0, 110, tempstring, tr, tg, tb, true);
 
         graphics.Print(0, 160, "A new trophy has been awarded and", tr, tg, tb, true);
@@ -2399,9 +2399,9 @@ void maprender(void)
             int remaining = cl.numcrewmates() - game.crewmates();
 
             if(remaining==1){
-                graphics.Print(1,FLIP(165), help.number(remaining)+ " crewmate remains", 196, 196, 255 - help.glow, true);
+                graphics.Print(1,FLIP(165), help.number_words(remaining)+ " crewmate remains", 196, 196, 255 - help.glow, true);
             }else if(remaining>0){
-                graphics.Print(1,FLIP(165), help.number(remaining)+ " crewmates remain", 196, 196, 255 - help.glow, true);
+                graphics.Print(1,FLIP(165), help.number_words(remaining)+ " crewmates remain", 196, 196, 255 - help.glow, true);
             }
         }
 #endif
@@ -2474,7 +2474,7 @@ void maprender(void)
           if (graphics.flipmode)
           {
               graphics.Print(0, 164, "[Trinkets found]", 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 152, help.number(game.trinkets()) + " out of " + help.number(cl.numtrinkets()), 96,96,96, true);
+              graphics.Print(0, 152, help.number_words(game.trinkets()) + " out of " + help.number_words(cl.numtrinkets()), 96,96,96, true);
 
               graphics.Print(0, 114, "[Number of Deaths]", 196, 196, 255 - help.glow, true);
               graphics.Print(0, 102,help.String(game.deathcounts),  96,96,96, true);
@@ -2485,7 +2485,7 @@ void maprender(void)
           else
           {
               graphics.Print(0, 52, "[Trinkets found]", 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 64, help.number(game.trinkets()) + " out of "+help.number(cl.numtrinkets()), 96,96,96, true);
+              graphics.Print(0, 64, help.number_words(game.trinkets()) + " out of "+help.number_words(cl.numtrinkets()), 96,96,96, true);
 
               graphics.Print(0, 102, "[Number of Deaths]", 196, 196, 255 - help.glow, true);
               graphics.Print(0, 114,help.String(game.deathcounts),  96,96,96, true);
@@ -2500,7 +2500,7 @@ void maprender(void)
           if (graphics.flipmode)
           {
               graphics.Print(0, 164, "[Trinkets found]", 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 152, help.number(game.trinkets()) + " out of Twenty", 96,96,96, true);
+              graphics.Print(0, 152, help.number_words(game.trinkets()) + " out of Twenty", 96,96,96, true);
 
               graphics.Print(0, 114, "[Number of Deaths]", 196, 196, 255 - help.glow, true);
               graphics.Print(0, 102,help.String(game.deathcounts),  96,96,96, true);
@@ -2511,7 +2511,7 @@ void maprender(void)
           else
           {
               graphics.Print(0, 52, "[Trinkets found]", 196, 196, 255 - help.glow, true);
-              graphics.Print(0, 64, help.number(game.trinkets()) + " out of Twenty", 96,96,96, true);
+              graphics.Print(0, 64, help.number_words(game.trinkets()) + " out of Twenty", 96,96,96, true);
 
               graphics.Print(0, 102, "[Number of Deaths]", 196, 196, 255 - help.glow, true);
               graphics.Print(0, 114,help.String(game.deathcounts),  96,96,96, true);
@@ -2554,7 +2554,7 @@ void maprender(void)
                 {
                     graphics.Print(0, 122, game.customleveltitle, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
                     graphics.Print(59, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    const std::string& trinketcount = help.number_words(game.savetrinkets);
                     graphics.Print(262-graphics.len(trinketcount), 78, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
                     graphics.drawsprite(34, 74, 50, graphics.col_clock);
@@ -2564,7 +2564,7 @@ void maprender(void)
                 {
                     graphics.Print(0, 90, game.customleveltitle, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
                     graphics.Print(59, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    const std::string& trinketcount = help.number_words(game.savetrinkets);
                     graphics.Print(262-graphics.len(trinketcount), 132, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
                     graphics.drawsprite(34, 126, 50, graphics.col_clock);
@@ -2603,7 +2603,7 @@ void maprender(void)
                         graphics.drawcrewman(169-(3*42)+(i*42), 98, i, game.crewstats[i], true);
                     }
                     graphics.Print(59, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    const std::string& trinketcount = help.number_words(game.savetrinkets);
                     graphics.Print(262-graphics.len(trinketcount), 78, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
                     graphics.drawsprite(34, 74, 50, graphics.col_clock);
@@ -2617,7 +2617,7 @@ void maprender(void)
                         graphics.drawcrewman(169-(3*42)+(i*42), 95, i, game.crewstats[i], true);
                     }
                     graphics.Print(59, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number(game.savetrinkets);
+                    const std::string& trinketcount = help.number_words(game.savetrinkets);
                     graphics.Print(262-graphics.len(trinketcount), 132, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
                     graphics.drawsprite(34, 126, 50, graphics.col_clock);

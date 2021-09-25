@@ -109,7 +109,7 @@ public:
 
     std::string timestring(int t);
 
-    std::string number(int _t);
+    std::string number_words(int _t);
 
 
     static bool intersects( SDL_Rect A, SDL_Rect B );

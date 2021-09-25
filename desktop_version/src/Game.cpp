@@ -670,7 +670,7 @@ void Game::remaining_textbox(void)
             buffer,
             sizeof(buffer),
             "  %s remain  ",
-            help.number(remaining).c_str()
+            help.number_words(remaining).c_str()
         );
         string = buffer;
     }
@@ -1842,13 +1842,13 @@ void Game::updatestate(void)
 #if !defined(NO_CUSTOM_LEVELS)
             if(map.custommode)
             {
-                graphics.createtextboxflipme(" " + help.number(trinkets()) + " out of " + help.number(cl.numtrinkets())+ " ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(" " + help.number_words(trinkets()) + " out of " + help.number_words(cl.numtrinkets())+ " ", 50, 135, 174, 174, 174);
                 graphics.textboxcenterx();
             }
             else
 #endif
             {
-                graphics.createtextboxflipme(" " + help.number(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(" " + help.number_words(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
                 graphics.textboxcenterx();
             }
             break;
@@ -1895,11 +1895,11 @@ void Game::updatestate(void)
             }
             else if(cl.numcrewmates()-crewmates()==1)
             {
-                graphics.createtextboxflipme("    " + help.number(cl.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme("    " + help.number_words(cl.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
             }
             else
             {
-                graphics.createtextboxflipme("     " + help.number(cl.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme("     " + help.number_words(cl.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
             }
             graphics.textboxcenterx();
             break;
@@ -2614,7 +2614,7 @@ void Game::updatestate(void)
             state++;
             statedelay = 45;
 
-            std::string tempstring = help.number(trinkets());
+            std::string tempstring = help.number_words(trinkets());
             graphics.createtextboxflipme("Trinkets Found:", 48, 84, 0,0,0);
             graphics.createtextboxflipme(tempstring, 180, 84, 0, 0, 0);
             break;

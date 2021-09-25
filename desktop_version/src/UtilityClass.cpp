@@ -201,7 +201,7 @@ std::string UtilityClass::timestring( int t )
     return tempstring;
 }
 
-std::string UtilityClass::number( int _t )
+std::string UtilityClass::number_words( int _t )
 {
     static const std::string ones_place[] = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
     static const std::string tens_place[] = {"Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
