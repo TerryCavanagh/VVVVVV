@@ -5,6 +5,7 @@
 
 #include "Constants.h"
 #include "MakeAndPlay.h"
+#include "UtilityClass.h"
 
 towerclass::towerclass(void)
 {
@@ -24,8 +25,7 @@ int towerclass::backat(int xp, int yp, int yoff)
 
     if (xp >= 0 && xp < 40)
     {
-        while (yp < 0) yp += 120;
-        while (yp >= 120) yp -= 120;
+        yp = POS_MOD(yp, 120);
         return back[TILE_IDX(xp, yp)];
     }
     return 0;
@@ -41,8 +41,7 @@ int towerclass::at(int xp, int yp, int yoff)
     {
         yp = (yp*8 + yoff) / 8;
 
-        while (yp < 0) yp += 700;
-        while (yp >= 700) yp -= 700;
+        yp = POS_MOD(yp, 700);
         if (xp >= 0 && xp < 40)
         {
             return contents[TILE_IDX(xp, yp)];
@@ -63,8 +62,7 @@ int towerclass::miniat(int xp, int yp, int yoff)
 {
     yp = (yp*8 + yoff) / 8;
 
-    while (yp < 0) yp += 100;
-    while (yp >= 100) yp -= 100;
+    yp = POS_MOD(yp, 100);
     if (xp >= 0 && xp < 40)
     {
         return minitower[TILE_IDX(xp, yp)];

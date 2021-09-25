@@ -88,6 +88,11 @@ void _VVV_between(
     } \
     while (false)
 
+/* Positive modulo, because C/C++'s modulo operator sucks and is negative given
+ * negative divisors.
+ * WARNING! This double- and triple- evaluates. */
+#define POS_MOD(a, b) (((a) % (b) + (b)) % (b))
+
 //helperClass
 class UtilityClass
 {

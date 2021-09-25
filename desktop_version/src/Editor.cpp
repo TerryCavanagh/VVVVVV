@@ -4175,7 +4175,7 @@ void editorclass::switch_tileset(const bool reversed)
     }
 
     const int modulus = SDL_arraysize(tilesets);
-    tiles = (tiles % modulus + modulus) % modulus;
+    tiles = POS_MOD(tiles, modulus);
     cl.setroomtileset(levx, levy, tiles);
 
     clamp_tilecol(levx, levy, false);
@@ -4270,7 +4270,7 @@ void editorclass::switch_enemy(const bool reversed)
     }
 
     const int modulus = 10;
-    enemy = (enemy % modulus + modulus) % modulus;
+    enemy = POS_MOD(enemy, modulus);
     cl.setroomenemytype(levx, levy, enemy);
 
     note = "Enemy Type Changed";
@@ -4293,7 +4293,7 @@ void editorclass::switch_warpdir(const bool reversed)
         ++warpdir;
     }
 
-    warpdir = (warpdir % modulus + modulus) % modulus;
+    warpdir = POS_MOD(warpdir, modulus);
     cl.setroomwarpdir(levx, levy, warpdir);
 
     switch (warpdir)
