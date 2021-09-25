@@ -721,7 +721,7 @@ void editorrender(void)
                 if(temp2==i)
                 {
                     graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,
-                                "("+help.String(((customentities[i].p1-int(customentities[i].p1%40))/40)+1)+","+help.String(((customentities[i].p2-int(customentities[i].p2%30))/30)+1)+")",210,210,255);
+                                "("+help.String(customentities[i].p1/40 + 1)+","+help.String(customentities[i].p2/30 + 1)+")",210,210,255);
                 }
                 else
                 {
@@ -854,7 +854,7 @@ void editorrender(void)
                 if(ed.tilex+(ed.levx*40)==customentities[i].p1 && ed.tiley+(ed.levy*30)==customentities[i].p2)
                 {
                     graphics.bprint((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8)-8,
-                                "("+help.String(((customentities[i].x-int(customentities[i].x%40))/40)+1)+","+help.String(((customentities[i].y-int(customentities[i].y%30))/30)+1)+")",190,190,225);
+                                "("+help.String(customentities[i].x/40 + 1)+","+help.String(customentities[i].y/30 + 1)+")",190,190,225);
                 }
                 else
                 {
@@ -2720,8 +2720,8 @@ void editorinput(void)
                         //if() on screen
                         if(customentities[i].t==16 && testeditor==-1)
                         {
-                            int tx=(customentities[i].x-(customentities[i].x%40))/40;
-                            int ty=(customentities[i].y-(customentities[i].y%30))/30;
+                            int tx=customentities[i].x/40;
+                            int ty=customentities[i].y/30;
                             if(tx==ed.levx && ty==ed.levy)
                             {
                                 testeditor=i;
@@ -2737,8 +2737,8 @@ void editorinput(void)
                             //if() on screen
                             if(customentities[i].t==10 && testeditor==-1)
                             {
-                                int tx=(customentities[i].x-(customentities[i].x%40))/40;
-                                int ty=(customentities[i].y-(customentities[i].y%30))/30;
+                                int tx=customentities[i].x/40;
+                                int ty=customentities[i].y/30;
                                 if(tx==ed.levx && ty==ed.levy)
                                 {
                                     testeditor=i;
@@ -2758,8 +2758,8 @@ void editorinput(void)
                         if(startpoint==0)
                         {
                             //Checkpoint spawn
-                            int tx=(customentities[testeditor].x-(customentities[testeditor].x%40))/40;
-                            int ty=(customentities[testeditor].y-(customentities[testeditor].y%30))/30;
+                            int tx=customentities[testeditor].x/40;
+                            int ty=customentities[testeditor].y/30;
                             game.edsavex = (customentities[testeditor].x%40)*8 - 4;
                             game.edsavey = (customentities[testeditor].y%30)*8;
                             game.edsaverx = 100+tx;
@@ -2779,8 +2779,8 @@ void editorinput(void)
                         else
                         {
                             //Start point spawn
-                            int tx=(customentities[testeditor].x-(customentities[testeditor].x%40))/40;
-                            int ty=(customentities[testeditor].y-(customentities[testeditor].y%30))/30;
+                            int tx=customentities[testeditor].x/40;
+                            int ty=customentities[testeditor].y/30;
                             game.edsavex = (customentities[testeditor].x%40)*8 - 4;
                             game.edsavey = (customentities[testeditor].y%30)*8;
                             game.edsaverx = 100+tx;

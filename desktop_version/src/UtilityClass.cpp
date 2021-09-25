@@ -185,7 +185,7 @@ std::string UtilityClass::timestring( int t )
 {
     //given a time t in frames, return a time in seconds
     std::string tempstring = "";
-    int temp = (t - (t % 30)) / 30;
+    int temp = t / 30;
     if (temp < 60)   //less than one minute
     {
         t = t % 30;
@@ -193,7 +193,7 @@ std::string UtilityClass::timestring( int t )
     }
     else
     {
-        int temp2 = (temp - (temp % 60)) / 60;
+        int temp2 = temp / 60;
         temp = temp % 60;
         t = t % 30;
         tempstring = String(temp2) + ":" + twodigits(temp) + ":" + twodigits(t * 100 / 30);

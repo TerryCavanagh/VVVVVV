@@ -5779,7 +5779,7 @@ std::string Game::partimestring(void)
     std::string tempstring = "";
     if (timetrialpar >= 60)
     {
-        tempstring = help.twodigits(int((timetrialpar - (timetrialpar % 60)) / 60)) + ":" + help.twodigits(timetrialpar % 60);
+        tempstring = help.twodigits(timetrialpar / 60) + ":" + help.twodigits(timetrialpar % 60);
     }
     else
     {
@@ -5794,7 +5794,7 @@ std::string Game::resulttimestring(void)
     std::string tempstring = "";
     if (timetrialresulttime >= 60)
     {
-        tempstring = help.twodigits(int((timetrialresulttime - (timetrialresulttime % 60)) / 60)) + ":"
+        tempstring = help.twodigits(timetrialresulttime / 60) + ":"
                      + help.twodigits(timetrialresulttime % 60);
     }
     else
@@ -5811,7 +5811,7 @@ std::string Game::timetstring( int t )
     std::string tempstring = "";
     if (t >= 60)
     {
-        tempstring = help.twodigits(int((t - (t % 60)) / 60)) + ":" + help.twodigits(t % 60);
+        tempstring = help.twodigits(t / 60) + ":" + help.twodigits(t % 60);
     }
     else
     {

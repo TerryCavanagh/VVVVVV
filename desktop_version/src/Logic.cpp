@@ -1250,8 +1250,8 @@ void gamelogic(void)
                 int edi=obj.entities[game.edteleportent].behave;
                 int edj=obj.entities[game.edteleportent].para;
                 int edi2, edj2;
-                edi2 = (edi-(edi%40))/40;
-                edj2 = (edj-(edj%30))/30;
+                edi2 = edi/40;
+                edj2 = edj/30;
 
                 map.warpto(100+edi2, 100+edj2, obj.getplayer(), edi%40, (edj%30)+2);
                 game.teleport = false;

@@ -871,8 +871,8 @@ void customlevelclass::findstartpoint(void)
     else
     {
         //Start point spawn
-        int tx=(customentities[testeditor].x-(customentities[testeditor].x%40))/40;
-        int ty=(customentities[testeditor].y-(customentities[testeditor].y%30))/30;
+        int tx=customentities[testeditor].x/40;
+        int ty=customentities[testeditor].y/30;
         game.edsavex = ((customentities[testeditor].x%40)*8)-4;
         game.edsavey = (customentities[testeditor].y%30)*8;
         game.edsaverx = 100+tx;

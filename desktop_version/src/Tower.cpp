@@ -20,10 +20,7 @@ towerclass::towerclass(void)
 
 int towerclass::backat(int xp, int yp, int yoff)
 {
-    yp = yp * 8;
-    yp += yoff;
-    yoff = yp % 8;
-    yp = (yp - yoff) / 8;
+    yp = (yp*8 + yoff) / 8;
 
     if (xp >= 0 && xp < 40)
     {
@@ -42,10 +39,7 @@ int towerclass::at(int xp, int yp, int yoff)
     }
     else
     {
-        yp = yp * 8;
-        yp += yoff;
-        yoff = yp % 8;
-        yp = (yp - yoff) / 8;
+        yp = (yp*8 + yoff) / 8;
 
         while (yp < 0) yp += 700;
         while (yp >= 700) yp -= 700;
@@ -67,10 +61,7 @@ int towerclass::at(int xp, int yp, int yoff)
 
 int towerclass::miniat(int xp, int yp, int yoff)
 {
-    yp = yp * 8;
-    yp += yoff;
-    yoff = yp % 8;
-    yp = (yp - yoff) / 8;
+    yp = (yp*8 + yoff) / 8;
 
     while (yp < 0) yp += 100;
     while (yp >= 100) yp -= 100;

@@ -4076,8 +4076,7 @@ int entityclass::checkactivity(void)
 
 int entityclass::getgridpoint( int t )
 {
-    t = (t - (t % 8)) / 8;
-    return t;
+    return t / 8;
 }
 
 bool entityclass::checkplatform(const SDL_Rect& temprect, int* px, int* py)
