@@ -987,7 +987,7 @@ static void menurender(void)
         std::string tempstring = "You rescued all the crewmates!";
         graphics.Print(0, 100, tempstring, tr, tg, tb, true);
 
-        tempstring = "And you found " + help.number(game.ndmresulttrinkets) + " trinkets.";
+        tempstring = "And you found " + help.number(game.ndmresulttrinkets) + " trinket" + (game.ndmresulttrinkets == 1 ? "" : "s") + "s.";
         graphics.Print(0, 110, tempstring, tr, tg, tb, true);
 
         graphics.Print(0, 160, "A new trophy has been awarded and", tr, tg, tb, true);
