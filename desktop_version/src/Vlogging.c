@@ -83,7 +83,7 @@ void vlog_toggle_error(const int enable_error)
     error_enabled = enable_error;
 }
 
-int vlog_debug(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) int vlog_debug(const char* text, ...)
 {
     va_list list;
     int retval;
@@ -107,7 +107,7 @@ int vlog_debug(const char* text, ...)
     return retval;
 }
 
-int vlog_info(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) int vlog_info(const char* text, ...)
 {
     va_list list;
     int retval;
@@ -131,7 +131,7 @@ int vlog_info(const char* text, ...)
     return retval;
 }
 
-int vlog_warn(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) int vlog_warn(const char* text, ...)
 {
     va_list list;
     int retval;
@@ -155,7 +155,7 @@ int vlog_warn(const char* text, ...)
     return retval;
 }
 
-int vlog_error(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) int vlog_error(const char* text, ...)
 {
     va_list list;
     int retval;
