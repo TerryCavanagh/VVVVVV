@@ -990,7 +990,7 @@ void Graphics::drawgui(void)
         yp = textboxes[i].yp;
         if (flipmode && textboxes[i].flipme)
         {
-            yp += 2 * (120 - yp) - 8 * (textboxes[i].lines.size() + 2);
+            yp = SCREEN_HEIGHT_PIXELS - yp - 8 * (textboxes[i].lines.size() + 2);
         }
 
         if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
