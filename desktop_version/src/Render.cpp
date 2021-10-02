@@ -2486,128 +2486,85 @@ void maprender(void)
         break;
     }
     case 3:
+    {
         if (game.inintermission)
         {
             graphics.Print(0, 115, "Cannot Save in Level Replay", 146, 146, 180, true);
+            break;
         }
-        else if (game.nodeathmode)
+        if (game.nodeathmode)
         {
             graphics.Print(0, 115, "Cannot Save in No Death Mode", 146, 146, 180, true);
+            break;
         }
-        else if (game.intimetrial)
+        if (game.intimetrial)
         {
             graphics.Print(0, 115, "Cannot Save in Time Trial", 146, 146, 180, true);
+            break;
         }
-        else if (game.insecretlab)
+        if (game.insecretlab)
         {
             graphics.Print(0, 115, "Cannot Save in Secret Lab", 146, 146, 180, true);
+            break;
         }
-        else if (game.gamesavefailed)
+        if (game.gamesavefailed)
         {
             graphics.Print(0, 115, "ERROR: Could not save game!", 146, 146, 180, true);
+            break;
         }
-        else if (map.custommode)
+
+        /* We are not in a special case, so draw the save screen now... */
+
+        if (!map.custommode)
         {
-            if (game.gamesaved)
+            /* FIXME: The text here should be automatically "balance-wrapped" instead of hardcoding the width. */
+            graphics.PrintWrap(0, 174, "(Note: The game is autosaved at every teleporter.)", 146, 146, 180, true, 12, 240);
+        }
+
+        if (!game.gamesaved)
+        {
+            graphics.Print(0, 80, "[Press ACTION to save your game]", 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow, true);
+
+            if (map.custommode || game.quicksummary == "")
             {
-                graphics.Print(0, 36, "Game saved ok!", 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2), true);
-
-                graphics.drawpixeltextbox(17, 65, 286, 90, 65, 185, 207);
-
-                if (graphics.flipmode)
-                {
-                    graphics.Print(0, 122, game.customleveltitle, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
-                    graphics.Print(59, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number_words(game.savetrinkets);
-                    graphics.Print(262-graphics.len(trinketcount), 78, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-
-                    graphics.drawsprite(34, 74, 50, graphics.col_clock);
-                    graphics.drawsprite(270, 74, 22, graphics.col_trinket);
-                }
-                else
-                {
-                    graphics.Print(0, 90, game.customleveltitle, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
-                    graphics.Print(59, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number_words(game.savetrinkets);
-                    graphics.Print(262-graphics.len(trinketcount), 132, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-
-                    graphics.drawsprite(34, 126, 50, graphics.col_clock);
-                    graphics.drawsprite(270, 126, 22, graphics.col_trinket);
-                }
+                break;
             }
-            else
-            {
-                graphics.Print(0, 80, "[Press ACTION to save your game]", 255 - (help.glow * 2), 255 - (help.glow * 2), 255 - help.glow, true);
-            }
+
+            graphics.Print(0, FLIP(100, 8), "Last Save:", 164 - help.glow/4, 164 - help.glow/4, 164, true);
+            graphics.Print(0, FLIP(110, 8), game.quicksummary, 164 - help.glow/4, 164 - help.glow/4, 164, true);
+            break;
+        }
+
+        /* We are only still here if the game has been quicksaved... */
+
+        graphics.Print(0, 36, "Game saved ok!", 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2, true);
+
+        graphics.drawpixeltextbox(17, 65, 286, 90, 65, 185, 207);
+
+        if (map.custommode)
+        {
+            graphics.Print(0, FLIP(90, 8), game.customleveltitle, 25, 255 - help.glow/2, 255 - help.glow/2, true);
         }
         else
         {
-            if (graphics.flipmode)
+            size_t i;
+            graphics.Print(0, FLIP(80, 8), game.savearea, 25, 255 - help.glow/2, 255 - help.glow/2, true);
+            for (i = 0; i < SDL_arraysize(game.crewstats); ++i)
             {
-                graphics.Print(0, 186, "(Note: The game is autosaved", 146, 146, 180, true);
-                graphics.Print(0, 174, "at every teleporter.)", 146, 146, 180, true);
-            }
-            else
-            {
-                graphics.Print(0, 174, "(Note: The game is autosaved", 146, 146, 180, true);
-                graphics.Print(0, 186, "at every teleporter.)", 146, 146, 180, true);
-            }
-
-            if (game.gamesaved)
-            {
-                graphics.Print(0, 36, "Game saved ok!", 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2), true);
-
-                graphics.drawpixeltextbox(17, 65, 286, 90, 65, 185, 207);
-
-                if (graphics.flipmode)
-                {
-                    graphics.Print(0, 132, game.savearea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
-                    for (int i = 0; i < 6; i++)
-                    {
-                        graphics.drawcrewman(169-(3*42)+(i*42), 98, i, game.crewstats[i], true);
-                    }
-                    graphics.Print(59, 78, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number_words(game.savetrinkets);
-                    graphics.Print(262-graphics.len(trinketcount), 78, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-
-                    graphics.drawsprite(34, 74, 50, graphics.col_clock);
-                    graphics.drawsprite(270, 74, 22, graphics.col_trinket);
-                }
-                else
-                {
-                    graphics.Print(0, 80, game.savearea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
-                    for (int i = 0; i < 6; i++)
-                    {
-                        graphics.drawcrewman(169-(3*42)+(i*42), 95, i, game.crewstats[i], true);
-                    }
-                    graphics.Print(59, 132, game.savetime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-                    const std::string& trinketcount = help.number_words(game.savetrinkets);
-                    graphics.Print(262-graphics.len(trinketcount), 132, trinketcount, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-
-                    graphics.drawsprite(34, 126, 50, graphics.col_clock);
-                    graphics.drawsprite(270, 126, 22, graphics.col_trinket);
-                }
-            }
-            else
-            {
-                graphics.Print(0, 80, "[Press ACTION to save your game]", 255 - (help.glow * 2), 255 - (help.glow * 2), 255 - help.glow, true);
-
-                if (game.quicksummary != "")
-                {
-                    if (graphics.flipmode)
-                    {
-                        graphics.Print(0, 110, "Last Save:", 164 - (help.glow / 4), 164 - (help.glow / 4), 164, true);
-                        graphics.Print(0, 100, game.quicksummary, 164  - (help.glow / 4), 164 - (help.glow / 4), 164, true);
-                    }
-                    else
-                    {
-                        graphics.Print(0, 100, "Last Save:", 164 - (help.glow / 4), 164 - (help.glow / 4), 164, true);
-                        graphics.Print(0, 110, game.quicksummary, 164  - (help.glow / 4), 164 - (help.glow / 4), 164, true);
-                    }
-                }
+                /* Crewmates are annoying. Their height is 21 pixels, but to flip them,
+                 * we also have to account for their 2-pixel y-offset (and multiply it by 2). */
+                graphics.drawcrewman(169 - 3*42 + i*42, FLIP(95, 21 + 2*2), i, game.crewstats[i], true);
             }
         }
+
+        graphics.Print(59, FLIP(132, 8), game.savetime, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
+        const std::string& trinketcount = help.number_words(game.savetrinkets);
+        graphics.Print(262 - graphics.len(trinketcount), FLIP(132, 8), trinketcount, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
+
+        graphics.drawsprite(34, FLIP(126, 17), 50, graphics.col_clock);
+        graphics.drawsprite(270, FLIP(126, 17), 22, graphics.col_trinket);
         break;
+    }
     case 10:
         graphics.Print(128, 220, "[ QUIT ]", 196, 196, 255 - help.glow);
 
@@ -2741,6 +2698,8 @@ void maprender(void)
         graphics.renderwithscreeneffects();
     }
 }
+
+#undef FLIP
 
 void teleporterrender(void)
 {
