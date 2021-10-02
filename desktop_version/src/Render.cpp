@@ -2499,7 +2499,7 @@ void maprender(void)
         }
         if (game.intimetrial)
         {
-            graphics.Print(0, 115, "Cannot Save in Time Trial", 146, 146, 180, true);
+            graphics.Print(0, 115, "How did you get on this screen?", 146, 146, 180, true);
             break;
         }
         if (game.insecretlab)
