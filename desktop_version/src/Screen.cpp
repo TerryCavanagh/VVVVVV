@@ -58,7 +58,6 @@ void Screen::init(const ScreenSettings& settings)
 
     // Uncomment this next line when you need to debug -flibit
     // SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
-    // FIXME: m_renderer is also created in resetRendererWorkaround()!
     SDL_CreateWindowAndRenderer(
         640,
         480,
@@ -81,7 +80,6 @@ void Screen::init(const ScreenSettings& settings)
         0x000000FF,
         0xFF000000
     );
-    // ALSO FIXME: This SDL_CreateTexture() is duplicated twice in this file!
     m_screenTexture = SDL_CreateTexture(
         m_renderer,
         SDL_PIXELFORMAT_ARGB8888,
