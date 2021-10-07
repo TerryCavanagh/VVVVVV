@@ -1656,7 +1656,11 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
             {
                 Uint32 pixel1 = ReadPixel(surface1 , x - p1.x, y - p1.y);
                 Uint32 pixel2 = ReadPixel(surface2 , x - p2.x, y - p2.y);
-                if ((pixel1 & 0x000000FF) && (pixel2 & 0x000000FF))
+                /* INTENTIONAL BUG! In previous versions, the game mistakenly
+                 * checked the red channel, not the alpha channel.
+                 * We preserve it here because some people abuse this. */
+                if ((pixel1 & surface1->format->Rmask)
+                && (pixel2 & surface2->format->Rmask))
                 {
                     return true;
                 }
