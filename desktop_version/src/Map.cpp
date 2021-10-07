@@ -2057,7 +2057,7 @@ void mapclass::loadlevel(int rx, int ry)
                 //Breakable blocks
                 if (tile == 10)
                 {
-                    tile = 0;
+                    settile(i, j, 0);
                     obj.createentity(i * 8, j * 8, 4);
                 }
                 //Directional blocks
