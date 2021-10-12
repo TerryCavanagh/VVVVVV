@@ -1783,7 +1783,7 @@ void gamerender(void)
     if (game.readytotele > 100 || game.oldreadytotele > 100)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        static const char raw[] = "- Press %s to Teleport - ";
+        static const char raw[] = "- Press %s to Teleport -";
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
