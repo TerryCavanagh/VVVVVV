@@ -389,7 +389,7 @@ public:
     bool activetele;
     int readytotele;
     int oldreadytotele;
-    int activity_r, activity_g, activity_b;
+    int activity_r, activity_g, activity_b, activity_x, activity_y;
     std::string activity_lastprompt;
 
     std::string telesummary, quicksummary, customquicksummary;

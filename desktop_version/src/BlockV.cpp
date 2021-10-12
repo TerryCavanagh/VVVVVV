@@ -25,6 +25,9 @@ void blockclass::clear(void)
     g = 0;
     b = 0;
 
+    activity_x = 16;
+    activity_y = 4;
+
     /* std::strings get initialized automatically, but this is */
     /* in case this function gets called again after construction */
     script.clear();
@@ -94,6 +97,12 @@ void blockclass::setblockcolour(const char* col)
         r = 255;
         g = 130;
         b = 20;
+    }
+    else if (SDL_strcmp(col, "transparent") == 0)
+    {
+        r = 0;
+        g = 0;
+        b = 0;
     }
     else
     {

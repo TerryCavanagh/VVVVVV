@@ -218,6 +218,8 @@ void Game::init(void)
     activity_r = 0;
     activity_g = 0;
     activity_b = 0;
+    activity_x = 16;
+    activity_y = 4;
     creditposition = 0;
     oldcreditposition = 0;
     bestgamedeaths = -1;

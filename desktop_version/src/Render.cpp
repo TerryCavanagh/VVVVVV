@@ -1985,8 +1985,15 @@ void gamerender(void)
             game.activity_lastprompt.c_str()
         );
 
-        graphics.drawtextbox(16, 4, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
-        graphics.Print(5, 12, final_string, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
+        if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
+        {
+            graphics.bprint(game.activity_x - 11, game.activity_y + 8, final_string, 196*act_alpha, 196*act_alpha, (255 - help.glow)*act_alpha, true);
+        }
+        else
+        {
+            graphics.drawtextbox(game.activity_x, game.activity_y, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
+            graphics.Print(game.activity_x - 11, game.activity_y + 8, final_string, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha, true);
+        }
     }
 
     if (obj.trophytext > 0 || obj.oldtrophytext > 0)

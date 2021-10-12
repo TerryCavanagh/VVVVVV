@@ -205,6 +205,8 @@ public:
     bool customcrewmoods[Game::numcrew];
     std::string customactivitycolour;
     std::string customactivitytext;
+    int customactivitypositionx;
+    int customactivitypositiony;
 };
 
 #ifndef OBJ_DEFINITION
