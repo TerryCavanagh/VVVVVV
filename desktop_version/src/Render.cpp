@@ -1803,7 +1803,7 @@ void gamerender(void)
     {
         /* Screen width 40 chars, 4 per char */
         char buffer[160 + 1];
-        static const char raw[] = "- Press %s to Teleport - ";
+        static const char raw[] = "- Press %s to Teleport -";
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
