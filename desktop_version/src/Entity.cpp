@@ -1093,8 +1093,8 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
     }
     else
     {
-        block.activity_x = 16;
-        block.activity_y = 4;
+        block.activity_x = 0;
+        block.activity_y = 0;
     }
 
     if (!reuse)
