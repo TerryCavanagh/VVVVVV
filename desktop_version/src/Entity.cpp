@@ -71,6 +71,8 @@ void entityclass::init(void)
     customenemy = 0;
     customwarpmode = false; customwarpmodevon = false; customwarpmodehon = false;
     customactivitycolour = "";
+    customactivitypositionx = -1;
+    customactivitypositiony = -1;
     customactivitytext = "";
     trophytext = 0;
     oldtrophytext = 0;
@@ -1080,6 +1082,19 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
     {
         block.setblockcolour(customactivitycolour.c_str());
         customactivitycolour = "";
+    }
+
+    if (customactivitypositionx != -1)
+    {
+        block.activity_x = customactivitypositionx;
+        block.activity_y = customactivitypositiony;
+        customactivitypositionx = -1;
+        customactivitypositiony = -1;
+    }
+    else
+    {
+        block.activity_x = 0;
+        block.activity_y = 0;
     }
 
     if (!reuse)

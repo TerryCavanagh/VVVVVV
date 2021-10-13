@@ -1414,6 +1414,8 @@ void gamelogic(void)
         game.activity_r = obj.blocks[game.activeactivity].r;
         game.activity_g = obj.blocks[game.activeactivity].g;
         game.activity_b = obj.blocks[game.activeactivity].b;
+        game.activity_x = obj.blocks[game.activeactivity].activity_x;
+        game.activity_y = obj.blocks[game.activeactivity].activity_y;
     }
 
     game.oldreadytotele = game.readytotele;

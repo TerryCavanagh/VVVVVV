@@ -468,6 +468,12 @@ void scriptclass::run(void)
                     g = 130;
                     b = 20;
                 }
+                else if (words[1] == "transparent")
+                {
+                    r = 0;
+                    g = 0;
+                    b = 0;
+                }
                 else
                 {
                     //use a gray
@@ -1628,6 +1634,11 @@ void scriptclass::run(void)
                 {
                     obj.customactivitytext = commands[position];
                 }
+            }
+            else if (words[0] == "setactivityposition")
+            {
+                obj.customactivitypositionx = ss_toi(words[1]);
+                obj.customactivitypositiony = ss_toi(words[2]);
             }
             else if (words[0] == "createrescuedcrew")
             {
@@ -3274,6 +3285,8 @@ void scriptclass::hardreset(void)
 
     obj.customactivitycolour = "";
     obj.customactivitytext = "";
+    obj.customactivitypositionx = -1;
+    obj.customactivitypositiony = -1;
 }
 
 void scriptclass::loadcustom(const std::string& t)

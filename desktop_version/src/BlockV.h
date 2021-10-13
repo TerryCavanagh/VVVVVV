@@ -21,6 +21,7 @@ public:
     int xp, yp, wp, hp;
     std::string script, prompt;
     int r, g, b;
+    int activity_x, activity_y;
 };
 
 #endif /* BLOCKV_H */
