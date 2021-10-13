@@ -3285,6 +3285,8 @@ void scriptclass::hardreset(void)
 
     obj.customactivitycolour = "";
     obj.customactivitytext = "";
+    obj.customactivitypositionx = -1;
+    obj.customactivitypositiony = -1;
 }
 
 void scriptclass::loadcustom(const std::string& t)
