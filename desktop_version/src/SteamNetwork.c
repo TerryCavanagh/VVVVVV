@@ -86,7 +86,7 @@ int32_t STEAM_init(void)
     }
 
 #define FOREACH_FUNC(rettype, name, params) \
-    name = (rettype (*) params) SDL_LoadFunction(libHandle, #name); \
+    name = (rettype (*) params) (intptr_t) SDL_LoadFunction(libHandle, #name); \
     if (!name) \
     { \
         vlog_error(STEAM_LIBRARY " symbol " #name " not found!"); \
