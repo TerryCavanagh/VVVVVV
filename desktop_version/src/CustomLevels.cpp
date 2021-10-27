@@ -1746,12 +1746,21 @@ Uint32 customlevelclass::getonewaycol(void)
     return graphics.getRGB(255, 255, 255);
 }
 
+static SDL_INLINE bool inbounds(const CustomEntity* entity)
+{
+    extern customlevelclass cl;
+    return entity->x >= 0
+    && entity->y >= 0
+    && entity->x < cl.mapwidth * SCREEN_WIDTH_TILES
+    && entity->y < cl.mapheight * SCREEN_HEIGHT_TILES;
+}
+
 int customlevelclass::numtrinkets(void)
 {
     int temp = 0;
     for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (customentities[i].t == 9)
+        if (customentities[i].t == 9 && inbounds(&customentities[i]))
         {
             temp++;
         }
@@ -1764,7 +1773,7 @@ int customlevelclass::numcrewmates(void)
     int temp = 0;
     for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (customentities[i].t == 15)
+        if (customentities[i].t == 15 && inbounds(&customentities[i]))
         {
             temp++;
         }
