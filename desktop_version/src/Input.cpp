@@ -609,7 +609,6 @@ static void menuactionpress(void)
 #if SDL_VERSION_ATLEAST(2, 0, 17)
             //toggle vsync
             music.playef(11);
-            graphics.screenbuffer->vsync = !graphics.screenbuffer->vsync;
             graphics.screenbuffer->toggleVSync();
             game.savestatsandsettings_menu();
 #endif
