@@ -4233,6 +4233,12 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
     case 1:
         maxcol = 7;
         break;
+    case 2:
+        if (room->directmode)
+        {
+            maxcol = 6;
+        }
+        break;
     case 3:
         maxcol = 6;
         break;
