@@ -662,13 +662,10 @@ static void menuactionpress(void)
         if (game.currentmenuoption == offset + 5)
         {
             processed = true;
-            /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
-#if SDL_VERSION_ATLEAST(2, 0, 17)
             //toggle vsync
             music.playef(11);
             gameScreen.toggleVSync();
             game.savestatsandsettings_menu();
-#endif
         }
         if (!processed)
         {
