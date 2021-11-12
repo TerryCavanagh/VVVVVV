@@ -355,10 +355,8 @@ void Screen::toggleLinearFilter(void)
 
 void Screen::toggleVSync(void)
 {
-#if SDL_VERSION_ATLEAST(2, 0, 17)
     vsync = !vsync;
     SDL_RenderSetVSync(m_renderer, (int) vsync);
-#endif
 }
 
 /* FIXME: Launching in forced fullscreen then exiting and relaunching in normal
