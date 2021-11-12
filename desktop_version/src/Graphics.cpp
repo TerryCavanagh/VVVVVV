@@ -1,6 +1,7 @@
 #define GRAPHICS_DEFINITION
 #include "Graphics.h"
 
+#include <SDL.h>
 #include <utf8/unchecked.h>
 
 #include "Constants.h"
@@ -12,7 +13,6 @@
 #include "Map.h"
 #include "Music.h"
 #include "Screen.h"
-#include "TempSDLFallthrough.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
