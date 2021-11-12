@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Music.h"
 #include "Screen.h"
+#include "TempSDLFallthrough.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -591,7 +592,7 @@ bool Graphics::next_wrap(
             break;
         case '\n':
             *start += 1;
-            VVV_fallthrough;
+            SDL_FALLTHROUGH;
         case '\0':
             return true;
         }
