@@ -22,6 +22,7 @@ extern "C"
 		const unsigned char* in,
 		size_t insize
 	);
+	extern const char* lodepng_error_text(unsigned code);
 }
 
 static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool noAlpha = false)
@@ -33,6 +34,7 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
 
 	unsigned char *data;
 	unsigned int width, height;
+	unsigned int error;
 
 	unsigned char *fileIn;
 	size_t length;
@@ -44,13 +46,19 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
 	}
 	if (noAlpha)
 	{
-		lodepng_decode24(&data, &width, &height, fileIn, length);
+		error = lodepng_decode24(&data, &width, &height, fileIn, length);
 	}
 	else
 	{
-		lodepng_decode32(&data, &width, &height, fileIn, length);
+		error = lodepng_decode32(&data, &width, &height, fileIn, length);
 	}
 	FILESYSTEM_freeMemory(&fileIn);
+
+	if (error != 0)
+	{
+		fprintf(stderr, "Could not load %s: %s\n", filename, lodepng_error_text(error));
+		return NULL;
+	}
 
 	loadedImage = SDL_CreateRGBSurfaceFrom(
 		data,
