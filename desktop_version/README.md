@@ -12,6 +12,9 @@ are statically linked into the engine. The development libraries for Windows can
 be downloaded from their respective websites, Linux developers can find the dev
 libraries from their respective repositories, and macOS developers should
 compile and install from source (including libogg/libvorbis/libvorbisfile).
+(If you're on Ubuntu and your Ubuntu is too old to have this SDL version, then
+[see here](https://github.com/TerryCavanagh/VVVVVV/issues/618#issuecomment-968338212)
+for workarounds.)
 
 Steamworks support is included and the DLL is loaded dynamically, you do not
 need the SDK headers and there is no special Steam or non-Steam version. The
