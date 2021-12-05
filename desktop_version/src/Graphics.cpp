@@ -321,7 +321,7 @@ void Graphics::updatetitlecolours(void)
         SDL_snprintf(error, sizeof(error), error_fmt, #tilesheet, tile_square); \
         SDL_snprintf(error_title, sizeof(error_title), error_title_fmt, #tilesheet); \
         \
-        vlog_error(error); \
+        vlog_error("%s", error); \
         \
         return false; \
     }
