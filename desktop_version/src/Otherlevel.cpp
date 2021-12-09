@@ -6105,7 +6105,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		};
 
 
-		obj.createentity((8 * 8), (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
+		obj.createentity((8 * 8), (11 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
 		obj.nearelephant = true;
 
 		roomtileset = 0; // (Use space station tileset)
@@ -6150,7 +6150,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		};
 
 
-		obj.createentity(8 * 8, -248 + (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
+		obj.createentity(8 * 8, -240 + (11 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
 		obj.nearelephant = true;
 
 		roomtileset = 0; // (Use space station tileset)
@@ -6509,7 +6509,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		};
 
 
-		obj.createentity(-328 + (8 * 8), (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
+		obj.createentity(-320 + (8 * 8), (11 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
 		obj.nearelephant = true;
 
 		obj.createentity(240, 72, 10, 1, 8120);  // (savepoint)
@@ -6555,7 +6555,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 		};
 
 
-		obj.createentity(-328 + (8 * 8), -248 + (12 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
+		obj.createentity(-320 + (8 * 8), -240 + (11 * 8), 1, 0, 0, -10000, -10000, 10000, 100000);  // Enemy
 		obj.nearelephant = true;
 
 		roomtileset = 0; // (Use space station tileset)
