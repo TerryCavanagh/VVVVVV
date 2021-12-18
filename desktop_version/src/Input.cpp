@@ -1491,8 +1491,6 @@ static void menuactionpress(void)
         case 0:
             //back
             music.playef(11);
-            game.returnmenu();
-            map.nexttowercolour();
             break;
         default:
             //yep
@@ -1503,10 +1501,10 @@ static void menuactionpress(void)
             game.deletesettings();
             game.flashlight = 5;
             game.screenshake = 15;
-            game.createmenu(Menu::mainmenu);
-            map.nexttowercolour();
             break;
         }
+        game.returnmenu();
+        map.nexttowercolour();
         break;
     case Menu::clearcustomdatamenu:
         switch (game.currentmenuoption)
