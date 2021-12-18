@@ -7,6 +7,13 @@
 
 #include "ScreenSettings.h"
 
+/* FIXME: Can't forward declare this enum in C++, unfortunately.
+ * In C, enum sizes are always the same, so you can forward declare them.
+ * In C++ instead, enum sizes are based on how many enums there are.
+ * You cannot specify the underlying type until C++11.
+ * But bumping the standard opens up a can of worms. I'd rather just move to C. -Misa */
+#include "Enums.h"
+
 // Forward decl without including all of <tinyxml2.h>
 namespace tinyxml2
 {
@@ -227,8 +234,8 @@ public:
 
     bool glitchrunkludge;
 
-    int gamestate;
-    int prevgamestate; //only used sometimes
+    enum GameGamestate gamestate;
+    enum GameGamestate prevgamestate; //only used sometimes
     bool hascontrol, jumpheld;
     int jumppressed;
     int gravitycontrol;
@@ -242,7 +249,7 @@ public:
     int tapleft, tapright;
 
     //Menu interaction stuff
-    void mapmenuchange(const int newgamestate, const bool user_initiated);
+    void mapmenuchange(const enum GameGamestate newgamestate, const bool user_initiated);
     bool mapheld;
     int menupage;
     int lastsaved;

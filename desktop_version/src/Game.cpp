@@ -6877,7 +6877,7 @@ void Game::unlockAchievement(const char *name) {
 #endif
 }
 
-void Game::mapmenuchange(const int newgamestate, const bool user_initiated)
+void Game::mapmenuchange(const enum GameGamestate newgamestate, const bool user_initiated)
 {
     if (user_initiated && graphics.resumegamemode)
     {
