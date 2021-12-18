@@ -3990,7 +3990,7 @@ void Game::deletestats(void)
         }
         swnrecord = 0;
         swnbestrank = 0;
-        bestgamedeaths = 0;
+        bestgamedeaths = -1;
 #ifndef MAKEANDPLAY
         graphics.setflipmode = false;
 #endif
