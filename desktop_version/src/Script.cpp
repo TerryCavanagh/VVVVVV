@@ -3493,6 +3493,8 @@ void scriptclass::hardreset(void)
 
 	game.disabletemporaryaudiopause = true;
 
+	game.ingame_titlemode = false;
+
 	//dwgraphicsclass
 	graphics.backgrounddrawn = false;
 	graphics.textbox.clear();
