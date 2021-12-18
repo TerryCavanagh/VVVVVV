@@ -286,6 +286,19 @@ static void startmode(const int mode)
     fadetomodedelay = 19;
 }
 
+static void handlefadetomode(void)
+{
+    if (fadetomodedelay > 0)
+    {
+        --fadetomodedelay;
+    }
+    else
+    {
+        fadetomode = false;
+        script.startgamemode(gotomode);
+    }
+}
+
 static int* user_changing_volume = NULL;
 static int previous_volume = 0;
 
@@ -1928,15 +1941,7 @@ void titleinput(void)
 
     if (fadetomode)
     {
-        if (fadetomodedelay > 0)
-        {
-            --fadetomodedelay;
-        }
-        else
-        {
-            fadetomode = false;
-            script.startgamemode(gotomode);
-        }
+        handlefadetomode();
     }
 }
 
