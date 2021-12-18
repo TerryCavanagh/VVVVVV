@@ -211,10 +211,6 @@ public:
     const char* saveFilePath;
 
 
-    int door_left;
-    int door_right;
-    int door_up;
-    int door_down;
     int roomx, roomy;
     int prevroomx, prevroomy;
 

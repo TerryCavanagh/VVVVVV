@@ -956,11 +956,6 @@ void mapclass::gotoroom(int rx, int ry)
         }
     }
 
-    game.door_up = rx + ((ry - 1) * 100);
-    game.door_down = rx + ((ry + 1) * 100);
-    game.door_right = rx + 1 + (ry * 100);
-    game.door_left = rx -1 + (ry * 100);
-
     if (rx < game.roomx)
     {
         roomchangedir = 0;
