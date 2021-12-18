@@ -288,6 +288,13 @@ static void startmode(const int mode)
 
 static void handlefadetomode(void)
 {
+    if (game.ingame_titlemode)
+    {
+        /* We shouldn't be here! */
+        SDL_assert(0 && "Loading a mode from in-game options!");
+        return;
+    }
+
     if (fadetomodedelay > 0)
     {
         --fadetomodedelay;

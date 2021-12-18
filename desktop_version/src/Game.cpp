@@ -5937,6 +5937,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     switch (t)
     {
     case Menu::mainmenu:
+        if (ingame_titlemode)
+        {
+            /* We shouldn't be here! */
+            SDL_assert(0 && "Entering main menu from in-game options!");
+            break;
+        }
 #if !defined(MAKEANDPLAY)
         option("play");
 #endif
