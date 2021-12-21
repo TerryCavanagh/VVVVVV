@@ -1722,7 +1722,7 @@ void gamerender(void)
         }
     }
 
-    if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && game.swngame != 1 && game.showingametimer)
+    if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && (!game.swnmode || game.swngame != 1) && game.showingametimer)
     {
         graphics.bprint(6, 6, "TIME:",  255,255,255);
         graphics.bprint(46, 6, game.timestring(),  196, 196, 196);
