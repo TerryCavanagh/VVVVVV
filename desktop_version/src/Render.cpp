@@ -1743,8 +1743,10 @@ void gamerender(void)
 
     if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && (!game.swnmode || game.swngame != 1) && game.showingametimer)
     {
+        char buffer[40 + 1]; /* Screen width 40, ASCII only */
         graphics.bprint(6, 6, "TIME:",  255,255,255);
-        graphics.bprint(46, 6, game.timestring(),  196, 196, 196);
+        game.timestringcenti(buffer, sizeof(buffer));
+        graphics.bprint(46, 6, buffer,  196, 196, 196);
     }
 
     if(map.extrarow==0 || (map.custommode && map.roomname!=""))
@@ -1952,6 +1954,9 @@ void gamerender(void)
         }
         else
         {
+            char buffer[40 + 1]; /* Screen width 40, ASCII only */
+            game.timestringcenti(buffer, sizeof(buffer));
+
             //Draw OSD stuff
             graphics.bprint(6, 18, "TIME :",  255,255,255);
             graphics.bprint(6, 30, "DEATH:",  255, 255, 255);
@@ -1959,11 +1964,11 @@ void gamerender(void)
 
             if(game.timetrialparlost)
             {
-                graphics.bprint(56, 18, game.timestring(),  196, 80, 80);
+                graphics.bprint(56, 18, buffer,  196, 80, 80);
             }
             else
             {
-                graphics.bprint(56, 18, game.timestring(),  196, 196, 196);
+                graphics.bprint(56, 18, buffer,  196, 196, 196);
             }
             if(game.deathcounts>0)
             {

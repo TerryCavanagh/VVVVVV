@@ -136,6 +136,8 @@ public:
 
     std::string timetstring(int t);
 
+    void timestringcenti(char* buffer, size_t buffer_size);
+
     void returnmenu(void);
     void returntomenu(enum Menu::MenuName t);
     void  createmenu(enum Menu::MenuName t, bool samemenu = false);
