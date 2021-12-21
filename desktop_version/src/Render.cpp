@@ -2109,7 +2109,7 @@ void maprender(void)
                     graphics.drawimage(2, 40 + (i * 12), 21 + (j * 9), false);
                 }
             }
-            graphics.Print(-1, 105, "NO SIGNAL", 245, 245, 245, true);
+            graphics.bprint(-1, 105, "NO SIGNAL", 245, 245, 245, true);
         }
 #ifndef NO_CUSTOM_LEVELS
         else if(map.custommode)
