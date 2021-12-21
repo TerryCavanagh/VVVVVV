@@ -5822,6 +5822,21 @@ std::string Game::timetstring( int t )
     return tempstring;
 }
 
+void Game::timestringcenti(char* buffer, const size_t buffer_size)
+{
+    /* 16 chars should be plenty for int32s */
+    char hours_str[16] = {'\0'};
+    if (hours > 0)
+    {
+        SDL_snprintf(hours_str, sizeof(hours_str), "%i:", hours);
+    }
+    SDL_snprintf(
+        buffer, buffer_size,
+        "%s%02i:%02i.%02i",
+        hours_str, minutes, seconds, frames * 100 / 30
+    );
+}
+
 void Game::returnmenu(void)
 {
     if (menustack.empty())
