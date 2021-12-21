@@ -1938,7 +1938,7 @@ void Graphics::drawentity(const int i, const int yoff)
             wrapX = true;
             wrappedPoint.x += 320;
         }
-        else if (tpoint.x > 300)
+        else if (tpoint.x > 288)
         {
             wrapX = true;
             wrappedPoint.x -= 320;
@@ -1950,7 +1950,7 @@ void Graphics::drawentity(const int i, const int yoff)
             wrapY = true;
             wrappedPoint.y += 232;
         }
-        else if (tpoint.y > 210)
+        else if (tpoint.y > 200)
         {
             wrapY = true;
             wrappedPoint.y -= 232;
