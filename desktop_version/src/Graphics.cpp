@@ -1778,70 +1778,70 @@ void Graphics::drawtrophytext(void)
     switch(obj.trophytype)
     {
     case 1:
-        Print( -1, 6, "SPACE STATION 1 MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "SPACE STATION 1 MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 2:
-        Print( -1, 6, "LABORATORY MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "LABORATORY MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 3:
-        Print( -1, 6, "THE TOWER MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "THE TOWER MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 4:
-        Print( -1, 6, "SPACE STATION 2 MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "SPACE STATION 2 MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 5:
-        Print( -1, 6, "WARP ZONE MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "WARP ZONE MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 6:
-        Print( -1, 6, "FINAL LEVEL MASTERED", temp, temp2, temp3, true);
-        Print( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
+        bprint( -1, 6, "FINAL LEVEL MASTERED", temp, temp2, temp3, true);
+        bprint( -1, 16, "Obtain a V Rank in this Time Trial", temp, temp2, temp3, true);
         break;
     case 7:
-        Print( -1, 6, "GAME COMPLETE", temp, temp2, temp3, true);
-        Print( -1, 16, "Complete the game", temp, temp2, temp3, true);
+        bprint( -1, 6, "GAME COMPLETE", temp, temp2, temp3, true);
+        bprint( -1, 16, "Complete the game", temp, temp2, temp3, true);
         break;
     case 8:
-        Print( -1, 6, "FLIP MODE COMPLETE", temp, temp2, temp3, true);
-        Print( -1, 16, "Complete the game in flip mode", temp, temp2, temp3, true);
+        bprint( -1, 6, "FLIP MODE COMPLETE", temp, temp2, temp3, true);
+        bprint( -1, 16, "Complete the game in flip mode", temp, temp2, temp3, true);
         break;
     case 9:
-        Print( -1, 11, "Win with less than 50 deaths", temp, temp2, temp3, true);
+        bprint( -1, 11, "Win with less than 50 deaths", temp, temp2, temp3, true);
         break;
     case 10:
-        Print( -1, 11, "Win with less than 100 deaths", temp, temp2, temp3, true);
+        bprint( -1, 11, "Win with less than 100 deaths", temp, temp2, temp3, true);
         break;
     case 11:
-        Print( -1, 11, "Win with less than 250 deaths", temp, temp2, temp3, true);
+        bprint( -1, 11, "Win with less than 250 deaths", temp, temp2, temp3, true);
         break;
     case 12:
-        Print( -1, 11, "Win with less than 500 deaths", temp, temp2, temp3, true);
+        bprint( -1, 11, "Win with less than 500 deaths", temp, temp2, temp3, true);
         break;
     case 13:
-        Print( -1, 11, "Last 5 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 5 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 14:
-        Print( -1, 11, "Last 10 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 10 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 15:
-        Print( -1, 11, "Last 15 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 15 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 16:
-        Print( -1, 11, "Last 20 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 20 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 17:
-        Print( -1, 11, "Last 30 seconds on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 30 seconds on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 18:
-        Print( -1, 11, "Last 1 minute on the Super Gravitron", temp, temp2, temp3, true);
+        bprint( -1, 11, "Last 1 minute on the Super Gravitron", temp, temp2, temp3, true);
         break;
     case 20:
-        Print( -1, 6, "MASTER OF THE UNIVERSE", temp, temp2, temp3, true);
-        Print( -1, 16, "Complete the game in no death mode", temp, temp2, temp3, true);
+        bprint( -1, 6, "MASTER OF THE UNIVERSE", temp, temp2, temp3, true);
+        bprint( -1, 16, "Complete the game in no death mode", temp, temp2, temp3, true);
         break;
     }
 }
