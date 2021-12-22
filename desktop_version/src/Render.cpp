@@ -159,7 +159,7 @@ static void menurender(void)
 #ifdef INTERIM_COMMIT
         graphics.Print( 310 - (SDL_arraysize(INTERIM_COMMIT) - 1) * 8, 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
 #endif
-        graphics.Print( 310 - (6*8), 230, "v2.3.5", tr/2, tg/2, tb/2);
+        graphics.Print( 310 - (6*8), 230, "v2.3.6", tr/2, tg/2, tb/2);
 
         if(music.mmmmmm){
             graphics.Print( 10, 230, "[MMMMMM Mod Installed]", tr/2, tg/2, tb/2);
