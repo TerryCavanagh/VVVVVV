@@ -1367,26 +1367,15 @@ static void menurender(void)
         graphics.Print( -1, 135, "the intermission levels.", tr, tg, tb, true);
         break;
     case Menu::playerworlds:
-    {
-        std::string tempstring = FILESYSTEM_getUserLevelDirectory();
-        if(tempstring.length()>80){
-            graphics.Print( -1, 160, "To install new player levels, copy", tr, tg, tb, true);
-            graphics.Print( -1, 170, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-            graphics.Print( 320-((tempstring.length()-80)*8), 190, tempstring.substr(0,tempstring.length()-80), tr, tg, tb);
-            graphics.Print( 0, 200, tempstring.substr(tempstring.length()-80,40), tr, tg, tb);
-            graphics.Print( 0, 210, tempstring.substr(tempstring.length()-40,40), tr, tg, tb);
-        }else if(tempstring.length()>40){
-            graphics.Print( -1, 170, "To install new player levels, copy", tr, tg, tb, true);
-            graphics.Print( -1, 180, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-            graphics.Print( 320-((tempstring.length()-40)*8), 200, tempstring.substr(0,tempstring.length()-40), tr, tg, tb);
-            graphics.Print( 0, 210, tempstring.substr(tempstring.length()-40,40), tr, tg, tb);
-        }else{
-            graphics.Print( -1, 180, "To install new player levels, copy", tr, tg, tb, true);
-            graphics.Print( -1, 190, "the .vvvvvv files to this folder:", tr, tg, tb, true);
-            graphics.Print( 320-(tempstring.length()*8), 210, tempstring, tr, tg, tb);
-        }
+        graphics.PrintWrap(-1, 180, "To install new player levels, copy the .vvvvvv files to the levels folder.", tr, tg, tb, true, 10, 304);
         break;
-    }
+    case Menu::confirmshowlevelspath:
+        graphics.PrintWrap(-1, 80, "Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming.", tr, tg, tb, true, 10, 304);
+        break;
+    case Menu::showlevelspath:
+        graphics.Print(-1, 40, "The levels path is:", tr, tg, tb, true);
+        graphics.PrintWrap(0, 60, FILESYSTEM_getUserLevelDirectory(), tr, tg, tb, false, 10, 320);
+        break;
     case Menu::errorsavingsettings:
         graphics.Print( -1, 95, "ERROR: Could not save settings file!", tr, tg, tb, true);
         break;

@@ -5947,9 +5947,19 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("level editor");
  #endif
         option("open level folder", FILESYSTEM_openDirectoryEnabled());
+        option("show level folder path");
         option("back to menu");
         menuyoff = -40;
         maxspacing = 15;
+        break;
+    case Menu::confirmshowlevelspath:
+        option("no, don't show me");
+        option("yes, reveal the path");
+        menuyoff = -10;
+        break;
+    case Menu::showlevelspath:
+        option("return to levels");
+        menuyoff = 60;
         break;
     case Menu::levellist:
         if(cl.ListOfMetaData.size()==0)

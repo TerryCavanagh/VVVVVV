@@ -37,6 +37,8 @@ namespace Menu
     {
         mainmenu,
         playerworlds,
+        confirmshowlevelspath,
+        showlevelspath,
         levellist,
         quickloadlevel,
         deletequicklevel,

@@ -567,6 +567,11 @@ static void menuactionpress(void)
             }
             break;
         case OFFSET+3:
+            music.playef(11);
+            game.createmenu(Menu::confirmshowlevelspath);
+            map.nexttowercolour();
+            break;
+        case OFFSET+4:
             //back
             music.playef(11);
             game.returnmenu();
@@ -576,6 +581,23 @@ static void menuactionpress(void)
 #undef OFFSET
         break;
 #endif
+    case Menu::confirmshowlevelspath:
+    {
+        int prevmenuoption = game.currentmenuoption; /* returnmenu destroys this */
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
+        if (prevmenuoption == 1)
+        {
+            game.createmenu(Menu::showlevelspath);
+        }
+        break;
+    }
+    case Menu::showlevelspath:
+        music.playef(11);
+        game.returntomenu(Menu::playerworlds);
+        map.nexttowercolour();
+        break;
     case Menu::errornostart:
         music.playef(11);
         game.createmenu(Menu::mainmenu);
