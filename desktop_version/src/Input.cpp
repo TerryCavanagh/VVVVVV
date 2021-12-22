@@ -2198,7 +2198,7 @@ void gameinput(void)
             {
                 any_onground = true;
             }
-            else if (obj.entities[ie].onroof > 0)
+            if (obj.entities[ie].onroof > 0)
             {
                 any_onroof = true;
             }
