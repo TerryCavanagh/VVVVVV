@@ -2306,8 +2306,8 @@ void editorinput(void)
                     break;
                 }
 
-                ed.levx = clamp(help.Int(coord_x) - 1, 0, cl.mapwidth - 1);
-                ed.levy = clamp(help.Int(coord_y) - 1, 0, cl.mapheight - 1);
+                ed.levx = SDL_clamp(help.Int(coord_x) - 1, 0, cl.mapwidth - 1);
+                ed.levy = SDL_clamp(help.Int(coord_y) - 1, 0, cl.mapheight - 1);
                 graphics.backgrounddrawn = false;
                 break;
             }

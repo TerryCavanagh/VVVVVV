@@ -521,10 +521,10 @@ void Graphics::do_print(
     int position = 0;
     std::string::const_iterator iter = text.begin();
 
-    r = clamp(r, 0, 255);
-    g = clamp(g, 0, 255);
-    b = clamp(b, 0, 255);
-    a = clamp(a, 0, 255);
+    r = SDL_clamp(r, 0, 255);
+    g = SDL_clamp(g, 0, 255);
+    b = SDL_clamp(b, 0, 255);
+    a = SDL_clamp(a, 0, 255);
 
     ct.colour = getRGBA(r, g, b, a);
 
