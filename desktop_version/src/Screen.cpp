@@ -40,10 +40,6 @@ void Screen::init(const ScreenSettings& settings)
     scalingMode = settings.scalingMode;
     isFiltered = settings.linearFilter;
     vsync = settings.useVsync;
-    filterSubrect.x = 1;
-    filterSubrect.y = 1;
-    filterSubrect.w = 318;
-    filterSubrect.h = 238;
 
     SDL_SetHintWithPriority(
         SDL_HINT_RENDER_SCALE_QUALITY,
@@ -303,6 +299,8 @@ const SDL_PixelFormat* Screen::GetFormat(void)
 
 void Screen::FlipScreen(const bool flipmode)
 {
+    static const SDL_Rect filterSubrect = {1, 1, 318, 238};
+
     SDL_RendererFlip flip_flags;
     if (flipmode)
     {

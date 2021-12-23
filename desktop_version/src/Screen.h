@@ -39,8 +39,6 @@ public:
     SDL_Renderer *m_renderer;
     SDL_Texture *m_screenTexture;
     SDL_Surface* m_screen;
-
-    SDL_Rect filterSubrect;
 };
 
 #endif /* SCREEN_H */
