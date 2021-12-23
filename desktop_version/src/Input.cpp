@@ -356,7 +356,7 @@ static void slidermodeinput(void)
     {
         *user_changing_volume += USER_VOLUME_STEP;
     }
-    *user_changing_volume = clamp(*user_changing_volume, 0, USER_VOLUME_MAX);
+    *user_changing_volume = SDL_clamp(*user_changing_volume, 0, USER_VOLUME_MAX);
 }
 
 static void menuactionpress(void)

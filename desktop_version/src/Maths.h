@@ -13,11 +13,6 @@ float inline fRandom(void)
     return ( float(rand()) / float(RAND_MAX)) ;
 }
 
-inline int clamp(int x, int a, int b)
-{
-    return x < a ? a : (x > b ? b : x);
-}
-
 struct point
 {
     int x;

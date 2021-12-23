@@ -78,7 +78,7 @@ static void volumesliderrender(void)
     num_positions = slider_length - symbol_length + 1;
 
     offset = num_positions * (*volume_ptr) / USER_VOLUME_MAX;
-    offset = clamp(offset, 0, slider_length - symbol_length);
+    offset = SDL_clamp(offset, 0, slider_length - symbol_length);
 
     /* SDL_strlcpy null-terminates, which would end the string in the middle of
      * it, which we don't want!
