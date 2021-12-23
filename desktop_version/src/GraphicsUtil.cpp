@@ -336,6 +336,7 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
             Uint8 red = (pixelOffset & _src->format->Rmask) >> 16 ;
 
             double mult;
+            int tmp; /* needed to avoid char overflow */
             if(isscrolling && sampley > 220 && ((rand() %10) < 4))
             {
                 mult = 0.6;
@@ -345,12 +346,12 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
                 mult = 0.2;
             }
 
-            red += fRandom() * mult * 254;
-            red = SDL_min(red, 255);
-            green += fRandom() * mult * 254;
-            green = SDL_min(green, 255);
-            blue += fRandom() * mult * 254;
-            blue = SDL_min(blue, 255);
+            tmp = red + fRandom() * mult * 254;
+            red = SDL_min(tmp, 255);
+            tmp = green + fRandom() * mult * 254;
+            green = SDL_min(tmp, 255);
+            tmp = blue + fRandom() * mult * 254;
+            blue = SDL_min(tmp, 255);
 
             if(y % 2 == 0)
             {
