@@ -9,7 +9,7 @@ struct ScreenSettings
     int windowHeight;
     bool fullscreen;
     bool useVsync;
-    int stretch;
+    int scalingMode;
     bool linearFilter;
     bool badSignal;
 };

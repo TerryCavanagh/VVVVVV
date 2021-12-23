@@ -314,7 +314,7 @@ static void menurender(void)
             graphics.bigprint( -1, 30, "Scaling Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
 
-            switch (graphics.screenbuffer->stretchMode)
+            switch (graphics.screenbuffer->scalingMode)
             {
             case 2:
                 graphics.Print( -1, 85, "Current mode: INTEGER", tr, tg, tb, true);

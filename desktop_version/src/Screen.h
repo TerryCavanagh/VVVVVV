@@ -25,14 +25,14 @@ public:
     const SDL_PixelFormat* GetFormat(void);
 
     void toggleFullScreen(void);
-    void toggleStretchMode(void);
+    void toggleScalingMode(void);
     void toggleLinearFilter(void);
     void toggleVSync(void);
 
     bool isWindowed;
     bool isFiltered;
     bool badSignalEffect;
-    int stretchMode;
+    int scalingMode;
     bool vsync;
 
     SDL_Window *m_window;

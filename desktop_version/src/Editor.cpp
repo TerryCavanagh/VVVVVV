@@ -1921,7 +1921,7 @@ void editorinput(void)
     game.my = (float) key.my;
     ed.tilex=(game.mx - (game.mx%8))/8;
     ed.tiley=(game.my - (game.my%8))/8;
-    if (graphics.screenbuffer->stretchMode == 1) {
+    if (graphics.screenbuffer->scalingMode == 1) {
         // In this mode specifically, we have to fix the mouse coordinates
         int winwidth, winheight;
         graphics.screenbuffer->GetWindowSize(&winwidth, &winheight);

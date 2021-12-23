@@ -25,7 +25,7 @@ ScreenSettings::ScreenSettings(void)
     windowHeight = 240;
     fullscreen = false;
     useVsync = true; // Now that uncapped is the default...
-    stretch = 0;
+    scalingMode = 0;
     linearFilter = false;
     badSignal = false;
 }
@@ -37,7 +37,7 @@ void Screen::init(const ScreenSettings& settings)
     m_screenTexture = NULL;
     m_screen = NULL;
     isWindowed = !settings.fullscreen;
-    stretchMode = settings.stretch;
+    scalingMode = settings.scalingMode;
     isFiltered = settings.linearFilter;
     vsync = settings.useVsync;
     filterSubrect.x = 1;
@@ -118,7 +118,7 @@ void Screen::GetSettings(ScreenSettings* settings)
 
     settings->fullscreen = !isWindowed;
     settings->useVsync = vsync;
-    settings->stretch = stretchMode;
+    settings->scalingMode = scalingMode;
     settings->linearFilter = isFiltered;
     settings->badSignal = badSignalEffect;
 }
@@ -181,7 +181,7 @@ void Screen::ResizeScreen(int x, int y)
             SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         }
     }
-    if (stretchMode == 1)
+    if (scalingMode == 1)
     {
         int winX, winY;
         GetWindowSize(&winX, &winY);
@@ -201,7 +201,7 @@ void Screen::ResizeScreen(int x, int y)
     else
     {
         SDL_RenderSetLogicalSize(m_renderer, 320, 240);
-        int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (stretchMode == 2));
+        int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == 2));
         if (result != 0)
         {
             vlog_error("Error: could not set scale: %s", SDL_GetError());
@@ -345,9 +345,9 @@ void Screen::toggleFullScreen(void)
     }
 }
 
-void Screen::toggleStretchMode(void)
+void Screen::toggleScalingMode(void)
 {
-    stretchMode = (stretchMode + 1) % 3;
+    scalingMode = (scalingMode + 1) % 3;
     ResizeScreen(-1, -1);
 }
 

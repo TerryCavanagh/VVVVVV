@@ -619,7 +619,7 @@ static void menuactionpress(void)
             break;
         case 1:
             music.playef(11);
-            graphics.screenbuffer->toggleStretchMode();
+            graphics.screenbuffer->toggleScalingMode();
             game.savestatsandsettings_menu();
             break;
         case 2:
