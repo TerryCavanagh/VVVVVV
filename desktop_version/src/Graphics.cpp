@@ -629,7 +629,7 @@ bool Graphics::next_wrap_s(
     if (retval)
     {
         /* Like next_split_s(), don't use SDL_strlcpy() here. */
-        const size_t length = VVV_min(buffer_size - 1, len);
+        const size_t length = SDL_min(buffer_size - 1, len);
         SDL_memcpy(buffer, &str[prev_start], length);
         buffer[length] = '\0';
     }
@@ -685,7 +685,8 @@ void Graphics::bigprint(  int _x, int _y, const std::string& _s, int r, int g, i
 {
     if (cen)
     {
-        _x = VVV_max(160 - (int((len(_s)/ 2.0)*sc)), 0 );
+        const int len_ = len(_s);
+        _x = SDL_max(160 - (int((len_/ 2.0)*sc)), 0 );
     }
 
     return do_print(_x, _y, _s, r, g, b, 255, sc);
@@ -698,7 +699,8 @@ void Graphics::bigbprint(int x, int y, const std::string& s, int r, int g, int b
         bigprint(x, y - sc, s, 0, 0, 0, cen, sc);
         if (cen)
         {
-            int x_cen = VVV_max(160 - (len(s) / 2) * sc, 0);
+            const int len_ = len(s);
+            int x_cen = SDL_max(160 - (len_ / 2) * sc, 0);
             bigprint(x_cen - sc, y, s, 0, 0, 0, false, sc);
             bigprint(x_cen + sc, y, s, 0, 0, 0, false, sc);
         }
@@ -1205,13 +1207,13 @@ void Graphics::cutscenebarstimer(void)
     if (showcutscenebars)
     {
         cutscenebarspos += 25;
-        cutscenebarspos = VVV_min(cutscenebarspos, 361);
+        cutscenebarspos = SDL_min(cutscenebarspos, 361);
     }
     else if (cutscenebarspos > 0)
     {
         //disappearing
         cutscenebarspos -= 25;
-        cutscenebarspos = VVV_max(cutscenebarspos, 0);
+        cutscenebarspos = SDL_max(cutscenebarspos, 0);
     }
 }
 
@@ -1645,10 +1647,10 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
 
     if(intersection)
     {
-        int r3_left = VVV_max(r1_left, r2_left);
-        int r3_top = VVV_min(r1_top, r2_top);
-        int r3_right = VVV_min(r1_right, r2_right);
-        int r3_bottom= VVV_max(r1_bottom, r2_bottom);
+        int r3_left = SDL_max(r1_left, r2_left);
+        int r3_top = SDL_min(r1_top, r2_top);
+        int r3_right = SDL_min(r1_right, r2_right);
+        int r3_bottom= SDL_max(r1_bottom, r2_bottom);
 
         //for every pixel inside rectangle
         for(int x = r3_left; x < r3_right; x++)
@@ -3199,13 +3201,15 @@ void Graphics::renderfixedpost(void)
 
 void Graphics::bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen, float sc)
 {
+    const int len_ = len(t);
+
     x = x /  (sc);
 
-    x -= (len(t));
+    x -= len_;
 
     if (cen)
     {
-        x = VVV_max(160 - (int((len(t)/ 2.0)*sc)), 0 );
+        x = SDL_max(160 - (int((len_/ 2.0)*sc)), 0 );
     }
     else
     {
@@ -3219,11 +3223,12 @@ void Graphics::bigbrprint(int x, int y, const std::string& s, int r, int g, int 
 {
     if (!notextoutline)
     {
-        int x_o = x / sc - len(s);
+        const int len_ = len(s);
+        int x_o = x / sc - len_;
         bigrprint(x, y - sc, s, 0, 0, 0, cen, sc);
         if (cen)
         {
-            x_o = VVV_max(160 - (len(s) / 2) * sc, 0);
+            x_o = SDL_max(160 - (len_ / 2) * sc, 0);
             bigprint(x_o - sc, y, s, 0, 0, 0, false, sc);
             bigprint(x_o + sc, y, s, 0, 0, 0, false, sc);
         }

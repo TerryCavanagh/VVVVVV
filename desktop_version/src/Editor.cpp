@@ -2291,7 +2291,7 @@ void editorinput(void)
                     SDL_strlcpy(
                         coord_x,
                         key.keybuffer.c_str(),
-                        VVV_min(comma - key.keybuffer.c_str() + 1, sizeof(coord_x))
+                        SDL_min((size_t) (comma - key.keybuffer.c_str() + 1), sizeof(coord_x))
                     );
                     SDL_strlcpy(coord_y, &comma[1], sizeof(coord_y));
 

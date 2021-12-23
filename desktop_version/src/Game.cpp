@@ -567,7 +567,7 @@ void Game::loadcustomlevelstats(void)
     }
 
     // If the two arrays happen to differ in length, just go with the smallest one
-    for (int i = 0; i < VVV_min(customlevelnames.size(), customlevelscores.size()); i++)
+    for (size_t i = 0; i < SDL_min(customlevelnames.size(), customlevelscores.size()); i++)
     {
         CustomLevelStat stat = {customlevelnames[i], customlevelscores[i]};
         customlevelstats.push_back(stat);

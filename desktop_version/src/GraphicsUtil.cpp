@@ -332,22 +332,25 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
             Uint8 green = (pixel & _src->format->Gmask) >> 8;
             Uint8 blue = (pixel & _src->format->Bmask) >> 0;
 
-            Uint32 pixelOffset = ReadPixel(_src, VVV_min(x+redOffset, 319), sampley) ;
+            Uint32 pixelOffset = ReadPixel(_src, SDL_min(x+redOffset, 319), sampley) ;
             Uint8 red = (pixelOffset & _src->format->Rmask) >> 16 ;
 
+            double mult;
             if(isscrolling && sampley > 220 && ((rand() %10) < 4))
             {
-                red = VVV_min(int(red+(fRandom() * 0.6)  * 254) , 255);
-                green = VVV_min(int(green+(fRandom() * 0.6)  * 254) , 255);
-                blue = VVV_min(int(blue+(fRandom() * 0.6)  * 254) , 255);
+                mult = 0.6;
             }
             else
             {
-                red = VVV_min(int(red+(fRandom() * 0.2)  * 254) , 255);
-                green = VVV_min(int(green+(fRandom() * 0.2)  * 254) , 255);
-                blue = VVV_min(int(blue+(fRandom() * 0.2)  * 254) , 255);
+                mult = 0.2;
             }
 
+            red += fRandom() * mult * 254;
+            red = SDL_min(red, 255);
+            green += fRandom() * mult * 254;
+            green = SDL_min(green, 255);
+            blue += fRandom() * mult * 254;
+            blue = SDL_min(blue, 255);
 
             if(y % 2 == 0)
             {
@@ -359,9 +362,9 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
             int distX =  static_cast<int>((SDL_abs (160.0f -x ) / 160.0f) *16);
             int distY =  static_cast<int>((SDL_abs (120.0f -y ) / 120.0f)*32);
 
-            red = VVV_max(red - ( distX +distY), 0);
-            green = VVV_max(green - ( distX +distY), 0);
-            blue = VVV_max(blue - ( distX +distY), 0);
+            red = SDL_max(red - ( distX +distY), 0);
+            green = SDL_max(green - ( distX +distY), 0);
+            blue = SDL_max(blue - ( distX +distY), 0);
 
             Uint32 finalPixel = ((red<<16) + (green<<8) + (blue<<0)) | (pixel &_src->format->Amask);
             DrawPixel(_ret,x,y,  finalPixel);
