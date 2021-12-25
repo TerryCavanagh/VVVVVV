@@ -139,8 +139,6 @@ public:
 
     std::string  timestring(void);
 
-    std::string partimestring(void);
-
     std::string resulttimestring(void);
 
     std::string timetstring(int t);

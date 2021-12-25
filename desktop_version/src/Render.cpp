@@ -1708,7 +1708,7 @@ void gamerender(void)
 
     if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && (!game.swnmode || game.swngame != 1) && game.showingametimer)
     {
-        char buffer[SCREEN_WIDTH_TILES + 1]; /* ASCII only */
+        char buffer[SCREEN_WIDTH_CHARS + 1];
         graphics.bprint(6, 6, "TIME:",  255,255,255);
         game.timestringcenti(buffer, sizeof(buffer));
         graphics.bprint(46, 6, buffer,  196, 196, 196);
@@ -1918,7 +1918,7 @@ void gamerender(void)
         }
         else
         {
-            char buffer[SCREEN_WIDTH_TILES + 1]; /* ASCII only */
+            char buffer[SCREEN_WIDTH_CHARS + 1];
             game.timestringcenti(buffer, sizeof(buffer));
 
             //Draw OSD stuff
@@ -1954,12 +1954,12 @@ void gamerender(void)
             if(game.timetrialparlost)
             {
                 graphics.bprint(195, 214, "PAR TIME:",  80, 80, 80);
-                graphics.bprint(275, 214, game.partimestring(),  80, 80, 80);
+                graphics.bprint(275, 214, game.timetstring(game.timetrialpar),  80, 80, 80);
             }
             else
             {
                 graphics.bprint(195, 214, "PAR TIME:",  255, 255, 255);
-                graphics.bprint(275, 214, game.partimestring(),  196, 196, 196);
+                graphics.bprint(275, 214, game.timetstring(game.timetrialpar),  196, 196, 196);
             }
         }
     }

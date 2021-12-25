@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <sstream>
 
+#include "Constants.h"
 #include "Maths.h"
 
 static const char* GCChar(const SDL_GameControllerButton button)
@@ -168,37 +169,49 @@ std::string UtilityClass::GCString(const std::vector<SDL_GameControllerButton>& 
     return retval;
 }
 
-std::string UtilityClass::twodigits( int t )
+int UtilityClass::hms_to_seconds(int h, int m, int s)
 {
-    if (t < 10)
+    return h*3600 + m*60 + s;
+}
+
+void UtilityClass::format_time(char* buffer, const size_t buffer_size, int seconds, int frames, bool always_minutes)
+{
+    int s = seconds % 60;
+    int m = (seconds / 60) % 60;
+    int h = seconds / 3600;
+
+    if (h > 0)
     {
-        return "0" + String(t);
+        /* H:MM:SS / H:MM:SS.CC */
+        SDL_snprintf(buffer, buffer_size,
+            frames == -1 ? "%d:%02d:%02d" : "%d:%02d:%02d.%02d",
+            h, m, s, frames * 100 / 30
+        );
     }
-    if (t >= 100)
+    else if (m > 0 || always_minutes || frames == -1)
     {
-        return "??";
+        /* M:SS / M:SS.CC */
+        SDL_snprintf(buffer, buffer_size,
+            frames == -1 ? "%d:%02d" : "%d:%02d.%02d",
+            m, s, frames * 100 / 30
+        );
     }
-    return String(t);
+    else
+    {
+        /* S.CC */
+        SDL_snprintf(buffer, buffer_size,
+            "%d.%02d",
+            s, frames * 100 / 30
+        );
+    }
 }
 
 std::string UtilityClass::timestring( int t )
 {
     //given a time t in frames, return a time in seconds
-    std::string tempstring = "";
-    int temp = t / 30;
-    if (temp < 60)   //less than one minute
-    {
-        t = t % 30;
-        tempstring = String(temp) + ":" + twodigits(t * 100 / 30);
-    }
-    else
-    {
-        int temp2 = temp / 60;
-        temp = temp % 60;
-        t = t % 30;
-        tempstring = String(temp2) + ":" + twodigits(temp) + ":" + twodigits(t * 100 / 30);
-    }
-    return tempstring;
+    char output[SCREEN_WIDTH_CHARS + 1];
+    format_time(output, sizeof(output), t / 30, t % 30, false);
+    return output;
 }
 
 std::string UtilityClass::number_words( int _t )

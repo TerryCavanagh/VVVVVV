@@ -1412,7 +1412,7 @@ void Game::updatestate(void)
             obj.removetrigger(82);
             hascontrol = false;
 
-            timetrialresulttime = seconds + (minutes * 60) + (hours * 60 * 60);
+            timetrialresulttime = help.hms_to_seconds(hours, minutes, seconds);
             timetrialresultframes = frames;
             timetrialresulttrinkets = trinkets();
             timetrialresultshinytarget = timetrialshinytarget;
@@ -2605,13 +2605,16 @@ void Game::updatestate(void)
             graphics.textboxcenterx();
             break;
         case 3502:
+        {
             state++;
             statedelay = 45+15;
 
             graphics.createtextboxflipme("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
-            savetime = timestring();
-            savetime += "." + help.twodigits(frames*100 / 30);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            timestringcenti(buffer, sizeof(buffer));
+            savetime = buffer;
             break;
+        }
         case 3503:
         {
             state++;
@@ -5748,86 +5751,33 @@ void Game::gameclock(void)
 
 std::string Game::giventimestring( int hrs, int min, int sec )
 {
-    std::string tempstring = "";
-    if (hrs > 0)
-    {
-        tempstring += help.String(hrs) + ":";
-    }
-    tempstring += help.twodigits(min) + ":" + help.twodigits(sec);
-    return tempstring;
+    return timetstring(help.hms_to_seconds(hrs, min, sec));
 }
 
 std::string Game::timestring(void)
 {
-    std::string tempstring = "";
-    if (hours > 0)
-    {
-        tempstring += help.String(hours) + ":";
-    }
-    tempstring += help.twodigits(minutes) + ":" + help.twodigits(seconds);
-    return tempstring;
-}
-
-std::string Game::partimestring(void)
-{
-    //given par time in seconds:
-    std::string tempstring = "";
-    if (timetrialpar >= 60)
-    {
-        tempstring = help.twodigits(timetrialpar / 60) + ":" + help.twodigits(timetrialpar % 60);
-    }
-    else
-    {
-        tempstring = "00:" + help.twodigits(timetrialpar);
-    }
-    return tempstring;
+    return giventimestring(hours, minutes, seconds);
 }
 
 std::string Game::resulttimestring(void)
 {
     //given result time in seconds:
-    std::string tempstring = "";
-    if (timetrialresulttime >= 60)
-    {
-        tempstring = help.twodigits(timetrialresulttime / 60) + ":"
-                     + help.twodigits(timetrialresulttime % 60);
-    }
-    else
-    {
-        tempstring = "00:" + help.twodigits(timetrialresulttime);
-    }
-    tempstring += "." + help.twodigits(timetrialresultframes*100 / 30);
-    return tempstring;
+    char output[SCREEN_WIDTH_CHARS + 1];
+    help.format_time(output, sizeof(output), timetrialresulttime, timetrialresultframes, true);
+    return output;
 }
 
 std::string Game::timetstring( int t )
 {
     //given par time in seconds:
-    std::string tempstring = "";
-    if (t >= 60)
-    {
-        tempstring = help.twodigits(t / 60) + ":" + help.twodigits(t % 60);
-    }
-    else
-    {
-        tempstring = "00:" + help.twodigits(t);
-    }
-    return tempstring;
+    char output[SCREEN_WIDTH_CHARS + 1];
+    help.format_time(output, sizeof(output), t, -1, true);
+    return output;
 }
 
 void Game::timestringcenti(char* buffer, const size_t buffer_size)
 {
-    /* 16 chars should be plenty for int32s */
-    char hours_str[16] = {'\0'};
-    if (hours > 0)
-    {
-        SDL_snprintf(hours_str, sizeof(hours_str), "%i:", hours);
-    }
-    SDL_snprintf(
-        buffer, buffer_size,
-        "%s%02i:%02i.%02i",
-        hours_str, minutes, seconds, frames * 100 / 30
-    );
+    help.format_time(buffer, buffer_size, help.hms_to_seconds(hours, minutes, seconds), frames, true);
 }
 
 void Game::returnmenu(void)
