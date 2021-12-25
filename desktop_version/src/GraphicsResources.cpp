@@ -6,13 +6,6 @@
 // Used to load PNG data
 extern "C"
 {
-    extern unsigned lodepng_decode24(
-        unsigned char** out,
-        unsigned* w,
-        unsigned* h,
-        const unsigned char* in,
-        size_t insize
-    );
     extern unsigned lodepng_decode32(
         unsigned char** out,
         unsigned* w,
@@ -23,7 +16,7 @@ extern "C"
     extern const char* lodepng_error_text(unsigned code);
 }
 
-static SDL_Surface* LoadImage(const char *filename, bool noAlpha = false)
+static SDL_Surface* LoadImage(const char *filename)
 {
     //Temporary storage for the image that's loaded
     SDL_Surface* loadedImage = NULL;
@@ -42,14 +35,7 @@ static SDL_Surface* LoadImage(const char *filename, bool noAlpha = false)
         SDL_assert(0 && "Image file missing!");
         return NULL;
     }
-    if (noAlpha)
-    {
-        error = lodepng_decode24(&data, &width, &height, fileIn, length);
-    }
-    else
-    {
-        error = lodepng_decode32(&data, &width, &height, fileIn, length);
-    }
+    error = lodepng_decode32(&data, &width, &height, fileIn, length);
     FILESYSTEM_freeMemory(&fileIn);
 
     if (error != 0)
@@ -62,9 +48,9 @@ static SDL_Surface* LoadImage(const char *filename, bool noAlpha = false)
         data,
         width,
         height,
-        noAlpha ? 24 : 32,
-        width * (noAlpha ? 3 : 4),
-        noAlpha ? SDL_PIXELFORMAT_RGB24 : SDL_PIXELFORMAT_ABGR8888
+        32,
+        width * 4,
+        SDL_PIXELFORMAT_ABGR8888
     );
 
     if (loadedImage != NULL)
@@ -100,8 +86,8 @@ void GraphicsResources::init(void)
     im_teleporter =        LoadImage("graphics/teleporter.png");
 
     im_image0 =        LoadImage("graphics/levelcomplete.png");
-    im_image1 =        LoadImage("graphics/minimap.png", true);
-    im_image2 =        LoadImage("graphics/covered.png", true);
+    im_image1 =        LoadImage("graphics/minimap.png");
+    im_image2 =        LoadImage("graphics/covered.png");
     im_image3 =        LoadImage("graphics/elephant.png");
     im_image4 =        LoadImage("graphics/gamecomplete.png");
     im_image5 =        LoadImage("graphics/fliplevelcomplete.png");
