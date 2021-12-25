@@ -8,10 +8,10 @@
 class Screen
 {
 public:
-    void init(const ScreenSettings& settings);
+    void init(const struct ScreenSettings* settings);
     void destroy(void);
 
-    void GetSettings(ScreenSettings* settings);
+    void GetSettings(struct ScreenSettings* settings);
 
     void LoadIcon(void);
 

@@ -20,27 +20,27 @@ extern "C"
     );
 }
 
-ScreenSettings::ScreenSettings(void)
+void ScreenSettings_default(struct ScreenSettings* _this)
 {
-    windowWidth = 320;
-    windowHeight = 240;
-    fullscreen = false;
-    useVsync = true; // Now that uncapped is the default...
-    scalingMode = 0;
-    linearFilter = false;
-    badSignal = false;
+    _this->windowWidth = 320;
+    _this->windowHeight = 240;
+    _this->fullscreen = false;
+    _this->useVsync = true; // Now that uncapped is the default...
+    _this->scalingMode = 0;
+    _this->linearFilter = false;
+    _this->badSignal = false;
 }
 
-void Screen::init(const ScreenSettings& settings)
+void Screen::init(const struct ScreenSettings* settings)
 {
     m_window = NULL;
     m_renderer = NULL;
     m_screenTexture = NULL;
     m_screen = NULL;
-    isWindowed = !settings.fullscreen;
-    scalingMode = settings.scalingMode;
-    isFiltered = settings.linearFilter;
-    vsync = settings.useVsync;
+    isWindowed = !settings->fullscreen;
+    scalingMode = settings->scalingMode;
+    isFiltered = settings->linearFilter;
+    vsync = settings->useVsync;
 
     SDL_SetHintWithPriority(
         SDL_HINT_RENDER_SCALE_QUALITY,
@@ -85,9 +85,9 @@ void Screen::init(const ScreenSettings& settings)
         240
     );
 
-    badSignalEffect = settings.badSignal;
+    badSignalEffect = settings->badSignal;
 
-    ResizeScreen(settings.windowWidth, settings.windowHeight);
+    ResizeScreen(settings->windowWidth, settings->windowHeight);
 }
 
 void Screen::destroy(void)
@@ -105,7 +105,7 @@ void Screen::destroy(void)
 #undef X
 }
 
-void Screen::GetSettings(ScreenSettings* settings)
+void Screen::GetSettings(struct ScreenSettings* settings)
 {
     int width, height;
     GetWindowSize(&width, &height);

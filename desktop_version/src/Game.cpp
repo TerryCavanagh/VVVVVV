@@ -4021,7 +4021,7 @@ void Game::unlocknum( int t )
 #endif
 }
 
-void Game::loadstats(ScreenSettings* screen_settings)
+void Game::loadstats(struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -4100,7 +4100,7 @@ void Game::loadstats(ScreenSettings* screen_settings)
     deserializesettings(dataNode, screen_settings);
 }
 
-void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* screen_settings)
+void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSettings* screen_settings)
 {
     // Don't duplicate controller buttons!
     controllerButton_flip.clear();
@@ -4327,13 +4327,13 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
 bool Game::savestats(bool sync /*= true*/)
 {
-    ScreenSettings screen_settings;
+    struct ScreenSettings screen_settings;
     gameScreen.GetSettings(&screen_settings);
 
     return savestats(&screen_settings, sync);
 }
 
-bool Game::savestats(const ScreenSettings* screen_settings, bool sync /*= true*/)
+bool Game::savestats(const struct ScreenSettings* screen_settings, bool sync /*= true*/)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
@@ -4436,7 +4436,7 @@ void Game::savestatsandsettings_menu(void)
     }
 }
 
-void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSettings* screen_settings)
+void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument& doc = xml::get_document(dataNode);
 
@@ -4563,7 +4563,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const ScreenSetting
     xml::update_tag(dataNode, "controllerSensitivity", key.sensitivity);
 }
 
-void Game::loadsettings(ScreenSettings* screen_settings)
+void Game::loadsettings(struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -4592,13 +4592,13 @@ void Game::loadsettings(ScreenSettings* screen_settings)
 
 bool Game::savesettings(void)
 {
-    ScreenSettings screen_settings;
+    struct ScreenSettings screen_settings;
     gameScreen.GetSettings(&screen_settings);
 
     return savesettings(&screen_settings);
 }
 
-bool Game::savesettings(const ScreenSettings* screen_settings)
+bool Game::savesettings(const struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     bool already_exists = FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc);

@@ -571,10 +571,11 @@ int main(int argc, char *argv[])
     {
         // Prioritize unlock.vvv first (2.2 and below),
         // but settings have been migrated to settings.vvv (2.3 and up)
-        ScreenSettings screen_settings;
+        struct ScreenSettings screen_settings;
+        ScreenSettings_default(&screen_settings);
         game.loadstats(&screen_settings);
         game.loadsettings(&screen_settings);
-        gameScreen.init(screen_settings);
+        gameScreen.init(&screen_settings);
     }
 
     graphics.create_buffers(gameScreen.GetFormat());

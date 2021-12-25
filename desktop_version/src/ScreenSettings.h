@@ -3,8 +3,6 @@
 
 struct ScreenSettings
 {
-    ScreenSettings(void);
-
     int windowWidth;
     int windowHeight;
     bool fullscreen;
@@ -13,5 +11,7 @@ struct ScreenSettings
     bool linearFilter;
     bool badSignal;
 };
+
+void ScreenSettings_default(struct ScreenSettings* _this);
 
 #endif /* SCREENSETTINGS_H */
