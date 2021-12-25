@@ -16,7 +16,8 @@ extern "C"
     extern const char* lodepng_error_text(unsigned code);
 }
 
-static SDL_Surface* LoadImage(const char *filename)
+/* Don't declare `static`, this is used elsewhere */
+SDL_Surface* LoadImage(const char *filename)
 {
     //Temporary storage for the image that's loaded
     SDL_Surface* loadedImage = NULL;

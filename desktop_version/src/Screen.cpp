@@ -8,18 +8,6 @@
 #include "GraphicsUtil.h"
 #include "Vlogging.h"
 
-// Used to create the window icon
-extern "C"
-{
-    extern unsigned lodepng_decode24(
-        unsigned char** out,
-        unsigned* w,
-        unsigned* h,
-        const unsigned char* in,
-        size_t insize
-    );
-}
-
 void ScreenSettings_default(struct ScreenSettings* _this)
 {
     _this->windowWidth = 320;
@@ -120,29 +108,26 @@ void Screen::GetSettings(struct ScreenSettings* settings)
     settings->badSignal = badSignalEffect;
 }
 
+#ifdef __APPLE__
+/* Apple doesn't like icons anymore... */
 void Screen::LoadIcon(void)
 {
-#ifndef __APPLE__
-    unsigned char *fileIn;
-    size_t length;
-    unsigned char *data;
-    unsigned int width, height;
-    FILESYSTEM_loadAssetToMemory("VVVVVV.png", &fileIn, &length, false);
-    lodepng_decode24(&data, &width, &height, fileIn, length);
-    FILESYSTEM_freeMemory(&fileIn);
-    SDL_Surface *icon = SDL_CreateRGBSurfaceWithFormatFrom(
-        data,
-        width,
-        height,
-        24,
-        width * 3,
-        SDL_PIXELFORMAT_RGB24
-    );
+
+}
+#else
+SDL_Surface* LoadImage(const char* filename);
+
+void Screen::LoadIcon(void)
+{
+    SDL_Surface* icon = LoadImage("VVVVVV.png");
+    if (icon == NULL)
+    {
+        return;
+    }
     SDL_SetWindowIcon(m_window, icon);
     SDL_FreeSurface(icon);
-    SDL_free(data);
-#endif /* __APPLE__ */
 }
+#endif /* __APPLE__ */
 
 void Screen::ResizeScreen(int x, int y)
 {
