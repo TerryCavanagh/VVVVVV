@@ -23,7 +23,7 @@ extern "C"
     extern const char* lodepng_error_text(unsigned code);
 }
 
-static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool noAlpha = false)
+static SDL_Surface* LoadImage(const char *filename, bool noAlpha = false)
 {
     //Temporary storage for the image that's loaded
     SDL_Surface* loadedImage = NULL;
@@ -76,10 +76,7 @@ static SDL_Surface* LoadImage(const char *filename, bool noBlend = true, bool no
         );
         SDL_FreeSurface( loadedImage );
         SDL_free(data);
-        if (noBlend)
-        {
-            SDL_SetSurfaceBlendMode(optimizedImage, SDL_BLENDMODE_BLEND);
-        }
+        SDL_SetSurfaceBlendMode(optimizedImage, SDL_BLENDMODE_BLEND);
         return optimizedImage;
     }
     else
@@ -102,14 +99,14 @@ void GraphicsResources::init(void)
     im_bfont =        LoadImage("graphics/font.png");
     im_teleporter =        LoadImage("graphics/teleporter.png");
 
-    im_image0 =        LoadImage("graphics/levelcomplete.png", false);
-    im_image1 =        LoadImage("graphics/minimap.png", true, true);
-    im_image2 =        LoadImage("graphics/covered.png", true, true);
+    im_image0 =        LoadImage("graphics/levelcomplete.png");
+    im_image1 =        LoadImage("graphics/minimap.png", true);
+    im_image2 =        LoadImage("graphics/covered.png", true);
     im_image3 =        LoadImage("graphics/elephant.png");
-    im_image4 =        LoadImage("graphics/gamecomplete.png", false);
-    im_image5 =        LoadImage("graphics/fliplevelcomplete.png", false);
-    im_image6 =        LoadImage("graphics/flipgamecomplete.png", false);
-    im_image7 =        LoadImage("graphics/site.png", false);
+    im_image4 =        LoadImage("graphics/gamecomplete.png");
+    im_image5 =        LoadImage("graphics/fliplevelcomplete.png");
+    im_image6 =        LoadImage("graphics/flipgamecomplete.png");
+    im_image7 =        LoadImage("graphics/site.png");
     im_image8 =        LoadImage("graphics/site2.png");
     im_image9 =        LoadImage("graphics/site3.png");
     im_image10 =        LoadImage("graphics/ending.png");
