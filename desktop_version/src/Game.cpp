@@ -4328,6 +4328,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 bool Game::savestats(bool sync /*= true*/)
 {
     struct ScreenSettings screen_settings;
+    SDL_zero(screen_settings);
     gameScreen.GetSettings(&screen_settings);
 
     return savestats(&screen_settings, sync);
@@ -4593,6 +4594,7 @@ void Game::loadsettings(struct ScreenSettings* screen_settings)
 bool Game::savesettings(void)
 {
     struct ScreenSettings screen_settings;
+    SDL_zero(screen_settings);
     gameScreen.GetSettings(&screen_settings);
 
     return savesettings(&screen_settings);
