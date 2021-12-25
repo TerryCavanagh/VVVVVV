@@ -9,6 +9,7 @@
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Music.h"
+#include "Screen.h"
 #include "Vlogging.h"
 
 int inline KeyPoll::getThreshold(void)
@@ -67,10 +68,7 @@ bool KeyPoll::textentry(void)
 
 void KeyPoll::toggleFullscreen(void)
 {
-    if (graphics.screenbuffer != NULL)
-    {
-        graphics.screenbuffer->toggleFullScreen();
-    }
+    gameScreen.toggleFullScreen();
 
     keymap.clear(); /* we lost the input due to a new window. */
     if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
@@ -337,7 +335,7 @@ void KeyPoll::Poll(void)
                 {
                     if (wasFullscreen)
                     {
-                        graphics.screenbuffer->isWindowed = false;
+                        gameScreen.isWindowed = false;
                         SDL_SetWindowFullscreen(
                             SDL_GetWindowFromID(evt.window.windowID),
                             SDL_WINDOW_FULLSCREEN_DESKTOP
@@ -359,8 +357,8 @@ void KeyPoll::Poll(void)
 
                 if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0)
                 {
-                    wasFullscreen = !graphics.screenbuffer->isWindowed;
-                    graphics.screenbuffer->isWindowed = true;
+                    wasFullscreen = !gameScreen.isWindowed;
+                    gameScreen.isWindowed = true;
                     SDL_SetWindowFullscreen(
                         SDL_GetWindowFromID(evt.window.windowID),
                         0

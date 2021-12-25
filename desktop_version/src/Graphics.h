@@ -8,7 +8,6 @@
 #include "GraphicsResources.h"
 #include "GraphicsUtil.h"
 #include "Maths.h"
-#include "Screen.h"
 #include "Textbox.h"
 #include "TowerBG.h"
 
@@ -258,7 +257,6 @@ public:
     bool notextoutline;
     //buffer objects. //TODO refactor buffer objects
     SDL_Surface* backBuffer;
-    Screen* screenbuffer;
     SDL_Surface* menubuffer;
     SDL_Surface* foregroundBuffer;
     SDL_Surface* tempBuffer;

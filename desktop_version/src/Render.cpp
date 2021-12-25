@@ -14,6 +14,7 @@
 #include "Map.h"
 #include "Maths.h"
 #include "Music.h"
+#include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Version.h"
@@ -288,19 +289,13 @@ static void menurender(void)
         }
         break;
     case Menu::graphicoptions:
-        if (graphics.screenbuffer == NULL)
-        {
-            SDL_assert(0 && "Screenbuffer is NULL!");
-            break;
-        }
-
         switch (game.currentmenuoption)
         {
         case 0:
             graphics.bigprint( -1, 30, "Toggle Fullscreen", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to fullscreen/windowed mode.", tr, tg, tb, true);
 
-            if (graphics.screenbuffer->isWindowed)
+            if (gameScreen.isWindowed)
             {
                 graphics.Print( -1, 85, "Current mode: WINDOWED", tr, tg, tb, true);
             }
@@ -314,7 +309,7 @@ static void menurender(void)
             graphics.bigprint( -1, 30, "Scaling Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
 
-            switch (graphics.screenbuffer->scalingMode)
+            switch (gameScreen.scalingMode)
             {
             case 2:
                 graphics.Print( -1, 85, "Current mode: INTEGER", tr, tg, tb, true);
@@ -331,7 +326,7 @@ static void menurender(void)
             graphics.bigprint(-1, 30, "Resize to Nearest", tr, tg, tb, true);
             graphics.Print(-1, 65, "Resize to the nearest window size", tr, tg, tb, true);
             graphics.Print(-1, 75, "that is of an integer multiple.", tr, tg, tb, true);
-            if (!graphics.screenbuffer->isWindowed)
+            if (!gameScreen.isWindowed)
             {
                 graphics.Print(-1, 95, "You must be in windowed mode", tr, tg, tb, true);
                 graphics.Print(-1, 105, "to use this option.", tr, tg, tb, true);
@@ -341,7 +336,7 @@ static void menurender(void)
             graphics.bigprint( -1, 30, "Toggle Filter", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to nearest/linear filter.", tr, tg, tb, true);
 
-            if (graphics.screenbuffer->isFiltered)
+            if (gameScreen.isFiltered)
             {
                 graphics.Print( -1, 85, "Current mode: LINEAR", tr, tg, tb, true);
             }
@@ -367,7 +362,7 @@ static void menurender(void)
             graphics.Print(-1, 75, "Edit the config file.", tr, tg, tb, true);
 #endif
 
-            if (!graphics.screenbuffer->vsync)
+            if (!gameScreen.vsync)
             {
                 graphics.Print(-1, 85, "Current mode: VSYNC OFF", tr/2, tg/2, tb/2, true);
             }

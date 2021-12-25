@@ -13,6 +13,7 @@
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Music.h"
+#include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -559,7 +560,7 @@ static void menuactionpress(void)
             && FILESYSTEM_openDirectory(FILESYSTEM_getUserLevelDirectory()))
             {
                 music.playef(11);
-                SDL_MinimizeWindow(graphics.screenbuffer->m_window);
+                SDL_MinimizeWindow(gameScreen.m_window);
             }
             else
             {
@@ -604,30 +605,24 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::graphicoptions:
-        if (graphics.screenbuffer == NULL)
-        {
-            SDL_assert(0 && "Screenbuffer is NULL!");
-            break;
-        }
-
         switch (game.currentmenuoption)
         {
         case 0:
             music.playef(11);
-            graphics.screenbuffer->toggleFullScreen();
+            gameScreen.toggleFullScreen();
             game.savestatsandsettings_menu();
             break;
         case 1:
             music.playef(11);
-            graphics.screenbuffer->toggleScalingMode();
+            gameScreen.toggleScalingMode();
             game.savestatsandsettings_menu();
             break;
         case 2:
             // resize to nearest multiple
-            if (graphics.screenbuffer->isWindowed)
+            if (gameScreen.isWindowed)
             {
                 music.playef(11);
-                graphics.screenbuffer->ResizeToNearestMultiple();
+                gameScreen.ResizeToNearestMultiple();
                 game.savestatsandsettings_menu();
             }
             else
@@ -637,13 +632,13 @@ static void menuactionpress(void)
             break;
         case 3:
             music.playef(11);
-            graphics.screenbuffer->toggleLinearFilter();
+            gameScreen.toggleLinearFilter();
             game.savestatsandsettings_menu();
             break;
         case 4:
             //change smoothing
             music.playef(11);
-            graphics.screenbuffer->badSignalEffect= !graphics.screenbuffer->badSignalEffect;
+            gameScreen.badSignalEffect= !gameScreen.badSignalEffect;
             game.savestatsandsettings_menu();
             break;
         case 5:
@@ -651,7 +646,7 @@ static void menuactionpress(void)
 #if SDL_VERSION_ATLEAST(2, 0, 17)
             //toggle vsync
             music.playef(11);
-            graphics.screenbuffer->toggleVSync();
+            gameScreen.toggleVSync();
             game.savestatsandsettings_menu();
 #endif
             break;

@@ -20,6 +20,7 @@
 #include "Map.h"
 #include "Music.h"
 #include "Network.h"
+#include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -4326,13 +4327,8 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, ScreenSettings* s
 
 bool Game::savestats(bool sync /*= true*/)
 {
-    if (graphics.screenbuffer == NULL)
-    {
-        return false;
-    }
-
     ScreenSettings screen_settings;
-    graphics.screenbuffer->GetSettings(&screen_settings);
+    gameScreen.GetSettings(&screen_settings);
 
     return savestats(&screen_settings, sync);
 }
@@ -4596,13 +4592,8 @@ void Game::loadsettings(ScreenSettings* screen_settings)
 
 bool Game::savesettings(void)
 {
-    if (graphics.screenbuffer == NULL)
-    {
-        return false;
-    }
-
     ScreenSettings screen_settings;
-    graphics.screenbuffer->GetSettings(&screen_settings);
+    gameScreen.GetSettings(&screen_settings);
 
     return savesettings(&screen_settings);
 }
@@ -6094,7 +6085,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::graphicoptions:
         option("toggle fullscreen");
         option("scaling mode");
-        option("resize to nearest", graphics.screenbuffer->isWindowed);
+        option("resize to nearest", gameScreen.isWindowed);
         option("toggle filter");
         option("toggle analogue");
         option("toggle vsync");

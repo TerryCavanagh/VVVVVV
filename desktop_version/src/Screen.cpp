@@ -1,3 +1,4 @@
+#define GAMESCREEN_DEFINITION
 #include "Screen.h"
 
 #include <SDL.h>

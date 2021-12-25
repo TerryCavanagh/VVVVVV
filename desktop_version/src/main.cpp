@@ -576,7 +576,6 @@ int main(int argc, char *argv[])
         game.loadsettings(&screen_settings);
         gameScreen.init(screen_settings);
     }
-    graphics.screenbuffer = &gameScreen;
 
     graphics.create_buffers(gameScreen.GetFormat());
 

@@ -109,7 +109,6 @@ void Graphics::init(void)
     m = 0;
     linedelay = 0;
     menubuffer = NULL;
-    screenbuffer = NULL;
     tempBuffer = NULL;
     warpbuffer = NULL;
     warpbuffer_lerp = NULL;
@@ -3014,7 +3013,7 @@ void Graphics::menuoffrender(void)
     BlitSurfaceStandard(tempBuffer, NULL, backBuffer, NULL);
     BlitSurfaceStandard(menubuffer, NULL, backBuffer, &offsetRect);
 
-    screenbuffer->UpdateScreen(backBuffer, NULL);
+    gameScreen.UpdateScreen(backBuffer, NULL);
     ClearSurface(backBuffer);
 }
 
@@ -3135,7 +3134,7 @@ void Graphics::flashlight(void)
 void Graphics::screenshake(void)
 {
     SDL_Rect shakeRect = {screenshake_x, screenshake_y, backBuffer->w, backBuffer->h};
-    screenbuffer->UpdateScreen(backBuffer, &shakeRect);
+    gameScreen.UpdateScreen(backBuffer, &shakeRect);
 
     ClearSurface(backBuffer);
 }
@@ -3148,12 +3147,7 @@ void Graphics::updatescreenshake(void)
 
 void Graphics::render(void)
 {
-    if (screenbuffer == NULL)
-    {
-        return;
-    }
-
-    screenbuffer->UpdateScreen(backBuffer, NULL);
+    gameScreen.UpdateScreen(backBuffer, NULL);
 }
 
 void Graphics::renderwithscreeneffects(void)
@@ -3180,7 +3174,7 @@ void Graphics::renderfixedpre(void)
         updatescreenshake();
     }
 
-    if (screenbuffer != NULL && screenbuffer->badSignalEffect)
+    if (gameScreen.badSignalEffect)
     {
         UpdateFilter();
     }
@@ -3414,10 +3408,7 @@ bool Graphics::reloadresources(void)
     images.push_back(grphx.im_image11);
     images.push_back(grphx.im_image12);
 
-    if (screenbuffer != NULL)
-    {
-        screenbuffer->LoadIcon();
-    }
+    gameScreen.LoadIcon();
 
     music.destroy();
     music.init();

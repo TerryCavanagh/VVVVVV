@@ -41,4 +41,8 @@ public:
     SDL_Surface* m_screen;
 };
 
+#ifndef GAMESCREEN_DEFINITION
+extern Screen gameScreen;
+#endif
+
 #endif /* SCREEN_H */
