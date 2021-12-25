@@ -95,7 +95,9 @@ public:
 
     static std::string GCString(const std::vector<SDL_GameControllerButton>& buttons);
 
-    std::string twodigits(int t);
+    int hms_to_seconds(int h, int m, int s);
+
+    void format_time(char* buffer, const size_t buffer_size, int seconds, int frames, bool always_minutes);
 
     std::string timestring(int t);
 
