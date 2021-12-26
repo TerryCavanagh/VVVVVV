@@ -6035,9 +6035,15 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 15;
         break;
     case Menu::graphicoptions:
-        option("toggle fullscreen");
+        if (!gameScreen.isForcedFullscreen())
+        {
+            option("toggle fullscreen");
+        }
         option("scaling mode");
-        option("resize to nearest", gameScreen.isWindowed);
+        if (!gameScreen.isForcedFullscreen())
+        {
+            option("resize to nearest", gameScreen.isWindowed);
+        }
         option("toggle filter");
         option("toggle analogue");
         option("toggle vsync");

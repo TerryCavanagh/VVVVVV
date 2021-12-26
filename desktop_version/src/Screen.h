@@ -29,6 +29,8 @@ public:
     void toggleLinearFilter(void);
     void toggleVSync(void);
 
+    bool isForcedFullscreen(void);
+
     bool isWindowed;
     bool isFiltered;
     bool badSignalEffect;

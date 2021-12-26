@@ -605,19 +605,29 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::graphicoptions:
-        switch (game.currentmenuoption)
+    {
+        int offset = 0;
+        bool processed = false;
+        if (game.currentmenuoption == offset + 0 && !gameScreen.isForcedFullscreen())
         {
-        case 0:
+            processed = true;
             music.playef(11);
             gameScreen.toggleFullScreen();
-            game.savestatsandsettings_menu();
-            break;
-        case 1:
+        }
+        if (gameScreen.isForcedFullscreen())
+        {
+            --offset;
+        }
+        if (game.currentmenuoption == offset + 1)
+        {
+            processed = true;
             music.playef(11);
             gameScreen.toggleScalingMode();
             game.savestatsandsettings_menu();
-            break;
-        case 2:
+        }
+        if (game.currentmenuoption == offset + 2 && !gameScreen.isForcedFullscreen())
+        {
+            processed = true;
             // resize to nearest multiple
             if (gameScreen.isWindowed)
             {
@@ -629,19 +639,29 @@ static void menuactionpress(void)
             {
                 music.playef(2);
             }
-            break;
-        case 3:
+        }
+        if (gameScreen.isForcedFullscreen())
+        {
+            --offset;
+        }
+        if (game.currentmenuoption == offset + 3)
+        {
+            processed = true;
             music.playef(11);
             gameScreen.toggleLinearFilter();
             game.savestatsandsettings_menu();
-            break;
-        case 4:
+        }
+        if (game.currentmenuoption == offset + 4)
+        {
+            processed = true;
             //change smoothing
             music.playef(11);
             gameScreen.badSignalEffect= !gameScreen.badSignalEffect;
             game.savestatsandsettings_menu();
-            break;
-        case 5:
+        }
+        if (game.currentmenuoption == offset + 5)
+        {
+            processed = true;
             /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
 #if SDL_VERSION_ATLEAST(2, 0, 17)
             //toggle vsync
@@ -649,15 +669,16 @@ static void menuactionpress(void)
             gameScreen.toggleVSync();
             game.savestatsandsettings_menu();
 #endif
-            break;
-        default:
+        }
+        if (!processed)
+        {
             //back
             music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
-            break;
         }
         break;
+    }
     case Menu::youwannaquit:
         switch (game.currentmenuoption)
         {

@@ -140,7 +140,7 @@ void Screen::ResizeScreen(int x, int y)
         resY = y;
     }
 
-    if(!isWindowed)
+    if (!isWindowed || isForcedFullscreen())
     {
         int result = SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
         if (result != 0)
@@ -359,4 +359,15 @@ void Screen::toggleVSync(void)
     vsync = !vsync;
     SDL_RenderSetVSync(m_renderer, (int) vsync);
 #endif
+}
+
+/* FIXME: Launching in forced fullscreen then exiting and relaunching in normal
+ * mode will result in the window having fullscreen size but being windowed. */
+bool Screen::isForcedFullscreen(void)
+{
+    /* This is just a check to see if we're on a desktop or tenfoot setup.
+     * If you're working on a tenfoot-only build, add a def that always
+     * returns true!
+     */
+    return SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
 }

@@ -289,9 +289,10 @@ static void menurender(void)
         }
         break;
     case Menu::graphicoptions:
-        switch (game.currentmenuoption)
+    {
+        int offset = 0;
+        if (game.currentmenuoption == offset + 0 && !gameScreen.isForcedFullscreen())
         {
-        case 0:
             graphics.bigprint( -1, 30, "Toggle Fullscreen", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to fullscreen/windowed mode.", tr, tg, tb, true);
 
@@ -303,9 +304,15 @@ static void menurender(void)
             {
                 graphics.Print( -1, 85, "Current mode: FULLSCREEN", tr, tg, tb, true);
             }
-            break;
+        }
 
-        case 1:
+        if (gameScreen.isForcedFullscreen())
+        {
+            --offset;
+        }
+
+        if (game.currentmenuoption == offset + 1)
+        {
             graphics.bigprint( -1, 30, "Scaling Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "Choose letterbox/stretch/integer mode.", tr, tg, tb, true);
 
@@ -321,8 +328,9 @@ static void menurender(void)
                 graphics.Print( -1, 85, "Current mode: LETTERBOX", tr, tg, tb, true);
                 break;
             }
-            break;
-        case 2:
+        }
+        if (game.currentmenuoption == offset + 2 && !gameScreen.isForcedFullscreen())
+        {
             graphics.bigprint(-1, 30, "Resize to Nearest", tr, tg, tb, true);
             graphics.Print(-1, 65, "Resize to the nearest window size", tr, tg, tb, true);
             graphics.Print(-1, 75, "that is of an integer multiple.", tr, tg, tb, true);
@@ -331,8 +339,13 @@ static void menurender(void)
                 graphics.Print(-1, 95, "You must be in windowed mode", tr, tg, tb, true);
                 graphics.Print(-1, 105, "to use this option.", tr, tg, tb, true);
             }
-            break;
-        case 3:
+        }
+        if (gameScreen.isForcedFullscreen())
+        {
+            --offset;
+        }
+        if (game.currentmenuoption == offset + 3)
+        {
             graphics.bigprint( -1, 30, "Toggle Filter", tr, tg, tb, true);
             graphics.Print( -1, 65, "Change to nearest/linear filter.", tr, tg, tb, true);
 
@@ -344,15 +357,17 @@ static void menurender(void)
             {
                 graphics.Print( -1, 85, "Current mode: NEAREST", tr, tg, tb, true);
             }
-            break;
+        }
 
-        case 4:
+        if (game.currentmenuoption == offset + 4)
+        {
             graphics.bigprint( -1, 30, "Analogue Mode", tr, tg, tb, true);
             graphics.Print( -1, 65, "There is nothing wrong with your", tr, tg, tb, true);
             graphics.Print( -1, 75, "television set. Do not attempt to", tr, tg, tb, true);
             graphics.Print( -1, 85, "adjust the picture.", tr, tg, tb, true);
-            break;
-        case 5:
+        }
+        if (game.currentmenuoption == offset + 5)
+        {
             graphics.bigprint(-1, 30, "Toggle VSync", tr, tg, tb, true);
             /* FIXME: Upgrade to SDL 2.0.18 and remove this ifdef when it releases! */
 #if SDL_VERSION_ATLEAST(2, 0, 17)
@@ -370,9 +385,9 @@ static void menurender(void)
             {
                 graphics.Print(-1, 85, "Current mode: VSYNC ON", tr, tg, tb, true);
             }
-            break;
         }
         break;
+    }
     case Menu::audiooptions:
         switch (game.currentmenuoption)
         {
