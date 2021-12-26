@@ -14,7 +14,7 @@ void ScreenSettings_default(struct ScreenSettings* _this)
     _this->windowHeight = 240;
     _this->fullscreen = false;
     _this->useVsync = true; // Now that uncapped is the default...
-    _this->scalingMode = SCALING_LETTERBOX;
+    _this->scalingMode = SCALING_INTEGER;
     _this->linearFilter = false;
     _this->badSignal = false;
 }
