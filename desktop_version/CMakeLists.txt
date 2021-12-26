@@ -99,7 +99,6 @@ set(VVV_SRC
     src/Screen.cpp
     src/Script.cpp
     src/Scripts.cpp
-    src/SoundSystem.cpp
     src/Spacestation2.cpp
     src/TerminalScripts.cpp
     src/Textbox.cpp

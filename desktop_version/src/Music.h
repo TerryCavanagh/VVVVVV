@@ -4,7 +4,32 @@
 #include <vector>
 
 #include "BinaryBlob.h"
-#include "SoundSystem.h"
+#include <SDL_mixer.h>
+
+/* SDL_mixer object wrappers */
+
+class MusicTrack
+{
+public:
+    MusicTrack(SDL_RWops *rw);
+    Mix_Music *m_music;
+    bool m_isValid;
+};
+
+class SoundTrack
+{
+public:
+    SoundTrack(const char* fileName);
+    Mix_Chunk *sound;
+};
+
+/* SDL_mixer init wrapper */
+
+class SoundSystem
+{
+public:
+    SoundSystem(void);
+};
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
