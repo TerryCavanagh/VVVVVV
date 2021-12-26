@@ -6,7 +6,7 @@
 #include "BinaryBlob.h"
 #include <SDL_mixer.h>
 
-/* SDL_mixer object wrappers */
+/* SDL_mixer object wrappers, do NOT reference these!!! */
 
 class MusicTrack
 {
@@ -23,7 +23,7 @@ public:
     Mix_Chunk *sound;
 };
 
-/* SDL_mixer init wrapper */
+/* End SDL_mixer object wrappers */
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
