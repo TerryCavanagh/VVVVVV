@@ -1733,19 +1733,8 @@ void gamerender(void)
     if(map.extrarow==0 || (map.custommode && map.roomname[0] != '\0'))
     {
         const char* roomname;
-        void (Graphics::*printfunc)(int, int, const std::string&, int, int, int, bool);
 
         graphics.footerrect.y = 230;
-        if (graphics.translucentroomname)
-        {
-            SDL_BlitSurface(graphics.footerbuffer, NULL, graphics.backBuffer, &graphics.footerrect);
-            printfunc = &Graphics::bprint;
-        }
-        else
-        {
-            FillRect(graphics.backBuffer, graphics.footerrect, 0);
-            printfunc = &Graphics::Print;
-        }
 
         if (map.finalmode)
         {
@@ -1756,7 +1745,16 @@ void gamerender(void)
             roomname = map.roomname;
         }
 
-        (graphics.*printfunc)(5, 231, roomname, 196, 196, 255 - help.glow, true);
+        if (graphics.translucentroomname)
+        {
+            SDL_BlitSurface(graphics.footerbuffer, NULL, graphics.backBuffer, &graphics.footerrect);
+            graphics.bprint(5, 231, roomname, 196, 196, 255 - help.glow, true);
+        }
+        else
+        {
+            FillRect(graphics.backBuffer, graphics.footerrect, 0);
+            graphics.Print(5, 231, roomname, 196, 196, 255 - help.glow, true);
+        }
     }
 
     if (map.roomtexton)
