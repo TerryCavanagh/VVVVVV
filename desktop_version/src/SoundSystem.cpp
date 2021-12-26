@@ -5,17 +5,6 @@
 #include "FileSystemUtils.h"
 #include "Vlogging.h"
 
-MusicTrack::MusicTrack(const char* fileName)
-{
-    m_music = Mix_LoadMUS(fileName);
-    m_isValid = true;
-    if(m_music == NULL)
-    {
-        vlog_error("Unable to load Ogg Music file: %s", Mix_GetError());
-        m_isValid = false;
-    }
-}
-
 MusicTrack::MusicTrack(SDL_RWops *rw)
 {
     m_music = Mix_LoadMUS_RW(rw, 1);
