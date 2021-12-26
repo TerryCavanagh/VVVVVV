@@ -15,6 +15,24 @@
 
 /* Begin SDL_mixer wrapper */
 
+#include <SDL_mixer.h>
+#include <vector>
+
+class MusicTrack
+{
+public:
+    MusicTrack(SDL_RWops *rw);
+    Mix_Music *m_music;
+    bool m_isValid;
+};
+
+class SoundTrack
+{
+public:
+    SoundTrack(const char* fileName);
+    Mix_Chunk *sound;
+};
+
 MusicTrack::MusicTrack(SDL_RWops *rw)
 {
     m_music = Mix_LoadMUS_RW(rw, 1);
@@ -49,6 +67,9 @@ SoundTrack::SoundTrack(const char* fileName)
         vlog_error("Unable to load WAV file: %s", Mix_GetError());
     }
 }
+
+static std::vector<MusicTrack> musicTracks;
+static std::vector<SoundTrack> soundTracks;
 
 /* End SDL_mixer wrapper */
 

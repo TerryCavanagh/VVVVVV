@@ -1,29 +1,7 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-#include <vector>
-
 #include "BinaryBlob.h"
-#include <SDL_mixer.h>
-
-/* SDL_mixer object wrappers, do NOT reference these!!! */
-
-class MusicTrack
-{
-public:
-    MusicTrack(SDL_RWops *rw);
-    Mix_Music *m_music;
-    bool m_isValid;
-};
-
-class SoundTrack
-{
-public:
-    SoundTrack(const char* fileName);
-    Mix_Chunk *sound;
-};
-
-/* End SDL_mixer object wrappers */
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
@@ -66,8 +44,6 @@ public:
     bool halted(void);
     void updatemutestate(void);
 
-    std::vector<SoundTrack> soundTracks;
-    std::vector<MusicTrack> musicTracks;
     bool safeToProcessMusic;
 
     int nicechange; // -1 if no song queued
