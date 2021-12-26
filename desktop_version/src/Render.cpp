@@ -1732,6 +1732,8 @@ void gamerender(void)
 
     if(map.extrarow==0 || (map.custommode && map.roomname[0] != '\0'))
     {
+        const char* roomname;
+
         graphics.footerrect.y = 230;
         if (graphics.translucentroomname)
         {
@@ -1744,10 +1746,14 @@ void gamerender(void)
 
         if (map.finalmode)
         {
-            graphics.bprint(5, 231, map.glitchname, 196, 196, 255 - help.glow, true);
-        }else{
-            graphics.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
+            roomname = map.glitchname;
         }
+        else
+        {
+            roomname = map.roomname;
+        }
+
+        graphics.bprint(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
     }
 
     if (map.roomtexton)
