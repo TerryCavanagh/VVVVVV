@@ -64,6 +64,7 @@ public:
     void resumeef(void);
 
     bool halted(void);
+    void updatemutestate(void);
 
     std::vector<SoundTrack> soundTracks;
     std::vector<MusicTrack> musicTracks;

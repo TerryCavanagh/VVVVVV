@@ -620,3 +620,25 @@ bool musicclass::halted(void)
 {
     return Mix_PausedMusic() == 1;
 }
+
+void musicclass::updatemutestate(void)
+{
+    if (game.muted)
+    {
+        Mix_VolumeMusic(0);
+        Mix_Volume(-1, 0);
+    }
+    else
+    {
+        Mix_Volume(-1, MIX_MAX_VOLUME * user_sound_volume / USER_VOLUME_MAX);
+
+        if (game.musicmuted)
+        {
+            Mix_VolumeMusic(0);
+        }
+        else
+        {
+            Mix_VolumeMusic(musicVolume * user_music_volume / USER_VOLUME_MAX);
+        }
+    }
+}
