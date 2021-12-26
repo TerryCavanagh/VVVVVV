@@ -14,7 +14,7 @@ void ScreenSettings_default(struct ScreenSettings* _this)
     _this->windowHeight = 240;
     _this->fullscreen = false;
     _this->useVsync = true; // Now that uncapped is the default...
-    _this->scalingMode = 0;
+    _this->scalingMode = SCALING_LETTERBOX;
     _this->linearFilter = false;
     _this->badSignal = false;
 }
@@ -163,7 +163,7 @@ void Screen::ResizeScreen(int x, int y)
             SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         }
     }
-    if (scalingMode == 1)
+    if (scalingMode == SCALING_STRETCH)
     {
         int winX, winY;
         GetWindowSize(&winX, &winY);
@@ -183,7 +183,7 @@ void Screen::ResizeScreen(int x, int y)
     else
     {
         SDL_RenderSetLogicalSize(m_renderer, 320, 240);
-        int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == 2));
+        int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == SCALING_INTEGER));
         if (result != 0)
         {
             vlog_error("Error: could not set scale: %s", SDL_GetError());
@@ -331,7 +331,7 @@ void Screen::toggleFullScreen(void)
 
 void Screen::toggleScalingMode(void)
 {
-    scalingMode = (scalingMode + 1) % 3;
+    scalingMode = (scalingMode + 1) % NUM_SCALING_MODES;
     ResizeScreen(-1, -1);
 }
 

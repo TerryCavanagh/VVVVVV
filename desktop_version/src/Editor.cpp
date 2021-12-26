@@ -1922,7 +1922,7 @@ void editorinput(void)
     game.my = (float) key.my;
     ed.tilex=(game.mx - (game.mx%8))/8;
     ed.tiley=(game.my - (game.my%8))/8;
-    if (gameScreen.scalingMode == 1) {
+    if (gameScreen.scalingMode == SCALING_STRETCH) {
         // In this mode specifically, we have to fix the mouse coordinates
         int winwidth, winheight;
         gameScreen.GetWindowSize(&winwidth, &winheight);

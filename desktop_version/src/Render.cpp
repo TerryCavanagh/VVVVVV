@@ -318,12 +318,13 @@ static void menurender(void)
 
             switch (gameScreen.scalingMode)
             {
-            case 2:
+            case SCALING_INTEGER:
                 graphics.Print( -1, 85, "Current mode: INTEGER", tr, tg, tb, true);
                 break;
-            case 1:
+            case SCALING_STRETCH:
                 graphics.Print( -1, 85, "Current mode: STRETCH", tr, tg, tb, true);
                 break;
+            case SCALING_LETTERBOX:
             default:
                 graphics.Print( -1, 85, "Current mode: LETTERBOX", tr, tg, tb, true);
                 break;
