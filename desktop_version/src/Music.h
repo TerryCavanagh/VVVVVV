@@ -25,12 +25,6 @@ public:
 
 /* SDL_mixer init wrapper */
 
-class SoundSystem
-{
-public:
-    SoundSystem(void);
-};
-
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
 /* The amount of "space" for the scale of the user-set volume. */
@@ -73,7 +67,6 @@ public:
 
     std::vector<SoundTrack> soundTracks;
     std::vector<MusicTrack> musicTracks;
-    SoundSystem soundSystem;
     bool safeToProcessMusic;
 
     int nicechange; // -1 if no song queued

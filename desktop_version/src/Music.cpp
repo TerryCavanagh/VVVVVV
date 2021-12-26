@@ -50,7 +50,9 @@ SoundTrack::SoundTrack(const char* fileName)
     }
 }
 
-SoundSystem::SoundSystem(void)
+/* End SDL_mixer wrapper */
+
+musicclass::musicclass(void)
 {
     int audio_rate = 44100;
     Uint16 audio_format = AUDIO_S16SYS;
@@ -62,12 +64,7 @@ SoundSystem::SoundSystem(void)
         vlog_error("Unable to initialize audio: %s", Mix_GetError());
         SDL_assert(0 && "Unable to initialize audio!");
     }
-}
 
-/* End SDL_mixer wrapper */
-
-musicclass::musicclass(void)
-{
     safeToProcessMusic= false;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
