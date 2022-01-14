@@ -25,6 +25,7 @@ class MusicTrack
 public:
     MusicTrack(SDL_RWops *rw)
     {
+        /* Open an stb_vorbis handle */
         m_music = Mix_LoadMUS_RW(rw, 1);
         if (m_music == NULL)
         {
@@ -34,11 +35,13 @@ public:
 
     void Dispose()
     {
+        /* Free stb_vorbis */
         Mix_FreeMusic(m_music);
     }
 
     bool Play(bool loop)
     {
+        /* Create/Validate static FAudioSourceVoice, begin streaming */
         if (Mix_PlayMusic(m_music, loop ? -1 : 0) == -1)
         {
             vlog_error("Mix_PlayMusic: %s", Mix_GetError());
@@ -49,26 +52,31 @@ public:
 
     static void Halt()
     {
+        /* FAudioVoice_Destroy */
         Mix_HaltMusic();
     }
 
     static bool IsHalted()
     {
+        /* return musicVoice == NULL; */
         return Mix_PausedMusic() == 1;
     }
 
     static void Pause()
     {
+        /* FAudioSourceVoice_Pause */
         Mix_PauseMusic();
     }
 
     static void Resume()
     {
+        /* FAudioSourceVoice_Resume */
         Mix_ResumeMusic();
     }
 
     static void SetVolume(int musicVolume)
     {
+        /* FAudioSourceVoice_SetVolume */
         Mix_VolumeMusic(musicVolume);
     }
 
@@ -81,6 +89,7 @@ class SoundTrack
 public:
     SoundTrack(const char* fileName)
     {
+        /* Parse WAV header, fill in FAudioBuffer, read PCM to malloc buffer */
         unsigned char *mem;
         size_t length;
         FILESYSTEM_loadAssetToMemory(fileName, &mem, &length, false);
@@ -103,11 +112,13 @@ public:
 
     void Dispose()
     {
+        /* Destroy all source voices, free buffer used by FAudioBuffer */
         Mix_FreeChunk(m_sound);
     }
 
     void Play()
     {
+        /* Fire-and-forget from a per-track FAudioSourceVoice pool */
         if (Mix_PlayChannel(-1, m_sound, 0) == -1)
         {
             vlog_error("Unable to play WAV file: %s", Mix_GetError());
@@ -119,6 +130,7 @@ public:
         const Uint16 audio_format = AUDIO_S16SYS;
         const int audio_buffers = 1024;
 
+        /* FAudioCreate, FAudio_CreateMasteringVoice */
         if (Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
         {
             vlog_error("Unable to initialize audio: %s", Mix_GetError());
@@ -128,16 +140,22 @@ public:
 
     static void Pause()
     {
+        /* FAudio_StopEngine */
         Mix_Pause(-1);
     }
 
     static void Resume()
     {
+        /* FAudio_StartEngine */
         Mix_Resume(-1);
     }
 
     static void SetVolume(int soundVolume)
     {
+        /* FAudioVoice_SetVolume on all sounds. Yeah, all of them :/
+         * If we get desperate we can use a submix and set volume on that, but
+         * the submix is an extra mix stage so just loop all sounds manually...
+         */
         Mix_Volume(-1, soundVolume);
     }
 
