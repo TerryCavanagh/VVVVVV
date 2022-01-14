@@ -20,70 +20,6 @@
 
 #define VVV_MAX_VOLUME MIX_MAX_VOLUME
 
-class MusicTrack
-{
-public:
-    MusicTrack(SDL_RWops *rw)
-    {
-        /* Open an stb_vorbis handle */
-        m_music = Mix_LoadMUS_RW(rw, 1);
-        if (m_music == NULL)
-        {
-            vlog_error("Unable to load Magic Binary Music file: %s", Mix_GetError());
-        }
-    }
-
-    void Dispose()
-    {
-        /* Free stb_vorbis */
-        Mix_FreeMusic(m_music);
-    }
-
-    bool Play(bool loop)
-    {
-        /* Create/Validate static FAudioSourceVoice, begin streaming */
-        if (Mix_PlayMusic(m_music, loop ? -1 : 0) == -1)
-        {
-            vlog_error("Mix_PlayMusic: %s", Mix_GetError());
-            return false;
-        }
-        return true;
-    }
-
-    static void Halt()
-    {
-        /* FAudioVoice_Destroy */
-        Mix_HaltMusic();
-    }
-
-    static bool IsHalted()
-    {
-        /* return musicVoice == NULL; */
-        return Mix_PausedMusic() == 1;
-    }
-
-    static void Pause()
-    {
-        /* FAudioSourceVoice_Pause */
-        Mix_PauseMusic();
-    }
-
-    static void Resume()
-    {
-        /* FAudioSourceVoice_Resume */
-        Mix_ResumeMusic();
-    }
-
-    static void SetVolume(int musicVolume)
-    {
-        /* FAudioSourceVoice_SetVolume */
-        Mix_VolumeMusic(musicVolume);
-    }
-
-private:
-    Mix_Music *m_music;
-};
-
 class SoundTrack
 {
 public:
@@ -163,8 +99,72 @@ private:
     Mix_Chunk *m_sound;
 };
 
-static std::vector<MusicTrack> musicTracks;
+class MusicTrack
+{
+public:
+    MusicTrack(SDL_RWops *rw)
+    {
+        /* Open an stb_vorbis handle */
+        m_music = Mix_LoadMUS_RW(rw, 1);
+        if (m_music == NULL)
+        {
+            vlog_error("Unable to load Magic Binary Music file: %s", Mix_GetError());
+        }
+    }
+
+    void Dispose()
+    {
+        /* Free stb_vorbis */
+        Mix_FreeMusic(m_music);
+    }
+
+    bool Play(bool loop)
+    {
+        /* Create/Validate static FAudioSourceVoice, begin streaming */
+        if (Mix_PlayMusic(m_music, loop ? -1 : 0) == -1)
+        {
+            vlog_error("Mix_PlayMusic: %s", Mix_GetError());
+            return false;
+        }
+        return true;
+    }
+
+    static void Halt()
+    {
+        /* FAudioVoice_Destroy */
+        Mix_HaltMusic();
+    }
+
+    static bool IsHalted()
+    {
+        /* return musicVoice == NULL; */
+        return Mix_PausedMusic() == 1;
+    }
+
+    static void Pause()
+    {
+        /* FAudioSourceVoice_Pause */
+        Mix_PauseMusic();
+    }
+
+    static void Resume()
+    {
+        /* FAudioSourceVoice_Resume */
+        Mix_ResumeMusic();
+    }
+
+    static void SetVolume(int musicVolume)
+    {
+        /* FAudioSourceVoice_SetVolume */
+        Mix_VolumeMusic(musicVolume);
+    }
+
+private:
+    Mix_Music *m_music;
+};
+
 static std::vector<SoundTrack> soundTracks;
+static std::vector<MusicTrack> musicTracks;
 
 /* End SDL_mixer wrapper */
 
