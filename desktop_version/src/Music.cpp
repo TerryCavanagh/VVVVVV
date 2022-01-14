@@ -49,18 +49,6 @@ public:
         return true;
     }
 
-    static void Init(int audio_rate, int audio_channels)
-    {
-        const Uint16 audio_format = AUDIO_S16SYS;
-        const int audio_buffers = 1024;
-
-        if (Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
-        {
-            vlog_error("Unable to initialize audio: %s", Mix_GetError());
-            SDL_assert(0 && "Unable to initialize audio!");
-        }
-    }
-
     static void Halt()
     {
         Mix_HaltMusic();
@@ -129,6 +117,18 @@ public:
         }
     }
 
+    static void Init(int audio_rate, int audio_channels)
+    {
+        const Uint16 audio_format = AUDIO_S16SYS;
+        const int audio_buffers = 1024;
+
+        if (Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
+        {
+            vlog_error("Unable to initialize audio: %s", Mix_GetError());
+            SDL_assert(0 && "Unable to initialize audio!");
+        }
+    }
+
     static void Pause()
     {
         Mix_Pause(-1);
@@ -155,7 +155,7 @@ static std::vector<SoundTrack> soundTracks;
 
 musicclass::musicclass(void)
 {
-    MusicTrack::Init(44100, 2);
+    SoundTrack::Init(44100, 2);
 
     safeToProcessMusic= false;
     m_doFadeInVol = false;
