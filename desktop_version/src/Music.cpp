@@ -26,11 +26,9 @@ public:
     MusicTrack(SDL_RWops *rw)
     {
         m_music = Mix_LoadMUS_RW(rw, 1);
-        m_isValid = true;
         if (m_music == NULL)
         {
             vlog_error("Unable to load Magic Binary Music file: %s", Mix_GetError());
-            m_isValid = false;
         }
     }
 
@@ -76,7 +74,6 @@ public:
 
 private:
     Mix_Music *m_music;
-    bool m_isValid;
 };
 
 class SoundTrack
