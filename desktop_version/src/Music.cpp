@@ -25,7 +25,7 @@ class SoundTrack
 public:
     SoundTrack(const char* fileName)
     {
-        /* Parse WAV header, fill in FAudioBuffer, read PCM to malloc buffer */
+        /* SDL_LoadWAV, convert spec to FAudioBuffer */
         unsigned char *mem;
         size_t length;
         FILESYSTEM_loadAssetToMemory(fileName, &mem, &length, false);
@@ -48,7 +48,7 @@ public:
 
     void Dispose()
     {
-        /* Destroy all source voices, free buffer used by FAudioBuffer */
+        /* Destroy all track voices, SDL_free buffer from LoadWAV */
         Mix_FreeChunk(m_sound);
     }
 
