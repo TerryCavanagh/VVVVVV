@@ -112,20 +112,52 @@ jobs:
 
     runs-on: windows-latest
 
+    env:
+      SDL_VERSION: 2.0.20
+      SDL_MIXER_VERSION: 2.0.4
+
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install dependencies (Windows)
+    - name: Cache SDL
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-sdl
+      with:
+        path: C:\SDL
+        key: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Cache SDL_mixer
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-sdl-mixer
+      with:
+        path: C:\SDL_mixer
+        key: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Download SDL if not cached
       run: |
-        vcpkg install sdl2 sdl2-mixer
+        if (-Not (Test-Path C:\SDL))
+        {
+          Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -o C:\SDL.zip
+          Expand-Archive C:\SDL.zip -DestinationPath C:\
+        }
+
+    - name: Download SDL_mixer if not cached
+      run: |
+        if (-Not (Test-Path C:\SDL_mixer))
+        {
+          Invoke-WebRequest "https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-$env:SDL_MIXER_VERSION-VC.zip" -o C:\SDL_mixer.zip
+          Expand-Archive C:\SDL_mixer.zip -DestinationPath C:\
+        }
 
     - name: CMake configure (default version)
       run: |
         cd $env:SRC_DIR_PATH
-        $env:LDFLAGS =  "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib "
-        $env:LDFLAGS += "/LIBPATH:$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\lib\manual-link"
+        $env:LDFLAGS =  "/LIBPATH:C:\SDL2-$env:SDL_VERSION\lib\x86 "
+        $env:LDFLAGS += "/LIBPATH:C:\SDL2_mixer-$env:SDL_MIXER_VERSION\lib\x86"
         cmake -G "Visual Studio 16 2019" -A Win32 `
-              -DSDL2_INCLUDE_DIRS="$env:VCPKG_INSTALLATION_ROOT\installed\x86-windows\include\SDL2" `
+              -DSDL2_INCLUDE_DIRS="C:\SDL2-$env:SDL_VERSION\include;C:\SDL2_mixer-$env:SDL_MIXER_VERSION\include" `
               -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" .
     - name: Build (default version)
       run: |
