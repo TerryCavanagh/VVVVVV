@@ -43,11 +43,13 @@ void scriptclass::clearcustom(void)
 }
 
 static bool argexists[NUM_SCRIPT_ARGS];
+static std::string raw_words[NUM_SCRIPT_ARGS];
 
 void scriptclass::tokenize( const std::string& t )
 {
     j = 0;
     std::string tempword;
+    std::string temprawword;
     char currentletter;
 
     SDL_zeroa(argexists);
@@ -58,6 +60,7 @@ void scriptclass::tokenize( const std::string& t )
         if (currentletter == '(' || currentletter == ')' || currentletter == ',')
         {
             words[j] = tempword;
+            raw_words[j] = temprawword;
             argexists[j] = words[j] != "";
             for (size_t ii = 0; ii < words[j].length(); ii++)
             {
@@ -65,14 +68,17 @@ void scriptclass::tokenize( const std::string& t )
             }
             j++;
             tempword = "";
+            temprawword = "";
         }
         else if (currentletter == ' ')
         {
-            //don't do anything - i.e. strip out spaces.
+            /* Ignore spaces unless it's part of a script name. */
+            temprawword += currentletter;
         }
         else
         {
             tempword += currentletter;
+            temprawword += currentletter;
         }
         if (j >= (int) SDL_arraysize(words))
         {
@@ -86,6 +92,7 @@ void scriptclass::tokenize( const std::string& t )
         if (lastargexists)
         {
             words[j] = tempword;
+            raw_words[j] = tempword;
         }
         argexists[j] = lastargexists;
     }
@@ -200,7 +207,7 @@ void scriptclass::run(void)
                 const RoomProperty* const room = cl.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
                 if (room->warpdir == ss_toi(words[3]))
                 {
-                    load("custom_"+words[4]);
+                    load("custom_" + raw_words[4]);
                     position--;
                 }
             }
@@ -233,7 +240,7 @@ void scriptclass::run(void)
             {
                 if (game.trinkets() >= ss_toi(words[1]))
                 {
-                    load("custom_"+words[2]);
+                    load("custom_" + raw_words[2]);
                     position--;
                 }
             }
@@ -241,7 +248,7 @@ void scriptclass::run(void)
             {
                 if (game.trinkets() < ss_toi(words[1]))
                 {
-                    load("custom_"+words[2]);
+                    load("custom_" + raw_words[2]);
                     position--;
                 }
             }
@@ -250,7 +257,7 @@ void scriptclass::run(void)
                 int flag = ss_toi(words[1]);
                 if (INBOUNDS_ARR(flag, obj.flags) && obj.flags[flag])
                 {
-                    load("custom_"+words[2]);
+                    load("custom_" + raw_words[2]);
                     position--;
                 }
             }
@@ -1136,7 +1143,7 @@ void scriptclass::run(void)
             {
                 if (map.isexplored(ss_toi(words[1]), ss_toi(words[2])))
                 {
-                    load(words[3]);
+                    load(raw_words[3]);
                     position--;
                 }
             }
@@ -1144,7 +1151,7 @@ void scriptclass::run(void)
             {
                 if (game.lastsaved==ss_toi(words[1]))
                 {
-                    load(words[2]);
+                    load(raw_words[2]);
                     position--;
                 }
             }
@@ -1152,7 +1159,7 @@ void scriptclass::run(void)
             {
                 if (game.nocutscenes)
                 {
-                    load(words[1]);
+                    load(raw_words[1]);
                     position--;
                 }
             }
@@ -1161,7 +1168,7 @@ void scriptclass::run(void)
                 int flag = ss_toi(words[1]);
                 if (INBOUNDS_ARR(flag, obj.flags) && obj.flags[flag])
                 {
-                    load(words[2]);
+                    load(raw_words[2]);
                     position--;
                 }
             }
@@ -1170,7 +1177,7 @@ void scriptclass::run(void)
                 int crewmate = ss_toi(words[1]);
                 if (INBOUNDS_ARR(crewmate, game.crewstats) && !game.crewstats[crewmate])
                 {
-                    load(words[2]);
+                    load(raw_words[2]);
                     position--;
                 }
             }
@@ -1178,7 +1185,7 @@ void scriptclass::run(void)
             {
                 if (game.trinkets() >= ss_toi(words[1]))
                 {
-                    load(words[2]);
+                    load(raw_words[2]);
                     position--;
                 }
             }
@@ -1186,7 +1193,7 @@ void scriptclass::run(void)
             {
                 if (game.stat_trinkets < ss_toi(words[1]))
                 {
-                    load(words[2]);
+                    load(raw_words[2]);
                     position--;
                 }
             }
@@ -1360,7 +1367,7 @@ void scriptclass::run(void)
             }
             else if (words[0] == "loadscript")
             {
-                load(words[1]);
+                load(raw_words[1]);
                 position--;
             }
             else if (words[0] == "rollcredits")
@@ -3281,9 +3288,10 @@ void scriptclass::hardreset(void)
     scriptdelay = 0;
     scriptname = "null";
     running = false;
-    for (size_t ii = 0; ii < SDL_arraysize(words); ++ii)
+    for (size_t ii = 0; ii < NUM_SCRIPT_ARGS; ++ii)
     {
         words[ii] = "";
+        raw_words[ii] = "";
     }
 
     obj.customactivitycolour = "";
