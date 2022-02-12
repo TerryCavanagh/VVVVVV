@@ -1818,21 +1818,21 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             if(game.bestrank[1]>=3)
             {
                 entity.tile = 186 + meta1;
-                entity.colour = 33;
+                entity.colour = 35;
             }
             break;
         case 3:
             if(game.bestrank[2]>=3)
             {
                 entity.tile = 184 + meta1;
-                entity.colour = 35;
+                entity.colour = 33;
             }
             break;
         case 4:
             if(game.bestrank[3]>=3)
             {
                 entity.tile = 184 + meta1;
-                entity.colour = 30;
+                entity.colour = 32;
             }
             break;
         case 5:
@@ -1846,7 +1846,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             if(game.bestrank[5]>=3)
             {
                 entity.tile = 184 + meta1;
-                entity.colour = 32;
+                entity.colour = 30;
             }
             break;
 
