@@ -153,49 +153,50 @@ jobs:
 
     - name: CMake configure (default version)
       run: |
-        cd $env:SRC_DIR_PATH
+        mkdir $env:SRC_DIR_PATH/build
+        cd $env:SRC_DIR_PATH/build
         $env:LDFLAGS =  "/LIBPATH:C:\SDL2-$env:SDL_VERSION\lib\x86 "
         $env:LDFLAGS += "/LIBPATH:C:\SDL2_mixer-$env:SDL_MIXER_VERSION\lib\x86"
         cmake -G "Visual Studio 16 2019" -A Win32 `
               -DSDL2_INCLUDE_DIRS="C:\SDL2-$env:SDL_VERSION\include;C:\SDL2_mixer-$env:SDL_MIXER_VERSION\include" `
-              -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" .
+              -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" ..
     - name: Build (default version)
       run: |
-        cd $env:SRC_DIR_PATH
+        cd $env:SRC_DIR_PATH/build
         cmake --build .
 
     - name: CMake configure (official)
       run: |
-        cd $env:SRC_DIR_PATH
-        cmake -DOFFICIAL_BUILD=ON .
+        cd $env:SRC_DIR_PATH/build
+        cmake -DOFFICIAL_BUILD=ON ..
     - name: Build (official)
       run: |
-        cd $env:SRC_DIR_PATH
+        cd $env:SRC_DIR_PATH/build
         cmake --build .
 
     - name: CMake configure (M&P)
       run: |
-        cd $env:SRC_DIR_PATH
-        cmake -DOFFICIAL_BUILD=OFF -DMAKEANDPLAY=ON .
+        cd $env:SRC_DIR_PATH/build
+        cmake -DOFFICIAL_BUILD=OFF -DMAKEANDPLAY=ON ..
     - name: Build (M&P)
       run: |
-        cd $env:SRC_DIR_PATH
+        cd $env:SRC_DIR_PATH/build
         cmake --build .
 
     - name: CMake configure (no custom levels)
       run: |
-        cd $env:SRC_DIR_PATH
-        cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED .
+        cd $env:SRC_DIR_PATH/build
+        cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED ..
     - name: Build (no custom levels)
       run: |
-        cd $env:SRC_DIR_PATH
+        cd $env:SRC_DIR_PATH/build
         cmake --build .
 
     - name: CMake configure (no editor)
       run: |
-        cd $env:SRC_DIR_PATH
-        cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR .
+        cd $env:SRC_DIR_PATH/build
+        cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR ..
     - name: Build (no editor)
       run: |
-        cd $env:SRC_DIR_PATH
+        cd $env:SRC_DIR_PATH/build
         cmake --build .
