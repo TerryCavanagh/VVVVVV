@@ -157,7 +157,7 @@ jobs:
         cd $env:SRC_DIR_PATH/build
         $env:LDFLAGS =  "/LIBPATH:C:\SDL2-$env:SDL_VERSION\lib\x86 "
         $env:LDFLAGS += "/LIBPATH:C:\SDL2_mixer-$env:SDL_MIXER_VERSION\lib\x86"
-        cmake -G "Visual Studio 16 2019" -A Win32 `
+        cmake -G "Visual Studio 17 2022" -A Win32 `
               -DSDL2_INCLUDE_DIRS="C:\SDL2-$env:SDL_VERSION\include;C:\SDL2_mixer-$env:SDL_MIXER_VERSION\include" `
               -DSDL2_LIBRARIES="SDL2;SDL2main;SDL2_mixer" ..
     - name: Build (default version)
