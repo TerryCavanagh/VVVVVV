@@ -114,6 +114,7 @@ static const char* githubfriends[] = {
     "Wouter",
     "viri",
     "Vittorio Romeo",
+    "Yussur Mustafa Oraji",
 };
 
 /* Calculate credits length, finally. */
