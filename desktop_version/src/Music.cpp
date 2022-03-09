@@ -2,6 +2,7 @@
 #include "Music.h"
 
 #include <SDL.h>
+#include <FAudio.h>
 #include <physfsrwops.h>
 
 #include "BinaryBlob.h"
@@ -10,168 +11,560 @@
 #include "Graphics.h"
 #include "Map.h"
 #include "Script.h"
+#include "Unused.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
-/* Begin SDL_mixer wrapper */
-
-#include <SDL_mixer.h>
 #include <vector>
 
-#define VVV_MAX_VOLUME MIX_MAX_VOLUME
+/* stb_vorbis */
+
+#define malloc SDL_malloc
+#define realloc SDL_realloc
+#define free SDL_free
+#ifdef memset /* Thanks, Apple! */
+#undef memset
+#endif
+#define memset SDL_memset
+#ifdef memcpy /* Thanks, Apple! */
+#undef memcpy
+#endif
+#define memcpy SDL_memcpy
+#define memcmp SDL_memcmp
+
+#define pow SDL_pow
+#define log(x) SDL_log(x)
+#define sin(x) SDL_sin(x)
+#define cos(x) SDL_cos(x)
+#define floor SDL_floor
+#define abs(x) SDL_abs(x)
+#define ldexp(v, e) SDL_scalbn((v), (e))
+#define exp(x) SDL_exp(x)
+
+#define qsort SDL_qsort
+
+#define assert SDL_assert
+
+#define FILE SDL_RWops
+#ifdef SEEK_SET
+#undef SEEK_SET
+#endif
+#ifdef SEEK_CUR
+#undef SEEK_CUR
+#endif
+#ifdef SEEK_END
+#undef SEEK_END
+#endif
+#ifdef EOF
+#undef EOF
+#endif
+#define SEEK_SET 0
+#define SEEK_CUR 1
+#define SEEK_END 2
+#define EOF -1
+#define fopen(path, mode) SDL_RWFromFile(path, mode)
+#define fopen_s(io, path, mode) (!(*io = fopen(path, mode)))
+#define fclose(io) SDL_RWclose(io)
+#define fread(dst, size, count, io) SDL_RWread(io, dst, size, count)
+#define fseek(io, offset, whence) SDL_RWseek(io, offset, whence)
+#define ftell(io) SDL_RWtell(io)
+
+#define FAudio_alloca(x) SDL_stack_alloc(uint8_t, x)
+#define FAudio_dealloca(x) SDL_stack_free(x)
+
+#define STB_VORBIS_NO_PUSHDATA_API 1
+#define STB_VORBIS_NO_INTEGER_CONVERSION 1
+#include <stb_vorbis.h>
+
+/* End stb_vorbis include */
+
+#define VVV_MAX_VOLUME 128
+#define VVV_MAX_CHANNELS 8
+
+class SoundTrack;
+class MusicTrack;
+static std::vector<SoundTrack> soundTracks;
+static std::vector<MusicTrack> musicTracks;
+
+static FAudio* faudioctx = NULL;
+static FAudioMasteringVoice* masteringvoice = NULL;
 
 class SoundTrack
 {
 public:
     SoundTrack(const char* fileName)
     {
-        /* SDL_LoadWAV, convert spec to FAudioBuffer */
         unsigned char *mem;
         size_t length;
+        SDL_AudioSpec spec;
+        SDL_RWops *fileIn;
+        SDL_zerop(this);
         FILESYSTEM_loadAssetToMemory(fileName, &mem, &length, false);
         if (mem == NULL)
         {
-            m_sound = NULL;
             vlog_error("Unable to load WAV file %s", fileName);
             SDL_assert(0 && "WAV file missing!");
             return;
         }
-        SDL_RWops *fileIn = SDL_RWFromConstMem(mem, length);
-        m_sound = Mix_LoadWAV_RW(fileIn, 1);
-        FILESYSTEM_freeMemory(&mem);
-
-        if (m_sound == NULL)
+        fileIn = SDL_RWFromConstMem(mem, length);
+        if (SDL_LoadWAV_RW(fileIn, 1, &spec, &wav_buffer, &wav_length) == NULL)
         {
-            vlog_error("Unable to load WAV file: %s", Mix_GetError());
+            vlog_error("Unable to load WAV file %s", fileName);
+            goto end;
         }
+        format.nChannels = spec.channels;
+        format.nSamplesPerSec = spec.freq;
+        format.wFormatTag = FAUDIO_FORMAT_PCM;
+        format.wBitsPerSample = 16;
+        format.nBlockAlign = format.nChannels * format.wBitsPerSample;
+        format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
+        format.cbSize = 0;
+        valid = true;
+end:
+        FILESYSTEM_freeMemory(&mem);
     }
 
     void Dispose()
     {
-        /* Destroy all track voices, SDL_free buffer from LoadWAV */
-        Mix_FreeChunk(m_sound);
+        SDL_free(wav_buffer);
     }
 
     void Play()
     {
-        /* Fire-and-forget from a per-track FAudioSourceVoice pool */
-        if (Mix_PlayChannel(-1, m_sound, 0) == -1)
+        if (!valid)
         {
-            vlog_error("Unable to play WAV file: %s", Mix_GetError());
+            return;
+        }
+
+        for (int i = 0; i < VVV_MAX_CHANNELS; i++)
+        {
+            FAudioVoiceState voicestate;
+            FAudioSourceVoice_GetState(voices[i], &voicestate, 0);
+            if (voicestate.BuffersQueued == 0)
+            {
+                FAudioVoiceDetails details;
+                FAudioVoice_GetVoiceDetails(voices[i], &details);
+                if (details.InputChannels != format.nChannels)
+                {
+                    FAudioVoice_DestroyVoice(voices[i]);
+                    FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
+                }
+                const FAudioBuffer faudio_buffer = {
+                    FAUDIO_END_OF_STREAM, /* Flags */
+                    wav_length * 8, /* AudioBytes */
+                    wav_buffer, /* AudioData */
+                    0, /* playbegin */
+                    0, /* playlength */
+                    0, /* LoopBegin */
+                    0, /* LoopLength */
+                    0, /* LoopCount */
+                    NULL
+                };
+                if (FAudioSourceVoice_SubmitSourceBuffer(voices[i], &faudio_buffer, NULL))
+                {
+                    vlog_error("Unable to queue sound buffer");
+                    return;
+                }
+                if (FAudioSourceVoice_Start(voices[i], 0, FAUDIO_COMMIT_NOW))
+                {
+                    vlog_error("Unable to start voice processing");
+                }
+                return;
+            }
         }
     }
 
     static void Init(int audio_rate, int audio_channels)
     {
-        const Uint16 audio_format = AUDIO_S16SYS;
-        const int audio_buffers = 1024;
-
-        /* FAudioCreate, FAudio_CreateMasteringVoice */
-        if (Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
+        if (voices == NULL)
         {
-            vlog_error("Unable to initialize audio: %s", Mix_GetError());
-            SDL_assert(0 && "Unable to initialize audio!");
+            voices = (FAudioSourceVoice**) SDL_malloc(sizeof(FAudioSourceVoice*) * VVV_MAX_CHANNELS);
+            for (int i = 0; i < VVV_MAX_CHANNELS; i++)
+            {
+                FAudioWaveFormatEx format;
+                format.nChannels = 1; /* Assume 1 for SoundTracks. Will be recreated if mismatched during play */
+                format.nSamplesPerSec = audio_rate;
+                format.wFormatTag = FAUDIO_FORMAT_PCM;
+                format.wBitsPerSample = 16;
+                format.nBlockAlign = format.nChannels * format.wBitsPerSample;
+                format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
+                format.cbSize = 0;
+                if (FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL))
+                {
+                    vlog_error("Unable to create source voice no. %i", i);
+                    return;
+                }
+            }
         }
     }
 
     static void Pause()
     {
-        /* FAudio_StopEngine */
-        Mix_Pause(-1);
+        for (size_t i = 0; i < VVV_MAX_CHANNELS; i++)
+        {
+            FAudioSourceVoice_Stop(voices[i], 0, FAUDIO_COMMIT_NOW);
+        }
     }
 
     static void Resume()
     {
-        /* FAudio_StartEngine */
-        Mix_Resume(-1);
+        for (size_t i = 0; i < VVV_MAX_CHANNELS; i++)
+        {
+            FAudioSourceVoice_Start(voices[i], 0, FAUDIO_COMMIT_NOW);
+        }
+    }
+
+    static void Destroy()
+    {
+        if (voices != NULL)
+        {
+            for (int i = 0; i < VVV_MAX_CHANNELS; i++)
+            {
+                FAudioVoice_DestroyVoice(voices[i]);
+            }
+            SDL_free(voices);
+            voices = NULL;
+        }
     }
 
     static void SetVolume(int soundVolume)
     {
-        /* FAudioVoice_SetVolume on all sounds. Yeah, all of them :/
-         * If we get desperate we can use a submix and set volume on that, but
-         * the submix is an extra mix stage so just loop all sounds manually...
-         */
-        Mix_Volume(-1, soundVolume);
+        float adj_vol = (float) soundVolume / VVV_MAX_VOLUME;
+        for (size_t i = 0; i < VVV_MAX_CHANNELS; i++)
+        {
+            FAudioVoice_SetVolume(voices[i], adj_vol, FAUDIO_COMMIT_NOW);
+        }
     }
 
-private:
-    Mix_Chunk *m_sound;
+    Uint8 *wav_buffer = NULL;
+    Uint32 wav_length;
+    FAudioWaveFormatEx format;
+    bool valid;
+
+    static FAudioSourceVoice** voices;
 };
+FAudioSourceVoice** SoundTrack::voices = NULL;
 
 class MusicTrack
 {
 public:
     MusicTrack(SDL_RWops *rw)
     {
-        /* Open an stb_vorbis handle */
-        m_music = Mix_LoadMUS_RW(rw, 1);
-        if (m_music == NULL)
+        SDL_zerop(this);
+        read_buf = (Uint8*) SDL_malloc(rw->size(rw));
+        SDL_RWread(rw, read_buf, rw->size(rw), 1);
+        int err;
+        stb_vorbis_info vorbis_info;
+        stb_vorbis_comment vorbis_comment;
+        vorbis = stb_vorbis_open_memory(read_buf, rw->size(rw), &err, NULL);
+        if (vorbis == NULL)
         {
-            vlog_error("Unable to load Magic Binary Music file: %s", Mix_GetError());
+            vlog_error("Unable to create Vorbis handle, error %d", err);
+            SDL_free(read_buf);
+            read_buf = NULL;
+            goto end;
         }
+        vorbis_info = stb_vorbis_get_info(vorbis);
+        format.wFormatTag = FAUDIO_FORMAT_IEEE_FLOAT;
+        format.wBitsPerSample = sizeof(float) * 8;
+        format.nChannels = vorbis_info.channels;
+        format.nSamplesPerSec = vorbis_info.sample_rate;
+        format.nBlockAlign = format.nChannels * format.wBitsPerSample;
+        format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
+        format.cbSize = 0;
+
+        channels = format.nChannels;
+        size = format.nAvgBytesPerSec / 20;
+
+        decoded_buf_playing = (Uint8*) SDL_malloc(size);
+        decoded_buf_reserve = (Uint8*) SDL_malloc(size);
+
+        loopbegin = 0;
+        looplength = 0;
+        vorbis_comment = stb_vorbis_get_comment(vorbis);
+        parseComments(this, vorbis_comment.comment_list, vorbis_comment.comment_list_length);
+        valid = true;
+
+end:
+        SDL_RWclose(rw);
     }
 
     void Dispose()
     {
-        /* Free stb_vorbis */
-        Mix_FreeMusic(m_music);
+        stb_vorbis_close(vorbis);
+        SDL_free(read_buf);
+        SDL_free(decoded_buf_playing);
+        SDL_free(decoded_buf_reserve);
+        if (!IsHalted())
+        {
+            FAudioVoice_DestroyVoice(musicVoice);
+            musicVoice = NULL;
+        }
     }
 
     bool Play(bool loop)
     {
-        /* Create/Validate static FAudioSourceVoice, begin streaming */
-        if (Mix_PlayMusic(m_music, loop ? -1 : 0) == -1)
+        if (!valid)
         {
-            vlog_error("Mix_PlayMusic: %s", Mix_GetError());
             return false;
         }
+
+        shouldloop = loop;
+        sample_pos = 0;
+        stb_vorbis_seek_start(vorbis);
+
+        if (IsHalted())
+        {
+            SDL_zero(callbacks);
+            callbacks.OnBufferStart = &MusicTrack::refillReserve;
+            callbacks.OnBufferEnd = &MusicTrack::swapBuffers;
+            FAudio_CreateSourceVoice(faudioctx, &musicVoice, &format, 0, 2.0f, &callbacks, NULL, NULL);
+        }
+        else
+        {
+            Pause();
+            FAudioSourceVoice_FlushSourceBuffers(musicVoice);
+        }
+
+        FAudioBuffer faudio_buffer;
+        SDL_zero(faudio_buffer);
+        if (looplength == 0)
+        {
+            faudio_buffer.PlayLength = stb_vorbis_get_samples_float_interleaved(vorbis, channels, (float*) decoded_buf_playing, size / sizeof(float));
+        }
+        else
+        {
+            int samples_read = stb_vorbis_get_samples_float_interleaved(vorbis, channels, (float*) decoded_buf_playing, size / sizeof(float));
+            faudio_buffer.PlayLength = SDL_min(samples_read, (loopbegin + looplength) - sample_pos);
+        }
+        faudio_buffer.AudioBytes = size;
+        faudio_buffer.pAudioData = decoded_buf_playing;
+        faudio_buffer.pContext = this;
+        sample_pos += faudio_buffer.PlayLength;
+        if (FAudioSourceVoice_SubmitSourceBuffer(musicVoice, &faudio_buffer, NULL))
+        {
+            vlog_error("Unable to queue sound buffer");
+            return false;
+        }
+        Resume();
         return true;
     }
 
     static void Halt()
     {
-        /* FAudioVoice_Destroy */
-        Mix_HaltMusic();
+        if (!IsHalted())
+        {
+            FAudioSourceVoice_FlushSourceBuffers(musicVoice);
+            FAudioVoice_DestroyVoice(musicVoice);
+            musicVoice = NULL;
+        }
     }
 
     static bool IsHalted()
     {
-        /* return musicVoice == NULL; */
-        return Mix_PausedMusic() == 1;
+        return musicVoice == NULL;
     }
 
     static void Pause()
     {
-        /* FAudioSourceVoice_Pause */
-        Mix_PauseMusic();
+        if (!IsHalted())
+        {
+            FAudioSourceVoice_Stop(musicVoice, 0, FAUDIO_COMMIT_NOW);
+        }
     }
 
     static void Resume()
     {
-        /* FAudioSourceVoice_Resume */
-        Mix_ResumeMusic();
+        if (!IsHalted())
+        {
+            FAudioSourceVoice_Start(musicVoice, 0, FAUDIO_COMMIT_NOW);
+        }
     }
 
     static void SetVolume(int musicVolume)
     {
-        /* FAudioSourceVoice_SetVolume */
-        Mix_VolumeMusic(musicVolume);
+        float adj_vol = (float) musicVolume / VVV_MAX_VOLUME;
+        if (!IsHalted())
+        {
+            FAudioVoice_SetVolume(musicVoice, adj_vol, FAUDIO_COMMIT_NOW);
+        }
     }
 
-private:
-    Mix_Music *m_music;
+    stb_vorbis* vorbis;
+    int channels;
+    Uint32 size;
+    int loopbegin;
+    int looplength;
+    int sample_pos; //stb_vorbis offset not yet functional on pulldata API. TODO Replace when fixed
+
+    FAudioVoiceCallback callbacks;
+    FAudioWaveFormatEx format;
+
+    Uint8* decoded_buf_playing = NULL;
+    Uint8* decoded_buf_reserve = NULL;
+    Uint8* read_buf = NULL;
+    bool shouldloop;
+    bool valid;
+
+    static FAudioSourceVoice* musicVoice;
+
+    static void refillReserve(FAudioVoiceCallback* callback, void* ctx)
+    {
+        MusicTrack* t = (MusicTrack*) ctx;
+        FAudioBuffer faudio_buffer;
+        SDL_zero(faudio_buffer);
+        UNUSED(callback);
+        if (t->looplength == 0)
+        {
+            faudio_buffer.PlayLength = stb_vorbis_get_samples_float_interleaved(t->vorbis, t->channels, (float*) t->decoded_buf_reserve, t->size / sizeof(float));
+        }
+        else
+        {
+            int samples_read = stb_vorbis_get_samples_float_interleaved(t->vorbis, t->channels, (float*) t->decoded_buf_reserve, t->size / sizeof(float));
+            faudio_buffer.PlayLength = SDL_min(samples_read, (t->loopbegin + t->looplength) - t->sample_pos);
+        }
+        faudio_buffer.AudioBytes = t->size;
+        faudio_buffer.pAudioData = t->decoded_buf_reserve;
+        faudio_buffer.pContext = t;
+        if (faudio_buffer.PlayLength == 0)
+        {
+            if (t->shouldloop)
+            {
+                stb_vorbis_seek(t->vorbis, t->loopbegin);
+                t->sample_pos = t->loopbegin;
+                if (t->looplength != 0)
+                {
+                    int samples_read = stb_vorbis_get_samples_float_interleaved(t->vorbis, t->channels, (float*) t->decoded_buf_reserve, t->size / sizeof(float));
+                    faudio_buffer.PlayLength = SDL_min(samples_read, (t->loopbegin + t->looplength) - t->sample_pos);
+                }
+                else
+                {
+                    faudio_buffer.PlayLength = stb_vorbis_get_samples_float_interleaved(t->vorbis, t->channels, (float*) t->decoded_buf_reserve, t->size / sizeof(float));
+                }
+                if (faudio_buffer.PlayLength == 0)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+        t->sample_pos += faudio_buffer.PlayLength;
+        FAudioSourceVoice_SubmitSourceBuffer(musicVoice, &faudio_buffer, NULL);
+    }
+
+    static void swapBuffers(FAudioVoiceCallback* callback, void* ctx)
+    {
+        MusicTrack* t = (MusicTrack*) ctx;
+        Uint8* tmp = t->decoded_buf_playing;
+        UNUSED(callback);
+        t->decoded_buf_playing = t->decoded_buf_reserve;
+        t->decoded_buf_reserve = tmp;
+    }
+
+    /* Lifted from SDL_mixer, we used it in 2.3 and previous */
+    static void parseComments(MusicTrack* t, char** comments, int comment_list_length)
+    {
+        int loopend = 0;
+        for (int i = 0; i < comment_list_length; i++)
+        {
+            char *param = SDL_strdup(comments[i]);
+            char *argument = param;
+            char *value = SDL_strchr(param, '=');
+            if (value == NULL)
+            {
+                value = param + SDL_strlen(param);
+            }
+            else
+            {
+                *(value++) = '\0';
+            }
+
+            /* Want to match LOOP-START, LOOP_START, etc. Remove - or _ from
+            * string if it is present at position 4. */
+            char buf[5];
+            SDL_strlcpy(buf, argument, sizeof(buf));
+            if (SDL_strcasecmp(buf, "LOOP") == 0 && ((argument[4] == '_') || (argument[4] == '-')))
+            {
+                SDL_memmove(argument + 4, argument + 5, SDL_strlen(argument) - 4);
+            }
+
+            if (SDL_strcasecmp(argument, "LOOPSTART") == 0)
+            {
+                t->loopbegin = _Mix_ParseTime(value, t->format.nSamplesPerSec);
+            }
+            else if (SDL_strcasecmp(argument, "LOOPLENGTH") == 0)
+            {
+                t->looplength = SDL_strtoll(value, NULL, 10);
+            }
+            else if (SDL_strcasecmp(argument, "LOOPEND") == 0)
+            {
+                loopend = _Mix_ParseTime(value, t->format.nSamplesPerSec);
+            }
+
+            SDL_free(param);
+        }
+        if (loopend != 0)
+        {
+            t->looplength = loopend - t->loopbegin;
+        }
+    }
+
+    static int _Mix_ParseTime(char *time, long samplerate_hz)
+    {
+        char *num_start, *p;
+        Sint64 result;
+        char c;
+        int val;
+
+        /* Time is directly expressed as a sample position */
+        if (SDL_strchr(time, ':') == NULL)
+        {
+            return SDL_strtoll(time, NULL, 10);
+        }
+
+        result = 0;
+        num_start = time;
+
+        for (p = time; *p != '\0'; ++p)
+        {
+            if (*p == '.' || *p == ':')
+            {
+                c = *p; *p = '\0';
+                if ((val = SDL_atoi(num_start)) < 0)
+                {
+                    return -1;
+                }
+                result = result * 60 + val;
+                num_start = p + 1;
+                *p = c;
+            }
+
+            if (*p == '.')
+            {
+                double val_f = SDL_atof(p);
+                if (val_f < 0)
+                {
+                    return -1;
+                }
+                return result * samplerate_hz + (Sint64) (val_f * samplerate_hz);
+            }
+        }
+
+        if ((val = SDL_atoi(num_start)) < 0)
+        {
+            return -1;
+        }
+        return (result * 60 + val) * samplerate_hz;
+    }
 };
 
-static std::vector<SoundTrack> soundTracks;
-static std::vector<MusicTrack> musicTracks;
-
-/* End SDL_mixer wrapper */
+FAudioSourceVoice* MusicTrack::musicVoice = NULL;
 
 musicclass::musicclass(void)
 {
-    SoundTrack::Init(44100, 2);
-
     safeToProcessMusic= false;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
@@ -190,6 +583,19 @@ musicclass::musicclass(void)
 
 void musicclass::init(void)
 {
+    if (FAudioCreate(&faudioctx, 0, FAUDIO_DEFAULT_PROCESSOR))
+    {
+        vlog_error("Unable to initialize FAudio");
+        return;
+    }
+    if (FAudio_CreateMasteringVoice(faudioctx, &masteringvoice, 2, 44100, 0, 0, NULL))
+    {
+        vlog_error("Unable to create mastering voice");
+        return;
+    }
+
+    SoundTrack::Init(44100, 2);
+
     soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
     soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));
     soundTracks.push_back(SoundTrack( "sounds/hurt.wav" ));
@@ -341,10 +747,7 @@ void musicclass::destroy(void)
         soundTracks[i].Dispose();
     }
     soundTracks.clear();
-
-    // Before we free all the music: stop playing music, else SDL2_mixer
-    // will call SDL_Delay() if we are fading, resulting in no-draw frames
-    MusicTrack::Halt();
+    SoundTrack::Destroy();
 
     for (size_t i = 0; i < musicTracks.size(); ++i)
     {
@@ -354,6 +757,14 @@ void musicclass::destroy(void)
 
     pppppp_blob.clear();
     mmmmmm_blob.clear();
+    if (masteringvoice != NULL)
+    {
+        FAudioVoice_DestroyVoice(masteringvoice);
+    }
+    if (faudioctx != NULL)
+    {
+        FAudio_Release(faudioctx);
+    }
 }
 
 void musicclass::play(int t)

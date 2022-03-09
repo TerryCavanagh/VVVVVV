@@ -135,6 +135,8 @@ if(BUNDLE_DEPENDENCIES)
         ../third_party/physfs/extras
         ../third_party/lodepng
         ../third_party/utfcpp/source
+        ../third_party/FAudio/include
+        ../third_party/FAudio/src
     )
 else()
     target_include_directories(
@@ -142,6 +144,7 @@ else()
         src
         ../third_party/lodepng
         ../third_party/physfs/extras
+        ../third_party/FAudio/src
     )
 endif()
 
@@ -158,6 +161,13 @@ endif()
 
 set(XML2_SRC
     ../third_party/tinyxml2/tinyxml2.cpp
+)
+set(FAUDIO_SRC
+    ../third_party/FAudio/src/FAudio.c
+    ../third_party/FAudio/src/FAudio_internal.c
+    ../third_party/FAudio/src/FAudio_internal_simd.c
+    ../third_party/FAudio/src/FAudio_operationset.c
+    ../third_party/FAudio/src/FAudio_platform_sdl2.c
 )
 set(PFS_SRC
     ../third_party/physfs/src/physfs.c
@@ -289,12 +299,17 @@ if(BUNDLE_DEPENDENCIES)
     target_compile_definitions(physfs-static PRIVATE
         -DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1
     )
+    add_library(faudio-static STATIC ${FAUDIO_SRC})
+    target_include_directories(
+        faudio-static PRIVATE
+        ../third_party/FAudio/include
+    )
 
-    target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static)
+    target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static faudio-static)
 else()
     find_package(utf8cpp CONFIG)
 
-    target_link_libraries(VVVVVV physfs tinyxml2 utf8cpp lodepng-static)
+    target_link_libraries(VVVVVV physfs tinyxml2 utf8cpp lodepng-static FAudio)
 endif()
 
 # SDL2 Dependency (Detection pulled from FAudio)
@@ -302,24 +317,41 @@ if(DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
     message(STATUS "Using pre-defined SDL2 variables SDL2_INCLUDE_DIRS and SDL2_LIBRARIES")
     target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
     target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
+    if(BUNDLE_DEPENDENCIES)
+        target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+        target_link_libraries(faudio-static ${SDL2_LIBRARIES})
+    endif()
 elseif (EMSCRIPTEN)
     message(STATUS "Using Emscripten SDL2")
-    target_compile_options(VVVVVV PUBLIC -sUSE_SDL=2 -sUSE_SDL_MIXER=2)
-    target_link_libraries(VVVVVV -sUSE_SDL=2 -sUSE_SDL_MIXER=2)
+    target_compile_options(VVVVVV PUBLIC -sUSE_SDL=2)
+    target_link_libraries(VVVVVV -sUSE_SDL=2)
+    if(BUNDLE_DEPENDENCIES)
+        target_compile_options(faudio-static PUBLIC -sUSE_SDL=2)
+        target_link_libraries(faudio-static -sUSE_SDL=2)
+    endif()
 else()
     # Only try to autodetect if both SDL2 variables aren't explicitly set
     find_package(SDL2 CONFIG)
     if(TARGET SDL2::SDL2)
         message(STATUS "Using TARGET SDL2::SDL2")
-        target_link_libraries(VVVVVV SDL2::SDL2 SDL2_mixer)
+        target_link_libraries(VVVVVV SDL2::SDL2)
+        if(BUNDLE_DEPENDENCIES)
+            target_link_libraries(faudio-static SDL2::SDL2)
+        endif()
     elseif(TARGET SDL2)
         message(STATUS "Using TARGET SDL2")
-        target_link_libraries(VVVVVV SDL2 SDL2_mixer)
+        target_link_libraries(VVVVVV SDL2)
+        if(BUNDLE_DEPENDENCIES)
+            target_link_libraries(faudio-static SDL2)
+        endif()
     else()
         message(STATUS "No TARGET SDL2::SDL2, or SDL2, using variables")
-        find_path(SDL2_MIXER_INCLUDE_DIRS NAMES SDL_mixer.h PATH_SUFFIXES SDL2)
-        target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>" ${SDL2_MIXER_INCLUDE_DIRS})
-        target_link_libraries(VVVVVV ${SDL2_LIBRARIES} SDL2_mixer)
+        target_include_directories(VVVVVV SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+        target_link_libraries(VVVVVV ${SDL2_LIBRARIES})
+        if(BUNDLE_DEPENDENCIES)
+            target_include_directories(faudio-static SYSTEM PRIVATE "$<BUILD_INTERFACE:${SDL2_INCLUDE_DIRS}>")
+            target_link_libraries(faudio-static ${SDL2_LIBRARIES})
+        endif()
     endif()
 endif()
 

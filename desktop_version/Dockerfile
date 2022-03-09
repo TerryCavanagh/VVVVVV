@@ -5,9 +5,6 @@ WORKDIR /tmp
 RUN curl -O https://www.libsdl.org/release/SDL2-2.0.20.tar.gz
 RUN tar -xf SDL2-2.0.20.tar.gz
 RUN mkdir SDL2-2.0.20/build
-RUN curl -O https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.4.tar.gz
-RUN tar -xf SDL2_mixer-2.0.4.tar.gz
-RUN mkdir SDL2_mixer-2.0.4/build
 
 # add EPEL (for SDL2)
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -30,12 +27,7 @@ RUN ../configure
 RUN make -j $(nproc)
 RUN make install
 
-WORKDIR /tmp/SDL2_mixer-2.0.4/build
-RUN ../configure
-RUN make -j $(nproc)
-RUN make install
-
 WORKDIR /tmp
-RUN rm -rf SDL2-2.0.20.tar.gz SDL2-2.0.20/ SDL2_mixer-2.0.4.tar.gz SDL2_mixer-2.0.4/
+RUN rm -rf SDL2-2.0.20.tar.gz SDL2-2.0.20/
 
 WORKDIR /
