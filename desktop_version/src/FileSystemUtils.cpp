@@ -34,6 +34,8 @@ static int mkdir(char* path, int mode)
 #define MAX_PATH PATH_MAX
 #endif
 
+static const char* pathSep = NULL;
+static char* basePath = NULL;
 static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
 
@@ -63,9 +65,8 @@ static const PHYSFS_Allocator allocator = {
 int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
 {
     char output[MAX_PATH];
-    int retval;
-    const char* pathSep = PHYSFS_getDirSeparator();
-    char* basePath;
+
+    pathSep = PHYSFS_getDirSeparator();
 
     PHYSFS_setAllocator(&allocator);
 
@@ -170,8 +171,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
             "\nor get it from the free Make and Play Edition.",
             NULL
         );
-        retval = 0;
-        goto end;
+        return 0;
     }
 
     SDL_snprintf(output, sizeof(output), "%s%s", basePath, "gamecontrollerdb.txt");
@@ -179,11 +179,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
     {
         vlog_info("gamecontrollerdb.txt not found!");
     }
-    retval = 1;
-
-end:
-    SDL_free(basePath);
-    return retval;
+    return 1;
 }
 
 static unsigned char* stdin_buffer = NULL;
@@ -200,6 +196,8 @@ void FILESYSTEM_deinit(void)
         SDL_free(stdin_buffer);
         stdin_buffer = NULL;
     }
+    SDL_free(basePath);
+    basePath = NULL;
 }
 
 char *FILESYSTEM_getUserSaveDirectory(void)
