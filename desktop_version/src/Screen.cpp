@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 
+#include "Constants.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
 #include "GraphicsUtil.h"
@@ -10,8 +11,8 @@
 
 void ScreenSettings_default(struct ScreenSettings* _this)
 {
-    _this->windowWidth = 320;
-    _this->windowHeight = 240;
+    _this->windowWidth = SCREEN_WIDTH_PIXELS;
+    _this->windowHeight = SCREEN_HEIGHT_PIXELS;
     _this->fullscreen = false;
     _this->useVsync = true; // Now that uncapped is the default...
     _this->scalingMode = SCALING_INTEGER;
@@ -57,8 +58,8 @@ void Screen::init(const struct ScreenSettings* settings)
     // FIXME: This surface should be the actual backbuffer! -flibit
     m_screen = SDL_CreateRGBSurface(
         0,
-        320,
-        240,
+        SCREEN_WIDTH_PIXELS,
+        SCREEN_HEIGHT_PIXELS,
         32,
         0x00FF0000,
         0x0000FF00,
@@ -69,8 +70,8 @@ void Screen::init(const struct ScreenSettings* settings)
         m_renderer,
         SDL_PIXELFORMAT_ARGB8888,
         SDL_TEXTUREACCESS_STREAMING,
-        320,
-        240
+        SCREEN_WIDTH_PIXELS,
+        SCREEN_HEIGHT_PIXELS
     );
 
     badSignalEffect = settings->badSignal;
@@ -131,8 +132,8 @@ void Screen::LoadIcon(void)
 
 void Screen::ResizeScreen(int x, int y)
 {
-    static int resX = 320;
-    static int resY = 240;
+    static int resX = SCREEN_WIDTH_PIXELS;
+    static int resY = SCREEN_HEIGHT_PIXELS;
     if (x != -1 && y != -1)
     {
         // This is a user resize!
@@ -182,7 +183,7 @@ void Screen::ResizeScreen(int x, int y)
     }
     else
     {
-        SDL_RenderSetLogicalSize(m_renderer, 320, 240);
+        SDL_RenderSetLogicalSize(m_renderer, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
         int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == SCALING_INTEGER));
         if (result != 0)
         {
@@ -206,14 +207,14 @@ void Screen::ResizeToNearestMultiple(void)
     {
         // Width is bigger, so it's limited by height
         usethisdimension = h;
-        usethisratio = 240;
+        usethisratio = SCREEN_HEIGHT_PIXELS;
         using_width = false;
     }
     else
     {
         // Height is bigger, so it's limited by width. Or we're exactly 4:3 already
         usethisdimension = w;
-        usethisratio = 320;
+        usethisratio = SCREEN_WIDTH_PIXELS;
         using_width = true;
     }
 
@@ -236,7 +237,7 @@ void Screen::ResizeToNearestMultiple(void)
     if (final_dimension == 0)
     {
         // We're way too small!
-        ResizeScreen(320, 240);
+        ResizeScreen(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
         return;
     }
 
@@ -348,8 +349,8 @@ void Screen::toggleLinearFilter(void)
         m_renderer,
         SDL_PIXELFORMAT_ARGB8888,
         SDL_TEXTUREACCESS_STREAMING,
-        320,
-        240
+        SCREEN_WIDTH_PIXELS,
+        SCREEN_HEIGHT_PIXELS
     );
 }
 
