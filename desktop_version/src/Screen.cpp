@@ -253,7 +253,13 @@ void Screen::ResizeToNearestMultiple(void)
 
 void Screen::GetWindowSize(int* x, int* y)
 {
-    SDL_GetRendererOutputSize(m_renderer, x, y);
+    if (SDL_GetRendererOutputSize(m_renderer, x, y) != 0)
+    {
+        vlog_error("Could not get window size: %s", SDL_GetError());
+        /* Initialize to safe defaults */
+        *x = SCREEN_WIDTH_PIXELS;
+        *y = SCREEN_HEIGHT_PIXELS;
+    }
 }
 
 void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect )
