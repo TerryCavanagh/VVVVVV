@@ -4024,12 +4024,16 @@ void Game::unlocknum( int t )
 #endif
 }
 
+static bool stats_loaded = false;
+
 void Game::loadstats(struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
     tinyxml2::XMLElement* dataNode;
+
+    stats_loaded = true;
 
     if (!FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc))
     {
@@ -4340,7 +4344,15 @@ bool Game::savestats(bool sync /*= true*/)
 bool Game::savestats(const struct ScreenSettings* screen_settings, bool sync /*= true*/)
 {
     tinyxml2::XMLDocument doc;
-    bool already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
+    bool already_exists;
+
+    if (!stats_loaded)
+    {
+        vlog_warn("Stats not loaded! Not writing unlock.vvv.");
+        return false;
+    }
+
+    already_exists = FILESYSTEM_loadTiXml2Document("saves/unlock.vvv", doc);
     if (!already_exists)
     {
         vlog_info("No unlock.vvv found. Creating new file");
@@ -4567,11 +4579,15 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     xml::update_tag(dataNode, "controllerSensitivity", key.sensitivity);
 }
 
+static bool settings_loaded = false;
+
 void Game::loadsettings(struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* dataNode;
+
+    settings_loaded = true;
 
     if (!FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc))
     {
@@ -4606,7 +4622,15 @@ bool Game::savesettings(void)
 bool Game::savesettings(const struct ScreenSettings* screen_settings)
 {
     tinyxml2::XMLDocument doc;
-    bool already_exists = FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc);
+    bool already_exists;
+
+    if (!settings_loaded)
+    {
+        vlog_warn("Settings not loaded! Not writing settings.vvv.");
+        return false;
+    }
+
+    already_exists = FILESYSTEM_loadTiXml2Document("saves/settings.vvv", doc);
     if (!already_exists)
     {
         vlog_info("No settings.vvv found. Creating new file");
