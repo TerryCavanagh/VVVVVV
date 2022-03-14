@@ -185,7 +185,7 @@ if(APPLE)
     # Are you noticing a pattern with this Apple crap yet?
     set(PFS_SRC ${PFS_SRC} ../third_party/physfs/physfs_platform_apple.m)
 endif()
-set(PNG_SRC ../third_party/lodepng/lodepng.c)
+set(PNG_SRC src/lodepng_wrapper.c)
 
 if(NOT OFFICIAL_BUILD)
     # Add interim commit hash and its date to the build
