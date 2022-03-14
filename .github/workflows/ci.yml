@@ -18,6 +18,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+      with:
+        submodules: true
 
     - name: Install dependencies
       run: brew install ninja sdl2 sdl2_mixer
@@ -70,6 +72,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+      with:
+        submodules: true
 
     - name: CMake configure (default version)
       run: |
@@ -118,6 +122,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+      with:
+        submodules: true
 
     - name: Cache SDL
       uses: actions/cache@v2
