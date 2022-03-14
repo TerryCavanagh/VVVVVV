@@ -697,7 +697,10 @@ int main(int argc, char *argv[])
 static void cleanup(void)
 {
     /* Order matters! */
-    game.savestatsandsettings();
+    if (FILESYSTEM_isInit()) /* not necessary but silences logs */
+    {
+        game.savestatsandsettings();
+    }
     gameScreen.destroy();
     graphics.grphx.destroy();
     graphics.destroy_buffers();

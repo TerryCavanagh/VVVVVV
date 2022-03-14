@@ -186,6 +186,11 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath)
     return 1;
 }
 
+bool FILESYSTEM_isInit(void)
+{
+    return isInit;
+}
+
 static unsigned char* stdin_buffer = NULL;
 static size_t stdin_length = 0;
 
