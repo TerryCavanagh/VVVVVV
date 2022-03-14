@@ -1,3 +1,6 @@
 [submodule "third_party/lodepng"]
 	path = third_party/lodepng
 	url = https://github.com/lvandeve/lodepng
+[submodule "third_party/physfs"]
+	path = third_party/physfs
+	url = https://github.com/icculus/physfs/
