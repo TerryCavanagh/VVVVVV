@@ -25,7 +25,17 @@ if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
 endif()
 
 if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
-    message(WARNING "Your CMake version is too old; set -std=c90 -std=c++98 yourself!")
+    message(WARNING "Your CMake version is too old; using workaround")
+
+    if(MSVC)
+        # MSVC doesn't have /std:c90 or /std:c++98 switches!
+    else()
+        string(REGEX REPLACE "-std=[a-z0-9]+" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c90")
+
+        string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
+    endif()
 else()
     set(CMAKE_C_STANDARD 90)
     set(CMAKE_C_EXTENSIONS OFF)
