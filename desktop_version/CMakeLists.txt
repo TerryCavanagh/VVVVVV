@@ -248,27 +248,9 @@ if(MSVC)
     target_compile_options(VVVVVV PRIVATE /wd4244)
 endif()
 
-if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
-    message(WARNING "Your CMake version is too old; using workaround")
-
-    if(MSVC)
-        # MSVC doesn't have /std:c99 or /std:c++98 switches!
-    else()
-        string(REGEX REPLACE "-std=[a-z0-9]+" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
-
-        string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
-    endif()
-else()
-    set(CMAKE_C_STANDARD 99)
-    set(CMAKE_C_EXTENSIONS OFF)
-
-    set(CMAKE_CXX_STANDARD 98)
-    set(CMAKE_CXX_EXTENSIONS OFF)
-endif()
-
 if(MSVC)
+    # MSVC doesn't have /std:c99 or /std:c++98 switches!
+
     # Disable exceptions
     string(REGEX REPLACE "/EH[a-z]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
@@ -277,6 +259,12 @@ if(MSVC)
     string(REPLACE "/GR" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GR-")
 else()
+    string(REGEX REPLACE "-std=[a-z0-9]+" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+
+    string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
+
     # Disable exceptions
     string(REPLACE "-fexceptions" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
