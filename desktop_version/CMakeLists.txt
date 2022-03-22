@@ -28,16 +28,16 @@ if(${CMAKE_VERSION} VERSION_LESS "3.1.3")
     message(WARNING "Your CMake version is too old; using workaround")
 
     if(MSVC)
-        # MSVC doesn't have /std:c90 or /std:c++98 switches!
+        # MSVC doesn't have /std:c99 or /std:c++98 switches!
     else()
         string(REGEX REPLACE "-std=[a-z0-9]+" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c90")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 
         string(REGEX REPLACE "-std=[a-z0-9+]+" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
     endif()
 else()
-    set(CMAKE_C_STANDARD 90)
+    set(CMAKE_C_STANDARD 99)
     set(CMAKE_C_EXTENSIONS OFF)
 
     set(CMAKE_CXX_STANDARD 98)
@@ -301,12 +301,6 @@ if(BUNDLE_DEPENDENCIES)
     target_compile_definitions(physfs-static PRIVATE
         -DPHYSFS_SUPPORTS_DEFAULT=0 -DPHYSFS_SUPPORTS_ZIP=1
     )
-
-    # PhysFS needs some extensions...
-    if(${CMAKE_VERSION} VERSION_GREATER "3.1.3"
-    OR ${CMAKE_VERSION} VERSION_EQUAL "3.1.3")
-        set_property(TARGET physfs-static PROPERTY C_EXTENSIONS ON)
-    endif()
 
     target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static)
 else()
