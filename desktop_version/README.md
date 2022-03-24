@@ -8,9 +8,8 @@ VVVVVV's official desktop versions are built with the following environments:
 
 The engine depends solely on [SDL2](https://libsdl.org/) 2.0.20+. All other dependencies
 are statically linked into the engine. The development libraries for Windows can
-be downloaded from their respective websites, Linux developers can find the dev
-libraries from their respective repositories, and macOS developers should
-compile and install from source (including libogg/libvorbis/libvorbisfile).
+be downloaded from SDL's website, Linux developers can find the dev libraries from their
+respective repositories, and macOS developers should compile and install from source.
 (If you're on Ubuntu and your Ubuntu is too old to have this SDL version, then
 [see here](https://github.com/TerryCavanagh/VVVVVV/issues/618#issuecomment-968338212)
 for workarounds.)
