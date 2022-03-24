@@ -244,10 +244,22 @@ void musicclass::init(void)
             int index;
             SDL_RWops* rw;
 
-#define FOREACH_TRACK(blob, track_name) \
+#define TRACK_LOAD_BLOB(blob, track_name) \
     index = blob.getIndex("data/" track_name); \
-    rw = SDL_RWFromMem(blob.getAddress(index), blob.getSize(index)); \
-    musicTracks.push_back(MusicTrack( rw ));
+    if (index >= 0 && index < blob.max_headers) \
+    { \
+        rw = SDL_RWFromConstMem(blob.getAddress(index), blob.getSize(index)); \
+        if (rw == NULL) \
+        { \
+            vlog_error("Unable to read music file header: %s", SDL_GetError()); \
+        } \
+        else \
+        { \
+            musicTracks.push_back(MusicTrack(rw)); \
+        } \
+    }
+
+#define FOREACH_TRACK(blob, track_name) TRACK_LOAD_BLOB(blob, track_name)
 
             TRACK_NAMES(pppppp_blob)
 
@@ -258,9 +270,17 @@ void musicclass::init(void)
             vlog_info("Loading music from loose files...");
 
             SDL_RWops* rw;
+
 #define FOREACH_TRACK(_, track_name) \
     rw = PHYSFSRWOPS_openRead(track_name); \
-    musicTracks.push_back(MusicTrack( rw ));
+    if (rw == NULL) \
+    { \
+        vlog_error("Unable to read loose music file: %s", SDL_GetError()); \
+    } \
+    else \
+    { \
+        musicTracks.push_back(MusicTrack(rw)); \
+    }
 
             TRACK_NAMES(_)
 
@@ -273,22 +293,9 @@ void musicclass::init(void)
 
         mmmmmm = true;
         int index;
-        SDL_RWops *rw;
+        SDL_RWops* rw;
 
-#define FOREACH_TRACK(blob, track_name) \
-    index = blob.getIndex("data/" track_name); \
-    if (index >= 0 && index < blob.max_headers) \
-    { \
-        rw = SDL_RWFromConstMem(blob.getAddress(index), blob.getSize(index)); \
-        if (rw == NULL) \
-        { \
-            vlog_error("Unable to read music file header: %s", SDL_GetError()); \
-        } \
-        else \
-        { \
-            musicTracks.push_back(MusicTrack( rw )); \
-        } \
-    }
+#define FOREACH_TRACK(blob, track_name) TRACK_LOAD_BLOB(blob, track_name)
 
         TRACK_NAMES(mmmmmm_blob)
 
@@ -310,6 +317,7 @@ void musicclass::init(void)
     TRACK_NAMES(pppppp_blob)
 
 #undef FOREACH_TRACK
+#undef TRACK_LOAD_BLOB
     }
 
     num_pppppp_tracks += musicTracks.size() - num_mmmmmm_tracks;
