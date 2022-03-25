@@ -64,7 +64,7 @@ jobs:
     name: Build (CentOS 7)
 
     runs-on: ubuntu-latest
-    container: ghcr.io/infoteddy/vvvvvv-build@sha256:edb1636c49386d0f929722cd0d8a618d897d23af33c754f2b0d3593ceb994629
+    container: ghcr.io/infoteddy/vvvvvv-build@sha256:641092ceb715783183ff3cb6ec4932aecfa2161d135195c29e72c2ad665a4619
 
     env:
       CXXFLAGS: -I/usr/local/include/SDL2
