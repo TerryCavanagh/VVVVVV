@@ -522,16 +522,16 @@ bool FILESYSTEM_mountAssets(const char* path)
 
     VVV_between(path, "levels/", filename, ".vvvvvv");
 
-    /* Check for a zipped up pack only containing assets first */
     SDL_snprintf(
         virtual_path,
         sizeof(virtual_path),
-        "levels/%s.data.zip",
+        "levels/%s.zip",
         filename
     );
     if (FILESYSTEM_exists(virtual_path))
     {
-        vlog_info("Asset directory is .data.zip at %s", virtual_path);
+        /* This is a full zipped-up level including assets */
+        vlog_info("Asset directory is .zip at %s", virtual_path);
 
         if (!FILESYSTEM_mountAssetsFrom(virtual_path))
         {
@@ -542,16 +542,16 @@ bool FILESYSTEM_mountAssets(const char* path)
     }
     else
     {
+        /* If it's not a level, look for a level folder */
         SDL_snprintf(
             virtual_path,
             sizeof(virtual_path),
-            "levels/%s.zip",
+            "levels/%s/",
             filename
         );
         if (FILESYSTEM_exists(virtual_path))
         {
-            /* This is a full zipped-up level including assets */
-            vlog_info("Asset directory is .zip at %s", virtual_path);
+            vlog_info("Asset directory exists at %s", virtual_path);
 
             if (!FILESYSTEM_mountAssetsFrom(virtual_path))
             {
@@ -562,29 +562,8 @@ bool FILESYSTEM_mountAssets(const char* path)
         }
         else
         {
-            /* If it's not a level or base zip, look for a level folder */
-            SDL_snprintf(
-                virtual_path,
-                sizeof(virtual_path),
-                "levels/%s/",
-                filename
-            );
-            if (FILESYSTEM_exists(virtual_path))
-            {
-                vlog_info("Asset directory exists at %s", virtual_path);
-
-                if (!FILESYSTEM_mountAssetsFrom(virtual_path))
-                {
-                    return false;
-                }
-
-                MAYBE_FAIL(graphics.reloadresources());
-            }
-            else
-            {
-                /* Wasn't a level zip, base zip, or folder! */
-                vlog_debug("Asset directory does not exist");
-            }
+            /* Wasn't a level zip or folder! */
+            vlog_debug("Asset directory does not exist");
         }
     }
 
