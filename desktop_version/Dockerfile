@@ -13,8 +13,6 @@ RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
 RUN yum -y install \
     # used below
     yum-utils \
-    # SDL2_mixer dependencies
-    libogg-devel libvorbis-devel \
     # VVVVVV dependencies
     gcc-c++ cmake make
 
