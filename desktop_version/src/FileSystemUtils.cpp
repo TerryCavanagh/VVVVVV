@@ -352,156 +352,9 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
     return true;
 }
 
-struct ArchiveState
-{
-    const char* filename;
-    bool has_extension;
-    bool other_level_files;
-};
-
-static PHYSFS_EnumerateCallbackResult zipCheckCallback(
-    void* data,
-    const char* origdir,
-    const char* filename
-) {
-    struct ArchiveState* state = (struct ArchiveState*) data;
-    const bool has_extension = endsWith(filename, ".vvvvvv");
-    UNUSED(origdir);
-
-    if (!state->has_extension)
-    {
-        state->has_extension = has_extension;
-    }
-    if (!state->other_level_files && has_extension)
-    {
-        state->other_level_files = SDL_strcmp(
-            state->filename,
-            filename
-        ) != 0;
-    }
-
-    if (state->has_extension && state->other_level_files)
-    {
-        /* We don't need to check any more files. */
-        return PHYSFS_ENUM_STOP;
-    }
-    return PHYSFS_ENUM_OK;
-}
-
-/* For technical reasons, the level file inside a zip named LEVELNAME.zip must
- * be named LEVELNAME.vvvvvv, else its custom assets won't work;
- * if there are .vvvvvv files other than LEVELNAME.vvvvvv, they would be loaded
- * too but they won't load any assets
- *
- * For user-friendliness, we check this upfront and reject all zips that don't
- * conform to this (regardless of them containing assets or not) - otherwise a
- * level zip with assets can be played but its assets mysteriously won't work
- */
-static bool checkZipStructure(const char* filename)
-{
-    const char* real_dir = PHYSFS_getRealDir(filename);
-    char base_name[MAX_PATH];
-    char base_name_suffixed[MAX_PATH];
-    char real_path[MAX_PATH];
-    char mount_path[MAX_PATH];
-    char check_path[MAX_PATH];
-    char random_str[6 + 1];
-    bool success;
-    bool file_exists;
-    struct ArchiveState zip_state;
-
-    if (real_dir == NULL)
-    {
-        vlog_error(
-            "Could not check %s: real directory doesn't exist",
-            filename
-        );
-        return false;
-    }
-
-    SDL_snprintf(real_path, sizeof(real_path), "%s/%s", real_dir, filename);
-
-    generateBase36(random_str, sizeof(random_str));
-    SDL_snprintf(mount_path, sizeof(mount_path), ".vvv-mnt-temp-%s/", random_str);
-
-    if (!PHYSFS_mount(real_path, mount_path, 1))
-    {
-        vlog_error(
-            "Error mounting and checking %s: %s",
-            filename,
-            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
-        );
-        return false;
-    }
-
-    VVV_between(filename, "levels/", base_name, ".zip");
-
-    SDL_snprintf(
-        base_name_suffixed,
-        sizeof(base_name_suffixed),
-        "%s.vvvvvv",
-        base_name
-    );
-
-    SDL_snprintf(
-        check_path,
-        sizeof(check_path),
-        "%s%s",
-        mount_path,
-        base_name_suffixed
-    );
-
-    file_exists = PHYSFS_exists(check_path);
-    success = file_exists;
-
-    SDL_zero(zip_state);
-    zip_state.filename = base_name_suffixed;
-
-    PHYSFS_enumerate(mount_path, zipCheckCallback, (void*) &zip_state);
-
-    /* If no .vvvvvv files in zip, don't print warning. */
-    if (!success && zip_state.has_extension)
-    {
-        setLevelDirError(
-            "%s.zip is not structured correctly! It is missing %s.vvvvvv.",
-            base_name,
-            base_name
-        );
-    }
-
-    success &= !zip_state.other_level_files;
-
-    /* ...But if other .vvvvvv file(s), do print warning. */
-    /* This message is redundant if the correct file already DOESN'T exist. */
-    if (file_exists && zip_state.other_level_files)
-    {
-        setLevelDirError(
-            "%s.zip is not structured correctly! It has .vvvvvv file(s) other than %s.vvvvvv.",
-            base_name,
-            base_name
-        );
-    }
-
-    if (!PHYSFS_unmount(real_path))
-    {
-        vlog_error(
-            "Could not unmount %s: %s",
-            mount_path,
-            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
-        );
-    }
-
-    return success;
-}
-
 void FILESYSTEM_loadZip(const char* filename)
 {
     PHYSFS_File* zip = PHYSFS_openRead(filename);
-
-    if (!checkZipStructure(filename))
-    {
-        return;
-    }
 
     if (!PHYSFS_mountHandle(zip, filename, "levels", 1))
     {
@@ -517,23 +370,16 @@ void FILESYSTEM_unmountAssets(void);
 
 bool FILESYSTEM_mountAssets(const char* path)
 {
-    char filename[MAX_PATH];
-    char virtual_path[MAX_PATH];
+    const char* real_dir = PHYSFS_getRealDir(path);
 
-    VVV_between(path, "levels/", filename, ".vvvvvv");
-
-    SDL_snprintf(
-        virtual_path,
-        sizeof(virtual_path),
-        "levels/%s.zip",
-        filename
-    );
-    if (FILESYSTEM_exists(virtual_path))
+    if (real_dir != NULL &&
+    SDL_strncmp(real_dir, "levels/", sizeof("levels/") - 1) == 0 &&
+    endsWith(real_dir, ".zip"))
     {
-        /* This is a full zipped-up level including assets */
-        vlog_info("Asset directory is .zip at %s", virtual_path);
+        /* This is a level zip */
+        vlog_info("Asset directory is .zip at %s", real_dir);
 
-        if (!FILESYSTEM_mountAssetsFrom(virtual_path))
+        if (!FILESYSTEM_mountAssetsFrom(real_dir))
         {
             return false;
         }
@@ -542,13 +388,19 @@ bool FILESYSTEM_mountAssets(const char* path)
     }
     else
     {
-        /* If it's not a level, look for a level folder */
+        /* If it's not a zip, look for a level folder */
+        char filename[MAX_PATH];
+        char virtual_path[MAX_PATH];
+
+        VVV_between(path, "levels/", filename, ".vvvvvv");
+
         SDL_snprintf(
             virtual_path,
             sizeof(virtual_path),
             "levels/%s/",
             filename
         );
+
         if (FILESYSTEM_exists(virtual_path))
         {
             vlog_info("Asset directory exists at %s", virtual_path);
