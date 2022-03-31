@@ -174,7 +174,7 @@ end:
         }
     }
 
-    static void Init(int audio_rate, int audio_channels)
+    static void Init(int audio_rate)
     {
         if (voices == NULL)
         {
@@ -594,7 +594,7 @@ void musicclass::init(void)
         return;
     }
 
-    SoundTrack::Init(44100, 2);
+    SoundTrack::Init(44100);
 
     soundTracks.push_back(SoundTrack( "sounds/jump.wav" ));
     soundTracks.push_back(SoundTrack( "sounds/jump2.wav" ));
