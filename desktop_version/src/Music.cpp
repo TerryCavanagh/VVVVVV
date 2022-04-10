@@ -357,6 +357,7 @@ end:
             FAudioSourceVoice_FlushSourceBuffers(musicVoice);
             FAudioVoice_DestroyVoice(musicVoice);
             musicVoice = NULL;
+            paused = true;
         }
     }
 
@@ -370,7 +371,13 @@ end:
         if (!IsHalted())
         {
             FAudioSourceVoice_Stop(musicVoice, 0, FAUDIO_COMMIT_NOW);
+            paused = true;
         }
+    }
+
+    static bool IsPaused()
+    {
+        return paused || IsHalted();
     }
 
     static void Resume()
@@ -378,6 +385,7 @@ end:
         if (!IsHalted())
         {
             FAudioSourceVoice_Start(musicVoice, 0, FAUDIO_COMMIT_NOW);
+            paused = false;
         }
     }
 
@@ -406,6 +414,7 @@ end:
     bool shouldloop;
     bool valid;
 
+    static bool paused;
     static FAudioSourceVoice* musicVoice;
 
     static void refillReserve(FAudioVoiceCallback* callback, void* ctx)
@@ -560,7 +569,7 @@ end:
         return (result * 60 + val) * samplerate_hz;
     }
 };
-
+bool MusicTrack::paused = false;
 FAudioSourceVoice* MusicTrack::musicVoice = NULL;
 
 musicclass::musicclass(void)
@@ -1130,7 +1139,7 @@ void musicclass::resumeef(void)
 
 bool musicclass::halted(void)
 {
-    return MusicTrack::IsHalted();
+    return MusicTrack::IsPaused();
 }
 
 void musicclass::updatemutestate(void)
