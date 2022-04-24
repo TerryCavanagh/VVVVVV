@@ -1886,24 +1886,24 @@ void titleinput(void)
             game.press_right = true;
         }
     }
-    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip)) game.press_action = true;
+    if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_menuAccept)) game.press_action = true;
     //|| key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.press_action = true; //on menus, up and down don't work as action
     if (key.isDown(KEYBOARD_ENTER)) game.press_map = true;
 
     //In the menu system, all keypresses are single taps rather than holds. Therefore this test has to be done for all presses
-    if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_esc)) game.jumpheld = false;
+    if (!game.press_action && !game.press_left && !game.press_right && !key.isDown(27) && !key.isDown(game.controllerButton_menuBack)) game.jumpheld = false;
     if (!game.press_map) game.mapheld = false;
 
     if (!game.jumpheld && graphics.fademode==0)
     {
-        if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_esc))
+        if (game.press_action || game.press_left || game.press_right || game.press_map || key.isDown(27) || key.isDown(game.controllerButton_menuBack))
         {
             game.jumpheld = true;
         }
 
         if (game.menustart
         && game.menucountdown <= 0
-        && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
+        && (key.isDown(27) || key.isDown(game.controllerButton_menuBack)))
         {
             music.playef(11);
             if (game.currentmenuname == Menu::mainmenu)
@@ -2526,7 +2526,7 @@ void mapinput(void)
         {
             game.press_right = true;
         }
-        if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_flip))
+        if (key.isDown(KEYBOARD_z) || key.isDown(KEYBOARD_SPACE) || key.isDown(KEYBOARD_v) || key.isDown(game.controllerButton_menuAccept))
         {
             game.press_action = true;
         }

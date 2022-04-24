@@ -26,6 +26,9 @@
 #include "Vlogging.h"
 #include "XMLUtils.h"
 
+static std::vector<SDL_GameControllerButton> defaultGameControllerMenuAccept;
+static std::vector<SDL_GameControllerButton> defaultGameControllerMenuBack;
+
 static std::vector<SDL_GameControllerButton> defaultGameControllerFlip;
 static std::vector<SDL_GameControllerButton> defaultGameControllerMap;
 static std::vector<SDL_GameControllerButton> defaultGameControllerEsc;
@@ -33,6 +36,9 @@ static std::vector<SDL_GameControllerButton> defaultGameControllerRestart;
 static std::vector<SDL_GameControllerButton> defaultGameControllerInteract;
 
 static void initDefaultGameControllerButtons() {
+    defaultGameControllerMenuAccept.push_back(SDL_CONTROLLER_BUTTON_A);
+    defaultGameControllerMenuBack.push_back(SDL_CONTROLLER_BUTTON_B);
+
     defaultGameControllerFlip.push_back(SDL_CONTROLLER_BUTTON_A);
 
     defaultGameControllerMap.push_back(SDL_CONTROLLER_BUTTON_Y);
@@ -46,6 +52,16 @@ static void initDefaultGameControllerButtons() {
 }
 
 void Game::applyDefaultGameControllerButtons() {
+    if (controllerButton_menuAccept.size() < 1) {
+        for (size_t i = 0; i < defaultGameControllerMenuAccept.size(); ++i) {
+            controllerButton_menuAccept.push_back(defaultGameControllerMenuAccept[i]);
+        }
+    }
+    if (controllerButton_menuBack.size() < 1) {
+        for (size_t i = 0; i < defaultGameControllerMenuBack.size(); ++i) {
+            controllerButton_menuBack.push_back(defaultGameControllerMenuBack[i]);
+        }
+    }
     if (controllerButton_flip.size() < 1)
     {
         for (size_t i = 0; i < defaultGameControllerFlip.size(); ++i) {

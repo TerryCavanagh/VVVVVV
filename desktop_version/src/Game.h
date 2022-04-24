@@ -436,6 +436,9 @@ public:
     std::vector<CustomLevelStat> customlevelstats;
 
 
+    std::vector<SDL_GameControllerButton> controllerButton_menuAccept;
+    std::vector<SDL_GameControllerButton> controllerButton_menuBack;
+
     std::vector<SDL_GameControllerButton> controllerButton_map;
     std::vector<SDL_GameControllerButton> controllerButton_flip;
     std::vector<SDL_GameControllerButton> controllerButton_esc;
