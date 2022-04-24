@@ -4317,10 +4317,12 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
     if (controllerButton_map.size() < 1)
     {
         controllerButton_map.push_back(SDL_CONTROLLER_BUTTON_Y);
+        controllerButton_map.push_back(SDL_CONTROLLER_BUTTON_START);
     }
     if (controllerButton_esc.size() < 1)
     {
         controllerButton_esc.push_back(SDL_CONTROLLER_BUTTON_B);
+        controllerButton_esc.push_back(SDL_CONTROLLER_BUTTON_BACK);
     }
     if (controllerButton_restart.size() < 1)
     {
