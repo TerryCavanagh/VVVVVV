@@ -1515,6 +1515,16 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             break;
 
+        case 5:
+            // if separate_interact has been enabled in the speedrunner options then the interact option will be in this position
+            // if not it's return, so fallthrough to the return option
+            if (game.separate_interact) {
+                break;
+            }
+            music.playef(11);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
         case 6:
             music.playef(11);
             game.returnmenu();
@@ -1971,7 +1981,13 @@ void titleinput(void)
         }
         if (    game.currentmenuname == Menu::controller &&
                 game.currentmenuoption > 0 &&
-                game.currentmenuoption < 6 &&
+                (
+                // if separate_interact has been enabled in the speedrunner options then the interact option will in position 5
+                // if not position 5 will be return
+                 game.separate_interact
+                    ? game.currentmenuoption < 6
+                    : game.currentmenuoption < 5
+                ) &&
                 key.controllerButtonDown()      )
         {
             updatebuttonmappings(game.currentmenuoption);

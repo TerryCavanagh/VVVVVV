@@ -6184,7 +6184,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("bind enter");
         option("bind menu");
         option("bind restart");
-        option("bind interact");
+        if (separate_interact) {
+            option("bind interact");
+        }
         option("return");
         menuyoff = 0;
         maxspacing = 10;

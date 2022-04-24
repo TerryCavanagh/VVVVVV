@@ -589,11 +589,18 @@ static void menurender(void)
         case 3:
         case 4:
         case 5:
+            // if separate_interact has been enabled in the speedrunner options then the interact option will in position 5
+            // if not position 5 will be return
+            if (game.currentmenuoption == 5 && !game.separate_interact) {
+                break;
+            }
             graphics.Print( -1, 75, "Flip is bound to: " + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
             graphics.Print( -1, 85, "Enter is bound to: "  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
             graphics.Print( -1, 95, "Menu is bound to: " + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
             graphics.Print( -1, 105, "Restart is bound to: " + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb, true);
-            graphics.Print( -1, 115, "Interact is bound to: " + std::string(help.GCString(game.controllerButton_interact)) , tr, tg, tb, true);
+            if (game.separate_interact) {
+                graphics.Print( -1, 115, "Interact is bound to: " + std::string(help.GCString(game.controllerButton_interact)) , tr, tg, tb, true);
+            }
             break;
         }
 
