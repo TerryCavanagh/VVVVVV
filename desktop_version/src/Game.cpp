@@ -26,6 +26,58 @@
 #include "Vlogging.h"
 #include "XMLUtils.h"
 
+static std::vector<SDL_GameControllerButton> defaultGameControllerFlip;
+static std::vector<SDL_GameControllerButton> defaultGameControllerMap;
+static std::vector<SDL_GameControllerButton> defaultGameControllerEsc;
+static std::vector<SDL_GameControllerButton> defaultGameControllerRestart;
+static std::vector<SDL_GameControllerButton> defaultGameControllerInteract;
+
+static void initDefaultGameControllerButtons() {
+    defaultGameControllerFlip.push_back(SDL_CONTROLLER_BUTTON_A);
+
+    defaultGameControllerMap.push_back(SDL_CONTROLLER_BUTTON_Y);
+    defaultGameControllerMap.push_back(SDL_CONTROLLER_BUTTON_START);
+
+    defaultGameControllerEsc.push_back(SDL_CONTROLLER_BUTTON_B);
+    defaultGameControllerEsc.push_back(SDL_CONTROLLER_BUTTON_BACK);
+
+    defaultGameControllerRestart.push_back(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
+    defaultGameControllerInteract.push_back(SDL_CONTROLLER_BUTTON_X);
+}
+
+void Game::applyDefaultGameControllerButtons() {
+    if (controllerButton_flip.size() < 1)
+    {
+        for (size_t i = 0; i < defaultGameControllerFlip.size(); ++i) {
+            controllerButton_flip.push_back(defaultGameControllerFlip[i]);
+        }
+    }
+    if (controllerButton_map.size() < 1)
+    {
+        for (size_t i = 0; i < defaultGameControllerMap.size(); ++i) {
+            controllerButton_map.push_back(defaultGameControllerMap[i]);
+        }
+    }
+    if (controllerButton_esc.size() < 1)
+    {
+        for (size_t i = 0; i < defaultGameControllerEsc.size(); ++i) {
+            controllerButton_esc.push_back(defaultGameControllerEsc[i]);
+        }
+    }
+    if (controllerButton_restart.size() < 1)
+    {
+        for (size_t i = 0; i < defaultGameControllerRestart.size(); ++i) {
+            controllerButton_restart.push_back(defaultGameControllerRestart[i]);
+        }
+    }
+    if (controllerButton_interact.size() < 1)
+    {
+        for (size_t i = 0; i < defaultGameControllerInteract.size(); ++i) {
+            controllerButton_interact.push_back(defaultGameControllerInteract[i]);
+        }
+    }
+}
+
 static bool GetButtonFromString(const char *pText, SDL_GameControllerButton *button)
 {
     if (*pText == '0' ||
@@ -367,6 +419,9 @@ void Game::init(void)
     disableaudiopause = false;
     disabletemporaryaudiopause = true;
     inputdelay = false;
+
+    initDefaultGameControllerButtons();
+    applyDefaultGameControllerButtons();
 }
 
 void Game::lifesequence(void)
@@ -4310,28 +4365,17 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 
     }
 
-    if (controllerButton_flip.size() < 1)
-    {
-        controllerButton_flip.push_back(SDL_CONTROLLER_BUTTON_A);
-    }
-    if (controllerButton_map.size() < 1)
-    {
-        controllerButton_map.push_back(SDL_CONTROLLER_BUTTON_Y);
-        controllerButton_map.push_back(SDL_CONTROLLER_BUTTON_START);
-    }
-    if (controllerButton_esc.size() < 1)
-    {
-        controllerButton_esc.push_back(SDL_CONTROLLER_BUTTON_B);
-        controllerButton_esc.push_back(SDL_CONTROLLER_BUTTON_BACK);
-    }
-    if (controllerButton_restart.size() < 1)
-    {
-        controllerButton_restart.push_back(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
-    }
-    if (controllerButton_interact.size() < 1)
-    {
-        controllerButton_interact.push_back(SDL_CONTROLLER_BUTTON_X);
-    }
+    applyDefaultGameControllerButtons();
+}
+
+void Game::resetdefaultgamecontrollerbuttons() {
+    controllerButton_flip.clear();
+    controllerButton_map.clear();
+    controllerButton_esc.clear();
+    controllerButton_restart.clear();
+    controllerButton_interact.clear();
+
+    applyDefaultGameControllerButtons();
 }
 
 bool Game::savestats(bool sync /*= true*/)
@@ -6180,6 +6224,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::controller:
         option("analog stick sensitivity");
+        option("reset bindings");
         option("bind flip");
         option("bind enter");
         option("bind menu");

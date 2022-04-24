@@ -589,9 +589,10 @@ static void menurender(void)
         case 3:
         case 4:
         case 5:
+        case 6:
             // if separate_interact has been enabled in the speedrunner options then the interact option will in position 5
             // if not position 5 will be return
-            if (game.currentmenuoption == 5 && !game.separate_interact) {
+            if (game.currentmenuoption == 6 && !game.separate_interact) {
                 break;
             }
             graphics.Print( -1, 75, "Flip is bound to: " + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);

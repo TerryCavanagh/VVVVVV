@@ -30,7 +30,7 @@ static void updatebuttonmappings(int bind)
             bool dupe = false;
             switch (bind)
             {
-            case 1:
+            case 2:
             {
                 size_t j;
                 for (j = 0; j < game.controllerButton_flip.size(); j += 1)
@@ -75,7 +75,7 @@ static void updatebuttonmappings(int bind)
                 }
                 break;
             }
-            case 2:
+            case 3:
             {
                 size_t j;
                 for (j = 0; j < game.controllerButton_map.size(); j += 1)
@@ -120,7 +120,7 @@ static void updatebuttonmappings(int bind)
                 }
                 break;
             }
-            case 3:
+            case 4:
             {
                 size_t j;
                 for (j = 0; j < game.controllerButton_esc.size(); j += 1)
@@ -165,7 +165,7 @@ static void updatebuttonmappings(int bind)
                 }
                 break;
             }
-            case 4:
+            case 5:
             {
                 size_t j;
                 for (j = 0; j < game.controllerButton_restart.size(); j += 1)
@@ -210,7 +210,7 @@ static void updatebuttonmappings(int bind)
                 }
                 break;
             }
-            case 5:
+            case 6:
             {
                 size_t j;
                 for (j = 0; j < game.controllerButton_interact.size(); j += 1)
@@ -1514,8 +1514,12 @@ static void menuactionpress(void)
             }
             game.savestatsandsettings_menu();
             break;
+        case 1:
+            // reset bindings
+            game.resetdefaultgamecontrollerbuttons();
+            break;
 
-        case 5:
+        case 6:
             // if separate_interact has been enabled in the speedrunner options then the interact option will be in this position
             // if not it's return, so fallthrough to the return option
             if (game.separate_interact) {
@@ -1525,7 +1529,7 @@ static void menuactionpress(void)
             game.returnmenu();
             map.nexttowercolour();
             break;
-        case 6:
+        case 7:
             music.playef(11);
             game.returnmenu();
             map.nexttowercolour();
@@ -1980,13 +1984,13 @@ void titleinput(void)
             }
         }
         if (    game.currentmenuname == Menu::controller &&
-                game.currentmenuoption > 0 &&
+                game.currentmenuoption > 1 &&
                 (
-                // if separate_interact has been enabled in the speedrunner options then the interact option will in position 5
-                // if not position 5 will be return
+                // if separate_interact has been enabled in the speedrunner options then the interact option will in position 6
+                // if not position 6 will be return
                  game.separate_interact
-                    ? game.currentmenuoption < 6
-                    : game.currentmenuoption < 5
+                    ? game.currentmenuoption < 7
+                    : game.currentmenuoption < 6
                 ) &&
                 key.controllerButtonDown()      )
         {

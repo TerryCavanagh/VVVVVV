@@ -174,6 +174,8 @@ public:
 
     void serializesettings(tinyxml2::XMLElement* dataNode, const struct ScreenSettings* screen_settings);
 
+    void resetdefaultgamecontrollerbuttons();
+
     void loadsettings(struct ScreenSettings* screen_settings);
 
     bool savesettings(const struct ScreenSettings* screen_settings);
@@ -487,6 +489,9 @@ public:
     bool disableaudiopause;
     bool disabletemporaryaudiopause;
     bool inputdelay;
+
+private:
+    void applyDefaultGameControllerButtons();
 };
 
 #ifndef GAME_DEFINITION
