@@ -1509,6 +1509,7 @@ void Graphics::processfade(void)
         {
             fademode = FADE_NONE;
         }
+        break;
     case FADE_NONE:
     case FADE_FULLY_BLACK:
         break;
