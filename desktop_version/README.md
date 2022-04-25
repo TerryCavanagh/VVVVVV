@@ -6,7 +6,7 @@ VVVVVV's official desktop versions are built with the following environments:
 - macOS: Xcode CLT, currently targeting 10.9 SDK
 - GNU/Linux: CentOS 7
 
-The engine depends solely on [SDL2](https://libsdl.org/) 2.0.20+. All other dependencies
+The engine depends solely on [SDL2](https://libsdl.org/) 2.0.22+. All other dependencies
 are statically linked into the engine. The development libraries for Windows can
 be downloaded from SDL's website, Linux developers can find the dev libraries from their
 respective repositories, and macOS developers should compile and install from source.
@@ -23,7 +23,7 @@ To generate the projects on Windows:
 # Put your SDL2 folders somewhere nice!
 mkdir flibitBuild
 cd flibitBuild
-cmake -A Win32 -G "Visual Studio 10 2010" .. -DSDL2_INCLUDE_DIRS="C:\SDL2-2.0.20\include" -DSDL2_LIBRARIES="C:\SDL2-2.0.20\lib\x86\SDL2;C:\SDL2-2.0.20\lib\x86\SDL2main"
+cmake -A Win32 -G "Visual Studio 10 2010" .. -DSDL2_INCLUDE_DIRS="C:\SDL2-2.0.22\include" -DSDL2_LIBRARIES="C:\SDL2-2.0.22\lib\x86\SDL2;C:\SDL2-2.0.22\lib\x86\SDL2main"
 ```
 
 Note that on some systems, the `SDL2_LIBRARIES` list on Windows may need
