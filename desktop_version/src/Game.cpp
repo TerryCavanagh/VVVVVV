@@ -1399,7 +1399,10 @@ void Game::updatestate(void)
 
         case 80:
             //Used to return to menu from the game
-            if(graphics.fademode == 1)    state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 81:
             quittomenu();
@@ -1454,13 +1457,16 @@ void Game::updatestate(void)
 
             savestatsandsettings();
 
-            graphics.fademode = 2;
+            graphics.fademode = FADE_START_FADEOUT;
             music.fadeout();
             state++;
             break;
         case 83:
             frames--;
-            if(graphics.fademode == 1)    state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 84:
             quittomenu();
@@ -1537,7 +1543,10 @@ void Game::updatestate(void)
 
         case 96:
             //Used to return to gravitron to game
-            if(graphics.fademode == 1)    state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 97:
             returntolab();
@@ -1924,7 +1933,7 @@ void Game::updatestate(void)
             {
                 if(map.custommodeforreal)
                 {
-                    graphics.fademode = 2;
+                    graphics.fademode = FADE_START_FADEOUT;
                     state=1014;
                 }
 #ifndef NO_EDITOR
@@ -1946,7 +1955,10 @@ void Game::updatestate(void)
 #endif
         case 1014:
             frames--;
-            if(graphics.fademode == 1)    state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 1015:
 #if !defined(NO_CUSTOM_LEVELS)
@@ -2372,12 +2384,12 @@ void Game::updatestate(void)
             }
             break;
         case 3055:
-            graphics.fademode = 2;
+            graphics.fademode = FADE_START_FADEOUT;
             state++;
             statedelay = 10;
             break;
         case 3056:
-            if(graphics.fademode==1)
+            if (graphics.fademode == FADE_FULLY_BLACK)
             {
                 startscript = true;
                 if (crewrescued() == 6)
@@ -2443,11 +2455,14 @@ void Game::updatestate(void)
 
 
         case 3070:
-            graphics.fademode = 2;
+            graphics.fademode = FADE_START_FADEOUT;
             state++;
             break;
         case 3071:
-            if (graphics.fademode == 1) state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 3072:
             //Ok, we need to adjust some flags based on who've we've rescued. Some of there conversation options
@@ -2522,20 +2537,23 @@ void Game::updatestate(void)
             //returning from an intermission, very like 3070
             if (inintermission)
             {
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
                 companion = 0;
                 state=3100;
             }
             else
             {
                 unlocknum(7);
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
                 companion = 0;
                 state++;
             }
             break;
         case 3081:
-            if (graphics.fademode == 1) state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 3082:
             map.finalmode = false;
@@ -2552,21 +2570,24 @@ void Game::updatestate(void)
                 companion = 0;
                 supercrewmate = false;
                 state++;
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
                 music.fadeout();
                 state=3100;
             }
             else
             {
                 unlocknum(6);
-                graphics.fademode = 2;
+                graphics.fademode = FADE_START_FADEOUT;
                 companion = 0;
                 supercrewmate = false;
                 state++;
             }
             break;
         case 3086:
-            if (graphics.fademode == 1) state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 3087:
             map.finalmode = false;
@@ -2576,7 +2597,10 @@ void Game::updatestate(void)
             break;
 
         case 3100:
-            if(graphics.fademode == 1)    state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 3101:
             quittomenu();
@@ -2787,18 +2811,18 @@ void Game::updatestate(void)
             break;
         }
         case 3516:
-            graphics.fademode = 2;
+            graphics.fademode = FADE_START_FADEOUT;
             state++;
             break;
         case 3517:
-            if (graphics.fademode == 1)
+            if (graphics.fademode == FADE_FULLY_BLACK)
             {
                 state++;
                 statedelay = 30;
             }
             break;
         case 3518:
-            graphics.fademode = 4;
+            graphics.fademode = FADE_START_FADEIN;
             state = 0;
             statedelay = 30;
 
@@ -2819,11 +2843,14 @@ void Game::updatestate(void)
             hascontrol = false;
             crewstats[0] = true;
 
-            graphics.fademode = 2;
+            graphics.fademode = FADE_START_FADEOUT;
             state++;
             break;
         case 3521:
-            if(graphics.fademode == 1)    state++;
+            if (graphics.fademode == FADE_FULLY_BLACK)
+            {
+                state++;
+            }
             break;
         case 3522:
             copyndmresults();
@@ -6699,7 +6726,7 @@ bool Game::save_exists(void)
 void Game::quittomenu(void)
 {
     gamestate = TITLEMODE;
-    graphics.fademode = 4;
+    graphics.fademode = FADE_START_FADEIN;
     FILESYSTEM_unmountAssets();
     cliplaytest = false;
     graphics.titlebg.tdrawback = true;
@@ -6751,7 +6778,7 @@ void Game::quittomenu(void)
 void Game::returntolab(void)
 {
     gamestate = GAMEMODE;
-    graphics.fademode = 4;
+    graphics.fademode = FADE_START_FADEIN;
     map.gotoroom(119, 107);
     int player = obj.getplayer();
     if (INBOUNDS_VEC(player, obj.entities))
@@ -6791,7 +6818,7 @@ void Game::returntoeditor(void)
     completestop = false;
     state = 0;
     graphics.showcutscenebars = false;
-    graphics.fademode = 0;
+    graphics.fademode = FADE_NONE;
 
     ed.keydelay = 6;
     ed.settingskey = true;

@@ -11,6 +11,18 @@
 #include "Textbox.h"
 #include "TowerBG.h"
 
+enum FadeBars
+{
+    FADE_NONE,
+    FADE_FULLY_BLACK,
+    FADE_START_FADEOUT,
+    FADE_FADING_OUT,
+    FADE_START_FADEIN,
+    FADE_FADING_IN
+};
+
+#define FADEMODE_IS_FADING(mode) ((mode) != FADE_NONE && (mode) != FADE_FULLY_BLACK)
+
 class Graphics
 {
 public:
@@ -289,11 +301,11 @@ public:
     int crewframe;
     int crewframedelay;
 
-    int fademode;
+    enum FadeBars fademode;
     int fadeamount;
     int oldfadeamount;
     int fadebars[15];
-    int ingame_fademode;
+    enum FadeBars ingame_fademode;
 
     bool trinketcolset;
     int trinketr, trinketg, trinketb;

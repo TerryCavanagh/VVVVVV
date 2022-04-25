@@ -68,7 +68,7 @@ void gamecompletelogic(void)
         graphics.titlebg.bscroll = +1;
     }
 
-    if (graphics.fademode == 1)
+    if (graphics.fademode == FADE_FULLY_BLACK)
     {
         //Fix some graphical things
         graphics.showcutscenebars = false;
@@ -77,7 +77,7 @@ void gamecompletelogic(void)
         graphics.titlebg.bypos = 0;
         //Return to game
         game.gamestate = GAMECOMPLETE2;
-        graphics.fademode = 4;
+        graphics.fademode = FADE_START_FADEIN;
     }
 }
 
@@ -100,7 +100,7 @@ void gamecompletelogic2(void)
         }
     }
 
-    if (graphics.fademode == 1)
+    if (graphics.fademode == FADE_FULLY_BLACK)
     {
         //Fix some graphical things
         graphics.showcutscenebars = false;
@@ -457,8 +457,11 @@ void gamelogic(void)
                 game.deathseq = 1;
                 game.gethardestroom();
                 //start depressing sequence here...
-                if (game.gameoverdelay <= -10 && graphics.fademode==0) graphics.fademode = 2;
-                if (graphics.fademode == 1)
+                if (game.gameoverdelay <= -10 && graphics.fademode == FADE_NONE)
+                {
+                    graphics.fademode = FADE_START_FADEOUT;
+                }
+                if (graphics.fademode == FADE_FULLY_BLACK)
                 {
                     game.copyndmresults();
                     script.resetgametomenu();
@@ -878,7 +881,10 @@ void gamelogic(void)
             {
                 //special for tower: is the player touching any spike blocks?
                 int player = obj.getplayer();
-                if(INBOUNDS_VEC(player, obj.entities) && obj.checktowerspikes(player) && graphics.fademode==0)
+                if (INBOUNDS_VEC(player, obj.entities)
+                && obj.checktowerspikes(player)
+                /* not really needed, but is slight improvement when exiting to menu near spikes */
+                && graphics.fademode == FADE_NONE)
                 {
                     game.deathseq = 30;
                 }

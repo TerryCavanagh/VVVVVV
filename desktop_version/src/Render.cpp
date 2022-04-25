@@ -1716,7 +1716,11 @@ void gamerender(void)
         }
     }
 
-    if (graphics.fademode==0 && !game.intimetrial && !game.isingamecompletescreen() && (!game.swnmode || game.swngame != 1) && game.showingametimer)
+    if (graphics.fademode == FADE_NONE
+    && !game.intimetrial
+    && !game.isingamecompletescreen()
+    && (!game.swnmode || game.swngame != 1)
+    && game.showingametimer)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
         graphics.bprint(6, 6, "TIME:",  255,255,255);
@@ -1911,7 +1915,7 @@ void gamerender(void)
         }
     }
 
-    if (game.intimetrial && graphics.fademode==0)
+    if (game.intimetrial && graphics.fademode == FADE_NONE)
     {
         //Draw countdown!
         if (game.timetrialcountdown > 0)
@@ -2703,8 +2707,7 @@ void maprender(void)
     // being jankily brought down in glitchrunner mode when exiting to the title
     // Otherwise, there's no reason to obscure the menu
     if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
-    || graphics.fademode == 3
-    || graphics.fademode == 5
+    || FADEMODE_IS_FADING(graphics.fademode)
     || game.fadetomenu
     || game.fadetolab)
     {

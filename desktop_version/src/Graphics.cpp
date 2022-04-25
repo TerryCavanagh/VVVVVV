@@ -97,8 +97,8 @@ void Graphics::init(void)
     SDL_memset(fadebars, 0, sizeof(fadebars));
 
     setfade(0);
-    fademode = 0;
-    ingame_fademode = 0;
+    fademode = FADE_NONE;
+    ingame_fademode = FADE_NONE;
 
     // initialize everything else to zero
     backBuffer = NULL;
@@ -1451,68 +1451,67 @@ void Graphics::createtextboxflipme(
 void Graphics::drawfade(void)
 {
     int usethisamount = lerp(oldfadeamount, fadeamount);
-    if ((fademode == 1)||(fademode == 4))
+    switch (fademode)
     {
+    case FADE_FULLY_BLACK:
+    case FADE_START_FADEIN:
         ClearSurface(backBuffer);
-    }
-    else if(fademode==3)
-    {
+        break;
+    case FADE_FADING_OUT:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
             FillRect(backBuffer, fadebars[i], i * 16, usethisamount, 16, 0x000000 );
         }
-    }
-    else if(fademode==5 )
-    {
+        break;
+    case FADE_FADING_IN:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
             FillRect(backBuffer, fadebars[i]-usethisamount, i * 16, 500, 16, 0x000000 );
         }
+        break;
+    case FADE_NONE:
+    case FADE_START_FADEOUT:
+        break;
     }
-
 }
 
 void Graphics::processfade(void)
 {
     oldfadeamount = fadeamount;
-    if (fademode > 1)
+    switch (fademode)
     {
-        if (fademode == 2)
+    case FADE_START_FADEOUT:
+        for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            //prepare fade out
-            for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
-            {
-                fadebars[i] = -int(fRandom() * 12) * 8;
-            }
-            setfade(0);
-            fademode = 3;
+            fadebars[i] = -int(fRandom() * 12) * 8;
         }
-        else if (fademode == 3)
+        setfade(0);
+        fademode = FADE_FADING_OUT;
+        break;
+    case FADE_FADING_OUT:
+        fadeamount += 24;
+        if (fadeamount > 416)
         {
-            fadeamount += 24;
-            if (fadeamount > 416)
-            {
-                fademode = 1; //faded
-            }
+            fademode = FADE_FULLY_BLACK;
         }
-        else if (fademode == 4)
+        break;
+    case FADE_START_FADEIN:
+        for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            //prepare fade in
-            for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
-            {
-                fadebars[i] = 320 + int(fRandom() * 12) * 8;
-            }
-            setfade(416);
-            fademode = 5;
+            fadebars[i] = 320 + int(fRandom() * 12) * 8;
         }
-        else if (fademode == 5)
+        setfade(416);
+        fademode = FADE_FADING_IN;
+        break;
+    case FADE_FADING_IN:
+        fadeamount -= 24;
+        if (fadeamount <= 0)
         {
-            fadeamount -= 24;
-            if (fadeamount <= 0)
-            {
-                fademode = 0; //normal
-            }
+            fademode = FADE_NONE;
         }
+    case FADE_NONE:
+    case FADE_FULLY_BLACK:
+        break;
     }
 }
 

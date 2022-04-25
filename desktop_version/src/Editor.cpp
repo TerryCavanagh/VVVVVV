@@ -1718,7 +1718,7 @@ void editorlogic(void)
         ed.notedelay--;
     }
 
-    if (graphics.fademode == 1)
+    if (graphics.fademode == FADE_FULLY_BLACK)
     {
         //Return to game
         graphics.titlebg.colstate = 10;
@@ -1896,7 +1896,7 @@ static void editormenuactionpress(void)
             //Quit without saving
             music.playef(11);
             music.fadeout();
-            graphics.fademode = 2;
+            graphics.fademode = FADE_START_FADEOUT;
             break;
         case 2:
             //Go back to editor
@@ -1914,7 +1914,7 @@ static void editormenuactionpress(void)
 void editorinput(void)
 {
     extern editorclass ed;
-    if (graphics.fademode == 3 /* fading out */)
+    if (graphics.fademode == FADE_FADING_OUT)
     {
         return;
     }
@@ -2346,7 +2346,7 @@ void editorinput(void)
 
                 if (ed.saveandquit)
                 {
-                    graphics.fademode = 2; // quit editor
+                    graphics.fademode = FADE_START_FADEOUT; /* quit editor */
                 }
                 break;
             }
