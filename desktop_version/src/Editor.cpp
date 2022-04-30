@@ -19,6 +19,7 @@
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 
 editorclass::editorclass(void)
 {
@@ -4182,7 +4183,7 @@ void editorclass::switch_tileset(const bool reversed)
     clamp_tilecol(levx, levy, false);
 
     char buffer[64];
-    SDL_snprintf(buffer, sizeof(buffer), "Now using %s Tileset", tilesets[tiles]);
+    vformat_buf(buffer, sizeof(buffer), "Now using {area} Tileset", "area:str", tilesets[tiles]);
 
     note = buffer;
     notedelay = 45;
