@@ -355,6 +355,14 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 void FILESYSTEM_loadZip(const char* filename)
 {
     PHYSFS_File* zip = PHYSFS_openRead(filename);
+    if (zip == NULL)
+    {
+        vlog_error(
+            "Could not read zip %s: %s",
+            filename,
+            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+        );
+    }
 
     if (!PHYSFS_mountHandle(zip, filename, "levels", 1))
     {
@@ -589,6 +597,11 @@ void FILESYSTEM_loadFileToMemory(
     handle = PHYSFS_openRead(name);
     if (handle == NULL)
     {
+        vlog_debug(
+            "Could not read file %s: %s",
+            name,
+            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+        );
         goto fail;
     }
     length = PHYSFS_fileLength(handle);
@@ -673,7 +686,11 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
     handle = PHYSFS_openRead(path);
     if (handle == NULL)
     {
-        vlog_info("Unable to open file %s", filename);
+        vlog_debug(
+            "Could not read binary blob %s: %s",
+            filename,
+            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+        );
         return false;
     }
 
