@@ -668,6 +668,9 @@ int main(int argc, char *argv[])
     }
 #endif
 
+    /* Only create the window after we have loaded all the assets. */
+    SDL_ShowWindow(gameScreen.m_window);
+
     key.isActive = true;
 
     gamestate_funcs = get_gamestate_funcs(game.gamestate, &num_gamestate_funcs);

@@ -191,7 +191,6 @@ void Screen::ResizeScreen(int x, int y)
             return;
         }
     }
-    SDL_ShowWindow(m_window);
 }
 
 void Screen::ResizeToNearestMultiple(void)
