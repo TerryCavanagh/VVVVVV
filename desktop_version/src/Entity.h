@@ -129,8 +129,8 @@ public:
 
     bool checktowerspikes(int t);
 
-    bool checkwall(const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipblocks, const bool skipdirblocks);
-    bool checkwall(const SDL_Rect& temprect);
+    bool checkwall(const bool invincible, const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipblocks, const bool skipdirblocks);
+    bool checkwall(const bool invincible, const SDL_Rect& temprect);
 
     float hplatformat(const int px, const int py);
 

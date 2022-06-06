@@ -672,19 +672,18 @@ void mapclass::settowercolour(int t)
     updatebgobj(graphics.titlebg);
 }
 
-bool mapclass::spikecollide(int x, int y)
+bool mapclass::towerspikecollide(int x, int y)
 {
-    if (invincibility) return false;
     if (tower.at(x,y,0)>= 6 && tower.at(x,y,0) <= 11) return true;
     return false;
 }
 
-bool mapclass::collide(int x, int y)
+bool mapclass::collide(int x, int y, const bool invincible)
 {
     if (towermode)
     {
         if (tower.at(x, y, 0) >= 12 && tower.at(x, y, 0) <= 27) return true;
-        if (invincibility)
+        if (invincible)
         {
             if (tower.at(x, y, 0) >= 6 && tower.at(x, y, 0) <= 11) return true;
         }
@@ -692,14 +691,14 @@ bool mapclass::collide(int x, int y)
     else if (tileset == 2)
     {
         int tile;
-        if (y == -1) return collide(x, y + 1);
-        if (y == 29+extrarow) return collide(x, y - 1);
-        if (x == -1) return collide(x + 1, y);
-        if (x == 40) return collide(x - 1, y);
+        if (y == -1) return collide(x, y + 1, invincible);
+        if (y == 29+extrarow) return collide(x, y - 1, invincible);
+        if (x == -1) return collide(x + 1, y, invincible);
+        if (x == 40) return collide(x - 1, y, invincible);
         if (x < 0 || y < 0 || x >= 40 || y >= 29 + extrarow) return false;
         tile = contents[TILE_IDX(x, y)];
         if (tile >= 12 && tile <= 27) return true;
-        if (invincibility)
+        if (invincible)
         {
             if (tile >= 6 && tile <= 11) return true;
         }
@@ -707,17 +706,17 @@ bool mapclass::collide(int x, int y)
     else
     {
         int tile;
-        if (y == -1) return collide(x, y + 1);
-        if (y == 29+extrarow) return collide(x, y - 1);
-        if (x == -1) return collide(x + 1, y);
-        if (x == 40) return collide(x - 1, y);
+        if (y == -1) return collide(x, y + 1, invincible);
+        if (y == 29+extrarow) return collide(x, y - 1, invincible);
+        if (x == -1) return collide(x + 1, y, invincible);
+        if (x == 40) return collide(x - 1, y, invincible);
         if (x < 0 || y < 0 || x >= 40 || y >= 29+extrarow) return false;
         tile = contents[TILE_IDX(x, y)];
         if (tile == 1) return true;
         if (tileset==0 && tile == 59) return true;
         if (tile>= 80 && tile < 680) return true;
         if (tile == 740 && tileset==1) return true;
-        if (invincibility)
+        if (invincible)
         {
             if (tile>= 6 && tile <= 9) return true;
             if (tile>= 49 && tile <= 50) return true;

@@ -16,6 +16,11 @@
 
 bool entityclass::checktowerspikes(int t)
 {
+    if (map.invincibility)
+    {
+        return false;
+    }
+
     if (!INBOUNDS_VEC(t, entities))
     {
         vlog_error("checktowerspikes() out-of-bounds!");
@@ -32,25 +37,25 @@ bool entityclass::checktowerspikes(int t)
     int tempy = getgridpoint(temprect.y);
     int tempw = getgridpoint(temprect.x + temprect.w - 1);
     int temph = getgridpoint(temprect.y + temprect.h - 1);
-    if (map.spikecollide(tempx, tempy)) return true;
-    if (map.spikecollide(tempw, tempy)) return true;
-    if (map.spikecollide(tempx, temph)) return true;
-    if (map.spikecollide(tempw, temph)) return true;
+    if (map.towerspikecollide(tempx, tempy)) return true;
+    if (map.towerspikecollide(tempw, tempy)) return true;
+    if (map.towerspikecollide(tempx, temph)) return true;
+    if (map.towerspikecollide(tempw, temph)) return true;
     if (temprect.h >= 12)
     {
         int tpy1 = getgridpoint(temprect.y + 6);
-        if (map.spikecollide(tempx, tpy1)) return true;
-        if (map.spikecollide(tempw, tpy1)) return true;
+        if (map.towerspikecollide(tempx, tpy1)) return true;
+        if (map.towerspikecollide(tempw, tpy1)) return true;
         if (temprect.h >= 18)
         {
             tpy1 = getgridpoint(temprect.y + 12);
-            if (map.spikecollide(tempx, tpy1)) return true;
-            if (map.spikecollide(tempw, tpy1)) return true;
+            if (map.towerspikecollide(tempx, tpy1)) return true;
+            if (map.towerspikecollide(tempw, tpy1)) return true;
             if (temprect.h >= 24)
             {
                 tpy1 = getgridpoint(temprect.y + 18);
-                if (map.spikecollide(tempx, tpy1)) return true;
-                if (map.spikecollide(tempw, tpy1)) return true;
+                if (map.towerspikecollide(tempx, tpy1)) return true;
+                if (map.towerspikecollide(tempw, tpy1)) return true;
             }
         }
     }
@@ -4132,7 +4137,7 @@ bool entityclass::checkblocks(const SDL_Rect& temprect, const float dx, const fl
     return false;
 }
 
-bool entityclass::checkwall(const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipblocks, const bool skipdirblocks)
+bool entityclass::checkwall(const bool invincible, const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipblocks, const bool skipdirblocks)
 {
     //Returns true if entity setup in temprect collides with a wall
     if(skipblocks)
@@ -4144,41 +4149,41 @@ bool entityclass::checkwall(const SDL_Rect& temprect, const float dx, const floa
     int tempy = getgridpoint(temprect.y);
     int tempw = getgridpoint(temprect.x + temprect.w - 1);
     int temph = getgridpoint(temprect.y + temprect.h - 1);
-    if (map.collide(tempx, tempy)) return true;
-    if (map.collide(tempw, tempy)) return true;
-    if (map.collide(tempx, temph)) return true;
-    if (map.collide(tempw, temph)) return true;
+    if (map.collide(tempx, tempy, invincible)) return true;
+    if (map.collide(tempw, tempy, invincible)) return true;
+    if (map.collide(tempx, temph, invincible)) return true;
+    if (map.collide(tempw, temph, invincible)) return true;
     if (temprect.h >= 12)
     {
         int tpy1 = getgridpoint(temprect.y + 6);
-        if (map.collide(tempx, tpy1)) return true;
-        if (map.collide(tempw, tpy1)) return true;
+        if (map.collide(tempx, tpy1, invincible)) return true;
+        if (map.collide(tempw, tpy1, invincible)) return true;
         if (temprect.h >= 18)
         {
             tpy1 = getgridpoint(temprect.y + 12);
-            if (map.collide(tempx, tpy1)) return true;
-            if (map.collide(tempw, tpy1)) return true;
+            if (map.collide(tempx, tpy1, invincible)) return true;
+            if (map.collide(tempw, tpy1, invincible)) return true;
             if (temprect.h >= 24)
             {
                 tpy1 = getgridpoint(temprect.y + 18);
-                if (map.collide(tempx, tpy1)) return true;
-                if (map.collide(tempw, tpy1)) return true;
+                if (map.collide(tempx, tpy1, invincible)) return true;
+                if (map.collide(tempw, tpy1, invincible)) return true;
             }
         }
     }
     if (temprect.w >= 12)
     {
         int tpx1 = getgridpoint(temprect.x + 6);
-        if (map.collide(tpx1, tempy)) return true;
-        if (map.collide(tpx1, temph)) return true;
+        if (map.collide(tpx1, tempy, invincible)) return true;
+        if (map.collide(tpx1, temph, invincible)) return true;
     }
     return false;
 }
 
-bool entityclass::checkwall(const SDL_Rect& temprect)
+bool entityclass::checkwall(const bool invincible, const SDL_Rect& temprect)
 {
     // Same as above but use default arguments for blocks
-    return checkwall(temprect, 0, 0, 0, true, false);
+    return checkwall(invincible, temprect, 0, 0, 0, true, false);
 }
 
 float entityclass::hplatformat(const int px, const int py)
@@ -4396,7 +4401,9 @@ bool entityclass::entitycollidefloor( int t )
     temprect.w = entities[t].w;
     temprect.h = entities[t].h;
 
-    if (checkwall(temprect)) return true;
+    const bool invincible = map.invincibility && entities[t].ishumanoid();
+
+    if (checkwall(invincible, temprect)) return true;
     return false;
 }
 
@@ -4414,7 +4421,9 @@ bool entityclass::entitycollideroof( int t )
     temprect.w = entities[t].w;
     temprect.h = entities[t].h;
 
-    if (checkwall(temprect)) return true;
+    const bool invincible = map.invincibility && entities[t].ishumanoid();
+
+    if (checkwall(invincible, temprect)) return true;
     return false;
 }
 
@@ -4438,8 +4447,10 @@ bool entityclass::testwallsx( int t, int tx, int ty, const bool skipdirblocks )
     if (entities[t].rule == 0) dx = entities[t].vx;
     float dr = entities[t].rule;
 
+    const bool invincible = map.invincibility && entities[t].ishumanoid();
+
     //Ok, now we check walls
-    if (checkwall(temprect, dx, dy, dr, skipblocks, skipdirblocks))
+    if (checkwall(invincible, temprect, dx, dy, dr, skipblocks, skipdirblocks))
     {
         if (entities[t].vx > 1.0f)
         {
@@ -4483,8 +4494,10 @@ bool entityclass::testwallsy( int t, float tx, float ty )
     if (entities[t].rule == 0) dy = entities[t].vy;
     float dr = entities[t].rule;
 
+    const bool invincible = map.invincibility && entities[t].ishumanoid();
+
     //Ok, now we check walls
-    if (checkwall(temprect, dx, dy, dr, skipblocks, false))
+    if (checkwall(invincible, temprect, dx, dy, dr, skipblocks, false))
     {
         if (entities[t].vy > 1)
         {

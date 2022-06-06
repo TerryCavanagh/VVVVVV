@@ -59,9 +59,9 @@ public:
 
     void settowercolour(int t);
 
-    bool spikecollide(int x, int y);
+    bool towerspikecollide(int x, int y);
 
-    bool collide(int x, int y);
+    bool collide(int x, int y, bool invincible);
 
     void settile(int xp, int yp, int t);
 
