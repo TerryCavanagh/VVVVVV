@@ -165,6 +165,7 @@ end:
                     vlog_error("Unable to queue sound buffer");
                     return;
                 }
+                FAudioVoice_SetVolume(voices[i], volume, FAUDIO_COMMIT_NOW);
                 if (FAudioSourceVoice_Start(voices[i], 0, FAUDIO_COMMIT_NOW))
                 {
                     vlog_error("Unable to start voice processing");
@@ -229,10 +230,10 @@ end:
 
     static void SetVolume(int soundVolume)
     {
-        float adj_vol = (float) soundVolume / VVV_MAX_VOLUME;
+        volume = (float) soundVolume / VVV_MAX_VOLUME;
         for (size_t i = 0; i < VVV_MAX_CHANNELS; i++)
         {
-            FAudioVoice_SetVolume(voices[i], adj_vol, FAUDIO_COMMIT_NOW);
+            FAudioVoice_SetVolume(voices[i], volume, FAUDIO_COMMIT_NOW);
         }
     }
 
@@ -242,8 +243,10 @@ end:
     bool valid;
 
     static FAudioSourceVoice** voices;
+    static float volume;
 };
 FAudioSourceVoice** SoundTrack::voices = NULL;
+float SoundTrack::volume;
 
 class MusicTrack
 {
