@@ -246,7 +246,7 @@ end:
     static float volume;
 };
 FAudioSourceVoice** SoundTrack::voices = NULL;
-float SoundTrack::volume;
+float SoundTrack::volume = 0.0f;
 
 class MusicTrack
 {
