@@ -201,6 +201,15 @@ TAG_FINDER(find_desc2, "Desc2")
 TAG_FINDER(find_desc3, "Desc3")
 TAG_FINDER(find_website, "website")
 
+/* For CliPlaytestArgs */
+TAG_FINDER(find_playtest, "Playtest")
+TAG_FINDER(find_playx, "playx")
+TAG_FINDER(find_playy, "playy")
+TAG_FINDER(find_playrx, "playrx")
+TAG_FINDER(find_playry, "playry")
+TAG_FINDER(find_playgc, "playgc")
+TAG_FINDER(find_playmusic, "playmusic")
+
 #undef TAG_FINDER
 
 static void levelMetaDataCallback(const char* filename)
@@ -245,7 +254,7 @@ void customlevelclass::getDirectoryData(void)
     }
 
 }
-bool customlevelclass::getLevelMetaData(const std::string& _path, LevelMetaData& _data )
+bool customlevelclass::getLevelMetaDataAndPlaytestArgs(const std::string& _path, LevelMetaData& _data, CliPlaytestArgs* pt_args)
 {
     unsigned char *uMem;
     FILESYSTEM_loadFileToMemory(_path.c_str(), &uMem, NULL, true);
@@ -273,8 +282,32 @@ bool customlevelclass::getLevelMetaData(const std::string& _path, LevelMetaData&
     _data.Desc3 = find_desc3(buf);
     _data.website = find_website(buf);
 
+    if (pt_args != NULL)
+    {
+        const std::string playtest = find_playtest(buf);
+        if (playtest == "")
+        {
+            pt_args->valid = false;
+        }
+        else
+        {
+            pt_args->valid = true;
+            pt_args->x = help.Int(find_playx(playtest).c_str());
+            pt_args->y = help.Int(find_playy(playtest).c_str());
+            pt_args->rx = help.Int(find_playrx(playtest).c_str());
+            pt_args->ry = help.Int(find_playry(playtest).c_str());
+            pt_args->gc = help.Int(find_playgc(playtest).c_str());
+            pt_args->music = help.Int(find_playmusic(playtest).c_str());
+        }
+    }
+
     _data.filename = _path;
     return true;
+}
+
+bool customlevelclass::getLevelMetaData(const std::string& _path, LevelMetaData& _data)
+{
+    return getLevelMetaDataAndPlaytestArgs(_path, _data, NULL);
 }
 
 void customlevelclass::reset(void)
