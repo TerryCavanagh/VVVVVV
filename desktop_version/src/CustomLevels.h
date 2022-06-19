@@ -60,6 +60,17 @@ struct LevelMetaData
     int version;
 };
 
+struct CliPlaytestArgs
+{
+    int x;
+    int y;
+    int rx;
+    int ry;
+    int gc;
+    int music;
+    bool valid;
+};
+
 
 extern std::vector<CustomEntity> customentities;
 
@@ -80,7 +91,8 @@ public:
 
     void loadZips(void);
     void getDirectoryData(void);
-    bool getLevelMetaData(const std::string& filename, LevelMetaData& _data );
+    bool getLevelMetaDataAndPlaytestArgs(const std::string& filename, LevelMetaData& _data, CliPlaytestArgs* pt_args);
+    bool getLevelMetaData(const std::string& filename, LevelMetaData& _data);
 
     void reset(void);
     const int* loadlevel(int rxi, int ryi);

@@ -634,18 +634,30 @@ int main(int argc, char *argv[])
         game.menustart = true;
 
         LevelMetaData meta;
-        if (cl.getLevelMetaData(playtestname, meta)) {
+        CliPlaytestArgs pt_args;
+        if (cl.getLevelMetaDataAndPlaytestArgs(playtestname, meta, &pt_args)) {
             cl.ListOfMetaData.clear();
             cl.ListOfMetaData.push_back(meta);
         } else {
             cl.loadZips();
-            if (cl.getLevelMetaData(playtestname, meta)) {
+            if (cl.getLevelMetaDataAndPlaytestArgs(playtestname, meta, &pt_args)) {
                 cl.ListOfMetaData.clear();
                 cl.ListOfMetaData.push_back(meta);
             } else {
                 vlog_error("Level not found");
                 VVV_exit(1);
             }
+        }
+
+        if (pt_args.valid)
+        {
+            savefileplaytest = true;
+            savex = pt_args.x;
+            savey = pt_args.y;
+            saverx = pt_args.rx;
+            savery = pt_args.ry;
+            savegc = pt_args.gc;
+            savemusic = pt_args.music;
         }
 
         game.loadcustomlevelstats();
