@@ -314,6 +314,20 @@ else()
     target_link_libraries(VVVVVV physfs tinyxml2 utf8cpp lodepng-static FAudio)
 endif()
 
+if(MSVC)
+    # Statically link Microsoft's runtime library so end users don't have to install it
+    target_compile_options(VVVVVV PRIVATE /MT)
+
+    # /MT must also be applied to every statically-linked library, else you get a linker error
+    if(BUNDLE_DEPENDENCIES)
+        target_compile_options(tinyxml2-static PRIVATE /MT)
+        target_compile_options(physfs-static PRIVATE /MT)
+        target_compile_options(faudio-static PRIVATE /MT)
+    endif()
+
+    target_compile_options(lodepng-static PRIVATE /MT)
+endif()
+
 # SDL2 Dependency (Detection pulled from FAudio)
 if(DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
     message(STATUS "Using pre-defined SDL2 variables SDL2_INCLUDE_DIRS and SDL2_LIBRARIES")
