@@ -220,13 +220,9 @@ std::string UtilityClass::number_words( int _t )
     static const std::string tens_place[] = {"Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
     static const std::string teens[] = {"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 
-    if (_t < 0)
+    if (_t < 0 || _t > 100)
     {
-        return "???";
-    }
-    else if (_t > 100)
-    {
-        return "Lots";
+        return String(_t);
     }
     else if (_t == 0)
     {
