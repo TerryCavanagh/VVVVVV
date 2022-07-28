@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+#include "Vlogging.h"
+
 /* Implements the xoshiro128+ PRNG. */
 
 static uint32_t rotl(const uint32_t x, const int k)
@@ -44,6 +46,8 @@ uint32_t xoshiro_next(void)
 
     s[3] = rotl(s[3], 11);
 
+    vlog_debug("Next xoshiro is %u.", result);
+
     return result;
 }
 
@@ -54,6 +58,8 @@ void xoshiro_seed(uint32_t s)
     const uint32_t s2 = splitmix32(&s);
     const uint32_t s3 = splitmix32(&s);
     seed(s0, s1, s2, s3);
+
+    vlog_debug("Xoshiro seeded with %u.", s);
 }
 
 float xoshiro_rand(void)
