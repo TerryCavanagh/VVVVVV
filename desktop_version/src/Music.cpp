@@ -237,7 +237,7 @@ end:
         }
     }
 
-    Uint8 *wav_buffer = NULL;
+    Uint8 *wav_buffer;
     Uint32 wav_length;
     FAudioWaveFormatEx format;
     bool valid;
@@ -411,9 +411,9 @@ end:
     FAudioVoiceCallback callbacks;
     FAudioWaveFormatEx format;
 
-    Uint8* decoded_buf_playing = NULL;
-    Uint8* decoded_buf_reserve = NULL;
-    Uint8* read_buf = NULL;
+    Uint8* decoded_buf_playing;
+    Uint8* decoded_buf_reserve;
+    Uint8* read_buf;
     bool shouldloop;
     bool valid;
 
