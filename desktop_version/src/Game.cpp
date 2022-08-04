@@ -1965,7 +1965,10 @@ void Game::updatestate(void)
         case 1015:
 #if !defined(NO_CUSTOM_LEVELS)
             //Update level stats
-            if(cl.numcrewmates()-crewmates()==0)
+            /* FIXME: Have to add check to not save stats for the dumb hack
+             * `special/stdin.vvvvvv` filename... see elsewhere, grep for
+             * `special/stdin`! */
+            if(cl.numcrewmates()-crewmates()==0 && customlevelfilename != "levels/special/stdin.vvvvvv")
             {
                 //Finished level
                 if (trinkets() >= cl.numtrinkets())

@@ -571,6 +571,8 @@ void FILESYSTEM_loadFileToMemory(
         goto fail;
     }
 
+    /* FIXME: Dumb hack to use `special/stdin.vvvvvv` here...
+     * This is also checked elsewhere... grep for `special/stdin`! */
     if (SDL_strcmp(name, "levels/special/stdin.vvvvvv") == 0)
     {
         // this isn't *technically* necessary when piping directly from a file, but checking for that is annoying
