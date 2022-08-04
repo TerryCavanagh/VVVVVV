@@ -483,6 +483,8 @@ void Game::loadcustomlevelstats(void)
         return;
     }
 
+    customlevelstats.clear();
+
     // Old system
     std::vector<std::string> customlevelnames;
     std::vector<int> customlevelscores;
