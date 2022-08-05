@@ -2240,51 +2240,51 @@ void gameinput(void)
         }
     }
 
-    if (game.press_left)
-    {
-        game.tapleft++;
-    }
-    else
-    {
-        if (game.tapleft <= 4 && game.tapleft > 0)
-        {
-            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
-            {
-                if (obj.entities[ie].rule == 0)
-                {
-                    if (obj.entities[ie].vx < 0.0f)
-                    {
-                        obj.entities[ie].vx = 0.0f;
-                    }
-                }
-            }
-        }
-        game.tapleft = 0;
-    }
-    if (game.press_right)
-    {
-        game.tapright++;
-    }
-    else
-    {
-        if (game.tapright <= 4 && game.tapright > 0)
-        {
-            for (size_t ie = 0; ie < obj.entities.size(); ++ie)
-            {
-                if (obj.entities[ie].rule == 0)
-                {
-                    if (obj.entities[ie].vx > 0.0f)
-                    {
-                        obj.entities[ie].vx = 0.0f;
-                    }
-                }
-            }
-        }
-        game.tapright = 0;
-    }
-
     if (has_control)
     {
+        if (game.press_left)
+        {
+            game.tapleft++;
+        }
+        else
+        {
+            if (game.tapleft <= 4 && game.tapleft > 0)
+            {
+                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+                {
+                    if (obj.entities[ie].rule == 0)
+                    {
+                        if (obj.entities[ie].vx < 0.0f)
+                        {
+                            obj.entities[ie].vx = 0.0f;
+                        }
+                    }
+                }
+            }
+            game.tapleft = 0;
+        }
+        if (game.press_right)
+        {
+            game.tapright++;
+        }
+        else
+        {
+            if (game.tapright <= 4 && game.tapright > 0)
+            {
+                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+                {
+                    if (obj.entities[ie].rule == 0)
+                    {
+                        if (obj.entities[ie].vx > 0.0f)
+                        {
+                            obj.entities[ie].vx = 0.0f;
+                        }
+                    }
+                }
+            }
+            game.tapright = 0;
+        }
+
         if (!game.press_action)
         {
             game.jumppressed = 0;
