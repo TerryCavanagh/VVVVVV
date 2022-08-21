@@ -24,6 +24,9 @@ if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
     set(GOG ON)
 endif()
 
+option(REMOVE_ABSOLUTE_PATHS "If supported by the compiler, replace all absolute paths to source directories compiled into the binary (if any) with relative paths" ON)
+
+
 # Architecture Flags
 if(APPLE)
     # Wow, Apple is a huge jerk these days huh?
@@ -326,6 +329,41 @@ endif()
 if(MSVC)
     # Statically link Microsoft's runtime library so end users don't have to install it
     list(APPEND GLOBAL_COMPILE_FLAGS /MT)
+endif()
+
+
+if(REMOVE_ABSOLUTE_PATHS)
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 3.8)
+            set(SUPPORTS_DEBUG_PREFIX_MAP TRUE)
+        else()
+            set(SUPPORTS_DEBUG_PREFIX_MAP FALSE)
+        endif()
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 10.0)
+            set(SUPPORTS_FILE_PREFIX_MAP TRUE)
+        else()
+            set(SUPPORTS_FILE_PREFIX_MAP FALSE)
+        endif()
+    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        set(SUPPORTS_DEBUG_PREFIX_MAP TRUE)
+        if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+            set(SUPPORTS_FILE_PREFIX_MAP TRUE)
+        else()
+            set(SUPPORTS_FILE_PREFIX_MAP FALSE)
+        endif()
+    else()
+        set(SUPPORTS_DEBUG_PREFIX_MAP FALSE)
+        set(SUPPORTS_FILE_PREFIX_MAP FALSE)
+    endif()
+
+    get_filename_component(REPO_DIR ../ ABSOLUTE)
+
+    # Remove absolute source paths from compiled binary
+    if(SUPPORTS_FILE_PREFIX_MAP)
+        list(APPEND GLOBAL_COMPILE_FLAGS -ffile-prefix-map=${REPO_DIR}=.)
+    elseif(SUPPORTS_DEBUG_PREFIX_MAP)
+        list(APPEND GLOBAL_COMPILE_FLAGS -fdebug-prefix-map=${REPO_DIR}=.)
+    endif()
 endif()
 
 
