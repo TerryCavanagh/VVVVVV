@@ -296,6 +296,12 @@ target_compile_definitions(lodepng-static PRIVATE
 )
 
 if(BUNDLE_DEPENDENCIES)
+    set(STATIC_LIBRARIES physfs-static tinyxml2-static lodepng-static faudio-static)
+else()
+    set(STATIC_LIBRARIES lodepng-static)
+endif()
+
+if(BUNDLE_DEPENDENCIES)
     add_library(tinyxml2-static STATIC ${XML2_SRC})
     add_library(physfs-static STATIC ${PFS_SRC})
     target_compile_definitions(physfs-static PRIVATE
@@ -307,26 +313,26 @@ if(BUNDLE_DEPENDENCIES)
         ../third_party/FAudio/include
     )
 
-    target_link_libraries(VVVVVV physfs-static tinyxml2-static lodepng-static faudio-static)
+    target_link_libraries(VVVVVV ${STATIC_LIBRARIES})
 else()
     find_package(utf8cpp CONFIG)
 
-    target_link_libraries(VVVVVV physfs tinyxml2 utf8cpp lodepng-static FAudio)
+    target_link_libraries(VVVVVV ${STATIC_LIBRARIES} physfs tinyxml2 utf8cpp FAudio)
 endif()
+
 
 if(MSVC)
     # Statically link Microsoft's runtime library so end users don't have to install it
-    target_compile_options(VVVVVV PRIVATE /MT)
-
-    # /MT must also be applied to every statically-linked library, else you get a linker error
-    if(BUNDLE_DEPENDENCIES)
-        target_compile_options(tinyxml2-static PRIVATE /MT)
-        target_compile_options(physfs-static PRIVATE /MT)
-        target_compile_options(faudio-static PRIVATE /MT)
-    endif()
-
-    target_compile_options(lodepng-static PRIVATE /MT)
+    list(APPEND GLOBAL_COMPILE_FLAGS /MT)
 endif()
+
+
+target_compile_options(VVVVVV PRIVATE ${GLOBAL_COMPILE_FLAGS})
+
+foreach(static_library IN LISTS STATIC_LIBRARIES)
+    target_compile_options(${static_library} PRIVATE ${GLOBAL_COMPILE_FLAGS})
+endforeach(static_library)
+
 
 # SDL2 Dependency (Detection pulled from FAudio)
 if(DEFINED SDL2_INCLUDE_DIRS AND DEFINED SDL2_LIBRARIES)
