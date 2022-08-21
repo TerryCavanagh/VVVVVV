@@ -312,6 +312,8 @@ if(BUNDLE_DEPENDENCIES)
         faudio-static PRIVATE
         ../third_party/FAudio/include
     )
+    # Disable FAudio debug stuff in release mode. This needs a generator expression for CMake reasons(TM)
+    target_compile_definitions(faudio-static PRIVATE $<$<CONFIG:Release>:FAUDIO_DISABLE_DEBUGCONFIGURATION>)
 
     target_link_libraries(VVVVVV ${STATIC_LIBRARIES})
 else()
