@@ -1,7 +1,0 @@
-#ifndef VERSION_H_OUT
-#define VERSION_H_OUT
-
-#define INTERIM_COMMIT "@INTERIM_COMMIT@"
-#define COMMIT_DATE "@COMMIT_DATE@"
-
-#endif /* VERSION_H_OUT */

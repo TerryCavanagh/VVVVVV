@@ -9,6 +9,7 @@
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
+#include "InterimVersion.h"
 #include "KeyPoll.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
@@ -17,7 +18,6 @@
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
-#include "Version.h"
 
 static int tr;
 static int tg;
@@ -144,11 +144,9 @@ static void menurender(void)
 #if defined(MAKEANDPLAY)
         graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
 #endif
-#ifdef COMMIT_DATE
+#ifdef INTERIM_VERSION_EXISTS
         graphics.Print( 310 - (10*8), 210, COMMIT_DATE, tr/2, tg/2, tb/2);
-#endif
-#ifdef INTERIM_COMMIT
-        graphics.Print( 310 - (SDL_arraysize(INTERIM_COMMIT) - 1) * 8, 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
+        graphics.Print( 310 - LEN_INTERIM_COMMIT * 8, 220, INTERIM_COMMIT, tr/2, tg/2, tb/2);
 #endif
         graphics.Print( 310 - (4*8), 230, "v2.4", tr/2, tg/2, tb/2);
 

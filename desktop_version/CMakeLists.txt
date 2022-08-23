@@ -201,8 +201,8 @@ if(NOT OFFICIAL_BUILD)
     if(GIT_FOUND)
         # These filenames have to be qualified, because when we run
         # the CMake script, its work dir gets set to the build folder
-        set(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.in)
-        set(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/Version.h.out)
+        set(VERSION_INPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/InterimVersion.in.c)
+        set(VERSION_OUTPUT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/src/InterimVersion.out.c)
 
         add_custom_target(
             GenerateVersion ALL
@@ -219,8 +219,10 @@ if(NOT OFFICIAL_BUILD)
 
         add_dependencies(VVVVVV GenerateVersion)
 
-        # This lets Version.h know that Version.h.out exists
-        target_compile_definitions(VVVVVV PRIVATE -DVERSION_H_OUT_EXISTS)
+        target_compile_definitions(VVVVVV PRIVATE -DINTERIM_VERSION_EXISTS)
+
+        add_library(InterimVersion STATIC src/InterimVersion.out.c)
+        list(APPEND STATIC_LIBRARIES InterimVersion)
     endif()
 endif()
 
@@ -299,9 +301,9 @@ target_compile_definitions(lodepng-static PRIVATE
 )
 
 if(BUNDLE_DEPENDENCIES)
-    set(STATIC_LIBRARIES physfs-static tinyxml2-static lodepng-static faudio-static)
+    list(APPEND STATIC_LIBRARIES physfs-static tinyxml2-static lodepng-static faudio-static)
 else()
-    set(STATIC_LIBRARIES lodepng-static)
+    list(APPEND STATIC_LIBRARIES lodepng-static)
 endif()
 
 if(BUNDLE_DEPENDENCIES)

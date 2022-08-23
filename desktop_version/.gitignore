@@ -10,6 +10,7 @@ VVVVVV
 *.a
 *.gch
 src/Version.h.out
+src/InterimVersion.out.c
 
 # Game data
 data.zip

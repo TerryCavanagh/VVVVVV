@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "Graphics.h"
 #include "Input.h"
+#include "InterimVersion.h"
 #include "KeyPoll.h"
 #include "Logic.h"
 #include "Map.h"
