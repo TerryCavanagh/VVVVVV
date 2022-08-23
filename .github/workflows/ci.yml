@@ -117,7 +117,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      SDL_VERSION: 2.0.22
+      SDL_VERSION: 2.24.0
 
     steps:
     - uses: actions/checkout@v1
