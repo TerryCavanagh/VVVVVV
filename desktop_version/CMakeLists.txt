@@ -220,7 +220,7 @@ if(NOT OFFICIAL_BUILD)
         add_dependencies(VVVVVV GenerateVersion)
 
         # This lets Version.h know that Version.h.out exists
-        add_definitions(-DVERSION_H_OUT_EXISTS)
+        target_compile_definitions(VVVVVV PRIVATE -DVERSION_H_OUT_EXISTS)
     endif()
 endif()
 
@@ -236,9 +236,9 @@ if(ENABLE_WARNINGS)
 endif()
 
 if(CUSTOM_LEVEL_SUPPORT STREQUAL "NO_EDITOR")
-    add_definitions(-DNO_EDITOR)
+    target_compile_definitions(VVVVVV PRIVATE -DNO_EDITOR)
 elseif(CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
-    add_definitions(-DNO_CUSTOM_LEVELS -DNO_EDITOR)
+    target_compile_definitions(VVVVVV PRIVATE -DNO_CUSTOM_LEVELS -DNO_EDITOR)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
