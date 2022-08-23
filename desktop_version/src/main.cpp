@@ -21,6 +21,7 @@
 #include "Music.h"
 #include "Network.h"
 #include "preloader.h"
+#include "ReleaseVersion.h"
 #include "Render.h"
 #include "RenderFixed.h"
 #include "Screen.h"
@@ -387,9 +388,8 @@ int main(int argc, char *argv[])
         if (ARG("-version"))
         {
             /* Just print the version and exit. No vlogging. */
-            /* TODO: Version should be de-duplicated and only set in one place... TwT */
             /* TODO: Also print commit date and hash, if applicable. */
-            puts("VVVVVV v2.4");
+            puts("VVVVVV " RELEASE_VERSION);
             VVV_exit(0);
         }
         else if (ARG("-renderer"))
