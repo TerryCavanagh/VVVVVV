@@ -388,8 +388,11 @@ int main(int argc, char *argv[])
         if (ARG("-version"))
         {
             /* Just print the version and exit. No vlogging. */
-            /* TODO: Also print commit date and hash, if applicable. */
             puts("VVVVVV " RELEASE_VERSION);
+#ifdef INTERIM_VERSION_EXISTS
+            puts(COMMIT_DATE);
+            puts(INTERIM_COMMIT);
+#endif
             VVV_exit(0);
         }
         else if (ARG("-renderer"))
