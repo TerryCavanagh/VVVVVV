@@ -64,14 +64,13 @@ void vlog_toggle_error(const int enable_error)
     error_enabled = enable_error;
 }
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_debug(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) void vlog_debug(const char* text, ...)
 {
     va_list list;
-    int retval;
 
     if (!output_enabled || !debug_enabled)
     {
-        return 0;
+        return;
     }
 
     printf(Color_BOLD_GRAY);
@@ -80,22 +79,19 @@ SDL_PRINTF_VARARG_FUNC(1) int vlog_debug(const char* text, ...)
     printf(" ");
 
     va_start(list, text);
-    retval = vprintf(text, list);
+    vprintf(text, list);
     va_end(list);
 
     putchar('\n');
-
-    return retval;
 }
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_info(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) void vlog_info(const char* text, ...)
 {
     va_list list;
-    int retval;
 
     if (!output_enabled || !info_enabled)
     {
-        return 0;
+        return;
     }
 
     printf(Color_BOLD);
@@ -104,22 +100,19 @@ SDL_PRINTF_VARARG_FUNC(1) int vlog_info(const char* text, ...)
     printf(" ");
 
     va_start(list, text);
-    retval = vprintf(text, list);
+    vprintf(text, list);
     va_end(list);
 
     putchar('\n');
-
-    return retval;
 }
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_warn(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) void vlog_warn(const char* text, ...)
 {
     va_list list;
-    int retval;
 
     if (!output_enabled || !warn_enabled)
     {
-        return 0;
+        return;
     }
 
     fprintf(stderr, Color_BOLD_YELLOW);
@@ -128,22 +121,19 @@ SDL_PRINTF_VARARG_FUNC(1) int vlog_warn(const char* text, ...)
     fprintf(stderr, " ");
 
     va_start(list, text);
-    retval = vfprintf(stderr, text, list);
+    vfprintf(stderr, text, list);
     va_end(list);
 
     fputc('\n', stderr);
-
-    return retval;
 }
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_error(const char* text, ...)
+SDL_PRINTF_VARARG_FUNC(1) void vlog_error(const char* text, ...)
 {
     va_list list;
-    int retval;
 
     if (!output_enabled || !error_enabled)
     {
-        return 0;
+        return;
     }
 
     fprintf(stderr, Color_BOLD_RED);
@@ -152,10 +142,8 @@ SDL_PRINTF_VARARG_FUNC(1) int vlog_error(const char* text, ...)
     fprintf(stderr, " ");
 
     va_start(list, text);
-    retval = vfprintf(stderr, text, list);
+    vfprintf(stderr, text, list);
     va_end(list);
 
     fputc('\n', stderr);
-
-    return retval;
 }

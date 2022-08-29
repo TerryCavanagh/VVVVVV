@@ -22,13 +22,13 @@ void vlog_toggle_warn(int enable_warn);
 
 void vlog_toggle_error(int enable_error);
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_debug(const char* text, ...);
+SDL_PRINTF_VARARG_FUNC(1) void vlog_debug(const char* text, ...);
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_info(const char* text, ...);
+SDL_PRINTF_VARARG_FUNC(1) void vlog_info(const char* text, ...);
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_warn(const char* text, ...);
+SDL_PRINTF_VARARG_FUNC(1) void vlog_warn(const char* text, ...);
 
-SDL_PRINTF_VARARG_FUNC(1) int vlog_error(const char* text, ...);
+SDL_PRINTF_VARARG_FUNC(1) void vlog_error(const char* text, ...);
 
 #ifdef __cplusplus
 } /* extern "C" */
