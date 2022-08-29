@@ -28,7 +28,8 @@ static int error_enabled = 1;
 
 void vlog_init(void)
 {
-    if (STDOUT_IS_TTY && STDERR_IS_TTY) {
+    if (STDOUT_IS_TTY && STDERR_IS_TTY)
+    {
         color_enabled = 1;
     }
 }
