@@ -6,11 +6,6 @@
  #include <unistd.h>
  #define STDOUT_IS_TTY isatty(STDOUT_FILENO)
  #define STDERR_IS_TTY isatty(STDERR_FILENO)
-#elif defined(_WIN32)
- #include <io.h>
- #include <windows.h>
- #define STDOUT_IS_TTY _isatty(_fileno(stdout))
- #define STDERR_IS_TTY _isatty(_fileno(stderr))
 #else
  #define STDOUT_IS_TTY 0
  #define STDERR_IS_TTY 0
@@ -33,22 +28,7 @@ static int error_enabled = 1;
 
 void vlog_init(void)
 {
-#ifdef _WIN32
-    OSVERSIONINFO osvi;
-    SDL_zero(osvi);
-    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    GetVersionExW(&osvi);
-#endif
-
-    if (STDOUT_IS_TTY
-    && STDERR_IS_TTY
-#ifdef _WIN32
-    /* Windows supports ANSI escape sequences starting with Windows 10
-     * build 10586. We don't care to emit them on anything lower. */
-    && osvi.dwMajorVersion >= 10
-    && osvi.dwBuildNumber >= 10586
-#endif
-    ) {
+    if (STDOUT_IS_TTY && STDERR_IS_TTY) {
         color_enabled = 1;
     }
 }
