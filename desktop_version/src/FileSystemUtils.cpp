@@ -15,6 +15,7 @@
 
 /* These are needed for PLATFORM_* crap */
 #if defined(_WIN32)
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <shlobj.h>
 static int mkdir(char* path, int mode)
