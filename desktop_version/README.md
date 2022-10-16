@@ -14,6 +14,11 @@ respective repositories, and macOS developers should compile and install from so
 [see here](https://github.com/TerryCavanagh/VVVVVV/issues/618#issuecomment-968338212)
 for workarounds.)
 
+Since VVVVVV 2.4, git submodules are used for the
+[third party libraries](https://github.com/TerryCavanagh/VVVVVV/tree/master/third_party).
+After cloning, run `git submodule update --init` to set all of these up.
+You can also use this command whenever the submodules need to be updated.
+
 Steamworks support is included and the DLL is loaded dynamically, you do not
 need the SDK headers and there is no special Steam or non-Steam version. The
 current implementation has been tested with Steamworks SDK v1.46.
