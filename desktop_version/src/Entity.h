@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include <SDL.h>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -175,6 +176,7 @@ public:
     std::vector<blockclass> blocks;
     bool flags[100];
     bool collect[100];
+    std::set<int> coincollect;
     bool customcollect[100];
 
     int platformtile;

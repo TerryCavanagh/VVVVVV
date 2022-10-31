@@ -50,6 +50,7 @@ editorclass::editorclass(void)
     register_tool(EditorTool_WARP_LINES, "Warp Lines", "I", SDLK_i, false);
     register_tool(EditorTool_CREWMATES, "Crewmates", "O", SDLK_o, false);
     register_tool(EditorTool_START_POINT, "Start Point", "P", SDLK_p, false);
+    register_tool(EditorTool_COINS, "Coins", "^2", SDLK_2, true);
 
     static const short basic[] = {
         121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121,
@@ -951,6 +952,10 @@ static void draw_entities(void)
                 font::print(PR_FONT_8X8, x, y, "////", 255 - help.glow, 255 - help.glow, 255 - help.glow);
                 graphics.draw_rect(x, y, 32, 8, graphics.getRGB(255, 255, 255));
                 break;
+            case 8: // Coins
+                graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, x, y, 8, 8, graphics.huetilegetcol());
+                graphics.draw_rect(x, y, 8, 8, graphics.getRGB(255, 164, 164));
+                break;
             case 9: // Shiny Trinkets
                 graphics.draw_sprite(x, y, 22, 196, 196, 196);
                 graphics.draw_rect(x, y, 16, 16, graphics.getRGB(255, 164, 164));
@@ -1302,6 +1307,7 @@ static void draw_cursor(void)
     case EditorTool_GRAVITY_LINES:
     case EditorTool_ROOMTEXT:
     case EditorTool_SCRIPTS:
+    case EditorTool_COINS:
         // 1x1
         graphics.draw_rect(x, y, 8, 8, blue);
         break;
@@ -1708,6 +1714,12 @@ void editorclass::draw_tool(EditorTools tool, int x, int y)
         break;
     case EditorTool_START_POINT:
         graphics.draw_sprite(x, y, 184, graphics.col_crewcyan);
+        break;
+    case EditorTool_COINS:
+        graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, x, y - 1, 8, 8, graphics.getRGB(255, 255, 0));
+        graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, x + 9, y - 1, 8, 8, graphics.getRGB(255, 255, 0));
+        graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, x, y + 8, 8, 8, graphics.getRGB(255, 255, 0));
+        graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, x + 9, y + 8, 8, 8, graphics.getRGB(255, 255, 0));
         break;
     default:
         break;
@@ -2414,6 +2426,9 @@ void editorclass::entity_clicked(const int index)
         }
         break;
     }
+    case 8:
+        lclickdelay = 0;
+        break;
     case 10:
         // Checkpoints
         // If it's not textured as a checkpoint, then just leave it be
@@ -2596,6 +2611,9 @@ void editorclass::tool_place()
         }
         add_entity(levx, levy, tilex, tiley, 16, 0);
         lclickdelay = 1;
+        break;
+    case EditorTool_COINS:
+        add_entity(levx, levy, tilex, tiley, 8);
         break;
     default:
         break;

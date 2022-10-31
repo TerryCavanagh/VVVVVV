@@ -1526,7 +1526,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return;
+        if (coincollect.find(meta1) != coincollect.end()) return;
         break;
     case 9: //Something Shiny
         entity.rule = 3;
@@ -2659,10 +2659,7 @@ bool entityclass::updateentities( int i )
             if (entities[i].state == 1)
             {
                 music.playef(Sound_COIN);
-                if (INBOUNDS_ARR(entities[i].para, collect))
-                {
-                    collect[(int) entities[i].para] = true;
-                }
+                coincollect.insert(entities[i].para);
 
                 return disableentity(i);
             }

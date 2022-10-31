@@ -1866,6 +1866,9 @@ void mapclass::loadlevel(int rx, int ry)
             case 3: // Disappearing platforms
                 obj.createentity(ex, ey, 3);
                 break;
+            case 8: // Coins
+                obj.createentity(ex, ey, 8, cl.findcoin(edi));
+                break;
             case 9: // Trinkets
                 obj.createentity(ex, ey, 9, cl.findtrinket(edi));
                 break;

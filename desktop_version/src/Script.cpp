@@ -1238,6 +1238,14 @@ void scriptclass::run(void)
                     position--;
                 }
             }
+            else if (words[0] == "ifcoins")
+            {
+                if (game.coins() >= ss_toi(words[1]))
+                {
+                    load("custom_" + raw_words[2]);
+                    position--;
+                }
+             }
             else if (words[0] == "hidecoordinates")
             {
                 map.setexplored(ss_toi(words[1]), ss_toi(words[2]), false);
@@ -1385,6 +1393,7 @@ void scriptclass::run(void)
                     obj.collect[i] = false;
                     obj.customcollect[i] = false;
                 }
+                obj.coincollect.clear();
                 game.deathcounts = 0;
                 game.advancetext = false;
                 game.hascontrol = true;
@@ -3241,6 +3250,8 @@ void scriptclass::hardreset(void)
     SDL_memset(obj.collect, false, sizeof(obj.collect));
     SDL_memset(obj.customcollect, false, sizeof(obj.customcollect));
     i = 100; //previously a for-loop iterating over collect/customcollect set this to 100
+
+    obj.coincollect.clear();
 
     int theplayer = obj.getplayer();
     if (INBOUNDS_VEC(theplayer, obj.entities)){

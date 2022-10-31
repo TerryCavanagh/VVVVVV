@@ -144,6 +144,7 @@ public:
     void generatecustomminimap(void);
 
     int findtrinket(int t);
+    int findcoin(int t);
     int findcrewmate(int t);
     int findwarptoken(int t);
     void findstartpoint(void);
@@ -157,6 +158,7 @@ public:
     static const int numrooms = maxwidth * maxheight;
     int contents[40 * 30 * numrooms];
     int numtrinkets(void);
+    int numcoins(void);
     int numcrewmates(void);
     RoomProperty roomproperties[numrooms]; //Maxwidth*maxheight
 

@@ -966,6 +966,23 @@ int customlevelclass::findtrinket(int t)
     return 0;
 }
 
+int customlevelclass::findcoin(int t)
+{
+    int coins = 0;
+    for (int i = 0; i < (int) customentities.size(); i++)
+    {
+        if (i == t)
+        {
+            return coins;
+        }
+        if (customentities[i].t == 8)
+        {
+            coins++;
+        }
+    }
+    return 0;
+}
+
 int customlevelclass::findcrewmate(int t)
 {
     int ttrinket=0;
@@ -1954,6 +1971,19 @@ int customlevelclass::numtrinkets(void)
     for (size_t i = 0; i < customentities.size(); i++)
     {
         if (customentities[i].t == 9 && inbounds(&customentities[i]))
+        {
+            temp++;
+        }
+    }
+    return temp;
+}
+
+int customlevelclass::numcoins(void)
+{
+    int temp = 0;
+    for (size_t i = 0; i < customentities.size(); i++)
+    {
+        if (customentities[i].t == 8 && inbounds(&customentities[i]))
         {
             temp++;
         }

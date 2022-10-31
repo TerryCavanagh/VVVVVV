@@ -2070,6 +2070,26 @@ void gamerender(void)
         );
     }
 
+    bool show_coins = game.coins() > 0;
+#ifndef NO_CUSTOM_LEVELS
+	show_coins = show_coins || (map.custommode && (cl.numcoins() > 0));
+#endif
+
+    if (show_coins) {
+        int color = 255 - help.glow / 2;
+
+        font::print(PR_BOR | PR_RIGHT, 304, 231, help.String(game.coins()), color, color, 196);
+
+        if (!graphics.notextoutline) {
+            graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, 310, 230, 8, 8, graphics.getRGB(0, 0, 0));
+            graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, 312, 230, 8, 8, graphics.getRGB(0, 0, 0));
+            graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, 311, 229, 8, 8, graphics.getRGB(0, 0, 0));
+            graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, 311, 231, 8, 8, graphics.getRGB(0, 0, 0));
+        }
+
+        graphics.draw_grid_tile(graphics.grphx.im_tiles_white, 48, 311, 230, 8, 8, graphics.getRGB(color, color, 196));
+    }
+
     if (map.roomtexton)
     {
         //Draw room text!
