@@ -4241,6 +4241,84 @@ void Game::updatestate(void)
             }
             setstate(0);
             break;
+        case 4100:
+            //Activating a teleporter (default appear)
+            state++;
+            statedelay = 15;
+            flashlight = 5;
+            screenshake = 90;
+            music.playef(9);
+            break;
+        case 4101:
+            //Activating a teleporter 2
+            state++;
+            statedelay = 0;
+            flashlight = 5;
+            screenshake = 0;
+            music.playef(10);
+            break;
+        case 4102:
+        {
+            //Activating a teleporter 2
+            state++;
+            statedelay = 5;
+
+            int time = 8;
+            int i = obj.getplayer();
+            int j = obj.getteleporter();
+            if (INBOUNDS_VEC(i, obj.entities))
+            {
+                obj.entities[i].colour = 0;
+                obj.entities[i].invis = false;
+                obj.entities[i].dir = 1;
+
+                obj.entities[i].ay = -6;
+                obj.entities[i].ax = 6;
+                obj.entities[i].vy = -6;
+                obj.entities[i].vx = 6;
+
+                time = 0;
+                obj.entities[i].p1x = 320 / 2;
+                obj.entities[i].p1y = 240 / 2;
+                obj.entities[i].p2x = 320 / 2;
+                obj.entities[i].p2y = 240 / 2;
+                obj.entities[i].p3x = 320 / 2;
+                obj.entities[i].p3y = 240 / 2;
+
+                if (INBOUNDS_VEC(j, obj.entities))
+                {
+                    // NOTE: Using 37 instead of 44 for better centering!
+                    obj.entities[i].xp = obj.entities[j].xp + 37;
+                    obj.entities[i].yp = obj.entities[j].yp + 37;
+                    obj.entities[i].lerpoldxp = obj.entities[i].xp;
+                    obj.entities[i].lerpoldyp = obj.entities[i].yp;
+                    obj.entities[j].tile = 2;
+                    obj.entities[j].colour = 101;
+
+                    obj.entities[i].p1x = obj.entities[j].xp + 37;
+                    obj.entities[i].p1y = obj.entities[j].yp + 37;
+                    obj.entities[i].p2x = obj.entities[j].p1x;
+                    obj.entities[i].p2y = obj.entities[j].p1y;
+                    obj.entities[i].p3x = obj.entities[j].p2x;
+                    obj.entities[i].p3y = obj.entities[j].p2y;
+                    obj.entities[i].dir = obj.entities[j].p3x % 2; // 0 or 2 = left, 1 or 3 = right
+                    gravitycontrol = obj.entities[j].p3x > 1; // 0 or 1 = floor, 2 or 3 = ceiling
+                    time = obj.entities[j].p3y;
+                }
+
+                obj.entities[i].pathtime = 0;
+                obj.entities[i].pathmaxtime = time;
+            }
+
+            statedelay = time + 15;
+            state = 4109;
+            break;
+        }
+        case 4109:
+            hascontrol = true;
+            advancetext = false;
+            state = 0;
+            break;
         }
     }
 }

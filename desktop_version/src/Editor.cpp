@@ -26,6 +26,10 @@
 #include "Vlogging.h"
 
 #define SCRIPT_LINE_PADDING 6
+#define LERP(a, b, t) ((a) + (t) * ((b) - (a)))
+#define POINT_OFFSET 12
+#define POINT_SIZE 6
+#define TELEPORTER_ARC_SMOOTHNESS 255
 
 editorclass::editorclass(void)
 {
@@ -48,6 +52,7 @@ editorclass::editorclass(void)
     register_tool(EditorTool_WARP_LINES, "Warp Lines", "I", SDLK_i, false);
     register_tool(EditorTool_CREWMATES, "Crewmates", "O", SDLK_o, false);
     register_tool(EditorTool_START_POINT, "Start Point", "P", SDLK_p, false);
+    register_tool(EditorTool_TELEPORTERS, "Teleporters", "^2", SDLK_2, true);
 
     static const short basic[] = {
         121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121,
@@ -365,10 +370,17 @@ void editorclass::reset(void)
     levy = 0;
     keydelay = 0;
     lclickdelay = 0;
+    rclickdelay = 0;
     savekey = false;
     loadkey = false;
     updatetiles = true;
     changeroom = true;
+
+    dragging = false;
+    dragging_entity = -1;
+    dragging_point = 1;
+    drag_offset_x = 0;
+    drag_offset_y = 0;
 
     entframe = 0;
     entframedelay = 0;
@@ -990,6 +1002,73 @@ static void draw_entities(void)
                 font::print(PR_BOR | PR_CJK_HIGH, x, y - 8, text, 210, 210, 255);
                 break;
             }
+            case 14: // Teleporters
+            {
+                graphics.drawtele(x, y, 1, graphics.getcol(100));
+                graphics.draw_rect(x, y, 8 * 12, 8 * 12, graphics.getRGB(164, 164, 255));
+
+                int sprite = 0;
+                if (customentities[i].p5 % 2 == 0)
+                {
+                    sprite += 3;
+                }
+
+                if (customentities[i].p5 >= 2)
+                {
+                    sprite += 6;
+                }
+
+                graphics.draw_sprite(customentities[i].p3, customentities[i].p4, sprite, graphics.crewcolourreal(0));
+
+                SDL_Point triangle[4] = {
+                    { x + 37 + POINT_OFFSET, y + 37 + POINT_OFFSET },
+                    { customentities[i].p1 + POINT_OFFSET, customentities[i].p2 + POINT_OFFSET },
+                    { customentities[i].p3 + POINT_OFFSET, customentities[i].p4 + POINT_OFFSET },
+                    { x + 37 + POINT_OFFSET, y + 37 + POINT_OFFSET}
+                };
+
+                SDL_SetRenderDrawColor(gameScreen.m_renderer, 164, 255, 255, 255);
+                SDL_RenderDrawLines(gameScreen.m_renderer, triangle, SDL_arraysize(triangle));
+
+                SDL_Point points[TELEPORTER_ARC_SMOOTHNESS + 1];
+
+                for (int j = 0; j <= TELEPORTER_ARC_SMOOTHNESS; j++)
+                {
+                    float progress = (float)j / TELEPORTER_ARC_SMOOTHNESS;
+                    float left_line_x = LERP(x + 37 + POINT_OFFSET, customentities[i].p1 + POINT_OFFSET, progress);
+                    float left_line_y = LERP(y + 37 + POINT_OFFSET, customentities[i].p2 + POINT_OFFSET, progress);
+                    float right_line_x = LERP(customentities[i].p1 + POINT_OFFSET, customentities[i].p3 + POINT_OFFSET, progress);
+                    float right_line_y = LERP(customentities[i].p2 + POINT_OFFSET, customentities[i].p4 + POINT_OFFSET, progress);
+
+                    SDL_Point coords;
+                    coords.x = LERP(left_line_x, right_line_x, progress);
+                    coords.y = LERP(left_line_y, right_line_y, progress);
+
+                    points[j] = coords;
+                }
+
+                SDL_SetRenderDrawColor(gameScreen.m_renderer, 164, 255, 164, 255);
+                SDL_RenderDrawLines(gameScreen.m_renderer, points, SDL_arraysize(points));
+
+                int offset = POINT_OFFSET - (POINT_SIZE / 2);
+
+                SDL_Color point1 = graphics.getRGB(255, 255, 255);
+                SDL_Color point2 = graphics.getRGB(255, 255, 255);
+
+                if (ed.dragging_entity == i && ed.dragging_point == 1)
+                {
+                    point1 = graphics.getRGB(164, 164, 255);
+                }
+                else if (ed.dragging_entity == i && ed.dragging_point == 2)
+                {
+                    point2 = graphics.getRGB(164, 164, 255);
+                }
+
+                graphics.draw_rect(customentities[i].p1 + offset, customentities[i].p2 + offset, POINT_SIZE, POINT_SIZE, point1);
+                graphics.draw_rect(customentities[i].p3 + offset, customentities[i].p4 + offset, POINT_SIZE, POINT_SIZE, point2);
+
+                break;
+            }
             case 15: // Crewmates
                 graphics.draw_sprite(x - 4, y, 144, graphics.crewcolourreal(entity->p1));
                 graphics.draw_rect(x, y, 16, 24, graphics.getRGB(164, 164, 164));
@@ -1328,6 +1407,10 @@ static void draw_cursor(void)
     case EditorTool_START_POINT:
         // 2x3
         graphics.draw_rect(x, y, 16, 24, blue);
+        break;
+    case EditorTool_TELEPORTERS:
+        // 12x12
+        graphics.draw_rect(x, y, 96, 96, blue);
         break;
     default:
         break;
@@ -1703,6 +1786,15 @@ void editorclass::draw_tool(EditorTools tool, int x, int y)
     case EditorTool_START_POINT:
         graphics.draw_sprite(x, y, 184, graphics.col_crewcyan);
         break;
+    case EditorTool_TELEPORTERS:
+    {
+        graphics.fill_rect(x, y, 16, 16, graphics.getRGB(16, 16, 16));
+        SDL_Color color = graphics.getcol(100);
+        graphics.set_texture_color_mod(graphics.grphx.im_teleporter, color.r, color.g, color.b);
+        graphics.draw_texture_part(graphics.grphx.im_teleporter, x, y, 136, 40, 16, 16, 1, 1);
+        graphics.set_texture_color_mod(graphics.grphx.im_teleporter, 255, 255, 255);
+        break;
+    }
     default:
         break;
     }
@@ -2591,6 +2683,18 @@ void editorclass::tool_place()
         add_entity(levx, levy, tilex, tiley, 16, 0);
         lclickdelay = 1;
         break;
+    case EditorTool_TELEPORTERS:
+    {
+        lclickdelay = 1;
+
+        int point1x = SDL_clamp((tilex + 9) * 8, -POINT_OFFSET, SCREEN_WIDTH_PIXELS - POINT_OFFSET);
+        int point1y = SDL_clamp((tiley - 4) * 8 + 37, -POINT_OFFSET, SCREEN_HEIGHT_PIXELS - POINT_OFFSET);
+        int point2x = SDL_clamp((tilex + 16) * 8 + 38, -POINT_OFFSET, SCREEN_WIDTH_PIXELS - POINT_OFFSET);
+        int point2y = SDL_clamp((tiley + 8) * 8, -POINT_OFFSET, SCREEN_HEIGHT_PIXELS - POINT_OFFSET);
+
+        add_entity(levx, levy, tilex, tiley, 14, point1x, point1y, point2x, point2y, 1, 7);
+        break;
+    }
     default:
         break;
     }
@@ -2843,7 +2947,7 @@ static void start_at_checkpoint(void)
 {
     extern editorclass ed;
 
-    // Scan the room for a start point or a checkpoint, the start point taking priority
+    // Scan the room for a start point or a checkpoint/teleporter, the start point taking priority
     int testeditor = -1;
     bool startpoint = false;
 
@@ -2851,7 +2955,8 @@ static void start_at_checkpoint(void)
     {
         startpoint = customentities[i].t == 16;
         const bool is_startpoint_or_checkpoint = startpoint ||
-            customentities[i].t == 10;
+            customentities[i].t == 10 ||
+            customentities[i].t == 14;
         if (!is_startpoint_or_checkpoint)
         {
             continue;
@@ -2890,25 +2995,31 @@ static void start_at_checkpoint(void)
         game.edsaverx = 100 + customentities[testeditor].rx;
         game.edsavery = 100 + customentities[testeditor].ry;
 
+        game.edsavedir = 0;
+        game.edsavegc = 0;
+
         if (!startpoint)
         {
             // Checkpoint spawn
-            if (customentities[testeditor].p1 == 0) // NOT a bool check!
+            if (customentities[testeditor].t == 14) {
+                // Actually, teleporter!
+                game.edsavex += 48;
+                game.edsavey += 44;
+                game.edsavedir = 1;
+            }
+            else if (customentities[testeditor].p1 == 0) // NOT a bool check!
             {
                 game.edsavegc = 1;
                 game.edsavey -= 2;
             }
             else
             {
-                game.edsavegc = 0;
                 game.edsavey -= 7;
             }
-            game.edsavedir = 0;
         }
         else
         {
             // Start point spawn
-            game.edsavegc = 0;
             game.edsavey++;
             game.edsavedir = 1 - customentities[testeditor].p1;
         }
@@ -3085,6 +3196,78 @@ static void handle_draw_input()
         {
             ed.toolbox_open = !ed.toolbox_open;
             ed.keydelay = 6;
+        }
+    }
+}
+
+void check_if_dragging(void)
+{
+    extern editorclass ed;
+
+    ed.dragging_entity = -1;
+
+    // Is the mouse currently over a teleporter point? Loop through entities.
+    for (size_t i = 0; i < customentities.size(); i++)
+    {
+        // If it's not in the current room, continue.
+        if (customentities[i].x < ed.levx * 40 || customentities[i].x >= (ed.levx + 1) * 40 ||
+            customentities[i].y < ed.levy * 30 || customentities[i].y >= (ed.levy + 1) * 30)
+        {
+            continue;
+        }
+
+        // If it's not a teleporter, continue.
+        if (customentities[i].t != 14)
+        {
+            continue;
+        }
+
+        // Okay, it's a teleporter. First, is our mouse on a point?
+        SDL_Rect point = {
+            customentities[i].p3 + POINT_OFFSET - (POINT_SIZE / 2),
+            customentities[i].p4 + POINT_OFFSET - (POINT_SIZE / 2),
+            POINT_SIZE,
+            POINT_SIZE
+        };
+
+        SDL_Point mouse = { key.mousex, key.mousey };
+
+        if (SDL_PointInRect(&mouse, &point))
+        {
+            // We're on the second point!
+            ed.dragging_entity = i;
+            ed.dragging_point = 2;
+            ed.drag_offset_x = key.mousex - customentities[i].p3;
+            ed.drag_offset_y = key.mousey - customentities[i].p4;
+
+            if (key.leftbutton)
+            {
+                ed.dragging = true;
+            }
+            else if (key.rightbutton && (ed.rclickdelay == 0))
+            {
+                customentities[i].p5 = (customentities[i].p5 + 1) % 4;
+                ed.rclickdelay = 1;
+            }
+            break;
+        }
+
+        // Nope, let's check the other point...
+        point.x = customentities[i].p1 + POINT_OFFSET - (POINT_SIZE / 2);
+        point.y = customentities[i].p2 + POINT_OFFSET - (POINT_SIZE / 2);
+
+        if (SDL_PointInRect(&mouse, &point))
+        {
+            // We're on the first point!
+            ed.dragging_entity = i;
+            ed.dragging_point = 1;
+            ed.drag_offset_x = key.mousex - customentities[i].p1;
+            ed.drag_offset_y = key.mousey - customentities[i].p2;
+            if (key.leftbutton)
+            {
+                ed.dragging = true;
+            }
+            break;
         }
     }
 }
@@ -3280,7 +3463,30 @@ void editorinput(void)
             }
 
             // Mouse input
-            if (key.leftbutton && ed.lclickdelay == 0)
+            if (ed.dragging)
+            {
+                if (key.leftbutton && INBOUNDS_VEC(ed.dragging_entity, customentities))
+                {
+                    if (ed.dragging_point == 1)
+                    {
+                        customentities[ed.dragging_entity].p1 = key.mousex - ed.drag_offset_x;
+                        customentities[ed.dragging_entity].p2 = key.mousey - ed.drag_offset_y;
+                    }
+                    else
+                    {
+                        customentities[ed.dragging_entity].p3 = key.mousex - ed.drag_offset_x;
+                        customentities[ed.dragging_entity].p4 = key.mousey - ed.drag_offset_y;
+                    }
+                }
+                else
+                {
+                    ed.dragging = false;
+                }
+            }
+
+            check_if_dragging();
+
+            if ( key.leftbutton && ed.lclickdelay == 0 && !ed.dragging)
             {
                 ed.tool_place();
             }
@@ -3289,9 +3495,14 @@ void editorinput(void)
                 ed.lclickdelay = 0;
             }
 
-            if (key.rightbutton)
+            if (key.rightbutton && !ed.dragging)
             {
                 ed.tool_remove();
+            }
+
+            if (!key.rightbutton)
+            {
+                ed.rclickdelay = 0;
             }
 
             if (key.middlebutton)

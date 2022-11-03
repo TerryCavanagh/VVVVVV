@@ -48,6 +48,7 @@ enum EditorTools
     EditorTool_WARP_LINES,
     EditorTool_CREWMATES,
     EditorTool_START_POINT,
+    EditorTool_TELEPORTERS,
 
     NUM_EditorTools
 };
@@ -223,7 +224,7 @@ public:
 
     int old_tilex, old_tiley;
     int tilex, tiley;
-    int keydelay, lclickdelay;
+    int keydelay, lclickdelay, rclickdelay;
     bool savekey, loadkey;
     int levx, levy;
     int entframe, entframedelay;
@@ -240,6 +241,13 @@ public:
         int text_entity; // Entity ID for text prompt
     };
     bool x_modifier, z_modifier, c_modifier, v_modifier, b_modifier, h_modifier, f_modifier, toolbox_open;
+
+    bool dragging;
+
+    int dragging_entity;
+    int dragging_point;
+    int drag_offset_x;
+    int drag_offset_y;
 
     int roomnamehide;
     bool saveandquit;

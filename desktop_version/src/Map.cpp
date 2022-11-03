@@ -1,6 +1,8 @@
 #define MAP_DEFINITION
 #include "Map.h"
 
+#include <algorithm>
+
 #include "Alloc.h"
 #include "Constants.h"
 #include "CustomLevels.h"
@@ -412,19 +414,44 @@ void mapclass::roomnamechange(const int x, const int y, const char** lines, cons
     specialroomnames.push_back(roomname);
 }
 
+static bool compareTeleporterPoints(SDL_Point a, SDL_Point b)
+{
+    if (a.x == b.x)
+    {
+        return a.y < b.y;
+    }
+    return a.x < b.x;
+}
+
 void mapclass::initcustommapdata(void)
 {
     shinytrinkets.clear();
+    teleporters.clear();
+
+    std::vector<SDL_Point> teleporters;
 
     for (size_t i = 0; i < customentities.size(); i++)
     {
         const CustomEntity& ent = customentities[i];
-        if (ent.t != 9)
-        {
-            continue;
-        }
 
-        settrinket(ent.rx, ent.ry);
+        if (ent.t == 9)
+        {
+            settrinket(ent.rx, ent.ry);
+        }
+        else if (ent.t == 14)
+        {
+            SDL_Point temp;
+            temp.x = ent.rx;
+            temp.y = ent.ry;
+            teleporters.push_back(temp);
+        }
+    }
+
+    std::sort(teleporters.begin(), teleporters.end(), compareTeleporterPoints);
+
+    for (size_t i = 0; i < teleporters.size(); i++)
+    {
+        setteleporter(teleporters[i].x, teleporters[i].y);
     }
 }
 
@@ -1885,6 +1912,11 @@ void mapclass::loadlevel(int rx, int ry)
             case 13: // Warp Tokens
                 obj.createentity(ex, ey, 13, ent.p1, ent.p2);
                 break;
+            case 14: // Teleporter
+            {
+                obj.createentity(ex, ey, 14, 0, ((rx + (ry * 100)) * 20) + tempcheckpoints, ent.p1, ent.p2, ent.p3, ent.p4, ent.p5, ent.p6);
+                break;
+            }
             case 15: // Collectable crewmate
                 obj.createentity(ex - 4, ey + 1, 55, cl.findcrewmate(edi), ent.p1, ent.p2);
                 break;

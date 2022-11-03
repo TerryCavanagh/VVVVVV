@@ -613,6 +613,7 @@
     <string english="O: Crewmate" translation="" explanation="***OUTDATED***"/>
     <string english="O: Crewmates" translation="" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="" explanation="editor tool" max="32"/>
+    <string english="^2: Teleporters" translation="" explanation="editor tool. Large round teleporter which can teleport the player to other teleporters" max="32"/>
     <string english="START" translation="" explanation="start point in level editor" max="10"/>
     <string english="SPACE ^  SHIFT ^" translation="" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
     <string english="F1: Change Tileset" translation="" explanation="editor shortcut, switch to different tileset" max="25"/>

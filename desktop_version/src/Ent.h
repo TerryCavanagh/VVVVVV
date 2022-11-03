@@ -39,6 +39,8 @@ public:
     float newxp, newyp;
     bool isplatform;
     int x1,y1,x2,y2;
+    int p1x, p1y, p2x, p2y, p3x, p3y;
+    int pathtime, pathmaxtime;
     //Collision Rules
     int onentity;
     bool harmful;
