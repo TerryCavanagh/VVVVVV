@@ -417,6 +417,11 @@ void gamelogic(void)
                 }
                 if (!entitygone) obj.entities[i].state = 4;
             }
+            else if (obj.entities[i].type == 4 && obj.entities[i].state == 2)
+            {
+                // Flip token: Give a signal to respawn
+                obj.entities[i].state = 3;
+            }
             else if (obj.entities[i].type == 23 && game.swnmode && game.deathseq<15)
             {
                 //if playing SWN, get the enemies offscreen.

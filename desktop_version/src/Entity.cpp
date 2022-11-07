@@ -1480,13 +1480,14 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.rule = 3;
         entity.type = 4;
         entity.size = 0;
-        entity.tile = 11;
+        entity.tile = 68 + meta1;
+        entity.colour = meta2;
         entity.w = 16;
         entity.h = 16;
-        entity.behave = meta1;
-        entity.para = meta2;
+        entity.behave = p2;
+        entity.para = p3;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animate = (p1 >= 1) ? 1 : -1;
         break;
     case 6: //Decorative particles
         entity.rule = 2;
@@ -2634,8 +2635,22 @@ bool entityclass::updateentities( int i )
             {
                 game.gravitycontrol = (game.gravitycontrol + 1) % 2;
                 ++game.totalflips;
-                return disableentity(i);
-
+                music.playef(8 + entities[i].behave);
+                entities[i].invis = true;
+                entities[i].state = 2;
+                // Removes collision
+                entities[i].onentity = 0;
+            }
+            else if (entities[i].state == 2)
+            {
+                // Wait until recharged!
+            }
+            else if (entities[i].state == 3)
+            {
+                // Respawn!
+                entities[i].invis = false;
+                entities[i].state = 0;
+                entities[i].onentity = 1;
             }
             break;
         case 5:  //Particle sprays
@@ -3475,6 +3490,7 @@ void entityclass::animateentities( int _i )
             }
             break;
         case 1:
+        case 4:
         case 23:
             //Variable animation
             switch(entities[_i].animate)
