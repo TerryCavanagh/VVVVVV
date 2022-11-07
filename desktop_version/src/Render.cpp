@@ -2166,37 +2166,14 @@ void rendermapcursor(bool flashing)
         return;
     }
 
-    if (mapzoom == 4) {
-        if (!flashing || (map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0)) {
-            graphics.drawrect(40 + ((game.roomx - 100) * 48) + 2 + mapxoff, 21 + ((game.roomy - 100) * 36) + 2 + mapyoff, 48 - 4, 36 - 4, 16, 245 - (help.glow), 245 - (help.glow));
-        }
-        else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
-        {
-            graphics.drawrect(40 + ((game.roomx - 100) * 48) + mapxoff, 21 + ((game.roomy - 100) * 36) + mapyoff, 48, 36, 255, 255, 255);
-            graphics.drawrect(40 + ((game.roomx - 100) * 48) + 2 + mapxoff, 21 + ((game.roomy - 100) * 36) + 2 + mapyoff, 48 - 4, 36 - 4, 255, 255, 255);
-        }
+    if (!flashing || (map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0))
+    {
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + 2 + mapxoff, 21 + ((game.roomy - 100) * 9 * mapzoom) + 2 + mapyoff, (12 * mapzoom) - 4, (9 * mapzoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
     }
-    else if (mapzoom == 2) {
-        if (!flashing || (map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0))
-        {
-            graphics.drawrect(40 + ((game.roomx - 100) * 24) + 2 + mapxoff, 21 + ((game.roomy - 100) * 18) + 2 + mapyoff, 24 - 4, 18 - 4, 16, 245 - (help.glow), 245 - (help.glow));
-        }
-        else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
-        {
-            graphics.drawrect(40 + ((game.roomx - 100) * 24) + mapxoff, 21 + ((game.roomy - 100) * 18) + mapyoff, 24, 18, 255, 255, 255);
-            graphics.drawrect(40 + ((game.roomx - 100) * 24) + 2 + mapxoff, 21 + ((game.roomy - 100) * 18) + 2 + mapyoff, 24 - 4, 18 - 4, 255, 255, 255);
-        }
-    }
-    else {
-        if (!flashing || (map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0))
-        {
-            graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2 + mapxoff, 21 + ((game.roomy - 100) * 9) + 2 + mapyoff, 12 - 4, 9 - 4, 16, 245 - (help.glow), 245 - (help.glow));
-        }
-        else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
-        {
-            graphics.drawrect(40 + ((game.roomx - 100) * 12) + mapxoff, 21 + ((game.roomy - 100) * 9) + mapyoff, 12, 9, 255, 255, 255);
-            graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2 + mapxoff, 21 + ((game.roomy - 100) * 9) + 2 + mapyoff, 12 - 4, 9 - 4, 255, 255, 255);
-        }
+    else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
+    {
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + mapxoff, 21 + ((game.roomy - 100) * 9) + mapyoff, 12 * mapzoom, 9 * mapzoom, 255, 255, 255);
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + 2 + mapxoff, 21 + ((game.roomy - 100) * 9 * mapzoom) + 2 + mapyoff, (12 * mapzoom) - 4, (9 * mapzoom) - 4, 255, 255, 255);
     }
 }
 
