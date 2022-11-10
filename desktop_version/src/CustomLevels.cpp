@@ -3,6 +3,7 @@
 #define CL_DEFINITION
 #include "CustomLevels.h"
 
+#include <algorithm>
 #include <physfs.h>
 #include <stdio.h>
 #include <string>
@@ -376,6 +377,9 @@ void customlevelclass::reset(void)
     script.clearcustom();
 
     onewaycol_override = false;
+
+    entcolours.clear();
+    entcolour_aliases.clear();
 }
 
 const int* customlevelclass::loadlevel( int rxi, int ryi )
@@ -1266,6 +1270,40 @@ next:
                 script.customscripts.push_back(script_);
             }
         }
+
+        if (SDL_strcmp(pKey, "EntityColours") == 0)
+        {
+            for (tinyxml2::XMLElement* entityColourElement = pElem->FirstChildElement(); entityColourElement; entityColourElement = entityColourElement->NextSiblingElement())
+            {
+                if (SDL_strcmp(entityColourElement->Value(), "colour") == 0)
+                {
+                    std::string text = "r = 255|g = 255|b = 255";
+
+                    if (entityColourElement->GetText() != NULL)
+                    {
+                        text = std::string(entityColourElement->GetText());
+                    }
+
+                    CustomEntityColour colour;
+                    colour.synced = false;
+                    colour.input.clear();
+
+                    size_t start = 0;
+                    size_t len = 0;
+                    size_t prev_start = 0;
+
+                    while (next_split(&start, &len, &text[start], '|'))
+                    {
+                        colour.input.push_back(std::string(&text[prev_start], len));
+
+                        prev_start = start;
+                    }
+                    int id = entityColourElement->IntAttribute("id", 0);
+                    entcolours[id] = colour;
+                }
+            }
+        }
+
     }
 
     if (mapwidth < maxwidth)
