@@ -525,6 +525,7 @@ public:
     bool inputdelay;
 
     bool statelocked;
+    Uint32 gameticks;
 };
 
 #ifndef GAME_DEFINITION

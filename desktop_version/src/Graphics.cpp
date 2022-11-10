@@ -3088,19 +3088,25 @@ SDL_Color Graphics::getcol( int t )
 #if !defined(NO_CUSTOM_LEVELS)
     if (cl.entcolours.count(t) != 0)
     {
-        std::vector<std::string> input = cl.entcolours.at(t).input;
-
+        CustomEntityColour &colour = cl.entcolours[t];
+        if (colour.synced && (colour.tick == game.gameticks)) {
+            ct.colour = colour.colour;
+            return;
+        }
+        colour.tick = game.gameticks;
+        std::vector<std::string> input = colour.input;
 
         MathParser::ResetEnvironment();
         MathParser::SetVariable("r", 255);
         MathParser::SetVariable("g", 255);
         MathParser::SetVariable("b", 255);
         MathParser::SetVariable("glow", help.glow);
-        MathParser::SetVariable("ticks", SDL_GetTicks());
+        MathParser::SetVariable("ticks", game.gameticks);
         for (int i = 0; i < input.size(); i++) {
             MathParser::ParseExpression(input[i]);
         }
         ct.colour = getRGB(MathParser::variables.at("r"), MathParser::variables.at("g"), MathParser::variables.at("b"));
+        colour.colour = ct.colour;
         return;
     }
 #endif

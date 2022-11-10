@@ -379,6 +379,8 @@ void Game::init(void)
     disableaudiopause = false;
     disabletemporaryaudiopause = true;
     inputdelay = false;
+
+    gameticks = 0;
 }
 
 void Game::lifesequence(void)

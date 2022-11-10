@@ -1285,7 +1285,8 @@ next:
                     }
 
                     CustomEntityColour colour;
-                    colour.synced = false;
+                    colour.tick = UINT32_MAX;
+                    colour.colour = 0xFFFFFFFF;
                     colour.input.clear();
 
                     size_t start = 0;
@@ -1298,8 +1299,23 @@ next:
 
                         prev_start = start;
                     }
+                    colour.synced = entityColourElement->BoolAttribute("synced", false);
                     int id = entityColourElement->IntAttribute("id", 0);
+                    const char* name = entityColourElement->Attribute("name");
+                    if (name != NULL)
+                    {
+                        entcolour_aliases[name] = id;
+                    }
                     entcolours[id] = colour;
+                }
+                else if (SDL_strcmp(entityColourElement->Value(), "alias") == 0)
+                {
+                    int id = entityColourElement->IntAttribute("id", 0);
+                    const char* name = entityColourElement->Attribute("name");
+                    if (name != NULL)
+                    {
+                        entcolour_aliases[name] = id;
+                    }
                 }
             }
         }

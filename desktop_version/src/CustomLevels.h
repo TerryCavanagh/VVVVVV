@@ -76,6 +76,8 @@ struct CustomEntityColour
 {
     std::vector<std::string> input;
     bool synced;
+    Uint32 tick;
+    Uint32 colour;
 };
 
 extern std::vector<CustomEntity> customentities;
