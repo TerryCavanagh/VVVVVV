@@ -95,21 +95,21 @@ public:
     {
         std::string result = "";
         while (currentChar != '\0' && isdigit(currentChar))
-    {
+        {
             result += currentChar;
             advance();
         }
         if (currentChar == '.')
-    {
+        {
             result += currentChar;
             advance();
             while (currentChar != '\0' && isdigit(currentChar))
-    {
+             {
                 result += currentChar;
                 advance();
             }
         }
-        return std::stod(result);
+        return atof(result.c_str());
     }
 
     std::string identifier()
@@ -475,12 +475,17 @@ public:
         this->errorMessage = "";
     }
 
+    void error(std::string message)
+    {
+        this->invalid = true;
+        this->errorMessage = message;
+    }
+
     double visit(AST* node)
     {
         if (node == NULL)
         {
-            invalid = true;
-            errorMessage = "Unexpected end of nodes";
+            error("Unexpected end of nodes");
             return -1;
         }
         switch (node->type)
@@ -492,12 +497,7 @@ public:
             {
                 return variables[((Var*)node)->name];
             }
-            else
-            {
-                invalid = true;
-                errorMessage = "Variable not found";
-                return -1;
-            }
+            error("Variable not found");
         case AST_BINOP:
             switch (((BinOp*)node)->op.type)
             {
@@ -510,12 +510,15 @@ public:
             case DIVIDE:
                 return visit(((BinOp*)node)->left) / visit(((BinOp*)node)->right);
             case MODULO:
-                return std::fmod(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
+                return fmod(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
             case POWER:
                 return pow(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
             case ASSIGN:
                 variables[((Var*)((BinOp*)node)->left)->name] = visit(((BinOp*)node)->right);
                 return variables[((Var*)((BinOp*)node)->left)->name];
+            default:
+                error("Unexpected operator type");
+                return -1;
             }
         case AST_UNARYOP:
             switch (((UnaryOp*)node)->op.type)
@@ -524,6 +527,9 @@ public:
                 return visit(((UnaryOp*)node)->expr);
             case MINUS:
                 return -visit(((UnaryOp*)node)->expr);
+            default:
+                error("Unexpected operator type");
+                return -1;
             }
         case AST_FUNCTION:
             {
@@ -579,8 +585,7 @@ public:
                     if (name == "clamp") return std::max(visit(args[1]), std::min(visit(args[0]), visit(args[2])));
                 }
 
-                invalid = true;
-                errorMessage = "Function not found or incorrect usage";
+                error("Function not found or incorrect usage");
                 return -1;
             }
         case AST_ASSIGN:
@@ -591,15 +596,17 @@ public:
                 return variables[name];
             }
         }
+
+        error("Unknown error while visiting nodes");
+        return -1;
     }
 };
 
 void MathParser::ResetEnvironment()
 {
-    variables = {
-        {"pi", 3.14159265358979323846},
-        {"e", 2.71828182845904523536}
-    };
+    variables.clear();
+    variables["pi"] = 3.14159265358979323846;
+    variables["e"] = 2.71828182845904523536;
 }
 
 void MathParser::SetVariable(std::string name, double value)
