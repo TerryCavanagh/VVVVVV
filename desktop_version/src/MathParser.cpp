@@ -498,6 +498,7 @@ public:
                 return variables[((Var*)node)->name];
             }
             error("Variable not found");
+            return -1;
         case AST_BINOP:
             switch (((BinOp*)node)->op.type)
             {
