@@ -514,9 +514,6 @@ public:
                 return fmod(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
             case POWER:
                 return pow(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
-            case ASSIGN:
-                variables[((Var*)((BinOp*)node)->left)->name] = visit(((BinOp*)node)->right);
-                return variables[((Var*)((BinOp*)node)->left)->name];
             default:
                 error("Unexpected operator type");
                 return -1;
