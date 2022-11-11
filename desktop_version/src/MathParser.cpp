@@ -9,8 +9,10 @@
 #include <algorithm>
 #include <exception>
 
-#include <MathParser.h>
-#include <Maths.h>
+#include "MathParser.h"
+#include "Maths.h"
+#include "Entity.h"
+#include "UtilityClass.h"
 
 namespace MathParser {
     std::map<std::string, double> variables;
@@ -547,6 +549,10 @@ public:
                     else if (name == "round") return round(visit(args[0]));
                     else if (name == "cbrt") return cbrt(visit(args[0]));
                     else if (name == "int") return int(visit(args[0]));
+                    else if (name == "flag") {
+                        int value = (int) visit(args[0]);
+                        return (int)(INBOUNDS_ARR(value, obj.flags) && obj.flags[value]);
+                    }
                 }
                 else if (args.size() == 2)
                 {
