@@ -67,7 +67,7 @@ public:
         this->pos = 0;
         this->invalid = false;
         if (input.empty()) invalid = true;
-        this->currentChar = input[this->pos];
+        this->currentChar = invalid ? ' ' : input[this->pos];
     }
 
     void advance()
