@@ -3103,7 +3103,14 @@ SDL_Color Graphics::getcol( int t )
         MathParser::SetVariable("glow", help.glow);
         MathParser::SetVariable("ticks", game.gameticks);
         for (int i = 0; i < input.size(); i++) {
-            MathParser::ParseExpression(input[i]);
+            MathParser::ExpressionOutput value = MathParser::ParseExpression(input[i]);
+            if (!value.success)
+            {
+                // Might be worth it to display value.error somewhere?
+                ct.colour = getRGB(255, 255, 255);
+                colour.colour = ct.colour;
+                return;
+            }
         }
         ct.colour = getRGB(MathParser::variables.at("r"), MathParser::variables.at("g"), MathParser::variables.at("b"));
         colour.colour = ct.colour;

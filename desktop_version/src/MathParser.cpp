@@ -18,36 +18,18 @@ namespace MathParser {
     std::map<std::string, double> variables;
 }
 
-class MathParser::InvalidExpression : public std::exception
-{
-    const char* what() const noexcept
-    {
-        return "Invalid expression\n";
-    }
-};
-class MathParser::FunctionNotFound : public std::exception
-{
-    const char* what() const noexcept
-    {
-        return "Function not found or incorrect usage\n";
-    }
-};
-class MathParser::VariableNotFound : public std::exception
-{
-    const char* what() const noexcept
-    {
-        return "Variable not found\n";
-    }
-};
-
 class MathParser::Token
 {
 public:
-    TOKEN_TYPE type = END;
-    double value = 0;
-    std::string name = " ";
+    TOKEN_TYPE type;
+    double value;
+    std::string name;
 
-    Token() {}
+    Token() {
+        type = END;
+        value = 0;
+        name = " ";
+    }
 
     Token(TOKEN_TYPE type, std::string name)
     {
@@ -67,23 +49,25 @@ public:
 class MathParser::Lexer
 {
 public:
-    std::string input = " ";
-    int pos = 0;
-    char currentChar = ' ';
+    std::string input;
+    int pos;
+    char currentChar;
+    bool invalid;
 
-    Lexer() {}
+    Lexer() {
+        input = " ";
+        pos = 0;
+        currentChar = ' ';
+        invalid = false;
+    }
 
     Lexer(std::string input)
     {
         this->input = input;
         this->pos = 0;
-        if (input.empty()) error();
+        this->invalid = false;
+        if (input.empty()) invalid = true;
         this->currentChar = input[this->pos];
-    }
-
-    void error()
-    {
-        throw new InvalidExpression();
     }
 
     void advance()
@@ -141,6 +125,9 @@ public:
 
     Token getNextToken()
     {
+        if (invalid) {
+            return Token(ERROR, 0);
+        }
         while (currentChar != '\0')
         {
 
@@ -207,7 +194,7 @@ public:
                 advance();
                 return Token(ASSIGN, 0);
             }
-            error();
+            return Token(ERROR, 0);
         }
         return Token(END, 0);
     }
@@ -317,16 +304,24 @@ class MathParser::Parser
 public:
     Lexer lexer;
     Token currentToken;
+    bool invalid;
+    std::string errorMessage;
 
     Parser(Lexer lexer)
     {
+        this->invalid = false;
         this->lexer = lexer;
-        currentToken = this->lexer.getNextToken();
+        this->currentToken = this->lexer.getNextToken();
+        if (currentToken.type == ERROR)
+        {
+            error("Invalid token");
+        }
     }
 
-    void error()
+    void error(std::string what)
     {
-        throw new InvalidExpression();
+        this->invalid = true;
+        this->errorMessage = what;
     }
 
     void eat(TOKEN_TYPE tokenType)
@@ -334,10 +329,14 @@ public:
         if (currentToken.type == tokenType)
         {
             this->currentToken = lexer.getNextToken();
+            if (currentToken.type == ERROR)
+            {
+                error("Invalid token");
+            }
         }
         else
         {
-            error();
+            error("Unexpected token");
         }
     }
 
@@ -346,7 +345,7 @@ public:
         Token token = currentToken;
         if (token.type == COMMA)
         {
-            error();
+            error("Unexpected comma");
         }
         if (token.type == PLUS)
         {
@@ -464,15 +463,26 @@ public:
 
 // Interpreter starts here
 
-class MathParser::NodeVisitor {
+class MathParser::Interpreter {
 public:
-    virtual double visit(AST* node) = 0;
-};
 
-class MathParser::Interpreter : public NodeVisitor {
-public:
+    std::string errorMessage;
+    bool invalid;
+
+    Interpreter()
+    {
+        this->invalid = false;
+        this->errorMessage = "";
+    }
+
     double visit(AST* node)
     {
+        if (node == NULL)
+        {
+            invalid = true;
+            errorMessage = "Unexpected end of nodes";
+            return -1;
+        }
         switch (node->type)
         {
         case AST_NUMBER:
@@ -484,7 +494,9 @@ public:
             }
             else
             {
-                throw new VariableNotFound();
+                invalid = true;
+                errorMessage = "Variable not found";
+                return -1;
             }
         case AST_BINOP:
             switch (((BinOp*)node)->op.type)
@@ -567,7 +579,9 @@ public:
                     if (name == "clamp") return std::max(visit(args[1]), std::min(visit(args[0]), visit(args[2])));
                 }
 
-                throw new FunctionNotFound();
+                invalid = true;
+                errorMessage = "Function not found or incorrect usage";
+                return -1;
             }
         case AST_ASSIGN:
             {
@@ -597,27 +611,33 @@ MathParser::ExpressionOutput MathParser::ParseExpression(std::string expression)
 {
     ExpressionOutput returnValue;
 
-    try {
-        Lexer* lexer = new Lexer(expression);
-        Parser* parser = new Parser(*lexer);
-        AST* parsed = (*parser).parse();
-        if (parsed == NULL)
+    returnValue.value = 0;
+    returnValue.success = true;
+    returnValue.error = "";
+
+    Lexer* lexer = new Lexer(expression);
+    Parser* parser = new Parser(*lexer);
+    AST* parsed = (*parser).parse();
+
+    if (parsed == NULL)
+    {
+        returnValue.success = false;
+        returnValue.error = parser->errorMessage;
+    }
+    else
+    {
+        Interpreter interpreter;
+        double value = interpreter.visit(parsed);
+        returnValue.success = !interpreter.invalid;
+        if (interpreter.invalid)
         {
-            throw new InvalidExpression();
+            returnValue.error = interpreter.errorMessage;
         }
         else
         {
-            Interpreter interpreter;
-            double value = interpreter.visit(parsed);
             returnValue.value = value;
-            returnValue.success = true;
-            returnValue.error = "";
         }
     }
-    catch (std::exception* exc)
-    {
-        returnValue.success = false;
-        returnValue.error = exc->what();
-    }
+
     return returnValue;
 }

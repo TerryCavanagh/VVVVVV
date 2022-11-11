@@ -13,10 +13,6 @@ namespace MathParser
         std::string error;
     };
 
-    class InvalidExpression;
-    class FunctionNotFound;
-    class VariableNotFound;
-
     class AST;
     class Num;
     class Var;
@@ -25,7 +21,6 @@ namespace MathParser
     class Function;
     class Assign;
 
-    class NodeVisitor;
     class Token;
 
     class Lexer;
@@ -46,7 +41,8 @@ namespace MathParser
         RPAREN,
         COMMA,
         ASSIGN,
-        END
+        END,
+        ERROR
     };
 
     enum AST_TYPE
