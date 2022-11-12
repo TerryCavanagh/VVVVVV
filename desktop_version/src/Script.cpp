@@ -3252,6 +3252,7 @@ void scriptclass::hardreset(void)
     SDL_memset(map.roomdeathsfinal, 0, sizeof(map.roomdeathsfinal));
     map.resetmap();
 
+#if !defined(NO_CUSTOM_LEVELS)
     for (int j = 0; j < cl.maxheight; j++)
     {
         for (int i = 0; i < cl.maxwidth; i++)
@@ -3259,6 +3260,7 @@ void scriptclass::hardreset(void)
             cl.setroomaltstate(j, i, 0);
         }
     }
+#endif
 
     //entityclass
     obj.nearelephant = false;
