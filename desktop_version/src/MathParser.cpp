@@ -70,6 +70,11 @@ public:
         this->currentChar = invalid ? ' ' : input[this->pos];
     }
 
+    bool isIdentifierChar(char c)
+    {
+        return isalnum(c)|| c == '_' || c == '-';
+    }
+
     void advance()
     {
         this->pos++;
@@ -115,7 +120,7 @@ public:
     std::string identifier()
     {
         std::string result = "";
-        while (currentChar != '\0' && isalpha(currentChar))
+        while (currentChar != '\0' && isIdentifierChar(currentChar))
 {
             result += currentChar;
             advance();
@@ -139,10 +144,6 @@ public:
             if (isdigit(currentChar))
             {
                 return Token(NUMBER, number());
-            }
-            if (isalpha(currentChar))
-            {
-                return Token(IDENTIFIER, identifier());
             }
             if (currentChar == '+')
             {
@@ -193,6 +194,10 @@ public:
             {
                 advance();
                 return Token(ASSIGN, 0);
+            }
+            if (isIdentifierChar(currentChar))
+            {
+                return Token(IDENTIFIER, identifier());
             }
             return Token(ERROR, 0);
         }
