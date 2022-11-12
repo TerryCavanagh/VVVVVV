@@ -2232,3 +2232,12 @@ void mapclass::twoframedelayfix(void)
     game.statedelay = 0;
     script.load(game.newscript);
 }
+
+void mapclass::setaltstate(int x, int y, int state)
+{
+    cl.setroomaltstate(x, y, state);
+    if (game.roomx - 100 == x && game.roomy - 100 == y)
+    {
+        gotoroom(x + 100, y + 100);
+    }
+}

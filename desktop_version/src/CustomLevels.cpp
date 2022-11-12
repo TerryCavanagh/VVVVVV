@@ -8,6 +8,7 @@
 #include <string>
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
+#include <array>
 
 #include "Constants.h"
 #include "Editor.h"
@@ -55,6 +56,7 @@ RoomProperty::RoomProperty(void)
     enemyy2=240;
     enemytype=0;
     directmode=0;
+    altstate=0;
 }
 
 customlevelclass::customlevelclass(void)
@@ -344,6 +346,7 @@ void customlevelclass::reset(void)
             roomproperties[i+(j*maxwidth)].enemyy2=240;
             roomproperties[i+(j*maxwidth)].enemytype=0;
             roomproperties[i+(j*maxwidth)].directmode=0;
+            roomproperties[i+(j*maxwidth)].altstate=0;
         }
     }
 
@@ -352,6 +355,11 @@ void customlevelclass::reset(void)
     script.clearcustom();
 
     onewaycol_override = false;
+
+    for (int i = 0; i < numrooms; i++)
+    {
+        altstates[i].clear();
+    }
 }
 
 const int* customlevelclass::loadlevel( int rxi, int ryi )
@@ -366,12 +374,28 @@ const int* customlevelclass::loadlevel( int rxi, int ryi )
 
     static int result[1200];
 
-    for (int j = 0; j < 30; j++)
+    int state = getroomprop(rxi, ryi)->altstate;
+   
+    if (state > altstates[rxi + maxwidth * ryi].size())
     {
-        for (int i = 0; i < 40; i++)
+        state = 0;
+        setroomaltstate(rxi, ryi, 0);
+    }
+
+    if (state == 0)
+    {
+        for (int j = 0; j < 30; j++)
         {
-            result[i + j*40] = gettile(rxi, ryi, i, j);
+            for (int i = 0; i < 40; i++)
+            {
+                result[i + j * 40] = gettile(rxi, ryi, i, j);
+            }
         }
+    }
+    else
+    {
+        const int* altstate = altstates[rxi + maxwidth * ryi][state - 1].data();
+        SDL_memcpy(result, altstate, sizeof(result));
     }
 
     return result;
@@ -830,6 +854,7 @@ const RoomProperty* customlevelclass::getroomprop(const int rx, const int ry)
     static RoomProperty blank;
     blank.tileset = 1;
     blank.directmode = 1;
+    blank.altstate = 0;
     blank.roomname.clear();
 
     return &blank;
@@ -1100,6 +1125,40 @@ bool customlevelclass::load(std::string& _path)
             }
         }
 
+        if (SDL_strcmp(pKey, "altstates") == 0)
+        {
+            for (tinyxml2::XMLElement* stateEl = pElem->FirstChildElement(); stateEl; stateEl = stateEl->NextSiblingElement())
+            {
+                int x = 0;
+                int y = 0;
+                int state = 0;
+                stateEl->QueryIntAttribute("x", &x);
+                stateEl->QueryIntAttribute("y", &y);
+
+                const char* pText2 = stateEl->GetText();
+                if (pText2 == NULL)
+                {
+                    pText2 = "";
+                }
+
+                std::array<int, 40 * 30> tiles;
+
+                char buffer[16];
+                size_t start = 0;
+
+                int tile = 0;
+                while (next_split_s(buffer, sizeof(buffer), &start, pText2, ','))
+                {
+                    if (INBOUNDS_ARR(tile, tiles))
+                    {
+                        tiles[tile] = help.Int(buffer);
+                    }
+                    tile++;
+                }
+
+                altstates[x + maxwidth * y].push_back(tiles);
+            }
+        }
 
         if (SDL_strcmp(pKey, "edEntities") == 0)
         {

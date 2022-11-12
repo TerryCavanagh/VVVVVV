@@ -1694,9 +1694,13 @@ void scriptclass::run(void)
             {
                 game.savecolour = getcolorfromname(words[1]);
             }
-            else if (words[0] == "altstates")
+            else if (words[0] == "altstate")
             {
-                obj.altstates = ss_toi(words[1]);
+                int room_x = game.roomx - 100;
+                int room_y = game.roomy - 100;
+                if (ss_toi(words[1]) != -1) room_x = ss_toi(words[1]);
+                if (ss_toi(words[2]) != -1) room_y = ss_toi(words[2]);
+                map.setaltstate(room_x, room_y, ss_toi(words[3]));
             }
             else if (words[0] == "activeteleporter")
             {
@@ -3247,6 +3251,15 @@ void scriptclass::hardreset(void)
     SDL_memset(map.roomdeaths, 0, sizeof(map.roomdeaths));
     SDL_memset(map.roomdeathsfinal, 0, sizeof(map.roomdeathsfinal));
     map.resetmap();
+
+    for (int j = 0; j < cl.maxheight; j++)
+    {
+        for (int i = 0; i < cl.maxwidth; i++)
+        {
+            cl.setroomaltstate(j, i, 0);
+        }
+    }
+
     //entityclass
     obj.nearelephant = false;
     obj.upsetmode = false;

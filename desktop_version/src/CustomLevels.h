@@ -6,6 +6,8 @@
 #include <SDL.h>
 #include <string>
 #include <vector>
+#include <map>
+#include <array>
 
 class CustomEntity
 {
@@ -32,7 +34,8 @@ public:
     FOREACH_PROP(enemyx2, int) \
     FOREACH_PROP(enemyy2, int) \
     FOREACH_PROP(enemytype, int) \
-    FOREACH_PROP(directmode, int)
+    FOREACH_PROP(directmode, int) \
+    FOREACH_PROP(altstate, int)
 
 class RoomProperty
 {
@@ -158,6 +161,8 @@ public:
     Uint32 getonewaycol(const int rx, const int ry);
     Uint32 getonewaycol(void);
     bool onewaycol_override;
+
+    std::vector<std::array<int, 40 * 30>> altstates[numrooms];
 };
 
 #ifndef CL_DEFINITION
