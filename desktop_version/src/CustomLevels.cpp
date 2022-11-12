@@ -376,7 +376,7 @@ const int* customlevelclass::loadlevel( int rxi, int ryi )
 
     int state = getroomprop(rxi, ryi)->altstate;
    
-    if (state > altstates[rxi + maxwidth * ryi].size())
+    if (state < 0 || state > altstates[rxi + maxwidth * ryi].size())
     {
         state = 0;
         setroomaltstate(rxi, ryi, 0);
