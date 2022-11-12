@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <array>
 
 class CustomEntity
 {
@@ -162,7 +161,7 @@ public:
     Uint32 getonewaycol(void);
     bool onewaycol_override;
 
-    std::vector<std::array<int, 40 * 30>> altstates[numrooms];
+    std::vector<std::vector<int>> altstates[numrooms];
 };
 
 #ifndef CL_DEFINITION

@@ -8,7 +8,6 @@
 #include <string>
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
-#include <array>
 
 #include "Constants.h"
 #include "Editor.h"
@@ -1141,7 +1140,8 @@ bool customlevelclass::load(std::string& _path)
                     pText2 = "";
                 }
 
-                std::array<int, 40 * 30> tiles;
+                std::vector<int> tiles;
+                tiles.resize(30 * 40, 0);
 
                 char buffer[16];
                 size_t start = 0;
@@ -1149,7 +1149,7 @@ bool customlevelclass::load(std::string& _path)
                 int tile = 0;
                 while (next_split_s(buffer, sizeof(buffer), &start, pText2, ','))
                 {
-                    if (INBOUNDS_ARR(tile, tiles))
+                    if (INBOUNDS_VEC(tile, tiles))
                     {
                         tiles[tile] = help.Int(buffer);
                     }
