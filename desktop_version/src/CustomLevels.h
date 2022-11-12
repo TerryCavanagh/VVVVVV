@@ -161,7 +161,7 @@ public:
     Uint32 getonewaycol(void);
     bool onewaycol_override;
 
-    std::vector<std::vector<int>> altstates[numrooms];
+    std::vector<std::vector<int> > altstates[numrooms];
 };
 
 #ifndef CL_DEFINITION
