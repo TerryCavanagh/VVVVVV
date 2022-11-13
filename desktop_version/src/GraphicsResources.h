@@ -22,6 +22,7 @@ public:
     SDL_Surface* im_image2;
     SDL_Surface* im_image3;
     SDL_Surface* im_image4;
+#if !defined(SUPER_GRAV)
     SDL_Surface* im_image5;
     SDL_Surface* im_image6;
     SDL_Surface* im_image7;
@@ -30,6 +31,7 @@ public:
     SDL_Surface* im_image10;
     SDL_Surface* im_image11;
     SDL_Surface* im_image12;
+#endif
 };
 
 #endif /* GRAPHICSRESOURCES_H */

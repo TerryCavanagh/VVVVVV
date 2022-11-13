@@ -2596,7 +2596,13 @@ void scriptclass::startgamemode( int t )
         map.resetplayer();
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
+#if !defined(SUPER_GRAV)
         music.play(11);
+#else
+        map.warpto(119, 108, obj.getplayer(), 19, 10);
+        game.state = 9;
+        game.statedelay = 0;
+#endif
         graphics.fademode = FADE_START_FADEIN;
         break;
     case 12:

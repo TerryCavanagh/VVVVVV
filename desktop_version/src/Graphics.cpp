@@ -3398,6 +3398,7 @@ bool Graphics::reloadresources(void)
     images.push_back(grphx.im_image2);
     images.push_back(grphx.im_image3);
     images.push_back(grphx.im_image4);
+#if !defined(SUPER_GRAV)
     images.push_back(grphx.im_image5);
     images.push_back(grphx.im_image6);
 
@@ -3407,6 +3408,7 @@ bool Graphics::reloadresources(void)
     images.push_back(grphx.im_image10);
     images.push_back(grphx.im_image11);
     images.push_back(grphx.im_image12);
+#endif
 
     gameScreen.LoadIcon();
 

@@ -86,6 +86,7 @@ void GraphicsResources::init(void)
     im_bfont =        LoadImage("graphics/font.png");
     im_teleporter =        LoadImage("graphics/teleporter.png");
 
+#if !defined(SUPER_GRAV)
     im_image0 =        LoadImage("graphics/levelcomplete.png");
     im_image1 =        LoadImage("graphics/minimap.png");
     im_image2 =        LoadImage("graphics/covered.png");
@@ -99,6 +100,13 @@ void GraphicsResources::init(void)
     im_image10 =        LoadImage("graphics/ending.png");
     im_image11 =        LoadImage("graphics/site4.png");
     im_image12 =        LoadImage("graphics/minimap.png");
+#else
+    im_image0 = LoadImage("graphics/supergrav.png");
+    im_image1 = LoadImage("graphics/vvvvvv1.png");
+    im_image2 = LoadImage("graphics/vvvvvv2.png");
+    im_image3 = LoadImage("graphics/vvvvvv3.png");
+    im_image4 = LoadImage("graphics/vvvvvv4.png");
+#endif
 }
 
 
@@ -122,6 +130,7 @@ void GraphicsResources::destroy(void)
     CLEAR(im_image2);
     CLEAR(im_image3);
     CLEAR(im_image4);
+#if !defined(SUPER_GRAV)
     CLEAR(im_image5);
     CLEAR(im_image6);
     CLEAR(im_image7);
@@ -130,5 +139,6 @@ void GraphicsResources::destroy(void)
     CLEAR(im_image10);
     CLEAR(im_image11);
     CLEAR(im_image12);
+#endif
 #undef CLEAR
 }

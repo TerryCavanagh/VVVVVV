@@ -23,7 +23,7 @@ const short* warpclass::loadlevel(int rx, int ry)
 
     switch(t)
     {
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
     case rn(50,50):
     {
         static const short contents[] = {

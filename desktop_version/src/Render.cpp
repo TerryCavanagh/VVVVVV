@@ -136,12 +136,17 @@ static void menurender(void)
     switch (game.currentmenuname)
     {
     case Menu::mainmenu:
+#if !defined(SUPER_GRAV)
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
+#else
+        graphics.setcolreal(graphics.getRGB(tr, tg, tb));
+        graphics.drawimagecol(0, -1, 46, true);
+#endif
 #if defined(MAKEANDPLAY)
         graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
 #endif
@@ -155,6 +160,65 @@ static void menurender(void)
             graphics.Print( 10, 230, "[MMMMMM Mod Installed]", tr/2, tg/2, tb/2);
         }
         break;
+#if defined(SUPER_GRAV)
+    case Menu::gravabout1:
+        graphics.drawimage(1, -1, 10, true);
+        graphics.Print(-1, 150, "Hello! My name's Terry and I made", tr, tg, tb, true);
+        graphics.Print(-1, 160, "the Super Gravitron!", tr, tg, tb, true);
+        graphics.Print(-1, 175, "Thank you for playing it!", tr, tg, tb, true);
+        break;
+    case Menu::gravabout2:
+        graphics.drawimage(2, -1, 10, true);
+        graphics.Print(-1, 145, "DID YOU KNOW?", tr, tg, tb, true);
+        graphics.Print(-1, 160, "Super Gravitron is actually a small", tr, tg, tb, true);
+        graphics.Print(-1, 170, "part of a different game that I made", tr, tg, tb, true);
+        graphics.Print(-1, 180, "years ago, called VVVVVV!", tr, tg, tb, true);
+        break;
+    case Menu::gravabout3:
+        graphics.Print(-1, 10, "Years before I made", tr, tg, tb, true);
+        graphics.Print(-1, 20, "Super Hexagon, VVVVVV was my", tr, tg, tb, true);
+        graphics.Print(-1, 30, "first commercial game.", tr, tg, tb, true);
+        graphics.drawimage(3, -1, 50, true);
+        graphics.Print(-1, 135, "It's an 80's inspired platformer,", tr, tg, tb, true);
+        graphics.Print(-1, 145, "built around exploring a single", tr, tg, tb, true);
+        graphics.Print(-1, 155, "game mechanic as far as I could:", tr, tg, tb, true);
+        graphics.Print(-1, 170, "What if, instead of jumping,", tr, tg, tb, true);
+        graphics.Print(-1, 180, "you flipped gravity?", tr, tg, tb, true);
+        break;
+    case Menu::gravabout4:
+        graphics.Print(-1, 20, "I'm very proud of VVVVVV, and I'm", tr, tg, tb, true);
+        graphics.Print(40, 30, "glad that other people like it too!", tr, tg, tb, true);
+        graphics.Print(40, 50, "When the original version was released", tr, tg, tb, true);
+        graphics.Print(40, 60, "in 2010, it won an award at Indiecade", tr, tg, tb, true);
+        graphics.Print(40, 70, "for most Fun Game, and showed up in", tr, tg, tb, true);
+        graphics.Print(40, 80, "lots of game of the year lists! Here's", tr, tg, tb, true);
+        graphics.Print(40, 90, "what some people have said about it:", tr, tg, tb, true);
+        graphics.Print(40, 130, "\"One of the best platformers", tr * 0.8, tg * 0.8, tb * 0.8, true);
+        graphics.Print(40, 140, "I\'ve ever played.\"", tr * 0.8, tg * 0.8, tb * 0.8, true);
+        graphics.Print(40, 155, "                      Anthony Burch", tr * 0.5, tg * 0.5, tb * 0.5, true);
+        graphics.Print(40, 165, "                  Destructoid 10/10", tr * 0.5, tg * 0.5, tb * 0.5, true);
+        break;
+    case Menu::gravabout5:
+        graphics.Print(40, 15, "\"I haven't felt as good with a", tr, tg, tb, true);
+        graphics.Print(40, 25, "videogame, in that direct\"", tr, tg, tb, true);
+        graphics.Print(40, 35, "physical way, for quite a while.\"", tr, tg, tb, true);
+        graphics.Print(40, 50, "                      Kieron Gillen", tr * 0.8, tg * 0.8, tb * 0.8, true);
+        graphics.Print(40, 60, "               Rock, Paper, Shotgun", tr * 0.8, tg * 0.8, tb * 0.8, true);
+        graphics.Print(40, 85, "\"This game is incredible.\"", tr, tg, tb, true);
+        graphics.Print(40, 100, "                      Michael Rose", tr * 0.8, tg * 0.8, tb * 0.8, true);
+        graphics.Print(40, 110, "                    Indiegames.com", tr * 0.8, tg * 0.8, tb * 0.8, true);
+        graphics.Print(40, 135, "\"When game design is taught in", tr, tg, tb, true);
+        graphics.Print(40, 145, "most universities, VVVVVV will", tr, tg, tb, true);
+        graphics.Print(40, 155, "be on every syllabus.\"", tr, tg, tb, true);
+        graphics.Print(40, 170, "                    Filipe Salgado", tr * 0.8, tg * 0.8, tb * 0.8, true);
+        graphics.Print(40, 180, "          Kill Screen Best of 2010", tr * 0.8, tg * 0.8, tb * 0.8, true);
+        break;
+    case Menu::gravabout6:
+        graphics.drawimage(4, -1, 10, true);
+        graphics.Print(-1, 140, "If you'd like to try it, VVVVVV is", tr, tg, tb, true);
+        graphics.Print(-1, 150, "now available for android!", tr, tg, tb, true);
+        break;
+#endif
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
@@ -186,7 +250,7 @@ static void menurender(void)
     case Menu::gameplayoptions:
     {
         int gameplayoptionsoffset = 0;
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         if (game.ingame_titlemode && game.unlock[18])
 #endif
         {
@@ -722,7 +786,7 @@ static void menurender(void)
 
         switch (game.currentmenuoption)
         {
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         case 0:
             graphics.bigprint(-1, 30, "Unlock Play Modes", tr, tg, tb, true);
             graphics.Print(-1, 65, "Unlock parts of the game normally", tr, tg, tb, true);
@@ -1418,6 +1482,7 @@ void titlerender(void)
         tg = graphics.col_tg;
         tb = graphics.col_tb;
 
+#if !defined(SUPER_GRAV)
         int temp = 50;
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
@@ -1425,6 +1490,10 @@ void titlerender(void)
         graphics.drawsprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
+#else
+    graphics.setcolreal(graphics.getRGB(tr, tg, tb));
+    graphics.drawimagecol(0, -1, 46, true);
+#endif
 #if defined(MAKEANDPLAY)
         graphics.Print(-1,temp+35,"     MAKE AND PLAY EDITION",tr, tg, tb, true);
 #endif

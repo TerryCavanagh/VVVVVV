@@ -81,7 +81,7 @@ int towerclass::miniat(int xp, int yp, int yoff)
 void towerclass::loadminitower1(void)
 {
     //Loads the first minitower into the array.
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
     static const short tmap[] = {
     12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
     12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
@@ -191,7 +191,7 @@ void towerclass::loadminitower1(void)
 
 void towerclass::loadminitower2(void)
 {
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
     static const short tmap[] = {
     12,12,21,10,0,0,0,0,0,0,0,0,0,0,0,0,11,20,21,10,0,20,21,28,28,20,21,28,28,20,12,12,12,12,12,12,12,12,12,12,
     12,12,21,10,0,0,0,0,0,0,0,0,0,0,0,0,11,20,21,10,0,20,21,28,28,20,21,28,28,20,12,12,12,12,12,12,12,12,12,12,
@@ -431,7 +431,7 @@ void towerclass::loadbackground(void)
 void towerclass::loadmap(void)
 {
     //Loads the map into the array.
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
     static const short tmap[] = {
     12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,
     12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,

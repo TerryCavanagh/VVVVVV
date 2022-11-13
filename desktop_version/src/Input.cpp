@@ -370,19 +370,26 @@ static void menuactionpress(void)
 #define MPOFFSET 0
 #endif
 
+#if defined(SUPER_GRAV)
+#define SGOFFSET 1
+#else
+#define SGOFFSET 0
+#endif
+
 #if defined(NO_CUSTOM_LEVELS)
 #define NOCUSTOMSOFFSET -1
 #else
 #define NOCUSTOMSOFFSET 0
 #endif
 
-#define OFFSET (MPOFFSET+NOCUSTOMSOFFSET)
+#define OFFSET (MPOFFSET+NOCUSTOMSOFFSET+SGOFFSET)
 
         switch (game.currentmenuoption)
         {
 #if !defined(MAKEANDPLAY)
         case 0:
             //Play
+#if !defined(SUPER_GRAV)
             if (!game.save_exists() && !game.anything_unlocked())
             {
                 //No saves exist, just start a new game
@@ -396,6 +403,17 @@ static void menuactionpress(void)
                 game.createmenu(Menu::play);
                 map.nexttowercolour();
             }
+#else
+            music.playef(11);
+            startmode(11);
+#endif
+            break;
+#endif
+#if defined(SUPER_GRAV)
+        case 1:
+            music.playef(11);
+            game.createmenu(Menu::gravabout1);
+            map.settowercolour(0);
             break;
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
@@ -412,7 +430,7 @@ static void menuactionpress(void)
             game.createmenu(Menu::options);
             map.nexttowercolour();
             break;
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         case OFFSET+3:
             //Credits
             music.playef(11);
@@ -420,8 +438,13 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
 #else
- #undef MPOFFSET
- #define MPOFFSET -2
+ #if defined (MAKEANDPLAY)
+  #undef MPOFFSET
+  #define MPOFFSET -2
+ #else
+  #undef SGOFFSET
+  #define SGOFFSET 0
+ #endif
 #endif
         case OFFSET+4:
             music.playef(11);
@@ -431,8 +454,93 @@ static void menuactionpress(void)
 #undef OFFSET
 #undef NOCUSTOMSOFFSET
 #undef MPOFFSET
+#undef SGOFFSET
         }
         break;
+#if defined(SUPER_GRAV)
+    case Menu::gravabout1:
+    {
+        music.playef(11);
+        if (game.currentmenuoption == 0)
+        {
+            map.settowercolour(5);
+            game.createmenu(Menu::gravabout2);
+        }
+        else
+        {
+            game.createmenu(Menu::mainmenu);
+            map.nexttowercolour();
+        }
+        break;
+    }
+    case Menu::gravabout2:
+    {
+        music.playef(11);
+        if (game.currentmenuoption == 0)
+        {
+            map.settowercolour(3);
+            game.createmenu(Menu::gravabout3);
+        }
+        else
+        {
+            game.createmenu(Menu::mainmenu);
+            map.nexttowercolour();
+        }
+        break;
+    }
+    case Menu::gravabout3:
+    {
+        music.playef(11);
+        if (game.currentmenuoption == 0)
+        {
+            map.settowercolour(1);
+            game.createmenu(Menu::gravabout4);
+        }
+        else
+        {
+            game.createmenu(Menu::mainmenu);
+            map.nexttowercolour();
+        }
+        break;
+    }
+    case Menu::gravabout4:
+    {
+        music.playef(11);
+        if (game.currentmenuoption == 0)
+        {
+            map.settowercolour(2);
+            game.createmenu(Menu::gravabout5);
+    }
+        else
+        {
+            game.createmenu(Menu::mainmenu);
+            map.nexttowercolour();
+        }
+        break;
+    }
+    case Menu::gravabout5:
+    {
+        music.playef(11);
+        if (game.currentmenuoption == 0)
+        {
+            map.settowercolour(3);
+            game.createmenu(Menu::gravabout6);
+        }
+        else
+        {
+            game.createmenu(Menu::mainmenu);
+            map.nexttowercolour();
+        }
+        break;
+    }
+    case Menu::gravabout6:
+    {
+        music.playef(11);
+        game.createmenu(Menu::mainmenu);
+        map.nexttowercolour();
+        break;
+    }
+#endif
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
@@ -823,7 +931,7 @@ static void menuactionpress(void)
     case Menu::accessibility:
     {
         int accessibilityoffset = 0;
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         accessibilityoffset = 1;
         if (game.currentmenuoption == 0) {
             //unlock play options
@@ -907,7 +1015,7 @@ static void menuactionpress(void)
     case Menu::gameplayoptions:
     {
         int gameplayoptionsoffset = 0;
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         if (game.ingame_titlemode && game.unlock[18])
 #endif
         {
@@ -2362,10 +2470,22 @@ void gameinput(void)
         //quitting the super gravitron
         game.mapheld = true;
         //Quit menu, same conditions as in game menu
+#if !defined(SUPER_GRAV)
         game.mapmenuchange(MAPMODE, true);
         game.gamesaved = false;
         game.gamesavefailed = false;
         game.menupage = 20; // The Map Page
+#else
+        if (graphics.fademode == FADE_NONE)
+        {
+            game.swnmode = false;
+            graphics.fademode = FADE_START_FADEOUT;
+            music.fadeout();
+            game.fadetolab = true;
+            game.fadetolabdelay = 16;
+            game.state = 80;
+        }
+#endif
     }
     else if (game.intimetrial && graphics.fademode == FADE_NONE)
     {

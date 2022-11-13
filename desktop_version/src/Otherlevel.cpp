@@ -19,7 +19,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
 
     switch(t)
     {
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
     case rn(0,0):
     {
 
@@ -9131,7 +9131,8 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
         break;
     }
 
-
+#endif
+#if !defined(MAKEANDPLAY)
     case rn(19, 8):
     {
         //The SUPER GRAVITRON

@@ -94,7 +94,13 @@ namespace Menu
         timetrialcomplete,
         timetrialcomplete2,
         timetrialcomplete3,
-        gamecompletecontinue
+        gamecompletecontinue,
+        gravabout1,
+        gravabout2,
+        gravabout3,
+        gravabout4,
+        gravabout5,
+        gravabout6
     };
 }
 

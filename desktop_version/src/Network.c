@@ -3,7 +3,7 @@
 #include "MakeAndPlay.h"
 #include "Unused.h"
 
-#ifdef MAKEANDPLAY
+#if defined(MAKEANDPLAY) || defined(SUPER_GRAV)
     #ifdef STEAM_NETWORK
         #undef STEAM_NETWORK
     #endif

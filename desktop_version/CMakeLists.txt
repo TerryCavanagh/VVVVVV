@@ -19,6 +19,12 @@ option(OFFICIAL_BUILD "Compile an official build of the game" OFF)
 
 option(MAKEANDPLAY "Compile a version of the game without the main campaign (provided for convenience; consider modifying MakeAndPlay.h instead" OFF)
 
+option(SUPER_GRAV "Compile a version of the game with only the Super Gravitron" OFF)
+
+if(SUPER_GRAV)
+    set(CUSTOM_LEVEL_SUPPORT DISABLED)
+endif()
+
 if(OFFICIAL_BUILD AND NOT MAKEANDPLAY)
     set(STEAM ON)
     set(GOG ON)
@@ -162,6 +168,10 @@ if(STEAM)
 endif()
 if(GOG)
     target_compile_definitions(VVVVVV PRIVATE -DGOG_NETWORK)
+endif()
+
+if(SUPER_GRAV)
+    target_compile_definitions(VVVVVV PRIVATE -DSUPER_GRAV)
 endif()
 
 set(XML2_SRC

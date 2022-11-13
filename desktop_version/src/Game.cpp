@@ -4027,7 +4027,7 @@ void Game::deletestats(void)
         swnrecord = 0;
         swnbestrank = 0;
         bestgamedeaths = -1;
-#ifndef MAKEANDPLAY
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         graphics.setflipmode = false;
 #endif
         stat_trinkets = 0;
@@ -4044,7 +4044,7 @@ void Game::deletesettings(void)
 
 void Game::unlocknum( int t )
 {
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
     if (map.custommode)
     {
         //Don't let custom levels unlock things!
@@ -5925,14 +5925,18 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             SDL_assert(0 && "Entering main menu from in-game options!");
             break;
         }
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         option("play");
+#endif
+#if defined(SUPER_GRAV)
+        option("play game");
+        option("about vvvvvv");
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
         option("levels");
 #endif
         option("options");
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         option("credits");
 #endif
         option("quit");
@@ -6075,7 +6079,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = -20;
         break;
     case Menu::gameplayoptions:
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         if (ingame_titlemode && unlock[18])
 #endif
         {
@@ -6196,7 +6200,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         maxspacing = 15;
         break;
     case Menu::accessibility:
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
         option("unlock play modes");
 #endif
         option("invincibility", !ingame_titlemode || !incompetitive());
@@ -6286,6 +6290,19 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::credits6:
         option("first page");
         option("previous page");
+        option("return");
+        menuyoff = 64;
+        break;
+    case Menu::gravabout1:
+    case Menu::gravabout2:
+    case Menu::gravabout3:
+    case Menu::gravabout4:
+    case Menu::gravabout5:
+        option("next page");
+        option("return");
+        menuyoff = 64;
+        break;
+    case Menu::gravabout6:
         option("return");
         menuyoff = 64;
         break;
@@ -6902,7 +6919,7 @@ void Game::returntoingame(void)
 }
 
 void Game::unlockAchievement(const char *name) {
-#if !defined(MAKEANDPLAY)
+#if !defined(MAKEANDPLAY) && !defined(SUPER_GRAV)
     if (!map.custommode) NETWORK_unlockAchievement(name);
 #endif
 }
