@@ -53,13 +53,13 @@ uint32_t xoshiro_next(void)
 
 void xoshiro_seed(uint32_t s)
 {
+    vlog_debug("Xoshiro seeded with %u.", s);
+
     const uint32_t s0 = splitmix32(&s);
     const uint32_t s1 = splitmix32(&s);
     const uint32_t s2 = splitmix32(&s);
     const uint32_t s3 = splitmix32(&s);
     seed(s0, s1, s2, s3);
-
-    vlog_debug("Xoshiro seeded with %u.", s);
 }
 
 float xoshiro_rand(void)
