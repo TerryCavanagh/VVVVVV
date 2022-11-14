@@ -526,6 +526,19 @@ end:
                 loopend = _Mix_ParseTime(value, t->format.nSamplesPerSec);
             }
 
+            if (t->loopbegin < 0 || t->looplength < 0 || loopend < 0)
+            {
+                vlog_warn(
+                    "A track loop comment had a negative value. "
+                    "Ignoring all comments for the track."
+                );
+                t->loopbegin = 0;
+                t->looplength = 0;
+                loopend = 0;
+                SDL_free(param);
+                break;
+            }
+
             SDL_free(param);
         }
         if (loopend != 0)
