@@ -368,6 +368,7 @@ int main(int argc, char *argv[])
 {
     char* baseDir = NULL;
     char* assetsPath = NULL;
+    bool seed_use_sdl_getticks = false;
 
     vlog_init();
 
@@ -478,6 +479,10 @@ int main(int argc, char *argv[])
         {
             vlog_toggle_error(0);
         }
+        else if (ARG("-seed-use-sdl-getticks"))
+        {
+            seed_use_sdl_getticks = true;
+        }
 #undef ARG_INNER
 #undef ARG
         else
@@ -546,6 +551,7 @@ int main(int argc, char *argv[])
     graphics.init();
 
     game.init();
+    game.seed_use_sdl_getticks = seed_use_sdl_getticks;
 
     // This loads music too...
     if (!graphics.reloadresources())
@@ -838,6 +844,8 @@ static void focused_end(void)
 
 static enum LoopCode loop_end(void)
 {
+    ++game.framecounter;
+
     //We did editorinput, now it's safe to turn this off
     key.linealreadyemptykludge = false;
 

@@ -3094,8 +3094,15 @@ void scriptclass::hardreset(void)
 {
     const bool version2_2 = GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2);
 
-    /* The RNG is 32-bit. We don't _really_ need 64-bit... */
-    xoshiro_seed((Uint32) SDL_GetTicks64());
+    if (game.seed_use_sdl_getticks)
+    {
+        /* The RNG is 32-bit. We don't _really_ need 64-bit... */
+        xoshiro_seed((Uint32) SDL_GetTicks64());
+    }
+    else
+    {
+        xoshiro_seed(game.framecounter);
+    }
 
     //Game:
     game.hascontrol = true;

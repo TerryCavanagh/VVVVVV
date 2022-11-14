@@ -274,6 +274,8 @@ void Game::init(void)
 
     deathcounts = 0;
     gameoverdelay = 0;
+    framecounter = 0;
+    seed_use_sdl_getticks = false;
     resetgameclock();
     gamesaved = false;
     gamesavefailed = false;
