@@ -484,6 +484,14 @@ end:
         for (int i = 0; i < comment_list_length; i++)
         {
             char* param = SDL_strdup(comments[i]);
+            if (param == NULL)
+            {
+                vlog_error(
+                    "Could not allocate memory to parse '%s'. Ignoring comments.",
+                    comments[i]
+                );
+                break;
+            }
             char* argument = param;
             char* value = SDL_strchr(param, '=');
             if (value == NULL)
