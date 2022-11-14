@@ -524,11 +524,11 @@ end:
         }
     }
 
-    static int _Mix_ParseTime(char *time, long samplerate_hz)
+    static int _Mix_ParseTime(char* time, const long samplerate_hz)
     {
-        char *num_start, *p;
-        Sint64 result;
-        char c;
+        char* num_start = time;
+        char* p;
+        Sint64 result = 0;
         int val;
 
         /* Time is directly expressed as a sample position */
@@ -537,15 +537,14 @@ end:
             return SDL_strtoll(time, NULL, 10);
         }
 
-        result = 0;
-        num_start = time;
-
         for (p = time; *p != '\0'; ++p)
         {
             if (*p == '.' || *p == ':')
             {
-                c = *p; *p = '\0';
-                if ((val = SDL_atoi(num_start)) < 0)
+                const char c = *p;
+                *p = '\0';
+                val = SDL_atoi(num_start);
+                if (val < 0)
                 {
                     return -1;
                 }
@@ -556,7 +555,7 @@ end:
 
             if (*p == '.')
             {
-                double val_f = SDL_atof(p);
+                const double val_f = SDL_atof(p);
                 if (val_f < 0)
                 {
                     return -1;
@@ -565,7 +564,8 @@ end:
             }
         }
 
-        if ((val = SDL_atoi(num_start)) < 0)
+        val = SDL_atoi(num_start);
+        if (val < 0)
         {
             return -1;
         }
