@@ -181,8 +181,17 @@ void vlog_open_console(void)
         return;
     }
 
-    freopen("CON", "w", stdout);
-    freopen("CON", "w", stderr);
+    const FILE* handle = freopen("CON", "w", stdout);
+    if (handle == NULL)
+    {
+        vlog_error("Could not redirect STDOUT to console.");
+    }
+
+    handle = freopen("CON", "w", stderr);
+    if (handle == NULL)
+    {
+        vlog_error("Could not redirect STDERR to console.");
+    }
 
     check_color_support();
 }
