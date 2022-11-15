@@ -671,6 +671,10 @@ static void draw_entities(void)
                 font::print(PR_FONT_8X8, x, y, "////", 255 - help.glow, 255 - help.glow, 255 - help.glow);
                 graphics.draw_rect(x, y, 32, 8, graphics.getRGB(255, 255, 255));
                 break;
+            case 5: // Gravity Tokens
+                graphics.draw_sprite(x, y, 68 + entity->p1, graphics.getcol(entity->p2));
+                graphics.draw_rect(x, y, 16, 16, graphics.getRGB(255, 164, 164));
+                break;
             case 9: // Shiny Trinkets
                 graphics.draw_sprite(x, y, 22, 196, 196, 196);
                 graphics.draw_rect(x, y, 16, 16, graphics.getRGB(255, 164, 164));
