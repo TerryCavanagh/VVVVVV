@@ -16,7 +16,7 @@
 #   define STDERR_IS_TTY 0
 #endif
 
-#define COLOR(EXPR) color_enabled ? EXPR : ""
+#define COLOR(EXPR) (color_enabled && color_supported ? EXPR : "")
 
 #define Color_RESET COLOR("\x1b[0m")
 #define Color_BOLD COLOR("\x1b[1m")
@@ -25,7 +25,8 @@
 #define Color_BOLD_GRAY COLOR("\x1b[1;90m")
 
 static int output_enabled = 1;
-static int color_enabled = 0;
+static int color_supported = 0;
+static int color_enabled = 1;
 static int debug_enabled = 0;
 static int info_enabled = 1;
 static int warn_enabled = 1;
@@ -35,7 +36,7 @@ static void check_color_support(void)
 {
     if (STDOUT_IS_TTY && STDERR_IS_TTY)
     {
-        color_enabled = 1;
+        color_supported = 1;
     }
 }
 
