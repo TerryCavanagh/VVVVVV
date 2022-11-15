@@ -3,12 +3,12 @@
 #include <stdio.h>
 
 #if defined(__unix__) || defined(__APPLE__)
- #include <unistd.h>
- #define STDOUT_IS_TTY isatty(STDOUT_FILENO)
- #define STDERR_IS_TTY isatty(STDERR_FILENO)
+#   include <unistd.h>
+#   define STDOUT_IS_TTY isatty(STDOUT_FILENO)
+#   define STDERR_IS_TTY isatty(STDERR_FILENO)
 #else
- #define STDOUT_IS_TTY 0
- #define STDERR_IS_TTY 0
+#   define STDOUT_IS_TTY 0
+#   define STDERR_IS_TTY 0
 #endif
 
 #define COLOR(EXPR) color_enabled ? EXPR : ""
