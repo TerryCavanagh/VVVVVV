@@ -369,6 +369,9 @@ int main(int argc, char *argv[])
     char* baseDir = NULL;
     char* assetsPath = NULL;
     bool seed_use_sdl_getticks = false;
+#ifdef _WIN32
+    bool open_console = false;
+#endif
 
     vlog_init();
 
@@ -479,6 +482,12 @@ int main(int argc, char *argv[])
         {
             vlog_toggle_error(0);
         }
+#ifdef _WIN32
+        else if (ARG("-console"))
+        {
+            open_console = true;
+        }
+#endif
         else if (ARG("-seed-use-sdl-getticks"))
         {
             seed_use_sdl_getticks = true;
@@ -491,6 +500,13 @@ int main(int argc, char *argv[])
             VVV_exit(1);
         }
     }
+
+#ifdef _WIN32
+    if (open_console)
+    {
+        vlog_open_console();
+    }
+#endif
 
     if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
     {

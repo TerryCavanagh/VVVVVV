@@ -2,7 +2,12 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#if defined(__unix__) || defined(__APPLE__)
+#ifdef _WIN32
+#   define WIN32_LEAN_AND_MEAN
+#   include <windows.h>
+#   define STDOUT_IS_TTY 0
+#   define STDERR_IS_TTY 0
+#elif defined(__unix__) || defined(__APPLE__)
 #   include <unistd.h>
 #   define STDOUT_IS_TTY isatty(STDOUT_FILENO)
 #   define STDERR_IS_TTY isatty(STDERR_FILENO)
@@ -26,12 +31,17 @@ static int info_enabled = 1;
 static int warn_enabled = 1;
 static int error_enabled = 1;
 
-void vlog_init(void)
+static void check_color_support(void)
 {
     if (STDOUT_IS_TTY && STDERR_IS_TTY)
     {
         color_enabled = 1;
     }
+}
+
+void vlog_init(void)
+{
+    check_color_support();
 }
 
 void vlog_toggle_output(const int enable_output)
@@ -147,3 +157,32 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_error(const char* text, ...)
 
     fputc('\n', stderr);
 }
+
+#ifdef _WIN32
+void vlog_open_console(void)
+{
+    static int run_once = 0;
+    if (run_once)
+    {
+        return;
+    }
+    run_once = 1;
+
+    const BOOL success = AllocConsole();
+    if (!success)
+    {
+        /* Debug, not error, because it might not be an error.
+         * (E.g. there is already an attached console.) */
+        vlog_debug(
+            "Could not open console: AllocConsole() failed with %d",
+            GetLastError()
+        );
+        return;
+    }
+
+    freopen("CON", "w", stdout);
+    freopen("CON", "w", stderr);
+
+    check_color_support();
+}
+#endif /* _WIN32 */

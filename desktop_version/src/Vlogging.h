@@ -10,6 +10,10 @@ extern "C"
 
 void vlog_init(void);
 
+#ifdef _WIN32
+void vlog_open_console(void);
+#endif
+
 void vlog_toggle_output(int enable_output);
 
 void vlog_toggle_color(int enable_color);
