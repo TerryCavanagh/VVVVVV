@@ -5,15 +5,8 @@
 #ifdef _WIN32
 #   define WIN32_LEAN_AND_MEAN
 #   include <windows.h>
-#   define STDOUT_IS_TTY 0
-#   define STDERR_IS_TTY 0
 #elif defined(__unix__) || defined(__APPLE__)
 #   include <unistd.h>
-#   define STDOUT_IS_TTY isatty(STDOUT_FILENO)
-#   define STDERR_IS_TTY isatty(STDERR_FILENO)
-#else
-#   define STDOUT_IS_TTY 0
-#   define STDERR_IS_TTY 0
 #endif
 
 #define COLOR(EXPR) (color_enabled && color_supported ? EXPR : "")
@@ -32,13 +25,7 @@ static int info_enabled = 1;
 static int warn_enabled = 1;
 static int error_enabled = 1;
 
-static void check_color_support(void)
-{
-    if (STDOUT_IS_TTY && STDERR_IS_TTY)
-    {
-        color_supported = 1;
-    }
-}
+static void check_color_support(void);
 
 void vlog_init(void)
 {
@@ -196,3 +183,52 @@ void vlog_open_console(void)
     check_color_support();
 }
 #endif /* _WIN32 */
+
+static void check_color_support(void)
+{
+#ifdef _WIN32
+    /* VT100 colors are supported since Windows 10 build 16257,
+     * but it's not enabled by default. So we have to set it. */
+
+    const HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hStdout == INVALID_HANDLE_VALUE)
+    {
+        vlog_error(
+            "Could not set color support: GetStdHandle() failed with %d",
+            GetLastError()
+        );
+        return;
+    }
+
+    const HANDLE hStderr = GetStdHandle(STD_ERROR_HANDLE);
+    if (hStderr == INVALID_HANDLE_VALUE)
+    {
+        vlog_error(
+            "Could not enable color support: GetStdHandle() failed with %d",
+            GetLastError()
+        );
+        return;
+    }
+
+    const BOOL success = SetConsoleMode(
+        hStdout, ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING
+    );
+    if (!success)
+    {
+        /* Debug, not error, because it might not be an error.
+         * (E.g. this version of Windows doesn't support VT100 colors.) */
+        vlog_debug(
+            "Could not enable color support: SetConsoleMode() failed with %d",
+            GetLastError()
+        );
+        return;
+    }
+
+    color_supported = 1;
+#elif defined(__unix__) || defined(__APPLE__)
+    if (isatty(STDOUT_FILENO) && isatty(STDERR_FILENO))
+    {
+        color_supported = 1;
+    }
+#endif
+}
