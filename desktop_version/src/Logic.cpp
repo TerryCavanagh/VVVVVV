@@ -15,7 +15,6 @@ void titlelogic(void)
 {
     //Misc
     //map.updatetowerglow(graphics.titlebg);
-    game.gameticks++;
     help.updateglow();
 
     graphics.titlebg.bypos -= 2;
@@ -46,7 +45,6 @@ void titlelogic(void)
 void maplogic(void)
 {
     //Misc
-    game.gameticks++;
     help.updateglow();
 }
 
@@ -54,7 +52,6 @@ void maplogic(void)
 void gamecompletelogic(void)
 {
     //Misc
-    game.gameticks++;
     map.updatetowerglow(graphics.titlebg);
     help.updateglow();
     graphics.crewframe = 0;
@@ -87,7 +84,6 @@ void gamecompletelogic(void)
 void gamecompletelogic2(void)
 {
     //Misc
-    game.gameticks++;
     map.updatetowerglow(graphics.titlebg);
     help.updateglow();
 
@@ -178,7 +174,6 @@ void gamelogic(void)
     }
 
     //Misc
-    game.gameticks++;
     if (map.towermode)
     {
         map.updatetowerglow(graphics.towerbg);

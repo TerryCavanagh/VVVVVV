@@ -3129,8 +3129,6 @@ void scriptclass::hardreset(void)
 
     game.ingame_titlemode = false;
 
-    game.gameticks = 0;
-
     //dwgraphicsclass
     graphics.backgrounddrawn = false;
     graphics.textboxes.clear();

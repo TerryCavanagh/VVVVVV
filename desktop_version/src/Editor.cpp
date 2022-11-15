@@ -1749,7 +1749,6 @@ void editorlogic(void)
 {
     extern editorclass ed;
     //Misc
-    game.gameticks++;
     help.updateglow();
 
     graphics.titlebg.bypos -= 2;
