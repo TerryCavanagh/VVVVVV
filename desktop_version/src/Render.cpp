@@ -2172,7 +2172,7 @@ void rendermapcursor(bool flashing)
     }
     else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
     {
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + mapxoff, 21 + ((game.roomy - 100) * 9) + mapyoff, 12 * mapzoom, 9 * mapzoom, 255, 255, 255);
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + mapxoff, 21 + ((game.roomy - 100) * 9 * mapzoom) + mapyoff, 12 * mapzoom, 9 * mapzoom, 255, 255, 255);
         graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + 2 + mapxoff, 21 + ((game.roomy - 100) * 9 * mapzoom) + 2 + mapyoff, (12 * mapzoom) - 4, (9 * mapzoom) - 4, 255, 255, 255);
     }
 }
