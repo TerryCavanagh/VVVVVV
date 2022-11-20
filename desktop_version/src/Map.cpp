@@ -1917,8 +1917,11 @@ void mapclass::loadlevel(int rx, int ry)
                     usethisy -= 8;
                 }
 
-                obj.createentity(ex, usethisy + 8, 20, usethistile);
-                obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
+                obj.createentity(ex, usethisy + 8, 20 + SDL_clamp(ent.p2, 0, 1), usethistile);
+                if (obj.customscript != "")
+                {
+                    obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
+                }
                 break;
             }
             case 19: //Script Box
