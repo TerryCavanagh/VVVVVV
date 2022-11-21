@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <string>
 #include <vector>
+#include <map>
 
 class CustomEntity
 {
@@ -169,6 +170,8 @@ public:
     SDL_Color getonewaycol(int rx, int ry);
     SDL_Color getonewaycol(void);
     bool onewaycol_override;
+
+    std::map<std::string, SDL_Color> customcolours;
 };
 
 std::string translate_title(const std::string& title, bool* is_gettext);
