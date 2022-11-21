@@ -20,6 +20,9 @@ namespace MathParser
     class UnaryOp;
     class Function;
     class Assign;
+    class Compound;
+    class NoOp;
+    class IfStatement;
 
     class Token;
 
@@ -41,7 +44,22 @@ namespace MathParser
         RPAREN,
         COMMA,
         ASSIGN,
+        GREATER_THAN_OR_EQUAL_TO,
+        LESS_THAN_OR_EQUAL_TO,
+        GREATER_THAN,
+        LESS_THAN,
+        EQUAL_TO,
+        NOT_EQUAL_TO,
+        AND,
+        OR,
+        NOT,
+        SEMICOLON,
+        NEWLINE,
         END,
+        BEGIN,
+        IF,
+        ELSE,
+        EOL,
         ERROR
     };
 
@@ -52,7 +70,10 @@ namespace MathParser
         AST_BINOP,
         AST_UNARYOP,
         AST_FUNCTION,
-        AST_ASSIGN
+        AST_ASSIGN,
+        AST_NOOP,
+        AST_COMPOUND,
+        AST_IF
     };
 
     extern std::map<std::string, double> variables;

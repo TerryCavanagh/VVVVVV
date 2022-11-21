@@ -26,7 +26,7 @@ public:
     std::string name;
 
     Token() {
-        type = END;
+        type = EOL;
         value = 0;
         name = " ";
     }
@@ -51,12 +51,14 @@ class MathParser::Lexer
 public:
     std::string input;
     int pos;
+    char lastChar;
     char currentChar;
     bool invalid;
 
     Lexer() {
         input = " ";
         pos = 0;
+        lastChar = ' ';
         currentChar = ' ';
         invalid = false;
     }
@@ -67,6 +69,7 @@ public:
         this->pos = 0;
         this->invalid = false;
         if (input.empty()) invalid = true;
+        lastChar = ' ';
         this->currentChar = invalid ? ' ' : input[this->pos];
     }
 
@@ -88,12 +91,47 @@ public:
         }
     }
 
+    char peek()
+    {
+        return peek(1);
+    }
+
+    char peek(int increase)
+    {
+        int peek_pos = this->pos + increase;
+        if (peek_pos > input.length() - 1)
+        {
+            return '\0';
+        }
+        return input[peek_pos];
+    }
+
     void skipWhitespace()
     {
         while (currentChar != '\0' && isspace(currentChar))
         {
             advance();
         }
+    }
+
+    void skipComment()
+    {
+        while (currentChar != '\0' && currentChar != '\n')
+        {
+            advance();
+        }
+    }
+
+    void skipMultilineComment()
+    {
+        char nextChar = peek();
+        while (currentChar != '\0' && (currentChar != '*' || nextChar != '/'))
+        {
+            advance();
+            nextChar = peek();
+        }
+        advance();
+        advance();
     }
 
     double number()
@@ -135,7 +173,21 @@ public:
         }
         while (currentChar != '\0')
         {
-
+            if (currentChar == '/' && peek() == '/')
+            {
+                skipComment();
+                continue;
+            }
+            if (currentChar == '/' && peek() == '*')
+            {
+                skipMultilineComment();
+                continue;
+            }
+            if (currentChar == '\n')
+            {
+                advance();
+                return Token(NEWLINE, 0);
+            }
             if (isspace(currentChar))
             {
                 skipWhitespace();
@@ -175,6 +227,45 @@ public:
                 advance();
                 return Token(POWER, 0);
             }
+            if (currentChar == '<' && peek() == '=')
+            {
+                advance();
+                advance();
+                return Token(LESS_THAN_OR_EQUAL_TO, 0);
+            }
+            if (currentChar == '<')
+            {
+                advance();
+                return Token(LESS_THAN, 0);
+            }
+            if (currentChar == '>' && peek() == '=')
+            {
+                advance();
+                advance();
+                return Token(GREATER_THAN_OR_EQUAL_TO, 0);
+            }
+            if (currentChar == '>')
+            {
+                advance();
+                return Token(GREATER_THAN, 0);
+            }
+            if (currentChar == '=' && peek() == '=')
+            {
+                advance();
+                advance();
+                return Token(EQUAL_TO, 0);
+            }
+            if (currentChar == '!' && peek() == '=')
+            {
+                advance();
+                advance();
+                return Token(NOT_EQUAL_TO, 0);
+            }
+            if (currentChar == '!')
+            {
+                advance();
+                return Token(NOT, 0);
+            }
             if (currentChar == '(')
             {
                 advance();
@@ -195,13 +286,53 @@ public:
                 advance();
                 return Token(ASSIGN, 0);
             }
+            if (currentChar == '{')
+            {
+                advance();
+                return Token(BEGIN, 0);
+            }
+            if (currentChar == '}')
+            {
+                advance();
+                return Token(END, 0);
+            }
+            if (currentChar == ';')
+            {
+                advance();
+                return Token(SEMICOLON, 0);
+            }
             if (isIdentifierChar(currentChar))
             {
-                return Token(IDENTIFIER, identifier());
+                std::string id = identifier();
+                if (id == "if")
+                {
+                    return Token(IF, 0);
+                }
+                if (id == "else")
+                {
+                    return Token(ELSE, 0);
+                }
+                if (id == "or")
+                {
+                    return Token(OR, 0);
+                }
+                if (id == "and")
+                {
+                    return Token(AND, 0);
+                }
+                if (id == "true")
+                {
+                    return Token(NUMBER, 1);
+                }
+                if (id == "false")
+                {
+                    return Token(NUMBER, 0);
+                }
+                return Token(IDENTIFIER, id);
             }
             return Token(ERROR, 0);
         }
-        return Token(END, 0);
+        return Token(EOL, 0);
     }
 };
 
@@ -292,15 +423,51 @@ class MathParser::Assign : public AST
 {
 public:
     Token token;
-    std::string name;
-    AST* expr;
+    Var* left;
+    AST* right;
 
-    Assign(Token token, AST* expr)
+    Assign(Var* left, Token token, AST* right)
     {
         type = AST_ASSIGN;
         this->token = token;
-        this->name = token.name;
-        this->expr = expr;
+        this->left = left;
+        this->right = right;
+    }
+};
+
+class MathParser::Compound : public AST
+{
+public:
+    std::vector<AST*> children;
+
+    Compound()
+    {
+        type = AST_COMPOUND;
+    }
+};
+
+class MathParser::NoOp : public AST
+{
+public:
+    NoOp()
+    {
+        type = AST_NOOP;
+    }
+};
+
+class MathParser::IfStatement : public AST
+{
+public:
+    AST* condition;
+    AST* if_body;
+    AST* else_body;
+
+    IfStatement(AST* condition, AST* if_body, AST* else_body)
+    {
+        type = AST_IF;
+        this->condition = condition;
+        this->if_body = if_body;
+        this->else_body = else_body;
     }
 };
 
@@ -345,7 +512,7 @@ public:
         }
     }
 
-    AST* expr_4()
+    AST* expr_6()
     {
         Token token = currentToken;
         if (token.type == COMMA)
@@ -355,12 +522,17 @@ public:
         if (token.type == PLUS)
         {
             eat(PLUS);
-            return new UnaryOp(token, expr_4());
+            return new UnaryOp(token, expr_6());
         }
         if (token.type == MINUS)
         {
             eat(MINUS);
-            return new UnaryOp(token, expr_4());
+            return new UnaryOp(token, expr_6());
+        }
+        if (token.type == NOT)
+        {
+            eat(NOT);
+            return new UnaryOp(token, expr_6());
         }
         if (token.type == NUMBER)
         {
@@ -389,11 +561,6 @@ public:
                 eat(RPAREN);
                 return new Function(token, exprs);
             }
-            if (currentToken.type == ASSIGN)
-            {
-                eat(ASSIGN);
-                return new Assign(token, expr_1());
-            }
             return new Var(token);
         }
         if (token.type == LPAREN)
@@ -404,6 +571,66 @@ public:
             return node;
         }
         return NULL;
+    }
+
+    AST* expr_5()
+    {
+        AST* node = expr_6();
+        while (currentToken.type == EQUAL_TO ||
+            currentToken.type == NOT_EQUAL_TO ||
+            currentToken.type == LESS_THAN ||
+            currentToken.type == LESS_THAN_OR_EQUAL_TO ||
+            currentToken.type == GREATER_THAN ||
+            currentToken.type == GREATER_THAN_OR_EQUAL_TO)
+        {
+            Token token = currentToken;
+            if (token.type == EQUAL_TO)
+            {
+                eat(EQUAL_TO);
+            }
+            else if (token.type == NOT_EQUAL_TO)
+            {
+                eat(NOT_EQUAL_TO);
+            }
+            else if (token.type == LESS_THAN)
+            {
+                eat(LESS_THAN);
+            }
+            else if (token.type == LESS_THAN_OR_EQUAL_TO)
+            {
+                eat(LESS_THAN_OR_EQUAL_TO);
+            }
+            else if (token.type == GREATER_THAN)
+            {
+                eat(GREATER_THAN);
+            }
+            else if (token.type == GREATER_THAN_OR_EQUAL_TO)
+            {
+                eat(GREATER_THAN_OR_EQUAL_TO);
+            }
+            node = new BinOp(node, token, expr_6());
+        }
+        return node;
+    }
+
+
+    AST* expr_4()
+    {
+        AST* node = expr_5();
+        while (currentToken.type == AND || currentToken.type == OR)
+        {
+            Token token = currentToken;
+            if (token.type == AND)
+            {
+                eat(AND);
+            }
+            else if (token.type == OR)
+            {
+                eat(OR);
+            }
+            node = new BinOp(node, token, expr_5());
+        }
+        return node;
     }
 
     AST* expr_3()
@@ -460,9 +687,109 @@ public:
         return node;
     }
 
+    AST* statement()
+    {
+        AST* node;
+
+        if (currentToken.type == BEGIN)
+        {
+            node = compoundStatement();
+        }
+        else if (currentToken.type == IDENTIFIER)
+        {
+            node = assignStatement();
+        }
+        else if (currentToken.type == IF)
+        {
+            node = ifStatement();
+        }
+        else
+        {
+            node = new NoOp();
+        }
+
+        return node;
+    }
+
+    AST* ifStatement()
+    {
+        eat(IF);
+        AST* condition = expr_1();
+        if (currentToken.type == NEWLINE)
+        {
+            eat(NEWLINE);
+        }
+        AST* then = statement();
+        if (currentToken.type == NEWLINE)
+        {
+            eat(NEWLINE);
+        }
+        AST* else_ = NULL;
+        if (currentToken.type == ELSE)
+        {
+            eat(ELSE);
+            if (currentToken.type == NEWLINE)
+            {
+                eat(NEWLINE);
+            }
+            else_ = statement();
+        }
+        return new IfStatement(condition, then, else_);
+    }
+
+    std::vector<AST*> statementList()
+    {
+        std::vector<AST*> nodes;
+        nodes.push_back(statement());
+        while (currentToken.type == SEMICOLON || currentToken.type == NEWLINE)
+        {
+            if (currentToken.type == SEMICOLON)
+            {
+                eat(SEMICOLON);
+            }
+            if (currentToken.type == NEWLINE)
+            {
+                eat(NEWLINE);
+            }
+            nodes.push_back(statement());
+        }
+        if (currentToken.type == IDENTIFIER)
+        {
+            error("Unexpected identifier");
+        }
+        return nodes;
+    }
+
+    AST* compoundStatement()
+    {
+        eat(BEGIN);
+        std::vector<AST*> nodes = statementList();
+        Compound* node = new Compound();
+        node->children = nodes;
+        eat(END);
+        return node;
+    }
+
+    AST* assignStatement()
+    {
+        Var* left = new Var(currentToken);
+        eat(IDENTIFIER);
+        Token token = currentToken;
+        eat(ASSIGN);
+        AST* right = expr_1();
+        return new Assign(left, token, right);
+    }
+
     AST* parse()
     {
-        return expr_1();
+        std::vector<AST*> nodes = statementList();
+        Compound* node = new Compound();
+        node->children = nodes;
+        if (currentToken.type != EOL) {
+            error("Unexpected <?> at EOF");
+        }
+
+        return node;
     }
 };
 
@@ -495,46 +822,75 @@ public:
         }
         switch (node->type)
         {
-        case AST_NUMBER:
-            return ((Num*)node)->value;
-        case AST_IDENTIFIER:
-            if (variables.count(((Var*)node)->name))
-            {
-                return variables[((Var*)node)->name];
-            }
-            error("Variable not found");
-            return -1;
-        case AST_BINOP:
-            switch (((BinOp*)node)->op.type)
-            {
-            case PLUS:
-                return visit(((BinOp*)node)->left) + visit(((BinOp*)node)->right);
-            case MINUS:
-                return visit(((BinOp*)node)->left) - visit(((BinOp*)node)->right);
-            case MULTIPLY:
-                return visit(((BinOp*)node)->left) * visit(((BinOp*)node)->right);
-            case DIVIDE:
-                return visit(((BinOp*)node)->left) / visit(((BinOp*)node)->right);
-            case MODULO:
-                return fmod(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
-            case POWER:
-                return pow(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
-            default:
-                error("Unexpected operator type");
+            case AST_NUMBER:
+                return ((Num*)node)->value;
+            case AST_IDENTIFIER:
+                if (variables.count(((Var*)node)->name))
+                {
+                    return variables[((Var*)node)->name];
+                }
+                error("Variable not found");
                 return -1;
-            }
-        case AST_UNARYOP:
-            switch (((UnaryOp*)node)->op.type)
-            {
-            case PLUS:
-                return visit(((UnaryOp*)node)->expr);
-            case MINUS:
-                return -visit(((UnaryOp*)node)->expr);
-            default:
-                error("Unexpected operator type");
-                return -1;
-            }
-        case AST_FUNCTION:
+            case AST_BINOP:
+                switch (((BinOp*)node)->op.type)
+                {
+                case PLUS:
+                    return visit(((BinOp*)node)->left) + visit(((BinOp*)node)->right);
+                case MINUS:
+                    return visit(((BinOp*)node)->left) - visit(((BinOp*)node)->right);
+                case MULTIPLY:
+                    return visit(((BinOp*)node)->left) * visit(((BinOp*)node)->right);
+                case DIVIDE:
+                    return visit(((BinOp*)node)->left) / visit(((BinOp*)node)->right);
+                case MODULO:
+                    return fmod(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
+                case POWER:
+                    return pow(visit(((BinOp*)node)->left), visit(((BinOp*)node)->right));
+                case EQUAL_TO:
+                    return visit(((BinOp*)node)->left) == visit(((BinOp*)node)->right);
+                case NOT_EQUAL_TO:
+                    return visit(((BinOp*)node)->left) != visit(((BinOp*)node)->right);
+                case LESS_THAN:
+                    return visit(((BinOp*)node)->left) < visit(((BinOp*)node)->right);
+                case LESS_THAN_OR_EQUAL_TO:
+                    return visit(((BinOp*)node)->left) <= visit(((BinOp*)node)->right);
+                case GREATER_THAN:
+                    return visit(((BinOp*)node)->left) > visit(((BinOp*)node)->right);
+                case GREATER_THAN_OR_EQUAL_TO:
+                    return visit(((BinOp*)node)->left) >= visit(((BinOp*)node)->right);
+                case AND:
+                    return visit(((BinOp*)node)->left) && visit(((BinOp*)node)->right);
+                case OR:
+                    return visit(((BinOp*)node)->left) || visit(((BinOp*)node)->right);
+                default:
+                    error("Unexpected operator type");
+                    return -1;
+                }
+            case AST_UNARYOP:
+                switch (((UnaryOp*)node)->op.type)
+                {
+                case PLUS:
+                    return visit(((UnaryOp*)node)->expr);
+                case MINUS:
+                    return -visit(((UnaryOp*)node)->expr);
+                case NOT:
+                    return !visit(((UnaryOp*)node)->expr);
+                default:
+                    error("Unexpected operator type");
+                    return -1;
+                }
+            case AST_COMPOUND:
+                for (int i = 0; i < ((Compound*)node)->children.size(); i++)
+                {
+                    visit(((Compound*)node)->children[i]);
+                }
+                return 0;
+            case AST_NOOP:
+                return 0;
+            case AST_ASSIGN:
+                variables[((Assign*)node)->left->name] = visit(((Assign*)node)->right);
+                return variables[((Assign*)node)->left->name];
+            case AST_FUNCTION:
             {
                 std::string name = ((Function*)node)->name;
                 std::transform(name.begin(), name.end(), name.begin(), ::tolower);
@@ -571,7 +927,7 @@ public:
                     else if (name == "cbrt") return cbrt(visit(args[0]));
                     else if (name == "int") return int(visit(args[0]));
                     else if (name == "flag") {
-                        int value = (int) visit(args[0]);
+                        int value = (int)visit(args[0]);
                         return (int)(INBOUNDS_ARR(value, obj.flags) && obj.flags[value]);
                     }
                 }
@@ -591,15 +947,19 @@ public:
                 error("Function not found or incorrect usage");
                 return -1;
             }
-        case AST_ASSIGN:
-            {
-                std::string name = ((Assign*)node)->name;
-                AST* expr = ((Assign*)node)->expr;
-                variables[name] = visit(expr);
-                return variables[name];
-            }
+            case AST_IF:
+                {
+                    if (visit(((IfStatement*)node)->condition))
+                    {
+                        return visit(((IfStatement*)node)->if_body);
+                    }
+                    else if (((IfStatement*)node)->else_body != NULL)
+                    {
+                        return visit(((IfStatement*)node)->else_body);
+                    }
+                    return 0;
+                }
         }
-
         error("Unknown error while visiting nodes");
         return -1;
     }

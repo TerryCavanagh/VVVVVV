@@ -1287,18 +1287,11 @@ next:
                     CustomEntityColour colour;
                     colour.tick = UINT32_MAX;
                     colour.colour = 0xFFFFFFFF;
-                    colour.input.clear();
 
-                    size_t start = 0;
-                    size_t len = 0;
-                    size_t prev_start = 0;
+                    std::replace(text.begin(), text.end(), '|', '\n');
 
-                    while (next_split(&start, &len, &text[start], '|'))
-                    {
-                        colour.input.push_back(std::string(&text[prev_start], len));
+                    colour.input = text;
 
-                        prev_start = start;
-                    }
                     colour.synced = entityColourElement->BoolAttribute("synced", false);
                     int id = entityColourElement->IntAttribute("id", 0);
                     const char* name = entityColourElement->Attribute("name");

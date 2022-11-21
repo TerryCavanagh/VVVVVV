@@ -3094,7 +3094,7 @@ SDL_Color Graphics::getcol( int t )
             return;
         }
         colour.tick = game.framecounter;
-        std::vector<std::string> input = colour.input;
+        std::string input = colour.input;
 
         MathParser::ResetEnvironment();
         MathParser::SetVariable("r", 255);
@@ -3102,15 +3102,13 @@ SDL_Color Graphics::getcol( int t )
         MathParser::SetVariable("b", 255);
         MathParser::SetVariable("glow", help.glow);
         MathParser::SetVariable("ticks", game.framecounter);
-        for (int i = 0; i < input.size(); i++) {
-            MathParser::ExpressionOutput value = MathParser::ParseExpression(input[i]);
-            if (!value.success)
-            {
-                // Might be worth it to display value.error somewhere?
-                ct.colour = getRGB(255, 255, 255);
-                colour.colour = ct.colour;
-                return;
-            }
+        MathParser::ExpressionOutput value = MathParser::ParseExpression(input);
+        if (!value.success)
+        {
+            // Might be worth it to display value.error somewhere?
+            ct.colour = getRGB(255, 255, 255);
+            colour.colour = ct.colour;
+            return;
         }
         ct.colour = getRGB(MathParser::variables.at("r"), MathParser::variables.at("g"), MathParser::variables.at("b"));
         colour.colour = ct.colour;
