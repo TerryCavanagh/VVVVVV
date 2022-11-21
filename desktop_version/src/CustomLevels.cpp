@@ -389,6 +389,8 @@ void customlevelclass::reset(void)
     script.clearcustom();
 
     onewaycol_override = false;
+
+    customcolours.clear();
 }
 
 const int* customlevelclass::loadlevel( int rxi, int ryi )
@@ -1283,6 +1285,35 @@ next:
             if (headerfound)
             {
                 script.customscripts.push_back(script_);
+            }
+        }
+
+        if (SDL_strcmp(pKey, "TextboxColours") == 0)
+        {
+            for (tinyxml2::XMLElement* textColourElement = pElem->FirstChildElement(); textColourElement; textColourElement = textColourElement->NextSiblingElement())
+            {
+                if (SDL_strcmp(textColourElement->Value(), "colour") == 0)
+                {
+                    int r = 255;
+                    int g = 255;
+                    int b = 255;
+
+                    textColourElement->QueryIntAttribute("r", &r);
+                    textColourElement->QueryIntAttribute("g", &g);
+                    textColourElement->QueryIntAttribute("b", &b);
+
+                    const char* name = textColourElement->Attribute("name");
+
+                    if (name != NULL)
+                    {
+                        SDL_Colour colour;
+                        colour.r = r;
+                        colour.g = g;
+                        colour.b = b;
+
+                        customcolours[name] = colour;
+                    }
+                }
             }
         }
     }

@@ -2,6 +2,7 @@
 
 #include <SDL_stdinc.h>
 
+#include "CustomLevels.h"
 #include "Font.h"
 
 blockclass::blockclass(void)
@@ -48,6 +49,15 @@ void blockclass::rectset(const int xi, const int yi, const int wi, const int hi)
 
 void blockclass::setblockcolour(const char* col)
 {
+#ifndef NO_CUSTOM_LEVELS
+    if (cl.customcolours.count(col) != 0)
+    {
+        r = cl.customcolours[col].r;
+        g = cl.customcolours[col].g;
+        b = cl.customcolours[col].b;
+    }
+    else // Turn the if into an else if so we don't run the default colour processing
+#endif
     if (SDL_strcmp(col, "cyan") == 0)
     {
         r = 164;

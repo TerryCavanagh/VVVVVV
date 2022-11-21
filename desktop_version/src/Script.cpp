@@ -442,6 +442,15 @@ void scriptclass::run(void)
             {
                 //oh boy
                 //first word is the colour.
+#ifndef NO_CUSTOM_LEVELS
+                if (cl.customcolours.count(words[1]) != 0)
+                {
+                    r = cl.customcolours[words[1]].r;
+                    g = cl.customcolours[words[1]].g;
+                    b = cl.customcolours[words[1]].b;
+                }
+                else // Turn the if into an else if so we don't run the default colour processing
+#endif
                 if (words[1] == "cyan")
                 {
                     r = 164;
