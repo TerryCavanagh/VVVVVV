@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string>
 #include <tinyxml2.h>
+#include <map>
 
 #include "Alloc.h"
 #include "Constants.h"
@@ -993,6 +994,9 @@ bool customlevelclass::load(std::string _path)
     tinyxml2::XMLHandle hDoc(&doc);
     tinyxml2::XMLElement* pElem;
 
+    map.markers.clear();
+    std::map<std::string, std::vector<point> > markerLocations;
+
     reset();
 #ifndef NO_EDITOR
     ed.reset();
@@ -1381,6 +1385,83 @@ next:
                 }
 
                 map.specialroomnames.push_back(name);
+            }
+        }
+
+        if (SDL_strcmp(pKey, "Markers") == 0)
+        {
+            for (tinyxml2::XMLElement* markerElement = pElem->FirstChildElement(); markerElement; markerElement = markerElement->NextSiblingElement())
+            {
+                if (SDL_strcmp(markerElement->Value(), "marker") == 0)
+                {
+                    MapMarker marker;
+                    marker.rooms.clear();
+                    marker.hidden_id = 0;
+                    marker.visited_id = 0;
+                    marker.flip_hidden_id = 0;
+                    marker.flip_visited_id = 0;
+                    marker.show_hidden = false;
+                    marker.show_visited = false;
+                    marker.name = "";
+
+                    markerElement->QueryIntAttribute("visited_id", &marker.visited_id);
+                    marker.flip_visited_id = marker.hidden_id = marker.visited_id;
+                    markerElement->QueryIntAttribute("hidden_id", &marker.hidden_id);
+                    marker.flip_hidden_id = marker.hidden_id;
+                    markerElement->QueryIntAttribute("flip_visited_id", &marker.flip_visited_id);
+                    markerElement->QueryIntAttribute("flip_hidden_id", &marker.flip_hidden_id);
+
+                    const char* name = "";
+                    markerElement->QueryStringAttribute("name", &name);
+                    marker.name = name;
+
+                    // If only visited_id is given, it's used for everything.
+                    // If hidden_id is given, it's used for hidden and flip_hidden.
+                    // If the flip mode ones are given, they're used.
+
+                    map.markers.push_back(marker);
+                }
+                if (SDL_strcmp(markerElement->Value(), "room") == 0)
+                {
+                    int x = 0;
+                    int y = 0;
+                    const char* name = "";
+                    markerElement->QueryStringAttribute("name", &name);
+                    markerElement->QueryIntAttribute("x", &x);
+                    markerElement->QueryIntAttribute("y", &y);
+
+                    point coords;
+                    coords.x = x;
+                    coords.y = y;
+
+                    markerLocations[name].push_back(coords);
+                }
+            }
+        }
+    }
+
+    for (size_t i = 0; i < map.markers.size(); i++)
+    {
+        MapMarker marker = map.markers[i];
+        if (markerLocations.count(marker.name) != 0)
+        {
+            for (size_t j = 0; j < markerLocations[marker.name].size(); j++)
+            {
+                point p = markerLocations[marker.name][j];
+                // Check if the point isn't already in the vector...
+                bool found = false;
+                for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
+                {
+                    if (map.markers[i].rooms[j].x == p.x && map.markers[i].rooms[j].y == p.y)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    map.markers[i].rooms.push_back(p);
+                }
             }
         }
     }

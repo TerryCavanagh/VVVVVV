@@ -2354,7 +2354,7 @@ static void rendermapfog(void)
 
 static void rendermaplegend(void)
 {
-    // Draw the map legend, aka teleports/targets/trinkets
+    // Draw the map legend, aka teleporters/targets/trinkets/markers
 
     const MapRenderData data = getmaprenderdata();
 
@@ -2379,6 +2379,22 @@ static void rendermaplegend(void)
             if (!obj.collect[i])
             {
                 graphics.drawtile(data.legendxoff + (map.shinytrinkets[i].x * 12 * data.zoom), data.legendyoff + (map.shinytrinkets[i].y * 9 * data.zoom), 1086 + tile_offset);
+            }
+        }
+    }
+
+    for (size_t i = 0; i < map.markers.size(); i++)
+    {
+        MapMarker marker = map.markers[i];
+        for (size_t j = 0; j < marker.rooms.size(); j++)
+        {
+            if (marker.show_visited && map.isexplored(marker.rooms[j].x, marker.rooms[j].y))
+            {
+                graphics.drawtile(data.legendxoff + (marker.rooms[j].x * 12 * data.zoom), data.legendyoff + (marker.rooms[j].y * 9 * data.zoom), graphics.flipmode ? marker.flip_visited_id : marker.visited_id);
+            }
+            else if (marker.show_hidden && !map.isexplored(marker.rooms[j].x, marker.rooms[j].y))
+            {
+                graphics.drawtile(data.legendxoff + (marker.rooms[j].x * 12 * data.zoom), data.legendyoff + (marker.rooms[j].y * 9 * data.zoom), graphics.flipmode ? marker.flip_hidden_id : marker.hidden_id);
             }
         }
     }

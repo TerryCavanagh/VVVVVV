@@ -1334,6 +1334,75 @@ void scriptclass::run(void)
             {
                 map.showtrinkets = false;
             }
+            else if (words[0] == "showmarker" || words[0] == "hidemarker")
+            {
+                // Show or hide markers
+                for (size_t i = 0; i < map.markers.size(); i++)
+                {
+                    if (map.markers[i].name == words[1])
+                    {
+                        if (words[2] == "visited" || words[2] == "both")
+                        {
+                            map.markers[i].show_visited = (words[0] == "showmarker");
+                        }
+                        if (words[2] == "hidden" || words[2] == "both")
+                        {
+                            map.markers[i].show_hidden = (words[0] == "showmarker");
+                        }
+                        break;
+                    }
+                }
+            }
+            else if (words[0] == "placemarker")
+            {
+                for (size_t i = 0; i < map.markers.size(); i++)
+                {
+                    if (map.markers[i].name == words[1])
+                    {
+                        point p;
+                        p.x = ss_toi(words[2]);
+                        p.y = ss_toi(words[3]);
+
+                        // Check if the point isn't already in the vector...
+                        bool found = false;
+                        for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
+                        {
+                            if (map.markers[i].rooms[j].x == p.x && map.markers[i].rooms[j].y == p.y)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found)
+                        {
+                            map.markers[i].rooms.push_back(p);
+                        }
+                        
+                        break;
+                    }
+                }
+            }
+            else if (words[0] == "removemarker")
+            {
+                for (size_t i = 0; i < map.markers.size(); i++)
+                {
+                    if (map.markers[i].name == words[1])
+                    {
+                        point p;
+                        p.x = ss_toi(words[2]);
+                        p.y = ss_toi(words[3]);
+                        for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
+                        {
+                            if (map.markers[i].rooms[j].x == p.x && map.markers[i].rooms[j].y == p.y)
+                            {
+                                map.markers[i].rooms.erase(map.markers[i].rooms.begin() + j);
+                                // Don't break here in case there's duplicates for whatever reason
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
             else if (words[0] == "hideplayer")
             {
                 int player = obj.getplayer();

@@ -67,6 +67,7 @@ mapclass::mapclass(void)
     SDL_memset(roomdeaths, 0, sizeof(roomdeaths));
     SDL_memset(roomdeathsfinal, 0, sizeof(roomdeathsfinal));
     resetmap();
+    markers.clear();
 
     setroomname("");
     hiddenname = "";

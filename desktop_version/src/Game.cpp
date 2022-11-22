@@ -5486,6 +5486,61 @@ void Game::customloadquick(const std::string& savfile)
             map.roomnameset = true;
             map.roomname_special = true;
         }
+        else if (SDL_strcmp(pKey, "markers") == 0)
+        {
+            // loop through all the markers and save their 
+            for (tinyxml2::XMLElement* pElem2 = pElem->FirstChildElement(); pElem2 != NULL; pElem2 = pElem2->NextSiblingElement())
+            {
+                const char* pKey2 = pElem2->Value();
+                if (SDL_strcmp(pKey2, "marker") == 0)
+                {
+                    const char* name = "";
+                    bool show_visited = false;
+                    bool show_hidden = false;
+                    pElem2->QueryStringAttribute("name", &name);
+                    pElem2->QueryBoolAttribute("show_visited", &show_visited);
+                    pElem2->QueryBoolAttribute("show_hidden", &show_hidden);
+                    for (size_t i = 0; i < map.markers.size(); i++)
+                    {
+                        if (map.markers[i].name == name)
+                        {
+                            map.markers[i].show_visited = show_visited;
+                            map.markers[i].show_hidden = show_hidden;
+                        }
+                    }
+                }
+                if (SDL_strcmp(pKey2, "room") == 0)
+                {
+                    const char* name = "";
+                    int x = 0;
+                    int y = 0;
+                    pElem2->QueryStringAttribute("name", &name);
+                    pElem2->QueryIntAttribute("x", &x);
+                    pElem2->QueryIntAttribute("y", &y);
+                    for (size_t i = 0; i < map.markers.size(); i++)
+                    {
+                        if (map.markers[i].name == name)
+                        {
+                            // Check if the point isn't already in the vector...
+                            bool found = false;
+                            for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
+                            {
+                                if (map.markers[i].rooms[j].x == x && map.markers[i].rooms[j].y == y)
+                                {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found)
+                            {
+                                SDL_Point p = { x, y };
+                                map.markers[i].rooms.push_back(p);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     map.showteleporters = true;
@@ -5970,6 +6025,28 @@ bool Game::customsavequick(const std::string& savfile)
         while ((element = msgs->FirstChildElement("roomname")) != NULL)
         {
             doc.DeleteNode(element);
+        }
+    }
+
+    // Save current marker data (rooms, shown state)
+    tinyxml2::XMLElement* msg = xml::update_element_delete_contents(msgs, "markers");
+    for (size_t i = 0; i < map.markers.size(); i++)
+    {
+        tinyxml2::XMLElement* marker_el;
+        marker_el = doc.NewElement("marker");
+        marker_el->SetAttribute("name", map.markers[i].name.c_str());
+        marker_el->SetAttribute("show_visited", (int) map.markers[i].show_visited);
+        marker_el->SetAttribute("show_hidden", (int) map.markers[i].show_hidden);
+        msg->LinkEndChild(marker_el);
+
+        for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
+        {
+            tinyxml2::XMLElement* room_el;
+            room_el = doc.NewElement("room");
+            room_el->SetAttribute("name", map.markers[i].name.c_str());
+            room_el->SetAttribute("x", map.markers[i].rooms[j].x);
+            room_el->SetAttribute("y", map.markers[i].rooms[j].y);
+            msg->LinkEndChild(room_el);
         }
     }
 

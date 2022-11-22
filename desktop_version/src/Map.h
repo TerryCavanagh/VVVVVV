@@ -37,6 +37,18 @@ struct Roomname
     int delay;
 };
 
+struct MapMarker
+{
+    std::string name;
+    bool show_hidden;
+    bool show_visited;
+    std::vector<SDL_Point> rooms;
+    int hidden_id;
+    int visited_id;
+    int flip_hidden_id;
+    int flip_visited_id;
+};
+
 class mapclass
 {
 public:
@@ -174,6 +186,9 @@ public:
     std::vector<SDL_Point> shinytrinkets;
 
     bool showteleporters, showtargets, showtrinkets;
+
+    // Custom markers!
+    std::vector<MapMarker> markers;
 
     //Roomtext
     bool roomtexton;
