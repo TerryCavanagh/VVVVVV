@@ -2189,7 +2189,7 @@ void maprender(void)
     //Menubar:
     graphics.drawtextbox( -10, 212, 43, 3, 65, 185, 207);
 
-    // Draw the selected page name at the bottomtele
+    // Draw the selected page name at the bottom
     // menupage 0 - 3 is the pause screen
     if (script.running && game.menupage == 3)
     {
