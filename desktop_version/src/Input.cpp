@@ -2379,6 +2379,10 @@ void gameinput(void)
     {
         //Do nothing if we're in a Time Trial but a fade animation is playing
     }
+    else if (map.custommode && !map.custommodeforreal)
+    {
+        // We're playtesting in the editor so don't do anything
+    }
     else
     {
         //Normal map screen, do transition later
