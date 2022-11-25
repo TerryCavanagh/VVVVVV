@@ -2857,6 +2857,10 @@ void scriptclass::startgamemode( int t )
         map.resetplayer();
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
+
+        cl.generatecustomminimap();
+        map.customshowmm = true;
+
         graphics.fademode = FADE_START_FADEIN;
         break;
     case 21:  //play custom level (in editor)
