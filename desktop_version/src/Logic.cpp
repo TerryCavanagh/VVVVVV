@@ -1432,7 +1432,7 @@ void gamelogic(void)
     }
 
     game.oldreadytotele = game.readytotele;
-    if (game.activetele && game.hascontrol && !script.running && !game.intimetrial)
+    if (game.activetele && game.hascontrol && !script.running && (!game.intimetrial || game.translator_exploring_allowtele))
     {
         int i = obj.getplayer();
         SDL_Rect temprect = SDL_Rect();

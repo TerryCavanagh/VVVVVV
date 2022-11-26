@@ -1182,13 +1182,19 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             break;
         case 2:
+            // enter game
+            music.playef(11);
+            game.createmenu(Menu::translator_options_exploregame);
+            map.nexttowercolour();
+            break;
+        case 3:
             // menu test
             music.playef(18);
             game.menutestmode = true;
             game.createmenu((Menu::MenuName) 0);
             map.nexttowercolour();
             break;
-        case 3:
+        case 4:
             // limits check
             music.playef(11);
             loc::local_limits_check();
@@ -1226,6 +1232,59 @@ static void menuactionpress(void)
         music.playef(11);
         game.returnmenu();
         map.nexttowercolour();
+        break;
+    case Menu::translator_options_exploregame:
+        music.playef(11);
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            // SS1
+            game.start_translator_exploring = true;
+            startmode(3);
+            break;
+        case 1:
+            // Lab
+            game.start_translator_exploring = true;
+            startmode(4);
+            break;
+        case 2:
+            // Tower
+            game.start_translator_exploring = true;
+            startmode(5);
+            break;
+        case 3:
+            // SS2
+            game.start_translator_exploring = true;
+            startmode(6);
+            break;
+        case 4:
+            // WZ
+            game.start_translator_exploring = true;
+            startmode(7);
+            break;
+        case 5:
+            // Int 1
+            game.createmenu(Menu::playint1);
+            game.start_translator_exploring = true;
+            map.nexttowercolour();
+            break;
+        case 6:
+            // Int 2
+            game.createmenu(Menu::playint2);
+            game.start_translator_exploring = true;
+            map.nexttowercolour();
+            break;
+        case 7:
+            // Final
+            game.start_translator_exploring = true;
+            startmode(8);
+            break;
+        default:
+            // return
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
         break;
     case Menu::translator_maintenance:
         music.playef(11);
@@ -2352,7 +2411,7 @@ void gameinput(void)
         game.interactheld = false;
     }
 
-    if (game.intimetrial && graphics.fademode == FADE_FULLY_BLACK && game.quickrestartkludge)
+    if (game.intimetrial && graphics.fademode == FADE_FULLY_BLACK && game.quickrestartkludge && !game.translator_exploring)
     {
         //restart the time trial
         game.quickrestartkludge = false;
@@ -2417,7 +2476,7 @@ void gameinput(void)
 
                 if (interact_pressed && !script.running)
                 {
-                    if (game.activetele && game.readytotele > 20 && !game.intimetrial)
+                    if (game.activetele && game.readytotele > 20 && (!game.intimetrial || game.translator_exploring_allowtele))
                     {
                         enter_already_processed = true;
                         if(int(SDL_fabsf(obj.entities[ie].vx))<=1 && int(obj.entities[ie].vy)==0)
@@ -2448,7 +2507,7 @@ void gameinput(void)
                                 game.setstate(4000);
                                 game.setstatedelay(0);
                             }
-                            else if (game.companion == 0)
+                            else if (game.companion == 0 && !game.translator_exploring_allowtele)
                             {
                                 //Alright, normal teleporting
                                 game.mapmenuchange(TELEPORTERMODE, true);
@@ -2645,7 +2704,7 @@ void gameinput(void)
         game.gamesavefailed = false;
         game.menupage = 20; // The Map Page
     }
-    else if (game.intimetrial && graphics.fademode == FADE_NONE)
+    else if (game.intimetrial && graphics.fademode == FADE_NONE && !game.translator_exploring)
     {
         //Quick restart of time trial
         graphics.fademode = FADE_START_FADEOUT;
@@ -2653,7 +2712,7 @@ void gameinput(void)
         music.fadeout();
         game.quickrestartkludge = true;
     }
-    else if (game.intimetrial)
+    else if (game.intimetrial && !game.translator_exploring)
     {
         //Do nothing if we're in a Time Trial but a fade animation is playing
     }

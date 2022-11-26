@@ -158,12 +158,16 @@
     <string english="Maintenance" translation="Onderhoud" explanation="title" max="20"/>
     <string english="open lang folder" translation="talenmap openen" explanation="menu option. Button that opens the folder with language files (which is called lang) in a file explorer"/>
     <string english="Sync all language files after adding new strings." translation="Synchroniseer alle taalbestanden na het toevoegen van nieuwe tekst." explanation="" max="38*6"/>
-    <string english="translate room names" translation="vertaal kamernamen" explanation="menu option"/>
-    <string english="Translate rooms" translation="Vertaal kamernamen" explanation="title" max="20"/>
-    <string english="Enable room name translation mode, so you can translate room names in context." translation="Schakel kamernaam-vertaalmodus in, zodat je kamernamen in context kunt vertalen." explanation="" max="38*4"/>
+    <string english="translate room names" translation="kamernamen vertalen" explanation="menu option"/>
+    <string english="Translate rooms" translation="Kamernamen vertalen" explanation="title" max="20"/>
+    <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="Schakel kamernaam-vertaalmodus in, zodat je kamernamen in context kunt vertalen. Druk op I voor onkwetsbaarheid." explanation="" max="38*4"/>
+    <string english="You have not enabled room name translation mode!" translation="Je hebt kamernaam-vertaalmodus niet ingeschakeld!" explanation="" max="38*4"/>
     <string english="menu test" translation="menutest" explanation="menu option"/>
     <string english="Menu test" translation="Menutest" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="De meeste menu&apos;s in het spel doorlopen. De menu&apos;s zullen niet echt werken, alle opties zullen in plaats daarvan naar het volgende menu leiden. Druk op Escape om te stoppen." explanation="" max="38*6"/>
+    <string english="explore game" translation="spel verkennen" explanation="menu option"/>
+    <string english="Explore game" translation="Spel verkennen" explanation="title" max="20"/>
+    <string english="Explore the rooms of any level in the game, to find all room names to translate." translation="Verken de kamers van elk level in het spel, om alle kamers te vinden die vertaald kunnen worden." explanation="" max="38*6"/>
     <string english="limits check" translation="limietcontrole" explanation="menu option"/>
     <string english="global limits check" translation="globale limietcontrole" explanation="menu option"/>
     <string english="Limits check" translation="Limietcontrole" explanation="title" max="20"/>
@@ -349,6 +353,10 @@
     <string english="The Warp Zone" translation="De Wikkelzone" explanation="area name as title" max="20"/>
     <string english="the final level" translation="het eindlevel" explanation="area name as menu option"/>
     <string english="The Final Level" translation="Het Eindlevel" explanation="area name as title" max="20"/>
+    <string english="intermission 1" translation="intermissie 1" explanation="area name as menu option"/>
+    <string english="Intermission 1" translation="Intermissie 1" explanation="area name as title" max="20"/>
+    <string english="intermission 2" translation="intermissie 2" explanation="area name as menu option"/>
+    <string english="Intermission 2" translation="Intermissie 2" explanation="area name as title" max="20"/>
     <string english="???" translation="???" explanation="locked area" max="20"/>
     <string english="Not yet attempted" translation="Nog geen poging gedaan" explanation="" max="38*2"/>
     <string english="TO UNLOCK:" translation="OM TE ONTGRENDELEN:" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>

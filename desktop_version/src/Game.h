@@ -65,6 +65,7 @@ namespace Menu
         translator_options,
         translator_options_limitscheck,
         translator_options_stats,
+        translator_options_exploregame,
         translator_maintenance,
         translator_maintenance_sync,
         translator_error_setlangwritedir,
@@ -356,6 +357,10 @@ public:
     bool timetrialcheater;
     int timetrialresultshinytarget, timetrialresulttrinkets, timetrialresultpar;
     int timetrialresultdeaths;
+
+    bool start_translator_exploring;
+    bool translator_exploring;
+    bool translator_exploring_allowtele;
 
     int creditposition;
     int oldcreditposition;

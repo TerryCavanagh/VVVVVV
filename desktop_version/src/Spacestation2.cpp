@@ -1094,7 +1094,7 @@ const short* spacestation2class::loadlevel(int rx, int ry)
         obj.createentity(7 * 8, (36 * 8)-216, 1, 12, 1);  // Enemy
         //FACTORY emitter starts here (manually placed)
 
-        if(!game.intimetrial)
+        if(!game.intimetrial || game.translator_exploring)
         {
             obj.createentity(18 * 8, (5 * 8) + 4, 14); //Teleporter!
         }
@@ -2540,7 +2540,7 @@ const short* spacestation2class::loadlevel(int rx, int ry)
         };
 
         //Remove spikes in modes where the player shouldn't kill themselves
-        int spikevalue = (game.nodeathmode || game.intimetrial) ? 0 : 9;
+        int spikevalue = (game.nodeathmode || (game.intimetrial && !game.translator_exploring)) ? 0 : 9;
         for (int i = 23; i < 23+14; i++)
         {
             contents[i + 8*40] = spikevalue;
@@ -2559,7 +2559,7 @@ const short* spacestation2class::loadlevel(int rx, int ry)
             roomname = "I Can't Believe You Got This Far";
             roomname_special = true;
         }
-        else if (game.intimetrial)
+        else if (game.intimetrial && !game.translator_exploring)
         {
             roomname = "Imagine Spikes There, if You Like";
             roomname_special = true;
@@ -2751,7 +2751,7 @@ const short* spacestation2class::loadlevel(int rx, int ry)
 
         obj.createentity(192, 88, 10, 0, 441490);  // (savepoint)
 
-        if(!game.intimetrial)
+        if(!game.intimetrial || game.translator_exploring)
         {
             if(game.companion==0 && !obj.flags[10] &&  !game.crewstats[2])   //also need to check if he's rescued in a previous game
             {

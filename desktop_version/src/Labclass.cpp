@@ -1038,7 +1038,10 @@ const short* labclass::loadlevel(int rx, int ry)
 
         //obj.createentity(224, 192, 10, 0, 249550);  // (savepoint)
 
-        if(!game.intimetrial) obj.createentity((12 * 8)-4, (6 * 8) + 4, 14); //Teleporter!
+        if(!game.intimetrial || game.translator_exploring)
+        {
+            obj.createentity((12 * 8)-4, (6 * 8) + 4, 14); //Teleporter!
+        }
         rcol = 5;
 
         roomname = "Entanglement Generator";
@@ -2022,7 +2025,7 @@ const short* labclass::loadlevel(int rx, int ry)
         };
         rcol=0;
 
-        if(!game.intimetrial)
+        if(!game.intimetrial || game.translator_exploring)
         {
             if(game.companion==0 && !obj.flags[9] &&  !game.crewstats[5])   //also need to check if he's rescued in a previous game
             {

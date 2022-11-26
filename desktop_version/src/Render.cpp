@@ -648,7 +648,7 @@ static void menurender(void)
         case 1:
         {
             graphics.bigprint( -1, 30, loc::gettext("Translate rooms"), tr, tg, tb, true);
-            int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Enable room name translation mode, so you can translate room names in context."), tr, tg, tb, true);
+            int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Enable room name translation mode, so you can translate room names in context. Press I for invincibility."), tr, tg, tb, true);
 
             if (roomname_translator::enabled)
             {
@@ -661,10 +661,14 @@ static void menurender(void)
             break;
         }
         case 2:
+            graphics.bigprint( -1, 30, loc::gettext("Explore game"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Explore the rooms of any level in the game, to find all room names to translate."), tr, tg, tb, true);
+            break;
+        case 3:
             graphics.bigprint( -1, 30, loc::gettext("Menu test"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop."), tr, tg, tb, true);
             break;
-        case 3:
+        case 4:
             graphics.bigprint( -1, 30, loc::gettext("Limits check"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Find translations that don't fit within their defined bounds."), tr, tg, tb, true);
             break;
@@ -750,6 +754,39 @@ static void menurender(void)
 
         break;
     }
+    case Menu::translator_options_exploregame:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            graphics.bigprint( -1, 30, loc::gettext("Space Station 1"), tr, tg, tb, true);
+            break;
+        case 1:
+            graphics.bigprint( -1, 30, loc::gettext("The Laboratory"), tr, tg, tb, true);
+            break;
+        case 2:
+            graphics.bigprint( -1, 30, loc::gettext("The Tower"), tr, tg, tb, true);
+            break;
+        case 3:
+            graphics.bigprint( -1, 30, loc::gettext("Space Station 2"), tr, tg, tb, true);
+            break;
+        case 4:
+            graphics.bigprint( -1, 30, loc::gettext("The Warp Zone"), tr, tg, tb, true);
+            break;
+        case 5:
+            graphics.bigprint( -1, 30, loc::gettext("Intermission 1"), tr, tg, tb, true);
+            break;
+        case 6:
+            graphics.bigprint( -1, 30, loc::gettext("Intermission 2"), tr, tg, tb, true);
+            break;
+        case 7:
+            graphics.bigprint( -1, 30, loc::gettext("The Final Level"), tr, tg, tb, true);
+            break;
+        }
+        if (!roomname_translator::enabled)
+        {
+            graphics.PrintWrap( -1, 65, loc::gettext("You have not enabled room name translation mode!"), tr, tg, tb, true);
+        }
+        break;
     case Menu::translator_maintenance:
         switch (game.currentmenuoption)
         {
@@ -2066,7 +2103,7 @@ void gamerender(void)
                 graphics.bigbprint( -1, 100, "3", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
         }
-        else if (!roomname_translator::is_pausing())
+        else if (!roomname_translator::is_pausing() && !game.translator_exploring)
         {
             char buffer[SCREEN_WIDTH_CHARS + 1];
             game.timestringcenti(buffer, sizeof(buffer));
@@ -2610,7 +2647,7 @@ void maprender(void)
     }
     case 3:
     {
-        if (game.inintermission)
+        if (game.inintermission || game.translator_exploring)
         {
             graphics.PrintWrap(0, 115, loc::gettext("Cannot Save in Level Replay"), 146, 146, 180, true);
             break;
