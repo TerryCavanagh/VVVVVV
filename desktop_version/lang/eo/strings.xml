@@ -156,18 +156,18 @@
     <string english="Some options that are useful for translators and developers." translation="Kelkaj agordoj utilaj por tradukistoj kaj disvolvigistoj." explanation="" max="38*6"/>
     <string english="maintenance" translation="prizorgado" explanation="menu option, menu that allows you to apply maintenance to translations"/>
     <string english="Maintenance" translation="Prizorgado" explanation="title" max="20"/>
-    <string english="open lang folder" translation="" explanation="menu option. Button that opens the folder with language files (which is called lang) in a file explorer"/>
+    <string english="open lang folder" translation="malfermi dosierujon lang" explanation="menu option. Button that opens the folder with language files (which is called lang) in a file explorer"/>
     <string english="Sync all language files after adding new strings." translation="Sinkronigi ĉiujn lingvodosierojn post aldoni novajn ĉenojn." explanation="" max="38*6"/>
     <string english="translate room names" translation="traduki ĉambronomojn" explanation="menu option"/>
     <string english="Translate rooms" translation="Traduki ĉambrojn" explanation="title" max="20"/>
     <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="Ebligi reĝimon de ĉambronom-tradukado, por ilin traduki laŭ cirkonstanco. Premu I por nevundebleco." explanation="" max="38*4"/>
-    <string english="You have not enabled room name translation mode!" translation="" explanation="" max="38*4"/>
+    <string english="You have not enabled room name translation mode!" translation="Vi ne ebligis la reĝimon de ĉambronoma tradukado!" explanation="" max="38*4"/>
     <string english="menu test" translation="menu-testado" explanation="menu option"/>
     <string english="Menu test" translation="Menu-testado" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="Cikli tra la plejparto da menuoj en la ludo. La menuoj ne vere funkcios; ĉiuj elektoj anstataŭe prenos vin al sekva menuo. Premu eskapklavon por fini." explanation="" max="38*6"/>
-    <string english="explore game" translation="" explanation="menu option"/>
-    <string english="Explore game" translation="" explanation="title" max="20"/>
-    <string english="Explore the rooms of any level in the game, to find all room names to translate." translation="" explanation="" max="38*6"/>
+    <string english="explore game" translation="esplori ludon" explanation="menu option"/>
+    <string english="Explore game" translation="Esplori ludon" explanation="title" max="20"/>
+    <string english="Explore the rooms of any level in the game, to find all room names to translate." translation="Esplori la ĉambrojn de iu ajn nivelo en la ludo, por trovi ĉiujn tradukendajn ĉambronomojn." explanation="" max="38*6"/>
     <string english="limits check" translation="limkontrolado" explanation="menu option"/>
     <string english="global limits check" translation="ĉiea limkontrolado" explanation="menu option"/>
     <string english="Limits check" translation="Limkontrolado" explanation="title" max="20"/>
@@ -353,10 +353,10 @@
     <string english="The Warp Zone" translation="La Teleportejo" explanation="area name as title" max="20"/>
     <string english="the final level" translation="la fina nivelo" explanation="area name as menu option"/>
     <string english="The Final Level" translation="La Fina Nivelo" explanation="area name as title" max="20"/>
-    <string english="intermission 1" translation="" explanation="area name as menu option"/>
-    <string english="Intermission 1" translation="" explanation="area name as title" max="20"/>
-    <string english="intermission 2" translation="" explanation="area name as menu option"/>
-    <string english="Intermission 2" translation="" explanation="area name as title" max="20"/>
+    <string english="intermission 1" translation="interakto 1" explanation="area name as menu option"/>
+    <string english="Intermission 1" translation="Interakto 1" explanation="area name as title" max="20"/>
+    <string english="intermission 2" translation="interakto 2" explanation="area name as menu option"/>
+    <string english="Intermission 2" translation="Interakto 2" explanation="area name as title" max="20"/>
     <string english="???" translation="???" explanation="locked area" max="20"/>
     <string english="Not yet attempted" translation="Ne jam provita" explanation="" max="38*2"/>
     <string english="TO UNLOCK:" translation="POR MALŜLOSI:" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>
@@ -671,25 +671,25 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="Kiam vi staras sur la planko, Vermiljo provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="Kiam vi staras sur la planko, Verdigriso provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re standing on the floor, Victoria will try to walk to you." translation="Kiam vi staras sur la planko, Viktoria provos marŝi al vi." explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re standing on the floor, your companion will try to walk to you." translation="" explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
+    <string english="When you&apos;re standing on the floor, your companion will try to walk to you." translation="Kiam vi staras sur la planko, via kunulo provos marŝi al vi." explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
     <string english="When you&apos;re standing on the ceiling, Vitellary will try to walk to you." translation="Kiam vi staras sur la plafono, Vitelario provos marŝi al vi." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re standing on the ceiling, Vermilion will try to walk to you." translation="Kiam vi staras sur la plafono, Vermiljo provos marŝi al vi." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re standing on the ceiling, Verdigris will try to walk to you." translation="Kiam vi staras sur la plafono, Verdigriso provos marŝi al vi." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re standing on the ceiling, Victoria will try to walk to you." translation="Kiam vi staras sur la plafono, Viktoria provos marŝi al vi." explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re standing on the ceiling, your companion will try to walk to you." translation="" explanation="Intermission 1 in flip mode, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
+    <string english="When you&apos;re standing on the ceiling, your companion will try to walk to you." translation="Kiam vi staras sur la plafono, via kunulo provos marŝi al vi." explanation="Intermission 1 in flip mode, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
     <string english="When you&apos;re NOT standing on the floor, Vitellary will stop and wait for you." translation="Kiam vi NE staras sur la planko, Vitelario haltos kaj atendos vin." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re NOT standing on the floor, Vermilion will stop and wait for you." translation="Kiam vi NE staras sur la planko, Vermiljo haltos kaj atendos vin." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re NOT standing on the floor, Verdigris will stop and wait for you." translation="Kiam vi NE staras sur la planko, Verdigriso haltos kaj atendos vin." explanation="Intermission 1" max="34*4"/>
     <string english="When you&apos;re NOT standing on the floor, Victoria will stop and wait for you." translation="Kiam vi NE staras sur la planko, Viktoria haltos kaj atendos vin." explanation="Intermission 1" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the floor, your companion will stop and wait for you." translation="" explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the floor, your companion will stop and wait for you." translation="Kiam vi NE staras sur la planko, via kunulo haltos kaj atendos vin." explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
     <string english="When you&apos;re NOT standing on the ceiling, Vitellary will stop and wait for you." translation="Kiam vi NE staras sur la plafono, Vitelario haltos kaj atendos vin." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re NOT standing on the ceiling, Vermilion will stop and wait for you." translation="Kiam vi NE staras sur la plafono, Vermiljo haltos kaj atendos vin." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re NOT standing on the ceiling, Verdigris will stop and wait for you." translation="Kiam vi NE staras sur la plafono, Verdigriso haltos kaj atendos vin." explanation="Intermission 1 in flip mode" max="34*4"/>
     <string english="When you&apos;re NOT standing on the ceiling, Victoria will stop and wait for you." translation="Kiam vi NE staras sur la plafono, Viktoria haltos kaj atendos vin." explanation="Intermission 1 in flip mode" max="34*4"/>
-    <string english="When you&apos;re NOT standing on the ceiling, your companion will stop and wait for you." translation="" explanation="Intermission 1 in flip mode, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
+    <string english="When you&apos;re NOT standing on the ceiling, your companion will stop and wait for you." translation="Kiam vi NE staras sur la plafono, via kunulo haltos kaj atendos vin." explanation="Intermission 1 in flip mode, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
     <string english="You can&apos;t continue to the next room until he is safely across." translation="Ne eblas pluiri al la sekva ĉambro, ĝis kiam li estas sekure transiĝinta." explanation="Intermission 1" max="34*4"/>
     <string english="You can&apos;t continue to the next room until she is safely across." translation="Ne eblas pluiri al la sekva ĉambro, ĝis kiam ŝi estas sekure transiĝinta." explanation="Intermission 1" max="34*4"/>
-    <string english="You can&apos;t continue to the next room until they are safely across." translation="" explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
+    <string english="You can&apos;t continue to the next room until they are safely across." translation="Ne eblas pluiri al la sekva ĉambro, ĝis kiam ri estas sekure transiĝinta." explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
     <string english="Survive for" translation="Travivu" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
     <string english="60 seconds!" translation="60 sekundojn!" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
     <string english="Thanks for" translation="Dankon" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>
