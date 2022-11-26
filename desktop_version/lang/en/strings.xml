@@ -160,10 +160,14 @@
     <string english="Sync all language files after adding new strings." translation="" explanation="" max="38*6"/>
     <string english="translate room names" translation="" explanation="menu option"/>
     <string english="Translate rooms" translation="" explanation="title" max="20"/>
-    <string english="Enable room name translation mode, so you can translate room names in context." translation="" explanation="" max="38*4"/>
+    <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="" explanation="" max="38*4"/>
+    <string english="You have not enabled room name translation mode!" translation="" explanation="" max="38*4"/>
     <string english="menu test" translation="" explanation="menu option"/>
     <string english="Menu test" translation="" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="" explanation="" max="38*6"/>
+    <string english="explore game" translation="" explanation="menu option"/>
+    <string english="Explore game" translation="" explanation="title" max="20"/>
+    <string english="Explore the rooms of any level in the game, to find all room names to translate." translation="" explanation="" max="38*6"/>
     <string english="limits check" translation="" explanation="menu option"/>
     <string english="global limits check" translation="" explanation="menu option"/>
     <string english="Limits check" translation="" explanation="title" max="20"/>
@@ -349,6 +353,10 @@
     <string english="The Warp Zone" translation="" explanation="area name as title" max="20"/>
     <string english="the final level" translation="" explanation="area name as menu option"/>
     <string english="The Final Level" translation="" explanation="area name as title" max="20"/>
+    <string english="intermission 1" translation="" explanation="area name as menu option"/>
+    <string english="Intermission 1" translation="" explanation="area name as title" max="20"/>
+    <string english="intermission 2" translation="" explanation="area name as menu option"/>
+    <string english="Intermission 2" translation="" explanation="area name as title" max="20"/>
     <string english="???" translation="" explanation="locked area" max="20"/>
     <string english="Not yet attempted" translation="" explanation="" max="38*2"/>
     <string english="TO UNLOCK:" translation="" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>

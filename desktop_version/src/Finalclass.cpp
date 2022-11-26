@@ -611,7 +611,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         if(!obj.flags[72])
         {
-            if (game.intimetrial || game.nocutscenes)
+            if ((game.intimetrial || game.nocutscenes) && !game.translator_exploring)
             {
                 obj.createblock(1, 152 - 4, 112, 20, 16, 85);
             }
@@ -1369,7 +1369,11 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createblock(0, 315, 0, 5, 240);
 
 
-        if(game.intimetrial)
+        if (game.translator_exploring)
+        {
+            obj.createblock(1, 0, 0, 320, 120, 3091);
+        }
+        else if(game.intimetrial)
         {
             obj.createblock(1, 0, 0, 320, 120, 82);
         }
@@ -1641,7 +1645,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(16, 112, 10, 1, 50520);  // (savepoint)
         roomname = "Seeing Red";
 
-        if(!game.intimetrial)
+        if(!game.intimetrial || game.translator_exploring)
         {
             if(game.companion==0 && !obj.flags[8] && !game.crewstats[3])   //also need to check if he's rescued in a previous game
             {

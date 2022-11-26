@@ -427,7 +427,7 @@ const short* warpclass::loadlevel(int rx, int ry)
         86,86,208,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,206,86,86,
         86,86,208,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,206,86,86,
         };
-        if(!game.intimetrial)
+        if(!game.intimetrial || game.translator_exploring)
         {
             obj.createentity((7 * 8) + 4, (6 * 8), 14); //Teleporter!
         }
@@ -1112,7 +1112,7 @@ const short* warpclass::loadlevel(int rx, int ry)
         rcol = 0;
         warpy = true;
 
-        if(!game.intimetrial)
+        if(!game.intimetrial || game.translator_exploring)
         {
             if(game.companion==0 && !obj.flags[11] && !game.crewstats[4])   //also need to check if he's rescued in a previous game
             {

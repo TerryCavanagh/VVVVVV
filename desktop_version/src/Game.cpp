@@ -299,6 +299,9 @@ void Game::init(void)
     timetrialresulttrinkets = 0;
     timetrialresultpar = 0;
     timetrialresultdeaths = 0;
+    start_translator_exploring = false;
+    translator_exploring = false;
+    translator_exploring_allowtele = false;
 
     totalflips = 0;
     hardestroom = "Welcome Aboard";
@@ -1492,6 +1495,12 @@ void Game::updatestate(void)
         case 82:
             //Time Trial Complete!
             obj.removetrigger(82);
+            if (translator_exploring)
+            {
+                translator_exploring_allowtele = true;
+                state = 0;
+                break;
+            }
             hascontrol = false;
 
             if (timetrialcheater)
@@ -2311,6 +2320,11 @@ void Game::updatestate(void)
                 break; //Intermission 1
             }
 
+            if (translator_exploring_allowtele)
+            {
+                state = 3090;
+            }
+
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2706,6 +2720,26 @@ void Game::updatestate(void)
             startscript = true;
             newscript="regularreturn";
             setstate(0);
+            break;
+
+        case 3090:
+            /* Teleporting in translator_exploring should be just like
+             * the intermission replays: simply return to the menu */
+            companion = 0;
+            supercrewmate = false;
+            graphics.fademode = FADE_START_FADEOUT;
+            music.fadeout();
+            state=3100;
+            break;
+        case 3091:
+            /* Different Final Level ending for translator_exploring */
+            music.fadeout();
+            state++;
+            statedelay = 60;
+            break;
+        case 3092:
+            graphics.fademode = FADE_START_FADEOUT;
+            state=3100;
             break;
 
         case 3100:
@@ -6412,6 +6446,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::translator_options:
         option(loc::gettext("language statistics"));
         option(loc::gettext("translate room names"));
+        option(loc::gettext("explore game"));
         option(loc::gettext("menu test"));
         option(loc::gettext("limits check"));
         option(loc::gettext("return"));
@@ -6425,6 +6460,18 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
     case Menu::translator_options_stats:
         option(loc::gettext("return"));
         menuyoff = 64;
+        break;
+    case Menu::translator_options_exploregame:
+        option(loc::gettext("space station 1"));
+        option(loc::gettext("the laboratory"));
+        option(loc::gettext("the tower"));
+        option(loc::gettext("space station 2"));
+        option(loc::gettext("the warp zone"));
+        option(loc::gettext("intermission 1"));
+        option(loc::gettext("intermission 2"));
+        option(loc::gettext("the final level"));
+        option(loc::gettext("return"));
+        menuyoff = -20;
         break;
     case Menu::translator_maintenance:
         option(loc::gettext("sync language files"));
@@ -6644,6 +6691,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = -35;
         break;
     case Menu::playint1:
+        start_translator_exploring = false;
         option(loc::gettext("Vitellary"));
         option(loc::gettext("Vermilion"));
         option(loc::gettext("Verdigris"));
@@ -6652,6 +6700,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 10;
         break;
     case Menu::playint2:
+        start_translator_exploring = false;
         option(loc::gettext("Vitellary"));
         option(loc::gettext("Vermilion"));
         option(loc::gettext("Verdigris"));
@@ -6944,7 +6993,11 @@ void Game::quittomenu(void)
     //or "who do you want to play the level with?"
     //or "do you want cutscenes?"
     //or the confirm-load-quicksave menu
-    if (intimetrial)
+    if (translator_exploring)
+    {
+        returntomenu(Menu::translator_options_exploregame);
+    }
+    else if (intimetrial)
     {
         returntomenu(Menu::timetrials);
     }
