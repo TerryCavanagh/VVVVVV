@@ -2059,7 +2059,7 @@ void rendermap(void)
 
 void rendermapfog(void)
 {
-    int mapwidth = map.custommode ? map.customheight : 20;
+    int mapwidth = map.custommode ? map.customwidth : 20;
     int mapheight = map.custommode ? map.customheight : 20;
     int mapzoom = map.custommode ? map.customzoom : 1;
     int mapxoff = map.custommode ? map.custommmxoff : 0;
@@ -2137,7 +2137,7 @@ void rendermaplegend(void)
 
 void rendermapcursor(bool flashing)
 {
-    int mapwidth = map.custommode ? map.customheight : 20;
+    int mapwidth = map.custommode ? map.customwidth : 20;
     int mapheight = map.custommode ? map.customheight : 20;
     int mapzoom = map.custommode ? map.customzoom : 1;
     int mapxoff = map.custommode ? map.custommmxoff : 0;
@@ -2675,7 +2675,7 @@ void teleporterrender(void)
 
     // Draw a box around the currently selected teleporter
 
-    int mapwidth = map.custommode ? map.customheight : 20;
+    int mapwidth = map.custommode ? map.customwidth : 20;
     int mapheight = map.custommode ? map.customheight : 20;
     int mapzoom = map.custommode ? map.customzoom : 1;
     int mapxoff = map.custommode ? map.custommmxoff : 0;
