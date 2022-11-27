@@ -25,4 +25,8 @@
         <translation form="0" translation=""/>
         <translation form="1" translation=""/>
     </string>
+    <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
+        <translation form="0" translation=""/>
+        <translation form="1" translation=""/>
+    </string>
 </strings_plural>
