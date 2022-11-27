@@ -782,7 +782,25 @@ static void menurender(void)
             graphics.bigprint( -1, 30, loc::gettext("The Final Level"), tr, tg, tb, true);
             break;
         }
-        if (!roomname_translator::enabled)
+        if (roomname_translator::enabled)
+        {
+            if (game.currentmenuoption >= 0 && game.currentmenuoption < 8)
+            {
+                int names_left = loc::n_untranslated_roomnames_area[game.currentmenuoption + 1];
+                int coldiv = names_left > 0 ? 1 : 2;
+
+                char buffer[4*SCREEN_WIDTH_CHARS + 1];
+                loc::gettext_plural_fill(
+                    buffer, sizeof(buffer),
+                    "{n} normal room names untranslated",
+                    "{n} normal room name untranslated",
+                    "n:int",
+                    names_left
+                );
+                graphics.PrintWrap( -1, 65, buffer, tr/coldiv, tg/coldiv, tb/coldiv, true);
+            }
+        }
+        else
         {
             graphics.PrintWrap( -1, 65, loc::gettext("You have not enabled room name translation mode!"), tr, tg, tb, true);
         }

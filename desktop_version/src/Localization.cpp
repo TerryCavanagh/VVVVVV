@@ -26,6 +26,7 @@ int n_untranslated_roomnames = 0;
 int n_unexplained_roomnames = 0;
 int n_untranslated_roomnames_custom = 0;
 int n_unexplained_roomnames_custom = 0;
+int n_untranslated_roomnames_area[9];
 
 int n_untranslated[COUNT_UNTRANSLATED_INDEX] = {0};
 

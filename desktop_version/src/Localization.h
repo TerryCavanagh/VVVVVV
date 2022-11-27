@@ -57,6 +57,7 @@ extern int n_untranslated_roomnames;
 extern int n_unexplained_roomnames;
 extern int n_untranslated_roomnames_custom;
 extern int n_unexplained_roomnames_custom;
+extern int n_untranslated_roomnames_area[9];
 
 enum n_untranslated_index
 {

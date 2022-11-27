@@ -25,4 +25,8 @@
         <translation form="0" translation="Moeilijkste kamer ({n_deaths} keer dood)"/>
         <translation form="1" translation="Moeilijkste kamer ({n_deaths} keer dood)"/>
     </string>
+    <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
+        <translation form="0" translation="{n} normale kamernamen onvertaald"/>
+        <translation form="1" translation="{n} normale kamernaam onvertaald"/>
+    </string>
 </strings_plural>

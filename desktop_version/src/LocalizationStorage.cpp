@@ -241,6 +241,7 @@ void resettext(bool final_shutdown)
 
         n_untranslated_roomnames = 0;
         n_unexplained_roomnames = 0;
+        SDL_zeroa(n_untranslated_roomnames_area);
 
         SDL_zeroa(n_untranslated);
 
@@ -736,16 +737,99 @@ bool fix_room_coords(bool custom_level, int* roomx, int* roomy)
     return !(*roomx < 0 || *roomy < 0 || *roomx > max_x || *roomy > max_y);
 }
 
-static void update_left_counter(const char* old_text, const char* new_text, int* counter)
+static unsigned coords_to_area(int roomx, int roomy)
+{
+    if (!fix_room_coords(false, &roomx, &roomy))
+    {
+        return false;
+    }
+
+    /* We want to know per-area how many room names are untranslated... */
+    enum area_letter {
+        _, /* None */
+        S, /* SS1 */
+        L, /* Lab */
+        T, /* Tower */
+        Y, /* SS2 */
+        W, /* Warp */
+        I, /* Intermission */
+        G, /* Gravitron */
+        F  /* Final */
+    };
+    static enum area_letter area_map[MAP_MAX_Y+1][MAP_MAX_Y+1] = {
+        {_,L,L,L,L,L,L,L,_,T,_,_,_,W,W,W,W,W,W,W},
+        {_,L,L,L,L,L,L,_,_,T,_,_,_,_,W,W,W,W,W,W},
+        {_,_,_,_,L,_,_,_,_,T,_,_,_,_,W,W,W,W,W,W},
+        {_,_,_,_,L,_,_,_,_,T,_,_,S,S,S,S,W,W,W,W},
+        {_,_,L,L,L,_,_,_,_,T,T,T,S,S,S,S,_,_,_,_},
+        {_,_,_,_,_,_,_,_,_,T,Y,Y,S,S,S,S,_,_,_,_},
+        {_,_,_,_,_,_,_,_,_,T,Y,Y,S,S,S,S,S,_,_,_},
+        {_,_,_,_,_,_,_,_,_,T,Y,Y,S,S,S,S,S,S,S,_},
+        {_,_,_,_,_,_,_,_,_,T,_,_,_,Y,Y,S,Y,Y,Y,_},
+        {_,_,_,_,_,_,_,_,T,T,_,_,_,Y,Y,Y,Y,Y,Y,_},
+        {_,_,_,_,_,_,_,_,_,T,_,_,_,Y,Y,Y,Y,Y,Y,_},
+        {_,_,_,_,_,_,_,_,_,T,_,Y,Y,Y,Y,Y,Y,Y,Y,_},
+        {_,_,_,_,_,_,_,_,_,T,_,Y,Y,Y,Y,Y,Y,_,Y,_},
+        {_,_,_,_,_,_,_,_,_,T,_,Y,Y,Y,Y,Y,Y,_,Y,_},
+        {_,_,_,_,_,_,_,_,_,T,_,Y,Y,_,_,_,_,_,Y,_},
+        {_,_,_,_,_,_,_,L,_,T,_,_,_,_,_,_,_,_,_,_},
+        {_,_,L,L,L,L,L,L,_,T,_,_,_,_,_,_,_,_,_,_},
+        {_,L,L,L,L,L,L,L,_,T,_,_,_,_,_,_,_,_,_,_},
+        {L,L,L,L,L,_,_,L,_,T,_,_,_,_,_,_,_,_,_,_},
+        {L,L,L,L,L,_,_,L,_,T,_,_,_,_,_,_,_,_,_,_}
+    };
+    static bool area_map_has_final = false;
+
+    if (!area_map_has_final)
+    {
+        static const enum area_letter final_map[9][14] = {
+            {_,_,_,_,_,_,_,_,_,_,_,_,G,F},
+            {_,_,_,_,_,_,_,_,_,_,_,_,G,F},
+            {_,_,_,_,_,_,_,_,_,_,_,_,G,F},
+            {F,F,F,F,F,F,F,F,F,F,_,_,G,F},
+            {F,F,F,F,F,_,F,F,F,F,_,_,G,F},
+            {_,_,_,_,_,_,_,_,F,F,F,F,F,F},
+            {_,_,_,_,_,F,F,F,F,F,F,_,_,_},
+            {_,_,_,_,_,_,_,_,_,_,_,_,_,_},
+            {I,I,I,I,I,I,I,I,I,I,I,I,I,I}
+        };
+
+        for (int y = 0; y < 9; y++)
+        {
+            for (int x = 0; x < 14; x++)
+            {
+                area_map[MAP_MAX_Y+1 - 9 + y][MAP_MAX_X+1 - 14 + x] = final_map[y][x];
+            }
+        }
+        area_map_has_final = true;
+    }
+
+    if (area_map[roomy][roomx] == 0)
+    {
+        vlog_error("LocalizationStorage: Room %d,%d has no area associated with it", roomx, roomy);
+    }
+
+    return area_map[roomy][roomx];
+}
+
+static void update_left_counter(const char* old_text, const char* new_text, int* counter, int* counter_area)
 {
     bool now_filled = new_text[0] != '\0';
     if ((old_text == NULL || old_text[0] == '\0') && now_filled)
     {
         (*counter)--;
+        if (counter_area != NULL)
+        {
+            (*counter_area)--;
+        }
     }
     else if (old_text != NULL && old_text[0] != '\0' && !now_filled)
     {
         (*counter)++;
+        if (counter_area != NULL)
+        {
+            (*counter_area)++;
+        }
     }
 }
 
@@ -760,6 +844,7 @@ bool store_roomname_translation(bool custom_level, int roomx, int roomy, const c
     const char** ptr_translation;
     const char** ptr_explanation;
     int* ptr_n_untranslated;
+    int* ptr_n_untranslated_area = NULL;
     int* ptr_n_unexplained;
     if (custom_level)
     {
@@ -773,17 +858,18 @@ bool store_roomname_translation(bool custom_level, int roomx, int roomy, const c
         ptr_translation = &translation_roomnames[roomy][roomx];
         ptr_explanation = &explanation_roomnames[roomy][roomx];
         ptr_n_untranslated = &n_untranslated_roomnames;
+        ptr_n_untranslated_area = &n_untranslated_roomnames_area[coords_to_area(roomx, roomy)];
         ptr_n_unexplained = &n_unexplained_roomnames;
     }
 
     if (tra != NULL)
     {
-        update_left_counter(*ptr_translation, tra, ptr_n_untranslated);
+        update_left_counter(*ptr_translation, tra, ptr_n_untranslated, ptr_n_untranslated_area);
         *ptr_translation = textbook_store(&textbook_main, tra);
     }
     if (explanation != NULL)
     {
-        update_left_counter(*ptr_explanation, explanation, ptr_n_unexplained);
+        update_left_counter(*ptr_explanation, explanation, ptr_n_unexplained, NULL);
         *ptr_explanation = textbook_store(&textbook_main, explanation);
     }
 
@@ -840,6 +926,7 @@ static void loadtext_roomnames(bool custom_level)
         {
             n_untranslated_roomnames++;
             n_unexplained_roomnames++;
+            n_untranslated_roomnames_area[coords_to_area(x, y)]++;
         }
 
         store_roomname_translation(
@@ -901,6 +988,7 @@ void loadtext(bool check_max)
             // We may still need the room name explanations
             loadtext_roomnames(false);
             n_untranslated_roomnames = 0;
+            SDL_zeroa(n_untranslated_roomnames_area);
         }
     }
     else
