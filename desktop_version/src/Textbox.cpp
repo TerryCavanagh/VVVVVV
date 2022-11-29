@@ -111,5 +111,4 @@ void textboxclass::addline(const std::string& t)
 {
     lines.push_back(t);
     resize();
-    if ((int) lines.size() >= 12) lines.clear();
 }
