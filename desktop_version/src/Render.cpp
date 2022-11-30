@@ -2040,24 +2040,22 @@ static void draw_roomname_menu(void)
  * the same in Flip Mode. */
 #define FLIP(y, h) (graphics.flipmode ? 220 - (y) - (h) : (y))
 
-void rendermap(void)
+static void rendermap(void)
 {
 #ifndef NO_CUSTOM_LEVELS
     if (map.custommode)
     {
-        //draw the map image
         graphics.drawpixeltextbox(35 + map.custommmxoff, 16 + map.custommmyoff, map.custommmxsize + 10, map.custommmysize + 10, 65, 185, 207);
         graphics.drawpartimage(graphics.minimap_mounted ? 1 : 12, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
         return;
      }
 #endif /* NO_CUSTOM_LEVELS */
 
-    //draw the map image
     graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
     graphics.drawimage(1, 40, 21, false);
 }
 
-void rendermapfog(void)
+static void rendermapfog(void)
 {
     int mapwidth = map.custommode ? map.customwidth : 20;
     int mapheight = map.custommode ? map.customheight : 20;
@@ -2065,7 +2063,6 @@ void rendermapfog(void)
     int mapxoff = map.custommode ? map.custommmxoff : 0;
     int mapyoff = map.custommode ? map.custommmyoff : 0;
 
-    // Draw the fog of war
     for (int j = 0; j < mapheight; j++)
     {
         for (int i = 0; i < mapwidth; i++)
@@ -2085,7 +2082,7 @@ void rendermapfog(void)
     }
 }
 
-void rendermaplegend(void)
+static void rendermaplegend(void)
 {
     // Draw the map legend, aka teleports/targets/trinkets
 
@@ -2095,21 +2092,21 @@ void rendermaplegend(void)
 
     switch (zoom_mult)
     {
-        case 4:
-            zoom_offset_x = 60;
-            zoom_offset_y = 35;
-            break;
-        case 2:
-            zoom_offset_x = 48;
-            zoom_offset_y = 26;
-            break;
-        default:
-            zoom_offset_x = 43;
-            zoom_offset_y = 22;
-            break;
+    case 4:
+        zoom_offset_x = 60;
+        zoom_offset_y = 35;
+        break;
+    case 2:
+        zoom_offset_x = 48;
+        zoom_offset_y = 26;
+        break;
+    default:
+        zoom_offset_x = 43;
+        zoom_offset_y = 22;
+        break;
     }
 
-    int tile_offset = graphics.flipmode ? 3 : 0;
+    const int tile_offset = graphics.flipmode ? 3 : 0;
 
     for (size_t i = 0; i < map.teleporters.size(); i++)
     {
@@ -2135,7 +2132,7 @@ void rendermaplegend(void)
     }
 }
 
-void rendermapcursor(bool flashing)
+static void rendermapcursor(const bool flashing)
 {
     int mapwidth = map.custommode ? map.customwidth : 20;
     int mapheight = map.custommode ? map.customheight : 20;
@@ -2157,7 +2154,6 @@ void rendermapcursor(bool flashing)
                 graphics.drawrect(40 + ((game.roomx - 100) * 12), 21, 12, 180, 255, 255, 255);
                 graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 255, 255, 255);
             }
-            if (map.cursordelay > 30) map.cursorstate = 2;
         }
         else if (map.cursorstate == 2 && (int(map.cursordelay / 15) % 2 == 0))
         {
@@ -2256,7 +2252,9 @@ void maprender(void)
                 }
             }
             graphics.bprint(-1, 105, "NO SIGNAL", 245, 245, 245, true);
-        } else {
+        }
+        else
+        {
             rendermapfog();
             rendermapcursor(true);
             rendermaplegend();
@@ -2719,7 +2717,7 @@ void teleporterrender(void)
 
     tempx = map.teleporters[game.teleport_to_teleporter].x;
     tempy = map.teleporters[game.teleport_to_teleporter].y;
-    if (game.useteleporter && ((help.slowsine % 16) > 8))
+    if (game.useteleporter && help.slowsine % 16 > 8)
     {
         graphics.drawtile(zoom_offset_x + mapxoff + (tempx * 12 * mapzoom), zoom_offset_y + mapyoff + (tempy * 9 * mapzoom), 1128 + (graphics.flipmode ? 3 : 0));
     }
