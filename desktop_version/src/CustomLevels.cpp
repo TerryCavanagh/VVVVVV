@@ -1483,15 +1483,12 @@ bool customlevelclass::save(const std::string& _path)
 
 void customlevelclass::generatecustomminimap(void)
 {
-    map.customwidth = mapwidth;
-    map.customheight = mapheight;
-
     map.customzoom = 1;
-    if (map.customwidth <= 10 && map.customheight <= 10)
+    if (mapwidth <= 10 && mapheight <= 10)
     {
         map.customzoom = 2;
     }
-    if (map.customwidth <= 5 && map.customheight <= 5)
+    if (mapwidth <= 5 && mapheight <= 5)
     {
         map.customzoom = 4;
     }
@@ -1500,16 +1497,16 @@ void customlevelclass::generatecustomminimap(void)
     switch (map.customzoom)
     {
     case 4:
-        map.custommmxoff = 24 * (5 - map.customwidth);
-        map.custommmyoff = 18 * (5 - map.customheight);
+        map.custommmxoff = 24 * (5 - mapwidth);
+        map.custommmyoff = 18 * (5 - mapheight);
         break;
     case 2:
-        map.custommmxoff = 12 * (10 - map.customwidth);
-        map.custommmyoff = 9 * (10 - map.customheight);
+        map.custommmxoff = 12 * (10 - mapwidth);
+        map.custommmyoff = 9 * (10 - mapheight);
         break;
     default:
-        map.custommmxoff = 6 * (20 - map.customwidth);
-        map.custommmyoff = int(4.5 * (20 - map.customheight));
+        map.custommmxoff = 6 * (20 - mapwidth);
+        map.custommmyoff = int(4.5 * (20 - mapheight));
         break;
     }
 

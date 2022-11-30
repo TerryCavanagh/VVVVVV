@@ -23,6 +23,10 @@ class mapclass
 public:
     mapclass(void);
 
+    int getwidth(void);
+
+    int getheight(void);
+
     int intpol(int a, int b, float c);
 
     void setteleporter(int x, int y);
@@ -129,7 +133,6 @@ public:
     //Variables for playing custom levels
     bool custommode;
     bool custommodeforreal;
-    int customwidth, customheight;
     int custommmxoff, custommmyoff, custommmxsize, custommmysize;
     int customzoom;
     bool customshowmm;

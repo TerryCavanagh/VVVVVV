@@ -48,7 +48,6 @@ mapclass::mapclass(void)
 
     custommode=false;
     custommodeforreal=false;
-    customwidth=20; customheight=20;
     custommmxoff=0; custommmyoff=0; custommmxsize=0; custommmysize=0;
     customzoom=0;
     customshowmm=true;
@@ -108,6 +107,30 @@ const int mapclass::areamap[] = {
     2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0,
     2,2,2,2,2,0,0,2,0,3,0,0,0,0,0,0,0,0,0,0,
 };
+
+int mapclass::getwidth(void)
+{
+#ifndef NO_CUSTOM_LEVELS
+    if (custommode)
+    {
+        return cl.mapwidth;
+    }
+#endif
+
+    return 20;
+}
+
+int mapclass::getheight(void)
+{
+#ifndef NO_CUSTOM_LEVELS
+    if (custommode)
+    {
+        return cl.mapheight;
+    }
+#endif
+
+    return 20;
+}
 
 int mapclass::intpol(int a, int b, float c)
 {

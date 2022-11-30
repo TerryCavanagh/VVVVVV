@@ -26,8 +26,6 @@ static int tb;
 
 struct MapRenderData
 {
-    int width;
-    int height;
     int zoom;
     int xoff;
     int yoff;
@@ -2055,8 +2053,6 @@ static MapRenderData getmaprenderdata()
 {
     MapRenderData data;
 
-    data.width = map.custommode ? map.customwidth : 20;
-    data.height = map.custommode ? map.customheight : 20;
     data.zoom = map.custommode ? map.customzoom : 1;
     data.xoff = map.custommode ? map.custommmxoff : 0;
     data.yoff = map.custommode ? map.custommmyoff : 0;
@@ -2102,9 +2098,9 @@ static void rendermapfog(void)
 {
     const MapRenderData data = getmaprenderdata();
 
-    for (int j = 0; j < data.height; j++)
+    for (int j = 0; j < map.getheight(); j++)
     {
-        for (int i = 0; i < data.width; i++)
+        for (int i = 0; i < map.getwidth(); i++)
         {
             if (!map.isexplored(i, j))
             {
