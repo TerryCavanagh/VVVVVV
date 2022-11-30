@@ -2060,20 +2060,23 @@ static MapRenderData getmaprenderdata()
     data.zoom = map.custommode ? map.customzoom : 1;
     data.xoff = map.custommode ? map.custommmxoff : 0;
     data.yoff = map.custommode ? map.custommmyoff : 0;
+    data.legendxoff = 40 + data.xoff;
+    data.legendyoff = 21 + data.yoff;
 
+    // Magic numbers for centering legend tiles.
     switch (data.zoom)
     {
     case 4:
-        data.legendxoff = 60;
-        data.legendyoff = 35;
+        data.legendxoff += 21;
+        data.legendyoff += 16;
         break;
     case 2:
-        data.legendxoff = 48;
-        data.legendyoff = 26;
+        data.legendxoff += 9;
+        data.legendyoff += 5;
         break;
     default:
-        data.legendxoff = 43;
-        data.legendyoff = 22;
+        data.legendxoff += 3;
+        data.legendyoff += 1;
         break;
     }
 
