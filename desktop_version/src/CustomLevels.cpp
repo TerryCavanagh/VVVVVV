@@ -1483,116 +1483,95 @@ bool customlevelclass::save(const std::string& _path)
 
 void customlevelclass::generatecustomminimap(void)
 {
-    map.customwidth=mapwidth;
-    map.customheight=mapheight;
+    map.customwidth = mapwidth;
+    map.customheight = mapheight;
 
-    map.customzoom=1;
-    if(map.customwidth<=10 && map.customheight<=10) map.customzoom=2;
-    if(map.customwidth<=5 && map.customheight<=5) map.customzoom=4;
-
-    //Set minimap offsets
-    if(map.customzoom==4)
+    map.customzoom = 1;
+    if (map.customwidth <= 10 && map.customheight <= 10)
     {
-        map.custommmxoff=24*(5-map.customwidth);
-        map.custommmxsize=240-(map.custommmxoff*2);
-
-        map.custommmyoff=18*(5-map.customheight);
-        map.custommmysize=180-(map.custommmyoff*2);
+        map.customzoom = 2;
     }
-    else if(map.customzoom==2)
+    if (map.customwidth <= 5 && map.customheight <= 5)
     {
-        map.custommmxoff=12*(10-map.customwidth);
-        map.custommmxsize=240-(map.custommmxoff*2);
-
-        map.custommmyoff=9*(10-map.customheight);
-        map.custommmysize=180-(map.custommmyoff*2);
+        map.customzoom = 4;
     }
-    else
+
+    // Set minimap offsets
+    switch (map.customzoom)
     {
-        map.custommmxoff=6*(20-map.customwidth);
-        map.custommmxsize=240-(map.custommmxoff*2);
-
-        map.custommmyoff=int(4.5*(20-map.customheight));
-        map.custommmysize=180-(map.custommmyoff*2);
+    case 4:
+        map.custommmxoff = 24 * (5 - map.customwidth);
+        map.custommmyoff = 18 * (5 - map.customheight);
+        break;
+    case 2:
+        map.custommmxoff = 12 * (10 - map.customwidth);
+        map.custommmyoff = 9 * (10 - map.customheight);
+        break;
+    default:
+        map.custommmxoff = 6 * (20 - map.customwidth);
+        map.custommmyoff = int(4.5 * (20 - map.customheight));
+        break;
     }
+
+    map.custommmxsize = 240 - (map.custommmxoff * 2);
+    map.custommmysize = 180 - (map.custommmyoff * 2);
 
     FillRect(graphics.images[12], graphics.getRGB(0, 0, 0));
 
-    int tm=0;
-    int temp=0;
-    //Scan over the map size
-    if(mapheight<=5 && mapwidth<=5)
+    // Scan over the map size
+    for (int j2 = 0; j2 < mapheight; j2++)
     {
-        //4x map
-        for(int j2=0; j2<mapheight; j2++)
+        for (int i2 = 0; i2 < mapwidth; i2++)
         {
-            for(int i2=0; i2<mapwidth; i2++)
+            int tm;
+            if (getroomprop(i2, j2)->tileset == 1)
             {
-                //Ok, now scan over each square
-                tm=196;
-                if(getroomprop(i2, j2)->tileset==1) tm=96;
-
-                for(int j=0; j<36; j++)
-                {
-                    for(int i=0; i<48; i++)
-                    {
-                        temp=absfree(int(i*0.83) + (i2*40),int(j*0.83)+(j2*30));
-                        if(temp>=1)
-                        {
-                            //Fill in this pixel
-                            FillRect(graphics.images[12], (i2*48)+i, (j2*36)+j, 1, 1, graphics.getRGB(tm, tm, tm));
-                        }
-                    }
-                }
+                tm = 96;
             }
-        }
-    }
-    else if(mapheight<=10 && mapwidth<=10)
-    {
-        //2x map
-        for(int j2=0; j2<mapheight; j2++)
-        {
-            for(int i2=0; i2<mapwidth; i2++)
+            else
             {
-                //Ok, now scan over each square
-                tm=196;
-                if(getroomprop(i2, j2)->tileset==1) tm=96;
-
-                for(int j=0; j<18; j++)
-                {
-                    for(int i=0; i<24; i++)
-                    {
-                        temp=absfree(int(i*1.6) + (i2*40),int(j*1.6)+(j2*30));
-                        if(temp>=1)
-                        {
-                            //Fill in this pixel
-                            FillRect(graphics.images[12], (i2*24)+i, (j2*18)+j, 1, 1, graphics.getRGB(tm, tm, tm));
-                        }
-                    }
-                }
+                tm = 196;
             }
-        }
-    }
-    else
-    {
-        for(int j2=0; j2<mapheight; j2++)
-        {
-            for(int i2=0; i2<mapwidth; i2++)
-            {
-                //Ok, now scan over each square
-                tm=196;
-                if(getroomprop(i2, j2)->tileset==1) tm=96;
 
-                for(int j=0; j<9; j++)
+            // Ok, now scan over each square
+            for (int j = 0; j < 9 * map.customzoom; j++)
+            {
+                for (int i = 0; i < 12 * map.customzoom; i++)
                 {
-                    for(int i=0; i<12; i++)
+                    int tile;
+                    switch (map.customzoom)
                     {
-                        temp=absfree(3+(i*3) + (i2*40),(j*3)+(j2*30));
-                        if(temp>=1)
-                        {
-                            //Fill in this pixel
-                            FillRect(graphics.images[12], (i2*12)+i, (j2*9)+j, 1, 1, graphics.getRGB(tm, tm, tm));
-                        }
+                    case 4:
+                        tile = absfree(
+                            int(i * 0.83) + (i2 * 40),
+                            int(j * 0.83) + (j2 * 30)
+                        );
+                        break;
+                    case 2:
+                        tile = absfree(
+                            int(i * 1.6) + (i2 * 40),
+                            int(j * 1.6) + (j2 * 30)
+                        );
+                        break;
+                    default:
+                        tile = absfree(
+                            3 + (i * 3) + (i2 * 40),
+                            (j * 3) + (j2 * 30)
+                        );
+                        break;
+                    }
+
+                    if (tile >= 1)
+                    {
+                        // Fill in this pixel
+                        FillRect(
+                            graphics.images[12],
+                            (i2 * 12 * map.customzoom) + i,
+                            (j2 * 9 * map.customzoom) + j,
+                            1,
+                            1,
+                            graphics.getRGB(tm, tm, tm)
+                        );
                     }
                 }
             }
