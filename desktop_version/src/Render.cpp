@@ -24,6 +24,16 @@ static int tr;
 static int tg;
 static int tb;
 
+struct MapRenderData {
+    int width;
+    int height;
+    int zoom;
+    int xoff;
+    int yoff;
+    int legendxoff;
+    int legendyoff;
+};
+
 static inline void drawslowdowntext(void)
 {
     switch (game.slowdown)
@@ -2040,6 +2050,35 @@ static void draw_roomname_menu(void)
  * the same in Flip Mode. */
 #define FLIP(y, h) (graphics.flipmode ? 220 - (y) - (h) : (y))
 
+static MapRenderData getmaprenderdata()
+{
+    MapRenderData data;
+
+    data.width = map.custommode ? map.customwidth : 20;
+    data.height = map.custommode ? map.customheight : 20;
+    data.zoom = map.custommode ? map.customzoom : 1;
+    data.xoff = map.custommode ? map.custommmxoff : 0;
+    data.yoff = map.custommode ? map.custommmyoff : 0;
+
+    switch (data.zoom)
+    {
+    case 4:
+        data.legendxoff = 60;
+        data.legendyoff = 35;
+        break;
+    case 2:
+        data.legendxoff = 48;
+        data.legendyoff = 26;
+        break;
+    default:
+        data.legendxoff = 43;
+        data.legendyoff = 22;
+        break;
+    }
+
+    return data;
+}
+
 static void rendermap(void)
 {
 #ifndef NO_CUSTOM_LEVELS
@@ -2057,24 +2096,20 @@ static void rendermap(void)
 
 static void rendermapfog(void)
 {
-    int mapwidth = map.custommode ? map.customwidth : 20;
-    int mapheight = map.custommode ? map.customheight : 20;
-    int mapzoom = map.custommode ? map.customzoom : 1;
-    int mapxoff = map.custommode ? map.custommmxoff : 0;
-    int mapyoff = map.custommode ? map.custommmyoff : 0;
+    MapRenderData data = getmaprenderdata();
 
-    for (int j = 0; j < mapheight; j++)
+    for (int j = 0; j < data.height; j++)
     {
-        for (int i = 0; i < mapwidth; i++)
+        for (int i = 0; i < data.width; i++)
         {
             if (!map.isexplored(i, j))
             {
                 // Draw the fog, depending on the custom zoom size
-                for (int x = 0; x < mapzoom; x++)
+                for (int x = 0; x < data.zoom; x++)
                 {
-                    for (int y = 0; y < mapzoom; y++)
+                    for (int y = 0; y < data.zoom; y++)
                     {
-                        graphics.drawimage(2, mapxoff + 40 + (x * 12) + (i * (12 * mapzoom)), mapyoff + 21 + (y * 9) + (j * (9 * mapzoom)), false);
+                        graphics.drawimage(2, data.xoff + 40 + (x * 12) + (i * (12 * data.zoom)), data.yoff + 21 + (y * 9) + (j * (9 * data.zoom)), false);
                     }
                 }
             }
@@ -2086,25 +2121,7 @@ static void rendermaplegend(void)
 {
     // Draw the map legend, aka teleports/targets/trinkets
 
-    int zoom_offset_x;
-    int zoom_offset_y;
-    int zoom_mult = map.custommode ? map.customzoom : 1;
-
-    switch (zoom_mult)
-    {
-    case 4:
-        zoom_offset_x = 60;
-        zoom_offset_y = 35;
-        break;
-    case 2:
-        zoom_offset_x = 48;
-        zoom_offset_y = 26;
-        break;
-    default:
-        zoom_offset_x = 43;
-        zoom_offset_y = 22;
-        break;
-    }
+    MapRenderData data = getmaprenderdata();
 
     const int tile_offset = graphics.flipmode ? 3 : 0;
 
@@ -2112,11 +2129,11 @@ static void rendermaplegend(void)
     {
         if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            graphics.drawtile(zoom_offset_x + (map.teleporters[i].x * 12 * zoom_mult), zoom_offset_y + (map.teleporters[i].y * 9 * zoom_mult), 1127 + tile_offset);
+            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1127 + tile_offset);
         }
         else if (map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            graphics.drawtile(zoom_offset_x + (map.teleporters[i].x * 12 * zoom_mult), zoom_offset_y + (map.teleporters[i].y * 9 * zoom_mult), 1126 + tile_offset);
+            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1126 + tile_offset);
         }
     }
 
@@ -2126,7 +2143,7 @@ static void rendermaplegend(void)
         {
             if (!obj.collect[i])
             {
-                graphics.drawtile(zoom_offset_x + (map.shinytrinkets[i].x * 12 * zoom_mult), zoom_offset_y + (map.shinytrinkets[i].y * 9 * zoom_mult), 1086 + tile_offset);
+                graphics.drawtile(data.legendxoff + (map.shinytrinkets[i].x * 12 * data.zoom), data.legendyoff + (map.shinytrinkets[i].y * 9 * data.zoom), 1086 + tile_offset);
             }
         }
     }
@@ -2134,11 +2151,7 @@ static void rendermaplegend(void)
 
 static void rendermapcursor(const bool flashing)
 {
-    int mapwidth = map.custommode ? map.customwidth : 20;
-    int mapheight = map.custommode ? map.customheight : 20;
-    int mapzoom = map.custommode ? map.customzoom : 1;
-    int mapxoff = map.custommode ? map.custommmxoff : 0;
-    int mapyoff = map.custommode ? map.custommmyoff : 0;
+    MapRenderData data = getmaprenderdata();
 
     if (!map.custommode && game.roomx == 109)
     {
@@ -2164,12 +2177,12 @@ static void rendermapcursor(const bool flashing)
 
     if (!flashing || (map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0))
     {
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + 2 + mapxoff, 21 + ((game.roomy - 100) * 9 * mapzoom) + 2 + mapyoff, (12 * mapzoom) - 4, (9 * mapzoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
     }
     else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
     {
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + mapxoff, 21 + ((game.roomy - 100) * 9 * mapzoom) + mapyoff, 12 * mapzoom, 9 * mapzoom, 255, 255, 255);
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * mapzoom) + 2 + mapxoff, 21 + ((game.roomy - 100) * 9 * mapzoom) + 2 + mapyoff, (12 * mapzoom) - 4, (9 * mapzoom) - 4, 255, 255, 255);
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + data.yoff, 12 * data.zoom, 9 * data.zoom, 255, 255, 255);
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 255, 255, 255);
     }
 }
 
@@ -2673,11 +2686,7 @@ void teleporterrender(void)
 
     // Draw a box around the currently selected teleporter
 
-    int mapwidth = map.custommode ? map.customwidth : 20;
-    int mapheight = map.custommode ? map.customheight : 20;
-    int mapzoom = map.custommode ? map.customzoom : 1;
-    int mapxoff = map.custommode ? map.custommmxoff : 0;
-    int mapyoff = map.custommode ? map.custommmyoff : 0;
+    MapRenderData data = getmaprenderdata();
 
     if (game.useteleporter)
     {
@@ -2686,8 +2695,8 @@ void teleporterrender(void)
         //draw the coordinates //destination
         int tempx_ = map.teleporters[game.teleport_to_teleporter].x;
         int tempy_ = map.teleporters[game.teleport_to_teleporter].y;
-        graphics.drawrect(40 + mapxoff + (tempx_ * 12 * mapzoom) + 1, 21 + mapyoff + (tempy_ * 9 * mapzoom) + 1, 12 * mapzoom - 2, 9 * mapzoom - 2, 245 - (help.glow * 2), 16, 16);
-        graphics.drawrect(40 + mapxoff + (tempx_ * 12 * mapzoom) + 3, 21 + mapyoff + (tempy_ * 9 * mapzoom) + 3, 12 * mapzoom - 6, 9 * mapzoom - 6, 245 - (help.glow * 2), 16, 16);
+        graphics.drawrect(40 + data.xoff + (tempx_ * 12 * data.zoom) + 1, 21 + data.yoff + (tempy_ * 9 * data.zoom) + 1, 12 * data.zoom - 2, 9 * data.zoom - 2, 245 - (help.glow * 2), 16, 16);
+        graphics.drawrect(40 + data.xoff + (tempx_ * 12 * data.zoom) + 3, 21 + data.yoff + (tempy_ * 9 * data.zoom) + 3, 12 * data.zoom - 6, 9 * data.zoom - 6, 245 - (help.glow * 2), 16, 16);
     }
 
     // Draw the legend itself
@@ -2696,30 +2705,11 @@ void teleporterrender(void)
 
     // Highlight the currently selected teleporter
 
-    int zoom_offset_x;
-    int zoom_offset_y;
-
-    switch (mapzoom)
-    {
-    case 4:
-        zoom_offset_x = 60;
-        zoom_offset_y = 35;
-        break;
-    case 2:
-        zoom_offset_x = 48;
-        zoom_offset_y = 26;
-        break;
-    default:
-        zoom_offset_x = 43;
-        zoom_offset_y = 22;
-        break;
-    }
-
     tempx = map.teleporters[game.teleport_to_teleporter].x;
     tempy = map.teleporters[game.teleport_to_teleporter].y;
     if (game.useteleporter && help.slowsine % 16 > 8)
     {
-        graphics.drawtile(zoom_offset_x + mapxoff + (tempx * 12 * mapzoom), zoom_offset_y + mapyoff + (tempy * 9 * mapzoom), 1128 + (graphics.flipmode ? 3 : 0));
+        graphics.drawtile(data.legendxoff + data.xoff + (tempx * 12 * data.zoom), data.legendyoff + data.yoff + (tempy * 9 * data.zoom), 1128 + (graphics.flipmode ? 3 : 0));
     }
 
     graphics.cutscenebars();
