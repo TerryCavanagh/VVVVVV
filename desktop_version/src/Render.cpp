@@ -24,7 +24,8 @@ static int tr;
 static int tg;
 static int tb;
 
-struct MapRenderData {
+struct MapRenderData
+{
     int width;
     int height;
     int zoom;
@@ -2096,7 +2097,7 @@ static void rendermap(void)
 
 static void rendermapfog(void)
 {
-    MapRenderData data = getmaprenderdata();
+    const MapRenderData data = getmaprenderdata();
 
     for (int j = 0; j < data.height; j++)
     {
@@ -2121,7 +2122,7 @@ static void rendermaplegend(void)
 {
     // Draw the map legend, aka teleports/targets/trinkets
 
-    MapRenderData data = getmaprenderdata();
+    const MapRenderData data = getmaprenderdata();
 
     const int tile_offset = graphics.flipmode ? 3 : 0;
 
@@ -2151,7 +2152,7 @@ static void rendermaplegend(void)
 
 static void rendermapcursor(const bool flashing)
 {
-    MapRenderData data = getmaprenderdata();
+    const MapRenderData data = getmaprenderdata();
 
     if (!map.custommode && game.roomx == 109)
     {
@@ -2686,7 +2687,7 @@ void teleporterrender(void)
 
     // Draw a box around the currently selected teleporter
 
-    MapRenderData data = getmaprenderdata();
+    const MapRenderData data = getmaprenderdata();
 
     if (game.useteleporter)
     {
