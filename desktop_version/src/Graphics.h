@@ -117,6 +117,8 @@ public:
 
     void addline(const std::string& t);
 
+    void setlarge(bool large);
+
     void textboxtimer(int t);
 
     void textboxremove(void);

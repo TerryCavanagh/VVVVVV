@@ -48,6 +48,7 @@ scriptclass::scriptclass(void)
     textpad_right = 0;
     textpadtowidth = 0;
     textcase = 1;
+    textlarge = false;
 }
 
 void scriptclass::clearcustom(void)
@@ -519,9 +520,13 @@ void scriptclass::run(void)
                 textx = ss_toi(words[2]);
                 texty = ss_toi(words[3]);
 
+                // If words[4] ends with L, set large to true.
+                textlarge = (words[4].size() > 0 && words[4][words[4].size() - 1] == 'l');
+                int lines = ss_toi(words[4].substr(0, words[4].size() - (textlarge ? 1 : 0)));
+
                 //Number of lines for the textbox!
                 txt.clear();
-                for (int i = 0; i < ss_toi(words[4]); i++)
+                for (int i = 0; i < lines; i++)
                 {
                     position++;
                     if (INBOUNDS_VEC(position, commands))
@@ -714,6 +719,10 @@ void scriptclass::run(void)
                 }
                 graphics.createtextboxreal(txt[0], textx, texty, r, g, b, textflipme);
                 textflipme = false;
+
+                graphics.setlarge(textlarge);
+                textlarge = false;
+
                 if ((int) txt.size() > 1)
                 {
                     for (i = 1; i < (int) txt.size(); i++)
@@ -3514,11 +3523,13 @@ bool scriptclass::loadcustom(const std::string& t)
                     add("text(blue,0,0,"+words[1]+")");
                 break;
             }
-            int ti=help.Int(words[1].c_str());
-            int nti = ti>=0 ? ti : 1;
-            for(int ti2=0; ti2<nti; ti2++){
+            int ti = ss_toi(words[1].c_str());
+            int nti = ti >= 0 ? ti : 1;
+            for (int ti2 = 0; ti2 < nti; ti2++)
+            {
                 i++;
-                if(INBOUNDS_VEC(i, lines)){
+                if (INBOUNDS_VEC(i, lines))
+                {
                     add(lines[i]);
                 }
             }
