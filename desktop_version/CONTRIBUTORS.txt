@@ -14,6 +14,7 @@ Contributors
 * Elijah Stone (@moon-chilled)
 * Elliott Saltar (@eboyblue3)
 * Emmanuel Vadot (@evadot)
+* fraZ0R (@f-raZ0R)
 * Fredrik Ljungdahl (@FredrIQ)
 * Jules de Sartiges (@strikersh)
 * Keith Stellyes (@keithstellyes)
