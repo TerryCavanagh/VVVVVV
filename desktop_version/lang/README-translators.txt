@@ -1,20 +1,8 @@
 === I N T R O D U C T I O N ===
 
-This file will explain everything you need to know when making translations of VVVVVV, or maintaining them.
+This file will explain everything you need to know when making translations of VVVVVV.
 
 This file is encoded in UTF-8.
-
-
-
-=== A D D I N G   N E W   S T R I N G S ===
-
-If you want to add some new text to the game, all you generally need to do to make it translatable is wrap loc::gettext() around your raw strings in the code (you may need to add an #include "Localization.h"), and add the same strings to the English language file. The new strings can be automatically synced from English to all other language files using the translator menu.
-
-For example, "Game paused" can be made translatable by changing it to loc::gettext("Game paused"). Its entry in the English language file could look like this:
-
-    <string english="Game paused" translation="" explanation="pause screen" max="40"/>
-
-The max value indicates how many characters of space there is for the text, and is further described below. It looks like "40" for single-line text, and "38*5" for multi-line text. The max value may not be applicable or may be hard to define, so this attribute can be completely left out. For example, when it's a diagonally-placed menu option, or because the limit depends on the lengths of other strings (like Low/Medium/High in the joystick menu), or a string looks progressively worse the longer it gets. As a general rule: if defining a hard limit would be misleading, then it can be exempt from having a limit.
 
 
 
@@ -26,33 +14,19 @@ To create a new language, simply copy the `en` folder, and start by filling out 
 
 
 
+=== E X C E L ===
+
+The game uses XML files for storing the translations. If you prefer, there is an .xlsm file which can be used as an editor. This can load in all the XML files, and then save changes back as XML.
+
+If you're an official translator, you should have received a version of this spreadsheet. If not, a blank version can be found here: https://github.com/Dav999-v/TranslationEditor
+
+
+
 === T R A N S L A T O R   M E N U ===
 
-The translator menu has options for both translators and maintainers - it allows testing menus, translating room names within the game, syncing all language files with the English template files, getting statistics on translation progress, and more.
-
-VVVVVV will show a "translator" menu in the main menu if either:
-- The "lang" folder is NOT next to data.zip, and the game is running somewhere within a "desktop_version" folder, and desktop_version/lang IS found. This normally happens when compiling the game from source;
-- The command line argument (or launch option) "-translator" is passed.
-- ALWAYS_SHOW_TRANSLATOR_MENU is defined during compilation (see top of Localization.h)
+The translator menu has options for both translators and maintainers - it allows testing menus, translating room names within the game, syncing all language files with the English template files, getting statistics on translation progress, and more. The translator menu is hidden from players in regular versions of the game.
 
 When the translator menu is unlocked, you can also press F12 anywhere in the game to reload the current language files. So you can save translations and immediately preview them (except for menu buttons and the current cutscene dialogue, which can't be reloaded on the fly). You will hear a coin sound when the language files have been reloaded via F12.
-
-For maintainers: To add new strings, add them to only the English strings.xml or strings_plural.xml, and use the option to sync all languages from the translator menu. This will copy the new strings to all translated language files.
-
-The language file sync option has differing support for the language files. As indicated in the menu itself, it handles each file as follows:
-
-[Full syncing EN→All]
-For these files, the English version of the file is fully copied and overwrites every language's version, while all existing translations and customizations are inserted for every language. This means newly added strings are copied to every language, and removed strings are simultaneously removed from every language, bringing them fully up-to-date.
-  - meta.xml
-  - strings.xml
-  - strings_plural.xml
-  - cutscenes.xml
-  - roomnames.xml
-  - roomnames_special.xml
-
-[Syncing not supported]
-These files are untouched by the syncing feature.
-  - numbers.xml
 
 
 
@@ -213,14 +187,6 @@ If it helps with tone: the running joke in VVVVVV's writing is that all six char
 The world you're exploring is filled with terminals, with text logs from the previous inhabitants, who we never see. We don't know much about them.
 
 The ship you're all on is called the "D.S.S. Souleye", which is a minor easter egg. D.S.S. just stands for "Dimensional Space Ship" - a craft that warps between different dimensions. Souleye is the pseudonym for Magnus Pålsson, the game's composer.
-
-
-
-=== E X C E L ===
-
-The game uses XML files for storing the translations. If you prefer, there is an .xlsm file which can be used as an editor. This can load in all the XML files, and then save changes back as XML.
-
-If you're an official translator, you should have received a version of this spreadsheet. If not, a blank version can be found here: https://github.com/Dav999-v/TranslationEditor
 
 
 
