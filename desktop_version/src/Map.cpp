@@ -139,6 +139,11 @@ int mapclass::intpol(int a, int b, float c)
 
 void mapclass::setteleporter(int x, int y)
 {
+    if (x < 0 || x >= getwidth() || y < 0 || y >= getheight())
+    {
+        return;
+    }
+
     point temp;
     temp.x = x;
     temp.y = y;
@@ -147,6 +152,11 @@ void mapclass::setteleporter(int x, int y)
 
 void mapclass::settrinket(int x, int y)
 {
+    if (x < 0 || x >= getwidth() || y < 0 || y >= getheight())
+    {
+        return;
+    }
+
     point temp;
     temp.x = x;
     temp.y = y;
