@@ -24,6 +24,8 @@ textboxclass::textboxclass(void)
 
     rand = 0;
 
+    large = false;
+
     print_flags = PR_FONT_LEVEL;
 }
 
@@ -117,7 +119,10 @@ void textboxclass::addline(const std::string& t)
 {
     lines.push_back(t);
     resize();
-    if ((int) lines.size() >= 12) lines.clear();
+    if ((int)lines.size() > (large ? 26 : 11))
+    {
+        lines.clear();
+    }
 }
 
 void textboxclass::pad(size_t left_pad, size_t right_pad)

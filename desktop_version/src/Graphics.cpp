@@ -1347,6 +1347,17 @@ void Graphics::addline( const std::string& t )
     textboxes[m].addline(t);
 }
 
+void Graphics::setlarge(bool large)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("setlarge() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].large = large;
+}
+
 void Graphics::textboxadjust(void)
 {
     if (!INBOUNDS_VEC(m, textboxes))

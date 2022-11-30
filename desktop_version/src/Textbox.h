@@ -49,6 +49,8 @@ public:
 
     int rand;
 
+    bool large;
+
     uint32_t print_flags;
 };
 
