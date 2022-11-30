@@ -2857,10 +2857,6 @@ void scriptclass::startgamemode( int t )
         map.resetplayer();
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
-
-        cl.generatecustomminimap();
-        map.customshowmm = true;
-
         graphics.fademode = FADE_START_FADEIN;
         break;
     case 21:  //play custom level (in editor)
@@ -2892,10 +2888,18 @@ void scriptclass::startgamemode( int t )
         map.resetplayer();
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
-        if(cl.levmusic>0){
+
+
+        cl.generatecustomminimap();
+        map.customshowmm = true;
+
+        if (cl.levmusic > 0)
+        {
             music.play(cl.levmusic);
-        }else{
-            music.currentsong=-1;
+        }
+        else
+        {
+            music.currentsong = -1;
         }
         break;
 # endif /* NO_EDITOR */
