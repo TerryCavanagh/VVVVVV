@@ -2889,7 +2889,6 @@ void scriptclass::startgamemode( int t )
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
 
-
         cl.generatecustomminimap();
         map.customshowmm = true;
 
