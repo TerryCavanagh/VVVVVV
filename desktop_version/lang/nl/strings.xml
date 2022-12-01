@@ -445,8 +445,11 @@
     <string english="[ GRAVITRON ]" translation="[ GRAVITRON ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="GEEN SIGNAAL" explanation="map screen. So like a TV/computer monitor" max="29"/>
     <string english="Press ACTION to warp to the ship." translation="Druk op ACTIE om naar het schip te teleporteren." explanation="spaceship. Warp = teleport" max="38*7"/>
-    <string english="Missing..." translation="Vermist..." explanation="this crew member is missing" max="15"/>
-    <string english="Rescued!" translation="Gered!" explanation="this crew member is not missing anymore" max="15"/>
+    <string english="Missing..." translation="Vermist..." case="1" explanation="this male crew member is missing" max="15"/>
+    <string english="Missing..." translation="Vermist..." case="2" explanation="this female crew member is missing" max="15"/>
+    <string english="Missing..." translation="Vermist..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
+    <string english="Rescued!" translation="Gered!" case="1" explanation="this male crew member is not missing anymore" max="15"/>
+    <string english="Rescued!" translation="Gered!" case="2" explanation="this female crew member is not missing anymore" max="15"/>
     <string english="(that&apos;s you!)" translation="(dat ben jij!)" explanation="this crew member is you (Viridian)" max="15"/>
     <string english="Cannot Save in Level Replay" translation="Kan niet opslaan tijdens opnieuw spelen van een level" explanation="in-game menu" max="38*7"/>
     <string english="Cannot Save in No Death Mode" translation="Kan niet opslaan in éénlevenmodus" explanation="in-game menu" max="38*7"/>

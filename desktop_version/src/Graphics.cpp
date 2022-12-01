@@ -966,30 +966,58 @@ void Graphics::printcrewnamedark( int x, int y, int t )
     }
 }
 
-void Graphics::printcrewnamestatus( int x, int y, int t )
+void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
 {
     //Print the status of crew member t in the right colour
+    int r, g, b;
+    char gender;
+
     switch(t)
     {
     case 0:
-        Print(x, y, loc::gettext("(that's you!)"), 12, 140, 140,false);
+        r=12; g=140, b=140;
+        gender = 3;
         break;
     case 1:
-        Print(x, y, loc::gettext("Rescued!"), 140, 12, 140,false);
+        r=140; g=12; b=140;
+        gender = 2;
         break;
     case 2:
-        Print(x, y, loc::gettext("Rescued!"), 140, 140, 12,false);
+        r=140; g=140; b=12;
+        gender = 1;
         break;
     case 3:
-        Print(x, y, loc::gettext("Rescued!"), 140, 12, 12,false);
+        r=140; g=12; b=12;
+        gender = 1;
         break;
     case 4:
-        Print(x, y, loc::gettext("Rescued!"), 12, 140, 12,false);
+        r=12; g=140; b=12;
+        gender = 1;
         break;
     case 5:
-        Print(x, y, loc::gettext("Rescued!"), 12, 12, 140,false);
+        r=12; g=12; b=140;
+        gender = 2;
         break;
+    default:
+        return;
     }
+
+    const char* status_text;
+    if (gender == 3 && rescued)
+    {
+        status_text = loc::gettext("(that's you!)");
+    }
+    else if (rescued)
+    {
+        status_text = loc::gettext_case("Rescued!", gender);
+    }
+    else
+    {
+        r=64; g=64; b=64;
+        status_text = loc::gettext_case("Missing...", gender);
+    }
+
+    Print(x, y, status_text, r, g, b, false);
 }
 
 void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )

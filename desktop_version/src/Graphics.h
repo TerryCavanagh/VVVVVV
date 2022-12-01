@@ -144,10 +144,9 @@ public:
     void drawsprite(int x, int y, int t, Uint32 c);
 
     void printcrewname(int x, int y, int t);
-
-    void printcrewnamestatus(int x, int y, int t);
-
     void printcrewnamedark(int x, int y, int t);
+
+    void printcrewnamestatus(int x, int y, int t, bool rescued);
 
     void map_tab(int opt, const char* text, bool selected = false);
 

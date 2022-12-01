@@ -2579,25 +2579,23 @@ void maprender(void)
                     if (game.crewstats[(2-i)])
                     {
                         graphics.printcrewname(44, 32 + (i * 64)+4+10, 2-i);
-                        graphics.printcrewnamestatus(44, 32 + (i * 64)+4, 2-i);
                     }
                     else
                     {
                         graphics.printcrewnamedark(44, 32 + (i * 64)+4+10, 2-i);
-                        graphics.Print(44, 32 + (i * 64) + 4, loc::gettext("Missing..."), 64,64,64);
                     }
+                    graphics.printcrewnamestatus(44, 32 + (i * 64)+4, 2-i, game.crewstats[(2-i)]);
 
                     graphics.drawcrewman(16+160, 32 + (i * 64), (2-i)+3, game.crewstats[(2-i)+3]);
                     if (game.crewstats[(2-i)+3])
                     {
                         graphics.printcrewname(44+160, 32 + (i * 64)+4+10, (2-i)+3);
-                        graphics.printcrewnamestatus(44+160, 32 + (i * 64)+4, (2-i)+3);
                     }
                     else
                     {
                         graphics.printcrewnamedark(44+160, 32 + (i * 64)+4+10, (2-i)+3);
-                        graphics.Print(44+160, 32 + (i * 64) + 4, loc::gettext("Missing..."), 64,64,64);
                     }
+                    graphics.printcrewnamestatus(44+160, 32 + (i * 64)+4, (2-i)+3, game.crewstats[(2-i)+3]);
                 }
             }
             else
@@ -2608,25 +2606,23 @@ void maprender(void)
                     if (game.crewstats[i])
                     {
                         graphics.printcrewname(44, 32 + (i * 64)+4, i);
-                        graphics.printcrewnamestatus(44, 32 + (i * 64)+4+10, i);
                     }
                     else
                     {
                         graphics.printcrewnamedark(44, 32 + (i * 64)+4, i);
-                        graphics.Print(44, 32 + (i * 64) + 4 + 10, loc::gettext("Missing..."), 64,64,64);
                     }
+                    graphics.printcrewnamestatus(44, 32 + (i * 64)+4+10, i, game.crewstats[i]);
 
                     graphics.drawcrewman(16+160, 32 + (i * 64), i+3, game.crewstats[i+3]);
                     if (game.crewstats[i+3])
                     {
                         graphics.printcrewname(44+160, 32 + (i * 64)+4, i+3);
-                        graphics.printcrewnamestatus(44+160, 32 + (i * 64)+4+10, i+3);
                     }
                     else
                     {
                         graphics.printcrewnamedark(44+160, 32 + (i * 64)+4, i+3);
-                        graphics.Print(44+160, 32 + (i * 64) + 4 + 10, loc::gettext("Missing..."), 64,64,64);
                     }
+                    graphics.printcrewnamestatus(44+160, 32 + (i * 64)+4+10, i+3, game.crewstats[i+3]);
                 }
             }
         }

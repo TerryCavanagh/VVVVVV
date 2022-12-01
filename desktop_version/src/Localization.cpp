@@ -50,6 +50,28 @@ const char* gettext(const char* eng)
     return map_lookup_text(map_translation, eng, eng);
 }
 
+const char* gettext_case(const char* eng, char textcase)
+{
+    if (lang == "en")
+    {
+        return eng;
+    }
+    if (textcase == 0)
+    {
+        return gettext(eng);
+    }
+
+    char* eng_prefixed = add_disambiguator(textcase, eng, NULL);
+    if (eng_prefixed == NULL)
+    {
+        return eng;
+    }
+
+    const char* tra = map_lookup_text(map_translation, eng_prefixed, eng);
+    SDL_free(eng_prefixed);
+    return tra;
+}
+
 static const char* gettext_plural_english(const char* eng_plural, const char* eng_singular, int n)
 {
     /* Do be consistent with negative number handling for other languages... */
