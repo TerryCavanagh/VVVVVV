@@ -22,6 +22,7 @@ class mapclass
 {
 public:
     mapclass(void);
+    void destroy(void);
 
     int getwidth(void);
 
@@ -32,6 +33,8 @@ public:
     void setteleporter(int x, int y);
 
     void settrinket(int x, int y);
+
+    void setroomname(const char* name);
 
     void resetmap(void);
 

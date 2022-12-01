@@ -1,6 +1,7 @@
 #define MAP_DEFINITION
 #include "Map.h"
 
+#include "Alloc.h"
 #include "Constants.h"
 #include "CustomLevels.h"
 #include "Entity.h"
@@ -80,8 +81,16 @@ mapclass::mapclass(void)
 
     nexttowercolour_set = false;
 
-    roomname = "";
+    setroomname("");
     hiddenname = "";
+}
+
+static char roomname_static[SCREEN_WIDTH_CHARS];
+static char* roomname_heap;
+
+void mapclass::destroy(void)
+{
+    VVV_free(roomname_heap);
 }
 
 //Areamap starts at 100,100 and extends 20x20
@@ -161,6 +170,25 @@ void mapclass::settrinket(int x, int y)
     temp.x = x;
     temp.y = y;
     shinytrinkets.push_back(temp);
+}
+
+void mapclass::setroomname(const char* name)
+{
+    VVV_free(roomname_heap);
+
+    const size_t size = SDL_strlcpy(
+        roomname_static, name, sizeof(roomname_static)
+    ) + 1;
+    roomname = roomname_static;
+
+    if (size > sizeof(roomname_static))
+    {
+        roomname_heap = SDL_strdup(name);
+        if (roomname_heap != NULL)
+        {
+            roomname = roomname_heap;
+        }
+    }
 }
 
 void mapclass::resetmap(void)
@@ -1386,7 +1414,7 @@ void mapclass::loadlevel(int rx, int ry)
     obj.customplatformtile=0;
     obj.vertplatforms = false;
     obj.horplatforms = false;
-    roomname = "";
+    setroomname("");
     hiddenname = "";
     background = 1;
     warpx = false;
@@ -1518,7 +1546,7 @@ void mapclass::loadlevel(int rx, int ry)
         extrarow = 1;
         const short* tmap = otherlevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
-        roomname = otherlevel.roomname;
+        setroomname(otherlevel.roomname);
         hiddenname = otherlevel.hiddenname;
         tileset = otherlevel.roomtileset;
         break;
@@ -1527,7 +1555,7 @@ void mapclass::loadlevel(int rx, int ry)
     {
         const short* tmap = lablevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
-        roomname = lablevel.roomname;
+        setroomname(lablevel.roomname);
         tileset = 1;
         background = 2;
         graphics.rcol = lablevel.rcol;
@@ -1540,7 +1568,7 @@ void mapclass::loadlevel(int rx, int ry)
         graphics.towerbg.scrolldir = 0;
         setbgobjlerp(graphics.towerbg);
 
-        roomname = "The Tower";
+        setroomname("The Tower");
         tileset = 1;
         background = 3;
         towermode = true;
@@ -1574,7 +1602,7 @@ void mapclass::loadlevel(int rx, int ry)
     {
         const short* tmap = warplevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
-        roomname = warplevel.roomname;
+        setroomname(warplevel.roomname);
         tileset = 1;
         background = 3;
         graphics.rcol = warplevel.rcol;
@@ -1592,7 +1620,7 @@ void mapclass::loadlevel(int rx, int ry)
     {
         const short* tmap = spacestation2.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
-        roomname = spacestation2.roomname;
+        setroomname(spacestation2.roomname);
         tileset = 0;
         break;
     }
@@ -1600,7 +1628,7 @@ void mapclass::loadlevel(int rx, int ry)
     {
         const short* tmap = finallevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
-        roomname = finallevel.roomname;
+        setroomname(finallevel.roomname);
         tileset = 1;
         background = 3;
         graphics.backgrounddrawn = false;
@@ -1630,7 +1658,7 @@ void mapclass::loadlevel(int rx, int ry)
         graphics.towerbg.scrolldir = 1;
         setbgobjlerp(graphics.towerbg);
 
-        roomname = "Panic Room";
+        setroomname("Panic Room");
         tileset = 1;
         background = 3;
         towermode = true;
@@ -1652,7 +1680,7 @@ void mapclass::loadlevel(int rx, int ry)
         graphics.towerbg.scrolldir = 1;
         setbgobjlerp(graphics.towerbg);
 
-        roomname = "Panic Room";
+        setroomname("Panic Room");
         tileset = 1;
         background = 3;
         towermode = true;
@@ -1681,7 +1709,7 @@ void mapclass::loadlevel(int rx, int ry)
         graphics.towerbg.scrolldir = 0;
         setbgobjlerp(graphics.towerbg);
 
-        roomname = "The Final Challenge";
+        setroomname("The Final Challenge");
         tileset = 1;
         background = 3;
         towermode = true;
@@ -1726,7 +1754,7 @@ void mapclass::loadlevel(int rx, int ry)
         graphics.towerbg.scrolldir = 0;
         setbgobjlerp(graphics.towerbg);
 
-        roomname = "The Final Challenge";
+        setroomname("The Final Challenge");
         tileset = 1;
         background = 3;
         towermode = true;
@@ -1759,7 +1787,7 @@ void mapclass::loadlevel(int rx, int ry)
     {
         const short* tmap = finallevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
-        roomname = finallevel.roomname;
+        setroomname(finallevel.roomname);
         tileset = 2;
         if (rx == 108)
         {
@@ -1842,7 +1870,7 @@ void mapclass::loadlevel(int rx, int ry)
             break;
         }
 
-        roomname = room->roomname.c_str();
+        setroomname(room->roomname.c_str());
         extrarow = 1;
         const int* tmap = cl.loadlevel(rx, ry);
         SDL_memcpy(contents, tmap, sizeof(contents));
