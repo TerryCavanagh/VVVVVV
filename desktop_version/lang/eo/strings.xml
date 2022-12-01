@@ -445,8 +445,11 @@
     <string english="[ GRAVITRON ]" translation="[ GRAVITRONO ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="SENSIGNALE" explanation="map screen. So like a TV/computer monitor" max="29"/>
     <string english="Press ACTION to warp to the ship." translation="Premu AGBUTONON por teleportiĝi al la ŝipo." explanation="spaceship. Warp = teleport" max="38*7"/>
-    <string english="Missing..." translation="Mankas..." explanation="this crew member is missing" max="15"/>
-    <string english="Rescued!" translation="Savita!" explanation="this crew member is not missing anymore" max="15"/>
+    <string english="Missing..." translation="Mankas..." case="1" explanation="this male crew member is missing" max="15"/>
+    <string english="Missing..." translation="Mankas..." case="2" explanation="this female crew member is missing" max="15"/>
+    <string english="Missing..." translation="Mankas..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
+    <string english="Rescued!" translation="Savita!" case="1" explanation="this male crew member is not missing anymore" max="15"/>
+    <string english="Rescued!" translation="Savita!" case="2" explanation="this female crew member is not missing anymore" max="15"/>
     <string english="(that&apos;s you!)" translation="(jen vi!)" explanation="this crew member is you (Viridian)" max="15"/>
     <string english="Cannot Save in Level Replay" translation="Ne eblas konservi en nivel-reludado" explanation="in-game menu" max="38*7"/>
     <string english="Cannot Save in No Death Mode" translation="Ne eblas konservi en mortula reĝimo" explanation="in-game menu" max="38*7"/>

@@ -88,7 +88,31 @@ static void sync_lang_file(const std::string& langcode)
             const char* eng = pElem->Attribute("english");
             if (eng != NULL)
             {
-                pElem->SetAttribute("translation", map_lookup_text(map_translation, eng, ""));
+                char textcase = pElem->UnsignedAttribute("case", 0);
+                const char* tra;
+                if (textcase == 0)
+                {
+                    tra = map_lookup_text(map_translation, eng, "");
+                }
+                else
+                {
+                    char* eng_prefixed = add_disambiguator(textcase, eng, NULL);
+                    if (eng_prefixed == NULL)
+                    {
+                        /* Are we out of memory? Stop, don't blank our language files... */
+                        return;
+                    }
+                    /* Note the fallback: if this string used to not be cased and now it is,
+                     * simply fill in the old single variant we already had. */
+                    tra = map_lookup_text(
+                        map_translation,
+                        eng_prefixed,
+                        map_lookup_text(map_translation, eng, "")
+                    );
+                    SDL_free(eng_prefixed);
+                }
+
+                pElem->SetAttribute("translation", tra);
             }
         }
 
@@ -125,7 +149,7 @@ static void sync_lang_file(const std::string& langcode)
                     char* key = add_disambiguator(form_id+1, eng_plural, NULL);
                     if (key == NULL)
                     {
-                        /* Are we out of memory? Stop, don't blank our language files... */
+                        /* Out of memory or something, stop */
                         return;
                     }
 

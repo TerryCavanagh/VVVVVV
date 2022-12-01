@@ -416,12 +416,33 @@ static void loadtext_strings(bool check_max)
         const char* eng = pElem->Attribute("english");
         const char* tra = pElem->Attribute("translation");
 
-        map_store_translation(
-            &textbook_main,
-            map_translation,
-            eng,
-            tra
-        );
+        char textcase = pElem->UnsignedAttribute("case", 0);
+
+        if (textcase == 0)
+        {
+            map_store_translation(
+                &textbook_main,
+                map_translation,
+                eng,
+                tra
+            );
+        }
+        else
+        {
+            /* Only prefix with a disambiguator if a specific case number is set */
+            char* eng_prefixed = add_disambiguator(textcase, eng, NULL);
+            if (eng_prefixed == NULL)
+            {
+                continue;
+            }
+            map_store_translation(
+                &textbook_main,
+                map_translation,
+                eng_prefixed,
+                tra
+            );
+            SDL_free(eng_prefixed);
+        }
 
         /* Only tally an untranslated string if English isn't blank */
         if (eng != NULL && eng[0] != '\0')
