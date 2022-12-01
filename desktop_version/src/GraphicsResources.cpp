@@ -1,5 +1,6 @@
 #include "GraphicsResources.h"
 
+#include "Alloc.h"
 #include "FileSystemUtils.h"
 #include "Vlogging.h"
 
@@ -37,7 +38,7 @@ SDL_Surface* LoadImage(const char *filename)
         return NULL;
     }
     error = lodepng_decode32(&data, &width, &height, fileIn, length);
-    FILESYSTEM_freeMemory(&fileIn);
+    VVV_free(fileIn);
 
     if (error != 0)
     {
@@ -61,14 +62,14 @@ SDL_Surface* LoadImage(const char *filename)
             SDL_PIXELFORMAT_ARGB8888,
             0
         );
-        SDL_FreeSurface( loadedImage );
-        SDL_free(data);
+        VVV_freefunc(SDL_FreeSurface, loadedImage);
+        VVV_free(data);
         SDL_SetSurfaceBlendMode(optimizedImage, SDL_BLENDMODE_BLEND);
         return optimizedImage;
     }
     else
     {
-        SDL_free(data);
+        VVV_free(data);
         vlog_error("Image not found: %s", filename);
         SDL_assert(0 && "Image not found! See stderr.");
         return NULL;
@@ -104,10 +105,7 @@ void GraphicsResources::init(void)
 
 void GraphicsResources::destroy(void)
 {
-#define CLEAR(img) \
-    SDL_FreeSurface(img); \
-    img = NULL;
-
+#define CLEAR(img) VVV_freefunc(SDL_FreeSurface, img)
     CLEAR(im_tiles);
     CLEAR(im_tiles2);
     CLEAR(im_tiles3);

@@ -5,6 +5,7 @@
 #include <FAudio.h>
 #include <physfsrwops.h>
 
+#include "Alloc.h"
 #include "BinaryBlob.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
@@ -21,7 +22,7 @@
 
 #define malloc SDL_malloc
 #define realloc SDL_realloc
-#define free SDL_free
+#define free VVV_free
 #ifdef memset /* Thanks, Apple! */
 #undef memset
 #endif
@@ -121,12 +122,12 @@ public:
         format.cbSize = 0;
         valid = true;
 end:
-        FILESYSTEM_freeMemory(&mem);
+        VVV_free(mem);
     }
 
     void Dispose()
     {
-        SDL_free(wav_buffer);
+        VVV_free(wav_buffer);
     }
 
     void Play()
@@ -146,7 +147,7 @@ end:
                 FAudioVoice_GetVoiceDetails(voices[i], &details);
                 if (details.InputChannels != format.nChannels)
                 {
-                    FAudioVoice_DestroyVoice(voices[i]);
+                    VVV_freefunc(FAudioVoice_DestroyVoice, voices[i]);
                     FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
                 }
                 const FAudioBuffer faudio_buffer = {
@@ -221,10 +222,9 @@ end:
         {
             for (int i = 0; i < VVV_MAX_CHANNELS; i++)
             {
-                FAudioVoice_DestroyVoice(voices[i]);
+                VVV_freefunc(FAudioVoice_DestroyVoice, voices[i]);
             }
-            SDL_free(voices);
-            voices = NULL;
+            VVV_free(voices);
         }
     }
 
@@ -263,8 +263,7 @@ public:
         if (vorbis == NULL)
         {
             vlog_error("Unable to create Vorbis handle, error %d", err);
-            SDL_free(read_buf);
-            read_buf = NULL;
+            VVV_free(read_buf);
             goto end;
         }
         vorbis_info = stb_vorbis_get_info(vorbis);
@@ -295,13 +294,12 @@ end:
     void Dispose()
     {
         stb_vorbis_close(vorbis);
-        SDL_free(read_buf);
-        SDL_free(decoded_buf_playing);
-        SDL_free(decoded_buf_reserve);
+        VVV_free(read_buf);
+        VVV_free(decoded_buf_playing);
+        VVV_free(decoded_buf_reserve);
         if (!IsHalted())
         {
-            FAudioVoice_DestroyVoice(musicVoice);
-            musicVoice = NULL;
+            VVV_freefunc(FAudioVoice_DestroyVoice, musicVoice);
         }
     }
 
@@ -358,8 +356,7 @@ end:
         if (!IsHalted())
         {
             FAudioSourceVoice_FlushSourceBuffers(musicVoice);
-            FAudioVoice_DestroyVoice(musicVoice);
-            musicVoice = NULL;
+            VVV_freefunc(FAudioVoice_DestroyVoice, musicVoice);
             paused = true;
         }
     }
@@ -535,11 +532,11 @@ end:
                 t->loopbegin = 0;
                 t->looplength = 0;
                 loopend = 0;
-                SDL_free(param);
+                VVV_free(param);
                 break;
             }
 
-            SDL_free(param);
+            VVV_free(param);
         }
         if (loopend != 0)
         {
@@ -792,14 +789,8 @@ void musicclass::destroy(void)
 
     pppppp_blob.clear();
     mmmmmm_blob.clear();
-    if (masteringvoice != NULL)
-    {
-        FAudioVoice_DestroyVoice(masteringvoice);
-    }
-    if (faudioctx != NULL)
-    {
-        FAudio_Release(faudioctx);
-    }
+    VVV_freefunc(FAudioVoice_DestroyVoice, masteringvoice);
+    VVV_freefunc(FAudio_Release, faudioctx);
 }
 
 void musicclass::play(int t)

@@ -9,6 +9,7 @@
 #include <tinyxml2.h>
 #include <utf8/unchecked.h>
 
+#include "Alloc.h"
 #include "Constants.h"
 #include "Editor.h"
 #include "Enums.h"
@@ -267,7 +268,7 @@ bool customlevelclass::getLevelMetaDataAndPlaytestArgs(const std::string& _path,
 
     std::string buf((char*) uMem);
 
-    FILESYSTEM_freeMemory(&uMem);
+    VVV_free(uMem);
 
     if (find_metadata(buf) == "")
     {
