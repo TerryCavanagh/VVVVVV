@@ -233,6 +233,8 @@ The following attributes may be found for each string:
 
 * translation: the translation.
 
+* case: a number (1, 2, etc) for separate strings that are identical in English but may need different translations.
+
 * explanation: an explanation about the context, location and possibly the formatting.
 
 * max: length restrictions, described above in "WORDWRAPPING AND LENGTH LIMITS"
