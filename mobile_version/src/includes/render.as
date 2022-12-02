@@ -1,11 +1,12 @@
 ﻿import flash.geom.Point;
+import starling.textures.Texture;
 public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, game:gameclass, obj:entityclass, help:helpclass):void {
   dwgfx.drawbutton(game, help);
 	
-	dwgfx.backbuffer.lock();
-	dwgfx.backbuffer.fillRect(dwgfx.backbuffer.rect, 0x000000);
+	//dwgfx.backbuffer.lock();
 	
 	if (!game.menustart) {
+		dwgfx.cls(0x000000);
 		tr = 164 - (help.glow / 2) - Math.random() * 4;
 		tg = 164 - (help.glow / 2) - Math.random() * 4;
 		tb = 164 - (help.glow / 2) - Math.random() * 4;
@@ -26,9 +27,10 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 		
 		/*dwgfx.print(5, 5, "IGF WIP Build, 29th Oct '09", tr, tg, tb, true);			
 		dwgfx.print(5, 200, "Game by Terry Cavanagh", tr, tg, tb, true);
-		dwgfx.print(5, 210, "Music by Magnus P~lsson", tr, tg, tb, true);
+		dwgfx.print(5, 210, "Music by Magnus Palsson", tr, tg, tb, true);
 		dwgfx.print(5, 220, "Roomnames by Bennett Foddy", tr, tg, tb, true);*/
 	}else {
+		dwgfx.cls(dwgfx.tower_bgdarkcol[map.colstate]);
 		if(!game.colourblindmode) dwgfx.drawtowerbackgroundsolo(map);
 		
 		tr = map.r - (help.glow / 4) - Math.random() * 4;
@@ -39,8 +41,7 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 		if (tb < 0) tb = 0; if(tb>255) tb=255;
 		
 		temp = 30+20;
-		
-		if(game.currentmenuname=="mainmenu"){
+		if (game.currentmenuname == "mainmenu") {
 			dwgfx.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
 			dwgfx.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
 			dwgfx.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
@@ -116,7 +117,7 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 		  //dwgfx.print( 40, 85, "http://www.distractionware.com", tr, tg, tb, true);
 			
 			dwgfx.print( -1, 120, "and features music by", tr, tg, tb, true);
-			dwgfx.bigprint( 40, 135, "Magnus P~lsson", tr, tg, tb, true, 2);
+			dwgfx.bigprint( 40, 135, "Magnus Palsson", tr, tg, tb, true, 2);
 			dwgfx.drawimagecol(8, -1, 156, tr *0.75, tg *0.75, tb *0.75, true);
 		  //dwgfx.print( 40, 155, "http://souleye.madtracker.net", tr, tg, tb, true);
 		}else if (game.currentmenuname == "credits2") {
@@ -199,7 +200,7 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 			dwgfx.print( 80, 80,"Joshua Buergel", tr, tg, tb);
 			dwgfx.print( 80, 90,"Joshua Hochner", tr, tg, tb);
 			dwgfx.print( 80, 100,"Kurt Ostfeld", tr, tg, tb);
-			dwgfx.print( 80, 110,"Magnus P~lsson", tr, tg, tb);
+			dwgfx.print( 80, 110,"Magnus Palsson", tr, tg, tb);
 			dwgfx.print( 80, 120,"Mark Neschadimenko", tr, tg, tb);
 			dwgfx.print( 80, 130,"Matt Antonellis", tr, tg, tb);
 			dwgfx.print( 80, 140,"Matthew Reppert", tr, tg, tb);
@@ -483,7 +484,7 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 			/*
 			dwgfx.bigprint( -1, 30, "Unlock Time Trials", tr, tg, tb, true);
 			dwgfx.print( -1, 65, "You can unlock each time", tr, tg, tb, true);
-			dwgfx.print( -1, 75, "trial separately.", tr, tg, tb, true);
+			dwgfx.print( -1, 75, "trial seperately.", tr, tg, tb, true);
 			*/
 	  }else if (game.currentmenuname == "timetrials") {
 			/*
@@ -688,27 +689,27 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 		}else if (game.currentmenuname == "unlocktimetrial") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "You have unlocked", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "Your have unlocked", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "a new Time Trial.", tr, tg, tb, true);
 		}else if (game.currentmenuname == "unlocktimetrials") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "You have unlocked some", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "Your have unlocked some", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "new Time Trials.", tr, tg, tb, true);
 		}else if (game.currentmenuname == "unlocknodeathmode") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "You have unlocked", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "Your have unlocked", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "No Death Mode.", tr, tg, tb, true);
 		}else if (game.currentmenuname == "unlockflipmode") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "You have unlocked", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "Your have unlocked", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "Flip Mode.", tr, tg, tb, true);
 		}else if (game.currentmenuname == "unlockintermission") {
 			dwgfx.bigprint( -1, 45, "Congratulations!", tr, tg, tb, true, 2);
 			
-			dwgfx.print( -1, 125, "You have unlocked", tr, tg, tb, true);
+			dwgfx.print( -1, 125, "Your have unlocked", tr, tg, tb, true);
 			dwgfx.print( -1, 135, "the intermission levels.", tr, tg, tb, true);
 		}
 			
@@ -784,14 +785,14 @@ public function titlerender(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, ga
 	}else{
 	  dwgfx.render();
 	}
-	dwgfx.backbuffer.unlock();
+	//dwgfx.backbuffer.unlock();
 }
 
-public function gamecompleterender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, obj:entityclass, help:helpclass):void {
+public function gamecompleterender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, map:mapclass, obj:entityclass, help:helpclass):void {
   dwgfx.drawbutton(game, help);
 	
-	dwgfx.backbuffer.lock();
-	dwgfx.backbuffer.fillRect(dwgfx.backbuffer.rect, 0x000000);
+	//dwgfx.backbuffer.lock();
+	dwgfx.cls(dwgfx.tower_bgdarkcol[map.colstate]);
 	
 	if(!game.colourblindmode) dwgfx.drawtowerbackgroundsolo(map);
 	//dwgfx.drawtowermap(map);
@@ -856,7 +857,7 @@ public function gamecompleterender(key:KeyPoll, dwgfx:dwgraphicsclass, game:game
 	
 	if (dwgfx.onscreen(640 + game.creditposition)) {
 		dwgfx.print(40, 640 + game.creditposition, "With Music by", tr, tg, tb);
-		dwgfx.bigprint(60, 650 + game.creditposition, "Magnus P~lsson", tr, tg, tb);
+		dwgfx.bigprint(60, 650 + game.creditposition, "Magnus Palsson", tr, tg, tb);
 	}
 	
 	if (dwgfx.onscreen(680 + game.creditposition)) {
@@ -934,7 +935,7 @@ if (dwgfx.onscreen(1410 + game.creditposition)) dwgfx.print(-1, 1420 + game.cred
 if (dwgfx.onscreen(1420 + game.creditposition)) dwgfx.print(-1, 1430 + game.creditposition,"Joshua Buergel", tr, tg, tb, true);
 if (dwgfx.onscreen(1430 + game.creditposition)) dwgfx.print(-1, 1440 + game.creditposition,"Joshua Hochner", tr, tg, tb, true);
 if (dwgfx.onscreen(1440 + game.creditposition)) dwgfx.print(-1, 1450 + game.creditposition,"Kurt Ostfeld", tr, tg, tb, true);
-if (dwgfx.onscreen(1450 + game.creditposition)) dwgfx.print(-1, 1460 + game.creditposition, "Magnus P~lsson", tr, tg, tb, true);
+if (dwgfx.onscreen(1450 + game.creditposition)) dwgfx.print(-1, 1460 + game.creditposition, "Magnus Palsson", tr, tg, tb, true);
 if (dwgfx.onscreen(1460 + game.creditposition)) dwgfx.print(-1, 1470 + game.creditposition,"Mark Neschadimenko", tr, tg, tb, true);
 if (dwgfx.onscreen(1470 + game.creditposition)) dwgfx.print(-1, 1480 + game.creditposition,"Matt Antonellis", tr, tg, tb, true);
 if (dwgfx.onscreen(1480 + game.creditposition)) dwgfx.print(-1, 1490 + game.creditposition,"Matthew Reppert", tr, tg, tb, true);
@@ -971,14 +972,14 @@ if (dwgfx.onscreen(1760 + game.creditposition)) dwgfx.bigprint( -1, 1760 + game.
 	}else{
 	  dwgfx.render();
 	}
-	dwgfx.backbuffer.unlock();
+	//dwgfx.backbuffer.unlock();
 }
 
 public function gamecompleterender2(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, obj:entityclass, help:helpclass):void {
   dwgfx.drawbutton(game, help);
 	
-	dwgfx.backbuffer.lock();
-	dwgfx.backbuffer.fillRect(dwgfx.backbuffer.rect, 0x000000);
+	//dwgfx.backbuffer.lock();
+	dwgfx.cls(0x000000);
 	
 	dwgfx.drawimage(10, 0, 0);
 	
@@ -1013,7 +1014,7 @@ public function gamecompleterender2(key:KeyPoll, dwgfx:dwgraphicsclass, game:gam
 	}else{
 	  dwgfx.render();
 	}
-	dwgfx.backbuffer.unlock();
+	//dwgfx.backbuffer.unlock();
 }
 
 public function gamerender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, map:mapclass,
@@ -1021,7 +1022,7 @@ public function gamerender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, m
   
   dwgfx.drawbutton(game, help);
 	
-	dwgfx.backbuffer.lock();
+	//dwgfx.backbuffer.lock();
 	
 	if(!game.blackout){
 		if(!game.colourblindmode) dwgfx.drawbackground(map.background, map);
@@ -1050,6 +1051,8 @@ public function gamerender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, m
 		}
 		
 		dwgfx.drawentities(map, obj, help);
+	}else {
+		dwgfx.cls(0x000000);	
 	}
 	
 	/*for(i=0; i<obj.nblocks; i++){
@@ -1060,7 +1063,7 @@ public function gamerender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, m
 	//dwgfx.drawminimap(game, map);
 	
 	if (map.extrarow == 0 || (map.custommode && map.roomname != "")) {
-	  dwgfx.backbuffer.fillRect(dwgfx.footerrect, 0x000000);
+		dwgfx.drawfillrect(dwgfx.footerrect.x, dwgfx.footerrect.y, dwgfx.footerrect.width, dwgfx.footerrect.height, 0);
 		if (map.finallevel) {
 			map.glitchname = map.getglitchname(game.roomx, game.roomy);
 	    dwgfx.print(5, 231, map.glitchname, 196, 196, 255 - help.glow, true);
@@ -1086,18 +1089,18 @@ public function gamerender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, m
 	
 	dwgfx.drawgui(help);
 	if (dwgfx.flipmode) {
-		if (game.advancetext) dwgfx.bprint(5, 228, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
+		if (game.advancetext) dwgfx.print(5, 228, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
 	}else{
-	  if (game.advancetext) dwgfx.bprint(5, 5, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
+	  if (game.advancetext) dwgfx.print(5, 5, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
 	}
 	
 	if(!game.mobilemenu){
 		if (game.readytotele > 100 && !game.advancetext && game.hascontrol && !script.running && !game.intimetrial) {
 			i = obj.getplayer();
 			if(dwgfx.flipmode){
-				dwgfx.bprint(5, 20, "- Press ENTER to Teleport -", game.readytotele - 20 - (help.glow / 2), game.readytotele - 20 - (help.glow / 2), game.readytotele, true);	
+				dwgfx.print(5, 20, "- Press ENTER to Teleport -", game.readytotele - 20 - (help.glow / 2), game.readytotele - 20 - (help.glow / 2), game.readytotele, true);	
 			}else {
-				dwgfx.bprint(5, 210, "- Press ENTER to Teleport -", game.readytotele - 20 - (help.glow / 2), game.readytotele - 20 - (help.glow / 2), game.readytotele, true);	
+				dwgfx.print(5, 210, "- Press ENTER to Teleport -", game.readytotele - 20 - (help.glow / 2), game.readytotele - 20 - (help.glow / 2), game.readytotele, true);	
 			}
 		}
 	}
@@ -1304,7 +1307,7 @@ public function gamerender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, m
 	  dwgfx.render();
 	}
 	
-	dwgfx.backbuffer.unlock();
+	//dwgfx.backbuffer.unlock();
 }
 
 public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, map:mapclass,
@@ -1312,13 +1315,14 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 
   dwgfx.drawbutton(game, help);
 	
-	dwgfx.backbuffer.lock();
+	//dwgfx.backbuffer.lock();
 	
 	
 	//dwgfx.drawgui(help);
 	
 	//draw screen alliteration
 	//Roomname:
+	dwgfx.drawfillrect(0, 0, 320, 12, 0, 0, 0);
 	temp = map.area(game.roomx, game.roomy);
 	if (temp < 2 && !map.custommode && dwgfx.fademode == 0) {
 		if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) {
@@ -1343,19 +1347,17 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 		dwgfx.crewframedelay = 8;
 		dwgfx.crewframe = (dwgfx.crewframe + 1) % 2;
 	}
-			
-	//Menubar:
-	dwgfx.drawtextbox( -10, 212, 42, 3, 65, 185, 207);
-	switch(game.menupage) {
 		
+	//Menubar:
+	//dwgfx.drawtextbox( -10, 212, 42, 3, 65, 185, 207);
+	dwgfx.drawfillrect(0, 212, 320, 24, 11, 31, 35);
+	dwgfx.drawfillrect(0, 212, 320, 2, 65, 185, 207);
+	dwgfx.drawfillrect(0, 215, 320, 1, 65, 185, 207);
+	dwgfx.drawfillrect(0, 230, 320, 1, 65, 185, 207);
+	dwgfx.drawfillrect(0, 232, 320, 2, 65, 185, 207);
+	
+	switch(game.menupage) {
 		case 0:
-	    dwgfx.print(30 - 8, 220, "[MAP]", 196, 196, 255 - help.glow);
-			if (game.insecretlab) { dwgfx.print(103, 220, "GRAV", 64, 64, 64);
-			}else if (obj.flags[67] == 1 && !map.custommode) { dwgfx.print(103, 220, "SHIP", 64,64,64);
-			}else{ dwgfx.print(103, 220, "CREW", 64,64,64);}
-	    dwgfx.print(185-4, 220, "STATS", 64,64,64);
-	    dwgfx.print(258, 220, "SAVE", 64, 64, 64);
-			
 			if (game.mobilemenu) {
 				dwgfx.drawmobilebutton(game, 30 - 8, 220, 56, dwgfx.b_size, "MAP", 65, 185, 207);
 				if (game.insecretlab) { dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "GRAV", 32, 92, 104);
@@ -1363,6 +1365,13 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 				}else{ dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "CREW", 32, 92, 104);}
 				dwgfx.drawmobilebutton(game, 185-4, 220, 56, dwgfx.b_size, "STATS", 32, 92, 104);
 				dwgfx.drawmobilebutton(game, 258, 220, 56, dwgfx.b_size, "QUIT", 32, 92, 104);
+			}else {
+				dwgfx.print(30 - 8, 220, "[MAP]", 196, 196, 255 - help.glow);
+				if (game.insecretlab) { dwgfx.print(103, 220, "GRAV", 64, 64, 64);
+				}else if (obj.flags[67] == 1 && !map.custommode) { dwgfx.print(103, 220, "SHIP", 64,64,64);
+				}else{ dwgfx.print(103, 220, "CREW", 64,64,64);}
+				dwgfx.print(185-4, 220, "STATS", 64,64,64);
+				dwgfx.print(258, 220, "SAVE", 64, 64, 64);	
 			}
 			
 			if (map.finalmode || (map.custommode && !map.customshowmm)) {
@@ -1379,7 +1388,7 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 			}else if(map.custommode){
 				//draw the map image
 				dwgfx.drawcustompixeltextbox(35 + map.custommmxoff, 16 + map.custommmyoff, map.custommmxsize + 10, map.custommmysize + 10, (map.custommmxsize + 10) / 8, (map.custommmysize + 10) / 8, 65, 185, 207, 4, 0);
-				dwgfx.drawpartimage(12, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
+				dwgfx.drawpartimage(dwgfx.customminimap as Texture, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
 				
 				//Black out here
 				if(map.customzoom==4){
@@ -1564,16 +1573,16 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 	  break;
 		case 1:		  			
 			if (game.insecretlab) {
-				dwgfx.print(30, 220, "MAP", 64,64,64);
-				dwgfx.print(103-8, 220, "[GRAV]", 196, 196, 255 - help.glow);
-				dwgfx.print(185-4, 220, "STATS", 64,64,64);
-				dwgfx.print(258, 220, "SAVE", 64, 64, 64);
-				
 				if (game.mobilemenu) {
 					dwgfx.drawmobilebutton(game, 30 - 8, 220, 56, dwgfx.b_size, "MAP", 32, 92, 104);
 					dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "GRAV", 65, 185, 207);
 					dwgfx.drawmobilebutton(game, 185-4, 220, 56, dwgfx.b_size, "STATS", 32, 92, 104);
 					dwgfx.drawmobilebutton(game, 258, 220, 56, dwgfx.b_size, "QUIT", 32, 92, 104);
+				}else {
+					dwgfx.print(30, 220, "MAP", 64,64,64);
+					dwgfx.print(103-8, 220, "[GRAV]", 196, 196, 255 - help.glow);
+					dwgfx.print(185-4, 220, "STATS", 64,64,64);
+					dwgfx.print(258, 220, "SAVE", 64, 64, 64);	
 				}
 				
 				if (dwgfx.flipmode) {
@@ -1610,16 +1619,16 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 					}
 				}
 			}else if (obj.flags[67] == 1 && !map.custommode) {
-				dwgfx.print(30, 220, "MAP", 64,64,64);
-				dwgfx.print(103-8, 220, "[SHIP]", 196, 196, 255 - help.glow);
-				dwgfx.print(185-4, 220, "STATS", 64,64,64);
-				dwgfx.print(258, 220, "SAVE", 64, 64, 64);
-				
 				if (game.mobilemenu) {
 					dwgfx.drawmobilebutton(game, 30 - 8, 220, 56, dwgfx.b_size, "MAP", 32, 92, 104);
 					dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "SHIP", 65, 185, 207);
 					dwgfx.drawmobilebutton(game, 185-4, 220, 56, dwgfx.b_size, "STATS", 32, 92, 104);
 					dwgfx.drawmobilebutton(game, 258, 220, 56, dwgfx.b_size, "QUIT", 32, 92, 104);
+				}else {
+					dwgfx.print(30, 220, "MAP", 64,64,64);
+					dwgfx.print(103-8, 220, "[SHIP]", 196, 196, 255 - help.glow);
+					dwgfx.print(185-4, 220, "STATS", 64,64,64);
+					dwgfx.print(258, 220, "SAVE", 64, 64, 64);	
 				}
 				
 				if (game.mobilemenu) {
@@ -1635,16 +1644,16 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 					dwgfx.print(0, 105, "Press ACTION to warp to the ship.", 196, 196, 255 - help.glow, true);
 				}
 			}else if(map.custommode){
-				dwgfx.print(30, 220, "MAP", 64,64,64);
-				dwgfx.print(103-8, 220, "[CREW]", 196, 196, 255 - help.glow);
-				dwgfx.print(185-4, 220, "STATS", 64,64,64);
-				dwgfx.print(258, 220, "SAVE", 64, 64, 64);
-				
 				if (game.mobilemenu) {
 					dwgfx.drawmobilebutton(game, 30 - 8, 220, 56, dwgfx.b_size, "MAP", 32, 92, 104);
 					dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "CREW", 65, 185, 207);
 					dwgfx.drawmobilebutton(game, 185-4, 220, 56, dwgfx.b_size, "STATS", 32, 92, 104);
 					dwgfx.drawmobilebutton(game, 258, 220, 56, dwgfx.b_size, "QUIT", 32, 92, 104);
+				}else {
+					dwgfx.print(30, 220, "MAP", 64,64,64);
+					dwgfx.print(103-8, 220, "[CREW]", 196, 196, 255 - help.glow);
+					dwgfx.print(185-4, 220, "STATS", 64,64,64);
+					dwgfx.print(258, 220, "SAVE", 64, 64, 64);
 				}
 				
 				if (dwgfx.flipmode){
@@ -1675,16 +1684,16 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 					}
 				}
 			}else{ 
-				dwgfx.print(30, 220, "MAP", 64,64,64);
-				dwgfx.print(103-8, 220, "[CREW]", 196, 196, 255 - help.glow);
-				dwgfx.print(185-4, 220, "STATS", 64,64,64);
-				dwgfx.print(258, 220, "SAVE", 64, 64, 64);
-				
 				if (game.mobilemenu) {
 					dwgfx.drawmobilebutton(game, 30 - 8, 220, 56, dwgfx.b_size, "MAP", 32, 92, 104);
 					dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "CREW", 65, 185, 207);
 					dwgfx.drawmobilebutton(game, 185-4, 220, 56, dwgfx.b_size, "STATS", 32, 92, 104);
 					dwgfx.drawmobilebutton(game, 258, 220, 56, dwgfx.b_size, "QUIT", 32, 92, 104);
+				}else {
+					dwgfx.print(30, 220, "MAP", 64,64,64);
+					dwgfx.print(103-8, 220, "[CREW]", 196, 196, 255 - help.glow);
+					dwgfx.print(185-4, 220, "STATS", 64,64,64);
+					dwgfx.print(258, 220, "SAVE", 64, 64, 64);						
 				}
 				
 				if (dwgfx.flipmode) {
@@ -1731,20 +1740,20 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 			}
 	  break;
 		case 2:
-	    dwgfx.print(30, 220, "MAP", 64,64,64);
-			if (game.insecretlab) { dwgfx.print(103, 220, "GRAV", 64, 64, 64);
-			}else if (obj.flags[67] == 1 && !map.custommode) { dwgfx.print(103, 220, "SHIP", 64,64,64);
-			}else{ dwgfx.print(103, 220, "CREW", 64,64,64);}
-	    dwgfx.print(185-12, 220, "[STATS]", 196, 196, 255 - help.glow);
-	    dwgfx.print(258, 220, "SAVE", 64, 64, 64);
-			
-			if (game.mobilemenu) {
+	    if (game.mobilemenu) {
 				dwgfx.drawmobilebutton(game, 30 - 8, 220, 56, dwgfx.b_size, "MAP", 32, 92, 104);
 				if (game.insecretlab) { dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "GRAV", 32, 92, 104);
 				}else if (obj.flags[67] == 1 && !map.custommode) { dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "SHIP", 32, 92, 104);
 				}else{ dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "CREW", 32, 92, 104);}
 				dwgfx.drawmobilebutton(game, 185-4, 220, 56, dwgfx.b_size, "STATS", 65, 185, 207);
 				dwgfx.drawmobilebutton(game, 258, 220, 56, dwgfx.b_size, "QUIT", 32, 92, 104);
+			}else {
+				dwgfx.print(30, 220, "MAP", 64,64,64);
+				if (game.insecretlab) { dwgfx.print(103, 220, "GRAV", 64, 64, 64);
+				}else if (obj.flags[67] == 1 && !map.custommode) { dwgfx.print(103, 220, "SHIP", 64,64,64);
+				}else{ dwgfx.print(103, 220, "CREW", 64,64,64);}
+				dwgfx.print(185-12, 220, "[STATS]", 196, 196, 255 - help.glow);
+				dwgfx.print(258, 220, "SAVE", 64, 64, 64);	
 			}
 		
       if (map.custommode) {
@@ -1790,13 +1799,6 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 			}
 	  break;
 		case 3:
-	    dwgfx.print(30, 220, "MAP", 64,64,64);
-			if (game.insecretlab) { dwgfx.print(103, 220, "GRAV", 64, 64, 64);
-			}else if (obj.flags[67] == 1 && !map.custommode) { dwgfx.print(103, 220, "SHIP", 64,64,64);
-			}else{ dwgfx.print(103, 220, "CREW", 64,64,64);}
-	    dwgfx.print(185-4, 220, "STATS", 64,64,64);
-	    dwgfx.print(258 - 8, 220, "[SAVE]", 196, 196, 255 - help.glow);
-			
 			if (game.mobilemenu) {
 				dwgfx.drawmobilebutton(game, 30 - 8, 220, 56, dwgfx.b_size, "MAP", 32, 92, 104);
 				if (game.insecretlab) { dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "GRAV", 32, 92, 104);
@@ -1804,6 +1806,13 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 				}else{ dwgfx.drawmobilebutton(game, 103, 220, 56, dwgfx.b_size, "CREW", 32, 92, 104);}
 				dwgfx.drawmobilebutton(game, 185-4, 220, 56, dwgfx.b_size, "STATS", 32, 92, 104);
 				dwgfx.drawmobilebutton(game, 258, 220, 56, dwgfx.b_size, "QUIT", 65, 185, 207);
+			}else {
+				dwgfx.print(30, 220, "MAP", 64,64,64);
+				if (game.insecretlab) { dwgfx.print(103, 220, "GRAV", 64, 64, 64);
+				}else if (obj.flags[67] == 1 && !map.custommode) { dwgfx.print(103, 220, "SHIP", 64,64,64);
+				}else{ dwgfx.print(103, 220, "CREW", 64,64,64);}
+				dwgfx.print(185-4, 220, "STATS", 64,64,64);
+				dwgfx.print(258 - 8, 220, "[SAVE]", 196, 196, 255 - help.glow);					
 			}
 			
 			dwgfx.print(0, 80, "Quit to main menu?", 255 - (help.glow * 2), 255 - (help.glow * 2), 255 - help.glow, true);
@@ -2140,21 +2149,20 @@ public function maprender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 		}
 	}
 	
-	dwgfx.backbuffer.unlock();
+	//dwgfx.backbuffer.unlock();
 }
 
 public function towerrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, map:mapclass,
 											  		obj:entityclass, help:helpclass):void {
-  
   dwgfx.drawbutton(game, help);
   //Couple of changes for the towermode
 	
-	dwgfx.backbuffer.lock();
-	dwgfx.backbuffer.fillRect(dwgfx.backbuffer.rect, 0x000000);
+	//dwgfx.backbuffer.lock();
+	dwgfx.cls(dwgfx.tower_bgdarkcol[map.colstate]);
 	
 	if (!game.colourblindmode) {
 		dwgfx.drawtowerbackground(map);
-	  dwgfx.drawtowermap(map);
+	  dwgfx.drawtowermap(game, map);
 	}else {
 	  dwgfx.drawtowermap_nobackground(map);
 	}
@@ -2191,12 +2199,12 @@ public function towerrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, 
 	
 	dwgfx.drawgui(help);	
 	if (dwgfx.flipmode) {
-		if (game.advancetext) dwgfx.bprint(5, 228, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
+		if (game.advancetext) dwgfx.print(5, 228, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
 	}else{
-	  if (game.advancetext) dwgfx.bprint(5, 5, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
+	  if (game.advancetext) dwgfx.print(5, 5, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
 	}
 	
-	dwgfx.backbuffer.fillRect(dwgfx.footerrect, 0x000000);
+	dwgfx.drawfillrect(dwgfx.footerrect.x, dwgfx.footerrect.y, dwgfx.footerrect.width, dwgfx.footerrect.height, 0);
 	dwgfx.print(5, 231, map.roomname, 196, 196, 255 - help.glow, true);
 	
 	//dwgfx.rprint(5, 231, String(game.coins), 255 - help.glow/2, 255 - help.glow/2, 196, true);
@@ -2259,17 +2267,18 @@ public function towerrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, 
 	}
 	
 	dwgfx.render();
-	dwgfx.backbuffer.unlock();
+	//dwgfx.backbuffer.unlock();
 }
 
 public function teleporterrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, map:mapclass,
 													       obj:entityclass, help:helpclass):void {
 	
 	dwgfx.drawbutton(game, help);
-	dwgfx.backbuffer.lock();
+	//dwgfx.backbuffer.lock();
 	
 	//draw screen alliteration
 	//Roomname:
+	dwgfx.drawfillrect(0, 0, 320, 12, 0, 0, 0);
 	temp = map.area(game.roomx, game.roomy);
 	if (temp < 2 && !map.custommode && dwgfx.fademode==0) {
 		if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) {
@@ -2364,9 +2373,9 @@ public function teleporterrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gamecl
 	dwgfx.drawgui(help);
 	
 	if (dwgfx.flipmode) {
-		if (game.advancetext) dwgfx.bprint(5, 228, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
+		if (game.advancetext) dwgfx.print(5, 228, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
 	}else{
-	  if (game.advancetext) dwgfx.bprint(5, 5, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
+	  if (game.advancetext) dwgfx.print(5, 5, "- Tap screen to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);	
 	}
 	
 	
@@ -2410,14 +2419,14 @@ public function teleporterrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gamecl
 		}
 	}
 	
-	dwgfx.backbuffer.unlock();
+	//dwgfx.backbuffer.unlock();
 }
 
 public function controltutorialrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, map:mapclass,
 													       obj:entityclass, help:helpclass):void {
 	
 	dwgfx.drawbutton(game, help);
-	dwgfx.backbuffer.lock();
+	//dwgfx.backbuffer.lock();
 	
 	//Background color
 	dwgfx.drawfillrect(0, 0, 320, 240, 10, 24, 26);
@@ -2444,12 +2453,12 @@ public function controltutorialrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:g
 	dwgfx.print(5, 10, "-= TOUCHSCREEN CONTROLS =-", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
 	
 	if(game.controltutorialstate>=3 &&game.controltutorialstate<=6){	
-		dwgfx.print(5, 195, "Swipe and hold on the left side", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
-		dwgfx.print(5, 205, "of the screen to move", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+		dwgfx.print(5, 195 + 8, "Swipe and hold on the left side", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+		dwgfx.print(5, 205 + 8, "of the screen to move", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
 	}
 	
 	if(game.controltutorialstate>=7 &&game.controltutorialstate<=11){	
-	  dwgfx.print(5, 200, "Tap on the right to flip", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+	  dwgfx.print(5, 200 + 8, "Tap on the right to flip", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
 	}
 	
 	if (game.controltutorialstate >= 13) {
@@ -2520,5 +2529,5 @@ public function controltutorialrender(key:KeyPoll, dwgfx:dwgraphicsclass, game:g
 		dwgfx.render();
 	}
 	
-	dwgfx.backbuffer.unlock();
+	//dwgfx.backbuffer.unlock();
 }

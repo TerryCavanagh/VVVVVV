@@ -1,9 +1,8 @@
-﻿package {  
-	import flash.display.*;          
+package {         
 	import flash.media.*; 
   import flash.events.*;
 	
-	public class musicclass extends Sprite {	
+	public class musicclass {	
 		//For Music stuff
 		public function play(t:int):void {
 			if (currentsong !=t) {

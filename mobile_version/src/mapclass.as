@@ -1,10 +1,9 @@
-﻿package {
-	import flash.display.*;
+package {
 	import flash.geom.*;
   import flash.events.*;
   import flash.net.*;
 	
-	public class mapclass extends Sprite {
+	public class mapclass {
 		public function mapclass():void {
 			//Start here!
 			r = 196; g = 196; b = 196;
@@ -612,6 +611,8 @@
 			game.activetele = false; game.readytotele = 0;		
 			game.mobilequicksave_thisroom = false;
 			
+			dwgfx.forcescreenupdates();
+			
 			obj.opt_useblock = false;
 			obj.opt_usetrigger = false;
 			obj.opt_usedamage = false;
@@ -790,7 +791,7 @@
 				case 1: return "Dimension VVVVVV"; break;
 				case 2: return "Laboratory"; break;
 				case 3: return "The Tower"; break;
-				case 4: return "Warp Zone"; break;
+				case 4: return "Warpzone"; break;
 				case 5: return "Space Station"; break;
 				case 6: return "Outside Dimension VVVVVV"; break;
 				case 7: return "Outside Dimension VVVVVV"; break;
@@ -892,7 +893,7 @@
 				}
 			}
 			
-			if (rx == 119 && ry == 108 && !custommode) {
+			if (rx == 119 && ry == 108) {
 				background = 5;
 				dwgfx.rcol = 3;
 				warpx = true;

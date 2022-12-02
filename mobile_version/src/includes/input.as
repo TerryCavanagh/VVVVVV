@@ -239,8 +239,8 @@ public function titleinput(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, gam
 						}else if (game.currentmenuoption == 4) {
 							//More games (external link)
 							music.playef(11, 10);
-							var distractionware_link:URLRequest = new URLRequest( "http://distractionware.com/games/ios/" );
-							//var distractionware_link:URLRequest = new URLRequest( "http://distractionware.com/games/android/" );
+							//var distractionware_link:URLRequest = new URLRequest( "http://distractionware.com/games/ios/" );
+							var distractionware_link:URLRequest = new URLRequest( "http://distractionware.com/games/android/" );
 							navigateToURL( distractionware_link, "_blank" );
 						}
 					}else{
@@ -649,7 +649,7 @@ public function titleinput(key:KeyPoll, dwgfx:dwgraphicsclass, map:mapclass, gam
 					}
 				}else if (game.currentmenuname == "unlockmenu") {
 					if (game.currentmenuoption == 0) {
-						//unlock time trials separately...
+						//unlock time trials seperately...
 						music.playef(11, 10);
 						game.createmenu("unlockmenutrials");
 						map.nexttowercolour();
@@ -1337,7 +1337,7 @@ public function gameinput(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 								game.gamestate = 5;
 								dwgfx.menuoffset = 240; //actually this should count the roomname
 								if (map.extrarow) dwgfx.menuoffset -= 10;
-								dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
+								dwgfx.setup_menubuffer();
 								dwgfx.resumegamemode = false;
 								
 								game.useteleporter = true;
@@ -1371,7 +1371,7 @@ public function gameinput(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 						game.gamestate = MAPMODE;
 						game.gamesaved = false; dwgfx.resumegamemode = false;
 						game.menupage = 20; // The Map Page
-						dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
+						dwgfx.setup_menubuffer();
 						dwgfx.menuoffset = 240; //actually this should count the roomname
 						if (map.extrarow) dwgfx.menuoffset -= 10;
 					}else if (game.intimetrial && dwgfx.fademode == 0) {
@@ -1382,7 +1382,7 @@ public function gameinput(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 							game.gamestate = MAPMODE;
 							game.gamesaved = false; dwgfx.resumegamemode = false;
 							game.menupage = 10; // The Map Page
-							dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
+							dwgfx.setup_menubuffer();
 							dwgfx.menuoffset = 240; //actually this should count the roomname
 							if (map.extrarow) dwgfx.menuoffset -= 10;
 						}else{
@@ -1399,7 +1399,7 @@ public function gameinput(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 						map.cursordelay = 0; map.cursorstate = 0;
 						game.gamesaved = false; dwgfx.resumegamemode = false;
 						game.menupage = 0; // The Map Page
-						dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
+						dwgfx.setup_menubuffer();
 						dwgfx.menuoffset = 240; //actually this should count the roomname
 						if (map.extrarow) dwgfx.menuoffset -= 10;
 					}
@@ -1411,7 +1411,7 @@ public function gameinput(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, ma
 					game.gamestate = MAPMODE;
 					game.gamesaved = false; dwgfx.resumegamemode = false;
 					game.menupage = 10; // The Map Page
-					dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
+					dwgfx.setup_menubuffer();
 					dwgfx.menuoffset = 240; //actually this should count the roomname
 					if (map.extrarow) dwgfx.menuoffset -= 10;
 				}
@@ -1553,7 +1553,7 @@ public function mapinput(key:KeyPoll, dwgfx:dwgraphicsclass, game:gameclass, map
 	}
 	
   if (dwgfx.fademode == 1) {
-		dwgfx.menubuffer.fillRect(dwgfx.menubuffer.rect, 0x000000);
+		dwgfx.clear_menubuffer();
 		dwgfx.resumegamemode = true;
 		obj.removeallblocks();
 		game.menukludge = false;

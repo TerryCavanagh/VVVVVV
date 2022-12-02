@@ -1,9 +1,9 @@
 package {
-	import flash.display.*;
-	import flash.display3D.textures.RectangleTexture;
 	import flash.geom.*;
   import flash.events.*;
   import flash.net.*;
+	import starling.display.Image;
+	import starling.textures.RenderTexture;
 	
 	public class editor {
 		public static function init():void {
@@ -1249,17 +1249,17 @@ package {
 		}
 		
 		public static function fillbox(dwgfx:dwgraphicsclass, x:int, y:int, x2:int, y2:int, c:int):void {
-			dwgfx.backbuffer.fillRect(new Rectangle(x, y, x2 - x, 1), c);
-			dwgfx.backbuffer.fillRect(new Rectangle(x, y2 - 1, x2 - x, 1), c);
-			dwgfx.backbuffer.fillRect(new Rectangle(x, y, 1, y2 - y), c);
-			dwgfx.backbuffer.fillRect(new Rectangle(x2 - 1, y, 1, y2 - y), c);
+			dwgfx.drawfillrect(x, y, x2 - x, 1, c);
+			dwgfx.drawfillrect(x, y2 - 1, x2 - x, 1, c);
+			dwgfx.drawfillrect(x, y, 1, y2 - y, c);
+			dwgfx.drawfillrect(x2 - 1, y, 1, y2 - y, c);
 		}
 		
 		public static function fillboxabs(dwgfx:dwgraphicsclass, x:int, y:int, x2:int, y2:int, c:int):void {
-			dwgfx.backbuffer.fillRect(new Rectangle(x, y, x2, 1), c);
-			dwgfx.backbuffer.fillRect(new Rectangle(x, y + y2 - 1, x2, 1), c);
-			dwgfx.backbuffer.fillRect(new Rectangle(x, y, 1, y2), c);
-			dwgfx.backbuffer.fillRect(new Rectangle(x + x2 - 1, y, 1, y2), c);
+			dwgfx.drawfillrect(x, y, x2, 1, c);
+			dwgfx.drawfillrect(x, y + y2 - 1, x2, 1, c);
+			dwgfx.drawfillrect(x, y, 1, y2, c);
+			dwgfx.drawfillrect(x + x2 - 1, y, 1, y2, c);
 		}
 		
 		public static function generatecustomminimap(dwgfx:dwgraphicsclass, map:mapclass):void {
@@ -1291,68 +1291,74 @@ package {
 				map.custommmysize = 180 - (map.custommmyoff * 2);
 			}
 			
-			dwgfx.images[12].fillRect(dwgfx.images[12].rect, dwgfx.RGBA(0, 0, 0));
-			
-			var tm:int = 0;
-		  var temp:int = 0;
-			//Scan over the map size
-			if(mapheight<=5 && mapwidth<=5){
-				//4x map
-				for (var j2:int = 0; j2 < mapheight; j2++){
-					for (var i2:int = 0; i2 < mapwidth; i2++) {
-						//Ok, now scan over each square
-						tm = 196;
-						if (level[i2 + (j2 * maxwidth)].tileset == 1) tm = 96;
-						
-						for (var j:int = 0; j < 36; j++) {
-							for (var i:int = 0; i < 48; i++) {
-								temp = absfree(int(i * 0.83) + (i2 * 40), int(j * 0.83) + (j2 * 30));
-								if(temp>=1){
-									//Fill in this pixel
-									dwgfx.images[12].fillRect(new Rectangle((i2 * 48) + i, (j2 * 36) + j, 1, 1), dwgfx.RGBA(tm, tm, tm));
-								}
-							}
-						}
-					}
-				}
-			}else if (mapheight <= 10 && mapwidth <= 10) {
-				//2x map
-				for (j2 = 0; j2 < mapheight; j2++) {
-					for (i2 = 0; i2 < mapwidth; i2++) {
-						//Ok, now scan over each square
-						tm = 196;
-						if (level[i2 + (j2 * maxwidth)].tileset == 1) tm = 96;
-						
-						for (j = 0; j < 18; j++) {
-							for (i = 0; i < 24; i++) {
-								temp = absfree(int(i * 1.6) + (i2 * 40), int(j * 1.6) + (j2 * 30));
-								if (temp >= 1) {
-									//Fill in this pixel
-									dwgfx.images[12].fillRect(new Rectangle((i2 * 24) + i, (j2 * 18) + j, 1, 1), dwgfx.RGBA(tm, tm, tm));
-								}
-							}
-						}
-					}
-				}
-			}else {
-				for (j2 = 0; j2 < mapheight; j2++) {
-					for (i2 = 0; i2 < mapwidth; i2++) {
-						//Ok, now scan over each square
-						tm=196;
-						if (level[i2 + (j2 * maxwidth)].tileset == 1) tm = 96;
-						
-						for (j = 0; j < 9; j++) {
-							for (i = 0; i < 12; i++) {								
-								temp = absfree(3 + (i * 3) + (i2 * 40), (j * 3) + (j2 * 30));
-								if(temp>=1){
-									//Fill in this pixel
-									dwgfx.images[12].fillRect(new Rectangle((i2 * 12) + i, (j2 * 9) + j, 1, 1), dwgfx.RGBA(tm, tm, tm));
-								}
-							}
-						}
-					}
-				}
+			if (dwgfx.customminimap == null) {
+			  dwgfx.customminimap = new RenderTexture(240, 180);	
+				dwgfx.images[12] = new Image(dwgfx.customminimap);
 			}
+			dwgfx.customminimap.clear(dwgfx.RGB(0, 0, 0), 1.0);
+			
+			dwgfx.customminimap.drawBundled(function():void {
+				var tm:int = 0;
+				var temp:int = 0;
+				//Scan over the map size
+				if(mapheight<=5 && mapwidth<=5){
+					//4x map
+					for (var j2:int = 0; j2 < mapheight; j2++){
+						for (var i2:int = 0; i2 < mapwidth; i2++) {
+							//Ok, now scan over each square
+							tm = 196;
+							if (level[i2 + (j2 * maxwidth)].tileset == 1) tm = 96;
+							
+							for (var j:int = 0; j < 36; j++) {
+								for (var i:int = 0; i < 48; i++) {
+									temp = absfree(int(i * 0.83) + (i2 * 40), int(j * 0.83) + (j2 * 30));
+									if(temp>=1){
+										//Fill in this pixel
+										dwgfx.drawfillrect_onimage(dwgfx.customminimap, (i2 * 48) + i, (j2 * 36) + j, 1, 1, tm, tm, tm);
+									}
+								}
+							}
+						}
+					}
+				}else if (mapheight <= 10 && mapwidth <= 10) {
+					//2x map
+					for (j2 = 0; j2 < mapheight; j2++) {
+						for (i2 = 0; i2 < mapwidth; i2++) {
+							//Ok, now scan over each square
+							tm = 196;
+							if (level[i2 + (j2 * maxwidth)].tileset == 1) tm = 96;
+							
+							for (j = 0; j < 18; j++) {
+								for (i = 0; i < 24; i++) {
+									temp = absfree(int(i * 1.6) + (i2 * 40), int(j * 1.6) + (j2 * 30));
+									if (temp >= 1) {
+										//Fill in this pixel
+										dwgfx.drawfillrect_onimage(dwgfx.customminimap, (i2 * 24) + i, (j2 * 18) + j, 1, 1, tm, tm, tm);
+									}
+								}
+							}
+						}
+					}
+				}else {
+					for (j2 = 0; j2 < mapheight; j2++) {
+						for (i2 = 0; i2 < mapwidth; i2++) {
+							//Ok, now scan over each square
+							tm=196;
+							if (level[i2 + (j2 * maxwidth)].tileset == 1) tm = 96;
+							
+							for (j = 0; j < 9; j++) {
+								for (i = 0; i < 12; i++) {								
+									temp = absfree(3 + (i * 3) + (i2 * 40), (j * 3) + (j2 * 30));
+									if(temp>=1){
+										//Fill in this pixel
+										dwgfx.drawfillrect_onimage(dwgfx.customminimap, (i2 * 12) + i, (j2 * 9) + j, 1, 1, tm, tm, tm);
+									}
+								}
+							}
+						}
+					}
+				}
+			});
 		}
 		
 		public static function editorrender(dwgfx:dwgraphicsclass, game:gameclass, map:mapclass, obj:entityclass, help:helpclass):void {

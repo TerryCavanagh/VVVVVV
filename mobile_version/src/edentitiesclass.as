@@ -1,9 +1,4 @@
 package {
-	import flash.display.*;
-	import flash.geom.*;
-  import flash.events.*;
-  import flash.net.*;
-	
 	public class edentitiesclass {
 		public function edentitiesclass():void {
 			clear();

@@ -1,46 +1,74 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/25.0">
+<?xml version="1.0" encoding="utf-8" ?> 
+<application xmlns="http://ns.adobe.com/air/application/50.0">
   <id>com.distractionware.vvvvvvmobile</id>
-  <versionNumber>1.02</versionNumber>
+  <versionNumber>2.2.1</versionNumber>
   <supportedProfiles>mobileDevice</supportedProfiles>
   <filename>VVVVVV</filename>
   <name>VVVVVV</name>
-  <android>
-    <manifestAdditions><![CDATA[<manifest android:installLocation="auto">
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch" />
-</manifest>]]></manifestAdditions>
-  </android>
-  <iPhone>
-    <InfoAdditions><![CDATA[<key>UIStatusBarStyle</key>
-<string>UIStatusBarStyleBlackOpaque</string>
-<key>UIRequiresPersistentWiFi</key>
-<string>NO</string>
-<key>UIPrerenderedIcon</key>
-<true />
-<key>UIApplicationExitsOnSuspend</key>
-<false />
-<key>UIDeviceFamily</key>
-<array>
-	<!-- iPhone support -->
-	<string>1</string>
-	<!-- iPad support -->
-	<string>2</string>
-</array>]]></InfoAdditions>
-    <requestedDisplayResolution>standard</requestedDisplayResolution>
-  </iPhone>
-  <initialWindow>
-    <title>VVVVVV</title>
+	<description></description>
+	<copyright></copyright>
+	
+	<android>
+		<manifestAdditions><![CDATA[
+			
+            <manifest android:installLocation="auto">
+                 <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="31" />
+                 <uses-permission android:name="android.permission.INTERNET"/>
+                 <uses-configuration android:reqFiveWayNav="true"/>
+                 <supports-screens android:normalScreens="true"/>
+                 <uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>
+                 <application android:enabled="true">
+                     <activity android:excludeFromRecents="false" android:hardwareAccelerated="true" android:resizeableActivity="true">
+                         <intent-filter>
+                             <action android:name="android.intent.action.MAIN"/>
+                             <category android:name="android.intent.category.LAUNCHER"/>
+                         </intent-filter>
+                     </activity>
+                     <meta-data android:name="android.max_aspect" android:value="2.1" />
+                 </application>
+             </manifest>
+			
+		]]></manifestAdditions>
+		<BuildLegacyAPK>true</BuildLegacyAPK>
+	</android>
+    <iPhone> 
+        <InfoAdditions><![CDATA[ 
+		
+			<key>UIStatusBarStyle</key> 
+			<string>UIStatusBarStyleBlackOpaque</string> 
+			<key>UIRequiresPersistentWiFi</key> 
+			<string>NO</string>
+			<key>UIPrerenderedIcon</key>  
+			<true/>
+			<key>UIApplicationExitsOnSuspend</key>
+			<true/>
+			
+			<key>UIDeviceFamily</key>
+			<array>
+				<!-- iPhone support -->
+				<string>1</string> 
+				<!-- iPad support -->
+				<!-- iPad support -->
+				<!--<string>2</string>-->
+			</array>
+				
+        ]]></InfoAdditions> 
+		<requestedDisplayResolution>high</requestedDisplayResolution>
+    </iPhone> 
+	
+	<initialWindow>
+		<title>VVVVVV</title>
     <content>vvvvvv.swf</content>
-    <visible>true</visible>
-    <aspectRatio>landscape</aspectRatio>
-    <renderMode>gpu</renderMode>
+		<visible>true</visible>
+		<fullScreen>true</fullScreen>
     <systemChrome>standard</systemChrome>
-    <autoOrients>true</autoOrients>
-    <fullScreen>true</fullScreen>
-  </initialWindow>
-  <icon>
+		<autoOrients>true</autoOrients>
+		<aspectRatio>landscape</aspectRatio>
+		<renderMode>direct</renderMode>
+		<!--<depthAndStencil>true</depthAndStencil>--> <!-- required for 3D -->
+	</initialWindow>
+	
+	<icon>
     <image48x48>icons/icon_48.png</image48x48>
 		<image57x57>icons/icon_57.png</image57x57>
 		<image72x72>icons/icon_72.png</image72x72>
@@ -52,22 +80,26 @@
 		<image152x152>icons/icon_152.png</image152x152>
 		<image512x512>icons/icon_512.png</image512x512>
 		<image1024x1024>icons/icon_1024.png</image1024x1024>
-  </icon>
-  <!-- 
+	</icon>
+	
+	<extensions>
+    <!--
+
+  
+    <extensionID>com.mesmotronic.ane.fullscreen</extensionID>
+    -->
+  </extensions>
+	<!-- 
 	AIR options:
 	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
 	
 	AIR mobile options:
 	http://help.adobe.com/en_US/air/build/WSfffb011ac560372f-5d0f4f25128cc9cd0cb-7ffe.html
 	
+	iOS icons guidelines:
+	http://developer.apple.com/library/ios/#documentation/userexperience/conceptual/mobilehig/IconsImages/IconsImages.html
+	
 	Android manifest documentation:
 	http://developer.android.com/guide/topics/manifest/manifest-intro.html
 	-->
-  <extensions>
-    <extensionID>com.milkmangames.extensions.GameCenter</extensionID>  
-    <!--
-		<extensionID>com.sticksports.nativeExtensions.SilentSwitch</extensionID>
-    <extensionID>com.mesmotronic.ane.fullscreen</extensionID>
-    -->
-  </extensions>
 </application>

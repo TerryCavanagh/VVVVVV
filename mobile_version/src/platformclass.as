@@ -2,13 +2,10 @@
 package {
 	//import com.sticksports.nativeExtensions.SilentSwitch;
   import flash.events.*;
-	import flash.media.SoundMixer;
-	import flash.media.AudioPlaybackMode;
 	
 	public class platformclass {
 		public function init():void {
 			//SilentSwitch.apply();
-			SoundMixer.audioPlaybackMode = AudioPlaybackMode.AMBIENT;
 		}
 		
 		public function callonwake():void {

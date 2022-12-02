@@ -1,10 +1,7 @@
-﻿package {
-	import flash.display.*;
+package {
 	import flash.geom.*;
-  import flash.events.*;
-  import flash.net.*;
 	
-	public class textboxclass extends Sprite {
+	public class textboxclass {
 		public function textboxclass():void {
 			firstcreate();
 		}
@@ -15,7 +12,8 @@
 				var t:String = new String;	t = "";
 				line.push(t);
 			}
-			x = 0; y = 0; w = 0; h = 0; numlines = 0; lw = 0; tl = 0; tm = 0; active = false; timer = 0;
+			xp = 0; yp = 0; w = 0; h = 0; numlines = 0; lw = 0; tl = 0; tm = 0; active = false; timer = 0;
+			ybuffer = -1; redraw = true;
 		}
 		
 		public function clear():void {
@@ -25,6 +23,7 @@
 			}
 			textrect = new Rectangle();
 			xp = 0; yp = 0; w = 0; h = 0; numlines = 1; lw = 0; tl = 0; tm = 0; active = true; timer = 0;
+			ybuffer = -1; redraw = true;
 		}
 		
 		public function centerx():void { resize();	xp = 160 - (w / 2);	resize(); }
@@ -53,10 +52,12 @@
 				tl += .1;
 				if (tl >= 1) { tl = 1; tm = 1; }
 				setcol(int(tr * tl), int(tg * tl), int(tb * tl));
+				redraw = true;
 			}else if (tm == 2) {
 				tl -= .1;
 				if (tl <= 0.5) { tl = 0.5; active = false; }
 				setcol(int(tr * tl), int(tg * tl), int(tb * tl));
+				redraw = true;
 			}
 			if (timer > 0) {
 				timer--;
@@ -103,5 +104,9 @@
 		public var tl:Number, tm:int;
 		
 		public var iter:int, max:int;
+		
+		//For android
+		public var ybuffer:int;
+		public var redraw:Boolean;
 	}
 }

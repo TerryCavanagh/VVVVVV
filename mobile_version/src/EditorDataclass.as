@@ -1,9 +1,4 @@
 package {
-	import flash.display.*;
-	import flash.geom.*;
-  import flash.events.*;
-  import flash.net.*;
-	
 	public class EditorDataclass{
 		public function EditorDataclass():void {
 			clear();

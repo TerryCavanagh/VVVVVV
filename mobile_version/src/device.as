@@ -53,5 +53,7 @@ package {
 		
 		public static var deviceresolution:int;
 		public static var xres:int, yres:int;
+		
+		public static var localtesting:Boolean = false;
 	}
 }

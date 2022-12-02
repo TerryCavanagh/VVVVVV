@@ -1,10 +1,7 @@
-﻿package {
-	import flash.display.*;
+package {
 	import flash.geom.*;
-  import flash.events.*;
-  import flash.net.*;
 	
-	public class entclass extends Sprite {
+	public class entclass{
 		public function entclass():void {
 			clear();
 		}

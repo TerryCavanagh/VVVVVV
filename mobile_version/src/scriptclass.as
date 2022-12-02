@@ -1,13 +1,12 @@
-﻿package {
+package {
 	import flash.ui.Keyboard;
-	import flash.display.*;
 	import flash.geom.*;
   import flash.events.*;
   import flash.net.*;
 	import bigroom.input.KeyPoll;
 	import flash.system.fscommand;
 	
-	public class scriptclass extends Sprite {
+	public class scriptclass {
 		public var GAMEMODE:int = 0;
 		public var TITLEMODE:int = 1;
 		public var CLICKTOSTART:int = 2;
@@ -772,7 +771,7 @@
 							game.gamestate = 5;
 							dwgfx.menuoffset = 240; //actually this should count the roomname
 						  if (map.extrarow) dwgfx.menuoffset -= 10;
-						  dwgfx.menubuffer.copyPixels(dwgfx.screenbuffer, dwgfx.screenbuffer.rect, dwgfx.tl, null, null, false);
+							dwgfx.setup_menubuffer();
 							dwgfx.resumegamemode = false;
 							
 							game.useteleporter = false; //good heavens don't actually use it
@@ -1063,7 +1062,7 @@
 					}else if (words[0] == "foundlab2") {						
 						dwgfx.textboxremovefast();
 						
-						dwgfx.createtextbox("The secret lab is separate from", 50, 85, 174, 174, 174);
+						dwgfx.createtextbox("The secret lab is seperate from", 50, 85, 174, 174, 174);
 						      dwgfx.addline("the rest of the game. You can");
 						      dwgfx.addline("now come back here at any time");
 									dwgfx.addline("by selecting the new SECRET LAB");

@@ -1,10 +1,11 @@
 package {
-	import com.milkmangames.nativeextensions.ios.*; 
-	import com.milkmangames.nativeextensions.ios.events.*;
+	//import com.milkmangames.nativeextensions.ios.*; 
+	//import com.milkmangames.nativeextensions.ios.events.*;
 	import flash.display.Stage;
 	
 	public class scoreclass {
 		public function init(mystage:Stage):void {
+			/*
 			if (!GameCenter.isSupported()){
 				trace("GameCenter is not supported on this platform.");
 			}
@@ -32,41 +33,51 @@ package {
 			gameCenter.addEventListener(GameCenterErrorEvent.ACHIEVEMENT_REPORT_FAILED,onAchievementFailed);
 			gameCenter.addEventListener(GameCenterErrorEvent.ACHIEVEMENT_RESET_FAILED,onResetFailed);		
 			GameCenter.gameCenter.authenticateLocalUser();
+			*/
 		}
 		
 			
 	  CONFIG::iphonemode {
 			/** Check Authentication */
-			private function checkAuthentication():Boolean{
+			private function checkAuthentication():Boolean {
+				/*
 				if (!GameCenter.gameCenter.isUserAuthenticated()){
 					trace("not logged in!");
 					return false;
 				}
+				*/
 				return true;
 			}
 			
 			/** Reset Achievements */
-			public function resetAchievements():void{
+			public function resetAchievements():void {
+				/*
 				if (!checkAuthentication()) return;
 				
 				GameCenter.gameCenter.resetAchievements();
+				*/
 			}
 			
 			public function reportScore(t:int):void{
 				// we make sure you're logged in before bothering to report the score.
 				// later iOS versions may take care of waiting/resubmitting for you, but earlier ones won't.
+				/*
 				if (!checkAuthentication()) return;
 				t = t * 2; //Score is in 30 frame increments
 				GameCenter.gameCenter.reportScoreForCategory(t, "grp.supgravleaderboard");
+				*/
 			}
 			
 			public function opengamecenter():void {
+				/*
 				if (!checkAuthentication()) return;
 				GameCenter.gameCenter.showLeaderboardForCategory("grp.supgravleaderboard");
+				*/
 			}
 			
 			/** Show Achievements */
-			public function showAchievements():void{
+			public function showAchievements():void {
+				/*
 				if (!checkAuthentication()) return;
 				
 				//trace("showing achievements...");
@@ -75,6 +86,7 @@ package {
 				}catch (e:Error){
 					//trace("ERR showachievements:"+e.message+"/"+e.name+"/"+e.errorID);
 				}
+				*/
 			}
 			
 			public var vvvvvvgamecomplete:int = 0;
@@ -97,7 +109,8 @@ package {
 			public var vvvvvvsupgrav60:int = 17;
 			public var vvvvvvmaster:int = 18;
 			
-			public function reportAchievement(t:int):void{
+			public function reportAchievement(t:int):void {
+				/*
 				if (!checkAuthentication()) return;
 				
 				// the '1.0' is a float (Number) value from 0.0-100.0 the percent completion of the achievement.
@@ -122,11 +135,13 @@ package {
 					case 17: GameCenter.gameCenter.reportAchievement("grp.vvvvvvsupgrav60", 100.0); break;
 					case 18: GameCenter.gameCenter.reportAchievement("grp.vvvvvvmaster", 100.0); break;
 				}
+				*/
 			}
 			
 			//
 			// Events
 			//
+			/*
 			private function onAuthSucceeded(e:GameCenterEvent):void
 			{
 				trace("Auth succeeded!");
@@ -176,10 +191,11 @@ package {
 			{
 				trace("failed to reset:"+e.message);
 			}	
+			*/
 		}
 		
 		CONFIG::iphonemode { 
-		  public var gameCenter:GameCenter;
+		  //public var gameCenter:GameCenter;
 		  public var gamecenteron:Boolean = true;
 		}
 	}

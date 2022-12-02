@@ -1,10 +1,9 @@
-﻿package {
-	import flash.display.*;
+package {
 	import flash.geom.*;
   import flash.events.*;
   import flash.net.*;
 	
-	public class saveclass extends Sprite {
+	public class saveclass {
 		public function saveclass():void {			
 		}
 		

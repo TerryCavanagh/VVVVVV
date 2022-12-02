@@ -1,11 +1,8 @@
-﻿package {
+package {
 	import bigroom.input.KeyPoll;
-	import flash.display.*;
 	import flash.geom.*;
-  import flash.events.*;
-  import flash.net.*;
-	
-	public class entityclass extends Sprite {
+  
+	public class entityclass {
 		static public var BLOCK:Number = 0;
     static public var TRIGGER:Number = 1;
 		static public var DAMAGE:Number = 2;
@@ -587,8 +584,8 @@
 				break;
 				case TRIGGER: //Trigger
 					 blocks[k].type = TRIGGER;
-					 blocks[k].x = xp;
-					 blocks[k].y = yp;
+					 blocks[k].xp = xp;
+					 blocks[k].yp = yp;
 					 blocks[k].wp = w;
 					 blocks[k].hp = h;
 					 blocks[k].rectset(xp, yp, w, h);
@@ -598,8 +595,8 @@
 				break;
 				case DAMAGE: //Damage
 					 blocks[k].type = DAMAGE;
-					 blocks[k].x = xp;
-					 blocks[k].y = yp;
+					 blocks[k].xp = xp;
+					 blocks[k].yp = yp;
 					 blocks[k].wp = w;
 					 blocks[k].hp = h;
 					 blocks[k].rectset(xp, yp, w, h);
@@ -608,8 +605,8 @@
 				break;
 				case DIRECTIONAL: //Directional
 					 blocks[k].type = DIRECTIONAL;
-					 blocks[k].x = xp;
-					 blocks[k].y = yp;
+					 blocks[k].xp = xp;
+					 blocks[k].yp = yp;
 					 blocks[k].wp = w;
 					 blocks[k].hp = h;
 					 blocks[k].rectset(xp, yp, w, h);
@@ -629,8 +626,8 @@
 				break;
 				case ACTIVITY: //Activity Zone
 					blocks[k].type = ACTIVITY;
-					blocks[k].x = xp;
-					blocks[k].y = yp;
+					blocks[k].xp = xp;
+					blocks[k].yp = yp;
 					blocks[k].wp = w;
 					blocks[k].hp = h;
 					blocks[k].rectset(xp, yp, w, h);
@@ -816,19 +813,19 @@
 						  trig=0;
 						break;
 						case 25:
-						  blocks[k].prompt = "Passion for Exploring";
+						  blocks[k].prompt = "Passion for exploring";
 						  blocks[k].script = "terminal_juke1";
 							setblockcolour(k, "orange");
 						  trig=0;
 						break;
 						case 26:
-						  blocks[k].prompt = "Pushing Onwards";
+						  blocks[k].prompt = "Pushing onwards";
 						  blocks[k].script = "terminal_juke2";
 							setblockcolour(k, "orange");
 						  trig=0;
 						break;
 						case 27:
-						  blocks[k].prompt = "Positive Force";
+						  blocks[k].prompt = "Positive force";
 						  blocks[k].script = "terminal_juke3";
 							setblockcolour(k, "orange");
 						  trig=0;
@@ -840,13 +837,13 @@
 						  trig=0;
 						break;
 						case 29:
-						  blocks[k].prompt = "Potential for Anything";
+						  blocks[k].prompt = "Potential for anything";
 						  blocks[k].script = "terminal_juke5";
 							setblockcolour(k, "orange");
 						  trig=0;
 						break;
 						case 30:
-						  blocks[k].prompt = "Predestined Fate";
+						  blocks[k].prompt = "Predestined fate";
 						  blocks[k].script = "terminal_juke6";
 							setblockcolour(k, "orange");
 						  trig=0;
@@ -870,7 +867,7 @@
 						  trig=0;
 						break;
 						case 34:
-						  blocks[k].prompt = "ecroF evitisoP";
+						  blocks[k].prompt = "ecrof evitisoP";
 						  blocks[k].script = "terminal_juke10";
 							setblockcolour(k, "orange");
 						  trig=0;
@@ -1276,7 +1273,7 @@
 					
           entities[k].gravity = true;
 				break;
-				case 1: //Simple enemy, bouncing off the walls
+				case 1:
 				  entities[k].rule = 1; 
 					entities[k].xp = xp; entities[k].yp = yp;
 					entities[k].behave = vx; entities[k].para = vy;
@@ -3790,14 +3787,14 @@
 									colpoint1.x = entities[i].xp; colpoint1.y = entities[i].yp;
 									colpoint2.x = entities[j].xp; colpoint2.y = entities[j].yp;
 									if (dwgfx.flipmode) {
-										if (dwgfx.flipsprites[entities[i].drawframe].hitTest(
-												colpoint1, 1, dwgfx.flipsprites[entities[j].drawframe], colpoint2, 1)) {
+										if (dwgfx.flipsprites_bitmap[entities[i].drawframe].hitTest(
+												colpoint1, 1, dwgfx.flipsprites_bitmap[entities[j].drawframe], colpoint2, 1)) {
 											//Do the collision stuff		
 											game.deathseq = 30;
 										}
-									}else{
-										if (dwgfx.sprites[entities[i].drawframe].hitTest(
-												colpoint1, 1, dwgfx.sprites[entities[j].drawframe], colpoint2, 1)) {
+									}else {
+										if (dwgfx.sprites_bitmap[entities[i].drawframe].hitTest(
+												colpoint1, 1, dwgfx.sprites_bitmap[entities[j].drawframe], colpoint2, 1)) {
 											//Do the collision stuff		
 											game.deathseq = 30;
 										}
@@ -3851,9 +3848,9 @@
 							if (entities[j].onentity > 0) {
 								//ok; only check the actual collision if they're in a close proximity
 								temp = entities[i].yp - entities[j].yp;
-								if (temp > -30 && temp < 30) {
+								if (temp < 30 || temp > -30) {
 									temp = entities[i].xp - entities[j].xp;
-									if (temp > -30 && temp < 30) {
+									if (temp < 30 || temp > -30) {
 										if (entitycollide(i, j)) entities[j].state = entities[j].onentity;
 									}
 								}
@@ -3890,14 +3887,14 @@
 												colpoint1.x = entities[i].xp; colpoint1.y = entities[i].yp;
 												colpoint2.x = entities[j].xp; colpoint2.y = entities[j].yp;
 												if (dwgfx.flipmode) {
-													if (dwgfx.flipsprites[entities[i].drawframe].hitTest(
-															colpoint1, 1, dwgfx.flipsprites[entities[j].drawframe], colpoint2, 1)) {
+													if (dwgfx.flipsprites_bitmap[entities[i].drawframe].hitTest(
+															colpoint1, 1, dwgfx.flipsprites_bitmap[entities[j].drawframe], colpoint2, 1)) {
 														//Do the collision stuff		
 														game.deathseq = 30; game.scmhurt = true;
 													}
-												}else{
-													if (dwgfx.sprites[entities[i].drawframe].hitTest(
-															colpoint1, 1, dwgfx.sprites[entities[j].drawframe], colpoint2, 1)) {
+												}else {
+													if (dwgfx.sprites_bitmap[entities[i].drawframe].hitTest(
+															colpoint1, 1, dwgfx.sprites_bitmap[entities[j].drawframe], colpoint2, 1)) {
 														//Do the collision stuff	
 														game.deathseq = 30; game.scmhurt = true;
 													}

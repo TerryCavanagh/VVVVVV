@@ -1,10 +1,7 @@
-﻿package {
-	import flash.display.*;
+package {
 	import flash.geom.*;
-  import flash.events.*;
-  import flash.net.*;
 	
-	public class blockclass extends Sprite {
+	public class blockclass {
 		public function blockclass():void {
 			rect = new Rectangle();
 			clear();

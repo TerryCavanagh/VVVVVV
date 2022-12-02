@@ -1,11 +1,11 @@
-﻿package {
+package {
 	import flash.display.*;
 	import flash.geom.*;
   import flash.events.*;
   import flash.net.*; 
 	import flash.system.System;
 	
-	public class helpclass extends Sprite {
+	public class helpclass{
 		public function init():void {
 			sine = new Array();
 			cosine = new Array();

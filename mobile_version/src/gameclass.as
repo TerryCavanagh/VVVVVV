@@ -325,7 +325,7 @@
 					//These coordinates now need to be translated to actual screen coordinates
 					//Gamecenter
 					if(menustart && !showloadingnotice) {
-						if (inbox(m_touchx, m_touchy, 0, 0, dwgfx.buttonscreen[0].width + (dwgfx.buttonxspacing * 2), dwgfx.buttonscreen[0].height + (dwgfx.buttonyspacing * 2))) {
+						if (inbox(m_touchx, m_touchy, 0, 0, dwgfx.button_image_width[0] + (dwgfx.buttonxspacing * 2), dwgfx.button_image_height[0] + (dwgfx.buttonyspacing * 2))) {
 							//Bring up game center achievements
 							scores.showAchievements();
 						}
@@ -465,11 +465,11 @@
 					m_touchy = key.touchy[key.touchPoints - 1];
 					if (dwgfx.flipmode) m_touchy = dwgfx.devicey - m_touchy;
 					
-					if (inbox(m_touchx, m_touchy, dwgfx.devicex - dwgfx.buttonscreen[0].width - dwgfx.buttonxspacing, 0, dwgfx.buttonscreen[0].width + (dwgfx.buttonxspacing*2), dwgfx.buttonscreen[0].height + (dwgfx.buttonyspacing*2) )) {
+					if (inbox(m_touchx, m_touchy, dwgfx.devicex - dwgfx.button_image_width[0] - dwgfx.buttonxspacing, 0, dwgfx.button_image_width[0] + (dwgfx.buttonxspacing*2), dwgfx.button_image_height[0] + (dwgfx.buttonyspacing*2) )) {
 						press_map = true;
 					}
 					if(menupage == 0){
-						if (inbox(m_touchx, m_touchy, 0, 0, dwgfx.buttonscreen[1].width + (dwgfx.buttonxspacing*2), dwgfx.buttonscreen[1].height + (dwgfx.buttonyspacing*2) )) {
+						if (inbox(m_touchx, m_touchy, 0, 0, dwgfx.button_image_width[1] + (dwgfx.buttonxspacing*2), dwgfx.button_image_height[1] + (dwgfx.buttonyspacing*2) )) {
 							menupage = 30;
 							music.playef(11, 10);
 						}
@@ -646,12 +646,12 @@
 						}else 
 						*/
 						if (insecretlab) {
-							if (inbox(key.touchx[i],  key.touchy[i], 0, 0, dwgfx.buttonscreen[0].width + (dwgfx.buttonxspacing * 2), dwgfx.buttonscreen[0].height + (dwgfx.buttonyspacing * 2) )) {
+							if (inbox(key.touchx[i],  key.touchy[i], 0, 0, dwgfx.button_image_width[0] + (dwgfx.buttonxspacing * 2), dwgfx.button_image_height[0] + (dwgfx.buttonyspacing * 2) )) {
 								scores.opengamecenter();
 								press_map = true;
 							}
 						}
-						if (inbox(key.touchx[i],  key.touchy[i], dwgfx.devicex - dwgfx.buttonscreen[0].width - dwgfx.buttonxspacing, 0, dwgfx.buttonscreen[0].width + (dwgfx.buttonxspacing*2), dwgfx.buttonscreen[0].height + (dwgfx.buttonyspacing*2) )) {
+						if (inbox(key.touchx[i],  key.touchy[i], dwgfx.devicex - dwgfx.button_image_width[0] - dwgfx.buttonxspacing, 0, dwgfx.button_image_width[0] + (dwgfx.buttonxspacing*2), dwgfx.button_image_height[0] + (dwgfx.buttonyspacing*2) )) {
 							press_map = true;
 						}else {
 							if (key.touchid[i] != key.controlstick) {
@@ -670,12 +670,12 @@
 						//	press_action = true;
 						//}else 
 						if (insecretlab) {
-							if (inbox(key.touchx[i],  key.touchy[i], 0, 0, dwgfx.buttonscreen[0].width + (dwgfx.buttonxspacing * 2), dwgfx.buttonscreen[0].height + (dwgfx.buttonyspacing * 2) )) {
+							if (inbox(key.touchx[i],  key.touchy[i], 0, 0, dwgfx.button_image_width[0] + (dwgfx.buttonxspacing * 2), dwgfx.button_image_height[0] + (dwgfx.buttonyspacing * 2) )) {
 								scores.opengamecenter();
 								press_map = true;
 							}
 						}
-						if (inbox(key.touchx[i],  key.touchy[i], dwgfx.devicex - dwgfx.buttonscreen[0].width - dwgfx.buttonxspacing, 0, dwgfx.buttonscreen[0].width + (dwgfx.buttonxspacing*2), dwgfx.buttonscreen[0].height + (dwgfx.buttonyspacing*2) )) {
+						if (inbox(key.touchx[i],  key.touchy[i], dwgfx.devicex - dwgfx.button_image_width[0] - dwgfx.buttonxspacing, 0, dwgfx.button_image_width[0] + (dwgfx.buttonxspacing*2), dwgfx.button_image_height[0] + (dwgfx.buttonyspacing*2) )) {
 							press_map = true;
 						}else{							
 							if (inbox(key.touchx[i], key.touchy[i], 0, 0, dwgfx.devicex / 2, dwgfx.devicey)) {
@@ -729,12 +729,12 @@
 					//D-Pad controls
 					for (i = 0; i < key.touchPoints; i++) {
 						if (insecretlab) {
-							if (inbox(key.touchx[i],  key.touchy[i], 0, 0, dwgfx.buttonscreen[0].width + (dwgfx.buttonxspacing * 2), dwgfx.buttonscreen[0].height + (dwgfx.buttonyspacing * 2) )) {
+							if (inbox(key.touchx[i],  key.touchy[i], 0, 0, dwgfx.button_image_width[0] + (dwgfx.buttonxspacing * 2), dwgfx.button_image_height[0] + (dwgfx.buttonyspacing * 2) )) {
 								scores.opengamecenter();
 								press_map = true;
 							}
 						}
-						if (inbox(key.touchx[i],  key.touchy[i], dwgfx.devicex - dwgfx.buttonscreen[0].width - dwgfx.buttonxspacing, 0, dwgfx.buttonscreen[0].width + (dwgfx.buttonxspacing*2), dwgfx.buttonscreen[0].height + (dwgfx.buttonyspacing*2) )) {
+						if (inbox(key.touchx[i],  key.touchy[i], dwgfx.devicex - dwgfx.button_image_width[0] - dwgfx.buttonxspacing, 0, dwgfx.button_image_width[0] + (dwgfx.buttonxspacing*2), dwgfx.button_image_height[0] + (dwgfx.buttonyspacing*2) )) {
 							press_map = true;
 						}else if (inbox(key.touchx[i], key.touchy[i], 0, dwgfx.buttonpos[2].y - (dwgfx.devicey*2/3), dwgfx.buttonsize + dwgfx.buttonxspacing+ (dwgfx.buttonxspacing/2), dwgfx.devicey)) {
 							press_left = true;
