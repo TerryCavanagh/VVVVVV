@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#include "Alloc.h"
 #include "Graphics.h"
 #include "Maths.h"
 
@@ -226,7 +227,7 @@ void BlitSurfaceColoured(
     }
 
     SDL_BlitSurface(tempsurface, _srcRect, _dest, tempRect);
-    SDL_FreeSurface(tempsurface);
+    VVV_freefunc(SDL_FreeSurface, tempsurface);
 }
 
 void BlitSurfaceTinted(
@@ -287,7 +288,7 @@ void BlitSurfaceTinted(
     }
 
     SDL_BlitSurface(tempsurface, _srcRect, _dest, tempRect);
-    SDL_FreeSurface(tempsurface);
+    VVV_freefunc(SDL_FreeSurface, tempsurface);
 }
 
 
@@ -489,7 +490,7 @@ void ScrollSurface( SDL_Surface* _src, int _pX, int _pY )
     //Cleanup temp surface
     if (part1)
     {
-        SDL_FreeSurface(part1);
+        VVV_freefunc(SDL_FreeSurface, part1);
     }
 
 }

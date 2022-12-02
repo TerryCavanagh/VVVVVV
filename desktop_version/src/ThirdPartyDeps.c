@@ -1,5 +1,7 @@
 #include <SDL_stdinc.h>
 
+#include "Alloc.h"
+
 /* Handle third-party dependencies' needs here */
 
 void* lodepng_malloc(size_t size)
@@ -14,5 +16,5 @@ void* lodepng_realloc(void* ptr, size_t new_size)
 
 void lodepng_free(void* ptr)
 {
-    SDL_free(ptr);
+    VVV_free(ptr);
 }

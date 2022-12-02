@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <tinyxml2.h>
 
+#include "Alloc.h"
 #include "BinaryBlob.h"
 #include "Exit.h"
 #include "Graphics.h"
@@ -201,13 +202,8 @@ void FILESYSTEM_deinit(void)
     {
         PHYSFS_deinit();
     }
-    if (stdin_buffer != NULL)
-    {
-        SDL_free(stdin_buffer);
-        stdin_buffer = NULL;
-    }
-    SDL_free(basePath);
-    basePath = NULL;
+    VVV_free(stdin_buffer);
+    VVV_free(basePath);
     isInit = false;
 }
 
@@ -505,8 +501,6 @@ bool FILESYSTEM_isAssetMounted(const char* filename)
     return SDL_strcmp(assetDir, realDir) == 0;
 }
 
-void FILESYSTEM_freeMemory(unsigned char **mem);
-
 static void load_stdin(void)
 {
     size_t pos = 0;
@@ -636,7 +630,7 @@ void FILESYSTEM_loadFileToMemory(
     success = PHYSFS_readBytes(handle, *mem, length);
     if (success == -1)
     {
-        FILESYSTEM_freeMemory(mem);
+        VVV_free(*mem);
     }
     PHYSFS_close(handle);
     return;
@@ -663,12 +657,6 @@ void FILESYSTEM_loadAssetToMemory(
     getMountedPath(path, sizeof(path), name);
 
     FILESYSTEM_loadFileToMemory(path, mem, len, addnull);
-}
-
-void FILESYSTEM_freeMemory(unsigned char **mem)
-{
-    SDL_free(*mem);
-    *mem = NULL;
 }
 
 bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
@@ -817,7 +805,7 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
         return false;
     }
     doc.Parse((const char*) mem);
-    FILESYSTEM_freeMemory(&mem);
+    VVV_free(mem);
     return true;
 }
 

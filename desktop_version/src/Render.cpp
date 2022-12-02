@@ -24,6 +24,15 @@ static int tr;
 static int tg;
 static int tb;
 
+struct MapRenderData
+{
+    int zoom;
+    int xoff;
+    int yoff;
+    int legendxoff;
+    int legendyoff;
+};
+
 static inline void drawslowdowntext(void)
 {
     switch (game.slowdown)
@@ -2040,6 +2049,143 @@ static void draw_roomname_menu(void)
  * the same in Flip Mode. */
 #define FLIP(y, h) (graphics.flipmode ? 220 - (y) - (h) : (y))
 
+static MapRenderData getmaprenderdata()
+{
+    MapRenderData data;
+
+    data.zoom = map.custommode ? map.customzoom : 1;
+    data.xoff = map.custommode ? map.custommmxoff : 0;
+    data.yoff = map.custommode ? map.custommmyoff : 0;
+    data.legendxoff = 40 + data.xoff;
+    data.legendyoff = 21 + data.yoff;
+
+    // Magic numbers for centering legend tiles.
+    switch (data.zoom)
+    {
+    case 4:
+        data.legendxoff += 21;
+        data.legendyoff += 16;
+        break;
+    case 2:
+        data.legendxoff += 9;
+        data.legendyoff += 5;
+        break;
+    default:
+        data.legendxoff += 3;
+        data.legendyoff += 1;
+        break;
+    }
+
+    return data;
+}
+
+static void rendermap(void)
+{
+#ifndef NO_CUSTOM_LEVELS
+    if (map.custommode)
+    {
+        graphics.drawpixeltextbox(35 + map.custommmxoff, 16 + map.custommmyoff, map.custommmxsize + 10, map.custommmysize + 10, 65, 185, 207);
+        graphics.drawpartimage(graphics.minimap_mounted ? 1 : 12, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
+        return;
+     }
+#endif /* NO_CUSTOM_LEVELS */
+
+    graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
+    graphics.drawimage(1, 40, 21, false);
+}
+
+static void rendermapfog(void)
+{
+    const MapRenderData data = getmaprenderdata();
+
+    for (int j = 0; j < map.getheight(); j++)
+    {
+        for (int i = 0; i < map.getwidth(); i++)
+        {
+            if (!map.isexplored(i, j))
+            {
+                // Draw the fog, depending on the custom zoom size
+                for (int x = 0; x < data.zoom; x++)
+                {
+                    for (int y = 0; y < data.zoom; y++)
+                    {
+                        graphics.drawimage(2, data.xoff + 40 + (x * 12) + (i * (12 * data.zoom)), data.yoff + 21 + (y * 9) + (j * (9 * data.zoom)), false);
+                    }
+                }
+            }
+        }
+    }
+}
+
+static void rendermaplegend(void)
+{
+    // Draw the map legend, aka teleports/targets/trinkets
+
+    const MapRenderData data = getmaprenderdata();
+
+    const int tile_offset = graphics.flipmode ? 3 : 0;
+
+    for (size_t i = 0; i < map.teleporters.size(); i++)
+    {
+        if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
+        {
+            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1127 + tile_offset);
+        }
+        else if (map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
+        {
+            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1126 + tile_offset);
+        }
+    }
+
+    if (map.showtrinkets)
+    {
+        for (size_t i = 0; i < map.shinytrinkets.size(); i++)
+        {
+            if (!obj.collect[i])
+            {
+                graphics.drawtile(data.legendxoff + (map.shinytrinkets[i].x * 12 * data.zoom), data.legendyoff + (map.shinytrinkets[i].y * 9 * data.zoom), 1086 + tile_offset);
+            }
+        }
+    }
+}
+
+static void rendermapcursor(const bool flashing)
+{
+    const MapRenderData data = getmaprenderdata();
+
+    if (!map.custommode && game.roomx == 109)
+    {
+        // Draw the tower specially
+        if (!flashing)
+        {
+            graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
+        }
+        else if (map.cursorstate == 1)
+        {
+            if (int(map.cursordelay / 4) % 2 == 0)
+            {
+                graphics.drawrect(40 + ((game.roomx - 100) * 12), 21, 12, 180, 255, 255, 255);
+                graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 255, 255, 255);
+            }
+        }
+        else if (map.cursorstate == 2 && (int(map.cursordelay / 15) % 2 == 0))
+        {
+            graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow), 245 - (help.glow));
+        }
+        return;
+    }
+
+    if (!flashing || (map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0))
+    {
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
+    }
+    else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
+    {
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + data.yoff, 12 * data.zoom, 9 * data.zoom, 255, 255, 255);
+        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 255, 255, 255);
+    }
+}
+
 void maprender(void)
 {
     ClearSurface(graphics.backBuffer);
@@ -2048,8 +2194,6 @@ void maprender(void)
 
     //Background color
     FillRect(graphics.backBuffer,0, 12, 320, 240, 10, 24, 26 );
-
-
 
     //Menubar:
     graphics.drawtextbox( -10, 212, 43, 3, 65, 185, 207);
@@ -2108,11 +2252,11 @@ void maprender(void)
     switch(game.menupage)
     {
     case 0:
+        rendermap();
+
         if (map.finalmode || (map.custommode&&!map.customshowmm))
         {
-            //draw the map image
-            graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
-            graphics.drawimage(1, 40, 21, false);
+            // Cover the whole map
             for (int j = 0; j < 20; j++)
             {
                 for (int i = 0; i < 20; i++)
@@ -2122,211 +2266,11 @@ void maprender(void)
             }
             graphics.bprint(-1, 105, "NO SIGNAL", 245, 245, 245, true);
         }
-#ifndef NO_CUSTOM_LEVELS
-        else if(map.custommode)
-        {
-          //draw the map image
-          graphics.drawpixeltextbox(35+map.custommmxoff, 16+map.custommmyoff, map.custommmxsize+10, map.custommmysize+10, 65, 185, 207);
-          if (graphics.minimap_mounted)
-          {
-            graphics.drawpartimage(1, 40+map.custommmxoff, 21+map.custommmyoff, map.custommmxsize, map.custommmysize);
-          }
-          else
-          {
-            graphics.drawpartimage(12, 40+map.custommmxoff, 21+map.custommmyoff, map.custommmxsize,map.custommmysize);
-          }
-
-          //Black out here
-          if(map.customzoom==4){
-            for (int j = 0; j < map.customheight; j++){
-              for (int i = 0; i < map.customwidth; i++){
-                if(!map.isexplored(i, j)){
-                  //Draw the fog of war on the map
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 48), map.custommmyoff+21 + (j * 36), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48), map.custommmyoff+21 + (j * 36), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 48), map.custommmyoff+21 + 9 + (j * 36), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48), map.custommmyoff+21 + 9+ (j * 36), false);
-
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 48) + 24, map.custommmyoff+21 + (j * 36), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48) + 24, map.custommmyoff+21 + (j * 36), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 48) + 24, map.custommmyoff+ 21 + 9 + (j * 36), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48) + 24, map.custommmyoff+21 + 9+ (j * 36), false);
-
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 48), map.custommmyoff+21 + (j * 36)+18, false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48), map.custommmyoff+21 + (j * 36)+18, false);
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 48), map.custommmyoff+21 + 9 + (j * 36)+18, false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48), map.custommmyoff+21 + 9+ (j * 36)+18, false);
-
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 48) + 24, map.custommmyoff+21 + (j * 36)+18, false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48) + 24, map.custommmyoff+21 + (j * 36)+18, false);
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 48) + 24, map.custommmyoff+21 + 9 + (j * 36)+18, false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 48) + 24, map.custommmyoff+21 + 9+ (j * 36)+18, false);
-                }
-              }
-            }
-          }else if(map.customzoom==2){
-            for (int j = 0; j < map.customheight; j++){
-              for (int i = 0; i < map.customwidth; i++){
-                if(!map.isexplored(i, j)){
-                  //Draw the fog of war on the map
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 24), map.custommmyoff+21 + (j * 18), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 24), map.custommmyoff+21 + (j * 18), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 24), map.custommmyoff+21 + 9 + (j * 18), false);
-                  graphics.drawimage(2, map.custommmxoff+40 + 12 + (i * 24), map.custommmyoff+21 + 9+ (j * 18), false);
-                }
-              }
-            }
-          }else{
-            for (int j = 0; j < map.customheight; j++){
-              for (int i = 0; i < map.customwidth; i++){
-                if(!map.isexplored(i, j)){
-                  //Draw the fog of war on the map
-                  graphics.drawimage(2, map.custommmxoff+40 + (i * 12), map.custommmyoff+21 + (j * 9), false);
-                }
-              }
-            }
-          }
-
-          //normal size maps
-          if(map.customzoom==4){
-            if(map.cursorstate==1){
-              if (int(map.cursordelay / 4) % 2 == 0){
-                graphics.drawrect(40 + ((game.roomx - 100) * 48) +map.custommmxoff, 21 + ((game.roomy - 100) * 36)+map.custommmyoff , 48 , 36 , 255,255,255);
-                graphics.drawrect(40 + ((game.roomx - 100) * 48) + 2+map.custommmxoff, 21 + ((game.roomy - 100) * 36) + 2+map.custommmyoff, 48 - 4, 36 - 4, 255,255,255);
-              }
-            }else if (map.cursorstate == 2){
-              if (int(map.cursordelay / 15) % 2 == 0){
-                graphics.drawrect(40 + ((game.roomx - 100) * 48) + 2+map.custommmxoff, 21 + ((game.roomy - 100) * 36) + 2+map.custommmyoff, 48 - 4, 36 - 4, 16, 245 - (help.glow), 245 - (help.glow));
-              }
-            }
-          }else if(map.customzoom==2){
-            if(map.cursorstate==1){
-              if (int(map.cursordelay / 4) % 2 == 0){
-                graphics.drawrect(40 + ((game.roomx - 100) * 24)+map.custommmxoff , 21 + ((game.roomy - 100) * 18)+map.custommmyoff , 24 , 18 , 255,255,255);
-                graphics.drawrect(40 + ((game.roomx - 100) * 24) + 2+map.custommmxoff, 21 + ((game.roomy - 100) * 18) + 2+map.custommmyoff, 24 - 4, 18 - 4, 255,255,255);
-              }
-            }else if (map.cursorstate == 2){
-              if (int(map.cursordelay / 15) % 2 == 0){
-                graphics.drawrect(40 + ((game.roomx - 100) * 24) + 2+map.custommmxoff, 21 + ((game.roomy - 100) * 18) + 2+map.custommmyoff, 24 - 4, 18 - 4, 16, 245 - (help.glow), 245 - (help.glow));
-              }
-            }
-          }else{
-            if(map.cursorstate==1){
-              if (int(map.cursordelay / 4) % 2 == 0){
-                graphics.drawrect(40 + ((game.roomx - 100) * 12)+map.custommmxoff , 21 + ((game.roomy - 100) * 9)+map.custommmyoff , 12 , 9 , 255,255,255);
-                graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2+map.custommmxoff, 21 + ((game.roomy - 100) * 9) + 2+map.custommmyoff, 12 - 4, 9 - 4, 255,255,255);
-              }
-            }else if (map.cursorstate == 2){
-              if (int(map.cursordelay / 15) % 2 == 0){
-                graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2+map.custommmxoff, 21 + ((game.roomy - 100) * 9) + 2+map.custommmyoff, 12 - 4, 9 - 4, 16, 245 - (help.glow), 245 - (help.glow));
-              }
-            }
-          }
-
-          if(map.showtrinkets){
-            for(size_t i=0; i<map.shinytrinkets.size(); i++){
-              if(!obj.collect[i]){
-                int temp = 1086;
-                if(graphics.flipmode) temp += 3;
-                if(map.customzoom==4){
-                  graphics.drawtile(40 + (map.shinytrinkets[i].x * 48) + 20+map.custommmxoff, 21 + (map.shinytrinkets[i].y * 36) + 14+map.custommmyoff, temp);
-                }else if(map.customzoom==2){
-                  graphics.drawtile(40 + (map.shinytrinkets[i].x * 24) + 8+map.custommmxoff, 21 + (map.shinytrinkets[i].y * 18) + 5+map.custommmyoff, temp);
-                }else{
-                  graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12) + map.custommmxoff, 22 + (map.shinytrinkets[i].y * 9) + map.custommmyoff, temp);
-                }
-              }
-            }
-          }
-        }
-#endif /* NO_CUSTOM_LEVELS */
         else
         {
-            //draw the map image
-            graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
-            graphics.drawimage(1, 40, 21, false);
-
-            //black out areas we can't see yet
-            for (int j = 0; j < 20; j++)
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    if(!map.isexplored(i, j))
-                    {
-                        //Draw the fog of war on the map
-                        graphics.drawimage(2, 40 + (i * 12), 21 + (j * 9), false);
-                    }
-                }
-            }
-            //draw the coordinates
-            if (game.roomx == 109)
-            {
-                //tower!instead of room y, scale map.ypos
-                if (map.cursorstate == 1)
-                {
-                    if (int(map.cursordelay / 4) % 2 == 0)
-                    {
-                        graphics.drawrect(40 + ((game.roomx - 100) * 12) , 21 , 12, 180, 255,255,255);
-                        graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2 , 21  + 2, 12 - 4, 180 - 4, 255,255,255);
-                    }
-                    if (map.cursordelay > 30) map.cursorstate = 2;
-                }
-                else if (map.cursorstate == 2)
-                {
-                    if (int(map.cursordelay / 15) % 2 == 0)
-                    {
-                        graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2 , 21  + 2, 12 - 4, 180 - 4,16, 245 - (help.glow), 245 - (help.glow));
-                    }
-                }
-            }
-            else
-            {
-                if (map.cursorstate == 1)
-                {
-                    if (int(map.cursordelay / 4) % 2 == 0)
-                    {
-                        graphics.drawrect(40 + ((game.roomx - 100) * 12) , 21 + ((game.roomy - 100) * 9) , 12 , 9 , 255,255,255);
-                        graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + ((game.roomy - 100) * 9) + 2, 12 - 4, 9 - 4, 255,255,255);
-                    }
-                }
-                else if (map.cursorstate == 2)
-                {
-                    if (int(map.cursordelay / 15) % 2 == 0)
-                    {
-                        graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + ((game.roomy - 100) * 9) + 2, 12 - 4, 9 - 4, 16, 245 - (help.glow), 245 - (help.glow));
-                    }
-                }
-            }
-
-            //draw legend details
-            for (size_t i = 0; i < map.teleporters.size(); i++)
-            {
-                if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
-                {
-                    int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
-                    if (graphics.flipmode) temp += 3;
-                    graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
-                }
-                else if(map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
-                {
-                    int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
-                    if (graphics.flipmode) temp += 3;
-                    graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
-                }
-            }
-
-            if (map.showtrinkets)
-            {
-                for (size_t i = 0; i < map.shinytrinkets.size(); i++)
-                {
-                    if (!obj.collect[i])
-                    {
-                        int temp = 1086;
-                        if (graphics.flipmode) temp += 3;
-                        graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12), 22 + (map.shinytrinkets[i].y * 9),    temp);
-                    }
-                }
-            }
+            rendermapfog();
+            rendermapcursor(true);
+            rendermaplegend();
         }
         break;
     case 1:
@@ -2736,31 +2680,13 @@ void teleporterrender(void)
     //Background color
     FillRect(graphics.backBuffer, 0, 12, 320, 240, 10, 24, 26);
 
-    //draw the map image
-    graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
-    graphics.drawimage(1, 40, 21, false);
-    //black out areas we can't see yet
-    for (int j = 0; j < 20; j++)
-    {
-        for (int i = 0; i < 20; i++)
-        {
-            if(!map.isexplored(i, j))
-            {
-                graphics.drawimage(2, 40 + (i * 12), 21 + (j * 9), false);
-            }
-        }
-    }
+    rendermap();
+    rendermapfog();
+    rendermapcursor(false);
 
-    //draw the coordinates //current
-    if (game.roomx == 109)
-    {
-        //tower!instead of room y, scale map.ypos
-        graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21  + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
-    }
-    else
-    {
-        graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + ((game.roomy - 100) * 9) + 2, 12 - 4, 9 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
-    }
+    // Draw a box around the currently selected teleporter
+
+    const MapRenderData data = getmaprenderdata();
 
     if (game.useteleporter)
     {
@@ -2769,48 +2695,21 @@ void teleporterrender(void)
         //draw the coordinates //destination
         int tempx_ = map.teleporters[game.teleport_to_teleporter].x;
         int tempy_ = map.teleporters[game.teleport_to_teleporter].y;
-        graphics.drawrect(40 + (tempx_ * 12) + 1, 21 + (tempy_ * 9) + 1, 12 - 2, 9 - 2, 245 - (help.glow * 2), 16, 16);
-        graphics.drawrect(40 + (tempx_ * 12) + 3, 21 + (tempy_ * 9) + 3, 12 - 6, 9 - 6, 245 - (help.glow * 2), 16, 16);
+        graphics.drawrect(40 + data.xoff + (tempx_ * 12 * data.zoom) + 1, 21 + data.yoff + (tempy_ * 9 * data.zoom) + 1, 12 * data.zoom - 2, 9 * data.zoom - 2, 245 - (help.glow * 2), 16, 16);
+        graphics.drawrect(40 + data.xoff + (tempx_ * 12 * data.zoom) + 3, 21 + data.yoff + (tempy_ * 9 * data.zoom) + 3, 12 * data.zoom - 6, 9 * data.zoom - 6, 245 - (help.glow * 2), 16, 16);
     }
 
-    //draw legend details
-    for (size_t i = 0; i < map.teleporters.size(); i++)
-    {
-        if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
-        {
-            int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
-            if (graphics.flipmode) temp += 3;
-            graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
-        }
-        else if(map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
-        {
-            int temp = 1126 + (int) map.isexplored(map.teleporters[i].x, map.teleporters[i].y);
-            if (graphics.flipmode) temp += 3;
-            graphics.drawtile(40 + 3 + (map.teleporters[i].x * 12), 22 + (map.teleporters[i].y * 9), temp);
-        }
-    }
+    // Draw the legend itself
 
-    if (map.showtrinkets)
-    {
-        for (size_t i = 0; i < map.shinytrinkets.size(); i++)
-        {
-            if (!obj.collect[i])
-            {
-                int temp = 1086;
-                if (graphics.flipmode) temp += 3;
-                graphics.drawtile(40 + 3 + (map.shinytrinkets[i].x * 12), 22 + (map.shinytrinkets[i].y * 9),    temp);
-            }
-        }
-    }
+    rendermaplegend();
+
+    // Highlight the currently selected teleporter
 
     tempx = map.teleporters[game.teleport_to_teleporter].x;
     tempy = map.teleporters[game.teleport_to_teleporter].y;
-    if (game.useteleporter && ((help.slowsine%16)>8))
+    if (game.useteleporter && help.slowsine % 16 > 8)
     {
-        //colour in the legend
-        int temp = 1128;
-        if (graphics.flipmode) temp += 3;
-        graphics.drawtile(40 + 3 + (tempx * 12), 22 + (tempy * 9), temp);
+        graphics.drawtile(data.legendxoff + data.xoff + (tempx * 12 * data.zoom), data.legendyoff + data.yoff + (tempy * 9 * data.zoom), 1128 + (graphics.flipmode ? 3 : 0));
     }
 
     graphics.cutscenebars();

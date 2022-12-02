@@ -755,6 +755,7 @@ static void cleanup(void)
     graphics.destroy_buffers();
     graphics.destroy();
     music.destroy();
+    map.destroy();
     NETWORK_shutdown();
     SDL_Quit();
     FILESYSTEM_deinit();

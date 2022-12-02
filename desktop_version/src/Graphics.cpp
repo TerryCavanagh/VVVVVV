@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <utf8/unchecked.h>
 
+#include "Alloc.h"
 #include "Constants.h"
 #include "CustomLevels.h"
 #include "Entity.h"
@@ -158,7 +159,7 @@ void Graphics::destroy(void)
     #define CLEAR_ARRAY(name) \
         for (size_t i = 0; i < name.size(); i += 1) \
         { \
-            SDL_FreeSurface(name[i]); \
+            VVV_freefunc(SDL_FreeSurface, name[i]); \
         } \
         name.clear();
 
@@ -228,22 +229,20 @@ void Graphics::create_buffers(const SDL_PixelFormat* fmt)
 
 void Graphics::destroy_buffers(void)
 {
-#define FREE_SURFACE(SURFACE) \
-    SDL_FreeSurface(SURFACE); \
-    SURFACE = NULL;
+#define FREE_SURFACE(SURFACE) VVV_freefunc(SDL_FreeSurface, SURFACE)
 
-    FREE_SURFACE(backBuffer)
-    FREE_SURFACE(footerbuffer)
-    FREE_SURFACE(ghostbuffer)
-    FREE_SURFACE(foregroundBuffer)
-    FREE_SURFACE(menubuffer)
-    FREE_SURFACE(warpbuffer)
-    FREE_SURFACE(warpbuffer_lerp)
-    FREE_SURFACE(towerbg.buffer)
-    FREE_SURFACE(towerbg.buffer_lerp)
-    FREE_SURFACE(titlebg.buffer)
-    FREE_SURFACE(titlebg.buffer_lerp)
-    FREE_SURFACE(tempBuffer)
+    FREE_SURFACE(backBuffer);
+    FREE_SURFACE(footerbuffer);
+    FREE_SURFACE(ghostbuffer);
+    FREE_SURFACE(foregroundBuffer);
+    FREE_SURFACE(menubuffer);
+    FREE_SURFACE(warpbuffer);
+    FREE_SURFACE(warpbuffer_lerp);
+    FREE_SURFACE(towerbg.buffer);
+    FREE_SURFACE(towerbg.buffer_lerp);
+    FREE_SURFACE(titlebg.buffer);
+    FREE_SURFACE(titlebg.buffer_lerp);
+    FREE_SURFACE(tempBuffer);
 
 #undef FREE_SURFACE
 }
@@ -347,8 +346,7 @@ void Graphics::updatetitlecolours(void)
             } \
         } \
         \
-        SDL_FreeSurface(grphx.im_##tilesheet); \
-        grphx.im_##tilesheet = NULL; \
+        VVV_freefunc(SDL_FreeSurface, grphx.im_##tilesheet); \
     }
 
 #define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
@@ -376,7 +374,7 @@ bool Graphics::Makebfont(void)
             font_positions[codepoint] = pos;
             ++pos;
         }
-        FILESYSTEM_freeMemory(&charmap);
+        VVV_free(charmap);
     }
     else
     {
@@ -502,7 +500,7 @@ static void print_char(
 
     if (scale > 1)
     {
-        SDL_FreeSurface(surface);
+        VVV_freefunc(SDL_FreeSurface, surface);
     }
 }
 
@@ -2179,7 +2177,7 @@ void Graphics::drawentity(const int i, const int yoff)
         setRect(drawRect, xp, yp - yoff, sprites_rect.x * 6, sprites_rect.y * 6);
         SDL_Surface* TempSurface = ScaleSurface( spritesvec[obj.entities[i].drawframe], 6 * sprites_rect.w,6* sprites_rect.h );
         BlitSurfaceColoured(TempSurface, NULL , backBuffer,  &drawRect, ct );
-        SDL_FreeSurface(TempSurface);
+        VVV_freefunc(SDL_FreeSurface, TempSurface);
 
 
 

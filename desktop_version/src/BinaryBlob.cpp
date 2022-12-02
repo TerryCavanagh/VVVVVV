@@ -5,6 +5,7 @@
 #include <stdio.h>
 #endif
 
+#include "Alloc.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
 #include "UtilityClass.h"
@@ -91,7 +92,7 @@ void binaryBlob::clear(void)
     {
         if (m_memblocks[i] != NULL)
         {
-            SDL_free(m_memblocks[i]);
+            VVV_free(m_memblocks[i]);
         }
     }
     SDL_zeroa(m_memblocks);

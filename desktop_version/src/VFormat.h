@@ -5,7 +5,7 @@
  *  - vformat_cb       Calls a user-supplied callback function for each part of
  *                      the resulting string.
  *  - vformat_buf      Fills a user-supplied buffer with the result.
- *  - vformat_alloc    Allocates a buffer with the result (caller must SDL_free).
+ *  - vformat_alloc    Allocates a buffer with the result (caller must VVV_free).
  *
  * All include the following parameters:
  *  - format_string     The string which needs placeholders to be filled in

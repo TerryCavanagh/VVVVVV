@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <stdbool.h>
 
+#include "Alloc.h"
 #include "CWrappers.h"
 
 
@@ -64,8 +65,8 @@ static inline void call_with_upper(format_callback callback, void* userdata, con
         /* Never mind the capitalization then! Better than nothing. */
         callback(userdata, string, bytes);
 
-        SDL_free(utf32);
-        SDL_free(utf8);
+        VVV_free(utf32);
+        VVV_free(utf8);
         return;
     }
 
@@ -78,8 +79,8 @@ static inline void call_with_upper(format_callback callback, void* userdata, con
 
     callback(userdata, utf8, SDL_strlen(utf8));
 
-    SDL_free(utf32);
-    SDL_free(utf8);
+    VVV_free(utf32);
+    VVV_free(utf8);
 }
 
 
@@ -263,7 +264,7 @@ void vformat_cb_valist(
                             {
                                 callback(userdata, number, SDL_strlen(number));
                             }
-                            SDL_free(number);
+                            VVV_free(number);
                         }
                         else
                         {
@@ -458,7 +459,7 @@ char* vformat_alloc(
 )
 {
     /* Format to an automatically allocated and resized buffer.
-     * Caller must SDL_free. */
+     * Caller must VVV_free. */
 
     va_list args;
     va_start(args, args_index);

@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 
+#include "Alloc.h"
 #include "Constants.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
@@ -81,17 +82,11 @@ void Screen::init(const struct ScreenSettings* settings)
 
 void Screen::destroy(void)
 {
-#define X(CLEANUP, POINTER) \
-    CLEANUP(POINTER); \
-    POINTER = NULL;
-
     /* Order matters! */
-    X(SDL_DestroyTexture, m_screenTexture);
-    X(SDL_FreeSurface, m_screen);
-    X(SDL_DestroyRenderer, m_renderer);
-    X(SDL_DestroyWindow, m_window);
-
-#undef X
+    VVV_freefunc(SDL_DestroyTexture, m_screenTexture);
+    VVV_freefunc(SDL_FreeSurface, m_screen);
+    VVV_freefunc(SDL_DestroyRenderer, m_renderer);
+    VVV_freefunc(SDL_DestroyWindow, m_window);
 }
 
 void Screen::GetSettings(struct ScreenSettings* settings)
@@ -126,7 +121,7 @@ void Screen::LoadIcon(void)
         return;
     }
     SDL_SetWindowIcon(m_window, icon);
-    SDL_FreeSurface(icon);
+    VVV_freefunc(SDL_FreeSurface, icon);
 }
 #endif /* __APPLE__ */
 
@@ -279,7 +274,7 @@ void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect )
 
     if(badSignalEffect)
     {
-        SDL_FreeSurface(buffer);
+        VVV_freefunc(SDL_FreeSurface, buffer);
     }
 
 }

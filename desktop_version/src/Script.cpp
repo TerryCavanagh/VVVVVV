@@ -2888,10 +2888,17 @@ void scriptclass::startgamemode( int t )
         map.resetplayer();
         map.gotoroom(game.saverx, game.savery);
         map.initmapdata();
-        if(cl.levmusic>0){
+
+        cl.generatecustomminimap();
+        map.customshowmm = true;
+
+        if (cl.levmusic > 0)
+        {
             music.play(cl.levmusic);
-        }else{
-            music.currentsong=-1;
+        }
+        else
+        {
+            music.currentsong = -1;
         }
         break;
 # endif /* NO_EDITOR */
@@ -3543,7 +3550,7 @@ void scriptclass::loadcustom(const std::string& t)
                 break;
             }
             int ti=help.Int(words[1].c_str());
-            int nti = ti>=0 && ti<=50 ? ti : 1;
+            int nti = ti>=0 ? ti : 1;
             for(int ti2=0; ti2<nti; ti2++){
                 i++;
                 if(INBOUNDS_VEC(i, lines)){
@@ -3568,7 +3575,7 @@ void scriptclass::loadcustom(const std::string& t)
             add("text(cyan,0,0,"+words[1]+")");
 
             int ti=help.Int(words[1].c_str());
-            int nti = ti>=0 && ti<=50 ? ti : 1;
+            int nti = ti>=0 ? ti : 1;
             for(int ti2=0; ti2<nti; ti2++){
                 i++;
                 if(INBOUNDS_VEC(i, lines)){

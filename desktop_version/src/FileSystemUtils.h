@@ -32,7 +32,6 @@ void FILESYSTEM_loadAssetToMemory(
     size_t* len,
     const bool addnull
 );
-void FILESYSTEM_freeMemory(unsigned char **mem);
 
 bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename);
 

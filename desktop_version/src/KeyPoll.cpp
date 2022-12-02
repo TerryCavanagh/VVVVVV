@@ -4,6 +4,7 @@
 #include <string.h>
 #include <utf8/unchecked.h>
 
+#include "Alloc.h"
 #include "Exit.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"
@@ -183,7 +184,7 @@ void KeyPoll::Poll(void)
                     if (text != NULL)
                     {
                         keybuffer += text;
-                        SDL_free(text);
+                        VVV_free(text);
                     }
                 }
             }

@@ -22,12 +22,19 @@ class mapclass
 {
 public:
     mapclass(void);
+    void destroy(void);
+
+    int getwidth(void);
+
+    int getheight(void);
 
     int intpol(int a, int b, float c);
 
     void setteleporter(int x, int y);
 
     void settrinket(int x, int y);
+
+    void setroomname(const char* name);
 
     void resetmap(void);
 
@@ -129,7 +136,6 @@ public:
     //Variables for playing custom levels
     bool custommode;
     bool custommodeforreal;
-    int customwidth, customheight;
     int custommmxoff, custommmyoff, custommmxsize, custommmysize;
     int customzoom;
     bool customshowmm;
