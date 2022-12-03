@@ -37,7 +37,7 @@
     <roomname x="5" y="17" english="Indirect Jump Vector" translation="Nerekta saltvektoro" explanation="If you miss the gap in &apos;In a Single Bound&apos; above, you will end up back in this room - hence, your trajectory was off!"/>
     <roomname x="6" y="0" english="Topsy Turvyism" translation="Tienreenismo" explanation="Topsy Turvy is Australian slang for upside down"/>
     <roomname x="6" y="1" english="Purest Unobtainium" translation="Neakireblio plej pura" explanation="Unobtainium is a jokey made up term from science fiction for an impossible substance - https://en.wikipedia.org/wiki/Unobtainium"/>
-    <roomname x="6" y="16" english="Barani, Barani" translation="Pinĉa pasejo" explanation="A Barani is a technical term for doing a flip on a trampoline"/>
+    <roomname x="6" y="16" english="Barani, Barani" translation="Pinĉa pasaĵo" explanation="A Barani is a technical term for doing a flip on a trampoline"/>
     <roomname x="6" y="17" english="Safety Dance" translation="Nesekura danco" explanation="Named after the 80s song by Men Without Hats."/>
     <roomname x="7" y="0" english="Standing Wave" translation="Staranta ondo" explanation="Many of the rooms in the Lab stage have science themed names. This one is at the beginning of a section with gravity lines above and below you, before the section begins."/>
     <roomname x="7" y="15" english="Entanglement Generator" translation="Generilo de envolviĝo" explanation="This room contains a teleporter. Entanglement is an idea from quantum mechanics."/>
@@ -101,7 +101,7 @@
     <roomname x="15" y="4" english="Leap of Faith" translation="Saltego de fido" explanation="To take a leap of faith means to do something without knowing how it&apos;s going to turn out."/>
     <roomname x="15" y="5" english="Solitude" translation="Sole senvole" explanation="As in being alone, or in this case, lost by yourself"/>
     <roomname x="15" y="6" english="Driller" translation="Bortruo" explanation="Technically references the name of a C64 game, but that doesn&apos;t matter much"/>
-    <roomname x="15" y="7" english="Exhaust Chute" translation="Rubopasejo" explanation="Like a factory exhaust chute for disposing of rubbish"/>
+    <roomname x="15" y="7" english="Exhaust Chute" translation="Rubopasaĵo" explanation="Like a factory exhaust chute for disposing of rubbish"/>
     <roomname x="15" y="8" english="Sorrow" translation="Bedaŭro" explanation="A difficult room that you might die in a lot"/>
     <roomname x="15" y="9" english="doomS" translation="Kaj ĉi tie" explanation="The room is above &apos;Swoop&apos;, and is a copy of the room rotated 180 degrees! The room name &apos;doomS&apos; is the word &apos;Swoop&apos; rotated 180 degrees. When localising this room, don&apos;t worry too much about trying to keep the meaning of the words Dooms and Swoop, because they&apos;re not that important - instead, focus on picking words that have this 180 degree flip quality!"/>
     <roomname x="15" y="10" english="Swoop" translation="Kaj tie ĉi" explanation="See the note for room (15,9), doomS."/>
@@ -111,7 +111,7 @@
     <roomname x="16" y="0" english="I Love You" translation="Mi amas vin" explanation="The room contains a couple of heart shaped enemies"/>
     <roomname x="16" y="1" english="As you like it" translation="Kiel plaĉas al vi" explanation="This room can be approached in two different equivilent ways, whichever way you like it. &apos;As you like it&apos; is the name of a Shakespeare play."/>
     <roomname x="16" y="2" english="Short Circuit" translation="Kurta cirkvito" explanation="Probably named after the 80s film Short Circuit. Also works because you&apos;ll hit a dead end if you keep walking forwards."/>
-    <roomname x="16" y="3" english="Twisty Little Passages" translation="Serpentumaj pasejetoj" explanation="A maze like room. Refers to the section from the 1976 text game Colossal Cave Adventure - you are in a maze of twisty little passages, all alike"/>
+    <roomname x="16" y="3" english="Twisty Little Passages" translation="Serpentumaj pasaĵetoj" explanation="A maze like room. Refers to the section from the 1976 text game Colossal Cave Adventure - you are in a maze of twisty little passages, all alike"/>
     <roomname x="16" y="6" english="Quicksand" translation="Movsablo" explanation="Contains lots of dissolving platforms."/>
     <roomname x="16" y="7" english="The Tomb of Mad Carew" translation="Fantombo" explanation="A very obscure reference to the C64 game Dizzy"/>
     <roomname x="16" y="8" english="Parabolica" translation="Parabolaĵo" explanation="This room contains a section of wall in the shape of a parabolic arch."/>
