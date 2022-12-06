@@ -165,6 +165,8 @@ public:
 
     void incstate();
 
+    void setstatedelay(int delay);
+
     void lockstate();
 
     void unlockstate();

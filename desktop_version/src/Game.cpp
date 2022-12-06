@@ -336,7 +336,7 @@ void Game::init(void)
     stat_trinkets = 0;
 
     state = 1;
-    statedelay = 0;
+    setstatedelay(0);
     statelocked = false;
     //updatestate();
 
@@ -370,6 +370,7 @@ void Game::init(void)
     disableaudiopause = false;
     disabletemporaryaudiopause = true;
     inputdelay = false;
+
 }
 
 void Game::lifesequence(void)
@@ -741,6 +742,14 @@ void Game::incstate()
     }
 }
 
+void Game::setstatedelay(int delay)
+{
+    if (!statelocked)
+    {
+        statedelay = delay;
+    }
+}
+
 void Game::lockstate()
 {
     statelocked = true;
@@ -754,8 +763,8 @@ void Game::unlockstate()
 void Game::updatestate(void)
 {
     statedelay--;
-    if(statedelay<=0){
-        statedelay=0;
+    if(statedelay <= 0){
+        statedelay = 0;
         glitchrunkludge=false;
     }
     if (statedelay <= 0)
@@ -1062,9 +1071,8 @@ void Game::updatestate(void)
             setstate(0);
             break;
         case 31:
-            //state = 55;  statedelay = 50;
-            setstate(0);
-            statedelay = 0;
+            //state = 55;  setstatedelay(50);
+            setstate(0, 0);
             if (!obj.flags[6])
             {
                 obj.flags[6] = true;
@@ -1072,8 +1080,7 @@ void Game::updatestate(void)
                 obj.flags[5] = true;
                 startscript = true;
                 newscript="communicationstation";
-                setstate(0);
-                statedelay = 0;
+                setstate(0, 0);
             }
             obj.removetrigger(31);
             break;
@@ -1388,7 +1395,7 @@ void Game::updatestate(void)
             graphics.addline("this message?");
             graphics.textboxtimer(60);
             incstate();
-            statedelay = 100;
+            setstatedelay(100);
             break;
         case 51:
             music.playef(15);
@@ -1396,7 +1403,7 @@ void Game::updatestate(void)
             graphics.addline("there? Are you ok?");
             graphics.textboxtimer(60);
             incstate();
-            statedelay = 100;
+            setstatedelay(100);
             break;
         case 52:
             music.playef(15);
@@ -1404,14 +1411,14 @@ void Game::updatestate(void)
             graphics.addline("and need assistance!");
             graphics.textboxtimer(60);
             incstate();
-            statedelay = 100;
+            setstatedelay(100);
             break;
         case 53:
             music.playef(15);
             graphics.createtextbox("Hello? Anyone out there?", 40, 15, 255, 134, 255);
             graphics.textboxtimer(60);
             incstate();
-            statedelay = 100;
+            setstatedelay(100);
             break;
         case 54:
             music.playef(15);
@@ -1419,21 +1426,21 @@ void Game::updatestate(void)
             graphics.addline("D.S.S. Souleye! Please respond!");
             graphics.textboxtimer(60);
             incstate();
-            statedelay = 100;
+            setstatedelay(100);
             break;
         case 55:
             music.playef(15);
             graphics.createtextbox("Please... Anyone...", 45, 14, 255, 134, 255);
             graphics.textboxtimer(60);
             incstate();
-            statedelay = 100;
+            setstatedelay(100);
             break;
         case 56:
             music.playef(15);
             graphics.createtextbox("Please be alright, everyone...", 25, 18, 255, 134, 255);
             graphics.textboxtimer(60);
             setstate(50);
-            statedelay = 100;
+            setstatedelay(100);
             break;
 
 
@@ -1880,7 +1887,7 @@ void Game::updatestate(void)
             hascontrol = false;
             completestop = true;
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             break;
         case 1001:
             //Found a trinket!
@@ -1929,7 +1936,7 @@ void Game::updatestate(void)
             hascontrol = false;
             completestop = true;
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             break;
 #if !defined(NO_CUSTOM_LEVELS)
         case 1011:
@@ -2037,7 +2044,7 @@ void Game::updatestate(void)
             music.play(5);
             //Activating a teleporter (appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -2045,7 +2052,7 @@ void Game::updatestate(void)
         case 2501:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             //we're done here!
@@ -2055,7 +2062,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -2143,7 +2150,7 @@ void Game::updatestate(void)
         case 2509:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2180,7 +2187,7 @@ void Game::updatestate(void)
         case 3000:
             //Activating a teleporter (long version for level complete)
             incstate();
-            statedelay = 30;
+            setstatedelay(30);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -2188,28 +2195,28 @@ void Game::updatestate(void)
         case 3001:
             //Activating a teleporter 2
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             music.playef(9);
             break;
         case 3002:
             //Activating a teleporter 2
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             music.playef(9);
             break;
         case 3003:
             //Activating a teleporter 2
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             music.playef(9);
             break;
         case 3004:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             //we're done here!
@@ -2219,7 +2226,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 50;
+            setstatedelay(50);
             switch(companion)
             {
             case 6:
@@ -2270,25 +2277,25 @@ void Game::updatestate(void)
             lastsaved = 4;
             music.play(0);
             incstate();
-            statedelay = 75;
+            setstatedelay(75);
 
             levelcomplete_textbox();
             break;
         case 3007:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             crewmate_textbox(175, 174, 174);
             break;
         case 3008:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             remaining_textbox();
             break;
         case 3009:
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
 
             actionprompt_textbox();
             break;
@@ -2296,13 +2303,12 @@ void Game::updatestate(void)
             if (jumppressed)
             {
                 incstate();
-                statedelay = 30;
+                setstatedelay(30);
                 graphics.textboxremove();
             }
             break;
         case 3011:
-            setstate(3070);
-            statedelay = 0;
+            setstate(3070, 0);
             break;
 
         case 3020:
@@ -2311,26 +2317,26 @@ void Game::updatestate(void)
             lastsaved = 2;
             music.play(0);
             incstate();
-            statedelay = 75;
+            setstatedelay(75);
 
 
             levelcomplete_textbox();
             break;
         case 3021:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             crewmate_textbox(174, 175, 174);
             break;
         case 3022:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             remaining_textbox();
             break;
         case 3023:
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
 
             actionprompt_textbox();
             break;
@@ -2338,13 +2344,12 @@ void Game::updatestate(void)
             if (jumppressed)
             {
                 incstate();
-                statedelay = 30;
+                setstatedelay(30);
                 graphics.textboxremove();
             }
             break;
         case 3025:
-            setstate(3070);
-            statedelay = 0;
+            setstate(3070, 0);
             break;
 
         case 3040:
@@ -2353,25 +2358,25 @@ void Game::updatestate(void)
             lastsaved = 5;
             music.play(0);
             incstate();
-            statedelay = 75;
+            setstatedelay(75);
 
             levelcomplete_textbox();
             break;
         case 3041:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             crewmate_textbox(174, 174, 175);
             break;
         case 3042:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             remaining_textbox();
             break;
         case 3043:
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
 
             actionprompt_textbox();
             break;
@@ -2379,13 +2384,12 @@ void Game::updatestate(void)
             if (jumppressed)
             {
                 incstate();
-                statedelay = 30;
+                setstatedelay(30);
                 graphics.textboxremove();
             }
             break;
         case 3045:
-            setstate(3070);
-            statedelay = 0;
+            setstate(3070, 0);
             break;
 
         case 3050:
@@ -2394,26 +2398,26 @@ void Game::updatestate(void)
             lastsaved = 1;
             music.play(0);
             incstate();
-            statedelay = 75;
+            setstatedelay(75);
 
 
             levelcomplete_textbox();
             break;
         case 3051:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             crewmate_textbox(175, 175, 174);
             break;
         case 3052:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             remaining_textbox();
             break;
         case 3053:
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
 
             actionprompt_textbox();
             break;
@@ -2421,7 +2425,7 @@ void Game::updatestate(void)
             if (jumppressed)
             {
                 incstate();
-                statedelay = 30;
+                setstatedelay(30);
                 graphics.textboxremove();
                 teleportscript = "";
             }
@@ -2429,7 +2433,7 @@ void Game::updatestate(void)
         case 3055:
             graphics.fademode = FADE_START_FADEOUT;
             incstate();
-            statedelay = 10;
+            setstatedelay(10);
             break;
         case 3056:
             if (graphics.fademode == FADE_FULLY_BLACK)
@@ -2461,25 +2465,25 @@ void Game::updatestate(void)
             lastsaved = 3;
             music.play(0);
             incstate();
-            statedelay = 75;
+            setstatedelay(75);
 
             levelcomplete_textbox();
             break;
         case 3061:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             crewmate_textbox(175, 174, 175);
             break;
         case 3062:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             remaining_textbox();
             break;
         case 3063:
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
 
             actionprompt_textbox();
             break;
@@ -2487,13 +2491,12 @@ void Game::updatestate(void)
             if (jumppressed)
             {
                 incstate();
-                statedelay = 30;
+                setstatedelay(30);
                 graphics.textboxremove();
             }
             break;
         case 3065:
-            setstate(3070);
-            statedelay = 0;
+            setstate(3070, 0);
             break;
 
 
@@ -2654,7 +2657,7 @@ void Game::updatestate(void)
         case 3500:
             music.fadeout();
             incstate();
-            statedelay = 120;
+            setstatedelay(120);
             break;
         case 3501:
             //Game complete!
@@ -2662,7 +2665,7 @@ void Game::updatestate(void)
             unlocknum(5);
             crewstats[0] = true;
             incstate();
-            statedelay = 75;
+            setstatedelay(75);
             music.play(7);
 
             graphics.createtextboxflipme("", -1, 12, 164, 165, 255);
@@ -2685,7 +2688,7 @@ void Game::updatestate(void)
         case 3503:
         {
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             std::string tempstring = help.number_words(trinkets());
             graphics.createtextboxflipme("Trinkets Found:", 48, 84, 0,0,0);
@@ -2704,7 +2707,7 @@ void Game::updatestate(void)
         }
         case 3505:
             incstate();
-            statedelay = 45;
+            setstatedelay(45);
 
             graphics.createtextboxflipme(" Total Flips:", 64, 123, 0,0,0);
             graphics.createtextboxflipme(help.String(totalflips), 180, 123, 0, 0, 0);
@@ -2728,7 +2731,7 @@ void Game::updatestate(void)
         }
         case 3508:
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
 
             actionprompt_textbox();
             break;
@@ -2736,7 +2739,7 @@ void Game::updatestate(void)
             if (jumppressed)
             {
                 incstate();
-                statedelay = 30;
+                setstatedelay(30);
                 graphics.textboxremove();
             }
             break;
@@ -2787,12 +2790,11 @@ void Game::updatestate(void)
             {
                 unlockAchievement("vvvvvvmaster"); //bloody hell
                 unlocknum(20);
-                setstate(3520);
-                statedelay = 0;
+                setstate(3520, 0);
             }
             else
             {
-                statedelay = 120;
+                setstatedelay(120);
                 incstate();
             }
             break;
@@ -2806,7 +2808,7 @@ void Game::updatestate(void)
             }
 
             incstate();
-            statedelay = 30;
+            setstatedelay(30);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -2815,21 +2817,21 @@ void Game::updatestate(void)
         case 3512:
             //Activating a teleporter 2
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             music.playef(9);
             break;
         case 3513:
             //Activating a teleporter 2
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             music.playef(9);
             break;
         case 3514:
             //Activating a teleporter 2
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             music.playef(9);
             break;
@@ -2837,7 +2839,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
 
@@ -2850,7 +2852,7 @@ void Game::updatestate(void)
 
             //we're done here!
             music.playef(10);
-            statedelay = 60;
+            setstatedelay(60);
             break;
         }
         case 3516:
@@ -2861,13 +2863,13 @@ void Game::updatestate(void)
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
                 incstate();
-                statedelay = 30;
+                setstatedelay(30);
             }
             break;
         case 3518:
             graphics.fademode = FADE_START_FADEIN;
             setstate(0);
-            statedelay = 30;
+            setstatedelay(30);
 
             map.finalmode = false;
             map.final_colormode = false;
@@ -2950,7 +2952,7 @@ void Game::updatestate(void)
         case 4010:
             //Activating a teleporter (default appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -2958,7 +2960,7 @@ void Game::updatestate(void)
         case 4011:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -2967,7 +2969,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3046,7 +3048,7 @@ void Game::updatestate(void)
         case 4018:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3081,7 +3083,7 @@ void Game::updatestate(void)
         case 4020:
             //Activating a teleporter (default appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -3089,7 +3091,7 @@ void Game::updatestate(void)
         case 4021:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -3098,7 +3100,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3177,7 +3179,7 @@ void Game::updatestate(void)
         case 4028:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3194,7 +3196,7 @@ void Game::updatestate(void)
         case 4030:
             //Activating a teleporter (default appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -3202,7 +3204,7 @@ void Game::updatestate(void)
         case 4031:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -3211,7 +3213,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3290,7 +3292,7 @@ void Game::updatestate(void)
         case 4038:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3307,7 +3309,7 @@ void Game::updatestate(void)
         case 4040:
             //Activating a teleporter (default appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -3315,7 +3317,7 @@ void Game::updatestate(void)
         case 4041:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -3324,7 +3326,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3408,7 +3410,7 @@ void Game::updatestate(void)
         case 4048:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3425,7 +3427,7 @@ void Game::updatestate(void)
         case 4050:
             //Activating a teleporter (default appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -3433,7 +3435,7 @@ void Game::updatestate(void)
         case 4051:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -3442,7 +3444,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3526,7 +3528,7 @@ void Game::updatestate(void)
         case 4058:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3543,7 +3545,7 @@ void Game::updatestate(void)
         case 4060:
             //Activating a teleporter (default appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -3551,7 +3553,7 @@ void Game::updatestate(void)
         case 4061:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -3560,7 +3562,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3641,7 +3643,7 @@ void Game::updatestate(void)
         case 4068:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3659,7 +3661,7 @@ void Game::updatestate(void)
         case 4070:
             //Activating a teleporter (special for final script, player has colour changed to match rescued crewmate)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -3667,7 +3669,7 @@ void Game::updatestate(void)
         case 4071:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -3676,7 +3678,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3755,7 +3757,7 @@ void Game::updatestate(void)
         case 4078:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3772,7 +3774,7 @@ void Game::updatestate(void)
         case 4080:
             //Activating a teleporter (default appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -3780,7 +3782,7 @@ void Game::updatestate(void)
         case 4081:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -3789,7 +3791,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3868,7 +3870,7 @@ void Game::updatestate(void)
         case 4088:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3885,7 +3887,7 @@ void Game::updatestate(void)
         case 4090:
             //Activating a teleporter (default appear)
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
             music.playef(9);
@@ -3893,7 +3895,7 @@ void Game::updatestate(void)
         case 4091:
             //Activating a teleporter 2
             incstate();
-            statedelay = 0;
+            setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
             music.playef(10);
@@ -3902,7 +3904,7 @@ void Game::updatestate(void)
         {
             //Activating a teleporter 2
             incstate();
-            statedelay = 5;
+            setstatedelay(5);
 
             int i = obj.getplayer();
             int j = obj.getteleporter();
@@ -3981,7 +3983,7 @@ void Game::updatestate(void)
         case 4098:
         {
             incstate();
-            statedelay = 15;
+            setstatedelay(15);
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {

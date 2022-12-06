@@ -1117,6 +1117,7 @@ void scriptclass::run(void)
             }
             else if (words[0] == "gamestate")
             {
+                // Allow the gamestate command bypass statelock, at least for now
                 game.state = ss_toi(words[1]);
                 game.statedelay = 0;
             }

@@ -2168,7 +2168,7 @@ void gameinput(void)
                                 }
                                 //which teleporter script do we use? it depends on the companion!
                                 game.setstate(4000);
-                                game.statedelay = 0;
+                                game.setstatedelay(0);
                             }
                             else if (game.companion == 0)
                             {
@@ -2201,7 +2201,7 @@ void gameinput(void)
                                 }
                                 //which teleporter script do we use? it depends on the companion!
                                 game.setstate(3000);
-                                game.statedelay = 0;
+                                game.setstatedelay(0);
                             }
                         }
                     }
@@ -2458,7 +2458,7 @@ void mapinput(void)
         if (game.menupage >= 20 && game.menupage <= 21)
         {
             game.setstate(96);
-            game.statedelay = 0;
+            game.setstatedelay(0);
         }
         else
         {
@@ -2467,7 +2467,7 @@ void mapinput(void)
             graphics.textboxes.clear();
 
             game.setstate(80);
-            game.statedelay = 0;
+            game.setstatedelay(0);
         }
     }
 
@@ -2867,7 +2867,7 @@ void teleporterinput(void)
                 }
                 //which teleporter script do we use? it depends on the companion!
                 game.setstate(4000);
-                game.statedelay = 0;
+                game.setstatedelay(0);
             }
         }
     }
