@@ -159,6 +159,16 @@ public:
     void actionprompt_textbox(void);
     void savetele_textbox(void);
 
+    void setstate(int gamestate);
+
+    void setstate(int gamestate, int delay);
+
+    void incstate();
+
+    void lockstate();
+
+    void unlockstate();
+
     void updatestate(void);
 
     void unlocknum(int t);
@@ -489,6 +499,8 @@ public:
     bool disableaudiopause;
     bool disabletemporaryaudiopause;
     bool inputdelay;
+
+    bool statelocked;
 };
 
 #ifndef GAME_DEFINITION
