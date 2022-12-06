@@ -2262,6 +2262,6 @@ void mapclass::twoframedelayfix(void)
     game.newscript = obj.blocks[block_idx].script;
     obj.removetrigger(activetrigger);
     game.setstate(0);
-    game.statedelay = 0;
+    game.setstatedelay(0);
     script.load(game.newscript);
 }

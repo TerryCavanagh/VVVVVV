@@ -3337,7 +3337,7 @@ bool entityclass::updateentities( int i )
                     if(!game.intimetrial && !game.nodeathmode)
                     {
                         game.setstate(2000);
-                        game.statedelay = 0;
+                        game.setstatedelay(0);
                     }
 
                     game.activetele = true;
@@ -4750,7 +4750,7 @@ void entityclass::entitycollisioncheck(void)
         {
             game.state = activetrigger;
         }
-        game.statedelay = 0;
+        game.setstatedelay(0);
     }
 }
 
