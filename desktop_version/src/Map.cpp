@@ -1098,10 +1098,10 @@ void mapclass::gotoroom(int rx, int ry)
     {
         if (!obj.flags[5] && !finalmode)
         {
-            game.state = 0;
+            game.setstate(0);
             if (game.roomx == 113 && game.roomy == 104)
             {
-                game.state = 50;
+                game.setstate(50);
             }
         }
     }
@@ -2289,7 +2289,7 @@ void mapclass::twoframedelayfix(void)
 
     game.newscript = obj.blocks[block_idx].script;
     obj.removetrigger(activetrigger);
-    game.state = 0;
+    game.setstate(0);
     game.statedelay = 0;
     script.load(game.newscript);
 }

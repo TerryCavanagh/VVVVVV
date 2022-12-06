@@ -2667,7 +2667,7 @@ bool entityclass::updateentities( int i )
                 }
                 else
                 {
-                    game.state = 1000;
+                    game.setstate(1000);
                     if(music.currentsong!=-1) music.silencedasmusik();
                     music.playef(3);
                     if (game.trinkets() > game.stat_trinkets && !map.custommode)
@@ -3316,7 +3316,7 @@ bool entityclass::updateentities( int i )
                 }
                 else
                 {
-                    game.state = 1010;
+                    game.setstate(1010);
                     //music.haltdasmusik();
                     if(music.currentsong!=-1) music.silencedasmusik();
                     music.playef(27);
@@ -3336,7 +3336,7 @@ bool entityclass::updateentities( int i )
                     entities[i].colour = 101;
                     if(!game.intimetrial && !game.nodeathmode)
                     {
-                        game.state = 2000;
+                        game.setstate(2000);
                         game.statedelay = 0;
                     }
 
@@ -4744,7 +4744,7 @@ void entityclass::entitycollisioncheck(void)
             game.startscript = true;
             game.newscript = blocks[block_idx].script;
             removetrigger(activetrigger);
-            game.state = 0;
+            game.setstate(0);
         }
         else
         {

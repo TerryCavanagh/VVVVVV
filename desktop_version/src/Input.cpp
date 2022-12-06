@@ -2167,7 +2167,7 @@ void gameinput(void)
                                     obj.entities[teleporter].colour = 102;
                                 }
                                 //which teleporter script do we use? it depends on the companion!
-                                game.state = 4000;
+                                game.setstate(4000);
                                 game.statedelay = 0;
                             }
                             else if (game.companion == 0)
@@ -2200,7 +2200,7 @@ void gameinput(void)
                                     obj.entities[teleporter].colour = 102;
                                 }
                                 //which teleporter script do we use? it depends on the companion!
-                                game.state = 3000;
+                                game.setstate(3000);
                                 game.statedelay = 0;
                             }
                         }
@@ -2457,7 +2457,7 @@ void mapinput(void)
 
         if (game.menupage >= 20 && game.menupage <= 21)
         {
-            game.state = 96;
+            game.setstate(96);
             game.statedelay = 0;
         }
         else
@@ -2466,7 +2466,7 @@ void mapinput(void)
             script.running = false;
             graphics.textboxes.clear();
 
-            game.state = 80;
+            game.setstate(80);
             game.statedelay = 0;
         }
     }
@@ -2632,8 +2632,8 @@ static void mapmenuactionpress(const bool version2_2)
         }
 
         //which teleporter script do we use? it depends on the companion!
-        game.state = 4000;
-        game.statedelay = 0;
+        game.setstate(4000, 0);
+        game.lockstate();
     }
         break;
     case 3:
@@ -2866,7 +2866,7 @@ void teleporterinput(void)
                     obj.entities[i].colour = 102;
                 }
                 //which teleporter script do we use? it depends on the companion!
-                game.state = 4000;
+                game.setstate(4000);
                 game.statedelay = 0;
             }
         }

@@ -3043,44 +3043,44 @@ void scriptclass::teleport(void)
 
     if(game.teleport_to_x==0 && game.teleport_to_y==0)
     {
-        game.state = 4020;
+        game.setstate(4020);
     }
     else if(game.teleport_to_x==0 && game.teleport_to_y==16)
     {
-        game.state = 4030;
+        game.setstate(4030);
     }
     else if(game.teleport_to_x==7 && game.teleport_to_y==9)
     {
-        game.state = 4040;
+        game.setstate(4040);
     }
     else if(game.teleport_to_x==8 && game.teleport_to_y==11)
     {
-        game.state = 4050;
+        game.setstate(4050);
     }
     else if(game.teleport_to_x==14 && game.teleport_to_y==19)
     {
-        game.state = 4030;
+        game.setstate(4030);
     }
     else if(game.teleport_to_x==17 && game.teleport_to_y==12)
     {
-        game.state = 4020;
+        game.setstate(4020);
     }
     else if(game.teleport_to_x==17 && game.teleport_to_y==17)
     {
-        game.state = 4020;
+        game.setstate(4020);
     }
     else if(game.teleport_to_x==18 && game.teleport_to_y==7)
     {
-        game.state = 4060;
+        game.setstate(4060);
     }
     else
     {
-        game.state = 4010;
+        game.setstate(4010);
     }
 
     if (game.teleportscript != "")
     {
-        game.state = 0;
+        game.setstate(0);
         load(game.teleportscript);
         game.teleportscript = "";
     }
@@ -3199,6 +3199,7 @@ void scriptclass::hardreset(void)
     game.inintermission = false;
     game.insecretlab = false;
 
+    game.unlockstate();
     game.state = 0;
     game.statedelay = 0;
 

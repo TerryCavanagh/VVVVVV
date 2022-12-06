@@ -337,6 +337,7 @@ void Game::init(void)
 
     state = 1;
     statedelay = 0;
+    statelocked = false;
     //updatestate();
 
     skipfakeload = false;
@@ -715,6 +716,41 @@ void Game::savetele_textbox(void)
     }
 }
 
+void Game::setstate(int gamestate)
+{
+    if (!statelocked)
+    {
+        state = gamestate;
+    }
+}
+
+void Game::setstate(int gamestate, int delay)
+{
+    if (!statelocked)
+    {
+        state = gamestate;
+        statedelay = delay;
+    }
+}
+
+void Game::incstate()
+{
+    if (!statelocked)
+    {
+        state++;
+    }
+}
+
+void Game::lockstate()
+{
+    statelocked = true;
+}
+
+void Game::unlockstate()
+{
+    statelocked = false;
+}
+
 void Game::updatestate(void)
 {
     statedelay--;
@@ -746,13 +782,13 @@ void Game::updatestate(void)
             break;
         case 1:
             //Game initilisation
-            state = 0;
+            setstate(0);
             break;
         case 2:
             //Opening cutscene
             advancetext = true;
             hascontrol = false;
-            state = 3;
+            setstate(3);
             graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
             graphics.addline("intro to story!");
             //Oh no! what happen to rest of crew etc crash into dimension
@@ -761,7 +797,7 @@ void Game::updatestate(void)
             //End of opening cutscene for now
             graphics.createtextbox("  Press arrow keys or WASD to move  ", -1, 195, 174, 174, 174);
             graphics.textboxtimer(60);
-            state = 0;
+            setstate(0);
             break;
         case 5:
             //Demo over
@@ -771,14 +807,14 @@ void Game::updatestate(void)
             startscript = true;
             newscript="returntohub";
             obj.removetrigger(5);
-            state = 6;
+            setstate(6);
             break;
         case 7:
             //End of opening cutscene for now
             graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
-            state = 0;
+            setstate(0);
             break;
         case 8:
             //Enter dialogue
@@ -790,7 +826,7 @@ void Game::updatestate(void)
                 graphics.addline("      and quicksave");
                 graphics.textboxtimer(60);
             }
-            state = 0;
+            setstate(0);
             break;
 
         case 9:
@@ -801,7 +837,7 @@ void Game::updatestate(void)
                 startscript = true;
                 newscript = "disableaccessibility";
 
-                state = 0;
+                setstate(0);
                 break;
             }
 
@@ -822,7 +858,7 @@ void Game::updatestate(void)
             savery = roomy;
             savedir = 0;
 
-            state = 0;
+            setstate(0);
             break;
 
         case 10:
@@ -843,7 +879,7 @@ void Game::updatestate(void)
             savery = roomy;
             savedir = 0;
 
-            state = 0;
+            setstate(0);
             break;
 
         case 11:
@@ -891,7 +927,7 @@ void Game::updatestate(void)
 
             graphics.addline("     stop and wait for you.");
             graphics.textboxtimer(180);
-            state = 0;
+            setstate(0);
             break;
         case 12:
             //Intermission 1 instructional textbox, depends on last saved
@@ -911,13 +947,13 @@ void Game::updatestate(void)
                 }
                 graphics.textboxtimer(120);
             }
-            state = 0;
+            setstate(0);
             break;
         case 13:
             //textbox removal
             obj.removetrigger(13);
             graphics.textboxremovefast();
-            state = 0;
+            setstate(0);
             break;
         case 14:
             //Intermission 1 instructional textbox, depends on last saved
@@ -947,7 +983,7 @@ void Game::updatestate(void)
             }
             graphics.textboxtimer(280);
 
-            state = 0;
+            setstate(0);
             break;
 
         case 15:
@@ -958,7 +994,7 @@ void Game::updatestate(void)
             {
                 obj.entities[obj.getplayer()].tile = 0;
             }
-            state = 0;
+            setstate(0);
             break;
         }
         case 16:
@@ -970,7 +1006,7 @@ void Game::updatestate(void)
                 obj.entities[i].tile = 144;
                 music.playef(2);
             }
-            state = 0;
+            setstate(0);
             break;
         }
 
@@ -980,14 +1016,14 @@ void Game::updatestate(void)
             graphics.createtextbox(" If you prefer, you can press UP or ", -1, 195, 174, 174, 174);
             graphics.addline("   DOWN instead of ACTION to flip.");
             graphics.textboxtimer(100);
-            state = 0;
+            setstate(0);
             break;
 
         case 20:
             if (!obj.flags[1])
             {
                 obj.flags[1] = true;
-                state = 0;
+                setstate(0);
                 graphics.textboxremove();
             }
             obj.removetrigger(20);
@@ -996,7 +1032,7 @@ void Game::updatestate(void)
             if (!obj.flags[2])
             {
                 obj.flags[2] = true;
-                state = 0;
+                setstate(0);
                 graphics.textboxremove();
             }
             obj.removetrigger(21);
@@ -1006,7 +1042,7 @@ void Game::updatestate(void)
             {
                 graphics.textboxremovefast();
                 obj.flags[3] = true;
-                state = 0;
+                setstate(0);
                 graphics.createtextbox("  Press ACTION to flip  ", -1, 25, 174, 174, 174);
                 graphics.textboxtimer(60);
             }
@@ -1020,14 +1056,14 @@ void Game::updatestate(void)
                 obj.flags[4] = true;
                 startscript = true;
                 newscript="firststeps";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(30);
-            state = 0;
+            setstate(0);
             break;
         case 31:
             //state = 55;  statedelay = 50;
-            state = 0;
+            setstate(0);
             statedelay = 0;
             if (!obj.flags[6])
             {
@@ -1036,7 +1072,7 @@ void Game::updatestate(void)
                 obj.flags[5] = true;
                 startscript = true;
                 newscript="communicationstation";
-                state = 0;
+                setstate(0);
                 statedelay = 0;
             }
             obj.removetrigger(31);
@@ -1048,10 +1084,10 @@ void Game::updatestate(void)
                 obj.flags[7] = true;
                 startscript = true;
                 newscript="teleporterback";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(32);
-            state = 0;
+            setstate(0);
             break;
         case 33:
             //Generic "run script"
@@ -1060,10 +1096,10 @@ void Game::updatestate(void)
                 obj.flags[9] = true;
                 startscript = true;
                 newscript="rescueblue";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(33);
-            state = 0;
+            setstate(0);
             break;
         case 34:
             //Generic "run script"
@@ -1072,10 +1108,10 @@ void Game::updatestate(void)
                 obj.flags[10] = true;
                 startscript = true;
                 newscript="rescueyellow";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(34);
-            state = 0;
+            setstate(0);
             break;
         case 35:
             //Generic "run script"
@@ -1084,10 +1120,10 @@ void Game::updatestate(void)
                 obj.flags[11] = true;
                 startscript = true;
                 newscript="rescuegreen";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(35);
-            state = 0;
+            setstate(0);
             break;
         case 36:
             //Generic "run script"
@@ -1096,10 +1132,10 @@ void Game::updatestate(void)
                 obj.flags[8] = true;
                 startscript = true;
                 newscript="rescuered";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(36);
-            state = 0;
+            setstate(0);
             break;
 
         case 37:
@@ -1108,10 +1144,10 @@ void Game::updatestate(void)
             {
                 startscript = true;
                 newscript="int2_yellow";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(37);
-            state = 0;
+            setstate(0);
             break;
         case 38:
             //Generic "run script"
@@ -1119,10 +1155,10 @@ void Game::updatestate(void)
             {
                 startscript = true;
                 newscript="int2_red";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(38);
-            state = 0;
+            setstate(0);
             break;
         case 39:
             //Generic "run script"
@@ -1130,10 +1166,10 @@ void Game::updatestate(void)
             {
                 startscript = true;
                 newscript="int2_green";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(39);
-            state = 0;
+            setstate(0);
             break;
         case 40:
             //Generic "run script"
@@ -1141,10 +1177,10 @@ void Game::updatestate(void)
             {
                 startscript = true;
                 newscript="int2_blue";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(40);
-            state = 0;
+            setstate(0);
             break;
 
         case 41:
@@ -1169,10 +1205,10 @@ void Game::updatestate(void)
                 {
                     newscript = "int1blue_2";
                 }
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(41);
-            state = 0;
+            setstate(0);
             break;
         case 42:
             //Generic "run script"
@@ -1196,10 +1232,10 @@ void Game::updatestate(void)
                 {
                     newscript = "int1blue_3";
                 }
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(42);
-            state = 0;
+            setstate(0);
             break;
         case 43:
             //Generic "run script"
@@ -1223,10 +1259,10 @@ void Game::updatestate(void)
                 {
                     newscript = "int1blue_4";
                 }
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(43);
-            state = 0;
+            setstate(0);
             break;
         case 44:
             //Generic "run script"
@@ -1250,10 +1286,10 @@ void Game::updatestate(void)
                 {
                     newscript = "int1blue_5";
                 }
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(44);
-            state = 0;
+            setstate(0);
             break;
         case 45:
             //Generic "run script"
@@ -1277,10 +1313,10 @@ void Game::updatestate(void)
                 {
                     newscript = "int1blue_6";
                 }
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(45);
-            state = 0;
+            setstate(0);
             break;
         case 46:
             //Generic "run script"
@@ -1304,10 +1340,10 @@ void Game::updatestate(void)
                 {
                     newscript = "int1blue_7";
                 }
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(46);
-            state = 0;
+            setstate(0);
             break;
 
         case 47:
@@ -1317,10 +1353,10 @@ void Game::updatestate(void)
                 obj.flags[69] = true;
                 startscript = true;
                 newscript="trenchwarfare";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(47);
-            state = 0;
+            setstate(0);
             break;
         case 48:
             //Generic "run script"
@@ -1329,10 +1365,10 @@ void Game::updatestate(void)
                 obj.flags[70] = true;
                 startscript = true;
                 newscript="trinketcollector";
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(48);
-            state = 0;
+            setstate(0);
             break;
         case 49:
             //Start final level music
@@ -1340,10 +1376,10 @@ void Game::updatestate(void)
             {
                 obj.flags[71] = true;
                 music.niceplay(15);  //Final level remix
-                state = 0;
+                setstate(0);
             }
             obj.removetrigger(49);
-            state = 0;
+            setstate(0);
             break;
 
         case 50:
@@ -1351,7 +1387,7 @@ void Game::updatestate(void)
             graphics.createtextbox("Help! Can anyone hear", 35, 15, 255, 134, 255);
             graphics.addline("this message?");
             graphics.textboxtimer(60);
-            state++;
+            incstate();
             statedelay = 100;
             break;
         case 51:
@@ -1359,7 +1395,7 @@ void Game::updatestate(void)
             graphics.createtextbox("Verdigris? Are you out", 30, 12, 255, 134, 255);
             graphics.addline("there? Are you ok?");
             graphics.textboxtimer(60);
-            state++;
+            incstate();
             statedelay = 100;
             break;
         case 52:
@@ -1367,14 +1403,14 @@ void Game::updatestate(void)
             graphics.createtextbox("Please help us! We've crashed", 5, 22, 255, 134, 255);
             graphics.addline("and need assistance!");
             graphics.textboxtimer(60);
-            state++;
+            incstate();
             statedelay = 100;
             break;
         case 53:
             music.playef(15);
             graphics.createtextbox("Hello? Anyone out there?", 40, 15, 255, 134, 255);
             graphics.textboxtimer(60);
-            state++;
+            incstate();
             statedelay = 100;
             break;
         case 54:
@@ -1382,21 +1418,21 @@ void Game::updatestate(void)
             graphics.createtextbox("This is Doctor Violet from the", 5, 8, 255, 134, 255);
             graphics.addline("D.S.S. Souleye! Please respond!");
             graphics.textboxtimer(60);
-            state++;
+            incstate();
             statedelay = 100;
             break;
         case 55:
             music.playef(15);
             graphics.createtextbox("Please... Anyone...", 45, 14, 255, 134, 255);
             graphics.textboxtimer(60);
-            state++;
+            incstate();
             statedelay = 100;
             break;
         case 56:
             music.playef(15);
             graphics.createtextbox("Please be alright, everyone...", 25, 18, 255, 134, 255);
             graphics.textboxtimer(60);
-            state=50;
+            setstate(50);
             statedelay = 100;
             break;
 
@@ -1405,13 +1441,13 @@ void Game::updatestate(void)
             //Used to return to menu from the game
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 81:
             quittomenu();
             music.play(6); //should be after quittomenu()
-            state = 0;
+            setstate(0);
             break;
 
         case 82:
@@ -1463,19 +1499,19 @@ void Game::updatestate(void)
 
             graphics.fademode = FADE_START_FADEOUT;
             music.fadeout();
-            state++;
+            incstate();
             break;
         case 83:
             frames--;
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 84:
             quittomenu();
             createmenu(Menu::timetrialcomplete);
-            state = 0;
+            setstate(0);
             break;
 
 
@@ -1483,7 +1519,7 @@ void Game::updatestate(void)
             //Cutscene skip version of final level change
             obj.removetrigger(85);
             //Init final stretch
-            state++;
+            incstate();
             music.playef(9);
             music.play(2);
             obj.flags[72] = true;
@@ -1498,7 +1534,7 @@ void Game::updatestate(void)
             map.final_colormode = true;
             map.final_colorframe = 1;
 
-            state = 0;
+            setstate(0);
             break;
 
             //From 90-100 are run scripts for the eurogamer expo only, remove later
@@ -1507,54 +1543,54 @@ void Game::updatestate(void)
             startscript = true;
             newscript="startexpolevel_station1";
             obj.removetrigger(90);
-            state = 0;
+            setstate(0);
             break;
         case 91:
             //Generic "run script"
             startscript = true;
             newscript="startexpolevel_lab";
             obj.removetrigger(91);
-            state = 0;
+            setstate(0);
             break;
         case 92:
             //Generic "run script"
             startscript = true;
             newscript="startexpolevel_warp";
             obj.removetrigger(92);
-            state = 0;
+            setstate(0);
             break;
         case 93:
             //Generic "run script"
             startscript = true;
             newscript="startexpolevel_tower";
             obj.removetrigger(93);
-            state = 0;
+            setstate(0);
             break;
         case 94:
             //Generic "run script"
             startscript = true;
             newscript="startexpolevel_station2";
             obj.removetrigger(94);
-            state = 0;
+            setstate(0);
             break;
         case 95:
             //Generic "run script"
             startscript = true;
             newscript="startexpolevel_final";
             obj.removetrigger(95);
-            state = 0;
+            setstate(0);
             break;
 
         case 96:
             //Used to return to gravitron to game
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 97:
             returntolab();
-            state = 0;
+            setstate(0);
             break;
 
         case 100:
@@ -1565,7 +1601,7 @@ void Game::updatestate(void)
             if (!obj.flags[4])
             {
                 obj.flags[4] = true;
-                state++;
+                incstate();
             }
             break;
         case 101:
@@ -1581,7 +1617,7 @@ void Game::updatestate(void)
             }
             if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onground > 0)
             {
-                state++;
+                incstate();
             }
         }
         break;
@@ -1601,13 +1637,13 @@ void Game::updatestate(void)
             hascontrol = false;
 
             graphics.createtextbox("Captain! I've been so worried!", 60, 90, 164, 255, 164);
-            state++;
+            incstate();
             music.playef(12);
         }
         break;
         case 104:
             graphics.createtextbox("I'm glad you're ok!", 135, 152, 164, 164, 255);
-            state++;
+            incstate();
             music.playef(11);
             graphics.textboxactive();
             break;
@@ -1616,7 +1652,7 @@ void Game::updatestate(void)
             graphics.createtextbox("I've been trying to find a", 74, 70, 164, 255, 164);
             graphics.addline("way out, but I keep going");
             graphics.addline("around in circles...");
-            state++;
+            incstate();
             music.playef(2);
             graphics.textboxactive();
             int i = obj.getcompanion();
@@ -1630,7 +1666,7 @@ void Game::updatestate(void)
         case 108:
             graphics.createtextbox("Don't worry! I have a", 125, 152, 164, 164, 255);
             graphics.addline("teleporter key!");
-            state++;
+            incstate();
             music.playef(11);
             graphics.textboxactive();
             break;
@@ -1644,7 +1680,7 @@ void Game::updatestate(void)
                 obj.entities[i].state = 1;
             }
             graphics.createtextbox("Follow me!", 185, 154, 164, 164, 255);
-            state++;
+            incstate();
             music.playef(11);
             graphics.textboxactive();
 
@@ -1655,7 +1691,7 @@ void Game::updatestate(void)
             hascontrol = true;
             advancetext = false;
 
-            state = 0;
+            setstate(0);
             break;
 
         case 115:
@@ -1663,7 +1699,7 @@ void Game::updatestate(void)
             //                       Test script for space station, totally delete me!
             //
             hascontrol = false;
-            state++;
+            incstate();
         break;
         case 116:
             advancetext = true;
@@ -1672,14 +1708,14 @@ void Game::updatestate(void)
             graphics.createtextbox("Sorry Eurogamers! Teleporting around", 60 - 20, 200, 255, 64, 64);
             graphics.addline("the map doesn't work in this version!");
             graphics.textboxcenterx();
-            state++;
+            incstate();
             break;
         case 118:
             graphics.textboxremove();
             hascontrol = true;
             advancetext = false;
 
-            state = 0;
+            setstate(0);
             break;
 
         case 120:
@@ -1690,7 +1726,7 @@ void Game::updatestate(void)
             if (!obj.flags[5])
             {
                 obj.flags[5] = true;
-                state++;
+                incstate();
             }
             break;
         case 121:
@@ -1705,7 +1741,7 @@ void Game::updatestate(void)
             }
             if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onroof > 0)
             {
-                state++;
+                incstate();
             }
 
         }
@@ -1724,7 +1760,7 @@ void Game::updatestate(void)
             hascontrol = false;
 
             graphics.createtextbox("Captain! You're ok!", 60-10, 90-40, 255, 255, 134);
-            state++;
+            incstate();
             music.playef(14);
             break;
         }
@@ -1732,21 +1768,21 @@ void Game::updatestate(void)
         {
             graphics.createtextbox("I've found a teleporter, but", 60-20, 90 - 40, 255, 255, 134);
             graphics.addline("I can't get it to go anywhere...");
-            state++;
+            incstate();
             music.playef(2);
             graphics.textboxactive();
             break;
         }
         case 126:
             graphics.createtextbox("I can help with that!", 125, 152-40, 164, 164, 255);
-            state++;
+            incstate();
             music.playef(11);
             graphics.textboxactive();
             break;
         case 128:
             graphics.createtextbox("I have the teleporter", 130, 152-35, 164, 164, 255);
             graphics.addline("codex for our ship!");
-            state++;
+            incstate();
             music.playef(11);
             graphics.textboxactive();
             break;
@@ -1754,7 +1790,7 @@ void Game::updatestate(void)
         case 130:
         {
             graphics.createtextbox("Yey! Let's go home!", 60-30, 90-35, 255, 255, 134);
-            state++;
+            incstate();
             music.playef(14);
             graphics.textboxactive();
             int i = obj.getcompanion();
@@ -1770,12 +1806,12 @@ void Game::updatestate(void)
             hascontrol = true;
             advancetext = false;
 
-            state = 0;
+            setstate(0);
             break;
 
         case 200:
             //Init final stretch
-            state++;
+            incstate();
             music.playef(9);
             obj.flags[72] = true;
 
@@ -1791,7 +1827,7 @@ void Game::updatestate(void)
 
             startscript = true;
             newscript="finalterminal_finish";
-            state = 0;
+            setstate(0);
             break;
 
 
@@ -1836,20 +1872,20 @@ void Game::updatestate(void)
             startscript = true;
             newscript="custom_"+customscript[state - 300];
             obj.removetrigger(state);
-            state = 0;
+            setstate(0);
             break;
 
         case 1000:
             graphics.showcutscenebars = true;
             hascontrol = false;
             completestop = true;
-            state++;
+            incstate();
             statedelay = 15;
             break;
         case 1001:
             //Found a trinket!
             advancetext = true;
-            state++;
+            incstate();
             graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
             graphics.addline("");
             graphics.addline("You have found a shiny trinket!");
@@ -1872,7 +1908,7 @@ void Game::updatestate(void)
             if (!advancetext)
             {
                 // Prevent softlocks if we somehow don't have advancetext
-                state++;
+                incstate();
             }
             break;
         case 1003:
@@ -1880,7 +1916,7 @@ void Game::updatestate(void)
             hascontrol = true;
             advancetext = false;
             completestop = false;
-            state = 0;
+            setstate(0);
             if (music.currentsong > -1)
             {
                 music.fadeMusicVolumeIn(3000);
@@ -1892,14 +1928,14 @@ void Game::updatestate(void)
             graphics.showcutscenebars = true;
             hascontrol = false;
             completestop = true;
-            state++;
+            incstate();
             statedelay = 15;
             break;
 #if !defined(NO_CUSTOM_LEVELS)
         case 1011:
             //Found a crewmate!
             advancetext = true;
-            state++;
+            incstate();
             graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
             graphics.addline("");
             graphics.addline("You have found a lost crewmate!");
@@ -1923,7 +1959,7 @@ void Game::updatestate(void)
             if (!advancetext)
             {
                 // Prevent softlocks if we somehow don't have advancetext
-                state++;
+                incstate();
             }
             break;
         case 1013:
@@ -1931,14 +1967,14 @@ void Game::updatestate(void)
             hascontrol = true;
             advancetext = false;
             completestop = false;
-            state = 0;
+            setstate(0);
 
             if(cl.numcrewmates()-crewmates()==0)
             {
                 if(map.custommodeforreal)
                 {
                     graphics.fademode = FADE_START_FADEOUT;
-                    state=1014;
+                    setstate(1014);
                 }
 #ifndef NO_EDITOR
                 else
@@ -1961,7 +1997,7 @@ void Game::updatestate(void)
             frames--;
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 1015:
@@ -1986,21 +2022,21 @@ void Game::updatestate(void)
 #endif
             quittomenu();
             music.play(6); //should be after quittomenu()
-            state = 0;
+            setstate(0);
             break;
 
 
         case 2000:
             //Game Saved!
             savetele_textbox();
-            state = 0;
+            setstate(0);
             break;
 
         case 2500:
 
             music.play(5);
             //Activating a teleporter (appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -2008,7 +2044,7 @@ void Game::updatestate(void)
             break;
         case 2501:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -2018,7 +2054,7 @@ void Game::updatestate(void)
         case 2502:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -2051,7 +2087,7 @@ void Game::updatestate(void)
         }
         case 2503:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2061,7 +2097,7 @@ void Game::updatestate(void)
         }
         case 2504:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2071,7 +2107,7 @@ void Game::updatestate(void)
         }
         case 2505:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2081,7 +2117,7 @@ void Game::updatestate(void)
         }
         case 2506:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2091,12 +2127,12 @@ void Game::updatestate(void)
         }
         case 2507:
         {
-            state++;
+            incstate();
             break;
         }
         case 2508:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2106,7 +2142,7 @@ void Game::updatestate(void)
         }
         case 2509:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -2119,7 +2155,7 @@ void Game::updatestate(void)
             advancetext = true;
             hascontrol = false;
             graphics.createtextbox("Hello?", 125+24, 152-20, 164, 164, 255);
-            state++;
+            incstate();
             music.playef(11);
             graphics.textboxactive();
             break;
@@ -2127,7 +2163,7 @@ void Game::updatestate(void)
             advancetext = true;
             hascontrol = false;
             graphics.createtextbox("Is anyone there?", 125+8, 152-24, 164, 164, 255);
-            state++;
+            incstate();
             music.playef(11);
             graphics.textboxactive();
             break;
@@ -2136,14 +2172,14 @@ void Game::updatestate(void)
             hascontrol = true;
             advancetext = false;
 
-            state = 0;
+            setstate(0);
             music.play(3);
             break;
 
 
         case 3000:
             //Activating a teleporter (long version for level complete)
-            state++;
+            incstate();
             statedelay = 30;
             flashlight = 5;
             screenshake = 90;
@@ -2151,28 +2187,28 @@ void Game::updatestate(void)
             break;
         case 3001:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             music.playef(9);
             break;
         case 3002:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             music.playef(9);
             break;
         case 3003:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             music.playef(9);
             break;
         case 3004:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -2182,27 +2218,27 @@ void Game::updatestate(void)
         case 3005:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 50;
             switch(companion)
             {
             case 6:
-                state = 3006;
+                setstate(3006);
                 break; //Warp Zone
             case 7:
-                state = 3020;
+                setstate(3020);
                 break; //Space Station
             case 8:
-                state = 3040;
+                setstate(3040);
                 break; //Lab
             case 9:
-                state = 3060;
+                setstate(3060);
                 break; //Tower
             case 10:
-                state = 3080;
+                setstate(3080);
                 break; //Intermission 2
             case 11:
-                state = 3085;
+                setstate(3085);
                 break; //Intermission 1
             }
 
@@ -2233,25 +2269,25 @@ void Game::updatestate(void)
             unlocknum(4);
             lastsaved = 4;
             music.play(0);
-            state++;
+            incstate();
             statedelay = 75;
 
             levelcomplete_textbox();
             break;
         case 3007:
-            state++;
+            incstate();
             statedelay = 45;
 
             crewmate_textbox(175, 174, 174);
             break;
         case 3008:
-            state++;
+            incstate();
             statedelay = 45;
 
             remaining_textbox();
             break;
         case 3009:
-            state++;
+            incstate();
             statedelay = 0;
 
             actionprompt_textbox();
@@ -2259,13 +2295,13 @@ void Game::updatestate(void)
         case 3010:
             if (jumppressed)
             {
-                state++;
+                incstate();
                 statedelay = 30;
                 graphics.textboxremove();
             }
             break;
         case 3011:
-            state = 3070;
+            setstate(3070);
             statedelay = 0;
             break;
 
@@ -2274,26 +2310,26 @@ void Game::updatestate(void)
             unlocknum(3);
             lastsaved = 2;
             music.play(0);
-            state++;
+            incstate();
             statedelay = 75;
 
 
             levelcomplete_textbox();
             break;
         case 3021:
-            state++;
+            incstate();
             statedelay = 45;
 
             crewmate_textbox(174, 175, 174);
             break;
         case 3022:
-            state++;
+            incstate();
             statedelay = 45;
 
             remaining_textbox();
             break;
         case 3023:
-            state++;
+            incstate();
             statedelay = 0;
 
             actionprompt_textbox();
@@ -2301,13 +2337,13 @@ void Game::updatestate(void)
         case 3024:
             if (jumppressed)
             {
-                state++;
+                incstate();
                 statedelay = 30;
                 graphics.textboxremove();
             }
             break;
         case 3025:
-            state = 3070;
+            setstate(3070);
             statedelay = 0;
             break;
 
@@ -2316,25 +2352,25 @@ void Game::updatestate(void)
             unlocknum(1);
             lastsaved = 5;
             music.play(0);
-            state++;
+            incstate();
             statedelay = 75;
 
             levelcomplete_textbox();
             break;
         case 3041:
-            state++;
+            incstate();
             statedelay = 45;
 
             crewmate_textbox(174, 174, 175);
             break;
         case 3042:
-            state++;
+            incstate();
             statedelay = 45;
 
             remaining_textbox();
             break;
         case 3043:
-            state++;
+            incstate();
             statedelay = 0;
 
             actionprompt_textbox();
@@ -2342,13 +2378,13 @@ void Game::updatestate(void)
         case 3044:
             if (jumppressed)
             {
-                state++;
+                incstate();
                 statedelay = 30;
                 graphics.textboxremove();
             }
             break;
         case 3045:
-            state = 3070;
+            setstate(3070);
             statedelay = 0;
             break;
 
@@ -2357,26 +2393,26 @@ void Game::updatestate(void)
             unlocknum(0);
             lastsaved = 1;
             music.play(0);
-            state++;
+            incstate();
             statedelay = 75;
 
 
             levelcomplete_textbox();
             break;
         case 3051:
-            state++;
+            incstate();
             statedelay = 45;
 
             crewmate_textbox(175, 175, 174);
             break;
         case 3052:
-            state++;
+            incstate();
             statedelay = 45;
 
             remaining_textbox();
             break;
         case 3053:
-            state++;
+            incstate();
             statedelay = 0;
 
             actionprompt_textbox();
@@ -2384,7 +2420,7 @@ void Game::updatestate(void)
         case 3054:
             if (jumppressed)
             {
-                state++;
+                incstate();
                 statedelay = 30;
                 graphics.textboxremove();
                 teleportscript = "";
@@ -2392,7 +2428,7 @@ void Game::updatestate(void)
             break;
         case 3055:
             graphics.fademode = FADE_START_FADEOUT;
-            state++;
+            incstate();
             statedelay = 10;
             break;
         case 3056:
@@ -2414,7 +2450,7 @@ void Game::updatestate(void)
                         newscript = "bigopenworld";
                     }
                 }
-                state = 0;
+                setstate(0);
             }
             break;
 
@@ -2424,25 +2460,25 @@ void Game::updatestate(void)
             unlocknum(2);
             lastsaved = 3;
             music.play(0);
-            state++;
+            incstate();
             statedelay = 75;
 
             levelcomplete_textbox();
             break;
         case 3061:
-            state++;
+            incstate();
             statedelay = 45;
 
             crewmate_textbox(175, 174, 175);
             break;
         case 3062:
-            state++;
+            incstate();
             statedelay = 45;
 
             remaining_textbox();
             break;
         case 3063:
-            state++;
+            incstate();
             statedelay = 0;
 
             actionprompt_textbox();
@@ -2450,25 +2486,25 @@ void Game::updatestate(void)
         case 3064:
             if (jumppressed)
             {
-                state++;
+                incstate();
                 statedelay = 30;
                 graphics.textboxremove();
             }
             break;
         case 3065:
-            state = 3070;
+            setstate(3070);
             statedelay = 0;
             break;
 
 
         case 3070:
             graphics.fademode = FADE_START_FADEOUT;
-            state++;
+            incstate();
             break;
         case 3071:
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 3072:
@@ -2504,7 +2540,7 @@ void Game::updatestate(void)
             {
                 startscript = true;
                 newscript="startlevel_final";
-                state = 0;
+                setstate(0);
             }
             else if (crewrescued() == 4)
             {
@@ -2519,7 +2555,7 @@ void Game::updatestate(void)
                 if (lastsaved == 3) obj.flags[35] = true;
                 if (lastsaved == 4) obj.flags[34] = true;
                 if (lastsaved == 5) obj.flags[33] = true;
-                state = 0;
+                setstate(0);
             }
             else if (crewrescued() == 5)
             {
@@ -2530,13 +2566,13 @@ void Game::updatestate(void)
                 if (lastsaved == 3) obj.flags[35] = true;
                 if (lastsaved == 4) obj.flags[34] = true;
                 if (lastsaved == 5) obj.flags[33] = true;
-                state = 0;
+                setstate(0);
             }
             else
             {
                 startscript = true;
                 newscript="regularreturn";
-                state = 0;
+                setstate(0);
             }
             break;
 
@@ -2546,27 +2582,27 @@ void Game::updatestate(void)
             {
                 graphics.fademode = FADE_START_FADEOUT;
                 companion = 0;
-                state=3100;
+                setstate(3100);
             }
             else
             {
                 unlocknum(7);
                 graphics.fademode = FADE_START_FADEOUT;
                 companion = 0;
-                state++;
+                incstate();
             }
             break;
         case 3081:
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 3082:
             map.finalmode = false;
             startscript = true;
             newscript="regularreturn";
-            state = 0;
+            setstate(0);
             break;
 
         case 3085:
@@ -2576,10 +2612,10 @@ void Game::updatestate(void)
             {
                 companion = 0;
                 supercrewmate = false;
-                state++;
+                incstate();
                 graphics.fademode = FADE_START_FADEOUT;
                 music.fadeout();
-                state=3100;
+                setstate(3100);
             }
             else
             {
@@ -2587,37 +2623,37 @@ void Game::updatestate(void)
                 graphics.fademode = FADE_START_FADEOUT;
                 companion = 0;
                 supercrewmate = false;
-                state++;
+                incstate();
             }
             break;
         case 3086:
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 3087:
             map.finalmode = false;
             startscript = true;
             newscript="regularreturn";
-            state = 0;
+            setstate(0);
             break;
 
         case 3100:
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 3101:
             quittomenu();
             music.play(6); //should be after quittomenu();
-            state = 0;
+            setstate(0);
             break;
 
         case 3500:
             music.fadeout();
-            state++;
+            incstate();
             statedelay = 120;
             break;
         case 3501:
@@ -2625,7 +2661,7 @@ void Game::updatestate(void)
             unlockAchievement("vvvvvvgamecomplete");
             unlocknum(5);
             crewstats[0] = true;
-            state++;
+            incstate();
             statedelay = 75;
             music.play(7);
 
@@ -2637,7 +2673,7 @@ void Game::updatestate(void)
             break;
         case 3502:
         {
-            state++;
+            incstate();
             statedelay = 45+15;
 
             graphics.createtextboxflipme("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
@@ -2648,7 +2684,7 @@ void Game::updatestate(void)
         }
         case 3503:
         {
-            state++;
+            incstate();
             statedelay = 45;
 
             std::string tempstring = help.number_words(trinkets());
@@ -2658,7 +2694,7 @@ void Game::updatestate(void)
         }
         case 3504:
         {
-            state++;
+            incstate();
             statedelay = 45+15;
 
             std::string tempstring = savetime;
@@ -2667,14 +2703,14 @@ void Game::updatestate(void)
             break;
         }
         case 3505:
-            state++;
+            incstate();
             statedelay = 45;
 
             graphics.createtextboxflipme(" Total Flips:", 64, 123, 0,0,0);
             graphics.createtextboxflipme(help.String(totalflips), 180, 123, 0, 0, 0);
             break;
         case 3506:
-            state++;
+            incstate();
             statedelay = 45+15;
 
             graphics.createtextboxflipme("Total Deaths:", 64, 135, 0,0,0);
@@ -2682,7 +2718,7 @@ void Game::updatestate(void)
             break;
         case 3507:
         {
-            state++;
+            incstate();
             statedelay = 45+15;
 
             std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
@@ -2691,7 +2727,7 @@ void Game::updatestate(void)
             break;
         }
         case 3508:
-            state++;
+            incstate();
             statedelay = 0;
 
             actionprompt_textbox();
@@ -2699,7 +2735,7 @@ void Game::updatestate(void)
         case 3509:
             if (jumppressed)
             {
-                state++;
+                incstate();
                 statedelay = 30;
                 graphics.textboxremove();
             }
@@ -2751,13 +2787,13 @@ void Game::updatestate(void)
             {
                 unlockAchievement("vvvvvvmaster"); //bloody hell
                 unlocknum(20);
-                state = 3520;
+                setstate(3520);
                 statedelay = 0;
             }
             else
             {
                 statedelay = 120;
-                state++;
+                incstate();
             }
             break;
         case 3511:
@@ -2769,7 +2805,7 @@ void Game::updatestate(void)
                 obj.entities[i].colour = 102;
             }
 
-            state++;
+            incstate();
             statedelay = 30;
             flashlight = 5;
             screenshake = 90;
@@ -2778,21 +2814,21 @@ void Game::updatestate(void)
         }
         case 3512:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             music.playef(9);
             break;
         case 3513:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             music.playef(9);
             break;
         case 3514:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             music.playef(9);
@@ -2800,7 +2836,7 @@ void Game::updatestate(void)
         case 3515:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -2819,18 +2855,18 @@ void Game::updatestate(void)
         }
         case 3516:
             graphics.fademode = FADE_START_FADEOUT;
-            state++;
+            incstate();
             break;
         case 3517:
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
                 statedelay = 30;
             }
             break;
         case 3518:
             graphics.fademode = FADE_START_FADEIN;
-            state = 0;
+            setstate(0);
             statedelay = 30;
 
             map.finalmode = false;
@@ -2851,24 +2887,24 @@ void Game::updatestate(void)
             crewstats[0] = true;
 
             graphics.fademode = FADE_START_FADEOUT;
-            state++;
+            incstate();
             break;
         case 3521:
             if (graphics.fademode == FADE_FULLY_BLACK)
             {
-                state++;
+                incstate();
             }
             break;
         case 3522:
             copyndmresults();
             quittomenu();
             createmenu(Menu::nodeathmodecomplete);
-            state = 0;
+            setstate(0);
             break;
 
         case 4000:
             //Activating a teleporter (short version)
-            state++;
+            state++; // Increment manually -- gamestate modification might be locked at this point
             statedelay = 10;
             flashlight = 5;
             screenshake = 10;
@@ -2905,14 +2941,15 @@ void Game::updatestate(void)
             break;
         }
         case 4003:
-            state = 0;
+            state++;
             statedelay = 0;
             teleport_to_new_area = true;
+            unlockstate();
             break;
 
         case 4010:
             //Activating a teleporter (default appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -2920,7 +2957,7 @@ void Game::updatestate(void)
             break;
         case 4011:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -2929,7 +2966,7 @@ void Game::updatestate(void)
         case 4012:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -2958,7 +2995,7 @@ void Game::updatestate(void)
         }
         case 4013:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2968,7 +3005,7 @@ void Game::updatestate(void)
         }
         case 4014:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2978,7 +3015,7 @@ void Game::updatestate(void)
         }
         case 4015:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2988,7 +3025,7 @@ void Game::updatestate(void)
         }
         case 4016:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -2998,7 +3035,7 @@ void Game::updatestate(void)
         }
         case 4017:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3008,7 +3045,7 @@ void Game::updatestate(void)
         }
         case 4018:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3037,13 +3074,13 @@ void Game::updatestate(void)
             teleblock.h = 160;
             hascontrol = true;
             advancetext = false;
-            state = 0;
+            setstate(0);
             break;
         }
 
         case 4020:
             //Activating a teleporter (default appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -3051,7 +3088,7 @@ void Game::updatestate(void)
             break;
         case 4021:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -3060,7 +3097,7 @@ void Game::updatestate(void)
         case 4022:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -3089,7 +3126,7 @@ void Game::updatestate(void)
         }
         case 4023:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3099,7 +3136,7 @@ void Game::updatestate(void)
         }
         case 4024:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3109,7 +3146,7 @@ void Game::updatestate(void)
         }
         case 4025:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3119,7 +3156,7 @@ void Game::updatestate(void)
         }
         case 4026:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3129,7 +3166,7 @@ void Game::updatestate(void)
         }
         case 4027:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3139,7 +3176,7 @@ void Game::updatestate(void)
         }
         case 4028:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3151,12 +3188,12 @@ void Game::updatestate(void)
         case 4029:
             hascontrol = true;
             advancetext = false;
-            state = 0;
+            setstate(0);
             break;
 
         case 4030:
             //Activating a teleporter (default appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -3164,7 +3201,7 @@ void Game::updatestate(void)
             break;
         case 4031:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -3173,7 +3210,7 @@ void Game::updatestate(void)
         case 4032:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -3202,7 +3239,7 @@ void Game::updatestate(void)
         }
         case 4033:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3212,7 +3249,7 @@ void Game::updatestate(void)
         }
         case 4034:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3222,7 +3259,7 @@ void Game::updatestate(void)
         }
         case 4035:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3232,7 +3269,7 @@ void Game::updatestate(void)
         }
         case 4036:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3242,7 +3279,7 @@ void Game::updatestate(void)
         }
         case 4037:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3252,7 +3289,7 @@ void Game::updatestate(void)
         }
         case 4038:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3264,12 +3301,12 @@ void Game::updatestate(void)
         case 4039:
             hascontrol = true;
             advancetext = false;
-            state = 0;
+            setstate(0);
             break;
 
         case 4040:
             //Activating a teleporter (default appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -3277,7 +3314,7 @@ void Game::updatestate(void)
             break;
         case 4041:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -3286,7 +3323,7 @@ void Game::updatestate(void)
         case 4042:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -3315,7 +3352,7 @@ void Game::updatestate(void)
         }
         case 4043:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3326,7 +3363,7 @@ void Game::updatestate(void)
         }
         case 4044:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3337,7 +3374,7 @@ void Game::updatestate(void)
         }
         case 4045:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3348,7 +3385,7 @@ void Game::updatestate(void)
         }
         case 4046:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3359,7 +3396,7 @@ void Game::updatestate(void)
         }
         case 4047:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3370,7 +3407,7 @@ void Game::updatestate(void)
         }
         case 4048:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3382,12 +3419,12 @@ void Game::updatestate(void)
         case 4049:
             hascontrol = true;
             advancetext = false;
-            state = 0;
+            setstate(0);
             break;
 
         case 4050:
             //Activating a teleporter (default appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -3395,7 +3432,7 @@ void Game::updatestate(void)
             break;
         case 4051:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -3404,7 +3441,7 @@ void Game::updatestate(void)
         case 4052:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -3433,7 +3470,7 @@ void Game::updatestate(void)
         }
         case 4053:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3444,7 +3481,7 @@ void Game::updatestate(void)
         }
         case 4054:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3455,7 +3492,7 @@ void Game::updatestate(void)
         }
         case 4055:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3466,7 +3503,7 @@ void Game::updatestate(void)
         }
         case 4056:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3477,7 +3514,7 @@ void Game::updatestate(void)
         }
         case 4057:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3488,7 +3525,7 @@ void Game::updatestate(void)
         }
         case 4058:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3500,12 +3537,12 @@ void Game::updatestate(void)
         case 4059:
             hascontrol = true;
             advancetext = false;
-            state = 0;
+            setstate(0);
             break;
 
         case 4060:
             //Activating a teleporter (default appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -3513,7 +3550,7 @@ void Game::updatestate(void)
             break;
         case 4061:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -3522,7 +3559,7 @@ void Game::updatestate(void)
         case 4062:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -3551,7 +3588,7 @@ void Game::updatestate(void)
         }
         case 4063:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3562,7 +3599,7 @@ void Game::updatestate(void)
         }
         case 4064:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3573,7 +3610,7 @@ void Game::updatestate(void)
         }
         case 4065:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3583,7 +3620,7 @@ void Game::updatestate(void)
         }
         case 4066:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3593,7 +3630,7 @@ void Game::updatestate(void)
         }
         case 4067:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3603,7 +3640,7 @@ void Game::updatestate(void)
         }
         case 4068:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3615,13 +3652,13 @@ void Game::updatestate(void)
         case 4069:
             hascontrol = true;
             advancetext = false;
-            state = 0;
+            setstate(0);
             break;
 
 
         case 4070:
             //Activating a teleporter (special for final script, player has colour changed to match rescued crewmate)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -3629,7 +3666,7 @@ void Game::updatestate(void)
             break;
         case 4071:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -3638,7 +3675,7 @@ void Game::updatestate(void)
         case 4072:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -3667,7 +3704,7 @@ void Game::updatestate(void)
         }
         case 4073:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3677,7 +3714,7 @@ void Game::updatestate(void)
         }
         case 4074:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3687,7 +3724,7 @@ void Game::updatestate(void)
         }
         case 4075:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3697,7 +3734,7 @@ void Game::updatestate(void)
         }
         case 4076:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3707,7 +3744,7 @@ void Game::updatestate(void)
         }
         case 4077:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3717,7 +3754,7 @@ void Game::updatestate(void)
         }
         case 4078:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3727,14 +3764,14 @@ void Game::updatestate(void)
             break;
         }
         case 4079:
-            state = 0;
+            setstate(0);
             startscript = true;
             newscript = "finallevel_teleporter";
             break;
 
         case 4080:
             //Activating a teleporter (default appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -3742,7 +3779,7 @@ void Game::updatestate(void)
             break;
         case 4081:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -3751,7 +3788,7 @@ void Game::updatestate(void)
         case 4082:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -3780,7 +3817,7 @@ void Game::updatestate(void)
         }
         case 4083:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3790,7 +3827,7 @@ void Game::updatestate(void)
         }
         case 4084:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3800,7 +3837,7 @@ void Game::updatestate(void)
         }
         case 4085:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3810,7 +3847,7 @@ void Game::updatestate(void)
         }
         case 4086:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3820,7 +3857,7 @@ void Game::updatestate(void)
         }
         case 4087:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3830,7 +3867,7 @@ void Game::updatestate(void)
         }
         case 4088:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3842,12 +3879,12 @@ void Game::updatestate(void)
         case 4089:
             startscript = true;
             newscript = "gamecomplete_ending";
-            state = 0;
+            setstate(0);
             break;
 
         case 4090:
             //Activating a teleporter (default appear)
-            state++;
+            incstate();
             statedelay = 15;
             flashlight = 5;
             screenshake = 90;
@@ -3855,7 +3892,7 @@ void Game::updatestate(void)
             break;
         case 4091:
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 0;
             flashlight = 5;
             screenshake = 0;
@@ -3864,7 +3901,7 @@ void Game::updatestate(void)
         case 4092:
         {
             //Activating a teleporter 2
-            state++;
+            incstate();
             statedelay = 5;
 
             int i = obj.getplayer();
@@ -3893,7 +3930,7 @@ void Game::updatestate(void)
         }
         case 4093:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3903,7 +3940,7 @@ void Game::updatestate(void)
         }
         case 4094:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3913,7 +3950,7 @@ void Game::updatestate(void)
         }
         case 4095:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3923,7 +3960,7 @@ void Game::updatestate(void)
         }
         case 4096:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3933,7 +3970,7 @@ void Game::updatestate(void)
         }
         case 4097:
         {
-            state++;
+            incstate();
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
             {
@@ -3943,7 +3980,7 @@ void Game::updatestate(void)
         }
         case 4098:
         {
-            state++;
+            incstate();
             statedelay = 15;
             int i = obj.getplayer();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -3963,7 +4000,7 @@ void Game::updatestate(void)
                 startscript = true;
                 newscript = "levelonecomplete_ending";
             }
-            state = 0;
+            setstate(0);
             break;
         }
     }
@@ -4702,7 +4739,7 @@ void Game::customstart(void)
     savepoint = 0;
     gravitycontrol = savegc;
 
-    state = 0;
+    setstate(0);
     deathseq = -1;
     lifeseq = 0;
 }
@@ -4720,7 +4757,7 @@ void Game::start(void)
     savepoint = 0;
     gravitycontrol = savegc;
 
-    state = 0;
+    setstate(0);
     deathseq = -1;
     lifeseq = 0;
 
@@ -4827,7 +4864,7 @@ void Game::startspecial( int t )
 
     savepoint = 0;
     gravitycontrol = savegc;
-    state = 0;
+    setstate(0);
     deathseq = -1;
     lifeseq = 0;
 }
@@ -4898,7 +4935,7 @@ void Game::starttrial( int t )
     savepoint = 0;
     gravitycontrol = savegc;
 
-    state = 0;
+    setstate(0);
     deathseq = -1;
     lifeseq = 0;
 }
@@ -6823,7 +6860,7 @@ void Game::returntoeditor(void)
     hascontrol = true;
     advancetext = false;
     completestop = false;
-    state = 0;
+    setstate(0);
     graphics.showcutscenebars = false;
     graphics.fademode = FADE_NONE;
 
