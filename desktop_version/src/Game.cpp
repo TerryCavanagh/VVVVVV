@@ -370,7 +370,6 @@ void Game::init(void)
     disableaudiopause = false;
     disabletemporaryaudiopause = true;
     inputdelay = false;
-
 }
 
 void Game::lifesequence(void)

@@ -4748,7 +4748,7 @@ void entityclass::entitycollisioncheck(void)
         }
         else
         {
-            game.state = activetrigger;
+            game.setstate(activetrigger);
         }
         game.setstatedelay(0);
     }
