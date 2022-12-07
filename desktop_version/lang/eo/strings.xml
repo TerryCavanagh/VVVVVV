@@ -555,7 +555,7 @@
     <string english="CURRENT SCRIPT: {name}" translation="NUNA SKRIPTO: {name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20"/>
     <string english="Left click to place warp destination" translation="Maldekstraklaku por meti teleport-celon" explanation="warp token: small teleporter with entrance and destination" max="39"/>
     <string english="Right click to cancel" translation="Dekstraklaku por nuligi" explanation="" max="39"/>
-    <string english="&lt; and &gt; keys change tool" translation="Klavoj &lt; kaj &gt; ŝanĝas ilojn" explanation="The &lt; and &gt; keys (actually , and . keys, even on non-US-QWERTY!) can be used to switch between tools" max="36"/>
+    <string english="{button1} and {button2} keys change tool" translation="Klavoj {button1} kaj {button2} ŝanĝas ilojn" explanation="These keys can be used to switch between tools" max="36"/>
     <string english="1: Walls" translation="1: Muro" explanation="editor tool. Solid tiles" max="32"/>
     <string english="2: Backing" translation="2: Fonaĵo" explanation="editor tool. Non-solid background tiles" max="32"/>
     <string english="3: Spikes" translation="3: Pikaĵoj" explanation="editor tool" max="32"/>
@@ -659,10 +659,14 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="La sekreta labo estas aparta de la aliaj partoj de la ludo. Eblas reveni ĉi tien iam ajn, elektante SEKRETAN LABON en la ludmenuo." explanation="" max="36*10"/>
     <string english="Viridian" translation="Viridiano" explanation="crewmate name (player)" max="15"/>
     <string english="Violet" translation="Violeto" explanation="crewmate name" max="15"/>
-    <string english="Vitellary" translation="Vitelario" explanation="crewmate name" max="15"/>
-    <string english="Vermilion" translation="Vermiljo" explanation="crewmate name" max="15"/>
-    <string english="Verdigris" translation="Verdigriso" explanation="crewmate name" max="15"/>
-    <string english="Victoria" translation="Viktoria" explanation="crewmate name" max="15"/>
+    <string english="Vitellary" translation="Vitelario" case="0" explanation="crewmate name" max="15"/>
+    <string english="Vermilion" translation="Vermiljo" case="0" explanation="crewmate name" max="15"/>
+    <string english="Verdigris" translation="Verdigriso" case="0" explanation="crewmate name" max="15"/>
+    <string english="Victoria" translation="Viktoria" case="0" explanation="crewmate name" max="15"/>
+    <string english="Vitellary" translation="Vitelario" case="1" explanation="crewmate name as menu option: Who do you want to play the level with?"/>
+    <string english="Vermilion" translation="Vermiljo" case="1" explanation="crewmate name as menu option: Who do you want to play the level with?"/>
+    <string english="Verdigris" translation="Verdigriso" case="1" explanation="crewmate name as menu option: Who do you want to play the level with?"/>
+    <string english="Victoria" translation="Viktoria" case="1" explanation="crewmate name as menu option: Who do you want to play the level with?"/>
     <string english="Starring" translation="Stelumis" explanation="credits roll. Starring the following 6 crew members" max="20"/>
     <string english="Captain Viridian" translation="Kapitano Viridiano" explanation="credits roll. Starring the following 6 crew members" max="27"/>
     <string english="Doctor Violet" translation="Doktoro Violeto" explanation="credits roll. Starring the following 6 crew members" max="27"/>
