@@ -717,7 +717,7 @@ void Game::savetele_textbox(void)
     }
 }
 
-void Game::setstate(int gamestate)
+void Game::setstate(const int gamestate)
 {
     if (!statelocked)
     {
@@ -725,7 +725,7 @@ void Game::setstate(int gamestate)
     }
 }
 
-void Game::setstate(int gamestate, int delay)
+void Game::setstate(const int gamestate, const int delay)
 {
     if (!statelocked)
     {
@@ -742,7 +742,7 @@ void Game::incstate()
     }
 }
 
-void Game::setstatedelay(int delay)
+void Game::setstatedelay(const int delay)
 {
     if (!statelocked)
     {
@@ -763,7 +763,8 @@ void Game::unlockstate()
 void Game::updatestate(void)
 {
     statedelay--;
-    if(statedelay <= 0){
+    if (statedelay <= 0)
+    {
         statedelay = 0;
         glitchrunkludge=false;
     }
