@@ -2677,7 +2677,7 @@ void Game::updatestate(void)
         case 3502:
         {
             incstate();
-            statedelay = 45+15;
+            setstatedelay(45+15);
 
             graphics.createtextboxflipme("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
             char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -2698,7 +2698,7 @@ void Game::updatestate(void)
         case 3504:
         {
             incstate();
-            statedelay = 45+15;
+            setstatedelay(45+15);
 
             std::string tempstring = savetime;
             graphics.createtextboxflipme("   Game Time:", 64, 96, 0,0,0);
@@ -2714,7 +2714,7 @@ void Game::updatestate(void)
             break;
         case 3506:
             incstate();
-            statedelay = 45+15;
+            setstatedelay(45+15);
 
             graphics.createtextboxflipme("Total Deaths:", 64, 135, 0,0,0);
             graphics.createtextboxflipme(help.String(deathcounts), 180, 135, 0, 0, 0);
@@ -2722,7 +2722,7 @@ void Game::updatestate(void)
         case 3507:
         {
             incstate();
-            statedelay = 45+15;
+            setstatedelay(45+15);
 
             std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
             graphics.createtextboxflipme(tempstring, -1, 158, 0,0,0);
