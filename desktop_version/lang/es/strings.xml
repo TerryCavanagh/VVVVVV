@@ -544,8 +544,6 @@
     <string english="ENEMY BOUNDS: Click on bottom right" translation="" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on top left" translation="" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on bottom right" translation="" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="COPY TILES: Click on top left" translation="" explanation="" max="39*3"/>
-    <string english="COPY TILES: Click on bottom right" translation="" explanation="" max="39*3"/>
     <string english="Click on top left" translation="" explanation="" max="39*3"/>
     <string english="Click on bottom right" translation="" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="" explanation="supposed to look like a Commodore 64 screen" max="36"/>

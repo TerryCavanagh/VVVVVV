@@ -544,8 +544,6 @@
     <string english="ENEMY BOUNDS: Click on bottom right" translation="MALAMIKLIMOJ: Alklaku malsupran dekstron" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on top left" translation="PLATFORMLIMOJ: Alklaku supran maldekstron" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on bottom right" translation="PLATFORMLIMOJ: Alklaku malsupran dekstron" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="COPY TILES: Click on top left" translation="KOPII KAHELOJN: Alklaku supran maldekstron" explanation="" max="39*3"/>
-    <string english="COPY TILES: Click on bottom right" translation="KOPII KAHELOJN: Alklaku malsupran dekstron" explanation="" max="39*3"/>
     <string english="Click on top left" translation="Alklaku supran maldekstron" explanation="" max="39*3"/>
     <string english="Click on bottom right" translation="Alklaku malsupran dekstron" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** SKRIPTREDAKTILO DE VVVVVV ****" explanation="supposed to look like a Commodore 64 screen" max="36"/>

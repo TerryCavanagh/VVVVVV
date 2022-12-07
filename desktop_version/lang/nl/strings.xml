@@ -544,8 +544,6 @@
     <string english="ENEMY BOUNDS: Click on bottom right" translation="VIJANDBEGRENZING: Klik op de rechteronderhoek" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on top left" translation="PLATFORMBEGRENZING: Klik op de linkerbovenhoek" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on bottom right" translation="PLATFORMBEGRENZING: Klik op de rechteronderhoek" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="COPY TILES: Click on top left" translation="BLOKKEN KOPIËREN: Klik op de linkerbovenhoek" explanation="" max="39*3"/>
-    <string english="COPY TILES: Click on bottom right" translation="BLOKKEN KOPIËREN: Klik op de rechteronderhoek" explanation="" max="39*3"/>
     <string english="Click on top left" translation="Klik op de linkerbovenhoek" explanation="" max="39*3"/>
     <string english="Click on bottom right" translation="Klik op de rechteronderhoek" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** VVVVVV-SCRIPTEDITOR ****" explanation="supposed to look like a Commodore 64 screen" max="36"/>

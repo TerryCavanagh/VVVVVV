@@ -1122,9 +1122,6 @@ void editorrender(void)
             case 2:
                 message = loc::gettext("PLATFORM BOUNDS: Click on top left");
                 break;
-            case 3:
-                message = loc::gettext("COPY TILES: Click on top left");
-                break;
             default:
                 message = loc::gettext("Click on top left");
                 break;
@@ -1142,9 +1139,6 @@ void editorrender(void)
                 break;
             case 2:
                 message = loc::gettext("PLATFORM BOUNDS: Click on bottom right");
-                break;
-            case 3:
-                message = loc::gettext("COPY TILES: Click on bottom right");
                 break;
             default:
                 message = loc::gettext("Click on bottom right");
