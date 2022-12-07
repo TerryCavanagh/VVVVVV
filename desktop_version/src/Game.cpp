@@ -6692,19 +6692,19 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::playint1:
         start_translator_exploring = false;
-        option(loc::gettext("Vitellary"));
-        option(loc::gettext("Vermilion"));
-        option(loc::gettext("Verdigris"));
-        option(loc::gettext("Victoria"));
+        option(loc::gettext_case("Vitellary", 1));
+        option(loc::gettext_case("Vermilion", 1));
+        option(loc::gettext_case("Verdigris", 1));
+        option(loc::gettext_case("Victoria", 1));
         option(loc::gettext("return"));
         menuyoff = 10;
         break;
     case Menu::playint2:
         start_translator_exploring = false;
-        option(loc::gettext("Vitellary"));
-        option(loc::gettext("Vermilion"));
-        option(loc::gettext("Verdigris"));
-        option(loc::gettext("Victoria"));
+        option(loc::gettext_case("Vitellary", 1));
+        option(loc::gettext_case("Vermilion", 1));
+        option(loc::gettext_case("Verdigris", 1));
+        option(loc::gettext_case("Victoria", 1));
         option(loc::gettext("return"));
         menuyoff = 10;
         break;

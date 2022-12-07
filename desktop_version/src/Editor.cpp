@@ -1392,7 +1392,12 @@ void editorrender(void)
                 graphics.Print(4, 232, "2/2", 196, 196, 255 - help.glow, false);
             }
 
-            const char* changetooltext = loc::gettext("< and > keys change tool");
+            char changetooltext[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(changetooltext, sizeof(changetooltext),
+                loc::gettext("{button1} and {button2} keys change tool"),
+                "button1:str, button2:str",
+                ",", "."
+            );
             graphics.Print(320-graphics.len(changetooltext), 232, changetooltext, 196, 196, 255 - help.glow, false);
 
             const char* toolname;
