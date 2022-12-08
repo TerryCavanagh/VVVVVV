@@ -336,7 +336,7 @@ void Game::init(void)
     stat_trinkets = 0;
 
     state = 1;
-    setstatedelay(0);
+    setstatedelay = 0;
     statelocked = false;
     //updatestate();
 
