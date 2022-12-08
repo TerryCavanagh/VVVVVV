@@ -161,8 +161,6 @@ public:
 
     void setstate(int gamestate);
 
-    void setstate(int gamestate, int delay);
-
     void incstate();
 
     void setstatedelay(int delay);

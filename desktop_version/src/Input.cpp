@@ -2632,7 +2632,8 @@ static void mapmenuactionpress(const bool version2_2)
         }
 
         //which teleporter script do we use? it depends on the companion!
-        game.setstate(4000, 0);
+        game.setstate(4000);
+        game.setstatedelay(0);
         game.lockstate();
     }
         break;

@@ -724,15 +724,6 @@ void Game::setstate(const int gamestate)
     }
 }
 
-void Game::setstate(const int gamestate, const int delay)
-{
-    if (!statelocked)
-    {
-        state = gamestate;
-        statedelay = delay;
-    }
-}
-
 void Game::incstate()
 {
     if (!statelocked)
@@ -1072,7 +1063,8 @@ void Game::updatestate(void)
             break;
         case 31:
             //state = 55;  setstatedelay(50);
-            setstate(0, 0);
+            setstate(0);
+            setstatedelay(0);
             if (!obj.flags[6])
             {
                 obj.flags[6] = true;
@@ -1080,7 +1072,8 @@ void Game::updatestate(void)
                 obj.flags[5] = true;
                 startscript = true;
                 newscript="communicationstation";
-                setstate(0, 0);
+                setstate(0);
+                setstatedelay(0);
             }
             obj.removetrigger(31);
             break;
@@ -2308,7 +2301,8 @@ void Game::updatestate(void)
             }
             break;
         case 3011:
-            setstate(3070, 0);
+            setstate(3070);
+            setstatedelay(0);
             break;
 
         case 3020:
@@ -2349,7 +2343,8 @@ void Game::updatestate(void)
             }
             break;
         case 3025:
-            setstate(3070, 0);
+            setstate(3070);
+            setstatedelay(0);
             break;
 
         case 3040:
@@ -2389,7 +2384,8 @@ void Game::updatestate(void)
             }
             break;
         case 3045:
-            setstate(3070, 0);
+            setstate(3070);
+            setstatedelay(0);
             break;
 
         case 3050:
@@ -2496,7 +2492,8 @@ void Game::updatestate(void)
             }
             break;
         case 3065:
-            setstate(3070, 0);
+            setstate(3070);
+            setstatedelay(0);
             break;
 
 
@@ -2790,7 +2787,8 @@ void Game::updatestate(void)
             {
                 unlockAchievement("vvvvvvmaster"); //bloody hell
                 unlocknum(20);
-                setstate(3520, 0);
+                setstate(3520);
+                setstatedelay(0);
             }
             else
             {
@@ -2943,7 +2941,7 @@ void Game::updatestate(void)
             break;
         }
         case 4003:
-            state++;
+            state = 0;
             statedelay = 0;
             teleport_to_new_area = true;
             unlockstate();
