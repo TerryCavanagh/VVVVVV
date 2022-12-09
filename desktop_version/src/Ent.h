@@ -43,6 +43,7 @@ public:
     int onentity;
     bool harmful;
     int onwall, onxwall, onywall;
+    bool scm;
 
     //Platforming specific
     bool gravity;
