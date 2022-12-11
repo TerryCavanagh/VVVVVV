@@ -2766,23 +2766,23 @@ bool entityclass::updateentities( int i )
                 entities[i].state = 2;
 
                 music.playef(8);
-                
-                auto thing = entities[i];
 
                 bool flipped = (game.gravitycontrol != 0);
 
+                int entity = getplayer();
+
                 if (entities[i].para == 1)
                 {
-                    int scm = getscm();
-                    if (entities[scm].rule == 6)
+                    entity = getscm();
+                    if (entities[entity].rule == 6)
                     {
                         flipped = false;
-                        entities[scm].rule = 7;
+                        entities[entity].rule = 7;
                     }
                     else
                     {
                         flipped = true;
-                        entities[scm].rule = 6;
+                        entities[entity].rule = 6;
                     }
                 }
                 else
@@ -2793,11 +2793,11 @@ bool entityclass::updateentities( int i )
 
                 if (flipped)
                 {
-                    if (entities[i].vy < 3) entities[i].vy = 3;
+                    if (entities[entity].vy < 3) entities[entity].vy = 3;
                 }
                 else
                 {
-                    if (entities[i].vy > -3) entities[i].vy = -3;
+                    if (entities[entity].vy > -3) entities[entity].vy = -3;
                 }
             }
             else if (entities[i].state == 2)
