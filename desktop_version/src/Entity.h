@@ -132,8 +132,6 @@ public:
 
     float hplatformat(int px, int py);
 
-    int yline(int a, int b);
-
     bool entityhlinecollide(int t, int l);
 
     bool entityvlinecollide(int t, int l);

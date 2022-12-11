@@ -4211,7 +4211,7 @@ float entityclass::hplatformat(const int px, const int py)
     return -1000;
 }
 
-int entityclass::yline( int a, int b )
+static int yline( int a, int b )
 {
     if (a < b) return -1;
     return 1;
