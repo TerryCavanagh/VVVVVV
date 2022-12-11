@@ -2630,9 +2630,6 @@ bool entityclass::updateentities( int i )
             //wait for collision
             if (entities[i].state == 1)
             {
-                // TODO: find out whether it was the player or the scm who touched it!
-                // i is the wrong variable to use for the following logic
-                // TODO: same for vertical grav lines
                 if (entities[i].scm)
                 {
                     int scm = getscm();
