@@ -98,7 +98,7 @@ public:
 
     void animateentities(int i);
 
-    void animatehumanoidcollision(const int i);
+    void animatehumanoidcollision(int i);
 
     int getcompanion(void);
 
@@ -125,14 +125,14 @@ public:
 
     bool checkplatform(const SDL_Rect& temprect, int* px, int* py);
 
-    bool checkblocks(const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipdirblocks);
+    bool checkblocks(const SDL_Rect& temprect, float dx, float dy, float dr, bool skipdirblocks);
 
     bool checktowerspikes(int t);
 
-    bool checkwall(const bool invincible, const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipblocks, const bool skipdirblocks);
-    bool checkwall(const bool invincible, const SDL_Rect& temprect);
+    bool checkwall(bool invincible, const SDL_Rect& temprect, float dx, float dy, float dr, bool skipblocks, bool skipdirblocks);
+    bool checkwall(bool invincible, const SDL_Rect& temprect);
 
-    float hplatformat(const int px, const int py);
+    float hplatformat(int px, int py);
 
     int yline(int a, int b);
 
@@ -153,7 +153,7 @@ public:
 
     bool entitycollideroof(int t);
 
-    bool testwallsx(int t, int tx, int ty, const bool skipdirblocks);
+    bool testwallsx(int t, int tx, int ty, bool skipdirblocks);
 
     bool testwallsy(int t, float tx, float ty);
 
