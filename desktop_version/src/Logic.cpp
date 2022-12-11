@@ -860,6 +860,23 @@ void gamelogic(void)
                         obj.entitymapcollision(i);
                     }
                 }
+                // what about a supercrewmate?
+                i = obj.getscm();
+                j = obj.entitycollideplatformfloor(i);
+                if (INBOUNDS_VEC(i, obj.entities) && j > -1000)
+                {
+                    obj.entities[i].newxp = obj.entities[i].xp + j;
+                    obj.entitymapcollision(i);
+                }
+                else
+                {
+                    j = obj.entitycollideplatformroof(i);
+                    if (INBOUNDS_VEC(i, obj.entities) && j > -1000)
+                    {
+                        obj.entities[i].newxp = obj.entities[i].xp + j;
+                        obj.entitymapcollision(i);
+                    }
+                }
             }
 
             for (int ie = obj.entities.size() - 1; ie >= 0;  ie--)
