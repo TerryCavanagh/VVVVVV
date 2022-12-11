@@ -114,6 +114,8 @@ void gamerenderfixed(void)
         obj.entities[i].updatecolour();
     }
 
+    map.updateroomnames();
+
     if (map.finalmode)
     {
         map.glitchname = map.getglitchname(game.roomx, game.roomy);
@@ -244,6 +246,8 @@ void maprenderfixed(void)
     }else if (map.cursorstate == 2){
         map.cursordelay++;
     }
+
+    map.updateroomnames();
 
     if (map.finalmode)
     {
