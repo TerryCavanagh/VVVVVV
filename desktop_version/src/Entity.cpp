@@ -2636,13 +2636,16 @@ bool entityclass::updateentities( int i )
                 if (entities[i].scm)
                 {
                     int scm = getscm();
-                    if (entities[scm].rule == 6)
+                    if (INBOUNDS_VEC(scm, entities))
                     {
-                        entities[scm].rule = 7;
-                    }
-                    else
-                    {
-                        entities[scm].rule = 6;
+                        if (entities[scm].rule == 6)
+                        {
+                            entities[scm].rule = 7;
+                        }
+                        else
+                        {
+                            entities[scm].rule = 6;
+                        }
                     }
                 }
                 else
@@ -2774,15 +2777,18 @@ bool entityclass::updateentities( int i )
                 if (entities[i].para == 1)
                 {
                     entity = getscm();
-                    if (entities[entity].rule == 6)
+                    if (INBOUNDS_VEC(entity, entities))
                     {
-                        flipped = false;
-                        entities[entity].rule = 7;
-                    }
-                    else
-                    {
-                        flipped = true;
-                        entities[entity].rule = 6;
+                        if (entities[entity].rule == 6)
+                        {
+                            flipped = false;
+                                entities[entity].rule = 7;
+                        }
+                        else
+                        {
+                            flipped = true;
+                                entities[entity].rule = 6;
+                        }
                     }
                 }
                 else
@@ -2793,11 +2799,11 @@ bool entityclass::updateentities( int i )
 
                 if (flipped)
                 {
-                    if (entities[entity].vy < 3) entities[entity].vy = 3;
+                    if (INBOUNDS_VEC(entity, entities) && entities[entity].vy < 3) entities[entity].vy = 3;
                 }
                 else
                 {
-                    if (entities[entity].vy > -3) entities[entity].vy = -3;
+                    if (INBOUNDS_VEC(entity, entities) && entities[entity].vy > -3) entities[entity].vy = -3;
                 }
             }
             else if (entities[i].state == 2)
