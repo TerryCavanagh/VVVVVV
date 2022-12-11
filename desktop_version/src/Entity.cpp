@@ -3733,26 +3733,26 @@ void entityclass::animateentities( int _i )
         case 55:
         case 14: //Crew member! Very similar to hero
             entities[_i].framedelay--;
-            if(entities[_i].dir==1)
+            if (entities[_i].dir == 1)
             {
-                entities[_i].drawframe=entities[_i].tile;
+                entities[_i].drawframe = entities[_i].tile;
             }
             else
             {
-                entities[_i].drawframe=entities[_i].tile+3;
+                entities[_i].drawframe = entities[_i].tile+3;
             }
 
-            if(entities[_i].visualonground>0 || entities[_i].visualonroof>0)
+            if (entities[_i].visualonground > 0 || entities[_i].visualonroof > 0)
             {
                 if(entities[_i].vx > 0.0000f || entities[_i].vx < -0.000f)
                 {
                     //Walking
-                    if(entities[_i].framedelay<=0)
+                    if(entities[_i].framedelay <= 0)
                     {
-                        entities[_i].framedelay=4;
+                        entities[_i].framedelay = 4;
                         entities[_i].walkingframe++;
                     }
-                    if (entities[_i].walkingframe >=2) entities[_i].walkingframe=0;
+                    if (entities[_i].walkingframe >= 2) entities[_i].walkingframe = 0;
                     entities[_i].drawframe += entities[_i].walkingframe + 1;
                 }
 
@@ -3760,7 +3760,7 @@ void entityclass::animateentities( int _i )
             }
             else
             {
-                entities[_i].drawframe ++;
+                entities[_i].drawframe++;
                 if (entities[_i].rule == 7) {
                     entities[_i].drawframe += 6;
                 }
@@ -3768,7 +3768,7 @@ void entityclass::animateentities( int _i )
 
             if (game.deathseq > -1)
             {
-                entities[_i].drawframe=13;
+                entities[_i].drawframe = 13;
                 if (entities[_i].dir == 1) entities[_i].drawframe = 12;
                 if (entities[_i].rule == 7) entities[_i].drawframe += 2;
             }
