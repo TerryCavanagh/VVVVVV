@@ -4114,7 +4114,7 @@ bool entityclass::checkplatform(const SDL_Rect& temprect, int* px, int* py)
     return false;
 }
 
-bool entityclass::checkblocks(const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipdirblocks)
+bool entityclass::checkblocks(const SDL_Rect& temprect, const float dx, const float dy, const int dr, const bool skipdirblocks)
 {
     for (size_t i = 0; i < blocks.size(); i++)
     {
@@ -4137,7 +4137,7 @@ bool entityclass::checkblocks(const SDL_Rect& temprect, const float dx, const fl
     return false;
 }
 
-bool entityclass::checkwall(const bool invincible, const SDL_Rect& temprect, const float dx, const float dy, const float dr, const bool skipblocks, const bool skipdirblocks)
+bool entityclass::checkwall(const bool invincible, const SDL_Rect& temprect, const float dx, const float dy, const int dr, const bool skipblocks, const bool skipdirblocks)
 {
     //Returns true if entity setup in temprect collides with a wall
     if(skipblocks)
@@ -4445,7 +4445,7 @@ bool entityclass::testwallsx( int t, int tx, int ty, const bool skipdirblocks )
     float dx = 0;
     float dy = 0;
     if (entities[t].rule == 0) dx = entities[t].vx;
-    float dr = entities[t].rule;
+    int dr = entities[t].rule;
 
     const bool invincible = map.invincibility && entities[t].ishumanoid();
 
@@ -4492,7 +4492,7 @@ bool entityclass::testwallsy( int t, float tx, float ty )
     float dx = 0;
     float dy = 0;
     if (entities[t].rule == 0) dy = entities[t].vy;
-    float dr = entities[t].rule;
+    int dr = entities[t].rule;
 
     const bool invincible = map.invincibility && entities[t].ishumanoid();
 

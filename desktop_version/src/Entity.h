@@ -125,11 +125,11 @@ public:
 
     bool checkplatform(const SDL_Rect& temprect, int* px, int* py);
 
-    bool checkblocks(const SDL_Rect& temprect, float dx, float dy, float dr, bool skipdirblocks);
+    bool checkblocks(const SDL_Rect& temprect, float dx, float dy, int dr, bool skipdirblocks);
 
     bool checktowerspikes(int t);
 
-    bool checkwall(bool invincible, const SDL_Rect& temprect, float dx, float dy, float dr, bool skipblocks, bool skipdirblocks);
+    bool checkwall(bool invincible, const SDL_Rect& temprect, float dx, float dy, int dr, bool skipblocks, bool skipdirblocks);
     bool checkwall(bool invincible, const SDL_Rect& temprect);
 
     float hplatformat(int px, int py);
