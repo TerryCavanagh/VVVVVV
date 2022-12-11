@@ -4484,7 +4484,7 @@ bool entityclass::testwallsx( int t, int tx, int ty, const bool skipdirblocks )
     bool skipblocks = entities[t].rule < 2 || entities[t].type == 14;
     float dx = 0;
     float dy = 0;
-    if (entities[t].rule == 0) dx = entities[t].vx;
+    if (entities[t].rule == 0 || entities[t].type == 14) dx = entities[t].vx;
     int dr = entities[t].rule;
 
     const bool invincible = map.invincibility && entities[t].ishumanoid();
@@ -4531,7 +4531,7 @@ bool entityclass::testwallsy( int t, int tx, int ty )
 
     float dx = 0;
     float dy = 0;
-    if (entities[t].rule == 0) dy = entities[t].vy;
+    if (entities[t].rule == 0 || entities[t].type == 14) dy = entities[t].vy;
     int dr = entities[t].rule;
 
     const bool invincible = map.invincibility && entities[t].ishumanoid();
