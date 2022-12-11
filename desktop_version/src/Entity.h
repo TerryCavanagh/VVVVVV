@@ -82,8 +82,6 @@ public:
 
     void revertlinecross(std::vector<entclass>& linecrosskludge, int t, int s);
 
-    bool gridmatch(int p1, int p2, int p3, int p4, int p11, int p21, int p31, int p41);
-
     void createentity(int xp, int yp, int t, int meta1, int meta2,
                       int p1, int p2, int p3, int p4);
     void createentity(int xp, int yp, int t, int meta1, int meta2,

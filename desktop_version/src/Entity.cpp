@@ -1215,7 +1215,7 @@ void entityclass::revertlinecross(std::vector<entclass>& linecrosskludge, int t,
     entities[t].life = linecrosskludge[s].life;
 }
 
-bool entityclass::gridmatch( int p1, int p2, int p3, int p4, int p11, int p21, int p31, int p41 )
+static bool gridmatch( int p1, int p2, int p3, int p4, int p11, int p21, int p31, int p41 )
 {
     if (p1 == p11 && p2 == p21 && p3 == p31 && p4 == p41) return true;
     return false;
