@@ -119,8 +119,6 @@ public:
 
     int checkactivity(void);
 
-    int getgridpoint(int t);
-
     bool checkplatform(const SDL_Rect& temprect, int* px, int* py);
 
     bool checkblocks(const SDL_Rect& temprect, float dx, float dy, int dr, bool skipdirblocks);

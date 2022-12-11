@@ -14,6 +14,11 @@
 #include "Vlogging.h"
 #include "Xoshiro.h"
 
+static int getgridpoint( int t )
+{
+    return t / 8;
+}
+
 bool entityclass::checktowerspikes(int t)
 {
     if (map.invincibility)
@@ -4092,11 +4097,6 @@ int entityclass::checkactivity(void)
         }
     }
     return -1;
-}
-
-int entityclass::getgridpoint( int t )
-{
-    return t / 8;
 }
 
 bool entityclass::checkplatform(const SDL_Rect& temprect, int* px, int* py)
