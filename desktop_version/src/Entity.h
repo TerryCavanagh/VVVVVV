@@ -155,7 +155,7 @@ public:
 
     bool testwallsx(int t, int tx, int ty, bool skipdirblocks);
 
-    bool testwallsy(int t, float tx, float ty);
+    bool testwallsy(int t, int tx, int ty);
 
     void applyfriction(int t, float xrate, float yrate);
 

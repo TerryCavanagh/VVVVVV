@@ -4473,7 +4473,7 @@ bool entityclass::testwallsx( int t, int tx, int ty, const bool skipdirblocks )
     return true;
 }
 
-bool entityclass::testwallsy( int t, float tx, float ty )
+bool entityclass::testwallsy( int t, int tx, int ty )
 {
     if (!INBOUNDS_VEC(t, entities))
     {
@@ -4482,8 +4482,8 @@ bool entityclass::testwallsy( int t, float tx, float ty )
     }
 
     SDL_Rect temprect;
-    temprect.x = static_cast<int>(tx) + entities[t].cx;
-    temprect.y = static_cast<int>(ty) + entities[t].cy;
+    temprect.x = tx + entities[t].cx;
+    temprect.y = ty + entities[t].cy;
     temprect.w = entities[t].w;
     temprect.h = entities[t].h;
 
