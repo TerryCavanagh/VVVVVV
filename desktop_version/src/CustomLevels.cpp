@@ -388,6 +388,7 @@ void customlevelclass::reset(void)
     onewaycol_override = false;
 
     customcolours.clear();
+    map.specialroomnames.clear();
 }
 
 const int* customlevelclass::loadlevel( int rxi, int ryi )
@@ -1311,6 +1312,71 @@ next:
                         customcolours[name] = colour;
                     }
                 }
+            }
+        }
+
+        if (SDL_strcmp(pKey, "SpecialRoomnames") == 0)
+        {
+            for (tinyxml2::XMLElement* roomnameElement = pElem->FirstChildElement(); roomnameElement; roomnameElement = roomnameElement->NextSiblingElement())
+            {
+                const char* roomnameType = roomnameElement->Value();
+                Roomname name;
+                name.x = 0;
+                name.y = 0;
+                name.flag = -1;
+                name.loop = false;
+                name.type = STATIC;
+                name.progress = 0;
+                name.delay = 0;
+                if (SDL_strcmp(roomnameType, "transform") == 0)
+                {
+                    name.type = TRANSFORM;
+                    name.delay = 2;
+                }
+                else if (SDL_strcmp(roomnameType, "glitch") == 0)
+                {
+                    name.type = GLITCH;
+                    name.progress = 1;
+                    name.delay = -1;
+                }
+
+                name.text.clear();
+
+                roomnameElement->QueryIntAttribute("x", &name.x);
+                roomnameElement->QueryIntAttribute("y", &name.y);
+                roomnameElement->QueryIntAttribute("flag", &name.flag);
+
+                roomnameElement->QueryBoolAttribute("loop", &name.loop);
+
+                if (name.type == STATIC)
+                {
+                    const char* text = roomnameElement->GetText();
+                    if (text != NULL)
+                    {
+                        name.text.push_back(std::string(text));
+                    }
+                }
+                else
+                {
+                    // Does it have children?
+                    if (roomnameElement->FirstChildElement() == NULL)
+                    {
+                        continue;
+                    }
+                    for (tinyxml2::XMLElement* textElement = roomnameElement->FirstChildElement(); textElement; textElement = textElement->NextSiblingElement())
+                    {
+                        if (SDL_strcmp(textElement->Value(), "text") == 0)
+                        {
+                            const char* text = textElement->GetText();
+                            if (text != NULL)
+                            {
+                                name.text.push_back(std::string(text));
+                            }
+                        }
+                    }
+                }
+
+                map.specialroomnames.push_back(name);
             }
         }
     }

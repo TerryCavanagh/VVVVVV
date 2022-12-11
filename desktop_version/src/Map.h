@@ -2,6 +2,7 @@
 #define MAPGAME_H
 
 #include <vector>
+#include <string>
 
 #include "Finalclass.h"
 #include "Labclass.h"
@@ -15,6 +16,25 @@ struct Roomtext
 {
     int x, y;
     const char* text;
+};
+
+enum RoomnameType
+{
+    STATIC,
+    GLITCH,
+    TRANSFORM
+};
+
+struct Roomname
+{
+    int x;
+    int y;
+    bool loop;
+    int flag;
+    RoomnameType type;
+    std::vector<std::string> text;
+    int progress;
+    int delay;
 };
 
 class mapclass
@@ -38,6 +58,8 @@ public:
     void resetmap(void);
 
     void resetnames(void);
+
+    void updateroomnames(void);
 
     void transformname(int t);
 
@@ -114,7 +136,10 @@ public:
 
     const char* roomname;
     bool roomname_special;
+    bool roomnameset;
     const char* hiddenname;
+
+    std::vector<Roomname> specialroomnames;
 
     //Special tower stuff
     bool towermode;

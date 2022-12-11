@@ -176,6 +176,16 @@ void scriptclass::run(void)
                 scriptdelay = 1;
             }
 #if !defined(NO_CUSTOM_LEVELS)
+            if (words[0] == "setroomname")
+            {
+                ++position;
+                if (INBOUNDS_VEC(position, commands))
+                {
+                    map.roomname_special = true;
+                    map.roomnameset = true;
+                    map.setroomname(commands[position].c_str());
+                }
+            }
             if (words[0] == "warpdir")
             {
                 int temprx = ss_toi(words[1]) - 1;

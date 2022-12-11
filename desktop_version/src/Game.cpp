@@ -5498,7 +5498,12 @@ void Game::customloadquick(const std::string& savfile)
         {
             map.showtrinkets = help.Int(pText);
         }
-
+        else if (SDL_strcmp(pKey, "roomname") == 0)
+        {
+            map.setroomname(pText);
+            map.roomnameset = true;
+            map.roomname_special = true;
+        }
     }
 
     map.showteleporters = true;
@@ -5971,6 +5976,11 @@ bool Game::customsavequick(const std::string& savfile)
     xml::update_tag(msgs, "disabletemporaryaudiopause", (int) disabletemporaryaudiopause);
 
     xml::update_tag(msgs, "showtrinkets", (int) map.showtrinkets);
+
+    if (map.roomnameset)
+    {
+        xml::update_tag(msgs, "roomname", map.roomname);
+    }
 
     std::string summary = savearea + ", " + timestring();
     xml::update_tag(msgs, "summary", summary.c_str());

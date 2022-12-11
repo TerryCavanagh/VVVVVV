@@ -88,6 +88,8 @@ mapclass::mapclass(void)
     hiddenname = "";
 
     roomname_special = false;
+    specialroomnames.clear();
+    roomnameset = false;
 }
 
 static char roomname_static[SCREEN_WIDTH_CHARS];
@@ -393,6 +395,59 @@ void mapclass::transformname(int t)
     else
     {
         glitchdelay--;
+    }
+}
+
+void mapclass::updateroomnames(void)
+{
+    if (roomnameset)
+    {
+        return;
+    }
+
+    const int rx = game.roomx - 100;
+    const int ry = game.roomy - 100;
+
+    for (int i = specialroomnames.size() - 1; i >= 0; i--)
+    {
+        Roomname &roomname = specialroomnames[i];
+        if (rx == roomname.x && ry == roomname.y && (roomname.flag == -1 || (INBOUNDS_ARR(roomname.flag, obj.flags) && obj.flags[roomname.flag])))
+        {
+            roomname_special = true;
+            if (roomname.type == STATIC)
+            {
+                setroomname(roomname.text[0].c_str());
+            }
+            if (roomname.type == GLITCH)
+            {
+                roomname.delay--;
+                if (roomname.delay <= 0)
+                {
+                    roomname.progress = (roomname.progress + 1) % 2;
+                    roomname.delay = 5;
+                    if (roomname.progress == 0)
+                    {
+                        roomname.delay = 25 + (int) (fRandom() * 10);
+                    }
+                }
+                setroomname(roomname.text[roomname.progress].c_str());
+            }
+            if (roomname.type == TRANSFORM)
+            {
+                roomname.delay--;
+                if (roomname.delay <= 0)
+                {
+                    roomname.progress++;
+                    roomname.delay = 2;
+                    if (roomname.progress >= roomname.text.size())
+                    {
+                        roomname.progress = roomname.loop ? 0 : roomname.text.size() - 1;
+                    }
+                }
+                setroomname(roomname.text[roomname.progress].c_str());
+            }
+            break;
+        }
     }
 }
 
@@ -1414,6 +1469,7 @@ void mapclass::loadlevel(int rx, int ry)
 
     roomtexton = false;
     roomtext.clear();
+    roomnameset = false;
 
     obj.platformtile = 0;
     obj.customplatformtile=0;
