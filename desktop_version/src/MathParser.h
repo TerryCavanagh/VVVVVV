@@ -78,7 +78,7 @@ namespace MathParser
 
     extern std::map<std::string, double> variables;
 
-    void ResetEnvironment();
+    void ResetEnvironment(void);
 
     extern void SetVariable(std::string name, double value);
 

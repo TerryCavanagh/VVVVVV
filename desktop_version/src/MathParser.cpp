@@ -25,7 +25,7 @@ public:
     double value;
     std::string name;
 
-    Token() {
+    Token(void) {
         type = EOL;
         value = 0;
         name = " ";
@@ -55,7 +55,7 @@ public:
     char currentChar;
     bool invalid;
 
-    Lexer() {
+    Lexer(void) {
         input = " ";
         pos = 0;
         lastChar = ' ';
@@ -78,7 +78,7 @@ public:
         return isalnum(c)|| c == '_' || c == '-';
     }
 
-    void advance()
+    void advance(void)
     {
         this->pos++;
         if (this->pos > input.length() - 1)
@@ -91,7 +91,7 @@ public:
         }
     }
 
-    char peek()
+    char peek(void)
     {
         return peek(1);
     }
@@ -106,7 +106,7 @@ public:
         return input[peek_pos];
     }
 
-    void skipWhitespace()
+    void skipWhitespace(void)
     {
         while (currentChar != '\0' && isspace(currentChar))
         {
@@ -114,7 +114,7 @@ public:
         }
     }
 
-    void skipComment()
+    void skipComment(void)
     {
         while (currentChar != '\0' && currentChar != '\n')
         {
@@ -122,7 +122,7 @@ public:
         }
     }
 
-    void skipMultilineComment()
+    void skipMultilineComment(void)
     {
         char nextChar = peek();
         while (currentChar != '\0' && (currentChar != '*' || nextChar != '/'))
@@ -134,7 +134,7 @@ public:
         advance();
     }
 
-    double number()
+    double number(void)
     {
         std::string result = "";
         while (currentChar != '\0' && isdigit(currentChar))
@@ -155,7 +155,7 @@ public:
         return atof(result.c_str());
     }
 
-    std::string identifier()
+    std::string identifier(void)
     {
         std::string result = "";
         while (currentChar != '\0' && isIdentifierChar(currentChar))
@@ -166,7 +166,7 @@ public:
         return result;
     }
 
-    Token getNextToken()
+    Token getNextToken(void)
     {
         if (invalid) {
             return Token(ERROR, 0);
@@ -440,7 +440,7 @@ class MathParser::Compound : public AST
 public:
     std::vector<AST*> children;
 
-    Compound()
+    Compound(void)
     {
         type = AST_COMPOUND;
     }
@@ -449,7 +449,7 @@ public:
 class MathParser::NoOp : public AST
 {
 public:
-    NoOp()
+    NoOp(void)
     {
         type = AST_NOOP;
     }
@@ -512,7 +512,7 @@ public:
         }
     }
 
-    AST* expr_6()
+    AST* expr_6(void)
     {
         Token token = currentToken;
         if (token.type == COMMA)
@@ -573,7 +573,7 @@ public:
         return NULL;
     }
 
-    AST* expr_5()
+    AST* expr_5(void)
     {
         AST* node = expr_6();
         while (currentToken.type == EQUAL_TO ||
@@ -614,7 +614,7 @@ public:
     }
 
 
-    AST* expr_4()
+    AST* expr_4(void)
     {
         AST* node = expr_5();
         while (currentToken.type == AND || currentToken.type == OR)
@@ -633,7 +633,7 @@ public:
         return node;
     }
 
-    AST* expr_3()
+    AST* expr_3(void)
     {
         AST* node = expr_4();
         while (currentToken.type == POWER)
@@ -645,7 +645,7 @@ public:
         return node;
     }
 
-    AST* expr_2()
+    AST* expr_2(void)
     {
         AST* node = expr_3();
         while (currentToken.type == MULTIPLY || currentToken.type == DIVIDE || currentToken.type == MODULO)
@@ -668,7 +668,7 @@ public:
         return node;
     }
 
-    AST* expr_1()
+    AST* expr_1(void)
     {
         AST* node = expr_2();
         while (currentToken.type == PLUS || currentToken.type == MINUS)
@@ -687,7 +687,7 @@ public:
         return node;
     }
 
-    AST* statement()
+    AST* statement(void)
     {
         AST* node;
 
@@ -711,7 +711,7 @@ public:
         return node;
     }
 
-    AST* ifStatement()
+    AST* ifStatement(void)
     {
         eat(IF);
         AST* condition = expr_1();
@@ -737,7 +737,7 @@ public:
         return new IfStatement(condition, then, else_);
     }
 
-    std::vector<AST*> statementList()
+    std::vector<AST*> statementList(void)
     {
         std::vector<AST*> nodes;
         nodes.push_back(statement());
@@ -760,7 +760,7 @@ public:
         return nodes;
     }
 
-    AST* compoundStatement()
+    AST* compoundStatement(void)
     {
         eat(BEGIN);
         std::vector<AST*> nodes = statementList();
@@ -770,7 +770,7 @@ public:
         return node;
     }
 
-    AST* assignStatement()
+    AST* assignStatement(void)
     {
         Var* left = new Var(currentToken);
         eat(IDENTIFIER);
@@ -780,7 +780,7 @@ public:
         return new Assign(left, token, right);
     }
 
-    AST* parse()
+    AST* parse(void)
     {
         std::vector<AST*> nodes = statementList();
         Compound* node = new Compound();
@@ -801,7 +801,7 @@ public:
     std::string errorMessage;
     bool invalid;
 
-    Interpreter()
+    Interpreter(void)
     {
         this->invalid = false;
         this->errorMessage = "";
@@ -926,7 +926,8 @@ public:
                     else if (name == "round") return round(visit(args[0]));
                     else if (name == "cbrt") return cbrt(visit(args[0]));
                     else if (name == "int") return int(visit(args[0]));
-                    else if (name == "flag") {
+                    else if (name == "flag")
+                    {
                         int value = (int)visit(args[0]);
                         return (int)(INBOUNDS_ARR(value, obj.flags) && obj.flags[value]);
                     }
@@ -942,6 +943,13 @@ public:
                 else if (args.size() == 3)
                 {
                     if (name == "clamp") return std::max(visit(args[1]), std::min(visit(args[0]), visit(args[2])));
+                    if (name == "lerp")
+                    {
+                        double a = visit(args[0]);
+                        double b = visit(args[1]);
+                        double t = visit(args[2]);
+                        return a + (b - a) * t;
+                    }
                 }
 
                 error("Function not found or incorrect usage");
@@ -965,7 +973,7 @@ public:
     }
 };
 
-void MathParser::ResetEnvironment()
+void MathParser::ResetEnvironment(void)
 {
     variables.clear();
     variables["pi"] = 3.14159265358979323846;
