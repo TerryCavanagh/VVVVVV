@@ -113,7 +113,7 @@
     <string english="and features music by" translation="en heeft muziek door" explanation="credits" max="40"/>
     <string english="Roomnames are by" translation="Kamernamen door" explanation="credits" max="40"/>
     <string english="C++ version by" translation="C++-versie door" explanation="credits" max="40"/>
-    <string english="Beta Testing by" translation="Bètatesting door" explanation="credits" max="30"/>
+    <string english="Beta Testing by" translation="Bètatesten door" explanation="credits" max="30"/>
     <string english="Ending Picture by" translation="Eindafbeelding door" explanation="credits" max="30"/>
     <string english="Created by" translation="Gemaakt door" explanation="credits" max="30"/>
     <string english="With Music by" translation="Met muziek van" explanation="credits" max="30"/>
@@ -477,7 +477,7 @@
     <string english="Press Left/Right to choose a Teleporter" translation="Links/Rechts: kies teleport" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40"/>
     <string english="Press {button} to Teleport" translation="Druk op {button} om te teleporteren" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40"/>
     <string english="- Press {button} to Teleport -" translation="- Druk op {button} om te teleporteren -" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40"/>
-    <string english="Press {button} to explode" translation="{button}: Ontploffen" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
+    <string english="Press {button} to explode" translation="{button}: Opblazen" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
     <string english="Press {button} to talk to Violet" translation="{button}: Praten met Violet" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to talk to Vitellary" translation="{button}: Praten met Vitellary" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to talk to Vermilion" translation="{button}: Praten met Vermilion" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>

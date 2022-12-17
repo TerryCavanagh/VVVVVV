@@ -480,7 +480,7 @@
     </cutscene>
     <cutscene id="talkred_8" explanation="">
         <dialogue speaker="red" english="You found Professor Vitellary! All right!" translation="Je hebt Professor Vitellary gevonden! Niet slecht!"/>
-        <dialogue speaker="red" english="We&apos;ll have this interference thing worked out in no time now!" translation="Nu hebben we dat interferentie-ding in no time uitgevogeld!"/>
+        <dialogue speaker="red" english="We&apos;ll have this interference thing worked out in no time now!" translation="Nu hebben we dat interferentie-gedoe in no time uitgevogeld!"/>
     </cutscene>
     <cutscene id="talkred_9" explanation="">
         <dialogue speaker="red" english="That other dimension was really strange, wasn&apos;t it?" translation="Die andere dimensie was heel raar, of niet?"/>
