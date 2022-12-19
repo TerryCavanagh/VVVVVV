@@ -1,0 +1,26 @@
+gotoroom(2,11)
+gotoposition(160,120,0)
+nocontrol()
+createcrewman(185,153,purple,0,faceleft)
+createcrewman(205,153,yellow,0,faceleft)
+createcrewman(225,153,red,0,faceleft)
+createcrewman(245,153,green,0,faceleft)
+createcrewman(265,153,blue,1,faceleft)
+
+cutscene()
+untilbars()
+
+delay(30)
+rescued(player)
+
+squeak(yellow)
+text(yellow,0,0,1)
+Any moment now...
+position(yellow,above)
+speak_active
+endtext
+nocontrol()
+
+delay(60)
+
+gamestate(4080)

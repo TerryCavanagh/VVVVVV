@@ -1,0 +1,27 @@
+ifskip(skipint2yellow)
+cutscene()
+
+tofloor()
+changeai(yellow,followplayer)
+untilbars()
+
+squeak(yellow)
+text(yellow,0,0,1)
+That was interesting, wasn't it?
+position(yellow,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,1)
+I feel dizzy...
+position(player,above)
+speak_active
+
+endtext
+
+changemood(player,0)
+
+endcutscene()
+untilbars()
+companion(10)

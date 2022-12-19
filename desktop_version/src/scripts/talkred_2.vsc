@@ -1,0 +1,23 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,1)
+I hope Victoria is ok...
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+She doesn't handle
+surprises very well...
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(red)

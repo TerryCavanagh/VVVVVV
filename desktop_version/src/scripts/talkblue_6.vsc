@@ -1,0 +1,36 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,2)
+Verdigris is ok! Violet
+will be so happy!
+position(blue,below)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+I'm happy!
+position(blue,below)
+speak_active
+
+endtext
+
+delay(30)
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,1)
+Though I was very worried...
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

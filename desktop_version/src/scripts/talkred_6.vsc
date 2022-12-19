@@ -1,0 +1,24 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,2)
+It's good to have
+Victoria back with us.
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+She really seems happy to
+get back to work in her lab!
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(red)

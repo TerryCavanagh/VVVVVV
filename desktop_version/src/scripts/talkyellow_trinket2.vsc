@@ -1,0 +1,51 @@
+hidetrinkets()
+endtextfast
+delay(10)
+
+# add map mode here and wrap up...
+gamemode(teleporter)
+delay(20)
+
+squeak(yellow)
+text(yellow,50,15,2)
+...so I used the ship's scanner
+to find more of them!
+speak_active
+
+endtext
+
+squeak(terminal)
+showtrinkets()
+delay(10)
+hidetrinkets()
+delay(10)
+showtrinkets()
+delay(10)
+hidetrinkets()
+delay(10)
+showtrinkets()
+delay(75)
+
+gamemode(game)
+delay(20)
+
+squeak(yellow)
+changemood(yellow,0)
+text(yellow,0,0,3)
+...Please don't let them
+distract you from finding
+Victoria, though!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,1)
+I hope she's ok...
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

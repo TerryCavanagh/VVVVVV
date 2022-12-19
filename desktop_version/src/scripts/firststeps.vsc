@@ -1,0 +1,21 @@
+cutscene()
+untilbars()
+
+squeak(player)
+text(cyan,0,0,2)
+I wonder why the ship
+teleported me here alone?
+position(player,above)
+speak_active
+
+squeak(cry)
+text(cyan,0,0,2)
+I hope everyone else
+got out ok...
+position(player,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

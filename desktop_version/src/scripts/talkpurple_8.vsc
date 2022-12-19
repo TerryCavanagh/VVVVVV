@@ -1,0 +1,27 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(purple)
+text(purple,0,0,4)
+Hey Captain! Now that you've turned
+off the source of the interference,
+we can warp everyone back to the
+ship instantly, if we need to!
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,3)
+Any time you want to come back
+to the ship, just select the
+new SHIP option in your menu!
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

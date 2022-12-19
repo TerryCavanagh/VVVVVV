@@ -1,0 +1,17 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,2)
+The ship's all fixed up. We
+can leave at a moment's notice!
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

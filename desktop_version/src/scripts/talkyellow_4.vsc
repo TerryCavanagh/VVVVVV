@@ -1,0 +1,33 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,4)
+My guess is that whoever used
+to live here was experimenting
+with ways to stop the dimension
+from collapsing.
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+It would explain why they've
+wrapped the edges...
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+Hey, maybe that's what's
+causing the interference?
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

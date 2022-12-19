@@ -1,0 +1,43 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,60,1)
+      -= Research Notes =-       
+position(centerx)
+backgroundtext
+flipme
+speak
+
+text(gray,0,114,3)
+ ... the final step in creating 
+ the dimensional stabiliser was 
+ to create a feedback loop ... 
+position(center)
+speak
+
+endtextfast
+delay(10)
+
+ifexplored(14,1,alreadyvisited)
+
+gamemode(teleporter)
+delay(20)
+
+squeak(terminal)
+showcoordinates(14,1)
+delay(10)
+hidecoordinates(14,1)
+delay(10)
+showcoordinates(14,1)
+delay(10)
+hidecoordinates(14,1)
+delay(10)
+showcoordinates(14,1)
+delay(45)
+
+gamemode(game)
+delay(20)
+
+endcutscene()
+untilbars()

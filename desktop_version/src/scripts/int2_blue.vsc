@@ -1,0 +1,28 @@
+ifskip(skipint2blue)
+cutscene()
+
+tofloor()
+changeai(blue,followplayer)
+untilbars()
+
+squeak(cry)
+text(blue,0,0,1)
+I think I'm going to be sick...
+position(blue,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,1)
+I feel dizzy...
+position(player,above)
+speak_active
+
+endtext
+
+changemood(player,0)
+changemood(blue,0)
+
+endcutscene()
+untilbars()
+companion(10)

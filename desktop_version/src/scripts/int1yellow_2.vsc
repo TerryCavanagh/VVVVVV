@@ -1,0 +1,21 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(player)
+text(player,0,0,1)
+Follow me!
+position(player,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,1)
+Right behind you, Captain!
+position(yellow,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()
+gamestate(11)

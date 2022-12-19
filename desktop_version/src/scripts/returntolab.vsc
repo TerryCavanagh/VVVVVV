@@ -1,0 +1,9 @@
+gotoroom(19,7)
+gotoposition(132,137,0)
+fadein()
+
+setcheckpoint()
+
+play(11)
+endcutscene()
+untilbars()

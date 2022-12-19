@@ -1,0 +1,147 @@
+ifskip(communicationstationskip)
+cutscene()
+untilbars()
+changemood(player,0)
+
+tofloor
+play(5)
+delay(10)
+
+squeak(player)
+text(cyan,0,0,1)
+Violet! Is that you?
+position(player,above)
+speak_active
+endtext
+
+squeak(purple)
+text(purple,45,18,1)
+Captain! You're ok!
+speak_active
+
+squeak(cry)
+text(purple,20,16,3)
+Something has gone
+horribly wrong with the
+ship's teleporter!
+speak_active
+
+squeak(purple)
+text(purple,8,14,3)
+I think everyone has been
+teleported away randomly!
+They could be anywhere!
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(cyan,0,0,1)
+Oh no!
+position(player,above)
+speak_active
+
+squeak(purple)
+text(purple,10,19,2)
+I'm on the ship - it's damaged
+badly, but it's still intact!
+speak_active
+
+squeak(purple)
+text(purple,10,15,1)
+Where are you, Captain?
+speak_active
+
+squeak(player)
+changemood(player,0)
+text(cyan,0,0,3)
+I'm on some sort of
+space station... It
+seems pretty modern...
+position(player,above)
+speak_active
+
+squeak(purple)
+text(purple,15,16,2)
+There seems to be some sort of
+interference in this dimension...
+speak_active
+
+hideteleporters()
+endtextfast
+delay(10)
+
+# add map mode here and wrap up...
+gamemode(teleporter)
+delay(20)
+
+squeak(purple)
+text(purple,25,205,2)
+I'm broadcasting the coordinates
+of the ship to you now.
+speak_active
+endtext
+
+squeak(terminal)
+showship()
+delay(10)
+hideship()
+delay(10)
+showship()
+delay(10)
+hideship()
+delay(10)
+showship()
+delay(20)
+
+squeak(purple)
+text(purple,10,200,1)
+I can't teleport you back, but...
+speak_active
+
+squeak(purple)
+text(purple,25,195,3)
+If YOU can find a teleporter
+anywhere nearby, you should be
+able to teleport back to me!
+speak_active
+endtext
+
+squeak(terminal)
+delay(20)
+showteleporters()
+delay(10)
+hideteleporters()
+delay(10)
+showteleporters()
+delay(10)
+hideteleporters()
+delay(10)
+showteleporters()
+delay(20)
+
+squeak(player)
+text(cyan,20,190,1)
+Ok! I'll try to find one!
+speak_active
+endtext
+delay(20)
+
+gamemode(game)
+delay(20)
+
+squeak(purple)
+text(purple,40,22,1)
+Good luck, Captain!
+speak_active
+endtext
+
+squeak(purple)
+text(purple,10,19,2)
+I'll keep trying to find
+the rest of the crew...
+speak_active
+endtext
+
+endcutscene()
+untilbars()
+play(1)

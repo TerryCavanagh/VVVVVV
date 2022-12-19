@@ -1,0 +1,5 @@
+changeai(yellow,followplayer)
+changetile(yellow,6)
+squeak(yellow)
+rescued(yellow)
+companion(7)

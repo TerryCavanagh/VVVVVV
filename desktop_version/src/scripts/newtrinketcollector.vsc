@@ -1,0 +1,22 @@
+squeak(player)
+text(cyan,0,0,3)
+This seems like a good
+place to store those
+shiny things.
+position(player,above)
+speak_active
+
+squeak(player)
+text(cyan,0,0,3)
+Victoria loves to study the
+interesting things we find
+on our adventures!
+position(player,above)
+speak_active
+
+ifcrewlost(5,new2trinketcollector)
+
+endtext
+
+endcutscene()
+untilbars()

@@ -1,0 +1,9 @@
+squeak(player)
+text(cyan,0,0,1)
+...oh, I've already found this.
+position(player,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()

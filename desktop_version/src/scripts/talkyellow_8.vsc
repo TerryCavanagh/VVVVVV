@@ -1,0 +1,23 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,2)
+Ah, you've found Doctor
+Victoria? Excellent!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,1)
+I have lots of questions for her!
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

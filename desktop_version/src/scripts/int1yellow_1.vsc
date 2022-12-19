@@ -1,0 +1,53 @@
+cutscene()
+untilbars()
+
+squeak(yellow)
+text(yellow,0,0,1)
+Oooh! This is interesting...
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+Captain! Have you
+been here before?
+position(yellow,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,1)
+What? Where are we?
+position(player,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,3)
+I suspect something deflected
+our teleporter transmission!
+This is somewhere new...
+position(yellow,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,1)
+Oh no!
+position(player,above)
+speak_active
+
+squeak(player)
+changemood(player,0)
+text(player,0,0,3)
+We should try to find a
+teleporter and get back
+to the ship...
+position(player,above)
+speak_active
+
+endtext
+
+telesave()
+endcutscene()
+untilbars()
+gamestate(14)

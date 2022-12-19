@@ -1,0 +1,16 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,1)
+I'm an engineer!
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

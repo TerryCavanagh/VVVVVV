@@ -1,0 +1,15 @@
+fadeout()
+musicfadeout()
+untilfade()
+delay(30)
+
+resetgame
+
+gotoroom(12,14)
+gotoposition(126,38,1)
+setcheckpoint()
+changedir(player,0)
+fadein()
+
+stopmusic()
+play(1)

@@ -1,0 +1,30 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+Any signs of Professor Vitellary?
+position(blue,below)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Sorry, not yet...
+position(player,above)
+speak_active
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,1)
+I hope he's ok...
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

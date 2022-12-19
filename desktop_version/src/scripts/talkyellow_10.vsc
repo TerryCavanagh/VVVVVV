@@ -1,0 +1,23 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,1)
+It's good to be back!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+I've got so much work
+to catch up on...
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

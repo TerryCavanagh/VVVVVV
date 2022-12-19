@@ -1,0 +1,32 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,4)
+... it turns out the key to
+stabilising this dimension was
+to create a balancing force
+outside of it!
+position(center)
+speak_active
+
+squeak(terminal)
+text(gray,0,114,2)
+Though it looks like that's just
+a temporary solution, at best.
+position(center)
+speak_active
+
+squeak(terminal)
+text(gray,0,114,4)
+I've been working on
+something more permanent,
+but it seems it's going
+to be too late...
+position(center)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

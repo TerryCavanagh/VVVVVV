@@ -1,0 +1,24 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,3)
+I wonder why they abandoned this
+dimension? They were so close to
+working out how to fix it...
+position(green,above)
+speak_active
+
+squeak(green)
+text(green,0,0,2)
+Maybe we can fix it for them?
+Maybe they'll come back?
+position(green,above)
+speak_active
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

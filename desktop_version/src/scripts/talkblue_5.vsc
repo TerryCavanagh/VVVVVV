@@ -1,0 +1,33 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+You found Vermilion! Great!
+position(blue,below)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,2)
+I wish he wasn't
+so reckless!
+position(blue,below)
+speak_active
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,2)
+He'll get himself
+into trouble...
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

@@ -1,0 +1,12 @@
+finalmode(46,54)
+gotoposition(101,113,0)
+setcheckpoint()
+changedir(player,1)
+restoreplayercolour
+
+showplayer()
+hascontrol()
+missing(player)
+play(15)
+fadein()
+untilfade()

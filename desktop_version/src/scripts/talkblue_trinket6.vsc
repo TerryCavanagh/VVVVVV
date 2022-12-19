@@ -1,0 +1,43 @@
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,3)
+...and they're related.
+They're all a part of
+something bigger!
+position(blue,below)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Oh? Really?
+position(player,above)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,4)
+Yeah! There seem to be
+twenty variations of
+the fundamental energy
+signature...
+position(blue,below)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,1)
+Wait...
+position(blue,below)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,2)
+Does that mean you've
+found all of them?
+position(blue,below)
+speak_active
+
+endtext
+
+loadscript(startepilogue)

@@ -1,0 +1,47 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(player)
+text(player,0,0,2)
+What do you make of
+all this, Professor?
+position(player,below)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,4)
+I'm guessing this dimension
+has something to do with the
+interference that caused
+us to crash!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+Maybe we'll find the
+cause of it here?
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Oh wow! Really?
+position(player,below)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,4)
+Well, it's just a guess.
+I'll need to get back to
+the ship before I can do
+any real tests...
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

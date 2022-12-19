@@ -1,0 +1,58 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,3)
+You know, there's
+something really odd
+about this dimension...
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Yeah?
+position(player,above)
+speak_active
+
+squeak(yellow)
+changedir(yellow,0)
+text(yellow,0,0,3)
+We shouldn't really be able
+to move between dimensions
+with a regular teleporter...
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+changedir(yellow,0)
+text(yellow,0,0,2)
+Maybe this isn't a proper
+dimension at all?
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+changedir(yellow,0)
+text(yellow,0,0,4)
+Maybe it's some kind of
+polar dimension? Something
+artificially created for
+some reason?
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+changedir(yellow,1)
+text(yellow,0,0,2)
+I can't wait to get back to the
+ship. I have a lot of tests to run!
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

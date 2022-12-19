@@ -1,0 +1,18 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,3)
+I think I can get this ship
+moving again, but it's going
+to take a while...
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

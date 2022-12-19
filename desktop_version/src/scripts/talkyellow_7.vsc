@@ -1,0 +1,24 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,1)
+I'm glad Verdigris is alright.
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,3)
+It'll be a lot easier to find
+some way out of here now that
+we can get the ship working again!
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

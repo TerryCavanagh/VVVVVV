@@ -1,0 +1,17 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(purple)
+text(purple,0,0,2)
+Chief Verdigris is so brave
+and ever so smart!
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

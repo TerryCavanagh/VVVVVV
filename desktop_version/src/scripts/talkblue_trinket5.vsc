@@ -1,0 +1,28 @@
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,3)
+...but it looks like you've
+already found all of them
+in this dimension!
+position(blue,below)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Oh? Really?
+position(player,above)
+speak_active
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,2)
+Yeah, well done! That
+can't have been easy!
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

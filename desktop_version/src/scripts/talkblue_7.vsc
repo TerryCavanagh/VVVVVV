@@ -1,0 +1,38 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,2)
+Why did the teleporter send
+us to that scary dimension?
+position(blue,below)
+speak_active
+
+squeak(blue)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,1)
+What happened?
+position(blue,below)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+I don't know, Doctor...
+position(player,above)
+speak_active
+
+squeak(cry)
+changetile(blue,150) # upside down frown :(
+text(blue,0,0,1)
+Why?
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

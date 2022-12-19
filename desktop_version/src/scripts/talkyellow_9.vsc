@@ -1,0 +1,32 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,3)
+Vermilion says that he
+was trapped in some
+sort of tunnel?
+position(yellow,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+Yeah, it just seemed to
+keep going and going...
+position(player,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+Interesting... I wonder
+why it was built?
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

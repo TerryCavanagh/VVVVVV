@@ -1,0 +1,31 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(cry)
+text(blue,0,0,2)
+We're never going to get
+out of here, are we?
+position(blue,above)
+speak_active
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,1)
+I.. I don't know...
+position(player,above)
+speak_active
+
+squeak(cry)
+text(player,0,0,2)
+I don't know where we are or
+how we're going to get out...
+position(player,above)
+speak_active
+
+
+endtext
+
+endcutscene()
+untilbars()

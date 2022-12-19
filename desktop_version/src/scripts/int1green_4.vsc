@@ -1,0 +1,35 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,1)
+Hey again!
+position(green,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Hey!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Are you doing ok?
+position(player,above)
+speak_active
+
+squeak(green)
+text(green,0,0,3)
+I think so! I really
+hope we can find a way
+back to the ship...
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

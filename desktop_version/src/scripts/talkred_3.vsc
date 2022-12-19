@@ -1,0 +1,25 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,3)
+I don't know how we're
+going to get this ship
+working again!
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+Chief Verdigris would
+know what to do...
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(red)

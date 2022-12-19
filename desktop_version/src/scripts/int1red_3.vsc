@@ -1,0 +1,44 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,2)
+Hey Viridian... how did
+the crash happen, exactly?
+position(red,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+Oh, I don't really know -
+some sort of interference...
+position(player,below)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+...or something sciencey like
+that. It's not really my area.
+position(player,below)
+speak_active
+
+squeak(red)
+text(red,0,0,3)
+Ah! Well, do you think
+we'll be able to fix
+the ship and go home?
+position(red,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Of course! Everything will be ok!
+position(player,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

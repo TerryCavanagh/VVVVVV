@@ -1,0 +1,12 @@
+squeak(purple)
+text(purple,0,0,1)
+Captain!
+position(purple,above)
+speak_active
+endtext
+nocontrol()
+
+endcutscene()
+untilbars()
+
+gamestate(3050)

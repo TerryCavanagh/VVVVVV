@@ -1,0 +1,30 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,1)
+Hi again! You doing ok?
+position(red,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+I think so! But I really want
+to get back to the ship...
+position(player,above)
+speak_active
+
+squeak(red)
+text(red,0,0,3)
+We'll be ok! If we can find
+a teleporter somewhere we
+should be able to get back!
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

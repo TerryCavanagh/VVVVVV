@@ -1,0 +1,17 @@
+cutscene()
+untilbars()
+activeteleporter()
+
+stopmusic()
+play(4)
+
+gotoroom(2,11)
+gotoposition(160,120,0)
+
+createlastrescued()
+
+fadein()
+untilfade()
+endcutscene()
+setcheckpoint()
+gamestate(4010)

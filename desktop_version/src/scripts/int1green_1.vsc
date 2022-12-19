@@ -1,0 +1,59 @@
+delay(45)
+
+squeak(green)
+text(green,0,0,1)
+Huh? This isn't the ship...
+position(green,above)
+speak_active
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,1)
+Captain! What's going on?
+position(green,above)
+speak_active
+
+squeak(cry)
+changemood(player,1
+text(player,0,0,1)
+I... I don't know!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+Where are we?
+position(player,above)
+speak_active
+
+squeak(green)
+text(green,0,0,3)
+Uh oh, this isn't good...
+Something must have gone
+wrong with the teleporter!
+position(green,above)
+speak_active
+
+squeak(player)
+changemood(player,0
+text(player,0,0,1)
+Ok... no need to panic!
+position(player,above)
+speak_active
+
+squeak(player)
+changemood(player,0
+text(player,0,0,1)
+Let's look for another teleporter!
+There's bound to be one around
+here somewhere!
+position(player,above)
+speak_active
+
+endtext
+
+telesave()
+endcutscene()
+untilbars()
+gamestate(14)

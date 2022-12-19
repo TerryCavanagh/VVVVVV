@@ -1,0 +1,22 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,60,1)
+      -= Research Notes =-       
+position(centerx)
+backgroundtext
+flipme
+speak
+
+text(gray,0,114,3)
+ ...everything collapses,  
+ eventually. It's the way  
+    of the universe.       
+position(center)
+speak
+
+endtextfast
+
+endcutscene()
+untilbars()

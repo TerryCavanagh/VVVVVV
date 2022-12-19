@@ -1,0 +1,18 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,3)
+That other dimension we ended
+up in must be related to this
+one, somehow...
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

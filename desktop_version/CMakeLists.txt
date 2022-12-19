@@ -94,7 +94,6 @@ set(VVV_SRC
     src/Script.cpp
     src/Scripts.cpp
     src/Spacestation2.cpp
-    src/TerminalScripts.cpp
     src/Textbox.cpp
     src/Tower.cpp
     src/UtilityClass.cpp
@@ -225,6 +224,13 @@ if(NOT OFFICIAL_BUILD)
         list(APPEND STATIC_LIBRARIES InterimVersion)
     endif()
 endif()
+
+# Regenerate script code before building, if needed
+ADD_CUSTOM_TARGET(GENERATED_SCRIPTS
+	COMMAND ${CMAKE_COMMAND} -P "${PROJECT_SOURCE_DIR}/cmake/GenerateScriptCode.cmake"
+	WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+)
+ADD_DEPENDENCIES(VVVVVV GENERATED_SCRIPTS)
 
 # Build options
 if(ENABLE_WARNINGS)

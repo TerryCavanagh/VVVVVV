@@ -1,0 +1,3 @@
+resetgame
+gotoroom(4,6)
+fadein()

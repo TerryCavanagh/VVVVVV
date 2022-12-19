@@ -1,0 +1,44 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(cry)
+text(blue,0,0,1)
+We're going to be lost forever!
+position(blue,above)
+speak_active
+
+squeak(player)
+changemood(player,0)
+text(player,0,0,2)
+Ok, come on... Things
+aren't that bad.
+position(player,above)
+speak_active
+
+
+squeak(player)
+text(player,0,0,2)
+I have a feeling that
+we're nearly home!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+We can't be too far
+from another teleporter!
+position(player,above)
+speak_active
+
+squeak(cry)
+text(blue,0,0,1)
+I hope you're right, captain...
+position(blue,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

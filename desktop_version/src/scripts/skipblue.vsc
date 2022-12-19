@@ -1,0 +1,6 @@
+changeai(blue,followplayer)
+squeak(blue)
+changemood(blue,0)
+companion(8)
+rescued(blue)
+setcheckpoint()

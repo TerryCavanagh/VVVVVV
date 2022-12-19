@@ -1,0 +1,37 @@
+squeak(cry)
+text(player,0,0,1)
+Verdigris? Where are you?
+position(player,above)
+speak_active
+endtext
+delay(15)
+
+flash(5)
+shake(20)
+playef(10)
+delay(15)
+
+changedir(player,0)
+
+createcrewman(150,-20,green,1,17,1)
+
+squeak(cry)
+text(green,170,50,1)
+Aaagghh!
+speak_active
+endtext
+
+delay(15)
+
+squeak(player)
+changemood(player,0)
+text(player,0,0,1)
+Hang on! I'll save you!
+position(player,above)
+speak_active
+
+endtext
+telesave()
+
+endcutscene()
+untilbars()

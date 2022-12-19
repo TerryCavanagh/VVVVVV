@@ -1,0 +1,19 @@
+squeak(player)
+text(cyan,0,0,2)
+Oh! It's another one of
+those shiny things!
+position(player,above)
+speak_active
+
+squeak(player)
+text(cyan,0,0,3)
+I probably don't really need it,
+but it might be nice to take it
+back to the ship to study...
+position(player,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

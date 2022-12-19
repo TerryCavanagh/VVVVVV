@@ -1,0 +1,24 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,3)
+   -= D.S.S. SOULEYE =-   
+
+ Ship Navigation Controls 
+position(center)
+speak_active
+
+ifflag(67,terminal_letsgo)
+
+squeak(terminal)
+text(gray,0,114,3)
+Error! Error! Cannot isolate
+dimensional coordinates!
+Interference detected!
+position(center)
+speak_active
+endtext
+
+endcutscene()
+untilbars()

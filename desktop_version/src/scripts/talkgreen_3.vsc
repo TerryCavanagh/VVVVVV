@@ -1,0 +1,18 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,3)
+Victoria mentioned something
+about a lab? I wonder if she
+found anything down there?
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

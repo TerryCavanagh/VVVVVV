@@ -1,0 +1,26 @@
+cutscene()
+untilbars()
+
+squeak(player)
+text(player,0,0,1)
+Follow me! I'll help you!
+position(player,above)
+speak_active
+
+squeak(cry)
+text(blue,0,0,1)
+Promise you won't leave without me!
+position(blue,above)
+speak_active
+
+squeak(player)
+text(player,0,0,1)
+I promise! Don't worry!
+position(player,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+gamestate(11)

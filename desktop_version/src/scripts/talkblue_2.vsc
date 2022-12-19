@@ -1,0 +1,18 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(blue)
+changetile(blue,6) # smiling again! blue always needs to specify her mood
+text(blue,0,0,2)
+Thanks so much for
+saving me, Captain!
+position(blue,below)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(blue)

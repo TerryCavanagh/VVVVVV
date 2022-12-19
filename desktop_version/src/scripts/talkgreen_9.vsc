@@ -1,0 +1,24 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,2)
+It looks like we were warped
+into solid rock when we crashed!
+position(green,above)
+speak_active
+
+squeak(green)
+text(green,0,0,2)
+Hmm. It's going to be hard
+to separate from this...
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

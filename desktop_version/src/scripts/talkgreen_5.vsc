@@ -1,0 +1,33 @@
+cutscene()
+untilbars()
+face(player,green)
+face(green,player)
+
+squeak(green)
+text(green,0,0,3)
+The Professor had lots of
+questions about this
+dimension for me...
+position(green,above)
+speak_active
+
+squeak(green)
+text(green,0,0,2)
+We still don't really know
+that much, though.
+position(green,above)
+speak_active
+
+squeak(green)
+text(green,0,0,3)
+Until we work out what's
+causing that interference,
+we can't go anywhere.
+position(green,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(green)

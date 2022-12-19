@@ -1,0 +1,35 @@
+cutscene()
+untilbars()
+face(player,blue)
+face(blue,player)
+
+squeak(cry)
+text(blue,0,0,1)
+Captain! Captain! Wait for me!
+position(blue,above)
+speak_active
+
+squeak(blue)
+text(blue,0,0,2)
+Please don't leave me behind!
+I don't mean to be a burden!
+position(blue,above)
+speak_active
+
+squeak(cry)
+text(blue,0,0,1)
+I'm scared!
+position(blue,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+Oh... don't worry Victoria,
+I'll look after you!
+position(player,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

@@ -1,0 +1,22 @@
+cutscene()
+untilbars()
+
+squeak(player)
+text(cyan,0,0,1)
+A teleporter!
+position(player,above)
+speak_active
+
+squeak(player)
+text(cyan,0,0,2)
+I can get back to the
+ship with this!
+position(player,above)
+speak_active
+
+endtext
+
+teleportscript(levelonecomplete)
+
+endcutscene()
+untilbars()

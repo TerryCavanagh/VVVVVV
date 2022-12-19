@@ -1,0 +1,23 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(red)
+text(red,0,0,1)
+Heya Captain!
+position(red,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+This way looks a little
+dangerous...
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(red)

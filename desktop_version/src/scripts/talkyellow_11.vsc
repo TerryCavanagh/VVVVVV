@@ -1,0 +1,32 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,3)
+I know it's probably a little
+dangerous to stay here now that
+this dimension is collapsing...
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+...but it's so rare to find
+somewhere this interesting!
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+Maybe we'll find the answers
+to our own problems here?
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

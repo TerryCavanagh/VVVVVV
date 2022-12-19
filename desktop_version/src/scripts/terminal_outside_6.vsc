@@ -1,0 +1,43 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,60,1)
+      -= Research Notes =-       
+position(centerx)
+backgroundtext
+flipme
+speak
+
+text(gray,0,114,3)
+... access to the control center
+is still possible through the   
+main atmospheric filters ...    
+position(center)
+speak
+
+endtextfast
+delay(10)
+
+ifexplored(12,14,alreadyvisited)
+
+gamemode(teleporter)
+delay(20)
+
+squeak(terminal)
+showcoordinates(12,14)
+delay(10)
+hidecoordinates(12,14)
+delay(10)
+showcoordinates(12,14)
+delay(10)
+hidecoordinates(12,14)
+delay(10)
+showcoordinates(12,14)
+delay(45)
+
+gamemode(game)
+delay(20)
+
+endcutscene()
+untilbars()

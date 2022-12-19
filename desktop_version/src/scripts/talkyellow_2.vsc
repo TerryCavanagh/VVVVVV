@@ -1,0 +1,25 @@
+cutscene()
+untilbars()
+face(player,yellow)
+face(yellow,player)
+
+squeak(yellow)
+text(yellow,0,0,3)
+This isn't like any
+other dimension we've
+been to, Captain.
+position(yellow,above)
+speak_active
+
+squeak(yellow)
+text(yellow,0,0,2)
+There's something strange
+about this place...
+position(yellow,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(yellow)

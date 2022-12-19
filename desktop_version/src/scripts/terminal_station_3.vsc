@@ -1,0 +1,21 @@
+cutscene()
+untilbars()
+
+squeak(terminal)
+text(gray,0,114,3)
+I wonder if the generator we set
+up in the polar dimension is
+what's affecting our teleporters?
+position(center)
+speak_active
+
+squeak(terminal)
+text(gray,0,114,1)
+No, it's probably just a glitch.
+position(center)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()

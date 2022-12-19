@@ -1,0 +1,26 @@
+changemood(player,0)
+
+delay(10)
+endtext
+# add map mode here and wrap up...
+gamemode(teleporter)
+delay(5)
+
+squeak(terminal)
+showship()
+showteleporters()
+delay(10)
+hideship()
+hideteleporters()
+delay(10)
+showship()
+showteleporters()
+delay(10)
+hideship()
+hideteleporters()
+delay(10)
+showship()
+showteleporters()
+delay(20)
+
+gamemode(game)

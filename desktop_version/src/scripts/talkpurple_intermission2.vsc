@@ -1,0 +1,40 @@
+cutscene()
+untilbars()
+face(player,purple)
+face(purple,player)
+
+squeak(cry)
+changemood(player,1)
+text(player,0,0,1)
+Doctor! Doctor! It happened again!
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,2)
+The teleporter brought us
+to that weird dimension...
+position(player,above)
+speak_active
+
+squeak(purple)
+changemood(player,0)
+changemood(purple,0)
+text(purple,0,0,2)
+Hmm, there's definitely
+something strange happening...
+position(purple,above)
+speak_active
+
+squeak(purple)
+text(purple,0,0,2)
+If only we could find the
+source of that interference!
+position(purple,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
+createactivityzone(purple)

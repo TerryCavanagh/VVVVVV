@@ -1,0 +1,30 @@
+cutscene()
+untilbars()
+face(player,red)
+face(red,player)
+
+squeak(player)
+text(player,0,0,1)
+I wonder where we are, anyway?
+position(player,above)
+speak_active
+
+squeak(player)
+text(player,0,0,3)
+This seems different from
+that dimension we crashed
+in, somehow...
+position(player,above)
+speak_active
+
+squeak(red)
+text(red,0,0,2)
+I dunno... But we must be
+close to a teleporter by now...
+position(red,above)
+speak_active
+
+endtext
+
+endcutscene()
+untilbars()
