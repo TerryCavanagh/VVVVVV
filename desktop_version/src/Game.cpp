@@ -302,6 +302,7 @@ void Game::init(void)
     start_translator_exploring = false;
     translator_exploring = false;
     translator_exploring_allowtele = false;
+    translator_cutscene_test = false;
 
     totalflips = 0;
     hardestroom = "Welcome Aboard";
@@ -6448,6 +6449,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("translate room names"));
         option(loc::gettext("explore game"));
         option(loc::gettext("menu test"));
+        option(loc::gettext("cutscene test"), loc::lang != "en");
         option(loc::gettext("limits check"));
         option(loc::gettext("return"));
         menuyoff = 0;
@@ -6473,6 +6475,38 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("return"));
         menuyoff = -20;
         break;
+    case Menu::translator_options_cutscenetest:
+        for (
+            size_t i = (cutscenetest_menu_page*14);
+            i < (cutscenetest_menu_page*14)+14 && i < loc::testable_script_ids.size();
+            i++
+        )
+        {
+            option(loc::testable_script_ids[i].c_str());
+        }
+        if((cutscenetest_menu_page*14)+14 < loc::testable_script_ids.size())
+        {
+            option(loc::gettext("next page"));
+        }
+        else
+        {
+            option(loc::gettext("first page"));
+        }
+        if (cutscenetest_menu_page == 0)
+        {
+            option(loc::gettext("last page"));
+        }
+        else
+        {
+            option(loc::gettext("previous page"));
+        }
+        option(loc::gettext("from clipboard"));
+        option(loc::gettext("return"));
+
+        menuxoff = 20;
+        menuyoff = 55-(menuoptions.size()*10);
+        menuspacing = 5;
+        return; // skip automatic centering, will turn out bad with scripts list
     case Menu::translator_maintenance:
         option(loc::gettext("sync language files"));
         option(loc::gettext("global statistics"), false);
@@ -6993,7 +7027,11 @@ void Game::quittomenu(void)
     //or "who do you want to play the level with?"
     //or "do you want cutscenes?"
     //or the confirm-load-quicksave menu
-    if (translator_exploring)
+    if (translator_cutscene_test)
+    {
+        returntomenu(Menu::translator_options_cutscenetest);
+    }
+    else if (translator_exploring)
     {
         returntomenu(Menu::translator_options_exploregame);
     }

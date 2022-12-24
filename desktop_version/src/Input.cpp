@@ -1182,7 +1182,7 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             break;
         case 2:
-            // enter game
+            // explore game
             music.playef(11);
             game.createmenu(Menu::translator_options_exploregame);
             map.nexttowercolour();
@@ -1195,6 +1195,21 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         case 4:
+            // cutscene test
+            if (loc::lang == "en")
+            {
+                music.playef(2);
+            }
+            else
+            {
+                music.playef(11);
+                game.cutscenetest_menu_page = 0;
+                loc::populate_testable_script_ids();
+                game.createmenu(Menu::translator_options_cutscenetest);
+                map.nexttowercolour();
+            }
+            break;
+        case 5:
             // limits check
             music.playef(11);
             loc::local_limits_check();
@@ -1238,52 +1253,97 @@ static void menuactionpress(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            // SS1
             game.start_translator_exploring = true;
-            startmode(3);
+            startmode(Start_TIMETRIAL_SPACESTATION1);
             break;
         case 1:
-            // Lab
             game.start_translator_exploring = true;
-            startmode(4);
+            startmode(Start_TIMETRIAL_LABORATORY);
             break;
         case 2:
-            // Tower
             game.start_translator_exploring = true;
-            startmode(5);
+            startmode(Start_TIMETRIAL_TOWER);
             break;
         case 3:
-            // SS2
             game.start_translator_exploring = true;
-            startmode(6);
+            startmode(Start_TIMETRIAL_SPACESTATION2);
             break;
         case 4:
-            // WZ
             game.start_translator_exploring = true;
-            startmode(7);
+            startmode(Start_TIMETRIAL_WARPZONE);
             break;
         case 5:
-            // Int 1
             game.createmenu(Menu::playint1);
             game.start_translator_exploring = true;
             map.nexttowercolour();
             break;
         case 6:
-            // Int 2
             game.createmenu(Menu::playint2);
             game.start_translator_exploring = true;
             map.nexttowercolour();
             break;
         case 7:
-            // Final
             game.start_translator_exploring = true;
-            startmode(8);
+            startmode(Start_TIMETRIAL_FINALLEVEL);
             break;
         default:
             // return
             game.returnmenu();
             map.nexttowercolour();
             break;
+        }
+        break;
+    case Menu::translator_options_cutscenetest:
+        if (game.currentmenuoption == (int)game.menuoptions.size()-4)
+        {
+            // next page
+            music.playef(11);
+            if ((size_t) ((game.cutscenetest_menu_page*14)+14) >= loc::testable_script_ids.size())
+            {
+                game.cutscenetest_menu_page = 0;
+            }
+            else
+            {
+                game.cutscenetest_menu_page++;
+            }
+            game.createmenu(Menu::translator_options_cutscenetest, true);
+            game.currentmenuoption=game.menuoptions.size()-4;
+            map.nexttowercolour();
+        }
+        else if (game.currentmenuoption == (int)game.menuoptions.size()-3)
+        {
+            // previous page
+            music.playef(11);
+            if (game.cutscenetest_menu_page == 0)
+            {
+                game.cutscenetest_menu_page = (loc::testable_script_ids.size()-1)/14;
+            }
+            else
+            {
+                game.cutscenetest_menu_page--;
+            }
+            game.createmenu(Menu::translator_options_cutscenetest, true);
+            game.currentmenuoption=game.menuoptions.size()-3;
+            map.nexttowercolour();
+        }
+        else if (game.currentmenuoption == (int)game.menuoptions.size()-2)
+        {
+            // play the cutscene, from clipboard
+            game.cutscenetest_menu_play_id = std::string(SDL_GetClipboardText());
+            startmode(Start_CUTSCENETEST);
+        }
+        else if (game.currentmenuoption == (int)game.menuoptions.size()-1)
+        {
+            // go back to menu
+            music.playef(11);
+            game.returnmenu();
+            map.nexttowercolour();
+        }
+        else
+        {
+            // play the cutscene!
+            game.cutscenetest_menu_play_id = loc::testable_script_ids[(game.cutscenetest_menu_page*14)+game.currentmenuoption];
+            startmode(Start_CUTSCENETEST);
         }
         break;
     case Menu::translator_maintenance:

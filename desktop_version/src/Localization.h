@@ -52,6 +52,7 @@ extern std::vector<LangMeta> languagelist;
 extern int languagelist_curlang;
 extern bool show_translator_menu;
 extern size_t limitscheck_current_overflow;
+extern std::vector<std::string> testable_script_ids;
 
 extern int n_untranslated_roomnames;
 extern int n_unexplained_roomnames;

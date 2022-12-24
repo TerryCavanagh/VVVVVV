@@ -6,6 +6,7 @@
 
 #include "FileSystemUtils.h"
 #include "Graphics.h"
+#include "Script.h"
 #include "Vlogging.h"
 #include "XMLUtils.h"
 
@@ -417,6 +418,78 @@ void global_limits_check(void)
     textbook_set_protected(&textbook_main, false);
 
     limitscheck_current_overflow = 0;
+}
+
+void populate_testable_script_ids(void)
+{
+    testable_script_ids.clear();
+
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+
+    if (!load_lang_doc("cutscenes", doc))
+    {
+        return;
+    }
+
+    FOR_EACH_XML_ELEMENT(hDoc, pElem)
+    {
+        EXPECT_ELEM(pElem, "cutscene");
+
+        const char* id = pElem->Attribute("id");
+        if (id != NULL)
+        {
+            testable_script_ids.push_back(id);
+        }
+    }
+}
+
+bool populate_cutscene_test(const char* script_id)
+{
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLHandle hDoc(&doc);
+    tinyxml2::XMLElement* pElem;
+
+    if (!load_lang_doc("cutscenes", doc))
+    {
+        return false;
+    }
+
+    const char* original = get_level_original_lang(hDoc);
+
+    FOR_EACH_XML_ELEMENT(hDoc, pElem)
+    {
+        EXPECT_ELEM(pElem, "cutscene");
+
+        if (SDL_strcmp(pElem->Attribute("id"), script_id) != 0)
+        {
+            /* Not the correct cutscene */
+            continue;
+        }
+
+        tinyxml2::XMLElement* subElem;
+        FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+        {
+            EXPECT_ELEM(subElem, "dialogue");
+
+            const char* tra = subElem->Attribute("translation");
+            const char* speaker = subElem->Attribute("speaker");
+            const char* eng = subElem->Attribute(original);
+            if (tra != NULL && tra[0] != '\0' && speaker != NULL && eng != NULL)
+            {
+                script.add_test_line(
+                    speaker,
+                    eng,
+                    subElem->UnsignedAttribute("case", 1)
+                );
+            }
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 } /* namespace loc */

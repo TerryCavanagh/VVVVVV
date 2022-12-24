@@ -1,6 +1,8 @@
 #ifndef LOCALIZATIONSTORAGE_H
 #define LOCALIZATIONSTORAGE_H
 
+#include <tinyxml2.h>
+
 #include "Textbook.h"
 #include "XMLUtils.h"
 
@@ -64,6 +66,8 @@ unsigned char form_for_count(int n);
 
 void unloadtext_custom(void);
 void resettext(bool final_shutdown);
+
+const char* get_level_original_lang(tinyxml2::XMLHandle& hDoc);
 
 bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
 

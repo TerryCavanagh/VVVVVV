@@ -669,6 +669,10 @@ static void menurender(void)
             graphics.PrintWrap( -1, 65, loc::gettext("Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop."), tr, tg, tb, true);
             break;
         case 4:
+            graphics.bigprint( -1, 30, loc::gettext("Cutscene test"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Display all text boxes from cutscenes.xml. Only tests the basic appearance of each individual text box."), tr, tg, tb, true);
+            break;
+        case 5:
             graphics.bigprint( -1, 30, loc::gettext("Limits check"), tr, tg, tb, true);
             graphics.PrintWrap( -1, 65, loc::gettext("Find translations that don't fit within their defined bounds."), tr, tg, tb, true);
             break;
