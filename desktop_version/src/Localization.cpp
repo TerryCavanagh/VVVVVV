@@ -21,6 +21,7 @@ std::vector<LangMeta> languagelist;
 int languagelist_curlang;
 bool show_translator_menu = false;
 size_t limitscheck_current_overflow;
+std::vector<std::string> testable_script_ids;
 
 int n_untranslated_roomnames = 0;
 int n_unexplained_roomnames = 0;

@@ -1834,6 +1834,14 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
             }
         }
 #endif
+        if (menu == Menu::translator_options_cutscenetest)
+        {
+            size_t separator = 4;
+            if (game.menuoptions.size() - i <= separator)
+            {
+                y += 4;
+            }
+        }
 
         char buffer[MENU_TEXT_BYTES];
         if ((int) i == game.currentmenuoption && game.slidermode == SLIDER_NONE)

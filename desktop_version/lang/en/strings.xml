@@ -165,6 +165,10 @@
     <string english="menu test" translation="" explanation="menu option"/>
     <string english="Menu test" translation="" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="" explanation="" max="38*6"/>
+    <string english="cutscene test" translation="" explanation="menu option"/>
+    <string english="Cutscene test" translation="" explanation="title" max="20"/>
+    <string english="Display all text boxes from cutscenes.xml. Only tests the basic appearance of each individual text box." translation="" explanation="" max="38*6"/>
+    <string english="from clipboard" translation="" explanation="menu option, paste script name from clipboard"/>
     <string english="explore game" translation="" explanation="menu option"/>
     <string english="Explore game" translation="" explanation="title" max="20"/>
     <string english="Explore the rooms of any level in the game, to find all room names to translate." translation="" explanation="" max="38*6"/>

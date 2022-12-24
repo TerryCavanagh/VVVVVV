@@ -66,6 +66,7 @@ namespace Menu
         translator_options_limitscheck,
         translator_options_stats,
         translator_options_exploregame,
+        translator_options_cutscenetest,
         translator_maintenance,
         translator_maintenance_sync,
         translator_error_setlangwritedir,
@@ -361,6 +362,10 @@ public:
     bool start_translator_exploring;
     bool translator_exploring;
     bool translator_exploring_allowtele;
+    bool translator_cutscene_test;
+
+    size_t cutscenetest_menu_page;
+    std::string cutscenetest_menu_play_id;
 
     int creditposition;
     int oldcreditposition;
@@ -493,7 +498,7 @@ public:
 
     bool inline inspecial(void)
     {
-        return inintermission || insecretlab || intimetrial || nodeathmode;
+        return inintermission || insecretlab || intimetrial || nodeathmode || translator_exploring;
     }
 
     bool incompetitive(void);

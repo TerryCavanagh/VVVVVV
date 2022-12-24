@@ -2,8 +2,6 @@
 #include "Localization.h"
 #include "LocalizationStorage.h"
 
-#include <tinyxml2.h>
-
 #include "Constants.h"
 #include "CustomLevels.h"
 #include "FileSystemUtils.h"
@@ -554,7 +552,7 @@ static bool get_level_lang_path(bool custom_level, const char* cat, std::string&
     }
 }
 
-static const char* get_level_original_lang(tinyxml2::XMLHandle& hDoc)
+const char* get_level_original_lang(tinyxml2::XMLHandle& hDoc)
 {
     /* cutscenes and roomnames files can specify the original language as
      * an attribute of the root tag to change the attribute names of the

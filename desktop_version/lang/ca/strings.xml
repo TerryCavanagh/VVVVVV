@@ -165,6 +165,10 @@
     <string english="menu test" translation="prova de menús" explanation="menu option"/>
     <string english="Menu test" translation="Prova de menús" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="Passeja per la majoria de menús|del joc. Els menús no funcionaran|i totes les opcions et duran al menú següent. Prem Esc per a aturar-ho." explanation="" max="38*6"/>
+    <string english="cutscene test" translation="" explanation="menu option"/>
+    <string english="Cutscene test" translation="" explanation="title" max="20"/>
+    <string english="Display all text boxes from cutscenes.xml. Only tests the basic appearance of each individual text box." translation="" explanation="" max="38*6"/>
+    <string english="from clipboard" translation="" explanation="menu option, paste script name from clipboard"/>
     <string english="explore game" translation="explora el joc" explanation="menu option"/>
     <string english="Explore game" translation="Explora el joc" explanation="title" max="20"/>
     <string english="Explore the rooms of any level in the game, to find all room names to translate." translation="Explora les sales de qualsevol nivell del joc per a trobar tots els noms|de sales i traduir-los." explanation="" max="38*6"/>
@@ -544,8 +548,6 @@
     <string english="ENEMY BOUNDS: Click on bottom right" translation="LÍMITS D’ENEMIC:|Fes clic a la part inferior dreta" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on top left" translation="LÍMITS DE PLATAFORMA:|Fes clic a la part superior esquerra" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on bottom right" translation="LÍMITS DE PLATAFORMA:|Fes clic a la part inferior dreta" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="COPY TILES: Click on top left" translation="COPIA PECES:|Fes clic a la part superior esquerra" explanation="" max="39*3"/>
-    <string english="COPY TILES: Click on bottom right" translation="COPIA PECES:|Fes clic a la part inferior dreta" explanation="" max="39*3"/>
     <string english="Click on top left" translation="Fes clic a la part superior esquerra" explanation="" max="39*3"/>
     <string english="Click on bottom right" translation="Fes clic a la part inferior dreta" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="*** EDITOR DE SCRIPTS DE VVVVVV ***" explanation="supposed to look like a Commodore 64 screen" max="36"/>

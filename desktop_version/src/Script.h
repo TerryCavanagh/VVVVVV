@@ -44,6 +44,7 @@ enum StartMode
     Start_CUSTOM,
     Start_CUSTOM_QUICKSAVE,
     Start_QUIT,
+    Start_CUTSCENETEST,
 
     Start_FIRST_NODEATHMODE = Start_NODEATHMODE_WITHCUTSCENES,
     Start_LAST_NODEATHMODE = Start_NODEATHMODE_NOCUTSCENES,
@@ -65,6 +66,9 @@ public:
     void load(const std::string& name);
     void loadother(const char* t);
     void loadcustom(const std::string& t);
+
+    void add_test_line(const std::string& speaker, const std::string& english, char textcase);
+    void loadtest(const std::string& name);
 
     void inline add(const std::string& t)
     {

@@ -165,6 +165,10 @@
     <string english="menu test" translation="menutest" explanation="menu option"/>
     <string english="Menu test" translation="Menutest" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="De meeste menu&apos;s in het spel doorlopen. De menu&apos;s zullen niet echt werken, alle opties zullen in plaats daarvan naar het volgende menu leiden. Druk op Escape om te stoppen." explanation="" max="38*6"/>
+    <string english="cutscene test" translation="cutscene-test" explanation="menu option"/>
+    <string english="Cutscene test" translation="Cutscene-test" explanation="title" max="20"/>
+    <string english="Display all text boxes from cutscenes.xml. Only tests the basic appearance of each individual text box." translation="Toon alle tekstvakken uit cutscenes.xml. Alleen de basale weergave van elk afzonderlijk tekstvak wordt getest." explanation="" max="38*6"/>
+    <string english="from clipboard" translation="van klembord" explanation="menu option, paste script name from clipboard"/>
     <string english="explore game" translation="spel verkennen" explanation="menu option"/>
     <string english="Explore game" translation="Spel verkennen" explanation="title" max="20"/>
     <string english="Explore the rooms of any level in the game, to find all room names to translate." translation="Verken de kamers van elk level in het spel, om alle kamers te vinden die vertaald kunnen worden." explanation="" max="38*6"/>
