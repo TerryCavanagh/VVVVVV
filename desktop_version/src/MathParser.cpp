@@ -108,7 +108,7 @@ public:
 
     void skipWhitespace(void)
     {
-        while (currentChar != '\0' && isspace(currentChar))
+        while (currentChar != '\0' && isspace(currentChar) && currentChar != '\n')
         {
             advance();
         }
@@ -584,30 +584,7 @@ public:
             currentToken.type == GREATER_THAN_OR_EQUAL_TO)
         {
             Token token = currentToken;
-            if (token.type == EQUAL_TO)
-            {
-                eat(EQUAL_TO);
-            }
-            else if (token.type == NOT_EQUAL_TO)
-            {
-                eat(NOT_EQUAL_TO);
-            }
-            else if (token.type == LESS_THAN)
-            {
-                eat(LESS_THAN);
-            }
-            else if (token.type == LESS_THAN_OR_EQUAL_TO)
-            {
-                eat(LESS_THAN_OR_EQUAL_TO);
-            }
-            else if (token.type == GREATER_THAN)
-            {
-                eat(GREATER_THAN);
-            }
-            else if (token.type == GREATER_THAN_OR_EQUAL_TO)
-            {
-                eat(GREATER_THAN_OR_EQUAL_TO);
-            }
+            eat(token.type);
             node = new BinOp(node, token, expr_6());
         }
         return node;
@@ -620,14 +597,7 @@ public:
         while (currentToken.type == AND || currentToken.type == OR)
         {
             Token token = currentToken;
-            if (token.type == AND)
-            {
-                eat(AND);
-            }
-            else if (token.type == OR)
-            {
-                eat(OR);
-            }
+            eat(token.type);
             node = new BinOp(node, token, expr_5());
         }
         return node;
@@ -651,18 +621,7 @@ public:
         while (currentToken.type == MULTIPLY || currentToken.type == DIVIDE || currentToken.type == MODULO)
         {
             Token token = currentToken;
-            if (token.type == MULTIPLY)
-            {
-                eat(MULTIPLY);
-            }
-            if (token.type == DIVIDE)
-            {
-                eat(DIVIDE);
-            }
-            if (token.type == MODULO)
-            {
-                eat(MODULO);
-            }
+            eat(token.type);
             node = new BinOp(node, token, expr_3());
         }
         return node;
@@ -674,14 +633,7 @@ public:
         while (currentToken.type == PLUS || currentToken.type == MINUS)
         {
             Token token = currentToken;
-            if (token.type == PLUS)
-            {
-                eat(PLUS);
-            }
-            if (token.type == MINUS)
-            {
-                eat(MINUS);
-            }
+            eat(token.type);
             node = new BinOp(node, token, expr_2());
         }
         return node;
@@ -689,38 +641,34 @@ public:
 
     AST* statement(void)
     {
-        AST* node;
-
         if (currentToken.type == BEGIN)
         {
-            node = compoundStatement();
+            return compoundStatement();
         }
         else if (currentToken.type == IDENTIFIER)
         {
-            node = assignStatement();
+            return assignStatement();
         }
         else if (currentToken.type == IF)
         {
-            node = ifStatement();
+            return ifStatement();
         }
         else
         {
-            node = new NoOp();
+            return new NoOp();
         }
-
-        return node;
     }
 
     AST* ifStatement(void)
     {
         eat(IF);
         AST* condition = expr_1();
-        if (currentToken.type == NEWLINE)
+        while (currentToken.type == NEWLINE)
         {
             eat(NEWLINE);
         }
         AST* then = statement();
-        if (currentToken.type == NEWLINE)
+        while (currentToken.type == NEWLINE)
         {
             eat(NEWLINE);
         }
@@ -728,7 +676,7 @@ public:
         if (currentToken.type == ELSE)
         {
             eat(ELSE);
-            if (currentToken.type == NEWLINE)
+            while (currentToken.type == NEWLINE)
             {
                 eat(NEWLINE);
             }
@@ -743,14 +691,7 @@ public:
         nodes.push_back(statement());
         while (currentToken.type == SEMICOLON || currentToken.type == NEWLINE)
         {
-            if (currentToken.type == SEMICOLON)
-            {
-                eat(SEMICOLON);
-            }
-            if (currentToken.type == NEWLINE)
-            {
-                eat(NEWLINE);
-            }
+            eat(currentToken.type);
             nodes.push_back(statement());
         }
         if (currentToken.type == IDENTIFIER)
@@ -786,7 +727,7 @@ public:
         Compound* node = new Compound();
         node->children = nodes;
         if (currentToken.type != EOL) {
-            error("Unexpected <?> at EOF");
+            error("Unexpected token at end of file");
         }
 
         return node;
