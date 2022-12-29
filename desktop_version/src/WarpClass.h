@@ -6,6 +6,7 @@ class warpclass
 public:
     const short* loadlevel(int rx, int ry);
     const char* roomname;
+    bool roomname_special;
     int rcol;
     bool warpx, warpy;
 };

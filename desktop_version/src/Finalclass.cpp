@@ -13,6 +13,8 @@ const short* finalclass::loadlevel(int rx, int ry)
     warpx = false;
     warpy = false;
 
+    roomname_special = false;
+
     switch(t)
     {
 #if !defined(MAKEANDPLAY)
@@ -156,6 +158,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         warpy = true;
         roomname = "glitch";
+        roomname_special = true;
         result = contents;
         break;
     }
@@ -206,6 +209,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         warpy = true;
         roomname = "glitch";
+        roomname_special = true;
         result = contents;
         break;
     }
@@ -254,6 +258,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         warpy = true;
         roomname = "change";
+        roomname_special = true;
         result = contents;
         break;
     }
@@ -304,6 +309,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         warpy = true;
         roomname = "change";
+        roomname_special = true;
         result = contents;
         break;
     }
@@ -351,6 +357,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         warpy = true;
         roomname = "change";
+        roomname_special = true;
         result = contents;
         break;
     }
@@ -508,6 +515,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         warpy = true;
         roomname = "glitch";
+        roomname_special = true;
         result = contents;
         break;
     }
@@ -954,6 +962,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         warpx = true;
         roomname = "change";
+        roomname_special = true;
         result = contents;
         break;
     }
@@ -1004,6 +1013,7 @@ const short* finalclass::loadlevel(int rx, int ry)
 
         warpx = true;
         roomname = "change";
+        roomname_special = true;
         result = contents;
         break;
     }
@@ -2603,6 +2613,7 @@ const short* finalclass::loadlevel(int rx, int ry)
     {
         static const short contents[1200] = {0};
         roomname = "Outer Space";
+        roomname_special = true;
 
         //game.test = true;
         //game.teststring = "ERROR: Map not found in Final Area";

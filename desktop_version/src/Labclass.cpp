@@ -25,6 +25,7 @@ const short* labclass::loadlevel(int rx, int ry)
     const short* result;
     rcol = 0;
     roomname = "";
+    roomname_special = false;
 
     switch(t)
     {

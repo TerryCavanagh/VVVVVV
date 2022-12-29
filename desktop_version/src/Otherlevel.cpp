@@ -15,6 +15,7 @@ const short* otherlevelclass::loadlevel(int rx, int ry)
     t = rx + (ry * 100);
     const short* result;
     roomname = "";
+    roomname_special = false;
     hiddenname = "Dimension VVVVVV";
 
     switch(t)

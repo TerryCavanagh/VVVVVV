@@ -7,6 +7,7 @@ public:
     const short* loadlevel(int rx, int ry);
 
     const char* roomname;
+    bool roomname_special;
     int rcol;
 };
 #endif /* LABCLASS_H */
