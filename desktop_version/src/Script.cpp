@@ -2365,13 +2365,6 @@ void scriptclass::run(void)
     }
 }
 
-void scriptclass::resetgametomenu(void)
-{
-    obj.entities.clear();
-    game.quittomenu();
-    game.createmenu(Menu::gameover);
-}
-
 static void gotoerrorloadinglevel(void)
 {
     game.createmenu(Menu::errorloadinglevel);

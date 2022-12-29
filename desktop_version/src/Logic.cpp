@@ -464,7 +464,9 @@ void gamelogic(void)
                 if (graphics.fademode == FADE_FULLY_BLACK)
                 {
                     game.copyndmresults();
-                    script.resetgametomenu();
+                    obj.entities.clear();
+                    game.quittomenu();
+                    game.createmenu(Menu::gameover);
                 }
             }
             else

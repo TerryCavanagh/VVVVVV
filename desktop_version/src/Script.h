@@ -77,8 +77,6 @@ public:
 
     void run(void);
 
-    void resetgametomenu(void);
-
     void startgamemode(enum StartMode mode);
 
     void teleport(void);
