@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<numbers>
+    <number value="0" form="0" english="Zero" translation="nul"/>
+    <number value="1" form="1" english="One" translation="unu"/>
+    <number value="2" form="0" english="Two" translation="du"/>
+    <number value="3" form="0" english="Three" translation="tri"/>
+    <number value="4" form="0" english="Four" translation="kvar"/>
+    <number value="5" form="0" english="Five" translation="kvin"/>
+    <number value="6" form="0" english="Six" translation="ses"/>
+    <number value="7" form="0" english="Seven" translation="sep"/>
+    <number value="8" form="0" english="Eight" translation="ok"/>
+    <number value="9" form="0" english="Nine" translation="naŭ"/>
+    <number value="10" form="0" english="Ten" translation="dek"/>
+    <number value="11" form="0" english="Eleven" translation="dek unu"/>
+    <number value="12" form="0" english="Twelve" translation="dek du"/>
+    <number value="13" form="0" english="Thirteen" translation="dek tri"/>
+    <number value="14" form="0" english="Fourteen" translation="dek kvar"/>
+    <number value="15" form="0" english="Fifteen" translation="dek kvin"/>
+    <number value="16" form="0" english="Sixteen" translation="dek ses"/>
+    <number value="17" form="0" english="Seventeen" translation="dek sep"/>
+    <number value="18" form="0" english="Eighteen" translation="dek ok"/>
+    <number value="19" form="0" english="Nineteen" translation="dek naŭ"/>
+    <number value="20" form="0" english="Twenty" translation="dudek"/>
+    <number value="21" form="0" english="Twenty One" translation="dudek unu"/>
+    <number value="22" form="0" english="Twenty Two" translation="dudek du"/>
+    <number value="23" form="0" english="Twenty Three" translation="dudek tri"/>
+    <number value="24" form="0" english="Twenty Four" translation="dudek kvar"/>
+    <number value="25" form="0" english="Twenty Five" translation="dudek kvin"/>
+    <number value="26" form="0" english="Twenty Six" translation="dudek ses"/>
+    <number value="27" form="0" english="Twenty Seven" translation="dudek sep"/>
+    <number value="28" form="0" english="Twenty Eight" translation="dudek ok"/>
+    <number value="29" form="0" english="Twenty Nine" translation="dudek naŭ"/>
+    <number value="30" form="0" english="Thirty" translation="tridek"/>
+    <number value="31" form="0" english="Thirty One" translation="tridek unu"/>
+    <number value="32" form="0" english="Thirty Two" translation="tridek du"/>
+    <number value="33" form="0" english="Thirty Three" translation="tridek tri"/>
+    <number value="34" form="0" english="Thirty Four" translation="tridek kvar"/>
+    <number value="35" form="0" english="Thirty Five" translation="tridek kvin"/>
+    <number value="36" form="0" english="Thirty Six" translation="tridek ses"/>
+    <number value="37" form="0" english="Thirty Seven" translation="tridek sep"/>
+    <number value="38" form="0" english="Thirty Eight" translation="tridek ok"/>
+    <number value="39" form="0" english="Thirty Nine" translation="tridek naŭ"/>
+    <number value="40" form="0" english="Forty" translation="kvardek"/>
+    <number value="41" form="0" english="Forty One" translation="kvardek unu"/>
+    <number value="42" form="0" english="Forty Two" translation="kvardek du"/>
+    <number value="43" form="0" english="Forty Three" translation="kvardek tri"/>
+    <number value="44" form="0" english="Forty Four" translation="kvardek kvar"/>
+    <number value="45" form="0" english="Forty Five" translation="kvardek kvin"/>
+    <number value="46" form="0" english="Forty Six" translation="kvardek ses"/>
+    <number value="47" form="0" english="Forty Seven" translation="kvardek sep"/>
+    <number value="48" form="0" english="Forty Eight" translation="kvardek ok"/>
+    <number value="49" form="0" english="Forty Nine" translation="kvardek naŭ"/>
+    <number value="50" form="0" english="Fifty" translation="kvindek"/>
+    <number value="51" form="0" english="Fifty One" translation="kvindek unu"/>
+    <number value="52" form="0" english="Fifty Two" translation="kvindek du"/>
+    <number value="53" form="0" english="Fifty Three" translation="kvindek tri"/>
+    <number value="54" form="0" english="Fifty Four" translation="kvindek kvar"/>
+    <number value="55" form="0" english="Fifty Five" translation="kvindek kvin"/>
+    <number value="56" form="0" english="Fifty Six" translation="kvindek ses"/>
+    <number value="57" form="0" english="Fifty Seven" translation="kvindek sep"/>
+    <number value="58" form="0" english="Fifty Eight" translation="kvindek ok"/>
+    <number value="59" form="0" english="Fifty Nine" translation="kvindek naŭ"/>
+    <number value="60" form="0" english="Sixty" translation="sesdek"/>
+    <number value="61" form="0" english="Sixty One" translation="sesdek unu"/>
+    <number value="62" form="0" english="Sixty Two" translation="sesdek du"/>
+    <number value="63" form="0" english="Sixty Three" translation="sesdek tri"/>
+    <number value="64" form="0" english="Sixty Four" translation="sesdek kvar"/>
+    <number value="65" form="0" english="Sixty Five" translation="sesdek kvin"/>
+    <number value="66" form="0" english="Sixty Six" translation="sesdek ses"/>
+    <number value="67" form="0" english="Sixty Seven" translation="sesdek sep"/>
+    <number value="68" form="0" english="Sixty Eight" translation="sesdek ok"/>
+    <number value="69" form="0" english="Sixty Nine" translation="sesdek naŭ"/>
+    <number value="70" form="0" english="Seventy" translation="sepdek"/>
+    <number value="71" form="0" english="Seventy One" translation="sepdek unu"/>
+    <number value="72" form="0" english="Seventy Two" translation="sepdek du"/>
+    <number value="73" form="0" english="Seventy Three" translation="sepdek tri"/>
+    <number value="74" form="0" english="Seventy Four" translation="sepdek kvar"/>
+    <number value="75" form="0" english="Seventy Five" translation="sepdek kvin"/>
+    <number value="76" form="0" english="Seventy Six" translation="sepdek ses"/>
+    <number value="77" form="0" english="Seventy Seven" translation="sepdek sep"/>
+    <number value="78" form="0" english="Seventy Eight" translation="sepdek ok"/>
+    <number value="79" form="0" english="Seventy Nine" translation="sepdek naŭ"/>
+    <number value="80" form="0" english="Eighty" translation="okdek"/>
+    <number value="81" form="0" english="Eighty One" translation="okdek unu"/>
+    <number value="82" form="0" english="Eighty Two" translation="okdek du"/>
+    <number value="83" form="0" english="Eighty Three" translation="okdek tri"/>
+    <number value="84" form="0" english="Eighty Four" translation="okdek kvar"/>
+    <number value="85" form="0" english="Eighty Five" translation="okdek kvin"/>
+    <number value="86" form="0" english="Eighty Six" translation="okdek ses"/>
+    <number value="87" form="0" english="Eighty Seven" translation="okdek sep"/>
+    <number value="88" form="0" english="Eighty Eight" translation="okdek ok"/>
+    <number value="89" form="0" english="Eighty Nine" translation="okdek naŭ"/>
+    <number value="90" form="0" english="Ninety" translation="naŭdek"/>
+    <number value="91" form="0" english="Ninety One" translation="naŭdek unu"/>
+    <number value="92" form="0" english="Ninety Two" translation="naŭdek du"/>
+    <number value="93" form="0" english="Ninety Three" translation="naŭdek tri"/>
+    <number value="94" form="0" english="Ninety Four" translation="naŭdek kvar"/>
+    <number value="95" form="0" english="Ninety Five" translation="naŭdek kvin"/>
+    <number value="96" form="0" english="Ninety Six" translation="naŭdek ses"/>
+    <number value="97" form="0" english="Ninety Seven" translation="naŭdek sep"/>
+    <number value="98" form="0" english="Ninety Eight" translation="naŭdek ok"/>
+    <number value="99" form="0" english="Ninety Nine" translation="naŭdek naŭ"/>
+    <number value="100" form="0" english="One Hundred" translation="cent"/>
+    <number value="101" form="0"/>
+    <number value="102" form="0"/>
+    <number value="103" form="0"/>
+    <number value="104" form="0"/>
+    <number value="105" form="0"/>
+    <number value="106" form="0"/>
+    <number value="107" form="0"/>
+    <number value="108" form="0"/>
+    <number value="109" form="0"/>
+    <number value="110" form="0"/>
+    <number value="111" form="0"/>
+    <number value="112" form="0"/>
+    <number value="113" form="0"/>
+    <number value="114" form="0"/>
+    <number value="115" form="0"/>
+    <number value="116" form="0"/>
+    <number value="117" form="0"/>
+    <number value="118" form="0"/>
+    <number value="119" form="0"/>
+</numbers>
