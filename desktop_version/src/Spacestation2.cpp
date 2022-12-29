@@ -17,6 +17,7 @@ const short* spacestation2class::loadlevel(int rx, int ry)
 
     const short* result;
     roomname = "Untitled room";
+    roomname_special = false;
 
     switch(t)
     {
@@ -2556,10 +2557,12 @@ const short* spacestation2class::loadlevel(int rx, int ry)
         if(game.nodeathmode)
         {
             roomname = "I Can't Believe You Got This Far";
+            roomname_special = true;
         }
         else if (game.intimetrial)
         {
             roomname = "Imagine Spikes There, if You Like";
+            roomname_special = true;
         }
         result = contents;
         break;
@@ -3625,6 +3628,7 @@ const short* spacestation2class::loadlevel(int rx, int ry)
     {
         static const short contents[1200] = {0};
         roomname = "Outer Space";
+        roomname_special = true;
         obj.fatal_bottom();
         result = contents;
         break;

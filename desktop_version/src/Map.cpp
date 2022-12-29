@@ -83,6 +83,8 @@ mapclass::mapclass(void)
 
     setroomname("");
     hiddenname = "";
+
+    roomname_special = false;
 }
 
 static char roomname_static[SCREEN_WIDTH_CHARS];
@@ -1536,6 +1538,8 @@ void mapclass::loadlevel(int rx, int ry)
         warpy = true;
     }
 
+    roomname_special = false;
+
     switch(t)
     {
 #if !defined(MAKEANDPLAY)
@@ -1547,6 +1551,7 @@ void mapclass::loadlevel(int rx, int ry)
         const short* tmap = otherlevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
         setroomname(otherlevel.roomname);
+        roomname_special = otherlevel.roomname_special;
         hiddenname = otherlevel.hiddenname;
         tileset = otherlevel.roomtileset;
         break;
@@ -1556,6 +1561,7 @@ void mapclass::loadlevel(int rx, int ry)
         const short* tmap = lablevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
         setroomname(lablevel.roomname);
+        roomname_special = lablevel.roomname_special;
         tileset = 1;
         background = 2;
         graphics.rcol = lablevel.rcol;
@@ -1603,6 +1609,7 @@ void mapclass::loadlevel(int rx, int ry)
         const short* tmap = warplevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
         setroomname(warplevel.roomname);
+        roomname_special = warplevel.roomname_special;
         tileset = 1;
         background = 3;
         graphics.rcol = warplevel.rcol;
@@ -1621,6 +1628,7 @@ void mapclass::loadlevel(int rx, int ry)
         const short* tmap = spacestation2.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
         setroomname(spacestation2.roomname);
+        roomname_special = spacestation2.roomname_special;
         tileset = 0;
         break;
     }
@@ -1629,6 +1637,7 @@ void mapclass::loadlevel(int rx, int ry)
         const short* tmap = finallevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
         setroomname(finallevel.roomname);
+        roomname_special = finallevel.roomname_special;
         tileset = 1;
         background = 3;
         graphics.backgrounddrawn = false;
@@ -1788,6 +1797,7 @@ void mapclass::loadlevel(int rx, int ry)
         const short* tmap = finallevel.loadlevel(rx, ry);
         copy_short_to_int(contents, tmap, SDL_arraysize(contents));
         setroomname(finallevel.roomname);
+        roomname_special = finallevel.roomname_special;
         tileset = 2;
         if (rx == 108)
         {

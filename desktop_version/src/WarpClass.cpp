@@ -20,6 +20,7 @@ const short* warpclass::loadlevel(int rx, int ry)
     warpy = false;
 
     roomname = "Untitled room";
+    roomname_special = false;
 
     switch(t)
     {
@@ -1130,6 +1131,7 @@ const short* warpclass::loadlevel(int rx, int ry)
     {
         static const short contents[1200] = {0};
         //roomname = "Outer Space";
+        //roomname_special = true;
         result = contents;
         break;
     }
