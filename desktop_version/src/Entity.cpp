@@ -3758,7 +3758,7 @@ void entityclass::animateentities( int _i )
             else
             {
                 entities[_i].drawframe++;
-                if (entities[_i].rule == 7) {
+                if (entities[_i].rule == 7 && entities[_i].type == 14) {
                     entities[_i].drawframe += 6;
                 }
             }
