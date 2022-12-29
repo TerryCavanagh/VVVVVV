@@ -279,9 +279,9 @@ static void toggleflipmode(void)
 
 static bool fadetomode = false;
 static int fadetomodedelay = 0;
-static int gotomode = 0;
+static enum StartMode gotomode = Start_MAINGAME;
 
-static void startmode(const int mode)
+static void startmode(const enum StartMode mode)
 {
     gotomode = mode;
     graphics.fademode = FADE_START_FADEOUT;
@@ -387,7 +387,7 @@ static void menuactionpress(void)
             {
                 //No saves exist, just start a new game
                 music.playef(11);
-                startmode(0);
+                startmode(Start_MAINGAME);
             }
             else
             {
@@ -475,7 +475,7 @@ static void menuactionpress(void)
             std::string name = "saves/" + cl.ListOfMetaData[game.playcustomlevel].filename.substr(7) + ".vvv";
             tinyxml2::XMLDocument doc;
             if (!FILESYSTEM_loadTiXml2Document(name.c_str(), doc)){
-                startmode(22);
+                startmode(Start_CUSTOM);
             }else{
                 game.createmenu(Menu::quickloadlevel);
                 map.nexttowercolour();
@@ -489,11 +489,11 @@ static void menuactionpress(void)
         {
         case 0: //continue save
             music.playef(11);
-            startmode(23);
+            startmode(Start_CUSTOM_QUICKSAVE);
             break;
         case 1:
             music.playef(11);
-            startmode(22);
+            startmode(Start_CUSTOM);
             break;
         case 2:
             music.playef(11);
@@ -550,7 +550,7 @@ static void menuactionpress(void)
         case 1:
             //LEVEL EDITOR HOOK
             music.playef(11);
-            startmode(20);
+            startmode(Start_EDITOR);
             ed.filename="";
             break;
  #endif
@@ -682,7 +682,7 @@ static void menuactionpress(void)
         case 0:
             //bye!
             music.playef(2);
-            startmode(100);
+            startmode(Start_QUIT);
             break;
         default:
             music.playef(11);
@@ -1433,19 +1433,19 @@ static void menuactionpress(void)
             {
                 //You have no saves but have something unlocked, or you couldn't have gotten here
                 music.playef(11);
-                startmode(0);
+                startmode(Start_MAINGAME);
             }
             else if (game.telesummary == "")
             {
                 //You at least have a quicksave, or you couldn't have gotten here
                 music.playef(11);
-                startmode(2);
+                startmode(Start_MAINGAME_QUICKSAVE);
             }
             else if (game.quicksummary == "")
             {
                 //You at least have a telesave, or you couldn't have gotten here
                 music.playef(11);
-                startmode(1);
+                startmode(Start_MAINGAME_TELESAVE);
             }
             else
             {
@@ -1458,7 +1458,7 @@ static void menuactionpress(void)
         else if (game.currentmenuoption == 1 && game.unlock[8])
         {
             music.playef(11);
-            startmode(11);
+            startmode(Start_SECRETLAB);
         }
         else if (game.currentmenuoption == sloffset+2)
         {
@@ -1489,7 +1489,7 @@ static void menuactionpress(void)
         case 0:
             //yep
             music.playef(11);
-            startmode(0);
+            startmode(Start_MAINGAME);
             game.deletequick();
             game.deletetele();
             break;
@@ -1602,11 +1602,11 @@ static void menuactionpress(void)
         {
         case 0:   //start no death mode, disabling cutscenes
             music.playef(11);
-            startmode(10);
+            startmode(Start_NODEATHMODE_NOCUTSCENES);
             break;
         case 1:
             music.playef(11);
-            startmode(9);
+            startmode(Start_NODEATHMODE_WITHCUTSCENES);
             break;
         case 2:
             //back
@@ -1621,11 +1621,11 @@ static void menuactionpress(void)
         {
         case 0:
             music.playef(11);
-            startmode(1);
+            startmode(Start_MAINGAME_TELESAVE);
             break;
         case 1:
             music.playef(11);
-            startmode(2);
+            startmode(Start_MAINGAME_QUICKSAVE);
             break;
         case 2:
             //back
@@ -1663,19 +1663,19 @@ static void menuactionpress(void)
         {
         case 0:
             music.playef(11);
-            startmode(12);
+            startmode(Start_INTERMISSION1_VITELLARY);
             break;
         case 1:
             music.playef(11);
-            startmode(13);
+            startmode(Start_INTERMISSION1_VERMILION);
             break;
         case 2:
             music.playef(11);
-            startmode(14);
+            startmode(Start_INTERMISSION1_VERDIGRIS);
             break;
         case 3:
             music.playef(11);
-            startmode(15);
+            startmode(Start_INTERMISSION1_VICTORIA);
             break;
         case 4:
             //back
@@ -1690,19 +1690,19 @@ static void menuactionpress(void)
         {
         case 0:
             music.playef(11);
-            startmode(16);
+            startmode(Start_INTERMISSION2_VITELLARY);
             break;
         case 1:
             music.playef(11);
-            startmode(17);
+            startmode(Start_INTERMISSION2_VERMILION);
             break;
         case 2:
             music.playef(11);
-            startmode(18);
+            startmode(Start_INTERMISSION2_VERDIGRIS);
             break;
         case 3:
             music.playef(11);
-            startmode(19);
+            startmode(Start_INTERMISSION2_VICTORIA);
             break;
         case 4:
             //back
@@ -1730,37 +1730,37 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::timetrials:
-        if (game.currentmenuoption == 0 && game.unlock[9])   //space station 1
+        if (game.currentmenuoption == 0 && game.unlock[9])
         {
             music.playef(11);
-            startmode(3);
+            startmode(Start_TIMETRIAL_SPACESTATION1);
         }
-        else if (game.currentmenuoption == 1 && game.unlock[10])    //lab
+        else if (game.currentmenuoption == 1 && game.unlock[10])
         {
             music.playef(11);
-            startmode(4);
+            startmode(Start_TIMETRIAL_LABORATORY);
         }
-        else if (game.currentmenuoption == 2 && game.unlock[11])    //tower
+        else if (game.currentmenuoption == 2 && game.unlock[11])
         {
             music.playef(11);
-            startmode(5);
+            startmode(Start_TIMETRIAL_TOWER);
         }
-        else if (game.currentmenuoption == 3 && game.unlock[12])    //station 2
+        else if (game.currentmenuoption == 3 && game.unlock[12])
         {
             music.playef(11);
-            startmode(6);
+            startmode(Start_TIMETRIAL_SPACESTATION2);
         }
-        else if (game.currentmenuoption == 4 && game.unlock[13])    //warp
+        else if (game.currentmenuoption == 4 && game.unlock[13])
         {
             music.playef(11);
-            startmode(7);
+            startmode(Start_TIMETRIAL_WARPZONE);
         }
-        else if (game.currentmenuoption == 5 && game.unlock[14])    //final
+        else if (game.currentmenuoption == 5 && game.unlock[14])
         {
             music.playef(11);
-            startmode(8);
+            startmode(Start_TIMETRIAL_FINALLEVEL);
         }
-        else if (game.currentmenuoption == 6)    //go to the time trial menu
+        else if (game.currentmenuoption == 6)
         {
             //back
             music.playef(11);
@@ -1784,37 +1784,9 @@ static void menuactionpress(void)
             map.nexttowercolour();
             break;
         case 1:
-            //duplicate the above based on given time trial level!
-            if (game.timetriallevel == 0)   //space station 1
-            {
-                music.playef(11);
-                startmode(3);
-            }
-            else if (game.timetriallevel == 1)    //lab
-            {
-                music.playef(11);
-                startmode(4);
-            }
-            else if (game.timetriallevel == 2)    //tower
-            {
-                music.playef(11);
-                startmode(5);
-            }
-            else if (game.timetriallevel == 3)    //station 2
-            {
-                music.playef(11);
-                startmode(6);
-            }
-            else if (game.timetriallevel == 4)    //warp
-            {
-                music.playef(11);
-                startmode(7);
-            }
-            else if (game.timetriallevel == 5)    //final
-            {
-                music.playef(11);
-                startmode(8);
-            }
+            /* Replay time trial */
+            music.playef(11);
+            startmode((enum StartMode) (game.timetriallevel + Start_FIRST_TIMETRIAL));
             break;
         }
         break;
@@ -2078,7 +2050,7 @@ void gameinput(void)
     {
         //restart the time trial
         game.quickrestartkludge = false;
-        script.startgamemode(game.timetriallevel + 3);
+        script.startgamemode((enum StartMode) (game.timetriallevel + Start_FIRST_TIMETRIAL));
         game.deathseq = -1;
         game.completestop = false;
         game.hascontrol = false;

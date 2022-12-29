@@ -14,6 +14,7 @@
 #include "KeyPoll.h"
 #include "Map.h"
 #include "Music.h"
+#include "Unreachable.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 #include "Xoshiro.h"
@@ -2380,490 +2381,206 @@ static void gotoerrorloadinglevel(void)
     music.play(6); /* title screen music */
 }
 
-void scriptclass::startgamemode( int t )
+#define DECLARE_MODE_FUNC(funcname, modename) \
+    static bool funcname(const enum StartMode mode) \
+    { \
+        return mode >= Start_FIRST_##modename && mode <= Start_LAST_##modename; \
+    }
+
+DECLARE_MODE_FUNC(is_no_death_mode, NODEATHMODE)
+DECLARE_MODE_FUNC(is_intermission_1, INTERMISSION1)
+DECLARE_MODE_FUNC(is_intermission_2, INTERMISSION2)
+
+#undef DECLARE_MODE_FUNC
+
+void scriptclass::startgamemode(const enum StartMode mode)
 {
-    switch(t)
+    if (mode == Start_QUIT)
     {
-    case 0:  //Normal new game
+        VVV_exit(0);
+    }
+
+    hardreset();
+
+    if (mode == Start_EDITOR)
+    {
+        game.gamestate = EDITORMODE;
+    }
+    else
+    {
         game.gamestate = GAMEMODE;
-        hardreset();
+    }
+
+    game.jumpheld = true;
+
+    switch (mode)
+    {
+    case Start_MAINGAME:
+    case Start_MAINGAME_TELESAVE:
+    case Start_MAINGAME_QUICKSAVE:
+    case Start_NODEATHMODE_WITHCUTSCENES:
+    case Start_NODEATHMODE_NOCUTSCENES:
+        game.nodeathmode = is_no_death_mode(mode);
+        game.nocutscenes = (mode == Start_NODEATHMODE_NOCUTSCENES);
+
         game.start();
-        game.jumpheld = true;
-        graphics.showcutscenebars = true;
-        graphics.setbars(320);
 
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        else obj.flags[73] = true;
-
-        if(obj.entities.empty())
+        switch (mode)
         {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+        case Start_MAINGAME_TELESAVE:
+            game.loadtele();
+            graphics.fademode = FADE_START_FADEIN;
+            break;
+        case Start_MAINGAME_QUICKSAVE:
+            game.loadquick();
+            graphics.fademode = FADE_START_FADEIN;
+            break;
+        default:
+            graphics.showcutscenebars = true;
+            graphics.setbars(320);
+            load("intro");
         }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intro");
         break;
-    case 1:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        game.start();
-        game.loadtele();
-        game.gravitycontrol = game.savegc;
-        game.jumpheld = true;
 
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        else obj.flags[73] = true;
-
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-        graphics.fademode = FADE_START_FADEIN;
-        break;
-    case 2: //Load Quicksave
-        game.gamestate = GAMEMODE;
-        hardreset();
-        game.start();
-        game.loadquick();
-        game.gravitycontrol = game.savegc;
-        game.jumpheld = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        else obj.flags[73] = true;
-
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-        //a very special case for here needs to ensure that the tower is set correctly
-        if (map.towermode)
-        {
-            map.resetplayer();
-
-            i = obj.getplayer();
-            if (INBOUNDS_VEC(i, obj.entities))
-            {
-                map.ypos = obj.entities[i].yp - 120;
-                map.oldypos = map.ypos;
-            }
-            map.setbgobjlerp(graphics.towerbg);
-            map.cameramode = 0;
-            map.colsuperstate = 0;
-        }
-        graphics.fademode = FADE_START_FADEIN;
-        break;
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-        //Start Time Trial
+    case Start_TIMETRIAL_SPACESTATION1:
+    case Start_TIMETRIAL_LABORATORY:
+    case Start_TIMETRIAL_TOWER:
+    case Start_TIMETRIAL_SPACESTATION2:
+    case Start_TIMETRIAL_WARPZONE:
+    case Start_TIMETRIAL_FINALLEVEL:
         music.fadeout();
 
-        hardreset();
         game.nocutscenes = true;
         game.intimetrial = true;
         game.timetrialcountdown = 150;
         game.timetrialparlost = false;
-        game.timetriallevel = t - 3;
+        game.timetriallevel = mode - Start_FIRST_TIMETRIAL;
 
-        switch (t)
+        switch (mode)
         {
-        case 3:
+        case Start_TIMETRIAL_SPACESTATION1:
             game.timetrialpar = 75;
             game.timetrialshinytarget = 2;
             break;
-        case 4:
+        case Start_TIMETRIAL_LABORATORY:
             game.timetrialpar = 165;
             game.timetrialshinytarget = 4;
             break;
-        case 5:
+        case Start_TIMETRIAL_TOWER:
             game.timetrialpar = 105;
             game.timetrialshinytarget = 2;
             break;
-        case 6:
+        case Start_TIMETRIAL_SPACESTATION2:
             game.timetrialpar = 200;
             game.timetrialshinytarget = 5;
             break;
-        case 7:
+        case Start_TIMETRIAL_WARPZONE:
             game.timetrialpar = 120;
             game.timetrialshinytarget = 1;
             break;
-        case 8:
+        case Start_TIMETRIAL_FINALLEVEL:
             game.timetrialpar = 135;
             game.timetrialshinytarget = 1;
-            map.finalmode = true; //Enable final level mode
+            map.finalmode = true;
             map.final_colormode = false;
             map.final_mapcol = 0;
             map.final_colorframe = 0;
             break;
+        default:
+            VVV_unreachable();
         }
 
-        game.gamestate = GAMEMODE;
         game.starttrial(game.timetriallevel);
-        game.jumpheld = true;
-
-        if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-        if (obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
         graphics.fademode = FADE_START_FADEIN;
         break;
-    case 9:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        game.nodeathmode = true;
-        game.start();
-        game.jumpheld = true;
-        graphics.showcutscenebars = true;
-        graphics.setbars(320);
 
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-
-        load("intro");
-        break;
-    case 10:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        game.nodeathmode = true;
-        game.nocutscenes = true;
-
-        game.start();
-        game.jumpheld = true;
-        graphics.showcutscenebars = true;
-        graphics.setbars(320);
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-
-        load("intro");
-        break;
-    case 11:
-        game.gamestate = GAMEMODE;
-        hardreset();
-
+    case Start_SECRETLAB:
         game.startspecial(0);
-        game.jumpheld = true;
 
-        //Secret lab, so reveal the map, give them all 20 trinkets
+        /* Unlock the entire map */
         SDL_memset(obj.collect, true, sizeof(obj.collect[0]) * 20);
+        /* Give all 20 trinkets */
         SDL_memset(map.explored, true, sizeof(map.explored));
         i = 400; /* previously a nested for-loop set this */
         game.insecretlab = true;
         map.showteleporters = true;
 
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
         music.play(11);
         graphics.fademode = FADE_START_FADEIN;
         break;
-    case 12:
-        game.gamestate = GAMEMODE;
-        hardreset();
+
+    case Start_INTERMISSION1_VITELLARY:
+    case Start_INTERMISSION1_VERMILION:
+    case Start_INTERMISSION1_VERDIGRIS:
+    case Start_INTERMISSION1_VICTORIA:
+    case Start_INTERMISSION2_VITELLARY:
+    case Start_INTERMISSION2_VERMILION:
+    case Start_INTERMISSION2_VERDIGRIS:
+    case Start_INTERMISSION2_VICTORIA:
         music.fadeout();
 
-        game.lastsaved = 2;
+        switch (mode)
+        {
+        case Start_INTERMISSION1_VITELLARY:
+        case Start_INTERMISSION2_VITELLARY:
+            game.lastsaved = 2;
+            break;
+        case Start_INTERMISSION1_VERMILION:
+        case Start_INTERMISSION2_VERMILION:
+            game.lastsaved = 3;
+            break;
+        case Start_INTERMISSION1_VERDIGRIS:
+        case Start_INTERMISSION2_VERDIGRIS:
+            game.lastsaved = 4;
+            break;
+        case Start_INTERMISSION1_VICTORIA:
+        case Start_INTERMISSION2_VICTORIA:
+            game.lastsaved = 5;
+            break;
+        default:
+            VVV_unreachable();
+        }
 
         game.crewstats[game.lastsaved] = true;
         game.inintermission = true;
-        game.companion = 11;
-        game.supercrewmate = true;
-        game.scmprogress = 0;
+
+        if (is_intermission_1(mode))
+        {
+            game.companion = 11;
+            game.supercrewmate = true;
+            game.scmprogress = 0;
+        }
+
         map.finalmode = true;
         map.final_colormode = false;
         map.final_mapcol = 0;
         map.final_colorframe = 0;
         game.startspecial(1);
-        game.jumpheld = true;
 
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        if(obj.entities.empty())
+        if (is_intermission_1(mode))
         {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+            load("intermission_1");
         }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intermission_1");
-        break;
-    case 13:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        music.fadeout();
-
-        game.lastsaved = 3;
-
-        game.crewstats[game.lastsaved] = true;
-        game.inintermission = true;
-        game.companion = 11;
-        game.supercrewmate = true;
-        game.scmprogress = 0;
-        map.finalmode = true;
-        map.final_colormode = false;
-        map.final_mapcol = 0;
-        map.final_colorframe = 0;
-        game.startspecial(1);
-        game.jumpheld = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        if(obj.entities.empty())
+        else if (is_intermission_2(mode))
         {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+            load("intermission_2");
         }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intermission_1");
         break;
-    case 14:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        music.fadeout();
 
-        game.lastsaved = 4;
-
-        game.crewstats[game.lastsaved] = true;
-        game.inintermission = true;
-        game.companion = 11;
-        game.supercrewmate = true;
-        game.scmprogress = 0;
-        map.finalmode = true;
-        map.final_colormode = false;
-        map.final_mapcol = 0;
-        map.final_colorframe = 0;
-        game.startspecial(1);
-        game.jumpheld = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intermission_1");
-        break;
-    case 15:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        music.fadeout();
-
-        game.lastsaved = 5;
-
-        game.crewstats[game.lastsaved] = true;
-        game.inintermission = true;
-        game.companion = 11;
-        game.supercrewmate = true;
-        game.scmprogress = 0;
-        map.finalmode = true;
-        map.final_colormode = false;
-        map.final_mapcol = 0;
-        map.final_colorframe = 0;
-        game.startspecial(1);
-        game.jumpheld = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intermission_1");
-        break;
-    case 16:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        music.fadeout();
-
-        game.lastsaved = 2;
-
-        game.crewstats[game.lastsaved] = true;
-        game.inintermission = true;
-        map.finalmode = true;
-        map.final_colormode = false;
-        map.final_mapcol = 0;
-        map.final_colorframe = 0;
-        game.startspecial(1);
-        game.jumpheld = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intermission_2");
-        break;
-    case 17:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        music.fadeout();
-
-        game.lastsaved = 3;
-
-        game.crewstats[game.lastsaved] = true;
-        game.inintermission = true;
-        map.finalmode = true;
-        map.final_colormode = false;
-        map.final_mapcol = 0;
-        map.final_colorframe = 0;
-        game.startspecial(1);
-        game.jumpheld = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intermission_2");
-        break;
-    case 18:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        music.fadeout();
-
-        game.lastsaved = 4;
-
-        game.crewstats[game.lastsaved] = true;
-        game.inintermission = true;
-        map.finalmode = true;
-        map.final_colormode = false;
-        map.final_mapcol = 0;
-        map.final_colorframe = 0;
-        game.startspecial(1);
-        game.jumpheld = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intermission_2");
-        break;
-    case 19:
-        game.gamestate = GAMEMODE;
-        hardreset();
-        music.fadeout();
-
-        game.lastsaved = 5;
-
-        game.crewstats[game.lastsaved] = true;
-        game.inintermission = true;
-        map.finalmode = true;
-        map.final_colormode = false;
-        map.final_mapcol = 0;
-        map.final_colorframe = 0;
-        game.startspecial(1);
-        game.jumpheld = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        load("intermission_2");
-        break;
 #ifndef NO_CUSTOM_LEVELS
 # ifndef NO_EDITOR
-    case 20:
-        //Level editor
-        hardreset();
+    case Start_EDITOR:
         cl.reset();
         ed.reset();
         music.fadeout();
         map.custommode = true;
         map.custommodeforreal = false;
-
-        game.gamestate = EDITORMODE;
-        game.jumpheld = true;
-
-        if (graphics.setflipmode) graphics.flipmode = true;//set flipmode
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
         graphics.fademode = FADE_START_FADEIN;
         break;
-    case 21:  //play custom level (in editor)
-        game.gamestate = GAMEMODE;
+
+    case Start_EDITORPLAYTESTING:
         music.fadeout();
-        hardreset();
+
         //If warpdir() is used during playtesting, we need to set it back after!
         for (int j = 0; j < cl.maxheight; j++)
         {
@@ -2872,25 +2589,12 @@ void scriptclass::startgamemode( int t )
                 ed.kludgewarpdir[i+(j*cl.maxwidth)]=cl.roomproperties[i+(j*cl.maxwidth)].warpdir;
             }
         }
-        game.customstart();
-        game.jumpheld = true;
 
+        game.customstart();
         ed.ghosts.clear();
 
         map.custommode = true;
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        cl.generatecustomminimap();
+        map.custommodeforreal = false;
         map.customshowmm = true;
 
         if (cl.levmusic > 0)
@@ -2903,10 +2607,10 @@ void scriptclass::startgamemode( int t )
         }
         break;
 # endif /* NO_EDITOR */
-    case 22:  //play custom level (in game)
+
+    case Start_CUSTOM:
+    case Start_CUSTOM_QUICKSAVE:
     {
-        //Initilise the level
-        //First up, find the start point
         std::string filename = std::string(cl.ListOfMetaData[game.playcustomlevel].filename);
         if (!cl.load(filename))
         {
@@ -2915,78 +2619,78 @@ void scriptclass::startgamemode( int t )
         }
         cl.findstartpoint();
 
-        game.gamestate = GAMEMODE;
-        music.fadeout();
-        hardreset();
-        game.customstart();
-        game.jumpheld = true;
-
         map.custommodeforreal = true;
         map.custommode = true;
+        map.customshowmm = true;
 
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
+        music.fadeout();
+        game.customstart();
 
-        if(obj.entities.empty())
+        switch (mode)
         {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-
-        cl.generatecustomminimap();
-        map.customshowmm=true;
-        if(cl.levmusic>0){
-            music.play(cl.levmusic);
-        }else{
-            music.currentsong=-1;
-        }
-        graphics.fademode = FADE_START_FADEIN;
-        break;
-    }
-    case 23: //Continue in custom level
-    {
-        //Initilise the level
-        //First up, find the start point
-        std::string filename = std::string(cl.ListOfMetaData[game.playcustomlevel].filename);
-        if (!cl.load(filename))
-        {
-            gotoerrorloadinglevel();
+        case Start_CUSTOM:
+            if (cl.levmusic > 0)
+            {
+                music.play(cl.levmusic);
+            }
+            else
+            {
+                music.currentsong = -1;
+            }
             break;
+        case Start_CUSTOM_QUICKSAVE:
+            game.customloadquick(cl.ListOfMetaData[game.playcustomlevel].filename);
+            break;
+        default:
+            VVV_unreachable();
         }
-        cl.findstartpoint();
 
-        game.gamestate = GAMEMODE;
-        music.fadeout();
-        hardreset();
-        map.custommodeforreal = true;
-        map.custommode = true;
-
-        game.customstart();
-        game.customloadquick(cl.ListOfMetaData[game.playcustomlevel].filename);
-        game.jumpheld = true;
-        game.gravitycontrol = game.savegc;
-
-
-        //set flipmode
-        if (graphics.setflipmode) graphics.flipmode = true;
-
-        if(obj.entities.empty())
-        {
-            obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
-        }
-        map.resetplayer();
-        map.gotoroom(game.saverx, game.savery);
-        map.initmapdata();
-        cl.generatecustomminimap();
         graphics.fademode = FADE_START_FADEIN;
         break;
     }
 #endif /* NO_CUSTOM_LEVELS */
-    case 100:
-        VVV_exit(0);
-        break;
+
+    case Start_QUIT:
+        VVV_unreachable();
+    }
+
+    game.gravitycontrol = game.savegc;
+    graphics.flipmode = graphics.setflipmode;
+
+    if (!map.custommode && !graphics.setflipmode)
+    {
+        /* Invalidate Flip Mode trophy */
+        obj.flags[73] = true;
+    }
+
+    if (obj.entities.empty())
+    {
+        obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+    }
+    map.resetplayer();
+    map.gotoroom(game.saverx, game.savery);
+    map.initmapdata();
+#ifndef NO_CUSTOM_LEVELS
+    if (map.custommode)
+    {
+        cl.generatecustomminimap();
+    }
+#endif
+
+    /* If we are spawning in a tower, ensure variables are set correctly */
+    if (map.towermode)
+    {
+        map.resetplayer();
+
+        i = obj.getplayer();
+        if (INBOUNDS_VEC(i, obj.entities))
+        {
+            map.ypos = obj.entities[i].yp - 120;
+            map.oldypos = map.ypos;
+        }
+        map.setbgobjlerp(graphics.towerbg);
+        map.cameramode = 0;
+        map.colsuperstate = 0;
     }
 }
 

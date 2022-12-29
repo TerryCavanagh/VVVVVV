@@ -697,9 +697,9 @@ int main(int argc, char *argv[])
             game.playgc = savegc;
             game.playmusic = savemusic;
             game.cliplaytest = true;
-            script.startgamemode(23);
+            script.startgamemode(Start_CUSTOM_QUICKSAVE);
         } else {
-            script.startgamemode(22);
+            script.startgamemode(Start_CUSTOM);
         }
 
         graphics.fademode = FADE_NONE;

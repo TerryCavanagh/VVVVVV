@@ -2796,7 +2796,7 @@ void editorinput(void)
                         graphics.backgrounddrawn=false;
                         ed.returneditoralpha = 1000; // Let's start it higher than 255 since it gets clamped
                         ed.oldreturneditoralpha = 1000;
-                        script.startgamemode(21);
+                        script.startgamemode(Start_EDITORPLAYTESTING);
                     }
                 }
             }
