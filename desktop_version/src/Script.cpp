@@ -3163,6 +3163,9 @@ void scriptclass::hardreset(void)
         // Ironically, resetting more variables makes the janky fadeout system in glitchrunnermode even more glitchy
         game.saverx = 0;
         game.savery = 0;
+        game.savex = 0;
+        game.savey = 0;
+        game.savegc = 0;
     }
     game.savecolour = 0;
 
