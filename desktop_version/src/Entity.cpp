@@ -3753,7 +3753,10 @@ void entityclass::animateentities( int _i )
                     entities[_i].drawframe += entities[_i].walkingframe + 1;
                 }
 
-                if (entities[_i].visualonroof > 0) entities[_i].drawframe += 6;
+                if (entities[_i].type == 14)
+                {
+                    if (entities[_i].visualonroof > 0) entities[_i].drawframe += 6;
+                }
             }
             else
             {
