@@ -6940,9 +6940,16 @@ void Game::returntoingame(void)
     DEFER_CALLBACK(nextbgcolor);
 }
 
-void Game::unlockAchievement(const char *name) {
-#if !defined(MAKEANDPLAY)
-    if (!map.custommode) NETWORK_unlockAchievement(name);
+void Game::unlockAchievement(const char* name)
+{
+#ifndef MAKEANDPLAY
+    if (map.custommode)
+    {
+        return;
+    }
+
+    vlog_debug("Achievement \"%s\" unlocked.", name);
+    NETWORK_unlockAchievement(name);
 #endif
 }
 
