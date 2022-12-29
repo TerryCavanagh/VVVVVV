@@ -245,7 +245,8 @@ void vformat_cb_valist(
                 trim_whitespace(&arg_name, &arg_name_len);
                 trim_whitespace(&arg_type, &arg_type_len);
 
-                match = (arg_name_len == name_len && SDL_memcmp(arg_name, name, name_len) == 0);
+                match = (arg_name_len == name_len && SDL_memcmp(arg_name, name, name_len) == 0)
+                     || (arg_name_len == 1 && arg_name[0] == '_');
 
                 if (arg_type_len == 3 && SDL_memcmp(arg_type, "int", 3) == 0)
                 {

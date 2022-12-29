@@ -45,6 +45,9 @@
  *  - str   const char*
  *  - but   Controller button icon
  *
+ * Special case: if an argument name is a single underscore (_), it matches
+ * any name not found earlier in the list. This should normally not be needed.
+ *
  * Full example:
  *
  *  char buffer[100];
