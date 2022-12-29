@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8.12)
 option(ENABLE_WARNINGS "Enable compilation warnings" ON)
 option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
-option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, FAudio, and UTF8-CPP (if disabled, TinyXML-2, PhysicsFS, and FAudio will be dynamically linked, LodePNG and UTF8-CPP will still be statically linked)" ON)
+option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, FAudio, and UTF8-CPP (if disabled, TinyXML-2, PhysicsFS, and FAudio will be dynamically linked, LodePNG, UTF8-CPP and C-HashMap will still be statically linked)" ON)
 
 set(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
 set_property(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
@@ -135,11 +135,13 @@ if(BUNDLE_DEPENDENCIES)
     target_include_directories(
         VVVVVV PRIVATE
         src
+        ../third_party
         ../third_party/tinyxml2
         ../third_party/physfs/src
         ../third_party/physfs/extras
         ../third_party/lodepng
         ../third_party/utfcpp/source
+        ../third_party/c-hashmap
         ../third_party/FAudio/include
         ../third_party/FAudio/src
     )
@@ -147,8 +149,10 @@ else()
     target_include_directories(
         VVVVVV PRIVATE
         src
+        ../third_party
         ../third_party/lodepng
         ../third_party/physfs/extras
+        ../third_party/c-hashmap
         ../third_party/FAudio/src
     )
 endif()
@@ -191,6 +195,7 @@ if(APPLE)
     set(PFS_SRC ${PFS_SRC} ../third_party/physfs/src/physfs_platform_apple.m)
 endif()
 set(PNG_SRC src/lodepng_wrapper.c)
+set(CHM_SRC ../third_party/c-hashmap/map.c)
 
 if(NOT OFFICIAL_BUILD)
     # Add interim commit hash and its date to the build
@@ -300,10 +305,12 @@ target_compile_definitions(lodepng-static PRIVATE
     -DLODEPNG_NO_COMPILE_ENCODER
 )
 
+add_library(c-hashmap-static STATIC ${CHM_SRC})
+
 if(BUNDLE_DEPENDENCIES)
-    list(APPEND STATIC_LIBRARIES physfs-static tinyxml2-static lodepng-static faudio-static)
+    list(APPEND STATIC_LIBRARIES physfs-static tinyxml2-static lodepng-static c-hashmap-static faudio-static)
 else()
-    list(APPEND STATIC_LIBRARIES lodepng-static)
+    list(APPEND STATIC_LIBRARIES lodepng-static c-hashmap-static)
 endif()
 
 if(BUNDLE_DEPENDENCIES)
