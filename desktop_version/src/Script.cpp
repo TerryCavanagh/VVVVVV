@@ -2400,6 +2400,34 @@ void scriptclass::startgamemode(const enum StartMode mode)
         VVV_exit(0);
     }
 
+    struct
+    {
+        bool initialized;
+        int size;
+        int cx;
+        int cy;
+        int w;
+        int h;
+    }
+    player_hitbox;
+    SDL_zero(player_hitbox);
+
+    if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
+    {
+        /* Preserve player hitbox */
+        const int player_idx = obj.getplayer();
+        if (INBOUNDS_VEC(player_idx, obj.entities))
+        {
+            const entclass* player = &obj.entities[player_idx];
+            player_hitbox.initialized = true;
+            player_hitbox.size = player->size;
+            player_hitbox.cx = player->cx;
+            player_hitbox.cy = player->cy;
+            player_hitbox.w = player->w;
+            player_hitbox.h = player->h;
+        }
+    }
+
     hardreset();
 
     if (mode == Start_EDITOR)
@@ -2663,10 +2691,23 @@ void scriptclass::startgamemode(const enum StartMode mode)
         obj.flags[73] = true;
     }
 
-    if (obj.entities.empty())
+    obj.entities.clear();
+    obj.createentity(game.savex, game.savey, 0, 0);
+    if (player_hitbox.initialized)
     {
-        obj.createentity(game.savex, game.savey, 0, 0); //In this game, constant, never destroyed
+        /* Restore player hitbox */
+        const int player_idx = obj.getplayer();
+        if (INBOUNDS_VEC(player_idx, obj.entities))
+        {
+            entclass* player = &obj.entities[player_idx];
+            player->size = player_hitbox.size;
+            player->cx = player_hitbox.cx;
+            player->cy = player_hitbox.cy;
+            player->w = player_hitbox.w;
+            player->h = player_hitbox.h;
+        }
     }
+
     map.resetplayer();
     map.gotoroom(game.saverx, game.savery);
     map.initmapdata();
