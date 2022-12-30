@@ -800,7 +800,11 @@ void Game::updatestate(void)
             break;
         case 4:
             //End of opening cutscene for now
-            graphics.createtextbox("  Press arrow keys or WASD to move  ", -1, 195, 174, 174, 174);
+            graphics.createtextbox(loc::gettext("Press arrow keys or WASD to move"), -1, 195, 174, 174, 174);
+            graphics.textboxwrap(4);
+            graphics.textboxcentertext();
+            graphics.textboxpad(2, 2);
+            graphics.textboxcenterx();
             graphics.textboxtimer(60);
             setstate(0);
             break;
@@ -827,8 +831,11 @@ void Game::updatestate(void)
             if (!obj.flags[13])
             {
                 obj.flags[13] = true;
-                graphics.createtextbox("  Press ENTER to view map  ", -1, 155, 174, 174, 174);
-                graphics.addline("      and quicksave");
+                graphics.createtextbox(loc::gettext("Press ENTER to view map and quicksave"), -1, 155, 174, 174, 174);
+                graphics.textboxwrap(4);
+                graphics.textboxcentertext();
+                graphics.textboxpad(2, 2);
+                graphics.textboxcenterx();
                 graphics.textboxtimer(60);
             }
             setstate(0);
@@ -888,52 +895,42 @@ void Game::updatestate(void)
             break;
 
         case 11:
+        {
             //Intermission 1 instructional textbox, depends on last saved
             graphics.textboxremovefast();
-            graphics.createtextbox("   When you're NOT standing on   ", -1, 3, 174, 174, 174);
-            if (graphics.flipmode)
+            const char* floorceiling = graphics.flipmode ? "ceiling" : "floor";
+            const char* crewmate;
+            switch (lastsaved)
             {
-                if (lastsaved == 2)
-                {
-                    graphics.addline("   the ceiling, Vitellary will");
-                }
-                else if (lastsaved == 3)
-                {
-                    graphics.addline("   the ceiling, Vermilion will");
-                }
-                else if (lastsaved == 4)
-                {
-                    graphics.addline("   the ceiling, Verdigris will");
-                }
-                else if (lastsaved == 5)
-                {
-                    graphics.addline("   the ceiling, Victoria will");
-                }
+            case 2:
+                crewmate = "Vitellary";
+                break;
+            case 3:
+                crewmate = "Vermilion";
+                break;
+            case 4:
+                crewmate = "Verdigris";
+                break;
+            case 5:
+                crewmate = "Victoria";
+                break;
+            default:
+                crewmate = "your companion";
             }
-            else
-            {
-                if (lastsaved == 2)
-                {
-                    graphics.addline("    the floor, Vitellary will");
-                }
-                else if (lastsaved == 3)
-                {
-                    graphics.addline("    the floor, Vermilion will");
-                }
-                else if (lastsaved == 4)
-                {
-                    graphics.addline("    the floor, Verdigris will");
-                }
-                else if (lastsaved == 5)
-                {
-                    graphics.addline("    the floor, Victoria will");
-                }
-            }
-
-            graphics.addline("     stop and wait for you.");
+            char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
+            vformat_buf(english, sizeof(english),
+                "When you're NOT standing on the {floorceiling}, {crewmate} will stop and wait for you.",
+                "floorceiling:str, crewmate:str",
+                floorceiling, crewmate
+            );
+            graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+            graphics.textboxwrap(2);
+            graphics.textboxpadtowidth(36*8);
+            graphics.textboxcenterx();
             graphics.textboxtimer(180);
             setstate(0);
             break;
+        }
         case 12:
             //Intermission 1 instructional textbox, depends on last saved
             obj.removetrigger(12);
@@ -941,15 +938,24 @@ void Game::updatestate(void)
             {
                 obj.flags[61] = true;
                 graphics.textboxremovefast();
-                graphics.createtextbox("  You can't continue to the next   ", -1, 8, 174, 174, 174);
-                if (lastsaved == 5)
+                const char* english;
+                switch (lastsaved)
                 {
-                    graphics.addline("  room until she is safely across. ");
+                case 2:
+                case 3:
+                case 4:
+                    english = "You can't continue to the next room until he is safely across.";
+                    break;
+                case 5:
+                    english = "You can't continue to the next room until she is safely across.";
+                    break;
+                default:
+                    english = "You can't continue to the next room until they are safely across.";
                 }
-                else
-                {
-                    graphics.addline("  room until he is safely across.  ");
-                }
+                graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+                graphics.textboxwrap(2);
+                graphics.textboxpadtowidth(36*8);
+                graphics.textboxcenterx();
                 graphics.textboxtimer(120);
             }
             setstate(0);
@@ -961,36 +967,42 @@ void Game::updatestate(void)
             setstate(0);
             break;
         case 14:
+        {
             //Intermission 1 instructional textbox, depends on last saved
-            if (graphics.flipmode)
+            const char* floorceiling = graphics.flipmode ? "ceiling" : "floor";
+            const char* crewmate;
+            switch (lastsaved)
             {
-                graphics.createtextbox(" When you're standing on the ceiling, ", -1, 3, 174, 174, 174);
+            case 2:
+                crewmate = "Vitellary";
+                break;
+            case 3:
+                crewmate = "Vermilion";
+                break;
+            case 4:
+                crewmate = "Verdigris";
+                break;
+            case 5:
+                crewmate = "Victoria";
+                break;
+            default:
+                crewmate = "your companion";
             }
-            else
-            {
-                graphics.createtextbox(" When you're standing on the floor, ", -1, 3, 174, 174, 174);
-            }
-            if (lastsaved == 2)
-            {
-                graphics.addline(" Vitellary will try to walk to you. ");
-            }
-            else if (lastsaved == 3)
-            {
-                graphics.addline(" Vermilion will try to walk to you. ");
-            }
-            else if (lastsaved == 4)
-            {
-                graphics.addline(" Verdigris will try to walk to you. ");
-            }
-            else if (lastsaved == 5)
-            {
-                graphics.addline(" Victoria will try to walk to you. ");
-            }
+            char english[SCREEN_WIDTH_TILES*3 + 1]; /* ASCII only */
+            vformat_buf(english, sizeof(english),
+                "When you're standing on the {floorceiling}, {crewmate} will try to walk to you.",
+                "floorceiling:str, crewmate:str",
+                floorceiling, crewmate
+            );
+            graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+            graphics.textboxwrap(2);
+            graphics.textboxpadtowidth(36*8);
+            graphics.textboxcenterx();
             graphics.textboxtimer(280);
 
             setstate(0);
             break;
-
+        }
         case 15:
         {
             //leaving the naughty corner
@@ -1018,8 +1030,11 @@ void Game::updatestate(void)
         case 17:
             //Arrow key tutorial
             obj.removetrigger(17);
-            graphics.createtextbox(" If you prefer, you can press UP or ", -1, 195, 174, 174, 174);
-            graphics.addline("   DOWN instead of ACTION to flip.");
+            graphics.createtextbox(loc::gettext("If you prefer, you can press UP or DOWN instead of ACTION to flip."), -1, 187, 174, 174, 174);
+            graphics.textboxwrap(2);
+            graphics.textboxcentertext();
+            graphics.textboxpad(1, 1);
+            graphics.textboxcenterx();
             graphics.textboxtimer(100);
             setstate(0);
             break;
@@ -1048,7 +1063,11 @@ void Game::updatestate(void)
                 graphics.textboxremovefast();
                 obj.flags[3] = true;
                 setstate(0);
-                graphics.createtextbox("  Press ACTION to flip  ", -1, 25, 174, 174, 174);
+                graphics.createtextbox(loc::gettext("Press ACTION to flip"), -1, 25, 174, 174, 174);
+                graphics.textboxwrap(4);
+                graphics.textboxcentertext();
+                graphics.textboxpad(2, 2);
+                graphics.textboxcenterx();
                 graphics.textboxtimer(60);
             }
             obj.removetrigger(22);
@@ -1389,53 +1408,56 @@ void Game::updatestate(void)
 
         case 50:
             music.playef(15);
-            graphics.createtextbox("Help! Can anyone hear", 35, 15, 255, 134, 255);
-            graphics.addline("this message?");
+            graphics.createtextbox(loc::gettext("Help! Can anyone hear this message?"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 51:
             music.playef(15);
-            graphics.createtextbox("Verdigris? Are you out", 30, 12, 255, 134, 255);
-            graphics.addline("there? Are you ok?");
+            graphics.createtextbox(loc::gettext("Verdigris? Are you out there? Are you ok?"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 52:
             music.playef(15);
-            graphics.createtextbox("Please help us! We've crashed", 5, 22, 255, 134, 255);
-            graphics.addline("and need assistance!");
+            graphics.createtextbox(loc::gettext("Please help us! We've crashed and need assistance!"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 53:
             music.playef(15);
-            graphics.createtextbox("Hello? Anyone out there?", 40, 15, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Hello? Anyone out there?"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 54:
             music.playef(15);
-            graphics.createtextbox("This is Doctor Violet from the", 5, 8, 255, 134, 255);
-            graphics.addline("D.S.S. Souleye! Please respond!");
+            graphics.createtextbox(loc::gettext("This is Doctor Violet from the D.S.S. Souleye! Please respond!"), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 55:
             music.playef(15);
-            graphics.createtextbox("Please... Anyone...", 45, 14, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Please... Anyone..."), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
             setstatedelay(100);
             break;
         case 56:
             music.playef(15);
-            graphics.createtextbox("Please be alright, everyone...", 25, 18, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Please be alright, everyone..."), 5, 8, 255, 134, 255);
+            graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             setstate(50);
             setstatedelay(100);
@@ -1893,27 +1915,43 @@ void Game::updatestate(void)
             setstatedelay(15);
             break;
         case 1001:
+        {
             //Found a trinket!
             advancetext = true;
             incstate();
-            graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
-            graphics.addline("");
-            graphics.addline("You have found a shiny trinket!");
+            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, 174, 174, 174);
+            int h = graphics.textboxwrap(2);
+            graphics.textboxcentertext();
+            graphics.textboxpad(1, 1);
             graphics.textboxcenterx();
+
+            int max_trinkets;
 
 #if !defined(NO_CUSTOM_LEVELS)
             if(map.custommode)
             {
-                graphics.createtextboxflipme(" " + help.number_words(trinkets()) + " out of " + help.number_words(cl.numtrinkets())+ " ", 50, 135, 174, 174, 174);
-                graphics.textboxcenterx();
+                max_trinkets = cl.numtrinkets();
             }
             else
 #endif
             {
-                graphics.createtextboxflipme(" " + help.number_words(trinkets()) + " out of Twenty ", 50, 135, 174, 174, 174);
-                graphics.textboxcenterx();
+                max_trinkets = 20;
             }
+
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
+                "n_trinkets:int, max_trinkets:int",
+                trinkets(), max_trinkets
+            );
+            graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
+            graphics.textboxwrap(2);
+            graphics.textboxcentertext();
+            graphics.textboxpad(1, 1);
+            graphics.textboxcenterx();
             break;
+        }
         case 1002:
             if (!advancetext)
             {
@@ -1943,28 +1981,37 @@ void Game::updatestate(void)
             break;
 #if !defined(NO_CUSTOM_LEVELS)
         case 1011:
+        {
             //Found a crewmate!
             advancetext = true;
             incstate();
-            graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
-            graphics.addline("");
-            graphics.addline("You have found a lost crewmate!");
+            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a lost crewmate!"), 50, 85, 174, 174, 174);
+            int h = graphics.textboxwrap(2);
+            graphics.textboxcentertext();
+            graphics.textboxpad(1, 1);
             graphics.textboxcenterx();
 
             if(cl.numcrewmates()-crewmates()==0)
             {
-                graphics.createtextboxflipme("     All crewmates rescued!    ", 50, 135, 174, 174, 174);
-            }
-            else if(cl.numcrewmates()-crewmates()==1)
-            {
-                graphics.createtextboxflipme("    " + help.number_words(cl.numcrewmates()-crewmates())+ " remains    ", 50, 135, 174, 174, 174);
+                graphics.createtextboxflipme(loc::gettext("All crewmates rescued!"), 50, 95+h, 174, 174, 174);
             }
             else
             {
-                graphics.createtextboxflipme("     " + help.number_words(cl.numcrewmates()-crewmates())+ " remain    ", 50, 135, 174, 174, 174);
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                loc::gettext_plural_fill(
+                    buffer, sizeof(buffer),
+                    "{n_crew|wordy} remain", "{n_crew|wordy} remains",
+                    "n_crew:int",
+                    cl.numcrewmates()-crewmates()
+                );
+                graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
             }
+            graphics.textboxwrap(4);
+            graphics.textboxcentertext();
+            graphics.textboxpad(2, 2);
             graphics.textboxcenterx();
             break;
+        }
         case 1012:
             if (!advancetext)
             {
@@ -2676,7 +2723,7 @@ void Game::updatestate(void)
             music.play(7);
 
             graphics.createtextboxflipme("", -1, 12, 164, 165, 255);
-            graphics.addline("                                   ");
+            graphics.addline("                                    ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxcenterx();
@@ -2686,7 +2733,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45+15);
 
-            graphics.createtextboxflipme("  All Crew Members Rescued!  ", -1, 64, 0, 0, 0);
+            graphics.createtextboxflipme(loc::gettext("All Crew Members Rescued!"), -1, 64, 0, 0, 0);
             char buffer[SCREEN_WIDTH_CHARS + 1];
             timestringcenti(buffer, sizeof(buffer));
             savetime = buffer;
@@ -2697,9 +2744,15 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            std::string tempstring = help.number_words(trinkets());
-            graphics.createtextboxflipme("Trinkets Found:", 48, 84, 0,0,0);
-            graphics.createtextboxflipme(tempstring, 180, 84, 0, 0, 0);
+            const char* label = loc::gettext("Trinkets Found:");
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(buffer, sizeof(buffer),
+                loc::gettext("{gamecomplete_n_trinkets|wordy}"),
+                "gamecomplete_n_trinkets:int",
+                trinkets()
+            );
+            graphics.createtextboxflipme(label, 168-graphics.len(label), 84, 0,0,0);
+            graphics.createtextboxflipme(buffer, 180, 84, 0, 0, 0);
             break;
         }
         case 3504:
@@ -2707,32 +2760,46 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45+15);
 
+            const char* label = loc::gettext("Game Time:");
             std::string tempstring = savetime;
-            graphics.createtextboxflipme("   Game Time:", 64, 96, 0,0,0);
+            graphics.createtextboxflipme(label, 168-graphics.len(label), 96, 0,0,0);
             graphics.createtextboxflipme(tempstring, 180, 96, 0, 0, 0);
             break;
         }
         case 3505:
+        {
             incstate();
             setstatedelay(45);
 
-            graphics.createtextboxflipme(" Total Flips:", 64, 123, 0,0,0);
+            const char* label = loc::gettext("Total Flips:");
+            graphics.createtextboxflipme(label, 168-graphics.len(label), 123, 0,0,0);
             graphics.createtextboxflipme(help.String(totalflips), 180, 123, 0, 0, 0);
             break;
+        }
         case 3506:
+        {
             incstate();
             setstatedelay(45+15);
 
-            graphics.createtextboxflipme("Total Deaths:", 64, 135, 0,0,0);
+            const char* label = loc::gettext("Total Deaths:");
+            graphics.createtextboxflipme(label, 168-graphics.len(label), 135, 0,0,0);
             graphics.createtextboxflipme(help.String(deathcounts), 180, 135, 0, 0, 0);
             break;
+        }
         case 3507:
         {
             incstate();
             setstatedelay(45+15);
 
-            std::string tempstring = "Hardest Room (with " + help.String(hardestroomdeaths) + " deaths)";
-            graphics.createtextboxflipme(tempstring, -1, 158, 0,0,0);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            loc::gettext_plural_fill(
+                buffer, sizeof(buffer),
+                "Hardest Room (with {n_deaths} deaths)",
+                "Hardest Room (with {n_deaths} death)",
+                "n_deaths:int",
+                hardestroomdeaths
+            );
+            graphics.createtextboxflipme(buffer, -1, 158, 0,0,0);
             graphics.createtextboxflipme(hardestroom, -1, 170, 0, 0, 0);
             break;
         }
