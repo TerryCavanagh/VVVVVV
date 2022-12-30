@@ -6,6 +6,7 @@
 #include <string>
 #include <utf8/unchecked.h>
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
 #include "Entity.h"
@@ -14,6 +15,7 @@
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
+#include "Localization.h"
 #include "Map.h"
 #include "Music.h"
 #include "Screen.h"
@@ -300,16 +302,17 @@ static void editormenurender(int tr, int tg, int tb)
     switch (game.currentmenuname)
     {
     case Menu::ed_settings:
-        graphics.bigprint( -1, 75, "Map Settings", tr, tg, tb, true);
+        graphics.bigprint( -1, 75, loc::gettext("Map Settings"), tr, tg, tb, true);
         if (game.currentmenuoption == 3)
         {
             if (!game.ghostsenabled)
-                graphics.Print(2, 230, "Editor ghost trail is OFF", tr/2, tg/2, tb/2);
+                graphics.Print(2, 230, loc::gettext("Editor ghost trail is OFF"), tr/2, tg/2, tb/2);
             else
-                graphics.Print(2, 230, "Editor ghost trail is ON", tr, tg, tb);
+                graphics.Print(2, 230, loc::gettext("Editor ghost trail is ON"), tr, tg, tb);
         }
         break;
     case Menu::ed_desc:
+    {
         if(ed.titlemod)
         {
             if(ed.entframe<2)
@@ -323,23 +326,33 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            graphics.bigprint( -1, 35, cl.title, tr, tg, tb, true);
+            graphics.bigprint( -1, 35, translate_title(cl.title), tr, tg, tb, true);
         }
+        std::string creator;
         if(ed.creatormod)
         {
             if(ed.entframe<2)
             {
-                graphics.Print( -1, 60, "by " + key.keybuffer+ "_", tr, tg, tb, true);
+                creator = key.keybuffer + "_";
             }
             else
             {
-                graphics.Print( -1, 60, "by " + key.keybuffer+ " ", tr, tg, tb, true);
+                creator = key.keybuffer + " ";
             }
         }
         else
         {
-            graphics.Print( -1, 60, "by " + cl.creator, tr, tg, tb, true);
+            creator = translate_creator(cl.creator);
         }
+        char creatorline[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(
+            creatorline, sizeof(creatorline),
+            loc::gettext("by {author}"),
+            "author:str",
+            creator.c_str()
+        );
+        graphics.Print( -1, 60, creatorline, tr, tg, tb, true);
+
         if(ed.websitemod)
         {
             if(ed.entframe<2)
@@ -401,72 +414,72 @@ static void editormenurender(int tr, int tg, int tb)
             graphics.Print( -1, 110, cl.Desc3, tr, tg, tb, true);
         }
         break;
+    }
     case Menu::ed_music:
     {
-        graphics.bigprint( -1, 65, "Map Music", tr, tg, tb, true);
+        graphics.bigprint( -1, 65, loc::gettext("Map Music"), tr, tg, tb, true);
 
-        graphics.Print( -1, 85, "Current map music:", tr, tg, tb, true);
-        std::string songname;
+        graphics.PrintWrap( -1, 85, loc::gettext("Current map music:"), tr, tg, tb, true);
+        const char* songname;
         switch(cl.levmusic)
         {
         case 0:
-            songname = "No background music";
+            songname = loc::gettext("No background music");
             break;
         case 1:
-            songname = "1: Pushing Onwards";
+            songname = loc::gettext("1: Pushing Onwards");
             break;
         case 2:
-            songname = "2: Positive Force";
+            songname = loc::gettext("2: Positive Force");
             break;
         case 3:
-            songname = "3: Potential for Anything";
+            songname = loc::gettext("3: Potential for Anything");
             break;
         case 4:
-            songname = "4: Passion for Exploring";
+            songname = loc::gettext("4: Passion for Exploring");
             break;
         case 5:
-            songname = "N/A: Pause";
+            songname = loc::gettext("N/A: Pause");
             break;
         case 6:
-            songname = "5: Presenting VVVVVV";
+            songname = loc::gettext("5: Presenting VVVVVV");
             break;
         case 7:
-            songname = "N/A: Plenary";
+            songname = loc::gettext("N/A: Plenary");
             break;
         case 8:
-            songname = "6: Predestined Fate";
+            songname = loc::gettext("6: Predestined Fate");
             break;
         case 9:
-            songname = "N/A: ecroF evitisoP";
+            songname = loc::gettext("N/A: ecroF evitisoP");
             break;
         case 10:
-            songname = "7: Popular Potpourri";
+            songname = loc::gettext("7: Popular Potpourri");
             break;
         case 11:
-            songname = "8: Pipe Dream";
+            songname = loc::gettext("8: Pipe Dream");
             break;
         case 12:
-            songname = "9: Pressure Cooker";
+            songname = loc::gettext("9: Pressure Cooker");
             break;
         case 13:
-            songname = "10: Paced Energy";
+            songname = loc::gettext("10: Paced Energy");
             break;
         case 14:
-            songname = "11: Piercing the Sky";
+            songname = loc::gettext("11: Piercing the Sky");
             break;
         case 15:
-            songname = "N/A: Predestined Fate Remix";
+            songname = loc::gettext("N/A: Predestined Fate Remix");
             break;
         default:
-            songname = "?: something else";
+            songname = loc::gettext("?: something else");
             break;
         }
-        graphics.Print( -1, 120, songname, tr, tg, tb, true);
+        graphics.PrintWrap( -1, 120, songname, tr, tg, tb, true);
         break;
     }
     case Menu::ed_quit:
-        graphics.bigprint( -1, 90, "Save before", tr, tg, tb, true);
-        graphics.bigprint( -1, 110, "quitting?", tr, tg, tb, true);
+        graphics.PrintWrap(-1, 90, loc::gettext("Save before quitting?"), tr, tg, tb, true);
         break;
     default:
         break;
