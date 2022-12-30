@@ -1839,26 +1839,18 @@ static const char* interact_prompt(
     const size_t buffer_size,
     const char* raw
 ) {
-    const char* string_fmt_loc = SDL_strstr(raw, "%s");
     const char* button;
-
-    if (string_fmt_loc == NULL /* No "%s". */
-    || string_fmt_loc != SDL_strchr(raw, '%') /* First "%" found is not "%s". */
-    || SDL_strchr(&string_fmt_loc[1], '%') != NULL) /* Other "%" after "%s". */
-    {
-        return raw;
-    }
 
     if (game.separate_interact)
     {
-        button = "E";
+        button = loc::gettext("E");
     }
     else
     {
-        button = "ENTER";
+        button = loc::gettext("ENTER");
     }
 
-    SDL_snprintf(buffer, buffer_size, raw, button);
+    vformat_buf(buffer, buffer_size, raw, "button:str", button);
 
     return buffer;
 }
@@ -1985,11 +1977,10 @@ void gamerender(void)
     if (game.readytotele > 100 || game.oldreadytotele > 100)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        static const char raw[] = "- Press %s to Teleport -";
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
-            raw
+            loc::gettext("- Press {button} to Teleport -")
         );
         int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
 
@@ -2905,11 +2896,10 @@ void teleporterrender(void)
     if (game.useteleporter)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        static const char raw[] = "Press %s to Teleport";
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
-            raw
+            loc::gettext("Press {button} to Teleport")
         );
 
         //Instructions!
