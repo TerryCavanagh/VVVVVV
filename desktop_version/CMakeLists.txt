@@ -83,6 +83,9 @@ set(VVV_SRC
     src/Input.cpp
     src/KeyPoll.cpp
     src/Labclass.cpp
+    src/Localization.cpp
+    src/LocalizationMaint.cpp
+    src/LocalizationStorage.cpp
     src/Logic.cpp
     src/Map.cpp
     src/Music.cpp
@@ -90,6 +93,7 @@ set(VVV_SRC
     src/preloader.cpp
     src/Render.cpp
     src/RenderFixed.cpp
+    src/RoomnameTranslator.cpp
     src/Screen.cpp
     src/Script.cpp
     src/Scripts.cpp

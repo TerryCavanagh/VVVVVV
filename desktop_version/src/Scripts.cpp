@@ -7,6 +7,7 @@ void scriptclass::load(const std::string& name)
     //loads script name t into the array
     position = 0;
     commands.clear();
+    scriptname = name;
     running = true;
 
     const char* t = name.c_str();

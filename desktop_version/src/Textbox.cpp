@@ -1,5 +1,6 @@
 #include "Textbox.h"
 
+#include <SDL.h>
 #include <utf8/unchecked.h>
 
 textboxclass::textboxclass(void)
@@ -103,8 +104,9 @@ void textboxclass::resize(void)
         if (len > (unsigned int)max) max = len;
     }
 
-    w = (max +2) * 8;
-    h = (lines.size() + 2) * 8;
+    // 16 for the borders
+    w = max*8 + 16;
+    h = lines.size()*8 + 16;
 }
 
 void textboxclass::addline(const std::string& t)
@@ -112,4 +114,41 @@ void textboxclass::addline(const std::string& t)
     lines.push_back(t);
     resize();
     if ((int) lines.size() >= 12) lines.clear();
+}
+
+void textboxclass::pad(size_t left_pad, size_t right_pad)
+{
+    // Pad the current text with a certain number of spaces on the left and right
+    for (size_t iter = 0; iter < lines.size(); iter++)
+    {
+        lines[iter] = std::string(left_pad, ' ') + lines[iter] + std::string(right_pad, ' ');
+    }
+    resize();
+}
+
+void textboxclass::padtowidth(size_t new_w)
+{
+    /* Pad the current text so that each line is new_w pixels wide.
+     * Each existing line is centered in that width. */
+    resize();
+    size_t chars_w = SDL_max(w-16, new_w) / 8;
+    for (size_t iter = 0; iter < lines.size(); iter++)
+    {
+        size_t n_glyphs = utf8::unchecked::distance(lines[iter].begin(), lines[iter].end());
+        signed int padding_needed = chars_w - n_glyphs;
+        if (padding_needed < 0)
+        {
+            continue;
+        }
+        size_t left_pad = padding_needed / 2;
+        size_t right_pad = padding_needed - left_pad;
+
+        lines[iter] = std::string(left_pad, ' ') + lines[iter] + std::string(right_pad, ' ');
+    }
+    resize();
+}
+
+void textboxclass::centertext()
+{
+    padtowidth(w-16);
 }

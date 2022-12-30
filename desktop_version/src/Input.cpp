@@ -10,9 +10,13 @@
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
+#include "Localization.h"
+#include "LocalizationMaint.h"
+#include "LocalizationStorage.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Music.h"
+#include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
@@ -361,24 +365,47 @@ static void slidermodeinput(void)
 
 static void menuactionpress(void)
 {
+    if (game.menutestmode)
+    {
+        music.playef(6);
+        Menu::MenuName nextmenu = (Menu::MenuName) (game.currentmenuname + 1);
+        game.returnmenu();
+        game.createmenu(nextmenu);
+        return;
+    }
+
     switch (game.currentmenuname)
     {
     case Menu::mainmenu:
-#if defined(MAKEANDPLAY)
-#define MPOFFSET -1
-#else
-#define MPOFFSET 0
+    {
+        int option_id = -1;
+        int option_seq = 0; /* option number in YOUR configuration */
+#define OPTION_ID(id) \
+        if (option_seq == game.currentmenuoption) \
+        { \
+            option_id = id; \
+        } \
+        option_seq++;
+#if !defined(MAKEANDPLAY)
+        OPTION_ID(0) /* play */
 #endif
-
-#if defined(NO_CUSTOM_LEVELS)
-#define NOCUSTOMSOFFSET -1
-#else
-#define NOCUSTOMSOFFSET 0
+#if !defined(NO_CUSTOM_LEVELS)
+        OPTION_ID(1) /* levels */
 #endif
+        OPTION_ID(2) /* options */
+        if (loc::show_translator_menu)
+        {
+            OPTION_ID(3) /* translator */
+        }
+#if !defined(MAKEANDPLAY)
+        OPTION_ID(4) /* credits */
+#endif
+        OPTION_ID(5) /* quit */
 
-#define OFFSET (MPOFFSET+NOCUSTOMSOFFSET)
+#undef OPTION_ID
 
-        switch (game.currentmenuoption)
+
+        switch (option_id)
         {
 #if !defined(MAKEANDPLAY)
         case 0:
@@ -399,40 +426,41 @@ static void menuactionpress(void)
             break;
 #endif
 #if !defined(NO_CUSTOM_LEVELS)
-        case OFFSET+1:
+        case 1:
             //Bring you to the normal playmenu
             music.playef(11);
             game.createmenu(Menu::playerworlds);
             map.nexttowercolour();
             break;
 #endif
-        case OFFSET+2:
+        case 2:
             //Options
             music.playef(11);
             game.createmenu(Menu::options);
             map.nexttowercolour();
             break;
+        case 3:
+            //Translator
+            music.playef(11);
+            game.createmenu(Menu::translator_main);
+            map.nexttowercolour();
+            break;
 #if !defined(MAKEANDPLAY)
-        case OFFSET+3:
+        case 4:
             //Credits
             music.playef(11);
             game.createmenu(Menu::credits);
             map.nexttowercolour();
             break;
-#else
- #undef MPOFFSET
- #define MPOFFSET -2
 #endif
-        case OFFSET+4:
+        case 5:
             music.playef(11);
             game.createmenu(Menu::youwannaquit);
             map.nexttowercolour();
             break;
-#undef OFFSET
-#undef NOCUSTOMSOFFSET
-#undef MPOFFSET
         }
         break;
+    }
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
@@ -1010,6 +1038,14 @@ static void menuactionpress(void)
             game.createmenu(Menu::accessibility);
             map.nexttowercolour();
             break;
+        case 5:
+            //language options
+            music.playef(11);
+            loc::loadlanguagelist();
+            game.createmenu(Menu::language);
+            game.currentmenuoption = loc::languagelist_curlang;
+            map.nexttowercolour();
+            break;
         default:
             /* Return */
             music.playef(11);
@@ -1064,6 +1100,181 @@ static void menuactionpress(void)
             map.nexttowercolour();
             music.playef(11);
         }
+        break;
+    case Menu::language:
+    {
+        music.playef(11);
+
+        bool show_title = !loc::lang_set;
+
+        if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
+        {
+            loc::lang = loc::languagelist[game.currentmenuoption].code;
+            loc::loadtext(false);
+            loc::lang_set = true;
+        }
+
+        if (show_title)
+        {
+            /* Make the title screen appear, we haven't seen it yet */
+            game.menustart = false;
+            game.createmenu(Menu::mainmenu);
+            game.currentmenuoption = 0;
+        }
+        else
+        {
+            game.returnmenu();
+        }
+        map.nexttowercolour();
+        game.savestatsandsettings_menu();
+
+        break;
+    }
+    case Menu::translator_main:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            // translator options
+            music.playef(11);
+            game.createmenu(Menu::translator_options);
+            map.nexttowercolour();
+            break;
+        case 1:
+            // maintenance
+            music.playef(11);
+            game.createmenu(Menu::translator_maintenance);
+            map.nexttowercolour();
+            break;
+        case 2:
+            // open lang folder
+            if (FILESYSTEM_openDirectoryEnabled()
+            && FILESYSTEM_openDirectory(FILESYSTEM_getUserMainLangDirectory()))
+            {
+                music.playef(11);
+                SDL_MinimizeWindow(gameScreen.m_window);
+            }
+            else
+            {
+                music.playef(2);
+            }
+            break;
+        default:
+            // return
+            music.playef(11);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::translator_options:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            // language statistics
+            music.playef(11);
+            game.createmenu(Menu::translator_options_stats);
+            map.nexttowercolour();
+            break;
+        case 1:
+            // translate room names
+            music.playef(11);
+            roomname_translator::set_enabled(!roomname_translator::enabled);
+            game.savestatsandsettings_menu();
+            break;
+        case 2:
+            // menu test
+            music.playef(18);
+            game.menutestmode = true;
+            game.createmenu((Menu::MenuName) 0);
+            map.nexttowercolour();
+            break;
+        case 3:
+            // limits check
+            music.playef(11);
+            loc::local_limits_check();
+            game.createmenu(Menu::translator_options_limitscheck);
+            map.nexttowercolour();
+            break;
+        default:
+            // return
+            music.playef(11);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::translator_options_limitscheck:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            // next
+            if (loc::limitscheck_current_overflow < loc::text_overflows.size())
+            {
+                music.playef(11);
+                loc::limitscheck_current_overflow++;
+            }
+            break;
+        default:
+            // return
+            music.playef(11);
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::translator_options_stats:
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
+        break;
+    case Menu::translator_maintenance:
+        music.playef(11);
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            // sync languages
+            game.createmenu(Menu::translator_maintenance_sync);
+            map.nexttowercolour();
+            break;
+        case 1:
+            // global statistics
+            // TODO
+            map.nexttowercolour();
+            break;
+        case 2:
+            // global limits check
+            loc::global_limits_check();
+            game.createmenu(Menu::translator_options_limitscheck);
+            map.nexttowercolour();
+            break;
+        default:
+            // return
+            game.returnmenu();
+            map.nexttowercolour();
+            break;
+        }
+        break;
+    case Menu::translator_maintenance_sync:
+    {
+        music.playef(11);
+        bool sync_success = true;
+        if (game.currentmenuoption == 0)
+        {
+            // yes, sync files
+            sync_success = loc::sync_lang_files();
+        }
+        game.returnmenu();
+        map.nexttowercolour();
+        if (!sync_success)
+        {
+            game.createmenu(Menu::translator_error_setlangwritedir);
+        }
+        break;
+    }
+    case Menu::translator_error_setlangwritedir:
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
         break;
     case Menu::unlockmenutrials:
         switch (game.currentmenuoption)
@@ -1561,7 +1772,7 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::playmodes:
-        if (game.currentmenuoption == 0 && !game.nocompetitive())   //go to the time trial menu
+        if (game.currentmenuoption == 0 && !game.nocompetitive_unless_translator())   //go to the time trial menu
         {
             music.playef(11);
             game.createmenu(Menu::timetrials);
@@ -1828,10 +2039,29 @@ void titleinput(void)
     game.press_map = false;
     game.press_interact = false;
 
+    bool lang_press_horizontal = false;
+
     if (graphics.flipmode)
     {
         if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_a) ||  key.isDown(KEYBOARD_s) || key.controllerWantsRight(true)) game.press_left = true;
         if (key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_UP)  || key.isDown(KEYBOARD_d) ||  key.isDown(KEYBOARD_w) || key.controllerWantsLeft(true)) game.press_right = true;
+    }
+    else if (game.currentmenuname == Menu::language)
+    {
+        if (key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_w) || key.controllerWantsUp())
+        {
+            game.press_left = true;
+        }
+        if (key.isDown(KEYBOARD_DOWN) || key.isDown(KEYBOARD_s) || key.controllerWantsDown())
+        {
+            game.press_right = true;
+        }
+        if (key.isDown(KEYBOARD_LEFT) || key.isDown(KEYBOARD_a) || key.controllerWantsLeft(false)
+        || key.isDown(KEYBOARD_RIGHT) || key.isDown(KEYBOARD_d) || key.controllerWantsRight(false))
+        {
+            lang_press_horizontal = true;
+            game.press_right = true;
+        }
     }
     else
     {
@@ -1863,8 +2093,23 @@ void titleinput(void)
         && game.menucountdown <= 0
         && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
         {
-            music.playef(11);
-            if (game.currentmenuname == Menu::mainmenu)
+            if (game.currentmenuname == Menu::language && !loc::lang_set)
+            {
+                /* Don't exit from the initial language screen,
+                 * you can't do this on the loading/title screen either. */
+                return;
+            }
+            else
+            {
+                music.playef(11);
+            }
+            if (game.menutestmode)
+            {
+                game.menutestmode = false;
+                game.returnmenu();
+                map.nexttowercolour();
+            }
+            else if (game.currentmenuname == Menu::mainmenu)
             {
                 game.createmenu(Menu::youwannaquit);
                 map.nexttowercolour();
@@ -1908,7 +2153,63 @@ void titleinput(void)
         {
             if (game.slidermode == SLIDER_NONE)
             {
-                if (game.press_left)
+                if (game.currentmenuname == Menu::language)
+                {
+                    /* The language screen has two columns and navigation in four directions.
+                     * The second column may have one less option than the first. */
+                    int n_options = game.menuoptions.size();
+                    int twocol_voptions = n_options - (n_options/2);
+
+                    if (lang_press_horizontal)
+                    {
+                        if (game.currentmenuoption < twocol_voptions)
+                        {
+                            game.currentmenuoption += twocol_voptions;
+                            if (game.currentmenuoption >= n_options)
+                            {
+                                game.currentmenuoption = n_options - 1;
+                            }
+                        }
+                        else
+                        {
+                            game.currentmenuoption -= twocol_voptions;
+                        }
+                    }
+                    else
+                    {
+                        /* Vertical movement */
+                        int min_option;
+                        int max_option;
+                        if (game.currentmenuoption < twocol_voptions)
+                        {
+                            min_option = 0;
+                            max_option = twocol_voptions-1;
+                        }
+                        else
+                        {
+                            min_option = twocol_voptions;
+                            max_option = n_options-1;
+                        }
+
+                        if (game.press_left) /* Up, lol */
+                        {
+                            game.currentmenuoption--;
+                            if (game.currentmenuoption < min_option)
+                            {
+                                game.currentmenuoption = max_option;
+                            }
+                        }
+                        else if (game.press_right) /* Down, lol */
+                        {
+                            game.currentmenuoption++;
+                            if (game.currentmenuoption > max_option)
+                            {
+                                game.currentmenuoption = min_option;
+                            }
+                        }
+                    }
+                }
+                else if (game.press_left)
                 {
                     game.currentmenuoption--;
                 }
@@ -1967,6 +2268,11 @@ void gameinput(void)
 
     if(!script.running)
     {
+        if (roomname_translator::enabled && roomname_translator::overlay_input())
+        {
+            return;
+        }
+
         game.press_left = false;
         game.press_right = false;
         game.press_action = false;

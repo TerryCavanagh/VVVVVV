@@ -15,14 +15,18 @@
 #include "FileSystemUtils.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "Localization.h"
+#include "LocalizationStorage.h"
 #include "KeyPoll.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Music.h"
 #include "Network.h"
+#include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 #include "Vlogging.h"
 #include "XMLUtils.h"
 
@@ -262,13 +266,13 @@ void Game::init(void)
     SDL_memset(unlocknotify, false, sizeof(unlock));
 
     currentmenuoption = 0;
+    menutestmode = false;
     current_credits_list_index = 0;
     menuxoff = 0;
     menuyoff = 0;
     menucountdown = 0;
     levelpage=0;
     playcustomlevel=0;
-    createmenu(Menu::mainmenu);
 
     silence_settings_error = false;
 
@@ -288,6 +292,7 @@ void Game::init(void)
     timetrialshinytarget = 0;
     timetrialparlost = false;
     timetrialpar = 0;
+    timetrialcheater = false;
     timetrialresulttime = 0;
     timetrialresultframes = 0;
     timetrialresultshinytarget = 0;
@@ -1454,6 +1459,11 @@ void Game::updatestate(void)
             //Time Trial Complete!
             obj.removetrigger(82);
             hascontrol = false;
+
+            if (timetrialcheater)
+            {
+                SDL_zeroa(obj.collect);
+            }
 
             timetrialresulttime = help.hms_to_seconds(hours, minutes, seconds);
             timetrialresultframes = frames;
@@ -4379,6 +4389,21 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             key.sensitivity = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "lang") == 0)
+        {
+            loc::lang = std::string(pText);
+        }
+
+        if (SDL_strcmp(pKey, "lang_set") == 0)
+        {
+            loc::lang_set = help.Int(pText);
+        }
+
+        if (SDL_strcmp(pKey, "roomname_translator") == 0 && loc::show_translator_menu)
+        {
+            roomname_translator::set_enabled(help.Int(pText));
+        }
+
     }
 
     if (controllerButton_flip.size() < 1)
@@ -4648,6 +4673,10 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     }
 
     xml::update_tag(dataNode, "controllerSensitivity", key.sensitivity);
+
+    xml::update_tag(dataNode, "lang", loc::lang.c_str());
+    xml::update_tag(dataNode, "lang_set", (int) loc::lang_set);
+    xml::update_tag(dataNode, "roomname_translator", (int) roomname_translator::enabled);
 }
 
 static bool settings_loaded = false;
@@ -5281,6 +5310,14 @@ void Game::customloadquick(const std::string& savfile)
                 music.play(song);
             }
         }
+        else if (SDL_strcmp(pKey, "lang_custom") == 0)
+        {
+            loc::lang_custom = pText;
+            if (pText[0] != '\0')
+            {
+                loc::loadtext_custom(NULL);
+            }
+        }
         else if (SDL_strcmp(pKey, "showminimap") == 0)
         {
             map.customshowmm = help.Int(pText);
@@ -5738,6 +5775,8 @@ bool Game::customsavequick(const std::string& savfile)
         xml::update_tag(msgs, "currentsong", music.currentsong);
     }
 
+    xml::update_tag(msgs, "lang_custom", loc::lang_custom.c_str());
+
     xml::update_tag(msgs, "teleportscript", teleportscript.c_str());
     xml::update_tag(msgs, "companion", companion);
 
@@ -5792,6 +5831,7 @@ void Game::loadtele(void)
 std::string Game::unrescued(void)
 {
     //Randomly return the name of an unrescued crewmate
+    //Localization is handled with regular cutscene dialogue
     if (fRandom() * 100 > 50)
     {
         if (!crewstats[5]) return "Victoria";
@@ -5933,7 +5973,7 @@ void Game::returntomenu(enum Menu::MenuName t)
 
 void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 {
-    if (t == Menu::mainmenu)
+    if (t == Menu::mainmenu && !menutestmode)
     {
         //Either we've just booted up the game or returned from gamemode
         //Whichever it is, we shouldn't have a stack,
@@ -5971,6 +6011,10 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("levels");
 #endif
         option("options");
+        if (loc::show_translator_menu)
+        {
+            option(loc::gettext("translator"));
+        }
 #if !defined(MAKEANDPLAY)
         option("credits");
 #endif
@@ -6258,6 +6302,66 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option("return");
         menuyoff = 0;
         maxspacing = 10;
+        break;
+    case Menu::language:
+        if (loc::languagelist.empty())
+        {
+            option(loc::gettext("ok"));
+            menuyoff = -20;
+        }
+        else
+        {
+            for (size_t i = 0; i < loc::languagelist.size(); i++)
+            {
+                if (loc::languagelist[i].nativename.empty())
+                    option(loc::languagelist[i].code.c_str());
+                else
+                    option(loc::languagelist[i].nativename.c_str());
+            }
+
+            menuyoff = 70-(menuoptions.size()*10);
+            maxspacing = 5;
+        }
+        break;
+    case Menu::translator_main:
+        option(loc::gettext("translator options"));
+        option(loc::gettext("maintenance"));
+        option(loc::gettext("open lang folder"), FILESYSTEM_openDirectoryEnabled());
+        option(loc::gettext("return"));
+        menuyoff = 0;
+        break;
+    case Menu::translator_options:
+        option(loc::gettext("language statistics"));
+        option(loc::gettext("translate room names"));
+        option(loc::gettext("menu test"));
+        option(loc::gettext("limits check"));
+        option(loc::gettext("return"));
+        menuyoff = 0;
+        break;
+    case Menu::translator_options_limitscheck:
+        option(loc::gettext("next page"));
+        option(loc::gettext("return"));
+        menuyoff = 64;
+        break;
+    case Menu::translator_options_stats:
+        option(loc::gettext("return"));
+        menuyoff = 64;
+        break;
+    case Menu::translator_maintenance:
+        option(loc::gettext("sync language files"));
+        option(loc::gettext("global statistics"), false);
+        option(loc::gettext("global limits check"));
+        option(loc::gettext("return"));
+        menuyoff = 0;
+        break;
+    case Menu::translator_maintenance_sync:
+        option(loc::gettext("sync"));
+        option(loc::gettext("return"));
+        menuyoff = 64;
+        break;
+    case Menu::translator_error_setlangwritedir:
+        option(loc::gettext("ok"));
+        menuyoff = 10;
         break;
     case Menu::cleardatamenu:
     case Menu::clearcustomdatamenu:
@@ -6773,6 +6877,7 @@ void Game::quittomenu(void)
     gamestate = TITLEMODE;
     graphics.fademode = FADE_START_FADEIN;
     FILESYSTEM_unmountAssets();
+    loc::unloadtext_custom();
     cliplaytest = false;
     graphics.titlebg.tdrawback = true;
     graphics.flipmode = false;
@@ -7015,6 +7120,11 @@ int Game::get_timestep(void)
     }
 }
 
+bool Game::physics_frozen(void)
+{
+    return roomname_translator::is_pausing();
+}
+
 bool Game::incompetitive(void)
 {
     return (
@@ -7029,6 +7139,19 @@ bool Game::incompetitive(void)
 bool Game::nocompetitive(void)
 {
     return slowdown < 30 || map.invincibility;
+}
+
+bool Game::nocompetitive_unless_translator(void)
+{
+    return slowdown < 30 || (map.invincibility && !roomname_translator::enabled);
+}
+
+void Game::sabotage_time_trial(void)
+{
+    timetrialcheater = true;
+    hours++;
+    deathcounts += 100;
+    timetrialparlost = true;
 }
 
 bool Game::isingamecompletescreen()

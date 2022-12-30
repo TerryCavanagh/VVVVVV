@@ -18,6 +18,8 @@
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
+#include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Map.h"
 #include "Script.h"
 #include "UtilityClass.h"
@@ -79,6 +81,24 @@ static bool compare_nocase (std::string first, std::string second)
         return true;
     else
         return false;
+}
+
+/* translate_title and translate_creator are used to display default title/author
+ * as being translated, while they're actually stored in English in the level file.
+ * This way we translate "Untitled Level" and "Unknown" without
+ * spreading around translations in level files posted online! */
+std::string translate_title(const std::string& title)
+{
+    if (title == "Untitled Level")
+        return loc::gettext("Untitled Level");
+    return title;
+}
+
+std::string translate_creator(const std::string& creator)
+{
+    if (creator == "Unknown")
+        return loc::gettext("Unknown");
+    return creator;
 }
 
 static void levelZipCallback(const char* filename)
@@ -228,6 +248,9 @@ static void levelMetaDataCallback(const char* filename)
 
     if (cl.getLevelMetaData(filename_, temp))
     {
+        temp.title = translate_title(temp.title);
+        temp.creator = translate_creator(temp.creator);
+
         cl.ListOfMetaData.push_back(temp);
     }
 }
@@ -318,7 +341,7 @@ void customlevelclass::reset(void)
     mapwidth=5;
     mapheight=5;
 
-    title="Untitled Level";
+    title="Untitled Level"; // Already translatable
     creator="Unknown";
 
     levmusic=0;
@@ -1287,6 +1310,8 @@ next:
 #ifndef NO_EDITOR
     ed.gethooks();
 #endif
+
+    loc::loadtext_custom(_path.c_str());
 
     version=2;
 

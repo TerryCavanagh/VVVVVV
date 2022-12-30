@@ -9,6 +9,8 @@
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
 #include "Vlogging.h"
@@ -163,6 +165,13 @@ void KeyPoll::Poll(void)
             if ((altpressed && (returnpressed || fpressed)) || f11pressed)
             {
                 fullscreenkeybind = true;
+            }
+
+            if (loc::show_translator_menu && evt.key.keysym.sym == SDLK_F12 && !evt.key.repeat)
+            {
+                /* Reload language files */
+                loc::loadtext(false);
+                music.playef(4);
             }
 
             if (textentry())
@@ -469,4 +478,14 @@ bool KeyPoll::controllerWantsRight(bool includeVert)
             (    includeVert &&
                 (    buttonmap[SDL_CONTROLLER_BUTTON_DPAD_DOWN] ||
                     yVel > 0    )    )    );
+}
+
+bool KeyPoll::controllerWantsUp(void)
+{
+    return buttonmap[SDL_CONTROLLER_BUTTON_DPAD_UP] || yVel < 0;
+}
+
+bool KeyPoll::controllerWantsDown(void)
+{
+    return buttonmap[SDL_CONTROLLER_BUTTON_DPAD_DOWN] || yVel > 0;
 }

@@ -11,10 +11,13 @@
 #include "Exit.h"
 #include "FileSystemUtils.h"
 #include "GraphicsUtil.h"
+#include "Localization.h"
 #include "Map.h"
 #include "Music.h"
+#include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 #include "Vlogging.h"
 
 void Graphics::init(void)
@@ -150,6 +153,11 @@ void Graphics::init(void)
     minimap_mounted = false;
 #endif
 
+    gamecomplete_mounted = false;
+    levelcomplete_mounted = false;
+    flipgamecomplete_mounted = false;
+    fliplevelcomplete_mounted = false;
+
     SDL_zeroa(error);
     SDL_zeroa(error_title);
 }
@@ -193,6 +201,11 @@ void Graphics::create_buffers(const SDL_PixelFormat* fmt)
     SDL_SetSurfaceAlphaMod(footerbuffer, 127);
     FillRect(footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
 
+    roomname_translator::dimbuffer = CREATE_SURFACE(320, 240);
+    SDL_SetSurfaceBlendMode(roomname_translator::dimbuffer, SDL_BLENDMODE_BLEND);
+    SDL_SetSurfaceAlphaMod(roomname_translator::dimbuffer, 96);
+    FillRect(roomname_translator::dimbuffer, SDL_MapRGB(fmt, 0, 0, 0));
+
     ghostbuffer = CREATE_SURFACE(320, 240);
     SDL_SetSurfaceBlendMode(ghostbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(ghostbuffer, 127);
@@ -233,6 +246,7 @@ void Graphics::destroy_buffers(void)
 
     FREE_SURFACE(backBuffer);
     FREE_SURFACE(footerbuffer);
+    FREE_SURFACE(roomname_translator::dimbuffer);
     FREE_SURFACE(ghostbuffer);
     FREE_SURFACE(foregroundBuffer);
     FREE_SURFACE(menubuffer);
@@ -360,9 +374,12 @@ bool Graphics::Makebfont(void)
         flipbfont.push_back(TempFlipped);
     })
 
-    unsigned char* charmap;
+    unsigned char* charmap = NULL;
     size_t length;
-    FILESYSTEM_loadAssetToMemory("graphics/font.txt", &charmap, &length, false);
+    if (FILESYSTEM_areAssetsInSameRealDir("graphics/font.png", "graphics/font.txt"))
+    {
+        FILESYSTEM_loadAssetToMemory("graphics/font.txt", &charmap, &length, false);
+    }
     if (charmap != NULL)
     {
         unsigned char* current = charmap;
@@ -584,10 +601,14 @@ bool Graphics::next_wrap(
         switch (str[idx])
         {
         case ' ':
-            lenfromlastspace = idx;
-            lastspace = *start;
+            if (loc::get_langmeta()->autowordwrap)
+            {
+                lenfromlastspace = idx;
+                lastspace = *start;
+            }
             break;
         case '\n':
+        case '|':
             *start += 1;
             SDL_FALLTHROUGH;
         case '\0':
@@ -634,17 +655,29 @@ bool Graphics::next_wrap_s(
     return retval;
 }
 
-void Graphics::PrintWrap(
+int Graphics::PrintWrap(
     const int x,
     int y,
-    const char* str,
+    std::string s,
     const int r,
     const int g,
     const int b,
-    const bool cen,
-    const int linespacing,
-    const int maxwidth
+    const bool cen /*= false*/,
+    int linespacing /*= -1*/,
+    int maxwidth /*= -1*/
 ) {
+    if (linespacing == -1)
+    {
+        linespacing = 10;
+    }
+    linespacing = SDL_max(linespacing, loc::get_langmeta()->font_h);
+
+    if (maxwidth == -1)
+    {
+        maxwidth = 304;
+    }
+
+    const char* str = s.c_str();
     /* Screen width is 320 pixels. The shortest a char can be is 6 pixels wide.
      * 320 / 6 is 54, rounded up. 4 bytes per char. */
     char buffer[54*4 + 1];
@@ -675,6 +708,8 @@ void Graphics::PrintWrap(
             y += linespacing;
         }
     }
+
+    return y + linespacing;
 }
 
 
@@ -721,6 +756,135 @@ int Graphics::len(const std::string& t)
         bfontpos += bfontlen(cur);
     }
     return bfontpos;
+}
+
+std::string Graphics::string_wordwrap(const std::string& s, int maxwidth, short *lines /*= NULL*/)
+{
+    // Return a string wordwrapped to a maximum limit by adding newlines.
+    // CJK will need to have autowordwrap disabled and have manually inserted newlines.
+
+    if (lines != NULL)
+    {
+        *lines = 1;
+    }
+
+    const char* orig = s.c_str();
+
+    std::string result;
+    size_t start = 0;
+    bool first = true;
+
+    while (true)
+    {
+        size_t len = 0;
+        const char* part = &orig[start];
+
+        const bool retval = next_wrap(&start, &len, part, maxwidth);
+
+        if (!retval)
+        {
+            return result;
+        }
+
+        if (first)
+        {
+            first = false;
+        }
+        else
+        {
+            result.push_back('\n');
+
+            if (lines != NULL)
+            {
+                (*lines)++;
+            }
+        }
+        result.append(part, len);
+    }
+}
+
+std::string Graphics::string_wordwrap_balanced(const std::string& s, int maxwidth)
+{
+    // Return a string wordwrapped to a limit of maxwidth by adding newlines.
+    // Try to fill the lines as far as possible, and return result where lines are most filled.
+    // Goal is to have all lines in textboxes be about as long and to avoid wrapping just one word to a new line.
+    // CJK will need to have autowordwrap disabled and have manually inserted newlines.
+
+    if (!loc::get_langmeta()->autowordwrap)
+    {
+        return s;
+    }
+
+    short lines;
+    string_wordwrap(s, maxwidth, &lines);
+
+    int bestwidth = maxwidth;
+    if (lines > 1)
+    {
+        for (int curlimit = maxwidth; curlimit > 1; curlimit -= 8)
+        {
+            short try_lines;
+            string_wordwrap(s, curlimit, &try_lines);
+
+            if (try_lines > lines)
+            {
+                bestwidth = curlimit + 8;
+                break;
+            }
+        }
+    }
+
+    return string_wordwrap(s, bestwidth);
+}
+
+std::string Graphics::string_unwordwrap(const std::string& s)
+{
+    /* Takes a string wordwrapped by newlines, and turns it into a single line, undoing the wrapping.
+     * Also trims any leading/trailing whitespace and collapses multiple spaces into one (to undo manual centering)
+     * Only applied to English, so langmeta.autowordwrap isn't used here (it'd break looking up strings) */
+
+    std::string result;
+    std::back_insert_iterator<std::string> inserter = std::back_inserter(result);
+    std::string::const_iterator iter = s.begin();
+    bool latest_was_space = true; // last character was a space (or the beginning, don't want leading whitespace)
+    int consecutive_newlines = 0; // number of newlines currently encountered in a row (multiple newlines should stay!)
+    while (iter != s.end())
+    {
+        uint32_t ch = utf8::unchecked::next(iter);
+
+        if (ch == '\n')
+        {
+            if (consecutive_newlines == 0)
+            {
+                ch = ' ';
+            }
+            else if (consecutive_newlines == 1)
+            {
+                // The last character was already a newline, so change it back from the space we thought it should have become.
+                result[result.size()-1] = '\n';
+            }
+            consecutive_newlines++;
+        }
+        else
+        {
+            consecutive_newlines = 0;
+        }
+
+        if (ch != ' ' || !latest_was_space)
+        {
+            utf8::unchecked::append(ch, inserter);
+        }
+
+        latest_was_space = (ch == ' ' || ch == '\n');
+    }
+
+    // We could have one trailing space
+    if (!result.empty() && result[result.size()-1] == ' ')
+    {
+        result.erase(result.end()-1);
+    }
+
+    return result;
 }
 
 void Graphics::bprint( int x, int y, const std::string& t, int r, int g, int b, bool cen /*= false*/ ) {
@@ -1520,8 +1684,19 @@ void Graphics::setfade(const int amount)
     oldfadeamount = amount;
 }
 
-void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
+void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
 {
+    /* The MenuName is only used for some special cases,
+     * like the levels list and the language screen. */
+
+    bool language_screen = menu == Menu::language && !loc::languagelist.empty();
+    unsigned int twocol_voptions;
+    if (language_screen)
+    {
+        size_t n_options = game.menuoptions.size();
+        twocol_voptions = n_options - (n_options/2);
+    }
+
     for (size_t i = 0; i < game.menuoptions.size(); i++)
     {
         MenuOption& opt = game.menuoptions[i];
@@ -1542,11 +1717,21 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
             fb = 128;
         }
 
-        int x = i*game.menuspacing + game.menuxoff;
-        int y = 140 + i*12 + game.menuyoff;
+        int x, y;
+        if (language_screen)
+        {
+            int name_len = len(opt.text);
+            x = (i < twocol_voptions ? 80 : 240) - name_len/2;
+            y = 36 + (i % twocol_voptions)*12;
+        }
+        else
+        {
+            x = i*game.menuspacing + game.menuxoff;
+            y = 140 + i*12 + game.menuyoff;
+        }
 
 #ifndef NO_CUSTOM_LEVELS
-        if (levelmenu)
+        if (menu == Menu::levellist)
         {
             size_t separator;
             if (cl.ListOfMetaData.size() > 8)
@@ -1570,31 +1755,28 @@ void Graphics::drawmenu( int cr, int cg, int cb, bool levelmenu /*= false*/ )
         }
 #endif
 
-        char tempstring[MENU_TEXT_BYTES];
-        SDL_strlcpy(tempstring, opt.text, sizeof(tempstring));
-
         char buffer[MENU_TEXT_BYTES];
         if ((int) i == game.currentmenuoption && game.slidermode == SLIDER_NONE)
         {
+            std::string opt_text;
             if (opt.active)
             {
                 // Uppercase the text
-                // FIXME: This isn't UTF-8 aware!
-                size_t templen = SDL_strlen(tempstring);
-                for (size_t ii = 0; ii < templen; ii++)
-                {
-                    tempstring[ii] = SDL_toupper(tempstring[ii]);
-                }
+                opt_text = loc::toupper(opt.text);
+            }
+            else
+            {
+                opt_text = loc::remove_toupper_escape_chars(opt.text);
             }
 
-            // Add brackets
-            SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", tempstring);
+            vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", opt_text.c_str());
+
             // Account for brackets
-            x -= 16;
+            x -= (len(buffer)-len(opt_text))/2;
         }
         else
         {
-            SDL_strlcpy(buffer, tempstring, sizeof(buffer));
+            SDL_strlcpy(buffer, loc::remove_toupper_escape_chars(opt.text).c_str(), sizeof(buffer));
         }
 
         Print(x, y, buffer, fr, fg, fb);
@@ -3112,6 +3294,84 @@ void Graphics::textboxcentery(void)
     textboxes[m].centery();
 }
 
+int Graphics::textboxwrap(int pad)
+{
+    /* This function just takes a single-line textbox and wraps it...
+     * pad = the total number of characters we are going to pad this textbox.
+     * (or how many characters we should stay clear of 288 pixels width in general)
+     * Only to be used after a manual graphics.createtextbox[flipme] call.
+     * Returns the new, total height of the textbox. */
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxwrap() out-of-bounds!");
+        return 16;
+    }
+    if (textboxes[m].lines.empty())
+    {
+        vlog_error("textboxwrap() has no first line!");
+        return 16;
+    }
+    std::string wrapped = string_wordwrap_balanced(textboxes[m].lines[0], 36*8 - pad*8);
+    textboxes[m].lines.clear();
+
+    size_t startline = 0;
+    size_t newline;
+    do {
+        size_t pos_n = wrapped.find('\n', startline);
+        size_t pos_p = wrapped.find('|', startline);
+        newline = SDL_min(pos_n, pos_p);
+        addline(wrapped.substr(startline, newline-startline));
+        startline = newline+1;
+    } while (newline != std::string::npos);
+
+    return textboxes[m].h;
+}
+
+void Graphics::textboxpad(size_t left_pad, size_t right_pad)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxpad() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].pad(left_pad, right_pad);
+}
+
+void Graphics::textboxpadtowidth(size_t new_w)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxpadtowidth() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].padtowidth(new_w);
+}
+
+void Graphics::textboxcentertext()
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxcentertext() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].centertext();
+}
+
+void Graphics::textboxcommsrelay()
+{
+    /* Special treatment for the gamestate textboxes in Comms Relay */
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxcommsrelay() out-of-bounds!");
+        return;
+    }
+    textboxwrap(11);
+    textboxes[m].xp = 224 - textboxes[m].w;
+}
+
 int Graphics::crewcolour(const int t)
 {
     //given crewmate t, return colour in setcol
@@ -3417,6 +3677,11 @@ bool Graphics::reloadresources(void)
     minimap_mounted = FILESYSTEM_isAssetMounted("graphics/minimap.png");
 #endif
 
+    gamecomplete_mounted = FILESYSTEM_isAssetMounted("graphics/gamecomplete.png");
+    levelcomplete_mounted = FILESYSTEM_isAssetMounted("graphics/levelcomplete.png");
+    flipgamecomplete_mounted = FILESYSTEM_isAssetMounted("graphics/flipgamecomplete.png");
+    fliplevelcomplete_mounted = FILESYSTEM_isAssetMounted("graphics/fliplevelcomplete.png");
+
     return true;
 
 fail:
@@ -3441,4 +3706,19 @@ Uint32 Graphics::crewcolourreal(int t)
         return col_crewblue;
     }
     return col_crewcyan;
+}
+
+void Graphics::render_roomname(const char* roomname, int r, int g, int b)
+{
+    footerrect.y = 230;
+    if (translucentroomname)
+    {
+        SDL_BlitSurface(footerbuffer, NULL, backBuffer, &footerrect);
+        bprint(5, 231, roomname, r, g, b, true);
+    }
+    else
+    {
+        FillRect(backBuffer, footerrect, 0);
+        Print(5, 231, roomname, r, g, b, true);
+    }
 }

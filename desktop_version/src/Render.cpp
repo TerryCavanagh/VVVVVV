@@ -11,14 +11,18 @@
 #include "GraphicsUtil.h"
 #include "InterimVersion.h"
 #include "KeyPoll.h"
+#include "Localization.h"
+#include "LocalizationStorage.h"
 #include "MakeAndPlay.h"
 #include "Map.h"
 #include "Maths.h"
 #include "Music.h"
 #include "ReleaseVersion.h"
+#include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 
 static int tr;
 static int tg;
@@ -294,6 +298,9 @@ static void menurender(void)
             graphics.Print(-1, 65, "Disable screen effects, enable", tr, tg, tb, true);
             graphics.Print(-1, 75, "slowdown modes or invincibility.", tr, tg, tb, true);
             break;
+        case 5:
+            graphics.bigprint( -1, 30, loc::gettext("Language"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Change the language."), tr, tg, tb, true);
         }
         break;
     case Menu::graphicoptions:
@@ -606,6 +613,186 @@ static void menurender(void)
         }
 
 
+        break;
+    case Menu::language:
+        if (loc::languagelist.empty())
+        {
+            graphics.PrintWrap(-1, 90, loc::gettext("ERROR: No language files found."), tr, tg, tb, true);
+        }
+        else if ((unsigned)game.currentmenuoption < loc::languagelist.size())
+        {
+            graphics.PrintWrap(-1, 8, loc::languagelist[game.currentmenuoption].credit, tr/2, tg/2, tb/2, true);
+            graphics.Print(-1, 230, loc::languagelist[game.currentmenuoption].action_hint, tr/2, tg/2, tb/2, true);
+        }
+        break;
+    case Menu::translator_main:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            graphics.bigprint( -1, 30, loc::gettext("Translator options"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Some options that are useful for translators and developers."), tr, tg, tb, true);
+            break;
+        case 1:
+            graphics.bigprint( -1, 30, loc::gettext("Maintenance"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Sync all language files after adding new strings."), tr, tg, tb, true);
+            break;
+        }
+        {
+            if (FILESYSTEM_isMainLangDirFromRepo())
+            {
+                // Just giving people who manually compiled the game some hint as to why this menu is here!
+                graphics.Print(8, 208, loc::gettext("Repository language folder:"), tr/2, tg/2, tb/2);
+            }
+            else
+            {
+                graphics.Print(8, 208, loc::gettext("Language folder:"), tr/2, tg/2, tb/2);
+            }
+
+            char* mainLangDir = FILESYSTEM_getUserMainLangDirectory();
+            graphics.Print(316-graphics.len(mainLangDir), 224, mainLangDir, tr/2, tg/2, tb/2);
+        }
+        break;
+    case Menu::translator_options:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            graphics.bigprint( -1, 30, loc::gettext("Statistics"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Count the amount of untranslated strings for this language."), tr, tg, tb, true);
+            break;
+        case 1:
+        {
+            graphics.bigprint( -1, 30, loc::gettext("Translate rooms"), tr, tg, tb, true);
+            int next_y = graphics.PrintWrap( -1, 65, loc::gettext("Enable room name translation mode, so you can translate room names in context."), tr, tg, tb, true);
+
+            if (roomname_translator::enabled)
+            {
+                graphics.PrintWrap( -1, next_y, loc::gettext("Currently ENABLED!"), tr, tg, tb, true);
+            }
+            else
+            {
+                graphics.PrintWrap( -1, next_y, loc::gettext("Currently Disabled."), tr/2, tg/2, tb/2, true);
+            }
+            break;
+        }
+        case 2:
+            graphics.bigprint( -1, 30, loc::gettext("Menu test"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop."), tr, tg, tb, true);
+            break;
+        case 3:
+            graphics.bigprint( -1, 30, loc::gettext("Limits check"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Find translations that don't fit within their defined bounds."), tr, tg, tb, true);
+            break;
+        }
+        break;
+    case Menu::translator_options_limitscheck:
+    {
+        size_t of = loc::limitscheck_current_overflow;
+        if (of >= loc::text_overflows.size())
+        {
+            int next_y;
+            if (loc::text_overflows.empty())
+            {
+                next_y = graphics.PrintWrap(-1, 20, loc::gettext("No text overflows found!"), tr, tg, tb, true);
+            }
+            else
+            {
+                next_y = graphics.PrintWrap(-1, 20, loc::gettext("No text overflows left!"), tr, tg, tb, true);
+            }
+
+            graphics.PrintWrap(-1, next_y, loc::gettext("Note that this detection isn't perfect."), tr, tg, tb, true);
+        }
+        else
+        {
+            loc::TextOverflow& overflow = loc::text_overflows[of];
+
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(buffer, sizeof(buffer),
+                "{page}/{total}    {max_w}*{max_h} ({max_w_px}x{max_h_px})    [{lang}]",
+                "page:int, total:int, max_w:int, max_h:int, max_w_px:int, max_h_px:int, lang:str",
+                (int) of+1, (int) loc::text_overflows.size(),
+                overflow.max_w, overflow.max_h,
+                overflow.max_w_px, overflow.max_h_px,
+                overflow.lang.c_str()
+            );
+            graphics.Print(10, 10, buffer, tr/2, tg/2, tb/2);
+
+            int box_x = SDL_min(10, (320-overflow.max_w_px)/2);
+            int box_h = overflow.max_h_px - SDL_max(0, 10-loc::get_langmeta()->font_h);
+            FillRect(graphics.backBuffer, box_x-1, 30-1, overflow.max_w_px+2, box_h+2, tr/3, tg/3, tb/3);
+
+            int wraplimit;
+            if (overflow.multiline)
+            {
+                wraplimit = overflow.max_w_px;
+            }
+            else
+            {
+                wraplimit = 320-box_x;
+            }
+
+            if (overflow.text != NULL)
+            {
+                graphics.PrintWrap(box_x, 30, overflow.text, tr, tg, tb, false, -1, wraplimit);
+            }
+        }
+        break;
+    }
+    case Menu::translator_options_stats:
+    {
+        graphics.Print(16, 16, loc::get_langmeta()->nativename, tr, tg, tb);
+
+        const char* line_template = "%4d";
+        char buffer[5];
+        int coldiv;
+
+        #define stat_line(y, filename, untranslated_counter) \
+            SDL_snprintf(buffer, sizeof(buffer), line_template, \
+                untranslated_counter \
+            ); \
+            coldiv = untranslated_counter > 0 ? 1 : 2; \
+            graphics.Print(16, y, filename, tr/coldiv, tg/coldiv, tb/coldiv); \
+            graphics.Print(272, y, buffer, tr/coldiv, tg/coldiv, tb/coldiv)
+
+        stat_line(48, "strings.xml", loc::n_untranslated[loc::UNTRANSLATED_STRINGS]);
+        stat_line(64, "numbers.xml", loc::n_untranslated[loc::UNTRANSLATED_NUMBERS]);
+        stat_line(80, "strings_plural.xml", loc::n_untranslated[loc::UNTRANSLATED_STRINGS_PLURAL]);
+        stat_line(96, "cutscenes.xml", loc::n_untranslated[loc::UNTRANSLATED_CUTSCENES]);
+        stat_line(112, "roomnames.xml", loc::n_untranslated_roomnames);
+        stat_line(128, "roomnames_special.xml", loc::n_untranslated[loc::UNTRANSLATED_ROOMNAMES_SPECIAL]);
+
+        #undef stat_line
+
+        break;
+    }
+    case Menu::translator_maintenance:
+        switch (game.currentmenuoption)
+        {
+        case 0:
+            graphics.bigprint( -1, 30, loc::gettext("Sync language files"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Merge all new strings from the template files into the translation files, keeping existing translations."), tr, tg, tb, true);
+            break;
+        case 1:
+            graphics.bigprint( -1, 30, loc::gettext("Statistics"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Count the amount of untranslated strings for each language."), tr, tg, tb, true);
+            break;
+        case 2:
+            graphics.bigprint( -1, 30, loc::gettext("Limits check"), tr, tg, tb, true);
+            graphics.PrintWrap( -1, 65, loc::gettext("Find translations that don't fit within their defined bounds."), tr, tg, tb, true);
+        }
+        break;
+    case Menu::translator_maintenance_sync:
+    {
+        int next_y = graphics.PrintWrap(-1, 20, loc::gettext("If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case."), tr, tg, tb, true);
+
+        graphics.Print(-1, next_y, loc::gettext("Full syncing EN→All:"), tr, tg, tb, true);
+        next_y = graphics.PrintWrap(-1, next_y+10, "meta.xml\nstrings.xml\nstrings_plural.xml\ncutscenes.xml\nroomnames.xml\nroomnames_special.xml", tr/2, tg/2, tb/2, true);
+
+        graphics.Print(-1, next_y, loc::gettext("Syncing not supported:"), tr, tg, tb, true);
+        graphics.PrintWrap(-1, next_y+10, "numbers.xml", tr/2, tg/2, tb/2, true);
+        break;
+    }
+    case Menu::translator_error_setlangwritedir:
+        graphics.PrintWrap( -1, 95, loc::gettext("ERROR: Could not write to language folder! Make sure there is no \"lang\" folder next to the regular saves."), tr, tg, tb, true);
         break;
     case Menu::speedrunneroptions:
         switch (game.currentmenuoption)
@@ -1460,7 +1647,7 @@ void titlerender(void)
         if(tg>255) tg=255;
         if (tb < 0) tb = 0;
         if(tb>255) tb=255;
-        graphics.drawmenu(tr, tg, tb, game.currentmenuname == Menu::levellist);
+        graphics.drawmenu(tr, tg, tb, game.currentmenuname);
     }
 
     graphics.drawfade();
@@ -1728,7 +1915,8 @@ void gamerender(void)
     && !game.intimetrial
     && !game.isingamecompletescreen()
     && (!game.swnmode || game.swngame != 1)
-    && game.showingametimer)
+    && game.showingametimer
+    && !roomname_translator::enabled)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
         graphics.bprint(6, 6, "TIME:",  255,255,255);
@@ -1736,31 +1924,30 @@ void gamerender(void)
         graphics.bprint(46, 6, buffer,  196, 196, 196);
     }
 
-    if(map.extrarow==0 || (map.custommode && map.roomname[0] != '\0'))
+    bool force_roomname_hidden = false;
+    int roomname_r = 196, roomname_g = 196, roomname_b = 255 - help.glow;
+    if (roomname_translator::enabled)
+    {
+        roomname_translator::overlay_render(
+            &force_roomname_hidden,
+            &roomname_r, &roomname_g, &roomname_b
+        );
+    }
+
+    if ((map.extrarow==0 || (map.custommode && map.roomname[0] != '\0')) && !force_roomname_hidden)
     {
         const char* roomname;
 
-        graphics.footerrect.y = 230;
-
         if (map.finalmode)
         {
-            roomname = map.glitchname;
+            roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
         }
         else
         {
-            roomname = map.roomname;
+            roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
         }
 
-        if (graphics.translucentroomname)
-        {
-            SDL_BlitSurface(graphics.footerbuffer, NULL, graphics.backBuffer, &graphics.footerrect);
-            graphics.bprint(5, 231, roomname, 196, 196, 255 - help.glow, true);
-        }
-        else
-        {
-            FillRect(graphics.backBuffer, graphics.footerrect, 0);
-            graphics.Print(5, 231, roomname, 196, 196, 255 - help.glow, true);
-        }
+        graphics.render_roomname(roomname, roomname_r, roomname_g, roomname_b);
     }
 
     if (map.roomtexton)
@@ -1945,7 +2132,7 @@ void gamerender(void)
                 graphics.bigbprint( -1, 100, "3", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
         }
-        else
+        else if (!roomname_translator::is_pausing())
         {
             char buffer[SCREEN_WIDTH_CHARS + 1];
             game.timestringcenti(buffer, sizeof(buffer));
@@ -2031,15 +2218,15 @@ static void draw_roomname_menu(void)
 
     if (map.hiddenname[0] != '\0')
     {
-        name = map.hiddenname;
+        name = loc::gettext_roomname_special(map.hiddenname);
     }
     else if (map.finalmode)
     {
-        name = map.glitchname;
+        name = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
     }
     else
     {
-        name = map.roomname;
+        name = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
     }
 
     graphics.Print(5, 2, name, 196, 196, 255 - help.glow, true);
