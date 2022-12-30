@@ -537,26 +537,23 @@ void editorrender(void)
     }
 
     //Draw map, in function
-    int temp;
-    if(room->tileset==0 || room->tileset==10)
+    for (int j = 0; j < 30; j++)
     {
-        for (int j = 0; j < 30; j++)
+        for (int i = 0; i < 40; i++)
         {
-            for (int i = 0; i < 40; i++)
+            const int tile = cl.gettile(ed.levx, ed.levy, i, j);
+            if (tile <= 0)
             {
-                temp=cl.gettile(ed.levx, ed.levy, i, j);
-                if(temp>0) graphics.drawtile(i*8,j*8,temp);
+                continue;
             }
-        }
-    }
-    else
-    {
-        for (int j = 0; j < 30; j++)
-        {
-            for (int i = 0; i < 40; i++)
+
+            if (room->tileset == 0)
             {
-                temp=cl.gettile(ed.levx, ed.levy, i, j);
-                if(temp>0) graphics.drawtile2(i*8,j*8,temp);
+                graphics.drawtile(i * 8, j * 8, tile);
+            }
+            else
+            {
+                graphics.drawtile2(i * 8, j * 8, tile);
             }
         }
     }
@@ -1031,8 +1028,7 @@ void editorrender(void)
             }
 
             //Draw five lines of the editor
-            temp=ed.dmtile-(ed.dmtile%40);
-            temp-=80;
+            const int temp = ed.dmtile - (ed.dmtile % 40) - 80;
             FillRect(graphics.backBuffer, 0,-t2,320,40, graphics.getRGB(0,0,0));
             FillRect(graphics.backBuffer, 0,-t2+40,320,2, graphics.getRGB(255,255,255));
             if(room->tileset==0)
