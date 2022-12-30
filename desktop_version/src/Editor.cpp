@@ -748,6 +748,7 @@ void editorrender(void)
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
                 break;
             case 16: //Start
+            {
                 if(customentities[i].p1==0)  //Left
                 {
                     graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8)-4,(customentities[i].y*8)- (ed.levy*30*8),0,graphics.col_crewcyan);
@@ -757,15 +758,16 @@ void editorrender(void)
                     graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8)-4,(customentities[i].y*8)- (ed.levy*30*8),3,graphics.col_crewcyan);
                 }
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(255, 255, 164));
-                if(ed.entframe<2)
-                {
-                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8)-12,(customentities[i].y*8)- (ed.levy*30*8)-8,"START",255,255,255);
-                }
-                else
-                {
-                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8)-12,(customentities[i].y*8)- (ed.levy*30*8)-8,"START",196,196,196);
-                }
+                short labelcol = ed.entframe<2 ? 255 : 196;
+                short startlen = graphics.len(loc::gettext("START"));
+                graphics.bprint(
+                    (customentities[i].x*8) - (ed.levx*40*8) + 8 - startlen/2,
+                    (customentities[i].y*8) - (ed.levy*30*8) - 8,
+                    loc::gettext("START"),
+                    labelcol,labelcol,labelcol
+                );
                 break;
+            }
             case 17: //Roomtext
                 if(customentities[i].scriptname.length()<1)
                 {
@@ -1066,34 +1068,36 @@ void editorrender(void)
 
         if(ed.dmtileeditor>0 && t2<=30)
         {
-            graphics.bprint(2, 45-t2, "Tile:", 196, 196, 255 - help.glow, false);
-            graphics.bprint(58, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
-            FillRect(graphics.backBuffer, 44,44-t2,10,10, graphics.getRGB(255 - help.glow, 196, 196));
-            FillRect(graphics.backBuffer, 45,45-t2,8,8, graphics.getRGB(0,0,0));
+            short labellen = 2 + graphics.len(loc::gettext("Tile:"));
+            graphics.bprint(2, 45-t2, loc::gettext("Tile:"), 196, 196, 255 - help.glow, false);
+            graphics.bprint(labellen+16, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
+            FillRect(graphics.backBuffer, labellen+2,44-t2,10,10, graphics.getRGB(255 - help.glow, 196, 196));
+            FillRect(graphics.backBuffer, labellen+3,45-t2,8,8, graphics.getRGB(0,0,0));
 
             if(room->tileset==0)
             {
-                graphics.drawtile(45,45-t2,ed.dmtile);
+                graphics.drawtile(labellen+3,45-t2,ed.dmtile);
             }
             else
             {
-                graphics.drawtile2(45,45-t2,ed.dmtile);
+                graphics.drawtile2(labellen+3,45-t2,ed.dmtile);
             }
         }
         else
         {
-            graphics.bprint(2, 12, "Tile:", 196, 196, 255 - help.glow, false);
-            graphics.bprint(58, 12, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
-            FillRect(graphics.backBuffer, 44,11,10,10, graphics.getRGB(255 - help.glow, 196, 196));
-            FillRect(graphics.backBuffer, 45,12,8,8, graphics.getRGB(0,0,0));
+            short labellen = 2 + graphics.len(loc::gettext("Tile:"));
+            graphics.bprint(2, 12, loc::gettext("Tile:"), 196, 196, 255 - help.glow, false);
+            graphics.bprint(labellen+16, 12, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
+            FillRect(graphics.backBuffer, labellen+2,11,10,10, graphics.getRGB(255 - help.glow, 196, 196));
+            FillRect(graphics.backBuffer, labellen+3,12,8,8, graphics.getRGB(0,0,0));
 
             if(room->tileset==0)
             {
-                graphics.drawtile(45,12,ed.dmtile);
+                graphics.drawtile(labellen+3,12,ed.dmtile);
             }
             else
             {
-                graphics.drawtile2(45,12,ed.dmtile);
+                graphics.drawtile2(labellen+3,12,ed.dmtile);
             }
         }
     }
@@ -1104,52 +1108,58 @@ void editorrender(void)
     //Draw GUI
     if(ed.boundarymod>0)
     {
+        std::string message;
         if(ed.boundarymod==1)
         {
-            FillRect(graphics.backBuffer, 0,230,320,240, graphics.getRGB(32,32,32));
-            FillRect(graphics.backBuffer, 0,231,320,240, graphics.getRGB(0,0,0));
             switch(ed.boundarytype)
             {
             case 0:
-                graphics.Print(4, 232, "SCRIPT BOX: Click on top left", 255,255,255, false);
+                message = loc::gettext("SCRIPT BOX: Click on top left");
                 break;
             case 1:
-                graphics.Print(4, 232, "ENEMY BOUNDS: Click on top left", 255,255,255, false);
+                message = loc::gettext("ENEMY BOUNDS: Click on top left");
                 break;
             case 2:
-                graphics.Print(4, 232, "PLATFORM BOUNDS: Click on top left", 255,255,255, false);
+                message = loc::gettext("PLATFORM BOUNDS: Click on top left");
                 break;
             case 3:
-                graphics.Print(4, 232, "COPY TILES: Click on top left", 255,255,255, false);
+                message = loc::gettext("COPY TILES: Click on top left");
                 break;
             default:
-                graphics.Print(4, 232, "Click on top left", 255,255,255, false);
+                message = loc::gettext("Click on top left");
                 break;
             }
         }
         else if(ed.boundarymod==2)
         {
-            FillRect(graphics.backBuffer, 0,230,320,240, graphics.getRGB(32,32,32));
-            FillRect(graphics.backBuffer, 0,231,320,240, graphics.getRGB(0,0,0));
             switch(ed.boundarytype)
             {
             case 0:
-                graphics.Print(4, 232, "SCRIPT BOX: Click on bottom right", 255,255,255, false);
+                message = loc::gettext("SCRIPT BOX: Click on bottom right");
                 break;
             case 1:
-                graphics.Print(4, 232, "ENEMY BOUNDS: Click on bottom right", 255,255,255, false);
+                message = loc::gettext("ENEMY BOUNDS: Click on bottom right");
                 break;
             case 2:
-                graphics.Print(4, 232, "PLATFORM BOUNDS: Click on bottom right", 255,255,255, false);
+                message = loc::gettext("PLATFORM BOUNDS: Click on bottom right");
                 break;
             case 3:
-                graphics.Print(4, 232, "COPY TILES: Click on bottom right", 255,255,255, false);
+                message = loc::gettext("COPY TILES: Click on bottom right");
                 break;
             default:
-                graphics.Print(4, 232, "Click on bottom right", 255,255,255, false);
+                message = loc::gettext("Click on bottom right");
                 break;
             }
         }
+
+        short lines;
+        message = graphics.string_wordwrap(message, 312, &lines);
+        short textheight = 8*lines;
+
+        FillRect(graphics.backBuffer, 0,238-textheight,320,240, graphics.getRGB(32,32,32));
+        FillRect(graphics.backBuffer, 0,239-textheight,320,240, graphics.getRGB(0,0,0));
+
+        graphics.PrintWrap(4, 240-textheight, message, 255,255,255, false, 8, 312);
     }
     else if(ed.scripteditmod)
     {
@@ -1159,8 +1169,8 @@ void editorrender(void)
         switch(ed.scripthelppage)
         {
         case 0:
-            graphics.Print(16,28,"**** VVVVVV SCRIPT EDITOR ****", 123, 111, 218, true);
-            graphics.Print(16,44,"PRESS ESC TO RETURN TO MENU", 123, 111, 218, true);
+            graphics.Print(16,28,loc::gettext("**** VVVVVV SCRIPT EDITOR ****"), 123, 111, 218, true);
+            graphics.Print(16,44,loc::gettext("PRESS ESC TO RETURN TO MENU"), 123, 111, 218, true);
 
             if(!ed.hooklist.empty())
             {
@@ -1170,31 +1180,37 @@ void editorrender(void)
                     {
                         if(ed.hookmenupage+i==ed.hookmenu)
                         {
-                            std::string tstring="> " + ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)] + " <";
-                            for (size_t ii = 0; ii < tstring.length(); ii++)
-                            {
-                                tstring[ii] = SDL_toupper(tstring[ii]);
-                            }
-                            graphics.Print(16,68+(i*16),tstring,123, 111, 218, true);
+                            std::string text_upper(loc::toupper(ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)]));
+
+                            char buffer[SCREEN_WIDTH_CHARS + 1];
+                            vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
+                            graphics.Print(16, 68+(i*16), buffer, 123, 111, 218, true);
                         }
                         else
                         {
-                            graphics.Print(16,68+(i*16),ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)],123, 111, 218, true);
+                            graphics.Print(16, 68+(i*16), ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)], 123, 111, 218, true);
                         }
                     }
                 }
             }
             else
             {
-                graphics.Print(16,110,"NO SCRIPT IDS FOUND", 123, 111, 218, true);
-                graphics.Print(16,130,"CREATE A SCRIPT WITH EITHER", 123, 111, 218, true);
-                graphics.Print(16,140,"THE TERMINAL OR SCRIPT BOX TOOLS", 123, 111, 218, true);
+                graphics.Print(16,110,loc::gettext("NO SCRIPT IDS FOUND"), 123, 111, 218, true);
+                graphics.PrintWrap(16,130,loc::gettext("CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS"), 123, 111, 218, true, 10, 288);
             }
             break;
         case 1:
+        {
             //Current scriptname
             FillRect(graphics.backBuffer, 14,226,292,12, graphics.getRGB(61, 48, 162));
-            graphics.Print(16,228,"CURRENT SCRIPT: " + ed.sbscript, 123, 111, 218, true);
+            char namebuffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                namebuffer, sizeof(namebuffer),
+                loc::gettext("CURRENT SCRIPT: {name}"),
+                "name:str",
+                ed.sbscript.c_str()
+            );
+            graphics.Print(16,228, namebuffer, 123, 111, 218, true);
             //Draw text
             for(int i=0; i<25; i++)
             {
@@ -1209,6 +1225,7 @@ void editorrender(void)
                 graphics.Print(16+(ed.sbx*8),20+(ed.sby*8),"_",123, 111, 218, false);
             }
             break;
+        }
         }
     }
     else if(ed.settingsmod)
@@ -1237,9 +1254,13 @@ void editorrender(void)
     }
     else if (ed.textmod)
     {
-        FillRect(graphics.backBuffer, 0, 221, 320, 240, graphics.getRGB(32, 32, 32));
-        FillRect(graphics.backBuffer, 0, 222, 320, 240, graphics.getRGB(0, 0, 0));
-        graphics.Print(4, 224, ed.textdesc, 255, 255, 255, false);
+        short lines;
+        std::string wrapped = graphics.string_wordwrap(ed.textdesc, 312, &lines);
+        short textheight = 8*lines+8;
+
+        FillRect(graphics.backBuffer, 0, 238-textheight, 320, 240, graphics.getRGB(32, 32, 32));
+        FillRect(graphics.backBuffer, 0, 239-textheight, 320, 240, graphics.getRGB(0, 0, 0));
+        graphics.PrintWrap(4, 240-textheight, wrapped, 255, 255, 255, false, 8, 312);
         std::string input = key.keybuffer;
         if (ed.entframe < 2)
         {
@@ -1256,8 +1277,8 @@ void editorrender(void)
         //placing warp token
         FillRect(graphics.backBuffer, 0,221,320,240, graphics.getRGB(32,32,32));
         FillRect(graphics.backBuffer, 0,222,320,240, graphics.getRGB(0,0,0));
-        graphics.Print(4, 224, "Left click to place warp destination", 196, 196, 255 - help.glow, false);
-        graphics.Print(4, 232, "Right click to cancel", 196, 196, 255 - help.glow, false);
+        graphics.Print(4, 224, loc::gettext("Left click to place warp destination"), 196, 196, 255 - help.glow, false);
+        graphics.Print(4, 232, loc::gettext("Right click to cancel"), 196, 196, 255 - help.glow, false);
     }
     else
     {
@@ -1371,67 +1392,74 @@ void editorrender(void)
                 graphics.Print(4, 232, "2/2", 196, 196, 255 - help.glow, false);
             }
 
-            graphics.Print(128, 232, "< and > keys change tool", 196, 196, 255 - help.glow, false);
+            const char* changetooltext = loc::gettext("< and > keys change tool");
+            graphics.Print(320-graphics.len(changetooltext), 232, changetooltext, 196, 196, 255 - help.glow, false);
 
-            FillRect(graphics.backBuffer, 0,198,120,10, graphics.getRGB(32,32,32));
-            FillRect(graphics.backBuffer, 0,199,119,9, graphics.getRGB(0,0,0));
+            const char* toolname;
             switch(ed.drawmode)
             {
             case 0:
-                graphics.bprint(2,199, "1: Walls",196, 196, 255 - help.glow);
+                toolname = loc::gettext("1: Walls");
                 break;
             case 1:
-                graphics.bprint(2,199, "2: Backing",196, 196, 255 - help.glow);
+                toolname = loc::gettext("2: Backing");
                 break;
             case 2:
-                graphics.bprint(2,199, "3: Spikes",196, 196, 255 - help.glow);
+                toolname = loc::gettext("3: Spikes");
                 break;
             case 3:
-                graphics.bprint(2,199, "4: Trinkets",196, 196, 255 - help.glow);
+                toolname = loc::gettext("4: Trinkets");
                 break;
             case 4:
-                graphics.bprint(2,199, "5: Checkpoint",196, 196, 255 - help.glow);
+                toolname = loc::gettext("5: Checkpoint");
                 break;
             case 5:
-                graphics.bprint(2,199, "6: Disappear",196, 196, 255 - help.glow);
+                toolname = loc::gettext("6: Disappear");
                 break;
             case 6:
-                graphics.bprint(2,199, "7: Conveyors",196, 196, 255 - help.glow);
+                toolname = loc::gettext("7: Conveyors");
                 break;
             case 7:
-                graphics.bprint(2,199, "8: Moving",196, 196, 255 - help.glow);
+                toolname = loc::gettext("8: Moving");
                 break;
             case 8:
-                graphics.bprint(2,199, "9: Enemies",196, 196, 255 - help.glow);
+                toolname = loc::gettext("9: Enemies");
                 break;
             case 9:
-                graphics.bprint(2,199, "0: Grav Line",196, 196, 255 - help.glow);
+                toolname = loc::gettext("0: Grav Line");
                 break;
             case 10:
-                graphics.bprint(2,199, "R: Roomtext",196, 196, 255 - help.glow);
+                toolname = loc::gettext("R: Roomtext");
                 break;
             case 11:
-                graphics.bprint(2,199, "T: Terminal",196, 196, 255 - help.glow);
+                toolname = loc::gettext("T: Terminal");
                 break;
             case 12:
-                graphics.bprint(2,199, "Y: Script Box",196, 196, 255 - help.glow);
+                toolname = loc::gettext("Y: Script Box");
                 break;
             case 13:
-                graphics.bprint(2,199, "U: Warp Token",196, 196, 255 - help.glow);
+                toolname = loc::gettext("U: Warp Token");
                 break;
             case 14:
-                graphics.bprint(2,199, "I: Warp Lines",196, 196, 255 - help.glow);
+                toolname = loc::gettext("I: Warp Lines");
                 break;
             case 15:
-                graphics.bprint(2,199, "O: Crewmate",196, 196, 255 - help.glow);
+                toolname = loc::gettext("O: Crewmate");
                 break;
             case 16:
-                graphics.bprint(2,199, "P: Start Point",196, 196, 255 - help.glow);
+                toolname = loc::gettext("P: Start Point");
+                break;
+            default:
+                toolname = "???";
                 break;
             }
+            int toolnamelen = graphics.len(toolname);
+            FillRect(graphics.backBuffer, 0,197,toolnamelen+8,11, graphics.getRGB(32,32,32));
+            FillRect(graphics.backBuffer, 0,198,toolnamelen+7,10, graphics.getRGB(0,0,0));
+            graphics.bprint(2,199, toolname, 196, 196, 255 - help.glow);
 
-            FillRect(graphics.backBuffer, 260,198,80,10, graphics.getRGB(32,32,32));
-            FillRect(graphics.backBuffer, 261,199,80,9, graphics.getRGB(0,0,0));
+            FillRect(graphics.backBuffer, 260,197,80,11, graphics.getRGB(32,32,32));
+            FillRect(graphics.backBuffer, 261,198,80,10, graphics.getRGB(0,0,0));
             graphics.bprint(268,199, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
 
         }
@@ -1451,36 +1479,48 @@ void editorrender(void)
                     FillRect(graphics.backBuffer, 0,230+ed.roomnamehide,320,10, graphics.getRGB(0,0,0));
                 }
                 graphics.bprint(5,231+ed.roomnamehide,room->roomname, 196, 196, 255 - help.glow, true);
-                graphics.bprint(4, 222, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
+                graphics.bprint(4, 222, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow, false);
                 graphics.bprint(268,222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
             }
             else
             {
-                graphics.bprint(4, 232, "SPACE ^  SHIFT ^", 196, 196, 255 - help.glow, false);
+                graphics.bprint(4, 232, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow, false);
                 graphics.bprint(268,232, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
             }
         }
 
         if(ed.shiftmenu)
         {
-            fillboxabs(0, 117,171+8,140,graphics.getRGB(64,64,64));
-            FillRect(graphics.backBuffer, 0,118,170+8,140, graphics.getRGB(0,0,0));
-            graphics.Print(4, 120, "F1: Change Tileset",164,164,164,false);
-            graphics.Print(4, 130, "F2: Change Colour",164,164,164,false);
-            graphics.Print(4, 140, "F3: Change Enemies",164,164,164,false);
-            graphics.Print(4, 150, "F4: Enemy Bounds",164,164,164,false);
-            graphics.Print(4, 160, "F5: Platform Bounds",164,164,164,false);
+            const char* shiftmenuoptions[] = {
+                loc::gettext("F1: Change Tileset"),
+                loc::gettext("F2: Change Colour"),
+                loc::gettext("F3: Change Enemies"),
+                loc::gettext("F4: Enemy Bounds"),
+                loc::gettext("F5: Platform Bounds"),
+                "",
+                loc::gettext("F9: Reload Resources"),
+                loc::gettext("F10: Direct Mode"),
+                "",
+                loc::gettext("W: Change Warp Dir"),
+                loc::gettext("E: Change Roomname"),
+            };
+            int menuwidth = 0;
+            for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
+            {
+                int len = graphics.len(shiftmenuoptions[i]);
+                if (len > menuwidth)
+                    menuwidth = len;
+            }
 
-            graphics.Print(4, 180, "F9: Reload Resources",164,164,164,false);
-            graphics.Print(4, 190, "F10: Direct Mode",164,164,164,false);
-
-            graphics.Print(4, 210, "W: Change Warp Dir",164,164,164,false);
-            graphics.Print(4, 220, "E: Change Roomname",164,164,164,false);
+            fillboxabs(0, 117,menuwidth+17,140,graphics.getRGB(64,64,64));
+            FillRect(graphics.backBuffer, 0,118,menuwidth+16,140, graphics.getRGB(0,0,0));
+            for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
+                graphics.Print(4, 120+i*10, shiftmenuoptions[i], 164,164,164,false);
 
             fillboxabs(220, 207,100,60,graphics.getRGB(64,64,64));
             FillRect(graphics.backBuffer, 221,208,160,60, graphics.getRGB(0,0,0));
-            graphics.Print(224, 210, "S: Save Map",164,164,164,false);
-            graphics.Print(224, 220, "L: Load Map",164,164,164,false);
+            graphics.Print(224, 210, loc::gettext("S: Save Map"),164,164,164,false);
+            graphics.Print(224, 220, loc::gettext("L: Load Map"),164,164,164,false);
         }
     }
 
@@ -1491,65 +1531,70 @@ void editorrender(void)
         switch(ed.drawmode)
         {
         case 0:
-            graphics.bprint(2,2, "1: Walls",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("1: Walls"),196, 196, 255 - help.glow);
             break;
         case 1:
-            graphics.bprint(2,2, "2: Backing",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("2: Backing"),196, 196, 255 - help.glow);
             break;
         case 2:
-            graphics.bprint(2,2, "3: Spikes",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("3: Spikes"),196, 196, 255 - help.glow);
             break;
         case 3:
-            graphics.bprint(2,2, "4: Trinkets",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("4: Trinkets"),196, 196, 255 - help.glow);
             break;
         case 4:
-            graphics.bprint(2,2, "5: Checkpoint",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("5: Checkpoint"),196, 196, 255 - help.glow);
             break;
         case 5:
-            graphics.bprint(2,2, "6: Disappear",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("6: Disappear"),196, 196, 255 - help.glow);
             break;
         case 6:
-            graphics.bprint(2,2, "7: Conveyors",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("7: Conveyors"),196, 196, 255 - help.glow);
             break;
         case 7:
-            graphics.bprint(2,2, "8: Moving",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("8: Moving"),196, 196, 255 - help.glow);
             break;
         case 8:
-            graphics.bprint(2,2, "9: Enemies",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("9: Enemies"),196, 196, 255 - help.glow);
             break;
         case 9:
-            graphics.bprint(2,2, "0: Grav Line",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("0: Grav Line"),196, 196, 255 - help.glow);
             break;
         case 10:
-            graphics.bprint(2,2, "R: Roomtext",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("R: Roomtext"),196, 196, 255 - help.glow);
             break;
         case 11:
-            graphics.bprint(2,2, "T: Terminal",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("T: Terminal"),196, 196, 255 - help.glow);
             break;
         case 12:
-            graphics.bprint(2,2, "Y: Script Box",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("Y: Script Box"),196, 196, 255 - help.glow);
             break;
         case 13:
-            graphics.bprint(2,2, "U: Warp Token",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("U: Warp Token"),196, 196, 255 - help.glow);
             break;
         case 14:
-            graphics.bprint(2,2, "I: Warp Lines",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("I: Warp Lines"),196, 196, 255 - help.glow);
             break;
         case 15:
-            graphics.bprint(2,2, "O: Crewmate",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("O: Crewmate"),196, 196, 255 - help.glow);
             break;
         case 16:
-            graphics.bprint(2,2, "P: Start Point",196, 196, 255 - help.glow);
+            graphics.bprint(2,2, loc::gettext("P: Start Point"),196, 196, 255 - help.glow);
             break;
         }
     }
 
     if(ed.notedelay>0 || ed.oldnotedelay>0)
     {
+        short lines;
+        std::string wrapped = graphics.string_wordwrap(ed.note, 304, &lines);
+        short textheight = 8+(lines-1)*10;
+        short banner_y = 120 - textheight/2 - 5;
+
         float alpha = graphics.lerp(ed.oldnotedelay, ed.notedelay);
-        FillRect(graphics.backBuffer, 0,115,320,18, graphics.getRGB(92,92,92));
-        FillRect(graphics.backBuffer, 0,116,320,16, graphics.getRGB(0,0,0));
-        graphics.Print(0,121, ed.note,196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), true);
+        FillRect(graphics.backBuffer, 0, banner_y, 320, 10+textheight, graphics.getRGB(92,92,92));
+        FillRect(graphics.backBuffer, 0, banner_y+1, 320, 8+textheight, graphics.getRGB(0,0,0));
+        graphics.PrintWrap(0,banner_y+5, wrapped, 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), true);
     }
 
     graphics.drawfade();
