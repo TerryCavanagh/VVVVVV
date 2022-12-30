@@ -653,7 +653,7 @@ void Game::savecustomlevelstats(void)
 void Game::levelcomplete_textbox(void)
 {
     graphics.createtextboxflipme("", -1, 12, 165, 165, 255);
-    graphics.addline("                                   ");
+    graphics.addline("                                    ");
     graphics.addline("");
     graphics.addline("");
     graphics.textboxcenterx();
@@ -662,43 +662,50 @@ void Game::levelcomplete_textbox(void)
 void Game::crewmate_textbox(const int r, const int g, const int b)
 {
     graphics.createtextboxflipme("", -1, 64 + 8 + 16, r, g, b);
-    graphics.addline("     You have rescued  ");
-    graphics.addline("      a crew member!   ");
+
+    /* This is a special case for wrapping, we MUST have two lines.
+     * So just make sure it can't fit in one line. */
+    const char* text = loc::gettext("You have rescued a crew member!");
+    std::string wrapped = graphics.string_wordwrap_balanced(text, graphics.len(text)-1);
+
+    size_t startline = 0;
+    size_t newline;
+    do {
+        size_t pos_n = wrapped.find('\n', startline);
+        size_t pos_p = wrapped.find('|', startline);
+        newline = SDL_min(pos_n, pos_p);
+        graphics.addline(wrapped.substr(startline, newline-startline));
+        startline = newline+1;
+    } while (newline != std::string::npos);
+
     graphics.addline("");
+    graphics.textboxcentertext();
+    graphics.textboxpad(5, 2);
     graphics.textboxcenterx();
 }
 
 void Game::remaining_textbox(void)
 {
     const int remaining = 6 - crewrescued();
-    const char* string;
     char buffer[SCREEN_WIDTH_CHARS + 1];
-    if (remaining == 1)
+    if (remaining > 0)
     {
-        string = "  One remains  ";
-    }
-    else if (remaining > 0)
-    {
-        SDL_snprintf(
-            buffer,
-            sizeof(buffer),
-            "  %s remain  ",
-            help.number_words(remaining).c_str()
-        );
-        string = buffer;
+        loc::gettext_plural_fill(buffer, sizeof(buffer), "{n_crew|wordy} remain", "{n_crew|wordy} remains", "n_crew:int", remaining);
     }
     else
     {
-        string = "  All Crew Members Rescued!  ";
+        SDL_strlcpy(buffer, loc::gettext("All Crew Members Rescued!"), sizeof(buffer));
     }
 
-    graphics.createtextboxflipme(string, -1, 128 + 16, 174, 174, 174);
+    graphics.createtextboxflipme(buffer, -1, 128 + 16, 174, 174, 174);
+    graphics.textboxpad(2, 2);
     graphics.textboxcenterx();
 }
 
 void Game::actionprompt_textbox(void)
 {
-    graphics.createtextboxflipme(" Press ACTION to continue ", -1, 196, 164, 164, 255);
+    graphics.createtextboxflipme(loc::gettext("Press ACTION to continue"), -1, 196, 164, 164, 255);
+    graphics.textboxpad(1, 1);
     graphics.textboxcenterx();
 }
 
@@ -711,12 +718,17 @@ void Game::savetele_textbox(void)
 
     if (savetele())
     {
-        graphics.createtextboxflipme("    Game Saved    ", -1, 12, 174, 174, 174);
+        graphics.createtextboxflipme(loc::gettext("Game Saved"), -1, 12, 174, 174, 174);
+        graphics.textboxpad(3, 3);
+        graphics.textboxcenterx();
         graphics.textboxtimer(25);
     }
     else
     {
-        graphics.createtextboxflipme("  ERROR: Could not save game!  ", -1, 12, 255, 60, 60);
+        graphics.createtextboxflipme(loc::gettext("ERROR: Could not save game!"), -1, 12, 255, 60, 60);
+        graphics.textboxwrap(2);
+        graphics.textboxpad(1, 1);
+        graphics.textboxcenterx();
         graphics.textboxtimer(50);
     }
 }
