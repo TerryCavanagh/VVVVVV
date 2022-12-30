@@ -609,7 +609,7 @@ void mapclass::changefinalcol(int t)
     //change the map to colour t - for the game's final stretch.
     //First up, the tiles. This is just a setting:
     final_mapcol = t;
-    int temp = 6 - t;
+    const int temp = 6 - t;
     //Next, entities
     for (size_t i = 0; i < obj.entities.size(); i++)
     {
@@ -1079,7 +1079,6 @@ void mapclass::gotoroom(int rx, int ry)
         //Alright, change music depending on where we are:
         music.changemusicarea(game.roomx - 100, game.roomy - 100);
     }
-    int temp = rx + (ry * 100);
     loadlevel(game.roomx, game.roomy);
 
 
@@ -1115,13 +1114,14 @@ void mapclass::gotoroom(int rx, int ry)
     //Alright! So, let's look at our lines from the previous rooms, and determine if any of them are actually
     //continuations!
 
-    temp = obj.getplayer();
-    if(INBOUNDS_VEC(temp, obj.entities))
+    const int player_idx = obj.getplayer();
+    if (INBOUNDS_VEC(player_idx, obj.entities))
     {
-        obj.entities[temp].oldxp = obj.entities[temp].xp;
-        obj.entities[temp].oldyp = obj.entities[temp].yp;
-        obj.entities[temp].lerpoldxp = obj.entities[temp].xp - int(obj.entities[temp].vx);
-        obj.entities[temp].lerpoldyp = obj.entities[temp].yp - int(obj.entities[temp].vy);
+        entclass* player = &obj.entities[player_idx];
+        player->oldxp = player->xp;
+        player->oldyp = player->yp;
+        player->lerpoldxp = player->xp - int(player->vx);
+        player->lerpoldyp = player->yp - int(player->vy);
     }
 
     for (size_t i = 0; i < obj.entities.size(); i++)

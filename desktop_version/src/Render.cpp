@@ -141,12 +141,12 @@ static void inline drawglitchrunnertext(const int y)
 
 static void menurender(void)
 {
-    int temp = 50;
 
     switch (game.currentmenuname)
     {
     case Menu::mainmenu:
     {
+        const int temp = 50;
         graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
         graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
@@ -2879,8 +2879,8 @@ void maprender(void)
 void teleporterrender(void)
 {
     ClearSurface(graphics.backBuffer);
-    int tempx;
-    int tempy;
+    const int telex = map.teleporters[game.teleport_to_teleporter].x;
+    const int teley = map.teleporters[game.teleport_to_teleporter].y;
 
     draw_roomname_menu();
 
@@ -2900,10 +2900,8 @@ void teleporterrender(void)
         //Draw the chosen destination coordinate!
         //TODO
         //draw the coordinates //destination
-        int tempx_ = map.teleporters[game.teleport_to_teleporter].x;
-        int tempy_ = map.teleporters[game.teleport_to_teleporter].y;
-        graphics.drawrect(40 + data.xoff + (tempx_ * 12 * data.zoom) + 1, 21 + data.yoff + (tempy_ * 9 * data.zoom) + 1, 12 * data.zoom - 2, 9 * data.zoom - 2, 245 - (help.glow * 2), 16, 16);
-        graphics.drawrect(40 + data.xoff + (tempx_ * 12 * data.zoom) + 3, 21 + data.yoff + (tempy_ * 9 * data.zoom) + 3, 12 * data.zoom - 6, 9 * data.zoom - 6, 245 - (help.glow * 2), 16, 16);
+        graphics.drawrect(40 + data.xoff + (telex * 12 * data.zoom) + 1, 21 + data.yoff + (teley * 9 * data.zoom) + 1, 12 * data.zoom - 2, 9 * data.zoom - 2, 245 - (help.glow * 2), 16, 16);
+        graphics.drawrect(40 + data.xoff + (telex * 12 * data.zoom) + 3, 21 + data.yoff + (teley * 9 * data.zoom) + 3, 12 * data.zoom - 6, 9 * data.zoom - 6, 245 - (help.glow * 2), 16, 16);
     }
 
     // Draw the legend itself
@@ -2912,11 +2910,9 @@ void teleporterrender(void)
 
     // Highlight the currently selected teleporter
 
-    tempx = map.teleporters[game.teleport_to_teleporter].x;
-    tempy = map.teleporters[game.teleport_to_teleporter].y;
     if (game.useteleporter && help.slowsine % 16 > 8)
     {
-        graphics.drawtile(data.legendxoff + data.xoff + (tempx * 12 * data.zoom), data.legendyoff + data.yoff + (tempy * 9 * data.zoom), 1128 + (graphics.flipmode ? 3 : 0));
+        graphics.drawtile(data.legendxoff + data.xoff + (telex * 12 * data.zoom), data.legendyoff + data.yoff + (teley * 9 * data.zoom), 1128 + (graphics.flipmode ? 3 : 0));
     }
 
     graphics.cutscenebars();

@@ -1428,7 +1428,7 @@ void Graphics::drawpartimage( int t, int xp, int yp, int wp, int hp)
 
 void Graphics::cutscenebars(void)
 {
-    int usethispos = lerp(oldcutscenebarspos, cutscenebarspos);
+    const int usethispos = lerp(oldcutscenebarspos, cutscenebarspos);
     if (showcutscenebars)
     {
         FillRect(backBuffer, 0, 0, usethispos, 16, 0x000000);
@@ -1692,7 +1692,7 @@ void Graphics::createtextboxflipme(
 
 void Graphics::drawfade(void)
 {
-    int usethisamount = lerp(oldfadeamount, fadeamount);
+    const int usethisamount = lerp(oldfadeamount, fadeamount);
     switch (fademode)
     {
     case FADE_FULLY_BLACK:
@@ -1997,7 +1997,7 @@ void Graphics::drawtrophytext(void)
 
     if (obj.trophytext < 15)
     {
-        int usethismult = lerp(obj.oldtrophytext, obj.trophytext);
+        const int usethismult = lerp(obj.oldtrophytext, obj.trophytext);
         temp = (196 * usethismult) / 15;
         temp2 = (196 * usethismult) / 15;
         temp3 = ((255 - help.glow) * usethismult) / 15;
@@ -2478,8 +2478,6 @@ void Graphics::drawentity(const int i, const int yoff)
 
 void Graphics::drawbackground( int t )
 {
-    int temp = 0;
-
     switch(t)
     {
     case 1:
@@ -2704,7 +2702,7 @@ void Graphics::drawbackground( int t )
 
         for (int i = 10 ; i >= 0; i--)
         {
-            temp = (i << 4) + backoffset;
+            const int temp = (i * 16) + backoffset;
             setwarprect(160 - temp, 120 - temp, temp * 2, temp * 2);
             if (i % 2 == warpskip)
             {
@@ -2833,7 +2831,7 @@ void Graphics::updatebackground(int t)
         break;
     case 3: //Warp zone (horizontal)
     {
-        int temp = 680 + (rcol * 3);
+        const int temp = 680 + (rcol * 3);
         backoffset+=3;
         if (backoffset >= 16) backoffset -= 16;
 
@@ -2872,7 +2870,7 @@ void Graphics::updatebackground(int t)
     }
     case 4: //Warp zone (vertical)
     {
-        int temp = 760 + (rcol * 3);
+        const int temp = 760 + (rcol * 3);
         backoffset+=3;
         if (backoffset >= 16) backoffset -= 16;
 
@@ -3008,14 +3006,16 @@ void Graphics::drawfinalmap(void)
 
 void Graphics::drawtowermap(void)
 {
-    int temp;
-    int yoff = lerp(map.oldypos, map.ypos);
+    const int yoff = lerp(map.oldypos, map.ypos);
     for (int j = 0; j < 31; j++)
     {
         for (int i = 0; i < 40; i++)
         {
-            temp = map.tower.at(i, j, yoff);
-            if (temp > 0) drawtile3(i * 8, (j * 8) - (yoff % 8), temp, towerbg.colstate);
+            const int temp = map.tower.at(i, j, yoff);
+            if (temp > 0)
+            {
+                drawtile3(i * 8, (j * 8) - (yoff % 8), temp, towerbg.colstate);
+            }
         }
     }
 }
@@ -3041,8 +3041,6 @@ void Graphics::drawtowerbackground(const TowerBG& bg_obj)
 
 void Graphics::updatetowerbackground(TowerBG& bg_obj)
 {
-    int temp;
-
     if (bg_obj.bypos < 0) bg_obj.bypos += 120 * 8;
 
     if (bg_obj.tdrawback)
@@ -3053,7 +3051,7 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp = map.tower.backat(i, j, bg_obj.bypos);
+                const int temp = map.tower.backat(i, j, bg_obj.bypos);
                 drawtowertile3(i * 8, (j * 8) - (bg_obj.bypos % 8) - off, temp, bg_obj);
             }
         }
@@ -3068,7 +3066,7 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp = map.tower.backat(i, -1, bg_obj.bypos);
+                int temp = map.tower.backat(i, -1, bg_obj.bypos);
                 drawtowertile3(i * 8, -1*8 - (bg_obj.bypos % 8), temp, bg_obj);
                 temp = map.tower.backat(i, 0, bg_obj.bypos);
                 drawtowertile3(i * 8, -(bg_obj.bypos % 8), temp, bg_obj);
@@ -3078,7 +3076,7 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
         {
             for (int i = 0; i < 40; i++)
             {
-                temp = map.tower.backat(i, 29, bg_obj.bypos);
+                int temp = map.tower.backat(i, 29, bg_obj.bypos);
                 drawtowertile3(i * 8, 29*8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
                 temp = map.tower.backat(i, 30, bg_obj.bypos);
                 drawtowertile3(i * 8, 30*8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
@@ -3093,8 +3091,6 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
 
 void Graphics::setcol( int t )
 {
-    int temp;
-
     //Setup predefinied colours as per our zany palette
     switch(t)
     {
@@ -3121,9 +3117,11 @@ void Graphics::setcol( int t )
         ct.colour = getRGB(trinketr, trinketg, trinketb);
         break;
     case 4: //Inactive savepoint
-        temp = (help.glow/2) + (fRandom() * 8);
+    {
+        const int temp = (help.glow/2) + (fRandom() * 8);
         ct.colour = getRGB(80 + temp, 80 + temp, 80 + temp);
         break;
+    }
     case 5: //Active savepoint
         ct.colour = getRGB(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
         break;
@@ -3240,7 +3238,8 @@ void Graphics::setcol( int t )
         break;
         //Awesome
     case 40: //Teleporter in action!
-        temp = fRandom() * 150;
+    {
+        const int temp = fRandom() * 150;
         if(temp<33)
         {
             ct.colour = RGBf(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
@@ -3258,16 +3257,20 @@ void Graphics::setcol( int t )
             ct.colour = RGBf(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
         }
         break;
+    }
 
     case 100: //Inactive Teleporter
-        temp = (help.glow/2) + (fRandom() * 8);
+    {
+        const int temp = (help.glow/2) + (fRandom() * 8);
         ct.colour = getRGB(42 + temp, 42 + temp, 42 + temp);
         break;
+    }
     case 101: //Active Teleporter
         ct.colour = getRGB(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
         break;
     case 102: //Teleporter in action!
-        temp = fRandom() * 150;
+    {
+        const int temp = fRandom() * 150;
         if(temp<33)
         {
             ct.colour = getRGB(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
@@ -3285,6 +3288,7 @@ void Graphics::setcol( int t )
             ct.colour = getRGB(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
         }
         break;
+    }
 
     default:
         ct.colour = getRGB(255, 255, 255);

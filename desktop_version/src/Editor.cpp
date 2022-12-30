@@ -591,7 +591,7 @@ void editorrender(void)
     //Draw entities
     obj.customplatformtile=game.customcol*12;
 
-    int temp2=edentat(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30));
+    const int edent_under_cursor = edentat(ed.tilex + ed.levx*40, ed.tiley + ed.levy*30);
 
     // Special case for drawing gray entities
     bool custom_gray = room->tileset == 3 && room->tilecol == 6;
@@ -730,7 +730,7 @@ void editorrender(void)
             case 13://Warp tokens
                 graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),18+(ed.entframe%2),196,196,196);
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(255, 164, 164));
-                if(temp2==i)
+                if (i == edent_under_cursor)
                 {
                     graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,
                                 "("+help.String(customentities[i].p1/40 + 1)+","+help.String(customentities[i].p2/30 + 1)+")",210,210,255);
@@ -793,7 +793,7 @@ void editorrender(void)
                 }
                 graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8), usethisy + 8, usethistile + 16, 96,96,96);
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
-                if(temp2==i)
+                if (i == edent_under_cursor)
                 {
                     graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,customentities[i].scriptname,210,210,255);
                 }
@@ -802,7 +802,7 @@ void editorrender(void)
             case 19: //Script Triggers
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),customentities[i].p1*8,customentities[i].p2*8,graphics.getRGB(255,164,255));
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,255));
-                if(temp2==i)
+                if (i == edent_under_cursor)
                 {
                     graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,customentities[i].scriptname,210,210,255);
                 }
