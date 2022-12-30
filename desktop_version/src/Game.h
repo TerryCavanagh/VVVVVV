@@ -60,6 +60,14 @@ namespace Menu
         audiooptions,
         accessibility,
         controller,
+        language,
+        translator_main,
+        translator_options,
+        translator_options_limitscheck,
+        translator_options_stats,
+        translator_maintenance,
+        translator_maintenance_sync,
+        translator_error_setlangwritedir,
         cleardatamenu,
         clearcustomdatamenu,
         setinvincibility,
@@ -290,6 +298,7 @@ public:
     //Main Menu Variables
     std::vector<MenuOption> menuoptions;
     int currentmenuoption ;
+    bool menutestmode;
     enum Menu::MenuName currentmenuname;
     enum Menu::MenuName kludge_ingametemp;
     enum SLIDERMODE slidermode;
@@ -330,6 +339,7 @@ public:
     bool noflashingmode;
     int slowdown;
     int get_timestep(void);
+    bool physics_frozen(void);
 
     bool nodeathmode;
     int gameoverdelay;
@@ -343,6 +353,7 @@ public:
     bool intimetrial, timetrialparlost;
     int timetrialcountdown, timetrialshinytarget, timetriallevel;
     int timetrialpar, timetrialresulttime, timetrialresultframes, timetrialrank;
+    bool timetrialcheater;
     int timetrialresultshinytarget, timetrialresulttrinkets, timetrialresultpar;
     int timetrialresultdeaths;
 
@@ -423,7 +434,7 @@ public:
 
     //Some stats:
     int totalflips;
-    std::string hardestroom;
+    std::string hardestroom; // don't change to C string unless you wanna handle language switches (or make it store coords)
     int hardestroomdeaths, currentroomdeaths;
 
 
@@ -483,6 +494,9 @@ public:
     bool incompetitive(void);
 
     bool nocompetitive(void);
+    bool nocompetitive_unless_translator(void);
+
+    void sabotage_time_trial(void);
 
     bool over30mode;
     bool showingametimer;

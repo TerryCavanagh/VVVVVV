@@ -127,6 +127,11 @@ static void gotoroom_wrapper(const int rx, const int ry)
 
 void gamelogic(void)
 {
+    if (game.physics_frozen())
+    {
+        return;
+    }
+
     bool roomchange = false;
 #define GOTOROOM(rx, ry) \
     gotoroom_wrapper(rx, ry); \

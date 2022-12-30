@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "Game.h"
 #include "GraphicsResources.h"
 #include "GraphicsUtil.h"
 #include "Maths.h"
@@ -53,7 +54,7 @@ public:
 
     void drawcoloredtile(int x, int y, int t, int r, int g, int b);
 
-    void drawmenu(int cr, int cg, int cb, bool levelmenu = false);
+    void drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu);
 
     void processfade(void);
     void setfade(const int amount);
@@ -95,6 +96,16 @@ public:
     void textboxmoveto(int xo);
 
     void textboxcentery(void);
+
+    int textboxwrap(int pad);
+
+    void textboxpad(size_t left_pad, size_t right_pad);
+
+    void textboxpadtowidth(size_t new_w);
+
+    void textboxcentertext();
+
+    void textboxcommsrelay();
 
     void textboxadjust(void);
 
@@ -152,13 +163,17 @@ public:
 
     bool next_wrap_s(char buffer[], size_t buffer_size, size_t* start, const char* str, int maxwidth);
 
-    void PrintWrap(int x, int y, const char* str, int r, int g, int b, bool cen, int linespacing, int maxwidth);
+    int PrintWrap(int x, int y, std::string s, int r, int g, int b, bool cen = false, int linespacing = -1, int maxwidth = -1);
 
     void bprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false);
 
     void bprintalpha(int x, int y, const std::string& t, int r, int g, int b, int a, bool cen = false);
 
     int len(const std::string& t);
+    std::string string_wordwrap(const std::string& s, int maxwidth, short *lines = NULL);
+    std::string string_wordwrap_balanced(const std::string& s, int maxwidth);
+    std::string string_unwordwrap(const std::string& s);
+
     void bigprint( int _x, int _y, const std::string& _s, int r, int g, int b, bool cen = false, int sc = 2 );
     void bigbprint(int x, int y, const std::string& s, int r, int g, int b, bool cen = false, int sc = 2);
     void drawspritesetcol(int x, int y, int t, int c);
@@ -234,6 +249,11 @@ public:
     bool tiles2_mounted;
     bool minimap_mounted;
 #endif
+
+    bool gamecomplete_mounted;
+    bool levelcomplete_mounted;
+    bool flipgamecomplete_mounted;
+    bool fliplevelcomplete_mounted;
 
 
     void menuoffrender(void);
@@ -335,10 +355,16 @@ public:
 
     SDL_Surface* ghostbuffer;
 
+#ifndef GAME_DEFINITION
     float inline lerp(const float v0, const float v1)
     {
+        if (game.physics_frozen())
+        {
+            return v1;
+        }
         return v0 + alpha * (v1 - v0);
     }
+#endif
     float alpha;
 
     Uint32 col_crewred;
@@ -358,6 +384,8 @@ public:
     bool kludgeswnlinewidth;
 
     Uint32 crewcolourreal(int t);
+
+    void render_roomname(const char* roomname, int r, int g, int b);
 
     char error[128];
     char error_title[128]; /* for SDL_ShowSimpleMessageBox */

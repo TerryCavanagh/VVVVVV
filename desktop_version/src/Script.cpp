@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <SDL_timer.h>
 
+#include "Constants.h"
 #include "CustomLevels.h"
 #include "Editor.h"
 #include "Entity.h"
@@ -12,10 +13,13 @@
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
+#include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Map.h"
 #include "Music.h"
 #include "Unreachable.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 #include "Vlogging.h"
 #include "Xoshiro.h"
 
@@ -36,6 +40,11 @@ scriptclass::scriptclass(void)
     textx = 0;
     texty = 0;
     textflipme = false;
+    textcentertext = false;
+    textpad_left = 0;
+    textpad_right = 0;
+    textpadtowidth = 0;
+    textcase = 1;
 }
 
 void scriptclass::clearcustom(void)
@@ -504,6 +513,13 @@ void scriptclass::run(void)
                         txt.push_back(commands[position]);
                     }
                 }
+
+                textcentertext = false;
+                textpad_left = 0;
+                textpad_right = 0;
+                textpadtowidth = 0;
+
+                translate_dialogue();
             }
             else if (words[0] == "position")
             {
@@ -688,6 +704,20 @@ void scriptclass::run(void)
                     {
                         graphics.addline(txt[i]);
                     }
+                }
+
+                // Some textbox formatting that can be set by translations...
+                if (textcentertext)
+                {
+                    graphics.textboxcentertext();
+                }
+                if (textpad_left > 0 || textpad_right > 0)
+                {
+                    graphics.textboxpad(textpad_left, textpad_right);
+                }
+                if (textpadtowidth > 0)
+                {
+                    graphics.textboxpadtowidth(textpadtowidth);
                 }
 
                 //the textbox cannot be outside the screen. Fix if it is.
@@ -1840,6 +1870,7 @@ void scriptclass::run(void)
             }
             else if (words[0] == "specialline")
             {
+                //Localization is handled with regular cutscene dialogue
                 switch(ss_toi(words[1]))
                 {
                 case 1:
@@ -1862,6 +1893,8 @@ void scriptclass::run(void)
                     }
                     break;
                 }
+
+                translate_dialogue();
             }
             else if (words[0] == "trinketbluecontrol")
             {
@@ -2339,6 +2372,27 @@ void scriptclass::run(void)
                     }
                 }
             }
+            else if (words[0] == "textcase")
+            {
+                // Used to disambiguate identical textboxes for translations (1 by default)
+                textcase = ss_toi(words[1]);
+            }
+            else if (words[0] == "loadtext")
+            {
+                if (map.custommode)
+                {
+                    loc::lang_custom = words[1];
+                    loc::loadtext_custom(NULL);
+                }
+            }
+            else if (words[0] == "iflang")
+            {
+                if (loc::lang == words[1])
+                {
+                    load("custom_" + raw_words[2]);
+                    position--;
+                }
+            }
 
             position++;
         }
@@ -2363,6 +2417,68 @@ void scriptclass::run(void)
     {
         scriptdelay--;
     }
+}
+
+void scriptclass::translate_dialogue(void)
+{
+    char tc = textcase;
+    textcase = 1;
+
+    if (!loc::is_cutscene_translated(scriptname))
+    {
+        return;
+    }
+
+    // English text needs to be un-wordwrapped, translated, and re-wordwrapped
+    std::string eng;
+    for (size_t i = 0; i < txt.size(); i++)
+    {
+        if (i != 0)
+        {
+            eng.append("\n");
+        }
+        eng.append(txt[i]);
+    }
+
+    eng = graphics.string_unwordwrap(eng);
+    const loc::TextboxFormat* format = loc::gettext_cutscene(scriptname, eng, tc);
+    if (format == NULL || format->text == NULL || format->text[0] == '\0')
+    {
+        return;
+    }
+    std::string tra;
+    if (format->tt)
+    {
+        tra = std::string(format->text);
+        size_t pipe;
+        while (true)
+        {
+            pipe = tra.find('|', 0);
+            if (pipe == std::string::npos)
+            {
+                break;
+            }
+            tra.replace(pipe, 1, "\n");
+        }
+    }
+    else
+    {
+        tra = graphics.string_wordwrap_balanced(format->text, format->wraplimit);
+    }
+
+    textcentertext = format->centertext;
+    textpad_left = format->pad_left;
+    textpad_right = format->pad_right;
+    textpadtowidth = format->padtowidth;
+
+    txt.clear();
+    size_t startline = 0;
+    size_t newline;
+    do {
+        newline = tra.find('\n', startline);
+        txt.push_back(tra.substr(startline, newline-startline));
+        startline = newline+1;
+    } while (newline != std::string::npos);
 }
 
 static void gotoerrorloadinglevel(void)
@@ -2474,8 +2590,12 @@ void scriptclass::startgamemode(const enum StartMode mode)
         game.nocutscenes = true;
         game.intimetrial = true;
         game.timetrialcountdown = 150;
-        game.timetrialparlost = false;
         game.timetriallevel = mode - Start_FIRST_TIMETRIAL;
+
+        if (map.invincibility)
+        {
+            game.sabotage_time_trial();
+        }
 
         switch (mode)
         {
@@ -2912,6 +3032,7 @@ void scriptclass::hardreset(void)
     game.timetrialshinytarget = 0;
     game.timetrialparlost = false;
     game.timetrialpar = 0;
+    game.timetrialcheater = false;
 
     game.totalflips = 0;
     game.hardestroom = "Welcome Aboard";
@@ -3241,6 +3362,15 @@ void scriptclass::loadcustom(const std::string& t)
         }else if(words[0] == "iftrinketsless"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add("custom"+lines[i]);
+        }else if(words[0] == "textcase"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
+        }else if(words[0] == "iflang"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
+        }else if(words[0] == "loadtext"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
         }else if(words[0] == "destroy"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);

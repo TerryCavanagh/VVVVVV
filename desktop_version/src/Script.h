@@ -77,6 +77,8 @@ public:
 
     void run(void);
 
+    void translate_dialogue(void);
+
     void startgamemode(enum StartMode mode);
 
     void teleport(void);
@@ -99,6 +101,11 @@ public:
     int texty;
     int r,g,b;
     bool textflipme;
+    bool textcentertext;
+    size_t textpad_left;
+    size_t textpad_right;
+    size_t textpadtowidth;
+    char textcase;
 
     //Misc
     int i, j, k;

@@ -59,6 +59,8 @@ public:
     bool controllerButtonDown(void);
     bool controllerWantsLeft(bool includeVert);
     bool controllerWantsRight(bool includeVert);
+    bool controllerWantsUp(void);
+    bool controllerWantsDown(void);
 
     int leftbutton, rightbutton, middlebutton;
     int mx, my;

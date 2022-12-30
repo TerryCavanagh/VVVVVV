@@ -27,3 +27,31 @@ tinyxml2::XMLDeclaration* update_declaration(tinyxml2::XMLDocument& doc);
 tinyxml2::XMLComment* update_comment(tinyxml2::XMLNode* parent, const char* text);
 
 } // namespace xml
+
+
+// XMLHandle doc, XMLElement* elem
+#define FOR_EACH_XML_ELEMENT(doc, elem) \
+    for ( \
+        elem = doc \
+            .FirstChildElement() \
+            .FirstChildElement() \
+            .ToElement(); \
+        elem != NULL; \
+        elem = elem->NextSiblingElement() \
+    )
+
+// XMLElement* elem, XMLElement* subelem
+#define FOR_EACH_XML_SUB_ELEMENT(elem, subelem) \
+    for ( \
+        subelem = elem->FirstChildElement(); \
+        subelem != NULL; \
+        subelem = subelem->NextSiblingElement() \
+    )
+
+// XMLElement* elem, const char* expect
+#define EXPECT_ELEM(elem, expect) \
+    if (SDL_strcmp(elem->Value(), expect) != 0) \
+    { \
+        continue; \
+    } \
+    do { } while (false)

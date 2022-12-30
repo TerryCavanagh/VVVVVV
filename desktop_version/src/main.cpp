@@ -16,6 +16,8 @@
 #include "Input.h"
 #include "InterimVersion.h"
 #include "KeyPoll.h"
+#include "Localization.h"
+#include "LocalizationStorage.h"
 #include "Logic.h"
 #include "Map.h"
 #include "Music.h"
@@ -368,6 +370,8 @@ int main(int argc, char *argv[])
 {
     char* baseDir = NULL;
     char* assetsPath = NULL;
+    char* langDir = NULL;
+    char* fontsDir = NULL;
     bool seed_use_sdl_getticks = false;
 #ifdef _WIN32
     bool open_console = false;
@@ -418,6 +422,20 @@ int main(int argc, char *argv[])
             ARG_INNER({
                 i++;
                 assetsPath = argv[i];
+            })
+        }
+        else if (ARG("-langdir"))
+        {
+            ARG_INNER({
+                i++;
+                langDir = argv[i];
+            })
+        }
+        else if (ARG("-fontsdir"))
+        {
+            ARG_INNER({
+                i++;
+                fontsDir = argv[i];
             })
         }
         else if (ARG("-playing") || ARG("-p"))
@@ -482,6 +500,10 @@ int main(int argc, char *argv[])
         {
             vlog_toggle_error(0);
         }
+        else if (ARG("-translator"))
+        {
+            loc::show_translator_menu = true;
+        }
 #ifdef _WIN32
         else if (ARG("-console"))
         {
@@ -501,6 +523,10 @@ int main(int argc, char *argv[])
         }
     }
 
+#if defined(ALWAYS_SHOW_TRANSLATOR_MENU)
+    loc::show_translator_menu = true;
+#endif
+
 #ifdef _WIN32
     if (open_console)
     {
@@ -508,7 +534,7 @@ int main(int argc, char *argv[])
     }
 #endif
 
-    if(!FILESYSTEM_init(argv[0], baseDir, assetsPath))
+    if(!FILESYSTEM_init(argv[0], baseDir, assetsPath, langDir, fontsDir))
     {
         vlog_error("Unable to initialize filesystem!");
         VVV_exit(1);
@@ -608,11 +634,23 @@ int main(int argc, char *argv[])
         gameScreen.init(&screen_settings);
     }
 
+    loc::loadtext(false);
+    loc::loadlanguagelist();
+    game.createmenu(Menu::mainmenu);
+
     graphics.create_buffers(gameScreen.GetFormat());
 
     if (game.skipfakeload)
         game.gamestate = TITLEMODE;
     if (game.slowdown == 0) game.slowdown = 30;
+
+    if (!loc::lang_set)
+    {
+        game.gamestate = TITLEMODE;
+        game.menustart = true;
+        game.createmenu(Menu::language);
+        game.currentmenuoption = loc::languagelist_curlang;
+    }
 
     //Check to see if you've already unlocked some achievements here from before the update
     if (game.swnbestrank > 0){
@@ -757,6 +795,7 @@ static void cleanup(void)
     music.destroy();
     map.destroy();
     NETWORK_shutdown();
+    loc::resettext(true);
     SDL_Quit();
     FILESYSTEM_deinit();
 }
