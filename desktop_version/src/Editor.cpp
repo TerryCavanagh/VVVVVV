@@ -1809,12 +1809,12 @@ static void editormenuactionpress(void)
         case 0:
             ed.titlemod=true;
             key.enabletextentry();
-            key.keybuffer=cl.title;
+            key.keybuffer=translate_title(cl.title);
             break;
         case 1:
             ed.creatormod=true;
             key.enabletextentry();
-            key.keybuffer=cl.creator;
+            key.keybuffer=translate_creator(cl.creator);
             break;
         case 2:
             ed.desc1mod=true;
@@ -1872,7 +1872,7 @@ static void editormenuactionpress(void)
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.getlin(TEXT_LOAD, "Enter map filename to load:", &(ed.filename));
+            ed.getlin(TEXT_LOAD, loc::gettext("Enter map filename to load:"), &(ed.filename));
             game.mapheld=true;
             graphics.backgrounddrawn=false;
             break;
@@ -1882,7 +1882,7 @@ static void editormenuactionpress(void)
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.getlin(TEXT_SAVE, "Enter map filename to save as:", &(ed.filename));
+            ed.getlin(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
             game.mapheld=true;
             graphics.backgrounddrawn=false;
             break;
@@ -1947,7 +1947,7 @@ static void editormenuactionpress(void)
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.getlin(TEXT_SAVE, "Enter map filename to save as:", &(ed.filename));
+            ed.getlin(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
             game.mapheld=true;
             graphics.backgrounddrawn=false;
             break;
@@ -2015,7 +2015,7 @@ void editorinput(void)
 
     if (key.keymap[SDLK_F9] && (ed.keydelay==0)) {
         ed.keydelay = 30;
-        ed.note="Reloaded resources";
+        ed.note=loc::gettext("Reloaded resources");
         ed.notedelay=45;
         graphics.reloadresources();
     }
@@ -2360,7 +2360,7 @@ void editorinput(void)
 
                 if (!valid_input)
                 {
-                    ed.note = "[ ERROR: Invalid format ]";
+                    ed.note = loc::gettext("ERROR: Invalid format");
                     ed.notedelay = 45;
                     break;
                 }
@@ -2376,13 +2376,13 @@ void editorinput(void)
                 if (cl.load(loadstring))
                 {
                     // don't use filename, it has the full path
-                    char buffer[64];
-                    SDL_snprintf(buffer, sizeof(buffer), "[ Loaded map: %s.vvvvvv ]", ed.filename.c_str());
+                    char buffer[3*SCREEN_WIDTH_CHARS + 1];
+                    vformat_buf(buffer, sizeof(buffer), loc::gettext("Loaded map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
                     ed.note = buffer;
                 }
                 else
                 {
-                    ed.note = "[ ERROR: Could not load level ]";
+                    ed.note = loc::gettext("ERROR: Could not load level");
                 }
                 ed.notedelay = 45;
                 break;
@@ -2392,13 +2392,13 @@ void editorinput(void)
                 std::string savestring = ed.filename + ".vvvvvv";
                 if (cl.save(savestring))
                 {
-                    char buffer[64];
-                    SDL_snprintf(buffer, sizeof(buffer), "[ Saved map: %s.vvvvvv ]", ed.filename.c_str());
+                    char buffer[3*SCREEN_WIDTH_CHARS + 1];
+                    vformat_buf(buffer, sizeof(buffer), loc::gettext("Saved map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
                     ed.note = buffer;
                 }
                 else
                 {
-                    ed.note = "[ ERROR: Could not save level! ]";
+                    ed.note = loc::gettext("ERROR: Could not save level!");
                     ed.saveandquit = false;
                 }
                 ed.notedelay = 45;
@@ -2638,7 +2638,14 @@ void editorinput(void)
                 if(cl.mapheight<1) cl.mapheight=1;
                 if(cl.mapwidth>=cl.maxwidth) cl.mapwidth=cl.maxwidth;
                 if(cl.mapheight>=cl.maxheight) cl.mapheight=cl.maxheight;
-                ed.note = "Mapsize is now [" + help.String(cl.mapwidth) + "," + help.String(cl.mapheight) + "]";
+                char buffer[3*SCREEN_WIDTH_CHARS + 1];
+                vformat_buf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("Mapsize is now [{width},{height}]"),
+                    "width:int, height:int",
+                    cl.mapwidth, cl.mapheight
+                );
+                ed.note = buffer;
                 ed.notedelay=45;
             }
 
@@ -2693,7 +2700,7 @@ void editorinput(void)
                 if(cl.getroomprop(ed.levx, ed.levy)->directmode==1)
                 {
                     cl.setroomdirectmode(ed.levx, ed.levy, 0);
-                    ed.note="Direct Mode Disabled";
+                    ed.note=loc::gettext("Direct Mode Disabled");
                     /* Kludge fix for rainbow BG here... */
                     if (cl.getroomprop(ed.levx, ed.levy)->tileset == 2
                     && cl.getroomprop(ed.levx, ed.levy)->tilecol == 6)
@@ -2704,7 +2711,7 @@ void editorinput(void)
                 else
                 {
                     cl.setroomdirectmode(ed.levx, ed.levy, 1);
-                    ed.note="Direct Mode Enabled";
+                    ed.note=loc::gettext("Direct Mode Enabled");
                 }
                 graphics.backgrounddrawn=false;
 
@@ -2739,13 +2746,13 @@ void editorinput(void)
             if(key.keymap[SDLK_e])
             {
                 ed.keydelay = 6;
-                ed.getlin(TEXT_ROOMNAME, "Enter new room name:", const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
+                ed.getlin(TEXT_ROOMNAME, loc::gettext("Enter new room name:"), const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
                 game.mapheld=true;
             }
             if (key.keymap[SDLK_g])
             {
                 ed.keydelay = 6;
-                ed.getlin(TEXT_GOTOROOM, "Enter room coordinates x,y:", NULL);
+                ed.getlin(TEXT_GOTOROOM, loc::gettext("Enter room coordinates x,y:"), NULL);
                 game.mapheld=true;
             }
 
@@ -2753,14 +2760,14 @@ void editorinput(void)
             if(key.keymap[SDLK_s])
             {
                 ed.keydelay = 6;
-                ed.getlin(TEXT_SAVE, "Enter map filename to save map as:", &(ed.filename));
+                ed.getlin(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
                 game.mapheld=true;
             }
 
             if(key.keymap[SDLK_l])
             {
                 ed.keydelay = 6;
-                ed.getlin(TEXT_LOAD, "Enter map filename to load:", &(ed.filename));
+                ed.getlin(TEXT_LOAD, loc::gettext("Enter map filename to load:"), &(ed.filename));
                 game.mapheld=true;
             }
 
@@ -2809,7 +2816,7 @@ void editorinput(void)
 
                     if(testeditor==-1)
                     {
-                        ed.note="ERROR: No checkpoint to spawn at";
+                        ed.note=loc::gettext("ERROR: No checkpoint to spawn at");
                         ed.notedelay=45;
                     }
                     else
@@ -2970,7 +2977,7 @@ void editorinput(void)
                                 ed.textent=customentities.size();
                                 addedentity((ed.boundx1/8)+(ed.levx*40),(ed.boundy1/8)+ (ed.levy*30),19,
                                             (ed.boundx2-ed.boundx1)/8, (ed.boundy2-ed.boundy1)/8);
-                                ed.getlin(TEXT_SCRIPT, "Enter script name:", &(customentities[ed.textent].scriptname));
+                                ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
                                 ed.lclickdelay=1;
                             }
                             else if(ed.boundarytype==1)
@@ -3247,7 +3254,7 @@ void editorinput(void)
                                 ed.lclickdelay=1;
                                 ed.textent=customentities.size();
                                 addedentity(ed.tilex+ (ed.levx*40),ed.tiley+ (ed.levy*30),17);
-                                ed.getlin(TEXT_ROOMTEXT, "Enter roomtext:", &(customentities[ed.textent].scriptname));
+                                ed.getlin(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[ed.textent].scriptname));
                             }
                             else if(ed.drawmode==12)   //Script Trigger
                             {
@@ -3269,7 +3276,7 @@ void editorinput(void)
                                 }
                                 else
                                 {
-                                    ed.note="ERROR: Max number of trinkets is 100";
+                                    ed.note=loc::gettext("ERROR: Max number of trinkets is 100");
                                     ed.notedelay=45;
                                 }
                             }
@@ -3308,7 +3315,7 @@ void editorinput(void)
                                 ed.lclickdelay=1;
                                 ed.textent=customentities.size();
                                 addedentity(ed.tilex+(ed.levx*40),ed.tiley+ (ed.levy*30),18,0);
-                                ed.getlin(TEXT_SCRIPT, "Enter script name:", &(customentities[ed.textent].scriptname));
+                                ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
                             }
                             else if(ed.drawmode==13)
                             {
@@ -3338,7 +3345,7 @@ void editorinput(void)
                                 }
                                 else
                                 {
-                                    ed.note="ERROR: Warp lines must be on edges";
+                                    ed.note=loc::gettext("ERROR: Warp lines must be on edges");
                                     ed.notedelay=45;
                                 }
                                 ed.lclickdelay=1;
@@ -3352,7 +3359,7 @@ void editorinput(void)
                                 }
                                 else
                                 {
-                                    ed.note="ERROR: Max number of crewmates is 100";
+                                    ed.note=loc::gettext("ERROR: Max number of crewmates is 100");
                                     ed.notedelay=45;
                                 }
                             }
@@ -3419,7 +3426,7 @@ void editorinput(void)
                         }
                         else if(customentities[tmp].t==17)
                         {
-                            ed.getlin(TEXT_ROOMTEXT, "Enter roomtext:", &(customentities[tmp].scriptname));
+                            ed.getlin(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[tmp].scriptname));
                             ed.textent=tmp;
                             ed.lclickdelay=1;
                         }
@@ -3427,7 +3434,7 @@ void editorinput(void)
                         {
                             ed.lclickdelay=1;
                             ed.textent=tmp;
-                            ed.getlin(TEXT_SCRIPT, "Enter script name:", &(customentities[ed.textent].scriptname));
+                            ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
                             if (customentities[tmp].t == 18
                             && (customentities[tmp].p1 == 0 || customentities[tmp].p1 == 1))
                             {
@@ -4240,8 +4247,13 @@ void editorclass::switch_tileset(const bool reversed)
 
     clamp_tilecol(levx, levy, false);
 
-    char buffer[64];
-    vformat_buf(buffer, sizeof(buffer), "Now using {area} Tileset", "area:str", tilesets[tiles]);
+    char buffer[3*SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(
+        buffer, sizeof(buffer),
+        loc::gettext("Now using {area} Tileset"),
+        "area:str",
+        loc::gettext(tilesets[tiles])
+    );
 
     note = buffer;
     notedelay = 45;
@@ -4266,7 +4278,7 @@ void editorclass::switch_tilecol(const bool reversed)
     clamp_tilecol(levx, levy, true);
 
     notedelay = 45;
-    note = "Tileset Colour Changed";
+    note = loc::gettext("Tileset Colour Changed");
     updatetiles = true;
 }
 
@@ -4339,7 +4351,7 @@ void editorclass::switch_enemy(const bool reversed)
     enemy = POS_MOD(enemy, modulus);
     cl.setroomenemytype(levx, levy, enemy);
 
-    note = "Enemy Type Changed";
+    note = loc::gettext("Enemy Type Changed");
     notedelay = 45;
 }
 
@@ -4365,16 +4377,16 @@ void editorclass::switch_warpdir(const bool reversed)
     switch (warpdir)
     {
     default:
-        note = "Room warping disabled";
+        note = loc::gettext("Room warping disabled");
         break;
     case 1:
-        note = "Room warps horizontally";
+        note = loc::gettext("Room warps horizontally");
         break;
     case 2:
-        note = "Room warps vertically";
+        note = loc::gettext("Room warps vertically");
         break;
     case 3:
-        note = "Room warps in all directions";
+        note = loc::gettext("Room warps in all directions");
         break;
     }
 
