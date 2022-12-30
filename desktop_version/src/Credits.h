@@ -8,7 +8,7 @@ namespace Credits {
 /* Terry's Patrons... */
 static const char* superpatrons[] = {
     "Anders Ekermo",
-    "Andreas K|mper",
+    "Andreas Kämper",
     "Anthony Burch",
     "Bennett Foddy",
     "Brendan O'Sullivan",
@@ -29,8 +29,8 @@ static const char* superpatrons[] = {
 
 static const char* patrons[] = {
     "Adam Wendt",
-    "Andreas J{rgensen",
-    "}ngel Louzao Penalva",
+    "Andreas Jörgensen",
+    "Ángel Louzao Penalva",
     "Ashley Burton",
     "Aubrey Hesselgren",
     "Bradley Rose",
@@ -63,7 +63,7 @@ static const char* patrons[] = {
     "Joshua Buergel",
     "Joshua Hochner",
     "Kurt Ostfeld",
-    "Magnus P~lsson",
+    "Magnus Pålsson",
     "Mark Neschadimenko",
     "Matt Antonellis",
     "Matthew Reppert",
@@ -90,7 +90,7 @@ static const char* githubfriends[] = {
     "AllyTally",
     "Brian Callahan",
     "Charlie Bruce",
-    "Christoph B{hmwalder",
+    "Christoph Böhmwalder",
     "Daniel Lee",
     "Dav999",
     "Elijah Stone",
@@ -109,8 +109,8 @@ static const char* githubfriends[] = {
     "Nichole Mattera",
     "Pierre-Alain TORET",
     "Reese Rivers",
-    "Remi Verschelde", // TODO: Change to "Rémi" if/when UTF-8 support is added
-    "Thomas S|nger",
+    "Rémi Verschelde",
+    "Thomas Sänger",
     "Tynan Richards",
     "Wouter",
     "viri",
