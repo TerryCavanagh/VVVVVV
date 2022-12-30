@@ -382,6 +382,7 @@ void scriptclass::loadother(const char* t)
         "speak_active",
 
         "squeak(player)",
+        "textcase(1)",
         "text(cyan,0,0,1)",
         "Yes!",
         "position(player,above)",
@@ -399,6 +400,7 @@ void scriptclass::loadother(const char* t)
         "speak_active",
 
         "squeak(player)",
+        "textcase(2)",
         "text(cyan,0,0,1)",
         "Yes!",
         "position(player,above)",
