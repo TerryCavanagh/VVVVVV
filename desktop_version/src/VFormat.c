@@ -74,7 +74,7 @@ static inline void call_with_upper(format_callback callback, void* userdata, con
     utf8[bytes] = '\0';
 
     PHYSFS_utf8ToUcs4(utf8, utf32, conv_bytes*4);
-    utf32[0] = SDL_toupper(utf32[0]); /* FIXME: use loc::toupper_ch in localization branch */
+    utf32[0] = LOC_toupper_ch(utf32[0]);
     PHYSFS_utf8FromUcs4(utf32, utf8, conv_bytes);
 
     callback(userdata, utf8, SDL_strlen(utf8));
