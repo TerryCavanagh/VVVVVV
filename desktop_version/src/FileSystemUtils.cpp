@@ -454,20 +454,16 @@ const char* FILESYSTEM_getLevelDirError(void)
     return levelDirError;
 }
 
-static int setLevelDirError(const char* text, ...)
+static void setLevelDirError(const char* text, const char* args_index, ...)
 {
-    va_list list;
-    int retval;
-
     levelDirHasError = true;
 
-    va_start(list, text);
-    retval = SDL_vsnprintf(levelDirError, sizeof(levelDirError), text, list);
+    va_list list;
+    va_start(list, args_index);
+    vformat_buf_valist(levelDirError, sizeof(levelDirError), text, args_index, list);
     va_end(list);
 
     vlog_error("%s", levelDirError);
-
-    return retval;
 }
 
 static bool FILESYSTEM_mountAssetsFrom(const char *fname)
@@ -478,7 +474,8 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
     if (real_dir == NULL)
     {
         setLevelDirError(
-            "Could not mount %s: real directory doesn't exist",
+            loc::gettext("Could not mount {path}: real directory doesn't exist"),
+            "path:str",
             fname
         );
         return false;
