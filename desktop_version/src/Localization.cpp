@@ -4,6 +4,7 @@
 
 #include <utf8/unchecked.h>
 
+#include "Alloc.h"
 #include "Game.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
@@ -69,7 +70,7 @@ const char* gettext_case(const char* eng, char textcase)
     }
 
     const char* tra = map_lookup_text(map_translation, eng_prefixed, eng);
-    SDL_free(eng_prefixed);
+    VVV_free(eng_prefixed);
     return tra;
 }
 
@@ -93,7 +94,7 @@ const char* gettext_plural(const char* eng_plural, const char* eng_singular, int
         {
             const char* tra = map_lookup_text(map_translation_plural, key, NULL);
 
-            SDL_free(key);
+            VVV_free(key);
 
             if (tra != NULL)
             {
@@ -180,7 +181,7 @@ const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::s
     found = hashmap_get(cutscene_map, (void*) key, alloc_len-1, &ptr_format);
     const TextboxFormat* format = (TextboxFormat*) ptr_format;
 
-    SDL_free(key);
+    VVV_free(key);
 
     if (!found)
     {

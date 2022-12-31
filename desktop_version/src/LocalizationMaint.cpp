@@ -4,6 +4,7 @@
 
 #include <tinyxml2.h>
 
+#include "Alloc.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
 #include "Script.h"
@@ -110,7 +111,7 @@ static void sync_lang_file(const std::string& langcode)
                         eng_prefixed,
                         map_lookup_text(map_translation, eng, "")
                     );
-                    SDL_free(eng_prefixed);
+                    VVV_free(eng_prefixed);
                 }
 
                 pElem->SetAttribute("translation", tra);
@@ -156,7 +157,7 @@ static void sync_lang_file(const std::string& langcode)
 
                     subElem->SetAttribute("translation", map_lookup_text(map_translation_plural, key, ""));
 
-                    SDL_free(key);
+                    VVV_free(key);
                 }
             }
         }
@@ -209,7 +210,7 @@ static void sync_lang_file(const std::string& langcode)
                 found = hashmap_get(cutscene_map, (void*) eng_prefixed, alloc_len-1, &ptr_format);
                 const TextboxFormat* format = (TextboxFormat*) ptr_format;
 
-                SDL_free(eng_prefixed);
+                VVV_free(eng_prefixed);
 
                 if (!found || format == NULL)
                 {

@@ -2,6 +2,7 @@
 #include "Localization.h"
 #include "LocalizationStorage.h"
 
+#include "Alloc.h"
 #include "Constants.h"
 #include "CustomLevels.h"
 #include "FileSystemUtils.h"
@@ -195,7 +196,7 @@ void unloadtext_custom(void)
 
     loc::lang_custom = "";
 
-    SDL_free(custom_level_path);
+    VVV_free(custom_level_path);
     custom_level_path = NULL;
 }
 
@@ -276,7 +277,7 @@ static bool parse_max(const char* max, unsigned short* max_w, unsigned short* ma
     }
     *max_w = (unsigned short) help.Int(max_mut, 0);
 
-    SDL_free(max_mut);
+    VVV_free(max_mut);
 
     return *max_w != 0 && *max_h != 0;
 }
@@ -439,7 +440,7 @@ static void loadtext_strings(bool check_max)
                 eng_prefixed,
                 tra
             );
-            SDL_free(eng_prefixed);
+            VVV_free(eng_prefixed);
         }
 
         /* Only tally an untranslated string if English isn't blank */
@@ -453,7 +454,7 @@ static void loadtext_strings(bool check_max)
              * (max_check_string ignores NULL strings.) */
             char* filled = vformat_alloc(tra, "_:int", 0);
             max_check_string(filled, pElem->Attribute("max"));
-            SDL_free(filled);
+            VVV_free(filled);
         }
     }
 }
@@ -498,7 +499,7 @@ static void loadtext_strings_plural(bool check_max)
                 subElem->Attribute("translation")
             );
 
-            SDL_free(key);
+            VVV_free(key);
 
             tally_untranslated(subElem->Attribute("translation"), &n_untranslated[UNTRANSLATED_STRINGS_PLURAL]);
             if (check_max)
@@ -658,7 +659,7 @@ static void loadtext_cutscenes(bool custom_level)
             }
             const char* tb_eng = textbook_store(textbook, eng_prefixed);
             const char* tb_tra = textbook_store(textbook, tra);
-            SDL_free(eng_prefixed);
+            VVV_free(eng_prefixed);
             if (tb_eng == NULL || tb_tra == NULL)
             {
                 continue;
@@ -1071,7 +1072,7 @@ char* add_disambiguator(char disambiguator, const char* original_string, size_t*
     /* Create a version of the string prefixed with the given byte.
      * This byte is used when the English string is just not enough to identify the correct translation.
      * It's needed to store plural forms, and when the same text appears multiple times in a cutscene.
-     * Caller must SDL_free. */
+     * Caller must VVV_free. */
 
     size_t alloc_len = 1+SDL_strlen(original_string)+1;
 
