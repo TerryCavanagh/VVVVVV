@@ -1499,7 +1499,7 @@ void Game::updatestate(void)
             if (translator_exploring)
             {
                 translator_exploring_allowtele = true;
-                state = 0;
+                setstate(0);
                 break;
             }
             hascontrol = false;
@@ -2323,7 +2323,7 @@ void Game::updatestate(void)
 
             if (translator_exploring_allowtele)
             {
-                state = 3090;
+                setstate(3090);
             }
 
             int i = obj.getplayer();
@@ -2730,17 +2730,17 @@ void Game::updatestate(void)
             supercrewmate = false;
             graphics.fademode = FADE_START_FADEOUT;
             music.fadeout();
-            state=3100;
+            setstate(3100);
             break;
         case 3091:
             /* Different Final Level ending for translator_exploring */
             music.fadeout();
-            state++;
-            statedelay = 60;
+            incstate();
+            setstatedelay(60);
             break;
         case 3092:
             graphics.fademode = FADE_START_FADEOUT;
-            state=3100;
+            setstate(3100);
             break;
 
         case 3100:
