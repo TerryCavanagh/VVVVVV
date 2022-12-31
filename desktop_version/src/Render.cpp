@@ -58,7 +58,7 @@ static inline void drawslowdowntext(const int y)
 
 static void volumesliderrender(void)
 {
-    char buffer[40 + 1];
+    char buffer[SCREEN_WIDTH_CHARS + 1];
 
     char slider[20 + 1];
     int slider_length;
@@ -106,10 +106,10 @@ static void volumesliderrender(void)
     else
     {
         /* Draw selection brackets. */
-        SDL_snprintf(buffer, sizeof(buffer), "[ %s ]", slider);
+        vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", slider);
     }
 
-    graphics.Print(-1, 85, buffer, tr, tg, tb, true);
+    graphics.Print(-1, 95, buffer, tr, tg, tb, true);
 }
 
 static void inline drawglitchrunnertext(const int y)
@@ -2877,7 +2877,7 @@ void teleporterrender(void)
         );
 
         //Instructions!
-        graphics.Print(5, 210, "Press Left/Right to choose a Teleporter", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        graphics.Print(5, 210, loc::gettext("Press Left/Right to choose a Teleporter"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
         graphics.Print(5, 225, final_string, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
 
@@ -2885,11 +2885,11 @@ void teleporterrender(void)
 
     if (graphics.flipmode)
     {
-        if (game.advancetext) graphics.bprint(5, 228, "- Press ACTION to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        if (game.advancetext) graphics.bprint(5, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
     else
     {
-        if (game.advancetext) graphics.bprint(5, 5, "- Press ACTION to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        if (game.advancetext) graphics.bprint(5, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
 
 
