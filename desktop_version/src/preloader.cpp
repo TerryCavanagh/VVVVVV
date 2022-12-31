@@ -1,8 +1,11 @@
+#include "Constants.h"
 #include "Enums.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "Localization.h"
 #include "KeyPoll.h"
 #include "UtilityClass.h"
+#include "VFormat.h"
 
 static int pre_fakepercent=0, pre_transition=30;
 static bool pre_startgame=false;
@@ -51,6 +54,8 @@ void preloaderrenderfixed(void)
 
 void preloaderrender(void)
 {
+  bool print_percentage = false;
+
   if(pre_transition>=30){
     switch(pre_curcol) {
     case 0:
@@ -97,11 +102,7 @@ void preloaderrender(void)
 
     FillRect(graphics.backBuffer, pre_frontrectx, pre_frontrecty, pre_frontrectw,pre_frontrecth, graphics.getRGB(0x3E,0x31,0xA2));
 
-    if(pre_fakepercent==100){
-      graphics.Print(282-(15*8), 204, "LOADING... " + help.String(int(pre_fakepercent))+"%", 124, 112, 218, false);
-    }else{
-      graphics.Print(282-(14*8), 204, "LOADING... " + help.String(int(pre_fakepercent))+"%", 124, 112, 218, false);
-    }
+    print_percentage = true;
 
     //Render
     if (pre_startgame) {
@@ -117,7 +118,20 @@ void preloaderrender(void)
     ClearSurface(graphics.backBuffer);
     FillRect(graphics.backBuffer, pre_frontrectx, pre_frontrecty, pre_frontrectw,pre_frontrecth, graphics.getRGB(0x3E,0x31,0xA2));
 
-    graphics.Print(282-(15*8), 204, "LOADING... 100%", 124, 112, 218, false);
+    print_percentage = true;
+  }
+
+  if (print_percentage) {
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(
+      buffer, sizeof(buffer),
+      loc::gettext("LOADING... {percent|digits=2|spaces}%"),
+      "percent:int",
+      pre_fakepercent
+    );
+
+    int percentage_len = graphics.len(buffer);
+    graphics.Print(282-percentage_len, 204, buffer, 124, 112, 218, false);
   }
 
   graphics.drawfade();
