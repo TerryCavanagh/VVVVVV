@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 
+#include "Alloc.h"
 #include "Vlogging.h"
 
 void textbook_init(Textbook* textbook)
@@ -19,7 +20,7 @@ void textbook_clear(Textbook* textbook)
 
     for (short p = 0; p < textbook->pages_used; p++)
     {
-        SDL_free(textbook->page[p]);
+        VVV_free(textbook->page[p]);
     }
     textbook->pages_used = 0;
 }
