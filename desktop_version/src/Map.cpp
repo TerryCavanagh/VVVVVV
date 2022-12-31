@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "Localization.h"
 #include "MakeAndPlay.h"
 #include "Music.h"
 #include "Script.h"
@@ -1348,43 +1349,43 @@ const char* mapclass::currentarea(int t)
     switch(t)
     {
     case 0:
-        return "Dimension VVVVVV";
+        return loc::gettext_roomname_special("Dimension VVVVVV");
         break;
     case 1:
-        return "Dimension VVVVVV";
+        return loc::gettext_roomname_special("Dimension VVVVVV");
         break;
     case 2:
-        return "Laboratory";
+        return loc::gettext_roomname_special("Laboratory");
         break;
     case 3:
-        return "The Tower";
+        return loc::gettext_roomname_special("The Tower");
         break;
     case 4:
-        return "Warp Zone";
+        return loc::gettext_roomname_special("Warp Zone");
         break;
     case 5:
-        return "Space Station";
+        return loc::gettext_roomname_special("Space Station");
         break;
     case 6:
-        return "Outside Dimension VVVVVV";
+        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
         break;
     case 7:
-        return "Outside Dimension VVVVVV";
+        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
         break;
     case 8:
-        return "Outside Dimension VVVVVV";
+        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
         break;
     case 9:
-        return "Outside Dimension VVVVVV";
+        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
         break;
     case 10:
-        return "Outside Dimension VVVVVV";
+        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
         break;
     case 11:
-        return "The Tower";
+        return loc::gettext_roomname_special("The Tower");
         break;
     }
-    return "???";
+    return loc::gettext_roomname_special("???");
 }
 
 static void copy_short_to_int(int* dest, const short* src, const size_t size)

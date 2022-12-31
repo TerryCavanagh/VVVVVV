@@ -4100,33 +4100,33 @@ void Game::gethardestroom(void)
     if (currentroomdeaths > hardestroomdeaths)
     {
         hardestroomdeaths = currentroomdeaths;
-        hardestroom = map.roomname;
+        hardestroom = loc::gettext_roomname(map.custommode, roomx, roomy, map.roomname, map.roomname_special);
         if (SDL_strcmp(map.roomname, "glitch") == 0)
         {
             if (roomx == 42 && roomy == 51)
             {
-                hardestroom = "Rear Vindow";
+                hardestroom = loc::gettext_roomname_special("Rear Vindow");
             }
             else if (roomx == 48 && roomy == 51)
             {
-                hardestroom = "On the Vaterfront";
+                hardestroom = loc::gettext_roomname_special("On the Vaterfront");
             }
             else if (roomx == 49 && roomy == 51)
             {
-                hardestroom = "The Untouchavles";
+                hardestroom = loc::gettext_roomname_special("The Untouchavles");
             }
         }
         else if (SDL_strcmp(map.roomname, "change") == 0)
         {
-            if (roomx == 45 && roomy == 51) hardestroom =map.specialnames[3];
-            if (roomx == 46 && roomy == 51) hardestroom =map.specialnames[4];
-            if (roomx == 47 && roomy == 51) hardestroom =map.specialnames[5];
-            if (roomx == 50 && roomy == 53) hardestroom =map.specialnames[6];
-            if (roomx == 50 && roomy == 54) hardestroom = map.specialnames[7];
+            if (roomx == 45 && roomy == 51) hardestroom = loc::gettext_roomname_special(map.specialnames[3]);
+            if (roomx == 46 && roomy == 51) hardestroom = loc::gettext_roomname_special(map.specialnames[4]);
+            if (roomx == 47 && roomy == 51) hardestroom = loc::gettext_roomname_special(map.specialnames[5]);
+            if (roomx == 50 && roomy == 53) hardestroom = loc::gettext_roomname_special(map.specialnames[6]);
+            if (roomx == 50 && roomy == 54) hardestroom = loc::gettext_roomname_special(map.specialnames[7]);
         }
         else if (map.roomname[0] == '\0')
         {
-            hardestroom = map.hiddenname;
+            hardestroom = loc::gettext_roomname_special(map.hiddenname);
         }
     }
 }

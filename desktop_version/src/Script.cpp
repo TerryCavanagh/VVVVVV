@@ -3046,7 +3046,7 @@ void scriptclass::hardreset(void)
     game.timetrialcheater = false;
 
     game.totalflips = 0;
-    game.hardestroom = "Welcome Aboard";
+    game.hardestroom = loc::gettext_roomname(false, 13, 5, "Welcome Aboard", false);
     game.hardestroomdeaths = 0;
     game.currentroomdeaths=0;
 
