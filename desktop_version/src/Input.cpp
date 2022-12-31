@@ -2926,7 +2926,7 @@ static void mapmenuactionpress(const bool version2_2)
         game.savearea = map.currentarea(map.area(game.roomx, game.roomy));
         game.savetrinkets = game.trinkets();
 
-        if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = "The Ship";
+        if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = loc::gettext_roomname_special("The Ship");
 
         bool success;
 #if !defined(NO_CUSTOM_LEVELS)
