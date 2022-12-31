@@ -196,6 +196,14 @@ void KeyPoll::Poll(void)
                         VVV_free(text);
                     }
                 }
+                else if (    evt.key.keysym.sym == SDLK_x &&
+                        keymap[SDLK_LCTRL]    )
+                {
+                    if (SDL_SetClipboardText(keybuffer.c_str()) == 0)
+                    {
+                        keybuffer = "";
+                    }
+                }
             }
             break;
         }
