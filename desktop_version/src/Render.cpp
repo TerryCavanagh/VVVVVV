@@ -1842,10 +1842,12 @@ void gamerender(void)
     && game.showingametimer
     && !roomname_translator::enabled)
     {
+        const char* tempstring = loc::gettext("TIME:");
+        int label_len = graphics.len(tempstring);
+        graphics.bprint(6, 6, tempstring,  255,255,255);
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        graphics.bprint(6, 6, "TIME:",  255,255,255);
         game.timestringcenti(buffer, sizeof(buffer));
-        graphics.bprint(46, 6, buffer,  196, 196, 196);
+        graphics.bprint(6+label_len, 6, buffer,  196, 196, 196);
     }
 
     bool force_roomname_hidden = false;
@@ -1887,7 +1889,7 @@ void gamerender(void)
      if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
         int alpha = graphics.lerp(ed.oldreturneditoralpha, ed.returneditoralpha);
-        graphics.bprintalpha(5, 5, "[Press ENTER to return to editor]", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), alpha, false);
+        graphics.bprintalpha(5, 5, loc::gettext("[Press ENTER to return to editor]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), alpha, false);
       }
 #endif
 
@@ -1899,11 +1901,11 @@ void gamerender(void)
     graphics.drawgui();
     if (graphics.flipmode)
     {
-        if (game.advancetext) graphics.bprint(5, 228, "- Press ACTION to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        if (game.advancetext) graphics.bprint(5, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
     else
     {
-        if (game.advancetext) graphics.bprint(5, 5, "- Press ACTION to advance text -", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        if (game.advancetext) graphics.bprint(5, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
 
     if (game.readytotele > 100 || game.oldreadytotele > 100)
@@ -1931,49 +1933,51 @@ void gamerender(void)
             if (game.swnmessage == 0)
             {
                 std::string tempstring = help.timestring(game.swntimer);
-                graphics.bprint( 10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                graphics.bprint( 10, 10, loc::gettext("Current Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
-                graphics.bprint( 240, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                const char* besttimelabel = loc::gettext("Best Time");
+                graphics.bprint( 320-graphics.len(besttimelabel)-8, 10, besttimelabel, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbrprint( 300, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
 
                 switch(game.swnbestrank)
                 {
                 case 0:
-                    graphics.bprint( -1, 204, "Next Trophy at 5 seconds", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+                    graphics.PrintWrap( -1, 204, loc::gettext("Next Trophy at 5 seconds"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                     break;
                 case 1:
-                    graphics.bprint( -1, 204, "Next Trophy at 10 seconds", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+                    graphics.PrintWrap( -1, 204, loc::gettext("Next Trophy at 10 seconds"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                     break;
                 case 2:
-                    graphics.bprint( -1, 204, "Next Trophy at 15 seconds", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+                    graphics.PrintWrap( -1, 204, loc::gettext("Next Trophy at 15 seconds"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                     break;
                 case 3:
-                    graphics.bprint( -1, 204, "Next Trophy at 20 seconds", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+                    graphics.PrintWrap( -1, 204, loc::gettext("Next Trophy at 20 seconds"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                     break;
                 case 4:
-                    graphics.bprint( -1, 204, "Next Trophy at 30 seconds", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+                    graphics.PrintWrap( -1, 204, loc::gettext("Next Trophy at 30 seconds"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                     break;
                 case 5:
-                    graphics.bprint( -1, 204, "Next Trophy at 1 minute", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+                    graphics.PrintWrap( -1, 204, loc::gettext("Next Trophy at 1 minute"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                     break;
                 case 6:
-                    graphics.bprint( -1, 204, "All Trophies collected!", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+                    graphics.Print( -1, 204, loc::gettext("All Trophies collected!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                     break;
                 }
             }
             else if (game.swnmessage == 1)
             {
                 std::string tempstring = help.timestring(game.swntimer);
-                graphics.bprint( 10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                graphics.bprint( 10, 10, loc::gettext("Current Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
                 if (int(game.deathseq / 5) % 2 == 1)
                 {
-                    graphics.bprint( 240, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                    const char* besttimelabel = loc::gettext("Best Time");
+                    graphics.bprint( 320-graphics.len(besttimelabel)-8, 10, besttimelabel, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                     graphics.bigbrprint( 300, 24, tempstring, 128 - (help.glow), 220 - (help.glow), 128 - (help.glow / 2), false, 2);
 
-                    graphics.bigbprint( -1, 200, "New Record!", 128 - (help.glow), 220 - (help.glow), 128 - (help.glow / 2), true, 2);
+                    graphics.bigbprint( -1, 200, loc::gettext("New Record!"), 128 - (help.glow), 220 - (help.glow), 128 - (help.glow / 2), true, 2);
                 }
             }
             else if (game.swnmessage >= 2)
@@ -1981,19 +1985,20 @@ void gamerender(void)
                 game.swnmessage--;
                 if (game.swnmessage == 2) game.swnmessage = 0;
                 std::string tempstring = help.timestring(game.swntimer);
-                graphics.bprint( 10, 10, "Current Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                graphics.bprint( 10, 10, loc::gettext("Current Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
                 tempstring = help.timestring(game.swnrecord);
-                graphics.bprint( 240, 10, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
+                const char* besttimelabel = loc::gettext("Best Time");
+                graphics.bprint( 320-graphics.len(besttimelabel)-8, 10, besttimelabel, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
                 graphics.bigbrprint( 300, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
 
                 if (int(game.swnmessage / 5) % 2 == 1)
                 {
-                    graphics.bigbprint( -1, 200, "New Trophy!", 220 - (help.glow), 128 - (help.glow), 128 - (help.glow / 2), true, 2);
+                    graphics.bigbprint( -1, 200, loc::gettext("New Trophy!"), 220 - (help.glow), 128 - (help.glow), 128 - (help.glow / 2), true, 2);
                 }
             }
 
-            graphics.bprint( 20, 228, "[Press ENTER to stop]", 160 - (help.glow/2), 160 - (help.glow/2), 160 - (help.glow/2), true);
+            graphics.bprint( 20, 228, loc::gettext("[Press ENTER to stop]"), 160 - (help.glow/2), 160 - (help.glow/2), 160 - (help.glow/2), true);
         }
         else if(game.swngame==2)
         {
@@ -2011,24 +2016,24 @@ void gamerender(void)
                     y1 = 10;
                     y2 = 30;
                 }
-                graphics.bigbprint( -1, y1, "Survive for", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
-                graphics.bigbprint( -1, y2, "60 seconds!", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                graphics.bigbprint( -1, y1, loc::gettext("Survive for"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                graphics.bigbprint( -1, y2, loc::gettext("60 seconds!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
             }
         }
         else if(game.swngame==7)
         {
             if (game.swndelay >= 60)
             {
-                graphics.bigbprint( -1, 20, "SUPER GRAVITRON", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                graphics.bigbprint( -1, 20, loc::gettext("SUPER GRAVITRON"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
 
                 std::string tempstring = help.timestring(game.swnrecord);
-                graphics.bprint( 240, 190, "Best Time", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+                graphics.bprint( 240, 190, loc::gettext("Best Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
                 graphics.bigbrprint( 300, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
             }
             else    if (int(game.swndelay / 10) % 2 == 1)
             {
-                graphics.bigbprint( -1, 20, "SUPER GRAVITRON", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
-                graphics.bigbprint( -1, 200, "GO!", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 3);
+                graphics.bigbprint( -1, 20, loc::gettext("SUPER GRAVITRON"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                graphics.bigbprint( -1, 200, loc::gettext("GO!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 3);
             }
         }
     }
@@ -2040,7 +2045,7 @@ void gamerender(void)
         {
             if (game.timetrialcountdown < 30)
             {
-                if (int(game.timetrialcountdown / 4) % 2 == 0) graphics.bigbprint( -1, 100, "Go!", 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
+                if (int(game.timetrialcountdown / 4) % 2 == 0) graphics.bigbprint( -1, 100, loc::gettext("Go!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 4);
             }
             else if (game.timetrialcountdown < 60)
             {
@@ -2061,43 +2066,57 @@ void gamerender(void)
             game.timestringcenti(buffer, sizeof(buffer));
 
             //Draw OSD stuff
-            graphics.bprint(6, 18, "TIME :",  255,255,255);
-            graphics.bprint(6, 30, "DEATH:",  255, 255, 255);
-            graphics.bprint(6, 42, "SHINY:",  255,255,255);
+            const char* tempstring = loc::gettext("TIME:");
+            int label_len = graphics.len(tempstring);
+            graphics.bprint(6, 18, tempstring,  255,255,255);
+            tempstring = loc::gettext("DEATH:");
+            label_len = SDL_max(label_len, graphics.len(tempstring));
+            graphics.bprint(6, 30, tempstring,  255, 255, 255);
+            tempstring = loc::gettext("SHINY:");
+            label_len = SDL_max(label_len, graphics.len(tempstring));
+            graphics.bprint(6, 42, tempstring,  255,255,255);
 
             if(game.timetrialparlost)
             {
-                graphics.bprint(56, 18, buffer,  196, 80, 80);
+                graphics.bprint(8+label_len, 18, buffer,  196, 80, 80);
             }
             else
             {
-                graphics.bprint(56, 18, buffer,  196, 196, 196);
+                graphics.bprint(8+label_len, 18, buffer,  196, 196, 196);
             }
             if(game.deathcounts>0)
             {
-                graphics.bprint(56, 30,help.String(game.deathcounts),  196, 80, 80);
+                graphics.bprint(8+label_len, 30,help.String(game.deathcounts),  196, 80, 80);
             }
             else
             {
-                graphics.bprint(56, 30,help.String(game.deathcounts),  196, 196, 196);
+                graphics.bprint(8+label_len, 30,help.String(game.deathcounts),  196, 196, 196);
             }
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("{n_trinkets} of {max_trinkets}"),
+                "n_trinkets:int, max_trinkets:int",
+                game.trinkets(), game.timetrialshinytarget
+            );
             if(game.trinkets()<game.timetrialshinytarget)
             {
-                graphics.bprint(56, 42,help.String(game.trinkets()) + " of " +help.String(game.timetrialshinytarget),  196, 80, 80);
+                graphics.bprint(8+label_len, 42, buffer,  196, 80, 80);
             }
             else
             {
-                graphics.bprint(56, 42,help.String(game.trinkets()) + " of " +help.String(game.timetrialshinytarget),  196, 196, 196);
+                graphics.bprint(8+label_len, 42, buffer,  196, 196, 196);
             }
 
+            tempstring = loc::gettext("PAR TIME:");
+            label_len = graphics.len(tempstring)+8;
             if(game.timetrialparlost)
             {
-                graphics.bprint(195, 214, "PAR TIME:",  80, 80, 80);
+                graphics.bprint(275-label_len, 214, tempstring,  80, 80, 80);
                 graphics.bprint(275, 214, game.timetstring(game.timetrialpar),  80, 80, 80);
             }
             else
             {
-                graphics.bprint(195, 214, "PAR TIME:",  255, 255, 255);
+                graphics.bprint(275-label_len, 214, tempstring,  255, 255, 255);
                 graphics.bprint(275, 214, game.timetstring(game.timetrialpar),  196, 196, 196);
             }
         }
@@ -2121,7 +2140,7 @@ void gamerender(void)
         }
         else
         {
-            graphics.drawtextbox(game.activity_x + 16, game.activity_y + 4, 36, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
+            graphics.drawtextbox(game.activity_x + 4, game.activity_y + 4, 39, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
             graphics.Print(centered_x + game.activity_x, game.activity_y + 12, final_string, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
         }
     }
