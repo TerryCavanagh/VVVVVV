@@ -149,7 +149,7 @@ public:
 
     void printcrewnamedark(int x, int y, int t);
 
-    void map_tab(int opt, const std::string& text, bool selected = false);
+    void map_tab(int opt, const char* text, bool selected = false);
 
     void map_option(int opt, int num_opts, const std::string& text, bool selected = false);
 

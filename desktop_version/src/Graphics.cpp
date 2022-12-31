@@ -443,16 +443,18 @@ bool Graphics::MakeSpriteArray(void)
 #undef PROCESS_TILESHEET_CHECK_ERROR
 
 
-void Graphics::map_tab(int opt, const std::string& text, bool selected /*= false*/)
+void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
 {
-    int x = opt*80 + 40 - len(text)/2;
+    int x = opt*80 + 40;
     if (selected)
     {
-        Print(x-8, 220, "[" + text + "]", 196, 196, 255 - help.glow);
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), "label:str", text);
+        Print(x - len(buffer)/2, 220, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
-        Print(x, 220, text, 64, 64, 64);
+        Print(x - len(text)/2, 220, text, 64, 64, 64);
     }
 }
 
