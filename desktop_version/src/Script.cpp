@@ -1408,7 +1408,7 @@ void scriptclass::run(void)
                 if (map.custommode && !map.custommodeforreal)
                 {
                     game.returntoeditor();
-                    ed.note = "Rolled credits";
+                    ed.note = loc::gettext("Rolled credits");
                     ed.notedelay = 45;
                 }
                 else
@@ -1751,23 +1751,36 @@ void scriptclass::run(void)
 
                 graphics.textboxremovefast();
 
-                graphics.createtextboxflipme("        Congratulations!       ", 50, 85, 174, 174, 174);
-                graphics.addline("");
-                graphics.addline("You have found a shiny trinket!");
+                graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, 174, 174, 174);
+                int h = graphics.textboxwrap(2);
+                graphics.textboxcentertext();
+                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
 
-                std::string usethisnum;
+                int max_trinkets;
+
 #if !defined(NO_CUSTOM_LEVELS)
                 if (map.custommode)
                 {
-                    usethisnum = help.number_words(cl.numtrinkets());
+                    max_trinkets = cl.numtrinkets();
                 }
                 else
 #endif
                 {
-                    usethisnum = "Twenty";
+                    max_trinkets = 20;
                 }
-                graphics.createtextboxflipme(" " + help.number_words(game.trinkets()) + " out of " + usethisnum + " ", 50, 135, 174, 174, 174);
+
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                vformat_buf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("{n_trinkets|wordy} out of {max_trinkets|wordy}"),
+                    "n_trinkets:int, max_trinkets:int",
+                    game.trinkets(), max_trinkets
+                );
+                graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
+                graphics.textboxwrap(2);
+                graphics.textboxcentertext();
+                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
 
                 if (!game.backgroundtext)
@@ -1786,9 +1799,10 @@ void scriptclass::run(void)
 
                 graphics.textboxremovefast();
 
-                graphics.createtextbox("        Congratulations!       ", 50, 85, 174, 174, 174);
-                graphics.addline("");
-                graphics.addline("You have found the secret lab!");
+                graphics.createtextbox(loc::gettext("Congratulations!\n\nYou have found the secret lab!"), 50, 85, 174, 174, 174);
+                graphics.textboxwrap(2);
+                graphics.textboxcentertext();
+                graphics.textboxpad(1, 1);
                 graphics.textboxcenterx();
                 graphics.textboxcentery();
 
@@ -1806,11 +1820,8 @@ void scriptclass::run(void)
             {
                 graphics.textboxremovefast();
 
-                graphics.createtextbox("The secret lab is separate from", 50, 85, 174, 174, 174);
-                graphics.addline("the rest of the game. You can");
-                graphics.addline("now come back here at any time");
-                graphics.addline("by selecting the new SECRET LAB");
-                graphics.addline("option in the play menu.");
+                graphics.createtextbox(loc::gettext("The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu."), 50, 85, 174, 174, 174);
+                graphics.textboxwrap(0);
                 graphics.textboxcenterx();
                 graphics.textboxcentery();
 
