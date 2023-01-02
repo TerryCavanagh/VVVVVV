@@ -189,48 +189,48 @@ void Graphics::create_buffers(const SDL_PixelFormat* fmt)
             fmt->BitsPerPixel, \
             fmt->Rmask, fmt->Gmask, fmt->Bmask, fmt->Amask \
         )
-    backBuffer = CREATE_SURFACE(320, 240);
+    backBuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
     SDL_SetSurfaceBlendMode(backBuffer, SDL_BLENDMODE_NONE);
 
-    footerbuffer = CREATE_SURFACE(320, 10);
+    footerbuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS, 10);
     SDL_SetSurfaceBlendMode(footerbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(footerbuffer, 127);
     FillRect(footerbuffer, 0, 0, 0);
 
-    roomname_translator::dimbuffer = CREATE_SURFACE(320, 240);
+    roomname_translator::dimbuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
     SDL_SetSurfaceBlendMode(roomname_translator::dimbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(roomname_translator::dimbuffer, 96);
     FillRect(roomname_translator::dimbuffer, 0, 0, 0);
 
-    ghostbuffer = CREATE_SURFACE(320, 240);
+    ghostbuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
     SDL_SetSurfaceBlendMode(ghostbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(ghostbuffer, 127);
 
-    foregroundBuffer =  CREATE_SURFACE(320, 240);
+    foregroundBuffer =  CREATE_SURFACE(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
     SDL_SetSurfaceBlendMode(foregroundBuffer, SDL_BLENDMODE_BLEND);
 
-    menubuffer = CREATE_SURFACE(320, 240);
+    menubuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
     SDL_SetSurfaceBlendMode(menubuffer, SDL_BLENDMODE_NONE);
 
-    warpbuffer = CREATE_SURFACE(320 + 16, 240 + 16);
+    warpbuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS + 16, SCREEN_HEIGHT_PIXELS + 16);
     SDL_SetSurfaceBlendMode(warpbuffer, SDL_BLENDMODE_NONE);
 
-    warpbuffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
+    warpbuffer_lerp = CREATE_SURFACE(SCREEN_WIDTH_PIXELS + 16, SCREEN_HEIGHT_PIXELS + 16);
     SDL_SetSurfaceBlendMode(warpbuffer_lerp, SDL_BLENDMODE_NONE);
 
-    towerbg.buffer =  CREATE_SURFACE(320 + 16, 240 + 16);
+    towerbg.buffer =  CREATE_SURFACE(SCREEN_WIDTH_PIXELS + 16, SCREEN_HEIGHT_PIXELS + 16);
     SDL_SetSurfaceBlendMode(towerbg.buffer, SDL_BLENDMODE_NONE);
 
-    towerbg.buffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
+    towerbg.buffer_lerp = CREATE_SURFACE(SCREEN_WIDTH_PIXELS + 16, SCREEN_HEIGHT_PIXELS + 16);
     SDL_SetSurfaceBlendMode(towerbg.buffer_lerp, SDL_BLENDMODE_NONE);
 
-    titlebg.buffer = CREATE_SURFACE(320 + 16, 240 + 16);
+    titlebg.buffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS + 16, SCREEN_HEIGHT_PIXELS + 16);
     SDL_SetSurfaceBlendMode(titlebg.buffer, SDL_BLENDMODE_NONE);
 
-    titlebg.buffer_lerp = CREATE_SURFACE(320 + 16, 240 + 16);
+    titlebg.buffer_lerp = CREATE_SURFACE(SCREEN_WIDTH_PIXELS + 16, SCREEN_HEIGHT_PIXELS + 16);
     SDL_SetSurfaceBlendMode(titlebg.buffer_lerp, SDL_BLENDMODE_NONE);
 
-    tempBuffer = CREATE_SURFACE(320, 240);
+    tempBuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
     SDL_SetSurfaceBlendMode(tempBuffer, SDL_BLENDMODE_NONE);
 
     #undef CREATE_SURFACE
