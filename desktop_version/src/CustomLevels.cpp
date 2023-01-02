@@ -1604,7 +1604,7 @@ void customlevelclass::generatecustomminimap(void)
 
 // Return a graphics-ready color based off of the given tileset and tilecol
 // Much kudos to Dav999 for saving me a lot of work, because I stole these colors from const.lua in Ved! -Info Teddy
-Uint32 customlevelclass::getonewaycol(const int rx, const int ry)
+SDL_Color customlevelclass::getonewaycol(const int rx, const int ry)
 {
     const RoomProperty* const room = getroomprop(rx, ry);
     switch (room->tileset) {
@@ -1763,7 +1763,7 @@ Uint32 customlevelclass::getonewaycol(const int rx, const int ry)
 }
 
 // This version detects the room automatically
-Uint32 customlevelclass::getonewaycol(void)
+SDL_Color customlevelclass::getonewaycol(void)
 {
 #ifndef NO_EDITOR
     if (game.gamestate == EDITORMODE)

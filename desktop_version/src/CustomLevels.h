@@ -155,8 +155,8 @@ public:
 
     int version;
 
-    Uint32 getonewaycol(const int rx, const int ry);
-    Uint32 getonewaycol(void);
+    SDL_Color getonewaycol(int rx, int ry);
+    SDL_Color getonewaycol(void);
     bool onewaycol_override;
 };
 

@@ -7,7 +7,6 @@
 
 #include "Game.h"
 #include "GraphicsResources.h"
-#include "GraphicsUtil.h"
 #include "Maths.h"
 #include "Textbox.h"
 #include "TowerBG.h"
@@ -42,7 +41,7 @@ public:
 
     void drawhuetile(int x, int y, int t);
     void huetilesetcol(int t);
-    Uint32 bigchunkygetcol(int t);
+    SDL_Color bigchunkygetcol(int t);
 
     void drawgravityline(int t);
 
@@ -141,7 +140,7 @@ public:
     void drawgui(void);
 
     void drawsprite(int x, int y, int t, int r, int g, int b);
-    void drawsprite(int x, int y, int t, Uint32 c);
+    void drawsprite(int x, int y, int t, SDL_Color color);
 
     void printcrewname(int x, int y, int t);
     void printcrewnamedark(int x, int y, int t);
@@ -202,18 +201,15 @@ public:
     void bigbrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
 
 
-    void drawtele(int x, int y, int t, Uint32 c);
+    void drawtele(int x, int y, int t, SDL_Color c);
 
-    Uint32 getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    SDL_Color getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
-    Uint32 getRGB(Uint8 r, Uint8 g, Uint8 b);
+    SDL_Color getRGB(Uint8 r, Uint8 g, Uint8 b);
 
-    Uint32 getRGB(Uint32 _col);
+    SDL_Color RGBf(int r, int g, int b);
 
-
-    Uint32 RGBf(int r, int g, int b);
-
-    void setcolreal(Uint32 t);
+    void setcolreal(SDL_Color color);
 
     void drawbackground(int t);
     void updatebackground(int t);
@@ -263,7 +259,7 @@ public:
     void setcol(int t);
     void drawfinalmap(void);
 
-    colourTransform ct;
+    SDL_Color ct;
 
     int rcol;
 
@@ -346,7 +342,9 @@ public:
     int backboxvy[numbackboxes];
     float backboxint[numbackboxes];
 
-    int warpskip, warpfcol, warpbcol;
+    int warpskip;
+    SDL_Color warpfcol;
+    SDL_Color warpbcol;
 
     bool translucentroomname;
 
@@ -366,15 +364,15 @@ public:
 #endif
     float alpha;
 
-    Uint32 col_crewred;
-    Uint32 col_crewyellow;
-    Uint32 col_crewgreen;
-    Uint32 col_crewcyan;
-    Uint32 col_crewblue;
-    Uint32 col_crewpurple; //actually pink
-    Uint32 col_crewinactive;
-    Uint32 col_clock;
-    Uint32 col_trinket;
+    SDL_Color col_crewred;
+    SDL_Color col_crewyellow;
+    SDL_Color col_crewgreen;
+    SDL_Color col_crewcyan;
+    SDL_Color col_crewblue;
+    SDL_Color col_crewpurple; //actually pink
+    SDL_Color col_crewinactive;
+    SDL_Color col_clock;
+    SDL_Color col_trinket;
     int col_tr;
     int col_tg;
     int col_tb;
@@ -382,7 +380,7 @@ public:
 
     bool kludgeswnlinewidth;
 
-    Uint32 crewcolourreal(int t);
+    SDL_Color crewcolourreal(int t);
 
     void render_roomname(const char* roomname, int r, int g, int b);
 

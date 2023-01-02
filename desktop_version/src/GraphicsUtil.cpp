@@ -1,5 +1,3 @@
-#include "GraphicsUtil.h"
-
 #include <SDL.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -91,60 +89,63 @@ SDL_Surface* GetSubSurface( SDL_Surface* metaSurface, int x, int y, int width, i
     return preSurface;
 }
 
-static void DrawPixel( SDL_Surface *_surface, int x, int y, Uint32 pixel )
+static void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_Color color)
 {
-    int bpp = _surface->format->BytesPerPixel;
-    /* Here p is the address to the pixel we want to set */
-    Uint8 *p = (Uint8 *)_surface->pixels + y * _surface->pitch + x * bpp;
+    const SDL_PixelFormat* fmt = surface->format;
+    const int bpp = fmt->BytesPerPixel;
+    Uint32* pixel = (Uint32*) ((Uint8*) surface->pixels + y * surface->pitch + x * bpp);
+    const Uint32 packed =
+        (color.r << fmt->Rshift) |
+        (color.g << fmt->Gshift) |
+        (color.b << fmt->Bshift) |
+        (color.a << fmt->Ashift);
 
-    switch(bpp)
+    switch (bpp)
     {
     case 1:
-        *p = pixel;
-        break;
-
     case 2:
-        *(Uint16 *)p = pixel;
-        break;
-
     case 3:
-        p[0] = (pixel >> 16) & 0xff;
-        p[1] = (pixel >> 8) & 0xff;
-        p[2] = pixel & 0xff;
-        break;
+        SDL_assert(0 && "Non-32-bit colors not supported!");
+        return;
 
     case 4:
-        *(Uint32 *)p = pixel;
+        *pixel = packed;
         break;
     }
 }
 
-Uint32 ReadPixel( SDL_Surface *_surface, int x, int y )
+SDL_Color ReadPixel(const SDL_Surface* surface, const int x, const int y)
 {
-    int bpp = _surface->format->BytesPerPixel;
-    /* Here p is the address to the pixel we want to retrieve */
-    Uint8 *p = (Uint8 *)_surface->pixels + y * _surface->pitch + x * bpp;
+    const SDL_PixelFormat* fmt = surface->format;
+    const int bpp = surface->format->BytesPerPixel;
+    const Uint32* pixel = (Uint32*) ((Uint8*) surface->pixels + y * surface->pitch + x * bpp);
 
-    switch(bpp)
+    switch (bpp)
     {
     case 1:
-        return *p;
-        break;
-
     case 2:
-        return *(Uint16 *)p;
-        break;
-
     case 3:
-        return p[0] | p[1] << 8 | p[2] << 16;
+    {
+        SDL_assert(0 && "Non-32-bit colors not supported!");
+        const SDL_Color color = {0, 0, 0, 0};
+        return color;
+    }
 
     case 4:
-        return *(Uint32 *)p;
-        break;
-
-    default:
-        return 0;       /* shouldn't happen, but avoids warnings */
+    {
+        const SDL_Color color = {
+            (Uint8) ((*pixel & fmt->Rmask) >> fmt->Rshift),
+            (Uint8) ((*pixel & fmt->Gmask) >> fmt->Gshift),
+            (Uint8) ((*pixel & fmt->Bmask) >> fmt->Bshift),
+            (Uint8) ((*pixel & fmt->Amask) >> fmt->Ashift)
+        };
+        return color;
     }
+    }
+
+    /* shouldn't happen, but avoids warnings */
+    const SDL_Color color = {0, 0, 0, 0};
+    return color;
 }
 
 SDL_Surface * ScaleSurface( SDL_Surface *_surface, int Width, int Height, SDL_Surface * Dest )
@@ -199,95 +200,70 @@ void BlitSurfaceStandard( SDL_Surface* _src, SDL_Rect* _srcRect, SDL_Surface* _d
 }
 
 void BlitSurfaceColoured(
-    SDL_Surface* _src,
-    SDL_Rect* _srcRect,
-    SDL_Surface* _dest,
-    SDL_Rect* _destRect,
-    colourTransform& ct
+    SDL_Surface* src,
+    const SDL_Rect* src_rect,
+    SDL_Surface* dest,
+    SDL_Rect* dest_rect,
+    const SDL_Color color
 ) {
-    SDL_Rect *tempRect = _destRect;
+    SDL_Surface* tempsurface = RecreateSurface(src);
 
-    const SDL_PixelFormat& fmt = *(_src->format);
-
-    SDL_Surface* tempsurface =  RecreateSurface(_src);
-
-    for(int x = 0; x < tempsurface->w; x++)
+    for (int x = 0; x < tempsurface->w; x++)
     {
-        for(int y = 0; y < tempsurface->h; y++)
+        for (int y = 0; y < tempsurface->h; y++)
         {
-            Uint32 pixel = ReadPixel(_src, x, y);
-            Uint32 Alpha = pixel & fmt.Amask;
-            Uint32 result = ct.colour & 0x00FFFFFF;
-            Uint32 CTAlpha = ct.colour & fmt.Amask;
-            float div1 = ((Alpha >> 24) / 255.0f);
-            float div2 = ((CTAlpha >> 24) / 255.0f);
-            Uint32 UseAlpha = (div1 * div2) * 255.0f;
-            DrawPixel(tempsurface, x, y, result | (UseAlpha << 24));
+            const SDL_Color pixel = ReadPixel(src, x, y);
+            const float div1 = pixel.a / 255.0f;
+            const float div2 = color.a / 255.0f;
+            const Uint8 alpha = (div1 * div2) * 255.0f;
+            const SDL_Color result = {color.r, color.g, color.b, alpha};
+            DrawPixel(tempsurface, x, y, result);
         }
     }
 
-    SDL_BlitSurface(tempsurface, _srcRect, _dest, tempRect);
+    SDL_BlitSurface(tempsurface, src_rect, dest, dest_rect);
     VVV_freefunc(SDL_FreeSurface, tempsurface);
 }
 
 void BlitSurfaceTinted(
-    SDL_Surface* _src,
-    SDL_Rect* _srcRect,
-    SDL_Surface* _dest,
-    SDL_Rect* _destRect,
-    colourTransform& ct
+    SDL_Surface* src,
+    const SDL_Rect* src_rect,
+    SDL_Surface* dest,
+    SDL_Rect* dest_rect,
+    const SDL_Color color
 ) {
-    SDL_Rect *tempRect = _destRect;
+    SDL_Surface* tempsurface = RecreateSurface(src);
 
-    const SDL_PixelFormat& fmt = *(_src->format);
+    for (int x = 0; x < tempsurface->w; x++)
+    {
+        for (int y = 0; y < tempsurface->h; y++)
+        {
+            const SDL_Color pixel = ReadPixel(src, x, y);
 
-    SDL_Surface* tempsurface =  RecreateSurface(_src);
+            double red = pixel.r * 0.299;
+            double green = pixel.g * 0.587;
+            double blue = pixel.b * 0.114;
 
-    for (int x = 0; x < tempsurface->w; x++) {
-        for (int y = 0; y < tempsurface->h; y++) {
-            Uint32 pixel = ReadPixel(_src, x, y);
+            const double gray = SDL_floor(red + green + blue + 0.5);
 
-            Uint8 pixred = (pixel & _src->format->Rmask) >> 16;
-            Uint8 pixgreen = (pixel & _src->format->Gmask) >> 8;
-            Uint8 pixblue = (pixel & _src->format->Bmask) >> 0;
+            red = gray * color.r / 255.0;
+            green = gray * color.g / 255.0;
+            blue = gray * color.b / 255.0;
 
-            double temp_pixred = pixred * 0.299;
-            double temp_pixgreen = pixgreen * 0.587;
-            double temp_pixblue = pixblue * 0.114;
+            red = SDL_clamp(red, 0, 255);
+            green = SDL_clamp(green, 0, 255);
+            blue = SDL_clamp(blue, 0, 255);
 
-            double gray = SDL_floor((temp_pixred + temp_pixgreen + temp_pixblue + 0.5));
+            const float div1 = pixel.a / 255.0f;
+            const float div2 = color.a / 255.0f;
+            const Uint8 alpha = (div1 * div2) * 255.0f;
 
-            Uint8 ctred = (ct.colour & graphics.backBuffer->format->Rmask) >> 16;
-            Uint8 ctgreen = (ct.colour & graphics.backBuffer->format->Gmask) >> 8;
-            Uint8 ctblue = (ct.colour & graphics.backBuffer->format->Bmask) >> 0;
-
-            temp_pixred = gray * ctred / 255.0;
-            temp_pixgreen = gray * ctgreen / 255.0;
-            temp_pixblue = gray * ctblue / 255.0;
-
-            if (temp_pixred > 255)
-                temp_pixred = 255;
-            if (temp_pixgreen > 255)
-                temp_pixgreen = 255;
-            if (temp_pixblue > 255)
-                temp_pixblue = 255;
-
-            pixred = temp_pixred;
-            pixgreen = temp_pixgreen;
-            pixblue = temp_pixblue;
-
-            Uint32 Alpha = pixel & fmt.Amask;
-            Uint32 result = (pixred << 16) + (pixgreen << 8) + (pixblue << 0);
-            Uint32 CTAlpha = ct.colour & fmt.Amask;
-            float div1 = ((Alpha >> 24) / 255.0f);
-            float div2 = ((CTAlpha >> 24) / 255.0f);
-            Uint32 UseAlpha = (div1 * div2) * 255.0f;
-
-            DrawPixel(tempsurface, x, y, result | (UseAlpha << 24));
+            const SDL_Color result = {(Uint8) red, (Uint8) green, (Uint8) blue, alpha};
+            DrawPixel(tempsurface, x, y, result);
         }
     }
 
-    SDL_BlitSurface(tempsurface, _srcRect, _dest, tempRect);
+    SDL_BlitSurface(tempsurface, src_rect, dest, dest_rect);
     VVV_freefunc(SDL_FreeSurface, tempsurface);
 }
 
@@ -316,29 +292,29 @@ void UpdateFilter(void)
     }
 }
 
-SDL_Surface* ApplyFilter( SDL_Surface* _src )
+SDL_Surface* ApplyFilter(SDL_Surface* src)
 {
-    SDL_Surface* _ret = RecreateSurface(_src);
+    SDL_Surface* ret = RecreateSurface(src);
 
-    int redOffset = rand() % 4;
+    const int red_offset = rand() % 4;
 
-    for(int x = 0; x < _src->w; x++)
+    for (int x = 0; x < ret->w; x++)
     {
-        for(int y = 0; y < _src->h; y++)
+        for (int y = 0; y < ret->h; y++)
         {
-            int sampley = (y + (int) graphics.lerp(oldscrollamount, scrollamount) )% 240;
+            const int sampley = (y + (int) graphics.lerp(oldscrollamount, scrollamount)) % 240;
 
-            Uint32 pixel = ReadPixel(_src, x,sampley);
+            const SDL_Color pixel = ReadPixel(src, x, sampley);
 
-            Uint8 green = (pixel & _src->format->Gmask) >> 8;
-            Uint8 blue = (pixel & _src->format->Bmask) >> 0;
+            Uint8 green = pixel.g;
+            Uint8 blue = pixel.b;
 
-            Uint32 pixelOffset = ReadPixel(_src, SDL_min(x+redOffset, 319), sampley) ;
-            Uint8 red = (pixelOffset & _src->format->Rmask) >> 16 ;
+            const SDL_Color pixel_offset = ReadPixel(src, SDL_min(x + red_offset, 319), sampley);
+            Uint8 red = pixel_offset.r;
 
             double mult;
             int tmp; /* needed to avoid char overflow */
-            if(isscrolling && sampley > 220 && ((rand() %10) < 4))
+            if (isscrolling && sampley > 220 && ((rand() % 10) < 4))
             {
                 mult = 0.6;
             }
@@ -354,26 +330,26 @@ SDL_Surface* ApplyFilter( SDL_Surface* _src )
             tmp = blue + fRandom() * mult * 254;
             blue = SDL_min(tmp, 255);
 
-            if(y % 2 == 0)
+            if (y % 2 == 0)
             {
-                red = static_cast<Uint8>(red / 1.2f);
-                green = static_cast<Uint8>(green / 1.2f);
-                blue =  static_cast<Uint8>(blue / 1.2f);
+                red = (Uint8) (red / 1.2f);
+                green = (Uint8) (green / 1.2f);
+                blue = (Uint8) (blue / 1.2f);
             }
 
-            int distX =  static_cast<int>((SDL_abs (160.0f -x ) / 160.0f) *16);
-            int distY =  static_cast<int>((SDL_abs (120.0f -y ) / 120.0f)*32);
+            int distX = (int) ((SDL_abs(160.0f - x) / 160.0f) * 16);
+            int distY = (int) ((SDL_abs(120.0f - y) / 120.0f) * 32);
 
-            red = SDL_max(red - ( distX +distY), 0);
-            green = SDL_max(green - ( distX +distY), 0);
-            blue = SDL_max(blue - ( distX +distY), 0);
+            red = SDL_max(red - (distX + distY), 0);
+            green = SDL_max(green - (distX + distY), 0);
+            blue = SDL_max(blue - (distX + distY), 0);
 
-            Uint32 finalPixel = ((red<<16) + (green<<8) + (blue<<0)) | (pixel &_src->format->Amask);
-            DrawPixel(_ret,x,y,  finalPixel);
-
+            const SDL_Color color = {red, green, blue, pixel.a};
+            DrawPixel(ret, x, y, color);
         }
     }
-    return _ret;
+
+    return ret;
 }
 
 void FillRect( SDL_Surface* _surface, const int _x, const int _y, const int _w, const int _h, const int r, int g, int b )
@@ -389,26 +365,35 @@ void FillRect( SDL_Surface* _surface, const int r, int g, int b )
     SDL_FillRect(_surface, NULL, color);
 }
 
-void FillRect( SDL_Surface* _surface, const int color )
-{
-    SDL_FillRect(_surface, NULL, color);
-}
-
-void FillRect( SDL_Surface* _surface, const int x, const int y, const int w, const int h, int rgba )
-{
-    SDL_Rect rect = {x, y, w, h};
-    SDL_FillRect(_surface, &rect, rgba);
-}
-
 void FillRect( SDL_Surface* _surface, SDL_Rect& _rect, const int r, int g, int b )
 {
     Uint32 color = SDL_MapRGB(_surface->format, r, g, b);
     SDL_FillRect(_surface, &_rect, color);
 }
 
-void FillRect( SDL_Surface* _surface, SDL_Rect rect, int rgba )
+void FillRect(SDL_Surface* surface, const SDL_Rect rect, const SDL_Color color)
 {
-    SDL_FillRect(_surface, &rect, rgba);
+    const Uint32 mapped = SDL_MapRGBA(surface->format, color.r, color.g, color.b, color.a);
+    SDL_FillRect(surface, &rect, mapped);
+}
+
+void FillRect(SDL_Surface* surface, const SDL_Color color)
+{
+    const Uint32 mapped = SDL_MapRGBA(surface->format, color.r, color.g, color.b, color.a);
+    SDL_FillRect(surface, NULL, mapped);
+}
+
+void FillRect(SDL_Surface* surface, const int x, const int y, const int w, const int h, const SDL_Color color)
+{
+    const SDL_Rect rect = {x, y, w, h};
+    const Uint32 mapped = SDL_MapRGBA(surface->format, color.r, color.g, color.b, color.a);
+    SDL_FillRect(surface, &rect, mapped);
+}
+
+void FillRect(SDL_Surface* surface, const int r, const int g, const int b, const int a)
+{
+    const Uint32 mapped = SDL_MapRGBA(surface->format, r, g, b, a);
+    SDL_FillRect(surface, NULL, mapped);
 }
 
 void ClearSurface(SDL_Surface* surface)

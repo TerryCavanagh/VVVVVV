@@ -53,7 +53,7 @@ public:
     int visualonground, visualonroof;
     int yp;int xp;
 
-    Uint32 realcol;
+    SDL_Color realcol;
     int lerpoldxp, lerpoldyp;
 };
 

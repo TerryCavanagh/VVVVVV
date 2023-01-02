@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "GraphicsUtil.h"
 #include "KeyPoll.h"
 #include "Localization.h"
 #include "LocalizationMaint.h"

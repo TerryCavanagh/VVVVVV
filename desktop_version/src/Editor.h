@@ -42,7 +42,7 @@ struct GhostInfo
     int x; // .xp
     int y; // .yp
     int col; // .colour
-    Uint32 realcol;
+    SDL_Color realcol;
     int frame; // .drawframe
 };
 
@@ -93,7 +93,7 @@ public:
     void switch_warpdir(const bool reversed);
 
     int entcol;
-    Uint32 entcolreal;
+    SDL_Color entcolreal;
 
     int kludgewarpdir[customlevelclass::numrooms];
 

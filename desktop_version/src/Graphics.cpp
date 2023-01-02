@@ -84,8 +84,8 @@ void Graphics::init(void)
     backgrounddrawn = false;
 
     warpskip = 0;
-    warpfcol = 0x000000;
-    warpbcol = 0x000000;
+    SDL_zero(warpfcol);
+    SDL_zero(warpbcol);
 
     spcol = 0;
     spcoldel = 0;
@@ -106,7 +106,7 @@ void Graphics::init(void)
 
     // initialize everything else to zero
     backBuffer = NULL;
-    ct = colourTransform();
+    SDL_zero(ct);
     foregrounddrawn = false;
     foregroundBuffer = NULL;
     backgrounddrawn = false;
@@ -132,15 +132,15 @@ void Graphics::init(void)
     screenshake_x = 0;
     screenshake_y = 0;
 
-    col_crewred = 0x00000000;
-    col_crewyellow = 0x00000000;
-    col_crewgreen = 0x00000000;
-    col_crewcyan = 0x00000000;
-    col_crewblue = 0x00000000;
-    col_crewpurple = 0x00000000;
-    col_crewinactive = 0x00000000;
-    col_clock = 0x00000000;
-    col_trinket = 0x00000000;
+    SDL_zero(col_crewred);
+    SDL_zero(col_crewyellow);
+    SDL_zero(col_crewgreen);
+    SDL_zero(col_crewcyan);
+    SDL_zero(col_crewblue);
+    SDL_zero(col_crewpurple);
+    SDL_zero(col_crewinactive);
+    SDL_zero(col_clock);
+    SDL_zero(col_trinket);
     col_tr = 0;
     col_tg = 0;
     col_tb = 0;
@@ -199,12 +199,12 @@ void Graphics::create_buffers(const SDL_PixelFormat* fmt)
     footerbuffer = CREATE_SURFACE(320, 10);
     SDL_SetSurfaceBlendMode(footerbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(footerbuffer, 127);
-    FillRect(footerbuffer, SDL_MapRGB(fmt, 0, 0, 0));
+    FillRect(footerbuffer, 0, 0, 0);
 
     roomname_translator::dimbuffer = CREATE_SURFACE(320, 240);
     SDL_SetSurfaceBlendMode(roomname_translator::dimbuffer, SDL_BLENDMODE_BLEND);
     SDL_SetSurfaceAlphaMod(roomname_translator::dimbuffer, 96);
-    FillRect(roomname_translator::dimbuffer, SDL_MapRGB(fmt, 0, 0, 0));
+    FillRect(roomname_translator::dimbuffer, 0, 0, 0);
 
     ghostbuffer = CREATE_SURFACE(320, 240);
     SDL_SetSurfaceBlendMode(ghostbuffer, SDL_BLENDMODE_BLEND);
@@ -299,24 +299,24 @@ void Graphics::drawspritesetcol(int x, int y, int t, int c)
 void Graphics::updatetitlecolours(void)
 {
     setcol(15);
-    col_crewred = ct.colour;
+    col_crewred = ct;
     setcol(14);
-    col_crewyellow = ct.colour;
+    col_crewyellow = ct;
     setcol(13);
-    col_crewgreen = ct.colour;
+    col_crewgreen = ct;
     setcol(0);
-    col_crewcyan = ct.colour;
+    col_crewcyan = ct;
     setcol(16);
-    col_crewblue = ct.colour;
+    col_crewblue = ct;
     setcol(20);
-    col_crewpurple = ct.colour;
+    col_crewpurple = ct;
     setcol(19);
-    col_crewinactive = ct.colour;
+    col_crewinactive = ct;
 
     setcol(18);
-    col_clock = ct.colour;
+    col_clock = ct;
     setcol(18);
-    col_trinket = ct.colour;
+    col_trinket = ct;
 }
 
 #define PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
@@ -496,7 +496,7 @@ static void print_char(
     const int x,
     const int y,
     const int scale,
-    colourTransform& ct
+    const SDL_Color color
 ) {
     SDL_Rect font_rect = {x, y, 8*scale, 8*scale};
     SDL_Surface* surface;
@@ -514,7 +514,7 @@ static void print_char(
         surface = font;
     }
 
-    BlitSurfaceColoured(surface, NULL, buffer, &font_rect, ct);
+    BlitSurfaceColoured(surface, NULL, buffer, &font_rect, color);
 
     if (scale > 1)
     {
@@ -542,7 +542,7 @@ void Graphics::do_print(
     b = SDL_clamp(b, 0, 255);
     a = SDL_clamp(a, 0, 255);
 
-    ct.colour = getRGBA(r, g, b, a);
+    ct = getRGBA(r, g, b, a);
 
     while (iter != text.end())
     {
@@ -1033,7 +1033,7 @@ void Graphics::drawsprite( int x, int y, int t, int r, int g,  int b )
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
 }
 
-void Graphics::drawsprite(int x, int y, int t, Uint32 c)
+void Graphics::drawsprite(int x, int y, int t, const SDL_Color color)
 {
     if (!INBOUNDS_VEC(t, sprites))
     {
@@ -1042,7 +1042,7 @@ void Graphics::drawsprite(int x, int y, int t, Uint32 c)
     }
 
     SDL_Rect rect = {x, y, sprites_rect.w, sprites_rect.h};
-    setcolreal(c);
+    setcolreal(color);
     BlitSurfaceColoured(sprites[t], NULL, backBuffer, &rect, ct);
 }
 
@@ -1068,7 +1068,7 @@ void Graphics::drawtile( int x, int y, int t )
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles1_mounted))
     {
-        colourTransform thect = {cl.getonewaycol()};
+        const SDL_Color thect = cl.getonewaycol();
         BlitSurfaceTinted(tiles[t], NULL, backBuffer, &rect, thect);
     }
     else
@@ -1092,7 +1092,7 @@ void Graphics::drawtile2( int x, int y, int t )
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles2_mounted))
     {
-        colourTransform thect = {cl.getonewaycol()};
+        const SDL_Color thect = cl.getonewaycol();
         BlitSurfaceTinted(tiles2[t], NULL, backBuffer, &rect, thect);
     }
     else
@@ -1431,14 +1431,14 @@ void Graphics::cutscenebars(void)
     const int usethispos = lerp(oldcutscenebarspos, cutscenebarspos);
     if (showcutscenebars)
     {
-        FillRect(backBuffer, 0, 0, usethispos, 16, 0x000000);
-        FillRect(backBuffer, 360-usethispos, 224, usethispos, 16, 0x000000);
+        FillRect(backBuffer, 0, 0, usethispos, 16, 0, 0, 0);
+        FillRect(backBuffer, 360-usethispos, 224, usethispos, 16, 0, 0, 0);
     }
     else if (cutscenebarspos > 0) //disappearing
     {
         //draw
-        FillRect(backBuffer, 0, 0, usethispos, 16, 0x000000);
-        FillRect(backBuffer, 360-usethispos, 224, usethispos, 16, 0x000000);
+        FillRect(backBuffer, 0, 0, usethispos, 16, 0, 0, 0);
+        FillRect(backBuffer, 360-usethispos, 224, usethispos, 16, 0, 0, 0);
     }
 }
 
@@ -1702,13 +1702,13 @@ void Graphics::drawfade(void)
     case FADE_FADING_OUT:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            FillRect(backBuffer, fadebars[i], i * 16, usethisamount, 16, 0x000000 );
+            FillRect(backBuffer, fadebars[i], i * 16, usethisamount, 16, 0, 0, 0);
         }
         break;
     case FADE_FADING_IN:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            FillRect(backBuffer, fadebars[i]-usethisamount, i * 16, 500, 16, 0x000000 );
+            FillRect(backBuffer, fadebars[i]-usethisamount, i * 16, 500, 16, 0, 0, 0);
         }
         break;
     case FADE_NONE:
@@ -1924,13 +1924,12 @@ bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, po
         {
             for(int y = r3_bottom; y < r3_top; y++)
             {
-                Uint32 pixel1 = ReadPixel(surface1 , x - p1.x, y - p1.y);
-                Uint32 pixel2 = ReadPixel(surface2 , x - p2.x, y - p2.y);
+                const SDL_Color pixel1 = ReadPixel(surface1, x - p1.x, y - p1.y);
+                const SDL_Color pixel2 = ReadPixel(surface2, x - p2.x, y - p2.y);
                 /* INTENTIONAL BUG! In previous versions, the game mistakenly
                  * checked the red channel, not the alpha channel.
                  * We preserve it here because some people abuse this. */
-                if ((pixel1 & surface1->format->Rmask)
-                && (pixel2 & surface2->format->Rmask))
+                if (pixel1.r != 0 && pixel2.r != 0)
                 {
                     return true;
                 }
@@ -2269,9 +2268,8 @@ void Graphics::drawentity(const int i, const int yoff)
             drawRect.x += 8 * ii;
             if (custom_gray)
             {
-                colourTransform temp_ct;
-                temp_ct.colour = 0xFFFFFFFF;
-                BlitSurfaceTinted(tilesvec[obj.entities[i].drawframe],NULL, backBuffer, &drawRect, temp_ct);
+                const SDL_Color temp_ct = {255, 255, 255, 255};
+                BlitSurfaceTinted(tilesvec[obj.entities[i].drawframe], NULL, backBuffer, &drawRect, temp_ct);
             }
             else
             {
@@ -2501,7 +2499,10 @@ void Graphics::drawbackground( int t )
         break;
     case 2:
     {
-        int bcol = 0, bcol2 = 0;
+        SDL_Color bcol;
+        SDL_Color bcol2;
+        SDL_zero(bcol);
+        SDL_zero(bcol2);
 
             //Lab
             switch(rcol)
@@ -3096,15 +3097,15 @@ void Graphics::setcol( int t )
     {
         //Player Normal
     case 0:
-        ct.colour = getRGB(160- help.glow/2 - (fRandom()*20), 200- help.glow/2, 220 - help.glow);
+        ct = getRGB(160 - help.glow/2 - (fRandom() * 20), 200 - help.glow/2, 220 - help.glow);
         break;
         //Player Hurt
     case 1:
-        ct.colour = getRGB(196 - (fRandom() * 64), 10, 10);
+        ct = getRGB(196 - (fRandom() * 64), 10, 10);
         break;
         //Enemies and stuff
     case 2:
-        ct.colour = getRGB(225-(help.glow/2), 75, 30);
+        ct = getRGB(225 - (help.glow / 2), 75, 30);
         break;
     case 3: //Trinket
         if (!trinketcolset)
@@ -3114,109 +3115,109 @@ void Graphics::setcol( int t )
             trinketb = 164 + (fRandom() * 60);
             trinketcolset = true;
         }
-        ct.colour = getRGB(trinketr, trinketg, trinketb);
+        ct = getRGB(trinketr, trinketg, trinketb);
         break;
     case 4: //Inactive savepoint
     {
-        const int temp = (help.glow/2) + (fRandom() * 8);
-        ct.colour = getRGB(80 + temp, 80 + temp, 80 + temp);
+        const int temp = (help.glow / 2) + (fRandom() * 8);
+        ct = getRGB(80 + temp, 80 + temp, 80 + temp);
         break;
     }
     case 5: //Active savepoint
-        ct.colour = getRGB(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
+        ct = getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
         break;
     case 6: //Enemy : Red
-        ct.colour = getRGB(250 - help.glow/2, 60- help.glow/2, 60 - help.glow/2);
+        ct = getRGB(250 - help.glow/2, 60- help.glow/2, 60 - help.glow/2);
         break;
     case 7: //Enemy : Green
-        ct.colour = getRGB(100 - help.glow/2 - (fRandom()*30), 250 - help.glow/2, 100 - help.glow/2 - (fRandom()*30));
+        ct = getRGB(100 - help.glow/2 - (fRandom() * 30), 250 - help.glow/2, 100 - help.glow/2 - (fRandom() * 30));
         break;
     case 8: //Enemy : Purple
-        ct.colour = getRGB(250 - help.glow/2, 20, 128 - help.glow/2 + (fRandom()*30));
+        ct = getRGB(250 - help.glow/2, 20, 128 - help.glow/2 + (fRandom() * 30));
         break;
     case 9: //Enemy : Yellow
-        ct.colour = getRGB(250 - help.glow/2, 250 - help.glow/2, 20);
+        ct = getRGB(250 - help.glow/2, 250 - help.glow/2, 20);
         break;
     case 10: //Warp point (white)
-        ct.colour = getRGB(255 - (fRandom() * 64), 255 - (fRandom() * 64), 255 - (fRandom() * 64));
+        ct = getRGB(255 - (fRandom() * 64), 255 - (fRandom() * 64), 255 - (fRandom() * 64));
         break;
     case 11: //Enemy : Cyan
-        ct.colour = getRGB(20, 250 - help.glow/2, 250 - help.glow/2);
+        ct = getRGB(20, 250 - help.glow/2, 250 - help.glow/2);
         break;
     case 12: //Enemy : Blue
-        ct.colour = getRGB(90- help.glow/2, 90 - help.glow/2, 250 - help.glow/2);
+        ct = getRGB(90 - help.glow/2, 90 - help.glow/2, 250 - help.glow/2);
         break;
         //Crew Members
         //green
     case 13:
-        ct.colour = getRGB(120- help.glow/4 - (fRandom()*20), 220 - help.glow/4, 120- help.glow/4);
+        ct = getRGB(120 - help.glow/4 - (fRandom() * 20), 220 - help.glow/4, 120 - help.glow/4);
         break;
         //Yellow
     case 14:
-        ct.colour = getRGB(220- help.glow/4 - (fRandom()*20), 210 - help.glow/4, 120- help.glow/4);
+        ct = getRGB(220 - help.glow/4 - (fRandom() * 20), 210 - help.glow/4, 120 - help.glow/4);
         break;
         //pink
     case 15:
-        ct.colour = getRGB(255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
+        ct = getRGB(255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
         break;
         //Blue
     case 16:
-        ct.colour = getRGB(75, 75, 255- help.glow/4 - (fRandom()*20));
+        ct = getRGB(75, 75, 255 - help.glow/4 - (fRandom() * 20));
         break;
 
 
     case 17: //Enemy : Orange
-        ct.colour = getRGB(250 - help.glow/2, 130 - help.glow/2, 20);
+        ct = getRGB(250 - help.glow/2, 130 - help.glow/2, 20);
         break;
     case 18: //Enemy : Gray
-        ct.colour = getRGB(130- help.glow/2, 130 - help.glow/2, 130 - help.glow/2);
+        ct = getRGB(130 - help.glow/2, 130 - help.glow/2, 130 - help.glow/2);
         break;
     case 19: //Enemy : Dark gray
-        ct.colour = getRGB(60- help.glow/8, 60 - help.glow/8, 60 - help.glow/8);
+        ct = getRGB(60 - help.glow/8, 60 - help.glow/8, 60 - help.glow/8);
         break;
         //Purple
     case 20:
-        ct.colour = getRGB(220 - help.glow / 4 - (fRandom() * 20), 120 - help.glow / 4, 210 - help.glow / 4);
+        ct = getRGB(220 - help.glow/4 - (fRandom() * 20), 120 - help.glow/4, 210 - help.glow/4);
         break;
 
     case 21: //Enemy : Light Gray
-        ct.colour = getRGB(180- help.glow/2, 180 - help.glow/2, 180 - help.glow/2);
+        ct = getRGB(180 - help.glow/2, 180 - help.glow/2, 180 - help.glow/2);
         break;
     case 22: //Enemy : Indicator Gray
-        ct.colour = getRGB(230- help.glow/2, 230- help.glow/2, 230- help.glow/2);
+        ct = getRGB(230 - help.glow/2, 230- help.glow/2, 230 - help.glow/2);
         break;
     case 23: //Enemy : Indicator Gray
-        ct.colour = getRGB(255- help.glow/2 - (fRandom() * 40) , 255- help.glow/2 - (fRandom() * 40), 255- help.glow/2 - (fRandom() * 40));
+        ct = getRGB(255 - help.glow/2 - (fRandom() * 40) , 255 - help.glow/2 - (fRandom() * 40), 255 - help.glow/2 - (fRandom() * 40));
         break;
 
         //Trophies
         //cyan
     case 30:
-        ct.colour = RGBf(160, 200, 220);
+        ct = RGBf(160, 200, 220);
         break;
         //Purple
     case 31:
-        ct.colour = RGBf(220, 120, 210);
+        ct = RGBf(220, 120, 210);
         break;
         //Yellow
     case 32:
-        ct.colour = RGBf(220, 210, 120);
+        ct = RGBf(220, 210, 120);
         break;
         //red
     case 33:
-        ct.colour = RGBf(255, 70, 70);
+        ct = RGBf(255, 70, 70);
         break;
         //green
     case 34:
-        ct.colour = RGBf(120, 220, 120);
+        ct = RGBf(120, 220, 120);
         break;
         //Blue
     case 35:
-        ct.colour = RGBf(75, 75, 255);
+        ct = RGBf(75, 75, 255);
         break;
         //Gold
     case 36:
-        ct.colour = getRGB(180, 120, 20);
+        ct = getRGB(180, 120, 20);
         break;
     case 37: //Trinket
         if (!trinketcolset)
@@ -3226,15 +3227,15 @@ void Graphics::setcol( int t )
             trinketb = 164 + (fRandom() * 60);
             trinketcolset = true;
         }
-        ct.colour = RGBf(trinketr, trinketg, trinketb);
+        ct = RGBf(trinketr, trinketg, trinketb);
         break;
         //Silver
     case 38:
-        ct.colour = RGBf(196, 196, 196);
+        ct = RGBf(196, 196, 196);
         break;
         //Bronze
     case 39:
-        ct.colour = RGBf(128, 64, 10);
+        ct = RGBf(128, 64, 10);
         break;
         //Awesome
     case 40: //Teleporter in action!
@@ -3242,56 +3243,56 @@ void Graphics::setcol( int t )
         const int temp = fRandom() * 150;
         if(temp<33)
         {
-            ct.colour = RGBf(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
+            ct = RGBf(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
         }
         else if (temp < 66)
         {
-            ct.colour = RGBf(64 + (fRandom() * 64), 255 - (fRandom() * 64), 64 + (fRandom() * 64));
+            ct = RGBf(64 + (fRandom() * 64), 255 - (fRandom() * 64), 64 + (fRandom() * 64));
         }
         else if (temp < 100)
         {
-            ct.colour = RGBf(64 + (fRandom() * 64), 64 + (fRandom() * 64), 255 - (fRandom() * 64));
+            ct = RGBf(64 + (fRandom() * 64), 64 + (fRandom() * 64), 255 - (fRandom() * 64));
         }
         else
         {
-            ct.colour = RGBf(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
+            ct = RGBf(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
         }
         break;
     }
 
     case 100: //Inactive Teleporter
     {
-        const int temp = (help.glow/2) + (fRandom() * 8);
-        ct.colour = getRGB(42 + temp, 42 + temp, 42 + temp);
+        const int temp = (help.glow / 2) + (fRandom() * 8);
+        ct = getRGB(42 + temp, 42 + temp, 42 + temp);
         break;
     }
     case 101: //Active Teleporter
-        ct.colour = getRGB(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
+        ct = getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
         break;
     case 102: //Teleporter in action!
     {
         const int temp = fRandom() * 150;
-        if(temp<33)
+        if (temp < 33)
         {
-            ct.colour = getRGB(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
+            ct = getRGB(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
         }
         else if (temp < 66)
         {
-            ct.colour = getRGB(64 + (fRandom() * 64), 255 - (fRandom() * 64), 64 + (fRandom() * 64));
+            ct = getRGB(64 + (fRandom() * 64), 255 - (fRandom() * 64), 64 + (fRandom() * 64));
         }
         else if (temp < 100)
         {
-            ct.colour = getRGB(64 + (fRandom() * 64), 64 + (fRandom() * 64), 255 - (fRandom() * 64));
+            ct = getRGB(64 + (fRandom() * 64), 64 + (fRandom() * 64), 255 - (fRandom() * 64));
         }
         else
         {
-            ct.colour = getRGB(164+(fRandom()*64),164+(fRandom()*64), 255-(fRandom()*64));
+            ct = getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
         }
         break;
     }
 
     default:
-        ct.colour = getRGB(255, 255, 255);
+        ct = getRGB(255, 255, 255);
         break;
     }
 }
@@ -3341,7 +3342,7 @@ void Graphics::huetilesetcol(int t)
     }
 }
 
-Uint32 Graphics::bigchunkygetcol(int t)
+SDL_Color Graphics::bigchunkygetcol(int t)
 {
     //A seperate index of colours, for simplicity
     switch (t)
@@ -3351,7 +3352,8 @@ Uint32 Graphics::bigchunkygetcol(int t)
     case 2:
         return getRGB(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
     }
-    return 0x00000000;
+    const SDL_Color color = {0, 0, 0, 0};
+    return color;
 }
 
 void Graphics::setwarprect( int a, int b, int c, int d )
@@ -3498,7 +3500,7 @@ int Graphics::crewcolour(const int t)
 
 void Graphics::flashlight(void)
 {
-    FillRect(backBuffer, 0xBBBBBBBB);
+    FillRect(backBuffer, 0xBB, 0xBB, 0xBB, 0xBB);
 }
 
 void Graphics::screenshake(void)
@@ -3608,7 +3610,7 @@ void Graphics::bigbrprint(int x, int y, const std::string& s, int r, int g, int 
     bigrprint(x, y, s, r, g, b, cen, sc);
 }
 
-void Graphics::drawtele(int x, int y, int t, Uint32 c)
+void Graphics::drawtele(int x, int y, int t, const SDL_Color color)
 {
     setcolreal(getRGB(16,16,16));
 
@@ -3619,7 +3621,7 @@ void Graphics::drawtele(int x, int y, int t, Uint32 c)
         BlitSurfaceColoured(tele[0], NULL, backBuffer, &telerect, ct);
     }
 
-    setcolreal(c);
+    setcolreal(color);
     if (t > 9) t = 8;
     if (t < 1) t = 1;
 
@@ -3630,32 +3632,30 @@ void Graphics::drawtele(int x, int y, int t, Uint32 c)
     }
 }
 
-Uint32 Graphics::getRGBA(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+SDL_Color Graphics::getRGBA(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a)
 {
-    return SDL_MapRGBA(backBuffer->format, r, g, b, a);
+    const SDL_Color color = {r, g, b, a};
+    return color;
 }
 
-Uint32 Graphics::getRGB(Uint8 r, Uint8 g, Uint8 b)
+SDL_Color Graphics::getRGB(const Uint8 r, const Uint8 g, const Uint8 b)
 {
-    return SDL_MapRGB(backBuffer->format, r, g, b);
+    const SDL_Color color = {r, g, b, 255};
+    return color;
 }
 
-Uint32 Graphics::getRGB(Uint32 _col)
+SDL_Color Graphics::RGBf(int r, int g, int b)
 {
-    return ( _col);
+    r = (r + 128) / 3;
+    g = (g + 128) / 3;
+    b = (b + 128) / 3;
+    const SDL_Color color = {(Uint8) r, (Uint8) g, (Uint8) b, 255};
+    return color;
 }
 
-Uint32 Graphics::RGBf(int r, int g, int b)
+void Graphics::setcolreal(const SDL_Color color)
 {
-    r = (r+128) / 3;
-    g = (g+128) / 3;
-    b = (b+128) / 3;
-    return SDL_MapRGB(backBuffer->format, r, g, b);
-}
-
-void Graphics::setcolreal(Uint32 t)
-{
-    ct.colour = t;
+    ct = color;
 }
 
 void Graphics::drawforetile(int x, int y, int t)
@@ -3672,7 +3672,7 @@ void Graphics::drawforetile(int x, int y, int t)
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles1_mounted))
     {
-        colourTransform thect = {cl.getonewaycol()};
+        const SDL_Color thect = cl.getonewaycol();
         BlitSurfaceTinted(tiles[t], NULL, foregroundBuffer, &rect, thect);
     }
     else
@@ -3696,7 +3696,7 @@ void Graphics::drawforetile2(int x, int y, int t)
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles2_mounted))
     {
-        colourTransform thect = {cl.getonewaycol()};
+        const SDL_Color thect = cl.getonewaycol();
         BlitSurfaceTinted(tiles2[t], NULL, foregroundBuffer, &rect, thect);
     }
     else
@@ -3800,7 +3800,7 @@ fail:
     return false;
 }
 
-Uint32 Graphics::crewcolourreal(int t)
+SDL_Color Graphics::crewcolourreal(int t)
 {
     switch (t)
     {
@@ -3830,7 +3830,7 @@ void Graphics::render_roomname(const char* roomname, int r, int g, int b)
     }
     else
     {
-        FillRect(backBuffer, footerrect, 0);
+        FillRect(backBuffer, footerrect, 0, 0, 0);
         Print(5, 231, roomname, r, g, b, true);
     }
 }

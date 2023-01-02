@@ -13,6 +13,7 @@
 #include "FileSystemUtils.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "GraphicsUtil.h"
 #include "Input.h"
 #include "InterimVersion.h"
 #include "KeyPoll.h"

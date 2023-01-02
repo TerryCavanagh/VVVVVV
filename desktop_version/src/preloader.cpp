@@ -2,6 +2,7 @@
 #include "Enums.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "GraphicsUtil.h"
 #include "Localization.h"
 #include "KeyPoll.h"
 #include "UtilityClass.h"
@@ -9,7 +10,9 @@
 
 static int pre_fakepercent=0, pre_transition=30;
 static bool pre_startgame=false;
-static int pre_darkcol=0, pre_lightcol=0, pre_curcol=0, pre_coltimer=0, pre_offset=0;
+static SDL_Color pre_darkcol = {0, 0, 0, 0};
+static SDL_Color pre_lightcol = {0, 0, 0, 0};
+static int pre_curcol = 0, pre_coltimer = 0, pre_offset = 0;
 
 static int pre_frontrectx=30, pre_frontrecty=20, pre_frontrectw=260, pre_frontrecth=200;
 static int pre_temprectx=0, pre_temprecty=0, pre_temprectw=320, pre_temprecth=240;

@@ -65,7 +65,7 @@ void entclass::clear(void)
     dir = 0;
     actionframe = 0;
 
-    realcol = 0;
+    SDL_zero(realcol);
     lerpoldxp = 0;
     lerpoldyp = 0;
 }
@@ -618,14 +618,14 @@ void entclass::updatecolour(void)
     case 10: // 2x1 Sprite
     case 13: // Special for epilogue: huge hero!
         graphics.setcol(colour);
-        realcol = graphics.ct.colour;
+        realcol = graphics.ct;
         break;
     case 3: // Big chunky pixels!
         realcol = graphics.bigchunkygetcol(colour);
         break;
     case 4: // Small pickups
         graphics.huetilesetcol(colour);
-        realcol = graphics.ct.colour;
+        realcol = graphics.ct;
         break;
     case 11: // The fucking elephant
         if (game.noflashingmode)
@@ -636,7 +636,7 @@ void entclass::updatecolour(void)
         {
             graphics.setcol(colour);
         }
-        realcol = graphics.ct.colour;
+        realcol = graphics.ct;
         break;
     case 12: // Regular sprites that don't wrap
         // if we're outside the screen, we need to draw indicators
@@ -648,7 +648,7 @@ void entclass::updatecolour(void)
         {
             graphics.setcol(colour);
         }
-        realcol = graphics.ct.colour;
+        realcol = graphics.ct;
         break;
     default:
         break;

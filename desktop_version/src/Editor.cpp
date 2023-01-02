@@ -279,20 +279,20 @@ static int edentat( int xp, int yp )
     return -1;
 }
 
-static void fillbox( int x, int y, int x2, int y2, int c )
+static void fillbox(const int x, const int y, const int x2, const int y2, const SDL_Color color)
 {
-    FillRect(graphics.backBuffer, x, y, x2-x, 1, c);
-    FillRect(graphics.backBuffer, x, y2-1, x2-x, 1, c);
-    FillRect(graphics.backBuffer, x, y, 1, y2-y, c);
-    FillRect(graphics.backBuffer, x2-1, y, 1, y2-y, c);
+    FillRect(graphics.backBuffer, x, y, x2-x, 1, color);
+    FillRect(graphics.backBuffer, x, y2-1, x2-x, 1, color);
+    FillRect(graphics.backBuffer, x, y, 1, y2-y, color);
+    FillRect(graphics.backBuffer, x2-1, y, 1, y2-y, color);
 }
 
-static void fillboxabs( int x, int y, int x2, int y2, int c )
+static void fillboxabs(const int x, const int y, const int x2, const int y2, const SDL_Color color)
 {
-    FillRect(graphics.backBuffer, x, y, x2, 1, c);
-    FillRect(graphics.backBuffer, x, y+y2-1, x2, 1, c);
-    FillRect(graphics.backBuffer, x, y, 1, y2, c);
-    FillRect(graphics.backBuffer, x+x2-1, y, 1, y2, c);
+    FillRect(graphics.backBuffer, x, y, x2, 1, color);
+    FillRect(graphics.backBuffer, x, y+y2-1, x2, 1, color);
+    FillRect(graphics.backBuffer, x, y, 1, y2, color);
+    FillRect(graphics.backBuffer, x+x2-1, y, 1, y2, color);
 }
 
 
@@ -595,8 +595,7 @@ void editorrender(void)
 
     // Special case for drawing gray entities
     bool custom_gray = room->tileset == 3 && room->tilecol == 6;
-    colourTransform gray_ct;
-    gray_ct.colour = 0xFFFFFFFF;
+    const SDL_Color gray_ct = {255, 255, 255, 255};
 
     // Draw entities backward to remain accurate with ingame
     for (int i = customentities.size() - 1; i >= 0; i--)
@@ -610,9 +609,10 @@ void editorrender(void)
             switch(customentities[i].t)
             {
             case 1: //Entities
-                if (custom_gray) {
+                if (custom_gray)
+                {
                     graphics.setcol(18);
-                    ed.entcolreal = graphics.ct.colour;
+                    ed.entcolreal = graphics.ct;
                 }
                 graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),ed.getenemyframe(room->enemytype),ed.entcolreal);
                 if(customentities[i].p1==0) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
@@ -933,10 +933,8 @@ void editorrender(void)
                 tpoint.x = ed.ghosts[i].x;
                 tpoint.y = ed.ghosts[i].y;
                 graphics.setcolreal(ed.ghosts[i].realcol);
-                Uint32 alpha = graphics.ct.colour & graphics.backBuffer->format->Amask;
-                Uint32 therest = graphics.ct.colour & 0x00FFFFFF;
-                alpha = (3 * (alpha >> 24) / 4) << 24;
-                graphics.ct.colour = therest | alpha;
+                const int alpha = 3 * graphics.ct.a / 4;
+                graphics.ct.a = (Uint8) alpha;
                 SDL_Rect drawRect = graphics.sprites_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
@@ -1607,7 +1605,7 @@ void editorrenderfixed(void)
     ed.entcol=cl.getenemycol(game.customcol);
 
     graphics.setcol(ed.entcol);
-    ed.entcolreal = graphics.ct.colour;
+    ed.entcolreal = graphics.ct;
 
     if (game.ghostsenabled)
     {
@@ -1621,7 +1619,7 @@ void editorrenderfixed(void)
             }
 
             graphics.setcol(ghost.col);
-            ghost.realcol = graphics.ct.colour;
+            ghost.realcol = graphics.ct;
         }
 
         if (ed.currentghosts + 1 < (int)ed.ghosts.size()) {
