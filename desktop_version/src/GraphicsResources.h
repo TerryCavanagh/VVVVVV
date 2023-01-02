@@ -29,7 +29,6 @@ public:
     SDL_Texture* im_entcolours_tint;
     SDL_Texture* im_sprites;
     SDL_Texture* im_flipsprites;
-    SDL_Texture* im_bfont;
     SDL_Texture* im_teleporter;
     SDL_Texture* im_image0;
     SDL_Texture* im_image1;

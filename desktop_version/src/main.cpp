@@ -11,6 +11,7 @@
 #include "Entity.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
@@ -628,6 +629,8 @@ int main(int argc, char *argv[])
         gameScreen.init(&screen_settings);
     }
 
+    font::load_main();
+
     // This loads music too...
     if (!graphics.reloadresources())
     {
@@ -802,6 +805,7 @@ static void cleanup(void)
     graphics.destroy_buffers();
     gameScreen.destroy();
     graphics.destroy();
+    font::destroy();
     music.destroy();
     map.destroy();
     NETWORK_shutdown();

@@ -158,7 +158,7 @@ static SDL_Texture* LoadTextureFromRaw(const char* filename, SDL_Surface* loaded
     return texture;
 }
 
-static SDL_Texture* LoadImage(const char *filename, const TextureLoadType loadtype)
+SDL_Texture* LoadImage(const char *filename, const TextureLoadType loadtype)
 {
     unsigned char* data;
 
@@ -269,7 +269,6 @@ void GraphicsResources::init(void)
     LoadSprites("graphics/flipsprites.png", &im_flipsprites, &im_flipsprites_surf);
 
     im_tiles3 = LoadImage("graphics/tiles3.png");
-    im_bfont = LoadImage("graphics/font.png", TEX_WHITE);
     im_teleporter = LoadImage("graphics/teleporter.png", TEX_WHITE);
 
     im_image0 = LoadImage("graphics/levelcomplete.png");
@@ -309,7 +308,6 @@ void GraphicsResources::destroy(void)
     CLEAR(im_entcolours_tint);
     CLEAR(im_sprites);
     CLEAR(im_flipsprites);
-    CLEAR(im_bfont);
     CLEAR(im_teleporter);
 
     CLEAR(im_image0);

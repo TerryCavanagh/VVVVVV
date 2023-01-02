@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
 #include "Map.h"
@@ -210,28 +211,6 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_DestroyTexture, backgroundTexture);
 }
 
-int Graphics::font_idx(uint32_t ch)
-{
-    if (font_positions.size() > 0)
-    {
-        std::map<int, int>::iterator iter = font_positions.find(ch);
-        if (iter == font_positions.end())
-        {
-            iter = font_positions.find('?');
-            if (iter == font_positions.end())
-            {
-                WHINE_ONCE("font.txt missing fallback character!");
-                return -1;
-            }
-        }
-        return iter->second;
-    }
-    else
-    {
-        return ch;
-    }
-}
-
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
 {
     draw_grid_tile(grphx.im_sprites, t, x, y, sprites_rect.w, sprites_rect.h, getcol(c));
@@ -297,47 +276,6 @@ void Graphics::updatetitlecolours(void)
 
 #define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
     PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
-
-bool Graphics::Makebfont(void)
-{
-    unsigned char* charmap = NULL;
-    size_t length;
-    if (FILESYSTEM_areAssetsInSameRealDir("graphics/font.png", "graphics/font.txt"))
-    {
-        FILESYSTEM_loadAssetToMemory("graphics/font.txt", &charmap, &length, false);
-    }
-    if (charmap != NULL)
-    {
-        unsigned char* current = charmap;
-        unsigned char* end = charmap + length;
-        int pos = 0;
-        while (current != end)
-        {
-            int codepoint = utf8::unchecked::next(current);
-            font_positions[codepoint] = pos;
-            ++pos;
-        }
-        VVV_free(charmap);
-    }
-    else
-    {
-        font_positions.clear();
-    }
-
-    return true;
-}
-
-int Graphics::bfontlen(uint32_t ch)
-{
-    if (ch < 32)
-    {
-        return 6;
-    }
-    else
-    {
-        return 8;
-    }
-}
 
 bool Graphics::MakeSpriteArray(void)
 {
@@ -409,6 +347,8 @@ void Graphics::do_print(
     int a,
     const int scale
 ) {
+    // TODO do something with flipmode
+
     int position = 0;
     std::string::const_iterator iter = text.begin();
 
@@ -420,11 +360,7 @@ void Graphics::do_print(
     while (iter != text.end())
     {
         const uint32_t character = utf8::unchecked::next(iter);
-        const int idx = font_idx(character);
-
-        draw_grid_tile(grphx.im_bfont, idx, (x + position), y, 8, 8, r, g, b, a, scale, scale * (flipmode ? -1 : 1));
-
-        position += bfontlen(character) * scale;
+        position += font::print_char(&font::temp_bfont, character, x + position, y, scale, r, g, b, a);
     }
 }
 
@@ -467,7 +403,7 @@ bool Graphics::next_wrap(
             goto next;
         }
 
-        linewidth += bfontlen(str[idx]);
+        linewidth += font::get_advance(&font::temp_bfont, str[idx]);
 
         switch (str[idx])
         {
@@ -620,13 +556,13 @@ void Graphics::bigbprint(int x, int y, const std::string& s, int r, int g, int b
 
 int Graphics::len(const std::string& t)
 {
-    int bfontpos = 0;
+    int text_len = 0;
     std::string::const_iterator iter = t.begin();
     while (iter != t.end()) {
         int cur = utf8::unchecked::next(iter);
-        bfontpos += bfontlen(cur);
+        text_len += font::get_advance(&font::temp_bfont, cur);
     }
-    return bfontpos;
+    return text_len;
 }
 
 std::string Graphics::string_wordwrap(const std::string& s, int maxwidth, short *lines /*= NULL*/)
@@ -3805,7 +3741,6 @@ bool Graphics::reloadresources(void)
     destroy();
 
     MAYBE_FAIL(MakeSpriteArray());
-    MAYBE_FAIL(Makebfont());
 
     images[IMAGE_LEVELCOMPLETE] = grphx.im_image0;
     images[IMAGE_MINIMAP] = grphx.im_image1;

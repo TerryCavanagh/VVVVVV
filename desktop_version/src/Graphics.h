@@ -51,11 +51,6 @@ public:
 
     GraphicsResources grphx;
 
-    int bfontlen(uint32_t ch);
-    int font_idx(uint32_t ch);
-
-    bool Makebfont(void);
-
     SDL_Color huetilegetcol(int t);
     SDL_Color bigchunkygetcol(int t);
 
@@ -387,8 +382,6 @@ public:
     int warpskip;
 
     bool translucentroomname;
-
-    std::map<int, int> font_positions;
 
 #ifndef GAME_DEFINITION
     float inline lerp(const float v0, const float v1)

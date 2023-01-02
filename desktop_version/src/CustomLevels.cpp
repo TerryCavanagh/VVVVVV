@@ -14,6 +14,7 @@
 #include "Editor.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
@@ -1313,6 +1314,7 @@ next:
 #endif
 
     loc::loadtext_custom(_path.c_str());
+    font::load_custom();
 
     version=2;
 
