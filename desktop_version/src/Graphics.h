@@ -60,8 +60,6 @@ public:
 
     void drawfade(void);
 
-    void setwarprect(int a, int b, int c, int d);
-
     void createtextboxreal(
         const std::string& t,
         int xp,
@@ -307,8 +305,6 @@ public:
     int oldmenuoffset;
     bool resumegamemode;
 
-    SDL_Rect warprect;
-
     int crewframe;
     int crewframedelay;
 
@@ -339,8 +335,6 @@ public:
     float backboxint[numbackboxes];
 
     int warpskip;
-    SDL_Color warpfcol;
-    SDL_Color warpbcol;
 
     bool translucentroomname;
 

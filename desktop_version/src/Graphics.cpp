@@ -84,8 +84,6 @@ void Graphics::init(void)
     backgrounddrawn = false;
 
     warpskip = 0;
-    SDL_zero(warpfcol);
-    SDL_zero(warpbcol);
 
     spcol = 0;
     spcoldel = 0;
@@ -122,7 +120,6 @@ void Graphics::init(void)
     trinketr = 0;
     trinketg = 0;
     trinketb = 0;
-    warprect = SDL_Rect();
 
     translucentroomname = false;
 
@@ -2654,7 +2651,11 @@ void Graphics::drawbackground( int t )
         SDL_BlitSurface(warpbuffer_lerp, &towerbuffer_rect, backBuffer, NULL);
         break;
     case 5:
+    {
         //Warp zone, central
+        SDL_Color warpbcol;
+        SDL_Color warpfcol;
+
         switch(rcol)
         {
             //Akward ordering to match tileset
@@ -2694,17 +2695,18 @@ void Graphics::drawbackground( int t )
         for (int i = 10 ; i >= 0; i--)
         {
             const int temp = (i * 16) + backoffset;
-            setwarprect(160 - temp, 120 - temp, temp * 2, temp * 2);
+            const SDL_Rect warprect = {160 - temp, 120 - temp, temp * 2, temp * 2};
             if (i % 2 == warpskip)
             {
                 FillRect(backBuffer, warprect, warpbcol);
             }
             else
             {
-                FillRect(backBuffer,warprect, warpfcol);
+                FillRect(backBuffer, warprect, warpfcol);
             }
         }
         break;
+    }
     case 6:
         //Final Starfield
         ClearSurface(backBuffer);
@@ -3301,14 +3303,6 @@ SDL_Color Graphics::bigchunkygetcol(int t)
     }
     const SDL_Color color = {0, 0, 0, 0};
     return color;
-}
-
-void Graphics::setwarprect( int a, int b, int c, int d )
-{
-    warprect.x = a;
-    warprect.y = b;
-    warprect.w = c;
-    warprect.h = d;
 }
 
 void Graphics::textboxcenterx(void)
