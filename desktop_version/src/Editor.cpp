@@ -611,8 +611,7 @@ void editorrender(void)
             case 1: //Entities
                 if (custom_gray)
                 {
-                    graphics.setcol(18);
-                    ed.entcolreal = graphics.ct;
+                    ed.entcolreal = graphics.getcol(18);
                 }
                 graphics.drawsprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),ed.getenemyframe(room->enemytype),ed.entcolreal);
                 if(customentities[i].p1==0) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
@@ -932,13 +931,13 @@ void editorrender(void)
                 point tpoint;
                 tpoint.x = ed.ghosts[i].x;
                 tpoint.y = ed.ghosts[i].y;
-                graphics.setcolreal(ed.ghosts[i].realcol);
-                const int alpha = 3 * graphics.ct.a / 4;
-                graphics.ct.a = (Uint8) alpha;
+                SDL_Color ct = ed.ghosts[i].realcol;
+                const int alpha = 3 * ct.a / 4;
+                ct.a = (Uint8) alpha;
                 SDL_Rect drawRect = graphics.sprites_rect;
                 drawRect.x += tpoint.x;
                 drawRect.y += tpoint.y;
-                BlitSurfaceColoured(graphics.sprites[ed.ghosts[i].frame],NULL, graphics.ghostbuffer, &drawRect, graphics.ct);
+                BlitSurfaceColoured(graphics.sprites[ed.ghosts[i].frame],NULL, graphics.ghostbuffer, &drawRect, ct);
             }
         }
         SDL_BlitSurface(graphics.ghostbuffer, NULL, graphics.backBuffer, NULL);
@@ -1604,8 +1603,7 @@ void editorrenderfixed(void)
     game.customcol=cl.getlevelcol(room->tileset, room->tilecol)+1;
     ed.entcol=cl.getenemycol(game.customcol);
 
-    graphics.setcol(ed.entcol);
-    ed.entcolreal = graphics.ct;
+    ed.entcolreal = graphics.getcol(ed.entcol);
 
     if (game.ghostsenabled)
     {
@@ -1618,8 +1616,7 @@ void editorrenderfixed(void)
                 continue;
             }
 
-            graphics.setcol(ghost.col);
-            ghost.realcol = graphics.ct;
+            ghost.realcol = graphics.getcol(ghost.col);
         }
 
         if (ed.currentghosts + 1 < (int)ed.ghosts.size()) {

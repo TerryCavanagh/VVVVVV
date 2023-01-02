@@ -39,8 +39,8 @@ public:
 
     bool Makebfont(void);
 
-    void drawhuetile(int x, int y, int t);
-    void huetilesetcol(int t);
+    void drawhuetile(int x, int y, int t, SDL_Color ct);
+    SDL_Color huetilegetcol(int t);
     SDL_Color bigchunkygetcol(int t);
 
     void drawgravityline(int t);
@@ -134,7 +134,7 @@ public:
 
     void drawimage(int t, int xp, int yp, bool cent=false);
 
-    void drawimagecol(int t, int xp, int yp, bool cent= false);
+    void drawimagecol(int t, int xp, int yp, SDL_Color ct, bool cent= false);
 
     void updatetextboxes(void);
     void drawgui(void);
@@ -209,8 +209,6 @@ public:
 
     SDL_Color RGBf(int r, int g, int b);
 
-    void setcolreal(SDL_Color color);
-
     void drawbackground(int t);
     void updatebackground(int t);
 #ifndef NO_CUSTOM_LEVELS
@@ -256,10 +254,8 @@ public:
     void drawtowerbackground(const TowerBG& bg_obj);
     void updatetowerbackground(TowerBG& bg_obj);
 
-    void setcol(int t);
+    SDL_Color getcol(int t);
     void drawfinalmap(void);
-
-    SDL_Color ct;
 
     int rcol;
 

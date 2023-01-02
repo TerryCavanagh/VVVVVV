@@ -434,16 +434,16 @@ static void menurender(void)
         graphics.Print( -1, 50, loc::gettext("VVVVVV is a game by"), tr, tg, tb, true);
         graphics.bigprint( 40, 65, "Terry Cavanagh", tr, tg, tb, true, 2);
 
-        graphics.drawimagecol(7, -1, 86, true);
+        graphics.drawimagecol(7, -1, 86, graphics.getRGB(tr, tg, tb), true);
 
         graphics.Print( -1, 120, loc::gettext("and features music by"), tr, tg, tb, true);
         graphics.bigprint( 40, 135, "Magnus Pålsson", tr, tg, tb, true, 2);
-        graphics.drawimagecol(8, -1, 156, true);
+        graphics.drawimagecol(8, -1, 156, graphics.getRGB(tr, tg, tb), true);
         break;
     case Menu::credits2:
         graphics.Print( -1, 50, loc::gettext("Roomnames are by"), tr, tg, tb, true);
         graphics.bigprint( 40, 65, "Bennett Foddy", tr, tg, tb, true);
-        graphics.drawimagecol(9, -1, 86, true);
+        graphics.drawimagecol(9, -1, 86, graphics.getRGB(tr, tg, tb), true);
         graphics.Print( -1, 110, loc::gettext("C++ version by"), tr, tg, tb, true);
         graphics.bigprint( 40, 125, "Simon Roth", tr, tg, tb, true);
         graphics.bigprint( 40, 145, "Ethan Lee", tr, tg, tb, true);
