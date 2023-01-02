@@ -94,11 +94,6 @@ static void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_
     const SDL_PixelFormat* fmt = surface->format;
     const int bpp = fmt->BytesPerPixel;
     Uint32* pixel = (Uint32*) ((Uint8*) surface->pixels + y * surface->pitch + x * bpp);
-    const Uint32 packed =
-        (color.r << fmt->Rshift) |
-        (color.g << fmt->Gshift) |
-        (color.b << fmt->Bshift) |
-        (color.a << fmt->Ashift);
 
     switch (bpp)
     {
@@ -109,8 +104,7 @@ static void DrawPixel(SDL_Surface* surface, const int x, const int y, const SDL_
         return;
 
     case 4:
-        *pixel = packed;
-        break;
+        *pixel = SDL_MapRGBA(fmt, color.r, color.g, color.b, color.a);
     }
 }
 
@@ -119,32 +113,20 @@ SDL_Color ReadPixel(const SDL_Surface* surface, const int x, const int y)
     const SDL_PixelFormat* fmt = surface->format;
     const int bpp = surface->format->BytesPerPixel;
     const Uint32* pixel = (Uint32*) ((Uint8*) surface->pixels + y * surface->pitch + x * bpp);
+    SDL_Color color = {0, 0, 0, 0};
 
     switch (bpp)
     {
     case 1:
     case 2:
     case 3:
-    {
         SDL_assert(0 && "Non-32-bit colors not supported!");
-        const SDL_Color color = {0, 0, 0, 0};
-        return color;
-    }
+        break;
 
     case 4:
-    {
-        const SDL_Color color = {
-            (Uint8) ((*pixel & fmt->Rmask) >> fmt->Rshift),
-            (Uint8) ((*pixel & fmt->Gmask) >> fmt->Gshift),
-            (Uint8) ((*pixel & fmt->Bmask) >> fmt->Bshift),
-            (Uint8) ((*pixel & fmt->Amask) >> fmt->Ashift)
-        };
-        return color;
-    }
+        SDL_GetRGBA(*pixel, fmt, &color.r, &color.g, &color.b, &color.a);
     }
 
-    /* shouldn't happen, but avoids warnings */
-    const SDL_Color color = {0, 0, 0, 0};
     return color;
 }
 
