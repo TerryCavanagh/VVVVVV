@@ -110,7 +110,7 @@ void Graphics::init(void)
     m = 0;
     linedelay = 0;
     menubuffer = NULL;
-    tempBuffer = NULL;
+    menuoffbuffer = NULL;
     warpbuffer = NULL;
     warpbuffer_lerp = NULL;
     footerbuffer = NULL;
@@ -230,8 +230,8 @@ void Graphics::create_buffers(const SDL_PixelFormat* fmt)
     titlebg.buffer_lerp = CREATE_SURFACE(SCREEN_WIDTH_PIXELS + 16, SCREEN_HEIGHT_PIXELS + 16);
     SDL_SetSurfaceBlendMode(titlebg.buffer_lerp, SDL_BLENDMODE_NONE);
 
-    tempBuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
-    SDL_SetSurfaceBlendMode(tempBuffer, SDL_BLENDMODE_NONE);
+    menuoffbuffer = CREATE_SURFACE(SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
+    SDL_SetSurfaceBlendMode(menuoffbuffer, SDL_BLENDMODE_NONE);
 
     #undef CREATE_SURFACE
 }
@@ -252,7 +252,7 @@ void Graphics::destroy_buffers(void)
     FREE_SURFACE(towerbg.buffer_lerp);
     FREE_SURFACE(titlebg.buffer);
     FREE_SURFACE(titlebg.buffer_lerp);
-    FREE_SURFACE(tempBuffer);
+    FREE_SURFACE(menuoffbuffer);
 
 #undef FREE_SURFACE
 }
@@ -3255,7 +3255,7 @@ void Graphics::menuoffrender(void)
     SDL_Rect offsetRect = {0, usethisoffset, backBuffer->w, backBuffer->h};
 
     BlitSurfaceStandard(backBuffer, NULL, menubuffer, NULL);
-    BlitSurfaceStandard(tempBuffer, NULL, backBuffer, NULL);
+    BlitSurfaceStandard(menuoffbuffer, NULL, backBuffer, NULL);
     BlitSurfaceStandard(menubuffer, NULL, backBuffer, &offsetRect);
 
     gameScreen.UpdateScreen(backBuffer, NULL);

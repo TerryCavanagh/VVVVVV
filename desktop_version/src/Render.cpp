@@ -1961,7 +1961,7 @@ void gamerender(void)
 
     graphics.cutscenebars();
     graphics.drawfade();
-    BlitSurfaceStandard(graphics.backBuffer, NULL, graphics.tempBuffer, NULL);
+    BlitSurfaceStandard(graphics.backBuffer, NULL, graphics.menuoffbuffer, NULL);
 
     graphics.drawgui();
     if (graphics.flipmode)

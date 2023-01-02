@@ -280,7 +280,7 @@ public:
     SDL_Surface* backBuffer;
     SDL_Surface* menubuffer;
     SDL_Surface* foregroundBuffer;
-    SDL_Surface* tempBuffer;
+    SDL_Surface* menuoffbuffer;
     SDL_Surface* warpbuffer;
     SDL_Surface* warpbuffer_lerp;
 
