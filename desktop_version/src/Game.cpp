@@ -13,6 +13,7 @@
 #include "Entity.h"
 #include "Enums.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Localization.h"
@@ -7028,6 +7029,7 @@ void Game::quittomenu(void)
     graphics.fademode = FADE_START_FADEIN;
     FILESYSTEM_unmountAssets();
     loc::unloadtext_custom();
+    font::unload_custom();
     cliplaytest = false;
     graphics.titlebg.tdrawback = true;
     graphics.flipmode = false;
