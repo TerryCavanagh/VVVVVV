@@ -181,6 +181,76 @@ void BlitSurfaceStandard( SDL_Surface* _src, SDL_Rect* _srcRect, SDL_Surface* _d
     SDL_BlitSurface( _src, _srcRect, _dest, _destRect );
 }
 
+static void BlitSurfaceTransform(
+    SDL_Surface* src,
+    const SDL_Rect* src_rect,
+    SDL_Surface* dest,
+    SDL_Rect* dest_rect,
+    SDL_Color (*transform)(SDL_Color pixel, SDL_Color color),
+    const SDL_Color color
+) {
+    if (src == NULL || dest == NULL || transform == NULL)
+    {
+        return;
+    }
+    if (color.a == 0)
+    {
+        return;
+    }
+
+    SDL_Rect orig_rect;
+    if (src_rect == NULL)
+    {
+        setRect(orig_rect, 0, 0, src->w, src->h);
+    }
+    else
+    {
+        orig_rect = *src_rect;
+    }
+    int blit_x;
+    int blit_y;
+    if (dest_rect == NULL)
+    {
+        blit_x = 0;
+        blit_y = 0;
+    }
+    else
+    {
+        blit_x = dest_rect->x;
+        blit_y = dest_rect->y;
+    }
+
+    for (int x = 0; x < orig_rect.w; x++)
+    {
+        for (int y = 0; y < orig_rect.h; y++)
+        {
+            if (blit_x + x < 0 || blit_y + y < 0 ||
+            blit_x + x >= dest->w || blit_y + y >= dest->h)
+            {
+                continue;
+            }
+
+            const SDL_Color pixel = ReadPixel(src, orig_rect.x + x, orig_rect.y + y);
+            if (pixel.a == 0)
+            {
+                continue;
+            }
+
+            const SDL_Color result = transform(pixel, color);
+            DrawPixel(dest, blit_x + x, blit_y + y, result);
+        }
+    }
+}
+
+static SDL_Color transform_color(const SDL_Color pixel, const SDL_Color color)
+{
+    const float div1 = pixel.a / 255.0f;
+    const float div2 = color.a / 255.0f;
+    const Uint8 alpha = (div1 * div2) * 255.0f;
+    const SDL_Color result = {color.r, color.g, color.b, alpha};
+    return result;
+}
+
 void BlitSurfaceColoured(
     SDL_Surface* src,
     const SDL_Rect* src_rect,
@@ -188,23 +258,33 @@ void BlitSurfaceColoured(
     SDL_Rect* dest_rect,
     const SDL_Color color
 ) {
-    SDL_Surface* tempsurface = RecreateSurface(src);
+    return BlitSurfaceTransform(
+        src, src_rect, dest, dest_rect, transform_color, color
+    );
+}
 
-    for (int x = 0; x < tempsurface->w; x++)
-    {
-        for (int y = 0; y < tempsurface->h; y++)
-        {
-            const SDL_Color pixel = ReadPixel(src, x, y);
-            const float div1 = pixel.a / 255.0f;
-            const float div2 = color.a / 255.0f;
-            const Uint8 alpha = (div1 * div2) * 255.0f;
-            const SDL_Color result = {color.r, color.g, color.b, alpha};
-            DrawPixel(tempsurface, x, y, result);
-        }
-    }
+static SDL_Color transform_tint(const SDL_Color pixel, const SDL_Color color)
+{
+    double red = pixel.r * 0.299;
+    double green = pixel.g * 0.587;
+    double blue = pixel.b * 0.114;
 
-    SDL_BlitSurface(tempsurface, src_rect, dest, dest_rect);
-    VVV_freefunc(SDL_FreeSurface, tempsurface);
+    const double gray = SDL_floor(red + green + blue + 0.5);
+
+    red = gray * color.r / 255.0;
+    green = gray * color.g / 255.0;
+    blue = gray * color.b / 255.0;
+
+    red = SDL_clamp(red, 0, 255);
+    green = SDL_clamp(green, 0, 255);
+    blue = SDL_clamp(blue, 0, 255);
+
+    const float div1 = pixel.a / 255.0f;
+    const float div2 = color.a / 255.0f;
+    const Uint8 alpha = (div1 * div2) * 255.0f;
+
+    const SDL_Color result = {(Uint8) red, (Uint8) green, (Uint8) blue, alpha};
+    return result;
 }
 
 void BlitSurfaceTinted(
@@ -214,39 +294,9 @@ void BlitSurfaceTinted(
     SDL_Rect* dest_rect,
     const SDL_Color color
 ) {
-    SDL_Surface* tempsurface = RecreateSurface(src);
-
-    for (int x = 0; x < tempsurface->w; x++)
-    {
-        for (int y = 0; y < tempsurface->h; y++)
-        {
-            const SDL_Color pixel = ReadPixel(src, x, y);
-
-            double red = pixel.r * 0.299;
-            double green = pixel.g * 0.587;
-            double blue = pixel.b * 0.114;
-
-            const double gray = SDL_floor(red + green + blue + 0.5);
-
-            red = gray * color.r / 255.0;
-            green = gray * color.g / 255.0;
-            blue = gray * color.b / 255.0;
-
-            red = SDL_clamp(red, 0, 255);
-            green = SDL_clamp(green, 0, 255);
-            blue = SDL_clamp(blue, 0, 255);
-
-            const float div1 = pixel.a / 255.0f;
-            const float div2 = color.a / 255.0f;
-            const Uint8 alpha = (div1 * div2) * 255.0f;
-
-            const SDL_Color result = {(Uint8) red, (Uint8) green, (Uint8) blue, alpha};
-            DrawPixel(tempsurface, x, y, result);
-        }
-    }
-
-    SDL_BlitSurface(tempsurface, src_rect, dest, dest_rect);
-    VVV_freefunc(SDL_FreeSurface, tempsurface);
+    return BlitSurfaceTransform(
+        src, src_rect, dest, dest_rect, transform_tint, color
+    );
 }
 
 
