@@ -221,7 +221,7 @@ static void BlitSurfaceTransform(
     }
 
     /* FIXME: Find a way to do this without allocating... */
-    SDL_Surface* tempsurface = RecreateSurface(dest);
+    SDL_Surface* tempsurface = RecreateSurfaceWithDimensions(src, orig_rect.w, orig_rect.h);
     if (tempsurface == NULL)
     {
         return;
@@ -245,11 +245,12 @@ static void BlitSurfaceTransform(
             }
 
             const SDL_Color result = transform(pixel, color);
-            DrawPixel(tempsurface, blit_x + x, blit_y + y, result);
+            DrawPixel(tempsurface, x, y, result);
         }
     }
 
-    SDL_BlitSurface(tempsurface, NULL, dest, NULL);
+    SDL_Rect final_rect = {blit_x, blit_y, 0, 0};
+    SDL_BlitSurface(tempsurface, NULL, dest, &final_rect);
     VVV_freefunc(SDL_FreeSurface, tempsurface);
 }
 
