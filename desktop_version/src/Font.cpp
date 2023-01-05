@@ -333,7 +333,7 @@ int print_char(
         return f->glyph_w * scale;
     }
 
-    if (glyph->flags & GLYPH_COLOR)
+    if (glyph->flags & GLYPH_COLOR && (r | g | b) != 0)
     {
         graphics.draw_grid_tile(f->image, glyph->image_idx, x, y, f->glyph_w, f->glyph_h, 255, 255, 255, 255, scale, scale * (graphics.flipmode ? -1 : 1));
     }
