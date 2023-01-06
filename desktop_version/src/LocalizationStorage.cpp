@@ -6,6 +6,7 @@
 #include "Constants.h"
 #include "CustomLevels.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "Graphics.h"
 #include "Unused.h"
 #include "UtilityClass.h"
@@ -309,7 +310,7 @@ static bool max_check_string(const char* str, const char* max)
     else
     {
         short lines;
-        graphics.string_wordwrap(str, max_w_px, &lines);
+        font::string_wordwrap(str, max_w_px, &lines);
         does_overflow = lines > (short) max_h;
     }
 
@@ -651,7 +652,7 @@ static void loadtext_cutscenes(bool custom_level)
             {
                 continue;
             }
-            const std::string eng_unwrapped = graphics.string_unwordwrap(eng);
+            const std::string eng_unwrapped = font::string_unwordwrap(eng);
             char* eng_prefixed = add_disambiguator(subElem->UnsignedAttribute("case", 1), eng_unwrapped.c_str(), NULL);
             if (eng_prefixed == NULL)
             {

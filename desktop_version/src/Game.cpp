@@ -672,7 +672,7 @@ void Game::crewmate_textbox(const int r, const int g, const int b)
     /* This is a special case for wrapping, we MUST have two lines.
      * So just make sure it can't fit in one line. */
     const char* text = loc::gettext("You have rescued a crew member!");
-    std::string wrapped = graphics.string_wordwrap_balanced(text, graphics.len(text)-1);
+    std::string wrapped = font::string_wordwrap_balanced(text, graphics.len(text)-1);
 
     size_t startline = 0;
     size_t newline;

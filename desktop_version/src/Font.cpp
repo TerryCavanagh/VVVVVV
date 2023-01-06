@@ -107,6 +107,18 @@ static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint)
     return NULL;
 }
 
+int get_advance(const Font* f, const uint32_t codepoint)
+{
+    // Get the width of a single character in a font
+    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
+    if (glyph == NULL)
+    {
+        return f->glyph_w;
+    }
+
+    return glyph->advance;
+}
+
 static bool decode_xml_range(tinyxml2::XMLElement* elem, unsigned* start, unsigned* end)
 {
     // We do support hexadecimal start/end like "0x10FFFF"
@@ -319,16 +331,219 @@ void destroy(void)
     }
 }
 
-int get_advance(const Font* f, const uint32_t codepoint)
-{
-    /* Get the width of a single character in a font */
-    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
-    if (glyph == NULL)
+static bool next_wrap(
+    size_t* start,
+    size_t* len,
+    const char* str,
+    const int maxwidth
+) {
+    /* This function is UTF-8 aware. But start/len still are bytes. */
+    size_t idx = 0;
+    size_t lenfromlastspace = 0;
+    size_t lastspace = 0;
+    int linewidth = 0;
+    *len = 0;
+
+    if (str[idx] == '\0')
     {
-        return f->glyph_w;
+        return false;
     }
 
-    return glyph->advance;
+    while (true)
+    {
+        /* FIXME: This only checks one byte, not multiple! */
+        if ((str[idx] & 0xC0) == 0x80)
+        {
+            /* Skip continuation byte. */
+            goto next;
+        }
+
+        linewidth += get_advance(&font::temp_bfont, str[idx]);
+
+        switch (str[idx])
+        {
+        case ' ':
+            if (loc::get_langmeta()->autowordwrap)
+            {
+                lenfromlastspace = idx;
+                lastspace = *start;
+            }
+            break;
+        case '\n':
+        case '|':
+            *start += 1;
+            SDL_FALLTHROUGH;
+        case '\0':
+            return true;
+        }
+
+        if (linewidth > maxwidth)
+        {
+            if (lenfromlastspace != 0)
+            {
+                *len = lenfromlastspace;
+                *start = lastspace + 1;
+            }
+            return true;
+        }
+
+next:
+        idx += 1;
+        *start += 1;
+        *len += 1;
+    }
+}
+
+static bool next_wrap_s(
+    char buffer[],
+    const size_t buffer_size,
+    size_t* start,
+    const char* str,
+    const int maxwidth
+) {
+    size_t len = 0;
+    const size_t prev_start = *start;
+
+    const bool retval = next_wrap(start, &len, &str[*start], maxwidth);
+
+    if (retval)
+    {
+        /* Like next_split_s(), don't use SDL_strlcpy() here. */
+        const size_t length = SDL_min(buffer_size - 1, len);
+        SDL_memcpy(buffer, &str[prev_start], length);
+        buffer[length] = '\0';
+    }
+
+    return retval;
+}
+
+std::string string_wordwrap(const std::string& s, int maxwidth, short *lines /*= NULL*/)
+{
+    /* Return a string wordwrapped to a maximum limit by adding newlines.
+     * CJK will need to have autowordwrap disabled and have manually inserted newlines. */
+
+    if (lines != NULL)
+    {
+        *lines = 1;
+    }
+
+    const char* orig = s.c_str();
+
+    std::string result;
+    size_t start = 0;
+    bool first = true;
+
+    while (true)
+    {
+        size_t len = 0;
+        const char* part = &orig[start];
+
+        const bool retval = next_wrap(&start, &len, part, maxwidth);
+
+        if (!retval)
+        {
+            return result;
+        }
+
+        if (first)
+        {
+            first = false;
+        }
+        else
+        {
+            result.push_back('\n');
+
+            if (lines != NULL)
+            {
+                (*lines)++;
+            }
+        }
+        result.append(part, len);
+    }
+}
+
+std::string string_wordwrap_balanced(const std::string& s, int maxwidth)
+{
+    /* Return a string wordwrapped to a limit of maxwidth by adding newlines.
+     * Try to fill the lines as far as possible, and return result where lines are most filled.
+     * Goal is to have all lines in textboxes be about as long and to avoid wrapping just one word to a new line.
+     * CJK will need to have autowordwrap disabled and have manually inserted newlines. */
+
+    if (!loc::get_langmeta()->autowordwrap)
+    {
+        return s;
+    }
+
+    short lines;
+    string_wordwrap(s, maxwidth, &lines);
+
+    int bestwidth = maxwidth;
+    if (lines > 1)
+    {
+        for (int curlimit = maxwidth; curlimit > 1; curlimit -= 8)
+        {
+            short try_lines;
+            string_wordwrap(s, curlimit, &try_lines);
+
+            if (try_lines > lines)
+            {
+                bestwidth = curlimit + 8;
+                break;
+            }
+        }
+    }
+
+    return string_wordwrap(s, bestwidth);
+}
+
+std::string string_unwordwrap(const std::string& s)
+{
+    /* Takes a string wordwrapped by newlines, and turns it into a single line, undoing the wrapping.
+     * Also trims any leading/trailing whitespace and collapses multiple spaces into one (to undo manual centering)
+     * Only applied to English, so langmeta.autowordwrap isn't used here (it'd break looking up strings) */
+
+    std::string result;
+    std::back_insert_iterator<std::string> inserter = std::back_inserter(result);
+    std::string::const_iterator iter = s.begin();
+    bool latest_was_space = true; // last character was a space (or the beginning, don't want leading whitespace)
+    int consecutive_newlines = 0; // number of newlines currently encountered in a row (multiple newlines should stay!)
+    while (iter != s.end())
+    {
+        uint32_t ch = utf8::unchecked::next(iter);
+
+        if (ch == '\n')
+        {
+            if (consecutive_newlines == 0)
+            {
+                ch = ' ';
+            }
+            else if (consecutive_newlines == 1)
+            {
+                // The last character was already a newline, so change it back from the space we thought it should have become.
+                result[result.size()-1] = '\n';
+            }
+            consecutive_newlines++;
+        }
+        else
+        {
+            consecutive_newlines = 0;
+        }
+
+        if (ch != ' ' || !latest_was_space)
+        {
+            utf8::unchecked::append(ch, inserter);
+        }
+
+        latest_was_space = (ch == ' ' || ch == '\n');
+    }
+
+    // We could have one trailing space
+    if (!result.empty() && result[result.size()-1] == ' ')
+    {
+        result.erase(result.end()-1);
+    }
+
+    return result;
 }
 
 static int print_char(
@@ -389,6 +604,21 @@ static PrintFlags decode_print_flags(uint32_t flags)
     return pf;
 }
 #undef FLAG_PART
+
+int len(const uint32_t flags, const std::string& t)
+{
+    PrintFlags pf = decode_print_flags(flags);
+    // TODO flags!
+
+    int text_len = 0;
+    std::string::const_iterator iter = t.begin();
+    while (iter != t.end())
+    {
+        int cur = utf8::unchecked::next(iter);
+        text_len += get_advance(&font::temp_bfont, cur);
+    }
+    return text_len;
+}
 
 void print(
     const uint32_t flags,
@@ -493,7 +723,7 @@ int print_wrap(
     {
         // Correct for the height of the resulting print.
         size_t len = 0;
-        while (graphics.next_wrap(&start, &len, &str[start], maxwidth))
+        while (next_wrap(&start, &len, &str[start], maxwidth))
         {
             y += linespacing;
         }
@@ -501,7 +731,7 @@ int print_wrap(
         start = 0;
     }
 
-    while (graphics.next_wrap_s(buffer, sizeof(buffer), &start, str, maxwidth))
+    while (next_wrap_s(buffer, sizeof(buffer), &start, str, maxwidth))
     {
         print(flags, x, y, buffer, r, g, b);
 
