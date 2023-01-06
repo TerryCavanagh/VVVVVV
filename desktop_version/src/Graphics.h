@@ -210,7 +210,7 @@ public:
 
     bool next_wrap_s(char buffer[], size_t buffer_size, size_t* start, const char* str, int maxwidth);
 
-    int PrintWrap(int x, int y, std::string s, int r, int g, int b, bool cen = false, int linespacing = -1, int maxwidth = -1);
+    int PrintWrap(int x, int y, const std::string& s, int r, int g, int b, bool cen = false, int linespacing = -1, int maxwidth = -1);
 
     void bprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false);
 

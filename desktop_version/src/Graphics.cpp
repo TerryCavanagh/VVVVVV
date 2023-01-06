@@ -443,7 +443,7 @@ bool Graphics::next_wrap_s(
 int Graphics::PrintWrap(
     const int x,
     int y,
-    std::string s,
+    const std::string& text,
     const int r,
     const int g,
     const int b,
@@ -451,50 +451,11 @@ int Graphics::PrintWrap(
     int linespacing /*= -1*/,
     int maxwidth /*= -1*/
 ) {
-    if (linespacing == -1)
-    {
-        linespacing = 10;
-    }
-    linespacing = SDL_max(linespacing, loc::get_langmeta()->font_h);
-
-    if (maxwidth == -1)
-    {
-        maxwidth = 304;
-    }
-
-    const char* str = s.c_str();
-    /* Screen width is 320 pixels. The shortest a char can be is 6 pixels wide.
-     * 320 / 6 is 54, rounded up. 4 bytes per char. */
-    char buffer[54*4 + 1];
-    size_t start = 0;
-
-    if (flipmode)
-    {
-        /* Correct for the height of the resulting print. */
-        size_t len = 0;
-        while (next_wrap(&start, &len, &str[start], maxwidth))
-        {
-            y += linespacing;
-        }
-        y -= linespacing;
-        start = 0;
-    }
-
-    while (next_wrap_s(buffer, sizeof(buffer), &start, str, maxwidth))
-    {
-        Print(x, y, buffer, r, g, b, cen);
-
-        if (flipmode)
-        {
-            y -= linespacing;
-        }
-        else
-        {
-            y += linespacing;
-        }
-    }
-
-    return y + linespacing;
+    // DEPRECATED
+    if (cen)
+        return font::print_wrap(PR_CEN, -1, y, text, r, g, b, linespacing /*= -1 */, maxwidth /*= -1 */);
+    else
+        return font::print_wrap(0, x, y, text, r, g, b, linespacing /*= -1 */, maxwidth /*= -1 */);
 }
 
 

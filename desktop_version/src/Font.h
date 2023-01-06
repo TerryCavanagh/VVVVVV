@@ -106,7 +106,23 @@ void destroy(void);
 
 int get_advance(const Font* f, uint32_t codepoint); // TODO de-api
 
-void print(uint32_t flags, int x, int y, const std::string& text, uint8_t r, uint8_t g, uint8_t b);
+void print(
+    uint32_t flags,
+    int x,
+    int y,
+    const std::string& text,
+    uint8_t r, uint8_t g, uint8_t b
+);
+
+int print_wrap(
+    uint32_t flags,
+    int x,
+    int y,
+    const std::string& text,
+    uint8_t r, uint8_t g, uint8_t b,
+    int linespacing = -1,
+    int maxwidth = -1
+);
 
 } // namespace font
 
