@@ -6,6 +6,7 @@
 #include "Editor.h"
 #include "Entity.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
@@ -1984,7 +1985,15 @@ void gamerender(void)
         );
         int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
 
-        graphics.bprint(5, graphics.flipmode ? 20 : 210, final_string, alpha - 20 - (help.glow / 2), alpha - 20 - (help.glow / 2), alpha, true);
+        font::print(
+            PR_COLORGLYPH_BRI(alpha) | PR_CEN | PR_BOR,
+            -1,
+            graphics.flipmode ? 20 : 210,
+            final_string,
+            alpha - 20 - (help.glow / 2),
+            alpha - 20 - (help.glow / 2),
+            alpha
+        );
     }
 
     if (game.swnmode)
@@ -2202,12 +2211,36 @@ void gamerender(void)
 
         if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
         {
-            graphics.bprint(centered_x + game.activity_x, game.activity_y + 12, final_string, 196*act_alpha, 196*act_alpha, (255 - help.glow)*act_alpha);
+            font::print(
+                PR_COLORGLYPH_BRI(act_alpha*255),
+                centered_x + game.activity_x,
+                game.activity_y + 12,
+                final_string,
+                196*act_alpha,
+                196*act_alpha,
+                (255 - help.glow)*act_alpha
+            );
         }
         else
         {
-            graphics.drawtextbox(game.activity_x + 4, game.activity_y + 4, 39, 3, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
-            graphics.Print(centered_x + game.activity_x, game.activity_y + 12, final_string, game.activity_r*act_alpha, game.activity_g*act_alpha, game.activity_b*act_alpha);
+            graphics.drawtextbox(
+                game.activity_x + 4,
+                game.activity_y + 4,
+                39,
+                3,
+                game.activity_r*act_alpha,
+                game.activity_g*act_alpha,
+                game.activity_b*act_alpha
+            );
+            font::print(
+                PR_COLORGLYPH_BRI(act_alpha*255),
+                centered_x + game.activity_x,
+                game.activity_y + 12,
+                final_string,
+                game.activity_r*act_alpha,
+                game.activity_g*act_alpha,
+                game.activity_b*act_alpha
+            );
         }
     }
 

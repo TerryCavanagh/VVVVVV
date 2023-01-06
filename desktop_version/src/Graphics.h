@@ -202,8 +202,6 @@ public:
 
     void map_option(int opt, int num_opts, const std::string& text, bool selected = false);
 
-    void do_print(int x, int y, const std::string& text, int r, int g, int b, int a, int scale);
-
     void Print(int _x, int _y, const std::string& _s, int r, int g, int b, bool cen = false);
 
     void PrintAlpha(int _x, int _y, const std::string& _s, int r, int g, int b, int a, bool cen = false);
@@ -248,8 +246,8 @@ public:
 
     void drawtrophytext(void);
 
-    void bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
-    void bigbrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, float sc = 2);
+    void bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, int sc = 2);
+    void bigbrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, int sc = 2);
 
 
     void drawtele(int x, int y, int t, SDL_Color c);

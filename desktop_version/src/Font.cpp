@@ -4,6 +4,7 @@
 #include <utf8/unchecked.h>
 
 #include "Alloc.h"
+#include "Constants.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
 #include "UtilityClass.h"
@@ -313,21 +314,22 @@ int get_advance(const Font* f, const uint32_t codepoint)
     return glyph->advance;
 }
 
-int print_char(
+static int print_char(
     const Font* f,
     const uint32_t codepoint,
     const int x,
     const int y,
     const int scale,
-    const uint8_t r,
-    const uint8_t g,
-    const uint8_t b,
-    const uint8_t a
+    uint8_t r,
+    uint8_t g,
+    uint8_t b,
+    const uint8_t a,
+    const uint8_t colorglyph_bri
 )
 {
     /* Draws the glyph for a codepoint at x,y.
      * Returns the amount of pixels to advance the cursor. */
-    GlyphInfo* glyph = find_glyphinfo(f, codepoint);;
+    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
     if (glyph == NULL)
     {
         return f->glyph_w * scale;
@@ -335,14 +337,109 @@ int print_char(
 
     if (glyph->flags & GLYPH_COLOR && (r | g | b) != 0)
     {
-        graphics.draw_grid_tile(f->image, glyph->image_idx, x, y, f->glyph_w, f->glyph_h, 255, 255, 255, 255, scale, scale * (graphics.flipmode ? -1 : 1));
+        r = g = b = colorglyph_bri;
+    }
+
+    graphics.draw_grid_tile(f->image, glyph->image_idx, x, y, f->glyph_w, f->glyph_h, r, g, b, a, scale, scale * (graphics.flipmode ? -1 : 1));
+
+    return glyph->advance * scale;
+}
+
+#define FLAG_PART(start, count) ((flags >> start) % (1 << count))
+static PrintFlags decode_print_flags(uint32_t flags)
+{
+    PrintFlags pf;
+    pf.scale = FLAG_PART(0, 3) + 1;
+    pf.font_sel = FLAG_PART(3, 5);
+
+    if (flags & PR_AB_IS_BRI)
+    {
+        pf.alpha = 255;
+        pf.colorglyph_bri = ~FLAG_PART(8, 8) & 0xff;
     }
     else
     {
-        graphics.draw_grid_tile(f->image, glyph->image_idx, x, y, f->glyph_w, f->glyph_h, r, g, b, a, scale, scale * (graphics.flipmode ? -1 : 1));
+        pf.alpha = ~FLAG_PART(8, 8) & 0xff;
+        pf.colorglyph_bri = 255;
     }
 
-    return glyph->advance * scale;
+    pf.border = flags & PR_BOR;
+    pf.align_cen = flags & PR_CEN;
+    pf.align_right = flags & PR_RIGHT;
+    pf.cjk_low = flags & PR_CJK_LOW;
+    pf.cjk_high = flags & PR_CJK_HIGH;
+
+    return pf;
+}
+#undef FLAG_PART
+
+void print(
+    const uint32_t flags,
+    int x,
+    int y,
+    const std::string& text,
+    const uint8_t r,
+    const uint8_t g,
+    const uint8_t b
+)
+{
+    PrintFlags pf = decode_print_flags(flags);
+
+    // TODO pf.font_sel
+
+    if (pf.align_cen || pf.align_right)
+    {
+        const int textlen = graphics.len(text) * pf.scale;
+
+        if (pf.align_cen)
+        {
+            if (x == -1)
+            {
+                x = SCREEN_WIDTH_PIXELS / 2;
+            }
+            x = SDL_max(x - textlen/2, 0);
+        }
+        else
+        {
+            x -= textlen;
+        }
+    }
+    // TODO cjk_low/cjk_high
+
+    if (pf.border && !graphics.notextoutline)
+    {
+        static const int offsets[4][2] = {{0,-1}, {-1,0}, {1,0}, {0,1}};
+
+        for (int offset = 0; offset < 4; offset++)
+        {
+            print(
+                flags & ~PR_BOR & ~PR_CEN & ~PR_RIGHT,
+                x + offsets[offset][0]*pf.scale,
+                y + offsets[offset][1]*pf.scale,
+                text,
+                0, 0, 0
+            );
+        }
+    }
+
+    int position = 0;
+    std::string::const_iterator iter = text.begin();
+    while (iter != text.end())
+    {
+        const uint32_t character = utf8::unchecked::next(iter);
+        position += font::print_char(
+            &font::temp_bfont,
+            character,
+            x + position,
+            y,
+            pf.scale,
+            r,
+            g,
+            b,
+            pf.alpha,
+            pf.colorglyph_bri
+        );
+    }
 }
 
 } // namespace font
