@@ -337,43 +337,21 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     }
 }
 
-void Graphics::do_print(
-    const int x,
-    const int y,
-    const std::string& text,
-    int r,
-    int g,
-    int b,
-    int a,
-    const int scale
-) {
-    // TODO do something with flipmode
-
-    int position = 0;
-    std::string::const_iterator iter = text.begin();
-
-    r = SDL_clamp(r, 0, 255);
-    g = SDL_clamp(g, 0, 255);
-    b = SDL_clamp(b, 0, 255);
-    a = SDL_clamp(a, 0, 255);
-
-    while (iter != text.end())
-    {
-        const uint32_t character = utf8::unchecked::next(iter);
-        position += font::print_char(&font::temp_bfont, character, x + position, y, scale, r, g, b, a);
-    }
-}
-
-void Graphics::Print( int _x, int _y, const std::string& _s, int r, int g, int b, bool cen /*= false*/ ) {
-    return PrintAlpha(_x,_y,_s,r,g,b,255,cen);
-}
-
-void Graphics::PrintAlpha( int _x, int _y, const std::string& _s, int r, int g, int b, int a, bool cen /*= false*/ )
-{
+void Graphics::Print( int x, int y, const std::string& text, int r, int g, int b, bool cen /*= false*/ ) {
+    // DEPRECATED
     if (cen)
-        _x = ((160 ) - ((len(_s)) / 2));
+        font::print(PR_CEN, -1, y, text, r, g, b);
+    else
+        font::print(0, x, y, text, r, g, b);
+}
 
-    return do_print(_x, _y, _s, r, g, b, a, 1);
+void Graphics::PrintAlpha( int x, int y, const std::string& text, int r, int g, int b, int a, bool cen /*= false*/ )
+{
+    // DEPRECATED
+    if (cen)
+        font::print(PR_ALPHA(a) | PR_CEN, -1, y, text, r, g, b);
+    else
+        font::print(PR_ALPHA(a), x, y, text, r, g, b);
 }
 
 bool Graphics::next_wrap(
@@ -520,38 +498,24 @@ int Graphics::PrintWrap(
 }
 
 
-void Graphics::bigprint(  int _x, int _y, const std::string& _s, int r, int g, int b, bool cen, int sc )
+void Graphics::bigprint(  int x, int y, const std::string& text, int r, int g, int b, bool cen, int sc )
 {
+    // DEPRECATED. Also, use PR_2X/PR_3X/etc directly
+    int PR_scX = (sc-1);
     if (cen)
-    {
-        const int len_ = len(_s);
-        _x = SDL_max(160 - (int((len_/ 2.0)*sc)), 0 );
-    }
-
-    return do_print(_x, _y, _s, r, g, b, 255, sc);
+        font::print(PR_scX | PR_CEN, -1, y, text, r, g, b);
+    else
+        font::print(PR_scX, x, y, text, r, g, b);
 }
 
-void Graphics::bigbprint(int x, int y, const std::string& s, int r, int g, int b, bool cen, int sc)
+void Graphics::bigbprint(int x, int y, const std::string& text, int r, int g, int b, bool cen, int sc)
 {
-    if (!notextoutline)
-    {
-        bigprint(x, y - sc, s, 0, 0, 0, cen, sc);
-        if (cen)
-        {
-            const int len_ = len(s);
-            int x_cen = SDL_max(160 - (len_ / 2) * sc, 0);
-            bigprint(x_cen - sc, y, s, 0, 0, 0, false, sc);
-            bigprint(x_cen + sc, y, s, 0, 0, 0, false, sc);
-        }
-        else
-        {
-            bigprint(x - sc, y, s, 0, 0, 0, cen, sc);
-            bigprint(x + sc, y, s, 0, 0, 0, cen, sc);
-        }
-        bigprint(x, y + sc, s, 0, 0, 0, cen, sc);
-    }
-
-    bigprint(x, y, s, r, g, b, cen, sc);
+    // DEPRECATED. Also, use PR_2X/PR_3X/etc directly
+    int PR_scX = (sc-1);
+    if (cen)
+        font::print(PR_scX | PR_CEN | PR_BOR, -1, y, text, r, g, b);
+    else
+        font::print(PR_scX | PR_BOR, x, y, text, r, g, b);
 }
 
 int Graphics::len(const std::string& t)
@@ -694,30 +658,21 @@ std::string Graphics::string_unwordwrap(const std::string& s)
     return result;
 }
 
-void Graphics::bprint( int x, int y, const std::string& t, int r, int g, int b, bool cen /*= false*/ ) {
-    bprintalpha(x,y,t,r,g,b,255,cen);
+void Graphics::bprint( int x, int y, const std::string& text, int r, int g, int b, bool cen /*= false*/ ) {
+    // DEPRECATED
+    if (cen)
+        font::print(PR_CEN | PR_BOR, -1, y, text, r, g, b);
+    else
+        font::print(PR_BOR, x, y, text, r, g, b);
 }
 
-void Graphics::bprintalpha( int x, int y, const std::string& t, int r, int g, int b, int a, bool cen /*= false*/ )
+void Graphics::bprintalpha( int x, int y, const std::string& text, int r, int g, int b, int a, bool cen /*= false*/ )
 {
-    if (!notextoutline)
-    {
-        PrintAlpha(x, y - 1, t, 0, 0, 0, a, cen);
-        if (cen)
-        {
-            const int x_cen = 160 - len(t)/2;
-            PrintAlpha(x_cen - 1, y, t, 0, 0, 0, a, false);
-            PrintAlpha(x_cen + 1, y, t, 0, 0, 0, a, false);
-        }
-        else
-        {
-            PrintAlpha(x  -1, y, t, 0, 0, 0, a, cen);
-            PrintAlpha(x  +1, y, t, 0, 0, 0, a, cen);
-        }
-        PrintAlpha(x, y+1, t, 0, 0, 0, a, cen);
-    }
-
-    PrintAlpha(x, y, t, r, g, b, a, cen);
+    // DEPRECATED
+    if (cen)
+        font::print(PR_ALPHA(a) | PR_CEN | PR_BOR, -1, y, text, r, g, b);
+    else
+        font::print(PR_ALPHA(a) | PR_BOR, x, y, text, r, g, b);
 }
 
 void Graphics::printcrewname( int x, int y, int t )
@@ -1181,7 +1136,7 @@ void Graphics::drawgui(void)
 
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                Print(textboxes[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textboxes[i].lines[j], r, g, b);
+                font::print(PR_COLORGLYPH_BRI(tl_lerp*255), textboxes[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textboxes[i].lines[j], r, g, b);
             }
         }
 
@@ -2043,6 +1998,7 @@ void Graphics::drawgravityline( int t )
 void Graphics::drawtrophytext(void)
 {
     int temp, temp2, temp3;
+    int brightness;
 
     if (obj.trophytext < 15)
     {
@@ -2050,12 +2006,14 @@ void Graphics::drawtrophytext(void)
         temp = (196 * usethismult) / 15;
         temp2 = (196 * usethismult) / 15;
         temp3 = ((255 - help.glow) * usethismult) / 15;
+        brightness = (usethismult/15.0)*255;
     }
     else
     {
         temp = 196;
         temp2 = 196;
         temp3 = 255 - help.glow;
+        brightness = 255;
     }
 
     /* These were originally all at the top of the screen, but might be too tight for localization.
@@ -2135,6 +2093,7 @@ void Graphics::drawtrophytext(void)
     }
 
     /* These were `bprint` before */
+    // TODO: add PR_COLORGLYPH_BRI(brightness) | PR_BOR
     short lines;
     if (top_text != NULL)
     {
@@ -3589,49 +3548,24 @@ void Graphics::renderfixedpost(void)
     }
 }
 
-void Graphics::bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen, float sc)
+void Graphics::bigrprint(int x, int y, const std::string& text, int r, int g, int b, bool cen, int sc)
 {
-    const int len_ = len(t);
-
-    x = x /  (sc);
-
-    x -= len_;
-
+    // DEPRECATED. Also, use PR_2X/PR_3X/etc directly
+    int PR_scX = (sc-1);
     if (cen)
-    {
-        x = SDL_max(160 - (int((len_/ 2.0)*sc)), 0 );
-    }
+        font::print(PR_scX | PR_CEN, -1, y, text, r, g, b);
     else
-    {
-        x *=  (sc);
-    }
-
-    return do_print(x, y, t, r, g, b, 255, sc);
+        font::print(PR_scX | PR_RIGHT, x, y, text, r, g, b);
 }
 
-void Graphics::bigbrprint(int x, int y, const std::string& s, int r, int g, int b, bool cen, float sc)
+void Graphics::bigbrprint(int x, int y, const std::string& text, int r, int g, int b, bool cen, int sc)
 {
-    if (!notextoutline)
-    {
-        const int len_ = len(s);
-        int x_o = x / sc - len_;
-        bigrprint(x, y - sc, s, 0, 0, 0, cen, sc);
-        if (cen)
-        {
-            x_o = SDL_max(160 - (len_ / 2) * sc, 0);
-            bigprint(x_o - sc, y, s, 0, 0, 0, false, sc);
-            bigprint(x_o + sc, y, s, 0, 0, 0, false, sc);
-        }
-        else
-        {
-            x_o *= sc;
-            bigprint(x_o - sc, y, s, 0, 0, 0, false, sc);
-            bigprint(x_o + sc, y, s, 0, 0, 0, false, sc);
-        }
-        bigrprint(x, y + sc, s, 0, 0, 0, cen, sc);
-    }
-
-    bigrprint(x, y, s, r, g, b, cen, sc);
+    // DEPRECATED. Also, use PR_2X/PR_3X/etc directly
+    int PR_scX = (sc-1);
+    if (cen)
+        font::print(PR_scX | PR_CEN | PR_BOR, -1, y, text, r, g, b);
+    else
+        font::print(PR_scX | PR_RIGHT | PR_BOR, x, y, text, r, g, b);
 }
 
 void Graphics::drawtele(int x, int y, int t, const SDL_Color color)
