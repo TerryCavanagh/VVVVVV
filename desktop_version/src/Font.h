@@ -104,7 +104,11 @@ void load_custom(void);
 void unload_custom(void);
 void destroy(void);
 
-int get_advance(const Font* f, uint32_t codepoint); // TODO de-api
+std::string string_wordwrap(const std::string& s, int maxwidth, short *lines = NULL);
+std::string string_wordwrap_balanced(const std::string& s, int maxwidth);
+std::string string_unwordwrap(const std::string& s);
+
+int len(uint32_t flags, const std::string& t);
 
 void print(
     uint32_t flags,

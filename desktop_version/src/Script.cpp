@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "Enums.h"
 #include "Exit.h"
+#include "Font.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
@@ -2466,7 +2467,7 @@ void scriptclass::translate_dialogue(void)
         eng.append(txt[i]);
     }
 
-    eng = graphics.string_unwordwrap(eng);
+    eng = font::string_unwordwrap(eng);
     const loc::TextboxFormat* format = loc::gettext_cutscene(scriptname, eng, tc);
     if (format == NULL || format->text == NULL || format->text[0] == '\0')
     {
@@ -2489,7 +2490,7 @@ void scriptclass::translate_dialogue(void)
     }
     else
     {
-        tra = graphics.string_wordwrap_balanced(format->text, format->wraplimit);
+        tra = font::string_wordwrap_balanced(format->text, format->wraplimit);
     }
 
     textcentertext = format->centertext;

@@ -206,10 +206,6 @@ public:
 
     void PrintAlpha(int _x, int _y, const std::string& _s, int r, int g, int b, int a, bool cen = false);
 
-    bool next_wrap(size_t* start, size_t* len, const char* str, int maxwidth);
-
-    bool next_wrap_s(char buffer[], size_t buffer_size, size_t* start, const char* str, int maxwidth);
-
     int PrintWrap(int x, int y, const std::string& s, int r, int g, int b, bool cen = false, int linespacing = -1, int maxwidth = -1);
 
     void bprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false);
@@ -217,9 +213,6 @@ public:
     void bprintalpha(int x, int y, const std::string& t, int r, int g, int b, int a, bool cen = false);
 
     int len(const std::string& t);
-    std::string string_wordwrap(const std::string& s, int maxwidth, short *lines = NULL);
-    std::string string_wordwrap_balanced(const std::string& s, int maxwidth);
-    std::string string_unwordwrap(const std::string& s);
 
     void bigprint( int _x, int _y, const std::string& _s, int r, int g, int b, bool cen = false, int sc = 2 );
     void bigbprint(int x, int y, const std::string& s, int r, int g, int b, bool cen = false, int sc = 2);

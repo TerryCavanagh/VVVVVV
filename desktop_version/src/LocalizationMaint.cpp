@@ -6,6 +6,7 @@
 
 #include "Alloc.h"
 #include "FileSystemUtils.h"
+#include "Font.h"
 #include "Graphics.h"
 #include "Script.h"
 #include "Vlogging.h"
@@ -198,7 +199,7 @@ static void sync_lang_file(const std::string& langcode)
                 }
 
                 size_t alloc_len;
-                const std::string eng_unwrapped = graphics.string_unwordwrap(eng);
+                const std::string eng_unwrapped = font::string_unwordwrap(eng);
                 char* eng_prefixed = add_disambiguator(subElem->UnsignedAttribute("case", 1), eng_unwrapped.c_str(), &alloc_len);
                 if (eng_prefixed == NULL)
                 {
