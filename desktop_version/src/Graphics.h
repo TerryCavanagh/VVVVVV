@@ -21,6 +21,24 @@ enum FadeBars
     FADE_FADING_IN
 };
 
+enum ImageNames
+{
+    IMAGE_LEVELCOMPLETE,
+    IMAGE_MINIMAP,
+    IMAGE_COVERED,
+    IMAGE_ELEPHANT,
+    IMAGE_GAMECOMPLETE,
+    IMAGE_FLIPLEVELCOMPLETE,
+    IMAGE_FLIPGAMECOMPLETE,
+    IMAGE_SITE,
+    IMAGE_SITE2,
+    IMAGE_SITE3,
+    IMAGE_ENDING,
+    IMAGE_SITE4,
+    IMAGE_CUSTOMMINIMAP,
+    NUM_IMAGES
+};
+
 #define FADEMODE_IS_FADING(mode) ((mode) != FADE_NONE && (mode) != FADE_FULLY_BLACK)
 
 class Graphics
@@ -29,7 +47,7 @@ public:
     void init(void);
     void destroy(void);
 
-    void create_buffers(const SDL_PixelFormat* fmt);
+    void create_buffers(void);
     void destroy_buffers(void);
 
     GraphicsResources grphx;
@@ -39,17 +57,12 @@ public:
 
     bool Makebfont(void);
 
-    void drawhuetile(int x, int y, int t, SDL_Color ct);
     SDL_Color huetilegetcol(int t);
     SDL_Color bigchunkygetcol(int t);
 
     void drawgravityline(int t);
 
-    bool MakeTileArray(void);
-
     bool MakeSpriteArray(void);
-
-    bool maketelearray(void);
 
     void drawcoloredtile(int x, int y, int t, int r, int g, int b);
 
@@ -134,16 +147,62 @@ public:
 
     void drawimagecol(int t, int xp, int yp, SDL_Color ct, bool cent= false);
 
+    void draw_texture(SDL_Texture* image, int x, int y);
+
+    void draw_texture_part(SDL_Texture* image, int x, int y, int x2, int y2, int w, int h, int scalex, int scaley);
+
+    void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, int scalex, int scaley);
+    void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height);
+    void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, int r, int g, int b, int a, int scalex, int scaley);
+    void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, int r, int g, int b, int a);
+    void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, int r, int g, int b, int scalex, int scaley);
+    void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, int r, int g, int b);
+    void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, SDL_Color color, int scalex, int scaley);
+    void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, SDL_Color color);
+
     void updatetextboxes(void);
     void drawgui(void);
 
-    void drawsprite(int x, int y, int t, int r, int g, int b);
-    void drawsprite(int x, int y, int t, SDL_Color color);
+    void draw_sprite(int x, int y, int t, int r, int g, int b);
+    void draw_sprite(int x, int y, int t, SDL_Color color);
+
+    void scroll_texture(SDL_Texture* texture, int x, int y);
 
     void printcrewname(int x, int y, int t);
     void printcrewnamedark(int x, int y, int t);
 
     void printcrewnamestatus(int x, int y, int t, bool rescued);
+
+    int set_render_target(SDL_Texture* texture);
+
+    int set_texture_color_mod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b);
+
+    int set_texture_alpha_mod(SDL_Texture* texture, Uint8 alpha);
+
+    int query_texture(SDL_Texture* texture, Uint32* format, int* access, int* w, int* h);
+
+    int set_blendmode(SDL_BlendMode blendmode);
+    int set_blendmode(SDL_Texture* texture, SDL_BlendMode blendmode);
+
+    int clear(int r, int g, int b, int a);
+    int clear();
+
+    int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest);
+    int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, double angle, const SDL_Point* center, SDL_RendererFlip flip);
+
+    int set_color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    int set_color(Uint8 r, Uint8 g, Uint8 b);
+    int set_color(SDL_Color color);
+
+    int fill_rect(const SDL_Rect* rect, int r, int g, int b, int a);
+    int fill_rect(int x, int y, int w, int h, int r, int g, int b, int a);
+    int fill_rect(int x, int y, int w, int h, int r, int g, int b);
+    int fill_rect(int r, int g, int b, int a);
+    int fill_rect(const SDL_Rect* rect, int r, int g, int b);
+    int fill_rect(int r, int g, int b);
+    int fill_rect(const SDL_Rect* rect, SDL_Color color);
+    int fill_rect(int x, int y, int w, int h, SDL_Color color);
+    int fill_rect(SDL_Color color);
 
     void map_tab(int opt, const char* text, bool selected = false);
 
@@ -261,28 +320,22 @@ public:
 
     int m;
 
-    std::vector <SDL_Surface*> images;
+    std::vector <SDL_Surface*> sprites_surf;
+    std::vector <SDL_Surface*> flipsprites_surf;
 
-    std::vector <SDL_Surface*> tele;
-    std::vector <SDL_Surface*> tiles;
-    std::vector <SDL_Surface*> tiles2;
-    std::vector <SDL_Surface*> tiles3;
-    std::vector <SDL_Surface*> entcolours;
-    std::vector <SDL_Surface*> sprites;
-    std::vector <SDL_Surface*> flipsprites;
-    std::vector <SDL_Surface*> bfont;
-    std::vector <SDL_Surface*> flipbfont;
+    SDL_Texture* images[NUM_IMAGES];
 
     bool flipmode;
     bool setflipmode;
     bool notextoutline;
-    //buffer objects. //TODO refactor buffer objects
-    SDL_Surface* backBuffer;
-    SDL_Surface* menubuffer;
-    SDL_Surface* foregroundBuffer;
-    SDL_Surface* menuoffbuffer;
-    SDL_Surface* warpbuffer;
-    SDL_Surface* warpbuffer_lerp;
+
+    SDL_Texture* gameTexture;
+    SDL_Texture* tempTexture;
+    SDL_Texture* gameplayTexture;
+    SDL_Texture* menuTexture;
+    SDL_Texture* ghostTexture;
+    SDL_Texture* backgroundTexture;
+    SDL_Texture* foregroundTexture;
 
     TowerBG towerbg;
     TowerBG titlebg;
@@ -291,11 +344,9 @@ public:
     SDL_Rect sprites_rect;
     SDL_Rect line_rect;
     SDL_Rect tele_rect;
-    SDL_Rect towerbuffer_rect;
 
     SDL_Rect prect;
     SDL_Rect footerrect;
-    SDL_Surface* footerbuffer;
 
     int linestate, linedelay;
     int backoffset;
@@ -339,8 +390,6 @@ public:
     bool translucentroomname;
 
     std::map<int, int> font_positions;
-
-    SDL_Surface* ghostbuffer;
 
 #ifndef GAME_DEFINITION
     float inline lerp(const float v0, const float v1)

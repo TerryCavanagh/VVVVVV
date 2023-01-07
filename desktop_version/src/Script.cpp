@@ -175,41 +175,54 @@ void scriptclass::run(void)
 #if !defined(NO_CUSTOM_LEVELS)
             if (words[0] == "warpdir")
             {
-                int temprx=ss_toi(words[1])-1;
-                int tempry=ss_toi(words[2])-1;
+                int temprx = ss_toi(words[1]) - 1;
+                int tempry = ss_toi(words[2]) - 1;
                 const RoomProperty* room;
                 cl.setroomwarpdir(temprx, tempry, ss_toi(words[3]));
 
                 room = cl.getroomprop(temprx, tempry);
 
                 //Do we update our own room?
-                if(game.roomx-100==temprx && game.roomy-100==tempry){
+                if (game.roomx - 100 == temprx && game.roomy - 100 == tempry)
+                {
                     //If screen warping, then override all that:
                     graphics.backgrounddrawn = false;
-                    map.warpx=false; map.warpy=false;
-                    if(room->warpdir==0){
+                    map.warpx = false;
+                    map.warpy = false;
+                    if (room->warpdir == 0)
+                    {
                         map.background = 1;
                         //Be careful, we could be in a Lab or Warp Zone room...
-                        if(room->tileset==2){
+                        if (room->tileset == 2)
+                        {
                             //Lab
                             map.background = 2;
                             graphics.rcol = room->tilecol;
-                        }else if(room->tileset==3){
+                        }
+                        else if (room->tileset == 3)
+                        {
                             //Warp Zone
                             map.background = 6;
                         }
-                    }else if(room->warpdir==1){
-                        map.warpx=true;
-                        map.background=3;
-                        graphics.rcol = cl.getwarpbackground(temprx,tempry);
-                    }else if(room->warpdir==2){
-                        map.warpy=true;
-                        map.background=4;
-                        graphics.rcol = cl.getwarpbackground(temprx,tempry);
-                    }else if(room->warpdir==3){
-                        map.warpx=true; map.warpy=true;
+                    }
+                    else if (room->warpdir == 1)
+                    {
+                        map.warpx = true;
+                        map.background = 3;
+                        graphics.rcol = cl.getwarpbackground(temprx, tempry);
+                    }
+                    else if (room->warpdir == 2)
+                    {
+                        map.warpy = true;
+                        map.background = 4;
+                        graphics.rcol = cl.getwarpbackground(temprx, tempry);
+                    }
+                    else if (room->warpdir == 3)
+                    {
+                        map.warpx = true;
+                        map.warpy = true;
                         map.background = 5;
-                        graphics.rcol = cl.getwarpbackground(temprx,tempry);
+                        graphics.rcol = cl.getwarpbackground(temprx, tempry);
                     }
                 }
             }

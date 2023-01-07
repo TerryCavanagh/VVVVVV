@@ -3072,9 +3072,6 @@ static void mapmenuactionpress(const bool version2_2)
     case 11:
         //quit to menu
 
-        //Kill contents of offset render buffer, since we do that for some reason.
-        //This fixes an apparent frame flicker.
-        ClearSurface(graphics.menuoffbuffer);
         graphics.fademode = FADE_START_FADEOUT;
         music.fadeout();
         map.nexttowercolour();

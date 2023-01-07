@@ -21,6 +21,7 @@
 #include "Localization.h"
 #include "LocalizationStorage.h"
 #include "Map.h"
+#include "Screen.h"
 #include "Script.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -1539,7 +1540,11 @@ void customlevelclass::generatecustomminimap(void)
     map.custommmxsize = 240 - (map.custommmxoff * 2);
     map.custommmysize = 180 - (map.custommmyoff * 2);
 
-    FillRect(graphics.images[12], graphics.getRGB(0, 0, 0));
+    // Start drawing the minimap
+
+    SDL_Texture* target = SDL_GetRenderTarget(gameScreen.m_renderer);
+    graphics.set_render_target(graphics.images[IMAGE_CUSTOMMINIMAP]);
+    graphics.clear();
 
     // Scan over the map size
     for (int j2 = 0; j2 < mapheight; j2++)
@@ -1587,12 +1592,10 @@ void customlevelclass::generatecustomminimap(void)
                     if (tile >= 1)
                     {
                         // Fill in this pixel
-                        FillRect(
-                            graphics.images[12],
+                        graphics.fill_rect(
                             (i2 * 12 * map.customzoom) + i,
                             (j2 * 9 * map.customzoom) + j,
-                            1,
-                            1,
+                            1, 1,
                             graphics.getRGB(tm, tm, tm)
                         );
                     }
@@ -1600,6 +1603,8 @@ void customlevelclass::generatecustomminimap(void)
             }
         }
     }
+
+    graphics.set_render_target(target);
 }
 
 // Return a graphics-ready color based off of the given tileset and tilecol
