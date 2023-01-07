@@ -361,6 +361,7 @@ void KeyPoll::Poll(void)
                     }
                 }
                 SDL_DisableScreenSaver();
+                gameScreen.recacheTextures();
                 break;
             case SDL_WINDOWEVENT_FOCUS_LOST:
                 if (!game.disablepause)

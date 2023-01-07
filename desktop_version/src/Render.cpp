@@ -147,12 +147,12 @@ static void menurender(void)
     case Menu::mainmenu:
     {
         const int temp = 50;
-        graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
 #if defined(MAKEANDPLAY)
         const char* editionlabel = loc::gettext("MAKE AND PLAY EDITION");
         graphics.Print(264-graphics.len(editionlabel),temp+35,editionlabel,tr, tg, tb);
@@ -435,16 +435,16 @@ static void menurender(void)
         graphics.Print( -1, 50, loc::gettext("VVVVVV is a game by"), tr, tg, tb, true);
         graphics.bigprint( 40, 65, "Terry Cavanagh", tr, tg, tb, true, 2);
 
-        graphics.drawimagecol(7, -1, 86, graphics.getRGB(tr, tg, tb), true);
+        graphics.drawimagecol(IMAGE_SITE, -1, 86, graphics.getRGB(tr, tg, tb), true);
 
         graphics.Print( -1, 120, loc::gettext("and features music by"), tr, tg, tb, true);
         graphics.bigprint( 40, 135, "Magnus Pålsson", tr, tg, tb, true, 2);
-        graphics.drawimagecol(8, -1, 156, graphics.getRGB(tr, tg, tb), true);
+        graphics.drawimagecol(IMAGE_SITE2, -1, 156, graphics.getRGB(tr, tg, tb), true);
         break;
     case Menu::credits2:
         graphics.Print( -1, 50, loc::gettext("Roomnames are by"), tr, tg, tb, true);
         graphics.bigprint( 40, 65, "Bennett Foddy", tr, tg, tb, true);
-        graphics.drawimagecol(9, -1, 86, graphics.getRGB(tr, tg, tb), true);
+        graphics.drawimagecol(IMAGE_SITE3, -1, 86, graphics.getRGB(tr, tg, tb), true);
         graphics.Print( -1, 110, loc::gettext("C++ version by"), tr, tg, tb, true);
         graphics.bigprint( 40, 125, "Simon Roth", tr, tg, tb, true);
         graphics.bigprint( 40, 145, "Ethan Lee", tr, tg, tb, true);
@@ -713,7 +713,7 @@ static void menurender(void)
 
             int box_x = SDL_min(10, (320-overflow.max_w_px)/2);
             int box_h = overflow.max_h_px - SDL_max(0, 10-loc::get_langmeta()->font_h);
-            FillRect(graphics.backBuffer, box_x-1, 30-1, overflow.max_w_px+2, box_h+2, tr/3, tg/3, tb/3);
+            graphics.fill_rect(box_x-1, 30-1, overflow.max_w_px+2, box_h+2, tr/3, tg/3, tb/3);
 
             int wraplimit;
             if (overflow.multiline)
@@ -1029,7 +1029,7 @@ static void menurender(void)
             graphics.bigprint(-1, 30, loc::gettext("Text Outline"), tr, tg, tb, true);
             int next_y = graphics.PrintWrap(-1, 65, loc::gettext("Disables outline on game text."), tr, tg, tb, true);
 
-            FillRect(graphics.backBuffer, 0, next_y-4, 320, 16, tr, tg, tb);
+            graphics.fill_rect(0, next_y-4, 320, 16, tr, tg, tb);
 
             if (!graphics.notextoutline)
             {
@@ -1142,8 +1142,8 @@ static void menurender(void)
             );
             graphics.Print(262-graphics.len(buffer), 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-            graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
-            graphics.drawsprite(270, 126-20, 22, graphics.col_trinket);
+            graphics.draw_sprite(34, 126-20, 50, graphics.col_clock);
+            graphics.draw_sprite(270, 126-20, 22, graphics.col_trinket);
             break;
         }
         case 1:
@@ -1166,8 +1166,8 @@ static void menurender(void)
             );
             graphics.Print(262-graphics.len(buffer), 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
-            graphics.drawsprite(34, 126-20, 50, graphics.col_clock);
-            graphics.drawsprite(270, 126-20, 22, graphics.col_trinket);
+            graphics.draw_sprite(34, 126-20, 50, graphics.col_clock);
+            graphics.draw_sprite(270, 126-20, 22, graphics.col_trinket);
             break;
         }
         }
@@ -1597,9 +1597,7 @@ static void menurender(void)
 
 void titlerender(void)
 {
-
-    ClearSurface(graphics.backBuffer);
-
+    graphics.clear();
     if (!game.menustart)
     {
         tr = graphics.col_tr;
@@ -1607,12 +1605,12 @@ void titlerender(void)
         tb = graphics.col_tb;
 
         int temp = 50;
-        graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
 #if defined(MAKEANDPLAY)
         const char* editionlabel = loc::gettext("MAKE AND PLAY EDITION");
         graphics.Print(264-graphics.len(editionlabel),temp+35,editionlabel,tr, tg, tb);
@@ -1650,7 +1648,7 @@ void titlerender(void)
 
 void gamecompleterender(void)
 {
-    ClearSurface(graphics.backBuffer);
+    graphics.clear();
 
     if(!game.colourblindmode) graphics.drawtowerbackground(graphics.titlebg);
 
@@ -1665,12 +1663,12 @@ void gamecompleterender(void)
     if (graphics.onscreen(220 + position))
     {
         int temp = 220 + position;
-        graphics.drawsprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
-        graphics.drawsprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 0 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 1 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 2 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 3 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
+        graphics.draw_sprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
     }
 
     if (graphics.onscreen(290 + position)) graphics.bigprint( -1, 290 + position, loc::gettext("Starring"), tr, tg, tb, true, 2);
@@ -1802,9 +1800,9 @@ void gamecompleterender(void)
 
 void gamecompleterender2(void)
 {
-    ClearSurface(graphics.backBuffer);
+    graphics.clear();
 
-    graphics.drawimage(10, 0, 0);
+    graphics.drawimage(IMAGE_ENDING, 0, 0);
 
     for (int j = 0; j < 30; j++)
     {
@@ -1814,18 +1812,18 @@ void gamecompleterender2(void)
             {
                 if (i > game.creditposx)
                 {
-                    FillRect(graphics.backBuffer, i * 8, j * 8, 8, 8, 0, 0, 0);
+                    graphics.fill_rect(i * 8, j * 8, 8, 8, 0, 0, 0);
                 }
             }
 
             if (j > game.creditposy)
             {
-                FillRect(graphics.backBuffer, i * 8, j * 8, 8, 8, 0, 0, 0);
+                graphics.fill_rect(i * 8, j * 8, 8, 8, 0, 0, 0);
             }
         }
     }
 
-    FillRect(graphics.backBuffer, graphics.lerp(game.oldcreditposx * 8, game.creditposx * 8) + 8, game.creditposy * 8, 8, 8, 0, 0, 0);
+    graphics.fill_rect(graphics.lerp(game.oldcreditposx * 8, game.creditposx * 8) + 8, game.creditposy * 8, 8, 8, 0, 0, 0);
 
     graphics.drawfade();
 
@@ -1855,12 +1853,11 @@ static const char* interact_prompt(
 
 void gamerender(void)
 {
-
-
+    graphics.set_render_target(graphics.gameplayTexture);
+    graphics.set_color(0, 0, 0, 255);
 
     if(!game.blackout)
     {
-
         if (map.towermode)
         {
             if (!game.colourblindmode)
@@ -1869,7 +1866,7 @@ void gamerender(void)
             }
             else
             {
-                ClearSurface(graphics.backBuffer);
+                graphics.clear();
             }
             graphics.drawtowermap();
         }
@@ -1881,7 +1878,7 @@ void gamerender(void)
             }
             else
             {
-                ClearSurface(graphics.backBuffer);
+                graphics.clear();
             }
             if ((map.finalmode || map.custommode) && map.final_colormode)
             {
@@ -1962,7 +1959,10 @@ void gamerender(void)
 
     graphics.cutscenebars();
     graphics.drawfade();
-    BlitSurfaceStandard(graphics.backBuffer, NULL, graphics.menuoffbuffer, NULL);
+
+    graphics.set_render_target(graphics.gameTexture);
+
+    graphics.copy_texture(graphics.gameplayTexture, NULL, NULL);
 
     graphics.drawgui();
     if (graphics.flipmode)
@@ -2280,13 +2280,13 @@ static void rendermap(void)
     if (map.custommode && map.customshowmm)
     {
         graphics.drawpixeltextbox(35 + map.custommmxoff, 16 + map.custommmyoff, map.custommmxsize + 10, map.custommmysize + 10, 65, 185, 207);
-        graphics.drawpartimage(graphics.minimap_mounted ? 1 : 12, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
+        graphics.drawpartimage(graphics.minimap_mounted ? IMAGE_MINIMAP : IMAGE_CUSTOMMINIMAP, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
         return;
      }
 #endif /* NO_CUSTOM_LEVELS */
 
     graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
-    graphics.drawimage(1, 40, 21, false);
+    graphics.drawimage(IMAGE_MINIMAP, 40, 21, false);
 }
 
 static void rendermapfog(void)
@@ -2304,7 +2304,7 @@ static void rendermapfog(void)
                 {
                     for (int y = 0; y < data.zoom; y++)
                     {
-                        graphics.drawimage(2, data.xoff + 40 + (x * 12) + (i * (12 * data.zoom)), data.yoff + 21 + (y * 9) + (j * (9 * data.zoom)), false);
+                        graphics.drawimage(IMAGE_COVERED, data.xoff + 40 + (x * 12) + (i * (12 * data.zoom)), data.yoff + 21 + (y * 9) + (j * (9 * data.zoom)), false);
                     }
                 }
             }
@@ -2383,12 +2383,13 @@ static void rendermapcursor(const bool flashing)
 
 void maprender(void)
 {
-    ClearSurface(graphics.backBuffer);
+    graphics.set_render_target(graphics.menuTexture);
+    graphics.clear();
 
     draw_roomname_menu();
 
     //Background color
-    FillRect(graphics.backBuffer,0, 12, 320, 240, 10, 24, 26 );
+    graphics.fill_rect(0, 12, 320, 240, 10, 24, 26 );
 
     //Menubar:
     graphics.drawtextbox( -10, 212, 43, 3, 65, 185, 207);
@@ -2458,7 +2459,7 @@ void maprender(void)
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    graphics.drawimage(2, 40 + (i * 12), 21 + (j * 9), false);
+                    graphics.drawimage(IMAGE_COVERED, 40 + (i * 12), 21 + (j * 9), false);
                 }
             }
             graphics.bprint(-1, 105, loc::gettext("NO SIGNAL"), 245, 245, 245, true);
@@ -2746,8 +2747,8 @@ void maprender(void)
         );
         graphics.Print(262 - graphics.len(buffer), FLIP(132, 8), buffer, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
 
-        graphics.drawsprite(34, FLIP(126, 17), 50, graphics.col_clock);
-        graphics.drawsprite(270, FLIP(126, 17), 22, graphics.col_trinket);
+        graphics.draw_sprite(34, FLIP(126, 17), 50, graphics.col_clock);
+        graphics.draw_sprite(270, FLIP(126, 17), 22, graphics.col_trinket);
         break;
     }
     case 10:
@@ -2851,19 +2852,7 @@ void maprender(void)
 
     }
 
-
-
-
-    // We need to draw the black screen above the menu in order to disguise it
-    // being jankily brought down in glitchrunner mode when exiting to the title
-    // Otherwise, there's no reason to obscure the menu
-    if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
-    || FADEMODE_IS_FADING(graphics.fademode)
-    || game.fadetomenu
-    || game.fadetolab)
-    {
-        graphics.drawfade();
-    }
+    graphics.set_render_target(graphics.gameTexture);
 
     if (graphics.resumegamemode || graphics.menuoffset > 0 || graphics.oldmenuoffset > 0)
     {
@@ -2871,22 +2860,38 @@ void maprender(void)
     }
     else
     {
-        graphics.renderwithscreeneffects();
+        graphics.copy_texture(graphics.menuTexture, NULL, NULL);
     }
+
+    // We need to draw the black screen above the menu in order to disguise it
+    // being jankily brought down in glitchrunner mode when exiting to the title
+    // Otherwise, there's no reason to obscure the menu
+    if (GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2)
+        || FADEMODE_IS_FADING(graphics.fademode)
+        || game.fadetomenu
+        || game.fadetolab)
+    {
+        graphics.drawfade();
+    }
+
+
+    graphics.renderwithscreeneffects();
 }
 
 #undef FLIP
 
 void teleporterrender(void)
 {
-    ClearSurface(graphics.backBuffer);
+    graphics.set_render_target(graphics.menuTexture);
+    graphics.clear();
+
     const int telex = map.teleporters[game.teleport_to_teleporter].x;
     const int teley = map.teleporters[game.teleport_to_teleporter].y;
 
     draw_roomname_menu();
 
     //Background color
-    FillRect(graphics.backBuffer, 0, 12, 320, 240, 10, 24, 26);
+    graphics.fill_rect(0, 12, 320, 240, 10, 24, 26);
 
     rendermap();
     rendermapfog();
@@ -2944,6 +2949,7 @@ void teleporterrender(void)
         if (game.advancetext) graphics.bprint(5, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
     }
 
+    graphics.set_render_target(graphics.gameTexture);
 
     if (graphics.resumegamemode || graphics.menuoffset > 0 || graphics.oldmenuoffset > 0)
     {
@@ -2951,6 +2957,8 @@ void teleporterrender(void)
     }
     else
     {
-        graphics.render();
+        graphics.copy_texture(graphics.menuTexture, NULL, NULL);
     }
+
+    graphics.render();
 }

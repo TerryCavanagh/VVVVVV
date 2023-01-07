@@ -19,15 +19,14 @@ public:
     void ResizeToNearestMultiple(void);
     void GetWindowSize(int* x, int* y);
 
-    void UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect);
-    void FlipScreen(bool flipmode);
-
-    const SDL_PixelFormat* GetFormat(void);
+    void RenderPresent();
 
     void toggleFullScreen(void);
     void toggleScalingMode(void);
     void toggleLinearFilter(void);
     void toggleVSync(void);
+
+    void recacheTextures(void);
 
     bool isForcedFullscreen(void);
 
@@ -39,8 +38,6 @@ public:
 
     SDL_Window *m_window;
     SDL_Renderer *m_renderer;
-    SDL_Texture *m_screenTexture;
-    SDL_Surface* m_screen;
 };
 
 #ifndef GAMESCREEN_DEFINITION

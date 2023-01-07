@@ -46,6 +46,15 @@ void VVV_fillstring(
     } \
     do { } while (false)
 
+#define WHINE_ONCE_ARGS(args) \
+    static bool whine = true; \
+    if (whine) \
+    { \
+        whine = false; \
+        vlog_error args; \
+    } \
+    do { } while (false)
+
 /* Don't call this directly; use the VVV_between macro. */
 void _VVV_between(
     const char* original,

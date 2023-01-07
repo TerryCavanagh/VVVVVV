@@ -584,33 +584,11 @@ int main(int argc, char *argv[])
     vlog_info("\t\t");
     vlog_info("\t\t");
 
-    //Set up screen
-
-
-
-
-    // Load Ini
-
-
+    // Set up screen
     graphics.init();
 
     game.init();
     game.seed_use_sdl_getticks = seed_use_sdl_getticks;
-
-    // This loads music too...
-    if (!graphics.reloadresources())
-    {
-        /* Something wrong with the default assets? We can't use them to
-         * display the error message, and we have to bail. */
-        SDL_ShowSimpleMessageBox(
-            SDL_MESSAGEBOX_ERROR,
-            graphics.error_title,
-            graphics.error,
-            NULL
-        );
-
-        VVV_exit(1);
-    }
 
     game.gamestate = PRELOADER;
 
@@ -636,11 +614,26 @@ int main(int argc, char *argv[])
         gameScreen.init(&screen_settings);
     }
 
+    // This loads music too...
+    if (!graphics.reloadresources())
+    {
+        /* Something wrong with the default assets? We can't use them to
+         * display the error message, and we have to bail. */
+        SDL_ShowSimpleMessageBox(
+            SDL_MESSAGEBOX_ERROR,
+            graphics.error_title,
+            graphics.error,
+            NULL
+        );
+
+        VVV_exit(1);
+    }
+
     loc::loadtext(false);
     loc::loadlanguagelist();
     game.createmenu(Menu::mainmenu);
 
-    graphics.create_buffers(gameScreen.GetFormat());
+    graphics.create_buffers();
 
     if (game.skipfakeload)
         game.gamestate = TITLEMODE;
@@ -790,9 +783,10 @@ static void cleanup(void)
     {
         game.savestatsandsettings();
     }
-    gameScreen.destroy();
+
     graphics.grphx.destroy();
     graphics.destroy_buffers();
+    gameScreen.destroy();
     graphics.destroy();
     music.destroy();
     map.destroy();
@@ -849,9 +843,13 @@ static void inline deltaloop(void)
 
         if (implfunc->type == Func_delta && implfunc->func != NULL)
         {
+            graphics.clear();
+
+            graphics.set_render_target(graphics.gameTexture);
+
             implfunc->func();
 
-            gameScreen.FlipScreen(graphics.flipmode);
+            gameScreen.RenderPresent();
         }
     }
 }
@@ -873,7 +871,7 @@ static void unfocused_run(void)
 {
     if (!game.blackout)
     {
-        ClearSurface(graphics.backBuffer);
+        graphics.fill_rect(0, 0, 0);
 #define FLIP(YPOS) graphics.flipmode ? 232 - YPOS : YPOS
         graphics.bprint(5, FLIP(110), loc::gettext("Game paused"), 196 - help.glow, 255 - help.glow, 196 - help.glow, true);
         graphics.bprint(5, FLIP(120), loc::gettext("[click to resume]"), 196 - help.glow, 255 - help.glow, 196 - help.glow, true);

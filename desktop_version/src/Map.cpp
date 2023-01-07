@@ -1085,7 +1085,7 @@ void mapclass::gotoroom(int rx, int ry)
     //Do we need to reload the background?
     bool redrawbg = game.roomx != game.prevroomx || game.roomy != game.prevroomy;
 
-    if(redrawbg)
+    if (redrawbg)
     {
         graphics.backgrounddrawn = false; //Used for background caching speedup
     }

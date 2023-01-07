@@ -7,8 +7,10 @@
 #include "Constants.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
+#include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "InterimVersion.h"
+#include "Render.h"
 #include "Vlogging.h"
 
 void ScreenSettings_default(struct ScreenSettings* _this)
@@ -26,8 +28,6 @@ void Screen::init(const struct ScreenSettings* settings)
 {
     m_window = NULL;
     m_renderer = NULL;
-    m_screenTexture = NULL;
-    m_screen = NULL;
     isWindowed = !settings->fullscreen;
     scalingMode = settings->scalingMode;
     isFiltered = settings->linearFilter;
@@ -46,13 +46,18 @@ void Screen::init(const struct ScreenSettings* settings)
 
     // Uncomment this next line when you need to debug -flibit
     // SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
-    SDL_CreateWindowAndRenderer(
+
+    m_window = SDL_CreateWindow(
+        "VVVVVV",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
         SCREEN_WIDTH_PIXELS * 2,
         SCREEN_HEIGHT_PIXELS * 2,
-        SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI,
-        &m_window,
-        &m_renderer
+        SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI
     );
+
+    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+
 #ifdef INTERIM_VERSION_EXISTS
     /* Branch name limits are ill-defined but on GitHub it's ~256 chars
      * ( https://stackoverflow.com/a/24014513/ ).
@@ -66,25 +71,6 @@ void Screen::init(const struct ScreenSettings* settings)
 
     LoadIcon();
 
-    // FIXME: This surface should be the actual backbuffer! -flibit
-    m_screen = SDL_CreateRGBSurface(
-        0,
-        SCREEN_WIDTH_PIXELS,
-        SCREEN_HEIGHT_PIXELS,
-        32,
-        0x00FF0000,
-        0x0000FF00,
-        0x000000FF,
-        0xFF000000
-    );
-    m_screenTexture = SDL_CreateTexture(
-        m_renderer,
-        SDL_PIXELFORMAT_ARGB8888,
-        SDL_TEXTUREACCESS_STREAMING,
-        SCREEN_WIDTH_PIXELS,
-        SCREEN_HEIGHT_PIXELS
-    );
-
     badSignalEffect = settings->badSignal;
 
     ResizeScreen(settings->windowWidth, settings->windowHeight);
@@ -93,8 +79,6 @@ void Screen::init(const struct ScreenSettings* settings)
 void Screen::destroy(void)
 {
     /* Order matters! */
-    VVV_freefunc(SDL_DestroyTexture, m_screenTexture);
-    VVV_freefunc(SDL_FreeSurface, m_screen);
     VVV_freefunc(SDL_DestroyRenderer, m_renderer);
     VVV_freefunc(SDL_DestroyWindow, m_window);
 }
@@ -121,11 +105,11 @@ void Screen::LoadIcon(void)
 
 }
 #else
-SDL_Surface* LoadImage(const char* filename);
+SDL_Surface* LoadImageSurface(const char* filename);
 
 void Screen::LoadIcon(void)
 {
-    SDL_Surface* icon = LoadImage("VVVVVV.png");
+    SDL_Surface* icon = LoadImageSurface("VVVVVV.png");
     if (icon == NULL)
     {
         return;
@@ -149,6 +133,7 @@ void Screen::ResizeScreen(int x, int y)
     if (!isWindowed || isForcedFullscreen())
     {
         int result = SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+        recacheTextures();
         if (result != 0)
         {
             vlog_error("Error: could not set the game to fullscreen mode: %s", SDL_GetError());
@@ -158,6 +143,7 @@ void Screen::ResizeScreen(int x, int y)
     else
     {
         int result = SDL_SetWindowFullscreen(m_window, 0);
+        recacheTextures();
         if (result != 0)
         {
             vlog_error("Error: could not set the game to windowed mode: %s", SDL_GetError());
@@ -266,66 +252,10 @@ void Screen::GetWindowSize(int* x, int* y)
     }
 }
 
-void Screen::UpdateScreen(SDL_Surface* buffer, SDL_Rect* rect )
+void Screen::RenderPresent()
 {
-    if((buffer == NULL) && (m_screen == NULL) )
-    {
-        return;
-    }
-
-    if(badSignalEffect)
-    {
-        buffer = ApplyFilter(buffer);
-    }
-
-
-    ClearSurface(m_screen);
-    BlitSurfaceStandard(buffer,NULL,m_screen,rect);
-
-    if(badSignalEffect)
-    {
-        VVV_freefunc(SDL_FreeSurface, buffer);
-    }
-
-}
-
-const SDL_PixelFormat* Screen::GetFormat(void)
-{
-    return m_screen->format;
-}
-
-void Screen::FlipScreen(const bool flipmode)
-{
-    static const SDL_Rect filterSubrect = {1, 1, 318, 238};
-
-    SDL_RendererFlip flip_flags;
-    if (flipmode)
-    {
-        flip_flags = SDL_FLIP_VERTICAL;
-    }
-    else
-    {
-        flip_flags = SDL_FLIP_NONE;
-    }
-
-    SDL_UpdateTexture(
-        m_screenTexture,
-        NULL,
-        m_screen->pixels,
-        m_screen->pitch
-    );
-    SDL_RenderCopyEx(
-        m_renderer,
-        m_screenTexture,
-        isFiltered ? &filterSubrect : NULL,
-        NULL,
-        0.0,
-        NULL,
-        flip_flags
-    );
     SDL_RenderPresent(m_renderer);
-    SDL_RenderClear(m_renderer);
-    ClearSurface(m_screen);
+    graphics.clear();
 }
 
 void Screen::toggleFullScreen(void)
@@ -354,20 +284,49 @@ void Screen::toggleLinearFilter(void)
         isFiltered ? "linear" : "nearest",
         SDL_HINT_OVERRIDE
     );
-    SDL_DestroyTexture(m_screenTexture);
-    m_screenTexture = SDL_CreateTexture(
+    SDL_DestroyTexture(graphics.gameTexture);
+    graphics.gameTexture = SDL_CreateTexture(
         m_renderer,
         SDL_PIXELFORMAT_ARGB8888,
-        SDL_TEXTUREACCESS_STREAMING,
+        SDL_TEXTUREACCESS_TARGET,
         SCREEN_WIDTH_PIXELS,
         SCREEN_HEIGHT_PIXELS
     );
+
+    if (graphics.gameTexture == NULL)
+    {
+        vlog_error("Could not create game texture: %s", SDL_GetError());
+        return;
+    }
 }
 
 void Screen::toggleVSync(void)
 {
     vsync = !vsync;
     SDL_RenderSetVSync(m_renderer, (int) vsync);
+
+    recacheTextures();
+}
+
+void Screen::recacheTextures(void)
+{
+    // Fix for d3d9, which clears target textures sometimes (ex. toggling vsync, switching fullscreen, etc...)
+
+    // Signal cached textures to be redrawn fully
+    graphics.backgrounddrawn = false;
+    graphics.foregrounddrawn = false;
+    graphics.towerbg.tdrawback = true;
+    graphics.titlebg.tdrawback = true;
+
+    if (game.ingame_titlemode)
+    {
+        // Redraw the cached gameplay texture if we're in the in-game menu.
+        // Additionally, reset alpha so things don't jitter when re-entering gameplay.
+        float oldAlpha = graphics.alpha;
+        graphics.alpha = 0;
+        gamerender();
+        graphics.alpha = oldAlpha;
+    }
 }
 
 /* FIXME: Launching in forced fullscreen then exiting and relaunching in normal
