@@ -13,6 +13,9 @@ extern const int LEN_INTERIM_COMMIT;
 
 extern const char* COMMIT_DATE;
 
+extern const char* BRANCH_NAME;
+extern const int LEN_BRANCH_NAME;
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

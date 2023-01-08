@@ -13,7 +13,13 @@ EXECUTE_PROCESS(
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-MESSAGE(STATUS "This is interim commit ${INTERIM_COMMIT} (committed ${COMMIT_DATE})")
+EXECUTE_PROCESS(
+    COMMAND "${GIT_EXECUTABLE}" branch --show-current
+    OUTPUT_VARIABLE BRANCH_NAME
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+MESSAGE(STATUS "This is interim commit ${INTERIM_COMMIT} (committed ${COMMIT_DATE}) on branch ${BRANCH_NAME}")
 
 # Take the template file and replace the macros with what we have
 CONFIGURE_FILE(${INPUT_FILE} ${OUTPUT_FILE})

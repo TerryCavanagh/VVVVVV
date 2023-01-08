@@ -401,6 +401,7 @@ int main(int argc, char *argv[])
 #ifdef INTERIM_VERSION_EXISTS
             puts(COMMIT_DATE);
             puts(INTERIM_COMMIT);
+            puts(BRANCH_NAME);
 #endif
             VVV_exit(0);
         }
