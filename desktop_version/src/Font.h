@@ -63,7 +63,7 @@ struct Font
 struct PrintFlags
 {
     uint8_t scale;
-    uint8_t font_sel;
+    Font* font_sel;
     uint8_t alpha;
     uint8_t colorglyph_bri;
     bool border;

@@ -577,12 +577,19 @@ static int print_char(
     return glyph->advance * scale;
 }
 
+static Font* fontsel_to_font(int sel)
+{
+    /* Take font selection integer (0-31) and turn it into the correct Font */
+    // TODO handle all these cases here like 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 etc
+    return &font::temp_bfont;
+}
+
 #define FLAG_PART(start, count) ((flags >> start) % (1 << count))
 static PrintFlags decode_print_flags(uint32_t flags)
 {
     PrintFlags pf;
     pf.scale = FLAG_PART(0, 3) + 1;
-    pf.font_sel = FLAG_PART(3, 5);
+    pf.font_sel = fontsel_to_font(FLAG_PART(3, 5));
 
     if (flags & PR_AB_IS_BRI)
     {
@@ -608,16 +615,15 @@ static PrintFlags decode_print_flags(uint32_t flags)
 int len(const uint32_t flags, const std::string& t)
 {
     PrintFlags pf = decode_print_flags(flags);
-    // TODO flags!
 
     int text_len = 0;
     std::string::const_iterator iter = t.begin();
     while (iter != t.end())
     {
         int cur = utf8::unchecked::next(iter);
-        text_len += get_advance(&font::temp_bfont, cur);
+        text_len += get_advance(pf.font_sel, cur);
     }
-    return text_len;
+    return text_len * pf.scale;
 }
 
 void print(
@@ -632,11 +638,9 @@ void print(
 {
     PrintFlags pf = decode_print_flags(flags);
 
-    // TODO pf.font_sel
-
     if (pf.align_cen || pf.align_right)
     {
-        const int textlen = graphics.len(text) * pf.scale;
+        const int textlen = len(flags, text);
 
         if (pf.align_cen)
         {
@@ -651,7 +655,6 @@ void print(
             x -= textlen;
         }
     }
-    // TODO cjk_low/cjk_high
 
     if (pf.border && !graphics.notextoutline)
     {
@@ -669,13 +672,29 @@ void print(
         }
     }
 
+    int h_diff_8 = pf.font_sel->glyph_h-8;
+    if (h_diff_8 < 0)
+    {
+        /* If the font is less high than 8,
+         * just center it (lower on screen) */
+        y -= h_diff_8/2;
+    }
+    else if (pf.cjk_high)
+    {
+        y -= h_diff_8;
+    }
+    else if (!pf.cjk_low)
+    {
+        y -= h_diff_8/2;
+    }
+
     int position = 0;
     std::string::const_iterator iter = text.begin();
     while (iter != text.end())
     {
         const uint32_t character = utf8::unchecked::next(iter);
         position += font::print_char(
-            &font::temp_bfont,
+            pf.font_sel,
             character,
             x + position,
             y,
