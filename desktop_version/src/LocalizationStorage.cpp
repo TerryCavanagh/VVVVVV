@@ -1033,24 +1033,26 @@ void loadlanguagelist(void)
     // Load the list of languages for the language screen
     languagelist.clear();
 
-    std::vector<std::string> codes = FILESYSTEM_getLanguageCodes();
     size_t opt = 0;
     languagelist_curlang = 0;
-    for (size_t i = 0; i < codes.size(); i++)
+    EnumHandle handle = {};
+    const char* code;
+    while ((code = FILESYSTEM_enumerateLanguageCodes(&handle)) != NULL)
     {
         LangMeta meta;
-        loadmeta(meta, codes[i]);
+        loadmeta(meta, code);
         if (meta.active)
         {
             languagelist.push_back(meta);
 
-            if (lang == codes[i])
+            if (SDL_strcmp(lang.c_str(), code) == 0)
             {
                 languagelist_curlang = opt;
             }
             opt++;
         }
     }
+    FILESYSTEM_freeEnumerate(&handle);
 }
 
 

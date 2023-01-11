@@ -1,3 +1,5 @@
+#include "FileSystemUtils.h"
+
 #include <physfs.h>
 #include <SDL.h>
 #include <stdarg.h>
@@ -521,8 +523,6 @@ void FILESYSTEM_loadZip(const char* filename)
     }
 }
 
-void FILESYSTEM_unmountAssets(void);
-
 bool FILESYSTEM_mountAssets(const char* path)
 {
     const char* real_dir = PHYSFS_getRealDir(path);
@@ -1042,26 +1042,96 @@ void FILESYSTEM_enumerateLevelDirFileNames(
     }
 }
 
-std::vector<std::string> FILESYSTEM_getLanguageCodes(void)
+const char* FILESYSTEM_enumerate(const char* folder, EnumHandle* handle)
 {
-    std::vector<std::string> list;
-    char** fileList = PHYSFS_enumerateFiles("lang");
-    char** item;
+    /* List all files in a folder with PHYSFS_enumerateFiles.
+     *
+     * Doing it this way means we can decide and filter
+     * what's in the lists (in wrapper functions).
+     *
+     * Called like this:
+     *
+     *  EnumHandle handle = {};
+     *  const char* item;
+     *  while ((item = FILESYSTEM_enumerate("graphics", &handle)) != NULL)
+     *  {
+     *      puts(item);
+     *  }
+     *  FILESYSTEM_freeEnumerate(&handle);
+     */
 
-    for (item = fileList; *item != NULL; item++)
+    if (handle->physfs_list == NULL)
     {
-        char fullName[128];
-        SDL_snprintf(fullName, sizeof(fullName), "lang/%s", *item);
+        // First iteration, set things up
+        handle->physfs_list = PHYSFS_enumerateFiles(folder);
+        handle->_item = handle->physfs_list;
+    }
 
-        if (FILESYSTEM_isDirectory(fullName) && *item[0] != '.')
+    /* Return the next item, and increment the pointer.
+     * (once we return NULL, handle->_item points to 1 past end of array) */
+    return *(handle->_item++);
+}
+
+const char* FILESYSTEM_enumerateAssets(const char* folder, EnumHandle* handle)
+{
+    /* This function enumerates ONLY level-specific assets.
+     * If there are only global assets and no level-specific ones,
+     * we want an empty list.
+     *
+     * This function is called the same way as FILESYSTEM_enumerate, see above. */
+
+    if (!FILESYSTEM_isAssetMounted(folder))
+    {
+        return NULL;
+    }
+
+    char mounted_path[MAX_PATH];
+    getMountedPath(mounted_path, sizeof(mounted_path), folder);
+
+    const char* item;
+    while ((item = FILESYSTEM_enumerate(mounted_path, handle)) != NULL)
+    {
+        char full_name[128];
+        SDL_snprintf(full_name, sizeof(full_name), "%s/%s", mounted_path, item);
+        if (FILESYSTEM_isFile(full_name) && item[0] != '.')
         {
-            list.push_back(*item);
+            return item;
         }
     }
 
-    PHYSFS_freeList(fileList);
+    return NULL;
+}
 
-    return list;
+const char* FILESYSTEM_enumerateLanguageCodes(EnumHandle* handle)
+{
+    /* This function enumerates all the language codes.
+     *
+     * This function is called the same way as FILESYSTEM_enumerate, see above. */
+
+    const char* item;
+    while ((item = FILESYSTEM_enumerate("lang", handle)) != NULL)
+    {
+        char full_name[128];
+        SDL_snprintf(full_name, sizeof(full_name), "lang/%s", item);
+
+        if (FILESYSTEM_isDirectory(full_name) && item[0] != '.')
+        {
+            return item;
+        }
+    }
+
+    return NULL;
+}
+
+void FILESYSTEM_freeEnumerate(EnumHandle* handle)
+{
+    /* Call this function after enumerating with FILESYSTEM_enumerate or friends. */
+    if (handle == NULL)
+    {
+        return;
+    }
+
+    PHYSFS_freeList(handle->physfs_list);
 }
 
 static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
