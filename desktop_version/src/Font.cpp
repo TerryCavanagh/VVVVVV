@@ -9,6 +9,7 @@
 #include "Graphics.h"
 #include "Localization.h"
 #include "UtilityClass.h"
+#include "Vlogging.h"
 #include "XMLUtils.h"
 
 // Sigh... This is the second forward-declaration, we need to put this in a header file
@@ -17,7 +18,14 @@ SDL_Texture* LoadImage(const char *filename, const TextureLoadType loadtype);
 namespace font
 {
 
-Font temp_bfont; // replace with like, a vector of all loaded fonts
+static FontContainer fonts_main = {};
+static FontContainer fonts_custom = {};
+
+static size_t font_idx_interface = 0;
+static size_t font_idx_8x8 = 0;
+
+static bool font_idx_custom_is_custom = false;
+static size_t font_idx_custom = 0;
 
 static void codepoint_split(
     const uint32_t codepoint,
@@ -134,8 +142,19 @@ static bool decode_xml_range(tinyxml2::XMLElement* elem, unsigned* start, unsign
     return true;
 }
 
-static void load_font(Font* f, const char* name)
+static size_t load_font(FontContainer* container, const char* name)
 {
+    Font* new_fonts = (Font*) SDL_realloc(container->fonts, sizeof(Font)*(container->count+1));
+    if (new_fonts == NULL)
+    {
+        return 0;
+    }
+    container->fonts = new_fonts;
+    size_t f_idx = container->count++;
+    Font* f = &container->fonts[f_idx];
+
+    vlog_info("Loading font \"%s\"...", name);
+
     char name_png[256];
     char name_txt[256];
     char name_xml[256];
@@ -180,7 +199,7 @@ static void load_font(Font* f, const char* name)
 
     if (f->image == NULL)
     {
-        return;
+        return f_idx;
     }
 
     /* We may have a 2.3-style font.txt with all the characters.
@@ -300,17 +319,63 @@ static void load_font(Font* f, const char* name)
             }
         }
     }
+
+    return f_idx;
+}
+
+static void load_font_filename(bool is_custom, const char* filename)
+{
+    // Load font.png, and everything that matches *.fontmeta (but not font.fontmeta)
+    size_t expected_ext_start;
+    bool is_fontpng = SDL_strcmp(filename, "font.png") == 0;
+    if (is_fontpng)
+    {
+        expected_ext_start = SDL_strlen(filename)-4;
+    }
+    else
+    {
+        expected_ext_start = SDL_strlen(filename)-9;
+    }
+    if (is_fontpng || (endsWith(filename, ".fontmeta") && SDL_strcmp(filename, "font.fontmeta") != 0))
+    {
+        char font_name[128];
+        SDL_strlcpy(font_name, filename, sizeof(font_name));
+        font_name[SDL_min(127, expected_ext_start)] = '\0';
+
+        size_t f_idx = load_font(is_custom ? &fonts_custom : &fonts_main, font_name);
+
+        if (is_fontpng && !is_custom)
+        {
+            font_idx_8x8 = f_idx;
+        }
+    }
 }
 
 void load_main(void)
 {
-    // TODO PHYSFS_enumerateFiles, load everything that matches *.fontmeta or font.png (but not font.fontmeta)
-    load_font(&temp_bfont, "font");
+    // Load all global fonts
+    EnumHandle handle = {};
+    const char* item;
+    while ((item = FILESYSTEM_enumerate("graphics", &handle)) != NULL)
+    {
+        load_font_filename(false, item);
+    }
+    FILESYSTEM_freeEnumerate(&handle);
 }
 
 void load_custom(void)
 {
-    // Custom (level-specific assets) fonts NYI
+    // Load all custom (level-specific assets) fonts
+    unload_custom();
+    EnumHandle handle = {};
+    const char* item;
+    while ((item = FILESYSTEM_enumerateAssets("graphics", &handle)) != NULL)
+    {
+        load_font_filename(true, item);
+    }
+    FILESYSTEM_freeEnumerate(&handle);
+
+    // TODO: decide font_idx_custom
 }
 
 void unload_custom(void)
@@ -322,7 +387,7 @@ void unload_custom(void)
 void destroy(void)
 {
     /* Unload all fonts (main and custom) for exiting */
-    Font* f = &temp_bfont;
+    Font* f = &fonts_main.fonts[font_idx_8x8]; // TODO!
     VVV_freefunc(SDL_DestroyTexture, f->image);
 
     for (int i = 0; i < FONT_N_PAGES; i++)
@@ -358,7 +423,7 @@ static bool next_wrap(
             goto next;
         }
 
-        linewidth += get_advance(&font::temp_bfont, str[idx]);
+        linewidth += get_advance(&fonts_main.fonts[font_idx_8x8], str[idx]); // TODO get font via argument!
 
         switch (str[idx])
         {
@@ -581,7 +646,7 @@ static Font* fontsel_to_font(int sel)
 {
     /* Take font selection integer (0-31) and turn it into the correct Font */
     // TODO handle all these cases here like 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 etc
-    return &font::temp_bfont;
+    return &fonts_main.fonts[font_idx_8x8];
 }
 
 #define FLAG_PART(start, count) ((flags >> start) % (1 << count))

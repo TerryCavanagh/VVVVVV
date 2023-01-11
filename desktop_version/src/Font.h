@@ -60,6 +60,12 @@ struct Font
     GlyphInfo* glyph_page[FONT_N_PAGES];
 };
 
+struct FontContainer
+{
+    size_t count;
+    Font* fonts;
+};
+
 struct PrintFlags
 {
     uint8_t scale;
@@ -96,8 +102,6 @@ struct PrintFlags
 #define PR_CJK_CEN (0 << 20) /* default, larger fonts should stick out on top and bottom compared to 8x8 font */
 #define PR_CJK_LOW (1 << 20) /* larger fonts should stick out fully on the bottom (draw at Y) */
 #define PR_CJK_HIGH (2 << 20) /* larger fonts should stick out fully on the top */
-
-extern Font temp_bfont;
 
 void load_main(void);
 void load_custom(void);
