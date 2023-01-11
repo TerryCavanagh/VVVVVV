@@ -161,6 +161,7 @@ static size_t load_font(FontContainer* container, const char* name)
     SDL_snprintf(name_png, sizeof(name_png), "graphics/%s.png", name);
     SDL_snprintf(name_txt, sizeof(name_txt), "graphics/%s.txt", name);
     SDL_snprintf(name_xml, sizeof(name_xml), "graphics/%s.fontmeta", name);
+    SDL_strlcpy(f->name, name, sizeof(f->name));
 
     f->glyph_w = 8;
     f->glyph_h = 8;
@@ -323,6 +324,38 @@ static size_t load_font(FontContainer* container, const char* name)
     return f_idx;
 }
 
+static bool find_font_by_name(FontContainer* container, const char* name, size_t* idx)
+{
+    // Returns true if font found (and idx is set), false if not found
+
+    for (size_t i = 0; i < container->count; i++)
+    {
+        if (SDL_strcmp(name, container->fonts[i].name) == 0)
+        {
+            *idx = i;
+            return true;
+        }
+    }
+    return false;
+}
+
+static void set_custom_font(const char* name)
+{
+    /* Apply the choice for a certain level-specific font */
+    if (find_font_by_name(&fonts_custom, name, &font_idx_custom))
+    {
+        font_idx_custom_is_custom = true;
+    }
+    else
+    {
+        font_idx_custom_is_custom = false;
+        if (!find_font_by_name(&fonts_main, name, &font_idx_custom))
+        {
+            font_idx_custom = font_idx_8x8;
+        }
+    }
+}
+
 static void load_font_filename(bool is_custom, const char* filename)
 {
     // Load font.png, and everything that matches *.fontmeta (but not font.fontmeta)
@@ -338,9 +371,9 @@ static void load_font_filename(bool is_custom, const char* filename)
     }
     if (is_fontpng || (endsWith(filename, ".fontmeta") && SDL_strcmp(filename, "font.fontmeta") != 0))
     {
-        char font_name[128];
+        char font_name[64];
         SDL_strlcpy(font_name, filename, sizeof(font_name));
-        font_name[SDL_min(127, expected_ext_start)] = '\0';
+        font_name[SDL_min(63, expected_ext_start)] = '\0';
 
         size_t f_idx = load_font(is_custom ? &fonts_custom : &fonts_main, font_name);
 
@@ -375,19 +408,12 @@ void load_custom(void)
     }
     FILESYSTEM_freeEnumerate(&handle);
 
-    // TODO: decide font_idx_custom
+    // TODO: here instead of "font", fill in the font chosen by the level
+    set_custom_font("font");
 }
 
-void unload_custom(void)
+void unload_font(Font* f)
 {
-    /* Unload all custom fonts */
-
-}
-
-void destroy(void)
-{
-    /* Unload all fonts (main and custom) for exiting */
-    Font* f = &fonts_main.fonts[font_idx_8x8]; // TODO!
     VVV_freefunc(SDL_DestroyTexture, f->image);
 
     for (int i = 0; i < FONT_N_PAGES; i++)
@@ -395,6 +421,31 @@ void destroy(void)
         VVV_free(f->glyph_page[i]);
     }
 }
+
+void unload_font_container(FontContainer* container)
+{
+    for (size_t i = 0; i < container->count; i++)
+    {
+        unload_font(&container->fonts[i]);
+    }
+    VVV_free(container->fonts);
+    container->fonts = NULL;
+    container->count = 0;
+}
+
+void unload_custom(void)
+{
+    // Unload all custom fonts
+    unload_font_container(&fonts_custom);
+}
+
+void destroy(void)
+{
+    // Unload all fonts (main and custom) for exiting
+    unload_custom();
+    unload_font_container(&fonts_main);
+}
+
 
 static bool next_wrap(
     size_t* start,

@@ -52,6 +52,8 @@ struct GlyphInfo
 
 struct Font
 {
+    char name[64];
+
     uint8_t glyph_w;
     uint8_t glyph_h;
 
