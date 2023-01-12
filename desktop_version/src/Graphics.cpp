@@ -873,11 +873,17 @@ void Graphics::drawgui(void)
             const int b = textboxes[i].b * tl_lerp;
             size_t j;
 
-            drawtextbox(textboxes[i].xp, yp, textboxes[i].w/8, textboxes[i].h/8, r, g, b);
+            drawpixeltextbox(textboxes[i].xp, yp, textboxes[i].w, textboxes[i].h, r, g, b);
 
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                font::print(PR_COLORGLYPH_BRI(tl_lerp*255), textboxes[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textboxes[i].lines[j], r, g, b);
+                font::print(
+                    PR_COLORGLYPH_BRI(tl_lerp*255) | PR_CJK_LOW,
+                    textboxes[i].xp + 8,
+                    yp + text_yoff + text_sign * (j * font::height(PR_FONT_LEVEL)),
+                    textboxes[i].lines[j],
+                    r, g, b
+                );
             }
         }
 
@@ -1336,7 +1342,7 @@ void Graphics::drawtextbox(
     const int g,
     const int b
 ) {
-    return drawpixeltextbox(x, y, w*8, h*8, r, g, b);
+    return drawpixeltextbox(x, y, w*8, 16 + (h-2)*font::height(PR_FONT_LEVEL), r, g, b);
 }
 
 void Graphics::textboxactive(void)
@@ -3476,10 +3482,19 @@ SDL_Color Graphics::crewcolourreal(int t)
 
 void Graphics::render_roomname(const char* roomname, int r, int g, int b)
 {
-    footerrect.y = 230;
+    int font_height = font::height(PR_FONT_LEVEL);
+    if (font_height <= 8)
+    {
+        footerrect.h = font_height + 2;
+    }
+    else
+    {
+        footerrect.h = font_height + 1;
+    }
+    footerrect.y = 240 - footerrect.h;
 
     set_blendmode(SDL_BLENDMODE_BLEND);
     fill_rect(&footerrect, getRGBA(0, 0, 0, translucentroomname ? 127 : 255));
-    bprint(5, 231, roomname, r, g, b, true);
+    font::print(PR_CEN | PR_BOR | PR_FONT_LEVEL | PR_CJK_LOW, -1, footerrect.y+1, roomname, r, g, b);
     set_blendmode(SDL_BLENDMODE_NONE);
 }

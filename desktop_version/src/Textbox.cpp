@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <utf8/unchecked.h>
 
+#include "Font.h"
+
 textboxclass::textboxclass(void)
 {
     w = 0;
@@ -100,13 +102,13 @@ void textboxclass::resize(void)
     int max = 0;
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
-        unsigned int len = utf8::unchecked::distance(lines[iter].begin(), lines[iter].end());
+        int len = font::len(PR_FONT_LEVEL, lines[iter]);
         if (len > (unsigned int)max) max = len;
     }
 
     // 16 for the borders
-    w = max*8 + 16;
-    h = lines.size()*8 + 16;
+    w = max + 16;
+    h = lines.size()*font::height(PR_FONT_LEVEL) + 16;
 }
 
 void textboxclass::addline(const std::string& t)

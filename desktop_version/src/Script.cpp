@@ -577,12 +577,12 @@ void scriptclass::run(void)
                     if (j == 1)    //left
                     {
                         textx = obj.entities[i].xp -10000; //tells the box to be oriented correctly later
-                        texty = obj.entities[i].yp - 16 - (txt.size()*8);
+                        texty = obj.entities[i].yp - 16 - (txt.size() * font::height(PR_FONT_LEVEL));
                     }
                     else if (j == 0)     //Right
                     {
                         textx = obj.entities[i].xp - 16;
-                        texty = obj.entities[i].yp - 18 - (txt.size() * 8);
+                        texty = obj.entities[i].yp - 18 - (txt.size() * font::height(PR_FONT_LEVEL));
                     }
                 }
                 else if (INBOUNDS_VEC(i, obj.entities))
@@ -674,12 +674,12 @@ void scriptclass::run(void)
                     if (j == 1)    //left
                     {
                         textx = obj.entities[i].xp -10000; //tells the box to be oriented correctly later
-                        texty = obj.entities[i].yp - 16 - (txt.size()*8);
+                        texty = obj.entities[i].yp - 16 - (txt.size() * font::height(PR_FONT_LEVEL));
                     }
                     else if (j == 0)     //Right
                     {
                         textx = obj.entities[i].xp - 16;
-                        texty = obj.entities[i].yp - 18 - (txt.size() * 8);
+                        texty = obj.entities[i].yp - 18 - (txt.size() * font::height(PR_FONT_LEVEL));
                     }
                 }
                 else if (INBOUNDS_VEC(i, obj.entities))

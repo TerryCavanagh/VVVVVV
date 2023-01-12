@@ -115,6 +115,7 @@ std::string string_wordwrap_balanced(const std::string& s, int maxwidth);
 std::string string_unwordwrap(const std::string& s);
 
 int len(uint32_t flags, const std::string& t);
+int height(const uint32_t flags);
 
 void print(
     uint32_t flags,

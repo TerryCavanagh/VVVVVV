@@ -147,6 +147,7 @@ public:
     std::string sbscript;
     int sbx, sby;
     int pagey;
+    int lines_visible;
 
     //Functions for interfacing with the script:
     void addhook(const std::string& t);
