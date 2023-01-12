@@ -118,6 +118,11 @@ static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint)
 int get_advance(const Font* f, const uint32_t codepoint)
 {
     // Get the width of a single character in a font
+    if (f == NULL)
+    {
+        return 8;
+    }
+
     GlyphInfo* glyph = find_glyphinfo(f, codepoint);
     if (glyph == NULL)
     {
@@ -341,7 +346,8 @@ static bool find_font_by_name(FontContainer* container, const char* name, size_t
 
 static void set_custom_font(const char* name)
 {
-    /* Apply the choice for a certain level-specific font */
+    /* Apply the choice for a certain level-specific font. */
+
     if (find_font_by_name(&fonts_custom, name, &font_idx_custom))
     {
         font_idx_custom_is_custom = true;
@@ -693,11 +699,59 @@ static int print_char(
     return glyph->advance * scale;
 }
 
+static Font* container_get(FontContainer* container, size_t idx)
+{
+    /* Get a certain font from the given container (with bounds checking).
+     * Does its best to return at least something,
+     * but if there are no fonts whatsoever, can return NULL. */
+
+    if (idx < container->count)
+    {
+        return &container->fonts[idx];
+    }
+    if (font_idx_8x8 < fonts_main.count)
+    {
+        return &fonts_main.fonts[font_idx_8x8];
+    }
+    if (fonts_main.count > 0)
+    {
+        return &fonts_main.fonts[0];
+    }
+    return NULL;
+}
+
 static Font* fontsel_to_font(int sel)
 {
-    /* Take font selection integer (0-31) and turn it into the correct Font */
-    // TODO handle all these cases here like 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 etc
-    return &fonts_main.fonts[font_idx_8x8];
+    /* Take font selection integer (0-31) and turn it into the correct Font
+     * 0: PR_FONT_INTERFACE - use interface font
+     * 1: PR_FONT_LEVEL     - use level font
+     * 2: PR_FONT_8X8       - use 8x8 font no matter what
+     * 3-31:                - use (main) font index 0-28 */
+
+    if (sel < 0)
+    {
+        /* Shouldn't happen but better safe than sorry... */
+        return NULL;
+    }
+
+    switch (sel)
+    {
+    case 0:
+        return container_get(&fonts_main, font_idx_interface);
+    case 1:
+        if (font_idx_custom_is_custom)
+        {
+            return container_get(&fonts_custom, font_idx_custom);
+        }
+        else
+        {
+            return container_get(&fonts_main, font_idx_custom);
+        }
+    case 2:
+        return container_get(&fonts_main, font_idx_8x8);
+    }
+
+    return container_get(&fonts_main, sel-3);
 }
 
 #define FLAG_PART(start, count) ((flags >> start) % (1 << count))
@@ -742,6 +796,17 @@ int len(const uint32_t flags, const std::string& t)
     return text_len * pf.scale;
 }
 
+int height(const uint32_t flags)
+{
+    PrintFlags pf = decode_print_flags(flags);
+    if (pf.font_sel == NULL)
+    {
+        return 8;
+    }
+
+    return pf.font_sel->glyph_h * pf.scale;
+}
+
 void print(
     const uint32_t flags,
     int x,
@@ -753,6 +818,10 @@ void print(
 )
 {
     PrintFlags pf = decode_print_flags(flags);
+    if (pf.font_sel == NULL)
+    {
+        return;
+    }
 
     if (pf.align_cen || pf.align_right)
     {

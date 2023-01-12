@@ -1945,7 +1945,7 @@ void gamerender(void)
         //Draw room text!
         for (size_t i = 0; i < map.roomtext.size(); i++)
         {
-            graphics.Print(map.roomtext[i].x*8, (map.roomtext[i].y*8), map.roomtext[i].text, 196, 196, 255 - help.glow);
+            font::print(PR_FONT_LEVEL | PR_CJK_LOW, map.roomtext[i].x*8, (map.roomtext[i].y*8), map.roomtext[i].text, 196, 196, 255 - help.glow);
         }
     }
 
@@ -2233,7 +2233,7 @@ void gamerender(void)
                 game.activity_b*act_alpha
             );
             font::print(
-                PR_COLORGLYPH_BRI(act_alpha*255),
+                PR_COLORGLYPH_BRI(act_alpha*255) | PR_CJK_LOW,
                 centered_x + game.activity_x,
                 game.activity_y + 12,
                 final_string,

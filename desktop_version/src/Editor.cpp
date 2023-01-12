@@ -99,6 +99,7 @@ void editorclass::reset(void)
     sbx=0;
     sby=0;
     pagey=0;
+    lines_visible = 25;
     scripteditmod=false;
     sbscript="null";
     scripthelppage=0;
@@ -755,9 +756,9 @@ void editorrender(void)
                 }
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(255, 255, 164));
                 short labelcol = ed.entframe<2 ? 255 : 196;
-                short startlen = graphics.len(loc::gettext("START"));
-                graphics.bprint(
-                    (customentities[i].x*8) - (ed.levx*40*8) + 8 - startlen/2,
+                font::print(
+                    PR_BOR | PR_CEN | PR_CJK_HIGH,
+                    (customentities[i].x*8) - (ed.levx*40*8) + 8,
                     (customentities[i].y*8) - (ed.levy*30*8) - 8,
                     loc::gettext("START"),
                     labelcol,labelcol,labelcol
@@ -767,14 +768,13 @@ void editorrender(void)
             case 17: //Roomtext
                 if(customentities[i].scriptname.length()<1)
                 {
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(96,96,96));
+                    fillboxabs((customentities[i].x*8)-(ed.levx*40*8), (customentities[i].y*8)-(ed.levy*30*8), 8, 8, graphics.getRGB(96,96,96));
                 }
                 else
                 {
-                    int length = utf8::unchecked::distance(customentities[i].scriptname.begin(), customentities[i].scriptname.end());
-                    fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),length*8,8,graphics.getRGB(96,96,96));
+                    fillboxabs((customentities[i].x*8)-(ed.levx*40*8), (customentities[i].y*8)-(ed.levy*30*8), font::len(PR_FONT_LEVEL, customentities[i].scriptname), font::height(PR_FONT_LEVEL), graphics.getRGB(96,96,96));
                 }
-                graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), customentities[i].scriptname, 196, 196, 255 - help.glow);
+                font::print(PR_FONT_LEVEL | PR_CJK_LOW, (customentities[i].x*8)-(ed.levx*40*8), (customentities[i].y*8)-(ed.levy*30*8), customentities[i].scriptname, 196, 196, 255 - help.glow);
                 break;
             case 18: //Terminals
             {
@@ -1214,17 +1214,18 @@ void editorrender(void)
             );
             graphics.Print(16,228, namebuffer, 123, 111, 218, true);
             //Draw text
-            for(int i=0; i<25; i++)
+            int font_height = font::height(PR_FONT_LEVEL);
+            for(int i=0; i<ed.lines_visible; i++)
             {
                 if(i+ed.pagey<(int)ed.sb.size())
                 {
-                    graphics.Print(16,20+(i*8),ed.sb[i+ed.pagey], 123, 111, 218, false);
+                    font::print(PR_FONT_LEVEL, 16, 20+(i*font_height), ed.sb[i+ed.pagey], 123, 111, 218);
                 }
             }
             //Draw cursor
             if(ed.entframe<2)
             {
-                graphics.Print(16+(ed.sbx*8),20+(ed.sby*8),"_",123, 111, 218, false);
+                font::print(PR_FONT_LEVEL, 16+font::len(PR_FONT_LEVEL, ed.sb[ed.pagey+ed.sby]),20+(ed.sby*font_height),"_",123, 111, 218);
             }
             break;
         }
@@ -1348,7 +1349,7 @@ void editorrender(void)
 
                 fillboxabs(4+(ed.drawmode*tg), 209,20,20,graphics.getRGB(200,200,200));
 
-                graphics.Print(4, 232, "1/2", 196, 196, 255 - help.glow, false);
+                font::print(PR_CJK_HIGH, 4, 232, "1/2", 196, 196, 255 - help.glow);
             }
             else
             {
@@ -1358,10 +1359,8 @@ void editorrender(void)
                 }
                 graphics.fill_rect(4+((ed.drawmode-10)*tg), 209,20,20,graphics.getRGB(64,64,64));
                 //10:
-                graphics.Print(tx,ty,"A",196, 196, 255 - help.glow, false);
-                graphics.Print(tx+8,ty,"B",196, 196, 255 - help.glow, false);
-                graphics.Print(tx,ty+8,"C",196, 196, 255 - help.glow, false);
-                graphics.Print(tx+8,ty+8,"D",196, 196, 255 - help.glow, false);
+                font::print(PR_FONT_8X8, tx, ty, "AB", 196, 196, 255 - help.glow);
+                font::print(PR_FONT_8X8, tx, ty+8, "CD", 196, 196, 255 - help.glow);
                 //11:
                 tx+=tg;
                 graphics.draw_sprite(tx,ty,17,196,196,196);
@@ -1391,7 +1390,7 @@ void editorrender(void)
 
                 fillboxabs(4 + (ed.drawmode - 10) * tg, 209, 20, 20, graphics.getRGB(200, 200, 200));
 
-                graphics.Print(4, 232, "2/2", 196, 196, 255 - help.glow, false);
+                font::print(PR_CJK_HIGH, 4, 232, "2/2", 196, 196, 255 - help.glow);
             }
 
             char changetooltext[SCREEN_WIDTH_CHARS + 1];
@@ -1400,7 +1399,7 @@ void editorrender(void)
                 "button1:str, button2:str",
                 ",", "."
             );
-            graphics.Print(320-graphics.len(changetooltext), 232, changetooltext, 196, 196, 255 - help.glow, false);
+            font::print(PR_CJK_HIGH | PR_RIGHT, 320, 232, changetooltext, 196, 196, 255 - help.glow);
 
             const char* toolname;
             switch(ed.drawmode)
@@ -1467,7 +1466,7 @@ void editorrender(void)
 
             graphics.fill_rect(260,197,80,11, graphics.getRGB(32,32,32));
             graphics.fill_rect(261,198,80,10, graphics.getRGB(0,0,0));
-            graphics.bprint(268,199, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+            font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 199, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")", 196, 196, 255 - help.glow);
 
         }
         else
@@ -1482,14 +1481,14 @@ void editorrender(void)
                 graphics.fill_rect(&graphics.footerrect, graphics.getRGBA(0, 0, 0, graphics.translucentroomname ? 127 : 255));
                 graphics.set_blendmode(SDL_BLENDMODE_NONE);
 
-                graphics.bprint(5,231+ed.roomnamehide,room->roomname, 196, 196, 255 - help.glow, true);
-                graphics.bprint(4, 222, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow, false);
-                graphics.bprint(268,222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+                font::print(PR_CEN | PR_BOR | PR_FONT_LEVEL | PR_CJK_LOW, -1, 231+ed.roomnamehide, room->roomname, 196, 196, 255 - help.glow);
+                font::print(PR_BOR | PR_CJK_HIGH, 4, 222, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
+                font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")", 196, 196, 255 - help.glow);
             }
             else
             {
-                graphics.bprint(4, 232, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow, false);
-                graphics.bprint(268,232, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")",196, 196, 255 - help.glow, false);
+                font::print(PR_BOR | PR_CJK_HIGH, 4, 232, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
+                font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 232, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")", 196, 196, 255 - help.glow);
             }
         }
 
@@ -1856,6 +1855,7 @@ static void editormenuactionpress(void)
             ed.scripthelppagedelay=0;
             ed.sby=0;
             ed.sbx=0, ed.pagey=0;
+            ed.lines_visible = 200/font::height(PR_FONT_LEVEL);
             break;
         case 2:
             music.playef(11);
@@ -2191,7 +2191,7 @@ void editorinput(void)
 
                     ed.sby=ed.sb.size()-1;
                     ed.pagey=0;
-                    while(ed.sby>=20)
+                    while(ed.sby>=ed.lines_visible-5)
                     {
                         ed.pagey++;
                         ed.sby--;
@@ -2240,7 +2240,7 @@ void editorinput(void)
                 if(ed.sby+ed.pagey<(int)ed.sb.size()-1)
                 {
                     ed.sby++;
-                    if(ed.sby>=20)
+                    if(ed.sby>=ed.lines_visible-5)
                     {
                         ed.pagey++;
                         ed.sby--;
@@ -2299,7 +2299,7 @@ void editorinput(void)
                     if(ed.sby+ed.pagey>=(int)ed.sb.size()) //we're on the last line
                     {
                         ed.sby++;
-                        if(ed.sby>=20)
+                        if(ed.sby>=ed.lines_visible-5)
                         {
                             ed.pagey++;
                             ed.sby--;
@@ -2311,7 +2311,7 @@ void editorinput(void)
                     {
                         //We're not, insert a line instead
                         ed.sby++;
-                        if(ed.sby>=20)
+                        if(ed.sby>=ed.lines_visible-5)
                         {
                             ed.pagey++;
                             ed.sby--;
