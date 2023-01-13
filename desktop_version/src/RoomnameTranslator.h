@@ -13,7 +13,7 @@ namespace roomname_translator
 
     void set_enabled(bool value);
     bool is_pausing(void);
-    void overlay_render(bool* force_roomname_hidden, int* roomname_r, int* roomname_g, int* roomname_b);
+    void overlay_render(bool* force_roomname_hidden, bool* roomname_untranslated, int* roomname_r, int* roomname_g, int* roomname_b);
     bool overlay_input(void);
 }
 

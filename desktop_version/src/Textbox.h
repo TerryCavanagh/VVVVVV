@@ -1,6 +1,7 @@
 #ifndef TEXTBOX_H
 #define TEXTBOX_H
 
+#include <stdint.h>
 #include <string>
 #include <vector>
 
@@ -47,6 +48,8 @@ public:
     bool flipme;
 
     int rand;
+
+    uint32_t print_flags;
 };
 
 #endif /* TEXTBOX_H */
