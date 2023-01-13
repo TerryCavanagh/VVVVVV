@@ -125,8 +125,6 @@ public:
 
     void textboxactive(void);
 
-    void drawtextbox(int x, int y, int w, int h, int r, int g, int b);
-
     void drawpixeltextbox(int x, int y, int w, int h, int r, int g, int b);
 
     void drawcrewman(int x, int y, int t, bool act, bool noshift =false);

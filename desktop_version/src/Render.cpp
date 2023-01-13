@@ -2213,12 +2213,12 @@ void gamerender(void)
             game.activity_lastprompt.c_str()
         );
 
-        int centered_x = ((160 ) - ((graphics.len(final_string)) / 2));
+        int centered_x = ((160 ) - ((font::len(game.activity_print_flags, final_string)) / 2));
 
         if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
         {
             font::print(
-                PR_COLORGLYPH_BRI(act_alpha*255),
+                game.activity_print_flags | PR_COLORGLYPH_BRI(act_alpha*255),
                 centered_x + game.activity_x,
                 game.activity_y + 12,
                 final_string,
@@ -2229,17 +2229,17 @@ void gamerender(void)
         }
         else
         {
-            graphics.drawtextbox(
+            graphics.drawpixeltextbox(
                 game.activity_x + 4,
                 game.activity_y + 4,
-                39,
-                3,
+                39*8,
+                16 + font::height(game.activity_print_flags),
                 game.activity_r*act_alpha,
                 game.activity_g*act_alpha,
                 game.activity_b*act_alpha
             );
             font::print(
-                PR_COLORGLYPH_BRI(act_alpha*255) | PR_CJK_LOW,
+                game.activity_print_flags | PR_COLORGLYPH_BRI(act_alpha*255) | PR_CJK_LOW,
                 centered_x + game.activity_x,
                 game.activity_y + 12,
                 final_string,
@@ -2431,7 +2431,7 @@ void maprender(void)
     graphics.fill_rect(0, 12, 320, 240, 10, 24, 26 );
 
     //Menubar:
-    graphics.drawtextbox( -10, 212, 43, 3, 65, 185, 207);
+    graphics.drawpixeltextbox( -10, 212, 43*8, 16 + font::height(PR_FONT_INTERFACE), 65, 185, 207);
 
     // Draw the selected page name at the bottom
     // menupage 0 - 3 is the pause screen

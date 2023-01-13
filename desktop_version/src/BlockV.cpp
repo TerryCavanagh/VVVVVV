@@ -2,6 +2,8 @@
 
 #include <SDL_stdinc.h>
 
+#include "Font.h"
+
 blockclass::blockclass(void)
 {
     clear();
@@ -28,10 +30,12 @@ void blockclass::clear(void)
     activity_x = 0;
     activity_y = 0;
 
-    /* std::strings get initialized automatically, but this is */
-    /* in case this function gets called again after construction */
+    /* std::strings get initialized automatically, but this is
+     * in case this function gets called again after construction */
     script.clear();
     prompt.clear();
+
+    print_flags = PR_FONT_INTERFACE;
 }
 
 void blockclass::rectset(const int xi, const int yi, const int wi, const int hi)
