@@ -430,9 +430,9 @@ static void editormenurender(int tr, int tg, int tb)
     }
     case Menu::ed_music:
     {
-        graphics.bigprint( -1, 65, loc::gettext("Map Music"), tr, tg, tb, true);
+        font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, 65, loc::gettext("Map Music"), tr, tg, tb);
 
-        graphics.PrintWrap( -1, 85, loc::gettext("Current map music:"), tr, tg, tb, true);
+        font::print_wrap(PR_CEN | PR_CJK_LOW, -1, 85, loc::gettext("Current map music:"), tr, tg, tb);
         const char* songname;
         switch(cl.levmusic)
         {
@@ -1219,13 +1219,13 @@ void editorrender(void)
             {
                 if(i+ed.pagey<(int)ed.sb.size())
                 {
-                    font::print(PR_FONT_LEVEL, 16, 20+(i*font_height), ed.sb[i+ed.pagey], 123, 111, 218);
+                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20+(i*font_height), ed.sb[i+ed.pagey], 123, 111, 218);
                 }
             }
             //Draw cursor
             if(ed.entframe<2)
             {
-                font::print(PR_FONT_LEVEL, 16+font::len(PR_FONT_LEVEL, ed.sb[ed.pagey+ed.sby]),20+(ed.sby*font_height),"_",123, 111, 218);
+                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16+font::len(PR_FONT_LEVEL, ed.sb[ed.pagey+ed.sby]),20+(ed.sby*font_height),"_",123, 111, 218);
             }
             break;
         }

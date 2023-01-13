@@ -842,9 +842,10 @@ void Graphics::drawgui(void)
         int text_yoff;
         int yp;
         bool opaque;
+        int font_height = font::height(textboxes[i].print_flags);
         if (flipmode)
         {
-            text_yoff = textboxes[i].lines.size() * 8;
+            text_yoff = 8 + (textboxes[i].lines.size() - 1) * font_height;
         }
         else
         {
@@ -854,7 +855,7 @@ void Graphics::drawgui(void)
         yp = textboxes[i].yp;
         if (flipmode && textboxes[i].flipme)
         {
-            yp = SCREEN_HEIGHT_PIXELS - yp - 8 * (textboxes[i].lines.size() + 2);
+            yp = SCREEN_HEIGHT_PIXELS - yp - 16 - textboxes[i].lines.size() * font_height;
         }
 
         if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
@@ -878,9 +879,9 @@ void Graphics::drawgui(void)
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
                 font::print(
-                    PR_COLORGLYPH_BRI(tl_lerp*255) | PR_CJK_LOW,
+                    textboxes[i].print_flags | PR_COLORGLYPH_BRI(tl_lerp*255) | PR_CJK_LOW,
                     textboxes[i].xp + 8,
-                    yp + text_yoff + text_sign * (j * font::height(PR_FONT_LEVEL)),
+                    yp + text_yoff + text_sign * (j * font_height),
                     textboxes[i].lines[j],
                     r, g, b
                 );
@@ -1422,8 +1423,7 @@ void Graphics::createtextboxreal(
         textboxclass text;
         text.lines.push_back(t);
         text.xp = xp;
-        int length = utf8::unchecked::distance(t.begin(), t.end());
-        if (xp == -1) text.xp = 160 - (((length / 2) + 1) * 8);
+        if (xp == -1) text.xp = 160 - ((font::len(PR_FONT_LEVEL, t) / 2) + 8);
         text.yp = yp;
         text.initcol(r, g, b);
         text.flipme = flipme;
@@ -3172,6 +3172,18 @@ void Graphics::textboxcentertext()
     textboxes[m].centertext();
 }
 
+void Graphics::textboxprintflags(const uint32_t flags)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxprintflags() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].print_flags = flags;
+    textboxes[m].resize();
+}
+
 void Graphics::textboxcommsrelay()
 {
     /* Special treatment for the gamestate textboxes in Comms Relay */
@@ -3180,6 +3192,7 @@ void Graphics::textboxcommsrelay()
         vlog_error("textboxcommsrelay() out-of-bounds!");
         return;
     }
+    textboxprintflags(PR_FONT_INTERFACE);
     textboxwrap(11);
     textboxes[m].xp = 224 - textboxes[m].w;
 }
@@ -3480,9 +3493,9 @@ SDL_Color Graphics::crewcolourreal(int t)
     return col_crewcyan;
 }
 
-void Graphics::render_roomname(const char* roomname, int r, int g, int b)
+void Graphics::render_roomname(uint32_t font_flag, const char* roomname, int r, int g, int b)
 {
-    int font_height = font::height(PR_FONT_LEVEL);
+    int font_height = font::height(font_flag);
     if (font_height <= 8)
     {
         footerrect.h = font_height + 2;
@@ -3495,6 +3508,6 @@ void Graphics::render_roomname(const char* roomname, int r, int g, int b)
 
     set_blendmode(SDL_BLENDMODE_BLEND);
     fill_rect(&footerrect, getRGBA(0, 0, 0, translucentroomname ? 127 : 255));
-    font::print(PR_CEN | PR_BOR | PR_FONT_LEVEL | PR_CJK_LOW, -1, footerrect.y+1, roomname, r, g, b);
+    font::print(font_flag | PR_CEN | PR_BOR | PR_CJK_LOW, -1, footerrect.y+1, roomname, r, g, b);
     set_blendmode(SDL_BLENDMODE_NONE);
 }

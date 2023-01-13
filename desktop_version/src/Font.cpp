@@ -400,6 +400,9 @@ void load_main(void)
         load_font_filename(false, item);
     }
     FILESYSTEM_freeEnumerate(&handle);
+
+    //font_idx_interface = 1; // TODO TEMP
+    //font_idx_custom = 1;
 }
 
 void load_custom(void)
@@ -717,6 +720,10 @@ static Font* container_get(FontContainer* container, size_t idx)
     {
         return &fonts_main.fonts[0];
     }
+    if (fonts_custom.count > 0)
+    {
+        return &fonts_custom.fonts[0];
+    }
     return NULL;
 }
 
@@ -857,7 +864,7 @@ void print(
         }
     }
 
-    int h_diff_8 = pf.font_sel->glyph_h-8;
+    int h_diff_8 = (pf.font_sel->glyph_h-8)*pf.scale;
     if (h_diff_8 < 0)
     {
         /* If the font is less high than 8,

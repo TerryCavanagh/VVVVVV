@@ -109,6 +109,8 @@ public:
 
     void textboxcentertext();
 
+    void textboxprintflags(uint32_t flags);
+
     void textboxcommsrelay();
 
     void textboxadjust(void);
@@ -404,7 +406,7 @@ public:
 
     SDL_Color crewcolourreal(int t);
 
-    void render_roomname(const char* roomname, int r, int g, int b);
+    void render_roomname(uint32_t font_flag, const char* roomname, int r, int g, int b);
 
     char error[128];
     char error_title[128]; /* for SDL_ShowSimpleMessageBox */

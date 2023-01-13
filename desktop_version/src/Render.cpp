@@ -1915,11 +1915,13 @@ void gamerender(void)
     }
 
     bool force_roomname_hidden = false;
+    bool roomname_untranslated = false;
     int roomname_r = 196, roomname_g = 196, roomname_b = 255 - help.glow;
     if (roomname_translator::enabled)
     {
         roomname_translator::overlay_render(
             &force_roomname_hidden,
+            &roomname_untranslated,
             &roomname_r, &roomname_g, &roomname_b
         );
     }
@@ -1937,7 +1939,11 @@ void gamerender(void)
             roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
         }
 
-        graphics.render_roomname(roomname, roomname_r, roomname_g, roomname_b);
+        graphics.render_roomname(
+            roomname_untranslated ? PR_FONT_8X8 : PR_FONT_LEVEL,
+            roomname,
+            roomname_r, roomname_g, roomname_b
+        );
     }
 
     if (map.roomtexton)
@@ -2091,8 +2097,8 @@ void gamerender(void)
                     y1 = 10;
                     y2 = 30;
                 }
-                graphics.bigbprint( -1, y1, loc::gettext("Survive for"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
-                graphics.bigbprint( -1, y2, loc::gettext("60 seconds!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                font::print(PR_2X | PR_CEN | PR_BOR | PR_CJK_HIGH, -1, y1, loc::gettext("Survive for"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+                font::print(PR_2X | PR_CEN | PR_BOR, -1, y2, loc::gettext("60 seconds!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
             }
         }
         else if(game.swngame==7)
