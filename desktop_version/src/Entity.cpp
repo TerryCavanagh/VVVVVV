@@ -4,6 +4,7 @@
 #include <SDL.h>
 
 #include "CustomLevels.h"
+#include "Font.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
@@ -1087,7 +1088,12 @@ void entityclass::createblock( int t, int xp, int yp, int w, int h, int trig /*=
     if (customactivitytext != "")
     {
         block.prompt = customactivitytext;
+        block.print_flags = PR_FONT_LEVEL;
         customactivitytext = "";
+    }
+    else
+    {
+        block.print_flags = PR_FONT_INTERFACE;
     }
 
     if (customactivitycolour != "")

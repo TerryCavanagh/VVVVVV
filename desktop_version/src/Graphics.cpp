@@ -1334,18 +1334,6 @@ void Graphics::drawpixeltextbox(
     drawcoloredtile(x + w - 8, y + h - 8, 47, r, g, b);
 }
 
-void Graphics::drawtextbox(
-    const int x,
-    const int y,
-    const int w,
-    const int h,
-    const int r,
-    const int g,
-    const int b
-) {
-    return drawpixeltextbox(x, y, w*8, 16 + (h-2)*font::height(PR_FONT_LEVEL), r, g, b);
-}
-
 void Graphics::textboxactive(void)
 {
     //Remove all but the most recent textbox

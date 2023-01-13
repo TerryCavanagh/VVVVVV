@@ -1427,6 +1427,7 @@ void gamelogic(void)
     && INBOUNDS_VEC(game.activeactivity, obj.blocks))
     {
         game.activity_lastprompt = obj.blocks[game.activeactivity].prompt;
+        game.activity_print_flags = obj.blocks[game.activeactivity].print_flags;
         game.activity_r = obj.blocks[game.activeactivity].r;
         game.activity_g = obj.blocks[game.activeactivity].g;
         game.activity_b = obj.blocks[game.activeactivity].b;

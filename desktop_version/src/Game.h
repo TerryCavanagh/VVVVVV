@@ -429,6 +429,7 @@ public:
     int oldreadytotele;
     int activity_r, activity_g, activity_b, activity_x, activity_y;
     std::string activity_lastprompt;
+    uint32_t activity_print_flags;
 
     std::string telesummary, quicksummary, customquicksummary;
     bool save_exists(void);
