@@ -75,7 +75,7 @@ namespace roomname_translator
 
                     const char* first_part = "Unexplained room names are ";
                     font::print(PR_BOR | PR_FONT_8X8, 0, 60, first_part, 255,255,255);
-                    font::print(PR_BOR | PR_FONT_8X8, graphics.len(first_part), 60, "cyan.", 64, 255, 255-help.glow);
+                    font::print(PR_BOR | PR_FONT_8X8, font::len(PR_FONT_8X8, first_part), 60, "cyan.", 64, 255, 255-help.glow);
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace roomname_translator
 
                     const char* first_part = "English room names are ";
                     font::print(PR_BOR | PR_FONT_8X8, 0, 60, first_part, 255,255,255);
-                    font::print(PR_BOR | PR_FONT_8X8, graphics.len(first_part), 60, "cyan.", 0, 192, 255-help.glow);
+                    font::print(PR_BOR | PR_FONT_8X8, font::len(PR_FONT_8X8, first_part), 60, "cyan.", 0, 192, 255-help.glow);
                 }
                 font::print(PR_BOR | PR_FONT_8X8, 0, 80, "KEYS:", 255,255,255);
                 if (expl_mode)
