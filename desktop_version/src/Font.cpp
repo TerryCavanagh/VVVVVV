@@ -901,7 +901,7 @@ void print(
 }
 
 int print_wrap(
-    const uint32_t flags,
+    uint32_t flags,
     const int x,
     int y,
     const std::string& text,
@@ -912,18 +912,28 @@ int print_wrap(
     int maxwidth /*= -1*/
 )
 {
+    PrintFlags pf = decode_print_flags(flags);
+    if (pf.font_sel == NULL)
+    {
+        return y;
+    }
+
     if (linespacing == -1)
     {
         linespacing = 10;
     }
-    linespacing = SDL_max(linespacing, loc::get_langmeta()->font_h);
+    linespacing = SDL_max(linespacing, pf.font_sel->glyph_h * pf.scale);
 
     if (maxwidth == -1)
     {
         maxwidth = 304;
     }
 
-    // TODO look through all the flags
+    if (pf.border && !graphics.notextoutline && (r|g|b) != 0)
+    {
+        print_wrap(flags, x, y, text, 0, 0, 0, linespacing, maxwidth);
+        flags &= ~PR_BOR;
+    }
 
     const char* str = text.c_str();
     // This could fit 64 non-BMP characters onscreen, should be plenty

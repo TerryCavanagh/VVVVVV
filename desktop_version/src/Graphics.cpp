@@ -1827,18 +1827,16 @@ void Graphics::drawtrophytext(void)
         break;
     }
 
-    /* These were `bprint` before */
-    // TODO: add PR_COLORGLYPH_BRI(brightness) | PR_BOR
     short lines;
     if (top_text != NULL)
     {
         font::string_wordwrap(top_text, 304, &lines);
-        PrintWrap(-1, 11-(lines-1)*5, top_text, temp, temp2, temp3, true);
+        font::print_wrap(PR_CEN | PR_COLORGLYPH_BRI(brightness) | PR_BOR, -1, 11-(lines-1)*5, top_text, temp, temp2, temp3);
     }
     if (bottom_text != NULL)
     {
         font::string_wordwrap(bottom_text, 304, &lines);
-        PrintWrap(-1, 221-(lines-1)*5, bottom_text, temp, temp2, temp3, true);
+        font::print_wrap(PR_CEN | PR_COLORGLYPH_BRI(brightness) | PR_BOR, -1, 221-(lines-1)*5, bottom_text, temp, temp2, temp3);
     }
 }
 
