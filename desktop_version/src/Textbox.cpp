@@ -105,7 +105,7 @@ void textboxclass::resize(void)
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
         int len = font::len(print_flags, lines[iter]);
-        if (len > (unsigned int)max) max = len;
+        if (len > max) max = len;
     }
 
     // 16 for the borders

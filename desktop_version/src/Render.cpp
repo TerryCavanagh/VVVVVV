@@ -712,8 +712,11 @@ static void menurender(void)
             );
             graphics.Print(10, 10, buffer, tr/2, tg/2, tb/2);
 
+            uint8_t font_h = 8;
+            font::glyph_dimensions_main(loc::get_langmeta()->font_idx, NULL, &font_h);
+
             int box_x = SDL_min(10, (320-overflow.max_w_px)/2);
-            int box_h = overflow.max_h_px - SDL_max(0, 10-loc::get_langmeta()->font_h);
+            int box_h = overflow.max_h_px - SDL_max(0, 10-font_h);
             graphics.fill_rect(box_x-1, 30-1, overflow.max_w_px+2, box_h+2, tr/3, tg/3, tb/3);
 
             int wraplimit;

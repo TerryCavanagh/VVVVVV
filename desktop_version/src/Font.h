@@ -64,7 +64,7 @@ struct Font
 
 struct FontContainer
 {
-    size_t count;
+    uint8_t count;
     Font* fonts;
 };
 
@@ -105,6 +105,10 @@ struct PrintFlags
 #define PR_CJK_LOW (1 << 20) /* larger fonts should stick out fully on the bottom (draw at Y) */
 #define PR_CJK_HIGH (2 << 20) /* larger fonts should stick out fully on the top */
 
+bool find_main_font_by_name(const char* name, uint8_t* idx);
+const char* get_main_font_name(uint8_t idx);
+uint8_t get_font_idx_8x8(void);
+
 void load_main(void);
 void load_custom(void);
 void unload_custom(void);
@@ -113,6 +117,8 @@ void destroy(void);
 std::string string_wordwrap(const std::string& s, int maxwidth, short *lines = NULL);
 std::string string_wordwrap_balanced(const std::string& s, int maxwidth);
 std::string string_unwordwrap(const std::string& s);
+
+bool glyph_dimensions_main(uint8_t idx, uint8_t* glyph_w, uint8_t* glyph_h);
 
 int len(uint32_t flags, const std::string& t);
 int height(const uint32_t flags);

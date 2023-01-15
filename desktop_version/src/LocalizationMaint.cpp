@@ -57,6 +57,8 @@ static void sync_lang_file(const std::string& langcode)
                 pElem->SetText(langmeta.menu_select.c_str());
             else if (SDL_strcmp(pKey, "menu_select_tight") == 0)
                 pElem->SetText(langmeta.menu_select_tight.c_str());
+            else if (SDL_strcmp(pKey, "font") == 0)
+                pElem->SetText(font::get_main_font_name(langmeta.font_idx));
         }
 
         /* This part exists because we want to preserve blank lines between the commented

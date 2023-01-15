@@ -21,11 +21,10 @@ namespace font
 static FontContainer fonts_main = {};
 static FontContainer fonts_custom = {};
 
-static size_t font_idx_interface = 0;
-static size_t font_idx_8x8 = 0;
+static uint8_t font_idx_8x8 = 0;
 
 static bool font_idx_custom_is_custom = false;
-static size_t font_idx_custom = 0;
+static uint8_t font_idx_custom = 0;
 
 static void codepoint_split(
     const uint32_t codepoint,
@@ -147,15 +146,19 @@ static bool decode_xml_range(tinyxml2::XMLElement* elem, unsigned* start, unsign
     return true;
 }
 
-static size_t load_font(FontContainer* container, const char* name)
+static uint8_t load_font(FontContainer* container, const char* name)
 {
+    if (container->count >= 254)
+    {
+        return 0;
+    }
     Font* new_fonts = (Font*) SDL_realloc(container->fonts, sizeof(Font)*(container->count+1));
     if (new_fonts == NULL)
     {
         return 0;
     }
     container->fonts = new_fonts;
-    size_t f_idx = container->count++;
+    uint8_t f_idx = container->count++;
     Font* f = &container->fonts[f_idx];
 
     vlog_info("Loading font \"%s\"...", name);
@@ -329,11 +332,11 @@ static size_t load_font(FontContainer* container, const char* name)
     return f_idx;
 }
 
-static bool find_font_by_name(FontContainer* container, const char* name, size_t* idx)
+static bool find_font_by_name(FontContainer* container, const char* name, uint8_t* idx)
 {
     // Returns true if font found (and idx is set), false if not found
 
-    for (size_t i = 0; i < container->count; i++)
+    for (uint8_t i = 0; i < container->count; i++)
     {
         if (SDL_strcmp(name, container->fonts[i].name) == 0)
         {
@@ -342,6 +345,16 @@ static bool find_font_by_name(FontContainer* container, const char* name, size_t
         }
     }
     return false;
+}
+
+bool find_main_font_by_name(const char* name, uint8_t* idx)
+{
+    return find_font_by_name(&fonts_main, name, idx);
+}
+
+uint8_t get_font_idx_8x8(void)
+{
+    return font_idx_8x8;
 }
 
 static void set_custom_font(const char* name)
@@ -381,7 +394,7 @@ static void load_font_filename(bool is_custom, const char* filename)
         SDL_strlcpy(font_name, filename, sizeof(font_name));
         font_name[SDL_min(63, expected_ext_start)] = '\0';
 
-        size_t f_idx = load_font(is_custom ? &fonts_custom : &fonts_main, font_name);
+        uint8_t f_idx = load_font(is_custom ? &fonts_custom : &fonts_main, font_name);
 
         if (is_fontpng && !is_custom)
         {
@@ -400,9 +413,6 @@ void load_main(void)
         load_font_filename(false, item);
     }
     FILESYSTEM_freeEnumerate(&handle);
-
-    //font_idx_interface = 1; // TODO TEMP
-    //font_idx_custom = 1;
 }
 
 void load_custom(void)
@@ -433,7 +443,7 @@ void unload_font(Font* f)
 
 void unload_font_container(FontContainer* container)
 {
-    for (size_t i = 0; i < container->count; i++)
+    for (uint8_t i = 0; i < container->count; i++)
     {
         unload_font(&container->fonts[i]);
     }
@@ -702,7 +712,7 @@ static int print_char(
     return glyph->advance * scale;
 }
 
-static Font* container_get(FontContainer* container, size_t idx)
+static Font* container_get(FontContainer* container, uint8_t idx)
 {
     /* Get a certain font from the given container (with bounds checking).
      * Does its best to return at least something,
@@ -727,6 +737,37 @@ static Font* container_get(FontContainer* container, size_t idx)
     return NULL;
 }
 
+bool glyph_dimensions_main(uint8_t idx, uint8_t* glyph_w, uint8_t* glyph_h)
+{
+    /* Gets the dimensions (glyph_w and glyph_h) of fonts_main[idx].
+     * Returns true if the font is valid (glyph_w and/or glyph_h were written to if not NULL), false if not. */
+
+    Font* f = container_get(&fonts_main, idx);
+    if (f == NULL)
+    {
+        return false;
+    }
+    if (glyph_w != NULL)
+    {
+        *glyph_w = f->glyph_w;
+    }
+    if (glyph_h != NULL)
+    {
+        *glyph_h = f->glyph_h;
+    }
+    return true;
+}
+
+const char* get_main_font_name(uint8_t idx)
+{
+    Font* f = container_get(&fonts_main, idx);
+    if (f == NULL)
+    {
+        return "";
+    }
+    return f->name;
+}
+
 static Font* fontsel_to_font(int sel)
 {
     /* Take font selection integer (0-31) and turn it into the correct Font
@@ -744,7 +785,7 @@ static Font* fontsel_to_font(int sel)
     switch (sel)
     {
     case 0:
-        return container_get(&fonts_main, font_idx_interface);
+        return container_get(&fonts_main, loc::get_langmeta()->font_idx);
     case 1:
         if (font_idx_custom_is_custom)
         {
