@@ -92,6 +92,7 @@ struct PrintFlags
 #define PR_FONT_INTERFACE (0 << 3) /* default, use interface font */
 #define PR_FONT_LEVEL (1 << 3) /* use level-specific font (room names, cutscene dialogue, etc) */
 #define PR_FONT_8X8 (2 << 3) /* use 8x8 font no matter what */
+#define PR_FONT_IDX(idx) ((SDL_clamp(idx, 0, 28) + 3) << 3) /* use given font index */
 #define PR_AB_IS_BRI (1 << 16)
 #define PR_ALPHA(value) /* use this alpha value 0-255 (incompatible with PR_COLORGLYPH_BRI) */\
     ((~SDL_clamp((int)(value), 0, 255) & 0xff) << 8)

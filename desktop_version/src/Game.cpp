@@ -6477,7 +6477,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                 if (loc::languagelist[i].nativename.empty())
                     option(loc::languagelist[i].code.c_str());
                 else
-                    option(loc::languagelist[i].nativename.c_str());
+                    option(loc::languagelist[i].nativename.c_str(), true, PR_FONT_IDX(loc::languagelist[i].font_idx));
             }
 
             menuyoff = 70-(menuoptions.size()*10);
