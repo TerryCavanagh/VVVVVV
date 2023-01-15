@@ -28,6 +28,7 @@ struct MenuOption
 {
     char text[MENU_TEXT_BYTES];
     bool active;
+    uint32_t print_flags;
 };
 
 //Menu IDs
@@ -309,11 +310,12 @@ public:
     int menuspacing;
     std::vector<MenuStackFrame> menustack;
 
-    void inline option(const char* text, bool active = true)
+    void inline option(const char* text, bool active = true, uint32_t print_flags = 0)
     {
         MenuOption menuoption;
         SDL_strlcpy(menuoption.text, text, sizeof(menuoption.text));
         menuoption.active = active;
+        menuoption.print_flags = print_flags;
         menuoptions.push_back(menuoption);
     }
 

@@ -1552,7 +1552,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
         int x, y;
         if (language_screen)
         {
-            int name_len = len(opt.text);
+            int name_len = font::len(opt.print_flags, opt.text);
             x = (i < twocol_voptions ? 80 : 240) - name_len/2;
             y = 36 + (i % twocol_voptions)*12;
         }
@@ -1612,14 +1612,14 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
             vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", opt_text.c_str());
 
             // Account for brackets
-            x -= (len(buffer)-len(opt_text))/2;
+            x -= (font::len(opt.print_flags, buffer)-font::len(opt.print_flags, opt_text))/2;
         }
         else
         {
             SDL_strlcpy(buffer, loc::remove_toupper_escape_chars(opt.text).c_str(), sizeof(buffer));
         }
 
-        Print(x, y, buffer, fr, fg, fb);
+        font::print(opt.print_flags, x, y, buffer, fr, fg, fb);
     }
 }
 
