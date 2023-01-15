@@ -65,8 +65,7 @@ static void loadmeta(LangMeta& meta, const std::string& langcode = lang)
     meta.toupper_lower_escape_char = false;
     meta.menu_select = "[ {label} ]";
     meta.menu_select_tight = "[{label}]";
-    meta.font_w = 8;
-    meta.font_h = 8;
+    meta.font_idx = font::get_font_idx_8x8();
 
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -106,6 +105,8 @@ static void loadmeta(LangMeta& meta, const std::string& langcode = lang)
             meta.menu_select = std::string(pText);
         else if (SDL_strcmp(pKey, "menu_select_tight") == 0)
             meta.menu_select_tight = std::string(pText);
+        else if (SDL_strcmp(pKey, "font") == 0)
+            font::find_main_font_by_name(pText, &meta.font_idx);
     }
 }
 
@@ -298,8 +299,12 @@ static bool max_check_string(const char* str, const char* max)
         max_h = 2;
     }
 
-    unsigned short max_w_px = max_w * get_langmeta()->font_w;
-    unsigned short max_h_px = max_h * SDL_max(10, get_langmeta()->font_h);
+    uint8_t font_w = 8;
+    uint8_t font_h = 8;
+    font::glyph_dimensions_main(get_langmeta()->font_idx, &font_w, &font_h);
+
+    unsigned short max_w_px = max_w * font_w;
+    unsigned short max_h_px = max_h * SDL_max(10, font_h);
 
     bool does_overflow = false;
 

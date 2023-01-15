@@ -28,8 +28,7 @@ struct LangMeta
     bool toupper_lower_escape_char; // = false; enable ~ to mark lowercase letters for uppercasing
     std::string menu_select;
     std::string menu_select_tight;
-    unsigned char font_w;
-    unsigned char font_h;
+    uint8_t font_idx;
 };
 
 struct TextboxFormat
