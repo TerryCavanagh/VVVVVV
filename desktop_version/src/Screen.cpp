@@ -12,8 +12,8 @@
 
 void ScreenSettings_default(struct ScreenSettings* _this)
 {
-    _this->windowWidth = SCREEN_WIDTH_PIXELS;
-    _this->windowHeight = SCREEN_HEIGHT_PIXELS;
+    _this->windowWidth = SCREEN_WIDTH_PIXELS * 2;
+    _this->windowHeight = SCREEN_HEIGHT_PIXELS * 2;
     _this->fullscreen = false;
     _this->useVsync = true; // Now that uncapped is the default...
     _this->scalingMode = SCALING_INTEGER;
@@ -46,8 +46,8 @@ void Screen::init(const struct ScreenSettings* settings)
     // Uncomment this next line when you need to debug -flibit
     // SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
     SDL_CreateWindowAndRenderer(
-        640,
-        480,
+        SCREEN_WIDTH_PIXELS * 2,
+        SCREEN_HEIGHT_PIXELS * 2,
         SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI,
         &m_window,
         &m_renderer
