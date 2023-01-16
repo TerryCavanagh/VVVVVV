@@ -465,6 +465,7 @@ void destroy(void)
     unload_font_container(&fonts_main);
 }
 
+static Font* container_get(FontContainer* container, uint8_t idx); // TODO TEMP TEMP TEMP
 
 static bool next_wrap(
     size_t* start,
@@ -493,7 +494,7 @@ static bool next_wrap(
             goto next;
         }
 
-        linewidth += get_advance(&fonts_main.fonts[font_idx_8x8], str[idx]); // TODO get font via argument!
+        linewidth += get_advance(container_get(&fonts_main, loc::get_langmeta()->font_idx), str[idx]); // TODO get font via argument!
 
         switch (str[idx])
         {

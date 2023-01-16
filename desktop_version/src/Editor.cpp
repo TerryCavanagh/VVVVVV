@@ -1076,9 +1076,9 @@ void editorrender(void)
 
         if(ed.dmtileeditor>0 && t2<=30)
         {
-            short labellen = 2 + graphics.len(loc::gettext("Tile:"));
-            graphics.bprint(2, 45-t2, loc::gettext("Tile:"), 196, 196, 255 - help.glow, false);
-            graphics.bprint(labellen+16, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
+            short labellen = 2 + font::len(0, loc::gettext("Tile:"));
+            font::print(PR_BOR, 2, 45-t2, loc::gettext("Tile:"), 196, 196, 255 - help.glow);
+            font::print(PR_BOR, labellen+16, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow);
             graphics.fill_rect(labellen+2,44-t2,10,10, graphics.getRGB(255 - help.glow, 196, 196));
             graphics.fill_rect(labellen+3,45-t2,8,8, graphics.getRGB(0,0,0));
 
@@ -1093,11 +1093,13 @@ void editorrender(void)
         }
         else
         {
-            short labellen = 2 + graphics.len(loc::gettext("Tile:"));
-            graphics.bprint(2, 12, loc::gettext("Tile:"), 196, 196, 255 - help.glow, false);
-            graphics.bprint(labellen+16, 12, help.String(ed.dmtile), 196, 196, 255 - help.glow, false);
-            graphics.fill_rect(labellen+2,11,10,10, graphics.getRGB(255 - help.glow, 196, 196));
-            graphics.fill_rect(labellen+3,12,8,8, graphics.getRGB(0,0,0));
+            short labellen = 2 + font::len(0, loc::gettext("Tile:"));
+            int y = 2 + font::height(0);
+            y = SDL_max(y, 12);
+            font::print(PR_BOR, 2, y, loc::gettext("Tile:"), 196, 196, 255 - help.glow);
+            font::print(PR_BOR, labellen+16, y, help.String(ed.dmtile), 196, 196, 255 - help.glow);
+            graphics.fill_rect(labellen+2, y-1, 10,10, graphics.getRGB(255 - help.glow, 196, 196));
+            graphics.fill_rect(labellen+3, y, 8,8, graphics.getRGB(0,0,0));
 
             if(room->tileset==0)
             {
@@ -1459,15 +1461,18 @@ void editorrender(void)
                 toolname = "???";
                 break;
             }
-            int toolnamelen = graphics.len(toolname);
-            graphics.fill_rect(0,197,toolnamelen+8,11, graphics.getRGB(32,32,32));
-            graphics.fill_rect(0,198,toolnamelen+7,10, graphics.getRGB(0,0,0));
-            graphics.bprint(2,199, toolname, 196, 196, 255 - help.glow);
+            int bgheight = 2 + font::height(0);
+            int toolnamelen = font::len(0, toolname);
+            graphics.fill_rect(0,207-bgheight,toolnamelen+8,bgheight+1, graphics.getRGB(32,32,32));
+            graphics.fill_rect(0,208-bgheight,toolnamelen+7,bgheight, graphics.getRGB(0,0,0));
+            font::print(PR_BOR | PR_CJK_HIGH, 2,199, toolname, 196, 196, 255 - help.glow);
 
-            graphics.fill_rect(260,197,80,11, graphics.getRGB(32,32,32));
-            graphics.fill_rect(261,198,80,10, graphics.getRGB(0,0,0));
-            font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 199, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")", 196, 196, 255 - help.glow);
-
+            char coords[8];
+            SDL_snprintf(coords, sizeof(coords), "(%d,%d)", ed.levx+1, ed.levy+1);
+            int coordslen = font::len(0, coords);
+            graphics.fill_rect(319-coordslen-8,207-bgheight,coordslen+8,bgheight+1, graphics.getRGB(32,32,32));
+            graphics.fill_rect(320-coordslen-8,208-bgheight,coordslen+8,bgheight, graphics.getRGB(0,0,0));
+            font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 199, coords, 196, 196, 255 - help.glow);
         }
         else
         {
@@ -1510,20 +1515,24 @@ void editorrender(void)
             int menuwidth = 0;
             for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
             {
-                int len = graphics.len(shiftmenuoptions[i]);
+                int len = font::len(0, shiftmenuoptions[i]);
                 if (len > menuwidth)
                     menuwidth = len;
             }
 
-            fillboxabs(0, 117,menuwidth+17,140,graphics.getRGB(64,64,64));
-            graphics.fill_rect(0,118,menuwidth+16,140, graphics.getRGB(0,0,0));
+            int lineheight = font::height(0);
+            lineheight = SDL_max(10, lineheight);
+            int left_y = 230-SDL_arraysize(shiftmenuoptions)*lineheight;
+
+            fillboxabs(0, left_y-3, menuwidth+17, 240,graphics.getRGB(64,64,64));
+            graphics.fill_rect(0,left_y-2,menuwidth+16,240, graphics.getRGB(0,0,0));
             for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
-                graphics.Print(4, 120+i*10, shiftmenuoptions[i], 164,164,164,false);
+                graphics.Print(4, left_y+i*lineheight, shiftmenuoptions[i], 164,164,164,false);
 
             fillboxabs(220, 207,100,60,graphics.getRGB(64,64,64));
             graphics.fill_rect(221,208,160,60, graphics.getRGB(0,0,0));
             graphics.Print(224, 210, loc::gettext("S: Save Map"),164,164,164,false);
-            graphics.Print(224, 220, loc::gettext("L: Load Map"),164,164,164,false);
+            graphics.Print(224, 210+lineheight, loc::gettext("L: Load Map"),164,164,164,false);
         }
     }
 
