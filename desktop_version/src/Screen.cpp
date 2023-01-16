@@ -8,6 +8,7 @@
 #include "FileSystemUtils.h"
 #include "Game.h"
 #include "GraphicsUtil.h"
+#include "InterimVersion.h"
 #include "Vlogging.h"
 
 void ScreenSettings_default(struct ScreenSettings* _this)
@@ -52,7 +53,16 @@ void Screen::init(const struct ScreenSettings* settings)
         &m_window,
         &m_renderer
     );
+#ifdef INTERIM_VERSION_EXISTS
+    /* Branch name limits are ill-defined but on GitHub it's ~256 chars
+     * ( https://stackoverflow.com/a/24014513/ ).
+     * Really though, just don't use super long branch names. */
+    char title[256];
+    SDL_snprintf(title, sizeof(title), "VVVVVV [%s]", BRANCH_NAME);
+    SDL_SetWindowTitle(m_window, title);
+#else
     SDL_SetWindowTitle(m_window, "VVVVVV");
+#endif
 
     LoadIcon();
 
