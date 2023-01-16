@@ -299,25 +299,32 @@ static bool max_check_string(const char* str, const char* max)
         max_h = 2;
     }
 
+    uint8_t font_idx = get_langmeta()->font_idx;
+    uint32_t print_flags = PR_FONT_IDX(font_idx) | PR_CJK_LOW;
     uint8_t font_w = 8;
     uint8_t font_h = 8;
-    font::glyph_dimensions_main(get_langmeta()->font_idx, &font_w, &font_h);
+    font::glyph_dimensions_main(font_idx, &font_w, &font_h);
 
-    unsigned short max_w_px = max_w * font_w;
-    unsigned short max_h_px = max_h * SDL_max(10, font_h);
+    unsigned short max_w_px = max_w * 8;
+    unsigned short max_h_px = max_h * 10;
 
     bool does_overflow = false;
 
     if (max_h == 1)
     {
-        does_overflow = graphics.len(str) > (int) max_w_px;
+        max_h_px = font_h;
+        does_overflow = font::len(print_flags, str) > (int) max_w_px;
     }
     else
     {
         short lines;
-        font::string_wordwrap(str, max_w_px, &lines);
-        does_overflow = lines > (short) max_h;
+        font::string_wordwrap(str, max_w_px, &lines); // TODO: needs to be passed the font!
+        does_overflow = lines*SDL_max(10, font_h) > (short) max_h_px;
     }
+
+    // Convert max_w and max_h from 8x8 into local
+    max_w = max_w_px / font_w;
+    max_h = max_h_px / SDL_max(10, font_h);
 
     if (does_overflow)
     {
@@ -329,6 +336,7 @@ static bool max_check_string(const char* str, const char* max)
         overflow.max_w_px = max_w_px;
         overflow.max_h_px = max_h_px;
         overflow.multiline = max_h > 1;
+        overflow.flags = print_flags;
 
         text_overflows.push_back(overflow);
 

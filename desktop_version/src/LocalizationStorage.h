@@ -50,6 +50,7 @@ struct TextOverflow
     unsigned short max_w, max_h;
     unsigned short max_w_px, max_h_px;
     bool multiline;
+    uint32_t flags;
 };
 
 extern std::vector<TextOverflow> text_overflows;

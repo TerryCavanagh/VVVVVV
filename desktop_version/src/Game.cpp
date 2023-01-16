@@ -2833,7 +2833,7 @@ void Game::updatestate(void)
                 "gamecomplete_n_trinkets:int",
                 trinkets()
             );
-            graphics.createtextboxflipme(label, 168-graphics.len(label), 84, 0,0,0);
+            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 84, 0,0,0);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.createtextboxflipme(buffer, 180, 84, 0, 0, 0);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
@@ -2846,7 +2846,7 @@ void Game::updatestate(void)
 
             const char* label = loc::gettext("Game Time:");
             std::string tempstring = savetime;
-            graphics.createtextboxflipme(label, 168-graphics.len(label), 96, 0,0,0);
+            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 96, 0,0,0);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.createtextboxflipme(tempstring, 180, 96, 0, 0, 0);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
@@ -2858,7 +2858,7 @@ void Game::updatestate(void)
             setstatedelay(45);
 
             const char* label = loc::gettext("Total Flips:");
-            graphics.createtextboxflipme(label, 168-graphics.len(label), 123, 0,0,0);
+            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 123, 0,0,0);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.createtextboxflipme(help.String(totalflips), 180, 123, 0, 0, 0);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
@@ -2870,7 +2870,7 @@ void Game::updatestate(void)
             setstatedelay(45+15);
 
             const char* label = loc::gettext("Total Deaths:");
-            graphics.createtextboxflipme(label, 168-graphics.len(label), 135, 0,0,0);
+            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 135, 0,0,0);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.createtextboxflipme(help.String(deathcounts), 180, 135, 0, 0, 0);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
@@ -6888,7 +6888,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuwidth = 0;
         for (size_t i = 0; i < menuoptions.size(); i++)
         {
-            int width = i*menuspacing + graphics.len(menuoptions[i].text);
+            int width = i*menuspacing + font::len(menuoptions[i].print_flags, menuoptions[i].text);
             if (width > menuwidth)
                 menuwidth = width;
         }

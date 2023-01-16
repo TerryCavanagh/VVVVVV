@@ -57,48 +57,63 @@ static inline void drawslowdowntext(const int y)
     }
 }
 
+static void slider_get(char* buffer, size_t buffer_len, int position, int n_positions, int target_width)
+{
+    /* Print a slider to the buffer for target_width in pixels.
+     *
+     * <--target w-->
+     * []............
+     * ......[]......
+     * ............[]
+     * ^^^^^^         dots_per_position=6
+     * ^^^^^^^^^^^^^^ max_chars=14
+     */
+
+    if (n_positions < 2 || position < 0 || position >= n_positions)
+    {
+        buffer[0] = '\0';
+        return;
+    }
+
+    int max_chars = ((target_width - font::len(0, "[]")) / font::len(0, ".")) + 2;
+    max_chars = SDL_min(max_chars, buffer_len-1);
+
+    int dots_per_position = (max_chars-2) / (n_positions-1);
+    max_chars = dots_per_position * (n_positions-1) + 2;
+
+    VVV_fillstring(buffer, max_chars+1, '.');
+    if (dots_per_position<1)
+    {
+        return;
+    }
+
+    int handle_idx = position*dots_per_position;
+    buffer[handle_idx] = '[';
+    buffer[handle_idx+1] = ']';
+}
+
 static void volumesliderrender(void)
 {
-    char buffer[SCREEN_WIDTH_CHARS + 1];
+    int volume_max_position = USER_VOLUME_MAX / USER_VOLUME_STEP;
 
-    char slider[20 + 1];
-    int slider_length;
-
-    const char symbol[] = "[]";
-    int symbol_length;
-
-    int offset;
-    int num_positions;
-
-    const int* volume_ptr;
-
+    int volume;
     switch (game.currentmenuoption)
     {
     case 0:
-        volume_ptr = &music.user_music_volume;
+        volume = music.user_music_volume;
         break;
     case 1:
-        volume_ptr = &music.user_sound_volume;
+        volume = music.user_sound_volume;
         break;
     default:
         SDL_assert(0 && "Unhandled volume slider menu option!");
         return;
     }
 
-    VVV_fillstring(slider, sizeof(slider), '.');
-    slider_length = sizeof(slider) - 1;
+    char slider[40 + 1];
+    slider_get(slider, sizeof(slider), volume_max_position*volume/USER_VOLUME_MAX, volume_max_position+1, 240);
 
-    symbol_length = sizeof(symbol) - 1;
-
-    num_positions = slider_length - symbol_length + 1;
-
-    offset = num_positions * (*volume_ptr) / USER_VOLUME_MAX;
-    offset = SDL_clamp(offset, 0, slider_length - symbol_length);
-
-    /* SDL_strlcpy null-terminates, which would end the string in the middle of
-     * it, which we don't want!
-     */
-    SDL_memcpy(&slider[offset], symbol, symbol_length);
+    char buffer[SCREEN_WIDTH_CHARS + 1];
 
     if (game.slidermode == SLIDER_NONE)
     {
@@ -110,7 +125,7 @@ static void volumesliderrender(void)
         vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", slider);
     }
 
-    graphics.Print(-1, 95, buffer, tr, tg, tb, true);
+    font::print(PR_CEN, -1, 95, buffer, tr, tg, tb);
 }
 
 static void inline drawglitchrunnertext(const int y)
@@ -155,8 +170,7 @@ static void menurender(void)
         graphics.draw_sprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
         graphics.draw_sprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
 #if defined(MAKEANDPLAY)
-        const char* editionlabel = loc::gettext("MAKE AND PLAY EDITION");
-        graphics.Print(264-graphics.len(editionlabel),temp+35,editionlabel,tr, tg, tb);
+        font::print(PR_RIGHT, 264, temp+35, loc::gettext("MAKE AND PLAY EDITION"), tr, tg, tb);
 #endif
 #ifdef INTERIM_VERSION_EXISTS
         graphics.Print( 310 - (10*8), 200, COMMIT_DATE, tr/2, tg/2, tb/2);
@@ -563,30 +577,15 @@ static void menurender(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            graphics.Print(32, 75, loc::gettext("Low"), tr, tg, tb);
-            graphics.Print(-1, 75, loc::gettext("Medium"), tr, tg, tb, true);
-            #define HIGHLABEL loc::gettext("High")
-            graphics.Print(288-graphics.len(HIGHLABEL), 75, HIGHLABEL, tr, tg, tb);
-            #undef HIGHLABEL
-            switch(key.sensitivity)
-            {
-            case 0:
-                graphics.Print( -1, 85, "[]..........................", tr, tg, tb, true);
-                break;
-            case 1:
-                graphics.Print( -1, 85, ".......[]...................", tr, tg, tb, true);
-                break;
-            case 2:
-                graphics.Print( -1, 85, ".............[].............", tr, tg, tb, true);
-                break;
-            case 3:
-                graphics.Print( -1, 85, "...................[].......", tr, tg, tb, true);
-                break;
-            case 4:
-                graphics.Print( -1, 85, "..........................[]", tr, tg, tb, true);
-                break;
-            }
+        {
+            font::print(0, 32, 75, loc::gettext("Low"), tr, tg, tb);
+            font::print(PR_CEN, -1, 75, loc::gettext("Medium"), tr, tg, tb);
+            font::print(PR_RIGHT, 288, 75, loc::gettext("High"), tr, tg, tb);
+            char slider[SCREEN_WIDTH_CHARS + 1];
+            slider_get(slider, sizeof(slider), key.sensitivity, 5, 240);
+            font::print(PR_CEN, -1, 85, slider, tr, tg, tb);
             break;
+        }
         case 1:
         case 2:
         case 3:
@@ -710,14 +709,10 @@ static void menurender(void)
                 overflow.max_w_px, overflow.max_h_px,
                 overflow.lang.c_str()
             );
-            graphics.Print(10, 10, buffer, tr/2, tg/2, tb/2);
-
-            uint8_t font_h = 8;
-            font::glyph_dimensions_main(loc::get_langmeta()->font_idx, NULL, &font_h);
+            font::print(PR_FONT_8X8, 10, 10, buffer, tr/2, tg/2, tb/2);
 
             int box_x = SDL_min(10, (320-overflow.max_w_px)/2);
-            int box_h = overflow.max_h_px - SDL_max(0, 10-font_h);
-            graphics.fill_rect(box_x-1, 30-1, overflow.max_w_px+2, box_h+2, tr/3, tg/3, tb/3);
+            graphics.fill_rect(box_x-1, 30-1, overflow.max_w_px+2, overflow.max_h_px+2, tr/3, tg/3, tb/3);
 
             int wraplimit;
             if (overflow.multiline)
@@ -731,7 +726,7 @@ static void menurender(void)
 
             if (overflow.text != NULL)
             {
-                graphics.PrintWrap(box_x, 30, overflow.text, tr, tg, tb, false, -1, wraplimit);
+                font::print_wrap(overflow.flags, box_x, 30, overflow.text, tr, tg, tb, -1, wraplimit);
             }
         }
         break;
@@ -1616,8 +1611,7 @@ void titlerender(void)
         graphics.draw_sprite((160 - 96) + 4 * 32, temp, 23, tr, tg, tb);
         graphics.draw_sprite((160 - 96) + 5 * 32, temp, 23, tr, tg, tb);
 #if defined(MAKEANDPLAY)
-        const char* editionlabel = loc::gettext("MAKE AND PLAY EDITION");
-        graphics.Print(264-graphics.len(editionlabel),temp+35,editionlabel,tr, tg, tb);
+        font::print(PR_RIGHT, 264, temp+35, loc::gettext("MAKE AND PLAY EDITION"), tr, tg, tb);
 #endif
 
         graphics.PrintWrap(5, 175, loc::gettext("[ Press ACTION to Start ]"), tr, tg, tb, true);
@@ -2018,11 +2012,11 @@ void gamerender(void)
             {
                 std::string tempstring = help.timestring(game.swntimer);
                 graphics.bprint( 10, 10, loc::gettext("Current Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                graphics.bigbprint( 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
+                font::print(PR_2X | PR_BOR | PR_FONT_8X8, 25, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
                 tempstring = help.timestring(game.swnrecord);
                 const char* besttimelabel = loc::gettext("Best Time");
                 graphics.bprint( 320-graphics.len(besttimelabel)-8, 10, besttimelabel, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false);
-                graphics.bigbrprint( 300, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), false, 2);
+                font::print(PR_2X | PR_BOR | PR_FONT_8X8 | PR_RIGHT, 300, 24, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
 
                 switch(game.swnbestrank)
                 {

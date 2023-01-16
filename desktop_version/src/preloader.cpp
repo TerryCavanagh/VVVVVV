@@ -1,5 +1,6 @@
 #include "Constants.h"
 #include "Enums.h"
+#include "Font.h"
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
@@ -134,8 +135,7 @@ void preloaderrender(void)
       pre_fakepercent
     );
 
-    int percentage_len = graphics.len(buffer);
-    graphics.Print(282-percentage_len, 204, buffer, 124, 112, 218, false);
+    font::print(PR_RIGHT | PR_CJK_HIGH, 282, 204, buffer, 124, 112, 218);
   }
 
   graphics.drawfade();
