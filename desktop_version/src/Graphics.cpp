@@ -345,15 +345,6 @@ void Graphics::Print( int x, int y, const std::string& text, int r, int g, int b
         font::print(0, x, y, text, r, g, b);
 }
 
-void Graphics::PrintAlpha( int x, int y, const std::string& text, int r, int g, int b, int a, bool cen /*= false*/ )
-{
-    // DEPRECATED
-    if (cen)
-        font::print(PR_ALPHA(a) | PR_CEN, -1, y, text, r, g, b);
-    else
-        font::print(PR_ALPHA(a), x, y, text, r, g, b);
-}
-
 int Graphics::PrintWrap(
     const int x,
     int y,
@@ -389,15 +380,6 @@ void Graphics::bprint( int x, int y, const std::string& text, int r, int g, int 
         font::print(PR_CEN | PR_BOR, -1, y, text, r, g, b);
     else
         font::print(PR_BOR, x, y, text, r, g, b);
-}
-
-void Graphics::bprintalpha( int x, int y, const std::string& text, int r, int g, int b, int a, bool cen /*= false*/ )
-{
-    // DEPRECATED
-    if (cen)
-        font::print(PR_ALPHA(a) | PR_CEN | PR_BOR, -1, y, text, r, g, b);
-    else
-        font::print(PR_ALPHA(a) | PR_BOR, x, y, text, r, g, b);
 }
 
 void Graphics::printcrewname( int x, int y, int t )
