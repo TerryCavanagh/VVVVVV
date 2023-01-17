@@ -383,16 +383,6 @@ void Graphics::bigprint(  int x, int y, const std::string& text, int r, int g, i
         font::print(PR_scX, x, y, text, r, g, b);
 }
 
-void Graphics::bigbprint(int x, int y, const std::string& text, int r, int g, int b, bool cen, int sc)
-{
-    // DEPRECATED. Also, use PR_2X/PR_3X/etc directly
-    int PR_scX = (sc-1);
-    if (cen)
-        font::print(PR_scX | PR_CEN | PR_BOR, -1, y, text, r, g, b);
-    else
-        font::print(PR_scX | PR_BOR, x, y, text, r, g, b);
-}
-
 void Graphics::bprint( int x, int y, const std::string& text, int r, int g, int b, bool cen /*= false*/ ) {
     // DEPRECATED
     if (cen)
@@ -3286,26 +3276,6 @@ void Graphics::renderfixedpost(void)
     {
         --game.screenshake;
     }
-}
-
-void Graphics::bigrprint(int x, int y, const std::string& text, int r, int g, int b, bool cen, int sc)
-{
-    // DEPRECATED. Also, use PR_2X/PR_3X/etc directly
-    int PR_scX = (sc-1);
-    if (cen)
-        font::print(PR_scX | PR_CEN, -1, y, text, r, g, b);
-    else
-        font::print(PR_scX | PR_RIGHT, x, y, text, r, g, b);
-}
-
-void Graphics::bigbrprint(int x, int y, const std::string& text, int r, int g, int b, bool cen, int sc)
-{
-    // DEPRECATED. Also, use PR_2X/PR_3X/etc directly
-    int PR_scX = (sc-1);
-    if (cen)
-        font::print(PR_scX | PR_CEN | PR_BOR, -1, y, text, r, g, b);
-    else
-        font::print(PR_scX | PR_RIGHT | PR_BOR, x, y, text, r, g, b);
 }
 
 void Graphics::drawtele(int x, int y, int t, const SDL_Color color)

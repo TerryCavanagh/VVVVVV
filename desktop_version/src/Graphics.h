@@ -213,7 +213,6 @@ public:
     void bprintalpha(int x, int y, const std::string& t, int r, int g, int b, int a, bool cen = false);
 
     void bigprint( int _x, int _y, const std::string& _s, int r, int g, int b, bool cen = false, int sc = 2 );
-    void bigbprint(int x, int y, const std::string& s, int r, int g, int b, bool cen = false, int sc = 2);
     void drawspritesetcol(int x, int y, int t, int c);
 
 
@@ -236,10 +235,6 @@ public:
     void drawentity(const int i, const int yoff);
 
     void drawtrophytext(void);
-
-    void bigrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, int sc = 2);
-    void bigbrprint(int x, int y, const std::string& t, int r, int g, int b, bool cen = false, int sc = 2);
-
 
     void drawtele(int x, int y, int t, SDL_Color c);
 
