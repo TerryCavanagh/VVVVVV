@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font_metadata>
+    <width>8</width>
+    <height>8</height>
+    <white_teeth>1</white_teeth>
+    <chars>
+        <range start="0x20" end="0x7F"/>
+        <range start="0xA0" end="0x17F"/>
+        <range start="0x18F" end="0x18F"/>
+        <range start="0x218" end="0x21B"/>
+        <range start="0x259" end="0x25A"/>
+        <range start="0x37E" end="0x37E"/>
+        <range start="0x386" end="0x386"/>
+        <range start="0x388" end="0x38A"/>
+        <range start="0x38C" end="0x38C"/>
+        <range start="0x38E" end="0x3A1"/>
+        <range start="0x3A3" end="0x3CE"/>
+        <range start="0x400" end="0x45F"/>
+        <range start="0x490" end="0x491"/>
+        <range start="0x49A" end="0x49B"/>
+        <range start="0x4A2" end="0x4A3"/>
+        <range start="0x5D0" end="0x5EA"/>
+        <range start="0x5F0" end="0x5F4"/>
+        <range start="0x16A0" end="0x16F0"/>
+        <range start="0x1E9E" end="0x1E9E"/>
+        <range start="0x2014" end="0x2014"/>
+        <range start="0x2018" end="0x2019"/>
+        <range start="0x201C" end="0x201E"/>
+        <range start="0x2026" end="0x2026"/>
+        <range start="0x203C" end="0x203D"/>
+        <range start="0x2070" end="0x2070"/>
+        <range start="0x2074" end="0x2079"/>
+        <range start="0x20AC" end="0x20AC"/>
+        <range start="0x2122" end="0x2122"/>
+        <range start="0x2190" end="0x2199"/>
+        <range start="0x21B0" end="0x21B3"/>
+        <range start="0x21B6" end="0x21B7"/>
+        <range start="0x21BA" end="0x21C3"/>
+        <range start="0x21C5" end="0x21C6"/>
+        <range start="0x21CB" end="0x21CC"/>
+        <range start="0x2500" end="0x25A2"/>
+        <range start="0x25B2" end="0x25B3"/>
+        <range start="0x25B6" end="0x25B7"/>
+        <range start="0x25BC" end="0x25BD"/>
+        <range start="0x25C0" end="0x25C1"/>
+        <range start="0x2605" end="0x2606"/>
+        <range start="0x261C" end="0x2620"/>
+        <range start="0x2622" end="0x2623"/>
+        <range start="0x263A" end="0x263B"/>
+        <range start="0x2640" end="0x2640"/>
+        <range start="0x2642" end="0x2642"/>
+        <range start="0x2660" end="0x2660"/>
+        <range start="0x2663" end="0x2663"/>
+        <range start="0x2665" end="0x2666"/>
+        <range start="0x2669" end="0x266B"/>
+        <range start="0x2690" end="0x2691"/>
+        <range start="0x26A0" end="0x26A1"/>
+        <range start="0x26A5" end="0x26A6"/>
+        <range start="0x26C4" end="0x26C4"/>
+        <range start="0x2713" end="0x2713"/>
+        <range start="0x274C" end="0x274C"/>
+        <range start="0x2962" end="0x296F"/>
+        <range start="0x2E18" end="0x2E18"/>
+        <range start="0xFFFD" end="0xFFFD"/>
+        <range start="0x1F451" end="0x1F451"/>
+    </chars>
+    <special>
+        <range start="0x00" end="0x1F" advance="6"/>
+    </special>
+</font_metadata>
