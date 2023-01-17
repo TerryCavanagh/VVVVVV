@@ -2006,7 +2006,7 @@ void gamerender(void)
         if (game.swngame == 0)
         {
             std::string tempstring = help.timestring(game.swntimer);
-            graphics.bigbprint( -1, 20, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+            font::print(PR_2X | PR_CEN | PR_BOR, -1, 20, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
         }
         else if (game.swngame == 1)
         {
@@ -2101,16 +2101,16 @@ void gamerender(void)
         {
             if (game.swndelay >= 60)
             {
-                graphics.bigbprint( -1, 20, loc::gettext("SUPER GRAVITRON"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                font::print(PR_2X | PR_BOR | PR_CEN, -1, 20, loc::gettext("SUPER GRAVITRON"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
 
                 std::string tempstring = help.timestring(game.swnrecord);
-                graphics.bprint( 240, 190, loc::gettext("Best Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
-                graphics.bigbrprint( 300, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
+                font::print(PR_BOR | PR_CEN, -1, 190, loc::gettext("Best Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+                font::print(PR_2X | PR_BOR | PR_CEN, -1, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
             }
-            else    if (int(game.swndelay / 10) % 2 == 1)
+            else if (int(game.swndelay / 10) % 2 == 1)
             {
-                graphics.bigbprint( -1, 20, loc::gettext("SUPER GRAVITRON"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 2);
-                graphics.bigbprint( -1, 200, loc::gettext("GO!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true, 3);
+                font::print(PR_2X | PR_BOR | PR_CEN, -1, 20, loc::gettext("SUPER GRAVITRON"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+                font::print(PR_3X | PR_BOR | PR_CEN, -1, 200, loc::gettext("GO!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
             }
         }
     }
@@ -2518,7 +2518,7 @@ void maprender(void)
 
                 std::string tempstring = help.timestring(game.swnrecord);
                 graphics.Print( 240, 124, loc::gettext("Best Time"), 196, 196, 255 - help.glow, true);
-                graphics.bigrprint( 300, 94, tempstring, 196, 196, 255 - help.glow, true, 2);
+                font::print(PR_2X | PR_CEN, -1, 102, tempstring, 196, 196, 255 - help.glow);
 
                 switch(game.swnbestrank)
                 {
@@ -2551,7 +2551,7 @@ void maprender(void)
 
                 std::string tempstring = help.timestring(game.swnrecord);
                 graphics.Print( 240, 90, loc::gettext("Best Time"), 196, 196, 255 - help.glow, true);
-                graphics.bigrprint( 300, 104, tempstring, 196, 196, 255 - help.glow, true, 2);
+                font::print(PR_2X | PR_CEN, -1, 104, tempstring, 196, 196, 255 - help.glow);
 
                 switch(game.swnbestrank)
                 {
