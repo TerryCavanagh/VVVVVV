@@ -732,12 +732,12 @@ void editorrender(void)
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(255, 164, 164));
                 if (i == edent_under_cursor)
                 {
-                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,
+                    font::print(PR_BOR | PR_CJK_HIGH, (customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,
                                 "("+help.String(customentities[i].p1/40 + 1)+","+help.String(customentities[i].p2/30 + 1)+")",210,210,255);
                 }
                 else
                 {
-                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),210,210,255);
+                    font::print(PR_BOR | PR_CJK_HIGH, (customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),210,210,255);
                 }
                 break;
             case 15: //Crewmates
@@ -794,7 +794,7 @@ void editorrender(void)
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,24,graphics.getRGB(164,164,164));
                 if (i == edent_under_cursor)
                 {
-                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,customentities[i].scriptname,210,210,255);
+                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, (customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,customentities[i].scriptname,210,210,255);
                 }
                 break;
             }
@@ -803,7 +803,7 @@ void editorrender(void)
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),8,8,graphics.getRGB(255,255,255));
                 if (i == edent_under_cursor)
                 {
-                    graphics.bprint((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,customentities[i].scriptname,210,210,255);
+                    font::print(PR_FONT_LEVEL | PR_BOR | PR_CJK_HIGH, (customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8)-8,customentities[i].scriptname,210,210,255);
                 }
                 break;
             case 50: //Warp lines
@@ -866,12 +866,12 @@ void editorrender(void)
                 fillboxabs((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8),16,16,graphics.getRGB(96, 64, 64));
                 if(ed.tilex+(ed.levx*40)==customentities[i].p1 && ed.tiley+(ed.levy*30)==customentities[i].p2)
                 {
-                    graphics.bprint((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8)-8,
+                    font::print(PR_BOR | PR_CJK_HIGH, (customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8)-8,
                                 "("+help.String(customentities[i].x/40 + 1)+","+help.String(customentities[i].y/30 + 1)+")",190,190,225);
                 }
                 else
                 {
-                    graphics.bprint((customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),190,190,225);
+                    font::print(PR_BOR | PR_CJK_HIGH, (customentities[i].p1*8)- (ed.levx*40*8),(customentities[i].p2*8)- (ed.levy*30*8)-8,help.String(cl.findwarptoken(i)),190,190,225);
                 }
             }
         }
@@ -1543,55 +1543,55 @@ void editorrender(void)
         switch(ed.drawmode)
         {
         case 0:
-            graphics.bprint(2,2, loc::gettext("1: Walls"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("1: Walls"),196, 196, 255 - help.glow);
             break;
         case 1:
-            graphics.bprint(2,2, loc::gettext("2: Backing"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("2: Backing"),196, 196, 255 - help.glow);
             break;
         case 2:
-            graphics.bprint(2,2, loc::gettext("3: Spikes"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("3: Spikes"),196, 196, 255 - help.glow);
             break;
         case 3:
-            graphics.bprint(2,2, loc::gettext("4: Trinkets"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("4: Trinkets"),196, 196, 255 - help.glow);
             break;
         case 4:
-            graphics.bprint(2,2, loc::gettext("5: Checkpoint"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("5: Checkpoint"),196, 196, 255 - help.glow);
             break;
         case 5:
-            graphics.bprint(2,2, loc::gettext("6: Disappear"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("6: Disappear"),196, 196, 255 - help.glow);
             break;
         case 6:
-            graphics.bprint(2,2, loc::gettext("7: Conveyors"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("7: Conveyors"),196, 196, 255 - help.glow);
             break;
         case 7:
-            graphics.bprint(2,2, loc::gettext("8: Moving"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("8: Moving"),196, 196, 255 - help.glow);
             break;
         case 8:
-            graphics.bprint(2,2, loc::gettext("9: Enemies"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("9: Enemies"),196, 196, 255 - help.glow);
             break;
         case 9:
-            graphics.bprint(2,2, loc::gettext("0: Grav Line"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("0: Grav Line"),196, 196, 255 - help.glow);
             break;
         case 10:
-            graphics.bprint(2,2, loc::gettext("R: Roomtext"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("R: Roomtext"),196, 196, 255 - help.glow);
             break;
         case 11:
-            graphics.bprint(2,2, loc::gettext("T: Terminal"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("T: Terminal"),196, 196, 255 - help.glow);
             break;
         case 12:
-            graphics.bprint(2,2, loc::gettext("Y: Script Box"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("Y: Script Box"),196, 196, 255 - help.glow);
             break;
         case 13:
-            graphics.bprint(2,2, loc::gettext("U: Warp Token"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("U: Warp Token"),196, 196, 255 - help.glow);
             break;
         case 14:
-            graphics.bprint(2,2, loc::gettext("I: Warp Lines"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("I: Warp Lines"),196, 196, 255 - help.glow);
             break;
         case 15:
-            graphics.bprint(2,2, loc::gettext("O: Crewmate"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("O: Crewmate"),196, 196, 255 - help.glow);
             break;
         case 16:
-            graphics.bprint(2,2, loc::gettext("P: Start Point"),196, 196, 255 - help.glow);
+            font::print(PR_BOR, 2,2, loc::gettext("P: Start Point"),196, 196, 255 - help.glow);
             break;
         }
     }

@@ -374,14 +374,6 @@ void Graphics::bigprint(  int x, int y, const std::string& text, int r, int g, i
         font::print(PR_scX, x, y, text, r, g, b);
 }
 
-void Graphics::bprint( int x, int y, const std::string& text, int r, int g, int b, bool cen /*= false*/ ) {
-    // DEPRECATED
-    if (cen)
-        font::print(PR_CEN | PR_BOR, -1, y, text, r, g, b);
-    else
-        font::print(PR_BOR, x, y, text, r, g, b);
-}
-
 void Graphics::printcrewname( int x, int y, int t )
 {
     //Print the name of crew member t in the right colour
@@ -826,10 +818,28 @@ void Graphics::drawgui(void)
 
         if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
         {
+            /* To avoid the outlines for different lines overlapping the text itself,
+             * first draw all the outlines and then draw the text. */
             size_t j;
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                bprint(textboxes[i].xp + 8, yp + text_yoff + text_sign * (j * 8), textboxes[i].lines[j], 196, 196, 255 - help.glow);
+                font::print(
+                    textboxes[i].print_flags | PR_CJK_LOW | PR_BOR,
+                    textboxes[i].xp + 8,
+                    yp + text_yoff + text_sign * (j * font_height),
+                    textboxes[i].lines[j],
+                    0, 0, 0
+                );
+            }
+            for (j = 0; j < textboxes[i].lines.size(); j++)
+            {
+                font::print(
+                    textboxes[i].print_flags | PR_CJK_LOW,
+                    textboxes[i].xp + 8,
+                    yp + text_yoff + text_sign * (j * font_height),
+                    textboxes[i].lines[j],
+                    196, 196, 255 - help.glow
+                );
             }
         }
         else

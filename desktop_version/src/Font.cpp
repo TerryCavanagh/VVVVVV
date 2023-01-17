@@ -738,27 +738,6 @@ static Font* container_get(FontContainer* container, uint8_t idx)
     return NULL;
 }
 
-bool glyph_dimensions_main(uint8_t idx, uint8_t* glyph_w, uint8_t* glyph_h)
-{
-    /* Gets the dimensions (glyph_w and glyph_h) of fonts_main[idx].
-     * Returns true if the font is valid (glyph_w and/or glyph_h were written to if not NULL), false if not. */
-
-    Font* f = container_get(&fonts_main, idx);
-    if (f == NULL)
-    {
-        return false;
-    }
-    if (glyph_w != NULL)
-    {
-        *glyph_w = f->glyph_w;
-    }
-    if (glyph_h != NULL)
-    {
-        *glyph_h = f->glyph_h;
-    }
-    return true;
-}
-
 const char* get_main_font_name(uint8_t idx)
 {
     Font* f = container_get(&fonts_main, idx);
@@ -830,6 +809,28 @@ static PrintFlags decode_print_flags(uint32_t flags)
     return pf;
 }
 #undef FLAG_PART
+
+bool glyph_dimensions(uint32_t flags, uint8_t* glyph_w, uint8_t* glyph_h)
+{
+    /* Gets the dimensions (glyph_w and glyph_h) of a certain font.
+     * Returns true if the font is valid (glyph_w and/or glyph_h were written to if not NULL), false if not. */
+
+    PrintFlags pf = decode_print_flags(flags);
+
+    if (pf.font_sel == NULL)
+    {
+        return false;
+    }
+    if (glyph_w != NULL)
+    {
+        *glyph_w = pf.font_sel->glyph_w;
+    }
+    if (glyph_h != NULL)
+    {
+        *glyph_h = pf.font_sel->glyph_h;
+    }
+    return true;
+}
 
 int len(const uint32_t flags, const std::string& t)
 {

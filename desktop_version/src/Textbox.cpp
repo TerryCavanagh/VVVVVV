@@ -135,7 +135,9 @@ void textboxclass::padtowidth(size_t new_w)
     /* Pad the current text so that each line is new_w pixels wide.
      * Each existing line is centered in that width. */
     resize();
-    size_t chars_w = SDL_max(w-16, new_w) / 8;
+    uint8_t glyph_w = 8;
+    font::glyph_dimensions(print_flags, &glyph_w, NULL);
+    size_t chars_w = SDL_max(w-16, new_w) / glyph_w;
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
         size_t n_glyphs = utf8::unchecked::distance(lines[iter].begin(), lines[iter].end());

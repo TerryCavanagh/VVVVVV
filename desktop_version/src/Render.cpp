@@ -1038,7 +1038,7 @@ static void menurender(void)
                 text = loc::gettext("Text outlines are OFF.");
             }
 
-            graphics.bprint(-1, next_y, text, 255, 255, 255, true);
+            font::print(PR_BOR | PR_CEN, -1, next_y, text, 255, 255, 255);
             break;
         }
 
@@ -1973,11 +1973,11 @@ void gamerender(void)
     graphics.drawgui();
     if (graphics.flipmode)
     {
-        if (game.advancetext) graphics.bprint(5, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
     else
     {
-        if (game.advancetext) graphics.bprint(5, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     if (game.readytotele > 100 || game.oldreadytotele > 100)
@@ -2500,7 +2500,7 @@ void maprender(void)
                     graphics.drawimage(IMAGE_COVERED, 40 + (i * 12), 21 + (j * 9), false);
                 }
             }
-            graphics.bprint(-1, 105, loc::gettext("NO SIGNAL"), 245, 245, 245, true);
+            font::print(PR_CEN | PR_BOR, -1, 105, loc::gettext("NO SIGNAL"), 245, 245, 245);
         }
         else
         {
@@ -2980,11 +2980,11 @@ void teleporterrender(void)
 
     if (graphics.flipmode)
     {
-        if (game.advancetext) graphics.bprint(5, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
     else
     {
-        if (game.advancetext) graphics.bprint(5, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     graphics.set_render_target(graphics.gameTexture);

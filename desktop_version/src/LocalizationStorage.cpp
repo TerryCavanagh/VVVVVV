@@ -303,7 +303,7 @@ static bool max_check_string(const char* str, const char* max)
     uint32_t print_flags = PR_FONT_IDX(font_idx) | PR_CJK_LOW;
     uint8_t font_w = 8;
     uint8_t font_h = 8;
-    font::glyph_dimensions_main(font_idx, &font_w, &font_h);
+    font::glyph_dimensions(print_flags, &font_w, &font_h);
 
     unsigned short max_w_px = max_w * 8;
     unsigned short max_h_px = max_h * 10;
