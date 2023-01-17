@@ -173,11 +173,11 @@ static void menurender(void)
         font::print(PR_RIGHT, 264, temp+35, loc::gettext("MAKE AND PLAY EDITION"), tr, tg, tb);
 #endif
 #ifdef INTERIM_VERSION_EXISTS
-        graphics.Print( 310 - (10*8), 200, COMMIT_DATE, tr/2, tg/2, tb/2);
-        graphics.Print( 310 - LEN_INTERIM_COMMIT * 8, 210, INTERIM_COMMIT, tr/2, tg/2, tb/2);
-        graphics.Print( 310 - LEN_BRANCH_NAME * 8, 220, BRANCH_NAME, tr/2, tg/2, tb/2);
+        font::print(PR_RIGHT | PR_FONT_8X8, 310, 200, COMMIT_DATE, tr/2, tg/2, tb/2);
+        font::print(PR_RIGHT | PR_FONT_8X8, 310, 210, INTERIM_COMMIT, tr/2, tg/2, tb/2);
+        font::print(PR_RIGHT | PR_FONT_8X8, 310, 220, BRANCH_NAME, tr/2, tg/2, tb/2);
 #endif
-        graphics.Print( 310 - (SDL_arraysize(RELEASE_VERSION) - 1) * 8, 230, RELEASE_VERSION, tr/2, tg/2, tb/2);
+        font::print(PR_RIGHT, 310, 230, RELEASE_VERSION, tr/2, tg/2, tb/2);
 
         if(music.mmmmmm){
             graphics.Print( 10, 230, loc::gettext("[MMMMMM Mod Installed]"), tr/2, tg/2, tb/2);
