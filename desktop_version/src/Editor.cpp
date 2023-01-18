@@ -315,7 +315,7 @@ static void editormenurender(int tr, int tg, int tb)
     switch (game.currentmenuname)
     {
     case Menu::ed_settings:
-        graphics.bigprint( -1, 75, loc::gettext("Map Settings"), tr, tg, tb, true);
+        font::print(PR_2X | PR_CEN, -1, 75, loc::gettext("Map Settings"), tr, tg, tb);
         if (game.currentmenuoption == 3)
         {
             if (!game.ghostsenabled)
@@ -330,16 +330,16 @@ static void editormenurender(int tr, int tg, int tb)
         {
             if(ed.entframe<2)
             {
-                graphics.bigprint( -1, 35, key.keybuffer+"_", tr, tg, tb, true);
+                font::print(PR_2X | PR_CEN, -1, 35, key.keybuffer+"_", tr, tg, tb);
             }
             else
             {
-                graphics.bigprint( -1, 35, key.keybuffer+" ", tr, tg, tb, true);
+                font::print(PR_2X | PR_CEN, -1, 35, key.keybuffer+" ", tr, tg, tb);
             }
         }
         else
         {
-            graphics.bigprint( -1, 35, translate_title(cl.title), tr, tg, tb, true);
+            font::print(PR_2X | PR_CEN, -1, 35, translate_title(cl.title), tr, tg, tb);
         }
         std::string creator;
         if(ed.creatormod)
