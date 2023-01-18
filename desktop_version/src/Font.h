@@ -30,56 +30,6 @@
 #include <stdint.h>
 #include <string>
 
-#include "GraphicsUtil.h"
-
-namespace font
-{
-
-#define GLYPH_EXISTS 0x1
-#define GLYPH_COLOR 0x2
-
-struct GlyphInfo
-{
-    uint16_t image_idx;
-    uint8_t advance;
-    uint8_t flags;
-};
-
-/* Codepoints go up to U+10FFFF, so we have 0x110 (272) pages
- * of 0x1000 (4096) glyphs, allocated as needed */
-#define FONT_N_PAGES 0x110
-#define FONT_PAGE_SIZE 0x1000
-
-struct Font
-{
-    char name[64];
-
-    uint8_t glyph_w;
-    uint8_t glyph_h;
-
-    SDL_Texture* image;
-
-    GlyphInfo* glyph_page[FONT_N_PAGES];
-};
-
-struct FontContainer
-{
-    uint8_t count;
-    Font* fonts;
-};
-
-struct PrintFlags
-{
-    uint8_t scale;
-    Font* font_sel;
-    uint8_t alpha;
-    uint8_t colorglyph_bri;
-    bool border;
-    bool align_cen;
-    bool align_right;
-    bool cjk_low;
-    bool cjk_high;
-};
 
 #define PR_1X (0 << 0) /* default, 1x scale */
 #define PR_2X (1 << 0) /* 2x scale */
@@ -105,6 +55,10 @@ struct PrintFlags
 #define PR_CJK_CEN (0 << 20) /* default, larger fonts should stick out on top and bottom compared to 8x8 font */
 #define PR_CJK_LOW (1 << 20) /* larger fonts should stick out fully on the bottom (draw at Y) */
 #define PR_CJK_HIGH (2 << 20) /* larger fonts should stick out fully on the top */
+
+
+namespace font
+{
 
 bool find_main_font_by_name(const char* name, uint8_t* idx);
 const char* get_main_font_name(uint8_t idx);
