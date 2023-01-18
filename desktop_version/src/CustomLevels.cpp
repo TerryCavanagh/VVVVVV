@@ -1286,7 +1286,7 @@ next:
 
                     CustomEntityColour colour;
                     colour.tick = UINT32_MAX;
-                    colour.colour = 0xFFFFFFFF;
+                    colour.colour = graphics.getRGB(255, 255, 255);
 
                     std::replace(text.begin(), text.end(), '|', '\n');
 

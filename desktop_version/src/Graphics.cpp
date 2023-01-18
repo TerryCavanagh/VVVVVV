@@ -3090,9 +3090,9 @@ SDL_Color Graphics::getcol( int t )
     {
         CustomEntityColour &colour = cl.entcolours[t];
         if (colour.synced && (colour.tick == game.framecounter)) {
-            ct.colour = colour.colour;
-            return;
+            return colour.colour;
         }
+
         colour.tick = game.framecounter;
         std::string input = colour.input;
 
@@ -3106,13 +3106,10 @@ SDL_Color Graphics::getcol( int t )
         if (!value.success)
         {
             // Might be worth it to display value.error somewhere?
-            ct.colour = getRGB(255, 255, 255);
-            colour.colour = ct.colour;
-            return;
+            return getRGB(255, 255, 255);
         }
-        ct.colour = getRGB(MathParser::variables.at("r"), MathParser::variables.at("g"), MathParser::variables.at("b"));
-        colour.colour = ct.colour;
-        return;
+        colour.colour = getRGB(MathParser::variables.at("r"), MathParser::variables.at("g"), MathParser::variables.at("b"));
+        return colour.colour;
     }
 #endif
     int temp;
