@@ -364,16 +364,6 @@ int Graphics::PrintWrap(
 }
 
 
-void Graphics::bigprint(  int x, int y, const std::string& text, int r, int g, int b, bool cen, int sc )
-{
-    // DEPRECATED. Also, use PR_2X/PR_3X/etc directly
-    int PR_scX = (sc-1);
-    if (cen)
-        font::print(PR_scX | PR_CEN, -1, y, text, r, g, b);
-    else
-        font::print(PR_scX, x, y, text, r, g, b);
-}
-
 void Graphics::printcrewname( int x, int y, int t )
 {
     //Print the name of crew member t in the right colour
