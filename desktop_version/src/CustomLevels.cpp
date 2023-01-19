@@ -89,17 +89,25 @@ static bool compare_nocase (std::string first, std::string second)
  * as being translated, while they're actually stored in English in the level file.
  * This way we translate "Untitled Level" and "Unknown" without
  * spreading around translations in level files posted online! */
-std::string translate_title(const std::string& title)
+std::string translate_title(const std::string& title, bool* is_gettext)
 {
     if (title == "Untitled Level")
+    {
+        *is_gettext = true;
         return loc::gettext("Untitled Level");
+    }
+    *is_gettext = false;
     return title;
 }
 
-std::string translate_creator(const std::string& creator)
+std::string translate_creator(const std::string& creator, bool* is_gettext)
 {
     if (creator == "Unknown")
+    {
+        *is_gettext = true;
         return loc::gettext("Unknown");
+    }
+    *is_gettext = false;
     return creator;
 }
 
@@ -250,9 +258,6 @@ static void levelMetaDataCallback(const char* filename)
 
     if (cl.getLevelMetaData(filename_, temp))
     {
-        temp.title = translate_title(temp.title);
-        temp.creator = translate_creator(temp.creator);
-
         cl.ListOfMetaData.push_back(temp);
     }
 }
@@ -301,12 +306,13 @@ bool customlevelclass::getLevelMetaDataAndPlaytestArgs(const std::string& _path,
         return false;
     }
 
-    _data.creator = find_creator(buf);
-    _data.title = find_title(buf);
+    _data.creator = translate_creator(find_creator(buf), &_data.creator_is_gettext);
+    _data.title = translate_title(find_title(buf), &_data.title_is_gettext);
     _data.Desc1 = find_desc1(buf);
     _data.Desc2 = find_desc2(buf);
     _data.Desc3 = find_desc3(buf);
     _data.website = find_website(buf);
+
 
     if (pt_args != NULL)
     {
