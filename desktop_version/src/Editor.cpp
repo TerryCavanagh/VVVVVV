@@ -319,9 +319,9 @@ static void editormenurender(int tr, int tg, int tb)
         if (game.currentmenuoption == 3)
         {
             if (!game.ghostsenabled)
-                graphics.Print(2, 230, loc::gettext("Editor ghost trail is OFF"), tr/2, tg/2, tb/2);
+                font::print(0, 2, 230, loc::gettext("Editor ghost trail is OFF"), tr/2, tg/2, tb/2);
             else
-                graphics.Print(2, 230, loc::gettext("Editor ghost trail is ON"), tr, tg, tb);
+                font::print(0, 2, 230, loc::gettext("Editor ghost trail is ON"), tr, tg, tb);
         }
         break;
     case Menu::ed_desc:
@@ -330,17 +330,20 @@ static void editormenurender(int tr, int tg, int tb)
         {
             if(ed.entframe<2)
             {
-                font::print(PR_2X | PR_CEN, -1, 35, key.keybuffer+"_", tr, tg, tb);
+                font::print(PR_2X | PR_CEN | PR_FONT_LEVEL, -1, 35, key.keybuffer+"_", tr, tg, tb);
             }
             else
             {
-                font::print(PR_2X | PR_CEN, -1, 35, key.keybuffer+" ", tr, tg, tb);
+                font::print(PR_2X | PR_CEN | PR_FONT_LEVEL, -1, 35, key.keybuffer+" ", tr, tg, tb);
             }
         }
         else
         {
-            font::print(PR_2X | PR_CEN, -1, 35, translate_title(cl.title), tr, tg, tb);
+            bool title_is_gettext;
+            std::string title = translate_title(cl.title, &title_is_gettext);
+            font::print(PR_2X | PR_CEN | (title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), -1, 35, title, tr, tg, tb);
         }
+        bool creator_is_gettext = false;
         std::string creator;
         if(ed.creatormod)
         {
@@ -355,7 +358,7 @@ static void editormenurender(int tr, int tg, int tb)
         }
         else
         {
-            creator = translate_creator(cl.creator);
+            creator = translate_creator(cl.creator, &creator_is_gettext);
         }
         char creatorline[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(
@@ -364,67 +367,68 @@ static void editormenurender(int tr, int tg, int tb)
             "author:str",
             creator.c_str()
         );
-        graphics.Print( -1, 60, creatorline, tr, tg, tb, true);
+        int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
+        font::print(PR_CEN | (creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), -1, 60, creatorline, tr, tg, tb);
 
         if(ed.websitemod)
         {
             if(ed.entframe<2)
             {
-                graphics.Print( -1, 70, key.keybuffer+"_", tr, tg, tb, true);
+                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp, key.keybuffer+"_", tr, tg, tb);
             }
             else
             {
-                graphics.Print( -1, 70, key.keybuffer+" ", tr, tg, tb, true);
+                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp, key.keybuffer+" ", tr, tg, tb);
             }
         }
         else
         {
-            graphics.Print( -1, 70, cl.website, tr, tg, tb, true);
+            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp, cl.website, tr, tg, tb);
         }
         if(ed.desc1mod)
         {
             if(ed.entframe<2)
             {
-                graphics.Print( -1, 90, key.keybuffer+"_", tr, tg, tb, true);
+                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*3, key.keybuffer+"_", tr, tg, tb);
             }
             else
             {
-                graphics.Print( -1, 90, key.keybuffer+" ", tr, tg, tb, true);
+                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*3, key.keybuffer+" ", tr, tg, tb);
             }
         }
         else
         {
-            graphics.Print( -1, 90, cl.Desc1, tr, tg, tb, true);
+            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*3, cl.Desc1, tr, tg, tb);
         }
         if(ed.desc2mod)
         {
             if(ed.entframe<2)
             {
-                graphics.Print( -1, 100, key.keybuffer+"_", tr, tg, tb, true);
+                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*4, key.keybuffer+"_", tr, tg, tb);
             }
             else
             {
-                graphics.Print( -1, 100, key.keybuffer+" ", tr, tg, tb, true);
+                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*4, key.keybuffer+" ", tr, tg, tb);
             }
         }
         else
         {
-            graphics.Print( -1, 100, cl.Desc2, tr, tg, tb, true);
+            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*4, cl.Desc2, tr, tg, tb);
         }
         if(ed.desc3mod)
         {
             if(ed.entframe<2)
             {
-                graphics.Print( -1, 110, key.keybuffer+"_", tr, tg, tb, true);
+                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*5, key.keybuffer+"_", tr, tg, tb);
             }
             else
             {
-                graphics.Print( -1, 110, key.keybuffer+" ", tr, tg, tb, true);
+                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*5, key.keybuffer+" ", tr, tg, tb);
             }
         }
-        else
+        else if (sp <= 10)
         {
-            graphics.Print( -1, 110, cl.Desc3, tr, tg, tb, true);
+            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*5, cl.Desc3, tr, tg, tb);
         }
         break;
     }
@@ -1817,15 +1821,37 @@ static void editormenuactionpress(void)
         switch (game.currentmenuoption)
         {
         case 0:
+        {
+            bool title_is_gettext;
+            translate_title(cl.title, &title_is_gettext);
             ed.titlemod=true;
             key.enabletextentry();
-            key.keybuffer=translate_title(cl.title);
+            if (title_is_gettext)
+            {
+                key.keybuffer="";
+            }
+            else
+            {
+                key.keybuffer = cl.title;
+            }
             break;
+        }
         case 1:
+        {
+            bool creator_is_gettext;
+            translate_creator(cl.creator, &creator_is_gettext);
             ed.creatormod=true;
             key.enabletextentry();
-            key.keybuffer=translate_creator(cl.creator);
+            if (creator_is_gettext)
+            {
+                key.keybuffer="";
+            }
+            else
+            {
+                key.keybuffer = cl.creator;
+            }
             break;
+        }
         case 2:
             ed.desc1mod=true;
             key.enabletextentry();
@@ -2440,10 +2466,18 @@ void editorinput(void)
         if(ed.titlemod)
         {
             cl.title=key.keybuffer;
+            if (cl.title == "")
+            {
+                cl.title = "Untitled Level";
+            }
         }
         else if(ed.creatormod)
         {
             cl.creator=key.keybuffer;
+            if (cl.creator == "")
+            {
+                cl.creator = "Unknown";
+            }
         }
         else if(ed.websitemod)
         {
@@ -2471,11 +2505,19 @@ void editorinput(void)
                 if(ed.titlemod)
                 {
                     cl.title=key.keybuffer;
+                    if (cl.title == "")
+                    {
+                        cl.title = "Untitled Level";
+                    }
                     ed.titlemod=false;
                 }
                 else if(ed.creatormod)
                 {
                     cl.creator=key.keybuffer;
+                    if (cl.creator == "")
+                    {
+                        cl.creator = "Unknown";
+                    }
                     ed.creatormod=false;
                 }
                 else if(ed.websitemod)
@@ -2510,9 +2552,16 @@ void editorinput(void)
                 {
                     ed.desc2mod=false;
 
-                    ed.desc3mod=true;
-                    key.enabletextentry();
-                    key.keybuffer=cl.Desc3;
+                    if (font::height(PR_FONT_LEVEL) <= 10)
+                    {
+                        ed.desc3mod=true;
+                        key.enabletextentry();
+                        key.keybuffer=cl.Desc3;
+                    }
+                    else
+                    {
+                        cl.Desc3="";
+                    }
                 }
                 music.playef(11);
             }

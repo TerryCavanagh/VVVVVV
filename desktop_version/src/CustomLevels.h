@@ -58,6 +58,11 @@ struct LevelMetaData
     std::string timeModified;
 
     int version;
+
+    /* true if a system "Untitled Level"/"Unknown"
+     * was stored in this struct (for the levels list) */
+    bool title_is_gettext;
+    bool creator_is_gettext;
 };
 
 struct CliPlaytestArgs
@@ -160,9 +165,9 @@ public:
     bool onewaycol_override;
 };
 
-std::string translate_title(const std::string& title);
+std::string translate_title(const std::string& title, bool* is_gettext);
 
-std::string translate_creator(const std::string& creator);
+std::string translate_creator(const std::string& creator, bool* is_gettext);
 
 #ifndef CL_DEFINITION
 extern customlevelclass cl;
