@@ -7185,6 +7185,9 @@ void Game::returntoeditor(void)
     ed.notedelay = 0;
     ed.roomnamehide = 0;
 
+    // Might've been changed in a script
+    font::set_custom_font(cl.level_font_name.c_str());
+
     DEFER_CALLBACK(resetbg);
     music.fadeout();
     //If warpdir() is used during playtesting, we need to set it back after!

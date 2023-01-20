@@ -2424,6 +2424,19 @@ void scriptclass::run(void)
                     position--;
                 }
             }
+            else if (words[0] == "setfont")
+            {
+#ifndef NO_CUSTOM_LEVELS
+                if (words[1] == "")
+                {
+                    font::set_custom_font(cl.level_font_name.c_str());
+                }
+                else
+                {
+                    font::set_custom_font(words[1].c_str());
+                }
+#endif
+            }
 
             position++;
         }
@@ -3431,6 +3444,9 @@ bool scriptclass::loadcustom(const std::string& t)
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);
         }else if(words[0] == "loadtext"){
+            if(customtextmode==1){ add("endtext"); customtextmode=0;}
+            add(lines[i]);
+        }else if(words[0] == "setfont"){
             if(customtextmode==1){ add("endtext"); customtextmode=0;}
             add(lines[i]);
         }else if(words[0] == "destroy"){
