@@ -187,40 +187,45 @@ static void menurender(void)
 #if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
-      if(cl.ListOfMetaData.size()==0){
-      graphics.PrintWrap( -1, 90, loc::gettext("ERROR: No levels found."), tr, tg, tb, true);
-      }
-      int tmp=game.currentmenuoption+(game.levelpage*8);
-      if(INBOUNDS_VEC(tmp, cl.ListOfMetaData)){
-        const bool nextlastoptions = cl.ListOfMetaData.size() > 8;
-        //Don't show next/previous page or return to menu options here!
-        if(nextlastoptions && game.menuoptions.size() - game.currentmenuoption<=3){
-
-        }else{
-          uint32_t level_flags = PR_FONT_IDX(cl.ListOfMetaData[tmp].level_main_font_idx);
-          uint32_t title_flags = cl.ListOfMetaData[tmp].title_is_gettext ? PR_FONT_INTERFACE : level_flags;
-          uint32_t creator_flags = cl.ListOfMetaData[tmp].creator_is_gettext ? PR_FONT_INTERFACE : level_flags;
-
-          font::print(title_flags | PR_2X | PR_CEN, -1, 15, cl.ListOfMetaData[tmp].title, tr, tg, tb);
-          char creatorline[SCREEN_WIDTH_CHARS + 1];
-          vformat_buf(
-            creatorline, sizeof(creatorline),
-            loc::gettext("by {author}"),
-            "author:str",
-            cl.ListOfMetaData[tmp].creator.c_str()
-          );
-          int sp = SDL_max(10, font::height(level_flags));
-          font::print(creator_flags | PR_CEN, -1, 40, creatorline, tr, tg, tb);
-          font::print(level_flags | PR_CEN, -1, 40+sp, cl.ListOfMetaData[tmp].website, tr, tg, tb);
-          font::print(level_flags | PR_CEN, -1, 40+sp*3, cl.ListOfMetaData[tmp].Desc1, tr, tg, tb);
-          font::print(level_flags | PR_CEN, -1, 40+sp*4, cl.ListOfMetaData[tmp].Desc2, tr, tg, tb);
-          if (sp <= 10)
-          {
-            font::print(level_flags | PR_CEN, -1, 40+sp*5, cl.ListOfMetaData[tmp].Desc3, tr, tg, tb);
-          }
+        if (cl.ListOfMetaData.size()==0)
+        {
+            graphics.PrintWrap( -1, 90, loc::gettext("ERROR: No levels found."), tr, tg, tb, true);
         }
-      }
-      break;
+        int tmp=game.currentmenuoption+(game.levelpage*8);
+        if (INBOUNDS_VEC(tmp, cl.ListOfMetaData))
+        {
+            const bool nextlastoptions = cl.ListOfMetaData.size() > 8;
+            //Don't show next/previous page or return to menu options here!
+            if (nextlastoptions && game.menuoptions.size() - game.currentmenuoption<=3)
+            {
+
+            }
+            else
+            {
+                uint32_t level_flags = PR_FONT_IDX(cl.ListOfMetaData[tmp].level_main_font_idx);
+                uint32_t title_flags = cl.ListOfMetaData[tmp].title_is_gettext ? PR_FONT_INTERFACE : level_flags;
+                uint32_t creator_flags = cl.ListOfMetaData[tmp].creator_is_gettext ? PR_FONT_INTERFACE : level_flags;
+
+                font::print(title_flags | PR_2X | PR_CEN, -1, 15, cl.ListOfMetaData[tmp].title, tr, tg, tb);
+                char creatorline[SCREEN_WIDTH_CHARS + 1];
+                vformat_buf(
+                    creatorline, sizeof(creatorline),
+                    loc::gettext("by {author}"),
+                    "author:str",
+                    cl.ListOfMetaData[tmp].creator.c_str()
+                );
+                int sp = SDL_max(10, font::height(level_flags));
+                font::print(creator_flags | PR_CEN, -1, 40, creatorline, tr, tg, tb);
+                font::print(level_flags | PR_CEN, -1, 40+sp, cl.ListOfMetaData[tmp].website, tr, tg, tb);
+                font::print(level_flags | PR_CEN, -1, 40+sp*3, cl.ListOfMetaData[tmp].Desc1, tr, tg, tb);
+                font::print(level_flags | PR_CEN, -1, 40+sp*4, cl.ListOfMetaData[tmp].Desc2, tr, tg, tb);
+                if (sp <= 10)
+                {
+                    font::print(level_flags | PR_CEN, -1, 40+sp*5, cl.ListOfMetaData[tmp].Desc3, tr, tg, tb);
+                }
+            }
+        }
+        break;
     }
 #endif
     case Menu::errornostart:
