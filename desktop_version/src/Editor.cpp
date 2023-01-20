@@ -492,11 +492,11 @@ static void editormenurender(int tr, int tg, int tb)
             songname = loc::gettext("?: something else");
             break;
         }
-        graphics.PrintWrap( -1, 120, songname, tr, tg, tb, true);
+        font::print_wrap(PR_CEN, -1, 120, songname, tr, tg, tb);
         break;
     }
     case Menu::ed_quit:
-        graphics.PrintWrap(-1, 90, loc::gettext("Save before quitting?"), tr, tg, tb, true);
+        font::print_wrap(PR_CEN, -1, 90, loc::gettext("Save before quitting?"), tr, tg, tb);
         break;
     default:
         break;
@@ -1167,7 +1167,7 @@ void editorrender(void)
         graphics.fill_rect(0,238-textheight,320,240, graphics.getRGB(32,32,32));
         graphics.fill_rect(0,239-textheight,320,240, graphics.getRGB(0,0,0));
 
-        graphics.PrintWrap(4, 240-textheight, message, 255,255,255, false, 8, 312);
+        font::print_wrap(0, 4, 240-textheight, message, 255,255,255, 8, 312);
     }
     else if(ed.scripteditmod)
     {
@@ -1204,7 +1204,7 @@ void editorrender(void)
             else
             {
                 font::print(PR_CEN, -1,110,loc::gettext("NO SCRIPT IDS FOUND"), 123, 111, 218);
-                graphics.PrintWrap(16,130,loc::gettext("CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS"), 123, 111, 218, true, 10, 288);
+                font::print_wrap(PR_CEN, -1,130,loc::gettext("CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS"), 123, 111, 218, 10, 288);
             }
             break;
         case 1:
@@ -1611,7 +1611,7 @@ void editorrender(void)
         float alpha = graphics.lerp(ed.oldnotedelay, ed.notedelay);
         graphics.fill_rect(0, banner_y, 320, 10+textheight, graphics.getRGB(92,92,92));
         graphics.fill_rect(0, banner_y+1, 320, 8+textheight, graphics.getRGB(0,0,0));
-        graphics.PrintWrap(0,banner_y+5, wrapped, 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), true);
+        font::print_wrap(PR_CEN, -1,banner_y+5, wrapped, 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4));
     }
 
     graphics.drawfade();

@@ -202,8 +202,6 @@ public:
 
     void map_option(int opt, int num_opts, const std::string& text, bool selected = false);
 
-    int PrintWrap(int x, int y, const std::string& s, int r, int g, int b, bool cen = false, int linespacing = -1, int maxwidth = -1);
-
     void drawspritesetcol(int x, int y, int t, int c);
 
 
