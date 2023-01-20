@@ -404,7 +404,7 @@ uint8_t get_font_idx_8x8(void)
     return font_idx_8x8;
 }
 
-static void set_custom_font(const char* name)
+void set_custom_font(const char* name)
 {
     /* Apply the choice for a certain level-specific font. */
 

@@ -64,6 +64,7 @@ bool find_main_font_by_name(const char* name, uint8_t* idx);
 const char* get_main_font_name(uint8_t idx);
 uint8_t get_font_idx_8x8(void);
 
+void set_custom_font(const char* name);
 void load_main(void);
 void load_custom(const char* name);
 void unload_custom(void);
