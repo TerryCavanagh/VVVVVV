@@ -63,6 +63,10 @@ struct LevelMetaData
      * was stored in this struct (for the levels list) */
     bool title_is_gettext;
     bool creator_is_gettext;
+
+    /* This is for the metadata in the levels list,
+     * so it will only be a main font (no custom ones). */
+    uint8_t level_main_font_idx;
 };
 
 struct CliPlaytestArgs
@@ -157,6 +161,8 @@ public:
 
     int levmusic;
     int mapwidth, mapheight; //Actual width and height of stage
+
+    std::string level_font_name;
 
     int version;
 

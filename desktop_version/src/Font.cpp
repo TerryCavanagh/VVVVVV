@@ -417,7 +417,14 @@ static void set_custom_font(const char* name)
         font_idx_custom_is_custom = false;
         if (!find_font_by_name(&fonts_main, name, &font_idx_custom))
         {
-            font_idx_custom = font_idx_8x8;
+            if (SDL_strcmp(name, "font") != 0)
+            {
+                set_custom_font("font");
+            }
+            else
+            {
+                font_idx_custom = font_idx_8x8;
+            }
         }
     }
 }
@@ -462,7 +469,7 @@ void load_main(void)
     FILESYSTEM_freeEnumerate(&handle);
 }
 
-void load_custom(void)
+void load_custom(const char* name)
 {
     // Load all custom (level-specific assets) fonts
     unload_custom();
@@ -474,8 +481,7 @@ void load_custom(void)
     }
     FILESYSTEM_freeEnumerate(&handle);
 
-    // TODO: here instead of "font", fill in the font chosen by the level
-    set_custom_font("font");
+    set_custom_font(name);
 }
 
 void unload_font(Font* f)

@@ -65,7 +65,7 @@ const char* get_main_font_name(uint8_t idx);
 uint8_t get_font_idx_8x8(void);
 
 void load_main(void);
-void load_custom(void);
+void load_custom(const char* name);
 void unload_custom(void);
 void destroy(void);
 
