@@ -6266,7 +6266,13 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     {
                         text[ii] = SDL_tolower(text[ii]);
                     }
-                    option(text, true, cl.ListOfMetaData[i].title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_8X8); // TODO level font
+                    option(
+                        text,
+                        true,
+                        cl.ListOfMetaData[i].title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_IDX(
+                            cl.ListOfMetaData[i].level_main_font_idx
+                        )
+                    );
                 }
             }
             if (cl.ListOfMetaData.size() > 8)

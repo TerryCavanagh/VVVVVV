@@ -197,8 +197,7 @@ static void menurender(void)
         if(nextlastoptions && game.menuoptions.size() - game.currentmenuoption<=3){
 
         }else{
-          // TODO: Use level-specific font (via PR_FONT_IDX?)
-          uint32_t level_flags = PR_FONT_8X8; // TEMP
+          uint32_t level_flags = PR_FONT_IDX(cl.ListOfMetaData[tmp].level_main_font_idx);
           uint32_t title_flags = cl.ListOfMetaData[tmp].title_is_gettext ? PR_FONT_INTERFACE : level_flags;
           uint32_t creator_flags = cl.ListOfMetaData[tmp].creator_is_gettext ? PR_FONT_INTERFACE : level_flags;
 

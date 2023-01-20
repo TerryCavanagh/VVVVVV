@@ -231,6 +231,7 @@ TAG_FINDER(find_desc1, "Desc1")
 TAG_FINDER(find_desc2, "Desc2")
 TAG_FINDER(find_desc3, "Desc3")
 TAG_FINDER(find_website, "website")
+TAG_FINDER(find_font, "font")
 
 /* For CliPlaytestArgs */
 TAG_FINDER(find_playtest, "Playtest")
@@ -312,6 +313,10 @@ bool customlevelclass::getLevelMetaDataAndPlaytestArgs(const std::string& _path,
     _data.Desc2 = find_desc2(buf);
     _data.Desc3 = find_desc3(buf);
     _data.website = find_website(buf);
+    if (!font::find_main_font_by_name(find_font(buf).c_str(), &_data.level_main_font_idx))
+    {
+        _data.level_main_font_idx = font::get_font_idx_8x8();
+    }
 
 
     if (pt_args != NULL)
@@ -1026,6 +1031,7 @@ bool customlevelclass::load(std::string& _path)
 #endif
 
     version = 0;
+    level_font_name = "font";
 
     for (pElem = hDoc
         .FirstChildElement()
@@ -1087,6 +1093,11 @@ bool customlevelclass::load(std::string& _path)
                 if(SDL_strcmp(pKey_, "onewaycol_override") == 0)
                 {
                     onewaycol_override = help.Int(pText_);
+                }
+
+                if(SDL_strcmp(pKey_, "font") == 0)
+                {
+                    level_font_name = pText_;
                 }
             }
         }
@@ -1320,7 +1331,7 @@ next:
 #endif
 
     loc::loadtext_custom(_path.c_str());
-    font::load_custom();
+    font::load_custom(level_font_name.c_str());
 
     version=2;
 
@@ -1390,6 +1401,20 @@ bool customlevelclass::save(const std::string& _path)
         tinyxml2::XMLElement* element;
         while ((element = msg->FirstChildElement("onewaycol_override"))
         != NULL)
+        {
+            doc.DeleteNode(element);
+        }
+    }
+
+    if (level_font_name != "" && level_font_name != "font")
+    {
+        xml::update_tag(msg, "font", level_font_name.c_str());
+    }
+    else
+    {
+        // Get rid of it completely, same as <onewaycol_override>
+        tinyxml2::XMLElement* element;
+        while ((element = msg->FirstChildElement("font")) != NULL)
         {
             doc.DeleteNode(element);
         }
