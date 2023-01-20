@@ -337,24 +337,6 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
     }
 }
 
-int Graphics::PrintWrap(
-    const int x,
-    int y,
-    const std::string& text,
-    const int r,
-    const int g,
-    const int b,
-    const bool cen /*= false*/,
-    int linespacing /*= -1*/,
-    int maxwidth /*= -1*/
-) {
-    // DEPRECATED
-    if (cen)
-        return font::print_wrap(PR_CEN, -1, y, text, r, g, b, linespacing /*= -1 */, maxwidth /*= -1 */);
-    else
-        return font::print_wrap(0, x, y, text, r, g, b, linespacing /*= -1 */, maxwidth /*= -1 */);
-}
-
 
 void Graphics::printcrewname( int x, int y, int t )
 {
