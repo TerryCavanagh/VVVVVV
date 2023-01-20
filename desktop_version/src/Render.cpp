@@ -180,7 +180,7 @@ static void menurender(void)
         font::print(PR_RIGHT, 310, 230, RELEASE_VERSION, tr/2, tg/2, tb/2);
 
         if(music.mmmmmm){
-            graphics.Print( 10, 230, loc::gettext("[MMMMMM Mod Installed]"), tr/2, tg/2, tb/2);
+            font::print(0, 10, 230, loc::gettext("[MMMMMM Mod Installed]"), tr/2, tg/2, tb/2);
         }
         break;
     }
@@ -455,29 +455,29 @@ static void menurender(void)
         }
         break;
     case Menu::credits:
-        graphics.Print( -1, 50, loc::gettext("VVVVVV is a game by"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, 50, loc::gettext("VVVVVV is a game by"), tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 65, "Terry Cavanagh", tr, tg, tb);
 
         graphics.drawimagecol(IMAGE_SITE, -1, 86, graphics.getRGB(tr, tg, tb), true);
 
-        graphics.Print( -1, 120, loc::gettext("and features music by"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, 120, loc::gettext("and features music by"), tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 135, "Magnus Pålsson", tr, tg, tb);
         graphics.drawimagecol(IMAGE_SITE2, -1, 156, graphics.getRGB(tr, tg, tb), true);
         break;
     case Menu::credits2:
-        graphics.Print( -1, 50, loc::gettext("Roomnames are by"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, 50, loc::gettext("Roomnames are by"), tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 65, "Bennett Foddy", tr, tg, tb);
         graphics.drawimagecol(IMAGE_SITE3, -1, 86, graphics.getRGB(tr, tg, tb), true);
-        graphics.Print( -1, 110, loc::gettext("C++ version by"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, 110, loc::gettext("C++ version by"), tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 125, "Simon Roth", tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 145, "Ethan Lee", tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 165, "Misa Kai", tr, tg, tb);
         break;
     case Menu::credits25:
-        graphics.Print( -1, 40, loc::gettext("Beta Testing by"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, 40, loc::gettext("Beta Testing by"), tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 55, "Sam Kaplan", tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 75, "Pauli Kohberger", tr, tg, tb);
-        graphics.Print( -1, 130, loc::gettext("Ending Picture by"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, 130, loc::gettext("Ending Picture by"), tr, tg, tb);
         font::print(PR_2X | PR_CEN | PR_FONT_8X8, -1, 145, "Pauli Kohberger", tr, tg, tb);
         break;
     case Menu::credits3:
@@ -599,11 +599,11 @@ static void menurender(void)
         case 3:
         case 4:
         case 5:
-            graphics.Print( -1, 75, loc::gettext("Flip is bound to: ") + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb, true);
-            graphics.Print( -1, 85, loc::gettext("Enter is bound to: ")  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb, true);
-            graphics.Print( -1, 95, loc::gettext("Menu is bound to: ") + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb, true);
-            graphics.Print( -1, 105, loc::gettext("Restart is bound to: ") + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb, true);
-            graphics.Print( -1, 115, loc::gettext("Interact is bound to: ") + std::string(help.GCString(game.controllerButton_interact)) , tr, tg, tb, true);
+            font::print(PR_CEN, -1, 75, loc::gettext("Flip is bound to: ") + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb);
+            font::print(PR_CEN, -1, 85, loc::gettext("Enter is bound to: ")  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb);
+            font::print(PR_CEN, -1, 95, loc::gettext("Menu is bound to: ") + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb);
+            font::print(PR_CEN, -1, 105, loc::gettext("Restart is bound to: ") + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb);
+            font::print(PR_CEN, -1, 115, loc::gettext("Interact is bound to: ") + std::string(help.GCString(game.controllerButton_interact)) , tr, tg, tb);
             break;
         }
 
@@ -617,7 +617,7 @@ static void menurender(void)
         else if ((unsigned)game.currentmenuoption < loc::languagelist.size())
         {
             graphics.PrintWrap(-1, 8, loc::languagelist[game.currentmenuoption].credit, tr/2, tg/2, tb/2, true);
-            graphics.Print(-1, 230, loc::languagelist[game.currentmenuoption].action_hint, tr/2, tg/2, tb/2, true);
+            font::print(PR_CEN, -1, 230, loc::languagelist[game.currentmenuoption].action_hint, tr/2, tg/2, tb/2);
         }
         break;
     case Menu::translator_main:
@@ -636,11 +636,11 @@ static void menurender(void)
             if (FILESYSTEM_isMainLangDirFromRepo())
             {
                 // Just giving people who manually compiled the game some hint as to why this menu is here!
-                graphics.Print(8, 208, loc::gettext("Repository language folder:"), tr/2, tg/2, tb/2);
+                font::print(0, 8, 208, loc::gettext("Repository language folder:"), tr/2, tg/2, tb/2);
             }
             else
             {
-                graphics.Print(8, 208, loc::gettext("Language folder:"), tr/2, tg/2, tb/2);
+                font::print(0, 8, 208, loc::gettext("Language folder:"), tr/2, tg/2, tb/2);
             }
 
             font::print(PR_RIGHT, 316, 224, FILESYSTEM_getUserMainLangDirectory(), tr/2, tg/2, tb/2);
@@ -740,7 +740,7 @@ static void menurender(void)
     }
     case Menu::translator_options_stats:
     {
-        graphics.Print(16, 16, loc::get_langmeta()->nativename, tr, tg, tb);
+        font::print(0, 16, 16, loc::get_langmeta()->nativename, tr, tg, tb);
 
         const char* line_template = "%4d";
         char buffer[5];
@@ -751,8 +751,8 @@ static void menurender(void)
                 untranslated_counter \
             ); \
             coldiv = untranslated_counter > 0 ? 1 : 2; \
-            graphics.Print(16, y, filename, tr/coldiv, tg/coldiv, tb/coldiv); \
-            graphics.Print(272, y, buffer, tr/coldiv, tg/coldiv, tb/coldiv)
+            font::print(PR_FONT_8X8, 16, y, filename, tr/coldiv, tg/coldiv, tb/coldiv); \
+            font::print(PR_FONT_8X8, 272, y, buffer, tr/coldiv, tg/coldiv, tb/coldiv)
 
         stat_line(48, "strings.xml", loc::n_untranslated[loc::UNTRANSLATED_STRINGS]);
         stat_line(64, "numbers.xml", loc::n_untranslated[loc::UNTRANSLATED_NUMBERS]);
@@ -836,10 +836,10 @@ static void menurender(void)
     {
         int next_y = graphics.PrintWrap(-1, 20, loc::gettext("If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case."), tr, tg, tb, true);
 
-        graphics.Print(-1, next_y, loc::gettext("Full syncing EN→All:"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, next_y, loc::gettext("Full syncing EN→All:"), tr, tg, tb);
         next_y = font::print_wrap(PR_CEN | PR_FONT_8X8, -1, next_y+10, "meta.xml\nstrings.xml\nstrings_plural.xml\ncutscenes.xml\nroomnames.xml\nroomnames_special.xml", tr/2, tg/2, tb/2);
 
-        graphics.Print(-1, next_y, loc::gettext("Syncing not supported:"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, next_y, loc::gettext("Syncing not supported:"), tr, tg, tb);
         font::print_wrap(PR_CEN | PR_FONT_8X8, -1, next_y+10, "numbers.xml", tr/2, tg/2, tb/2);
         break;
     }
@@ -1134,12 +1134,12 @@ static void menurender(void)
             graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
 
             font::print(PR_2X | PR_CEN, -1, 20, loc::gettext("Tele Save"), tr, tg, tb);
-            graphics.Print(0, 80-20, game.tele_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
+            font::print(PR_CEN, -1, 80-20, game.tele_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2));
             for (int i = 0; i < 6; i++)
             {
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.tele_crewstats[i], true);
             }
-            graphics.Print(59, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            font::print(0, 59, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
             char buffer[SCREEN_WIDTH_CHARS + 1];
             vformat_buf(buffer, sizeof(buffer),
                 loc::gettext("{savebox_n_trinkets|wordy}"),
@@ -1158,12 +1158,12 @@ static void menurender(void)
             graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
 
             font::print(PR_2X | PR_CEN, -1, 20, loc::gettext("Quick Save"), tr, tg, tb);
-            graphics.Print(0, 80-20, game.quick_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2), true);
+            font::print(PR_CEN, -1, 80-20, game.quick_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2));
             for (int i = 0; i < 6; i++)
             {
                 graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.quick_crewstats[i], true);
             }
-            graphics.Print(59, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            font::print(0, 59, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
             char buffer[SCREEN_WIDTH_CHARS + 1];
             vformat_buf(buffer, sizeof(buffer),
                 loc::gettext("{savebox_n_trinkets|wordy}"),
@@ -1195,7 +1195,7 @@ static void menurender(void)
             "n_crew:int",
             game.ndmresultcrewrescued
         );
-        graphics.Print(0, 100, buffer, tr, tg, tb, true);
+        font::print(PR_CEN, -1, 100, buffer, tr, tg, tb);
 
         loc::gettext_plural_fill(
             buffer, sizeof(buffer),
@@ -1204,10 +1204,10 @@ static void menurender(void)
             "n_trinkets:int",
             game.ndmresulttrinkets
         );
-        graphics.PrintWrap(0, 110, buffer, tr, tg, tb, true);
+        font::print_wrap(PR_CEN | PR_CJK_LOW, -1, 110, buffer, tr, tg, tb);
 
-        graphics.Print(0, 145, loc::gettext("You managed to reach:"), tr, tg, tb, true);
-        graphics.Print(0, 155, game.ndmresulthardestroom, tr, tg, tb, true);
+        font::print(PR_CEN, -1, 145, loc::gettext("You managed to reach:"), tr, tg, tb);
+        font::print(PR_CEN | PR_CJK_LOW, -1, 155, game.ndmresulthardestroom, tr, tg, tb);
 
         const char* encouragement;
         switch (game.ndmresultcrewrescued)
@@ -1244,7 +1244,7 @@ static void menurender(void)
         {
             graphics.drawcrewman(169-(3*42)+(i*42), 68, i, game.ndmresultcrewstats[i], true);
         }
-        graphics.Print(0, 100, loc::gettext("You rescued all the crewmates!"), tr, tg, tb, true);
+        font::print(PR_CEN, -1, 100, loc::gettext("You rescued all the crewmates!"), tr, tg, tb);
 
         char buffer[3*SCREEN_WIDTH_CHARS + 1];
         loc::gettext_plural_fill(
@@ -1254,7 +1254,7 @@ static void menurender(void)
             "n_trinkets:int",
             game.ndmresulttrinkets
         );
-        graphics.PrintWrap(0, 110, buffer, tr, tg, tb, true);
+        font::print_wrap(PR_CEN | PR_CJK_LOW, -1, 110, buffer, tr, tg, tb);
 
         graphics.PrintWrap(0, 160, loc::gettext("A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!"), tr, tg, tb, true);
         break;
@@ -1272,7 +1272,7 @@ static void menurender(void)
         font::print(PR_CJK_LOW, 49, 90-15, tempstring, tr, tg, tb);
         if (game.timetrialresulttime <= game.timetrialresultpar)
         {
-            font::print(PR_CJK_LOW, 228, 90-15, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90-15, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         tempstring = help.String(game.timetrialresultdeaths);
@@ -1281,7 +1281,7 @@ static void menurender(void)
         font::print(PR_CJK_LOW, 49, 90+20, tempstring, tr, tg, tb);
         if (game.timetrialresultdeaths == 0)
         {
-            font::print(PR_CJK_LOW, 228, 90+20, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90+20, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -1296,7 +1296,7 @@ static void menurender(void)
         font::print(PR_CJK_LOW, 49, 90+55, buffer, tr, tg, tb);
         if (game.timetrialresulttrinkets >= game.timetrialresultshinytarget)
         {
-            font::print(PR_CJK_LOW, 228, 90+55, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90+55, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         const char* rank = "";
@@ -1354,9 +1354,9 @@ static void menurender(void)
             else
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("???"), tr, tg, tb);
-                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
-                graphics.Print( -1, 75, loc::gettext("Rescue Violet"), tr, tg, tb, true);
-                graphics.Print( -1, 85, loc::gettext("Find three trinkets"), tr, tg, tb, true);
+                font::print(PR_CEN, -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb);
+                font::print(PR_CEN, -1, 75, loc::gettext("Rescue Violet"), tr, tg, tb);
+                font::print(PR_CEN, -1, 87, loc::gettext("Find three trinkets"), tr, tg, tb);
             }
             break;
         case 1:
@@ -1370,9 +1370,9 @@ static void menurender(void)
             else
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("???"), tr, tg, tb);
-                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
-                graphics.Print( -1, 75, loc::gettext("Rescue Victoria"), tr, tg, tb, true);
-                graphics.Print( -1, 85, loc::gettext("Find six trinkets"), tr, tg, tb, true);
+                font::print(PR_CEN, -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb);
+                font::print(PR_CEN, -1, 75, loc::gettext("Rescue Victoria"), tr, tg, tb);
+                font::print(PR_CEN, -1, 87, loc::gettext("Find six trinkets"), tr, tg, tb);
             }
             break;
         case 2:
@@ -1386,9 +1386,9 @@ static void menurender(void)
             else
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("???"), tr, tg, tb);
-                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
-                graphics.Print( -1, 75, loc::gettext("Rescue Vermilion"), tr, tg, tb, true);
-                graphics.Print( -1, 85, loc::gettext("Find nine trinkets"), tr, tg, tb, true);
+                font::print(PR_CEN, -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb);
+                font::print(PR_CEN, -1, 75, loc::gettext("Rescue Vermilion"), tr, tg, tb);
+                font::print(PR_CEN, -1, 87, loc::gettext("Find nine trinkets"), tr, tg, tb);
             }
             break;
         case 3:
@@ -1402,9 +1402,9 @@ static void menurender(void)
             else
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("???"), tr, tg, tb);
-                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
-                graphics.Print( -1, 75, loc::gettext("Rescue Vitellary"), tr, tg, tb, true);
-                graphics.Print( -1, 85, loc::gettext("Find twelve trinkets"), tr, tg, tb, true);
+                font::print(PR_CEN, -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb);
+                font::print(PR_CEN, -1, 75, loc::gettext("Rescue Vitellary"), tr, tg, tb);
+                font::print(PR_CEN, -1, 87, loc::gettext("Find twelve trinkets"), tr, tg, tb);
             }
             break;
         case 4:
@@ -1418,9 +1418,9 @@ static void menurender(void)
             else
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("???"), tr, tg, tb);
-                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
-                graphics.Print( -1, 75, loc::gettext("Rescue Verdigris"), tr, tg, tb, true);
-                graphics.Print( -1, 85, loc::gettext("Find fifteen trinkets"), tr, tg, tb, true);
+                font::print(PR_CEN, -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb);
+                font::print(PR_CEN, -1, 75, loc::gettext("Rescue Verdigris"), tr, tg, tb);
+                font::print(PR_CEN, -1, 87, loc::gettext("Find fifteen trinkets"), tr, tg, tb);
             }
             break;
         case 5:
@@ -1434,9 +1434,9 @@ static void menurender(void)
             else
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("???"), tr, tg, tb);
-                graphics.Print( -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb, true);
-                graphics.Print( -1, 75, loc::gettext("Complete the game"), tr, tg, tb, true);
-                graphics.Print( -1, 85, loc::gettext("Find eighteen trinkets"), tr, tg, tb, true);
+                font::print(PR_CEN, -1, 60, loc::gettext("TO UNLOCK:"), tr, tg, tb);
+                font::print(PR_CEN, -1, 75, loc::gettext("Complete the game"), tr, tg, tb);
+                font::print(PR_CEN, -1, 87, loc::gettext("Find eighteen trinkets"), tr, tg, tb);
             }
             break;
         }
@@ -1684,57 +1684,57 @@ void gamecompleterender(void)
     if (graphics.onscreen(320 + position))
     {
         graphics.drawcrewman(70, 320 + position, 0, true);
-        graphics.Print(100, 330 + position, loc::gettext("Captain Viridian"), tr, tg, tb);
+        font::print(0, 100, 330 + position, loc::gettext("Captain Viridian"), tr, tg, tb);
     }
     if (graphics.onscreen(350 + position))
     {
         graphics.drawcrewman(70, 350 + position, 1, true);
-        graphics.Print(100, 360 + position, loc::gettext("Doctor Violet"), tr, tg, tb);
+        font::print(0, 100, 360 + position, loc::gettext("Doctor Violet"), tr, tg, tb);
     }
     if (graphics.onscreen(380 + position))
     {
         graphics.drawcrewman(70, 380 + position, 2, true);
-        graphics.Print(100, 390 + position, loc::gettext("Professor Vitellary"), tr, tg, tb);
+        font::print(0, 100, 390 + position, loc::gettext("Professor Vitellary"), tr, tg, tb);
     }
     if (graphics.onscreen(410 + position))
     {
         graphics.drawcrewman(70, 410 + position, 3, true);
-        graphics.Print(100, 420 + position, loc::gettext("Officer Vermilion"), tr, tg, tb);
+        font::print(0, 100, 420 + position, loc::gettext("Officer Vermilion"), tr, tg, tb);
     }
     if (graphics.onscreen(440 + position))
     {
         graphics.drawcrewman(70, 440 + position, 4, true);
-        graphics.Print(100, 450 + position, loc::gettext("Chief Verdigris"), tr, tg, tb);
+        font::print(0, 100, 450 + position, loc::gettext("Chief Verdigris"), tr, tg, tb);
     }
     if (graphics.onscreen(470 + position))
     {
         graphics.drawcrewman(70, 470 + position, 5, true);
-        graphics.Print(100, 480 + position, loc::gettext("Doctor Victoria"), tr, tg, tb);
+        font::print(0, 100, 480 + position, loc::gettext("Doctor Victoria"), tr, tg, tb);
     }
 
     if (graphics.onscreen(520 + position)) font::print(PR_3X | PR_CEN, -1, 520 + position, loc::gettext("Credits"), tr, tg, tb);
 
     if (graphics.onscreen(560 + position))
     {
-        graphics.Print(40, 560 + position, loc::gettext("Created by"), tr, tg, tb);
+        font::print(PR_CJK_HIGH, 40, 560 + position, loc::gettext("Created by"), tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 570 + position, "Terry Cavanagh", tr, tg, tb);
     }
 
     if (graphics.onscreen(600 + position))
     {
-        graphics.Print(40, 600 + position, loc::gettext("With Music by"), tr, tg, tb);
+        font::print(PR_CJK_HIGH, 40, 600 + position, loc::gettext("With Music by"), tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 610 + position, "Magnus Pålsson", tr, tg, tb);
     }
 
     if (graphics.onscreen(640 + position))
     {
-        graphics.Print(40, 640 + position, loc::gettext("Rooms Named by"), tr, tg, tb);
+        font::print(PR_CJK_HIGH, 40, 640 + position, loc::gettext("Rooms Named by"), tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 650 + position, "Bennett Foddy", tr, tg, tb);
     }
 
     if (graphics.onscreen(710 + position))
     {
-        graphics.Print(40, 680 + position, loc::gettext("C++ Port by"), tr, tg, tb);
+        font::print(PR_CJK_HIGH, 40, 680 + position, loc::gettext("C++ Port by"), tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 690 + position, "Simon Roth", tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 710 + position, "Ethan Lee", tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 730 + position, "Misa Kai", tr, tg, tb);
@@ -1743,14 +1743,14 @@ void gamecompleterender(void)
 
     if (graphics.onscreen(770 + position))
     {
-        graphics.Print(40, 760 + position, loc::gettext("Beta Testing by"), tr, tg, tb);
+        font::print(PR_CJK_HIGH, 40, 760 + position, loc::gettext("Beta Testing by"), tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 770 + position, "Sam Kaplan", tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 790 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
     if (graphics.onscreen(820 + position))
     {
-        graphics.Print(40, 820 + position, loc::gettext("Ending Picture by"), tr, tg, tb);
+        font::print(PR_CJK_HIGH, 40, 820 + position, loc::gettext("Ending Picture by"), tr, tg, tb);
         font::print(PR_2X | PR_FONT_8X8, 60, 830 + position, "Pauli Kohberger", tr, tg, tb);
     }
 
@@ -1768,7 +1768,7 @@ void gamecompleterender(void)
     }
 
     creditOffset += 10;
-    if (graphics.onscreen(creditOffset + position)) graphics.Print( -1, creditOffset + position, loc::gettext("and"), tr, tg, tb, true);
+    if (graphics.onscreen(creditOffset + position)) font::print(PR_CEN, -1, creditOffset + position, loc::gettext("and"), tr, tg, tb);
     creditOffset += 20;
 
     for (size_t i = 0; i < SDL_arraysize(Credits::patrons); i += 1)
@@ -2283,7 +2283,7 @@ static void draw_roomname_menu(void)
         name = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
     }
 
-    graphics.Print(5, 2, name, 196, 196, 255 - help.glow, true);
+    font::print(PR_FONT_LEVEL | PR_CEN, -1, 2, name, 196, 196, 255 - help.glow);
 }
 
 /* Used to keep some graphics positions on the map screen
@@ -2447,7 +2447,7 @@ void maprender(void)
         // While in a cutscene, you can only save
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), "label:str", loc::gettext("SAVE"));
-        graphics.Print(-1, 220, buffer, 196, 196, 255 - help.glow, true);
+        font::print(PR_CEN | PR_CJK_LOW, -1, 220, buffer, 196, 196, 255 - help.glow);
     }
     else if (game.menupage <= 3)
     {
@@ -2479,7 +2479,7 @@ void maprender(void)
     case 31:
     case 32:
     case 33:
-        graphics.Print(-1, 220, loc::gettext("[ PAUSE ]"), 196, 196, 255 - help.glow, true);
+        font::print(PR_CEN | PR_CJK_LOW, -1, 220, loc::gettext("[ PAUSE ]"), 196, 196, 255 - help.glow);
     }
 
     // Draw menu options
@@ -2525,7 +2525,7 @@ void maprender(void)
                 graphics.PrintWrap(0, 174, loc::gettext("SUPER GRAVITRON HIGHSCORE"), 196, 196, 255 - help.glow, true);
 
                 std::string tempstring = help.timestring(game.swnrecord);
-                graphics.Print( 240, 124, loc::gettext("Best Time"), 196, 196, 255 - help.glow, true);
+                font::print(PR_CEN, -1, 124, loc::gettext("Best Time"), 196, 196, 255 - help.glow);
                 font::print(PR_2X | PR_CEN, -1, 102, tempstring, 196, 196, 255 - help.glow);
 
                 switch(game.swnbestrank)
@@ -2558,7 +2558,7 @@ void maprender(void)
                 graphics.PrintWrap(0, 40, loc::gettext("SUPER GRAVITRON HIGHSCORE"), 196, 196, 255 - help.glow, true);
 
                 std::string tempstring = help.timestring(game.swnrecord);
-                graphics.Print( 240, 90, loc::gettext("Best Time"), 196, 196, 255 - help.glow, true);
+                font::print(PR_CEN, -1, 90, loc::gettext("Best Time"), 196, 196, 255 - help.glow);
                 font::print(PR_2X | PR_CEN, -1, 104, tempstring, 196, 196, 255 - help.glow);
 
                 switch(game.swnbestrank)
@@ -2701,7 +2701,7 @@ void maprender(void)
         }
 
         /* Stats. */
-        graphics.Print(0, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow, true);
+        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow);
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(
             buffer, sizeof(buffer),
@@ -2709,13 +2709,13 @@ void maprender(void)
             "n_trinkets:int, max_trinkets:int",
             game.trinkets(), max_trinkets
         );
-        graphics.Print(0, FLIP(64, 8), buffer, 96, 96, 96, true);
+        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(64, 8), buffer, 96, 96, 96);
 
-        graphics.Print(0, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow, true);
-        graphics.Print(0, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96, true);
+        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96);
 
-        graphics.Print(0, FLIP(152, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow, true);
-        graphics.Print(0, FLIP(164, 8), game.timestring(), 96, 96, 96, true);
+        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(152, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(164, 8), game.timestring(), 96, 96, 96);
         break;
     }
     case 3:
@@ -2757,15 +2757,15 @@ void maprender(void)
 
         if (!game.gamesaved)
         {
-            graphics.Print(0, 80, loc::gettext("[Press ACTION to save your game]"), 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow, true);
+            font::print(PR_CEN, -1, 80, loc::gettext("[Press ACTION to save your game]"), 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
 
             if (map.custommode || game.quicksummary == "")
             {
                 break;
             }
 
-            graphics.Print(0, FLIP(100, 8), loc::gettext("Last Save:"), 164 - help.glow/4, 164 - help.glow/4, 164, true);
-            graphics.Print(0, FLIP(110, 8), game.quicksummary, 164 - help.glow/4, 164 - help.glow/4, 164, true);
+            font::print(PR_CEN, -1, FLIP(100, 8), loc::gettext("Last Save:"), 164 - help.glow/4, 164 - help.glow/4, 164);
+            font::print(PR_CEN, -1, FLIP(112, 8), game.quicksummary, 164 - help.glow/4, 164 - help.glow/4, 164);
             break;
         }
 
@@ -2777,12 +2777,12 @@ void maprender(void)
 
         if (map.custommode)
         {
-            graphics.Print(0, FLIP(90, 8), game.customleveltitle, 25, 255 - help.glow/2, 255 - help.glow/2, true);
+            font::print(PR_CEN | PR_FONT_LEVEL, -1, FLIP(90, 8), game.customleveltitle, 25, 255 - help.glow/2, 255 - help.glow/2);
         }
         else
         {
             size_t i;
-            graphics.Print(0, FLIP(80, 8), game.savearea, 25, 255 - help.glow/2, 255 - help.glow/2, true);
+            font::print(PR_CEN, -1, FLIP(80, 8), game.savearea, 25, 255 - help.glow/2, 255 - help.glow/2);
             for (i = 0; i < SDL_arraysize(game.crewstats); ++i)
             {
                 /* Crewmates are annoying. Their height is 21 pixels, but to flip them,
@@ -2791,7 +2791,7 @@ void maprender(void)
             }
         }
 
-        graphics.Print(59, FLIP(132, 8), game.savetime, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
+        font::print(0, 59, FLIP(132, 8), game.savetime, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer),
             loc::gettext("{savebox_n_trinkets|wordy}"),
@@ -2805,7 +2805,7 @@ void maprender(void)
         break;
     }
     case 10:
-        graphics.Print(-1, 220, loc::gettext("[ QUIT ]"), 196, 196, 255 - help.glow, true);
+        font::print(PR_CEN | PR_CJK_LOW, -1, 220, loc::gettext("[ QUIT ]"), 196, 196, 255 - help.glow);
 
         if (graphics.flipmode)
         {
@@ -2818,8 +2818,8 @@ void maprender(void)
                 graphics.PrintWrap(0, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, true, 12);
             }
 
-            graphics.Print(80-16, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            graphics.Print(80 + 32, 76, loc::gettext("yes, quit to menu"),  96, 96, 96);
+            font::print(0, 80-16, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80 + 32, 76, loc::gettext("yes, quit to menu"),  96, 96, 96);
         }
         else
         {
@@ -2833,13 +2833,13 @@ void maprender(void)
                 graphics.PrintWrap(0, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, true, 12);
             }
 
-            graphics.Print(80-16, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            graphics.Print(80 + 32, 142, loc::gettext("yes, quit to menu"),  96, 96, 96);
+            font::print(0, 80-16, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80 + 32, 142, loc::gettext("yes, quit to menu"),  96, 96, 96);
 
         }
         break;
     case 11:
-        graphics.Print(-1, 220, loc::gettext("[ QUIT ]"), 196, 196, 255 - help.glow, true);
+        font::print(PR_CEN | PR_CJK_LOW, -1, 220, loc::gettext("[ QUIT ]"), 196, 196, 255 - help.glow);
 
         if (graphics.flipmode)
         {
@@ -2852,8 +2852,8 @@ void maprender(void)
                 graphics.PrintWrap(0, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, true, 12);
             }
 
-            graphics.Print(80, 88, loc::gettext("no, keep playing"), 96,96,96);
-            graphics.Print(80+32-16, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80, 88, loc::gettext("no, keep playing"), 96,96,96);
+            font::print(0, 80+32-16, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
         }
         else
         {
@@ -2866,41 +2866,41 @@ void maprender(void)
                 graphics.PrintWrap(0, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, true, 12);
             }
 
-            graphics.Print(80, 130, loc::gettext("no, keep playing"), 96,96,96);
-            graphics.Print(80+32-16, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80, 130, loc::gettext("no, keep playing"), 96,96,96);
+            font::print(0, 80+32-16, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
         }
         break;
     case 20:
-        graphics.Print(-1, 220, loc::gettext("[ GRAVITRON ]"), 196, 196, 255 - help.glow, true);
+        font::print(PR_CEN | PR_CJK_LOW, -1, 220, loc::gettext("[ GRAVITRON ]"), 196, 196, 255 - help.glow);
 
         if (graphics.flipmode)
         {
             graphics.PrintWrap(0, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, true, 12);
-            graphics.Print(80-16, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            graphics.Print(80 + 32, 130, loc::gettext("yes, return"),  96, 96, 96);
+            font::print(0, 80-16, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80 + 32, 130, loc::gettext("yes, return"),  96, 96, 96);
         }
         else
         {
             graphics.PrintWrap(0, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, true, 12);
-            graphics.Print(80-16, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
-            graphics.Print(80 + 32, 142, loc::gettext("yes, return"),  96, 96, 96);
+            font::print(0, 80-16, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80 + 32, 142, loc::gettext("yes, return"),  96, 96, 96);
         }
 
         break;
     case 21:
-        graphics.Print(-1, 220, loc::gettext("[ GRAVITRON ]"), 196, 196, 255 - help.glow, true);
+        font::print(PR_CEN | PR_CJK_LOW, -1, 220, loc::gettext("[ GRAVITRON ]"), 196, 196, 255 - help.glow);
 
         if (graphics.flipmode)
         {
             graphics.PrintWrap(0, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, true, 12);
-            graphics.Print(80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
-            graphics.Print(80 + 32-16, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
+            font::print(0, 80 + 32-16, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
         }
         else
         {
             graphics.PrintWrap(0, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, true, 12);
-            graphics.Print(80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
-            graphics.Print(80 + 32-16, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
+            font::print(0, 80 + 32-16, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
         }
 
     }
@@ -2987,8 +2987,8 @@ void teleporterrender(void)
         );
 
         //Instructions!
-        graphics.Print(5, 210, loc::gettext("Press Left/Right to choose a Teleporter"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
-        graphics.Print(5, 225, final_string, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2), true);
+        font::print(PR_CEN, -1, 210, loc::gettext("Press Left/Right to choose a Teleporter"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        font::print(PR_CEN, -1, 225, final_string, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     graphics.drawgui();

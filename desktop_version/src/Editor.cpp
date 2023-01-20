@@ -630,10 +630,10 @@ void editorrender(void)
                     ed.entcolreal = graphics.getcol(18);
                 }
                 graphics.draw_sprite((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),ed.getenemyframe(room->enemytype),ed.entcolreal);
-                if(customentities[i].p1==0) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow, false);
-                if(customentities[i].p1==1) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow, false);
-                if(customentities[i].p1==2) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "<", 255, 255, 255 - help.glow, false);
-                if(customentities[i].p1==3) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, ">", 255, 255, 255 - help.glow, false);
+                if(customentities[i].p1==0) font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "V", 255, 255, 255 - help.glow);
+                if(customentities[i].p1==1) font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "^", 255, 255, 255 - help.glow);
+                if(customentities[i].p1==2) font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, "<", 255, 255, 255 - help.glow);
+                if(customentities[i].p1==3) font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8)+4, ">", 255, 255, 255 - help.glow);
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),16,16,graphics.getRGB(255,164,255));
                 break;
             case 2: //Threadmills & platforms
@@ -649,21 +649,21 @@ void editorrender(void)
 
                 if(customentities[i].p1<=4)
                 {
-                    if(customentities[i].p1==0) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "V", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(customentities[i].p1==1) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "^", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(customentities[i].p1==2) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
-                    if(customentities[i].p1==3) graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), ">", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    if(customentities[i].p1==0) font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "V", 255 - help.glow, 255 - help.glow, 255 - help.glow);
+                    if(customentities[i].p1==1) font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "^", 255 - help.glow, 255 - help.glow, 255 - help.glow);
+                    if(customentities[i].p1==2) font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), "<", 255 - help.glow, 255 - help.glow, 255 - help.glow);
+                    if(customentities[i].p1==3) font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+12,(customentities[i].y*8)- (ed.levy*30*8), ">", 255 - help.glow, 255 - help.glow, 255 - help.glow);
                     fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getRGB(255,255,255));
                 }
 
                 if(customentities[i].p1==5)
                 {
-                    graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), ">>>>", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), ">>>>", 255 - help.glow, 255 - help.glow, 255 - help.glow);
                     fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getRGB(255,255,255));
                 }
                 else if(customentities[i].p1==6)
                 {
-                    graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), "<<<<", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), "<<<<", 255 - help.glow, 255 - help.glow, 255 - help.glow);
                     fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getRGB(255,255,255));
                 }
 
@@ -682,12 +682,12 @@ void editorrender(void)
 
                 if(customentities[i].p1==7)
                 {
-                    graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8), "> > > > ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8), "> > > > ", 255 - help.glow, 255 - help.glow, 255 - help.glow);
                     fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),64,8,graphics.getRGB(255,255,255));
                 }
                 else if(customentities[i].p1==8)
                 {
-                    graphics.Print((customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8), "< < < < ", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                    font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8)+4,(customentities[i].y*8)- (ed.levy*30*8), "< < < < ", 255 - help.glow, 255 - help.glow, 255 - help.glow);
                     fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),64,8,graphics.getRGB(255,255,255));
                 }
                 break;
@@ -702,7 +702,7 @@ void editorrender(void)
                     drawRect.x += 8;
                 }
 
-                graphics.Print((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), "////", 255 - help.glow, 255 - help.glow, 255 - help.glow, false);
+                font::print(PR_FONT_8X8, (customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8), "////", 255 - help.glow, 255 - help.glow, 255 - help.glow);
                 fillboxabs((customentities[i].x*8)- (ed.levx*40*8),(customentities[i].y*8)- (ed.levy*30*8),32,8,graphics.getRGB(255,255,255));
                 break;
             case 9: //Shiny Trinket
@@ -979,7 +979,7 @@ void editorrender(void)
         }
         else
         {
-            graphics.Print((ed.tilex*8),(ed.tiley*8),"X",255,0,0);
+            font::print(PR_FONT_8X8, (ed.tilex*8),(ed.tiley*8),"X",255,0,0);
         }
         break;
     case 11:
@@ -1162,7 +1162,7 @@ void editorrender(void)
 
         short lines;
         message = font::string_wordwrap(message, 312, &lines);
-        short textheight = 8*lines;
+        short textheight = font::height(0)*lines;
 
         graphics.fill_rect(0,238-textheight,320,240, graphics.getRGB(32,32,32));
         graphics.fill_rect(0,239-textheight,320,240, graphics.getRGB(0,0,0));
@@ -1177,8 +1177,8 @@ void editorrender(void)
         switch(ed.scripthelppage)
         {
         case 0:
-            graphics.Print(16,28,loc::gettext("**** VVVVVV SCRIPT EDITOR ****"), 123, 111, 218, true);
-            graphics.Print(16,44,loc::gettext("PRESS ESC TO RETURN TO MENU"), 123, 111, 218, true);
+            font::print(PR_CEN, -1,28,loc::gettext("**** VVVVVV SCRIPT EDITOR ****"), 123, 111, 218);
+            font::print(PR_CEN, -1,44,loc::gettext("PRESS ESC TO RETURN TO MENU"), 123, 111, 218);
 
             if(!ed.hooklist.empty())
             {
@@ -1192,18 +1192,18 @@ void editorrender(void)
 
                             char buffer[SCREEN_WIDTH_CHARS + 1];
                             vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
-                            graphics.Print(16, 68+(i*16), buffer, 123, 111, 218, true);
+                            font::print(PR_CEN, -1, 68+(i*16), buffer, 123, 111, 218);
                         }
                         else
                         {
-                            graphics.Print(16, 68+(i*16), ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)], 123, 111, 218, true);
+                            font::print(PR_CEN, -1, 68+(i*16), ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)], 123, 111, 218);
                         }
                     }
                 }
             }
             else
             {
-                graphics.Print(16,110,loc::gettext("NO SCRIPT IDS FOUND"), 123, 111, 218, true);
+                font::print(PR_CEN, -1,110,loc::gettext("NO SCRIPT IDS FOUND"), 123, 111, 218);
                 graphics.PrintWrap(16,130,loc::gettext("CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS"), 123, 111, 218, true, 10, 288);
             }
             break;
@@ -1218,7 +1218,7 @@ void editorrender(void)
                 "name:str",
                 ed.sbscript.c_str()
             );
-            graphics.Print(16,228, namebuffer, 123, 111, 218, true);
+            font::print(PR_CEN, -1,228, namebuffer, 123, 111, 218);
             //Draw text
             int font_height = font::height(PR_FONT_LEVEL);
             for(int i=0; i<ed.lines_visible; i++)
@@ -1265,11 +1265,11 @@ void editorrender(void)
     {
         short lines;
         std::string wrapped = font::string_wordwrap(ed.textdesc, 312, &lines);
-        short textheight = 8*lines+8;
+        short textheight = font::height(0)*lines+font::height(PR_FONT_LEVEL);
 
         graphics.fill_rect(0, 238-textheight, 320, 240, graphics.getRGB(32, 32, 32));
         graphics.fill_rect(0, 239-textheight, 320, 240, graphics.getRGB(0, 0, 0));
-        graphics.PrintWrap(4, 240-textheight, wrapped, 255, 255, 255, false, 8, 312);
+        font::print_wrap(0, 4, 240-textheight, wrapped, 255, 255, 255, 8, 312);
         std::string input = key.keybuffer;
         if (ed.entframe < 2)
         {
@@ -1279,33 +1279,34 @@ void editorrender(void)
         {
             input += " ";
         }
-        graphics.Print(4, 232, input, 196, 196, 255 - help.glow, true);
+        font::print(PR_CEN | PR_FONT_LEVEL | PR_CJK_HIGH, -1, 232, input, 196, 196, 255 - help.glow);
     }
     else if(ed.warpmod)
     {
         //placing warp token
-        graphics.fill_rect(0,221,320,240, graphics.getRGB(32,32,32));
-        graphics.fill_rect(0,222,320,240, graphics.getRGB(0,0,0));
-        graphics.Print(4, 224, loc::gettext("Left click to place warp destination"), 196, 196, 255 - help.glow, false);
-        graphics.Print(4, 232, loc::gettext("Right click to cancel"), 196, 196, 255 - help.glow, false);
+        int textheight = font::height(0);
+        graphics.fill_rect(0,237-textheight*2,320,240, graphics.getRGB(32,32,32));
+        graphics.fill_rect(0,238-textheight*2,320,240, graphics.getRGB(0,0,0));
+        font::print(PR_CJK_LOW, 4, 240-textheight*2, loc::gettext("Left click to place warp destination"), 196, 196, 255 - help.glow);
+        font::print(PR_CJK_LOW, 4, 240-textheight, loc::gettext("Right click to cancel"), 196, 196, 255 - help.glow);
     }
     else
     {
         if(ed.spacemod)
         {
-            graphics.fill_rect(0,208,320,240, graphics.getRGB(32,32,32));
-            graphics.fill_rect(0,209,320,240, graphics.getRGB(0,0,0));
+            graphics.fill_rect(0,207,320,240, graphics.getRGB(32,32,32));
+            graphics.fill_rect(0,208,320,240, graphics.getRGB(0,0,0));
 
             //Draw little icons for each thingy
-            int tx=6, ty=211, tg=32;
+            int tx=6, ty=210, tg=32;
 
             if(ed.spacemenu==0)
             {
                 for(int i=0; i<10; i++)
                 {
-                    graphics.fill_rect(4+(i*tg), 209,20,20,graphics.getRGB(32,32,32));
+                    graphics.fill_rect(4+(i*tg), 208,20,20,graphics.getRGB(32,32,32));
                 }
-                graphics.fill_rect(4+(ed.drawmode*tg), 209,20,20,graphics.getRGB(64,64,64));
+                graphics.fill_rect(4+(ed.drawmode*tg), 208,20,20,graphics.getRGB(64,64,64));
                 //0:
                 graphics.drawtile(tx,ty,83);
                 graphics.drawtile(tx+8,ty,83);
@@ -1347,13 +1348,13 @@ void editorrender(void)
 
                 for (int i = 0; i < 10; i++)
                 {
-                    fillboxabs(4+(i*tg), 209,20,20,graphics.getRGB(96,96,96));
+                    fillboxabs(4+(i*tg), 208,20,20,graphics.getRGB(96,96,96));
                     const int col = i == ed.drawmode ? 255 : 164;
                     const std::string glyph = i == 9 ? "0" : help.String(i + 1);
-                    graphics.Print(22 + i*tg - 4, 225 - 4, glyph, col, col, col, false);
+                    font::print(PR_FONT_8X8, 22 + i*tg - 4, 224 - 4, glyph, col, col, col);
                 }
 
-                fillboxabs(4+(ed.drawmode*tg), 209,20,20,graphics.getRGB(200,200,200));
+                fillboxabs(4+(ed.drawmode*tg), 208,20,20,graphics.getRGB(200,200,200));
 
                 font::print(PR_CJK_HIGH, 4, 232, "1/2", 196, 196, 255 - help.glow);
             }
@@ -1361,9 +1362,9 @@ void editorrender(void)
             {
                 for(int i=0; i<7; i++)
                 {
-                    graphics.fill_rect(4+(i*tg), 209,20,20,graphics.getRGB(32,32,32));
+                    graphics.fill_rect(4+(i*tg), 208,20,20,graphics.getRGB(32,32,32));
                 }
-                graphics.fill_rect(4+((ed.drawmode-10)*tg), 209,20,20,graphics.getRGB(64,64,64));
+                graphics.fill_rect(4+((ed.drawmode-10)*tg), 208,20,20,graphics.getRGB(64,64,64));
                 //10:
                 font::print(PR_FONT_8X8, tx, ty, "AB", 196, 196, 255 - help.glow);
                 font::print(PR_FONT_8X8, tx, ty+8, "CD", 196, 196, 255 - help.glow);
@@ -1388,13 +1389,13 @@ void editorrender(void)
 
                 for (int i = 0; i < 7; i++)
                 {
-                    fillboxabs(4 +  i*tg, 209, 20, 20, graphics.getRGB(96, 96, 96));
+                    fillboxabs(4 +  i*tg, 208, 20, 20, graphics.getRGB(96, 96, 96));
                     const int col = i + 10 == ed.drawmode ? 255 : 164;
                     static const char glyphs[] = "RTYUIOP";
-                    graphics.Print(22 + i*tg - 4, 225 - 4, std::string(1, glyphs[i]), col, col, col, false);
+                    font::print(PR_FONT_8X8, 22 + i*tg - 4, 224 - 4, std::string(1, glyphs[i]), col, col, col);
                 }
 
-                fillboxabs(4 + (ed.drawmode - 10) * tg, 209, 20, 20, graphics.getRGB(200, 200, 200));
+                fillboxabs(4 + (ed.drawmode - 10) * tg, 208, 20, 20, graphics.getRGB(200, 200, 200));
 
                 font::print(PR_CJK_HIGH, 4, 232, "2/2", 196, 196, 255 - help.glow);
             }
@@ -1467,16 +1468,16 @@ void editorrender(void)
             }
             int bgheight = 2 + font::height(0);
             int toolnamelen = font::len(0, toolname);
-            graphics.fill_rect(0,207-bgheight,toolnamelen+8,bgheight+1, graphics.getRGB(32,32,32));
-            graphics.fill_rect(0,208-bgheight,toolnamelen+7,bgheight, graphics.getRGB(0,0,0));
-            font::print(PR_BOR | PR_CJK_HIGH, 2,199, toolname, 196, 196, 255 - help.glow);
+            graphics.fill_rect(0,206-bgheight,toolnamelen+8,bgheight+1, graphics.getRGB(32,32,32));
+            graphics.fill_rect(0,207-bgheight,toolnamelen+7,bgheight, graphics.getRGB(0,0,0));
+            font::print(PR_BOR | PR_CJK_HIGH, 2,198, toolname, 196, 196, 255 - help.glow);
 
             char coords[8];
             SDL_snprintf(coords, sizeof(coords), "(%d,%d)", ed.levx+1, ed.levy+1);
             int coordslen = font::len(0, coords);
-            graphics.fill_rect(319-coordslen-8,207-bgheight,coordslen+8,bgheight+1, graphics.getRGB(32,32,32));
-            graphics.fill_rect(320-coordslen-8,208-bgheight,coordslen+8,bgheight, graphics.getRGB(0,0,0));
-            font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 199, coords, 196, 196, 255 - help.glow);
+            graphics.fill_rect(319-coordslen-8,206-bgheight,coordslen+8,bgheight+1, graphics.getRGB(32,32,32));
+            graphics.fill_rect(320-coordslen-8,207-bgheight,coordslen+8,bgheight, graphics.getRGB(0,0,0));
+            font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 198, coords, 196, 196, 255 - help.glow);
         }
         else
         {
@@ -1531,12 +1532,12 @@ void editorrender(void)
             fillboxabs(0, left_y-3, menuwidth+17, 240,graphics.getRGB(64,64,64));
             graphics.fill_rect(0,left_y-2,menuwidth+16,240, graphics.getRGB(0,0,0));
             for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
-                graphics.Print(4, left_y+i*lineheight, shiftmenuoptions[i], 164,164,164,false);
+                font::print(0, 4, left_y+i*lineheight, shiftmenuoptions[i], 164,164,164);
 
             fillboxabs(220, 207,100,60,graphics.getRGB(64,64,64));
             graphics.fill_rect(221,208,160,60, graphics.getRGB(0,0,0));
-            graphics.Print(224, 210, loc::gettext("S: Save Map"),164,164,164,false);
-            graphics.Print(224, 210+lineheight, loc::gettext("L: Load Map"),164,164,164,false);
+            font::print(0, 224, 210, loc::gettext("S: Save Map"),164,164,164);
+            font::print(0, 224, 210+lineheight, loc::gettext("L: Load Map"),164,164,164);
         }
     }
 
@@ -1604,7 +1605,7 @@ void editorrender(void)
     {
         short lines;
         std::string wrapped = font::string_wordwrap(ed.note, 304, &lines);
-        short textheight = 8+(lines-1)*10;
+        short textheight = 8+(lines-1)*SDL_max(10, font::height(0));
         short banner_y = 120 - textheight/2 - 5;
 
         float alpha = graphics.lerp(ed.oldnotedelay, ed.notedelay);

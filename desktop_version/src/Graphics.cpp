@@ -297,11 +297,11 @@ void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select_tight.c_str(), "label:str", text);
-        font::print(PR_CEN, x, 220, buffer, 196, 196, 255 - help.glow);
+        font::print(PR_CEN | PR_CJK_LOW, x, 220, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
-        font::print(PR_CEN, x, 220, text, 64, 64, 64);
+        font::print(PR_CEN | PR_CJK_LOW, x, 220, text, 64, 64, 64);
     }
 }
 
@@ -329,20 +329,12 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
-        Print(x - 16, y, buffer, 196, 196, 255 - help.glow);
+        font::print(0, x - 16, y, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
-        Print(x, y, loc::remove_toupper_escape_chars(text), 96, 96, 96);
+        font::print(0, x, y, loc::remove_toupper_escape_chars(text), 96, 96, 96);
     }
-}
-
-void Graphics::Print( int x, int y, const std::string& text, int r, int g, int b, bool cen /*= false*/ ) {
-    // DEPRECATED
-    if (cen)
-        font::print(PR_CEN, -1, y, text, r, g, b);
-    else
-        font::print(0, x, y, text, r, g, b);
 }
 
 int Graphics::PrintWrap(
@@ -370,22 +362,22 @@ void Graphics::printcrewname( int x, int y, int t )
     switch(t)
     {
     case 0:
-        Print(x, y, loc::gettext("Viridian"), 16, 240, 240,false);
+        font::print(0, x, y, loc::gettext("Viridian"), 16, 240, 240);
         break;
     case 1:
-        Print(x, y, loc::gettext("Violet"), 240, 16, 240,false);
+        font::print(0, x, y, loc::gettext("Violet"), 240, 16, 240);
         break;
     case 2:
-        Print(x, y, loc::gettext("Vitellary"), 240, 240, 16,false);
+        font::print(0, x, y, loc::gettext("Vitellary"), 240, 240, 16);
         break;
     case 3:
-        Print(x, y, loc::gettext("Vermilion"), 240, 16, 16,false);
+        font::print(0, x, y, loc::gettext("Vermilion"), 240, 16, 16);
         break;
     case 4:
-        Print(x, y, loc::gettext("Verdigris"), 16, 240, 16,false);
+        font::print(0, x, y, loc::gettext("Verdigris"), 16, 240, 16);
         break;
     case 5:
-        Print(x, y, loc::gettext("Victoria"), 16, 16, 240,false);
+        font::print(0, x, y, loc::gettext("Victoria"), 16, 16, 240);
         break;
     }
 }
@@ -396,22 +388,22 @@ void Graphics::printcrewnamedark( int x, int y, int t )
     switch(t)
     {
     case 0:
-        Print(x, y, loc::gettext("Viridian"), 128,128,128,false);
+        font::print(0, x, y, loc::gettext("Viridian"), 128,128,128);
         break;
     case 1:
-        Print(x, y, loc::gettext("Violet"), 128,128,128,false);
+        font::print(0, x, y, loc::gettext("Violet"), 128,128,128);
         break;
     case 2:
-        Print(x, y, loc::gettext("Vitellary"), 128,128,128,false);
+        font::print(0, x, y, loc::gettext("Vitellary"), 128,128,128);
         break;
     case 3:
-        Print(x, y, loc::gettext("Vermilion"), 128,128,128,false);
+        font::print(0, x, y, loc::gettext("Vermilion"), 128,128,128);
         break;
     case 4:
-        Print(x, y, loc::gettext("Verdigris"), 128,128,128,false);
+        font::print(0, x, y, loc::gettext("Verdigris"), 128,128,128);
         break;
     case 5:
-        Print(x, y, loc::gettext("Victoria"), 128,128,128,false);
+        font::print(0, x, y, loc::gettext("Victoria"), 128,128,128);
         break;
     }
 }
@@ -467,7 +459,7 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
         status_text = loc::gettext_case("Missing...", gender);
     }
 
-    Print(x, y, status_text, r, g, b, false);
+    font::print(0, x, y, status_text, r, g, b);
 }
 
 int Graphics::set_render_target(SDL_Texture* texture)
