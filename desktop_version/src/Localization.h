@@ -46,6 +46,7 @@ struct TextboxFormat
 extern bool lang_set;
 extern std::string lang;
 extern std::string lang_custom;
+extern std::string new_level_font;
 extern LangMeta langmeta;
 extern std::vector<LangMeta> languagelist;
 extern int languagelist_curlang;

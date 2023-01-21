@@ -15,6 +15,7 @@ namespace loc
 bool lang_set = false;
 std::string lang = "en";
 std::string lang_custom = "";
+std::string new_level_font = "";
 LangMeta langmeta;
 
 // language screen list

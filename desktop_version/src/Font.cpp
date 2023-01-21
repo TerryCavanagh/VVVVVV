@@ -5,6 +5,7 @@
 
 #include "Alloc.h"
 #include "Constants.h"
+#include "CustomLevels.h"
 #include "FileSystemUtils.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
@@ -37,6 +38,7 @@ struct GlyphInfo
 struct Font
 {
     char name[64];
+    char display_name[SCREEN_WIDTH_CHARS + 1];
 
     uint8_t glyph_w;
     uint8_t glyph_h;
@@ -69,6 +71,9 @@ static FontContainer fonts_main = {};
 static FontContainer fonts_custom = {};
 
 static uint8_t font_idx_8x8 = 0;
+
+uint8_t font_idx_options_n = 0;
+uint8_t font_idx_options[20];
 
 static bool font_level_is_interface = false;
 static bool font_idx_level_is_custom = false;
@@ -218,6 +223,7 @@ static uint8_t load_font(FontContainer* container, const char* name)
     SDL_snprintf(name_txt, sizeof(name_txt), "graphics/%s.txt", name);
     SDL_snprintf(name_xml, sizeof(name_xml), "graphics/%s.fontmeta", name);
     SDL_strlcpy(f->name, name, sizeof(f->name));
+    SDL_strlcpy(f->display_name, name, sizeof(f->display_name));
 
     f->glyph_w = 8;
     f->glyph_h = 8;
@@ -236,6 +242,10 @@ static uint8_t load_font(FontContainer* container, const char* name)
         xml_loaded = true;
         hDoc = hDoc.FirstChildElement("font_metadata");
 
+        if ((pElem = hDoc.FirstChildElement("display_name").ToElement()) != NULL)
+        {
+            SDL_strlcpy(f->display_name, pElem->GetText(), sizeof(f->display_name));
+        }
         if ((pElem = hDoc.FirstChildElement("width").ToElement()) != NULL)
         {
             f->glyph_w = help.Int(pElem->GetText());
@@ -405,6 +415,11 @@ uint8_t get_font_idx_8x8(void)
     return font_idx_8x8;
 }
 
+bool level_font_is_main_idx(const uint8_t idx)
+{
+    return !font_idx_level_is_custom && font_idx_level == idx;
+}
+
 void set_level_font(const char* name)
 {
     /* Apply the choice for a certain level-specific font.
@@ -437,6 +452,33 @@ void set_level_font_interface(void)
     /* Set the level font equal to the interface font.
      * This function is for the main game. */
     font_level_is_interface = true;
+}
+
+void set_level_font_new(void)
+{
+    /* Set the level font to the default font for new levels.
+     * This function is for starting the editor. */
+    font_level_is_interface = false;
+    font_idx_level_is_custom = false;
+    if (loc::new_level_font == "")
+    {
+        /* Just take the language's font
+         * (Japanese VVVVVV can make Japanese levels by default, etc) */
+        font_idx_level = loc::get_langmeta()->font_idx;
+    }
+    else
+    {
+        /* If the user has changed the font (wants to make levels
+         * for a different userbase) then remember that choice. */
+        if (!find_main_font_by_name(loc::new_level_font.c_str(), &font_idx_level))
+        {
+            font_idx_level = font_idx_8x8;
+        }
+    }
+
+#ifndef NO_CUSTOM_LEVELS
+    cl.level_font_name = get_main_font_name(font_idx_level);
+#endif
 }
 
 static void load_font_filename(bool is_custom, const char* filename)
@@ -478,6 +520,23 @@ void load_main(void)
     }
     FILESYSTEM_freeEnumerate(&handle);
     font_idx_level = font_idx_8x8;
+
+    // Initialize the font menu options, 8x8 font first
+    font_idx_options[0] = font_idx_8x8;
+    font_idx_options_n = 1;
+
+    for (uint8_t i = 0; i < fonts_main.count; i++)
+    {
+        if (i == font_idx_8x8)
+        {
+            continue;
+        }
+        font_idx_options[font_idx_options_n++] = i;
+        if (font_idx_options_n >= sizeof(font_idx_options))
+        {
+            break;
+        }
+    }
 }
 
 void load_custom(const char* name)
@@ -882,6 +941,55 @@ const char* get_main_font_name(uint8_t idx)
         return "";
     }
     return f->name;
+}
+
+const char* get_main_font_display_name(uint8_t idx)
+{
+    Font* f = container_get(&fonts_main, idx);
+    if (f == NULL)
+    {
+        return "";
+    }
+
+    if (idx == font_idx_8x8)
+    {
+        // Deciding the name for the 8x8 font was harder than I'd like to admit.
+        if (loc::lang == "en" || loc::get_langmeta()->font_idx != font_idx_8x8)
+        {
+            // If you use English, or a CJK language: "english/..."
+            SDL_strlcpy(
+                f->display_name,
+                "english/…",
+                sizeof(f->display_name)
+            );
+        }
+        else
+        {
+            // If you use another, e.g. German: "english/deutsch/..."
+            SDL_snprintf(
+                f->display_name, sizeof(f->display_name),
+                "english/%s/…",
+                loc::get_langmeta()->nativename.c_str()
+            );
+        }
+    }
+
+    return f->display_name;
+}
+
+const char* get_level_font_display_name(void)
+{
+    if (font_idx_level_is_custom)
+    {
+        Font* f = container_get(&fonts_custom, font_idx_level);
+        if (f == NULL)
+        {
+            return "";
+        }
+        return f->display_name;
+    }
+
+    return get_main_font_display_name(font_idx_level);
 }
 
 bool glyph_dimensions(uint32_t flags, uint8_t* glyph_w, uint8_t* glyph_h)

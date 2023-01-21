@@ -53,6 +53,7 @@ namespace Menu
         ed_desc,
         ed_music,
         ed_quit,
+        ed_font,
         options,
         gameplayoptions,
         speedrunneroptions,
