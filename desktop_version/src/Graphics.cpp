@@ -1770,12 +1770,12 @@ void Graphics::drawtrophytext(void)
     short lines;
     if (top_text != NULL)
     {
-        font::string_wordwrap(top_text, 304, &lines);
+        font::string_wordwrap(0, top_text, 304, &lines);
         font::print_wrap(PR_CEN | PR_COLORGLYPH_BRI(brightness) | PR_BOR, -1, 11-(lines-1)*5, top_text, temp, temp2, temp3);
     }
     if (bottom_text != NULL)
     {
-        font::string_wordwrap(bottom_text, 304, &lines);
+        font::string_wordwrap(0, bottom_text, 304, &lines);
         font::print_wrap(PR_CEN | PR_COLORGLYPH_BRI(brightness) | PR_BOR, -1, 221-(lines-1)*5, bottom_text, temp, temp2, temp3);
     }
 }
@@ -3049,7 +3049,11 @@ int Graphics::textboxwrap(int pad)
         vlog_error("textboxwrap() has no first line!");
         return 16;
     }
-    std::string wrapped = font::string_wordwrap_balanced(textboxes[m].lines[0], 36*8 - pad*8);
+    std::string wrapped = font::string_wordwrap_balanced(
+        textboxes[m].print_flags,
+        textboxes[m].lines[0],
+        36*8 - pad*8
+    );
     textboxes[m].lines.clear();
 
     size_t startline = 0;
