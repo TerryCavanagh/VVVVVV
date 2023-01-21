@@ -430,6 +430,14 @@ static void editormenurender(int tr, int tg, int tb)
         {
             font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*5, cl.Desc3, tr, tg, tb);
         }
+
+        const char* label = loc::gettext("Font: ");
+        int len_label = font::len(0, label);
+        const char* name = font::get_level_font_display_name();
+
+        font::print(0, 2, 230, label, tr/2, tg/2, tb/2);
+        font::print(PR_FONT_LEVEL, 2+len_label, 230, name, tr/2, tg/2, tb/2);
+
         break;
     }
     case Menu::ed_music:
@@ -498,6 +506,19 @@ static void editormenurender(int tr, int tg, int tb)
     case Menu::ed_quit:
         font::print_wrap(PR_CEN, -1, 90, loc::gettext("Save before quitting?"), tr, tg, tb);
         break;
+    case Menu::ed_font:
+    {
+        font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Level Font"), tr, tg, tb);
+        font::print_wrap(PR_CEN, -1, 65, loc::gettext("Select the language in which the text in this level is written."), tr, tg, tb);
+
+        const char* label = loc::gettext("Font: ");
+        int len_label = font::len(0, label);
+        const char* name = font::get_level_font_display_name();
+
+        font::print(0, 2, 230, label, tr/2, tg/2, tb/2);
+        font::print(PR_FONT_LEVEL, 2+len_label, 230, name, tr/2, tg/2, tb/2);
+        break;
+    }
     default:
         break;
     }
@@ -1864,6 +1885,10 @@ static void editormenuactionpress(void)
             key.keybuffer=cl.website;
             break;
         case 4:
+            game.createmenu(Menu::ed_font);
+            map.nexttowercolour();
+            break;
+        case 5:
             game.returnmenu();
             map.nexttowercolour();
             break;
@@ -2003,6 +2028,25 @@ static void editormenuactionpress(void)
             break;
         }
         break;
+    case Menu::ed_font:
+    {
+        uint8_t idx_selected = font::font_idx_options[game.currentmenuoption];
+        cl.level_font_name = font::get_main_font_name(idx_selected);
+        if (idx_selected == loc::get_langmeta()->font_idx)
+        {
+            loc::new_level_font = "";
+        }
+        else
+        {
+            loc::new_level_font = cl.level_font_name;
+        }
+        font::set_level_font(cl.level_font_name.c_str());
+        music.playef(11);
+        game.returnmenu();
+        map.nexttowercolour();
+        game.savestatsandsettings_menu();
+        break;
+    }
     default:
         break;
     }
@@ -2099,7 +2143,7 @@ void editorinput(void)
         }
         else
         {
-
+            bool esc_from_font = false;
             music.playef(11);
             if (ed.settingsmod)
             {
@@ -2113,6 +2157,13 @@ void editorinput(void)
                     {
                         ed.settingsmod = false;
                     }
+                    else if (game.currentmenuname == Menu::ed_font)
+                    {
+                        // Prevent double return
+                        esc_from_font = true;
+                        game.returnmenu();
+                        map.nexttowercolour();
+                    }
                     else
                     {
                         game.returnmenu();
@@ -2125,7 +2176,7 @@ void editorinput(void)
                 ed.settingsmod = true;
             }
 
-            if (ed.settingsmod)
+            if (ed.settingsmod && !esc_from_font)
             {
                 bool edsettings_in_stack = game.currentmenuname == Menu::ed_settings;
                 if (!edsettings_in_stack)

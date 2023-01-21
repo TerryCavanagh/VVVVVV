@@ -2592,12 +2592,15 @@ void scriptclass::startgamemode(const enum StartMode mode)
         game.gamestate = GAMEMODE;
     }
 
+    // Font handling
     switch (mode)
     {
-    case Start_EDITOR:
     case Start_EDITORPLAYTESTING:
     case Start_CUSTOM:
     case Start_CUSTOM_QUICKSAVE:
+        break;
+    case Start_EDITOR:
+        font::set_level_font_new();
         break;
     default:
         font::set_level_font_interface();

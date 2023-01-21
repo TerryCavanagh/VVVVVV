@@ -59,13 +59,20 @@
 
 namespace font
 {
+// Options in font selection menu
+extern uint8_t font_idx_options_n;
+extern uint8_t font_idx_options[20];
 
 bool find_main_font_by_name(const char* name, uint8_t* idx);
 const char* get_main_font_name(uint8_t idx);
+const char* get_main_font_display_name(uint8_t idx);
+const char* get_level_font_display_name(void);
 uint8_t get_font_idx_8x8(void);
+bool level_font_is_main_idx(uint8_t idx);
 
 void set_level_font(const char* name);
 void set_level_font_interface(void);
+void set_level_font_new(void);
 void load_main(void);
 void load_custom(const char* name);
 void unload_custom(void);

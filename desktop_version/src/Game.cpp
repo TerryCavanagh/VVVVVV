@@ -4560,6 +4560,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             loc::lang_set = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "new_level_font") == 0)
+        {
+            loc::new_level_font = std::string(pText);
+        }
+
         if (SDL_strcmp(pKey, "roomname_translator") == 0 && loc::show_translator_menu)
         {
             roomname_translator::set_enabled(help.Int(pText));
@@ -4837,6 +4842,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
 
     xml::update_tag(dataNode, "lang", loc::lang.c_str());
     xml::update_tag(dataNode, "lang_set", (int) loc::lang_set);
+    xml::update_tag(dataNode, "new_level_font", loc::new_level_font.c_str());
     xml::update_tag(dataNode, "roomname_translator", (int) roomname_translator::enabled);
 }
 
@@ -6375,6 +6381,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("change author"));
         option(loc::gettext("change description"));
         option(loc::gettext("change website"));
+        option(loc::gettext("change font"));
         option(loc::gettext("return"));
 
         menuyoff = 6;
@@ -6394,6 +6401,23 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 8;
         maxspacing = 15;
         break;
+    case Menu::ed_font:
+    {
+        int option_match = -1;
+        for (uint8_t i = 0; i < font::font_idx_options_n; i++)
+        {
+            uint8_t idx = font::font_idx_options[i];
+            option(font::get_main_font_display_name(idx), true, PR_FONT_IDX(idx));
+            if (font::level_font_is_main_idx(idx))
+            {
+                option_match = i;
+            }
+        }
+
+        currentmenuoption = option_match != -1 ? option_match : 0;
+        maxspacing = 15;
+        break;
+    }
     case Menu::options:
         option(loc::gettext("gameplay"));
         option(loc::gettext("graphics"));
