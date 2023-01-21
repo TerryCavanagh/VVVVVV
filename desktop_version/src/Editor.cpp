@@ -1161,7 +1161,7 @@ void editorrender(void)
         }
 
         short lines;
-        message = font::string_wordwrap(message, 312, &lines);
+        message = font::string_wordwrap(0, message, 312, &lines);
         short textheight = font::height(0)*lines;
 
         graphics.fill_rect(0,238-textheight,320,240, graphics.getRGB(32,32,32));
@@ -1264,7 +1264,7 @@ void editorrender(void)
     else if (ed.textmod)
     {
         short lines;
-        std::string wrapped = font::string_wordwrap(ed.textdesc, 312, &lines);
+        std::string wrapped = font::string_wordwrap(0, ed.textdesc, 312, &lines);
         short textheight = font::height(0)*lines+font::height(PR_FONT_LEVEL);
 
         graphics.fill_rect(0, 238-textheight, 320, 240, graphics.getRGB(32, 32, 32));
@@ -1604,7 +1604,7 @@ void editorrender(void)
     if(ed.notedelay>0 || ed.oldnotedelay>0)
     {
         short lines;
-        std::string wrapped = font::string_wordwrap(ed.note, 304, &lines);
+        std::string wrapped = font::string_wordwrap(0, ed.note, 304, &lines);
         short textheight = 8+(lines-1)*SDL_max(10, font::height(0));
         short banner_y = 120 - textheight/2 - 5;
 

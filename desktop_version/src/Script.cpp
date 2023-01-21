@@ -2507,7 +2507,7 @@ void scriptclass::translate_dialogue(void)
     }
     else
     {
-        tra = font::string_wordwrap_balanced(format->text, format->wraplimit);
+        tra = font::string_wordwrap_balanced(PR_FONT_LEVEL, format->text, format->wraplimit);
     }
 
     textcentertext = format->centertext;

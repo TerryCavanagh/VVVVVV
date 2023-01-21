@@ -518,9 +518,95 @@ void destroy(void)
     unload_font_container(&fonts_main);
 }
 
-static Font* container_get(FontContainer* container, uint8_t idx); // TODO TEMP TEMP TEMP
+static Font* container_get(FontContainer* container, uint8_t idx)
+{
+    /* Get a certain font from the given container (with bounds checking).
+     * Does its best to return at least something,
+     * but if there are no fonts whatsoever, can return NULL. */
+
+    if (idx < container->count)
+    {
+        return &container->fonts[idx];
+    }
+    if (font_idx_8x8 < fonts_main.count)
+    {
+        return &fonts_main.fonts[font_idx_8x8];
+    }
+    if (fonts_main.count > 0)
+    {
+        return &fonts_main.fonts[0];
+    }
+    if (fonts_custom.count > 0)
+    {
+        return &fonts_custom.fonts[0];
+    }
+    return NULL;
+}
+
+static Font* fontsel_to_font(int sel)
+{
+    /* Take font selection integer (0-31) and turn it into the correct Font
+     * 0: PR_FONT_INTERFACE - use interface font
+     * 1: PR_FONT_LEVEL     - use level font
+     * 2: PR_FONT_8X8       - use 8x8 font no matter what
+     * 3-31:                - use (main) font index 0-28 */
+
+    if (sel < 0)
+    {
+        // Shouldn't happen but better safe than sorry...
+        return NULL;
+    }
+
+    switch (sel)
+    {
+    case 0:
+        return container_get(&fonts_main, loc::get_langmeta()->font_idx);
+    case 1:
+        if (font_idx_custom_is_custom)
+        {
+            return container_get(&fonts_custom, font_idx_custom);
+        }
+        else
+        {
+            return container_get(&fonts_main, font_idx_custom);
+        }
+    case 2:
+        return container_get(&fonts_main, font_idx_8x8);
+    }
+
+    return container_get(&fonts_main, sel-3);
+}
+
+#define FLAG_PART(start, count) ((flags >> start) % (1 << count))
+static PrintFlags decode_print_flags(uint32_t flags)
+{
+    PrintFlags pf;
+    pf.scale = FLAG_PART(0, 3) + 1;
+    pf.font_sel = fontsel_to_font(FLAG_PART(3, 5));
+
+    if (flags & PR_AB_IS_BRI)
+    {
+        pf.alpha = 255;
+        pf.colorglyph_bri = ~FLAG_PART(8, 8) & 0xff;
+    }
+    else
+    {
+        pf.alpha = ~FLAG_PART(8, 8) & 0xff;
+        pf.colorglyph_bri = 255;
+    }
+
+    pf.border = flags & PR_BOR;
+    pf.align_cen = flags & PR_CEN;
+    pf.align_right = flags & PR_RIGHT;
+    pf.cjk_low = flags & PR_CJK_LOW;
+    pf.cjk_high = flags & PR_CJK_HIGH;
+
+    return pf;
+}
+#undef FLAG_PART
 
 static bool next_wrap(
+    Font* f,
     size_t* start,
     size_t* len,
     const char* str,
@@ -547,7 +633,7 @@ static bool next_wrap(
             goto next;
         }
 
-        linewidth += get_advance(container_get(&fonts_main, loc::get_langmeta()->font_idx), str[idx]); // TODO get font via argument!
+        linewidth += get_advance(f, str[idx]);
 
         switch (str[idx])
         {
@@ -584,6 +670,7 @@ next:
 }
 
 static bool next_wrap_s(
+    Font* f,
     char buffer[],
     const size_t buffer_size,
     size_t* start,
@@ -593,7 +680,7 @@ static bool next_wrap_s(
     size_t len = 0;
     const size_t prev_start = *start;
 
-    const bool retval = next_wrap(start, &len, &str[*start], maxwidth);
+    const bool retval = next_wrap(f, start, &len, &str[*start], maxwidth);
 
     if (retval)
     {
@@ -606,7 +693,7 @@ static bool next_wrap_s(
     return retval;
 }
 
-std::string string_wordwrap(const std::string& s, int maxwidth, short *lines /*= NULL*/)
+std::string string_wordwrap(const uint32_t flags, const std::string& s, int maxwidth, short *lines /*= NULL*/)
 {
     /* Return a string wordwrapped to a maximum limit by adding newlines.
      * CJK will need to have autowordwrap disabled and have manually inserted newlines. */
@@ -614,6 +701,12 @@ std::string string_wordwrap(const std::string& s, int maxwidth, short *lines /*=
     if (lines != NULL)
     {
         *lines = 1;
+    }
+
+    PrintFlags pf = decode_print_flags(flags);
+    if (pf.font_sel == NULL)
+    {
+        return s;
     }
 
     const char* orig = s.c_str();
@@ -627,7 +720,7 @@ std::string string_wordwrap(const std::string& s, int maxwidth, short *lines /*=
         size_t len = 0;
         const char* part = &orig[start];
 
-        const bool retval = next_wrap(&start, &len, part, maxwidth);
+        const bool retval = next_wrap(pf.font_sel, &start, &len, part, maxwidth);
 
         if (!retval)
         {
@@ -651,7 +744,7 @@ std::string string_wordwrap(const std::string& s, int maxwidth, short *lines /*=
     }
 }
 
-std::string string_wordwrap_balanced(const std::string& s, int maxwidth)
+std::string string_wordwrap_balanced(const uint32_t flags, const std::string& s, int maxwidth)
 {
     /* Return a string wordwrapped to a limit of maxwidth by adding newlines.
      * Try to fill the lines as far as possible, and return result where lines are most filled.
@@ -664,7 +757,7 @@ std::string string_wordwrap_balanced(const std::string& s, int maxwidth)
     }
 
     short lines;
-    string_wordwrap(s, maxwidth, &lines);
+    string_wordwrap(flags, s, maxwidth, &lines);
 
     int bestwidth = maxwidth;
     if (lines > 1)
@@ -672,7 +765,7 @@ std::string string_wordwrap_balanced(const std::string& s, int maxwidth)
         for (int curlimit = maxwidth; curlimit > 1; curlimit -= 8)
         {
             short try_lines;
-            string_wordwrap(s, curlimit, &try_lines);
+            string_wordwrap(flags, s, curlimit, &try_lines);
 
             if (try_lines > lines)
             {
@@ -682,7 +775,7 @@ std::string string_wordwrap_balanced(const std::string& s, int maxwidth)
         }
     }
 
-    return string_wordwrap(s, bestwidth);
+    return string_wordwrap(flags, s, bestwidth);
 }
 
 std::string string_unwordwrap(const std::string& s)
@@ -766,31 +859,6 @@ static int print_char(
     return glyph->advance * scale;
 }
 
-static Font* container_get(FontContainer* container, uint8_t idx)
-{
-    /* Get a certain font from the given container (with bounds checking).
-     * Does its best to return at least something,
-     * but if there are no fonts whatsoever, can return NULL. */
-
-    if (idx < container->count)
-    {
-        return &container->fonts[idx];
-    }
-    if (font_idx_8x8 < fonts_main.count)
-    {
-        return &fonts_main.fonts[font_idx_8x8];
-    }
-    if (fonts_main.count > 0)
-    {
-        return &fonts_main.fonts[0];
-    }
-    if (fonts_custom.count > 0)
-    {
-        return &fonts_custom.fonts[0];
-    }
-    return NULL;
-}
-
 const char* get_main_font_name(uint8_t idx)
 {
     Font* f = container_get(&fonts_main, idx);
@@ -800,68 +868,6 @@ const char* get_main_font_name(uint8_t idx)
     }
     return f->name;
 }
-
-static Font* fontsel_to_font(int sel)
-{
-    /* Take font selection integer (0-31) and turn it into the correct Font
-     * 0: PR_FONT_INTERFACE - use interface font
-     * 1: PR_FONT_LEVEL     - use level font
-     * 2: PR_FONT_8X8       - use 8x8 font no matter what
-     * 3-31:                - use (main) font index 0-28 */
-
-    if (sel < 0)
-    {
-        /* Shouldn't happen but better safe than sorry... */
-        return NULL;
-    }
-
-    switch (sel)
-    {
-    case 0:
-        return container_get(&fonts_main, loc::get_langmeta()->font_idx);
-    case 1:
-        if (font_idx_custom_is_custom)
-        {
-            return container_get(&fonts_custom, font_idx_custom);
-        }
-        else
-        {
-            return container_get(&fonts_main, font_idx_custom);
-        }
-    case 2:
-        return container_get(&fonts_main, font_idx_8x8);
-    }
-
-    return container_get(&fonts_main, sel-3);
-}
-
-#define FLAG_PART(start, count) ((flags >> start) % (1 << count))
-static PrintFlags decode_print_flags(uint32_t flags)
-{
-    PrintFlags pf;
-    pf.scale = FLAG_PART(0, 3) + 1;
-    pf.font_sel = fontsel_to_font(FLAG_PART(3, 5));
-
-    if (flags & PR_AB_IS_BRI)
-    {
-        pf.alpha = 255;
-        pf.colorglyph_bri = ~FLAG_PART(8, 8) & 0xff;
-    }
-    else
-    {
-        pf.alpha = ~FLAG_PART(8, 8) & 0xff;
-        pf.colorglyph_bri = 255;
-    }
-
-    pf.border = flags & PR_BOR;
-    pf.align_cen = flags & PR_CEN;
-    pf.align_right = flags & PR_RIGHT;
-    pf.cjk_low = flags & PR_CJK_LOW;
-    pf.cjk_high = flags & PR_CJK_HIGH;
-
-    return pf;
-}
-#undef FLAG_PART
 
 bool glyph_dimensions(uint32_t flags, uint8_t* glyph_w, uint8_t* glyph_h)
 {
@@ -1040,7 +1046,7 @@ int print_wrap(
     {
         // Correct for the height of the resulting print.
         size_t len = 0;
-        while (next_wrap(&start, &len, &str[start], maxwidth))
+        while (next_wrap(pf.font_sel, &start, &len, &str[start], maxwidth))
         {
             y += linespacing;
         }
@@ -1048,7 +1054,7 @@ int print_wrap(
         start = 0;
     }
 
-    while (next_wrap_s(buffer, sizeof(buffer), &start, str, maxwidth))
+    while (next_wrap_s(pf.font_sel, buffer, sizeof(buffer), &start, str, maxwidth))
     {
         print(flags, x, y, buffer, r, g, b);
 

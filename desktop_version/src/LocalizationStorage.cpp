@@ -318,7 +318,7 @@ static bool max_check_string(const char* str, const char* max)
     else
     {
         short lines;
-        font::string_wordwrap(str, max_w_px, &lines); // TODO: needs to be passed the font!
+        font::string_wordwrap(print_flags, str, max_w_px, &lines);
         does_overflow = lines*SDL_max(10, font_h) > (short) max_h_px;
     }
 

@@ -70,8 +70,8 @@ void load_custom(const char* name);
 void unload_custom(void);
 void destroy(void);
 
-std::string string_wordwrap(const std::string& s, int maxwidth, short *lines = NULL);
-std::string string_wordwrap_balanced(const std::string& s, int maxwidth);
+std::string string_wordwrap(uint32_t flags, const std::string& s, int maxwidth, short *lines = NULL);
+std::string string_wordwrap_balanced(uint32_t flags, const std::string& s, int maxwidth);
 std::string string_unwordwrap(const std::string& s);
 
 bool glyph_dimensions(uint32_t flags, uint8_t* glyph_w, uint8_t* glyph_h);
