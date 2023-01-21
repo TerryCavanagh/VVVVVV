@@ -2429,11 +2429,11 @@ void scriptclass::run(void)
 #ifndef NO_CUSTOM_LEVELS
                 if (words[1] == "")
                 {
-                    font::set_custom_font(cl.level_font_name.c_str());
+                    font::set_level_font(cl.level_font_name.c_str());
                 }
                 else
                 {
-                    font::set_custom_font(words[1].c_str());
+                    font::set_level_font(words[1].c_str());
                 }
 #endif
             }
@@ -2590,6 +2590,17 @@ void scriptclass::startgamemode(const enum StartMode mode)
     else
     {
         game.gamestate = GAMEMODE;
+    }
+
+    switch (mode)
+    {
+    case Start_EDITOR:
+    case Start_EDITORPLAYTESTING:
+    case Start_CUSTOM:
+    case Start_CUSTOM_QUICKSAVE:
+        break;
+    default:
+        font::set_level_font_interface();
     }
 
     game.jumpheld = true;

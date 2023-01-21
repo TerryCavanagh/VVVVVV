@@ -7186,7 +7186,7 @@ void Game::returntoeditor(void)
     ed.roomnamehide = 0;
 
     // Might've been changed in a script
-    font::set_custom_font(cl.level_font_name.c_str());
+    font::set_level_font(cl.level_font_name.c_str());
 
     DEFER_CALLBACK(resetbg);
     music.fadeout();

@@ -70,8 +70,9 @@ static FontContainer fonts_custom = {};
 
 static uint8_t font_idx_8x8 = 0;
 
-static bool font_idx_custom_is_custom = false;
-static uint8_t font_idx_custom = 0;
+static bool font_level_is_interface = false;
+static bool font_idx_level_is_custom = false;
+static uint8_t font_idx_level = 0;
 
 static void codepoint_split(
     const uint32_t codepoint,
@@ -404,29 +405,38 @@ uint8_t get_font_idx_8x8(void)
     return font_idx_8x8;
 }
 
-void set_custom_font(const char* name)
+void set_level_font(const char* name)
 {
-    /* Apply the choice for a certain level-specific font. */
+    /* Apply the choice for a certain level-specific font.
+     * This function is for custom levels. */
+    font_level_is_interface = false;
 
-    if (find_font_by_name(&fonts_custom, name, &font_idx_custom))
+    if (find_font_by_name(&fonts_custom, name, &font_idx_level))
     {
-        font_idx_custom_is_custom = true;
+        font_idx_level_is_custom = true;
     }
     else
     {
-        font_idx_custom_is_custom = false;
-        if (!find_font_by_name(&fonts_main, name, &font_idx_custom))
+        font_idx_level_is_custom = false;
+        if (!find_font_by_name(&fonts_main, name, &font_idx_level))
         {
             if (SDL_strcmp(name, "font") != 0)
             {
-                set_custom_font("font");
+                set_level_font("font");
             }
             else
             {
-                font_idx_custom = font_idx_8x8;
+                font_idx_level = font_idx_8x8;
             }
         }
     }
+}
+
+void set_level_font_interface(void)
+{
+    /* Set the level font equal to the interface font.
+     * This function is for the main game. */
+    font_level_is_interface = true;
 }
 
 static void load_font_filename(bool is_custom, const char* filename)
@@ -467,6 +477,7 @@ void load_main(void)
         load_font_filename(false, item);
     }
     FILESYSTEM_freeEnumerate(&handle);
+    font_idx_level = font_idx_8x8;
 }
 
 void load_custom(const char* name)
@@ -481,7 +492,7 @@ void load_custom(const char* name)
     }
     FILESYSTEM_freeEnumerate(&handle);
 
-    set_custom_font(name);
+    set_level_font(name);
 }
 
 void unload_font(Font* f)
@@ -559,17 +570,21 @@ static Font* fontsel_to_font(int sel)
 
     switch (sel)
     {
+    case 1:
+        if (!font_level_is_interface)
+        {
+            if (font_idx_level_is_custom)
+            {
+                return container_get(&fonts_custom, font_idx_level);
+            }
+            else
+            {
+                return container_get(&fonts_main, font_idx_level);
+            }
+        }
+        SDL_FALLTHROUGH;
     case 0:
         return container_get(&fonts_main, loc::get_langmeta()->font_idx);
-    case 1:
-        if (font_idx_custom_is_custom)
-        {
-            return container_get(&fonts_custom, font_idx_custom);
-        }
-        else
-        {
-            return container_get(&fonts_main, font_idx_custom);
-        }
     case 2:
         return container_get(&fonts_main, font_idx_8x8);
     }
