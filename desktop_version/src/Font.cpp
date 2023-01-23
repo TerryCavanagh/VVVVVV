@@ -686,7 +686,9 @@ static bool next_wrap(
     const char* str,
     const int maxwidth
 ) {
-    /* This function is UTF-8 aware. But start/len still are bytes. */
+    /* Get information about the current line in wordwrapped text,
+     * given this line starts at str[*start].
+     * *start is updated to the start of the next line. */
     size_t idx = 0;
     size_t lenfromlastspace = 0;
     size_t lastspace = 0;
@@ -733,6 +735,12 @@ static bool next_wrap(
                 *len = lenfromlastspace;
                 *start = lastspace + 1;
             }
+            if (idx == 0)
+            {
+                // Oops, we're stuck at a single character
+                *len = 1;
+                *start += 1;
+            }
             return true;
         }
 
@@ -743,7 +751,7 @@ next:
     }
 }
 
-static bool next_wrap_s(
+static bool next_wrap_buf(
     Font* f,
     char buffer[],
     const size_t buffer_size,
@@ -751,6 +759,16 @@ static bool next_wrap_s(
     const char* str,
     const int maxwidth
 ) {
+    /* Get each line of wordwrapped text, writing one line at a time to a buffer.
+     * Call as follows:
+     *
+     * char buf[256];
+     * size_t start = 0;
+     * while (next_wrap_buf(font, buf, sizeof(buf), &start, "String to wordwrap", 320))
+     * {
+     *     // buf contains a line of text
+     * }
+     */
     size_t len = 0;
     const size_t prev_start = *start;
 
@@ -1177,7 +1195,7 @@ int print_wrap(
         start = 0;
     }
 
-    while (next_wrap_s(pf.font_sel, buffer, sizeof(buffer), &start, str, maxwidth))
+    while (next_wrap_buf(pf.font_sel, buffer, sizeof(buffer), &start, str, maxwidth))
     {
         print(flags, x, y, buffer, r, g, b);
 
