@@ -53,7 +53,7 @@ Irish: Specific letters may be kept in lowercase when making a string full-caps.
 
 === W O R D W R A P P I N G   A N D   L E N G T H   L I M I T S ===
 
-For most languages, VVVVVV can automatically wordwrap based on spaces. This may not work for some languages (like Chinese, Japanese and Korean), so... TODO
+For most languages, VVVVVV can automatically wordwrap based on spaces. This may not work for some languages (like Chinese, Japanese and Korean), so instead, newlines can be inserted manually (see below) and automatic wordwrapping can be disabled in meta.xml.
 
 VVVVVV's resolution is 320x240, and the default font is 8x8, which means there is a 40x30 character grid (although we don't adhere to this grid for the UI, but it gives a good indication). Naturally, if the font has a different size like 12x12, less characters will fit on the screen too.
 
@@ -65,7 +65,7 @@ Strings are usually annotated with their limits (for example, max="38*3"). This 
 
 (B) if X*Y (for example 33*3): the text should fit within an area of X characters wide and Y lines high. The text is automatically word-wrapped to fit (unless disabled in meta.xml). If automatic word-wrapping is disabled, you need to manually insert newlines with |, or possibly as a literal newline.
 
-If your language uses a font with a different size than 8x8, there will be two limits given: `max`, which is the original limit based on the 8x8 font, and `max_local`, which is adapted to the size of your font. To get this notation, either use the maintenance option to sync language files from within VVVVVV, or use the Excel document. Ensure the correct font is set in meta.xml first.
+If your language uses a font with a different size than 8x8, there will be two limits given: `max`, which is the original limit based on the 8x8 font, and `max_local`, which is adapted to the size of your font. To get this notation, use the maintenance option to sync language files from within VVVVVV. Ensure the correct font is set in meta.xml first.
 
 The translator menu has an option ("limits check") to automatically find strings that break the given limits. There may be a few cases where this detection isn't perfect, but it should be a helpful quality assurance tool.
 
@@ -75,9 +75,9 @@ The maximum lengths are not always given. Notoriously, menu option buttons are p
 
 === F O N T S ===
 
-The game uses an 8x8 pixel font by default (font.png and font.txt in the "fonts" folder). If your language can be represented in 8x8 characters, it is preferable to use this font. TODO
+The game uses an 8x8 pixel font by default (font.png and font.fontmeta in the "fonts" folder). If your language can be represented in 8x8 characters, it is preferable to use this font, or for this font to be extended.
 
-TODO: The fonts directory will also have a README.txt file
+The fonts directory also has a README.txt file that explains how the font format works.
 
 
 
