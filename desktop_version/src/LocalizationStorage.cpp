@@ -252,7 +252,7 @@ void resettext(bool final_shutdown)
     resettext_custom(final_shutdown);
 }
 
-static bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h)
+bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h)
 {
     /* Parse a max string, like "33" or "33*3", into two shorts.
      * Returns true if successful and max_w/max_h have gotten valid values, false otherwise. */

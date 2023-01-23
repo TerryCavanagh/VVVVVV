@@ -68,6 +68,8 @@ unsigned char form_for_count(int n);
 void unloadtext_custom(void);
 void resettext(bool final_shutdown);
 
+bool parse_max(const char* max, unsigned short* max_w, unsigned short* max_h);
+
 const char* get_level_original_lang(tinyxml2::XMLHandle& hDoc);
 
 bool store_roomname_translation(bool custom_level, int roomx, int roomy, const char* tra, const char* explanation);
