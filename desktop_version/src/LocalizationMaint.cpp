@@ -16,6 +16,43 @@
 namespace loc
 {
 
+static void write_max_local(tinyxml2::XMLElement* pElem, uint8_t glyph_w, uint8_t glyph_h)
+{
+    const char* max;
+    if ((max = pElem->Attribute("max")) != NULL)
+    {
+        unsigned short max_w, max_h, max_local_w, max_local_h;
+        if (parse_max(max, &max_w, &max_h))
+        {
+            max_local_w = (max_w*8) / glyph_w;
+            max_local_h = (max_h*10) / SDL_max(10, glyph_h);
+
+            if (max_local_h == 0)
+            {
+                max_local_h = 1;
+            }
+
+            char buf[16];
+            if (max_h == 1)
+            {
+                SDL_snprintf(buf, sizeof(buf), "%d", max_local_w);
+            }
+            else
+            {
+                SDL_snprintf(buf, sizeof(buf), "%d*%d", max_local_w, max_local_h);
+            }
+            pElem->SetAttribute("max_local", buf);
+        }
+    }
+}
+
+static void write_max_local_decl(tinyxml2::XMLDocument* doc, uint8_t glyph_w, uint8_t glyph_h)
+{
+    char buf[16];
+    SDL_snprintf(buf, sizeof(buf), "%dx%d", glyph_w, glyph_h);
+    doc->FirstChildElement()->SetAttribute("max_local_for", buf);
+}
+
 static void sync_lang_file(const std::string& langcode)
 {
     /* Update translation files for the given language with new strings from templates.
@@ -25,6 +62,10 @@ static void sync_lang_file(const std::string& langcode)
 
     lang = langcode;
     loadtext(false);
+
+    uint8_t glyph_w = 8, glyph_h = 8;
+    font::glyph_dimensions(PR_FONT_IDX(langmeta.font_idx), &glyph_w, &glyph_h);
+    bool max_local_needed = glyph_w != 8 || glyph_h != 8;
 
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -86,6 +127,11 @@ static void sync_lang_file(const std::string& langcode)
 
     if (load_lang_doc("strings", doc, "en"))
     {
+        if (max_local_needed)
+        {
+            write_max_local_decl(&doc, glyph_w, glyph_h);
+        }
+
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             EXPECT_ELEM(pElem, "string");
@@ -119,6 +165,11 @@ static void sync_lang_file(const std::string& langcode)
 
                 pElem->SetAttribute("translation", tra);
             }
+
+            if (max_local_needed)
+            {
+                write_max_local(pElem, glyph_w, glyph_h);
+            }
         }
 
         FILESYSTEM_saveTiXml2Document((langcode + "/strings.xml").c_str(), doc);
@@ -134,9 +185,19 @@ static void sync_lang_file(const std::string& langcode)
             form_id_used[number_plural_form[num]] = true;
         }
 
+        if (max_local_needed)
+        {
+            write_max_local_decl(&doc, glyph_w, glyph_h);
+        }
+
         FOR_EACH_XML_ELEMENT(hDoc, pElem)
         {
             EXPECT_ELEM(pElem, "string");
+
+            if (max_local_needed)
+            {
+                write_max_local(pElem, glyph_w, glyph_h);
+            }
 
             pElem->DeleteChildren();
 
