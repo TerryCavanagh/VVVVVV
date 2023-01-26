@@ -2277,7 +2277,7 @@ static MapRenderData getmaprenderdata()
 static void rendermap(void)
 {
 #ifndef NO_CUSTOM_LEVELS
-    if (map.custommode)
+    if (map.custommode && map.customshowmm)
     {
         graphics.drawpixeltextbox(35 + map.custommmxoff, 16 + map.custommmyoff, map.custommmxsize + 10, map.custommmysize + 10, 65, 185, 207);
         graphics.drawpartimage(graphics.minimap_mounted ? 1 : 12, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
