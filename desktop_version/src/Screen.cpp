@@ -69,6 +69,8 @@ void Screen::init(const struct ScreenSettings* settings)
     SDL_SetWindowTitle(m_window, "VVVVVV");
 #endif
 
+    SDL_SetWindowMinimumSize(m_window, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
+
     LoadIcon();
 
     badSignalEffect = settings->badSignal;
