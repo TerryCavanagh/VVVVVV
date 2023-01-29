@@ -610,7 +610,7 @@ void editorrender(void)
     // Draw entities backward to remain accurate with ingame
     for (int i = customentities.size() - 1; i >= 0; i--)
     {
-        point tpoint;
+        SDL_Point tpoint;
         SDL_Rect drawRect;
 
         //if() on screen
@@ -928,7 +928,7 @@ void editorrender(void)
             if (i <= ed.currentghosts) { // We don't want all of them to show up at once :)
                 if (ed.ghosts[i].rx != ed.levx || ed.ghosts[i].ry != ed.levy)
                     continue;
-                point tpoint;
+                SDL_Point tpoint;
                 tpoint.x = ed.ghosts[i].x;
                 tpoint.y = ed.ghosts[i].y;
                 SDL_Color ct = ed.ghosts[i].realcol;

@@ -13,10 +13,4 @@ float inline fRandom(void)
     return ( float(rand()) / float(RAND_MAX)) ;
 }
 
-struct point
-{
-    int x;
-    int y;
-};
-
 #endif /* MATHGAME_H */

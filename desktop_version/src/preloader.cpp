@@ -5,6 +5,7 @@
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
 #include "Localization.h"
+#include "Maths.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 

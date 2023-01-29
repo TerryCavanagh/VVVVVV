@@ -3195,7 +3195,7 @@ void teleporterinput(void)
         {
             for (size_t i = 0; i < map.teleporters.size(); i++)
             {
-                point& tele = map.teleporters[i];
+                SDL_Point& tele = map.teleporters[i];
 
                 if (map.isexplored(tele.x, tele.y))
                 {

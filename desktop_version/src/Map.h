@@ -5,7 +5,6 @@
 
 #include "Finalclass.h"
 #include "Labclass.h"
-#include "Maths.h"
 #include "Otherlevel.h"
 #include "Spacestation2.h"
 #include "Tower.h"
@@ -154,8 +153,8 @@ public:
     int final_colorframe, final_colorframedelay;
 
     //Teleporters and Trinkets on the map
-    std::vector<point> teleporters;
-    std::vector<point> shinytrinkets;
+    std::vector<SDL_Point> teleporters;
+    std::vector<SDL_Point> shinytrinkets;
 
     bool showteleporters, showtargets, showtrinkets;
 

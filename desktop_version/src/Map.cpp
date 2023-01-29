@@ -10,6 +10,7 @@
 #include "Graphics.h"
 #include "Localization.h"
 #include "MakeAndPlay.h"
+#include "Maths.h"
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
@@ -156,7 +157,7 @@ void mapclass::setteleporter(int x, int y)
         return;
     }
 
-    point temp;
+    SDL_Point temp;
     temp.x = x;
     temp.y = y;
     teleporters.push_back(temp);
@@ -169,7 +170,7 @@ void mapclass::settrinket(int x, int y)
         return;
     }
 
-    point temp;
+    SDL_Point temp;
     temp.x = x;
     temp.y = y;
     shinytrinkets.push_back(temp);

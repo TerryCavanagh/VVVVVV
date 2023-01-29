@@ -7,7 +7,6 @@
 
 #include "Game.h"
 #include "GraphicsResources.h"
-#include "Maths.h"
 #include "Textbox.h"
 #include "TowerBG.h"
 
@@ -246,7 +245,7 @@ public:
     void renderfixedpre(void);
     void renderfixedpost(void);
 
-    bool Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, point p2);
+    bool Hitest(SDL_Surface* surface1, SDL_Point p1, SDL_Surface* surface2, SDL_Point p2);
 
     void drawentities(void);
 

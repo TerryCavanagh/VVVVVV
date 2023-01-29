@@ -13,6 +13,7 @@
 #include "GraphicsUtil.h"
 #include "Localization.h"
 #include "Map.h"
+#include "Maths.h"
 #include "Music.h"
 #include "RoomnameTranslator.h"
 #include "Screen.h"
@@ -2006,7 +2007,7 @@ void Graphics::drawcoloredtile(
 }
 
 
-bool Graphics::Hitest(SDL_Surface* surface1, point p1, SDL_Surface* surface2, point p2)
+bool Graphics::Hitest(SDL_Surface* surface1, SDL_Point p1, SDL_Surface* surface2, SDL_Point p2)
 {
 
     //find rectangle where they intersect:
@@ -2255,7 +2256,7 @@ void Graphics::drawentity(const int i, const int yoff)
         return;
     }
 
-    point tpoint;
+    SDL_Point tpoint;
 
     SDL_Rect drawRect;
 
@@ -2290,7 +2291,7 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
         //screenwrapping!
-        point wrappedPoint;
+        SDL_Point wrappedPoint;
         bool wrapX = false;
         bool wrapY = false;
 

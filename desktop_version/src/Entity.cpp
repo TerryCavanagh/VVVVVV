@@ -9,6 +9,7 @@
 #include "Graphics.h"
 #include "Localization.h"
 #include "Map.h"
+#include "Maths.h"
 #include "Music.h"
 #include "Script.h"
 #include "UtilityClass.h"
@@ -4777,10 +4778,10 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
             if (entities[i].size == 0 && (entities[j].size == 0 || entities[j].size == 12))
             {
                 //They're both sprites, so do a per pixel collision
-                point colpoint1;
+                SDL_Point colpoint1;
                 colpoint1.x = entities[i].xp;
                 colpoint1.y = entities[i].yp;
-                point colpoint2;
+                SDL_Point colpoint2;
                 colpoint2.x = entities[j].xp;
                 colpoint2.y = entities[j].yp;
                 int drawframe1 = entities[i].collisiondrawframe;
