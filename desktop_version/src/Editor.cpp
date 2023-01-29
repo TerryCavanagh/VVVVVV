@@ -1313,6 +1313,9 @@ void editorrender(void)
     }
     else
     {
+        char coords[8];
+        SDL_snprintf(coords, sizeof(coords), "(%d,%d)", ed.levx+1, ed.levy+1);
+
         if(ed.spacemod)
         {
             graphics.fill_rect(0,207,320,240, graphics.getRGB(32,32,32));
@@ -1493,8 +1496,6 @@ void editorrender(void)
             graphics.fill_rect(0,207-bgheight,toolnamelen+7,bgheight, graphics.getRGB(0,0,0));
             font::print(PR_BOR | PR_CJK_HIGH, 2,198, toolname, 196, 196, 255 - help.glow);
 
-            char coords[8];
-            SDL_snprintf(coords, sizeof(coords), "(%d,%d)", ed.levx+1, ed.levy+1);
             int coordslen = font::len(0, coords);
             graphics.fill_rect(319-coordslen-8,206-bgheight,coordslen+8,bgheight+1, graphics.getRGB(32,32,32));
             graphics.fill_rect(320-coordslen-8,207-bgheight,coordslen+8,bgheight, graphics.getRGB(0,0,0));
@@ -1506,20 +1507,29 @@ void editorrender(void)
             //graphics.fill_rect(0,231,71,240, graphics.RGB(0,0,0));
             if(room->roomname!="")
             {
-                graphics.footerrect.y = 230 + ed.roomnamehide;
+                int font_height = font::height(PR_FONT_LEVEL);
+                if (font_height <= 8)
+                {
+                    graphics.footerrect.h = font_height + 2;
+                }
+                else
+                {
+                    graphics.footerrect.h = font_height + 1;
+                }
+                graphics.footerrect.y = 240 - graphics.footerrect.h + ed.roomnamehide;
 
                 graphics.set_blendmode(SDL_BLENDMODE_BLEND);
                 graphics.fill_rect(&graphics.footerrect, graphics.getRGBA(0, 0, 0, graphics.translucentroomname ? 127 : 255));
                 graphics.set_blendmode(SDL_BLENDMODE_NONE);
 
-                font::print(PR_CEN | PR_BOR | PR_FONT_LEVEL | PR_CJK_LOW, -1, 231+ed.roomnamehide, room->roomname, 196, 196, 255 - help.glow);
-                font::print(PR_BOR | PR_CJK_HIGH, 4, 222, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
-                font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 222, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")", 196, 196, 255 - help.glow);
+                font::print(PR_CEN | PR_BOR | PR_FONT_LEVEL | PR_CJK_LOW, -1, graphics.footerrect.y+1+ed.roomnamehide, room->roomname, 196, 196, 255 - help.glow);
+                font::print(PR_BOR | PR_CJK_HIGH, 4, 232-graphics.footerrect.h, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
+                font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 232-graphics.footerrect.h, coords, 196, 196, 255 - help.glow);
             }
             else
             {
                 font::print(PR_BOR | PR_CJK_HIGH, 4, 232, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
-                font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 232, "("+help.String(ed.levx+1)+","+help.String(ed.levy+1)+")", 196, 196, 255 - help.glow);
+                font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 232, coords, 196, 196, 255 - help.glow);
             }
         }
 
@@ -1772,7 +1782,7 @@ void editorrenderfixed(void)
         }
         else
         {
-            if (ed.roomnamehide < 12)
+            if (ed.roomnamehide < 14)
             {
                 ed.roomnamehide++;
             }
@@ -1786,7 +1796,7 @@ void editorrenderfixed(void)
         }
         else
         {
-            ed.roomnamehide = 12;
+            ed.roomnamehide = 14;
         }
     }
 }
