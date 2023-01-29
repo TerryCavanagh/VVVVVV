@@ -5,6 +5,7 @@
 
 #include "Alloc.h"
 #include "Constants.h"
+#include "Exit.h"
 #include "FileSystemUtils.h"
 #include "Game.h"
 #include "Graphics.h"
@@ -56,7 +57,19 @@ void Screen::init(const struct ScreenSettings* settings)
         SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI
     );
 
+    if (m_window == NULL)
+    {
+        vlog_error("Could not create window: %s", SDL_GetError());
+        VVV_exit(1);
+    }
+
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+
+    if (m_renderer == NULL)
+    {
+        vlog_error("Could not create renderer: %s", SDL_GetError());
+        VVV_exit(1);
+    }
 
 #ifdef INTERIM_VERSION_EXISTS
     /* Branch name limits are ill-defined but on GitHub it's ~256 chars
