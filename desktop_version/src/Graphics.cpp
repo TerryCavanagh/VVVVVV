@@ -13,6 +13,7 @@
 #include "GraphicsUtil.h"
 #include "Localization.h"
 #include "Map.h"
+#include "MathParser.h"
 #include "Music.h"
 #include "RoomnameTranslator.h"
 #include "Screen.h"
@@ -3211,6 +3212,35 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
 
 SDL_Color Graphics::getcol( int t )
 {
+#if !defined(NO_CUSTOM_LEVELS)
+    if (cl.entcolours.count(t) != 0)
+    {
+        CustomEntityColour &colour = cl.entcolours[t];
+        if (colour.synced && (colour.tick == game.framecounter)) {
+            return colour.colour;
+        }
+
+        colour.tick = game.framecounter;
+        std::string input = colour.input;
+
+        MathParser::ResetEnvironment();
+        MathParser::SetVariable("r", 255);
+        MathParser::SetVariable("g", 255);
+        MathParser::SetVariable("b", 255);
+        MathParser::SetVariable("glow", help.glow);
+        MathParser::SetVariable("ticks", game.framecounter);
+        MathParser::ExpressionOutput value = MathParser::ParseExpression(input);
+        if (!value.success)
+        {
+            // Might be worth it to display value.error somewhere?
+            return getRGB(255, 255, 255);
+        }
+        colour.colour = getRGB(MathParser::variables.at("r"), MathParser::variables.at("g"), MathParser::variables.at("b"));
+        return colour.colour;
+    }
+#endif
+    int temp;
+
     //Setup predefinied colours as per our zany palette
     switch(t)
     {

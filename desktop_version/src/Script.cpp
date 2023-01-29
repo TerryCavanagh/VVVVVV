@@ -111,6 +111,13 @@ void scriptclass::tokenize( const std::string& t )
 
 static int getcolorfromname(std::string name)
 {
+#if !defined(NO_CUSTOM_LEVELS)
+    // It's a color alias! Return the color
+    if (cl.entcolour_aliases.count(name) != 0)
+    {
+        return cl.entcolour_aliases.at(name);
+    }
+#endif
     if      (name == "player")     return CYAN;
     else if (name == "cyan")       return CYAN;
     else if (name == "red")        return RED;

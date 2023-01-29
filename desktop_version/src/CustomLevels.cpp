@@ -3,6 +3,7 @@
 #define CL_DEFINITION
 #include "CustomLevels.h"
 
+#include <algorithm>
 #include <physfs.h>
 #include <stdio.h>
 #include <string>
@@ -377,6 +378,9 @@ void customlevelclass::reset(void)
     script.clearcustom();
 
     onewaycol_override = false;
+
+    entcolours.clear();
+    entcolour_aliases.clear();
 }
 
 const int* customlevelclass::loadlevel( int rxi, int ryi )
@@ -1267,6 +1271,49 @@ next:
                 script.customscripts.push_back(script_);
             }
         }
+
+        if (SDL_strcmp(pKey, "EntityColours") == 0)
+        {
+            for (tinyxml2::XMLElement* entityColourElement = pElem->FirstChildElement(); entityColourElement; entityColourElement = entityColourElement->NextSiblingElement())
+            {
+                if (SDL_strcmp(entityColourElement->Value(), "colour") == 0)
+                {
+                    std::string text = "r = 255|g = 255|b = 255";
+
+                    if (entityColourElement->GetText() != NULL)
+                    {
+                        text = std::string(entityColourElement->GetText());
+                    }
+
+                    CustomEntityColour colour;
+                    colour.tick = UINT32_MAX;
+                    colour.colour = graphics.getRGB(255, 255, 255);
+
+                    std::replace(text.begin(), text.end(), '|', '\n');
+
+                    colour.input = text;
+
+                    colour.synced = entityColourElement->BoolAttribute("synced", false);
+                    int id = entityColourElement->IntAttribute("id", 0);
+                    const char* name = entityColourElement->Attribute("name");
+                    if (name != NULL)
+                    {
+                        entcolour_aliases[name] = id;
+                    }
+                    entcolours[id] = colour;
+                }
+                else if (SDL_strcmp(entityColourElement->Value(), "alias") == 0)
+                {
+                    int id = entityColourElement->IntAttribute("id", 0);
+                    const char* name = entityColourElement->Attribute("name");
+                    if (name != NULL)
+                    {
+                        entcolour_aliases[name] = id;
+                    }
+                }
+            }
+        }
+
     }
 
     if (mapwidth < maxwidth)
