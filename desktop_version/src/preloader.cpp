@@ -3,8 +3,8 @@
 #include "Game.h"
 #include "Graphics.h"
 #include "GraphicsUtil.h"
-#include "Localization.h"
 #include "KeyPoll.h"
+#include "Localization.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
