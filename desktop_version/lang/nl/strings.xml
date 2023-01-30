@@ -35,7 +35,6 @@
     <string english="secret lab" translation="geheim lab" explanation="menu option"/>
     <string english="play modes" translation="spelmodi" explanation="menu option"/>
     <string english="ERROR: No levels found." translation="FOUT: Geen levels gevonden." explanation="" max="38*3"/>
-    <string english="by {author}" translation="door {author}" explanation="{author}: author of custom level, appears in the custom levels list and editor"/>
     <string english="ERROR: This level has no start point!" translation="FOUT: Dit level heeft geen startpunt!" explanation="" max="38*5"/>
     <string english="ERROR" translation="FOUT" explanation="title" max="20"/>
     <string english="WARNING" translation="WAARSCHUWING" explanation="title" max="20"/>

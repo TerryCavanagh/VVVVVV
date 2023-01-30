@@ -207,15 +207,8 @@ static void menurender(void)
                 uint32_t creator_flags = cl.ListOfMetaData[tmp].creator_is_gettext ? PR_FONT_INTERFACE : level_flags;
 
                 font::print(title_flags | PR_2X | PR_CEN, -1, 15, cl.ListOfMetaData[tmp].title, tr, tg, tb);
-                char creatorline[SCREEN_WIDTH_CHARS + 1];
-                vformat_buf(
-                    creatorline, sizeof(creatorline),
-                    loc::gettext("by {author}"),
-                    "author:str",
-                    cl.ListOfMetaData[tmp].creator.c_str()
-                );
                 int sp = SDL_max(10, font::height(level_flags));
-                font::print(creator_flags | PR_CEN, -1, 40, creatorline, tr, tg, tb);
+                graphics.print_level_creator(creator_flags, 40, cl.ListOfMetaData[tmp].creator, tr, tg, tb);
                 font::print(level_flags | PR_CEN, -1, 40+sp, cl.ListOfMetaData[tmp].website, tr, tg, tb);
                 font::print(level_flags | PR_CEN, -1, 40+sp*3, cl.ListOfMetaData[tmp].Desc1, tr, tg, tb);
                 font::print(level_flags | PR_CEN, -1, 40+sp*4, cl.ListOfMetaData[tmp].Desc2, tr, tg, tb);
@@ -2604,15 +2597,8 @@ void maprender(void)
             uint32_t creator_flags = meta.creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL;
 
             font::print(title_flags | PR_2X | PR_CEN, -1, FLIP(45, 8), meta.title, 196, 196, 255 - help.glow);
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(
-                buffer, sizeof(buffer),
-                loc::gettext("by {author}"),
-                "author:str",
-                meta.creator.c_str()
-            );
             int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
-            font::print(creator_flags | PR_CEN, -1, FLIP(70, 8), buffer, 196, 196, 255 - help.glow);
+            graphics.print_level_creator(creator_flags, FLIP(70, 8), meta.creator, 196, 196, 255 - help.glow);
             font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(70+sp, 8), meta.website, 196, 196, 255 - help.glow);
             font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(70+sp*3, 8), meta.Desc1, 196, 196, 255 - help.glow);
             font::print(PR_FONT_LEVEL | PR_CEN, -1, FLIP(70+sp*4, 8), meta.Desc2, 196, 196, 255 - help.glow);
@@ -2623,6 +2609,7 @@ void maprender(void)
 
             int remaining = cl.numcrewmates() - game.crewmates();
 
+            char buffer[SCREEN_WIDTH_CHARS + 1];
             loc::gettext_plural_fill(
                 buffer, sizeof(buffer),
                 "{n_crew|wordy} crewmates remain",

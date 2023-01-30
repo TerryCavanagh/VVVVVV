@@ -167,6 +167,15 @@ public:
 
     void printcrewnamestatus(int x, int y, int t, bool rescued);
 
+    void print_level_creator(
+        uint32_t print_flags,
+        int y,
+        const std::string& creator,
+        uint8_t r,
+        uint8_t g,
+        uint8_t b
+    );
+
     int set_render_target(SDL_Texture* texture);
 
     int set_texture_color_mod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b);

@@ -360,15 +360,8 @@ static void editormenurender(int tr, int tg, int tb)
         {
             creator = translate_creator(cl.creator, &creator_is_gettext);
         }
-        char creatorline[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(
-            creatorline, sizeof(creatorline),
-            loc::gettext("by {author}"),
-            "author:str",
-            creator.c_str()
-        );
         int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
-        font::print(PR_CEN | (creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), -1, 60, creatorline, tr, tg, tb);
+        graphics.print_level_creator((creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), 60, creator, tr, tg, tb);
 
         if(ed.websitemod)
         {
