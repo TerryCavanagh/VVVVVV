@@ -444,6 +444,30 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
     font::print(0, x, y, status_text, r, g, b);
 }
 
+void Graphics::print_level_creator(
+    const uint32_t print_flags,
+    const int y,
+    const std::string& creator,
+    const uint8_t r,
+    const uint8_t g,
+    const uint8_t b
+) {
+    /* We now display a face instead of "by {author}" for several reasons:
+     * - "by" may be in a different language than the author and look weird ("por various people")
+     * - "by" will be longer in different languages and break the limit that levels assume
+     * - "by" and author may need mutually incompatible fonts, e.g. Japanese level in Korean VVVVVV
+     * - avoids likely grammar problems: male/female difference, name inflection in user-written text...
+     * - it makes sense to make it a face
+     * - if anyone is sad about this decision, the happy face will cheer them up anyway :D */
+    int width_for_face = 17;
+    int total_width = width_for_face + font::len(print_flags, creator);
+    int face_x = (SCREEN_WIDTH_PIXELS-total_width)/2;
+    set_texture_color_mod(grphx.im_sprites, r, g, b);
+    draw_texture_part(grphx.im_sprites, face_x, y-1, 7, 2, 10, 10, 1, 1);
+    set_texture_color_mod(grphx.im_sprites, 255, 255, 255);
+    font::print(print_flags, face_x+width_for_face, y, creator, r, g, b);
+}
+
 int Graphics::set_render_target(SDL_Texture* texture)
 {
     const int result = SDL_SetRenderTarget(gameScreen.m_renderer, texture);
