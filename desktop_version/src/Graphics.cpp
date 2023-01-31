@@ -843,11 +843,11 @@ void Graphics::drawgui(void)
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
                 font::print(
-                    textboxes[i].print_flags | PR_COLORGLYPH_BRI(tl_lerp*255) | PR_CJK_LOW,
+                    textboxes[i].print_flags | PR_BRIGHTNESS(tl_lerp*255) | PR_CJK_LOW,
                     textboxes[i].xp + 8,
                     yp + text_yoff + text_sign * (j * font_height),
                     textboxes[i].lines[j],
-                    r, g, b
+                    textboxes[i].r, textboxes[i].g, textboxes[i].b
                 );
             }
         }
@@ -1696,22 +1696,15 @@ void Graphics::drawgravityline( int t )
 
 void Graphics::drawtrophytext(void)
 {
-    int temp, temp2, temp3;
     int brightness;
 
     if (obj.trophytext < 15)
     {
         const int usethismult = lerp(obj.oldtrophytext, obj.trophytext);
-        temp = (196 * usethismult) / 15;
-        temp2 = (196 * usethismult) / 15;
-        temp3 = ((255 - help.glow) * usethismult) / 15;
         brightness = (usethismult/15.0)*255;
     }
     else
     {
-        temp = 196;
-        temp2 = 196;
-        temp3 = 255 - help.glow;
         brightness = 255;
     }
 
@@ -1795,12 +1788,12 @@ void Graphics::drawtrophytext(void)
     if (top_text != NULL)
     {
         font::string_wordwrap(0, top_text, 304, &lines);
-        font::print_wrap(PR_CEN | PR_COLORGLYPH_BRI(brightness) | PR_BOR, -1, 11-(lines-1)*5, top_text, temp, temp2, temp3);
+        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 11-(lines-1)*5, top_text, 196, 196, 255 - help.glow);
     }
     if (bottom_text != NULL)
     {
         font::string_wordwrap(0, bottom_text, 304, &lines);
-        font::print_wrap(PR_CEN | PR_COLORGLYPH_BRI(brightness) | PR_BOR, -1, 221-(lines-1)*5, bottom_text, temp, temp2, temp3);
+        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 221-(lines-1)*5, bottom_text, 196, 196, 255 - help.glow);
     }
 }
 
