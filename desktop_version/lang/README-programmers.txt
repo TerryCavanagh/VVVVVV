@@ -53,7 +53,8 @@ A not-technically-exhaustive list of all flags (which are defined in Font.h):
 - PR_FONT_LEVEL          Use level-specific font (room names, cutscenes, etc)
 - PR_FONT_8X8            Use 8x8 font no matter what
 - PR_BRIGHTNESS(value)   Use this brightness 0-255 (this value is mixed with
-                         r, g and b for an alpha effect)
+                         r, g and b for an alpha effect, and accounts for
+                         colored glyphs correctly)
 - PR_BOR                 Draw a black border around the text
 - PR_LEFT                [DEFAULT] Left-align text/place at X coordinate
 - PR_CEN                 Center-align text relative to X (X is center)

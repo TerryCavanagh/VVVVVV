@@ -58,8 +58,7 @@ struct PrintFlags
 {
     uint8_t scale;
     Font* font_sel;
-    uint8_t alpha;
-    uint8_t colorglyph_bri;
+    uint8_t brightness;
     bool border;
     bool align_cen;
     bool align_right;
@@ -657,18 +656,7 @@ static PrintFlags decode_print_flags(uint32_t flags)
     PrintFlags pf;
     pf.scale = FLAG_PART(0, 3) + 1;
     pf.font_sel = fontsel_to_font(FLAG_PART(3, 5));
-
-    if (flags & PR_AB_IS_BRI)
-    {
-        pf.alpha = 255;
-        pf.colorglyph_bri = ~FLAG_PART(8, 8) & 0xff;
-    }
-    else
-    {
-        pf.alpha = ~FLAG_PART(8, 8) & 0xff;
-        pf.colorglyph_bri = 255;
-    }
-
+    pf.brightness = ~FLAG_PART(8, 8) & 0xff;
     pf.border = flags & PR_BOR;
     pf.align_cen = flags & PR_CEN;
     pf.align_right = flags & PR_RIGHT;
@@ -929,8 +917,7 @@ static int print_char(
     uint8_t r,
     uint8_t g,
     uint8_t b,
-    const uint8_t a,
-    const uint8_t colorglyph_bri
+    const uint8_t brightness
 )
 {
     /* Draws the glyph for a codepoint at x,y.
@@ -943,10 +930,17 @@ static int print_char(
 
     if (glyph->flags & GLYPH_COLOR && (r | g | b) != 0)
     {
-        r = g = b = colorglyph_bri;
+        r = g = b = brightness;
+    }
+    else if (brightness < 255)
+    {
+        float bri_factor = brightness / (float) 255;
+        r *= bri_factor;
+        g *= bri_factor;
+        b *= bri_factor;
     }
 
-    graphics.draw_grid_tile(f->image, glyph->image_idx, x, y, f->glyph_w, f->glyph_h, r, g, b, a, scale, scale * (graphics.flipmode ? -1 : 1));
+    graphics.draw_grid_tile(f->image, glyph->image_idx, x, y, f->glyph_w, f->glyph_h, r, g, b, scale, scale * (graphics.flipmode ? -1 : 1));
 
     return glyph->advance * scale;
 }
@@ -1137,8 +1131,7 @@ void print(
             r,
             g,
             b,
-            pf.alpha,
-            pf.colorglyph_bri
+            pf.brightness
         );
     }
 }

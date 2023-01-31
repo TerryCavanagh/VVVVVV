@@ -1961,11 +1961,15 @@ void gamerender(void)
     }
 
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-     if(map.custommode && !map.custommodeforreal && !game.advancetext){
+    if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
         int alpha = graphics.lerp(ed.oldreturneditoralpha, ed.returneditoralpha);
-        font::print(PR_ALPHA(alpha) | PR_BOR, 5, 5, loc::gettext("[Press ENTER to return to editor]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-      }
+
+        if (alpha > 100)
+        {
+            font::print(PR_BRIGHTNESS(alpha) | PR_BOR, 5, 5, loc::gettext("[Press ENTER to return to editor]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        }
+    }
 #endif
 
 
@@ -1997,13 +2001,13 @@ void gamerender(void)
         int alpha = graphics.lerp(game.oldreadytotele, game.readytotele);
 
         font::print(
-            PR_COLORGLYPH_BRI(alpha) | PR_CEN | PR_BOR,
+            PR_BRIGHTNESS(alpha) | PR_CEN | PR_BOR,
             -1,
             graphics.flipmode ? 20 : 210,
             final_string,
-            alpha - 20 - (help.glow / 2),
-            alpha - 20 - (help.glow / 2),
-            alpha
+            235 - (help.glow / 2),
+            235 - (help.glow / 2),
+            255
         );
     }
 
@@ -2223,13 +2227,13 @@ void gamerender(void)
         if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
         {
             font::print(
-                game.activity_print_flags | PR_COLORGLYPH_BRI(act_alpha*255),
+                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255),
                 centered_x + game.activity_x,
                 game.activity_y + 12,
                 final_string,
-                196*act_alpha,
-                196*act_alpha,
-                (255 - help.glow)*act_alpha
+                196,
+                196,
+                255 - help.glow
             );
         }
         else
@@ -2244,13 +2248,13 @@ void gamerender(void)
                 game.activity_b*act_alpha
             );
             font::print(
-                game.activity_print_flags | PR_COLORGLYPH_BRI(act_alpha*255) | PR_CJK_LOW,
+                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW,
                 centered_x + game.activity_x,
                 game.activity_y + 12,
                 final_string,
-                game.activity_r*act_alpha,
-                game.activity_g*act_alpha,
-                game.activity_b*act_alpha
+                game.activity_r,
+                game.activity_g,
+                game.activity_b
             );
         }
     }
