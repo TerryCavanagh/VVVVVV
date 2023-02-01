@@ -231,7 +231,7 @@ void scriptclass::run(void)
                 const RoomProperty* const room = cl.getroomprop(ss_toi(words[1])-1, ss_toi(words[2])-1);
                 if (room->warpdir == ss_toi(words[3]))
                 {
-                    load("custom_" + raw_words[4]);
+                    loadalts("custom_" + words[4], "custom_" + raw_words[4]);
                     position--;
                 }
             }
@@ -264,7 +264,7 @@ void scriptclass::run(void)
             {
                 if (game.trinkets() >= ss_toi(words[1]))
                 {
-                    load("custom_" + raw_words[2]);
+                    loadalts("custom_" + words[2], "custom_" + raw_words[2]);
                     position--;
                 }
             }
@@ -272,7 +272,7 @@ void scriptclass::run(void)
             {
                 if (game.trinkets() < ss_toi(words[1]))
                 {
-                    load("custom_" + raw_words[2]);
+                    loadalts("custom_" + words[2], "custom_" + raw_words[2]);
                     position--;
                 }
             }
@@ -281,7 +281,7 @@ void scriptclass::run(void)
                 int flag = ss_toi(words[1]);
                 if (INBOUNDS_ARR(flag, obj.flags) && obj.flags[flag])
                 {
-                    load("custom_" + raw_words[2]);
+                    loadalts("custom_" + words[2], "custom_" + raw_words[2]);
                     position--;
                 }
             }
@@ -1189,7 +1189,7 @@ void scriptclass::run(void)
             {
                 if (map.isexplored(ss_toi(words[1]), ss_toi(words[2])))
                 {
-                    load(raw_words[3]);
+                    loadalts(words[3], raw_words[3]);
                     position--;
                 }
             }
@@ -1197,7 +1197,7 @@ void scriptclass::run(void)
             {
                 if (game.lastsaved==ss_toi(words[1]))
                 {
-                    load(raw_words[2]);
+                    loadalts(words[2], raw_words[2]);
                     position--;
                 }
             }
@@ -1205,7 +1205,7 @@ void scriptclass::run(void)
             {
                 if (game.nocutscenes)
                 {
-                    load(raw_words[1]);
+                    loadalts(words[1], raw_words[1]);
                     position--;
                 }
             }
@@ -1214,7 +1214,7 @@ void scriptclass::run(void)
                 int flag = ss_toi(words[1]);
                 if (INBOUNDS_ARR(flag, obj.flags) && obj.flags[flag])
                 {
-                    load(raw_words[2]);
+                    loadalts(words[2], raw_words[2]);
                     position--;
                 }
             }
@@ -1223,7 +1223,7 @@ void scriptclass::run(void)
                 int crewmate = ss_toi(words[1]);
                 if (INBOUNDS_ARR(crewmate, game.crewstats) && !game.crewstats[crewmate])
                 {
-                    load(raw_words[2]);
+                    loadalts(words[2], raw_words[2]);
                     position--;
                 }
             }
@@ -1231,7 +1231,7 @@ void scriptclass::run(void)
             {
                 if (game.trinkets() >= ss_toi(words[1]))
                 {
-                    load(raw_words[2]);
+                    loadalts(words[2], raw_words[2]);
                     position--;
                 }
             }
@@ -1239,7 +1239,7 @@ void scriptclass::run(void)
             {
                 if (game.stat_trinkets < ss_toi(words[1]))
                 {
-                    load(raw_words[2]);
+                    loadalts(words[2], raw_words[2]);
                     position--;
                 }
             }
@@ -1413,7 +1413,7 @@ void scriptclass::run(void)
             }
             else if (words[0] == "loadscript")
             {
-                load(raw_words[1]);
+                loadalts(words[1], raw_words[1]);
                 position--;
             }
             else if (words[0] == "rollcredits")
@@ -2414,7 +2414,7 @@ void scriptclass::run(void)
             {
                 if (loc::lang == words[1])
                 {
-                    load("custom_" + raw_words[2]);
+                    loadalts("custom_" + words[2], "custom_" + raw_words[2]);
                     position--;
                 }
             }
@@ -3226,7 +3226,7 @@ void scriptclass::hardreset(void)
     obj.customactivitypositiony = -1;
 }
 
-void scriptclass::loadcustom(const std::string& t)
+bool scriptclass::loadcustom(const std::string& t)
 {
     //this magic function breaks down the custom script and turns into real scripting!
     std::string cscriptname="";
@@ -3246,7 +3246,7 @@ void scriptclass::loadcustom(const std::string& t)
         }
     }
     if(contents == NULL){
-        return;
+        return false;
     }
 
     std::vector<std::string>& lines = *contents;
@@ -3513,6 +3513,17 @@ void scriptclass::loadcustom(const std::string& t)
     if(customcutscenemode==1){
         add("endcutscene()");
         add("untilbars()");
+    }
+
+    return true;
+}
+
+void scriptclass::loadalts(const std::string& processed, const std::string& raw)
+{
+    const bool exists = load(processed);
+    if (!exists)
+    {
+        load(raw);
     }
 }
 

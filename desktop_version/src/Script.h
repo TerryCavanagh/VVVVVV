@@ -63,9 +63,10 @@ public:
 
     scriptclass(void);
 
-    void load(const std::string& name);
+    bool load(const std::string& name);
     void loadother(const char* t);
-    void loadcustom(const std::string& t);
+    bool loadcustom(const std::string& t);
+    void loadalts(const std::string& processed, const std::string& raw);
 
     void add_test_line(const std::string& speaker, const std::string& english, char textcase);
     void loadtest(const std::string& name);

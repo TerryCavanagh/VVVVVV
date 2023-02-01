@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 
-void scriptclass::load(const std::string& name)
+bool scriptclass::load(const std::string& name)
 {
     //loads script name t into the array
     position = 0;
@@ -14,7 +14,7 @@ void scriptclass::load(const std::string& name)
 
     if (SDL_strncmp(t, "custom_", 7) == 0)
     {
-        loadcustom(name);
+        return loadcustom(name);
     }
     else if (SDL_strcmp(t, "intro") == 0)
     {
@@ -420,7 +420,6 @@ void scriptclass::load(const std::string& name)
         "untilbars()",
         };
         filllines(lines);
-        return;
     }
     if (SDL_strcmp(t, "communicationstation") == 0)
     {
@@ -6763,4 +6762,5 @@ void scriptclass::load(const std::string& name)
         loadother(t);
     }
 
+    return !commands.empty();
 }
