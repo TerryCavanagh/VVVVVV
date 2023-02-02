@@ -281,7 +281,7 @@ static uint8_t load_font(FontContainer* container, const char* name)
     }
     if (charmap != NULL)
     {
-        charset_loaded = true;
+        // We have a .txt! It's an obsolete system, but it takes priority if the file exists.
         unsigned char* current = charmap;
         unsigned char* end = charmap + length;
         int pos = 0;
@@ -293,73 +293,31 @@ static uint8_t load_font(FontContainer* container, const char* name)
         }
 
         VVV_free(charmap);
+        charset_loaded = true;
     }
 
-    if (xml_loaded)
+    if (xml_loaded && !charset_loaded && (pElem = hDoc.FirstChildElement("chars").ToElement()) != NULL)
     {
-        if (!charset_loaded && (pElem = hDoc.FirstChildElement("chars").ToElement()) != NULL)
+        // <chars> in the XML is the preferred system.
+        int pos = 0;
+        tinyxml2::XMLElement* subElem;
+        FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
         {
-            // <chars> in the XML is only looked at if we haven't already seen font.txt.
-            int pos = 0;
-            tinyxml2::XMLElement* subElem;
-            FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+            EXPECT_ELEM(subElem, "range");
+
+            unsigned start, end;
+            if (!decode_xml_range(subElem, &start, &end))
             {
-                EXPECT_ELEM(subElem, "range");
-
-                unsigned start, end;
-                if (!decode_xml_range(subElem, &start, &end))
-                {
-                    continue;
-                }
-
-                for (uint32_t codepoint = start; codepoint <= end; codepoint++)
-                {
-                    add_glyphinfo(f, codepoint, pos);
-                    ++pos;
-                }
+                continue;
             }
-            charset_loaded = true;
-        }
 
-        if ((pElem = hDoc.FirstChildElement("special").ToElement()) != NULL)
-        {
-            tinyxml2::XMLElement* subElem;
-            FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+            for (uint32_t codepoint = start; codepoint <= end; codepoint++)
             {
-                EXPECT_ELEM(subElem, "range");
-
-                unsigned start, end;
-                if (!decode_xml_range(subElem, &start, &end))
-                {
-                    continue;
-                }
-
-                int advance = subElem->IntAttribute("advance", -1);
-                int color = subElem->IntAttribute("color", -1);
-
-                for (uint32_t codepoint = start; codepoint <= end; codepoint++)
-                {
-                    GlyphInfo* glyph = get_glyphinfo(f, codepoint);
-                    if (glyph == NULL)
-                    {
-                        continue;
-                    }
-                    if (advance >= 0 && advance < 256)
-                    {
-                        glyph->advance = advance;
-                    }
-                    if (color == 0)
-                    {
-                        glyph->flags &= ~GLYPH_COLOR;
-                    }
-                    else if (color == 1)
-                    {
-                        glyph->flags |= GLYPH_COLOR;
-                    }
-                }
+                add_glyphinfo(f, codepoint, pos);
+                ++pos;
             }
-            special_loaded = true;
         }
+        charset_loaded = true;
     }
 
     if (!charset_loaded)
@@ -370,6 +328,46 @@ static uint8_t load_font(FontContainer* container, const char* name)
         {
             add_glyphinfo(f, codepoint, codepoint);
         }
+    }
+
+    if (xml_loaded && (pElem = hDoc.FirstChildElement("special").ToElement()) != NULL)
+    {
+        tinyxml2::XMLElement* subElem;
+        FOR_EACH_XML_SUB_ELEMENT(pElem, subElem)
+        {
+            EXPECT_ELEM(subElem, "range");
+
+            unsigned start, end;
+            if (!decode_xml_range(subElem, &start, &end))
+            {
+                continue;
+            }
+
+            int advance = subElem->IntAttribute("advance", -1);
+            int color = subElem->IntAttribute("color", -1);
+
+            for (uint32_t codepoint = start; codepoint <= end; codepoint++)
+            {
+                GlyphInfo* glyph = get_glyphinfo(f, codepoint);
+                if (glyph == NULL)
+                {
+                    continue;
+                }
+                if (advance >= 0 && advance < 256)
+                {
+                    glyph->advance = advance;
+                }
+                if (color == 0)
+                {
+                    glyph->flags &= ~GLYPH_COLOR;
+                }
+                else if (color == 1)
+                {
+                    glyph->flags |= GLYPH_COLOR;
+                }
+            }
+        }
+        special_loaded = true;
     }
 
     if (!special_loaded && f->glyph_w == 8 && f->glyph_h == 8)
