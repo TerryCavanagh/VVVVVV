@@ -397,7 +397,18 @@ int main(int argc, char *argv[])
         if (ARG("-version"))
         {
             /* Just print the version and exit. No vlogging. */
-            puts("VVVVVV " RELEASE_VERSION);
+            puts(
+                "VVVVVV " RELEASE_VERSION
+#ifdef MAKEANDPLAY
+                " [M&P]"
+#endif
+#ifdef NO_CUSTOM_LEVELS
+                " [no custom levels]"
+#endif
+#ifdef NO_EDITOR
+                " [no editor]"
+#endif
+            );
 #ifdef INTERIM_VERSION_EXISTS
             puts(COMMIT_DATE);
             puts(INTERIM_COMMIT);
