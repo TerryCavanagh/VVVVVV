@@ -275,6 +275,13 @@ if(MSVC)
     target_compile_options(VVVVVV PRIVATE /wd4244)
 endif()
 
+# Disable warnings about `long long` in C++03 (from including PhysFS)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(VVVVVV PRIVATE -Wno-long-long)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_compile_options(VVVVVV PRIVATE -Wno-c++11-long-long)
+endif()
+
 if(MSVC)
     # MSVC doesn't have /std:c99 or /std:c++98 switches!
 
