@@ -29,6 +29,7 @@
 #include "RenderFixed.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Unused.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
@@ -177,7 +178,9 @@ static const inline struct ImplFunc* get_gamestate_funcs(
         {Func_fixed, gamecompletelogic2},
     FUNC_LIST_END
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+#if defined(NO_CUSTOM_LEVELS) || defined(NO_EDITOR)
+        UNUSED(flipmodeoff);
+#else
     FUNC_LIST_BEGIN(EDITORMODE)
         {Func_fixed, flipmodeoff},
         {Func_input, editorinput},

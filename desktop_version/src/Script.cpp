@@ -19,6 +19,7 @@
 #include "Map.h"
 #include "Music.h"
 #include "Unreachable.h"
+#include "Unused.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"
@@ -2741,7 +2742,9 @@ void scriptclass::startgamemode(const enum StartMode mode)
         }
         break;
 
-#ifndef NO_CUSTOM_LEVELS
+#ifdef NO_CUSTOM_LEVELS
+        UNUSED(gotoerrorloadinglevel);
+#else
 # ifndef NO_EDITOR
     case Start_EDITOR:
         cl.reset();
@@ -2836,6 +2839,12 @@ void scriptclass::startgamemode(const enum StartMode mode)
 
     case Start_QUIT:
         VVV_unreachable();
+
+#if defined(NO_CUSTOM_LEVELS) || defined(NO_EDITOR)
+    /* Silence warnings about unhandled cases. */
+    default:
+        break;
+#endif
     }
 
     game.gravitycontrol = game.savegc;

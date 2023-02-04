@@ -13,6 +13,7 @@
 #include "Maths.h"
 #include "Music.h"
 #include "Script.h"
+#include "Unused.h"
 #include "UtilityClass.h"
 
 mapclass::mapclass(void)
@@ -1544,7 +1545,9 @@ void mapclass::loadlevel(int rx, int ry)
 
     switch(t)
     {
-#if !defined(MAKEANDPLAY)
+#ifdef MAKEANDPLAY
+        UNUSED(copy_short_to_int);
+#else
     case 0:
     case 1: //World Map
     {

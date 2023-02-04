@@ -25,6 +25,7 @@
 #include "RoomnameTranslator.h"
 #include "Screen.h"
 #include "Script.h"
+#include "Unused.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"
@@ -4207,7 +4208,9 @@ void Game::deletesettings(void)
 
 void Game::unlocknum( int t )
 {
-#if !defined(MAKEANDPLAY)
+#ifdef MAKEANDPLAY
+    UNUSED(t);
+#else
     if (map.custommode)
     {
         //Don't let custom levels unlock things!
@@ -6821,6 +6824,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("ok"));
         menuyoff = 50;
         break;
+#ifdef NO_CUSTOM_LEVELS
+    /* Silence warnings about unhandled cases. */
+    default:
+        break;
+#endif
     }
 
     // Automatically center the menu. We must check the width of the menu with the initial horizontal spacing.
@@ -7198,7 +7206,9 @@ void Game::returntoingame(void)
 
 void Game::unlockAchievement(const char* name)
 {
-#ifndef MAKEANDPLAY
+#ifdef MAKEANDPLAY
+    UNUSED(name);
+#else
     if (map.custommode)
     {
         return;
