@@ -95,6 +95,8 @@ public:
 
     void twoframedelayfix(void);
 
+    void setaltstate(int x, int y, int state);
+
 
     int roomdeaths[20 * 20];
     int roomdeathsfinal[20 * 20];

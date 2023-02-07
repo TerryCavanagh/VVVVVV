@@ -6339,7 +6339,7 @@ bool scriptclass::load(const std::string& name)
         "rescued(green)",
         "rescued(yellow)",
         "missing(blue)",
-        "altstates(1)",
+        "altstate(-1,-1,1)",
 
         "fadeout()",
         "untilfade()",
@@ -6605,7 +6605,7 @@ bool scriptclass::load(const std::string& name)
         "flash(10)",
         "shake(20)",
         "playef(23)",
-        "altstates(2)",
+        "altstate(-1,-1,2)",
         "gotoroom(17,6)",
 
         "delay(20)",
@@ -6614,7 +6614,7 @@ bool scriptclass::load(const std::string& name)
         "flash(10)",
         "shake(20)",
         "playef(23)",
-        "altstates(0)",
+        "altstate(-1,-1,0)",
         "gotoroom(17,6)",
 
         "delay(20)",

@@ -2308,3 +2308,21 @@ void mapclass::twoframedelayfix(void)
     game.setstatedelay(0);
     script.load(game.newscript);
 }
+
+void mapclass::setaltstate(int x, int y, int state)
+{
+#if !defined(NO_CUSTOM_LEVELS)
+    if (custommode)
+    {
+        cl.setroomaltstate(x, y, state);
+        if (game.roomx - 100 == x && game.roomy - 100 == y)
+        {
+            gotoroom(x + 100, y + 100);
+        }
+    }
+    else
+#endif
+    {
+        obj.altstates = state;
+    }
+}

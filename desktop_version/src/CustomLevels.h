@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <string>
 #include <vector>
+#include <map>
 
 class CustomEntity
 {
@@ -32,7 +33,8 @@ public:
     FOREACH_PROP(enemyx2, int) \
     FOREACH_PROP(enemyy2, int) \
     FOREACH_PROP(enemytype, int) \
-    FOREACH_PROP(directmode, int)
+    FOREACH_PROP(directmode, int) \
+    FOREACH_PROP(altstate, int)
 
 class RoomProperty
 {
@@ -158,6 +160,8 @@ public:
     SDL_Color getonewaycol(int rx, int ry);
     SDL_Color getonewaycol(void);
     bool onewaycol_override;
+
+    std::vector<std::vector<int> > altstates[numrooms];
 };
 
 std::string translate_title(const std::string& title);
