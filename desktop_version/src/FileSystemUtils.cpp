@@ -74,7 +74,7 @@ static const PHYSFS_Allocator allocator = {
     SDL_free
 };
 
-void mount_pre_datazip(
+static void mount_pre_datazip(
     char* out_path,
     const char* real_dirname,
     const char* mount_point,
