@@ -3200,7 +3200,10 @@ void Graphics::screenshake(void)
     }
 
     set_render_target(NULL);
-    copy_texture(tempTexture, NULL, NULL);
+    set_blendmode(SDL_BLENDMODE_NONE);
+    clear();
+
+    copy_texture(tempTexture, NULL, NULL, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 }
 
 void Graphics::updatescreenshake(void)
