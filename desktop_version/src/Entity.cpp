@@ -4242,31 +4242,35 @@ static int yline( int a, int b )
     return 1;
 }
 
-bool entityclass::entityhlinecollide( int t, int l )
+bool entityclass::entityhlinecollide(const int person_idx, const int line_idx)
 {
-    if (!INBOUNDS_VEC(t, entities) || !INBOUNDS_VEC(l, entities))
+    if (!INBOUNDS_VEC(person_idx, entities) || !INBOUNDS_VEC(line_idx, entities))
     {
         vlog_error("entityhlinecollide() out-of-bounds!");
         return false;
     }
 
-    //Returns true is entity t collided with the horizontal line l.
-    if(entities[t].xp + entities[t].cx+entities[t].w>=entities[l].xp)
+    const entclass* person = &entities[person_idx];
+    const entclass* line = &entities[line_idx];
+
+    const bool in_vicinity =
+        person->xp + person->cx + person->w >= line->xp &&
+        person->xp + person->cx <= line->xp + line->w;
+    if (!in_vicinity)
     {
-        if(entities[t].xp + entities[t].cx<=entities[l].xp+entities[l].w)
-        {
-            int linetemp = 0;
-
-            linetemp += yline(entities[t].yp, entities[l].yp);
-            linetemp += yline(entities[t].yp + entities[t].h, entities[l].yp);
-            linetemp += yline(entities[t].oldyp, entities[l].yp);
-            linetemp += yline(entities[t].oldyp + entities[t].h, entities[l].yp);
-
-            if (linetemp > -4 && linetemp < 4) return true;
-            return false;
-        }
+        return false;
     }
-    return false;
+
+    /* Here we compare the person's old position versus their new one.
+     * All points are either above or below the line. Else, it's a collision. */
+    int linetemp = 0;
+
+    linetemp += yline(person->yp, line->yp);
+    linetemp += yline(person->yp + person->h, line->yp);
+    linetemp += yline(person->oldyp, line->yp);
+    linetemp += yline(person->oldyp + person->h, line->yp);
+
+    return linetemp > -4 && linetemp < 4;
 }
 
 bool entityclass::entityvlinecollide( int t, int l )
@@ -4850,8 +4854,6 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
     case 4:   //Person vs horizontal line!
         if(game.deathseq==-1)
         {
-            //Here we compare the person's old position versus his new one versus the line.
-            //All points either be above or below it. Otherwise, there was a collision this frame.
             if (entities[j].onentity > 0)
             {
                 if (entityhlinecollide(i, j))
