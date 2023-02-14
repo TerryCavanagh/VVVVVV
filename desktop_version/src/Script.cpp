@@ -520,9 +520,8 @@ void scriptclass::run(void)
                 textx = ss_toi(words[2]);
                 texty = ss_toi(words[3]);
 
-                // If words[4] ends with L, set large to true.
-                textlarge = (words[4].size() > 0 && words[4][words[4].size() - 1] == 'l');
-                int lines = ss_toi(words[4].substr(0, words[4].size() - (textlarge ? 1 : 0)));
+                textlarge = endsWith(words[4].c_str(), "l") || endsWith(words[4].c_str(), "L");
+                int lines = ss_toi(words[4]);
 
                 //Number of lines for the textbox!
                 txt.clear();
@@ -3523,7 +3522,7 @@ bool scriptclass::loadcustom(const std::string& t)
                     add("text(blue,0,0,"+words[1]+")");
                 break;
             }
-            int ti = ss_toi(words[1].c_str());
+            int ti = ss_toi(words[1]);
             int nti = ti >= 0 ? ti : 1;
             for (int ti2 = 0; ti2 < nti; ti2++)
             {
