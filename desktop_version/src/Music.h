@@ -2,6 +2,7 @@
 #define MUSIC_H
 
 #include "BinaryBlob.h"
+#include <string>
 
 #define musicroom(rx, ry) ((rx) + ((ry) * 20))
 
@@ -38,6 +39,7 @@ public:
     int currentsong;
 
     void playef(int t);
+    void playef_name(std::string& t);
     void pauseef(void);
     void resumeef(void);
 
