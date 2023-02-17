@@ -116,11 +116,6 @@ void gamerenderfixed(void)
 
     map.updateroomnames();
 
-    if (map.finalmode)
-    {
-        map.glitchname = map.getglitchname(game.roomx, game.roomy);
-    }
-
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     ed.oldreturneditoralpha = ed.returneditoralpha;
     if (map.custommode && !map.custommodeforreal && ed.returneditoralpha > 0)
@@ -248,11 +243,6 @@ void maprenderfixed(void)
     }
 
     map.updateroomnames();
-
-    if (map.finalmode)
-    {
-        map.glitchname = map.getglitchname(game.roomx, game.roomy);
-    }
 }
 
 void teleporterrenderfixed(void)

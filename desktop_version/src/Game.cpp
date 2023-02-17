@@ -3042,6 +3042,7 @@ void Game::updatestate(void)
             map.final_mapcol = 0;
             map.final_colorframe = 0;
             map.finalstretch = false;
+            obj.flags[72] = false;
 
             graphics.setbars(320);
 
@@ -4179,33 +4180,14 @@ void Game::gethardestroom(void)
     if (currentroomdeaths > hardestroomdeaths)
     {
         hardestroomdeaths = currentroomdeaths;
-        hardestroom = loc::gettext_roomname(map.custommode, roomx, roomy, map.roomname, map.roomname_special);
-        if (SDL_strcmp(map.roomname, "glitch") == 0)
-        {
-            if (roomx == 42 && roomy == 51)
-            {
-                hardestroom = loc::gettext_roomname_special("Rear Vindow");
-            }
-            else if (roomx == 48 && roomy == 51)
-            {
-                hardestroom = loc::gettext_roomname_special("On the Vaterfront");
-            }
-            else if (roomx == 49 && roomy == 51)
-            {
-                hardestroom = loc::gettext_roomname_special("The Untouchavles");
-            }
-        }
-        else if (SDL_strcmp(map.roomname, "change") == 0)
-        {
-            if (roomx == 45 && roomy == 51) hardestroom = loc::gettext_roomname_special(map.specialnames[3]);
-            if (roomx == 46 && roomy == 51) hardestroom = loc::gettext_roomname_special(map.specialnames[4]);
-            if (roomx == 47 && roomy == 51) hardestroom = loc::gettext_roomname_special(map.specialnames[5]);
-            if (roomx == 50 && roomy == 53) hardestroom = loc::gettext_roomname_special(map.specialnames[6]);
-            if (roomx == 50 && roomy == 54) hardestroom = loc::gettext_roomname_special(map.specialnames[7]);
-        }
-        else if (map.roomname[0] == '\0')
+
+        if (map.roomname[0] == '\0')
         {
             hardestroom = loc::gettext_roomname_special(map.hiddenname);
+        }
+        else
+        {
+            hardestroom = map.roomname;
         }
     }
 }
@@ -5978,6 +5960,15 @@ bool Game::customsavequick(const std::string& savfile)
     if (map.roomnameset)
     {
         xml::update_tag(msgs, "roomname", map.roomname);
+    }
+    else
+    {
+        // If there's roomname tags, remove them. There will probably only always be one, but just in case...
+        tinyxml2::XMLElement* element;
+        while ((element = msgs->FirstChildElement("roomname")) != NULL)
+        {
+            doc.DeleteNode(element);
+        }
     }
 
     std::string summary = savearea + ", " + timestring();
