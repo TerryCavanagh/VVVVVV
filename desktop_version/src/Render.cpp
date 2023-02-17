@@ -1933,16 +1933,7 @@ void gamerender(void)
 
     if ((map.extrarow==0 || (map.custommode && map.roomname[0] != '\0')) && !force_roomname_hidden)
     {
-        const char* roomname;
-
-        if (map.finalmode)
-        {
-            roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
-        }
-        else
-        {
-            roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
-        }
+        const char* roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
 
         graphics.render_roomname(
             roomname_untranslated ? PR_FONT_8X8 : PR_FONT_LEVEL,
@@ -2280,10 +2271,6 @@ static void draw_roomname_menu(void)
     if (map.hiddenname[0] != '\0')
     {
         name = loc::gettext_roomname_special(map.hiddenname);
-    }
-    else if (map.finalmode)
-    {
-        name = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
     }
     else
     {

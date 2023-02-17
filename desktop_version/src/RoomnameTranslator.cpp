@@ -160,7 +160,7 @@ namespace roomname_translator
                 print_explanation("This is a special room name, which cannot be translated in-game. Please see roomnames_special");
             }
         }
-        else if ((map.finalmode && map.glitchname[0] == '\0') || map.roomname[0] == '\0')
+        else if (map.roomname[0] == '\0')
         {
             // No room name at all, so no translation/explanation interface
             if (edit_mode)
@@ -176,15 +176,8 @@ namespace roomname_translator
 
             if (edit_mode)
             {
-                const char* english_roomname;
-                if (map.finalmode)
-                {
-                    english_roomname = map.glitchname;
-                }
-                else
-                {
-                    english_roomname = map.roomname;
-                }
+                const char* english_roomname = map.roomname;
+
                 font::print(PR_CEN | PR_BOR | PR_FONT_8X8, -1, 229-font::height(PR_FONT_LEVEL), english_roomname, 0,192,255);
 
                 print_explanation(loc::get_roomname_explanation(map.custommode, game.roomx, game.roomy));
@@ -414,10 +407,7 @@ namespace roomname_translator
 
             if (key_pressed_once(SDLK_RETURN, &held_return) || key_pressed_once(SDLK_e, &held_e))
             {
-                if (map.roomname_special
-                    || (map.finalmode && map.glitchname[0] == '\0')
-                    || (map.roomname[0] == '\0')
-                )
+                if (map.roomname_special || map.roomname[0] == '\0')
                 {
                     return true;
                 }

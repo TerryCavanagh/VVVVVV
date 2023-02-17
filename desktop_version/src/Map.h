@@ -20,9 +20,9 @@ struct Roomtext
 
 enum RoomnameType
 {
-    STATIC,
-    GLITCH,
-    TRANSFORM
+    RoomnameType_STATIC,
+    RoomnameType_GLITCH,
+    RoomnameType_TRANSFORM
 };
 
 struct Roomname
@@ -57,16 +57,13 @@ public:
 
     void resetmap(void);
 
-    void resetnames(void);
-
     void updateroomnames(void);
-
-    void transformname(int t);
-
-    const char* getglitchname(int x, int y);
 
     void initmapdata(void);
     void initcustommapdata(void);
+
+    void roomnamechange(int x, int y, const char** lines, size_t size);
+    void roomnameglitch(int x, int y, const char* name, const char* glitch);
 
     int finalat(int x, int y);
 
@@ -164,11 +161,6 @@ public:
     int custommmxoff, custommmyoff, custommmxsize, custommmysize;
     int customzoom;
     bool customshowmm;
-
-    const char* specialnames[8];
-    int glitchmode;
-    int glitchdelay;
-    const char* glitchname;
 
     //final level colour cycling stuff
     bool final_colormode;

@@ -1325,17 +1325,17 @@ next:
                 name.y = 0;
                 name.flag = -1;
                 name.loop = false;
-                name.type = STATIC;
+                name.type = RoomnameType_STATIC;
                 name.progress = 0;
                 name.delay = 0;
                 if (SDL_strcmp(roomnameType, "transform") == 0)
                 {
-                    name.type = TRANSFORM;
+                    name.type = RoomnameType_TRANSFORM;
                     name.delay = 2;
                 }
                 else if (SDL_strcmp(roomnameType, "glitch") == 0)
                 {
-                    name.type = GLITCH;
+                    name.type = RoomnameType_GLITCH;
                     name.progress = 1;
                     name.delay = -1;
                 }
@@ -1348,7 +1348,11 @@ next:
 
                 roomnameElement->QueryBoolAttribute("loop", &name.loop);
 
-                if (name.type == STATIC)
+                // Rooms start at (100, 100) instead of (0, 0), so offset the coordinates
+                name.x += 100;
+                name.y += 100;
+
+                if (name.type == RoomnameType_STATIC)
                 {
                     const char* text = roomnameElement->GetText();
                     if (text != NULL)

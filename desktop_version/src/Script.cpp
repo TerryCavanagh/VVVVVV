@@ -1403,7 +1403,6 @@ void scriptclass::run(void)
             }
             else if (words[0] == "resetgame")
             {
-                map.resetnames();
                 map.resetmap();
                 map.resetplayer();
                 graphics.towerbg.tdrawback = true;
@@ -3224,7 +3223,6 @@ void scriptclass::hardreset(void)
     map.final_aniframe = 0;
     map.final_aniframedelay = 0;
     map.rcol = 0;
-    map.resetnames();
     map.custommode=false;
     map.custommodeforreal=false;
     if (!version2_2)
