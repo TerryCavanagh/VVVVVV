@@ -420,6 +420,26 @@ int main(int argc, char *argv[])
 #endif
             VVV_exit(0);
         }
+        else if (ARG("-addresses"))
+        {
+#ifndef NO_CUSTOM_LEVELS
+            printf("cl         : %p\n", (void*) &cl);
+# ifndef NO_EDITOR
+            printf("ed         : %p\n", (void*) &ed);
+# endif
+#endif
+            printf("game       : %p\n", (void*) &game);
+            printf("gameScreen : %p\n", (void*) &gameScreen);
+            printf("graphics   : %p\n", (void*) &graphics);
+            printf("help       : %p\n", (void*) &help);
+            printf("key        : %p\n", (void*) &key);
+            printf("map        : %p\n", (void*) &map);
+            printf("music      : %p\n", (void*) &music);
+            printf("obj        : %p\n", (void*) &obj);
+            printf("script     : %p\n", (void*) &script);
+
+            VVV_exit(0);
+        }
         else if (ARG("-renderer"))
         {
             ARG_INNER({
