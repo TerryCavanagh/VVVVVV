@@ -2222,13 +2222,11 @@ void gamerender(void)
             game.activity_lastprompt.c_str()
         );
 
-        int centered_x = ((160 ) - ((font::len(game.activity_print_flags, final_string)) / 2));
-
         if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
         {
             font::print(
-                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255),
-                centered_x + game.activity_x,
+                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CEN,
+                -1,
                 game.activity_y + 12,
                 final_string,
                 196,
@@ -2239,7 +2237,7 @@ void gamerender(void)
         else
         {
             graphics.drawpixeltextbox(
-                game.activity_x + 4,
+                4,
                 game.activity_y + 4,
                 39*8,
                 16 + font::height(game.activity_print_flags),
@@ -2248,8 +2246,8 @@ void gamerender(void)
                 game.activity_b*act_alpha
             );
             font::print(
-                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW,
-                centered_x + game.activity_x,
+                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN,
+                -1,
                 game.activity_y + 12,
                 final_string,
                 game.activity_r,

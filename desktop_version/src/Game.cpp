@@ -225,7 +225,6 @@ void Game::init(void)
     activity_r = 0;
     activity_g = 0;
     activity_b = 0;
-    activity_x = 0;
     activity_y = 0;
     creditposition = 0;
     oldcreditposition = 0;

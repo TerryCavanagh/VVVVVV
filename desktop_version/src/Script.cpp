@@ -1709,7 +1709,6 @@ void scriptclass::run(void)
             }
             else if (words[0] == "setactivityposition")
             {
-                obj.customactivitypositionx = ss_toi(words[1]);
                 obj.customactivitypositiony = ss_toi(words[2]);
             }
             else if (words[0] == "createrescuedcrew")
@@ -3280,7 +3279,6 @@ void scriptclass::hardreset(void)
 
     obj.customactivitycolour = "";
     obj.customactivitytext = "";
-    obj.customactivitypositionx = -1;
     obj.customactivitypositiony = -1;
 }
 

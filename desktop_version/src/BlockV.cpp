@@ -28,7 +28,6 @@ void blockclass::clear(void)
     g = 0;
     b = 0;
 
-    activity_x = 0;
     activity_y = 0;
 
     /* std::strings get initialized automatically, but this is
