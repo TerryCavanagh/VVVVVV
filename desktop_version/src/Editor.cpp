@@ -1363,15 +1363,15 @@ void editorrender(void)
                 tx+=tg;
                 graphics.fill_rect(tx+2,ty+8,12,1,graphics.getRGB(255,255,255));
 
+                fillboxabs(4+(ed.drawmode*tg), 208,20,20,graphics.getRGB(200,200,200));
+
                 for (int i = 0; i < 10; i++)
                 {
                     fillboxabs(4+(i*tg), 208,20,20,graphics.getRGB(96,96,96));
                     const int col = i == ed.drawmode ? 255 : 164;
                     const std::string glyph = i == 9 ? "0" : help.String(i + 1);
-                    font::print(PR_FONT_8X8, 22 + i*tg - 4, 224 - 4, glyph, col, col, col);
+                    font::print(PR_FONT_8X8 | PR_BOR, 22 + i*tg - 4, 224 - 4, glyph, col, col, col);
                 }
-
-                fillboxabs(4+(ed.drawmode*tg), 208,20,20,graphics.getRGB(200,200,200));
 
                 font::print(PR_CJK_HIGH, 4, 232, "1/2", 196, 196, 255 - help.glow);
             }
