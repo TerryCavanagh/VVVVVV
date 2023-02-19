@@ -65,6 +65,8 @@ public:
     bool mmmmmm;
     bool usingmmmmmm;
 
+    int stockSoundTracks;
+
     binaryBlob pppppp_blob;
     binaryBlob mmmmmm_blob;
     int num_pppppp_tracks;

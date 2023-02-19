@@ -614,6 +614,8 @@ musicclass::musicclass(void)
     quick_fade = true;
 
     usingmmmmmm = false;
+
+    stockSoundTracks = 0;
 }
 
 void musicclass::init(void)
@@ -659,6 +661,8 @@ void musicclass::init(void)
     soundTracks.push_back(SoundTrack( "sounds/newrecord.wav" ));
     soundTracks.push_back(SoundTrack( "sounds/trophy.wav" ));
     soundTracks.push_back(SoundTrack( "sounds/rescue.wav" ));
+    
+    stockSoundTracks = soundTracks.size();
 
     //Here's where we find all the custom sounds in a level's assets folder
     EnumHandle handle = {};
