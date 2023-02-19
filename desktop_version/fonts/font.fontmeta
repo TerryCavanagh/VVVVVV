@@ -68,4 +68,5 @@
     <special>
         <range start="0x00" end="0x1F" advance="6"/>
     </special>
+    <fallback>buttons_8x8</fallback>
 </font_metadata>
