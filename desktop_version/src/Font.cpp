@@ -798,8 +798,6 @@ static bool next_wrap(
             goto next;
         }
 
-        linewidth += get_advance(f, str[idx]);
-
         switch (str[idx])
         {
         case ' ':
@@ -816,6 +814,8 @@ static bool next_wrap(
         case '\0':
             return true;
         }
+
+        linewidth += get_advance(f, str[idx]);
 
         if (linewidth > maxwidth)
         {
