@@ -40,10 +40,18 @@ struct GlyphInfo
 #define FONT_N_PAGES 0x110
 #define FONT_PAGE_SIZE 0x1000
 
+enum FontType
+{
+    FontType_FONT,
+    FontType_BUTTONS
+};
+
 struct Font
 {
     char name[64];
     char display_name[SCREEN_WIDTH_CHARS + 1];
+
+    FontType type;
 
     uint8_t glyph_w;
     uint8_t glyph_h;
@@ -51,6 +59,10 @@ struct Font
     SDL_Texture* image;
 
     GlyphInfo* glyph_page[FONT_N_PAGES];
+
+    char fallback_key[64];
+    uint8_t fallback_idx;
+    bool fallback_idx_valid;
 };
 
 struct FontContainer
@@ -149,15 +161,35 @@ static bool glyph_is_valid(const GlyphInfo* glyph)
     return glyph->flags & GLYPH_EXISTS;
 }
 
-static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint)
+static Font* fallback_for(const Font* f)
+{
+    if (!f->fallback_idx_valid)
+    {
+        return NULL;
+    }
+    return &fonts_main.fonts[f->fallback_idx];
+}
+
+static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint, const Font** f_glyph)
 {
     /* Get the GlyphInfo for a specific codepoint, or <?> or ? if it doesn't exist.
+     * f_glyph may be either set to f (the main specified font) or its fallback font, if it exists.
      * As a last resort, may return NULL. */
+    *f_glyph = f;
+
     GlyphInfo* glyph = get_glyphinfo(f, codepoint);
     if (glyph != NULL && glyph_is_valid(glyph))
     {
         return glyph;
     }
+
+    Font* f_fallback = fallback_for(f);
+    if (f_fallback != NULL && (glyph = get_glyphinfo(f_fallback, codepoint)) != NULL && glyph_is_valid(glyph))
+    {
+        *f_glyph = f_fallback;
+        return glyph;
+    }
+
     glyph = get_glyphinfo(f, 0xFFFD);
     if (glyph != NULL && glyph_is_valid(glyph))
     {
@@ -172,6 +204,26 @@ static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint)
     return NULL;
 }
 
+static int get_advance_ff(const Font* f, const Font* f_glyph, const GlyphInfo* glyph)
+{
+    /* Internal function - get the correct advance after we have
+     * determined whether the glyph is from the fallback font or not. */
+
+    if (glyph == NULL)
+    {
+        return f->glyph_w;
+    }
+
+    /* If the glyph is a fallback glyph, center it relative to the main font
+     * instead of trusting the fallback's width */
+    if (f_glyph != f)
+    {
+        return f->glyph_w;
+    }
+
+    return glyph->advance;
+}
+
 int get_advance(const Font* f, const uint32_t codepoint)
 {
     // Get the width of a single character in a font
@@ -180,13 +232,9 @@ int get_advance(const Font* f, const uint32_t codepoint)
         return 8;
     }
 
-    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
-    if (glyph == NULL)
-    {
-        return f->glyph_w;
-    }
-
-    return glyph->advance;
+    const Font* f_glyph;
+    GlyphInfo* glyph = find_glyphinfo(f, codepoint, &f_glyph);
+    return get_advance_ff(f, f_glyph, glyph);
 }
 
 static bool decode_xml_range(tinyxml2::XMLElement* elem, unsigned* start, unsigned* end)
@@ -230,8 +278,13 @@ static uint8_t load_font(FontContainer* container, const char* name)
     SDL_strlcpy(f->name, name, sizeof(f->name));
     SDL_strlcpy(f->display_name, name, sizeof(f->display_name));
 
+    f->type = FontType_FONT;
+
     f->glyph_w = 8;
     f->glyph_h = 8;
+
+    f->fallback_key[0] = '\0';
+    f->fallback_idx_valid = false;
 
     if (container->map_name_idx == NULL)
     {
@@ -257,6 +310,13 @@ static uint8_t load_font(FontContainer* container, const char* name)
         {
             SDL_strlcpy(f->display_name, pElem->GetText(), sizeof(f->display_name));
         }
+        if ((pElem = hDoc.FirstChildElement("type").ToElement()) != NULL)
+        {
+            if (SDL_strcmp(pElem->GetText(), "buttons") == 0)
+            {
+                f->type = FontType_BUTTONS;
+            }
+        }
         if ((pElem = hDoc.FirstChildElement("width").ToElement()) != NULL)
         {
             f->glyph_w = help.Int(pElem->GetText());
@@ -269,6 +329,10 @@ static uint8_t load_font(FontContainer* container, const char* name)
         {
             // If 1, we don't need to whiten the entire font (like in old versions)
             white_teeth = help.Int(pElem->GetText());
+        }
+        if ((pElem = hDoc.FirstChildElement("fallback").ToElement()) != NULL)
+        {
+            SDL_strlcpy(f->fallback_key, pElem->GetText(), sizeof(f->fallback_key));
         }
     }
 
@@ -493,6 +557,20 @@ void set_level_font_new(void)
 #endif
 }
 
+static void set_fallbacks(FontContainer* container)
+{
+    /* Initialize the value of fallback_idx for all fonts in this container.
+     * Only main fonts can be fallback fonts. */
+    for (uint8_t i = 0; i < container->count; i++)
+    {
+        Font* f = &container->fonts[i];
+        if (find_main_font_by_name(f->fallback_key, &f->fallback_idx))
+        {
+            f->fallback_idx_valid = true;
+        }
+    }
+}
+
 static void load_font_filename(bool is_custom, const char* filename)
 {
     // Load font.png, and everything that matches *.fontmeta (but not font.fontmeta)
@@ -533,6 +611,8 @@ void load_main(void)
     FILESYSTEM_freeEnumerate(&handle);
     font_idx_level = font_idx_8x8;
 
+    set_fallbacks(&fonts_main);
+
     // Initialize the font menu options, 8x8 font first
     font_idx_options[0] = font_idx_8x8;
     font_idx_options_n = 1;
@@ -540,6 +620,10 @@ void load_main(void)
     for (uint8_t i = 0; i < fonts_main.count; i++)
     {
         if (i == font_idx_8x8)
+        {
+            continue;
+        }
+        if (fonts_main.fonts[i].type != FontType_FONT)
         {
             continue;
         }
@@ -562,6 +646,8 @@ void load_custom(const char* name)
         load_font_filename(true, item);
     }
     FILESYSTEM_freeEnumerate(&handle);
+
+    set_fallbacks(&fonts_custom);
 
     set_level_font(name);
 }
@@ -926,8 +1012,8 @@ std::string string_unwordwrap(const std::string& s)
 static int print_char(
     const Font* f,
     const uint32_t codepoint,
-    const int x,
-    const int y,
+    int x,
+    int y,
     const int scale,
     uint8_t r,
     uint8_t g,
@@ -937,7 +1023,8 @@ static int print_char(
 {
     /* Draws the glyph for a codepoint at x,y.
      * Returns the amount of pixels to advance the cursor. */
-    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
+    const Font* f_glyph;
+    GlyphInfo* glyph = find_glyphinfo(f, codepoint, &f_glyph);
     if (glyph == NULL)
     {
         return f->glyph_w * scale;
@@ -955,9 +1042,26 @@ static int print_char(
         b *= bri_factor;
     }
 
-    graphics.draw_grid_tile(f->image, glyph->image_idx, x, y, f->glyph_w, f->glyph_h, r, g, b, scale, scale * (graphics.flipmode ? -1 : 1));
+    // If the glyph is a fallback glyph, center it
+    if (f_glyph != f)
+    {
+        x += (f->glyph_w - f_glyph->glyph_w) / 2;
+        y += (f->glyph_h - f_glyph->glyph_h) / 2;
+    }
 
-    return glyph->advance * scale;
+    graphics.draw_grid_tile(
+        f_glyph->image,
+        glyph->image_idx,
+        x,
+        y,
+        f_glyph->glyph_w,
+        f_glyph->glyph_h,
+        r, g, b,
+        scale,
+        scale * (graphics.flipmode ? -1 : 1)
+    );
+
+    return get_advance_ff(f, f_glyph, glyph) * scale;
 }
 
 const char* get_main_font_name(uint8_t idx)
