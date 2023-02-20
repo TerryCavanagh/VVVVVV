@@ -14,6 +14,11 @@
 #include "Vlogging.h"
 #include "XMLUtils.h"
 
+extern "C"
+{
+#include <c-hashmap/map.h>
+}
+
 // Sigh... This is the second forward-declaration, we need to put this in a header file
 SDL_Texture* LoadImage(const char *filename, const TextureLoadType loadtype);
 
@@ -52,6 +57,7 @@ struct FontContainer
 {
     uint8_t count;
     Font* fonts;
+    hashmap* map_name_idx;
 };
 
 struct PrintFlags
@@ -227,6 +233,12 @@ static uint8_t load_font(FontContainer* container, const char* name)
     f->glyph_w = 8;
     f->glyph_h = 8;
 
+    if (container->map_name_idx == NULL)
+    {
+        container->map_name_idx = hashmap_create();
+    }
+    hashmap_set(container->map_name_idx, f->name, SDL_strlen(f->name), f_idx);
+
     bool white_teeth = false;
 
     tinyxml2::XMLDocument doc;
@@ -390,14 +402,17 @@ static uint8_t load_font(FontContainer* container, const char* name)
 static bool find_font_by_name(FontContainer* container, const char* name, uint8_t* idx)
 {
     // Returns true if font found (and idx is set), false if not found
-
-    for (uint8_t i = 0; i < container->count; i++)
+    if (container->map_name_idx == NULL)
     {
-        if (SDL_strcmp(name, container->fonts[i].name) == 0)
-        {
-            *idx = i;
-            return true;
-        }
+        // No fonts yet...
+        return false;
+    }
+
+    uintptr_t i;
+    if (hashmap_get(container->map_name_idx, (char*) name, SDL_strlen(name), &i))
+    {
+        *idx = i;
+        return true;
     }
     return false;
 }
@@ -563,6 +578,8 @@ void unload_font(Font* f)
 
 void unload_font_container(FontContainer* container)
 {
+    VVV_freefunc(hashmap_free, container->map_name_idx);
+
     for (uint8_t i = 0; i < container->count; i++)
     {
         unload_font(&container->fonts[i]);
