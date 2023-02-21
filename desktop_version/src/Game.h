@@ -132,6 +132,8 @@ struct CustomLevelStat
 
 class Game
 {
+    char magic[16];
+
 public:
     void init(void);
 
