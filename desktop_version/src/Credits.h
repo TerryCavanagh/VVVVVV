@@ -98,6 +98,7 @@ static const char* githubfriends[] = {
     "Emmanuel Vadot",
     "fraZ0R",
     "Fredrik Ljungdahl",
+    "iliana etaoin",
     "Keith Stellyes",
     "KyoZM",
     "leo60228",
