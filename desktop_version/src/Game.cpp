@@ -158,6 +158,8 @@ end:
 
 void Game::init(void)
 {
+    SDL_strlcpy(magic, "[vVvVvV]game", sizeof(magic));
+
     roomx = 0;
     roomy = 0;
     prevroomx = 0;
