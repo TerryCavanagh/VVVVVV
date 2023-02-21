@@ -2223,6 +2223,7 @@ void gamerender(void)
         );
 
         uint8_t text_r, text_g, text_b;
+        uint32_t text_flags = game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN;
 
         if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
         {
@@ -2232,11 +2233,14 @@ void gamerender(void)
         }
         else
         {
+            short lines;
+            font::string_wordwrap(text_flags, final_string, 37*8, &lines);
+
             graphics.drawpixeltextbox(
                 4,
                 game.activity_y + 4,
                 39*8,
-                16 + font::height(game.activity_print_flags),
+                16 + font::height(text_flags)*lines,
                 game.activity_r*act_alpha,
                 game.activity_g*act_alpha,
                 game.activity_b*act_alpha
@@ -2247,14 +2251,16 @@ void gamerender(void)
             text_b = game.activity_b;
         }
 
-        font::print(
-            game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN,
+        font::print_wrap(
+            text_flags,
             -1,
             game.activity_y + 12,
             final_string,
             text_r,
             text_g,
-            text_b
+            text_b,
+            8,
+            37*8
         );
     }
 
