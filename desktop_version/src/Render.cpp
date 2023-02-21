@@ -2222,17 +2222,13 @@ void gamerender(void)
             game.activity_lastprompt.c_str()
         );
 
+        uint8_t text_r, text_g, text_b;
+
         if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
         {
-            font::print(
-                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CEN,
-                -1,
-                game.activity_y + 12,
-                final_string,
-                196,
-                196,
-                255 - help.glow
-            );
+            text_r = 196;
+            text_g = 196;
+            text_b = 255 - help.glow;
         }
         else
         {
@@ -2245,16 +2241,21 @@ void gamerender(void)
                 game.activity_g*act_alpha,
                 game.activity_b*act_alpha
             );
-            font::print(
-                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN,
-                -1,
-                game.activity_y + 12,
-                final_string,
-                game.activity_r,
-                game.activity_g,
-                game.activity_b
-            );
+
+            text_r = game.activity_r;
+            text_g = game.activity_g;
+            text_b = game.activity_b;
         }
+
+        font::print(
+            game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN,
+            -1,
+            game.activity_y + 12,
+            final_string,
+            text_r,
+            text_g,
+            text_b
+        );
     }
 
     if (obj.trophytext > 0 || obj.oldtrophytext > 0)
