@@ -4,7 +4,6 @@
 #include "Editor.h"
 
 #include <string>
-#include <utf8/unchecked.h>
 
 #include "Constants.h"
 #include "CustomLevels.h"
@@ -21,6 +20,7 @@
 #include "Music.h"
 #include "Screen.h"
 #include "Script.h"
+#include "UTF8.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"
@@ -2292,7 +2292,7 @@ void editorinput(void)
                         ed.sby--;
                     }
                     key.keybuffer=ed.sb[ed.pagey+ed.sby];
-                    ed.sbx = utf8::unchecked::distance(ed.sb[ed.pagey+ed.sby].begin(), ed.sb[ed.pagey+ed.sby].end());
+                    ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey+ed.sby].c_str());
                     music.playef(11);
                 }
             }
@@ -2382,7 +2382,7 @@ void editorinput(void)
             }}
 
             ed.sb[ed.pagey+ed.sby]=key.keybuffer;
-            ed.sbx = utf8::unchecked::distance(ed.sb[ed.pagey+ed.sby].begin(), ed.sb[ed.pagey+ed.sby].end());
+            ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey+ed.sby].c_str());
 
             if(!game.press_map && !key.isDown(27)) game.mapheld=false;
             if (!game.mapheld)
@@ -2400,7 +2400,7 @@ void editorinput(void)
                             ed.sby--;
                         }
                         key.keybuffer=ed.sb[ed.pagey+ed.sby];
-                        ed.sbx = utf8::unchecked::distance(ed.sb[ed.pagey+ed.sby].begin(), ed.sb[ed.pagey+ed.sby].end());
+                        ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey+ed.sby].c_str());
                     }
                     else
                     {
