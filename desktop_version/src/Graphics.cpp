@@ -2,7 +2,6 @@
 #include "Graphics.h"
 
 #include <SDL.h>
-#include <utf8/unchecked.h>
 
 #include "Alloc.h"
 #include "Constants.h"
