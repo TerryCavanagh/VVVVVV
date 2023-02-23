@@ -1,11 +1,11 @@
 #include "VFormat.h"
 
-#include <physfs.h>
 #include <SDL.h>
 #include <stdbool.h>
 
 #include "Alloc.h"
 #include "CWrappers.h"
+#include "UTF8.h"
 
 
 static inline bool is_whitespace(char ch)
@@ -38,49 +38,25 @@ static inline void call_with_button(format_callback callback, void* userdata, in
         button_value = 0xFF;
     }
 
-    uint32_t utf32[2];
-    utf32[0] = 0xE000 + button_value;
-    utf32[1] = 0x0000;
-
-    char utf8[5];
-    PHYSFS_utf8FromUcs4(utf32, utf8, sizeof(utf8));
-
-    callback(userdata, utf8, SDL_strlen(utf8));
+    UTF8_encoding utf8 = UTF8_encode(0xE000 + button_value);
+    callback(userdata, utf8.bytes, utf8.nbytes);
 }
 
 static inline void call_with_upper(format_callback callback, void* userdata, const char* string, size_t bytes)
 {
     /* Call the given callback with the specified string, where the first
-     * letter is changed to uppercase.
-     * First reserve some more space for the (in UTF-8) possibly larger
-     * uppercase character, and the currently missing null terminator.
-     * (Theoretically 1->4 bytes, + 1 for '\0') */
-    size_t conv_bytes = bytes + 4;
-
-    char* utf8 = SDL_malloc(conv_bytes);
-    uint32_t* utf32 = SDL_malloc(conv_bytes*4);
-
-    if (utf8 == NULL || utf32 == NULL)
+     * letter is changed to uppercase. */
+    if (bytes == 0)
     {
-        /* Never mind the capitalization then! Better than nothing. */
-        callback(userdata, string, bytes);
-
-        VVV_free(utf32);
-        VVV_free(utf8);
         return;
     }
 
-    SDL_memcpy(utf8, string, bytes);
-    utf8[bytes] = '\0';
+    uint8_t lower_letter_nbytes;
+    uint32_t lower_letter = UTF8_peek_next(string, &lower_letter_nbytes);
 
-    PHYSFS_utf8ToUcs4(utf8, utf32, conv_bytes*4);
-    utf32[0] = LOC_toupper_ch(utf32[0]);
-    PHYSFS_utf8FromUcs4(utf32, utf8, conv_bytes);
-
-    callback(userdata, utf8, SDL_strlen(utf8));
-
-    VVV_free(utf32);
-    VVV_free(utf8);
+    UTF8_encoding upper_letter = UTF8_encode(LOC_toupper_ch(lower_letter));
+    callback(userdata, upper_letter.bytes, upper_letter.nbytes);
+    callback(userdata, &string[lower_letter_nbytes], bytes - lower_letter_nbytes);
 }
 
 
