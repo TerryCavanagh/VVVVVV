@@ -1,7 +1,6 @@
 #include "Font.h"
 
 #include <tinyxml2.h>
-#include <utf8/unchecked.h>
 
 #include "Alloc.h"
 #include "Constants.h"
@@ -10,6 +9,7 @@
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
+#include "UTF8.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 #include "XMLUtils.h"
@@ -350,20 +350,18 @@ static uint8_t load_font(FontContainer* container, const char* name)
     bool charset_loaded = false;
     bool special_loaded = false;
     unsigned char* charmap = NULL;
-    size_t length;
     if (FILESYSTEM_areAssetsInSameRealDir(name_png, name_txt))
     {
-        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, &length, false);
+        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, NULL, false);
     }
     if (charmap != NULL)
     {
         // We have a .txt! It's an obsolete system, but it takes priority if the file exists.
-        unsigned char* current = charmap;
-        unsigned char* end = charmap + length;
+        const char* current = (char*) charmap;
         int pos = 0;
-        while (current != end)
+        uint32_t codepoint;
+        while ((codepoint = UTF8_next(&current)))
         {
-            uint32_t codepoint = utf8::unchecked::next(current);
             add_glyphinfo(f, codepoint, pos);
             ++pos;
         }
@@ -966,14 +964,14 @@ std::string string_unwordwrap(const std::string& s)
      * Only applied to English, so langmeta.autowordwrap isn't used here (it'd break looking up strings) */
 
     std::string result;
-    std::back_insert_iterator<std::string> inserter = std::back_inserter(result);
-    std::string::const_iterator iter = s.begin();
+    result.reserve(s.length());
     bool latest_was_space = true; // last character was a space (or the beginning, don't want leading whitespace)
     int consecutive_newlines = 0; // number of newlines currently encountered in a row (multiple newlines should stay!)
-    while (iter != s.end())
-    {
-        uint32_t ch = utf8::unchecked::next(iter);
 
+    const char* str = s.c_str();
+    uint32_t ch;
+    while ((ch = UTF8_next(&str)))
+    {
         if (ch == '\n')
         {
             if (consecutive_newlines == 0)
@@ -994,7 +992,7 @@ std::string string_unwordwrap(const std::string& s)
 
         if (ch != ' ' || !latest_was_space)
         {
-            utf8::unchecked::append(ch, inserter);
+            result.append(UTF8_encode(ch).bytes);
         }
 
         latest_was_space = (ch == ' ' || ch == '\n');
@@ -1150,11 +1148,11 @@ int len(const uint32_t flags, const std::string& t)
     PrintFlags pf = decode_print_flags(flags);
 
     int text_len = 0;
-    std::string::const_iterator iter = t.begin();
-    while (iter != t.end())
+    uint32_t codepoint;
+    const char* text = t.c_str(); // TODO no std::string
+    while ((codepoint = UTF8_next(&text)))
     {
-        int cur = utf8::unchecked::next(iter);
-        text_len += get_advance(pf.font_sel, cur);
+        text_len += get_advance(pf.font_sel, codepoint);
     }
     return text_len * pf.scale;
 }
@@ -1237,13 +1235,13 @@ void print(
     }
 
     int position = 0;
-    std::string::const_iterator iter = text.begin();
-    while (iter != text.end())
+    const char* str = text.c_str(); // TODO no std::string
+    uint32_t codepoint;
+    while ((codepoint = UTF8_next(&str)))
     {
-        const uint32_t character = utf8::unchecked::next(iter);
         position += font::print_char(
             pf.font_sel,
-            character,
+            codepoint,
             x + position,
             y,
             pf.scale,
