@@ -789,14 +789,10 @@ static bool next_wrap(
 
     while (true)
     {
-        /* FIXME: This only checks one byte, not multiple! */
-        if ((str[idx] & 0xC0) == 0x80)
-        {
-            /* Skip continuation byte. */
-            goto next;
-        }
+        uint8_t codepoint_nbytes;
+        uint32_t codepoint = UTF8_peek_next(&str[idx], &codepoint_nbytes);
 
-        switch (str[idx])
+        switch (codepoint)
         {
         case ' ':
             if (loc::get_langmeta()->autowordwrap)
@@ -813,7 +809,7 @@ static bool next_wrap(
             return true;
         }
 
-        linewidth += get_advance(f, str[idx]);
+        linewidth += get_advance(f, codepoint);
 
         if (linewidth > maxwidth)
         {
@@ -831,10 +827,9 @@ static bool next_wrap(
             return true;
         }
 
-next:
-        idx += 1;
-        *start += 1;
-        *len += 1;
+        idx += codepoint_nbytes;
+        *start += codepoint_nbytes;
+        *len += codepoint_nbytes;
     }
 }
 
