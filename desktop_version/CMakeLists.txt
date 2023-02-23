@@ -111,6 +111,7 @@ set(VVV_SRC
     src/Network.c
     src/Textbook.c
     src/ThirdPartyDeps.c
+    src/UTF8.c
     src/VFormat.c
     src/Vlogging.c
     src/Xoshiro.c
