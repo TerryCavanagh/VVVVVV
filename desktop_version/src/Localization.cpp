@@ -2,10 +2,9 @@
 #include "Localization.h"
 #include "LocalizationStorage.h"
 
-#include <utf8/unchecked.h>
-
 #include "Alloc.h"
 #include "Game.h"
+#include "UTF8.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
@@ -367,13 +366,14 @@ std::string toupper(const std::string& lower)
     }
 
     std::string upper;
-    std::back_insert_iterator<std::string> inserter = std::back_inserter(upper);
-    std::string::const_iterator iter = lower.begin();
+    /* Capacity is not final, but some uppercase is more bytes than the
+     * lowercase equivalent, so some extra breathing room couldn't hurt... */
+    upper.reserve(lower.length() + 6);
+    const char* lower_c = lower.c_str();
+    uint32_t ch;
     bool ignorenext = false;
-    while (iter != lower.end())
+    while ((ch = UTF8_next(&lower_c)))
     {
-        uint32_t ch = utf8::unchecked::next(iter);
-
         if (get_langmeta()->toupper_lower_escape_char && ch == '~')
         {
             ignorenext = true;
@@ -384,7 +384,7 @@ std::string toupper(const std::string& lower)
         {
             ch = toupper_ch(ch);
         }
-        utf8::unchecked::append(ch, inserter);
+        upper.append(UTF8_encode(ch).bytes);
 
         ignorenext = false;
     }
