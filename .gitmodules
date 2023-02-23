@@ -7,9 +7,6 @@
 [submodule "third_party/tinyxml2"]
 	path = third_party/tinyxml2
 	url = https://github.com/leethomason/tinyxml2/
-[submodule "third_party/utfcpp"]
-	path = third_party/utfcpp
-	url = https://github.com/nemtrif/utfcpp
 [submodule "third_party/FAudio"]
 	path = third_party/FAudio
 	url = https://github.com/FNA-XNA/FAudio

@@ -147,7 +147,6 @@ if(BUNDLE_DEPENDENCIES)
         ../third_party/physfs/src
         ../third_party/physfs/extras
         ../third_party/lodepng
-        ../third_party/utfcpp/source
         ../third_party/c-hashmap
         ../third_party/FAudio/include
         ../third_party/FAudio/src
