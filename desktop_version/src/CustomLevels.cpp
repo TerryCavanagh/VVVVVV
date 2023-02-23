@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <string>
 #include <tinyxml2.h>
-#include <utf8/unchecked.h>
 
 #include "Alloc.h"
 #include "Constants.h"
@@ -24,6 +23,7 @@
 #include "Map.h"
 #include "Screen.h"
 #include "Script.h"
+#include "UTF8.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 #include "XMLUtils.h"
@@ -208,10 +208,7 @@ static std::string find_tag(const std::string& buf, const std::string& start, co
         {
             SDL_sscanf(number.c_str(), "%" SCNu32, &character);
         }
-        uint32_t utf32[] = {character, 0};
-        std::string utf8;
-        utf8::unchecked::utf32to8(utf32, utf32 + 1, std::back_inserter(utf8));
-        value.replace(start_pos, end - start_pos + 1, utf8);
+        value.replace(start_pos, end - start_pos + 1, UTF8_encode(character).bytes);
     }
 
     return value;
