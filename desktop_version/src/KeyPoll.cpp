@@ -2,7 +2,6 @@
 #include "KeyPoll.h"
 
 #include <string.h>
-#include <utf8/unchecked.h>
 
 #include "Alloc.h"
 #include "Exit.h"
@@ -13,6 +12,7 @@
 #include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
+#include "UTF8.h"
 #include "Vlogging.h"
 
 int inline KeyPoll::getThreshold(void)
@@ -178,9 +178,7 @@ void KeyPoll::Poll(void)
             {
                 if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
                 {
-                    std::string::iterator iter = keybuffer.end();
-                    utf8::unchecked::prior(iter);
-                    keybuffer = keybuffer.substr(0, iter - keybuffer.begin());
+                    keybuffer.erase(UTF8_backspace(keybuffer.c_str(), keybuffer.length()));
                     if (keybuffer.empty())
                     {
                         linealreadyemptykludge = true;
