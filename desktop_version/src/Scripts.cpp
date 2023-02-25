@@ -2724,7 +2724,7 @@ bool scriptclass::load(const std::string& name)
         "speak_active",
 
         "squeak(yellow)",
-        "changedir(yellow,0)",
+        "changeai(yellow,faceleft)", // changedir(yellow,0) doesn't work
         "text(yellow,0,0,3)",
         "We shouldn't really be able",
         "to move between dimensions",
@@ -2733,7 +2733,6 @@ bool scriptclass::load(const std::string& name)
         "speak_active",
 
         "squeak(yellow)",
-        "changedir(yellow,0)",
         "text(yellow,0,0,2)",
         "Maybe this isn't a proper",
         "dimension at all?",
@@ -2741,7 +2740,6 @@ bool scriptclass::load(const std::string& name)
         "speak_active",
 
         "squeak(yellow)",
-        "changedir(yellow,0)",
         "text(yellow,0,0,4)",
         "Maybe it's some kind of",
         "polar dimension? Something",
@@ -2751,7 +2749,7 @@ bool scriptclass::load(const std::string& name)
         "speak_active",
 
         "squeak(yellow)",
-        "changedir(yellow,1)",
+        "changeai(yellow,0)", // Make him face right again
         "text(yellow,0,0,2)",
         "I can't wait to get back to the",
         "ship. I have a lot of tests to run!",
