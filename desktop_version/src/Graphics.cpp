@@ -881,7 +881,7 @@ void Graphics::drawgui(void)
                 {
                     y = 240 - y - 8*sc;
                 }
-                font::print(sc==2 ? PR_2X : PR_1X | PR_CEN, -1, y, translation, 164, 164, 255);
+                font::print((sc==2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, 164, 164, 255);
             }
             else
             {
@@ -917,7 +917,7 @@ void Graphics::drawgui(void)
                 {
                     y = 240 - y - 8*sc;
                 }
-                font::print(sc==2 ? PR_2X : PR_1X | PR_CEN, -1, y, translation, 196, 196, 243);
+                font::print((sc==2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, 196, 196, 243);
             }
             else
             {
