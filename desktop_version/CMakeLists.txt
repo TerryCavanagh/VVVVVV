@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 2.8.12)
 option(ENABLE_WARNINGS "Enable compilation warnings" ON)
 option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
-option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, FAudio, and UTF8-CPP (if disabled, TinyXML-2, PhysicsFS, and FAudio will be dynamically linked, LodePNG, UTF8-CPP and C-HashMap will still be statically linked)" ON)
+option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and FAudio (if disabled, TinyXML-2, PhysicsFS, and FAudio will be dynamically linked; LodePNG and C-HashMap will still be statically linked)" ON)
 
 set(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
 set_property(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
