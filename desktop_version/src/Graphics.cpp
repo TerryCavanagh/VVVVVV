@@ -6,6 +6,7 @@
 #include "Alloc.h"
 #include "Constants.h"
 #include "CustomLevels.h"
+#include "Editor.h"
 #include "Entity.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
@@ -31,11 +32,9 @@ void Graphics::init(void)
     setRect(line_rect, 0,0,0,0);
     setRect(tele_rect,0,0,96,96);
 
-
-    //We initialise a few things
+    // We initialise a few things
 
     linestate = 0;
-
 
     trinketcolset = false;
 
@@ -646,6 +645,44 @@ int Graphics::fill_rect(const int x, const int y, const int w, const int h, cons
     return fill_rect(x, y, w, h, color.r, color.g, color.b, color.a);
 }
 
+int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+{
+    set_color(r, g, b, a);
+
+    const int result = SDL_RenderDrawRect(gameScreen.m_renderer, rect);
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(("Could not draw rectangle: %s", SDL_GetError()));
+    }
+    return result;
+}
+
+int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b)
+{
+    return draw_rect(rect, r, g, b, 255);
+}
+
+int Graphics::draw_rect(const SDL_Rect* rect, const SDL_Color color)
+{
+    return draw_rect(rect, color.r, color.g, color.b, color.a);
+}
+
+int Graphics::draw_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b, const int a)
+{
+    const SDL_Rect rect = {x, y, w, h};
+    return draw_rect(&rect, r, g, b, a);
+}
+
+int Graphics::draw_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b)
+{
+    return draw_rect(x, y, w, h, r, g, b, 255);
+}
+
+int Graphics::draw_rect(const int x, const int y, const int w, const int h, const SDL_Color color)
+{
+    return draw_rect(x, y, w, h, color.r, color.g, color.b, color.a);
+}
+
 void Graphics::draw_sprite(const int x, const int y, const int t, const int r, const int g, const int b)
 {
     draw_grid_tile(grphx.im_sprites, t, x, y, sprites_rect.w, sprites_rect.h, r, g, b);
@@ -710,8 +747,6 @@ void Graphics::drawtile2( int x, int y, int t )
     }
 }
 
-
-
 void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 0*/ )
 {
     t += off * 30;
@@ -727,19 +762,6 @@ void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 
     const int x2 = (t % (width / 8)) * 8;
     const int y2 = (t / (width / 8)) * 8;
     draw_texture_part(grphx.im_tiles3, x, y, x2, y2, 8, 8 - height_subtract, 1, 1);
-}
-
-void Graphics::drawtowertile( int x, int y, int t )
-{
-    draw_grid_tile(grphx.im_tiles2, t, x, y, tiles_rect.w, tiles_rect.h);
-}
-
-
-void Graphics::drawtowertile3( int x, int y, int t, TowerBG& bg_obj )
-{
-    t += bg_obj.colstate * 30;
-
-    draw_grid_tile(grphx.im_tiles3, t, x, y, tiles_rect.w, tiles_rect.h);
 }
 
 void Graphics::drawgui(void)
@@ -2514,10 +2536,10 @@ void Graphics::updatebackground(int t)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    drawtowertile(317 - backoffset + (i * 16), (j * 16), temp + 40);  //20*16 = 320
-                    drawtowertile(317 - backoffset + (i * 16) + 8, (j * 16), temp + 41);
-                    drawtowertile(317 - backoffset + (i * 16), (j * 16) + 8, temp + 80);
-                    drawtowertile(317 - backoffset + (i * 16) + 8, (j * 16) + 8, temp + 81);
+                    drawtile2(317 - backoffset + (i * 16), (j * 16), temp + 40);  //20*16 = 320
+                    drawtile2(317 - backoffset + (i * 16) + 8, (j * 16), temp + 41);
+                    drawtile2(317 - backoffset + (i * 16), (j * 16) + 8, temp + 80);
+                    drawtile2(317 - backoffset + (i * 16) + 8, (j * 16) + 8, temp + 81);
                 }
             }
         }
@@ -2530,10 +2552,10 @@ void Graphics::updatebackground(int t)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    drawtowertile((i * 16) - backoffset - 3, (j * 16), temp + 40);
-                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
-                    drawtowertile((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
-                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16) + 8, temp + 81);
+                    drawtile2((i * 16) - backoffset - 3, (j * 16), temp + 40);
+                    drawtile2((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
+                    drawtile2((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
+                    drawtile2((i * 16) - backoffset + 8 - 3, (j * 16) + 8, temp + 81);
                 }
             }
             backgrounddrawn = true;
@@ -2557,10 +2579,10 @@ void Graphics::updatebackground(int t)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    drawtowertile((i * 16), 237 - backoffset + (j * 16), temp + 40); //14*17=240 - 3
-                    drawtowertile((i * 16) + 8, 237 - backoffset + (j * 16), temp + 41);
-                    drawtowertile((i * 16), 237 - backoffset + (j * 16) + 8, temp + 80);
-                    drawtowertile((i * 16) + 8, 237 - backoffset + (j * 16) + 8, temp + 81);
+                    drawtile2((i * 16), 237 - backoffset + (j * 16), temp + 40); //14*17=240 - 3
+                    drawtile2((i * 16) + 8, 237 - backoffset + (j * 16), temp + 41);
+                    drawtile2((i * 16), 237 - backoffset + (j * 16) + 8, temp + 80);
+                    drawtile2((i * 16) + 8, 237 - backoffset + (j * 16) + 8, temp + 81);
                 }
             }
         }
@@ -2573,10 +2595,10 @@ void Graphics::updatebackground(int t)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    drawtowertile((i * 16), (j * 16) - backoffset - 3, temp + 40);
-                    drawtowertile((i * 16) + 8, (j * 16) - backoffset - 3, temp + 41);
-                    drawtowertile((i * 16), (j * 16) - backoffset + 8 - 3, temp + 80);
-                    drawtowertile((i * 16) + 8, (j * 16) - backoffset + 8 - 3, temp + 81);
+                    drawtile2((i * 16), (j * 16) - backoffset - 3, temp + 40);
+                    drawtile2((i * 16) + 8, (j * 16) - backoffset - 3, temp + 41);
+                    drawtile2((i * 16), (j * 16) - backoffset + 8 - 3, temp + 80);
+                    drawtile2((i * 16) + 8, (j * 16) - backoffset + 8 - 3, temp + 81);
                 }
             }
             backgrounddrawn = true;
@@ -2622,39 +2644,43 @@ void Graphics::drawmap(void)
         set_blendmode(foregroundTexture, SDL_BLENDMODE_BLEND);
         clear(0, 0, 0, 0);
 
-        if (map.tileset == 0)
+        for (int y = 0; y < 30; y++)
         {
-            for (int j = 0; j < 30; j++)
+            for (int x = 0; x < 40; x++)
             {
-                for (int i = 0; i < 40; i++)
+                int tile;
+                int tileset;
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+                if (game.gamestate == EDITORMODE)
                 {
-                    const int tile = map.contents[TILE_IDX(i, j)];
-                    if (tile > 0) drawforetile(i * 8, j * 8, tile);
+                    tile = cl.gettile(ed.levx, ed.levy, x, y);
+                    tileset = (cl.getroomprop(ed.levx, ed.levy)->tileset == 0) ? 0 : 1;
+                }
+                else
+#endif
+                {
+                    tile = map.contents[TILE_IDX(x, y)];
+                    tileset = map.tileset;
+                }
+
+                if (tile > 0)
+                {
+                    if (tileset == 0)
+                    {
+                        drawtile(x * 8, y * 8, tile);
+                    }
+                    else if (tileset == 1)
+                    {
+                        drawtile2(x * 8, y * 8, tile);
+                    }
+                    else if (tileset == 2)
+                    {
+                        drawtile3(x * 8, y * 8, tile, map.rcol);
+                    }
                 }
             }
         }
-        else if (map.tileset == 1)
-        {
-            for (int jt = 0; jt < 30; jt++)
-            {
-                for (int it = 0; it < 40; it++)
-                {
-                    const int tile = map.contents[TILE_IDX(it, jt)];
-                    if (tile > 0) drawforetile2(it * 8, jt * 8, tile);
-                }
-            }
-        }
-        else if (map.tileset == 2)
-        {
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    const int tile = map.contents[TILE_IDX(i, j)];
-                    if (tile > 0) drawforetile3(i * 8, j * 8, tile, map.rcol);
-                }
-            }
-        }
+
         set_render_target(target);
         foregrounddrawn = true;
     }
@@ -2675,7 +2701,7 @@ void Graphics::drawfinalmap(void)
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
                     if ((map.contents[TILE_IDX(i, j)]) > 0)
-                        drawforetile(i * 8, j * 8, map.finalat(i, j));
+                        drawtile(i * 8, j * 8, map.finalat(i, j));
                 }
             }
         }
@@ -2683,7 +2709,7 @@ void Graphics::drawfinalmap(void)
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
                     if ((map.contents[TILE_IDX(i, j)]) > 0)
-                        drawforetile2(i * 8, j * 8, map.finalat(i, j));
+                        drawtile2(i * 8, j * 8, map.finalat(i, j));
                 }
             }
         }
@@ -2748,7 +2774,7 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
             for (int i = 0; i < 40; i++)
             {
                 const int temp = map.tower.backat(i, j, bg_obj.bypos);
-                drawtowertile3(i * 8, (j * 8) - (bg_obj.bypos % 8) - off, temp, bg_obj);
+                drawtile3(i * 8, (j * 8) - (bg_obj.bypos % 8) - off, temp, bg_obj.colstate);
             }
         }
 
@@ -2763,9 +2789,9 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
             for (int i = 0; i < 40; i++)
             {
                 int temp = map.tower.backat(i, -1, bg_obj.bypos);
-                drawtowertile3(i * 8, -1 * 8 - (bg_obj.bypos % 8), temp, bg_obj);
+                drawtile3(i * 8, -1 * 8 - (bg_obj.bypos % 8), temp, bg_obj.colstate);
                 temp = map.tower.backat(i, 0, bg_obj.bypos);
-                drawtowertile3(i * 8, -(bg_obj.bypos % 8), temp, bg_obj);
+                drawtile3(i * 8, -(bg_obj.bypos % 8), temp, bg_obj.colstate);
             }
         }
         else
@@ -2773,13 +2799,13 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
             for (int i = 0; i < 40; i++)
             {
                 int temp = map.tower.backat(i, 29, bg_obj.bypos);
-                drawtowertile3(i * 8, 29 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                drawtile3(i * 8, 29 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj.colstate);
                 temp = map.tower.backat(i, 30, bg_obj.bypos);
-                drawtowertile3(i * 8, 30 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                drawtile3(i * 8, 30 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj.colstate);
                 temp = map.tower.backat(i, 31, bg_obj.bypos);
-                drawtowertile3(i * 8, 31 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                drawtile3(i * 8, 31 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj.colstate);
                 temp = map.tower.backat(i, 32, bg_obj.bypos);
-                drawtowertile3(i * 8, 32 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                drawtile3(i * 8, 32 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj.colstate);
             }
         }
     }
@@ -3281,41 +3307,6 @@ SDL_Color Graphics::RGBf(int r, int g, int b)
     b = (b + 128) / 3;
     const SDL_Color color = {(Uint8) r, (Uint8) g, (Uint8) b, 255};
     return color;
-}
-
-void Graphics::drawforetile(int x, int y, int t)
-{
-#if !defined(NO_CUSTOM_LEVELS)
-    if (shouldrecoloroneway(t, tiles1_mounted))
-    {
-        draw_grid_tile(grphx.im_tiles_tint, t, x, y, tiles_rect.w, tiles_rect.h, cl.getonewaycol());
-    }
-    else
-#endif
-    {
-        draw_grid_tile(grphx.im_tiles, t, x, y, tiles_rect.w, tiles_rect.h);
-    }
-}
-
-void Graphics::drawforetile2(int x, int y, int t)
-{
-#if !defined(NO_CUSTOM_LEVELS)
-    if (shouldrecoloroneway(t, tiles2_mounted))
-    {
-        draw_grid_tile(grphx.im_tiles2_tint, t, x, y, tiles_rect.w, tiles_rect.h, cl.getonewaycol());
-    }
-    else
-#endif
-    {
-        draw_grid_tile(grphx.im_tiles2, t, x, y, tiles_rect.w, tiles_rect.h);
-    }
-}
-
-void Graphics::drawforetile3(int x, int y, int t, int off)
-{
-    t += off * 30;
-
-    draw_grid_tile(grphx.im_tiles3, t, x, y, tiles_rect.w, tiles_rect.h);
 }
 
 void Graphics::drawrect(int x, int y, int w, int h, int r, int g, int b)
