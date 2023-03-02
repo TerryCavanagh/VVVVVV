@@ -880,7 +880,7 @@ static void editormenurender(int tr, int tg, int tb)
     }
 }
 
-void draw_background_grid(void)
+static void draw_background_grid(void)
 {
     for (int j = 0; j < 30; j++)
     {
@@ -908,7 +908,7 @@ void draw_background_grid(void)
     }
 }
 
-void draw_background(int warpdir)
+static void draw_background(int warpdir)
 {
     extern editorclass ed;
 
@@ -931,7 +931,7 @@ void draw_background(int warpdir)
     }
 }
 
-void draw_edgeguide(int type, int x, int y, bool vertical)
+static void draw_edgeguide(int type, int x, int y, bool vertical)
 {
     static const SDL_Color white = graphics.getRGB(255 - help.glow, 255, 255);
     static const SDL_Color red = graphics.getRGB(255 - help.glow, 127, 127);
@@ -951,7 +951,7 @@ void draw_edgeguide(int type, int x, int y, bool vertical)
     }
 }
 
-void draw_edgeguides(void)
+static void draw_edgeguides(void)
 {
     extern editorclass ed;
 
@@ -977,7 +977,7 @@ void draw_edgeguides(void)
     }
 }
 
-void draw_entities(void)
+static void draw_entities(void)
 {
     extern editorclass ed;
 
@@ -1280,7 +1280,7 @@ void draw_entities(void)
     }
 }
 
-void draw_ghosts(void)
+static void draw_ghosts(void)
 {
     extern editorclass ed;
 
@@ -1305,7 +1305,7 @@ void draw_ghosts(void)
     }
 }
 
-void draw_bounds(void)
+static void draw_bounds(void)
 {
     extern editorclass ed;
 
@@ -1355,7 +1355,7 @@ void draw_bounds(void)
     }
 }
 
-void draw_cursor(void)
+static void draw_cursor(void)
 {
     extern editorclass ed;
 
@@ -1416,6 +1416,90 @@ void draw_cursor(void)
     }
 }
 
+static void draw_tile_toolbox(int tileset)
+{
+    // Tile toolbox for direct mode
+    int t2 = 0;
+    if (ed.dmtileeditor > 0)
+    {
+        if (ed.dmtileeditor <= 4)
+        {
+            t2 = graphics.lerp((4 - ed.dmtileeditor + 1) * 12, (4 - ed.dmtileeditor) * 12);
+        }
+
+        // Draw five lines of the editor
+        const int temp = ed.dmtile - (ed.dmtile % 40) - 80;
+        graphics.fill_rect(0, -t2, 320, 40, graphics.getRGB(0, 0, 0));
+        graphics.fill_rect(0, -t2 + 40, 320, 2, graphics.getRGB(255, 255, 255));
+
+        int texturewidth;
+        int textureheight;
+
+        if (graphics.query_texture(graphics.grphx.im_tiles, NULL, NULL, &texturewidth, &textureheight) != 0)
+        {
+            return;
+        }
+
+        const int numtiles = (int)(texturewidth / 8) * (textureheight / 8);
+
+        for (int x = 0; x < 40; x++)
+        {
+            for (int y = 0; y < 5; y++)
+            {
+                if (tileset == 0)
+                {
+                    graphics.drawtile(x * 8, (y * 8) - t2, (temp + numtiles + (y * 40) + x) % numtiles);
+                }
+                else
+                {
+                    graphics.drawtile2(x * 8, (y * 8) - t2, (temp + numtiles + (y * 40) + x) % numtiles);
+                }
+            }
+        }
+
+        // Highlight our little block
+        graphics.draw_rect(((ed.dmtile % 40) * 8) - 2, 16 - t2 - 2, 12, 12, graphics.getRGB(255 - help.glow, 196, 196));
+        graphics.draw_rect(((ed.dmtile % 40) * 8) - 1, 16 - t2 - 1, 10, 10, graphics.getRGB(0, 0, 0));
+    }
+
+    if (ed.dmtileeditor > 0 && t2 <= 30)
+    {
+        short labellen = 2 + font::len(0, loc::gettext("Tile:"));
+        font::print(PR_BOR, 2, 45 - t2, loc::gettext("Tile:"), 196, 196, 255 - help.glow);
+        font::print(PR_BOR, labellen + 16, 45 - t2, help.String(ed.dmtile), 196, 196, 255 - help.glow);
+        graphics.fill_rect(labellen + 2, 44 - t2, 10, 10, graphics.getRGB(255 - help.glow, 196, 196));
+        graphics.fill_rect(labellen + 3, 45 - t2, 8, 8, graphics.getRGB(0, 0, 0));
+
+        if (tileset == 0)
+        {
+            graphics.drawtile(labellen + 3, 45 - t2, ed.dmtile);
+        }
+        else
+        {
+            graphics.drawtile2(labellen + 3, 45 - t2, ed.dmtile);
+        }
+    }
+    else
+    {
+        short labellen = 2 + font::len(0, loc::gettext("Tile:"));
+        int y = 2 + font::height(0);
+        y = SDL_max(y, 12);
+        font::print(PR_BOR, 2, y, loc::gettext("Tile:"), 196, 196, 255 - help.glow);
+        font::print(PR_BOR, labellen + 16, y, help.String(ed.dmtile), 196, 196, 255 - help.glow);
+        graphics.fill_rect(labellen + 2, y - 1, 10, 10, graphics.getRGB(255 - help.glow, 196, 196));
+        graphics.fill_rect(labellen + 3, y, 8, 8, graphics.getRGB(0, 0, 0));
+
+        if (tileset == 0)
+        {
+            graphics.drawtile(labellen + 3, 12, ed.dmtile);
+        }
+        else
+        {
+            graphics.drawtile2(labellen + 3, 12, ed.dmtile);
+        }
+    }
+}
+
 void editorrender(void)
 {
     extern editorclass ed;
@@ -1444,112 +1528,16 @@ void editorrender(void)
 
         draw_bounds();
 
-        draw_cursor();
+        if (room->directmode == 1)
+        {
+            draw_tile_toolbox(room->tileset);
+        }
 
+        draw_cursor();
         break;
     }
 
-    //If in directmode, show current directmode tile
-    if(room->directmode==1)
-    {
-        //Tile box for direct mode
-        int t2=0;
-        if(ed.dmtileeditor>0)
-        {
-            if(ed.dmtileeditor<=4)
-            {
-                t2=graphics.lerp((4-ed.dmtileeditor+1)*12, (4-ed.dmtileeditor)*12);
-            }
-
-            //Draw five lines of the editor
-            const int temp = ed.dmtile - (ed.dmtile % 40) - 80;
-            graphics.fill_rect(0,-t2,320,40, graphics.getRGB(0,0,0));
-            graphics.fill_rect(0,-t2+40,320,2, graphics.getRGB(255,255,255));
-
-            int texturewidth;
-            int textureheight;
-
-            if (room->tileset == 0)
-            {
-                if (graphics.query_texture(graphics.grphx.im_tiles, NULL, NULL, &texturewidth, &textureheight) != 0)
-                {
-                    return;
-                }
-                const int numtiles = (int) (texturewidth / 8) * (textureheight / 8);
-
-                for (int i = 0; i < 40; i++)
-                {
-                    graphics.drawtile(i * 8, 0 - t2, (temp + numtiles + i) % numtiles);
-                    graphics.drawtile(i * 8, 8 - t2, (temp + numtiles + 40 + i) % numtiles);
-                    graphics.drawtile(i * 8, 16 - t2, (temp + numtiles + 80 + i) % numtiles);
-                    graphics.drawtile(i * 8, 24 - t2, (temp + numtiles + 120 + i) % numtiles);
-                    graphics.drawtile(i * 8, 32 - t2, (temp + numtiles + 160 + i) % numtiles);
-                }
-            }
-            else
-            {
-                if (graphics.query_texture(graphics.grphx.im_tiles2, NULL, NULL, &texturewidth, &textureheight) != 0)
-                {
-                    return;
-                }
-                const int numtiles = (int) (texturewidth / 8) * (textureheight / 8);
-
-                for (int i = 0; i < 40; i++)
-                {
-                    graphics.drawtile2(i * 8, 0 - t2, (temp + numtiles + i) % numtiles);
-                    graphics.drawtile2(i * 8, 8 - t2, (temp + numtiles + 40 + i) % numtiles);
-                    graphics.drawtile2(i * 8, 16 - t2, (temp + numtiles + 80 + i) % numtiles);
-                    graphics.drawtile2(i * 8, 24 - t2, (temp + numtiles + 120 + i) % numtiles);
-                    graphics.drawtile2(i * 8, 32 - t2, (temp + numtiles + 160 + i) % numtiles);
-                }
-            }
-            //Highlight our little block
-            graphics.draw_rect(((ed.dmtile % 40) * 8) - 2, 16 - t2 - 2, 12, 12, graphics.getRGB(255 - help.glow, 196, 196));
-            graphics.draw_rect(((ed.dmtile % 40) * 8) - 1, 16 - t2 - 1, 10, 10, graphics.getRGB(0, 0, 0));
-        }
-
-        if(ed.dmtileeditor>0 && t2<=30)
-        {
-            short labellen = 2 + font::len(0, loc::gettext("Tile:"));
-            font::print(PR_BOR, 2, 45-t2, loc::gettext("Tile:"), 196, 196, 255 - help.glow);
-            font::print(PR_BOR, labellen+16, 45-t2, help.String(ed.dmtile), 196, 196, 255 - help.glow);
-            graphics.fill_rect(labellen+2,44-t2,10,10, graphics.getRGB(255 - help.glow, 196, 196));
-            graphics.fill_rect(labellen+3,45-t2,8,8, graphics.getRGB(0,0,0));
-
-            if(room->tileset==0)
-            {
-                graphics.drawtile(labellen+3,45-t2,ed.dmtile);
-            }
-            else
-            {
-                graphics.drawtile2(labellen+3,45-t2,ed.dmtile);
-            }
-        }
-        else
-        {
-            short labellen = 2 + font::len(0, loc::gettext("Tile:"));
-            int y = 2 + font::height(0);
-            y = SDL_max(y, 12);
-            font::print(PR_BOR, 2, y, loc::gettext("Tile:"), 196, 196, 255 - help.glow);
-            font::print(PR_BOR, labellen+16, y, help.String(ed.dmtile), 196, 196, 255 - help.glow);
-            graphics.fill_rect(labellen+2, y-1, 10,10, graphics.getRGB(255 - help.glow, 196, 196));
-            graphics.fill_rect(labellen+3, y, 8,8, graphics.getRGB(0,0,0));
-
-            if(room->tileset==0)
-            {
-                graphics.drawtile(labellen+3,12,ed.dmtile);
-            }
-            else
-            {
-                graphics.drawtile2(labellen+3,12,ed.dmtile);
-            }
-        }
-    }
-
-
-
-
-    //Draw GUI
+    // Draw GUI
     if(ed.boundarymod>0)
     {
         std::string message;
