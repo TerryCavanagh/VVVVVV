@@ -185,9 +185,9 @@ static const inline struct ImplFunc* get_gamestate_funcs(
     FUNC_LIST_BEGIN(EDITORMODE)
         {Func_fixed, flipmodeoff},
         {Func_input, editorinput},
+        {Func_fixed, editorlogic},
         {Func_fixed, editorrenderfixed},
         {Func_delta, editorrender},
-        {Func_fixed, editorlogic},
     FUNC_LIST_END
 #endif
 

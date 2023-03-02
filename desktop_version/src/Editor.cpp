@@ -977,6 +977,66 @@ static void draw_edgeguides(void)
     }
 }
 
+static void update_entities(void)
+{
+    extern editorclass ed;
+
+    for (size_t i = 0; i < customentities.size(); ++i)
+    {
+        CustomEntity* entity = &customentities[i];
+
+        if (entity->x / 40 != ed.levx || entity->y / 30 != ed.levy)
+        {
+            // It's not in this room, so just continue
+            continue;
+        }
+
+        bool grav_line = (entity->t == 11);
+        bool warp_line = (entity->t == 50);
+
+        if ((grav_line || warp_line) && entity->p4 != 1)
+        {
+            // If it's a grav line or a warp line, and it's not locked
+            if ((grav_line && entity->p1 == 0) || (warp_line && entity->p1 >= 2))
+            {
+                /* Horizontal */
+                int tx = entity->x % 40;
+                int tx2 = tx;
+                int ty = entity->y % 30;
+                while (!ed.spikefree(tx, ty))
+                {
+                    --tx;
+                }
+                while (!ed.spikefree(tx2, ty))
+                {
+                    ++tx2;
+                }
+                ++tx;
+                entity->p2 = tx;
+                entity->p3 = (tx2 - tx) * 8;
+            }
+            else
+            {
+                /* Vertical */
+                int tx = entity->x % 40;
+                int ty = entity->y % 30;
+                int ty2 = ty;
+                while (!ed.spikefree(tx, ty))
+                {
+                    --ty;
+                }
+                while (!ed.spikefree(tx, ty2))
+                {
+                    ++ty2;
+                }
+                ++ty;
+                entity->p2 = ty;
+                entity->p3 = (ty2 - ty) * 8;
+            }
+        }
+    }
+}
+
 static void draw_entities(void)
 {
     extern editorclass ed;
@@ -1200,50 +1260,17 @@ static void draw_entities(void)
             case 50: // Warp Lines
                 if (entity->p1 >= 2) // Horizontal
                 {
-                    int left = x / 8;
-                    int right = left;
-                    int tile_y = y / 8;
 
-                    if (entity->p4 != 1)
-                    {
-                        // Unlocked
-                        while (ed.free(left, tile_y) == 0) left--;
-                        while (ed.free(right, tile_y) == 0) right++;
-                        left++;
-                        entity->p2 = left;
-                        entity->p3 = (right - left) * 8;
-                    }
-                    else
-                    {
-                        // Locked
-                        left = entity->p2;
-                        right = left + entity->p3 / 8;
-                    }
+                    int left = entity->p2;
+                    int right = left + entity->p3 / 8;
 
                     graphics.draw_rect((left * 8), y + 1, (right - left) * 8, 6, graphics.getRGB(194, 255, 255));
                     graphics.draw_rect(x, y, 8, 8, graphics.getRGB(164, 255, 255));
                 }
                 else // Vertical
                 {
-                    int tile_x = x / 8;
-                    int top = y / 8;
-                    int bottom = top;
-
-                    if (entity->p4 != 1)
-                    {
-                        // Unlocked
-                        while (ed.free(tile_x, top) == 0) top--;
-                        while (ed.free(tile_x, bottom) == 0) bottom++;
-                        top++;
-                        entity->p2 = top;
-                        entity->p3 = (bottom - top) * 8;
-                    }
-                    else
-                    {
-                        // Locked
-                        top = entity->p2;
-                        bottom = top + entity->p3 / 8;
-                    }
+                    int top = entity->p2;
+                    int bottom = top + entity->p3 / 8;
 
                     graphics.draw_rect(x + 1, (top * 8), 6, (bottom - top) * 8, graphics.getRGB(194, 255, 255));
                     graphics.draw_rect(x, y, 8, 8, graphics.getRGB(164, 255, 255));
@@ -1418,6 +1445,8 @@ static void draw_cursor(void)
 
 static void draw_tile_toolbox(int tileset)
 {
+    extern editorclass ed;
+
     // Tile toolbox for direct mode
     int t2 = 0;
     if (ed.dmtileeditor > 0)
@@ -1898,12 +1927,13 @@ void editorrenderfixed(void)
             ghost.realcol = graphics.getcol(ghost.col);
         }
 
-        if (ed.currentghosts + 1 < (int) ed.ghosts.size()) {
+        ed.currentghosts++;
+        if (ed.zmod)
+        {
             ed.currentghosts++;
-            if (ed.zmod) ed.currentghosts++;
-        } else {
-            ed.currentghosts = (int) ed.ghosts.size() - 1;
         }
+
+        ed.currentghosts = SDL_min(ed.currentghosts, ed.ghosts.size());
     }
 
     if (!ed.settingsmod)
@@ -1929,57 +1959,6 @@ void editorrenderfixed(void)
     else if (!game.colourblindmode)
     {
         graphics.updatetowerbackground(graphics.titlebg);
-    }
-
-    /* Correct gravity lines */
-    for (size_t i = 0; i < customentities.size(); ++i)
-    {
-        if (customentities[i].x / 40 != ed.levx
-        || customentities[i].y / 30 != ed.levy
-        || customentities[i].t != 11
-        /* Is the gravity line locked? */
-        || customentities[i].p4 == 1)
-        {
-            continue;
-        }
-
-        if (customentities[i].p1 == 0)
-        {
-            /* Horizontal */
-            int tx = customentities[i].x % 40;
-            int tx2 = tx;
-            int ty = customentities[i].y % 30;
-            while (!ed.spikefree(tx, ty))
-            {
-                --tx;
-            }
-            while (!ed.spikefree(tx2, ty))
-            {
-                ++tx2;
-            }
-            ++tx;
-            customentities[i].p2 = tx;
-            customentities[i].p3 = (tx2 - tx) * 8;
-        }
-        else
-        {
-            /* Vertical */
-            int tx = customentities[i].x % 40;
-            int ty = customentities[i].y % 30;
-            int ty2 = ty;
-            /* Unlocked */
-            while (!ed.spikefree(tx, ty))
-            {
-                --ty;
-            }
-            while (!ed.spikefree(tx, ty2))
-            {
-                ++ty2;
-            }
-            ++ty;
-            customentities[i].p2 = ty;
-            customentities[i].p3 = (ty2 - ty) * 8;
-        }
     }
 
     if (cl.getroomprop(ed.levx, ed.levy)->directmode == 1)
@@ -2035,17 +2014,16 @@ void editorlogic(void)
     graphics.titlebg.bscroll = -2;
 
     ed.entframedelay--;
-    if(ed.entframedelay<=0)
+    if (ed.entframedelay <= 0)
     {
-        ed.entframe=(ed.entframe+1)%4;
-        ed.entframedelay=8;
+        ed.entframe = (ed.entframe + 1) % 4;
+        ed.entframedelay = 8;
     }
 
     ed.oldnotedelay = ed.notedelay;
-    if(ed.notedelay>0)
-    {
-        ed.notedelay--;
-    }
+    ed.notedelay = SDL_max(ed.notedelay - 1, 0);
+
+    update_entities();
 
     if (graphics.fademode == FADE_FULLY_BLACK)
     {
@@ -2214,8 +2192,10 @@ static void editormenuactionpress(void)
                 cl.levmusic--;
                 break;
             }
-            cl.levmusic = (cl.levmusic % 16 + 16) % 16;
-            if(cl.levmusic>0)
+
+            cl.levmusic = POS_MOD(cl.levmusic, 16);
+
+            if (cl.levmusic > 0)
             {
                 music.play(cl.levmusic);
             }
@@ -2223,6 +2203,7 @@ static void editormenuactionpress(void)
             {
                 music.haltdasmusik();
             }
+
             music.playef(11);
             break;
         case 2:
@@ -2238,9 +2219,9 @@ static void editormenuactionpress(void)
         {
         case 0:
             //Saving and quit
-            ed.saveandquit=true;
+            ed.saveandquit = true;
 
-            ed.settingsmod=false;
+            ed.settingsmod = false;
             map.nexttowercolour();
 
             ed.keydelay = 6;
@@ -2331,10 +2312,10 @@ void editorinput(void)
         game.press_action = true;
     };
 
-    if (key.keymap[SDLK_F9] && (ed.keydelay==0)) {
+    if (key.keymap[SDLK_F9] && (ed.keydelay == 0)) {
         ed.keydelay = 30;
-        ed.note=loc::gettext("Reloaded resources");
-        ed.notedelay=45;
+        ed.note = loc::gettext("Reloaded resources");
+        ed.notedelay = 45;
         graphics.reloadresources();
     }
 
@@ -2443,11 +2424,6 @@ void editorinput(void)
     if (!key.isDown(27))
     {
         ed.settingskey=false;
-    }
-
-    if(key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
-    {
-        if(key.leftbutton) key.rightbutton=true;
     }
 
     if(ed.scripteditmod)
@@ -2971,28 +2947,27 @@ void editorinput(void)
 
             if (up_pressed || down_pressed || left_pressed || right_pressed)
             {
-                ed.keydelay=6;
-                if(up_pressed)
+                ed.keydelay = 6;
+                if (up_pressed)
                 {
                     cl.mapheight--;
                 }
-                else if(down_pressed)
+                else if (down_pressed)
                 {
                     cl.mapheight++;
                 }
-                else if(left_pressed)
+                else if (left_pressed)
                 {
                     cl.mapwidth--;
                 }
-                else if(right_pressed)
+                else if (right_pressed)
                 {
                     cl.mapwidth++;
                 }
 
-                if(cl.mapwidth<1) cl.mapwidth=1;
-                if(cl.mapheight<1) cl.mapheight=1;
-                if(cl.mapwidth>=cl.maxwidth) cl.mapwidth=cl.maxwidth;
-                if(cl.mapheight>=cl.maxheight) cl.mapheight=cl.maxheight;
+                cl.mapwidth = SDL_clamp(cl.mapwidth, 1, cl.maxwidth);
+                cl.mapheight = SDL_clamp(cl.mapheight, 1, cl.maxheight);
+
                 char buffer[3*SCREEN_WIDTH_CHARS + 1];
                 vformat_buf(
                     buffer, sizeof(buffer),
@@ -3000,22 +2975,23 @@ void editorinput(void)
                     "width:int, height:int",
                     cl.mapwidth, cl.mapheight
                 );
+
                 ed.note = buffer;
-                ed.notedelay=45;
+                ed.notedelay = 45;
             }
 
-            if(!ed.shiftkey)
+            if (!ed.shiftkey)
             {
-                if(ed.shiftmenu)
+                if (ed.shiftmenu)
                 {
-                    ed.shiftmenu=false;
+                    ed.shiftmenu = false;
                 }
                 else
                 {
-                    ed.shiftmenu=true;
+                    ed.shiftmenu = true;
                 }
             }
-            ed.shiftkey=true;
+            ed.shiftkey = true;
         }
         else
         {
@@ -3122,19 +3098,19 @@ void editorinput(void)
                     game.mapheld=true;
 
                     //Ok! Scan the room for the closest checkpoint
-                    int testeditor=-1;
+                    int testeditor = -1;
                     bool startpoint = false;
                     //First up; is there a start point on this screen?
-                    for(size_t i=0; i<customentities.size(); i++)
+                    for (size_t i = 0; i < customentities.size(); i++)
                     {
                         //if() on screen
-                        if(customentities[i].t==16 && testeditor==-1)
+                        if (customentities[i].t == 16 && testeditor == -1)
                         {
-                            int tx=customentities[i].x/40;
-                            int ty=customentities[i].y/30;
-                            if(tx==ed.levx && ty==ed.levy)
+                            int tx = customentities[i].x / 40;
+                            int ty = customentities[i].y / 30;
+                            if (tx == ed.levx && ty == ed.levy)
                             {
-                                testeditor=i;
+                                testeditor = i;
                                 startpoint = true;
                             }
                         }
@@ -3142,16 +3118,16 @@ void editorinput(void)
                     if(testeditor==-1)
                     {
                         //Ok, settle for a check point
-                        for(size_t i=0; i<customentities.size(); i++)
+                        for (size_t i = 0; i < customentities.size(); i++)
                         {
                             //if() on screen
-                            if(customentities[i].t==10 && testeditor==-1)
+                            if (customentities[i].t == 10 && testeditor == -1)
                             {
-                                int tx=customentities[i].x/40;
-                                int ty=customentities[i].y/30;
-                                if(tx==ed.levx && ty==ed.levy)
+                                int tx = customentities[i].x / 40;
+                                int ty = customentities[i].y / 30;
+                                if (tx == ed.levx && ty == ed.levy)
                                 {
-                                    testeditor=i;
+                                    testeditor = i;
                                 }
                             }
                         }
@@ -3189,15 +3165,15 @@ void editorinput(void)
                         else
                         {
                             //Start point spawn
-                            int tx=customentities[testeditor].x/40;
-                            int ty=customentities[testeditor].y/30;
-                            game.edsavex = (customentities[testeditor].x%40)*8 - 4;
-                            game.edsavey = (customentities[testeditor].y%30)*8;
-                            game.edsaverx = 100+tx;
-                            game.edsavery = 100+ty;
+                            int tx = customentities[testeditor].x / 40;
+                            int ty = customentities[testeditor].y / 30;
+                            game.edsavex = (customentities[testeditor].x % 40) * 8 - 4;
+                            game.edsavey = (customentities[testeditor].y % 30) * 8;
+                            game.edsaverx = 100 + tx;
+                            game.edsavery = 100 + ty;
                             game.edsavegc = 0;
                             game.edsavey++;
-                            game.edsavedir=1-customentities[testeditor].p1;
+                            game.edsavedir = 1 - customentities[testeditor].p1;
                         }
 
                         music.haltdasmusik();
@@ -3218,12 +3194,12 @@ void editorinput(void)
             if(key.keymap[SDLK_COMMA])
             {
                 ed.current_tool = (EditorTools) POS_MOD(ed.current_tool - 1, NUM_EditorTools);
-                ed.keydelay=6;
+                ed.keydelay = 6;
             }
             else if(key.keymap[SDLK_PERIOD])
             {
                 ed.current_tool = (EditorTools) POS_MOD(ed.current_tool + 1, NUM_EditorTools);
-                ed.keydelay=6;
+                ed.keydelay = 6;
             }
 
             if(up_pressed)
@@ -3259,10 +3235,9 @@ void editorinput(void)
                 graphics.backgrounddrawn = false;
             }
 
-            if (ed.levx < 0) ed.levx += cl.mapwidth;
-            if (ed.levx >= cl.mapwidth) ed.levx -= cl.mapwidth;
-            if (ed.levy < 0) ed.levy += cl.mapheight;
-            if (ed.levy >= cl.mapheight) ed.levy -= cl.mapheight;
+            ed.levx = POS_MOD(ed.levx, cl.mapwidth);
+            ed.levy = POS_MOD(ed.levy, cl.mapheight);
+
             if (key.keymap[SDLK_SPACE])
             {
                 ed.spacemod = !ed.spacemod;
