@@ -9,6 +9,62 @@
 #include <string>
 #include <vector>
 
+enum EditorTools
+{
+    EditorTool_WALLS,
+    EditorTool_BACKING,
+    EditorTool_SPIKES,
+    EditorTool_TRINKETS,
+    EditorTool_CHECKPOINTS,
+    EditorTool_DISAPPEARING_PLATFORMS,
+    EditorTool_CONVEYORS,
+    EditorTool_MOVING_PLATFORMS,
+    EditorTool_ENEMIES,
+    EditorTool_GRAVITY_LINES,
+    EditorTool_ROOMTEXT,
+    EditorTool_TERMINALS,
+    EditorTool_SCRIPTS,
+    EditorTool_WARP_TOKENS,
+    EditorTool_WARP_LINES,
+    EditorTool_CREWMATES,
+    EditorTool_START_POINT,
+
+    NUM_EditorTools
+};
+
+enum EditorStates
+{
+    EditorState_DRAW,
+    EditorState_SCRIPTS,
+    EditorState_MENU
+};
+
+enum EditorSubStates
+{
+    EditorSubState_MAIN,
+
+    EditorSubState_DRAW_INPUT,
+    EditorSubState_DRAW_BOX,
+    EditorSubState_DRAW_WARPTOKEN,
+
+    EditorSubState_SCRIPTS_EDIT
+};
+
+enum TileTypes
+{
+    TileType_NONSOLID,
+    TileType_SOLID,
+    TileType_BACKGROUND,
+    TileType_SPIKE
+};
+
+enum BoxTypes
+{
+    BoxType_SCRIPT,
+    BoxType_ENEMY,
+    BoxType_PLATFORM
+};
+
 // Text entry field type
 enum textmode
 {
@@ -52,9 +108,25 @@ public:
     editorclass(void);
     void reset(void);
 
+    void register_tool(EditorTools tool, const char* name, const char* keychar, SDL_KeyCode key, bool shift);
+
+    void draw_tool(EditorTools tool, int x, int y);
+
+    void handle_tile_placement(int tile);
+
+    void tool_remove();
+    void entity_clicked(int index);
+    void tool_place();
+
     void getlin(const enum textmode mode, const std::string& prompt, std::string* ptr);
 
-    void placetilelocal(int x, int y, int t);
+    void addedentity(int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240);
+
+    void removeedentity(int t);
+
+    int edentat(int xp, int yp);
+
+    void settile(int x, int y, int t);
 
     int base(int x, int y);
 
@@ -62,7 +134,7 @@ public:
 
     int at(int x, int y);
 
-    int freewrap(int x, int y);
+    int tile_type_wrap(int x, int y);
 
     int backonlyfree(int x, int y);
 
@@ -91,6 +163,16 @@ public:
     void clamp_tilecol(const int rx, const int ry, const bool wrap);
     void switch_enemy(const bool reversed);
     void switch_warpdir(const bool reversed);
+
+    EditorStates state;
+    EditorSubStates substate;
+
+    const char* toolnames[NUM_EditorTools];
+    const char* toolkeychar[NUM_EditorTools];
+    SDL_KeyCode toolkey[NUM_EditorTools];
+    bool toolshift[NUM_EditorTools];
+
+    EditorTools current_tool;
 
     int entcol;
     SDL_Color entcolreal;
@@ -128,7 +210,6 @@ public:
     int roomnamehide;
     bool saveandquit;
     bool shiftmenu, shiftkey;
-    int spacemenu;
     bool settingsmod, settingskey;
     int warpent;
     bool updatetiles, changeroom;

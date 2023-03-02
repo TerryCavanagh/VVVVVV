@@ -412,7 +412,6 @@ public:
     int quick_trinkets;
     std::string quick_currentarea;
 
-    int mx, my;
     int screenshake, flashlight;
     bool advancetext, pausescript;
 

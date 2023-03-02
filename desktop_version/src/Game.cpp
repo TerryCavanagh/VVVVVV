@@ -7237,6 +7237,8 @@ void Game::returntoeditor(void)
         }
     }
     graphics.titlebg.scrolldir = 0;
+    graphics.backgrounddrawn = false;
+    graphics.foregrounddrawn = false;
 }
 #endif
 

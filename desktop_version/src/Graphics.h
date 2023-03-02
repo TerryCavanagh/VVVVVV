@@ -209,6 +209,13 @@ public:
     int fill_rect(int x, int y, int w, int h, SDL_Color color);
     int fill_rect(SDL_Color color);
 
+    int draw_rect(const SDL_Rect* rect, int r, int g, int b, int a);
+    int draw_rect(int x, int y, int w, int h, int r, int g, int b, int a);
+    int draw_rect(int x, int y, int w, int h, int r, int g, int b);
+    int draw_rect(const SDL_Rect* rect, int r, int g, int b);
+    int draw_rect(const SDL_Rect* rect, SDL_Color color);
+    int draw_rect(int x, int y, int w, int h, SDL_Color color);
+
     void map_tab(int opt, const char* text, bool selected = false);
 
     void map_option(int opt, int num_opts, const std::string& text, bool selected = false);
@@ -249,19 +256,11 @@ public:
 #ifndef NO_CUSTOM_LEVELS
     bool shouldrecoloroneway(const int tilenum, const bool mounted);
 #endif
-    void drawtile3( int x, int y, int t, int off, int height_subtract = 0 );
-    void drawtile2( int x, int y, int t );
-    void drawtile( int x, int y, int t );
-    void drawtowertile( int x, int y, int t );
-    void drawtowertile3( int x, int y, int t, TowerBG& bg_obj );
+    void drawtile3(int x, int y, int t, int off, int height_subtract = 0);
+    void drawtile2(int x, int y, int t);
+    void drawtile(int x, int y, int t);
 
     void drawmap(void);
-
-    void drawforetile(int x, int y, int t);
-
-    void drawforetile2(int x, int y, int t);
-
-    void drawforetile3(int x, int y, int t, int off);
 
     void drawrect(int x, int y, int w, int h, int r, int g, int b);
 
