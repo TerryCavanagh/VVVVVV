@@ -308,7 +308,7 @@ public:
     bool notextoutline;
 
     SDL_Texture* gameTexture;
-    SDL_Texture* tempTexture;
+    SDL_Texture* menuoffTexture;
     SDL_Texture* gameplayTexture;
     SDL_Texture* menuTexture;
     SDL_Texture* ghostTexture;
