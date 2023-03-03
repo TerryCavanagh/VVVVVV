@@ -208,6 +208,8 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_DestroyTexture, menuoffTexture);
     VVV_freefunc(SDL_DestroyTexture, foregroundTexture);
     VVV_freefunc(SDL_DestroyTexture, backgroundTexture);
+    VVV_freefunc(SDL_DestroyTexture, towerbg.texture);
+    VVV_freefunc(SDL_DestroyTexture, titlebg.texture);
 }
 
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
