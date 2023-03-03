@@ -193,7 +193,7 @@ void Graphics::create_buffers(void)
     backgroundTexture = CREATE_SCROLL_TEXTURE;
     towerbg.texture = CREATE_SCROLL_TEXTURE;
     titlebg.texture = CREATE_SCROLL_TEXTURE;
-    
+
 #undef CREATE_SCROLL_TEXTURE
 #undef CREATE_TEXTURE
 #undef CREATE_TEXTURE_WITH_DIMENSIONS
