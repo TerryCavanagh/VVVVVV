@@ -88,6 +88,15 @@ void print(
     uint32_t flags,
     int x,
     int y,
+    const char* text,
+    uint8_t r, uint8_t g, uint8_t b
+);
+
+// std::string overload for only font::print (use .c_str() for the others)
+void print(
+    uint32_t flags,
+    int x,
+    int y,
     const std::string& text,
     uint8_t r, uint8_t g, uint8_t b
 );

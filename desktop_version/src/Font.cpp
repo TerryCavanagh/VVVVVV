@@ -1176,7 +1176,7 @@ void print(
     const uint32_t flags,
     int x,
     int y,
-    const std::string& text,
+    const char* text,
     const uint8_t r,
     const uint8_t g,
     const uint8_t b
@@ -1239,9 +1239,8 @@ void print(
     }
 
     int position = 0;
-    const char* str = text.c_str(); // TODO no std::string
     uint32_t codepoint;
-    while ((codepoint = UTF8_next(&str)))
+    while ((codepoint = UTF8_next(&text)))
     {
         position += font::print_char(
             pf.font_sel,
@@ -1255,6 +1254,20 @@ void print(
             pf.brightness
         );
     }
+}
+
+void print(
+    const uint32_t flags,
+    int x,
+    int y,
+    const std::string& text,
+    const uint8_t r,
+    const uint8_t g,
+    const uint8_t b
+)
+{
+    // Just a std::string overload for now because it's more .c_str() to add than I'm comfortable with...
+    print(flags, x, y, text.c_str(), r, g, b);
 }
 
 int print_wrap(
