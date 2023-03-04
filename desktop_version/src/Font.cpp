@@ -286,12 +286,6 @@ static uint8_t load_font(FontContainer* container, const char* name)
     f->fallback_key[0] = '\0';
     f->fallback_idx_valid = false;
 
-    if (container->map_name_idx == NULL)
-    {
-        container->map_name_idx = hashmap_create();
-    }
-    hashmap_set(container->map_name_idx, f->name, SDL_strlen(f->name), f_idx);
-
     bool white_teeth = false;
 
     tinyxml2::XMLDocument doc;
@@ -555,6 +549,19 @@ void set_level_font_new(void)
 #endif
 }
 
+static void fill_map_name_idx(FontContainer* container)
+{
+    /* Initialize the name->idx hashmap for the fonts in this container.
+     * This should only be done once, after all the fonts are added. */
+    container->map_name_idx = hashmap_create();
+
+    for (uint8_t i = 0; i < container->count; i++)
+    {
+        Font* f = &container->fonts[i];
+        hashmap_set(container->map_name_idx, f->name, SDL_strlen(f->name), i);
+    }
+}
+
 static void set_fallbacks(FontContainer* container)
 {
     /* Initialize the value of fallback_idx for all fonts in this container.
@@ -609,6 +616,7 @@ void load_main(void)
     FILESYSTEM_freeEnumerate(&handle);
     font_idx_level = font_idx_8x8;
 
+    fill_map_name_idx(&fonts_main);
     set_fallbacks(&fonts_main);
 
     // Initialize the font menu options, 8x8 font first
@@ -645,6 +653,7 @@ void load_custom(const char* name)
     }
     FILESYSTEM_freeEnumerate(&handle);
 
+    fill_map_name_idx(&fonts_custom);
     set_fallbacks(&fonts_custom);
 
     set_level_font(name);
