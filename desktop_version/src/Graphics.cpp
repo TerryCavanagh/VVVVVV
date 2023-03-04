@@ -191,6 +191,7 @@ void Graphics::create_buffers(void)
     menuoffTexture = CREATE_TEXTURE;
     foregroundTexture = CREATE_TEXTURE;
     backgroundTexture = CREATE_SCROLL_TEXTURE;
+    tempScrollingTexture = CREATE_SCROLL_TEXTURE;
     towerbg.texture = CREATE_SCROLL_TEXTURE;
     titlebg.texture = CREATE_SCROLL_TEXTURE;
 
@@ -208,6 +209,7 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_DestroyTexture, menuoffTexture);
     VVV_freefunc(SDL_DestroyTexture, foregroundTexture);
     VVV_freefunc(SDL_DestroyTexture, backgroundTexture);
+    VVV_freefunc(SDL_DestroyTexture, tempScrollingTexture);
     VVV_freefunc(SDL_DestroyTexture, towerbg.texture);
     VVV_freefunc(SDL_DestroyTexture, titlebg.texture);
 }
@@ -649,48 +651,20 @@ void Graphics::draw_sprite(const int x, const int y, const int t, const SDL_Colo
     draw_grid_tile(grphx.im_sprites, t, x, y, sprites_rect.w, sprites_rect.h, color);
 }
 
-void Graphics::scroll_texture(SDL_Texture* texture, const int x, const int y)
+void Graphics::scroll_texture(SDL_Texture* texture, SDL_Texture* temp, const int x, const int y)
 {
+    SDL_Texture* target = SDL_GetRenderTarget(gameScreen.m_renderer);
     SDL_Rect texture_rect = {0, 0, 0, 0};
     SDL_QueryTexture(texture, NULL, NULL, &texture_rect.w, &texture_rect.h);
 
-    if (x < 0)
-    {
-        for (int i = 0; i < texture_rect.w; i -= x)
-        {
-            const SDL_Rect src = {i, 0, x * -1, texture_rect.h};
-            const SDL_Rect dest = {i + x, 0, x * -1, texture_rect.h};
-            copy_texture(texture, &src, &dest);
-        }
-    }
-    else if (x > 0)
-    {
-        for (int i = texture_rect.w; i > 0; i -= x)
-        {
-            const SDL_Rect src = {i - x, 0, x, texture_rect.h};
-            const SDL_Rect dest = {i, 0, x, texture_rect.h};
-            copy_texture(texture, &src, &dest);
-        }
-    }
+    const SDL_Rect src = {0, 0, texture_rect.w, texture_rect.h};
+    const SDL_Rect dest = {x, y, texture_rect.w, texture_rect.h};
 
-    if (y < 0)
-    {
-        for (int i = 0; i < texture_rect.h; i -= y)
-        {
-            const SDL_Rect src = {0, i, texture_rect.w, y * -1};
-            const SDL_Rect dest = {0, i + y, texture_rect.w, y * -1};
-            copy_texture(texture, &src, &dest);
-        }
-    }
-    else if (y > 0)
-    {
-        for (int i = texture_rect.h; i > 0; i -= y)
-        {
-            const SDL_Rect src = {0, i - y, texture_rect.w, y};
-            const SDL_Rect dest = {0, i, texture_rect.w, y};
-            copy_texture(texture, &src, &dest);
-        }
-    }
+    set_render_target(temp);
+    clear();
+    copy_texture(texture, &src, &dest);
+    set_render_target(target);
+    copy_texture(temp, &src, &src);
 }
 
 #ifndef NO_CUSTOM_LEVELS
@@ -2530,7 +2504,7 @@ void Graphics::updatebackground(int t)
 
         if (backgrounddrawn)
         {
-            scroll_texture(backgroundTexture, -3, 0);
+            scroll_texture(backgroundTexture, tempScrollingTexture, -3, 0);
             for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 2; i++)
@@ -2573,7 +2547,7 @@ void Graphics::updatebackground(int t)
 
         if (backgrounddrawn)
         {
-            scroll_texture(backgroundTexture, 0, -3);
+            scroll_texture(backgroundTexture, tempScrollingTexture, 0, -3);
             for (int j = 0; j < 2; j++)
             {
                 for (int i = 0; i < 21; i++)
@@ -2778,7 +2752,7 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
     else
     {
         //just update the bottom
-        scroll_texture(bg_obj.texture, 0, -bg_obj.bscroll);
+        scroll_texture(bg_obj.texture, tempScrollingTexture, 0, -bg_obj.bscroll);
         if (bg_obj.scrolldir == 0)
         {
             for (int i = 0; i < 40; i++)
