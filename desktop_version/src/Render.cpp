@@ -614,7 +614,7 @@ static void menurender(void)
         }
         else if ((unsigned)game.currentmenuoption < loc::languagelist.size())
         {
-            font::print_wrap(PR_CEN, -1, 8, loc::languagelist[game.currentmenuoption].credit, tr/2, tg/2, tb/2);
+            font::print_wrap(PR_CEN, -1, 8, loc::languagelist[game.currentmenuoption].credit.c_str(), tr/2, tg/2, tb/2);
             font::print(PR_CEN, -1, 230, loc::languagelist[game.currentmenuoption].action_hint, tr/2, tg/2, tb/2);
         }
         break;

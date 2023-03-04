@@ -1261,7 +1261,7 @@ int print_wrap(
     uint32_t flags,
     const int x,
     int y,
-    const std::string& text,
+    const char* text,
     const uint8_t r,
     const uint8_t g,
     const uint8_t b,
@@ -1292,7 +1292,6 @@ int print_wrap(
         flags &= ~PR_BOR;
     }
 
-    const char* str = text.c_str();
     // This could fit 64 non-BMP characters onscreen, should be plenty
     char buffer[256];
     size_t start = 0;
@@ -1301,7 +1300,7 @@ int print_wrap(
     {
         // Correct for the height of the resulting print.
         size_t len = 0;
-        while (next_wrap(pf.font_sel, &start, &len, &str[start], maxwidth))
+        while (next_wrap(pf.font_sel, &start, &len, &text[start], maxwidth))
         {
             y += linespacing;
         }
@@ -1309,7 +1308,7 @@ int print_wrap(
         start = 0;
     }
 
-    while (next_wrap_buf(pf.font_sel, buffer, sizeof(buffer), &start, str, maxwidth))
+    while (next_wrap_buf(pf.font_sel, buffer, sizeof(buffer), &start, text, maxwidth))
     {
         print(flags, x, y, buffer, r, g, b);
 

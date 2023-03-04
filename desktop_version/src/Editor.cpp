@@ -1181,7 +1181,7 @@ void editorrender(void)
         graphics.fill_rect(0,238-textheight,320,240, graphics.getRGB(32,32,32));
         graphics.fill_rect(0,239-textheight,320,240, graphics.getRGB(0,0,0));
 
-        font::print_wrap(0, 4, 240-textheight, message, 255,255,255, 8, 312);
+        font::print_wrap(0, 4, 240-textheight, message.c_str(), 255,255,255, 8, 312);
     }
     else if(ed.scripteditmod)
     {
@@ -1283,7 +1283,7 @@ void editorrender(void)
 
         graphics.fill_rect(0, 238-textheight, 320, 240, graphics.getRGB(32, 32, 32));
         graphics.fill_rect(0, 239-textheight, 320, 240, graphics.getRGB(0, 0, 0));
-        font::print_wrap(0, 4, 240-textheight, wrapped, 255, 255, 255, 8, 312);
+        font::print_wrap(0, 4, 240-textheight, wrapped.c_str(), 255, 255, 255, 8, 312);
         std::string input = key.keybuffer;
         if (ed.entframe < 2)
         {
@@ -1640,7 +1640,7 @@ void editorrender(void)
         float alpha = graphics.lerp(ed.oldnotedelay, ed.notedelay);
         graphics.fill_rect(0, banner_y, 320, 10+textheight, graphics.getRGB(92,92,92));
         graphics.fill_rect(0, banner_y+1, 320, 8+textheight, graphics.getRGB(0,0,0));
-        font::print_wrap(PR_CEN, -1,banner_y+5, wrapped, 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4));
+        font::print_wrap(PR_CEN, -1,banner_y+5, wrapped.c_str(), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4));
     }
 
     graphics.drawfade();
