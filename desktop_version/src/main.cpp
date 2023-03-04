@@ -823,9 +823,9 @@ static void cleanup(void)
 
     graphics.grphx.destroy();
     graphics.destroy_buffers();
-    gameScreen.destroy();
     graphics.destroy();
     font::destroy();
+    gameScreen.destroy();
     music.destroy();
     map.destroy();
     NETWORK_shutdown();
