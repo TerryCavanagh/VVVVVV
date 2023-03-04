@@ -96,7 +96,7 @@ int print_wrap(
     uint32_t flags,
     int x,
     int y,
-    const std::string& text,
+    const char* text,
     uint8_t r, uint8_t g, uint8_t b,
     int linespacing = -1,
     int maxwidth = -1
