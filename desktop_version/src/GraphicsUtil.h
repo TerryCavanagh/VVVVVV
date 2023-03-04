@@ -12,6 +12,6 @@ void DrawPixel(SDL_Surface* surface, int x, int y, SDL_Color color);
 SDL_Color ReadPixel(const SDL_Surface* surface, int x, int y);
 
 void UpdateFilter(void);
-void ApplyFilter(void);
+void ApplyFilter(SDL_Surface* src, SDL_Surface* dest);
 
 #endif /* GRAPHICSUTIL_H */

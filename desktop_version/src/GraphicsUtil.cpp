@@ -144,11 +144,17 @@ void UpdateFilter(void)
     }
 }
 
-void ApplyFilter(void)
+void ApplyFilter(SDL_Surface* src, SDL_Surface* dest)
 {
-    // Copy the screen to a temporary surface
-    SDL_Surface* src = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
     if (src == NULL)
+    {
+        src = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
+    }
+    if (dest == NULL)
+    {
+        dest = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
+    }
+    if (src == NULL || dest == NULL)
     {
         return;
     }
@@ -160,18 +166,6 @@ void ApplyFilter(void)
         WHINE_ONCE_ARGS(("Could not read pixels from renderer: %s", SDL_GetError()));
         return;
     }
-
-    Uint32 rawFormat;
-
-    if (graphics.query_texture(graphics.gameTexture, &rawFormat, NULL, NULL, NULL) != 0)
-    {
-        return;
-    }
-
-    SDL_PixelFormat* format = SDL_AllocFormat(rawFormat);
-
-    // Have a second surface to do work on
-    SDL_Surface* dest = SDL_CreateRGBSurface(0, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS, 32, 0, 0, 0, 0);
 
     const int red_offset = rand() % 4;
 
@@ -226,10 +220,5 @@ void ApplyFilter(void)
         }
     }
 
-    SDL_FreeFormat(format);
-
     SDL_UpdateTexture(graphics.gameTexture, NULL, dest->pixels, dest->pitch);
-
-    SDL_FreeSurface(src);
-    SDL_FreeSurface(dest);
 }

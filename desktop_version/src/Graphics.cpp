@@ -171,6 +171,9 @@ void Graphics::destroy(void)
 #undef CLEAR_ARRAY
 }
 
+static SDL_Surface* tempFilterSrc = NULL;
+static SDL_Surface* tempFilterDest = NULL;
+
 void Graphics::create_buffers(void)
 {
 #define CREATE_TEXTURE_WITH_DIMENSIONS(w, h) \
@@ -212,6 +215,8 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_DestroyTexture, tempScrollingTexture);
     VVV_freefunc(SDL_DestroyTexture, towerbg.texture);
     VVV_freefunc(SDL_DestroyTexture, titlebg.texture);
+    VVV_freefunc(SDL_FreeSurface, tempFilterSrc);
+    VVV_freefunc(SDL_FreeSurface, tempFilterDest);
 }
 
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
@@ -3153,7 +3158,7 @@ void Graphics::screenshake(void)
 {
     if (gameScreen.badSignalEffect)
     {
-        ApplyFilter();
+        ApplyFilter(tempFilterSrc, tempFilterDest);
     }
 
     set_render_target(menuoffTexture);
@@ -3191,7 +3196,7 @@ void Graphics::render(void)
 {
     if (gameScreen.badSignalEffect)
     {
-        ApplyFilter();
+        ApplyFilter(tempFilterSrc, tempFilterDest);
     }
 
     set_render_target(NULL);
