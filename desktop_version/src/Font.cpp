@@ -1147,13 +1147,12 @@ bool glyph_dimensions(uint32_t flags, uint8_t* glyph_w, uint8_t* glyph_h)
     return true;
 }
 
-int len(const uint32_t flags, const std::string& t)
+int len(const uint32_t flags, const char* text)
 {
     PrintFlags pf = decode_print_flags(flags);
 
     int text_len = 0;
     uint32_t codepoint;
-    const char* text = t.c_str(); // TODO no std::string
     while ((codepoint = UTF8_next(&text)))
     {
         text_len += get_advance(pf.font_sel, codepoint);

@@ -186,7 +186,7 @@ namespace roomname_translator
                 {
                     *force_roomname_hidden = true;
                     graphics.render_roomname(PR_FONT_LEVEL, key.keybuffer.c_str(), 255,255,255);
-                    int name_w = font::len(PR_FONT_LEVEL, key.keybuffer);
+                    int name_w = font::len(PR_FONT_LEVEL, key.keybuffer.c_str());
                     font::print(PR_BOR | PR_FONT_LEVEL, (320-name_w)/2+name_w, 231, "_", 255,255,255);
                 }
                 else if (!roomname_is_translated)

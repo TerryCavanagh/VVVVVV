@@ -790,7 +790,7 @@ void editorrender(void)
                 }
                 else
                 {
-                    fillboxabs((customentities[i].x*8)-(ed.levx*40*8), (customentities[i].y*8)-(ed.levy*30*8), font::len(PR_FONT_LEVEL, customentities[i].scriptname), font::height(PR_FONT_LEVEL), graphics.getRGB(96,96,96));
+                    fillboxabs((customentities[i].x*8)-(ed.levx*40*8), (customentities[i].y*8)-(ed.levy*30*8), font::len(PR_FONT_LEVEL, customentities[i].scriptname.c_str()), font::height(PR_FONT_LEVEL), graphics.getRGB(96,96,96));
                 }
                 font::print(PR_FONT_LEVEL | PR_CJK_LOW, (customentities[i].x*8)-(ed.levx*40*8), (customentities[i].y*8)-(ed.levy*30*8), customentities[i].scriptname, 196, 196, 255 - help.glow);
                 break;
@@ -1245,7 +1245,7 @@ void editorrender(void)
             //Draw cursor
             if(ed.entframe<2)
             {
-                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16+font::len(PR_FONT_LEVEL, ed.sb[ed.pagey+ed.sby]),20+(ed.sby*font_height),"_",123, 111, 218);
+                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16+font::len(PR_FONT_LEVEL, ed.sb[ed.pagey+ed.sby].c_str()),20+(ed.sby*font_height),"_",123, 111, 218);
             }
             break;
         }
