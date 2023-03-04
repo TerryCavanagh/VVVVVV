@@ -81,7 +81,7 @@ std::string string_unwordwrap(const std::string& s);
 
 bool glyph_dimensions(uint32_t flags, uint8_t* glyph_w, uint8_t* glyph_h);
 
-int len(uint32_t flags, const std::string& t);
+int len(uint32_t flags, const char* text);
 int height(const uint32_t flags);
 
 void print(

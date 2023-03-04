@@ -1497,7 +1497,7 @@ static void menurender(void)
 
                 int w[4] = {
                     font::len(0, str_par_time),
-                    font::len(0, par_time),
+                    font::len(0, par_time.c_str()),
                     font::len(0, str_best_rank),
                     font::len(PR_2X, rank)
                 };
@@ -2189,7 +2189,7 @@ void gamerender(void)
             }
 
             std::string time = game.timetstring(game.timetrialpar);
-            label_len = font::len(0, time);
+            label_len = font::len(0, time.c_str());
             if(game.timetrialparlost)
             {
                 font::print(PR_BOR | PR_RIGHT, 307-label_len-8, 214, loc::gettext("PAR TIME:"),  80, 80, 80);

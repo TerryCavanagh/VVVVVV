@@ -468,7 +468,7 @@ void Graphics::print_level_creator(
      * - it makes sense to make it a face
      * - if anyone is sad about this decision, the happy face will cheer them up anyway :D */
     int width_for_face = 17;
-    int total_width = width_for_face + font::len(print_flags, creator);
+    int total_width = width_for_face + font::len(print_flags, creator.c_str());
     int face_x = (SCREEN_WIDTH_PIXELS-total_width)/2;
     set_texture_color_mod(grphx.im_sprites, r, g, b);
     draw_texture_part(grphx.im_sprites, face_x, y-1, 7, 2, 10, 10, 1, 1);
@@ -1366,7 +1366,7 @@ void Graphics::createtextboxreal(
         textboxclass text;
         text.lines.push_back(t);
         text.xp = xp;
-        if (xp == -1) text.xp = 160 - ((font::len(PR_FONT_LEVEL, t) / 2) + 8);
+        if (xp == -1) text.xp = 160 - ((font::len(PR_FONT_LEVEL, t.c_str()) / 2) + 8);
         text.yp = yp;
         text.initcol(r, g, b);
         text.flipme = flipme;
@@ -1567,7 +1567,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
             vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", opt_text.c_str());
 
             // Account for brackets
-            x -= (font::len(opt.print_flags, buffer)-font::len(opt.print_flags, opt_text))/2;
+            x -= (font::len(opt.print_flags, buffer)-font::len(opt.print_flags, opt_text.c_str()))/2;
         }
         else
         {

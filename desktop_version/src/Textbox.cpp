@@ -106,7 +106,7 @@ void textboxclass::resize(void)
     int max = 0;
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
-        int len = font::len(print_flags, lines[iter]);
+        int len = font::len(print_flags, lines[iter].c_str());
         if (len > max) max = len;
     }
 
