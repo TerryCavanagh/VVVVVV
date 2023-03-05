@@ -35,11 +35,11 @@ editorclass::editorclass(void)
     register_tool(EditorTool_SPIKES, "Spikes", "3", SDLK_3, false);
     register_tool(EditorTool_TRINKETS, "Trinkets", "4", SDLK_4, false);
     register_tool(EditorTool_CHECKPOINTS, "Checkpoints", "5", SDLK_5, false);
-    register_tool(EditorTool_DISAPPEARING_PLATFORMS, "Disappear", "6", SDLK_6, false);
+    register_tool(EditorTool_DISAPPEARING_PLATFORMS, "Disappearing Platforms", "6", SDLK_6, false);
     register_tool(EditorTool_CONVEYORS, "Conveyors", "7", SDLK_7, false);
-    register_tool(EditorTool_MOVING_PLATFORMS, "Moving", "8", SDLK_8, false);
+    register_tool(EditorTool_MOVING_PLATFORMS, "Moving Platforms", "8", SDLK_8, false);
     register_tool(EditorTool_ENEMIES, "Enemies", "9", SDLK_9, false);
-    register_tool(EditorTool_GRAVITY_LINES, "Grav Lines", "0", SDLK_0, false);
+    register_tool(EditorTool_GRAVITY_LINES, "Gravity Lines", "0", SDLK_0, false);
     register_tool(EditorTool_ROOMTEXT, "Roomtext", "R", SDLK_r, false);
     register_tool(EditorTool_TERMINALS, "Terminals", "T", SDLK_t, false);
     register_tool(EditorTool_SCRIPTS, "Script Boxes", "Y", SDLK_y, false);
@@ -65,27 +65,12 @@ void editorclass::reset(void)
     shiftkey = false;
     saveandquit = false;
     note = "";
-    notedelay = 0;
-    oldnotedelay = 0;
+    note_timer = 0;
+    old_note_timer = 0;
     deletekeyheld = false;
-    textmod = TEXT_NONE;
+    current_text_mode = TEXT_NONE;
 
-    titlemod = false;
-    creatormod = false;
-    desc1mod = false;
-    desc2mod = false;
-    desc3mod = false;
-    websitemod = false;
-    settingsmod = false;
-    warpmod = false; //Two step process
     warpent = -1;
-
-    boundarymod = 0;
-    boundarytype = 0;
-    boundx1 = 0;
-    boundx2 = 0;
-    boundy1 = 0;
-    boundy2 = 0;
 
     textent = 0;
     scripttexttype = 0;
@@ -116,14 +101,12 @@ void editorclass::reset(void)
     sb.clear();
 
     clearscriptbuffer();
+
     sbx = 0;
     sby = 0;
     pagey = 0;
     lines_visible = 25;
-    scripteditmod = false;
     sbscript = "null";
-    scripthelppage = 0;
-    scripthelppagedelay = 0;
 
     hookmenupage = 0;
     hookmenu = 0;
@@ -140,371 +123,18 @@ void editorclass::reset(void)
     substate = EditorSubState_MAIN;
 }
 
-void editorclass::handle_tile_placement(const int tile)
+void editorclass::show_note(const char* text)
 {
-    int range = 1;
-
-    if (bmod)
-    {
-        // Vertical line
-        for (int i = 0; i < 30; i++)
-        {
-            settile(tilex, i, tile);
-        }
-        return;
-    }
-    else if (hmod)
-    {
-        // Horizontal line
-        for (int i = 0; i < 40; i++)
-        {
-            settile(i, tiley, tile);
-        }
-        return;
-    }
-    else if (vmod)
-    {
-        range = 4;
-    }
-    else if (cmod)
-    {
-        range = 3;
-    }
-    else if (xmod)
-    {
-        range = 2;
-    }
-    else if (zmod)
-    {
-        range = 1;
-    }
-    else
-    {
-        settile(tilex, tiley, tile);
-        return;
-    }
-
-    for (int i = -range; i <= range; i++)
-    {
-        for (int j = -range; j <= range; j++)
-        {
-            settile(tilex + i, tiley + j, tile);
-        }
-    }
-}
-
-void editorclass::tool_remove()
-{
-    switch (current_tool)
-    {
-    case EditorTool_WALLS:
-    case EditorTool_BACKING:
-        handle_tile_placement(0);
-        break;
-    default:
-        break;
-    }
-
-    for (size_t i = 0; i < customentities.size(); i++)
-    {
-        if (customentities[i].x == tilex + (levx * 40) && customentities[i].y == tiley + (levy * 30))
-        {
-            removeedentity(i);
-        }
-    }
-}
-
-void editorclass::entity_clicked(const int index)
-{
-    CustomEntity* entity = &customentities[index];
-
-    lclickdelay = 1;
-
-    switch (entity->t)
-    {
-    case 1:
-        // Enemies
-        entity->p1 = (entity->p1 + 1) % 4;
-        break;
-    case 2:
-    {
-        // Moving Platforms and Conveyors
-        const bool conveyor = entity->p1 >= 5;
-        entity->p1++;
-        if (conveyor)
-        {
-            entity->p1 = (entity->p1 - 5) % 4 + 5;
-        }
-        else
-        {
-            entity->p1 %= 4;
-        }
-        break;
-    }
-    case 10:
-        // Checkpoints
-        // If it's not textured as a checkpoint, then just leave it be
-        if (entity->p1 == 0 || entity->p1 == 1)
-        {
-            entity->p1 = (entity->p1 + 1) % 2;
-        }
-        break;
-    case 11:
-    case 16:
-        // Gravity Lines, Start Point
-        entity->p1 = (entity->p1 + 1) % 2;
-        break;
-    case 15:
-        // Crewmates
-        entity->p1 = (entity->p1 + 1) % 6;
-        break;
-    case 17:
-        // Roomtext
-        getlin(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &entity->scriptname);
-        textent = index;
-        break;
-    case 18:
-        // Terminals
-        if (entity->p1 == 0 || entity->p1 == 1)
-        {
-            // Flip the terminal, but if it's not textured as a terminal leave it alone
-            entity->p1 = (entity->p1 + 1) % 2;
-        }
-        SDL_FALLTHROUGH;
-    case 19:
-        // Script Boxes (and terminals)
-        getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &entity->scriptname);
-        textent = index;
-        break;
-    }
-}
-
-void editorclass::tool_place()
-{
-
-    const int entity = edentat(tilex + (levx * 40), tiley + (levy * 30));
-    if (entity != -1)
-    {
-        entity_clicked(entity);
-        return;
-    }
-
-    switch (current_tool)
-    {
-    case EditorTool_WALLS:
-    case EditorTool_BACKING:
-    {
-        int tile = 0;
-
-        if (cl.getroomprop(levx, levy)->directmode >= 1)
-        {
-            tile = dmtile;
-        }
-        else if (current_tool == EditorTool_WALLS)
-        {
-            tile = 1;
-        }
-        else if (current_tool == EditorTool_BACKING)
-        {
-            tile = 2;
-        }
-
-        handle_tile_placement(tile);
-        break;
-    }
-    case EditorTool_SPIKES:
-        settile(tilex, tiley, 8);
-        break;
-    case EditorTool_TRINKETS:
-        if (cl.numtrinkets() < 100)
-        {
-            addedentity(tilex + (levx * 40), tiley + (levy * 30), 9);
-            lclickdelay = 1;
-        }
-        else
-        {
-            note = loc::gettext("ERROR: Max number of trinkets is 100");
-            notedelay = 45;
-        }
-        break;
-    case EditorTool_CHECKPOINTS:
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 10, 1);
-        lclickdelay = 1;
-        break;
-    case EditorTool_DISAPPEARING_PLATFORMS:
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 3);
-        lclickdelay = 1;
-        break;
-    case EditorTool_CONVEYORS:
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 2, 5);
-        lclickdelay = 1;
-        break;
-    case EditorTool_MOVING_PLATFORMS:
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 2, 0);
-        lclickdelay = 1;
-        break;
-    case EditorTool_ENEMIES:
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 1, 0);
-        lclickdelay = 1;
-        break;
-    case EditorTool_GRAVITY_LINES:
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 11, 0);
-        lclickdelay = 1;
-        break;
-    case EditorTool_ROOMTEXT:
-        lclickdelay = 1;
-        textent = customentities.size();
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 17);
-        getlin(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[textent].scriptname));
-        break;
-    case EditorTool_TERMINALS:
-        lclickdelay = 1;
-        textent = customentities.size();
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 18, 0);
-        getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[textent].scriptname));
-        break;
-    case EditorTool_SCRIPTS:
-        boundarytype = 0;
-        boundx1 = tilex * 8;
-        boundy1 = tiley * 8;
-        boundarymod = 2;
-        lclickdelay = 1;
-        break;
-    case EditorTool_WARP_TOKENS:
-        warpmod = true;
-        warpent = customentities.size();
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 13);
-        lclickdelay = 1;
-        break;
-    case EditorTool_WARP_LINES:
-        //Warp lines
-        if (tilex == 0)
-        {
-            addedentity(tilex + (levx * 40), tiley + (levy * 30), 50, 0);
-        }
-        else if (tilex == 39)
-        {
-            addedentity(tilex + (levx * 40), tiley + (levy * 30), 50, 1);
-        }
-        else if (tiley == 0)
-        {
-            addedentity(tilex + (levx * 40), tiley + (levy * 30), 50, 2);
-        }
-        else if (tiley == 29)
-        {
-            addedentity(tilex + (levx * 40), tiley + (levy * 30), 50, 3);
-        }
-        else
-        {
-            note = loc::gettext("ERROR: Warp lines must be on edges");
-            notedelay = 45;
-        }
-        lclickdelay = 1;
-        break;
-    case EditorTool_CREWMATES:
-        if (cl.numcrewmates() < 100)
-        {
-            addedentity(tilex + (levx * 40), tiley + (levy * 30), 15, int(fRandom() * 6));
-            lclickdelay = 1;
-        }
-        else
-        {
-            note = loc::gettext("ERROR: Max number of crewmates is 100");
-            notedelay = 45;
-        }
-        break;
-    case EditorTool_START_POINT:
-        //If there is another start point, destroy it
-        for (size_t i = 0; i < customentities.size(); i++)
-        {
-            if (customentities[i].t == 16)
-            {
-                removeedentity(i);
-                i--;
-            }
-        }
-        addedentity(tilex + (levx * 40), tiley + (levy * 30), 16, 0);
-        lclickdelay = 1;
-        break;
-    }
-}
-
-void editorclass::draw_tool(EditorTools tool, int x, int y)
-{
-    extern editorclass ed;
-
-    switch (tool)
-    {
-    case EditorTool_WALLS:
-        graphics.drawtile(x, y, 83);
-        graphics.drawtile(x + 8, y, 83);
-        graphics.drawtile(x, y + 8, 83);
-        graphics.drawtile(x + 8, y + 8, 83);
-        break;
-    case EditorTool_BACKING:
-        graphics.drawtile(x, y, 680);
-        graphics.drawtile(x + 8, y, 680);
-        graphics.drawtile(x, y + 8, 680);
-        graphics.drawtile(x + 8, y + 8, 680);
-        break;
-    case EditorTool_SPIKES:
-        graphics.drawtile(x + 4, y + 4, 8);
-        break;
-    case EditorTool_TRINKETS:
-        graphics.draw_sprite(x, y, 22, 196, 196, 196);
-        break;
-    case EditorTool_CHECKPOINTS:
-        graphics.draw_sprite(x, y, 21, 196, 196, 196);
-        break;
-    case EditorTool_DISAPPEARING_PLATFORMS:
-        graphics.drawtile(x, y + 4, 3);
-        graphics.drawtile(x + 8, y + 4, 4);
-        break;
-    case EditorTool_CONVEYORS:
-        graphics.drawtile(x, y + 4, 24);
-        graphics.drawtile(x + 8, y + 4, 24);
-        break;
-    case EditorTool_MOVING_PLATFORMS:
-        graphics.drawtile(x, y + 4, 1);
-        graphics.drawtile(x + 8, y + 4, 1);
-        break;
-    case EditorTool_ENEMIES:
-        graphics.draw_sprite(x, y, 78 + ed.entframe, 196, 196, 196);
-        break;
-    case EditorTool_GRAVITY_LINES:
-        graphics.fill_rect(x + 2, y + 8, 12, 1, graphics.getRGB(255, 255, 255));
-        break;
-    case EditorTool_ROOMTEXT:
-        font::print(PR_FONT_8X8, x + 1, y, "AB", 196, 196, 255 - help.glow);
-        font::print(PR_FONT_8X8, x + 1, y + 9, "CD", 196, 196, 255 - help.glow);
-        break;
-    case EditorTool_TERMINALS:
-        graphics.draw_sprite(x, y, 17, 196, 196, 196);
-        break;
-    case EditorTool_SCRIPTS:
-        graphics.draw_rect(x + 4, y + 4, 8, 8, graphics.getRGB(96, 96, 96));
-        break;
-    case EditorTool_WARP_TOKENS:
-        graphics.draw_sprite(x, y, 18 + (ed.entframe % 2), 196, 196, 196);
-        break;
-    case EditorTool_WARP_LINES:
-        graphics.fill_rect(x + 6, y + 2, 4, 12, graphics.getRGB(255, 255, 255));
-        break;
-    case EditorTool_CREWMATES:
-        graphics.draw_sprite(x, y, 186, graphics.col_crewblue);
-        break;
-    case EditorTool_START_POINT:
-        graphics.draw_sprite(x, y, 184, graphics.col_crewcyan);
-        break;
-    }
+    note_timer = 45;
+    note = text;
 }
 
 void editorclass::register_tool(EditorTools tool, const char* name, const char* keychar, const SDL_KeyCode key, const bool shift)
 {
-    toolnames[tool] = name;
-    toolkeychar[tool] = keychar;
-    toolkey[tool] = key;
-    toolshift[tool] = shift;
+    tool_names[tool] = name;
+    tool_key_chars[tool] = keychar;
+    tool_keys[tool] = key;
+    tool_requires_shift[tool] = shift;
 }
 
 void editorclass::gethooks(void)
@@ -620,57 +250,6 @@ void editorclass::insertline(int t)
     sb.insert(sb.begin() + t, "");
 }
 
-void editorclass::getlin(const enum textmode mode, const std::string& prompt, std::string* ptr)
-{
-    textmod = mode;
-    textptr = ptr;
-    textdesc = prompt;
-    key.enabletextentry();
-    if (ptr)
-    {
-        key.keybuffer = *ptr;
-    }
-    else
-    {
-        key.keybuffer = "";
-        textptr = &(key.keybuffer);
-    }
-
-    oldenttext = key.keybuffer;
-}
-
-void editorclass::addedentity(int xp, int yp, int tp, int p1, int p2, int p3, int p4, int p5, int p6)
-{
-    CustomEntity entity;
-
-    entity.x = xp;
-    entity.y = yp;
-    entity.t = tp;
-    entity.p1 = p1;
-    entity.p2 = p2;
-    entity.p3 = p3;
-    entity.p4 = p4;
-    entity.p5 = p5;
-    entity.p6 = p6;
-    entity.scriptname = "";
-
-    customentities.push_back(entity);
-}
-
-void editorclass::removeedentity(int t)
-{
-    customentities.erase(customentities.begin() + t);
-}
-
-int editorclass::edentat(int xp, int yp)
-{
-    for (size_t i = 0; i < customentities.size(); i++)
-    {
-        if (customentities[i].x == xp && customentities[i].y == yp) return i;
-    }
-    return -1;
-}
-
 static void editormenurender(int tr, int tg, int tb)
 {
     extern editorclass ed;
@@ -689,16 +268,12 @@ static void editormenurender(int tr, int tg, int tb)
         break;
     case Menu::ed_desc:
     {
-        if(ed.titlemod)
+
+        const std::string input_text = key.keybuffer + ((ed.entframe < 2) ? "_" : " ");
+
+        if (ed.current_text_mode == TEXT_TITLE)
         {
-            if(ed.entframe<2)
-            {
-                font::print(PR_2X | PR_CEN | PR_FONT_LEVEL, -1, 35, key.keybuffer+"_", tr, tg, tb);
-            }
-            else
-            {
-                font::print(PR_2X | PR_CEN | PR_FONT_LEVEL, -1, 35, key.keybuffer+" ", tr, tg, tb);
-            }
+            font::print(PR_2X | PR_CEN | PR_FONT_LEVEL, -1, 35, input_text, tr, tg, tb);
         }
         else
         {
@@ -706,94 +281,33 @@ static void editormenurender(int tr, int tg, int tb)
             std::string title = translate_title(cl.title, &title_is_gettext);
             font::print(PR_2X | PR_CEN | (title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), -1, 35, title, tr, tg, tb);
         }
+
         bool creator_is_gettext = false;
-        std::string creator;
-        if(ed.creatormod)
-        {
-            if(ed.entframe<2)
-            {
-                creator = key.keybuffer + "_";
-            }
-            else
-            {
-                creator = key.keybuffer + " ";
-            }
-        }
-        else
-        {
-            creator = translate_creator(cl.creator, &creator_is_gettext);
-        }
+        std::string creator = (ed.current_text_mode == TEXT_CREATOR) ? input_text : translate_creator(cl.creator, &creator_is_gettext);
+
         int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
         graphics.print_level_creator((creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), 60, creator, tr, tg, tb);
 
-        if(ed.websitemod)
+        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp, (ed.current_text_mode == TEXT_WEBSITE) ? input_text : cl.website, tr, tg, tb);
+        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 3, (ed.current_text_mode == TEXT_DESC1) ? input_text : cl.Desc1, tr, tg, tb);
+        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 4, (ed.current_text_mode == TEXT_DESC2) ? input_text : cl.Desc2, tr, tg, tb);
+
+
+        if (ed.current_text_mode == TEXT_DESC3)
         {
-            if(ed.entframe<2)
-            {
-                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp, key.keybuffer+"_", tr, tg, tb);
-            }
-            else
-            {
-                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp, key.keybuffer+" ", tr, tg, tb);
-            }
-        }
-        else
-        {
-            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp, cl.website, tr, tg, tb);
-        }
-        if(ed.desc1mod)
-        {
-            if(ed.entframe<2)
-            {
-                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*3, key.keybuffer+"_", tr, tg, tb);
-            }
-            else
-            {
-                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*3, key.keybuffer+" ", tr, tg, tb);
-            }
-        }
-        else
-        {
-            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*3, cl.Desc1, tr, tg, tb);
-        }
-        if(ed.desc2mod)
-        {
-            if(ed.entframe<2)
-            {
-                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*4, key.keybuffer+"_", tr, tg, tb);
-            }
-            else
-            {
-                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*4, key.keybuffer+" ", tr, tg, tb);
-            }
-        }
-        else
-        {
-            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*4, cl.Desc2, tr, tg, tb);
-        }
-        if(ed.desc3mod)
-        {
-            if(ed.entframe<2)
-            {
-                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*5, key.keybuffer+"_", tr, tg, tb);
-            }
-            else
-            {
-                font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*5, key.keybuffer+" ", tr, tg, tb);
-            }
+            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 5, input_text, tr, tg, tb);
         }
         else if (sp <= 10)
         {
-            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60+sp*5, cl.Desc3, tr, tg, tb);
+            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 5, cl.Desc3, tr, tg, tb);
         }
 
         const char* label = loc::gettext("Font: ");
         int len_label = font::len(0, label);
         const char* name = font::get_level_font_display_name();
 
-        font::print(0, 2, 230, label, tr/2, tg/2, tb/2);
-        font::print(PR_FONT_LEVEL, 2+len_label, 230, name, tr/2, tg/2, tb/2);
-
+        font::print(0, 2, 230, label, tr / 2, tg / 2, tb / 2);
+        font::print(PR_FONT_LEVEL, 2 + len_label, 230, name, tr / 2, tg / 2, tb / 2);
         break;
     }
     case Menu::ed_music:
@@ -931,7 +445,7 @@ static void draw_background(int warpdir)
     }
 }
 
-static void draw_edgeguide(int type, int x, int y, bool vertical)
+static void draw_edgeguide(const TileTypes type, const int x, const int y, const bool vertical)
 {
     static const SDL_Color white = graphics.getRGB(255 - help.glow, 255, 255);
     static const SDL_Color red = graphics.getRGB(255 - help.glow, 127, 127);
@@ -965,15 +479,15 @@ static void draw_edgeguides(void)
         if (i < 30)
         {
             // Left edge
-            draw_edgeguide(ed.tile_type_wrap(global_x - 1, global_y + i), 0, i * 8, false);
+            draw_edgeguide(ed.get_abs_tile_type(global_x - 1, global_y + i, true), 0, i * 8, false);
             // Right edge
-            draw_edgeguide(ed.tile_type_wrap(global_x + 40, global_y + i), 318, i * 8, false);
+            draw_edgeguide(ed.get_abs_tile_type(global_x + 40, global_y + i, true), 318, i * 8, false);
         }
 
         // Top edge
-        draw_edgeguide(ed.tile_type_wrap(global_x + i, global_y - 1), i * 8, 0, true);
+        draw_edgeguide(ed.get_abs_tile_type(global_x + i, global_y - 1, true), i * 8, 0, true);
         // Bottom edge
-        draw_edgeguide(ed.tile_type_wrap(global_x + i, global_y + 30), i * 8, 238, true);
+        draw_edgeguide(ed.get_abs_tile_type(global_x + i, global_y + 30, true), i * 8, 238, true);
     }
 }
 
@@ -1003,11 +517,11 @@ static void update_entities(void)
                 int tx = entity->x % 40;
                 int tx2 = tx;
                 int ty = entity->y % 30;
-                while (!ed.spikefree(tx, ty))
+                while (ed.lines_can_pass(tx, ty))
                 {
                     --tx;
                 }
-                while (!ed.spikefree(tx2, ty))
+                while (ed.lines_can_pass(tx2, ty))
                 {
                     ++tx2;
                 }
@@ -1021,11 +535,11 @@ static void update_entities(void)
                 int tx = entity->x % 40;
                 int ty = entity->y % 30;
                 int ty2 = ty;
-                while (!ed.spikefree(tx, ty))
+                while (ed.lines_can_pass(tx, ty))
                 {
                     --ty;
                 }
-                while (!ed.spikefree(tx, ty2))
+                while (ed.lines_can_pass(tx, ty2))
                 {
                     ++ty2;
                 }
@@ -1046,7 +560,7 @@ static void draw_entities(void)
     //Draw entities
     obj.customplatformtile = game.customcol * 12;
 
-    const int edent_under_cursor = ed.edentat(ed.tilex + ed.levx * 40, ed.tiley + ed.levy * 30);
+    const int edent_under_cursor = ed.get_entity_at(ed.tilex + ed.levx * 40, ed.tiley + ed.levy * 30);
 
     // Special case for drawing gray entities
     bool custom_gray = room->tileset == 3 && room->tilecol == 6;
@@ -1074,7 +588,7 @@ static void draw_entities(void)
                     ed.entcolreal = graphics.getcol(18);
                 }
 
-                graphics.draw_sprite(x, y, ed.getenemyframe(room->enemytype), ed.entcolreal);
+                graphics.draw_sprite(x, y, ed.get_enemy_tile(room->enemytype), ed.entcolreal);
 
                 if (movement >= 0 && movement < 4)
                 {
@@ -1316,6 +830,7 @@ static void draw_ghosts(void)
         graphics.set_render_target(graphics.ghostTexture);
         graphics.set_blendmode(graphics.ghostTexture, SDL_BLENDMODE_BLEND);
         graphics.clear(0, 0, 0, 0);
+
         for (int i = 0; i < (int) ed.ghosts.size(); i++) {
             if (i <= ed.currentghosts) { // We don't want all of them to show up at once :)
                 if (ed.ghosts[i].rx != ed.levx || ed.ghosts[i].ry != ed.levy)
@@ -1326,9 +841,35 @@ static void draw_ghosts(void)
                 graphics.draw_sprite(ed.ghosts[i].x, ed.ghosts[i].y, ed.ghosts[i].frame, ct);
             }
         }
+
         graphics.set_render_target(graphics.gameTexture);
         graphics.set_texture_alpha_mod(graphics.ghostTexture, 128);
         graphics.copy_texture(graphics.ghostTexture, NULL, NULL);
+    }
+}
+
+static void adjust_box_coordinates(int x1, int y1, int x2, int y2, int* left, int* right, int* top, int* bottom)
+{
+    if (x1 < x2 + 8)
+    {
+        *right = x2 + 8;
+        *left = x1;
+    }
+    else
+    {
+        *right = x1 + 8;
+        *left = x2;
+    }
+
+    if (y1 < y2 + 8)
+    {
+        *bottom = y2 + 8;
+        *top = y1;
+    }
+    else
+    {
+        *bottom = y1 + 8;
+        *top = y2;
     }
 }
 
@@ -1338,46 +879,35 @@ static void draw_bounds(void)
 
     const RoomProperty* const room = cl.getroomprop(ed.levx, ed.levy);
 
-    if (ed.boundarymod>0)
+    // Draw boundaries
+    if (room->enemyx1 != 0 || room->enemyy1 != 0 || room->enemyx2 != 320 || room->enemyy2 != 240)
     {
-        if(ed.boundarymod==1)
-        {
-            graphics.draw_rect(ed.tilex*8, ed.tiley*8, 8,8,graphics.getRGB(210 + help.glow/2, 191 + help.glow, 255 - help.glow/2));
-            graphics.draw_rect((ed.tilex*8)+2, (ed.tiley*8)+2, 4,4,graphics.getRGB(105 + help.glow/4, 100 + help.glow/2, 128 - help.glow/4));
-        }
-        else if(ed.boundarymod==2)
-        {
-            if((ed.tilex*8)+8<=ed.boundx1 || (ed.tiley*8)+8<=ed.boundy1)
-            {
-                graphics.draw_rect(ed.boundx1, ed.boundy1, 8, 8,graphics.getRGB(210 + help.glow/2, 191 + help.glow, 255 - help.glow/2));
-                graphics.draw_rect(ed.boundx1+2, ed.boundy1+2, 4, 4,graphics.getRGB(105 + help.glow/4, 100 + help.glow/2, 128 - help.glow/4));
-            }
-            else
-            {
-                graphics.draw_rect(ed.boundx1, ed.boundy1, (ed.tilex*8)+8-ed.boundx1,(ed.tiley*8)+8-ed.boundy1,graphics.getRGB(210 + help.glow/2, 191 + help.glow, 255 - help.glow/2));
-                graphics.draw_rect(ed.boundx1+2, ed.boundy1+2, (ed.tilex*8)+8-ed.boundx1-4,(ed.tiley*8)+8-ed.boundy1-4,graphics.getRGB(105 + help.glow/4, 100 + help.glow/2, 128 - help.glow/4));
-            }
-        }
+        graphics.draw_rect(room->enemyx1, room->enemyy1, room->enemyx2 - room->enemyx1, room->enemyy2 - room->enemyy1, graphics.getRGB(255 - (help.glow / 2), 64, 64));
     }
-    else
-    {
-        //Draw boundaries
-        if(room->enemyx1!=0 || room->enemyy1!=0
-                || room->enemyx2!=320 || room->enemyy2!=240)
-        {
-            graphics.draw_rect( room->enemyx1, room->enemyy1,
-                       room->enemyx2-room->enemyx1,
-                       room->enemyy2-room->enemyy1,
-                       graphics.getRGB(255-(help.glow/2),64,64));
-        }
 
-        if(room->platx1!=0 || room->platy1!=0
-                || room->platx2!=320 || room->platy2!=240)
+    if (room->platx1 != 0 || room->platy1 != 0 || room->platx2 != 320 || room->platy2 != 240)
+    {
+        graphics.draw_rect(room->platx1, room->platy1, room->platx2 - room->platx1, room->platy2 - room->platy1, graphics.getRGB(64, 64, 255 - (help.glow / 2)));
+    }
+
+    if (ed.substate == EditorSubState_DRAW_BOX)
+    {
+        if (ed.box_corner == BoxCorner_FIRST)
         {
-            graphics.draw_rect( room->platx1, room->platy1,
-                       room->platx2-room->platx1,
-                       room->platy2-room->platy1,
-                       graphics.getRGB(64,64,255-(help.glow/2)));
+            graphics.draw_rect(ed.tilex * 8, ed.tiley * 8, 8, 8, graphics.getRGB(210 + help.glow / 2, 191 + help.glow, 255 - help.glow / 2));
+            graphics.draw_rect((ed.tilex * 8) + 2, (ed.tiley * 8) + 2, 4, 4, graphics.getRGB(105 + help.glow / 4, 100 + help.glow / 2, 128 - help.glow / 4));
+        }
+        else
+        {
+            int left;
+            int right;
+            int top;
+            int bottom;
+
+            adjust_box_coordinates(ed.box_point.x, ed.box_point.y, ed.tilex * 8, ed.tiley * 8, &left, &right, &top, &bottom);
+
+            graphics.draw_rect(left, top, right - left, bottom - top, graphics.getRGB(210 + help.glow / 2, 191 + help.glow, 255 - help.glow / 2));
+            graphics.draw_rect(left + 2, top + 2, (right - left) - 4, (bottom - top) - 4, graphics.getRGB(105 + help.glow / 4, 100 + help.glow / 2, 128 - help.glow / 4));
         }
     }
 }
@@ -1390,6 +920,14 @@ static void draw_cursor(void)
 
     const int x = ed.tilex * 8;
     const int y = ed.tiley * 8;
+
+    if (ed.substate == EditorSubState_DRAW_BOX)
+    {
+        // Just draw a 1x1 cursor, overriding everything else
+        graphics.draw_rect(x, y, 8, 8, blue);
+        return;
+    }
+
 
     switch (ed.current_tool)
     {
@@ -1443,11 +981,11 @@ static void draw_cursor(void)
     }
 }
 
-static void draw_tile_toolbox(int tileset)
+static void draw_tile_drawer(int tileset)
 {
     extern editorclass ed;
 
-    // Tile toolbox for direct mode
+    // Tile drawer for direct mode
     int t2 = 0;
     if (ed.dmtileeditor > 0)
     {
@@ -1529,6 +1067,296 @@ static void draw_tile_toolbox(int tileset)
     }
 }
 
+static void draw_box_placer()
+{
+    extern editorclass ed;
+
+    std::string message;
+    if (ed.box_corner == BoxCorner_FIRST)
+    {
+        switch (ed.box_type)
+        {
+        case BoxType_SCRIPT:
+            message = loc::gettext("SCRIPT BOX: Click on the first corner");
+            break;
+        case BoxType_ENEMY:
+            message = loc::gettext("ENEMY BOUNDS: Click on the first corner");
+            break;
+        case BoxType_PLATFORM:
+            message = loc::gettext("PLATFORM BOUNDS: Click on the first corner");
+            break;
+        default:
+            message = loc::gettext("Click on the first corner");
+            break;
+        }
+    }
+    else if (ed.box_corner == BoxCorner_LAST)
+    {
+        switch (ed.box_type)
+        {
+        case BoxType_SCRIPT:
+            message = loc::gettext("SCRIPT BOX: Click on the last corner");
+            break;
+        case BoxType_ENEMY:
+            message = loc::gettext("ENEMY BOUNDS: Click on the last corner");
+            break;
+        case BoxType_PLATFORM:
+            message = loc::gettext("PLATFORM BOUNDS: Click on the last corner");
+            break;
+        default:
+            message = loc::gettext("Click on the last corner");
+            break;
+        }
+    }
+
+    short lines;
+    message = font::string_wordwrap(0, message, 312, &lines);
+    short textheight = font::height(0) * lines;
+
+    graphics.fill_rect(0, 238 - textheight, 320, 240, graphics.getRGB(32, 32, 32));
+    graphics.fill_rect(0, 239 - textheight, 320, 240, graphics.getRGB(0, 0, 0));
+
+    font::print_wrap(0, 4, 240 - textheight, message.c_str(), 255, 255, 255, 8, 312);
+}
+
+static void draw_note()
+{
+    extern editorclass ed;
+
+    if (ed.note_timer > 0 || ed.old_note_timer > 0)
+    {
+        short lines;
+        std::string wrapped = font::string_wordwrap(0, ed.note, 304, &lines);
+        short textheight = 8 + (lines - 1) * SDL_max(10, font::height(0));
+        short banner_y = 120 - textheight / 2 - 5;
+
+        float alpha = graphics.lerp(ed.old_note_timer, ed.note_timer);
+        graphics.fill_rect(0, banner_y, 320, 10 + textheight, graphics.getRGB(92, 92, 92));
+        graphics.fill_rect(0, banner_y + 1, 320, 8 + textheight, graphics.getRGB(0, 0, 0));
+        font::print_wrap(PR_CEN, -1, banner_y + 5, wrapped.c_str(), 196 - ((45.0f - alpha) * 4), 196 - ((45.0f - alpha) * 4), 196 - ((45.0f - alpha) * 4));
+    }
+}
+
+static void draw_toolbox(const char* coords)
+{
+    extern editorclass ed;
+
+    // Draw the toolbox background
+    graphics.fill_rect(0, 207, 320, 240, graphics.getRGB(32, 32, 32));
+    graphics.fill_rect(0, 208, 320, 240, graphics.getRGB(0, 0, 0));
+
+    // Draw all tools!
+    int tx = 6;
+    const int ty = 210;
+    const int tg = 32;
+
+    const int page = ed.current_tool / 10;
+    const int max_pages = SDL_ceil(NUM_EditorTools / 10);
+    const int page_tool_count = SDL_min(10, NUM_EditorTools - (page * 10));
+
+    for (int i = 0; i < page_tool_count; i++)
+    {
+        const int current_tool_id = i + (page * 10);
+
+        // First, draw the background
+        graphics.fill_rect(4 + (i * tg), 208, 20, 20, graphics.getRGB(32, 32, 32));
+
+        // Draw the actual tool icon
+        ed.draw_tool((EditorTools)current_tool_id, 4 + (i * tg) + 2, 208 + 2);
+
+        // Draw the tool outline...
+        graphics.draw_rect(4 + (i * tg), 208, 20, 20, (current_tool_id == ed.current_tool) ? graphics.getRGB(200, 200, 200) : graphics.getRGB(96, 96, 96));
+
+        // ...and the hotkey
+        const int col = current_tool_id == ed.current_tool ? 255 : 164;
+        font::print(PR_FONT_8X8 | PR_BOR, 22 + i * tg - 4, 224 - 4, ed.tool_key_chars[current_tool_id], col, col, col);
+    }
+
+    // Draw the page number, limit is 1 digit, so the max is 9 pages
+    char buffer[4];
+    SDL_snprintf(buffer, sizeof(buffer), "%d/%d", page + 1, max_pages + 1);
+    font::print(PR_CJK_HIGH, 4, 232, buffer, 196, 196, 255 - help.glow);
+
+    // Draw the button hint text
+    char changetooltext[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(changetooltext, sizeof(changetooltext),
+        loc::gettext("{button1} and {button2} keys change tool"),
+        "button1:str, button2:str",
+        ",", "."
+    );
+    font::print(PR_CJK_HIGH | PR_RIGHT, 320, 232, changetooltext, 196, 196, 255 - help.glow);
+
+    // Draw the current tool name
+    char toolname_english[SCREEN_WIDTH_CHARS + 1];
+    SDL_snprintf(toolname_english, sizeof(toolname_english), "%s: %s", ed.tool_key_chars[ed.current_tool], ed.tool_names[ed.current_tool]);
+
+    const char* toolname = loc::gettext(toolname_english);
+
+    int bgheight = 2 + font::height(0);
+    int toolnamelen = font::len(0, toolname);
+    graphics.fill_rect(0, 206 - bgheight, toolnamelen + 8, bgheight + 1, graphics.getRGB(32, 32, 32));
+    graphics.fill_rect(0, 207 - bgheight, toolnamelen + 7, bgheight, graphics.getRGB(0, 0, 0));
+    font::print(PR_BOR | PR_CJK_HIGH, 2, 198, toolname, 196, 196, 255 - help.glow);
+
+    // And finally, draw the current room's coordinates
+    int coordslen = font::len(0, coords);
+    graphics.fill_rect(319 - coordslen - 8, 206 - bgheight, coordslen + 8, bgheight + 1, graphics.getRGB(32, 32, 32));
+    graphics.fill_rect(320 - coordslen - 8, 207 - bgheight, coordslen + 8, bgheight, graphics.getRGB(0, 0, 0));
+    font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 198, coords, 196, 196, 255 - help.glow);
+}
+
+static void draw_main_ui(void)
+{
+    extern editorclass ed;
+
+    const RoomProperty* const room = cl.getroomprop(ed.levx, ed.levy);
+
+    char coords[8];
+    SDL_snprintf(coords, sizeof(coords), "(%d,%d)", ed.levx + 1, ed.levy + 1);
+
+    if (ed.spacemod)
+    {
+        draw_toolbox(coords);
+    }
+    else
+    {
+        if (room->roomname != "")
+        {
+            int font_height = font::height(PR_FONT_LEVEL);
+            if (font_height <= 8)
+            {
+                graphics.footerrect.h = font_height + 2;
+            }
+            else
+            {
+                graphics.footerrect.h = font_height + 1;
+            }
+            graphics.footerrect.y = 240 - graphics.footerrect.h + ed.roomnamehide;
+
+            graphics.set_blendmode(SDL_BLENDMODE_BLEND);
+            graphics.fill_rect(&graphics.footerrect, graphics.getRGBA(0, 0, 0, graphics.translucentroomname ? 127 : 255));
+            graphics.set_blendmode(SDL_BLENDMODE_NONE);
+
+            font::print(PR_CEN | PR_BOR | PR_FONT_LEVEL | PR_CJK_LOW, -1, graphics.footerrect.y + 1 + ed.roomnamehide, room->roomname, 196, 196, 255 - help.glow);
+            font::print(PR_BOR | PR_CJK_HIGH, 4, 232 - graphics.footerrect.h, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
+            font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 232 - graphics.footerrect.h, coords, 196, 196, 255 - help.glow);
+        }
+        else
+        {
+            font::print(PR_BOR | PR_CJK_HIGH, 4, 232, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
+            font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 232, coords, 196, 196, 255 - help.glow);
+        }
+    }
+
+    if (ed.shiftmenu)
+    {
+        const char* shiftmenuoptions[] = {
+            loc::gettext("F1: Change Tileset"),
+            loc::gettext("F2: Change Colour"),
+            loc::gettext("F3: Change Enemies"),
+            loc::gettext("F4: Enemy Bounds"),
+            loc::gettext("F5: Platform Bounds"),
+            "",
+            loc::gettext("F9: Reload Resources"),
+            loc::gettext("F10: Direct Mode"),
+            "",
+            loc::gettext("W: Change Warp Dir"),
+            loc::gettext("E: Change Roomname"),
+        };
+        int menuwidth = 0;
+        for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
+        {
+            int len = font::len(0, shiftmenuoptions[i]);
+            if (len > menuwidth)
+                menuwidth = len;
+        }
+
+        int lineheight = font::height(0);
+        lineheight = SDL_max(10, lineheight);
+        int left_y = 230 - SDL_arraysize(shiftmenuoptions) * lineheight;
+
+        graphics.draw_rect(0, left_y - 3, menuwidth + 17, 240, graphics.getRGB(64, 64, 64));
+        graphics.fill_rect(0, left_y - 2, menuwidth + 16, 240, graphics.getRGB(0, 0, 0));
+        for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
+            font::print(0, 4, left_y + i * lineheight, shiftmenuoptions[i], 164, 164, 164);
+
+        graphics.draw_rect(220, 207, 100, 60, graphics.getRGB(64, 64, 64));
+        graphics.fill_rect(221, 208, 160, 60, graphics.getRGB(0, 0, 0));
+        font::print(0, 224, 210, loc::gettext("S: Save Map"), 164, 164, 164);
+        font::print(0, 224, 210 + lineheight, loc::gettext("L: Load Map"), 164, 164, 164);
+    }
+}
+
+void editorclass::draw_tool(EditorTools tool, int x, int y)
+{
+    extern editorclass ed;
+
+    switch (tool)
+    {
+    case EditorTool_WALLS:
+        graphics.drawtile(x, y, 83);
+        graphics.drawtile(x + 8, y, 83);
+        graphics.drawtile(x, y + 8, 83);
+        graphics.drawtile(x + 8, y + 8, 83);
+        break;
+    case EditorTool_BACKING:
+        graphics.drawtile(x, y, 680);
+        graphics.drawtile(x + 8, y, 680);
+        graphics.drawtile(x, y + 8, 680);
+        graphics.drawtile(x + 8, y + 8, 680);
+        break;
+    case EditorTool_SPIKES:
+        graphics.drawtile(x + 4, y + 4, 8);
+        break;
+    case EditorTool_TRINKETS:
+        graphics.draw_sprite(x, y, 22, 196, 196, 196);
+        break;
+    case EditorTool_CHECKPOINTS:
+        graphics.draw_sprite(x, y, 21, 196, 196, 196);
+        break;
+    case EditorTool_DISAPPEARING_PLATFORMS:
+        graphics.drawtile(x, y + 4, 3);
+        graphics.drawtile(x + 8, y + 4, 4);
+        break;
+    case EditorTool_CONVEYORS:
+        graphics.drawtile(x, y + 4, 24);
+        graphics.drawtile(x + 8, y + 4, 24);
+        break;
+    case EditorTool_MOVING_PLATFORMS:
+        graphics.drawtile(x, y + 4, 1);
+        graphics.drawtile(x + 8, y + 4, 1);
+        break;
+    case EditorTool_ENEMIES:
+        graphics.draw_sprite(x, y, 78 + ed.entframe, 196, 196, 196);
+        break;
+    case EditorTool_GRAVITY_LINES:
+        graphics.fill_rect(x + 2, y + 8, 12, 1, graphics.getRGB(255, 255, 255));
+        break;
+    case EditorTool_ROOMTEXT:
+        font::print(PR_FONT_8X8, x + 1, y, "AB", 196, 196, 255 - help.glow);
+        font::print(PR_FONT_8X8, x + 1, y + 9, "CD", 196, 196, 255 - help.glow);
+        break;
+    case EditorTool_TERMINALS:
+        graphics.draw_sprite(x, y, 17, 196, 196, 196);
+        break;
+    case EditorTool_SCRIPTS:
+        graphics.draw_rect(x + 4, y + 4, 8, 8, graphics.getRGB(96, 96, 96));
+        break;
+    case EditorTool_WARP_TOKENS:
+        graphics.draw_sprite(x, y, 18 + (ed.entframe % 2), 196, 196, 196);
+        break;
+    case EditorTool_WARP_LINES:
+        graphics.fill_rect(x + 6, y + 2, 4, 12, graphics.getRGB(255, 255, 255));
+        break;
+    case EditorTool_CREWMATES:
+        graphics.draw_sprite(x, y, 186, graphics.col_crewblue);
+        break;
+    case EditorTool_START_POINT:
+        graphics.draw_sprite(x, y, 184, graphics.col_crewcyan);
+        break;
+    }
+}
+
 void editorrender(void)
 {
     extern editorclass ed;
@@ -1540,14 +1368,12 @@ void editorrender(void)
     switch (ed.state)
     {
     case EditorState_DRAW:
+    {
         // Draw the editor guidelines
         draw_background_grid();
 
         // Draw the background, if any, over the guidelines
-        if (!ed.settingsmod)
-        {
-            draw_background(room->warpdir);
-        }
+        draw_background(room->warpdir);
 
         graphics.drawmap();
         draw_edgeguides();
@@ -1559,105 +1385,109 @@ void editorrender(void)
 
         if (room->directmode == 1)
         {
-            draw_tile_toolbox(room->tileset);
+            draw_tile_drawer(room->tileset);
         }
 
         draw_cursor();
+
+        switch (ed.substate)
+        {
+        case EditorSubState_MAIN:
+        {
+            draw_main_ui();
+
+            // Draw the current tool name
+            char toolname_english[SCREEN_WIDTH_CHARS + 1];
+            SDL_snprintf(toolname_english, sizeof(toolname_english), "%s: %s", ed.tool_key_chars[ed.current_tool], ed.tool_names[ed.current_tool]);
+
+            const char* toolname = loc::gettext(toolname_english);
+
+            font::print(PR_BOR, 2, 2, toolname, 196, 196, 255 - help.glow);
+
+            break;
+        }
+        case EditorSubState_DRAW_BOX:
+            draw_box_placer();
+            break;
+        case EditorSubState_DRAW_INPUT:
+        {
+            short lines;
+            std::string wrapped = font::string_wordwrap(0, ed.current_text_desc, 312, &lines);
+            short textheight = font::height(0) * lines + font::height(PR_FONT_LEVEL);
+
+            graphics.fill_rect(0, 238 - textheight, 320, 240, graphics.getRGB(32, 32, 32));
+            graphics.fill_rect(0, 239 - textheight, 320, 240, graphics.getRGB(0, 0, 0));
+            font::print_wrap(0, 4, 240 - textheight, wrapped.c_str(), 255, 255, 255, 8, 312);
+            std::string input = key.keybuffer;
+            if (ed.entframe < 2)
+            {
+                input += "_";
+            }
+            else
+            {
+                input += " ";
+            }
+            font::print(PR_CEN | PR_FONT_LEVEL | PR_CJK_HIGH, -1, 232, input, 196, 196, 255 - help.glow);
+            break;
+        }
+        case EditorSubState_DRAW_WARPTOKEN:
+        {
+            // Placing warp token
+            int textheight = font::height(0);
+            graphics.fill_rect(0, 237 - textheight * 2, 320, 240, graphics.getRGB(32, 32, 32));
+            graphics.fill_rect(0, 238 - textheight * 2, 320, 240, graphics.getRGB(0, 0, 0));
+            font::print(PR_CJK_LOW, 4, 240 - textheight * 2, loc::gettext("Left click to place warp destination"), 196, 196, 255 - help.glow);
+            font::print(PR_CJK_LOW, 4, 240 - textheight, loc::gettext("Right click to cancel"), 196, 196, 255 - help.glow);
+
+            break;
+        }
+        }
+
         break;
     }
+    case EditorState_SCRIPTS:
+        // Intended to look like Commodore 64's UI
 
-    // Draw GUI
-    if(ed.boundarymod>0)
-    {
-        std::string message;
-        if(ed.boundarymod==1)
+        graphics.fill_rect(0, 0, 320, 240, graphics.getRGB(123, 111, 218));
+        graphics.fill_rect(14, 16, 292, 208, graphics.getRGB(61, 48, 162));
+
+        if (ed.substate == EditorSubState_MAIN)
         {
-            switch(ed.boundarytype)
+
+            font::print(PR_CEN, -1, 28, loc::gettext("**** VVVVVV SCRIPT EDITOR ****"), 123, 111, 218);
+            font::print(PR_CEN, -1, 44, loc::gettext("PRESS ESC TO RETURN TO MENU"), 123, 111, 218);
+
+            if (!ed.hooklist.empty())
             {
-            case 0:
-                message = loc::gettext("SCRIPT BOX: Click on top left");
-                break;
-            case 1:
-                message = loc::gettext("ENEMY BOUNDS: Click on top left");
-                break;
-            case 2:
-                message = loc::gettext("PLATFORM BOUNDS: Click on top left");
-                break;
-            default:
-                message = loc::gettext("Click on top left");
-                break;
-            }
-        }
-        else if(ed.boundarymod==2)
-        {
-            switch(ed.boundarytype)
-            {
-            case 0:
-                message = loc::gettext("SCRIPT BOX: Click on bottom right");
-                break;
-            case 1:
-                message = loc::gettext("ENEMY BOUNDS: Click on bottom right");
-                break;
-            case 2:
-                message = loc::gettext("PLATFORM BOUNDS: Click on bottom right");
-                break;
-            default:
-                message = loc::gettext("Click on bottom right");
-                break;
-            }
-        }
-
-        short lines;
-        message = font::string_wordwrap(0, message, 312, &lines);
-        short textheight = font::height(0)*lines;
-
-        graphics.fill_rect(0,238-textheight,320,240, graphics.getRGB(32,32,32));
-        graphics.fill_rect(0,239-textheight,320,240, graphics.getRGB(0,0,0));
-
-        font::print_wrap(0, 4, 240-textheight, message.c_str(), 255,255,255, 8, 312);
-    }
-    else if(ed.scripteditmod)
-    {
-        //Elaborate C64 BASIC menu goes here!
-        graphics.fill_rect(0,0,320,240, graphics.getRGB(123, 111, 218));
-        graphics.fill_rect(14,16,292,208, graphics.getRGB(61, 48, 162));
-        switch(ed.scripthelppage)
-        {
-        case 0:
-            font::print(PR_CEN, -1,28,loc::gettext("**** VVVVVV SCRIPT EDITOR ****"), 123, 111, 218);
-            font::print(PR_CEN, -1,44,loc::gettext("PRESS ESC TO RETURN TO MENU"), 123, 111, 218);
-
-            if(!ed.hooklist.empty())
-            {
-                for(int i=0; i<9; i++)
+                for (int i = 0; i < 9; i++)
                 {
-                    if(ed.hookmenupage+i<(int)ed.hooklist.size())
+                    if (ed.hookmenupage + i < (int)ed.hooklist.size())
                     {
-                        if(ed.hookmenupage+i==ed.hookmenu)
+                        if (ed.hookmenupage + i == ed.hookmenu)
                         {
-                            std::string text_upper(loc::toupper(ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)]));
+                            std::string text_upper(loc::toupper(ed.hooklist[(ed.hooklist.size() - 1) - (ed.hookmenupage + i)]));
 
                             char buffer[SCREEN_WIDTH_CHARS + 1];
                             vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
-                            font::print(PR_CEN, -1, 68+(i*16), buffer, 123, 111, 218);
+                            font::print(PR_CEN, -1, 68 + (i * 16), buffer, 123, 111, 218);
                         }
                         else
                         {
-                            font::print(PR_CEN, -1, 68+(i*16), ed.hooklist[(ed.hooklist.size()-1)-(ed.hookmenupage+i)], 123, 111, 218);
+                            font::print(PR_CEN, -1, 68 + (i * 16), ed.hooklist[(ed.hooklist.size() - 1) - (ed.hookmenupage + i)], 123, 111, 218);
                         }
                     }
                 }
             }
             else
             {
-                font::print(PR_CEN, -1,110,loc::gettext("NO SCRIPT IDS FOUND"), 123, 111, 218);
-                font::print_wrap(PR_CEN, -1,130,loc::gettext("CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS"), 123, 111, 218, 10, 288);
+                font::print(PR_CEN, -1, 110, loc::gettext("NO SCRIPT IDS FOUND"), 123, 111, 218);
+                font::print_wrap(PR_CEN, -1, 130, loc::gettext("CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS"), 123, 111, 218, 10, 288);
             }
-            break;
-        case 1:
+        }
+        else if (ed.substate == EditorSubState_SCRIPTS_EDIT)
         {
-            //Current scriptname
-            graphics.fill_rect(14,226,292,12, graphics.getRGB(61, 48, 162));
+            // Draw the current script's name
+            graphics.fill_rect(14, 226, 292, 12, graphics.getRGB(61, 48, 162));
             char namebuffer[SCREEN_WIDTH_CHARS + 1];
             vformat_buf(
                 namebuffer, sizeof(namebuffer),
@@ -1665,28 +1495,28 @@ void editorrender(void)
                 "name:str",
                 ed.sbscript.c_str()
             );
-            font::print(PR_CEN, -1,228, namebuffer, 123, 111, 218);
-            //Draw text
+            font::print(PR_CEN, -1, 228, namebuffer, 123, 111, 218);
+
+            // Draw text
             int font_height = font::height(PR_FONT_LEVEL);
-            for(int i=0; i<ed.lines_visible; i++)
+            for (int i = 0; i < ed.lines_visible; i++)
             {
-                if(i+ed.pagey<(int)ed.sb.size())
+                if (i + ed.pagey < (int) ed.sb.size())
                 {
-                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20+(i*font_height), ed.sb[i+ed.pagey], 123, 111, 218);
+                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20 + (i * font_height), ed.sb[i + ed.pagey], 123, 111, 218);
                 }
             }
-            //Draw cursor
-            if(ed.entframe<2)
+
+            // Draw cursor
+            if (ed.entframe < 2)
             {
-                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16+font::len(PR_FONT_LEVEL, ed.sb[ed.pagey+ed.sby].c_str()),20+(ed.sby*font_height),"_",123, 111, 218);
+                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, ed.sb[ed.pagey + ed.sby].c_str()), 20 + (ed.sby * font_height), "_", 123, 111, 218);
             }
-            break;
         }
-        }
-    }
-    else if(ed.settingsmod)
+        break;
+    case EditorState_MENU:
     {
-        if(!game.colourblindmode)
+        if (!game.colourblindmode)
         {
             graphics.drawtowerbackground(graphics.titlebg);
         }
@@ -1695,207 +1525,17 @@ void editorrender(void)
             graphics.clear();
         }
 
-        int tr = graphics.titlebg.r - (help.glow / 4) - int(fRandom() * 4);
-        int tg = graphics.titlebg.g - (help.glow / 4) - int(fRandom() * 4);
-        int tb = graphics.titlebg.b - (help.glow / 4) - int(fRandom() * 4);
-        if (tr < 0) tr = 0;
-        if (tr > 255) tr = 255;
-        if (tg < 0) tg = 0;
-        if (tg > 255) tg = 255;
-        if (tb < 0) tb = 0;
-        if (tb > 255) tb = 255;
+        int tr = SDL_clamp(graphics.titlebg.r - (help.glow / 4) - int(fRandom() * 4), 0, 255);
+        int tg = SDL_clamp(graphics.titlebg.g - (help.glow / 4) - int(fRandom() * 4), 0, 255);
+        int tb = SDL_clamp(graphics.titlebg.b - (help.glow / 4) - int(fRandom() * 4), 0, 255);
+
         editormenurender(tr, tg, tb);
-
         graphics.drawmenu(tr, tg, tb, game.currentmenuname);
+        break;
     }
-    else if (ed.textmod)
-    {
-        short lines;
-        std::string wrapped = font::string_wordwrap(0, ed.textdesc, 312, &lines);
-        short textheight = font::height(0)*lines+font::height(PR_FONT_LEVEL);
-
-        graphics.fill_rect(0, 238-textheight, 320, 240, graphics.getRGB(32, 32, 32));
-        graphics.fill_rect(0, 239-textheight, 320, 240, graphics.getRGB(0, 0, 0));
-        font::print_wrap(0, 4, 240-textheight, wrapped.c_str(), 255, 255, 255, 8, 312);
-        std::string input = key.keybuffer;
-        if (ed.entframe < 2)
-        {
-            input += "_";
-        }
-        else
-        {
-            input += " ";
-        }
-        font::print(PR_CEN | PR_FONT_LEVEL | PR_CJK_HIGH, -1, 232, input, 196, 196, 255 - help.glow);
-    }
-    else if(ed.warpmod)
-    {
-        //placing warp token
-        int textheight = font::height(0);
-        graphics.fill_rect(0,237-textheight*2,320,240, graphics.getRGB(32,32,32));
-        graphics.fill_rect(0,238-textheight*2,320,240, graphics.getRGB(0,0,0));
-        font::print(PR_CJK_LOW, 4, 240-textheight*2, loc::gettext("Left click to place warp destination"), 196, 196, 255 - help.glow);
-        font::print(PR_CJK_LOW, 4, 240-textheight, loc::gettext("Right click to cancel"), 196, 196, 255 - help.glow);
-    }
-    else
-    {
-        char coords[8];
-        SDL_snprintf(coords, sizeof(coords), "(%d,%d)", ed.levx+1, ed.levy+1);
-
-        if(ed.spacemod)
-        {
-            graphics.fill_rect(0,207,320,240, graphics.getRGB(32,32,32));
-            graphics.fill_rect(0,208,320,240, graphics.getRGB(0,0,0));
-
-            // Draw tool icons!
-
-            int tx = 6;
-            const int ty = 210;
-            const int tg = 32;
-
-            const int page = ed.current_tool / 10;
-            const int max_pages = SDL_ceil(NUM_EditorTools / 10);
-            const int page_tool_count = SDL_min(10, NUM_EditorTools - (page * 10));
-
-            for (int i = 0; i < page_tool_count; i++)
-            {
-                const int current_tool_id = i + (page * 10);
-
-                // First, draw the background
-                graphics.fill_rect(4 + (i * tg), 208, 20, 20, graphics.getRGB(32, 32, 32));
-
-                // Draw the actual tool icon
-                ed.draw_tool((EditorTools) current_tool_id, 4 + (i * tg) + 2, 208 + 2);
-
-                // Draw the tool outline...
-                graphics.draw_rect(4 + (i * tg), 208, 20, 20, (current_tool_id == ed.current_tool) ? graphics.getRGB(200, 200, 200) : graphics.getRGB(96, 96, 96));
-
-                // ...and the hotkey
-                const int col = current_tool_id == ed.current_tool ? 255 : 164;
-                font::print(PR_FONT_8X8 | PR_BOR, 22 + i * tg - 4, 224 - 4, ed.toolkeychar[current_tool_id], col, col, col);
-            }
-
-            // Draw the page number, limit is 1 digit, so the max is 9 pages
-            char buffer[4];
-            SDL_snprintf(buffer, sizeof(buffer), "%d/%d", page + 1, max_pages + 1);
-            font::print(PR_CJK_HIGH, 4, 232, buffer, 196, 196, 255 - help.glow);
-
-            // Draw the button hint text
-            char changetooltext[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(changetooltext, sizeof(changetooltext),
-                loc::gettext("{button1} and {button2} keys change tool"),
-                "button1:str, button2:str",
-                ",", "."
-            );
-            font::print(PR_CJK_HIGH | PR_RIGHT, 320, 232, changetooltext, 196, 196, 255 - help.glow);
-
-            // Draw the current tool name
-            char toolname[SCREEN_WIDTH_CHARS + 1];
-            SDL_snprintf(toolname, sizeof(toolname), "%s: %s", ed.toolkeychar[ed.current_tool], loc::gettext(ed.toolnames[ed.current_tool]));
-
-            int bgheight = 2 + font::height(0);
-            int toolnamelen = font::len(0, toolname);
-            graphics.fill_rect(0,206-bgheight,toolnamelen+8,bgheight+1, graphics.getRGB(32,32,32));
-            graphics.fill_rect(0,207-bgheight,toolnamelen+7,bgheight, graphics.getRGB(0,0,0));
-            font::print(PR_BOR | PR_CJK_HIGH, 2,198, toolname, 196, 196, 255 - help.glow);
-
-            int coordslen = font::len(0, coords);
-            graphics.fill_rect(319-coordslen-8,206-bgheight,coordslen+8,bgheight+1, graphics.getRGB(32,32,32));
-            graphics.fill_rect(320-coordslen-8,207-bgheight,coordslen+8,bgheight, graphics.getRGB(0,0,0));
-            font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 198, coords, 196, 196, 255 - help.glow);
-        }
-        else
-        {
-            //graphics.fill_rect(0,230,72,240, graphics.RGB(32,32,32));
-            //graphics.fill_rect(0,231,71,240, graphics.RGB(0,0,0));
-            if(room->roomname!="")
-            {
-                int font_height = font::height(PR_FONT_LEVEL);
-                if (font_height <= 8)
-                {
-                    graphics.footerrect.h = font_height + 2;
-                }
-                else
-                {
-                    graphics.footerrect.h = font_height + 1;
-                }
-                graphics.footerrect.y = 240 - graphics.footerrect.h + ed.roomnamehide;
-
-                graphics.set_blendmode(SDL_BLENDMODE_BLEND);
-                graphics.fill_rect(&graphics.footerrect, graphics.getRGBA(0, 0, 0, graphics.translucentroomname ? 127 : 255));
-                graphics.set_blendmode(SDL_BLENDMODE_NONE);
-
-                font::print(PR_CEN | PR_BOR | PR_FONT_LEVEL | PR_CJK_LOW, -1, graphics.footerrect.y+1+ed.roomnamehide, room->roomname, 196, 196, 255 - help.glow);
-                font::print(PR_BOR | PR_CJK_HIGH, 4, 232-graphics.footerrect.h, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
-                font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 232-graphics.footerrect.h, coords, 196, 196, 255 - help.glow);
-            }
-            else
-            {
-                font::print(PR_BOR | PR_CJK_HIGH, 4, 232, loc::gettext("SPACE ^  SHIFT ^"), 196, 196, 255 - help.glow);
-                font::print(PR_BOR | PR_CJK_HIGH | PR_RIGHT, 316, 232, coords, 196, 196, 255 - help.glow);
-            }
-        }
-
-        if(ed.shiftmenu)
-        {
-            const char* shiftmenuoptions[] = {
-                loc::gettext("F1: Change Tileset"),
-                loc::gettext("F2: Change Colour"),
-                loc::gettext("F3: Change Enemies"),
-                loc::gettext("F4: Enemy Bounds"),
-                loc::gettext("F5: Platform Bounds"),
-                "",
-                loc::gettext("F9: Reload Resources"),
-                loc::gettext("F10: Direct Mode"),
-                "",
-                loc::gettext("W: Change Warp Dir"),
-                loc::gettext("E: Change Roomname"),
-            };
-            int menuwidth = 0;
-            for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
-            {
-                int len = font::len(0, shiftmenuoptions[i]);
-                if (len > menuwidth)
-                    menuwidth = len;
-            }
-
-            int lineheight = font::height(0);
-            lineheight = SDL_max(10, lineheight);
-            int left_y = 230-SDL_arraysize(shiftmenuoptions)*lineheight;
-
-            graphics.draw_rect(0, left_y-3, menuwidth+17, 240,graphics.getRGB(64,64,64));
-            graphics.fill_rect(0,left_y-2,menuwidth+16,240, graphics.getRGB(0,0,0));
-            for (size_t i = 0; i < SDL_arraysize(shiftmenuoptions); i++)
-                font::print(0, 4, left_y+i*lineheight, shiftmenuoptions[i], 164,164,164);
-
-            graphics.draw_rect(220, 207,100,60,graphics.getRGB(64,64,64));
-            graphics.fill_rect(221,208,160,60, graphics.getRGB(0,0,0));
-            font::print(0, 224, 210, loc::gettext("S: Save Map"),164,164,164);
-            font::print(0, 224, 210+lineheight, loc::gettext("L: Load Map"),164,164,164);
-        }
     }
 
-
-    if(!ed.settingsmod && !ed.scripteditmod)
-    {
-        // Draw the current tool name
-        char toolname[SCREEN_WIDTH_CHARS + 1];
-        SDL_snprintf(toolname, sizeof(toolname), "%s: %s", ed.toolkeychar[ed.current_tool], loc::gettext(ed.toolnames[ed.current_tool]));
-        font::print(PR_BOR, 2, 2, toolname, 196, 196, 255 - help.glow);
-    }
-
-    if(ed.notedelay>0 || ed.oldnotedelay>0)
-    {
-        short lines;
-        std::string wrapped = font::string_wordwrap(0, ed.note, 304, &lines);
-        short textheight = 8+(lines-1)*SDL_max(10, font::height(0));
-        short banner_y = 120 - textheight/2 - 5;
-
-        float alpha = graphics.lerp(ed.oldnotedelay, ed.notedelay);
-        graphics.fill_rect(0, banner_y, 320, 10+textheight, graphics.getRGB(92,92,92));
-        graphics.fill_rect(0, banner_y+1, 320, 8+textheight, graphics.getRGB(0,0,0));
-        font::print_wrap(PR_CEN, -1,banner_y+5, wrapped.c_str(), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4), 196-((45.0f-alpha)*4));
-    }
+    draw_note();
 
     graphics.drawfade();
 
@@ -1936,29 +1576,32 @@ void editorrenderfixed(void)
         ed.currentghosts = SDL_min(ed.currentghosts, ed.ghosts.size());
     }
 
-    if (!ed.settingsmod)
+    switch (ed.state)
     {
-        switch(room->warpdir)
+    case EditorState_DRAW:
+        switch (room->warpdir)
         {
         case 1:
-            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol = cl.getwarpbackground(ed.levx, ed.levy);
             graphics.updatebackground(3);
             break;
         case 2:
-            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol = cl.getwarpbackground(ed.levx, ed.levy);
             graphics.updatebackground(4);
             break;
         case 3:
-            graphics.rcol=cl.getwarpbackground(ed.levx, ed.levy);
+            graphics.rcol = cl.getwarpbackground(ed.levx, ed.levy);
             graphics.updatebackground(5);
             break;
         default:
             break;
         }
-    }
-    else if (!game.colourblindmode)
-    {
+        break;
+    case EditorState_MENU:
+        graphics.titlebg.bypos -= 2;
+        graphics.titlebg.bscroll = -2;
         graphics.updatetowerbackground(graphics.titlebg);
+        break;
     }
 
     if (cl.getroomprop(ed.levx, ed.levy)->directmode == 1)
@@ -2003,15 +1646,167 @@ void editorrenderfixed(void)
     }
 }
 
+static void input_submitted(void)
+{
+    extern editorclass ed;
+
+    *ed.current_text_ptr = key.keybuffer;
+
+    ed.shiftmenu = false;
+    ed.shiftkey = false;
+
+    bool reset_text_mode = true;
+
+    key.disabletextentry();
+
+    ed.substate = EditorSubState_MAIN;
+
+    switch (ed.current_text_mode)
+    {
+    case TEXT_GOTOROOM:
+    {
+        char coord_x[16];
+        char coord_y[16];
+
+        const char* comma = SDL_strchr(key.keybuffer.c_str(), ',');
+
+        bool valid_input = comma != NULL;
+
+        if (valid_input)
+        {
+            SDL_strlcpy(
+                coord_x,
+                key.keybuffer.c_str(),
+                SDL_min((size_t) (comma - key.keybuffer.c_str() + 1), sizeof(coord_x))
+            );
+            SDL_strlcpy(coord_y, &comma[1], sizeof(coord_y));
+
+            valid_input = is_number(coord_x) && is_number(coord_y);
+        }
+
+        if (!valid_input)
+        {
+            ed.show_note(loc::gettext("ERROR: Invalid format"));
+            break;
+        }
+
+        ed.levx = SDL_clamp(help.Int(coord_x) - 1, 0, cl.mapwidth - 1);
+        ed.levy = SDL_clamp(help.Int(coord_y) - 1, 0, cl.mapheight - 1);
+        graphics.backgrounddrawn = false;
+        break;
+    }
+    case TEXT_LOAD:
+    {
+        std::string loadstring = ed.filename + ".vvvvvv";
+        if (cl.load(loadstring))
+        {
+            // don't use filename, it has the full path
+            char buffer[3 * SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(buffer, sizeof(buffer), loc::gettext("Loaded map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
+            ed.show_note(buffer);
+        }
+        else
+        {
+            ed.show_note(loc::gettext("ERROR: Could not load level"));
+        }
+        graphics.foregrounddrawn = false;
+        graphics.backgrounddrawn = false;
+        ed.substate = EditorSubState_MAIN;
+        break;
+    }
+    case TEXT_SAVE:
+    {
+        std::string savestring = ed.filename + ".vvvvvv";
+        if (cl.save(savestring))
+        {
+            char buffer[3 * SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(buffer, sizeof(buffer), loc::gettext("Saved map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
+            ed.show_note(buffer);
+        }
+        else
+        {
+            ed.show_note(loc::gettext("ERROR: Could not save level!"));
+            ed.saveandquit = false;
+        }
+        ed.note_timer = 45;
+
+        if (ed.saveandquit)
+        {
+            graphics.fademode = FADE_START_FADEOUT; /* quit editor */
+        }
+        break;
+    }
+    case TEXT_SCRIPT:
+        ed.clearscriptbuffer();
+        if (!ed.checkhook(key.keybuffer))
+        {
+            ed.addhook(key.keybuffer);
+        }
+        break;
+    case TEXT_TITLE:
+        cl.title = key.keybuffer;
+        if (cl.title == "")
+        {
+            cl.title = "Untitled Level";
+        }
+        break;
+    case TEXT_CREATOR:
+        cl.creator = key.keybuffer;
+        if (cl.creator == "")
+        {
+            cl.creator = "Unknown";
+        }
+        break;
+    case TEXT_WEBSITE:
+        cl.website = key.keybuffer;
+
+        break;
+    case TEXT_DESC1:
+        cl.Desc1 = key.keybuffer;
+        ed.current_text_mode = TEXT_DESC2;
+        ed.substate = EditorSubState_MENU_INPUT;
+        reset_text_mode = false;
+        key.enabletextentry();
+        ed.current_text_ptr = &(key.keybuffer);
+        key.keybuffer = cl.Desc2;
+        break;
+    case TEXT_DESC2:
+        cl.Desc2 = key.keybuffer;
+
+        if (font::height(PR_FONT_LEVEL) <= 10)
+        {
+            ed.current_text_mode = TEXT_DESC3;
+            key.enabletextentry();
+            ed.substate = EditorSubState_MENU_INPUT;
+            reset_text_mode = false;
+            ed.current_text_ptr = &(key.keybuffer);
+            key.keybuffer = cl.Desc3;
+        }
+        else
+        {
+            cl.Desc3 = "";
+        }
+
+        break;
+    case TEXT_DESC3:
+        cl.Desc3 = key.keybuffer;
+        break;
+    default:
+        break;
+    }
+
+    if (reset_text_mode)
+    {
+        ed.current_text_mode = TEXT_NONE;
+    }
+}
+
 void editorlogic(void)
 {
     extern editorclass ed;
 
     //Misc
     help.updateglow();
-
-    graphics.titlebg.bypos -= 2;
-    graphics.titlebg.bscroll = -2;
 
     ed.entframedelay--;
     if (ed.entframedelay <= 0)
@@ -2020,8 +1815,8 @@ void editorlogic(void)
         ed.entframedelay = 8;
     }
 
-    ed.oldnotedelay = ed.notedelay;
-    ed.notedelay = SDL_max(ed.notedelay - 1, 0);
+    ed.old_note_timer = ed.note_timer;
+    ed.note_timer = SDL_max(ed.note_timer - 1, 0);
 
     update_entities();
 
@@ -2032,7 +1827,329 @@ void editorlogic(void)
         map.nexttowercolour();
         game.quittomenu();
         music.play(6); //should be before game.quittomenu()
-        ed.settingsmod=false;
+    }
+}
+
+void editorclass::add_entity(int xp, int yp, int tp, int p1, int p2, int p3, int p4, int p5, int p6)
+{
+    CustomEntity entity;
+
+    entity.x = xp;
+    entity.y = yp;
+    entity.t = tp;
+    entity.p1 = p1;
+    entity.p2 = p2;
+    entity.p3 = p3;
+    entity.p4 = p4;
+    entity.p5 = p5;
+    entity.p6 = p6;
+    entity.scriptname = "";
+
+    customentities.push_back(entity);
+}
+
+void editorclass::remove_entity(int t)
+{
+    customentities.erase(customentities.begin() + t);
+}
+
+int editorclass::get_entity_at(int xp, int yp)
+{
+    for (size_t i = 0; i < customentities.size(); i++)
+    {
+        if (customentities[i].x == xp && customentities[i].y == yp) return i;
+    }
+    return -1;
+}
+
+
+void editorclass::handle_tile_placement(const int tile)
+{
+    int range = 1;
+
+    if (bmod)
+    {
+        // Vertical line
+        for (int i = 0; i < 30; i++)
+        {
+            set_tile(tilex, i, tile);
+        }
+        return;
+    }
+    else if (hmod)
+    {
+        // Horizontal line
+        for (int i = 0; i < 40; i++)
+        {
+            set_tile(i, tiley, tile);
+        }
+        return;
+    }
+    else if (vmod)
+    {
+        range = 4;
+    }
+    else if (cmod)
+    {
+        range = 3;
+    }
+    else if (xmod)
+    {
+        range = 2;
+    }
+    else if (zmod)
+    {
+        range = 1;
+    }
+    else
+    {
+        set_tile(tilex, tiley, tile);
+        return;
+    }
+
+    for (int i = -range; i <= range; i++)
+    {
+        for (int j = -range; j <= range; j++)
+        {
+            set_tile(tilex + i, tiley + j, tile);
+        }
+    }
+}
+
+void editorclass::tool_remove()
+{
+    switch (current_tool)
+    {
+    case EditorTool_WALLS:
+    case EditorTool_BACKING:
+        handle_tile_placement(0);
+        break;
+    case EditorTool_SPIKES:
+        set_tile(tilex, tiley, 0);
+        break;
+    default:
+        break;
+    }
+
+    for (size_t i = 0; i < customentities.size(); i++)
+    {
+        if (customentities[i].x == tilex + (levx * 40) && customentities[i].y == tiley + (levy * 30))
+        {
+            remove_entity(i);
+        }
+    }
+}
+
+void editorclass::entity_clicked(const int index)
+{
+    CustomEntity* entity = &customentities[index];
+
+    lclickdelay = 1;
+
+    switch (entity->t)
+    {
+    case 1:
+        // Enemies
+        entity->p1 = (entity->p1 + 1) % 4;
+        break;
+    case 2:
+    {
+        // Moving Platforms and Conveyors
+        const bool conveyor = entity->p1 >= 5;
+        entity->p1++;
+        if (conveyor)
+        {
+            entity->p1 = (entity->p1 - 5) % 4 + 5;
+        }
+        else
+        {
+            entity->p1 %= 4;
+        }
+        break;
+    }
+    case 10:
+        // Checkpoints
+        // If it's not textured as a checkpoint, then just leave it be
+        if (entity->p1 == 0 || entity->p1 == 1)
+        {
+            entity->p1 = (entity->p1 + 1) % 2;
+        }
+        break;
+    case 11:
+    case 16:
+        // Gravity Lines, Start Point
+        entity->p1 = (entity->p1 + 1) % 2;
+        break;
+    case 15:
+        // Crewmates
+        entity->p1 = (entity->p1 + 1) % 6;
+        break;
+    case 17:
+        // Roomtext
+        get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &entity->scriptname);
+        textent = index;
+        break;
+    case 18:
+        // Terminals
+        if (entity->p1 == 0 || entity->p1 == 1)
+        {
+            // Flip the terminal, but if it's not textured as a terminal leave it alone
+            entity->p1 = (entity->p1 + 1) % 2;
+        }
+        SDL_FALLTHROUGH;
+    case 19:
+        // Script Boxes (and terminals)
+        get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &entity->scriptname);
+        textent = index;
+        break;
+    }
+}
+
+void editorclass::tool_place()
+{
+
+    const int entity = get_entity_at(tilex + (levx * 40), tiley + (levy * 30));
+    if (entity != -1)
+    {
+        entity_clicked(entity);
+        return;
+    }
+
+    switch (current_tool)
+    {
+    case EditorTool_WALLS:
+    case EditorTool_BACKING:
+    {
+        int tile = 0;
+
+        if (cl.getroomprop(levx, levy)->directmode >= 1)
+        {
+            tile = dmtile;
+        }
+        else if (current_tool == EditorTool_WALLS)
+        {
+            tile = 1;
+        }
+        else if (current_tool == EditorTool_BACKING)
+        {
+            tile = 2;
+        }
+
+        handle_tile_placement(tile);
+        break;
+    }
+    case EditorTool_SPIKES:
+        set_tile(tilex, tiley, 8);
+        break;
+    case EditorTool_TRINKETS:
+        if (cl.numtrinkets() < 100)
+        {
+            add_entity(tilex + (levx * 40), tiley + (levy * 30), 9);
+            lclickdelay = 1;
+        }
+        else
+        {
+            show_note(loc::gettext("ERROR: Max number of trinkets is 100"));
+        }
+        break;
+    case EditorTool_CHECKPOINTS:
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 10, 1);
+        lclickdelay = 1;
+        break;
+    case EditorTool_DISAPPEARING_PLATFORMS:
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 3);
+        lclickdelay = 1;
+        break;
+    case EditorTool_CONVEYORS:
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 2, 5);
+        lclickdelay = 1;
+        break;
+    case EditorTool_MOVING_PLATFORMS:
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 2, 0);
+        lclickdelay = 1;
+        break;
+    case EditorTool_ENEMIES:
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 1, 0);
+        lclickdelay = 1;
+        break;
+    case EditorTool_GRAVITY_LINES:
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 11, 0);
+        lclickdelay = 1;
+        break;
+    case EditorTool_ROOMTEXT:
+        lclickdelay = 1;
+        textent = customentities.size();
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 17);
+        get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[textent].scriptname));
+        break;
+    case EditorTool_TERMINALS:
+        lclickdelay = 1;
+        textent = customentities.size();
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 18, 0);
+        get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[textent].scriptname));
+        break;
+    case EditorTool_SCRIPTS:
+        substate = EditorSubState_DRAW_BOX;
+        box_corner = BoxCorner_LAST;
+        box_type = BoxType_SCRIPT;
+        box_point = { tilex * 8, tiley * 8 };
+
+        lclickdelay = 1;
+        break;
+    case EditorTool_WARP_TOKENS:
+        substate = EditorSubState_DRAW_WARPTOKEN;
+        warpent = customentities.size();
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 13);
+        lclickdelay = 1;
+        break;
+    case EditorTool_WARP_LINES:
+        //Warp lines
+        if (tilex == 0)
+        {
+            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 0);
+        }
+        else if (tilex == 39)
+        {
+            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 1);
+        }
+        else if (tiley == 0)
+        {
+            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 2);
+        }
+        else if (tiley == 29)
+        {
+            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 3);
+        }
+        else
+        {
+            show_note(loc::gettext("ERROR: Warp lines must be on edges"));
+        }
+        lclickdelay = 1;
+        break;
+    case EditorTool_CREWMATES:
+        if (cl.numcrewmates() < 100)
+        {
+            add_entity(tilex + (levx * 40), tiley + (levy * 30), 15, int(fRandom() * 6));
+            lclickdelay = 1;
+        }
+        else
+        {
+            show_note(loc::gettext("ERROR: Max number of crewmates is 100"));
+        }
+        break;
+    case EditorTool_START_POINT:
+        //If there is another start point, destroy it
+        for (size_t i = 0; i < customentities.size(); i++)
+        {
+            if (customentities[i].t == 16)
+            {
+                remove_entity(i);
+                i--;
+            }
+        }
+        add_entity(tilex + (levx * 40), tiley + (levy * 30), 16, 0);
+        lclickdelay = 1;
+        break;
     }
 }
 
@@ -2059,11 +2176,15 @@ static void editormenuactionpress(void)
         {
             bool title_is_gettext;
             translate_title(cl.title, &title_is_gettext);
-            ed.titlemod=true;
+
+            ed.current_text_mode = TEXT_TITLE;
+            ed.substate = EditorSubState_MENU_INPUT;
             key.enabletextentry();
+            ed.current_text_ptr = &(key.keybuffer);
+
             if (title_is_gettext)
             {
-                key.keybuffer="";
+                key.keybuffer = "";
             }
             else
             {
@@ -2075,11 +2196,14 @@ static void editormenuactionpress(void)
         {
             bool creator_is_gettext;
             translate_creator(cl.creator, &creator_is_gettext);
-            ed.creatormod=true;
+
+            ed.current_text_mode = TEXT_CREATOR;
+            ed.substate = EditorSubState_MENU_INPUT;
             key.enabletextentry();
+            ed.current_text_ptr = &(key.keybuffer);
             if (creator_is_gettext)
             {
-                key.keybuffer="";
+                key.keybuffer = "";
             }
             else
             {
@@ -2088,13 +2212,17 @@ static void editormenuactionpress(void)
             break;
         }
         case 2:
-            ed.desc1mod=true;
+            ed.current_text_mode = TEXT_DESC1;
+            ed.substate = EditorSubState_MENU_INPUT;
             key.enabletextentry();
-            key.keybuffer=cl.Desc1;
+            ed.current_text_ptr = &(key.keybuffer);
+            key.keybuffer = cl.Desc1;
             break;
         case 3:
-            ed.websitemod=true;
+            ed.current_text_mode = TEXT_WEBSITE;
+            ed.substate = EditorSubState_MENU_INPUT;
             key.enabletextentry();
+            ed.current_text_ptr = &(key.keybuffer);
             key.keybuffer=cl.website;
             break;
         case 4:
@@ -2120,13 +2248,15 @@ static void editormenuactionpress(void)
         case 1:
             //Enter script editormode
             music.playef(11);
-            ed.scripteditmod=true;
+
+            ed.state = EditorState_SCRIPTS;
+            ed.substate = EditorSubState_MAIN;
+
             ed.clearscriptbuffer();
             key.keybuffer="";
             ed.hookmenupage=0;
             ed.hookmenu=0;
-            ed.scripthelppage=0;
-            ed.scripthelppagedelay=0;
+
             ed.sby=0;
             ed.sbx=0, ed.pagey=0;
             ed.lines_visible = 200/font::height(PR_FONT_LEVEL);
@@ -2143,21 +2273,19 @@ static void editormenuactionpress(void)
             break;
         case 4:
             //Load level
-            ed.settingsmod = false;
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.getlin(TEXT_LOAD, loc::gettext("Enter map filename to load:"), &(ed.filename));
+            ed.get_input_line(TEXT_LOAD, loc::gettext("Enter map filename to load:"), &(ed.filename));
             game.mapheld = true;
             graphics.backgrounddrawn = false;
             break;
         case 5:
             //Save level
-            ed.settingsmod=false;
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.getlin(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
+            ed.get_input_line(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
             game.mapheld = true;
             graphics.backgrounddrawn = false;
             break;
@@ -2221,11 +2349,10 @@ static void editormenuactionpress(void)
             //Saving and quit
             ed.saveandquit = true;
 
-            ed.settingsmod = false;
             map.nexttowercolour();
 
             ed.keydelay = 6;
-            ed.getlin(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
+            ed.get_input_line(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
             game.mapheld = true;
             graphics.backgrounddrawn = false;
             break;
@@ -2266,6 +2393,249 @@ static void editormenuactionpress(void)
     default:
         break;
     }
+}
+
+static void start_at_checkpoint(void)
+{
+    extern editorclass ed;
+
+    // Scan the room for a start point or a checkpoint, the start point taking priority
+    int testeditor = -1;
+    bool startpoint = false;
+
+    for (size_t i = 0; i < customentities.size(); i++)
+    {
+        if (customentities[i].t == 16 || customentities[i].t == 10)
+        {
+            int tx = customentities[i].x / 40;
+            int ty = customentities[i].y / 30;
+            if (tx == ed.levx && ty == ed.levy)
+            {
+                startpoint = customentities[i].t == 16;
+                if (startpoint)
+                {
+                    // Oh, there's a start point! Let's use this.
+                    testeditor = i;
+                    break;
+                }
+                else if (testeditor == -1)
+                {
+                    // This is the first thing we found, so let's use it (unless we find a start point later)
+                    testeditor = i;
+                }
+            }
+        }
+    }
+
+    if (testeditor == -1)
+    {
+        ed.show_note(loc::gettext("ERROR: No checkpoint to spawn at"));
+    }
+    else
+    {
+        ed.currentghosts = 0;
+
+        int tx = customentities[testeditor].x / 40;
+        int ty = customentities[testeditor].y / 30;
+        game.edsavex = (customentities[testeditor].x % 40) * 8 - 4;
+        game.edsavey = (customentities[testeditor].y % 30) * 8;
+        game.edsaverx = 100 + tx;
+        game.edsavery = 100 + ty;
+
+        if (!startpoint)
+        {
+            // Checkpoint spawn
+            if (customentities[testeditor].p1 == 0) // NOT a bool check!
+            {
+                game.edsavegc = 1;
+                game.edsavey -= 2;
+            }
+            else
+            {
+                game.edsavegc = 0;
+                game.edsavey -= 7;
+            }
+            game.edsavedir = 0;
+        }
+        else
+        {
+            // Start point spawn
+            game.edsavegc = 0;
+            game.edsavey++;
+            game.edsavedir = 1 - customentities[testeditor].p1;
+        }
+
+        music.haltdasmusik();
+        ed.returneditoralpha = 1000; // Let's start it higher than 255 since it gets clamped
+        ed.oldreturneditoralpha = 1000;
+        script.startgamemode(Start_EDITORPLAYTESTING);
+    }
+}
+
+static void handle_draw_input()
+{
+    extern editorclass ed;
+
+    bool shift_down = key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT];
+
+    if (shift_down && !ed.shiftkey)
+    {
+        ed.shiftkey = true;
+        ed.shiftmenu = !ed.shiftmenu;
+    }
+    else if (!shift_down)
+    {
+        ed.shiftkey = false;
+    }
+
+    if (ed.keydelay > 0)
+    {
+        ed.keydelay--;
+    }
+    else
+    {
+        if (key.keymap[SDLK_F1])
+        {
+            ed.switch_tileset(shift_down);
+            ed.keydelay = 6;
+        }
+        if (key.keymap[SDLK_F2])
+        {
+            ed.switch_tilecol(shift_down);
+            ed.keydelay = 6;
+        }
+        if (key.keymap[SDLK_F3])
+        {
+            ed.switch_enemy(shift_down);
+            ed.keydelay = 6;
+        }
+        if (key.keymap[SDLK_F4])
+        {
+            ed.keydelay = 6;
+            ed.substate = EditorSubState_DRAW_BOX;
+            ed.box_corner = BoxCorner_FIRST;
+            ed.box_type = BoxType_ENEMY;
+        }
+        if (key.keymap[SDLK_F5])
+        {
+            ed.keydelay = 6;
+            ed.substate = EditorSubState_DRAW_BOX;
+            ed.box_corner = BoxCorner_FIRST;
+            ed.box_type = BoxType_PLATFORM;
+        }
+        if (key.keymap[SDLK_F10])
+        {
+            if (cl.getroomprop(ed.levx, ed.levy)->directmode == 1)
+            {
+                cl.setroomdirectmode(ed.levx, ed.levy, 0);
+                ed.show_note(loc::gettext("Direct Mode Disabled"));
+                // Kludge fix for rainbow BG here...
+                if (cl.getroomprop(ed.levx, ed.levy)->tileset == 2
+                    && cl.getroomprop(ed.levx, ed.levy)->tilecol == 6)
+                {
+                    cl.setroomtilecol(ed.levx, ed.levy, 0);
+                }
+            }
+            else
+            {
+                cl.setroomdirectmode(ed.levx, ed.levy, 1);
+                ed.show_note(loc::gettext("Direct Mode Enabled"));
+            }
+            graphics.backgrounddrawn = false;
+
+            ed.updatetiles = true;
+            ed.keydelay = 6;
+        }
+
+        for (int i = 0; i < NUM_EditorTools; i++)
+        {
+            if (key.keymap[ed.tool_keys[i]])
+            {
+                if ((shift_down && ed.tool_requires_shift[i]) || (!shift_down && !ed.tool_requires_shift[i]))
+                {
+                    ed.current_tool = (EditorTools) i;
+                }
+            }
+        }
+
+        if (key.keymap[SDLK_w])
+        {
+            ed.switch_warpdir(shift_down);
+            ed.keydelay = 6;
+        }
+        if (key.keymap[SDLK_e])
+        {
+            ed.keydelay = 6;
+            ed.get_input_line(TEXT_ROOMNAME, loc::gettext("Enter new room name:"), const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
+            game.mapheld = true;
+        }
+        if (key.keymap[SDLK_g])
+        {
+            ed.keydelay = 6;
+            ed.get_input_line(TEXT_GOTOROOM, loc::gettext("Enter room coordinates x,y:"), NULL);
+            game.mapheld = true;
+        }
+
+        //Save and load
+        if (key.keymap[SDLK_s])
+        {
+            ed.keydelay = 6;
+            ed.get_input_line(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
+            game.mapheld = true;
+        }
+
+        if (key.keymap[SDLK_l])
+        {
+            ed.keydelay = 6;
+            ed.get_input_line(TEXT_LOAD, loc::gettext("Enter map filename to load:"), &(ed.filename));
+            game.mapheld = true;
+        }
+
+        ed.hmod = key.keymap[SDLK_h];
+        ed.vmod = key.keymap[SDLK_v];
+        ed.bmod = key.keymap[SDLK_b];
+        ed.cmod = key.keymap[SDLK_c];
+        ed.xmod = key.keymap[SDLK_x];
+        ed.zmod = key.keymap[SDLK_z];
+
+        if (key.keymap[SDLK_COMMA])
+        {
+            ed.current_tool = (EditorTools)POS_MOD(ed.current_tool - 1, NUM_EditorTools);
+            ed.keydelay = 6;
+        }
+        else if (key.keymap[SDLK_PERIOD])
+        {
+            ed.current_tool = (EditorTools)POS_MOD(ed.current_tool + 1, NUM_EditorTools);
+            ed.keydelay = 6;
+        }
+
+        if (key.keymap[SDLK_SPACE])
+        {
+            ed.spacemod = !ed.spacemod;
+            ed.keydelay = 6;
+        }
+    }
+}
+
+void editorclass::get_input_line(const enum TextMode mode, const std::string& prompt, std::string* ptr)
+{
+    state = EditorState_DRAW;
+    substate = EditorSubState_DRAW_INPUT;
+    current_text_mode = mode;
+    current_text_ptr = ptr;
+    current_text_desc = prompt;
+    key.enabletextentry();
+    if (ptr)
+    {
+        key.keybuffer = *ptr;
+    }
+    else
+    {
+        key.keybuffer = "";
+        current_text_ptr = &(key.keybuffer);
+    }
+
+    old_entity_text = key.keybuffer;
 }
 
 void editorinput(void)
@@ -2314,265 +2684,584 @@ void editorinput(void)
 
     if (key.keymap[SDLK_F9] && (ed.keydelay == 0)) {
         ed.keydelay = 30;
-        ed.note = loc::gettext("Reloaded resources");
-        ed.notedelay = 45;
+        ed.show_note(loc::gettext("Reloaded resources"));
         graphics.reloadresources();
     }
 
-    if (key.isDown(KEYBOARD_ENTER)) game.press_map = true;
+    // Was escape just pressed?
+    bool escape_pressed = false;
     if (key.isDown(27) && !ed.settingskey)
     {
-        ed.settingskey=true;
-        if (ed.textmod)
+        ed.settingskey = true;
+        escape_pressed = true;
+    }
+    else if (!key.isDown(27))
+    {
+        ed.settingskey = false;
+    }
+
+    // What about enter?
+    bool enter_pressed = false;
+    if (key.isDown(KEYBOARD_ENTER) && !game.mapheld)
+    {
+        game.mapheld = true;
+        enter_pressed = true;
+    }
+    else if (!key.isDown(KEYBOARD_ENTER))
+    {
+        game.mapheld = false;
+    }
+
+    bool shift_down = key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT];
+    bool ctrl_down = key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL];
+
+    // Do different things depending on the current state (and substate)
+    switch (ed.state)
+    {
+        // Draw mode, aka placing tiles and entities down
+    case EditorState_DRAW:
+        switch (ed.substate)
         {
-            key.disabletextentry();
-            if (ed.textmod >= FIRST_ENTTEXT && ed.textmod <= LAST_ENTTEXT)
+        case EditorSubState_MAIN:
+            if (escape_pressed)
             {
-                *ed.textptr = ed.oldenttext;
-                if (ed.oldenttext == "")
-                {
-                    ed.removeedentity(ed.textent);
-                }
+                // We're just in draw mode, so go to the settings menu
+                music.playef(11);
+                ed.state = EditorState_MENU;
+                ed.substate = EditorSubState_MAIN;
+                game.createmenu(Menu::ed_settings);
             }
 
-            ed.textmod = TEXT_NONE;
-
-            ed.shiftmenu = false;
-            ed.shiftkey = false;
-        }
-        else if (key.textentry())
-        {
-            key.disabletextentry();
-            ed.titlemod=false;
-            ed.desc1mod=false;
-            ed.desc2mod=false;
-            ed.desc3mod=false;
-            ed.websitemod=false;
-            ed.creatormod=false;
-            music.playef(11);
-
-            ed.shiftmenu=false;
-            ed.shiftkey=false;
-        }
-        else if(ed.boundarymod>0)
-        {
-            ed.boundarymod=0;
-        }
-        else
-        {
-            bool esc_from_font = false;
-            music.playef(11);
-            if (ed.settingsmod)
+            if (ctrl_down)
             {
-                if (ed.scripteditmod)
+                // Holding ctrl, show the direct mode tile drawer
+                ed.dmtileeditor = 10;
+            }
+
+            if (ed.keydelay > 0)
+            {
+                ed.keydelay--;
+            }
+            else if (up_pressed || down_pressed || left_pressed || right_pressed)
+            {
+                ed.keydelay = 6;
+
+                if (ctrl_down)
                 {
-                    ed.scripteditmod = false;
+                    // The direct mode drawer is open, so arrow keys should change what tile you have selected
+                    // Also let's make it a little faster
+                    ed.keydelay = 3;
+
+                    int texturewidth;
+                    int textureheight;
+
+                    bool tiles1 = (cl.getroomprop(ed.levx, ed.levy)->tileset == 0);
+
+                    if (graphics.query_texture(tiles1 ? graphics.grphx.im_tiles : graphics.grphx.im_tiles2, NULL, NULL, &texturewidth, &textureheight) != 0)
+                        return;
+
+                    const int numtiles = (int)(texturewidth / 8) * (textureheight / 8);
+
+                    if (left_pressed) ed.dmtile--;
+                    if (right_pressed) ed.dmtile++;
+                    if (up_pressed) ed.dmtile -= 40;
+                    if (down_pressed) ed.dmtile += 40;
+
+                    ed.dmtile = POS_MOD(ed.dmtile, numtiles);
                 }
-                else if (ed.settingsmod)
+                else if (shift_down)
                 {
-                    if (game.currentmenuname == Menu::ed_settings)
+
+                    if (up_pressed) cl.mapheight--;
+                    if (down_pressed) cl.mapheight++;
+                    if (left_pressed) cl.mapwidth--;
+                    if (right_pressed) cl.mapwidth++;
+
+                    cl.mapwidth = SDL_clamp(cl.mapwidth, 1, cl.maxwidth);
+                    cl.mapheight = SDL_clamp(cl.mapheight, 1, cl.maxheight);
+
+                    char buffer[3 * SCREEN_WIDTH_CHARS + 1];
+                    vformat_buf(
+                        buffer, sizeof(buffer),
+                        loc::gettext("Mapsize is now [{width},{height}]"),
+                        "width:int, height:int",
+                        cl.mapwidth, cl.mapheight
+                    );
+
+                    ed.show_note(buffer);
+                }
+                else
+                {
+                    ed.updatetiles = true;
+                    ed.changeroom = true;
+                    graphics.backgrounddrawn = false;
+                    graphics.foregrounddrawn = false;
+
+                    if (up_pressed) ed.levy--;
+                    if (down_pressed) ed.levy++;
+                    if (left_pressed) ed.levx--;
+                    if (right_pressed) ed.levx++;
+
+                    ed.levx = POS_MOD(ed.levx, cl.mapwidth);
+                    ed.levy = POS_MOD(ed.levy, cl.mapheight);
+
+                }
+            }
+            else
+            {
+                handle_draw_input();
+            }
+
+            // Mouse input
+            if (key.leftbutton && ed.lclickdelay == 0)
+            {
+                ed.tool_place();
+            }
+            else if (!key.leftbutton)
+            {
+                ed.lclickdelay = 0;
+            }
+
+            if (key.rightbutton)
+            {
+                ed.tool_remove();
+            }
+
+            if (key.middlebutton)
+            {
+                ed.dmtile = cl.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley);
+            }
+
+            if (enter_pressed)
+            {
+                start_at_checkpoint();
+            }
+
+            break;
+
+        case EditorSubState_DRAW_BOX:
+            if (escape_pressed)
+            {
+                // Cancel box placement
+                ed.substate = EditorSubState_MAIN;
+            }
+
+            if (key.leftbutton)
+            {
+                if (ed.lclickdelay == 0)
+                {
+                    if (ed.box_corner == BoxCorner_FIRST)
                     {
-                        ed.settingsmod = false;
+                        ed.lclickdelay = 1;
+                        ed.box_point = { ed.tilex * 8, ed.tiley * 8 };
+                        ed.box_corner = BoxCorner_LAST;
                     }
-                    else if (game.currentmenuname == Menu::ed_font)
+                    else if (ed.box_corner == BoxCorner_LAST)
                     {
-                        // Prevent double return
-                        esc_from_font = true;
-                        game.returnmenu();
-                        map.nexttowercolour();
-                    }
-                    else
-                    {
-                        game.returnmenu();
-                        map.nexttowercolour();
+                        int left;
+                        int right;
+                        int top;
+                        int bottom;
+
+                        adjust_box_coordinates(ed.box_point.x, ed.box_point.y, ed.tilex * 8, ed.tiley * 8, &left, &right, &top, &bottom);
+
+                        ed.lclickdelay = 1;
+                        ed.substate = EditorSubState_MAIN;
+
+                        switch (ed.box_type)
+                        {
+                        case BoxType_SCRIPT:
+                            ed.textent = customentities.size();
+
+                            ed.add_entity((left / 8) + (ed.levx * 40), (top / 8) + (ed.levy * 30), 19, (right - left) / 8, (bottom - top) / 8);
+
+                            ed.get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
+                            break;
+                        case BoxType_ENEMY:
+                            cl.setroomenemyx1(ed.levx, ed.levy, left);
+                            cl.setroomenemyy1(ed.levx, ed.levy, top);
+                            cl.setroomenemyx2(ed.levx, ed.levy, right);
+                            cl.setroomenemyy2(ed.levx, ed.levy, bottom);
+                            break;
+                        case BoxType_PLATFORM:
+                            cl.setroomplatx1(ed.levx, ed.levy, left);
+                            cl.setroomplaty1(ed.levx, ed.levy, top);
+                            cl.setroomplatx2(ed.levx, ed.levy, right);
+                            cl.setroomplaty2(ed.levx, ed.levy, bottom);
+                            break;
+                        case BoxType_COPY:
+                            // Unused
+                            break;
+                        }
                     }
                 }
             }
             else
             {
-                ed.settingsmod = true;
+                ed.lclickdelay = 0;
             }
 
-            if (ed.settingsmod && !esc_from_font)
+            if (key.rightbutton)
             {
-                bool edsettings_in_stack = game.currentmenuname == Menu::ed_settings;
-                if (!edsettings_in_stack)
+                ed.substate = EditorSubState_MAIN;
+            }
+
+            break;
+
+        case EditorSubState_DRAW_WARPTOKEN:
+            if (escape_pressed || key.rightbutton)
+            {
+                // Cancel warp token placement
+                ed.substate = EditorSubState_MAIN;
+                ed.remove_entity(ed.warpent);
+                ed.warpent = -1;
+            }
+
+            // Allow the user to change rooms while placing a warp token
+            if (ed.keydelay > 0)
+            {
+                ed.keydelay--;
+            }
+            else if (up_pressed || down_pressed || left_pressed || right_pressed)
+            {
+                ed.keydelay = 6;
+
+                ed.updatetiles = true;
+                ed.changeroom = true;
+                graphics.backgrounddrawn = false;
+                graphics.foregrounddrawn = false;
+
+                if (up_pressed) ed.levy--;
+                if (down_pressed) ed.levy++;
+                if (left_pressed) ed.levx--;
+                if (right_pressed) ed.levx++;
+
+                ed.levx = POS_MOD(ed.levx, cl.mapwidth);
+                ed.levy = POS_MOD(ed.levy, cl.mapheight);
+            }
+
+            // Left click means place!
+            if (key.leftbutton)
+            {
+                if (ed.lclickdelay == 0)
                 {
-                    size_t i;
-                    for (i = 0; i < game.menustack.size(); ++i)
+                    if (ed.free(ed.tilex, ed.tiley) == 0)
                     {
-                        if (game.menustack[i].name == Menu::ed_settings)
-                        {
-                            edsettings_in_stack = true;
-                            break;
-                        }
+                        customentities[ed.warpent].p1 = ed.tilex + (ed.levx * 40);
+                        customentities[ed.warpent].p2 = ed.tiley + (ed.levy * 30);
+
+                        ed.substate = EditorSubState_MAIN;
+
+                        ed.warpent = -1;
+                        ed.lclickdelay = 1;
                     }
                 }
-                if (edsettings_in_stack)
-                {
-                    game.returntomenu(Menu::ed_settings);
-                }
-                else
-                {
-                    game.createmenu(Menu::ed_settings);
-                }
-                map.nexttowercolour();
             }
+            else
+            {
+                ed.lclickdelay = 0;
+            }
+
+            break;
+
+        case EditorSubState_DRAW_INPUT:
+            // We're taking input!
+            if (escape_pressed)
+            {
+                // Cancel it, and remove the enemy it's tied to if necessary
+                key.disabletextentry();
+                if (ed.current_text_mode >= FIRST_ENTTEXT && ed.current_text_mode <= LAST_ENTTEXT)
+                {
+                    *ed.current_text_ptr = ed.old_entity_text;
+                    if (ed.old_entity_text == "")
+                    {
+                        ed.remove_entity(ed.textent);
+                    }
+                }
+
+                ed.current_text_mode = TEXT_NONE;
+
+                ed.shiftmenu = false;
+
+                ed.substate = EditorSubState_MAIN;
+            }
+
+            if (enter_pressed)
+            {
+                input_submitted();
+            }
+            break;
         }
-    }
+        break;
 
-    if (!key.isDown(27))
-    {
-        ed.settingskey=false;
-    }
+    // We're in the menu!
+    case EditorState_MENU:
 
-    if(ed.scripteditmod)
-    {
-        if(ed.scripthelppage==0)
+        switch (ed.substate)
         {
-            //hook select menu
-            if(ed.keydelay>0) ed.keydelay--;
-
-            if(up_pressed && ed.keydelay<=0)
+        case EditorSubState_MAIN:
+            if (!game.press_action && !game.press_left && !game.press_right && !up_pressed && !down_pressed)
             {
-                ed.keydelay=6;
-                ed.hookmenu--;
+                game.jumpheld = false;
             }
 
-            if(down_pressed && ed.keydelay<=0)
-            {
-                ed.keydelay=6;
-                ed.hookmenu++;
-            }
-
-            if(ed.hookmenu>=(int)ed.hooklist.size())
-            {
-                ed.hookmenu=ed.hooklist.size()-1;
-            }
-            if(ed.hookmenu<0) ed.hookmenu=0;
-
-            if(ed.hookmenu<ed.hookmenupage)
-            {
-                ed.hookmenupage=ed.hookmenu;
-            }
-
-            if(ed.hookmenu>=ed.hookmenupage+9)
-            {
-                ed.hookmenupage=ed.hookmenu+8;
-            }
-
-            if(!key.keymap[SDLK_BACKSPACE]) ed.deletekeyheld=0;
-
-            if(key.keymap[SDLK_BACKSPACE] && ed.deletekeyheld==0 && !ed.hooklist.empty())
-            {
-                ed.deletekeyheld=1;
-                music.playef(2);
-                ed.removehook(ed.hooklist[(ed.hooklist.size()-1)-ed.hookmenu]);
-            }
-
-            if (!game.press_action && !game.press_left && !game.press_right
-                    && !up_pressed && !down_pressed && !key.isDown(27)) game.jumpheld = false;
             if (!game.jumpheld)
             {
-                if (game.press_action || game.press_left || game.press_right || game.press_map
-                        || up_pressed || down_pressed || key.isDown(27))
+                if (game.press_action || game.press_left || game.press_right || game.press_map || up_pressed || down_pressed)
                 {
                     game.jumpheld = true;
                 }
+
+                if (game.menustart)
+                {
+                    if (game.press_left || up_pressed)
+                    {
+                        game.currentmenuoption--;
+                    }
+                    else if (game.press_right || down_pressed)
+                    {
+                        game.currentmenuoption++;
+                    }
+                }
+
+                game.currentmenuoption = POS_MOD(game.currentmenuoption, (int)game.menuoptions.size());
+
+                if (game.press_action)
+                {
+                    editormenuactionpress();
+                }
+            }
+
+            // Was escape pressed?
+            if (escape_pressed)
+            {
+                bool esc_from_font = false;
+                music.playef(11);
+
+                if (game.currentmenuname == Menu::ed_settings)
+                {
+                    ed.state = EditorState_DRAW;
+                }
+                else
+                {
+                    game.returnmenu();
+                    map.nexttowercolour();
+
+                    // Avoid double return
+                    esc_from_font = game.currentmenuname == Menu::ed_font;
+                }
+
+                if (ed.state == EditorState_MENU && !esc_from_font)
+                {
+                    bool edsettings_in_stack = game.currentmenuname == Menu::ed_settings;
+                    if (!edsettings_in_stack)
+                    {
+                        size_t i;
+                        for (i = 0; i < game.menustack.size(); ++i)
+                        {
+                            if (game.menustack[i].name == Menu::ed_settings)
+                            {
+                                edsettings_in_stack = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (edsettings_in_stack)
+                    {
+                        game.returntomenu(Menu::ed_settings);
+                    }
+                    else
+                    {
+                        game.createmenu(Menu::ed_settings);
+                    }
+                    map.nexttowercolour();
+                }
+            }
+            break;
+
+        case EditorSubState_MENU_INPUT:
+            if (escape_pressed && key.textentry())
+            {
+                ed.substate = EditorSubState_MAIN;
+                key.disabletextentry();
+                ed.current_text_mode = TEXT_NONE;
+
+                music.playef(11);
+            }
+
+            if (enter_pressed)
+            {
+                input_submitted();
+            }
+            break;
+        }
+        break;
+
+    case EditorState_SCRIPTS:
+    {
+        switch (ed.substate)
+        {
+        case EditorSubState_MAIN:
+        {
+            if (escape_pressed)
+            {
+                music.playef(11);
+                ed.state = EditorState_MENU;
+                ed.substate = EditorSubState_MAIN;
+            }
+
+            if (ed.keydelay > 0) ed.keydelay--;
+
+            if (up_pressed && ed.keydelay <= 0)
+            {
+                ed.keydelay = 6;
+                ed.hookmenu--;
+            }
+
+            if (down_pressed && ed.keydelay <= 0)
+            {
+                ed.keydelay = 6;
+                ed.hookmenu++;
+            }
+
+            ed.hookmenu = SDL_clamp(ed.hookmenu, 0, (int)ed.hooklist.size() - 1);
+
+            if (ed.hookmenu < ed.hookmenupage)
+            {
+                ed.hookmenupage = ed.hookmenu;
+            }
+
+            if (ed.hookmenu >= ed.hookmenupage + 9)
+            {
+                ed.hookmenupage = ed.hookmenu + 8;
+            }
+
+            if (!key.keymap[SDLK_BACKSPACE])
+            {
+                ed.deletekeyheld = false;
+            }
+
+            if (key.keymap[SDLK_BACKSPACE] && !ed.deletekeyheld && !ed.hooklist.empty())
+            {
+                ed.deletekeyheld = true;
+                music.playef(2);
+                ed.removehook(ed.hooklist[(ed.hooklist.size() - 1) - ed.hookmenu]);
+            }
+
+            if (!game.press_action && !game.press_left && !game.press_right && !up_pressed && !down_pressed && !key.isDown(27))
+            {
+                game.jumpheld = false;
+            }
+
+            if (!game.jumpheld)
+            {
+                if (game.press_action || game.press_left || game.press_right || game.press_map || up_pressed || down_pressed || key.isDown(27))
+                {
+                    game.jumpheld = true;
+                }
+
                 if ((game.press_action || game.press_map) && !ed.hooklist.empty())
                 {
-                    game.mapheld=true;
-                    ed.scripthelppage=1;
+                    game.mapheld = true;
+                    ed.substate = EditorSubState_SCRIPTS_EDIT;
                     key.enabletextentry();
-                    key.keybuffer="";
-                    ed.sbscript=ed.hooklist[(ed.hooklist.size()-1)-ed.hookmenu];
+                    key.keybuffer = "";
+                    ed.current_text_ptr = &(key.keybuffer);
+                    ed.sbscript = ed.hooklist[(ed.hooklist.size() - 1) - ed.hookmenu];
                     ed.loadhookineditor(ed.sbscript);
 
-                    ed.sby=ed.sb.size()-1;
-                    ed.pagey=0;
-                    while(ed.sby>=ed.lines_visible-5)
+                    ed.sby = ed.sb.size() - 1;
+                    ed.pagey = 0;
+                    while (ed.sby >= ed.lines_visible - 5)
                     {
                         ed.pagey++;
                         ed.sby--;
                     }
-                    key.keybuffer=ed.sb[ed.pagey+ed.sby];
-                    ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey+ed.sby].c_str());
+
+                    key.keybuffer = ed.sb[ed.pagey + ed.sby];
+                    ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey + ed.sby].c_str());
+
                     music.playef(11);
                 }
             }
+            break;
         }
-        else if(ed.scripthelppage==1)
+        case EditorSubState_SCRIPTS_EDIT:
         {
-            //Script editor!
-            if (key.isDown(27))
+            // Script editor!
+            if (escape_pressed)
             {
-                ed.scripthelppage=0;
-                game.jumpheld = true;
-                //save the script for use again!
+                music.playef(11);
+                ed.substate = EditorSubState_MAIN;
+
+                // Alright, now readd the script.
                 ed.addhook(ed.sbscript);
             }
 
-            if(ed.keydelay>0) ed.keydelay--;
+            if (ed.keydelay > 0) ed.keydelay--;
 
-            if(up_pressed && ed.keydelay<=0)
+            if (up_pressed && ed.keydelay <= 0)
             {
-                ed.keydelay=6;
+                ed.keydelay = 6;
                 ed.sby--;
-                if(ed.sby<=5)
+                if (ed.sby <= 5)
                 {
-                    if(ed.pagey>0)
+                    if (ed.pagey > 0)
                     {
                         ed.pagey--;
                         ed.sby++;
                     }
                     else
                     {
-                        if(ed.sby<0) ed.sby=0;
+                        if (ed.sby < 0)
+                        {
+                            ed.sby = 0;
+                        }
                     }
                 }
-                key.keybuffer=ed.sb[ed.pagey+ed.sby];
+                key.keybuffer = ed.sb[ed.pagey + ed.sby];
             }
 
-            if(down_pressed && ed.keydelay<=0)
+            if (down_pressed && ed.keydelay <= 0)
             {
-                ed.keydelay=6;
-                if(ed.sby+ed.pagey<(int)ed.sb.size()-1)
+                ed.keydelay = 6;
+                if (ed.sby + ed.pagey < (int)ed.sb.size() - 1)
                 {
                     ed.sby++;
-                    if(ed.sby>=ed.lines_visible-5)
+                    if (ed.sby >= ed.lines_visible - 5)
                     {
                         ed.pagey++;
                         ed.sby--;
                     }
                 }
-                key.keybuffer=ed.sb[ed.pagey+ed.sby];
+                key.keybuffer = ed.sb[ed.pagey + ed.sby];
             }
 
-            if(key.linealreadyemptykludge)
+            if (key.linealreadyemptykludge)
             {
-                ed.keydelay=6;
-                key.linealreadyemptykludge=false;
+                ed.keydelay = 6;
+                key.linealreadyemptykludge = false;
             }
 
-            if(key.pressedbackspace && ed.sb[ed.pagey+ed.sby]=="" && ed.keydelay<=0)
+            if (key.pressedbackspace && ed.sb[ed.pagey + ed.sby] == "" && ed.keydelay <= 0)
             {
                 //Remove this line completely
-                ed.removeline(ed.pagey+ed.sby);
+                ed.removeline(ed.pagey + ed.sby);
                 ed.sby--;
-                if(ed.sby<=5)
+                if (ed.sby <= 5)
                 {
-                    if(ed.pagey>0)
+                    if (ed.pagey > 0)
                     {
                         ed.pagey--;
                         ed.sby++;
                     }
                     else
                     {
-                        if(ed.sby<0) ed.sby=0;
+                        if (ed.sby < 0) ed.sby = 0;
                     }
                 }
-                key.keybuffer=ed.sb[ed.pagey+ed.sby];
-                ed.keydelay=6;
+                key.keybuffer = ed.sb[ed.pagey + ed.sby];
+                ed.keydelay = 6;
             }
 
             /* Remove all pipes, they are the line separator in the XML
@@ -2585,882 +3274,131 @@ void editorinput(void)
                 }
             }}
 
-            ed.sb[ed.pagey+ed.sby]=key.keybuffer;
-            ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey+ed.sby].c_str());
+            ed.sb[ed.pagey + ed.sby] = key.keybuffer;
+            ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey + ed.sby].c_str());
 
-            if(!game.press_map && !key.isDown(27)) game.mapheld=false;
-            if (!game.mapheld)
+            if (enter_pressed)
             {
-                if(game.press_map)
+                //Continue to next line
+                if (ed.sby + ed.pagey >= (int)ed.sb.size()) //we're on the last line
                 {
-                    game.mapheld=true;
-                    //Continue to next line
-                    if(ed.sby+ed.pagey>=(int)ed.sb.size()) //we're on the last line
+                    ed.sby++;
+                    if (ed.sby >= ed.lines_visible - 5)
                     {
-                        ed.sby++;
-                        if(ed.sby>=ed.lines_visible-5)
-                        {
-                            ed.pagey++;
-                            ed.sby--;
-                        }
-                        key.keybuffer=ed.sb[ed.pagey+ed.sby];
-                        ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey+ed.sby].c_str());
+                        ed.pagey++;
+                        ed.sby--;
                     }
-                    else
+                    key.keybuffer = ed.sb[ed.pagey + ed.sby];
+                    ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey + ed.sby].c_str());
+                }
+                else
+                {
+                    //We're not, insert a line instead
+                    ed.sby++;
+                    if (ed.sby >= ed.lines_visible - 5)
                     {
-                        //We're not, insert a line instead
-                        ed.sby++;
-                        if(ed.sby>=ed.lines_visible-5)
-                        {
-                            ed.pagey++;
-                            ed.sby--;
-                        }
-                        ed.insertline(ed.sby+ed.pagey);
-                        key.keybuffer="";
-                        ed.sbx = 0;
+                        ed.pagey++;
+                        ed.sby--;
                     }
+                    ed.insertline(ed.sby + ed.pagey);
+                    key.keybuffer = "";
+                    ed.sbx = 0;
                 }
             }
+            break;
         }
+        }
+        break;
     }
-    else if (ed.textmod)
-    {
-        *ed.textptr = key.keybuffer;
-
-        if (!game.press_map && !key.isDown(27))
-        {
-            game.mapheld = false;
-        }
-        if (!game.mapheld && game.press_map)
-        {
-            game.mapheld = true;
-            key.disabletextentry();
-            switch (ed.textmod)
-            {
-            case TEXT_GOTOROOM:
-            {
-                char coord_x[16];
-                char coord_y[16];
-
-                const char* comma = SDL_strchr(key.keybuffer.c_str(), ',');
-
-                bool valid_input = comma != NULL;
-
-                if (valid_input)
-                {
-                    SDL_strlcpy(
-                        coord_x,
-                        key.keybuffer.c_str(),
-                        SDL_min((size_t) (comma - key.keybuffer.c_str() + 1), sizeof(coord_x))
-                    );
-                    SDL_strlcpy(coord_y, &comma[1], sizeof(coord_y));
-
-                    valid_input = is_number(coord_x) && is_number(coord_y);
-                }
-
-                if (!valid_input)
-                {
-                    ed.note = loc::gettext("ERROR: Invalid format");
-                    ed.notedelay = 45;
-                    break;
-                }
-
-                ed.levx = SDL_clamp(help.Int(coord_x) - 1, 0, cl.mapwidth - 1);
-                ed.levy = SDL_clamp(help.Int(coord_y) - 1, 0, cl.mapheight - 1);
-                graphics.backgrounddrawn = false;
-                break;
-            }
-            case TEXT_LOAD:
-            {
-                std::string loadstring = ed.filename + ".vvvvvv";
-                if (cl.load(loadstring))
-                {
-                    // don't use filename, it has the full path
-                    char buffer[3*SCREEN_WIDTH_CHARS + 1];
-                    vformat_buf(buffer, sizeof(buffer), loc::gettext("Loaded map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
-                    ed.note = buffer;
-                }
-                else
-                {
-                    ed.note = loc::gettext("ERROR: Could not load level");
-                }
-                ed.notedelay = 45;
-                break;
-            }
-            case TEXT_SAVE:
-            {
-                std::string savestring = ed.filename + ".vvvvvv";
-                if (cl.save(savestring))
-                {
-                    char buffer[3*SCREEN_WIDTH_CHARS + 1];
-                    vformat_buf(buffer, sizeof(buffer), loc::gettext("Saved map: {filename}.vvvvvv"), "filename:str", ed.filename.c_str());
-                    ed.note = buffer;
-                }
-                else
-                {
-                    ed.note = loc::gettext("ERROR: Could not save level!");
-                    ed.saveandquit = false;
-                }
-                ed.notedelay = 45;
-
-                if (ed.saveandquit)
-                {
-                    graphics.fademode = FADE_START_FADEOUT; /* quit editor */
-                }
-                break;
-            }
-            case TEXT_SCRIPT:
-                ed.clearscriptbuffer();
-                if (!ed.checkhook(key.keybuffer))
-                {
-                    ed.addhook(key.keybuffer);
-                }
-                break;
-            default:
-                break;
-            }
-
-            ed.shiftmenu = false;
-            ed.shiftkey = false;
-            ed.textmod = TEXT_NONE;
-        }
-    }
-    else if (key.textentry())
-    {
-        if(ed.titlemod)
-        {
-            cl.title=key.keybuffer;
-            if (cl.title == "")
-            {
-                cl.title = "Untitled Level";
-            }
-        }
-        else if(ed.creatormod)
-        {
-            cl.creator=key.keybuffer;
-            if (cl.creator == "")
-            {
-                cl.creator = "Unknown";
-            }
-        }
-        else if(ed.websitemod)
-        {
-            cl.website=key.keybuffer;
-        }
-        else if(ed.desc1mod)
-        {
-            cl.Desc1=key.keybuffer;
-        }
-        else if(ed.desc2mod)
-        {
-            cl.Desc2=key.keybuffer;
-        }
-        else if(ed.desc3mod)
-        {
-            cl.Desc3=key.keybuffer;
-        }
-
-        if(!game.press_map && !key.isDown(27)) game.mapheld=false;
-        if (!game.mapheld)
-        {
-            if(game.press_map)
-            {
-                game.mapheld=true;
-                if(ed.titlemod)
-                {
-                    cl.title=key.keybuffer;
-                    if (cl.title == "")
-                    {
-                        cl.title = "Untitled Level";
-                    }
-                    ed.titlemod=false;
-                }
-                else if(ed.creatormod)
-                {
-                    cl.creator=key.keybuffer;
-                    if (cl.creator == "")
-                    {
-                        cl.creator = "Unknown";
-                    }
-                    ed.creatormod=false;
-                }
-                else if(ed.websitemod)
-                {
-                    cl.website=key.keybuffer;
-                    ed.websitemod=false;
-                }
-                else if(ed.desc1mod)
-                {
-                    cl.Desc1=key.keybuffer;
-                }
-                else if(ed.desc2mod)
-                {
-                    cl.Desc2=key.keybuffer;
-                }
-                else if(ed.desc3mod)
-                {
-                    cl.Desc3=key.keybuffer;
-                    ed.desc3mod=false;
-                }
-                key.disabletextentry();
-
-                if(ed.desc1mod)
-                {
-                    ed.desc1mod=false;
-
-                    ed.desc2mod=true;
-                    key.enabletextentry();
-                    key.keybuffer=cl.Desc2;
-                }
-                else if(ed.desc2mod)
-                {
-                    ed.desc2mod=false;
-
-                    if (font::height(PR_FONT_LEVEL) <= 10)
-                    {
-                        ed.desc3mod=true;
-                        key.enabletextentry();
-                        key.keybuffer=cl.Desc3;
-                    }
-                    else
-                    {
-                        cl.Desc3="";
-                    }
-                }
-                music.playef(11);
-            }
-        }
-    }
-    else
-    {
-        if(ed.settingsmod)
-        {
-            if (!game.press_action && !game.press_left && !game.press_right
-                    && !up_pressed && !down_pressed) game.jumpheld = false;
-            if (!game.jumpheld)
-            {
-                if (game.press_action || game.press_left || game.press_right || game.press_map
-                        || up_pressed || down_pressed)
-                {
-                    game.jumpheld = true;
-                }
-
-                if(game.menustart)
-                {
-                    if (game.press_left || up_pressed)
-                    {
-                        game.currentmenuoption--;
-                    }
-                    else if (game.press_right || down_pressed)
-                    {
-                        game.currentmenuoption++;
-                    }
-                }
-
-                if (game.currentmenuoption < 0) game.currentmenuoption = game.menuoptions.size()-1;
-                if (game.currentmenuoption >= (int) game.menuoptions.size() ) game.currentmenuoption = 0;
-
-                if (game.press_action)
-                {
-                    editormenuactionpress();
-                }
-            }
-        }
-        else if (ed.keydelay > 0)
-        {
-            ed.keydelay--;
-        }
-        else if (key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
-        {
-            // Ctrl modifiers
-            int texturewidth;
-            int textureheight;
-
-            if (cl.getroomprop(ed.levx, ed.levy)->tileset == 0)
-            {
-                if (graphics.query_texture(graphics.grphx.im_tiles, NULL, NULL, &texturewidth, &textureheight) != 0)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                if (graphics.query_texture(graphics.grphx.im_tiles2, NULL, NULL, &texturewidth, &textureheight) != 0)
-                {
-                    return;
-                }
-            }
-
-            const int numtiles = (int) (texturewidth / 8) * (textureheight / 8);
-
-            ed.dmtileeditor=10;
-            if(left_pressed)
-            {
-                ed.dmtile--;
-                ed.keydelay=3;
-                if(ed.dmtile<0) ed.dmtile+=numtiles;
-            }
-            else if(right_pressed)
-            {
-                ed.dmtile++;
-                ed.keydelay=3;
-
-                if(ed.dmtile>=numtiles) ed.dmtile-=numtiles;
-            }
-            if(up_pressed)
-            {
-                ed.dmtile-=40;
-                ed.keydelay=3;
-                if(ed.dmtile<0) ed.dmtile+=numtiles;
-            }
-            else if(down_pressed)
-            {
-                ed.dmtile+=40;
-                ed.keydelay=3;
-
-                if(ed.dmtile>=numtiles) ed.dmtile-=numtiles;
-            }
-        }
-        else if (key.keymap[SDLK_LSHIFT] || key.keymap[SDLK_RSHIFT])
-        {
-            // Shift modifiers
-            if (key.keymap[SDLK_F1])
-            {
-                ed.switch_tileset(true);
-                ed.keydelay = 6;
-            }
-            if (key.keymap[SDLK_F2])
-            {
-                ed.switch_tilecol(true);
-                ed.keydelay = 6;
-            }
-            if (key.keymap[SDLK_F3])
-            {
-                ed.switch_enemy(true);
-                ed.keydelay=6;
-            }
-            if (key.keymap[SDLK_w])
-            {
-                ed.switch_warpdir(true);
-                ed.keydelay = 6;
-            }
-
-            if (up_pressed || down_pressed || left_pressed || right_pressed)
-            {
-                ed.keydelay = 6;
-                if (up_pressed)
-                {
-                    cl.mapheight--;
-                }
-                else if (down_pressed)
-                {
-                    cl.mapheight++;
-                }
-                else if (left_pressed)
-                {
-                    cl.mapwidth--;
-                }
-                else if (right_pressed)
-                {
-                    cl.mapwidth++;
-                }
-
-                cl.mapwidth = SDL_clamp(cl.mapwidth, 1, cl.maxwidth);
-                cl.mapheight = SDL_clamp(cl.mapheight, 1, cl.maxheight);
-
-                char buffer[3*SCREEN_WIDTH_CHARS + 1];
-                vformat_buf(
-                    buffer, sizeof(buffer),
-                    loc::gettext("Mapsize is now [{width},{height}]"),
-                    "width:int, height:int",
-                    cl.mapwidth, cl.mapheight
-                );
-
-                ed.note = buffer;
-                ed.notedelay = 45;
-            }
-
-            if (!ed.shiftkey)
-            {
-                if (ed.shiftmenu)
-                {
-                    ed.shiftmenu = false;
-                }
-                else
-                {
-                    ed.shiftmenu = true;
-                }
-            }
-            ed.shiftkey = true;
-        }
-        else
-        {
-            // No modifiers
-            ed.shiftkey=false;
-            if(key.keymap[SDLK_F1])
-            {
-                ed.switch_tileset(false);
-                ed.keydelay = 6;
-            }
-            if(key.keymap[SDLK_F2])
-            {
-                ed.switch_tilecol(false);
-                ed.keydelay = 6;
-            }
-            if(key.keymap[SDLK_F3])
-            {
-                ed.switch_enemy(false);
-                ed.keydelay=6;
-            }
-            if(key.keymap[SDLK_F4])
-            {
-                ed.keydelay=6;
-                ed.boundarytype=1;
-                ed.boundarymod=1;
-            }
-            if(key.keymap[SDLK_F5])
-            {
-                ed.keydelay=6;
-                ed.boundarytype=2;
-                ed.boundarymod=1;
-            }
-            if(key.keymap[SDLK_F10])
-            {
-                if(cl.getroomprop(ed.levx, ed.levy)->directmode==1)
-                {
-                    cl.setroomdirectmode(ed.levx, ed.levy, 0);
-                    ed.note=loc::gettext("Direct Mode Disabled");
-                    /* Kludge fix for rainbow BG here... */
-                    if (cl.getroomprop(ed.levx, ed.levy)->tileset == 2
-                    && cl.getroomprop(ed.levx, ed.levy)->tilecol == 6)
-                    {
-                        cl.setroomtilecol(ed.levx, ed.levy, 0);
-                    }
-                }
-                else
-                {
-                    cl.setroomdirectmode(ed.levx, ed.levy, 1);
-                    ed.note=loc::gettext("Direct Mode Enabled");
-                }
-                graphics.backgrounddrawn = false;
-
-                ed.notedelay = 45;
-                ed.updatetiles = true;
-                ed.keydelay = 6;
-            }
-
-            for (int i = 0; i < NUM_EditorTools; i++)
-            {
-                if (key.keymap[ed.toolkey[i]])
-                {
-                    ed.current_tool = (EditorTools) i;
-                }
-            }
-
-            if(key.keymap[SDLK_w])
-            {
-                ed.switch_warpdir(false);
-                ed.keydelay = 6;
-            }
-            if(key.keymap[SDLK_e])
-            {
-                ed.keydelay = 6;
-                ed.getlin(TEXT_ROOMNAME, loc::gettext("Enter new room name:"), const_cast<std::string*>(&(cl.getroomprop(ed.levx, ed.levy)->roomname)));
-                game.mapheld=true;
-            }
-            if (key.keymap[SDLK_g])
-            {
-                ed.keydelay = 6;
-                ed.getlin(TEXT_GOTOROOM, loc::gettext("Enter room coordinates x,y:"), NULL);
-                game.mapheld=true;
-            }
-
-            //Save and load
-            if(key.keymap[SDLK_s])
-            {
-                ed.keydelay = 6;
-                ed.getlin(TEXT_SAVE, loc::gettext("Enter map filename to save as:"), &(ed.filename));
-                game.mapheld=true;
-            }
-
-            if(key.keymap[SDLK_l])
-            {
-                ed.keydelay = 6;
-                ed.getlin(TEXT_LOAD, loc::gettext("Enter map filename to load:"), &(ed.filename));
-                game.mapheld=true;
-            }
-
-            if(!game.press_map) game.mapheld=false;
-            if (!game.mapheld)
-            {
-                if(game.press_map)
-                {
-                    game.mapheld=true;
-
-                    //Ok! Scan the room for the closest checkpoint
-                    int testeditor = -1;
-                    bool startpoint = false;
-                    //First up; is there a start point on this screen?
-                    for (size_t i = 0; i < customentities.size(); i++)
-                    {
-                        //if() on screen
-                        if (customentities[i].t == 16 && testeditor == -1)
-                        {
-                            int tx = customentities[i].x / 40;
-                            int ty = customentities[i].y / 30;
-                            if (tx == ed.levx && ty == ed.levy)
-                            {
-                                testeditor = i;
-                                startpoint = true;
-                            }
-                        }
-                    }
-                    if(testeditor==-1)
-                    {
-                        //Ok, settle for a check point
-                        for (size_t i = 0; i < customentities.size(); i++)
-                        {
-                            //if() on screen
-                            if (customentities[i].t == 10 && testeditor == -1)
-                            {
-                                int tx = customentities[i].x / 40;
-                                int ty = customentities[i].y / 30;
-                                if (tx == ed.levx && ty == ed.levy)
-                                {
-                                    testeditor = i;
-                                }
-                            }
-                        }
-                    }
-
-                    if(testeditor==-1)
-                    {
-                        ed.note=loc::gettext("ERROR: No checkpoint to spawn at");
-                        ed.notedelay=45;
-                    }
-                    else
-                    {
-                        ed.currentghosts = 0;
-                        if(!startpoint)
-                        {
-                            //Checkpoint spawn
-                            int tx=customentities[testeditor].x/40;
-                            int ty=customentities[testeditor].y/30;
-                            game.edsavex = (customentities[testeditor].x%40)*8 - 4;
-                            game.edsavey = (customentities[testeditor].y%30)*8;
-                            game.edsaverx = 100+tx;
-                            game.edsavery = 100+ty;
-                            if (customentities[testeditor].p1 == 0) // NOT a bool check!
-                            {
-                                game.edsavegc = 1;
-                                game.edsavey -= 2;
-                            }
-                            else
-                            {
-                                game.edsavegc = 0;
-                                game.edsavey -= 7;
-                            }
-                            game.edsavedir = 0;
-                        }
-                        else
-                        {
-                            //Start point spawn
-                            int tx = customentities[testeditor].x / 40;
-                            int ty = customentities[testeditor].y / 30;
-                            game.edsavex = (customentities[testeditor].x % 40) * 8 - 4;
-                            game.edsavey = (customentities[testeditor].y % 30) * 8;
-                            game.edsaverx = 100 + tx;
-                            game.edsavery = 100 + ty;
-                            game.edsavegc = 0;
-                            game.edsavey++;
-                            game.edsavedir = 1 - customentities[testeditor].p1;
-                        }
-
-                        music.haltdasmusik();
-                        ed.returneditoralpha = 1000; // Let's start it higher than 255 since it gets clamped
-                        ed.oldreturneditoralpha = 1000;
-                        script.startgamemode(Start_EDITORPLAYTESTING);
-                    }
-                }
-            }
-
-            ed.hmod = key.keymap[SDLK_h];
-            ed.vmod = key.keymap[SDLK_v];
-            ed.bmod = key.keymap[SDLK_b];
-            ed.cmod = key.keymap[SDLK_c];
-            ed.xmod = key.keymap[SDLK_x];
-            ed.zmod = key.keymap[SDLK_z];
-
-            if(key.keymap[SDLK_COMMA])
-            {
-                ed.current_tool = (EditorTools) POS_MOD(ed.current_tool - 1, NUM_EditorTools);
-                ed.keydelay = 6;
-            }
-            else if(key.keymap[SDLK_PERIOD])
-            {
-                ed.current_tool = (EditorTools) POS_MOD(ed.current_tool + 1, NUM_EditorTools);
-                ed.keydelay = 6;
-            }
-
-            if(up_pressed)
-            {
-                ed.keydelay = 6;
-                ed.levy--;
-                ed.updatetiles = true;
-                ed.changeroom = true;
-                graphics.backgrounddrawn = false;
-            }
-            else if(down_pressed)
-            {
-                ed.keydelay = 6;
-                ed.levy++;
-                ed.updatetiles = true;
-                ed.changeroom = true;
-                graphics.backgrounddrawn = false;
-            }
-            else if(left_pressed)
-            {
-                ed.keydelay = 6;
-                ed.levx--;
-                ed.updatetiles = true;
-                ed.changeroom = true;
-                graphics.backgrounddrawn = false;
-            }
-            else if(right_pressed)
-            {
-                ed.keydelay = 6;
-                ed.levx++;
-                ed.updatetiles = true;
-                ed.changeroom = true;
-                graphics.backgrounddrawn = false;
-            }
-
-            ed.levx = POS_MOD(ed.levx, cl.mapwidth);
-            ed.levy = POS_MOD(ed.levy, cl.mapheight);
-
-            if (key.keymap[SDLK_SPACE])
-            {
-                ed.spacemod = !ed.spacemod;
-                ed.keydelay = 6;
-            }
-        }
-
-        if(!ed.settingsmod)
-        {
-            if(ed.boundarymod>0)
-            {
-                if(key.leftbutton)
-                {
-                    if(ed.lclickdelay==0)
-                    {
-                        if(ed.boundarymod==1)
-                        {
-                            ed.lclickdelay=1;
-                            ed.boundx1=(ed.tilex*8);
-                            ed.boundy1=(ed.tiley*8);
-                            ed.boundarymod=2;
-                        }
-                        else if(ed.boundarymod==2)
-                        {
-                            if((ed.tilex*8)+8>=ed.boundx1 && (ed.tiley*8)+8>=ed.boundy1)
-                            {
-                                ed.boundx2=(ed.tilex*8)+8;
-                                ed.boundy2=(ed.tiley*8)+8;
-                            }
-                            else
-                            {
-                                ed.boundx2=ed.boundx1+8;
-                                ed.boundy2=ed.boundy1+8;
-                            }
-                            if(ed.boundarytype==0)
-                            {
-                                //Script trigger
-                                ed.lclickdelay=1;
-                                ed.textent=customentities.size();
-                                ed.addedentity((ed.boundx1/8)+(ed.levx*40),(ed.boundy1/8)+ (ed.levy*30),19,
-                                            (ed.boundx2-ed.boundx1)/8, (ed.boundy2-ed.boundy1)/8);
-                                ed.getlin(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
-                                ed.lclickdelay=1;
-                            }
-                            else if(ed.boundarytype==1)
-                            {
-                                //Enemy bounds
-                                cl.setroomenemyx1(ed.levx, ed.levy, ed.boundx1);
-                                cl.setroomenemyy1(ed.levx, ed.levy, ed.boundy1);
-                                cl.setroomenemyx2(ed.levx, ed.levy, ed.boundx2);
-                                cl.setroomenemyy2(ed.levx, ed.levy, ed.boundy2);
-                            }
-                            else if(ed.boundarytype==2)
-                            {
-                                //Platform bounds
-                                cl.setroomplatx1(ed.levx, ed.levy, ed.boundx1);
-                                cl.setroomplaty1(ed.levx, ed.levy, ed.boundy1);
-                                cl.setroomplatx2(ed.levx, ed.levy, ed.boundx2);
-                                cl.setroomplaty2(ed.levx, ed.levy, ed.boundy2);
-                            }
-                            else if(ed.boundarytype==3)
-                            {
-                                //Copy
-                            }
-                            ed.boundarymod=0;
-                            ed.lclickdelay=1;
-                        }
-                    }
-                }
-                else
-                {
-                    ed.lclickdelay=0;
-                }
-                if(key.rightbutton)
-                {
-                    ed.boundarymod=0;
-                }
-            }
-            else if(ed.warpmod)
-            {
-                //Placing warp token
-                if(key.leftbutton)
-                {
-                    if(ed.lclickdelay==0)
-                    {
-                        if(ed.free(ed.tilex, ed.tiley)==0)
-                        {
-                            customentities[ed.warpent].p1=ed.tilex+(ed.levx*40);
-                            customentities[ed.warpent].p2=ed.tiley+(ed.levy*30);
-                            ed.warpmod=false;
-                            ed.warpent=-1;
-                            ed.lclickdelay=1;
-                        }
-                    }
-                }
-                else
-                {
-                    ed.lclickdelay=0;
-                }
-                if(key.rightbutton)
-                {
-                    ed.removeedentity(ed.warpent);
-                    ed.warpmod=false;
-                    ed.warpent=-1;
-                }
-            }
-            else
-            {
-                //Mouse input
-                if(key.leftbutton)
-                {
-                    if (ed.lclickdelay == 0)
-                    {
-                        ed.tool_place();
-                    }
-                }
-                else
-                {
-                    ed.lclickdelay = 0;
-                }
-
-
-                if (key.rightbutton)
-                {
-                    // place tiles
-                    ed.tool_remove();
-                }
-
-                if(key.middlebutton)
-                {
-                    ed.dmtile = cl.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley);
-                }
-            }
-        }
     }
 
-    if(ed.updatetiles && cl.getroomprop(ed.levx, ed.levy)->directmode==0)
+    if (ed.updatetiles && cl.getroomprop(ed.levx, ed.levy)->directmode == 0)
     {
-        ed.updatetiles=false;
-        //Correctly set the tiles in the current room
-        switch(cl.getroomprop(ed.levx, ed.levy)->tileset)
+        ed.updatetiles = false;
+        // Correctly set the tiles in the current room
+        switch (cl.getroomprop(ed.levx, ed.levy)->tileset)
         {
-        case 0: //The Space Station
-            for(int j=0; j<30; j++)
+        case 0: // The Space Station
+            for (int j = 0; j < 30; j++)
             {
-                for(int i=0; i<40; i++)
+                for (int i = 0; i < 40; i++)
                 {
-                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
-                    if(temp>=3 && temp<80)
+                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
+                    if (temp >= 3 && temp < 80)
                     {
-                        //Fix spikes
+                        // Fix spikes
                         cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
-                    else if(temp==2 || temp>=680)
+                    else if (temp == 2 || temp >= 680)
                     {
-                        //Fix background
+                        // Fix background
                         cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
                             j,
-                            ed.backedgetile(i, j) + ed.backbase(ed.levx, ed.levy)
+                            ed.backedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
                         );
                     }
-                    else if(temp>0)
+                    else if (temp > 0)
                     {
-                        //Fix tiles
+                        // Fix tiles
                         cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
                             j,
-                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
                         );
                     }
                 }
             }
             break;
-        case 1: //Outside
-            for(int j=0; j<30; j++)
+        case 1: // Outside
+            for (int j = 0; j < 30; j++)
             {
-                for(int i=0; i<40; i++)
+                for (int i = 0; i < 40; i++)
                 {
-                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
-                    if(temp>=3 && temp<80)
+                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
+                    if (temp >= 3 && temp < 80)
                     {
-                        //Fix spikes
+                        // Fix spikes
                         cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
-                    else if(temp==2 || temp>=680)
+                    else if (temp == 2 || temp >= 680)
                     {
-                        //Fix background
+                        // Fix background
                         cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
                             j,
-                            ed.outsideedgetile(i, j) + ed.backbase(ed.levx, ed.levy)
+                            ed.outsideedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
                         );
                     }
-                    else if(temp>0)
+                    else if (temp > 0)
                     {
-                        //Fix tiles
+                        // Fix tiles
                         cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
                             j,
-                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
                         );
                     }
                 }
             }
             break;
-        case 2: //Lab
-            for(int j=0; j<30; j++)
+        case 2: // Lab
+            for (int j = 0; j < 30; j++)
             {
-                for(int i=0; i<40; i++)
+                for (int i = 0; i < 40; i++)
                 {
-                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
-                    if(temp>=3 && temp<80)
+                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
+                    if (temp >= 3 && temp < 80)
                     {
-                        //Fix spikes
+                        // Fix spikes
                         cl.settile(
                             ed.levx,
                             ed.levy,
@@ -3473,107 +3411,107 @@ void editorinput(void)
                             )
                         );
                     }
-                    else if(temp==2 || temp>=680)
+                    else if (temp == 2 || temp >= 680)
                     {
-                        //Fix background
+                        // Fix background
                         cl.settile(ed.levx, ed.levy, i, j, 713);
                     }
-                    else if(temp>0)
+                    else if (temp > 0)
                     {
-                        //Fix tiles
+                        // Fix tiles
                         cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
                             j,
-                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
                         );
                     }
                 }
             }
             break;
-        case 3: //Warp Zone/Intermission
-            for(int j=0; j<30; j++)
+        case 3: // Warp Zone/Intermission
+            for (int j = 0; j < 30; j++)
             {
-                for(int i=0; i<40; i++)
+                for (int i = 0; i < 40; i++)
                 {
-                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
-                    if(temp>=3 && temp<80)
+                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
+                    if (temp >= 3 && temp < 80)
                     {
-                        //Fix spikes
+                        // Fix spikes
                         cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
-                    else if(temp==2 || temp>=680)
+                    else if (temp == 2 || temp >= 680)
                     {
-                        //Fix background
+                        // Fix background
                         cl.settile(ed.levx, ed.levy, i, j, 713);
                     }
-                    else if(temp>0)
+                    else if (temp > 0)
                     {
-                        //Fix tiles
+                        // Fix tiles
                         cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
                             j,
-                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
                         );
                     }
                 }
             }
             break;
-        case 4: //The ship
-            for(int j=0; j<30; j++)
+        case 4: // The ship
+            for (int j = 0; j < 30; j++)
             {
-                for(int i=0; i<40; i++)
+                for (int i = 0; i < 40; i++)
                 {
-                    int temp=cl.gettile(ed.levx, ed.levy, i, j);
-                    if(temp>=3 && temp<80)
+                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
+                    if (temp >= 3 && temp < 80)
                     {
-                        //Fix spikes
+                        // Fix spikes
                         cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
                     }
-                    else if(temp==2 || temp>=680)
+                    else if (temp == 2 || temp >= 680)
                     {
-                        //Fix background
+                        // Fix background
                         cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
                             j,
-                            ed.backedgetile(i, j) + ed.backbase(ed.levx, ed.levy)
+                            ed.backedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
                         );
                     }
-                    else if(temp>0)
+                    else if (temp > 0)
                     {
-                        //Fix tiles
+                        // Fix tiles
                         cl.settile(
                             ed.levx,
                             ed.levy,
                             i,
                             j,
-                            ed.edgetile(i, j) + ed.base(ed.levx, ed.levy)
+                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
                         );
                     }
                 }
             }
             break;
-        case 5: //The Tower
+        case 5: // The Tower
             break;
-        case 6: //Custom Set 1
+        case 6: // Custom Set 1
             break;
-        case 7: //Custom Set 2
+        case 7: // Custom Set 2
             break;
-        case 8: //Custom Set 3
+        case 8: // Custom Set 3
             break;
-        case 9: //Custom Set 4
+        case 9: // Custom Set 4
             break;
         }
         graphics.foregrounddrawn = false;
     }
 }
 
-int editorclass::getenemyframe(int t)
+int editorclass::get_enemy_tile(int t)
 {
     switch(t)
     {
@@ -3613,7 +3551,7 @@ int editorclass::getenemyframe(int t)
     }
 }
 
-void editorclass::settile( int x, int y, int t )
+void editorclass::set_tile(int x, int y, int t)
 {
     if (x >= 0 && y >= 0 && x < 40 && y < 30)
     {
@@ -3623,7 +3561,7 @@ void editorclass::settile( int x, int y, int t )
     updatetiles = true;
 }
 
-int editorclass::base( int x, int y )
+int editorclass::autotiling_base( int x, int y )
 {
     //Return the base tile for the given tileset and colour
     const RoomProperty* const room = cl.getroomprop(x, y);
@@ -3661,7 +3599,7 @@ int editorclass::base( int x, int y )
     return 0;
 }
 
-int editorclass::backbase( int x, int y )
+int editorclass::autotiling_background_base( int x, int y )
 {
     //Return the base tile for the background of the given tileset and colour
     const RoomProperty* const room = cl.getroomprop(x, y);
@@ -3745,18 +3683,18 @@ int editorclass::backbase( int x, int y )
     return 0;
 }
 
-int editorclass::at( int x, int y )
+TileTypes editorclass::get_abs_tile_type(int x, int y, const bool wrap)
 {
-    x = SDL_max(0, SDL_min(x, 39));
-    y = SDL_max(0, SDL_min(y, 29));
-
-    return cl.gettile(levx, levy, x, y);
-}
-
-int editorclass::tile_type_wrap(int x, int y)
-{
-    x = POS_MOD(x, cl.mapwidth * 40);
-    y = POS_MOD(y, cl.mapheight * 30);
+    if (wrap)
+    {
+        x = POS_MOD(x, cl.mapwidth * 40);
+        y = POS_MOD(y, cl.mapheight * 30);
+    }
+    else
+    {
+        x = SDL_clamp(x, 0, cl.mapwidth * 40 - 1);
+        y = SDL_clamp(y, 0, cl.mapheight * 30 - 1);
+    }
 
     const RoomProperty* const room = cl.getroomprop(x / 40, y / 30);
     int tile = cl.getabstile(x, y);
@@ -3793,31 +3731,35 @@ int editorclass::tile_type_wrap(int x, int y)
     return TileType_NONSOLID;
 }
 
-int editorclass::backonlyfree(int x, int y)
+TileTypes editorclass::get_tile_type(int x, int y, bool wrap)
 {
-    // Returns 1 if tile is a background tile, 0 otherwise
-    if (x < 0) return backonlyfree(0, y);
-    if (y < 0) return backonlyfree(x, 0);
-    if (x >= 40) return backonlyfree(39, y);
-    if (y >= 30) return backonlyfree(x, 29);
-
-    if (x >= 0 && y >= 0 && x < 40 && y < 30)
+    if (wrap)
     {
-        if (cl.gettile(levx, levy, x, y) >= 680)
-        {
-            return 1;
-        }
+        x = POS_MOD(x, 40);
+        y = POS_MOD(y, 30);
     }
-    return 0;
+    else
+    {
+        x = SDL_clamp(x, 0, 39);
+        y = SDL_clamp(y, 0, 29);
+    }
+
+    return get_abs_tile_type(levx * 40 + x, levy * 30 + y, false);
+}
+
+bool editorclass::is_background(int x, int y)
+{
+    x = SDL_clamp(x, 0, 39);
+    y = SDL_clamp(y, 0, 29);
+
+    return (cl.gettile(levx, levy, x, y) >= 680);
 }
 
 int editorclass::backfree( int x, int y )
 {
-    //Returns 0 if tile is not a block or background tile, 1 otherwise
-    if(x<0) return backfree(0,y);
-    if(y<0) return backfree(x,0);
-    if(x>=40) return backfree(39,y);
-    if(y>=30) return backfree(x,29);
+    // Returns 0 if tile is not a block or background tile, 1 otherwise
+    x = SDL_clamp(x, 0, 39);
+    y = SDL_clamp(y, 0, 29);
 
     if(x>=0 && y>=0 && x<40 && y<30)
     {
@@ -3829,7 +3771,7 @@ int editorclass::backfree( int x, int y )
     return 1;
 }
 
-int editorclass::spikefree(int x, int y)
+bool editorclass::lines_can_pass(int x, int y)
 {
     //Returns 0 if tile is not a block or spike, 1 otherwise
     if (x == -1) return free(0, y);
@@ -3839,45 +3781,31 @@ int editorclass::spikefree(int x, int y)
 
     if (x >= 0 && y >= 0 && x < 40 && y < 30)
     {
-        if (cl.gettile(levx, levy, x, y) == 0)
-        {
-            return 0;
-        }
-        else
-        {
-            if (cl.gettile(levx, levy, x, y) >= 680)
-            {
-                return 0;
-            }
-        }
+        return (cl.gettile(levx, levy, x, y) == 0) || (cl.gettile(levx, levy, x, y) >= 680);
     }
-    return 1;
+    return false;
 }
 
 int editorclass::free( int x, int y )
 {
-    //Returns 0 if tile is not a block, 1 otherwise
-    if(x==-1) return free(0,y);
-    if(y==-1) return free(x,0);
-    if(x==40) return free(39,y);
-    if(y==30) return free(x,29);
+    // Returns 0 if tile is not a block, 1 otherwise
 
-    if(x>=0 && y>=0 && x<40 && y<30)
+    x = SDL_clamp(x, 0, 39);
+    y = SDL_clamp(y, 0, 29);
+
+    if(cl.gettile(levx, levy, x, y)==0)
     {
-        if(cl.gettile(levx, levy, x, y)==0)
+        return 0;
+    }
+    else
+    {
+        if(cl.gettile(levx, levy, x, y)>=2 && cl.gettile(levx, levy, x, y)<80)
         {
             return 0;
         }
-        else
+        if(cl.gettile(levx, levy, x, y)>=680)
         {
-            if(cl.gettile(levx, levy, x, y)>=2 && cl.gettile(levx, levy, x, y)<80)
-            {
-                return 0;
-            }
-            if(cl.gettile(levx, levy, x, y)>=680)
-            {
-                return 0;
-            }
+            return 0;
         }
     }
     return 1;
@@ -3885,30 +3813,29 @@ int editorclass::free( int x, int y )
 
 int editorclass::match( int x, int y )
 {
-    if(free(x-1,y)==0 && free(x,y-1)==0 && free(x+1,y)==0 && free(x,y+1)==0) return 0;
+    if (free(x - 1, y) == 0 && free(x, y - 1) == 0 && free(x + 1, y) == 0 && free(x, y + 1) == 0) return 0;
 
-    if(free(x-1,y)==0 && free(x,y-1)==0) return 10;
-    if(free(x+1,y)==0 && free(x,y-1)==0) return 11;
-    if(free(x-1,y)==0 && free(x,y+1)==0) return 12;
-    if(free(x+1,y)==0 && free(x,y+1)==0) return 13;
+    if (free(x - 1, y) == 0 && free(x, y - 1) == 0) return 10;
+    if (free(x + 1, y) == 0 && free(x, y - 1) == 0) return 11;
+    if (free(x - 1, y) == 0 && free(x, y + 1) == 0) return 12;
+    if (free(x + 1, y) == 0 && free(x, y + 1) == 0) return 13;
 
-    if(free(x,y-1)==0) return 1;
-    if(free(x-1,y)==0) return 2;
-    if(free(x,y+1)==0) return 3;
-    if(free(x+1,y)==0) return 4;
-    if(free(x-1,y-1)==0) return 5;
-    if(free(x+1,y-1)==0) return 6;
-    if(free(x-1,y+1)==0) return 7;
-    if(free(x+1,y+1)==0) return 8;
+    if (free(x, y - 1) == 0) return 1;
+    if (free(x - 1, y) == 0) return 2;
+    if (free(x, y + 1) == 0) return 3;
+    if (free(x + 1, y) == 0) return 4;
+    if (free(x - 1, y - 1) == 0) return 5;
+    if (free(x + 1, y - 1) == 0) return 6;
+    if (free(x - 1, y + 1) == 0) return 7;
+    if (free(x + 1, y + 1) == 0) return 8;
 
     return 0;
 }
 
 int editorclass::outsidematch( int x, int y )
 {
-
-    if(backonlyfree(x-1,y)==0 && backonlyfree(x+1,y)==0) return 2;
-    if(backonlyfree(x,y-1)==0 && backonlyfree(x,y+1)==0) return 1;
+    if (is_background(x - 1, y) == 0 && is_background(x + 1, y) == 0) return 2;
+    if (is_background(x, y - 1) == 0 && is_background(x, y + 1) == 0) return 1;
 
     return 0;
 }
@@ -3919,21 +3846,21 @@ int editorclass::backmatch( int x, int y )
     // 5 1 6
     // 2 X 4
     // 7 3 8
-    if(backfree(x-1,y)==0 && backfree(x,y-1)==0 && backfree(x+1,y)==0 && backfree(x,y+1)==0) return 0;
+    if (backfree(x - 1, y) == 0 && backfree(x, y - 1) == 0 && backfree(x + 1, y) == 0 && backfree(x, y + 1) == 0) return 0;
 
-    if(backfree(x-1,y)==0 && backfree(x,y-1)==0) return 10;
-    if(backfree(x+1,y)==0 && backfree(x,y-1)==0) return 11;
-    if(backfree(x-1,y)==0 && backfree(x,y+1)==0) return 12;
-    if(backfree(x+1,y)==0 && backfree(x,y+1)==0) return 13;
+    if (backfree(x - 1, y) == 0 && backfree(x, y - 1) == 0) return 10;
+    if (backfree(x + 1, y) == 0 && backfree(x, y - 1) == 0) return 11;
+    if (backfree(x - 1, y) == 0 && backfree(x, y + 1) == 0) return 12;
+    if (backfree(x + 1, y) == 0 && backfree(x, y + 1) == 0) return 13;
 
-    if(backfree(x,y-1)==0) return 1;
-    if(backfree(x-1,y)==0) return 2;
-    if(backfree(x,y+1)==0) return 3;
-    if(backfree(x+1,y)==0) return 4;
-    if(backfree(x-1,y-1)==0) return 5;
-    if(backfree(x+1,y-1)==0) return 6;
-    if(backfree(x-1,y+1)==0) return 7;
-    if(backfree(x+1,y+1)==0) return 8;
+    if (backfree(x, y - 1) == 0) return 1;
+    if (backfree(x - 1, y) == 0) return 2;
+    if (backfree(x, y + 1) == 0) return 3;
+    if (backfree(x + 1, y) == 0) return 4;
+    if (backfree(x - 1, y - 1) == 0) return 5;
+    if (backfree(x + 1, y - 1) == 0) return 6;
+    if (backfree(x - 1, y + 1) == 0) return 7;
+    if (backfree(x + 1, y + 1) == 0) return 8;
 
     return 0;
 }
@@ -4059,19 +3986,19 @@ int editorclass::backedgetile( int x, int y )
 int editorclass::labspikedir( int x, int y, int t )
 {
     // a slightly more tricky case
-    if(free(x,y+1)==1) return 63 + (t*2);
-    if(free(x,y-1)==1) return 64 + (t*2);
-    if(free(x-1,y)==1) return 51 + (t*2);
-    if(free(x+1,y)==1) return 52 + (t*2);
-    return 63 + (t*2);
+    if (free(x, y + 1) == 1) return 63 + (t * 2);
+    if (free(x, y - 1) == 1) return 64 + (t * 2);
+    if (free(x - 1, y) == 1) return 51 + (t * 2);
+    if (free(x + 1, y) == 1) return 52 + (t * 2);
+    return 63 + (t * 2);
 }
 
 int editorclass::spikedir( int x, int y )
 {
-    if(free(x,y+1)==1) return 8;
-    if(free(x,y-1)==1) return 9;
-    if(free(x-1,y)==1) return 49;
-    if(free(x+1,y)==1) return 50;
+    if (free(x, y + 1) == 1) return 8;
+    if (free(x, y - 1) == 1) return 9;
+    if (free(x - 1, y) == 1) return 49;
+    if (free(x + 1, y) == 1) return 50;
     return 8;
 }
 
@@ -4104,8 +4031,8 @@ void editorclass::switch_tileset(const bool reversed)
         loc::gettext(tilesets[tiles])
     );
 
-    note = buffer;
-    notedelay = 45;
+    show_note(buffer);
+
     updatetiles = true;
 
     graphics.backgrounddrawn = false;
@@ -4128,8 +4055,8 @@ void editorclass::switch_tilecol(const bool reversed)
 
     clamp_tilecol(levx, levy, true);
 
-    notedelay = 45;
-    note = loc::gettext("Tileset Colour Changed");
+    show_note(loc::gettext("Tileset Colour Changed"));
+
     updatetiles = true;
 
     graphics.backgrounddrawn = false;
@@ -4204,8 +4131,7 @@ void editorclass::switch_enemy(const bool reversed)
     enemy = POS_MOD(enemy, modulus);
     cl.setroomenemytype(levx, levy, enemy);
 
-    note = loc::gettext("Enemy Type Changed");
-    notedelay = 45;
+    show_note(loc::gettext("Enemy Type Changed"));
 }
 
 void editorclass::switch_warpdir(const bool reversed)
@@ -4230,20 +4156,18 @@ void editorclass::switch_warpdir(const bool reversed)
     switch (warpdir)
     {
     default:
-        note = loc::gettext("Room warping disabled");
+        show_note(loc::gettext("Room warping disabled"));
         break;
     case 1:
-        note = loc::gettext("Room warps horizontally");
+        show_note(loc::gettext("Room warps horizontally"));
         break;
     case 2:
-        note = loc::gettext("Room warps vertically");
+        show_note(loc::gettext("Room warps vertically"));
         break;
     case 3:
-        note = loc::gettext("Room warps in all directions");
+        show_note(loc::gettext("Room warps in all directions"));
         break;
     }
-
-    notedelay = 45;
 
     graphics.backgrounddrawn = false;
 }

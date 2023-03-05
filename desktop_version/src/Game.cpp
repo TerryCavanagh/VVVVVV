@@ -7207,8 +7207,8 @@ void Game::returntoeditor(void)
 
     ed.keydelay = 6;
     ed.settingskey = true;
-    ed.oldnotedelay = 0;
-    ed.notedelay = 0;
+    ed.old_note_timer = 0;
+    ed.note_timer = 0;
     ed.roomnamehide = 0;
 
     // Might've been changed in a script

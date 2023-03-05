@@ -47,7 +47,9 @@ enum EditorSubStates
     EditorSubState_DRAW_BOX,
     EditorSubState_DRAW_WARPTOKEN,
 
-    EditorSubState_SCRIPTS_EDIT
+    EditorSubState_SCRIPTS_EDIT,
+
+    EditorSubState_MENU_INPUT
 };
 
 enum TileTypes
@@ -62,11 +64,18 @@ enum BoxTypes
 {
     BoxType_SCRIPT,
     BoxType_ENEMY,
-    BoxType_PLATFORM
+    BoxType_PLATFORM,
+    BoxType_COPY
+};
+
+enum BoxCorner
+{
+    BoxCorner_FIRST,
+    BoxCorner_LAST
 };
 
 // Text entry field type
-enum textmode
+enum TextMode
 {
     TEXT_NONE,
 
@@ -81,7 +90,9 @@ enum textmode
 
     // Settings-mode text fields
     TEXT_TITLE,
-    TEXT_DESC,
+    TEXT_DESC1,
+    TEXT_DESC2,
+    TEXT_DESC3,
     TEXT_WEBSITE,
     TEXT_CREATOR,
     NUM_TEXTMODES,
@@ -118,45 +129,38 @@ public:
     void entity_clicked(int index);
     void tool_place();
 
-    void getlin(const enum textmode mode, const std::string& prompt, std::string* ptr);
+    void get_input_line(const enum TextMode mode, const std::string& prompt, std::string* ptr);
 
-    void addedentity(int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240);
+    void show_note(const char* text);
 
-    void removeedentity(int t);
+    void add_entity(int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240);
 
-    int edentat(int xp, int yp);
+    void remove_entity(int t);
 
-    void settile(int x, int y, int t);
+    int get_entity_at(int xp, int yp);
 
-    int base(int x, int y);
+    void set_tile(int x, int y, int t);
 
-    int backbase(int x, int y);
+    int autotiling_base(int x, int y);
+    int autotiling_background_base(int x, int y);
 
-    int at(int x, int y);
+    TileTypes get_abs_tile_type(int x, int y, bool wrap);
+    TileTypes get_tile_type(int x, int y, bool wrap);
 
-    int tile_type_wrap(int x, int y);
-
-    int backonlyfree(int x, int y);
-
+    bool is_background(int x, int y);
     int backfree(int x, int y);
-
-    int spikefree(int x, int y);
+    bool lines_can_pass(int x, int y);
     int free(int x, int y);
-
     int match(int x, int y);
     int outsidematch(int x, int y);
-
     int backmatch(int x, int y);
-
     int edgetile(int x, int y);
     int outsideedgetile(int x, int y);
-
     int backedgetile(int x, int y);
-
     int labspikedir(int x, int y, int t);
     int spikedir(int x, int y);
 
-    int getenemyframe(int t);
+    int get_enemy_tile(int t);
 
     void switch_tileset(const bool reversed);
     void switch_tilecol(const bool reversed);
@@ -167,20 +171,25 @@ public:
     EditorStates state;
     EditorSubStates substate;
 
-    const char* toolnames[NUM_EditorTools];
-    const char* toolkeychar[NUM_EditorTools];
-    SDL_KeyCode toolkey[NUM_EditorTools];
-    bool toolshift[NUM_EditorTools];
+    const char* tool_names[NUM_EditorTools];
+    const char* tool_key_chars[NUM_EditorTools];
+    SDL_KeyCode tool_keys[NUM_EditorTools];
+    bool tool_requires_shift[NUM_EditorTools];
 
     EditorTools current_tool;
+
+    BoxTypes box_type;
+    BoxCorner box_corner;
+
+    SDL_Point box_point;
 
     int entcol;
     SDL_Color entcolreal;
 
     int kludgewarpdir[customlevelclass::numrooms];
 
-    int notedelay;
-    int oldnotedelay;
+    int note_timer;
+    int old_note_timer;
     std::string note;
     std::string keybuffer;
     std::string filename;
@@ -194,36 +203,30 @@ public:
     int entframe, entframedelay;
 
     int scripttexttype;
-    std::string oldenttext;
+    std::string old_entity_text;
 
-    enum textmode textmod; // In text entry
-    std::string* textptr; // Pointer to text we're changing
-    std::string textdesc; // Description (for editor mode text fields)
+    enum TextMode current_text_mode; // In text entry
+    std::string* current_text_ptr; // Pointer to text we're changing
+    std::string current_text_desc; // Description (for editor mode text fields)
     union
     {
         int desc; // Which description row we're changing
         int textent; // Entity ID for text prompt
     };
-    bool xmod, zmod, cmod, vmod, bmod, hmod, spacemod, warpmod;
-    bool titlemod, creatormod, desc1mod, desc2mod, desc3mod, websitemod;
+    bool xmod, zmod, cmod, vmod, bmod, hmod, spacemod;
 
     int roomnamehide;
     bool saveandquit;
     bool shiftmenu, shiftkey;
-    bool settingsmod, settingskey;
+    bool settingskey;
     int warpent;
     bool updatetiles, changeroom;
-    int deletekeyheld;
-
-    int boundarymod, boundarytype;
-    int boundx1, boundx2, boundy1, boundy2;
+    bool deletekeyheld;
 
     //Script editor stuff
     void removeline(int t);
     void insertline(int t);
 
-    bool scripteditmod;
-    int scripthelppage, scripthelppagedelay;
     std::vector<std::string> sb;
     std::string sbscript;
     int sbx, sby;
