@@ -4189,7 +4189,7 @@ void Game::gethardestroom(void)
         }
         else
         {
-            hardestroom = map.roomname;
+            hardestroom = loc::gettext_roomname(map.custommode, roomx, roomy, map.roomname, map.roomname_special);
         }
     }
 }
