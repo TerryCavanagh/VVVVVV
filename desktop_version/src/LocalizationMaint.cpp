@@ -244,7 +244,7 @@ static void sync_lang_file(const std::string& langcode)
             hashmap* map = map_translation_cutscene;
 
             uintptr_t ptr_cutscene_map;
-            bool found = hashmap_get(map, (void*) cutscene_id, SDL_strlen(cutscene_id), &ptr_cutscene_map);
+            bool found = hashmap_get(map, cutscene_id, SDL_strlen(cutscene_id), &ptr_cutscene_map);
             hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
             if (!found || cutscene_map == NULL)
             {
@@ -271,7 +271,7 @@ static void sync_lang_file(const std::string& langcode)
                 }
 
                 uintptr_t ptr_format;
-                found = hashmap_get(cutscene_map, (void*) eng_prefixed, alloc_len-1, &ptr_format);
+                found = hashmap_get(cutscene_map, eng_prefixed, alloc_len-1, &ptr_format);
                 const TextboxFormat* format = (TextboxFormat*) ptr_format;
 
                 VVV_free(eng_prefixed);

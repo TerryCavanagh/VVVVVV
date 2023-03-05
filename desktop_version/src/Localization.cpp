@@ -162,7 +162,7 @@ const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::s
     }
 
     uintptr_t ptr_cutscene_map;
-    bool found = hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_cutscene_map);
+    bool found = hashmap_get(map, map_script_key, SDL_strlen(map_script_key), &ptr_cutscene_map);
     hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
 
     if (!found || cutscene_map == NULL)
@@ -178,7 +178,7 @@ const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::s
     }
 
     uintptr_t ptr_format;
-    found = hashmap_get(cutscene_map, (void*) key, alloc_len-1, &ptr_format);
+    found = hashmap_get(cutscene_map, key, alloc_len-1, &ptr_format);
     const TextboxFormat* format = (TextboxFormat*) ptr_format;
 
     VVV_free(key);
@@ -294,7 +294,7 @@ bool is_cutscene_translated(const std::string& script_id)
     }
 
     uintptr_t ptr_unused;
-    return hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_unused);
+    return hashmap_get(map, map_script_key, SDL_strlen(map_script_key), &ptr_unused);
 }
 
 uint32_t toupper_ch(uint32_t ch)
