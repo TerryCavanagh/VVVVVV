@@ -1450,8 +1450,7 @@ void scriptclass::run(void)
                 if (map.custommode && !map.custommodeforreal)
                 {
                     game.returntoeditor();
-                    ed.note = loc::gettext("Rolled credits");
-                    ed.notedelay = 45;
+                    ed.show_note(loc::gettext("Rolled credits"));
                 }
                 else
 #endif
