@@ -465,7 +465,7 @@ static bool find_font_by_name(FontContainer* container, const char* name, uint8_
     }
 
     uintptr_t i;
-    if (hashmap_get(container->map_name_idx, (char*) name, SDL_strlen(name), &i))
+    if (hashmap_get(container->map_name_idx, name, SDL_strlen(name), &i))
     {
         *idx = i;
         return true;

@@ -129,7 +129,7 @@ static void map_store_translation(Textbook* textbook, hashmap* map, const char* 
         return;
     }
 
-    hashmap_set(map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_tra);
+    hashmap_set(map, tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_tra);
 }
 
 unsigned char form_for_count(int n)
@@ -643,7 +643,7 @@ static void loadtext_cutscenes(bool custom_level)
         hashmap* cutscene_map = hashmap_create();
         hashmap_set_free(
             map,
-            (void*) script_id,
+            script_id,
             SDL_strlen(script_id),
             (uintptr_t) cutscene_map,
             callback_free_map_value,
@@ -704,7 +704,7 @@ static void loadtext_cutscenes(bool custom_level)
             {
                 continue;
             }
-            hashmap_set(cutscene_map, (void*) tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_format);
+            hashmap_set(cutscene_map, tb_eng, SDL_strlen(tb_eng), (uintptr_t) tb_format);
         }
     }
 }
@@ -1072,7 +1072,7 @@ void loadlanguagelist(void)
 const char* map_lookup_text(hashmap* map, const char* eng, const char* fallback)
 {
     uintptr_t ptr_tra;
-    bool found = hashmap_get(map, (void*) eng, SDL_strlen(eng), &ptr_tra);
+    bool found = hashmap_get(map, eng, SDL_strlen(eng), &ptr_tra);
     const char* tra = (const char*) ptr_tra;
 
     if (found && tra != NULL && tra[0] != '\0')
