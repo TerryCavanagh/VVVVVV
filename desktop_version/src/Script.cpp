@@ -131,7 +131,7 @@ void scriptclass::tokenize( const std::string& t )
     }
 }
 
-static int getcolorfromname(std::string name)
+static int getcolorfromname(const std::string& name)
 {
     if      (name == "player")     return CYAN;
     else if (name == "cyan")       return CYAN;
@@ -149,7 +149,7 @@ static int getcolorfromname(std::string name)
     return color; // Last effort to give a valid color, maybe they just input the color?
 }
 
-static int getcrewmanfromname(std::string name)
+static int getcrewmanfromname(const std::string& name)
 {
     if (name == "player") return obj.getplayer(); //  Return the player
     int color = getcolorfromname(name); // Maybe they passed in a crewmate name, or an id?
