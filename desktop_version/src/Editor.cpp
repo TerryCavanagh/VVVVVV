@@ -2988,16 +2988,13 @@ void editorinput(void)
             {
                 if (ed.lclickdelay == 0)
                 {
-                    if (ed.free(ed.tilex, ed.tiley) == 0)
-                    {
-                        customentities[ed.warp_token_entity].p1 = ed.tilex + (ed.levx * 40);
-                        customentities[ed.warp_token_entity].p2 = ed.tiley + (ed.levy * 30);
+                    customentities[ed.warp_token_entity].p1 = ed.tilex + (ed.levx * 40);
+                    customentities[ed.warp_token_entity].p2 = ed.tiley + (ed.levy * 30);
 
-                        ed.substate = EditorSubState_MAIN;
+                    ed.substate = EditorSubState_MAIN;
 
-                        ed.warp_token_entity = -1;
-                        ed.lclickdelay = 1;
-                    }
+                    ed.warp_token_entity = -1;
+                    ed.lclickdelay = 1;
                 }
             }
             else
