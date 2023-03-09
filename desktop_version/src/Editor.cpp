@@ -81,6 +81,8 @@ void editorclass::reset(void)
     direct_mode_drawer = 0;
     entcol = 0;
 
+    old_tilex = 0;
+    old_tiley = 0;
     tilex = 0;
     tiley = 0;
     levx = 0;
@@ -1838,6 +1840,31 @@ int editorclass::get_entity_at(int xp, int yp)
     return -1;
 }
 
+static void set_tile_interpolated(const int x1, const int x2, const int y1, const int y2, const int tile)
+{
+    extern editorclass ed;
+
+    // draw a line between (x1, y1) and (x2, y2)
+
+    const int dx = x2 - x1;
+    const int dy = y2 - y1;
+
+    const int steps = SDL_max(abs(dx), abs(dy));
+
+    if (steps == 0)
+    {
+        ed.set_tile(x1, y1, tile);
+        return;
+    }
+
+    for (int i = 0; i <= steps; i++)
+    {
+        const int x = x1 + (dx * i) / steps;
+        const int y = y1 + (dy * i) / steps;
+
+        ed.set_tile(x, y, tile);
+    }
+}
 
 void editorclass::handle_tile_placement(const int tile)
 {
@@ -1848,7 +1875,7 @@ void editorclass::handle_tile_placement(const int tile)
         // Vertical line
         for (int i = 0; i < 30; i++)
         {
-            set_tile(tilex, i, tile);
+            set_tile_interpolated(old_tilex, tilex, i, i, tile);
         }
         return;
     }
@@ -1857,7 +1884,7 @@ void editorclass::handle_tile_placement(const int tile)
         // Horizontal line
         for (int i = 0; i < 40; i++)
         {
-            set_tile(i, tiley, tile);
+            set_tile_interpolated(i, i, old_tiley, tiley, tile);
         }
         return;
     }
@@ -1879,7 +1906,7 @@ void editorclass::handle_tile_placement(const int tile)
     }
     else
     {
-        set_tile(tilex, tiley, tile);
+        set_tile_interpolated(old_tilex, tilex, old_tiley, tiley, tile);
         return;
     }
 
@@ -1887,7 +1914,7 @@ void editorclass::handle_tile_placement(const int tile)
     {
         for (int j = -range; j <= range; j++)
         {
-            set_tile(tilex + i, tiley + j, tile);
+            set_tile_interpolated(old_tilex + i, tilex + i, old_tiley + j, tiley + j, tile);
         }
     }
 }
@@ -1901,7 +1928,7 @@ void editorclass::tool_remove()
         handle_tile_placement(0);
         break;
     case EditorTool_SPIKES:
-        set_tile(tilex, tiley, 0);
+        set_tile_interpolated(old_tilex, tilex, old_tiley, tiley, 0);
         break;
     default:
         break;
@@ -2015,7 +2042,7 @@ void editorclass::tool_place()
         break;
     }
     case EditorTool_SPIKES:
-        set_tile(tilex, tiley, 8);
+        set_tile_interpolated(old_tilex, tilex, old_tiley, tiley, 8);
         break;
     case EditorTool_TRINKETS:
         if (cl.numtrinkets() < 100)
@@ -2623,6 +2650,9 @@ void editorinput(void)
     {
         return;
     }
+
+    ed.old_tilex = ed.tilex;
+    ed.old_tiley = ed.tiley;
 
     ed.tilex = (key.mx - (key.mx % 8)) / 8;
     ed.tiley = (key.my - (key.my % 8)) / 8;

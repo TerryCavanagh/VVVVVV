@@ -195,6 +195,7 @@ public:
     std::string filename;
     std::string loaded_filepath;
 
+    int old_tilex, old_tiley;
     int tilex, tiley;
     int keydelay, lclickdelay;
     bool savekey, loadkey;
