@@ -26,6 +26,8 @@
 #include "VFormat.h"
 #include "Vlogging.h"
 
+#define SCRIPT_LINE_PADDING 6
+
 editorclass::editorclass(void)
 {
     reset();
@@ -54,30 +56,29 @@ void editorclass::reset(void)
     current_tool = EditorTool_WALLS;
 
     roomnamehide = 0;
-    zmod = false;
-    xmod = false;
-    cmod = false;
-    vmod = false;
-    hmod = false;
-    bmod = false;
-    spacemod = false;
-    shiftmenu = false;
+    z_modifier = false;
+    x_modifier = false;
+    c_modifier = false;
+    v_modifier = false;
+    h_modifier = false;
+    b_modifier = false;
+    toolbox_open = false;
+    help_open = false;
     shiftkey = false;
     saveandquit = false;
     note = "";
     note_timer = 0;
     old_note_timer = 0;
-    deletekeyheld = false;
+    backspace_held = false;
     current_text_mode = TEXT_NONE;
 
-    warpent = -1;
+    warp_token_entity = -1;
 
-    textent = 0;
+    text_entity = 0;
     scripttexttype = 0;
 
-    drawmode = 0;
-    dmtile = 0;
-    dmtileeditor = 0;
+    direct_mode_tile = 0;
+    direct_mode_drawer = 0;
     entcol = 0;
 
     tilex = 0;
@@ -96,26 +97,24 @@ void editorclass::reset(void)
 
     SDL_zeroa(kludgewarpdir);
 
-    hooklist.clear();
+    script_buffer.clear();
 
-    sb.clear();
+    clear_script_buffer();
 
-    clearscriptbuffer();
-
-    sbx = 0;
-    sby = 0;
-    pagey = 0;
+    script_cursor_x = 0;
+    script_cursor_y = 0;
+    script_offset = 0;
     lines_visible = 25;
-    sbscript = "null";
+    current_script = "null";
 
-    hookmenupage = 0;
-    hookmenu = 0;
+    script_list_offset = 0;
+    selected_script = 0;
 
-    returneditoralpha = 0;
-    oldreturneditoralpha = 0;
+    return_message_timer = 0;
+    old_return_message_timer = 0;
 
     ghosts.clear();
-    currentghosts = 0;
+    current_ghosts = 0;
 
     loaded_filepath = "";
 
@@ -137,117 +136,94 @@ void editorclass::register_tool(EditorTools tool, const char* name, const char* 
     tool_requires_shift[tool] = shift;
 }
 
-void editorclass::gethooks(void)
+void editorclass::load_script_in_editor(const std::string& name)
 {
-    // Scan through the script and create a hooks list based on it
-    hooklist.clear();
+    // Load script t into the script editor
+    clear_script_buffer();
+
     for (size_t i = 0; i < script.customscripts.size(); i++)
     {
-        Script& script_ = script.customscripts[i];
-
-        hooklist.push_back(script_.name);
-    }
-}
-
-void editorclass::loadhookineditor(const std::string& t)
-{
-    //Find hook t in the scriptclass, then load it into the editor
-    clearscriptbuffer();
-
-    for(size_t i = 0; i < script.customscripts.size(); i++)
-    {
-        Script& script_ = script.customscripts[i];
-
-        if(script_.name == t)
+        if (script.customscripts[i].name == name)
         {
-            sb = script_.contents;
+            script_buffer = script.customscripts[i].contents;
             break;
         }
     }
 
-    if(sb.empty())
+    if (script_buffer.empty())
     {
-        //Always have one line or we'll have problems
-        sb.resize(1);
+        // Always have one line or we'll have problems
+        script_buffer.resize(1);
     }
 }
 
-void editorclass::addhooktoscript(const std::string& t)
+void editorclass::remove_script(const std::string& name)
 {
-    //Adds hook+the scriptbuffer to the end of the scriptclass
-    removehookfromscript(t);
+    for (size_t i = 0; i < script.customscripts.size(); i++)
+    {
+        if (script.customscripts[i].name == name)
+        {
+            script.customscripts.erase(script.customscripts.begin() + i);
+            break;
+        }
+    }
+}
+
+void editorclass::create_script(const std::string& name, const std::vector<std::string>& contents)
+{
+    // Add a script. If there's an old one, delete it.
+
+    remove_script(name);
+
     Script script_;
-    script_.name = t;
-    script_.contents = sb;
+    script_.name = name;
+    script_.contents = contents;
+
     script.customscripts.push_back(script_);
 }
 
-void editorclass::removehookfromscript(const std::string& t)
+void editorclass::create_script(const std::string& name)
 {
-    /* Find hook t in the scriptclass, then removes it (and any other code with it)
-     * When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
-    size_t i;
-    for (i = script.customscripts.size() - 1; i + 1 > 0; --i)
+    // Add an empty script.
+
+    Script script_;
+    script_.name = name;
+    script_.contents.resize(1);
+
+    script.customscripts.push_back(script_);
+}
+
+bool editorclass::script_exists(const std::string& name)
+{
+    for (size_t i = 0; i < script.customscripts.size(); i++)
     {
-        if (script.customscripts[i].name == t)
+        if (script.customscripts[i].name == name)
         {
-            script.customscripts.erase(script.customscripts.begin() + i);
+            return true;
         }
-    }
-}
-
-void editorclass::removehook(const std::string& t)
-{
-    //Check the hooklist for the hook t. If it's there, remove it from here and the script
-    size_t i;
-    removehookfromscript(t);
-    /* When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
-    for (i = hooklist.size() - 1; i + 1 > 0; --i)
-    {
-        if (hooklist[i] == t)
-        {
-            hooklist.erase(hooklist.begin() + i);
-        }
-    }
-}
-
-void editorclass::addhook(const std::string& t)
-{
-    //Add an empty function to the list in both editor and script
-    removehook(t);
-    hooklist.push_back(t);
-    addhooktoscript(t);
-}
-
-bool editorclass::checkhook(const std::string& t)
-{
-    //returns true if hook t already is in the list
-    for(size_t i=0; i<hooklist.size(); i++)
-    {
-        if(hooklist[i]==t) return true;
     }
     return false;
 }
 
 
-void editorclass::clearscriptbuffer(void)
+void editorclass::clear_script_buffer(void)
 {
-    sb.clear();
+    script_buffer.clear();
 }
 
-void editorclass::removeline(int t)
+void editorclass::remove_line(int t)
 {
     //Remove line t from the script
-    if ((int) sb.size() > 1)
+    if ((int) script_buffer.size() > 1)
     {
-        sb.erase(sb.begin() + t);
+        script_buffer.erase(script_buffer.begin() + t);
     }
 }
 
-void editorclass::insertline(int t)
+void editorclass::insert_line(int t)
 {
     //insert a blank line into script at line t
-    sb.insert(sb.begin() + t, "");
+    script_buffer.insert(script_buffer.begin() + t, "");
 }
 
 static void editormenurender(int tr, int tg, int tb)
@@ -794,7 +770,7 @@ static void draw_entities(void)
         }
 
         // Need to also check warp point destinations
-        if (entity->t == 13 && ed.warpent != i)
+        if (entity->t == 13 && ed.warp_token_entity != i)
         {
             // Is the destination in this room?
             if (entity->p1 / 40 == ed.levx && entity->p2 / 30 == ed.levy)
@@ -832,7 +808,7 @@ static void draw_ghosts(void)
         graphics.clear(0, 0, 0, 0);
 
         for (int i = 0; i < (int) ed.ghosts.size(); i++) {
-            if (i <= ed.currentghosts) { // We don't want all of them to show up at once :)
+            if (i <= ed.current_ghosts) { // We don't want all of them to show up at once :)
                 if (ed.ghosts[i].rx != ed.levx || ed.ghosts[i].ry != ed.levy)
                     continue;
                 SDL_Color ct = ed.ghosts[i].realcol;
@@ -934,12 +910,12 @@ static void draw_cursor(void)
     case EditorTool_WALLS:
     case EditorTool_BACKING:
         // Modifiers!
-        if (ed.bmod) graphics.draw_rect(x, 0, 8, 240, blue); // Vertical
-        else if (ed.hmod) graphics.draw_rect(0, y, 320, 8, blue); // Horizontal
-        else if (ed.vmod) graphics.draw_rect(x - 32, y - 32, 24 + 48, 24 + 48, blue); // 9x9
-        else if (ed.cmod) graphics.draw_rect(x - 24, y - 24, 24 + 32, 24 + 32, blue); // 7x7
-        else if (ed.xmod) graphics.draw_rect(x - 16, y - 16, 24 + 16, 24 + 16, blue); // 5x5
-        else if (ed.zmod) graphics.draw_rect(x - 8, y - 8, 24, 24, blue); // 3x3
+        if (ed.b_modifier) graphics.draw_rect(x, 0, 8, 240, blue); // Vertical
+        else if (ed.h_modifier) graphics.draw_rect(0, y, 320, 8, blue); // Horizontal
+        else if (ed.v_modifier) graphics.draw_rect(x - 32, y - 32, 24 + 48, 24 + 48, blue); // 9x9
+        else if (ed.c_modifier) graphics.draw_rect(x - 24, y - 24, 24 + 32, 24 + 32, blue); // 7x7
+        else if (ed.x_modifier) graphics.draw_rect(x - 16, y - 16, 24 + 16, 24 + 16, blue); // 5x5
+        else if (ed.z_modifier) graphics.draw_rect(x - 8, y - 8, 24, 24, blue); // 3x3
         SDL_FALLTHROUGH;
     case EditorTool_SPIKES:
     case EditorTool_GRAVITY_LINES:
@@ -987,15 +963,15 @@ static void draw_tile_drawer(int tileset)
 
     // Tile drawer for direct mode
     int t2 = 0;
-    if (ed.dmtileeditor > 0)
+    if (ed.direct_mode_drawer > 0)
     {
-        if (ed.dmtileeditor <= 4)
+        if (ed.direct_mode_drawer <= 4)
         {
-            t2 = graphics.lerp((4 - ed.dmtileeditor + 1) * 12, (4 - ed.dmtileeditor) * 12);
+            t2 = graphics.lerp((4 - ed.direct_mode_drawer + 1) * 12, (4 - ed.direct_mode_drawer) * 12);
         }
 
         // Draw five lines of the editor
-        const int temp = ed.dmtile - (ed.dmtile % 40) - 80;
+        const int temp = ed.direct_mode_tile - (ed.direct_mode_tile % 40) - 80;
         graphics.fill_rect(0, -t2, 320, 40, graphics.getRGB(0, 0, 0));
         graphics.fill_rect(0, -t2 + 40, 320, 2, graphics.getRGB(255, 255, 255));
 
@@ -1025,25 +1001,25 @@ static void draw_tile_drawer(int tileset)
         }
 
         // Highlight our little block
-        graphics.draw_rect(((ed.dmtile % 40) * 8) - 2, 16 - t2 - 2, 12, 12, graphics.getRGB(255 - help.glow, 196, 196));
-        graphics.draw_rect(((ed.dmtile % 40) * 8) - 1, 16 - t2 - 1, 10, 10, graphics.getRGB(0, 0, 0));
+        graphics.draw_rect(((ed.direct_mode_tile % 40) * 8) - 2, 16 - t2 - 2, 12, 12, graphics.getRGB(255 - help.glow, 196, 196));
+        graphics.draw_rect(((ed.direct_mode_tile % 40) * 8) - 1, 16 - t2 - 1, 10, 10, graphics.getRGB(0, 0, 0));
     }
 
-    if (ed.dmtileeditor > 0 && t2 <= 30)
+    if (ed.direct_mode_drawer > 0 && t2 <= 30)
     {
         short labellen = 2 + font::len(0, loc::gettext("Tile:"));
         font::print(PR_BOR, 2, 45 - t2, loc::gettext("Tile:"), 196, 196, 255 - help.glow);
-        font::print(PR_BOR, labellen + 16, 45 - t2, help.String(ed.dmtile), 196, 196, 255 - help.glow);
+        font::print(PR_BOR, labellen + 16, 45 - t2, help.String(ed.direct_mode_tile), 196, 196, 255 - help.glow);
         graphics.fill_rect(labellen + 2, 44 - t2, 10, 10, graphics.getRGB(255 - help.glow, 196, 196));
         graphics.fill_rect(labellen + 3, 45 - t2, 8, 8, graphics.getRGB(0, 0, 0));
 
         if (tileset == 0)
         {
-            graphics.drawtile(labellen + 3, 45 - t2, ed.dmtile);
+            graphics.drawtile(labellen + 3, 45 - t2, ed.direct_mode_tile);
         }
         else
         {
-            graphics.drawtile2(labellen + 3, 45 - t2, ed.dmtile);
+            graphics.drawtile2(labellen + 3, 45 - t2, ed.direct_mode_tile);
         }
     }
     else
@@ -1052,17 +1028,17 @@ static void draw_tile_drawer(int tileset)
         int y = 2 + font::height(0);
         y = SDL_max(y, 12);
         font::print(PR_BOR, 2, y, loc::gettext("Tile:"), 196, 196, 255 - help.glow);
-        font::print(PR_BOR, labellen + 16, y, help.String(ed.dmtile), 196, 196, 255 - help.glow);
+        font::print(PR_BOR, labellen + 16, y, help.String(ed.direct_mode_tile), 196, 196, 255 - help.glow);
         graphics.fill_rect(labellen + 2, y - 1, 10, 10, graphics.getRGB(255 - help.glow, 196, 196));
         graphics.fill_rect(labellen + 3, y, 8, 8, graphics.getRGB(0, 0, 0));
 
         if (tileset == 0)
         {
-            graphics.drawtile(labellen + 3, 12, ed.dmtile);
+            graphics.drawtile(labellen + 3, 12, ed.direct_mode_tile);
         }
         else
         {
-            graphics.drawtile2(labellen + 3, 12, ed.dmtile);
+            graphics.drawtile2(labellen + 3, 12, ed.direct_mode_tile);
         }
     }
 }
@@ -1214,7 +1190,7 @@ static void draw_main_ui(void)
     char coords[8];
     SDL_snprintf(coords, sizeof(coords), "(%d,%d)", ed.levx + 1, ed.levy + 1);
 
-    if (ed.spacemod)
+    if (ed.toolbox_open)
     {
         draw_toolbox(coords);
     }
@@ -1248,7 +1224,7 @@ static void draw_main_ui(void)
         }
     }
 
-    if (ed.shiftmenu)
+    if (ed.help_open)
     {
         const char* shiftmenuoptions[] = {
             loc::gettext("F1: Change Tileset"),
@@ -1457,15 +1433,15 @@ void editorrender(void)
             font::print(PR_CEN, -1, 28, loc::gettext("**** VVVVVV SCRIPT EDITOR ****"), 123, 111, 218);
             font::print(PR_CEN, -1, 44, loc::gettext("PRESS ESC TO RETURN TO MENU"), 123, 111, 218);
 
-            if (!ed.hooklist.empty())
+            if (!script.customscripts.empty())
             {
                 for (int i = 0; i < 9; i++)
                 {
-                    if (ed.hookmenupage + i < (int)ed.hooklist.size())
+                    if (ed.script_list_offset + i < (int)script.customscripts.size())
                     {
-                        if (ed.hookmenupage + i == ed.hookmenu)
+                        if (ed.script_list_offset + i == ed.selected_script)
                         {
-                            std::string text_upper(loc::toupper(ed.hooklist[(ed.hooklist.size() - 1) - (ed.hookmenupage + i)]));
+                            std::string text_upper(loc::toupper(script.customscripts[(script.customscripts.size() - 1) - (ed.script_list_offset + i)].name));
 
                             char buffer[SCREEN_WIDTH_CHARS + 1];
                             vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
@@ -1473,7 +1449,7 @@ void editorrender(void)
                         }
                         else
                         {
-                            font::print(PR_CEN, -1, 68 + (i * 16), ed.hooklist[(ed.hooklist.size() - 1) - (ed.hookmenupage + i)], 123, 111, 218);
+                            font::print(PR_CEN, -1, 68 + (i * 16), script.customscripts[(script.customscripts.size() - 1) - (ed.script_list_offset + i)].name, 123, 111, 218);
                         }
                     }
                 }
@@ -1493,7 +1469,7 @@ void editorrender(void)
                 namebuffer, sizeof(namebuffer),
                 loc::gettext("CURRENT SCRIPT: {name}"),
                 "name:str",
-                ed.sbscript.c_str()
+                ed.current_script.c_str()
             );
             font::print(PR_CEN, -1, 228, namebuffer, 123, 111, 218);
 
@@ -1501,16 +1477,16 @@ void editorrender(void)
             int font_height = font::height(PR_FONT_LEVEL);
             for (int i = 0; i < ed.lines_visible; i++)
             {
-                if (i + ed.pagey < (int) ed.sb.size())
+                if (i + ed.script_offset < (int) ed.script_buffer.size())
                 {
-                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20 + (i * font_height), ed.sb[i + ed.pagey], 123, 111, 218);
+                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20 + (i * font_height), ed.script_buffer[i + ed.script_offset], 123, 111, 218);
                 }
             }
 
             // Draw cursor
             if (ed.entframe < 2)
             {
-                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, ed.sb[ed.pagey + ed.sby].c_str()), 20 + (ed.sby * font_height), "_", 123, 111, 218);
+                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, ed.script_buffer[ed.script_cursor_y].c_str()), 20 + ((ed.script_cursor_y - ed.script_offset) * font_height), "_", 123, 111, 218);
             }
         }
         break;
@@ -1548,8 +1524,8 @@ void editorrenderfixed(void)
     const RoomProperty* const room = cl.getroomprop(ed.levx, ed.levy);
     graphics.updatetitlecolours();
 
-    game.customcol=cl.getlevelcol(room->tileset, room->tilecol)+1;
-    ed.entcol=cl.getenemycol(game.customcol);
+    game.customcol = cl.getlevelcol(room->tileset, room->tilecol) + 1;
+    ed.entcol = cl.getenemycol(game.customcol);
 
     ed.entcolreal = graphics.getcol(ed.entcol);
 
@@ -1557,23 +1533,23 @@ void editorrenderfixed(void)
     {
         for (size_t i = 0; i < ed.ghosts.size(); i++)
         {
-            GhostInfo& ghost = ed.ghosts[i];
+            GhostInfo* ghost = &ed.ghosts[i];
 
-            if ((int) i > ed.currentghosts || ghost.rx != ed.levx || ghost.ry != ed.levy)
+            if ((int) i > ed.current_ghosts || ghost->rx != ed.levx || ghost->ry != ed.levy)
             {
                 continue;
             }
 
-            ghost.realcol = graphics.getcol(ghost.col);
+            ghost->realcol = graphics.getcol(ghost->col);
         }
 
-        ed.currentghosts++;
-        if (ed.zmod)
+        ed.current_ghosts++;
+        if (ed.z_modifier)
         {
-            ed.currentghosts++;
+            ed.current_ghosts++;
         }
 
-        ed.currentghosts = SDL_min(ed.currentghosts, ed.ghosts.size());
+        ed.current_ghosts = SDL_min(ed.current_ghosts, ed.ghosts.size());
     }
 
     switch (ed.state)
@@ -1606,14 +1582,14 @@ void editorrenderfixed(void)
 
     if (cl.getroomprop(ed.levx, ed.levy)->directmode == 1)
     {
-        if (ed.dmtileeditor > 0)
+        if (ed.direct_mode_drawer > 0)
         {
-            ed.dmtileeditor--;
+            ed.direct_mode_drawer--;
         }
     }
     else
     {
-        ed.dmtileeditor = 0;
+        ed.direct_mode_drawer = 0;
     }
 
     if (cl.getroomprop(ed.levx, ed.levy)->roomname != "")
@@ -1652,7 +1628,7 @@ static void input_submitted(void)
 
     *ed.current_text_ptr = key.keybuffer;
 
-    ed.shiftmenu = false;
+    ed.help_open = false;
     ed.shiftkey = false;
 
     bool reset_text_mode = true;
@@ -1737,10 +1713,10 @@ static void input_submitted(void)
         break;
     }
     case TEXT_SCRIPT:
-        ed.clearscriptbuffer();
-        if (!ed.checkhook(key.keybuffer))
+        ed.clear_script_buffer();
+        if (!ed.script_exists(key.keybuffer))
         {
-            ed.addhook(key.keybuffer);
+            ed.create_script(key.keybuffer);
         }
         break;
     case TEXT_TITLE:
@@ -1867,7 +1843,7 @@ void editorclass::handle_tile_placement(const int tile)
 {
     int range = 1;
 
-    if (bmod)
+    if (b_modifier)
     {
         // Vertical line
         for (int i = 0; i < 30; i++)
@@ -1876,7 +1852,7 @@ void editorclass::handle_tile_placement(const int tile)
         }
         return;
     }
-    else if (hmod)
+    else if (h_modifier)
     {
         // Horizontal line
         for (int i = 0; i < 40; i++)
@@ -1885,19 +1861,19 @@ void editorclass::handle_tile_placement(const int tile)
         }
         return;
     }
-    else if (vmod)
+    else if (v_modifier)
     {
         range = 4;
     }
-    else if (cmod)
+    else if (c_modifier)
     {
         range = 3;
     }
-    else if (xmod)
+    else if (x_modifier)
     {
         range = 2;
     }
-    else if (zmod)
+    else if (z_modifier)
     {
         range = 1;
     }
@@ -1987,7 +1963,7 @@ void editorclass::entity_clicked(const int index)
     case 17:
         // Roomtext
         get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &entity->scriptname);
-        textent = index;
+        text_entity = index;
         break;
     case 18:
         // Terminals
@@ -2000,7 +1976,7 @@ void editorclass::entity_clicked(const int index)
     case 19:
         // Script Boxes (and terminals)
         get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &entity->scriptname);
-        textent = index;
+        text_entity = index;
         break;
     }
 }
@@ -2024,7 +2000,7 @@ void editorclass::tool_place()
 
         if (cl.getroomprop(levx, levy)->directmode >= 1)
         {
-            tile = dmtile;
+            tile = direct_mode_tile;
         }
         else if (current_tool == EditorTool_WALLS)
         {
@@ -2078,15 +2054,15 @@ void editorclass::tool_place()
         break;
     case EditorTool_ROOMTEXT:
         lclickdelay = 1;
-        textent = customentities.size();
+        text_entity = customentities.size();
         add_entity(tilex + (levx * 40), tiley + (levy * 30), 17);
-        get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[textent].scriptname));
+        get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[text_entity].scriptname));
         break;
     case EditorTool_TERMINALS:
         lclickdelay = 1;
-        textent = customentities.size();
+        text_entity = customentities.size();
         add_entity(tilex + (levx * 40), tiley + (levy * 30), 18, 0);
-        get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[textent].scriptname));
+        get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[text_entity].scriptname));
         break;
     case EditorTool_SCRIPTS:
         substate = EditorSubState_DRAW_BOX;
@@ -2098,7 +2074,7 @@ void editorclass::tool_place()
         break;
     case EditorTool_WARP_TOKENS:
         substate = EditorSubState_DRAW_WARPTOKEN;
-        warpent = customentities.size();
+        warp_token_entity = customentities.size();
         add_entity(tilex + (levx * 40), tiley + (levy * 30), 13);
         lclickdelay = 1;
         break;
@@ -2252,14 +2228,15 @@ static void editormenuactionpress(void)
             ed.state = EditorState_SCRIPTS;
             ed.substate = EditorSubState_MAIN;
 
-            ed.clearscriptbuffer();
-            key.keybuffer="";
-            ed.hookmenupage=0;
-            ed.hookmenu=0;
+            ed.clear_script_buffer();
+            key.keybuffer = "";
+            ed.script_list_offset = 0;
+            ed.selected_script = 0;
 
-            ed.sby=0;
-            ed.sbx=0, ed.pagey=0;
-            ed.lines_visible = 200/font::height(PR_FONT_LEVEL);
+            ed.script_cursor_y = 0;
+            ed.script_cursor_x = 0;
+            ed.script_offset = 0;
+            ed.lines_visible = 200 / font::height(PR_FONT_LEVEL);
             break;
         case 2:
             music.playef(11);
@@ -2433,7 +2410,7 @@ static void start_at_checkpoint(void)
     }
     else
     {
-        ed.currentghosts = 0;
+        ed.current_ghosts = 0;
 
         int tx = customentities[testeditor].x / 40;
         int ty = customentities[testeditor].y / 30;
@@ -2466,8 +2443,8 @@ static void start_at_checkpoint(void)
         }
 
         music.haltdasmusik();
-        ed.returneditoralpha = 1000; // Let's start it higher than 255 since it gets clamped
-        ed.oldreturneditoralpha = 1000;
+        ed.return_message_timer = 1000; // Let's start it higher than 255 since it gets clamped
+        ed.old_return_message_timer = 1000;
         script.startgamemode(Start_EDITORPLAYTESTING);
     }
 }
@@ -2481,7 +2458,7 @@ static void handle_draw_input()
     if (shift_down && !ed.shiftkey)
     {
         ed.shiftkey = true;
-        ed.shiftmenu = !ed.shiftmenu;
+        ed.help_open = !ed.help_open;
     }
     else if (!shift_down)
     {
@@ -2591,12 +2568,12 @@ static void handle_draw_input()
             game.mapheld = true;
         }
 
-        ed.hmod = key.keymap[SDLK_h];
-        ed.vmod = key.keymap[SDLK_v];
-        ed.bmod = key.keymap[SDLK_b];
-        ed.cmod = key.keymap[SDLK_c];
-        ed.xmod = key.keymap[SDLK_x];
-        ed.zmod = key.keymap[SDLK_z];
+        ed.h_modifier = key.keymap[SDLK_h];
+        ed.v_modifier = key.keymap[SDLK_v];
+        ed.b_modifier = key.keymap[SDLK_b];
+        ed.c_modifier = key.keymap[SDLK_c];
+        ed.x_modifier = key.keymap[SDLK_x];
+        ed.z_modifier = key.keymap[SDLK_z];
 
         if (key.keymap[SDLK_COMMA])
         {
@@ -2611,7 +2588,7 @@ static void handle_draw_input()
 
         if (key.keymap[SDLK_SPACE])
         {
-            ed.spacemod = !ed.spacemod;
+            ed.toolbox_open = !ed.toolbox_open;
             ed.keydelay = 6;
         }
     }
@@ -2735,7 +2712,7 @@ void editorinput(void)
             if (ctrl_down)
             {
                 // Holding ctrl, show the direct mode tile drawer
-                ed.dmtileeditor = 10;
+                ed.direct_mode_drawer = 10;
             }
 
             if (ed.keydelay > 0)
@@ -2762,12 +2739,12 @@ void editorinput(void)
 
                     const int numtiles = (int)(texturewidth / 8) * (textureheight / 8);
 
-                    if (left_pressed) ed.dmtile--;
-                    if (right_pressed) ed.dmtile++;
-                    if (up_pressed) ed.dmtile -= 40;
-                    if (down_pressed) ed.dmtile += 40;
+                    if (left_pressed) ed.direct_mode_tile--;
+                    if (right_pressed) ed.direct_mode_tile++;
+                    if (up_pressed) ed.direct_mode_tile -= 40;
+                    if (down_pressed) ed.direct_mode_tile += 40;
 
-                    ed.dmtile = POS_MOD(ed.dmtile, numtiles);
+                    ed.direct_mode_tile = POS_MOD(ed.direct_mode_tile, numtiles);
                 }
                 else if (shift_down)
                 {
@@ -2829,7 +2806,7 @@ void editorinput(void)
 
             if (key.middlebutton)
             {
-                ed.dmtile = cl.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley);
+                ed.direct_mode_tile = cl.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley);
             }
 
             if (enter_pressed)
@@ -2871,11 +2848,11 @@ void editorinput(void)
                         switch (ed.box_type)
                         {
                         case BoxType_SCRIPT:
-                            ed.textent = customentities.size();
+                            ed.text_entity = customentities.size();
 
                             ed.add_entity((left / 8) + (ed.levx * 40), (top / 8) + (ed.levy * 30), 19, (right - left) / 8, (bottom - top) / 8);
 
-                            ed.get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.textent].scriptname));
+                            ed.get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.text_entity].scriptname));
                             break;
                         case BoxType_ENEMY:
                             cl.setroomenemyx1(ed.levx, ed.levy, left);
@@ -2913,8 +2890,8 @@ void editorinput(void)
             {
                 // Cancel warp token placement
                 ed.substate = EditorSubState_MAIN;
-                ed.remove_entity(ed.warpent);
-                ed.warpent = -1;
+                ed.remove_entity(ed.warp_token_entity);
+                ed.warp_token_entity = -1;
             }
 
             // Allow the user to change rooms while placing a warp token
@@ -2947,12 +2924,12 @@ void editorinput(void)
                 {
                     if (ed.free(ed.tilex, ed.tiley) == 0)
                     {
-                        customentities[ed.warpent].p1 = ed.tilex + (ed.levx * 40);
-                        customentities[ed.warpent].p2 = ed.tiley + (ed.levy * 30);
+                        customentities[ed.warp_token_entity].p1 = ed.tilex + (ed.levx * 40);
+                        customentities[ed.warp_token_entity].p2 = ed.tiley + (ed.levy * 30);
 
                         ed.substate = EditorSubState_MAIN;
 
-                        ed.warpent = -1;
+                        ed.warp_token_entity = -1;
                         ed.lclickdelay = 1;
                     }
                 }
@@ -2975,13 +2952,13 @@ void editorinput(void)
                     *ed.current_text_ptr = ed.old_entity_text;
                     if (ed.old_entity_text == "")
                     {
-                        ed.remove_entity(ed.textent);
+                        ed.remove_entity(ed.text_entity);
                     }
                 }
 
                 ed.current_text_mode = TEXT_NONE;
 
-                ed.shiftmenu = false;
+                ed.help_open = false;
 
                 ed.substate = EditorSubState_MAIN;
             }
@@ -3114,38 +3091,38 @@ void editorinput(void)
 
             if (up_pressed && ed.keydelay <= 0)
             {
-                ed.keydelay = 6;
-                ed.hookmenu--;
+                ed.keydelay = 3;
+                ed.selected_script--;
             }
 
             if (down_pressed && ed.keydelay <= 0)
             {
-                ed.keydelay = 6;
-                ed.hookmenu++;
+                ed.keydelay = 3;
+                ed.selected_script++;
             }
 
-            ed.hookmenu = SDL_clamp(ed.hookmenu, 0, (int)ed.hooklist.size() - 1);
+            ed.selected_script = SDL_clamp(ed.selected_script, 0, (int) script.customscripts.size() - 1);
 
-            if (ed.hookmenu < ed.hookmenupage)
+            if (ed.selected_script < ed.script_list_offset)
             {
-                ed.hookmenupage = ed.hookmenu;
+                ed.script_list_offset = ed.selected_script;
             }
 
-            if (ed.hookmenu >= ed.hookmenupage + 9)
+            if (ed.selected_script >= ed.script_list_offset + 9)
             {
-                ed.hookmenupage = ed.hookmenu + 8;
+                ed.script_list_offset = ed.selected_script - 8;
             }
 
             if (!key.keymap[SDLK_BACKSPACE])
             {
-                ed.deletekeyheld = false;
+                ed.backspace_held = false;
             }
 
-            if (key.keymap[SDLK_BACKSPACE] && !ed.deletekeyheld && !ed.hooklist.empty())
+            if (key.keymap[SDLK_BACKSPACE] && !ed.backspace_held && !script.customscripts.empty())
             {
-                ed.deletekeyheld = true;
+                ed.backspace_held = true;
                 music.playef(2);
-                ed.removehook(ed.hooklist[(ed.hooklist.size() - 1) - ed.hookmenu]);
+                ed.remove_script(script.customscripts[(script.customscripts.size() - 1) - ed.selected_script].name);
             }
 
             if (!game.press_action && !game.press_left && !game.press_right && !up_pressed && !down_pressed && !key.isDown(27))
@@ -3160,26 +3137,21 @@ void editorinput(void)
                     game.jumpheld = true;
                 }
 
-                if ((game.press_action || game.press_map) && !ed.hooklist.empty())
+                if ((game.press_action || game.press_map) && !script.customscripts.empty())
                 {
                     game.mapheld = true;
                     ed.substate = EditorSubState_SCRIPTS_EDIT;
                     key.enabletextentry();
                     key.keybuffer = "";
                     ed.current_text_ptr = &(key.keybuffer);
-                    ed.sbscript = ed.hooklist[(ed.hooklist.size() - 1) - ed.hookmenu];
-                    ed.loadhookineditor(ed.sbscript);
+                    ed.current_script = script.customscripts[(script.customscripts.size() - 1) - ed.selected_script].name;
+                    ed.load_script_in_editor(ed.current_script);
 
-                    ed.sby = ed.sb.size() - 1;
-                    ed.pagey = 0;
-                    while (ed.sby >= ed.lines_visible - 5)
-                    {
-                        ed.pagey++;
-                        ed.sby--;
-                    }
+                    ed.script_cursor_y = ed.script_buffer.size() - 1;
+                    ed.script_offset = SDL_max(ed.script_cursor_y - (ed.lines_visible - SCRIPT_LINE_PADDING), 0);
 
-                    key.keybuffer = ed.sb[ed.pagey + ed.sby];
-                    ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey + ed.sby].c_str());
+                    key.keybuffer = ed.script_buffer[ed.script_cursor_y];
+                    ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
 
                     music.playef(11);
                 }
@@ -3194,47 +3166,26 @@ void editorinput(void)
                 music.playef(11);
                 ed.substate = EditorSubState_MAIN;
 
-                // Alright, now readd the script.
-                ed.addhook(ed.sbscript);
+                // Alright, now re-add the script.
+                ed.create_script(ed.current_script, ed.script_buffer);
             }
 
             if (ed.keydelay > 0) ed.keydelay--;
 
             if (up_pressed && ed.keydelay <= 0)
             {
-                ed.keydelay = 6;
-                ed.sby--;
-                if (ed.sby <= 5)
-                {
-                    if (ed.pagey > 0)
-                    {
-                        ed.pagey--;
-                        ed.sby++;
-                    }
-                    else
-                    {
-                        if (ed.sby < 0)
-                        {
-                            ed.sby = 0;
-                        }
-                    }
-                }
-                key.keybuffer = ed.sb[ed.pagey + ed.sby];
+                ed.keydelay = 3;
+                ed.script_cursor_y = SDL_max(0, ed.script_cursor_y - 1);
+
+                key.keybuffer = ed.script_buffer[ed.script_cursor_y];
             }
 
             if (down_pressed && ed.keydelay <= 0)
             {
-                ed.keydelay = 6;
-                if (ed.sby + ed.pagey < (int)ed.sb.size() - 1)
-                {
-                    ed.sby++;
-                    if (ed.sby >= ed.lines_visible - 5)
-                    {
-                        ed.pagey++;
-                        ed.sby--;
-                    }
-                }
-                key.keybuffer = ed.sb[ed.pagey + ed.sby];
+                ed.keydelay = 3;
+                ed.script_cursor_y = SDL_min((int)ed.script_buffer.size() - 1, ed.script_cursor_y + 1);
+
+                key.keybuffer = ed.script_buffer[ed.script_cursor_y];
             }
 
             if (key.linealreadyemptykludge)
@@ -3243,24 +3194,12 @@ void editorinput(void)
                 key.linealreadyemptykludge = false;
             }
 
-            if (key.pressedbackspace && ed.sb[ed.pagey + ed.sby] == "" && ed.keydelay <= 0)
+            if (key.pressedbackspace && ed.script_buffer[ed.script_cursor_y] == "" && ed.keydelay <= 0)
             {
                 //Remove this line completely
-                ed.removeline(ed.pagey + ed.sby);
-                ed.sby--;
-                if (ed.sby <= 5)
-                {
-                    if (ed.pagey > 0)
-                    {
-                        ed.pagey--;
-                        ed.sby++;
-                    }
-                    else
-                    {
-                        if (ed.sby < 0) ed.sby = 0;
-                    }
-                }
-                key.keybuffer = ed.sb[ed.pagey + ed.sby];
+                ed.remove_line(ed.script_cursor_y);
+                ed.script_cursor_y = SDL_max(0, ed.script_cursor_y - 1);
+                key.keybuffer = ed.script_buffer[ed.script_cursor_y];
                 ed.keydelay = 6;
             }
 
@@ -3274,37 +3213,40 @@ void editorinput(void)
                 }
             }}
 
-            ed.sb[ed.pagey + ed.sby] = key.keybuffer;
-            ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey + ed.sby].c_str());
+            ed.script_buffer[ed.script_cursor_y] = key.keybuffer;
+            ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
 
             if (enter_pressed)
             {
                 //Continue to next line
-                if (ed.sby + ed.pagey >= (int)ed.sb.size()) //we're on the last line
+                if (ed.script_cursor_y >= (int)ed.script_buffer.size()) //we're on the last line
                 {
-                    ed.sby++;
-                    if (ed.sby >= ed.lines_visible - 5)
-                    {
-                        ed.pagey++;
-                        ed.sby--;
-                    }
-                    key.keybuffer = ed.sb[ed.pagey + ed.sby];
-                    ed.sbx = UTF8_total_codepoints(ed.sb[ed.pagey + ed.sby].c_str());
+                    ed.script_cursor_y++;
+
+                    key.keybuffer = ed.script_buffer[ed.script_cursor_y];
+                    ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
                 }
                 else
                 {
                     //We're not, insert a line instead
-                    ed.sby++;
-                    if (ed.sby >= ed.lines_visible - 5)
-                    {
-                        ed.pagey++;
-                        ed.sby--;
-                    }
-                    ed.insertline(ed.sby + ed.pagey);
+                    ed.script_cursor_y++;
+
+                    ed.insert_line(ed.script_cursor_y);
                     key.keybuffer = "";
-                    ed.sbx = 0;
+                    ed.script_cursor_x = 0;
                 }
             }
+
+            if (ed.script_cursor_y < ed.script_offset + SCRIPT_LINE_PADDING)
+            {
+                ed.script_offset = SDL_max(0, ed.script_cursor_y - SCRIPT_LINE_PADDING);
+            }
+
+            if (ed.script_cursor_y > ed.script_offset + ed.lines_visible - SCRIPT_LINE_PADDING)
+            {
+                ed.script_offset = SDL_min((int) ed.script_buffer.size() - ed.lines_visible + SCRIPT_LINE_PADDING, ed.script_cursor_y - ed.lines_visible + SCRIPT_LINE_PADDING);
+            }
+
             break;
         }
         }
@@ -3561,40 +3503,40 @@ void editorclass::set_tile(int x, int y, int t)
     updatetiles = true;
 }
 
-int editorclass::autotiling_base( int x, int y )
+int editorclass::autotiling_base(int x, int y)
 {
     //Return the base tile for the given tileset and colour
     const RoomProperty* const room = cl.getroomprop(x, y);
-    if(room->tileset==0)  //Space Station
+    if (room->tileset == 0)  //Space Station
     {
-        if(room->tilecol>=22)
+        if (room->tilecol >= 22)
         {
-            return 483 + ((room->tilecol-22)*3);
+            return 483 + ((room->tilecol - 22) * 3);
         }
-        else if(room->tilecol>=11)
+        else if (room->tilecol >= 11)
         {
-            return 283 + ((room->tilecol-11)*3);
+            return 283 + ((room->tilecol - 11) * 3);
         }
         else
         {
-            return 83 + (room->tilecol*3);
+            return 83 + (room->tilecol * 3);
         }
     }
-    else if(room->tileset==1)   //Outside
+    else if (room->tileset == 1)   //Outside
     {
-        return 480 + (room->tilecol*3);
+        return 480 + (room->tilecol * 3);
     }
-    else if(room->tileset==2)   //Lab
+    else if (room->tileset == 2)   //Lab
     {
-        return 280 + (room->tilecol*3);
+        return 280 + (room->tilecol * 3);
     }
-    else if(room->tileset==3)   //Warp Zone/Intermission
+    else if (room->tileset == 3)   //Warp Zone/Intermission
     {
-        return 80 + (room->tilecol*3);
+        return 80 + (room->tilecol * 3);
     }
-    else if(room->tileset==4)   //SHIP
+    else if (room->tileset == 4)   //SHIP
     {
-        return 101 + (room->tilecol*3);
+        return 101 + (room->tilecol * 3);
     }
     return 0;
 }
@@ -3603,10 +3545,10 @@ int editorclass::autotiling_background_base( int x, int y )
 {
     //Return the base tile for the background of the given tileset and colour
     const RoomProperty* const room = cl.getroomprop(x, y);
-    if(room->tileset==0)  //Space Station
+    if (room->tileset == 0)  //Space Station
     {
         //Pick depending on tilecol
-        switch(room->tilecol)
+        switch (room->tilecol)
         {
         case 0:
         case 5:
@@ -3664,21 +3606,21 @@ int editorclass::autotiling_background_base( int x, int y )
         }
 
     }
-    else if(room->tileset==1)   //outside
+    else if (room->tileset == 1)   //outside
     {
-        return 680 + (room->tilecol*3);
+        return 680 + (room->tilecol * 3);
     }
-    else if(room->tileset==2)   //Lab
+    else if (room->tileset == 2)   //Lab
     {
         return 0;
     }
-    else if(room->tileset==3)   //Warp Zone/Intermission
+    else if (room->tileset == 3)   //Warp Zone/Intermission
     {
-        return 120 + (room->tilecol*3);
+        return 120 + (room->tilecol * 3);
     }
-    else if(room->tileset==4)   //SHIP
+    else if (room->tileset == 4)   //SHIP
     {
-        return 741 + (room->tilecol*3);
+        return 741 + (room->tilecol * 3);
     }
     return 0;
 }
@@ -3761,9 +3703,9 @@ int editorclass::backfree( int x, int y )
     x = SDL_clamp(x, 0, 39);
     y = SDL_clamp(y, 0, 29);
 
-    if(x>=0 && y>=0 && x<40 && y<30)
+    if (x >= 0 && y >= 0 && x < 40 && y < 30)
     {
-        if(cl.gettile(levx, levy, x, y)==0)
+        if (cl.gettile(levx, levy, x, y) == 0)
         {
             return 0;
         }
@@ -3773,11 +3715,7 @@ int editorclass::backfree( int x, int y )
 
 bool editorclass::lines_can_pass(int x, int y)
 {
-    //Returns 0 if tile is not a block or spike, 1 otherwise
-    if (x == -1) return free(0, y);
-    if (y == -1) return free(x, 0);
-    if (x == 40) return free(39, y);
-    if (y == 30) return free(x, 29);
+    // Returns 0 if tile is not a block or spike, 1 otherwise
 
     if (x >= 0 && y >= 0 && x < 40 && y < 30)
     {
@@ -3793,17 +3731,17 @@ int editorclass::free( int x, int y )
     x = SDL_clamp(x, 0, 39);
     y = SDL_clamp(y, 0, 29);
 
-    if(cl.gettile(levx, levy, x, y)==0)
+    if (cl.gettile(levx, levy, x, y) == 0)
     {
         return 0;
     }
     else
     {
-        if(cl.gettile(levx, levy, x, y)>=2 && cl.gettile(levx, levy, x, y)<80)
+        if (cl.gettile(levx, levy, x, y) >= 2 && cl.gettile(levx, levy, x, y) < 80)
         {
             return 0;
         }
-        if(cl.gettile(levx, levy, x, y)>=680)
+        if (cl.gettile(levx, levy, x, y) >= 680)
         {
             return 0;
         }

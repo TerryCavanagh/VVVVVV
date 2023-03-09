@@ -1954,7 +1954,7 @@ void gamerender(void)
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
-        int alpha = graphics.lerp(ed.oldreturneditoralpha, ed.returneditoralpha);
+        int alpha = graphics.lerp(ed.old_return_message_timer, ed.return_message_timer);
 
         if (alpha > 100)
         {

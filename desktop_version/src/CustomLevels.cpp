@@ -1424,10 +1424,6 @@ next:
         }
     }
 
-#ifndef NO_EDITOR
-    ed.gethooks();
-#endif
-
     loc::loadtext_custom(_path.c_str());
     font::load_custom(level_font_name.c_str());
 
