@@ -195,7 +195,6 @@ public:
     std::string filename;
     std::string loaded_filepath;
 
-    int drawmode;
     int tilex, tiley;
     int keydelay, lclickdelay;
     bool savekey, loadkey;
@@ -211,50 +210,47 @@ public:
     union
     {
         int desc; // Which description row we're changing
-        int textent; // Entity ID for text prompt
+        int text_entity; // Entity ID for text prompt
     };
-    bool xmod, zmod, cmod, vmod, bmod, hmod, spacemod;
+    bool x_modifier, z_modifier, c_modifier, v_modifier, b_modifier, h_modifier, toolbox_open;
 
     int roomnamehide;
     bool saveandquit;
-    bool shiftmenu, shiftkey;
+    bool help_open, shiftkey;
     bool settingskey;
-    int warpent;
+    int warp_token_entity;
     bool updatetiles, changeroom;
-    bool deletekeyheld;
+    bool backspace_held;
 
     //Script editor stuff
-    void removeline(int t);
-    void insertline(int t);
+    void remove_line(int t);
+    void insert_line(int t);
 
-    std::vector<std::string> sb;
-    std::string sbscript;
-    int sbx, sby;
-    int pagey;
+    std::vector<std::string> script_buffer;
+    std::string current_script;
+    int script_cursor_x, script_cursor_y;
+    int script_offset;
     int lines_visible;
 
     //Functions for interfacing with the script:
-    void addhook(const std::string& t);
-    void removehook(const std::string& t);
-    void addhooktoscript(const std::string& t);
-    void removehookfromscript(const std::string& t);
-    void loadhookineditor(const std::string& t);
-    void clearscriptbuffer(void);
-    void gethooks(void);
-    bool checkhook(const std::string& t);
-    std::vector<std::string> hooklist;
+    void create_script(const std::string& name, const std::vector<std::string>& contents);
+    void create_script(const std::string& name);
+    void remove_script(const std::string& name);
+    void load_script_in_editor(const std::string& name);
+    void clear_script_buffer(void);
+    bool script_exists(const std::string& name);
 
-    int hookmenupage, hookmenu;
+    int script_list_offset, selected_script;
 
     //Direct Mode variables
-    int dmtile;
-    int dmtileeditor;
+    int direct_mode_tile;
+    int direct_mode_drawer;
 
-    int returneditoralpha;
-    int oldreturneditoralpha;
+    int return_message_timer;
+    int old_return_message_timer;
 
     std::vector<GhostInfo> ghosts;
-    int currentghosts;
+    int current_ghosts;
 };
 
 void editorrender(void);

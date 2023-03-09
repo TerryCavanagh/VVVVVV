@@ -117,10 +117,10 @@ void gamerenderfixed(void)
     map.updateroomnames();
 
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-    ed.oldreturneditoralpha = ed.returneditoralpha;
-    if (map.custommode && !map.custommodeforreal && ed.returneditoralpha > 0)
+    ed.old_return_message_timer = ed.return_message_timer;
+    if (map.custommode && !map.custommodeforreal && ed.return_message_timer > 0)
     {
-        ed.returneditoralpha -= 15;
+        ed.return_message_timer -= 15;
     }
 
     // Editor ghosts!
