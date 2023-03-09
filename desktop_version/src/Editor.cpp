@@ -467,6 +467,42 @@ static void draw_edgeguides(void)
         // Bottom edge
         draw_edgeguide(ed.get_abs_tile_type(global_x + i, global_y + 30, true), i * 8, 238, true);
     }
+
+    static const SDL_Color green = graphics.getRGB(127, 255 - help.glow, 127);
+
+    // Horizontal gravity line edge-guides
+
+    for (size_t i = 0; i < customentities.size(); ++i)
+    {
+        const CustomEntity* entity = &customentities[i];
+        const bool is_horizontal_gravity_line = entity->t == 11 && entity->p1 == 0;
+        if (!is_horizontal_gravity_line)
+        {
+            continue;
+        }
+        const int x = entity->p2 * 8;
+        const int w = entity->p3;
+        const int room_x = (entity->x / 40);
+        const int room_y = (entity->y / 30);
+        if (room_y != ed.levy)
+        {
+            continue;
+        }
+        if (room_x == POS_MOD(ed.levx - 1, cl.mapwidth)
+            // It's to the left...
+            && x + w >= 312)
+        {
+            // And touching the right edge!
+            graphics.fill_rect(x, (entity->y % 30) * 8, 2, 8, green);
+        }
+        else if (room_x == POS_MOD(ed.levx + 1, cl.mapwidth)
+            // It's to the right...
+            && x <= 0)
+        {
+            // And touching the left edge!
+            graphics.fill_rect(x + w - 2, (entity->y % 30) * 8, 2, 8, green);
+        }
+    }
 }
 
 static void update_entities(void)
