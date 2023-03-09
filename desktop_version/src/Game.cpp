@@ -7365,8 +7365,6 @@ int Game::get_timestep(void)
 {
     switch (gamestate)
     {
-    case EDITORMODE:
-        return 24;
     case GAMEMODE:
         return get_framerate(slowdown);
     default:
