@@ -246,7 +246,6 @@ static void editormenurender(int tr, int tg, int tb)
         break;
     case Menu::ed_desc:
     {
-
         const std::string input_text = key.keybuffer + ((ed.entframe < 2) ? "_" : " ");
 
         if (ed.current_text_mode == TEXT_TITLE)
@@ -992,6 +991,8 @@ static void draw_cursor(void)
         // 2x3
         graphics.draw_rect(x, y, 16, 24, blue);
         break;
+    default:
+        break;
     }
 }
 
@@ -1160,9 +1161,7 @@ static void draw_toolbox(const char* coords)
     graphics.fill_rect(0, 208, 320, 240, graphics.getRGB(0, 0, 0));
 
     // Draw all tools!
-    int tx = 6;
-    const int ty = 210;
-    const int tg = 32;
+    const int tool_gap = 32;
 
     const int page = ed.current_tool / 10;
     const int max_pages = SDL_ceil(NUM_EditorTools / 10);
@@ -1173,17 +1172,17 @@ static void draw_toolbox(const char* coords)
         const int current_tool_id = i + (page * 10);
 
         // First, draw the background
-        graphics.fill_rect(4 + (i * tg), 208, 20, 20, graphics.getRGB(32, 32, 32));
+        graphics.fill_rect(4 + (i * tool_gap), 208, 20, 20, graphics.getRGB(32, 32, 32));
 
         // Draw the actual tool icon
-        ed.draw_tool((EditorTools)current_tool_id, 4 + (i * tg) + 2, 208 + 2);
+        ed.draw_tool((EditorTools)current_tool_id, 4 + (i * tool_gap) + 2, 208 + 2);
 
         // Draw the tool outline...
-        graphics.draw_rect(4 + (i * tg), 208, 20, 20, (current_tool_id == ed.current_tool) ? graphics.getRGB(200, 200, 200) : graphics.getRGB(96, 96, 96));
+        graphics.draw_rect(4 + (i * tool_gap), 208, 20, 20, (current_tool_id == ed.current_tool) ? graphics.getRGB(200, 200, 200) : graphics.getRGB(96, 96, 96));
 
         // ...and the hotkey
         const int col = current_tool_id == ed.current_tool ? 255 : 164;
-        font::print(PR_FONT_8X8 | PR_BOR, 22 + i * tg - 4, 224 - 4, ed.tool_key_chars[current_tool_id], col, col, col);
+        font::print(PR_FONT_8X8 | PR_BOR, 22 + i * tool_gap - 4, 224 - 4, ed.tool_key_chars[current_tool_id], col, col, col);
     }
 
     // Draw the page number, limit is 1 digit, so the max is 9 pages
@@ -1368,6 +1367,8 @@ void editorclass::draw_tool(EditorTools tool, int x, int y)
     case EditorTool_START_POINT:
         graphics.draw_sprite(x, y, 184, graphics.col_crewcyan);
         break;
+    default:
+        break;
     }
 }
 
@@ -1455,6 +1456,8 @@ void editorrender(void)
 
             break;
         }
+        default:
+            break;
         }
 
         break;
@@ -1547,6 +1550,8 @@ void editorrender(void)
         graphics.drawmenu(tr, tg, tb, game.currentmenuname);
         break;
     }
+    default:
+        break;
     }
 
     draw_note();
@@ -1615,6 +1620,8 @@ void editorrenderfixed(void)
         graphics.titlebg.bypos -= 2;
         graphics.titlebg.bscroll = -2;
         graphics.updatetowerbackground(graphics.titlebg);
+        break;
+    default:
         break;
     }
 
@@ -2131,7 +2138,8 @@ void editorclass::tool_place()
         substate = EditorSubState_DRAW_BOX;
         box_corner = BoxCorner_LAST;
         box_type = BoxType_SCRIPT;
-        box_point = { tilex * 8, tiley * 8 };
+        box_point.x = tilex * 8;
+        box_point.y = tiley * 8;
 
         lclickdelay = 1;
         break;
@@ -2188,6 +2196,8 @@ void editorclass::tool_place()
         }
         add_entity(tilex + (levx * 40), tiley + (levy * 30), 16, 0);
         lclickdelay = 1;
+        break;
+    default:
         break;
     }
 }
@@ -2896,7 +2906,8 @@ void editorinput(void)
                     if (ed.box_corner == BoxCorner_FIRST)
                     {
                         ed.lclickdelay = 1;
-                        ed.box_point = { ed.tilex * 8, ed.tiley * 8 };
+                        ed.box_point.x = ed.tilex * 8;
+                        ed.box_point.y = ed.tiley * 8;
                         ed.box_corner = BoxCorner_LAST;
                     }
                     else if (ed.box_corner == BoxCorner_LAST)
@@ -3031,6 +3042,8 @@ void editorinput(void)
                 input_submitted();
             }
             break;
+        default:
+            break;
         }
         break;
 
@@ -3133,6 +3146,8 @@ void editorinput(void)
             {
                 input_submitted();
             }
+            break;
+        default:
             break;
         }
         break;
@@ -3312,6 +3327,8 @@ void editorinput(void)
 
             break;
         }
+        default:
+            break;
         }
         break;
     }
