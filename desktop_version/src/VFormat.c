@@ -52,7 +52,7 @@ static inline void call_with_button(format_callback callback, void* userdata, in
     Action action;
     vformat_unbutton(&actionset, &action, vararg_value);
 
-    const char* button_text = BUTTONGLYPHS_get_button(actionset, action);
+    const char* button_text = BUTTONGLYPHS_get_button(actionset, action, -1);
     if (button_text == NULL)
     {
         callback(userdata, "[null]", 6);

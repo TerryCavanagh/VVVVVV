@@ -770,10 +770,14 @@ static void fill_buttons(char* buffer, const size_t buffer_len, const char* line
         line,
         "b_act:but,"
         "b_int:but,"
-        "b_map:but",
+        "b_map:but,"
+        "b_res:but,"
+        "b_esc:but",
         vformat_button(ActionSet_InGame, Action_InGame_ACTION),
         vformat_button(ActionSet_InGame, Action_InGame_Interact),
-        vformat_button(ActionSet_InGame, Action_InGame_Map)
+        vformat_button(ActionSet_InGame, Action_InGame_Map),
+        vformat_button(ActionSet_InGame, Action_InGame_Restart),
+        vformat_button(ActionSet_InGame, Action_InGame_Esc)
     );
 }
 
