@@ -213,6 +213,7 @@
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="" explanation="keyboard key ENTER. Speedrunner options menu"/>
+    <string english="ESC" translation="" explanation="keyboard key ESC"/>
     <string english="ACTION" translation="" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It's used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="" explanation="menu option"/>

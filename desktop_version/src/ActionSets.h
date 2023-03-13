@@ -53,7 +53,9 @@ typedef enum
 {
     Action_InGame_ACTION,
     Action_InGame_Interact,
-    Action_InGame_Map
+    Action_InGame_Map,
+    Action_InGame_Restart,
+    Action_InGame_Esc
 }
 Action_InGame;
 

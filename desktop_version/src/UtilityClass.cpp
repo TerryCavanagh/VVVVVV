@@ -9,38 +9,6 @@
 #include "Maths.h"
 #include "VFormat.h"
 
-static const char* GCChar(const SDL_GameControllerButton button)
-{
-    switch (button)
-    {
-    case SDL_CONTROLLER_BUTTON_A:
-        return "A";
-    case SDL_CONTROLLER_BUTTON_B:
-        return "B";
-    case SDL_CONTROLLER_BUTTON_X:
-        return "X";
-    case SDL_CONTROLLER_BUTTON_Y:
-        return "Y";
-    case SDL_CONTROLLER_BUTTON_BACK:
-        return "BACK";
-    case SDL_CONTROLLER_BUTTON_GUIDE:
-        return "GUIDE";
-    case SDL_CONTROLLER_BUTTON_START:
-        return "START";
-    case SDL_CONTROLLER_BUTTON_LEFTSTICK:
-        return "L3";
-    case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
-        return "R3";
-    case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
-        return "LB";
-    case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
-        return "RB";
-    default:
-        SDL_assert(0 && "Unhandled button!");
-        return NULL;
-    }
-}
-
 int ss_toi(const std::string& str)
 {
     int retval = 0;
@@ -155,20 +123,6 @@ int UtilityClass::Int(const char* str, int fallback /*= 0*/)
     }
 
     return (int) SDL_strtol(str, NULL, 0);
-}
-
-std::string UtilityClass::GCString(const std::vector<SDL_GameControllerButton>& buttons)
-{
-    std::string retval = "";
-    for (size_t i = 0; i < buttons.size(); i += 1)
-    {
-        retval += GCChar(buttons[i]);
-        if ((i + 1) < buttons.size())
-        {
-            retval += ",";
-        }
-    }
-    return retval;
 }
 
 int UtilityClass::hms_to_seconds(int h, int m, int s)

@@ -599,12 +599,41 @@ static void menurender(void)
         case 3:
         case 4:
         case 5:
-            font::print(PR_CEN, -1, 75, loc::gettext("Flip is bound to: ") + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb);
-            font::print(PR_CEN, -1, 85, loc::gettext("Enter is bound to: ")  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb);
-            font::print(PR_CEN, -1, 95, loc::gettext("Menu is bound to: ") + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb);
-            font::print(PR_CEN, -1, 105, loc::gettext("Restart is bound to: ") + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb);
-            font::print(PR_CEN, -1, 115, loc::gettext("Interact is bound to: ") + std::string(help.GCString(game.controllerButton_interact)) , tr, tg, tb);
+        {
+            char buffer_a[SCREEN_WIDTH_CHARS + 1];
+            char buffer_b[SCREEN_WIDTH_CHARS + 1];
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Flip is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_ACTION)
+            );
+            font::print(PR_CEN, -1, 75, buffer_a, tr, tg, tb);
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Enter is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Map)
+            );
+            font::print(PR_CEN, -1, 85, buffer_a, tr, tg, tb);
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Menu is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Esc)
+            );
+            font::print(PR_CEN, -1, 95, buffer_a, tr, tg, tb);
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Restart is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Restart)
+            );
+            font::print(PR_CEN, -1, 105, buffer_a, tr, tg, tb);
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Interact is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Interact)
+            );
+            font::print(PR_CEN, -1, 115, buffer_a, tr, tg, tb);
             break;
+        }
         }
 
 
