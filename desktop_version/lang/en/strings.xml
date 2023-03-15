@@ -368,7 +368,7 @@
     <string english="Rescue Vermilion" translation="" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="" explanation="" max="40"/>
-    <string english="Complete the game" translation="" explanation="" max="40"/>
+    <string english="Complete the game" translation="" case="0" explanation="" max="40"/>
     <string english="Find three trinkets" translation="" explanation="" max="40"/>
     <string english="Find six trinkets" translation="" explanation="" max="40"/>
     <string english="Find nine trinkets" translation="" explanation="" max="40"/>
@@ -376,9 +376,9 @@
     <string english="Find fifteen trinkets" translation="" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="" explanation="" max="40"/>
     <string english="RECORDS" translation="" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
-    <string english="TIME" translation="" explanation="record time" max="7"/>
-    <string english="SHINY" translation="" explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="" explanation="record lowest number of deaths" max="7"/>
+    <string english="TIME" translation="" explanation="record time" max="8"/>
+    <string english="SHINY" translation="" explanation="record number of trinkets" max="8"/>
+    <string english="LIVES" translation="" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="" explanation="in time trial. Number of times player died, not too long"/>
@@ -708,7 +708,7 @@ You have found the secret lab!" translation="" explanation="" max="34*4"/>
     <string english="FINAL LEVEL MASTERED" translation="" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="Obtain a V Rank in this Time Trial" translation="" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game" translation="" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game" translation="" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 50 deaths" translation="" explanation="achievement/trophy description" max="38*2"/>

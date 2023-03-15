@@ -662,11 +662,11 @@
 
 READY _" translation="* GENERATORE DIMENSIONALE *
 
-     [ Generazione in corso ]
-        Stabilità massima
+  [ Generazione in corso ]
+     Stabilità massima
 
-            [ Stato ]
-              Operativo
+         [ Stato ]
+         Operativo
 
 PRONTO _" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Aha! Allora è questo che causa l&apos;interferenza!"/>

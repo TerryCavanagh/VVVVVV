@@ -662,11 +662,11 @@
 
 READY _" translation="* BOYUTSAL KARARLILIK JENERATÖRÜ *
 
-     [ Şarj Durumunda ]
+        [ Şarj Durumunda ]
         Maksimum Kararlılık
 
             [ Durum ]
-              Çevrim İçi
+            Çevrim İçi
 
 HAZIR _" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="İşte bu! Parazitlenmeye neden olan şey bu olmalı!"/>

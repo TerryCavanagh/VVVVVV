@@ -368,7 +368,7 @@
     <string english="Rescue Vermilion" translation="Rescata en Vermelló" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="Rescata en Vitel·lí" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="Rescata en Verdet" explanation="" max="40"/>
-    <string english="Complete the game" translation="Passa’t el joc" explanation="" max="40"/>
+    <string english="Complete the game" translation="Passa’t el joc" case="0" explanation="" max="40"/>
     <string english="Find three trinkets" translation="Troba tres lluentons" explanation="" max="40"/>
     <string english="Find six trinkets" translation="Troba sis lluentons" explanation="" max="40"/>
     <string english="Find nine trinkets" translation="Troba nou lluentons" explanation="" max="40"/>
@@ -376,9 +376,9 @@
     <string english="Find fifteen trinkets" translation="Troba quinze lluentons" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="Troba divuit lluentons" explanation="" max="40"/>
     <string english="RECORDS" translation="RÈCORDS" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
-    <string english="TIME" translation="TEMPS" explanation="record time" max="7"/>
-    <string english="SHINY" translation="LLUE." explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="VIDES" explanation="record lowest number of deaths" max="7"/>
+    <string english="TIME" translation="TEMPS" explanation="record time" max="8"/>
+    <string english="SHINY" translation="LLUE." explanation="record number of trinkets" max="8"/>
+    <string english="LIVES" translation="VIDES" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="TEMPS DE PAR" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="TEMPS:" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="MORTS:" explanation="in time trial. Number of times player died, not too long"/>
@@ -714,7 +714,7 @@ Has trobat el laboratori secret!" explanation="" max="34*4"/>
     <string english="FINAL LEVEL MASTERED" translation="ÚLTIM NIVELL DOMINAT" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="Obtain a V Rank in this Time Trial" translation="Obtén un rang V en aquesta contrarellotge" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="JOC COMPLETAT" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game" translation="Passa’t el joc" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game" translation="Passa’t el joc" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="MODE INVERTIT COMPLETAT" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Passa’t el joc en el mode invertit" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 50 deaths" translation="Guanya amb menys de 50 morts" explanation="achievement/trophy description" max="38*2"/>

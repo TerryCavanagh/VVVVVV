@@ -146,7 +146,7 @@
     <string english="Enter is bound to: " translation="ENTER agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menuo agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Rekomenco agordita al: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Interact is bound to: " translation="Interago agordita al:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Interact is bound to: " translation="Interago agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="ERROR: No language files found." translation="ERARO: Neniuj lingvodosieroj troviĝis." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Lingvodosierujo:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Deponeja lingvodosierujo:" explanation="Language folder from the Git repository" max="39"/>
@@ -368,7 +368,7 @@
     <string english="Rescue Vermilion" translation="Savi Vermiljon" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="Savi Vitelarion" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="Savi Verdigrison" explanation="" max="40"/>
-    <string english="Complete the game" translation="Kompletigi la ludon" explanation="" max="40"/>
+    <string english="Complete the game" translation="Kompletigi la ludon" case="0" explanation="" max="40"/>
     <string english="Find three trinkets" translation="Trovi tri kolektaĵojn" explanation="" max="40"/>
     <string english="Find six trinkets" translation="Trovi ses kolektaĵojn" explanation="" max="40"/>
     <string english="Find nine trinkets" translation="Trovi naŭ kolektaĵojn" explanation="" max="40"/>
@@ -376,9 +376,9 @@
     <string english="Find fifteen trinkets" translation="Trovi dek kvin kolektaĵojn" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="Trovi dek ok kolektaĵojn" explanation="" max="40"/>
     <string english="RECORDS" translation="REKORDOJ" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
-    <string english="TIME" translation="TEMPO" explanation="record time" max="7"/>
-    <string english="SHINY" translation="BRILAĴO" explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="MORTOJ" explanation="record lowest number of deaths" max="7"/>
+    <string english="TIME" translation="TEMPO" explanation="record time" max="8"/>
+    <string english="SHINY" translation="BRILAĴO" explanation="record number of trinkets" max="8"/>
+    <string english="LIVES" translation="MORTOJ" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="CELTEMPO" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="TEMPO: " explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="MORTO: " explanation="in time trial. Number of times player died, not too long"/>
@@ -714,7 +714,7 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="FINAL LEVEL MASTERED" translation="FINA NIVELO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="Obtain a V Rank in this Time Trial" translation="Obteni rangon V en tiu ĉi tempoprovo" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="LUDO KOMPLETIGITA" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game" translation="Kompletigi la ludon" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game" translation="Kompletigi la ludon" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="RENVERSA REĜIMO KOMPLETIGITA" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Kompletigi la ludon en renversa reĝimo" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 50 deaths" translation="Venki kun malpli ol 50 mortoj" explanation="achievement/trophy description" max="38*2"/>

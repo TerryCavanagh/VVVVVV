@@ -662,11 +662,11 @@
 
 READY _" translation="* GERADOR DE ESTABILIDADE *
 
-     [ Saída Atual ]
-        Estabilidade Máxima
+      [ Saída Atual ]
+    Estabilidade Máxima
 
-            [ Estado ]
-              Online
+        [ Estado ]
+          Online
 
 PRONTO _" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Aha! Isto deve ser a origem da anomalia!"/>

@@ -427,7 +427,7 @@
         <dialogue speaker="green" english="Victoria mentioned something about a lab? I wonder if she found anything down there?" translation="Victoria a mentionné un labo... Aurait-elle découvert quelque chose dans le coin ?"/>
     </cutscene>
     <cutscene id="talkgreen_4" explanation="">
-        <dialogue speaker="green" english="Vermilion&apos;s back! Yey !" translation="Vermillon est de retour ! Ouais !"/>
+        <dialogue speaker="green" english="Vermilion&apos;s back! Yey!" translation="Vermillon est de retour ! Ouais !"/>
     </cutscene>
     <cutscene id="talkgreen_5" explanation="">
         <dialogue speaker="green" english="The Professor had lots of questions about this dimension for me..." translation="Le Professeur m&apos;a posé plein de questions à propos de cette dimension..."/>
@@ -520,7 +520,7 @@
         <dialogue speaker="blue" english="or that something might have happened to him..." translation="Ou alors qu&apos;il lui soit arrivé quelque chose..."/>
         <dialogue speaker="blue" english="sniff..." translation="Snif..."/>
         <dialogue speaker="player" english="Doctor Victoria? He&apos;s ok!" translation="Docteure Victoria ? Il va bien !"/>
-        <dialogue speaker="blue" english="Oh ! Sorry! I was just thinking about what if he wasn&apos;t?" translation="Oh ! Désolée ! C&apos;est juste que j&apos;étais en train d&apos;imaginer si cela n&apos;avait pas été le cas..."/>
+        <dialogue speaker="blue" english="Oh! Sorry! I was just thinking about what if he wasn&apos;t?" translation="Oh ! Désolée ! C&apos;est juste que j&apos;étais en train d&apos;imaginer si cela n&apos;avait pas été le cas..."/>
         <dialogue speaker="blue" english="Thank you, Captain!" translation="Merci, Capitaine !"/>
     </cutscene>
     <cutscene id="talkblue_5" explanation="">
@@ -610,7 +610,7 @@
         <dialogue speaker="yellow" english="It&apos;ll be a lot easier to find some way out of here now that we can get the ship working again!" translation="Il sera assurément plus facile de sortir d&apos;ici si nous pouvons remettre le vaisseau en état  !"/>
     </cutscene>
     <cutscene id="talkyellow_8" explanation="">
-        <dialogue speaker="yellow" english="Ah, you&apos;ve found Doctor Victoria? Excellent !" translation="Ah, vous avez retrouvé la Docteure Victoria ? Excellent !"/>
+        <dialogue speaker="yellow" english="Ah, you&apos;ve found Doctor Victoria? Excellent!" translation="Ah, vous avez retrouvé la Docteure Victoria ? Excellent !"/>
         <dialogue speaker="yellow" english="I have lots of questions for her!" translation="J&apos;ai de nombreuses questions à lui poser !"/>
     </cutscene>
     <cutscene id="talkyellow_9" explanation="">
@@ -633,7 +633,7 @@
         <dialogue speaker="yellow" english="Oh, it was just lying around that space station." translation="Oh, ça traînait juste dans un coin de la station spatiale..."/>
         <dialogue speaker="yellow" english="It&apos;s a pity Doctor Victoria isn&apos;t here, she loves studying that sort of thing..." translation="Quel dommage que la Docteure Victoria ne soit pas là ! Elle adore étudier ce genre de choses..."/>
         <dialogue speaker="player" english="Any idea what it does?" translation="Avez-vous une idée de ce que c&apos;est ?"/>
-        <dialogue speaker="yellow" english="Nope ! But it is giving off a strange energy reading..." translation="Aucune ! Mais cet artéfact émet une signature énergétique assez curieuse..."/>
+        <dialogue speaker="yellow" english="Nope! But it is giving off a strange energy reading..." translation="Aucune ! Mais cet artéfact émet une signature énergétique assez curieuse..."/>
     </cutscene>
     <cutscene id="talkyellow_trinket2" explanation="">
         <dialogue speaker="yellow" english="...so I used the ship&apos;s scanner to find more of them!" translation="...j&apos;ai donc utilisé les scanners du vaisseau pour en localiser d&apos;autres !"/>
@@ -742,12 +742,12 @@ STABILISATEUR DIMENSIONNEL DÉSACTIVÉ" centertext="1" pad="1"/>
         <dialogue speaker="player" english="Hmm... how should we get out of this?" translation="Hum... Comment allons-nous nous sortir d&apos;ici ?"/>
         <dialogue speaker="player" english="COMBINE!" translation="COMBINAISON !" case="1"/>
         <dialogue speaker="purple" english="COMBINE!" translation="COMBINAISON !" case="2"/>
-        <dialogue speaker="yellow" english="COMBINE !" translation="COMBINAISON !" case="3"/>
+        <dialogue speaker="yellow" english="COMBINE!" translation="COMBINAISON !" case="3"/>
         <dialogue speaker="red" english="COMBINE!" translation="COMBINAISON !" case="4"/>
         <dialogue speaker="green" english="COMBINE!" translation="COMBINAISON !" case="5"/>
         <dialogue speaker="blue" english="COMBINE!" translation="COMBINAISON !" case="6"/>
         <dialogue speaker="purple" english="Or, you know... we could have just warped back to the ship..." translation="Ou sinon, on aurait juste pu retourner à bord du vaisseau, hein..."/>
-        <dialogue speaker="green" english="Wow ! What is this?" translation="Wouah ! Qu&apos;est-ce que c&apos;est ?"/>
+        <dialogue speaker="green" english="Wow! What is this?" translation="Wouah ! Qu&apos;est-ce que c&apos;est ?"/>
         <dialogue speaker="yellow" english="It looks like another laboratory!" translation="On dirait un autre laboratoire !"/>
         <dialogue speaker="red" english="Let&apos;s have a look around!" translation="Jetons un coup d&apos;oeil alentour !"/>
     </cutscene>

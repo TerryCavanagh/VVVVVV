@@ -35,7 +35,6 @@
     <string english="secret lab" translation="geheimlabor" explanation="menu option"/>
     <string english="play modes" translation="spielmodi" explanation="menu option"/>
     <string english="ERROR: No levels found." translation="FEHLER: keine Level gefunden." explanation="" max="38*3"/>
-    <string english="by {author}" translation="von {author}" explanation="{author}: author of custom level, appears in the custom levels list and editor"/>
     <string english="ERROR: This level has no start point!" translation="FEHLER: Dieser Level hat keinen Anfangspunkt!" explanation="" max="38*5"/>
     <string english="ERROR" translation="FEHLER" explanation="title" max="20"/>
     <string english="WARNING" translation="ACHTUNG" explanation="title" max="20"/>
@@ -143,11 +142,11 @@
     <string english="bind menu" translation="menü zuweisen" explanation="menu option"/>
     <string english="bind restart" translation="neustart zuweisen" explanation="menu option. In-game death key to restart at checkpoint"/>
     <string english="bind interact" translation="interagieren zuweisen" explanation="menu option"/>
-    <string english="Flip is bound to: " translation="Flippen ist belegt mit:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Enter is bound to: " translation="Enter ist belegt mit:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Menu is bound to: " translation="Menü ist belegt mit:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Restart is bound to: " translation="Neustart ist belegt mit:" explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Interact is bound to: " translation="Interagieren ist belegt mit:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Flip is bound to: " translation="Flippen ist belegt mit: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Enter is bound to: " translation="Enter ist belegt mit: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Menu is bound to: " translation="Menü ist belegt mit: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Restart is bound to: " translation="Neustart ist belegt mit: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Interact is bound to: " translation="Interagieren ist belegt mit: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="ERROR: No language files found." translation="FEHLER: keine Sprachdateien gefunden." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Sprachordner:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Repository-Sprachordner:" explanation="Language folder from the Git repository" max="39"/>
@@ -369,7 +368,7 @@
     <string english="Rescue Vermilion" translation="Rette Vermilion" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="Rette Vitellary" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="Rette Verdigris" explanation="" max="40"/>
-    <string english="Complete the game" translation="Beende das Spiel" explanation="" max="40"/>
+    <string english="Complete the game" translation="Beende das Spiel" case="0" explanation="" max="40"/>
     <string english="Find three trinkets" translation="Finde drei Dingsdas" explanation="" max="40"/>
     <string english="Find six trinkets" translation="Finde sechs Dingsdas" explanation="" max="40"/>
     <string english="Find nine trinkets" translation="Finde neun Dingsdas" explanation="" max="40"/>
@@ -377,9 +376,9 @@
     <string english="Find fifteen trinkets" translation="Finde fünfzehn Dingsdas" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="Finde achtzehn Dingsdas" explanation="" max="40"/>
     <string english="RECORDS" translation="REKORDE" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
-    <string english="TIME" translation="ZEIT" explanation="record time" max="7"/>
-    <string english="SHINY" translation="DINGSDAS" explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="LEBEN" explanation="record lowest number of deaths" max="7"/>
+    <string english="TIME" translation="ZEIT" explanation="record time" max="8"/>
+    <string english="SHINY" translation="DINGSDAS" explanation="record number of trinkets" max="8"/>
+    <string english="LIVES" translation="LEBEN" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="ZIELZEIT" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="ZEIT:" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="TODE:" explanation="in time trial. Number of times player died, not too long"/>
@@ -490,16 +489,16 @@
     <string english="Press {button} to activate terminal" translation="Aktiviere das Terminal mit {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="Drücke {button}, um Terminals zu aktivieren" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Drücke {button} zum Interagieren" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="song name should probably not be translated" max="37"/>
-    <string english="Positive Force" translation="Positive Force" explanation="song name should probably not be translated" max="37"/>
-    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="song name should probably not be translated" max="37"/>
-    <string english="Potential for Anything" translation="Potential for Anything" explanation="song name should probably not be translated" max="37"/>
-    <string english="Predestined Fate" translation="Predestined Fate" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pipe Dream" translation="Pipe Dream" explanation="song name should probably not be translated" max="37"/>
-    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="song name should probably not be translated" max="37"/>
-    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="song name should probably not be translated" max="37"/>
+    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Potential for Anything" translation="Potential for Anything" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Predestined Fate" translation="Predestined Fate" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pipe Dream" translation="Pipe Dream" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Karteneinstellungen" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="skripte bearbeiten" explanation="level editor menu option"/>
     <string english="change music" translation="musik ändern" explanation="level editor menu option"/>
@@ -513,6 +512,10 @@
     <string english="change author" translation="autor ändern" explanation="level editor menu option"/>
     <string english="change description" translation="beschreibung ändern" explanation="level editor menu option"/>
     <string english="change website" translation="website ändern" explanation="level editor menu option"/>
+    <string english="change font" translation="" explanation="level editor menu option"/>
+    <string english="Level Font" translation="" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
+    <string english="Select the language in which the text in this level is written." translation="" explanation="" max="38*3"/>
+    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="14"/>
     <string english="Map Music" translation="Kartenmusik" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Aktuelle Kartenmusik:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="keine Hintergrundmusik" explanation="editor, level starts with no song playing" max="38*2"/>
@@ -554,7 +557,7 @@
     <string english="PRESS ESC TO RETURN TO MENU" translation="DRÜCKE ESC UM ZUM MENÜ ZU BEENDEN" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="KEINE SKRIPT-IDS GEFUNDEN" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
     <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="ERSTELLE EIN SKRIPT MIT DEM TERMINAL ODER DER SKRIPTBOX" explanation="Commodore 64-style script editor" max="36*5"/>
-    <string english="CURRENT SCRIPT: {name}" translation="AKTUELLES SCRIPT: {Name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20"/>
+    <string english="CURRENT SCRIPT: {name}" translation="AKTUELLES SCRIPT: {name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20"/>
     <string english="Left click to place warp destination" translation="Platziere mit Linksklick das Warp-Ziel" explanation="warp token: small teleporter with entrance and destination" max="39"/>
     <string english="Right click to cancel" translation="Right click to cancel" explanation="" max="39"/>
     <string english="{button1} and {button2} keys change tool" translation="Wechsle das Werkzeug mit {button1} und {button2}" explanation="These keys can be used to switch between tools" max="36"/>
@@ -586,8 +589,8 @@
     <string english="F10: Direct Mode" translation="F10: Direktmodus" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25"/>
     <string english="W: Change Warp Dir" translation="W: Warprichtung ändern" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25"/>
     <string english="E: Change Roomname" translation="E: Raumnamen ändern" explanation="editor shortcut, the name of the room appears at the bottom" max="25"/>
-    <string english="S: Save Map" translation="S: speichern" explanation="level editor, save level, `Map` is basically redundant" max="12"/>
-    <string english="L: Load Map" translation="L: laden" explanation="level editor, load level, `Map` is basically redundant" max="12"/>
+    <string english="S: Save Map" translation="S: Speichern" explanation="level editor, save level, `Map` is basically redundant" max="12"/>
+    <string english="L: Load Map" translation="L: Laden" explanation="level editor, load level, `Map` is basically redundant" max="12"/>
     <string english="Enter map filename to save as:" translation="Zu speichernden Dateinamen eingeben:" explanation="level editor text input, save level file as" max="39*3"/>
     <string english="Enter map filename to load:" translation="Zu ladenden Dateinamen eingeben:" explanation="level editor text input, load level file" max="39*3"/>
     <string english="Enter new room name:" translation="Neuen Raumnamen eingeben:" explanation="level editor text input, the name of the room appears at the bottom" max="39*3"/>
@@ -711,7 +714,7 @@ Du hast das Geheimlabor gefunden!" explanation="" max="34*4"/>
     <string english="FINAL LEVEL MASTERED" translation="LETZTER LEVEL GEMEISTERT" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="Obtain a V Rank in this Time Trial" translation="Erhalte Rang V in diesem Time Trial" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="SPIEL BEENDET" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game" translation="Beende das Spiel" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game" translation="Beende das Spiel" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="FLIPP-MODUS BEENDET" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Beende das Spiel im Flipp-Modus" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 50 deaths" translation="Gewinne und sterbe nicht mehr als 50 mal" explanation="achievement/trophy description" max="38*2"/>
