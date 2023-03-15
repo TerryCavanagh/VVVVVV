@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<strings_plural>
+    <string english_plural="You rescued {n_crew|wordy} crewmates" english_singular="You rescued {n_crew|wordy} crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40" var="n_crew" expect="6">
+        <translation form="0" translation="Vous avez sauvé {n_crew|wordy} membres d&apos;équipage"/>
+        <translation form="1" translation="Vous avez sauvé {n_crew|wordy} membre d&apos;équipage"/>
+    </string>
+    <string english_plural="and found {n_trinkets|wordy} trinkets." english_singular="and found {n_trinkets|wordy} trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2" var="n_trinkets" expect="20">
+        <translation form="0" translation="et trouvé {n_trinkets|wordy} bidules."/>
+        <translation form="1" translation="et trouvé {n_trinkets|wordy} bidule."/>
+    </string>
+    <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20">
+        <translation form="0" translation="Et vous avez trouvé {n_trinkets|wordy} bidules."/>
+        <translation form="1" translation="Et vous avez trouvé {n_trinkets|wordy} bidule."/>
+    </string>
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
+        <translation form="0" translation="{n_crew|wordy|upper} membres d&apos;équipage restants"/>
+        <translation form="1" translation="{n_crew|wordy|upper} membre d&apos;équipage restant"/>
+    </string>
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
+        <translation form="0" translation="Il en reste {n_crew|wordy}"/>
+        <translation form="1" translation="Il en reste {n_crew|wordy}"/>
+    </string>
+    <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000">
+        <translation form="0" translation="Salle la plus coriace (avec {n_deaths} morts)"/>
+        <translation form="1" translation="Salle la plus coriace (avec {n_deaths} mort)"/>
+    </string>
+    <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
+        <translation form="0" translation="{n} noms de salles normales non traduits"/>
+        <translation form="1" translation="{n} nom de salle normale non traduit"/>
+    </string>
+</strings_plural>
