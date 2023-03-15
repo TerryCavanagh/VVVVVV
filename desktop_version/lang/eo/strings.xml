@@ -91,11 +91,11 @@
     <string english="toggle analogue" translation="baskuligi analogecon" explanation="menu option, analogue mode simulates distortion from bad signal"/>
     <string english="Analogue Mode" translation="Analoga reĝimo" explanation="title, analogue mode simulates distortion from bad signal" max="20"/>
     <string english="There is nothing wrong with your television set. Do not attempt to adjust the picture." translation="Via televidilo funkcias sen problemo. Ne klopodu ĝustigi la bildigon." explanation="" max="38*5"/>
-    <string english="toggle fps" translation="kadrorapido" explanation="menu option, kind of a misnomer, toggle between 30 FPS and more than 30 FPS"/>
-    <string english="Toggle 30+ FPS" translation="Kadrorapido super 30" explanation="title" max="20"/>
+    <string english="toggle fps" translation="bildrapido" explanation="menu option, kind of a misnomer, toggle between 30 FPS and more than 30 FPS"/>
+    <string english="Toggle 30+ FPS" translation="Bildrapido super 30" explanation="title" max="20"/>
     <string english="Change whether the game runs at 30 or over 30 FPS." translation="Ŝanĝi ĉu la ludo ruliĝas je 30 aŭ super 30 kadroj sekunde." explanation="" max="38*3"/>
     <string english="Current mode: 30 FPS" translation="Nuna reĝimo: 30 KS" explanation="" max="38*2"/>
-    <string english="Current mode: Over 30 FPS" translation="Nuna reĝimo: Pli ol 30 KS" explanation="" max="38*2"/>
+    <string english="Current mode: Over 30 FPS" translation="Nuna reĝimo: Super 30 KS" explanation="" max="38*2"/>
     <string english="toggle vsync" translation="v-sinkronigo" explanation="menu option"/>
     <string english="Toggle VSync" translation="Vertikala sinkronigo" explanation="title" max="20"/>
     <string english="Turn VSync on or off." translation="Baskuligi vertikalan sinkronigon." explanation="" max="38*2"/>
@@ -418,11 +418,11 @@
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Por instali novajn nivelojn, kopiu la dosierojn .vvvvvv al la nivel-dosierujo." explanation="" max="38*3"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Ĉu vi vere volas montri la dosierindikon? Tio eble malkaŝos konfidencajn informojn se vi elsendas." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="La nivela dosierindiko estas:" explanation="" max="40"/>
-    <string english="[ Press ACTION to Start ]" translation="[ Premu AGBUTONON por komenci ]" explanation="title screen" max="38*2"/>
-    <string english="ACTION = Space, Z, or V" translation="AGBUTONO = Spaceto, Z aŭ V" explanation="title screen" max="38*3"/>
+    <string english="[ Press ACTION to Start ]" translation="[ Premu AGOKLAVON por komenci ]" explanation="title screen" max="38*2"/>
+    <string english="ACTION = Space, Z, or V" translation="AGOKLAVO = Spaceto, Z aŭ V" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="[Premu ENTER por reveni al redaktilo]" explanation="`to editor` is sorta redundant" max="40"/>
-    <string english="- Press ACTION to advance text -" translation="- Premu AGBUTONON por daŭrigi -" explanation="to dismiss a textbox" max="40"/>
-    <string english="Press ACTION to continue" translation="Premu AGBUTONON por daŭrigi" explanation="" max="34"/>
+    <string english="- Press ACTION to advance text -" translation="- Premu AGOKLAVON por daŭrigi -" explanation="to dismiss a textbox" max="40"/>
+    <string english="Press ACTION to continue" translation="Premu AGOKLAVON por daŭrigi" explanation="" max="34"/>
     <string english="Current Time" translation="Nuna tempo" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Plej bona tempo" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Sekva trofeo je 5 sekundoj" explanation="" max="38*2"/>
@@ -447,7 +447,7 @@
     <string english="[ QUIT ]" translation="[ ELIRI ]" explanation="in-game menu" max="40"/>
     <string english="[ GRAVITRON ]" translation="[ GRAVITRONO ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="SENSIGNALE" explanation="map screen. So like a TV/computer monitor" max="29"/>
-    <string english="Press ACTION to warp to the ship." translation="Premu AGBUTONON por teleportiĝi al la ŝipo." explanation="spaceship. Warp = teleport" max="38*7"/>
+    <string english="Press ACTION to warp to the ship." translation="Premu AGOKLAVON por teleportiĝi al la ŝipo." explanation="spaceship. Warp = teleport" max="38*7"/>
     <string english="Missing..." translation="Mankas..." case="1" explanation="this male crew member is missing" max="15"/>
     <string english="Missing..." translation="Mankas..." case="2" explanation="this female crew member is missing" max="15"/>
     <string english="Missing..." translation="Mankas..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
@@ -461,7 +461,7 @@
     <string english="ERROR: Could not save game!" translation="ERARO: Ne eblis konservi ludon!" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="ERARO: Ne eblis konservi agordodosieron!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Ludo konserviĝis sukcese!" explanation="in-game menu" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Premu AGBUTONON por konservi la ludon]" explanation="in-game menu" max="40"/>
+    <string english="[Press ACTION to save your game]" translation="[Premu AGOKLAVON por konservi la ludon]" explanation="in-game menu" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Notu: la ludo aŭtomate konserviĝas ĉe ĉiu teleportilo.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Lasta konservo:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Ĉu reveni al ĉefa menuo?" explanation="in-game menu" max="38*4"/>
@@ -636,7 +636,7 @@
     <string english="All crewmates rescued!" translation="Ĉiuj skipanoj estas savitaj!" explanation="" max="32"/>
     <string english="Game Saved" translation="Ludo konserviĝis" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="Premu ←/→ aŭ WASD por moviĝi" explanation="" max="32*2"/>
-    <string english="Press ACTION to flip" translation="Premu AGBUTONON por renversiĝi" explanation="" max="32*3"/>
+    <string english="Press ACTION to flip" translation="Premu AGOKLAVON por renversiĝi" explanation="" max="32*3"/>
     <string english="Press ENTER to view map and quicksave" translation="Premu ENTER por vidi la mapon kaj rapidkonservi" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Se vi preferas, eblas premi ↑/↓ por renversiĝi." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="Helpu! Ĉu iu ajn povas aŭdi ĉi tiun mesaĝon?" explanation="Violet speaking via Comms Relay" max="25*4"/>

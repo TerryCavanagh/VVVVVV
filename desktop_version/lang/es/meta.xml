@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<langmeta>
+    <active>1</active>
+
+    <!-- should be lowercase because menu style, and should be in the language itself -->
+    <nativename>español</nativename>
+
+    <!-- English translation by X -->
+    <credit>Traducción al español de Felipe Mercader y Sara Marín</credit>
+
+    <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
+    <action_hint>Pulsa Espacio, Z, o V para seleccionar</action_hint>
+
+    <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
+    <autowordwrap>1</autowordwrap>
+
+    <!-- Enable automatic full-caps display of selected menu options ([SELECTED] not selected) -->
+    <toupper>1</toupper>
+
+    <!-- When automatically uppercasing, map i to İ (for Turkish) -->
+    <toupper_i_dot>0</toupper_i_dot>
+
+    <!-- When automatically uppercasing, allow ~ to be used to stop the next letter from being uppercased (for Irish) -->
+    <toupper_lower_escape_char>0</toupper_lower_escape_char>
+
+    <!-- The indication that a certain menu option or button is selected -->
+    <menu_select>[ {label} ]</menu_select>
+    <menu_select_tight>[{label}]</menu_select_tight>
+</langmeta>
