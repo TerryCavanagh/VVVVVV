@@ -368,7 +368,7 @@
     <string english="Rescue Vermilion" translation="Red Vermilion" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="Red Vitellary" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="Red Verdigris" explanation="" max="40"/>
-    <string english="Complete the game" translation="Voltooi het spel" explanation="" max="40"/>
+    <string english="Complete the game" translation="Voltooi het spel" case="0" explanation="" max="40"/>
     <string english="Find three trinkets" translation="Vind drie artefacten" explanation="" max="40"/>
     <string english="Find six trinkets" translation="Vind zes artefacten" explanation="" max="40"/>
     <string english="Find nine trinkets" translation="Vind negen artefacten" explanation="" max="40"/>
@@ -376,9 +376,9 @@
     <string english="Find fifteen trinkets" translation="Vind vijftien artefacten" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="Vind achttien artefacten" explanation="" max="40"/>
     <string english="RECORDS" translation="RECORDS" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
-    <string english="TIME" translation="TIJD" explanation="record time" max="7"/>
-    <string english="SHINY" translation="ARTE" explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="DOOD" explanation="record lowest number of deaths" max="7"/>
+    <string english="TIME" translation="TIJD" explanation="record time" max="8"/>
+    <string english="SHINY" translation="ARTE" explanation="record number of trinkets" max="8"/>
+    <string english="LIVES" translation="DOOD" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="PAR-TIJD" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="TIJD:" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="DOOD:" explanation="in time trial. Number of times player died, not too long"/>
@@ -715,7 +715,7 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="FINAL LEVEL MASTERED" translation="EINDLEVEL ONDER DE KNIE" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="Obtain a V Rank in this Time Trial" translation="Behaal een V-score in deze race tegen de klok" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="SPEL UITGESPEELD" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game" translation="Voltooi het spel" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game" translation="Voltooi het spel" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="SPIEGELMODUS UITGESPEELD" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Voltooi het spel in spiegelmodus" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 50 deaths" translation="Voltooi het spel zonder 50 keer of vaker dood te gaan" explanation="achievement/trophy description" max="38*2"/>

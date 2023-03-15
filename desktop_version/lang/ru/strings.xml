@@ -35,7 +35,6 @@
     <string english="secret lab" translation="секретная лаборатория" explanation="menu option"/>
     <string english="play modes" translation="режимы игры" explanation="menu option"/>
     <string english="ERROR: No levels found." translation="ОШИБКА: Уровни не найдены." explanation="" max="38*3"/>
-    <string english="by {author}" translation="от {author}" explanation="{author}: author of custom level, appears in the custom levels list and editor"/>
     <string english="ERROR: This level has no start point!" translation="ОШИБКА: В этом уровне нет точки начала!" explanation="" max="38*5"/>
     <string english="ERROR" translation="ОШИБКА" explanation="title" max="20"/>
     <string english="WARNING" translation="ПРЕДУПРЕЖДЕНИЕ" explanation="title" max="20"/>
@@ -369,7 +368,7 @@
     <string english="Rescue Vermilion" translation="Спасите Вермильона" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="Спасите Вителлина" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="Спасите Вердигри" explanation="" max="40"/>
-    <string english="Complete the game" translation="Пройдите игру" explanation="" max="40"/>
+    <string english="Complete the game" translation="Пройдите игру" case="0" explanation="" max="40"/>
     <string english="Find three trinkets" translation="Найдите три штучки" explanation="" max="40"/>
     <string english="Find six trinkets" translation="Найдите шесть штучек" explanation="" max="40"/>
     <string english="Find nine trinkets" translation="Найдите девять штучек" explanation="" max="40"/>
@@ -377,9 +376,9 @@
     <string english="Find fifteen trinkets" translation="Найдите пятнадцать штучек" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="Найдите восемнадцать штучек" explanation="" max="40"/>
     <string english="RECORDS" translation="РЕКОРДЫ" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
-    <string english="TIME" translation="ВРЕМЯ" explanation="record time" max="7"/>
-    <string english="SHINY" translation="ШТУЧКИ" explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="ЖИЗНИ" explanation="record lowest number of deaths" max="7"/>
+    <string english="TIME" translation="ВРЕМЯ" explanation="record time" max="8"/>
+    <string english="SHINY" translation="ШТУЧКИ" explanation="record number of trinkets" max="8"/>
+    <string english="LIVES" translation="ЖИЗНИ" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="МАКС. ВРЕМЯ" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="ВРЕМЯ:" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="СМЕРТИ:" explanation="in time trial. Number of times player died, not too long"/>
@@ -490,16 +489,16 @@
     <string english="Press {button} to activate terminal" translation="{button}: активировать терминал" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="{button}: активировать терминалы" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="{button}: взаимодействовать" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="song name should probably not be translated" max="37"/>
-    <string english="Positive Force" translation="Positive Force" explanation="song name should probably not be translated" max="37"/>
-    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="song name should probably not be translated" max="37"/>
-    <string english="Potential for Anything" translation="Potential for Anything" explanation="song name should probably not be translated" max="37"/>
-    <string english="Predestined Fate" translation="Predestined Fate" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pipe Dream" translation="Pipe Dream" explanation="song name should probably not be translated" max="37"/>
-    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="song name should probably not be translated" max="37"/>
-    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="song name should probably not be translated" max="37"/>
+    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Potential for Anything" translation="Potential for Anything" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Predestined Fate" translation="Predestined Fate" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pipe Dream" translation="Pipe Dream" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Настройки карты" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="редактор скриптов" explanation="level editor menu option"/>
     <string english="change music" translation="сменить музыку" explanation="level editor menu option"/>
@@ -513,6 +512,10 @@
     <string english="change author" translation="изменить автора" explanation="level editor menu option"/>
     <string english="change description" translation="изменить описание" explanation="level editor menu option"/>
     <string english="change website" translation="изменить веб-сайт" explanation="level editor menu option"/>
+    <string english="change font" translation="" explanation="level editor menu option"/>
+    <string english="Level Font" translation="" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
+    <string english="Select the language in which the text in this level is written." translation="" explanation="" max="38*3"/>
+    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="14"/>
     <string english="Map Music" translation="Музыка карты" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Текущая музыка карты:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="Без фоновой музыки" explanation="editor, level starts with no song playing" max="38*2"/>
@@ -576,7 +579,7 @@
     <string english="O: Crewmate" translation="O: Член экипажа" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Точка начала" explanation="editor tool" max="32"/>
     <string english="START" translation="НАЧАЛО" explanation="start point in level editor" max="10"/>
-    <string english="ПРОБЕЛ ^  SHIFT ^" translation="SPACE ^  SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
+    <string english="SPACE ^  SHIFT ^" translation="ПРОБЕЛ ^  SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
     <string english="F1: Change Tileset" translation="F1: Сменить вид плиток" explanation="editor shortcut, switch to different tileset" max="25"/>
     <string english="F2: Change Colour" translation="F2: Сменить цвет" explanation="editor shortcut, switch to different tileset color/variant" max="25"/>
     <string english="F3: Change Enemies" translation="F3: Сменить врагов" explanation="editor shortcut, change enemy appearance" max="25"/>
@@ -711,7 +714,7 @@ You have found the secret lab!" translation="Поздравляем!
     <string english="FINAL LEVEL MASTERED" translation="МАСТЕРСТВО ФИНАЛЬНОГО УРОВНЯ" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="Obtain a V Rank in this Time Trial" translation="Достигните ранга V в этом испытании на время" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="ИГРА ПРОЙДЕНА" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game" translation="Пройдите игру" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game" translation="Пройдите игру" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="ПЕРЕВЁРНУТЫЙ РЕЖИМ ПРОЙДЕН" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Пройдите игру в перевёрнутом режиме" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 50 deaths" translation="Выиграйте, умерев менее 50 раз" explanation="achievement/trophy description" max="38*2"/>

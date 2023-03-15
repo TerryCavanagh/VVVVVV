@@ -6,7 +6,7 @@
     <nativename>italiano</nativename>
 
     <!-- English translation by X -->
-    <credit>Di A.&#160;Dellepiane, M.&#160;Scarabelli, L.&#160;Bertolucci e F.&#160;Bortolotti</credit>
+    <credit>Di A. Dellepiane, M. Scarabelli, L. Bertolucci e F. Bortolotti</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
     <action_hint>Premi spazio, Z, or V per selezionare</action_hint>
@@ -26,4 +26,7 @@
     <!-- The indication that a certain menu option or button is selected -->
     <menu_select>[ {label} ]</menu_select>
     <menu_select_tight>[{label}]</menu_select_tight>
+
+    <!-- The filename of the font to use. For example, "font_cn" means font_cn.png and font_cn.fontmeta. -->
+    <font>font</font>
 </langmeta>

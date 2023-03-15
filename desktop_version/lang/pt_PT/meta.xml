@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <langmeta>
     <active>1</active>
 
@@ -26,4 +26,7 @@
     <!-- The indication that a certain menu option or button is selected -->
     <menu_select>[ {label} ]</menu_select>
     <menu_select_tight>[{label}]</menu_select_tight>
+
+    <!-- The filename of the font to use. For example, "font_cn" means font_cn.png and font_cn.fontmeta. -->
+    <font>font</font>
 </langmeta>
