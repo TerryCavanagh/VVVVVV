@@ -344,18 +344,22 @@ static uint8_t load_font(FontContainer* container, const char* name)
     bool charset_loaded = false;
     bool special_loaded = false;
     unsigned char* charmap = NULL;
+    size_t length;
     if (FILESYSTEM_areAssetsInSameRealDir(name_png, name_txt))
     {
-        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, NULL, true);
+        /* The .txt can contain null bytes, but it's still null-terminated - it protects
+         * against incomplete sequences getting the UTF-8 decoder to read out of bounds. */
+        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, &length, true);
     }
     if (charmap != NULL)
     {
         // We have a .txt! It's an obsolete system, but it takes priority if the file exists.
         const char* current = (char*) charmap;
+        const char* end = (char*) charmap + length;
         int pos = 0;
-        uint32_t codepoint;
-        while ((codepoint = UTF8_next(&current)))
+        while (current < end)
         {
+            uint32_t codepoint = UTF8_next(&current);
             add_glyphinfo(f, codepoint, pos);
             ++pos;
         }
