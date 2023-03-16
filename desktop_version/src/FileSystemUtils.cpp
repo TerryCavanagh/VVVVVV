@@ -741,6 +741,12 @@ void FILESYSTEM_loadFileToMemory(
         goto fail;
     }
 
+    if (len == NULL && !addnull)
+    {
+        vlog_warn("%s is loaded with len == NULL && !addnull", name);
+        SDL_assert(0 && "Are you sure you don't want a null terminator to be added to these loaded file contents?");
+    }
+
     /* FIXME: Dumb hack to use `special/stdin.vvvvvv` here...
      * This is also checked elsewhere... grep for `special/stdin`! */
     if (SDL_strcmp(name, "levels/special/stdin.vvvvvv") == 0)

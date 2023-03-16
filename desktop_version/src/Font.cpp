@@ -346,7 +346,7 @@ static uint8_t load_font(FontContainer* container, const char* name)
     unsigned char* charmap = NULL;
     if (FILESYSTEM_areAssetsInSameRealDir(name_png, name_txt))
     {
-        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, NULL, false);
+        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, NULL, true);
     }
     if (charmap != NULL)
     {
