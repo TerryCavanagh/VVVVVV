@@ -5260,7 +5260,7 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         }
         else if (SDL_strcmp(pKey, "showtargets") == 0)
         {
-            map.showtargets = help.Int(pText);
+            map.set_targets_visible(help.Int(pText));
         }
 
     }
@@ -5279,11 +5279,9 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         map.final_colorframe = 1;
     }
 
-    map.showteleporters = true;
-    if(obj.flags[12]) map.showtargets = true;
+    map.set_teleporters_visible(true);
+    if (obj.flags[12]) map.set_targets_visible(true);
     if (obj.flags[42]) map.showtrinkets = true;
-
-
 }
 
 void Game::customloadquick(const std::string& savfile)
@@ -5553,8 +5551,8 @@ void Game::customloadquick(const std::string& savfile)
         }
     }
 
-    map.showteleporters = true;
-    if(obj.flags[12]) map.showtargets = true;
+    map.set_teleporters_visible(true);
+    if (obj.flags[12]) map.set_targets_visible(true);
 
 }
 

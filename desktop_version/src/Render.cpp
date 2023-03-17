@@ -2358,20 +2358,6 @@ static void rendermaplegend(void)
 
     const MapRenderData data = getmaprenderdata();
 
-    const int tile_offset = graphics.flipmode ? 3 : 0;
-
-    for (size_t i = 0; i < map.teleporters.size(); i++)
-    {
-        if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
-        {
-            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1127 + tile_offset);
-        }
-        else if (map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
-        {
-            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1126 + tile_offset);
-        }
-    }
-
     for (size_t i = 0; i < map.markers.size(); i++)
     {
         const MapMarker marker = map.markers[i];

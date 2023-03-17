@@ -29,9 +29,9 @@ mapclass::mapclass(void)
     warpy = false;
     extrarow = 0;
 
-    showteleporters = false;
-    showtargets = false;
     showtrinkets = false;
+    set_targets_visible(false);
+    set_targets_visible(false);
 
     finalmode = false;
     finalstretch = false;
@@ -152,6 +152,30 @@ int mapclass::intpol(int a, int b, float c)
     return static_cast<int>(a + ((b - a) * c));
 }
 
+void mapclass::set_targets_visible(const bool visible)
+{
+    showtargets = visible;
+    for (size_t i = 0; i < markers.size(); ++i)
+    {
+        if (markers[i].name == "teleporters")
+        {
+            markers[i].show_hidden = visible;
+        }
+    }
+}
+
+void mapclass::set_teleporters_visible(const bool visible)
+{
+    showteleporters = visible;
+    for (size_t i = 0; i < markers.size(); ++i)
+    {
+        if (markers[i].name == "teleporters")
+        {
+            markers[i].show_visited = visible;
+        }
+    }
+}
+
 void mapclass::setteleporter(int x, int y)
 {
     if (x < 0 || x >= getwidth() || y < 0 || y >= getheight())
@@ -163,6 +187,13 @@ void mapclass::setteleporter(int x, int y)
     temp.x = x;
     temp.y = y;
     teleporters.push_back(temp);
+
+    MarkerRoom room;
+    room.coords = temp;
+    room.flag = -1;
+    room.trinket_id = -1;
+
+    teleporter_markers.rooms.push_back(room);
 }
 
 void mapclass::settrinket(const int id, const int x, const int y)
@@ -270,9 +301,21 @@ void mapclass::initmapdata(void)
     shinytrinkets.show_visited = true;
     shinytrinkets.show_hidden = true;
 
+    teleporter_markers.rooms.clear();
+    teleporter_markers.name = "teleporters";
+    teleporter_markers.visited_id = 1127;
+    teleporter_markers.hidden_id = 1126;
+    teleporter_markers.flip_visited_id = 1129;
+    teleporter_markers.flip_hidden_id = 1128;
+    teleporter_markers.show_visited = showteleporters;
+    teleporter_markers.show_hidden = showtargets;
+
     if (custommode)
     {
         initcustommapdata();
+
+        markers.push_back(shinytrinkets);
+        markers.push_back(teleporter_markers);
         return;
     }
 
@@ -317,6 +360,7 @@ void mapclass::initmapdata(void)
     settrinket(17, 10, 8);
 
     markers.push_back(shinytrinkets);
+    markers.push_back(teleporter_markers);
 
     //Special room names
     specialroomnames.clear();

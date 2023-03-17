@@ -68,6 +68,9 @@ public:
 
     int intpol(int a, int b, float c);
 
+    void set_targets_visible(bool visible);
+    void set_teleporters_visible(bool visible);
+
     void setteleporter(int x, int y);
 
     void settrinket(int id, int x, int y);
@@ -192,6 +195,7 @@ public:
     std::vector<SDL_Point> teleporters;
 
     MapMarker shinytrinkets;
+    MapMarker teleporter_markers;
 
     bool showteleporters, showtargets, showtrinkets;
 
