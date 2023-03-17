@@ -137,7 +137,7 @@ public:
 
     int absfree(int x, int y);
 
-    bool load(std::string& _path);
+    bool load(std::string _path);
 #ifndef NO_EDITOR
     bool save(const std::string& _path);
 #endif

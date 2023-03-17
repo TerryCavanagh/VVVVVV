@@ -987,7 +987,7 @@ int customlevelclass::findwarptoken(int t)
 }
 
 
-bool customlevelclass::load(std::string& _path)
+bool customlevelclass::load(std::string _path)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
