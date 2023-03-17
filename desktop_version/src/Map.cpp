@@ -165,17 +165,20 @@ void mapclass::setteleporter(int x, int y)
     teleporters.push_back(temp);
 }
 
-void mapclass::settrinket(int x, int y)
+void mapclass::settrinket(const int id, const int x, const int y)
 {
     if (x < 0 || x >= getwidth() || y < 0 || y >= getheight())
     {
         return;
     }
 
-    SDL_Point temp;
-    temp.x = x;
-    temp.y = y;
-    shinytrinkets.push_back(temp);
+    MarkerRoom room;
+    room.coords.x = x;
+    room.coords.y = y;
+    room.flag = -1;
+    room.trinket_id = id;
+
+    shinytrinkets.rooms.push_back(room);
 }
 
 void mapclass::setroomname(const char* name)
@@ -258,6 +261,15 @@ void mapclass::updateroomnames(void)
 
 void mapclass::initmapdata(void)
 {
+    shinytrinkets.rooms.clear();
+    shinytrinkets.name = "trinkets";
+    shinytrinkets.visited_id = 1086;
+    shinytrinkets.hidden_id = 1086;
+    shinytrinkets.flip_visited_id = 1089;
+    shinytrinkets.flip_hidden_id = 1089;
+    shinytrinkets.show_visited = true;
+    shinytrinkets.show_hidden = true;
+
     if (custommode)
     {
         initcustommapdata();
@@ -265,9 +277,8 @@ void mapclass::initmapdata(void)
     }
 
     teleporters.clear();
-    shinytrinkets.clear();
 
-    //Set up static map information like teleporters and shiny trinkets.
+    // Set up static map information like teleporters and shiny trinkets.
     setteleporter(0, 0);
     setteleporter(0, 16);
     setteleporter(2, 4);
@@ -286,24 +297,26 @@ void mapclass::initmapdata(void)
     setteleporter(18, 1);
     setteleporter(18, 7);
 
-    settrinket(14, 4);
-    settrinket(13, 6);
-    settrinket(11, 12);
-    settrinket(15, 12);
-    settrinket(14, 11);
-    settrinket(18, 14);
-    settrinket(11, 7);
-    settrinket(9, 2);
-    settrinket(9, 16);
-    settrinket(2, 18);
-    settrinket(7, 18);
-    settrinket(6, 1);
-    settrinket(17, 3);
-    settrinket(10, 19);
-    settrinket(5, 15);
-    settrinket(1, 10);
-    settrinket(3, 2);
-    settrinket(10, 8);
+    settrinket(0, 14, 4);
+    settrinket(1, 13, 6);
+    settrinket(2, 11, 12);
+    settrinket(3, 15, 12);
+    settrinket(4, 14, 11);
+    settrinket(5, 18, 14);
+    settrinket(6, 11, 7);
+    settrinket(7, 9, 2);
+    settrinket(8, 9, 16);
+    settrinket(9, 2, 18);
+    settrinket(10, 7, 18);
+    settrinket(11, 6, 1);
+    settrinket(12, 17, 3);
+    settrinket(13, 10, 19);
+    settrinket(14, 5, 15);
+    settrinket(15, 1, 10);
+    settrinket(16, 3, 2);
+    settrinket(17, 10, 8);
+
+    markers.push_back(shinytrinkets);
 
     //Special room names
     specialroomnames.clear();
@@ -419,9 +432,8 @@ void mapclass::roomnamechange(const int x, const int y, const char** lines, cons
 
 void mapclass::initcustommapdata(void)
 {
-    shinytrinkets.clear();
-
 #if !defined(NO_CUSTOM_LEVELS)
+    int trinkets = 0;
     for (size_t i = 0; i < customentities.size(); i++)
     {
         const CustomEntity& ent = customentities[i];
@@ -432,8 +444,7 @@ void mapclass::initcustommapdata(void)
 
         const int rx = ent.x / 40;
         const int ry = ent.y / 30;
-
-        settrinket(rx, ry);
+        settrinket(trinkets++, rx, ry);
     }
 #endif
 }

@@ -5488,7 +5488,7 @@ void Game::customloadquick(const std::string& savfile)
         }
         else if (SDL_strcmp(pKey, "markers") == 0)
         {
-            // loop through all the markers and save their 
+            // loop through all the markers and save their data
             for (tinyxml2::XMLElement* pElem2 = pElem->FirstChildElement(); pElem2 != NULL; pElem2 = pElem2->NextSiblingElement())
             {
                 const char* pKey2 = pElem2->Value();
@@ -5514,9 +5514,13 @@ void Game::customloadquick(const std::string& savfile)
                     const char* name = "";
                     int x = 0;
                     int y = 0;
+                    int flag = -1;
+                    int trinket_id = -1;
                     pElem2->QueryStringAttribute("name", &name);
                     pElem2->QueryIntAttribute("x", &x);
                     pElem2->QueryIntAttribute("y", &y);
+                    pElem2->QueryIntAttribute("flag", &flag);
+                    pElem2->QueryIntAttribute("trinket_id", &trinket_id);
                     for (size_t i = 0; i < map.markers.size(); i++)
                     {
                         if (map.markers[i].name == name)
@@ -5525,7 +5529,8 @@ void Game::customloadquick(const std::string& savfile)
                             bool found = false;
                             for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
                             {
-                                if (map.markers[i].rooms[j].x == x && map.markers[i].rooms[j].y == y)
+                                MarkerRoom room = map.markers[i].rooms[j];
+                                if (room.coords.x == x && room.coords.y == y && room.flag == flag && room.trinket_id == trinket_id)
                                 {
                                     found = true;
                                     break;
@@ -5533,8 +5538,13 @@ void Game::customloadquick(const std::string& savfile)
                             }
                             if (!found)
                             {
-                                SDL_Point p = { x, y };
-                                map.markers[i].rooms.push_back(p);
+                                MarkerRoom room;
+                                room.coords.x = x;
+                                room.coords.y = y;
+                                room.flag = flag;
+                                room.trinket_id = trinket_id;
+
+                                map.markers[i].rooms.push_back(room);
                             }
                         }
                     }
@@ -6044,8 +6054,10 @@ bool Game::customsavequick(const std::string& savfile)
             tinyxml2::XMLElement* room_el;
             room_el = doc.NewElement("room");
             room_el->SetAttribute("name", map.markers[i].name.c_str());
-            room_el->SetAttribute("x", map.markers[i].rooms[j].x);
-            room_el->SetAttribute("y", map.markers[i].rooms[j].y);
+            room_el->SetAttribute("x", map.markers[i].rooms[j].coords.x);
+            room_el->SetAttribute("y", map.markers[i].rooms[j].coords.y);
+            room_el->SetAttribute("flag", map.markers[i].rooms[j].flag);
+            room_el->SetAttribute("trinket_id", map.markers[i].rooms[j].trinket_id);
             msg->LinkEndChild(room_el);
         }
     }

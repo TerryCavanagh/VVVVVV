@@ -2372,29 +2372,31 @@ static void rendermaplegend(void)
         }
     }
 
-    if (map.showtrinkets)
-    {
-        for (size_t i = 0; i < map.shinytrinkets.size(); i++)
-        {
-            if (!obj.collect[i])
-            {
-                graphics.drawtile(data.legendxoff + (map.shinytrinkets[i].x * 12 * data.zoom), data.legendyoff + (map.shinytrinkets[i].y * 9 * data.zoom), 1086 + tile_offset);
-            }
-        }
-    }
-
     for (size_t i = 0; i < map.markers.size(); i++)
     {
-        MapMarker marker = map.markers[i];
+        const MapMarker marker = map.markers[i];
         for (size_t j = 0; j < marker.rooms.size(); j++)
         {
-            if (marker.show_visited && map.isexplored(marker.rooms[j].x, marker.rooms[j].y))
+            const MarkerRoom room = marker.rooms[j];
+
+            // If it doesn't have a flag, or if the flag is true...
+            if (room.flag == -1 || (INBOUNDS_ARR(room.flag, obj.flags) && obj.flags[room.flag]))
             {
-                graphics.drawtile(data.legendxoff + (marker.rooms[j].x * 12 * data.zoom), data.legendyoff + (marker.rooms[j].y * 9 * data.zoom), graphics.flipmode ? marker.flip_visited_id : marker.visited_id);
-            }
-            else if (marker.show_hidden && !map.isexplored(marker.rooms[j].x, marker.rooms[j].y))
-            {
-                graphics.drawtile(data.legendxoff + (marker.rooms[j].x * 12 * data.zoom), data.legendyoff + (marker.rooms[j].y * 9 * data.zoom), graphics.flipmode ? marker.flip_hidden_id : marker.hidden_id);
+                // If it doesn't have a trinket, or if the trinket isn't collected yet...
+                if (room.trinket_id == -1 || (map.showtrinkets && INBOUNDS_ARR(room.trinket_id, obj.collect) && !obj.collect[room.trinket_id]))
+                {
+                    // Draw the markers
+                    const int x = data.legendxoff + (room.coords.x * 12 * data.zoom);
+                    const int y = data.legendyoff + (room.coords.y * 9 * data.zoom);
+                    if (marker.show_visited && map.isexplored(room.coords.x, room.coords.y))
+                    {
+                        graphics.drawtile(x, y, graphics.flipmode ? marker.flip_visited_id : marker.visited_id);
+                    }
+                    else if (marker.show_hidden && !map.isexplored(room.coords.x, room.coords.y))
+                    {
+                        graphics.drawtile(x, y, graphics.flipmode ? marker.flip_hidden_id : marker.hidden_id);
+                    }
+                }
             }
         }
     }

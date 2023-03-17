@@ -37,12 +37,19 @@ struct Roomname
     int delay;
 };
 
+struct MarkerRoom
+{
+    SDL_Point coords;
+    int flag;
+    int trinket_id;
+};
+
 struct MapMarker
 {
     std::string name;
     bool show_hidden;
     bool show_visited;
-    std::vector<SDL_Point> rooms;
+    std::vector<MarkerRoom> rooms;
     int hidden_id;
     int visited_id;
     int flip_hidden_id;
@@ -63,7 +70,7 @@ public:
 
     void setteleporter(int x, int y);
 
-    void settrinket(int x, int y);
+    void settrinket(int id, int x, int y);
 
     void setroomname(const char* name);
 
@@ -181,9 +188,10 @@ public:
     int final_aniframedelay;
     int final_colorframe, final_colorframedelay;
 
-    //Teleporters and Trinkets on the map
+    // Teleporters
     std::vector<SDL_Point> teleporters;
-    std::vector<SDL_Point> shinytrinkets;
+
+    MapMarker shinytrinkets;
 
     bool showteleporters, showtargets, showtrinkets;
 

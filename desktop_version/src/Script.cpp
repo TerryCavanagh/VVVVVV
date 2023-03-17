@@ -1359,15 +1359,19 @@ void scriptclass::run(void)
                 {
                     if (map.markers[i].name == words[1])
                     {
-                        point p;
-                        p.x = ss_toi(words[2]);
-                        p.y = ss_toi(words[3]);
+                        MarkerRoom current;
+                        current.coords.x = ss_toi(words[2]);
+                        current.coords.y = ss_toi(words[3]);
+                        current.flag = argexists[4] ? ss_toi(words[4]) : -1;
+                        current.trinket_id = argexists[5] ? ss_toi(words[5]) : -1;
 
                         // Check if the point isn't already in the vector...
                         bool found = false;
                         for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
                         {
-                            if (map.markers[i].rooms[j].x == p.x && map.markers[i].rooms[j].y == p.y)
+                            MarkerRoom room = map.markers[i].rooms[j];
+                            if (room.coords.x == current.coords.x && room.coords.y == current.coords.y &&
+                                room.flag == current.flag && room.trinket_id == current.trinket_id)
                             {
                                 found = true;
                                 break;
@@ -1375,9 +1379,9 @@ void scriptclass::run(void)
                         }
                         if (!found)
                         {
-                            map.markers[i].rooms.push_back(p);
+                            map.markers[i].rooms.push_back(current);
                         }
-                        
+
                         break;
                     }
                 }
@@ -1388,12 +1392,18 @@ void scriptclass::run(void)
                 {
                     if (map.markers[i].name == words[1])
                     {
-                        point p;
-                        p.x = ss_toi(words[2]);
-                        p.y = ss_toi(words[3]);
+                        SDL_Point coords = {ss_toi(words[2]), ss_toi(words[3])};
+                        int flag = argexists[4] ? ss_toi(words[4]) : -1;
+                        int trinket_id = argexists[5] ? ss_toi(words[5]) : -1;
+
                         for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
                         {
-                            if (map.markers[i].rooms[j].x == p.x && map.markers[i].rooms[j].y == p.y)
+                            bool flagcheck = (map.markers[i].rooms[j].flag == flag);
+                            bool trinketcheck = (map.markers[i].rooms[j].trinket_id == trinket_id);
+
+                            MarkerRoom room = map.markers[i].rooms[j];
+
+                            if (room.coords.x == coords.x && room.coords.y == coords.y && flagcheck && trinketcheck)
                             {
                                 map.markers[i].rooms.erase(map.markers[i].rooms.begin() + j);
                                 // Don't break here in case there's duplicates for whatever reason

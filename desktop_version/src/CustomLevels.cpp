@@ -995,7 +995,7 @@ bool customlevelclass::load(std::string _path)
     tinyxml2::XMLElement* pElem;
 
     map.markers.clear();
-    std::map<std::string, std::vector<point> > markerLocations;
+    std::map<std::string, std::vector<MarkerRoom> > markerLocations;
 
     reset();
 #ifndef NO_EDITOR
@@ -1410,6 +1410,8 @@ next:
                     marker.flip_hidden_id = marker.hidden_id;
                     markerElement->QueryIntAttribute("flip_visited_id", &marker.flip_visited_id);
                     markerElement->QueryIntAttribute("flip_hidden_id", &marker.flip_hidden_id);
+                    markerElement->QueryBoolAttribute("show_hidden", &marker.show_hidden);
+                    markerElement->QueryBoolAttribute("show_visited", &marker.show_visited);
 
                     const char* name = "";
                     markerElement->QueryStringAttribute("name", &name);
@@ -1425,16 +1427,22 @@ next:
                 {
                     int x = 0;
                     int y = 0;
+                    int trinket_id = -1;
+                    int flag = -1;
                     const char* name = "";
                     markerElement->QueryStringAttribute("name", &name);
                     markerElement->QueryIntAttribute("x", &x);
                     markerElement->QueryIntAttribute("y", &y);
+                    markerElement->QueryIntAttribute("trinket_id", &trinket_id);
+                    markerElement->QueryIntAttribute("flag", &flag);
 
-                    point coords;
-                    coords.x = x;
-                    coords.y = y;
+                    MarkerRoom room;
+                    room.coords.x = x;
+                    room.coords.y = y;
+                    room.trinket_id = trinket_id;
+                    room.flag = flag;
 
-                    markerLocations[name].push_back(coords);
+                    markerLocations[name].push_back(room);
                 }
             }
         }
@@ -1443,26 +1451,10 @@ next:
     for (size_t i = 0; i < map.markers.size(); i++)
     {
         MapMarker marker = map.markers[i];
+
         if (markerLocations.count(marker.name) != 0)
         {
-            for (size_t j = 0; j < markerLocations[marker.name].size(); j++)
-            {
-                point p = markerLocations[marker.name][j];
-                // Check if the point isn't already in the vector...
-                bool found = false;
-                for (size_t j = 0; j < map.markers[i].rooms.size(); j++)
-                {
-                    if (map.markers[i].rooms[j].x == p.x && map.markers[i].rooms[j].y == p.y)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    map.markers[i].rooms.push_back(p);
-                }
-            }
+            map.markers[i].rooms = markerLocations[marker.name];
         }
     }
 
