@@ -420,7 +420,8 @@
     <string english="The levels path is:" translation="" explanation="" max="40"/>
     <string english="[ Press ACTION to Start ]" translation="" explanation="title screen" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="" explanation="title screen" max="38*3"/>
-    <string english="[Press ENTER to return to editor]" translation="" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="[Press ENTER to return to editor]" translation="" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to return to editor]" translation="" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="" explanation="to dismiss a textbox" max="40"/>
     <string english="Press ACTION to continue" translation="" explanation="" max="34"/>
     <string english="Current Time" translation="" explanation="super gravitron, stopwatch time" max="20"/>
@@ -434,7 +435,8 @@
     <string english="All Trophies collected!" translation="" explanation="" max="38*2"/>
     <string english="New Record!" translation="" explanation="" max="20"/>
     <string english="New Trophy!" translation="" explanation="" max="20"/>
-    <string english="[Press ENTER to stop]" translation="" explanation="stop super gravitron" max="40"/>
+    <string english="[Press ENTER to stop]" translation="" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to stop]" translation="" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="" explanation="" max="38*4"/>
     <string english="MAP" translation="" explanation="in-game menu" max="8"/>
@@ -652,8 +654,10 @@
     <string english="All crewmates rescued!" translation="" explanation="" max="32"/>
     <string english="Game Saved" translation="" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="" explanation="" max="32*2"/>
+    <string english="Press left/right to move" translation="" explanation="" max="32*2"/>
     <string english="Press ACTION to flip" translation="" explanation="" max="32*3"/>
-    <string english="Press ENTER to view map and quicksave" translation="" explanation="" max="32*3"/>
+    <string english="Press ENTER to view map and quicksave" translation="" explanation="***OUTDATED***" max="32*3"/>
+    <string english="Press {button} to view map and quicksave" translation="" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="" explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="" explanation="Violet speaking via Comms Relay" max="25*4"/>

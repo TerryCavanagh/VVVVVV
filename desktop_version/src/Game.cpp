@@ -6,6 +6,7 @@
 #include <string.h>
 #include <tinyxml2.h>
 
+#include "ButtonGlyphs.h"
 #include "Constants.h"
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
@@ -832,7 +833,7 @@ void Game::updatestate(void)
             break;
         case 4:
             //End of opening cutscene for now
-            graphics.createtextbox(loc::gettext("Press arrow keys or WASD to move"), -1, 195, 174, 174, 174);
+            graphics.createtextbox(BUTTONGLYPHS_get_wasd_text(), -1, 195, 174, 174, 174);
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxwrap(4);
             graphics.textboxcentertext();
@@ -864,7 +865,16 @@ void Game::updatestate(void)
             if (!obj.flags[13])
             {
                 obj.flags[13] = true;
-                graphics.createtextbox(loc::gettext("Press ENTER to view map and quicksave"), -1, 155, 174, 174, 174);
+
+                char buffer[SCREEN_WIDTH_CHARS*3 + 1];
+                vformat_buf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("Press {button} to view map and quicksave"),
+                    "button:but",
+                    vformat_button(ActionSet_InGame, Action_InGame_Map)
+                );
+
+                graphics.createtextbox(buffer, -1, 155, 174, 174, 174);
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(4);
                 graphics.textboxcentertext();
@@ -1067,13 +1077,16 @@ void Game::updatestate(void)
         case 17:
             //Arrow key tutorial
             obj.removetrigger(17);
-            graphics.createtextbox(loc::gettext("If you prefer, you can press UP or DOWN instead of ACTION to flip."), -1, 187, 174, 174, 174);
-            graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.textboxwrap(2);
-            graphics.textboxcentertext();
-            graphics.textboxpad(1, 1);
-            graphics.textboxcenterx();
-            graphics.textboxtimer(100);
+            if (BUTTONGLYPHS_keyboard_is_active())
+            {
+                graphics.createtextbox(loc::gettext("If you prefer, you can press UP or DOWN instead of ACTION to flip."), -1, 187, 174, 174, 174);
+                graphics.textboxprintflags(PR_FONT_INTERFACE);
+                graphics.textboxwrap(2);
+                graphics.textboxcentertext();
+                graphics.textboxpad(1, 1);
+                graphics.textboxcenterx();
+                graphics.textboxtimer(100);
+            }
             setstate(0);
             break;
 

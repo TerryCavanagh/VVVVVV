@@ -43,7 +43,7 @@
  * The valid types are:
  *  - int   Signed integer
  *  - str   const char*
- *  - but   Controller button icon
+ *  - but   Controller button icon: vformat_button(actionset, action)
  *
  * Special case: if an argument name is a single underscore (_), it matches
  * any name not found earlier in the list. This should normally not be needed.
@@ -75,12 +75,17 @@
 #include <stdarg.h>
 #include <stddef.h>
 
+#include "ActionSets.h"
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
 typedef void (*format_callback)(void* userdata, const char* string, size_t bytes);
+
+
+int vformat_button(ActionSet actionset, int action);
 
 
 void vformat_cb_valist(

@@ -4,6 +4,7 @@
 #include <emscripten/html5.h>
 #endif
 
+#include "ButtonGlyphs.h"
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
 #include "Editor.h"
@@ -649,6 +650,7 @@ int main(int argc, char *argv[])
         gameScreen.init(&screen_settings);
     }
 
+    BUTTONGLYPHS_init();
     font::load_main();
 
     // This loads music too...
@@ -915,9 +917,14 @@ static void unfocused_run(void)
          * a language changes the used language metadata but not the loaded strings... */
         uint32_t flags = PR_CEN | PR_BOR | PR_FONT_IDX(loc::langmeta.font_idx);
         font::print(flags | PR_CJK_HIGH, -1, FLIP(110), loc::gettext("Game paused"), 196 - help.glow, 255 - help.glow, 196 - help.glow);
-        font::print(flags | PR_CJK_LOW, -1, FLIP(120), loc::gettext("[click to resume]"), 196 - help.glow, 255 - help.glow, 196 - help.glow);
-        font::print(flags | PR_CJK_HIGH, -1, FLIP(220), loc::gettext("Press M to mute in game"), 164 - help.glow, 196 - help.glow, 164 - help.glow);
-        font::print(flags, -1, FLIP(230), loc::gettext("Press N to mute music only"), 164 - help.glow, 196 - help.glow, 164 - help.glow);
+
+        if (BUTTONGLYPHS_keyboard_is_available())
+        {
+            font::print(flags | PR_CJK_LOW, -1, FLIP(120), loc::gettext("[click to resume]"), 196 - help.glow, 255 - help.glow, 196 - help.glow);
+
+            font::print(flags | PR_CJK_HIGH, -1, FLIP(220), loc::gettext("Press M to mute in game"), 164 - help.glow, 196 - help.glow, 164 - help.glow);
+            font::print(flags, -1, FLIP(230), loc::gettext("Press N to mute music only"), 164 - help.glow, 196 - help.glow, 164 - help.glow);
+        }
 #undef FLIP
     }
     graphics.render();

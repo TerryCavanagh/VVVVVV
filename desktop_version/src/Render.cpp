@@ -1,5 +1,6 @@
 #include <SDL.h>
 
+#include "ActionSets.h"
 #include "Constants.h"
 #include "Credits.h"
 #include "CustomLevels.h"
@@ -1841,18 +1842,12 @@ static const char* interact_prompt(
     const size_t buffer_size,
     const char* raw
 ) {
-    const char* button;
-
-    if (game.separate_interact)
-    {
-        button = loc::gettext("E");
-    }
-    else
-    {
-        button = loc::gettext("ENTER");
-    }
-
-    vformat_buf(buffer, buffer_size, raw, "button:str", button);
+    vformat_buf(
+        buffer, buffer_size,
+        raw,
+        "button:but",
+        vformat_button(ActionSet_InGame, Action_InGame_Interact)
+    );
 
     return buffer;
 }
@@ -1958,7 +1953,14 @@ void gamerender(void)
 
         if (alpha > 100)
         {
-            font::print(PR_BRIGHTNESS(alpha) | PR_BOR, 5, 5, loc::gettext("[Press ENTER to return to editor]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("[Press {button} to return to editor]"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_Map)
+            );
+            font::print(PR_BRIGHTNESS(alpha) | PR_BOR, 5, 5, buffer, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
         }
     }
 #endif
@@ -2077,7 +2079,14 @@ void gamerender(void)
                 }
             }
 
-            font::print(PR_BOR | PR_CEN, -1, 228, loc::gettext("[Press ENTER to stop]"), 160 - (help.glow/2), 160 - (help.glow/2), 160 - (help.glow/2));
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("[Press {button} to stop]"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_Map)
+            );
+            font::print(PR_BOR | PR_CEN, -1, 228, buffer, 160 - (help.glow/2), 160 - (help.glow/2), 160 - (help.glow/2));
         }
         else if(game.swngame==2)
         {

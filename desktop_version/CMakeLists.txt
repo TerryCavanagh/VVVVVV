@@ -71,6 +71,7 @@ endif()
 set(VVV_SRC
     src/BinaryBlob.cpp
     src/BlockV.cpp
+    src/ButtonGlyphs.cpp
     src/CWrappers.cpp
     src/Ent.cpp
     src/Entity.cpp
