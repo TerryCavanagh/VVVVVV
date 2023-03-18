@@ -387,7 +387,8 @@ void customlevelclass::reset(void)
 
     onewaycol_override = false;
 
-    customcolours.clear();
+    script.textbox_colours.clear();
+    script.add_default_colours();
     map.specialroomnames.clear();
 }
 
@@ -1309,7 +1310,7 @@ next:
                         colour.g = g;
                         colour.b = b;
 
-                        customcolours[name] = colour;
+                        script.textbox_colours[name] = colour;
                     }
                 }
             }

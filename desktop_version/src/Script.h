@@ -1,6 +1,7 @@
 #ifndef SCRIPT_H
 #define SCRIPT_H
 
+#include <map>
 #include <string>
 #include <vector>
 
@@ -8,6 +9,7 @@
 
 #define filllines(lines) commands.insert(commands.end(), lines, lines + SDL_arraysize(lines))
 
+#define TEXT_COLOUR(a) script.textbox_colours[a]
 
 struct Script
 {
@@ -76,6 +78,8 @@ public:
         commands.push_back(t);
     }
 
+    void add_default_colours(void);
+
     void clearcustom(void);
 
     void tokenize(const std::string& t);
@@ -101,7 +105,8 @@ public:
     int scriptdelay;
     bool running;
 
-    //Textbox stuff
+    // Textbox stuff
+    std::map<std::string, SDL_Color> textbox_colours;
     int textx;
     int texty;
     int r,g,b;
