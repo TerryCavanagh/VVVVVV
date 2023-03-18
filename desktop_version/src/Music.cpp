@@ -145,7 +145,8 @@ end:
             {
                 FAudioVoiceDetails details;
                 FAudioVoice_GetVoiceDetails(voices[i], &details);
-                if (details.InputChannels != format.nChannels)
+                if (details.InputSampleRate != format.nSamplesPerSec ||
+                details.InputChannels != format.nChannels)
                 {
                     VVV_freefunc(FAudioVoice_DestroyVoice, voices[i]);
                     FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
