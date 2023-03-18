@@ -6,7 +6,6 @@
 #include <SDL.h>
 #include <string>
 #include <vector>
-#include <map>
 
 class CustomEntity
 {

@@ -9,7 +9,11 @@
 
 #define filllines(lines) commands.insert(commands.end(), lines, lines + SDL_arraysize(lines))
 
+#ifdef SCRIPT_DEFINITION
+#define TEXT_COLOUR(a) textbox_colours[a]
+#else
 #define TEXT_COLOUR(a) script.textbox_colours[a]
+#endif
 
 struct Script
 {

@@ -18,6 +18,7 @@
 #include "Music.h"
 #include "RoomnameTranslator.h"
 #include "Screen.h"
+#include "Script.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"
@@ -929,7 +930,8 @@ void Graphics::drawgui(void)
                 {
                     y = 240 - y - 8*sc;
                 }
-                font::print((sc==2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, 164, 164, 255);
+                SDL_Color color = TEXT_COLOUR("cyan");
+                font::print((sc==2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, color.r, color.g, color.b);
             }
             else
             {
@@ -1420,11 +1422,8 @@ void Graphics::textboxadjust(void)
 
 void Graphics::createtextboxreal(
     const std::string& t,
-    int xp,
-    int yp,
-    int r,
-    int g,
-    int b,
+    int xp, int yp,
+    int r, int g, int b,
     bool flipme
 ) {
     m = textboxes.size();
@@ -1445,22 +1444,32 @@ void Graphics::createtextboxreal(
 
 void Graphics::createtextbox(
     const std::string& t,
-    int xp,
-    int yp,
-    int r,
-    int g,
-    int b
+    int xp, int yp,
+    SDL_Color color
+) {
+    createtextboxreal(t, xp, yp, color.r, color.g, color.b, false);
+}
+
+void Graphics::createtextbox(
+    const std::string& t,
+    int xp, int yp,
+    int r, int g, int b
 ) {
     createtextboxreal(t, xp, yp, r, g, b, false);
 }
 
 void Graphics::createtextboxflipme(
     const std::string& t,
-    int xp,
-    int yp,
-    int r,
-    int g,
-    int b
+    int xp, int yp,
+    SDL_Color color
+) {
+    createtextboxreal(t, xp, yp, color.r, color.g, color.b, true);
+}
+
+void Graphics::createtextboxflipme(
+    const std::string& t,
+    int xp, int yp,
+    int r, int g, int b
 ) {
     createtextboxreal(t, xp, yp, r, g, b, true);
 }
