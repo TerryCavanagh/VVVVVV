@@ -314,6 +314,17 @@ end:
         sample_pos = 0;
         stb_vorbis_seek_start(vorbis);
 
+        if (!IsHalted())
+        {
+            FAudioVoiceDetails details;
+            FAudioVoice_GetVoiceDetails(musicVoice, &details);
+            if (details.InputSampleRate != format.nSamplesPerSec ||
+            details.InputChannels != format.nChannels)
+            {
+                Halt();
+            }
+        }
+
         if (IsHalted())
         {
             SDL_zero(callbacks);
