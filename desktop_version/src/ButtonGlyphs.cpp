@@ -109,9 +109,19 @@ const char* BUTTONGLYPHS_get_button(const ActionSet actionset, const Action acti
      * to fill into strings like "Press {button} to activate terminal". */
     switch (actionset)
     {
+    case ActionSet_Menu:
+        switch (action.Menu)
+        {
+        case Action_Menu_Accept:
+            return loc::gettext("ACTION");
+        }
+        break;
     case ActionSet_InGame:
         switch (action.InGame)
         {
+        case Action_InGame_ACTION:
+            return loc::gettext("ACTION");
+
         case Action_InGame_Interact:
             if (game.separate_interact)
             {

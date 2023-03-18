@@ -24,7 +24,7 @@ extern "C"
 typedef enum
 {
     //ActionSet_Global,
-    //ActionSet_Menu,
+    ActionSet_Menu,
     ActionSet_InGame
     //ActionSet_Editor
 }
@@ -45,6 +45,13 @@ Action_Global;
 
 typedef enum
 {
+    Action_Menu_Accept
+}
+Action_Menu;
+
+typedef enum
+{
+    Action_InGame_ACTION,
     Action_InGame_Interact,
     Action_InGame_Map
 }
@@ -67,6 +74,7 @@ typedef union
 {
     int intval;
     //Action_Global Global;
+    Action_Menu Menu;
     Action_InGame InGame;
     //Action_Editor Editor;
 }

@@ -1,6 +1,7 @@
 #include <SDL.h>
 
 #include "ActionSets.h"
+#include "ButtonGlyphs.h"
 #include "Constants.h"
 #include "Credits.h"
 #include "CustomLevels.h"
@@ -1623,8 +1624,18 @@ void titlerender(void)
         font::print(PR_RIGHT, 264, temp+35, loc::gettext("MAKE AND PLAY EDITION"), tr, tg, tb);
 #endif
 
-        font::print_wrap(PR_CEN, -1, 175, loc::gettext("[ Press ACTION to Start ]"), tr, tg, tb);
-        font::print_wrap(PR_CEN, -1, 195, loc::gettext("ACTION = Space, Z, or V"), int(tr*0.5f), int(tg*0.5f), int(tb*0.5f));
+        char buffer[SCREEN_WIDTH_CHARS*2 + 1];
+        vformat_buf(
+            buffer, sizeof(buffer),
+            loc::gettext("[ Press {button} to Start ]"),
+            "button:but",
+            vformat_button(ActionSet_Menu, Action_Menu_Accept)
+        );
+        font::print_wrap(PR_CEN, -1, 175, buffer, tr, tg, tb);
+        if (BUTTONGLYPHS_keyboard_is_active())
+        {
+            font::print_wrap(PR_CEN, -1, 195, loc::gettext("ACTION = Space, Z, or V"), int(tr*0.5f), int(tg*0.5f), int(tb*0.5f));
+        }
     }
     else
     {
@@ -1975,13 +1986,17 @@ void gamerender(void)
 
     graphics.copy_texture(graphics.gameplayTexture, NULL, NULL);
 
-    if (graphics.flipmode)
+    if (game.advancetext)
     {
-        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-    }
-    else
-    {
-        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        char buffer_adv[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(
+            buffer_adv, sizeof(buffer_adv),
+            loc::gettext("- Press {button} to advance text -"),
+            "button:but",
+            vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+        );
+
+        font::print(PR_CEN | PR_BOR, -1, graphics.flipmode ? 228 : 5, buffer_adv, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     if (game.readytotele > 100 || game.oldreadytotele > 100)
@@ -2593,7 +2608,14 @@ void maprender(void)
         }
         else if (obj.flags[67] && !map.custommode)
         {
-            font::print_wrap(PR_CEN, -1, 105, loc::gettext("Press ACTION to warp to the ship."), 196, 196, 255 - help.glow);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("Press {button} to warp to the ship."),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+            );
+            font::print_wrap(PR_CEN, -1, 105, buffer, 196, 196, 255 - help.glow);
         }
 #if !defined(NO_CUSTOM_LEVELS)
         else if(map.custommode){
@@ -2755,7 +2777,15 @@ void maprender(void)
 
         if (!game.gamesaved)
         {
-            font::print(PR_CEN, -1, 80, loc::gettext("[Press ACTION to save your game]"), 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("[Press {button} to save your game]"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+            );
+
+            font::print(PR_CEN, -1, 80, buffer, 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
 
             if (map.custommode || game.quicksummary == "")
             {
@@ -2991,13 +3021,17 @@ void teleporterrender(void)
 
     graphics.drawgui();
 
-    if (graphics.flipmode)
+    if (game.advancetext)
     {
-        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-    }
-    else
-    {
-        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        char buffer_adv[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(
+            buffer_adv, sizeof(buffer_adv),
+            loc::gettext("- Press {button} to advance text -"),
+            "button:but",
+            vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+        );
+
+        font::print(PR_CEN | PR_BOR, -1, graphics.flipmode ? 228 : 5, buffer_adv, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     graphics.set_render_target(graphics.gameTexture);

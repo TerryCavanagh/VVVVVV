@@ -715,7 +715,14 @@ void Game::remaining_textbox(void)
 
 void Game::actionprompt_textbox(void)
 {
-    graphics.createtextboxflipme(loc::gettext("Press ACTION to continue"), -1, 196, 164, 164, 255);
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(
+        buffer, sizeof(buffer),
+        loc::gettext("Press {button} to continue"),
+        "button:but",
+        vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+    );
+    graphics.createtextboxflipme(buffer, -1, 196, 164, 164, 255);
     graphics.textboxprintflags(PR_FONT_INTERFACE);
     graphics.textboxpad(1, 1);
     graphics.textboxcenterx();
@@ -1114,7 +1121,15 @@ void Game::updatestate(void)
                 graphics.textboxremovefast();
                 obj.flags[3] = true;
                 setstate(0);
-                graphics.createtextbox(loc::gettext("Press ACTION to flip"), -1, 25, 174, 174, 174);
+
+                char buffer[SCREEN_WIDTH_CHARS*3 + 1];
+                vformat_buf(
+                    buffer, sizeof(buffer),
+                    loc::gettext("Press {button} to flip"),
+                    "button:but",
+                    vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+                );
+                graphics.createtextbox(buffer, -1, 25, 174, 174, 174);
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(4);
                 graphics.textboxcentertext();
