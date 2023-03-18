@@ -69,28 +69,29 @@ public:
 
     void createtextboxreal(
         const std::string& t,
-        int xp,
-        int yp,
-        int r,
-        int g,
-        int b,
+        int xp, int yp,
+        int r, int g, int b,
         bool flipme
     );
     void createtextbox(
         const std::string& t,
-        int xp,
-        int yp,
-        int r,
-        int g,
-        int b
+        int xp, int yp,
+        SDL_Color color
+    );
+    void createtextbox(
+        const std::string& t,
+        int xp, int yp,
+        int r, int g, int b
     );
     void createtextboxflipme(
         const std::string& t,
-        int xp,
-        int yp,
-        int r,
-        int g,
-        int b
+        int xp, int yp,
+        SDL_Color color
+    );
+    void createtextboxflipme(
+        const std::string& t,
+        int xp, int yp,
+        int r, int g, int b
     );
 
     void textboxcenterx(void);

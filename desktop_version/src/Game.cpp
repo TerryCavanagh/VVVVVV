@@ -707,7 +707,7 @@ void Game::remaining_textbox(void)
         SDL_strlcpy(buffer, loc::gettext("All Crew Members Rescued!"), sizeof(buffer));
     }
 
-    graphics.createtextboxflipme(buffer, -1, 128 + 16, 174, 174, 174);
+    graphics.createtextboxflipme(buffer, -1, 128 + 16, TEXT_COLOUR("gray"));
     graphics.textboxprintflags(PR_FONT_INTERFACE);
     graphics.textboxpad(2, 2);
     graphics.textboxcenterx();
@@ -722,7 +722,7 @@ void Game::actionprompt_textbox(void)
         "button:but",
         vformat_button(ActionSet_InGame, Action_InGame_ACTION)
     );
-    graphics.createtextboxflipme(buffer, -1, 196, 164, 164, 255);
+    graphics.createtextboxflipme(buffer, -1, 196, TEXT_COLOUR("cyan"));
     graphics.textboxprintflags(PR_FONT_INTERFACE);
     graphics.textboxpad(1, 1);
     graphics.textboxcenterx();
@@ -737,7 +737,7 @@ void Game::savetele_textbox(void)
 
     if (savetele())
     {
-        graphics.createtextboxflipme(loc::gettext("Game Saved"), -1, 12, 174, 174, 174);
+        graphics.createtextboxflipme(loc::gettext("Game Saved"), -1, 12, TEXT_COLOUR("gray"));
         graphics.textboxprintflags(PR_FONT_INTERFACE);
         graphics.textboxpad(3, 3);
         graphics.textboxcenterx();
@@ -745,7 +745,7 @@ void Game::savetele_textbox(void)
     }
     else
     {
-        graphics.createtextboxflipme(loc::gettext("ERROR: Could not save game!"), -1, 12, 255, 60, 60);
+        graphics.createtextboxflipme(loc::gettext("ERROR: Could not save game!"), -1, 12, TEXT_COLOUR("red"));
         graphics.textboxprintflags(PR_FONT_INTERFACE);
         graphics.textboxwrap(2);
         graphics.textboxpad(1, 1);
@@ -833,14 +833,14 @@ void Game::updatestate(void)
             advancetext = true;
             hascontrol = false;
             setstate(3);
-            graphics.createtextbox("To do: write quick", 50, 80, 164, 164, 255);
+            graphics.createtextbox("To do: write quick", 50, 80, TEXT_COLOUR("cyan"));
             graphics.addline("intro to story!");
             graphics.textboxprintflags(PR_FONT_8X8);
             //Oh no! what happen to rest of crew etc crash into dimension
             break;
         case 4:
             //End of opening cutscene for now
-            graphics.createtextbox(BUTTONGLYPHS_get_wasd_text(), -1, 195, 174, 174, 174);
+            graphics.createtextbox(BUTTONGLYPHS_get_wasd_text(), -1, 195, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxwrap(4);
             graphics.textboxcentertext();
@@ -881,7 +881,7 @@ void Game::updatestate(void)
                     vformat_button(ActionSet_InGame, Action_InGame_Map)
                 );
 
-                graphics.createtextbox(buffer, -1, 155, 174, 174, 174);
+                graphics.createtextbox(buffer, -1, 155, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(4);
                 graphics.textboxcentertext();
@@ -974,7 +974,7 @@ void Game::updatestate(void)
                 "floorceiling:str, crewmate:str",
                 floorceiling, crewmate
             );
-            graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+            graphics.createtextbox(loc::gettext(english), -1, 3, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxwrap(2);
             graphics.textboxpadtowidth(36*8);
@@ -1004,7 +1004,7 @@ void Game::updatestate(void)
                 default:
                     english = "You can't continue to the next room until they are safely across.";
                 }
-                graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+                graphics.createtextbox(loc::gettext(english), -1, 3, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(2);
                 graphics.textboxpadtowidth(36*8);
@@ -1047,7 +1047,7 @@ void Game::updatestate(void)
                 "floorceiling:str, crewmate:str",
                 floorceiling, crewmate
             );
-            graphics.createtextbox(loc::gettext(english), -1, 3, 174, 174, 174);
+            graphics.createtextbox(loc::gettext(english), -1, 3, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxwrap(2);
             graphics.textboxpadtowidth(36*8);
@@ -1086,7 +1086,7 @@ void Game::updatestate(void)
             obj.removetrigger(17);
             if (BUTTONGLYPHS_keyboard_is_active())
             {
-                graphics.createtextbox(loc::gettext("If you prefer, you can press UP or DOWN instead of ACTION to flip."), -1, 187, 174, 174, 174);
+                graphics.createtextbox(loc::gettext("If you prefer, you can press UP or DOWN instead of ACTION to flip."), -1, 187, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(2);
                 graphics.textboxcentertext();
@@ -1129,7 +1129,7 @@ void Game::updatestate(void)
                     "button:but",
                     vformat_button(ActionSet_InGame, Action_InGame_ACTION)
                 );
-                graphics.createtextbox(buffer, -1, 25, 174, 174, 174);
+                graphics.createtextbox(buffer, -1, 25, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(4);
                 graphics.textboxcentertext();
@@ -1475,7 +1475,7 @@ void Game::updatestate(void)
 
         case 50:
             music.playef(15);
-            graphics.createtextbox(loc::gettext("Help! Can anyone hear this message?"), 5, 8, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Help! Can anyone hear this message?"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
@@ -1483,7 +1483,7 @@ void Game::updatestate(void)
             break;
         case 51:
             music.playef(15);
-            graphics.createtextbox(loc::gettext("Verdigris? Are you out there? Are you ok?"), 5, 8, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Verdigris? Are you out there? Are you ok?"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
@@ -1491,7 +1491,7 @@ void Game::updatestate(void)
             break;
         case 52:
             music.playef(15);
-            graphics.createtextbox(loc::gettext("Please help us! We've crashed and need assistance!"), 5, 8, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Please help us! We've crashed and need assistance!"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
@@ -1499,7 +1499,7 @@ void Game::updatestate(void)
             break;
         case 53:
             music.playef(15);
-            graphics.createtextbox(loc::gettext("Hello? Anyone out there?"), 5, 8, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Hello? Anyone out there?"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
@@ -1507,7 +1507,7 @@ void Game::updatestate(void)
             break;
         case 54:
             music.playef(15);
-            graphics.createtextbox(loc::gettext("This is Doctor Violet from the D.S.S. Souleye! Please respond!"), 5, 8, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("This is Doctor Violet from the D.S.S. Souleye! Please respond!"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
@@ -1515,7 +1515,7 @@ void Game::updatestate(void)
             break;
         case 55:
             music.playef(15);
-            graphics.createtextbox(loc::gettext("Please... Anyone..."), 5, 8, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Please... Anyone..."), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             incstate();
@@ -1523,7 +1523,7 @@ void Game::updatestate(void)
             break;
         case 56:
             music.playef(15);
-            graphics.createtextbox(loc::gettext("Please be alright, everyone..."), 5, 8, 255, 134, 255);
+            graphics.createtextbox(loc::gettext("Please be alright, everyone..."), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
             setstate(50);
@@ -1748,7 +1748,7 @@ void Game::updatestate(void)
         }
         break;
         case 104:
-            graphics.createtextbox("I'm glad you're ok!", 135, 152, 164, 164, 255);
+            graphics.createtextbox("I'm glad you're ok!", 135, 152, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(11);
@@ -1772,7 +1772,7 @@ void Game::updatestate(void)
         }
         break;
         case 108:
-            graphics.createtextbox("Don't worry! I have a", 125, 152, 164, 164, 255);
+            graphics.createtextbox("Don't worry! I have a", 125, 152, TEXT_COLOUR("cyan"));
             graphics.addline("teleporter key!");
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
@@ -1788,7 +1788,7 @@ void Game::updatestate(void)
                 obj.entities[i].tile = 0;
                 obj.entities[i].state = 1;
             }
-            graphics.createtextbox("Follow me!", 185, 154, 164, 164, 255);
+            graphics.createtextbox("Follow me!", 185, 154, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(11);
@@ -1870,7 +1870,7 @@ void Game::updatestate(void)
             advancetext = true;
             hascontrol = false;
 
-            graphics.createtextbox("Captain! You're ok!", 60-10, 90-40, 255, 255, 134);
+            graphics.createtextbox("Captain! You're ok!", 60-10, 90-40, TEXT_COLOUR("yellow"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(14);
@@ -1878,7 +1878,7 @@ void Game::updatestate(void)
         }
         case 124:
         {
-            graphics.createtextbox("I've found a teleporter, but", 60-20, 90 - 40, 255, 255, 134);
+            graphics.createtextbox("I've found a teleporter, but", 60-20, 90 - 40, TEXT_COLOUR("yellow"));
             graphics.addline("I can't get it to go anywhere...");
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
@@ -1887,14 +1887,14 @@ void Game::updatestate(void)
             break;
         }
         case 126:
-            graphics.createtextbox("I can help with that!", 125, 152-40, 164, 164, 255);
+            graphics.createtextbox("I can help with that!", 125, 152-40, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(11);
             graphics.textboxactive();
             break;
         case 128:
-            graphics.createtextbox("I have the teleporter", 130, 152-35, 164, 164, 255);
+            graphics.createtextbox("I have the teleporter", 130, 152-35, TEXT_COLOUR("cyan"));
             graphics.addline("codex for our ship!");
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
@@ -1904,7 +1904,7 @@ void Game::updatestate(void)
 
         case 130:
         {
-            graphics.createtextbox("Yey! Let's go home!", 60-30, 90-35, 255, 255, 134);
+            graphics.createtextbox("Yey! Let's go home!", 60-30, 90-35, TEXT_COLOUR("yellow"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(14);
@@ -2003,7 +2003,7 @@ void Game::updatestate(void)
             //Found a trinket!
             advancetext = true;
             incstate();
-            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, 174, 174, 174);
+            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             int h = graphics.textboxwrap(2);
             graphics.textboxcentertext();
@@ -2030,7 +2030,7 @@ void Game::updatestate(void)
                 "n_trinkets:int, max_trinkets:int",
                 trinkets(), max_trinkets
             );
-            graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
+            graphics.createtextboxflipme(buffer, 50, 95+h, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxwrap(2);
             graphics.textboxcentertext();
@@ -2071,7 +2071,7 @@ void Game::updatestate(void)
             //Found a crewmate!
             advancetext = true;
             incstate();
-            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a lost crewmate!"), 50, 85, 174, 174, 174);
+            graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a lost crewmate!"), 50, 85, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             int h = graphics.textboxwrap(2);
             graphics.textboxcentertext();
@@ -2080,7 +2080,7 @@ void Game::updatestate(void)
 
             if(cl.numcrewmates()-crewmates()==0)
             {
-                graphics.createtextboxflipme(loc::gettext("All crewmates rescued!"), 50, 95+h, 174, 174, 174);
+                graphics.createtextboxflipme(loc::gettext("All crewmates rescued!"), 50, 95+h, TEXT_COLOUR("gray"));
             }
             else
             {
@@ -2091,7 +2091,7 @@ void Game::updatestate(void)
                     "n_crew:int",
                     cl.numcrewmates()-crewmates()
                 );
-                graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
+                graphics.createtextboxflipme(buffer, 50, 95+h, TEXT_COLOUR("gray"));
             }
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.textboxwrap(4);
@@ -2299,7 +2299,7 @@ void Game::updatestate(void)
         case 2510:
             advancetext = true;
             hascontrol = false;
-            graphics.createtextbox("Hello?", 125+24, 152-20, 164, 164, 255);
+            graphics.createtextbox("Hello?", 125+24, 152-20, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(11);
@@ -2308,7 +2308,7 @@ void Game::updatestate(void)
         case 2512:
             advancetext = true;
             hascontrol = false;
-            graphics.createtextbox("Is anyone there?", 125+8, 152-24, 164, 164, 255);
+            graphics.createtextbox("Is anyone there?", 125+8, 152-24, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
             music.playef(11);
@@ -2849,7 +2849,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45+15);
 
-            graphics.createtextboxflipme(loc::gettext("All Crew Members Rescued!"), -1, 64, 0, 0, 0);
+            graphics.createtextboxflipme(loc::gettext("All Crew Members Rescued!"), -1, 64, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             char buffer[SCREEN_WIDTH_CHARS + 1];
             timestringcenti(buffer, sizeof(buffer));
@@ -2868,9 +2868,9 @@ void Game::updatestate(void)
                 "gamecomplete_n_trinkets:int",
                 trinkets()
             );
-            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 84, 0,0,0);
+            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 84, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.createtextboxflipme(buffer, 180, 84, 0, 0, 0);
+            graphics.createtextboxflipme(buffer, 180, 84, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             break;
         }
@@ -2881,9 +2881,9 @@ void Game::updatestate(void)
 
             const char* label = loc::gettext("Game Time:");
             std::string tempstring = savetime;
-            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 96, 0,0,0);
+            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 96, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.createtextboxflipme(tempstring, 180, 96, 0, 0, 0);
+            graphics.createtextboxflipme(tempstring, 180, 96, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             break;
         }
@@ -2893,9 +2893,9 @@ void Game::updatestate(void)
             setstatedelay(45);
 
             const char* label = loc::gettext("Total Flips:");
-            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 123, 0,0,0);
+            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 123, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.createtextboxflipme(help.String(totalflips), 180, 123, 0, 0, 0);
+            graphics.createtextboxflipme(help.String(totalflips), 180, 123, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             break;
         }
@@ -2905,9 +2905,9 @@ void Game::updatestate(void)
             setstatedelay(45+15);
 
             const char* label = loc::gettext("Total Deaths:");
-            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 135, 0,0,0);
+            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 135, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.createtextboxflipme(help.String(deathcounts), 180, 135, 0, 0, 0);
+            graphics.createtextboxflipme(help.String(deathcounts), 180, 135, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             break;
         }
@@ -2924,9 +2924,9 @@ void Game::updatestate(void)
                 "n_deaths:int",
                 hardestroomdeaths
             );
-            graphics.createtextboxflipme(buffer, -1, 158, 0,0,0);
+            graphics.createtextboxflipme(buffer, -1, 158, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.createtextboxflipme(hardestroom, -1, 170, 0, 0, 0);
+            graphics.createtextboxflipme(hardestroom, -1, 170, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             break;
         }

@@ -57,6 +57,7 @@ scriptclass::scriptclass(void)
 
 void scriptclass::add_default_colours(void)
 {
+    textbox_colours["player"] = graphics.getRGB(164, 164, 255);
     textbox_colours["cyan"] = graphics.getRGB(164, 164, 255);
     textbox_colours["red"] = graphics.getRGB(255, 60, 60);
     textbox_colours["green"] = graphics.getRGB(144, 255, 144);
@@ -1742,7 +1743,7 @@ void scriptclass::run(void)
 
                 graphics.textboxremovefast();
 
-                graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, 174, 174, 174);
+                graphics.createtextboxflipme(loc::gettext("Congratulations!\n\nYou have found a shiny trinket!"), 50, 85, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 int h = graphics.textboxwrap(2);
                 graphics.textboxcentertext();
@@ -1769,7 +1770,7 @@ void scriptclass::run(void)
                     "n_trinkets:int, max_trinkets:int",
                     game.trinkets(), max_trinkets
                 );
-                graphics.createtextboxflipme(buffer, 50, 95+h, 174, 174, 174);
+                graphics.createtextboxflipme(buffer, 50, 95+h, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(2);
                 graphics.textboxcentertext();
@@ -1792,7 +1793,7 @@ void scriptclass::run(void)
 
                 graphics.textboxremovefast();
 
-                graphics.createtextbox(loc::gettext("Congratulations!\n\nYou have found the secret lab!"), 50, 85, 174, 174, 174);
+                graphics.createtextbox(loc::gettext("Congratulations!\n\nYou have found the secret lab!"), 50, 85, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(2);
                 graphics.textboxcentertext();
@@ -1814,7 +1815,7 @@ void scriptclass::run(void)
             {
                 graphics.textboxremovefast();
 
-                graphics.createtextbox(loc::gettext("The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu."), 50, 85, 174, 174, 174);
+                graphics.createtextbox(loc::gettext("The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu."), 50, 85, TEXT_COLOUR("gray"));
                 graphics.textboxprintflags(PR_FONT_INTERFACE);
                 graphics.textboxwrap(0);
                 graphics.textboxcenterx();
