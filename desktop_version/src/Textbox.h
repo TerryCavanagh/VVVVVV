@@ -52,6 +52,7 @@ public:
     bool large;
 
     uint32_t print_flags;
+    bool fill_buttons;
 };
 
 #endif /* TEXTBOX_H */

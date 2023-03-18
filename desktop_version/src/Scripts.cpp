@@ -5054,9 +5054,10 @@ bool scriptclass::load(const std::string& name)
 
         "squeak(purple)",
         "text(purple,0,0,2)",
-        "Remember that you can press ENTER",
+        "Remember that you can press {b_map}",
         "to check where you are on the map!",
         "position(purple,above)",
+        "textbuttons()",
         "speak_active",
 
         "squeak(purple)",
