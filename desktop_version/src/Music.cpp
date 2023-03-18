@@ -116,7 +116,7 @@ public:
         format.nChannels = spec.channels;
         format.nSamplesPerSec = spec.freq;
         format.wFormatTag = FAUDIO_FORMAT_PCM;
-        format.wBitsPerSample = 16;
+        format.wBitsPerSample = SDL_AUDIO_BITSIZE(spec.format);
         format.nBlockAlign = format.nChannels * format.wBitsPerSample;
         format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
         format.cbSize = 0;
