@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #include "Alloc.h"
+#include "ButtonGlyphs.h"
 #include "CWrappers.h"
 #include "UTF8.h"
 
@@ -28,18 +29,36 @@ static inline void trim_whitespace(const char** string, size_t* bytes)
     }
 }
 
-static inline void call_with_button(format_callback callback, void* userdata, int button_value)
+int vformat_button(ActionSet actionset, int action)
+{
+    /* Pack an ActionSet and Action into a single vararg int.
+     * action is an Action */
+    return (((int) actionset) << 16) | action;
+}
+
+static void vformat_unbutton(ActionSet* actionset, Action* action, const int vararg_value)
+{
+    // Unpack the ActionSet and Action from a packed vararg value.
+    *actionset = vararg_value >> 16;
+    action->intval = vararg_value & 0xFFFF;
+}
+
+static inline void call_with_button(format_callback callback, void* userdata, int vararg_value)
 {
     /* Call the given callback with the specified button character (from
      * Unicode Private Use Area) so the text renderer can display it. */
 
-    if (button_value < 0 || button_value > 0xFF)
-    {
-        button_value = 0xFF;
-    }
+    ActionSet actionset;
+    Action action;
+    vformat_unbutton(&actionset, &action, vararg_value);
 
-    UTF8_encoding utf8 = UTF8_encode(0xE000 + button_value);
-    callback(userdata, utf8.bytes, utf8.nbytes);
+    const char* button_text = BUTTONGLYPHS_get_button(actionset, action);
+    if (button_text == NULL)
+    {
+        callback(userdata, "[null]", 6);
+        return;
+    }
+    callback(userdata, button_text, SDL_strlen(button_text));
 }
 
 static inline void call_with_upper(format_callback callback, void* userdata, const char* string, size_t bytes)
@@ -274,11 +293,11 @@ void vformat_cb_valist(
                 }
                 else if (arg_type_len == 3 && SDL_memcmp(arg_type, "but", 3) == 0)
                 {
-                    int button_value = va_arg(args_copy, int);
+                    int vararg_value = va_arg(args_copy, int);
 
                     if (match)
                     {
-                        call_with_button(callback, userdata, button_value);
+                        call_with_button(callback, userdata, vararg_value);
                     }
                 }
                 else
