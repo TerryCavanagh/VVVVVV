@@ -697,8 +697,7 @@ static void load_stdin(void)
         bool end = ch == EOF;
         if (end)
         {
-            /* Add null terminator. There's no observable change in
-             * behavior if addnull is always true, but not vice versa. */
+            /* Always add null terminator. */
             ch = '\0';
         }
 
@@ -729,8 +728,7 @@ static void load_stdin(void)
 void FILESYSTEM_loadFileToMemory(
     const char *name,
     unsigned char **mem,
-    size_t *len,
-    bool addnull
+    size_t *len
 ) {
     PHYSFS_File *handle;
     PHYSFS_sint64 length;
@@ -739,12 +737,6 @@ void FILESYSTEM_loadFileToMemory(
     if (name == NULL || mem == NULL)
     {
         goto fail;
-    }
-
-    if (len == NULL && !addnull)
-    {
-        vlog_warn("%s is loaded with len == NULL && !addnull", name);
-        SDL_assert(0 && "Are you sure you don't want a null terminator to be added to these loaded file contents?");
     }
 
     /* FIXME: Dumb hack to use `special/stdin.vvvvvv` here...
@@ -791,23 +783,14 @@ void FILESYSTEM_loadFileToMemory(
         }
         *len = length;
     }
-    if (addnull)
+
+    *mem = (unsigned char *) SDL_malloc(length + 1);
+    if (*mem == NULL)
     {
-        *mem = (unsigned char *) SDL_malloc(length + 1);
-        if (*mem == NULL)
-        {
-            VVV_exit(1);
-        }
-        (*mem)[length] = 0;
+        VVV_exit(1);
     }
-    else
-    {
-        *mem = (unsigned char*) SDL_malloc(length);
-        if (*mem == NULL)
-        {
-            VVV_exit(1);
-        }
-    }
+    (*mem)[length] = 0;
+
     success = PHYSFS_readBytes(handle, *mem, length);
     if (success == -1)
     {
@@ -830,14 +813,13 @@ fail:
 void FILESYSTEM_loadAssetToMemory(
     const char* name,
     unsigned char** mem,
-    size_t* len,
-    const bool addnull
+    size_t* len
 ) {
     char path[MAX_PATH];
 
     getMountedPath(path, sizeof(path), name);
 
-    FILESYSTEM_loadFileToMemory(path, mem, len, addnull);
+    FILESYSTEM_loadFileToMemory(path, mem, len);
 }
 
 bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
@@ -980,7 +962,7 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 {
     /* XMLDocument.LoadFile doesn't account for Unicode paths, PHYSFS does */
     unsigned char *mem;
-    FILESYSTEM_loadFileToMemory(name, &mem, NULL, true);
+    FILESYSTEM_loadFileToMemory(name, &mem, NULL);
     if (mem == NULL)
     {
         return false;
@@ -994,7 +976,7 @@ bool FILESYSTEM_loadAssetTiXml2Document(const char *name, tinyxml2::XMLDocument&
 {
     /* Same as FILESYSTEM_loadTiXml2Document except for possible custom assets */
     unsigned char *mem;
-    FILESYSTEM_loadAssetToMemory(name, &mem, NULL, true);
+    FILESYSTEM_loadAssetToMemory(name, &mem, NULL);
     if (mem == NULL)
     {
         return false;

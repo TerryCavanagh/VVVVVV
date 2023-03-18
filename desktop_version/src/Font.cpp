@@ -349,7 +349,7 @@ static uint8_t load_font(FontContainer* container, const char* name)
     {
         /* The .txt can contain null bytes, but it's still null-terminated - it protects
          * against incomplete sequences getting the UTF-8 decoder to read out of bounds. */
-        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, &length, true);
+        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, &length);
     }
     if (charmap != NULL)
     {

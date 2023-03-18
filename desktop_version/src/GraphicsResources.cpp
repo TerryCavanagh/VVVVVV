@@ -29,7 +29,7 @@ static SDL_Surface* LoadImageRaw(const char* filename, unsigned char** data)
 
     unsigned char* fileIn;
     size_t length;
-    FILESYSTEM_loadAssetToMemory(filename, &fileIn, &length, false);
+    FILESYSTEM_loadAssetToMemory(filename, &fileIn, &length);
     if (fileIn == NULL)
     {
         SDL_assert(0 && "Image file missing!");

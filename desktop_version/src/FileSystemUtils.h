@@ -31,12 +31,11 @@ bool FILESYSTEM_isAssetMounted(const char* filename);
 bool FILESYSTEM_areAssetsInSameRealDir(const char* filenameA, const char* filenameB);
 
 void FILESYSTEM_loadFileToMemory(const char *name, unsigned char **mem,
-                                 size_t *len, bool addnull);
+                                 size_t *len);
 void FILESYSTEM_loadAssetToMemory(
     const char* name,
     unsigned char** mem,
-    size_t* len,
-    const bool addnull
+    size_t* len
 );
 
 bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename);

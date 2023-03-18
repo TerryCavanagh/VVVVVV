@@ -286,7 +286,7 @@ void customlevelclass::getDirectoryData(void)
 bool customlevelclass::getLevelMetaDataAndPlaytestArgs(const std::string& _path, LevelMetaData& _data, CliPlaytestArgs* pt_args)
 {
     unsigned char *uMem;
-    FILESYSTEM_loadFileToMemory(_path.c_str(), &uMem, NULL, true);
+    FILESYSTEM_loadFileToMemory(_path.c_str(), &uMem, NULL);
 
     if (uMem == NULL)
     {

@@ -100,7 +100,7 @@ public:
         SDL_AudioSpec spec;
         SDL_RWops *fileIn;
         SDL_zerop(this);
-        FILESYSTEM_loadAssetToMemory(fileName, &mem, &length, false);
+        FILESYSTEM_loadAssetToMemory(fileName, &mem, &length);
         if (mem == NULL)
         {
             vlog_error("Unable to load WAV file %s", fileName);
