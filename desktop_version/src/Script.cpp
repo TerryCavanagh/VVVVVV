@@ -43,6 +43,8 @@ scriptclass::scriptclass(void)
     r = 0;
     textx = 0;
     texty = 0;
+    textbox_colours.clear();
+    add_default_colours();
     textflipme = false;
     textcentertext = false;
     textpad_left = 0;
@@ -51,6 +53,20 @@ scriptclass::scriptclass(void)
     textcase = 1;
     textbuttons = false;
     textlarge = false;
+}
+
+void scriptclass::add_default_colours(void)
+{
+    textbox_colours["cyan"] = graphics.getRGB(164, 164, 255);
+    textbox_colours["red"] = graphics.getRGB(255, 60, 60);
+    textbox_colours["green"] = graphics.getRGB(144, 255, 144);
+    textbox_colours["yellow"] = graphics.getRGB(255, 255, 134);
+    textbox_colours["blue"] = graphics.getRGB(95, 95, 255);
+    textbox_colours["purple"] = graphics.getRGB(255, 134, 255);
+    textbox_colours["white"] = graphics.getRGB(244, 244, 244);
+    textbox_colours["gray"] = graphics.getRGB(174, 174, 174);
+    textbox_colours["orange"] = graphics.getRGB(255, 130, 20);
+    textbox_colours["transparent"] = graphics.getRGB(0, 0, 0);
 }
 
 void scriptclass::clearcustom(void)
@@ -452,90 +468,17 @@ void scriptclass::run(void)
             }
             else if (words[0] == "text")
             {
-                //oh boy
-                //first word is the colour.
-#ifndef NO_CUSTOM_LEVELS
-                if (cl.customcolours.count(words[1]) != 0)
+                // oh boy
+                // first word is the colour.
+                if (textbox_colours.count(words[1]) == 0)
                 {
-                    r = cl.customcolours[words[1]].r;
-                    g = cl.customcolours[words[1]].g;
-                    b = cl.customcolours[words[1]].b;
+                    // No colour named this, use gray
+                    words[1] = "gray";
                 }
-                else // Turn the if into an else if so we don't run the default colour processing
-#endif
-                if (words[1] == "cyan")
-                {
-                    r = 164;
-                    g = 164;
-                    b = 255;
-                }
-                else if (words[1] == "player")
-                {
-                    r = 164;
-                    g = 164;
-                    b = 255;
-                }
-                else if (words[1] == "red")
-                {
-                    r = 255;
-                    g = 60;
-                    b = 60;
-                }
-                else if (words[1] == "green")
-                {
-                    r = 144;
-                    g = 255;
-                    b = 144;
-                }
-                else if (words[1] == "yellow")
-                {
-                    r = 255;
-                    g = 255;
-                    b = 134;
-                }
-                else if (words[1] == "blue")
-                {
-                    r = 95;
-                    g = 95;
-                    b = 255;
-                }
-                else if (words[1] == "purple")
-                {
-                    r = 255;
-                    g = 134;
-                    b = 255;
-                }
-                else if (words[1] == "white")
-                {
-                    r = 244;
-                    g = 244;
-                    b = 244;
-                }
-                else if (words[1] == "gray")
-                {
-                    r = 174;
-                    g = 174;
-                    b = 174;
-                }
-                else if (words[1] == "orange")
-                {
-                    r = 255;
-                    g = 130;
-                    b = 20;
-                }
-                else if (words[1] == "transparent")
-                {
-                    r = 0;
-                    g = 0;
-                    b = 0;
-                }
-                else
-                {
-                    //use a gray
-                    r = 174;
-                    g = 174;
-                    b = 174;
-                }
+
+                r = textbox_colours[words[1]].r;
+                g = textbox_colours[words[1]].g;
+                b = textbox_colours[words[1]].b;
 
                 //next are the x,y coordinates
                 textx = ss_toi(words[2]);
