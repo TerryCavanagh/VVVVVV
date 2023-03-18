@@ -213,6 +213,8 @@
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Выберите, хотите ли вы взаимодействовать с объектами при помощи клавиши ENTER или E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
+    <string english="ESC" translation="" explanation="keyboard key ESC"/>
+    <string english="ACTION" translation="" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Клавиша взаимодействия: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="фальшивый экран загрузки" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Экран загрузки" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
@@ -418,11 +420,15 @@
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Чтобы установить новые пользовательские уровни, скопируйте файлы .vvvvvv в папку с уровнями." explanation="" max="38*3"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Вы уверены, что хотите показать путь к папке с уровнями? Это может раскрыть конфиденциальную информацию, если вы стримите в данный момент." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Путь к уровням:" explanation="" max="40"/>
-    <string english="[ Press ACTION to Start ]" translation="[ Нажмите ДЕЙСТВИЕ, чтобы начать ]" explanation="title screen" max="38*2"/>
+    <string english="[ Press ACTION to Start ]" translation="[ Нажмите ДЕЙСТВИЕ, чтобы начать ]" explanation="***OUTDATED***" max="38*2"/>
+    <string english="[ Press {button} to Start ]" translation="" explanation="title screen. Expect `ACTION`" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="ДЕЙСТВИЕ = Пробел, Z или V" explanation="title screen" max="38*3"/>
-    <string english="[Press ENTER to return to editor]" translation="[ENTER - вернуться к редактору]" explanation="`to editor` is sorta redundant" max="40"/>
-    <string english="- Press ACTION to advance text -" translation="- Нажмите ДЕЙСТВИЕ, чтобы продолжить -" explanation="to dismiss a textbox" max="40"/>
-    <string english="Press ACTION to continue" translation="Нажмите ДЕЙСТВИЕ, чтобы продолжить" explanation="" max="34"/>
+    <string english="[Press ENTER to return to editor]" translation="[ENTER - вернуться к редактору]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to return to editor]" translation="" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="- Press ACTION to advance text -" translation="- Нажмите ДЕЙСТВИЕ, чтобы продолжить -" explanation="***OUTDATED***" max="40"/>
+    <string english="- Press {button} to advance text -" translation="" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="Press ACTION to continue" translation="Нажмите ДЕЙСТВИЕ, чтобы продолжить" explanation="***OUTDATED***" max="34"/>
+    <string english="Press {button} to continue" translation="" explanation="Expect `ACTION`" max="34"/>
     <string english="Current Time" translation="Текущее время" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Лучшее время" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="След. трофей на 5 секундах" explanation="" max="38*2"/>
@@ -434,7 +440,8 @@
     <string english="All Trophies collected!" translation="Все трофеи собраны!" explanation="" max="38*2"/>
     <string english="New Record!" translation="Новый рекорд!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Новый трофей!" explanation="" max="20"/>
-    <string english="[Press ENTER to stop]" translation="[Нажмите ENTER, чтобы закончить]" explanation="stop super gravitron" max="40"/>
+    <string english="[Press ENTER to stop]" translation="[Нажмите ENTER, чтобы закончить]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to stop]" translation="" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="СУПЕР ГРАВИТРОН" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="РЕКОРД В СУПЕР ГРАВИТРОНЕ" explanation="" max="38*4"/>
     <string english="MAP" translation="КАРТА" explanation="in-game menu" max="8"/>
@@ -447,7 +454,8 @@
     <string english="[ QUIT ]" translation="[ ВЫЙТИ ]" explanation="in-game menu" max="40"/>
     <string english="[ GRAVITRON ]" translation="[ ГРАВИТРОН ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="НЕТ СИГНАЛА" explanation="map screen. So like a TV/computer monitor" max="29"/>
-    <string english="Press ACTION to warp to the ship." translation="Нажмите ДЕЙСТВИЕ, чтобы телепортироваться на корабль." explanation="spaceship. Warp = teleport" max="38*7"/>
+    <string english="Press ACTION to warp to the ship." translation="Нажмите ДЕЙСТВИЕ, чтобы телепортироваться на корабль." explanation="***OUTDATED***" max="38*7"/>
+    <string english="Press {button} to warp to the ship." translation="" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
     <string english="Missing..." translation="Пропал..." case="1" explanation="this male crew member is missing" max="15"/>
     <string english="Missing..." translation="Пропала..." case="2" explanation="this female crew member is missing" max="15"/>
     <string english="Missing..." translation="Без вести..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
@@ -461,7 +469,8 @@
     <string english="ERROR: Could not save game!" translation="ОШИБКА: Не удалось сохранить игру!" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="ОШИБКА: Не удалось сохранить файл настроек!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Сохранение успешно!" explanation="in-game menu" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Нажмите ДЕЙСТВИЕ, чтобы сохраниться]" explanation="in-game menu" max="40"/>
+    <string english="[Press ACTION to save your game]" translation="[Нажмите ДЕЙСТВИЕ, чтобы сохраниться]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to save your game]" translation="" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Игра автоматически сохраняется на каждом телепорте.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Последнее сохранение:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Вернуться в главное меню?" explanation="in-game menu" max="38*4"/>
@@ -652,8 +661,11 @@
     <string english="All crewmates rescued!" translation="Все члены экипажа спасены!" explanation="" max="32"/>
     <string english="Game Saved" translation="Игра сохранена" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="Используйте клавиши со стрелками или WASD, чтобы передвигаться" explanation="" max="32*2"/>
-    <string english="Press ACTION to flip" translation="Нажмите ДЕЙСТВИЕ, чтобы перевернуться" explanation="" max="32*3"/>
-    <string english="Press ENTER to view map and quicksave" translation="Нажмите ENTER, чтобы открыть карту или сделать быстрое сохранение" explanation="" max="32*3"/>
+    <string english="Press left/right to move" translation="" explanation="" max="32*2"/>
+    <string english="Press ACTION to flip" translation="Нажмите ДЕЙСТВИЕ, чтобы перевернуться" explanation="***OUTDATED***" max="32*3"/>
+    <string english="Press {button} to flip" translation="" explanation="expect `ACTION`" max="32*3"/>
+    <string english="Press ENTER to view map and quicksave" translation="Нажмите ENTER, чтобы открыть карту или сделать быстрое сохранение" explanation="***OUTDATED***" max="32*3"/>
+    <string english="Press {button} to view map and quicksave" translation="" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Если хотите, вы можете нажимать ВВЕРХ или ВНИЗ вместо ДЕЙСТВИЯ, чтобы перевернуться." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="Помогите! Кто-нибудь слышит это сообщение?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="Вердигри? Где ты? Ты в порядке?" explanation="Violet speaking via Comms Relay" max="25*4"/>

@@ -76,10 +76,11 @@
     <cutscene id="bigopenworldskip" explanation="">
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="Ich bin hier, wenn du Hilfe brauchst!"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="">
+    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Ich fühle mich ein bisschen überfordert, Doktor."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Wo soll ich anfangen?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Denk dran, dass du ENTER drücken kannst, um zu sehen, wo du auf der Karte bist!"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation=""/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Halte Ausschau nach Bereichen, in denen der Rest der Crew sein könnte..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Wenn du dich verirrst, kannst du von jedem Teleporter aus zum Schiff zurückkehren."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="Und mach dir keine Sorgen! Wir werden alle finden!"/>
