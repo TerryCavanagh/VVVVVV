@@ -19,7 +19,7 @@ public:
     void ResizeToNearestMultiple(void);
     void GetWindowSize(int* x, int* y);
 
-    void RenderPresent();
+    void RenderPresent(void);
 
     void toggleFullScreen(void);
     void toggleScalingMode(void);

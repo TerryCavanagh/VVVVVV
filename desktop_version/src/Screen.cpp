@@ -267,7 +267,7 @@ void Screen::GetWindowSize(int* x, int* y)
     }
 }
 
-void Screen::RenderPresent()
+void Screen::RenderPresent(void)
 {
     SDL_RenderPresent(m_renderer);
     graphics.clear();

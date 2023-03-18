@@ -175,13 +175,13 @@ public:
 
     void setstate(int gamestate);
 
-    void incstate();
+    void incstate(void);
 
     void setstatedelay(int delay);
 
-    void lockstate();
+    void lockstate(void);
 
-    void unlockstate();
+    void unlockstate(void);
 
     void updatestate(void);
 
@@ -265,7 +265,7 @@ public:
     bool hascontrol, jumpheld;
     int jumppressed;
     int gravitycontrol;
-    bool isingamecompletescreen();
+    bool isingamecompletescreen(void);
 
     bool muted;
     int mutebutton;

@@ -107,11 +107,11 @@ public:
 
     void textboxpadtowidth(size_t new_w);
 
-    void textboxcentertext();
+    void textboxcentertext(void);
 
     void textboxprintflags(uint32_t flags);
 
-    void textboxcommsrelay();
+    void textboxcommsrelay(void);
 
     void textboxadjust(void);
 
@@ -190,7 +190,7 @@ public:
     int set_blendmode(SDL_Texture* texture, SDL_BlendMode blendmode);
 
     int clear(int r, int g, int b, int a);
-    int clear();
+    int clear(void);
 
     int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest);
     int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, double angle, const SDL_Point* center, SDL_RendererFlip flip);

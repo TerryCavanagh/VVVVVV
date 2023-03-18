@@ -19,7 +19,7 @@ public:
     void destroy(void);
 
     void play(int t);
-    void resume();
+    void resume(void);
     void resumefade(const int fadein_ms);
     void pause(void);
     void haltdasmusik(void);

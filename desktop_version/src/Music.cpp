@@ -125,12 +125,12 @@ end:
         VVV_free(mem);
     }
 
-    void Dispose()
+    void Dispose(void)
     {
         VVV_free(wav_buffer);
     }
 
-    void Play()
+    void Play(void)
     {
         if (!valid)
         {
@@ -200,7 +200,7 @@ end:
         }
     }
 
-    static void Pause()
+    static void Pause(void)
     {
         for (size_t i = 0; i < VVV_MAX_CHANNELS; i++)
         {
@@ -208,7 +208,7 @@ end:
         }
     }
 
-    static void Resume()
+    static void Resume(void)
     {
         for (size_t i = 0; i < VVV_MAX_CHANNELS; i++)
         {
@@ -216,7 +216,7 @@ end:
         }
     }
 
-    static void Destroy()
+    static void Destroy(void)
     {
         if (voices != NULL)
         {
@@ -291,7 +291,7 @@ end:
         SDL_RWclose(rw);
     }
 
-    void Dispose()
+    void Dispose(void)
     {
         stb_vorbis_close(vorbis);
         VVV_free(read_buf);
@@ -351,7 +351,7 @@ end:
         return true;
     }
 
-    static void Halt()
+    static void Halt(void)
     {
         if (!IsHalted())
         {
@@ -361,12 +361,12 @@ end:
         }
     }
 
-    static bool IsHalted()
+    static bool IsHalted(void)
     {
         return musicVoice == NULL;
     }
 
-    static void Pause()
+    static void Pause(void)
     {
         if (!IsHalted())
         {
@@ -375,12 +375,12 @@ end:
         }
     }
 
-    static bool IsPaused()
+    static bool IsPaused(void)
     {
         return paused || IsHalted();
     }
 
-    static void Resume()
+    static void Resume(void)
     {
         if (!IsHalted())
         {
@@ -872,7 +872,7 @@ void musicclass::play(int t)
     }
 }
 
-void musicclass::resume()
+void musicclass::resume(void)
 {
     MusicTrack::Resume();
 }

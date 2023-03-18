@@ -548,7 +548,7 @@ int Graphics::clear(const int r, const int g, const int b, const int a)
     return result;
 }
 
-int Graphics::clear()
+int Graphics::clear(void)
 {
     return clear(0, 0, 0, 255);
 }
@@ -3099,7 +3099,7 @@ void Graphics::textboxpadtowidth(size_t new_w)
     textboxes[m].padtowidth(new_w);
 }
 
-void Graphics::textboxcentertext()
+void Graphics::textboxcentertext(void)
 {
     if (!INBOUNDS_VEC(m, textboxes))
     {
@@ -3122,7 +3122,7 @@ void Graphics::textboxprintflags(const uint32_t flags)
     textboxes[m].resize();
 }
 
-void Graphics::textboxcommsrelay()
+void Graphics::textboxcommsrelay(void)
 {
     /* Special treatment for the gamestate textboxes in Comms Relay */
     if (!INBOUNDS_VEC(m, textboxes))

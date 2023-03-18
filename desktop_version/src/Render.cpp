@@ -2284,7 +2284,7 @@ static void draw_roomname_menu(void)
  * the same in Flip Mode. */
 #define FLIP(y, h) (graphics.flipmode ? 220 - (y) - (h) : (y))
 
-static MapRenderData getmaprenderdata()
+static MapRenderData getmaprenderdata(void)
 {
     MapRenderData data;
 

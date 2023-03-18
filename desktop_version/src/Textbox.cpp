@@ -159,7 +159,7 @@ void textboxclass::padtowidth(size_t new_w)
     resize();
 }
 
-void textboxclass::centertext()
+void textboxclass::centertext(void)
 {
     padtowidth(w-16);
 }

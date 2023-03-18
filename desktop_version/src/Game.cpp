@@ -754,7 +754,7 @@ void Game::setstate(const int gamestate)
     }
 }
 
-void Game::incstate()
+void Game::incstate(void)
 {
     if (!statelocked)
     {
@@ -770,12 +770,12 @@ void Game::setstatedelay(const int delay)
     }
 }
 
-void Game::lockstate()
+void Game::lockstate(void)
 {
     statelocked = true;
 }
 
-void Game::unlockstate()
+void Game::unlockstate(void)
 {
     statelocked = false;
 }
@@ -7394,7 +7394,7 @@ void Game::sabotage_time_trial(void)
     timetrialparlost = true;
 }
 
-bool Game::isingamecompletescreen()
+bool Game::isingamecompletescreen(void)
 {
     return (state >= 3501 && state <= 3518) || (state >= 3520 && state <= 3522);
 }

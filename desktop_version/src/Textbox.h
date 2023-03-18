@@ -32,7 +32,7 @@ public:
 
     void padtowidth(size_t new_w);
 
-    void centertext();
+    void centertext(void);
 public:
     //Fundamentals
     std::vector<std::string> lines;
