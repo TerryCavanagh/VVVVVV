@@ -111,6 +111,8 @@ public:
 
     void textboxprintflags(uint32_t flags);
 
+    void textboxbuttons(void);
+
     void textboxcommsrelay(void);
 
     void textboxadjust(void);

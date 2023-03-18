@@ -764,6 +764,17 @@ void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 
     draw_texture_part(grphx.im_tiles3, x, y, x2, y2, 8, 8 - height_subtract, 1, 1);
 }
 
+static void fill_buttons(char* buffer, const size_t buffer_len, const char* line)
+{
+    vformat_buf(buffer, buffer_len,
+        line,
+        "b_int:but,"
+        "b_map:but",
+        vformat_button(ActionSet_InGame, Action_InGame_Interact),
+        vformat_button(ActionSet_InGame, Action_InGame_Map)
+    );
+}
+
 void Graphics::drawgui(void)
 {
     int text_sign;
@@ -840,15 +851,44 @@ void Graphics::drawgui(void)
             const int b = textboxes[i].b * tl_lerp;
             size_t j;
 
-            drawpixeltextbox(textboxes[i].xp, yp, textboxes[i].w, textboxes[i].h, r, g, b);
+            int w = textboxes[i].w;
+            if (textboxes[i].fill_buttons)
+            {
+                /* If we can fill in buttons, the width of the box may change...
+                 * This is Violet's fault. She decided to say a button name out loud. */
+                int max = 0;
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+                for (j = 0; j < textboxes[i].lines.size(); j++)
+                {
+                    fill_buttons(buffer, sizeof(buffer), textboxes[i].lines[j].c_str());
+                    int len = font::len(textboxes[i].print_flags, buffer);
+                    if (len > max)
+                    {
+                        max = len;
+                    }
+                }
+                w = max + 16;
+            }
+
+            drawpixeltextbox(textboxes[i].xp, yp, w, textboxes[i].h, r, g, b);
 
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
+                const char* line = textboxes[i].lines[j].c_str();
+                char buffer[SCREEN_WIDTH_CHARS + 1];
+
+                if (textboxes[i].fill_buttons)
+                {
+                    // Fill button placeholders like {b_map} in dialogue text.
+                    fill_buttons(buffer, sizeof(buffer), line);
+                    line = buffer;
+                }
+
                 font::print(
                     textboxes[i].print_flags | PR_BRIGHTNESS(tl_lerp*255) | PR_CJK_LOW,
                     textboxes[i].xp + 8,
                     yp + text_yoff + text_sign * (j * font_height),
-                    textboxes[i].lines[j],
+                    line,
                     textboxes[i].r, textboxes[i].g, textboxes[i].b
                 );
             }
@@ -3146,6 +3186,17 @@ void Graphics::textboxprintflags(const uint32_t flags)
 
     textboxes[m].print_flags = flags;
     textboxes[m].resize();
+}
+
+void Graphics::textboxbuttons(void)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxbuttons() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].fill_buttons = true;
 }
 
 void Graphics::textboxcommsrelay(void)

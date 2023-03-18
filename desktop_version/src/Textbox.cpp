@@ -27,6 +27,7 @@ textboxclass::textboxclass(void)
     large = false;
 
     print_flags = PR_FONT_LEVEL;
+    fill_buttons = false;
 }
 
 void textboxclass::centerx(void)

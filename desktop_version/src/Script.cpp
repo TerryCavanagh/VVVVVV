@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <SDL_timer.h>
 
+#include "Alloc.h"
 #include "Constants.h"
 #include "CustomLevels.h"
 #include "Editor.h"
@@ -48,6 +49,7 @@ scriptclass::scriptclass(void)
     textpad_right = 0;
     textpadtowidth = 0;
     textcase = 1;
+    textbuttons = false;
     textlarge = false;
 }
 
@@ -798,6 +800,12 @@ void scriptclass::run(void)
                         || key.isDown(KEYBOARD_UP) || key.isDown(KEYBOARD_DOWN)) game.jumpheld = true;
                 }
                 game.backgroundtext = false;
+
+                if (textbuttons)
+                {
+                    graphics.textboxbuttons();
+                }
+                textbuttons = false;
             }
             else if (words[0] == "endtext")
             {
@@ -2426,6 +2434,11 @@ void scriptclass::run(void)
                         position--;
                     }
                 }
+            }
+            else if (words[0] == "textbuttons")
+            {
+                // Parse buttons in the next textbox
+                textbuttons = true;
             }
             else if (words[0] == "textcase")
             {

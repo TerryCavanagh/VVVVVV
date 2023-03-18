@@ -111,6 +111,7 @@ public:
     size_t textpad_right;
     size_t textpadtowidth;
     char textcase;
+    bool textbuttons;
     bool textlarge;
 
     //Misc
