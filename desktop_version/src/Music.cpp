@@ -294,7 +294,7 @@ end:
 
     void Dispose(void)
     {
-        stb_vorbis_close(vorbis);
+        VVV_freefunc(stb_vorbis_close, vorbis);
         VVV_free(read_buf);
         VVV_free(decoded_buf_playing);
         VVV_free(decoded_buf_reserve);
