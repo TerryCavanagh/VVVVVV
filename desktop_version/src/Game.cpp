@@ -805,6 +805,12 @@ void Game::updatestate(void)
             }
             else
             {
+                if (completestop)
+                {
+                    /* Close potential collection dialogue if warping to ship */
+                    graphics.textboxremove();
+                    graphics.showcutscenebars = false;
+                }
                 /* Prevent softlocks if there's no cutscene running right now */
                 hascontrol = true;
                 completestop = false;
