@@ -107,7 +107,7 @@ public:
         }
 
         SDL_zerop(this);
-        if (SDL_memcmp(mem, "OggS", 4) == 0)
+        if (length >= 4 && SDL_memcmp(mem, "OggS", 4) == 0)
         {
             LoadOGG(fileName, mem, length);
         }
