@@ -95,18 +95,32 @@ class SoundTrack
 public:
     SoundTrack(const char* fileName)
     {
-        unsigned char *mem;
+        unsigned char* mem;
         size_t length;
-        SDL_AudioSpec spec;
-        SDL_RWops *fileIn;
-        SDL_zerop(this);
+
         FILESYSTEM_loadAssetToMemory(fileName, &mem, &length);
         if (mem == NULL)
         {
-            vlog_error("Unable to load WAV file %s", fileName);
-            SDL_assert(0 && "WAV file missing!");
+            vlog_error("Unable to load sound file %s", fileName);
+            SDL_assert(0 && "Sound file missing!");
             return;
         }
+
+        SDL_zerop(this);
+        if (SDL_memcmp(mem, "OggS", 4) == 0)
+        {
+            LoadOGG(fileName, mem, length);
+        }
+        else
+        {
+            LoadWAV(fileName, mem, length);
+        }
+    }
+
+    void LoadWAV(const char* fileName, unsigned char* mem, const size_t length)
+    {
+        SDL_AudioSpec spec;
+        SDL_RWops *fileIn;
         fileIn = SDL_RWFromConstMem(mem, length);
         if (SDL_LoadWAV_RW(fileIn, 1, &spec, &wav_buffer, &wav_length) == NULL)
         {
@@ -125,9 +139,41 @@ end:
         VVV_free(mem);
     }
 
+    void LoadOGG(const char* fileName, unsigned char* mem, const size_t length)
+    {
+        int err;
+        stb_vorbis_info vorbis_info;
+        vorbis = stb_vorbis_open_memory(mem, length, &err, NULL);
+        if (vorbis == NULL)
+        {
+            vlog_error("Unable to create Vorbis handle for %s, error %d", fileName, err);
+            VVV_free(mem);
+            return;
+        }
+        vorbis_info = stb_vorbis_get_info(vorbis);
+        format.wFormatTag = FAUDIO_FORMAT_IEEE_FLOAT;
+        format.wBitsPerSample = sizeof(float) * 8;
+        format.nChannels = vorbis_info.channels;
+        format.nSamplesPerSec = vorbis_info.sample_rate;
+        format.nBlockAlign = format.nChannels * format.wBitsPerSample;
+        format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
+        format.cbSize = 0;
+
+        channels = format.nChannels;
+        size = format.nAvgBytesPerSec;
+        decoded_buf_playing = (Uint8*) SDL_malloc(size);
+
+        ogg_file = mem;
+        valid = true;
+    }
+
     void Dispose(void)
     {
         VVV_free(wav_buffer);
+
+        VVV_free(decoded_buf_playing);
+        VVV_freefunc(stb_vorbis_close, vorbis);
+        VVV_free(ogg_file);
     }
 
     void Play(void)
@@ -151,7 +197,7 @@ end:
                     VVV_freefunc(FAudioVoice_DestroyVoice, voices[i]);
                     FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
                 }
-                const FAudioBuffer faudio_buffer = {
+                FAudioBuffer faudio_buffer = {
                     FAUDIO_END_OF_STREAM, /* Flags */
                     wav_length * 8, /* AudioBytes */
                     wav_buffer, /* AudioData */
@@ -162,6 +208,18 @@ end:
                     0, /* LoopCount */
                     NULL
                 };
+                if (vorbis != NULL)
+                {
+                    stb_vorbis_seek_start(vorbis);
+                    faudio_buffer.PlayLength = stb_vorbis_get_samples_float_interleaved(
+                        vorbis,
+                        channels,
+                        (float*) decoded_buf_playing,
+                        size / sizeof(float)
+                    );
+                    faudio_buffer.AudioBytes = size;
+                    faudio_buffer.pAudioData = decoded_buf_playing;
+                }
                 if (FAudioSourceVoice_SubmitSourceBuffer(voices[i], &faudio_buffer, NULL))
                 {
                     vlog_error("Unable to queue sound buffer");
@@ -241,6 +299,13 @@ end:
     Uint8 *wav_buffer;
     Uint32 wav_length;
     FAudioWaveFormatEx format;
+
+    unsigned char* ogg_file;
+    stb_vorbis* vorbis;
+    int channels;
+    Uint32 size;
+    Uint8* decoded_buf_playing;
+
     bool valid;
 
     static FAudioSourceVoice** voices;
