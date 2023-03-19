@@ -1967,11 +1967,12 @@ void gamerender(void)
     graphics.cutscenebars();
     graphics.drawfade();
 
+    graphics.drawgui();
+
     graphics.set_render_target(graphics.gameTexture);
 
     graphics.copy_texture(graphics.gameplayTexture, NULL, NULL);
 
-    graphics.drawgui();
     if (graphics.flipmode)
     {
         if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
