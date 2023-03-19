@@ -1,4 +1,5 @@
 #include <tinyxml2.h>
+#include <vector>
 
 #include "Credits.h"
 #include "CustomLevels.h"
@@ -2508,8 +2509,6 @@ void gameinput(void)
     bool has_control = false;
     bool enter_pressed = game.press_map && !game.mapheld;
     bool enter_already_processed = false;
-    bool any_onground = false;
-    bool any_onroof = false;
     bool interact_pressed;
     if (game.separate_interact)
     {
@@ -2626,15 +2625,6 @@ void gameinput(void)
                     obj.entities[ie].dir = 1;
                 }
             }
-
-            if (obj.entities[ie].onground > 0)
-            {
-                any_onground = true;
-            }
-            if (obj.entities[ie].onroof > 0)
-            {
-                any_onroof = true;
-            }
         }
     }
 
@@ -2695,33 +2685,51 @@ void gameinput(void)
             game.jumpheld = true;
         }
 
-        if (game.jumppressed > 0)
+        std::vector<size_t> player_entities;
+        for (size_t ie = 0; ie < obj.entities.size(); ie++)
         {
+            if (obj.entities[ie].rule == 0)
+            {
+                player_entities.push_back(ie);
+            }
+        }
+
+        for (size_t ie = 0; ie < obj.entities.size(); ie++)
+        {
+            const bool process_flip = obj.entities[ie].rule == 0 &&
+                game.jumppressed > 0;
+            if (!process_flip)
+            {
+                continue;
+            }
+
             game.jumppressed--;
-            if (any_onground && game.gravitycontrol == 0)
+            if (obj.entities[ie].onground > 0 && game.gravitycontrol == 0)
             {
                 game.gravitycontrol = 1;
-                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+                for (size_t j = 0; j < player_entities.size(); j++)
                 {
-                    if (obj.entities[ie].rule == 0 && (obj.entities[ie].onground > 0 || obj.entities[ie].onroof > 0))
+                    const size_t e = player_entities[j];
+                    if (obj.entities[e].onground > 0 || obj.entities[e].onroof > 0)
                     {
-                        obj.entities[ie].vy = -4;
-                        obj.entities[ie].ay = -3;
+                        obj.entities[e].vy = -4;
+                        obj.entities[e].ay = -3;
                     }
                 }
                 music.playef(0);
                 game.jumppressed = 0;
                 game.totalflips++;
             }
-            if (any_onroof && game.gravitycontrol == 1)
+            if (obj.entities[ie].onroof > 0 && game.gravitycontrol == 1)
             {
                 game.gravitycontrol = 0;
-                for (size_t ie = 0; ie < obj.entities.size(); ++ie)
+                for (size_t j = 0; j < player_entities.size(); j++)
                 {
-                    if (obj.entities[ie].rule == 0 && (obj.entities[ie].onground > 0 || obj.entities[ie].onroof > 0))
+                    const size_t e = player_entities[j];
+                    if (obj.entities[e].onground > 0 || obj.entities[e].onroof > 0)
                     {
-                        obj.entities[ie].vy = 4;
-                        obj.entities[ie].ay = 3;
+                        obj.entities[e].vy = 4;
+                        obj.entities[e].ay = 3;
                     }
                 }
                 music.playef(1);
