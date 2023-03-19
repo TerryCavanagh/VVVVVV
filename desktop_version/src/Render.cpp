@@ -583,6 +583,34 @@ static void menurender(void)
         switch (game.currentmenuoption)
         {
         case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        {
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Game Pad"), tr, tg, tb);
+            font::print_wrap(PR_CEN, -1, 55, loc::gettext("Change controller options."), tr, tg, tb);
+            break;
+        }
+        case 6:
+        {
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Rumble"), tr, tg, tb);
+            int next_y = font::print_wrap(PR_CEN, -1, 55, loc::gettext("Turn gamepad rumble on or off."), tr, tg, tb);
+            if (game.rumble == true)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Rumble is ON."), tr, tg, tb);
+            }
+            else
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Rumble is OFF."), tr / 2, tg / 2, tb / 2);
+            }
+            break;
+        }
+        }
+        switch (game.currentmenuoption)
+        {
+        case 0:
         {
             font::print(0, 32, 75, loc::gettext("Low"), tr, tg, tb);
             font::print(PR_CEN, -1, 75, loc::gettext("Medium"), tr, tg, tb);

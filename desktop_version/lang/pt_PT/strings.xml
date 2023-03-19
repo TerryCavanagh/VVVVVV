@@ -142,11 +142,16 @@
     <string english="bind menu" translation="definir menu" explanation="menu option"/>
     <string english="bind restart" translation="definir reiniciar" explanation="menu option. In-game death key to restart at checkpoint"/>
     <string english="bind interact" translation="definir interação" explanation="menu option"/>
+    <string english="toggle rumble" translation="" explanation="menu option, controller rumble (vibration) feature"/>
     <string english="Flip is bound to: " translation="Inversão: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Entrar: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menu: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Reiniciar: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Interação: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Rumble" translation="" explanation="title" max="20"/>
+    <string english="Turn gamepad rumble on or off." translation="" explanation="" max="38*3"/>
+    <string english="Rumble is ON." translation="" explanation="" max="38*2"/>
+    <string english="Rumble is OFF." translation="" explanation="" max="38*2"/>
     <string english="ERROR: No language files found." translation="ERRO: Não há ficheiros de idioma." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Pasta de idioma:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Pasta de repositório de idioma:" explanation="Language folder from the Git repository" max="39"/>

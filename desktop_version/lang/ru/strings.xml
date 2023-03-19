@@ -142,11 +142,16 @@
     <string english="bind menu" translation="назначить меню" explanation="menu option"/>
     <string english="bind restart" translation="назначить возврат" explanation="menu option. In-game death key to restart at checkpoint"/>
     <string english="bind interact" translation="назначить взаимодействие" explanation="menu option"/>
+    <string english="toggle rumble" translation="" explanation="menu option, controller rumble (vibration) feature"/>
     <string english="Flip is bound to: " translation="Переворот назначен на: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Ввод назначен на: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Меню назначено на: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Возврат назначен на: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Взаимодействие назначено на: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Rumble" translation="" explanation="title" max="20"/>
+    <string english="Turn gamepad rumble on or off." translation="" explanation="" max="38*3"/>
+    <string english="Rumble is ON." translation="" explanation="" max="38*2"/>
+    <string english="Rumble is OFF." translation="" explanation="" max="38*2"/>
     <string english="ERROR: No language files found." translation="ОШИБКА: Файлы локализации не обнаружены." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Папка локализации:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Папка локализации из репозитория:" explanation="Language folder from the Git repository" max="39"/>

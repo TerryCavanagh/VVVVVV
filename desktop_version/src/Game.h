@@ -528,6 +528,7 @@ public:
     bool disableaudiopause;
     bool disabletemporaryaudiopause;
     bool inputdelay;
+    bool rumble;
 
     bool statelocked;
 };

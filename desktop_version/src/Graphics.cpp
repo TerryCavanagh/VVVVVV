@@ -13,6 +13,7 @@
 #include "Font.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
+#include "KeyPoll.h"
 #include "Map.h"
 #include "Maths.h"
 #include "Music.h"
@@ -3210,6 +3211,8 @@ void Graphics::screenshake(void)
     clear();
 
     copy_texture(tempShakeTexture, NULL, NULL, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+
+    key.controllerRumble(0x7FFF,10);
 }
 
 void Graphics::updatescreenshake(void)

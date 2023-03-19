@@ -496,3 +496,20 @@ bool KeyPoll::controllerWantsDown(void)
 {
     return buttonmap[SDL_CONTROLLER_BUTTON_DPAD_DOWN] || yVel > 0;
 }
+
+int KeyPoll::controllerRumble(Uint16 intensity, Uint32 duration_ms)
+{
+    if (game.rumble)
+    {
+        SDL_Event evt;
+        SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);
+        return SDL_GameControllerRumble(toOpen,intensity,intensity,duration_ms);
+    }
+}
+
+int KeyPoll::controllerRumbleStop(void)
+{
+    SDL_Event evt;
+    SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);
+    return SDL_GameControllerRumble(toOpen,0,0,0);
+}

@@ -142,11 +142,16 @@
     <string english="bind menu" translation="menu toewijzen" explanation="menu option"/>
     <string english="bind restart" translation="herstarten toewijzen" explanation="menu option. In-game death key to restart at checkpoint"/>
     <string english="bind interact" translation="interactie toewijzen" explanation="menu option"/>
+    <string english="toggle rumble" translation="" explanation="menu option, controller rumble (vibration) feature"/>
     <string english="Flip is bound to: " translation="Omkeren is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Enter is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menu is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Herstarten is toegewezen aan: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Interactie is toegewezen aan: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Rumble" translation="" explanation="title" max="20"/>
+    <string english="Turn gamepad rumble on or off." translation="" explanation="" max="38*3"/>
+    <string english="Rumble is ON." translation="" explanation="" max="38*2"/>
+    <string english="Rumble is OFF." translation="" explanation="" max="38*2"/>
     <string english="ERROR: No language files found." translation="FOUT: Geen taalbestanden gevonden." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Talenmap:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Talenmap van repository:" explanation="Language folder from the Git repository" max="39"/>

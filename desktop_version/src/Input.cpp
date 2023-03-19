@@ -1846,8 +1846,14 @@ static void menuactionpress(void)
             }
             game.savestatsandsettings_menu();
             break;
-
         case 6:
+            /* Rumble */
+            music.playef(11);
+            game.rumble = !game.rumble;
+            key.controllerRumble(0xFFFF,250);
+            game.savestatsandsettings_menu();
+            break;
+        case 7:
             music.playef(11);
             game.returnmenu();
             map.nexttowercolour();

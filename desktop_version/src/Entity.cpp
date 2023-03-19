@@ -9,6 +9,7 @@
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
 #include "Localization.h"
+#include "KeyPoll.h"
 #include "Map.h"
 #include "Maths.h"
 #include "Music.h"
@@ -2637,6 +2638,7 @@ bool entityclass::updateentities( int i )
                 return disableentity(i);
 
             }
+            key.controllerRumble(0xCFFF,75);
             break;
         case 5:  //Particle sprays
             if (entities[i].state == 0)
@@ -2685,6 +2687,7 @@ bool entityclass::updateentities( int i )
                         game.savestatsandsettings();
                     }
                 }
+                key.controllerRumble(0xBFFF,200);
 
                 return disableentity(i);
             }
@@ -2706,6 +2709,7 @@ bool entityclass::updateentities( int i )
                 entities[i].onentity = 0;
                 game.savepoint = entities[i].para;
                 music.playef(5);
+                key.controllerRumble(0xBFFF,75);
 
                 game.savex = entities[i].xp - 4;
 
@@ -2751,6 +2755,8 @@ bool entityclass::updateentities( int i )
 
 
                 music.playef(8);
+                key.controllerRumble(0xCFFF,75);
+
                 game.gravitycontrol = (game.gravitycontrol + 1) % 2;
                 game.totalflips++;
                 int temp = getplayer();
@@ -3341,6 +3347,8 @@ bool entityclass::updateentities( int i )
                 if (entities[i].tile == 1)
                 {
                     music.playef(18);
+                    key.controllerRumble(0xCFFF,150);
+
                     entities[i].tile = 2;
                     entities[i].colour = 101;
                     if(!game.intimetrial && !game.nodeathmode)
@@ -4836,6 +4844,8 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
                 if (entityhlinecollide(i, j))
                 {
                     music.playef(8);
+                    key.controllerRumble(0xCFFF,75);
+
                     game.gravitycontrol = (game.gravitycontrol + 1) % 2;
                     game.totalflips++;
                     if (game.gravitycontrol == 0)
