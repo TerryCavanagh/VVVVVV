@@ -136,6 +136,9 @@ static const char* glyph_layout[LAYOUT_TOTAL][SDL_CONTROLLER_BUTTON_RIGHTSHOULDE
     }
 };
 
+static bool keyboard_is_active = true;
+static ButtonGlyphLayout layout = LAYOUT_GENERIC;
+
 void BUTTONGLYPHS_init(void)
 {
     /* Set glyph array to strings for all the button glyph codepoints (U+EBxx) */
@@ -156,7 +159,12 @@ bool BUTTONGLYPHS_keyboard_is_active(void)
 {
     /* Returns true if, not only do we have a keyboard available, but it's also the
      * active input method. (So, show keyboard keys, if false, show controller glyphs) */
-    return true;
+    return keyboard_is_active;
+}
+
+void BUTTONGLYPHS_keyboard_set_active(bool active)
+{
+    keyboard_is_active = active;
 }
 
 const char* BUTTONGLYPHS_get_wasd_text(void)
@@ -177,7 +185,7 @@ static const char* sdlbutton_to_glyph(const SDL_GameControllerButton button)
         return glyph[GLYPH_UNKNOWN];
     }
 
-    return glyph_layout[LAYOUT_PLAYSTATION][button];
+    return glyph_layout[layout][button];
 }
 
 static const char* glyph_for_vector(
