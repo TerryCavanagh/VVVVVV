@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "Alloc.h"
+#include "ButtonGlyphs.h"
 #include "Exit.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"
@@ -174,6 +175,8 @@ void KeyPoll::Poll(void)
                 music.playef(4);
             }
 
+            BUTTONGLYPHS_keyboard_set_active(true);
+
             if (textentry())
             {
                 if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
@@ -268,6 +271,7 @@ void KeyPoll::Poll(void)
         /* Controller Input */
         case SDL_CONTROLLERBUTTONDOWN:
             buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = true;
+            BUTTONGLYPHS_keyboard_set_active(false);
             break;
         case SDL_CONTROLLERBUTTONUP:
             buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = false;
@@ -300,6 +304,7 @@ void KeyPoll::Poll(void)
                 }
                 break;
             }
+            BUTTONGLYPHS_keyboard_set_active(false);
             break;
         }
         case SDL_CONTROLLERDEVICEADDED:
@@ -311,6 +316,7 @@ void KeyPoll::Poll(void)
                 SDL_GameControllerName(toOpen)
             );
             controllers[SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(toOpen))] = toOpen;
+            BUTTONGLYPHS_keyboard_set_active(false);
             break;
         }
         case SDL_CONTROLLERDEVICEREMOVED:
@@ -319,6 +325,10 @@ void KeyPoll::Poll(void)
             controllers.erase(evt.cdevice.which);
             vlog_info("Closing %s", SDL_GameControllerName(toClose));
             SDL_GameControllerClose(toClose);
+            if (controllers.empty())
+            {
+                BUTTONGLYPHS_keyboard_set_active(true);
+            }
             break;
         }
 
