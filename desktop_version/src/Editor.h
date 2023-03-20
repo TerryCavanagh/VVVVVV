@@ -129,7 +129,7 @@ public:
     void entity_clicked(int index);
     void tool_place();
 
-    void get_input_line(const enum TextMode mode, const std::string& prompt, std::string* ptr);
+    void get_input_line(enum TextMode mode, const std::string& prompt, std::string* ptr);
 
     void show_note(const char* text);
 
@@ -148,9 +148,9 @@ public:
     TileTypes get_tile_type(int x, int y, bool wrap);
 
     bool is_background(int x, int y);
-    int backfree(int x, int y);
+    bool backfree(int x, int y);
     bool lines_can_pass(int x, int y);
-    int free(int x, int y);
+    bool free(int x, int y);
     int match(int x, int y);
     int outsidematch(int x, int y);
     int backmatch(int x, int y);
