@@ -807,29 +807,26 @@ static void draw_entities(void)
         }
 
         // Need to also check warp point destinations
-        if (entity->t == 13 && ed.warp_token_entity != i)
+        if (entity->t == 13 && ed.warp_token_entity != i &&
+            entity->p1 / 40 == ed.levx && entity->p2 / 30 == ed.levy)
         {
-            // Is the destination in this room?
-            if (entity->p1 / 40 == ed.levx && entity->p2 / 30 == ed.levy)
+            const int x = entity->p1 % 40 * 8;
+            const int y = entity->p2 % 30 * 8;
+            std::string text;
+
+            graphics.draw_sprite(x, y, 18 + (ed.entframe % 2), 64, 64, 64);
+            graphics.draw_rect((entity->p1 * 8) - (ed.levx * 40 * 8), (entity->p2 * 8) - (ed.levy * 30 * 8), 16, 16, graphics.getRGB(96, 64, 64));
+
+            if (ed.tilex == x / 8 && ed.tiley == y / 8)
             {
-                const int x = entity->p1 % 40 * 8;
-                const int y = entity->p2 % 30 * 8;
-                std::string text;
-
-                graphics.draw_sprite(x, y, 18 + (ed.entframe % 2), 64, 64, 64);
-                graphics.draw_rect((entity->p1 * 8) - (ed.levx * 40 * 8), (entity->p2 * 8) - (ed.levy * 30 * 8), 16, 16, graphics.getRGB(96, 64, 64));
-
-                if (ed.tilex == x / 8 && ed.tiley == y / 8)
-                {
-                    text = "(" + help.String(entity->x / 40 + 1) + "," + help.String(entity->y / 30 + 1) + ")";
-                }
-                else
-                {
-                    text = help.String(cl.findwarptoken(i));
-                }
-
-                font::print(PR_BOR | PR_CJK_HIGH, x, y - 8, text, 190, 190, 225);
+                text = "(" + help.String(entity->x / 40 + 1) + "," + help.String(entity->y / 30 + 1) + ")";
             }
+            else
+            {
+                text = help.String(cl.findwarptoken(i));
+            }
+
+            font::print(PR_BOR | PR_CJK_HIGH, x, y - 8, text, 190, 190, 225);
         }
     }
 }
@@ -1024,24 +1021,24 @@ static void draw_tile_drawer(int tileset)
 
         const int numtiles = (int)(texturewidth / 8) * (textureheight / 8);
 
-        for (int x = 0; x < 40; x++)
+        for (int x = 0; x < SCREEN_WIDTH_TILES; x++)
         {
             for (int y = 0; y < 5; y++)
             {
                 if (tileset == 0)
                 {
-                    graphics.drawtile(x * 8, (y * 8) - t2, (temp + numtiles + (y * 40) + x) % numtiles);
+                    graphics.drawtile(x * 8, (y * 8) - t2, (temp + numtiles + (y * SCREEN_WIDTH_TILES) + x) % numtiles);
                 }
                 else
                 {
-                    graphics.drawtile2(x * 8, (y * 8) - t2, (temp + numtiles + (y * 40) + x) % numtiles);
+                    graphics.drawtile2(x * 8, (y * 8) - t2, (temp + numtiles + (y * SCREEN_WIDTH_TILES) + x) % numtiles);
                 }
             }
         }
 
         // Highlight our little block
-        graphics.draw_rect(((ed.direct_mode_tile % 40) * 8) - 2, 16 - t2 - 2, 12, 12, graphics.getRGB(255 - help.glow, 196, 196));
-        graphics.draw_rect(((ed.direct_mode_tile % 40) * 8) - 1, 16 - t2 - 1, 10, 10, graphics.getRGB(0, 0, 0));
+        graphics.draw_rect(((ed.direct_mode_tile % SCREEN_WIDTH_TILES) * 8) - 2, 16 - t2 - 2, 12, 12, graphics.getRGB(255 - help.glow, 196, 196));
+        graphics.draw_rect(((ed.direct_mode_tile % SCREEN_WIDTH_TILES) * 8) - 1, 16 - t2 - 1, 10, 10, graphics.getRGB(0, 0, 0));
     }
 
     if (ed.direct_mode_drawer > 0 && t2 <= 30)
@@ -1302,8 +1299,6 @@ static void draw_main_ui(void)
 
 void editorclass::draw_tool(EditorTools tool, int x, int y)
 {
-    extern editorclass ed;
-
     switch (tool)
     {
     case EditorTool_WALLS:
@@ -1340,7 +1335,7 @@ void editorclass::draw_tool(EditorTools tool, int x, int y)
         graphics.drawtile(x + 8, y + 4, 1);
         break;
     case EditorTool_ENEMIES:
-        graphics.draw_sprite(x, y, 78 + ed.entframe, 196, 196, 196);
+        graphics.draw_sprite(x, y, 78 + entframe, 196, 196, 196);
         break;
     case EditorTool_GRAVITY_LINES:
         graphics.fill_rect(x + 2, y + 8, 12, 1, graphics.getRGB(255, 255, 255));
@@ -1356,7 +1351,7 @@ void editorclass::draw_tool(EditorTools tool, int x, int y)
         graphics.draw_rect(x + 4, y + 4, 8, 8, graphics.getRGB(96, 96, 96));
         break;
     case EditorTool_WARP_TOKENS:
-        graphics.draw_sprite(x, y, 18 + (ed.entframe % 2), 196, 196, 196);
+        graphics.draw_sprite(x, y, 18 + (entframe % 2), 196, 196, 196);
         break;
     case EditorTool_WARP_LINES:
         graphics.fill_rect(x + 6, y + 2, 4, 12, graphics.getRGB(255, 255, 255));
@@ -1383,7 +1378,6 @@ void editorrender(void)
     switch (ed.state)
     {
     case EditorState_DRAW:
-    {
         // Draw the editor guidelines
         draw_background_grid();
 
@@ -1461,47 +1455,46 @@ void editorrender(void)
         }
 
         break;
-    }
     case EditorState_SCRIPTS:
         // Intended to look like Commodore 64's UI
 
         graphics.fill_rect(0, 0, 320, 240, graphics.getRGB(123, 111, 218));
         graphics.fill_rect(14, 16, 292, 208, graphics.getRGB(61, 48, 162));
 
-        if (ed.substate == EditorSubState_MAIN)
+        switch (ed.substate)
         {
-
+        case EditorSubState_MAIN:
             font::print(PR_CEN, -1, 28, loc::gettext("**** VVVVVV SCRIPT EDITOR ****"), 123, 111, 218);
             font::print(PR_CEN, -1, 44, loc::gettext("PRESS ESC TO RETURN TO MENU"), 123, 111, 218);
 
-            if (!script.customscripts.empty())
-            {
-                for (int i = 0; i < 9; i++)
-                {
-                    if (ed.script_list_offset + i < (int)script.customscripts.size())
-                    {
-                        if (ed.script_list_offset + i == ed.selected_script)
-                        {
-                            std::string text_upper(loc::toupper(script.customscripts[(script.customscripts.size() - 1) - (ed.script_list_offset + i)].name));
-
-                            char buffer[SCREEN_WIDTH_CHARS + 1];
-                            vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
-                            font::print(PR_CEN, -1, 68 + (i * 16), buffer, 123, 111, 218);
-                        }
-                        else
-                        {
-                            font::print(PR_CEN, -1, 68 + (i * 16), script.customscripts[(script.customscripts.size() - 1) - (ed.script_list_offset + i)].name, 123, 111, 218);
-                        }
-                    }
-                }
-            }
-            else
+            if (script.customscripts.empty())
             {
                 font::print(PR_CEN, -1, 110, loc::gettext("NO SCRIPT IDS FOUND"), 123, 111, 218);
                 font::print_wrap(PR_CEN, -1, 130, loc::gettext("CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS"), 123, 111, 218, 10, 288);
+                break;
             }
-        }
-        else if (ed.substate == EditorSubState_SCRIPTS_EDIT)
+            for (int i = 0; i < 9; i++)
+            {
+                const int offset = ed.script_list_offset + i;
+                const bool draw = offset < (int) script.customscripts.size();
+                if (!draw)
+                {
+                    continue;
+                }
+                if (offset == ed.selected_script)
+                {
+                    std::string text_upper(loc::toupper(script.customscripts[script.customscripts.size() - 1 - offset].name));
+                    char buffer[SCREEN_WIDTH_CHARS + 1];
+                    vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
+                    font::print(PR_CEN, -1, 68 + (i * 16), buffer, 123, 111, 218);
+                }
+                else
+                {
+                    font::print(PR_CEN, -1, 68 + (i * 16), script.customscripts[script.customscripts.size() - 1 - offset].name, 123, 111, 218);
+                }
+            }
+            break;
+        case EditorSubState_SCRIPTS_EDIT:
         {
             // Draw the current script's name
             graphics.fill_rect(14, 226, 292, 12, graphics.getRGB(61, 48, 162));
@@ -1529,6 +1522,10 @@ void editorrender(void)
             {
                 font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, ed.script_buffer[ed.script_cursor_y].c_str()), 20 + ((ed.script_cursor_y - ed.script_offset) * font_height), "_", 123, 111, 218);
             }
+            break;
+        }
+        default:
+            break;
         }
         break;
     case EditorState_MENU:
@@ -1780,7 +1777,6 @@ static void input_submitted(void)
         break;
     case TEXT_WEBSITE:
         cl.website = key.keybuffer;
-
         break;
     case TEXT_DESC1:
         cl.Desc1 = key.keybuffer;
@@ -1892,7 +1888,7 @@ static void set_tile_interpolated(const int x1, const int x2, const int y1, cons
     const int dx = x2 - x1;
     const int dy = y2 - y1;
 
-    const int steps = SDL_max(abs(dx), abs(dy));
+    const int steps = SDL_max(SDL_abs(dx), SDL_abs(dy));
 
     if (steps == 0)
     {
@@ -1916,7 +1912,7 @@ void editorclass::handle_tile_placement(const int tile)
     if (b_modifier)
     {
         // Vertical line
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < SCREEN_HEIGHT_TILES; i++)
         {
             set_tile_interpolated(old_tilex, tilex, i, i, tile);
         }
@@ -1925,7 +1921,7 @@ void editorclass::handle_tile_placement(const int tile)
     else if (h_modifier)
     {
         // Horizontal line
-        for (int i = 0; i < 40; i++)
+        for (int i = 0; i < SCREEN_WIDTH_TILES; i++)
         {
             set_tile_interpolated(i, i, old_tiley, tiley, tile);
         }
@@ -1979,7 +1975,7 @@ void editorclass::tool_remove()
 
     for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (customentities[i].x == tilex + (levx * 40) && customentities[i].y == tiley + (levy * 30))
+        if (customentities[i].x == tilex + (levx * SCREEN_WIDTH_TILES) && customentities[i].y == tiley + (levy * SCREEN_HEIGHT_TILES))
         {
             remove_entity(i);
         }
@@ -2053,8 +2049,7 @@ void editorclass::entity_clicked(const int index)
 
 void editorclass::tool_place()
 {
-
-    const int entity = get_entity_at(tilex + (levx * 40), tiley + (levy * 30));
+    const int entity = get_entity_at(tilex + (levx * SCREEN_WIDTH_TILES), tiley + (levy * SCREEN_HEIGHT_TILES));
     if (entity != -1)
     {
         entity_clicked(entity);
@@ -2455,25 +2450,32 @@ static void start_at_checkpoint(void)
 
     for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (customentities[i].t == 16 || customentities[i].t == 10)
+        startpoint = customentities[i].t == 16;
+        const bool is_startpoint_or_checkpoint = startpoint ||
+            customentities[i].t == 10;
+        if (!is_startpoint_or_checkpoint)
         {
-            int tx = customentities[i].x / 40;
-            int ty = customentities[i].y / 30;
-            if (tx == ed.levx && ty == ed.levy)
-            {
-                startpoint = customentities[i].t == 16;
-                if (startpoint)
-                {
-                    // Oh, there's a start point! Let's use this.
-                    testeditor = i;
-                    break;
-                }
-                else if (testeditor == -1)
-                {
-                    // This is the first thing we found, so let's use it (unless we find a start point later)
-                    testeditor = i;
-                }
-            }
+            continue;
+        }
+
+        const int tx = customentities[i].x / 40;
+        const int ty = customentities[i].y / 30;
+        const bool in_room = tx == ed.levx && ty == ed.levy;
+        if (!in_room)
+        {
+            continue;
+        }
+
+        if (startpoint)
+        {
+            // Oh, there's a start point! Let's use this.
+            testeditor = i;
+            break;
+        }
+        else if (testeditor == -1)
+        {
+            // This is the first thing we found, so let's use it (unless we find a start point later)
+            testeditor = i;
         }
     }
 
@@ -2599,12 +2601,11 @@ static void handle_draw_input()
 
         for (int i = 0; i < NUM_EditorTools; i++)
         {
-            if (key.keymap[ed.tool_keys[i]])
+            if (key.keymap[ed.tool_keys[i]] &&
+                ((shift_down && ed.tool_requires_shift[i]) ||
+                    (!shift_down && !ed.tool_requires_shift[i])))
             {
-                if ((shift_down && ed.tool_requires_shift[i]) || (!shift_down && !ed.tool_requires_shift[i]))
-                {
-                    ed.current_tool = (EditorTools) i;
-                }
+                ed.current_tool = (EditorTools) i;
             }
         }
 
@@ -2650,12 +2651,12 @@ static void handle_draw_input()
 
         if (key.keymap[SDLK_COMMA])
         {
-            ed.current_tool = (EditorTools)POS_MOD(ed.current_tool - 1, NUM_EditorTools);
+            ed.current_tool = (EditorTools) POS_MOD(ed.current_tool - 1, NUM_EditorTools);
             ed.keydelay = 6;
         }
         else if (key.keymap[SDLK_PERIOD])
         {
-            ed.current_tool = (EditorTools)POS_MOD(ed.current_tool + 1, NUM_EditorTools);
+            ed.current_tool = (EditorTools) POS_MOD(ed.current_tool + 1, NUM_EditorTools);
             ed.keydelay = 6;
         }
 
@@ -2899,54 +2900,51 @@ void editorinput(void)
                 ed.substate = EditorSubState_MAIN;
             }
 
-            if (key.leftbutton)
+            if (key.leftbutton && ed.lclickdelay == 0)
             {
-                if (ed.lclickdelay == 0)
+                if (ed.box_corner == BoxCorner_FIRST)
                 {
-                    if (ed.box_corner == BoxCorner_FIRST)
+                    ed.lclickdelay = 1;
+                    ed.box_point.x = ed.tilex * 8;
+                    ed.box_point.y = ed.tiley * 8;
+                    ed.box_corner = BoxCorner_LAST;
+                }
+                else if (ed.box_corner == BoxCorner_LAST)
+                {
+                    int left;
+                    int right;
+                    int top;
+                    int bottom;
+
+                    adjust_box_coordinates(ed.box_point.x, ed.box_point.y, ed.tilex * 8, ed.tiley * 8, &left, &right, &top, &bottom);
+
+                    ed.lclickdelay = 1;
+                    ed.substate = EditorSubState_MAIN;
+
+                    switch (ed.box_type)
                     {
-                        ed.lclickdelay = 1;
-                        ed.box_point.x = ed.tilex * 8;
-                        ed.box_point.y = ed.tiley * 8;
-                        ed.box_corner = BoxCorner_LAST;
-                    }
-                    else if (ed.box_corner == BoxCorner_LAST)
-                    {
-                        int left;
-                        int right;
-                        int top;
-                        int bottom;
+                    case BoxType_SCRIPT:
+                        ed.text_entity = customentities.size();
 
-                        adjust_box_coordinates(ed.box_point.x, ed.box_point.y, ed.tilex * 8, ed.tiley * 8, &left, &right, &top, &bottom);
+                        ed.add_entity((left / 8) + (ed.levx * 40), (top / 8) + (ed.levy * 30), 19, (right - left) / 8, (bottom - top) / 8);
 
-                        ed.lclickdelay = 1;
-                        ed.substate = EditorSubState_MAIN;
-
-                        switch (ed.box_type)
-                        {
-                        case BoxType_SCRIPT:
-                            ed.text_entity = customentities.size();
-
-                            ed.add_entity((left / 8) + (ed.levx * 40), (top / 8) + (ed.levy * 30), 19, (right - left) / 8, (bottom - top) / 8);
-
-                            ed.get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.text_entity].scriptname));
-                            break;
-                        case BoxType_ENEMY:
-                            cl.setroomenemyx1(ed.levx, ed.levy, left);
-                            cl.setroomenemyy1(ed.levx, ed.levy, top);
-                            cl.setroomenemyx2(ed.levx, ed.levy, right);
-                            cl.setroomenemyy2(ed.levx, ed.levy, bottom);
-                            break;
-                        case BoxType_PLATFORM:
-                            cl.setroomplatx1(ed.levx, ed.levy, left);
-                            cl.setroomplaty1(ed.levx, ed.levy, top);
-                            cl.setroomplatx2(ed.levx, ed.levy, right);
-                            cl.setroomplaty2(ed.levx, ed.levy, bottom);
-                            break;
-                        case BoxType_COPY:
-                            // Unused
-                            break;
-                        }
+                        ed.get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.text_entity].scriptname));
+                        break;
+                    case BoxType_ENEMY:
+                        cl.setroomenemyx1(ed.levx, ed.levy, left);
+                        cl.setroomenemyy1(ed.levx, ed.levy, top);
+                        cl.setroomenemyx2(ed.levx, ed.levy, right);
+                        cl.setroomenemyy2(ed.levx, ed.levy, bottom);
+                        break;
+                    case BoxType_PLATFORM:
+                        cl.setroomplatx1(ed.levx, ed.levy, left);
+                        cl.setroomplaty1(ed.levx, ed.levy, top);
+                        cl.setroomplatx2(ed.levx, ed.levy, right);
+                        cl.setroomplaty2(ed.levx, ed.levy, bottom);
+                        break;
+                    case BoxType_COPY:
+                        // Unused
+                        break;
                     }
                 }
             }
@@ -3261,7 +3259,7 @@ void editorinput(void)
             if (down_pressed && ed.keydelay <= 0)
             {
                 ed.keydelay = 3;
-                ed.script_cursor_y = SDL_min((int)ed.script_buffer.size() - 1, ed.script_cursor_y + 1);
+                ed.script_cursor_y = SDL_min((int) ed.script_buffer.size() - 1, ed.script_cursor_y + 1);
 
                 key.keybuffer = ed.script_buffer[ed.script_cursor_y];
             }
@@ -3575,7 +3573,7 @@ int editorclass::get_enemy_tile(int t)
 
 void editorclass::set_tile(int x, int y, int t)
 {
-    if (x >= 0 && y >= 0 && x < 40 && y < 30)
+    if (x >= 0 && y >= 0 && x < SCREEN_WIDTH_TILES && y < SCREEN_HEIGHT_TILES)
     {
         cl.settile(levx, levy, x, y, t);
     }
@@ -3774,116 +3772,96 @@ bool editorclass::is_background(int x, int y)
     x = SDL_clamp(x, 0, 39);
     y = SDL_clamp(y, 0, 29);
 
-    return (cl.gettile(levx, levy, x, y) >= 680);
+    const int tile = cl.gettile(levx, levy, x, y);
+
+    return tile >= 680 && tile <= 739;
 }
 
-int editorclass::backfree( int x, int y )
+bool editorclass::backfree(int x, int y)
 {
-    // Returns 0 if tile is not a block or background tile, 1 otherwise
     x = SDL_clamp(x, 0, 39);
     y = SDL_clamp(y, 0, 29);
 
-    if (x >= 0 && y >= 0 && x < 40 && y < 30)
-    {
-        if (cl.gettile(levx, levy, x, y) == 0)
-        {
-            return 0;
-        }
-    }
-    return 1;
+    const int tile = cl.gettile(levx, levy, x, y);
+
+    return tile == 0;
 }
 
 bool editorclass::lines_can_pass(int x, int y)
 {
-    // Returns 0 if tile is not a block or spike, 1 otherwise
-
-    if (x >= 0 && y >= 0 && x < 40 && y < 30)
+    const int tile = cl.gettile(levx, levy, x, y);
+    if (x >= 0 && y >= 0 && x < SCREEN_WIDTH_TILES && y < SCREEN_HEIGHT_TILES)
     {
-        return (cl.gettile(levx, levy, x, y) == 0) || (cl.gettile(levx, levy, x, y) >= 680);
+        return tile == 0 || tile >= 680;
     }
     return false;
 }
 
-int editorclass::free( int x, int y )
+bool editorclass::free(int x, int y)
 {
-    // Returns 0 if tile is not a block, 1 otherwise
-
     x = SDL_clamp(x, 0, 39);
     y = SDL_clamp(y, 0, 29);
 
-    if (cl.gettile(levx, levy, x, y) == 0)
-    {
-        return 0;
-    }
-    else
-    {
-        if (cl.gettile(levx, levy, x, y) >= 2 && cl.gettile(levx, levy, x, y) < 80)
-        {
-            return 0;
-        }
-        if (cl.gettile(levx, levy, x, y) >= 680)
-        {
-            return 0;
-        }
-    }
-    return 1;
+    const int tile = cl.gettile(levx, levy, x, y);
+
+    return tile == 0 || (tile >= 2 && tile < 80) || tile >= 680;
 }
 
-int editorclass::match( int x, int y )
+int editorclass::match(int x, int y)
 {
-    if (free(x - 1, y) == 0 && free(x, y - 1) == 0 && free(x + 1, y) == 0 && free(x, y + 1) == 0) return 0;
+    if (free(x - 1, y) && free(x, y - 1) && free(x + 1, y) && free(x, y + 1)) return 0;
 
-    if (free(x - 1, y) == 0 && free(x, y - 1) == 0) return 10;
-    if (free(x + 1, y) == 0 && free(x, y - 1) == 0) return 11;
-    if (free(x - 1, y) == 0 && free(x, y + 1) == 0) return 12;
-    if (free(x + 1, y) == 0 && free(x, y + 1) == 0) return 13;
+    if (free(x - 1, y) && free(x, y - 1)) return 10;
+    if (free(x + 1, y) && free(x, y - 1)) return 11;
+    if (free(x - 1, y) && free(x, y + 1)) return 12;
+    if (free(x + 1, y) && free(x, y + 1)) return 13;
 
-    if (free(x, y - 1) == 0) return 1;
-    if (free(x - 1, y) == 0) return 2;
-    if (free(x, y + 1) == 0) return 3;
-    if (free(x + 1, y) == 0) return 4;
-    if (free(x - 1, y - 1) == 0) return 5;
-    if (free(x + 1, y - 1) == 0) return 6;
-    if (free(x - 1, y + 1) == 0) return 7;
-    if (free(x + 1, y + 1) == 0) return 8;
+    if (free(x, y - 1)) return 1;
+    if (free(x - 1, y)) return 2;
+    if (free(x, y + 1)) return 3;
+    if (free(x + 1, y)) return 4;
+    if (free(x - 1, y - 1)) return 5;
+    if (free(x + 1, y - 1)) return 6;
+    if (free(x - 1, y + 1)) return 7;
+    if (free(x + 1, y + 1)) return 8;
 
     return 0;
 }
 
-int editorclass::outsidematch( int x, int y )
+int editorclass::outsidematch(int x, int y)
 {
-    if (is_background(x - 1, y) == 0 && is_background(x + 1, y) == 0) return 2;
-    if (is_background(x, y - 1) == 0 && is_background(x, y + 1) == 0) return 1;
+    if (!is_background(x - 1, y) && !is_background(x + 1, y)) return 2;
+    if (!is_background(x, y - 1) && !is_background(x, y + 1)) return 1;
 
     return 0;
 }
 
-int editorclass::backmatch( int x, int y )
+int editorclass::backmatch(int x, int y)
 {
     //Returns the first position match for a border
     // 5 1 6
     // 2 X 4
     // 7 3 8
-    if (backfree(x - 1, y) == 0 && backfree(x, y - 1) == 0 && backfree(x + 1, y) == 0 && backfree(x, y + 1) == 0) return 0;
+    if (backfree(x - 1, y) && backfree(x, y - 1) && backfree(x + 1, y) && backfree(x, y + 1)) return 0;
 
-    if (backfree(x - 1, y) == 0 && backfree(x, y - 1) == 0) return 10;
-    if (backfree(x + 1, y) == 0 && backfree(x, y - 1) == 0) return 11;
-    if (backfree(x - 1, y) == 0 && backfree(x, y + 1) == 0) return 12;
-    if (backfree(x + 1, y) == 0 && backfree(x, y + 1) == 0) return 13;
+    if (backfree(x - 1, y) && backfree(x, y - 1)) return 10;
+    if (backfree(x + 1, y) && backfree(x, y - 1)) return 11;
+    if (backfree(x - 1, y) && backfree(x, y + 1)) return 12;
+    if (backfree(x + 1, y) && backfree(x, y + 1)) return 13;
 
-    if (backfree(x, y - 1) == 0) return 1;
-    if (backfree(x - 1, y) == 0) return 2;
-    if (backfree(x, y + 1) == 0) return 3;
-    if (backfree(x + 1, y) == 0) return 4;
-    if (backfree(x - 1, y - 1) == 0) return 5;
-    if (backfree(x + 1, y - 1) == 0) return 6;
-    if (backfree(x - 1, y + 1) == 0) return 7;
-    if (backfree(x + 1, y + 1) == 0) return 8;
+    if (backfree(x, y - 1)) return 1;
+    if (backfree(x - 1, y)) return 2;
+    if (backfree(x, y + 1)) return 3;
+    if (backfree(x + 1, y)) return 4;
+    if (backfree(x - 1, y - 1)) return 5;
+    if (backfree(x + 1, y - 1)) return 6;
+    if (backfree(x - 1, y + 1)) return 7;
+    if (backfree(x + 1, y + 1)) return 8;
 
     return 0;
 }
 
-int editorclass::edgetile( int x, int y )
+int editorclass::edgetile(int x, int y)
 {
     switch(match(x,y))
     {
@@ -3933,7 +3911,7 @@ int editorclass::edgetile( int x, int y )
     }
 }
 
-int editorclass::outsideedgetile( int x, int y )
+int editorclass::outsideedgetile(int x, int y)
 {
     switch(outsidematch(x,y))
     {
@@ -3951,7 +3929,7 @@ int editorclass::outsideedgetile( int x, int y )
 }
 
 
-int editorclass::backedgetile( int x, int y )
+int editorclass::backedgetile(int x, int y)
 {
     switch(backmatch(x,y))
     {
@@ -4001,22 +3979,22 @@ int editorclass::backedgetile( int x, int y )
     }
 }
 
-int editorclass::labspikedir( int x, int y, int t )
+int editorclass::labspikedir(int x, int y, int t)
 {
     // a slightly more tricky case
-    if (free(x, y + 1) == 1) return 63 + (t * 2);
-    if (free(x, y - 1) == 1) return 64 + (t * 2);
-    if (free(x - 1, y) == 1) return 51 + (t * 2);
-    if (free(x + 1, y) == 1) return 52 + (t * 2);
+    if (!free(x, y + 1)) return 63 + (t * 2);
+    if (!free(x, y - 1)) return 64 + (t * 2);
+    if (!free(x - 1, y)) return 51 + (t * 2);
+    if (!free(x + 1, y)) return 52 + (t * 2);
     return 63 + (t * 2);
 }
 
-int editorclass::spikedir( int x, int y )
+int editorclass::spikedir(int x, int y)
 {
-    if (free(x, y + 1) == 1) return 8;
-    if (free(x, y - 1) == 1) return 9;
-    if (free(x - 1, y) == 1) return 49;
-    if (free(x + 1, y) == 1) return 50;
+    if (!free(x, y + 1)) return 8;
+    if (!free(x, y - 1)) return 9;
+    if (!free(x - 1, y)) return 49;
+    if (!free(x + 1, y)) return 50;
     return 8;
 }
 
