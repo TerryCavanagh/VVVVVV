@@ -578,8 +578,6 @@ static void menurender(void)
         break;
     }
     case Menu::controller:
-        font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Game Pad"), tr, tg, tb);
-        font::print_wrap(PR_CEN, -1, 55, loc::gettext("Change controller options."), tr, tg, tb);
         switch (game.currentmenuoption)
         {
         case 0:
