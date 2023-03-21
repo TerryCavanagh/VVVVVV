@@ -2771,15 +2771,44 @@ static void handle_draw_input()
         ed.x_modifier = key.keymap[SDLK_x];
         ed.z_modifier = key.keymap[SDLK_z];
 
+        const int room = ed.levx + ed.levy * cl.maxwidth;
+        const int plat_speed = cl.roomproperties[room].platv;
+
         if (key.keymap[SDLK_COMMA])
         {
-            ed.current_tool = (EditorTools) POS_MOD(ed.current_tool - 1, NUM_EditorTools);
+            if (key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
+            {
+                cl.roomproperties[room].platv = plat_speed - 1;
+            }
+            else
+            {
+                ed.current_tool = (EditorTools) POS_MOD(ed.current_tool - 1, NUM_EditorTools);
+            }
             ed.keydelay = 6;
         }
         else if (key.keymap[SDLK_PERIOD])
         {
-            ed.current_tool = (EditorTools) POS_MOD(ed.current_tool + 1, NUM_EditorTools);
+            if (key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
+            {
+                cl.roomproperties[room].platv = plat_speed + 1;
+            }
+            else
+            {
+                ed.current_tool = (EditorTools) POS_MOD(ed.current_tool + 1, NUM_EditorTools);
+            }
             ed.keydelay = 6;
+        }
+
+        if (plat_speed != cl.roomproperties[room].platv)
+        {
+            char buffer[3 * SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("Platform speed is now {speed}"),
+                "speed:int",
+                cl.roomproperties[room].platv
+            );
+            ed.show_note(buffer);
         }
 
         if (key.keymap[SDLK_SPACE])
