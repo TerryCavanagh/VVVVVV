@@ -350,8 +350,9 @@ endif()
 
 
 if(MSVC)
-    # Statically link Microsoft's runtime library so end users don't have to install it
-    list(APPEND GLOBAL_COMPILE_FLAGS /MT)
+    # Statically link Microsoft's runtime library so end users don't have to install it (/MT)
+    # Also, build with multiple processors (/MP)
+    list(APPEND GLOBAL_COMPILE_FLAGS /MT /MP)
 endif()
 
 
