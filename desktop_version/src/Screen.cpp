@@ -170,33 +170,6 @@ void Screen::ResizeScreen(int x, int y)
             SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         }
     }
-    if (scalingMode == SCALING_STRETCH)
-    {
-        int winX, winY;
-        GetWindowSize(&winX, &winY);
-        int result = SDL_RenderSetLogicalSize(m_renderer, winX, winY);
-        if (result != 0)
-        {
-            vlog_error("Error: could not set logical size: %s", SDL_GetError());
-            return;
-        }
-        result = SDL_RenderSetIntegerScale(m_renderer, SDL_FALSE);
-        if (result != 0)
-        {
-            vlog_error("Error: could not set scale: %s", SDL_GetError());
-            return;
-        }
-    }
-    else
-    {
-        SDL_RenderSetLogicalSize(m_renderer, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
-        int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == SCALING_INTEGER));
-        if (result != 0)
-        {
-            vlog_error("Error: could not set scale: %s", SDL_GetError());
-            return;
-        }
-    }
 }
 
 void Screen::ResizeToNearestMultiple(void)
@@ -267,8 +240,39 @@ void Screen::GetWindowSize(int* x, int* y)
     }
 }
 
+void Screen::UpdateScaling(void)
+{
+    int width;
+    int height;
+    if (scalingMode == SCALING_STRETCH)
+    {
+        GetWindowSize(&width, &height);
+    }
+    else
+    {
+        width = SCREEN_WIDTH_PIXELS;
+        height = SCREEN_HEIGHT_PIXELS;
+    }
+    int result = SDL_RenderSetLogicalSize(m_renderer, width, height);
+    if (result != 0)
+    {
+        vlog_error("Error: could not set logical size: %s", SDL_GetError());
+        return;
+    }
+
+    result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == SCALING_INTEGER));
+    if (result != 0)
+    {
+        vlog_error("Error: could not set scale: %s", SDL_GetError());
+    }
+}
+
 void Screen::RenderPresent(void)
 {
+    /* In certain cases, the window size might mismatch with the logical size.
+     * So it's better to just always call this. */
+    UpdateScaling();
+
     SDL_RenderPresent(m_renderer);
     graphics.clear();
 }
@@ -288,7 +292,7 @@ void Screen::toggleFullScreen(void)
 void Screen::toggleScalingMode(void)
 {
     scalingMode = (scalingMode + 1) % NUM_SCALING_MODES;
-    ResizeScreen(-1, -1);
+    UpdateScaling();
 }
 
 void Screen::toggleLinearFilter(void)
