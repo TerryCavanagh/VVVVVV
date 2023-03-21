@@ -29,9 +29,12 @@ void Screen::init(const struct ScreenSettings* settings)
 {
     m_window = NULL;
     m_renderer = NULL;
+    windowWidth = settings->windowWidth;
+    windowHeight = settings->windowHeight;
     isWindowed = !settings->fullscreen;
     scalingMode = settings->scalingMode;
     isFiltered = settings->linearFilter;
+    badSignalEffect = settings->badSignal;
     vsync = settings->useVsync;
 
     SDL_SetHintWithPriority(
@@ -86,9 +89,7 @@ void Screen::init(const struct ScreenSettings* settings)
 
     LoadIcon();
 
-    badSignalEffect = settings->badSignal;
-
-    ResizeScreen(settings->windowWidth, settings->windowHeight);
+    ResizeScreen(windowWidth, windowHeight);
 }
 
 void Screen::destroy(void)
@@ -100,11 +101,8 @@ void Screen::destroy(void)
 
 void Screen::GetSettings(struct ScreenSettings* settings)
 {
-    int width, height;
-    GetWindowSize(&width, &height);
-
-    settings->windowWidth = width;
-    settings->windowHeight = height;
+    settings->windowWidth = windowWidth;
+    settings->windowHeight = windowHeight;
 
     settings->fullscreen = !isWindowed;
     settings->useVsync = vsync;
@@ -136,13 +134,11 @@ void Screen::LoadIcon(void)
 
 void Screen::ResizeScreen(int x, int y)
 {
-    static int resX = SCREEN_WIDTH_PIXELS;
-    static int resY = SCREEN_HEIGHT_PIXELS;
     if (x != -1 && y != -1)
     {
         // This is a user resize!
-        resX = x;
-        resY = y;
+        windowWidth = x;
+        windowHeight = y;
     }
 
     if (!isWindowed || isForcedFullscreen())
@@ -166,7 +162,7 @@ void Screen::ResizeScreen(int x, int y)
         }
         if (x != -1 && y != -1)
         {
-            SDL_SetWindowSize(m_window, resX, resY);
+            SDL_SetWindowSize(m_window, windowWidth, windowHeight);
             SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         }
     }
@@ -175,7 +171,7 @@ void Screen::ResizeScreen(int x, int y)
 void Screen::ResizeToNearestMultiple(void)
 {
     int w, h;
-    GetWindowSize(&w, &h);
+    GetScreenSize(&w, &h);
 
     // Check aspect ratio first
     bool using_width;
@@ -229,7 +225,7 @@ void Screen::ResizeToNearestMultiple(void)
     }
 }
 
-void Screen::GetWindowSize(int* x, int* y)
+void Screen::GetScreenSize(int* x, int* y)
 {
     if (SDL_GetRendererOutputSize(m_renderer, x, y) != 0)
     {
@@ -246,7 +242,7 @@ void Screen::UpdateScaling(void)
     int height;
     if (scalingMode == SCALING_STRETCH)
     {
-        GetWindowSize(&width, &height);
+        GetScreenSize(&width, &height);
     }
     else
     {
@@ -280,7 +276,7 @@ void Screen::RenderPresent(void)
 void Screen::toggleFullScreen(void)
 {
     isWindowed = !isWindowed;
-    ResizeScreen(-1, -1);
+    ResizeScreen(windowWidth, windowHeight);
 
     if (game.currentmenuname == Menu::graphicoptions)
     {
@@ -348,8 +344,6 @@ void Screen::recacheTextures(void)
     }
 }
 
-/* FIXME: Launching in forced fullscreen then exiting and relaunching in normal
- * mode will result in the window having fullscreen size but being windowed. */
 bool Screen::isForcedFullscreen(void)
 {
     /* This is just a check to see if we're on a desktop or tenfoot setup.

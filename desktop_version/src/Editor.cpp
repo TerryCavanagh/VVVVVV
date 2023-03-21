@@ -2073,10 +2073,10 @@ void editorinput(void)
     ed.tiley=(game.my - (game.my%8))/8;
     if (gameScreen.scalingMode == SCALING_STRETCH) {
         // In this mode specifically, we have to fix the mouse coordinates
-        int winwidth, winheight;
-        gameScreen.GetWindowSize(&winwidth, &winheight);
-        ed.tilex = ed.tilex * 320 / winwidth;
-        ed.tiley = ed.tiley * 240 / winheight;
+        int screenwidth, screenheight;
+        gameScreen.GetScreenSize(&screenwidth, &screenheight);
+        ed.tilex = ed.tilex * 320 / screenwidth;
+        ed.tiley = ed.tiley * 240 / screenheight;
     }
 
     bool up_pressed = key.isDown(SDLK_UP) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_UP);
