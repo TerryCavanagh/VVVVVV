@@ -499,17 +499,23 @@ bool KeyPoll::controllerWantsDown(void)
 
 int KeyPoll::controllerRumble(Uint16 intensity, Uint32 duration_ms)
 {
+    int result = -1;
     if (game.rumble)
     {
-        SDL_Event evt;
-        SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);
-        return SDL_GameControllerRumble(toOpen,intensity,intensity,duration_ms);
+        std::map<SDL_JoystickID, SDL_GameController*>::iterator it;
+        for (it = controllers.begin(); it != controllers.end(); it++)
+        {
+            int thisController = SDL_GameControllerRumble(it->second,intensity,intensity,duration_ms);
+            if (result != 0)
+            {
+                result = thisController;
+            }
+        }
     }
+    return result; // Returns -1 if rumble is off/no controller supported rumble, 0 if any controller succeeded
 }
 
 int KeyPoll::controllerRumbleStop(void)
 {
-    SDL_Event evt;
-    SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);
-    return SDL_GameControllerRumble(toOpen,0,0,0);
+    return controllerRumble(0,0);
 }

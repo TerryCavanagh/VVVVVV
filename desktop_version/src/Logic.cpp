@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "KeyPoll.h"
 #include "Map.h"
 #include "Music.h"
 #include "Network.h"
@@ -39,6 +40,11 @@ void titlelogic(void)
             }
             game.createmenu(game.menudest, true);
         }
+    }
+
+    if (game.screenshake > 0)
+    {
+        key.controllerRumble(0x7FFF,10);
     }
 }
 
@@ -171,6 +177,11 @@ void gamelogic(void)
 
             obj.animatehumanoidcollision(i);
         }
+    }
+
+    if (game.screenshake > 0)
+    {
+        key.controllerRumble(0x7FFF,10);
     }
 
     //Misc
