@@ -110,7 +110,7 @@ void Graphics::init(void)
     gameplayTexture = NULL;
     menuTexture = NULL;
     ghostTexture = NULL;
-    menuoffTexture = NULL;
+    tempShakeTexture = NULL;
     backgroundTexture = NULL;
     foregroundTexture = NULL;
     towerbg = TowerBG();
@@ -191,7 +191,7 @@ void Graphics::create_buffers(void)
     gameplayTexture = CREATE_TEXTURE;
     menuTexture = CREATE_TEXTURE;
     ghostTexture = CREATE_TEXTURE;
-    menuoffTexture = CREATE_TEXTURE;
+    tempShakeTexture = CREATE_TEXTURE;
     foregroundTexture = CREATE_TEXTURE;
     backgroundTexture = CREATE_SCROLL_TEXTURE;
     tempScrollingTexture = CREATE_SCROLL_TEXTURE;
@@ -209,7 +209,7 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_DestroyTexture, gameplayTexture);
     VVV_freefunc(SDL_DestroyTexture, menuTexture);
     VVV_freefunc(SDL_DestroyTexture, ghostTexture);
-    VVV_freefunc(SDL_DestroyTexture, menuoffTexture);
+    VVV_freefunc(SDL_DestroyTexture, tempShakeTexture);
     VVV_freefunc(SDL_DestroyTexture, foregroundTexture);
     VVV_freefunc(SDL_DestroyTexture, backgroundTexture);
     VVV_freefunc(SDL_DestroyTexture, tempScrollingTexture);
@@ -3161,7 +3161,7 @@ void Graphics::screenshake(void)
         ApplyFilter(tempFilterSrc, tempFilterDest);
     }
 
-    set_render_target(menuoffTexture);
+    set_render_target(tempShakeTexture);
     set_blendmode(SDL_BLENDMODE_NONE);
     clear();
 
@@ -3183,7 +3183,7 @@ void Graphics::screenshake(void)
     set_blendmode(SDL_BLENDMODE_NONE);
     clear();
 
-    copy_texture(menuoffTexture, NULL, NULL, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+    copy_texture(tempShakeTexture, NULL, NULL, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 }
 
 void Graphics::updatescreenshake(void)
