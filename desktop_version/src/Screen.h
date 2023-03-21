@@ -31,6 +31,7 @@ public:
 
     bool isForcedFullscreen(void);
 
+    int windowDisplay;
     int windowWidth;
     int windowHeight;
     bool isWindowed;

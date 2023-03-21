@@ -11,6 +11,7 @@ enum
 
 struct ScreenSettings
 {
+    int windowDisplay;
     int windowWidth;
     int windowHeight;
     bool fullscreen;

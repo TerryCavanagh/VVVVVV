@@ -4374,6 +4374,10 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             screen_settings->linearFilter = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "window_display") == 0)
+        {
+            screen_settings->windowDisplay = help.Int(pText);
+        }
         if (SDL_strcmp(pKey, "window_width") == 0)
         {
             screen_settings->windowWidth = help.Int(pText);
@@ -4712,6 +4716,8 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
     xml::update_tag(dataNode, "stretch", screen_settings->scalingMode);
 
     xml::update_tag(dataNode, "useLinearFilter", (int) screen_settings->linearFilter);
+
+    xml::update_tag(dataNode, "window_display", screen_settings->windowDisplay);
 
     xml::update_tag(dataNode, "window_width", screen_settings->windowWidth);
 

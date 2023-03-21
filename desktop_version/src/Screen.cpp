@@ -16,6 +16,7 @@
 
 void ScreenSettings_default(struct ScreenSettings* _this)
 {
+    _this->windowDisplay = 0;
     _this->windowWidth = SCREEN_WIDTH_PIXELS * 2;
     _this->windowHeight = SCREEN_HEIGHT_PIXELS * 2;
     _this->fullscreen = false;
@@ -29,6 +30,7 @@ void Screen::init(const struct ScreenSettings* settings)
 {
     m_window = NULL;
     m_renderer = NULL;
+    windowDisplay = settings->windowDisplay;
     windowWidth = settings->windowWidth;
     windowHeight = settings->windowHeight;
     isWindowed = !settings->fullscreen;
@@ -53,8 +55,8 @@ void Screen::init(const struct ScreenSettings* settings)
 
     m_window = SDL_CreateWindow(
         "VVVVVV",
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
+        SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
         SCREEN_WIDTH_PIXELS * 2,
         SCREEN_HEIGHT_PIXELS * 2,
         SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI
@@ -101,6 +103,13 @@ void Screen::destroy(void)
 
 void Screen::GetSettings(struct ScreenSettings* settings)
 {
+    windowDisplay = SDL_GetWindowDisplayIndex(m_window);
+    if (windowDisplay < 0)
+    {
+        vlog_error("Error: could not get display index: %s", SDL_GetError());
+        windowDisplay = 0;
+    }
+    settings->windowDisplay = windowDisplay;
     settings->windowWidth = windowWidth;
     settings->windowHeight = windowHeight;
 
@@ -134,6 +143,13 @@ void Screen::LoadIcon(void)
 
 void Screen::ResizeScreen(int x, int y)
 {
+    windowDisplay = SDL_GetWindowDisplayIndex(m_window);
+    if (windowDisplay < 0)
+    {
+        vlog_error("Error: could not get display index: %s", SDL_GetError());
+        windowDisplay = 0;
+    }
+
     if (x != -1 && y != -1)
     {
         // This is a user resize!
@@ -163,7 +179,11 @@ void Screen::ResizeScreen(int x, int y)
         if (x != -1 && y != -1)
         {
             SDL_SetWindowSize(m_window, windowWidth, windowHeight);
-            SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+            SDL_SetWindowPosition(
+                m_window,
+                SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
+                SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay)
+            );
         }
     }
 }
