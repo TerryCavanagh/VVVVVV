@@ -62,6 +62,7 @@ void editorclass::reset(void)
     v_modifier = false;
     h_modifier = false;
     b_modifier = false;
+    f_modifier = false;
     toolbox_open = false;
     help_open = false;
     shiftkey = false;
@@ -920,6 +921,16 @@ static void draw_bounds(void)
     }
 }
 
+static inline bool check_point(bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES], int x, int y)
+{
+    if (x < 0 || x >= SCREEN_WIDTH_TILES || y < 0 || y >= SCREEN_HEIGHT_TILES)
+    {
+        return false;
+    }
+
+    return connected[y][x];
+}
+
 static void draw_cursor(void)
 {
     extern editorclass ed;
@@ -942,7 +953,64 @@ static void draw_cursor(void)
     case EditorTool_WALLS:
     case EditorTool_BACKING:
         // Modifiers!
-        if (ed.b_modifier) graphics.draw_rect(x, 0, 8, 240, blue); // Vertical
+        if (ed.f_modifier)
+        {
+            bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES];
+            SDL_zeroa(connected);
+
+            ed.get_tile_fill(ed.tilex, ed.tiley, cl.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley), connected);
+
+            graphics.set_color(blue);
+
+            for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
+            {
+                const int x = i % SCREEN_WIDTH_TILES;
+                const int y = i / SCREEN_WIDTH_TILES;
+
+                if (!connected[y][x])
+                    continue;
+
+                bool top_left = true;
+                bool top_right = true;
+                bool bottom_left = true;
+                bool bottom_right = true;
+
+                if (!check_point(connected, x - 1, y))
+                {
+                    top_left = false;
+                    bottom_left = false;
+                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8, x * 8, y * 8 + 7);
+                }
+                if (!check_point(connected, x + 1, y))
+                {
+                    top_right = false;
+                    bottom_right = false;
+                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8 + 7, y * 8, x * 8 + 7, y * 8 + 7);
+                }
+                if (!check_point(connected, x, y - 1))
+                {
+                    top_left = false;
+                    top_right = false;
+                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8, x * 8 + 7, y * 8);
+                }
+                if (!check_point(connected, x, y + 1))
+                {
+                    bottom_left = false;
+                    bottom_right = false;
+                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8 + 7, x * 8 + 7, y * 8 + 7);
+                }
+
+                if (!check_point(connected, x - 1, y - 1) && top_left)
+                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8, y * 8);
+                if (!check_point(connected, x - 1, y + 1) && top_right)
+                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8, y * 8 + 7);
+                if (!check_point(connected, x + 1, y - 1) && bottom_left)
+                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8 + 7, y * 8);
+                if (!check_point(connected, x + 1, y + 1) && bottom_right)
+                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8 + 7, y * 8 + 7);
+            }
+        }
+        else if (ed.b_modifier) graphics.draw_rect(x, 0, 8, 240, blue); // Vertical
         else if (ed.h_modifier) graphics.draw_rect(0, y, 320, 8, blue); // Horizontal
         else if (ed.v_modifier) graphics.draw_rect(x - 32, y - 32, 24 + 48, 24 + 48, blue); // 9x9
         else if (ed.c_modifier) graphics.draw_rect(x - 24, y - 24, 24 + 32, 24 + 32, blue); // 7x7
@@ -1910,11 +1978,60 @@ static void set_tile_interpolated(const int x1, const int x2, const int y1, cons
     }
 }
 
+void editorclass::get_tile_fill(int tilex, int tiley, int tile, bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES])
+{
+    if (tilex < 0 || tilex >= SCREEN_WIDTH_TILES || tiley < 0 || tiley >= SCREEN_HEIGHT_TILES)
+    {
+        // It's out of bounds
+        return;
+    }
+
+    if (connected[tiley][tilex])
+    {
+        // We've already visited this tile
+        return;
+    }
+
+    if (cl.gettile(levx, levy, tilex, tiley) != tile)
+    {
+        // It's not the same tile
+        return;
+    }
+
+    // Yep, this is connected!
+    connected[tiley][tilex] = true;
+
+    // Check surrounding 4 tiles
+    get_tile_fill(tilex - 1, tiley, tile, connected);
+    get_tile_fill(tilex + 1, tiley, tile, connected);
+    get_tile_fill(tilex, tiley - 1, tile, connected);
+    get_tile_fill(tilex, tiley + 1, tile, connected);
+}
+
 void editorclass::handle_tile_placement(const int tile)
 {
     int range = 1;
 
-    if (b_modifier)
+    if (f_modifier)
+    {
+        bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES];
+        SDL_zeroa(connected);
+
+        get_tile_fill(tilex, tiley, cl.gettile(levx, levy, tilex, tiley), connected);
+
+        for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
+        {
+            const int x = i % SCREEN_WIDTH_TILES;
+            const int y = i / SCREEN_WIDTH_TILES;
+
+            if (connected[y][x])
+            {
+                set_tile(x, y, tile);
+            }
+        }
+        return;
+    }
+    else if (b_modifier)
     {
         // Vertical line
         for (int i = 0; i < SCREEN_HEIGHT_TILES; i++)
@@ -2646,6 +2763,7 @@ static void handle_draw_input()
             game.mapheld = true;
         }
 
+        ed.f_modifier = key.keymap[SDLK_f];
         ed.h_modifier = key.keymap[SDLK_h];
         ed.v_modifier = key.keymap[SDLK_v];
         ed.b_modifier = key.keymap[SDLK_b];
