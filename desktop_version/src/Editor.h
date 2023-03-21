@@ -3,6 +3,7 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
+#include "Constants.h"
 #include "CustomLevels.h"
 
 #include <SDL.h>
@@ -123,6 +124,8 @@ public:
 
     void draw_tool(EditorTools tool, int x, int y);
 
+    void get_tile_fill(int tilex, int tiley, int tile, bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES]);
+
     void handle_tile_placement(int tile);
 
     void tool_remove();
@@ -213,7 +216,7 @@ public:
         int desc; // Which description row we're changing
         int text_entity; // Entity ID for text prompt
     };
-    bool x_modifier, z_modifier, c_modifier, v_modifier, b_modifier, h_modifier, toolbox_open;
+    bool x_modifier, z_modifier, c_modifier, v_modifier, b_modifier, h_modifier, f_modifier, toolbox_open;
 
     int roomnamehide;
     bool saveandquit;
