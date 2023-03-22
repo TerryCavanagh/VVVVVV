@@ -1,5 +1,7 @@
 #include "UTF8.h"
 
+#include "SDL.h"
+
 #define STARTS_0(byte) ((byte & 0x80) == 0x00)
 #define STARTS_10(byte) ((byte & 0xC0) == 0x80)
 #define STARTS_110(byte) ((byte & 0xE0) == 0xC0)
@@ -199,4 +201,81 @@ size_t UTF8_backspace(const char* str, size_t len)
     }
 
     return len;
+}
+
+char* UTF8_substr(const char* str, size_t start, size_t end)
+{
+    /* Given a string, return a substring of it.
+     * The start and end are codepoint indices, not byte indices.
+     * Caller must VVV_free */
+
+    const char* start_ptr = str;
+    const char* end_ptr = str;
+
+    if (end < start)
+    {
+        char* substr = SDL_malloc(1);
+        substr[0] = '\0';
+        return substr;
+    }
+
+    for (size_t i = 0; i < start; i++)
+    {
+        if (UTF8_next(&start_ptr) == 0)
+        {
+            char* substr = SDL_malloc(1);
+            substr[0] = '\0';
+            return substr;
+        }
+    }
+
+    for (size_t i = start; i < end; i++)
+    {
+        if (UTF8_next(&end_ptr) == 0)
+        {
+            break;
+        }
+    }
+
+    size_t len = end_ptr - start_ptr;
+    char* substr = SDL_malloc(len + 1);
+    SDL_memcpy(substr, start_ptr, len);
+    substr[len] = '\0';
+    return substr;
+}
+
+char* UTF8_erase(const char* str, size_t start, size_t end)
+{
+    /* Given a string, return a new string with the given range erased.
+     * The start and end are codepoint indices, not byte indices.
+     * Caller must VVV_free */
+
+    const char* start_ptr = str;
+    const char* end_ptr = str;
+
+    for (size_t i = 0; i < start; i++)
+    {
+        if (UTF8_next(&start_ptr) == 0)
+        {
+            char* substr = SDL_malloc(1);
+            substr[0] = '\0';
+            return substr;
+        }
+    }
+
+    for (size_t i = start; i < end; i++)
+    {
+        if (UTF8_next(&end_ptr) == 0)
+        {
+            break;
+        }
+    }
+
+    size_t len = SDL_strlen(str);
+    size_t new_len = len - (end_ptr - start_ptr);
+    char* new_str = SDL_malloc(new_len + 1);
+    SDL_memcpy(new_str, str, start_ptr - str);
+    SDL_memcpy(new_str + (start_ptr - str), end_ptr, len - (end_ptr - str));
+    new_str[new_len] = '\0';
+    return new_str;
 }

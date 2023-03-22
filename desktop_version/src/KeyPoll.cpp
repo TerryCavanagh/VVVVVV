@@ -13,6 +13,7 @@
 #include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
+#include "TextInput.h"
 #include "UTF8.h"
 #include "Vlogging.h"
 
@@ -143,6 +144,7 @@ void KeyPoll::Poll(void)
     SDL_Event evt;
     while (SDL_PollEvent(&evt))
     {
+        TextInput::handle_events(evt);
         switch (evt.type)
         {
         /* Keyboard Input */
