@@ -232,7 +232,6 @@ public:
 
     std::vector<std::string> script_buffer;
     std::string current_script;
-    int script_cursor_x, script_cursor_y;
     int script_offset;
     int lines_visible;
 

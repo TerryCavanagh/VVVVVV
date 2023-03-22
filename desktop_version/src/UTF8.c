@@ -212,7 +212,7 @@ char* UTF8_substr(const char* str, size_t start, size_t end)
     const char* start_ptr = str;
     const char* end_ptr = str;
 
-    if (end < start)
+    if (end <= start)
     {
         char* substr = SDL_malloc(1);
         substr[0] = '\0';
@@ -229,7 +229,7 @@ char* UTF8_substr(const char* str, size_t start, size_t end)
         }
     }
 
-    for (size_t i = start; i < end; i++)
+    for (size_t i = 0; i < end; i++)
     {
         if (UTF8_next(&end_ptr) == 0)
         {
@@ -253,6 +253,13 @@ char* UTF8_erase(const char* str, size_t start, size_t end)
     const char* start_ptr = str;
     const char* end_ptr = str;
 
+    if (end <= start)
+    {
+        char* substr = SDL_malloc(1);
+        substr[0] = '\0';
+        return substr;
+    }
+
     for (size_t i = 0; i < start; i++)
     {
         if (UTF8_next(&start_ptr) == 0)
@@ -263,7 +270,7 @@ char* UTF8_erase(const char* str, size_t start, size_t end)
         }
     }
 
-    for (size_t i = start; i < end; i++)
+    for (size_t i = 0; i < end; i++)
     {
         if (UTF8_next(&end_ptr) == 0)
         {
@@ -273,9 +280,9 @@ char* UTF8_erase(const char* str, size_t start, size_t end)
 
     size_t len = SDL_strlen(str);
     size_t new_len = len - (end_ptr - start_ptr);
-    char* new_str = SDL_malloc(new_len + 1);
-    SDL_memcpy(new_str, str, start_ptr - str);
-    SDL_memcpy(new_str + (start_ptr - str), end_ptr, len - (end_ptr - str));
-    new_str[new_len] = '\0';
-    return new_str;
+    char* substr = SDL_malloc(new_len + 1);
+    SDL_memcpy(substr, str, start_ptr - str);
+    SDL_memcpy(substr + (start_ptr - str), end_ptr, len - (end_ptr - str));
+    substr[new_len] = '\0';
+    return substr;
 }

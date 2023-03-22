@@ -29,18 +29,20 @@ namespace TextInput {
         current_text = text;
         selecting = false;
         flash_timer = 0;
+        SDL_StartTextInput();
 
         send_cursor_to_end();
     }
 
     void detach_input(void) {
         taking_input = false;
+        SDL_StopTextInput();
     }
 
     void send_cursor_to_end(void)
     {
-        cursor_pos.x = current_text->size() - 1;
-        cursor_pos.y = current_text->at(cursor_pos.x).size();
+        cursor_pos.y = current_text->size() - 1;
+        cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
         cursor_x_tallest = cursor_pos.x;
     }
 
@@ -49,8 +51,8 @@ namespace TextInput {
         std::string output;                    // We'll need the output later
         while (std::getline(string_stream, output)) { // Iterate through all lines,
             output.erase(std::remove(output.begin(), output.end(), '\r'), output.end()); // Strip \r... dammit Windows.
-            (*current_text)[cursor_pos.y].insert(cursor_pos.x, output); // Insert the current line of text into our text
-            cursor_pos.x += output.length(); // Update cursor position
+            current_text->at(cursor_pos.y).insert(cursor_pos.x, output); // Insert the current line of text into our text
+            cursor_pos.x += UTF8_total_codepoints(output.c_str()); // Update cursor position
             if (!string_stream.eof()) { // If we haven't hit the end of the file,
                 insert_newline(); // Insert a newline
             }
@@ -181,7 +183,7 @@ namespace TextInput {
         Selection_Rect rect = reorder_selection_positions();
 
         if (rect.y == rect.y2) {
-            return UTF8_substr(current_text->at(rect.y).c_str(), rect.x, rect.x2 - rect.x);
+            return UTF8_substr(current_text->at(rect.y).c_str(), rect.x, rect.x2);
         }
 
         char* select_part_first_line = UTF8_substr(current_text->at(rect.y).c_str(), rect.x, UTF8_total_codepoints(current_text->at(rect.y).c_str()) - rect.x);
@@ -245,9 +247,9 @@ namespace TextInput {
             return;
         }
         // Get the rest of the last line
-        char* rest_of_string = UTF8_substr(current_text->at(y2).c_str(), x2, UTF8_total_codepoints(current_text->at(y2).c_str()) - x2);
+        char* rest_of_string = UTF8_substr(current_text->at(y2).c_str(), x2, UTF8_total_codepoints(current_text->at(y2).c_str()));
 
-        for (int i = y2; i >= y; i--)
+        for (int i = y2; i > y; i--)
         {
             if (cursor_pos.y >= i)
             {
@@ -263,10 +265,11 @@ namespace TextInput {
         }
 
         // Erase from the start of the selection to the end
-        char* erased = UTF8_erase(current_text->at(y).c_str(), x, x2 - x);
+        char* erased = UTF8_erase(current_text->at(y).c_str(), x, UTF8_total_codepoints(current_text->at(y).c_str()));
         current_text->at(y) = erased;
         // Add the rest of the last line to the end of the first line
         current_text->at(y) += rest_of_string;
+        cursor_pos.x = x;
         SDL_free(erased);
         SDL_free(rest_of_string);
     }
@@ -311,7 +314,7 @@ namespace TextInput {
         else
         {
             // Erase the character before the cursor
-            char* erased = UTF8_erase(current_text->at(cursor_pos.y).c_str(), cursor_pos.x - 1, 1);
+            char* erased = UTF8_erase(current_text->at(cursor_pos.y).c_str(), cursor_pos.x - 1, cursor_pos.x);
             current_text->at(cursor_pos.y) = erased;
             SDL_free(erased);
 
@@ -325,6 +328,9 @@ namespace TextInput {
         if (!taking_input) return;
 
         if (e.type == SDL_KEYDOWN) {
+            // Show cursor!!
+            flash_timer = 0;
+
             // Handle backspace
             if (e.key.keysym.sym == SDLK_BACKSPACE)
             {
@@ -375,6 +381,9 @@ namespace TextInput {
         //Special text input event
         else if (e.type == SDL_TEXTINPUT)
         {
+            // Show cursor!!
+            flash_timer = 0;
+
             //Append character(s)
             if (selecting) {
                 remove_selection();

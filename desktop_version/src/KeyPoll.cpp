@@ -68,7 +68,7 @@ void KeyPoll::disabletextentry(void)
 
 bool KeyPoll::textentry(void)
 {
-    return SDL_IsTextInputActive() == SDL_TRUE;
+    return SDL_IsTextInputActive() == SDL_TRUE && !TextInput::taking_input;
 }
 
 void KeyPoll::toggleFullscreen(void)
