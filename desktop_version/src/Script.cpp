@@ -3608,8 +3608,12 @@ void scriptclass::loadalts(const std::string& processed, const std::string& raw)
     }
 }
 
-void scriptclass::add_test_line(const std::string& speaker, const std::string& english, char textcase)
-{
+void scriptclass::add_test_line(
+    const std::string& speaker,
+    const std::string& english,
+    const char textcase,
+    const bool textbuttons
+) {
     if (speaker == "gray")
     {
         add("squeak(terminal)");
@@ -3622,6 +3626,10 @@ void scriptclass::add_test_line(const std::string& speaker, const std::string& e
     add("text("+speaker+",0,0,1)");
     add(english);
     add("position(center)");
+    if (textbuttons)
+    {
+        add("textbuttons()");
+    }
     add("speak_active");
 }
 
