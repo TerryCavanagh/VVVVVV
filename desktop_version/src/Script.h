@@ -68,7 +68,7 @@ public:
     bool loadcustom(const std::string& t);
     void loadalts(const std::string& processed, const std::string& raw);
 
-    void add_test_line(const std::string& speaker, const std::string& english, char textcase);
+    void add_test_line(const std::string& speaker, const std::string& english, char textcase, bool textbuttons);
     void loadtest(const std::string& name);
 
     void inline add(const std::string& t)
