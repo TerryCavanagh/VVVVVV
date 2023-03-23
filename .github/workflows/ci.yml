@@ -139,7 +139,17 @@ jobs:
         Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -o C:\SDL.zip
         Expand-Archive C:\SDL.zip -DestinationPath C:\
 
-    - name: CMake configure (default version)
+    - name: Cache build folder for this CMakeLists.txt
+      id: cache-windows-build-folder
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-windows-build-folder-VS2022
+      with:
+        path: desktop_version/build
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('desktop_version/CMakeLists.txt') }}-SDL${{ env.SDL_VERSION }}
+
+    - if: ${{ steps.cache-windows-build-folder.outputs.cache-hit != 'true' }}
+      name: CMake initial configure/generate
       run: |
         mkdir $env:SRC_DIR_PATH/build
         cd $env:SRC_DIR_PATH/build
@@ -147,6 +157,11 @@ jobs:
         cmake -G "Visual Studio 17 2022" -A Win32 `
               -DSDL2_INCLUDE_DIRS="C:\SDL2-$env:SDL_VERSION\include" `
               -DSDL2_LIBRARIES="SDL2;SDL2main" ..
+
+    - name: CMake configure (default version)
+      run: |
+        cd $env:SRC_DIR_PATH/build
+        cmake ..
     - name: Build (default version)
       run: |
         cd $env:SRC_DIR_PATH/build
