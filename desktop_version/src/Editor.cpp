@@ -2948,7 +2948,7 @@ void editorinput(void)
                     }
                 }
             }
-            else
+            else if (!key.leftbutton)
             {
                 ed.lclickdelay = 0;
             }
