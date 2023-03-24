@@ -125,20 +125,19 @@ jobs:
         submodules: true
 
     - name: Cache SDL
-      uses: actions/cache@v2
+      id: cache-windows-sdl
+      uses: actions/cache@v3
       env:
         cache-name: cache-sdl
       with:
-        path: C:\SDL
-        key: ${{ runner.os }}-build-${{ env.cache-name }}
+        path: C:\SDL2-*
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.SDL_VERSION }}
 
-    - name: Download SDL if not cached
+    - if: ${{ steps.cache-windows-sdl.outputs.cache-hit != 'true' }}
+      name: Download SDL if not cached
       run: |
-        if (-Not (Test-Path C:\SDL))
-        {
-          Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -o C:\SDL.zip
-          Expand-Archive C:\SDL.zip -DestinationPath C:\
-        }
+        Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -o C:\SDL.zip
+        Expand-Archive C:\SDL.zip -DestinationPath C:\
 
     - name: CMake configure (default version)
       run: |
