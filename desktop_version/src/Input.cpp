@@ -2366,6 +2366,7 @@ void titleinput(void)
         if (    game.currentmenuname == Menu::controller &&
                 game.currentmenuoption > 0 &&
                 game.currentmenuoption < 6 &&
+                (game.separate_interact || game.currentmenuoption < 5) &&
                 key.controllerButtonDown()      )
         {
             updatebuttonmappings(game.currentmenuoption);

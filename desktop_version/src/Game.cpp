@@ -6531,7 +6531,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("bind enter"));
         option(loc::gettext("bind menu"));
         option(loc::gettext("bind restart"));
-        option(loc::gettext("bind interact"));
+        option(loc::gettext("bind interact"), separate_interact);
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 10;
