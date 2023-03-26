@@ -11,6 +11,9 @@
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
     <action_hint>Premi spazio, Z, or V per selezionare</action_hint>
 
+    <!-- Same as above, but for a gamepad button (hard limit 40 8x8 characters) -->
+    <gamepad_hint>Press {button} to select</gamepad_hint>
+
     <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
     <autowordwrap>1</autowordwrap>
 
