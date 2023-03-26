@@ -86,6 +86,8 @@ static void sync_lang_file(const std::string& langcode)
                 pElem->SetText(langmeta.credit.c_str());
             else if (SDL_strcmp(pKey, "action_hint") == 0)
                 pElem->SetText(langmeta.action_hint.c_str());
+            else if (SDL_strcmp(pKey, "gamepad_hint") == 0)
+                pElem->SetText(langmeta.gamepad_hint.c_str());
             else if (SDL_strcmp(pKey, "autowordwrap") == 0)
                 pElem->SetText((int) langmeta.autowordwrap);
             else if (SDL_strcmp(pKey, "toupper") == 0)
