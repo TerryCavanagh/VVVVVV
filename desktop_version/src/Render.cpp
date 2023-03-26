@@ -631,7 +631,7 @@ static void menurender(void)
                 loc::gettext("Interact is bound to: "),
                 BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Interact)
             );
-            font::print(PR_CEN, -1, 115, buffer_a, tr, tg, tb);
+            font::print(PR_CEN | PR_BRIGHTNESS(game.separate_interact ? 255 : 128), -1, 115, buffer_a, tr, tg, tb);
             break;
         }
         }
