@@ -2562,6 +2562,19 @@ void scriptclass::startgamemode(const enum StartMode mode)
         }
     }
 
+    /* Containers which need to be reset before gameplay starts
+     * ex. before custom levels get loaded */
+
+    switch (mode)
+    {
+    case Start_EDITORPLAYTESTING:
+        break;
+    default:
+        textbox_colours.clear();
+        add_default_colours();
+        break;
+    }
+
     hardreset();
 
     if (mode == Start_EDITOR)
