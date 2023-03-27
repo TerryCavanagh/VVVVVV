@@ -189,13 +189,11 @@ end:
             FAudioSourceVoice_GetState(voices[i], &voicestate, 0);
             if (voicestate.BuffersQueued == 0)
             {
-                FAudioVoiceDetails details;
-                FAudioVoice_GetVoiceDetails(voices[i], &details);
-                if (details.InputSampleRate != format.nSamplesPerSec ||
-                details.InputChannels != format.nChannels)
+                if (SDL_memcmp(&voice_formats[i], &format, sizeof(format)) != 0)
                 {
                     VVV_freefunc(FAudioVoice_DestroyVoice, voices[i]);
                     FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
+                    voice_formats[i] = format;
                 }
                 FAudioBuffer faudio_buffer = {
                     FAUDIO_END_OF_STREAM, /* Flags */
@@ -250,6 +248,7 @@ end:
                 format.nBlockAlign = format.nChannels * format.wBitsPerSample;
                 format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
                 format.cbSize = 0;
+                voice_formats[i] = format;
                 if (FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL))
                 {
                     vlog_error("Unable to create source voice no. %i", i);
@@ -309,9 +308,11 @@ end:
     bool valid;
 
     static FAudioSourceVoice** voices;
+    static FAudioWaveFormatEx voice_formats[VVV_MAX_CHANNELS];
     static float volume;
 };
 FAudioSourceVoice** SoundTrack::voices = NULL;
+FAudioWaveFormatEx SoundTrack::voice_formats[VVV_MAX_CHANNELS];
 float SoundTrack::volume = 0.0f;
 
 class MusicTrack
@@ -382,12 +383,10 @@ end:
 
         if (!IsHalted())
         {
-            FAudioVoiceDetails details;
-            FAudioVoice_GetVoiceDetails(musicVoice, &details);
-            if (details.InputSampleRate != format.nSamplesPerSec ||
-            details.InputChannels != format.nChannels)
+            if (SDL_memcmp(&musicVoiceFormat, &format, sizeof(format)) != 0)
             {
                 Halt();
+                musicVoiceFormat = format;
             }
         }
 
@@ -493,6 +492,7 @@ end:
 
     static bool paused;
     static FAudioSourceVoice* musicVoice;
+    static FAudioWaveFormatEx musicVoiceFormat;
 
     static void refillReserve(FAudioVoiceCallback* callback, void* ctx)
     {
@@ -671,6 +671,7 @@ end:
 };
 bool MusicTrack::paused = false;
 FAudioSourceVoice* MusicTrack::musicVoice = NULL;
+FAudioWaveFormatEx MusicTrack::musicVoiceFormat;
 
 musicclass::musicclass(void)
 {
