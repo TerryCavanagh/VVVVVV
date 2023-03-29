@@ -253,7 +253,7 @@ char* UTF8_erase(const char* str, size_t start, size_t end)
     const char* start_ptr = str;
     const char* end_ptr = str;
 
-    if (end <= start)
+    if (end <= start || str[0] == '\0')
     {
         char* substr = SDL_malloc(1);
         substr[0] = '\0';
