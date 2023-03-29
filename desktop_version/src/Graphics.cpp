@@ -765,8 +765,23 @@ void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 
     draw_texture_part(grphx.im_tiles3, x, y, x2, y2, 8, 8 - height_subtract, 1, 1);
 }
 
-static void fill_buttons(char* buffer, const size_t buffer_len, const char* line)
-{
+const char* Graphics::textbox_line(
+    char* buffer,
+    const size_t buffer_len,
+    const size_t textbox_i,
+    const size_t line_i
+) {
+    /* Gets a line in a textbox, accounting for filling button placeholders like {b_map}.
+     * Takes a buffer as an argument, but DOESN'T ALWAYS write to that buffer.
+     * Always use the return value! ^^
+     * Does not check boundaries. */
+
+    const char* line = textboxes[textbox_i].lines[line_i].c_str();
+    if (!textboxes[textbox_i].fill_buttons)
+    {
+        return line;
+    }
+
     vformat_buf(buffer, buffer_len,
         line,
         "b_act:but,"
@@ -780,6 +795,7 @@ static void fill_buttons(char* buffer, const size_t buffer_len, const char* line
         vformat_button(ActionSet_InGame, Action_InGame_Restart),
         vformat_button(ActionSet_InGame, Action_InGame_Esc)
     );
+    return buffer;
 }
 
 void Graphics::drawgui(void)
@@ -787,7 +803,6 @@ void Graphics::drawgui(void)
     int text_sign;
     int crew_yp;
     int crew_sprite;
-    size_t i;
 
     if (flipmode)
     {
@@ -803,7 +818,7 @@ void Graphics::drawgui(void)
     }
 
     //Draw all the textboxes to the screen
-    for (i = 0; i<textboxes.size(); i++)
+    for (size_t i = 0; i<textboxes.size(); i++)
     {
         int text_yoff;
         int yp;
@@ -824,6 +839,8 @@ void Graphics::drawgui(void)
             yp = SCREEN_HEIGHT_PIXELS - yp - 16 - textboxes[i].lines.size() * font_height;
         }
 
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+
         if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
         {
             /* To avoid the outlines for different lines overlapping the text itself,
@@ -835,7 +852,7 @@ void Graphics::drawgui(void)
                     textboxes[i].print_flags | PR_CJK_LOW | PR_BOR,
                     textboxes[i].xp + 8,
                     yp + text_yoff + text_sign * (j * font_height),
-                    textboxes[i].lines[j],
+                    textbox_line(buffer, sizeof(buffer), i, j),
                     0, 0, 0
                 );
             }
@@ -845,7 +862,7 @@ void Graphics::drawgui(void)
                     textboxes[i].print_flags | PR_CJK_LOW,
                     textboxes[i].xp + 8,
                     yp + text_yoff + text_sign * (j * font_height),
-                    textboxes[i].lines[j],
+                    textbox_line(buffer, sizeof(buffer), i, j),
                     196, 196, 255 - help.glow
                 );
             }
@@ -864,11 +881,9 @@ void Graphics::drawgui(void)
                 /* If we can fill in buttons, the width of the box may change...
                  * This is Violet's fault. She decided to say a button name out loud. */
                 int max = 0;
-                char buffer[SCREEN_WIDTH_CHARS + 1];
                 for (j = 0; j < textboxes[i].lines.size(); j++)
                 {
-                    fill_buttons(buffer, sizeof(buffer), textboxes[i].lines[j].c_str());
-                    int len = font::len(textboxes[i].print_flags, buffer);
+                    int len = font::len(textboxes[i].print_flags, textbox_line(buffer, sizeof(buffer), i, j));
                     if (len > max)
                     {
                         max = len;
@@ -881,21 +896,11 @@ void Graphics::drawgui(void)
 
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
-                const char* line = textboxes[i].lines[j].c_str();
-                char buffer[SCREEN_WIDTH_CHARS + 1];
-
-                if (textboxes[i].fill_buttons)
-                {
-                    // Fill button placeholders like {b_map} in dialogue text.
-                    fill_buttons(buffer, sizeof(buffer), line);
-                    line = buffer;
-                }
-
                 font::print(
                     textboxes[i].print_flags | PR_BRIGHTNESS(tl_lerp*255) | PR_CJK_LOW,
                     textboxes[i].xp + 8,
                     yp + text_yoff + text_sign * (j * font_height),
-                    line,
+                    textbox_line(buffer, sizeof(buffer), i, j),
                     textboxes[i].r, textboxes[i].g, textboxes[i].b
                 );
             }

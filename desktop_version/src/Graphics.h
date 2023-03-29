@@ -160,6 +160,7 @@ public:
     void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, SDL_Color color);
 
     void updatetextboxes(void);
+    const char* textbox_line(char* buffer, size_t buffer_len, size_t textbox_i, size_t line_i);
     void drawgui(void);
 
     void draw_sprite(int x, int y, int t, int r, int g, int b);
