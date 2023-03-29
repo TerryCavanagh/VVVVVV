@@ -133,11 +133,11 @@ public:
 
     void show_note(const char* text);
 
-    void add_entity(int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240);
+    void add_entity(int rx, int ry, int xp, int yp, int tp, int p1 = 0, int p2 = 0, int p3 = 0, int p4 = 0, int p5 = 320, int p6 = 240);
 
     void remove_entity(int t);
 
-    int get_entity_at(int xp, int yp);
+    int get_entity_at(int rx, int ry, int xp, int yp);
 
     void set_tile(int x, int y, int t);
 

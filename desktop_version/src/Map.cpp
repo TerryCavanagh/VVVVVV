@@ -429,10 +429,7 @@ void mapclass::initcustommapdata(void)
             continue;
         }
 
-        const int rx = ent.x / 40;
-        const int ry = ent.y / 30;
-
-        settrinket(rx, ry);
+        settrinket(ent.rx, ent.ry);
     }
 #endif
 }
@@ -1807,16 +1804,13 @@ void mapclass::loadlevel(int rx, int ry)
         {
             // If entity is in this room, create it
             const CustomEntity& ent = customentities[edi];
-            const int tsx = ent.x / 40;
-            const int tsy = ent.y / 30;
-
-            if (tsx != rx-100 || tsy != ry-100)
+            if (ent.rx != rx - 100 || ent.ry != ry - 100)
             {
                 continue;
             }
 
-            const int ex = (ent.x % 40) * 8;
-            const int ey = (ent.y % 30) * 8;
+            const int ex = ent.x * 8;
+            const int ey = ent.y * 8;
 
             // Platform and enemy bounding boxes
             int bx1 = 0, by1 = 0, bx2 = 0, by2 = 0;

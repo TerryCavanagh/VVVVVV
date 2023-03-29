@@ -481,25 +481,23 @@ static void draw_edgeguides(void)
         }
         const int x = entity->p2 * 8;
         const int w = entity->p3;
-        const int room_x = (entity->x / 40);
-        const int room_y = (entity->y / 30);
-        if (room_y != ed.levy)
+        if (entity->ry != ed.levy)
         {
             continue;
         }
-        if (room_x == POS_MOD(ed.levx - 1, cl.mapwidth)
+        if (entity->rx == POS_MOD(ed.levx - 1, cl.mapwidth)
             // It's to the left...
             && x + w >= 312)
         {
             // And touching the right edge!
-            graphics.fill_rect(x, (entity->y % 30) * 8, 2, 8, green);
+            graphics.fill_rect(x, entity->y * 8, 2, 8, green);
         }
-        else if (room_x == POS_MOD(ed.levx + 1, cl.mapwidth)
+        else if (entity->rx == POS_MOD(ed.levx + 1, cl.mapwidth)
             // It's to the right...
             && x <= 0)
         {
             // And touching the left edge!
-            graphics.fill_rect(x + w - 2, (entity->y % 30) * 8, 2, 8, green);
+            graphics.fill_rect(x + w - 2, entity->y * 8, 2, 8, green);
         }
     }
 }
@@ -512,7 +510,7 @@ static void update_entities(void)
     {
         CustomEntity* entity = &customentities[i];
 
-        if (entity->x / 40 != ed.levx || entity->y / 30 != ed.levy)
+        if (entity->rx != ed.levx || entity->ry != ed.levy)
         {
             // It's not in this room, so just continue
             continue;
@@ -527,9 +525,9 @@ static void update_entities(void)
             if ((grav_line && entity->p1 == 0) || (warp_line && entity->p1 >= 2))
             {
                 /* Horizontal */
-                int tx = entity->x % 40;
+                int tx = entity->x;
                 int tx2 = tx;
-                int ty = entity->y % 30;
+                int ty = entity->y;
                 while (ed.lines_can_pass(tx, ty))
                 {
                     --tx;
@@ -545,8 +543,8 @@ static void update_entities(void)
             else
             {
                 /* Vertical */
-                int tx = entity->x % 40;
-                int ty = entity->y % 30;
+                int tx = entity->x;
+                int ty = entity->y;
                 int ty2 = ty;
                 while (ed.lines_can_pass(tx, ty))
                 {
@@ -573,7 +571,7 @@ static void draw_entities(void)
     //Draw entities
     obj.customplatformtile = game.customcol * 12;
 
-    const int edent_under_cursor = ed.get_entity_at(ed.tilex + ed.levx * 40, ed.tiley + ed.levy * 30);
+    const int edent_under_cursor = ed.get_entity_at(ed.levx, ed.levy, ed.tilex, ed.tiley);
 
     // Special case for drawing gray entities
     bool custom_gray = room->tileset == 3 && room->tilecol == 6;
@@ -584,10 +582,10 @@ static void draw_entities(void)
         CustomEntity* entity = &customentities[i];
 
         // If the entity is in the current room, draw it
-        if (entity->x / 40 == ed.levx && entity->y / 30 == ed.levy)
+        if (entity->rx == ed.levx && entity->ry == ed.levy)
         {
-            const int x = entity->x % 40 * 8;
-            const int y = entity->y % 30 * 8;
+            const int x = entity->x * 8;
+            const int y = entity->y * 8;
             static const char arrows[] = "V^<>";
 
             switch (entity->t)
@@ -819,7 +817,7 @@ static void draw_entities(void)
 
             if (ed.tilex == x / 8 && ed.tiley == y / 8)
             {
-                text = "(" + help.String(entity->x / 40 + 1) + "," + help.String(entity->y / 30 + 1) + ")";
+                text = "(" + help.String(entity->rx + 1) + "," + help.String(entity->ry + 1) + ")";
             }
             else
             {
@@ -1847,10 +1845,12 @@ void editorlogic(void)
     }
 }
 
-void editorclass::add_entity(int xp, int yp, int tp, int p1, int p2, int p3, int p4, int p5, int p6)
+void editorclass::add_entity(int rx, int ry, int xp, int yp, int tp, int p1, int p2, int p3, int p4, int p5, int p6)
 {
     CustomEntity entity;
 
+    entity.rx = rx;
+    entity.ry = ry;
     entity.x = xp;
     entity.y = yp;
     entity.t = tp;
@@ -1870,11 +1870,16 @@ void editorclass::remove_entity(int t)
     customentities.erase(customentities.begin() + t);
 }
 
-int editorclass::get_entity_at(int xp, int yp)
+int editorclass::get_entity_at(int rx, int ry, int xp, int yp)
 {
     for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (customentities[i].x == xp && customentities[i].y == yp) return i;
+        const CustomEntity* entity = &customentities[i];
+        if (entity->rx == rx && entity->ry == ry &&
+            entity->x == xp && entity->y == yp)
+        {
+            return i;
+        }
     }
     return -1;
 }
@@ -1975,7 +1980,9 @@ void editorclass::tool_remove()
 
     for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (customentities[i].x == tilex + (levx * SCREEN_WIDTH_TILES) && customentities[i].y == tiley + (levy * SCREEN_HEIGHT_TILES))
+        const CustomEntity* entity = &customentities[i];
+        if (entity->rx == levx && entity->ry == levy &&
+            entity->x == tilex && entity->y == tiley)
         {
             remove_entity(i);
         }
@@ -2049,7 +2056,7 @@ void editorclass::entity_clicked(const int index)
 
 void editorclass::tool_place()
 {
-    const int entity = get_entity_at(tilex + (levx * SCREEN_WIDTH_TILES), tiley + (levy * SCREEN_HEIGHT_TILES));
+    const int entity = get_entity_at(levx, levy, tilex, tiley);
     if (entity != -1)
     {
         entity_clicked(entity);
@@ -2085,7 +2092,7 @@ void editorclass::tool_place()
     case EditorTool_TRINKETS:
         if (cl.numtrinkets() < 100)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 9);
+            add_entity(levx, levy, tilex, tiley, 9);
             lclickdelay = 1;
         }
         else
@@ -2094,39 +2101,39 @@ void editorclass::tool_place()
         }
         break;
     case EditorTool_CHECKPOINTS:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 10, 1);
+        add_entity(levx, levy, tilex, tiley, 10, 1);
         lclickdelay = 1;
         break;
     case EditorTool_DISAPPEARING_PLATFORMS:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 3);
+        add_entity(levx, levy, tilex, tiley, 3);
         lclickdelay = 1;
         break;
     case EditorTool_CONVEYORS:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 2, 5);
+        add_entity(levx, levy, tilex, tiley, 2, 5);
         lclickdelay = 1;
         break;
     case EditorTool_MOVING_PLATFORMS:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 2, 0);
+        add_entity(levx, levy, tilex, tiley, 2, 0);
         lclickdelay = 1;
         break;
     case EditorTool_ENEMIES:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 1, 0);
+        add_entity(levx, levy, tilex, tiley, 1, 0);
         lclickdelay = 1;
         break;
     case EditorTool_GRAVITY_LINES:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 11, 0);
+        add_entity(levx, levy, tilex, tiley, 11, 0);
         lclickdelay = 1;
         break;
     case EditorTool_ROOMTEXT:
         lclickdelay = 1;
         text_entity = customentities.size();
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 17);
+        add_entity(levx, levy, tilex, tiley, 17);
         get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[text_entity].scriptname));
         break;
     case EditorTool_TERMINALS:
         lclickdelay = 1;
         text_entity = customentities.size();
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 18, 0);
+        add_entity(levx, levy, tilex, tiley, 18, 0);
         get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[text_entity].scriptname));
         break;
     case EditorTool_SCRIPTS:
@@ -2141,26 +2148,26 @@ void editorclass::tool_place()
     case EditorTool_WARP_TOKENS:
         substate = EditorSubState_DRAW_WARPTOKEN;
         warp_token_entity = customentities.size();
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 13);
+        add_entity(levx, levy, tilex, tiley, 13);
         lclickdelay = 1;
         break;
     case EditorTool_WARP_LINES:
         //Warp lines
         if (tilex == 0)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 0);
+            add_entity(levx, levy, tilex, tiley, 50, 0);
         }
         else if (tilex == 39)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 1);
+            add_entity(levx, levy, tilex, tiley, 50, 1);
         }
         else if (tiley == 0)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 2);
+            add_entity(levx, levy, tilex, tiley, 50, 2);
         }
         else if (tiley == 29)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 3);
+            add_entity(levx, levy, tilex, tiley, 50, 3);
         }
         else
         {
@@ -2171,7 +2178,7 @@ void editorclass::tool_place()
     case EditorTool_CREWMATES:
         if (cl.numcrewmates() < 100)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 15, int(fRandom() * 6));
+            add_entity(levx, levy, tilex, tiley, 15, int(fRandom() * 6));
             lclickdelay = 1;
         }
         else
@@ -2189,7 +2196,7 @@ void editorclass::tool_place()
                 i--;
             }
         }
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 16, 0);
+        add_entity(levx, levy, tilex, tiley, 16, 0);
         lclickdelay = 1;
         break;
     default:
@@ -2458,9 +2465,8 @@ static void start_at_checkpoint(void)
             continue;
         }
 
-        const int tx = customentities[i].x / 40;
-        const int ty = customentities[i].y / 30;
-        const bool in_room = tx == ed.levx && ty == ed.levy;
+        const bool in_room = customentities[i].rx == ed.levx &&
+            customentities[i].ry == ed.levy;
         if (!in_room)
         {
             continue;
@@ -2487,12 +2493,10 @@ static void start_at_checkpoint(void)
     {
         ed.current_ghosts = 0;
 
-        int tx = customentities[testeditor].x / 40;
-        int ty = customentities[testeditor].y / 30;
-        game.edsavex = (customentities[testeditor].x % 40) * 8 - 4;
-        game.edsavey = (customentities[testeditor].y % 30) * 8;
-        game.edsaverx = 100 + tx;
-        game.edsavery = 100 + ty;
+        game.edsavex = (customentities[testeditor].x) * 8 - 4;
+        game.edsavey = customentities[testeditor].y * 8;
+        game.edsaverx = 100 + customentities[testeditor].rx;
+        game.edsavery = 100 + customentities[testeditor].ry;
 
         if (!startpoint)
         {
@@ -2926,7 +2930,7 @@ void editorinput(void)
                     case BoxType_SCRIPT:
                         ed.text_entity = customentities.size();
 
-                        ed.add_entity((left / 8) + (ed.levx * 40), (top / 8) + (ed.levy * 30), 19, (right - left) / 8, (bottom - top) / 8);
+                        ed.add_entity(ed.levx, ed.levy, left / 8, top / 8, 19, (right - left) / 8, (bottom - top) / 8);
 
                         ed.get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.text_entity].scriptname));
                         break;

@@ -10,6 +10,7 @@
 class CustomEntity
 {
 public:
+    int rx, ry;
     int x, y, t;
     //parameters
     int p1, p2, p3, p4, p5, p6;
