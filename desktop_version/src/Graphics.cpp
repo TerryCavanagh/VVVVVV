@@ -1913,13 +1913,19 @@ void Graphics::drawentity(const int i, const int yoff)
 
     SDL_Rect drawRect;
 
+    bool custom_gray;
 #if !defined(NO_CUSTOM_LEVELS)
     // Special case for gray Warp Zone tileset!
-    const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
-    const bool custom_gray = room->tileset == 3 && room->tilecol == 6;
-#else
-    const bool custom_gray = false;
+    if (map.custommode)
+    {
+        const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
+        custom_gray = room->tileset == 3 && room->tilecol == 6;
+    }
+    else
 #endif
+    {
+        custom_gray = false;
+    }
 
     SDL_Texture* sprites = flipmode ? grphx.im_flipsprites : grphx.im_sprites;
     SDL_Texture* tiles = (map.custommode && !map.finalmode) ? grphx.im_entcolours : grphx.im_tiles;
