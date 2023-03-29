@@ -97,6 +97,7 @@ public:
     {
         unsigned char* mem;
         size_t length;
+        voice_index = -1;
 
         FILESYSTEM_loadAssetToMemory(fileName, &mem, &length);
         if (mem == NULL)
@@ -110,6 +111,8 @@ public:
         if (length >= 4 && SDL_memcmp(mem, "OggS", 4) == 0)
         {
             LoadOGG(fileName, mem, length);
+            callbacks.OnBufferStart = &SoundTrack::refillReserve;
+            callbacks.OnBufferEnd = &SoundTrack::swapBuffers;
         }
         else
         {
@@ -160,8 +163,10 @@ end:
         format.cbSize = 0;
 
         channels = format.nChannels;
-        size = format.nAvgBytesPerSec;
+        size = format.nAvgBytesPerSec / 20;
+
         decoded_buf_playing = (Uint8*) SDL_malloc(size);
+        decoded_buf_reserve = (Uint8*) SDL_malloc(size);
 
         ogg_file = mem;
         valid = true;
@@ -172,6 +177,7 @@ end:
         VVV_free(wav_buffer);
 
         VVV_free(decoded_buf_playing);
+        VVV_free(decoded_buf_reserve);
         VVV_freefunc(stb_vorbis_close, vorbis);
         VVV_free(ogg_file);
     }
@@ -192,7 +198,14 @@ end:
                 if (SDL_memcmp(&voice_formats[i], &format, sizeof(format)) != 0)
                 {
                     VVV_freefunc(FAudioVoice_DestroyVoice, voices[i]);
-                    FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
+                    if (vorbis != NULL)
+                    {
+                        FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, &callbacks, NULL, NULL);
+                    }
+                    else
+                    {
+                        FAudio_CreateSourceVoice(faudioctx, &voices[i], &format, 0, 2.0f, NULL, NULL, NULL);
+                    }
                     voice_formats[i] = format;
                 }
                 FAudioBuffer faudio_buffer = {
@@ -217,17 +230,21 @@ end:
                     );
                     faudio_buffer.AudioBytes = size;
                     faudio_buffer.pAudioData = decoded_buf_playing;
+                    faudio_buffer.pContext = this;
                 }
                 if (FAudioSourceVoice_SubmitSourceBuffer(voices[i], &faudio_buffer, NULL))
                 {
                     vlog_error("Unable to queue sound buffer");
+                    voice_index = -1;
                     return;
                 }
                 FAudioVoice_SetVolume(voices[i], volume, FAUDIO_COMMIT_NOW);
                 if (FAudioSourceVoice_Start(voices[i], 0, FAUDIO_COMMIT_NOW))
                 {
                     vlog_error("Unable to start voice processing");
+                    voice_index = -1;
                 }
+                voice_index = i;
                 return;
             }
         }
@@ -295,15 +312,52 @@ end:
         }
     }
 
+    static void refillReserve(FAudioVoiceCallback* callback, void* ctx)
+    {
+        bool inbounds;
+        SoundTrack* t = (SoundTrack*) ctx;
+        FAudioBuffer faudio_buffer;
+        SDL_zero(faudio_buffer);
+        UNUSED(callback);
+        faudio_buffer.PlayLength = stb_vorbis_get_samples_float_interleaved(t->vorbis, t->channels, (float*) t->decoded_buf_reserve, t->size / sizeof(float));
+        faudio_buffer.AudioBytes = t->size;
+        faudio_buffer.pAudioData = t->decoded_buf_reserve;
+        faudio_buffer.pContext = t;
+        if (faudio_buffer.PlayLength == 0)
+        {
+            return;
+        }
+
+        inbounds = t->voice_index >= 0 && t->voice_index < VVV_MAX_CHANNELS;
+        if (!inbounds)
+        {
+            return;
+        }
+
+        FAudioSourceVoice_SubmitSourceBuffer(voices[t->voice_index], &faudio_buffer, NULL);
+    }
+
+    static void swapBuffers(FAudioVoiceCallback* callback, void* ctx)
+    {
+        SoundTrack* t = (SoundTrack*) ctx;
+        Uint8* tmp = t->decoded_buf_playing;
+        UNUSED(callback);
+        t->decoded_buf_playing = t->decoded_buf_reserve;
+        t->decoded_buf_reserve = tmp;
+    }
+
     Uint8 *wav_buffer;
     Uint32 wav_length;
     FAudioWaveFormatEx format;
+    int voice_index;
 
     unsigned char* ogg_file;
     stb_vorbis* vorbis;
     int channels;
     Uint32 size;
     Uint8* decoded_buf_playing;
+    Uint8* decoded_buf_reserve;
+    FAudioVoiceCallback callbacks;
 
     bool valid;
 
