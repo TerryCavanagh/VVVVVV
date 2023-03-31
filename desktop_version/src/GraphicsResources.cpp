@@ -237,15 +237,15 @@ static void LoadSprites(const char* filename, SDL_Texture** texture, SDL_Surface
     unsigned char* data;
     SDL_Surface* loadedImage = LoadImageRaw(filename, &data);
 
-    *texture = LoadTextureFromRaw(filename, loadedImage, TEX_WHITE);
-    if (*texture == NULL)
+    *surface = LoadSurfaceFromRaw(loadedImage);
+    if (*surface == NULL)
     {
         vlog_error("Image not found: %s", filename);
         SDL_assert(0 && "Image not found! See stderr.");
     }
 
-    *surface = LoadSurfaceFromRaw(loadedImage);
-    if (*surface == NULL)
+    *texture = LoadTextureFromRaw(filename, loadedImage, TEX_WHITE);
+    if (*texture == NULL)
     {
         vlog_error("Image not found: %s", filename);
         SDL_assert(0 && "Image not found! See stderr.");
