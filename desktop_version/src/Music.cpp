@@ -1032,6 +1032,8 @@ void musicclass::haltdasmusik(void)
     currentsong = -1;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
+    nicefade = false;
+    nicechange = -1;
 }
 
 void musicclass::silencedasmusik(void)
