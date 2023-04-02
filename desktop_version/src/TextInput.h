@@ -1,7 +1,7 @@
 #ifndef TEXTINPUT_H
 #define TEXTINPUT_H
 
-struct Selection_Rect
+struct SelectionRect
 {
     int x;
     int y;
@@ -19,9 +19,14 @@ namespace TextInput
 
     void send_cursor_to_end(void);
     void insert_newline(void);
-    Selection_Rect reorder_selection_positions(void);
+    int get_lines(void);
+    const char* get_line(int line);
+    void set_line(int line, const char* text);
+    void add_to_line(int line, const char* text);
+    SelectionRect reorder_selection_positions(void);
     void handle_events(SDL_Event e);
     void attach_input(std::vector<std::string>* text);
+    void attach_input(std::string* text);
     void detach_input(void);
 }
 

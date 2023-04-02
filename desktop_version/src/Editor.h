@@ -194,7 +194,6 @@ public:
     int note_timer;
     int old_note_timer;
     std::string note;
-    std::string keybuffer;
     std::string filename;
     std::string loaded_filepath;
 

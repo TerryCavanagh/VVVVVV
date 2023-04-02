@@ -15,6 +15,10 @@ namespace TextInput {
     bool taking_input;
     bool selecting;
     int flash_timer;
+    bool using_vector;
+    bool can_select;
+    bool can_move_cursor;
+    std::string* current_text_line;
     std::vector<std::string>* current_text;
     SDL_Point cursor_pos;
     SDL_Point cursor_select_pos;
@@ -29,9 +33,29 @@ namespace TextInput {
         current_text = text;
         selecting = false;
         flash_timer = 0;
+        using_vector = true;
+        can_select = true;
+        can_move_cursor = true;
         SDL_StartTextInput();
 
         send_cursor_to_end();
+    }
+
+    void attach_input(std::string* text) {
+        taking_input = true;
+        current_text_line = text;
+        selecting = false;
+        flash_timer = 0;
+        using_vector = false;
+        SDL_StartTextInput();
+
+        // Temporary
+        can_select = false;
+        can_move_cursor = false;
+
+        cursor_pos.x = UTF8_total_codepoints(current_text_line->c_str());
+        cursor_pos.y = 0;
+        cursor_x_tallest = cursor_pos.x;
     }
 
     void detach_input(void) {
@@ -41,8 +65,8 @@ namespace TextInput {
 
     void send_cursor_to_end(void)
     {
-        cursor_pos.y = current_text->size() - 1;
-        cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+        cursor_pos.y = get_lines() - 1;
+        cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
         cursor_x_tallest = cursor_pos.x;
     }
 
@@ -55,10 +79,13 @@ namespace TextInput {
             if (*it == '\n') {
                 insert_newline();
             }
-            else if (*it != '\r')
+            else if (*it != '\r' && *it != '\0')
             {
                 // Add character
-                current_text->at(cursor_pos.y) += *it;
+                std::string current = get_line(cursor_pos.y);
+                current.insert(current.begin() + cursor_pos.x, *it);
+                set_line(cursor_pos.y, current.c_str());
+
                 cursor_pos.x++;
             }
         }
@@ -67,10 +94,16 @@ namespace TextInput {
 
     void insert_newline(void)
     {
-        char* first_part = UTF8_substr(current_text->at(cursor_pos.y).c_str(), 0, cursor_pos.x);
-        char* second_part = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x, UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str()));
+        if (!using_vector)
+        {
+            insert_text(" ");
+            return;
+        }
 
-        current_text->at(cursor_pos.y) = first_part;
+        char* first_part = UTF8_substr(get_line(cursor_pos.y), 0, cursor_pos.x);
+        char* second_part = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, UTF8_total_codepoints(get_line(cursor_pos.y)));
+
+        set_line(cursor_pos.y, first_part);
         current_text->insert(current_text->begin() + cursor_pos.y + 1, second_part);
 
         SDL_free(first_part);
@@ -85,16 +118,59 @@ namespace TextInput {
     {
         cursor_pos.x = 0;
         cursor_pos.y = 0;
-        cursor_select_pos.x = UTF8_total_codepoints(current_text->at(current_text->size() - 1).c_str());
-        cursor_select_pos.y = current_text->size() - 1;
+        cursor_select_pos.x = UTF8_total_codepoints(get_line(get_lines() - 1));
+        cursor_select_pos.y = get_lines() - 1;
         selecting = true;
+    }
+
+    int get_lines(void)
+    {
+        if (using_vector)
+        {
+            return current_text->size();
+        }
+        return 1;
+    }
+
+    const char* get_line(int line)
+    {
+        if (using_vector)
+        {
+            return current_text->at(line).c_str();
+        }
+        return current_text_line->c_str();
+    }
+
+    void set_line(int line, const char* text)
+    {
+        if (using_vector)
+        {
+            current_text->at(line) = text;
+        }
+        else
+        {
+            current_text_line->assign(text);
+        }
+    }
+
+    void add_to_line(int line, const char* text)
+    {
+        if (using_vector)
+        {
+            current_text->at(line) += text;
+        }
+        else
+        {
+            std::string temp = *current_text_line + text;
+            current_text_line->assign(temp);
+        }
     }
 
     bool process_selection(void)
     {
         if (SDL_GetModState() & KMOD_SHIFT)
         {
-            if (!selecting)
+            if (!selecting && can_select)
             {
                 cursor_select_pos = cursor_pos;
                 selecting = true;
@@ -115,26 +191,26 @@ namespace TextInput {
     {
         /* Caller must free */
 
-        Selection_Rect rect = reorder_selection_positions();
+        SelectionRect rect = reorder_selection_positions();
 
         if (rect.y == rect.y2) {
-            return UTF8_substr(current_text->at(rect.y).c_str(), rect.x, rect.x2);
+            return UTF8_substr(get_line(rect.y), rect.x, rect.x2);
         }
 
-        char* select_part_first_line = UTF8_substr(current_text->at(rect.y).c_str(), rect.x, UTF8_total_codepoints(current_text->at(rect.y).c_str()) - rect.x);
-        char* select_part_last_line = UTF8_substr(current_text->at(rect.y2).c_str(), 0, rect.x2);
+        char* select_part_first_line = UTF8_substr(get_line(rect.y), rect.x, UTF8_total_codepoints(get_line(rect.y)) - rect.x);
+        char* select_part_last_line = UTF8_substr(get_line(rect.y2), 0, rect.x2);
 
         // Loop through the lines in between
         int total_length = SDL_strlen(select_part_first_line) + SDL_strlen(select_part_last_line) + 1;
         for (int i = rect.y + 1; i < rect.y2; i++) {
-            total_length += SDL_strlen(current_text->at(i).c_str()) + 1;
+            total_length += SDL_strlen(get_line(i)) + 1;
         }
 
         char* select_part = (char*)SDL_malloc(total_length);
         strcpy(select_part, select_part_first_line);
         strcat(select_part, "\n");
         for (int i = rect.y + 1; i < rect.y2; i++) {
-            strcat(select_part, current_text->at(i).c_str());
+            strcat(select_part, get_line(i));
             strcat(select_part, "\n");
         }
         strcat(select_part, select_part_last_line);
@@ -145,8 +221,8 @@ namespace TextInput {
         return select_part;
     }
 
-    Selection_Rect reorder_selection_positions(void) {
-        Selection_Rect positions;
+    SelectionRect reorder_selection_positions(void) {
+        SelectionRect positions;
         bool in_front = false;
 
         if (cursor_pos.y > cursor_select_pos.y) {
@@ -182,7 +258,7 @@ namespace TextInput {
             return;
         }
         // Get the rest of the last line
-        char* rest_of_string = UTF8_substr(current_text->at(y2).c_str(), x2, UTF8_total_codepoints(current_text->at(y2).c_str()));
+        char* rest_of_string = UTF8_substr(get_line(y2), x2, UTF8_total_codepoints(get_line(y2)));
 
         for (int i = y2; i > y; i--)
         {
@@ -200,10 +276,10 @@ namespace TextInput {
         }
 
         // Erase from the start of the selection to the end
-        char* erased = UTF8_erase(current_text->at(y).c_str(), x, UTF8_total_codepoints(current_text->at(y).c_str()));
-        current_text->at(y) = erased;
+        char* erased = UTF8_erase(get_line(y), x, UTF8_total_codepoints(get_line(y)));
+        set_line(y, erased);
         // Add the rest of the last line to the end of the first line
-        current_text->at(y) += rest_of_string;
+        add_to_line(cursor_pos.y, rest_of_string);
         cursor_pos.x = x;
         SDL_free(erased);
         SDL_free(rest_of_string);
@@ -211,7 +287,7 @@ namespace TextInput {
 
     void remove_selection(void)
     {
-        Selection_Rect positions = reorder_selection_positions();
+        SelectionRect positions = reorder_selection_positions();
         remove_characters(positions.x, positions.y, positions.x2, positions.y2);
         selecting = false;
     }
@@ -226,8 +302,8 @@ namespace TextInput {
         if (cursor_pos.y > 0) {
             cursor_pos.y--;
             cursor_pos.x = cursor_x_tallest;
-            if (cursor_pos.x > UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str())) {
-                cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+            if (cursor_pos.x > UTF8_total_codepoints(get_line(cursor_pos.y))) {
+                cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
             }
         }
     }
@@ -239,16 +315,16 @@ namespace TextInput {
             cursor_pos.y = cursor_select_pos.y;
         }
 
-        if (cursor_pos.y < current_text->size() - 1) {
+        if (cursor_pos.y < get_lines() - 1) {
             cursor_pos.y++;
             cursor_pos.x = cursor_x_tallest;
-            if (cursor_pos.x > UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str())) {
-                cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+            if (cursor_pos.x > UTF8_total_codepoints(get_line(cursor_pos.y))) {
+                cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
             }
         }
         else
         {
-            cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+            cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
         }
     }
 
@@ -272,13 +348,13 @@ namespace TextInput {
         if (SDL_GetModState() & KMOD_CTRL)
         {
             // If the current character is a word part, move to the start of the word. Else, move to the start of the next non-word.
-            char* character = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x - 1, cursor_pos.x);
+            char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
             bool is_word = is_word_part(character[0]);
             SDL_free(character);
 
             while (true)
             {
-                char* character = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x - 1, cursor_pos.x);
+                char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
                 if (is_word_part(character[0]) != is_word)
                 {
                     SDL_free(character);
@@ -289,7 +365,7 @@ namespace TextInput {
                 if (cursor_pos.x <= 0 && cursor_pos.y > 0)
                 {
                     cursor_pos.y--;
-                    cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+                    cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
                     break;
                 }
             }
@@ -302,7 +378,7 @@ namespace TextInput {
             else if (cursor_pos.y > 0)
             {
                 cursor_pos.y--;
-                cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+                cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
             }
         }
 
@@ -316,7 +392,7 @@ namespace TextInput {
             cursor_pos.x = cursor_select_pos.x;
         }
 
-        if (cursor_pos.x >= UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str()) && cursor_pos.y == current_text->size() - 1) {
+        if (cursor_pos.x >= UTF8_total_codepoints(get_line(cursor_pos.y)) && cursor_pos.y == get_lines() - 1) {
             cursor_x_tallest = cursor_pos.x;
             return;
         }
@@ -324,13 +400,13 @@ namespace TextInput {
         if (SDL_GetModState() & KMOD_CTRL)
         {
             // If the current character is a word part, move to the end of the word. Else, move to the end of the next non-word.
-            char* character = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x, cursor_pos.x + 1);
+            char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
             bool is_word = is_word_part(character[0]);
             SDL_free(character);
 
             while (true)
             {
-                char* character = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x, cursor_pos.x + 1);
+                char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
                 if (is_word_part(character[0]) != is_word)
                 {
                     SDL_free(character);
@@ -338,7 +414,7 @@ namespace TextInput {
                 }
                 SDL_free(character);
                 cursor_pos.x++;
-                if (cursor_pos.x >= UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str()) && cursor_pos.y < current_text->size() - 1)
+                if (cursor_pos.x >= UTF8_total_codepoints(get_line(cursor_pos.y)) && cursor_pos.y < get_lines() - 1)
                 {
                     cursor_pos.y++;
                     cursor_pos.x = 0;
@@ -349,10 +425,10 @@ namespace TextInput {
         else
         {
 
-            if (cursor_pos.x < UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str())) {
+            if (cursor_pos.x < UTF8_total_codepoints(get_line(cursor_pos.y))) {
                 cursor_pos.x++;
             }
-            else if (cursor_pos.y < current_text->size() - 1)
+            else if (cursor_pos.y < get_lines() - 1)
             {
                 cursor_pos.y++;
                 cursor_pos.x = 0;
@@ -375,7 +451,7 @@ namespace TextInput {
             if (cursor_pos.y > 0)
             {
                 // Get the rest of the last line
-                char* rest_of_string = UTF8_substr(current_text->at(cursor_pos.y).c_str(), 0, UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str()));
+                char* rest_of_string = UTF8_substr(get_line(cursor_pos.y), 0, UTF8_total_codepoints(get_line(cursor_pos.y)));
 
                 // Erase the current line
                 current_text->erase(current_text->begin() + cursor_pos.y);
@@ -384,11 +460,11 @@ namespace TextInput {
                 cursor_pos.y--;
 
                 // Move the cursor to the end of the line
-                cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+                cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
                 cursor_x_tallest = cursor_pos.x;
 
                 // Add the rest of the last line to the end of the first line
-                current_text->at(cursor_pos.y) += rest_of_string;
+                add_to_line(cursor_pos.y, rest_of_string);
                 SDL_free(rest_of_string);
             }
         }
@@ -396,7 +472,7 @@ namespace TextInput {
         {
             if (SDL_GetModState() & KMOD_CTRL)
             {
-                char* character = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x - 1, cursor_pos.x);
+                char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
                 bool is_word = is_word_part(character[0]);
                 SDL_free(character);
 
@@ -405,7 +481,7 @@ namespace TextInput {
                 int start_x = cursor_pos.x;
                 while (true)
                 {
-                    char* character = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x - 1, cursor_pos.x);
+                    char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
                     if (is_word_part(character[0]) != is_word)
                     {
                         SDL_free(character);
@@ -419,37 +495,36 @@ namespace TextInput {
                     if (cursor_pos.x <= 0 && cursor_pos.y > 0)
                     {
                         cursor_pos.y--;
-                        cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+                        cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
                         remove_x = 0;
                         break;
                     }
                 }
 
                 // Erase the characters before the cursor
-                char* erased = UTF8_erase(current_text->at(remove_y).c_str(), remove_x, start_x);
-                current_text->at(remove_y) = erased;
+                char* erased = UTF8_erase(get_line(remove_y), remove_x, start_x);
+                set_line(remove_y, erased);
                 SDL_free(erased);
 
                 if (cursor_pos.y != remove_y)
                 {
                     // Remove the line
 
-                    char* rest_of_string = UTF8_substr(current_text->at(remove_y).c_str(), 0, UTF8_total_codepoints(current_text->at(remove_y).c_str()));
+                    char* rest_of_string = UTF8_substr(get_line(remove_y), 0, UTF8_total_codepoints(get_line(remove_y)));
 
                     // Erase the current line
                     current_text->erase(current_text->begin() + remove_y);
 
                     // Add the rest of the last line to the end of the first line
-                    current_text->at(cursor_pos.y) += rest_of_string;
-
+                    add_to_line(cursor_pos.y, rest_of_string);
                     SDL_free(rest_of_string);
                 }
             }
             else
             {
                 // Erase the character before the cursor
-                char* erased = UTF8_erase(current_text->at(cursor_pos.y).c_str(), cursor_pos.x - 1, cursor_pos.x);
-                current_text->at(cursor_pos.y) = erased;
+                char* erased = UTF8_erase(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
+                set_line(cursor_pos.y, erased);
                 SDL_free(erased);
 
                 // Move the cursor back
@@ -467,18 +542,18 @@ namespace TextInput {
             return;
         }
 
-        if (cursor_pos.x == UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str()))
+        if (cursor_pos.x == UTF8_total_codepoints(get_line(cursor_pos.y)))
         {
-            if (cursor_pos.y < current_text->size() - 1)
+            if (cursor_pos.y < get_lines() - 1)
             {
                 // Get the rest of the last line
-                char* rest_of_string = UTF8_substr(current_text->at(cursor_pos.y + 1).c_str(), 0, UTF8_total_codepoints(current_text->at(cursor_pos.y + 1).c_str()));
+                char* rest_of_string = UTF8_substr(get_line(cursor_pos.y + 1), 0, UTF8_total_codepoints(get_line(cursor_pos.y + 1)));
 
                 // Erase the current line
                 current_text->erase(current_text->begin() + cursor_pos.y + 1);
 
                 // Add the rest of the last line to the end of the first line
-                current_text->at(cursor_pos.y) += rest_of_string;
+                add_to_line(cursor_pos.y, rest_of_string);
                 SDL_free(rest_of_string);
             }
         }
@@ -486,7 +561,7 @@ namespace TextInput {
         {
             if (SDL_GetModState() & KMOD_CTRL)
             {
-                char* character = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x, cursor_pos.x + 1);
+                char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
                 bool is_word = is_word_part(character[0]);
                 SDL_free(character);
 
@@ -495,7 +570,7 @@ namespace TextInput {
                 int start_x = cursor_pos.x;
                 while (true)
                 {
-                    char* character = UTF8_substr(current_text->at(cursor_pos.y).c_str(), cursor_pos.x, cursor_pos.x + 1);
+                    char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
                     if (is_word_part(character[0]) != is_word)
                     {
                         SDL_free(character);
@@ -507,8 +582,8 @@ namespace TextInput {
                 }
 
                 // Erase the characters before the cursor
-                char* erased = UTF8_erase(current_text->at(remove_y).c_str(), start_x, remove_x);
-                current_text->at(remove_y) = erased;
+                char* erased = UTF8_erase(get_line(remove_y), start_x, remove_x);
+                set_line(remove_y, erased);
                 SDL_free(erased);
 
                 cursor_pos.x = start_x;
@@ -516,8 +591,8 @@ namespace TextInput {
             else
             {
                 // Erase the character before the cursor
-                char* erased = UTF8_erase(current_text->at(cursor_pos.y).c_str(), cursor_pos.x, cursor_pos.x + 1);
-                current_text->at(cursor_pos.y) = erased;
+                char* erased = UTF8_erase(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
+                set_line(cursor_pos.y, erased);
                 SDL_free(erased);
             }
         }
@@ -547,42 +622,55 @@ namespace TextInput {
             }
             else if (e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL)
             {
+                if (!can_select)
+                {
+                    SDL_SetClipboardText(get_line(cursor_pos.y));
+                    return;
+                }
                 char* selected = get_selected_text();
                 SDL_SetClipboardText(selected);
                 SDL_free(selected);
             }
             else if (e.key.keysym.sym == SDLK_x && SDL_GetModState() & KMOD_CTRL)
             {
+                if (!can_select)
+                {
+                    SDL_SetClipboardText(get_line(cursor_pos.y));
+                    set_line(cursor_pos.y, "");
+                    cursor_pos.x = 0;
+                    cursor_x_tallest = 0;
+                    return;
+                }
                 char* selected = get_selected_text();
                 SDL_SetClipboardText(selected);
                 SDL_free(selected);
                 remove_selection();
             }
-            else if (e.key.keysym.sym == SDLK_a && SDL_GetModState() & KMOD_CTRL)
+            else if (e.key.keysym.sym == SDLK_a && SDL_GetModState() & KMOD_CTRL && can_select)
             {
                 select_all();
             }
-            else if (e.key.keysym.sym == SDLK_RETURN)
+            else if (e.key.keysym.sym == SDLK_RETURN && using_vector)
             {
                 insert_newline();
             }
-            else if (e.key.keysym.sym == SDLK_UP)
+            else if (e.key.keysym.sym == SDLK_UP && can_move_cursor)
             {
                 move_cursor_up();
             }
-            else if (e.key.keysym.sym == SDLK_DOWN)
+            else if (e.key.keysym.sym == SDLK_DOWN && can_move_cursor)
             {
                 move_cursor_down();
             }
-            else if (e.key.keysym.sym == SDLK_LEFT)
+            else if (e.key.keysym.sym == SDLK_LEFT && can_move_cursor)
             {
                 move_cursor_left();
             }
-            else if (e.key.keysym.sym == SDLK_RIGHT)
+            else if (e.key.keysym.sym == SDLK_RIGHT && can_move_cursor)
             {
                 move_cursor_right();
             }
-            else if (e.key.keysym.sym == SDLK_HOME)
+            else if (e.key.keysym.sym == SDLK_HOME && can_move_cursor)
             {
                 cursor_pos.x = 0;
                 cursor_x_tallest = 0;
@@ -591,37 +679,37 @@ namespace TextInput {
                     cursor_pos.y = 0;
                 }
             }
-            else if (e.key.keysym.sym == SDLK_END)
+            else if (e.key.keysym.sym == SDLK_END && can_move_cursor)
             {
                 if (SDL_GetModState() & KMOD_CTRL)
                 {
-                    cursor_pos.y = current_text->size() - 1;
+                    cursor_pos.y = get_lines() - 1;
                 }
-                cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+                cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
                 cursor_x_tallest = cursor_pos.x;
             }
             else if (e.key.keysym.sym == SDLK_DELETE)
             {
                 delete_key();
             }
-            else if (e.key.keysym.sym == SDLK_PAGEUP)
+            else if (e.key.keysym.sym == SDLK_PAGEUP && can_move_cursor)
             {
                 cursor_pos.y -= 10;
                 if (cursor_pos.y < 0) {
                     cursor_pos.y = 0;
                 }
-                if (cursor_pos.x > UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str())) {
-                    cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+                if (cursor_pos.x > UTF8_total_codepoints(get_line(cursor_pos.y))) {
+                    cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
                 }
             }
-            else if (e.key.keysym.sym == SDLK_PAGEDOWN)
+            else if (e.key.keysym.sym == SDLK_PAGEDOWN && can_move_cursor)
             {
                 cursor_pos.y += 10;
-                if (cursor_pos.y >= current_text->size()) {
-                    cursor_pos.y = current_text->size() - 1;
+                if (cursor_pos.y >= get_lines()) {
+                    cursor_pos.y = get_lines() - 1;
                 }
-                if (cursor_pos.x > UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str())) {
-                    cursor_pos.x = UTF8_total_codepoints(current_text->at(cursor_pos.y).c_str());
+                if (cursor_pos.x > UTF8_total_codepoints(get_line(cursor_pos.y))) {
+                    cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
                 }
             }
         }

@@ -31,6 +31,7 @@
 #include "RenderFixed.h"
 #include "Screen.h"
 #include "Script.h"
+#include "TextInput.h"
 #include "Unused.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -954,7 +955,7 @@ static enum LoopCode loop_end(void)
     key.linealreadyemptykludge = false;
 
     //Mute button
-    if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !key.textentry())
+    if (key.isDown(KEYBOARD_m) && game.mutebutton<=0 && !TextInput::taking_input)
     {
         game.mutebutton = 8;
         if (game.muted)
@@ -971,7 +972,7 @@ static enum LoopCode loop_end(void)
         game.mutebutton--;
     }
 
-    if (key.isDown(KEYBOARD_n) && game.musicmutebutton <= 0 && !key.textentry())
+    if (key.isDown(KEYBOARD_n) && game.musicmutebutton <= 0 && !TextInput::taking_input)
     {
         game.musicmutebutton = 8;
         game.musicmuted = !game.musicmuted;
