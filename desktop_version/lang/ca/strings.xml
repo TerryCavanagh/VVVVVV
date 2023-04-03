@@ -630,6 +630,7 @@
     <string english="Now using {area} Tileset" translation="Ara es fa servir el conjunt de peces {area}" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="S’ha canviat el color|del conjunt de peces" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="S’ha canviat el tipus d’enemic" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
+    <string english="Platform speed is now {speed}" translation="" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Reloaded resources" translation="S’han recarregat els recursos" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERROR: Format invàlid" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="S’ha obert el mapa: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
