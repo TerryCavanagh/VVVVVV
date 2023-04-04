@@ -1,17 +1,16 @@
+#include "TextInput.h"
+
 #include <SDL.h>
-#include <algorithm>
 #include <string>
-#include <sstream>
 #include <vector>
-#include <iostream>
 
 #include "KeyPoll.h"
-#include "TextInput.h"
 #include "UTF8.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
-namespace TextInput {
+namespace TextInput
+{
     bool taking_input;
     bool selecting;
     int flash_timer;
@@ -24,11 +23,13 @@ namespace TextInput {
     SDL_Point cursor_select_pos;
     int cursor_x_tallest;
 
-    void init(void) {
+    void init(void)
+    {
         taking_input = false;
     }
 
-    void attach_input(std::vector<std::string>* text) {
+    void attach_input(std::vector<std::string>* text)
+    {
         taking_input = true;
         current_text = text;
         selecting = false;
@@ -41,7 +42,8 @@ namespace TextInput {
         send_cursor_to_end();
     }
 
-    void attach_input(std::string* text) {
+    void attach_input(std::string* text)
+    {
         taking_input = true;
         current_text_line = text;
         selecting = false;
@@ -58,7 +60,8 @@ namespace TextInput {
         cursor_x_tallest = cursor_pos.x;
     }
 
-    void detach_input(void) {
+    void detach_input(void)
+    {
         taking_input = false;
         SDL_StopTextInput();
     }
@@ -70,13 +73,16 @@ namespace TextInput {
         cursor_x_tallest = cursor_pos.x;
     }
 
-    void insert_text(std::string text) {
+    void insert_text(std::string text)
+    {
         // Insert text at cursor position, respecting newlines
         // Don't bother deleting selection, already done
 
         std::string::iterator it;
-        for (it = text.begin(); it != text.end(); it++) {
-            if (*it == '\n') {
+        for (it = text.begin(); it != text.end(); it++)
+        {
+            if (*it == '\n')
+            {
                 insert_newline();
             }
             else if (*it != '\r' && *it != '\0')
@@ -193,7 +199,8 @@ namespace TextInput {
 
         SelectionRect rect = reorder_selection_positions();
 
-        if (rect.y == rect.y2) {
+        if (rect.y == rect.y2)
+        {
             return UTF8_substr(get_line(rect.y), rect.x, rect.x2);
         }
 
@@ -202,14 +209,16 @@ namespace TextInput {
 
         // Loop through the lines in between
         int total_length = SDL_strlen(select_part_first_line) + SDL_strlen(select_part_last_line) + 1;
-        for (int i = rect.y + 1; i < rect.y2; i++) {
+        for (int i = rect.y + 1; i < rect.y2; i++)
+        {
             total_length += SDL_strlen(get_line(i)) + 1;
         }
 
         char* select_part = (char*)SDL_malloc(total_length);
         strcpy(select_part, select_part_first_line);
         strcat(select_part, "\n");
-        for (int i = rect.y + 1; i < rect.y2; i++) {
+        for (int i = rect.y + 1; i < rect.y2; i++)
+        {
             strcat(select_part, get_line(i));
             strcat(select_part, "\n");
         }
@@ -221,15 +230,19 @@ namespace TextInput {
         return select_part;
     }
 
-    SelectionRect reorder_selection_positions(void) {
+    SelectionRect reorder_selection_positions(void)
+    {
         SelectionRect positions;
         bool in_front = false;
 
-        if (cursor_pos.y > cursor_select_pos.y) {
+        if (cursor_pos.y > cursor_select_pos.y)
+        {
             in_front = true;
         }
-        else if (cursor_pos.y == cursor_select_pos.y) {
-            if (cursor_pos.x >= cursor_select_pos.x) {
+        else if (cursor_pos.y == cursor_select_pos.y)
+        {
+            if (cursor_pos.x >= cursor_select_pos.x)
+            {
                 in_front = true;
             }
         }
@@ -254,7 +267,8 @@ namespace TextInput {
 
     void remove_characters(int x, int y, int x2, int y2)
     {
-        if (x == x2 && y == y2) {
+        if (x == x2 && y == y2)
+        {
             return;
         }
         // Get the rest of the last line
@@ -295,14 +309,17 @@ namespace TextInput {
     void move_cursor_up(void)
     {
         bool reset = process_selection();  // Only returns true if you don't hold shift
-        if (reset && (cursor_pos.y > cursor_select_pos.y)) {
+        if (reset && cursor_pos.y > cursor_select_pos.y)
+        {
             cursor_pos.y = cursor_select_pos.y;
         }
 
-        if (cursor_pos.y > 0) {
+        if (cursor_pos.y > 0)
+        {
             cursor_pos.y--;
             cursor_pos.x = cursor_x_tallest;
-            if (cursor_pos.x > UTF8_total_codepoints(get_line(cursor_pos.y))) {
+            if (cursor_pos.x > (int) UTF8_total_codepoints(get_line(cursor_pos.y)))
+            {
                 cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
             }
         }
@@ -311,14 +328,17 @@ namespace TextInput {
     void move_cursor_down(void)
     {
         bool reset = process_selection();  // Only returns true if you don't hold shift
-        if (reset && (cursor_pos.y < cursor_select_pos.y)) {
+        if (reset && cursor_pos.y < cursor_select_pos.y)
+        {
             cursor_pos.y = cursor_select_pos.y;
         }
 
-        if (cursor_pos.y < get_lines() - 1) {
+        if (cursor_pos.y < get_lines() - 1)
+        {
             cursor_pos.y++;
             cursor_pos.x = cursor_x_tallest;
-            if (cursor_pos.x > UTF8_total_codepoints(get_line(cursor_pos.y))) {
+            if (cursor_pos.x > (int) UTF8_total_codepoints(get_line(cursor_pos.y)))
+            {
                 cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
             }
         }
@@ -328,19 +348,21 @@ namespace TextInput {
         }
     }
 
-    bool is_word_part(char character)
+    bool is_word_part(unsigned char character)
     {
-        return character > 0x7F || isalpha(character) || isdigit(character) || character == '_' || character == '-';
+        return character > 0x7F || SDL_isdigit(character) || SDL_isalpha(character) || character == '_' || character == '-';
     }
 
     void move_cursor_left(void)
     {
         bool reset = process_selection();  // Only returns true if you don't hold shift
-        if (reset) {
+        if (reset)
+        {
             cursor_pos.x = cursor_select_pos.x;
         }
 
-        if (cursor_pos.x == 0 && cursor_pos.y == 0) {
+        if (cursor_pos.x == 0 && cursor_pos.y == 0)
+        {
             cursor_x_tallest = 0;
             return;
         }
@@ -354,7 +376,7 @@ namespace TextInput {
 
             while (true)
             {
-                char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
+                character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
                 if (is_word_part(character[0]) != is_word)
                 {
                     SDL_free(character);
@@ -372,7 +394,8 @@ namespace TextInput {
         }
         else
         {
-            if (cursor_pos.x > 0) {
+            if (cursor_pos.x > 0)
+            {
                 cursor_pos.x--;
             }
             else if (cursor_pos.y > 0)
@@ -388,11 +411,13 @@ namespace TextInput {
     void move_cursor_right(void)
     {
         bool reset = process_selection();  // Only returns true if you don't hold shift
-        if (reset) {
+        if (reset)
+        {
             cursor_pos.x = cursor_select_pos.x;
         }
 
-        if (cursor_pos.x >= UTF8_total_codepoints(get_line(cursor_pos.y)) && cursor_pos.y == get_lines() - 1) {
+        if (cursor_pos.x >= (int) UTF8_total_codepoints(get_line(cursor_pos.y)) && cursor_pos.y == get_lines() - 1)
+        {
             cursor_x_tallest = cursor_pos.x;
             return;
         }
@@ -406,7 +431,7 @@ namespace TextInput {
 
             while (true)
             {
-                char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
+                character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
                 if (is_word_part(character[0]) != is_word)
                 {
                     SDL_free(character);
@@ -414,7 +439,7 @@ namespace TextInput {
                 }
                 SDL_free(character);
                 cursor_pos.x++;
-                if (cursor_pos.x >= UTF8_total_codepoints(get_line(cursor_pos.y)) && cursor_pos.y < get_lines() - 1)
+                if (cursor_pos.x >= (int) UTF8_total_codepoints(get_line(cursor_pos.y)) && cursor_pos.y < get_lines() - 1)
                 {
                     cursor_pos.y++;
                     cursor_pos.x = 0;
@@ -425,7 +450,8 @@ namespace TextInput {
         else
         {
 
-            if (cursor_pos.x < UTF8_total_codepoints(get_line(cursor_pos.y))) {
+            if (cursor_pos.x < (int) UTF8_total_codepoints(get_line(cursor_pos.y)))
+            {
                 cursor_pos.x++;
             }
             else if (cursor_pos.y < get_lines() - 1)
@@ -441,7 +467,8 @@ namespace TextInput {
     void backspace(void)
     {
         // The user pressed backspace.
-        if (selecting) {
+        if (selecting)
+        {
             remove_selection();
             return;
         }
@@ -481,7 +508,7 @@ namespace TextInput {
                 int start_x = cursor_pos.x;
                 while (true)
                 {
-                    char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
+                    character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x - 1, cursor_pos.x);
                     if (is_word_part(character[0]) != is_word)
                     {
                         SDL_free(character);
@@ -537,12 +564,13 @@ namespace TextInput {
     void delete_key(void)
     {
         // The user pressed delete.
-        if (selecting) {
+        if (selecting)
+        {
             remove_selection();
             return;
         }
 
-        if (cursor_pos.x == UTF8_total_codepoints(get_line(cursor_pos.y)))
+        if (cursor_pos.x == (int) UTF8_total_codepoints(get_line(cursor_pos.y)))
         {
             if (cursor_pos.y < get_lines() - 1)
             {
@@ -570,7 +598,7 @@ namespace TextInput {
                 int start_x = cursor_pos.x;
                 while (true)
                 {
-                    char* character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
+                    character = UTF8_substr(get_line(cursor_pos.y), cursor_pos.x, cursor_pos.x + 1);
                     if (is_word_part(character[0]) != is_word)
                     {
                         SDL_free(character);
@@ -598,10 +626,12 @@ namespace TextInput {
         }
     }
 
-    void handle_events(SDL_Event e) {
+    void handle_events(SDL_Event e)
+    {
         if (!taking_input) return;
 
-        if (e.type == SDL_KEYDOWN) {
+        if (e.type == SDL_KEYDOWN)
+        {
             // Show cursor!!
             flash_timer = 0;
 
@@ -613,7 +643,8 @@ namespace TextInput {
             }
             else if (e.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL)
             {
-                if (selecting) {
+                if (selecting)
+                {
                     remove_selection();
                 }
                 char* clipboard_text = SDL_GetClipboardText();
@@ -695,20 +726,24 @@ namespace TextInput {
             else if (e.key.keysym.sym == SDLK_PAGEUP && can_move_cursor)
             {
                 cursor_pos.y -= 10;
-                if (cursor_pos.y < 0) {
+                if (cursor_pos.y < 0)
+                {
                     cursor_pos.y = 0;
                 }
-                if (cursor_pos.x > UTF8_total_codepoints(get_line(cursor_pos.y))) {
+                if (cursor_pos.x > (int) UTF8_total_codepoints(get_line(cursor_pos.y)))
+                {
                     cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
                 }
             }
             else if (e.key.keysym.sym == SDLK_PAGEDOWN && can_move_cursor)
             {
                 cursor_pos.y += 10;
-                if (cursor_pos.y >= get_lines()) {
+                if (cursor_pos.y >= get_lines())
+                {
                     cursor_pos.y = get_lines() - 1;
                 }
-                if (cursor_pos.x > UTF8_total_codepoints(get_line(cursor_pos.y))) {
+                if (cursor_pos.x > (int) UTF8_total_codepoints(get_line(cursor_pos.y)))
+                {
                     cursor_pos.x = UTF8_total_codepoints(get_line(cursor_pos.y));
                 }
             }
@@ -720,7 +755,8 @@ namespace TextInput {
             flash_timer = 0;
 
             //Append character(s)
-            if (selecting) {
+            if (selecting)
+            {
                 remove_selection();
             }
             insert_text(e.text.text);

@@ -1,6 +1,10 @@
 #ifndef TEXTINPUT_H
 #define TEXTINPUT_H
 
+#include <SDL.h>
+#include <string>
+#include <vector>
+
 struct SelectionRect
 {
     int x;

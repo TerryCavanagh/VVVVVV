@@ -1583,11 +1583,10 @@ void editorrender(void)
             // so we can redraw the text over top
             // with a different color.
 
-            if (TextInput::selecting) {
+            if (TextInput::selecting)
+            {
                 const SDL_Color color = graphics.getRGB(123, 111, 218);
-                const int x = TextInput::cursor_select_pos.x;
                 const int y = TextInput::cursor_select_pos.y;
-                const int w = TextInput::cursor_pos.x - x;
                 const int h = TextInput::cursor_pos.y - y;
 
                 const SelectionRect rect = TextInput::reorder_selection_positions();
