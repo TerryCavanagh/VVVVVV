@@ -1727,6 +1727,12 @@ void Graphics::drawgravityline( int t )
 
     if (obj.entities[t].life == 0)
     {
+        if (game.noflashingmode)
+        {
+            fill_rect(&line_rect, getRGB(200 - 20, 200 - 20, 200 - 20));
+            return;
+        }
+
         switch(linestate)
         {
         case 0:
@@ -2878,6 +2884,7 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
     set_render_target(target);
 }
 
+#define GETCOL_RANDOM (game.noflashingmode ? 0.5 : fRandom())
 SDL_Color Graphics::getcol( int t )
 {
     //Setup predefinied colours as per our zany palette
@@ -2885,39 +2892,39 @@ SDL_Color Graphics::getcol( int t )
     {
         //Player Normal
     case 0:
-        return getRGB(160 - help.glow/2 - (fRandom() * 20), 200 - help.glow/2, 220 - help.glow);
+        return getRGB(160 - help.glow/2 - (GETCOL_RANDOM * 20), 200 - help.glow/2, 220 - help.glow);
         //Player Hurt
     case 1:
-        return getRGB(196 - (fRandom() * 64), 10, 10);
+        return getRGB(196 - (GETCOL_RANDOM * 64), 10, 10);
         //Enemies and stuff
     case 2:
         return getRGB(225 - (help.glow / 2), 75, 30);
     case 3: //Trinket
         if (!trinketcolset)
         {
-            trinketr = 200 - (fRandom() * 64);
-            trinketg = 200 - (fRandom() * 128);
-            trinketb = 164 + (fRandom() * 60);
+            trinketr = 200 - (GETCOL_RANDOM * 64);
+            trinketg = 200 - (GETCOL_RANDOM * 128);
+            trinketb = 164 + (GETCOL_RANDOM * 60);
             trinketcolset = true;
         }
         return getRGB(trinketr, trinketg, trinketb);
     case 4: //Inactive savepoint
     {
-        const int temp = (help.glow / 2) + (fRandom() * 8);
+        const int temp = (help.glow / 2) + (GETCOL_RANDOM * 8);
         return getRGB(80 + temp, 80 + temp, 80 + temp);
     }
     case 5: //Active savepoint
-        return getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
+        return getRGB(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
     case 6: //Enemy : Red
         return getRGB(250 - help.glow/2, 60- help.glow/2, 60 - help.glow/2);
     case 7: //Enemy : Green
-        return getRGB(100 - help.glow/2 - (fRandom() * 30), 250 - help.glow/2, 100 - help.glow/2 - (fRandom() * 30));
+        return getRGB(100 - help.glow/2 - (GETCOL_RANDOM * 30), 250 - help.glow/2, 100 - help.glow/2 - (GETCOL_RANDOM * 30));
     case 8: //Enemy : Purple
-        return getRGB(250 - help.glow/2, 20, 128 - help.glow/2 + (fRandom() * 30));
+        return getRGB(250 - help.glow/2, 20, 128 - help.glow/2 + (GETCOL_RANDOM * 30));
     case 9: //Enemy : Yellow
         return getRGB(250 - help.glow/2, 250 - help.glow/2, 20);
     case 10: //Warp point (white)
-        return getRGB(255 - (fRandom() * 64), 255 - (fRandom() * 64), 255 - (fRandom() * 64));
+        return getRGB(255 - (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
     case 11: //Enemy : Cyan
         return getRGB(20, 250 - help.glow/2, 250 - help.glow/2);
     case 12: //Enemy : Blue
@@ -2925,16 +2932,16 @@ SDL_Color Graphics::getcol( int t )
         //Crew Members
         //green
     case 13:
-        return getRGB(120 - help.glow/4 - (fRandom() * 20), 220 - help.glow/4, 120 - help.glow/4);
+        return getRGB(120 - help.glow/4 - (GETCOL_RANDOM * 20), 220 - help.glow/4, 120 - help.glow/4);
         //Yellow
     case 14:
-        return getRGB(220 - help.glow/4 - (fRandom() * 20), 210 - help.glow/4, 120 - help.glow/4);
+        return getRGB(220 - help.glow/4 - (GETCOL_RANDOM * 20), 210 - help.glow/4, 120 - help.glow/4);
         //pink
     case 15:
         return getRGB(255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
         //Blue
     case 16:
-        return getRGB(75, 75, 255 - help.glow/4 - (fRandom() * 20));
+        return getRGB(75, 75, 255 - help.glow/4 - (GETCOL_RANDOM * 20));
 
 
     case 17: //Enemy : Orange
@@ -2945,14 +2952,14 @@ SDL_Color Graphics::getcol( int t )
         return getRGB(60 - help.glow/8, 60 - help.glow/8, 60 - help.glow/8);
         //Purple
     case 20:
-        return getRGB(220 - help.glow/4 - (fRandom() * 20), 120 - help.glow/4, 210 - help.glow/4);
+        return getRGB(220 - help.glow/4 - (GETCOL_RANDOM * 20), 120 - help.glow/4, 210 - help.glow/4);
 
     case 21: //Enemy : Light Gray
         return getRGB(180 - help.glow/2, 180 - help.glow/2, 180 - help.glow/2);
     case 22: //Enemy : Indicator Gray
         return getRGB(230 - help.glow/2, 230- help.glow/2, 230 - help.glow/2);
     case 23: //Enemy : Indicator Gray
-        return getRGB(255 - help.glow/2 - (fRandom() * 40) , 255 - help.glow/2 - (fRandom() * 40), 255 - help.glow/2 - (fRandom() * 40));
+        return getRGB(255 - help.glow/2 - (GETCOL_RANDOM * 40) , 255 - help.glow/2 - (GETCOL_RANDOM * 40), 255 - help.glow/2 - (GETCOL_RANDOM * 40));
 
         //Trophies
         //cyan
@@ -2979,9 +2986,9 @@ SDL_Color Graphics::getcol( int t )
     case 37: //Trinket
         if (!trinketcolset)
         {
-            trinketr = 200 - (fRandom() * 64);
-            trinketg = 200 - (fRandom() * 128);
-            trinketb = 164 + (fRandom() * 60);
+            trinketr = 200 - (GETCOL_RANDOM * 64);
+            trinketg = 200 - (GETCOL_RANDOM * 128);
+            trinketb = 164 + (GETCOL_RANDOM * 60);
             trinketcolset = true;
         }
         return RGBf(trinketr, trinketg, trinketb);
@@ -2994,56 +3001,67 @@ SDL_Color Graphics::getcol( int t )
         //Awesome
     case 40: //Teleporter in action!
     {
-        const int temp = fRandom() * 150;
-        if(temp<33)
+        if (game.noflashingmode)
         {
-            return RGBf(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
+            return getRGB(196, 196, 223);
+        }
+
+        const int temp = GETCOL_RANDOM * 150;
+        if (temp < 33)
+        {
+            return RGBf(255 - (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64));
         }
         else if (temp < 66)
         {
-            return RGBf(64 + (fRandom() * 64), 255 - (fRandom() * 64), 64 + (fRandom() * 64));
+            return RGBf(64 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64));
         }
         else if (temp < 100)
         {
-            return RGBf(64 + (fRandom() * 64), 64 + (fRandom() * 64), 255 - (fRandom() * 64));
+            return RGBf(64 + (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
         }
         else
         {
-            return RGBf(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
+            return RGBf(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
         }
     }
 
     case 100: //Inactive Teleporter
     {
-        const int temp = (help.glow / 2) + (fRandom() * 8);
+        const int temp = (help.glow / 2) + (GETCOL_RANDOM * 8);
         return getRGB(42 + temp, 42 + temp, 42 + temp);
     }
     case 101: //Active Teleporter
-        return getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
+        return getRGB(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
     case 102: //Teleporter in action!
     {
-        const int temp = fRandom() * 150;
+        if (game.noflashingmode)
+        {
+            return getRGB(196, 196, 223);
+        }
+
+        const int temp = GETCOL_RANDOM * 150;
         if (temp < 33)
         {
-            return getRGB(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
+            return getRGB(255 - (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64));
         }
         else if (temp < 66)
         {
-            return getRGB(64 + (fRandom() * 64), 255 - (fRandom() * 64), 64 + (fRandom() * 64));
+            return getRGB(64 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64));
         }
         else if (temp < 100)
         {
-            return getRGB(64 + (fRandom() * 64), 64 + (fRandom() * 64), 255 - (fRandom() * 64));
+            return getRGB(64 + (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
         }
         else
         {
-            return getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
+            return getRGB(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
         }
     }
     }
 
     return getRGB(255, 255, 255);
 }
+#undef GETCOL_RANDOM
 
 void Graphics::menuoffrender(void)
 {
@@ -3061,28 +3079,27 @@ void Graphics::menuoffrender(void)
     }
 }
 
-SDL_Color Graphics::huetilegetcol(const int t)
+SDL_Color Graphics::huetilegetcol()
 {
-    switch (t)
+    if (game.noflashingmode)
     {
-    case 0:
-        return getRGB(250-int(fRandom()*32), 250-int(fRandom()*32), 10);
-    case 1:
-        return getRGB(250-int(fRandom()*32), 250-int(fRandom()*32), 10);
-    default:
-        return getRGB(250-int(fRandom()*32), 250-int(fRandom()*32), 10);
+        return getRGB(234, 234, 10);
     }
+
+    return getRGB(250 - int(fRandom() * 32), 250 - int(fRandom() * 32), 10);
 }
 
 SDL_Color Graphics::bigchunkygetcol(int t)
 {
-    //A seperate index of colours, for simplicity
+    // A seperate index of colours, for simplicity
+    float random = game.noflashingmode ? 0.5 : fRandom();
+
     switch (t)
     {
     case 1:
-        return getRGB((fRandom() * 64), 10, 10);
+        return getRGB(random * 64, 10, 10);
     case 2:
-        return getRGB(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
+        return getRGB(160 - help.glow / 2 - random * 20, 200 - help.glow / 2, 220 - help.glow);
     }
     const SDL_Color color = {0, 0, 0, 0};
     return color;
