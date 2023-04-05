@@ -2460,7 +2460,7 @@ static void rendermapcursor(const bool flashing)
     if (!map.custommode && game.roomx == 109)
     {
         // Draw the tower specially
-        if (!flashing)
+        if (!flashing || game.noflashingmode)
         {
             graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
         }
@@ -2479,11 +2479,11 @@ static void rendermapcursor(const bool flashing)
         return;
     }
 
-    if (!flashing || (map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0))
+    if (!flashing || ((map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0) || game.noflashingmode))
     {
         graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
     }
-    else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
+    else if (map.cursorstate == 1 && int(map.cursordelay / 4) % 2 == 0)
     {
         graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + data.yoff, 12 * data.zoom, 9 * data.zoom, 255, 255, 255);
         graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 255, 255, 255);
@@ -3041,7 +3041,7 @@ void teleporterrender(void)
 
     // Highlight the currently selected teleporter
 
-    if (game.useteleporter && help.slowsine % 16 > 8)
+    if (game.useteleporter && (help.slowsine % 16 > 8 || game.noflashingmode))
     {
         graphics.drawtile(data.legendxoff + data.xoff + (telex * 12 * data.zoom), data.legendyoff + data.yoff + (teley * 9 * data.zoom), 1128 + (graphics.flipmode ? 3 : 0));
     }

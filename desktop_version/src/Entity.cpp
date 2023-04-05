@@ -3738,7 +3738,7 @@ void entityclass::animateentities( int _i )
             }
             break;
         case 100: //the teleporter!
-            if (entities[_i].tile == 1)
+            if (entities[_i].tile == 1 || game.noflashingmode)
             {
                 //it's inactive
                 entities[_i].drawframe = entities[_i].tile;
@@ -3748,10 +3748,10 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe = entities[_i].tile;
 
                 entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
+                if (entities[_i].framedelay <= 0)
                 {
                     entities[_i].framedelay = 1;
-                    entities[_i].walkingframe = int(fRandom() * 6);
+                    entities[_i].walkingframe = (int) (fRandom() * 6);
                     if (entities[_i].walkingframe >= 4)
                     {
                         entities[_i].walkingframe = -1;
@@ -3768,10 +3768,10 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe = entities[_i].tile;
 
                 entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
+                if (entities[_i].framedelay <= 0)
                 {
                     entities[_i].framedelay = 2;
-                    entities[_i].walkingframe = int(fRandom() * 6);
+                    entities[_i].walkingframe = (int) (fRandom() * 6);
                     if (entities[_i].walkingframe >= 4)
                     {
                         entities[_i].walkingframe = -5;

@@ -51,7 +51,7 @@ public:
 
     GraphicsResources grphx;
 
-    SDL_Color huetilegetcol(int t);
+    SDL_Color huetilegetcol();
     SDL_Color bigchunkygetcol(int t);
 
     void drawgravityline(int t);

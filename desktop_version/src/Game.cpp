@@ -400,7 +400,7 @@ void Game::lifesequence(void)
         if (lifeseq > 5) gravitycontrol = savegc;
 
         lifeseq--;
-        if (INBOUNDS_VEC(i, obj.entities) && lifeseq <= 0)
+        if (INBOUNDS_VEC(i, obj.entities) && (lifeseq <= 0 || noflashingmode))
         {
             obj.entities[i].invis = false;
         }
@@ -5009,7 +5009,7 @@ void Game::deathsequence(void)
         }
         deathcounts++;
         music.playef(2);
-        if (INBOUNDS_VEC(i, obj.entities))
+        if (INBOUNDS_VEC(i, obj.entities) && !noflashingmode)
         {
             obj.entities[i].invis = true;
         }
@@ -5030,7 +5030,7 @@ void Game::deathsequence(void)
             }
         }
     }
-    if (INBOUNDS_VEC(i, obj.entities))
+    if (INBOUNDS_VEC(i, obj.entities) && !noflashingmode)
     {
         if (deathseq == 25) obj.entities[i].invis = true;
         if (deathseq == 20) obj.entities[i].invis = true;
