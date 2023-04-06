@@ -786,6 +786,8 @@ void scriptclass::run(void)
                 {
                     obj.entities[i].xp = 30;
                     obj.entities[i].yp = 46;
+                    obj.entities[i].lerpoldxp = obj.entities[i].xp;
+                    obj.entities[i].lerpoldyp = obj.entities[i].yp;
                     obj.entities[i].size = 13;
                     obj.entities[i].colour = 23;
                     obj.entities[i].cx = 36;// 6;
@@ -800,6 +802,7 @@ void scriptclass::run(void)
                 if (INBOUNDS_VEC(i, obj.entities))
                 {
                     obj.entities[i].xp = 100;
+                    obj.entities[i].lerpoldxp = obj.entities[i].xp;
                     obj.entities[i].size = 0;
                     obj.entities[i].colour = 0;
                     obj.entities[i].cx = 6;
