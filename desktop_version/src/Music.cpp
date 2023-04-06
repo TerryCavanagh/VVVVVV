@@ -1027,13 +1027,21 @@ void musicclass::pause(void)
 
 void musicclass::haltdasmusik(void)
 {
+    haltdasmusik(false);
+}
+
+void musicclass::haltdasmusik(const bool from_fade)
+{
     /* Just pauses music. This is intended. */
     pause();
     currentsong = -1;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
-    nicefade = false;
-    nicechange = -1;
+    if (!from_fade)
+    {
+        nicefade = false;
+        nicechange = -1;
+    }
 }
 
 void musicclass::silencedasmusik(void)
@@ -1145,7 +1153,7 @@ void musicclass::processmusicfadeout(void)
     {
         musicVolume = 0;
         m_doFadeOutVol = false;
-        haltdasmusik();
+        haltdasmusik(true);
     }
 }
 

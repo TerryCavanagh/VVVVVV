@@ -23,6 +23,7 @@ public:
     void resumefade(const int fadein_ms);
     void pause(void);
     void haltdasmusik(void);
+    void haltdasmusik(bool from_fade);
     void silencedasmusik(void);
     void fadeMusicVolumeIn(int ms);
     void fadeMusicVolumeOut(const int fadeout_ms);
