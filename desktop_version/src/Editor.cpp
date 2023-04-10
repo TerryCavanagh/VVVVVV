@@ -27,8 +27,6 @@
 #include "VFormat.h"
 #include "Vlogging.h"
 
-#define SCRIPT_LINE_PADDING 6
-
 editorclass::editorclass(void)
 {
     reset();
@@ -105,8 +103,6 @@ void editorclass::reset(void)
 
     clear_script_buffer();
 
-    script_offset = 0;
-    lines_visible = 25;
     current_script = "null";
 
     script_list_offset = 0;
@@ -1569,99 +1565,13 @@ void editorrender(void)
             );
             font::print(PR_CEN, -1, 228, namebuffer, 123, 111, 218);
 
-            // Draw text
-            int font_height = font::height(PR_FONT_LEVEL);
-            for (int i = 0; i < ed.lines_visible; i++)
-            {
-                if (i + ed.script_offset < (int) ed.script_buffer.size())
-                {
-                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20 + (i * font_height), ed.script_buffer[i + ed.script_offset], 123, 111, 218);
-                }
-            }
+            TextInputInfo info;
+            info.text_color = graphics.getRGB(123, 111, 218);
+            info.selected_color = graphics.getRGB(61, 48, 162);
+            info.visible_lines = 200 / font::height(PR_FONT_LEVEL);
+            info.visible_padding = 48 / font::height(PR_FONT_LEVEL);
 
-            // Draw selection boxes OVER the text,
-            // so we can redraw the text over top
-            // with a different color.
-
-            if (TextInput::selecting)
-            {
-                const SDL_Color color = graphics.getRGB(123, 111, 218);
-                const int y = TextInput::cursor_select_pos.y;
-                const int h = TextInput::cursor_pos.y - y;
-
-                const SelectionRect rect = TextInput::reorder_selection_positions();
-
-                if (h == 0)
-                {
-                    // If the selection is only a single line
-
-                    char* offset_x = UTF8_substr(ed.script_buffer[rect.y].c_str(), 0, rect.x);
-                    char* cut_string = UTF8_substr(ed.script_buffer[rect.y].c_str(), rect.x, rect.x2);
-
-                    graphics.fill_rect(16 + font::len(PR_FONT_LEVEL, offset_x), 20 + (y - ed.script_offset) * font_height, font::len(PR_FONT_LEVEL,cut_string), font_height, color);
-                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, offset_x), 20 + (rect.y2 - ed.script_offset) * font_height, cut_string, 61, 48, 162);
-
-                    SDL_free(offset_x);
-                    SDL_free(cut_string);
-                }
-                else
-                {
-                    // It's multiple lines, so draw multiple selection rectangles
-
-                    const char* line = ed.script_buffer[rect.y].c_str();
-                    char* offset_x = UTF8_substr(line, 0, rect.x);
-                    char* selection_w = UTF8_substr(line, rect.x, UTF8_total_codepoints(line));
-
-                    graphics.fill_rect(16 + font::len(PR_FONT_LEVEL, offset_x), 20 + (rect.y - ed.script_offset) * font_height, SDL_max(font::len(PR_FONT_LEVEL, selection_w), 1), font_height, color);
-                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, offset_x), 20 + (rect.y - ed.script_offset) * font_height, selection_w, 61, 48, 162);
-
-                    SDL_free(offset_x);
-                    SDL_free(selection_w);
-
-                    for (int i = 1; i < rect.y2 - rect.y; i++)
-                    {
-                        const int local_y = rect.y + i - ed.script_offset;
-                        if (local_y < ed.lines_visible)
-                        {
-                            const int line_width = SDL_max(font::len(PR_FONT_LEVEL, ed.script_buffer[rect.y + i].c_str()), 1);
-
-                            graphics.fill_rect(16, 20 + local_y * font_height, line_width, font_height, color);
-                            font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20 + local_y * font_height, ed.script_buffer[rect.y + i].c_str(), 61, 48, 162);
-                        }
-                    }
-
-                    if (rect.y2 - ed.script_offset < ed.lines_visible)
-                    {
-                        const char* line_2 = ed.script_buffer[rect.y2].c_str();
-                        char* selection_w = UTF8_substr(line_2, 0, rect.x2);
-                        const int line_width = SDL_max(font::len(PR_FONT_LEVEL, selection_w), 1);
-
-                        graphics.fill_rect(16, 20 + (rect.y2 - ed.script_offset) * font_height, line_width, font_height, color);
-                        font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20 + (rect.y2 - ed.script_offset) * font_height, selection_w, 61, 48, 162);
-
-                        SDL_free(selection_w);
-                    }
-                }
-            }
-
-            // Draw cursor
-            if (TextInput::flash_timer < 15)
-            {
-                char* substr = UTF8_substr(ed.script_buffer[TextInput::cursor_pos.y].c_str(), 0, TextInput::cursor_pos.x);
-
-                if (TextInput::cursor_pos.x < (int) ed.script_buffer[TextInput::cursor_pos.y].size() || TextInput::selecting)
-                {
-                    graphics.set_color(123, 111, 218);
-                    int x = 16 + font::len(PR_FONT_LEVEL, substr);
-                    int y = 20 + ((TextInput::cursor_pos.y - ed.script_offset) * font_height);
-                    SDL_RenderDrawLine(gameScreen.m_renderer, x, y, x, y + font_height - 1);
-                }
-                else
-                {
-                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, substr), 20 + ((TextInput::cursor_pos.y - ed.script_offset) * font_height), "_", 123, 111, 218);
-                }
-                SDL_free(substr);
-            }
+            TextInput::draw_text(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20, &ed.script_buffer, info);
             break;
         }
         default:
@@ -2479,9 +2389,6 @@ static void editormenuactionpress(void)
             key.keybuffer = "";
             ed.script_list_offset = 0;
             ed.selected_script = 0;
-
-            ed.script_offset = 0;
-            ed.lines_visible = 200 / font::height(PR_FONT_LEVEL);
             break;
         case 2:
             music.playef(11);
@@ -3428,8 +3335,6 @@ void editorinput(void)
                     ed.current_script = script.customscripts[(script.customscripts.size() - 1) - ed.selected_script].name;
                     ed.load_script_in_editor(ed.current_script);
 
-                    ed.script_offset = 0;
-
                     TextInput::attach_input(&ed.script_buffer);
 
                     music.playef(11);
@@ -3461,16 +3366,6 @@ void editorinput(void)
                     key.keybuffer.erase(key.keybuffer.begin() + i);
                 }
             }}
-
-            if (TextInput::cursor_pos.y < ed.script_offset + SCRIPT_LINE_PADDING)
-            {
-                ed.script_offset = SDL_max(0, TextInput::cursor_pos.y - SCRIPT_LINE_PADDING);
-            }
-
-            if (TextInput::cursor_pos.y > ed.script_offset + ed.lines_visible - SCRIPT_LINE_PADDING)
-            {
-                ed.script_offset = SDL_min((int) ed.script_buffer.size() - ed.lines_visible + SCRIPT_LINE_PADDING, TextInput::cursor_pos.y - ed.lines_visible + SCRIPT_LINE_PADDING);
-            }
 
             break;
         }

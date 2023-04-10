@@ -13,6 +13,14 @@ struct SelectionRect
     int y2;
 };
 
+struct TextInputInfo
+{
+    SDL_Color text_color;
+    SDL_Color selected_color;
+    int visible_lines;
+    int visible_padding;
+};
+
 namespace TextInput
 {
     extern bool taking_input;
@@ -32,6 +40,7 @@ namespace TextInput
     void attach_input(std::vector<std::string>* text);
     void attach_input(std::string* text);
     void detach_input(void);
+    void draw_text(uint32_t flags, int x, int y, std::vector<std::string>* text, TextInputInfo info);
 }
 
 #endif /* TEXTINPUT_H */

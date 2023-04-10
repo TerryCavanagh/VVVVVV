@@ -4,7 +4,10 @@
 #include <string>
 #include <vector>
 
+#include "Font.h"
+#include "Graphics.h"
 #include "KeyPoll.h"
+#include "Screen.h"
 #include "UTF8.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
@@ -22,6 +25,7 @@ namespace TextInput
     SDL_Point cursor_pos;
     SDL_Point cursor_select_pos;
     int cursor_x_tallest;
+    int display_offset;
 
     void init(void)
     {
@@ -37,6 +41,7 @@ namespace TextInput
         using_vector = true;
         can_select = true;
         can_move_cursor = true;
+        display_offset = 0;
         SDL_StartTextInput();
 
         send_cursor_to_end();
@@ -49,6 +54,7 @@ namespace TextInput
         selecting = false;
         flash_timer = 0;
         using_vector = false;
+        display_offset = 0;
         SDL_StartTextInput();
 
         // Temporary
@@ -760,6 +766,120 @@ namespace TextInput
                 remove_selection();
             }
             insert_text(e.text.text);
+        }
+    }
+
+    void draw_text(uint32_t flags, int text_x, int text_y, std::vector<std::string>* text, TextInputInfo info)
+    {
+        const SDL_Color text_color = info.text_color;
+        const SDL_Color selected_color = info.selected_color;
+        const int visible_lines = info.visible_lines;
+        const int visible_padding = info.visible_padding;
+
+        if (cursor_pos.y < display_offset + visible_padding)
+        {
+            display_offset = SDL_max(0, TextInput::cursor_pos.y - visible_padding);
+        }
+
+        if (cursor_pos.y > display_offset + visible_lines - visible_padding)
+        {
+            display_offset = SDL_min((int) text->size() - visible_lines + visible_padding, cursor_pos.y - visible_lines + visible_padding);
+        }
+
+        // Draw text
+        int font_height = font::height(flags);
+        for (int i = 0; i < visible_lines; i++)
+        {
+            if (i + display_offset < (int) text->size())
+            {
+                font::print(flags, text_x, text_y + (i * font_height), text->at(i + display_offset), text_color.r, text_color.g, text_color.b);
+            }
+        }
+
+        /* Draw selection boxes OVER the text,
+         * so we can redraw the text over top
+         * with a different color. */
+
+        if (selecting)
+        {
+            const int y = cursor_select_pos.y;
+            const int h = cursor_pos.y - y;
+
+            const SelectionRect rect = reorder_selection_positions();
+
+            if (h == 0)
+            {
+                // If the selection is only a single line
+
+                char* offset_x = UTF8_substr(text->at(rect.y).c_str(), 0, rect.x);
+                char* cut_string = UTF8_substr(text->at(rect.y).c_str(), rect.x, rect.x2);
+
+                graphics.fill_rect(text_x + font::len(flags, offset_x), text_y + (y - display_offset) * font_height, font::len(flags, cut_string), font_height, text_color);
+                font::print(flags, text_x + font::len(flags, offset_x), text_y + (rect.y2 - display_offset) * font_height, cut_string, selected_color.r, selected_color.g, selected_color.b);
+
+                SDL_free(offset_x);
+                SDL_free(cut_string);
+            }
+            else
+            {
+                // It's multiple lines, so draw multiple selection rectangles
+
+                if (rect.y - display_offset >= 0)
+                {
+                    const char* line = text->at(rect.y).c_str();
+                    char* offset_x = UTF8_substr(line, 0, rect.x);
+                    char* selection_w = UTF8_substr(line, rect.x, UTF8_total_codepoints(line));
+
+                    graphics.fill_rect(text_x + font::len(flags, offset_x), text_y + (rect.y - display_offset) * font_height, SDL_max(font::len(PR_FONT_LEVEL, selection_w), 1), font_height, text_color);
+                    font::print(flags, text_x + font::len(flags, offset_x), text_y + (rect.y - display_offset) * font_height, selection_w, selected_color.r, selected_color.g, selected_color.b);
+
+                    SDL_free(offset_x);
+                    SDL_free(selection_w);
+                }
+
+                for (int i = 1; i < rect.y2 - rect.y; i++)
+                {
+                    const int local_y = rect.y + i - display_offset;
+                    if (local_y >= 0 && local_y < visible_lines)
+                    {
+                        const int line_width = SDL_max(font::len(flags, text->at(rect.y + i).c_str()), 1);
+
+                        graphics.fill_rect(text_x, text_y + local_y * font_height, line_width, font_height, text_color);
+                        font::print(flags, text_x, text_y + local_y * font_height, text->at(rect.y + i).c_str(), selected_color.r, selected_color.g, selected_color.b);
+                    }
+                }
+
+                if (rect.y2 - display_offset < visible_lines)
+                {
+                    const char* line_2 = text->at(rect.y2).c_str();
+                    char* selection_w = UTF8_substr(line_2, 0, rect.x2);
+                    const int line_width = SDL_max(font::len(flags, selection_w), 1);
+
+                    graphics.fill_rect(text_x, text_y + (rect.y2 - display_offset) * font_height, line_width, font_height, text_color);
+                    font::print(flags, text_x, text_y + (rect.y2 - display_offset) * font_height, selection_w, selected_color.r, selected_color.g, selected_color.b);
+
+                    SDL_free(selection_w);
+                }
+            }
+        }
+
+        // Draw cursor
+        if (TextInput::flash_timer < 15)
+        {
+            char* substr = UTF8_substr(text->at(TextInput::cursor_pos.y).c_str(), 0, TextInput::cursor_pos.x);
+
+            if (TextInput::cursor_pos.x < (int) text->at(TextInput::cursor_pos.y).size() || TextInput::selecting)
+            {
+                graphics.set_color(text_color);
+                int x = text_x + font::len(flags, substr);
+                int y = text_y + ((TextInput::cursor_pos.y - display_offset) * font_height);
+                SDL_RenderDrawLine(gameScreen.m_renderer, x, y, x, y + font_height - 1);
+            }
+            else
+            {
+                font::print(flags, text_x + font::len(flags, substr), text_y + ((TextInput::cursor_pos.y - display_offset) * font_height), "_", text_color.r, text_color.g, text_color.b);
+            }
+            SDL_free(substr);
         }
     }
 }
