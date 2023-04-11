@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "Constants.h"
 #include "Font.h"
 #include "Graphics.h"
 #include "KeyPoll.h"
@@ -11,6 +12,15 @@
 #include "UTF8.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
+
+static inline int adjust_center(std::vector<std::string>* text, uint32_t flags, int line)
+{
+    if (flags & PR_CEN)
+    {
+        return font::len(flags, text->at(line).c_str()) / 2;
+    }
+    return 0;
+}
 
 namespace TextInput
 {
@@ -210,7 +220,7 @@ namespace TextInput
             return UTF8_substr(get_line(rect.y), rect.x, rect.x2);
         }
 
-        char* select_part_first_line = UTF8_substr(get_line(rect.y), rect.x, UTF8_total_codepoints(get_line(rect.y)) - rect.x);
+        char* select_part_first_line = UTF8_substr(get_line(rect.y), rect.x, UTF8_total_codepoints(get_line(rect.y)));
         char* select_part_last_line = UTF8_substr(get_line(rect.y2), 0, rect.x2);
 
         // Loop through the lines in between
@@ -220,7 +230,7 @@ namespace TextInput
             total_length += SDL_strlen(get_line(i)) + 1;
         }
 
-        char* select_part = (char*)SDL_malloc(total_length);
+        char* select_part = (char*)SDL_malloc(total_length + 1);
         strcpy(select_part, select_part_first_line);
         strcat(select_part, "\n");
         for (int i = rect.y + 1; i < rect.y2; i++)
@@ -229,6 +239,7 @@ namespace TextInput
             strcat(select_part, "\n");
         }
         strcat(select_part, select_part_last_line);
+        strcat(select_part, "\0");
 
         SDL_free(select_part_first_line);
         SDL_free(select_part_last_line);
@@ -776,6 +787,11 @@ namespace TextInput
         const int visible_lines = info.visible_lines;
         const int visible_padding = info.visible_padding;
 
+        if ((flags & PR_CEN) && text_x == -1)
+        {
+            text_x = SCREEN_WIDTH_PIXELS / 2;
+        }
+
         if (cursor_pos.y < display_offset + visible_padding)
         {
             display_offset = SDL_max(0, TextInput::cursor_pos.y - visible_padding);
@@ -792,7 +808,7 @@ namespace TextInput
         {
             if (i + display_offset < (int) text->size())
             {
-                font::print(flags, text_x, text_y + (i * font_height), text->at(i + display_offset), text_color.r, text_color.g, text_color.b);
+                font::print(flags & ~PR_CEN, text_x - adjust_center(text, flags, i + display_offset), text_y + (i * font_height), text->at(i + display_offset), text_color.r, text_color.g, text_color.b);
             }
         }
 
@@ -813,9 +829,10 @@ namespace TextInput
 
                 char* offset_x = UTF8_substr(text->at(rect.y).c_str(), 0, rect.x);
                 char* cut_string = UTF8_substr(text->at(rect.y).c_str(), rect.x, rect.x2);
+                int align_offset = adjust_center(text, flags, rect.y);
 
-                graphics.fill_rect(text_x + font::len(flags, offset_x), text_y + (y - display_offset) * font_height, font::len(flags, cut_string), font_height, text_color);
-                font::print(flags, text_x + font::len(flags, offset_x), text_y + (rect.y2 - display_offset) * font_height, cut_string, selected_color.r, selected_color.g, selected_color.b);
+                graphics.fill_rect(text_x + font::len(flags, offset_x) - align_offset, text_y + (y - display_offset) * font_height, font::len(flags, cut_string), font_height, text_color);
+                font::print(flags & ~PR_CEN, text_x + font::len(flags, offset_x) - align_offset, text_y + (rect.y2 - display_offset) * font_height, cut_string, selected_color.r, selected_color.g, selected_color.b);
 
                 SDL_free(offset_x);
                 SDL_free(cut_string);
@@ -829,9 +846,10 @@ namespace TextInput
                     const char* line = text->at(rect.y).c_str();
                     char* offset_x = UTF8_substr(line, 0, rect.x);
                     char* selection_w = UTF8_substr(line, rect.x, UTF8_total_codepoints(line));
+                    int align_offset = adjust_center(text, flags, rect.y);
 
-                    graphics.fill_rect(text_x + font::len(flags, offset_x), text_y + (rect.y - display_offset) * font_height, SDL_max(font::len(PR_FONT_LEVEL, selection_w), 1), font_height, text_color);
-                    font::print(flags, text_x + font::len(flags, offset_x), text_y + (rect.y - display_offset) * font_height, selection_w, selected_color.r, selected_color.g, selected_color.b);
+                    graphics.fill_rect(text_x + font::len(flags, offset_x) - align_offset, text_y + (rect.y - display_offset) * font_height, SDL_max(font::len(PR_FONT_LEVEL, selection_w), 1), font_height, text_color);
+                    font::print(flags & ~PR_CEN, text_x + font::len(flags, offset_x) - align_offset, text_y + (rect.y - display_offset) * font_height, selection_w, selected_color.r, selected_color.g, selected_color.b);
 
                     SDL_free(offset_x);
                     SDL_free(selection_w);
@@ -843,9 +861,10 @@ namespace TextInput
                     if (local_y >= 0 && local_y < visible_lines)
                     {
                         const int line_width = SDL_max(font::len(flags, text->at(rect.y + i).c_str()), 1);
+                        int align_offset = adjust_center(text, flags, rect.y + i);
 
-                        graphics.fill_rect(text_x, text_y + local_y * font_height, line_width, font_height, text_color);
-                        font::print(flags, text_x, text_y + local_y * font_height, text->at(rect.y + i).c_str(), selected_color.r, selected_color.g, selected_color.b);
+                        graphics.fill_rect(text_x - align_offset, text_y + local_y * font_height, line_width, font_height, text_color);
+                        font::print(flags & ~PR_CEN, text_x - align_offset, text_y + local_y * font_height, text->at(rect.y + i).c_str(), selected_color.r, selected_color.g, selected_color.b);
                     }
                 }
 
@@ -854,9 +873,10 @@ namespace TextInput
                     const char* line_2 = text->at(rect.y2).c_str();
                     char* selection_w = UTF8_substr(line_2, 0, rect.x2);
                     const int line_width = SDL_max(font::len(flags, selection_w), 1);
+                    int align_offset = adjust_center(text, flags, rect.y2);
 
-                    graphics.fill_rect(text_x, text_y + (rect.y2 - display_offset) * font_height, line_width, font_height, text_color);
-                    font::print(flags, text_x, text_y + (rect.y2 - display_offset) * font_height, selection_w, selected_color.r, selected_color.g, selected_color.b);
+                    graphics.fill_rect(text_x - align_offset, text_y + (rect.y2 - display_offset) * font_height, line_width, font_height, text_color);
+                    font::print(flags & ~PR_CEN, text_x - align_offset, text_y + (rect.y2 - display_offset) * font_height, selection_w, selected_color.r, selected_color.g, selected_color.b);
 
                     SDL_free(selection_w);
                 }
@@ -867,17 +887,18 @@ namespace TextInput
         if (TextInput::flash_timer < 15)
         {
             char* substr = UTF8_substr(text->at(TextInput::cursor_pos.y).c_str(), 0, TextInput::cursor_pos.x);
+            int align_offset = adjust_center(text, flags, TextInput::cursor_pos.y);
 
             if (TextInput::cursor_pos.x < (int) text->at(TextInput::cursor_pos.y).size() || TextInput::selecting)
             {
                 graphics.set_color(text_color);
-                int x = text_x + font::len(flags, substr);
+                int x = text_x + font::len(flags, substr) - align_offset;
                 int y = text_y + ((TextInput::cursor_pos.y - display_offset) * font_height);
                 SDL_RenderDrawLine(gameScreen.m_renderer, x, y, x, y + font_height - 1);
             }
             else
             {
-                font::print(flags, text_x + font::len(flags, substr), text_y + ((TextInput::cursor_pos.y - display_offset) * font_height), "_", text_color.r, text_color.g, text_color.b);
+                font::print(flags & ~PR_CEN, text_x + font::len(flags, substr) - align_offset, text_y + ((TextInput::cursor_pos.y - display_offset) * font_height), "_", text_color.r, text_color.g, text_color.b);
             }
             SDL_free(substr);
         }
