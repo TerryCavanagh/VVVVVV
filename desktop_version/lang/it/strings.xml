@@ -240,7 +240,7 @@
     <string english="2.2" translation="2.2" explanation="VVVVVV version number for glitchrunner mode"/>
     <string english="input delay" translation="ritardo comandi" explanation="menu option, enable 1 frame of delay after pressing input"/>
     <string english="Input Delay" translation="Ritardo comandi" explanation="title, enable 1 frame of delay after pressing input" max="20"/>
-    <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="Ripristina il ritardo comandi di 1 frame delle versioni precedenti del gioco." explanation="input delay" max="38*3"/>
+    <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="Ripristina il ritardo comandi di un frame delle versioni precedenti del gioco." explanation="input delay" max="38*3"/>
     <string english="Input delay is ON" translation="Ritardo comandi: SÌ" explanation="" max="38*2"/>
     <string english="Input delay is OFF" translation="Ritardo comandi: NO" explanation="" max="38*2"/>
     <string english="accessibility" translation="accessibilità" explanation="menu option"/>
@@ -297,10 +297,10 @@
     <string english="Replay the intermission levels." translation="Rigioca i livelli di intermezzo." explanation="" max="38*3"/>
     <string english="unlock intermissions" translation="sblocca intermezzi" explanation="menu option"/>
     <string english="TO UNLOCK: Complete the intermission levels in-game." translation="PER SBLOCCARE: Completa i livelli di intermezzo nel gioco." explanation="" max="38*4"/>
-    <string english="no death mode" translation="modalità Una vita" explanation="menu option"/>
-    <string english="No Death Mode" translation="Modalità Una vita" explanation="title" max="20"/>
+    <string english="no death mode" translation="modalità una vita" explanation="menu option"/>
+    <string english="No Death Mode" translation="Modalità una vita" explanation="title" max="20"/>
     <string english="Play the entire game without dying once." translation="Completa il gioco senza morire nemmeno una volta." explanation="" max="38*4"/>
-    <string english="No Death Mode is not available with slowdown or invincibility." translation="La modalità Una vita non è disponibile con rallentamento o invincibilità." explanation="" max="38*3"/>
+    <string english="No Death Mode is not available with slowdown or invincibility." translation="La modalità una vita non è disponibile con rallentamento o invincibilità." explanation="" max="38*3"/>
     <string english="unlock no death mode" translation="sblocca modalità una vita" explanation="menu option"/>
     <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="PER SBLOCCARE: Ottieni rango S o superiore in almeno 4 prove a tempo." explanation="ranks are B A S V, see below" max="38*3"/>
     <string english="flip mode" translation="modalità sottosopra" explanation="menu option, mirrors the entire game vertically"/>
@@ -399,8 +399,8 @@
     <string english="You have unlocked the intermission levels." translation="Hai sbloccato i livelli di intermezzo." explanation="" max="38*7"/>
     <string english="play a level" translation="gioca un livello" explanation="menu option"/>
     <string english="level editor" translation="editor di livelli" explanation="menu option"/>
-    <string english="open level folder" translation="apri la cartella lingue" explanation="menu option. Button that opens the folder with level files in a file explorer"/>
-    <string english="show level folder path" translation="mostra il percorso della cartella lingue" explanation="menu option"/>
+    <string english="open level folder" translation="apri la cartella livelli" explanation="menu option. Button that opens the folder with level files in a file explorer"/>
+    <string english="show level folder path" translation="mostra percorso cartella livelli" explanation="menu option"/>
     <string english="return" translation="indietro" explanation="menu option"/>
     <string english="return to levels" translation="torna ai livelli" explanation="menu option"/>
     <string english="no, don&apos;t show me" translation="no, non mostrarmelo" explanation="menu option"/>
@@ -456,9 +456,9 @@
     <string english="NO SIGNAL" translation="NESSUN SEGNALE" explanation="map screen. So like a TV/computer monitor" max="29"/>
     <string english="Press ACTION to warp to the ship." translation="Premi AZIONE per teletrasportarti alla nave." explanation="***OUTDATED***" max="38*7"/>
     <string english="Press {button} to warp to the ship." translation="" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
-    <string english="Missing..." translation="Disperso..." case="1" explanation="this male crew member is missing" max="15"/>
-    <string english="Missing..." translation="Dispersa..." case="2" explanation="this female crew member is missing" max="15"/>
-    <string english="Missing..." translation="Oh oh..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
+    <string english="Missing..." translation="Irreperibile..." case="1" explanation="this male crew member is missing" max="15"/>
+    <string english="Missing..." translation="Irreperibile..." case="2" explanation="this female crew member is missing" max="15"/>
+    <string english="Missing..." translation="Irreperibile..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
     <string english="Rescued!" translation="Salvato!" case="1" explanation="this male crew member is not missing anymore" max="15"/>
     <string english="Rescued!" translation="Salvata!" case="2" explanation="this female crew member is not missing anymore" max="15"/>
     <string english="(that&apos;s you!)" translation="(sei tu!)" explanation="this crew member is you (Viridian)" max="15"/>
@@ -516,7 +516,7 @@
     <string english="Editor ghost trail is ON" translation="Scia fantasma editor: SÌ" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40"/>
     <string english="load level" translation="carica livello" explanation="level editor menu option"/>
     <string english="save level" translation="salva livello" explanation="level editor menu option"/>
-    <string english="quit to main menu" translation="esci al menu principale" explanation="level editor menu option" max="19"/>
+    <string english="quit to main menu" translation="esci al menu" explanation="level editor menu option" max="19"/>
     <string english="change name" translation="cambia nome" explanation="level editor menu option"/>
     <string english="change author" translation="cambia autore" explanation="level editor menu option"/>
     <string english="change description" translation="cambia descrizione" explanation="level editor menu option"/>
@@ -655,8 +655,8 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2},{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec},{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=",99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="Level Complete!" translation="Livello completato!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
-    <string english="Game Complete!" translation="Gioco completato!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
+    <string english="Level Complete!" translation="Livello completato" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
+    <string english="Game Complete!" translation="Gioco completato" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="You have rescued a crew member!" translation="Hai salvato un membro dell&apos;equipaggio!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
     <string english="All Crew Members Rescued!" translation="Hai salvato tutto l&apos;equipaggio!" explanation="" max="32"/>
     <string english="All crewmates rescued!" translation="Hai salvato tutti i compagni!" explanation="" max="32"/>
