@@ -16,6 +16,41 @@ The max value indicates how many characters of space there is for the text, and 
 
 
 
+=== E D I T I N G   E X I S T I N G   S T R I N G S ===
+
+Sometimes you need to make a partial change to text that has already been translated.
+
+For example: you need to change the string "Press ENTER to stop" to "Press {button} to stop" (because you made that hotkey configurable).
+
+Please do *not* simply find-and-replace the text in the language files, nor remove the old string when you add the new one. (Whether you keep the translations or not.)
+
+Instead, duplicate the string in the English language file, putting your version underneath the old version, and mark the old version with the explanation "***OUTDATED***".
+
+For example:
+
+    <string english="Press ENTER to stop" translation="" explanation="stop super gravitron"/>
+
+        ↓  ↓  ↓
+
+    <string english="Press ENTER to stop" translation="" explanation="***OUTDATED***"/>
+    <string english="Press {button} to stop" translation="" explanation="stop super gravitron"/>
+
+
+The game won't be using the outdated string anymore - it's only still in the language files to carry the existing translations for reference. Once a translator updates the language files, they can reuse parts of the old translation for the new version of the string.
+
+             english        |           translation           |     explanation
+    =================================================================================
+       Press ENTER to stop  | Appuyez sur ENTRÉE pour arrêter |    ***OUTDATED*** 
+    ---------------------------------------------------------------------------------
+     Press {button} to stop |              ? ? ?              | stop super gravitron 
+
+
+Eventually, once all languages are up-to-date, these outdated strings can be cleaned up.
+
+Of course, when you remove strings without replacement, you can simply remove them from the (English) language file.
+
+
+
 === T E X T   P R I N T I N G ===
 
 These are the text printing functions:
