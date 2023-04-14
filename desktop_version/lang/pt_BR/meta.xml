@@ -6,10 +6,10 @@
     <nativename>português (br)</nativename>
 
     <!-- English translation by X -->
-    <credit>Lucas Araujo, Thiago Araujo</credit>
+    <credit>Versão brasileira por|Lucas Araujo e Thiago Araujo</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
-    <action_hint></action_hint>
+    <action_hint>Pressione Espaço, Z ou V para selecionar</action_hint>
 
     <!-- Same as above, but for a gamepad button (hard limit 40 8x8 characters) -->
     <gamepad_hint>Press {button} to select</gamepad_hint>
