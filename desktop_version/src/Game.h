@@ -136,6 +136,7 @@ class Game
 
 public:
     void init(void);
+    void setdefaultcontrollerbuttons(void);
 
 
     int crewrescued(void);

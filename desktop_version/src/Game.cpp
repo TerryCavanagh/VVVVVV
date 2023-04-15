@@ -383,6 +383,32 @@ void Game::init(void)
     disableaudiopause = false;
     disabletemporaryaudiopause = true;
     inputdelay = false;
+
+    setdefaultcontrollerbuttons();
+}
+
+void Game::setdefaultcontrollerbuttons(void)
+{
+    if (controllerButton_flip.size() < 1)
+    {
+        controllerButton_flip.push_back(SDL_CONTROLLER_BUTTON_A);
+    }
+    if (controllerButton_map.size() < 1)
+    {
+        controllerButton_map.push_back(SDL_CONTROLLER_BUTTON_Y);
+    }
+    if (controllerButton_esc.size() < 1)
+    {
+        controllerButton_esc.push_back(SDL_CONTROLLER_BUTTON_B);
+    }
+    if (controllerButton_restart.size() < 1)
+    {
+        controllerButton_restart.push_back(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
+    }
+    if (controllerButton_interact.size() < 1)
+    {
+        controllerButton_interact.push_back(SDL_CONTROLLER_BUTTON_X);
+    }
 }
 
 void Game::lifesequence(void)
@@ -4593,26 +4619,7 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
 
     }
 
-    if (controllerButton_flip.size() < 1)
-    {
-        controllerButton_flip.push_back(SDL_CONTROLLER_BUTTON_A);
-    }
-    if (controllerButton_map.size() < 1)
-    {
-        controllerButton_map.push_back(SDL_CONTROLLER_BUTTON_Y);
-    }
-    if (controllerButton_esc.size() < 1)
-    {
-        controllerButton_esc.push_back(SDL_CONTROLLER_BUTTON_B);
-    }
-    if (controllerButton_restart.size() < 1)
-    {
-        controllerButton_restart.push_back(SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);
-    }
-    if (controllerButton_interact.size() < 1)
-    {
-        controllerButton_interact.push_back(SDL_CONTROLLER_BUTTON_X);
-    }
+    setdefaultcontrollerbuttons();
 }
 
 bool Game::savestats(bool sync /*= true*/)
