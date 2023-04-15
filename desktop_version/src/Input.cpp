@@ -2210,6 +2210,18 @@ void titleinput(void)
             game.jumpheld = true;
         }
 
+        if (    game.currentmenuname == Menu::controller &&
+                game.currentmenuoption > 0 &&
+                game.currentmenuoption < 6 &&
+                (game.separate_interact || game.currentmenuoption < 5) &&
+                key.controllerButtonDown()      )
+        {
+            updatebuttonmappings(game.currentmenuoption);
+            music.playef(11);
+            game.savestatsandsettings_menu();
+            return;
+        }
+
         if (game.menustart
         && game.menucountdown <= 0
         && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
@@ -2363,17 +2375,6 @@ void titleinput(void)
                 menuactionpress();
             }
         }
-        if (    game.currentmenuname == Menu::controller &&
-                game.currentmenuoption > 0 &&
-                game.currentmenuoption < 6 &&
-                (game.separate_interact || game.currentmenuoption < 5) &&
-                key.controllerButtonDown()      )
-        {
-            updatebuttonmappings(game.currentmenuoption);
-            music.playef(11);
-            game.savestatsandsettings_menu();
-        }
-
     }
 
     if (fadetomode)
