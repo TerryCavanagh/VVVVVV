@@ -47,6 +47,7 @@ scriptclass::scriptclass(void)
     add_default_colours();
     textflipme = false;
     textcentertext = false;
+    textboxtimer = 0;
     textpad_left = 0;
     textpad_right = 0;
     textpadtowidth = 0;
@@ -503,6 +504,7 @@ void scriptclass::run(void)
                 textpad_left = 0;
                 textpad_right = 0;
                 textpadtowidth = 0;
+                textboxtimer = 0;
 
                 translate_dialogue();
             }
@@ -669,6 +671,10 @@ void scriptclass::run(void)
             {
                 game.backgroundtext = true;
             }
+            else if (words[0] == "textboxtimer")
+            {
+                textboxtimer = ss_toi(words[1]);
+            }
             else if (words[0] == "flipme")
             {
                 textflipme = !textflipme;
@@ -693,6 +699,11 @@ void scriptclass::run(void)
                     {
                         graphics.addline(txt[i]);
                     }
+                }
+
+                if (textboxtimer > 0)
+                {
+                    graphics.textboxtimer(textboxtimer);
                 }
 
                 // Some textbox formatting that can be set by translations...

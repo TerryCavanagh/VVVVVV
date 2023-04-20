@@ -122,6 +122,7 @@ public:
     char textcase;
     bool textbuttons;
     bool textlarge;
+    int textboxtimer;
 
     //Misc
     int i, j, k;
