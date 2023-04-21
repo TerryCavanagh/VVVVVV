@@ -1766,7 +1766,16 @@ void gamecompleterender(void)
         font::print(0, 100, 480 + position, loc::gettext("Doctor Victoria"), tr, tg, tb);
     }
 
-    if (graphics.onscreen(520 + position)) font::print(PR_3X | PR_CEN, -1, 520 + position, loc::gettext("Credits"), tr, tg, tb);
+    if (graphics.onscreen(520 + position))
+    {
+        uint32_t flag = PR_3X;
+        const char* text = loc::gettext("Credits");
+        if (font::len(flag, text) > SCREEN_WIDTH_PIXELS)
+        {
+            flag = PR_2X;
+        }
+        font::print(flag | PR_CEN, -1, 520 + position, text, tr, tg, tb);
+    }
 
     if (graphics.onscreen(560 + position))
     {

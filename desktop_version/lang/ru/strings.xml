@@ -107,7 +107,7 @@
     <string english="sound volume" translation="громкость звука" explanation="audio menu option"/>
     <string english="Sound Volume" translation="Громкость звука" explanation="title" max="20"/>
     <string english="Change the volume of sound effects." translation="Измените громкость звуковых эффектов." explanation="" max="38*3"/>
-    <string english="Credits" translation="Авторы" explanation="credits" max="13"/>
+    <string english="Credits" translation="Авторы" explanation="credits" max="20"/>
     <string english="VVVVVV is a game by" translation="VVVVVV - игра от" explanation="credits" max="40"/>
     <string english="and features music by" translation="с музыкой от" explanation="credits" max="40"/>
     <string english="Roomnames are by" translation="Названия комнат от" explanation="credits" max="40"/>
