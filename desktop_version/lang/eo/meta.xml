@@ -12,7 +12,7 @@
     <action_hint>Premu spaceton, Z aŭ V por elekti</action_hint>
 
     <!-- Same as above, but for a gamepad button (hard limit 40 8x8 characters) -->
-    <gamepad_hint>Press {button} to select</gamepad_hint>
+    <gamepad_hint>Premu {button} por elekti</gamepad_hint>
 
     <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
     <autowordwrap>1</autowordwrap>
