@@ -46,10 +46,6 @@ public:
 
     KeyPoll(void);
 
-    void enabletextentry(void);
-
-    void disabletextentry(void);
-
     void Poll(void);
 
     bool isDown(SDL_Keycode key);
@@ -65,8 +61,6 @@ public:
     int leftbutton, rightbutton, middlebutton;
     int mx, my;
 
-    bool textentry(void);
-    bool pressedbackspace;
     std::string keybuffer;
 
     bool linealreadyemptykludge;

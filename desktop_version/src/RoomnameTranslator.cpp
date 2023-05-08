@@ -10,6 +10,7 @@
 #include "LocalizationMaint.h"
 #include "Map.h"
 #include "Script.h"
+#include "TextInput.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
@@ -183,7 +184,7 @@ namespace roomname_translator
 
                 print_explanation(loc::get_roomname_explanation(map.custommode, game.roomx, game.roomy));
 
-                if (key.textentry())
+                if (TextInput::taking_input)
                 {
                     *force_roomname_hidden = true;
                     graphics.render_roomname(PR_FONT_LEVEL, key.keybuffer.c_str(), 255,255,255);
@@ -216,7 +217,7 @@ namespace roomname_translator
 
             if (edit_mode)
             {
-                if (key.textentry())
+                if (TextInput::taking_input)
                 {
                     print_explanation((key.keybuffer + "_").c_str());
 
@@ -326,17 +327,17 @@ namespace roomname_translator
             return true;
         }
 
-        if (key.textentry())
+        if (TextInput::taking_input)
         {
             if (key_pressed_once(SDLK_ESCAPE, &held_escape))
             {
                 // Without saving
-                key.disabletextentry();
+                TextInput::detach_input();
             }
 
             if (key_pressed_once(SDLK_RETURN, &held_return))
             {
-                key.disabletextentry();
+                TextInput::detach_input();
 
                 if (!expl_mode)
                 {
@@ -413,7 +414,8 @@ namespace roomname_translator
                     return true;
                 }
 
-                key.enabletextentry();
+                TextInput::attach_input(&key.keybuffer);
+
                 if (!expl_mode)
                 {
                     key.keybuffer = loc::get_roomname_translation(map.custommode, game.roomx, game.roomy);

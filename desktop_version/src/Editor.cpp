@@ -21,12 +21,11 @@
 #include "Music.h"
 #include "Screen.h"
 #include "Script.h"
+#include "TextInput.h"
 #include "UTF8.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"
-
-#define SCRIPT_LINE_PADDING 6
 
 editorclass::editorclass(void)
 {
@@ -104,10 +103,6 @@ void editorclass::reset(void)
 
     clear_script_buffer();
 
-    script_cursor_x = 0;
-    script_cursor_y = 0;
-    script_offset = 0;
-    lines_visible = 25;
     current_script = "null";
 
     script_list_offset = 0;
@@ -247,33 +242,36 @@ static void editormenurender(int tr, int tg, int tb)
         break;
     case Menu::ed_desc:
     {
-        const std::string input_text = key.keybuffer + ((ed.entframe < 2) ? "_" : " ");
+        const char* cursor = (TextInput::flash_timer < 15) ? "_" : " ";
+
+        bool title_is_gettext;
+        std::string title = translate_title(cl.title, &title_is_gettext);
 
         if (ed.current_text_mode == TEXT_TITLE)
         {
-            font::print(PR_2X | PR_CEN | PR_FONT_LEVEL, -1, 35, input_text, tr, tg, tb);
-        }
-        else
-        {
-            bool title_is_gettext;
-            std::string title = translate_title(cl.title, &title_is_gettext);
-            font::print(PR_2X | PR_CEN | (title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), -1, 35, title, tr, tg, tb);
+            title += cursor;
         }
 
+        font::print(PR_2X | PR_CEN | (title_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), -1, 35, title, tr, tg, tb);
+
         bool creator_is_gettext = false;
-        std::string creator = (ed.current_text_mode == TEXT_CREATOR) ? input_text : translate_creator(cl.creator, &creator_is_gettext);
+        std::string creator = translate_creator(cl.creator, &creator_is_gettext);
+        if (ed.current_text_mode == TEXT_CREATOR)
+        {
+            creator += cursor;
+        }
 
         int sp = SDL_max(10, font::height(PR_FONT_LEVEL));
         graphics.print_level_creator((creator_is_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL), 60, creator, tr, tg, tb);
 
-        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp, (ed.current_text_mode == TEXT_WEBSITE) ? input_text : cl.website, tr, tg, tb);
-        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 3, (ed.current_text_mode == TEXT_DESC1) ? input_text : cl.Desc1, tr, tg, tb);
-        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 4, (ed.current_text_mode == TEXT_DESC2) ? input_text : cl.Desc2, tr, tg, tb);
+        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp, cl.website + ((ed.current_text_mode == TEXT_WEBSITE) ? cursor : ""), tr, tg, tb);
+        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 3, cl.Desc1 + ((ed.current_text_mode == TEXT_DESC1) ? cursor : ""), tr, tg, tb);
+        font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 4, cl.Desc2 + ((ed.current_text_mode == TEXT_DESC2) ? cursor : ""), tr, tg, tb);
 
 
         if (ed.current_text_mode == TEXT_DESC3)
         {
-            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 5, input_text, tr, tg, tb);
+            font::print(PR_CEN | PR_FONT_LEVEL, -1, 60 + sp * 5, cl.Desc3 + cursor, tr, tg, tb);
         }
         else if (sp <= 10)
         {
@@ -1493,16 +1491,10 @@ void editorrender(void)
             graphics.fill_rect(0, 238 - textheight, 320, 240, graphics.getRGB(32, 32, 32));
             graphics.fill_rect(0, 239 - textheight, 320, 240, graphics.getRGB(0, 0, 0));
             font::print_wrap(0, 4, 240 - textheight, wrapped.c_str(), 255, 255, 255, 8, 312);
-            std::string input = key.keybuffer;
-            if (ed.entframe < 2)
-            {
-                input += "_";
-            }
-            else
-            {
-                input += " ";
-            }
-            font::print(PR_CEN | PR_FONT_LEVEL | PR_CJK_HIGH, -1, 232, input, 196, 196, 255 - help.glow);
+
+            const char* cursor = (TextInput::flash_timer < 15) ? "_" : " ";
+
+            font::print(PR_CEN | PR_FONT_LEVEL | PR_CJK_HIGH, -1, 232, *ed.current_text_ptr + cursor, 196, 196, 255 - help.glow);
             break;
         }
         case EditorSubState_DRAW_WARPTOKEN:
@@ -1573,21 +1565,13 @@ void editorrender(void)
             );
             font::print(PR_CEN, -1, 228, namebuffer, 123, 111, 218);
 
-            // Draw text
-            int font_height = font::height(PR_FONT_LEVEL);
-            for (int i = 0; i < ed.lines_visible; i++)
-            {
-                if (i + ed.script_offset < (int) ed.script_buffer.size())
-                {
-                    font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20 + (i * font_height), ed.script_buffer[i + ed.script_offset], 123, 111, 218);
-                }
-            }
+            TextInputInfo info;
+            info.text_color = graphics.getRGB(123, 111, 218);
+            info.selected_color = graphics.getRGB(61, 48, 162);
+            info.visible_lines = 200 / font::height(PR_FONT_LEVEL);
+            info.visible_padding = 48 / font::height(PR_FONT_LEVEL);
 
-            // Draw cursor
-            if (ed.entframe < 2)
-            {
-                font::print(PR_FONT_LEVEL | PR_CJK_LOW, 16 + font::len(PR_FONT_LEVEL, ed.script_buffer[ed.script_cursor_y].c_str()), 20 + ((ed.script_cursor_y - ed.script_offset) * font_height), "_", 123, 111, 218);
-            }
+            TextInput::draw_text(PR_FONT_LEVEL | PR_CJK_LOW, 16, 20, &ed.script_buffer, info);
             break;
         }
         default:
@@ -1734,14 +1718,12 @@ static void input_submitted(void)
 {
     extern editorclass ed;
 
-    *ed.current_text_ptr = key.keybuffer;
-
     ed.help_open = false;
     ed.shiftkey = false;
 
     bool reset_text_mode = true;
 
-    key.disabletextentry();
+    TextInput::detach_input();
 
     ed.substate = EditorSubState_MAIN;
 
@@ -1828,42 +1810,33 @@ static void input_submitted(void)
         }
         break;
     case TEXT_TITLE:
-        cl.title = key.keybuffer;
         if (cl.title == "")
         {
             cl.title = "Untitled Level";
         }
         break;
     case TEXT_CREATOR:
-        cl.creator = key.keybuffer;
         if (cl.creator == "")
         {
             cl.creator = "Unknown";
         }
         break;
     case TEXT_WEBSITE:
-        cl.website = key.keybuffer;
         break;
     case TEXT_DESC1:
-        cl.Desc1 = key.keybuffer;
         ed.current_text_mode = TEXT_DESC2;
         ed.substate = EditorSubState_MENU_INPUT;
         reset_text_mode = false;
-        key.enabletextentry();
-        ed.current_text_ptr = &(key.keybuffer);
-        key.keybuffer = cl.Desc2;
+
+        TextInput::attach_input(&cl.Desc2);
         break;
     case TEXT_DESC2:
-        cl.Desc2 = key.keybuffer;
-
         if (font::height(PR_FONT_LEVEL) <= 10)
         {
             ed.current_text_mode = TEXT_DESC3;
-            key.enabletextentry();
+            TextInput::attach_input(&cl.Desc3);
             ed.substate = EditorSubState_MENU_INPUT;
             reset_text_mode = false;
-            ed.current_text_ptr = &(key.keybuffer);
-            key.keybuffer = cl.Desc3;
         }
         else
         {
@@ -1872,7 +1845,6 @@ static void input_submitted(void)
 
         break;
     case TEXT_DESC3:
-        cl.Desc3 = key.keybuffer;
         break;
     default:
         break;
@@ -1897,6 +1869,8 @@ void editorlogic(void)
         ed.entframe = (ed.entframe + 1) % 4;
         ed.entframedelay = 8;
     }
+
+    TextInput::flash_timer = (TextInput::flash_timer + 1) % 30;
 
     ed.old_note_timer = ed.note_timer;
     ed.note_timer = SDL_max(ed.note_timer - 1, 0);
@@ -2347,17 +2321,14 @@ static void editormenuactionpress(void)
 
             ed.current_text_mode = TEXT_TITLE;
             ed.substate = EditorSubState_MENU_INPUT;
-            key.enabletextentry();
-            ed.current_text_ptr = &(key.keybuffer);
 
             if (title_is_gettext)
             {
-                key.keybuffer = "";
+                cl.title = "";
             }
-            else
-            {
-                key.keybuffer = cl.title;
-            }
+
+            TextInput::attach_input(&cl.title);
+
             break;
         }
         case 1:
@@ -2367,31 +2338,25 @@ static void editormenuactionpress(void)
 
             ed.current_text_mode = TEXT_CREATOR;
             ed.substate = EditorSubState_MENU_INPUT;
-            key.enabletextentry();
-            ed.current_text_ptr = &(key.keybuffer);
+
             if (creator_is_gettext)
             {
-                key.keybuffer = "";
+                cl.creator = "";
             }
-            else
-            {
-                key.keybuffer = cl.creator;
-            }
+
+            TextInput::attach_input(&cl.creator);
             break;
         }
         case 2:
             ed.current_text_mode = TEXT_DESC1;
             ed.substate = EditorSubState_MENU_INPUT;
-            key.enabletextentry();
-            ed.current_text_ptr = &(key.keybuffer);
-            key.keybuffer = cl.Desc1;
+
+            TextInput::attach_input(&cl.Desc1);
             break;
         case 3:
             ed.current_text_mode = TEXT_WEBSITE;
             ed.substate = EditorSubState_MENU_INPUT;
-            key.enabletextentry();
-            ed.current_text_ptr = &(key.keybuffer);
-            key.keybuffer=cl.website;
+            TextInput::attach_input(&cl.website);
             break;
         case 4:
             game.createmenu(Menu::ed_font);
@@ -2424,11 +2389,6 @@ static void editormenuactionpress(void)
             key.keybuffer = "";
             ed.script_list_offset = 0;
             ed.selected_script = 0;
-
-            ed.script_cursor_y = 0;
-            ed.script_cursor_x = 0;
-            ed.script_offset = 0;
-            ed.lines_visible = 200 / font::height(PR_FONT_LEVEL);
             break;
         case 2:
             music.playef(11);
@@ -2823,19 +2783,21 @@ void editorclass::get_input_line(const enum TextMode mode, const std::string& pr
 {
     state = EditorState_DRAW;
     substate = EditorSubState_DRAW_INPUT;
-    current_text_mode = mode;
-    current_text_ptr = ptr;
-    current_text_desc = prompt;
-    key.enabletextentry();
+
     if (ptr)
     {
-        key.keybuffer = *ptr;
+        TextInput::attach_input(ptr);
+        current_text_ptr = ptr;
     }
     else
     {
         key.keybuffer = "";
-        current_text_ptr = &(key.keybuffer);
+        TextInput::attach_input(&key.keybuffer);
+        current_text_ptr = &key.keybuffer;
     }
+
+    current_text_mode = mode;
+    current_text_desc = prompt;
 
     old_entity_text = key.keybuffer;
 }
@@ -3169,7 +3131,8 @@ void editorinput(void)
             if (escape_pressed)
             {
                 // Cancel it, and remove the enemy it's tied to if necessary
-                key.disabletextentry();
+                TextInput::detach_input();
+
                 if (ed.current_text_mode >= FIRST_ENTTEXT && ed.current_text_mode <= LAST_ENTTEXT)
                 {
                     *ed.current_text_ptr = ed.old_entity_text;
@@ -3282,11 +3245,11 @@ void editorinput(void)
             break;
 
         case EditorSubState_MENU_INPUT:
-            if (escape_pressed && key.textentry())
+            if (escape_pressed && TextInput::taking_input)
             {
                 ed.substate = EditorSubState_MAIN;
-                key.disabletextentry();
                 ed.current_text_mode = TEXT_NONE;
+                TextInput::detach_input();
 
                 music.playef(11);
             }
@@ -3368,17 +3331,11 @@ void editorinput(void)
                 {
                     game.mapheld = true;
                     ed.substate = EditorSubState_SCRIPTS_EDIT;
-                    key.enabletextentry();
-                    key.keybuffer = "";
-                    ed.current_text_ptr = &(key.keybuffer);
+
                     ed.current_script = script.customscripts[(script.customscripts.size() - 1) - ed.selected_script].name;
                     ed.load_script_in_editor(ed.current_script);
 
-                    ed.script_cursor_y = ed.script_buffer.size() - 1;
-                    ed.script_offset = SDL_max(ed.script_cursor_y - (ed.lines_visible - SCRIPT_LINE_PADDING), 0);
-
-                    key.keybuffer = ed.script_buffer[ed.script_cursor_y];
-                    ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
+                    TextInput::attach_input(&ed.script_buffer);
 
                     music.playef(11);
                 }
@@ -3395,40 +3352,10 @@ void editorinput(void)
 
                 // Alright, now re-add the script.
                 ed.create_script(ed.current_script, ed.script_buffer);
+                TextInput::detach_input();
             }
 
             if (ed.keydelay > 0) ed.keydelay--;
-
-            if (up_pressed && ed.keydelay <= 0)
-            {
-                ed.keydelay = 3;
-                ed.script_cursor_y = SDL_max(0, ed.script_cursor_y - 1);
-
-                key.keybuffer = ed.script_buffer[ed.script_cursor_y];
-            }
-
-            if (down_pressed && ed.keydelay <= 0)
-            {
-                ed.keydelay = 3;
-                ed.script_cursor_y = SDL_min((int) ed.script_buffer.size() - 1, ed.script_cursor_y + 1);
-
-                key.keybuffer = ed.script_buffer[ed.script_cursor_y];
-            }
-
-            if (key.linealreadyemptykludge)
-            {
-                ed.keydelay = 6;
-                key.linealreadyemptykludge = false;
-            }
-
-            if (key.pressedbackspace && ed.script_buffer[ed.script_cursor_y] == "" && ed.keydelay <= 0)
-            {
-                //Remove this line completely
-                ed.remove_line(ed.script_cursor_y);
-                ed.script_cursor_y = SDL_max(0, ed.script_cursor_y - 1);
-                key.keybuffer = ed.script_buffer[ed.script_cursor_y];
-                ed.keydelay = 6;
-            }
 
             /* Remove all pipes, they are the line separator in the XML
              * When this loop reaches the end, it wraps to SIZE_MAX; SIZE_MAX + 1 is 0 */
@@ -3439,40 +3366,6 @@ void editorinput(void)
                     key.keybuffer.erase(key.keybuffer.begin() + i);
                 }
             }}
-
-            ed.script_buffer[ed.script_cursor_y] = key.keybuffer;
-            ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
-
-            if (enter_pressed)
-            {
-                //Continue to next line
-                if (ed.script_cursor_y >= (int)ed.script_buffer.size()) //we're on the last line
-                {
-                    ed.script_cursor_y++;
-
-                    key.keybuffer = ed.script_buffer[ed.script_cursor_y];
-                    ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
-                }
-                else
-                {
-                    //We're not, insert a line instead
-                    ed.script_cursor_y++;
-
-                    ed.insert_line(ed.script_cursor_y);
-                    key.keybuffer = "";
-                    ed.script_cursor_x = 0;
-                }
-            }
-
-            if (ed.script_cursor_y < ed.script_offset + SCRIPT_LINE_PADDING)
-            {
-                ed.script_offset = SDL_max(0, ed.script_cursor_y - SCRIPT_LINE_PADDING);
-            }
-
-            if (ed.script_cursor_y > ed.script_offset + ed.lines_visible - SCRIPT_LINE_PADDING)
-            {
-                ed.script_offset = SDL_min((int) ed.script_buffer.size() - ed.lines_visible + SCRIPT_LINE_PADDING, ed.script_cursor_y - ed.lines_visible + SCRIPT_LINE_PADDING);
-            }
 
             break;
         }

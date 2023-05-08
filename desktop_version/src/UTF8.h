@@ -27,6 +27,8 @@ UTF8_encoding UTF8_encode(uint32_t codepoint);
 size_t UTF8_total_codepoints(const char* str);
 size_t UTF8_backspace(const char* str, size_t len);
 
+char* UTF8_substr(const char* str, size_t start, size_t end);
+char* UTF8_erase(const char* str, size_t start, size_t end);
 
 #ifdef __cplusplus
 } /* extern "C" */

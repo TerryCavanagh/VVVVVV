@@ -13,6 +13,7 @@
 #include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
+#include "TextInput.h"
 #include "UTF8.h"
 #include "Vlogging.h"
 
@@ -47,27 +48,10 @@ KeyPoll::KeyPoll(void)
     leftbutton=0; rightbutton=0; middlebutton=0;
     mx=0; my=0;
     resetWindow = 0;
-    pressedbackspace=false;
 
     linealreadyemptykludge = false;
 
     isActive = true;
-}
-
-void KeyPoll::enabletextentry(void)
-{
-    keybuffer="";
-    SDL_StartTextInput();
-}
-
-void KeyPoll::disabletextentry(void)
-{
-    SDL_StopTextInput();
-}
-
-bool KeyPoll::textentry(void)
-{
-    return SDL_IsTextInputActive() == SDL_TRUE;
 }
 
 void KeyPoll::toggleFullscreen(void)
@@ -143,17 +127,13 @@ void KeyPoll::Poll(void)
     SDL_Event evt;
     while (SDL_PollEvent(&evt))
     {
+        TextInput::handle_events(evt);
         switch (evt.type)
         {
         /* Keyboard Input */
         case SDL_KEYDOWN:
         {
             keymap[evt.key.keysym.sym] = true;
-
-            if (evt.key.keysym.sym == SDLK_BACKSPACE)
-            {
-                pressedbackspace = true;
-            }
 
 #ifdef __APPLE__ /* OSX prefers the command keys over the alt keys. -flibit */
             altpressed = keymap[SDLK_LGUI] || keymap[SDLK_RGUI];
@@ -176,50 +156,12 @@ void KeyPoll::Poll(void)
             }
 
             BUTTONGLYPHS_keyboard_set_active(true);
-
-            if (textentry())
-            {
-                if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
-                {
-                    keybuffer.erase(UTF8_backspace(keybuffer.c_str(), keybuffer.length()));
-                    if (keybuffer.empty())
-                    {
-                        linealreadyemptykludge = true;
-                    }
-                }
-                else if (    evt.key.keysym.sym == SDLK_v &&
-                        keymap[SDLK_LCTRL]    )
-                {
-                    char* text = SDL_GetClipboardText();
-                    if (text != NULL)
-                    {
-                        keybuffer += text;
-                        VVV_free(text);
-                    }
-                }
-                else if (    evt.key.keysym.sym == SDLK_x &&
-                        keymap[SDLK_LCTRL]    )
-                {
-                    if (SDL_SetClipboardText(keybuffer.c_str()) == 0)
-                    {
-                        keybuffer = "";
-                    }
-                }
-            }
             break;
         }
         case SDL_KEYUP:
             keymap[evt.key.keysym.sym] = false;
-            if (evt.key.keysym.sym == SDLK_BACKSPACE)
-            {
-                pressedbackspace = false;
-            }
             break;
         case SDL_TEXTINPUT:
-            if (!altpressed)
-            {
-                keybuffer += evt.text.text;
-            }
             break;
 
         /* Mouse Input */

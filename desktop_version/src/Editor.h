@@ -194,7 +194,6 @@ public:
     int note_timer;
     int old_note_timer;
     std::string note;
-    std::string keybuffer;
     std::string filename;
     std::string loaded_filepath;
 
@@ -232,9 +231,6 @@ public:
 
     std::vector<std::string> script_buffer;
     std::string current_script;
-    int script_cursor_x, script_cursor_y;
-    int script_offset;
-    int lines_visible;
 
     //Functions for interfacing with the script:
     void create_script(const std::string& name, const std::vector<std::string>& contents);
