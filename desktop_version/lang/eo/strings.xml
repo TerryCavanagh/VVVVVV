@@ -214,7 +214,7 @@
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
-    <string english="ACTION" translation="AGBUTONON" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
+    <string english="ACTION" translation="AGOKLAVON" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Interaga butono: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="falsa ŝargekrano" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Falsa ŝarĝekrano" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
