@@ -2,6 +2,7 @@
 #include "Graphics.h"
 
 #include <SDL.h>
+#include <algorithm>
 
 #include "Alloc.h"
 #include "Constants.h"
@@ -80,6 +81,8 @@ void Graphics::init(void)
         backboxvy[i] = bvy;
         backboxint[i] = bint;
     }
+    std::sort(&backboxint[0], &backboxint[numbackboxes]);
+
     backoffset = 0;
     foregrounddrawn = false;
     backgrounddrawn = false;
@@ -2326,62 +2329,62 @@ void Graphics::drawbackground( int t )
             {
                 //Akward ordering to match tileset
             case 0:
-                bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
+                bcol = getRGB(16, 128*backboxint[i], 128*backboxint[i]);
                 break; //Cyan
             case 1:
-                bcol = getRGB(128*backboxint[0], 16, 16);
+                bcol = getRGB(128*backboxint[i], 16, 16);
                 break;  //Red
             case 2:
-                bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
+                bcol = getRGB(128*backboxint[i], 16, 128*backboxint[i]);
                 break; //Purple
             case 3:
-                bcol = getRGB(16, 16, 128*backboxint[0]);
+                bcol = getRGB(16, 16, 128*backboxint[i]);
                 break;  //Blue
             case 4:
-                bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
+                bcol = getRGB(128*backboxint[i], 128*backboxint[i], 16);
                 break; //Yellow
             case 5:
-                bcol = getRGB(16, 128 * backboxint[0], 16);
+                bcol = getRGB(16, 128 * backboxint[i], 16);
                 break;  //Green
             case 6:
                 //crazy case
                 switch(spcol)
                 {
                 case 0:
-                    bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
+                    bcol = getRGB(16, 128*backboxint[i], 128*backboxint[i]);
                     break; //Cyan
                 case 1:
-                    bcol = getRGB(16, ((spcoldel+1)*8)*backboxint[0], 128*backboxint[0]);
+                    bcol = getRGB(16, ((spcoldel+1)*8)*backboxint[i], 128*backboxint[i]);
                     break; //Cyan
                 case 2:
-                    bcol = getRGB(16, 16, 128*backboxint[0]);
+                    bcol = getRGB(16, 16, 128*backboxint[i]);
                     break;  //Blue
                 case 3:
-                    bcol = getRGB((128-(spcoldel*8))*backboxint[0], 16, 128*backboxint[0]);
+                    bcol = getRGB((128-(spcoldel*8))*backboxint[i], 16, 128*backboxint[i]);
                     break;  //Blue
                 case 4:
-                    bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
+                    bcol = getRGB(128*backboxint[i], 16, 128*backboxint[i]);
                     break; //Purple
                 case 5:
-                    bcol = getRGB(128*backboxint[0], 16, ((spcoldel+1)*8)*backboxint[0]);
+                    bcol = getRGB(128*backboxint[i], 16, ((spcoldel+1)*8)*backboxint[i]);
                     break; //Purple
                 case 6:
-                    bcol = getRGB(128*backboxint[0], 16, 16);
+                    bcol = getRGB(128*backboxint[i], 16, 16);
                     break;  //Red
                 case 7:
-                    bcol = getRGB(128*backboxint[0], (128-(spcoldel*8))*backboxint[0], 16);
+                    bcol = getRGB(128*backboxint[i], (128-(spcoldel*8))*backboxint[i], 16);
                     break;  //Red
                 case 8:
-                    bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
+                    bcol = getRGB(128*backboxint[i], 128*backboxint[i], 16);
                     break; //Yellow
                 case 9:
-                    bcol = getRGB(((spcoldel+1)*8)*backboxint[0], 128*backboxint[0], 16);
+                    bcol = getRGB(((spcoldel+1)*8)*backboxint[i], 128*backboxint[i], 16);
                     break; //Yellow
                 case 10:
-                    bcol = getRGB(16, 128 * backboxint[0], 16);
+                    bcol = getRGB(16, 128 * backboxint[i], 16);
                     break;  //Green
                 case 11:
-                    bcol = getRGB(16, 128 * backboxint[0], (128-(spcoldel*8))*backboxint[0]);
+                    bcol = getRGB(16, 128 * backboxint[i], (128-(spcoldel*8))*backboxint[i]);
                     break;  //Green
                 }
                 break;
