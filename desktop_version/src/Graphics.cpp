@@ -1,8 +1,8 @@
 #define GRAPHICS_DEFINITION
 #include "Graphics.h"
 
-#include <SDL.h>
 #include <algorithm>
+#include <SDL.h>
 
 #include "Alloc.h"
 #include "Constants.h"
