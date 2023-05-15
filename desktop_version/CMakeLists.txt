@@ -343,9 +343,7 @@ if(BUNDLE_DEPENDENCIES)
 
     target_link_libraries(VVVVVV ${STATIC_LIBRARIES})
 else()
-    find_package(utf8cpp CONFIG)
-
-    target_link_libraries(VVVVVV ${STATIC_LIBRARIES} physfs tinyxml2 utf8cpp FAudio)
+    target_link_libraries(VVVVVV ${STATIC_LIBRARIES} physfs tinyxml2 FAudio)
 endif()
 
 
