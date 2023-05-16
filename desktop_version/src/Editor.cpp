@@ -3395,6 +3395,8 @@ void editorinput(void)
 
                 // Alright, now re-add the script.
                 ed.create_script(ed.current_script, ed.script_buffer);
+
+                key.disabletextentry();
             }
 
             if (ed.keydelay > 0) ed.keydelay--;
