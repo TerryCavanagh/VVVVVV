@@ -725,6 +725,38 @@ static void load_stdin(void)
     stdin_length = pos - 1;
 }
 
+static PHYSFS_sint64 read_bytes(
+    const char* name, PHYSFS_File* handle, void* buffer,
+    const PHYSFS_uint64 length
+) {
+    const PHYSFS_sint64 bytes_read = PHYSFS_readBytes(handle, buffer, length);
+    if (bytes_read < 0)
+    {
+        vlog_error(
+            "Could not read bytes from file %s: %s",
+            name,
+            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+        );
+    }
+    else if ((unsigned) bytes_read != length)
+    {
+        const char* reason;
+        if (PHYSFS_eof(handle))
+        {
+            reason = "Unexpected EOF";
+        }
+        else
+        {
+            reason = PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode());
+        }
+        vlog_warn(
+            "Partially read file %s: Expected %lli bytes, got %lli: %s",
+            name, length, bytes_read, reason
+        );
+    }
+    return bytes_read;
+}
+
 void FILESYSTEM_loadFileToMemory(
     const char *name,
     unsigned char **mem,
@@ -732,7 +764,7 @@ void FILESYSTEM_loadFileToMemory(
 ) {
     PHYSFS_File *handle;
     PHYSFS_sint64 length;
-    PHYSFS_sint64 success;
+    PHYSFS_sint64 bytes_read;
 
     if (name == NULL || mem == NULL)
     {
@@ -784,15 +816,14 @@ void FILESYSTEM_loadFileToMemory(
         *len = length;
     }
 
-    *mem = (unsigned char *) SDL_malloc(length + 1);
+    *mem = (unsigned char *) SDL_calloc(length + 1, 1);
     if (*mem == NULL)
     {
         VVV_exit(1);
     }
-    (*mem)[length] = 0;
 
-    success = PHYSFS_readBytes(handle, *mem, length);
-    if (success == -1)
+    bytes_read = read_bytes(name, handle, *mem, length);
+    if (bytes_read < 0)
     {
         VVV_free(*mem);
     }
@@ -850,7 +881,8 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 
     size = PHYSFS_fileLength(handle);
 
-    PHYSFS_readBytes(
+    read_bytes(
+        filename,
         handle,
         &blob->m_headers,
         sizeof(blob->m_headers)
@@ -887,8 +919,8 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
         {
             VVV_exit(1); /* Oh god we're out of memory, just bail */
         }
-        PHYSFS_readBytes(handle, *memblock, header->size);
         offset += header->size;
+        header->size = read_bytes(filename, handle, *memblock, header->size);
         valid += 1;
 
         continue;
