@@ -898,19 +898,41 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 
         /* Name can be stupid, just needs to be terminated */
         static const size_t last_char = sizeof(header->name) - 1;
+        if (header->name[last_char] != '\0')
+        {
+            vlog_warn(
+                "%s: Name of header %li is not null-terminated",
+                filename, i
+            );
+        }
         header->name[last_char] = '\0';
 
         if (header->valid & ~0x1 || !header->valid)
         {
+            if (header->valid & ~0x1)
+            {
+                vlog_error(
+                    "%s: Header %li's 'valid' value is invalid",
+                    filename, i
+                );
+            }
             goto fail; /* Must be EXACTLY 1 or 0 */
         }
         if (header->size < 1)
         {
+            vlog_error(
+                "%s: Header %li's size value is zero or negative",
+                filename, i
+            );
             goto fail; /* Must be nonzero and positive */
         }
         if (offset + header->size > size)
         {
-            goto fail; /* Bogus size value */
+            /* Not an error, VVVVVV 2.2 and below handled it gracefully */
+            vlog_warn(
+                "%s: Header %li's size value goes past end of file",
+                filename, i
+            );
         }
 
         PHYSFS_seek(handle, offset);
