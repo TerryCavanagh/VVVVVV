@@ -258,6 +258,10 @@ static void levelMetaDataCallback(const char* filename)
     {
         cl.ListOfMetaData.push_back(temp);
     }
+    else
+    {
+        vlog_warn("Level %s not found :(", filename_.c_str());
+    }
 }
 
 void customlevelclass::getDirectoryData(void)
@@ -290,7 +294,6 @@ bool customlevelclass::getLevelMetaDataAndPlaytestArgs(const std::string& _path,
 
     if (uMem == NULL)
     {
-        vlog_warn("Level %s not found :(", _path.c_str());
         return false;
     }
 
