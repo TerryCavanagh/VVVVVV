@@ -2522,6 +2522,7 @@ void scriptclass::translate_dialogue(void)
 
 static void gotoerrorloadinglevel(void)
 {
+    game.gamestate = TITLEMODE;
     game.createmenu(Menu::errorloadinglevel);
     map.nexttowercolour();
     graphics.fademode = FADE_START_FADEIN; /* start fade in */
@@ -2832,7 +2833,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
         if (!cl.load(filename))
         {
             gotoerrorloadinglevel();
-            break;
+            return;
         }
         cl.findstartpoint();
 
