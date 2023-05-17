@@ -2827,6 +2827,9 @@ void scriptclass::startgamemode(const enum StartMode mode)
     case Start_CUSTOM:
     case Start_CUSTOM_QUICKSAVE:
     {
+        map.custommodeforreal = true;
+        map.custommode = true;
+
         std::string filename = std::string(cl.ListOfMetaData[game.playcustomlevel].filename);
         if (!cl.load(filename))
         {
@@ -2835,8 +2838,6 @@ void scriptclass::startgamemode(const enum StartMode mode)
         }
         cl.findstartpoint();
 
-        map.custommodeforreal = true;
-        map.custommode = true;
         map.customshowmm = true;
 
         music.fadeout();
