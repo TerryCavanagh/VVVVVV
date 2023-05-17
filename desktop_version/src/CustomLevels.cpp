@@ -1018,13 +1018,22 @@ bool customlevelclass::load(std::string _path)
 
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))
     {
-        vlog_warn("%s not found", _path.c_str());
+        FILESYSTEM_setLevelDirError(
+            loc::gettext("Level {path} not found"),
+            "path:str",
+            _path.c_str()
+        );
         goto fail;
     }
 
     if (doc.Error())
     {
-        vlog_error("Error parsing %s: %s", _path.c_str(), doc.ErrorStr());
+        FILESYSTEM_setLevelDirError(
+            loc::gettext("Error parsing {path}: {error}"),
+            "path:str, error:str",
+            _path.c_str(),
+            doc.ErrorStr()
+        );
         goto fail;
     }
 

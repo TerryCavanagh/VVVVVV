@@ -760,6 +760,8 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="MASTER OF THE UNIVERSE" translation="MEESTER VAN HET UNIVERSUM" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Voltooi het spel in de éénlevenmodus" explanation="achievement/trophy description" max="38*2"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Kon {path} niet aankoppelen: echte map bestaat niet" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
+    <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERROR: Kan niet schrijven naar talenmap! Zorg dat er geen &quot;lang&quot;-map naast de normale opgeslagen bestanden staat." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

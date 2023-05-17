@@ -759,6 +759,8 @@ Hai trovato il laboratorio segreto!" explanation="" max="34*4"/>
     <string english="MASTER OF THE UNIVERSE" translation="DOMINATORE DELL&apos;UNIVERSO" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Completa il gioco in modalità Una vita" explanation="achievement/trophy description" max="38*2"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Impossibile installare {path}: la directory reale non esiste" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
+    <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERRORE: impossibile scrivere sulla cartella lingua! Assicurati che non ci sia una cartella &quot;lang&quot; insieme ai normali salvataggi." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

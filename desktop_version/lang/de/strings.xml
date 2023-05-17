@@ -759,6 +759,8 @@ Du hast das Geheimlabor gefunden!" explanation="" max="34*4"/>
     <string english="MASTER OF THE UNIVERSE" translation="HERRSCHER DES UNIVERSUMS" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Beende das Spiel im Keine-Tode-Modus" explanation="achievement/trophy description" max="38*2"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Konnte {Pfad} nicht mounten: echtes Verzeichnis existiert nicht" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
+    <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="FEHLER: Konnte nicht in den Sprachordner schreiben! Stelle sicher, dass es keinen &quot;lang&quot;-Ordner neben den regulären Spielständen gibt." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

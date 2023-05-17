@@ -60,6 +60,7 @@ void FILESYSTEM_freeEnumerate(EnumHandle* handle);
 bool FILESYSTEM_levelDirHasError(void);
 void FILESYSTEM_clearLevelDirError(void);
 const char* FILESYSTEM_getLevelDirError(void);
+void FILESYSTEM_setLevelDirError(const char* text, const char* args_index, ...);
 
 bool FILESYSTEM_openDirectoryEnabled(void);
 bool FILESYSTEM_openDirectory(const char *dname);

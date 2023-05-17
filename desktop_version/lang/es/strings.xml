@@ -759,6 +759,8 @@ You have found the secret lab!" translation="¡Enhorabuena!
     <string english="MASTER OF THE UNIVERSE" translation="LÍDER DEL UNIVERSO" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Completa el juego en el modo sin muerte" explanation="achievement/trophy description" max="38*2"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="No se ha podido seguir {path}: El directorio real no existe" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
+    <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERROR: No se ha podido escribir en la carpeta de idioma. Comprueba que no haya una carpeta &quot;lang&quot; junto a los guardados normales." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

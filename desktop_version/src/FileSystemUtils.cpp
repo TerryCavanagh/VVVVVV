@@ -456,7 +456,7 @@ const char* FILESYSTEM_getLevelDirError(void)
     return levelDirError;
 }
 
-static void setLevelDirError(const char* text, const char* args_index, ...)
+void FILESYSTEM_setLevelDirError(const char* text, const char* args_index, ...)
 {
     levelDirHasError = true;
 
@@ -475,7 +475,7 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 
     if (real_dir == NULL)
     {
-        setLevelDirError(
+        FILESYSTEM_setLevelDirError(
             loc::gettext("Could not mount {path}: real directory doesn't exist"),
             "path:str",
             fname
