@@ -2522,10 +2522,8 @@ void scriptclass::translate_dialogue(void)
 
 static void gotoerrorloadinglevel(void)
 {
-    game.gamestate = TITLEMODE;
+    game.quittomenu();
     game.createmenu(Menu::errorloadinglevel);
-    map.nexttowercolour();
-    graphics.fademode = FADE_START_FADEIN; /* start fade in */
     music.currentsong = -1; /* otherwise music.play won't work */
     music.play(6); /* title screen music */
 }
