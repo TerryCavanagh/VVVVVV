@@ -658,12 +658,16 @@ int main(int argc, char *argv[])
     {
         /* Something wrong with the default assets? We can't use them to
          * display the error message, and we have to bail. */
-        SDL_ShowSimpleMessageBox(
-            SDL_MESSAGEBOX_ERROR,
-            graphics.error_title,
-            graphics.error,
-            NULL
-        );
+        const char* message;
+        if (FILESYSTEM_levelDirHasError())
+        {
+            message = FILESYSTEM_getLevelDirError();
+        }
+        else
+        {
+            message = loc::gettext("Something went wrong, but we forgot to print an error message.");
+        }
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", message, NULL);
 
         VVV_exit(1);
     }

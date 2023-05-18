@@ -56,8 +56,6 @@ public:
 
     void drawgravityline(int t);
 
-    bool MakeSpriteArray(void);
-
     void drawcoloredtile(int x, int y, int t, int r, int g, int b);
 
     void drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu);
@@ -275,6 +273,10 @@ public:
     bool onscreen(int t);
 
     bool reloadresources(void);
+    bool checktexturesize(
+        const char* filename, SDL_Texture* texture,
+        int tilewidth, int tileheight
+    );
 #ifndef NO_CUSTOM_LEVELS
     bool tiles1_mounted;
     bool tiles2_mounted;
@@ -402,9 +404,6 @@ public:
     SDL_Color crewcolourreal(int t);
 
     void render_roomname(uint32_t font_flag, const char* roomname, int r, int g, int b);
-
-    char error[128];
-    char error_title[128]; /* for SDL_ShowSimpleMessageBox */
 };
 
 #ifndef GRAPHICS_DEFINITION

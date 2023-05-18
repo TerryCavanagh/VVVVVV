@@ -758,9 +758,11 @@ Você encontrou o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Last 1 minute on the Super Gravitron" translation="Último 1 minuto no Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="MESTRE DO UNIVERSO" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Complete o jogo no modo sem mortes" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Something went wrong, but we forgot to print an error message." translation="" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Não foi possível montar {path}: o diretório real não existe" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
     <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERRO: não foi possível gravar na pasta do idioma! Não pode ter &quot;lang&quot; ao lado dos salvamentos comuns." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

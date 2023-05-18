@@ -151,9 +151,6 @@ void Graphics::init(void)
     levelcomplete_mounted = false;
     flipgamecomplete_mounted = false;
     fliplevelcomplete_mounted = false;
-
-    SDL_zeroa(error);
-    SDL_zeroa(error_title);
 }
 
 void Graphics::destroy(void)
@@ -237,65 +234,6 @@ void Graphics::updatetitlecolours(void)
     col_clock = getcol(18);
     col_trinket = getcol(18);
 }
-
-#define PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
-    if (grphx.im_##tilesheet == NULL) \
-    { \
-        /* We have already asserted; just no-op. */ \
-    } \
-    else if (grphx.im_##tilesheet->w % tile_square != 0 \
-    || grphx.im_##tilesheet->h % tile_square != 0) \
-    { \
-        static const char error_fmt[] = "%s.png dimensions not exact multiples of %i!"; \
-        static const char error_title_fmt[] = "Error with %s.png"; \
-        \
-        SDL_snprintf(error, sizeof(error), error_fmt, #tilesheet, tile_square); \
-        SDL_snprintf(error_title, sizeof(error_title), error_title_fmt, #tilesheet); \
-        \
-        vlog_error("%s", error); \
-        \
-        return false; \
-    }
-
-#define PROCESS_TILESHEET_RENAME(tilesheet, vector, tile_square, extra_code) \
-    PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
-    \
-    else \
-    { \
-        int j; \
-        for (j = 0; j < grphx.im_##tilesheet->h / tile_square; ++j) \
-        { \
-            int i; \
-            for (i = 0; i < grphx.im_##tilesheet->w / tile_square; ++i) \
-            { \
-                SDL_Surface* temp = GetSubSurface( \
-                    grphx.im_##tilesheet, \
-                    i * tile_square, j * tile_square, \
-                    tile_square, tile_square \
-                ); \
-                vector.push_back(temp); \
-                \
-                extra_code \
-            } \
-        } \
-        \
-        VVV_freefunc(SDL_FreeSurface, grphx.im_##tilesheet); \
-    }
-
-#define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
-    PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
-
-bool Graphics::MakeSpriteArray(void)
-{
-    PROCESS_TILESHEET(sprites_surf, 32, {})
-    PROCESS_TILESHEET(flipsprites_surf, 32, {})
-
-    return true;
-}
-
-#undef PROCESS_TILESHEET
-#undef PROCESS_TILESHEET_RENAME
-#undef PROCESS_TILESHEET_CHECK_ERROR
 
 
 void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
@@ -3433,14 +3371,76 @@ bool Graphics::onscreen(int t)
     return (t >= -40 && t <= 280);
 }
 
+bool Graphics::checktexturesize(
+    const char* filename, SDL_Texture* texture,
+    const int tilewidth, const int tileheight
+) {
+    int texturewidth;
+    int textureheight;
+    if (query_texture(texture, NULL, NULL, &texturewidth, &textureheight) != 0)
+    {
+        /* Just give it the benefit of the doubt. */
+        vlog_warn(
+            "Assuming the dimensions of %s are exact multiples of %i by %i!",
+            filename, tilewidth, tileheight
+        );
+        return true;
+    }
+
+    const bool valid = texturewidth % tilewidth == 0 && textureheight % tileheight == 0;
+    if (!valid)
+    {
+        FILESYSTEM_setLevelDirError(
+            loc::gettext("{filename} dimensions not exact multiples of {width} by {height}!"),
+            "filename:str, width:int, height:int",
+            filename, tilewidth, tileheight
+        );
+        return false;
+    }
+
+    return true;
+}
+
+static void make_array(
+    SDL_Surface** tilesheet,
+    std::vector<SDL_Surface*>& vector,
+    const int tile_square
+) {
+    int j;
+    for (j = 0; j < (*tilesheet)->h / tile_square; j++)
+    {
+        int i;
+        for (i = 0; i < (*tilesheet)->w / tile_square; i++)
+        {
+            SDL_Surface* temp = GetSubSurface(
+                *tilesheet,
+                i * tile_square, j * tile_square,
+                tile_square, tile_square
+            );
+            vector.push_back(temp);
+        }
+    }
+
+    VVV_freefunc(SDL_FreeSurface, *tilesheet);
+}
+
 bool Graphics::reloadresources(void)
 {
     grphx.destroy();
     grphx.init();
 
+    MAYBE_FAIL(checktexturesize("tiles.png", grphx.im_tiles, 8, 8));
+    MAYBE_FAIL(checktexturesize("tiles2.png", grphx.im_tiles2, 8, 8));
+    MAYBE_FAIL(checktexturesize("tiles3.png", grphx.im_tiles3, 8, 8));
+    MAYBE_FAIL(checktexturesize("entcolours.png", grphx.im_entcolours, 8, 8));
+    MAYBE_FAIL(checktexturesize("sprites.png", grphx.im_sprites, 32, 32));
+    MAYBE_FAIL(checktexturesize("flipsprites.png", grphx.im_flipsprites, 32, 32));
+    MAYBE_FAIL(checktexturesize("teleporter.png", grphx.im_teleporter, 96, 96));
+
     destroy();
 
-    MAYBE_FAIL(MakeSpriteArray());
+    make_array(&grphx.im_sprites_surf, sprites_surf, 32);
+    make_array(&grphx.im_flipsprites_surf, flipsprites_surf, 32);
 
     images[IMAGE_LEVELCOMPLETE] = grphx.im_image0;
     images[IMAGE_MINIMAP] = grphx.im_image1;

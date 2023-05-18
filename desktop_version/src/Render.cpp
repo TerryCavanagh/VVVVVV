@@ -1626,23 +1626,34 @@ static void menurender(void)
         break;
     case Menu::errorloadinglevel:
     {
-        const char* str;
+        const char* message;
         if (FILESYSTEM_levelDirHasError())
         {
-            str = FILESYSTEM_getLevelDirError();
+            message = FILESYSTEM_getLevelDirError();
         }
         else
         {
-            str = graphics.error;
+            message = loc::gettext("Something went wrong, but we forgot to print an error message.");
         }
         font::print(PR_2X | PR_CEN, -1, 45, loc::gettext("ERROR"), tr, tg, tb);
-        font::print_wrap(PR_CEN, -1, 65, str, tr, tg, tb);
+        font::print_wrap(PR_CEN, -1, 65, message, tr, tg, tb);
         break;
     }
     case Menu::warninglevellist:
+    {
+        const char* message;
+        if (FILESYSTEM_levelDirHasError())
+        {
+            message = FILESYSTEM_getLevelDirError();
+        }
+        else
+        {
+            message = loc::gettext("Something went wrong, but we forgot to print an error message.");
+        }
         font::print(PR_2X | PR_CEN, -1, 45, loc::gettext("WARNING"), tr, tg, tb);
-        font::print_wrap(PR_CEN, -1, 65, FILESYSTEM_getLevelDirError(), tr, tg, tb);
+        font::print_wrap(PR_CEN, -1, 65, message, tr, tg, tb);
         break;
+    }
     default:
         break;
     }

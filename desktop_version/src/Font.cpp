@@ -20,7 +20,7 @@ extern "C"
 }
 
 // Sigh... This is the second forward-declaration, we need to put this in a header file
-SDL_Texture* LoadImage(const char *filename, const TextureLoadType loadtype);
+SDL_Texture* LoadImage(const char *filename, TextureLoadType loadtype);
 
 namespace font
 {
