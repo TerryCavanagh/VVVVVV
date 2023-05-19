@@ -442,6 +442,12 @@ void Game::clearcustomlevelstats(void)
 
 void Game::updatecustomlevelstats(std::string clevel, int cscore)
 {
+    if (!map.custommodeforreal)
+    {
+        /* We are playtesting, don't update level stats */
+        return;
+    }
+
     if (clevel.find("levels/") != std::string::npos)
     {
         clevel = clevel.substr(7);
@@ -1573,6 +1579,14 @@ void Game::updatestate(void)
         case 82:
             //Time Trial Complete!
             obj.removetrigger(82);
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+            if (map.custommode && !map.custommodeforreal)
+            {
+                returntoeditor();
+                ed.show_note(loc::gettext("Time trial completed"));
+                break;
+            }
+#endif
             if (translator_exploring)
             {
                 translator_exploring_allowtele = true;
@@ -2151,6 +2165,7 @@ void Game::updatestate(void)
                 else
                 {
                     returntoeditor();
+                    ed.show_note(loc::gettext("Level completed"));
                 }
 #endif
             }
@@ -7150,8 +7165,28 @@ static void hardreset(void)
     script.hardreset();
 }
 
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+static void returntoeditor_callback(void)
+{
+    extern Game game;
+    game.returntoeditor();
+    ed.show_note(loc::gettext("Level quits to menu"));
+}
+#endif
+
 void Game::quittomenu(void)
 {
+#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+    if (map.custommode && !map.custommodeforreal)
+    {
+        /* We are playtesting! Go back to the editor
+         * instead of losing unsaved changes. */
+        /* This needs to be deferred, otherwise some state would persist. */
+        DEFER_CALLBACK(returntoeditor_callback);
+        return;
+    }
+#endif
+
     gamestate = TITLEMODE;
     graphics.fademode = FADE_START_FADEIN;
     FILESYSTEM_unmountAssets();

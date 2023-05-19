@@ -648,7 +648,10 @@
     <string english="ERROR: No checkpoint to spawn at" translation="ERROR: No hay punto de control por el que aparecer" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="ERROR: El máximo de baratijas es 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="ERROR: El máximo de tripulantes es 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
+    <string english="Level quits to menu" translation="" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
+    <string english="Level completed" translation="" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
     <string english="Rolled credits" translation="Créditos" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
+    <string english="Time trial completed" translation="" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2},{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
