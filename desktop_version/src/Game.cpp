@@ -7145,6 +7145,11 @@ bool Game::save_exists(void)
     return telesummary != "" || quicksummary != "";
 }
 
+static void hardreset(void)
+{
+    script.hardreset();
+}
+
 void Game::quittomenu(void)
 {
     gamestate = TITLEMODE;
@@ -7204,7 +7209,9 @@ void Game::quittomenu(void)
     {
         createmenu(Menu::mainmenu);
     }
-    script.hardreset();
+    /* We might not be at the end of the frame yet.
+     * If we hardreset() now, some state might still persist. */
+    DEFER_CALLBACK(hardreset);
 }
 
 void Game::returntolab(void)
