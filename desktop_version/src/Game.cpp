@@ -7177,7 +7177,7 @@ static void returntoeditor_callback(void)
 void Game::quittomenu(void)
 {
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-    if (map.custommode && !map.custommodeforreal)
+    if (gamestate != EDITORMODE && map.custommode && !map.custommodeforreal)
     {
         /* We are playtesting! Go back to the editor
          * instead of losing unsaved changes. */
