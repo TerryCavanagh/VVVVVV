@@ -2929,7 +2929,7 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
     }
     else
     {
-        //just update the bottom
+        // just update the bottom
         scroll_texture(bg_obj.texture, tempScrollingTexture, 0, -bg_obj.bscroll);
         if (bg_obj.scrolldir == 0)
         {
@@ -2962,19 +2962,19 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
 #define GETCOL_RANDOM (game.noflashingmode ? 0.5 : fRandom())
 SDL_Color Graphics::getcol( int t )
 {
-    //Setup predefinied colours as per our zany palette
+    // Setup predefinied colours as per our zany palette
     switch(t)
     {
-        //Player Normal
+        // Player Normal
     case 0:
-        return getRGB(160 - help.glow/2 - (GETCOL_RANDOM * 20), 200 - help.glow/2, 220 - help.glow);
-        //Player Hurt
+        return getRGB(160 - help.glow/2 - (int) (GETCOL_RANDOM * 20), 200 - help.glow/2, 220 - help.glow);
+        // Player Hurt
     case 1:
         return getRGB(196 - (GETCOL_RANDOM * 64), 10, 10);
-        //Enemies and stuff
+        // Enemies and stuff
     case 2:
         return getRGB(225 - (help.glow / 2), 75, 30);
-    case 3: //Trinket
+    case 3: // Trinket
         if (!trinketcolset)
         {
             trinketr = 200 - (GETCOL_RANDOM * 64);
@@ -2983,82 +2983,81 @@ SDL_Color Graphics::getcol( int t )
             trinketcolset = true;
         }
         return getRGB(trinketr, trinketg, trinketb);
-    case 4: //Inactive savepoint
+    case 4: // Inactive savepoint
     {
-        const int temp = (help.glow / 2) + (GETCOL_RANDOM * 8);
+        const int temp = (help.glow / 2) + (int) (GETCOL_RANDOM * 8);
         return getRGB(80 + temp, 80 + temp, 80 + temp);
     }
-    case 5: //Active savepoint
+    case 5: // Active savepoint
         return getRGB(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
-    case 6: //Enemy : Red
-        return getRGB(250 - help.glow/2, 60- help.glow/2, 60 - help.glow/2);
-    case 7: //Enemy : Green
-        return getRGB(100 - help.glow/2 - (GETCOL_RANDOM * 30), 250 - help.glow/2, 100 - help.glow/2 - (GETCOL_RANDOM * 30));
-    case 8: //Enemy : Purple
-        return getRGB(250 - help.glow/2, 20, 128 - help.glow/2 + (GETCOL_RANDOM * 30));
-    case 9: //Enemy : Yellow
-        return getRGB(250 - help.glow/2, 250 - help.glow/2, 20);
-    case 10: //Warp point (white)
+    case 6: // Enemy : Red
+        return getRGB(250 - help.glow / 2, 60 - help.glow / 2, 60 - help.glow / 2);
+    case 7: // Enemy : Green
+        return getRGB(100 - help.glow / 2 - (int) (GETCOL_RANDOM * 30), 250 - help.glow / 2, 100 - help.glow / 2 - (int) (GETCOL_RANDOM * 30));
+    case 8: // Enemy : Purple
+        return getRGB(250 - help.glow / 2, 20, 128 - help.glow / 2 + (int) (GETCOL_RANDOM * 30));
+    case 9: // Enemy : Yellow
+        return getRGB(250 - help.glow / 2, 250 - help.glow / 2, 20);
+    case 10: // Warp point (white)
         return getRGB(255 - (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
-    case 11: //Enemy : Cyan
-        return getRGB(20, 250 - help.glow/2, 250 - help.glow/2);
-    case 12: //Enemy : Blue
-        return getRGB(90 - help.glow/2, 90 - help.glow/2, 250 - help.glow/2);
-        //Crew Members
-        //green
+    case 11: // Enemy : Cyan
+        return getRGB(20, 250 - help.glow / 2, 250 - help.glow / 2);
+    case 12: // Enemy : Blue
+        return getRGB(90 - help.glow / 2, 90 - help.glow / 2, 250 - help.glow / 2);
+        // Crew Members
+        // green
     case 13:
-        return getRGB(120 - help.glow/4 - (GETCOL_RANDOM * 20), 220 - help.glow/4, 120 - help.glow/4);
-        //Yellow
+        return getRGB(120 - help.glow / 4 - (int) (GETCOL_RANDOM * 20), 220 - help.glow / 4, 120 - help.glow / 4);
+        // Yellow
     case 14:
-        return getRGB(220 - help.glow/4 - (GETCOL_RANDOM * 20), 210 - help.glow/4, 120 - help.glow/4);
-        //pink
+        return getRGB(220 - help.glow / 4 - (int) (GETCOL_RANDOM * 20), 210 - help.glow / 4, 120 - help.glow / 4);
+        // pink
     case 15:
-        return getRGB(255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
-        //Blue
+        return getRGB(255 - help.glow / 8, 70 - help.glow / 4, 70 - help.glow / 4);
+        // Blue
     case 16:
-        return getRGB(75, 75, 255 - help.glow/4 - (GETCOL_RANDOM * 20));
+        return getRGB(75, 75, 255 - help.glow / 4 - (int) (GETCOL_RANDOM * 20));
 
-
-    case 17: //Enemy : Orange
-        return getRGB(250 - help.glow/2, 130 - help.glow/2, 20);
-    case 18: //Enemy : Gray
-        return getRGB(130 - help.glow/2, 130 - help.glow/2, 130 - help.glow/2);
-    case 19: //Enemy : Dark gray
-        return getRGB(60 - help.glow/8, 60 - help.glow/8, 60 - help.glow/8);
-        //Purple
+    case 17: // Enemy : Orange
+        return getRGB(250 - help.glow / 2, 130 - help.glow / 2, 20);
+    case 18: // Enemy : Gray
+        return getRGB(130 - help.glow / 2, 130 - help.glow / 2, 130 - help.glow / 2);
+    case 19: // Enemy : Dark gray
+        return getRGB(60 - help.glow / 8, 60 - help.glow / 8, 60 - help.glow / 8);
+        // Purple
     case 20:
-        return getRGB(220 - help.glow/4 - (GETCOL_RANDOM * 20), 120 - help.glow/4, 210 - help.glow/4);
+        return getRGB(220 - help.glow / 4 - (int) (GETCOL_RANDOM * 20), 120 - help.glow/4, 210 - help.glow/4);
 
-    case 21: //Enemy : Light Gray
+    case 21: // Enemy : Light Gray
         return getRGB(180 - help.glow/2, 180 - help.glow/2, 180 - help.glow/2);
-    case 22: //Enemy : Indicator Gray
-        return getRGB(230 - help.glow/2, 230- help.glow/2, 230 - help.glow/2);
-    case 23: //Enemy : Indicator Gray
-        return getRGB(255 - help.glow/2 - (GETCOL_RANDOM * 40) , 255 - help.glow/2 - (GETCOL_RANDOM * 40), 255 - help.glow/2 - (GETCOL_RANDOM * 40));
+    case 22: // Enemy : Indicator Gray
+        return getRGB(230 - help.glow/2, 230 - help.glow/2, 230 - help.glow/2);
+    case 23: // Enemy : Indicator Gray
+        return getRGB(255 - help.glow / 2 - (int) (GETCOL_RANDOM * 40), 255 - help.glow/2 - (int) (GETCOL_RANDOM * 40), 255 - help.glow/2 - (int) (GETCOL_RANDOM * 40));
 
-        //Trophies
-        //cyan
+        // Trophies
+        // cyan
     case 30:
         return RGBf(160, 200, 220);
-        //Purple
+        // Purple
     case 31:
         return RGBf(220, 120, 210);
-        //Yellow
+        // Yellow
     case 32:
         return RGBf(220, 210, 120);
-        //red
+        // red
     case 33:
         return RGBf(255, 70, 70);
-        //green
+        // green
     case 34:
         return RGBf(120, 220, 120);
-        //Blue
+        // Blue
     case 35:
         return RGBf(75, 75, 255);
-        //Gold
+        // Gold
     case 36:
         return getRGB(180, 120, 20);
-    case 37: //Trinket
+    case 37: // Trinket
         if (!trinketcolset)
         {
             trinketr = 200 - (GETCOL_RANDOM * 64);
@@ -3067,14 +3066,14 @@ SDL_Color Graphics::getcol( int t )
             trinketcolset = true;
         }
         return RGBf(trinketr, trinketg, trinketb);
-        //Silver
+        // Silver
     case 38:
         return RGBf(196, 196, 196);
-        //Bronze
+        // Bronze
     case 39:
         return RGBf(128, 64, 10);
-        //Awesome
-    case 40: //Teleporter in action!
+        // Awesome
+    case 40: // Teleporter in action!
     {
         if (game.noflashingmode)
         {
@@ -3100,14 +3099,14 @@ SDL_Color Graphics::getcol( int t )
         }
     }
 
-    case 100: //Inactive Teleporter
+    case 100: // Inactive Teleporter
     {
         const int temp = (help.glow / 2) + (GETCOL_RANDOM * 8);
         return getRGB(42 + temp, 42 + temp, 42 + temp);
     }
-    case 101: //Active Teleporter
+    case 101: // Active Teleporter
         return getRGB(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
-    case 102: //Teleporter in action!
+    case 102: // Teleporter in action!
     {
         if (game.noflashingmode)
         {
@@ -3161,7 +3160,7 @@ SDL_Color Graphics::huetilegetcol()
         return getRGB(234, 234, 10);
     }
 
-    return getRGB(250 - int(fRandom() * 32), 250 - int(fRandom() * 32), 10);
+    return getRGB(250 - (int) (fRandom() * 32), 250 - (int) (fRandom() * 32), 10);
 }
 
 SDL_Color Graphics::bigchunkygetcol(int t)
@@ -3174,7 +3173,7 @@ SDL_Color Graphics::bigchunkygetcol(int t)
     case 1:
         return getRGB(random * 64, 10, 10);
     case 2:
-        return getRGB(160 - help.glow / 2 - random * 20, 200 - help.glow / 2, 220 - help.glow);
+        return getRGB(160 - help.glow / 2 - (int) (random * 20), 200 - help.glow / 2, 220 - help.glow);
     }
     const SDL_Color color = {0, 0, 0, 0};
     return color;
@@ -3244,7 +3243,7 @@ int Graphics::textboxwrap(int pad)
     std::string wrapped = font::string_wordwrap_balanced(
         textboxes[m].print_flags,
         textboxes[m].lines[0],
-        36*8 - pad*8
+        36 * 8 - pad * 8
     );
     textboxes[m].lines.clear();
 
@@ -3255,7 +3254,7 @@ int Graphics::textboxwrap(int pad)
         size_t pos_p = wrapped.find('|', startline);
         newline = SDL_min(pos_n, pos_p);
         addline(wrapped.substr(startline, newline-startline));
-        startline = newline+1;
+        startline = newline + 1;
     } while (newline != std::string::npos);
 
     return textboxes[m].h;
@@ -3319,7 +3318,7 @@ void Graphics::textboxbuttons(void)
 
 void Graphics::textboxcommsrelay(void)
 {
-    /* Special treatment for the gamestate textboxes in Comms Relay */
+    // Special treatment for the gamestate textboxes in Comms Relay 
     if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxcommsrelay() out-of-bounds!");
@@ -3332,14 +3331,24 @@ void Graphics::textboxcommsrelay(void)
 
 int Graphics::crewcolour(const int t)
 {
-    //given crewmate t, return colour in setcol
-    if (t == 0) return CYAN;
-    if (t == 1) return PURPLE;
-    if (t == 2) return YELLOW;
-    if (t == 3) return RED;
-    if (t == 4) return GREEN;
-    if (t == 5) return BLUE;
-    return 0;
+    // Given crewmate t, return colour
+    switch (t)
+    {
+    case 0:
+        return CYAN;
+    case 1:
+        return PURPLE;
+    case 2:
+        return YELLOW;
+    case 3:
+        return RED;
+    case 4:
+        return GREEN;
+    case 5:
+        return BLUE;
+    default:
+        return 0;
+    }
 }
 
 void Graphics::flashlight(void)
