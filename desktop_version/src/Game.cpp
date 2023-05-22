@@ -5029,6 +5029,9 @@ void Game::deathsequence(void)
         {
             music.fadeout();
             gameoverdelay = 60;
+
+            /* Fix a bug being able to play music on the Game Over screen */
+            music.nicefade = false;
         }
         deathcounts++;
         music.playef(2);
