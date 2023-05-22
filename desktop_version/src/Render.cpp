@@ -157,6 +157,45 @@ static void inline drawglitchrunnertext(const int y)
     font::print_wrap(PR_CEN, -1, y, buffer, tempr, tempg, tempb);
 }
 
+static inline void draw_skip_message()
+{
+    /* Unlock 18 is Flip Mode.
+     * If this is the first playthrough, 5 (game completed) will be unlocked
+     * but not Flip Mode until the player hits "play" on the title screen */
+    bool draw =
+#ifndef MAKEANDPLAY
+        game.unlock[18] &&
+#endif
+        graphics.fademode == FADE_NONE;
+    if (!draw)
+    {
+        return;
+    }
+
+    const int alpha = graphics.lerp(
+        game.old_skip_message_timer, game.skip_message_timer
+    );
+
+    draw = alpha > 100;
+    if (!draw)
+    {
+        return;
+    }
+
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(
+        buffer, sizeof(buffer),
+        loc::gettext("- Press {button} to skip -"),
+        "button:but",
+        vformat_button(ActionSet_InGame, Action_InGame_Map)
+    );
+    font::print(
+        PR_BRIGHTNESS(alpha) | PR_BOR | PR_CEN,
+        -1, graphics.flipmode ? 20 : 210, buffer,
+        220 - help.glow, 220 - help.glow, 255 - help.glow / 2
+    );
+}
+
 static void menurender(void)
 {
 
@@ -1875,6 +1914,8 @@ void gamecompleterender(void)
         font::print(PR_2X | PR_CEN | PR_CJK_LOW, -1, creditOffset + position, loc::gettext("playing!"), tr, tg, tb);
     }
 
+    draw_skip_message();
+
     graphics.drawfade();
 
     graphics.render();
@@ -1906,6 +1947,8 @@ void gamecompleterender2(void)
     }
 
     graphics.fill_rect(graphics.lerp(game.oldcreditposx * 8, game.creditposx * 8) + 8, game.creditposy * 8, 8, 8, 0, 0, 0);
+
+    draw_skip_message();
 
     graphics.drawfade();
 

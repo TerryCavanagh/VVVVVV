@@ -498,6 +498,7 @@
     <string english="Press {button} to activate terminal" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="- Press {button} to skip -" translation="" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
     <string english="Passion for Exploring" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Pushing Onwards" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Positive Force" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>

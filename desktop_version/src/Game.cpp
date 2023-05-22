@@ -384,6 +384,9 @@ void Game::init(void)
     disabletemporaryaudiopause = true;
     inputdelay = false;
 
+    old_skip_message_timer = 0;
+    skip_message_timer = 0;
+
     setdefaultcontrollerbuttons();
 }
 

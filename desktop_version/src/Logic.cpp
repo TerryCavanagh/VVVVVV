@@ -78,6 +78,8 @@ void gamecompletelogic(void)
         //Return to game
         game.gamestate = GAMECOMPLETE2;
         graphics.fademode = FADE_START_FADEIN;
+        game.skip_message_timer = 1000;
+        game.old_skip_message_timer = 1000;
     }
 }
 

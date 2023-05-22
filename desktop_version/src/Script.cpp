@@ -1424,6 +1424,8 @@ void scriptclass::run(void)
                     game.gamestate = GAMECOMPLETE;
                     graphics.fademode = FADE_START_FADEIN;
                     game.creditposition = 0;
+                    game.skip_message_timer = 1000;
+                    game.old_skip_message_timer = 1000;
                 }
             }
             else if (words[0] == "finalmode")

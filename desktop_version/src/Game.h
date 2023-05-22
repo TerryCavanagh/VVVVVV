@@ -531,6 +531,9 @@ public:
     bool inputdelay;
 
     bool statelocked;
+
+    int old_skip_message_timer;
+    int skip_message_timer;
 };
 
 #ifndef GAME_DEFINITION

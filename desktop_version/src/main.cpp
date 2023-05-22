@@ -175,6 +175,7 @@ static const inline struct ImplFunc* get_gamestate_funcs(
     FUNC_LIST_END
 
     FUNC_LIST_BEGIN(GAMECOMPLETE2)
+        {Func_fixed, gamecompleterenderfixed2},
         {Func_delta, gamecompleterender2},
         {Func_input, gamecompleteinput2},
         {Func_fixed, gamecompletelogic2},
