@@ -6996,6 +6996,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 
 void Game::deletequick(void)
 {
+    if (inspecial() || map.custommode)
+    {
+        return;
+    }
+
     if( !FILESYSTEM_delete( "saves/qsave.vvv" ) )
         vlog_error("Error deleting saves/qsave.vvv");
     else
@@ -7004,6 +7009,11 @@ void Game::deletequick(void)
 
 void Game::deletetele(void)
 {
+    if (inspecial() || map.custommode)
+    {
+        return;
+    }
+
     if( !FILESYSTEM_delete( "saves/tsave.vvv" ) )
         vlog_error("Error deleting saves/tsave.vvv");
     else
