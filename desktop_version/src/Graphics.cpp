@@ -46,13 +46,11 @@ void Graphics::init(void)
     flipmode = false;
     setflipmode = false;
 
-    //Background inits
+    // Initialize backgrounds
     for (int i = 0; i < numstars; i++)
     {
-        SDL_Rect s = {(int) (fRandom() * 320), (int) (fRandom() * 240), 2, 2};
-        int s2 = 4+(fRandom()*4);
-        stars[i] = s;
-        starsspeed[i] = s2;
+        stars[i] = {(int) (fRandom() * 320), (int) (fRandom() * 240), 2, 2};
+        starsspeed[i] = 4 + (fRandom() * 4);
     }
 
     for (int i = 0; i < numbackboxes; i++)
@@ -60,7 +58,7 @@ void Graphics::init(void)
         SDL_Rect bb;
         int bvx = 0;
         int bvy = 0;
-        if(fRandom()*100 > 50)
+        if (fRandom() * 100 > 50)
         {
             bvx = 9 - (fRandom() * 19);
             if (bvx > -6 && bvx < 6) bvx = 6;
@@ -72,14 +70,15 @@ void Graphics::init(void)
             bvy = 9 - (fRandom() * 19);
             if (bvy > -6 && bvy < 6) bvy = 6;
             bvy = bvy * 1.5;
-            setRect(bb, fRandom() * 320, fRandom() * 240, 12, 32) ;
+            setRect(bb, fRandom() * 320, fRandom() * 240, 12, 32);
         }
-        float bint = 0.5 + ((fRandom() * 100) / 200);
         backboxes[i] = bb;
         backboxvx[i] = bvx;
         backboxvy[i] = bvy;
-        backboxint[i] = bint;
     }
+
+    backboxmult = 0.5 + ((fRandom() * 100) / 200);
+
     backoffset = 0;
     foregrounddrawn = false;
     backgrounddrawn = false;
@@ -2317,8 +2316,6 @@ void Graphics::drawbackground( int t )
         fill_rect(0, 0, 0);
         for (int i = 0; i < numstars; i++)
         {
-            stars[i].w = 2;
-            stars[i].h = 2;
             SDL_Rect star_rect = stars[i];
             star_rect.x = lerp(star_rect.x + starsspeed[i], star_rect.x);
             if (starsspeed[i] <= 6)
@@ -2343,62 +2340,62 @@ void Graphics::drawbackground( int t )
             {
                 //Akward ordering to match tileset
             case 0:
-                bcol2 = getRGB(0, 16*backboxint[0], 16*backboxint[0]);
+                bcol2 = getRGB(0, 16*backboxmult, 16*backboxmult);
                 break; //Cyan
             case 1:
-                bcol2 = getRGB(16*backboxint[0], 0, 0);
+                bcol2 = getRGB(16*backboxmult, 0, 0);
                 break;  //Red
             case 2:
-                bcol2 = getRGB(16*backboxint[0], 0, 16*backboxint[0]);
+                bcol2 = getRGB(16*backboxmult, 0, 16*backboxmult);
                 break; //Purple
             case 3:
-                bcol2 = getRGB(0, 0, 16*backboxint[0]);
+                bcol2 = getRGB(0, 0, 16*backboxmult);
                 break;  //Blue
             case 4:
-                bcol2 = getRGB(16*backboxint[0], 16*backboxint[0], 0);
+                bcol2 = getRGB(16*backboxmult, 16*backboxmult, 0);
                 break; //Yellow
             case 5:
-                bcol2 = getRGB(0, 16 * backboxint[0], 0);
+                bcol2 = getRGB(0, 16 * backboxmult, 0);
                 break;  //Green
             case 6:
                 //crazy case
                 switch(spcol)
                 {
                 case 0:
-                    bcol2 = getRGB(0, 16*backboxint[0], 16*backboxint[0]);
+                    bcol2 = getRGB(0, 16*backboxmult, 16*backboxmult);
                     break; //Cyan
                 case 1:
-                    bcol2 = getRGB(0, (spcoldel+1)*backboxint[0], 16*backboxint[0]);
+                    bcol2 = getRGB(0, (spcoldel+1)*backboxmult, 16*backboxmult);
                     break; //Cyan
                 case 2:
-                    bcol2 = getRGB(0, 0, 16*backboxint[0]);
+                    bcol2 = getRGB(0, 0, 16*backboxmult);
                     break;  //Blue
                 case 3:
-                    bcol2 = getRGB((16-spcoldel)*backboxint[0], 0, 16*backboxint[0]);
+                    bcol2 = getRGB((16-spcoldel)*backboxmult, 0, 16*backboxmult);
                     break;  //Blue
                 case 4:
-                    bcol2 = getRGB(16*backboxint[0], 0, 16*backboxint[0]);
+                    bcol2 = getRGB(16*backboxmult, 0, 16*backboxmult);
                     break; //Purple
                 case 5:
-                    bcol2 = getRGB(16*backboxint[0], 0, (spcoldel+1)*backboxint[0]);
+                    bcol2 = getRGB(16*backboxmult, 0, (spcoldel+1)*backboxmult);
                     break; //Purple
                 case 6:
-                    bcol2 = getRGB(16*backboxint[0], 0, 0);
+                    bcol2 = getRGB(16*backboxmult, 0, 0);
                     break;  //Red
                 case 7:
-                    bcol2 = getRGB(16*backboxint[0], (16-spcoldel)*backboxint[0], 0);
+                    bcol2 = getRGB(16*backboxmult, (16-spcoldel)*backboxmult, 0);
                     break;  //Red
                 case 8:
-                    bcol2 = getRGB(16*backboxint[0], 16*backboxint[0], 0);
+                    bcol2 = getRGB(16*backboxmult, 16*backboxmult, 0);
                     break; //Yellow
                 case 9:
-                    bcol2 = getRGB((spcoldel+1)*backboxint[0], 16*backboxint[0], 0);
+                    bcol2 = getRGB((spcoldel+1)*backboxmult, 16*backboxmult, 0);
                     break; //Yellow
                 case 10:
-                    bcol2 = getRGB(0, 16 * backboxint[0], 0);
+                    bcol2 = getRGB(0, 16 * backboxmult, 0);
                     break;  //Green
                 case 11:
-                    bcol2 = getRGB(0, 16 * backboxint[0], (16-spcoldel)*backboxint[0]);
+                    bcol2 = getRGB(0, 16 * backboxmult, (16-spcoldel)*backboxmult);
                     break;  //Green
                 }
             break;
@@ -2411,62 +2408,62 @@ void Graphics::drawbackground( int t )
             {
                 //Akward ordering to match tileset
             case 0:
-                bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
+                bcol = getRGB(16, 128*backboxmult, 128*backboxmult);
                 break; //Cyan
             case 1:
-                bcol = getRGB(128*backboxint[0], 16, 16);
+                bcol = getRGB(128*backboxmult, 16, 16);
                 break;  //Red
             case 2:
-                bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
+                bcol = getRGB(128*backboxmult, 16, 128*backboxmult);
                 break; //Purple
             case 3:
-                bcol = getRGB(16, 16, 128*backboxint[0]);
+                bcol = getRGB(16, 16, 128*backboxmult);
                 break;  //Blue
             case 4:
-                bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
+                bcol = getRGB(128*backboxmult, 128*backboxmult, 16);
                 break; //Yellow
             case 5:
-                bcol = getRGB(16, 128 * backboxint[0], 16);
+                bcol = getRGB(16, 128 * backboxmult, 16);
                 break;  //Green
             case 6:
                 //crazy case
                 switch(spcol)
                 {
                 case 0:
-                    bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
+                    bcol = getRGB(16, 128*backboxmult, 128*backboxmult);
                     break; //Cyan
                 case 1:
-                    bcol = getRGB(16, ((spcoldel+1)*8)*backboxint[0], 128*backboxint[0]);
+                    bcol = getRGB(16, ((spcoldel+1)*8)*backboxmult, 128*backboxmult);
                     break; //Cyan
                 case 2:
-                    bcol = getRGB(16, 16, 128*backboxint[0]);
+                    bcol = getRGB(16, 16, 128*backboxmult);
                     break;  //Blue
                 case 3:
-                    bcol = getRGB((128-(spcoldel*8))*backboxint[0], 16, 128*backboxint[0]);
+                    bcol = getRGB((128-(spcoldel*8))*backboxmult, 16, 128*backboxmult);
                     break;  //Blue
                 case 4:
-                    bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
+                    bcol = getRGB(128*backboxmult, 16, 128*backboxmult);
                     break; //Purple
                 case 5:
-                    bcol = getRGB(128*backboxint[0], 16, ((spcoldel+1)*8)*backboxint[0]);
+                    bcol = getRGB(128*backboxmult, 16, ((spcoldel+1)*8)*backboxmult);
                     break; //Purple
                 case 6:
-                    bcol = getRGB(128*backboxint[0], 16, 16);
+                    bcol = getRGB(128*backboxmult, 16, 16);
                     break;  //Red
                 case 7:
-                    bcol = getRGB(128*backboxint[0], (128-(spcoldel*8))*backboxint[0], 16);
+                    bcol = getRGB(128*backboxmult, (128-(spcoldel*8))*backboxmult, 16);
                     break;  //Red
                 case 8:
-                    bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
+                    bcol = getRGB(128*backboxmult, 128*backboxmult, 16);
                     break; //Yellow
                 case 9:
-                    bcol = getRGB(((spcoldel+1)*8)*backboxint[0], 128*backboxint[0], 16);
+                    bcol = getRGB(((spcoldel+1)*8)*backboxmult, 128*backboxmult, 16);
                     break; //Yellow
                 case 10:
-                    bcol = getRGB(16, 128 * backboxint[0], 16);
+                    bcol = getRGB(16, 128 * backboxmult, 16);
                     break;  //Green
                 case 11:
-                    bcol = getRGB(16, 128 * backboxint[0], (128-(spcoldel*8))*backboxint[0]);
+                    bcol = getRGB(16, 128 * backboxmult, (128-(spcoldel*8))*backboxmult);
                     break;  //Green
                 }
                 break;
@@ -2567,8 +2564,6 @@ void Graphics::drawbackground( int t )
         fill_rect(0, 0, 0);
         for (int i = 0; i < numstars; i++)
         {
-            stars[i].w = 2;
-            stars[i].h = 2;
             SDL_Rect star_rect = stars[i];
             star_rect.y = lerp(star_rect.y + starsspeed[i], star_rect.y);
             if (starsspeed[i] <= 8)
@@ -2626,15 +2621,12 @@ void Graphics::updatebackground(int t)
         //Starfield
         for (int i = 0; i < numstars; i++)
         {
-            stars[i].w = 2;
-            stars[i].h = 2;
             stars[i].x -= starsspeed[i];
             if (stars[i].x < -10)
             {
                 stars[i].x += 340;
-                stars[i].y = int(fRandom() * 240);
-                stars[i].w = 2;
-                starsspeed[i] = 4+int(fRandom()*4);
+                stars[i].y = (int) fRandom() * 240;
+                starsspeed[i] = 4 + (int) (fRandom() * 4);
             }
         }
         break;
@@ -2777,14 +2769,12 @@ void Graphics::updatebackground(int t)
         //Final Starfield
         for (int i = 0; i < numstars; i++)
         {
-            stars[i].w = 2;
-            stars[i].h = 2;
             stars[i].y -= starsspeed[i];
             if (stars[i].y < -10)
             {
                 stars[i].y += 260;
                 stars[i].x = fRandom() * 320;
-                starsspeed[i] = 5+(fRandom()*5);
+                starsspeed[i] = 5 + (fRandom() * 5);
             }
         }
         break;
