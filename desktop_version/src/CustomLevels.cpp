@@ -1697,15 +1697,10 @@ void customlevelclass::generatecustomminimap(void)
     {
         for (int i2 = 0; i2 < mapwidth; i2++)
         {
-            int tm;
-            if (getroomprop(i2, j2)->tileset == 1)
-            {
-                tm = 96;
-            }
-            else
-            {
-                tm = 196;
-            }
+            std::vector<SDL_Point> dark_points;
+            std::vector<SDL_Point> light_points;
+
+            bool dark = getroomprop(i2, j2)->tileset == 1;
 
             // Ok, now scan over each square
             for (int j = 0; j < 9 * map.customzoom; j++)
@@ -1737,15 +1732,27 @@ void customlevelclass::generatecustomminimap(void)
 
                     if (tile >= 1)
                     {
-                        // Fill in this pixel
-                        graphics.fill_rect(
-                            (i2 * 12 * map.customzoom) + i,
-                            (j2 * 9 * map.customzoom) + j,
-                            1, 1,
-                            graphics.getRGB(tm, tm, tm)
-                        );
+                        // Add this pixel
+                        SDL_Point point = { (i2 * 12 * map.customzoom) + i, (j2 * 9 * map.customzoom) + j };
+                        if (dark)
+                        {
+                            dark_points.push_back(point);
+                        }
+                        else
+                        {
+                            light_points.push_back(point);
+                        }
                     }
                 }
+            }
+            // Draw them all at once
+            if (!dark_points.empty())
+            {
+                graphics.draw_points(dark_points.data(), dark_points.size(), 96, 96, 96);
+            }
+            if (!light_points.empty())
+            {
+                graphics.draw_points(light_points.data(), light_points.size(), 196, 196, 196);
             }
         }
     }

@@ -531,10 +531,15 @@ int Graphics::set_color(const SDL_Color color)
     return set_color(color.r, color.g, color.b, color.a);
 }
 
-int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+SDL_Color Graphics::get_color(void)
 {
-    set_color(r, g, b, a);
+    SDL_Color color = {0, 0, 0, 0};
+    SDL_GetRenderDrawColor(gameScreen.m_renderer, &color.r, &color.g, &color.b, &color.a);
+    return color;
+}
 
+int Graphics::fill_rect(const SDL_Rect* rect)
+{
     const int result = SDL_RenderFillRect(gameScreen.m_renderer, rect);
     if (result != 0)
     {
@@ -543,9 +548,21 @@ int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const in
     return result;
 }
 
-int Graphics::fill_rect(const int r, const int g, const int b, const int a)
+int Graphics::fill_rect(const int x, const int y, const int w, const int h)
 {
-    return fill_rect(NULL, r, g, b, a);
+    SDL_Rect rect = {x, y, w, h};
+    return fill_rect(&rect);
+}
+
+int Graphics::fill_rect(void)
+{
+    return fill_rect(NULL);
+}
+
+int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+{
+    set_color(r, g, b, a);
+    return fill_rect(rect);
 }
 
 int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b)
@@ -584,16 +601,31 @@ int Graphics::fill_rect(const int x, const int y, const int w, const int h, cons
     return fill_rect(x, y, w, h, color.r, color.g, color.b, color.a);
 }
 
-int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+int Graphics::draw_rect(const SDL_Rect* rect)
 {
-    set_color(r, g, b, a);
-
     const int result = SDL_RenderDrawRect(gameScreen.m_renderer, rect);
     if (result != 0)
     {
         WHINE_ONCE_ARGS(("Could not draw rectangle: %s", SDL_GetError()));
     }
     return result;
+}
+
+int Graphics::draw_rect(const int x, const int y, const int w, const int h)
+{
+    SDL_Rect rect{ x, y, w, h };
+    return draw_rect(&rect);
+}
+
+int Graphics::draw_rect()
+{
+    return draw_rect(NULL);
+}
+
+int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+{
+    set_color(r, g, b, a);
+    return draw_rect(rect);
 }
 
 int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b)
@@ -620,6 +652,127 @@ int Graphics::draw_rect(const int x, const int y, const int w, const int h, cons
 int Graphics::draw_rect(const int x, const int y, const int w, const int h, const SDL_Color color)
 {
     return draw_rect(x, y, w, h, color.r, color.g, color.b, color.a);
+}
+
+int Graphics::draw_line(const int x, const int y, const int x2, const int y2)
+{
+    const int result = SDL_RenderDrawLine(gameScreen.m_renderer, x, y, x2, y2);
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(("Could not draw line: %s", SDL_GetError()));
+    }
+    return result;
+}
+
+int Graphics::draw_line(const SDL_Rect* rect)
+{
+    return draw_line(rect->x, rect->y, rect->x + rect->w, rect->y + rect->h);
+}
+
+int Graphics::draw_line(const int x, const int y, const int x2, const int y2, const SDL_Color color)
+{
+    set_color(color);
+    return draw_line(x, y, x2, y2);
+}
+
+int Graphics::draw_line(const SDL_Rect* rect, const SDL_Color color)
+{
+    return draw_line(rect->x, rect->y, rect->x + rect->w, rect->y + rect->h, color);
+}
+
+int Graphics::draw_line(const int x, const int y, const int x2, const int y2, const int r, const int g, const int b, const int a)
+{
+    set_color(r, g, b, a);
+    return draw_line(x, y, x2, y2);
+}
+
+int Graphics::draw_line(const int x, const int y, const int x2, const int y2, const int r, const int g, const int b)
+{
+    return draw_line(x, y, x2, y2, r, g, b, 255);
+}
+
+int Graphics::draw_line(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+{
+    return draw_line(rect->x, rect->y, rect->x + rect->w, rect->y + rect->h, r, g, b, a);
+}
+
+int Graphics::draw_line(const SDL_Rect* rect, const int r, const int g, const int b)
+{
+    return draw_line(rect->x, rect->y, rect->x + rect->w, rect->y + rect->h, r, g, b, 255);
+}
+
+int Graphics::draw_point(const int x, const int y)
+{
+    const int result = SDL_RenderDrawPoint(gameScreen.m_renderer, x, y);
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(("Could not draw point: %s", SDL_GetError()));
+    }
+    return result;
+}
+
+int Graphics::draw_point(const SDL_Point* point)
+{
+    return draw_point(point->x, point->y);
+}
+
+int Graphics::draw_point(const int x, const int y, const SDL_Color color)
+{
+    set_color(color);
+    return draw_point(x, y);
+}
+
+int Graphics::draw_point(const SDL_Point* point, const SDL_Color color)
+{
+    return draw_point(point->x, point->y, color);
+}
+
+int Graphics::draw_point(const int x, const int y, const int r, const int g, const int b, const int a)
+{
+    set_color(r, g, b, a);
+    return draw_point(x, y);
+}
+
+int Graphics::draw_point(const int x, const int y, const int r, const int g, const int b)
+{
+    return draw_point(x, y, r, g, b, 255);
+}
+
+int Graphics::draw_point(const SDL_Point* point, const int r, const int g, const int b, const int a)
+{
+    return draw_point(point->x, point->y, r, g, b, a);
+}
+
+int Graphics::draw_point(const SDL_Point* point, const int r, const int g, const int b)
+{
+    return draw_point(point->x, point->y, r, g, b, 255);
+}
+
+int Graphics::draw_points(const SDL_Point* points, const int count)
+{
+    const int result = SDL_RenderDrawPoints(gameScreen.m_renderer, points, count);
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(("Could not draw points: %s", SDL_GetError()));
+    }
+    return result;
+}
+
+int Graphics::draw_points(const SDL_Point* points, const int count, const SDL_Color color)
+{
+    set_color(color);
+    return draw_points(points, count);
+}
+
+int Graphics::draw_points(const SDL_Point* points, const int count, const int r, const int g, const int b, const int a)
+{
+    set_color(r, g, b, a);
+    return draw_points(points, count);
+}
+
+int Graphics::draw_points(const SDL_Point* points, const int count, const int r, const int g, const int b)
+{
+    return draw_points(points, count, r, g, b, 255);
 }
 
 void Graphics::draw_sprite(const int x, const int y, const int t, const int r, const int g, const int b)
@@ -1655,7 +1808,7 @@ bool Graphics::Hitest(SDL_Surface* surface1, SDL_Point p1, SDL_Surface* surface2
 
 }
 
-void Graphics::drawgravityline( int t )
+void Graphics::drawgravityline(const int t, const int x, const int y, const int w, const int h)
 {
     if (!INBOUNDS_VEC(t, obj.entities))
     {
@@ -1667,48 +1820,50 @@ void Graphics::drawgravityline( int t )
     {
         if (game.noflashingmode)
         {
-            fill_rect(&line_rect, getRGB(200 - 20, 200 - 20, 200 - 20));
+            set_color(200 - 20, 200 - 20, 200 - 20);
             return;
         }
 
         switch(linestate)
         {
         case 0:
-            fill_rect(&line_rect, getRGB(200-20, 200-20, 200-20));
+            set_color(200-20, 200-20, 200-20);
             break;
         case 1:
-            fill_rect(&line_rect, getRGB(245-30, 245-30, 225-30));
+            set_color(245-30, 245-30, 225-30);
             break;
         case 2:
-            fill_rect(&line_rect, getRGB(225-30, 245-30, 245-30));
+            set_color(225-30, 245-30, 245-30);
             break;
         case 3:
-            fill_rect(&line_rect, getRGB(200-20, 200-20, 164-10));
+            set_color(200-20, 200-20, 164-10);
             break;
         case 4:
-            fill_rect(&line_rect, getRGB(196-20, 255-30, 224-20));
+            set_color(196-20, 255-30, 224-20);
             break;
         case 5:
-            fill_rect(&line_rect, getRGB(196-20, 235-30, 205-20));
+            set_color(196-20, 235-30, 205-20);
             break;
         case 6:
-            fill_rect(&line_rect, getRGB(164-10, 164-10, 164-10));
+            set_color(164-10, 164-10, 164-10);
             break;
         case 7:
-            fill_rect(&line_rect, getRGB(205-20, 245-30, 225-30));
+            set_color(205-20, 245-30, 225-30);
             break;
         case 8:
-            fill_rect(&line_rect, getRGB(225-30, 255-30, 205-20));
+            set_color(225-30, 255-30, 205-20);
             break;
         case 9:
-            fill_rect(&line_rect, getRGB(245-30, 245-30, 245-30));
+            set_color(245-30, 245-30, 245-30);
             break;
         }
     }
     else
     {
-        fill_rect(&line_rect, getRGB(96, 96, 96));
+        set_color(96, 96, 96);
     }
+
+    draw_line(x, y, x + w, y + h);
 }
 
 void Graphics::drawtrophytext(void)
@@ -2008,19 +2163,11 @@ void Graphics::drawentity(const int i, const int yoff)
         {
             oldw -= 24;
         }
-        line_rect.x = xp;
-        line_rect.y = yp - yoff;
-        line_rect.w = lerp(oldw, obj.entities[i].w);
-        line_rect.h = 1;
-        drawgravityline(i);
+        drawgravityline(i, xp, yp - yoff, lerp(oldw, obj.entities[i].w) - 1, 0);
         break;
     }
     case 6:    //Vertical Line
-        line_rect.x = xp;
-        line_rect.y = yp - yoff;
-        line_rect.w = 1;
-        line_rect.h = obj.entities[i].h;
-        drawgravityline(i);
+        drawgravityline(i, xp, yp - yoff, 0, obj.entities[i].h - 1);
         break;
     case 7:    //Teleporter
         drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].realcol);
@@ -3209,7 +3356,7 @@ void Graphics::flashlight(void)
 {
     set_blendmode(SDL_BLENDMODE_NONE);
 
-    fill_rect(0xBB, 0xBB, 0xBB, 0xBB);
+    fill_rect(NULL, 0xBB, 0xBB, 0xBB, 0xBB);
 }
 
 void Graphics::screenshake(void)
