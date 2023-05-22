@@ -399,7 +399,7 @@ public:
     SDL_Rect backboxes[numbackboxes];
     int backboxvx[numbackboxes];
     int backboxvy[numbackboxes];
-    float backboxint[numbackboxes];
+    float backboxmult;
 
     int warpskip;
 
