@@ -47,7 +47,8 @@ void Graphics::init(void)
     // Initialize backgrounds
     for (int i = 0; i < numstars; i++)
     {
-        stars[i] = {(int) (fRandom() * 320), (int) (fRandom() * 240), 2, 2};
+        const SDL_Rect star = {(int) (fRandom() * 320), (int) (fRandom() * 240), 2, 2};
+        stars[i] = star;
         starsspeed[i] = 4 + (fRandom() * 4);
     }
 
@@ -547,7 +548,7 @@ int Graphics::fill_rect(const SDL_Rect* rect)
 
 int Graphics::fill_rect(const int x, const int y, const int w, const int h)
 {
-    SDL_Rect rect = {x, y, w, h};
+    const SDL_Rect rect = {x, y, w, h};
     return fill_rect(&rect);
 }
 
@@ -610,7 +611,7 @@ int Graphics::draw_rect(const SDL_Rect* rect)
 
 int Graphics::draw_rect(const int x, const int y, const int w, const int h)
 {
-    SDL_Rect rect{ x, y, w, h };
+    const SDL_Rect rect = {x, y, w, h};
     return draw_rect(&rect);
 }
 
