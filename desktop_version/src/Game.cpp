@@ -3027,7 +3027,6 @@ void Game::updatestate(void)
         }
 
 
-            savestatsandsettings();
             if (nodeathmode)
             {
                 unlockAchievement("vvvvvvmaster"); //bloody hell
@@ -3040,6 +3039,8 @@ void Game::updatestate(void)
                 setstatedelay(120);
                 incstate();
             }
+
+            savestatsandsettings();
             break;
         case 3511:
         {
