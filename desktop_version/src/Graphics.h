@@ -356,10 +356,8 @@ public:
 
     SDL_Rect tiles_rect;
     SDL_Rect sprites_rect;
-    SDL_Rect line_rect;
     SDL_Rect tele_rect;
 
-    SDL_Rect prect;
     SDL_Rect footerrect;
 
     int linestate, linedelay;

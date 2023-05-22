@@ -26,12 +26,10 @@
 void Graphics::init(void)
 {
     flipmode = false;
-    setRect(tiles_rect, 0,0,8,8);
-    setRect(sprites_rect, 0,0,32,32);
+    setRect(tiles_rect, 0, 0, 8, 8);
+    setRect(sprites_rect, 0, 0, 32, 32);
     setRect(footerrect, 0, 230, 320, 10);
-    setRect(prect, 0, 0, 4, 4);
-    setRect(line_rect, 0,0,0,0);
-    setRect(tele_rect,0,0,96,96);
+    setRect(tele_rect, 0, 0, 96, 96);
 
     // We initialise a few things
 
@@ -2145,9 +2143,7 @@ void Graphics::drawentity(const int i, const int yoff)
         break;
     }
     case 3:    // Big chunky pixels!
-        prect.x = xp;
-        prect.y = yp - yoff;
-        fill_rect(&prect, obj.entities[i].realcol);
+        fill_rect(xp, yp - yoff, 4, 4, obj.entities[i].realcol);
         break;
     case 4:    // Small pickups
     {
