@@ -342,27 +342,27 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
     switch(t)
     {
     case 0:
-        r=12; g=140, b=140;
+        r = 12; g = 140, b = 140;
         gender = 3;
         break;
     case 1:
-        r=140; g=12; b=140;
+        r = 140; g = 12; b = 140;
         gender = 2;
         break;
     case 2:
-        r=140; g=140; b=12;
+        r = 140; g = 140; b = 12;
         gender = 1;
         break;
     case 3:
-        r=140; g=12; b=12;
+        r = 140; g = 12; b = 12;
         gender = 1;
         break;
     case 4:
-        r=12; g=140; b=12;
+        r = 12; g = 140; b = 12;
         gender = 1;
         break;
     case 5:
-        r=12; g=12; b=140;
+        r = 12; g = 12; b = 140;
         gender = 2;
         break;
     default:
@@ -380,7 +380,7 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
     }
     else
     {
-        r=64; g=64; b=64;
+        r = 64; g = 64; b = 64;
         status_text = loc::gettext_case("Missing...", gender);
     }
 
@@ -404,11 +404,11 @@ void Graphics::print_level_creator(
      * - if anyone is sad about this decision, the happy face will cheer them up anyway :D */
     int width_for_face = 17;
     int total_width = width_for_face + font::len(print_flags, creator.c_str());
-    int face_x = (SCREEN_WIDTH_PIXELS-total_width)/2;
+    int face_x = (SCREEN_WIDTH_PIXELS - total_width) / 2;
     set_texture_color_mod(grphx.im_sprites, r, g, b);
-    draw_texture_part(grphx.im_sprites, face_x, y-1, 7, 2, 10, 10, 1, 1);
+    draw_texture_part(grphx.im_sprites, face_x, y - 1, 7, 2, 10, 10, 1, 1);
     set_texture_color_mod(grphx.im_sprites, 255, 255, 255);
-    font::print(print_flags, face_x+width_for_face, y, creator, r, g, b);
+    font::print(print_flags, face_x + width_for_face, y, creator, r, g, b);
 }
 
 int Graphics::set_render_target(SDL_Texture* texture)
@@ -807,7 +807,7 @@ bool Graphics::shouldrecoloroneway(const int tilenum, const bool mounted)
 }
 #endif
 
-void Graphics::drawtile( int x, int y, int t )
+void Graphics::drawtile(int x, int y, int t)
 {
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles1_mounted))
@@ -822,7 +822,7 @@ void Graphics::drawtile( int x, int y, int t )
 }
 
 
-void Graphics::drawtile2( int x, int y, int t )
+void Graphics::drawtile2(int x, int y, int t)
 {
 #if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles2_mounted))
@@ -836,7 +836,7 @@ void Graphics::drawtile2( int x, int y, int t )
     }
 }
 
-void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 0*/ )
+void Graphics::drawtile3(int x, int y, int t, int off, int height_subtract /*= 0*/)
 {
     t += off * 30;
 
@@ -906,7 +906,7 @@ void Graphics::drawgui(void)
     }
 
     //Draw all the textboxes to the screen
-    for (size_t i = 0; i<textboxes.size(); i++)
+    for (size_t i = 0; i < textboxes.size(); i++)
     {
         int text_yoff;
         int yp;
@@ -1021,10 +1021,10 @@ void Graphics::drawgui(void)
                 }
                 if (flipmode)
                 {
-                    y = 240 - y - 8*sc;
+                    y = 240 - y - 8 * sc;
                 }
                 SDL_Color color = TEXT_COLOUR("cyan");
-                font::print((sc==2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, color.r, color.g, color.b);
+                font::print((sc == 2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, color.r, color.g, color.b);
             }
             else
             {
@@ -1058,9 +1058,9 @@ void Graphics::drawgui(void)
                 }
                 if (flipmode)
                 {
-                    y = 240 - y - 8*sc;
+                    y = 240 - y - 8 * sc;
                 }
-                font::print((sc==2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, 196, 196, 243);
+                font::print((sc == 2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, 196, 196, 243);
             }
             else
             {
@@ -1078,12 +1078,12 @@ void Graphics::drawgui(void)
         if (textboxes[i].r == 175 && textboxes[i].g == 175)
         {
             //purple guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 120- help.glow/4, 210 - help.glow/4);
+            draw_sprite(crew_xp, crew_yp, crew_sprite, 220 - help.glow / 4 - textboxes[i].rand, 120 - help.glow / 4, 210 - help.glow / 4);
         }
         else if (textboxes[i].r == 175 && textboxes[i].b == 175)
         {
             //red guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
+            draw_sprite(crew_xp, crew_yp, crew_sprite, 255 - help.glow / 8, 70 - help.glow / 4, 70 - help.glow / 4);
         }
         else if (textboxes[i].r == 175)
         {
@@ -1093,12 +1093,12 @@ void Graphics::drawgui(void)
         else if (textboxes[i].g == 175)
         {
             //yellow guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 210 - help.glow/4, 120- help.glow/4);
+            draw_sprite(crew_xp, crew_yp, crew_sprite, 220 - help.glow / 4 - textboxes[i].rand, 210 - help.glow / 4, 120 - help.glow / 4);
         }
         else if (textboxes[i].b == 175)
         {
             //blue guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textboxes[i].rand);
+            draw_sprite(crew_xp, crew_yp, crew_sprite, 75, 75, 255 - help.glow / 4 - textboxes[i].rand);
         }
     }
 }
@@ -1304,13 +1304,13 @@ void Graphics::cutscenebars(void)
     if (showcutscenebars)
     {
         fill_rect(0, 0, usethispos, 16, 0, 0, 0);
-        fill_rect(360-usethispos, 224, usethispos, 16, 0, 0, 0);
+        fill_rect(360 - usethispos, 224, usethispos, 16, 0, 0, 0);
     }
     else if (cutscenebarspos > 0) //disappearing
     {
         //draw
         fill_rect(0, 0, usethispos, 16, 0, 0, 0);
-        fill_rect(360-usethispos, 224, usethispos, 16, 0, 0, 0);
+        fill_rect(360 - usethispos, 224, usethispos, 16, 0, 0, 0);
     }
 }
 
@@ -1336,7 +1336,7 @@ void Graphics::setbars(const int position)
     oldcutscenebarspos = position;
 }
 
-void Graphics::drawcrewman( int x, int y, int t, bool act, bool noshift /*=false*/ )
+void Graphics::drawcrewman(int x, int y, int t, bool act, bool noshift /*=false*/)
 {
     if (!act)
     {
@@ -1404,13 +1404,13 @@ void Graphics::drawpixeltextbox(
 ) {
     int k;
 
-    fill_rect(x, y, w, h, r/6, g/6, b/6);
+    fill_rect(x, y, w, h, r / 6, g / 6, b / 6);
 
     /* Horizontal tiles */
-    for (k = 0; k < w/8 - 2; ++k)
+    for (k = 0; k < w / 8 - 2; ++k)
     {
-        drawcoloredtile(x + 8 + k*8, y, 41, r, g, b);
-        drawcoloredtile(x + 8 + k*8, y + h - 8, 46, r, g, b);
+        drawcoloredtile(x + 8 + k * 8, y, 41, r, g, b);
+        drawcoloredtile(x + 8 + k * 8, y + h - 8, 46, r, g, b);
     }
 
     if (w % 8 != 0)
@@ -1421,10 +1421,10 @@ void Graphics::drawpixeltextbox(
     }
 
     /* Vertical tiles */
-    for (k = 0; k < h/8 - 2; ++k)
+    for (k = 0; k < h / 8 - 2; ++k)
     {
-        drawcoloredtile(x, y + 8 + k*8, 43, r, g, b);
-        drawcoloredtile(x + w - 8, y + 8 + k*8, 44, r, g, b);
+        drawcoloredtile(x, y + 8 + k * 8, 43, r, g, b);
+        drawcoloredtile(x + w - 8, y + 8 + k * 8, 44, r, g, b);
     }
 
     if (h % 8 != 0)
@@ -1468,7 +1468,7 @@ void Graphics::textboxremove(void)
     }
 }
 
-void Graphics::textboxtimer( int t )
+void Graphics::textboxtimer(int t)
 {
     if (!INBOUNDS_VEC(m, textboxes))
     {
@@ -1476,7 +1476,7 @@ void Graphics::textboxtimer( int t )
         return;
     }
 
-    textboxes[m].timer=t;
+    textboxes[m].timer = t;
 }
 
 void Graphics::addline( const std::string& t )
@@ -1521,7 +1521,7 @@ void Graphics::createtextboxreal(
 ) {
     m = textboxes.size();
 
-    if(m<20)
+    if (m < 20)
     {
         textboxclass text;
         text.lines.push_back(t);
@@ -1585,7 +1585,7 @@ void Graphics::drawfade(void)
     case FADE_FADING_IN:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            fill_rect(fadebars[i]-usethisamount, i * 16, 500, 16, 0, 0, 0);
+            fill_rect(fadebars[i] - usethisamount, i * 16, 500, 16, 0, 0, 0);
         }
         break;
     case FADE_NONE:
@@ -1602,7 +1602,7 @@ void Graphics::processfade(void)
     case FADE_START_FADEOUT:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            fadebars[i] = -int(fRandom() * 12) * 8;
+            fadebars[i] = -(int)(fRandom() * 12) * 8;
         }
         setfade(0);
         fademode = FADE_FADING_OUT;
@@ -1617,7 +1617,7 @@ void Graphics::processfade(void)
     case FADE_START_FADEIN:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            fadebars[i] = 320 + int(fRandom() * 12) * 8;
+            fadebars[i] = 320 + (int)(fRandom() * 12) * 8;
         }
         setfade(416);
         fademode = FADE_FADING_IN;
@@ -1651,7 +1651,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
     if (language_screen)
     {
         size_t n_options = game.menuoptions.size();
-        twocol_voptions = n_options - (n_options/2);
+        twocol_voptions = n_options - (n_options / 2);
     }
 
     for (size_t i = 0; i < game.menuoptions.size(); i++)
@@ -1678,13 +1678,13 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
         if (language_screen)
         {
             int name_len = font::len(opt.print_flags, opt.text);
-            x = (i < twocol_voptions ? 80 : 240) - name_len/2;
-            y = 36 + (i % twocol_voptions)*12;
+            x = (i < twocol_voptions ? 80 : 240) - name_len / 2;
+            y = 36 + (i % twocol_voptions) * 12;
         }
         else
         {
-            x = i*game.menuspacing + game.menuxoff;
-            y = 140 + i*12 + game.menuyoff;
+            x = i * game.menuspacing + game.menuxoff;
+            y = 140 + i * 12 + game.menuyoff;
         }
 
 #ifndef NO_CUSTOM_LEVELS
@@ -1737,7 +1737,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
             vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", opt_text.c_str());
 
             // Account for brackets
-            x -= (font::len(opt.print_flags, buffer)-font::len(opt.print_flags, opt_text.c_str()))/2;
+            x -= (font::len(opt.print_flags, buffer) - font::len(opt.print_flags, opt_text.c_str())) / 2;
         }
         else
         {
@@ -1870,7 +1870,7 @@ void Graphics::drawtrophytext(void)
     if (obj.trophytext < 15)
     {
         const int usethismult = lerp(obj.oldtrophytext, obj.trophytext);
-        brightness = (usethismult/15.0)*255;
+        brightness = (usethismult / 15.0) * 255;
     }
     else
     {
@@ -1957,12 +1957,12 @@ void Graphics::drawtrophytext(void)
     if (top_text != NULL)
     {
         font::string_wordwrap(0, top_text, 304, &lines);
-        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 11-(lines-1)*5, top_text, 196, 196, 255 - help.glow);
+        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 11 - (lines - 1) * 5, top_text, 196, 196, 255 - help.glow);
     }
     if (bottom_text != NULL)
     {
         font::string_wordwrap(0, bottom_text, 304, &lines);
-        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 221-(lines-1)*5, bottom_text, 196, 196, 255 - help.glow);
+        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 221 - (lines - 1) * 5, bottom_text, 196, 196, 255 - help.glow);
     }
 }
 
@@ -2050,7 +2050,7 @@ void Graphics::drawentity(const int i, const int yoff)
 
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
-        //screenwrapping!
+        // screenwrapping!
         SDL_Point wrappedPoint;
         bool wrapX = false;
         bool wrapY = false;
@@ -2142,16 +2142,16 @@ void Graphics::drawentity(const int i, const int yoff)
         }
         break;
     }
-    case 3:    // Big chunky pixels!
+    case 3: // Big chunky pixels!
         fill_rect(xp, yp - yoff, 4, 4, obj.entities[i].realcol);
         break;
-    case 4:    // Small pickups
+    case 4: // Small pickups
     {
         const SDL_Color color = obj.entities[i].realcol;
         drawcoloredtile(xp, yp - yoff, obj.entities[i].tile, color.r, color.g, color.b);
         break;
     }
-    case 5:    //Horizontal Line
+    case 5: // Horizontal Line
     {
         int oldw = obj.entities[i].w;
         if ((game.swngame == 3 || kludgeswnlinewidth) && obj.getlineat(84 - 32) == i)
@@ -2161,16 +2161,16 @@ void Graphics::drawentity(const int i, const int yoff)
         drawgravityline(i, xp, yp - yoff, lerp(oldw, obj.entities[i].w) - 1, 0);
         break;
     }
-    case 6:    //Vertical Line
+    case 6: // Vertical Line
         drawgravityline(i, xp, yp - yoff, 0, obj.entities[i].h - 1);
         break;
-    case 7:    //Teleporter
+    case 7: // Teleporter
         drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].realcol);
         break;
-    //case 8:    // Special: Moving platform, 8 tiles
+    // case 8:    // Special: Moving platform, 8 tiles
         // Note: This code is in the 4-tile code
         break;
-    case 9:         // Really Big Sprite! (2x2)
+    case 9: // Really Big Sprite! (2x2)
     {
         const SDL_Color ct = obj.entities[i].realcol;
 
@@ -2183,9 +2183,9 @@ void Graphics::drawentity(const int i, const int yoff)
 
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
-        tpoint.x = xp+32;
+        tpoint.x = xp + 32;
         tpoint.y = yp - yoff;
-        //
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
@@ -2193,17 +2193,17 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe + 1, drawRect.x, drawRect.y, 32, 32, ct);
 
         tpoint.x = xp;
-        tpoint.y = yp+32 - yoff;
-        //
+        tpoint.y = yp + 32 - yoff;
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
 
         draw_grid_tile(sprites, obj.entities[i].drawframe + 12, drawRect.x, drawRect.y, 32, 32, ct);
 
-        tpoint.x = xp+32;
-        tpoint.y = yp+32 - yoff;
-        //
+        tpoint.x = xp + 32;
+        tpoint.y = yp + 32 - yoff;
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
@@ -2211,22 +2211,22 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe + 13, drawRect.x, drawRect.y, 32, 32, ct);
         break;
     }
-    case 10:         // 2x1 Sprite
+    case 10: // 2x1 Sprite
     {
         const SDL_Color ct = obj.entities[i].realcol;
 
         tpoint.x = xp;
         tpoint.y = yp - yoff;
-        //
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
 
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
-        tpoint.x = xp+32;
+        tpoint.x = xp + 32;
         tpoint.y = yp - yoff;
-        //
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
@@ -2234,35 +2234,35 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe + 1, drawRect.x, drawRect.y, 32, 32, ct);
         break;
     }
-    case 11:    //The fucking elephant
+    case 11: // The fucking elephant
         drawimagecol(IMAGE_ELEPHANT, xp, yp - yoff, obj.entities[i].realcol);
         break;
-    case 12:         // Regular sprites that don't wrap
+    case 12: // Regular sprites that don't wrap
     {
         tpoint.x = xp;
         tpoint.y = yp - yoff;
         const SDL_Color ct = obj.entities[i].realcol;
-        //
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
 
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
-        //if we're outside the screen, we need to draw indicators
+        // if we're outside the screen, we need to draw indicators
 
         if (obj.entities[i].xp < -20 && obj.entities[i].vx > 0)
         {
             if (obj.entities[i].xp < -100)
             {
-                tpoint.x = -5 + (int(( -xp) / 10));
+                tpoint.x = -5 + (int) (-xp / 10);
             }
             else
             {
                 tpoint.x = 5;
             }
 
-            tpoint.y = tpoint.y+4;
+            tpoint.y = tpoint.y + 4;
 
 
             drawRect = tiles_rect;
@@ -2276,7 +2276,7 @@ void Graphics::drawentity(const int i, const int yoff)
         {
             if (obj.entities[i].xp > 420)
             {
-                tpoint.x = 320 - (int(( xp-320) / 10));
+                tpoint.x = 320 - (int) ((xp - 320) / 10);
             }
             else
             {
@@ -2284,7 +2284,6 @@ void Graphics::drawentity(const int i, const int yoff)
             }
 
             tpoint.y = tpoint.y+4;
-            //
 
             drawRect = tiles_rect;
             drawRect.x += tpoint.x;
@@ -2296,7 +2295,7 @@ void Graphics::drawentity(const int i, const int yoff)
     }
     case 13:
     {
-        //Special for epilogue: huge hero!
+        // Special for epilogue: huge hero!
         draw_grid_tile(grphx.im_sprites, obj.entities[i].drawframe, xp, yp - yoff, sprites_rect.w, sprites_rect.h, obj.entities[i].realcol, 6, 6);
         break;
     }
@@ -2308,7 +2307,7 @@ void Graphics::drawbackground( int t )
     switch(t)
     {
     case 1:
-        //Starfield
+        // Starfield
         fill_rect(0, 0, 0);
         for (int i = 0; i < numstars; i++)
         {
@@ -2331,136 +2330,136 @@ void Graphics::drawbackground( int t )
         SDL_zero(bcol);
         SDL_zero(bcol2);
 
-            //Lab
-            switch(rcol)
+        // Lab
+        switch (rcol)
+        {
+            // Akward ordering to match tileset
+        case 0:
+            bcol2 = getRGB(0, 16 * backboxmult, 16 * backboxmult);
+            break; // Cyan
+        case 1:
+            bcol2 = getRGB(16 * backboxmult, 0, 0);
+            break; // Red
+        case 2:
+            bcol2 = getRGB(16 * backboxmult, 0, 16 * backboxmult);
+            break; // Purple
+        case 3:
+            bcol2 = getRGB(0, 0, 16 * backboxmult);
+            break; // Blue
+        case 4:
+            bcol2 = getRGB(16 * backboxmult, 16 * backboxmult, 0);
+            break; // Yellow
+        case 5:
+            bcol2 = getRGB(0, 16 * backboxmult, 0);
+            break; // Green
+        case 6:
+            // crazy case
+            switch (spcol)
             {
-                //Akward ordering to match tileset
             case 0:
-                bcol2 = getRGB(0, 16*backboxmult, 16*backboxmult);
-                break; //Cyan
+                bcol2 = getRGB(0, 16 * backboxmult, 16 * backboxmult);
+                break; // Cyan
             case 1:
-                bcol2 = getRGB(16*backboxmult, 0, 0);
-                break;  //Red
+                bcol2 = getRGB(0, (spcoldel + 1) * backboxmult, 16 * backboxmult);
+                break; // Cyan
             case 2:
-                bcol2 = getRGB(16*backboxmult, 0, 16*backboxmult);
-                break; //Purple
+                bcol2 = getRGB(0, 0, 16 * backboxmult);
+                break; // Blue
             case 3:
-                bcol2 = getRGB(0, 0, 16*backboxmult);
-                break;  //Blue
+                bcol2 = getRGB((16 - spcoldel) * backboxmult, 0, 16 * backboxmult);
+                break; // Blue
             case 4:
-                bcol2 = getRGB(16*backboxmult, 16*backboxmult, 0);
-                break; //Yellow
+                bcol2 = getRGB(16 * backboxmult, 0, 16 * backboxmult);
+                break; // Purple
             case 5:
-                bcol2 = getRGB(0, 16 * backboxmult, 0);
-                break;  //Green
+                bcol2 = getRGB(16 * backboxmult, 0, (spcoldel + 1) * backboxmult);
+                break; // Purple
             case 6:
-                //crazy case
-                switch(spcol)
-                {
-                case 0:
-                    bcol2 = getRGB(0, 16*backboxmult, 16*backboxmult);
-                    break; //Cyan
-                case 1:
-                    bcol2 = getRGB(0, (spcoldel+1)*backboxmult, 16*backboxmult);
-                    break; //Cyan
-                case 2:
-                    bcol2 = getRGB(0, 0, 16*backboxmult);
-                    break;  //Blue
-                case 3:
-                    bcol2 = getRGB((16-spcoldel)*backboxmult, 0, 16*backboxmult);
-                    break;  //Blue
-                case 4:
-                    bcol2 = getRGB(16*backboxmult, 0, 16*backboxmult);
-                    break; //Purple
-                case 5:
-                    bcol2 = getRGB(16*backboxmult, 0, (spcoldel+1)*backboxmult);
-                    break; //Purple
-                case 6:
-                    bcol2 = getRGB(16*backboxmult, 0, 0);
-                    break;  //Red
-                case 7:
-                    bcol2 = getRGB(16*backboxmult, (16-spcoldel)*backboxmult, 0);
-                    break;  //Red
-                case 8:
-                    bcol2 = getRGB(16*backboxmult, 16*backboxmult, 0);
-                    break; //Yellow
-                case 9:
-                    bcol2 = getRGB((spcoldel+1)*backboxmult, 16*backboxmult, 0);
-                    break; //Yellow
-                case 10:
-                    bcol2 = getRGB(0, 16 * backboxmult, 0);
-                    break;  //Green
-                case 11:
-                    bcol2 = getRGB(0, 16 * backboxmult, (16-spcoldel)*backboxmult);
-                    break;  //Green
-                }
+                bcol2 = getRGB(16 * backboxmult, 0, 0);
+                break; // Red
+            case 7:
+                bcol2 = getRGB(16 * backboxmult, (16 - spcoldel) * backboxmult, 0);
+                break; // Red
+            case 8:
+                bcol2 = getRGB(16 * backboxmult, 16 * backboxmult, 0);
+                break; // Yellow
+            case 9:
+                bcol2 = getRGB((spcoldel + 1) * backboxmult, 16 * backboxmult, 0);
+                break; // Yellow
+            case 10:
+                bcol2 = getRGB(0, 16 * backboxmult, 0);
+                break; // Green
+            case 11:
+                bcol2 = getRGB(0, 16 * backboxmult, (16 - spcoldel) * backboxmult);
+                break; // Green
+            }
             break;
         }
         fill_rect(bcol2);
 
         for (int i = 0; i < numbackboxes; i++)
         {
-            switch(rcol)
+            switch (rcol)
             {
-                //Akward ordering to match tileset
+                // Akward ordering to match tileset
             case 0:
-                bcol = getRGB(16, 128*backboxmult, 128*backboxmult);
-                break; //Cyan
+                bcol = getRGB(16, 128 * backboxmult, 128 * backboxmult);
+                break; // Cyan
             case 1:
-                bcol = getRGB(128*backboxmult, 16, 16);
-                break;  //Red
+                bcol = getRGB(128 * backboxmult, 16, 16);
+                break; // Red
             case 2:
-                bcol = getRGB(128*backboxmult, 16, 128*backboxmult);
-                break; //Purple
+                bcol = getRGB(128 * backboxmult, 16, 128 * backboxmult);
+                break; // Purple
             case 3:
-                bcol = getRGB(16, 16, 128*backboxmult);
-                break;  //Blue
+                bcol = getRGB(16, 16, 128 * backboxmult);
+                break; // Blue
             case 4:
-                bcol = getRGB(128*backboxmult, 128*backboxmult, 16);
-                break; //Yellow
+                bcol = getRGB(128 * backboxmult, 128 * backboxmult, 16);
+                break; // Yellow
             case 5:
                 bcol = getRGB(16, 128 * backboxmult, 16);
-                break;  //Green
+                break; // Green
             case 6:
-                //crazy case
-                switch(spcol)
+                // crazy case
+                switch (spcol)
                 {
                 case 0:
-                    bcol = getRGB(16, 128*backboxmult, 128*backboxmult);
-                    break; //Cyan
+                    bcol = getRGB(16, 128 * backboxmult, 128 * backboxmult);
+                    break; // Cyan
                 case 1:
-                    bcol = getRGB(16, ((spcoldel+1)*8)*backboxmult, 128*backboxmult);
-                    break; //Cyan
+                    bcol = getRGB(16, ((spcoldel + 1) * 8) * backboxmult, 128 * backboxmult);
+                    break; // Cyan
                 case 2:
-                    bcol = getRGB(16, 16, 128*backboxmult);
-                    break;  //Blue
+                    bcol = getRGB(16, 16, 128 * backboxmult);
+                    break; // Blue
                 case 3:
-                    bcol = getRGB((128-(spcoldel*8))*backboxmult, 16, 128*backboxmult);
-                    break;  //Blue
+                    bcol = getRGB((128 - (spcoldel * 8)) * backboxmult, 16, 128 * backboxmult);
+                    break; // Blue
                 case 4:
-                    bcol = getRGB(128*backboxmult, 16, 128*backboxmult);
-                    break; //Purple
+                    bcol = getRGB(128 * backboxmult, 16, 128 * backboxmult);
+                    break; // Purple
                 case 5:
-                    bcol = getRGB(128*backboxmult, 16, ((spcoldel+1)*8)*backboxmult);
-                    break; //Purple
+                    bcol = getRGB(128 * backboxmult, 16, ((spcoldel + 1) * 8) * backboxmult);
+                    break; // Purple
                 case 6:
-                    bcol = getRGB(128*backboxmult, 16, 16);
-                    break;  //Red
+                    bcol = getRGB(128 * backboxmult, 16, 16);
+                    break; // Red
                 case 7:
-                    bcol = getRGB(128*backboxmult, (128-(spcoldel*8))*backboxmult, 16);
-                    break;  //Red
+                    bcol = getRGB(128 * backboxmult, (128 - (spcoldel * 8)) * backboxmult, 16);
+                    break; // Red
                 case 8:
-                    bcol = getRGB(128*backboxmult, 128*backboxmult, 16);
-                    break; //Yellow
+                    bcol = getRGB(128 * backboxmult, 128 * backboxmult, 16);
+                    break; // Yellow
                 case 9:
-                    bcol = getRGB(((spcoldel+1)*8)*backboxmult, 128*backboxmult, 16);
-                    break; //Yellow
+                    bcol = getRGB(((spcoldel + 1) * 8) * backboxmult, 128 * backboxmult, 16);
+                    break; // Yellow
                 case 10:
                     bcol = getRGB(16, 128 * backboxmult, 16);
-                    break;  //Green
+                    break; // Green
                 case 11:
-                    bcol = getRGB(16, 128 * backboxmult, (128-(spcoldel*8))*backboxmult);
-                    break;  //Green
+                    bcol = getRGB(16, 128 * backboxmult, (128 - (spcoldel * 8)) * backboxmult);
+                    break; // Green
                 }
                 break;
             }
@@ -2470,8 +2469,8 @@ void Graphics::drawbackground( int t )
             backboxrect.y = lerp(backboxes[i].y - backboxvy[i], backboxes[i].y);
 
             fill_rect(&backboxrect, bcol);
-            backboxrect.x += 1;
-            backboxrect.y += 1;
+            backboxrect.x++;
+            backboxrect.y++;
             backboxrect.w -= 2;
             backboxrect.h -= 2;
             fill_rect(&backboxrect, bcol2);
@@ -2500,47 +2499,47 @@ void Graphics::drawbackground( int t )
     }
     case 5:
     {
-        //Warp zone, central
+        // Warp zone, central
         SDL_Color warpbcol;
         SDL_Color warpfcol;
 
         switch(rcol)
         {
-            //Akward ordering to match tileset
+            // Akward ordering to match tileset
         case 0:
             warpbcol = getRGB(0x0A, 0x10, 0x0E);
             warpfcol = getRGB(0x10, 0x22, 0x21);
-            break; //Cyan
+            break; // Cyan
         case 1:
             warpbcol = getRGB(0x11, 0x09, 0x0B);
             warpfcol = getRGB(0x22, 0x10, 0x11);
-            break; //Red
+            break; // Red
         case 2:
             warpbcol = getRGB(0x0F, 0x0A, 0x10);
             warpfcol = getRGB(0x22,0x10,0x22);
-            break; //Purple
+            break; // Purple
         case 3:
             warpbcol = getRGB(0x0A, 0x0B, 0x10);
             warpfcol = getRGB(0x10, 0x10, 0x22);
-            break; //Blue
+            break; // Blue
         case 4:
             warpbcol = getRGB(0x10, 0x0D, 0x0A);
             warpfcol = getRGB(0x22, 0x1E, 0x10);
-            break; //Yellow
+            break; // Yellow
         case 5:
             warpbcol = getRGB(0x0D, 0x10, 0x0A);
             warpfcol = getRGB(0x14, 0x22, 0x10);
-            break; //Green
+            break; // Green
         case 6:
             warpbcol = getRGB(0x0A, 0x0A, 0x0A);
             warpfcol = getRGB(0x12, 0x12, 0x12);
-            break; //Gray
+            break; // Gray
         default:
             warpbcol = getRGB(0xFF, 0xFF, 0xFF);
             warpfcol = getRGB(0xFF, 0xFF, 0xFF);
         }
 
-        for (int i = 10 ; i >= 0; i--)
+        for (int i = 10; i >= 0; i--)
         {
             const int temp = (i * 16) + backoffset;
             const SDL_Rect warprect = {160 - temp, 120 - temp, temp * 2, temp * 2};
@@ -2556,7 +2555,7 @@ void Graphics::drawbackground( int t )
         break;
     }
     case 6:
-        //Final Starfield
+        // Final Starfield
         fill_rect(0, 0, 0);
         for (int i = 0; i < numstars; i++)
         {
@@ -2573,7 +2572,7 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 7:
-        //Static, unscrolling section of the tower
+        // Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
             for (int i = 0; i < 40; i++)
@@ -2583,7 +2582,7 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 8:
-        //Static, unscrolling section of the tower
+        // Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
             for (int i = 0; i < 40; i++)
@@ -2593,7 +2592,7 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 9:
-        //Static, unscrolling section of the tower
+        // Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
             for (int i = 0; i < 40; i++)
@@ -2604,7 +2603,6 @@ void Graphics::drawbackground( int t )
         break;
     default:
         fill_rect(0, 0, 0);
-
         break;
     }
 }
@@ -2614,7 +2612,7 @@ void Graphics::updatebackground(int t)
     switch (t)
     {
     case 1:
-        //Starfield
+        // Starfield
         for (int i = 0; i < numstars; i++)
         {
             stars[i].x -= starsspeed[i];
@@ -2627,10 +2625,10 @@ void Graphics::updatebackground(int t)
         }
         break;
     case 2:
-        //Lab
+        // Lab
         if (rcol == 6)
         {
-            //crazy caze
+            // crazy caze
             spcoldel--;
             if (spcoldel <= 0)
             {
@@ -2665,7 +2663,7 @@ void Graphics::updatebackground(int t)
             }
         }
         break;
-    case 3: //Warp zone (horizontal)
+    case 3: // Warp zone (horizontal)
     {
         const int temp = 680 + (rcol * 3);
         backoffset += 3;
@@ -2681,7 +2679,7 @@ void Graphics::updatebackground(int t)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    drawtile2(317 - backoffset + (i * 16), (j * 16), temp + 40);  //20*16 = 320
+                    drawtile2(317 - backoffset + (i * 16), (j * 16), temp + 40);  // 20*16 = 320
                     drawtile2(317 - backoffset + (i * 16) + 8, (j * 16), temp + 41);
                     drawtile2(317 - backoffset + (i * 16), (j * 16) + 8, temp + 80);
                     drawtile2(317 - backoffset + (i * 16) + 8, (j * 16) + 8, temp + 81);
@@ -2690,7 +2688,7 @@ void Graphics::updatebackground(int t)
         }
         else
         {
-            //draw the whole thing for the first time!
+            // draw the whole thing for the first time!
             backoffset = 0;
             clear();
             for (int j = 0; j < 15; j++)
@@ -2708,7 +2706,7 @@ void Graphics::updatebackground(int t)
         set_render_target(target);
         break;
     }
-    case 4: //Warp zone (vertical)
+    case 4: // Warp zone (vertical)
     {
         const int temp = 760 + (rcol * 3);
         backoffset += 3;
@@ -2724,7 +2722,7 @@ void Graphics::updatebackground(int t)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    drawtile2((i * 16), 237 - backoffset + (j * 16), temp + 40); //14*17=240 - 3
+                    drawtile2((i * 16), 237 - backoffset + (j * 16), temp + 40); // 14*17=240 - 3
                     drawtile2((i * 16) + 8, 237 - backoffset + (j * 16), temp + 41);
                     drawtile2((i * 16), 237 - backoffset + (j * 16) + 8, temp + 80);
                     drawtile2((i * 16) + 8, 237 - backoffset + (j * 16) + 8, temp + 81);
@@ -2733,7 +2731,7 @@ void Graphics::updatebackground(int t)
         }
         else
         {
-            //draw the whole thing for the first time!
+            // draw the whole thing for the first time!
             backoffset = 0;
             clear();
             for (int j = 0; j < 16; j++)
@@ -2752,9 +2750,9 @@ void Graphics::updatebackground(int t)
         break;
     }
     case 5:
-        //Warp zone, central
+        // Warp zone, central
 
-        backoffset += 1;
+        backoffset++;
         if (backoffset >= 16)
         {
             backoffset -= 16;
@@ -2762,7 +2760,7 @@ void Graphics::updatebackground(int t)
         }
         break;
     case 6:
-        //Final Starfield
+        // Final Starfield
         for (int i = 0; i < numstars; i++)
         {
             stars[i].y -= starsspeed[i];
