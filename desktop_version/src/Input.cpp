@@ -3327,6 +3327,11 @@ void gamecompleteinput(void)
             }
         }
     }
+
+    if (!game.press_map)
+    {
+        game.mapheld = false;
+    }
 }
 
 void gamecompleteinput2(void)
@@ -3367,5 +3372,10 @@ void gamecompleteinput2(void)
                 music.fadeout();
             }
         }
+    }
+
+    if (!game.press_map)
+    {
+        game.mapheld = false;
     }
 }
