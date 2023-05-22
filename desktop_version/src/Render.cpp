@@ -2482,31 +2482,31 @@ static void rendermapcursor(const bool flashing)
         // Draw the tower specially
         if (!flashing || game.noflashingmode)
         {
-            graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
+            graphics.draw_rect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
         }
         else if (map.cursorstate == 1)
         {
             if (int(map.cursordelay / 4) % 2 == 0)
             {
-                graphics.drawrect(40 + ((game.roomx - 100) * 12), 21, 12, 180, 255, 255, 255);
-                graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 255, 255, 255);
+                graphics.draw_rect(40 + ((game.roomx - 100) * 12), 21, 12, 180, 255, 255, 255);
+                graphics.draw_rect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 255, 255, 255);
             }
         }
         else if (map.cursorstate == 2 && (int(map.cursordelay / 15) % 2 == 0))
         {
-            graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow), 245 - (help.glow));
+            graphics.draw_rect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow), 245 - (help.glow));
         }
         return;
     }
 
     if (!flashing || ((map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0) || game.noflashingmode))
     {
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
+        graphics.draw_rect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
     }
     else if (map.cursorstate == 1 && int(map.cursordelay / 4) % 2 == 0)
     {
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + data.yoff, 12 * data.zoom, 9 * data.zoom, 255, 255, 255);
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 255, 255, 255);
+        graphics.draw_rect(40 + ((game.roomx - 100) * 12 * data.zoom) + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + data.yoff, 12 * data.zoom, 9 * data.zoom, 255, 255, 255);
+        graphics.draw_rect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 255, 255, 255);
     }
 }
 
@@ -3051,8 +3051,8 @@ void teleporterrender(void)
         //Draw the chosen destination coordinate!
         //TODO
         //draw the coordinates //destination
-        graphics.drawrect(40 + data.xoff + (telex * 12 * data.zoom) + 1, 21 + data.yoff + (teley * 9 * data.zoom) + 1, 12 * data.zoom - 2, 9 * data.zoom - 2, 245 - (help.glow * 2), 16, 16);
-        graphics.drawrect(40 + data.xoff + (telex * 12 * data.zoom) + 3, 21 + data.yoff + (teley * 9 * data.zoom) + 3, 12 * data.zoom - 6, 9 * data.zoom - 6, 245 - (help.glow * 2), 16, 16);
+        graphics.draw_rect(40 + data.xoff + (telex * 12 * data.zoom) + 1, 21 + data.yoff + (teley * 9 * data.zoom) + 1, 12 * data.zoom - 2, 9 * data.zoom - 2, 245 - (help.glow * 2), 16, 16);
+        graphics.draw_rect(40 + data.xoff + (telex * 12 * data.zoom) + 3, 21 + data.yoff + (teley * 9 * data.zoom) + 3, 12 * data.zoom - 6, 9 * data.zoom - 6, 245 - (help.glow * 2), 16, 16);
     }
 
     // Draw the legend itself

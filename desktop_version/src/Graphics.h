@@ -294,8 +294,6 @@ public:
 
     void drawmap(void);
 
-    void drawrect(int x, int y, int w, int h, int r, int g, int b);
-
     void drawtowermap(void);
 
     void drawtowerspikes(void);
