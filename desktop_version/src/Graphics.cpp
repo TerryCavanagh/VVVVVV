@@ -3478,31 +3478,6 @@ SDL_Color Graphics::RGBf(int r, int g, int b)
     return color;
 }
 
-void Graphics::drawrect(int x, int y, int w, int h, int r, int g, int b)
-{
-    SDL_Rect madrect;
-    //Draw the retangle indicated by that object
-    madrect.x = x;
-    madrect.y = y;
-    madrect.w = w;
-    madrect.h = 1;
-    fill_rect(&madrect, getRGB(r, g, b));
-
-    madrect.w = 1;
-    madrect.h = h;
-    fill_rect(&madrect, getRGB(r, g, b));
-
-    madrect.x = x + w - 1;
-    madrect.w = 1;
-    madrect.h = h;
-    fill_rect(&madrect, getRGB(r, g, b));
-    madrect.x = x;
-    madrect.y = y + h - 1;
-    madrect.w = w;
-    madrect.h = 1;
-    fill_rect(&madrect, getRGB(r, g, b));
-}
-
 bool Graphics::onscreen(int t)
 {
     return (t >= -40 && t <= 280);
