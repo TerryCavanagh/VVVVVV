@@ -762,7 +762,7 @@ Você encontrou o laboratório secreto!" explanation="" max="34*4"/>
     <string english="Last 1 minute on the Super Gravitron" translation="Último 1 minuto no Super Gravitron" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="MESTRE DO UNIVERSO" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Complete o jogo no modo sem mortes" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Something went wrong, but we forgot to print an error message." translation="" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
+    <string english="Something went wrong, but we forgot the error message." translation="" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Não foi possível montar {path}: o diretório real não existe" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
     <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>

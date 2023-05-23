@@ -666,7 +666,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            message = loc::gettext("Something went wrong, but we forgot to print an error message.");
+            message = loc::gettext("Something went wrong, but we forgot the error message.");
         }
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", message, NULL);
 
