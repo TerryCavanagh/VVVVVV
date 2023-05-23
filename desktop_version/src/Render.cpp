@@ -1672,7 +1672,7 @@ static void menurender(void)
         }
         else
         {
-            message = loc::gettext("Something went wrong, but we forgot to print an error message.");
+            message = loc::gettext("Something went wrong, but we forgot the error message.");
         }
         font::print(PR_2X | PR_CEN, -1, 45, loc::gettext("ERROR"), tr, tg, tb);
         font::print_wrap(PR_CEN, -1, 65, message, tr, tg, tb);
@@ -1687,7 +1687,7 @@ static void menurender(void)
         }
         else
         {
-            message = loc::gettext("Something went wrong, but we forgot to print an error message.");
+            message = loc::gettext("Something went wrong, but we forgot the error message.");
         }
         font::print(PR_2X | PR_CEN, -1, 45, loc::gettext("WARNING"), tr, tg, tb);
         font::print_wrap(PR_CEN, -1, 65, message, tr, tg, tb);
