@@ -4,6 +4,7 @@
 #include "Editor.h"
 
 #include <string>
+#include <vector>
 
 #include "Constants.h"
 #include "CustomLevels.h"
@@ -49,6 +50,251 @@ editorclass::editorclass(void)
     register_tool(EditorTool_WARP_LINES, "Warp Lines", "I", SDLK_i, false);
     register_tool(EditorTool_CREWMATES, "Crewmates", "O", SDLK_o, false);
     register_tool(EditorTool_START_POINT, "Start Point", "P", SDLK_p, false);
+
+    static const short basic[] = {
+        121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121,
+        160, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80, 80,
+        120, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121,
+        121, 160, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80,
+        80, 120, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121,
+        121, 160, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80,
+        80, 120, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121,
+        121, 160, 82, 82, 82, 82, 82, 82, 82, 0, 82, 82, 82, 82, 81, 81, 81, 42, 121,
+        121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121, 160, 121,
+        121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80, 80, 120, 121,
+        121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121, 160, 121,
+        121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80, 80, 120, 121,
+        162, 121, 162, 121, 162, 121, 161, 121, 162, 121, 162, 121, 162, 121, 161, 121,
+        162, 121, 162, 121, 162, 121, 161, 121, 162, 121, 162, 80, 0, 121, 2, 121, 162,
+        121, 162, 121, 162, 121, 161, 121, 162, 121, 162, 121, 162, 121, 161, 82, 122,
+        82, 122, 82, 122, 82, 1, 82, 122, 82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> basic_vec;
+    basic_vec.assign(basic, basic + SDL_arraysize(basic));
+    autotile_types["basic"] = basic_vec;
+
+    static const short lab_cyan[] = {
+        121, 184, 121, 184, 24, 121, 24, 160, 121, 184, 121, 184, 24, 184, 24, 160,
+        104, 144, 104, 144, 121, 121, 104, 145, 104, 144, 104, 144, 80, 185, 80, 120,
+        121, 184, 121, 184, 24, 121, 24, 160, 121, 184, 121, 184, 24, 121, 24, 160,
+        104, 144, 104, 144, 24, 121, 121, 145, 104, 144, 104, 144, 80, 185, 80, 120,
+        26, 121, 26, 26, 25, 121, 25, 106, 26, 121, 26, 26, 25, 121, 25, 106, 121,
+        121, 121, 121, 121, 121, 121, 160, 26, 121, 121, 26, 66, 80, 80, 120, 26, 184,
+        26, 121, 25, 121, 25, 106, 26, 121, 26, 121, 25, 184, 25, 106, 82, 186, 82,
+        186, 65, 82, 65, 0, 82, 82, 82, 82, 81, 199, 81, 42, 121, 184, 121, 184, 24,
+        24, 24, 160, 121, 121, 121, 184, 24, 121, 24, 160, 104, 144, 104, 144, 121,
+        121, 121, 160, 121, 121, 121, 121, 80, 80, 80, 120, 121, 184, 121, 184, 24,
+        121, 121, 160, 121, 121, 121, 184, 121, 121, 24, 160, 121, 144, 121, 121, 121,
+        24, 121, 160, 104, 121, 104, 144, 80, 80, 80, 120, 26, 162, 121, 162, 25, 105,
+        25, 161, 121, 162, 121, 162, 25, 105, 25, 161, 104, 146, 121, 146, 121, 162,
+        121, 64, 121, 121, 121, 162, 66, 0, 121, 2, 26, 162, 26, 162, 25, 162, 25, 161,
+        26, 162, 26, 162, 25, 105, 25, 161, 82, 122, 82, 122, 65, 122, 82, 1, 82, 122,
+        82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> lab_cyan_vec;
+    lab_cyan_vec.assign(lab_cyan, lab_cyan + SDL_arraysize(lab_cyan));
+    autotile_types["lab_cyan"] = lab_cyan_vec;
+
+    static const short lab_red[] = {
+        121, 190, 121, 190, 30, 121, 30, 160, 121, 190, 121, 190, 30, 190, 30, 160, 110,
+        150, 110, 150, 121, 121, 110, 151, 110, 150, 110, 150, 80, 191, 80, 120, 121,
+        190, 121, 190, 30, 121, 30, 160, 121, 190, 121, 190, 30, 121, 30, 160, 110, 150,
+        110, 150, 30, 121, 121, 151, 110, 150, 110, 150, 80, 191, 80, 120, 32, 121, 32,
+        32, 31, 121, 31, 112, 32, 121, 32, 32, 31, 121, 31, 112, 121, 121, 121, 121, 121,
+        121, 121, 160, 32, 121, 121, 32, 72, 80, 80, 120, 32, 190, 32, 121, 31, 121, 31,
+        112, 32, 121, 32, 121, 31, 190, 31, 112, 82, 192, 82, 192, 71, 82, 71, 0, 82, 82,
+        82, 82, 81, 70, 81, 42, 121, 190, 121, 190, 30, 30, 30, 160, 121, 121, 121, 190,
+        30, 121, 30, 160, 110, 150, 110, 150, 121, 121, 121, 160, 121, 121, 121, 121, 80,
+        80, 80, 120, 121, 190, 121, 190, 30, 121, 121, 160, 121, 121, 121, 190, 121, 121,
+        30, 160, 121, 150, 121, 121, 121, 30, 121, 160, 110, 121, 110, 150, 80, 80, 80,
+        120, 32, 162, 121, 162, 31, 111, 31, 161, 121, 162, 121, 162, 31, 111, 31, 161,
+        110, 152, 121, 152, 121, 162, 121, 76, 121, 121, 121, 162, 72, 0, 121, 2, 32, 162,
+        32, 162, 31, 162, 31, 161, 32, 162, 32, 162, 31, 111, 31, 161, 82, 122, 82, 122,
+        71, 156, 82, 1, 82, 122, 82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> lab_red_vec;
+    lab_red_vec.assign(lab_red, lab_red + SDL_arraysize(lab_red));
+    autotile_types["lab_red"] = lab_red_vec;
+
+    static const short lab_pink[] = {
+        121, 184, 121, 184, 24, 121, 24, 160, 121, 184, 121, 184, 24, 184, 24, 160, 104,
+        144, 104, 144, 121, 121, 104, 145, 104, 144, 104, 144, 80, 185, 80, 120, 121,
+        184, 121, 184, 24, 121, 24, 160, 121, 184, 121, 184, 24, 121, 24, 160, 104, 144,
+        104, 144, 24, 121, 121, 145, 104, 144, 104, 144, 80, 185, 80, 120, 26, 121, 26,
+        26, 25, 121, 25, 106, 26, 121, 26, 26, 25, 121, 25, 106, 121, 121, 121, 121, 121,
+        121, 121, 160, 26, 121, 121, 26, 66, 80, 80, 120, 26, 184, 26, 121, 25, 121, 25,
+        106, 26, 121, 26, 121, 25, 184, 25, 106, 82, 186, 82, 186, 65, 82, 65, 0, 82, 82,
+        82, 82, 81, 64, 81, 42, 121, 184, 121, 184, 24, 24, 24, 160, 121, 121, 121, 184,
+        24, 121, 24, 160, 104, 144, 104, 144, 121, 121, 121, 160, 121, 121, 121, 121, 80,
+        80, 80, 120, 121, 184, 121, 184, 24, 121, 121, 160, 121, 121, 121, 184, 121, 121,
+        24, 160, 121, 144, 121, 121, 121, 24, 121, 160, 104, 121, 104, 144, 80, 80, 80,
+        120, 26, 162, 121, 162, 25, 105, 25, 161, 121, 162, 121, 162, 25, 105, 25, 161,
+        104, 146, 121, 146, 121, 162, 121, 113, 121, 121, 121, 162, 66, 0, 121, 2, 26,
+        162, 26, 162, 25, 162, 25, 161, 26, 162, 26, 162, 25, 105, 25, 161, 82, 122, 82,
+        122, 65, 122, 82, 1, 82, 122, 82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> lab_pink_vec;
+    lab_pink_vec.assign(lab_pink, lab_pink + SDL_arraysize(lab_pink));
+    autotile_types["lab_pink"] = lab_pink_vec;
+
+    static const short lab_yellow[] = {
+        121, 175, 121, 175, 15, 121, 15, 160, 121, 175, 121, 175, 15, 175, 15, 160, 95,
+        135, 95, 135, 121, 121, 95, 136, 95, 135, 95, 135, 80, 176, 80, 120, 121, 175,
+        121, 175, 15, 121, 15, 160, 121, 175, 121, 175, 15, 121, 15, 160, 95, 135, 95,
+        135, 15, 121, 121, 136, 95, 135, 95, 135, 80, 176, 80, 120, 17, 121, 17, 17, 16,
+        121, 16, 97, 17, 121, 17, 17, 16, 121, 16, 97, 121, 121, 121, 121, 121, 121, 121,
+        160, 17, 121, 121, 17, 57, 80, 80, 120, 17, 175, 17, 121, 16, 121, 16, 97, 17,
+        121, 17, 121, 16, 175, 16, 97, 82, 177, 82, 177, 56, 82, 56, 0, 82, 82, 82, 82,
+        81, 55, 81, 42, 121, 175, 121, 175, 15, 15, 15, 160, 121, 121, 121, 175, 15, 121,
+        15, 160, 95, 135, 95, 135, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80, 80,
+        120, 121, 175, 121, 175, 15, 121, 121, 160, 121, 121, 121, 175, 121, 121, 15, 160,
+        121, 135, 121, 121, 121, 15, 121, 160, 95, 121, 95, 135, 80, 80, 80, 120, 17, 162,
+        121, 162, 16, 96, 16, 161, 121, 162, 121, 162, 16, 96, 16, 161, 95, 137, 121, 137,
+        121, 162, 121, 27, 121, 121, 121, 162, 57, 0, 121, 2, 17, 162, 17, 162, 16, 162,
+        16, 161, 17, 162, 17, 162, 16, 96, 16, 161, 82, 122, 82, 122, 56, 122, 82, 1, 82,
+        122, 82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> lab_yellow_vec;
+    lab_yellow_vec.assign(lab_yellow, lab_yellow + SDL_arraysize(lab_yellow));
+    autotile_types["lab_yellow"] = lab_yellow_vec;
+
+    static const short lab_green[] = {121, 181, 121, 181, 21, 121, 21, 160, 121, 181,
+        121, 181, 21, 181, 21, 160, 101, 141, 101, 141, 121, 121, 101, 142, 101, 141,
+        101, 141, 80, 182, 80, 120, 121, 181, 121, 181, 21, 121, 21, 160, 121, 181, 121,
+        181, 21, 121, 21, 160, 101, 141, 101, 141, 21, 121, 121, 142, 101, 141, 101,
+        141, 80, 182, 80, 120, 23, 121, 23, 23, 22, 121, 22, 103, 23, 121, 23, 23, 22,
+        121, 22, 103, 121, 121, 121, 121, 121, 121, 121, 160, 23, 121, 121, 23, 63, 80,
+        80, 120, 23, 181, 23, 121, 22, 121, 25, 103, 23, 121, 23, 121, 22, 181, 22, 103,
+        82, 183, 82, 183, 62, 82, 62, 0, 82, 82, 82, 82, 81, 61, 81, 42, 121, 181, 121,
+        181, 21, 21, 21, 160, 121, 121, 121, 181, 21, 121, 21, 160, 101, 141, 101, 141,
+        121, 121, 121, 160, 121, 121, 121, 121, 80, 80, 80, 120, 121, 181, 121, 181, 21,
+        121, 121, 160, 121, 121, 121, 181, 121, 121, 21, 160, 121, 141, 121, 121, 121, 21,
+        121, 160, 101, 121, 101, 141, 80, 80, 80, 120, 23, 162, 121, 162, 22, 102, 22,
+        161, 121, 162, 121, 162, 22, 102, 22, 161, 101, 143, 121, 143, 121, 162, 121, 161,
+        121, 121, 121, 162, 63, 0, 121, 2, 23, 162, 23, 162, 22, 162, 22, 161, 23, 162,
+        23, 162, 22, 102, 22, 161, 82, 122, 82, 122, 62, 122, 82, 1, 82, 122, 82, 122, 81,
+        41, 81, 0
+    };
+
+    std::vector<int> lab_green_vec;
+    lab_green_vec.assign(lab_green, lab_green + SDL_arraysize(lab_green));
+    autotile_types["lab_green"] = lab_green_vec;
+
+    static const short outside[] = {
+        2, 0, 2, 0, 1, 2, 1, 2, 2, 0, 2, 2, 2, 2, 1, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0,
+        0, 2, 2, 2, 2, 2, 0, 2, 0, 1, 2, 1, 2, 2, 0, 2, 0, 1, 2, 1, 2, 0, 0, 2, 0, 2, 2,
+        2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+        1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 1, 2, 1,
+        2, 2, 0, 2, 0, 1, 2, 1, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
+        2, 0, 1, 2, 1, 2, 2, 0, 2, 0, 1, 2, 1, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2,
+        2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+    };
+
+    std::vector<int> outside_vec;
+    outside_vec.assign(outside, outside + SDL_arraysize(outside));
+    autotile_types["outside"] = outside_vec;
+
+    SDL_zeroa(tileset_min_colour);
+    SDL_zeroa(tileset_max_colour);
+
+    register_tileset(EditorTileset_SPACE_STATION, "Space Station");
+    register_tileset(EditorTileset_OUTSIDE, "Outside");
+    register_tileset(EditorTileset_LAB, "Lab");
+    register_tileset(EditorTileset_WARP_ZONE, "Warp Zone");
+    register_tileset(EditorTileset_SHIP, "Ship");
+
+    register_tilecol(EditorTileset_SPACE_STATION, -1, "basic", 80, "basic", 680);
+    register_tilecol(EditorTileset_SPACE_STATION, 0, "basic", 83, "basic", 680);
+    register_tilecol(EditorTileset_SPACE_STATION, 1, "basic", 86, "basic", 698);
+    register_tilecol(EditorTileset_SPACE_STATION, 2, "basic", 89, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 3, "basic", 92, "basic", 683);
+    register_tilecol(EditorTileset_SPACE_STATION, 4, "basic", 95, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 5, "basic", 98, "basic", 680);
+    register_tilecol(EditorTileset_SPACE_STATION, 6, "basic", 101, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 7, "basic", 104, "basic", 704);
+    register_tilecol(EditorTileset_SPACE_STATION, 8, "basic", 107, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 9, "basic", 110, "basic", 686);
+    register_tilecol(EditorTileset_SPACE_STATION, 10, "basic", 113, "basic", 698);
+
+    register_tilecol(EditorTileset_SPACE_STATION, 11, "basic", 283, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 12, "basic", 286, "basic", 686);
+    register_tilecol(EditorTileset_SPACE_STATION, 13, "basic", 289, "basic", 704);
+    register_tilecol(EditorTileset_SPACE_STATION, 14, "basic", 292, "basic", 701);
+    register_tilecol(EditorTileset_SPACE_STATION, 15, "basic", 295, "basic", 698);
+    register_tilecol(EditorTileset_SPACE_STATION, 16, "basic", 298, "basic", 683);
+    register_tilecol(EditorTileset_SPACE_STATION, 17, "basic", 301, "basic", 704);
+    register_tilecol(EditorTileset_SPACE_STATION, 18, "basic", 304, "basic", 701);
+    register_tilecol(EditorTileset_SPACE_STATION, 19, "basic", 307, "basic", 698);
+    register_tilecol(EditorTileset_SPACE_STATION, 20, "basic", 310, "basic", 692);
+    register_tilecol(EditorTileset_SPACE_STATION, 21, "basic", 313, "basic", 686);
+
+    register_tilecol(EditorTileset_SPACE_STATION, 22, "basic", 483, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 23, "basic", 486, "basic", 683);
+    register_tilecol(EditorTileset_SPACE_STATION, 24, "basic", 489, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 25, "basic", 492, "basic", 704);
+    register_tilecol(EditorTileset_SPACE_STATION, 26, "basic", 495, "basic", 680);
+    register_tilecol(EditorTileset_SPACE_STATION, 27, "basic", 498, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 28, "basic", 501, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 29, "basic", 504, "basic", 692);
+    register_tilecol(EditorTileset_SPACE_STATION, 30, "basic", 507, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 31, "basic", 510, "basic", 698);
+
+    register_tilecol(EditorTileset_OUTSIDE, 0, "basic", 480, "outside", 680);
+    register_tilecol(EditorTileset_OUTSIDE, 1, "basic", 483, "outside", 683);
+    register_tilecol(EditorTileset_OUTSIDE, 2, "basic", 486, "outside", 686);
+    register_tilecol(EditorTileset_OUTSIDE, 3, "basic", 489, "outside", 689);
+    register_tilecol(EditorTileset_OUTSIDE, 4, "basic", 492, "outside", 692);
+    register_tilecol(EditorTileset_OUTSIDE, 5, "basic", 495, "outside", 695);
+    register_tilecol(EditorTileset_OUTSIDE, 6, "basic", 498, "outside", 698);
+    register_tilecol(EditorTileset_OUTSIDE, 7, "basic", 501, "outside", 701);
+
+    register_tilecol(EditorTileset_LAB, 0, "lab_cyan", 280, "none", 0);
+    register_tilecol(EditorTileset_LAB, 1, "lab_red", 283, "none", 0);
+    register_tilecol(EditorTileset_LAB, 2, "lab_pink", 286, "none", 0);
+    register_tilecol(EditorTileset_LAB, 3, "basic", 289, "none", 0);
+    register_tilecol(EditorTileset_LAB, 4, "lab_yellow", 292, "none", 0);
+    register_tilecol(EditorTileset_LAB, 5, "lab_green", 295, "none", 0);
+
+    register_tilecol(EditorTileset_WARP_ZONE, 0, "basic", 80, "none", 120);
+    register_tilecol(EditorTileset_WARP_ZONE, 1, "basic", 83, "none", 123);
+    register_tilecol(EditorTileset_WARP_ZONE, 2, "basic", 86, "none", 126);
+    register_tilecol(EditorTileset_WARP_ZONE, 3, "basic", 89, "none", 129);
+    register_tilecol(EditorTileset_WARP_ZONE, 4, "basic", 92, "none", 132);
+    register_tilecol(EditorTileset_WARP_ZONE, 5, "basic", 95, "none", 135);
+    register_tilecol(EditorTileset_WARP_ZONE, 6, "basic", 98, "none", 138);
+
+    register_tilecol(EditorTileset_SHIP, 0, "basic", 101, "basic", 741);
+    register_tilecol(EditorTileset_SHIP, 1, "basic", 104, "basic", 744);
+    register_tilecol(EditorTileset_SHIP, 2, "basic", 107, "basic", 747);
+    register_tilecol(EditorTileset_SHIP, 3, "basic", 110, "basic", 750);
+    register_tilecol(EditorTileset_SHIP, 4, "basic", 113, "basic", 753);
+    register_tilecol(EditorTileset_SHIP, 5, "basic", 116, "basic", 756);
+}
+
+void editorclass::register_tileset(EditorTilesets tileset, const char* name)
+{
+    tileset_names[tileset] = name;
+}
+
+void editorclass::register_tilecol(EditorTilesets tileset, const int index, const char* foreground_type, const int foreground_base, const char* background_type, const int background_base)
+{
+    EditorTilecolInfo info;
+    info.foreground_type = foreground_type;
+    info.foreground_base = foreground_base;
+    info.background_type = background_type;
+    info.background_base = background_base;
+    tileset_colors[tileset][index] = info;
+
+    tileset_min_colour[tileset] = SDL_min(tileset_min_colour[tileset], index);
+    tileset_max_colour[tileset] = SDL_max(tileset_max_colour[tileset], index);
 }
 
 void editorclass::reset(void)
@@ -3487,201 +3733,137 @@ void editorinput(void)
 
     if (ed.updatetiles && cl.getroomprop(ed.levx, ed.levy)->directmode == 0)
     {
-        ed.updatetiles = false;
-        // Correctly set the tiles in the current room
-        switch (cl.getroomprop(ed.levx, ed.levy)->tileset)
+        for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
         {
-        case 0: // The Space Station
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.backedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
-                        );
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 1: // Outside
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.outsideedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
-                        );
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 2: // Lab
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.labspikedir(
-                                i,
-                                j,
-                                cl.getroomprop(ed.levx, ed.levy)->tilecol
-                            )
-                        );
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(ed.levx, ed.levy, i, j, 713);
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 3: // Warp Zone/Intermission
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(ed.levx, ed.levy, i, j, 713);
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 4: // The ship
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.backedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
-                        );
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 5: // The Tower
-            break;
-        case 6: // Custom Set 1
-            break;
-        case 7: // Custom Set 2
-            break;
-        case 8: // Custom Set 3
-            break;
-        case 9: // Custom Set 4
-            break;
+            int tile_x = i % SCREEN_WIDTH_TILES;
+            int tile_y = i / SCREEN_WIDTH_TILES;
+            ed.set_tile(tile_x, tile_y, ed.autotile(tile_x, tile_y));
         }
+
+        ed.updatetiles = false;
         graphics.foregrounddrawn = false;
     }
+}
+
+bool editorclass::is_warp_zone_background(int tile)
+{
+    if (cl.getroomprop(levx, levy)->tileset == EditorTileset_SPACE_STATION)
+    {
+        return false;
+    }
+
+    return (tile == 120 || tile == 123 || tile == 126 || tile == 129 || tile == 132 || tile == 135 || tile == 138);
+}
+
+int editorclass::autotile(const int x, const int y)
+{
+    int tile = get_tile(x, y);
+    TileTypes type = get_tile_type(x, y, false);
+
+    if (tile == 0)
+    {
+        return 0;
+    }
+
+    if (type == TileType_SPIKE)
+    {
+        bool tile_up = get_tile_type(x, y - 1, false) == TileType_SOLID;
+        bool tile_down = get_tile_type(x, y + 1, false) == TileType_SOLID;
+        bool tile_left = get_tile_type(x - 1, y, false) == TileType_SOLID;
+        bool tile_right = get_tile_type(x + 1, y, false) == TileType_SOLID;
+
+        if (cl.getroomprop(levx, levy)->tileset == EditorTileset_LAB)
+        {
+            // If this is the lab, use the colourful lab spikes!
+            int mult = cl.getroomprop(levx, levy)->tilecol;
+            if (tile_down)
+                return 63 + mult * 2;
+            if (tile_up)
+                return 64 + mult * 2;
+            if (tile_left)
+                return 51 + mult * 2;
+            if (tile_right)
+                return 52 + mult * 2;
+            return 63 + mult * 2;
+        }
+
+        // Not in the lab, so use the boring normal spikes
+        if (tile_down)
+            return 8;
+        if (tile_up)
+            return 9;
+        if (tile_left)
+            return 49;
+        if (tile_right)
+            return 50;
+        return 8;
+    }
+
+    bool tile_up = autotile_connector(x, y - 1, type);
+    bool tile_down = autotile_connector(x, y + 1, type);
+    bool tile_left = autotile_connector(x - 1, y, type);
+    bool tile_right = autotile_connector(x + 1, y, type);
+
+    bool tile_up_left = autotile_connector(x - 1, y - 1, type);
+    bool tile_up_right = autotile_connector(x + 1, y - 1, type);
+    bool tile_down_left = autotile_connector(x - 1, y + 1, type);
+    bool tile_down_right = autotile_connector(x + 1, y + 1, type);
+
+    int tile_value = 0;
+
+    if (tile_up)
+        tile_value += 1;
+    if (tile_up_right)
+        tile_value += 2;
+    if (tile_right)
+        tile_value += 4;
+    if (tile_down_right)
+        tile_value += 8;
+    if (tile_down)
+        tile_value += 16;
+    if (tile_down_left)
+        tile_value += 32;
+    if (tile_left)
+        tile_value += 64;
+    if (tile_up_left)
+        tile_value += 128;
+
+    bool background = (type == TileType_NONSOLID || is_warp_zone_background(tile));
+    EditorTilecolInfo data = get_tilecol_data();
+
+    int base = background ? data.background_base : data.foreground_base;
+    return base + autotile_types[background ? data.background_type : data.foreground_type][tile_value];
+}
+
+EditorTilecolInfo editorclass::get_tilecol_data(void)
+{
+    EditorTilesets tileset = (EditorTilesets) cl.getroomprop(levx, levy)->tileset;
+    int tilecol = cl.getroomprop(levx, levy)->tilecol;
+
+    return tileset_colors[tileset][tilecol];
+}
+
+bool editorclass::autotile_connector(int x, int y, TileTypes original_type)
+{
+    if (x < 0 || x >= SCREEN_WIDTH_TILES || y < 0 || y >= SCREEN_HEIGHT_TILES)
+    {
+        return true;
+    }
+
+    int tile = get_tile(x, y);
+    TileTypes new_type = get_tile_type(x, y, false);
+
+    if (tile == 0)
+    {
+        return false;
+    }
+
+    if (new_type == TileType_SOLID && !is_warp_zone_background(tile))
+    {
+        return true;
+    }
+
+    return original_type == TileType_NONSOLID;
 }
 
 int editorclass::get_enemy_tile(int t)
@@ -3734,125 +3916,13 @@ void editorclass::set_tile(int x, int y, int t)
     updatetiles = true;
 }
 
-int editorclass::autotiling_base(int x, int y)
+int editorclass::get_tile(const int x, const int y)
 {
-    //Return the base tile for the given tileset and colour
-    const RoomProperty* const room = cl.getroomprop(x, y);
-    if (room->tileset == 0)  //Space Station
+    if (x >= 0 && y >= 0 && x < SCREEN_WIDTH_TILES && y < SCREEN_HEIGHT_TILES)
     {
-        if (room->tilecol >= 22)
-        {
-            return 483 + ((room->tilecol - 22) * 3);
-        }
-        else if (room->tilecol >= 11)
-        {
-            return 283 + ((room->tilecol - 11) * 3);
-        }
-        else
-        {
-            return 83 + (room->tilecol * 3);
-        }
+        return cl.gettile(levx, levy, x, y);
     }
-    else if (room->tileset == 1)   //Outside
-    {
-        return 480 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 2)   //Lab
-    {
-        return 280 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 3)   //Warp Zone/Intermission
-    {
-        return 80 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 4)   //SHIP
-    {
-        return 101 + (room->tilecol * 3);
-    }
-    return 0;
-}
 
-int editorclass::autotiling_background_base( int x, int y )
-{
-    //Return the base tile for the background of the given tileset and colour
-    const RoomProperty* const room = cl.getroomprop(x, y);
-    if (room->tileset == 0)  //Space Station
-    {
-        //Pick depending on tilecol
-        switch (room->tilecol)
-        {
-        case 0:
-        case 5:
-        case 26:
-            return 680; //Blue
-            break;
-        case 3:
-        case 16:
-        case 23:
-            return 683; //Yellow
-            break;
-        case 9:
-        case 12:
-        case 21:
-            return 686; //Greeny Cyan
-            break;
-        case 4:
-        case 8:
-        case 24:
-        case 28:
-        case 30:
-            return 689; //Green
-            break;
-        case 20:
-        case 29:
-            return 692; //Orange
-            break;
-        case 2:
-        case 6:
-        case 11:
-        case 22:
-        case 27:
-            return 695; //Red
-            break;
-        case 1:
-        case 10:
-        case 15:
-        case 19:
-        case 31:
-            return 698; //Pink
-            break;
-        case 14:
-        case 18:
-            return 701; //Dark Blue
-            break;
-        case 7:
-        case 13:
-        case 17:
-        case 25:
-            return 704; //Cyan
-            break;
-        default:
-            return 680;
-            break;
-        }
-
-    }
-    else if (room->tileset == 1)   //outside
-    {
-        return 680 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 2)   //Lab
-    {
-        return 0;
-    }
-    else if (room->tileset == 3)   //Warp Zone/Intermission
-    {
-        return 120 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 4)   //SHIP
-    {
-        return 741 + (room->tilecol * 3);
-    }
     return 0;
 }
 
@@ -3920,26 +3990,6 @@ TileTypes editorclass::get_tile_type(int x, int y, bool wrap)
     return get_abs_tile_type(levx * 40 + x, levy * 30 + y, false);
 }
 
-bool editorclass::is_background(int x, int y)
-{
-    x = SDL_clamp(x, 0, 39);
-    y = SDL_clamp(y, 0, 29);
-
-    const int tile = cl.gettile(levx, levy, x, y);
-
-    return tile >= 680 && tile <= 739;
-}
-
-bool editorclass::backfree(int x, int y)
-{
-    x = SDL_clamp(x, 0, 39);
-    y = SDL_clamp(y, 0, 29);
-
-    const int tile = cl.gettile(levx, levy, x, y);
-
-    return tile == 0;
-}
-
 bool editorclass::lines_can_pass(int x, int y)
 {
     const int tile = cl.gettile(levx, levy, x, y);
@@ -3950,211 +4000,8 @@ bool editorclass::lines_can_pass(int x, int y)
     return false;
 }
 
-bool editorclass::free(int x, int y)
-{
-    x = SDL_clamp(x, 0, 39);
-    y = SDL_clamp(y, 0, 29);
-
-    const int tile = cl.gettile(levx, levy, x, y);
-
-    return tile == 0 || (tile >= 2 && tile < 80) || tile >= 680;
-}
-
-int editorclass::match(int x, int y)
-{
-    if (free(x - 1, y) && free(x, y - 1) && free(x + 1, y) && free(x, y + 1)) return 0;
-
-    if (free(x - 1, y) && free(x, y - 1)) return 10;
-    if (free(x + 1, y) && free(x, y - 1)) return 11;
-    if (free(x - 1, y) && free(x, y + 1)) return 12;
-    if (free(x + 1, y) && free(x, y + 1)) return 13;
-
-    if (free(x, y - 1)) return 1;
-    if (free(x - 1, y)) return 2;
-    if (free(x, y + 1)) return 3;
-    if (free(x + 1, y)) return 4;
-    if (free(x - 1, y - 1)) return 5;
-    if (free(x + 1, y - 1)) return 6;
-    if (free(x - 1, y + 1)) return 7;
-    if (free(x + 1, y + 1)) return 8;
-
-    return 0;
-}
-
-int editorclass::outsidematch(int x, int y)
-{
-    if (!is_background(x - 1, y) && !is_background(x + 1, y)) return 2;
-    if (!is_background(x, y - 1) && !is_background(x, y + 1)) return 1;
-
-    return 0;
-}
-
-int editorclass::backmatch(int x, int y)
-{
-    //Returns the first position match for a border
-    // 5 1 6
-    // 2 X 4
-    // 7 3 8
-    if (backfree(x - 1, y) && backfree(x, y - 1) && backfree(x + 1, y) && backfree(x, y + 1)) return 0;
-
-    if (backfree(x - 1, y) && backfree(x, y - 1)) return 10;
-    if (backfree(x + 1, y) && backfree(x, y - 1)) return 11;
-    if (backfree(x - 1, y) && backfree(x, y + 1)) return 12;
-    if (backfree(x + 1, y) && backfree(x, y + 1)) return 13;
-
-    if (backfree(x, y - 1)) return 1;
-    if (backfree(x - 1, y)) return 2;
-    if (backfree(x, y + 1)) return 3;
-    if (backfree(x + 1, y)) return 4;
-    if (backfree(x - 1, y - 1)) return 5;
-    if (backfree(x + 1, y - 1)) return 6;
-    if (backfree(x - 1, y + 1)) return 7;
-    if (backfree(x + 1, y + 1)) return 8;
-
-    return 0;
-}
-
-int editorclass::edgetile(int x, int y)
-{
-    switch(match(x,y))
-    {
-    case 14:
-        return 0;
-        break;
-    case 10:
-        return 80;
-        break;
-    case 11:
-        return 82;
-        break;
-    case 12:
-        return 160;
-        break;
-    case 13:
-        return 162;
-        break;
-    case 1:
-        return 81;
-        break;
-    case 2:
-        return 120;
-        break;
-    case 3:
-        return 161;
-        break;
-    case 4:
-        return 122;
-        break;
-    case 5:
-        return 42;
-        break;
-    case 6:
-        return 41;
-        break;
-    case 7:
-        return 2;
-        break;
-    case 8:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 0;
-        break;
-    }
-}
-
-int editorclass::outsideedgetile(int x, int y)
-{
-    switch(outsidematch(x,y))
-    {
-    case 2:
-        return 0;
-        break;
-    case 1:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 2;
-        break;
-    }
-}
-
-
-int editorclass::backedgetile(int x, int y)
-{
-    switch(backmatch(x,y))
-    {
-    case 14:
-        return 0;
-        break;
-    case 10:
-        return 80;
-        break;
-    case 11:
-        return 82;
-        break;
-    case 12:
-        return 160;
-        break;
-    case 13:
-        return 162;
-        break;
-    case 1:
-        return 81;
-        break;
-    case 2:
-        return 120;
-        break;
-    case 3:
-        return 161;
-        break;
-    case 4:
-        return 122;
-        break;
-    case 5:
-        return 42;
-        break;
-    case 6:
-        return 41;
-        break;
-    case 7:
-        return 2;
-        break;
-    case 8:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 0;
-        break;
-    }
-}
-
-int editorclass::labspikedir(int x, int y, int t)
-{
-    // a slightly more tricky case
-    if (!free(x, y + 1)) return 63 + (t * 2);
-    if (!free(x, y - 1)) return 64 + (t * 2);
-    if (!free(x - 1, y)) return 51 + (t * 2);
-    if (!free(x + 1, y)) return 52 + (t * 2);
-    return 63 + (t * 2);
-}
-
-int editorclass::spikedir(int x, int y)
-{
-    if (!free(x, y + 1)) return 8;
-    if (!free(x, y - 1)) return 9;
-    if (!free(x - 1, y)) return 49;
-    if (!free(x + 1, y)) return 50;
-    return 8;
-}
-
 void editorclass::switch_tileset(const bool reversed)
 {
-    const char* tilesets[] = {"Space Station", "Outside", "Lab", "Warp Zone", "Ship"};
-
     int tiles = cl.getroomprop(levx, levy)->tileset;
 
     if (reversed)
@@ -4166,8 +4013,7 @@ void editorclass::switch_tileset(const bool reversed)
         tiles++;
     }
 
-    const int modulus = SDL_arraysize(tilesets);
-    tiles = POS_MOD(tiles, modulus);
+    tiles = POS_MOD(tiles, NUM_EditorTilesets);
     cl.setroomtileset(levx, levy, tiles);
 
     clamp_tilecol(levx, levy, false);
@@ -4177,7 +4023,7 @@ void editorclass::switch_tileset(const bool reversed)
         buffer, sizeof(buffer),
         loc::gettext("Now using {area} Tileset"),
         "area:str",
-        loc::gettext(tilesets[tiles])
+        loc::gettext(tileset_names[tiles])
     );
 
     show_note(buffer);
@@ -4217,36 +4063,8 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
     const int tileset = room->tileset;
     int tilecol = room->tilecol;
 
-    int mincol = -1;
-    int maxcol = 5;
-
-    // Only Space Station allows tileset -1
-    if (tileset != 0)
-    {
-        mincol = 0;
-    }
-
-    switch (tileset)
-    {
-    case 0:
-        maxcol = 31;
-        break;
-    case 1:
-        maxcol = 7;
-        break;
-    case 2:
-        if (room->directmode)
-        {
-            maxcol = 6;
-        }
-        break;
-    case 3:
-        maxcol = 6;
-        break;
-    case 5:
-        maxcol = 29;
-        break;
-    }
+    int mincol = tileset_min_colour[tileset];
+    int maxcol = tileset_max_colour[tileset];
 
     // If wrap is true, wrap-around, otherwise just cap
     if (tilecol > maxcol)
