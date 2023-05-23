@@ -6,9 +6,29 @@
 #include "Constants.h"
 #include "CustomLevels.h"
 
+#include <map>
 #include <SDL.h>
 #include <string>
 #include <vector>
+
+enum EditorTilesets
+{
+    EditorTileset_SPACE_STATION = 0,
+    EditorTileset_OUTSIDE = 1,
+    EditorTileset_LAB = 2,
+    EditorTileset_WARP_ZONE = 3,
+    EditorTileset_SHIP = 4,
+
+    NUM_EditorTilesets
+};
+
+struct EditorTilecolInfo
+{
+    const char* foreground_type;
+    int foreground_base;
+    const char* background_type;
+    int background_base;
+};
 
 enum EditorTools
 {
@@ -57,7 +77,6 @@ enum TileTypes
 {
     TileType_NONSOLID,
     TileType_SOLID,
-    TileType_BACKGROUND,
     TileType_SPIKE
 };
 
@@ -120,6 +139,9 @@ public:
     editorclass(void);
     void reset(void);
 
+    void register_tileset(EditorTilesets tileset, const char* name);
+    void register_tilecol(EditorTilesets tileset, int index, const char* foreground_type, int foreground_base, const char* background_type, int background_base);
+
     void register_tool(EditorTools tool, const char* name, const char* keychar, SDL_KeyCode key, bool shift);
 
     void draw_tool(EditorTools tool, int x, int y);
@@ -143,25 +165,17 @@ public:
     int get_entity_at(int rx, int ry, int xp, int yp);
 
     void set_tile(int x, int y, int t);
+    int get_tile(int x, int y);
 
-    int autotiling_base(int x, int y);
-    int autotiling_background_base(int x, int y);
+    bool is_warp_zone_background(int tile);
+    int autotile(int tile_x, int tile_y);
+    bool autotile_connector(int x, int y, TileTypes original_type);
+    EditorTilecolInfo get_tilecol_data(void);
 
     TileTypes get_abs_tile_type(int x, int y, bool wrap);
     TileTypes get_tile_type(int x, int y, bool wrap);
 
-    bool is_background(int x, int y);
-    bool backfree(int x, int y);
     bool lines_can_pass(int x, int y);
-    bool free(int x, int y);
-    int match(int x, int y);
-    int outsidematch(int x, int y);
-    int backmatch(int x, int y);
-    int edgetile(int x, int y);
-    int outsideedgetile(int x, int y);
-    int backedgetile(int x, int y);
-    int labspikedir(int x, int y, int t);
-    int spikedir(int x, int y);
 
     int get_enemy_tile(int t);
 
@@ -173,6 +187,13 @@ public:
 
     EditorStates state;
     EditorSubStates substate;
+
+    std::map<std::string, std::vector<int> > autotile_types;
+    std::map<EditorTilesets, std::map<int, EditorTilecolInfo> > tileset_colors;
+
+    const char* tileset_names[NUM_EditorTilesets];
+    int tileset_min_colour[NUM_EditorTilesets];
+    int tileset_max_colour[NUM_EditorTilesets];
 
     const char* tool_names[NUM_EditorTools];
     const char* tool_key_chars[NUM_EditorTools];
