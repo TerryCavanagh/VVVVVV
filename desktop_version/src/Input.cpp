@@ -954,11 +954,11 @@ static void menuactionpress(void)
                 {
                     if (graphics.setflipmode)
                     {
-                        music.play(9); // ecroF evitisoP
+                        music.play(Music_POSITIVEFORCEREVERSED);
                     }
                     else
                     {
-                        music.play(2); // Positive Force
+                        music.play(Music_POSITIVEFORCE);
                     }
                 }
             }
@@ -2045,7 +2045,7 @@ static void menuactionpress(void)
     case Menu::gameover2:
         //back
         music.playef(11);
-        music.play(6);
+        music.play(Music_PRESENTINGVVVVVV);
         game.returntomenu(Menu::playmodes);
         map.nexttowercolour();
         break;
@@ -2109,7 +2109,7 @@ static void menuactionpress(void)
         case 0:
             //back
             music.playef(11);
-            music.play(6);
+            music.play(Music_PRESENTINGVVVVVV);
             game.returntomenu(Menu::timetrials);
             map.nexttowercolour();
             break;
@@ -2122,7 +2122,7 @@ static void menuactionpress(void)
         break;
     case Menu::gamecompletecontinue:
     case Menu::nodeathmodecomplete2:
-        music.play(6);
+        music.play(Music_PRESENTINGVVVVVV);
         music.playef(11);
         game.returnmenu();
         map.nexttowercolour();
@@ -2363,7 +2363,7 @@ void titleinput(void)
             if (!game.menustart)
             {
                 game.menustart = true;
-                music.play(6);
+                music.play(Music_PRESENTINGVVVVVV);
                 music.playef(18);
                 game.screenshake = 10;
                 game.flashlight = 5;
@@ -2886,7 +2886,7 @@ void mapinput(void)
         else
         {
             game.quittomenu();
-            music.play(6); //should be after game.quittomenu()
+            music.play(Music_PRESENTINGVVVVVV); // should be after game.quittomenu()
             game.fadetomenu = false;
         }
     }

@@ -409,7 +409,7 @@ void scriptclass::run(void)
             }
             if (words[0] == "trinketscriptmusic")
             {
-                music.play(4);
+                music.play(Music_PASSIONFOREXPLORING);
             }
             if (words[0] == "gotoposition")
             {
@@ -2527,7 +2527,7 @@ static void gotoerrorloadinglevel(void)
     game.quittomenu();
     game.createmenu(Menu::errorloadinglevel);
     music.currentsong = -1; /* otherwise music.play won't work */
-    music.play(6); /* title screen music */
+    music.play(Music_PRESENTINGVVVVVV);
 }
 
 #define DECLARE_MODE_FUNC(funcname, modename) \
@@ -2721,7 +2721,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
         game.insecretlab = true;
         map.showteleporters = true;
 
-        music.play(11);
+        music.play(Music_PIPEDREAM);
         graphics.fademode = FADE_START_FADEIN;
         break;
 
@@ -3044,7 +3044,7 @@ void scriptclass::teleport(void)
         {
             /* Special case: Ship music needs to be set here;
              * ship teleporter on music map is -1 for jukebox. */
-            music.niceplay(4);
+            music.niceplay(Music_PASSIONFOREXPLORING);
         }
         game.savetele_textbox();
     }

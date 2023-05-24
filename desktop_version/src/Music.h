@@ -11,6 +11,26 @@
 /* It is advised that USER_VOLUME_MAX be divisible by this. */
 #define USER_VOLUME_STEP 32
 
+enum
+{
+    Music_PATHCOMPLETE = 0,
+    Music_PUSHINGONWARDS = 1,
+    Music_POSITIVEFORCE = 2,
+    Music_POTENTIALFORANYTHING = 3,
+    Music_PASSIONFOREXPLORING = 4,
+    Music_PAUSE = 5,
+    Music_PRESENTINGVVVVVV = 6,
+    Music_PLENARY = 7,
+    Music_PREDESTINEDFATE = 8,
+    Music_POSITIVEFORCEREVERSED = 9,
+    Music_POPULARPOTPOURRI = 10,
+    Music_PIPEDREAM = 11,
+    Music_PRESSURECOOKER = 12,
+    Music_PACEDENERGY = 13,
+    Music_PIERCINGTHESKY = 14,
+    Music_PREDESTINEDFATEREMIX = 15
+};
+
 class musicclass
 {
 public:

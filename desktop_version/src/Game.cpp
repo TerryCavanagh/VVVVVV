@@ -1501,7 +1501,7 @@ void Game::updatestate(void)
             if (!obj.flags[71])
             {
                 obj.flags[71] = true;
-                music.niceplay(15);  //Final level remix
+                music.niceplay(Music_PREDESTINEDFATEREMIX);
                 setstate(0);
             }
             obj.removetrigger(49);
@@ -1575,7 +1575,7 @@ void Game::updatestate(void)
             break;
         case 81:
             quittomenu();
-            music.play(6); //should be after quittomenu()
+            music.play(Music_PRESENTINGVVVVVV); //should be after quittomenu()
             setstate(0);
             break;
 
@@ -1669,7 +1669,7 @@ void Game::updatestate(void)
             //Init final stretch
             incstate();
             music.playef(9);
-            music.play(2);
+            music.play(Music_POSITIVEFORCE);
             obj.flags[72] = true;
 
             screenshake = 10;
@@ -2210,7 +2210,7 @@ void Game::updatestate(void)
             }
 #endif
             quittomenu();
-            music.play(6); //should be after quittomenu()
+            music.play(Music_PRESENTINGVVVVVV); //should be after quittomenu()
             setstate(0);
             break;
 
@@ -2223,7 +2223,7 @@ void Game::updatestate(void)
 
         case 2500:
 
-            music.play(5);
+            music.play(Music_PAUSE);
             //Activating a teleporter (appear)
             incstate();
             setstatedelay(15);
@@ -2364,7 +2364,7 @@ void Game::updatestate(void)
             advancetext = false;
 
             setstate(0);
-            music.play(3);
+            music.play(Music_POTENTIALFORANYTHING);
             break;
 
 
@@ -2464,7 +2464,7 @@ void Game::updatestate(void)
             //Level complete! (warp zone)
             unlocknum(4);
             lastsaved = 4;
-            music.play(0);
+            music.play(Music_PATHCOMPLETE);
             incstate();
             setstatedelay(75);
 
@@ -2505,7 +2505,7 @@ void Game::updatestate(void)
             //Level complete! (Space Station 2)
             unlocknum(3);
             lastsaved = 2;
-            music.play(0);
+            music.play(Music_PATHCOMPLETE);
             incstate();
             setstatedelay(75);
 
@@ -2547,7 +2547,7 @@ void Game::updatestate(void)
             //Level complete! (Lab)
             unlocknum(1);
             lastsaved = 5;
-            music.play(0);
+            music.play(Music_PATHCOMPLETE);
             incstate();
             setstatedelay(75);
 
@@ -2588,7 +2588,7 @@ void Game::updatestate(void)
             //Level complete! (Space Station 1)
             unlocknum(0);
             lastsaved = 1;
-            music.play(0);
+            music.play(Music_PATHCOMPLETE);
             incstate();
             setstatedelay(75);
 
@@ -2655,7 +2655,7 @@ void Game::updatestate(void)
             //Level complete! (Tower)
             unlocknum(2);
             lastsaved = 3;
-            music.play(0);
+            music.play(Music_PATHCOMPLETE);
             incstate();
             setstatedelay(75);
 
@@ -2863,7 +2863,7 @@ void Game::updatestate(void)
             break;
         case 3101:
             quittomenu();
-            music.play(6); //should be after quittomenu();
+            music.play(Music_PRESENTINGVVVVVV); //should be after quittomenu();
             setstate(0);
             break;
 
@@ -2879,7 +2879,7 @@ void Game::updatestate(void)
             crewstats[0] = true;
             incstate();
             setstatedelay(75);
-            music.play(7);
+            music.play(Music_PLENARY);
 
             graphics.createtextboxflipme("", -1, 12, 164, 165, 255);
             graphics.addline("                                    ");
@@ -5006,7 +5006,10 @@ void Game::start(void)
     deathseq = -1;
     lifeseq = 0;
 
-    if (!nocutscenes) music.play(5);
+    if (!nocutscenes)
+    {
+        music.play(Music_PAUSE);
+    }
 }
 
 void Game::deathsequence(void)
@@ -7290,7 +7293,7 @@ void Game::returntolab(void)
         savedir = obj.entities[player].dir;
     }
 
-    music.play(11);
+    music.play(Music_PIPEDREAM);
 }
 
 #if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)

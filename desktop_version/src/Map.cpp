@@ -953,9 +953,9 @@ void mapclass::gotoroom(int rx, int ry)
         }
 
         //Final level for time trial
-        if (game.intimetrial)
+        if (game.intimetrial && game.roomx == 46 && game.roomy == 54)
         {
-            if (game.roomx == 46 && game.roomy == 54) music.niceplay(15); //Final level remix
+            music.niceplay(Music_PREDESTINEDFATEREMIX);
         }
     }
 #if !defined(NO_CUSTOM_LEVELS)

@@ -299,49 +299,49 @@ static void editormenurender(int tr, int tg, int tb)
         case 0:
             songname = loc::gettext("No background music");
             break;
-        case 1:
+        case Music_PUSHINGONWARDS:
             songname = loc::gettext("1: Pushing Onwards");
             break;
-        case 2:
+        case Music_POSITIVEFORCE:
             songname = loc::gettext("2: Positive Force");
             break;
-        case 3:
+        case Music_POTENTIALFORANYTHING:
             songname = loc::gettext("3: Potential for Anything");
             break;
-        case 4:
+        case Music_PASSIONFOREXPLORING:
             songname = loc::gettext("4: Passion for Exploring");
             break;
-        case 5:
+        case Music_PAUSE:
             songname = loc::gettext("N/A: Pause");
             break;
-        case 6:
+        case Music_PRESENTINGVVVVVV:
             songname = loc::gettext("5: Presenting VVVVVV");
             break;
-        case 7:
+        case Music_PLENARY:
             songname = loc::gettext("N/A: Plenary");
             break;
-        case 8:
+        case Music_PREDESTINEDFATE:
             songname = loc::gettext("6: Predestined Fate");
             break;
-        case 9:
+        case Music_POSITIVEFORCEREVERSED:
             songname = loc::gettext("N/A: ecroF evitisoP");
             break;
-        case 10:
+        case Music_POPULARPOTPOURRI:
             songname = loc::gettext("7: Popular Potpourri");
             break;
-        case 11:
+        case Music_PIPEDREAM:
             songname = loc::gettext("8: Pipe Dream");
             break;
-        case 12:
+        case Music_PRESSURECOOKER:
             songname = loc::gettext("9: Pressure Cooker");
             break;
-        case 13:
+        case Music_PACEDENERGY:
             songname = loc::gettext("10: Paced Energy");
             break;
-        case 14:
+        case Music_PIERCINGTHESKY:
             songname = loc::gettext("11: Piercing the Sky");
             break;
-        case 15:
+        case Music_PREDESTINEDFATEREMIX:
             songname = loc::gettext("N/A: Predestined Fate Remix");
             break;
         default:
@@ -1909,7 +1909,7 @@ void editorlogic(void)
         graphics.titlebg.colstate = 10;
         map.nexttowercolour();
         game.quittomenu();
-        music.play(6); //should be before game.quittomenu()
+        music.play(Music_PRESENTINGVVVVVV); // should be before game.quittomenu()
     }
 }
 

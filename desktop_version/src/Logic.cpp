@@ -27,7 +27,7 @@ void titlelogic(void)
         {
             if (game.menudest == Menu::mainmenu)
             {
-                music.play(6);
+                music.play(Music_PRESENTINGVVVVVV);
             }
             else if (game.menudest == Menu::gameover2)
             {
@@ -110,7 +110,7 @@ void gamecompletelogic2(void)
         //Fix the save thingy
         game.deletequick();
         int tmp=music.currentsong;
-        music.currentsong=4;
+        music.currentsong = Music_PASSIONFOREXPLORING;
         obj.flags[67] = true;
         game.savetele();
         music.currentsong=tmp;
@@ -562,7 +562,7 @@ void gamelogic(void)
                 game.swntimer -= 1;
                 if (game.swntimer <= 0)
                 {
-                    music.niceplay(8);
+                    music.niceplay(Music_PREDESTINEDFATE);
                     game.swngame = 5;
                 }
                 else
@@ -690,7 +690,7 @@ void gamelogic(void)
             {
                 game.swngame = 3;
                 obj.createentity(-8, 84 - 32, 11, 8);  // (horizontal gravity line)
-                music.niceplay(2);
+                music.niceplay(Music_POSITIVEFORCE);
                 game.swndeaths = game.deathcounts;
             }
             else if (game.swngame == 5)    //remove line
@@ -709,7 +709,7 @@ void gamelogic(void)
             else if (game.swngame == 6)    //Init the super gravitron
             {
                 game.swngame = 7;
-                music.niceplay(3);
+                music.niceplay(Music_POTENTIALFORANYTHING);
             }
             else if (game.swngame == 7)    //introduce game b
             {
@@ -761,22 +761,22 @@ void gamelogic(void)
                     switch(game.timetriallevel)
                     {
                     case 0:
-                        music.play(1);
+                        music.play(Music_PUSHINGONWARDS);
                         break;
                     case 1:
-                        music.play(3);
+                        music.play(Music_POTENTIALFORANYTHING);
                         break;
                     case 2:
-                        music.play(2);
+                        music.play(Music_POSITIVEFORCE);
                         break;
                     case 3:
-                        music.play(1);
+                        music.play(Music_PUSHINGONWARDS);
                         break;
                     case 4:
-                        music.play(12);
+                        music.play(Music_PRESSURECOOKER);
                         break;
                     case 5:
-                        music.play(15);
+                        music.play(Music_PREDESTINEDFATEREMIX);
                         break;
                     }
                     music.playef(22);

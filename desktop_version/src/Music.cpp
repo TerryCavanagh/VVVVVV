@@ -966,9 +966,12 @@ void musicclass::play(int t)
         return;
     }
 
-    if (currentsong == 0 || currentsong == 7 || (!map.custommode && (currentsong == 0+num_mmmmmm_tracks || currentsong == 7+num_mmmmmm_tracks)))
+    if (currentsong == Music_PATHCOMPLETE ||
+        currentsong == Music_PLENARY ||
+        (!map.custommode && (currentsong == Music_PATHCOMPLETE + num_mmmmmm_tracks
+                             || currentsong == Music_PLENARY + num_mmmmmm_tracks)))
     {
-        // Level Complete theme, no fade in or repeat
+        // No fade in or repeat
         if (musicTracks[t].Play(false))
         {
             m_doFadeInVol = false;
