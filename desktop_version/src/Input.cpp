@@ -1972,13 +1972,11 @@ static void menuactionpress(void)
         {
         case 0:
             music.playef(11);
-            music.play(6);
             game.createmenu(Menu::playint1);
             map.nexttowercolour();
             break;
         case 1:
             music.playef(11);
-            music.play(6);
             game.createmenu(Menu::playint2);
             map.nexttowercolour();
             break;
