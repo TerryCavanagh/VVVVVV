@@ -2935,8 +2935,16 @@ void maprender(void)
         );
         font::print(PR_RIGHT, 262, FLIP(132, 8), buffer, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
 
-        graphics.draw_sprite(34, FLIP(126, 17), 50, graphics.col_clock);
-        graphics.draw_sprite(270, FLIP(126, 17), 22, graphics.col_trinket);
+        if (graphics.flipmode)
+        {
+            graphics.draw_flipsprite(34, FLIP(126, 17), 50, graphics.col_clock);
+            graphics.draw_flipsprite(270, FLIP(126, 17), 22, graphics.col_trinket);
+        }
+        else
+        {
+            graphics.draw_sprite(34, FLIP(126, 17), 50, graphics.col_clock);
+            graphics.draw_sprite(270, FLIP(126, 17), 22, graphics.col_trinket);
+        }
         break;
     }
     case 10:

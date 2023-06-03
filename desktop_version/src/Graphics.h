@@ -164,6 +164,8 @@ public:
     void draw_sprite(int x, int y, int t, int r, int g, int b);
     void draw_sprite(int x, int y, int t, SDL_Color color);
 
+    void draw_flipsprite(int x, int y, int t, SDL_Color color);
+
     void scroll_texture(SDL_Texture* texture, SDL_Texture* temp, int x, int y);
 
     void printcrewname(int x, int y, int t);

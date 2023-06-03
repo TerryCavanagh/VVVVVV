@@ -632,6 +632,11 @@ void Graphics::draw_sprite(const int x, const int y, const int t, const SDL_Colo
     draw_grid_tile(grphx.im_sprites, t, x, y, sprites_rect.w, sprites_rect.h, color);
 }
 
+void Graphics::draw_flipsprite(const int x, const int y, const int t, const SDL_Color color)
+{
+    draw_grid_tile(grphx.im_flipsprites, t, x, y, sprites_rect.w, sprites_rect.h, color);
+}
+
 void Graphics::scroll_texture(SDL_Texture* texture, SDL_Texture* temp, const int x, const int y)
 {
     SDL_Texture* target = SDL_GetRenderTarget(gameScreen.m_renderer);
