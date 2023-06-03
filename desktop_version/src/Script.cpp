@@ -1095,39 +1095,39 @@ void scriptclass::run(void)
             {
                 if (words[1] == "player")
                 {
-                    music.playef(11);
+                    music.playef(Sound_VIRIDIAN);
                 }
                 else if (words[1] == "cyan")
                 {
-                    music.playef(11);
+                    music.playef(Sound_VIRIDIAN);
                 }
                 else if (words[1] == "red")
                 {
-                    music.playef(16);
+                    music.playef(Sound_VERMILION);
                 }
                 else if (words[1] == "green")
                 {
-                    music.playef(12);
+                    music.playef(Sound_VERDIGRIS);
                 }
                 else if (words[1] == "yellow")
                 {
-                    music.playef(14);
+                    music.playef(Sound_VITELLARY);
                 }
                 else if (words[1] == "blue")
                 {
-                    music.playef(13);
+                    music.playef(Sound_VICTORIA);
                 }
                 else if (words[1] == "purple")
                 {
-                    music.playef(15);
+                    music.playef(Sound_VIOLET);
                 }
                 else if (words[1] == "cry")
                 {
-                    music.playef(2);
+                    music.playef(Sound_CRY);
                 }
                 else if (words[1] == "terminal")
                 {
-                    music.playef(20);
+                    music.playef(Sound_TERMINALTEXT);
                 }
             }
             else if (words[0] == "blackout")
@@ -1749,7 +1749,7 @@ void scriptclass::run(void)
             else if (words[0] == "foundtrinket")
             {
                 music.silencedasmusik();
-                music.playef(3);
+                music.playef(Sound_TRINKET);
 
                 size_t trinket = ss_toi(words[1]);
                 if (trinket < SDL_arraysize(obj.collect))
@@ -1805,7 +1805,7 @@ void scriptclass::run(void)
             }
             else if (words[0] == "foundlab")
             {
-                music.playef(3);
+                music.playef(Sound_TRINKET);
 
                 graphics.textboxremovefast();
 

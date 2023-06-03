@@ -172,7 +172,7 @@ void KeyPoll::Poll(void)
             {
                 /* Reload language files */
                 loc::loadtext(false);
-                music.playef(4);
+                music.playef(Sound_COIN);
             }
 
             BUTTONGLYPHS_keyboard_set_active(true);

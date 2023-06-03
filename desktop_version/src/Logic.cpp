@@ -31,11 +31,11 @@ void titlelogic(void)
             }
             else if (game.menudest == Menu::gameover2)
             {
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
             }
             else if (game.menudest == Menu::timetrialcomplete3)
             {
-                music.playef(3);
+                music.playef(Sound_TRINKET);
             }
             game.createmenu(game.menudest, true);
         }
@@ -187,7 +187,7 @@ void gamelogic(void)
         game.alarmdelay--;
         if (game.alarmdelay <= 0)
         {
-            music.playef(19);
+            music.playef(Sound_ALARM);
             game.alarmdelay = 20;
         }
     }
@@ -204,7 +204,7 @@ void gamelogic(void)
             {
                 obj.entities[i].tile = 144;
             }
-            music.playef(2);
+            music.playef(Sound_CRY);
         }
         if (obj.upset > 301) obj.upset = 301;
     }
@@ -446,7 +446,7 @@ void gamelogic(void)
                     game.swnrecord = game.swntimer;
                     if (game.swnmessage == 0)
                     {
-                        music.playef(25);
+                        music.playef(Sound_NEWRECORD);
                         game.savestatsandsettings();
                     }
                     game.swnmessage = 1;
@@ -589,7 +589,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav5");
                             game.swnbestrank = 1;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 300 && game.swnrank == 1)
@@ -600,7 +600,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav10");
                             game.swnbestrank = 2;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 450 && game.swnrank == 2)
@@ -611,7 +611,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav15");
                             game.swnbestrank = 3;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 600 && game.swnrank == 3)
@@ -622,7 +622,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav20");
                             game.swnbestrank = 4;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 900 && game.swnrank == 4)
@@ -633,7 +633,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav30");
                             game.swnbestrank = 5;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 1800 && game.swnrank == 5)
@@ -644,7 +644,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav60");
                             game.swnbestrank = 6;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                 }
@@ -753,9 +753,9 @@ void gamelogic(void)
                 {
                     game.hascontrol = false;
                 }
-                if(game.timetrialcountdown == 120) music.playef(21);
-                if(game.timetrialcountdown == 90) music.playef(21);
-                if(game.timetrialcountdown == 60) music.playef(21);
+                if(game.timetrialcountdown == 120) music.playef(Sound_COUNTDOWN);
+                if(game.timetrialcountdown == 90) music.playef(Sound_COUNTDOWN);
+                if(game.timetrialcountdown == 60) music.playef(Sound_COUNTDOWN);
                 if (game.timetrialcountdown == 30)
                 {
                     switch(game.timetriallevel)
@@ -779,7 +779,7 @@ void gamelogic(void)
                         music.play(Music_PREDESTINEDFATEREMIX);
                         break;
                     }
-                    music.playef(22);
+                    music.playef(Sound_GO);
                 }
             }
 
@@ -794,7 +794,7 @@ void gamelogic(void)
                     {
                         obj.entities[i].tile = 144;
                     }
-                    music.playef(2);
+                    music.playef(Sound_CRY);
                 }
             }
         }

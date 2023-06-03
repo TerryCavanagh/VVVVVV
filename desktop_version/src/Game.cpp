@@ -1110,7 +1110,7 @@ void Game::updatestate(void)
             if(INBOUNDS_VEC(i, obj.entities) && obj.entities[i].tile == 0)
             {
                 obj.entities[i].tile = 144;
-                music.playef(2);
+                music.playef(Sound_CRY);
             }
             setstate(0);
             break;
@@ -1509,7 +1509,7 @@ void Game::updatestate(void)
             break;
 
         case 50:
-            music.playef(15);
+            music.playef(Sound_VIOLET);
             graphics.createtextbox(loc::gettext("Help! Can anyone hear this message?"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
@@ -1517,7 +1517,7 @@ void Game::updatestate(void)
             setstatedelay(100);
             break;
         case 51:
-            music.playef(15);
+            music.playef(Sound_VIOLET);
             graphics.createtextbox(loc::gettext("Verdigris? Are you out there? Are you ok?"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
@@ -1525,7 +1525,7 @@ void Game::updatestate(void)
             setstatedelay(100);
             break;
         case 52:
-            music.playef(15);
+            music.playef(Sound_VIOLET);
             graphics.createtextbox(loc::gettext("Please help us! We've crashed and need assistance!"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
@@ -1533,7 +1533,7 @@ void Game::updatestate(void)
             setstatedelay(100);
             break;
         case 53:
-            music.playef(15);
+            music.playef(Sound_VIOLET);
             graphics.createtextbox(loc::gettext("Hello? Anyone out there?"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
@@ -1541,7 +1541,7 @@ void Game::updatestate(void)
             setstatedelay(100);
             break;
         case 54:
-            music.playef(15);
+            music.playef(Sound_VIOLET);
             graphics.createtextbox(loc::gettext("This is Doctor Violet from the D.S.S. Souleye! Please respond!"), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
@@ -1549,7 +1549,7 @@ void Game::updatestate(void)
             setstatedelay(100);
             break;
         case 55:
-            music.playef(15);
+            music.playef(Sound_VIOLET);
             graphics.createtextbox(loc::gettext("Please... Anyone..."), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
@@ -1557,7 +1557,7 @@ void Game::updatestate(void)
             setstatedelay(100);
             break;
         case 56:
-            music.playef(15);
+            music.playef(Sound_VIOLET);
             graphics.createtextbox(loc::gettext("Please be alright, everyone..."), 5, 8, TEXT_COLOUR("purple"));
             graphics.textboxcommsrelay();
             graphics.textboxtimer(60);
@@ -1668,7 +1668,7 @@ void Game::updatestate(void)
             obj.removetrigger(85);
             //Init final stretch
             incstate();
-            music.playef(9);
+            music.playef(Sound_FLASH);
             music.play(Music_POSITIVEFORCE);
             obj.flags[72] = true;
 
@@ -1761,7 +1761,7 @@ void Game::updatestate(void)
             if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onroof > 0 && gravitycontrol == 1)
             {
                 gravitycontrol = 0;
-                music.playef(1);
+                music.playef(Sound_UNFLIP);
             }
             if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onground > 0)
             {
@@ -1787,14 +1787,14 @@ void Game::updatestate(void)
             graphics.createtextbox("Captain! I've been so worried!", 60, 90, 164, 255, 164);
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(12);
+            music.playef(Sound_VERDIGRIS);
         }
         break;
         case 104:
             graphics.createtextbox("I'm glad you're ok!", 135, 152, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             graphics.textboxactive();
             break;
         case 106:
@@ -1804,7 +1804,7 @@ void Game::updatestate(void)
             graphics.addline("around in circles...");
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(2);
+            music.playef(Sound_CRY);
             graphics.textboxactive();
             int i = obj.getcompanion();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -1819,7 +1819,7 @@ void Game::updatestate(void)
             graphics.addline("teleporter key!");
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             graphics.textboxactive();
             break;
         case 110:
@@ -1834,7 +1834,7 @@ void Game::updatestate(void)
             graphics.createtextbox("Follow me!", 185, 154, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             graphics.textboxactive();
 
         }
@@ -1891,7 +1891,7 @@ void Game::updatestate(void)
             if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onground > 0 && gravitycontrol == 0)
             {
                 gravitycontrol = 1;
-                music.playef(1);
+                music.playef(Sound_UNFLIP);
             }
             if (INBOUNDS_VEC(i, obj.entities) && obj.entities[i].onroof > 0)
             {
@@ -1916,7 +1916,7 @@ void Game::updatestate(void)
             graphics.createtextbox("Captain! You're ok!", 60-10, 90-40, TEXT_COLOUR("yellow"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(14);
+            music.playef(Sound_VITELLARY);
             break;
         }
         case 124:
@@ -1925,7 +1925,7 @@ void Game::updatestate(void)
             graphics.addline("I can't get it to go anywhere...");
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(2);
+            music.playef(Sound_CRY);
             graphics.textboxactive();
             break;
         }
@@ -1933,7 +1933,7 @@ void Game::updatestate(void)
             graphics.createtextbox("I can help with that!", 125, 152-40, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             graphics.textboxactive();
             break;
         case 128:
@@ -1941,7 +1941,7 @@ void Game::updatestate(void)
             graphics.addline("codex for our ship!");
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             graphics.textboxactive();
             break;
 
@@ -1950,7 +1950,7 @@ void Game::updatestate(void)
             graphics.createtextbox("Yey! Let's go home!", 60-30, 90-35, TEXT_COLOUR("yellow"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(14);
+            music.playef(Sound_VITELLARY);
             graphics.textboxactive();
             int i = obj.getcompanion();
             if (INBOUNDS_VEC(i, obj.entities))
@@ -1971,7 +1971,7 @@ void Game::updatestate(void)
         case 200:
             //Init final stretch
             incstate();
-            music.playef(9);
+            music.playef(Sound_FLASH);
             obj.flags[72] = true;
 
             screenshake = 10;
@@ -2229,7 +2229,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 2501:
             //Activating a teleporter 2
@@ -2238,7 +2238,7 @@ void Game::updatestate(void)
             flashlight = 5;
             screenshake = 0;
             //we're done here!
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 2502:
         {
@@ -2346,7 +2346,7 @@ void Game::updatestate(void)
             graphics.createtextbox("Hello?", 125+24, 152-20, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             graphics.textboxactive();
             break;
         case 2512:
@@ -2355,7 +2355,7 @@ void Game::updatestate(void)
             graphics.createtextbox("Is anyone there?", 125+8, 152-24, TEXT_COLOUR("cyan"));
             graphics.textboxprintflags(PR_FONT_8X8);
             incstate();
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             graphics.textboxactive();
             break;
         case 2514:
@@ -2374,28 +2374,28 @@ void Game::updatestate(void)
             setstatedelay(30);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 3001:
             //Activating a teleporter 2
             incstate();
             setstatedelay(15);
             flashlight = 5;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 3002:
             //Activating a teleporter 2
             incstate();
             setstatedelay(15);
             flashlight = 5;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 3003:
             //Activating a teleporter 2
             incstate();
             setstatedelay(15);
             flashlight = 5;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 3004:
             //Activating a teleporter 2
@@ -2404,7 +2404,7 @@ void Game::updatestate(void)
             flashlight = 5;
             screenshake = 0;
             //we're done here!
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 3005:
         {
@@ -3058,7 +3058,7 @@ void Game::updatestate(void)
             setstatedelay(30);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         }
         case 3512:
@@ -3066,21 +3066,21 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(15);
             flashlight = 5;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 3513:
             //Activating a teleporter 2
             incstate();
             setstatedelay(15);
             flashlight = 5;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 3514:
             //Activating a teleporter 2
             incstate();
             setstatedelay(15);
             flashlight = 5;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 3515:
         {
@@ -3098,7 +3098,7 @@ void Game::updatestate(void)
             }
 
             //we're done here!
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             setstatedelay(60);
             break;
         }
@@ -3158,7 +3158,7 @@ void Game::updatestate(void)
             statedelay = 10;
             flashlight = 5;
             screenshake = 10;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4001:
             //Activating a teleporter 2
@@ -3167,7 +3167,7 @@ void Game::updatestate(void)
             flashlight = 5;
             screenshake = 0;
             //we're done here!
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4002:
         {
@@ -3203,7 +3203,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4011:
             //Activating a teleporter 2
@@ -3211,7 +3211,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4012:
         {
@@ -3334,7 +3334,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4021:
             //Activating a teleporter 2
@@ -3342,7 +3342,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4022:
         {
@@ -3447,7 +3447,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4031:
             //Activating a teleporter 2
@@ -3455,7 +3455,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4032:
         {
@@ -3560,7 +3560,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4041:
             //Activating a teleporter 2
@@ -3568,7 +3568,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4042:
         {
@@ -3678,7 +3678,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4051:
             //Activating a teleporter 2
@@ -3686,7 +3686,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4052:
         {
@@ -3796,7 +3796,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4061:
             //Activating a teleporter 2
@@ -3804,7 +3804,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4062:
         {
@@ -3912,7 +3912,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4071:
             //Activating a teleporter 2
@@ -3920,7 +3920,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4072:
         {
@@ -4025,7 +4025,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4081:
             //Activating a teleporter 2
@@ -4033,7 +4033,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4082:
         {
@@ -4138,7 +4138,7 @@ void Game::updatestate(void)
             setstatedelay(15);
             flashlight = 5;
             screenshake = 90;
-            music.playef(9);
+            music.playef(Sound_FLASH);
             break;
         case 4091:
             //Activating a teleporter 2
@@ -4146,7 +4146,7 @@ void Game::updatestate(void)
             setstatedelay(0);
             flashlight = 5;
             screenshake = 0;
-            music.playef(10);
+            music.playef(Sound_TELEPORT);
             break;
         case 4092:
         {
@@ -5040,7 +5040,7 @@ void Game::deathsequence(void)
             music.nicefade = false;
         }
         deathcounts++;
-        music.playef(2);
+        music.playef(Sound_CRY);
         if (INBOUNDS_VEC(i, obj.entities) && !noflashingmode)
         {
             obj.entities[i].invis = true;

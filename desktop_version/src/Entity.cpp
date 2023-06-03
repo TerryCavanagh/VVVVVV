@@ -2575,7 +2575,7 @@ bool entityclass::updateentities( int i )
                 entities[i].state = 2;
                 entities[i].onentity = 0;
 
-                music.playef(7);
+                music.playef(Sound_DISAPPEAR);
             }
             else if (entities[i].state == 2)
             {
@@ -2621,7 +2621,7 @@ bool entityclass::updateentities( int i )
                 entities[i].life = 4;
                 entities[i].state = 2;
                 entities[i].onentity = 0;
-                music.playef(6);
+                music.playef(Sound_CRUMBLE);
             }
             else if (entities[i].state == 2)
             {
@@ -2658,7 +2658,7 @@ bool entityclass::updateentities( int i )
             //wait for collision
             if (entities[i].state == 1)
             {
-                music.playef(4);
+                music.playef(Sound_COIN);
                 if (INBOUNDS_ARR(entities[i].para, collect))
                 {
                     collect[(int) entities[i].para] = true;
@@ -2678,13 +2678,13 @@ bool entityclass::updateentities( int i )
 
                 if (game.intimetrial)
                 {
-                    music.playef(25);
+                    music.playef(Sound_NEWRECORD);
                 }
                 else
                 {
                     game.setstate(1000);
                     if(music.currentsong!=-1) music.silencedasmusik();
-                    music.playef(3);
+                    music.playef(Sound_TRINKET);
                     if (game.trinkets() > game.stat_trinkets && !map.custommode)
                     {
                         game.stat_trinkets = game.trinkets();
@@ -2711,7 +2711,7 @@ bool entityclass::updateentities( int i )
                 entities[i].colour = 5;
                 entities[i].onentity = 0;
                 game.savepoint = entities[i].para;
-                music.playef(5);
+                music.playef(Sound_CHECKPOINT);
 
                 game.savex = entities[i].xp - 4;
 
@@ -2756,7 +2756,7 @@ bool entityclass::updateentities( int i )
                 entities[i].state = 2;
 
 
-                music.playef(8);
+                music.playef(Sound_GRAVITYLINE);
                 game.gravitycontrol = (game.gravitycontrol + 1) % 2;
                 game.totalflips++;
                 int temp = getplayer();
@@ -2798,7 +2798,7 @@ bool entityclass::updateentities( int i )
                 //Depending on the room the warp point is in, teleport to a new location!
                 entities[i].onentity = 0;
                 //play a sound or somefink
-                music.playef(10);
+                music.playef(Sound_TELEPORT);
                 game.teleport = true;
 
                 game.edteleportent = i;
@@ -3150,7 +3150,7 @@ bool entityclass::updateentities( int i )
             {
                 entities[i].colour = 5;
                 entities[i].onentity = 0;
-                music.playef(17);
+                music.playef(Sound_TERMINALTOUCH);
 
                 entities[i].state = 0;
             }
@@ -3327,14 +3327,14 @@ bool entityclass::updateentities( int i )
 
                 if (game.intimetrial)
                 {
-                    music.playef(27);
+                    music.playef(Sound_RESCUE);
                 }
                 else
                 {
                     game.setstate(1010);
                     //music.haltdasmusik();
                     if(music.currentsong!=-1) music.silencedasmusik();
-                    music.playef(27);
+                    music.playef(Sound_RESCUE);
                 }
 
                 return disableentity(i);
@@ -3346,7 +3346,7 @@ bool entityclass::updateentities( int i )
                 //if inactive, activate!
                 if (entities[i].tile == 1)
                 {
-                    music.playef(18);
+                    music.playef(Sound_GAMESAVED);
                     entities[i].tile = 2;
                     entities[i].colour = 101;
                     if(!game.intimetrial && !game.nodeathmode)
@@ -4841,7 +4841,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
             {
                 if (entityhlinecollide(i, j))
                 {
-                    music.playef(8);
+                    music.playef(Sound_GRAVITYLINE);
                     game.gravitycontrol = (game.gravitycontrol + 1) % 2;
                     game.totalflips++;
                     if (game.gravitycontrol == 0)

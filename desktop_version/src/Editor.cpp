@@ -2402,20 +2402,20 @@ static void editormenuactionpress(void)
             map.nexttowercolour();
             break;
         }
-        music.playef(11);
+        music.playef(Sound_VIRIDIAN);
         break;
     case Menu::ed_settings:
         switch (game.currentmenuoption)
         {
         case 0:
             //Change level description stuff
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::ed_desc);
             map.nexttowercolour();
             break;
         case 1:
             //Enter script editormode
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
 
             ed.state = EditorState_SCRIPTS;
             ed.substate = EditorSubState_MAIN;
@@ -2431,13 +2431,13 @@ static void editormenuactionpress(void)
             ed.lines_visible = 200 / font::height(PR_FONT_LEVEL);
             break;
         case 2:
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::ed_music);
             map.nexttowercolour();
             if(cl.levmusic>0) music.play(cl.levmusic);
             break;
         case 3:
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.ghostsenabled = !game.ghostsenabled;
             break;
         case 4:
@@ -2460,7 +2460,7 @@ static void editormenuactionpress(void)
             break;
         case 6:
             /* Game options */
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.gamestate = TITLEMODE;
             game.ingame_titlemode = true;
             game.ingame_editormode = true;
@@ -2469,7 +2469,7 @@ static void editormenuactionpress(void)
             DEFER_CALLBACK(nextbgcolor);
             break;
         default:
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::ed_quit);
             map.nexttowercolour();
             break;
@@ -2501,10 +2501,10 @@ static void editormenuactionpress(void)
                 music.haltdasmusik();
             }
 
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             break;
         case 2:
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             music.fadeout();
             game.returnmenu();
             map.nexttowercolour();
@@ -2527,14 +2527,14 @@ static void editormenuactionpress(void)
             break;
         case 1:
             //Quit without saving
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             music.fadeout();
             graphics.fademode = FADE_START_FADEOUT;
             graphics.backgrounddrawn = false;
             break;
         case 2:
             //Go back to editor
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.returnmenu();
             map.nexttowercolour();
             break;
@@ -2553,7 +2553,7 @@ static void editormenuactionpress(void)
             loc::new_level_font = cl.level_font_name;
         }
         font::set_level_font(cl.level_font_name.c_str());
-        music.playef(11);
+        music.playef(Sound_VIRIDIAN);
         game.returnmenu();
         map.nexttowercolour();
         game.savestatsandsettings_menu();
@@ -2931,7 +2931,7 @@ void editorinput(void)
             if (escape_pressed)
             {
                 // We're just in draw mode, so go to the settings menu
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
                 ed.state = EditorState_MENU;
                 ed.substate = EditorSubState_MAIN;
                 game.createmenu(Menu::ed_settings);
@@ -3238,7 +3238,7 @@ void editorinput(void)
             if (escape_pressed)
             {
                 bool esc_from_font = false;
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
 
                 if (game.currentmenuname == Menu::ed_settings)
                 {
@@ -3288,7 +3288,7 @@ void editorinput(void)
                 key.disabletextentry();
                 ed.current_text_mode = TEXT_NONE;
 
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
             }
 
             if (enter_pressed)
@@ -3309,7 +3309,7 @@ void editorinput(void)
         {
             if (escape_pressed)
             {
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
                 ed.state = EditorState_MENU;
                 ed.substate = EditorSubState_MAIN;
             }
@@ -3348,7 +3348,7 @@ void editorinput(void)
             if (key.keymap[SDLK_BACKSPACE] && !ed.backspace_held && !script.customscripts.empty())
             {
                 ed.backspace_held = true;
-                music.playef(2);
+                music.playef(Sound_CRY);
                 ed.remove_script(script.customscripts[(script.customscripts.size() - 1) - ed.selected_script].name);
             }
 
@@ -3380,7 +3380,7 @@ void editorinput(void)
                     key.keybuffer = ed.script_buffer[ed.script_cursor_y];
                     ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
 
-                    music.playef(11);
+                    music.playef(Sound_VIRIDIAN);
                 }
             }
             break;
@@ -3390,7 +3390,7 @@ void editorinput(void)
             // Script editor!
             if (escape_pressed)
             {
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
                 ed.substate = EditorSubState_MAIN;
 
                 // Alright, now re-add the script.

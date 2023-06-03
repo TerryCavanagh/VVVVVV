@@ -31,6 +31,38 @@ enum
     Music_PREDESTINEDFATEREMIX = 15
 };
 
+enum
+{
+    Sound_FLIP = 0,
+    Sound_UNFLIP = 1,
+    Sound_CRY = 2,
+    Sound_TRINKET = 3,
+    Sound_COIN = 4,
+    Sound_CHECKPOINT = 5,
+    Sound_CRUMBLE = 6,
+    Sound_DISAPPEAR = 7,
+    Sound_GRAVITYLINE = 8,
+    Sound_FLASH = 9,
+    Sound_TELEPORT = 10,
+    Sound_VIRIDIAN = 11,
+    Sound_VERDIGRIS = 12,
+    Sound_VICTORIA = 13,
+    Sound_VITELLARY = 14,
+    Sound_VIOLET = 15,
+    Sound_VERMILION = 16,
+    Sound_TERMINALTOUCH = 17,
+    Sound_GAMESAVED = 18,
+    Sound_ALARM = 19,
+    Sound_TERMINALTEXT = 20,
+    Sound_COUNTDOWN = 21,
+    Sound_GO = 22,
+    Sound_DESTROY = 23,
+    Sound_COMBINE = 24,
+    Sound_NEWRECORD = 25,
+    Sound_TROPHY = 26,
+    Sound_RESCUE = 27
+};
+
 class musicclass
 {
 public:
