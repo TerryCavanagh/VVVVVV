@@ -737,7 +737,7 @@ musicclass::musicclass(void)
     user_music_volume = USER_VOLUME_MAX;
     user_sound_volume = USER_VOLUME_MAX;
 
-    currentsong = 0;
+    currentsong = -1;
     nicechange = -1;
     nicefade = false;
     quick_fade = true;
