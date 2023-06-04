@@ -1683,7 +1683,7 @@ void scriptclass::run(void)
             }
             else if (words[0] == "setactivityposition")
             {
-                obj.customactivitypositiony = ss_toi(words[2]);
+                obj.customactivitypositiony = ss_toi(words[1]);
             }
             else if (words[0] == "createrescuedcrew")
             {
