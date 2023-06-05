@@ -316,7 +316,7 @@ void Game::init(void)
     inertia = 1.1f;
     swnmode = false;
     swntimer = 0;
-    swngame = 0;//Not playing sine wave ninja!
+    swngame = SWN_NONE; // Not playing sine wave ninja!
     swnstate = 0;
     swnstate2 = 0;
     swnstate3 = 0;
@@ -943,7 +943,7 @@ void Game::updatestate(void)
             obj.removetrigger(9);
 
             swnmode = true;
-            swngame = 6;
+            swngame = SWN_START_SUPERGRAVITRON_STEP_1;
             swndelay = 150;
             swntimer = 60 * 30;
 
@@ -964,7 +964,7 @@ void Game::updatestate(void)
             obj.removetrigger(10);
 
             swnmode = true;
-            swngame = 4;
+            swngame = SWN_START_GRAVITRON_STEP_1;
             swndelay = 150;
             swntimer = 60 * 30;
 
@@ -7479,7 +7479,9 @@ bool Game::incompetitive(void)
     return (
         !map.custommode
         && swnmode
-        && (swngame == 1 || swngame == 6 || swngame == 7)
+        && (swngame == SWN_SUPERGRAVITRON ||
+            swngame == SWN_START_SUPERGRAVITRON_STEP_1 ||
+            swngame == SWN_START_SUPERGRAVITRON_STEP_2)
     )
     || intimetrial
     || nodeathmode;

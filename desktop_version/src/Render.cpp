@@ -2020,7 +2020,7 @@ void gamerender(void)
     if (graphics.fademode == FADE_NONE
     && !game.intimetrial
     && !game.isingamecompletescreen()
-    && (!game.swnmode || game.swngame != 1)
+    && (!game.swnmode || game.swngame != SWN_SUPERGRAVITRON)
     && game.showingametimer
     && !roomname_translator::enabled)
     {
@@ -2129,12 +2129,12 @@ void gamerender(void)
 
     if (game.swnmode)
     {
-        if (game.swngame == 0)
+        if (game.swngame == SWN_GRAVITRON)
         {
             std::string tempstring = help.timestring(game.swntimer);
             font::print(PR_2X | PR_CEN | PR_BOR, -1, 20, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
         }
-        else if (game.swngame == 1)
+        else if (game.swngame == SWN_SUPERGRAVITRON)
         {
             if (game.swnmessage == 0)
             {
@@ -2210,7 +2210,7 @@ void gamerender(void)
             );
             font::print(PR_BOR | PR_CEN, -1, 228, buffer, 160 - (help.glow/2), 160 - (help.glow/2), 160 - (help.glow/2));
         }
-        else if(game.swngame==2)
+        else if (game.swngame == SWN_START_GRAVITRON_STEP_3)
         {
             if (int(game.swndelay / 15) % 2 == 1 || game.swndelay >= 120)
             {
@@ -2230,7 +2230,7 @@ void gamerender(void)
                 font::print(PR_2X | PR_CEN | PR_BOR, -1, y2, loc::gettext("60 seconds!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
             }
         }
-        else if(game.swngame==7)
+        else if (game.swngame == SWN_START_SUPERGRAVITRON_STEP_2)
         {
             if (game.swndelay >= 60)
             {

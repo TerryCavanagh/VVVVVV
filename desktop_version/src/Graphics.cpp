@@ -2009,7 +2009,8 @@ void Graphics::drawentity(const int i, const int yoff)
     case 5:    //Horizontal Line
     {
         int oldw = obj.entities[i].w;
-        if ((game.swngame == 3 || kludgeswnlinewidth) && obj.getlineat(84 - 32) == i)
+        if ((game.swngame == SWN_START_GRAVITRON_STEP_2 || kludgeswnlinewidth)
+            && obj.getlineat(84 - 32) == i)
         {
             oldw -= 24;
         }

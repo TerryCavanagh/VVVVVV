@@ -1762,7 +1762,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entity.colour = 21;
         entity.tile = 78; //default case
         entity.animate = 1;
-        if (game.swngame == 1)
+        if (game.swngame == SWN_SUPERGRAVITRON)
         {
             //set colour based on current state
             entity.colour = swncolour(game.swncolstate);

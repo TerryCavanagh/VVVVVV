@@ -3140,7 +3140,7 @@ void scriptclass::hardreset(void)
 
     game.swnmode = false;
     game.swntimer = 0;
-    game.swngame = 0;//Not playing sine wave ninja!
+    game.swngame = SWN_NONE; // Not playing sine wave ninja!
     game.swnstate = 0;
     game.swnstate2 = 0;
     game.swnstate3 = 0;

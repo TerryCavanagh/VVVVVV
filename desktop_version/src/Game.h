@@ -117,6 +117,21 @@ enum SLIDERMODE
     SLIDER_SOUNDVOLUME
 };
 
+/* enums for swngame variable */
+enum SWNMODE
+{
+    SWN_GRAVITRON,
+    SWN_SUPERGRAVITRON,
+    SWN_START_GRAVITRON_STEP_3,
+    SWN_START_GRAVITRON_STEP_2,
+    SWN_START_GRAVITRON_STEP_1,
+    SWN_FINISH_GRAVITRON_STEP_1,
+    SWN_START_SUPERGRAVITRON_STEP_1,
+    SWN_START_SUPERGRAVITRON_STEP_2,
+    SWN_FINISH_GRAVITRON_STEP_2,
+    SWN_NONE
+};
+
 struct MenuStackFrame
 {
     int option;
@@ -334,7 +349,8 @@ public:
 
     //Sine Wave Ninja Minigame
     bool swnmode;
-    int swngame, swnstate, swnstate2, swnstate3, swnstate4, swndelay, swndeaths;
+    enum SWNMODE swngame;
+    int swnstate, swnstate2, swnstate3, swnstate4, swndelay, swndeaths;
     int swntimer, swncolstate, swncoldelay;
     int  swnrecord, swnbestrank, swnrank, swnmessage;
 
