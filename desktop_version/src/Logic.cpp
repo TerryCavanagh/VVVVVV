@@ -736,6 +736,7 @@ void gamelogic(void)
                 {
                     game.swnmode = false;
                 }
+                break;
             }
             case SWN_NONE:
                 break;
