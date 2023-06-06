@@ -5574,10 +5574,6 @@ void Game::customloadquick(const std::string& savfile)
             map.roomname_special = true;
         }
     }
-
-    map.showteleporters = true;
-    if(obj.flags[12]) map.showtargets = true;
-
 }
 
 struct Summary
