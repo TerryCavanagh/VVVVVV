@@ -729,12 +729,30 @@ int main(int argc, char *argv[])
         }
     }
 
-    if(game.bestrank[0]>=3) game.unlockAchievement("vvvvvvtimetrial_station1_fixed");
-    if(game.bestrank[1]>=3) game.unlockAchievement("vvvvvvtimetrial_lab_fixed");
-    if(game.bestrank[2]>=3) game.unlockAchievement("vvvvvvtimetrial_tower_fixed");
-    if(game.bestrank[3]>=3) game.unlockAchievement("vvvvvvtimetrial_station2_fixed");
-    if(game.bestrank[4]>=3) game.unlockAchievement("vvvvvvtimetrial_warp_fixed");
-    if(game.bestrank[5]>=3) game.unlockAchievement("vvvvvvtimetrial_final_fixed");
+    if (game.bestrank[TimeTrial_SPACESTATION1] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_station1_fixed");
+    }
+    if (game.bestrank[TimeTrial_LABORATORY] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_lab_fixed");
+    }
+    if (game.bestrank[TimeTrial_TOWER] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_tower_fixed");
+    }
+    if (game.bestrank[TimeTrial_SPACESTATION2] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_station2_fixed");
+    }
+    if (game.bestrank[TimeTrial_WARPZONE] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_warp_fixed");
+    }
+    if (game.bestrank[TimeTrial_FINALLEVEL] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_final_fixed");
+    }
 
     obj.init();
 

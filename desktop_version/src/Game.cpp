@@ -1633,13 +1633,28 @@ void Game::updatestate(void)
             if (timetrialrank > bestrank[timetriallevel] || bestrank[timetriallevel]==-1)
             {
                 bestrank[timetriallevel] = timetrialrank;
-                if(timetrialrank>=3){
-                    if(timetriallevel==0) unlockAchievement("vvvvvvtimetrial_station1_fixed");
-                    if(timetriallevel==1) unlockAchievement("vvvvvvtimetrial_lab_fixed");
-                    if(timetriallevel==2) unlockAchievement("vvvvvvtimetrial_tower_fixed");
-                    if(timetriallevel==3) unlockAchievement("vvvvvvtimetrial_station2_fixed");
-                    if(timetriallevel==4) unlockAchievement("vvvvvvtimetrial_warp_fixed");
-                    if(timetriallevel==5) unlockAchievement("vvvvvvtimetrial_final_fixed");
+                if (timetrialrank >= 3)
+                {
+                    switch (timetriallevel)
+                    {
+                    case TimeTrial_SPACESTATION1:
+                        unlockAchievement("vvvvvvtimetrial_station1_fixed");
+                        break;
+                    case TimeTrial_LABORATORY:
+                        unlockAchievement("vvvvvvtimetrial_lab_fixed");
+                        break;
+                    case TimeTrial_TOWER:
+                        unlockAchievement("vvvvvvtimetrial_tower_fixed");
+                        break;
+                    case TimeTrial_SPACESTATION2:
+                        unlockAchievement("vvvvvvtimetrial_station2_fixed");
+                        break;
+                    case TimeTrial_WARPZONE:
+                        unlockAchievement("vvvvvvtimetrial_warp_fixed");
+                        break;
+                    case TimeTrial_FINALLEVEL:
+                        unlockAchievement("vvvvvvtimetrial_final_fixed");
+                    }
                 }
             }
 
@@ -6814,12 +6829,12 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         {
             //Alright, we haven't unlocked any time trials. How about no death mode?
             temp = 0;
-            if (bestrank[0] >= 2) temp++;
-            if (bestrank[1] >= 2) temp++;
-            if (bestrank[2] >= 2) temp++;
-            if (bestrank[3] >= 2) temp++;
-            if (bestrank[4] >= 2) temp++;
-            if (bestrank[5] >= 2) temp++;
+            if (bestrank[TimeTrial_SPACESTATION1] >= 2) temp++;
+            if (bestrank[TimeTrial_LABORATORY] >= 2) temp++;
+            if (bestrank[TimeTrial_TOWER] >= 2) temp++;
+            if (bestrank[TimeTrial_SPACESTATION2] >= 2) temp++;
+            if (bestrank[TimeTrial_WARPZONE] >= 2) temp++;
+            if (bestrank[TimeTrial_FINALLEVEL] >= 2) temp++;
             if (temp >= 4 && !unlocknotify[Unlock_NODEATHMODE])
             {
                 //Unlock No Death Mode

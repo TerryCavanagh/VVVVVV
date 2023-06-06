@@ -158,6 +158,18 @@ enum
     UnlockTrophy_NODEATHMODE_COMPLETE = 20
 };
 
+/* enums for bestrank, bestlives, besttrinkets, besttimes, bestframes arrays
+ * and timetriallevel */
+enum
+{
+    TimeTrial_SPACESTATION1 = 0,
+    TimeTrial_LABORATORY = 1,
+    TimeTrial_TOWER = 2,
+    TimeTrial_SPACESTATION2 = 3,
+    TimeTrial_WARPZONE = 4,
+    TimeTrial_FINALLEVEL = 5
+};
+
 struct MenuStackFrame
 {
     int option;

@@ -761,22 +761,22 @@ void gamelogic(void)
                 {
                     switch(game.timetriallevel)
                     {
-                    case 0:
+                    case TimeTrial_SPACESTATION1:
                         music.play(Music_PUSHINGONWARDS);
                         break;
-                    case 1:
+                    case TimeTrial_LABORATORY:
                         music.play(Music_POTENTIALFORANYTHING);
                         break;
-                    case 2:
+                    case TimeTrial_TOWER:
                         music.play(Music_POSITIVEFORCE);
                         break;
-                    case 3:
+                    case TimeTrial_SPACESTATION2:
                         music.play(Music_PUSHINGONWARDS);
                         break;
-                    case 4:
+                    case TimeTrial_WARPZONE:
                         music.play(Music_PRESSURECOOKER);
                         break;
-                    case 5:
+                    case TimeTrial_FINALLEVEL:
                         music.play(Music_PREDESTINEDFATEREMIX);
                         break;
                     }
