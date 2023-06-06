@@ -211,6 +211,8 @@ editorclass::editorclass(void)
 
     SDL_zeroa(tileset_min_colour);
     SDL_zeroa(tileset_max_colour);
+    SDL_zeroa(tileset_min_colour_direct);
+    SDL_zeroa(tileset_max_colour_direct);
 
     register_tileset(EditorTileset_SPACE_STATION, "Space Station");
     register_tileset(EditorTileset_OUTSIDE, "Outside");
@@ -269,6 +271,7 @@ editorclass::editorclass(void)
     register_tilecol(EditorTileset_LAB, 3, "basic", 289, "none", 0);
     register_tilecol(EditorTileset_LAB, 4, "lab_yellow", 292, "none", 0);
     register_tilecol(EditorTileset_LAB, 5, "lab_green", 295, "none", 0);
+    register_tilecol(EditorTileset_LAB, 6, "none", 0, "none", 0, true);
 
     register_tilecol(EditorTileset_WARP_ZONE, 0, "basic", 80, "none", 120);
     register_tilecol(EditorTileset_WARP_ZONE, 1, "basic", 83, "none", 123);
@@ -291,17 +294,42 @@ void editorclass::register_tileset(EditorTilesets tileset, const char* name)
     tileset_names[tileset] = name;
 }
 
-void editorclass::register_tilecol(EditorTilesets tileset, const int index, const char* foreground_type, const int foreground_base, const char* background_type, const int background_base)
-{
+void editorclass::register_tilecol(
+    EditorTilesets tileset,
+    const int index,
+    const char* foreground_type,
+    const int foreground_base,
+    const char* background_type,
+    const int background_base,
+    const bool direct
+) {
     EditorTilecolInfo info;
     info.foreground_type = foreground_type;
     info.foreground_base = foreground_base;
     info.background_type = background_type;
     info.background_base = background_base;
+    info.direct_mode = direct;
     tileset_colors[tileset][index] = info;
 
-    tileset_min_colour[tileset] = SDL_min(tileset_min_colour[tileset], index);
-    tileset_max_colour[tileset] = SDL_max(tileset_max_colour[tileset], index);
+    if (!direct)
+    {
+        tileset_min_colour[tileset] = SDL_min(tileset_min_colour[tileset], index);
+        tileset_max_colour[tileset] = SDL_max(tileset_max_colour[tileset], index);
+    }
+
+    tileset_min_colour_direct[tileset] = SDL_min(tileset_min_colour_direct[tileset], index);
+    tileset_max_colour_direct[tileset] = SDL_max(tileset_max_colour_direct[tileset], index);
+}
+
+void editorclass::register_tilecol(
+    EditorTilesets tileset,
+    const int index,
+    const char* foreground_type,
+    const int foreground_base,
+    const char* background_type,
+    const int background_base
+) {
+    register_tilecol(tileset, index, foreground_type, foreground_base, background_type, background_base, false);
 }
 
 void editorclass::reset(void)
@@ -2955,12 +2983,7 @@ static void handle_draw_input()
             {
                 cl.setroomdirectmode(ed.levx, ed.levy, 0);
                 ed.show_note(loc::gettext("Direct Mode Disabled"));
-                // Kludge fix for rainbow BG here...
-                if (cl.getroomprop(ed.levx, ed.levy)->tileset == 2
-                    && cl.getroomprop(ed.levx, ed.levy)->tilecol == 6)
-                {
-                    cl.setroomtilecol(ed.levx, ed.levy, 0);
-                }
+                ed.clamp_tilecol(ed.levx, ed.levy, true);
             }
             else
             {
@@ -4070,8 +4093,8 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
     const int tileset = room->tileset;
     int tilecol = room->tilecol;
 
-    int mincol = tileset_min_colour[tileset];
-    int maxcol = tileset_max_colour[tileset];
+    int mincol = (room->directmode ? tileset_min_colour_direct : tileset_min_colour)[tileset];
+    int maxcol = (room->directmode ? tileset_max_colour_direct : tileset_max_colour)[tileset];
 
     // If wrap is true, wrap-around, otherwise just cap
     if (tilecol > maxcol)
