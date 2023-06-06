@@ -202,6 +202,13 @@ editorclass::editorclass(void)
     outside_vec.assign(outside, outside + SDL_arraysize(outside));
     autotile_types["outside"] = outside_vec;
 
+    // Everything gets initialized to 0 by default
+    static const short none[256] = {};
+
+    std::vector<int> none_vec;
+    none_vec.assign(none, none + SDL_arraysize(none));
+    autotile_types["none"] = none_vec;
+
     SDL_zeroa(tileset_min_colour);
     SDL_zeroa(tileset_max_colour);
 
