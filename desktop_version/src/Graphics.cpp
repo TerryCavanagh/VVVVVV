@@ -2620,7 +2620,7 @@ void Graphics::updatebackground(int t)
             if (stars[i].x < -10)
             {
                 stars[i].x += 340;
-                stars[i].y = (int) fRandom() * 240;
+                stars[i].y = (int) (fRandom() * 240);
                 starsspeed[i] = 4 + (int) (fRandom() * 4);
             }
         }
