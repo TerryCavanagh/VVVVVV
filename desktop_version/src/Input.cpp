@@ -938,7 +938,7 @@ static void menuactionpress(void)
     {
         int gameplayoptionsoffset = 0;
 #if !defined(MAKEANDPLAY)
-        if (game.ingame_titlemode && game.unlock[18])
+        if (game.ingame_titlemode && game.unlock[Unlock_FLIPMODE])
 #endif
         {
             gameplayoptionsoffset = 1;
@@ -1401,43 +1401,43 @@ static void menuactionpress(void)
         switch (game.currentmenuoption)
         {
         case 0:       //unlock 1
-            game.unlock[9] = true;
-            game.unlocknotify[9] = true;
+            game.unlock[Unlock_TIMETRIAL_SPACESTATION1] = true;
+            game.unlocknotify[Unlock_TIMETRIAL_SPACESTATION1] = true;
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
         case 1:       //unlock 2
-            game.unlock[10] = true;
-            game.unlocknotify[10] = true;
+            game.unlock[Unlock_TIMETRIAL_LABORATORY] = true;
+            game.unlocknotify[Unlock_TIMETRIAL_LABORATORY] = true;
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
         case 2:       //unlock 3
-            game.unlock[11] = true;
-            game.unlocknotify[11] = true;
+            game.unlock[Unlock_TIMETRIAL_TOWER] = true;
+            game.unlocknotify[Unlock_TIMETRIAL_TOWER] = true;
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
         case 3:       //unlock 4
-            game.unlock[12] = true;
-            game.unlocknotify[12] = true;
+            game.unlock[Unlock_TIMETRIAL_SPACESTATION2] = true;
+            game.unlocknotify[Unlock_TIMETRIAL_SPACESTATION2] = true;
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
         case 4:       //unlock 5
-            game.unlock[13] = true;
-            game.unlocknotify[13] = true;
+            game.unlock[Unlock_TIMETRIAL_WARPZONE] = true;
+            game.unlocknotify[Unlock_TIMETRIAL_WARPZONE] = true;
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
             break;
         case 5:       //unlock 6
-            game.unlock[14] = true;
-            game.unlocknotify[14] = true;
+            game.unlock[Unlock_TIMETRIAL_FINALLEVEL] = true;
+            game.unlocknotify[Unlock_TIMETRIAL_FINALLEVEL] = true;
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::unlockmenutrials, true);
             game.savestatsandsettings_menu();
@@ -1462,26 +1462,26 @@ static void menuactionpress(void)
         case 1:
             //unlock intermissions
             music.playef(Sound_VIRIDIAN);
-            game.unlock[16] = true;
-            game.unlocknotify[16] = true;
-            game.unlock[6] = true;
-            game.unlock[7] = true;
+            game.unlock[Unlock_INTERMISSION_REPLAYS] = true;
+            game.unlocknotify[Unlock_INTERMISSION_REPLAYS] = true;
+            game.unlock[Unlock_INTERMISSION1_COMPLETE] = true;
+            game.unlock[Unlock_INTERMISSION2_COMPLETE] = true;
             game.createmenu(Menu::unlockmenu, true);
             game.savestatsandsettings_menu();
             break;
         case 2:
             //unlock no death mode
             music.playef(Sound_VIRIDIAN);
-            game.unlock[17] = true;
-            game.unlocknotify[17] = true;
+            game.unlock[Unlock_NODEATHMODE] = true;
+            game.unlocknotify[Unlock_NODEATHMODE] = true;
             game.createmenu(Menu::unlockmenu, true);
             game.savestatsandsettings_menu();
             break;
         case 3:
             //unlock flip mode
             music.playef(Sound_VIRIDIAN);
-            game.unlock[18] = true;
-            game.unlocknotify[18] = true;
+            game.unlock[Unlock_FLIPMODE] = true;
+            game.unlocknotify[Unlock_FLIPMODE] = true;
             game.createmenu(Menu::unlockmenu, true);
             game.savestatsandsettings_menu();
             break;
@@ -1495,8 +1495,8 @@ static void menuactionpress(void)
         case 5:
             //unlock secret lab
             music.playef(Sound_VIRIDIAN);
-            game.unlock[8] = true;
-            game.unlocknotify[8] = true;
+            game.unlock[Unlock_SECRETLAB] = true;
+            game.unlocknotify[Unlock_SECRETLAB] = true;
             game.createmenu(Menu::unlockmenu, true);
             game.savestatsandsettings_menu();
             break;
@@ -1754,7 +1754,7 @@ static void menuactionpress(void)
     case Menu::play:
     {
         //Do we have the Secret Lab option?
-        int sloffset = game.unlock[8] ? 0 : -1;
+        int sloffset = game.unlock[Unlock_SECRETLAB] ? 0 : -1;
         //Do we have a telesave or quicksave?
         int ngoffset = game.save_exists() ? 0 : -1;
         if (game.currentmenuoption == 0)
@@ -1787,7 +1787,7 @@ static void menuactionpress(void)
                 game.createmenu(Menu::continuemenu);
             }
         }
-        else if (game.currentmenuoption == 1 && game.unlock[8])
+        else if (game.currentmenuoption == 1 && game.unlock[Unlock_SECRETLAB])
         {
             music.playef(Sound_VIRIDIAN);
             startmode(Start_SECRETLAB);
@@ -1893,26 +1893,31 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::playmodes:
-        if (game.currentmenuoption == 0 && !game.nocompetitive_unless_translator())   //go to the time trial menu
+        if (game.currentmenuoption == 0
+            && !game.nocompetitive_unless_translator())   //go to the time trial menu
         {
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::timetrials);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == 1 && game.unlock[16])
+        else if (game.currentmenuoption == 1
+            && game.unlock[Unlock_INTERMISSION_REPLAYS])
         {
             //intermission mode menu
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::intermissionmenu);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == 2 && game.unlock[17] && !game.nocompetitive())    //start a game in no death mode
+        else if (game.currentmenuoption == 2
+            && game.unlock[Unlock_NODEATHMODE]
+            && !game.nocompetitive())    //start a game in no death mode
         {
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::startnodeathmode);
             map.nexttowercolour();
         }
-        else if (game.currentmenuoption == 3 && game.unlock[18])    //enable/disable flip mode
+        else if (game.currentmenuoption == 3
+            && game.unlock[Unlock_FLIPMODE])    //enable/disable flip mode
         {
             toggleflipmode();
         }
@@ -2060,32 +2065,38 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::timetrials:
-        if (game.currentmenuoption == 0 && game.unlock[9])
+        if (game.currentmenuoption == 0
+            && game.unlock[Unlock_TIMETRIAL_SPACESTATION1])
         {
             music.playef(Sound_VIRIDIAN);
             startmode(Start_TIMETRIAL_SPACESTATION1);
         }
-        else if (game.currentmenuoption == 1 && game.unlock[10])
+        else if (game.currentmenuoption == 1
+            && game.unlock[Unlock_TIMETRIAL_LABORATORY])
         {
             music.playef(Sound_VIRIDIAN);
             startmode(Start_TIMETRIAL_LABORATORY);
         }
-        else if (game.currentmenuoption == 2 && game.unlock[11])
+        else if (game.currentmenuoption == 2
+            && game.unlock[Unlock_TIMETRIAL_TOWER])
         {
             music.playef(Sound_VIRIDIAN);
             startmode(Start_TIMETRIAL_TOWER);
         }
-        else if (game.currentmenuoption == 3 && game.unlock[12])
+        else if (game.currentmenuoption == 3
+            && game.unlock[Unlock_TIMETRIAL_SPACESTATION2])
         {
             music.playef(Sound_VIRIDIAN);
             startmode(Start_TIMETRIAL_SPACESTATION2);
         }
-        else if (game.currentmenuoption == 4 && game.unlock[13])
+        else if (game.currentmenuoption == 4
+            && game.unlock[Unlock_TIMETRIAL_WARPZONE])
         {
             music.playef(Sound_VIRIDIAN);
             startmode(Start_TIMETRIAL_WARPZONE);
         }
-        else if (game.currentmenuoption == 5 && game.unlock[14])
+        else if (game.currentmenuoption == 5
+            && game.unlock[Unlock_TIMETRIAL_FINALLEVEL])
         {
             music.playef(Sound_VIRIDIAN);
             startmode(Start_TIMETRIAL_FINALLEVEL);

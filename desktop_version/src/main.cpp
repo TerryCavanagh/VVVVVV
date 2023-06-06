@@ -701,9 +701,18 @@ int main(int argc, char *argv[])
         if(game.swnbestrank >= 6) game.unlockAchievement("vvvvvvsupgrav60");
     }
 
-    if(game.unlock[5]) game.unlockAchievement("vvvvvvgamecomplete");
-    if(game.unlock[19]) game.unlockAchievement("vvvvvvgamecompleteflip");
-    if(game.unlock[20]) game.unlockAchievement("vvvvvvmaster");
+    if (game.unlock[UnlockTrophy_GAME_COMPLETE])
+    {
+        game.unlockAchievement("vvvvvvgamecomplete");
+    }
+    if (game.unlock[UnlockTrophy_FLIPMODE_COMPLETE])
+    {
+        game.unlockAchievement("vvvvvvgamecompleteflip");
+    }
+    if (game.unlock[UnlockTrophy_NODEATHMODE_COMPLETE])
+    {
+        game.unlockAchievement("vvvvvvmaster");
+    }
 
     if (game.bestgamedeaths > -1) {
         if (game.bestgamedeaths <= 500) {

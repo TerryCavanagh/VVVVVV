@@ -2462,7 +2462,7 @@ void Game::updatestate(void)
 
         case 3006:
             //Level complete! (warp zone)
-            unlocknum(4);
+            unlocknum(Unlock_WARPZONE_COMPLETE);
             lastsaved = 4;
             music.play(Music_PATHCOMPLETE);
             incstate();
@@ -2503,7 +2503,7 @@ void Game::updatestate(void)
 
         case 3020:
             //Level complete! (Space Station 2)
-            unlocknum(3);
+            unlocknum(Unlock_SPACESTATION2_COMPLETE);
             lastsaved = 2;
             music.play(Music_PATHCOMPLETE);
             incstate();
@@ -2545,7 +2545,7 @@ void Game::updatestate(void)
 
         case 3040:
             //Level complete! (Lab)
-            unlocknum(1);
+            unlocknum(Unlock_LABORATORY_COMPLETE);
             lastsaved = 5;
             music.play(Music_PATHCOMPLETE);
             incstate();
@@ -2586,7 +2586,7 @@ void Game::updatestate(void)
 
         case 3050:
             //Level complete! (Space Station 1)
-            unlocknum(0);
+            unlocknum(Unlock_SPACESTATION1_COMPLETE);
             lastsaved = 1;
             music.play(Music_PATHCOMPLETE);
             incstate();
@@ -2653,7 +2653,7 @@ void Game::updatestate(void)
 
         case 3060:
             //Level complete! (Tower)
-            unlocknum(2);
+            unlocknum(Unlock_TOWER_COMPLETE);
             lastsaved = 3;
             music.play(Music_PATHCOMPLETE);
             incstate();
@@ -2782,7 +2782,7 @@ void Game::updatestate(void)
             }
             else
             {
-                unlocknum(7);
+                unlocknum(Unlock_INTERMISSION2_COMPLETE);
                 graphics.fademode = FADE_START_FADEOUT;
                 companion = 0;
                 incstate();
@@ -2815,7 +2815,7 @@ void Game::updatestate(void)
             }
             else
             {
-                unlocknum(6);
+                unlocknum(Unlock_INTERMISSION1_COMPLETE);
                 graphics.fademode = FADE_START_FADEOUT;
                 companion = 0;
                 supercrewmate = false;
@@ -2875,7 +2875,7 @@ void Game::updatestate(void)
         case 3501:
             //Game complete!
             unlockAchievement("vvvvvvgamecomplete");
-            unlocknum(5);
+            unlocknum(UnlockTrophy_GAME_COMPLETE);
             crewstats[0] = true;
             incstate();
             setstatedelay(75);
@@ -2994,7 +2994,7 @@ void Game::updatestate(void)
             {
                 //flip mode complete
                 unlockAchievement("vvvvvvgamecompleteflip");
-                unlocknum(19);
+                unlocknum(UnlockTrophy_FLIPMODE_COMPLETE);
             }
 
 #ifndef MAKEANDPLAY
@@ -3033,7 +3033,7 @@ void Game::updatestate(void)
             if (nodeathmode)
             {
                 unlockAchievement("vvvvvvmaster"); //bloody hell
-                unlocknum(20);
+                unlocknum(UnlockTrophy_NODEATHMODE_COMPLETE);
                 setstate(3520);
                 setstatedelay(0);
             }
@@ -6406,7 +6406,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::gameplayoptions:
 #if !defined(MAKEANDPLAY)
-        if (ingame_titlemode && unlock[18])
+        if (ingame_titlemode && unlock[Unlock_FLIPMODE])
 #endif
         {
                 option(loc::gettext("flip mode"));
@@ -6694,11 +6694,11 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::unlockmenu:
         option(loc::gettext("unlock time trials"));
-        option(loc::gettext("unlock intermissions"), !unlock[16]);
-        option(loc::gettext("unlock no death mode"), !unlock[17]);
-        option(loc::gettext("unlock flip mode"), !unlock[18]);
+        option(loc::gettext("unlock intermissions"), !unlock[Unlock_INTERMISSION_REPLAYS]);
+        option(loc::gettext("unlock no death mode"), !unlock[Unlock_NODEATHMODE]);
+        option(loc::gettext("unlock flip mode"), !unlock[Unlock_FLIPMODE]);
         option(loc::gettext("unlock ship jukebox"), (stat_trinkets<20));
-        option(loc::gettext("unlock secret lab"), !unlock[8]);
+        option(loc::gettext("unlock secret lab"), !unlock[Unlock_SECRETLAB]);
         option(loc::gettext("return"));
         menuyoff = -20;
         break;
@@ -6729,44 +6729,74 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         //Ok, here's where the unlock stuff comes into it:
         //First up, time trials:
         int temp = 0;
-        if (unlock[0] && stat_trinkets >= 3 && !unlocknotify[9]) temp++;
-        if (unlock[1] && stat_trinkets >= 6 && !unlocknotify[10]) temp++;
-        if (unlock[2] && stat_trinkets >= 9 && !unlocknotify[11]) temp++;
-        if (unlock[3] && stat_trinkets >= 12 && !unlocknotify[12]) temp++;
-        if (unlock[4] && stat_trinkets >= 15 && !unlocknotify[13]) temp++;
-        if (unlock[5] && stat_trinkets >= 18 && !unlocknotify[14]) temp++;
+        if (unlock[Unlock_SPACESTATION1_COMPLETE]
+            && stat_trinkets >= 3
+            && !unlocknotify[Unlock_TIMETRIAL_SPACESTATION1])
+        {
+            temp++;
+        }
+        if (unlock[Unlock_LABORATORY_COMPLETE]
+            && stat_trinkets >= 6
+            && !unlocknotify[Unlock_TIMETRIAL_LABORATORY])
+        {
+            temp++;
+        }
+        if (unlock[Unlock_TOWER_COMPLETE]
+            && stat_trinkets >= 9
+            && !unlocknotify[Unlock_TIMETRIAL_TOWER])
+        {
+            temp++;
+        }
+        if (unlock[Unlock_SPACESTATION2_COMPLETE]
+            && stat_trinkets >= 12
+            && !unlocknotify[Unlock_TIMETRIAL_SPACESTATION2])
+        {
+            temp++;
+        }
+        if (unlock[Unlock_WARPZONE_COMPLETE]
+            && stat_trinkets >= 15
+            && !unlocknotify[Unlock_TIMETRIAL_WARPZONE])
+        {
+            temp++;
+        }
+        if (unlock[UnlockTrophy_GAME_COMPLETE]
+            && stat_trinkets >= 18
+            && !unlocknotify[Unlock_TIMETRIAL_FINALLEVEL])
+        {
+            temp++;
+        }
         if (temp > 0)
         {
             //you've unlocked a time trial!
-            if (unlock[0] && stat_trinkets >= 3)
+            if (unlock[Unlock_SPACESTATION1_COMPLETE] && stat_trinkets >= 3)
             {
-                unlocknotify[9] = true;
-                unlock[9] = true;
+                unlocknotify[Unlock_TIMETRIAL_SPACESTATION1] = true;
+                unlock[Unlock_TIMETRIAL_SPACESTATION1] = true;
             }
-            if (unlock[1] && stat_trinkets >= 6)
+            if (unlock[Unlock_LABORATORY_COMPLETE] && stat_trinkets >= 6)
             {
-                unlocknotify[10] = true;
-                unlock[10] = true;
+                unlocknotify[Unlock_TIMETRIAL_LABORATORY] = true;
+                unlock[Unlock_TIMETRIAL_LABORATORY] = true;
             }
-            if (unlock[2] && stat_trinkets >= 9)
+            if (unlock[Unlock_TOWER_COMPLETE] && stat_trinkets >= 9)
             {
-                unlocknotify[11] = true;
-                unlock[11] = true;
+                unlocknotify[Unlock_TIMETRIAL_TOWER] = true;
+                unlock[Unlock_TIMETRIAL_TOWER] = true;
             }
-            if (unlock[3] && stat_trinkets >= 12)
+            if (unlock[Unlock_SPACESTATION2_COMPLETE] && stat_trinkets >= 12)
             {
-                unlocknotify[12] = true;
-                unlock[12] = true;
+                unlocknotify[Unlock_TIMETRIAL_SPACESTATION2] = true;
+                unlock[Unlock_TIMETRIAL_SPACESTATION2] = true;
             }
-            if (unlock[4] && stat_trinkets >= 15)
+            if (unlock[Unlock_WARPZONE_COMPLETE] && stat_trinkets >= 15)
             {
-                unlocknotify[13] = true;
-                unlock[13] = true;
+                unlocknotify[Unlock_TIMETRIAL_WARPZONE] = true;
+                unlock[Unlock_TIMETRIAL_WARPZONE] = true;
             }
-            if (unlock[5] && stat_trinkets >= 18)
+            if (unlock[UnlockTrophy_GAME_COMPLETE] && stat_trinkets >= 18)
             {
-                unlocknotify[14] = true;
-                unlock[14] = true;
+                unlocknotify[Unlock_TIMETRIAL_FINALLEVEL] = true;
+                unlock[Unlock_TIMETRIAL_FINALLEVEL] = true;
             }
 
             if (temp == 1)
@@ -6790,27 +6820,29 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             if (bestrank[3] >= 2) temp++;
             if (bestrank[4] >= 2) temp++;
             if (bestrank[5] >= 2) temp++;
-            if (temp >= 4 && !unlocknotify[17])
+            if (temp >= 4 && !unlocknotify[Unlock_NODEATHMODE])
             {
                 //Unlock No Death Mode
-                unlocknotify[17] = true;
-                unlock[17] = true;
+                unlocknotify[Unlock_NODEATHMODE] = true;
+                unlock[Unlock_NODEATHMODE] = true;
                 createmenu(Menu::unlocknodeathmode, true);
                 savestatsandsettings();
             }
             //Alright then! Flip mode?
-            else if (unlock[5] && !unlocknotify[18])
+            else if (unlock[UnlockTrophy_GAME_COMPLETE]
+                && !unlocknotify[Unlock_FLIPMODE])
             {
-                unlock[18] = true;
-                unlocknotify[18] = true;
+                unlock[Unlock_FLIPMODE] = true;
+                unlocknotify[Unlock_FLIPMODE] = true;
                 createmenu(Menu::unlockflipmode, true);
                 savestatsandsettings();
             }
             //What about the intermission levels?
-            else if (unlock[7] && !unlocknotify[16])
+            else if (unlock[Unlock_INTERMISSION2_COMPLETE]
+                && !unlocknotify[Unlock_INTERMISSION_REPLAYS])
             {
-                unlock[16] = true;
-                unlocknotify[16] = true;
+                unlock[Unlock_INTERMISSION_REPLAYS] = true;
+                unlocknotify[Unlock_INTERMISSION_REPLAYS] = true;
                 createmenu(Menu::unlockintermission, true);
                 savestatsandsettings();
             }
@@ -6825,7 +6857,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     option(loc::gettext("new game"));
                 }
                 //ok, secret lab! no notification, but test:
-                if (unlock[8])
+                if (unlock[Unlock_SECRETLAB])
                 {
                     option(loc::gettext("secret lab"));
                 }
@@ -6835,7 +6867,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
                     option(loc::gettext("new game"));
                 }
                 option(loc::gettext("return"));
-                if (unlock[8])
+                if (unlock[Unlock_SECRETLAB])
                 {
                     menuyoff = -30;
                 }
@@ -6862,9 +6894,9 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         break;
     case Menu::playmodes:
         option(loc::gettext("time trials"), !nocompetitive_unless_translator());
-        option(loc::gettext("intermissions"), unlock[16]);
-        option(loc::gettext("no death mode"), unlock[17] && !nocompetitive());
-        option(loc::gettext("flip mode"), unlock[18]);
+        option(loc::gettext("intermissions"), unlock[Unlock_INTERMISSION_REPLAYS]);
+        option(loc::gettext("no death mode"), unlock[Unlock_NODEATHMODE] && !nocompetitive());
+        option(loc::gettext("flip mode"), unlock[Unlock_FLIPMODE]);
         option(loc::gettext("return"));
         menuyoff = 8;
         maxspacing = 20;
@@ -6915,23 +6947,29 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = 80;
         break;
     case Menu::unlockmenutrials:
-        option(loc::gettext("space station 1"), !unlock[9]);
-        option(loc::gettext("the laboratory"), !unlock[10]);
-        option(loc::gettext("the tower"), !unlock[11]);
-        option(loc::gettext("space station 2"), !unlock[12]);
-        option(loc::gettext("the warp zone"), !unlock[13]);
-        option(loc::gettext("the final level"), !unlock[14]);
+        option(loc::gettext("space station 1"), !unlock[Unlock_TIMETRIAL_SPACESTATION1]);
+        option(loc::gettext("the laboratory"), !unlock[Unlock_TIMETRIAL_LABORATORY]);
+        option(loc::gettext("the tower"), !unlock[Unlock_TIMETRIAL_TOWER]);
+        option(loc::gettext("space station 2"), !unlock[Unlock_TIMETRIAL_SPACESTATION2]);
+        option(loc::gettext("the warp zone"), !unlock[Unlock_TIMETRIAL_WARPZONE]);
+        option(loc::gettext("the final level"), !unlock[Unlock_TIMETRIAL_FINALLEVEL]);
 
         option(loc::gettext("return"));
         menuyoff = 0;
         break;
     case Menu::timetrials:
-        option(loc::gettext(unlock[9] ? "space station 1" : "???"), unlock[9]);
-        option(loc::gettext(unlock[10] ? "the laboratory" : "???"), unlock[10]);
-        option(loc::gettext(unlock[11] ? "the tower" : "???"), unlock[11]);
-        option(loc::gettext(unlock[12] ? "space station 2" : "???"), unlock[12]);
-        option(loc::gettext(unlock[13] ? "the warp zone" : "???"), unlock[13]);
-        option(loc::gettext(unlock[14] ? "the final level" : "???"), unlock[14]);
+        option(loc::gettext(unlock[Unlock_TIMETRIAL_SPACESTATION1] ? "space station 1" : "???"),
+            unlock[Unlock_TIMETRIAL_SPACESTATION1]);
+        option(loc::gettext(unlock[Unlock_TIMETRIAL_LABORATORY] ? "the laboratory" : "???"),
+            unlock[Unlock_TIMETRIAL_LABORATORY]);
+        option(loc::gettext(unlock[Unlock_TIMETRIAL_TOWER] ? "the tower" : "???"),
+            unlock[Unlock_TIMETRIAL_TOWER]);
+        option(loc::gettext(unlock[Unlock_TIMETRIAL_SPACESTATION2] ? "space station 2" : "???"),
+            unlock[Unlock_TIMETRIAL_SPACESTATION2]);
+        option(loc::gettext(unlock[Unlock_TIMETRIAL_WARPZONE] ? "the warp zone" : "???"),
+            unlock[Unlock_TIMETRIAL_WARPZONE]);
+        option(loc::gettext(unlock[Unlock_TIMETRIAL_FINALLEVEL] ? "the final level" : "???"),
+            unlock[Unlock_TIMETRIAL_FINALLEVEL]);
 
         option(loc::gettext("return"));
         menuyoff = 0;

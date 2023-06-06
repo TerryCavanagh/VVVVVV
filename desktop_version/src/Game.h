@@ -132,6 +132,32 @@ enum SWNMODE
     SWN_NONE
 };
 
+/* enums for unlock, unlocknotify arrays and unlocknum function */
+enum
+{
+    Unlock_SPACESTATION1_COMPLETE = 0,
+    Unlock_LABORATORY_COMPLETE = 1,
+    Unlock_TOWER_COMPLETE = 2,
+    Unlock_SPACESTATION2_COMPLETE = 3,
+    Unlock_WARPZONE_COMPLETE = 4,
+    UnlockTrophy_GAME_COMPLETE = 5,
+    Unlock_INTERMISSION1_COMPLETE = 6,
+    Unlock_INTERMISSION2_COMPLETE = 7,
+    Unlock_SECRETLAB = 8,
+    Unlock_TIMETRIAL_SPACESTATION1 = 9,
+    Unlock_TIMETRIAL_LABORATORY = 10,
+    Unlock_TIMETRIAL_TOWER = 11,
+    Unlock_TIMETRIAL_SPACESTATION2 = 12,
+    Unlock_TIMETRIAL_WARPZONE = 13,
+    Unlock_TIMETRIAL_FINALLEVEL = 14,
+    Unlock_INTERMISSION_UNUSED = 15,
+    Unlock_INTERMISSION_REPLAYS = 16,
+    Unlock_NODEATHMODE = 17,
+    Unlock_FLIPMODE = 18,
+    UnlockTrophy_FLIPMODE_COMPLETE = 19,
+    UnlockTrophy_NODEATHMODE_COMPLETE = 20
+};
+
 struct MenuStackFrame
 {
     int option;

@@ -1871,7 +1871,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             break;
 
         case 7:
-            if(game.unlock[5])
+            if (game.unlock[UnlockTrophy_GAME_COMPLETE])
             {
                 entity.tile = 188 + meta1;
                 entity.colour = 37;
@@ -1880,7 +1880,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             }
             break;
         case 8:
-            if(game.unlock[19])
+            if (game.unlock[UnlockTrophy_FLIPMODE_COMPLETE])
             {
                 entity.tile = 188 + meta1;
                 entity.colour = 37;
@@ -1973,7 +1973,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             break;
 
         case 19:
-            if(game.unlock[20])
+            if (game.unlock[UnlockTrophy_NODEATHMODE_COMPLETE])
             {
                 entity.tile = 3;
                 entity.colour = 102;

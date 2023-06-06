@@ -1359,7 +1359,7 @@ void scriptclass::run(void)
             }
             else if (words[0] == "entersecretlab")
             {
-                game.unlocknum(8);
+                game.unlocknum(Unlock_SECRETLAB);
                 game.insecretlab = true;
                 SDL_memset(map.explored, true, sizeof(map.explored));
             }

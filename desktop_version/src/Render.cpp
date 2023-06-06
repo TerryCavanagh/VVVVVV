@@ -164,7 +164,7 @@ static inline void draw_skip_message()
      * but not Flip Mode until the player hits "play" on the title screen */
     bool draw =
 #ifndef MAKEANDPLAY
-        game.unlock[18] &&
+        game.unlock[Unlock_FLIPMODE] &&
 #endif
         graphics.fademode == FADE_NONE;
     if (!draw)
@@ -269,7 +269,7 @@ static void menurender(void)
     {
         int gameplayoptionsoffset = 0;
 #if !defined(MAKEANDPLAY)
-        if (game.ingame_titlemode && game.unlock[18])
+        if (game.ingame_titlemode && game.unlock[Unlock_FLIPMODE])
 #endif
         {
             gameplayoptionsoffset = 1;
@@ -1161,7 +1161,7 @@ static void menurender(void)
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Intermissions"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Replay the intermission levels."), tr, tg, tb);
 
-            if (!game.unlock[15] && !game.unlock[16])
+            if (!game.unlock[Unlock_INTERMISSION_REPLAYS])
             {
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("TO UNLOCK: Complete the intermission levels in-game."), tr, tg, tb);
             }
@@ -1176,7 +1176,7 @@ static void menurender(void)
             {
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("No Death Mode is not available with slowdown or invincibility."), tr, tg, tb);
             }
-            else if (!game.unlock[17])
+            else if (!game.unlock[Unlock_NODEATHMODE])
             {
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("TO UNLOCK: Achieve an S-rank or above in at least 4 time trials."), tr, tg, tb);
             }
@@ -1187,7 +1187,7 @@ static void menurender(void)
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Flip Mode"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Flip the entire game vertically. Compatible with other game modes."), tr, tg, tb);
 
-            if (game.unlock[18])
+            if (game.unlock[Unlock_FLIPMODE])
             {
                 if (graphics.setflipmode)
                 {
@@ -1427,7 +1427,7 @@ static void menurender(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            if(game.unlock[9])
+            if (game.unlock[Unlock_TIMETRIAL_SPACESTATION1])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Space Station 1"), tr, tg, tb);
                 unlocked = true;
@@ -1443,7 +1443,7 @@ static void menurender(void)
             }
             break;
         case 1:
-            if(game.unlock[10])
+            if (game.unlock[Unlock_TIMETRIAL_LABORATORY])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("The Laboratory"), tr, tg, tb);
                 unlocked = true;
@@ -1459,7 +1459,7 @@ static void menurender(void)
             }
             break;
         case 2:
-            if(game.unlock[11])
+            if (game.unlock[Unlock_TIMETRIAL_TOWER])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("The Tower"), tr, tg, tb);
                 unlocked = true;
@@ -1475,7 +1475,7 @@ static void menurender(void)
             }
             break;
         case 3:
-            if(game.unlock[12])
+            if (game.unlock[Unlock_TIMETRIAL_SPACESTATION2])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Space Station 2"), tr, tg, tb);
                 unlocked = true;
@@ -1491,7 +1491,7 @@ static void menurender(void)
             }
             break;
         case 4:
-            if(game.unlock[13])
+            if (game.unlock[Unlock_TIMETRIAL_WARPZONE])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("The Warp Zone"), tr, tg, tb);
                 unlocked = true;
@@ -1507,7 +1507,7 @@ static void menurender(void)
             }
             break;
         case 5:
-            if(game.unlock[14])
+            if (game.unlock[Unlock_TIMETRIAL_FINALLEVEL])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("The Final Level"), tr, tg, tb);
                 unlocked = true;
