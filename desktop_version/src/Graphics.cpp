@@ -529,13 +529,6 @@ int Graphics::set_color(const SDL_Color color)
     return set_color(color.r, color.g, color.b, color.a);
 }
 
-SDL_Color Graphics::get_color(void)
-{
-    SDL_Color color = {0, 0, 0, 0};
-    SDL_GetRenderDrawColor(gameScreen.m_renderer, &color.r, &color.g, &color.b, &color.a);
-    return color;
-}
-
 int Graphics::fill_rect(const SDL_Rect* rect)
 {
     const int result = SDL_RenderFillRect(gameScreen.m_renderer, rect);
@@ -544,17 +537,6 @@ int Graphics::fill_rect(const SDL_Rect* rect)
         WHINE_ONCE_ARGS(("Could not draw filled rectangle: %s", SDL_GetError()));
     }
     return result;
-}
-
-int Graphics::fill_rect(const int x, const int y, const int w, const int h)
-{
-    const SDL_Rect rect = {x, y, w, h};
-    return fill_rect(&rect);
-}
-
-int Graphics::fill_rect(void)
-{
-    return fill_rect(NULL);
 }
 
 int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
@@ -609,17 +591,6 @@ int Graphics::draw_rect(const SDL_Rect* rect)
     return result;
 }
 
-int Graphics::draw_rect(const int x, const int y, const int w, const int h)
-{
-    const SDL_Rect rect = {x, y, w, h};
-    return draw_rect(&rect);
-}
-
-int Graphics::draw_rect()
-{
-    return draw_rect(NULL);
-}
-
 int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
 {
     set_color(r, g, b, a);
@@ -662,90 +633,6 @@ int Graphics::draw_line(const int x, const int y, const int x2, const int y2)
     return result;
 }
 
-int Graphics::draw_line(const SDL_Rect* rect)
-{
-    return draw_line(rect->x, rect->y, rect->x + rect->w, rect->y + rect->h);
-}
-
-int Graphics::draw_line(const int x, const int y, const int x2, const int y2, const SDL_Color color)
-{
-    set_color(color);
-    return draw_line(x, y, x2, y2);
-}
-
-int Graphics::draw_line(const SDL_Rect* rect, const SDL_Color color)
-{
-    return draw_line(rect->x, rect->y, rect->x + rect->w, rect->y + rect->h, color);
-}
-
-int Graphics::draw_line(const int x, const int y, const int x2, const int y2, const int r, const int g, const int b, const int a)
-{
-    set_color(r, g, b, a);
-    return draw_line(x, y, x2, y2);
-}
-
-int Graphics::draw_line(const int x, const int y, const int x2, const int y2, const int r, const int g, const int b)
-{
-    return draw_line(x, y, x2, y2, r, g, b, 255);
-}
-
-int Graphics::draw_line(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
-{
-    return draw_line(rect->x, rect->y, rect->x + rect->w, rect->y + rect->h, r, g, b, a);
-}
-
-int Graphics::draw_line(const SDL_Rect* rect, const int r, const int g, const int b)
-{
-    return draw_line(rect->x, rect->y, rect->x + rect->w, rect->y + rect->h, r, g, b, 255);
-}
-
-int Graphics::draw_point(const int x, const int y)
-{
-    const int result = SDL_RenderDrawPoint(gameScreen.m_renderer, x, y);
-    if (result != 0)
-    {
-        WHINE_ONCE_ARGS(("Could not draw point: %s", SDL_GetError()));
-    }
-    return result;
-}
-
-int Graphics::draw_point(const SDL_Point* point)
-{
-    return draw_point(point->x, point->y);
-}
-
-int Graphics::draw_point(const int x, const int y, const SDL_Color color)
-{
-    set_color(color);
-    return draw_point(x, y);
-}
-
-int Graphics::draw_point(const SDL_Point* point, const SDL_Color color)
-{
-    return draw_point(point->x, point->y, color);
-}
-
-int Graphics::draw_point(const int x, const int y, const int r, const int g, const int b, const int a)
-{
-    set_color(r, g, b, a);
-    return draw_point(x, y);
-}
-
-int Graphics::draw_point(const int x, const int y, const int r, const int g, const int b)
-{
-    return draw_point(x, y, r, g, b, 255);
-}
-
-int Graphics::draw_point(const SDL_Point* point, const int r, const int g, const int b, const int a)
-{
-    return draw_point(point->x, point->y, r, g, b, a);
-}
-
-int Graphics::draw_point(const SDL_Point* point, const int r, const int g, const int b)
-{
-    return draw_point(point->x, point->y, r, g, b, 255);
-}
-
 int Graphics::draw_points(const SDL_Point* points, const int count)
 {
     const int result = SDL_RenderDrawPoints(gameScreen.m_renderer, points, count);
@@ -756,21 +643,10 @@ int Graphics::draw_points(const SDL_Point* points, const int count)
     return result;
 }
 
-int Graphics::draw_points(const SDL_Point* points, const int count, const SDL_Color color)
-{
-    set_color(color);
-    return draw_points(points, count);
-}
-
-int Graphics::draw_points(const SDL_Point* points, const int count, const int r, const int g, const int b, const int a)
-{
-    set_color(r, g, b, a);
-    return draw_points(points, count);
-}
-
 int Graphics::draw_points(const SDL_Point* points, const int count, const int r, const int g, const int b)
 {
-    return draw_points(points, count, r, g, b, 255);
+    set_color(r, g, b);
+    return draw_points(points, count);
 }
 
 void Graphics::draw_sprite(const int x, const int y, const int t, const int r, const int g, const int b)
