@@ -203,11 +203,7 @@ public:
     int set_color(Uint8 r, Uint8 g, Uint8 b);
     int set_color(SDL_Color color);
 
-    SDL_Color get_color(void);
-
     int fill_rect(const SDL_Rect* rect);
-    int fill_rect(int x, int y, int w, int h);
-    int fill_rect(void);
     int fill_rect(const SDL_Rect* rect, int r, int g, int b, int a);
     int fill_rect(int x, int y, int w, int h, int r, int g, int b, int a);
     int fill_rect(int x, int y, int w, int h, int r, int g, int b);
@@ -218,8 +214,6 @@ public:
     int fill_rect(SDL_Color color);
 
     int draw_rect(const SDL_Rect* rect);
-    int draw_rect(int x, int y, int w, int h);
-    int draw_rect(void);
     int draw_rect(const SDL_Rect* rect, int r, int g, int b, int a);
     int draw_rect(int x, int y, int w, int h, int r, int g, int b, int a);
     int draw_rect(int x, int y, int w, int h, int r, int g, int b);
@@ -228,26 +222,8 @@ public:
     int draw_rect(int x, int y, int w, int h, SDL_Color color);
 
     int draw_line(int x, int y, int x2, int y2);
-    int draw_line(const SDL_Rect* rect);
-    int draw_line(int x, int y, int x2, int y2, SDL_Color color);
-    int draw_line(const SDL_Rect* rect, SDL_Color color);
-    int draw_line(int x, int y, int x2, int y2, int r, int g, int b, int a);
-    int draw_line(int x, int y, int x2, int y2, int r, int g, int b);
-    int draw_line(const SDL_Rect* rect, int r, int g, int b, int a);
-    int draw_line(const SDL_Rect* rect, int r, int g, int b);
-
-    int draw_point(int x, int y);
-    int draw_point(const SDL_Point* point);
-    int draw_point(int x, int y, SDL_Color color);
-    int draw_point(const SDL_Point* point, SDL_Color color);
-    int draw_point(int x, int y, int r, int g, int b, int a);
-    int draw_point(int x, int y, int r, int g, int b);
-    int draw_point(const SDL_Point* point, int r, int g, int b, int a);
-    int draw_point(const SDL_Point* point, int r, int g, int b);
 
     int draw_points(const SDL_Point* points, int count);
-    int draw_points(const SDL_Point* points, int count, SDL_Color color);
-    int draw_points(const SDL_Point* points, int count, int r, int g, int b, int a);
     int draw_points(const SDL_Point* points, int count, int r, int g, int b);
 
     void map_tab(int opt, const char* text, bool selected = false);

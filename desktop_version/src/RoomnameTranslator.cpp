@@ -58,7 +58,7 @@ namespace roomname_translator
             fullscreen_rect.w = 320;
             fullscreen_rect.h = 240;
             graphics.set_blendmode(SDL_BLENDMODE_BLEND);
-            graphics.fill_rect(0, 0, 0, 96);
+            graphics.fill_rect(graphics.getRGBA(0, 0, 0, 96));
             graphics.set_blendmode(SDL_BLENDMODE_NONE);
             if (help_screen)
             {
