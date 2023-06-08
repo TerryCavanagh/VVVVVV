@@ -89,6 +89,7 @@ public:
     void changemusicarea(int x, int y);
 
     int currentsong;
+    int haltedsong;
 
     void playef(int t);
     void pauseef(void);

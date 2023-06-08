@@ -738,6 +738,7 @@ musicclass::musicclass(void)
     user_sound_volume = USER_VOLUME_MAX;
 
     currentsong = -1;
+    haltedsong = -1;
     nicechange = -1;
     nicefade = false;
     quick_fade = true;
@@ -953,6 +954,7 @@ void musicclass::play(int t)
     }
 
     currentsong = t;
+    haltedsong = -1;
 
     if (t == -1)
     {
@@ -1009,6 +1011,11 @@ void musicclass::play(int t)
 
 void musicclass::resume(void)
 {
+    if (currentsong == -1)
+    {
+        currentsong = haltedsong;
+        haltedsong = -1;
+    }
     MusicTrack::Resume();
 }
 
@@ -1037,6 +1044,7 @@ void musicclass::haltdasmusik(const bool from_fade)
 {
     /* Just pauses music. This is intended. */
     pause();
+    haltedsong = currentsong;
     currentsong = -1;
     m_doFadeInVol = false;
     m_doFadeOutVol = false;
