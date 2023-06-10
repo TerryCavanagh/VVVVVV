@@ -61,7 +61,7 @@ static int savey = 0;
 static int saverx = 0;
 static int savery = 0;
 static int savegc = 0;
-static int savemusic = 0;
+static int savemusic = -1;
 static std::string playassets;
 
 static std::string playtestname;

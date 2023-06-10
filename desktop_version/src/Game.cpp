@@ -5387,7 +5387,10 @@ void Game::customloadquick(const std::string& savfile)
         saverx = playrx;
         savery = playry;
         savegc = playgc;
-        music.play(playmusic);
+        if (playmusic > -1)
+        {
+            music.play(playmusic);
+        }
         return;
     }
 
