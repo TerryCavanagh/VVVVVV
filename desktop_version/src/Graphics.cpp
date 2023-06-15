@@ -1700,40 +1700,41 @@ void Graphics::drawgravityline(const int t, const int x, const int y, const int 
         if (game.noflashingmode)
         {
             set_color(200 - 20, 200 - 20, 200 - 20);
+            draw_line(x, y, x + w, y + h);
             return;
         }
 
         switch(linestate)
         {
         case 0:
-            set_color(200-20, 200-20, 200-20);
+            set_color(200 - 20, 200 - 20, 200 - 20);
             break;
         case 1:
-            set_color(245-30, 245-30, 225-30);
+            set_color(245 - 30, 245 - 30, 225 - 30);
             break;
         case 2:
-            set_color(225-30, 245-30, 245-30);
+            set_color(225 - 30, 245 - 30, 245 - 30);
             break;
         case 3:
-            set_color(200-20, 200-20, 164-10);
+            set_color(200 - 20, 200 - 20, 164 - 10);
             break;
         case 4:
-            set_color(196-20, 255-30, 224-20);
+            set_color(196 - 20, 255 - 30, 224 - 20);
             break;
         case 5:
-            set_color(196-20, 235-30, 205-20);
+            set_color(196 - 20, 235 - 30, 205 - 20);
             break;
         case 6:
-            set_color(164-10, 164-10, 164-10);
+            set_color(164 - 10, 164 - 10, 164 - 10);
             break;
         case 7:
-            set_color(205-20, 245-30, 225-30);
+            set_color(205 - 20, 245 - 30, 225 - 30);
             break;
         case 8:
-            set_color(225-30, 255-30, 205-20);
+            set_color(225 - 30, 255 - 30, 205 - 20);
             break;
         case 9:
-            set_color(245-30, 245-30, 245-30);
+            set_color(245 - 30, 245 - 30, 245 - 30);
             break;
         }
     }
