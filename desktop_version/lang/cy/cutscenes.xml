@@ -661,20 +661,32 @@
             [ Status ]
               Online
 
-READY _" translation="* GENERYDD SEFYDLOGRWYDD DIMENSIWN *                                                                                                                                                                                                                                                                       [ Cynhyrchu ar hyn o bryd ]                                                                            Sefydlogrwydd Uchaf                                                                                                          [ Statws ] Ar-lein                                                                                                                BAROD _" tt="1"/>
+READY _" translation="* GENERYDD SEFYDLOGRWYDD DIMENSIWN *
+
+    [ Cynhyrchu ar hyn o bryd ]
+        Sefydlogrwydd Uchaf
+
+             [ Statws ]
+              Ar-lein
+
+BAROD _" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Aha! Mae&apos;n rhaid mai dyma sy&apos;n achosi&apos;r ymyrraeth!"/>
         <dialogue speaker="cyan" english="I wonder if I can turn it off?" translation="Tybed a allai ei ddiffodd?"/>
         <dialogue speaker="gray" english="WARNING: Disabling the Dimensional Stability Generator may lead to instability! Are you sure you want to do this?" translation="RHYBUDD: Gall analluogi&apos;r Cynhyrchydd Sefydlogrwydd Dimensiwn arwain at ansefydlogrwydd! Wyt ti&apos;n siŵr eich bod am wneud hyn?"/>
         <dialogue speaker="cyan" english="Yes!" translation="Ie!" case="1"/>
         <dialogue speaker="gray" english="Seriously! The whole dimension could collapse! Just think about this for a minute!
 
-Are you really sure you want to do this?" translation="O ddifrif! Gallai&apos;r dimensiwn cyfan ddymchwel! Meddyliwch am hyn am funud!                                                                                                                                                                                                                                                                                                                                                                                                                 Ydych chi&apos;n siŵr eich bod chi am wneud hyn?"/>
+Are you really sure you want to do this?" translation="O ddifrif! Gallai&apos;r dimensiwn cyfan ddymchwel! Meddyliwch am hyn am funud!
+
+Ydych chi&apos;n siŵr eich bod chi am wneud hyn?"/>
         <dialogue speaker="cyan" english="Yes!" translation="Ie!" case="2"/>
     </cutscene>
     <cutscene id="finalterminal_finish" explanation="">
         <dialogue speaker="gray" english="-= WARNING =-
 
-DIMENSIONAL STABILISER OFFLINE" translation="-= RHYBUDD =-                                                                                                              SEFYDLOGWR DIMENSIWN ALLANOL" centertext="1" pad="1"/>
+DIMENSIONAL STABILISER OFFLINE" translation="-= RHYBUDD =-
+
+SEFYDLOGWR DIMENSIWN ALLANOL" centertext="1" pad="1"/>
         <dialogue speaker="cyan" english="Uh oh..." translation="Uh o..."/>
     </cutscene>
     <cutscene id="gamecomplete" explanation="">
@@ -769,49 +781,81 @@ Collect trinkets to unlock new songs!" translation="-= JIWCBOCS =-  Bydd caneuon
         <dialogue speaker="gray" english="NEXT UNLOCK:
 5 Trinkets
 
-Pushing Onwards" translation="DATGLOI NESAF:                                                                                                                     5 Tlysau                                                                                                                                                                                     Pushing Onwards" tt="1" pad="1"/>
+Pushing Onwards" translation="DATGLOI NESAF:
+
+5 Tlysau
+
+Pushing Onwards" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock2" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 8 Trinkets
 
-Positive Force" translation="DATGLOI NESAF:                                                                                                                     8 Tlysau                                                                                                                                 Positive Force" tt="1" pad="1"/>
+Positive Force" translation="DATGLOI NESAF:
+
+8 Tlysau
+
+Positive Force" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock3" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 10 Trinkets
 
-Presenting VVVVVV" translation="DATGLOI NESAF:                                                                                                                     10 Tlysau                                                                                                                             Presenting VVVVVV" tt="1" pad="1"/>
+Presenting VVVVVV" translation="DATGLOI NESAF:
+
+10 Tlysau
+
+Presenting VVVVVV" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock4" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 12 Trinkets
 
-Potential for Anything" translation="DATGLOI NESAF:                                                                                                                     12 TLYSAU                                                                                                                          Potensial ar gyfer Unrhyw beth                                                   " tt="1" pad="1"/>
+Potential for Anything" translation="DATGLOI NESAF:
+
+12 Tlysau
+
+Potensial ar gyfer Unrhyw beth" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock41" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 14 Trinkets
 
-Pressure Cooker" translation="DATGLOI NESAF:                                                                                                                   14 Tlysau                                                                                                                                 Pressure Cooker" tt="1" pad="1"/>
+Pressure Cooker" translation="DATGLOI NESAF:
+
+14 Tlysau
+
+Pressure Cooker" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock5" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 16 Trinkets
 
-Predestined Fate" translation="DATGLOI NESAF:                                                                                                                    16 Tlysau                                                                                                                           Predestined Fate" tt="1" pad="1"/>
+Predestined Fate" translation="DATGLOI NESAF:
+
+16 Tlysau
+
+Predestined Fate" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock6" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 18 Trinkets
 
-Popular Potpourri" translation="DATGLOI NESAF:                                                                                                                    18 Tlysau                                                                                                                                           Popular Potpourri" tt="1" pad="1"/>
+Popular Potpourri" translation="DATGLOI NESAF:
+
+18 Tlysau
+
+Popular Potpourri" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock7" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 20 Trinkets
 
-Pipe Dream" translation="DATGLOI NESAF:                                                                                                                    20 Tlysau                                                                                                                       Pipe Dream" tt="1" pad="1"/>
+Pipe Dream" translation="DATGLOI NESAF:
+
+20 Tlysau
+
+Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= LOG PERSONOL =-" padtowidth="280"/>
@@ -879,18 +923,25 @@ Pipe Dream" translation="DATGLOI NESAF:                                         
         <dialogue speaker="gray" english="-= SHIP RADIO =-
 
 [ Status ]
-Broadcasting" translation="-= RADIO LLONG =-                                                                                                                   [ Statws ]                                                                                                                                Darlledu" tt="1" centertext="1" pad="2"/>
+Broadcasting" translation="-= RADIO LLONG =-
+
+[ Statws ]
+Darlledu" tt="1" centertext="1" pad="2"/>
     </cutscene>
     <cutscene id="terminal_secretlab" explanation="">
         <dialogue speaker="gray" english="-= WARNING =-
 
-The Super-Gravitron is intended for entertainment purposes only." translation="-= RHYBUDD =-                                                                                                                                  Mae&apos;r Disgyrchatron-Swper ar gyfer adloniant yn unig." centertext="1" pad="1"/>
+The Super-Gravitron is intended for entertainment purposes only." translation="-= RHYBUDD =-
+
+Mae&apos;r Disgyrchatron-Swper ar gyfer adloniant yn unig." centertext="1" pad="1"/>
         <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="Gellir gofyn i unrhyw un a ganfyddir yn defnyddio&apos;r Disgyrchatron Swper at ddibenion addysgol i sefyll yn y gornel ddrwg."/>
     </cutscene>
     <cutscene id="terminal_shipcomputer" explanation="">
         <dialogue speaker="gray" english="-= D.S.S. SOULEYE =-
 
-Ship Navigation Controls" translation="-= DSS SOULEYE =-                                                                                                   Rheolyddion Mordwyo Llong" centertext="1" pad="1"/>
+Ship Navigation Controls" translation="-= DSS SOULEYE =-
+
+Rheolyddion Mordwyo Llong" centertext="1" pad="1"/>
         <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation="Gwall! Gwall! Methu ynysu cyfesurynnau dimensiwn! Ymyrraeth wedi&apos;i ganfod!"/>
     </cutscene>
     <cutscene id="alreadyvisited" explanation="">

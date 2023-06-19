@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Please read README.txt for information about the language files -->
 <strings>
-    <string english="LOADING... {percent|digits=2|spaces}%" translation="CHARGEMENT... {percent|digits=2|spaces}%" explanation="on loading screen. {percent} = number from 0-100" max="26"/>
+    <string english="LOADING... {percent|digits=2|spaces}%" translation="CHARGEMENT... {percent|digits=2|spaces} %" explanation="on loading screen. {percent} = number from 0-100" max="26"/>
     <string english="Game paused" translation="Jeu en pause" explanation="pause screen" max="40"/>
     <string english="[click to resume]" translation="[cliquez pour reprendre]" explanation="pause screen" max="40"/>
     <string english="Press M to mute in game" translation="En jeu : touche M pour couper le son" explanation="pause screen" max="40"/>
@@ -27,7 +27,7 @@
     <string english="continue" translation="continuer" explanation="menu option"/>
     <string english="continue from teleporter" translation="continuer depuis le téléporteur" explanation="menu option, game save that was made at a teleporter"/>
     <string english="Tele Save" translation="Télésauvegarde" explanation="title, game save that was made at a teleporter" max="20"/>
-    <string english="continue from quicksave" translation="continuer depuis la sauvegarde rapide" explanation="menu option, game save that was made freely from the menu (at any checkpoint)"/>
+    <string english="continue from quicksave" translation="continuer depuis la sauvegarde" explanation="menu option, game save that was made freely from the menu (at any checkpoint)"/>
     <string english="Quick Save" translation="Sauvegarde rapide" explanation="title, game save that was made freely from the menu (at any checkpoint)" max="20"/>
     <string english="proceed" translation="poursuivre" explanation="menu option"/>
     <string english="new game" translation="nouvelle partie" explanation="menu option"/>
@@ -42,7 +42,7 @@
     <string english="Unlock Play Modes" translation="Déverrouiller modes" explanation="title" max="20"/>
     <string english="Unlock parts of the game normally unlocked as you progress." translation="Déverrouillez des parties du jeu normalement débloquées au fil|de votre progression." explanation="" max="38*5"/>
     <string english="From here, you may unlock parts of the game that are normally unlocked as you play." translation="Vous permet de déverrouiller|des éléments du jeu normalement|débloqués en cours de partie." explanation="" max="38*5"/>
-    <string english="unlock ship jukebox" translation="déverrouiller le juke-box du vaisseau" explanation="menu option"/>
+    <string english="unlock ship jukebox" translation="déverrouiller le juke-box" explanation="menu option"/>
     <string english="unlock secret lab" translation="déverrouiller le labo secret" explanation="menu option"/>
     <string english="game pad" translation="manette" explanation="menu option"/>
     <string english="Game Pad Options" translation="Options de manette" explanation="title" max="20"/>
@@ -304,7 +304,7 @@
     <string english="unlock no death mode" translation="déverrouiller le mode sans mort" explanation="menu option"/>
     <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="POUR DÉVERROUILLER : atteignez le rang S ou mieux dans au moins 4 contre-la-montre." explanation="ranks are B A S V, see below" max="38*3"/>
     <string english="flip mode" translation="mode renversé" explanation="menu option, mirrors the entire game vertically"/>
-    <string english="Flip Mode" translation="mode renversé" explanation="title, mirrors the entire game vertically" max="20"/>
+    <string english="Flip Mode" translation="Mode renversé" explanation="title, mirrors the entire game vertically" max="20"/>
     <string english="Flip the entire game vertically." translation="Inverse verticalement la totalité du jeu." explanation="" max="38*2"/>
     <string english="Flip the entire game vertically. Compatible with other game modes." translation="Inverse verticalement la totalité|du jeu. Compatible avec les autres modes de jeu." explanation="" max="38*4"/>
     <string english="unlock flip mode" translation="déverrouiller le mode renversé" explanation="menu option"/>
@@ -476,11 +476,11 @@
     <string english="Return to main menu?" translation="Retourner au menu principal ?" explanation="in-game menu" max="38*4"/>
     <string english="Do you want to quit? You will lose any unsaved progress." translation="Souhaitez-vous quitter ? Vous perdrez toute progression non sauvegardée." explanation="in-game menu" max="38*4"/>
     <string english="Do you want to return to the secret laboratory?" translation="Souhaitez-vous retourner au laboratoire secret ?" explanation="in-game menu" max="38*4"/>
-    <string english="no, keep playing" translation="non, je continuer de jouer" explanation="in-game menu option" max="28"/>
+    <string english="no, keep playing" translation="non, je continue de jouer" explanation="in-game menu option" max="28"/>
     <string english="[ NO, KEEP PLAYING ]" translation="[ NON, JE CONTINUE DE JOUER ]" explanation="in-game menu option" max="32"/>
     <string english="yes, quit to menu" translation="oui, on retourne au menu" explanation="in-game menu option" max="24"/>
     <string english="[ YES, QUIT TO MENU ]" translation="[ OUI, ON RETOURNE AU MENU ]" explanation="in-game menu option" max="28"/>
-    <string english="yes, return" translation="Oui, on y retourne" explanation="in-game menu option" max="24"/>
+    <string english="yes, return" translation="oui, on y retourne" explanation="in-game menu option" max="24"/>
     <string english="[ YES, RETURN ]" translation="[ OUI, ON Y RETOURNE ]" explanation="in-game menu option" max="28"/>
     <string english="no, return" translation="non, demi-tour" explanation="quit program menu option"/>
     <string english="yes, quit" translation="oui, je veux quitter" explanation="quit program menu option"/>
@@ -681,13 +681,19 @@
     <string english="Please be alright, everyone..." translation="Pourvu qu&apos;il ne vous soit rien arrivé..." explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Congratulations!
 
-You have found a shiny trinket!" translation="Félicitations ! Vous avez trouvé un bidule bling !" explanation="" max="34*4"/>
+You have found a shiny trinket!" translation="Félicitations !
+
+Vous avez trouvé un bidule bling !" explanation="" max="34*4"/>
     <string english="Congratulations!
 
-You have found a lost crewmate!" translation="Félicitations ! Vous avez trouvé un membre d&apos;équipage perdu !" explanation="" max="34*4"/>
+You have found a lost crewmate!" translation="Félicitations !
+
+Vous avez trouvé un membre d&apos;équipage perdu !" explanation="" max="34*4"/>
     <string english="Congratulations!
 
-You have found the secret lab!" translation="Félicitations ! Vous avez trouvé le labo secret  !" explanation="" max="34*4"/>
+You have found the secret lab!" translation="Félicitations !
+
+Vous avez trouvé le labo secret  !" explanation="" max="34*4"/>
     <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="Le labo secret est séparé du reste du jeu. Vous pouvez désormais y retourner à tout moment en sélectionnant l&apos;option LABO SECRET dans le menu de jeu." explanation="" max="36*10"/>
     <string english="Viridian" translation="Viride" explanation="crewmate name (player)" max="15"/>
     <string english="Violet" translation="Violette" explanation="crewmate name" max="15"/>

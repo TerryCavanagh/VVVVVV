@@ -53,7 +53,7 @@
     <string english="Language" translation="Idioma" explanation="title" max="20"/>
     <string english="Change the language." translation="Cambia el idioma." explanation="" max="38*5"/>
     <string english="clear main game data" translation="borrar datos de juego" explanation="menu option"/>
-    <string english="clear custom level data" translation="borrar datos de nivel personalizado" explanation="menu option"/>
+    <string english="clear custom level data" translation="borrar datos de niveles" explanation="menu option"/>
     <string english="Clear Data" translation="Borrar datos" explanation="title" max="20"/>
     <string english="Delete your main game save data and unlocked play modes." translation="Elimina los datos guardados de tu partida principal y los modos de juego desbloqueados." explanation="" max="38*5"/>
     <string english="Delete your custom level save data and completion stars." translation="Elimina los datos guardados de tu nivel personalizado y las estrellas de superación." explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5"/>
@@ -239,7 +239,7 @@
     <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
     <string english="2.2" translation="2.2" explanation="VVVVVV version number for glitchrunner mode"/>
     <string english="input delay" translation="retraso la entrada" explanation="menu option, enable 1 frame of delay after pressing input"/>
-    <string english="Input Delay" translation="Retraso de la entrada" explanation="title, enable 1 frame of delay after pressing input" max="20"/>
+    <string english="Input Delay" translation="Retraso la entrada" explanation="title, enable 1 frame of delay after pressing input" max="20"/>
     <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="Reactiva el retraso de 1 fotograma de respuesta de versiones anteriores del juego." explanation="input delay" max="38*3"/>
     <string english="Input delay is ON" translation="Retraso de la entrada ACTIVADO" explanation="" max="38*2"/>
     <string english="Input delay is OFF" translation="Retraso de la entrada DESACTIVADO" explanation="" max="38*2"/>
@@ -400,7 +400,7 @@
     <string english="play a level" translation="juega a un nivel" explanation="menu option"/>
     <string english="level editor" translation="editor de nivel" explanation="menu option"/>
     <string english="open level folder" translation="abre la carpeta de nivel" explanation="menu option. Button that opens the folder with level files in a file explorer"/>
-    <string english="show level folder path" translation="muestra la ruta de carpeta del nivel" explanation="menu option"/>
+    <string english="show level folder path" translation="muestra la ruta de carpeta" explanation="menu option"/>
     <string english="return" translation="volver" explanation="menu option"/>
     <string english="return to levels" translation="volver a los niveles" explanation="menu option"/>
     <string english="no, don&apos;t show me" translation="no, no la muestres" explanation="menu option"/>

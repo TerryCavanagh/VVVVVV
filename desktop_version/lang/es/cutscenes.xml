@@ -661,12 +661,12 @@
             [ Status ]
               Online
 
-READY _" translation="* GENERADOR DE ESTABILIDAD DIMENSIONAL *
+READY _" translation="GENERADOR DE ESTABILIDAD DIMENSIONAL
 
-     [ Generando en este momento ]
-        Estabilidad máxima
+    [ Generando en este momento ]
+         Estabilidad máxima
 
-            [ Estado ]
+             [ Estado ]
               Conectado
 
 PREPARADO _" tt="1"/>
