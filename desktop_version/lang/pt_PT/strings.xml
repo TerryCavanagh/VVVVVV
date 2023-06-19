@@ -326,10 +326,10 @@
     <string english="[Trinkets found]" translation="[Fichas encontradas]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Número de mortes]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Tempo]" explanation="stopwatch time" max="40"/>
-    <string english="Trinkets Found:" translation="Fichas encontradas:" explanation="game complete screen" max="21"/>
-    <string english="Game Time:" translation="Tempo:" explanation="game complete screen" max="21"/>
-    <string english="Total Flips:" translation="N.º de Inversões:" explanation="game complete screen" max="21"/>
-    <string english="Total Deaths:" translation="N.º de Mortes:" explanation="game complete screen" max="21"/>
+    <string english="Trinkets Found:" translation="Fichas encontradas:" explanation="game complete screen" max="22"/>
+    <string english="Game Time:" translation="Tempo:" explanation="game complete screen" max="22"/>
+    <string english="Total Flips:" translation="N.º de Inversões:" explanation="game complete screen" max="22"/>
+    <string english="Total Deaths:" translation="N.º de Mortes:" explanation="game complete screen" max="22"/>
     <string english="Results" translation="Resultados" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="TEMPO:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="NÚMERO DE MORTES:" explanation="amount of times the player died" max="32"/>
@@ -517,7 +517,7 @@
     <string english="Editor ghost trail is ON" translation="Rasto fantasma no editor: SIM" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40"/>
     <string english="load level" translation="carregar nível" explanation="level editor menu option"/>
     <string english="save level" translation="guardar nível" explanation="level editor menu option"/>
-    <string english="quit to main menu" translation="sair para o menu" explanation="level editor menu option" max="19"/>
+    <string english="quit to main menu" translation="sair para o menu" explanation="level editor menu option" max="22"/>
     <string english="change name" translation="alterar nome" explanation="level editor menu option"/>
     <string english="change author" translation="alterar autoria" explanation="level editor menu option"/>
     <string english="change description" translation="alterar descrição" explanation="level editor menu option"/>

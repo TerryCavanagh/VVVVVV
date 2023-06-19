@@ -2927,7 +2927,7 @@ void Game::updatestate(void)
                 "gamecomplete_n_trinkets:int",
                 trinkets()
             );
-            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 84, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 84, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.createtextboxflipme(buffer, 180, 84, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
@@ -2940,7 +2940,7 @@ void Game::updatestate(void)
 
             const char* label = loc::gettext("Game Time:");
             std::string tempstring = savetime;
-            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 96, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 96, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.createtextboxflipme(tempstring, 180, 96, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
@@ -2952,7 +2952,7 @@ void Game::updatestate(void)
             setstatedelay(45);
 
             const char* label = loc::gettext("Total Flips:");
-            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 123, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 123, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.createtextboxflipme(help.String(totalflips), 180, 123, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
@@ -2964,7 +2964,7 @@ void Game::updatestate(void)
             setstatedelay(45+15);
 
             const char* label = loc::gettext("Total Deaths:");
-            graphics.createtextboxflipme(label, 168-font::len(PR_FONT_INTERFACE, label), 135, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme(label, 170-font::len(PR_FONT_INTERFACE, label), 135, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             graphics.createtextboxflipme(help.String(deathcounts), 180, 135, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);

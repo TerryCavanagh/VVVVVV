@@ -326,10 +326,10 @@
     <string english="[Trinkets found]" translation="[Lluentons trobats]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Nombre de morts]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Temps transcorregut]" explanation="stopwatch time" max="40"/>
-    <string english="Trinkets Found:" translation="Lluentons trobats:" explanation="game complete screen" max="21"/>
-    <string english="Game Time:" translation="Temps de la partida:" explanation="game complete screen" max="21"/>
-    <string english="Total Flips:" translation="Inversions totals:" explanation="game complete screen" max="21"/>
-    <string english="Total Deaths:" translation="Morts totals:" explanation="game complete screen" max="21"/>
+    <string english="Trinkets Found:" translation="Lluentons trobats:" explanation="game complete screen" max="22"/>
+    <string english="Game Time:" translation="Temps de la partida:" explanation="game complete screen" max="22"/>
+    <string english="Total Flips:" translation="Inversions totals:" explanation="game complete screen" max="22"/>
+    <string english="Total Deaths:" translation="Morts totals:" explanation="game complete screen" max="22"/>
     <string english="Results" translation="Resultats" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="TEMPS TRANSCORREGUT:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="NOMBRE DE MORTS:" explanation="amount of times the player died" max="32"/>
@@ -517,7 +517,7 @@
     <string english="Editor ghost trail is ON" translation="Traces dels fantasmes ACTIVADES" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40"/>
     <string english="load level" translation="carrega un nivell" explanation="level editor menu option"/>
     <string english="save level" translation="desa el nivell" explanation="level editor menu option"/>
-    <string english="quit to main menu" translation="surt al menú" explanation="level editor menu option" max="19"/>
+    <string english="quit to main menu" translation="surt al menú" explanation="level editor menu option" max="22"/>
     <string english="change name" translation="canvia el nom" explanation="level editor menu option"/>
     <string english="change author" translation="canvia l’autor" explanation="level editor menu option"/>
     <string english="change description" translation="canvia la descripció" explanation="level editor menu option"/>

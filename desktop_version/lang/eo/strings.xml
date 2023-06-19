@@ -326,10 +326,10 @@
     <string english="[Trinkets found]" translation="[Kolektaĵoj trovitaj]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Nombro da mortoj]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Tempo pasinta]" explanation="stopwatch time" max="40"/>
-    <string english="Trinkets Found:" translation="Kolektaĵoj trovitaj:" explanation="game complete screen" max="21"/>
-    <string english="Game Time:" translation="Tempo en ludo:" explanation="game complete screen" max="21"/>
-    <string english="Total Flips:" translation="Renversiĝoj:" explanation="game complete screen" max="21"/>
-    <string english="Total Deaths:" translation="Mortoj:" explanation="game complete screen" max="21"/>
+    <string english="Trinkets Found:" translation="Kolektaĵoj trovitaj:" explanation="game complete screen" max="22"/>
+    <string english="Game Time:" translation="Tempo en ludo:" explanation="game complete screen" max="22"/>
+    <string english="Total Flips:" translation="Renversiĝoj:" explanation="game complete screen" max="22"/>
+    <string english="Total Deaths:" translation="Mortoj:" explanation="game complete screen" max="22"/>
     <string english="Results" translation="Rezultoj" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="TEMPO PASINTA:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="NOMBRO DA MORTOJ:" explanation="amount of times the player died" max="32"/>
@@ -517,7 +517,7 @@
     <string english="Editor ghost trail is ON" translation="Redaktilaj fantomoj estas ŜALTAJ" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40"/>
     <string english="load level" translation="ŝarĝi nivelon" explanation="level editor menu option"/>
     <string english="save level" translation="konservi nivelon" explanation="level editor menu option"/>
-    <string english="quit to main menu" translation="eliri al ĉefa menuo" explanation="level editor menu option" max="19"/>
+    <string english="quit to main menu" translation="eliri al ĉefa menuo" explanation="level editor menu option" max="22"/>
     <string english="change name" translation="ŝanĝi nomon" explanation="level editor menu option"/>
     <string english="change author" translation="ŝanĝi aŭtoron" explanation="level editor menu option"/>
     <string english="change description" translation="ŝanĝi priskribon" explanation="level editor menu option"/>
