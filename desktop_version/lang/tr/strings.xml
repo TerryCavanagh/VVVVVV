@@ -326,10 +326,10 @@
     <string english="[Trinkets found]" translation="[Bulunan Eşyalar]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Ölüm Sayısı]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Harcanan Süre]" explanation="stopwatch time" max="40"/>
-    <string english="Trinkets Found:" translation="Bulunan Eşyalar:" explanation="game complete screen" max="21"/>
-    <string english="Game Time:" translation="Oyun Süresi:" explanation="game complete screen" max="21"/>
-    <string english="Total Flips:" translation="Toplam Ters Dönme:" explanation="game complete screen" max="21"/>
-    <string english="Total Deaths:" translation="Toplam Ölüm:" explanation="game complete screen" max="21"/>
+    <string english="Trinkets Found:" translation="Bulunan Eşyalar:" explanation="game complete screen" max="22"/>
+    <string english="Game Time:" translation="Oyun Süresi:" explanation="game complete screen" max="22"/>
+    <string english="Total Flips:" translation="Toplam Ters Dönme:" explanation="game complete screen" max="22"/>
+    <string english="Total Deaths:" translation="Toplam Ölüm:" explanation="game complete screen" max="22"/>
     <string english="Results" translation="Sonuçlar" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="HARCANAN SÜRE:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="ÖLME SAYISI:" explanation="amount of times the player died" max="32"/>
@@ -517,7 +517,7 @@
     <string english="Editor ghost trail is ON" translation="Düzenleyicide oyuncu hayaleti izi AÇIK" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40"/>
     <string english="load level" translation="bölümü yükle" explanation="level editor menu option"/>
     <string english="save level" translation="bölümü kaydet" explanation="level editor menu option"/>
-    <string english="quit to main menu" translation="ana menüye çık" explanation="level editor menu option" max="19"/>
+    <string english="quit to main menu" translation="ana menüye çık" explanation="level editor menu option" max="22"/>
     <string english="change name" translation="ismi değiştir" explanation="level editor menu option"/>
     <string english="change author" translation="geliştiriciyi değiştir" explanation="level editor menu option"/>
     <string english="change description" translation="açıklamayı değiştir" explanation="level editor menu option"/>

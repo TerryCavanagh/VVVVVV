@@ -326,10 +326,10 @@
     <string english="[Trinkets found]" translation="[Dingsdas gefunden]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Tode]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Zeit]" explanation="stopwatch time" max="40"/>
-    <string english="Trinkets Found:" translation="Dingsdas gefunden:" explanation="game complete screen" max="21"/>
-    <string english="Game Time:" translation="Spielzeit:" explanation="game complete screen" max="21"/>
-    <string english="Total Flips:" translation="Flipps insgesamt:" explanation="game complete screen" max="21"/>
-    <string english="Total Deaths:" translation="Tode insgesamt:" explanation="game complete screen" max="21"/>
+    <string english="Trinkets Found:" translation="Dingsdas gefunden:" explanation="game complete screen" max="22"/>
+    <string english="Game Time:" translation="Spielzeit:" explanation="game complete screen" max="22"/>
+    <string english="Total Flips:" translation="Flipps insgesamt:" explanation="game complete screen" max="22"/>
+    <string english="Total Deaths:" translation="Tode insgesamt:" explanation="game complete screen" max="22"/>
     <string english="Results" translation="Ergebnisse" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="ZEIT:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="TODE:" explanation="amount of times the player died" max="32"/>
@@ -517,7 +517,7 @@
     <string english="Editor ghost trail is ON" translation="Editor-Geisterspur ist AN" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40"/>
     <string english="load level" translation="level laden" explanation="level editor menu option"/>
     <string english="save level" translation="level speichern" explanation="level editor menu option"/>
-    <string english="quit to main menu" translation="zum hauptmenü" explanation="level editor menu option" max="19"/>
+    <string english="quit to main menu" translation="zum hauptmenü" explanation="level editor menu option" max="22"/>
     <string english="change name" translation="namen ändern" explanation="level editor menu option"/>
     <string english="change author" translation="autor ändern" explanation="level editor menu option"/>
     <string english="change description" translation="beschreibung ändern" explanation="level editor menu option"/>
