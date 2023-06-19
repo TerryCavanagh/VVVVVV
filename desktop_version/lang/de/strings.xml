@@ -479,7 +479,7 @@
     <string english="no, keep playing" translation="nein, weiterspielen" explanation="in-game menu option" max="28"/>
     <string english="[ NO, KEEP PLAYING ]" translation="[ NEIN, WEITERSPIELEN ]" explanation="in-game menu option" max="32"/>
     <string english="yes, quit to menu" translation="ja, zurück zum menü" explanation="in-game menu option" max="24"/>
-    <string english="[ YES, QUIT TO MENU ]" translation="[ JA, ZURÜCK ZUM NENÜ ]" explanation="in-game menu option" max="28"/>
+    <string english="[ YES, QUIT TO MENU ]" translation="[ JA, ZURÜCK ZUM MENÜ ]" explanation="in-game menu option" max="28"/>
     <string english="yes, return" translation="ja, zurück" explanation="in-game menu option" max="24"/>
     <string english="[ YES, RETURN ]" translation="[JA, ZURÜCK]" explanation="in-game menu option" max="28"/>
     <string english="no, return" translation="nein, zurück" explanation="quit program menu option"/>
@@ -590,7 +590,7 @@
     <string english="7: Conveyors" translation="7: Förderbänder" explanation="editor tool. Conveyor belt" max="32"/>
     <string english="8: Moving" translation="8: Bewegt" explanation="***OUTDATED***"/>
     <string english="8: Moving Platforms" translation="" explanation="editor tool. Moving platform" max="32"/>
-    <string english="9: Enemies" translation="9: Finde" explanation="editor tool" max="32"/>
+    <string english="9: Enemies" translation="9: Feinde" explanation="editor tool" max="32"/>
     <string english="0: Grav Line" translation="0: Grav-Linie" explanation="***OUTDATED***"/>
     <string english="0: Gravity Lines" translation="" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Raumtext" explanation="editor tool. Freely typed text, consider just Text" max="32"/>

@@ -142,10 +142,10 @@
     <string english="bind menu" translation="gosod y ddewislen" explanation="menu option"/>
     <string english="bind restart" translation="gosod ailgychwyn" explanation="menu option. In-game death key to restart at checkpoint"/>
     <string english="bind interact" translation="gosod rhyngweithio" explanation="menu option"/>
-    <string english="Flip is bound to: " translation="Mae fflip wedi&apos;i osod i:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Flip is bound to: " translation="Mae fflip wedi&apos;i osod i: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Enter is bound to: " translation="Mae Mynd i mewn wedi&apos;i osod i: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Menu is bound to: " translation="Mae&apos;r Ddewislen wedi&apos;i osod i:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Restart is bound to: " translation="Mae Ailgychwyn wedi&apos;i osod i:" explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Menu is bound to: " translation="Mae&apos;r Ddewislen wedi&apos;i osod i: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Restart is bound to: " translation="Mae Ailgychwyn wedi&apos;i osod i: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Interact is bound to: " translation="Mae Rhyngweithio wedi&apos;i osod i: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="ERROR: No language files found." translation="GWALL: Ni chanfuwyd ffeiliau iaith." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Ffolder iaith:" explanation="" max="39"/>
@@ -162,7 +162,7 @@
     <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="Galluogi modd cyfieithu enw ystafell, fel y gallwch chi gyfieithu enwau ystafelloedd yn eu cyd-destun. Pwyswch I am anorchfygolrwydd." explanation="" max="38*4"/>
     <string english="You have not enabled room name translation mode!" translation="Nid ydych wedi galluogi modd cyfieithu enw ystafell!" explanation="" max="38*4"/>
     <string english="menu test" translation="prawf dewislen" explanation="menu option"/>
-    <string english="Menu test" translation="prawf dewislen" explanation="title" max="20"/>
+    <string english="Menu test" translation="Prawf dewislen" explanation="title" max="20"/>
     <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="Edrychwch drwy&apos;r rhan fwyaf o ddewislenni&apos;r gêm. Ni fydd y dewislenni&apos;n gweithio mewn gwirionedd, mae pob opsiwn yn mynd â chi i&apos;r ddewislen nesaf yn lle hynny. Pwyswch Escape i stopio." explanation="" max="38*6"/>
     <string english="cutscene test" translation="prawf golygfeydd" explanation="menu option"/>
     <string english="Cutscene test" translation="Prawf Golygfeydd" explanation="title" max="20"/>
@@ -232,8 +232,8 @@
     <string english="glitchrunner mode" translation="modd rhedwr-glitsh" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
     <string english="Glitchrunner Mode" translation="Modd Rhedwr-glitsh" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="Ail-alluogi glitsiau a oedd yn bodoli mewn fersiynau blaenorol o&apos;r gêm." explanation="glitchrunner mode" max="38*3"/>
-    <string english="Glitchrunner mode is OFF" translation="rhedwr-glitsh BANT" explanation="" max="38*2"/>
-    <string english="Glitchrunner mode is {version}" translation="rhedwr-glitsh yw {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
+    <string english="Glitchrunner mode is OFF" translation="Rhedwr-glitsh BANT" explanation="" max="38*2"/>
+    <string english="Glitchrunner mode is {version}" translation="Rhedwr-glitsh yw {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
     <string english="Select a new glitchrunner version below." translation="Dewis fersiwn rhedwr-glitsh newydd isod." explanation="" max="38*3"/>
     <string english="none" translation="dim" explanation="menu option, do not emulate any older version"/>
     <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
@@ -579,10 +579,10 @@
     <string english="Left click to place warp destination" translation="Clic-chwith i osod lleoliad warpio" explanation="warp token: small teleporter with entrance and destination" max="39"/>
     <string english="Right click to cancel" translation="Clic-dde i ganslo" explanation="" max="39"/>
     <string english="{button1} and {button2} keys change tool" translation="allweddi {button1} a {button2} yn newid offer" explanation="These keys can be used to switch between tools" max="36"/>
-    <string english="1: Walls" translation="1 : waliau" explanation="editor tool. Solid tiles" max="32"/>
-    <string english="2: Backing" translation="2: cefndir" explanation="editor tool. Non-solid background tiles" max="32"/>
-    <string english="3: Spikes" translation="3: pigau" explanation="editor tool" max="32"/>
-    <string english="4: Trinkets" translation="4: tlysau" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
+    <string english="1: Walls" translation="1: Waliau" explanation="editor tool. Solid tiles" max="32"/>
+    <string english="2: Backing" translation="2: Cefndir" explanation="editor tool. Non-solid background tiles" max="32"/>
+    <string english="3: Spikes" translation="3: Pigau" explanation="editor tool" max="32"/>
+    <string english="4: Trinkets" translation="4: Tlysau" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
     <string english="5: Checkpoint" translation="5: Pwynt Arbed" explanation="***OUTDATED***"/>
     <string english="5: Checkpoints" translation="" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
     <string english="6: Disappear" translation="6: Diflannu" explanation="***OUTDATED***"/>
@@ -634,8 +634,8 @@
     <string english="Platform speed is now {speed}" translation="" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Adnoddau wedi&apos;u hail-lwytho" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="GWALL: Fformat annilys" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
-    <string english="Loaded map: {filename}.vvvvvv" translation="Map wedi&apos;i lwytho: { filename }. vvvvv" explanation="successfully loaded level file" max="38*3"/>
-    <string english="Saved map: {filename}.vvvvvv" translation="Map wedi&apos;i gadw: {filename }. vvvvv" explanation="successfully saved level file" max="38*3"/>
+    <string english="Loaded map: {filename}.vvvvvv" translation="Map wedi&apos;i lwytho: {filename}.vvvvv" explanation="successfully loaded level file" max="38*3"/>
+    <string english="Saved map: {filename}.vvvvvv" translation="Map wedi&apos;i gadw: {filename}.vvvvv" explanation="successfully saved level file" max="38*3"/>
     <string english="ERROR: Could not load level" translation="GWALL: Methu llwytho lefel" explanation="that level could not be loaded, maybe it does not exist" max="38*3"/>
     <string english="ERROR: Could not save level!" translation="GWALL: Methu arbed lefel!" explanation="maybe the filename is too long? exclamation mark because you will lose your data if you quit" max="38*3"/>
     <string english="Mapsize is now [{width},{height}]" translation="Maint y map bellach yw [{width},{height}]" explanation="editor, the map is now {width} by {height}" max="38*3"/>

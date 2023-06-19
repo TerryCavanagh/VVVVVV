@@ -22,8 +22,8 @@
         <translation form="1" translation="{n_crew|wordy} sy&apos;n weddill"/>
     </string>
     <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000">
-        <translation form="0" translation="Ystafell Anoddaf ( {n_deaths} marwolaethau)"/>
-        <translation form="1" translation="Ystafell Anoddaf ( {n_deaths} marwolaeth)"/>
+        <translation form="0" translation="Ystafell Anoddaf ({n_deaths} marwolaethau)"/>
+        <translation form="1" translation="Ystafell Anoddaf ({n_deaths} marwolaeth)"/>
     </string>
     <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
         <translation form="0" translation="{n} enwau arferol yr ystafelloedd heb ei gyfieithu"/>

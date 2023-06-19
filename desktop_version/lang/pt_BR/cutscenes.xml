@@ -661,13 +661,13 @@
             [ Status ]
               Online
 
-READY _" translation="*GERADOR DE ESTABILIDADE DIMENSIONAL*
+READY _" translation="GERADOR DE ESTABILIDADE DIMENSIONAL
 
-      [ Gerando Atualmente ]
+       [ Gerando Atualmente ]
          Estabilidade Máxima
 
-             [ Situação ]
-               Ativado
+            [ Situação ]
+              Ativado
 
 PRONTO _" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="Ah! Deve ser isso que tá causando a interferência!"/>

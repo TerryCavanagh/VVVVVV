@@ -53,7 +53,7 @@
     <string english="Language" translation="Idioma" explanation="title" max="20"/>
     <string english="Change the language." translation="Altere o idioma." explanation="" max="38*5"/>
     <string english="clear main game data" translation="limpar dados principais do jogo" explanation="menu option"/>
-    <string english="clear custom level data" translation="limpar dados de níveis personalizados" explanation="menu option"/>
+    <string english="clear custom level data" translation="limpar dados de níveis" explanation="menu option"/>
     <string english="Clear Data" translation="Apagar os dados" explanation="title" max="20"/>
     <string english="Delete your main game save data and unlocked play modes." translation="Exclui os dados principais do jogo salvo e os modos de jogo desbloqueados." explanation="" max="38*5"/>
     <string english="Delete your custom level save data and completion stars." translation="Exclui seus dados de salvamento de nível personalizado e estrelas de conclusão." explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5"/>
@@ -133,7 +133,7 @@
     <string english="Would you like to disable the cutscenes during the game?" translation="Gostaria de desativar as cenas durante o jogo?" explanation="" max="38*6"/>
     <string english="disable cutscenes" translation="desativar cenas" explanation="menu option"/>
     <string english="enable cutscenes" translation="ativar cenas" explanation="menu option"/>
-    <string english="analog stick sensitivity" translation="sensibilidade da alavanca analógica" explanation="menu option"/>
+    <string english="analog stick sensitivity" translation="sensibilidade da alavanca" explanation="menu option"/>
     <string english="Low" translation="Baixa" explanation="analog stick sensitivity, game pad menu"/>
     <string english="Medium" translation="Média" explanation="analog stick sensitivity, game pad menu"/>
     <string english="High" translation="Alta" explanation="analog stick sensitivity, game pad menu"/>
@@ -400,7 +400,7 @@
     <string english="play a level" translation="jogar um nível" explanation="menu option"/>
     <string english="level editor" translation="editor de níveis" explanation="menu option"/>
     <string english="open level folder" translation="abrir pasta de níveis" explanation="menu option. Button that opens the folder with level files in a file explorer"/>
-    <string english="show level folder path" translation="mostrar o caminho para a pasta de níveis" explanation="menu option"/>
+    <string english="show level folder path" translation="mostrar o caminho para a pasta" explanation="menu option"/>
     <string english="return" translation="retornar" explanation="menu option"/>
     <string english="return to levels" translation="retornar aos níveis" explanation="menu option"/>
     <string english="no, don&apos;t show me" translation="não, não me mostre" explanation="menu option"/>
@@ -430,7 +430,7 @@
     <string english="Press ACTION to continue" translation="Aperte AÇÃO para continuar" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="" explanation="Expect `ACTION`" max="34"/>
     <string english="Current Time" translation="Tempo atual" explanation="super gravitron, stopwatch time" max="20"/>
-    <string english="Best Time" translation="Melhor Tempo" explanation="super gravitron, best stopwatch time" max="20"/>
+    <string english="Best Time" translation="Melhor tempo" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Próximo Troféu em 5 segundos" explanation="" max="38*2"/>
     <string english="Next Trophy at 10 seconds" translation="Próximo Troféu em 10 segundos" explanation="" max="38*2"/>
     <string english="Next Trophy at 15 seconds" translation="Próximo Troféu em 15 segundos" explanation="" max="38*2"/>
@@ -477,7 +477,7 @@
     <string english="Do you want to quit? You will lose any unsaved progress." translation="Você quer sair? Você perderá qualquer progresso não salvo." explanation="in-game menu" max="38*4"/>
     <string english="Do you want to return to the secret laboratory?" translation="Você quer voltar ao laboratório secreto?" explanation="in-game menu" max="38*4"/>
     <string english="no, keep playing" translation="não, continuar jogando" explanation="in-game menu option" max="28"/>
-    <string english="[ NO, KEEP PLAYING ]" translation="[NÃO, CONTINUAR JOGANDO]" explanation="in-game menu option" max="32"/>
+    <string english="[ NO, KEEP PLAYING ]" translation="[ NÃO, CONTINUAR JOGANDO ]" explanation="in-game menu option" max="32"/>
     <string english="yes, quit to menu" translation="sim, sair para o menu" explanation="in-game menu option" max="24"/>
     <string english="[ YES, QUIT TO MENU ]" translation="[ SIM, SAIR PARA O MENU ]" explanation="in-game menu option" max="28"/>
     <string english="yes, return" translation="sim, voltar" explanation="in-game menu option" max="24"/>

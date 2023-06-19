@@ -400,7 +400,7 @@
     <string english="play a level" translation="jogar nível" explanation="menu option"/>
     <string english="level editor" translation="editor de níveis" explanation="menu option"/>
     <string english="open level folder" translation="abrir pasta de níveis" explanation="menu option. Button that opens the folder with level files in a file explorer"/>
-    <string english="show level folder path" translation="exibir caminho da pasta de níveis" explanation="menu option"/>
+    <string english="show level folder path" translation="exibir caminho da pasta" explanation="menu option"/>
     <string english="return" translation="voltar" explanation="menu option"/>
     <string english="return to levels" translation="voltar aos níveis" explanation="menu option"/>
     <string english="no, don&apos;t show me" translation="não mostrar" explanation="menu option"/>
