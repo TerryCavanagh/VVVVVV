@@ -498,7 +498,7 @@
     <string english="Press {button} to activate terminal" translation="Prem {button} per a activar el terminal" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="{button} per a activar els terminals" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Prem {button} per a interaccionar" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="- Press {button} to skip -" translation="" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
+    <string english="- Press {button} to skip -" translation="- Prem {button} per a ometre-ho -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
     <string english="Passion for Exploring" translation="Passió per l’exploració" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Pushing Onwards" translation="Prement sempre endavant" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Positive Force" translation="Positivitat en la força" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
@@ -649,10 +649,10 @@
     <string english="ERROR: No checkpoint to spawn at" translation="ERROR: No hi ha cap punt de control|on aparèixer" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="ERROR: El nombre màxim de lluentons|és 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="ERROR: El nombre màxim de tripulants|és 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
-    <string english="Level quits to menu" translation="" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
-    <string english="Level completed" translation="" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
+    <string english="Level quits to menu" translation="El nivell torna al menú principal" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
+    <string english="Level completed" translation="El nivell s’ha completat" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
     <string english="Rolled credits" translation="S’han mostrat crèdits" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
-    <string english="Time trial completed" translation="" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
+    <string english="Time trial completed" translation="La contrarellotge s’ha completat" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2},{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
@@ -762,11 +762,11 @@ Has trobat el laboratori secret!" explanation="" max="34*4"/>
     <string english="Last 1 minute on the Super Gravitron" translation="Aguanta 1 minut al supergravitró" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="MÀSTER DE L’UNIVERS" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Passa’t el joc en el mode|sense cap mort" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Something went wrong, but we forgot the error message." translation="" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
+    <string english="Something went wrong, but we forgot the error message." translation="Hi ha hagut algun problema, però ens hem oblidat del missatge d’error." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="No s’ha pogut muntar {path}: el directori real no existeix" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
-    <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
-    <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
-    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
+    <string english="Level {path} not found" translation="No s’ha trobat el nivell {path}" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="S’ha produït un error en analitzar {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Les dimensions de «{filename}» no són múltiples exactes de {width}x{height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERROR: No s’ha pogut escriure|a la carpeta de llengua! Assegura’t|que no hi hagi cap carpeta «lang»|al costat de les partides desades normals." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
