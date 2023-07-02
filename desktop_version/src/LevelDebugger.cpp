@@ -7,6 +7,7 @@
 #include "KeyPoll.h"
 #include "Localization.h"
 #include "Map.h"
+#include "Script.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
@@ -70,16 +71,6 @@ namespace level_debugger
 
         if (!active)
         {
-            return;
-        }
-
-        if ((game.press_map || key.isDown(27)) && !game.mapheld)
-        {
-            /* If we press enter, allow the rest of the code in Input.cpp to fire
-             * Intended to return to the editor, but it's fine if it activates
-             * something instead */
-
-            active = false;
             return;
         }
 
@@ -220,11 +211,18 @@ namespace level_debugger
         }
     }
 
+    void render_coords(int y, const char* text, int first, int second)
+    {
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(buffer, sizeof(buffer), "{text}: ({first},{second})", "text:str, first:int, second:int", text, first, second);
+        render_info(y, buffer);
+    }
+
     void render_info(int y, const char* text, std::string value)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(buffer, sizeof(buffer), text, "value:str", value.c_str());
-        font::print(PR_BOR | PR_FONT_8X8, 5, 32 + (10 * y), buffer, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        vformat_buf(buffer, sizeof(buffer), "{text}: {value}", "text:str, value:str", text, value.c_str());
+        render_info(y, buffer);
     }
 
     void render_info(int y, const char* text)
@@ -289,28 +287,52 @@ namespace level_debugger
 
         font::print(PR_BOR | PR_FONT_8X8, 5, 14, loc::gettext("[Press TAB to toggle movement]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
 
-        if (hovered != -1)
+        int line = 0;
+
+        if (hovered == -1)
         {
-            int line = 0;
+            render_coords(line++, "Room", game.roomx % 100, game.roomy % 100);
+            render_coords(line++, "Cursor", key.mx, key.my);
+            render_info(line++, "Entities", help.String(obj.entities.size()));
+            line++;
+
+            render_info(line++, "State", help.String(game.state));
+            render_info(line++, "State Delay", help.String(game.statedelay));
+            line++;
+
+            render_info(line++, "AEM Target", help.String(script.i));
+
+            line++;
+
+            if (script.running)
+            {
+                render_info(line++, "Script", script.scriptname);
+                render_info(line++, "Delay", help.String(script.scriptdelay));
+                render_info(line++, "Position", help.String(script.position));
+                line++;
+                render_info(line++, "Loop Line", help.String(script.looppoint));
+                render_info(line++, "Loop Count", help.String(script.loopcount));
+            }
+        }
+        else
+        {
             if (hovered_entity)
             {
                 entclass* entity = &obj.entities[hovered];
-                render_info(line++, "Index: {value}", help.String(hovered));
-                render_info(line++, "X: {value}", help.String(entity->xp));
-                render_info(line++, "Y: {value}", help.String(entity->yp));
-                render_info(line++, "Width: {value}", help.String(entity->w));
-                render_info(line++, "Height: {value}", help.String(entity->h));
+                render_info(line++, "Index", help.String(hovered));
+                render_coords(line++, "Position", entity->xp, entity->yp);
+                render_coords(line++, "Size", entity->w, entity->h);
                 line++;
-                render_info(line++, "Rule: {value}", help.String(entity->rule));
-                render_info(line++, "Type: {value}", help.String(entity->type));
-                render_info(line++, "Behave: {value}", help.String(entity->behave));
-                render_info(line++, "Para: {value}", help.String(entity->para));
-                render_info(line++, "State: {value}", help.String(entity->state));
+                render_info(line++, "Rule", help.String(entity->rule));
+                render_info(line++, "Type", help.String(entity->type));
+                render_info(line++, "Behave", help.String(entity->behave));
+                render_info(line++, "Para", help.String(entity->para));
+                render_info(line++, "State", help.String(entity->state));
                 line++;
-                render_info(line++, "Tile: {value}", help.String(entity->tile));
-                render_info(line++, "Draw Frame: {value}", help.String(entity->drawframe));
-                render_info(line++, "Size: {value}", help.String(entity->size));
-                render_info(line++, "Direction: {value}", help.String(entity->dir));
+                render_info(line++, "Tile", help.String(entity->tile));
+                render_info(line++, "Draw Frame", help.String(entity->drawframe));
+                render_info(line++, "Size", help.String(entity->size));
+                render_info(line++, "Direction", help.String(entity->dir));
 
                 line++;
 
@@ -319,22 +341,22 @@ namespace level_debugger
                 {
                 case 0:
                     // Player
-                    render_info(line++, "Gravity: {value}", help.String(game.gravitycontrol));
-                    render_info(line++, "Checkpoint: {value}", help.String(game.savepoint));
+                    render_info(line++, "Gravity", help.String(game.gravitycontrol));
+                    render_info(line++, "Checkpoint", help.String(game.savepoint));
                     break;
                 case 1:
                     // Moving platforms and enemies
-                    render_info(line++, "Speed: {value}", help.String(entity->para));
-                    render_info(line++, "Movement type: {value}", help.String(entity->behave));
+                    render_info(line++, "Speed", help.String(entity->para));
+                    render_info(line++, "Movement type", help.String(entity->behave));
                     break;
                 case 7:
                     // Trinkets
-                    render_info(line++, "ID: {value}", help.String(entity->para));
+                    render_info(line++, "ID", help.String(entity->para));
                     break;
                 case 8:
                     // Checkpoints
-                    render_info(line++, "ID: {value}", help.String(entity->para));
-                    render_info(line++, "Active: {value}", game.savepoint == entity->para ? "True" : "False");
+                    render_info(line++, "ID", help.String(entity->para));
+                    render_info(line++, "Active", game.savepoint == entity->para ? "True" : "False");
                     break;
                 case 9:
                     // Horizontal gravity lines
@@ -352,22 +374,20 @@ namespace level_debugger
             else
             {
                 blockclass* block = &obj.blocks[hovered];
-                render_info(line++, "Index: {value}", help.String(hovered));
-                render_info(line++, "X: {value}", help.String(block->rect.x));
-                render_info(line++, "Y: {value}", help.String(block->rect.y));
-                render_info(line++, "Width: {value}", help.String(block->rect.w));
-                render_info(line++, "Height: {value}", help.String(block->rect.h));
+                render_info(line++, "Index", help.String(hovered));
+                render_coords(line++, "Position", block->rect.x, block->rect.y);
+                render_coords(line++, "Size", block->rect.w, block->rect.h);
 
                 line++;
 
                 if (block->type == TRIGGER || block->type == ACTIVITY)
                 {
-                    render_info(line++, "Script: {value}", block->script);
-                    render_info(line++, "State: {value}", help.String(block->trigger));
+                    render_info(line++, "Script", block->script);
+                    render_info(line++, "State", help.String(block->trigger));
                 }
                 else if (block->type == DIRECTIONAL)
                 {
-                    render_info(line++, "Direction: {value}", help.String(block->trigger));
+                    render_info(line++, "Direction", help.String(block->trigger));
                 }
 
                 graphics.draw_rect(hover_box.x, hover_box.y, hover_box.w, hover_box.h, graphics.getRGB(255 - help.glow, 32, 32));
