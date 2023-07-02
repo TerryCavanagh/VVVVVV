@@ -13,6 +13,7 @@
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "KeyPoll.h"
+#include "LevelDebugger.h"
 #include "Localization.h"
 #include "LocalizationMaint.h"
 #include "LocalizationStorage.h"
@@ -2434,6 +2435,12 @@ void gameinput(void)
         {
             game.press_interact = true;
         }
+    }
+
+    level_debugger::input();
+    if (level_debugger::is_pausing())
+    {
+        return;
     }
 
     game.press_map = false;

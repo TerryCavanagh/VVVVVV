@@ -14,6 +14,7 @@
 #include "GraphicsUtil.h"
 #include "InterimVersion.h"
 #include "KeyPoll.h"
+#include "LevelDebugger.h"
 #include "Localization.h"
 #include "LocalizationStorage.h"
 #include "MakeAndPlay.h"
@@ -2472,6 +2473,7 @@ void gamerender(void)
         graphics.drawtrophytext();
     }
 
+    level_debugger::render();
 
     graphics.renderwithscreeneffects();
 }
