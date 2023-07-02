@@ -2431,16 +2431,16 @@ void gameinput(void)
         }
     }
 
-    level_debugger::input();
-    if (level_debugger::is_pausing())
-    {
-        return;
-    }
-
     game.press_map = false;
     if (key.isDown(KEYBOARD_ENTER) || key.isDown(SDLK_KP_ENTER) || key.isDown(game.controllerButton_map)  )
     {
         game.press_map = true;
+    }
+
+    level_debugger::input();
+    if (level_debugger::is_pausing())
+    {
+        return;
     }
 
     if (game.advancetext)

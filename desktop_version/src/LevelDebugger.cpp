@@ -24,6 +24,8 @@ namespace level_debugger
     int grabber_offset_x = 0;
     int grabber_offset_y = 0;
 
+    bool right_mouse_held = false;
+
     bool is_pausing(void)
     {
         return active && should_pause;
@@ -68,6 +70,16 @@ namespace level_debugger
 
         if (!active)
         {
+            return;
+        }
+
+        if ((game.press_map || key.isDown(27)) && !game.mapheld)
+        {
+            /* If we press enter, allow the rest of the code in Input.cpp to fire
+             * Intended to return to the editor, but it's fine if it activates
+             * something instead */
+
+            active = false;
             return;
         }
 
@@ -123,6 +135,24 @@ namespace level_debugger
                 mouse_held = false;
                 held_entity = -1;
                 held_block = -1;
+            }
+
+            if (key.rightbutton)
+            {
+                if (mouse_within(&bounding_box))
+                {
+                    if (!right_mouse_held)
+                    {
+                        right_mouse_held = true;
+                        obj.entities[i].state = obj.entities[i].onentity;
+                        obj.entities[i].statedelay = -1;
+                    }
+                    break;
+                }
+            }
+            else
+            {
+                right_mouse_held = false;
             }
         }
 
@@ -190,11 +220,16 @@ namespace level_debugger
         }
     }
 
-    void render_info(int y, const char* text, const char* value)
+    void render_info(int y, const char* text, std::string value)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
-        vformat_buf(buffer, sizeof(buffer), text, "value:str", value);
+        vformat_buf(buffer, sizeof(buffer), text, "value:str", value.c_str());
         font::print(PR_BOR | PR_FONT_8X8, 5, 32 + (10 * y), buffer, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+    }
+
+    void render_info(int y, const char* text)
+    {
+        font::print(PR_BOR | PR_FONT_8X8, 5, 32 + (10 * y), text, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     void render(void)
@@ -260,43 +295,79 @@ namespace level_debugger
             if (hovered_entity)
             {
                 entclass* entity = &obj.entities[hovered];
-                render_info(line++, "Index: {value}", help.String(hovered).c_str());
-                render_info(line++, "X: {value}", help.String(entity->xp).c_str());
-                render_info(line++, "Y: {value}", help.String(entity->yp).c_str());
-                render_info(line++, "Width: {value}", help.String(entity->w).c_str());
-                render_info(line++, "Height: {value}", help.String(entity->h).c_str());
+                render_info(line++, "Index: {value}", help.String(hovered));
+                render_info(line++, "X: {value}", help.String(entity->xp));
+                render_info(line++, "Y: {value}", help.String(entity->yp));
+                render_info(line++, "Width: {value}", help.String(entity->w));
+                render_info(line++, "Height: {value}", help.String(entity->h));
                 line++;
-                render_info(line++, "Rule: {value}", help.String(entity->rule).c_str());
-                render_info(line++, "Type: {value}", help.String(entity->type).c_str());
-                render_info(line++, "Behave: {value}", help.String(entity->behave).c_str());
-                render_info(line++, "Para: {value}", help.String(entity->para).c_str());
+                render_info(line++, "Rule: {value}", help.String(entity->rule));
+                render_info(line++, "Type: {value}", help.String(entity->type));
+                render_info(line++, "Behave: {value}", help.String(entity->behave));
+                render_info(line++, "Para: {value}", help.String(entity->para));
+                render_info(line++, "State: {value}", help.String(entity->state));
                 line++;
-                render_info(line++, "Tile: {value}", help.String(entity->tile).c_str());
-                render_info(line++, "Draw Frame: {value}", help.String(entity->drawframe).c_str());
-                render_info(line++, "Size: {value}", help.String(entity->size).c_str());
-                render_info(line++, "Direction: {value}", help.String(entity->dir).c_str());
+                render_info(line++, "Tile: {value}", help.String(entity->tile));
+                render_info(line++, "Draw Frame: {value}", help.String(entity->drawframe));
+                render_info(line++, "Size: {value}", help.String(entity->size));
+                render_info(line++, "Direction: {value}", help.String(entity->dir));
+
+                line++;
+
+                // Mostly contains duplicates, but for ease of use
+                switch (entity->type)
+                {
+                case 0:
+                    // Player
+                    render_info(line++, "Gravity: {value}", help.String(game.gravitycontrol));
+                    render_info(line++, "Checkpoint: {value}", help.String(game.savepoint));
+                    break;
+                case 1:
+                    // Moving platforms and enemies
+                    render_info(line++, "Speed: {value}", help.String(entity->para));
+                    render_info(line++, "Movement type: {value}", help.String(entity->behave));
+                    break;
+                case 7:
+                    // Trinkets
+                    render_info(line++, "ID: {value}", help.String(entity->para));
+                    break;
+                case 8:
+                    // Checkpoints
+                    render_info(line++, "ID: {value}", help.String(entity->para));
+                    render_info(line++, "Active: {value}", game.savepoint == entity->para ? "True" : "False");
+                    break;
+                case 9:
+                    // Horizontal gravity lines
+                    render_info(line++, "Horizontal");
+                    break;
+                case 10:
+                    // Vertical gravity lines
+                    render_info(line++, "Vertical");
+                    break;
+                }
+
 
                 graphics.draw_rect(hover_box.x, hover_box.y, hover_box.w, hover_box.h, graphics.getRGB(32, 255 - help.glow, 255 - help.glow));
             }
             else
             {
                 blockclass* block = &obj.blocks[hovered];
-                render_info(line++, "Index: {value}", help.String(hovered).c_str());
-                render_info(line++, "X: {value}", help.String(block->rect.x).c_str());
-                render_info(line++, "Y: {value}", help.String(block->rect.y).c_str());
-                render_info(line++, "Width: {value}", help.String(block->rect.w).c_str());
-                render_info(line++, "Height: {value}", help.String(block->rect.h).c_str());
+                render_info(line++, "Index: {value}", help.String(hovered));
+                render_info(line++, "X: {value}", help.String(block->rect.x));
+                render_info(line++, "Y: {value}", help.String(block->rect.y));
+                render_info(line++, "Width: {value}", help.String(block->rect.w));
+                render_info(line++, "Height: {value}", help.String(block->rect.h));
 
                 line++;
 
                 if (block->type == TRIGGER || block->type == ACTIVITY)
                 {
-                    render_info(line++, "Script: {value}", block->script.c_str());
-                    render_info(line++, "State: {value}", help.String(block->trigger).c_str());
+                    render_info(line++, "Script: {value}", block->script);
+                    render_info(line++, "State: {value}", help.String(block->trigger));
                 }
                 else if (block->type == DIRECTIONAL)
                 {
-                    render_info(line++, "Direction: {value}", help.String(block->trigger).c_str());
+                    render_info(line++, "Direction: {value}", help.String(block->trigger));
                 }
 
                 graphics.draw_rect(hover_box.x, hover_box.y, hover_box.w, hover_box.h, graphics.getRGB(255 - help.glow, 32, 32));
