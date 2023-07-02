@@ -17,6 +17,7 @@
 #include "Font.h"
 #include "GlitchrunnerMode.h"
 #include "Graphics.h"
+#include "LevelDebugger.h"
 #include "Localization.h"
 #include "LocalizationStorage.h"
 #include "KeyPoll.h"
@@ -7527,7 +7528,7 @@ int Game::get_timestep(void)
 
 bool Game::physics_frozen(void)
 {
-    return roomname_translator::is_pausing();
+    return roomname_translator::is_pausing() || level_debugger::is_pausing();
 }
 
 bool Game::incompetitive(void)

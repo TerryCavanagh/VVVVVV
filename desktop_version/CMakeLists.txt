@@ -85,6 +85,7 @@ set(VVV_SRC
     src/Input.cpp
     src/KeyPoll.cpp
     src/Labclass.cpp
+    src/LevelDebugger.cpp
     src/Localization.cpp
     src/LocalizationMaint.cpp
     src/LocalizationStorage.cpp
