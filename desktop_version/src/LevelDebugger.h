@@ -9,6 +9,7 @@ namespace level_debugger
     bool is_active(void);
     void input(void);
     void render(void);
+    void set_forced(void);
 }
 
 #endif /* LEVELDEBUGGER_H */
