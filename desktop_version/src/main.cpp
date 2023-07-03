@@ -19,6 +19,7 @@
 #include "Input.h"
 #include "InterimVersion.h"
 #include "KeyPoll.h"
+#include "LevelDebugger.h"
 #include "Localization.h"
 #include "LocalizationStorage.h"
 #include "Logic.h"
@@ -510,6 +511,10 @@ int main(int argc, char *argv[])
                 // Even if this is a directory, FILESYSTEM_mountAssets() expects '.vvvvvv' on the end
                 playassets = "levels/" + std::string(argv[i]) + ".vvvvvv";
             })
+        }
+        else if (ARG("-leveldebugger"))
+        {
+            level_debugger::set_forced();
         }
         else if (ARG("-nooutput"))
         {

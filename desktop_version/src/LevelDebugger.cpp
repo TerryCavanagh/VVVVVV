@@ -17,6 +17,7 @@ namespace level_debugger
     bool should_pause = true;
     bool tab_held = false;
     bool debug_held = false;
+    bool forced = false;
 
     // Moving entities/blocks
     bool mouse_held = false;
@@ -48,9 +49,14 @@ namespace level_debugger
             key.my >= rect->y && key.my < rect->y + rect->h;
     }
 
+    void set_forced(void)
+    {
+        forced = true;
+    }
+
     void input(void)
     {
-        if (!map.custommode || map.custommodeforreal)
+        if (!forced && (!map.custommode || map.custommodeforreal))
         {
             active = false;
             return;
@@ -285,14 +291,12 @@ namespace level_debugger
             graphics.draw_rect(bounding_box.x, bounding_box.y, bounding_box.w, bounding_box.h, graphics.getRGB(90, 15, 15));
         }
 
-        font::print(PR_BOR | PR_FONT_8X8, 5, 14, loc::gettext("[Press TAB to toggle movement]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-
         int line = 0;
 
         if (key.isDown(SDLK_u))
         {
             SDL_Color on = graphics.getRGB(220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-            SDL_Color off = graphics.getRGB(220 / 2 - (help.glow), 220 / 2 - (help.glow), 255 / 2 - (help.glow / 2));
+            SDL_Color off = graphics.getRGB(220 / 1.5 - (help.glow), 220 / 1.5 - (help.glow), 255 / 1.5 - (help.glow / 2));
 
             graphics.set_blendmode(SDL_BLENDMODE_BLEND);
             graphics.fill_rect(NULL, 0, 0, 0, 127);
@@ -304,13 +308,13 @@ namespace level_debugger
             for (int i = 0; i < SDL_arraysize(obj.flags); i++)
             {
                 SDL_Color color = obj.flags[i] ? on : off;
-                font::print(PR_BOR | PR_FONT_8X8, 5 + x, 32 + y, help.String(i), color.r, color.g, color.b);
+                font::print(PR_BOR | PR_FONT_8X8, 48 + x * 24, 48 + y * 16, help.String(i), color.r, color.g, color.b);
 
-                x += 16 + 8;
-                if (x >= 300)
+                x++;
+                if (x >= 10)
                 {
                     x = 0;
-                    y += 16;
+                    y++;
                 }
             }
         }
@@ -418,5 +422,7 @@ namespace level_debugger
                 graphics.draw_rect(hover_box.x, hover_box.y, hover_box.w, hover_box.h, graphics.getRGB(255 - help.glow, 32, 32));
             }
         }
+
+        font::print(PR_BOR | PR_FONT_8X8, 5, 14, loc::gettext("[Press TAB to toggle movement]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 };
