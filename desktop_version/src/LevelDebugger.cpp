@@ -211,6 +211,11 @@ namespace level_debugger
         }
     }
 
+    void render_info(int y, const char* text)
+    {
+        font::print(PR_BOR | PR_FONT_8X8, 5, 32 + (10 * y), text, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+    }
+
     void render_coords(int y, const char* text, int first, int second)
     {
         char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -223,11 +228,6 @@ namespace level_debugger
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer), "{text}: {value}", "text:str, value:str", text, value.c_str());
         render_info(y, buffer);
-    }
-
-    void render_info(int y, const char* text)
-    {
-        font::print(PR_BOR | PR_FONT_8X8, 5, 32 + (10 * y), text, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     void render(void)
@@ -289,7 +289,32 @@ namespace level_debugger
 
         int line = 0;
 
-        if (hovered == -1)
+        if (key.isDown(SDLK_u))
+        {
+            SDL_Color on = graphics.getRGB(220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+            SDL_Color off = graphics.getRGB(220 / 2 - (help.glow), 220 / 2 - (help.glow), 255 / 2 - (help.glow / 2));
+
+            graphics.set_blendmode(SDL_BLENDMODE_BLEND);
+            graphics.fill_rect(NULL, 0, 0, 0, 127);
+            graphics.set_blendmode(SDL_BLENDMODE_NONE);
+
+            int x = 0;
+            int y = 0;
+
+            for (int i = 0; i < SDL_arraysize(obj.flags); i++)
+            {
+                SDL_Color color = obj.flags[i] ? on : off;
+                font::print(PR_BOR | PR_FONT_8X8, 5 + x, 32 + y, help.String(i), color.r, color.g, color.b);
+
+                x += 16 + 8;
+                if (x >= 300)
+                {
+                    x = 0;
+                    y += 16;
+                }
+            }
+        }
+        else if (hovered == -1)
         {
             render_coords(line++, "Room", game.roomx % 100, game.roomy % 100);
             render_coords(line++, "Cursor", key.mx, key.my);
