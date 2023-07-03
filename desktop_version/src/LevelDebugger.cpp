@@ -186,17 +186,27 @@ namespace level_debugger
                 }
             }
         }
+    }
 
+    void logic(void)
+    {
         if (INBOUNDS_VEC(held_entity, obj.entities))
         {
-            obj.entities[held_entity].xp = key.mx - grabber_offset_x;
-            obj.entities[held_entity].yp = key.my - grabber_offset_y;
+            int new_xp = key.mx - grabber_offset_x;
+            int new_yp = key.my - grabber_offset_y;
 
             if (key.isDown(SDLK_LSHIFT) || key.isDown(SDLK_RSHIFT))
             {
-                obj.entities[held_entity].xp -= obj.entities[held_entity].xp % 8;
-                obj.entities[held_entity].yp -= obj.entities[held_entity].yp % 8;
+                new_xp -= new_xp % 8;
+                new_yp -= new_yp % 8;
             }
+
+            obj.entities[held_entity].xp = new_xp;
+            obj.entities[held_entity].yp = new_yp;
+            obj.entities[held_entity].lerpoldxp = new_xp;
+            obj.entities[held_entity].lerpoldyp = new_yp;
+            obj.entities[held_entity].oldxp = new_xp;
+            obj.entities[held_entity].oldyp = new_yp;
         }
 
         if (INBOUNDS_VEC(held_block, obj.blocks))
