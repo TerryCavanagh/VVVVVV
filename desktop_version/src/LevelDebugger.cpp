@@ -93,7 +93,7 @@ namespace level_debugger
             tab_held = false;
         }
 
-        for (int i = 0; i < obj.entities.size(); i++)
+        for (int i = 0; i < (int) obj.entities.size(); i++)
         {
             SDL_Rect bounding_box = {
                 obj.entities[i].xp + obj.entities[i].cx,
@@ -115,7 +115,7 @@ namespace level_debugger
 
                         if (!key.keymap[SDLK_LSHIFT] && !key.keymap[SDLK_RSHIFT])
                         {
-                            for (int j = 0; j < obj.blocks.size(); j++)
+                            for (int j = 0; j < (int) obj.blocks.size(); j++)
                             {
                                 if (obj.entities[i].xp == obj.blocks[j].rect.x && obj.entities[i].yp == obj.blocks[j].rect.y)
                                 {
@@ -155,7 +155,7 @@ namespace level_debugger
 
         if (held_entity == -1)
         {
-            for (int i = 0; i < obj.blocks.size(); i++)
+            for (int i = 0; i < (int) obj.blocks.size(); i++)
             {
                 SDL_Rect bounding_box = {
                     obj.blocks[i].rect.x,
@@ -247,7 +247,7 @@ namespace level_debugger
         bool hovered_entity = true;
         SDL_Rect hover_box;
 
-        for (int i = 0; i < obj.entities.size(); i++)
+        for (int i = 0; i < (int) obj.entities.size(); i++)
         {
             SDL_Rect bounding_box = {
                 obj.entities[i].xp + obj.entities[i].cx,
@@ -256,11 +256,8 @@ namespace level_debugger
                 obj.entities[i].h
             };
 
-            bool hovering = false;
-
             if (hovered == -1 && mouse_within(&bounding_box))
             {
-                hovering = true;
                 hovered = i;
                 hovered_entity = true;
                 hover_box = bounding_box;
@@ -269,7 +266,7 @@ namespace level_debugger
             graphics.draw_rect(bounding_box.x, bounding_box.y, bounding_box.w, bounding_box.h, graphics.getRGB(15, 90, 90));
         }
 
-        for (int i = 0; i < obj.blocks.size(); i++)
+        for (int i = 0; i < (int) obj.blocks.size(); i++)
         {
             SDL_Rect bounding_box = {
                 obj.blocks[i].rect.x,
@@ -278,11 +275,8 @@ namespace level_debugger
                 obj.blocks[i].rect.h
             };
 
-            bool hovering = false;
-
             if (hovered == -1 && mouse_within(&bounding_box))
             {
-                hovering = true;
                 hovered = i;
                 hovered_entity = false;
                 hover_box = bounding_box;
@@ -305,7 +299,7 @@ namespace level_debugger
             int x = 0;
             int y = 0;
 
-            for (int i = 0; i < SDL_arraysize(obj.flags); i++)
+            for (int i = 0; i < (int) SDL_arraysize(obj.flags); i++)
             {
                 SDL_Color color = obj.flags[i] ? on : off;
                 font::print(PR_BOR | PR_FONT_8X8, 48 + x * 24, 48 + y * 16, help.String(i), color.r, color.g, color.b);
@@ -423,6 +417,6 @@ namespace level_debugger
             }
         }
 
-        font::print(PR_BOR | PR_FONT_8X8, 5, 14, loc::gettext("[Press TAB to toggle movement]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        font::print(PR_BOR, 5, 14, loc::gettext("[Press TAB to toggle movement]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
-};
+}
