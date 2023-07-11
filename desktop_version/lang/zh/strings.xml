@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<strings max_local_for="12x12">
+    <string english="LOADING... {percent|digits=2|spaces}%" translation="载入中……{percent|digits=2|spaces}%" explanation="on loading screen. {percent} = number from 0-100" max="26" max_local="17"/>
+    <string english="Game paused" translation="游戏暂停中" explanation="pause screen" max="40" max_local="26"/>
+    <string english="[click to resume]" translation="[点击恢复]" explanation="pause screen" max="40" max_local="26"/>
+    <string english="Press M to mute in game" translation="按M键将游戏静音" explanation="pause screen" max="40" max_local="26"/>
+    <string english="Press N to mute music only" translation="按N键仅将背景音乐静音" explanation="pause screen" max="40" max_local="26"/>
+    <string english="MAKE AND PLAY EDITION" translation="MAKE AND PLAY版" explanation="" max="27" max_local="18"/>
+    <string english="[MMMMMM Mod Installed]" translation="[已安装MMMMMM Mod]" explanation="" max="32" max_local="21"/>
+    <string english="play" translation="游玩" explanation="main menu option"/>
+    <string english="levels" translation="关卡" explanation="main menu option"/>
+    <string english="options" translation="选项" explanation="main menu option"/>
+    <string english="translator" translation="译者" explanation="main menu option"/>
+    <string english="credits" translation="制作名单" explanation="main menu option"/>
+    <string english="quit" translation="退出" explanation="main menu option"/>
+    <string english="gameplay" translation="玩法" explanation="options menu option"/>
+    <string english="Gameplay Options" translation="玩法选项" explanation="title" max="20" max_local="13"/>
+    <string english="Adjust various gameplay settings." translation="调整各类玩法相关的设定。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="graphics" translation="画面" explanation="options menu option"/>
+    <string english="Graphics Options" translation="画面选项" explanation="title" max="20" max_local="13"/>
+    <string english="Adjust screen settings." translation="调整画面设置。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="audio" translation="声音" explanation="options menu option"/>
+    <string english="Audio Options" translation="声音选项" explanation="title" max="20" max_local="13"/>
+    <string english="Adjust volume settings and soundtrack." translation="调整音量和音轨。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="Adjust volume settings." translation="调整音量设置。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="continue" translation="继续" explanation="menu option"/>
+    <string english="continue from teleporter" translation="从传送器位置继续" explanation="menu option, game save that was made at a teleporter"/>
+    <string english="Tele Save" translation="传送存档" explanation="title, game save that was made at a teleporter" max="20" max_local="13"/>
+    <string english="continue from quicksave" translation="从快速保存处继续" explanation="menu option, game save that was made freely from the menu (at any checkpoint)"/>
+    <string english="Quick Save" translation="快速存档" explanation="title, game save that was made freely from the menu (at any checkpoint)" max="20" max_local="13"/>
+    <string english="proceed" translation="继续" explanation="menu option"/>
+    <string english="new game" translation="新游戏" explanation="menu option"/>
+    <string english="start new game" translation="开始新游戏" explanation="menu option, extra confirmation"/>
+    <string english="secret lab" translation="秘密实验室" explanation="menu option"/>
+    <string english="play modes" translation="游玩模式" explanation="menu option"/>
+    <string english="ERROR: No levels found." translation="错误：没有找到关卡。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="ERROR: This level has no start point!" translation="错误：这个关卡没有起始点！" explanation="" max="38*5" max_local="25*4"/>
+    <string english="ERROR" translation="错误" explanation="title" max="20" max_local="13"/>
+    <string english="WARNING" translation="警告" explanation="title" max="20" max_local="13"/>
+    <string english="unlock play modes" translation="解锁游玩模式" explanation="menu option"/>
+    <string english="Unlock Play Modes" translation="解锁游玩模式" explanation="title" max="20" max_local="13"/>
+    <string english="Unlock parts of the game normally unlocked as you progress." translation="解锁通常在游戏进程中逐渐解锁的部分。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="From here, you may unlock parts of the game that are normally unlocked as you play." translation="在这里，你可以解锁通常是在游玩过程中逐渐解锁的游戏内容。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="unlock ship jukebox" translation="解锁飞船点唱机" explanation="menu option"/>
+    <string english="unlock secret lab" translation="解锁秘密实验室" explanation="menu option"/>
+    <string english="game pad" translation="手柄" explanation="menu option"/>
+    <string english="Game Pad Options" translation="手柄选项" explanation="title" max="20" max_local="13"/>
+    <string english="Game Pad" translation="手柄" explanation="title" max="20" max_local="13"/>
+    <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="重新绑定你的控制器按钮和调整敏感度。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="Change controller options." translation="改变控制器选项。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="language" translation="语言" explanation="menu option"/>
+    <string english="Language" translation="语言" explanation="title" max="20" max_local="13"/>
+    <string english="Change the language." translation="变更语言。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="clear main game data" translation="清除主游戏数据" explanation="menu option"/>
+    <string english="clear custom level data" translation="清除自制关卡数据" explanation="menu option"/>
+    <string english="Clear Data" translation="清除数据" explanation="title" max="20" max_local="13"/>
+    <string english="Delete your main game save data and unlocked play modes." translation="删除你在主游戏模式中的存档数据和已解锁的游玩模式。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="Delete your custom level save data and completion stars." translation="删除你的自制关卡存档数据和完成星星数。" explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5" max_local="25*4"/>
+    <string english="Are you sure? This will delete your current saves..." translation="你确定吗？这将删除你现在的存档……" explanation="" max="38*7" max_local="25*5"/>
+    <string english="Are you sure you want to delete all your saved data?" translation="你确定想要删除你的所有存档数据吗？" explanation="" max="38*7" max_local="25*5"/>
+    <string english="Are you sure you want to delete your quicksave?" translation="你确定想要删除你的快速存档吗？" explanation="only the quicksave of a custom level" max="38*7" max_local="25*5"/>
+    <string english="no! don&apos;t delete" translation="不！不要删除" explanation="menu option"/>
+    <string english="yes, delete everything" translation="是，删除一切" explanation="menu option"/>
+    <string english="yes, delete save" translation="是，删除存档" explanation="menu option"/>
+    <string english="soundtrack" translation="音轨" explanation="menu option"/>
+    <string english="Soundtrack" translation="音轨" explanation="title" max="20" max_local="13"/>
+    <string english="Toggle between MMMMMM and PPPPPP." translation="在MMMMMM和PPPPPP之间切换。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Current soundtrack: PPPPPP" translation="当前音轨：PPPPPP" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Current soundtrack: MMMMMM" translation="当前音轨：MMMMMM" explanation="" max="38*3" max_local="25*2"/>
+    <string english="toggle fullscreen" translation="切换全屏" explanation="menu option"/>
+    <string english="Toggle Fullscreen" translation="切换全屏" explanation="title" max="20" max_local="13"/>
+    <string english="Change to fullscreen/windowed mode." translation="切换为全屏/窗口模式" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Current mode: FULLSCREEN" translation="当前模式：全屏" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Current mode: WINDOWED" translation="当前模式：窗口" explanation="" max="38*2" max_local="25*1"/>
+    <string english="scaling mode" translation="放大模式" explanation="menu option"/>
+    <string english="Scaling Mode" translation="放大模式" explanation="title" max="20" max_local="13"/>
+    <string english="Choose letterbox/stretch/integer mode." translation="选择黑边/拉伸/整数模式。" explanation="See the `Current mode` explanations for more details on the modes" max="38*3" max_local="25*2"/>
+    <string english="Current mode: INTEGER" translation="当前模式：放大整数倍" explanation="integer (whole number) mode only enlarges the game in exact multiples of 320x240" max="38*2" max_local="25*1"/>
+    <string english="Current mode: STRETCH" translation="当前模式：拉伸" explanation="stretch mode just stretches the game to fill the window content" max="38*2" max_local="25*1"/>
+    <string english="Current mode: LETTERBOX" translation="当前模式：增加黑边" explanation="letterbox mode enlarges the game to the window, but adds black bars to make the aspect ratio 4:3" max="38*2" max_local="25*1"/>
+    <string english="resize to nearest" translation="缩放到最接近窗口" explanation="menu option. The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480"/>
+    <string english="Resize to Nearest" translation="缩放到最接近窗口" explanation="title. The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480" max="20" max_local="13"/>
+    <string english="Resize to the nearest window size that is of an integer multiple." translation="将窗口大小缩放到最接近的整数倍分辨率。" explanation="The game will be resized to the closest multiple of the normal resolution, 320x240, so for example if your window is 682x493, it will resize to 640x480" max="38*3" max_local="25*2"/>
+    <string english="You must be in windowed mode to use this option." translation="只有在窗口模式下才能使用这一选项。" explanation="The game cannot be in fullscreen to resize the window" max="38*2" max_local="25*1"/>
+    <string english="toggle filter" translation="切换滤镜" explanation="menu option"/>
+    <string english="Toggle Filter" translation="切换滤镜" explanation="title" max="20" max_local="13"/>
+    <string english="Change to nearest/linear filter." translation="改变为最接近/线性滤镜。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Current mode: LINEAR" translation="当前模式：线性" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Current mode: NEAREST" translation="当前模式：最接近" explanation="nearest neighbor filter" max="38*2" max_local="25*1"/>
+    <string english="toggle analogue" translation="切换模拟" explanation="menu option, analogue mode simulates distortion from bad signal"/>
+    <string english="Analogue Mode" translation="模拟模式" explanation="title, analogue mode simulates distortion from bad signal" max="20" max_local="13"/>
+    <string english="There is nothing wrong with your television set. Do not attempt to adjust the picture." translation="你的电视并没有任何问题，不需要调整画面。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="toggle fps" translation="切换FPS" explanation="menu option, kind of a misnomer, toggle between 30 FPS and more than 30 FPS"/>
+    <string english="Toggle 30+ FPS" translation="切换30+FPS" explanation="title" max="20" max_local="13"/>
+    <string english="Change whether the game runs at 30 or over 30 FPS." translation="选择游戏是否锁定30帧，还是以更高帧数运行。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Current mode: 30 FPS" translation="当前模式：30 FPS" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Current mode: Over 30 FPS" translation="当前模式：可超过30 FPS" explanation="" max="38*2" max_local="25*1"/>
+    <string english="toggle vsync" translation="切换垂直同步" explanation="menu option"/>
+    <string english="Toggle VSync" translation="切换垂直同步" explanation="title" max="20" max_local="13"/>
+    <string english="Turn VSync on or off." translation="切换垂直同步的开关。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Current mode: VSYNC OFF" translation="当前模式：垂直同步 关" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Current mode: VSYNC ON" translation="当前模式：垂直同步 开" explanation="" max="38*2" max_local="25*1"/>
+    <string english="music volume" translation="音乐音量" explanation="audio menu option"/>
+    <string english="Music Volume" translation="音乐音量" explanation="title" max="20" max_local="13"/>
+    <string english="Change the volume of the music." translation="调整音乐的音量。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="sound volume" translation="声音音量" explanation="audio menu option"/>
+    <string english="Sound Volume" translation="声音音量" explanation="title" max="20" max_local="13"/>
+    <string english="Change the volume of sound effects." translation="调整声音的音量。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Credits" translation="制作名单" explanation="credits" max="20" max_local="13"/>
+    <string english="VVVVVV is a game by" translation="《VVVVVV》的制作者是" explanation="credits" max="40" max_local="26"/>
+    <string english="and features music by" translation="音乐制作" explanation="credits" max="40" max_local="26"/>
+    <string english="Roomnames are by" translation="房间命名" explanation="credits" max="40" max_local="26"/>
+    <string english="C++ version by" translation="C++版本" explanation="credits" max="40" max_local="26"/>
+    <string english="Beta Testing by" translation="Beta测试" explanation="credits" max="30" max_local="20"/>
+    <string english="Ending Picture by" translation="结局画面" explanation="credits" max="30" max_local="20"/>
+    <string english="Created by" translation="制作人" explanation="credits" max="30" max_local="20"/>
+    <string english="With Music by" translation="音乐" explanation="credits" max="30" max_local="20"/>
+    <string english="Rooms Named by" translation="房间名" explanation="credits" max="30" max_local="20"/>
+    <string english="C++ Port by" translation="C++移植" explanation="credits" max="30" max_local="20"/>
+    <string english="Patrons" translation="赞助" explanation="credits, people who donated a certain amount before the game originally released" max="13" max_local="8"/>
+    <string english="VVVVVV is supported by the following patrons" translation="《VVVVVV》得到了以下人士的支持" explanation="credits" max="38*3" max_local="25*2"/>
+    <string english="and also by" translation="此外还有" explanation="credits, VVVVVV is also supported by the following people" max="38*2" max_local="25*1"/>
+    <string english="and" translation="以及" explanation="credits. This list of names, AND furthermore, this other list of names" max="38" max_local="25"/>
+    <string english="GitHub Contributors" translation="GitHub贡献者" explanation="credits. This doesn&apos;t _really_ need `GitHub` specifically, it could be replaced with `Code`" max="20" max_local="13"/>
+    <string english="With contributions on GitHub from" translation="以下人士在GitHub上做出了贡献" explanation="credits" max="38*3" max_local="25*2"/>
+    <string english="and thanks also to:" translation="此外还要感谢：" explanation="credits, and thanks also to ... you!" max="38*3" max_local="25*2"/>
+    <string english="You!" translation="您！" explanation="credits, and thanks also to ... you!" max="20" max_local="13"/>
+    <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="你的支持让我能够在现在和将来、不断地制作自己想要的游戏。" explanation="credits" max="38*5" max_local="25*4"/>
+    <string english="Thank you!" translation="感谢你！" explanation="credits" max="38*5" max_local="25*4"/>
+    <string english="Good luck!" translation="祝你好运！" explanation="" max="38*3" max_local="25*2"/>
+    <string english="You cannot save in this mode." translation="这个模式下不能存档。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Would you like to disable the cutscenes during the game?" translation="你想要关闭游戏进程中的过场动画吗？" explanation="" max="38*6" max_local="25*5"/>
+    <string english="disable cutscenes" translation="关闭过场" explanation="menu option"/>
+    <string english="enable cutscenes" translation="开启过场" explanation="menu option"/>
+    <string english="analog stick sensitivity" translation="摇杆敏感度" explanation="menu option"/>
+    <string english="Low" translation="低" explanation="analog stick sensitivity, game pad menu"/>
+    <string english="Medium" translation="中" explanation="analog stick sensitivity, game pad menu"/>
+    <string english="High" translation="高" explanation="analog stick sensitivity, game pad menu"/>
+    <string english="bind flip" translation="绑定翻转" explanation="menu option"/>
+    <string english="bind enter" translation="绑定回车" explanation="menu option"/>
+    <string english="bind menu" translation="绑定菜单" explanation="menu option"/>
+    <string english="bind restart" translation="绑定重开" explanation="menu option. In-game death key to restart at checkpoint"/>
+    <string english="bind interact" translation="绑定交互" explanation="menu option"/>
+    <string english="Flip is bound to: " translation="翻转绑定为：" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
+    <string english="Enter is bound to: " translation="回车绑定为：" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
+    <string english="Menu is bound to: " translation="菜单绑定为：" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
+    <string english="Restart is bound to: " translation="重开绑定为：" explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
+    <string english="Interact is bound to: " translation="交互绑定为：" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32" max_local="21"/>
+    <string english="ERROR: No language files found." translation="错误：没有找到语言文件。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Language folder:" translation="语言文件夹：" explanation="" max="39" max_local="26"/>
+    <string english="Repository language folder:" translation="GitHub语言文件夹：" explanation="Language folder from the Git repository" max="39" max_local="26"/>
+    <string english="translator options" translation="译者选项" explanation="menu option"/>
+    <string english="Translator options" translation="译者选项" explanation="title" max="20" max_local="13"/>
+    <string english="Some options that are useful for translators and developers." translation="一些对译者和开发者有用的选项。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="maintenance" translation="维护" explanation="menu option, menu that allows you to apply maintenance to translations"/>
+    <string english="Maintenance" translation="维护" explanation="title" max="20" max_local="13"/>
+    <string english="open lang folder" translation="打开语言文件夹" explanation="menu option. Button that opens the folder with language files (which is called lang) in a file explorer"/>
+    <string english="Sync all language files after adding new strings." translation="在增添新词条后同步所有语言文件。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="translate room names" translation="翻译房间名" explanation="menu option"/>
+    <string english="Translate rooms" translation="翻译房间" explanation="title" max="20" max_local="13"/>
+    <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="开启房间名翻译模式，这样你就可以在看到房间的情况下翻译。按I开启无敌。" explanation="" max="38*4" max_local="25*3"/>
+    <string english="You have not enabled room name translation mode!" translation="你没有开启房间名翻译模式！" explanation="" max="38*4" max_local="25*3"/>
+    <string english="menu test" translation="菜单测试" explanation="menu option"/>
+    <string english="Menu test" translation="菜单测试" explanation="title" max="20" max_local="13"/>
+    <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="查看游戏中几乎所有的菜单。这些菜单并没有真正的功能，所有选项都是跳到下一个菜单。按Esc键中止。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="cutscene test" translation="过场测试" explanation="menu option"/>
+    <string english="Cutscene test" translation="过场测试" explanation="title" max="20" max_local="13"/>
+    <string english="Display all text boxes from cutscenes.xml. Only tests the basic appearance of each individual text box." translation="显示cutscenes.xml里的所有对话框。只测试每个单独对话框的最基础外观。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="from clipboard" translation="从剪贴板" explanation="menu option, paste script name from clipboard"/>
+    <string english="explore game" translation="探索游戏" explanation="menu option"/>
+    <string english="Explore game" translation="探索游戏" explanation="title" max="20" max_local="13"/>
+    <string english="Explore the rooms of any level in the game, to find all room names to translate." translation="探索游戏中的任意一关，并找到所有需要翻译的房间名。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="limits check" translation="越界检测" explanation="menu option"/>
+    <string english="global limits check" translation="全局越界检测" explanation="menu option"/>
+    <string english="Limits check" translation="越界检测" explanation="title" max="20" max_local="13"/>
+    <string english="Find translations that don&apos;t fit within their defined bounds." translation="找到超出限定范围的译文。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="No text overflows found!" translation="没有文本溢出！" explanation="limits check. no strings go outside their max bounds" max="38*6" max_local="25*5"/>
+    <string english="No text overflows left!" translation="文本溢出全部解决！" explanation="limits check. we have seen all strings that go outside their max bounds" max="38*6" max_local="25*5"/>
+    <string english="Note that this detection isn&apos;t perfect." translation="请注意，这个检测模式并不是完美的。" explanation="limits check" max="38*6" max_local="25*5"/>
+    <string english="sync language files" translation="同步语言文件" explanation="menu option"/>
+    <string english="Sync language files" translation="同步语言文件" explanation="title, translation maintenance menu" max="20" max_local="13"/>
+    <string english="sync" translation="同步" explanation="menu option, verb"/>
+    <string english="Merge all new strings from the template files into the translation files, keeping existing translations." translation="将模板文件中的所有新字符串整合进翻译文件中，保留当前的翻译。" explanation="translation maintenance menu" max="38*6" max_local="25*5"/>
+    <string english="language statistics" translation="语言统计" explanation="menu option"/>
+    <string english="global statistics" translation="全局统计" explanation="menu option"/>
+    <string english="Statistics" translation="统计" explanation="title, translation maintenance menu" max="20" max_local="13"/>
+    <string english="Count the amount of untranslated strings for this language." translation="统计这个语言还未翻译的字符串。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="Count the amount of untranslated strings for each language." translation="统计每个语言还未翻译的字符串。" explanation="translation maintenance menu" max="38*6" max_local="25*5"/>
+    <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case." translation="如果英语模板语言文件中加入了新字符串，这个功能会把它们插入到所有语言中。为防万一，请先备份。" explanation="translation maintenance menu" max="38*7" max_local="25*5"/>
+    <string english="Full syncing EN→All:" translation="全面同步EN-&gt;所有" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages" max="40" max_local="26"/>
+    <string english="Syncing not supported:" translation="同步不支持：" explanation="translation maintenance menu. The following list of language files are untouched by the sync button" max="40" max_local="26"/>
+    <string english="advanced options" translation="高级选项" explanation="menu option"/>
+    <string english="Advanced Options" translation="高级选项" explanation="title" max="20" max_local="13"/>
+    <string english="All other gameplay settings." translation="所有其他玩法设置。" explanation="description for advanced options" max="38*5" max_local="25*4"/>
+    <string english="unfocus pause" translation="非当前窗口暂停" explanation="menu option. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen"/>
+    <string english="Unfocus Pause" translation="非当前窗口暂停" explanation="title. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen" max="20" max_local="13"/>
+    <string english="Toggle if the game will pause when the window is unfocused." translation="切换在游戏不是当前窗口时是否暂停。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Unfocus pause is OFF" translation="非当前窗口暂停 关闭" explanation="Making another window active will not show the pause screen." max="38*2" max_local="25*1"/>
+    <string english="Unfocus pause is ON" translation="非当前窗口暂停 开启" explanation="Making another window active will show the pause screen." max="38*2" max_local="25*1"/>
+    <string english="unfocus audio pause" translation="非当前窗口声音暂停" explanation="menu option. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause"/>
+    <string english="Unfocus Audio" translation="非当前窗口声音" explanation="title. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" max="20" max_local="13"/>
+    <string english="Toggle if the audio will pause when the window is unfocused." translation="切换在游戏不是当前窗口时是否暂停音乐。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Unfocus audio pause is OFF" translation="非当前窗口声音暂停 关闭" explanation="Making another window active will leave the music keep playing." max="38*2" max_local="25*1"/>
+    <string english="Unfocus audio pause is ON" translation="非当前窗口声音暂停 开启" explanation="Making another window active will pause the music." max="38*2" max_local="25*1"/>
+    <string english="toggle in-game timer" translation="切换游戏内计时器" explanation="menu option"/>
+    <string english="In-Game Timer" translation="游戏内计时器" explanation="title" max="20" max_local="13"/>
+    <string english="Toggle the in-game timer outside of time trials." translation="在时间挑战模式外切换计时器的开关。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="In-Game Timer is ON" translation="游戏内计时器 开启" explanation="" max="38*2" max_local="25*1"/>
+    <string english="In-Game Timer is OFF" translation="游戏内计时器 关闭" explanation="" max="38*2" max_local="25*1"/>
+    <string english="interact button" translation="交互按键" explanation="menu option"/>
+    <string english="Interact Button" translation="交互按键" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" max_local="13"/>
+    <string english="Toggle whether you interact with prompts using ENTER or E." translation="切换交互时使用回车键还是E。" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3" max_local="25*2"/>
+    <string english="E" translation="" explanation="keyboard key E. Speedrunner options menu"/>
+    <string english="ENTER" translation="回车键" explanation="keyboard key ENTER. Speedrunner options menu"/>
+    <string english="ESC" translation="" explanation="keyboard key ESC"/>
+    <string english="ACTION" translation="行动键" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
+    <string english="Interact button: {button}" translation="交互按钮：{button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2" max_local="25*1"/>
+    <string english="fake load screen" translation="假载入画面" explanation="menu option"/>
+    <string english="Fake Load Screen" translation="假载入画面" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20" max_local="13"/>
+    <string english="Disable the fake loading screen which appears on game launch." translation="关闭游戏启动时的假载入画面。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Fake loading screen is OFF" translation="假载入画面 关闭" explanation="allows the loading screen which counts to 100% to be turned off" max="38*2" max_local="25*1"/>
+    <string english="Fake loading screen is ON" translation="假载入画面 开启" explanation="allows the loading screen which counts to 100% to be turned off" max="38*2" max_local="25*1"/>
+    <string english="room name background" translation="房间名背景" explanation="menu option, background behind room names"/>
+    <string english="Room Name BG" translation="房间名背景" explanation="title, background behind room names" max="20" max_local="13"/>
+    <string english="Lets you see through what is behind the name at the bottom of the screen." translation="让你可以看见屏幕底端房间名后面的背景。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Room name background is TRANSLUCENT" translation="房间名背景 透明" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Room name background is OPAQUE" translation="房间名背景 不透明" explanation="" max="38*2" max_local="25*1"/>
+    <string english="speedrun options" translation="竞速选项" explanation="menu option"/>
+    <string english="Speedrunner Options" translation="竞速玩家选项" explanation="title" max="20" max_local="13"/>
+    <string english="Access some advanced settings that might be of interest to speedrunners." translation="竞速玩家可能会感兴趣的一些高级设定。" explanation="description for speedrunner options" max="38*5" max_local="25*4"/>
+    <string english="glitchrunner mode" translation="Bug竞速模式" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
+    <string english="Glitchrunner Mode" translation="Bug竞速模式" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20" max_local="13"/>
+    <string english="Re-enable glitches that existed in previous versions of the game." translation="重新启用在旧版本中存在的各种bug。" explanation="glitchrunner mode" max="38*3" max_local="25*2"/>
+    <string english="Glitchrunner mode is OFF" translation="Bug竞速模式 关闭" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Glitchrunner mode is {version}" translation="Bug竞速模式 开启" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2" max_local="25*1"/>
+    <string english="Select a new glitchrunner version below." translation="选择使用哪个版本来进行Bug竞速。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="none" translation="不使用" explanation="menu option, do not emulate any older version"/>
+    <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
+    <string english="2.2" translation="2.2" explanation="VVVVVV version number for glitchrunner mode"/>
+    <string english="input delay" translation="输入延迟" explanation="menu option, enable 1 frame of delay after pressing input"/>
+    <string english="Input Delay" translation="输入延迟" explanation="title, enable 1 frame of delay after pressing input" max="20" max_local="13"/>
+    <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="重新启用在过去游戏版本中存在的1帧输入延迟。" explanation="input delay" max="38*3" max_local="25*2"/>
+    <string english="Input delay is ON" translation="输入延迟 开启" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Input delay is OFF" translation="输入延迟 关闭" explanation="" max="38*2" max_local="25*1"/>
+    <string english="accessibility" translation="易用性" explanation="menu option"/>
+    <string english="Accessibility" translation="易用性" explanation="title" max="20" max_local="13"/>
+    <string english="Disable screen effects, enable slowdown modes or invincibility." translation="关闭画面特效、开启慢速模式或无敌模式。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="animated backgrounds" translation="动态背景" explanation="menu option"/>
+    <string english="Backgrounds" translation="背景" explanation="title" max="20" max_local="13"/>
+    <string english="Disable animated backgrounds in menus and during gameplay." translation="关闭菜单和游玩过程中的动态背景。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Backgrounds are ON." translation="背景 开启" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Backgrounds are OFF." translation="背景 关闭" explanation="" max="38*2" max_local="25*1"/>
+    <string english="screen effects" translation="画面特效" explanation="menu option"/>
+    <string english="Screen Effects" translation="画面特效" explanation="title" max="20" max_local="13"/>
+    <string english="Disables screen shakes and flashes." translation="关闭屏幕震动和闪烁。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Screen Effects are ON." translation="画面特效 开启" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Screen Effects are OFF." translation="画面特效 关闭" explanation="" max="38*3" max_local="25*2"/>
+    <string english="text outline" translation="文字边框" explanation="menu option"/>
+    <string english="Text Outline" translation="文字边框" explanation="title" max="20" max_local="13"/>
+    <string english="Disables outline on game text." translation="关闭游戏文字的边框。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Text outlines are ON." translation="文字边框 开启" explanation="" max="40" max_local="26"/>
+    <string english="Text outlines are OFF." translation="文字边框 关闭" explanation="" max="40" max_local="26"/>
+    <string english="invincibility" translation="无敌" explanation="menu option"/>
+    <string english="Invincibility" translation="无敌" explanation="title" max="20" max_local="13"/>
+    <string english="Explore the game freely without dying. (Can cause glitches.)" translation="在不会死亡的前提下自由探索游戏。（有可能导致bug）" explanation="invincibility mode" max="38*3" max_local="25*2"/>
+    <string english="Invincibility is ON." translation="无敌 开启" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Invincibility is OFF." translation="无敌 关闭" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Are you sure you want to enable invincibility?" translation="你确定想要开启无敌吗？" explanation="" max="38*7" max_local="25*5"/>
+    <string english="no, return to options" translation="不，返回选项" explanation="menu option"/>
+    <string english="yes, enable" translation="是，开启" explanation="menu option"/>
+    <string english="slowdown" translation="减速" explanation="menu option"/>
+    <string english="Slowdown" translation="减速" explanation="title" max="20" max_local="13"/>
+    <string english="Game Speed" translation="游戏速度" explanation="title" max="20" max_local="13"/>
+    <string english="Reduce the game speed." translation="降低游戏速度。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Select a new game speed below." translation="在下方选择新的游戏速度。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Game speed is normal." translation="游戏速度正常。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Game speed is at 80%" translation="游戏速度80%。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Game speed is at 60%" translation="游戏速度60%。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Game speed is at 40%" translation="游戏速度40%。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="normal speed" translation="正常速度" explanation="menu option"/>
+    <string english="80% speed" translation="80%速度" explanation="menu option"/>
+    <string english="60% speed" translation="60%速度" explanation="menu option"/>
+    <string english="40% speed" translation="40%速度" explanation="menu option"/>
+    <string english="play intermission 1" translation="游玩间奏关卡1" explanation="menu option"/>
+    <string english="play intermission 2" translation="游玩间奏关卡2" explanation="menu option"/>
+    <string english="Who do you want to play the level with?" translation="你想和谁一起进行本关？" explanation="choose your NPC companion" max="38*8" max_local="25*6"/>
+    <string english="time trials" translation="时间挑战" explanation="menu option"/>
+    <string english="Time Trials" translation="时间挑战" explanation="title" max="20" max_local="13"/>
+    <string english="Replay any level in the game in a competitive time trial mode." translation="在有竞技性的时间挑战模式下重玩游戏中的任意关卡。" explanation="" max="38*4" max_local="25*3"/>
+    <string english="Time Trials are not available with slowdown or invincibility." translation="时间挑战模式不能和减速及无敌选项同时进行。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="unlock time trials" translation="解锁时间挑战" explanation="menu option"/>
+    <string english="Unlock Time Trials" translation="解锁时间挑战" explanation="title" max="20" max_local="13"/>
+    <string english="You can unlock each time trial separately." translation="你可以分别解锁每一个时间挑战。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="intermissions" translation="间奏" explanation="menu option"/>
+    <string english="Intermissions" translation="间奏" explanation="title" max="20" max_local="13"/>
+    <string english="Replay the intermission levels." translation="重玩间奏关卡。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="unlock intermissions" translation="解锁间奏" explanation="menu option"/>
+    <string english="TO UNLOCK: Complete the intermission levels in-game." translation="解锁方式：在游戏进程中完成间奏关卡。" explanation="" max="38*4" max_local="25*3"/>
+    <string english="no death mode" translation="无死亡模式" explanation="menu option"/>
+    <string english="No Death Mode" translation="无死亡模式" explanation="title" max="20" max_local="13"/>
+    <string english="Play the entire game without dying once." translation="在一次都不死的条件下游玩整个游戏。" explanation="" max="38*4" max_local="25*3"/>
+    <string english="No Death Mode is not available with slowdown or invincibility." translation="无死亡模式不能和减速及无敌选项同时进行。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="unlock no death mode" translation="解锁无死亡模式" explanation="menu option"/>
+    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="解锁方式：在至少4个时间挑战关卡中得到S级或更高评级。" explanation="ranks are B A S V, see below" max="38*3" max_local="25*2"/>
+    <string english="flip mode" translation="翻转模式" explanation="menu option, mirrors the entire game vertically"/>
+    <string english="Flip Mode" translation="翻转模式" explanation="title, mirrors the entire game vertically" max="20" max_local="13"/>
+    <string english="Flip the entire game vertically." translation="上下翻转整个游戏。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Flip the entire game vertically. Compatible with other game modes." translation="上下翻转整个游戏。可与其他游戏模式兼容。" explanation="" max="38*4" max_local="25*3"/>
+    <string english="unlock flip mode" translation="解锁翻转模式" explanation="menu option"/>
+    <string english="Currently ENABLED!" translation="现在开启中！" explanation="flip mode" max="38*3" max_local="25*2"/>
+    <string english="Currently Disabled." translation="现在已关闭。" explanation="flip mode" max="38*3" max_local="25*2"/>
+    <string english="TO UNLOCK: Complete the game." translation="解锁方式：完成游戏。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Are you sure you want to quit?" translation="你确定想要退出吗？" explanation="quit the program" max="38*4" max_local="25*3"/>
+    <string english="GAME OVER" translation="游戏结束" explanation="bigger title" max="13" max_local="8"/>
+    <string english="You managed to reach:" translation="你成功到达了：" explanation="you managed to reach the following room" max="40" max_local="26"/>
+    <string english="Keep trying! You&apos;ll get there!" translation="继续努力！你能做到的！" explanation="player died before managing to save anybody" max="38*2" max_local="25*1"/>
+    <string english="Nice one!" translation="干得好！" explanation="player died after saving one crewmate" max="38*2" max_local="25*1"/>
+    <string english="Wow! Congratulations!" translation="哇喔！恭喜！" explanation="player died after saving two crewmates" max="38*2" max_local="25*1"/>
+    <string english="Incredible!" translation="了不起！" explanation="player died after saving three crewmates" max="38*2" max_local="25*1"/>
+    <string english="Unbelievable! Well done!" translation="难以置信！干得漂亮！" explanation="player died after saving four crewmates" max="38*2" max_local="25*1"/>
+    <string english="Er, how did you do that?" translation="呃，你是怎么做到的？" explanation="player died even though they were finished, lol" max="38*2" max_local="25*1"/>
+    <string english="WOW" translation="哇 噻" explanation="even bigger title" max="10" max_local="6"/>
+    <string english="You rescued all the crewmates!" translation="你救出了所有船员！" explanation="" max="40" max_local="26"/>
+    <string english="A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!" translation="一个全新的奖杯已经被放在了秘密实验室中，作为对你成就的认可！" explanation="" max="38*4" max_local="25*3"/>
+    <string english="[Trinkets found]" translation="[找到饰品]" explanation="amount of shiny trinkets found" max="40" max_local="26"/>
+    <string english="[Number of Deaths]" translation="[死亡次数]" explanation="" max="40" max_local="26"/>
+    <string english="[Time Taken]" translation="[花费时间]" explanation="stopwatch time" max="40" max_local="26"/>
+    <string english="Trinkets Found:" translation="找到饰品：" explanation="game complete screen" max="22" max_local="14"/>
+    <string english="Game Time:" translation="游戏时间：" explanation="game complete screen" max="22" max_local="14"/>
+    <string english="Total Flips:" translation="总翻转次数：" explanation="game complete screen" max="22" max_local="14"/>
+    <string english="Total Deaths:" translation="总死亡次数：" explanation="game complete screen" max="22" max_local="14"/>
+    <string english="Results" translation="结果" explanation="bigger title" max="13" max_local="8"/>
+    <string english="TIME TAKEN:" translation="花费时间：" explanation="time the player took playing the level" max="32" max_local="21"/>
+    <string english="NUMBER OF DEATHS:" translation="死亡次数：" explanation="amount of times the player died" max="32" max_local="21"/>
+    <string english="SHINY TRINKETS:" translation="闪亮饰品：" explanation="amount of trinkets collected" max="32" max_local="21"/>
+    <string english=" / " translation="" explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
+    <string english="{n_trinkets}/{max_trinkets}" translation="" explanation="ex: 2/5"/>
+    <string english="{n_trinkets} of {max_trinkets}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: 2 of 5"/>
+    <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34" max_local="22"/>
+    <string english="{savebox_n_trinkets|wordy}" translation="{savebox_n_trinkets}" explanation="trinket count in telesave/quicksave information box. You can add |upper for an uppercase letter."/>
+    <string english="{gamecomplete_n_trinkets|wordy}" translation="{gamecomplete_n_trinkets}" explanation="trinket count on Game Complete screen (after Trinkets Found:) You can add |upper for an uppercase letter."/>
+    <string english="+1 Rank!" translation="评级+1！" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12" max_local="8"/>
+    <string english="Rank:" translation="评级：" explanation="time trial rank" max="9" max_local="6"/>
+    <string english="B" translation="B" explanation="time trial rank" max="5" max_local="3"/>
+    <string english="A" translation="A" explanation="time trial rank" max="5" max_local="3"/>
+    <string english="S" translation="S" explanation="time trial rank" max="5" max_local="3"/>
+    <string english="V" translation="V" explanation="time trial rank" max="5" max_local="3"/>
+    <string english="space station 1" translation="空间站1" explanation="area name as menu option"/>
+    <string english="Space Station 1" translation="空间站1" explanation="area name as title" max="20" max_local="13"/>
+    <string english="space station 2" translation="空间站2" explanation="area name as menu option"/>
+    <string english="Space Station 2" translation="空间站2" explanation="area name as title" max="20" max_local="13"/>
+    <string english="the laboratory" translation="实验室" explanation="area name as menu option"/>
+    <string english="The Laboratory" translation="实验室" explanation="area name as title" max="20" max_local="13"/>
+    <string english="the tower" translation="高塔" explanation="area name as menu option"/>
+    <string english="The Tower" translation="高塔" explanation="area name as title" max="20" max_local="13"/>
+    <string english="the warp zone" translation="折跃区" explanation="area name as menu option"/>
+    <string english="The Warp Zone" translation="折跃区" explanation="area name as title" max="20" max_local="13"/>
+    <string english="the final level" translation="最终关" explanation="area name as menu option"/>
+    <string english="The Final Level" translation="最终关" explanation="area name as title" max="20" max_local="13"/>
+    <string english="intermission 1" translation="间奏1" explanation="area name as menu option"/>
+    <string english="Intermission 1" translation="间奏1" explanation="area name as title" max="20" max_local="13"/>
+    <string english="intermission 2" translation="间奏2" explanation="area name as menu option"/>
+    <string english="Intermission 2" translation="间奏2" explanation="area name as title" max="20" max_local="13"/>
+    <string english="???" translation="？？？" explanation="locked area" max="20" max_local="13"/>
+    <string english="Not yet attempted" translation="尚未尝试" explanation="" max="38*2" max_local="25*1"/>
+    <string english="TO UNLOCK:" translation="解锁方式：" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40" max_local="26"/>
+    <string english="Rescue Violet" translation="救出维紫莱" explanation="" max="40" max_local="26"/>
+    <string english="Rescue Victoria" translation="救出维多兰亚" explanation="" max="40" max_local="26"/>
+    <string english="Rescue Vermilion" translation="救出维朱利安" explanation="" max="40" max_local="26"/>
+    <string english="Rescue Vitellary" translation="救出维土雷利" explanation="" max="40" max_local="26"/>
+    <string english="Rescue Verdigris" translation="救出维碧格里" explanation="" max="40" max_local="26"/>
+    <string english="Complete the game" translation="完成游戏" case="0" explanation="" max="40" max_local="26"/>
+    <string english="Find three trinkets" translation="找到三件饰品" explanation="" max="40" max_local="26"/>
+    <string english="Find six trinkets" translation="找到六件饰品" explanation="" max="40" max_local="26"/>
+    <string english="Find nine trinkets" translation="找到九件饰品" explanation="" max="40" max_local="26"/>
+    <string english="Find twelve trinkets" translation="找到十二件饰品" explanation="" max="40" max_local="26"/>
+    <string english="Find fifteen trinkets" translation="找到十五件饰品" explanation="" max="40" max_local="26"/>
+    <string english="Find eighteen trinkets" translation="找到十八件饰品" explanation="" max="40" max_local="26"/>
+    <string english="RECORDS" translation="纪录" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15" max_local="10"/>
+    <string english="TIME" translation="时间" explanation="record time" max="8" max_local="5"/>
+    <string english="SHINY" translation="饰品" explanation="record number of trinkets" max="8" max_local="5"/>
+    <string english="LIVES" translation="命数" explanation="record lowest number of deaths" max="8" max_local="5"/>
+    <string english="PAR TIME" translation="标准时间" explanation="followed by the goal time for this time trial" max="14" max_local="9"/>
+    <string english="TIME:" translation="时间：" explanation="in time trial. Stopwatch time, not too long"/>
+    <string english="DEATH:" translation="死亡：" explanation="in time trial. Number of times player died, not too long"/>
+    <string english="SHINY:" translation="饰品：" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
+    <string english="PAR TIME:" translation="标准时间：" explanation="in time trial. Goal time for time trial"/>
+    <string english="BEST RANK" translation="最高评级" explanation="ranks are B A S V" max="14" max_local="9"/>
+    <string english="GO!" translation="开始！" explanation="3, 2, 1, GO!" max="13" max_local="8"/>
+    <string english="Go!" translation="开始！" explanation="3, 2, 1, Go!" max="10" max_local="6"/>
+    <string english="Congratulations!" translation="恭喜！" explanation="title" max="20" max_local="13"/>
+    <string english="Your save files have been updated." translation="你的存档文件已经更新。" explanation="player completed game" max="38*6" max_local="25*5"/>
+    <string english="If you want to keep exploring the game, select CONTINUE from the play menu." translation="假如你想要继续探索游戏，请在游玩菜单中选择 继续 。" explanation="" max="38*9" max_local="25*7"/>
+    <string english="You have unlocked a new Time Trial." translation="你解锁了一个新的时间挑战。" explanation="" max="38*7" max_local="25*5"/>
+    <string english="You have unlocked some new Time Trials." translation="你解锁了一些新的时间挑战。" explanation="" max="38*7" max_local="25*5"/>
+    <string english="You have unlocked No Death Mode." translation="你解锁了无死亡模式。" explanation="" max="38*7" max_local="25*5"/>
+    <string english="You have unlocked Flip Mode." translation="你解锁了翻转模式。" explanation="" max="38*7" max_local="25*5"/>
+    <string english="You have unlocked the intermission levels." translation="你解锁了间奏关卡。" explanation="" max="38*7" max_local="25*5"/>
+    <string english="play a level" translation="游玩关卡" explanation="menu option"/>
+    <string english="level editor" translation="关卡编辑器" explanation="menu option"/>
+    <string english="open level folder" translation="打开关卡文件夹" explanation="menu option. Button that opens the folder with level files in a file explorer"/>
+    <string english="show level folder path" translation="显示关卡文件夹路径" explanation="menu option"/>
+    <string english="return" translation="返回" explanation="menu option"/>
+    <string english="return to levels" translation="返回选关" explanation="menu option"/>
+    <string english="no, don&apos;t show me" translation="不，不要显示了" explanation="menu option"/>
+    <string english="yes, reveal the path" translation="是，显示路径" explanation="menu option. Path to the levels folder"/>
+    <string english="return to play menu" translation="返回游玩彩蛋" explanation="menu option" max="36" max_local="24"/>
+    <string english="try again" translation="再试一次" explanation="menu option, retry time trial" max="36" max_local="24"/>
+    <string english="ok" translation="好的" explanation="button, which is a menu option, so lowercase"/>
+    <string english="next page" translation="下一页" explanation="menu option"/>
+    <string english="previous page" translation="上一页" explanation="menu option"/>
+    <string english="first page" translation="第一页" explanation="menu option"/>
+    <string english="last page" translation="最后一页" explanation="menu option"/>
+    <string english="silence" translation="静默" explanation="menu option, silence error message - do not show this message again"/>
+    <string english="continue from save" translation="从存档继续" explanation="menu option"/>
+    <string english="start from beginning" translation="从头开始" explanation="menu option"/>
+    <string english="delete save" translation="删除存档" explanation="menu option"/>
+    <string english="back to levels" translation="返回关卡" explanation="menu option"/>
+    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="要安装新的玩家关卡，请将.vvvvvv文件复制到关卡文件夹。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="你确定想要显示文件夹路径吗？如果你在直播的话，这可能会透露一些敏感的信息。" explanation="" max="38*4" max_local="25*3"/>
+    <string english="The levels path is:" translation="文件夹路径是：" explanation="" max="40" max_local="26"/>
+    <string english="[ Press ACTION to Start ]" translation="" explanation="***OUTDATED***" max="38*2" max_local="25*1"/>
+    <string english="[ Press {button} to Start ]" translation="[ 按 {button} 开始 ]" explanation="title screen. Expect `ACTION`" max="38*2" max_local="25*1"/>
+    <string english="ACTION = Space, Z, or V" translation="行动键 = 空格、Z或V" explanation="title screen" max="38*3" max_local="25*2"/>
+    <string english="[Press ENTER to return to editor]" translation="" explanation="***OUTDATED***" max="40" max_local="26"/>
+    <string english="[Press {button} to return to editor]" translation="[按 {button} 返回编辑器]" explanation="`to editor` is sorta redundant" max="40" max_local="26"/>
+    <string english="- Press ACTION to advance text -" translation="" explanation="***OUTDATED***" max="40" max_local="26"/>
+    <string english="- Press {button} to advance text -" translation="按 {button} 来推进文本 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="26"/>
+    <string english="Press ACTION to continue" translation="" explanation="***OUTDATED***" max="34" max_local="22"/>
+    <string english="Press {button} to continue" translation="按 {button} 继续" explanation="Expect `ACTION`" max="34" max_local="22"/>
+    <string english="Current Time" translation="当前时间" explanation="super gravitron, stopwatch time" max="20" max_local="13"/>
+    <string english="Best Time" translation="最佳时间" explanation="super gravitron, best stopwatch time" max="20" max_local="13"/>
+    <string english="Next Trophy at 5 seconds" translation="5秒时获得下一个奖杯" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Next Trophy at 10 seconds" translation="10秒时获得下一个奖杯" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Next Trophy at 15 seconds" translation="15秒时获得下一个奖杯" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Next Trophy at 20 seconds" translation="20秒时获得下一个奖杯" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Next Trophy at 30 seconds" translation="30秒时获得下一个奖杯" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Next Trophy at 1 minute" translation="1分钟时获得下一个奖杯" explanation="" max="38*2" max_local="25*1"/>
+    <string english="All Trophies collected!" translation="所有奖杯都已经收集到！" explanation="" max="38*2" max_local="25*1"/>
+    <string english="New Record!" translation="新纪录！" explanation="" max="20" max_local="13"/>
+    <string english="New Trophy!" translation="新奖杯！" explanation="" max="20" max_local="13"/>
+    <string english="[Press ENTER to stop]" translation="" explanation="***OUTDATED***" max="40" max_local="26"/>
+    <string english="[Press {button} to stop]" translation="[按 {button} 停止]" explanation="stop super gravitron" max="40" max_local="26"/>
+    <string english="SUPER GRAVITRON" translation="超级重力机" explanation="" max="20" max_local="13"/>
+    <string english="SUPER GRAVITRON HIGHSCORE" translation="超级重力机 高分榜" explanation="" max="38*4" max_local="25*3"/>
+    <string english="MAP" translation="地图" explanation="in-game menu" max="8" max_local="5"/>
+    <string english="GRAV" translation="重力机" explanation="in-game menu, Gravitron" max="8" max_local="5"/>
+    <string english="SHIP" translation="飞船" explanation="in-game menu, spaceship" max="8" max_local="5"/>
+    <string english="CREW" translation="船员" explanation="in-game menu" max="8" max_local="5"/>
+    <string english="STATS" translation="统计" explanation="in-game menu" max="8" max_local="5"/>
+    <string english="SAVE" translation="保存" explanation="in-game menu" max="8" max_local="5"/>
+    <string english="[ PAUSE ]" translation="[ 暂停 ]" explanation="in-game menu" max="40" max_local="26"/>
+    <string english="[ QUIT ]" translation="[ 退出 ]" explanation="in-game menu" max="40" max_local="26"/>
+    <string english="[ GRAVITRON ]" translation="[ 重力机 ]" explanation="in-game menu" max="40" max_local="26"/>
+    <string english="NO SIGNAL" translation="无信号" explanation="map screen. So like a TV/computer monitor" max="29" max_local="19"/>
+    <string english="Press ACTION to warp to the ship." translation="" explanation="***OUTDATED***" max="38*7" max_local="25*5"/>
+    <string english="Press {button} to warp to the ship." translation="按 {button} 传送到飞船。" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7" max_local="25*5"/>
+    <string english="Missing..." translation="下落不明……" case="1" explanation="this male crew member is missing" max="15" max_local="10"/>
+    <string english="Missing..." translation="下落不明……" case="2" explanation="this female crew member is missing" max="15" max_local="10"/>
+    <string english="Missing..." translation="下落不明……" case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15" max_local="10"/>
+    <string english="Rescued!" translation="已救出！" case="1" explanation="this male crew member is not missing anymore" max="15" max_local="10"/>
+    <string english="Rescued!" translation="已救出！" case="2" explanation="this female crew member is not missing anymore" max="15" max_local="10"/>
+    <string english="(that&apos;s you!)" translation="（这是你！）" explanation="this crew member is you (Viridian)" max="15" max_local="10"/>
+    <string english="Cannot Save in Level Replay" translation="无法在重放时保存" explanation="in-game menu" max="38*7" max_local="25*5"/>
+    <string english="Cannot Save in No Death Mode" translation="无法在无死亡模式保存" explanation="in-game menu" max="38*7" max_local="25*5"/>
+    <string english="How&apos;d you get here?" translation="你是怎么到这里来的？" explanation="in-game menu" max="38*7" max_local="25*5"/>
+    <string english="Cannot Save in Secret Lab" translation="无法在秘密实验室中保存" explanation="in-game menu" max="38*7" max_local="25*5"/>
+    <string english="ERROR: Could not save game!" translation="错误！无法保存游戏！" explanation="in-game menu" max="34*2" max_local="22*1"/>
+    <string english="ERROR: Could not save settings file!" translation="错误！无法保存设定文件！" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Game saved ok!" translation="游戏成功保存！" explanation="in-game menu" max="38*2" max_local="25*1"/>
+    <string english="[Press ACTION to save your game]" translation="" explanation="***OUTDATED***" max="40" max_local="26"/>
+    <string english="[Press {button} to save your game]" translation="[按 {button} 来保存游戏]" explanation="in-game menu. Expect `ACTION`" max="40" max_local="26"/>
+    <string english="(Note: The game is autosaved at every teleporter.)" translation="（注：游戏在每个传送器都会自动保存）" explanation="in-game menu" max="38*3" max_local="25*2"/>
+    <string english="Last Save:" translation="最新存档：" explanation="in-game menu" max="40" max_local="26"/>
+    <string english="Return to main menu?" translation="返回主菜单？" explanation="in-game menu" max="38*4" max_local="25*3"/>
+    <string english="Do you want to quit? You will lose any unsaved progress." translation="你想要退出吗？你会失去所有未保存的进度。" explanation="in-game menu" max="38*4" max_local="25*3"/>
+    <string english="Do you want to return to the secret laboratory?" translation="你想要回到秘密实验室吗？" explanation="in-game menu" max="38*4" max_local="25*3"/>
+    <string english="no, keep playing" translation="不，继续游玩" explanation="in-game menu option" max="28" max_local="18"/>
+    <string english="[ NO, KEEP PLAYING ]" translation="[ 不，继续游玩 ]" explanation="in-game menu option" max="32" max_local="21"/>
+    <string english="yes, quit to menu" translation="是，退出到菜单" explanation="in-game menu option" max="24" max_local="16"/>
+    <string english="[ YES, QUIT TO MENU ]" translation="[ 是，退出到菜单 ]" explanation="in-game menu option" max="28" max_local="18"/>
+    <string english="yes, return" translation="是，返回" explanation="in-game menu option" max="24" max_local="16"/>
+    <string english="[ YES, RETURN ]" translation="[ 是，返回 ]" explanation="in-game menu option" max="28" max_local="18"/>
+    <string english="no, return" translation="不，返回" explanation="quit program menu option"/>
+    <string english="yes, quit" translation="是，退出" explanation="quit program menu option"/>
+    <string english="return to game" translation="回到游戏" explanation="pause menu option" max="27" max_local="18"/>
+    <string english="quit to menu" translation="退出到主菜单" explanation="pause menu option" max="19" max_local="12"/>
+    <string english="Press Left/Right to choose a Teleporter" translation="按左/右来选择传送器" explanation="tight fit, so maybe `Left/Right: choose teleporter`, or use ←/→" max="40" max_local="26"/>
+    <string english="Press {button} to Teleport" translation="按 {button} 进行传送" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="40" max_local="26"/>
+    <string english="- Press {button} to Teleport -" translation="- 按 {button} 进行传送 -" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}" max="40" max_local="26"/>
+    <string english="Press {button} to explode" translation="按 {button} 爆炸" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37" max_local="24"/>
+    <string english="Press {button} to talk to Violet" translation="按 {button} 和维紫莱交谈" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37" max_local="24"/>
+    <string english="Press {button} to talk to Vitellary" translation="按 {button} 和维土雷利交谈" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37" max_local="24"/>
+    <string english="Press {button} to talk to Vermilion" translation="按 {button} 和维朱利安交谈" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37" max_local="24"/>
+    <string english="Press {button} to talk to Verdigris" translation="按 {button} 和维碧格里交谈" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37" max_local="24"/>
+    <string english="Press {button} to talk to Victoria" translation="按 {button} 和维多兰亚交谈" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37" max_local="24"/>
+    <string english="Press {button} to activate terminal" translation="按 {button} 激活终端" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37" max_local="24"/>
+    <string english="Press {button} to activate terminals" translation="按 {button} 激活终端" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37" max_local="24"/>
+    <string english="Press {button} to interact" translation="按 {button} 进行交互" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37" max_local="24"/>
+    <string english="- Press {button} to skip -" translation="- 按 {button} 跳过 -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40" max_local="26"/>
+    <string english="Passion for Exploring" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Pushing Onwards" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Positive Force" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Presenting VVVVVV" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Potential for Anything" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Predestined Fate" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Pipe Dream" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Popular Potpourri" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Pressure Cooker" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="ecroF evitisoP" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Map Settings" translation="地图设置" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20" max_local="13"/>
+    <string english="edit scripts" translation="编辑脚本" explanation="level editor menu option"/>
+    <string english="change music" translation="改变音乐" explanation="level editor menu option"/>
+    <string english="editor ghosts" translation="编辑器幽灵" explanation="level editor menu option. Toggles option to show a repetition of the player&apos;s path after playtesting"/>
+    <string english="Editor ghost trail is OFF" translation="编辑器幽灵轨迹：关闭" explanation="level editor. Repetition of the player&apos;s path after playtesting is disabled" max="40" max_local="26"/>
+    <string english="Editor ghost trail is ON" translation="编辑器幽灵轨迹：开启" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40" max_local="26"/>
+    <string english="load level" translation="载入关卡" explanation="level editor menu option"/>
+    <string english="save level" translation="保存关卡" explanation="level editor menu option"/>
+    <string english="quit to main menu" translation="退回主菜单" explanation="level editor menu option" max="22" max_local="14"/>
+    <string english="change name" translation="更改名字" explanation="level editor menu option"/>
+    <string english="change author" translation="更改作者" explanation="level editor menu option"/>
+    <string english="change description" translation="更改描述" explanation="level editor menu option"/>
+    <string english="change website" translation="更改网站" explanation="level editor menu option"/>
+    <string english="change font" translation="更改字体" explanation="level editor menu option"/>
+    <string english="Level Font" translation="关卡字体" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20" max_local="13"/>
+    <string english="Select the language in which the text in this level is written." translation="选择这一关卡中的文本是什么语言。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Font: " translation="字体：" explanation="level options, followed by name of font (mind the space)" max="14" max_local="9"/>
+    <string english="Map Music" translation="地图音乐" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20" max_local="13"/>
+    <string english="Current map music:" translation="当前地图音乐：" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2" max_local="25*1"/>
+    <string english="No background music" translation="无背景音乐" explanation="editor, level starts with no song playing" max="38*2" max_local="25*1"/>
+    <string english="1: Pushing Onwards" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="2: Positive Force" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="3: Potential for Anything" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="4: Passion for Exploring" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="N/A: Pause" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="5: Presenting VVVVVV" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="N/A: Plenary" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="6: Predestined Fate" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="N/A: ecroF evitisoP" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="7: Popular Potpourri" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="8: Pipe Dream" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="9: Pressure Cooker" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="10: Paced Energy" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="11: Piercing the Sky" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="N/A: Predestined Fate Remix" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="?: something else" translation="？：其他音乐" explanation="editor, song was not recognized" max="38*2" max_local="25*1"/>
+    <string english="next song" translation="下一首" explanation="level editor menu option"/>
+    <string english="previous song" translation="上一首" explanation="level editor menu option"/>
+    <string english="back" translation="返回" explanation="level editor menu option"/>
+    <string english="Save before quitting?" translation="退出前是否保存？" explanation="level editor" max="38*4" max_local="25*3"/>
+    <string english="yes, save and quit" translation="是，保存然后退出" explanation="level editor menu option"/>
+    <string english="no, quit without saving" translation="否，不要保存直接退出" explanation="level editor menu option"/>
+    <string english="return to editor" translation="返回编辑器" explanation="level editor menu option"/>
+    <string english="Untitled Level" translation="无标题关卡" explanation="" max="20" max_local="13"/>
+    <string english="Unknown" translation="未知" explanation="by Unknown [author]"/>
+    <string english="Tile:" translation="地块：" explanation="editor, selected " max="34" max_local="22"/>
+    <string english="SCRIPT BOX: Click on top left" translation="" explanation="***OUTDATED***"/>
+    <string english="SCRIPT BOX: Click on the first corner" translation="脚本盒：点击开始角落" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="26*2"/>
+    <string english="SCRIPT BOX: Click on bottom right" translation="" explanation="***OUTDATED***"/>
+    <string english="SCRIPT BOX: Click on the last corner" translation="脚本盒：点击结束角落" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="26*2"/>
+    <string english="ENEMY BOUNDS: Click on top left" translation="" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on the first corner" translation="敌人边界：点击开始角落" explanation="editor, invisible box which enemies always stay inside of" max="39*3" max_local="26*2"/>
+    <string english="ENEMY BOUNDS: Click on bottom right" translation="" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on the last corner" translation="敌人边界：点击结束角落" explanation="editor, invisible box which enemies always stay inside of" max="39*3" max_local="26*2"/>
+    <string english="PLATFORM BOUNDS: Click on top left" translation="" explanation="***OUTDATED***"/>
+    <string english="PLATFORM BOUNDS: Click on the first corner" translation="平台边界：点击开始角落" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3" max_local="26*2"/>
+    <string english="PLATFORM BOUNDS: Click on bottom right" translation="" explanation="***OUTDATED***"/>
+    <string english="PLATFORM BOUNDS: Click on the last corner" translation="平台边界：点击结束角落" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3" max_local="26*2"/>
+    <string english="Click on top left" translation="" explanation="***OUTDATED***"/>
+    <string english="Click on the first corner" translation="点击开始角落" explanation="" max="39*3" max_local="26*2"/>
+    <string english="Click on bottom right" translation="" explanation="***OUTDATED***"/>
+    <string english="Click on the last corner" translation="点击结束角落" explanation="" max="39*3" max_local="26*2"/>
+    <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** VVVVVV 脚本编辑器 ****" explanation="supposed to look like a Commodore 64 screen" max="36" max_local="24"/>
+    <string english="PRESS ESC TO RETURN TO MENU" translation="按ESC返回菜单" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36" max_local="24"/>
+    <string english="NO SCRIPT IDS FOUND" translation="没有找到脚本ID" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36" max_local="24"/>
+    <string english="CREATE A SCRIPT WITH EITHER THE TERMINAL OR SCRIPT BOX TOOLS" translation="使用终端或脚本盒工具来创作脚本" explanation="Commodore 64-style script editor" max="36*5" max_local="24*4"/>
+    <string english="CURRENT SCRIPT: {name}" translation="当前脚本：{name}" explanation="Commodore 64-style script editor. Char limit is soft, but the longer this is, the more often users&quot; script names run offscreen. Consider SCRIPT: instead" max="20" max_local="13"/>
+    <string english="Left click to place warp destination" translation="左键设置转移目的地" explanation="warp token: small teleporter with entrance and destination" max="39" max_local="26"/>
+    <string english="Right click to cancel" translation="右键取消" explanation="" max="39" max_local="26"/>
+    <string english="{button1} and {button2} keys change tool" translation="{button1} 和 {button2} 改变工具" explanation="These keys can be used to switch between tools" max="36" max_local="24"/>
+    <string english="1: Walls" translation="1：墙壁" explanation="editor tool. Solid tiles" max="32" max_local="21"/>
+    <string english="2: Backing" translation="2：背景" explanation="editor tool. Non-solid background tiles" max="32" max_local="21"/>
+    <string english="3: Spikes" translation="3：刺" explanation="editor tool" max="32" max_local="21"/>
+    <string english="4: Trinkets" translation="4：饰品" explanation="editor tool. Shiny trinkets/collectibles" max="32" max_local="21"/>
+    <string english="5: Checkpoint" translation="" explanation="***OUTDATED***"/>
+    <string english="5: Checkpoints" translation="5：检查点" explanation="editor tool. You restart at the last checkpoint after death" max="32" max_local="21"/>
+    <string english="6: Disappear" translation="" explanation="***OUTDATED***"/>
+    <string english="6: Disappearing Platforms" translation="6：消失平台" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32" max_local="21"/>
+    <string english="7: Conveyors" translation="7：传送带" explanation="editor tool. Conveyor belt" max="32" max_local="21"/>
+    <string english="8: Moving" translation="" explanation="***OUTDATED***"/>
+    <string english="8: Moving Platforms" translation="8：移动平台" explanation="editor tool. Moving platform" max="32" max_local="21"/>
+    <string english="9: Enemies" translation="9：敌人" explanation="editor tool" max="32" max_local="21"/>
+    <string english="0: Grav Line" translation="" explanation="***OUTDATED***"/>
+    <string english="0: Gravity Lines" translation="0：重力线" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32" max_local="21"/>
+    <string english="R: Roomtext" translation="R：房间文本" explanation="editor tool. Freely typed text, consider just Text" max="32" max_local="21"/>
+    <string english="T: Terminal" translation="" explanation="***OUTDATED***"/>
+    <string english="T: Terminals" translation="T：终端" explanation="editor tool. Computer which can be activated by the player to run a script" max="32" max_local="21"/>
+    <string english="Y: Script Box" translation="" explanation="***OUTDATED***"/>
+    <string english="Y: Script Boxes" translation="Y：脚本盒" explanation="editor tool. Invisible box that runs a script when touched" max="32" max_local="21"/>
+    <string english="U: Warp Token" translation="" explanation="***OUTDATED***"/>
+    <string english="U: Warp Tokens" translation="U：转移标记" explanation="editor tool. Small teleporter with entrance and destination" max="32" max_local="21"/>
+    <string english="I: Warp Lines" translation="I：转移线" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32" max_local="21"/>
+    <string english="O: Crewmate" translation="" explanation="***OUTDATED***"/>
+    <string english="O: Crewmates" translation="O：船员" explanation="editor tool. Crewmate that can be rescued" max="32" max_local="21"/>
+    <string english="P: Start Point" translation="P：开始点" explanation="editor tool" max="32" max_local="21"/>
+    <string english="START" translation="开始" explanation="start point in level editor" max="10" max_local="6"/>
+    <string english="SPACE ^  SHIFT ^" translation="空格 ^ SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32" max_local="21"/>
+    <string english="F1: Change Tileset" translation="F1：变更Tileset" explanation="editor shortcut, switch to different tileset" max="25" max_local="16"/>
+    <string english="F2: Change Colour" translation="F2：变更颜色" explanation="editor shortcut, switch to different tileset color/variant" max="25" max_local="16"/>
+    <string english="F3: Change Enemies" translation="F3：变更敌人" explanation="editor shortcut, change enemy appearance" max="25" max_local="16"/>
+    <string english="F4: Enemy Bounds" translation="F4：敌人边界" explanation="editor shortcut, invisible box which enemies always stay inside of" max="25" max_local="16"/>
+    <string english="F5: Platform Bounds" translation="F5：平台边界" explanation="editor shortcut, invisible box which platforms always stay inside of" max="25" max_local="16"/>
+    <string english="F9: Reload Resources" translation="F9：重新载入资源" explanation="editor shortcut, reload tilesets, sprites, music, etc" max="25" max_local="16"/>
+    <string english="F10: Direct Mode" translation="F10：直接模式" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25" max_local="16"/>
+    <string english="W: Change Warp Dir" translation="W：变更转移方向" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25" max_local="16"/>
+    <string english="E: Change Roomname" translation="E：变更房间名" explanation="editor shortcut, the name of the room appears at the bottom" max="25" max_local="16"/>
+    <string english="S: Save Map" translation="S：保存地图" explanation="level editor, save level, `Map` is basically redundant" max="12" max_local="8"/>
+    <string english="L: Load Map" translation="L：载入地图" explanation="level editor, load level, `Map` is basically redundant" max="12" max_local="8"/>
+    <string english="Enter map filename to save as:" translation="输入要保存的地图文件名：" explanation="level editor text input, save level file as" max="39*3" max_local="26*2"/>
+    <string english="Enter map filename to load:" translation="输入要载入的地图文件名：" explanation="level editor text input, load level file" max="39*3" max_local="26*2"/>
+    <string english="Enter new room name:" translation="输入新的房间名：" explanation="level editor text input, the name of the room appears at the bottom" max="39*3" max_local="26*2"/>
+    <string english="Enter room coordinates x,y:" translation="输入房间坐标（x,y）：" explanation="level editor text input, go to another room by its coordinates, for example, 9,15" max="39*3" max_local="26*2"/>
+    <string english="Enter script name:" translation="输入脚本名：" explanation="level editor text input, enter name of newly created script, or edit the script name of a terminal/script box" max="39*3" max_local="26*2"/>
+    <string english="Enter roomtext:" translation="输入房间文本：" explanation="level editor text input, enter text to place in the room" max="39*3" max_local="26*2"/>
+    <string english="Space Station" translation="空间站" explanation="editor tileset name, Now using Space Station Tileset"/>
+    <string english="Outside" translation="外部" explanation="editor tileset name, Now using Outside Tileset"/>
+    <string english="Lab" translation="实验室" explanation="editor tileset name, Now using Lab Tileset"/>
+    <string english="Warp Zone" translation="折跃区" explanation="editor tileset name, Now using Warp Zone Tileset. The Warp Zone got its name because its rooms wrap around, but think Star Trek"/>
+    <string english="Ship" translation="飞船" explanation="editor tileset name, Now using Ship Tileset. Spaceship"/>
+    <string english="Now using {area} Tileset" translation="现在正在使用 {area} Tileset" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3" max_local="25*2"/>
+    <string english="Tileset Colour Changed" translation="Tileset颜色已改变" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3" max_local="25*2"/>
+    <string english="Enemy Type Changed" translation="敌人类型已改变" explanation="level editor, user changed enemy appearance for the room" max="38*3" max_local="25*2"/>
+    <string english="Platform speed is now {speed}" translation="平台速度现在为{speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3" max_local="25*2"/>
+    <string english="Reloaded resources" translation="资源已重新载入" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3" max_local="25*2"/>
+    <string english="ERROR: Invalid format" translation="错误：格式不符合" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3" max_local="25*2"/>
+    <string english="Loaded map: {filename}.vvvvvv" translation="已载入地图：{filename}.vvvvvv" explanation="successfully loaded level file" max="38*3" max_local="25*2"/>
+    <string english="Saved map: {filename}.vvvvvv" translation="已保存地图：{filename}.vvvvvv" explanation="successfully saved level file" max="38*3" max_local="25*2"/>
+    <string english="ERROR: Could not load level" translation="错误：无法载入关卡" explanation="that level could not be loaded, maybe it does not exist" max="38*3" max_local="25*2"/>
+    <string english="ERROR: Could not save level!" translation="错误：无法保存关卡！" explanation="maybe the filename is too long? exclamation mark because you will lose your data if you quit" max="38*3" max_local="25*2"/>
+    <string english="Mapsize is now [{width},{height}]" translation="地图大小现在是[{width},{height}]" explanation="editor, the map is now {width} by {height}" max="38*3" max_local="25*2"/>
+    <string english="Direct Mode Disabled" translation="直接模式已关闭" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to automatic mode" max="38*3" max_local="25*2"/>
+    <string english="Direct Mode Enabled" translation="直接模式已开启" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to manual mode" max="38*3" max_local="25*2"/>
+    <string english="ERROR: Warp lines must be on edges" translation="错误：转移线必须在边缘" explanation="level editor, warp lines make a room edge be connected to its opposite edge. So they must be placed on one of the edges, not in the middle" max="38*3" max_local="25*2"/>
+    <string english="Room warps in all directions" translation="房间的所有边缘都互相连通" explanation="level editor, all edges of the room are connected with each other. If the player leaves the room they end up on the other side of the same room." max="38*3" max_local="25*2"/>
+    <string english="Room warps horizontally" translation="房间左右边缘互相连通" explanation="level editor, the left and right edges of the room are connected with each other. The player can still go to other rooms on the top and bottom" max="38*3" max_local="25*2"/>
+    <string english="Room warps vertically" translation="房间上下边缘互相连通" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3" max_local="25*2"/>
+    <string english="Room warping disabled" translation="房间转移已关闭" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3" max_local="25*2"/>
+    <string english="ERROR: No checkpoint to spawn at" translation="错误：没有可生成的检查点" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3" max_local="25*2"/>
+    <string english="ERROR: Max number of trinkets is 100" translation="错误：饰品最大数量为100" explanation="editor, user tried to place another trinket" max="38*3" max_local="25*2"/>
+    <string english="ERROR: Max number of crewmates is 100" translation="错误：船员最大数量为100" explanation="editor, user tried to place another crewmate" max="38*3" max_local="25*2"/>
+    <string english="Level quits to menu" translation="关卡退出到菜单" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3" max_local="25*2"/>
+    <string english="Level completed" translation="关卡已完成" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3" max_local="25*2"/>
+    <string english="Rolled credits" translation="制作名单已播放" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3" max_local="25*2"/>
+    <string english="Time trial completed" translation="时间挑战已完成" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3" max_local="25*2"/>
+    <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="" explanation="time format H:MM:SS"/>
+    <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="" explanation="time format H:MM:SS.CC"/>
+    <string english="{min}:{sec|digits=2}" translation="" explanation="time format M:SS"/>
+    <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="" explanation="time format M:SS.CC"/>
+    <string english="{sec}.{cen|digits=2}" translation="" explanation="time format S.CC"/>
+    <string english=".99" translation="" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
+    <string english="Level Complete!" translation="关卡完成！" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="12"/>
+    <string english="Game Complete!" translation="游戏完成！" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="12"/>
+    <string english="You have rescued a crew member!" translation="你救出了一名船员！" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2" max_local="20*1"/>
+    <string english="All Crew Members Rescued!" translation="所有船员都已被救出！" explanation="" max="32" max_local="21"/>
+    <string english="All crewmates rescued!" translation="所有船员都已被救出！" explanation="" max="32" max_local="21"/>
+    <string english="Game Saved" translation="游戏已保存" explanation="" max="30" max_local="20"/>
+    <string english="Press arrow keys or WASD to move" translation="按方向键或WASD来移动" explanation="" max="32*2" max_local="21*1"/>
+    <string english="Press left/right to move" translation="按左/右来移动" explanation="" max="32*2" max_local="21*1"/>
+    <string english="Press ACTION to flip" translation="按 行动键 来翻转" explanation="***OUTDATED***" max="32*3" max_local="21*2"/>
+    <string english="Press {button} to flip" translation="按 {button} 来翻转" explanation="expect `ACTION`" max="32*3" max_local="21*2"/>
+    <string english="Press ENTER to view map and quicksave" translation="" explanation="***OUTDATED***" max="32*3" max_local="21*2"/>
+    <string english="Press {button} to view map and quicksave" translation="按 {button} 来查看地图和快速存档" explanation="" max="32*3" max_local="21*2"/>
+    <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="假如你愿意，也可以不用行动键，而用 上 或 下 来进行翻转。" explanation="" max="34*3" max_local="22*2"/>
+    <string english="Help! Can anyone hear this message?" translation="求助！有人能听到这段话吗？" explanation="Violet speaking via Comms Relay" max="25*4" max_local="16*3"/>
+    <string english="Verdigris? Are you out there? Are you ok?" translation="维碧格里？你在吗？你还好吗？" explanation="Violet speaking via Comms Relay" max="25*4" max_local="16*3"/>
+    <string english="Please help us! We&apos;ve crashed and need assistance!" translation="请帮帮我们！我们坠机了，需要协助！" explanation="Violet speaking via Comms Relay" max="25*4" max_local="16*3"/>
+    <string english="Hello? Anyone out there?" translation="喂？有人在外面吗？" explanation="Violet speaking via Comms Relay" max="25*4" max_local="16*3"/>
+    <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="这里是D.S.S.灵魂之眼号飞船的维紫莱博士！请求答复！" explanation="Violet speaking via Comms Relay" max="25*4" max_local="16*3"/>
+    <string english="Please... Anyone..." translation="拜托了……有人吗……" explanation="Violet speaking via Comms Relay" max="25*4" max_local="16*3"/>
+    <string english="Please be alright, everyone..." translation="大家，请一定要没事啊……" explanation="Violet speaking via Comms Relay" max="25*4" max_local="16*3"/>
+    <string english="Congratulations!
+
+You have found a shiny trinket!" translation="恭喜你！
+
+你找到了一个闪亮饰品！" explanation="" max="34*4" max_local="22*3"/>
+    <string english="Congratulations!
+
+You have found a lost crewmate!" translation="恭喜你！
+
+你找到了一名失联的船员！" explanation="" max="34*4" max_local="22*3"/>
+    <string english="Congratulations!
+
+You have found the secret lab!" translation="恭喜你！
+
+你找到了秘密实验室！" explanation="" max="34*4" max_local="22*3"/>
+    <string english="The secret lab is separate from the rest of the game. You can now come back here at any time by selecting the new SECRET LAB option in the play menu." translation="秘密实验室和游戏的其他部分互相独立没有联系。之后你可以随时在游玩菜单中选择新出现的“秘密实验室”选项来回到这里。" explanation="" max="36*10" max_local="24*8"/>
+    <string english="Viridian" translation="维青迪安" explanation="crewmate name (player)" max="15" max_local="10"/>
+    <string english="Violet" translation="维紫莱" explanation="crewmate name" max="15" max_local="10"/>
+    <string english="Vitellary" translation="维土雷利" case="0" explanation="crewmate name" max="15" max_local="10"/>
+    <string english="Vermilion" translation="维朱利安" case="0" explanation="crewmate name" max="15" max_local="10"/>
+    <string english="Verdigris" translation="维碧格里" case="0" explanation="crewmate name" max="15" max_local="10"/>
+    <string english="Victoria" translation="维多兰亚" case="0" explanation="crewmate name" max="15" max_local="10"/>
+    <string english="Vitellary" translation="维土雷利" case="1" explanation="crewmate name as menu option: Who do you want to play the level with?"/>
+    <string english="Vermilion" translation="维朱利安" case="1" explanation="crewmate name as menu option: Who do you want to play the level with?"/>
+    <string english="Verdigris" translation="维碧格里" case="1" explanation="crewmate name as menu option: Who do you want to play the level with?"/>
+    <string english="Victoria" translation="维多兰亚" case="1" explanation="crewmate name as menu option: Who do you want to play the level with?"/>
+    <string english="Starring" translation="主演" explanation="credits roll. Starring the following 6 crew members" max="20" max_local="13"/>
+    <string english="Captain Viridian" translation="维青迪安 舰长" explanation="credits roll. Starring the following 6 crew members" max="27" max_local="18"/>
+    <string english="Doctor Violet" translation="维紫莱 博士" explanation="credits roll. Starring the following 6 crew members" max="27" max_local="18"/>
+    <string english="Professor Vitellary" translation="维土雷利 教授" explanation="credits roll. Starring the following 6 crew members" max="27" max_local="18"/>
+    <string english="Officer Vermilion" translation="维朱利安 尉官" explanation="credits roll. Starring the following 6 crew members" max="27" max_local="18"/>
+    <string english="Chief Verdigris" translation="维碧格里 总工" explanation="credits roll. Starring the following 6 crew members" max="27" max_local="18"/>
+    <string english="Doctor Victoria" translation="维多兰亚 博士" explanation="credits roll. Starring the following 6 crew members" max="27" max_local="18"/>
+    <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="当你站在地面时，维土雷利会试图走向你。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the floor, Vermilion will try to walk to you." translation="当你站在地面时，维朱利安会试图走向你。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the floor, Verdigris will try to walk to you." translation="当你站在地面时，维碧格里会试图走向你。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the floor, Victoria will try to walk to you." translation="当你站在地面时，维多兰亚会试图走向你。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the floor, your companion will try to walk to you." translation="当你站在地面时，你的同伴会试图走向你。" explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the ceiling, Vitellary will try to walk to you." translation="当你站在天花板时，维土雷利会试图走向你。" explanation="Intermission 1 in flip mode" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the ceiling, Vermilion will try to walk to you." translation="当你站在天花板时，维朱利安会试图走向你。" explanation="Intermission 1 in flip mode" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the ceiling, Verdigris will try to walk to you." translation="当你站在天花板时，维碧格里会试图走向你。" explanation="Intermission 1 in flip mode" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the ceiling, Victoria will try to walk to you." translation="当你站在天花板时，维多兰亚会试图走向你。" explanation="Intermission 1 in flip mode" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re standing on the ceiling, your companion will try to walk to you." translation="当你站在天花板时，你的同伴会试图走向你。" explanation="Intermission 1 in flip mode, unknown companion, normally impossible but reproducible in custom levels" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the floor, Vitellary will stop and wait for you." translation="当你*没有*站在地面时，维土雷利会停下等待你。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the floor, Vermilion will stop and wait for you." translation="当你*没有*站在地面时，维朱利安会停下等待你。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the floor, Verdigris will stop and wait for you." translation="当你*没有*站在地面时，维碧格里会停下等待你。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the floor, Victoria will stop and wait for you." translation="当你*没有*站在地面时，维多兰亚会停下等待你。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the floor, your companion will stop and wait for you." translation="当你*没有*站在地面时，你的同伴会停下等待你。" explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vitellary will stop and wait for you." translation="当你*没有*站在天花板时，维土雷利会停下等待你。" explanation="Intermission 1 in flip mode" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Vermilion will stop and wait for you." translation="当你*没有*站在天花板时，维朱利安会停下等待你。" explanation="Intermission 1 in flip mode" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Verdigris will stop and wait for you." translation="当你*没有*站在天花板时，维碧格里会停下等待你。" explanation="Intermission 1 in flip mode" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the ceiling, Victoria will stop and wait for you." translation="当你*没有*站在天花板时，维多兰亚会停下等待你。" explanation="Intermission 1 in flip mode" max="34*4" max_local="22*3"/>
+    <string english="When you&apos;re NOT standing on the ceiling, your companion will stop and wait for you." translation="当你*没有*站在天花板时，你的同伴会停下等待你。" explanation="Intermission 1 in flip mode, unknown companion, normally impossible but reproducible in custom levels" max="34*4" max_local="22*3"/>
+    <string english="You can&apos;t continue to the next room until he is safely across." translation="你无法在他还未安全通过时前往下一个房间。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="You can&apos;t continue to the next room until she is safely across." translation="你无法在她还未安全通过时前往下一个房间。" explanation="Intermission 1" max="34*4" max_local="22*3"/>
+    <string english="You can&apos;t continue to the next room until they are safely across." translation="你无法在队友还未安全通过时前往下一个房间。" explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4" max_local="22*3"/>
+    <string english="Survive for" translation="撑过" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20" max_local="13"/>
+    <string english="60 seconds!" translation="60秒！" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20" max_local="13"/>
+    <string english="Thanks for" translation="感谢" explanation="credits. Line 1/2: Thanks for playing!" max="20" max_local="13"/>
+    <string english="playing!" translation="游玩！" explanation="credits. Line 2/2: Thanks for playing!" max="20" max_local="13"/>
+    <string english="SPACE STATION 1 MASTERED" translation="空间站1 已精通" explanation="achievement/trophy title" max="38*2" max_local="25*1"/>
+    <string english="LABORATORY MASTERED" translation="实验室 已精通" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="25*1"/>
+    <string english="THE TOWER MASTERED" translation="高塔 已精通" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="25*1"/>
+    <string english="SPACE STATION 2 MASTERED" translation="空间站2 已精通" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="25*1"/>
+    <string english="WARP ZONE MASTERED" translation="折跃区 已精通" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="25*1"/>
+    <string english="FINAL LEVEL MASTERED" translation="最终关 已精通" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="25*1"/>
+    <string english="Obtain a V Rank in this Time Trial" translation="在这个时间挑战中获得V评级" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="GAME COMPLETE" translation="游戏完成" explanation="achievement/trophy title" max="38*2" max_local="25*1"/>
+    <string english="Complete the game" translation="完成整个游戏" case="1" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="FLIP MODE COMPLETE" translation="翻转模式完成" explanation="achievement/trophy title" max="38*2" max_local="25*1"/>
+    <string english="Complete the game in flip mode" translation="以翻转模式完成整个游戏" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Win with less than 50 deaths" translation="获胜时死亡次数少于50" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Win with less than 100 deaths" translation="获胜时死亡次数少于100" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Win with less than 250 deaths" translation="获胜时死亡次数少于250" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Win with less than 500 deaths" translation="获胜时死亡次数少于500" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Last 5 seconds on the Super Gravitron" translation="在超级重力机中撑过了5秒" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Last 10 seconds on the Super Gravitron" translation="在超级重力机中撑过了10秒" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Last 15 seconds on the Super Gravitron" translation="在超级重力机中撑过了15秒" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Last 20 seconds on the Super Gravitron" translation="在超级重力机中撑过了20秒" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Last 30 seconds on the Super Gravitron" translation="在超级重力机中撑过了30秒" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Last 1 minute on the Super Gravitron" translation="在超级重力机中撑过了1分钟" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="MASTER OF THE UNIVERSE" translation="宇宙之王" explanation="achievement/trophy title - no death mode complete" max="38*2" max_local="25*1"/>
+    <string english="Complete the game in no death mode" translation="在无死亡模式中完成整个游戏" explanation="achievement/trophy description" max="38*2" max_local="25*1"/>
+    <string english="Something went wrong, but we forgot the error message." translation="出了一点问题，但我们没能找到正确的错误信息。" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6" max_local="25*5"/>
+    <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="无法加载 {path}：真实文件夹路径不存在" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6" max_local="25*5"/>
+    <string english="Level {path} not found" translation="关卡 {path} 未找到" explanation="" max="38*6" max_local="25*5"/>
+    <string english="Error parsing {path}: {error}" translation="解析{path}时出错：{error}" explanation="we tried to parse the level file, but failed" max="38*6" max_local="25*5"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename}的尺寸不是{width}x{height}的整数倍！" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6" max_local="25*5"/>
+    <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="错误：无法写入语言文件夹！请确保存档文件夹的同路径没有“lang”文件夹。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="" translation="" explanation=""/>
+    <string english="" translation="" explanation=""/>
+</strings>

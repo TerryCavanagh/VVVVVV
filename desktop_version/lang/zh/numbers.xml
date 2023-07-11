@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<numbers>
+    <number value="0" form="0" english="Zero" translation="零"/>
+    <number value="1" form="1" english="One" translation="一"/>
+    <number value="2" form="0" english="Two" translation="二"/>
+    <number value="3" form="0" english="Three" translation="三"/>
+    <number value="4" form="0" english="Four" translation="四"/>
+    <number value="5" form="0" english="Five" translation="五"/>
+    <number value="6" form="0" english="Six" translation="六"/>
+    <number value="7" form="0" english="Seven" translation="七"/>
+    <number value="8" form="0" english="Eight" translation="八"/>
+    <number value="9" form="0" english="Nine" translation="九"/>
+    <number value="10" form="0" english="Ten" translation="十"/>
+    <number value="11" form="0" english="Eleven" translation="十一"/>
+    <number value="12" form="0" english="Twelve" translation="十二"/>
+    <number value="13" form="0" english="Thirteen" translation="十三"/>
+    <number value="14" form="0" english="Fourteen" translation="十四"/>
+    <number value="15" form="0" english="Fifteen" translation="十五"/>
+    <number value="16" form="0" english="Sixteen" translation="十六"/>
+    <number value="17" form="0" english="Seventeen" translation="十七"/>
+    <number value="18" form="0" english="Eighteen" translation="十八"/>
+    <number value="19" form="0" english="Nineteen" translation="十九"/>
+    <number value="20" form="0" english="Twenty" translation="二十"/>
+    <number value="21" form="0" english="Twenty One" translation="二十一"/>
+    <number value="22" form="0" english="Twenty Two" translation="二十二"/>
+    <number value="23" form="0" english="Twenty Three" translation="二十三"/>
+    <number value="24" form="0" english="Twenty Four" translation="二十四"/>
+    <number value="25" form="0" english="Twenty Five" translation="二十五"/>
+    <number value="26" form="0" english="Twenty Six" translation="二十六"/>
+    <number value="27" form="0" english="Twenty Seven" translation="二十七"/>
+    <number value="28" form="0" english="Twenty Eight" translation="二十八"/>
+    <number value="29" form="0" english="Twenty Nine" translation="二十九"/>
+    <number value="30" form="0" english="Thirty" translation="三十"/>
+    <number value="31" form="0" english="Thirty One" translation="三十一"/>
+    <number value="32" form="0" english="Thirty Two" translation="三十二"/>
+    <number value="33" form="0" english="Thirty Three" translation="三十三"/>
+    <number value="34" form="0" english="Thirty Four" translation="三十四"/>
+    <number value="35" form="0" english="Thirty Five" translation="三十五"/>
+    <number value="36" form="0" english="Thirty Six" translation="三十六"/>
+    <number value="37" form="0" english="Thirty Seven" translation="三十七"/>
+    <number value="38" form="0" english="Thirty Eight" translation="三十八"/>
+    <number value="39" form="0" english="Thirty Nine" translation="三十九"/>
+    <number value="40" form="0" english="Forty" translation="四十"/>
+    <number value="41" form="0" english="Forty One" translation="四十一"/>
+    <number value="42" form="0" english="Forty Two" translation="四十二"/>
+    <number value="43" form="0" english="Forty Three" translation="四十三"/>
+    <number value="44" form="0" english="Forty Four" translation="四十四"/>
+    <number value="45" form="0" english="Forty Five" translation="四十五"/>
+    <number value="46" form="0" english="Forty Six" translation="四十六"/>
+    <number value="47" form="0" english="Forty Seven" translation="四十七"/>
+    <number value="48" form="0" english="Forty Eight" translation="四十八"/>
+    <number value="49" form="0" english="Forty Nine" translation="四十九"/>
+    <number value="50" form="0" english="Fifty" translation="五十"/>
+    <number value="51" form="0" english="Fifty One" translation="五十一"/>
+    <number value="52" form="0" english="Fifty Two" translation="五十二"/>
+    <number value="53" form="0" english="Fifty Three" translation="五十三"/>
+    <number value="54" form="0" english="Fifty Four" translation="五十四"/>
+    <number value="55" form="0" english="Fifty Five" translation="五十五"/>
+    <number value="56" form="0" english="Fifty Six" translation="五十六"/>
+    <number value="57" form="0" english="Fifty Seven" translation="五十七"/>
+    <number value="58" form="0" english="Fifty Eight" translation="五十八"/>
+    <number value="59" form="0" english="Fifty Nine" translation="五十九"/>
+    <number value="60" form="0" english="Sixty" translation="六十"/>
+    <number value="61" form="0" english="Sixty One" translation="六十一"/>
+    <number value="62" form="0" english="Sixty Two" translation="六十二"/>
+    <number value="63" form="0" english="Sixty Three" translation="六十三"/>
+    <number value="64" form="0" english="Sixty Four" translation="六十四"/>
+    <number value="65" form="0" english="Sixty Five" translation="六十五"/>
+    <number value="66" form="0" english="Sixty Six" translation="六十六"/>
+    <number value="67" form="0" english="Sixty Seven" translation="六十七"/>
+    <number value="68" form="0" english="Sixty Eight" translation="六十八"/>
+    <number value="69" form="0" english="Sixty Nine" translation="六十九"/>
+    <number value="70" form="0" english="Seventy" translation="七十"/>
+    <number value="71" form="0" english="Seventy One" translation="七十一"/>
+    <number value="72" form="0" english="Seventy Two" translation="七十二"/>
+    <number value="73" form="0" english="Seventy Three" translation="七十三"/>
+    <number value="74" form="0" english="Seventy Four" translation="七十四"/>
+    <number value="75" form="0" english="Seventy Five" translation="七十五"/>
+    <number value="76" form="0" english="Seventy Six" translation="七十六"/>
+    <number value="77" form="0" english="Seventy Seven" translation="七十七"/>
+    <number value="78" form="0" english="Seventy Eight" translation="七十八"/>
+    <number value="79" form="0" english="Seventy Nine" translation="七十九"/>
+    <number value="80" form="0" english="Eighty" translation="八十"/>
+    <number value="81" form="0" english="Eighty One" translation="八十一"/>
+    <number value="82" form="0" english="Eighty Two" translation="八十二"/>
+    <number value="83" form="0" english="Eighty Three" translation="八十三"/>
+    <number value="84" form="0" english="Eighty Four" translation="八十四"/>
+    <number value="85" form="0" english="Eighty Five" translation="八十五"/>
+    <number value="86" form="0" english="Eighty Six" translation="八十六"/>
+    <number value="87" form="0" english="Eighty Seven" translation="八十七"/>
+    <number value="88" form="0" english="Eighty Eight" translation="八十八"/>
+    <number value="89" form="0" english="Eighty Nine" translation="八十九"/>
+    <number value="90" form="0" english="Ninety" translation="九十"/>
+    <number value="91" form="0" english="Ninety One" translation="九十一"/>
+    <number value="92" form="0" english="Ninety Two" translation="九十二"/>
+    <number value="93" form="0" english="Ninety Three" translation="九十三"/>
+    <number value="94" form="0" english="Ninety Four" translation="九十四"/>
+    <number value="95" form="0" english="Ninety Five" translation="九十五"/>
+    <number value="96" form="0" english="Ninety Six" translation="九十六"/>
+    <number value="97" form="0" english="Ninety Seven" translation="九十七"/>
+    <number value="98" form="0" english="Ninety Eight" translation="九十八"/>
+    <number value="99" form="0" english="Ninety Nine" translation="九十九"/>
+    <number value="100" form="0" english="One Hundred" translation="一百"/>
+    <number value="101" form="0"/>
+    <number value="102" form="0"/>
+    <number value="103" form="0"/>
+    <number value="104" form="0"/>
+    <number value="105" form="0"/>
+    <number value="106" form="0"/>
+    <number value="107" form="0"/>
+    <number value="108" form="0"/>
+    <number value="109" form="0"/>
+    <number value="110" form="0"/>
+    <number value="111" form="0"/>
+    <number value="112" form="0"/>
+    <number value="113" form="0"/>
+    <number value="114" form="0"/>
+    <number value="115" form="0"/>
+    <number value="116" form="0"/>
+    <number value="117" form="0"/>
+    <number value="118" form="0"/>
+    <number value="119" form="0"/>
+</numbers>
