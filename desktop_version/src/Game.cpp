@@ -705,7 +705,8 @@ void Game::levelcomplete_textbox(void)
 
 void Game::crewmate_textbox(const int r, const int g, const int b)
 {
-    graphics.createtextboxflipme("", -1, 64 + 8 + 16, r, g, b);
+    const int extra_cjk_height = (font::height(PR_FONT_INTERFACE) * 4) - 32;
+    graphics.createtextboxflipme("", -1, 64 + 8 + 16 - extra_cjk_height/2, r, g, b);
 
     /* This is a special case for wrapping, we MUST have two lines.
      * So just make sure it can't fit in one line. */
@@ -725,7 +726,8 @@ void Game::crewmate_textbox(const int r, const int g, const int b)
     graphics.addline("");
     graphics.textboxprintflags(PR_FONT_INTERFACE);
     graphics.textboxcentertext();
-    graphics.textboxpad(5, 2);
+    float spaces_per_8 = font::len(PR_FONT_INTERFACE, " ")/8.0f;
+    graphics.textboxpad(SDL_ceilf(5/spaces_per_8), SDL_ceilf(2/spaces_per_8));
     graphics.textboxcenterx();
 }
 
@@ -742,7 +744,9 @@ void Game::remaining_textbox(void)
         SDL_strlcpy(buffer, loc::gettext("All Crew Members Rescued!"), sizeof(buffer));
     }
 
-    graphics.createtextboxflipme(buffer, -1, 128 + 16, TEXT_COLOUR("gray"));
+    // In CJK, the "You have rescued" box becomes so big we should lower this one a bit...
+    const int cjk_lowering = font::height(PR_FONT_INTERFACE) - 8;
+    graphics.createtextboxflipme(buffer, -1, 128 + 16 + cjk_lowering, TEXT_COLOUR("gray"));
     graphics.textboxprintflags(PR_FONT_INTERFACE);
     graphics.textboxpad(2, 2);
     graphics.textboxcenterx();

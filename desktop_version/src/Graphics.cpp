@@ -273,7 +273,11 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
-        font::print(0, x - 16, y, buffer, 196, 196, 255 - help.glow);
+
+        // Account for brackets
+        x -= (font::len(0, buffer) - font::len(0, text_upper.c_str())) / 2;
+
+        font::print(0, x, y, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
@@ -285,25 +289,26 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
 void Graphics::printcrewname( int x, int y, int t )
 {
     //Print the name of crew member t in the right colour
+    const uint32_t flags = flipmode ? PR_CJK_LOW : PR_CJK_HIGH;
     switch(t)
     {
     case 0:
-        font::print(0, x, y, loc::gettext("Viridian"), 16, 240, 240);
+        font::print(flags, x, y, loc::gettext("Viridian"), 16, 240, 240);
         break;
     case 1:
-        font::print(0, x, y, loc::gettext("Violet"), 240, 16, 240);
+        font::print(flags, x, y, loc::gettext("Violet"), 240, 16, 240);
         break;
     case 2:
-        font::print(0, x, y, loc::gettext("Vitellary"), 240, 240, 16);
+        font::print(flags, x, y, loc::gettext("Vitellary"), 240, 240, 16);
         break;
     case 3:
-        font::print(0, x, y, loc::gettext("Vermilion"), 240, 16, 16);
+        font::print(flags, x, y, loc::gettext("Vermilion"), 240, 16, 16);
         break;
     case 4:
-        font::print(0, x, y, loc::gettext("Verdigris"), 16, 240, 16);
+        font::print(flags, x, y, loc::gettext("Verdigris"), 16, 240, 16);
         break;
     case 5:
-        font::print(0, x, y, loc::gettext("Victoria"), 16, 16, 240);
+        font::print(flags, x, y, loc::gettext("Victoria"), 16, 16, 240);
         break;
     }
 }
@@ -311,25 +316,26 @@ void Graphics::printcrewname( int x, int y, int t )
 void Graphics::printcrewnamedark( int x, int y, int t )
 {
     //Print the name of crew member t as above, but in black and white
+    const uint32_t flags = flipmode ? PR_CJK_LOW : PR_CJK_HIGH;
     switch(t)
     {
     case 0:
-        font::print(0, x, y, loc::gettext("Viridian"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Viridian"), 128,128,128);
         break;
     case 1:
-        font::print(0, x, y, loc::gettext("Violet"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Violet"), 128,128,128);
         break;
     case 2:
-        font::print(0, x, y, loc::gettext("Vitellary"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Vitellary"), 128,128,128);
         break;
     case 3:
-        font::print(0, x, y, loc::gettext("Vermilion"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Vermilion"), 128,128,128);
         break;
     case 4:
-        font::print(0, x, y, loc::gettext("Verdigris"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Verdigris"), 128,128,128);
         break;
     case 5:
-        font::print(0, x, y, loc::gettext("Victoria"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Victoria"), 128,128,128);
         break;
     }
 }
@@ -385,7 +391,7 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
         status_text = loc::gettext_case("Missing...", gender);
     }
 
-    font::print(0, x, y, status_text, r, g, b);
+    font::print(flipmode ? PR_CJK_HIGH : PR_CJK_LOW, x, y, status_text, r, g, b);
 }
 
 void Graphics::print_level_creator(

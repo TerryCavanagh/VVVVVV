@@ -619,8 +619,13 @@ static void menurender(void)
         break;
     }
     case Menu::controller:
+    {
         font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Game Pad"), tr, tg, tb);
         font::print_wrap(PR_CEN, -1, 55, loc::gettext("Change controller options."), tr, tg, tb);
+
+        int spacing = font::height(0);
+        spacing = SDL_max(spacing, 10);
+
         switch (game.currentmenuoption)
         {
         case 0:
@@ -630,7 +635,7 @@ static void menurender(void)
             font::print(PR_RIGHT, 288, 75, loc::gettext("High"), tr, tg, tb);
             char slider[SCREEN_WIDTH_CHARS + 1];
             slider_get(slider, sizeof(slider), key.sensitivity, 5, 240);
-            font::print(PR_CEN, -1, 85, slider, tr, tg, tb);
+            font::print(PR_CEN, -1, 75+spacing, slider, tr, tg, tb);
             break;
         }
         case 1:
@@ -652,31 +657,32 @@ static void menurender(void)
                 loc::gettext("Enter is bound to: "),
                 BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Map)
             );
-            font::print(PR_CEN, -1, 85, buffer_a, tr, tg, tb);
+            font::print(PR_CEN, -1, 75+spacing, buffer_a, tr, tg, tb);
 
             SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
                 loc::gettext("Menu is bound to: "),
                 BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Esc)
             );
-            font::print(PR_CEN, -1, 95, buffer_a, tr, tg, tb);
+            font::print(PR_CEN, -1, 75+spacing*2, buffer_a, tr, tg, tb);
 
             SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
                 loc::gettext("Restart is bound to: "),
                 BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Restart)
             );
-            font::print(PR_CEN, -1, 105, buffer_a, tr, tg, tb);
+            font::print(PR_CEN, -1, 75+spacing*3, buffer_a, tr, tg, tb);
 
             SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
                 loc::gettext("Interact is bound to: "),
                 BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Interact)
             );
-            font::print(PR_CEN | PR_BRIGHTNESS(game.separate_interact ? 255 : 128), -1, 115, buffer_a, tr, tg, tb);
+            font::print(PR_CEN | PR_BRIGHTNESS(game.separate_interact ? 255 : 128), -1, 75+spacing*4, buffer_a, tr, tg, tb);
             break;
         }
         }
 
 
         break;
+    }
     case Menu::language:
         if (loc::languagelist.empty())
         {
@@ -1674,7 +1680,7 @@ static void menurender(void)
         {
             message = loc::gettext("Something went wrong, but we forgot the error message.");
         }
-        font::print(PR_2X | PR_CEN, -1, 45, loc::gettext("ERROR"), tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, 45, loc::gettext("ERROR"), tr, tg, tb);
         font::print_wrap(PR_CEN, -1, 65, message, tr, tg, tb);
         break;
     }
@@ -1689,7 +1695,7 @@ static void menurender(void)
         {
             message = loc::gettext("Something went wrong, but we forgot the error message.");
         }
-        font::print(PR_2X | PR_CEN, -1, 45, loc::gettext("WARNING"), tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, 45, loc::gettext("WARNING"), tr, tg, tb);
         font::print_wrap(PR_CEN, -1, 65, message, tr, tg, tb);
         break;
     }
@@ -2238,7 +2244,7 @@ void gamerender(void)
 
                 std::string tempstring = help.timestring(game.swnrecord);
                 font::print(PR_BOR | PR_CEN, -1, 190, loc::gettext("Best Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-                font::print(PR_2X | PR_BOR | PR_CEN, -1, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+                font::print(PR_2X | PR_BOR | PR_CEN | PR_CJK_LOW, -1, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
             }
             else if (int(game.swndelay / 10) % 2 == 1)
             {
@@ -2415,6 +2421,8 @@ static void draw_roomname_menu(void)
 /* Used to keep some graphics positions on the map screen
  * the same in Flip Mode. */
 #define FLIP(y, h) (graphics.flipmode ? 220 - (y) - (h) : (y))
+#define FLIP_PR_CJK_LOW (graphics.flipmode ? PR_CJK_HIGH : PR_CJK_LOW)
+#define FLIP_PR_CJK_HIGH (graphics.flipmode ? PR_CJK_LOW : PR_CJK_HIGH)
 
 static MapRenderData getmaprenderdata(void)
 {
@@ -2618,6 +2626,15 @@ void maprender(void)
 #undef OPTION
     }
 
+    /* FIXME: about the code below where this is used (case 10/11/20/21)... I've seen better code.
+     * We should rewrite it to use graphics::map_option, but until then... */
+    int selection_offset;
+    {
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", "");
+        selection_offset = font::len(0, buffer) / 2;
+    }
+
     // Draw the actual menu
     switch(game.menupage)
     {
@@ -2652,7 +2669,7 @@ void maprender(void)
 
                 std::string tempstring = help.timestring(game.swnrecord);
                 font::print(PR_CEN, -1, 124, loc::gettext("Best Time"), 196, 196, 255 - help.glow);
-                font::print(PR_2X | PR_CEN, -1, 102, tempstring, 196, 196, 255 - help.glow);
+                font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, 102, tempstring, 196, 196, 255 - help.glow);
 
                 switch(game.swnbestrank)
                 {
@@ -2685,7 +2702,7 @@ void maprender(void)
 
                 std::string tempstring = help.timestring(game.swnrecord);
                 font::print(PR_CEN, -1, 90, loc::gettext("Best Time"), 196, 196, 255 - help.glow);
-                font::print(PR_2X | PR_CEN, -1, 104, tempstring, 196, 196, 255 - help.glow);
+                font::print(PR_2X | PR_CEN | PR_CJK_LOW, -1, 104, tempstring, 196, 196, 255 - help.glow);
 
                 switch(game.swnbestrank)
                 {
@@ -2828,7 +2845,7 @@ void maprender(void)
         }
 
         /* Stats. */
-        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow);
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(
             buffer, sizeof(buffer),
@@ -2836,13 +2853,13 @@ void maprender(void)
             "n_trinkets:int, max_trinkets:int",
             game.trinkets(), max_trinkets
         );
-        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(64, 8), buffer, 96, 96, 96);
+        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(64, 8), buffer, 96, 96, 96);
 
-        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow);
-        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96);
+        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96);
 
-        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(152, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow);
-        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(164, 8), game.timestring(), 96, 96, 96);
+        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(152, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(164, 8), game.timestring(), 96, 96, 96);
         break;
     }
     case 3:
@@ -2961,7 +2978,7 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(0, 80-16, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80-selection_offset, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
             font::print(0, 80 + 32, 76, loc::gettext("yes, quit to menu"),  96, 96, 96);
         }
         else
@@ -2976,7 +2993,7 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(0, 80-16, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
             font::print(0, 80 + 32, 142, loc::gettext("yes, quit to menu"),  96, 96, 96);
 
         }
@@ -2996,7 +3013,7 @@ void maprender(void)
             }
 
             font::print(0, 80, 88, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(0, 80+32-16, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80+32-selection_offset, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
         }
         else
         {
@@ -3010,7 +3027,7 @@ void maprender(void)
             }
 
             font::print(0, 80, 130, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(0, 80+32-16, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80+32-selection_offset, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
         }
         break;
     case 20:
@@ -3019,13 +3036,13 @@ void maprender(void)
         if (graphics.flipmode)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(0, 80-16, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80-selection_offset, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
             font::print(0, 80 + 32, 130, loc::gettext("yes, return"),  96, 96, 96);
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(0, 80-16, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
             font::print(0, 80 + 32, 142, loc::gettext("yes, return"),  96, 96, 96);
         }
 
@@ -3037,13 +3054,13 @@ void maprender(void)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
             font::print(0, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(0, 80 + 32-16, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80 + 32-selection_offset, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
             font::print(0, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(0, 80 + 32-16, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80 + 32-selection_offset, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
         }
 
     }
@@ -3074,6 +3091,8 @@ void maprender(void)
     graphics.renderwithscreeneffects();
 }
 
+#undef FLIP_PR_CJK_HIGH
+#undef FLIP_PR_CJK_LOW
 #undef FLIP
 
 void teleporterrender(void)
