@@ -2409,13 +2409,13 @@ void scriptclass::run(void)
             {
                 if (map.custommode)
                 {
-                    loc::lang_custom = words[1];
+                    loc::lang_custom = raw_words[1];
                     loc::loadtext_custom(NULL);
                 }
             }
             else if (words[0] == "iflang")
             {
-                if (loc::lang == words[1])
+                if (loc::lang == raw_words[1])
                 {
                     loadalts("custom_" + words[2], "custom_" + raw_words[2]);
                     position--;
@@ -2430,7 +2430,7 @@ void scriptclass::run(void)
                 }
                 else
                 {
-                    font::set_level_font(words[1].c_str());
+                    font::set_level_font(raw_words[1].c_str());
                 }
 #endif
             }
