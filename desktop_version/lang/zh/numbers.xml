@@ -2,7 +2,7 @@
 <!-- Please read README.txt for information about the language files -->
 <numbers>
     <number value="0" form="0" english="Zero" translation="零"/>
-    <number value="1" form="1" english="One" translation="一"/>
+    <number value="1" form="0" english="One" translation="一"/>
     <number value="2" form="0" english="Two" translation="二"/>
     <number value="3" form="0" english="Three" translation="三"/>
     <number value="4" form="0" english="Four" translation="四"/>

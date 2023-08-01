@@ -126,7 +126,8 @@
     <string english="With contributions on GitHub from" translation="以下人士在GitHub上做出了贡献" explanation="credits" max="38*3" max_local="25*2"/>
     <string english="and thanks also to:" translation="此外还要感谢：" explanation="credits, and thanks also to ... you!" max="38*3" max_local="25*2"/>
     <string english="You!" translation="您！" explanation="credits, and thanks also to ... you!" max="20" max_local="13"/>
-    <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="你的支持让我能够在现在和将来、不断地制作自己想要的游戏。" explanation="credits" max="38*5" max_local="25*4"/>
+    <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="你的支持让我能够在现在和将来、
+不断地制作自己想要的游戏。" explanation="credits" max="38*5" max_local="25*4"/>
     <string english="Thank you!" translation="感谢你！" explanation="credits" max="38*5" max_local="25*4"/>
     <string english="Good luck!" translation="祝你好运！" explanation="" max="38*3" max_local="25*2"/>
     <string english="You cannot save in this mode." translation="这个模式下不能存档。" explanation="" max="38*3" max_local="25*2"/>
@@ -159,14 +160,19 @@
     <string english="Sync all language files after adding new strings." translation="在增添新词条后同步所有语言文件。" explanation="" max="38*6" max_local="25*5"/>
     <string english="translate room names" translation="翻译房间名" explanation="menu option"/>
     <string english="Translate rooms" translation="翻译房间" explanation="title" max="20" max_local="13"/>
-    <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="开启房间名翻译模式，这样你就可以在看到房间的情况下翻译。按I开启无敌。" explanation="" max="38*4" max_local="25*3"/>
+    <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="开启房间名翻译模式，这样你就可以在看到房间的
+情况下翻译。按I开启无敌。" explanation="" max="38*4" max_local="25*3"/>
     <string english="You have not enabled room name translation mode!" translation="你没有开启房间名翻译模式！" explanation="" max="38*4" max_local="25*3"/>
     <string english="menu test" translation="菜单测试" explanation="menu option"/>
     <string english="Menu test" translation="菜单测试" explanation="title" max="20" max_local="13"/>
-    <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="查看游戏中几乎所有的菜单。这些菜单并没有真正的功能，所有选项都是跳到下一个菜单。按Esc键中止。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="Cycle through most menus in the game. The menus will not actually work, all options take you to the next menu instead. Press Escape to stop." translation="查看游戏中几乎所有的菜单。
+这些菜单并没有真正的功能，
+所有选项都是跳到下一个菜单。
+按Esc键中止。" explanation="" max="38*6" max_local="25*5"/>
     <string english="cutscene test" translation="过场测试" explanation="menu option"/>
     <string english="Cutscene test" translation="过场测试" explanation="title" max="20" max_local="13"/>
-    <string english="Display all text boxes from cutscenes.xml. Only tests the basic appearance of each individual text box." translation="显示cutscenes.xml里的所有对话框。只测试每个单独对话框的最基础外观。" explanation="" max="38*6" max_local="25*5"/>
+    <string english="Display all text boxes from cutscenes.xml. Only tests the basic appearance of each individual text box." translation="显示cutscenes.xml里的所有对话框。
+只测试每个单独对话框的最基础外观。" explanation="" max="38*6" max_local="25*5"/>
     <string english="from clipboard" translation="从剪贴板" explanation="menu option, paste script name from clipboard"/>
     <string english="explore game" translation="探索游戏" explanation="menu option"/>
     <string english="Explore game" translation="探索游戏" explanation="title" max="20" max_local="13"/>
@@ -211,9 +217,9 @@
     <string english="interact button" translation="交互按键" explanation="menu option"/>
     <string english="Interact Button" translation="交互按键" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" max_local="13"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="切换交互时使用回车键还是E。" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3" max_local="25*2"/>
-    <string english="E" translation="" explanation="keyboard key E. Speedrunner options menu"/>
-    <string english="ENTER" translation="回车键" explanation="keyboard key ENTER. Speedrunner options menu"/>
-    <string english="ESC" translation="" explanation="keyboard key ESC"/>
+    <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
+    <string english="ENTER" translation="回车" explanation="keyboard key ENTER. Speedrunner options menu"/>
+    <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
     <string english="ACTION" translation="行动键" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="交互按钮：{button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2" max_local="25*1"/>
     <string english="fake load screen" translation="假载入画面" explanation="menu option"/>
@@ -263,7 +269,8 @@
     <string english="Text outlines are OFF." translation="文字边框 关闭" explanation="" max="40" max_local="26"/>
     <string english="invincibility" translation="无敌" explanation="menu option"/>
     <string english="Invincibility" translation="无敌" explanation="title" max="20" max_local="13"/>
-    <string english="Explore the game freely without dying. (Can cause glitches.)" translation="在不会死亡的前提下自由探索游戏。（有可能导致bug）" explanation="invincibility mode" max="38*3" max_local="25*2"/>
+    <string english="Explore the game freely without dying. (Can cause glitches.)" translation="在不会死亡的前提下自由探索游戏。
+（有可能导致bug）" explanation="invincibility mode" max="38*3" max_local="25*2"/>
     <string english="Invincibility is ON." translation="无敌 开启" explanation="" max="38*2" max_local="25*1"/>
     <string english="Invincibility is OFF." translation="无敌 关闭" explanation="" max="38*2" max_local="25*1"/>
     <string english="Are you sure you want to enable invincibility?" translation="你确定想要开启无敌吗？" explanation="" max="38*7" max_local="25*5"/>
@@ -334,8 +341,8 @@
     <string english="TIME TAKEN:" translation="花费时间：" explanation="time the player took playing the level" max="32" max_local="21"/>
     <string english="NUMBER OF DEATHS:" translation="死亡次数：" explanation="amount of times the player died" max="32" max_local="21"/>
     <string english="SHINY TRINKETS:" translation="闪亮饰品：" explanation="amount of trinkets collected" max="32" max_local="21"/>
-    <string english=" / " translation="" explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
-    <string english="{n_trinkets}/{max_trinkets}" translation="" explanation="ex: 2/5"/>
+    <string english=" / " translation=" / " explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
+    <string english="{n_trinkets}/{max_trinkets}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: 2/5"/>
     <string english="{n_trinkets} of {max_trinkets}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: 2 of 5"/>
     <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34" max_local="22"/>
     <string english="{savebox_n_trinkets|wordy}" translation="{savebox_n_trinkets}" explanation="trinket count in telesave/quicksave information box. You can add |upper for an uppercase letter."/>
@@ -391,7 +398,8 @@
     <string english="Go!" translation="开始！" explanation="3, 2, 1, Go!" max="10" max_local="6"/>
     <string english="Congratulations!" translation="恭喜！" explanation="title" max="20" max_local="13"/>
     <string english="Your save files have been updated." translation="你的存档文件已经更新。" explanation="player completed game" max="38*6" max_local="25*5"/>
-    <string english="If you want to keep exploring the game, select CONTINUE from the play menu." translation="假如你想要继续探索游戏，请在游玩菜单中选择 继续 。" explanation="" max="38*9" max_local="25*7"/>
+    <string english="If you want to keep exploring the game, select CONTINUE from the play menu." translation="假如你想要继续探索游戏，
+请在游玩菜单中选择 继续 。" explanation="" max="38*9" max_local="25*7"/>
     <string english="You have unlocked a new Time Trial." translation="你解锁了一个新的时间挑战。" explanation="" max="38*7" max_local="25*5"/>
     <string english="You have unlocked some new Time Trials." translation="你解锁了一些新的时间挑战。" explanation="" max="38*7" max_local="25*5"/>
     <string english="You have unlocked No Death Mode." translation="你解锁了无死亡模式。" explanation="" max="38*7" max_local="25*5"/>
@@ -417,17 +425,19 @@
     <string english="start from beginning" translation="从头开始" explanation="menu option"/>
     <string english="delete save" translation="删除存档" explanation="menu option"/>
     <string english="back to levels" translation="返回关卡" explanation="menu option"/>
-    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="要安装新的玩家关卡，请将.vvvvvv文件复制到关卡文件夹。" explanation="" max="38*3" max_local="25*2"/>
-    <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="你确定想要显示文件夹路径吗？如果你在直播的话，这可能会透露一些敏感的信息。" explanation="" max="38*4" max_local="25*3"/>
+    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="要安装新的玩家关卡，请将.vvvvvv文件
+复制到关卡文件夹。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="你确定想要显示文件夹路径吗？如果你在直播的话，
+这可能会透露一些敏感的信息。" explanation="" max="38*4" max_local="25*3"/>
     <string english="The levels path is:" translation="文件夹路径是：" explanation="" max="40" max_local="26"/>
-    <string english="[ Press ACTION to Start ]" translation="" explanation="***OUTDATED***" max="38*2" max_local="25*1"/>
+    <string english="[ Press ACTION to Start ]" translation="." explanation="***OUTDATED***" max="38*2" max_local="25*1"/>
     <string english="[ Press {button} to Start ]" translation="[ 按 {button} 开始 ]" explanation="title screen. Expect `ACTION`" max="38*2" max_local="25*1"/>
     <string english="ACTION = Space, Z, or V" translation="行动键 = 空格、Z或V" explanation="title screen" max="38*3" max_local="25*2"/>
-    <string english="[Press ENTER to return to editor]" translation="" explanation="***OUTDATED***" max="40" max_local="26"/>
+    <string english="[Press ENTER to return to editor]" translation="." explanation="***OUTDATED***" max="40" max_local="26"/>
     <string english="[Press {button} to return to editor]" translation="[按 {button} 返回编辑器]" explanation="`to editor` is sorta redundant" max="40" max_local="26"/>
-    <string english="- Press ACTION to advance text -" translation="" explanation="***OUTDATED***" max="40" max_local="26"/>
+    <string english="- Press ACTION to advance text -" translation="." explanation="***OUTDATED***" max="40" max_local="26"/>
     <string english="- Press {button} to advance text -" translation="按 {button} 来推进文本 -" explanation="to dismiss a textbox. Expect `ACTION`" max="40" max_local="26"/>
-    <string english="Press ACTION to continue" translation="" explanation="***OUTDATED***" max="34" max_local="22"/>
+    <string english="Press ACTION to continue" translation="." explanation="***OUTDATED***" max="34" max_local="22"/>
     <string english="Press {button} to continue" translation="按 {button} 继续" explanation="Expect `ACTION`" max="34" max_local="22"/>
     <string english="Current Time" translation="当前时间" explanation="super gravitron, stopwatch time" max="20" max_local="13"/>
     <string english="Best Time" translation="最佳时间" explanation="super gravitron, best stopwatch time" max="20" max_local="13"/>
@@ -440,7 +450,7 @@
     <string english="All Trophies collected!" translation="所有奖杯都已经收集到！" explanation="" max="38*2" max_local="25*1"/>
     <string english="New Record!" translation="新纪录！" explanation="" max="20" max_local="13"/>
     <string english="New Trophy!" translation="新奖杯！" explanation="" max="20" max_local="13"/>
-    <string english="[Press ENTER to stop]" translation="" explanation="***OUTDATED***" max="40" max_local="26"/>
+    <string english="[Press ENTER to stop]" translation="." explanation="***OUTDATED***" max="40" max_local="26"/>
     <string english="[Press {button} to stop]" translation="[按 {button} 停止]" explanation="stop super gravitron" max="40" max_local="26"/>
     <string english="SUPER GRAVITRON" translation="超级重力机" explanation="" max="20" max_local="13"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="超级重力机 高分榜" explanation="" max="38*4" max_local="25*3"/>
@@ -454,7 +464,7 @@
     <string english="[ QUIT ]" translation="[ 退出 ]" explanation="in-game menu" max="40" max_local="26"/>
     <string english="[ GRAVITRON ]" translation="[ 重力机 ]" explanation="in-game menu" max="40" max_local="26"/>
     <string english="NO SIGNAL" translation="无信号" explanation="map screen. So like a TV/computer monitor" max="29" max_local="19"/>
-    <string english="Press ACTION to warp to the ship." translation="" explanation="***OUTDATED***" max="38*7" max_local="25*5"/>
+    <string english="Press ACTION to warp to the ship." translation="." explanation="***OUTDATED***" max="38*7" max_local="25*5"/>
     <string english="Press {button} to warp to the ship." translation="按 {button} 传送到飞船。" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7" max_local="25*5"/>
     <string english="Missing..." translation="下落不明……" case="1" explanation="this male crew member is missing" max="15" max_local="10"/>
     <string english="Missing..." translation="下落不明……" case="2" explanation="this female crew member is missing" max="15" max_local="10"/>
@@ -469,7 +479,7 @@
     <string english="ERROR: Could not save game!" translation="错误！无法保存游戏！" explanation="in-game menu" max="34*2" max_local="22*1"/>
     <string english="ERROR: Could not save settings file!" translation="错误！无法保存设定文件！" explanation="" max="38*2" max_local="25*1"/>
     <string english="Game saved ok!" translation="游戏成功保存！" explanation="in-game menu" max="38*2" max_local="25*1"/>
-    <string english="[Press ACTION to save your game]" translation="" explanation="***OUTDATED***" max="40" max_local="26"/>
+    <string english="[Press ACTION to save your game]" translation="." explanation="***OUTDATED***" max="40" max_local="26"/>
     <string english="[Press {button} to save your game]" translation="[按 {button} 来保存游戏]" explanation="in-game menu. Expect `ACTION`" max="40" max_local="26"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="（注：游戏在每个传送器都会自动保存）" explanation="in-game menu" max="38*3" max_local="25*2"/>
     <string english="Last Save:" translation="最新存档：" explanation="in-game menu" max="40" max_local="26"/>
@@ -499,16 +509,16 @@
     <string english="Press {button} to activate terminals" translation="按 {button} 激活终端" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37" max_local="24"/>
     <string english="Press {button} to interact" translation="按 {button} 进行交互" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37" max_local="24"/>
     <string english="- Press {button} to skip -" translation="- 按 {button} 跳过 -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40" max_local="26"/>
-    <string english="Passion for Exploring" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="Pushing Onwards" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="Positive Force" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="Presenting VVVVVV" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="Potential for Anything" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="Predestined Fate" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="Pipe Dream" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="Popular Potpourri" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="Pressure Cooker" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
-    <string english="ecroF evitisoP" translation="" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Potential for Anything" translation="Potential for Anything" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Predestined Fate" translation="Predestined Fate" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Pipe Dream" translation="Pipe Dream" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
+    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2" max_local="24*1"/>
     <string english="Map Settings" translation="地图设置" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20" max_local="13"/>
     <string english="edit scripts" translation="编辑脚本" explanation="level editor menu option"/>
     <string english="change music" translation="改变音乐" explanation="level editor menu option"/>
@@ -529,21 +539,21 @@
     <string english="Map Music" translation="地图音乐" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20" max_local="13"/>
     <string english="Current map music:" translation="当前地图音乐：" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2" max_local="25*1"/>
     <string english="No background music" translation="无背景音乐" explanation="editor, level starts with no song playing" max="38*2" max_local="25*1"/>
-    <string english="1: Pushing Onwards" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="2: Positive Force" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="3: Potential for Anything" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="4: Passion for Exploring" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="N/A: Pause" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="5: Presenting VVVVVV" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="N/A: Plenary" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="6: Predestined Fate" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="N/A: ecroF evitisoP" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="7: Popular Potpourri" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="8: Pipe Dream" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="9: Pressure Cooker" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="10: Paced Energy" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="11: Piercing the Sky" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
-    <string english="N/A: Predestined Fate Remix" translation="" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="1: Pushing Onwards" translation="1: Pushing Onwards" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="2: Positive Force" translation="2: Positive Force" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="3: Potential for Anything" translation="3: Potential for Anything" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="4: Passion for Exploring" translation="4: Passion for Exploring" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="N/A: Pause" translation="N/A: Pause" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="5: Presenting VVVVVV" translation="5: Presenting VVVVVV" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="N/A: Plenary" translation="N/A: Plenary" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="6: Predestined Fate" translation="6: Predestined Fate" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="N/A: ecroF evitisoP" translation="N/A: ecroF evitisoP" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="7: Popular Potpourri" translation="7: Popular Potpourri" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="8: Pipe Dream" translation="8: Pipe Dream" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="9: Pressure Cooker" translation="9: Pressure Cooker" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="10: Paced Energy" translation="10: Paced Energy" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="11: Piercing the Sky" translation="11: Piercing the Sky" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
+    <string english="N/A: Predestined Fate Remix" translation="N/A: Predestined Fate Remix" explanation="editor, song name should probably not be translated" max="38*2" max_local="25*1"/>
     <string english="?: something else" translation="？：其他音乐" explanation="editor, song was not recognized" max="38*2" max_local="25*1"/>
     <string english="next song" translation="下一首" explanation="level editor menu option"/>
     <string english="previous song" translation="上一首" explanation="level editor menu option"/>
@@ -555,21 +565,21 @@
     <string english="Untitled Level" translation="无标题关卡" explanation="" max="20" max_local="13"/>
     <string english="Unknown" translation="未知" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="地块：" explanation="editor, selected " max="34" max_local="22"/>
-    <string english="SCRIPT BOX: Click on top left" translation="" explanation="***OUTDATED***"/>
+    <string english="SCRIPT BOX: Click on top left" translation="." explanation="***OUTDATED***"/>
     <string english="SCRIPT BOX: Click on the first corner" translation="脚本盒：点击开始角落" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="26*2"/>
-    <string english="SCRIPT BOX: Click on bottom right" translation="" explanation="***OUTDATED***"/>
+    <string english="SCRIPT BOX: Click on bottom right" translation="." explanation="***OUTDATED***"/>
     <string english="SCRIPT BOX: Click on the last corner" translation="脚本盒：点击结束角落" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3" max_local="26*2"/>
-    <string english="ENEMY BOUNDS: Click on top left" translation="" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on top left" translation="." explanation="***OUTDATED***"/>
     <string english="ENEMY BOUNDS: Click on the first corner" translation="敌人边界：点击开始角落" explanation="editor, invisible box which enemies always stay inside of" max="39*3" max_local="26*2"/>
-    <string english="ENEMY BOUNDS: Click on bottom right" translation="" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on bottom right" translation="." explanation="***OUTDATED***"/>
     <string english="ENEMY BOUNDS: Click on the last corner" translation="敌人边界：点击结束角落" explanation="editor, invisible box which enemies always stay inside of" max="39*3" max_local="26*2"/>
-    <string english="PLATFORM BOUNDS: Click on top left" translation="" explanation="***OUTDATED***"/>
+    <string english="PLATFORM BOUNDS: Click on top left" translation="." explanation="***OUTDATED***"/>
     <string english="PLATFORM BOUNDS: Click on the first corner" translation="平台边界：点击开始角落" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3" max_local="26*2"/>
-    <string english="PLATFORM BOUNDS: Click on bottom right" translation="" explanation="***OUTDATED***"/>
+    <string english="PLATFORM BOUNDS: Click on bottom right" translation="." explanation="***OUTDATED***"/>
     <string english="PLATFORM BOUNDS: Click on the last corner" translation="平台边界：点击结束角落" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3" max_local="26*2"/>
-    <string english="Click on top left" translation="" explanation="***OUTDATED***"/>
+    <string english="Click on top left" translation="." explanation="***OUTDATED***"/>
     <string english="Click on the first corner" translation="点击开始角落" explanation="" max="39*3" max_local="26*2"/>
-    <string english="Click on bottom right" translation="" explanation="***OUTDATED***"/>
+    <string english="Click on bottom right" translation="." explanation="***OUTDATED***"/>
     <string english="Click on the last corner" translation="点击结束角落" explanation="" max="39*3" max_local="26*2"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** VVVVVV 脚本编辑器 ****" explanation="supposed to look like a Commodore 64 screen" max="36" max_local="24"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="按ESC返回菜单" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36" max_local="24"/>
@@ -583,25 +593,25 @@
     <string english="2: Backing" translation="2：背景" explanation="editor tool. Non-solid background tiles" max="32" max_local="21"/>
     <string english="3: Spikes" translation="3：刺" explanation="editor tool" max="32" max_local="21"/>
     <string english="4: Trinkets" translation="4：饰品" explanation="editor tool. Shiny trinkets/collectibles" max="32" max_local="21"/>
-    <string english="5: Checkpoint" translation="" explanation="***OUTDATED***"/>
+    <string english="5: Checkpoint" translation="." explanation="***OUTDATED***"/>
     <string english="5: Checkpoints" translation="5：检查点" explanation="editor tool. You restart at the last checkpoint after death" max="32" max_local="21"/>
-    <string english="6: Disappear" translation="" explanation="***OUTDATED***"/>
+    <string english="6: Disappear" translation="." explanation="***OUTDATED***"/>
     <string english="6: Disappearing Platforms" translation="6：消失平台" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32" max_local="21"/>
     <string english="7: Conveyors" translation="7：传送带" explanation="editor tool. Conveyor belt" max="32" max_local="21"/>
-    <string english="8: Moving" translation="" explanation="***OUTDATED***"/>
+    <string english="8: Moving" translation="." explanation="***OUTDATED***"/>
     <string english="8: Moving Platforms" translation="8：移动平台" explanation="editor tool. Moving platform" max="32" max_local="21"/>
     <string english="9: Enemies" translation="9：敌人" explanation="editor tool" max="32" max_local="21"/>
-    <string english="0: Grav Line" translation="" explanation="***OUTDATED***"/>
+    <string english="0: Grav Line" translation="." explanation="***OUTDATED***"/>
     <string english="0: Gravity Lines" translation="0：重力线" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32" max_local="21"/>
     <string english="R: Roomtext" translation="R：房间文本" explanation="editor tool. Freely typed text, consider just Text" max="32" max_local="21"/>
-    <string english="T: Terminal" translation="" explanation="***OUTDATED***"/>
+    <string english="T: Terminal" translation="." explanation="***OUTDATED***"/>
     <string english="T: Terminals" translation="T：终端" explanation="editor tool. Computer which can be activated by the player to run a script" max="32" max_local="21"/>
-    <string english="Y: Script Box" translation="" explanation="***OUTDATED***"/>
+    <string english="Y: Script Box" translation="." explanation="***OUTDATED***"/>
     <string english="Y: Script Boxes" translation="Y：脚本盒" explanation="editor tool. Invisible box that runs a script when touched" max="32" max_local="21"/>
-    <string english="U: Warp Token" translation="" explanation="***OUTDATED***"/>
+    <string english="U: Warp Token" translation="." explanation="***OUTDATED***"/>
     <string english="U: Warp Tokens" translation="U：转移标记" explanation="editor tool. Small teleporter with entrance and destination" max="32" max_local="21"/>
     <string english="I: Warp Lines" translation="I：转移线" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32" max_local="21"/>
-    <string english="O: Crewmate" translation="" explanation="***OUTDATED***"/>
+    <string english="O: Crewmate" translation="." explanation="***OUTDATED***"/>
     <string english="O: Crewmates" translation="O：船员" explanation="editor tool. Crewmate that can be rescued" max="32" max_local="21"/>
     <string english="P: Start Point" translation="P：开始点" explanation="editor tool" max="32" max_local="21"/>
     <string english="START" translation="开始" explanation="start point in level editor" max="10" max_local="6"/>
@@ -653,12 +663,12 @@
     <string english="Level completed" translation="关卡已完成" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3" max_local="25*2"/>
     <string english="Rolled credits" translation="制作名单已播放" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3" max_local="25*2"/>
     <string english="Time trial completed" translation="时间挑战已完成" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3" max_local="25*2"/>
-    <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="" explanation="time format H:MM:SS"/>
-    <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="" explanation="time format H:MM:SS.CC"/>
-    <string english="{min}:{sec|digits=2}" translation="" explanation="time format M:SS"/>
-    <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="" explanation="time format M:SS.CC"/>
-    <string english="{sec}.{cen|digits=2}" translation="" explanation="time format S.CC"/>
-    <string english=".99" translation="" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
+    <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
+    <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
+    <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
+    <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
+    <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
+    <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
     <string english="Level Complete!" translation="关卡完成！" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="12"/>
     <string english="Game Complete!" translation="游戏完成！" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="12"/>
     <string english="You have rescued a crew member!" translation="你救出了一名船员！" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2" max_local="20*1"/>
@@ -669,7 +679,7 @@
     <string english="Press left/right to move" translation="按左/右来移动" explanation="" max="32*2" max_local="21*1"/>
     <string english="Press ACTION to flip" translation="按 行动键 来翻转" explanation="***OUTDATED***" max="32*3" max_local="21*2"/>
     <string english="Press {button} to flip" translation="按 {button} 来翻转" explanation="expect `ACTION`" max="32*3" max_local="21*2"/>
-    <string english="Press ENTER to view map and quicksave" translation="" explanation="***OUTDATED***" max="32*3" max_local="21*2"/>
+    <string english="Press ENTER to view map and quicksave" translation="." explanation="***OUTDATED***" max="32*3" max_local="21*2"/>
     <string english="Press {button} to view map and quicksave" translation="按 {button} 来查看地图和快速存档" explanation="" max="32*3" max_local="21*2"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="假如你愿意，也可以不用行动键，而用 上 或 下 来进行翻转。" explanation="" max="34*3" max_local="22*2"/>
     <string english="Help! Can anyone hear this message?" translation="求助！有人能听到这段话吗？" explanation="Violet speaking via Comms Relay" max="25*4" max_local="16*3"/>

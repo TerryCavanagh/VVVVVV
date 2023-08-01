@@ -137,9 +137,9 @@
     <roomname x="18" y="8" english="Getting Here is Half the Fun" translation="这才一半，还有的玩" explanation="The top of the Veni Vidi Vici sequence. When you get to the top, you have to go all the way back down - hence, this room is the halfway point of the challenge."/>
     <roomname x="18" y="9" english="Your Bitter Tears... Delicious" translation="你的泪水……苦到美味" explanation="Part of the Veni Vidi Vici sequence. Taunting the player."/>
     <roomname x="18" y="10" english="Easy Mode Unlocked" translation="简单模式已解锁" explanation="Part of the Veni Vidi Vici sequence. Taunting the player - the &apos;easy mode&apos; refers to the second passageway on the right side that is easier to take when going back through this room on the way down, but that passageway leads to death."/>
-    <roomname x="18" y="11" english="Vici!" translation="我征服！" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
-    <roomname x="18" y="12" english="Vidi" translation="我见" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
-    <roomname x="18" y="13" english="Veni" translation="我来" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
+    <roomname x="18" y="11" english="Vici!" translation="维征服！" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
+    <roomname x="18" y="12" english="Vidi" translation="维见" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
+    <roomname x="18" y="13" english="Veni" translation="维来" explanation="The rooms Veni, Vidi, Vici! appear in sequence. Famous latin phrase attributed to Julius Caesar meaning I came, I saw, I conquered. The hardest challenge in the game."/>
     <roomname x="18" y="14" english="Doing Things The Hard Way" translation="一条艰难的道路" explanation="The starting room from the Veni, Vidi, Vici! challenge."/>
     <roomname x="19" y="0" english="To The Batcave!" translation="出发，去蝙蝠洞！" explanation="The Batcave, as in Batman&apos;s hideout."/>
     <roomname x="19" y="1" english="Ascending and Descending" translation="上升和下降" explanation="Just meant as in literally Ascending and Descending, going up and down. There is a room later in the game called Upstairs, Downstairs, which is a callback to this."/>
@@ -183,11 +183,11 @@
     <roomname x="53" y="52" english="House of Mirrors" translation="镜子房间" explanation="Another name inspired by funfairs."/>
     <roomname x="53" y="53" english="W" translation="W" explanation="This room has platforms in a W shape."/>
     <roomname x="53" y="56" english="You&apos;re Falling Behind" translation="你进度落后了" explanation="This entire intermission section has a tone of a strict schoolteacher leading a small child."/>
-    <roomname x="54" y="48" english="VVVVVV" translation="" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 6/6"/>
-    <roomname x="54" y="49" english="VVVVV" translation="" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 5/6"/>
-    <roomname x="54" y="50" english="VVVV" translation="" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 4/6"/>
-    <roomname x="54" y="51" english="VVV" translation="" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 3/6"/>
-    <roomname x="54" y="52" english="VV" translation="" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 2/6"/>
-    <roomname x="54" y="53" english="V" translation="" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 1/6"/>
+    <roomname x="54" y="48" english="VVVVVV" translation="VVVVVV" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 6/6"/>
+    <roomname x="54" y="49" english="VVVVV" translation="VVVVV" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 5/6"/>
+    <roomname x="54" y="50" english="VVVV" translation="VVVV" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 4/6"/>
+    <roomname x="54" y="51" english="VVV" translation="VVV" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 3/6"/>
+    <roomname x="54" y="52" english="VV" translation="VV" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 2/6"/>
+    <roomname x="54" y="53" english="V" translation="V" explanation="Final sequence of rooms that spell out V-V-V-V-V-V, 1/6"/>
     <roomname x="54" y="56" english="Class Dismissed!" translation="下课解散！" explanation="This entire intermission section has a tone of a strict schoolteacher leading a small child."/>
 </roomnames>

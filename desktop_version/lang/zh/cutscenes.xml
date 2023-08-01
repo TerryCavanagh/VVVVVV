@@ -53,19 +53,24 @@
     <cutscene id="bigopenworld" explanation="">
         <dialogue speaker="player" english="So, Doctor - have you any idea what caused the crash?" translation="所以，博士——坠机的原因你有头绪了吗？"/>
         <dialogue speaker="purple" english="There&apos;s some sort of bizarre signal here that&apos;s interfering with our equipment..." translation="这里存在着某种奇怪的信号，干扰了我们的设备……"/>
-        <dialogue speaker="purple" english="It caused the ship to lose its quantum position, collapsing us into this dimension!" translation="信号让飞船失去了自身的量子位置，将我们坍缩到了这个维度上！"/>
+        <dialogue speaker="purple" english="It caused the ship to lose its quantum position, collapsing us into this dimension!" translation="信号让飞船失去了自身的量子位置，
+将我们坍缩到了这个维度上！"/>
         <dialogue speaker="player" english="Oh no!" translation="哦不！"/>
         <dialogue speaker="purple" english="But I think we should be able to fix the ship and get out of here..." translation="不过，我觉得我们应该能够修好飞船离开这里……"/>
         <dialogue speaker="purple" english="... as long as we can find the rest of the crew." translation="……只要我们能找到剩余的船员们。"/>
         <dialogue speaker="purple" english="We really don&apos;t know anything about this place..." translation="对这里我们可以说是一无所知……"/>
-        <dialogue speaker="purple" english="Our friends could be anywhere - they could be lost, or in danger!" translation="我们的朋友们可能会在任何地方——他们或许迷了路，也有可能遭遇了危险！"/>
+        <dialogue speaker="purple" english="Our friends could be anywhere - they could be lost, or in danger!" translation="我们的朋友们可能会在任何地方——他们
+或许迷了路，也有可能遭遇了危险！"/>
         <dialogue speaker="player" english="Can they teleport back here?" translation="他们不能传送回这里来吗？"/>
         <dialogue speaker="purple" english="Not unless they find some way to communicate with us!" translation="那也需要他们先能和我们联系上才行！"/>
-        <dialogue speaker="purple" english="We can&apos;t pick up their signal and they can&apos;t teleport here unless they know where the ship is..." translation="我们无法搜查到他们的信号，而他们也没有办法在不知道飞船位置的情况下传送过来……"/>
+        <dialogue speaker="purple" english="We can&apos;t pick up their signal and they can&apos;t teleport here unless they know where the ship is..." translation="我们无法搜查到他们的信号，而他们也没有办法
+在不知道飞船位置的情况下传送过来……"/>
         <dialogue speaker="player" english="So what do we do?" translation="那我们该怎么办呢？"/>
-        <dialogue speaker="purple" english="We need to find them! Head out into the dimension and look for anywhere they might have ended up..." translation="必须要找到他们！出发到这个维度中去，找寻任何他们可能会在的地方……"/>
+        <dialogue speaker="purple" english="We need to find them! Head out into the dimension and look for anywhere they might have ended up..." translation="必须要找到他们！出发到这个维度中去，
+找寻任何他们可能会在的地方……"/>
         <dialogue speaker="player" english="Ok! Where do we start?" translation="好的！我们该从哪里开始呢？"/>
-        <dialogue speaker="purple" english="Well, I&apos;ve been trying to find them with the ship&apos;s scanners!" translation="嗯，其实我一直在试着用飞船的扫描器来寻找他们的位置！"/>
+        <dialogue speaker="purple" english="Well, I&apos;ve been trying to find them with the ship&apos;s scanners!" translation="嗯，其实我一直在试着用飞船的
+扫描器来寻找他们的位置！"/>
         <dialogue speaker="purple" english="It&apos;s not working, but I did find something..." translation="虽然没能成功，但我还是找到了一些东西……"/>
         <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="扫描中发现的这几个地点，有高能的迹象！"/>
         <dialogue speaker="purple" english="There&apos;s a good chance they&apos;re teleporters - which means they&apos;re probably built near something important..." translation="这些地方很有可能都是传送器——而一般传送器都会建造在重要地点的附近……"/>
@@ -79,10 +84,13 @@
     <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="我有点不知该怎么办好，博士。"/>
         <dialogue speaker="player" english="Where do I begin?" translation="我应该从哪里开始呢？"/>
-        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="别忘了你可以按 回车 键来检查自己在地图上的位置！"/>
-        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="别忘了你可以按 {b_map} 键来检查自己在地图上的位置！" buttons="1"/>
+        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="别忘了你可以按 回车 键
+来检查自己在地图上的位置！"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="别忘了你可以按 {b_map} 键
+来检查自己在地图上的位置！" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="去找一找其他船员们可能会在的地区……"/>
-        <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="如果你迷了路，别忘了可以从任何一个传送器直接回到飞船上。"/>
+        <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="如果你迷了路，别忘了可以从任何
+一个传送器直接回到飞船上。"/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="别担心太多！我们一定会把大家都找到的！"/>
         <dialogue speaker="purple" english="Everything will be ok!" translation="最后一切都会顺顺利利的！"/>
     </cutscene>
@@ -97,12 +105,15 @@
         <dialogue speaker="purple" english="Here! Have a lollipop!" translation="来！吃根棒棒糖放轻松点！"/>
     </cutscene>
     <cutscene id="trinketcollector" explanation="if no trinkets found yet">
-        <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation="嗯，如果我在外面找到什么东西，可以都存放在这里……"/>
-        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="维多兰亚很喜欢研究我们在冒险旅程中找到的有趣物品！"/>
+        <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation="嗯，如果我在外面找到什么东西，
+都可以存放在这里……"/>
+        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="维多兰亚很喜欢研究我们在冒险
+旅程中找到的有趣物品！"/>
     </cutscene>
     <cutscene id="newtrinketcollector" explanation="if at least one trinket found">
         <dialogue speaker="cyan" english="This seems like a good place to store those shiny things." translation="那些亮闪闪的东西，应该很适合存放在这里。"/>
-        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="维多兰亚很喜欢研究我们在冒险旅程中找到的有趣物品！"/>
+        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="维多兰亚很喜欢研究我们在冒险
+旅程中找到的有趣物品！"/>
     </cutscene>
     <cutscene id="new2trinketcollector" explanation="">
         <dialogue speaker="cyan" english="I hope she&apos;s ok..." translation="我希望她没事……"/>
@@ -123,8 +134,8 @@
         <dialogue speaker="blue" english="What? I didn&apos;t understand any of that!" translation="啊？我一句话都听不懂！"/>
         <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation="啊……好吧，那也不用太在意。"/>
         <dialogue speaker="player" english="Follow me! Everything will be alright!" translation="跟着我走吧！一切都会没事的！"/>
-        <dialogue speaker="blue" english="Sniff... Really?" translation="呜呜……真的吗？"/>
-        <dialogue speaker="blue" english="Ok then!" translation="好嘞！"/>
+        <dialogue speaker="blue" english="Sniff... Really?" translation="呜……真的吗？"/>
+        <dialogue speaker="blue" english="Ok then!" translation="好吧！"/>
     </cutscene>
     <cutscene id="rescuered" explanation="">
         <dialogue speaker="red" english="Captain!" translation="舰长！"/>
@@ -189,7 +200,8 @@
     </cutscene>
     <cutscene id="int1blue_7" explanation="">
         <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation="舰长！你是对的！是传送器！"/>
-        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="哎呦！你刚才可让我担心坏了……我还以为我们永远都找不到下一个传送器了呢。"/>
+        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="哎呦！你刚才可让我担心坏了……我还以为
+我们永远都找不到下一个传送器了呢。"/>
         <dialogue speaker="blue" english="What? Really?" translation="哎？真的吗？"/>
         <dialogue speaker="player" english="Anyway, let&apos;s go back to the ship." translation="总而言之，我们赶紧回飞船上去吧。"/>
     </cutscene>
@@ -234,7 +246,9 @@
     <cutscene id="int1green_6" explanation="">
         <dialogue speaker="player" english="So, do you think you&apos;ll be able to fix the ship?" translation="所以，你觉得你能把飞船修好吗？"/>
         <dialogue speaker="green" english="Depends on how bad it is... I think so, though!" translation="那要看状态有多糟了……但我觉得应该没问题！"/>
-        <dialogue speaker="green" english="It&apos;s not very hard, really. The basic dimensional warping engine design is pretty simple, and if we can get that working we shouldn&apos;t have any trouble getting home." translation="其实修飞船没有那么难，维度折跃引擎的基本构造还挺简单的，只要能让引擎运作起来我们应该就能安全回家了。"/>
+        <dialogue speaker="green" english="It&apos;s not very hard, really. The basic dimensional warping engine design is pretty simple, and if we can get that working we shouldn&apos;t have any trouble getting home." translation="其实修飞船没有那么难，维度折跃引擎的
+基本构造还挺简单的，只要能让引擎运作
+起来我们应该就能安全回家了。"/>
         <dialogue speaker="player" english="Oh! Good!" translation="哦！那就好！"/>
     </cutscene>
     <cutscene id="int1green_7" explanation="">
@@ -312,12 +326,14 @@
         <dialogue speaker="player" english="Yeah?" translation="是吗？"/>
         <dialogue speaker="yellow" english="We shouldn&apos;t really be able to move between dimensions with a regular teleporter..." translation="正常的传送器应该是不能让人穿越不同维度的……"/>
         <dialogue speaker="yellow" english="Maybe this isn&apos;t a proper dimension at all?" translation="或许这个维度本身不是很正常？"/>
-        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="或许这是某种对立维度？是出于某种目的人工制造出来的？"/>
+        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="或许这是某种对立维度？是出于
+某种目的人工制造出来的？"/>
         <dialogue speaker="yellow" english="I can&apos;t wait to get back to the ship. I have a lot of tests to run!" translation="我真是等不及能回到飞船上去了，有好多测试要做呢！"/>
     </cutscene>
     <cutscene id="int1yellow_6" explanation="">
         <dialogue speaker="yellow" english="I wonder if there&apos;s anything else in this dimension worth exploring?" translation="不知道这个维度还有没有更多值得探索的地方呢？"/>
-        <dialogue speaker="player" english="Maybe... but we should probably just focus on finding the rest of the crew for now..." translation="可能有……但我们现在应该还是集中精力寻找剩余的船员们为好……"/>
+        <dialogue speaker="player" english="Maybe... but we should probably just focus on finding the rest of the crew for now..." translation="可能有……但我们现在应该还是集中
+精力寻找剩余的船员们为好……"/>
     </cutscene>
     <cutscene id="int1yellow_7" explanation="">
         <dialogue speaker="yellow" english="At last!" translation="终于到了！"/>
@@ -394,7 +410,8 @@
         <dialogue speaker="purple" english="He&apos;s already gotten to work with his research!" translation="他已经开始他的研究了！"/>
     </cutscene>
     <cutscene id="talkpurple_intermission1" explanation="">
-        <dialogue speaker="player" english="Doctor, something strange happened when we teleported back to the ship..." translation="博士，我们在传送回飞船的途中遇到了很奇怪的事情……"/>
+        <dialogue speaker="player" english="Doctor, something strange happened when we teleported back to the ship..." translation="博士，我们在传送回飞船的途中
+遇到了很奇怪的事情……"/>
         <dialogue speaker="player" english="We got lost in another dimension!" translation="我们迷失在了另一个维度里！"/>
         <dialogue speaker="purple" english="Oh no!" translation="哦不！"/>
         <dialogue speaker="purple" english="Maybe that dimension has something to do with the interference that caused us to crash here?" translation="或许那个维度和导致我们坠机的干扰有关系？"/>
@@ -422,10 +439,12 @@
         <dialogue speaker="green" english="I&apos;m an engineer!" translation="我是个工程师！"/>
     </cutscene>
     <cutscene id="talkgreen_2" explanation="">
-        <dialogue speaker="green" english="I think I can get this ship moving again, but it&apos;s going to take a while..." translation="我觉得我能够让飞船重新动起来，但应该要花不少时间……"/>
+        <dialogue speaker="green" english="I think I can get this ship moving again, but it&apos;s going to take a while..." translation="我觉得我能够让飞船重新动起来，
+但应该要花不少时间……"/>
     </cutscene>
     <cutscene id="talkgreen_3" explanation="">
-        <dialogue speaker="green" english="Victoria mentioned something about a lab? I wonder if she found anything down there?" translation="维多兰亚提起过一个实验室？不知道她在那里找到了什么东西没有？"/>
+        <dialogue speaker="green" english="Victoria mentioned something about a lab? I wonder if she found anything down there?" translation="维多兰亚提起过一个实验室？不知道
+她在那里找到了什么东西没有？"/>
     </cutscene>
     <cutscene id="talkgreen_4" explanation="">
         <dialogue speaker="green" english="Vermilion&apos;s back! Yey!" translation="维朱利安回来了！好耶！"/>
@@ -563,17 +582,20 @@
         <dialogue speaker="blue" english="So I analysed it..." translation="所以我就分析了一下……"/>
     </cutscene>
     <cutscene id="talkblue_trinket4" explanation="">
-        <dialogue speaker="blue" english="...and I was able to find more of them with the ship&apos;s scanner!" translation="……然后我成功地用飞船的扫描器找到了更多这些东西！"/>
+        <dialogue speaker="blue" english="...and I was able to find more of them with the ship&apos;s scanner!" translation="……然后我成功地用飞船的扫描器
+找到了更多这些东西！"/>
         <dialogue speaker="blue" english="If you get a chance, it might be worth finding the rest of them!" translation="假如你有机会，或许可以去试试找齐剩余的这些！"/>
         <dialogue speaker="blue" english="Don&apos;t put yourself in any danger, though!" translation="不过千万不要让自己陷入危险啊！"/>
     </cutscene>
     <cutscene id="talkblue_trinket5" explanation="">
-        <dialogue speaker="blue" english="...but it looks like you&apos;ve already found all of them in this dimension!" translation="……但看起来你已经把这个维度中所有的东西都找齐了！"/>
+        <dialogue speaker="blue" english="...but it looks like you&apos;ve already found all of them in this dimension!" translation="……但看起来你已经把这个维度中
+所有的东西都找齐了！"/>
         <dialogue speaker="player" english="Oh? Really?" translation="啊，真的吗？"/>
         <dialogue speaker="blue" english="Yeah, well done! That can&apos;t have been easy!" translation="对，干得漂亮！这一定很不容易吧！"/>
     </cutscene>
     <cutscene id="talkblue_trinket6" explanation="">
-        <dialogue speaker="blue" english="...and they&apos;re related. They&apos;re all a part of something bigger!" translation="……而且它们彼此之间都有联系。它们都是某种很巨大的东西的一部分！"/>
+        <dialogue speaker="blue" english="...and they&apos;re related. They&apos;re all a part of something bigger!" translation="……而且它们彼此之间都有联系。它们
+都是某种很巨大的东西的一部分！"/>
         <dialogue speaker="player" english="Oh? Really?" translation="啊，真的吗？"/>
         <dialogue speaker="blue" english="Yeah! There seem to be twenty variations of the fundamental energy signature..." translation="是呀！看起来总共有二十种不同的基本能量标记……"/>
         <dialogue speaker="blue" english="Wait..." translation="等一下……"/>
@@ -583,13 +605,14 @@
         <dialogue speaker="yellow" english="I&apos;m making some fascinating discoveries, captain!" translation="舰长，我有很了不起的发现！"/>
     </cutscene>
     <cutscene id="talkyellow_2" explanation="">
-        <dialogue speaker="yellow" english="This isn&apos;t like any other dimension we&apos;ve been to, Captain." translation="这里和我们之前去过的维度都不一样，舰长。"/>
-        <dialogue speaker="yellow" english="There&apos;s something strange about this place..." translation="这里有些地方非常奇怪……"/>
+        <dialogue speaker="yellow" english="This isn&apos;t like any other dimension we&apos;ve been to, Captain." translation="这里和我们之前到过的维度都不一样，舰长。"/>
+        <dialogue speaker="yellow" english="There&apos;s something strange about this place..." translation="这里有一些奇怪之处……"/>
     </cutscene>
     <cutscene id="talkyellow_3" explanation="">
         <dialogue speaker="yellow" english="Captain, have you noticed that this dimension seems to wrap around?" translation="舰长，你有没有注意到，这个维度是会折跃到自身的？"/>
         <dialogue speaker="player" english="Yeah, it&apos;s strange..." translation="对，是很奇怪……"/>
-        <dialogue speaker="yellow" english="It looks like this dimension is having the same stability problems as our own!" translation="看起来这个维度和我们自身的维度一样存在稳定性上的问题！"/>
+        <dialogue speaker="yellow" english="It looks like this dimension is having the same stability problems as our own!" translation="看起来这个维度和我们自身的维度
+一样存在稳定性上的问题！"/>
         <dialogue speaker="yellow" english="I hope we&apos;re not the ones causing it..." translation="希望这不是因为我们而导致的……"/>
         <dialogue speaker="player" english="What? Do you think we might be?" translation="哎？你觉得有可能是我们的原因吗？"/>
         <dialogue speaker="yellow" english="No no... that&apos;s very unlikely, really..." translation="不不……那样的概率其实应该非常小，真的……"/>
@@ -608,7 +631,8 @@
     </cutscene>
     <cutscene id="talkyellow_7" explanation="">
         <dialogue speaker="yellow" english="I&apos;m glad Verdigris is alright." translation="很高兴维碧格里没事。"/>
-        <dialogue speaker="yellow" english="It&apos;ll be a lot easier to find some way out of here now that we can get the ship working again!" translation="如果能让飞船重新动起来，要找到离开这里的方法就轻松多了！"/>
+        <dialogue speaker="yellow" english="It&apos;ll be a lot easier to find some way out of here now that we can get the ship working again!" translation="如果能让飞船重新动起来，要找到
+离开这里的方法就轻松多了！"/>
     </cutscene>
     <cutscene id="talkyellow_8" explanation="">
         <dialogue speaker="yellow" english="Ah, you&apos;ve found Doctor Victoria? Excellent!" translation="啊，你找到维多兰亚博士了吗？太棒了！"/>
@@ -624,15 +648,18 @@
         <dialogue speaker="yellow" english="I&apos;ve got so much work to catch up on..." translation="有好多工作的进度要赶了……"/>
     </cutscene>
     <cutscene id="talkyellow_11" explanation="">
-        <dialogue speaker="yellow" english="I know it&apos;s probably a little dangerous to stay here now that this dimension is collapsing..." translation="我知道，在明白了这个维度在坍缩之后，继续留在这里会有一点危险……"/>
+        <dialogue speaker="yellow" english="I know it&apos;s probably a little dangerous to stay here now that this dimension is collapsing..." translation="我知道，在明白了这个维度在坍缩之后，
+继续留在这里会有一点危险……"/>
         <dialogue speaker="yellow" english="...but it&apos;s so rare to find somewhere this interesting!" translation="……但是能遇到这么有趣的地方真是太难得了！"/>
-        <dialogue speaker="yellow" english="Maybe we&apos;ll find the answers to our own problems here?" translation="或许我们也可以在这里找到我们自己所面对的问题的答案？"/>
+        <dialogue speaker="yellow" english="Maybe we&apos;ll find the answers to our own problems here?" translation="或许我们也可以在这里找到我们
+自己所面对的困境的答案？"/>
     </cutscene>
     <cutscene id="talkyellow_trinket1" explanation="">
         <dialogue speaker="yellow" english="Captain! I&apos;ve been meaning to give this to you..." translation="舰长！我之前就想把这个东西交给你……"/>
         <dialogue speaker="player" english="Professor! Where did you find this?" translation="教授！你是在哪里找到这个的？"/>
         <dialogue speaker="yellow" english="Oh, it was just lying around that space station." translation="哦，就是在那个空间站里。"/>
-        <dialogue speaker="yellow" english="It&apos;s a pity Doctor Victoria isn&apos;t here, she loves studying that sort of thing..." translation="真可惜维多兰亚博士不在这里，她很喜欢研究这些东西……"/>
+        <dialogue speaker="yellow" english="It&apos;s a pity Doctor Victoria isn&apos;t here, she loves studying that sort of thing..." translation="真可惜维多兰亚博士不在这里，
+她很喜欢研究这些东西……"/>
         <dialogue speaker="player" english="Any idea what it does?" translation="所以你知道这大概是什么东西吗？"/>
         <dialogue speaker="yellow" english="Nope! But it is giving off a strange energy reading..." translation="不知道！但上面的能量读数有点怪怪的……"/>
     </cutscene>
@@ -663,11 +690,11 @@
 
 READY _" translation="* 维度稳定性生成器 *
 
-     [ 当前正在生成 ]
-        最大稳定性
+ [ 当前正在生成 ]
+    最大稳定性
 
-            [ 状态 ]
-              在线
+   [ 状态 ]
+     在线
 
 准备就绪 _" tt="1"/>
         <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="啊哈！这一定就是干扰的来源了！"/>
@@ -676,7 +703,8 @@ READY _" translation="* 维度稳定性生成器 *
         <dialogue speaker="cyan" english="Yes!" translation="确定！" case="1"/>
         <dialogue speaker="gray" english="Seriously! The whole dimension could collapse! Just think about this for a minute!
 
-Are you really sure you want to do this?" translation="这是认真的！整个维度都有可能坍缩！好好考虑一下吧！
+Are you really sure you want to do this?" translation="这是认真的！整个维度都有可能
+坍缩！好好考虑一下吧！
 
 你真的确定要这样操作吗？"/>
         <dialogue speaker="cyan" english="Yes!" translation="确定！" case="2"/>
@@ -708,7 +736,8 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= 警告 =-
         <dialogue speaker="player" english="That was lucky!" translation="听起来很走运！"/>
         <dialogue speaker="player" english="Thanks guys!" translation="谢谢了，大家！"/>
         <dialogue speaker="yellow" english="...it looks like this dimension is starting to destabilise, just like our own..." translation="……看起来这个维度和我们的维度一样，已经开始失去稳定性了……"/>
-        <dialogue speaker="red" english="...we can stay and explore for a little longer, but..." translation="……我们还是可以继续留在这里再探索一会儿，但是……"/>
+        <dialogue speaker="red" english="...we can stay and explore for a little longer, but..." translation="……我们还是可以继续留在这里
+再探索一会儿，但是……"/>
         <dialogue speaker="yellow" english="...eventually, it&apos;ll collapse completely." translation="……最终，这个维度将会彻底坍缩。"/>
         <dialogue speaker="green" english="There&apos;s no telling exactly how long we have here. But the ship&apos;s fixed, so..." translation="虽然没有办法判断我们在这里究竟还能留多久，但既然飞船已经修好了……"/>
         <dialogue speaker="blue" english="...as soon as we&apos;re ready, we can go home!" translation="……所以只要一声令下，我们随时可以回家！"/>
@@ -727,7 +756,8 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= 警告 =-
         <dialogue speaker="player" english="Oh no!" translation="哦不！"/>
         <dialogue speaker="red" english="Not again!" translation="怎么又来！"/>
         <dialogue speaker="player" english="Wait! It&apos;s stopped!" translation="等等！好像停止了！"/>
-        <dialogue speaker="purple" english="This is where we were storing those shiny things? What happened?" translation="这里是我们存放那些闪亮亮东西的地方吧？发生什么了？"/>
+        <dialogue speaker="purple" english="This is where we were storing those shiny things? What happened?" translation="这里是我们存放那些闪亮亮东西的
+地方吧？发生什么了？"/>
         <dialogue speaker="player" english="We were just playing with them, and..." translation="我们在进行各种实验……"/>
         <dialogue speaker="player" english="...they suddenly exploded!" translation="……然后它们突然就爆炸了！"/>
         <dialogue speaker="blue" english="But look what they made! Is that a teleporter?" translation="可是你看它们做出了什么！这是个传送器吗？"/>
@@ -755,11 +785,13 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= 警告 =-
         <dialogue speaker="purple" english="Look at all this research! This is going to be a big help back home!" translation="看看这些研究！带回去一定会很有用！"/>
     </cutscene>
     <cutscene id="talkgreen_11" explanation="">
-        <dialogue speaker="green" english="I wonder why they abandoned this dimension? They were so close to working out how to fix it..." translation="不知道他们为什么抛下了这个维度呢？他们真的只差一点就能找到将其修复的方法了……"/>
+        <dialogue speaker="green" english="I wonder why they abandoned this dimension? They were so close to working out how to fix it..." translation="不知道他们为什么抛下了这个维度呢？他们真的
+只差一点就能找到将其修复的方法了……"/>
         <dialogue speaker="green" english="Maybe we can fix it for them? Maybe they&apos;ll come back?" translation="或许我们可以帮他们来完成？或许这样他们就会回来了？"/>
     </cutscene>
     <cutscene id="talkblue_9" explanation="">
-        <dialogue speaker="blue" english="This lab is amazing! The scientists who worked here know a lot more about warp technology than we do!" translation="这个实验室太了不起了！在这里工作的科学家们对于折跃科技的理解要比我们深上许多！"/>
+        <dialogue speaker="blue" english="This lab is amazing! The scientists who worked here know a lot more about warp technology than we do!" translation="这个实验室太了不起了！在这里工作的科学家们
+对于折跃科技的理解要比我们深上许多！"/>
     </cutscene>
     <cutscene id="talkyellow_12" explanation="">
         <dialogue speaker="yellow" english="Captain! Have you seen this?" translation="舰长！你看到这个了吗？"/>
@@ -855,7 +887,8 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= 个人记录 =-" padtowidth="280"/>
-        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="几乎所有人都已经从空间站疏散了，还剩下的我们在几天后研究完成时就会离开。" pad="1"/>
+        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="几乎所有人都已经从空间站疏散了，还剩下的
+我们在几天后研究完成时就会离开。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_2" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究笔记 =-" padtowidth="264"/>
@@ -887,11 +920,13 @@ Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_3" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究笔记 =-" padtowidth="264"/>
-        <dialogue speaker="gray" english="... the final step in creating the dimensional stabiliser was to create a feedback loop ..." translation="……建造维度稳定器的最后一步是要建立一个反馈回路……" pad="1"/>
+        <dialogue speaker="gray" english="... the final step in creating the dimensional stabiliser was to create a feedback loop ..." translation="……建造维度稳定器的最后一步
+是要建立一个反馈回路……" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_4" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究笔记 =-" padtowidth="264"/>
-        <dialogue speaker="gray" english="...despite our best efforts, the dimensional stabiliser won&apos;t hold out forever. Its collapse is inevitable..." translation="……我们已经尽了最大努力，但维度稳定器不可能永远持续下去，维度的坍缩依旧不可避免……" pad="1"/>
+        <dialogue speaker="gray" english="...despite our best efforts, the dimensional stabiliser won&apos;t hold out forever. Its collapse is inevitable..." translation="……我们已经尽了最大努力，但维度稳定器不可能
+永远持续下去，维度的坍缩依旧不可避免……" pad="1"/>
         <dialogue speaker="cyan" english="Huh? These coordinates aren&apos;t even in this dimension!" translation="哎？这些坐标甚至都不在这个维度里！"/>
     </cutscene>
     <cutscene id="terminal_outside_5" explanation="">
@@ -905,7 +940,8 @@ Pipe Dream" tt="1" pad="1"/>
     <cutscene id="terminal_lab_1" explanation="">
         <dialogue speaker="gray" english="... it turns out the key to stabilising this dimension was to create a balancing force outside of it!" translation="……原来要想让这个维度稳定，关键在于要在维度之外创造出一个与之平衡的力！"/>
         <dialogue speaker="gray" english="Though it looks like that&apos;s just a temporary solution, at best." translation="但看起来，这最多也只是一种临时措施。"/>
-        <dialogue speaker="gray" english="I&apos;ve been working on something more permanent, but it seems it&apos;s going to be too late..." translation="我一直在研究某种更持久的方案，只是看起来时间上已经来不及了……"/>
+        <dialogue speaker="gray" english="I&apos;ve been working on something more permanent, but it seems it&apos;s going to be too late..." translation="我一直在研究某种更持久的方案，只是
+看起来时间上已经来不及了……"/>
     </cutscene>
     <cutscene id="terminal_lab_2" explanation="">
         <dialogue speaker="gray" english="?SYNTAX  ERROR" translation="？句法错误"/>
