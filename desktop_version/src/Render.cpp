@@ -1356,12 +1356,21 @@ static void menurender(void)
 
         std::string tempstring = game.resulttimestring() + loc::gettext(" / ") + game.timetstring(game.timetrialresultpar) + loc::gettext(".99");
 
+        uint32_t plus1_flags = PR_RIGHT | PR_CJK_LOW;
+        int plus1_offset = 0;
+        if (font::len(0, tempstring.c_str()) + font::len(0, loc::gettext("+1 Rank!")) > (292-49))
+        {
+            // Time and "+1 Rank!" don't fit together, so put it next to titles instead
+            plus1_flags = PR_RIGHT | PR_CJK_HIGH;
+            plus1_offset = -10;
+        }
+
         graphics.drawspritesetcol(22, 80-15, 50, 22);
         font::print(PR_CJK_HIGH, 49, 80-15, loc::gettext("TIME TAKEN:"), 255, 255, 255);
         font::print(PR_CJK_LOW, 49, 90-15, tempstring, tr, tg, tb);
         if (game.timetrialresulttime <= game.timetrialresultpar)
         {
-            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90-15, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(plus1_flags, 292, 90-15+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         tempstring = help.String(game.timetrialresultdeaths);
@@ -1370,7 +1379,7 @@ static void menurender(void)
         font::print(PR_CJK_LOW, 49, 90+20, tempstring, tr, tg, tb);
         if (game.timetrialresultdeaths == 0)
         {
-            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90+20, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(plus1_flags, 292, 90+20+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -1385,7 +1394,7 @@ static void menurender(void)
         font::print(PR_CJK_LOW, 49, 90+55, buffer, tr, tg, tb);
         if (game.timetrialresulttrinkets >= game.timetrialresultshinytarget)
         {
-            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90+55, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(plus1_flags, 292, 90+55+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         const char* rank = "";
