@@ -45,8 +45,8 @@ namespace level_debugger
 
     bool mouse_within(SDL_Rect* rect)
     {
-        return key.mx >= rect->x && key.mx < rect->x + rect->w &&
-            key.my >= rect->y && key.my < rect->y + rect->h;
+        SDL_Point mouse = { key.mx, key.my };
+        return SDL_PointInRect(&mouse, rect);
     }
 
     void set_forced(void)
