@@ -5,10 +5,20 @@
 #include <string>
 #include <vector>
 
+struct TextboxSprite
+{
+    int x;
+    int y;
+    int col;
+    int tile;
+};
+
 class textboxclass
 {
 public:
     textboxclass(void);
+
+    void addsprite(int x, int y, int tile, int col);
 
     void centerx(void);
 
@@ -53,6 +63,8 @@ public:
 
     uint32_t print_flags;
     bool fill_buttons;
+
+    std::vector<TextboxSprite> sprites;
 };
 
 #endif /* TEXTBOX_H */

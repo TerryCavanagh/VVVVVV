@@ -2,10 +2,11 @@
 #define SCRIPT_H
 
 #include <map>
+#include <SDL.h>
 #include <string>
 #include <vector>
 
-#include <SDL.h>
+#include "Textbox.h"
 
 #define filllines(lines) commands.insert(commands.end(), lines, lines + SDL_arraysize(lines))
 
@@ -123,6 +124,7 @@ public:
     bool textbuttons;
     bool textlarge;
     int textboxtimer;
+    std::vector<TextboxSprite> textbox_sprites;
 
     //Misc
     int i, j, k;

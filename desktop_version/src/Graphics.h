@@ -122,6 +122,8 @@ public:
 
     void textboxtimer(int t);
 
+    void addsprite(int x, int y, int tile, int col);
+
     void textboxremove(void);
 
     void textboxremovefast(void);
