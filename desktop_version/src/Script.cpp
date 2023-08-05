@@ -54,6 +54,7 @@ scriptclass::scriptclass(void)
     textcase = 1;
     textbuttons = false;
     textlarge = false;
+    textbox_sprites.clear();
 }
 
 void scriptclass::add_default_colours(void)
@@ -505,6 +506,7 @@ void scriptclass::run(void)
                 textpad_right = 0;
                 textpadtowidth = 0;
                 textboxtimer = 0;
+                textbox_sprites.clear();
 
                 translate_dialogue();
             }
@@ -675,6 +677,15 @@ void scriptclass::run(void)
             {
                 textboxtimer = ss_toi(words[1]);
             }
+            else if (words[0] == "textsprite")
+            {
+                TextboxSprite sprite;
+                sprite.x = ss_toi(words[1]);
+                sprite.y = ss_toi(words[2]);
+                sprite.tile = ss_toi(words[3]);
+                sprite.col = ss_toi(words[4]);
+                textbox_sprites.push_back(sprite);
+            }
             else if (words[0] == "flipme")
             {
                 textflipme = !textflipme;
@@ -704,6 +715,11 @@ void scriptclass::run(void)
                 if (textboxtimer > 0)
                 {
                     graphics.textboxtimer(textboxtimer);
+                }
+
+                for (size_t i = 0; i < textbox_sprites.size(); i++)
+                {
+                    graphics.addsprite(textbox_sprites[i].x, textbox_sprites[i].y, textbox_sprites[i].tile, textbox_sprites[i].col);
                 }
 
                 // Some textbox formatting that can be set by translations...

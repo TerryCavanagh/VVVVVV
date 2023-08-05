@@ -988,6 +988,17 @@ void Graphics::drawgui(void)
             //blue guy
             draw_sprite(crew_xp, crew_yp, crew_sprite, 75, 75, 255 - help.glow / 4 - textboxes[i].rand);
         }
+
+        for (int index = 0; index < (int) textboxes[i].sprites.size(); index++)
+        {
+            TextboxSprite* sprite = &textboxes[i].sprites[index];
+            draw_sprite(
+                sprite->x + textboxes[i].xp,
+                sprite->y + textboxes[i].yp,
+                sprite->tile,
+                getcol(sprite->col)
+            );
+        }
     }
 }
 
@@ -1365,6 +1376,17 @@ void Graphics::textboxtimer(int t)
     }
 
     textboxes[m].timer = t;
+}
+
+void Graphics::addsprite(int x, int y, int tile, int col)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("addsprite() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].addsprite(x, y, tile, col);
 }
 
 void Graphics::addline( const std::string& t )
