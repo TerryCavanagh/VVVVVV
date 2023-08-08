@@ -593,8 +593,8 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="8: Moving" translation="8: Ardán Siúlach" explanation="***OUTDATED***"/>
     <string english="8: Moving Platforms" translation="8: Ardáin Shiúlacha" explanation="editor tool. Moving platform" max="32"/>
     <string english="9: Enemies" translation="9: Naimhde" explanation="editor tool" max="32"/>
-    <string english="0: Grav Line" translation="0: Líne Dhomhantarraingthe" explanation="***OUTDATED***"/>
-    <string english="0: Gravity Lines" translation="0: Línte Domhantarraingthe" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
+    <string english="0: Grav Line" translation="0: Líne Imtharraingthe" explanation="***OUTDATED***"/>
+    <string english="0: Gravity Lines" translation="0: Línte Imtharraingthe" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Téacs" explanation="editor tool. Freely typed text, consider just Text" max="32"/>
     <string english="T: Terminal" translation="T: Teirminéal" explanation="***OUTDATED***"/>
     <string english="T: Terminals" translation="T: Teirminéil" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
