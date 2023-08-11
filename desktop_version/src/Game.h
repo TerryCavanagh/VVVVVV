@@ -222,7 +222,7 @@ public:
     void gethardestroom(void);
 
     void levelcomplete_textbox(void);
-    void crewmate_textbox(const int r, const int g, const int b);
+    void crewmate_textbox(const int color);
     void remaining_textbox(void);
     void actionprompt_textbox(void);
     void savetele_textbox(void);
