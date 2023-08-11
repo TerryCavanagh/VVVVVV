@@ -703,10 +703,10 @@ void Game::levelcomplete_textbox(void)
     graphics.textboxcenterx();
 }
 
-void Game::crewmate_textbox(const int r, const int g, const int b)
+void Game::crewmate_textbox(const int color)
 {
     const int extra_cjk_height = (font::height(PR_FONT_INTERFACE) * 4) - 32;
-    graphics.createtextboxflipme("", -1, 64 + 8 + 16 - extra_cjk_height/2, r, g, b);
+    graphics.createtextboxflipme("", -1, 64 + 8 + 16 - extra_cjk_height/2, TEXT_COLOUR("gray"));
 
     /* This is a special case for wrapping, we MUST have two lines.
      * So just make sure it can't fit in one line. */
@@ -729,6 +729,7 @@ void Game::crewmate_textbox(const int r, const int g, const int b)
     float spaces_per_8 = font::len(PR_FONT_INTERFACE, " ")/8.0f;
     graphics.textboxpad(SDL_ceilf(5/spaces_per_8), SDL_ceilf(2/spaces_per_8));
     graphics.textboxcenterx();
+    graphics.addsprite(14, 12, 0, color);
 }
 
 void Game::remaining_textbox(void)
@@ -2493,7 +2494,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(175, 174, 174);
+            crewmate_textbox(13);
             break;
         case 3008:
             incstate();
@@ -2535,7 +2536,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(174, 175, 174);
+            crewmate_textbox(14);
             break;
         case 3022:
             incstate();
@@ -2576,7 +2577,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(174, 174, 175);
+            crewmate_textbox(16);
             break;
         case 3042:
             incstate();
@@ -2618,7 +2619,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(175, 175, 174);
+            crewmate_textbox(20);
             break;
         case 3052:
             incstate();
@@ -2684,7 +2685,7 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(45);
 
-            crewmate_textbox(175, 174, 175);
+            crewmate_textbox(15);
             break;
         case 3062:
             incstate();
