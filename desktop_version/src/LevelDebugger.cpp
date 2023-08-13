@@ -274,6 +274,17 @@ namespace level_debugger
             }
 
             graphics.draw_rect(bounding_box.x, bounding_box.y, bounding_box.w, bounding_box.h, graphics.getRGB(15, 90, 90));
+
+            // For gravity lines, show the true hitbox.
+            if (obj.entities[i].type == 9)
+            {
+                graphics.draw_rect(bounding_box.x - 1, bounding_box.y + 1, bounding_box.w + 2, bounding_box.h, graphics.getRGB(90, 90, 15));
+            }
+            else if (obj.entities[i].type == 10)
+            {
+                graphics.fill_rect(bounding_box.x - 2, bounding_box.y - 1, bounding_box.w + 1, bounding_box.h + 2, graphics.getRGB(90, 90, 15));
+            }
+
         }
 
         for (int i = 0; i < (int) obj.blocks.size(); i++)
