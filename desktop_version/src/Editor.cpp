@@ -3128,16 +3128,8 @@ void editorinput(void)
     ed.old_tilex = ed.tilex;
     ed.old_tiley = ed.tiley;
 
-    ed.tilex = (key.mx - (key.mx % 8)) / 8;
-    ed.tiley = (key.my - (key.my % 8)) / 8;
-
-    if (gameScreen.scalingMode == SCALING_STRETCH) {
-        // In this mode specifically, we have to fix the mouse coordinates
-        int screenwidth, screenheight;
-        gameScreen.GetScreenSize(&screenwidth, &screenheight);
-        ed.tilex = ed.tilex * 320 / screenwidth;
-        ed.tiley = ed.tiley * 240 / screenheight;
-    }
+    ed.tilex = key.mousex / 8;
+    ed.tiley = key.mousey / 8;
 
     bool up_pressed = key.isDown(SDLK_UP) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_UP);
     bool down_pressed = key.isDown(SDLK_DOWN) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN);

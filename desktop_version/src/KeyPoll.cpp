@@ -5,6 +5,7 @@
 
 #include "Alloc.h"
 #include "ButtonGlyphs.h"
+#include "Constants.h"
 #include "Exit.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"
@@ -45,7 +46,8 @@ KeyPoll::KeyPoll(void)
 
     keybuffer="";
     leftbutton=0; rightbutton=0; middlebutton=0;
-    mx=0; my=0;
+    mousex = 0;
+    mousey = 0;
     resetWindow = 0;
     pressedbackspace=false;
 
@@ -135,6 +137,8 @@ static int changemousestate(
 
 void KeyPoll::Poll(void)
 {
+    static int raw_mousex = 0;
+    static int raw_mousey = 0;
     static int mousetoggletimeout = 0;
     bool showmouse = false;
     bool hidemouse = false;
@@ -224,25 +228,25 @@ void KeyPoll::Poll(void)
 
         /* Mouse Input */
         case SDL_MOUSEMOTION:
-            mx = evt.motion.x;
-            my = evt.motion.y;
+            raw_mousex = evt.motion.x;
+            raw_mousey = evt.motion.y;
             break;
         case SDL_MOUSEBUTTONDOWN:
             switch (evt.button.button)
             {
             case SDL_BUTTON_LEFT:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 leftbutton = 1;
                 break;
             case SDL_BUTTON_RIGHT:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 rightbutton = 1;
                 break;
             case SDL_BUTTON_MIDDLE:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 middlebutton = 1;
                 break;
             }
@@ -251,18 +255,18 @@ void KeyPoll::Poll(void)
             switch (evt.button.button)
             {
             case SDL_BUTTON_LEFT:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 leftbutton=0;
                 break;
             case SDL_BUTTON_RIGHT:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 rightbutton=0;
                 break;
             case SDL_BUTTON_MIDDLE:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 middlebutton=0;
                 break;
             }
@@ -439,6 +443,22 @@ void KeyPoll::Poll(void)
     if (fullscreenkeybind)
     {
         toggleFullscreen();
+    }
+
+    if (gameScreen.scalingMode == SCALING_STRETCH)
+    {
+        /* In this mode specifically, we have to fix the mouse coordinates */
+        int actualscreenwidth;
+        int actualscreenheight;
+        gameScreen.GetScreenSize(&actualscreenwidth, &actualscreenheight);
+
+        mousex = raw_mousex * SCREEN_WIDTH_PIXELS / actualscreenwidth;
+        mousey = raw_mousey * SCREEN_HEIGHT_PIXELS / actualscreenheight;
+    }
+    else
+    {
+        mousex = raw_mousex;
+        mousey = raw_mousey;
     }
 }
 
