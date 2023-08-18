@@ -45,7 +45,7 @@ namespace level_debugger
 
     bool mouse_within(SDL_Rect* rect)
     {
-        SDL_Point mouse = { key.mx, key.my };
+        SDL_Point mouse = { key.mousex, key.mousey };
         return SDL_PointInRect(&mouse, rect);
     }
 
@@ -110,8 +110,8 @@ namespace level_debugger
                     {
                         mouse_held = true;
                         held_entity = i;
-                        grabber_offset_x = key.mx - obj.entities[i].xp;
-                        grabber_offset_y = key.my - obj.entities[i].yp;
+                        grabber_offset_x = key.mousex - obj.entities[i].xp;
+                        grabber_offset_y = key.mousey - obj.entities[i].yp;
 
                         if (!key.keymap[SDLK_LSHIFT] && !key.keymap[SDLK_RSHIFT])
                         {
@@ -172,8 +172,8 @@ namespace level_debugger
                         {
                             mouse_held = true;
                             held_block = i;
-                            grabber_offset_x = key.mx - obj.blocks[i].rect.x;
-                            grabber_offset_y = key.my - obj.blocks[i].rect.y;
+                            grabber_offset_x = key.mousex - obj.blocks[i].rect.x;
+                            grabber_offset_y = key.mousey - obj.blocks[i].rect.y;
                         }
                         break;
                     }
@@ -192,8 +192,8 @@ namespace level_debugger
     {
         if (INBOUNDS_VEC(held_entity, obj.entities))
         {
-            int new_xp = key.mx - grabber_offset_x;
-            int new_yp = key.my - grabber_offset_y;
+            int new_xp = key.mousex - grabber_offset_x;
+            int new_yp = key.mousey - grabber_offset_y;
 
             if (key.isDown(SDLK_LSHIFT) || key.isDown(SDLK_RSHIFT))
             {
@@ -211,8 +211,8 @@ namespace level_debugger
 
         if (INBOUNDS_VEC(held_block, obj.blocks))
         {
-            int new_xp = key.mx - grabber_offset_x;
-            int new_yp = key.my - grabber_offset_y;
+            int new_xp = key.mousex - grabber_offset_x;
+            int new_yp = key.mousey - grabber_offset_y;
 
             if (key.isDown(SDLK_LSHIFT) || key.isDown(SDLK_RSHIFT))
             {
@@ -336,7 +336,7 @@ namespace level_debugger
         else if (hovered == -1)
         {
             render_coords(line++, "Room", game.roomx % 100, game.roomy % 100);
-            render_coords(line++, "Cursor", key.mx, key.my);
+            render_coords(line++, "Cursor", key.mousex, key.mousey);
             render_info(line++, "Entities", help.String(obj.entities.size()));
             line++;
 
