@@ -13,12 +13,21 @@ struct TextboxSprite
     int tile;
 };
 
+enum TextboxImage
+{
+    TEXTIMAGE_NONE,
+    TEXTIMAGE_LEVELCOMPLETE,
+    TEXTIMAGE_GAMECOMPLETE
+};
+
 class textboxclass
 {
 public:
     textboxclass(void);
 
     void addsprite(int x, int y, int tile, int col);
+
+    void setimage(TextboxImage image);
 
     void centerx(void);
 
@@ -65,6 +74,7 @@ public:
     bool fill_buttons;
 
     std::vector<TextboxSprite> sprites;
+    TextboxImage image;
 };
 
 #endif /* TEXTBOX_H */

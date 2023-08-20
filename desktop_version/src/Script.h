@@ -125,6 +125,7 @@ public:
     bool textlarge;
     int textboxtimer;
     std::vector<TextboxSprite> textbox_sprites;
+    TextboxImage textbox_image;
 
     //Misc
     int i, j, k;
