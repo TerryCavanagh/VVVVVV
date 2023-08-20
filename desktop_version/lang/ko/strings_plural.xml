@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<strings_plural max_local_for="10x10">
+    <string english_plural="You rescued {n_crew|wordy} crewmates" english_singular="You rescued {n_crew|wordy} crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40" var="n_crew" expect="6" max_local="32">
+        <translation form="0" translation="지금까지 {n_crew|wordy}명의 선원을 구출했고"/>
+    </string>
+    <string english_plural="and found {n_trinkets|wordy} trinkets." english_singular="and found {n_trinkets|wordy} trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2" var="n_trinkets" expect="20" max_local="30*2">
+        <translation form="0" translation="{n_trinkets|wordy}개의 장신구를 찾았습니다."/>
+    </string>
+    <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20" max_local="30*3">
+        <translation form="0" translation="그리고 {n_trinkets|wordy}개의 장신구를 찾았습니다."/>
+    </string>
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100" max_local="32">
+        <translation form="0" translation="선원 {n_crew|wordy}명 남음"/>
+    </string>
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100" max_local="25">
+        <translation form="0" translation="{n_crew|wordy}명 남음"/>
+    </string>
+    <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000" max_local="32">
+        <translation form="0" translation="가장 어려웠던 방 ({n_deaths}회 사망)"/>
+    </string>
+    <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48" max_local="30*4">
+        <translation form="0" translation="{n} 개의 일반 방 이름 번역되지 않음"/>
+    </string>
+</strings_plural>

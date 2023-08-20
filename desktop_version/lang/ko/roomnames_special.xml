@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<roomnames_special>
+    <roomname english="Outer Space" translation="우주 밖" explanation="Literally Outer Space"/>
+    <roomname english="Dimension VVVVVV" translation="VVVVVV 차원" explanation="The overall area that the game takes place in."/>
+    <roomname english="The Ship" translation="함선" explanation="The dimension exploring spaceship"/>
+    <roomname english="Secret Lab" translation="비밀 실험실" explanation="An endgame section containing achievement trophys"/>
+    <roomname english="Laboratory" translation="실험실" explanation="One of the stages"/>
+    <roomname english="The Tower" translation="탑" explanation="One of the stages"/>
+    <roomname english="Warp Zone" translation="워프 구역" explanation="One of the stages"/>
+    <roomname english="Space Station" translation="우주 정거장" explanation="One of the stages"/>
+    <roomname english="Outside Dimension VVVVVV" translation="외부 VVVVVV 차원" explanation="For rare rooms outside the normal area"/>
+    <roomname english="???" translation="???" explanation=""/>
+    <roomname english="The Super Gravitron" translation="슈퍼 그라비트론" explanation="An expanded version of the room at 53, 50"/>
+    <roomname english="I Can&apos;t Believe You Got This Far" translation="여기까지 오다니 믿겨지지가 않아요" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="Imagine Spikes There, if You Like" translation="원한다면 저기에 가시가 있다고 생각해요" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <!-- - -->
+    <roomname english="Rear Window" translation="뒷창문" explanation="Named after the Hitchcock film (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Rear Vindow" translation="뒷장문" explanation=""/>
+    <!-- - -->
+    <roomname english="On the Waterfront" translation="해안 지역을 따라" explanation="Named after the 1954 film (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="On the Vaterfront" translation="해안 시역을 따라" explanation=""/>
+    <!-- - -->
+    <roomname english="The Untouchables" translation="불가촉" explanation="Before it was a film, the Untouchables was a TV series in 1959 (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="The Untouchavles" translation="불자촉" explanation=""/>
+    <!-- - -->
+    <roomname english="Television Newsveel" translation="텔레비전 영와" explanation="Refers to Television Newsreel. (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Television Newsvel" translation="텔레비전 여와" explanation=""/>
+    <roomname english="TelevisvonvNewsvel" translation="텔레비전 여와" explanation=""/>
+    <roomname english="TvlvvvsvonvNevsvel" translation="테레비전 여와" explanation=""/>
+    <roomname english="vvvvvvsvovvNe svel" translation="테레비저 여와" explanation=""/>
+    <roomname english="vhv vvv&apos;vvovv vevl" translation="ㅌㄹㅂㅈ ㅇ와" explanation=""/>
+    <roomname english="vhv V v&apos;Cvovv vewv" translation="ㅌㄹㅂ ㅈ ㅇ와" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv vewv" translation="ㅇㅎ ㅅ ㄴㅅ" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv Newv" translation="ㅇㅎ ㅅ 뉴스" explanation=""/>
+    <roomname english="The 9 O&apos;Cvovk Newv" translation="ㅇㅎ 시 뉴스" explanation=""/>
+    <roomname english="The 9 O&apos;Clock News" translation="아홉 시 뉴스" explanation="(Second part of the final stage has references to Colour TV shows)"/>
+    <!-- - -->
+    <roomname english="Vwitched" translation="매혹됨" explanation="Reference to early black and white sitcom Bewitched (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Vwitvhed" translation="매호되" explanation=""/>
+    <roomname english="vVwivcvedv" translation="ㅁㅎㄷ" explanation=""/>
+    <roomname english="vvvwMvcvMdvv" translation="ㄴㅇㄴ" explanation=""/>
+    <roomname english="DvvvwMvfvvMdvvv" translation="ㅅㄱㄴ ㅇㅇㄱ" explanation=""/>
+    <roomname english="Dvav Mvfvr Mdvvvv" translation="시고ㄴ 이이ㄱ" explanation=""/>
+    <roomname english="Diav M for Mdrver" translation="시고느 이이구" explanation=""/>
+    <roomname english="Dial M for Murder" translation="신고는 일일구" explanation="Named after the Hitchcock film (Second part of the final stage has references to Colour TV shows)"/>
+    <!-- - -->
+    <roomname english="Gvnsmoke" translation="포연" explanation="Gunsmoke was a black and white Western (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Gvnsmove" translation="포여" explanation=""/>
+    <roomname english="Gvnvmovevv" translation="ㅍㅇ" explanation=""/>
+    <roomname english="Gunvmove1vv6" translation="ㅁㅇ" explanation=""/>
+    <roomname english="Vunsmoke 19v6" translation="포여 19v6" explanation=""/>
+    <roomname english="Gunsmoke 1966" translation="포연 1966" explanation="Gunsmoke changed to colour in 1966 (Second part of the final stage has references to Colour TV shows)"/>
+    <!-- - -->
+    <roomname english="Please enjoy these repeats" translation="반복을 즐겨라" explanation="This stage also has a number of rooms which are harder versions of easier challenges, like this one. (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Please envoy theve repeats" translation="이 반목을 즐져수제요" explanation=""/>
+    <roomname english="Plse envoy tse rvpvas" translation="이 만녹윽 슬셔수세오" explanation=""/>
+    <roomname english="Vl envoy te rvevs" translation="ㅇ ㅇㅂㅇ" explanation=""/>
+    <roomname english="Vv evo tv vevs" translation="이 여ㅂㅇ" explanation=""/>
+    <roomname english="Iv vhv Mvrvivs" translation="이 여배에" explanation=""/>
+    <roomname english="In the Margins" translation="이 여백에" explanation="Not sure if this has a TV show reference, might just be meant literally (Second part of the final stage has references to Colour TV shows)"/>
+    <!-- - -->
+    <roomname english="Try Jiggling the Antenna" translation="안테나를 흔들어보세요" explanation="(The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Try Viggling the Antenna" translation="안데나를 흔들어보세요" explanation=""/>
+    <roomname english="TryJivglvng theAvtevna" translation="안데나를 흔드러ㅂㅅㅇ" explanation=""/>
+    <roomname english="Tvvivglvng thAvtvvv" translation="아데나ㄹ ㅎㄷㄹㅂㅅㅇ" explanation=""/>
+    <roomname english="Vvvgglvnv tvnvva" translation="ㅇㄷㄴㄹ ㅎㄷㄹㅂㅅㅇ" explanation=""/>
+    <roomname english="Vvavvnvs vvtv" translation="ㅊㄱㅇ ㅁ" explanation=""/>
+    <roomname english="Veavvn&apos;s Gvte" translation="처구의 무" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Heaven&apos;s Gate" translation="천국의 문" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
+</roomnames_special>
