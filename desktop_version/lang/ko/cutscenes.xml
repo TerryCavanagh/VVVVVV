@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<cutscenes>
+    <cutscene id="intro" explanation="">
+        <dialogue speaker="cyan" english="Uh oh..." translation="이런..."/>
+        <dialogue speaker="purple" english="Is everything ok?" translation="괜찮은 거야?"/>
+        <dialogue speaker="cyan" english="No! We&apos;ve hit some kind of interference..." translation="아니! 전파 방해에 부딪혔어..."/>
+        <dialogue speaker="cyan" english="Something&apos;s wrong! We&apos;re going to crash!" translation="뭔가 잘못됐어! 추락한다!"/>
+        <dialogue speaker="cyan" english="Evacuate!" translation="탈출해!"/>
+        <dialogue speaker="blue" english="Oh no!" translation="안 돼!"/>
+        <dialogue speaker="red" english="Everyone off the ship!" translation="다들 함선에서 도망쳐!"/>
+        <dialogue speaker="yellow" english="This shouldn&apos;t be happening!" translation="왜 이런 일이!"/>
+        <dialogue speaker="cyan" english="Phew! That was scary!" translation="휴! 정말 무서웠네!"/>
+        <dialogue speaker="cyan" english="At least we all escaped, right guys?" translation="그래도 다들 탈출했으니 다행이야. 그렇지 얘들아?"/>
+        <dialogue speaker="cyan" english="...guys?" translation="...얘들아?"/>
+    </cutscene>
+    <cutscene id="firststeps" explanation="">
+        <dialogue speaker="cyan" english="I wonder why the ship teleported me here alone?" translation="왜 함선이 나만 혼자 이곳으로 텔레포트 시킨 거지?"/>
+        <dialogue speaker="cyan" english="I hope everyone else got out ok..." translation="다들 무사해야 할 텐데..."/>
+    </cutscene>
+    <cutscene id="communicationstation" explanation="">
+        <dialogue speaker="cyan" english="Violet! Is that you?" translation="바이올렛! 너야?"/>
+        <dialogue speaker="purple" english="Captain! You&apos;re ok!" translation="함장! 무사하구나!"/>
+        <dialogue speaker="purple" english="Something has gone horribly wrong with the ship&apos;s teleporter!" translation="함선의 텔레포터가 뭔가 크게 잘못됐어!"/>
+        <dialogue speaker="purple" english="I think everyone has been teleported away randomly! They could be anywhere!" translation="다들 무작위로 텔레포트된 거 같아! 사방에 있을 거야!"/>
+        <dialogue speaker="cyan" english="Oh no!" translation="그럴 수가!"/>
+        <dialogue speaker="purple" english="I&apos;m on the ship - it&apos;s damaged badly, but it&apos;s still intact!" translation="난 함선에 있어. 함선은 심한 피해를 입었지만 아직 작동해."/>
+        <dialogue speaker="purple" english="Where are you, Captain?" translation="함장은 어디에 있어?"/>
+        <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="우주 정거장 같은 곳에 있어... 꽤 현대적인 느낌인데..."/>
+        <dialogue speaker="purple" english="There seems to be some sort of interference in this dimension..." translation="이 차원에 방해 전파 같은 게 있는 거 같아..."/>
+        <dialogue speaker="purple" english="I&apos;m broadcasting the coordinates of the ship to you now." translation="함선의 좌표를 지금 함장에게 송신할게."/>
+        <dialogue speaker="purple" english="I can&apos;t teleport you back, but..." translation="다시 함장을 텔레포트 시킬 순 없지만..."/>
+        <dialogue speaker="purple" english="If YOU can find a teleporter anywhere nearby, you should be able to teleport back to me!" translation="근방의 텔레포터를 찾으면, 다시 나한테 텔레포트할 수 있을 거야!"/>
+        <dialogue speaker="cyan" english="Ok! I&apos;ll try to find one!" translation="좋아! 한번 찾아보지!"/>
+        <dialogue speaker="purple" english="Good luck, Captain!" translation="행운을 빌어, 함장!"/>
+        <dialogue speaker="purple" english="I&apos;ll keep trying to find the rest of the crew..." translation="계속 남은 선원들을 찾아볼게..."/>
+    </cutscene>
+    <cutscene id="trenchwarfare" explanation="player finds Trench Warfare trinket, if no trinkets found yet">
+        <dialogue speaker="cyan" english="Ohh! I wonder what that is?" translation="오오! 저건 뭐지?"/>
+        <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="꼭 필요한 거 같진 않지만, 함선에 가져가서 연구는 해봐야겠어..."/>
+    </cutscene>
+    <cutscene id="newtrenchwarfare" explanation="player finds Trench Warfare trinket, if other trinket already found">
+        <dialogue speaker="cyan" english="Oh! It&apos;s another one of those shiny things!" translation="오! 빛나는 물건이 또 있잖아!"/>
+        <dialogue speaker="cyan" english="I probably don&apos;t really need it, but it might be nice to take it back to the ship to study..." translation="꼭 필요한 거 같진 않지만, 함선에 가져가서 연구는 해봐야겠어..."/>
+    </cutscene>
+    <cutscene id="teleporterback" explanation="">
+        <dialogue speaker="cyan" english="A teleporter!" translation="텔레포터군!"/>
+        <dialogue speaker="cyan" english="I can get back to the ship with this!" translation="이걸로 함선에 돌아갈 수 있겠어!"/>
+    </cutscene>
+    <cutscene id="levelonecomplete_ending" explanation="">
+        <dialogue speaker="purple" english="Captain!" translation="함장!"/>
+    </cutscene>
+    <cutscene id="bigopenworld" explanation="">
+        <dialogue speaker="player" english="So, Doctor - have you any idea what caused the crash?" translation="좋아, 박사. 추락의 원인이 뭔지 알겠어?"/>
+        <dialogue speaker="purple" english="There&apos;s some sort of bizarre signal here that&apos;s interfering with our equipment..." translation="기묘한 신호가 우리 장비를 방해하고 있어..."/>
+        <dialogue speaker="purple" english="It caused the ship to lose its quantum position, collapsing us into this dimension!" translation="그 신호 때문에 함선의 양자 위치가 어긋나서 이 차원에 떨어진 거야!"/>
+        <dialogue speaker="player" english="Oh no!" translation="이런!"/>
+        <dialogue speaker="purple" english="But I think we should be able to fix the ship and get out of here..." translation="하지만 함선을 수리하고 여기서 벗어날 순 있을 거야..."/>
+        <dialogue speaker="purple" english="... as long as we can find the rest of the crew." translation="...남은 선원들을 다 찾을 수 있다면 말이지."/>
+        <dialogue speaker="purple" english="We really don&apos;t know anything about this place..." translation="이곳에 대해서는 아는 바가 전혀 없어..."/>
+        <dialogue speaker="purple" english="Our friends could be anywhere - they could be lost, or in danger!" translation="다들 이곳저곳 흩어져 있을 거야. 길을 잃었거나, 위험에 처해있을 수도 있지!"/>
+        <dialogue speaker="player" english="Can they teleport back here?" translation="텔레포트로 이쪽으로 올 순 없는 거야?"/>
+        <dialogue speaker="purple" english="Not unless they find some way to communicate with us!" translation="우리와 통신하기 전까진 불가능해!"/>
+        <dialogue speaker="purple" english="We can&apos;t pick up their signal and they can&apos;t teleport here unless they know where the ship is..." translation="이쪽에서 선원들의 신호를 특정할 수 없고, 선원들도 함선의 위치를 모르는 상태에선 텔레포트 할 수 없어..."/>
+        <dialogue speaker="player" english="So what do we do?" translation="그럼 어떻게 하지?"/>
+        <dialogue speaker="purple" english="We need to find them! Head out into the dimension and look for anywhere they might have ended up..." translation="찾아야지! 저 차원으로 들어가서 선원들을 데려와야 해..."/>
+        <dialogue speaker="player" english="Ok! Where do we start?" translation="좋아! 어디서부터 시작할까?"/>
+        <dialogue speaker="purple" english="Well, I&apos;ve been trying to find them with the ship&apos;s scanners!" translation="그럼 함선의 스캐너를 사용해서 찾아보자!"/>
+        <dialogue speaker="purple" english="It&apos;s not working, but I did find something..." translation="작동하지 않지만, 뭔가를 찾아냈어..."/>
+        <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="해당 지점에서 높은 에너지 패턴을 발견했어!"/>
+        <dialogue speaker="purple" english="There&apos;s a good chance they&apos;re teleporters - which means they&apos;re probably built near something important..." translation="아마 텔레포터일 가능성이 커. 그 말은 분명 중요한 건물이 옆에 있단 소린데..."/>
+        <dialogue speaker="purple" english="They could be a very good place to start looking." translation="거기부터 탐색을 시작해보면 좋을 거야."/>
+        <dialogue speaker="player" english="Ok! I&apos;ll head out and see what I can find!" translation="좋아! 한번 가서 찾아보지!"/>
+        <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="도움이 필요하면 언제든 말해줘!"/>
+    </cutscene>
+    <cutscene id="bigopenworldskip" explanation="">
+        <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="도움이 필요하면 언제든 말해줘!"/>
+    </cutscene>
+    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
+        <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="지금 뭘 어떻게 해야 할지 모르겠어, 박사."/>
+        <dialogue speaker="player" english="Where do I begin?" translation="어디서부터 시작해야 하지?"/>
+        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="지도에 있는 지점에서 ENTER 버튼을 눌러 확인을 해볼 수 있다는 걸 명심해!"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="지도에 있는 지점에서 {b_map} 버튼을 눌러 확인을 해볼 수 있다는 걸 명심해!" buttons="1"/>
+        <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="다른 선원들이 있을만한 구역을 찾아봐..."/>
+        <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="길을 잃으면 아무 텔레포터나 사용해서 함선으로 돌아올 수 있어."/>
+        <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="걱정 마! 다 찾을 수 있을 거니까!"/>
+        <dialogue speaker="purple" english="Everything will be ok!" translation="다 괜찮을 거야!"/>
+    </cutscene>
+    <cutscene id="talkpurple_3" explanation="only one player string is shown">
+        <dialogue speaker="purple" english="Are you doing ok, Captain?" translation="잘 되어가고 있어, 함장?"/>
+        <dialogue speaker="player" english="I&apos;m worried about Victoria, Doctor!" translation="빅토리아가 걱정 돼, 박사!"/>
+        <dialogue speaker="player" english="I&apos;m worried about Vitellary, Doctor!" translation="비텔러리가 걱정 돼, 박사!"/>
+        <dialogue speaker="player" english="I&apos;m worried about Verdigris, Doctor!" translation="베르디그리스가 걱정 돼, 박사!"/>
+        <dialogue speaker="player" english="I&apos;m worried about Vermilion, Doctor!" translation="버밀리온이 걱정 돼, 박사!"/>
+        <dialogue speaker="player" english="I&apos;m worried about you, Doctor!" translation="당신이 걱정 돼, 박사!"/>
+        <dialogue speaker="purple" english="Oh - well, don&apos;t worry, they&apos;ll show up!" translation="아, 음, 걱정 마. 분명 찾을 수 있을 거야!"/>
+        <dialogue speaker="purple" english="Here! Have a lollipop!" translation="여기! 사탕 좀 먹어!"/>
+    </cutscene>
+    <cutscene id="trinketcollector" explanation="if no trinkets found yet">
+        <dialogue speaker="cyan" english="This seems like a good place to store anything I find out there..." translation="발견한 것들을 비축하기에 좋은 곳 같아..."/>
+        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="빅토리아는 모험에서 찾은 흥미로운 물건들을 연구하는 걸 좋아하지!"/>
+    </cutscene>
+    <cutscene id="newtrinketcollector" explanation="if at least one trinket found">
+        <dialogue speaker="cyan" english="This seems like a good place to store those shiny things." translation="빛나는 것들을 보관하기 좋은 곳 같아."/>
+        <dialogue speaker="cyan" english="Victoria loves to study the interesting things we find on our adventures!" translation="빅토리아는 모험에서 찾은 흥미로운 물건들을 연구하는 걸 좋아하지!"/>
+    </cutscene>
+    <cutscene id="new2trinketcollector" explanation="">
+        <dialogue speaker="cyan" english="I hope she&apos;s ok..." translation="괜찮아야 할 텐데..."/>
+    </cutscene>
+    <cutscene id="rescuegreen" explanation="nuance: `she&apos;s BACK on the ship` means more `she&apos;s home` and not `she has returned to the ship`. She has never left the ship">
+        <dialogue speaker="green" english="Captain! I&apos;ve been so worried!" translation="함장! 정말 걱정했잖아!"/>
+        <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation="베르디그리스 대장! 무사하구나!"/>
+        <dialogue speaker="green" english="I&apos;ve been trying to get out, but I keep going around in circles..." translation="여기서 벗어나려고 했지만, 계속 빙빙 돌고만 있어..."/>
+        <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation="함선에서 왔어. 널 다시 텔레포트 시켜줄게."/>
+        <dialogue speaker="green" english="Is everyone else alright? Is Violet..." translation="다들 괜찮은 거야? 혹시 바이올렛이..."/>
+        <dialogue speaker="player" english="She&apos;s fine - she&apos;s back on the ship!" translation="바이올렛은 괜찮아. 함선에 잘 있어!"/>
+        <dialogue speaker="green" english="Oh! Great - Let&apos;s get going, then!" translation="오! 다행이다. 그럼 가자!"/>
+    </cutscene>
+    <cutscene id="rescueblue" explanation="">
+        <dialogue speaker="blue" english="Oh no! Captain! Are you stuck here too?" translation="안 돼! 함장! 함장도 여기 갇힌 거야?"/>
+        <dialogue speaker="player" english="It&apos;s ok - I&apos;m here to rescue you!" translation="괜찮아. 널 구하러 온 거니까!"/>
+        <dialogue speaker="player" english="Let me explain everything..." translation="다 설명해줄게..."/>
+        <dialogue speaker="blue" english="What? I didn&apos;t understand any of that!" translation="뭐? 전혀 모르겠는데!"/>
+        <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation="어... 그래. 걱정하지 마."/>
+        <dialogue speaker="player" english="Follow me! Everything will be alright!" translation="따라와! 다 괜찮을 거야!"/>
+        <dialogue speaker="blue" english="Sniff... Really?" translation="훌쩍... 정말?"/>
+        <dialogue speaker="blue" english="Ok then!" translation="좋아! 그럼 가자!"/>
+    </cutscene>
+    <cutscene id="rescuered" explanation="">
+        <dialogue speaker="red" english="Captain!" translation="함장!"/>
+        <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation="정말 다행이다! 함선에서 나만 탈출한 줄 알았어..."/>
+        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="버밀리온! 역시 무사했구나!"/>
+        <dialogue speaker="red" english="So, what&apos;s the situation?" translation="좋아, 상황은 어때?"/>
+        <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation="그렇군! 좋아, 그럼 돌아가는 게 좋겠어."/>
+        <dialogue speaker="red" english="There&apos;s a teleporter in the next room." translation="옆방에 텔레포터가 있어."/>
+    </cutscene>
+    <cutscene id="rescueyellow" explanation="">
+        <dialogue speaker="yellow" english="Ah, Viridian! You got off the ship alright too?" translation="아, 비리디안! 너도 함선에서 잘 탈출했구나!"/>
+        <dialogue speaker="player" english="It&apos;s good to see you&apos;re alright, Professor!" translation="무사해서 다행이야, 교수!"/>
+        <dialogue speaker="yellow" english="Is the ship ok?" translation="함선은 괜찮은 거야?"/>
+        <dialogue speaker="player" english="It&apos;s badly damaged, but Violet&apos;s been working on fixing it." translation="심각한 피해를 입었어. 하지만 바이올렛이 고치는 중이야."/>
+        <dialogue speaker="player" english="We could really use your help..." translation="당신이 도와주면 큰 힘이 될 거야..."/>
+        <dialogue speaker="yellow" english="Ah, of course!" translation="아, 물론 도와주지!"/>
+        <dialogue speaker="yellow" english="The background interference in this dimension prevented the ship from finding a teleporter when we crashed!" translation="이 차원의 배경 방해 전파가 함선이 추락할 때 텔레포터를 찾는 걸 막았던 거야!"/>
+        <dialogue speaker="yellow" english="We&apos;ve all been teleported to different locations!" translation="그래서 모두 다른 곳으로 텔레포트 된 거지!"/>
+        <dialogue speaker="player" english="Er, that sounds about right!" translation="음, 그 말이 맞는 거 같네!"/>
+        <dialogue speaker="yellow" english="Let&apos;s get back to the ship, then!" translation="그럼 함선으로 돌아가자!"/>
+        <dialogue speaker="yellow" english="After you, Captain!" translation="앞장서, 함장!"/>
+    </cutscene>
+    <cutscene id="int1blue_1" explanation="">
+        <dialogue speaker="blue" english="Waaaa!" translation="으아아앙!" case="1"/>
+        <dialogue speaker="blue" english="Captain! Are you ok?" translation="함장! 괜찮아?"/>
+        <dialogue speaker="player" english="I&apos;m ok... this... this isn&apos;t the ship..." translation="난 괜찮아... 여긴... 여긴 함선이 아니잖아..."/>
+        <dialogue speaker="player" english="Where are we?" translation="여긴 어디지?"/>
+        <dialogue speaker="blue" english="Waaaa!" translation="으아아앙!" case="2"/>
+        <dialogue speaker="player" english="Something&apos;s gone wrong... We should look for a way back!" translation="뭔가 잘못됐어... 나가는 길을 찾아야 해!"/>
+    </cutscene>
+    <cutscene id="int1blue_2" explanation="">
+        <dialogue speaker="player" english="Follow me! I&apos;ll help you!" translation="따라와! 내가 도와줄게!"/>
+        <dialogue speaker="blue" english="Promise you won&apos;t leave without me!" translation="나 혼자 두고 떠나지 않겠다고 약속해줘!"/>
+        <dialogue speaker="player" english="I promise! Don&apos;t worry!" translation="약속하지! 걱정 마!"/>
+    </cutscene>
+    <cutscene id="int1blue_3" explanation="">
+        <dialogue speaker="player" english="Are you ok down there, Doctor?" translation="거기는 괜찮아, 박사?"/>
+        <dialogue speaker="blue" english="I wanna go home!" translation="집에 가고 싶어!"/>
+        <dialogue speaker="blue" english="Where are we? How did we even get here?" translation="여긴 어디지? 어떻게 여기까지 온 거야?"/>
+        <dialogue speaker="player" english="Well, Violet did say that the interference in the dimension we crashed in was causing problems with the teleporters..." translation="음, 바이올렛이 말하길 우리가 추락한 이 차원의 방해 전파가 텔레포터에 문제를 일으킨다고 했어..."/>
+        <dialogue speaker="player" english="I guess something went wrong..." translation="뭔가가 잘못된 거 같아..."/>
+        <dialogue speaker="player" english="But if we can find another teleporter, I think we can get back to the ship!" translation="하지만 다른 텔레포터를 찾으면 아마 함선으로 돌아갈 수 있을 거야!"/>
+        <dialogue speaker="blue" english="Sniff..." translation="훌쩍..."/>
+    </cutscene>
+    <cutscene id="int1blue_4" explanation="the split paths merge">
+        <dialogue speaker="blue" english="Captain! Captain! Wait for me!" translation="함장! 함장! 기다려 줘!"/>
+        <dialogue speaker="blue" english="Please don&apos;t leave me behind! I don&apos;t mean to be a burden!" translation="제발 두고 떠나지 마! 절대 짐 안 될게!"/>
+        <dialogue speaker="blue" english="I&apos;m scared!" translation="나 무서워!"/>
+        <dialogue speaker="player" english="Oh... don&apos;t worry Victoria, I&apos;ll look after you!" translation="아... 걱정 마 빅토리아, 내가 지켜줄게!"/>
+    </cutscene>
+    <cutscene id="int1blue_5" explanation="">
+        <dialogue speaker="blue" english="We&apos;re never going to get out of here, are we?" translation="우리, 절대 탈출할 수 없겠지?"/>
+        <dialogue speaker="player" english="I.. I don&apos;t know..." translation="나도... 모르겠어..."/>
+        <dialogue speaker="player" english="I don&apos;t know where we are or how we&apos;re going to get out..." translation="여기가 어딘지도, 또 어떻게 나갈지도 모르겠어..."/>
+    </cutscene>
+    <cutscene id="int1blue_6" explanation="">
+        <dialogue speaker="blue" english="We&apos;re going to be lost forever!" translation="여기 영원히 갇혀있어야 하나 봐!"/>
+        <dialogue speaker="player" english="Ok, come on... Things aren&apos;t that bad." translation="아냐, 진정해... 상황이 그렇게 나쁘진 않아."/>
+        <dialogue speaker="player" english="I have a feeling that we&apos;re nearly home!" translation="집에 거의 다 온 거 같은 느낌이 들거든!"/>
+        <dialogue speaker="player" english="We can&apos;t be too far from another teleporter!" translation="분명 멀지 않은 곳에 다른 텔레포터가 있을 거야!"/>
+        <dialogue speaker="blue" english="I hope you&apos;re right, captain..." translation="그 말이 사실이길 바라..."/>
+    </cutscene>
+    <cutscene id="int1blue_7" explanation="">
+        <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation="함장! 함장이 옳았어! 텔레포터야!"/>
+        <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="휴! 정말 걱정했네... 절대 텔레포터를 못 찾을 줄 알았어."/>
+        <dialogue speaker="blue" english="What? Really?" translation="뭐? 정말이야?"/>
+        <dialogue speaker="player" english="Anyway, let&apos;s go back to the ship." translation="어쨌든, 함선으로 돌아가자."/>
+    </cutscene>
+    <cutscene id="int1green_1" explanation="">
+        <dialogue speaker="green" english="Huh? This isn&apos;t the ship..." translation="응? 여긴 함선이 아닌데..."/>
+        <dialogue speaker="green" english="Captain! What&apos;s going on?" translation="함장! 이게 어떻게 된 거야?"/>
+        <dialogue speaker="player" english="I... I don&apos;t know!" translation="나도... 나도 모르겠어!"/>
+        <dialogue speaker="player" english="Where are we?" translation="여긴 어디지?"/>
+        <dialogue speaker="green" english="Uh oh, this isn&apos;t good... Something must have gone wrong with the teleporter!" translation="이런, 상황이 안 좋아... 텔레포터에 문제가 생긴 게 틀림 없어!"/>
+        <dialogue speaker="player" english="Ok... no need to panic!" translation="좋아... 당황하지 마!"/>
+        <dialogue speaker="player" english="Let&apos;s look for another teleporter!" translation="다른 텔레포터를 찾아보자!"/>
+    </cutscene>
+    <cutscene id="int1green_2" explanation="">
+        <dialogue speaker="player" english="Let&apos;s go this way!" translation="이쪽으로 가보자!"/>
+        <dialogue speaker="green" english="After you, Captain!" translation="따라갈게, 함장!"/>
+    </cutscene>
+    <cutscene id="int1green_3" explanation="just like in rescuegreen, `Violet is back on the ship` does not mean she was ever off the ship and has *returned* to it. Or maybe Verdigris thinks Violet was warped off the ship as well just like him and she *has* made her way back to the ship?">
+        <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation="그럼 바이올렛이 함선에 있다는 거지? 정말 괜찮은 거야?"/>
+        <dialogue speaker="player" english="She&apos;s fine! She helped me find my way back!" translation="괜찮아! 내가 돌아가는 방법을 찾게 도와줬거든!"/>
+        <dialogue speaker="green" english="Oh, phew! I was worried about her." translation="오, 다행이네! 걱정했거든."/>
+        <dialogue speaker="green" english="Captain, I have a secret..." translation="함장, 나 비밀이 하나 있어..."/>
+        <dialogue speaker="green" english="I really like Violet!" translation="난 바이올렛이 정말 좋아!"/>
+        <dialogue speaker="player" english="Is that so?" translation="그래?"/>
+        <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation="절대 바이올렛한테 말하지 말아줘!"/>
+    </cutscene>
+    <cutscene id="int1green_4" explanation="the split paths merge">
+        <dialogue speaker="green" english="Hey again!" translation="다시 안녕!"/>
+        <dialogue speaker="player" english="Hey!" translation="안녕!"/>
+        <dialogue speaker="player" english="Are you doing ok?" translation="별 문제 없어?"/>
+        <dialogue speaker="green" english="I think so! I really hope we can find a way back to the ship..." translation="아마도! 함선으로 돌아갈 방법을 찾으면 좋겠는데..."/>
+    </cutscene>
+    <cutscene id="int1green_5" explanation="">
+        <dialogue speaker="green" english="So, about Violet..." translation="그게, 바이올렛 말이야..."/>
+        <dialogue speaker="player" english="Um, yeah?" translation="음, 뭐?"/>
+        <dialogue speaker="green" english="Do you have any advice?" translation="조언이라도 해줄 수 있어?"/>
+        <dialogue speaker="player" english="Oh!" translation="아!"/>
+        <dialogue speaker="player" english="Hmm..." translation="흐음..."/>
+        <dialogue speaker="player" english="Um... you should... be yourself!" translation="음... 자연스럽게... 행동하는 건 어때!"/>
+        <dialogue speaker="green" english="Oh." translation="오."/>
+        <dialogue speaker="green" english="Thanks Captain!" translation="고마워 함장!"/>
+    </cutscene>
+    <cutscene id="int1green_6" explanation="">
+        <dialogue speaker="player" english="So, do you think you&apos;ll be able to fix the ship?" translation="그럼, 함선을 수리할 수 있다는 거야?"/>
+        <dialogue speaker="green" english="Depends on how bad it is... I think so, though!" translation="얼마나 상황이 안 좋으냐에 따라 다르지... 아마도, 말이야!"/>
+        <dialogue speaker="green" english="It&apos;s not very hard, really. The basic dimensional warping engine design is pretty simple, and if we can get that working we shouldn&apos;t have any trouble getting home." translation="그렇게까지 나쁘진 않아. 기초 차원 워프 엔진 설계는 꽤 단순하거든. 그걸 다시 작동 시킬 수만 있다면 집으로 가는 데 아무런 문제도 없을 거야."/>
+        <dialogue speaker="player" english="Oh! Good!" translation="오! 다행이네!"/>
+    </cutscene>
+    <cutscene id="int1green_7" explanation="">
+        <dialogue speaker="green" english="Finally! A teleporter!" translation="드디어! 텔레포터다!"/>
+        <dialogue speaker="green" english="I was getting worried we wouldn&apos;t find one..." translation="못 찾을까 봐 걱정 했었어..."/>
+        <dialogue speaker="player" english="Let&apos;s head back to the ship!" translation="그럼 함선으로 돌아가자!"/>
+    </cutscene>
+    <cutscene id="int1red_1" explanation="">
+        <dialogue speaker="red" english="Wow! Where are we?" translation="와! 여긴 어디지?"/>
+        <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation="이건... 안 돼... 텔레포터가 뭔가 고장이 있었나 봐!"/>
+        <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation="이런... 함선으로 돌아가면 고쳐봐야 할 거 같군!"/>
+        <dialogue speaker="red" english="Let&apos;s go exploring!" translation="계속 탐험하자!"/>
+        <dialogue speaker="player" english="Ok then!" translation="좋아!"/>
+    </cutscene>
+    <cutscene id="int1red_2" explanation="">
+        <dialogue speaker="player" english="Follow me!" translation="날 따라와!"/>
+        <dialogue speaker="red" english="Aye aye, Captain!" translation="그래, 함장!"/>
+    </cutscene>
+    <cutscene id="int1red_3" explanation="">
+        <dialogue speaker="red" english="Hey Viridian... how did the crash happen, exactly?" translation="비리디안... 구체적으로 어떻게 추락했는지 설명을 좀 해줄 수 있어?"/>
+        <dialogue speaker="player" english="Oh, I don&apos;t really know - some sort of interference..." translation="아, 나도 확실하게는 몰라. 일종의 방해 전파 때문에..."/>
+        <dialogue speaker="player" english="...or something sciencey like that. It&apos;s not really my area." translation="...아니면 뭔가 과학적인 문제가 있었겠지. 내가 아는 분야는 아니야."/>
+        <dialogue speaker="red" english="Ah! Well, do you think we&apos;ll be able to fix the ship and go home?" translation="아! 알겠어, 그럼 함선을 고쳐서 집에 갈 수 있을까?"/>
+        <dialogue speaker="player" english="Of course! Everything will be ok!" translation="당연하지! 다 괜찮을 거야!"/>
+    </cutscene>
+    <cutscene id="int1red_4" explanation="the split paths merge">
+        <dialogue speaker="red" english="Hi again! You doing ok?" translation="다시 안녕! 큰 문제 없지?"/>
+        <dialogue speaker="player" english="I think so! But I really want to get back to the ship..." translation="응! 정말 집에 돌아가고 싶지만 말야..."/>
+        <dialogue speaker="red" english="We&apos;ll be ok! If we can find a teleporter somewhere we should be able to get back!" translation="괜찮을 거야! 텔레포터를 찾으면 돌아갈 수 있겠지!"/>
+    </cutscene>
+    <cutscene id="int1red_5" explanation="">
+        <dialogue speaker="red" english="Are we there yet?" translation="아직 도착 안 한 건가?"/>
+        <dialogue speaker="player" english="We&apos;re getting closer, I think..." translation="거의 다 왔을 거야..."/>
+        <dialogue speaker="player" english="I hope..." translation="아마도..."/>
+    </cutscene>
+    <cutscene id="int1red_6" explanation="">
+        <dialogue speaker="player" english="I wonder where we are, anyway?" translation="그건 그렇고 여긴 어디지?"/>
+        <dialogue speaker="player" english="This seems different from that dimension we crashed in, somehow..." translation="아무래도 우리가 추락한 차원이랑은 다른 곳 같아..."/>
+        <dialogue speaker="red" english="I dunno... But we must be close to a teleporter by now..." translation="모르겠어... 하지만 분명 슬슬 텔레포터가 근처에 있을 거야..."/>
+    </cutscene>
+    <cutscene id="int1red_7" explanation="">
+        <dialogue speaker="player" english="We&apos;re there!" translation="도착했다!"/>
+        <dialogue speaker="red" english="See? I told you! Let&apos;s get back to the ship!" translation="그치? 내가 말했잖아! 이제 함선으로 돌아가자!"/>
+    </cutscene>
+    <cutscene id="int1yellow_1" explanation="">
+        <dialogue speaker="yellow" english="Oooh! This is interesting..." translation="오오오! 이거 흥미로운데..."/>
+        <dialogue speaker="yellow" english="Captain! Have you been here before?" translation="함장! 여기 전에 와본 적 있어?"/>
+        <dialogue speaker="player" english="What? Where are we?" translation="뭐? 여긴 어디야?"/>
+        <dialogue speaker="yellow" english="I suspect something deflected our teleporter transmission! This is somewhere new..." translation="아무래도 우리 텔레포터 전송 방향을 무언가가 바꾼 거 같아! 이건 새로운데..."/>
+        <dialogue speaker="player" english="Oh no!" translation="안 돼!"/>
+        <dialogue speaker="player" english="We should try to find a teleporter and get back to the ship..." translation="텔레포터를 찾아서 함선으로 돌아가야 해..."/>
+    </cutscene>
+    <cutscene id="int1yellow_2" explanation="">
+        <dialogue speaker="player" english="Follow me!" translation="날 따라와!"/>
+        <dialogue speaker="yellow" english="Right behind you, Captain!" translation="바로 따라갈게, 함장!"/>
+    </cutscene>
+    <cutscene id="int1yellow_3" explanation="">
+        <dialogue speaker="player" english="What do you make of all this, Professor?" translation="지금 상황에 대해서 어떻게 생각해, 교수?"/>
+        <dialogue speaker="yellow" english="I&apos;m guessing this dimension has something to do with the interference that caused us to crash!" translation="이 차원은 아무래도 우릴 추락시킨 무언가와 관련이 있는 거 같아!"/>
+        <dialogue speaker="yellow" english="Maybe we&apos;ll find the cause of it here?" translation="여기서 그 원인을 찾을 수 있을지도 몰라."/>
+        <dialogue speaker="player" english="Oh wow! Really?" translation="우와! 정말?"/>
+        <dialogue speaker="yellow" english="Well, it&apos;s just a guess. I&apos;ll need to get back to the ship before I can do any real tests..." translation="아직은 추측에 불과하긴 하지만 말야. 실험을 해보기 전에 일단 함선으로 돌아가 봐야 하고..."/>
+    </cutscene>
+    <cutscene id="int1yellow_4" explanation="the split paths merge, and Vitellary sees a checkpoint">
+        <dialogue speaker="yellow" english="Ohh! What was that?" translation="오오! 저게 뭐지?"/>
+        <dialogue speaker="player" english="What was what?" translation="뭐였지?"/>
+        <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="저 커다란... 구부러진 거! 저게 도대체 뭘까?"/>
+        <dialogue speaker="player" english="Em... I don&apos;t really know how to answer that question..." translation="으음... 어떻게 대답을 해줘야 할지 모르겠는데..."/>
+        <dialogue speaker="player" english="It&apos;s probably best not to acknowledge that it&apos;s there at all." translation="그냥 모른 척 하는 게 제일 낫지 않을까."/>
+        <dialogue speaker="yellow" english="Maybe we should take it back to the ship to study it?" translation="가져가서 연구를 해보는 게 좋지 않을까?"/>
+        <dialogue speaker="player" english="We really shouldn&apos;t think about it too much... Let&apos;s keep moving!" translation="너무 그 생각만 하진 말고... 계속 움직이자!"/>
+    </cutscene>
+    <cutscene id="int1yellow_5" explanation="">
+        <dialogue speaker="yellow" english="You know, there&apos;s something really odd about this dimension..." translation="있잖아, 이 차원에는 정말 이상한 점이 있어..."/>
+        <dialogue speaker="player" english="Yeah?" translation="뭔데?"/>
+        <dialogue speaker="yellow" english="We shouldn&apos;t really be able to move between dimensions with a regular teleporter..." translation="일반 텔레포터로는 차원 사이를 넘나들 수 없는 법이거든..."/>
+        <dialogue speaker="yellow" english="Maybe this isn&apos;t a proper dimension at all?" translation="여긴 혹시 제대로 된 차원이 아닌 거 아닐까?"/>
+        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="어쩌면 일종의 극성을 띈 차원인 게 아닐까? 고의로 만들어낸 인공 차원 말이지."/>
+        <dialogue speaker="yellow" english="I can&apos;t wait to get back to the ship. I have a lot of tests to run!" translation="당장에라도 함선으로 돌아가고 싶어. 실험해 볼 게 아주 많아!"/>
+    </cutscene>
+    <cutscene id="int1yellow_6" explanation="">
+        <dialogue speaker="yellow" english="I wonder if there&apos;s anything else in this dimension worth exploring?" translation="이 차원에서 탐험할만한 게 더 남아있을까?"/>
+        <dialogue speaker="player" english="Maybe... but we should probably just focus on finding the rest of the crew for now..." translation="있겠지... 하지만 지금은 그것보다 다른 선원들을 찾는 데 집중하자..."/>
+    </cutscene>
+    <cutscene id="int1yellow_7" explanation="">
+        <dialogue speaker="yellow" english="At last!" translation="찾았다!"/>
+        <dialogue speaker="yellow" english="Let&apos;s go back to the ship!" translation="함선으로 돌아가자!"/>
+    </cutscene>
+    <cutscene id="intermission_2" explanation="">
+        <dialogue speaker="player" english="Uh oh..." translation="이런..."/>
+        <dialogue speaker="player" english="Not again!" translation="또야!"/>
+    </cutscene>
+    <cutscene id="int2intro_blue" explanation="">
+        <dialogue speaker="player" english="Victoria? Where are you?" translation="빅토리야? 어디에 있어?"/>
+        <dialogue speaker="blue" english="Help!" translation="도와줘!"/>
+        <dialogue speaker="player" english="Hang on! I&apos;ll save you!" translation="기다려! 구하러 갈게!"/>
+    </cutscene>
+    <cutscene id="int2intro_green" explanation="">
+        <dialogue speaker="player" english="Verdigris? Where are you?" translation="베르디그리스? 어디에 있어?"/>
+        <dialogue speaker="green" english="Aaagghh!" translation="으아아악!"/>
+        <dialogue speaker="player" english="Hang on! I&apos;ll save you!" translation="기다려! 구하러 갈게!"/>
+    </cutscene>
+    <cutscene id="int2intro_red" explanation="">
+        <dialogue speaker="player" english="Vermilion? Where are you?" translation="버밀리온? 어디에 있어?"/>
+        <dialogue speaker="red" english="Wheeeee!" translation="야호오오오오!"/>
+        <dialogue speaker="player" english="Hang on! I&apos;ll save you!" translation="기다려! 구하러 갈게!"/>
+    </cutscene>
+    <cutscene id="int2intro_yellow" explanation="">
+        <dialogue speaker="player" english="Vitellary? Where are you?" translation="비텔러리? 어디에 있어?"/>
+        <dialogue speaker="yellow" english="Captain!" translation="함장!"/>
+        <dialogue speaker="player" english="Hang on! I&apos;ll save you!" translation="기다려! 구하러 갈게!"/>
+    </cutscene>
+    <cutscene id="int2_blue" explanation="after gravitron">
+        <dialogue speaker="blue" english="I think I&apos;m going to be sick..." translation="멀미 날 거 같아..."/>
+        <dialogue speaker="player" english="I feel dizzy..." translation="어지러워..."/>
+    </cutscene>
+    <cutscene id="int2_green" explanation="after gravitron">
+        <dialogue speaker="green" english="Phew! You&apos;re ok!" translation="휴! 괜찮구나!"/>
+        <dialogue speaker="player" english="I feel dizzy..." translation="어지러워..."/>
+    </cutscene>
+    <cutscene id="int2_red" explanation="after gravitron">
+        <dialogue speaker="red" english="Again! Let&apos;s go again!" translation="또 하자! 한 번 더 해줘!"/>
+        <dialogue speaker="player" english="I feel dizzy..." translation="어지러워..."/>
+    </cutscene>
+    <cutscene id="int2_yellow" explanation="after gravitron">
+        <dialogue speaker="yellow" english="That was interesting, wasn&apos;t it?" translation="흥미로웠네. 그치?"/>
+        <dialogue speaker="player" english="I feel dizzy..." translation="어지러워..."/>
+    </cutscene>
+    <cutscene id="talkpurple_1" explanation="">
+        <dialogue speaker="purple" english="... I hope Verdigris is alright." translation="...베르디그리스가 무사하면 좋겠어."/>
+        <dialogue speaker="purple" english="If you can find him, he&apos;d be a a big help fixing the ship!" translation="녀석이 있으면 함선을 고치는 데 큰 도움이 될 텐데!"/>
+    </cutscene>
+    <cutscene id="talkpurple_2" explanation="">
+        <dialogue speaker="purple" english="Chief Verdigris is so brave and ever so smart!" translation="베르디그리스 대장은 용감하고 정말 똑똑해!"/>
+    </cutscene>
+    <cutscene id="talkpurple_4" explanation="">
+        <dialogue speaker="purple" english="Welcome back, Captain!" translation="어서 돌아와, 함장!"/>
+        <dialogue speaker="purple" english="I think Victoria is quite happy to be back on the ship." translation="빅토리아가 함선에 돌아와서 기쁜 거 같네."/>
+        <dialogue speaker="purple" english="She really doesn&apos;t like adventuring. She gets very homesick!" translation="돌아다니는 걸 정말 싫어하거든. 향수병이 도진 거지!"/>
+    </cutscene>
+    <cutscene id="talkpurple_5" explanation="only one of the last 6 strings is shown">
+        <dialogue speaker="purple" english="Vermilion called in to say hello!" translation="버밀리온이 인사를 보냈어!"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find the rest of the crew!" translation="함장과 함께 남은 선원들을 찾는 걸 기대하고 있어!"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Victoria!" translation="함장과 함께 빅토리를 찾는 걸 기대하고 있어!"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vitellary!" translation="함장과 함께 비텔러리를 찾는 걸 기대하고 있어!"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Verdigris!" translation="함장과 함께 베르디그리스를 찾는 걸 기대하고 있어!"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vermilion!" translation="함장과 함께 버밀리온을 찾는 걸 기대하고 있어!"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find you!" translation="함장을 찾는 걸 기대하고 있더라고!"/>
+    </cutscene>
+    <cutscene id="talkpurple_6" explanation="">
+        <dialogue speaker="purple" english="Captain! You found Verdigris!" translation="함장! 베르디그리스를 찾았구나!"/>
+        <dialogue speaker="purple" english="Thank you so much!" translation="정말 고마워!"/>
+    </cutscene>
+    <cutscene id="talkpurple_7" explanation="">
+        <dialogue speaker="purple" english="I&apos;m glad Professor Vitellary is ok!" translation="비텔러리 교수가 무사해서 다행이야!"/>
+        <dialogue speaker="purple" english="He had lots of questions for me about this dimension." translation="이 차원에 대해서 나한테 엄청 물어보더라고."/>
+        <dialogue speaker="purple" english="He&apos;s already gotten to work with his research!" translation="벌써 연구에 착수한 모양이야!"/>
+    </cutscene>
+    <cutscene id="talkpurple_intermission1" explanation="">
+        <dialogue speaker="player" english="Doctor, something strange happened when we teleported back to the ship..." translation="박사, 우리가 함선에 돌아오니까 뭔가 이상한 일이 일어났어..."/>
+        <dialogue speaker="player" english="We got lost in another dimension!" translation="지금 다른 차원에서 길을 잃었어!"/>
+        <dialogue speaker="purple" english="Oh no!" translation="안 돼!"/>
+        <dialogue speaker="purple" english="Maybe that dimension has something to do with the interference that caused us to crash here?" translation="아무래도 그 차원이 우릴 추락시킨 무언가와 관련이 있는 거 같아!"/>
+        <dialogue speaker="purple" english="I&apos;ll look into it..." translation="한번 살펴볼게..."/>
+    </cutscene>
+    <cutscene id="talkpurple_intermission2" explanation="">
+        <dialogue speaker="player" english="Doctor! Doctor! It happened again!" translation="박사! 박사! 또 발생했어!"/>
+        <dialogue speaker="player" english="The teleporter brought us to that weird dimension..." translation="텔레포터가 또 우릴 이상한 차원으로 데려왔어..."/>
+        <dialogue speaker="purple" english="Hmm, there&apos;s definitely something strange happening..." translation="흐음, 확실히 뭔가 이상한 일이 일어나긴 했군..."/>
+        <dialogue speaker="purple" english="If only we could find the source of that interference!" translation="그 방해 전파의 원천을 찾을 수 있으면 좋을 텐데."/>
+    </cutscene>
+    <cutscene id="talkpurple_intermission3" explanation="">
+        <dialogue speaker="player" english="Doctor, something strange has been happening when we teleport back to the ship..." translation="박사, 우리가 함선에 돌아오니까 뭔가 이상한 일이 일어나고 있었어..."/>
+        <dialogue speaker="player" english="We keep getting brought to another weird dimension!" translation="지금 계속해서 이상한 차원에 갇혀 있는 상황이야!"/>
+        <dialogue speaker="purple" english="Oh no!" translation="이런!"/>
+        <dialogue speaker="purple" english="Maybe that dimension has something to do with the interference that caused us to crash here?" translation="아무래도 그 차원이 우릴 추락시킨 무언가와 관련이 있는 거 같아!"/>
+        <dialogue speaker="purple" english="Hmm, there&apos;s definitely something strange happening..." translation="흐음, 확실히 뭔가 이상한 일이 일어나긴 했군..."/>
+        <dialogue speaker="purple" english="If only we could find the source of that interference!" translation="그 방해 전파의 원천을 찾을 수 있으면 좋을 텐데."/>
+    </cutscene>
+    <cutscene id="talkpurple_8" explanation="">
+        <dialogue speaker="purple" english="Hey Captain! Now that you&apos;ve turned off the source of the interference, we can warp everyone back to the ship instantly, if we need to!" translation="함장! 그 방해 전파의 원천을 끄는 데 성공했으니, 이제 함선을 타고 원하는 곳 어디든 갈 수 있게 되었어!"/>
+        <dialogue speaker="purple" english="Any time you want to come back to the ship, just select the new SHIP option in your menu!" translation="함선에 돌아오고 싶을 때면, 그냥 메뉴에서 함선 설정을 선택하면 돼!"/>
+    </cutscene>
+    <cutscene id="talkgreen_1" explanation="">
+        <dialogue speaker="green" english="I&apos;m an engineer!" translation="이몸은 엔지니어란 말씀!"/>
+    </cutscene>
+    <cutscene id="talkgreen_2" explanation="">
+        <dialogue speaker="green" english="I think I can get this ship moving again, but it&apos;s going to take a while..." translation="함선을 다시 움직이게 할 순 있지만, 시간이 좀 걸릴 거야..."/>
+    </cutscene>
+    <cutscene id="talkgreen_3" explanation="">
+        <dialogue speaker="green" english="Victoria mentioned something about a lab? I wonder if she found anything down there?" translation="빅토리아가 실험실에 대해 뭔가 말한 게 있다고? 거기서 발견한 거라도 있나?"/>
+    </cutscene>
+    <cutscene id="talkgreen_4" explanation="">
+        <dialogue speaker="green" english="Vermilion&apos;s back! Yey!" translation="버밀리온이 돌아왔어! 만세!"/>
+    </cutscene>
+    <cutscene id="talkgreen_5" explanation="">
+        <dialogue speaker="green" english="The Professor had lots of questions about this dimension for me..." translation="교수가 이 차원에 대해서 나한테 엄청 물어보더라고..."/>
+        <dialogue speaker="green" english="We still don&apos;t really know that much, though." translation="아직 아는 건 많지 않지만 말이야."/>
+        <dialogue speaker="green" english="Until we work out what&apos;s causing that interference, we can&apos;t go anywhere." translation="저 방해 전파를 유발하는 게 뭔지 이해하기 전엔 아무 데로도 갈 수 없어."/>
+    </cutscene>
+    <cutscene id="talkgreen_6" explanation="">
+        <dialogue speaker="green" english="I&apos;m so glad that Violet&apos;s alright!" translation="바이올렛이 돌아와서 정말 다행이야!"/>
+    </cutscene>
+    <cutscene id="talkgreen_7" explanation="">
+        <dialogue speaker="green" english="That other dimension we ended up in must be related to this one, somehow..." translation="우리가 도착한 다른 차원이 분명 이번 사건과 관련이 있을 거야..."/>
+    </cutscene>
+    <cutscene id="talkgreen_8" explanation="">
+        <dialogue speaker="green" english="The antenna&apos;s broken! This is going to be very hard to fix..." translation="안테나가 부러졌어! 이거 고치려면 정말 어려울 텐데..."/>
+    </cutscene>
+    <cutscene id="talkgreen_9" explanation="">
+        <dialogue speaker="green" english="It looks like we were warped into solid rock when we crashed!" translation="아무래도 추락할 때 단단한 바위를 향해 워프했던 거 같아!"/>
+        <dialogue speaker="green" english="Hmm. It&apos;s going to be hard to separate from this..." translation="흐음. 이거 분리하려면 좀 힘들 텐데..."/>
+    </cutscene>
+    <cutscene id="talkgreen_10" explanation="">
+        <dialogue speaker="green" english="The ship&apos;s all fixed up. We can leave at a moment&apos;s notice!" translation="함선이 다 고쳐졌어. 당장에라도 출발할 수 있어!"/>
+    </cutscene>
+    <cutscene id="talkred_1" explanation="">
+        <dialogue speaker="red" english="Don&apos;t worry, Sir!" translation="걱정 마!"/>
+        <dialogue speaker="red" english="We&apos;ll find a way out of here!" translation="여기서 나가는 법을 찾을 수 있을 거니까!"/>
+    </cutscene>
+    <cutscene id="talkred_2" explanation="">
+        <dialogue speaker="red" english="I hope Victoria is ok..." translation="빅토리아가 무사했으면 좋겠어..."/>
+        <dialogue speaker="red" english="She doesn&apos;t handle surprises very well..." translation="돌발 상황에 잘 대처를 못 하던데..."/>
+    </cutscene>
+    <cutscene id="talkred_3" explanation="">
+        <dialogue speaker="red" english="I don&apos;t know how we&apos;re going to get this ship working again!" translation="어떻게 해야 이 함선을 고칠 수 있을지 모르겠어!"/>
+        <dialogue speaker="red" english="Chief Verdigris would know what to do..." translation="베르디그리스 대장이라면 뭔가 알지도 몰라..."/>
+    </cutscene>
+    <cutscene id="talkred_4" explanation="">
+        <dialogue speaker="red" english="I wonder what caused the ship to crash here?" translation="함선은 왜 여기에 추락하게 된 걸까?"/>
+        <dialogue speaker="red" english="It&apos;s the shame the Professor isn&apos;t here, huh? I&apos;m sure he could work it out!" translation="교수가 여기 없다는 게 안타까워. 녀석이라면 알아낼 수 있을 텐데!"/>
+    </cutscene>
+    <cutscene id="talkred_5" explanation="">
+        <dialogue speaker="red" english="It&apos;s great to be back!" translation="돌아와서 다행이야!"/>
+        <dialogue speaker="red" english="I can&apos;t wait to help you find the rest of the crew!" translation="어서 같이 다른 선원들을 찾으러 가자!"/>
+        <dialogue speaker="red" english="It&apos;ll be like old times, huh, Captain?" translation="옛날 생각 나지, 함장?"/>
+    </cutscene>
+    <cutscene id="talkred_6" explanation="">
+        <dialogue speaker="red" english="It&apos;s good to have Victoria back with us." translation="빅토리아가 돌아와서 다행이야."/>
+        <dialogue speaker="red" english="She really seems happy to get back to work in her lab!" translation="실험실에서 다시 일하게 돼서 정말 행복해 보이거든!"/>
+    </cutscene>
+    <cutscene id="talkred_7" explanation="">
+        <dialogue speaker="red" english="I think I saw Verdigris working on the outside of the ship!" translation="베르디그리스가 함선 밖에서 일하는 걸 본 거 같아!"/>
+    </cutscene>
+    <cutscene id="talkred_8" explanation="">
+        <dialogue speaker="red" english="You found Professor Vitellary! All right!" translation="비텔러리 교수를 찾았구나! 잘했어!"/>
+        <dialogue speaker="red" english="We&apos;ll have this interference thing worked out in no time now!" translation="이제 금세 이 인터페이스를 고칠 수 있을 거야!"/>
+    </cutscene>
+    <cutscene id="talkred_9" explanation="">
+        <dialogue speaker="red" english="That other dimension was really strange, wasn&apos;t it?" translation="다른 차원은 정말 희한했지 않았어?"/>
+        <dialogue speaker="red" english="I wonder what caused the teleporter to send us there?" translation="뭐 때문에 텔레포터가 우릴 여기로 보냈을까?"/>
+    </cutscene>
+    <cutscene id="talkred_10" explanation="">
+        <dialogue speaker="red" english="Heya Captain!" translation="반가워 함장!"/>
+        <dialogue speaker="red" english="This way looks a little dangerous..." translation="여긴 좀 위험해 보이는데..."/>
+    </cutscene>
+    <cutscene id="talkred_11" explanation="">
+        <dialogue speaker="red" english="I&apos;m helping!" translation="도와줄게!"/>
+    </cutscene>
+    <cutscene id="talkred_12" explanation="">
+        <dialogue speaker="red" english="Hey Captain!" translation="함장!"/>
+        <dialogue speaker="red" english="I found something interesting around here - the same warp signature I saw when I landed!" translation="여기 뭔가 흥미로운 걸 발견했어. 내가 보고 착륙한 워프 신호와 같은 거야!"/>
+        <dialogue speaker="red" english="Someone from the ship must be nearby..." translation="선원 한 명이 근처에 있는 게 틀림없어..."/>
+    </cutscene>
+    <cutscene id="talkred_13" explanation="">
+        <dialogue speaker="red" english="This dimension is pretty exciting, isn&apos;t it?" translation="이 차원은 정말 흥미롭지 않아?"/>
+        <dialogue speaker="red" english="I wonder what we&apos;ll find?" translation="뭘 찾아낼 수 있을까?"/>
+    </cutscene>
+    <cutscene id="talkblue_1" explanation="">
+        <dialogue speaker="blue" english="Any signs of Professor Vitellary?" translation="비텔러리 교수의 신호는 없는 거야?"/>
+        <dialogue speaker="player" english="Sorry, not yet..." translation="미안, 아직은..."/>
+        <dialogue speaker="blue" english="I hope he&apos;s ok..." translation="괜찮으면 좋을 텐데..."/>
+    </cutscene>
+    <cutscene id="talkblue_2" explanation="">
+        <dialogue speaker="blue" english="Thanks so much for saving me, Captain!" translation="구해줘서 정말 고마워, 함장!"/>
+    </cutscene>
+    <cutscene id="talkblue_3" explanation="">
+        <dialogue speaker="blue" english="I&apos;m so glad to be back!" translation="돌아오니 정말 좋다!"/>
+        <dialogue speaker="blue" english="That lab was so dark and scary! I didn&apos;t like it at all..." translation="실험실은 정말 어둡고 무서웠어! 그런 곳은 너무 싫어..."/>
+    </cutscene>
+    <cutscene id="talkblue_4" explanation="">
+        <dialogue speaker="blue" english="Vitellary&apos;s back? I knew you&apos;d find him!" translation="비텔러리가 돌아온 거야? 찾아낼 줄 알았어!"/>
+        <dialogue speaker="blue" english="I mean, I admit I was very worried that you wouldn&apos;t..." translation="함장이 찾아내지 못할까 걱정했거든..."/>
+        <dialogue speaker="blue" english="or that something might have happened to him..." translation="사실 비텔러리한테 무슨 일이 일어났을까 걱정했어..."/>
+        <dialogue speaker="blue" english="sniff..." translation="훌쩍..."/>
+        <dialogue speaker="player" english="Doctor Victoria? He&apos;s ok!" translation="빅토리아? 비텔러리는 괜찮아!"/>
+        <dialogue speaker="blue" english="Oh! Sorry! I was just thinking about what if he wasn&apos;t?" translation="오! 미안! 만약 안 괜찮았으면 어떻게 하지 하고 걱정했어."/>
+        <dialogue speaker="blue" english="Thank you, Captain!" translation="고마워, 함장!"/>
+    </cutscene>
+    <cutscene id="talkblue_5" explanation="">
+        <dialogue speaker="blue" english="You found Vermilion! Great!" translation="버밀리온을 찾았구나! 멋져!"/>
+        <dialogue speaker="blue" english="I wish he wasn&apos;t so reckless!" translation="또 무모하게 돌아다니지 않았으면 하는데!"/>
+        <dialogue speaker="blue" english="He&apos;ll get himself into trouble..." translation="그러다 분명 다칠 거야..."/>
+    </cutscene>
+    <cutscene id="talkblue_6" explanation="">
+        <dialogue speaker="blue" english="Verdigris is ok! Violet will be so happy!" translation="베르디그리스는 괜찮아! 바이올렛이 정말 좋아할 거야!"/>
+        <dialogue speaker="blue" english="I&apos;m happy!" translation="나도 기분 좋네!"/>
+        <dialogue speaker="blue" english="Though I was very worried..." translation="걱정했거든..."/>
+    </cutscene>
+    <cutscene id="talkblue_7" explanation="">
+        <dialogue speaker="blue" english="Why did the teleporter send us to that scary dimension?" translation="왜 텔레포터가 우릴 이렇게 무서운 차원으로 보낸 걸까?"/>
+        <dialogue speaker="blue" english="What happened?" translation="무슨 일이 일어난 걸까?"/>
+        <dialogue speaker="player" english="I don&apos;t know, Doctor..." translation="모르겠어, 박사..."/>
+        <dialogue speaker="blue" english="Why?" translation="어째설까?"/>
+    </cutscene>
+    <cutscene id="talkblue_8" explanation="">
+        <dialogue speaker="blue" english="Heya Captain!" translation="반가워 함장!"/>
+        <dialogue speaker="blue" english="Are you going to try and find the rest of these shiny things?" translation="빛나는 것들을 찾아다닐 예정이야?"/>
+    </cutscene>
+    <cutscene id="talkblue_trinket1" explanation="">
+        <dialogue speaker="blue" english="Hey Captain, I found this in that lab..." translation="이봐 함장, 실험실에서 이걸 찾았는데..."/>
+        <dialogue speaker="blue" english="Any idea what it does?" translation="뭔지 혹시 알아?"/>
+        <dialogue speaker="player" english="Sorry, I don&apos;t know!" translation="미안, 나도 몰라!"/>
+        <dialogue speaker="player" english="They seem important, though..." translation="중요해 보이던데..."/>
+        <dialogue speaker="player" english="Maybe something will happen if we find them all?" translation="아마 다 찾으면 뭔가 일어나는 거 아닐까?"/>
+    </cutscene>
+    <cutscene id="talkblue_trinket2" explanation="">
+        <dialogue speaker="blue" english="Captain! Come have a look at what I&apos;ve been working on!" translation="함장! 이것 좀 봐봐!"/>
+        <dialogue speaker="blue" english="It looks like these shiny things are giving off a strange energy reading!" translation="아무래도 빛나는 것들이 기묘한 에너지를 내뿜고 있는 거 같아!"/>
+        <dialogue speaker="blue" english="So I analysed it..." translation="그래서 분석을 해봤는데..."/>
+    </cutscene>
+    <cutscene id="talkblue_trinket3" explanation="">
+        <dialogue speaker="blue" english="Captain! Come have a look at what I&apos;ve been working on!" translation="함장! 이것 좀 봐봐!"/>
+        <dialogue speaker="blue" english="I found this in that lab..." translation="실험실에서 이걸 찾았는데..."/>
+        <dialogue speaker="blue" english="It seemed to be giving off a weird energy reading..." translation="기묘한 에너지를 뿜어내던 거 같아서..."/>
+        <dialogue speaker="blue" english="So I analysed it..." translation="분석을 해봤지..."/>
+    </cutscene>
+    <cutscene id="talkblue_trinket4" explanation="">
+        <dialogue speaker="blue" english="...and I was able to find more of them with the ship&apos;s scanner!" translation="...그런데 함선의 스캐너로 이런 걸 더 찾아낼 수 있었어!"/>
+        <dialogue speaker="blue" english="If you get a chance, it might be worth finding the rest of them!" translation="혹시 시간이 남으면 나머지도 좀 찾아줄 수 있을까?"/>
+        <dialogue speaker="blue" english="Don&apos;t put yourself in any danger, though!" translation="그렇다고 위험한 곳에 들어가진 말고!"/>
+    </cutscene>
+    <cutscene id="talkblue_trinket5" explanation="">
+        <dialogue speaker="blue" english="...but it looks like you&apos;ve already found all of them in this dimension!" translation="...그런데 이미 이 차원에서 다 찾아낸 거 같네!"/>
+        <dialogue speaker="player" english="Oh? Really?" translation="오? 정말?"/>
+        <dialogue speaker="blue" english="Yeah, well done! That can&apos;t have been easy!" translation="그래, 잘했어! 정말 어려웠을 텐데!"/>
+    </cutscene>
+    <cutscene id="talkblue_trinket6" explanation="">
+        <dialogue speaker="blue" english="...and they&apos;re related. They&apos;re all a part of something bigger!" translation="...다 관련이 있었어. 모아보니 커다란 하나의 조각이 되더라고!"/>
+        <dialogue speaker="player" english="Oh? Really?" translation="오? 정말?"/>
+        <dialogue speaker="blue" english="Yeah! There seem to be twenty variations of the fundamental energy signature..." translation="그렇다니까! 기본 에너지 신호만 해도 20가지 패턴이 있었는데..."/>
+        <dialogue speaker="blue" english="Wait..." translation="잠깐..."/>
+        <dialogue speaker="blue" english="Does that mean you&apos;ve found all of them?" translation="설마 다 찾았다는 건가?"/>
+    </cutscene>
+    <cutscene id="talkyellow_1" explanation="">
+        <dialogue speaker="yellow" english="I&apos;m making some fascinating discoveries, captain!" translation="굉장한 발견을 해낸 거 같아, 함장!"/>
+    </cutscene>
+    <cutscene id="talkyellow_2" explanation="">
+        <dialogue speaker="yellow" english="This isn&apos;t like any other dimension we&apos;ve been to, Captain." translation="이 차원은 우리가 있던 그 어떤 차원과도 다른 곳이야."/>
+        <dialogue speaker="yellow" english="There&apos;s something strange about this place..." translation="이곳엔 뭔가 이상한 게 있어..."/>
+    </cutscene>
+    <cutscene id="talkyellow_3" explanation="">
+        <dialogue speaker="yellow" english="Captain, have you noticed that this dimension seems to wrap around?" translation="함장, 이 차원이 둥근 형태라는 거 알아챘어?"/>
+        <dialogue speaker="player" english="Yeah, it&apos;s strange..." translation="그래, 이상하게도 말야..."/>
+        <dialogue speaker="yellow" english="It looks like this dimension is having the same stability problems as our own!" translation="마치 이 차원이 우리 차원과 비슷할 정도로 안정성을 띄는 거 같아!"/>
+        <dialogue speaker="yellow" english="I hope we&apos;re not the ones causing it..." translation="우리가 그 원인이 아니었으면 좋겠는데..."/>
+        <dialogue speaker="player" english="What? Do you think we might be?" translation="뭐? 우리가 그 원인일 수 있다고?"/>
+        <dialogue speaker="yellow" english="No no... that&apos;s very unlikely, really..." translation="아니 아니... 그럴 가능성은 낮아. 정말로..."/>
+    </cutscene>
+    <cutscene id="talkyellow_4" explanation="">
+        <dialogue speaker="yellow" english="My guess is that whoever used to live here was experimenting with ways to stop the dimension from collapsing." translation="내 추측은 이곳에 살던 자가 차원이 무너지는 걸 막으려고 실험을 하고 있었던 거 같아."/>
+        <dialogue speaker="yellow" english="It would explain why they&apos;ve wrapped the edges..." translation="그렇다면 차원의 끝이 둥근 게 이해가 가..."/>
+        <dialogue speaker="yellow" english="Hey, maybe that&apos;s what&apos;s causing the interference?" translation="잠깐, 혹시 그거 때문에 방해 전파가 방출되는 건가?"/>
+    </cutscene>
+    <cutscene id="talkyellow_5" explanation="">
+        <dialogue speaker="yellow" english="I wonder where the people who used to live here have gone?" translation="이곳에 살던 사람들은 어디로 간 거지?"/>
+    </cutscene>
+    <cutscene id="talkyellow_6" explanation="">
+        <dialogue speaker="yellow" english="I think it&apos;s no coincidence that the teleporter was drawn to that dimension..." translation="텔레포터가 그 차원으로 끌려간 건 우연이 아닌 거 같아..."/>
+        <dialogue speaker="yellow" english="There&apos;s something there. I think it might be causing the interference that&apos;s stopping us from leaving..." translation="그 차원엔 무언가가 있어. 그 무언가가 방해 전파를 내뿜어서 우릴 떠나지 못하게 하는 거야..."/>
+    </cutscene>
+    <cutscene id="talkyellow_7" explanation="">
+        <dialogue speaker="yellow" english="I&apos;m glad Verdigris is alright." translation="베르디그리스가 무사해서 다행이야."/>
+        <dialogue speaker="yellow" english="It&apos;ll be a lot easier to find some way out of here now that we can get the ship working again!" translation="함선을 다시 작동하게 할 수 있다면 분명 여기서 나가는 게 더 쉬워질 거야!"/>
+    </cutscene>
+    <cutscene id="talkyellow_8" explanation="">
+        <dialogue speaker="yellow" english="Ah, you&apos;ve found Doctor Victoria? Excellent!" translation="아, 빅토리아 박사를 찾은 거야? 훌륭해!"/>
+        <dialogue speaker="yellow" english="I have lots of questions for her!" translation="물어볼 게 엄청 많거든!"/>
+    </cutscene>
+    <cutscene id="talkyellow_9" explanation="">
+        <dialogue speaker="yellow" english="Vermilion says that he was trapped in some sort of tunnel?" translation="버밀리온은 자기가 일종의 터널에 갇혀있었다고 했지?"/>
+        <dialogue speaker="player" english="Yeah, it just seemed to keep going and going..." translation="그래. 마치 끝없이 이어지는 터널 안에 말이지."/>
+        <dialogue speaker="yellow" english="Interesting... I wonder why it was built?" translation="흥미롭군... 왜 이런 게 만들어진 걸까?"/>
+    </cutscene>
+    <cutscene id="talkyellow_10" explanation="">
+        <dialogue speaker="yellow" english="It&apos;s good to be back!" translation="돌아오니 아주 좋은데!"/>
+        <dialogue speaker="yellow" english="I&apos;ve got so much work to catch up on..." translation="알아야 할 게 너무 많아..."/>
+    </cutscene>
+    <cutscene id="talkyellow_11" explanation="">
+        <dialogue speaker="yellow" english="I know it&apos;s probably a little dangerous to stay here now that this dimension is collapsing..." translation="이 차원이 무너지고 있으니 여기 머무는 건 좀 위험하다는 거 알지만..."/>
+        <dialogue speaker="yellow" english="...but it&apos;s so rare to find somewhere this interesting!" translation="...그래도 이렇게 흥미로운 걸 찾기는 힘들거든!"/>
+        <dialogue speaker="yellow" english="Maybe we&apos;ll find the answers to our own problems here?" translation="어쩌면 우리 문제의 해결책을 여기서 찾을 수 있을지 몰라."/>
+    </cutscene>
+    <cutscene id="talkyellow_trinket1" explanation="">
+        <dialogue speaker="yellow" english="Captain! I&apos;ve been meaning to give this to you..." translation="함장! 이걸 함장에게 주고 싶었어..."/>
+        <dialogue speaker="player" english="Professor! Where did you find this?" translation="교수! 어디서 이걸 찾은 거야?"/>
+        <dialogue speaker="yellow" english="Oh, it was just lying around that space station." translation="아, 우주 정거장 주변에 돌아다니더라고."/>
+        <dialogue speaker="yellow" english="It&apos;s a pity Doctor Victoria isn&apos;t here, she loves studying that sort of thing..." translation="빅토리아 박사가 여기 없어서 안타까워. 이런 걸 연구하길 좋아했는데..."/>
+        <dialogue speaker="player" english="Any idea what it does?" translation="이게 뭔지 혹시 알겠어?"/>
+        <dialogue speaker="yellow" english="Nope! But it is giving off a strange energy reading..." translation="아니! 그런데 뭔가 이상한 기운이 느껴져..."/>
+    </cutscene>
+    <cutscene id="talkyellow_trinket2" explanation="">
+        <dialogue speaker="yellow" english="...so I used the ship&apos;s scanner to find more of them!" translation="...그래서 함선의 스캐너를 사용해서 더 많이 찾아보려고!"/>
+        <dialogue speaker="yellow" english="...Please don&apos;t let them distract you from finding Victoria, though!" translation="...이거 때문에 빅토리아를 찾는 걸 소홀히 해선 안 돼!"/>
+        <dialogue speaker="yellow" english="I hope she&apos;s ok..." translation="무사하면 좋을 텐데..."/>
+    </cutscene>
+    <cutscene id="talkyellow_trinket3" explanation="">
+        <dialogue speaker="yellow" english="Can&apos;t seem to detect any more of them nearby, though." translation="근처에 이런 건 더 탐지되지 않아."/>
+        <dialogue speaker="yellow" english="Maybe you&apos;ve found them all?" translation="아무래도 다 찾은 거 같은데?"/>
+    </cutscene>
+    <cutscene id="finallevel_teleporter" explanation="">
+        <dialogue speaker="purple" english="Welcome back!" translation="어서 와!"/>
+        <dialogue speaker="purple" english="..." translation="..."/>
+        <dialogue speaker="purple" english="Um, where&apos;s Captain Viridian?" translation="으음, 비리디안 함장은 어디에 있어?"/>
+        <dialogue speaker="player" english="... Hello?" translation="...여보세요?"/>
+        <dialogue speaker="player" english="Is anyone there?" translation="아무도 없어요?"/>
+    </cutscene>
+    <cutscene id="terminal_finallevel" explanation="">
+        <dialogue speaker="gray" english="* DIMENSIONAL STABILITY GENERATOR *
+
+     [ Currently Generating ]
+        Maximum Stability
+
+            [ Status ]
+              Online
+
+READY _" translation="* 차원 안정성 발전기 *
+
+ [ 현재 발전 중 ]
+   최대한의 안정성
+
+    [ 상태 ]
+      온라인
+
+준비 _" tt="1"/>
+        <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="아하! 이것 때문에 방해 전파가 발산되는 거군!"/>
+        <dialogue speaker="cyan" english="I wonder if I can turn it off?" translation="이걸 끌 수 있을까?"/>
+        <dialogue speaker="gray" english="WARNING: Disabling the Dimensional Stability Generator may lead to instability! Are you sure you want to do this?" translation="경고: 차원 안정성 발전기를 비활성화 시 불안정해질 수 있습니다! 정말로 비활성화 하시겠습니까?"/>
+        <dialogue speaker="cyan" english="Yes!" translation="그래!" case="1"/>
+        <dialogue speaker="gray" english="Seriously! The whole dimension could collapse! Just think about this for a minute!
+
+Are you really sure you want to do this?" translation="경고합니다! 차원 전체가 무너질 것입니다! 한 순간만 생각을 더 해보십시오!
+
+정말로 비활성화 하시겠습니까?"/>
+        <dialogue speaker="cyan" english="Yes!" translation="그래!" case="2"/>
+    </cutscene>
+    <cutscene id="finalterminal_finish" explanation="">
+        <dialogue speaker="gray" english="-= WARNING =-
+
+DIMENSIONAL STABILISER OFFLINE" translation="-= 경고 =-
+
+차원 안정기 오프라인" centertext="1" pad="1"/>
+        <dialogue speaker="cyan" english="Uh oh..." translation="어어..."/>
+    </cutscene>
+    <cutscene id="gamecomplete" explanation="">
+        <dialogue speaker="yellow" english="Any moment now..." translation="이제 조금만 더..."/>
+    </cutscene>
+    <cutscene id="gamecomplete_ending" explanation="">
+        <dialogue speaker="player" english="Hello!" translation="안녕!"/>
+        <dialogue speaker="purple" english="Captain!" translation="함장!" case="1" pad_right="8"/>
+        <dialogue speaker="yellow" english="Captain!" translation="함장!" case="2" pad_right="6"/>
+        <dialogue speaker="red" english="Captain!" translation="함장!" case="3" pad_right="4"/>
+        <dialogue speaker="green" english="Captain!" translation="함장!" case="4" pad_right="2"/>
+        <dialogue speaker="blue" english="Captain!" translation="함장!" case="5"/>
+        <dialogue speaker="blue" english="You&apos;re alright!" translation="무사하구나!"/>
+        <dialogue speaker="blue" english="I knew you&apos;d be ok!" translation="괜찮을 줄 알았어!"/>
+        <dialogue speaker="purple" english="We were very worried when you didn&apos;t come back..." translation="돌아오지 않을 땐 정말 걱정했었어..."/>
+        <dialogue speaker="green" english="...but when you turned off the source of the interference..." translation="...하지만 함장이 그 방해 전파의 원인을 비활성화 하니까..."/>
+        <dialogue speaker="yellow" english="...we were able to find you with the ship&apos;s scanners..." translation="...함선의 스캐너로 함장을 찾아낼 수 있었어..."/>
+        <dialogue speaker="red" english="...and teleport you back on board!" translation="...그리고 다시 함장을 텔레포트 시킬 수 있었지!"/>
+        <dialogue speaker="player" english="That was lucky!" translation="운이 좋았어!"/>
+        <dialogue speaker="player" english="Thanks guys!" translation="고마워, 모두들!"/>
+        <dialogue speaker="yellow" english="...it looks like this dimension is starting to destabilise, just like our own..." translation="...이 차원이 불안정해지는 거 같아. 우리 차원처럼..."/>
+        <dialogue speaker="red" english="...we can stay and explore for a little longer, but..." translation="...조금 더 탐험할 수는 있겠지만..."/>
+        <dialogue speaker="yellow" english="...eventually, it&apos;ll collapse completely." translation="...결국엔 완전히 무너지고 말 거야."/>
+        <dialogue speaker="green" english="There&apos;s no telling exactly how long we have here. But the ship&apos;s fixed, so..." translation="우리가 여기에 계속 머물러야 할 이유는 없어. 함선도 고쳐졌으니..."/>
+        <dialogue speaker="blue" english="...as soon as we&apos;re ready, we can go home!" translation="...준비만 되면, 집에 갈 수 있을 거야!"/>
+        <dialogue speaker="purple" english="What now, Captain?" translation="이제 어쩌지, 함장?"/>
+        <dialogue speaker="player" english="Let&apos;s find a way to save this dimension!" translation="이 차원을 구할 방법을 찾아보자!"/>
+        <dialogue speaker="player" english="And a way to save our home dimension too!" translation="그리고 우리 고향 차원으로 가는 방법도 찾아보고!"/>
+        <dialogue speaker="player" english="The answer is out there, somewhere!" translation="분명 해답이 어딘가에 있을 거야!"/>
+        <dialogue speaker="player" english="Let&apos;s go!" translation="가보자!"/>
+    </cutscene>
+    <cutscene id="startepilogue" explanation="">
+        <dialogue speaker="blue" english="Wow! You found all of them!" translation="와! 전부 찾았구나!"/>
+        <dialogue speaker="player" english="Really? Great!" translation="정말? 좋았어!"/>
+        <dialogue speaker="blue" english="I&apos;ll run some tests and see if I can work out what they&apos;re for..." translation="몇 가지 테스트를 해서 용도를 한번 알아볼게..."/>
+        <dialogue speaker="player" english="That... that didn&apos;t sound good..." translation="이 소리는... 좋지 않은 거 같은데..."/>
+        <dialogue speaker="blue" english="Run!" translation="도망쳐!"/>
+        <dialogue speaker="player" english="Oh no!" translation="안 돼!"/>
+        <dialogue speaker="red" english="Not again!" translation="또 그럴 순 없어!"/>
+        <dialogue speaker="player" english="Wait! It&apos;s stopped!" translation="잠깐! 멈췄어!"/>
+        <dialogue speaker="purple" english="This is where we were storing those shiny things? What happened?" translation="여긴 우리가 빛나는 물건을 두던 곳 아니야? 무슨 일이지?"/>
+        <dialogue speaker="player" english="We were just playing with them, and..." translation="그걸로 장난 좀 치고 있었는데... 갑자기..."/>
+        <dialogue speaker="player" english="...they suddenly exploded!" translation="...갑자기 폭발했어!"/>
+        <dialogue speaker="blue" english="But look what they made! Is that a teleporter?" translation="그것보다 그게 뭐야? 텔레포터인 거야?"/>
+        <dialogue speaker="yellow" english="I think so, but..." translation="그런 거 같은데, 그보다..."/>
+        <dialogue speaker="yellow" english="I&apos;ve never seen a teleporter like that before..." translation="저런 텔레포터는 난생 처음 보는 거 같아..."/>
+        <dialogue speaker="red" english="We should investigate!" translation="한번 조사를 해보자!"/>
+        <dialogue speaker="purple" english="What do you think, Captain?" translation="어떻게 생각해, 함장?"/>
+        <dialogue speaker="purple" english="Should we find out where it leads?" translation="어디로 이어지는지 한번 알아볼까?"/>
+        <dialogue speaker="player" english="Let&apos;s go!" translation="가보자!"/>
+        <dialogue speaker="blue" english="Oh no! We&apos;re trapped!" translation="안 돼! 갇혔어!"/>
+        <dialogue speaker="yellow" english="Oh dear..." translation="이런..."/>
+        <dialogue speaker="player" english="Hmm... how should we get out of this?" translation="흐음..."/>
+        <dialogue speaker="player" english="COMBINE!" translation="합쳐져라!" case="1"/>
+        <dialogue speaker="purple" english="COMBINE!" translation="합쳐져라!" case="2"/>
+        <dialogue speaker="yellow" english="COMBINE!" translation="합쳐져라!" case="3"/>
+        <dialogue speaker="red" english="COMBINE!" translation="합쳐져라!" case="4"/>
+        <dialogue speaker="green" english="COMBINE!" translation="합쳐져라!" case="5"/>
+        <dialogue speaker="blue" english="COMBINE!" translation="합쳐져라!" case="6"/>
+        <dialogue speaker="purple" english="Or, you know... we could have just warped back to the ship..." translation="아니면... 그냥 함선으로 돌아가도..."/>
+        <dialogue speaker="green" english="Wow! What is this?" translation="우와! 이게 뭐지?"/>
+        <dialogue speaker="yellow" english="It looks like another laboratory!" translation="또 다른 실험실 같은데!"/>
+        <dialogue speaker="red" english="Let&apos;s have a look around!" translation="한번 둘러보자!"/>
+    </cutscene>
+    <cutscene id="talkpurple_9" explanation="">
+        <dialogue speaker="purple" english="Look at all this research! This is going to be a big help back home!" translation="이 연구 좀 봐! 집에 돌아가는 데 큰 도움이 되겠어!"/>
+    </cutscene>
+    <cutscene id="talkgreen_11" explanation="">
+        <dialogue speaker="green" english="I wonder why they abandoned this dimension? They were so close to working out how to fix it..." translation="왜 이 차원을 버린 거지? 이 차원 고치는 법을 거의 다 알아낸 거 같은데..."/>
+        <dialogue speaker="green" english="Maybe we can fix it for them? Maybe they&apos;ll come back?" translation="어쩌면 우리가 고쳐줄 수 있을지도 몰라. 그러면 이 사람들이 돌아오지 않을까?"/>
+    </cutscene>
+    <cutscene id="talkblue_9" explanation="">
+        <dialogue speaker="blue" english="This lab is amazing! The scientists who worked here know a lot more about warp technology than we do!" translation="이 실험실 정말 굉장해! 여기서 작업하던 과학자들은 우리보다 워프 기술에 대해 더 많이 알고 있던 거 같아!"/>
+    </cutscene>
+    <cutscene id="talkyellow_12" explanation="">
+        <dialogue speaker="yellow" english="Captain! Have you seen this?" translation="함장! 이거 봤어?"/>
+        <dialogue speaker="yellow" english="With their research and ours, we should be able to stabilise our own dimension!" translation="이 사람들의 연구와 우리 연구를 합치면 우리 차원을 안정화 할 수 있을 거야!"/>
+        <dialogue speaker="yellow" english="We&apos;re saved!" translation="우린 살았어!"/>
+    </cutscene>
+    <cutscene id="talkred_14" explanation="super gravitron (difficult minigame)">
+        <dialogue speaker="red" english="Look what I found!" translation="이것 좀 봐!"/>
+        <dialogue speaker="red" english="It&apos;s pretty hard, I can only last for about 10 seconds..." translation="꽤 어렵네. 10초밖에 못 버티겠어..."/>
+    </cutscene>
+    <cutscene id="terminal_jukebox" explanation="">
+        <dialogue speaker="gray" english="-= JUKEBOX =-
+
+Songs will continue to play until you leave the ship.
+
+Collect trinkets to unlock new songs!" translation="-= 주크박스 =-
+
+함선을 떠나기 전까지 곡이 재생됩니다.
+
+장신구를 모아 더 많은 곡을 해금해보세요!" centertext="1" padtowidth="264"/>
+    </cutscene>
+    <cutscene id="terminal_jukeunlock1" explanation="">
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+5 Trinkets
+
+Pushing Onwards" translation="다음 해금:
+장신구 5개
+
+Pushing Onwards" tt="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_jukeunlock2" explanation="">
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+8 Trinkets
+
+Positive Force" translation="다음 해금:
+장신구 8개
+
+Positive Force" tt="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_jukeunlock3" explanation="">
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+10 Trinkets
+
+Presenting VVVVVV" translation="다음 해금:
+장신구 10개
+
+Presenting VVVVVV" tt="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_jukeunlock4" explanation="">
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+12 Trinkets
+
+Potential for Anything" translation="다음 해금:
+장신구 12개
+
+Potential for Anything" tt="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_jukeunlock41" explanation="">
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+14 Trinkets
+
+Pressure Cooker" translation="다음 해금:
+장신구 14개
+
+Pressure Cooker" tt="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_jukeunlock5" explanation="">
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+16 Trinkets
+
+Predestined Fate" translation="다음 해금:
+장신구 16개
+
+Predestined Fate" tt="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_jukeunlock6" explanation="">
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+18 Trinkets
+
+Popular Potpourri" translation="다음 해금:
+장신구 18개
+
+Popular Potpourri" tt="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_jukeunlock7" explanation="">
+        <dialogue speaker="gray" english="NEXT UNLOCK:
+20 Trinkets
+
+Pipe Dream" translation="다음 해금:
+장신구 20개
+
+Pipe Dream" tt="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_station_1" explanation="">
+        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= 개인 일지 =-" padtowidth="280"/>
+        <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="이제 대부분이 우주 정거장에서 탈출했다. 남은 우리도 며칠 뒤에 떠날 것이다. 연구가 완료되면 말이다." pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_station_2" explanation="">
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 연구 노트 =-" padtowidth="264"/>
+        <dialogue speaker="gray" english="...everything collapses, eventually. It&apos;s the way of the universe." translation="...모든 건 결국 사라진다. 그것이 우주의 법칙이다." centertext="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_station_3" explanation="">
+        <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="극점 차원에 설치한 발전기가 우리의 텔레포터에 영향을 끼치는 걸까?"/>
+        <dialogue speaker="gray" english="No, it&apos;s probably just a glitch." translation="아니, 분명 오류 때문이겠지."/>
+    </cutscene>
+    <cutscene id="terminal_station_4" explanation="a trinket that&apos;s difficult to get">
+        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= 개인 일지 =-" padtowidth="280"/>
+        <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="하! 아무도 이건 못 얻겠지." pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_warp_1" explanation="">
+        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="...며칠 전에는 &quot;피하시오&quot;라고 글이 적힌 거대한 정육면체에 쫓기고 있었다."/>
+        <dialogue speaker="gray" english="These security measures go too far!" translation="보안 수준이 너무하잖아!"/>
+    </cutscene>
+    <cutscene id="terminal_warp_2" explanation="">
+        <dialogue speaker="gray" english="The only way into my private lab anymore is by teleporter." translation="내 개인 실험실로 갈 수 있는 유일한 방법은 텔레포터를 통해서 뿐이다."/>
+        <dialogue speaker="gray" english="I&apos;ve made sure that it&apos;s difficult for unauthorised personnel to gain access." translation="허가받지 않은 사람은 접근하기 어렵게 해뒀다."/>
+    </cutscene>
+    <cutscene id="terminal_outside_1" explanation="">
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 연구 노트 =-" padtowidth="264"/>
+        <dialogue speaker="gray" english="... our first breakthrough was the creation of the inversion plane, which creates a mirrored dimension beyond a given event horizon ..." translation="...우리의 첫 번째 대발명은 사건의 지평선 너머로 거울 차원을 만들어내는 역전 차원을 만들어낸 것이다..." pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_outside_2" explanation="">
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 연구 노트 =-" padtowidth="264"/>
+        <dialogue speaker="gray" english="...with just a small modification to the usual parameters, we were able to stabilise an infinite tunnel!" translation="...일반 파라미터에 소량의 변화를 준 것뿐인데, 무한 터널을 안정화 하는 데 성공했다!"/>
+    </cutscene>
+    <cutscene id="terminal_outside_3" explanation="">
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 연구 노트 =-" padtowidth="264"/>
+        <dialogue speaker="gray" english="... the final step in creating the dimensional stabiliser was to create a feedback loop ..." translation="...차원 안정기를 만들어내는 마지막 방법은 피드백 회로를 만들어내는 것이다..." pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_outside_4" explanation="">
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 연구 노트 =-" padtowidth="264"/>
+        <dialogue speaker="gray" english="...despite our best efforts, the dimensional stabiliser won&apos;t hold out forever. Its collapse is inevitable..." translation="...모든 노력을 다 했지만, 치원 안정기는 영원히 지속되지 않을 것이다. 몰락은 피할 수 없다..." pad="1"/>
+        <dialogue speaker="cyan" english="Huh? These coordinates aren&apos;t even in this dimension!" translation="응? 이 좌표는 이 차원의 것이 아닌데!"/>
+    </cutscene>
+    <cutscene id="terminal_outside_5" explanation="">
+        <dialogue speaker="gray" english="-= Personal Log =-" translation="-= 개인 일지 =-" padtowidth="232"/>
+        <dialogue speaker="gray" english="... I&apos;ve had to seal off access to most of our research. Who knows what could happen if it fell into the wrong hands? ..." translation="...우리 연구 대부분에 접근을 제한해 두었다. 우리 연구가 잘못된 이의 손에 들어가면 어떻게 될지 누가 아는가? ..." centertext="1" pad="1"/>
+    </cutscene>
+    <cutscene id="terminal_outside_6" explanation="">
+        <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 연구 노트 =-" padtowidth="264"/>
+        <dialogue speaker="gray" english="... access to the control center is still possible through the main atmospheric filters ..." translation="...중앙 관제는 아직 메인 공기 필터를 통해서 갈 수 있다..."/>
+    </cutscene>
+    <cutscene id="terminal_lab_1" explanation="">
+        <dialogue speaker="gray" english="... it turns out the key to stabilising this dimension was to create a balancing force outside of it!" translation="...이 차원을 안정화 하는 가장 중요한 건 차원 외부에 균형을 잡아주는 인력을 만드는 것으로 드러났다!"/>
+        <dialogue speaker="gray" english="Though it looks like that&apos;s just a temporary solution, at best." translation="아무리 봐도 일시적인 해결책으로만 보이지만 말이다."/>
+        <dialogue speaker="gray" english="I&apos;ve been working on something more permanent, but it seems it&apos;s going to be too late..." translation="보다 영구적으로 지속되는 걸 작업하고 있었지만, 아무래도 너무 늦을 거 같다..."/>
+    </cutscene>
+    <cutscene id="terminal_lab_2" explanation="">
+        <dialogue speaker="gray" english="?SYNTAX  ERROR" translation="?문법 오류"/>
+    </cutscene>
+    <cutscene id="terminal_letsgo" explanation="">
+        <dialogue speaker="player" english="Now that the ship is fixed, we can leave anytime we want!" translation="이제 함선이 고쳐졌으니, 언제든 떠날 수 있어!"/>
+        <dialogue speaker="player" english="We&apos;ve all agreed to keep exploring this dimension, though." translation="계속 이 차원을 탐험하기로 했지만 말이야."/>
+        <dialogue speaker="player" english="Who knows what we&apos;ll find?" translation="뭘 찾아낼 수 있을까?"/>
+    </cutscene>
+    <cutscene id="terminal_radio" explanation="">
+        <dialogue speaker="gray" english="-= SHIP RADIO =-
+
+[ Status ]
+Broadcasting" translation="-= 함선 라디오 =-
+
+[ 상태 ]
+방송 중" tt="1" centertext="1" pad="2"/>
+    </cutscene>
+    <cutscene id="terminal_secretlab" explanation="">
+        <dialogue speaker="gray" english="-= WARNING =-
+
+The Super-Gravitron is intended for entertainment purposes only." translation="-= 경고 =-
+
+슈퍼 그라비트론은 오직 재미만을 위한 것입니다." centertext="1" pad="1"/>
+        <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="누구든 교육용 목적으로 슈퍼 그라비트론을 사용하는 걸 찾은 사람은 말 안 듣는 사람 의자에 앉아주세요."/>
+    </cutscene>
+    <cutscene id="terminal_shipcomputer" explanation="">
+        <dialogue speaker="gray" english="-= D.S.S. SOULEYE =-
+
+Ship Navigation Controls" translation="-= D.S.S. 소울아이 =-
+
+함선 항행 조작" centertext="1" pad="1"/>
+        <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation="오류! 오류! 차원 좌표를 분리할 수 없음! 방해 전파 탐지됨!"/>
+    </cutscene>
+    <cutscene id="alreadyvisited" explanation="">
+        <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="...오, 이미 찾은 거네."/>
+    </cutscene>
+    <cutscene id="disableaccessibility" explanation="">
+        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="슈퍼 그래비톤에 들어가기 전에 무적 모드나 감속 모드를 비활성화 해줘."/>
+    </cutscene>
+</cutscenes>
