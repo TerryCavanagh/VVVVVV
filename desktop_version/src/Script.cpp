@@ -55,6 +55,7 @@ scriptclass::scriptclass(void)
     textbuttons = false;
     textlarge = false;
     textbox_sprites.clear();
+    textbox_image = TEXTIMAGE_NONE;
 }
 
 void scriptclass::add_default_colours(void)
@@ -507,6 +508,7 @@ void scriptclass::run(void)
                 textpadtowidth = 0;
                 textboxtimer = 0;
                 textbox_sprites.clear();
+                textbox_image = TEXTIMAGE_NONE;
 
                 translate_dialogue();
             }
@@ -686,6 +688,21 @@ void scriptclass::run(void)
                 sprite.col = ss_toi(words[4]);
                 textbox_sprites.push_back(sprite);
             }
+            else if (words[0] == "textimage")
+            {
+                if (words[1] == "levelcomplete")
+                {
+                    textbox_image = TEXTIMAGE_LEVELCOMPLETE;
+                }
+                else if (words[1] == "gamecomplete")
+                {
+                    textbox_image = TEXTIMAGE_GAMECOMPLETE;
+                }
+                else
+                {
+                    textbox_image = TEXTIMAGE_NONE;
+                }
+            }
             else if (words[0] == "flipme")
             {
                 textflipme = !textflipme;
@@ -721,6 +738,8 @@ void scriptclass::run(void)
                 {
                     graphics.addsprite(textbox_sprites[i].x, textbox_sprites[i].y, textbox_sprites[i].tile, textbox_sprites[i].col);
                 }
+
+                graphics.setimage(textbox_image);
 
                 // Some textbox formatting that can be set by translations...
                 if (textcentertext)

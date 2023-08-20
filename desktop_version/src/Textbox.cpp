@@ -30,6 +30,8 @@ textboxclass::textboxclass(void)
     fill_buttons = false;
 
     sprites.clear();
+
+    image = TEXTIMAGE_NONE;
 }
 
 void textboxclass::addsprite(int x, int y, int tile, int col)
@@ -40,6 +42,11 @@ void textboxclass::addsprite(int x, int y, int tile, int col)
     sprite.tile = tile;
     sprite.col = col;
     sprites.push_back(sprite);
+}
+
+void textboxclass::setimage(TextboxImage new_image)
+{
+    image = new_image;
 }
 
 void textboxclass::centerx(void)

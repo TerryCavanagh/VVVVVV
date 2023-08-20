@@ -695,12 +695,13 @@ void Game::savecustomlevelstats(void)
 
 void Game::levelcomplete_textbox(void)
 {
-    graphics.createtextboxflipme("", -1, 12, 165, 165, 255);
+    graphics.createtextboxflipme("", -1, 12, TEXT_COLOUR("cyan"));
     graphics.addline("                                    ");
     graphics.addline("");
     graphics.addline("");
     graphics.textboxprintflags(PR_FONT_8X8);
     graphics.textboxcenterx();
+    graphics.setimage(TEXTIMAGE_LEVELCOMPLETE);
 }
 
 void Game::crewmate_textbox(const int color)
@@ -2901,12 +2902,13 @@ void Game::updatestate(void)
             setstatedelay(75);
             music.play(Music_PLENARY);
 
-            graphics.createtextboxflipme("", -1, 12, 164, 165, 255);
+            graphics.createtextboxflipme("", -1, 12, TEXT_COLOUR("cyan"));
             graphics.addline("                                    ");
             graphics.addline("");
             graphics.addline("");
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
+            graphics.setimage(TEXTIMAGE_GAMECOMPLETE);
             break;
         case 3502:
         {

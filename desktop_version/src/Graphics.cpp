@@ -883,7 +883,7 @@ void Graphics::drawgui(void)
             continue;
         }
 
-        if (textboxes[i].yp == 12 && textboxes[i].r == 165)
+        if (textboxes[i].image == TEXTIMAGE_LEVELCOMPLETE)
         {
             // Level complete
             const char* english = "Level Complete!";
@@ -920,7 +920,7 @@ void Graphics::drawgui(void)
                 }
             }
         }
-        else if (textboxes[i].yp == 12 && textboxes[i].g == 165)
+        else if (textboxes[i].image == TEXTIMAGE_GAMECOMPLETE)
         {
             // Game complete
             const char* english = "Game Complete!";
@@ -1367,6 +1367,17 @@ void Graphics::addsprite(int x, int y, int tile, int col)
     }
 
     textboxes[m].addsprite(x, y, tile, col);
+}
+
+void Graphics::setimage(TextboxImage image)
+{
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("setimage() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].setimage(image);
 }
 
 void Graphics::addline( const std::string& t )

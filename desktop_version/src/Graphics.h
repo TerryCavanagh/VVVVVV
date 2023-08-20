@@ -124,6 +124,8 @@ public:
 
     void addsprite(int x, int y, int tile, int col);
 
+    void setimage(TextboxImage image);
+
     void textboxremove(void);
 
     void textboxremovefast(void);
