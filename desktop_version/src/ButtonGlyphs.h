@@ -17,6 +17,8 @@ bool BUTTONGLYPHS_keyboard_is_available(void);
 bool BUTTONGLYPHS_keyboard_is_active(void);
 void BUTTONGLYPHS_keyboard_set_active(bool active);
 
+void BUTTONGLYPHS_update_layout(Uint16 vendor, Uint16 product);
+
 const char* BUTTONGLYPHS_get_wasd_text(void);
 const char* BUTTONGLYPHS_get_button(ActionSet actionset, Action action, int binding);
 

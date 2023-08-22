@@ -167,6 +167,44 @@ void BUTTONGLYPHS_keyboard_set_active(bool active)
     keyboard_is_active = active;
 }
 
+void BUTTONGLYPHS_update_layout(Uint16 vendor, Uint16 product)
+{
+    if (vendor == 0x054c)
+    {
+        layout = LAYOUT_PLAYSTATION;
+    }
+    else if (vendor == 0x28de)
+    {
+        layout = LAYOUT_DECK;
+    }
+    else if (vendor == 0x057e)
+    {
+        if (product == 0x2006)
+        {
+            layout = LAYOUT_NINTENDO_SWITCH_JOYCON_L;
+        }
+        else if (product == 0x2007)
+        {
+            layout = LAYOUT_NINTENDO_SWITCH_JOYCON_R;
+        }
+        else
+        {
+            layout = LAYOUT_NINTENDO_SWITCH_PRO;
+        }
+    }
+    else if (vendor == 0x2dc8) /* 8BitDo */
+    {
+        layout = LAYOUT_NINTENDO_SWITCH_PRO;
+    }
+    else
+    {
+        /* For now we assume Xbox (0x045e), Generic will be used when
+         * migrating to SDL_ActionSet
+         */
+        layout = LAYOUT_XBOX;
+    }
+}
+
 const char* BUTTONGLYPHS_get_wasd_text(void)
 {
     /* Returns the string to use in Welcome Aboard */
