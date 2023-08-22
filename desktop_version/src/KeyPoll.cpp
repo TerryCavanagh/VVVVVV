@@ -144,6 +144,7 @@ void KeyPoll::Poll(void)
     bool hidemouse = false;
     bool altpressed = false;
     bool fullscreenkeybind = false;
+    SDL_GameController *controller = NULL;
     SDL_Event evt;
     while (SDL_PollEvent(&evt))
     {
@@ -276,6 +277,12 @@ void KeyPoll::Poll(void)
         case SDL_CONTROLLERBUTTONDOWN:
             buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = true;
             BUTTONGLYPHS_keyboard_set_active(false);
+
+            controller = controllers[evt.cbutton.which];
+            BUTTONGLYPHS_update_layout(
+                SDL_GameControllerGetVendor(controller),
+                SDL_GameControllerGetProduct(controller)
+            );
             break;
         case SDL_CONTROLLERBUTTONUP:
             buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = false;
@@ -309,26 +316,36 @@ void KeyPoll::Poll(void)
                 break;
             }
             BUTTONGLYPHS_keyboard_set_active(false);
+
+            controller = controllers[evt.caxis.which];
+            BUTTONGLYPHS_update_layout(
+                SDL_GameControllerGetVendor(controller),
+                SDL_GameControllerGetProduct(controller)
+            );
             break;
         }
         case SDL_CONTROLLERDEVICEADDED:
         {
-            SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);
+            controller = SDL_GameControllerOpen(evt.cdevice.which);
             vlog_info(
                 "Opened SDL_GameController ID #%i, %s",
                 evt.cdevice.which,
-                SDL_GameControllerName(toOpen)
+                SDL_GameControllerName(controller)
             );
-            controllers[SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(toOpen))] = toOpen;
+            controllers[SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(controller))] = controller;
             BUTTONGLYPHS_keyboard_set_active(false);
+            BUTTONGLYPHS_update_layout(
+                SDL_GameControllerGetVendor(controller),
+                SDL_GameControllerGetProduct(controller)
+            );
             break;
         }
         case SDL_CONTROLLERDEVICEREMOVED:
         {
-            SDL_GameController *toClose = controllers[evt.cdevice.which];
+            controller = controllers[evt.cdevice.which];
             controllers.erase(evt.cdevice.which);
-            vlog_info("Closing %s", SDL_GameControllerName(toClose));
-            SDL_GameControllerClose(toClose);
+            vlog_info("Closing %s", SDL_GameControllerName(controller));
+            SDL_GameControllerClose(controller);
             if (controllers.empty())
             {
                 BUTTONGLYPHS_keyboard_set_active(true);
