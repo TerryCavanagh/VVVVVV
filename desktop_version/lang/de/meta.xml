@@ -9,10 +9,10 @@
     <credit>Deutsche Übersetzung von Thomas Faust</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
-    <action_hint>Drücke die Leertaste, Z oder V zur Auswahl</action_hint>
+    <action_hint>Mit Leertaste, Z oder V auswählen</action_hint>
 
     <!-- Same as above, but for a gamepad button (hard limit 40 8x8 characters) -->
-    <gamepad_hint>Press {button} to select</gamepad_hint>
+    <gamepad_hint>Drücke {button} zur Auswahl</gamepad_hint>
 
     <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
     <autowordwrap>1</autowordwrap>
