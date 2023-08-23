@@ -1918,9 +1918,14 @@ void mapclass::loadlevel(int rx, int ry)
                 }
 
                 obj.createentity(ex, usethisy + 8, 20 + SDL_clamp(ent.p2, 0, 1), usethistile);
-                if (obj.customscript != "")
+
+                for (size_t i = 0; i < script.customscripts.size(); i++)
                 {
-                    obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
+                    if (script.customscripts[i].name == obj.customscript)
+                    {
+                        obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
+                        break;
+                    }
                 }
                 break;
             }
