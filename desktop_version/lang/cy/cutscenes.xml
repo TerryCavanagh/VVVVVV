@@ -26,7 +26,7 @@
         <dialogue speaker="cyan" english="Oh no!" translation="O na!"/>
         <dialogue speaker="purple" english="I&apos;m on the ship - it&apos;s damaged badly, but it&apos;s still intact!" translation="Rydw i ar y llong - mae wedi&apos;i difrodi&apos;n ddrwg, ond mae&apos;n dal yn gyfan!"/>
         <dialogue speaker="purple" english="Where are you, Captain?" translation="Ble wyt ti, Capten?"/>
-        <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="Rydw i ar ryw fath o orsaf ofod... Mae&apos;n ymddangos yn eithaf modern ..."/>
+        <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="Rydw i ar ryw fath o orsaf ofod... Mae&apos;n ymddangos yn eithaf modern..."/>
         <dialogue speaker="purple" english="There seems to be some sort of interference in this dimension..." translation="Mae&apos;n ymddangos bod rhyw fath o ymyrraeth yn y dimensiwn hwn..."/>
         <dialogue speaker="purple" english="I&apos;m broadcasting the coordinates of the ship to you now." translation="Rwy&apos;n darlledu cyfesurynnau&apos;r llong i ti nawr."/>
         <dialogue speaker="purple" english="I can&apos;t teleport you back, but..." translation="Ni allaf eich teleportio yn ôl, ond ..."/>
@@ -80,7 +80,7 @@
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Rwy&apos;n teimlo dan straen, Doctor."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Ble ydw i&apos;n dechrau?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Cofiwch y gallet ti wasgu ENTER i wirio ble wyt ti ar y map!"/>
-        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="" buttons="1"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="Cofiwch y gallet ti wasgu {b_map} i wirio ble wyt ti ar y map!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Chwiliwch am feysydd lle gallai gweddill y criw fod..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Os wyt ti&apos;n mynd ar goll, gallet ti fynd yn ôl i&apos;r llong o unrhyw deleporter."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="A pheidiwch â phoeni! Byddwn yn dod o hyd i bawb!"/>

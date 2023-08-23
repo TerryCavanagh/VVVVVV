@@ -38,8 +38,8 @@
     <string english="ERROR: This level has no start point!" translation="GWALL: Nid oes gan y lefel hon fan cychwyn!" explanation="" max="38*5"/>
     <string english="ERROR" translation="GWALL" explanation="title" max="20"/>
     <string english="WARNING" translation="RHYBUDD" explanation="title" max="20"/>
-    <string english="unlock play modes" translation="datgloi dulliau chwarae" explanation="menu option"/>
-    <string english="Unlock Play Modes" translation="Datgloi Dulliau Chwarae" explanation="title" max="20"/>
+    <string english="unlock play modes" translation="datgloi dull chwarae" explanation="menu option"/>
+    <string english="Unlock Play Modes" translation="Datgloi Dull Chwarae" explanation="title" max="20"/>
     <string english="Unlock parts of the game normally unlocked as you progress." translation="Datgloi rhannau o&apos;r gêm sydd fel arfer wedi&apos;u datgloi wrth i chi symud ymlaen." explanation="" max="38*5"/>
     <string english="From here, you may unlock parts of the game that are normally unlocked as you play." translation="O&apos;r fan hon, gallwch ddatgloi rhannau o&apos;r gêm sydd fel arfer yn cael eu datgloi wrth i chi chwarae." explanation="" max="38*5"/>
     <string english="unlock ship jukebox" translation="datgloi jiwcbocs llong" explanation="menu option"/>
@@ -158,7 +158,7 @@
     <string english="open lang folder" translation="agor ffolder lang" explanation="menu option. Button that opens the folder with language files (which is called lang) in a file explorer"/>
     <string english="Sync all language files after adding new strings." translation="Cysoni pob ffeil iaith ar ôl ychwanegu llinynnau newydd." explanation="" max="38*6"/>
     <string english="translate room names" translation="cyfieithu enwau ystafelloedd" explanation="menu option"/>
-    <string english="Translate rooms" translation="Cyfieithu ystafelloedd" explanation="title" max="20"/>
+    <string english="Translate rooms" translation="Cyfieithu ystafell" explanation="title" max="20"/>
     <string english="Enable room name translation mode, so you can translate room names in context. Press I for invincibility." translation="Galluogi modd cyfieithu enw ystafell, fel y gallwch chi gyfieithu enwau ystafelloedd yn eu cyd-destun. Pwyswch I am anorchfygolrwydd." explanation="" max="38*4"/>
     <string english="You have not enabled room name translation mode!" translation="Nid ydych wedi galluogi modd cyfieithu enw ystafell!" explanation="" max="38*4"/>
     <string english="menu test" translation="prawf dewislen" explanation="menu option"/>
@@ -213,8 +213,8 @@
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Toglo a ydych chi&apos;n rhyngweithio ag anogwyr gan ddefnyddio ENTER neu E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
-    <string english="ESC" translation="" explanation="keyboard key ESC"/>
-    <string english="ACTION" translation="" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
+    <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="ACTION" translation="GWEITHREDU" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Botwm rhyngweithio: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="sgrin llwyth ffug" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Sgrin Llwyth Ffug" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
@@ -289,8 +289,8 @@
     <string english="Time Trials" translation="Treialon Amser" explanation="title" max="20"/>
     <string english="Replay any level in the game in a competitive time trial mode." translation="Ailchwarae unrhyw lefel yn y gêm mewn modd treial amser cystadleuol." explanation="" max="38*4"/>
     <string english="Time Trials are not available with slowdown or invincibility." translation="Nid yw Treialon Amser ar gael gydag arafwch neu anorchfygolrwydd." explanation="" max="38*3"/>
-    <string english="unlock time trials" translation="datgloi treialon amser" explanation="menu option"/>
-    <string english="Unlock Time Trials" translation="Datgloi Treialon Amser" explanation="title" max="20"/>
+    <string english="unlock time trials" translation="datgloi treial amser" explanation="menu option"/>
+    <string english="Unlock Time Trials" translation="Datgloi Treial Amser" explanation="title" max="20"/>
     <string english="You can unlock each time trial separately." translation="Gallwch ddatgloi pob treial amser ar wahân." explanation="" max="38*5"/>
     <string english="intermissions" translation="ysbeidiau" explanation="menu option"/>
     <string english="Intermissions" translation="Ysbeidiau" explanation="title" max="20"/>
@@ -423,14 +423,14 @@
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Ydych chi&apos;n siŵr eich bod am ddangos y llwybr lefelau? Gall hyn ddatgelu gwybodaeth sensitif os ydych yn ffrydio." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Llwybr y lefelau yw:" explanation="" max="40"/>
     <string english="[ Press ACTION to Start ]" translation="[ Pwyswch GWEITHREDU i Gychwyn ]" explanation="***OUTDATED***" max="38*2"/>
-    <string english="[ Press {button} to Start ]" translation="" explanation="title screen. Expect `ACTION`" max="38*2"/>
+    <string english="[ Press {button} to Start ]" translation="[ Pwyswch {button} i Gychwyn ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="GWEITHREDU = Bylchwr, Z, neu V" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="[ENTER i ddychwelyd i&apos;r golygydd]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to return to editor]" translation="" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="[Press {button} to return to editor]" translation="[{button} i ddychwelyd i&apos;r golygydd]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="- Pwyswch GWEITHREDU i symud testun -" explanation="***OUTDATED***" max="40"/>
-    <string english="- Press {button} to advance text -" translation="" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="- Press {button} to advance text -" translation="- Pwyswch {button} i sgipio&apos;r testun -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="Pwyswch GWEITHREDU i barhau" explanation="***OUTDATED***" max="34"/>
-    <string english="Press {button} to continue" translation="" explanation="Expect `ACTION`" max="34"/>
+    <string english="Press {button} to continue" translation="Pwyswch {button} i barhau" explanation="Expect `ACTION`" max="34"/>
     <string english="Current Time" translation="Amser Presennol" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Amser Gorau" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Troffi nesaf ar 5 eiliad" explanation="" max="38*2"/>
@@ -443,7 +443,7 @@
     <string english="New Record!" translation="Record Newydd!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Tlws Newydd!" explanation="" max="20"/>
     <string english="[Press ENTER to stop]" translation="[Pwyswch ENTER i stopio]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to stop]" translation="" explanation="stop super gravitron" max="40"/>
+    <string english="[Press {button} to stop]" translation="[Pwyswch {button} i stopio]" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="DISGYRCHATRON SWPER" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="SGÔR UCHAF DISGYRCHATRON" explanation="" max="38*4"/>
     <string english="MAP" translation="MAP" explanation="in-game menu" max="8"/>
@@ -457,7 +457,7 @@
     <string english="[ GRAVITRON ]" translation="[ DISGYRCHATRON ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="DIM SIGNAL" explanation="map screen. So like a TV/computer monitor" max="29"/>
     <string english="Press ACTION to warp to the ship." translation="Pwyswch GWEITHREDU i warpio i&apos;r llong." explanation="***OUTDATED***" max="38*7"/>
-    <string english="Press {button} to warp to the ship." translation="" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
+    <string english="Press {button} to warp to the ship." translation="Pwyswch {button} i warpio i&apos;r llong." explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
     <string english="Missing..." translation="Ar goll..." case="1" explanation="this male crew member is missing" max="15"/>
     <string english="Missing..." translation="Ar goll..." case="2" explanation="this female crew member is missing" max="15"/>
     <string english="Missing..." translation="Ar goll..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
@@ -471,8 +471,8 @@
     <string english="ERROR: Could not save game!" translation="GWALL: Methu arbed y gêm!" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="GWALL: Methu arbed ffeil gosodiadau!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Gêm wedi&apos;i harbed yn iawn!" explanation="in-game menu" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Pwyswch GWEITHREDU i achub eich gêm]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to save your game]" translation="" explanation="in-game menu. Expect `ACTION`" max="40"/>
+    <string english="[Press ACTION to save your game]" translation="[Pwyswch GWEITHREDU i arbed eich gêm]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to save your game]" translation="[Pwyswch {button} i arbed eich gêm]" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Sylwer: Mae&apos;r gêm yn cael ei arbed yn awtomatig ym mhob teleporter.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Arbed olaf:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Dychwelyd i&apos;r brif ddewislen?" explanation="in-game menu" max="38*4"/>
@@ -500,7 +500,7 @@
     <string english="Press {button} to activate terminal" translation="Pwyswch {button} i actifadu terfynell" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="Pwyswch {button} i actifadu terfynellau" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Pwyswch {button} i ryngweithio" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="- Press {button} to skip -" translation="" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
+    <string english="- Press {button} to skip -" translation="- Pwyswch {button} i sgipio -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
     <string english="Passion for Exploring" translation="Angerdd dros Archwilio" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Pushing Onwards" translation="Gwthio Ymlaen" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Positive Force" translation="Grym Cadarnhaol" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
@@ -510,7 +510,7 @@
     <string english="Pipe Dream" translation="Breuddwyd Pib" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Popular Potpourri" translation="Potpourri poblogaidd" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Pressure Cooker" translation="Popty Pwysau" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="loahnradaC myrG" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Gosodiadau Map" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="golygu sgriptiau" explanation="level editor menu option"/>
     <string english="change music" translation="newid cerddoriaeth" explanation="level editor menu option"/>
@@ -524,28 +524,28 @@
     <string english="change author" translation="newid awdur" explanation="level editor menu option"/>
     <string english="change description" translation="newid disgrifiad" explanation="level editor menu option"/>
     <string english="change website" translation="newid gwefan" explanation="level editor menu option"/>
-    <string english="change font" translation="" explanation="level editor menu option"/>
-    <string english="Level Font" translation="" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
-    <string english="Select the language in which the text in this level is written." translation="" explanation="" max="38*3"/>
-    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="14"/>
+    <string english="change font" translation="newid ffont" explanation="level editor menu option"/>
+    <string english="Level Font" translation="Ffont Lefel" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
+    <string english="Select the language in which the text in this level is written." translation="Dewiswch yr iaith y mae&apos;r testun ar y lefel hon wedi&apos;i ysgrifennu ynddi." explanation="" max="38*3"/>
+    <string english="Font: " translation="Ffont: " explanation="level options, followed by name of font (mind the space)" max="14"/>
     <string english="Map Music" translation="Cerddoriaeth Map" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Cerddoriaeth map cyfredol:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="Dim cerddoriaeth gefndirol" explanation="editor, level starts with no song playing" max="38*2"/>
-    <string english="1: Pushing Onwards" translation="1: Pushing Onwards" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="2: Positive Force" translation="2: Positive Force" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="3: Potential for Anything" translation="3: Potential for Anything" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="4: Passion for Exploring" translation="4: Passion for Exploring" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="1: Pushing Onwards" translation="1: Gwthio Ymlaen" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="2: Positive Force" translation="2: Grym Cadarnhaol" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="3: Potential for Anything" translation="3: Potensial ar gyfer Unrhyw beth" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="4: Passion for Exploring" translation="4: Angerdd dros Archwilio" explanation="editor, song name should probably not be translated" max="38*2"/>
     <string english="N/A: Pause" translation="N/A: Pause" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="5: Presenting VVVVVV" translation="5: Presenting VVVVVV" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="N/A: Plenary" translation="N/A: Plenary" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="6: Predestined Fate" translation="6: Predestined Fate" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="N/A: ecroF evitisoP" translation="N/A: ecroF evitisoP" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="7: Popular Potpourri" translation="7: Popular Potpourri" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="8: Pipe Dream" translation="8: Pipe Dream" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="9: Pressure Cooker" translation="9: Pressure Cooker" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="10: Paced Energy" translation="10: Paced Energy" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="11: Piercing the Sky" translation="11: Piercing the Sky" explanation="editor, song name should probably not be translated" max="38*2"/>
-    <string english="N/A: Predestined Fate Remix" translation="N/A: Predestined Fate Remix" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="5: Presenting VVVVVV" translation="5:Yn Cyflwyno VVVVVV" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="N/A: Plenary" translation="N/A: Cyfarfod Llawn" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="6: Predestined Fate" translation="6: Tynged Rhagddawedig" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="N/A: ecroF evitisoP" translation="N/A: loahnradaC myrG" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="7: Popular Potpourri" translation="7: Potpourri poblogaidd" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="8: Pipe Dream" translation="8: Breuddwyd Pib" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="9: Pressure Cooker" translation="9: Popty Pwysau" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="10: Paced Energy" translation="10: Ynni Cyflym" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="11: Piercing the Sky" translation="11: Tyllu&apos;r Awyr" explanation="editor, song name should probably not be translated" max="38*2"/>
+    <string english="N/A: Predestined Fate Remix" translation="N/A:  Remix Tynged Rhagddawedig" explanation="editor, song name should probably not be translated" max="38*2"/>
     <string english="?: something else" translation="?: rhywbeth arall" explanation="editor, song was not recognized" max="38*2"/>
     <string english="next song" translation="cân nesaf" explanation="level editor menu option"/>
     <string english="previous song" translation="cân blaenorol" explanation="level editor menu option"/>
@@ -558,21 +558,21 @@
     <string english="Unknown" translation="Anhysbys" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="Teil:" explanation="editor, selected " max="34"/>
     <string english="SCRIPT BOX: Click on top left" translation="BLWCH SGRIPT: Cliciwch ar y chwith uchaf" explanation="***OUTDATED***"/>
-    <string english="SCRIPT BOX: Click on the first corner" translation="" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="SCRIPT BOX: Click on the first corner" translation="BLWCH SGRIPT: Cliciwch ar y gornel gyntaf" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
     <string english="SCRIPT BOX: Click on bottom right" translation="BLWCH SGRIPT: Cliciwch ar y gwaelod ar y dde" explanation="***OUTDATED***"/>
-    <string english="SCRIPT BOX: Click on the last corner" translation="" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="SCRIPT BOX: Click on the last corner" translation="BLWCH SGRIPT: Cliciwch ar y gornel olaf" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
     <string english="ENEMY BOUNDS: Click on top left" translation="FFINIAU&apos;R Gelyn: Cliciwch ar y chwith uchaf" explanation="***OUTDATED***"/>
-    <string english="ENEMY BOUNDS: Click on the first corner" translation="" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on the first corner" translation="FFINIAU GELYN: Cliciwch ar y gornel gyntaf" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="ENEMY BOUNDS: Click on bottom right" translation="FFINIAU&apos;R Gelyn: Cliciwch ar y gwaelod ar y dde" explanation="***OUTDATED***"/>
-    <string english="ENEMY BOUNDS: Click on the last corner" translation="" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on the last corner" translation="FFINIAU GELYN: Cliciwch ar y gornel olaf" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on top left" translation="FFINIAU Llwyfan: Cliciwch ar y chwith uchaf" explanation="***OUTDATED***"/>
-    <string english="PLATFORM BOUNDS: Click on the first corner" translation="" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on the first corner" translation="FFINIAU LLWYFAN: Cliciwch ar y gornel gyntaf" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on bottom right" translation="FFINIAU Llwyfan: Cliciwch ar y gwaelod ar y dde" explanation="***OUTDATED***"/>
-    <string english="PLATFORM BOUNDS: Click on the last corner" translation="" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on the last corner" translation="FFINIAU LLWYFAN: Cliciwch ar y gornel olaf" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="Click on top left" translation="Cliciwch ar y chwith uchaf" explanation="***OUTDATED***"/>
-    <string english="Click on the first corner" translation="" explanation="" max="39*3"/>
+    <string english="Click on the first corner" translation="Cliciwch ar y gornel gyntaf" explanation="" max="39*3"/>
     <string english="Click on bottom right" translation="Cliciwch ar y gwaelod ar y dde" explanation="***OUTDATED***"/>
-    <string english="Click on the last corner" translation="" explanation="" max="39*3"/>
+    <string english="Click on the last corner" translation="Cliciwch ar y gornel olaf" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="****VVVVVV GOLYGYDD SGRIPT****" explanation="supposed to look like a Commodore 64 screen" max="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="ESC I DDYCHWELYD I&apos;R DDEWISLEN" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="DIM SGRIPT IDS WEDI&apos;I FFEINDIO" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
@@ -586,25 +586,25 @@
     <string english="3: Spikes" translation="3: Pigau" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Tlysau" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
     <string english="5: Checkpoint" translation="5: Pwynt Arbed" explanation="***OUTDATED***"/>
-    <string english="5: Checkpoints" translation="" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
+    <string english="5: Checkpoints" translation="5: Pwynt Arbed" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
     <string english="6: Disappear" translation="6: Diflannu" explanation="***OUTDATED***"/>
-    <string english="6: Disappearing Platforms" translation="" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
+    <string english="6: Disappearing Platforms" translation="6: Llwyfannau sy&apos;n Diflannu" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
     <string english="7: Conveyors" translation="7: Cludwyr" explanation="editor tool. Conveyor belt" max="32"/>
     <string english="8: Moving" translation="8: Symud" explanation="***OUTDATED***"/>
-    <string english="8: Moving Platforms" translation="" explanation="editor tool. Moving platform" max="32"/>
+    <string english="8: Moving Platforms" translation="8: Llwyfannau sy&apos;n Symud" explanation="editor tool. Moving platform" max="32"/>
     <string english="9: Enemies" translation="9: Gelynion" explanation="editor tool" max="32"/>
     <string english="0: Grav Line" translation="0: Llinell Dysgy" explanation="***OUTDATED***"/>
-    <string english="0: Gravity Lines" translation="" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
+    <string english="0: Gravity Lines" translation="0: Llinellau Disgyrchiant" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Testun yr ystafell" explanation="editor tool. Freely typed text, consider just Text" max="32"/>
     <string english="T: Terminal" translation="T: Terfynell" explanation="***OUTDATED***"/>
-    <string english="T: Terminals" translation="" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
+    <string english="T: Terminals" translation="T: Terfynellau" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
     <string english="Y: Script Box" translation="Y: Blwch Sgript" explanation="***OUTDATED***"/>
-    <string english="Y: Script Boxes" translation="" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
+    <string english="Y: Script Boxes" translation="Y: Blychau Sgript" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
     <string english="U: Warp Token" translation="U: Tocyn Warpio" explanation="***OUTDATED***"/>
-    <string english="U: Warp Tokens" translation="" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
+    <string english="U: Warp Tokens" translation="U: Tocynnau Warpio" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
     <string english="I: Warp Lines" translation="I: Llinellau Warpio" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
     <string english="O: Crewmate" translation="O: Aelod o&apos;r Criw" explanation="***OUTDATED***"/>
-    <string english="O: Crewmates" translation="" explanation="editor tool. Crewmate that can be rescued" max="32"/>
+    <string english="O: Crewmates" translation="O: Aelodau o&apos;r Criw" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Man Cychwyn" explanation="editor tool" max="32"/>
     <string english="START" translation="DECHRAU" explanation="start point in level editor" max="10"/>
     <string english="SPACE ^  SHIFT ^" translation="SPACE ^  SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
@@ -617,8 +617,8 @@
     <string english="F10: Direct Mode" translation="F10: Modd Uniongyrchol" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25"/>
     <string english="W: Change Warp Dir" translation="W: Newid Cyfeirad Warp " explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25"/>
     <string english="E: Change Roomname" translation="E: Newid Enw&apos;r Ystafell" explanation="editor shortcut, the name of the room appears at the bottom" max="25"/>
-    <string english="S: Save Map" translation="S: Cadw Map" explanation="level editor, save level, `Map` is basically redundant" max="12"/>
-    <string english="L: Load Map" translation="L: Llwytho Map" explanation="level editor, load level, `Map` is basically redundant" max="12"/>
+    <string english="S: Save Map" translation="S: Arbed" explanation="level editor, save level, `Map` is basically redundant" max="12"/>
+    <string english="L: Load Map" translation="L: Llwytho" explanation="level editor, load level, `Map` is basically redundant" max="12"/>
     <string english="Enter map filename to save as:" translation="Rhowch enw ffeil y map i&apos;w gadw fel:" explanation="level editor text input, save level file as" max="39*3"/>
     <string english="Enter map filename to load:" translation="Rhowch enw ffeil map i&apos;w lwytho:" explanation="level editor text input, load level file" max="39*3"/>
     <string english="Enter new room name:" translation="Rhowch enw ystafell newydd:" explanation="level editor text input, the name of the room appears at the bottom" max="39*3"/>
@@ -633,7 +633,7 @@
     <string english="Now using {area} Tileset" translation="Nawr yn defnyddio {area} Set-teiliau" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="Lliw Set Teil wedi&apos;i Newid" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Newidiodd Math y Gelyn" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
-    <string english="Platform speed is now {speed}" translation="" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
+    <string english="Platform speed is now {speed}" translation="Cyflymder llwyfan yw {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Adnoddau wedi&apos;u hail-lwytho" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="GWALL: Fformat annilys" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Map wedi&apos;i lwytho: {filename}.vvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -651,10 +651,10 @@
     <string english="ERROR: No checkpoint to spawn at" translation="GWALL: Dim pwynt arbed i silio ynddo" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="GWALL: Uchafswm nifer y tlysau yw 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="GWALL: Uchafswm nifer y cyd-aelodau criw yw 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
-    <string english="Level quits to menu" translation="" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
-    <string english="Level completed" translation="" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
+    <string english="Level quits to menu" translation="Lefel yn gadael i ddewislen" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
+    <string english="Level completed" translation="Lefel wedi&apos;i chwblhau" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
     <string english="Rolled credits" translation="Credydau" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
-    <string english="Time trial completed" translation="" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
+    <string english="Time trial completed" translation="Prawf amser wedi&apos;i gwblhau" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
@@ -668,17 +668,17 @@
     <string english="All crewmates rescued!" translation="Pawb o&apos;r criw wedi&apos;u achub!" explanation="" max="32"/>
     <string english="Game Saved" translation="Gêm wedi&apos;i Arbed" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="Pwyswch y bysellau saeth neu WASD i symud" explanation="" max="32*2"/>
-    <string english="Press left/right to move" translation="" explanation="" max="32*2"/>
+    <string english="Press left/right to move" translation="Pwyswch chwith / dde i symud" explanation="" max="32*2"/>
     <string english="Press ACTION to flip" translation="Pwyswch GWEITHREDU i fflipio" explanation="***OUTDATED***" max="32*3"/>
-    <string english="Press {button} to flip" translation="" explanation="expect `ACTION`" max="32*3"/>
+    <string english="Press {button} to flip" translation="Pwyswch {button} i fflipio" explanation="expect `ACTION`" max="32*3"/>
     <string english="Press ENTER to view map and quicksave" translation="Pwyswch ENTER i weld y map a&apos;r arbediad cyflym" explanation="***OUTDATED***" max="32*3"/>
-    <string english="Press {button} to view map and quicksave" translation="" explanation="" max="32*3"/>
+    <string english="Press {button} to view map and quicksave" translation="Pwyswch {button} i weld y map a&apos;r arbediad cyflym" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Os yw&apos;n well gennych, gallwch wasgu LAN neu LAWR yn lle GWEITHREDU i fflipio." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="Help! Gall unrhyw un glywed y neges hon?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="Verdigris? Wyt ti allan yna? Wyt ti&apos;n iawn?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Please help us! We&apos;ve crashed and need assistance!" translation="Helpwch ni os gwelwch yn dda! Rydyn ni wedi cael damwain ac angen cymorth!" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Hello? Anyone out there?" translation="Helo? Unrhyw un yna?" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="Dyma Doctor Violet o&apos;r DSS Souleye ! Ymatebwch os gwelwch yn dda!" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="Dyma Doctor Violet o&apos;r DSS Souleye! Ymatebwch os gwelwch yn dda!" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Please... Anyone..." translation="Plis... Unrhyw un..." explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Please be alright, everyone..." translation="Byddwch yn iawn, pawb..." explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Congratulations!
@@ -758,11 +758,11 @@ You have found the secret lab!" translation="Llongyfarchiadau! Rwyt ti wedi dod 
     <string english="Last 1 minute on the Super Gravitron" translation="Para 1 munud ar y Disgyrchatron Swper" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="MEISTR Y BYDYSAWD" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Cwblhewch y gêm mewn modd dim marwolaeth" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Something went wrong, but we forgot the error message." translation="" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
+    <string english="Something went wrong, but we forgot the error message." translation="Aeth rhywbeth o&apos;i le, ond anghofiom ni&apos;r neges gwall." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Methu gosod {path}: nid yw&apos;r cyfeiriadur go iawn yn bodoli" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
-    <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
-    <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
-    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
+    <string english="Level {path} not found" translation="Llwybr {path} heb ei ganfod" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="Gwall yn dosrannu {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename} nid yw dimensiynau yn union luosrifau {width} gan {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="GWALL: Methu ysgrifennu i&apos;r ffolder iaith! Gwnewch yn siŵr nad oes ffolder &quot;lang&quot; wrth ymyl y storfa arferol." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
