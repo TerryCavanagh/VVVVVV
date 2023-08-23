@@ -408,6 +408,8 @@ int main(int argc, char *argv[])
         }
         else if (ARG("-addresses"))
         {
+            printf("cl         : %p\n", (void*) &cl);
+            printf("ed         : %p\n", (void*) &ed);
             printf("game       : %p\n", (void*) &game);
             printf("gameScreen : %p\n", (void*) &gameScreen);
             printf("graphics   : %p\n", (void*) &graphics);
