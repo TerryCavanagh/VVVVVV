@@ -391,9 +391,7 @@ static void menuactionpress(void)
 #if !defined(MAKEANDPLAY)
         OPTION_ID(0) /* play */
 #endif
-#if !defined(NO_CUSTOM_LEVELS)
         OPTION_ID(1) /* levels */
-#endif
         OPTION_ID(2) /* options */
         if (loc::show_translator_menu)
         {
@@ -427,14 +425,12 @@ static void menuactionpress(void)
             }
             break;
 #endif
-#if !defined(NO_CUSTOM_LEVELS)
         case 1:
             //Bring you to the normal playmenu
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::playerworlds);
             map.nexttowercolour();
             break;
-#endif
         case 2:
             //Options
             music.playef(Sound_VIRIDIAN);
@@ -463,7 +459,6 @@ static void menuactionpress(void)
         }
         break;
     }
-#if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
         const bool nextlastoptions = cl.ListOfMetaData.size() > 8;
@@ -513,7 +508,6 @@ static void menuactionpress(void)
         }
         break;
     }
-#endif
     case Menu::quickloadlevel:
         switch (game.currentmenuoption)
         {
@@ -537,7 +531,6 @@ static void menuactionpress(void)
             break;
         }
         break;
-#if !defined(NO_CUSTOM_LEVELS)
     case Menu::deletequicklevel:
         switch (game.currentmenuoption)
         {
@@ -556,17 +549,10 @@ static void menuactionpress(void)
         map.nexttowercolour();
         break;
     case Menu::playerworlds:
- #if defined(NO_EDITOR)
-  #define OFFSET -1
- #else
-  #define OFFSET 0
- #endif
-        switch (game.currentmenuoption)
+        if (game.currentmenuoption == 0)
         {
-        case 0:
-
             music.playef(Sound_VIRIDIAN);
-            game.levelpage=0;
+            game.levelpage = 0;
             cl.getDirectoryData();
             game.loadcustomlevelstats(); //Should only load a file if it's needed
             game.createmenu(Menu::levellist);
@@ -575,19 +561,26 @@ static void menuactionpress(void)
                 game.createmenu(Menu::warninglevellist);
             }
             map.nexttowercolour();
-            break;
- #if !defined(NO_EDITOR)
-        case 1:
-            //LEVEL EDITOR HOOK
-            music.playef(Sound_VIRIDIAN);
-            startmode(Start_EDITOR);
-            ed.filename="";
-            break;
- #endif
-        case OFFSET+2:
+        }
+        else if (game.currentmenuoption == 1)
+        {
+            // LEVEL EDITOR HOOK
+            if (game.editor_disabled)
+            {
+                music.playef(Sound_CRY);
+            }
+            else
+            {
+                music.playef(Sound_VIRIDIAN);
+                startmode(Start_EDITOR);
+                ed.filename = "";
+            }
+        }
+        else if (!game.editor_disabled && game.currentmenuoption == 2)
+        {
             //"OPENFOLDERHOOK"
             if (FILESYSTEM_openDirectoryEnabled()
-            && FILESYSTEM_openDirectory(FILESYSTEM_getUserLevelDirectory()))
+                && FILESYSTEM_openDirectory(FILESYSTEM_getUserLevelDirectory()))
             {
                 music.playef(Sound_VIRIDIAN);
                 SDL_MinimizeWindow(gameScreen.m_window);
@@ -596,22 +589,21 @@ static void menuactionpress(void)
             {
                 music.playef(Sound_CRY);
             }
-            break;
-        case OFFSET+3:
+        }
+        else if (!game.editor_disabled && game.currentmenuoption == 3)
+        {
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::confirmshowlevelspath);
             map.nexttowercolour();
-            break;
-        case OFFSET+4:
-            //back
+        }
+        else if (game.currentmenuoption == 4 || (game.editor_disabled && game.currentmenuoption == 2))
+        {
+            // back
             music.playef(Sound_VIRIDIAN);
             game.returnmenu();
             map.nexttowercolour();
-            break;
         }
-#undef OFFSET
         break;
-#endif
     case Menu::confirmshowlevelspath:
     {
         int prevmenuoption = game.currentmenuoption; /* returnmenu destroys this */
@@ -2495,7 +2487,6 @@ void gameinput(void)
     }
 
     //Returning to editor mode must always be possible
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     if (map.custommode && !map.custommodeforreal)
     {
         if ((game.press_map || key.isDown(27)) && !game.mapheld)
@@ -2514,7 +2505,6 @@ void gameinput(void)
             }
         }
     }
-#endif
 
     //Entity type 0 is player controled
     bool has_control = false;
@@ -3070,13 +3060,12 @@ static void mapmenuactionpress(const bool version2_2)
         if (game.roomx >= 102 && game.roomx <= 104 && game.roomy >= 110 && game.roomy <= 111) game.savearea = loc::gettext_roomname_special("The Ship");
 
         bool success;
-#if !defined(NO_CUSTOM_LEVELS)
+
         if(map.custommodeforreal)
         {
             success = game.customsavequick(cl.ListOfMetaData[game.playcustomlevel].filename);
         }
         else
-#endif
         {
             success = game.savequick();
         }

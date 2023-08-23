@@ -548,9 +548,7 @@ void set_level_font_new(void)
         }
     }
 
-#ifndef NO_CUSTOM_LEVELS
     cl.level_font_name = get_main_font_name(font_idx_level);
-#endif
 }
 
 static void fill_map_name_idx(FontContainer* container)

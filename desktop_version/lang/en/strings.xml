@@ -417,6 +417,7 @@
     <string english="start from beginning" translation="" explanation="menu option"/>
     <string english="delete save" translation="" explanation="menu option"/>
     <string english="back to levels" translation="" explanation="menu option"/>
+    <string english="This version of the game does not support the level editor, but it might be supported in the future." translation="" max="38*3"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="" explanation="" max="38*3"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="" explanation="" max="38*4"/>
     <string english="The levels path is:" translation="" explanation="" max="40"/>

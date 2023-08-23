@@ -1,5 +1,3 @@
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-
 #define ED_DEFINITION
 #include "Editor.h"
 
@@ -4160,5 +4158,3 @@ void editorclass::switch_warpdir(const bool reversed)
 
     graphics.backgrounddrawn = false;
 }
-
-#endif /* NO_CUSTOM_LEVELS and NO_EDITOR */

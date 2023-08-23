@@ -139,11 +139,9 @@ void Graphics::init(void)
 
     kludgeswnlinewidth = false;
 
-#ifndef NO_CUSTOM_LEVELS
     tiles1_mounted = false;
     tiles2_mounted = false;
     minimap_mounted = false;
-#endif
 
     gamecomplete_mounted = false;
     levelcomplete_mounted = false;
@@ -686,24 +684,20 @@ void Graphics::scroll_texture(SDL_Texture* texture, SDL_Texture* temp, const int
     copy_texture(temp, &src, &src);
 }
 
-#ifndef NO_CUSTOM_LEVELS
 bool Graphics::shouldrecoloroneway(const int tilenum, const bool mounted)
 {
     return (tilenum >= 14 && tilenum <= 17
     && (!mounted
     || cl.onewaycol_override));
 }
-#endif
 
 void Graphics::drawtile(int x, int y, int t)
 {
-#if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles1_mounted))
     {
         draw_grid_tile(grphx.im_tiles_tint, t, x, y, tiles_rect.w, tiles_rect.h, cl.getonewaycol());
     }
     else
-#endif
     {
         draw_grid_tile(grphx.im_tiles, t, x, y, tiles_rect.w, tiles_rect.h);
     }
@@ -712,13 +706,11 @@ void Graphics::drawtile(int x, int y, int t)
 
 void Graphics::drawtile2(int x, int y, int t)
 {
-#if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles2_mounted))
     {
         draw_grid_tile(grphx.im_tiles2_tint, t, x, y, tiles_rect.w, tiles_rect.h, cl.getonewaycol());
     }
     else
-#endif
     {
         draw_grid_tile(grphx.im_tiles2, t, x, y, tiles_rect.w, tiles_rect.h);
     }
@@ -1575,7 +1567,6 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
             y = 140 + i * 12 + game.menuyoff;
         }
 
-#ifndef NO_CUSTOM_LEVELS
         if (menu == Menu::levellist)
         {
             size_t separator;
@@ -1598,7 +1589,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
                 y += 4;
             }
         }
-#endif
+
         if (menu == Menu::translator_options_cutscenetest)
         {
             size_t separator = 4;
@@ -1904,7 +1895,7 @@ void Graphics::drawentity(const int i, const int yoff)
     SDL_Rect drawRect;
 
     bool custom_gray;
-#if !defined(NO_CUSTOM_LEVELS)
+
     // Special case for gray Warp Zone tileset!
     if (map.custommode)
     {
@@ -1912,7 +1903,6 @@ void Graphics::drawentity(const int i, const int yoff)
         custom_gray = room->tileset == 3 && room->tilecol == 6;
     }
     else
-#endif
     {
         custom_gray = false;
     }
@@ -2681,14 +2671,12 @@ void Graphics::drawmap(void)
             {
                 int tile;
                 int tileset;
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
                 if (game.gamestate == EDITORMODE)
                 {
                     tile = cl.gettile(ed.levx, ed.levy, x, y);
                     tileset = (cl.getroomprop(ed.levx, ed.levy)->tileset == 0) ? 0 : 1;
                 }
                 else
-#endif
                 {
                     tile = map.contents[TILE_IDX(x, y)];
                     tileset = map.tileset;
@@ -3467,11 +3455,9 @@ bool Graphics::reloadresources(void)
     music.destroy();
     music.init();
 
-#ifndef NO_CUSTOM_LEVELS
     tiles1_mounted = FILESYSTEM_isAssetMounted("graphics/tiles.png");
     tiles2_mounted = FILESYSTEM_isAssetMounted("graphics/tiles2.png");
     minimap_mounted = FILESYSTEM_isAssetMounted("graphics/minimap.png");
-#endif
 
     gamecomplete_mounted = FILESYSTEM_isAssetMounted("graphics/gamecomplete.png");
     levelcomplete_mounted = FILESYSTEM_isAssetMounted("graphics/levelcomplete.png");

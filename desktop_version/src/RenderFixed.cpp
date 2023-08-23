@@ -131,7 +131,6 @@ void gamerenderfixed(void)
 
     map.updateroomnames();
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     ed.old_return_message_timer = ed.return_message_timer;
     if (map.custommode && !map.custommodeforreal && ed.return_message_timer > 0)
     {
@@ -165,7 +164,6 @@ void gamerenderfixed(void)
             }
         }
     }
-#endif
 }
 
 void titlerenderfixed(void)

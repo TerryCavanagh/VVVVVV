@@ -263,9 +263,9 @@ public:
 
     void drawbackground(int t);
     void updatebackground(int t);
-#ifndef NO_CUSTOM_LEVELS
+
     bool shouldrecoloroneway(const int tilenum, const bool mounted);
-#endif
+
     void drawtile3(int x, int y, int t, int off, int height_subtract = 0);
     void drawtile2(int x, int y, int t);
     void drawtile(int x, int y, int t);
@@ -283,11 +283,10 @@ public:
         const char* filename, SDL_Texture* texture,
         int tilewidth, int tileheight
     );
-#ifndef NO_CUSTOM_LEVELS
+
     bool tiles1_mounted;
     bool tiles2_mounted;
     bool minimap_mounted;
-#endif
 
     bool gamecomplete_mounted;
     bool levelcomplete_mounted;

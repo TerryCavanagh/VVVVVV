@@ -9,9 +9,6 @@ option(ENABLE_WERROR "Treat compilation warnings as errors" OFF)
 
 option(BUNDLE_DEPENDENCIES "Use bundled TinyXML-2, PhysicsFS, and FAudio (if disabled, TinyXML-2, PhysicsFS, and FAudio will be dynamically linked; LodePNG and C-HashMap will still be statically linked)" ON)
 
-set(CUSTOM_LEVEL_SUPPORT ENABLED CACHE STRING "Optionally disable playing and/or editing of custom levels")
-set_property(CACHE CUSTOM_LEVEL_SUPPORT PROPERTY STRINGS ENABLED NO_EDITOR DISABLED)
-
 option(STEAM "Use the Steam API" OFF)
 option(GOG "Use the GOG API" OFF)
 
@@ -72,7 +69,9 @@ set(VVV_SRC
     src/BinaryBlob.cpp
     src/BlockV.cpp
     src/ButtonGlyphs.cpp
+    src/CustomLevels.cpp
     src/CWrappers.cpp
+    src/Editor.cpp
     src/Ent.cpp
     src/Entity.cpp
     src/FileSystemUtils.cpp
@@ -118,12 +117,6 @@ set(VVV_SRC
     src/Xoshiro.c
     ../third_party/physfs/extras/physfsrwops.c
 )
-if(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
-    list(APPEND VVV_SRC src/CustomLevels.cpp)
-    if(NOT CUSTOM_LEVEL_SUPPORT STREQUAL "NO_EDITOR")
-        LIST(APPEND VVV_SRC src/Editor.cpp)
-    endif()
-endif()
 if(STEAM)
     list(APPEND VVV_SRC src/SteamNetwork.c)
 endif()
@@ -247,12 +240,6 @@ if(ENABLE_WARNINGS)
             -Wall -Wpedantic $<$<BOOL:${ENABLE_WERROR}>:-Werror>>
         $<$<CXX_COMPILER_ID:MSVC>:
             /W4 $<$<BOOL:${ENABLE_WERROR}>:/WX>>)
-endif()
-
-if(CUSTOM_LEVEL_SUPPORT STREQUAL "NO_EDITOR")
-    target_compile_definitions(VVVVVV PRIVATE -DNO_EDITOR)
-elseif(CUSTOM_LEVEL_SUPPORT STREQUAL "DISABLED")
-    target_compile_definitions(VVVVVV PRIVATE -DNO_CUSTOM_LEVELS -DNO_EDITOR)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")

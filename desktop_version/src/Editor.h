@@ -1,5 +1,3 @@
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-
 #ifndef EDITOR_H
 #define EDITOR_H
 
@@ -295,5 +293,3 @@ extern editorclass ed;
 #endif
 
 #endif /* EDITOR_H */
-
-#endif /* NO_CUSTOM_LEVELS and NO_EDITOR */

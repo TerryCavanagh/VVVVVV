@@ -1,5 +1,3 @@
-#if !defined(NO_CUSTOM_LEVELS)
-
 #define CL_DEFINITION
 #include "CustomLevels.h"
 
@@ -996,9 +994,7 @@ bool customlevelclass::load(std::string _path)
     tinyxml2::XMLElement* pElem;
 
     reset();
-#ifndef NO_EDITOR
     ed.reset();
-#endif
 
     static const char *levelDir = "levels/";
     if (_path.compare(0, SDL_strlen(levelDir), levelDir) != 0)
@@ -1037,9 +1033,7 @@ bool customlevelclass::load(std::string _path)
         goto fail;
     }
 
-#ifndef NO_EDITOR
     ed.loaded_filepath = _path;
-#endif
 
     version = 0;
     level_font_name = "font";
@@ -1452,7 +1446,6 @@ fail:
     return false;
 }
 
-#ifndef NO_EDITOR
 bool customlevelclass::save(const std::string& _path)
 {
     tinyxml2::XMLDocument doc;
@@ -1651,8 +1644,6 @@ bool customlevelclass::save(const std::string& _path)
 
     return FILESYSTEM_saveTiXml2Document(newpath.c_str(), doc);
 }
-#endif /* NO_EDITOR */
-
 
 void customlevelclass::generatecustomminimap(void)
 {
@@ -1923,14 +1914,11 @@ SDL_Color customlevelclass::getonewaycol(const int rx, const int ry)
 // This version detects the room automatically
 SDL_Color customlevelclass::getonewaycol(void)
 {
-#ifndef NO_EDITOR
     if (game.gamestate == EDITORMODE)
     {
         return getonewaycol(ed.levx, ed.levy);
     }
-    else
-#endif
-    if (map.custommode)
+    else if (map.custommode)
     {
         return getonewaycol(game.roomx - 100, game.roomy - 100);
     }
@@ -1973,5 +1961,3 @@ int customlevelclass::numcrewmates(void)
     }
     return temp;
 }
-
-#endif /* NO_CUSTOM_LEVELS */

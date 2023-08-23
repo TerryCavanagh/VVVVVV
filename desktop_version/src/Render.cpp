@@ -225,7 +225,6 @@ static void menurender(void)
         }
         break;
     }
-#if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
         if (cl.ListOfMetaData.size()==0)
@@ -261,7 +260,6 @@ static void menurender(void)
         }
         break;
     }
-#endif
     case Menu::errornostart:
         font::print_wrap(PR_CEN, -1, 65, loc::gettext("ERROR: This level has no start point!"), tr, tg, tb);
         break;
@@ -1664,7 +1662,14 @@ static void menurender(void)
         font::print_wrap(PR_CEN, -1, 125, loc::gettext("You have unlocked the intermission levels."), tr, tg, tb);
         break;
     case Menu::playerworlds:
-        font::print_wrap(PR_CEN, -1, 180, loc::gettext("To install new player levels, copy the .vvvvvv files to the levels folder."), tr, tg, tb);
+        if (game.editor_disabled)
+        {
+            font::print_wrap(PR_CEN, -1, 180, loc::gettext("This version of the game does not support the level editor, but it might be supported in the future."), tr, tg, tb);
+        }
+        else
+        {
+            font::print_wrap(PR_CEN, -1, 180, loc::gettext("To install new player levels, copy the .vvvvvv files to the levels folder."), tr, tg, tb);
+        }
         break;
     case Menu::confirmshowlevelspath:
         font::print_wrap(PR_CEN, -1, 80, loc::gettext("Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming."), tr, tg, tb);
@@ -2079,7 +2084,6 @@ void gamerender(void)
         }
     }
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
         int alpha = graphics.lerp(ed.old_return_message_timer, ed.return_message_timer);
@@ -2096,8 +2100,6 @@ void gamerender(void)
             font::print(PR_BRIGHTNESS(alpha) | PR_BOR, 5, 5, buffer, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
         }
     }
-#endif
-
 
     graphics.cutscenebars();
     graphics.drawfade();
@@ -2465,14 +2467,12 @@ static MapRenderData getmaprenderdata(void)
 
 static void rendermap(void)
 {
-#ifndef NO_CUSTOM_LEVELS
     if (map.custommode && map.customshowmm)
     {
         graphics.drawpixeltextbox(35 + map.custommmxoff, 16 + map.custommmyoff, map.custommmxsize + 10, map.custommmysize + 10, 65, 185, 207);
         graphics.drawpartimage(graphics.minimap_mounted ? IMAGE_MINIMAP : IMAGE_CUSTOMMINIMAP, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
         return;
      }
-#endif /* NO_CUSTOM_LEVELS */
 
     graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
     graphics.drawimage(IMAGE_MINIMAP, 40, 21, false);
@@ -2750,7 +2750,6 @@ void maprender(void)
             );
             font::print_wrap(PR_CEN, -1, 105, buffer, 196, 196, 255 - help.glow);
         }
-#if !defined(NO_CUSTOM_LEVELS)
         else if(map.custommode){
             LevelMetaData& meta = cl.ListOfMetaData[game.playcustomlevel];
 
@@ -2780,7 +2779,6 @@ void maprender(void)
             );
             font::print(PR_CEN, -1, FLIP(165, 8), buffer, 196, 196, 255 - help.glow);
         }
-#endif
         else
         {
             if (graphics.flipmode)
@@ -2842,13 +2840,11 @@ void maprender(void)
     case 2:
     {
         int max_trinkets;
-#ifndef NO_CUSTOM_LEVELS
         if (map.custommode)
         {
             max_trinkets = cl.numtrinkets();
         }
         else
-#endif
         {
             max_trinkets = 20;
         }

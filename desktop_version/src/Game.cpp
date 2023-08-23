@@ -284,6 +284,7 @@ void Game::init(void)
     gameoverdelay = 0;
     framecounter = 0;
     seed_use_sdl_getticks = false;
+    editor_disabled = false;
     resetgameclock();
     gamesaved = false;
     gamesavefailed = false;
@@ -373,9 +374,8 @@ void Game::init(void)
     showingametimer = false;
 
     ingame_titlemode = false;
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     ingame_editormode = false;
-#endif
+
     kludge_ingametemp = Menu::mainmenu;
     slidermode = SLIDER_NONE;
 
@@ -1586,14 +1586,13 @@ void Game::updatestate(void)
         case 82:
             //Time Trial Complete!
             obj.removetrigger(82);
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
             if (map.custommode && !map.custommodeforreal)
             {
                 returntoeditor();
                 ed.show_note(loc::gettext("Time trial completed"));
                 break;
             }
-#endif
+
             if (translator_exploring)
             {
                 translator_exploring_allowtele = true;
@@ -2074,13 +2073,11 @@ void Game::updatestate(void)
 
             int max_trinkets;
 
-#if !defined(NO_CUSTOM_LEVELS)
             if(map.custommode)
             {
                 max_trinkets = cl.numtrinkets();
             }
             else
-#endif
             {
                 max_trinkets = 20;
             }
@@ -2127,7 +2124,6 @@ void Game::updatestate(void)
             incstate();
             setstatedelay(15);
             break;
-#if !defined(NO_CUSTOM_LEVELS)
         case 1011:
         {
             //Found a crewmate!
@@ -2183,13 +2179,11 @@ void Game::updatestate(void)
                     graphics.fademode = FADE_START_FADEOUT;
                     setstate(1014);
                 }
-#ifndef NO_EDITOR
                 else
                 {
                     returntoeditor();
                     ed.show_note(loc::gettext("Level completed"));
                 }
-#endif
             }
             else
             {
@@ -2200,7 +2194,6 @@ void Game::updatestate(void)
             }
             graphics.showcutscenebars = false;
             break;
-#endif
         case 1014:
             frames--;
             if (graphics.fademode == FADE_FULLY_BLACK)
@@ -2209,7 +2202,6 @@ void Game::updatestate(void)
             }
             break;
         case 1015:
-#if !defined(NO_CUSTOM_LEVELS)
             //Update level stats
             /* FIXME: Have to add check to not save stats for the dumb hack
              * `special/stdin.vvvvvv` filename... see elsewhere, grep for
@@ -2227,7 +2219,7 @@ void Game::updatestate(void)
                     updatecustomlevelstats(customlevelfilename, 1);
                 }
             }
-#endif
+
             quittomenu();
             music.play(Music_PRESENTINGVVVVVV); //should be after quittomenu()
             setstate(0);
@@ -6266,9 +6258,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
 #if !defined(MAKEANDPLAY)
         option(loc::gettext("play"));
 #endif
-#if !defined(NO_CUSTOM_LEVELS)
         option(loc::gettext("levels"));
-#endif
         option(loc::gettext("options"));
         if (loc::show_translator_menu)
         {
@@ -6281,14 +6271,14 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         menuyoff = -10;
         maxspacing = 15;
         break;
-#if !defined(NO_CUSTOM_LEVELS)
     case Menu::playerworlds:
         option(loc::gettext("play a level"));
- #if !defined(NO_EDITOR)
-        option(loc::gettext("level editor"));
- #endif
-        option(loc::gettext("open level folder"), FILESYSTEM_openDirectoryEnabled());
-        option(loc::gettext("show level folder path"));
+        option(loc::gettext("level editor"), !editor_disabled);
+        if (!editor_disabled)
+        {
+            option(loc::gettext("open level folder"), FILESYSTEM_openDirectoryEnabled());
+            option(loc::gettext("show level folder path"));
+        }
         option(loc::gettext("return"));
         menuyoff = -40;
         maxspacing = 15;
@@ -6400,7 +6390,6 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
             return; // skip automatic centering, will turn out bad with levels list
         }
         break;
-#endif
     case Menu::quickloadlevel:
         option(loc::gettext("continue from save"));
         option(loc::gettext("start from beginning"));
@@ -7028,11 +7017,6 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("ok"));
         menuyoff = 50;
         break;
-#ifdef NO_CUSTOM_LEVELS
-    /* Silence warnings about unhandled cases. */
-    default:
-        break;
-#endif
     }
 
     // Automatically center the menu. We must check the width of the menu with the initial horizontal spacing.
@@ -7241,18 +7225,15 @@ static void hardreset(void)
     script.hardreset();
 }
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
 static void returntoeditor_callback(void)
 {
     extern Game game;
     game.returntoeditor();
     ed.show_note(loc::gettext("Level quits to menu"));
 }
-#endif
 
 void Game::quittomenu(void)
 {
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     if (gamestate != EDITORMODE && map.custommode && !map.custommodeforreal)
     {
         /* We are playtesting! Go back to the editor
@@ -7261,7 +7242,6 @@ void Game::quittomenu(void)
         DEFER_CALLBACK(returntoeditor_callback);
         return;
     }
-#endif
 
     gamestate = TITLEMODE;
     graphics.fademode = FADE_START_FADEIN;
@@ -7352,7 +7332,6 @@ void Game::returntolab(void)
     music.play(Music_PIPEDREAM);
 }
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
 static void resetbg(void)
 {
     graphics.backgrounddrawn = false;
@@ -7393,7 +7372,6 @@ void Game::returntoeditor(void)
     graphics.backgrounddrawn = false;
     graphics.foregrounddrawn = false;
 }
-#endif
 
 static void returntoingametemp(void)
 {
@@ -7401,13 +7379,11 @@ static void returntoingametemp(void)
     game.returntomenu(game.kludge_ingametemp);
 }
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
 static void returntoedsettings(void)
 {
     extern Game game;
     game.returntomenu(Menu::ed_settings);
 }
-#endif
 
 static void nextbgcolor(void)
 {
@@ -7428,7 +7404,7 @@ void Game::returntoingame(void)
 {
     ingame_titlemode = false;
     mapheld = true;
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
+
     if (ingame_editormode)
     {
         ingame_editormode = false;
@@ -7437,7 +7413,6 @@ void Game::returntoingame(void)
         ed.settingskey = true;
     }
     else
-#endif
     {
         DEFER_CALLBACK(returntoingametemp);
         gamestate = MAPMODE;

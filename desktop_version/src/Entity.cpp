@@ -1287,7 +1287,6 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
     //Rule 6 is a crew member
 
     bool custom_gray;
-#if !defined(NO_CUSTOM_LEVELS)
     // Special case for gray Warp Zone tileset!
     if (map.custommode)
     {
@@ -1295,7 +1294,6 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         custom_gray = room->tileset == 3 && room->tilecol == 6;
     }
     else
-#endif
     {
         custom_gray = false;
     }
