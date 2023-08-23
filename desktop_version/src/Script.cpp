@@ -1276,6 +1276,28 @@ void scriptclass::run(void)
                 map.setexplored(19, 7, false);
                 map.setexplored(19, 8, false);
             }
+            else if (words[0] == "mapexplored")
+            {
+                if (words[1] == "none")
+                {
+                    map.resetmap();
+                }
+                else if (words[1] == "all")
+                {
+                    map.fullmap();
+                }
+            }
+            else if (words[0] == "mapreveal")
+            {
+                if (words[1] == "on")
+                {
+                    map.revealmap = true;
+                }
+                else if (words[1] == "off")
+                {
+                    map.revealmap = false;
+                }
+            }
             else if (words[0] == "showteleporters")
             {
                 map.showteleporters = true;
@@ -2814,6 +2836,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
         map.custommode = true;
         map.custommodeforreal = false;
         map.customshowmm = true;
+        map.revealmap = true;
 
         if (cl.levmusic > 0)
         {
@@ -2841,6 +2864,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
         cl.findstartpoint();
 
         map.customshowmm = true;
+        map.revealmap = true;
 
         music.fadeout();
         game.customstart();
@@ -3218,7 +3242,8 @@ void scriptclass::hardreset(void)
     map.cameraseekframe = 0;
     map.resumedelay = 0;
     graphics.towerbg.scrolldir = 0;
-    map.customshowmm=true;
+    map.customshowmm = true;
+    map.revealmap = true;
 
     SDL_memset(map.roomdeaths, 0, sizeof(map.roomdeaths));
     SDL_memset(map.roomdeathsfinal, 0, sizeof(map.roomdeathsfinal));

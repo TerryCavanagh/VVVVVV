@@ -5566,6 +5566,10 @@ void Game::customloadquick(const std::string& savfile)
         {
             map.customshowmm = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "mapreveal") == 0)
+        {
+            map.revealmap = help.Int(pText);
+        }
         else if (SDL_strcmp(pKey, "disabletemporaryaudiopause") == 0)
         {
             disabletemporaryaudiopause = help.Int(pText);
@@ -6044,6 +6048,8 @@ bool Game::customsavequick(const std::string& savfile)
     xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
 
     xml::update_tag(msgs, "showminimap", (int) map.customshowmm);
+
+    xml::update_tag(msgs, "mapreveal", (int) map.revealmap);
 
     xml::update_tag(msgs, "disabletemporaryaudiopause", (int) disabletemporaryaudiopause);
 
