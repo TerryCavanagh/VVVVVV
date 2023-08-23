@@ -21,7 +21,9 @@ extern "C"
 
 static SDL_Surface* LoadImageRaw(const char* filename, unsigned char** data)
 {
-    //Temporary storage for the image that's loaded
+    *data = NULL;
+
+    // Temporary storage for the image that's loaded
     SDL_Surface* loadedImage = NULL;
 
     unsigned int width, height;
@@ -84,7 +86,6 @@ SDL_Surface* LoadImageSurface(const char* filename)
 
     if (optimizedImage == NULL)
     {
-        VVV_free(data);
         vlog_error("Image not found: %s", filename);
         SDL_assert(0 && "Image not found! See stderr.");
     }
