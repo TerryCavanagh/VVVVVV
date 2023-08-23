@@ -337,6 +337,7 @@ public:
 
     int framecounter;
     bool seed_use_sdl_getticks;
+    bool editor_disabled;
     int frames, seconds, minutes, hours;
     bool gamesaved;
     bool gamesavefailed;
@@ -552,9 +553,7 @@ public:
     bool fadetolab;
     int fadetolabdelay;
 
-#if !defined(NO_CUSTOM_LEVELS)
     void returntoeditor(void);
-#endif
 
     bool inline inspecial(void)
     {
@@ -572,9 +571,7 @@ public:
     bool showingametimer;
 
     bool ingame_titlemode;
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     bool ingame_editormode;
-#endif
 
     void returntoingame(void);
     void unlockAchievement(const char *name);

@@ -195,7 +195,6 @@ void scriptclass::run(void)
                 }
                 scriptdelay = 1;
             }
-#if !defined(NO_CUSTOM_LEVELS)
             if (words[0] == "setroomname")
             {
                 ++position;
@@ -268,7 +267,6 @@ void scriptclass::run(void)
                     position--;
                 }
             }
-#endif
             if (words[0] == "destroy")
             {
                 if(words[1]=="gravitylines"){
@@ -1412,14 +1410,12 @@ void scriptclass::run(void)
             }
             else if (words[0] == "rollcredits")
             {
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
                 if (map.custommode && !map.custommodeforreal)
                 {
                     game.returntoeditor();
                     ed.show_note(loc::gettext("Rolled credits"));
                 }
                 else
-#endif
                 {
                     game.gamestate = GAMECOMPLETE;
                     graphics.fademode = FADE_START_FADEIN;
@@ -1768,13 +1764,11 @@ void scriptclass::run(void)
 
                 int max_trinkets;
 
-#if !defined(NO_CUSTOM_LEVELS)
                 if (map.custommode)
                 {
                     max_trinkets = cl.numtrinkets();
                 }
                 else
-#endif
                 {
                     max_trinkets = 20;
                 }
@@ -2423,7 +2417,6 @@ void scriptclass::run(void)
             }
             else if (words[0] == "setfont")
             {
-#ifndef NO_CUSTOM_LEVELS
                 if (words[1] == "")
                 {
                     font::set_level_font(cl.level_font_name.c_str());
@@ -2432,7 +2425,6 @@ void scriptclass::run(void)
                 {
                     font::set_level_font(raw_words[1].c_str());
                 }
-#endif
             }
 
             position++;
@@ -2783,10 +2775,6 @@ void scriptclass::startgamemode(const enum StartMode mode)
         }
         break;
 
-#ifdef NO_CUSTOM_LEVELS
-        UNUSED(gotoerrorloadinglevel);
-#else
-# ifndef NO_EDITOR
     case Start_EDITOR:
         cl.reset();
         ed.reset();
@@ -2824,7 +2812,6 @@ void scriptclass::startgamemode(const enum StartMode mode)
             music.currentsong = -1;
         }
         break;
-# endif /* NO_EDITOR */
 
     case Start_CUSTOM:
     case Start_CUSTOM_QUICKSAVE:
@@ -2867,8 +2854,6 @@ void scriptclass::startgamemode(const enum StartMode mode)
         graphics.fademode = FADE_START_FADEIN;
         break;
     }
-#endif /* NO_CUSTOM_LEVELS */
-
     case Start_CUTSCENETEST:
         music.fadeout();
         game.translator_exploring = true;
@@ -2881,12 +2866,7 @@ void scriptclass::startgamemode(const enum StartMode mode)
 
     case Start_QUIT:
         VVV_unreachable();
-
-#if defined(NO_CUSTOM_LEVELS) || defined(NO_EDITOR)
-    /* Silence warnings about unhandled cases. */
-    default:
         break;
-#endif
     }
 
     game.gravitycontrol = game.savegc;
@@ -2918,12 +2898,10 @@ void scriptclass::startgamemode(const enum StartMode mode)
     map.resetplayer();
     map.gotoroom(game.saverx, game.savery);
     map.initmapdata();
-#ifndef NO_CUSTOM_LEVELS
     if (map.custommode)
     {
         cl.generatecustomminimap();
     }
-#endif
 
     /* If we are spawning in a tower, ensure variables are set correctly */
     if (map.towermode)

@@ -37,13 +37,9 @@
 
 scriptclass script;
 
-#ifndef NO_CUSTOM_LEVELS
 std::vector<CustomEntity> customentities;
 customlevelclass cl;
-# ifndef NO_EDITOR
 editorclass ed;
-# endif
-#endif
 
 UtilityClass help;
 Graphics graphics;
@@ -107,9 +103,6 @@ static void teleportermodeinput(void)
     }
 }
 
-/* Only gets used in EDITORMODE. I assume the compiler will optimize this away
- * if this is a NO_CUSTOM_LEVELS or NO_EDITOR build
- */
 static void flipmodeoff(void)
 {
     graphics.flipmode = false;
@@ -181,9 +174,6 @@ static const inline struct ImplFunc* get_gamestate_funcs(
         {Func_fixed, gamecompletelogic2},
     FUNC_LIST_END
 
-#if defined(NO_CUSTOM_LEVELS) || defined(NO_EDITOR)
-        UNUSED(flipmodeoff);
-#else
     FUNC_LIST_BEGIN(EDITORMODE)
         {Func_fixed, flipmodeoff},
         {Func_input, editorinput},
@@ -191,7 +181,6 @@ static const inline struct ImplFunc* get_gamestate_funcs(
         {Func_fixed, editorrenderfixed},
         {Func_delta, editorrender},
     FUNC_LIST_END
-#endif
 
     FUNC_LIST_BEGIN(PRELOADER)
         {Func_input, preloaderinput},
@@ -380,6 +369,7 @@ int main(int argc, char *argv[])
     char* langDir = NULL;
     char* fontsDir = NULL;
     bool seed_use_sdl_getticks = false;
+    bool editor_disabled = !BUTTONGLYPHS_keyboard_is_available();
 #ifdef _WIN32
     bool open_console = false;
 #endif
@@ -408,12 +398,6 @@ int main(int argc, char *argv[])
 #ifdef MAKEANDPLAY
                 " [M&P]"
 #endif
-#ifdef NO_CUSTOM_LEVELS
-                " [no custom levels]"
-#endif
-#ifdef NO_EDITOR
-                " [no editor]"
-#endif
             );
 #ifdef INTERIM_VERSION_EXISTS
             puts(COMMIT_DATE);
@@ -424,12 +408,6 @@ int main(int argc, char *argv[])
         }
         else if (ARG("-addresses"))
         {
-#ifndef NO_CUSTOM_LEVELS
-            printf("cl         : %p\n", (void*) &cl);
-# ifndef NO_EDITOR
-            printf("ed         : %p\n", (void*) &ed);
-# endif
-#endif
             printf("game       : %p\n", (void*) &game);
             printf("gameScreen : %p\n", (void*) &gameScreen);
             printf("graphics   : %p\n", (void*) &graphics);
@@ -553,6 +531,10 @@ int main(int argc, char *argv[])
         {
             seed_use_sdl_getticks = true;
         }
+        else if (ARG("-enable-editor"))
+        {
+            editor_disabled = false;
+        }
 #undef ARG_INNER
 #undef ARG
         else
@@ -626,6 +608,7 @@ int main(int argc, char *argv[])
 
     game.init();
     game.seed_use_sdl_getticks = seed_use_sdl_getticks;
+    game.editor_disabled = editor_disabled;
 
     game.gamestate = PRELOADER;
 
@@ -756,7 +739,6 @@ int main(int argc, char *argv[])
 
     obj.init();
 
-#if !defined(NO_CUSTOM_LEVELS)
     if (startinplaytest) {
         game.levelpage = 0;
         game.playcustomlevel = 0;
@@ -808,7 +790,6 @@ int main(int argc, char *argv[])
 
         graphics.fademode = FADE_NONE;
     }
-#endif
 
     /* Only create the window after we have loaded all the assets. */
     SDL_ShowWindow(gameScreen.m_window);

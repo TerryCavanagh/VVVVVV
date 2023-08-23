@@ -124,24 +124,20 @@ const int mapclass::areamap[] = {
 
 int mapclass::getwidth(void)
 {
-#ifndef NO_CUSTOM_LEVELS
     if (custommode)
     {
         return cl.mapwidth;
     }
-#endif
 
     return 20;
 }
 
 int mapclass::getheight(void)
 {
-#ifndef NO_CUSTOM_LEVELS
     if (custommode)
     {
         return cl.mapheight;
     }
-#endif
 
     return 20;
 }
@@ -420,7 +416,6 @@ void mapclass::initcustommapdata(void)
 {
     shinytrinkets.clear();
 
-#if !defined(NO_CUSTOM_LEVELS)
     for (size_t i = 0; i < customentities.size(); i++)
     {
         const CustomEntity& ent = customentities[i];
@@ -431,7 +426,6 @@ void mapclass::initcustommapdata(void)
 
         settrinket(ent.rx, ent.ry);
     }
-#endif
 }
 
 int mapclass::finalat(int x, int y)
@@ -958,7 +952,6 @@ void mapclass::gotoroom(int rx, int ry)
             music.niceplay(Music_PREDESTINEDFATEREMIX);
         }
     }
-#if !defined(NO_CUSTOM_LEVELS)
     else if (custommode)
     {
         game.roomx = rx;
@@ -968,7 +961,6 @@ void mapclass::gotoroom(int rx, int ry)
         if (game.roomx > 100 + cl.mapwidth-1) game.roomx = 100;
         if (game.roomy > 100 + cl.mapheight-1) game.roomy = 100;
     }
-#endif
     else
     {
         game.roomx = rx;
@@ -1725,7 +1717,6 @@ void mapclass::loadlevel(int rx, int ry)
         break;
     }
 #endif
-#if !defined(NO_CUSTOM_LEVELS)
     case 12: //Custom level
     {
         const RoomProperty* const room = cl.getroomprop(rx - 100, ry - 100);
@@ -1961,7 +1952,6 @@ void mapclass::loadlevel(int rx, int ry)
         //do the appear/remove roomname here
         break;
     }
-#endif
     }
     //The room's loaded: now we fill out damage blocks based on the tiles.
     if (towermode)

@@ -947,10 +947,9 @@ static void loadtext_roomnames(bool custom_level)
             {
                 continue;
             }
-#if !defined(NO_CUSTOM_LEVELS)
+
             const RoomProperty* const room = cl.getroomprop(x, y);
             if (SDL_strcmp(original_roomname, room->roomname.c_str()) != 0)
-#endif
             {
                 continue;
             }

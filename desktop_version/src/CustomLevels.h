@@ -1,5 +1,3 @@
-#if !defined(NO_CUSTOM_LEVELS)
-
 #ifndef CUSTOMLEVELS_H
 #define CUSTOMLEVELS_H
 
@@ -138,9 +136,8 @@ public:
     int absfree(int x, int y);
 
     bool load(std::string _path);
-#ifndef NO_EDITOR
     bool save(const std::string& _path);
-#endif
+
     void generatecustomminimap(void);
 
     int findtrinket(int t);
@@ -182,4 +179,3 @@ extern customlevelclass cl;
 
 #endif /* CUSTOMLEVELS_H */
 
-#endif /* NO_CUSTOM_LEVELS */
