@@ -58,6 +58,8 @@ public:
 
     void resetmap(void);
 
+    void fullmap(void);
+
     void updateroomnames(void);
 
     void initmapdata(void);
@@ -124,6 +126,8 @@ public:
 
     bool isexplored(const int rx, const int ry);
     void setexplored(const int rx, const int ry, const bool status);
+
+    bool revealmap;
 
     int background;
     int rcol;
