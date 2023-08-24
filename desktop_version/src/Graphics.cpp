@@ -1076,6 +1076,15 @@ void Graphics::drawpartimage(const int t, const int xp, const int yp, const int 
     draw_texture_part(images[t], xp, yp, 0, 0, wp, hp, 1, 1);
 }
 
+void Graphics::draw_region_image(int t, int xp, int yp, int wp, int hp)
+{
+    if (!INBOUNDS_ARR(t, customminimaps) || customminimaps[t] == NULL)
+    {
+        return;
+    }
+    draw_texture_part(customminimaps[t], xp, yp, 0, 0, wp, hp, 1, 1);
+}
+
 void Graphics::draw_texture(SDL_Texture* image, const int x, const int y)
 {
     int w, h;

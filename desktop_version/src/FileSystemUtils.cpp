@@ -399,9 +399,9 @@ bool FILESYSTEM_isMounted(const char* filename)
     return PHYSFS_getMountPoint(filename) != NULL;
 }
 
-static bool FILESYSTEM_exists(const char *fname)
+static bool FILESYSTEM_exists(const char* filename)
 {
-    return PHYSFS_exists(fname);
+    return PHYSFS_exists(filename);
 }
 
 static void generateBase36(char* string, const size_t string_size)
