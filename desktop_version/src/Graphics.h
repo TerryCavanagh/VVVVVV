@@ -140,6 +140,8 @@ public:
 
     void drawpartimage(int t, int xp, int yp, int wp, int hp);
 
+    void draw_region_image(int t, int xp, int yp, int wp, int hp);
+
     void drawimage(int t, int xp, int yp, bool cent=false);
 
     void drawimagecol(int t, int xp, int yp, SDL_Color ct, bool cent= false);
@@ -313,6 +315,8 @@ public:
     std::vector <SDL_Surface*> flipsprites_surf;
 
     SDL_Texture* images[NUM_IMAGES];
+
+    SDL_Texture* customminimaps[401];
 
     bool flipmode;
     bool setflipmode;
