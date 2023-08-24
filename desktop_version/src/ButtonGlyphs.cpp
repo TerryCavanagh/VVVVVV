@@ -194,7 +194,14 @@ void BUTTONGLYPHS_update_layout(Uint16 vendor, Uint16 product)
     }
     else if (vendor == 0x2dc8) /* 8BitDo */
     {
-        layout = LAYOUT_NINTENDO_SWITCH_PRO;
+        if (product == 0x2002) /* Ultimate Wired Controller for Xbox */
+        {
+            layout = LAYOUT_XBOX;
+        }
+        else
+        {
+            layout = LAYOUT_NINTENDO_SWITCH_PRO;
+        }
     }
     else
     {
