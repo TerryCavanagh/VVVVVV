@@ -21,7 +21,6 @@
 #include "Map.h"
 #include "Music.h"
 #include "Unreachable.h"
-#include "Unused.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"

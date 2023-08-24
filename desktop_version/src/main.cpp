@@ -31,7 +31,6 @@
 #include "RenderFixed.h"
 #include "Screen.h"
 #include "Script.h"
-#include "Unused.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
