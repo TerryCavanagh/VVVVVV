@@ -152,6 +152,13 @@ bool BUTTONGLYPHS_keyboard_is_available(void)
 {
     /* Returns true if it makes sense to show button hints that are only available
      * on keyboards (like press M to mute), false if we're on a console. */
+
+    if (BUTTONGLYPHS_keyboard_is_active())
+    {
+        /* The keyboard is active, so there HAS to be a keyboard available */
+        return true;
+    }
+
     return !SDL_GetHintBoolean("SteamDeck", SDL_FALSE);
 }
 
