@@ -273,7 +273,7 @@ editorclass::editorclass(void)
     register_tilecol(EditorTileset_WARP_ZONE, 3, "basic", 89, "none", 129);
     register_tilecol(EditorTileset_WARP_ZONE, 4, "basic", 92, "none", 132);
     register_tilecol(EditorTileset_WARP_ZONE, 5, "basic", 95, "none", 135);
-    register_tilecol(EditorTileset_WARP_ZONE, 6, "basic", 98, "none", 138);
+    register_tilecol(EditorTileset_WARP_ZONE, 6, "basic", 98, "none", 740);
 
     register_tilecol(EditorTileset_SHIP, 0, "basic", 101, "basic", 741);
     register_tilecol(EditorTileset_SHIP, 1, "basic", 104, "basic", 744);
@@ -3769,7 +3769,7 @@ bool editorclass::is_warp_zone_background(int tile)
         return false;
     }
 
-    return (tile == 120 || tile == 123 || tile == 126 || tile == 129 || tile == 132 || tile == 135 || tile == 138);
+    return (tile == 120 || tile == 123 || tile == 126 || tile == 129 || tile == 132 || tile == 135 || tile == 138 || tile == 740);
 }
 
 int editorclass::autotile(const int x, const int y)

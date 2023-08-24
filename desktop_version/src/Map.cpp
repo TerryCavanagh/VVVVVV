@@ -507,7 +507,8 @@ void mapclass::changefinalcol(int t)
     //change the map to colour t - for the game's final stretch.
     //First up, the tiles. This is just a setting:
     final_mapcol = t;
-    const int temp = 6 - t;
+    graphics.rcol = 6 - t;
+    graphics.backgrounddrawn = false;
     //Next, entities
     for (size_t i = 0; i < obj.entities.size(); i++)
     {
@@ -515,28 +516,35 @@ void mapclass::changefinalcol(int t)
         {
             if (obj.entities[i].animate == 10 || obj.entities[i].animate == 11) //treadmill
             {
-                if(temp<3)
+                if (custommode)
                 {
-                    obj.entities[i].tile = 907 + (temp * 80);
+                    obj.entities[i].tile = 568 + (graphics.rcol * 12);
+                }
+                else if (graphics.rcol < 3)
+                {
+                    obj.entities[i].tile = 907 + (graphics.rcol * 80);
                 }
                 else
                 {
-                    obj.entities[i].tile = 911 + ((temp-3) * 80);
+                    obj.entities[i].tile = 911 + ((graphics.rcol - 3) * 80);
                 }
-                if(obj.entities[i].animate == 10)    obj.entities[i].tile += 40;
+                if (obj.entities[i].animate == 10)
+                {
+                    obj.entities[i].tile += custommode ? 4 : 40;
+                }
             }
             else if (obj.entities[i].isplatform)
             {
-                obj.entities[i].tile = 915+(temp*40);
+                obj.entities[i].tile = custommode ? 564 + (graphics.rcol * 12) : 915 + (graphics.rcol * 40);
             }
-            else    //just an enemy
+            else // just an enemy
             {
-                obj.entities[i].colour = maptiletoenemycol(temp);
+                obj.entities[i].colour = maptiletoenemycol(graphics.rcol);
             }
         }
-        else if (obj.entities[i].type == 2)    //disappearing platforms
+        else if (obj.entities[i].type == 2) // disappearing platforms
         {
-            obj.entities[i].tile = 915+(temp*40);
+            obj.entities[i].tile = custommode ? 564 + (graphics.rcol * 12) : 915 + (graphics.rcol * 40);
         }
     }
 }
@@ -1947,6 +1955,12 @@ void mapclass::loadlevel(int rx, int ry)
                 }
                 break;
             }
+        }
+
+        if (finalstretch)
+        {
+            graphics.rcol = 6 - final_mapcol;
+            changefinalcol(final_mapcol);
         }
 
         //do the appear/remove roomname here

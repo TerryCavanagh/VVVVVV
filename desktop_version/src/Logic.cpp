@@ -502,7 +502,7 @@ void gamelogic(void)
     else
     {
         //Update colour thingy
-        if (map.finalmode)
+        if (map.finalmode || map.custommode)
         {
             if (map.final_colormode)
             {
@@ -1407,7 +1407,7 @@ void gamelogic(void)
     }
 
     //Update colour cycling for final level
-    if (map.finalmode && map.final_colormode)
+    if ((map.finalmode || map.custommode) && map.final_colormode)
     {
         map.final_aniframedelay--;
         if (map.final_aniframedelay == 0)

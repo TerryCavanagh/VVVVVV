@@ -1454,6 +1454,31 @@ void scriptclass::run(void)
                 map.finalmode = true;
                 map.gotoroom(ss_toi(words[1]), ss_toi(words[2]));
             }
+            else if (words[0] == "finalstretch")
+            {
+                if (words[1] == "on")
+                {
+                    map.finalstretch = true;
+                    map.final_colormode = true;
+                    map.final_colorframe = 1;
+
+                    graphics.foregrounddrawn = false;
+                    map.final_colorframedelay = 40;
+
+                    int temp = 1 + (int)(fRandom() * 5);
+                    if (temp == 0) temp = 6;
+                    map.changefinalcol(temp);
+                }
+                else if (words[1] == "off")
+                {
+                    map.finalstretch = false;
+                    map.final_colormode = false;
+                    map.final_mapcol = 0;
+                    map.final_colorframe = 0;
+                    graphics.foregrounddrawn = false;
+                    map.changefinalcol(0);
+                }
+            }
             else if (words[0] == "rescued")
             {
                 if (words[1] == "red")
