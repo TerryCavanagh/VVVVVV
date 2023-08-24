@@ -399,9 +399,7 @@ static void menuactionpress(void)
         {
             OPTION_ID(3) /* translator */
         }
-#if !defined(MAKEANDPLAY)
         OPTION_ID(4) /* credits */
-#endif
         OPTION_ID(5) /* quit */
 
 #undef OPTION_ID
@@ -447,14 +445,12 @@ static void menuactionpress(void)
             game.createmenu(Menu::translator_main);
             map.nexttowercolour();
             break;
-#if !defined(MAKEANDPLAY)
         case 4:
             //Credits
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::credits);
             map.nexttowercolour();
             break;
-#endif
         case 5:
             music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::youwannaquit);

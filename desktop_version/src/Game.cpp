@@ -6274,9 +6274,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         {
             option(loc::gettext("translator"));
         }
-#if !defined(MAKEANDPLAY)
         option(loc::gettext("credits"));
-#endif
         option(loc::gettext("quit"));
         menuyoff = -10;
         maxspacing = 15;
