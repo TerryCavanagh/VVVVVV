@@ -417,8 +417,8 @@
     <string english="start from beginning" translation="vanaf het begin starten" explanation="menu option"/>
     <string english="delete save" translation="save verwijderen" explanation="menu option"/>
     <string english="back to levels" translation="terug naar levels" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="De leveleditor wordt momenteel niet ondersteund op Steam Deck, omdat hiervoor een toetsenbord en muis nodig is." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="De leveleditor wordt momenteel niet ondersteund op dit apparaat, omdat hiervoor een toetsenbord en muis nodig is." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Kopieer .vvvvvv-bestanden naar de levelsmap om nieuwe spelerlevels te installeren." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Weet je zeker dat je het levelspad wil laten zien? Dit kan gevoelige informatie onthullen als je aan het streamen bent." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Het levelspad is:" explanation="" max="40"/>
