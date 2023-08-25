@@ -1,6 +1,7 @@
 #include <tinyxml2.h>
 #include <vector>
 
+#include "ButtonGlyphs.h"
 #include "Credits.h"
 #include "CustomLevels.h"
 #include "Editor.h"
@@ -426,6 +427,7 @@ static void menuactionpress(void)
         case 1:
             //Bring you to the normal playmenu
             music.playef(Sound_VIRIDIAN);
+            game.editor_disabled = !BUTTONGLYPHS_keyboard_is_available();
             game.createmenu(Menu::playerworlds);
             map.nexttowercolour();
             break;
@@ -614,6 +616,7 @@ static void menuactionpress(void)
     }
     case Menu::showlevelspath:
         music.playef(Sound_VIRIDIAN);
+        game.editor_disabled = !BUTTONGLYPHS_keyboard_is_available();
         game.returntomenu(Menu::playerworlds);
         map.nexttowercolour();
         break;
