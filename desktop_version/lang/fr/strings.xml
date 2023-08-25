@@ -417,7 +417,9 @@
     <string english="start from beginning" translation="reprendre du début" explanation="menu option"/>
     <string english="delete save" translation="effacer sauvegarde" explanation="menu option"/>
     <string english="back to levels" translation="retour aux niveaux" explanation="menu option"/>
-    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Pour installer de nouveaux niveaux de joueurs, copiez les fichiers .vvvvvv dans le dossier « Levels »." explanation="" max="38*3"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Pour installer de nouveaux niveaux de joueurs, copiez les fichiers .vvvvvv dans le dossier « Levels »." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Souhaitez-vous vraiment afficher le chemin des niveaux ? Ceci pourrait révéler des informations sensibles si vous êtes en train de streamer..." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Le chemin des niveaux est :" explanation="" max="40"/>
     <string english="[ Press ACTION to Start ]" translation="[ Appuyez sur ACTION pour commencer ]" explanation="***OUTDATED***" max="38*2"/>

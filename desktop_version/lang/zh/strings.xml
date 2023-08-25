@@ -425,8 +425,10 @@
     <string english="start from beginning" translation="从头开始" explanation="menu option"/>
     <string english="delete save" translation="删除存档" explanation="menu option"/>
     <string english="back to levels" translation="返回关卡" explanation="menu option"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5" max_local="25*4"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5" max_local="25*4"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="要安装新的玩家关卡，请将.vvvvvv文件
-复制到关卡文件夹。" explanation="" max="38*3" max_local="25*2"/>
+复制到关卡文件夹。" explanation="" max="38*5" max_local="25*4"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="你确定想要显示文件夹路径吗？如果你在直播的话，
 这可能会透露一些敏感的信息。" explanation="" max="38*4" max_local="25*3"/>
     <string english="The levels path is:" translation="文件夹路径是：" explanation="" max="40" max_local="26"/>
