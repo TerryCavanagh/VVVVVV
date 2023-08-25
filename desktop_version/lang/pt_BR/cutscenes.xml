@@ -80,7 +80,7 @@
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Eu tô me sentindo um pouco sobrecarregado, Doutora."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Por onde começo?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Lembre-se: você pode apertar ENTER para verificar onde você está no mapa!"/>
-        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="" buttons="1"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="Lembre-se: você pode pressionar {b_map} para verificar onde você está no mapa!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Procure áreas onde o resto da equipe pode estar..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Se você se perder, pode voltar para a nave a partir de qualquer teletransportador."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="E não se preocupa! Vamos encontrar todos!"/>
