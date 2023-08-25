@@ -368,7 +368,6 @@ int main(int argc, char *argv[])
     char* langDir = NULL;
     char* fontsDir = NULL;
     bool seed_use_sdl_getticks = false;
-    bool editor_disabled = !BUTTONGLYPHS_keyboard_is_available();
 #ifdef _WIN32
     bool open_console = false;
 #endif
@@ -532,10 +531,6 @@ int main(int argc, char *argv[])
         {
             seed_use_sdl_getticks = true;
         }
-        else if (ARG("-enable-editor"))
-        {
-            editor_disabled = false;
-        }
 #undef ARG_INNER
 #undef ARG
         else
@@ -609,7 +604,6 @@ int main(int argc, char *argv[])
 
     game.init();
     game.seed_use_sdl_getticks = seed_use_sdl_getticks;
-    game.editor_disabled = editor_disabled;
 
     game.gamestate = PRELOADER;
 

@@ -7284,6 +7284,7 @@ void Game::quittomenu(void)
         else
         {
             //Returning from editor
+            editor_disabled = !BUTTONGLYPHS_keyboard_is_available();
             returntomenu(Menu::playerworlds);
         }
     }
