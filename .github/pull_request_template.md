@@ -13,6 +13,8 @@ things for you to read through first:
 - New platforms are acceptable if they use SDL + PhysicsFS and don't mess with
   the game source too much.
     - (No homebrew console targets, sorry! Maybe do the work in SDL instead?)
+- Translations and localizations of the game are not a community effort. If you
+  want to translate the game, you should contact Terry.
 - Pull requests that do not fill out the Legal Stuff will be closed
   automatically.
 

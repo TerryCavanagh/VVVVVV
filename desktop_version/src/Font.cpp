@@ -20,7 +20,7 @@ extern "C"
 }
 
 // Sigh... This is the second forward-declaration, we need to put this in a header file
-SDL_Texture* LoadImage(const char *filename, const TextureLoadType loadtype);
+SDL_Texture* LoadImage(const char *filename, TextureLoadType loadtype);
 
 namespace font
 {
@@ -548,9 +548,7 @@ void set_level_font_new(void)
         }
     }
 
-#ifndef NO_CUSTOM_LEVELS
     cl.level_font_name = get_main_font_name(font_idx_level);
-#endif
 }
 
 static void fill_map_name_idx(FontContainer* container)

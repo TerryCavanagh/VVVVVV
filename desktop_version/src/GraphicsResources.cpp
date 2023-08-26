@@ -21,7 +21,9 @@ extern "C"
 
 static SDL_Surface* LoadImageRaw(const char* filename, unsigned char** data)
 {
-    //Temporary storage for the image that's loaded
+    *data = NULL;
+
+    // Temporary storage for the image that's loaded
     SDL_Surface* loadedImage = NULL;
 
     unsigned int width, height;
@@ -84,7 +86,6 @@ SDL_Surface* LoadImageSurface(const char* filename)
 
     if (optimizedImage == NULL)
     {
-        VVV_free(data);
         vlog_error("Image not found: %s", filename);
         SDL_assert(0 && "Image not found! See stderr.");
     }
@@ -237,15 +238,15 @@ static void LoadSprites(const char* filename, SDL_Texture** texture, SDL_Surface
     unsigned char* data;
     SDL_Surface* loadedImage = LoadImageRaw(filename, &data);
 
-    *texture = LoadTextureFromRaw(filename, loadedImage, TEX_WHITE);
-    if (*texture == NULL)
+    *surface = LoadSurfaceFromRaw(loadedImage);
+    if (*surface == NULL)
     {
         vlog_error("Image not found: %s", filename);
         SDL_assert(0 && "Image not found! See stderr.");
     }
 
-    *surface = LoadSurfaceFromRaw(loadedImage);
-    if (*surface == NULL)
+    *texture = LoadTextureFromRaw(filename, loadedImage, TEX_WHITE);
+    if (*texture == NULL)
     {
         vlog_error("Image not found: %s", filename);
         SDL_assert(0 && "Image not found! See stderr.");

@@ -1,5 +1,3 @@
-#if !defined(NO_CUSTOM_LEVELS)
-
 #define CL_DEFINITION
 #include "CustomLevels.h"
 
@@ -258,6 +256,10 @@ static void levelMetaDataCallback(const char* filename)
     {
         cl.ListOfMetaData.push_back(temp);
     }
+    else
+    {
+        vlog_warn("Level %s not found :(", filename_.c_str());
+    }
 }
 
 void customlevelclass::getDirectoryData(void)
@@ -290,7 +292,6 @@ bool customlevelclass::getLevelMetaDataAndPlaytestArgs(const std::string& _path,
 
     if (uMem == NULL)
     {
-        vlog_warn("Level %s not found :(", _path.c_str());
         return false;
     }
 
@@ -387,7 +388,8 @@ void customlevelclass::reset(void)
 
     onewaycol_override = false;
 
-    customcolours.clear();
+    script.textbox_colours.clear();
+    script.add_default_colours();
     map.specialroomnames.clear();
 }
 
@@ -941,12 +943,10 @@ void customlevelclass::findstartpoint(void)
     else
     {
         //Start point spawn
-        int tx=customentities[testeditor].x/40;
-        int ty=customentities[testeditor].y/30;
-        game.edsavex = ((customentities[testeditor].x%40)*8)-4;
-        game.edsavey = (customentities[testeditor].y%30)*8;
-        game.edsaverx = 100+tx;
-        game.edsavery = 100+ty;
+        game.edsavex = (customentities[testeditor].x * 8) - 4;
+        game.edsavey = customentities[testeditor].y * 8;
+        game.edsaverx = 100 + customentities[testeditor].rx;
+        game.edsavery = 100 + customentities[testeditor].ry;
         game.edsavegc = 0;
         game.edsavey++;
         game.edsavedir=1-customentities[testeditor].p1;
@@ -994,9 +994,7 @@ bool customlevelclass::load(std::string _path)
     tinyxml2::XMLElement* pElem;
 
     reset();
-#ifndef NO_EDITOR
     ed.reset();
-#endif
 
     static const char *levelDir = "levels/";
     if (_path.compare(0, SDL_strlen(levelDir), levelDir) != 0)
@@ -1016,19 +1014,26 @@ bool customlevelclass::load(std::string _path)
 
     if (!FILESYSTEM_loadTiXml2Document(_path.c_str(), doc))
     {
-        vlog_warn("%s not found", _path.c_str());
+        FILESYSTEM_setLevelDirError(
+            loc::gettext("Level {path} not found"),
+            "path:str",
+            _path.c_str()
+        );
         goto fail;
     }
 
     if (doc.Error())
     {
-        vlog_error("Error parsing %s: %s", _path.c_str(), doc.ErrorStr());
+        FILESYSTEM_setLevelDirError(
+            loc::gettext("Error parsing {path}: {error}"),
+            "path:str, error:str",
+            _path.c_str(),
+            doc.ErrorStr()
+        );
         goto fail;
     }
 
-#ifndef NO_EDITOR
     ed.loaded_filepath = _path;
-#endif
 
     version = 0;
     level_font_name = "font";
@@ -1150,6 +1155,8 @@ bool customlevelclass::load(std::string _path)
             {
                 CustomEntity entity = CustomEntity();
                 const char* text = edEntityEl->GetText();
+                int global_x = 0;
+                int global_y = 0;
 
                 if (text != NULL)
                 {
@@ -1194,8 +1201,12 @@ bool customlevelclass::load(std::string _path)
 
                     entity.scriptname = std::string(text, len);
                 }
-                edEntityEl->QueryIntAttribute("x", &entity.x);
-                edEntityEl->QueryIntAttribute("y", &entity.y);
+                edEntityEl->QueryIntAttribute("x", &global_x);
+                edEntityEl->QueryIntAttribute("y", &global_y);
+                entity.rx = global_x / SCREEN_WIDTH_TILES;
+                entity.x = global_x % SCREEN_WIDTH_TILES;
+                entity.ry = global_y / SCREEN_HEIGHT_TILES;
+                entity.y = global_y % SCREEN_HEIGHT_TILES;
                 edEntityEl->QueryIntAttribute("t", &entity.t);
 
                 edEntityEl->QueryIntAttribute("p1", &entity.p1);
@@ -1309,7 +1320,7 @@ next:
                         colour.g = g;
                         colour.b = b;
 
-                        customcolours[name] = colour;
+                        script.textbox_colours[name] = colour;
                     }
                 }
             }
@@ -1435,7 +1446,6 @@ fail:
     return false;
 }
 
-#ifndef NO_EDITOR
 bool customlevelclass::save(const std::string& _path)
 {
     tinyxml2::XMLDocument doc;
@@ -1536,8 +1546,10 @@ bool customlevelclass::save(const std::string& _path)
     for(size_t i = 0; i < customentities.size(); i++)
     {
         tinyxml2::XMLElement *edentityElement = doc.NewElement( "edentity" );
-        edentityElement->SetAttribute( "x", customentities[i].x);
-        edentityElement->SetAttribute(  "y", customentities[i].y);
+        const int global_x = customentities[i].rx * SCREEN_WIDTH_TILES + customentities[i].x;
+        const int global_y = customentities[i].ry * SCREEN_HEIGHT_TILES + customentities[i].y;
+        edentityElement->SetAttribute("x", global_x);
+        edentityElement->SetAttribute("y", global_y);
         edentityElement->SetAttribute(  "t", customentities[i].t);
         edentityElement->SetAttribute(  "p1", customentities[i].p1);
         edentityElement->SetAttribute(  "p2", customentities[i].p2);
@@ -1632,8 +1644,6 @@ bool customlevelclass::save(const std::string& _path)
 
     return FILESYSTEM_saveTiXml2Document(newpath.c_str(), doc);
 }
-#endif /* NO_EDITOR */
-
 
 void customlevelclass::generatecustomminimap(void)
 {
@@ -1678,15 +1688,10 @@ void customlevelclass::generatecustomminimap(void)
     {
         for (int i2 = 0; i2 < mapwidth; i2++)
         {
-            int tm;
-            if (getroomprop(i2, j2)->tileset == 1)
-            {
-                tm = 96;
-            }
-            else
-            {
-                tm = 196;
-            }
+            std::vector<SDL_Point> dark_points;
+            std::vector<SDL_Point> light_points;
+
+            bool dark = getroomprop(i2, j2)->tileset == 1;
 
             // Ok, now scan over each square
             for (int j = 0; j < 9 * map.customzoom; j++)
@@ -1718,15 +1723,27 @@ void customlevelclass::generatecustomminimap(void)
 
                     if (tile >= 1)
                     {
-                        // Fill in this pixel
-                        graphics.fill_rect(
-                            (i2 * 12 * map.customzoom) + i,
-                            (j2 * 9 * map.customzoom) + j,
-                            1, 1,
-                            graphics.getRGB(tm, tm, tm)
-                        );
+                        // Add this pixel
+                        SDL_Point point = { (i2 * 12 * map.customzoom) + i, (j2 * 9 * map.customzoom) + j };
+                        if (dark)
+                        {
+                            dark_points.push_back(point);
+                        }
+                        else
+                        {
+                            light_points.push_back(point);
+                        }
                     }
                 }
+            }
+            // Draw them all at once
+            if (!dark_points.empty())
+            {
+                graphics.draw_points(dark_points.data(), dark_points.size(), 96, 96, 96);
+            }
+            if (!light_points.empty())
+            {
+                graphics.draw_points(light_points.data(), light_points.size(), 196, 196, 196);
             }
         }
     }
@@ -1897,14 +1914,11 @@ SDL_Color customlevelclass::getonewaycol(const int rx, const int ry)
 // This version detects the room automatically
 SDL_Color customlevelclass::getonewaycol(void)
 {
-#ifndef NO_EDITOR
     if (game.gamestate == EDITORMODE)
     {
         return getonewaycol(ed.levx, ed.levy);
     }
-    else
-#endif
-    if (map.custommode)
+    else if (map.custommode)
     {
         return getonewaycol(game.roomx - 100, game.roomy - 100);
     }
@@ -1947,5 +1961,3 @@ int customlevelclass::numcrewmates(void)
     }
     return temp;
 }
-
-#endif /* NO_CUSTOM_LEVELS */

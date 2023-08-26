@@ -74,7 +74,7 @@
     <roomname x="13" y="5" english="Welcome Aboard" translation="Benvenuti a bordo" explanation="The first room in the game"/>
     <roomname x="13" y="6" english="Trench Warfare" translation="Guerra di trincea" explanation="Room contains a couple of pits with soldier-like enemies in them. Loosely references the 1983 videogame Hunchback."/>
     <roomname x="13" y="7" english="B-B-B-Busted" translation="B-B-B-Bus" explanation="Room contains a large Bus. &apos;Bus&apos;ted as in &apos;Caught&apos;."/>
-    <roomname x="13" y="8" english="Level Complete!" translation="Livello completato!" explanation="This room has a teleporter, which is normally found at the end of a level. However this room is midway through the stage."/>
+    <roomname x="13" y="8" english="Level Complete!" translation="Livello completato" explanation="This room has a teleporter, which is normally found at the end of a level. However this room is midway through the stage."/>
     <roomname x="13" y="9" english="Lighter Than Air" translation="Più leggero dell&apos;aria" explanation="This room has clouds that rise from the bottom of the screen to the top, which the player is faster than, implying that the player is lighter than air."/>
     <roomname x="13" y="10" english="The Solution is Dilution" translation="La soluzione è la diluizione" explanation="This room has a factory and pollution clouds in it. Apparently this phrase was once used by industrialists to advocate for not worrying too much about pollution."/>
     <roomname x="13" y="11" english="The Cuckoo" translation="Il cuculo" explanation="This room contains a speaker that emits the word &apos;LIES&apos; over and over. A cuckoo&apos;s call decieves other birds!"/>

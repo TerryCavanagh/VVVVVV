@@ -124,24 +124,20 @@ const int mapclass::areamap[] = {
 
 int mapclass::getwidth(void)
 {
-#ifndef NO_CUSTOM_LEVELS
     if (custommode)
     {
         return cl.mapwidth;
     }
-#endif
 
     return 20;
 }
 
 int mapclass::getheight(void)
 {
-#ifndef NO_CUSTOM_LEVELS
     if (custommode)
     {
         return cl.mapheight;
     }
-#endif
 
     return 20;
 }
@@ -420,7 +416,6 @@ void mapclass::initcustommapdata(void)
 {
     shinytrinkets.clear();
 
-#if !defined(NO_CUSTOM_LEVELS)
     for (size_t i = 0; i < customentities.size(); i++)
     {
         const CustomEntity& ent = customentities[i];
@@ -429,12 +424,8 @@ void mapclass::initcustommapdata(void)
             continue;
         }
 
-        const int rx = ent.x / 40;
-        const int ry = ent.y / 30;
-
-        settrinket(rx, ry);
+        settrinket(ent.rx, ent.ry);
     }
-#endif
 }
 
 int mapclass::finalat(int x, int y)
@@ -956,12 +947,11 @@ void mapclass::gotoroom(int rx, int ry)
         }
 
         //Final level for time trial
-        if (game.intimetrial)
+        if (game.intimetrial && game.roomx == 46 && game.roomy == 54)
         {
-            if (game.roomx == 46 && game.roomy == 54) music.niceplay(15); //Final level remix
+            music.niceplay(Music_PREDESTINEDFATEREMIX);
         }
     }
-#if !defined(NO_CUSTOM_LEVELS)
     else if (custommode)
     {
         game.roomx = rx;
@@ -971,7 +961,6 @@ void mapclass::gotoroom(int rx, int ry)
         if (game.roomx > 100 + cl.mapwidth-1) game.roomx = 100;
         if (game.roomy > 100 + cl.mapheight-1) game.roomy = 100;
     }
-#endif
     else
     {
         game.roomx = rx;
@@ -1728,7 +1717,6 @@ void mapclass::loadlevel(int rx, int ry)
         break;
     }
 #endif
-#if !defined(NO_CUSTOM_LEVELS)
     case 12: //Custom level
     {
         const RoomProperty* const room = cl.getroomprop(rx - 100, ry - 100);
@@ -1807,16 +1795,13 @@ void mapclass::loadlevel(int rx, int ry)
         {
             // If entity is in this room, create it
             const CustomEntity& ent = customentities[edi];
-            const int tsx = ent.x / 40;
-            const int tsy = ent.y / 30;
-
-            if (tsx != rx-100 || tsy != ry-100)
+            if (ent.rx != rx - 100 || ent.ry != ry - 100)
             {
                 continue;
             }
 
-            const int ex = (ent.x % 40) * 8;
-            const int ey = (ent.y % 30) * 8;
+            const int ex = ent.x * 8;
+            const int ey = ent.y * 8;
 
             // Platform and enemy bounding boxes
             int bx1 = 0, by1 = 0, bx2 = 0, by2 = 0;
@@ -1923,8 +1908,16 @@ void mapclass::loadlevel(int rx, int ry)
                     usethisy -= 8;
                 }
 
-                obj.createentity(ex, usethisy + 8, 20, usethistile);
-                obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
+                obj.createentity(ex, usethisy + 8, 20 + SDL_clamp(ent.p2, 0, 1), usethistile);
+
+                for (size_t i = 0; i < script.customscripts.size(); i++)
+                {
+                    if (script.customscripts[i].name == obj.customscript)
+                    {
+                        obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
+                        break;
+                    }
+                }
                 break;
             }
             case 19: //Script Box
@@ -1959,7 +1952,6 @@ void mapclass::loadlevel(int rx, int ry)
         //do the appear/remove roomname here
         break;
     }
-#endif
     }
     //The room's loaded: now we fill out damage blocks based on the tiles.
     if (towermode)

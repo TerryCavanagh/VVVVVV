@@ -11,4 +11,6 @@ void teleporterrenderfixed(void);
 
 void gamecompleterenderfixed(void);
 
+void gamecompleterenderfixed2(void);
+
 #endif /* RENDERFIXED_H */

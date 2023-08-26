@@ -1,6 +1,7 @@
 #ifndef SCRIPT_H
 #define SCRIPT_H
 
+#include <map>
 #include <string>
 #include <vector>
 
@@ -8,6 +9,11 @@
 
 #define filllines(lines) commands.insert(commands.end(), lines, lines + SDL_arraysize(lines))
 
+#ifdef SCRIPT_DEFINITION
+#define TEXT_COLOUR(a) textbox_colours[a]
+#else
+#define TEXT_COLOUR(a) script.textbox_colours[a]
+#endif
 
 struct Script
 {
@@ -68,13 +74,15 @@ public:
     bool loadcustom(const std::string& t);
     void loadalts(const std::string& processed, const std::string& raw);
 
-    void add_test_line(const std::string& speaker, const std::string& english, char textcase);
+    void add_test_line(const std::string& speaker, const std::string& english, char textcase, bool textbuttons);
     void loadtest(const std::string& name);
 
     void inline add(const std::string& t)
     {
         commands.push_back(t);
     }
+
+    void add_default_colours(void);
 
     void clearcustom(void);
 
@@ -101,7 +109,8 @@ public:
     int scriptdelay;
     bool running;
 
-    //Textbox stuff
+    // Textbox stuff
+    std::map<std::string, SDL_Color> textbox_colours;
     int textx;
     int texty;
     int r,g,b;
@@ -111,7 +120,9 @@ public:
     size_t textpad_right;
     size_t textpadtowidth;
     char textcase;
+    bool textbuttons;
     bool textlarge;
+    int textboxtimer;
 
     //Misc
     int i, j, k;

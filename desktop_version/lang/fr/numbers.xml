@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Please read README.txt for information about the language files -->
 <numbers>
-    <number value="0" form="0" english="Zero" translation="zéro"/>
+    <number value="0" form="1" english="Zero" translation="zéro"/>
     <number value="1" form="1" english="One" translation="un"/>
     <number value="2" form="0" english="Two" translation="deux"/>
     <number value="3" form="0" english="Three" translation="trois"/>

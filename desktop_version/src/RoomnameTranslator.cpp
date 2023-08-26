@@ -9,6 +9,7 @@
 #include "Localization.h"
 #include "LocalizationMaint.h"
 #include "Map.h"
+#include "Script.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
@@ -57,7 +58,7 @@ namespace roomname_translator
             fullscreen_rect.w = 320;
             fullscreen_rect.h = 240;
             graphics.set_blendmode(SDL_BLENDMODE_BLEND);
-            graphics.fill_rect(0, 0, 0, 96);
+            graphics.fill_rect(graphics.getRGBA(0, 0, 0, 96));
             graphics.set_blendmode(SDL_BLENDMODE_NONE);
             if (help_screen)
             {
@@ -252,14 +253,14 @@ namespace roomname_translator
     {
         if (loc::save_roomname_explanation_to_files(map.custommode, game.roomx, game.roomy, explanation))
         {
-            graphics.createtextboxflipme(success_message, -1, 176, 174, 174, 174);
+            graphics.createtextboxflipme(success_message, -1, 176, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             graphics.textboxtimer(25);
         }
         else
         {
-            graphics.createtextboxflipme("ERROR: Could not save to all langs!", -1, 176, 255, 60, 60);
+            graphics.createtextboxflipme("ERROR: Could not save to all langs!", -1, 176, TEXT_COLOUR("red"));
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             graphics.textboxtimer(50);
@@ -270,14 +271,14 @@ namespace roomname_translator
     {
         if (loc::save_roomname_to_file(loc::lang, map.custommode, game.roomx, game.roomy, translation, NULL))
         {
-            graphics.createtextboxflipme("Translation saved!", -1, 176, 174, 174, 174);
+            graphics.createtextboxflipme("Translation saved!", -1, 176, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             graphics.textboxtimer(25);
         }
         else
         {
-            graphics.createtextboxflipme("ERROR: Could not save!", -1, 144, 255, 60, 60);
+            graphics.createtextboxflipme("ERROR: Could not save!", -1, 144, TEXT_COLOUR("red"));
             graphics.addline("");
             graphics.addline("1) Do the language files exist?");
             graphics.addline("2) Make sure there is no \"lang\"");
@@ -341,7 +342,7 @@ namespace roomname_translator
                 {
                     if (loc::lang == "en")
                     {
-                        graphics.createtextboxflipme("ERROR: Can't add EN-EN translation", -1, 176, 255, 60, 60);
+                        graphics.createtextboxflipme("ERROR: Can't add EN-EN translation", -1, 176, TEXT_COLOUR("red"));
                         graphics.textboxprintflags(PR_FONT_8X8);
                         graphics.textboxcenterx();
                         graphics.textboxtimer(50);

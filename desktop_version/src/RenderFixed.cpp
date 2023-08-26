@@ -21,6 +21,21 @@ static inline void titleupdatetextcol(void)
     if(graphics.col_tb>255) graphics.col_tb=255;
 }
 
+static inline void tick_skip_message_timer(void)
+{
+    const bool tick = graphics.fademode == FADE_NONE;
+    if (!tick)
+    {
+        return;
+    }
+
+    game.old_skip_message_timer = game.skip_message_timer;
+    if (game.skip_message_timer > 0)
+    {
+        game.skip_message_timer -= 15;
+    }
+}
+
 void gamerenderfixed(void)
 {
     if (!game.blackout && !game.completestop)
@@ -116,7 +131,6 @@ void gamerenderfixed(void)
 
     map.updateroomnames();
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     ed.old_return_message_timer = ed.return_message_timer;
     if (map.custommode && !map.custommodeforreal && ed.return_message_timer > 0)
     {
@@ -150,7 +164,6 @@ void gamerenderfixed(void)
             }
         }
     }
-#endif
 }
 
 void titlerenderfixed(void)
@@ -257,4 +270,11 @@ void gamecompleterenderfixed(void)
     graphics.updatetitlecolours();
 
     titleupdatetextcol();
+
+    tick_skip_message_timer();
+}
+
+void gamecompleterenderfixed2(void)
+{
+    tick_skip_message_timer();
 }

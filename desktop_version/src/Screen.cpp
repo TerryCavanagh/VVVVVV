@@ -170,13 +170,11 @@ void Screen::ResizeScreen(int x, int y)
     else
     {
         int result = SDL_SetWindowFullscreen(m_window, 0);
-        recacheTextures();
         if (result != 0)
         {
             vlog_error("Error: could not set the game to windowed mode: %s", SDL_GetError());
-            return;
         }
-        if (x != -1 && y != -1)
+        else if (x != -1 && y != -1)
         {
             SDL_SetWindowSize(m_window, windowWidth, windowHeight);
             SDL_SetWindowPosition(
@@ -185,6 +183,7 @@ void Screen::ResizeScreen(int x, int y)
                 SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay)
             );
         }
+        recacheTextures();
     }
 }
 

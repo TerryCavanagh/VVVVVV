@@ -1,9 +1,8 @@
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-
 #define ED_DEFINITION
 #include "Editor.h"
 
 #include <string>
+#include <vector>
 
 #include "Constants.h"
 #include "CustomLevels.h"
@@ -49,6 +48,281 @@ editorclass::editorclass(void)
     register_tool(EditorTool_WARP_LINES, "Warp Lines", "I", SDLK_i, false);
     register_tool(EditorTool_CREWMATES, "Crewmates", "O", SDLK_o, false);
     register_tool(EditorTool_START_POINT, "Start Point", "P", SDLK_p, false);
+
+    static const short basic[] = {
+        121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121,
+        160, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80, 80,
+        120, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121,
+        121, 160, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80,
+        80, 120, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121,
+        121, 160, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80,
+        80, 120, 121, 121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121,
+        121, 160, 82, 82, 82, 82, 82, 82, 82, 0, 82, 82, 82, 82, 81, 81, 81, 42, 121,
+        121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121, 160, 121,
+        121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80, 80, 120, 121,
+        121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 121, 121, 121, 160, 121,
+        121, 121, 121, 121, 121, 121, 160, 121, 121, 121, 121, 80, 80, 80, 120, 121,
+        162, 121, 162, 121, 162, 121, 161, 121, 162, 121, 162, 121, 162, 121, 161, 121,
+        162, 121, 162, 121, 162, 121, 161, 121, 162, 121, 162, 80, 0, 121, 2, 121, 162,
+        121, 162, 121, 162, 121, 161, 121, 162, 121, 162, 121, 162, 121, 161, 82, 122,
+        82, 122, 82, 122, 82, 1, 82, 122, 82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> basic_vec;
+    basic_vec.assign(basic, basic + SDL_arraysize(basic));
+    autotile_types["basic"] = basic_vec;
+
+    static const short lab_cyan[] = {
+        121, 184, 121, 184, 24, 160, 24, 160, 121, 184, 121, 184, 24, 160, 24, 160, 104,
+        144, 104, 144, 80, 120, 80, 145, 104, 144, 104, 144, 80, 185, 80, 120, 121, 184,
+        121, 184, 24, 160, 24, 160, 121, 184, 121, 184, 24, 160, 24, 160, 104, 144, 104,
+        144, 80, 120, 80, 145, 104, 144, 104, 144, 80, 185, 80, 120, 26, 162, 26, 162, 25,
+        161, 25, 106, 26, 162, 26, 162, 25, 161, 25, 106, 82, 122, 82, 186, 81, 0, 81, 0,
+        82, 122, 82, 122, 66, 0, 66, 0, 26, 162, 26, 162, 25, 161, 25, 106, 26, 162, 26,
+        162, 25, 161, 25, 106, 82, 186, 82, 186, 65, 0, 65, 0, 82, 186, 82, 186, 81, 199,
+        81, 42, 121, 184, 121, 184, 24, 160, 24, 160, 121, 184, 121, 184, 24, 160, 24, 160,
+        104, 144, 104, 144, 80, 120, 80, 145, 104, 144, 104, 144, 80, 185, 80, 120, 121, 184,
+        121, 184, 24, 160, 24, 160, 121, 184, 121, 184, 24, 160, 24, 160, 104, 144, 104, 144,
+        80, 120, 80, 145, 104, 144, 104, 144, 80, 185, 80, 120, 26, 162, 26, 162, 25, 105, 25,
+        161, 26, 162, 26, 162, 25, 105, 25, 161, 82, 146, 82, 146, 81, 0, 81, 64, 82, 146, 82,
+        146, 66, 0, 66, 2, 26, 162, 26, 162, 25, 105, 25, 161, 26, 162, 26, 162, 25, 105, 25,
+        161, 82, 122, 82, 122, 65, 0, 65, 1, 82, 122, 82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> lab_cyan_vec;
+    lab_cyan_vec.assign(lab_cyan, lab_cyan + SDL_arraysize(lab_cyan));
+    autotile_types["lab_cyan"] = lab_cyan_vec;
+
+    static const short lab_red[] = {
+        121, 190, 121, 190, 30, 160, 30, 160, 121, 190, 121, 190, 30, 160, 30, 160, 110, 150,
+        110, 150, 80, 120, 80, 151, 110, 150, 110, 150, 80, 191, 80, 120, 121, 190, 121, 190,
+        30, 160, 30, 160, 121, 190, 121, 190, 30, 160, 30, 160, 110, 150, 110, 150, 80, 120, 80,
+        151, 110, 150, 110, 150, 80, 191, 80, 120, 32, 162, 32, 162, 31, 161, 31, 112, 32, 162,
+        32, 162, 31, 161, 31, 112, 82, 122, 82, 122, 81, 0, 81, 0, 82, 122, 82, 122, 72, 0, 81,
+        0, 32, 162, 32, 162, 31, 161, 31, 112, 32, 162, 32, 162, 31, 161, 31, 112, 82, 192, 82,
+        192, 71, 0, 71, 0, 82, 192, 82, 192, 81, 70, 81, 42, 121, 190, 121, 190, 30, 160, 30,
+        160, 121, 190, 121, 190, 30, 160, 30, 160, 110, 150, 110, 150, 80, 120, 80, 151, 110,
+        150, 110, 150, 80, 191, 80, 120, 121, 190, 121, 190, 30, 160, 30, 160, 121, 190, 121,
+        190, 30, 160, 30, 160, 110, 150, 110, 150, 80, 120, 121, 151, 110, 150, 110, 150, 80,
+        191, 80, 120, 32, 162, 32, 162, 31, 111, 31, 161, 32, 162, 32, 162, 31, 111, 31, 161,
+        82, 152, 82, 152, 81, 0, 81, 76, 82, 152, 82, 152, 72, 0, 72, 2, 32, 162, 32, 162, 31,
+        111, 31, 161, 32, 162, 32, 162, 31, 111, 31, 161, 82, 122, 82, 122, 71, 156, 71, 1, 82,
+        122, 82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> lab_red_vec;
+    lab_red_vec.assign(lab_red, lab_red + SDL_arraysize(lab_red));
+    autotile_types["lab_red"] = lab_red_vec;
+
+    static const short lab_pink[] = {
+        121, 184, 121, 184, 24, 160, 24, 160, 121, 184, 121, 184, 24, 160, 24, 160, 104, 144,
+        104, 144, 80, 120, 80, 145, 104, 144, 104, 144, 80, 185, 80, 120, 121, 184, 121, 184,
+        24, 160, 24, 160, 121, 184, 121, 184, 24, 160, 24, 160, 104, 144, 104, 144, 80, 120,
+        80, 145, 104, 144, 104, 144, 80, 185, 80, 120, 26, 162, 26, 162, 25, 161, 25, 106, 26,
+        162, 26, 162, 25, 161, 25, 106, 82, 144, 82, 122, 81, 0, 81, 0, 82, 122, 82, 122, 66,
+        0, 66, 0, 26, 162, 26, 162, 25, 161, 25, 106, 26, 162, 26, 162, 25, 161, 25, 106, 82,
+        186, 82, 186, 65, 0, 65, 0, 82, 122, 82, 122, 81, 64, 81, 42, 121, 184, 121, 184, 24,
+        160, 24, 160, 121, 184, 121, 184, 24, 160, 24, 160, 104, 144, 104, 144, 80, 120, 80,
+        145, 104, 144, 104, 144, 80, 185, 80, 120, 121, 184, 121, 184, 24, 160, 24, 160, 121,
+        184, 121, 184, 24, 160, 24, 160, 104, 144, 104, 144, 80, 120, 80, 145, 104, 144, 104,
+        144, 80, 185, 80, 120, 26, 162, 26, 162, 25, 105, 25, 161, 26, 162, 26, 162, 25, 105,
+        25, 161, 82, 146, 82, 146, 81, 0, 81, 113, 82, 146, 82, 146, 66, 0, 66, 2, 26, 162,
+        26, 162, 25, 105, 25, 161, 26, 162, 26, 162, 25, 105, 25, 161, 82, 122, 82, 122, 65,
+        0, 65, 1, 82, 122, 82, 122, 81, 41, 81, 0
+    };
+
+    std::vector<int> lab_pink_vec;
+    lab_pink_vec.assign(lab_pink, lab_pink + SDL_arraysize(lab_pink));
+    autotile_types["lab_pink"] = lab_pink_vec;
+
+    static const short lab_yellow[] = {
+        121, 175, 121, 175, 15, 160, 15, 160, 121, 175, 121, 175, 15, 160, 15, 160, 95,
+        135, 95, 135, 80, 120, 80, 136, 95, 135, 95, 135, 80, 176, 80, 120, 121, 175,
+        121, 175, 15, 160, 15, 160, 121, 175, 121, 175, 15, 160, 15, 160, 95, 135, 95,
+        135, 80, 120, 80, 136, 95, 135, 95, 135, 80, 176, 80, 120, 17, 162, 17, 162, 16,
+        161, 16, 97, 17, 162, 17, 162, 16, 161, 16, 97, 82, 122, 82, 122, 81, 0, 81, 0,
+        82, 122, 82, 122, 57, 0, 57, 0, 17, 162, 17, 162, 16, 161, 16, 97, 17, 162, 17,
+        162, 16, 161, 16, 97, 82, 177, 82, 177, 56, 0, 56, 0, 82, 177, 82, 177, 81, 55,
+        81, 42, 121, 175, 121, 175, 15, 160, 15, 160, 121, 175, 121, 175, 15, 160, 15,
+        160, 95, 135, 95, 135, 80, 120, 80, 136, 95, 135, 95, 135, 80, 176, 80, 120, 121,
+        175, 121, 175, 15, 160, 15, 160, 121, 175, 121, 175, 15, 160, 15, 160, 95, 135,
+        95, 135, 80, 120, 80, 136, 95, 135, 95, 135, 80, 176, 80, 120, 17, 162, 17, 162,
+        16, 96, 16, 161, 17, 162, 17, 162, 16, 96, 16, 161, 82, 137, 82, 137, 81, 0, 81,
+        27, 82, 137, 82, 137, 57, 0, 57, 2, 17, 162, 17, 162, 16, 162, 16, 161, 17, 162,
+        17, 162, 16, 96, 16, 161, 82, 122, 82, 122, 56, 0, 82, 1, 82, 122, 82, 122, 81
+    };
+
+    std::vector<int> lab_yellow_vec;
+    lab_yellow_vec.assign(lab_yellow, lab_yellow + SDL_arraysize(lab_yellow));
+    autotile_types["lab_yellow"] = lab_yellow_vec;
+
+    static const short lab_green[] = {
+        121, 181, 121, 181, 21, 160, 21, 160, 121, 181, 121, 181, 21, 160, 21, 160, 101,
+        141, 101, 141, 80, 120, 80, 142, 101, 141, 101, 141, 80, 182, 80, 120, 121, 181,
+        121, 181, 21, 160, 21, 160, 121, 181, 121, 181, 21, 160, 21, 160, 101, 141, 101,
+        141, 80, 120, 80, 142, 101, 141, 101, 141, 80, 182, 80, 120, 23, 162, 23, 162, 22,
+        161, 22, 103, 23, 162, 23, 162, 22, 161, 22, 103, 82, 122, 82, 122, 81, 0, 81, 0,
+        82, 122, 82, 122, 63, 0, 63, 0, 23, 162, 23, 162, 22, 161, 22, 103, 23, 162, 23,
+        162, 22, 161, 22, 103, 82, 183, 82, 183, 62, 0, 62, 0, 82, 183, 82, 183, 81, 61,
+        81, 42, 121, 181, 121, 181, 21, 160, 21, 160, 121, 181, 121, 181, 21, 160, 21,
+        160, 101, 141, 101, 141, 80, 120, 80, 142, 101, 141, 101, 141, 80, 182, 80, 120,
+        121, 181, 121, 181, 21, 160, 21, 160, 121, 181, 121, 181, 21, 160, 21, 160, 101,
+        141, 101, 141, 80, 120, 80, 142, 101, 141, 101, 141, 80, 182, 80, 120, 23, 162,
+        23, 162, 22, 102, 22, 161, 23, 162, 23, 162, 22, 102, 22, 161, 82, 143, 82, 143,
+        81, 0, 81, 0, 82, 143, 82, 143, 63, 0, 63, 2, 23, 162, 23, 162, 22, 102, 22, 161,
+        23, 162, 23, 162, 22, 102, 22, 161, 82, 122, 82, 122, 62, 0, 62, 1, 82, 122, 82,
+        122, 81, 41, 81, 0
+    };
+
+    std::vector<int> lab_green_vec;
+    lab_green_vec.assign(lab_green, lab_green + SDL_arraysize(lab_green));
+    autotile_types["lab_green"] = lab_green_vec;
+
+    static const short outside[] = {
+        2, 0, 2, 0, 1, 2, 1, 2, 2, 0, 2, 2, 2, 2, 1, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0,
+        0, 2, 2, 2, 2, 2, 0, 2, 0, 1, 2, 1, 2, 2, 0, 2, 0, 1, 2, 1, 2, 0, 0, 2, 0, 2, 2,
+        2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+        1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 1, 2, 1,
+        2, 2, 0, 2, 0, 1, 2, 1, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
+        2, 0, 1, 2, 1, 2, 2, 0, 2, 0, 1, 2, 1, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2,
+        2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+    };
+
+    std::vector<int> outside_vec;
+    outside_vec.assign(outside, outside + SDL_arraysize(outside));
+    autotile_types["outside"] = outside_vec;
+
+    // Everything gets initialized to 0 by default
+    static const short none[256] = {};
+
+    std::vector<int> none_vec;
+    none_vec.assign(none, none + SDL_arraysize(none));
+    autotile_types["none"] = none_vec;
+
+    SDL_zeroa(tileset_min_colour);
+    SDL_zeroa(tileset_max_colour);
+    SDL_zeroa(tileset_min_colour_direct);
+    SDL_zeroa(tileset_max_colour_direct);
+
+    register_tileset(EditorTileset_SPACE_STATION, "Space Station");
+    register_tileset(EditorTileset_OUTSIDE, "Outside");
+    register_tileset(EditorTileset_LAB, "Lab");
+    register_tileset(EditorTileset_WARP_ZONE, "Warp Zone");
+    register_tileset(EditorTileset_SHIP, "Ship");
+
+    register_tilecol(EditorTileset_SPACE_STATION, -1, "basic", 80, "basic", 680);
+    register_tilecol(EditorTileset_SPACE_STATION, 0, "basic", 83, "basic", 680);
+    register_tilecol(EditorTileset_SPACE_STATION, 1, "basic", 86, "basic", 698);
+    register_tilecol(EditorTileset_SPACE_STATION, 2, "basic", 89, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 3, "basic", 92, "basic", 683);
+    register_tilecol(EditorTileset_SPACE_STATION, 4, "basic", 95, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 5, "basic", 98, "basic", 680);
+    register_tilecol(EditorTileset_SPACE_STATION, 6, "basic", 101, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 7, "basic", 104, "basic", 704);
+    register_tilecol(EditorTileset_SPACE_STATION, 8, "basic", 107, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 9, "basic", 110, "basic", 686);
+    register_tilecol(EditorTileset_SPACE_STATION, 10, "basic", 113, "basic", 698);
+
+    register_tilecol(EditorTileset_SPACE_STATION, 11, "basic", 283, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 12, "basic", 286, "basic", 686);
+    register_tilecol(EditorTileset_SPACE_STATION, 13, "basic", 289, "basic", 704);
+    register_tilecol(EditorTileset_SPACE_STATION, 14, "basic", 292, "basic", 701);
+    register_tilecol(EditorTileset_SPACE_STATION, 15, "basic", 295, "basic", 698);
+    register_tilecol(EditorTileset_SPACE_STATION, 16, "basic", 298, "basic", 683);
+    register_tilecol(EditorTileset_SPACE_STATION, 17, "basic", 301, "basic", 704);
+    register_tilecol(EditorTileset_SPACE_STATION, 18, "basic", 304, "basic", 701);
+    register_tilecol(EditorTileset_SPACE_STATION, 19, "basic", 307, "basic", 698);
+    register_tilecol(EditorTileset_SPACE_STATION, 20, "basic", 310, "basic", 692);
+    register_tilecol(EditorTileset_SPACE_STATION, 21, "basic", 313, "basic", 686);
+
+    register_tilecol(EditorTileset_SPACE_STATION, 22, "basic", 483, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 23, "basic", 486, "basic", 683);
+    register_tilecol(EditorTileset_SPACE_STATION, 24, "basic", 489, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 25, "basic", 492, "basic", 704);
+    register_tilecol(EditorTileset_SPACE_STATION, 26, "basic", 495, "basic", 680);
+    register_tilecol(EditorTileset_SPACE_STATION, 27, "basic", 498, "basic", 695);
+    register_tilecol(EditorTileset_SPACE_STATION, 28, "basic", 501, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 29, "basic", 504, "basic", 692);
+    register_tilecol(EditorTileset_SPACE_STATION, 30, "basic", 507, "basic", 689);
+    register_tilecol(EditorTileset_SPACE_STATION, 31, "basic", 510, "basic", 698);
+
+    register_tilecol(EditorTileset_OUTSIDE, 0, "basic", 480, "outside", 680);
+    register_tilecol(EditorTileset_OUTSIDE, 1, "basic", 483, "outside", 683);
+    register_tilecol(EditorTileset_OUTSIDE, 2, "basic", 486, "outside", 686);
+    register_tilecol(EditorTileset_OUTSIDE, 3, "basic", 489, "outside", 689);
+    register_tilecol(EditorTileset_OUTSIDE, 4, "basic", 492, "outside", 692);
+    register_tilecol(EditorTileset_OUTSIDE, 5, "basic", 495, "outside", 695);
+    register_tilecol(EditorTileset_OUTSIDE, 6, "basic", 498, "outside", 698);
+    register_tilecol(EditorTileset_OUTSIDE, 7, "basic", 501, "outside", 701);
+
+    register_tilecol(EditorTileset_LAB, 0, "lab_cyan", 280, "none", 0);
+    register_tilecol(EditorTileset_LAB, 1, "lab_red", 283, "none", 0);
+    register_tilecol(EditorTileset_LAB, 2, "lab_pink", 286, "none", 0);
+    register_tilecol(EditorTileset_LAB, 3, "basic", 289, "none", 0);
+    register_tilecol(EditorTileset_LAB, 4, "lab_yellow", 292, "none", 0);
+    register_tilecol(EditorTileset_LAB, 5, "lab_green", 295, "none", 0);
+    register_tilecol(EditorTileset_LAB, 6, "none", 0, "none", 0, true);
+
+    register_tilecol(EditorTileset_WARP_ZONE, 0, "basic", 80, "none", 120);
+    register_tilecol(EditorTileset_WARP_ZONE, 1, "basic", 83, "none", 123);
+    register_tilecol(EditorTileset_WARP_ZONE, 2, "basic", 86, "none", 126);
+    register_tilecol(EditorTileset_WARP_ZONE, 3, "basic", 89, "none", 129);
+    register_tilecol(EditorTileset_WARP_ZONE, 4, "basic", 92, "none", 132);
+    register_tilecol(EditorTileset_WARP_ZONE, 5, "basic", 95, "none", 135);
+    register_tilecol(EditorTileset_WARP_ZONE, 6, "basic", 98, "none", 138);
+
+    register_tilecol(EditorTileset_SHIP, 0, "basic", 101, "basic", 741);
+    register_tilecol(EditorTileset_SHIP, 1, "basic", 104, "basic", 744);
+    register_tilecol(EditorTileset_SHIP, 2, "basic", 107, "basic", 747);
+    register_tilecol(EditorTileset_SHIP, 3, "basic", 110, "basic", 750);
+    register_tilecol(EditorTileset_SHIP, 4, "basic", 113, "basic", 753);
+    register_tilecol(EditorTileset_SHIP, 5, "basic", 116, "basic", 756);
+}
+
+void editorclass::register_tileset(EditorTilesets tileset, const char* name)
+{
+    tileset_names[tileset] = name;
+}
+
+void editorclass::register_tilecol(
+    EditorTilesets tileset,
+    const int index,
+    const char* foreground_type,
+    const int foreground_base,
+    const char* background_type,
+    const int background_base,
+    const bool direct
+) {
+    EditorTilecolInfo info;
+    info.foreground_type = foreground_type;
+    info.foreground_base = foreground_base;
+    info.background_type = background_type;
+    info.background_base = background_base;
+    info.direct_mode = direct;
+    tileset_colors[tileset][index] = info;
+
+    if (!direct)
+    {
+        tileset_min_colour[tileset] = SDL_min(tileset_min_colour[tileset], index);
+        tileset_max_colour[tileset] = SDL_max(tileset_max_colour[tileset], index);
+    }
+
+    tileset_min_colour_direct[tileset] = SDL_min(tileset_min_colour_direct[tileset], index);
+    tileset_max_colour_direct[tileset] = SDL_max(tileset_max_colour_direct[tileset], index);
+}
+
+void editorclass::register_tilecol(
+    EditorTilesets tileset,
+    const int index,
+    const char* foreground_type,
+    const int foreground_base,
+    const char* background_type,
+    const int background_base
+) {
+    register_tilecol(tileset, index, foreground_type, foreground_base, background_type, background_base, false);
 }
 
 void editorclass::reset(void)
@@ -62,6 +336,7 @@ void editorclass::reset(void)
     v_modifier = false;
     h_modifier = false;
     b_modifier = false;
+    f_modifier = false;
     toolbox_open = false;
     help_open = false;
     shiftkey = false;
@@ -298,49 +573,49 @@ static void editormenurender(int tr, int tg, int tb)
         case 0:
             songname = loc::gettext("No background music");
             break;
-        case 1:
+        case Music_PUSHINGONWARDS:
             songname = loc::gettext("1: Pushing Onwards");
             break;
-        case 2:
+        case Music_POSITIVEFORCE:
             songname = loc::gettext("2: Positive Force");
             break;
-        case 3:
+        case Music_POTENTIALFORANYTHING:
             songname = loc::gettext("3: Potential for Anything");
             break;
-        case 4:
+        case Music_PASSIONFOREXPLORING:
             songname = loc::gettext("4: Passion for Exploring");
             break;
-        case 5:
+        case Music_PAUSE:
             songname = loc::gettext("N/A: Pause");
             break;
-        case 6:
+        case Music_PRESENTINGVVVVVV:
             songname = loc::gettext("5: Presenting VVVVVV");
             break;
-        case 7:
+        case Music_PLENARY:
             songname = loc::gettext("N/A: Plenary");
             break;
-        case 8:
+        case Music_PREDESTINEDFATE:
             songname = loc::gettext("6: Predestined Fate");
             break;
-        case 9:
+        case Music_POSITIVEFORCEREVERSED:
             songname = loc::gettext("N/A: ecroF evitisoP");
             break;
-        case 10:
+        case Music_POPULARPOTPOURRI:
             songname = loc::gettext("7: Popular Potpourri");
             break;
-        case 11:
+        case Music_PIPEDREAM:
             songname = loc::gettext("8: Pipe Dream");
             break;
-        case 12:
+        case Music_PRESSURECOOKER:
             songname = loc::gettext("9: Pressure Cooker");
             break;
-        case 13:
+        case Music_PACEDENERGY:
             songname = loc::gettext("10: Paced Energy");
             break;
-        case 14:
+        case Music_PIERCINGTHESKY:
             songname = loc::gettext("11: Piercing the Sky");
             break;
-        case 15:
+        case Music_PREDESTINEDFATEREMIX:
             songname = loc::gettext("N/A: Predestined Fate Remix");
             break;
         default:
@@ -481,25 +756,23 @@ static void draw_edgeguides(void)
         }
         const int x = entity->p2 * 8;
         const int w = entity->p3;
-        const int room_x = (entity->x / 40);
-        const int room_y = (entity->y / 30);
-        if (room_y != ed.levy)
+        if (entity->ry != ed.levy)
         {
             continue;
         }
-        if (room_x == POS_MOD(ed.levx - 1, cl.mapwidth)
+        if (entity->rx == POS_MOD(ed.levx - 1, cl.mapwidth)
             // It's to the left...
             && x + w >= 312)
         {
             // And touching the right edge!
-            graphics.fill_rect(x, (entity->y % 30) * 8, 2, 8, green);
+            graphics.fill_rect(x, entity->y * 8, 2, 8, green);
         }
-        else if (room_x == POS_MOD(ed.levx + 1, cl.mapwidth)
+        else if (entity->rx == POS_MOD(ed.levx + 1, cl.mapwidth)
             // It's to the right...
             && x <= 0)
         {
             // And touching the left edge!
-            graphics.fill_rect(x + w - 2, (entity->y % 30) * 8, 2, 8, green);
+            graphics.fill_rect(x + w - 2, entity->y * 8, 2, 8, green);
         }
     }
 }
@@ -512,7 +785,7 @@ static void update_entities(void)
     {
         CustomEntity* entity = &customentities[i];
 
-        if (entity->x / 40 != ed.levx || entity->y / 30 != ed.levy)
+        if (entity->rx != ed.levx || entity->ry != ed.levy)
         {
             // It's not in this room, so just continue
             continue;
@@ -527,9 +800,9 @@ static void update_entities(void)
             if ((grav_line && entity->p1 == 0) || (warp_line && entity->p1 >= 2))
             {
                 /* Horizontal */
-                int tx = entity->x % 40;
+                int tx = entity->x;
                 int tx2 = tx;
-                int ty = entity->y % 30;
+                int ty = entity->y;
                 while (ed.lines_can_pass(tx, ty))
                 {
                     --tx;
@@ -545,8 +818,8 @@ static void update_entities(void)
             else
             {
                 /* Vertical */
-                int tx = entity->x % 40;
-                int ty = entity->y % 30;
+                int tx = entity->x;
+                int ty = entity->y;
                 int ty2 = ty;
                 while (ed.lines_can_pass(tx, ty))
                 {
@@ -573,7 +846,7 @@ static void draw_entities(void)
     //Draw entities
     obj.customplatformtile = game.customcol * 12;
 
-    const int edent_under_cursor = ed.get_entity_at(ed.tilex + ed.levx * 40, ed.tiley + ed.levy * 30);
+    const int edent_under_cursor = ed.get_entity_at(ed.levx, ed.levy, ed.tilex, ed.tiley);
 
     // Special case for drawing gray entities
     bool custom_gray = room->tileset == 3 && room->tilecol == 6;
@@ -584,10 +857,10 @@ static void draw_entities(void)
         CustomEntity* entity = &customentities[i];
 
         // If the entity is in the current room, draw it
-        if (entity->x / 40 == ed.levx && entity->y / 30 == ed.levy)
+        if (entity->rx == ed.levx && entity->ry == ed.levy)
         {
-            const int x = entity->x % 40 * 8;
-            const int y = entity->y % 30 * 8;
+            const int x = entity->x * 8;
+            const int y = entity->y * 8;
             static const char arrows[] = "V^<>";
 
             switch (entity->t)
@@ -819,7 +1092,7 @@ static void draw_entities(void)
 
             if (ed.tilex == x / 8 && ed.tiley == y / 8)
             {
-                text = "(" + help.String(entity->x / 40 + 1) + "," + help.String(entity->y / 30 + 1) + ")";
+                text = "(" + help.String(entity->rx + 1) + "," + help.String(entity->ry + 1) + ")";
             }
             else
             {
@@ -922,6 +1195,16 @@ static void draw_bounds(void)
     }
 }
 
+static inline bool check_point(bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES], int x, int y)
+{
+    if (x < 0 || x >= SCREEN_WIDTH_TILES || y < 0 || y >= SCREEN_HEIGHT_TILES)
+    {
+        return false;
+    }
+
+    return connected[y][x];
+}
+
 static void draw_cursor(void)
 {
     extern editorclass ed;
@@ -944,7 +1227,64 @@ static void draw_cursor(void)
     case EditorTool_WALLS:
     case EditorTool_BACKING:
         // Modifiers!
-        if (ed.b_modifier) graphics.draw_rect(x, 0, 8, 240, blue); // Vertical
+        if (ed.f_modifier)
+        {
+            bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES];
+            SDL_zeroa(connected);
+
+            ed.get_tile_fill(ed.tilex, ed.tiley, cl.gettile(ed.levx, ed.levy, ed.tilex, ed.tiley), connected);
+
+            graphics.set_color(blue);
+
+            for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
+            {
+                const int x = i % SCREEN_WIDTH_TILES;
+                const int y = i / SCREEN_WIDTH_TILES;
+
+                if (!connected[y][x])
+                    continue;
+
+                bool top_left = true;
+                bool top_right = true;
+                bool bottom_left = true;
+                bool bottom_right = true;
+
+                if (!check_point(connected, x - 1, y))
+                {
+                    top_left = false;
+                    bottom_left = false;
+                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8, x * 8, y * 8 + 7);
+                }
+                if (!check_point(connected, x + 1, y))
+                {
+                    top_right = false;
+                    bottom_right = false;
+                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8 + 7, y * 8, x * 8 + 7, y * 8 + 7);
+                }
+                if (!check_point(connected, x, y - 1))
+                {
+                    top_left = false;
+                    top_right = false;
+                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8, x * 8 + 7, y * 8);
+                }
+                if (!check_point(connected, x, y + 1))
+                {
+                    bottom_left = false;
+                    bottom_right = false;
+                    SDL_RenderDrawLine(gameScreen.m_renderer, x * 8, y * 8 + 7, x * 8 + 7, y * 8 + 7);
+                }
+
+                if (!check_point(connected, x - 1, y - 1) && top_left)
+                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8, y * 8);
+                if (!check_point(connected, x - 1, y + 1) && top_right)
+                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8, y * 8 + 7);
+                if (!check_point(connected, x + 1, y - 1) && bottom_left)
+                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8 + 7, y * 8);
+                if (!check_point(connected, x + 1, y + 1) && bottom_right)
+                    SDL_RenderDrawPoint(gameScreen.m_renderer, x * 8 + 7, y * 8 + 7);
+            }
+        }
+        else if (ed.b_modifier) graphics.draw_rect(x, 0, 8, 240, blue); // Vertical
         else if (ed.h_modifier) graphics.draw_rect(0, y, 320, 8, blue); // Horizontal
         else if (ed.v_modifier) graphics.draw_rect(x - 32, y - 32, 24 + 48, 24 + 48, blue); // 9x9
         else if (ed.c_modifier) graphics.draw_rect(x - 24, y - 24, 24 + 32, 24 + 32, blue); // 7x7
@@ -1843,14 +2183,16 @@ void editorlogic(void)
         graphics.titlebg.colstate = 10;
         map.nexttowercolour();
         game.quittomenu();
-        music.play(6); //should be before game.quittomenu()
+        music.play(Music_PRESENTINGVVVVVV); // should be before game.quittomenu()
     }
 }
 
-void editorclass::add_entity(int xp, int yp, int tp, int p1, int p2, int p3, int p4, int p5, int p6)
+void editorclass::add_entity(int rx, int ry, int xp, int yp, int tp, int p1, int p2, int p3, int p4, int p5, int p6)
 {
     CustomEntity entity;
 
+    entity.rx = rx;
+    entity.ry = ry;
     entity.x = xp;
     entity.y = yp;
     entity.t = tp;
@@ -1870,11 +2212,16 @@ void editorclass::remove_entity(int t)
     customentities.erase(customentities.begin() + t);
 }
 
-int editorclass::get_entity_at(int xp, int yp)
+int editorclass::get_entity_at(int rx, int ry, int xp, int yp)
 {
     for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (customentities[i].x == xp && customentities[i].y == yp) return i;
+        const CustomEntity* entity = &customentities[i];
+        if (entity->rx == rx && entity->ry == ry &&
+            entity->x == xp && entity->y == yp)
+        {
+            return i;
+        }
     }
     return -1;
 }
@@ -1905,11 +2252,60 @@ static void set_tile_interpolated(const int x1, const int x2, const int y1, cons
     }
 }
 
+void editorclass::get_tile_fill(int tilex, int tiley, int tile, bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES])
+{
+    if (tilex < 0 || tilex >= SCREEN_WIDTH_TILES || tiley < 0 || tiley >= SCREEN_HEIGHT_TILES)
+    {
+        // It's out of bounds
+        return;
+    }
+
+    if (connected[tiley][tilex])
+    {
+        // We've already visited this tile
+        return;
+    }
+
+    if (cl.gettile(levx, levy, tilex, tiley) != tile)
+    {
+        // It's not the same tile
+        return;
+    }
+
+    // Yep, this is connected!
+    connected[tiley][tilex] = true;
+
+    // Check surrounding 4 tiles
+    get_tile_fill(tilex - 1, tiley, tile, connected);
+    get_tile_fill(tilex + 1, tiley, tile, connected);
+    get_tile_fill(tilex, tiley - 1, tile, connected);
+    get_tile_fill(tilex, tiley + 1, tile, connected);
+}
+
 void editorclass::handle_tile_placement(const int tile)
 {
     int range = 1;
 
-    if (b_modifier)
+    if (f_modifier)
+    {
+        bool connected[SCREEN_HEIGHT_TILES][SCREEN_WIDTH_TILES];
+        SDL_zeroa(connected);
+
+        get_tile_fill(tilex, tiley, cl.gettile(levx, levy, tilex, tiley), connected);
+
+        for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
+        {
+            const int x = i % SCREEN_WIDTH_TILES;
+            const int y = i / SCREEN_WIDTH_TILES;
+
+            if (connected[y][x])
+            {
+                set_tile(x, y, tile);
+            }
+        }
+        return;
+    }
+    else if (b_modifier)
     {
         // Vertical line
         for (int i = 0; i < SCREEN_HEIGHT_TILES; i++)
@@ -1975,7 +2371,9 @@ void editorclass::tool_remove()
 
     for (size_t i = 0; i < customentities.size(); i++)
     {
-        if (customentities[i].x == tilex + (levx * SCREEN_WIDTH_TILES) && customentities[i].y == tiley + (levy * SCREEN_HEIGHT_TILES))
+        const CustomEntity* entity = &customentities[i];
+        if (entity->rx == levx && entity->ry == levy &&
+            entity->x == tilex && entity->y == tiley)
         {
             remove_entity(i);
         }
@@ -2049,7 +2447,7 @@ void editorclass::entity_clicked(const int index)
 
 void editorclass::tool_place()
 {
-    const int entity = get_entity_at(tilex + (levx * SCREEN_WIDTH_TILES), tiley + (levy * SCREEN_HEIGHT_TILES));
+    const int entity = get_entity_at(levx, levy, tilex, tiley);
     if (entity != -1)
     {
         entity_clicked(entity);
@@ -2085,7 +2483,7 @@ void editorclass::tool_place()
     case EditorTool_TRINKETS:
         if (cl.numtrinkets() < 100)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 9);
+            add_entity(levx, levy, tilex, tiley, 9);
             lclickdelay = 1;
         }
         else
@@ -2094,39 +2492,39 @@ void editorclass::tool_place()
         }
         break;
     case EditorTool_CHECKPOINTS:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 10, 1);
+        add_entity(levx, levy, tilex, tiley, 10, 1);
         lclickdelay = 1;
         break;
     case EditorTool_DISAPPEARING_PLATFORMS:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 3);
+        add_entity(levx, levy, tilex, tiley, 3);
         lclickdelay = 1;
         break;
     case EditorTool_CONVEYORS:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 2, 5);
+        add_entity(levx, levy, tilex, tiley, 2, 5);
         lclickdelay = 1;
         break;
     case EditorTool_MOVING_PLATFORMS:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 2, 0);
+        add_entity(levx, levy, tilex, tiley, 2, 0);
         lclickdelay = 1;
         break;
     case EditorTool_ENEMIES:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 1, 0);
+        add_entity(levx, levy, tilex, tiley, 1, 0);
         lclickdelay = 1;
         break;
     case EditorTool_GRAVITY_LINES:
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 11, 0);
+        add_entity(levx, levy, tilex, tiley, 11, 0);
         lclickdelay = 1;
         break;
     case EditorTool_ROOMTEXT:
         lclickdelay = 1;
         text_entity = customentities.size();
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 17);
+        add_entity(levx, levy, tilex, tiley, 17);
         get_input_line(TEXT_ROOMTEXT, loc::gettext("Enter roomtext:"), &(customentities[text_entity].scriptname));
         break;
     case EditorTool_TERMINALS:
         lclickdelay = 1;
         text_entity = customentities.size();
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 18, 0);
+        add_entity(levx, levy, tilex, tiley, 18, 0);
         get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[text_entity].scriptname));
         break;
     case EditorTool_SCRIPTS:
@@ -2141,26 +2539,26 @@ void editorclass::tool_place()
     case EditorTool_WARP_TOKENS:
         substate = EditorSubState_DRAW_WARPTOKEN;
         warp_token_entity = customentities.size();
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 13);
+        add_entity(levx, levy, tilex, tiley, 13);
         lclickdelay = 1;
         break;
     case EditorTool_WARP_LINES:
         //Warp lines
         if (tilex == 0)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 0);
+            add_entity(levx, levy, tilex, tiley, 50, 0);
         }
         else if (tilex == 39)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 1);
+            add_entity(levx, levy, tilex, tiley, 50, 1);
         }
         else if (tiley == 0)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 2);
+            add_entity(levx, levy, tilex, tiley, 50, 2);
         }
         else if (tiley == 29)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 50, 3);
+            add_entity(levx, levy, tilex, tiley, 50, 3);
         }
         else
         {
@@ -2171,7 +2569,7 @@ void editorclass::tool_place()
     case EditorTool_CREWMATES:
         if (cl.numcrewmates() < 100)
         {
-            add_entity(tilex + (levx * 40), tiley + (levy * 30), 15, int(fRandom() * 6));
+            add_entity(levx, levy, tilex, tiley, 15, int(fRandom() * 6));
             lclickdelay = 1;
         }
         else
@@ -2189,7 +2587,7 @@ void editorclass::tool_place()
                 i--;
             }
         }
-        add_entity(tilex + (levx * 40), tiley + (levy * 30), 16, 0);
+        add_entity(levx, levy, tilex, tiley, 16, 0);
         lclickdelay = 1;
         break;
     default:
@@ -2278,20 +2676,20 @@ static void editormenuactionpress(void)
             map.nexttowercolour();
             break;
         }
-        music.playef(11);
+        music.playef(Sound_VIRIDIAN);
         break;
     case Menu::ed_settings:
         switch (game.currentmenuoption)
         {
         case 0:
             //Change level description stuff
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::ed_desc);
             map.nexttowercolour();
             break;
         case 1:
             //Enter script editormode
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
 
             ed.state = EditorState_SCRIPTS;
             ed.substate = EditorSubState_MAIN;
@@ -2307,13 +2705,13 @@ static void editormenuactionpress(void)
             ed.lines_visible = 200 / font::height(PR_FONT_LEVEL);
             break;
         case 2:
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::ed_music);
             map.nexttowercolour();
             if(cl.levmusic>0) music.play(cl.levmusic);
             break;
         case 3:
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.ghostsenabled = !game.ghostsenabled;
             break;
         case 4:
@@ -2336,7 +2734,7 @@ static void editormenuactionpress(void)
             break;
         case 6:
             /* Game options */
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.gamestate = TITLEMODE;
             game.ingame_titlemode = true;
             game.ingame_editormode = true;
@@ -2345,7 +2743,7 @@ static void editormenuactionpress(void)
             DEFER_CALLBACK(nextbgcolor);
             break;
         default:
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.createmenu(Menu::ed_quit);
             map.nexttowercolour();
             break;
@@ -2377,10 +2775,10 @@ static void editormenuactionpress(void)
                 music.haltdasmusik();
             }
 
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             break;
         case 2:
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             music.fadeout();
             game.returnmenu();
             map.nexttowercolour();
@@ -2403,14 +2801,14 @@ static void editormenuactionpress(void)
             break;
         case 1:
             //Quit without saving
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             music.fadeout();
             graphics.fademode = FADE_START_FADEOUT;
             graphics.backgrounddrawn = false;
             break;
         case 2:
             //Go back to editor
-            music.playef(11);
+            music.playef(Sound_VIRIDIAN);
             game.returnmenu();
             map.nexttowercolour();
             break;
@@ -2429,7 +2827,7 @@ static void editormenuactionpress(void)
             loc::new_level_font = cl.level_font_name;
         }
         font::set_level_font(cl.level_font_name.c_str());
-        music.playef(11);
+        music.playef(Sound_VIRIDIAN);
         game.returnmenu();
         map.nexttowercolour();
         game.savestatsandsettings_menu();
@@ -2458,9 +2856,8 @@ static void start_at_checkpoint(void)
             continue;
         }
 
-        const int tx = customentities[i].x / 40;
-        const int ty = customentities[i].y / 30;
-        const bool in_room = tx == ed.levx && ty == ed.levy;
+        const bool in_room = customentities[i].rx == ed.levx &&
+            customentities[i].ry == ed.levy;
         if (!in_room)
         {
             continue;
@@ -2487,12 +2884,10 @@ static void start_at_checkpoint(void)
     {
         ed.current_ghosts = 0;
 
-        int tx = customentities[testeditor].x / 40;
-        int ty = customentities[testeditor].y / 30;
-        game.edsavex = (customentities[testeditor].x % 40) * 8 - 4;
-        game.edsavey = (customentities[testeditor].y % 30) * 8;
-        game.edsaverx = 100 + tx;
-        game.edsavery = 100 + ty;
+        game.edsavex = (customentities[testeditor].x) * 8 - 4;
+        game.edsavey = customentities[testeditor].y * 8;
+        game.edsaverx = 100 + customentities[testeditor].rx;
+        game.edsavery = 100 + customentities[testeditor].ry;
 
         if (!startpoint)
         {
@@ -2581,12 +2976,7 @@ static void handle_draw_input()
             {
                 cl.setroomdirectmode(ed.levx, ed.levy, 0);
                 ed.show_note(loc::gettext("Direct Mode Disabled"));
-                // Kludge fix for rainbow BG here...
-                if (cl.getroomprop(ed.levx, ed.levy)->tileset == 2
-                    && cl.getroomprop(ed.levx, ed.levy)->tilecol == 6)
-                {
-                    cl.setroomtilecol(ed.levx, ed.levy, 0);
-                }
+                ed.clamp_tilecol(ed.levx, ed.levy, true);
             }
             else
             {
@@ -2642,6 +3032,7 @@ static void handle_draw_input()
             game.mapheld = true;
         }
 
+        ed.f_modifier = key.keymap[SDLK_f];
         ed.h_modifier = key.keymap[SDLK_h];
         ed.v_modifier = key.keymap[SDLK_v];
         ed.b_modifier = key.keymap[SDLK_b];
@@ -2649,15 +3040,44 @@ static void handle_draw_input()
         ed.x_modifier = key.keymap[SDLK_x];
         ed.z_modifier = key.keymap[SDLK_z];
 
+        const int room = ed.levx + ed.levy * cl.maxwidth;
+        const int plat_speed = cl.roomproperties[room].platv;
+
         if (key.keymap[SDLK_COMMA])
         {
-            ed.current_tool = (EditorTools) POS_MOD(ed.current_tool - 1, NUM_EditorTools);
+            if (key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
+            {
+                cl.roomproperties[room].platv = plat_speed - 1;
+            }
+            else
+            {
+                ed.current_tool = (EditorTools) POS_MOD(ed.current_tool - 1, NUM_EditorTools);
+            }
             ed.keydelay = 6;
         }
         else if (key.keymap[SDLK_PERIOD])
         {
-            ed.current_tool = (EditorTools) POS_MOD(ed.current_tool + 1, NUM_EditorTools);
+            if (key.keymap[SDLK_LCTRL] || key.keymap[SDLK_RCTRL])
+            {
+                cl.roomproperties[room].platv = plat_speed + 1;
+            }
+            else
+            {
+                ed.current_tool = (EditorTools) POS_MOD(ed.current_tool + 1, NUM_EditorTools);
+            }
             ed.keydelay = 6;
+        }
+
+        if (plat_speed != cl.roomproperties[room].platv)
+        {
+            char buffer[3 * SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("Platform speed is now {speed}"),
+                "speed:int",
+                cl.roomproperties[room].platv
+            );
+            ed.show_note(buffer);
         }
 
         if (key.keymap[SDLK_SPACE])
@@ -2701,16 +3121,8 @@ void editorinput(void)
     ed.old_tilex = ed.tilex;
     ed.old_tiley = ed.tiley;
 
-    ed.tilex = (key.mx - (key.mx % 8)) / 8;
-    ed.tiley = (key.my - (key.my % 8)) / 8;
-
-    if (gameScreen.scalingMode == SCALING_STRETCH) {
-        // In this mode specifically, we have to fix the mouse coordinates
-        int screenwidth, screenheight;
-        gameScreen.GetScreenSize(&screenwidth, &screenheight);
-        ed.tilex = ed.tilex * 320 / screenwidth;
-        ed.tiley = ed.tiley * 240 / screenheight;
-    }
+    ed.tilex = key.mousex / 8;
+    ed.tiley = key.mousey / 8;
 
     bool up_pressed = key.isDown(SDLK_UP) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_UP);
     bool down_pressed = key.isDown(SDLK_DOWN) || key.isDown(SDL_CONTROLLER_BUTTON_DPAD_DOWN);
@@ -2780,7 +3192,7 @@ void editorinput(void)
             if (escape_pressed)
             {
                 // We're just in draw mode, so go to the settings menu
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
                 ed.state = EditorState_MENU;
                 ed.substate = EditorSubState_MAIN;
                 game.createmenu(Menu::ed_settings);
@@ -2926,7 +3338,7 @@ void editorinput(void)
                     case BoxType_SCRIPT:
                         ed.text_entity = customentities.size();
 
-                        ed.add_entity((left / 8) + (ed.levx * 40), (top / 8) + (ed.levy * 30), 19, (right - left) / 8, (bottom - top) / 8);
+                        ed.add_entity(ed.levx, ed.levy, left / 8, top / 8, 19, (right - left) / 8, (bottom - top) / 8);
 
                         ed.get_input_line(TEXT_SCRIPT, loc::gettext("Enter script name:"), &(customentities[ed.text_entity].scriptname));
                         break;
@@ -2948,7 +3360,7 @@ void editorinput(void)
                     }
                 }
             }
-            else
+            else if (!key.leftbutton)
             {
                 ed.lclickdelay = 0;
             }
@@ -3087,11 +3499,12 @@ void editorinput(void)
             if (escape_pressed)
             {
                 bool esc_from_font = false;
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
 
                 if (game.currentmenuname == Menu::ed_settings)
                 {
                     ed.state = EditorState_DRAW;
+                    gameScreen.recacheTextures();
                 }
                 else
                 {
@@ -3137,7 +3550,7 @@ void editorinput(void)
                 key.disabletextentry();
                 ed.current_text_mode = TEXT_NONE;
 
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
             }
 
             if (enter_pressed)
@@ -3158,7 +3571,7 @@ void editorinput(void)
         {
             if (escape_pressed)
             {
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
                 ed.state = EditorState_MENU;
                 ed.substate = EditorSubState_MAIN;
             }
@@ -3197,7 +3610,7 @@ void editorinput(void)
             if (key.keymap[SDLK_BACKSPACE] && !ed.backspace_held && !script.customscripts.empty())
             {
                 ed.backspace_held = true;
-                music.playef(2);
+                music.playef(Sound_CRY);
                 ed.remove_script(script.customscripts[(script.customscripts.size() - 1) - ed.selected_script].name);
             }
 
@@ -3229,7 +3642,7 @@ void editorinput(void)
                     key.keybuffer = ed.script_buffer[ed.script_cursor_y];
                     ed.script_cursor_x = UTF8_total_codepoints(ed.script_buffer[ed.script_cursor_y].c_str());
 
-                    music.playef(11);
+                    music.playef(Sound_VIRIDIAN);
                 }
             }
             break;
@@ -3239,11 +3652,13 @@ void editorinput(void)
             // Script editor!
             if (escape_pressed)
             {
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
                 ed.substate = EditorSubState_MAIN;
 
                 // Alright, now re-add the script.
                 ed.create_script(ed.current_script, ed.script_buffer);
+
+                key.disabletextentry();
             }
 
             if (ed.keydelay > 0) ed.keydelay--;
@@ -3334,201 +3749,137 @@ void editorinput(void)
 
     if (ed.updatetiles && cl.getroomprop(ed.levx, ed.levy)->directmode == 0)
     {
-        ed.updatetiles = false;
-        // Correctly set the tiles in the current room
-        switch (cl.getroomprop(ed.levx, ed.levy)->tileset)
+        for (int i = 0; i < SCREEN_WIDTH_TILES * SCREEN_HEIGHT_TILES; i++)
         {
-        case 0: // The Space Station
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.backedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
-                        );
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 1: // Outside
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.outsideedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
-                        );
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 2: // Lab
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.labspikedir(
-                                i,
-                                j,
-                                cl.getroomprop(ed.levx, ed.levy)->tilecol
-                            )
-                        );
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(ed.levx, ed.levy, i, j, 713);
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 3: // Warp Zone/Intermission
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(ed.levx, ed.levy, i, j, 713);
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 4: // The ship
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    int temp = cl.gettile(ed.levx, ed.levy, i, j);
-                    if (temp >= 3 && temp < 80)
-                    {
-                        // Fix spikes
-                        cl.settile(ed.levx, ed.levy, i, j, ed.spikedir(i, j));
-                    }
-                    else if (temp == 2 || temp >= 680)
-                    {
-                        // Fix background
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.backedgetile(i, j) + ed.autotiling_background_base(ed.levx, ed.levy)
-                        );
-                    }
-                    else if (temp > 0)
-                    {
-                        // Fix tiles
-                        cl.settile(
-                            ed.levx,
-                            ed.levy,
-                            i,
-                            j,
-                            ed.edgetile(i, j) + ed.autotiling_base(ed.levx, ed.levy)
-                        );
-                    }
-                }
-            }
-            break;
-        case 5: // The Tower
-            break;
-        case 6: // Custom Set 1
-            break;
-        case 7: // Custom Set 2
-            break;
-        case 8: // Custom Set 3
-            break;
-        case 9: // Custom Set 4
-            break;
+            int tile_x = i % SCREEN_WIDTH_TILES;
+            int tile_y = i / SCREEN_WIDTH_TILES;
+            ed.set_tile(tile_x, tile_y, ed.autotile(tile_x, tile_y));
         }
+
+        ed.updatetiles = false;
         graphics.foregrounddrawn = false;
     }
+}
+
+bool editorclass::is_warp_zone_background(int tile)
+{
+    if (cl.getroomprop(levx, levy)->tileset == EditorTileset_SPACE_STATION)
+    {
+        return false;
+    }
+
+    return (tile == 120 || tile == 123 || tile == 126 || tile == 129 || tile == 132 || tile == 135 || tile == 138);
+}
+
+int editorclass::autotile(const int x, const int y)
+{
+    int tile = get_tile(x, y);
+    TileTypes type = get_tile_type(x, y, false);
+
+    if (tile == 0)
+    {
+        return 0;
+    }
+
+    if (type == TileType_SPIKE)
+    {
+        bool tile_up = get_tile_type(x, y - 1, false) == TileType_SOLID;
+        bool tile_down = get_tile_type(x, y + 1, false) == TileType_SOLID;
+        bool tile_left = get_tile_type(x - 1, y, false) == TileType_SOLID;
+        bool tile_right = get_tile_type(x + 1, y, false) == TileType_SOLID;
+
+        if (cl.getroomprop(levx, levy)->tileset == EditorTileset_LAB)
+        {
+            // If this is the lab, use the colourful lab spikes!
+            int mult = cl.getroomprop(levx, levy)->tilecol;
+            if (tile_down)
+                return 63 + mult * 2;
+            if (tile_up)
+                return 64 + mult * 2;
+            if (tile_left)
+                return 51 + mult * 2;
+            if (tile_right)
+                return 52 + mult * 2;
+            return 63 + mult * 2;
+        }
+
+        // Not in the lab, so use the boring normal spikes
+        if (tile_down)
+            return 8;
+        if (tile_up)
+            return 9;
+        if (tile_left)
+            return 49;
+        if (tile_right)
+            return 50;
+        return 8;
+    }
+
+    bool tile_up = autotile_connector(x, y - 1, type);
+    bool tile_down = autotile_connector(x, y + 1, type);
+    bool tile_left = autotile_connector(x - 1, y, type);
+    bool tile_right = autotile_connector(x + 1, y, type);
+
+    bool tile_up_left = autotile_connector(x - 1, y - 1, type);
+    bool tile_up_right = autotile_connector(x + 1, y - 1, type);
+    bool tile_down_left = autotile_connector(x - 1, y + 1, type);
+    bool tile_down_right = autotile_connector(x + 1, y + 1, type);
+
+    int tile_value = 0;
+
+    if (tile_up)
+        tile_value += 1;
+    if (tile_up_right)
+        tile_value += 2;
+    if (tile_right)
+        tile_value += 4;
+    if (tile_down_right)
+        tile_value += 8;
+    if (tile_down)
+        tile_value += 16;
+    if (tile_down_left)
+        tile_value += 32;
+    if (tile_left)
+        tile_value += 64;
+    if (tile_up_left)
+        tile_value += 128;
+
+    bool background = (type == TileType_NONSOLID || is_warp_zone_background(tile));
+    EditorTilecolInfo data = get_tilecol_data();
+
+    int base = background ? data.background_base : data.foreground_base;
+    return base + autotile_types[background ? data.background_type : data.foreground_type][tile_value];
+}
+
+EditorTilecolInfo editorclass::get_tilecol_data(void)
+{
+    EditorTilesets tileset = (EditorTilesets) cl.getroomprop(levx, levy)->tileset;
+    int tilecol = cl.getroomprop(levx, levy)->tilecol;
+
+    return tileset_colors[tileset][tilecol];
+}
+
+bool editorclass::autotile_connector(int x, int y, TileTypes original_type)
+{
+    if (x < 0 || x >= SCREEN_WIDTH_TILES || y < 0 || y >= SCREEN_HEIGHT_TILES)
+    {
+        return true;
+    }
+
+    int tile = get_tile(x, y);
+    TileTypes new_type = get_tile_type(x, y, false);
+
+    if (tile == 0)
+    {
+        return false;
+    }
+
+    if (new_type == TileType_SOLID && !is_warp_zone_background(tile))
+    {
+        return true;
+    }
+
+    return original_type == TileType_NONSOLID;
 }
 
 int editorclass::get_enemy_tile(int t)
@@ -3581,125 +3932,13 @@ void editorclass::set_tile(int x, int y, int t)
     updatetiles = true;
 }
 
-int editorclass::autotiling_base(int x, int y)
+int editorclass::get_tile(const int x, const int y)
 {
-    //Return the base tile for the given tileset and colour
-    const RoomProperty* const room = cl.getroomprop(x, y);
-    if (room->tileset == 0)  //Space Station
+    if (x >= 0 && y >= 0 && x < SCREEN_WIDTH_TILES && y < SCREEN_HEIGHT_TILES)
     {
-        if (room->tilecol >= 22)
-        {
-            return 483 + ((room->tilecol - 22) * 3);
-        }
-        else if (room->tilecol >= 11)
-        {
-            return 283 + ((room->tilecol - 11) * 3);
-        }
-        else
-        {
-            return 83 + (room->tilecol * 3);
-        }
+        return cl.gettile(levx, levy, x, y);
     }
-    else if (room->tileset == 1)   //Outside
-    {
-        return 480 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 2)   //Lab
-    {
-        return 280 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 3)   //Warp Zone/Intermission
-    {
-        return 80 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 4)   //SHIP
-    {
-        return 101 + (room->tilecol * 3);
-    }
-    return 0;
-}
 
-int editorclass::autotiling_background_base( int x, int y )
-{
-    //Return the base tile for the background of the given tileset and colour
-    const RoomProperty* const room = cl.getroomprop(x, y);
-    if (room->tileset == 0)  //Space Station
-    {
-        //Pick depending on tilecol
-        switch (room->tilecol)
-        {
-        case 0:
-        case 5:
-        case 26:
-            return 680; //Blue
-            break;
-        case 3:
-        case 16:
-        case 23:
-            return 683; //Yellow
-            break;
-        case 9:
-        case 12:
-        case 21:
-            return 686; //Greeny Cyan
-            break;
-        case 4:
-        case 8:
-        case 24:
-        case 28:
-        case 30:
-            return 689; //Green
-            break;
-        case 20:
-        case 29:
-            return 692; //Orange
-            break;
-        case 2:
-        case 6:
-        case 11:
-        case 22:
-        case 27:
-            return 695; //Red
-            break;
-        case 1:
-        case 10:
-        case 15:
-        case 19:
-        case 31:
-            return 698; //Pink
-            break;
-        case 14:
-        case 18:
-            return 701; //Dark Blue
-            break;
-        case 7:
-        case 13:
-        case 17:
-        case 25:
-            return 704; //Cyan
-            break;
-        default:
-            return 680;
-            break;
-        }
-
-    }
-    else if (room->tileset == 1)   //outside
-    {
-        return 680 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 2)   //Lab
-    {
-        return 0;
-    }
-    else if (room->tileset == 3)   //Warp Zone/Intermission
-    {
-        return 120 + (room->tilecol * 3);
-    }
-    else if (room->tileset == 4)   //SHIP
-    {
-        return 741 + (room->tilecol * 3);
-    }
     return 0;
 }
 
@@ -3767,26 +4006,6 @@ TileTypes editorclass::get_tile_type(int x, int y, bool wrap)
     return get_abs_tile_type(levx * 40 + x, levy * 30 + y, false);
 }
 
-bool editorclass::is_background(int x, int y)
-{
-    x = SDL_clamp(x, 0, 39);
-    y = SDL_clamp(y, 0, 29);
-
-    const int tile = cl.gettile(levx, levy, x, y);
-
-    return tile >= 680 && tile <= 739;
-}
-
-bool editorclass::backfree(int x, int y)
-{
-    x = SDL_clamp(x, 0, 39);
-    y = SDL_clamp(y, 0, 29);
-
-    const int tile = cl.gettile(levx, levy, x, y);
-
-    return tile == 0;
-}
-
 bool editorclass::lines_can_pass(int x, int y)
 {
     const int tile = cl.gettile(levx, levy, x, y);
@@ -3797,211 +4016,8 @@ bool editorclass::lines_can_pass(int x, int y)
     return false;
 }
 
-bool editorclass::free(int x, int y)
-{
-    x = SDL_clamp(x, 0, 39);
-    y = SDL_clamp(y, 0, 29);
-
-    const int tile = cl.gettile(levx, levy, x, y);
-
-    return tile == 0 || (tile >= 2 && tile < 80) || tile >= 680;
-}
-
-int editorclass::match(int x, int y)
-{
-    if (free(x - 1, y) && free(x, y - 1) && free(x + 1, y) && free(x, y + 1)) return 0;
-
-    if (free(x - 1, y) && free(x, y - 1)) return 10;
-    if (free(x + 1, y) && free(x, y - 1)) return 11;
-    if (free(x - 1, y) && free(x, y + 1)) return 12;
-    if (free(x + 1, y) && free(x, y + 1)) return 13;
-
-    if (free(x, y - 1)) return 1;
-    if (free(x - 1, y)) return 2;
-    if (free(x, y + 1)) return 3;
-    if (free(x + 1, y)) return 4;
-    if (free(x - 1, y - 1)) return 5;
-    if (free(x + 1, y - 1)) return 6;
-    if (free(x - 1, y + 1)) return 7;
-    if (free(x + 1, y + 1)) return 8;
-
-    return 0;
-}
-
-int editorclass::outsidematch(int x, int y)
-{
-    if (!is_background(x - 1, y) && !is_background(x + 1, y)) return 2;
-    if (!is_background(x, y - 1) && !is_background(x, y + 1)) return 1;
-
-    return 0;
-}
-
-int editorclass::backmatch(int x, int y)
-{
-    //Returns the first position match for a border
-    // 5 1 6
-    // 2 X 4
-    // 7 3 8
-    if (backfree(x - 1, y) && backfree(x, y - 1) && backfree(x + 1, y) && backfree(x, y + 1)) return 0;
-
-    if (backfree(x - 1, y) && backfree(x, y - 1)) return 10;
-    if (backfree(x + 1, y) && backfree(x, y - 1)) return 11;
-    if (backfree(x - 1, y) && backfree(x, y + 1)) return 12;
-    if (backfree(x + 1, y) && backfree(x, y + 1)) return 13;
-
-    if (backfree(x, y - 1)) return 1;
-    if (backfree(x - 1, y)) return 2;
-    if (backfree(x, y + 1)) return 3;
-    if (backfree(x + 1, y)) return 4;
-    if (backfree(x - 1, y - 1)) return 5;
-    if (backfree(x + 1, y - 1)) return 6;
-    if (backfree(x - 1, y + 1)) return 7;
-    if (backfree(x + 1, y + 1)) return 8;
-
-    return 0;
-}
-
-int editorclass::edgetile(int x, int y)
-{
-    switch(match(x,y))
-    {
-    case 14:
-        return 0;
-        break;
-    case 10:
-        return 80;
-        break;
-    case 11:
-        return 82;
-        break;
-    case 12:
-        return 160;
-        break;
-    case 13:
-        return 162;
-        break;
-    case 1:
-        return 81;
-        break;
-    case 2:
-        return 120;
-        break;
-    case 3:
-        return 161;
-        break;
-    case 4:
-        return 122;
-        break;
-    case 5:
-        return 42;
-        break;
-    case 6:
-        return 41;
-        break;
-    case 7:
-        return 2;
-        break;
-    case 8:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 0;
-        break;
-    }
-}
-
-int editorclass::outsideedgetile(int x, int y)
-{
-    switch(outsidematch(x,y))
-    {
-    case 2:
-        return 0;
-        break;
-    case 1:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 2;
-        break;
-    }
-}
-
-
-int editorclass::backedgetile(int x, int y)
-{
-    switch(backmatch(x,y))
-    {
-    case 14:
-        return 0;
-        break;
-    case 10:
-        return 80;
-        break;
-    case 11:
-        return 82;
-        break;
-    case 12:
-        return 160;
-        break;
-    case 13:
-        return 162;
-        break;
-    case 1:
-        return 81;
-        break;
-    case 2:
-        return 120;
-        break;
-    case 3:
-        return 161;
-        break;
-    case 4:
-        return 122;
-        break;
-    case 5:
-        return 42;
-        break;
-    case 6:
-        return 41;
-        break;
-    case 7:
-        return 2;
-        break;
-    case 8:
-        return 1;
-        break;
-    case 0:
-    default:
-        return 0;
-        break;
-    }
-}
-
-int editorclass::labspikedir(int x, int y, int t)
-{
-    // a slightly more tricky case
-    if (!free(x, y + 1)) return 63 + (t * 2);
-    if (!free(x, y - 1)) return 64 + (t * 2);
-    if (!free(x - 1, y)) return 51 + (t * 2);
-    if (!free(x + 1, y)) return 52 + (t * 2);
-    return 63 + (t * 2);
-}
-
-int editorclass::spikedir(int x, int y)
-{
-    if (!free(x, y + 1)) return 8;
-    if (!free(x, y - 1)) return 9;
-    if (!free(x - 1, y)) return 49;
-    if (!free(x + 1, y)) return 50;
-    return 8;
-}
-
 void editorclass::switch_tileset(const bool reversed)
 {
-    const char* tilesets[] = {"Space Station", "Outside", "Lab", "Warp Zone", "Ship"};
-
     int tiles = cl.getroomprop(levx, levy)->tileset;
 
     if (reversed)
@@ -4013,8 +4029,7 @@ void editorclass::switch_tileset(const bool reversed)
         tiles++;
     }
 
-    const int modulus = SDL_arraysize(tilesets);
-    tiles = POS_MOD(tiles, modulus);
+    tiles = POS_MOD(tiles, NUM_EditorTilesets);
     cl.setroomtileset(levx, levy, tiles);
 
     clamp_tilecol(levx, levy, false);
@@ -4024,7 +4039,7 @@ void editorclass::switch_tileset(const bool reversed)
         buffer, sizeof(buffer),
         loc::gettext("Now using {area} Tileset"),
         "area:str",
-        loc::gettext(tilesets[tiles])
+        loc::gettext(tileset_names[tiles])
     );
 
     show_note(buffer);
@@ -4064,36 +4079,8 @@ void editorclass::clamp_tilecol(const int rx, const int ry, const bool wrap)
     const int tileset = room->tileset;
     int tilecol = room->tilecol;
 
-    int mincol = -1;
-    int maxcol = 5;
-
-    // Only Space Station allows tileset -1
-    if (tileset != 0)
-    {
-        mincol = 0;
-    }
-
-    switch (tileset)
-    {
-    case 0:
-        maxcol = 31;
-        break;
-    case 1:
-        maxcol = 7;
-        break;
-    case 2:
-        if (room->directmode)
-        {
-            maxcol = 6;
-        }
-        break;
-    case 3:
-        maxcol = 6;
-        break;
-    case 5:
-        maxcol = 29;
-        break;
-    }
+    int mincol = (room->directmode ? tileset_min_colour_direct : tileset_min_colour)[tileset];
+    int maxcol = (room->directmode ? tileset_max_colour_direct : tileset_max_colour)[tileset];
 
     // If wrap is true, wrap-around, otherwise just cap
     if (tilecol > maxcol)
@@ -4167,5 +4154,3 @@ void editorclass::switch_warpdir(const bool reversed)
 
     graphics.backgrounddrawn = false;
 }
-
-#endif /* NO_CUSTOM_LEVELS and NO_EDITOR */

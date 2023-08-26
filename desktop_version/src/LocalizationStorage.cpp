@@ -93,6 +93,8 @@ static void loadmeta(LangMeta& meta, const std::string& langcode = lang)
             meta.credit = std::string(pText);
         else if (SDL_strcmp(pKey, "action_hint") == 0)
             meta.action_hint = std::string(pText);
+        else if (SDL_strcmp(pKey, "gamepad_hint") == 0)
+            meta.gamepad_hint = std::string(pText);
         else if (SDL_strcmp(pKey, "autowordwrap") == 0)
             meta.autowordwrap = help.Int(pText);
         else if (SDL_strcmp(pKey, "toupper") == 0)
@@ -945,10 +947,9 @@ static void loadtext_roomnames(bool custom_level)
             {
                 continue;
             }
-#if !defined(NO_CUSTOM_LEVELS)
+
             const RoomProperty* const room = cl.getroomprop(x, y);
             if (SDL_strcmp(original_roomname, room->roomname.c_str()) != 0)
-#endif
             {
                 continue;
             }

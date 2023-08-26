@@ -4,6 +4,7 @@
 #include <emscripten/html5.h>
 #endif
 
+#include "ButtonGlyphs.h"
 #include "CustomLevels.h"
 #include "DeferCallbacks.h"
 #include "Editor.h"
@@ -30,19 +31,14 @@
 #include "RenderFixed.h"
 #include "Screen.h"
 #include "Script.h"
-#include "Unused.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 
 scriptclass script;
 
-#ifndef NO_CUSTOM_LEVELS
 std::vector<CustomEntity> customentities;
 customlevelclass cl;
-# ifndef NO_EDITOR
 editorclass ed;
-# endif
-#endif
 
 UtilityClass help;
 Graphics graphics;
@@ -60,7 +56,7 @@ static int savey = 0;
 static int saverx = 0;
 static int savery = 0;
 static int savegc = 0;
-static int savemusic = 0;
+static int savemusic = -1;
 static std::string playassets;
 
 static std::string playtestname;
@@ -106,9 +102,6 @@ static void teleportermodeinput(void)
     }
 }
 
-/* Only gets used in EDITORMODE. I assume the compiler will optimize this away
- * if this is a NO_CUSTOM_LEVELS or NO_EDITOR build
- */
 static void flipmodeoff(void)
 {
     graphics.flipmode = false;
@@ -174,14 +167,12 @@ static const inline struct ImplFunc* get_gamestate_funcs(
     FUNC_LIST_END
 
     FUNC_LIST_BEGIN(GAMECOMPLETE2)
+        {Func_fixed, gamecompleterenderfixed2},
         {Func_delta, gamecompleterender2},
         {Func_input, gamecompleteinput2},
         {Func_fixed, gamecompletelogic2},
     FUNC_LIST_END
 
-#if defined(NO_CUSTOM_LEVELS) || defined(NO_EDITOR)
-        UNUSED(flipmodeoff);
-#else
     FUNC_LIST_BEGIN(EDITORMODE)
         {Func_fixed, flipmodeoff},
         {Func_input, editorinput},
@@ -189,7 +180,6 @@ static const inline struct ImplFunc* get_gamestate_funcs(
         {Func_fixed, editorrenderfixed},
         {Func_delta, editorrender},
     FUNC_LIST_END
-#endif
 
     FUNC_LIST_BEGIN(PRELOADER)
         {Func_input, preloaderinput},
@@ -406,12 +396,6 @@ int main(int argc, char *argv[])
 #ifdef MAKEANDPLAY
                 " [M&P]"
 #endif
-#ifdef NO_CUSTOM_LEVELS
-                " [no custom levels]"
-#endif
-#ifdef NO_EDITOR
-                " [no editor]"
-#endif
             );
 #ifdef INTERIM_VERSION_EXISTS
             puts(COMMIT_DATE);
@@ -422,12 +406,8 @@ int main(int argc, char *argv[])
         }
         else if (ARG("-addresses"))
         {
-#ifndef NO_CUSTOM_LEVELS
             printf("cl         : %p\n", (void*) &cl);
-# ifndef NO_EDITOR
             printf("ed         : %p\n", (void*) &ed);
-# endif
-#endif
             printf("game       : %p\n", (void*) &game);
             printf("gameScreen : %p\n", (void*) &gameScreen);
             printf("graphics   : %p\n", (void*) &graphics);
@@ -650,6 +630,7 @@ int main(int argc, char *argv[])
         gameScreen.init(&screen_settings);
     }
 
+    BUTTONGLYPHS_init();
     font::load_main();
 
     // This loads music too...
@@ -657,12 +638,16 @@ int main(int argc, char *argv[])
     {
         /* Something wrong with the default assets? We can't use them to
          * display the error message, and we have to bail. */
-        SDL_ShowSimpleMessageBox(
-            SDL_MESSAGEBOX_ERROR,
-            graphics.error_title,
-            graphics.error,
-            NULL
-        );
+        const char* message;
+        if (FILESYSTEM_levelDirHasError())
+        {
+            message = FILESYSTEM_getLevelDirError();
+        }
+        else
+        {
+            message = loc::gettext("Something went wrong, but we forgot the error message.");
+        }
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", message, NULL);
 
         VVV_exit(1);
     }
@@ -695,9 +680,18 @@ int main(int argc, char *argv[])
         if(game.swnbestrank >= 6) game.unlockAchievement("vvvvvvsupgrav60");
     }
 
-    if(game.unlock[5]) game.unlockAchievement("vvvvvvgamecomplete");
-    if(game.unlock[19]) game.unlockAchievement("vvvvvvgamecompleteflip");
-    if(game.unlock[20]) game.unlockAchievement("vvvvvvmaster");
+    if (game.unlock[UnlockTrophy_GAME_COMPLETE])
+    {
+        game.unlockAchievement("vvvvvvgamecomplete");
+    }
+    if (game.unlock[UnlockTrophy_FLIPMODE_COMPLETE])
+    {
+        game.unlockAchievement("vvvvvvgamecompleteflip");
+    }
+    if (game.unlock[UnlockTrophy_NODEATHMODE_COMPLETE])
+    {
+        game.unlockAchievement("vvvvvvmaster");
+    }
 
     if (game.bestgamedeaths > -1) {
         if (game.bestgamedeaths <= 500) {
@@ -714,16 +708,33 @@ int main(int argc, char *argv[])
         }
     }
 
-    if(game.bestrank[0]>=3) game.unlockAchievement("vvvvvvtimetrial_station1_fixed");
-    if(game.bestrank[1]>=3) game.unlockAchievement("vvvvvvtimetrial_lab_fixed");
-    if(game.bestrank[2]>=3) game.unlockAchievement("vvvvvvtimetrial_tower_fixed");
-    if(game.bestrank[3]>=3) game.unlockAchievement("vvvvvvtimetrial_station2_fixed");
-    if(game.bestrank[4]>=3) game.unlockAchievement("vvvvvvtimetrial_warp_fixed");
-    if(game.bestrank[5]>=3) game.unlockAchievement("vvvvvvtimetrial_final_fixed");
+    if (game.bestrank[TimeTrial_SPACESTATION1] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_station1_fixed");
+    }
+    if (game.bestrank[TimeTrial_LABORATORY] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_lab_fixed");
+    }
+    if (game.bestrank[TimeTrial_TOWER] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_tower_fixed");
+    }
+    if (game.bestrank[TimeTrial_SPACESTATION2] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_station2_fixed");
+    }
+    if (game.bestrank[TimeTrial_WARPZONE] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_warp_fixed");
+    }
+    if (game.bestrank[TimeTrial_FINALLEVEL] >= 3)
+    {
+        game.unlockAchievement("vvvvvvtimetrial_final_fixed");
+    }
 
     obj.init();
 
-#if !defined(NO_CUSTOM_LEVELS)
     if (startinplaytest) {
         game.levelpage = 0;
         game.playcustomlevel = 0;
@@ -775,7 +786,6 @@ int main(int argc, char *argv[])
 
         graphics.fademode = FADE_NONE;
     }
-#endif
 
     /* Only create the window after we have loaded all the assets. */
     SDL_ShowWindow(gameScreen.m_window);
@@ -912,13 +922,22 @@ static void unfocused_run(void)
     {
         graphics.fill_rect(0, 0, 0);
 #define FLIP(YPOS) graphics.flipmode ? 232 - YPOS : YPOS
+#define FLIP_PR_CJK_LOW (graphics.flipmode ? PR_CJK_HIGH : PR_CJK_LOW)
+#define FLIP_PR_CJK_HIGH (graphics.flipmode ? PR_CJK_LOW : PR_CJK_HIGH)
         /* The pause screen can also appear on the language screen, where highlighting
          * a language changes the used language metadata but not the loaded strings... */
         uint32_t flags = PR_CEN | PR_BOR | PR_FONT_IDX(loc::langmeta.font_idx);
-        font::print(flags | PR_CJK_HIGH, -1, FLIP(110), loc::gettext("Game paused"), 196 - help.glow, 255 - help.glow, 196 - help.glow);
-        font::print(flags | PR_CJK_LOW, -1, FLIP(120), loc::gettext("[click to resume]"), 196 - help.glow, 255 - help.glow, 196 - help.glow);
-        font::print(flags | PR_CJK_HIGH, -1, FLIP(220), loc::gettext("Press M to mute in game"), 164 - help.glow, 196 - help.glow, 164 - help.glow);
-        font::print(flags, -1, FLIP(230), loc::gettext("Press N to mute music only"), 164 - help.glow, 196 - help.glow, 164 - help.glow);
+        font::print(flags | FLIP_PR_CJK_HIGH, -1, FLIP(110), loc::gettext("Game paused"), 196 - help.glow, 255 - help.glow, 196 - help.glow);
+
+        if (BUTTONGLYPHS_keyboard_is_available())
+        {
+            font::print(flags | FLIP_PR_CJK_LOW, -1, FLIP(120), loc::gettext("[click to resume]"), 196 - help.glow, 255 - help.glow, 196 - help.glow);
+
+            font::print(flags | FLIP_PR_CJK_HIGH, -1, FLIP(220), loc::gettext("Press M to mute in game"), 164 - help.glow, 196 - help.glow, 164 - help.glow);
+            font::print(flags, -1, FLIP(230), loc::gettext("Press N to mute music only"), 164 - help.glow, 196 - help.glow, 164 - help.glow);
+        }
+#undef FLIP_PR_CJK_HIGH
+#undef FLIP_PR_CJK_LOW
 #undef FLIP
     }
     graphics.render();

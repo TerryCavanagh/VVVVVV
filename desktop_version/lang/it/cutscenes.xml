@@ -76,10 +76,11 @@
     <cutscene id="bigopenworldskip" explanation="">
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="Se ha bisogno d&apos;aiuto, io sono qui!"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="">
+    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Non so se mi sento all&apos;altezza del compito, dottoressa."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Da dove comincio?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Ricordi: può premere INVIO per controllare la sua posizione sulla mappa!"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Cerchi le zone in cui potrebbe trovarsi il resto dell&apos;equipaggio..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Se si perde, può tornare alla nave da qualsiasi teletrasporto."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="E non si preoccupi! Troveremo tutti!"/>
@@ -116,7 +117,7 @@
         <dialogue speaker="green" english="Oh! Great - Let&apos;s get going, then!" translation="Oh! Perfetto. Allora andiamo!"/>
     </cutscene>
     <cutscene id="rescueblue" explanation="">
-        <dialogue speaker="blue" english="Oh no! Captain! Are you stuck here too?" translation="Oh, no, Capitano! È bloccato qui anche lei?"/>
+        <dialogue speaker="blue" english="Oh no! Captain! Are you stuck here too?" translation="Oh, no, Capitano! Si trova qui anche lei?"/>
         <dialogue speaker="player" english="It&apos;s ok - I&apos;m here to rescue you!" translation="Va tutto bene, sono qui per salvarla!"/>
         <dialogue speaker="player" english="Let me explain everything..." translation="Lasci che le spieghi tutto..."/>
         <dialogue speaker="blue" english="What? I didn&apos;t understand any of that!" translation="Cosa? Non ho capito niente!"/>
@@ -128,7 +129,7 @@
     <cutscene id="rescuered" explanation="">
         <dialogue speaker="red" english="Captain!" translation="Capitano!"/>
         <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation="Ma che gioia vederla! Temevo di essere l&apos;unico superstite!"/>
-        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="Vermilion! Sta bene! Ne ero sicuro!"/>
+        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="Vermilion! Sta bene! Lo sapevo!"/>
         <dialogue speaker="red" english="So, what&apos;s the situation?" translation="Allora, qual è la situazione?"/>
         <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation="Capisco. Beh, allora è meglio tornare."/>
         <dialogue speaker="red" english="There&apos;s a teleporter in the next room." translation="Nella stanza accanto c&apos;è un teletrasporto."/>
@@ -370,8 +371,8 @@
         <dialogue speaker="purple" english="Chief Verdigris is so brave and ever so smart!" translation="Il Capo Verdigris è coraggioso e intelligentissimo!"/>
     </cutscene>
     <cutscene id="talkpurple_4" explanation="">
-        <dialogue speaker="purple" english="Welcome back, Captain!" translation="Bentornato, Capitano!"/>
-        <dialogue speaker="purple" english="I think Victoria is quite happy to be back on the ship." translation="Penso che Victoria sia contenta di essere tornata sulla nave."/>
+        <dialogue speaker="purple" english="Welcome back, Captain!" translation="Che gioia rivederla, Capitano!"/>
+        <dialogue speaker="purple" english="I think Victoria is quite happy to be back on the ship." translation="Victoria sembra felice di essere tornata sulla nave."/>
         <dialogue speaker="purple" english="She really doesn&apos;t like adventuring. She gets very homesick!" translation="L&apos;avventura non fa proprio per lei. Le fa venire nostalgia di casa!"/>
     </cutscene>
     <cutscene id="talkpurple_5" explanation="only one of the last 6 strings is shown">
@@ -544,10 +545,10 @@
         <dialogue speaker="blue" english="Are you going to try and find the rest of these shiny things?" translation="Vogliamo provare a recuperare gli aggeggi luccicanti rimasti?"/>
     </cutscene>
     <cutscene id="talkblue_trinket1" explanation="">
-        <dialogue speaker="blue" english="Hey Captain, I found this in that lab..." translation="Ehi Capitano, c&apos;era questo al laboratorio..."/>
-        <dialogue speaker="blue" english="Any idea what it does?" translation="A cosa potrebbe servire?"/>
+        <dialogue speaker="blue" english="Hey Captain, I found this in that lab..." translation="Ehi Capitano, c&apos;erano questi al laboratorio..."/>
+        <dialogue speaker="blue" english="Any idea what it does?" translation="A cosa potrebbero servire?"/>
         <dialogue speaker="player" english="Sorry, I don&apos;t know!" translation="Mi spiace, non ne ho idea!"/>
-        <dialogue speaker="player" english="They seem important, though..." translation="Comunque, sembrano cose importanti..."/>
+        <dialogue speaker="player" english="They seem important, though..." translation="Comunque, sembrano importanti..."/>
         <dialogue speaker="player" english="Maybe something will happen if we find them all?" translation="Forse accadrà qualcosa se li troviamo tutti?"/>
     </cutscene>
     <cutscene id="talkblue_trinket2" explanation="">
@@ -645,7 +646,7 @@
         <dialogue speaker="yellow" english="Maybe you&apos;ve found them all?" translation="Forse li ha già raccolti tutti?"/>
     </cutscene>
     <cutscene id="finallevel_teleporter" explanation="">
-        <dialogue speaker="purple" english="Welcome back!" translation="Bentornato!"/>
+        <dialogue speaker="purple" english="Welcome back!" translation="Che gioia rivederla!"/>
         <dialogue speaker="purple" english="..." translation="..."/>
         <dialogue speaker="purple" english="Um, where&apos;s Captain Viridian?" translation="Uhm, dov&apos;è il Capitano Viridian?"/>
         <dialogue speaker="player" english="... Hello?" translation="Ehi?"/>
@@ -700,7 +701,7 @@ STABILIZZATORE DIMENSIONALE DISATTIVATO" centertext="1" pad="1"/>
         <dialogue speaker="blue" english="Captain!" translation="Capitano!" case="5"/>
         <dialogue speaker="blue" english="You&apos;re alright!" translation="Sta bene!"/>
         <dialogue speaker="blue" english="I knew you&apos;d be ok!" translation="Me lo sentivo che ce l&apos;avrebbe fatta!"/>
-        <dialogue speaker="purple" english="We were very worried when you didn&apos;t come back..." translation="Quando non è tornato, abbiamo temuto il peggio..."/>
+        <dialogue speaker="purple" english="We were very worried when you didn&apos;t come back..." translation="Quando non l&apos;abbiamo rivista, abbiamo temuto il peggio..."/>
         <dialogue speaker="green" english="...but when you turned off the source of the interference..." translation="Ma quando ha disattivato la fonte dell&apos;interferenza..."/>
         <dialogue speaker="yellow" english="...we were able to find you with the ship&apos;s scanners..." translation="Siamo riusciti a localizzarla con gli scanner della nave..."/>
         <dialogue speaker="red" english="...and teleport you back on board!" translation="E a teletrasportarla di nuovo a bordo!"/>
@@ -940,7 +941,7 @@ Comandi di navigazione di bordo" centertext="1" pad="1"/>
         <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation="Errore! Errore! Impossibile isolare le coordinate dimensionali! Interferenza rilevata!"/>
     </cutscene>
     <cutscene id="alreadyvisited" explanation="">
-        <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="Oh, quello l&apos;ho già trovato."/>
+        <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="Oh, questo l&apos;avevo già trovato."/>
     </cutscene>
     <cutscene id="disableaccessibility" explanation="">
         <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="Disattivare invincibilità e/o rallentamento prima di entrare nel Super Gravitrone."/>

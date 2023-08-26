@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<strings_plural>
+    <string english_plural="You rescued {n_crew|wordy} crewmates" english_singular="You rescued {n_crew|wordy} crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40" var="n_crew" expect="6">
+        <translation form="0" translation="Ви врятували {n_crew|wordy} членів екіпажу"/>
+        <translation form="1" translation="Ви врятували {n_crew|wordy} члена екіпажу"/>
+        <translation form="2" translation="Ви врятували {n_crew} членів екіпажу"/>
+    </string>
+    <string english_plural="and found {n_trinkets|wordy} trinkets." english_singular="and found {n_trinkets|wordy} trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2" var="n_trinkets" expect="20">
+        <translation form="0" translation="й знайшли {n_trinkets} блищики."/>
+        <translation form="1" translation="й знайшли {n_trinkets} блищик."/>
+        <translation form="2" translation="й знайшли {n_trinkets} блищиків."/>
+    </string>
+    <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20">
+        <translation form="0" translation="І знайшли {n_trinkets} блищики."/>
+        <translation form="1" translation="І знайшли {n_trinkets} блищик."/>
+        <translation form="2" translation="І знайшли {n_trinkets} блищиків."/>
+    </string>
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
+        <translation form="0" translation="Треба знайти ще {n_crew|wordy} членів команди"/>
+        <translation form="1" translation="Треба знайти ще {n_crew|wordy} члена команди"/>
+        <translation form="2" translation="Треба знайти ще {n_crew} членів команди"/>
+    </string>
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
+        <translation form="0" translation="Треба знайти ще {n_crew|wordy}"/>
+        <translation form="1" translation="Треба знайти ще {n_crew|wordy}"/>
+        <translation form="2" translation="Треба знайти ще {n_crew}"/>
+    </string>
+    <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000">
+        <translation form="0" translation="Найважча кімната ({n_deaths} смерті)"/>
+        <translation form="1" translation="Найважча кімната ({n_deaths} смерть)"/>
+        <translation form="2" translation="Найважча кімната ({n_deaths} смертей)"/>
+    </string>
+    <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
+        <translation form="0" translation="{n} назви звичайних кімнат не перекладено"/>
+        <translation form="1" translation="{n} назву звичайної кімнати не перекладено"/>
+        <translation form="2" translation="{n} назв звичайних кімнат не перекладено"/>
+    </string>
+</strings_plural>

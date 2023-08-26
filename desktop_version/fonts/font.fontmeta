@@ -5,7 +5,7 @@
     <height>8</height>
     <white_teeth>1</white_teeth>
     <chars>
-        <range start="0x20" end="0x7F"/>
+        <range start="0x00" end="0x7F"/>
         <range start="0xA0" end="0x17F"/>
         <range start="0x18F" end="0x18F"/>
         <range start="0x218" end="0x21B"/>

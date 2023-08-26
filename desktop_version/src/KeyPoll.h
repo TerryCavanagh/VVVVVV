@@ -65,7 +65,8 @@ public:
     int controllerRumbleStop(void);
 
     int leftbutton, rightbutton, middlebutton;
-    int mx, my;
+    int mousex;
+    int mousey;
 
     bool textentry(void);
     bool pressedbackspace;

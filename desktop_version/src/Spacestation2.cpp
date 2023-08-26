@@ -2191,7 +2191,7 @@ const short* spacestation2class::loadlevel(int rx, int ry)
         obj.createentity(272, 40, 2, 14, 2);  // Platform
         obj.createentity(240, 40, 3, 707);  //Disappearing Platform
 
-        if(game.intimetrial && game.timetriallevel > 0)
+        if (game.intimetrial && game.timetriallevel > TimeTrial_SPACESTATION1)
         {
             obj.fatal_top();
         }
