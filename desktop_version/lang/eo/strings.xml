@@ -2,7 +2,7 @@
 <!-- Please read README.txt for information about the language files -->
 <strings>
     <string english="LOADING... {percent|digits=2|spaces}%" translation="ŜARGADO... {percent|digits=2|spaces}%" explanation="on loading screen. {percent} = number from 0-100" max="26"/>
-    <string english="Game paused" translation="Ludo estas paŭzigita" explanation="pause screen" max="40"/>
+    <string english="Game paused" translation="Ludo paŭziĝis" explanation="pause screen" max="40"/>
     <string english="[click to resume]" translation="[alklaku por daŭrigi]" explanation="pause screen" max="40"/>
     <string english="Press M to mute in game" translation="Premu M por silentigi la ludon" explanation="pause screen" max="40"/>
     <string english="Press N to mute music only" translation="Premu N por silentigi nur muzikon" explanation="pause screen" max="40"/>
@@ -10,18 +10,18 @@
     <string english="[MMMMMM Mod Installed]" translation="[MMMMMM instalita]" explanation="" max="32"/>
     <string english="play" translation="ludi" explanation="main menu option"/>
     <string english="levels" translation="niveloj" explanation="main menu option"/>
-    <string english="options" translation="agordoj" explanation="main menu option"/>
+    <string english="options" translation="opcioj" explanation="main menu option"/>
     <string english="translator" translation="tradukado" explanation="main menu option"/>
     <string english="credits" translation="agnoskoj" explanation="main menu option"/>
     <string english="quit" translation="eliri" explanation="main menu option"/>
     <string english="gameplay" translation="ludado" explanation="options menu option"/>
-    <string english="Gameplay Options" translation="Agordoj de ludado" explanation="title" max="20"/>
+    <string english="Gameplay Options" translation="Opcioj de ludado" explanation="title" max="20"/>
     <string english="Adjust various gameplay settings." translation="Alĝustigi diversajn agordojn de ludado." explanation="" max="38*5"/>
     <string english="graphics" translation="grafikoj" explanation="options menu option"/>
-    <string english="Graphics Options" translation="Agordoj de grafikoj" explanation="title" max="20"/>
+    <string english="Graphics Options" translation="Opcioj de grafikoj" explanation="title" max="20"/>
     <string english="Adjust screen settings." translation="Agordi la ekranon." explanation="" max="38*5"/>
     <string english="audio" translation="sono" explanation="options menu option"/>
-    <string english="Audio Options" translation="Agordoj de sono" explanation="title" max="20"/>
+    <string english="Audio Options" translation="Opcioj de sono" explanation="title" max="20"/>
     <string english="Adjust volume settings and soundtrack." translation="Agordi laŭtecon kaj sontrakon." explanation="" max="38*5"/>
     <string english="Adjust volume settings." translation="Agordi laŭtecon." explanation="" max="38*5"/>
     <string english="continue" translation="daŭrigi" explanation="menu option"/>
@@ -45,7 +45,7 @@
     <string english="unlock ship jukebox" translation="malŝlosi ŝipmuzikilon" explanation="menu option"/>
     <string english="unlock secret lab" translation="malŝlosi sekretan labon" explanation="menu option"/>
     <string english="game pad" translation="regilo" explanation="menu option"/>
-    <string english="Game Pad Options" translation="Regilaj agordoj" explanation="title" max="20"/>
+    <string english="Game Pad Options" translation="Opcioj de regilo" explanation="title" max="20"/>
     <string english="Game Pad" translation="Regilo" explanation="title" max="20"/>
     <string english="Rebind your controller&apos;s buttons and adjust sensitivity." translation="Reagordi butonojn kaj ŝanĝi sentemon." explanation="" max="38*5"/>
     <string english="Change controller options." translation="Ŝanĝi regilajn agordojn." explanation="" max="38*2"/>
@@ -129,8 +129,8 @@
     <string english="Your support makes it possible for me to continue making the games I want to make, now and into the future." translation="Via subteno ebligas por mi daŭre fari la ludojn, kiujn mi volas fari, nun kaj estontecen." explanation="credits" max="38*5"/>
     <string english="Thank you!" translation="Dankegon!" explanation="credits" max="38*5"/>
     <string english="Good luck!" translation="Bonŝancon!" explanation="" max="38*3"/>
-    <string english="You cannot save in this mode." translation="Vi ne povas konservi ĉi-reĝime." explanation="" max="38*3"/>
-    <string english="Would you like to disable the cutscenes during the game?" translation="Ĉu vi volas malebligi la interscenojn dumlude?" explanation="" max="38*6"/>
+    <string english="You cannot save in this mode." translation="Ne eblas konservi en ĉi tiu reĝimo." explanation="" max="38*3"/>
+    <string english="Would you like to disable the cutscenes during the game?" translation="Ĉu vi volas malebligi la interscenojn en la ludo?" explanation="" max="38*6"/>
     <string english="disable cutscenes" translation="malebligi interscenojn" explanation="menu option"/>
     <string english="enable cutscenes" translation="ebligi interscenojn" explanation="menu option"/>
     <string english="analog stick sensitivity" translation="sentemo de analogbastono" explanation="menu option"/>
@@ -190,8 +190,8 @@
     <string english="If new strings were added to the English template language files, this feature will insert them in the translation files for all languages. Make a backup, just in case." translation="Se novaj ĉenoj aldoniĝis al la anglalingvaj ŝablonaj lingvodosieroj, tiu ĉi trajto enigos ilin en la tradukdosierojn por ĉiuj lingvoj. Faru savkopion, por certeco." explanation="translation maintenance menu" max="38*7"/>
     <string english="Full syncing EN→All:" translation="Plena sinkronigo EN→Ĉiuj" explanation="translation maintenance menu. The following list of language files can be fully synced from English to all other languages by pressing this button - new strings will be inserted in all languages" max="40"/>
     <string english="Syncing not supported:" translation="Sinkronigon ne subtenas:" explanation="translation maintenance menu. The following list of language files are untouched by the sync button" max="40"/>
-    <string english="advanced options" translation="altnivelaj agordoj" explanation="menu option"/>
-    <string english="Advanced Options" translation="Altnivelaj agordoj" explanation="title" max="20"/>
+    <string english="advanced options" translation="altnivelaj opcioj" explanation="menu option"/>
+    <string english="Advanced Options" translation="Altnivelaj opcioj" explanation="title" max="20"/>
     <string english="All other gameplay settings." translation="Ĉiuj aliaj agordoj de ludado." explanation="description for advanced options" max="38*5"/>
     <string english="unfocus pause" translation="elfokusiĝ-paŭzo" explanation="menu option. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen"/>
     <string english="Unfocus Pause" translation="Elfokusiĝ-paŭzo" explanation="title. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen" max="20"/>
@@ -226,8 +226,8 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Ebligi vidi tion, kio estas malantaŭ la nomo ĉe la ekranmalsupro" explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Ĉambronoma fono estas TRAVIDEBLA" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Ĉambronoma fono estas NETRAVIDEBLA" explanation="" max="38*2"/>
-    <string english="speedrun options" translation="agordoj de kurludado" explanation="menu option"/>
-    <string english="Speedrunner Options" translation="Kurludaj agordoj" explanation="title" max="20"/>
+    <string english="speedrun options" translation="Opcioj de kurludado" explanation="menu option"/>
+    <string english="Speedrunner Options" translation="Kurludaj opcioj" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Iuj altnivelaj agordoj, utilaj por kurludistoj." explanation="description for speedrunner options" max="38*5"/>
     <string english="glitchrunner mode" translation="cimkurluda reĝimo" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
     <string english="Glitchrunner Mode" translation="Cimkurluda reĝimo" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
