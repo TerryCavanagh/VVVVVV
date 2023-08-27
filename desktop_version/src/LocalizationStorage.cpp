@@ -912,7 +912,7 @@ bool store_roomname_translation(bool custom_level, int roomx, int roomy, const c
     return true;
 }
 
-static void loadtext_roomnames(bool custom_level)
+static void loadtext_roomnames(bool custom_level, bool check_max)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -962,6 +962,11 @@ static void loadtext_roomnames(bool custom_level)
             n_untranslated_roomnames++;
             n_unexplained_roomnames++;
             n_untranslated_roomnames_area[coords_to_area(x, y)]++;
+
+            if (check_max)
+            {
+                max_check_string(pElem->Attribute("translation"), "40");
+            }
         }
 
         store_roomname_translation(
@@ -974,7 +979,7 @@ static void loadtext_roomnames(bool custom_level)
     }
 }
 
-static void loadtext_roomnames_special(void)
+static void loadtext_roomnames_special(bool check_max)
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLHandle hDoc(&doc);
@@ -996,6 +1001,11 @@ static void loadtext_roomnames_special(void)
             pElem->Attribute("translation")
         );
 
+        if (check_max)
+        {
+            max_check_string(pElem->Attribute("translation"), "40");
+        }
+
         tally_untranslated(pElem->Attribute("translation"), &n_untranslated[UNTRANSLATED_ROOMNAMES_SPECIAL]);
     }
 }
@@ -1008,7 +1018,7 @@ void loadtext_custom(const char* custom_path)
         custom_level_path = SDL_strdup(custom_path);
     }
     loadtext_cutscenes(true);
-    loadtext_roomnames(true);
+    loadtext_roomnames(true, false);
 }
 
 void loadtext(bool check_max)
@@ -1021,7 +1031,7 @@ void loadtext(bool check_max)
         if (show_translator_menu)
         {
             // We may still need the room name explanations
-            loadtext_roomnames(false);
+            loadtext_roomnames(false, false);
             n_untranslated_roomnames = 0;
             SDL_zeroa(n_untranslated_roomnames_area);
         }
@@ -1032,8 +1042,8 @@ void loadtext(bool check_max)
         loadtext_strings(check_max);
         loadtext_strings_plural(check_max);
         loadtext_cutscenes(false);
-        loadtext_roomnames(false);
-        loadtext_roomnames_special();
+        loadtext_roomnames(false, check_max);
+        loadtext_roomnames_special(check_max);
     }
 
     if (custom_level_path != NULL)
