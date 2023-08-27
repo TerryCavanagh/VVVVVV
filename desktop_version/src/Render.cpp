@@ -1664,13 +1664,16 @@ static void menurender(void)
     case Menu::playerworlds:
         if (game.editor_disabled)
         {
-            if (SDL_GetHintBoolean("SteamDeck", SDL_FALSE))
+            if (game.currentmenuoption == 1)
             {
-                font::print_wrap(PR_CEN, -1, 180, loc::gettext("The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use."), tr, tg, tb);
-            }
-            else
-            {
-                font::print_wrap(PR_CEN, -1, 180, loc::gettext("The level editor is not currently supported on this device, as it requires a keyboard and mouse to use."), tr, tg, tb);
+                if (SDL_GetHintBoolean("SteamDeck", SDL_FALSE))
+                {
+                    font::print_wrap(PR_CEN, -1, 180, loc::gettext("The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use."), tr, tg, tb);
+                }
+                else
+                {
+                    font::print_wrap(PR_CEN, -1, 180, loc::gettext("The level editor is not currently supported on this device, as it requires a keyboard and mouse to use."), tr, tg, tb);
+                }
             }
         }
         else
