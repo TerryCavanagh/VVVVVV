@@ -2416,13 +2416,29 @@ void scriptclass::run(void)
             }
             else if (words[0] == "setfont")
             {
-                if (words[1] == "")
+                // If any textbox is currently fading out, wait for that first
+                bool blocked = false;
+                for (size_t i = 0; i < graphics.textboxes.size(); i++)
                 {
-                    font::set_level_font(cl.level_font_name.c_str());
+                    if (graphics.textboxes[i].tm == 2)
+                    {
+                        scriptdelay = 1;
+                        position--;
+                        blocked = true;
+                        break;
+                    }
                 }
-                else
+
+                if (!blocked)
                 {
-                    font::set_level_font(raw_words[1].c_str());
+                    if (words[1] == "")
+                    {
+                        font::set_level_font(cl.level_font_name.c_str());
+                    }
+                    else
+                    {
+                        font::set_level_font(raw_words[1].c_str());
+                    }
                 }
             }
 
