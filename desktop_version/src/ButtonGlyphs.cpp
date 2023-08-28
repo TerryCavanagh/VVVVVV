@@ -201,7 +201,8 @@ void BUTTONGLYPHS_update_layout(Uint16 vendor, Uint16 product)
     }
     else if (vendor == 0x2dc8) /* 8BitDo */
     {
-        if (product == 0x2002) /* Ultimate Wired Controller for Xbox */
+        if (    product == 0x2002 ||   /* Ultimate Wired Controller for Xbox */
+                product == 0x3106    ) /* Ultimate Wireless / Pro 2 Wired Controller */
         {
             layout = LAYOUT_XBOX;
         }
