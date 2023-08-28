@@ -3,7 +3,6 @@
 
 #include <SDL.h>
 #include <string>
-#include <vector>
 
 int ss_toi(const std::string& str);
 
@@ -101,8 +100,6 @@ public:
     static std::string String(int _v);
 
     static int Int(const char* str, int fallback = 0);
-
-    static std::string GCString(const std::vector<SDL_GameControllerButton>& buttons);
 
     int hms_to_seconds(int h, int m, int s);
 

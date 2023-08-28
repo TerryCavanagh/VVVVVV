@@ -35,7 +35,7 @@
     <string english="secret lab" translation="sekreta labo" explanation="menu option"/>
     <string english="play modes" translation="ludreĝimoj" explanation="menu option"/>
     <string english="ERROR: No levels found." translation="ERARO: Neniuj niveloj troviĝis." explanation="" max="38*3"/>
-    <string english="ERROR: This level has no start point!" translation="ERARO: Tiu ĉi nivelo havas neniun komencejon!" explanation="" max="38*5"/>
+    <string english="ERROR: This level has no start point!" translation="ERARO: Tiu ĉi nivelo ne havas komencejon!" explanation="" max="38*5"/>
     <string english="ERROR" translation="ERARO" explanation="title" max="20"/>
     <string english="WARNING" translation="AVERTO" explanation="title" max="20"/>
     <string english="unlock play modes" translation="malŝlosi ludreĝimojn" explanation="menu option"/>
@@ -56,7 +56,7 @@
     <string english="clear custom level data" translation="viŝi datumojn ludantnivelajn" explanation="menu option"/>
     <string english="Clear Data" translation="Viŝi datumojn" explanation="title" max="20"/>
     <string english="Delete your main game save data and unlocked play modes." translation="Forigi viajn konservdatumojn kaj malŝlositajn ludreĝimojn de la ĉefa ludo." explanation="" max="38*5"/>
-    <string english="Delete your custom level save data and completion stars." translation="Forigi viajn konservdatumojn kaj kompletig-stelojn de ludantniveloj." explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5"/>
+    <string english="Delete your custom level save data and completion stars." translation="Forigi viajn konservdatumojn kaj kompletigo-stelojn de ludantniveloj." explanation="completion stars: when completing a level you get either 1 or 2 stars" max="38*5"/>
     <string english="Are you sure? This will delete your current saves..." translation="Ĉu vi certas? Tio forigos viajn nunajn konservaĵojn..." explanation="" max="38*7"/>
     <string english="Are you sure you want to delete all your saved data?" translation="Ĉu vi certas, ke vi volas forigi ĉiujn konservitaĵojn?" explanation="" max="38*7"/>
     <string english="Are you sure you want to delete your quicksave?" translation="Ĉu vi certas, ke vi volas forigi vian rapidkonservaĵon?" explanation="only the quicksave of a custom level" max="38*7"/>
@@ -91,9 +91,9 @@
     <string english="toggle analogue" translation="baskuligi analogecon" explanation="menu option, analogue mode simulates distortion from bad signal"/>
     <string english="Analogue Mode" translation="Analoga reĝimo" explanation="title, analogue mode simulates distortion from bad signal" max="20"/>
     <string english="There is nothing wrong with your television set. Do not attempt to adjust the picture." translation="Via televidilo funkcias sen problemo. Ne klopodu ĝustigi la bildigon." explanation="" max="38*5"/>
-    <string english="toggle fps" translation="kadrorapido" explanation="menu option, kind of a misnomer, toggle between 30 FPS and more than 30 FPS"/>
-    <string english="Toggle 30+ FPS" translation="Kadrorapido super 30" explanation="title" max="20"/>
-    <string english="Change whether the game runs at 30 or over 30 FPS." translation="Ŝanĝi ĉu la ludo rulas je 30 aŭ super 30 kadroj sekunde." explanation="" max="38*3"/>
+    <string english="toggle fps" translation="bildrapido" explanation="menu option, kind of a misnomer, toggle between 30 FPS and more than 30 FPS"/>
+    <string english="Toggle 30+ FPS" translation="Bildrapido super 30" explanation="title" max="20"/>
+    <string english="Change whether the game runs at 30 or over 30 FPS." translation="Ŝanĝi ĉu la ludo ruliĝas je 30 aŭ super 30 kadroj sekunde." explanation="" max="38*3"/>
     <string english="Current mode: 30 FPS" translation="Nuna reĝimo: 30 KS" explanation="" max="38*2"/>
     <string english="Current mode: Over 30 FPS" translation="Nuna reĝimo: Super 30 KS" explanation="" max="38*2"/>
     <string english="toggle vsync" translation="v-sinkronigo" explanation="menu option"/>
@@ -107,7 +107,7 @@
     <string english="sound volume" translation="son-laŭteco" explanation="audio menu option"/>
     <string english="Sound Volume" translation="Laŭteco de sonoj" explanation="title" max="20"/>
     <string english="Change the volume of sound effects." translation="Ŝanĝi la laŭtecon de sonefikoj." explanation="" max="38*3"/>
-    <string english="Credits" translation="Agnoskoj" explanation="credits" max="13"/>
+    <string english="Credits" translation="Agnoskoj" explanation="credits" max="20"/>
     <string english="VVVVVV is a game by" translation="VVVVVV estas ludo de" explanation="credits" max="40"/>
     <string english="and features music by" translation="kaj enhavas muzikon de" explanation="credits" max="40"/>
     <string english="Roomnames are by" translation="Ĉambronomoj de" explanation="credits" max="40"/>
@@ -146,7 +146,7 @@
     <string english="Enter is bound to: " translation="ENTER agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Menu is bound to: " translation="Menuo agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="Restart is bound to: " translation="Rekomenco agordita al: " explanation="in-game death key to restart at checkpoint. Controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
-    <string english="Interact is bound to: " translation="Interago agordita al:" explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
+    <string english="Interact is bound to: " translation="Interago agordita al: " explanation="controller binds, bound to A, B, X, Y, etc. These strings end with a space!" max="32"/>
     <string english="ERROR: No language files found." translation="ERARO: Neniuj lingvodosieroj troviĝis." explanation="" max="38*3"/>
     <string english="Language folder:" translation="Lingvodosierujo:" explanation="" max="39"/>
     <string english="Repository language folder:" translation="Deponeja lingvodosierujo:" explanation="Language folder from the Git repository" max="39"/>
@@ -213,6 +213,8 @@
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Baskuligi ĉu interagi al invitoj per aŭ ENTER aŭ E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
+    <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="ACTION" translation="AGOKLAVON" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Interaga butono: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="falsa ŝargekrano" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Falsa ŝarĝekrano" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
@@ -224,15 +226,15 @@
     <string english="Lets you see through what is behind the name at the bottom of the screen." translation="Ebligi vidi tion, kio estas malantaŭ la nomo ĉe la ekranmalsupro" explanation="" max="38*3"/>
     <string english="Room name background is TRANSLUCENT" translation="Ĉambronoma fono estas TRAVIDEBLA" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Ĉambronoma fono estas NETRAVIDEBLA" explanation="" max="38*2"/>
-    <string english="speedrun options" translation="agordoj de rapidkurado" explanation="menu option"/>
-    <string english="Speedrunner Options" translation="Rapidkuragordoj" explanation="title" max="20"/>
-    <string english="Access some advanced settings that might be of interest to speedrunners." translation="Iuj altnivelaj agordoj, utilaj por rapidkurantoj." explanation="description for speedrunner options" max="38*5"/>
-    <string english="glitchrunner mode" translation="cimkuranta reĝimo" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
-    <string english="Glitchrunner Mode" translation="Cimkuranta reĝimo" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
+    <string english="speedrun options" translation="agordoj de kurludado" explanation="menu option"/>
+    <string english="Speedrunner Options" translation="Kurludaj agordoj" explanation="title" max="20"/>
+    <string english="Access some advanced settings that might be of interest to speedrunners." translation="Iuj altnivelaj agordoj, utilaj por kurludistoj." explanation="description for speedrunner options" max="38*5"/>
+    <string english="glitchrunner mode" translation="cimkurluda reĝimo" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
+    <string english="Glitchrunner Mode" translation="Cimkurluda reĝimo" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="Reebligi cimojn, kiuj ekzistis en antaŭaj versioj de la ludo." explanation="glitchrunner mode" max="38*3"/>
-    <string english="Glitchrunner mode is OFF" translation="Cimkuranta reĝimo estas MALŜALTA" explanation="" max="38*2"/>
-    <string english="Glitchrunner mode is {version}" translation="Cimkuranta reĝimo estas {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
-    <string english="Select a new glitchrunner version below." translation="Elektu novan version de cimkurado ĉi-sube." explanation="" max="38*3"/>
+    <string english="Glitchrunner mode is OFF" translation="Cimkurluda reĝimo estas MALŜALTA" explanation="" max="38*2"/>
+    <string english="Glitchrunner mode is {version}" translation="Cimkurluda reĝimo estas {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
+    <string english="Select a new glitchrunner version below." translation="Elektu novan version por cimkurludado ĉi-sube." explanation="" max="38*3"/>
     <string english="none" translation="neniu" explanation="menu option, do not emulate any older version"/>
     <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
     <string english="2.2" translation="2.2" explanation="VVVVVV version number for glitchrunner mode"/>
@@ -276,10 +278,10 @@
     <string english="Game speed is at 80%" translation="Ludrapido estas 80%" explanation="" max="38*2"/>
     <string english="Game speed is at 60%" translation="Ludrapido estas 60%" explanation="" max="38*2"/>
     <string english="Game speed is at 40%" translation="Ludrapido estas 40%" explanation="" max="38*2"/>
-    <string english="normal speed" translation="normala rapido" explanation="menu option"/>
-    <string english="80% speed" translation="80%-rapido" explanation="menu option"/>
-    <string english="60% speed" translation="60%-rapido" explanation="menu option"/>
-    <string english="40% speed" translation="40%-rapido" explanation="menu option"/>
+    <string english="normal speed" translation="rapido normala" explanation="menu option"/>
+    <string english="80% speed" translation="rapido 80%" explanation="menu option"/>
+    <string english="60% speed" translation="rapido 60%" explanation="menu option"/>
+    <string english="40% speed" translation="rapido 40%" explanation="menu option"/>
     <string english="play intermission 1" translation="ludi interakton 1" explanation="menu option"/>
     <string english="play intermission 2" translation="ludi interakton 2" explanation="menu option"/>
     <string english="Who do you want to play the level with?" translation="Kun kiu vi volas ludi la nivelon?" explanation="choose your NPC companion" max="38*8"/>
@@ -314,20 +316,20 @@
     <string english="You managed to reach:" translation="Vi sukcesis atingi:" explanation="you managed to reach the following room" max="40"/>
     <string english="Keep trying! You&apos;ll get there!" translation="Klopodadu! Vi certe sukcesos!" explanation="player died before managing to save anybody" max="38*2"/>
     <string english="Nice one!" translation="Bone farite!" explanation="player died after saving one crewmate" max="38*2"/>
-    <string english="Wow! Congratulations!" translation="Ho!! Gratulon!" explanation="player died after saving two crewmates" max="38*2"/>
-    <string english="Incredible!" translation="Superbone!" explanation="player died after saving three crewmates" max="38*2"/>
+    <string english="Wow! Congratulations!" translation="Ŭoŭ! Gratulon!" explanation="player died after saving two crewmates" max="38*2"/>
+    <string english="Incredible!" translation="Supere!" explanation="player died after saving three crewmates" max="38*2"/>
     <string english="Unbelievable! Well done!" translation="Nekredeble! Bonege farite!" explanation="player died after saving four crewmates" max="38*2"/>
-    <string english="Er, how did you do that?" translation="Ee? Kiel vi faris tion?" explanation="player died even though they were finished, lol" max="38*2"/>
-    <string english="WOW" translation="GRATULON" explanation="even bigger title" max="10"/>
+    <string english="Er, how did you do that?" translation="Be, kiel vi faris tion?" explanation="player died even though they were finished, lol" max="38*2"/>
+    <string english="WOW" translation="ŬOŬ!" explanation="even bigger title" max="10"/>
     <string english="You rescued all the crewmates!" translation="Vi savis ĉiujn skipanojn!" explanation="" max="40"/>
     <string english="A new trophy has been awarded and placed in the secret lab to acknowledge your achievement!" translation="Vi premiiĝis per nova trofeo, kiu aperas en la sekreta labo por agnoski vian atingegon!" explanation="" max="38*4"/>
     <string english="[Trinkets found]" translation="[Kolektaĵoj trovitaj]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Nombro da mortoj]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Tempo pasinta]" explanation="stopwatch time" max="40"/>
-    <string english="Trinkets Found:" translation="Kolektaĵoj trovitaj:" explanation="game complete screen" max="21"/>
-    <string english="Game Time:" translation="Tempo en ludo:" explanation="game complete screen" max="21"/>
-    <string english="Total Flips:" translation="Renversiĝoj:" explanation="game complete screen" max="21"/>
-    <string english="Total Deaths:" translation="Mortoj:" explanation="game complete screen" max="21"/>
+    <string english="Trinkets Found:" translation="Kolektaĵoj trovitaj:" explanation="game complete screen" max="22"/>
+    <string english="Game Time:" translation="Tempo en ludo:" explanation="game complete screen" max="22"/>
+    <string english="Total Flips:" translation="Renversiĝoj:" explanation="game complete screen" max="22"/>
+    <string english="Total Deaths:" translation="Mortoj:" explanation="game complete screen" max="22"/>
     <string english="Results" translation="Rezultoj" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="TEMPO PASINTA:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="NOMBRO DA MORTOJ:" explanation="amount of times the player died" max="32"/>
@@ -352,8 +354,8 @@
     <string english="The Laboratory" translation="La Laboratorio" explanation="area name as title" max="20"/>
     <string english="the tower" translation="la turo" explanation="area name as menu option"/>
     <string english="The Tower" translation="La Turo" explanation="area name as title" max="20"/>
-    <string english="the warp zone" translation="la teleportejo" explanation="area name as menu option"/>
-    <string english="The Warp Zone" translation="La Teleportejo" explanation="area name as title" max="20"/>
+    <string english="the warp zone" translation="la volviĝejo" explanation="area name as menu option"/>
+    <string english="The Warp Zone" translation="La Volviĝejo" explanation="area name as title" max="20"/>
     <string english="the final level" translation="la fina nivelo" explanation="area name as menu option"/>
     <string english="The Final Level" translation="La Fina Nivelo" explanation="area name as title" max="20"/>
     <string english="intermission 1" translation="interakto 1" explanation="area name as menu option"/>
@@ -368,7 +370,7 @@
     <string english="Rescue Vermilion" translation="Savi Vermiljon" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="Savi Vitelarion" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="Savi Verdigrison" explanation="" max="40"/>
-    <string english="Complete the game" translation="Kompletigi la ludon" explanation="" max="40"/>
+    <string english="Complete the game" translation="Kompletigi la ludon" case="0" explanation="" max="40"/>
     <string english="Find three trinkets" translation="Trovi tri kolektaĵojn" explanation="" max="40"/>
     <string english="Find six trinkets" translation="Trovi ses kolektaĵojn" explanation="" max="40"/>
     <string english="Find nine trinkets" translation="Trovi naŭ kolektaĵojn" explanation="" max="40"/>
@@ -376,9 +378,9 @@
     <string english="Find fifteen trinkets" translation="Trovi dek kvin kolektaĵojn" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="Trovi dek ok kolektaĵojn" explanation="" max="40"/>
     <string english="RECORDS" translation="REKORDOJ" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
-    <string english="TIME" translation="TEMPO" explanation="record time" max="7"/>
-    <string english="SHINY" translation="BRILAĴO" explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="MORTOJ" explanation="record lowest number of deaths" max="7"/>
+    <string english="TIME" translation="TEMPO" explanation="record time" max="8"/>
+    <string english="SHINY" translation="BRILAĴO" explanation="record number of trinkets" max="8"/>
+    <string english="LIVES" translation="MORTOJ" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="CELTEMPO" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="TEMPO: " explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="MORTO: " explanation="in time trial. Number of times player died, not too long"/>
@@ -418,11 +420,15 @@
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Por instali novajn nivelojn, kopiu la dosierojn .vvvvvv al la nivel-dosierujo." explanation="" max="38*3"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Ĉu vi vere volas montri la dosierindikon? Tio eble malkaŝos konfidencajn informojn se vi elsendas." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="La nivela dosierindiko estas:" explanation="" max="40"/>
-    <string english="[ Press ACTION to Start ]" translation="[ Premu AGBUTONON por komenci ]" explanation="title screen" max="38*2"/>
-    <string english="ACTION = Space, Z, or V" translation="AGBUTONO = Spaceto, Z aŭ V" explanation="title screen" max="38*3"/>
-    <string english="[Press ENTER to return to editor]" translation="[Premu ENTER por reveni al redaktilo]" explanation="`to editor` is sorta redundant" max="40"/>
-    <string english="- Press ACTION to advance text -" translation="- Premu AGBUTONON por daŭrigi -" explanation="to dismiss a textbox" max="40"/>
-    <string english="Press ACTION to continue" translation="Premu AGBUTONON por daŭrigi" explanation="" max="34"/>
+    <string english="[ Press ACTION to Start ]" translation="[ Premu AGOKLAVON por komenci ]" explanation="***OUTDATED***" max="38*2"/>
+    <string english="[ Press {button} to Start ]" translation="[ Premu {button} por komenci ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
+    <string english="ACTION = Space, Z, or V" translation="AGOKLAVO = Spaceto, Z aŭ V" explanation="title screen" max="38*3"/>
+    <string english="[Press ENTER to return to editor]" translation="[Premu ENTER por reveni al redaktilo]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to return to editor]" translation="[Premu {button} por reveni al redaktilo]" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="- Press ACTION to advance text -" translation="- Premu AGOKLAVON por daŭrigi -" explanation="***OUTDATED***" max="40"/>
+    <string english="- Press {button} to advance text -" translation="- Premu {button} por daŭrigi -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="Press ACTION to continue" translation="Premu AGOKLAVON por daŭrigi" explanation="***OUTDATED***" max="34"/>
+    <string english="Press {button} to continue" translation="Premu {button} por daŭrigi" explanation="Expect `ACTION`" max="34"/>
     <string english="Current Time" translation="Nuna tempo" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Plej bona tempo" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Sekva trofeo je 5 sekundoj" explanation="" max="38*2"/>
@@ -434,7 +440,8 @@
     <string english="All Trophies collected!" translation="Ĉiuj trofeoj kolektiĝis!" explanation="" max="38*2"/>
     <string english="New Record!" translation="Nova rekordo!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Nova trofeo!" explanation="" max="20"/>
-    <string english="[Press ENTER to stop]" translation="[Premu ENTER por haltigi]" explanation="stop super gravitron" max="40"/>
+    <string english="[Press ENTER to stop]" translation="[Premu ENTER por eliri]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to stop]" translation="[Premu {button} por eliri]" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="SUPERGRAVITRONO" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="ALTPOENTARO DE SUPERGRAVITRONO" explanation="" max="38*4"/>
     <string english="MAP" translation="MAPO" explanation="in-game menu" max="8"/>
@@ -447,7 +454,8 @@
     <string english="[ QUIT ]" translation="[ ELIRI ]" explanation="in-game menu" max="40"/>
     <string english="[ GRAVITRON ]" translation="[ GRAVITRONO ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="SENSIGNALE" explanation="map screen. So like a TV/computer monitor" max="29"/>
-    <string english="Press ACTION to warp to the ship." translation="Premu AGBUTONON por teleportiĝi al la ŝipo." explanation="spaceship. Warp = teleport" max="38*7"/>
+    <string english="Press ACTION to warp to the ship." translation="Premu AGOKLAVON por teleportiĝi al la ŝipo." explanation="***OUTDATED***" max="38*7"/>
+    <string english="Press {button} to warp to the ship." translation="Premu {button} por teleportiĝi al la ŝipo." explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
     <string english="Missing..." translation="Mankas..." case="1" explanation="this male crew member is missing" max="15"/>
     <string english="Missing..." translation="Mankas..." case="2" explanation="this female crew member is missing" max="15"/>
     <string english="Missing..." translation="Mankas..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
@@ -461,11 +469,12 @@
     <string english="ERROR: Could not save game!" translation="ERARO: Ne eblis konservi ludon!" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="ERARO: Ne eblis konservi agordodosieron!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Ludo konserviĝis sukcese!" explanation="in-game menu" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Premu AGBUTONON por konservi la ludon]" explanation="in-game menu" max="40"/>
+    <string english="[Press ACTION to save your game]" translation="[Premu AGOKLAVON por konservi la ludon]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to save your game]" translation="[Premu {button} por konservi la ludon]" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Notu: la ludo aŭtomate konserviĝas ĉe ĉiu teleportilo.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Lasta konservo:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Ĉu reveni al ĉefa menuo?" explanation="in-game menu" max="38*4"/>
-    <string english="Do you want to quit? You will lose any unsaved progress." translation="Ĉu vi volas eliri? Vi perdos ajnan nekonservitan progreson." explanation="in-game menu" max="38*4"/>
+    <string english="Do you want to quit? You will lose any unsaved progress." translation="Ĉu vi volas eliri? Vi perdos ĉiun nekonservitan progreson." explanation="in-game menu" max="38*4"/>
     <string english="Do you want to return to the secret laboratory?" translation="Ĉu vi volas reveni al la sekreta laboratorio?" explanation="in-game menu" max="38*4"/>
     <string english="no, keep playing" translation="ne, ludu plu" explanation="in-game menu option" max="28"/>
     <string english="[ NO, KEEP PLAYING ]" translation="[ NE, LUDU PLU ]" explanation="in-game menu option" max="32"/>
@@ -489,16 +498,17 @@
     <string english="Press {button} to activate terminal" translation="Premu {button} por aktivigi terminalon" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="Premu {button} por aktivigi terminalojn" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Premu {button} por interagi" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="song name should probably not be translated" max="37"/>
-    <string english="Positive Force" translation="Positive Force" explanation="song name should probably not be translated" max="37"/>
-    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="song name should probably not be translated" max="37"/>
-    <string english="Potential for Anything" translation="Potential for Anything" explanation="song name should probably not be translated" max="37"/>
-    <string english="Predestined Fate" translation="Predestined Fate" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pipe Dream" translation="Pipe Dream" explanation="song name should probably not be translated" max="37"/>
-    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="song name should probably not be translated" max="37"/>
-    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="song name should probably not be translated" max="37"/>
+    <string english="- Press {button} to skip -" translation="- Premu {button} por preterpasi -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
+    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Potential for Anything" translation="Potential for Anything" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Predestined Fate" translation="Predestined Fate" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pipe Dream" translation="Pipe Dream" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Mapagordoj" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="redakti skriptojn" explanation="level editor menu option"/>
     <string english="change music" translation="ŝanĝi muzikon" explanation="level editor menu option"/>
@@ -507,7 +517,7 @@
     <string english="Editor ghost trail is ON" translation="Redaktilaj fantomoj estas ŜALTAJ" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40"/>
     <string english="load level" translation="ŝarĝi nivelon" explanation="level editor menu option"/>
     <string english="save level" translation="konservi nivelon" explanation="level editor menu option"/>
-    <string english="quit to main menu" translation="eliri al ĉefa menuo" explanation="level editor menu option" max="19"/>
+    <string english="quit to main menu" translation="eliri al ĉefa menuo" explanation="level editor menu option" max="22"/>
     <string english="change name" translation="ŝanĝi nomon" explanation="level editor menu option"/>
     <string english="change author" translation="ŝanĝi aŭtoron" explanation="level editor menu option"/>
     <string english="change description" translation="ŝanĝi priskribon" explanation="level editor menu option"/>
@@ -515,7 +525,7 @@
     <string english="change font" translation="ŝanĝi tiparon" explanation="level editor menu option"/>
     <string english="Level Font" translation="Nivela tiparo" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
     <string english="Select the language in which the text in this level is written." translation="Elektu la lingvon, en kiu la teksto en ĉi tiu nivelo estas skribita." explanation="" max="38*3"/>
-    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="14"/>
+    <string english="Font: " translation="Tiparo: " explanation="level options, followed by name of font (mind the space)" max="14"/>
     <string english="Map Music" translation="Fonmuziko" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Nuna fonmuziko:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="Neniu" explanation="editor, level starts with no song playing" max="38*2"/>
@@ -545,14 +555,22 @@
     <string english="Untitled Level" translation="Sentitola nivelo" explanation="" max="20"/>
     <string english="Unknown" translation="Nekonato" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="Kahelo:" explanation="editor, selected " max="34"/>
-    <string english="SCRIPT BOX: Click on top left" translation="SKRIPTSKATOLO: Alklaku supran maldekstron" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
-    <string english="SCRIPT BOX: Click on bottom right" translation="SKRIPTSKATOLO: Alklaku malsupran dekstron" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
-    <string english="ENEMY BOUNDS: Click on top left" translation="MALAMIKLIMOJ: Alklaku supran maldekstron" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
-    <string english="ENEMY BOUNDS: Click on bottom right" translation="MALAMIKLIMOJ: Alklaku malsupran dekstron" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
-    <string english="PLATFORM BOUNDS: Click on top left" translation="PLATFORMLIMOJ: Alklaku supran maldekstron" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="PLATFORM BOUNDS: Click on bottom right" translation="PLATFORMLIMOJ: Alklaku malsupran dekstron" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="Click on top left" translation="Alklaku supran maldekstron" explanation="" max="39*3"/>
-    <string english="Click on bottom right" translation="Alklaku malsupran dekstron" explanation="" max="39*3"/>
+    <string english="SCRIPT BOX: Click on top left" translation="SKRIPTSKATOLO: Alklaku supran maldekstron" explanation="***OUTDATED***"/>
+    <string english="SCRIPT BOX: Click on the first corner" translation="SKRIPTSKATOLO: Alklaku la unuan angulon" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="SCRIPT BOX: Click on bottom right" translation="SKRIPTSKATOLO: Alklaku malsupran dekstron" explanation="***OUTDATED***"/>
+    <string english="SCRIPT BOX: Click on the last corner" translation="SKRIPTSKATOLO: Alklaku la lastan angulon" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on top left" translation="MALAMIKLIMOJ: Alklaku supran maldekstron" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on the first corner" translation="MALAMIKLIMOJ: Alklaku la unuan angulon" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on bottom right" translation="MALAMIKLIMOJ: Alklaku malsupran dekstron" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on the last corner" translation="MALAMIKLIMOJ: Alklaku la lastan angulon" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on top left" translation="PLATFORMLIMOJ: Alklaku supran maldekstron" explanation="***OUTDATED***"/>
+    <string english="PLATFORM BOUNDS: Click on the first corner" translation="PLATFORMLIMOJ: Alklaku la unuan angulon" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on bottom right" translation="PLATFORMLIMOJ: Alklaku malsupran dekstron" explanation="***OUTDATED***"/>
+    <string english="PLATFORM BOUNDS: Click on the last corner" translation="PLATFORMLIMOJ: Alklaku la lastan angulon" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="Click on top left" translation="Alklaku supran maldekstron" explanation="***OUTDATED***"/>
+    <string english="Click on the first corner" translation="Alklaku la unuan angulon" explanation="" max="39*3"/>
+    <string english="Click on bottom right" translation="Alklaku malsupran dekstron" explanation="***OUTDATED***"/>
+    <string english="Click on the last corner" translation="Alklaku la lastan angulon" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** SKRIPTREDAKTILO DE VVVVVV ****" explanation="supposed to look like a Commodore 64 screen" max="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="PREMU ESK POR REVENI AL MENUO" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="NENIUJ SKRIPT-IDENTIGAĴOJ TROVIĜIS" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
@@ -561,22 +579,30 @@
     <string english="Left click to place warp destination" translation="Maldekstraklaku por meti teleport-celon" explanation="warp token: small teleporter with entrance and destination" max="39"/>
     <string english="Right click to cancel" translation="Dekstraklaku por nuligi" explanation="" max="39"/>
     <string english="{button1} and {button2} keys change tool" translation="Klavoj {button1} kaj {button2} ŝanĝas ilojn" explanation="These keys can be used to switch between tools" max="36"/>
-    <string english="1: Walls" translation="1: Muro" explanation="editor tool. Solid tiles" max="32"/>
+    <string english="1: Walls" translation="1: Muroj" explanation="editor tool. Solid tiles" max="32"/>
     <string english="2: Backing" translation="2: Fonaĵo" explanation="editor tool. Non-solid background tiles" max="32"/>
     <string english="3: Spikes" translation="3: Pikaĵoj" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Kolektaĵoj" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
-    <string english="5: Checkpoint" translation="5: Konservejo" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
-    <string english="6: Disappear" translation="6: Malaperanta platformo" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
-    <string english="7: Conveyors" translation="7: Transportbendo" explanation="editor tool. Conveyor belt" max="32"/>
-    <string english="8: Moving" translation="8: Moviĝanta platformo" explanation="editor tool. Moving platform" max="32"/>
-    <string english="9: Enemies" translation="9: Malamiko" explanation="editor tool" max="32"/>
-    <string english="0: Grav Line" translation="0: Gravita linio" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
+    <string english="5: Checkpoint" translation="5: Konservejo" explanation="***OUTDATED***"/>
+    <string english="5: Checkpoints" translation="5: Konservejoj" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
+    <string english="6: Disappear" translation="6: Malaperanta platformo" explanation="***OUTDATED***"/>
+    <string english="6: Disappearing Platforms" translation="6: Malaperantaj platformoj" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
+    <string english="7: Conveyors" translation="7: Transportbendoj" explanation="editor tool. Conveyor belt" max="32"/>
+    <string english="8: Moving" translation="8: Moviĝanta platformo" explanation="***OUTDATED***"/>
+    <string english="8: Moving Platforms" translation="8: Moviĝantaj platformoj" explanation="editor tool. Moving platform" max="32"/>
+    <string english="9: Enemies" translation="9: Malamikoj" explanation="editor tool" max="32"/>
+    <string english="0: Grav Line" translation="0: Gravita linio" explanation="***OUTDATED***"/>
+    <string english="0: Gravity Lines" translation="0: Gravitaj linioj" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Ĉambroteksto" explanation="editor tool. Freely typed text, consider just Text" max="32"/>
-    <string english="T: Terminal" translation="T: Terminalo" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
-    <string english="Y: Script Box" translation="Y: Skriptskatolo" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
-    <string english="U: Warp Token" translation="U: Teleportĵetono" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
-    <string english="I: Warp Lines" translation="I: Teleportlinio" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
-    <string english="O: Crewmate" translation="O: Skipano" explanation="editor tool. Crewmate that can be rescued" max="32"/>
+    <string english="T: Terminal" translation="T: Terminalo" explanation="***OUTDATED***"/>
+    <string english="T: Terminals" translation="T: Terminaloj" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
+    <string english="Y: Script Box" translation="Y: Skriptskatolo" explanation="***OUTDATED***"/>
+    <string english="Y: Script Boxes" translation="Y: Skriptskatoloj" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
+    <string english="U: Warp Token" translation="U: Teleportĵetono" explanation="***OUTDATED***"/>
+    <string english="U: Warp Tokens" translation="U: Teleportĵetonoj" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
+    <string english="I: Warp Lines" translation="I: Volviĝlinioj" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
+    <string english="O: Crewmate" translation="O: Skipano" explanation="***OUTDATED***"/>
+    <string english="O: Crewmates" translation="O: Skipanoj" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Komencejo" explanation="editor tool" max="32"/>
     <string english="START" translation="EKEJO" explanation="start point in level editor" max="10"/>
     <string english="SPACE ^  SHIFT ^" translation="SPACE ^  SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
@@ -587,7 +613,7 @@
     <string english="F5: Platform Bounds" translation="F5: Platformlimoj" explanation="editor shortcut, invisible box which platforms always stay inside of" max="25"/>
     <string english="F9: Reload Resources" translation="F9: Reŝargi resursojn" explanation="editor shortcut, reload tilesets, sprites, music, etc" max="25"/>
     <string english="F10: Direct Mode" translation="F10: Rekta reĝimo" explanation="editor shortcut, direct mode is manual tile placing mode, where walls are not automatically made nice" max="25"/>
-    <string english="W: Change Warp Dir" translation="W: Ĉirkaŭflua direkto" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25"/>
+    <string english="W: Change Warp Dir" translation="W: Volviĝa direkto" explanation="editor shortcut, dir=direction, change which edges of the room wrap around. Can be horizontal, vertical or all sides" max="25"/>
     <string english="E: Change Roomname" translation="E: Ĉambronomo" explanation="editor shortcut, the name of the room appears at the bottom" max="25"/>
     <string english="S: Save Map" translation="S: Konservi" explanation="level editor, save level, `Map` is basically redundant" max="12"/>
     <string english="L: Load Map" translation="L: Ŝargi" explanation="level editor, load level, `Map` is basically redundant" max="12"/>
@@ -605,6 +631,7 @@
     <string english="Now using {area} Tileset" translation="Nun uziĝas kahelaro de {area}" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="Kahelara koloro ŝanĝiĝis" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Malamika tipo ŝanĝiĝis" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
+    <string english="Platform speed is now {speed}" translation="Platforma rapido nun estas {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Resursoj reŝargiĝis" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERARO: malĝusta formo" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Ŝargiĝis mapo: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -614,15 +641,18 @@
     <string english="Mapsize is now [{width},{height}]" translation="Mapgrando nun estas [{width},{height}]" explanation="editor, the map is now {width} by {height}" max="38*3"/>
     <string english="Direct Mode Disabled" translation="Rekta reĝimo malebliĝis" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to automatic mode" max="38*3"/>
     <string english="Direct Mode Enabled" translation="Rekta reĝimo ebliĝis" explanation="editor, manual tile placing mode where walls are not automatically made nice, now changed to manual mode" max="38*3"/>
-    <string english="ERROR: Warp lines must be on edges" translation="ERARO: teleportlinioj estu sur randoj" explanation="level editor, warp lines make a room edge be connected to its opposite edge. So they must be placed on one of the edges, not in the middle" max="38*3"/>
-    <string english="Room warps in all directions" translation="Ĉambro ĉirkaŭfluas ĉiudirekte" explanation="level editor, all edges of the room are connected with each other. If the player leaves the room they end up on the other side of the same room." max="38*3"/>
-    <string english="Room warps horizontally" translation="Ĉambro ĉirkaŭfluas horizontale" explanation="level editor, the left and right edges of the room are connected with each other. The player can still go to other rooms on the top and bottom" max="38*3"/>
-    <string english="Room warps vertically" translation="Ĉambro ĉirkaŭfluas vertikale" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3"/>
-    <string english="Room warping disabled" translation="Ĉambra ĉirkaŭfluo malebliĝis" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
+    <string english="ERROR: Warp lines must be on edges" translation="ERARO: volviĝlinioj estu sur randoj" explanation="level editor, warp lines make a room edge be connected to its opposite edge. So they must be placed on one of the edges, not in the middle" max="38*3"/>
+    <string english="Room warps in all directions" translation="Ĉambro volviĝas ĉiudirekte" explanation="level editor, all edges of the room are connected with each other. If the player leaves the room they end up on the other side of the same room." max="38*3"/>
+    <string english="Room warps horizontally" translation="Ĉambro volviĝas horizontale" explanation="level editor, the left and right edges of the room are connected with each other. The player can still go to other rooms on the top and bottom" max="38*3"/>
+    <string english="Room warps vertically" translation="Ĉambro volviĝas vertikale" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3"/>
+    <string english="Room warping disabled" translation="Ĉambra volviĝo malebliĝis" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
     <string english="ERROR: No checkpoint to spawn at" translation="ERARO: Ne estas konservpunkto ĉi-ĉambre" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="ERARO: Altlimo de kolektaĵoj estas 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="ERARO: Altlimo de skipanoj estas 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
+    <string english="Level quits to menu" translation="Nivelo eliras al menuo" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
+    <string english="Level completed" translation="Fino de nivelo" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
     <string english="Rolled credits" translation="Agnoskoj montriĝis" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
+    <string english="Time trial completed" translation="Tempoprovo fini" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2},{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
@@ -636,12 +666,15 @@
     <string english="All crewmates rescued!" translation="Ĉiuj skipanoj estas savitaj!" explanation="" max="32"/>
     <string english="Game Saved" translation="Ludo konserviĝis" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="Premu ←/→ aŭ WASD por moviĝi" explanation="" max="32*2"/>
-    <string english="Press ACTION to flip" translation="Premu AGBUTONON por renversiĝi" explanation="" max="32*3"/>
-    <string english="Press ENTER to view map and quicksave" translation="Premu ENTER por vidi mapon kaj rapidkonservi" explanation="" max="32*3"/>
+    <string english="Press left/right to move" translation="Premu ←/→ por moviĝi" explanation="" max="32*2"/>
+    <string english="Press ACTION to flip" translation="Premu AGOKLAVON por renversiĝi" explanation="***OUTDATED***" max="32*3"/>
+    <string english="Press {button} to flip" translation="Premu {button} por renversiĝi" explanation="expect `ACTION`" max="32*3"/>
+    <string english="Press ENTER to view map and quicksave" translation="Premu ENTER por vidi la mapon kaj rapidkonservi" explanation="***OUTDATED***" max="32*3"/>
+    <string english="Press {button} to view map and quicksave" translation="Premu {button} por vidi la mapon kaj rapidkonservi" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Se vi preferas, eblas premi ↑/↓ por renversiĝi." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="Helpu! Ĉu iu ajn povas aŭdi ĉi tiun mesaĝon?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="Verdigriso? Ĉu vi estas? Ĉu vi enordas?" explanation="Violet speaking via Comms Relay" max="25*4"/>
-    <string english="Please help us! We&apos;ve crashed and need assistance!" translation="Bonvole helpu nin! Ni estas kraŝinte kaj bezonas asiston!" explanation="Violet speaking via Comms Relay" max="25*4"/>
+    <string english="Please help us! We&apos;ve crashed and need assistance!" translation="Bonvole helpu nin! Ni estas kraŝintaj kaj bezonas asiston!" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Hello? Anyone out there?" translation="Ha lo? Ĉu iu ajn estas?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="This is Doctor Violet from the D.S.S. Souleye! Please respond!" translation="Jen estas Doktoro Violeto de la kosmoŝipo Souleye! Bonvolu respondi!" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Please... Anyone..." translation="Iu ajn... mi petas..." explanation="Violet speaking via Comms Relay" max="25*4"/>
@@ -710,11 +743,11 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="LABORATORY MASTERED" translation="LABORATORIO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="THE TOWER MASTERED" translation="LA TURO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="SPACE STATION 2 MASTERED" translation="KOSMOSTACIO 2 TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="WARP ZONE MASTERED" translation="TELEPORTEJO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="WARP ZONE MASTERED" translation="VOLVIĜEJO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="FINAL LEVEL MASTERED" translation="FINA NIVELO TUTVENKITA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="Obtain a V Rank in this Time Trial" translation="Obteni rangon V en tiu ĉi tempoprovo" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="LUDO KOMPLETIGITA" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game" translation="Kompletigi la ludon" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game" translation="Kompletigi la ludon" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="RENVERSA REĜIMO KOMPLETIGITA" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Kompletigi la ludon en renversa reĝimo" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 50 deaths" translation="Venki kun malpli ol 50 mortoj" explanation="achievement/trophy description" max="38*2"/>
@@ -729,7 +762,11 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="Last 1 minute on the Super Gravitron" translation="Travivi 1 minuton en la Supergravitrono" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="MAJSTRO DE L&apos; UNIVERSO" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Kompletigi la ludon en mortula reĝimo" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Something went wrong, but we forgot the error message." translation="Eraro okazis, sed ni forgesis la erarmesaĝon." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Ne eblis munti {path}: vera dosierujo ne ekzistas" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
+    <string english="Level {path} not found" translation="Nivelo {path} ne troviĝis" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="Eraro dum analizado de {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Dimensioj de {filename} ne estas ekzaktaj obloj de {width} oble {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERARO: Ne eblis skribi en lingvo-dosierujo! Certigu, ke ne estas dosierujo &quot;lang&quot; apud la normalaj konservaĵoj." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

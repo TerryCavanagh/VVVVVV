@@ -157,7 +157,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(192, 116, 11, 64);  // (horizontal gravity line)
 
         warpy = true;
-        roomname = "glitch";
+        roomname = "The Untouchables";
         roomname_special = true;
         result = contents;
         break;
@@ -208,7 +208,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(32, 48, 10, 1, 51481);  // (savepoint)
 
         warpy = true;
-        roomname = "glitch";
+        roomname = "On the Waterfront";
         roomname_special = true;
         result = contents;
         break;
@@ -257,7 +257,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(128, 56, 10, 1, 51471);  // (savepoint)
 
         warpy = true;
-        roomname = "change";
+        roomname = "Gvnsmoke";
         roomname_special = true;
         result = contents;
         break;
@@ -308,7 +308,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(288, 120, 1, 2, 4);  // Enemy
 
         warpy = true;
-        roomname = "change";
+        roomname = "Vwitched";
         roomname_special = true;
         result = contents;
         break;
@@ -356,7 +356,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(176, 96, 10, 0, 51451);  // (savepoint)
 
         warpy = true;
-        roomname = "change";
+        roomname = "Television Newsveel";
         roomname_special = true;
         result = contents;
         break;
@@ -514,7 +514,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(24, 148, 11, 120);  // (horizontal gravity line)
 
         warpy = true;
-        roomname = "glitch";
+        roomname = "Rear Window";
         roomname_special = true;
         result = contents;
         break;
@@ -961,7 +961,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(120 + 4, 160 - 4, 1, 1, 5);  // Enemy
 
         warpx = true;
-        roomname = "change";
+        roomname = "Please enjoy these repeats";
         roomname_special = true;
         result = contents;
         break;
@@ -1012,7 +1012,7 @@ const short* finalclass::loadlevel(int rx, int ry)
         obj.createentity(224, 52, 11, 80);  // (horizontal gravity line)
 
         warpx = true;
-        roomname = "change";
+        roomname = "Try Jiggling the Antenna";
         roomname_special = true;
         result = contents;
         break;

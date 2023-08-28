@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<numbers>
+    <number value="0" form="1" english="Zero" translation="zéro"/>
+    <number value="1" form="1" english="One" translation="un"/>
+    <number value="2" form="0" english="Two" translation="deux"/>
+    <number value="3" form="0" english="Three" translation="trois"/>
+    <number value="4" form="0" english="Four" translation="quatre"/>
+    <number value="5" form="0" english="Five" translation="cinq"/>
+    <number value="6" form="0" english="Six" translation="six"/>
+    <number value="7" form="0" english="Seven" translation="sept"/>
+    <number value="8" form="0" english="Eight" translation="huit"/>
+    <number value="9" form="0" english="Nine" translation="neuf"/>
+    <number value="10" form="0" english="Ten" translation="dix"/>
+    <number value="11" form="0" english="Eleven" translation="onze"/>
+    <number value="12" form="0" english="Twelve" translation="douze"/>
+    <number value="13" form="0" english="Thirteen" translation="treize"/>
+    <number value="14" form="0" english="Fourteen" translation="quatorze"/>
+    <number value="15" form="0" english="Fifteen" translation="quinze"/>
+    <number value="16" form="0" english="Sixteen" translation="seize"/>
+    <number value="17" form="0" english="Seventeen" translation="dix-sept"/>
+    <number value="18" form="0" english="Eighteen" translation="dix-huit"/>
+    <number value="19" form="0" english="Nineteen" translation="dix-neuf"/>
+    <number value="20" form="0" english="Twenty" translation="vingt"/>
+    <number value="21" form="0" english="Twenty One" translation="vingt et un"/>
+    <number value="22" form="0" english="Twenty Two" translation="vingt-deux"/>
+    <number value="23" form="0" english="Twenty Three" translation="vingt-trois"/>
+    <number value="24" form="0" english="Twenty Four" translation="vingt-quatre"/>
+    <number value="25" form="0" english="Twenty Five" translation="vingt-cinq"/>
+    <number value="26" form="0" english="Twenty Six" translation="vingt-six"/>
+    <number value="27" form="0" english="Twenty Seven" translation="vingt-sept"/>
+    <number value="28" form="0" english="Twenty Eight" translation="vingt-huit"/>
+    <number value="29" form="0" english="Twenty Nine" translation="vingt-neuf"/>
+    <number value="30" form="0" english="Thirty" translation="trente"/>
+    <number value="31" form="0" english="Thirty One" translation="trente et un"/>
+    <number value="32" form="0" english="Thirty Two" translation="trente-deux"/>
+    <number value="33" form="0" english="Thirty Three" translation="trente-trois"/>
+    <number value="34" form="0" english="Thirty Four" translation="trente-quatre"/>
+    <number value="35" form="0" english="Thirty Five" translation="trente-cinq"/>
+    <number value="36" form="0" english="Thirty Six" translation="trente-six"/>
+    <number value="37" form="0" english="Thirty Seven" translation="trente-sept"/>
+    <number value="38" form="0" english="Thirty Eight" translation="trente-huit"/>
+    <number value="39" form="0" english="Thirty Nine" translation="trente-neuf"/>
+    <number value="40" form="0" english="Forty" translation="quarante"/>
+    <number value="41" form="0" english="Forty One" translation="quarante et un"/>
+    <number value="42" form="0" english="Forty Two" translation="quarante-deux"/>
+    <number value="43" form="0" english="Forty Three" translation="quarante-trois"/>
+    <number value="44" form="0" english="Forty Four" translation="quarante-quatre"/>
+    <number value="45" form="0" english="Forty Five" translation="quarante-cinq"/>
+    <number value="46" form="0" english="Forty Six" translation="quarante-six"/>
+    <number value="47" form="0" english="Forty Seven" translation="quarante-sept"/>
+    <number value="48" form="0" english="Forty Eight" translation="quarante-huit"/>
+    <number value="49" form="0" english="Forty Nine" translation="quarante-neuf"/>
+    <number value="50" form="0" english="Fifty" translation="cinquante"/>
+    <number value="51" form="0" english="Fifty One" translation="cinquante et un"/>
+    <number value="52" form="0" english="Fifty Two" translation="cinquante-deux"/>
+    <number value="53" form="0" english="Fifty Three" translation="cinquante-trois"/>
+    <number value="54" form="0" english="Fifty Four" translation="cinquante-quatre"/>
+    <number value="55" form="0" english="Fifty Five" translation="cinquante-cinq"/>
+    <number value="56" form="0" english="Fifty Six" translation="cinquante-six"/>
+    <number value="57" form="0" english="Fifty Seven" translation="cinquante-sept"/>
+    <number value="58" form="0" english="Fifty Eight" translation="cinquante-huit"/>
+    <number value="59" form="0" english="Fifty Nine" translation="cinquante-neuf"/>
+    <number value="60" form="0" english="Sixty" translation="soixante"/>
+    <number value="61" form="0" english="Sixty One" translation="soixante et un"/>
+    <number value="62" form="0" english="Sixty Two" translation="soixante-deux"/>
+    <number value="63" form="0" english="Sixty Three" translation="soixante-trois"/>
+    <number value="64" form="0" english="Sixty Four" translation="soixante-quatre"/>
+    <number value="65" form="0" english="Sixty Five" translation="soixante-cinq"/>
+    <number value="66" form="0" english="Sixty Six" translation="soixante-six"/>
+    <number value="67" form="0" english="Sixty Seven" translation="soixante-sept"/>
+    <number value="68" form="0" english="Sixty Eight" translation="soixante-huit"/>
+    <number value="69" form="0" english="Sixty Nine" translation="soixante-neuf"/>
+    <number value="70" form="0" english="Seventy" translation="soixante-dix"/>
+    <number value="71" form="0" english="Seventy One" translation="soixante et onze"/>
+    <number value="72" form="0" english="Seventy Two" translation="soixante-douze"/>
+    <number value="73" form="0" english="Seventy Three" translation="soixante-treize"/>
+    <number value="74" form="0" english="Seventy Four" translation="soixante-quatorze"/>
+    <number value="75" form="0" english="Seventy Five" translation="soixante-quinze"/>
+    <number value="76" form="0" english="Seventy Six" translation="soixante-seize"/>
+    <number value="77" form="0" english="Seventy Seven" translation="soixante-dix-sept"/>
+    <number value="78" form="0" english="Seventy Eight" translation="soixante-dix-huit"/>
+    <number value="79" form="0" english="Seventy Nine" translation="soixante-dix-neuf"/>
+    <number value="80" form="0" english="Eighty" translation="quatre-vingts"/>
+    <number value="81" form="0" english="Eighty One" translation="quatre-vingt-un"/>
+    <number value="82" form="0" english="Eighty Two" translation="quatre-vingt-deux"/>
+    <number value="83" form="0" english="Eighty Three" translation="quatre-vingt-trois"/>
+    <number value="84" form="0" english="Eighty Four" translation="quatre-vingt-quatre"/>
+    <number value="85" form="0" english="Eighty Five" translation="quatre-vingt-cinq"/>
+    <number value="86" form="0" english="Eighty Six" translation="quatre-vingt-six"/>
+    <number value="87" form="0" english="Eighty Seven" translation="quatre-vingt-sept"/>
+    <number value="88" form="0" english="Eighty Eight" translation="quatre-vingt-huit"/>
+    <number value="89" form="0" english="Eighty Nine" translation="quatre-vingt-neuf"/>
+    <number value="90" form="0" english="Ninety" translation="quatre-vingt-dix"/>
+    <number value="91" form="0" english="Ninety One" translation="quatre-vingt-onze"/>
+    <number value="92" form="0" english="Ninety Two" translation="quatre-vingt-douze"/>
+    <number value="93" form="0" english="Ninety Three" translation="quatre-vingt-treize"/>
+    <number value="94" form="0" english="Ninety Four" translation="quatre-vingt-quatorze"/>
+    <number value="95" form="0" english="Ninety Five" translation="quatre-vingt-quinze"/>
+    <number value="96" form="0" english="Ninety Six" translation="quatre-vingt-seize"/>
+    <number value="97" form="0" english="Ninety Seven" translation="quatre-vingt-dix-sept"/>
+    <number value="98" form="0" english="Ninety Eight" translation="quatre-vingt-dix-huit"/>
+    <number value="99" form="0" english="Ninety Nine" translation="quatre-vingt-dix-neuf"/>
+    <number value="100" form="0" english="One Hundred" translation="cent"/>
+    <number value="101" form="0"/>
+    <number value="102" form="0"/>
+    <number value="103" form="0"/>
+    <number value="104" form="0"/>
+    <number value="105" form="0"/>
+    <number value="106" form="0"/>
+    <number value="107" form="0"/>
+    <number value="108" form="0"/>
+    <number value="109" form="0"/>
+    <number value="110" form="0"/>
+    <number value="111" form="0"/>
+    <number value="112" form="0"/>
+    <number value="113" form="0"/>
+    <number value="114" form="0"/>
+    <number value="115" form="0"/>
+    <number value="116" form="0"/>
+    <number value="117" form="0"/>
+    <number value="118" form="0"/>
+    <number value="119" form="0"/>
+</numbers>

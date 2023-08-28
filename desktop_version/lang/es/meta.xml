@@ -6,10 +6,13 @@
     <nativename>español</nativename>
 
     <!-- English translation by X -->
-    <credit>Traduccion al español por EXtremeExploit y FalskLycka</credit>
+    <credit>Traducción al español de Felipe Mercader y Sara Marín</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
-    <action_hint>Oprime espacio, Z o V para seleccionar</action_hint>
+    <action_hint>Pulsa Espacio, Z, o V para seleccionar</action_hint>
+
+    <!-- Same as above, but for a gamepad button (hard limit 40 8x8 characters) -->
+    <gamepad_hint>Press {button} to select</gamepad_hint>
 
     <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
     <autowordwrap>1</autowordwrap>

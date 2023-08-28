@@ -2,7 +2,7 @@
 
 #include <SDL_stdinc.h>
 
-#include "CustomLevels.h"
+#include "Script.h"
 #include "Font.h"
 
 blockclass::blockclass(void)
@@ -48,80 +48,9 @@ void blockclass::rectset(const int xi, const int yi, const int wi, const int hi)
 
 void blockclass::setblockcolour(const char* col)
 {
-#ifndef NO_CUSTOM_LEVELS
-    if (cl.customcolours.count(col) != 0)
-    {
-        r = cl.customcolours[col].r;
-        g = cl.customcolours[col].g;
-        b = cl.customcolours[col].b;
-    }
-    else // Turn the if into an else if so we don't run the default colour processing
-#endif
-    if (SDL_strcmp(col, "cyan") == 0)
-    {
-        r = 164;
-        g = 164;
-        b = 255;
-    }
-    else if (SDL_strcmp(col, "red") == 0)
-    {
-        r = 255;
-        g = 60;
-        b = 60;
-    }
-    else if (SDL_strcmp(col, "green") == 0)
-    {
-        r = 144;
-        g = 255;
-        b = 144;
-    }
-    else if (SDL_strcmp(col, "yellow") == 0)
-    {
-        r = 255;
-        g = 255;
-        b = 134;
-    }
-    else if (SDL_strcmp(col, "blue") == 0)
-    {
-        r = 95;
-        g = 95;
-        b = 255;
-    }
-    else if (SDL_strcmp(col, "purple") == 0)
-    {
-        r = 255;
-        g = 134;
-        b = 255;
-    }
-    else if (SDL_strcmp(col, "white") == 0)
-    {
-        r = 244;
-        g = 244;
-        b = 244;
-    }
-    else if (SDL_strcmp(col, "gray") == 0)
-    {
-        r = 174;
-        g = 174;
-        b = 174;
-    }
-    else if (SDL_strcmp(col, "orange") == 0)
-    {
-        r = 255;
-        g = 130;
-        b = 20;
-    }
-    else if (SDL_strcmp(col, "transparent") == 0)
-    {
-        r = 0;
-        g = 0;
-        b = 0;
-    }
-    else
-    {
-        //use a gray
-        r = 174;
-        g = 174;
-        b = 174;
-    }
+    bool exists = ::script.textbox_colours.count(col) != 0;
+
+    r = ::script.textbox_colours[exists ? col : "gray"].r;
+    g = ::script.textbox_colours[exists ? col : "gray"].g;
+    b = ::script.textbox_colours[exists ? col : "gray"].b;
 }

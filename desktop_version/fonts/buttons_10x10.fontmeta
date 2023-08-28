@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font_metadata>
+    <type>buttons</type>
+    <width>10</width>
+    <height>10</height>
+    <white_teeth>1</white_teeth>
+    <chars>
+        <range start="0xEB00" end="0xEB2F"/>
+    </chars>
+    <special>
+        <range start="0xEB00" end="0xEB2F" color="1"/>
+    </special>
+</font_metadata>

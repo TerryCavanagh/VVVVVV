@@ -107,7 +107,7 @@
     <string english="sound volume" translation="volum dels sons" explanation="audio menu option"/>
     <string english="Sound Volume" translation="Volum dels sons" explanation="title" max="20"/>
     <string english="Change the volume of sound effects." translation="Canvia el volum dels efectes de so." explanation="" max="38*3"/>
-    <string english="Credits" translation="Crèdits" explanation="credits" max="13"/>
+    <string english="Credits" translation="Crèdits" explanation="credits" max="20"/>
     <string english="VVVVVV is a game by" translation="VVVVVV és un joc de" explanation="credits" max="40"/>
     <string english="and features music by" translation="i conté música de" explanation="credits" max="40"/>
     <string english="Roomnames are by" translation="Noms de les sales de" explanation="credits" max="40"/>
@@ -213,6 +213,8 @@
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Commuta si s’interacciona|fent servir Retorn o E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="Retorn" explanation="keyboard key ENTER. Speedrunner options menu"/>
+    <string english="ESC" translation="Esc" explanation="keyboard key ESC"/>
+    <string english="ACTION" translation="Acció" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Botó d’interacció: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="pantalla de càrrega" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Pantalla de càrrega" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
@@ -324,10 +326,10 @@
     <string english="[Trinkets found]" translation="[Lluentons trobats]" explanation="amount of shiny trinkets found" max="40"/>
     <string english="[Number of Deaths]" translation="[Nombre de morts]" explanation="" max="40"/>
     <string english="[Time Taken]" translation="[Temps transcorregut]" explanation="stopwatch time" max="40"/>
-    <string english="Trinkets Found:" translation="Lluentons trobats:" explanation="game complete screen" max="21"/>
-    <string english="Game Time:" translation="Temps de la partida:" explanation="game complete screen" max="21"/>
-    <string english="Total Flips:" translation="Inversions totals:" explanation="game complete screen" max="21"/>
-    <string english="Total Deaths:" translation="Morts totals:" explanation="game complete screen" max="21"/>
+    <string english="Trinkets Found:" translation="Lluentons trobats:" explanation="game complete screen" max="22"/>
+    <string english="Game Time:" translation="Temps de la partida:" explanation="game complete screen" max="22"/>
+    <string english="Total Flips:" translation="Inversions totals:" explanation="game complete screen" max="22"/>
+    <string english="Total Deaths:" translation="Morts totals:" explanation="game complete screen" max="22"/>
     <string english="Results" translation="Resultats" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="TEMPS TRANSCORREGUT:" explanation="time the player took playing the level" max="32"/>
     <string english="NUMBER OF DEATHS:" translation="NOMBRE DE MORTS:" explanation="amount of times the player died" max="32"/>
@@ -368,7 +370,7 @@
     <string english="Rescue Vermilion" translation="Rescata en Vermelló" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="Rescata en Vitel·lí" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="Rescata en Verdet" explanation="" max="40"/>
-    <string english="Complete the game" translation="Passa’t el joc" explanation="" max="40"/>
+    <string english="Complete the game" translation="Passa’t el joc" case="0" explanation="" max="40"/>
     <string english="Find three trinkets" translation="Troba tres lluentons" explanation="" max="40"/>
     <string english="Find six trinkets" translation="Troba sis lluentons" explanation="" max="40"/>
     <string english="Find nine trinkets" translation="Troba nou lluentons" explanation="" max="40"/>
@@ -376,9 +378,9 @@
     <string english="Find fifteen trinkets" translation="Troba quinze lluentons" explanation="" max="40"/>
     <string english="Find eighteen trinkets" translation="Troba divuit lluentons" explanation="" max="40"/>
     <string english="RECORDS" translation="RÈCORDS" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
-    <string english="TIME" translation="TEMPS" explanation="record time" max="7"/>
-    <string english="SHINY" translation="LLUE." explanation="record number of trinkets" max="7"/>
-    <string english="LIVES" translation="VIDES" explanation="record lowest number of deaths" max="7"/>
+    <string english="TIME" translation="TEMPS" explanation="record time" max="8"/>
+    <string english="SHINY" translation="LLUE." explanation="record number of trinkets" max="8"/>
+    <string english="LIVES" translation="VIDES" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="TEMPS DE PAR" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="TEMPS:" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="MORTS:" explanation="in time trial. Number of times player died, not too long"/>
@@ -418,11 +420,15 @@
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Per a instal·lar nous nivells,|copia els fitxers .vvvvvv|a la carpeta de nivells." explanation="" max="38*3"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Segur que vols mostrar el camí|de la carpeta de nivells?|Si estàs emetent en directe, pot ser|que es mostri informació delicada." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="El camí dels nivells és:" explanation="" max="40"/>
-    <string english="[ Press ACTION to Start ]" translation="[ Prem Acció per a començar ]" explanation="title screen" max="38*2"/>
+    <string english="[ Press ACTION to Start ]" translation="[ Prem Acció per a començar ]" explanation="***OUTDATED***" max="38*2"/>
+    <string english="[ Press {button} to Start ]" translation="[ Prem {button} per a començar ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="Acció = Espai, Z o V" explanation="title screen" max="38*3"/>
-    <string english="[Press ENTER to return to editor]" translation="[Prem Retorn per a tornar a l’editor]" explanation="`to editor` is sorta redundant" max="40"/>
-    <string english="- Press ACTION to advance text -" translation="- Prem Acció per a avançar el text -" explanation="to dismiss a textbox" max="40"/>
-    <string english="Press ACTION to continue" translation="Prem Acció per a continuar" explanation="" max="34"/>
+    <string english="[Press ENTER to return to editor]" translation="[Prem Retorn per a tornar a l’editor]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to return to editor]" translation="[Prem {button} per a tornar a l’editor]" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="- Press ACTION to advance text -" translation="- Prem Acció per a avançar el text -" explanation="***OUTDATED***" max="40"/>
+    <string english="- Press {button} to advance text -" translation="- Prem {button} per a avançar el text -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="Press ACTION to continue" translation="Prem Acció per a continuar" explanation="***OUTDATED***" max="34"/>
+    <string english="Press {button} to continue" translation="Prem {button} per a continuar" explanation="Expect `ACTION`" max="34"/>
     <string english="Current Time" translation="Temps actual" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Millor temps" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Pròxim trofeu a 5 segons" explanation="" max="38*2"/>
@@ -434,7 +440,8 @@
     <string english="All Trophies collected!" translation="Has obtingut tots els trofeus!" explanation="" max="38*2"/>
     <string english="New Record!" translation="Nou rècord!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Nou trofeu!" explanation="" max="20"/>
-    <string english="[Press ENTER to stop]" translation="[Prem Retorn per a aturar-lo]" explanation="stop super gravitron" max="40"/>
+    <string english="[Press ENTER to stop]" translation="[Prem Retorn per a aturar-lo]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to stop]" translation="[Prem {button} per a aturar-lo]" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="SUPERGRAVITRÓ" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="PUNTUACIÓ MÀXIMA AL SUPERGRAVITRÓ" explanation="" max="38*4"/>
     <string english="MAP" translation="MAPA" explanation="in-game menu" max="8"/>
@@ -447,7 +454,8 @@
     <string english="[ QUIT ]" translation="[ SURT ]" explanation="in-game menu" max="40"/>
     <string english="[ GRAVITRON ]" translation="[ GRAVITRÓ ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="NO HI HA SENYAL" explanation="map screen. So like a TV/computer monitor" max="29"/>
-    <string english="Press ACTION to warp to the ship." translation="Prem Acció per a teletransportar-te|a la nau" explanation="spaceship. Warp = teleport" max="38*7"/>
+    <string english="Press ACTION to warp to the ship." translation="Prem Acció per a teletransportar-te|a la nau" explanation="***OUTDATED***" max="38*7"/>
+    <string english="Press {button} to warp to the ship." translation="Prem {button} per a teletransportar-te|a la nau" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
     <string english="Missing..." translation="No hi és..." case="1" explanation="this male crew member is missing" max="15"/>
     <string english="Missing..." translation="No hi és..." case="2" explanation="this female crew member is missing" max="15"/>
     <string english="Missing..." translation="No hi és..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
@@ -461,7 +469,8 @@
     <string english="ERROR: Could not save game!" translation="ERROR: No s’ha pogut desar la partida!" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="ERROR: No s’ha pogut desar|el fitxer de configuració!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="La partida s’ha desat!" explanation="in-game menu" max="38*2"/>
-    <string english="[Press ACTION to save your game]" translation="[Prem Acció per a desar la partida]" explanation="in-game menu" max="40"/>
+    <string english="[Press ACTION to save your game]" translation="[Prem Acció per a desar la partida]" explanation="***OUTDATED***" max="40"/>
+    <string english="[Press {button} to save your game]" translation="[Prem {button} per a desar la partida]" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Nota: La partida es desa automàticament a cada teletransportador.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Desada per darrera vegada a:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Vols tornar al menú principal?" explanation="in-game menu" max="38*4"/>
@@ -489,16 +498,17 @@
     <string english="Press {button} to activate terminal" translation="Prem {button} per a activar el terminal" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="{button} per a activar els terminals" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Prem {button} per a interaccionar" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="Passion for Exploring" translation="Passió per l’exploració" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pushing Onwards" translation="Prement sempre endavant" explanation="song name should probably not be translated" max="37"/>
-    <string english="Positive Force" translation="Positivitat en la força" explanation="song name should probably not be translated" max="37"/>
-    <string english="Presenting VVVVVV" translation="Presentació de VVVVVV" explanation="song name should probably not be translated" max="37"/>
-    <string english="Potential for Anything" translation="Potencial per a qualsevol cosa" explanation="song name should probably not be translated" max="37"/>
-    <string english="Predestined Fate" translation="Predestinació atzarosa" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pipe Dream" translation="Pretensió impossible" explanation="song name should probably not be translated" max="37"/>
-    <string english="Popular Potpourri" translation="Popurri popular" explanation="song name should probably not be translated" max="37"/>
-    <string english="Pressure Cooker" translation="Pressió dins l’olla" explanation="song name should probably not be translated" max="37"/>
-    <string english="ecroF evitisoP" translation="açrof al ne tativitisoP" explanation="song name should probably not be translated" max="37"/>
+    <string english="- Press {button} to skip -" translation="- Prem {button} per a ometre-ho -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
+    <string english="Passion for Exploring" translation="Passió per l’exploració" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pushing Onwards" translation="Prement sempre endavant" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Positive Force" translation="Positivitat en la força" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Presenting VVVVVV" translation="Presentació de VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Potential for Anything" translation="Potencial per a qualsevol cosa" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Predestined Fate" translation="Predestinació atzarosa" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pipe Dream" translation="Pretensió impossible" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Popular Potpourri" translation="Popurri popular" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pressure Cooker" translation="Pressió dins l’olla" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="açrof al ne tativitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Opcions del mapa" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="edita els scripts" explanation="level editor menu option"/>
     <string english="change music" translation="canvia la música" explanation="level editor menu option"/>
@@ -507,15 +517,15 @@
     <string english="Editor ghost trail is ON" translation="Traces dels fantasmes ACTIVADES" explanation="level editor. Repetition of the player&apos;s path after playtesting is enabled" max="40"/>
     <string english="load level" translation="carrega un nivell" explanation="level editor menu option"/>
     <string english="save level" translation="desa el nivell" explanation="level editor menu option"/>
-    <string english="quit to main menu" translation="surt al menú" explanation="level editor menu option" max="19"/>
+    <string english="quit to main menu" translation="surt al menú" explanation="level editor menu option" max="22"/>
     <string english="change name" translation="canvia el nom" explanation="level editor menu option"/>
     <string english="change author" translation="canvia l’autor" explanation="level editor menu option"/>
     <string english="change description" translation="canvia la descripció" explanation="level editor menu option"/>
     <string english="change website" translation="canvia el lloc web" explanation="level editor menu option"/>
-    <string english="change font" translation="" explanation="level editor menu option"/>
-    <string english="Level Font" translation="" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
-    <string english="Select the language in which the text in this level is written." translation="" explanation="" max="38*3"/>
-    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="14"/>
+    <string english="change font" translation="canvia la font" explanation="level editor menu option"/>
+    <string english="Level Font" translation="Font del nivell" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
+    <string english="Select the language in which the text in this level is written." translation="Selecciona la llengua en què està escrit el text d’aquest nivell." explanation="" max="38*3"/>
+    <string english="Font: " translation="Font: " explanation="level options, followed by name of font (mind the space)" max="14"/>
     <string english="Map Music" translation="Música del mapa" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Música del mapa actual:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="No hi ha música de fons" explanation="editor, level starts with no song playing" max="38*2"/>
@@ -545,14 +555,22 @@
     <string english="Untitled Level" translation="Nivell sense títol" explanation="" max="20"/>
     <string english="Unknown" translation="Desconegut" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="Peça:" explanation="editor, selected " max="34"/>
-    <string english="SCRIPT BOX: Click on top left" translation="CAPSA DE SCRIPT:|Fes clic a la part superior esquerra" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
-    <string english="SCRIPT BOX: Click on bottom right" translation="CAPSA DE SCRIPT:|Fes clic a la part inferior dreta" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
-    <string english="ENEMY BOUNDS: Click on top left" translation="LÍMITS D’ENEMIC:|Fes clic a la part superior esquerra" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
-    <string english="ENEMY BOUNDS: Click on bottom right" translation="LÍMITS D’ENEMIC:|Fes clic a la part inferior dreta" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
-    <string english="PLATFORM BOUNDS: Click on top left" translation="LÍMITS DE PLATAFORMA:|Fes clic a la part superior esquerra" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="PLATFORM BOUNDS: Click on bottom right" translation="LÍMITS DE PLATAFORMA:|Fes clic a la part inferior dreta" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
-    <string english="Click on top left" translation="Fes clic a la part superior esquerra" explanation="" max="39*3"/>
-    <string english="Click on bottom right" translation="Fes clic a la part inferior dreta" explanation="" max="39*3"/>
+    <string english="SCRIPT BOX: Click on top left" translation="CAPSA DE SCRIPT:|Fes clic a la part superior esquerra" explanation="***OUTDATED***"/>
+    <string english="SCRIPT BOX: Click on the first corner" translation="CAPSA DE SCRIPT:|Fes clic a la primera cantonada" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="SCRIPT BOX: Click on bottom right" translation="CAPSA DE SCRIPT:|Fes clic a la part inferior dreta" explanation="***OUTDATED***"/>
+    <string english="SCRIPT BOX: Click on the last corner" translation="CAPSA DE SCRIPT:|Fes clic a l’última cantonada" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on top left" translation="LÍMITS D’ENEMIC:|Fes clic a la part superior esquerra" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on the first corner" translation="LÍMITS D’ENEMIC:|Fes clic a la primera cantonada" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on bottom right" translation="LÍMITS D’ENEMIC:|Fes clic a la part inferior dreta" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on the last corner" translation="LÍMITS D’ENEMIC:|Fes clic a l’última cantonada" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on top left" translation="LÍMITS DE PLATAFORMA:|Fes clic a la part superior esquerra" explanation="***OUTDATED***"/>
+    <string english="PLATFORM BOUNDS: Click on the first corner" translation="LÍMITS DE PLATAFORMA:|Fes clic a la primera cantonada" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on bottom right" translation="LÍMITS DE PLATAFORMA:|Fes clic a la part inferior dreta" explanation="***OUTDATED***"/>
+    <string english="PLATFORM BOUNDS: Click on the last corner" translation="LÍMITS DE PLATAFORMA:|Fes clic a l’última cantonada" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="Click on top left" translation="Fes clic a la part superior esquerra" explanation="***OUTDATED***"/>
+    <string english="Click on the first corner" translation="Fes clic a la primera cantonada" explanation="" max="39*3"/>
+    <string english="Click on bottom right" translation="Fes clic a la part inferior dreta" explanation="***OUTDATED***"/>
+    <string english="Click on the last corner" translation="Fes clic a l’última cantonada" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="*** EDITOR DE SCRIPTS DE VVVVVV ***" explanation="supposed to look like a Commodore 64 screen" max="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="PREM ESC PER A TORNAR AL MENÚ" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="NO S’HA TROBAT CAP ID DE SCRIPT" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
@@ -565,18 +583,26 @@
     <string english="2: Backing" translation="2: Fons" explanation="editor tool. Non-solid background tiles" max="32"/>
     <string english="3: Spikes" translation="3: Punxes" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Lluentons" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
-    <string english="5: Checkpoint" translation="5: Punts de control" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
-    <string english="6: Disappear" translation="6: Desapareixedors" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
+    <string english="5: Checkpoint" translation="5: Punts de control" explanation="***OUTDATED***"/>
+    <string english="5: Checkpoints" translation="5: Punts de control" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
+    <string english="6: Disappear" translation="6: Desapareixedors" explanation="***OUTDATED***"/>
+    <string english="6: Disappearing Platforms" translation="6: Plataformes esvaívoles" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
     <string english="7: Conveyors" translation="7: Cintes" explanation="editor tool. Conveyor belt" max="32"/>
-    <string english="8: Moving" translation="8: Plataformes mòbils" explanation="editor tool. Moving platform" max="32"/>
+    <string english="8: Moving" translation="8: Plataformes mòbils" explanation="***OUTDATED***"/>
+    <string english="8: Moving Platforms" translation="8: Plataformes mòbils" explanation="editor tool. Moving platform" max="32"/>
     <string english="9: Enemies" translation="9: Enemics" explanation="editor tool" max="32"/>
-    <string english="0: Grav Line" translation="0: Línies de gravetat" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
+    <string english="0: Grav Line" translation="0: Línies de gravetat" explanation="***OUTDATED***"/>
+    <string english="0: Gravity Lines" translation="0: Línies de gravetat" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Textos de la sala" explanation="editor tool. Freely typed text, consider just Text" max="32"/>
-    <string english="T: Terminal" translation="T: Terminals" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
-    <string english="Y: Script Box" translation="Y: Capses de script" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
-    <string english="U: Warp Token" translation="U: Punts de teletransport" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
+    <string english="T: Terminal" translation="T: Terminals" explanation="***OUTDATED***"/>
+    <string english="T: Terminals" translation="T: Terminals" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
+    <string english="Y: Script Box" translation="Y: Capses de script" explanation="***OUTDATED***"/>
+    <string english="Y: Script Boxes" translation="Y: Capses de script" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
+    <string english="U: Warp Token" translation="U: Punts de teletransport" explanation="***OUTDATED***"/>
+    <string english="U: Warp Tokens" translation="U: Punts de teletransport" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
     <string english="I: Warp Lines" translation="I: Línies cícliques" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
-    <string english="O: Crewmate" translation="O: Tripulants" explanation="editor tool. Crewmate that can be rescued" max="32"/>
+    <string english="O: Crewmate" translation="O: Tripulants" explanation="***OUTDATED***"/>
+    <string english="O: Crewmates" translation="O: Tripulants" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Punt d’inici" explanation="editor tool" max="32"/>
     <string english="START" translation="INICI" explanation="start point in level editor" max="10"/>
     <string english="SPACE ^  SHIFT ^" translation="ESPAI ^ MAJ ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
@@ -605,6 +631,7 @@
     <string english="Now using {area} Tileset" translation="Ara es fa servir el conjunt de peces {area}" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="S’ha canviat el color|del conjunt de peces" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="S’ha canviat el tipus d’enemic" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
+    <string english="Platform speed is now {speed}" translation="La velocitat de les plataformes és ara {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Reloaded resources" translation="S’han recarregat els recursos" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ERROR: Format invàlid" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="S’ha obert el mapa: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -622,7 +649,10 @@
     <string english="ERROR: No checkpoint to spawn at" translation="ERROR: No hi ha cap punt de control|on aparèixer" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="ERROR: El nombre màxim de lluentons|és 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="ERROR: El nombre màxim de tripulants|és 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
+    <string english="Level quits to menu" translation="El nivell torna al menú principal" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
+    <string english="Level completed" translation="El nivell s’ha completat" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
     <string english="Rolled credits" translation="S’han mostrat crèdits" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
+    <string english="Time trial completed" translation="La contrarellotge s’ha completat" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2},{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
@@ -636,8 +666,11 @@
     <string english="All crewmates rescued!" translation="Has rescatat tothom!" explanation="" max="32"/>
     <string english="Game Saved" translation="S’ha desat la partida" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="Prem les tecles de fletxa o WASD per a moure’t" explanation="" max="32*2"/>
-    <string english="Press ACTION to flip" translation="Prem Acció per a invertir-te" explanation="" max="32*3"/>
-    <string english="Press ENTER to view map and quicksave" translation="Prem Retorn per a veure el mapa|i desar ràpidament" explanation="" max="32*3"/>
+    <string english="Press left/right to move" translation="Prem Esquerra/Dreta per a moure’t" explanation="" max="32*2"/>
+    <string english="Press ACTION to flip" translation="Prem Acció per a invertir-te" explanation="***OUTDATED***" max="32*3"/>
+    <string english="Press {button} to flip" translation="Prem {button} per a invertir-te" explanation="expect `ACTION`" max="32*3"/>
+    <string english="Press ENTER to view map and quicksave" translation="Prem Retorn per a veure el mapa|i desar ràpidament" explanation="***OUTDATED***" max="32*3"/>
+    <string english="Press {button} to view map and quicksave" translation="Prem {button} per a veure el mapa|i desar ràpidament" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Si ho prefereixes, pots prémer ↑ o ↓ en lloc d’Acció per a invertir-te." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="Ajuda! Algú sent aquest missatge?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="Verdet? Ets allà fora? Estàs bé?" explanation="Violet speaking via Comms Relay" max="25*4"/>
@@ -714,7 +747,7 @@ Has trobat el laboratori secret!" explanation="" max="34*4"/>
     <string english="FINAL LEVEL MASTERED" translation="ÚLTIM NIVELL DOMINAT" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
     <string english="Obtain a V Rank in this Time Trial" translation="Obtén un rang V en aquesta contrarellotge" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="JOC COMPLETAT" explanation="achievement/trophy title" max="38*2"/>
-    <string english="Complete the game" translation="Passa’t el joc" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game" translation="Passa’t el joc" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="MODE INVERTIT COMPLETAT" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Passa’t el joc en el mode invertit" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 50 deaths" translation="Guanya amb menys de 50 morts" explanation="achievement/trophy description" max="38*2"/>
@@ -729,7 +762,11 @@ Has trobat el laboratori secret!" explanation="" max="34*4"/>
     <string english="Last 1 minute on the Super Gravitron" translation="Aguanta 1 minut al supergravitró" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="MÀSTER DE L’UNIVERS" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Passa’t el joc en el mode|sense cap mort" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Something went wrong, but we forgot the error message." translation="Hi ha hagut algun problema, però ens hem oblidat del missatge d’error." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="No s’ha pogut muntar {path}: el directori real no existeix" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
+    <string english="Level {path} not found" translation="No s’ha trobat el nivell {path}" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="S’ha produït un error en analitzar {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Les dimensions de «{filename}» no són múltiples exactes de {width}x{height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERROR: No s’ha pogut escriure|a la carpeta de llengua! Assegura’t|que no hi hagi cap carpeta «lang»|al costat de les partides desades normals." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

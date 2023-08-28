@@ -9,6 +9,7 @@
 #include "Localization.h"
 #include "LocalizationMaint.h"
 #include "Map.h"
+#include "Script.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
@@ -57,7 +58,7 @@ namespace roomname_translator
             fullscreen_rect.w = 320;
             fullscreen_rect.h = 240;
             graphics.set_blendmode(SDL_BLENDMODE_BLEND);
-            graphics.fill_rect(0, 0, 0, 96);
+            graphics.fill_rect(graphics.getRGBA(0, 0, 0, 96));
             graphics.set_blendmode(SDL_BLENDMODE_NONE);
             if (help_screen)
             {
@@ -160,7 +161,7 @@ namespace roomname_translator
                 print_explanation("This is a special room name, which cannot be translated in-game. Please see roomnames_special");
             }
         }
-        else if ((map.finalmode && map.glitchname[0] == '\0') || map.roomname[0] == '\0')
+        else if (map.roomname[0] == '\0')
         {
             // No room name at all, so no translation/explanation interface
             if (edit_mode)
@@ -176,15 +177,8 @@ namespace roomname_translator
 
             if (edit_mode)
             {
-                const char* english_roomname;
-                if (map.finalmode)
-                {
-                    english_roomname = map.glitchname;
-                }
-                else
-                {
-                    english_roomname = map.roomname;
-                }
+                const char* english_roomname = map.roomname;
+
                 font::print(PR_CEN | PR_BOR | PR_FONT_8X8, -1, 229-font::height(PR_FONT_LEVEL), english_roomname, 0,192,255);
 
                 print_explanation(loc::get_roomname_explanation(map.custommode, game.roomx, game.roomy));
@@ -193,7 +187,7 @@ namespace roomname_translator
                 {
                     *force_roomname_hidden = true;
                     graphics.render_roomname(PR_FONT_LEVEL, key.keybuffer.c_str(), 255,255,255);
-                    int name_w = font::len(PR_FONT_LEVEL, key.keybuffer);
+                    int name_w = font::len(PR_FONT_LEVEL, key.keybuffer.c_str());
                     font::print(PR_BOR | PR_FONT_LEVEL, (320-name_w)/2+name_w, 231, "_", 255,255,255);
                 }
                 else if (!roomname_is_translated)
@@ -259,14 +253,14 @@ namespace roomname_translator
     {
         if (loc::save_roomname_explanation_to_files(map.custommode, game.roomx, game.roomy, explanation))
         {
-            graphics.createtextboxflipme(success_message, -1, 176, 174, 174, 174);
+            graphics.createtextboxflipme(success_message, -1, 176, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             graphics.textboxtimer(25);
         }
         else
         {
-            graphics.createtextboxflipme("ERROR: Could not save to all langs!", -1, 176, 255, 60, 60);
+            graphics.createtextboxflipme("ERROR: Could not save to all langs!", -1, 176, TEXT_COLOUR("red"));
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             graphics.textboxtimer(50);
@@ -277,14 +271,14 @@ namespace roomname_translator
     {
         if (loc::save_roomname_to_file(loc::lang, map.custommode, game.roomx, game.roomy, translation, NULL))
         {
-            graphics.createtextboxflipme("Translation saved!", -1, 176, 174, 174, 174);
+            graphics.createtextboxflipme("Translation saved!", -1, 176, TEXT_COLOUR("gray"));
             graphics.textboxprintflags(PR_FONT_8X8);
             graphics.textboxcenterx();
             graphics.textboxtimer(25);
         }
         else
         {
-            graphics.createtextboxflipme("ERROR: Could not save!", -1, 144, 255, 60, 60);
+            graphics.createtextboxflipme("ERROR: Could not save!", -1, 144, TEXT_COLOUR("red"));
             graphics.addline("");
             graphics.addline("1) Do the language files exist?");
             graphics.addline("2) Make sure there is no \"lang\"");
@@ -348,7 +342,7 @@ namespace roomname_translator
                 {
                     if (loc::lang == "en")
                     {
-                        graphics.createtextboxflipme("ERROR: Can't add EN-EN translation", -1, 176, 255, 60, 60);
+                        graphics.createtextboxflipme("ERROR: Can't add EN-EN translation", -1, 176, TEXT_COLOUR("red"));
                         graphics.textboxprintflags(PR_FONT_8X8);
                         graphics.textboxcenterx();
                         graphics.textboxtimer(50);
@@ -414,10 +408,7 @@ namespace roomname_translator
 
             if (key_pressed_once(SDLK_RETURN, &held_return) || key_pressed_once(SDLK_e, &held_e))
             {
-                if (map.roomname_special
-                    || (map.finalmode && map.glitchname[0] == '\0')
-                    || (map.roomname[0] == '\0')
-                )
+                if (map.roomname_special || map.roomname[0] == '\0')
                 {
                     return true;
                 }

@@ -2,31 +2,31 @@
 <!-- Please read README.txt for information about the language files -->
 <strings_plural>
     <string english_plural="You rescued {n_crew|wordy} crewmates" english_singular="You rescued {n_crew|wordy} crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40" var="n_crew" expect="6">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="Has rescatado a {n_crew|wordy} tripulantes"/>
+        <translation form="1" translation="Has rescatado a un tripulante"/>
     </string>
     <string english_plural="and found {n_trinkets|wordy} trinkets." english_singular="and found {n_trinkets|wordy} trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2" var="n_trinkets" expect="20">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="y has encontrado {n_trinkets|wordy} baratijas."/>
+        <translation form="1" translation="y has encontrado una baratija."/>
     </string>
     <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="Y has encontrado {n_trinkets|wordy} baratijas."/>
+        <translation form="1" translation="Y has encontrado una baratija."/>
     </string>
     <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="Quedan {n_crew|wordy} tripulantes"/>
+        <translation form="1" translation="Queda un tripulante"/>
     </string>
     <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="Quedan {n_crew|wordy}"/>
+        <translation form="1" translation="Queda uno"/>
     </string>
     <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="Sala más difícil (con {n_deaths} muertes)"/>
+        <translation form="1" translation="Sala más difícil (con una muerte)"/>
     </string>
     <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
-        <translation form="0" translation=""/>
-        <translation form="1" translation=""/>
+        <translation form="0" translation="{n} nombres de sala normal sin traducir"/>
+        <translation form="1" translation="{n} nombre de sala normal sin traducir"/>
     </string>
 </strings_plural>

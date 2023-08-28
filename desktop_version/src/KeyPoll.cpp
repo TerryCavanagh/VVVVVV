@@ -2,9 +2,10 @@
 #include "KeyPoll.h"
 
 #include <string.h>
-#include <utf8/unchecked.h>
 
 #include "Alloc.h"
+#include "ButtonGlyphs.h"
+#include "Constants.h"
 #include "Exit.h"
 #include "Game.h"
 #include "GlitchrunnerMode.h"
@@ -13,6 +14,7 @@
 #include "LocalizationStorage.h"
 #include "Music.h"
 #include "Screen.h"
+#include "UTF8.h"
 #include "Vlogging.h"
 
 int inline KeyPoll::getThreshold(void)
@@ -44,7 +46,8 @@ KeyPoll::KeyPoll(void)
 
     keybuffer="";
     leftbutton=0; rightbutton=0; middlebutton=0;
-    mx=0; my=0;
+    mousex = 0;
+    mousey = 0;
     resetWindow = 0;
     pressedbackspace=false;
 
@@ -134,11 +137,14 @@ static int changemousestate(
 
 void KeyPoll::Poll(void)
 {
+    static int raw_mousex = 0;
+    static int raw_mousey = 0;
     static int mousetoggletimeout = 0;
     bool showmouse = false;
     bool hidemouse = false;
     bool altpressed = false;
     bool fullscreenkeybind = false;
+    SDL_GameController *controller = NULL;
     SDL_Event evt;
     while (SDL_PollEvent(&evt))
     {
@@ -171,16 +177,16 @@ void KeyPoll::Poll(void)
             {
                 /* Reload language files */
                 loc::loadtext(false);
-                music.playef(4);
+                music.playef(Sound_COIN);
             }
+
+            BUTTONGLYPHS_keyboard_set_active(true);
 
             if (textentry())
             {
                 if (evt.key.keysym.sym == SDLK_BACKSPACE && !keybuffer.empty())
                 {
-                    std::string::iterator iter = keybuffer.end();
-                    utf8::unchecked::prior(iter);
-                    keybuffer = keybuffer.substr(0, iter - keybuffer.begin());
+                    keybuffer.erase(UTF8_backspace(keybuffer.c_str(), keybuffer.length()));
                     if (keybuffer.empty())
                     {
                         linealreadyemptykludge = true;
@@ -223,25 +229,25 @@ void KeyPoll::Poll(void)
 
         /* Mouse Input */
         case SDL_MOUSEMOTION:
-            mx = evt.motion.x;
-            my = evt.motion.y;
+            raw_mousex = evt.motion.x;
+            raw_mousey = evt.motion.y;
             break;
         case SDL_MOUSEBUTTONDOWN:
             switch (evt.button.button)
             {
             case SDL_BUTTON_LEFT:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 leftbutton = 1;
                 break;
             case SDL_BUTTON_RIGHT:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 rightbutton = 1;
                 break;
             case SDL_BUTTON_MIDDLE:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 middlebutton = 1;
                 break;
             }
@@ -250,18 +256,18 @@ void KeyPoll::Poll(void)
             switch (evt.button.button)
             {
             case SDL_BUTTON_LEFT:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 leftbutton=0;
                 break;
             case SDL_BUTTON_RIGHT:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 rightbutton=0;
                 break;
             case SDL_BUTTON_MIDDLE:
-                mx = evt.button.x;
-                my = evt.button.y;
+                raw_mousex = evt.button.x;
+                raw_mousey = evt.button.y;
                 middlebutton=0;
                 break;
             }
@@ -270,6 +276,13 @@ void KeyPoll::Poll(void)
         /* Controller Input */
         case SDL_CONTROLLERBUTTONDOWN:
             buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = true;
+            BUTTONGLYPHS_keyboard_set_active(false);
+
+            controller = controllers[evt.cbutton.which];
+            BUTTONGLYPHS_update_layout(
+                SDL_GameControllerGetVendor(controller),
+                SDL_GameControllerGetProduct(controller)
+            );
             break;
         case SDL_CONTROLLERBUTTONUP:
             buttonmap[(SDL_GameControllerButton) evt.cbutton.button] = false;
@@ -302,25 +315,41 @@ void KeyPoll::Poll(void)
                 }
                 break;
             }
+            BUTTONGLYPHS_keyboard_set_active(false);
+
+            controller = controllers[evt.caxis.which];
+            BUTTONGLYPHS_update_layout(
+                SDL_GameControllerGetVendor(controller),
+                SDL_GameControllerGetProduct(controller)
+            );
             break;
         }
         case SDL_CONTROLLERDEVICEADDED:
         {
-            SDL_GameController *toOpen = SDL_GameControllerOpen(evt.cdevice.which);
+            controller = SDL_GameControllerOpen(evt.cdevice.which);
             vlog_info(
                 "Opened SDL_GameController ID #%i, %s",
                 evt.cdevice.which,
-                SDL_GameControllerName(toOpen)
+                SDL_GameControllerName(controller)
             );
-            controllers[SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(toOpen))] = toOpen;
+            controllers[SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(controller))] = controller;
+            BUTTONGLYPHS_keyboard_set_active(false);
+            BUTTONGLYPHS_update_layout(
+                SDL_GameControllerGetVendor(controller),
+                SDL_GameControllerGetProduct(controller)
+            );
             break;
         }
         case SDL_CONTROLLERDEVICEREMOVED:
         {
-            SDL_GameController *toClose = controllers[evt.cdevice.which];
+            controller = controllers[evt.cdevice.which];
             controllers.erase(evt.cdevice.which);
-            vlog_info("Closing %s", SDL_GameControllerName(toClose));
-            SDL_GameControllerClose(toClose);
+            vlog_info("Closing %s", SDL_GameControllerName(controller));
+            SDL_GameControllerClose(controller);
+            if (controllers.empty())
+            {
+                BUTTONGLYPHS_keyboard_set_active(true);
+            }
             break;
         }
 
@@ -431,6 +460,22 @@ void KeyPoll::Poll(void)
     if (fullscreenkeybind)
     {
         toggleFullscreen();
+    }
+
+    if (gameScreen.scalingMode == SCALING_STRETCH)
+    {
+        /* In this mode specifically, we have to fix the mouse coordinates */
+        int actualscreenwidth;
+        int actualscreenheight;
+        gameScreen.GetScreenSize(&actualscreenwidth, &actualscreenheight);
+
+        mousex = raw_mousex * SCREEN_WIDTH_PIXELS / actualscreenwidth;
+        mousey = raw_mousey * SCREEN_HEIGHT_PIXELS / actualscreenheight;
+    }
+    else
+    {
+        mousex = raw_mousex;
+        mousey = raw_mousey;
     }
 }
 

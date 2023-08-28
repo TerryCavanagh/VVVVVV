@@ -26,7 +26,7 @@
         <dialogue speaker="cyan" english="Oh no!" translation="O nee!"/>
         <dialogue speaker="purple" english="I&apos;m on the ship - it&apos;s damaged badly, but it&apos;s still intact!" translation="Ik ben op het schip - het is ernstig beschadigd, maar nog steeds intact!"/>
         <dialogue speaker="purple" english="Where are you, Captain?" translation="Waar ben jij, Kapitein?"/>
-        <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="Ik ben op een soort ruimtestation... Het ziet er best modern uit..."/>
+        <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="Ik ben in een soort ruimtestation... Het ziet er best modern uit..."/>
         <dialogue speaker="purple" english="There seems to be some sort of interference in this dimension..." translation="Er lijkt een soort interferentie te zijn in deze dimensie..."/>
         <dialogue speaker="purple" english="I&apos;m broadcasting the coordinates of the ship to you now." translation="Ik zend nu de coördinaten van het schip uit naar jou."/>
         <dialogue speaker="purple" english="I can&apos;t teleport you back, but..." translation="Ik kan je niet terugteleporteren, maar..."/>
@@ -76,10 +76,11 @@
     <cutscene id="bigopenworldskip" explanation="">
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="Ik blijf hier als je hulp nodig hebt!"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="">
+    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Ik voel me een beetje overdonderd, Doctor."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Waar begin ik?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Onthoud dat je op ENTER kunt drukken om te zien waar je je op de kaart bevindt!"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="Onthoud dat je op {b_map} kunt drukken om te zien waar je je op de kaart bevindt!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Zoek naar gebieden waar de rest van de bemanning zou kunnen zijn..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Als je verdwaald raakt kun je terug naar het schip met welke teleport dan ook."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="En maak je geen zorgen! We gaan iedereen vinden!"/>
@@ -113,7 +114,7 @@
         <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation="Ik ben hier om je terug naar het schip te teleporteren."/>
         <dialogue speaker="green" english="Is everyone else alright? Is Violet..." translation="Is iedereen oké? Is Violet..."/>
         <dialogue speaker="player" english="She&apos;s fine - she&apos;s back on the ship!" translation="Niets aan de hand - ze is veilig op het schip!"/>
-        <dialogue speaker="green" english="Oh! Great - Let&apos;s get going, then!" translation="Ah! Mooi - Laten we gaan!"/>
+        <dialogue speaker="green" english="Oh! Great - Let&apos;s get going, then!" translation="Ah! Mooi - Laten we dan maar gaan!"/>
     </cutscene>
     <cutscene id="rescueblue" explanation="">
         <dialogue speaker="blue" english="Oh no! Captain! Are you stuck here too?" translation="O nee! Kapitein! Zit je ook hier vast?"/>
@@ -170,7 +171,7 @@
     </cutscene>
     <cutscene id="int1blue_4" explanation="the split paths merge">
         <dialogue speaker="blue" english="Captain! Captain! Wait for me!" translation="Kapitein! Kapitein! Wacht op mij!"/>
-        <dialogue speaker="blue" english="Please don&apos;t leave me behind! I don&apos;t mean to be a burden!" translation="Laat me alsjeblieft niet achter! Ik wil niet lastig zijn!"/>
+        <dialogue speaker="blue" english="Please don&apos;t leave me behind! I don&apos;t mean to be a burden!" translation="Laat me alsjeblieft niet achter! Ik probeer geen last te zijn!"/>
         <dialogue speaker="blue" english="I&apos;m scared!" translation="Ik ben bang!"/>
         <dialogue speaker="player" english="Oh... don&apos;t worry Victoria, I&apos;ll look after you!" translation="Oh... geen zorgen Victoria, ik zal op je letten!"/>
     </cutscene>
@@ -206,7 +207,7 @@
         <dialogue speaker="green" english="After you, Captain!" translation="Na jou, Kapitein!"/>
     </cutscene>
     <cutscene id="int1green_3" explanation="just like in rescuegreen, `Violet is back on the ship` does not mean she was ever off the ship and has *returned* to it. Or maybe Verdigris thinks Violet was warped off the ship as well just like him and she *has* made her way back to the ship?">
-        <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation="Dus Violet is gewoon op het schip, toch? Is ze echt helemaal oké?"/>
+        <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation="Dus Violet is gewoon op het schip? Ze is echt helemaal oké, toch?"/>
         <dialogue speaker="player" english="She&apos;s fine! She helped me find my way back!" translation="Ja hoor! Ze heeft mij geholpen om de weg terug te vinden!"/>
         <dialogue speaker="green" english="Oh, phew! I was worried about her." translation="O, pfieuw! Ik maakte me zorgen om haar."/>
         <dialogue speaker="green" english="Captain, I have a secret..." translation="Kapitein, ik heb een geheimpje..."/>
@@ -244,7 +245,7 @@
     <cutscene id="int1red_1" explanation="">
         <dialogue speaker="red" english="Wow! Where are we?" translation="Wauw! Waar zijn we?"/>
         <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation="Dit... klopt niet... Er moet iets mis zijn gegaan met de teleport!"/>
-        <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation="Ach ja... We kunnen dat uitvogelen wanneer we weer op het schip zijn!"/>
+        <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation="Ach ja... Dat kunnen we uitvogelen wanneer we weer op het schip zijn!"/>
         <dialogue speaker="red" english="Let&apos;s go exploring!" translation="Laten we gaan verkennen!"/>
         <dialogue speaker="player" english="Ok then!" translation="Oké dan!"/>
     </cutscene>
@@ -761,7 +762,7 @@ DIMENSIONALE STABILISATOR INACTIEF" centertext="1" pad="1"/>
         <dialogue speaker="blue" english="This lab is amazing! The scientists who worked here know a lot more about warp technology than we do!" translation="Dit lab is geweldig! De wetenschappers die hier gewerkt hebben weten veel meer over wikkeltechnologie dan wij!"/>
     </cutscene>
     <cutscene id="talkyellow_12" explanation="">
-        <dialogue speaker="yellow" english="Captain! Have you seen this?" translation="Kapitein! Heb je dit gezien?"/>
+        <dialogue speaker="yellow" english="Captain! Have you seen this?" translation="Kapitein! Heb je dit al gezien?"/>
         <dialogue speaker="yellow" english="With their research and ours, we should be able to stabilise our own dimension!" translation="Met hun onderzoek en dat van ons zouden we onze eigen dimensie moeten kunnen stabiliseren!"/>
         <dialogue speaker="yellow" english="We&apos;re saved!" translation="We zijn gered!"/>
     </cutscene>
@@ -861,7 +862,7 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="...everything collapses, eventually. It&apos;s the way of the universe." translation="...uiteindelijk stort alles in. Dat is de aard van het universum." centertext="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_3" explanation="">
-        <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="Misschien is de generator die we hebben geïnstalleerd in de polaire dimensie de oorzaak is van de problemen met ons teleportsysteem?"/>
+        <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="Misschien is de generator die we hebben geïnstalleerd in de polaire dimensie de oorzaak van de problemen met ons teleportsysteem?"/>
         <dialogue speaker="gray" english="No, it&apos;s probably just a glitch." translation="Nee, waarschijnlijk is het gewoon een hapering."/>
     </cutscene>
     <cutscene id="terminal_station_4" explanation="a trinket that&apos;s difficult to get">
@@ -940,7 +941,7 @@ Navigatiebesturing" centertext="1" pad="1"/>
         <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation="Fout! Fout! Kan dimensionale coördinaten niet isoleren! Interferentie gedetecteerd!"/>
     </cutscene>
     <cutscene id="alreadyvisited" explanation="">
-        <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="...oh, ik heb dit al gevonden."/>
+        <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="...oh, dit heb ik al gevonden."/>
     </cutscene>
     <cutscene id="disableaccessibility" explanation="">
         <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="Schakel onkwetsbaarheid en/of vertraging uit om de Supergravitron te kunnen gebruiken."/>

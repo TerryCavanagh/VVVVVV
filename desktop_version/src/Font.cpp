@@ -1,7 +1,6 @@
 #include "Font.h"
 
 #include <tinyxml2.h>
-#include <utf8/unchecked.h>
 
 #include "Alloc.h"
 #include "Constants.h"
@@ -10,12 +9,18 @@
 #include "Graphics.h"
 #include "GraphicsUtil.h"
 #include "Localization.h"
+#include "UTF8.h"
 #include "UtilityClass.h"
 #include "Vlogging.h"
 #include "XMLUtils.h"
 
+extern "C"
+{
+#include <c-hashmap/map.h>
+}
+
 // Sigh... This is the second forward-declaration, we need to put this in a header file
-SDL_Texture* LoadImage(const char *filename, const TextureLoadType loadtype);
+SDL_Texture* LoadImage(const char *filename, TextureLoadType loadtype);
 
 namespace font
 {
@@ -35,10 +40,18 @@ struct GlyphInfo
 #define FONT_N_PAGES 0x110
 #define FONT_PAGE_SIZE 0x1000
 
+enum FontType
+{
+    FontType_FONT,
+    FontType_BUTTONS
+};
+
 struct Font
 {
     char name[64];
     char display_name[SCREEN_WIDTH_CHARS + 1];
+
+    FontType type;
 
     uint8_t glyph_w;
     uint8_t glyph_h;
@@ -46,12 +59,17 @@ struct Font
     SDL_Texture* image;
 
     GlyphInfo* glyph_page[FONT_N_PAGES];
+
+    char fallback_key[64];
+    uint8_t fallback_idx;
+    bool fallback_idx_valid;
 };
 
 struct FontContainer
 {
     uint8_t count;
     Font* fonts;
+    hashmap* map_name_idx;
 };
 
 struct PrintFlags
@@ -143,15 +161,35 @@ static bool glyph_is_valid(const GlyphInfo* glyph)
     return glyph->flags & GLYPH_EXISTS;
 }
 
-static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint)
+static Font* fallback_for(const Font* f)
+{
+    if (!f->fallback_idx_valid)
+    {
+        return NULL;
+    }
+    return &fonts_main.fonts[f->fallback_idx];
+}
+
+static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint, const Font** f_glyph)
 {
     /* Get the GlyphInfo for a specific codepoint, or <?> or ? if it doesn't exist.
+     * f_glyph may be either set to f (the main specified font) or its fallback font, if it exists.
      * As a last resort, may return NULL. */
+    *f_glyph = f;
+
     GlyphInfo* glyph = get_glyphinfo(f, codepoint);
     if (glyph != NULL && glyph_is_valid(glyph))
     {
         return glyph;
     }
+
+    Font* f_fallback = fallback_for(f);
+    if (f_fallback != NULL && (glyph = get_glyphinfo(f_fallback, codepoint)) != NULL && glyph_is_valid(glyph))
+    {
+        *f_glyph = f_fallback;
+        return glyph;
+    }
+
     glyph = get_glyphinfo(f, 0xFFFD);
     if (glyph != NULL && glyph_is_valid(glyph))
     {
@@ -166,6 +204,26 @@ static GlyphInfo* find_glyphinfo(const Font* f, const uint32_t codepoint)
     return NULL;
 }
 
+static int get_advance_ff(const Font* f, const Font* f_glyph, const GlyphInfo* glyph)
+{
+    /* Internal function - get the correct advance after we have
+     * determined whether the glyph is from the fallback font or not. */
+
+    if (glyph == NULL)
+    {
+        return f->glyph_w;
+    }
+
+    /* If the glyph is a fallback glyph, center it relative to the main font
+     * instead of trusting the fallback's width */
+    if (f_glyph != f)
+    {
+        return f->glyph_w;
+    }
+
+    return glyph->advance;
+}
+
 int get_advance(const Font* f, const uint32_t codepoint)
 {
     // Get the width of a single character in a font
@@ -174,13 +232,9 @@ int get_advance(const Font* f, const uint32_t codepoint)
         return 8;
     }
 
-    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
-    if (glyph == NULL)
-    {
-        return f->glyph_w;
-    }
-
-    return glyph->advance;
+    const Font* f_glyph;
+    GlyphInfo* glyph = find_glyphinfo(f, codepoint, &f_glyph);
+    return get_advance_ff(f, f_glyph, glyph);
 }
 
 static bool decode_xml_range(tinyxml2::XMLElement* elem, unsigned* start, unsigned* end)
@@ -224,8 +278,13 @@ static uint8_t load_font(FontContainer* container, const char* name)
     SDL_strlcpy(f->name, name, sizeof(f->name));
     SDL_strlcpy(f->display_name, name, sizeof(f->display_name));
 
+    f->type = FontType_FONT;
+
     f->glyph_w = 8;
     f->glyph_h = 8;
+
+    f->fallback_key[0] = '\0';
+    f->fallback_idx_valid = false;
 
     bool white_teeth = false;
 
@@ -245,6 +304,13 @@ static uint8_t load_font(FontContainer* container, const char* name)
         {
             SDL_strlcpy(f->display_name, pElem->GetText(), sizeof(f->display_name));
         }
+        if ((pElem = hDoc.FirstChildElement("type").ToElement()) != NULL)
+        {
+            if (SDL_strcmp(pElem->GetText(), "buttons") == 0)
+            {
+                f->type = FontType_BUTTONS;
+            }
+        }
         if ((pElem = hDoc.FirstChildElement("width").ToElement()) != NULL)
         {
             f->glyph_w = help.Int(pElem->GetText());
@@ -257,6 +323,10 @@ static uint8_t load_font(FontContainer* container, const char* name)
         {
             // If 1, we don't need to whiten the entire font (like in old versions)
             white_teeth = help.Int(pElem->GetText());
+        }
+        if ((pElem = hDoc.FirstChildElement("fallback").ToElement()) != NULL)
+        {
+            SDL_strlcpy(f->fallback_key, pElem->GetText(), sizeof(f->fallback_key));
         }
     }
 
@@ -277,17 +347,19 @@ static uint8_t load_font(FontContainer* container, const char* name)
     size_t length;
     if (FILESYSTEM_areAssetsInSameRealDir(name_png, name_txt))
     {
-        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, &length, false);
+        /* The .txt can contain null bytes, but it's still null-terminated - it protects
+         * against incomplete sequences getting the UTF-8 decoder to read out of bounds. */
+        FILESYSTEM_loadAssetToMemory(name_txt, &charmap, &length);
     }
     if (charmap != NULL)
     {
         // We have a .txt! It's an obsolete system, but it takes priority if the file exists.
-        unsigned char* current = charmap;
-        unsigned char* end = charmap + length;
+        const char* current = (char*) charmap;
+        const char* end = (char*) charmap + length;
         int pos = 0;
-        while (current != end)
+        while (current < end)
         {
-            uint32_t codepoint = utf8::unchecked::next(current);
+            uint32_t codepoint = UTF8_next(&current);
             add_glyphinfo(f, codepoint, pos);
             ++pos;
         }
@@ -390,14 +462,17 @@ static uint8_t load_font(FontContainer* container, const char* name)
 static bool find_font_by_name(FontContainer* container, const char* name, uint8_t* idx)
 {
     // Returns true if font found (and idx is set), false if not found
-
-    for (uint8_t i = 0; i < container->count; i++)
+    if (container->map_name_idx == NULL)
     {
-        if (SDL_strcmp(name, container->fonts[i].name) == 0)
-        {
-            *idx = i;
-            return true;
-        }
+        // No fonts yet...
+        return false;
+    }
+
+    uintptr_t i;
+    if (hashmap_get(container->map_name_idx, name, SDL_strlen(name), &i))
+    {
+        *idx = i;
+        return true;
     }
     return false;
 }
@@ -473,9 +548,34 @@ void set_level_font_new(void)
         }
     }
 
-#ifndef NO_CUSTOM_LEVELS
     cl.level_font_name = get_main_font_name(font_idx_level);
-#endif
+}
+
+static void fill_map_name_idx(FontContainer* container)
+{
+    /* Initialize the name->idx hashmap for the fonts in this container.
+     * This should only be done once, after all the fonts are added. */
+    container->map_name_idx = hashmap_create();
+
+    for (uint8_t i = 0; i < container->count; i++)
+    {
+        Font* f = &container->fonts[i];
+        hashmap_set(container->map_name_idx, f->name, SDL_strlen(f->name), i);
+    }
+}
+
+static void set_fallbacks(FontContainer* container)
+{
+    /* Initialize the value of fallback_idx for all fonts in this container.
+     * Only main fonts can be fallback fonts. */
+    for (uint8_t i = 0; i < container->count; i++)
+    {
+        Font* f = &container->fonts[i];
+        if (find_main_font_by_name(f->fallback_key, &f->fallback_idx))
+        {
+            f->fallback_idx_valid = true;
+        }
+    }
 }
 
 static void load_font_filename(bool is_custom, const char* filename)
@@ -518,6 +618,9 @@ void load_main(void)
     FILESYSTEM_freeEnumerate(&handle);
     font_idx_level = font_idx_8x8;
 
+    fill_map_name_idx(&fonts_main);
+    set_fallbacks(&fonts_main);
+
     // Initialize the font menu options, 8x8 font first
     font_idx_options[0] = font_idx_8x8;
     font_idx_options_n = 1;
@@ -525,6 +628,10 @@ void load_main(void)
     for (uint8_t i = 0; i < fonts_main.count; i++)
     {
         if (i == font_idx_8x8)
+        {
+            continue;
+        }
+        if (fonts_main.fonts[i].type != FontType_FONT)
         {
             continue;
         }
@@ -548,6 +655,9 @@ void load_custom(const char* name)
     }
     FILESYSTEM_freeEnumerate(&handle);
 
+    fill_map_name_idx(&fonts_custom);
+    set_fallbacks(&fonts_custom);
+
     set_level_font(name);
 }
 
@@ -563,6 +673,8 @@ void unload_font(Font* f)
 
 void unload_font_container(FontContainer* container)
 {
+    VVV_freefunc(hashmap_free, container->map_name_idx);
+
     for (uint8_t i = 0; i < container->count; i++)
     {
         unload_font(&container->fonts[i]);
@@ -688,16 +800,10 @@ static bool next_wrap(
 
     while (true)
     {
-        /* FIXME: This only checks one byte, not multiple! */
-        if ((str[idx] & 0xC0) == 0x80)
-        {
-            /* Skip continuation byte. */
-            goto next;
-        }
+        uint8_t codepoint_nbytes;
+        uint32_t codepoint = UTF8_peek_next(&str[idx], &codepoint_nbytes);
 
-        linewidth += get_advance(f, str[idx]);
-
-        switch (str[idx])
+        switch (codepoint)
         {
         case ' ':
             if (loc::get_langmeta()->autowordwrap)
@@ -713,6 +819,8 @@ static bool next_wrap(
         case '\0':
             return true;
         }
+
+        linewidth += get_advance(f, codepoint);
 
         if (linewidth > maxwidth)
         {
@@ -730,10 +838,9 @@ static bool next_wrap(
             return true;
         }
 
-next:
-        idx += 1;
-        *start += 1;
-        *len += 1;
+        idx += codepoint_nbytes;
+        *start += codepoint_nbytes;
+        *len += codepoint_nbytes;
     }
 }
 
@@ -863,14 +970,14 @@ std::string string_unwordwrap(const std::string& s)
      * Only applied to English, so langmeta.autowordwrap isn't used here (it'd break looking up strings) */
 
     std::string result;
-    std::back_insert_iterator<std::string> inserter = std::back_inserter(result);
-    std::string::const_iterator iter = s.begin();
+    result.reserve(s.length());
     bool latest_was_space = true; // last character was a space (or the beginning, don't want leading whitespace)
     int consecutive_newlines = 0; // number of newlines currently encountered in a row (multiple newlines should stay!)
-    while (iter != s.end())
-    {
-        uint32_t ch = utf8::unchecked::next(iter);
 
+    const char* str = s.c_str();
+    uint32_t ch;
+    while ((ch = UTF8_next(&str)))
+    {
         if (ch == '\n')
         {
             if (consecutive_newlines == 0)
@@ -891,7 +998,7 @@ std::string string_unwordwrap(const std::string& s)
 
         if (ch != ' ' || !latest_was_space)
         {
-            utf8::unchecked::append(ch, inserter);
+            result.append(UTF8_encode(ch).bytes);
         }
 
         latest_was_space = (ch == ' ' || ch == '\n');
@@ -909,8 +1016,8 @@ std::string string_unwordwrap(const std::string& s)
 static int print_char(
     const Font* f,
     const uint32_t codepoint,
-    const int x,
-    const int y,
+    int x,
+    int y,
     const int scale,
     uint8_t r,
     uint8_t g,
@@ -920,7 +1027,8 @@ static int print_char(
 {
     /* Draws the glyph for a codepoint at x,y.
      * Returns the amount of pixels to advance the cursor. */
-    GlyphInfo* glyph = find_glyphinfo(f, codepoint);
+    const Font* f_glyph;
+    GlyphInfo* glyph = find_glyphinfo(f, codepoint, &f_glyph);
     if (glyph == NULL)
     {
         return f->glyph_w * scale;
@@ -938,9 +1046,26 @@ static int print_char(
         b *= bri_factor;
     }
 
-    graphics.draw_grid_tile(f->image, glyph->image_idx, x, y, f->glyph_w, f->glyph_h, r, g, b, scale, scale * (graphics.flipmode ? -1 : 1));
+    // If the glyph is a fallback glyph, center it
+    if (f_glyph != f)
+    {
+        x += (f->glyph_w - f_glyph->glyph_w) / 2;
+        y += (f->glyph_h - f_glyph->glyph_h) / 2;
+    }
 
-    return glyph->advance * scale;
+    graphics.draw_grid_tile(
+        f_glyph->image,
+        glyph->image_idx,
+        x,
+        y,
+        f_glyph->glyph_w,
+        f_glyph->glyph_h,
+        r, g, b,
+        scale,
+        scale * (graphics.flipmode ? -1 : 1)
+    );
+
+    return get_advance_ff(f, f_glyph, glyph) * scale;
 }
 
 const char* get_main_font_name(uint8_t idx)
@@ -1024,16 +1149,15 @@ bool glyph_dimensions(uint32_t flags, uint8_t* glyph_w, uint8_t* glyph_h)
     return true;
 }
 
-int len(const uint32_t flags, const std::string& t)
+int len(const uint32_t flags, const char* text)
 {
     PrintFlags pf = decode_print_flags(flags);
 
     int text_len = 0;
-    std::string::const_iterator iter = t.begin();
-    while (iter != t.end())
+    uint32_t codepoint;
+    while ((codepoint = UTF8_next(&text)))
     {
-        int cur = utf8::unchecked::next(iter);
-        text_len += get_advance(pf.font_sel, cur);
+        text_len += get_advance(pf.font_sel, codepoint);
     }
     return text_len * pf.scale;
 }
@@ -1053,7 +1177,7 @@ void print(
     const uint32_t flags,
     int x,
     int y,
-    const std::string& text,
+    const char* text,
     const uint8_t r,
     const uint8_t g,
     const uint8_t b
@@ -1116,13 +1240,12 @@ void print(
     }
 
     int position = 0;
-    std::string::const_iterator iter = text.begin();
-    while (iter != text.end())
+    uint32_t codepoint;
+    while ((codepoint = UTF8_next(&text)))
     {
-        const uint32_t character = utf8::unchecked::next(iter);
         position += font::print_char(
             pf.font_sel,
-            character,
+            codepoint,
             x + position,
             y,
             pf.scale,
@@ -1134,11 +1257,25 @@ void print(
     }
 }
 
+void print(
+    const uint32_t flags,
+    int x,
+    int y,
+    const std::string& text,
+    const uint8_t r,
+    const uint8_t g,
+    const uint8_t b
+)
+{
+    // Just a std::string overload for now because it's more .c_str() to add than I'm comfortable with...
+    print(flags, x, y, text.c_str(), r, g, b);
+}
+
 int print_wrap(
     uint32_t flags,
     const int x,
     int y,
-    const std::string& text,
+    const char* text,
     const uint8_t r,
     const uint8_t g,
     const uint8_t b,
@@ -1169,7 +1306,6 @@ int print_wrap(
         flags &= ~PR_BOR;
     }
 
-    const char* str = text.c_str();
     // This could fit 64 non-BMP characters onscreen, should be plenty
     char buffer[256];
     size_t start = 0;
@@ -1178,7 +1314,7 @@ int print_wrap(
     {
         // Correct for the height of the resulting print.
         size_t len = 0;
-        while (next_wrap(pf.font_sel, &start, &len, &str[start], maxwidth))
+        while (next_wrap(pf.font_sel, &start, &len, &text[start], maxwidth))
         {
             y += linespacing;
         }
@@ -1186,7 +1322,7 @@ int print_wrap(
         start = 0;
     }
 
-    while (next_wrap_buf(pf.font_sel, buffer, sizeof(buffer), &start, str, maxwidth))
+    while (next_wrap_buf(pf.font_sel, buffer, sizeof(buffer), &start, text, maxwidth))
     {
         print(flags, x, y, buffer, r, g, b);
 

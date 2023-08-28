@@ -623,7 +623,7 @@ void entclass::updatecolour(void)
         realcol = graphics.bigchunkygetcol(colour);
         break;
     case 4: // Small pickups
-        realcol = graphics.huetilegetcol(colour);
+        realcol = graphics.huetilegetcol();
         break;
     case 11: // The fucking elephant
         if (game.noflashingmode)

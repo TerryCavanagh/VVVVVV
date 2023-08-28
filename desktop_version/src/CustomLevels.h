@@ -1,16 +1,14 @@
-#if !defined(NO_CUSTOM_LEVELS)
-
 #ifndef CUSTOMLEVELS_H
 #define CUSTOMLEVELS_H
 
 #include <SDL.h>
 #include <string>
 #include <vector>
-#include <map>
 
 class CustomEntity
 {
 public:
+    int rx, ry;
     int x, y, t;
     //parameters
     int p1, p2, p3, p4, p5, p6;
@@ -137,10 +135,9 @@ public:
 
     int absfree(int x, int y);
 
-    bool load(std::string& _path);
-#ifndef NO_EDITOR
+    bool load(std::string _path);
     bool save(const std::string& _path);
-#endif
+
     void generatecustomminimap(void);
 
     int findtrinket(int t);
@@ -170,8 +167,6 @@ public:
     SDL_Color getonewaycol(int rx, int ry);
     SDL_Color getonewaycol(void);
     bool onewaycol_override;
-
-    std::map<std::string, SDL_Color> customcolours;
 };
 
 std::string translate_title(const std::string& title, bool* is_gettext);
@@ -184,4 +179,3 @@ extern customlevelclass cl;
 
 #endif /* CUSTOMLEVELS_H */
 
-#endif /* NO_CUSTOM_LEVELS */

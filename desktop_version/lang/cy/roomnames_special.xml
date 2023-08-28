@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<roomnames_special>
+    <roomname english="Outer Space" translation="Gofod Allanol" explanation="Literally Outer Space"/>
+    <roomname english="Dimension VVVVVV" translation="Dimensiwn VVVVVV" explanation="The overall area that the game takes place in."/>
+    <roomname english="The Ship" translation="Y Llong" explanation="The dimension exploring spaceship"/>
+    <roomname english="Secret Lab" translation="Lab Cyfrinachol" explanation="An endgame section containing achievement trophys"/>
+    <roomname english="Laboratory" translation="Labordy" explanation="One of the stages"/>
+    <roomname english="The Tower" translation="Y Tŵr" explanation="One of the stages"/>
+    <roomname english="Warp Zone" translation="Parth Warpio" explanation="One of the stages"/>
+    <roomname english="Space Station" translation="Gorsaf ofod" explanation="One of the stages"/>
+    <roomname english="Outside Dimension VVVVVV" translation="Dimensiwn Allanol VVVVVV" explanation="For rare rooms outside the normal area"/>
+    <roomname english="???" translation="???" explanation=""/>
+    <roomname english="The Super Gravitron" translation="Y Disgyrchatron Swper" explanation="An expanded version of the room at 53, 50"/>
+    <roomname english="I Can&apos;t Believe You Got This Far" translation="Methu credu eich bod wedi cyrraedd mor bell a hyn" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="Imagine Spikes There, if You Like" translation="Dychmygwch Spigau Yno, os Hoffwch" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <!-- - -->
+    <roomname english="Rear Window" translation="Ffenestr Gefn" explanation="Named after the Hitchcock film (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Rear Vindow" translation="Ffenestr Gefn" explanation=""/>
+    <!-- - -->
+    <roomname english="On the Waterfront" translation="Ar y Glannau" explanation="Named after the 1954 film (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="On the Vaterfront" translation="Ar Lan y Vlannau" explanation=""/>
+    <!-- - -->
+    <roomname english="The Untouchables" translation="Yr Untouchables" explanation="Before it was a film, the Untouchables was a TV series in 1959 (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="The Untouchavles" translation="Yr Untouchavles" explanation=""/>
+    <!-- - -->
+    <roomname english="Television Newsveel" translation="Newyvdion Teledu" explanation="Refers to Television Newsreel. (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Television Newsvel" translation="Newyvion Teledu" explanation=""/>
+    <roomname english="TelevisvonvNewsvel" translation="NewyvdionvTeledu" explanation=""/>
+    <roomname english="TvlvvvsvonvNevsvel" translation="NevyvdionvTvlvdv" explanation=""/>
+    <roomname english="vvvvvvsvovvNe svel" translation="Nevyv ionvTvvvvv" explanation=""/>
+    <roomname english="vhv vvv&apos;vvovv vevl" translation="vvvvvvvvv 9 v&apos;v gvvvv" explanation=""/>
+    <roomname english="vhv V v&apos;Cvovv vewv" translation="Nvvvvvvvn 9o&apos;v gvvvv" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv vewv" translation="Nevvvdivn 9 o&apos;v glvcv" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv Newv" translation="Nevyvdivn 9 o&apos;r glvch" explanation=""/>
+    <roomname english="The 9 O&apos;Cvovk Newv" translation="Newyvdion 9 o&apos;r glvch" explanation=""/>
+    <roomname english="The 9 O&apos;Clock News" translation="Newyddion 9 o&apos;r gloch" explanation="(Second part of the final stage has references to Colour TV shows)"/>
+    <!-- - -->
+    <roomname english="Vwitched" translation="Vwitched" explanation="Reference to early black and white sitcom Bewitched (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Vwitvhed" translation="Vwitvhed" explanation=""/>
+    <roomname english="vVwivcvedv" translation="vVwivcvedv" explanation=""/>
+    <roomname english="vvvwMvcvMdvv" translation="vvvwMvcvMdvv" explanation=""/>
+    <roomname english="DvvvwMvfvvMdvvv" translation="DvvvwMvfvvMdvvv" explanation=""/>
+    <roomname english="Dvav Mvfvr Mdvvvv" translation="Dvav Mvfvr Mdvvv" explanation=""/>
+    <roomname english="Diav M for Mdrver" translation="Diav M fvr Mdrver" explanation=""/>
+    <roomname english="Dial M for Murder" translation="Dial M for Murder" explanation="Named after the Hitchcock film (Second part of the final stage has references to Colour TV shows)"/>
+    <!-- - -->
+    <roomname english="Gvnsmoke" translation="Gvnsmyg" explanation="Gunsmoke was a black and white Western (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Gvnsmove" translation="Gvnssymud" explanation=""/>
+    <roomname english="Gvnvmovevv" translation="Gvnvmovevv" explanation=""/>
+    <roomname english="Gunvmove1vv6" translation="Gunvsymud1vv6" explanation=""/>
+    <roomname english="Vunsmoke 19v6" translation="Vunsmoke 19v6" explanation=""/>
+    <roomname english="Gunsmoke 1966" translation="Gunsmoke 1966" explanation="Gunsmoke changed to colour in 1966 (Second part of the final stage has references to Colour TV shows)"/>
+    <!-- - -->
+    <roomname english="Please enjoy these repeats" translation="Mwynhewch yr ailadroddiadau hyn" explanation="This stage also has a number of rooms which are harder versions of easier challenges, like this one. (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Please envoy theve repeats" translation="Mwynhevch yr ailadroddiadau hvn" explanation=""/>
+    <roomname english="Plse envoy tse rvpvas" translation="Mwynhvch yv aladrdddau hvn" explanation=""/>
+    <roomname english="Vl envoy te rvevs" translation="Mvvvvvcv yv alvvrdav hv" explanation=""/>
+    <roomname english="Vv evo tv vevs" translation="Yv vr Yvvlvvc" explanation=""/>
+    <roomname english="Iv vhv Mvrvivs" translation="Yv vr Ymvlvn" explanation=""/>
+    <roomname english="In the Margins" translation="Yn yr Ymylon" explanation="Not sure if this has a TV show reference, might just be meant literally (Second part of the final stage has references to Colour TV shows)"/>
+    <!-- - -->
+    <roomname english="Try Jiggling the Antenna" translation="Trio Jiglo&apos;r Antena" explanation="(The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Try Viggling the Antenna" translation="Trio viglo&apos;r Antena" explanation=""/>
+    <roomname english="TryJivglvng theAvtevna" translation="Trioviglv&apos;r Avteva" explanation=""/>
+    <roomname english="Tvvivglvng thAvtvvv" translation="Trvvviglv&apos;r Avtevv" explanation=""/>
+    <roomname english="Vvvgglvnv tvnvva" translation="Trvvvvvvv&apos;r Avvvvv" explanation=""/>
+    <roomname english="Vvavvnvs vvtv" translation="Vvavvnvs vvtv" explanation=""/>
+    <roomname english="Veavvn&apos;s Gvte" translation="Veavvn&apos;s Gvte" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Heaven&apos;s Gate" translation="Heaven&apos;s Gate" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
+</roomnames_special>

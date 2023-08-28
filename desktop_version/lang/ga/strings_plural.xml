@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<strings_plural>
+    <string english_plural="You rescued {n_crew|wordy} crewmates" english_singular="You rescued {n_crew|wordy} crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40" var="n_crew" expect="6">
+        <translation form="0" translation="Níor tharrtháil tú aon duine den chriú"/>
+        <translation form="1" translation="Tharrtháil tú duine den chriú"/>
+        <translation form="2" translation="Tharrtháil tú {n_crew|wordy} dhuine den chriú"/>
+        <translation form="3" translation="Tharrtháil tú {n_crew|wordy} nduine den chriú"/>
+        <translation form="4" translation="Tharrtháil tú {n_crew|wordy} dhuine den chriú"/>
+        <translation form="5" translation="Tharrtháil tú {n_crew|wordy} duine den chriú"/>
+    </string>
+    <string english_plural="and found {n_trinkets|wordy} trinkets." english_singular="and found {n_trinkets|wordy} trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2" var="n_trinkets" expect="20">
+        <translation form="0" translation="agus ní bhfuair aon ornáid."/>
+        <translation form="1" translation="agus fuair ornáid amháin."/>
+        <translation form="2" translation="agus fuair {n_trinkets|wordy} ornáid."/>
+        <translation form="3" translation="agus fuair {n_trinkets|wordy} n-ornáid."/>
+        <translation form="4" translation="agus fuair {n_trinkets|wordy} ornáid."/>
+        <translation form="5" translation="agus fuair {n_trinkets|wordy} ornáid."/>
+    </string>
+    <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20">
+        <translation form="0" translation="Agus ní bhfuair tú aon ornáid."/>
+        <translation form="1" translation="Agus fuair tú ornáid amháin."/>
+        <translation form="2" translation="Agus fuair tú {n_trinkets|wordy} ornáid."/>
+        <translation form="3" translation="Agus fuair tú {n_trinkets|wordy} n-ornáid."/>
+        <translation form="4" translation="Agus fuair tú {n_trinkets|wordy} ornáid."/>
+        <translation form="5" translation="Agus fuair tú {n_trinkets|wordy} ornáid."/>
+    </string>
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
+        <translation form="0" translation="Níl aon duine fós le tarrtháil"/>
+        <translation form="1" translation="Tá duine amháin fós le tarrtháil"/>
+        <translation form="2" translation="Tá {n_crew|wordy} dhuine fós le tarrtháil"/>
+        <translation form="3" translation="Tá {n_crew|wordy} nduine fós le tarrtháil"/>
+        <translation form="4" translation="Tá {n_crew|wordy} dhuine fós le tarrtháil"/>
+        <translation form="5" translation="Tá {n_crew|wordy} duine fós le tarrtháil"/>
+    </string>
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
+        <translation form="0" translation="Níl aon duine fós le tarrtháil."/>
+        <translation form="1" translation="Tá duine fós le tarrtháil."/>
+        <translation form="2" translation="Tá {n_crew|wordy} dhuine fós le tarrtháil."/>
+        <translation form="3" translation="Tá {n_crew|wordy} nduine fós le tarrtháil."/>
+        <translation form="4" translation="Tá {n_crew|wordy} dhuine fós le tarrtháil."/>
+        <translation form="5" translation="Tá {n_crew|wordy} duine fós le tarrtháil."/>
+    </string>
+    <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000">
+        <translation form="0" translation="Seomra ba dheacra (gan aon bhás)"/>
+        <translation form="1" translation="Seomra ba dheacra (bás amháin)"/>
+        <translation form="2" translation="Seomra ba dheacra ({n_deaths} bhás)"/>
+        <translation form="3" translation="Seomra ba dheacra ({n_deaths} mbás)"/>
+        <translation form="4" translation="Seomra ba dheacra ({n_deaths} bhás)"/>
+        <translation form="5" translation="Seomra ba dheacra ({n_deaths} bás)"/>
+    </string>
+    <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
+        <translation form="0" translation="Aistríodh ainm gach gnáthsheomra"/>
+        <translation form="1" translation="Tá gnáthsheomra amháin ann nár aistríodh a ainm"/>
+        <translation form="2" translation="Tá {n} ghnáthsheomra ann nár aistríodh a n-ainmneacha"/>
+        <translation form="3" translation="Tá {n} ngnáthsheomra ann nár aistríodh a n-ainmneacha"/>
+        <translation form="4" translation="Tá {n} ghnáthsheomra ann nár aistríodh a n-ainmneacha"/>
+        <translation form="5" translation="Tá {n} ghnáthsheomra ann nár aistríodh a n-ainmneacha"/>
+    </string>
+</strings_plural>

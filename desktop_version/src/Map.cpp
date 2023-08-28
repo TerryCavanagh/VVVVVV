@@ -68,10 +68,15 @@ mapclass::mapclass(void)
     SDL_memset(roomdeathsfinal, 0, sizeof(roomdeathsfinal));
     resetmap();
 
+    setroomname("");
+    hiddenname = "";
+
+    roomname_special = false;
+    specialroomnames.clear();
+    roomnameset = false;
+
     tileset = 0;
     initmapdata();
-
-    resetnames();
 
     ypos = 0;
     oldypos = 0;
@@ -83,11 +88,6 @@ mapclass::mapclass(void)
     roomtexton = false;
 
     nexttowercolour_set = false;
-
-    setroomname("");
-    hiddenname = "";
-
-    roomname_special = false;
 }
 
 static char roomname_static[SCREEN_WIDTH_CHARS];
@@ -124,24 +124,20 @@ const int mapclass::areamap[] = {
 
 int mapclass::getwidth(void)
 {
-#ifndef NO_CUSTOM_LEVELS
     if (custommode)
     {
         return cl.mapwidth;
     }
-#endif
 
     return 20;
 }
 
 int mapclass::getheight(void)
 {
-#ifndef NO_CUSTOM_LEVELS
     if (custommode)
     {
         return cl.mapheight;
     }
-#endif
 
     return 20;
 }
@@ -202,263 +198,57 @@ void mapclass::resetmap(void)
     SDL_memset(explored, 0, sizeof(explored));
 }
 
-void mapclass::resetnames(void)
+void mapclass::updateroomnames(void)
 {
-    //Reset all the special names
-    specialnames[0] = "Rear Window";
-    specialnames[1] = "On the Waterfront";
-    specialnames[2] = "The Untouchables";
-    specialnames[3] = "Television Newsveel";
-    specialnames[4] = "Vwitched";
-    specialnames[5] = "Gvnsmoke";
-    specialnames[6] = "Please enjoy these repeats";
-    specialnames[7] = "Try Jiggling the Antenna";
-
-    glitchmode = 0;
-    glitchdelay = 0;
-}
-
-void mapclass::transformname(int t)
-{
-    //transform special names into new ones, one step at a time
-
-    glitchdelay--;
-    if(glitchdelay<=0)
+    if (roomnameset)
     {
-        switch(t)
+        return;
+    }
+
+    const int rx = game.roomx;
+    const int ry = game.roomy;
+
+    for (int i = specialroomnames.size() - 1; i >= 0; i--)
+    {
+        Roomname* roomname = &specialroomnames[i];
+        if (rx == roomname->x && ry == roomname->y && (roomname->flag == -1 || (INBOUNDS_ARR(roomname->flag, obj.flags) && obj.flags[roomname->flag])))
         {
-        case 3:
-            //Television Newsveel -> The 9 O'Clock News
-            if (SDL_strcmp(specialnames[3], "Television Newsveel") == 0)
+            roomname_special = true;
+            if (roomname->type == RoomnameType_STATIC)
             {
-                specialnames[3] = "Television Newsvel";
+                setroomname(roomname->text[0].c_str());
             }
-            else if (SDL_strcmp(specialnames[3], "Television Newsvel") == 0)
+            if (roomname->type == RoomnameType_GLITCH)
             {
-                specialnames[3] = "TelevisvonvNewsvel";
+                roomname->delay--;
+                if (roomname->delay <= 0)
+                {
+                    roomname->progress = (roomname->progress + 1) % 2;
+                    roomname->delay = 5;
+                    if (roomname->progress == 0)
+                    {
+                        roomname->delay = 25 + (int) (fRandom() * 10);
+                    }
+                }
+                setroomname(roomname->text[roomname->progress].c_str());
             }
-            else if (SDL_strcmp(specialnames[3], "TelevisvonvNewsvel") == 0)
+            if (roomname->type == RoomnameType_TRANSFORM)
             {
-                specialnames[3] = "TvlvvvsvonvNevsvel";
-            }
-            else if (SDL_strcmp(specialnames[3], "TvlvvvsvonvNevsvel") == 0)
-            {
-                specialnames[3] = "vvvvvvsvovvNe svel";
-            }
-            else if (SDL_strcmp(specialnames[3], "vvvvvvsvovvNe svel") == 0)
-            {
-                specialnames[3] = "vhv vvv'vvovv vevl";
-            }
-            else if (SDL_strcmp(specialnames[3], "vhv vvv'vvovv vevl") == 0)
-            {
-                specialnames[3] = "vhv V v'Cvovv vewv";
-            }
-            else if (SDL_strcmp(specialnames[3], "vhv V v'Cvovv vewv") == 0)
-            {
-                specialnames[3] = "vhe 9 v'Cvovv vewv";
-            }
-            else if (SDL_strcmp(specialnames[3], "vhe 9 v'Cvovv vewv") == 0)
-            {
-                specialnames[3] = "vhe 9 v'Cvovv Newv";
-            }
-            else if (SDL_strcmp(specialnames[3], "vhe 9 v'Cvovv Newv") == 0)
-            {
-                specialnames[3] = "The 9 O'Cvovk Newv";
-            }
-            else if (SDL_strcmp(specialnames[3], "The 9 O'Cvovk Newv") == 0)
-            {
-                specialnames[3] = "The 9 O'Clock News";
+                roomname->delay--;
+                if (roomname->delay <= 0)
+                {
+                    roomname->progress++;
+                    roomname->delay = 2;
+                    if ((size_t) roomname->progress >= roomname->text.size())
+                    {
+                        roomname->progress = roomname->loop ? 0 : roomname->text.size() - 1;
+                    }
+                }
+                setroomname(roomname->text[roomname->progress].c_str());
             }
             break;
-        case 4:
-            //Vwitched -> Dial M for Murder
-            if (SDL_strcmp(specialnames[4], "Vwitched") == 0)
-            {
-                specialnames[4] = "Vwitvhed";
-            }
-            else if (SDL_strcmp(specialnames[4], "Vwitvhed") == 0)
-            {
-                specialnames[4] = "vVwivcvedv";
-            }
-            else if (SDL_strcmp(specialnames[4], "vVwivcvedv") == 0)
-            {
-                specialnames[4] = "vvvwMvcvMdvv";
-            }
-            else if (SDL_strcmp(specialnames[4], "vvvwMvcvMdvv") == 0)
-            {
-                specialnames[4] = "DvvvwMvfvvMdvvv";
-            }
-            else if (SDL_strcmp(specialnames[4], "DvvvwMvfvvMdvvv") == 0)
-            {
-                specialnames[4] = "Dvav Mvfvr Mdvvvv";
-            }
-            else if (SDL_strcmp(specialnames[4], "Dvav Mvfvr Mdvvvv") == 0)
-            {
-                specialnames[4] = "Diav M for Mdrver";
-            }
-            else if (SDL_strcmp(specialnames[4], "Diav M for Mdrver") == 0)
-            {
-                specialnames[4] = "Dial M for Murder";
-            }
-            break;
-        case 5:
-            //Gvnsmoke -> Gunsmoke 1966
-            if (SDL_strcmp(specialnames[5], "Gvnsmoke") == 0)
-            {
-                specialnames[5] = "Gvnsmove";
-            }
-            else if (SDL_strcmp(specialnames[5], "Gvnsmove") == 0)
-            {
-                specialnames[5] = "Gvnvmovevv";
-            }
-            else if (SDL_strcmp(specialnames[5], "Gvnvmovevv") == 0)
-            {
-                specialnames[5] = "Gunvmove1vv6";
-            }
-            else if (SDL_strcmp(specialnames[5], "Gunvmove1vv6") == 0)
-            {
-                specialnames[5] = "Vunsmoke 19v6";
-            }
-            else if (SDL_strcmp(specialnames[5], "Vunsmoke 19v6") == 0)
-            {
-                specialnames[5] = "Gunsmoke 1966";
-            }
-            break;
-        case 6:
-            //Please enjoy these repeats -> In the Margins
-            if (SDL_strcmp(specialnames[6], "Please enjoy these repeats") == 0)
-            {
-                specialnames[6] = "Please envoy theve repeats";
-            }
-            else if (SDL_strcmp(specialnames[6], "Please envoy theve repeats") == 0)
-            {
-                specialnames[6] = "Plse envoy tse rvpvas";
-            }
-            else if (SDL_strcmp(specialnames[6], "Plase envoy these rvpeas") == 0)
-            {
-                specialnames[6] = "Plse envoy tse rvpvas";
-            }
-            else if (SDL_strcmp(specialnames[6], "Plse envoy tse rvpvas") == 0)
-            {
-                specialnames[6] = "Vl envoy te rvevs";
-            }
-            else if (SDL_strcmp(specialnames[6], "Vl envoy te rvevs") == 0)
-            {
-                specialnames[6] = "Vv evo tv vevs";
-            }
-            else if (SDL_strcmp(specialnames[6], "Vv evo tv vevs") == 0)
-            {
-                specialnames[6] = "Iv vhv Mvrvivs";
-            }
-            else if (SDL_strcmp(specialnames[6], "Iv vhv Mvrvivs") == 0)
-            {
-                specialnames[6] = "In the Margins";
-            }
-            break;
-        case 7:
-            //Try Jiggling the Antenna -> Heaven's Gate
-            if (SDL_strcmp(specialnames[7], "Try Jiggling the Antenna") == 0)
-            {
-                specialnames[7] = "Try Viggling the Antenna";
-            }
-            else if (SDL_strcmp(specialnames[7], "Try Viggling the Antenna") == 0)
-            {
-                specialnames[7] = "TryJivglvng theAvtevna";
-            }
-            else if (SDL_strcmp(specialnames[7], "TryJivglvng theAvtevna") == 0)
-            {
-                specialnames[7] = "Tvvivglvng thAvtvvv";
-            }
-            else if (SDL_strcmp(specialnames[7], "Tvvivglvng thAvtvvv") == 0)
-            {
-                specialnames[7] = "Vvvgglvnv tvnvva";
-            }
-            else if (SDL_strcmp(specialnames[7], "Vvvgglvnv tvnvva") == 0)
-            {
-                specialnames[7] = "Vvavvnvs vvtv";
-            }
-            else if (SDL_strcmp(specialnames[7], "Vvavvnvs vvtv") == 0)
-            {
-                specialnames[7] = "Veavvn's Gvte";
-            }
-            else if (SDL_strcmp(specialnames[7], "Veavvn's Gvte") == 0)
-            {
-                specialnames[7] = "Heaven's Gate";
-            }
-            break;
-
-        }
-        glitchdelay = 5;
-    }
-    else
-    {
-        glitchdelay--;
-    }
-}
-
-const char* mapclass::getglitchname(int x, int y)
-{
-    //Returns the name in the final area.
-    if (SDL_strcmp(roomname, "glitch") == 0)
-    {
-        //8 Cases!
-        //First, the three "glitches"
-        glitchdelay--;
-        if (glitchdelay <= -5)
-        {
-            glitchmode = (glitchmode + 1) % 2;
-            glitchdelay = 0;
-            if (glitchmode == 0) glitchdelay = 20 +int(fRandom() * 10);
-        }
-
-        if (x == 42 && y == 51)
-        {
-            if (glitchmode == 0)
-            {
-                return specialnames[0];
-            }
-            else return "Rear Vindow";
-        }
-        else if (x == 48 && y == 51)
-        {
-            if (glitchmode == 0)
-            {
-                return specialnames[1];
-            }
-            else return "On the Vaterfront";
-        }
-        else if (x == 49 && y == 51)
-        {
-            if (glitchmode == 0)
-            {
-                return specialnames[2];
-            }
-            else return "The Untouchavles";
         }
     }
-    else if (SDL_strcmp(roomname, "change") == 0)
-    {
-        if (finalstretch)
-        {
-            if (x == 45 && y == 51) transformname(3);
-            if (x == 46 && y == 51) transformname(4);
-            if (x == 47 && y == 51) transformname(5);
-            if (x == 50 && y == 53) transformname(6);
-            if (x == 50 && y == 54) transformname(7);
-        }
-
-        if (x == 45 && y == 51) return specialnames[3];
-        if (x == 46 && y == 51) return specialnames[4];
-        if (x == 47 && y == 51) return specialnames[5];
-        if (x == 50 && y == 53) return specialnames[6];
-        if (x == 50 && y == 54) return specialnames[7];
-        return roomname;
-    }
-    else
-    {
-        return roomname;
-    }
-    return roomname;
 }
 
 void mapclass::initmapdata(void)
@@ -509,13 +299,123 @@ void mapclass::initmapdata(void)
     settrinket(1, 10);
     settrinket(3, 2);
     settrinket(10, 8);
+
+    //Special room names
+    specialroomnames.clear();
+
+    {
+        static const char* lines[] = {
+            "Television Newsvel",
+            "TelevisvonvNewsvel",
+            "TvlvvvsvonvNevsvel",
+            "vvvvvvsvovvNe svel",
+            "vhv vvv'vvovv vevl",
+            "vhv V v'Cvovv vewv",
+            "vhe 9 v'Cvovv vewv",
+            "vhe 9 v'Cvovv Newv",
+            "The 9 O'Cvovk Newv",
+            "The 9 O'Clock News"
+        };
+
+        roomnamechange(45, 51, lines, SDL_arraysize(lines));
+    }
+
+    {
+        static const char* lines[] = {
+            "Vwitvhed",
+            "vVwivcvedv",
+            "vvvwMvcvMdvv",
+            "DvvvwMvfvvMdvvv",
+            "Dvav Mvfvr Mdvvvv",
+            "Diav M for Mdrver",
+            "Dial M for Murder"
+        };
+
+        roomnamechange(46, 51, lines, SDL_arraysize(lines));
+    }
+
+    {
+        static const char* lines[] = {
+            "Gvnsmove",
+            "Gvnvmovevv",
+            "Gunvmove1vv6",
+            "Vunsmoke 19v6",
+            "Gunsmoke 1966"
+        };
+
+        roomnamechange(47, 51, lines, SDL_arraysize(lines));
+    }
+
+    {
+        static const char* lines[] = {
+            "Please envoy theve repeats",
+            "Plse envoy tse rvpvas",
+            "Plse envoy tse rvpvas",
+            "Vl envoy te rvevs",
+            "Vv evo tv vevs",
+            "Iv vhv Mvrvivs",
+            "In the Margins"
+        };
+
+        roomnamechange(50, 53, lines, SDL_arraysize(lines));
+    }
+
+    {
+        static const char* lines[] = {
+            "Try Viggling the Antenna",
+            "TryJivglvng theAvtevna",
+            "Tvvivglvng thAvtvvv",
+            "Vvvgglvnv tvnvva",
+            "Vvavvnvs vvtv",
+            "Veavvn's Gvte",
+            "Heaven's Gate"
+        };
+
+        roomnamechange(50, 54, lines, SDL_arraysize(lines));
+    }
+
+    roomnameglitch(42, 51, "Rear Window", "Rear Vindow");
+    roomnameglitch(48, 51, "On the Waterfront", "On the Vaterfront");
+    roomnameglitch(49, 51, "The Untouchables", "The Untouchavles");
+}
+
+void mapclass::roomnameglitch(int x, int y, const char* name, const char* text)
+{
+    Roomname roomname;
+    roomname.x = x;
+    roomname.y = y;
+    roomname.type = RoomnameType_GLITCH;
+    roomname.flag = -1;
+    roomname.loop = false;
+    roomname.progress = 1;
+    roomname.delay = -1;
+
+    roomname.text.push_back(name);
+    roomname.text.push_back(text);
+
+    specialroomnames.push_back(roomname);
+}
+
+void mapclass::roomnamechange(const int x, const int y, const char** lines, const size_t size)
+{
+    Roomname roomname;
+    roomname.x = x;
+    roomname.y = y;
+    roomname.type = RoomnameType_TRANSFORM;
+    roomname.flag = 72; // Flag 72 is synced with finalstretch
+    roomname.loop = false;
+    roomname.progress = 0;
+    roomname.delay = 2;
+
+    roomname.text.insert(roomname.text.end(), lines, lines + size);
+
+    specialroomnames.push_back(roomname);
 }
 
 void mapclass::initcustommapdata(void)
 {
     shinytrinkets.clear();
 
-#if !defined(NO_CUSTOM_LEVELS)
     for (size_t i = 0; i < customentities.size(); i++)
     {
         const CustomEntity& ent = customentities[i];
@@ -524,12 +424,8 @@ void mapclass::initcustommapdata(void)
             continue;
         }
 
-        const int rx = ent.x / 40;
-        const int ry = ent.y / 30;
-
-        settrinket(rx, ry);
+        settrinket(ent.rx, ent.ry);
     }
-#endif
 }
 
 int mapclass::finalat(int x, int y)
@@ -1051,12 +947,11 @@ void mapclass::gotoroom(int rx, int ry)
         }
 
         //Final level for time trial
-        if (game.intimetrial)
+        if (game.intimetrial && game.roomx == 46 && game.roomy == 54)
         {
-            if (game.roomx == 46 && game.roomy == 54) music.niceplay(15); //Final level remix
+            music.niceplay(Music_PREDESTINEDFATEREMIX);
         }
     }
-#if !defined(NO_CUSTOM_LEVELS)
     else if (custommode)
     {
         game.roomx = rx;
@@ -1066,7 +961,6 @@ void mapclass::gotoroom(int rx, int ry)
         if (game.roomx > 100 + cl.mapwidth-1) game.roomx = 100;
         if (game.roomy > 100 + cl.mapheight-1) game.roomy = 100;
     }
-#endif
     else
     {
         game.roomx = rx;
@@ -1414,6 +1308,7 @@ void mapclass::loadlevel(int rx, int ry)
 
     roomtexton = false;
     roomtext.clear();
+    roomnameset = false;
 
     obj.platformtile = 0;
     obj.customplatformtile=0;
@@ -1822,7 +1717,6 @@ void mapclass::loadlevel(int rx, int ry)
         break;
     }
 #endif
-#if !defined(NO_CUSTOM_LEVELS)
     case 12: //Custom level
     {
         const RoomProperty* const room = cl.getroomprop(rx - 100, ry - 100);
@@ -1901,16 +1795,13 @@ void mapclass::loadlevel(int rx, int ry)
         {
             // If entity is in this room, create it
             const CustomEntity& ent = customentities[edi];
-            const int tsx = ent.x / 40;
-            const int tsy = ent.y / 30;
-
-            if (tsx != rx-100 || tsy != ry-100)
+            if (ent.rx != rx - 100 || ent.ry != ry - 100)
             {
                 continue;
             }
 
-            const int ex = (ent.x % 40) * 8;
-            const int ey = (ent.y % 30) * 8;
+            const int ex = ent.x * 8;
+            const int ey = ent.y * 8;
 
             // Platform and enemy bounding boxes
             int bx1 = 0, by1 = 0, bx2 = 0, by2 = 0;
@@ -2017,8 +1908,16 @@ void mapclass::loadlevel(int rx, int ry)
                     usethisy -= 8;
                 }
 
-                obj.createentity(ex, usethisy + 8, 20, usethistile);
-                obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
+                obj.createentity(ex, usethisy + 8, 20 + SDL_clamp(ent.p2, 0, 1), usethistile);
+
+                for (size_t i = 0; i < script.customscripts.size(); i++)
+                {
+                    if (script.customscripts[i].name == obj.customscript)
+                    {
+                        obj.createblock(ACTIVITY, ex - 8, usethisy + 8, 20, 16, 35);
+                        break;
+                    }
+                }
                 break;
             }
             case 19: //Script Box
@@ -2053,7 +1952,6 @@ void mapclass::loadlevel(int rx, int ry)
         //do the appear/remove roomname here
         break;
     }
-#endif
     }
     //The room's loaded: now we fill out damage blocks based on the tiles.
     if (towermode)

@@ -2,8 +2,8 @@
 <!-- Please read README.txt for information about the language files -->
 <strings_plural>
     <string english_plural="You rescued {n_crew|wordy} crewmates" english_singular="You rescued {n_crew|wordy} crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40" var="n_crew" expect="6">
-        <translation form="0" translation="Vi savis {n_crew|wordy} ŝipanojn"/>
-        <translation form="1" translation="Vi savis {n_crew|wordy} ŝipanon"/>
+        <translation form="0" translation="Vi savis {n_crew|wordy} skipanojn"/>
+        <translation form="1" translation="Vi savis {n_crew|wordy} skipanon"/>
     </string>
     <string english_plural="and found {n_trinkets|wordy} trinkets." english_singular="and found {n_trinkets|wordy} trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2" var="n_trinkets" expect="20">
         <translation form="0" translation="kaj trovis {n_trinkets|wordy} kolektaĵojn."/>
@@ -14,8 +14,8 @@
         <translation form="1" translation="Kaj vi trovis {n_trinkets|wordy} kolektaĵon."/>
     </string>
     <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
-        <translation form="0" translation="{n_crew|wordy|upper} ŝipanoj restas"/>
-        <translation form="1" translation="{n_crew|wordy|upper} ŝipano restas"/>
+        <translation form="0" translation="{n_crew|wordy|upper} skipanoj restas"/>
+        <translation form="1" translation="{n_crew|wordy|upper} skipano restas"/>
     </string>
     <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
         <translation form="0" translation="{n_crew|wordy|upper} restas"/>

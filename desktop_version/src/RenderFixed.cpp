@@ -21,6 +21,21 @@ static inline void titleupdatetextcol(void)
     if(graphics.col_tb>255) graphics.col_tb=255;
 }
 
+static inline void tick_skip_message_timer(void)
+{
+    const bool tick = graphics.fademode == FADE_NONE;
+    if (!tick)
+    {
+        return;
+    }
+
+    game.old_skip_message_timer = game.skip_message_timer;
+    if (game.skip_message_timer > 0)
+    {
+        game.skip_message_timer -= 15;
+    }
+}
+
 void gamerenderfixed(void)
 {
     if (!game.blackout && !game.completestop)
@@ -114,16 +129,12 @@ void gamerenderfixed(void)
         obj.entities[i].updatecolour();
     }
 
-    if (map.finalmode)
-    {
-        map.glitchname = map.getglitchname(game.roomx, game.roomy);
-    }
+    map.updateroomnames();
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
-    ed.oldreturneditoralpha = ed.returneditoralpha;
-    if (map.custommode && !map.custommodeforreal && ed.returneditoralpha > 0)
+    ed.old_return_message_timer = ed.return_message_timer;
+    if (map.custommode && !map.custommodeforreal && ed.return_message_timer > 0)
     {
-        ed.returneditoralpha -= 15;
+        ed.return_message_timer -= 15;
     }
 
     // Editor ghosts!
@@ -153,7 +164,6 @@ void gamerenderfixed(void)
             }
         }
     }
-#endif
 }
 
 void titlerenderfixed(void)
@@ -245,10 +255,7 @@ void maprenderfixed(void)
         map.cursordelay++;
     }
 
-    if (map.finalmode)
-    {
-        map.glitchname = map.getglitchname(game.roomx, game.roomy);
-    }
+    map.updateroomnames();
 }
 
 void teleporterrenderfixed(void)
@@ -263,4 +270,11 @@ void gamecompleterenderfixed(void)
     graphics.updatetitlecolours();
 
     titleupdatetextcol();
+
+    tick_skip_message_timer();
+}
+
+void gamecompleterenderfixed2(void)
+{
+    tick_skip_message_timer();
 }

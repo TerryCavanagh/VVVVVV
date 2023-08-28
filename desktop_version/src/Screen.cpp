@@ -16,6 +16,7 @@
 
 void ScreenSettings_default(struct ScreenSettings* _this)
 {
+    _this->windowDisplay = 0;
     _this->windowWidth = SCREEN_WIDTH_PIXELS * 2;
     _this->windowHeight = SCREEN_HEIGHT_PIXELS * 2;
     _this->fullscreen = false;
@@ -29,9 +30,13 @@ void Screen::init(const struct ScreenSettings* settings)
 {
     m_window = NULL;
     m_renderer = NULL;
+    windowDisplay = settings->windowDisplay;
+    windowWidth = settings->windowWidth;
+    windowHeight = settings->windowHeight;
     isWindowed = !settings->fullscreen;
     scalingMode = settings->scalingMode;
     isFiltered = settings->linearFilter;
+    badSignalEffect = settings->badSignal;
     vsync = settings->useVsync;
 
     SDL_SetHintWithPriority(
@@ -50,8 +55,8 @@ void Screen::init(const struct ScreenSettings* settings)
 
     m_window = SDL_CreateWindow(
         "VVVVVV",
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
+        SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
         SCREEN_WIDTH_PIXELS * 2,
         SCREEN_HEIGHT_PIXELS * 2,
         SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI
@@ -86,9 +91,7 @@ void Screen::init(const struct ScreenSettings* settings)
 
     LoadIcon();
 
-    badSignalEffect = settings->badSignal;
-
-    ResizeScreen(settings->windowWidth, settings->windowHeight);
+    ResizeScreen(windowWidth, windowHeight);
 }
 
 void Screen::destroy(void)
@@ -100,11 +103,15 @@ void Screen::destroy(void)
 
 void Screen::GetSettings(struct ScreenSettings* settings)
 {
-    int width, height;
-    GetWindowSize(&width, &height);
-
-    settings->windowWidth = width;
-    settings->windowHeight = height;
+    windowDisplay = SDL_GetWindowDisplayIndex(m_window);
+    if (windowDisplay < 0)
+    {
+        vlog_error("Error: could not get display index: %s", SDL_GetError());
+        windowDisplay = 0;
+    }
+    settings->windowDisplay = windowDisplay;
+    settings->windowWidth = windowWidth;
+    settings->windowHeight = windowHeight;
 
     settings->fullscreen = !isWindowed;
     settings->useVsync = vsync;
@@ -136,13 +143,18 @@ void Screen::LoadIcon(void)
 
 void Screen::ResizeScreen(int x, int y)
 {
-    static int resX = SCREEN_WIDTH_PIXELS;
-    static int resY = SCREEN_HEIGHT_PIXELS;
+    windowDisplay = SDL_GetWindowDisplayIndex(m_window);
+    if (windowDisplay < 0)
+    {
+        vlog_error("Error: could not get display index: %s", SDL_GetError());
+        windowDisplay = 0;
+    }
+
     if (x != -1 && y != -1)
     {
         // This is a user resize!
-        resX = x;
-        resY = y;
+        windowWidth = x;
+        windowHeight = y;
     }
 
     if (!isWindowed || isForcedFullscreen())
@@ -158,51 +170,27 @@ void Screen::ResizeScreen(int x, int y)
     else
     {
         int result = SDL_SetWindowFullscreen(m_window, 0);
-        recacheTextures();
         if (result != 0)
         {
             vlog_error("Error: could not set the game to windowed mode: %s", SDL_GetError());
-            return;
         }
-        if (x != -1 && y != -1)
+        else if (x != -1 && y != -1)
         {
-            SDL_SetWindowSize(m_window, resX, resY);
-            SDL_SetWindowPosition(m_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+            SDL_SetWindowSize(m_window, windowWidth, windowHeight);
+            SDL_SetWindowPosition(
+                m_window,
+                SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay),
+                SDL_WINDOWPOS_CENTERED_DISPLAY(windowDisplay)
+            );
         }
-    }
-    if (scalingMode == SCALING_STRETCH)
-    {
-        int winX, winY;
-        GetWindowSize(&winX, &winY);
-        int result = SDL_RenderSetLogicalSize(m_renderer, winX, winY);
-        if (result != 0)
-        {
-            vlog_error("Error: could not set logical size: %s", SDL_GetError());
-            return;
-        }
-        result = SDL_RenderSetIntegerScale(m_renderer, SDL_FALSE);
-        if (result != 0)
-        {
-            vlog_error("Error: could not set scale: %s", SDL_GetError());
-            return;
-        }
-    }
-    else
-    {
-        SDL_RenderSetLogicalSize(m_renderer, SCREEN_WIDTH_PIXELS, SCREEN_HEIGHT_PIXELS);
-        int result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == SCALING_INTEGER));
-        if (result != 0)
-        {
-            vlog_error("Error: could not set scale: %s", SDL_GetError());
-            return;
-        }
+        recacheTextures();
     }
 }
 
 void Screen::ResizeToNearestMultiple(void)
 {
     int w, h;
-    GetWindowSize(&w, &h);
+    GetScreenSize(&w, &h);
 
     // Check aspect ratio first
     bool using_width;
@@ -256,7 +244,7 @@ void Screen::ResizeToNearestMultiple(void)
     }
 }
 
-void Screen::GetWindowSize(int* x, int* y)
+void Screen::GetScreenSize(int* x, int* y)
 {
     if (SDL_GetRendererOutputSize(m_renderer, x, y) != 0)
     {
@@ -267,8 +255,39 @@ void Screen::GetWindowSize(int* x, int* y)
     }
 }
 
-void Screen::RenderPresent()
+void Screen::UpdateScaling(void)
 {
+    int width;
+    int height;
+    if (scalingMode == SCALING_STRETCH)
+    {
+        GetScreenSize(&width, &height);
+    }
+    else
+    {
+        width = SCREEN_WIDTH_PIXELS;
+        height = SCREEN_HEIGHT_PIXELS;
+    }
+    int result = SDL_RenderSetLogicalSize(m_renderer, width, height);
+    if (result != 0)
+    {
+        vlog_error("Error: could not set logical size: %s", SDL_GetError());
+        return;
+    }
+
+    result = SDL_RenderSetIntegerScale(m_renderer, (SDL_bool) (scalingMode == SCALING_INTEGER));
+    if (result != 0)
+    {
+        vlog_error("Error: could not set scale: %s", SDL_GetError());
+    }
+}
+
+void Screen::RenderPresent(void)
+{
+    /* In certain cases, the window size might mismatch with the logical size.
+     * So it's better to just always call this. */
+    UpdateScaling();
+
     SDL_RenderPresent(m_renderer);
     graphics.clear();
 }
@@ -276,7 +295,7 @@ void Screen::RenderPresent()
 void Screen::toggleFullScreen(void)
 {
     isWindowed = !isWindowed;
-    ResizeScreen(-1, -1);
+    ResizeScreen(windowWidth, windowHeight);
 
     if (game.currentmenuname == Menu::graphicoptions)
     {
@@ -288,7 +307,7 @@ void Screen::toggleFullScreen(void)
 void Screen::toggleScalingMode(void)
 {
     scalingMode = (scalingMode + 1) % NUM_SCALING_MODES;
-    ResizeScreen(-1, -1);
+    UpdateScaling();
 }
 
 void Screen::toggleLinearFilter(void)
@@ -344,8 +363,6 @@ void Screen::recacheTextures(void)
     }
 }
 
-/* FIXME: Launching in forced fullscreen then exiting and relaunching in normal
- * mode will result in the window having fullscreen size but being windowed. */
 bool Screen::isForcedFullscreen(void)
 {
     /* This is just a check to see if we're on a desktop or tenfoot setup.

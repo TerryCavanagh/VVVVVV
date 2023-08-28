@@ -1,5 +1,7 @@
 #include <SDL.h>
 
+#include "ActionSets.h"
+#include "ButtonGlyphs.h"
 #include "Constants.h"
 #include "Credits.h"
 #include "CustomLevels.h"
@@ -155,6 +157,45 @@ static void inline drawglitchrunnertext(const int y)
     font::print_wrap(PR_CEN, -1, y, buffer, tempr, tempg, tempb);
 }
 
+static inline void draw_skip_message()
+{
+    /* Unlock 18 is Flip Mode.
+     * If this is the first playthrough, 5 (game completed) will be unlocked
+     * but not Flip Mode until the player hits "play" on the title screen */
+    bool draw =
+#ifndef MAKEANDPLAY
+        game.unlock[Unlock_FLIPMODE] &&
+#endif
+        graphics.fademode == FADE_NONE;
+    if (!draw)
+    {
+        return;
+    }
+
+    const int alpha = graphics.lerp(
+        game.old_skip_message_timer, game.skip_message_timer
+    );
+
+    draw = alpha > 100;
+    if (!draw)
+    {
+        return;
+    }
+
+    char buffer[SCREEN_WIDTH_CHARS + 1];
+    vformat_buf(
+        buffer, sizeof(buffer),
+        loc::gettext("- Press {button} to skip -"),
+        "button:but",
+        vformat_button(ActionSet_InGame, Action_InGame_Map)
+    );
+    font::print(
+        PR_BRIGHTNESS(alpha) | PR_BOR | PR_CEN,
+        -1, graphics.flipmode ? 20 : 210, buffer,
+        220 - help.glow, 220 - help.glow, 255 - help.glow / 2
+    );
+}
+
 static void menurender(void)
 {
 
@@ -184,7 +225,6 @@ static void menurender(void)
         }
         break;
     }
-#if !defined(NO_CUSTOM_LEVELS)
     case Menu::levellist:
     {
         if (cl.ListOfMetaData.size()==0)
@@ -220,7 +260,6 @@ static void menurender(void)
         }
         break;
     }
-#endif
     case Menu::errornostart:
         font::print_wrap(PR_CEN, -1, 65, loc::gettext("ERROR: This level has no start point!"), tr, tg, tb);
         break;
@@ -228,7 +267,7 @@ static void menurender(void)
     {
         int gameplayoptionsoffset = 0;
 #if !defined(MAKEANDPLAY)
-        if (game.ingame_titlemode && game.unlock[18])
+        if (game.ingame_titlemode && game.unlock[Unlock_FLIPMODE])
 #endif
         {
             gameplayoptionsoffset = 1;
@@ -578,8 +617,13 @@ static void menurender(void)
         break;
     }
     case Menu::controller:
+    {
         font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Game Pad"), tr, tg, tb);
         font::print_wrap(PR_CEN, -1, 55, loc::gettext("Change controller options."), tr, tg, tb);
+
+        int spacing = font::height(0);
+        spacing = SDL_max(spacing, 10);
+
         switch (game.currentmenuoption)
         {
         case 0:
@@ -589,7 +633,7 @@ static void menurender(void)
             font::print(PR_RIGHT, 288, 75, loc::gettext("High"), tr, tg, tb);
             char slider[SCREEN_WIDTH_CHARS + 1];
             slider_get(slider, sizeof(slider), key.sensitivity, 5, 240);
-            font::print(PR_CEN, -1, 85, slider, tr, tg, tb);
+            font::print(PR_CEN, -1, 75+spacing, slider, tr, tg, tb);
             break;
         }
         case 1:
@@ -597,16 +641,46 @@ static void menurender(void)
         case 3:
         case 4:
         case 5:
-            font::print(PR_CEN, -1, 75, loc::gettext("Flip is bound to: ") + std::string(help.GCString(game.controllerButton_flip)) , tr, tg, tb);
-            font::print(PR_CEN, -1, 85, loc::gettext("Enter is bound to: ")  + std::string(help.GCString(game.controllerButton_map)), tr, tg, tb);
-            font::print(PR_CEN, -1, 95, loc::gettext("Menu is bound to: ") + std::string(help.GCString(game.controllerButton_esc)) , tr, tg, tb);
-            font::print(PR_CEN, -1, 105, loc::gettext("Restart is bound to: ") + std::string(help.GCString(game.controllerButton_restart)) , tr, tg, tb);
-            font::print(PR_CEN, -1, 115, loc::gettext("Interact is bound to: ") + std::string(help.GCString(game.controllerButton_interact)) , tr, tg, tb);
+        {
+            char buffer_a[SCREEN_WIDTH_CHARS + 1];
+            char buffer_b[SCREEN_WIDTH_CHARS + 1];
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Flip is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_ACTION)
+            );
+            font::print(PR_CEN, -1, 75, buffer_a, tr, tg, tb);
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Enter is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Map)
+            );
+            font::print(PR_CEN, -1, 75+spacing, buffer_a, tr, tg, tb);
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Menu is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Esc)
+            );
+            font::print(PR_CEN, -1, 75+spacing*2, buffer_a, tr, tg, tb);
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Restart is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Restart)
+            );
+            font::print(PR_CEN, -1, 75+spacing*3, buffer_a, tr, tg, tb);
+
+            SDL_snprintf(buffer_a, sizeof(buffer_a), "%s%s",
+                loc::gettext("Interact is bound to: "),
+                BUTTONGLYPHS_get_all_gamepad_buttons(buffer_b, sizeof(buffer_b), ActionSet_InGame, Action_InGame_Interact)
+            );
+            font::print(PR_CEN | PR_BRIGHTNESS(game.separate_interact ? 255 : 128), -1, 75+spacing*4, buffer_a, tr, tg, tb);
             break;
+        }
         }
 
 
         break;
+    }
     case Menu::language:
         if (loc::languagelist.empty())
         {
@@ -614,8 +688,23 @@ static void menurender(void)
         }
         else if ((unsigned)game.currentmenuoption < loc::languagelist.size())
         {
-            font::print_wrap(PR_CEN, -1, 8, loc::languagelist[game.currentmenuoption].credit, tr/2, tg/2, tb/2);
-            font::print(PR_CEN, -1, 230, loc::languagelist[game.currentmenuoption].action_hint, tr/2, tg/2, tb/2);
+            font::print_wrap(PR_CEN, -1, 8, loc::languagelist[game.currentmenuoption].credit.c_str(), tr/2, tg/2, tb/2);
+            const char* select_hint;
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            if (BUTTONGLYPHS_keyboard_is_active())
+            {
+                select_hint = loc::languagelist[game.currentmenuoption].action_hint.c_str();
+            }
+            else
+            {
+                vformat_buf(buffer, sizeof(buffer),
+                    loc::languagelist[game.currentmenuoption].gamepad_hint.c_str(),
+                    "button:but",
+                    vformat_button(ActionSet_Menu, Action_Menu_Accept)
+                );
+                select_hint = buffer;
+            }
+            font::print(PR_CEN, -1, 230, select_hint, tr/2, tg/2, tb/2);
         }
         break;
     case Menu::translator_main:
@@ -1076,7 +1165,7 @@ static void menurender(void)
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Intermissions"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Replay the intermission levels."), tr, tg, tb);
 
-            if (!game.unlock[15] && !game.unlock[16])
+            if (!game.unlock[Unlock_INTERMISSION_REPLAYS])
             {
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("TO UNLOCK: Complete the intermission levels in-game."), tr, tg, tb);
             }
@@ -1091,7 +1180,7 @@ static void menurender(void)
             {
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("No Death Mode is not available with slowdown or invincibility."), tr, tg, tb);
             }
-            else if (!game.unlock[17])
+            else if (!game.unlock[Unlock_NODEATHMODE])
             {
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("TO UNLOCK: Achieve an S-rank or above in at least 4 time trials."), tr, tg, tb);
             }
@@ -1102,7 +1191,7 @@ static void menurender(void)
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Flip Mode"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Flip the entire game vertically. Compatible with other game modes."), tr, tg, tb);
 
-            if (game.unlock[18])
+            if (game.unlock[Unlock_FLIPMODE])
             {
                 if (graphics.setflipmode)
                 {
@@ -1265,12 +1354,21 @@ static void menurender(void)
 
         std::string tempstring = game.resulttimestring() + loc::gettext(" / ") + game.timetstring(game.timetrialresultpar) + loc::gettext(".99");
 
+        uint32_t plus1_flags = PR_RIGHT | PR_CJK_LOW;
+        int plus1_offset = 0;
+        if (font::len(0, tempstring.c_str()) + font::len(0, loc::gettext("+1 Rank!")) > (292-49))
+        {
+            // Time and "+1 Rank!" don't fit together, so put it next to titles instead
+            plus1_flags = PR_RIGHT | PR_CJK_HIGH;
+            plus1_offset = -10;
+        }
+
         graphics.drawspritesetcol(22, 80-15, 50, 22);
         font::print(PR_CJK_HIGH, 49, 80-15, loc::gettext("TIME TAKEN:"), 255, 255, 255);
         font::print(PR_CJK_LOW, 49, 90-15, tempstring, tr, tg, tb);
         if (game.timetrialresulttime <= game.timetrialresultpar)
         {
-            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90-15, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(plus1_flags, 292, 90-15+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         tempstring = help.String(game.timetrialresultdeaths);
@@ -1279,7 +1377,7 @@ static void menurender(void)
         font::print(PR_CJK_LOW, 49, 90+20, tempstring, tr, tg, tb);
         if (game.timetrialresultdeaths == 0)
         {
-            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90+20, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(plus1_flags, 292, 90+20+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
@@ -1294,7 +1392,7 @@ static void menurender(void)
         font::print(PR_CJK_LOW, 49, 90+55, buffer, tr, tg, tb);
         if (game.timetrialresulttrinkets >= game.timetrialresultshinytarget)
         {
-            font::print(PR_RIGHT | PR_CJK_LOW, 292, 90+55, loc::gettext("+1 Rank!"), 255, 255, 255);
+            font::print(plus1_flags, 292, 90+55+plus1_offset, loc::gettext("+1 Rank!"), 255, 255, 255);
         }
 
         const char* rank = "";
@@ -1342,7 +1440,7 @@ static void menurender(void)
         switch (game.currentmenuoption)
         {
         case 0:
-            if(game.unlock[9])
+            if (game.unlock[Unlock_TIMETRIAL_SPACESTATION1])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Space Station 1"), tr, tg, tb);
                 unlocked = true;
@@ -1358,7 +1456,7 @@ static void menurender(void)
             }
             break;
         case 1:
-            if(game.unlock[10])
+            if (game.unlock[Unlock_TIMETRIAL_LABORATORY])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("The Laboratory"), tr, tg, tb);
                 unlocked = true;
@@ -1374,7 +1472,7 @@ static void menurender(void)
             }
             break;
         case 2:
-            if(game.unlock[11])
+            if (game.unlock[Unlock_TIMETRIAL_TOWER])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("The Tower"), tr, tg, tb);
                 unlocked = true;
@@ -1390,7 +1488,7 @@ static void menurender(void)
             }
             break;
         case 3:
-            if(game.unlock[12])
+            if (game.unlock[Unlock_TIMETRIAL_SPACESTATION2])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("Space Station 2"), tr, tg, tb);
                 unlocked = true;
@@ -1406,7 +1504,7 @@ static void menurender(void)
             }
             break;
         case 4:
-            if(game.unlock[13])
+            if (game.unlock[Unlock_TIMETRIAL_WARPZONE])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("The Warp Zone"), tr, tg, tb);
                 unlocked = true;
@@ -1422,7 +1520,7 @@ static void menurender(void)
             }
             break;
         case 5:
-            if(game.unlock[14])
+            if (game.unlock[Unlock_TIMETRIAL_FINALLEVEL])
             {
                 font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("The Final Level"), tr, tg, tb);
                 unlocked = true;
@@ -1497,7 +1595,7 @@ static void menurender(void)
 
                 int w[4] = {
                     font::len(0, str_par_time),
-                    font::len(0, par_time),
+                    font::len(0, par_time.c_str()),
                     font::len(0, str_best_rank),
                     font::len(PR_2X, rank)
                 };
@@ -1564,7 +1662,24 @@ static void menurender(void)
         font::print_wrap(PR_CEN, -1, 125, loc::gettext("You have unlocked the intermission levels."), tr, tg, tb);
         break;
     case Menu::playerworlds:
-        font::print_wrap(PR_CEN, -1, 180, loc::gettext("To install new player levels, copy the .vvvvvv files to the levels folder."), tr, tg, tb);
+        if (game.editor_disabled)
+        {
+            if (game.currentmenuoption == 1)
+            {
+                if (SDL_GetHintBoolean("SteamDeck", SDL_FALSE))
+                {
+                    font::print_wrap(PR_CEN, -1, 180, loc::gettext("The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use."), tr, tg, tb);
+                }
+                else
+                {
+                    font::print_wrap(PR_CEN, -1, 180, loc::gettext("The level editor is not currently supported on this device, as it requires a keyboard and mouse to use."), tr, tg, tb);
+                }
+            }
+        }
+        else
+        {
+            font::print_wrap(PR_CEN, -1, 180, loc::gettext("To install new player levels, copy the .vvvvvv files to the levels folder."), tr, tg, tb);
+        }
         break;
     case Menu::confirmshowlevelspath:
         font::print_wrap(PR_CEN, -1, 80, loc::gettext("Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming."), tr, tg, tb);
@@ -1580,23 +1695,34 @@ static void menurender(void)
         break;
     case Menu::errorloadinglevel:
     {
-        const char* str;
+        const char* message;
         if (FILESYSTEM_levelDirHasError())
         {
-            str = FILESYSTEM_getLevelDirError();
+            message = FILESYSTEM_getLevelDirError();
         }
         else
         {
-            str = graphics.error;
+            message = loc::gettext("Something went wrong, but we forgot the error message.");
         }
-        font::print(PR_2X | PR_CEN, -1, 45, loc::gettext("ERROR"), tr, tg, tb);
-        font::print_wrap(PR_CEN, -1, 65, str, tr, tg, tb);
+        font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, 45, loc::gettext("ERROR"), tr, tg, tb);
+        font::print_wrap(PR_CEN, -1, 65, message, tr, tg, tb);
         break;
     }
     case Menu::warninglevellist:
-        font::print(PR_2X | PR_CEN, -1, 45, loc::gettext("WARNING"), tr, tg, tb);
-        font::print_wrap(PR_CEN, -1, 65, FILESYSTEM_getLevelDirError(), tr, tg, tb);
+    {
+        const char* message;
+        if (FILESYSTEM_levelDirHasError())
+        {
+            message = FILESYSTEM_getLevelDirError();
+        }
+        else
+        {
+            message = loc::gettext("Something went wrong, but we forgot the error message.");
+        }
+        font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, 45, loc::gettext("WARNING"), tr, tg, tb);
+        font::print_wrap(PR_CEN, -1, 65, message, tr, tg, tb);
         break;
+    }
     default:
         break;
     }
@@ -1622,8 +1748,18 @@ void titlerender(void)
         font::print(PR_RIGHT, 264, temp+35, loc::gettext("MAKE AND PLAY EDITION"), tr, tg, tb);
 #endif
 
-        font::print_wrap(PR_CEN, -1, 175, loc::gettext("[ Press ACTION to Start ]"), tr, tg, tb);
-        font::print_wrap(PR_CEN, -1, 195, loc::gettext("ACTION = Space, Z, or V"), int(tr*0.5f), int(tg*0.5f), int(tb*0.5f));
+        char buffer[SCREEN_WIDTH_CHARS*2 + 1];
+        vformat_buf(
+            buffer, sizeof(buffer),
+            loc::gettext("[ Press {button} to Start ]"),
+            "button:but",
+            vformat_button(ActionSet_Menu, Action_Menu_Accept)
+        );
+        font::print_wrap(PR_CEN, -1, 175, buffer, tr, tg, tb);
+        if (BUTTONGLYPHS_keyboard_is_active())
+        {
+            font::print_wrap(PR_CEN, -1, 195, loc::gettext("ACTION = Space, Z, or V"), int(tr*0.5f), int(tg*0.5f), int(tb*0.5f));
+        }
     }
     else
     {
@@ -1710,7 +1846,16 @@ void gamecompleterender(void)
         font::print(0, 100, 480 + position, loc::gettext("Doctor Victoria"), tr, tg, tb);
     }
 
-    if (graphics.onscreen(520 + position)) font::print(PR_3X | PR_CEN, -1, 520 + position, loc::gettext("Credits"), tr, tg, tb);
+    if (graphics.onscreen(520 + position))
+    {
+        uint32_t flag = PR_3X;
+        const char* text = loc::gettext("Credits");
+        if (font::len(flag, text) > SCREEN_WIDTH_PIXELS)
+        {
+            flag = PR_2X;
+        }
+        font::print(flag | PR_CEN, -1, 520 + position, text, tr, tg, tb);
+    }
 
     if (graphics.onscreen(560 + position))
     {
@@ -1799,6 +1944,8 @@ void gamecompleterender(void)
         font::print(PR_2X | PR_CEN | PR_CJK_LOW, -1, creditOffset + position, loc::gettext("playing!"), tr, tg, tb);
     }
 
+    draw_skip_message();
+
     graphics.drawfade();
 
     graphics.render();
@@ -1831,6 +1978,8 @@ void gamecompleterender2(void)
 
     graphics.fill_rect(graphics.lerp(game.oldcreditposx * 8, game.creditposx * 8) + 8, game.creditposy * 8, 8, 8, 0, 0, 0);
 
+    draw_skip_message();
+
     graphics.drawfade();
 
     graphics.render();
@@ -1841,18 +1990,12 @@ static const char* interact_prompt(
     const size_t buffer_size,
     const char* raw
 ) {
-    const char* button;
-
-    if (game.separate_interact)
-    {
-        button = loc::gettext("E");
-    }
-    else
-    {
-        button = loc::gettext("ENTER");
-    }
-
-    vformat_buf(buffer, buffer_size, raw, "button:str", button);
+    vformat_buf(
+        buffer, buffer_size,
+        raw,
+        "button:but",
+        vformat_button(ActionSet_InGame, Action_InGame_Interact)
+    );
 
     return buffer;
 }
@@ -1907,7 +2050,7 @@ void gamerender(void)
     if (graphics.fademode == FADE_NONE
     && !game.intimetrial
     && !game.isingamecompletescreen()
-    && (!game.swnmode || game.swngame != 1)
+    && (!game.swnmode || game.swngame != SWN_SUPERGRAVITRON)
     && game.showingametimer
     && !roomname_translator::enabled)
     {
@@ -1933,16 +2076,7 @@ void gamerender(void)
 
     if ((map.extrarow==0 || (map.custommode && map.roomname[0] != '\0')) && !force_roomname_hidden)
     {
-        const char* roomname;
-
-        if (map.finalmode)
-        {
-            roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
-        }
-        else
-        {
-            roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
-        }
+        const char* roomname = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
 
         graphics.render_roomname(
             roomname_untranslated ? PR_FONT_8X8 : PR_FONT_LEVEL,
@@ -1960,34 +2094,43 @@ void gamerender(void)
         }
     }
 
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     if(map.custommode && !map.custommodeforreal && !game.advancetext){
         //Return to level editor
-        int alpha = graphics.lerp(ed.oldreturneditoralpha, ed.returneditoralpha);
+        int alpha = graphics.lerp(ed.old_return_message_timer, ed.return_message_timer);
 
         if (alpha > 100)
         {
-            font::print(PR_BRIGHTNESS(alpha) | PR_BOR, 5, 5, loc::gettext("[Press ENTER to return to editor]"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("[Press {button} to return to editor]"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_Map)
+            );
+            font::print(PR_BRIGHTNESS(alpha) | PR_BOR, 5, 5, buffer, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
         }
     }
-#endif
-
 
     graphics.cutscenebars();
     graphics.drawfade();
+
+    graphics.drawgui();
 
     graphics.set_render_target(graphics.gameTexture);
 
     graphics.copy_texture(graphics.gameplayTexture, NULL, NULL);
 
-    graphics.drawgui();
-    if (graphics.flipmode)
+    if (game.advancetext)
     {
-        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-    }
-    else
-    {
-        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        char buffer_adv[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(
+            buffer_adv, sizeof(buffer_adv),
+            loc::gettext("- Press {button} to advance text -"),
+            "button:but",
+            vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+        );
+
+        font::print(PR_CEN | PR_BOR, -1, graphics.flipmode ? 228 : 5, buffer_adv, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     if (game.readytotele > 100 || game.oldreadytotele > 100)
@@ -2013,12 +2156,12 @@ void gamerender(void)
 
     if (game.swnmode)
     {
-        if (game.swngame == 0)
+        if (game.swngame == SWN_GRAVITRON)
         {
             std::string tempstring = help.timestring(game.swntimer);
             font::print(PR_2X | PR_CEN | PR_BOR, -1, 20, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
         }
-        else if (game.swngame == 1)
+        else if (game.swngame == SWN_SUPERGRAVITRON)
         {
             if (game.swnmessage == 0)
             {
@@ -2085,9 +2228,16 @@ void gamerender(void)
                 }
             }
 
-            font::print(PR_BOR | PR_CEN, -1, 228, loc::gettext("[Press ENTER to stop]"), 160 - (help.glow/2), 160 - (help.glow/2), 160 - (help.glow/2));
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("[Press {button} to stop]"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_Map)
+            );
+            font::print(PR_BOR | PR_CEN, -1, 228, buffer, 160 - (help.glow/2), 160 - (help.glow/2), 160 - (help.glow/2));
         }
-        else if(game.swngame==2)
+        else if (game.swngame == SWN_START_GRAVITRON_STEP_3)
         {
             if (int(game.swndelay / 15) % 2 == 1 || game.swndelay >= 120)
             {
@@ -2107,7 +2257,7 @@ void gamerender(void)
                 font::print(PR_2X | PR_CEN | PR_BOR, -1, y2, loc::gettext("60 seconds!"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
             }
         }
-        else if(game.swngame==7)
+        else if (game.swngame == SWN_START_SUPERGRAVITRON_STEP_2)
         {
             if (game.swndelay >= 60)
             {
@@ -2115,7 +2265,7 @@ void gamerender(void)
 
                 std::string tempstring = help.timestring(game.swnrecord);
                 font::print(PR_BOR | PR_CEN, -1, 190, loc::gettext("Best Time"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-                font::print(PR_2X | PR_BOR | PR_CEN, -1, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+                font::print(PR_2X | PR_BOR | PR_CEN | PR_CJK_LOW, -1, 205, tempstring, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
             }
             else if (int(game.swndelay / 10) % 2 == 1)
             {
@@ -2198,7 +2348,7 @@ void gamerender(void)
             }
 
             std::string time = game.timetstring(game.timetrialpar);
-            label_len = font::len(0, time);
+            label_len = font::len(0, time.c_str());
             if(game.timetrialparlost)
             {
                 font::print(PR_BOR | PR_RIGHT, 307-label_len-8, 214, loc::gettext("PAR TIME:"),  80, 80, 80);
@@ -2222,39 +2372,46 @@ void gamerender(void)
             game.activity_lastprompt.c_str()
         );
 
+        uint8_t text_r, text_g, text_b;
+        uint32_t text_flags = game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN;
+
         if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
         {
-            font::print(
-                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CEN,
-                -1,
-                game.activity_y + 12,
-                final_string,
-                196,
-                196,
-                255 - help.glow
-            );
+            text_r = 196;
+            text_g = 196;
+            text_b = 255 - help.glow;
         }
         else
         {
+            short lines;
+            font::string_wordwrap(text_flags, final_string, 37*8, &lines);
+
             graphics.drawpixeltextbox(
                 4,
                 game.activity_y + 4,
                 39*8,
-                16 + font::height(game.activity_print_flags),
+                16 + font::height(text_flags)*lines,
                 game.activity_r*act_alpha,
                 game.activity_g*act_alpha,
                 game.activity_b*act_alpha
             );
-            font::print(
-                game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN,
-                -1,
-                game.activity_y + 12,
-                final_string,
-                game.activity_r,
-                game.activity_g,
-                game.activity_b
-            );
+
+            text_r = game.activity_r;
+            text_g = game.activity_g;
+            text_b = game.activity_b;
         }
+
+        font::print_wrap(
+            text_flags,
+            -1,
+            game.activity_y + 12,
+            final_string,
+            text_r,
+            text_g,
+            text_b,
+            8,
+            37*8
+        );
     }
 
     if (obj.trophytext > 0 || obj.oldtrophytext > 0)
@@ -2274,10 +2431,6 @@ static void draw_roomname_menu(void)
     {
         name = loc::gettext_roomname_special(map.hiddenname);
     }
-    else if (map.finalmode)
-    {
-        name = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.glitchname, map.roomname_special);
-    }
     else
     {
         name = loc::gettext_roomname(map.custommode, game.roomx, game.roomy, map.roomname, map.roomname_special);
@@ -2289,8 +2442,10 @@ static void draw_roomname_menu(void)
 /* Used to keep some graphics positions on the map screen
  * the same in Flip Mode. */
 #define FLIP(y, h) (graphics.flipmode ? 220 - (y) - (h) : (y))
+#define FLIP_PR_CJK_LOW (graphics.flipmode ? PR_CJK_HIGH : PR_CJK_LOW)
+#define FLIP_PR_CJK_HIGH (graphics.flipmode ? PR_CJK_LOW : PR_CJK_HIGH)
 
-static MapRenderData getmaprenderdata()
+static MapRenderData getmaprenderdata(void)
 {
     MapRenderData data;
 
@@ -2322,14 +2477,12 @@ static MapRenderData getmaprenderdata()
 
 static void rendermap(void)
 {
-#ifndef NO_CUSTOM_LEVELS
     if (map.custommode && map.customshowmm)
     {
         graphics.drawpixeltextbox(35 + map.custommmxoff, 16 + map.custommmyoff, map.custommmxsize + 10, map.custommmysize + 10, 65, 185, 207);
         graphics.drawpartimage(graphics.minimap_mounted ? IMAGE_MINIMAP : IMAGE_CUSTOMMINIMAP, 40 + map.custommmxoff, 21 + map.custommmyoff, map.custommmxsize, map.custommmysize);
         return;
      }
-#endif /* NO_CUSTOM_LEVELS */
 
     graphics.drawpixeltextbox(35, 16, 250, 190, 65, 185, 207);
     graphics.drawimage(IMAGE_MINIMAP, 40, 21, false);
@@ -2397,33 +2550,33 @@ static void rendermapcursor(const bool flashing)
     if (!map.custommode && game.roomx == 109)
     {
         // Draw the tower specially
-        if (!flashing)
+        if (!flashing || game.noflashingmode)
         {
-            graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
+            graphics.draw_rect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow * 2), 245 - (help.glow * 2));
         }
         else if (map.cursorstate == 1)
         {
             if (int(map.cursordelay / 4) % 2 == 0)
             {
-                graphics.drawrect(40 + ((game.roomx - 100) * 12), 21, 12, 180, 255, 255, 255);
-                graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 255, 255, 255);
+                graphics.draw_rect(40 + ((game.roomx - 100) * 12), 21, 12, 180, 255, 255, 255);
+                graphics.draw_rect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 255, 255, 255);
             }
         }
         else if (map.cursorstate == 2 && (int(map.cursordelay / 15) % 2 == 0))
         {
-            graphics.drawrect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow), 245 - (help.glow));
+            graphics.draw_rect(40 + ((game.roomx - 100) * 12) + 2, 21 + 2, 12 - 4, 180 - 4, 16, 245 - (help.glow), 245 - (help.glow));
         }
         return;
     }
 
-    if (!flashing || (map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0))
+    if (!flashing || ((map.cursorstate == 2 && int(map.cursordelay / 15) % 2 == 0) || game.noflashingmode))
     {
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
+        graphics.draw_rect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 16, 245 - (help.glow), 245 - (help.glow));
     }
-    else if (map.cursorstate == 1 && (int(map.cursordelay / 4) % 2 == 0))
+    else if (map.cursorstate == 1 && int(map.cursordelay / 4) % 2 == 0)
     {
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + data.yoff, 12 * data.zoom, 9 * data.zoom, 255, 255, 255);
-        graphics.drawrect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 255, 255, 255);
+        graphics.draw_rect(40 + ((game.roomx - 100) * 12 * data.zoom) + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + data.yoff, 12 * data.zoom, 9 * data.zoom, 255, 255, 255);
+        graphics.draw_rect(40 + ((game.roomx - 100) * 12 * data.zoom) + 2 + data.xoff, 21 + ((game.roomy - 100) * 9 * data.zoom) + 2 + data.yoff, (12 * data.zoom) - 4, (9 * data.zoom) - 4, 255, 255, 255);
     }
 }
 
@@ -2492,6 +2645,15 @@ void maprender(void)
 #undef OPTION
     }
 
+    /* FIXME: about the code below where this is used (case 10/11/20/21)... I've seen better code.
+     * We should rewrite it to use graphics::map_option, but until then... */
+    int selection_offset;
+    {
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", "");
+        selection_offset = font::len(0, buffer) / 2;
+    }
+
     // Draw the actual menu
     switch(game.menupage)
     {
@@ -2526,7 +2688,7 @@ void maprender(void)
 
                 std::string tempstring = help.timestring(game.swnrecord);
                 font::print(PR_CEN, -1, 124, loc::gettext("Best Time"), 196, 196, 255 - help.glow);
-                font::print(PR_2X | PR_CEN, -1, 102, tempstring, 196, 196, 255 - help.glow);
+                font::print(PR_2X | PR_CEN | PR_CJK_HIGH, -1, 102, tempstring, 196, 196, 255 - help.glow);
 
                 switch(game.swnbestrank)
                 {
@@ -2559,7 +2721,7 @@ void maprender(void)
 
                 std::string tempstring = help.timestring(game.swnrecord);
                 font::print(PR_CEN, -1, 90, loc::gettext("Best Time"), 196, 196, 255 - help.glow);
-                font::print(PR_2X | PR_CEN, -1, 104, tempstring, 196, 196, 255 - help.glow);
+                font::print(PR_2X | PR_CEN | PR_CJK_LOW, -1, 104, tempstring, 196, 196, 255 - help.glow);
 
                 switch(game.swnbestrank)
                 {
@@ -2589,9 +2751,15 @@ void maprender(void)
         }
         else if (obj.flags[67] && !map.custommode)
         {
-            font::print_wrap(PR_CEN, -1, 105, loc::gettext("Press ACTION to warp to the ship."), 196, 196, 255 - help.glow);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("Press {button} to warp to the ship."),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+            );
+            font::print_wrap(PR_CEN, -1, 105, buffer, 196, 196, 255 - help.glow);
         }
-#if !defined(NO_CUSTOM_LEVELS)
         else if(map.custommode){
             LevelMetaData& meta = cl.ListOfMetaData[game.playcustomlevel];
 
@@ -2621,7 +2789,6 @@ void maprender(void)
             );
             font::print(PR_CEN, -1, FLIP(165, 8), buffer, 196, 196, 255 - help.glow);
         }
-#endif
         else
         {
             if (graphics.flipmode)
@@ -2683,19 +2850,17 @@ void maprender(void)
     case 2:
     {
         int max_trinkets;
-#ifndef NO_CUSTOM_LEVELS
         if (map.custommode)
         {
             max_trinkets = cl.numtrinkets();
         }
         else
-#endif
         {
             max_trinkets = 20;
         }
 
         /* Stats. */
-        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(52, 8), loc::gettext("[Trinkets found]"), 196, 196, 255 - help.glow);
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(
             buffer, sizeof(buffer),
@@ -2703,13 +2868,13 @@ void maprender(void)
             "n_trinkets:int, max_trinkets:int",
             game.trinkets(), max_trinkets
         );
-        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(64, 8), buffer, 96, 96, 96);
+        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(64, 8), buffer, 96, 96, 96);
 
-        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow);
-        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96);
+        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(102, 8), loc::gettext("[Number of Deaths]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(114, 8), help.String(game.deathcounts), 96, 96, 96);
 
-        font::print(PR_CEN | PR_CJK_HIGH, -1, FLIP(152, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow);
-        font::print(PR_CEN | PR_CJK_LOW, -1, FLIP(164, 8), game.timestring(), 96, 96, 96);
+        font::print(PR_CEN | FLIP_PR_CJK_HIGH, -1, FLIP(152, 8), loc::gettext("[Time Taken]"), 196, 196, 255 - help.glow);
+        font::print(PR_CEN | FLIP_PR_CJK_LOW, -1, FLIP(164, 8), game.timestring(), 96, 96, 96);
         break;
     }
     case 3:
@@ -2751,7 +2916,15 @@ void maprender(void)
 
         if (!game.gamesaved)
         {
-            font::print(PR_CEN, -1, 80, loc::gettext("[Press ACTION to save your game]"), 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
+            char buffer[SCREEN_WIDTH_CHARS + 1];
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("[Press {button} to save your game]"),
+                "button:but",
+                vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+            );
+
+            font::print(PR_CEN, -1, 80, buffer, 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
 
             if (map.custommode || game.quicksummary == "")
             {
@@ -2794,8 +2967,16 @@ void maprender(void)
         );
         font::print(PR_RIGHT, 262, FLIP(132, 8), buffer, 255 - help.glow/2, 255 - help.glow/2, 255 - help.glow/2);
 
-        graphics.draw_sprite(34, FLIP(126, 17), 50, graphics.col_clock);
-        graphics.draw_sprite(270, FLIP(126, 17), 22, graphics.col_trinket);
+        if (graphics.flipmode)
+        {
+            graphics.draw_flipsprite(34, FLIP(126, 17), 50, graphics.col_clock);
+            graphics.draw_flipsprite(270, FLIP(126, 17), 22, graphics.col_trinket);
+        }
+        else
+        {
+            graphics.draw_sprite(34, FLIP(126, 17), 50, graphics.col_clock);
+            graphics.draw_sprite(270, FLIP(126, 17), 22, graphics.col_trinket);
+        }
         break;
     }
     case 10:
@@ -2812,7 +2993,7 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 142, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(0, 80-16, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80-selection_offset, 88, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
             font::print(0, 80 + 32, 76, loc::gettext("yes, quit to menu"),  96, 96, 96);
         }
         else
@@ -2827,7 +3008,7 @@ void maprender(void)
                 font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to quit? You will lose any unsaved progress."), 196, 196, 255 - help.glow, 12);
             }
 
-            font::print(0, 80-16, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
             font::print(0, 80 + 32, 142, loc::gettext("yes, quit to menu"),  96, 96, 96);
 
         }
@@ -2847,7 +3028,7 @@ void maprender(void)
             }
 
             font::print(0, 80, 88, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(0, 80+32-16, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80+32-selection_offset, 76, loc::gettext("[ YES, QUIT TO MENU ]"),  196, 196, 255 - help.glow);
         }
         else
         {
@@ -2861,7 +3042,7 @@ void maprender(void)
             }
 
             font::print(0, 80, 130, loc::gettext("no, keep playing"), 96,96,96);
-            font::print(0, 80+32-16, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80+32-selection_offset, 142, loc::gettext("[ YES, QUIT TO MENU ]"), 196, 196, 255 - help.glow);
         }
         break;
     case 20:
@@ -2870,13 +3051,13 @@ void maprender(void)
         if (graphics.flipmode)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(0, 80-16, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80-selection_offset, 142, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
             font::print(0, 80 + 32, 130, loc::gettext("yes, return"),  96, 96, 96);
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
-            font::print(0, 80-16, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
+            font::print(0, 80-selection_offset, 130, loc::gettext("[ NO, KEEP PLAYING ]"), 196, 196, 255 - help.glow);
             font::print(0, 80 + 32, 142, loc::gettext("yes, return"),  96, 96, 96);
         }
 
@@ -2888,13 +3069,13 @@ void maprender(void)
         {
             font::print_wrap(PR_CEN, -1, 88, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
             font::print(0, 80, 142, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(0, 80 + 32-16, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80 + 32-selection_offset, 130, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
         }
         else
         {
             font::print_wrap(PR_CEN, -1, 76, loc::gettext("Do you want to return to the secret laboratory?"), 196, 196, 255 - help.glow, 12);
             font::print(0, 80, 130, loc::gettext("no, keep playing"), 96, 96, 96);
-            font::print(0, 80 + 32-16, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
+            font::print(0, 80 + 32-selection_offset, 142, loc::gettext("[ YES, RETURN ]"),  196, 196, 255 - help.glow);
         }
 
     }
@@ -2925,6 +3106,8 @@ void maprender(void)
     graphics.renderwithscreeneffects();
 }
 
+#undef FLIP_PR_CJK_HIGH
+#undef FLIP_PR_CJK_LOW
 #undef FLIP
 
 void teleporterrender(void)
@@ -2953,8 +3136,8 @@ void teleporterrender(void)
         //Draw the chosen destination coordinate!
         //TODO
         //draw the coordinates //destination
-        graphics.drawrect(40 + data.xoff + (telex * 12 * data.zoom) + 1, 21 + data.yoff + (teley * 9 * data.zoom) + 1, 12 * data.zoom - 2, 9 * data.zoom - 2, 245 - (help.glow * 2), 16, 16);
-        graphics.drawrect(40 + data.xoff + (telex * 12 * data.zoom) + 3, 21 + data.yoff + (teley * 9 * data.zoom) + 3, 12 * data.zoom - 6, 9 * data.zoom - 6, 245 - (help.glow * 2), 16, 16);
+        graphics.draw_rect(40 + data.xoff + (telex * 12 * data.zoom) + 1, 21 + data.yoff + (teley * 9 * data.zoom) + 1, 12 * data.zoom - 2, 9 * data.zoom - 2, 245 - (help.glow * 2), 16, 16);
+        graphics.draw_rect(40 + data.xoff + (telex * 12 * data.zoom) + 3, 21 + data.yoff + (teley * 9 * data.zoom) + 3, 12 * data.zoom - 6, 9 * data.zoom - 6, 245 - (help.glow * 2), 16, 16);
     }
 
     // Draw the legend itself
@@ -2963,7 +3146,7 @@ void teleporterrender(void)
 
     // Highlight the currently selected teleporter
 
-    if (game.useteleporter && help.slowsine % 16 > 8)
+    if (game.useteleporter && (help.slowsine % 16 > 8 || game.noflashingmode))
     {
         graphics.drawtile(data.legendxoff + data.xoff + (telex * 12 * data.zoom), data.legendyoff + data.yoff + (teley * 9 * data.zoom), 1128 + (graphics.flipmode ? 3 : 0));
     }
@@ -2987,13 +3170,17 @@ void teleporterrender(void)
 
     graphics.drawgui();
 
-    if (graphics.flipmode)
+    if (game.advancetext)
     {
-        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 228, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
-    }
-    else
-    {
-        if (game.advancetext) font::print(PR_CEN | PR_BOR, -1, 5, loc::gettext("- Press ACTION to advance text -"), 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
+        char buffer_adv[SCREEN_WIDTH_CHARS + 1];
+        vformat_buf(
+            buffer_adv, sizeof(buffer_adv),
+            loc::gettext("- Press {button} to advance text -"),
+            "button:but",
+            vformat_button(ActionSet_InGame, Action_InGame_ACTION)
+        );
+
+        font::print(PR_CEN | PR_BOR, -1, graphics.flipmode ? 228 : 5, buffer_adv, 220 - (help.glow), 220 - (help.glow), 255 - (help.glow / 2));
     }
 
     graphics.set_render_target(graphics.gameTexture);

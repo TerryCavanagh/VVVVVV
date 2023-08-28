@@ -456,7 +456,7 @@ const char* FILESYSTEM_getLevelDirError(void)
     return levelDirError;
 }
 
-static void setLevelDirError(const char* text, const char* args_index, ...)
+void FILESYSTEM_setLevelDirError(const char* text, const char* args_index, ...)
 {
     levelDirHasError = true;
 
@@ -475,7 +475,7 @@ static bool FILESYSTEM_mountAssetsFrom(const char *fname)
 
     if (real_dir == NULL)
     {
-        setLevelDirError(
+        FILESYSTEM_setLevelDirError(
             loc::gettext("Could not mount {path}: real directory doesn't exist"),
             "path:str",
             fname
@@ -697,8 +697,7 @@ static void load_stdin(void)
         bool end = ch == EOF;
         if (end)
         {
-            /* Add null terminator. There's no observable change in
-             * behavior if addnull is always true, but not vice versa. */
+            /* Always add null terminator. */
             ch = '\0';
         }
 
@@ -726,15 +725,46 @@ static void load_stdin(void)
     stdin_length = pos - 1;
 }
 
+static PHYSFS_sint64 read_bytes(
+    const char* name, PHYSFS_File* handle, void* buffer,
+    const PHYSFS_uint64 length
+) {
+    const PHYSFS_sint64 bytes_read = PHYSFS_readBytes(handle, buffer, length);
+    if (bytes_read < 0)
+    {
+        vlog_error(
+            "Could not read bytes from file %s: %s",
+            name,
+            PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())
+        );
+    }
+    else if ((unsigned) bytes_read != length)
+    {
+        const char* reason;
+        if (PHYSFS_eof(handle))
+        {
+            reason = "Unexpected EOF";
+        }
+        else
+        {
+            reason = PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode());
+        }
+        vlog_warn(
+            "Partially read file %s: Expected %lli bytes, got %lli: %s",
+            name, length, bytes_read, reason
+        );
+    }
+    return bytes_read;
+}
+
 void FILESYSTEM_loadFileToMemory(
     const char *name,
     unsigned char **mem,
-    size_t *len,
-    bool addnull
+    size_t *len
 ) {
     PHYSFS_File *handle;
     PHYSFS_sint64 length;
-    PHYSFS_sint64 success;
+    PHYSFS_sint64 bytes_read;
 
     if (name == NULL || mem == NULL)
     {
@@ -785,25 +815,15 @@ void FILESYSTEM_loadFileToMemory(
         }
         *len = length;
     }
-    if (addnull)
+
+    *mem = (unsigned char *) SDL_calloc(length + 1, 1);
+    if (*mem == NULL)
     {
-        *mem = (unsigned char *) SDL_malloc(length + 1);
-        if (*mem == NULL)
-        {
-            VVV_exit(1);
-        }
-        (*mem)[length] = 0;
+        VVV_exit(1);
     }
-    else
-    {
-        *mem = (unsigned char*) SDL_malloc(length);
-        if (*mem == NULL)
-        {
-            VVV_exit(1);
-        }
-    }
-    success = PHYSFS_readBytes(handle, *mem, length);
-    if (success == -1)
+
+    bytes_read = read_bytes(name, handle, *mem, length);
+    if (bytes_read < 0)
     {
         VVV_free(*mem);
     }
@@ -824,14 +844,13 @@ fail:
 void FILESYSTEM_loadAssetToMemory(
     const char* name,
     unsigned char** mem,
-    size_t* len,
-    const bool addnull
+    size_t* len
 ) {
     char path[MAX_PATH];
 
     getMountedPath(path, sizeof(path), name);
 
-    FILESYSTEM_loadFileToMemory(path, mem, len, addnull);
+    FILESYSTEM_loadFileToMemory(path, mem, len);
 }
 
 bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
@@ -862,7 +881,8 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 
     size = PHYSFS_fileLength(handle);
 
-    PHYSFS_readBytes(
+    read_bytes(
+        filename,
         handle,
         &blob->m_headers,
         sizeof(blob->m_headers)
@@ -878,19 +898,41 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
 
         /* Name can be stupid, just needs to be terminated */
         static const size_t last_char = sizeof(header->name) - 1;
+        if (header->name[last_char] != '\0')
+        {
+            vlog_warn(
+                "%s: Name of header %li is not null-terminated",
+                filename, i
+            );
+        }
         header->name[last_char] = '\0';
 
         if (header->valid & ~0x1 || !header->valid)
         {
+            if (header->valid & ~0x1)
+            {
+                vlog_error(
+                    "%s: Header %li's 'valid' value is invalid",
+                    filename, i
+                );
+            }
             goto fail; /* Must be EXACTLY 1 or 0 */
         }
         if (header->size < 1)
         {
+            vlog_error(
+                "%s: Header %li's size value is zero or negative",
+                filename, i
+            );
             goto fail; /* Must be nonzero and positive */
         }
         if (offset + header->size > size)
         {
-            goto fail; /* Bogus size value */
+            /* Not an error, VVVVVV 2.2 and below handled it gracefully */
+            vlog_warn(
+                "%s: Header %li's size value goes past end of file",
+                filename, i
+            );
         }
 
         PHYSFS_seek(handle, offset);
@@ -899,8 +941,8 @@ bool FILESYSTEM_loadBinaryBlob(binaryBlob* blob, const char* filename)
         {
             VVV_exit(1); /* Oh god we're out of memory, just bail */
         }
-        PHYSFS_readBytes(handle, *memblock, header->size);
         offset += header->size;
+        header->size = read_bytes(filename, handle, *memblock, header->size);
         valid += 1;
 
         continue;
@@ -974,7 +1016,7 @@ bool FILESYSTEM_loadTiXml2Document(const char *name, tinyxml2::XMLDocument& doc)
 {
     /* XMLDocument.LoadFile doesn't account for Unicode paths, PHYSFS does */
     unsigned char *mem;
-    FILESYSTEM_loadFileToMemory(name, &mem, NULL, true);
+    FILESYSTEM_loadFileToMemory(name, &mem, NULL);
     if (mem == NULL)
     {
         return false;
@@ -988,7 +1030,7 @@ bool FILESYSTEM_loadAssetTiXml2Document(const char *name, tinyxml2::XMLDocument&
 {
     /* Same as FILESYSTEM_loadTiXml2Document except for possible custom assets */
     unsigned char *mem;
-    FILESYSTEM_loadAssetToMemory(name, &mem, NULL, true);
+    FILESYSTEM_loadAssetToMemory(name, &mem, NULL);
     if (mem == NULL)
     {
         return false;

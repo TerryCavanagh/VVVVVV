@@ -86,6 +86,8 @@ static void sync_lang_file(const std::string& langcode)
                 pElem->SetText(langmeta.credit.c_str());
             else if (SDL_strcmp(pKey, "action_hint") == 0)
                 pElem->SetText(langmeta.action_hint.c_str());
+            else if (SDL_strcmp(pKey, "gamepad_hint") == 0)
+                pElem->SetText(langmeta.gamepad_hint.c_str());
             else if (SDL_strcmp(pKey, "autowordwrap") == 0)
                 pElem->SetText((int) langmeta.autowordwrap);
             else if (SDL_strcmp(pKey, "toupper") == 0)
@@ -244,7 +246,7 @@ static void sync_lang_file(const std::string& langcode)
             hashmap* map = map_translation_cutscene;
 
             uintptr_t ptr_cutscene_map;
-            bool found = hashmap_get(map, (void*) cutscene_id, SDL_strlen(cutscene_id), &ptr_cutscene_map);
+            bool found = hashmap_get(map, cutscene_id, SDL_strlen(cutscene_id), &ptr_cutscene_map);
             hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
             if (!found || cutscene_map == NULL)
             {
@@ -271,7 +273,7 @@ static void sync_lang_file(const std::string& langcode)
                 }
 
                 uintptr_t ptr_format;
-                found = hashmap_get(cutscene_map, (void*) eng_prefixed, alloc_len-1, &ptr_format);
+                found = hashmap_get(cutscene_map, eng_prefixed, alloc_len-1, &ptr_format);
                 const TextboxFormat* format = (TextboxFormat*) ptr_format;
 
                 VVV_free(eng_prefixed);
@@ -288,6 +290,9 @@ static void sync_lang_file(const std::string& langcode)
                 subElem->DeleteAttribute("pad_left");
                 subElem->DeleteAttribute("pad_right");
                 subElem->DeleteAttribute("padtowidth");
+
+                bool buttons = subElem->BoolAttribute("buttons", false);
+                subElem->DeleteAttribute("buttons"); // we want this at the end...
 
                 if (format->text != NULL)
                     subElem->SetAttribute("translation", format->text);
@@ -310,6 +315,8 @@ static void sync_lang_file(const std::string& langcode)
                 }
                 if (format->padtowidth != 0)
                     subElem->SetAttribute("padtowidth", format->padtowidth);
+                if (buttons)
+                    subElem->SetAttribute("buttons", 1);
             }
         }
 
@@ -546,7 +553,8 @@ bool populate_cutscene_test(const char* script_id)
                 script.add_test_line(
                     speaker,
                     eng,
-                    subElem->UnsignedAttribute("case", 1)
+                    subElem->UnsignedAttribute("case", 1),
+                    subElem->BoolAttribute("buttons", false)
                 );
             }
         }

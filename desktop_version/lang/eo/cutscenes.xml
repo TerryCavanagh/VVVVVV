@@ -76,10 +76,11 @@
     <cutscene id="bigopenworldskip" explanation="">
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="Mi estos ĉi tie, se vi helpon bezonas!"/>
     </cutscene>
-    <cutscene id="talkpurple_intro" explanation="">
+    <cutscene id="talkpurple_intro" explanation="***ENTER is OUTDATED***">
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Mi sentas min iom superŝarĝita, Doktoro."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Kie mi komencu?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Memoru, ke vi povas premi ENTER por kontroli, kie vi estas sur la mapo!"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="Memoru, ke vi povas premi {button} por kontroli, kie vi estas sur la mapo!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Serĉu areojn, kie eble estas la skipanoj..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Se vi perdiĝas, vi povas reveni al la ŝipo per iu ajn teleportilo."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="Kaj ne ĉagreniĝu! Ni ĉiujn trovos!"/>
@@ -128,7 +129,7 @@
     <cutscene id="rescuered" explanation="">
         <dialogue speaker="red" english="Captain!" translation="Kapitano!"/>
         <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation="Ho, mi ĝojegas vidi vin! Mi pensis, ke nur mi eskapis la ŝipon..."/>
-        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="Vermiljo! Mi konstatis, ke vi estus enorde!"/>
+        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="Vermiljo! Mi sciis, ke vi estus enorde ja!"/>
         <dialogue speaker="red" english="So, what&apos;s the situation?" translation="Do, kio estas la situacio?"/>
         <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation="Ha, klaras! Nu, ni ja revenu do."/>
         <dialogue speaker="red" english="There&apos;s a teleporter in the next room." translation="Estas teleportilo en la apuda ĉambro."/>
@@ -316,7 +317,7 @@
     </cutscene>
     <cutscene id="int1yellow_6" explanation="">
         <dialogue speaker="yellow" english="I wonder if there&apos;s anything else in this dimension worth exploring?" translation="Mi scivolas, ĉu estas aliaj aferoj esplorindaj en tiu ĉi dimensio..."/>
-        <dialogue speaker="player" english="Maybe... but we should probably just focus on finding the rest of the crew for now..." translation="Eble... sed nune, ni vere koncentriĝu pri trovi la aliajn skipanojn."/>
+        <dialogue speaker="player" english="Maybe... but we should probably just focus on finding the rest of the crew for now..." translation="Eble... sed nune, ni vere okupiĝu pri trovi la aliajn skipanojn."/>
     </cutscene>
     <cutscene id="int1yellow_7" explanation="">
         <dialogue speaker="yellow" english="At last!" translation="Finfine!"/>
@@ -515,7 +516,7 @@
         <dialogue speaker="blue" english="That lab was so dark and scary! I didn&apos;t like it at all..." translation="Tiu laboratorio estis tre malhela kaj timiga! Mi tute ne ŝatis ĝin..."/>
     </cutscene>
     <cutscene id="talkblue_4" explanation="">
-        <dialogue speaker="blue" english="Vitellary&apos;s back? I knew you&apos;d find him!" translation="Vitelario revenis, ĉu? Mi konstatis, ke vi lin trovus!"/>
+        <dialogue speaker="blue" english="Vitellary&apos;s back? I knew you&apos;d find him!" translation="Vitelario revenis, ĉu? Mi sciis, ke vi lin trovus ja!"/>
         <dialogue speaker="blue" english="I mean, I admit I was very worried that you wouldn&apos;t..." translation="Nu, mi konfesas, ke mi tre zorgis, ke ne..."/>
         <dialogue speaker="blue" english="or that something might have happened to him..." translation="...aŭ ke io eble okazis al li..."/>
         <dialogue speaker="blue" english="sniff..." translation="snuf&apos;..."/>
@@ -602,8 +603,8 @@
         <dialogue speaker="yellow" english="I wonder where the people who used to live here have gone?" translation="Mi scivolas, kien iris la homoj, kiuj iam loĝis ĉi tie..."/>
     </cutscene>
     <cutscene id="talkyellow_6" explanation="">
-        <dialogue speaker="yellow" english="I think it&apos;s no coincidence that the teleporter was drawn to that dimension..." translation="Laŭ mi ne estas koincido, ke la teleportilo emis sendi nin al tiu dimensio..."/>
-        <dialogue speaker="yellow" english="There&apos;s something there. I think it might be causing the interference that&apos;s stopping us from leaving..." translation="Estas io tie. Mi pensas, ke tio eble kaŭzas la intervenon, kiu preventas nin de forlasi tiun ĉi dimension..."/>
+        <dialogue speaker="yellow" english="I think it&apos;s no coincidence that the teleporter was drawn to that dimension..." translation="Laŭ mi ne estas koincido, ke la teleportilo devojiĝis al tiu dimensio..."/>
+        <dialogue speaker="yellow" english="There&apos;s something there. I think it might be causing the interference that&apos;s stopping us from leaving..." translation="Estas io tie. Mi pensas, ke tio eble kaŭzas la intervenon, kiu preventas nin forlasi tiun ĉi dimension..."/>
     </cutscene>
     <cutscene id="talkyellow_7" explanation="">
         <dialogue speaker="yellow" english="I&apos;m glad Verdigris is alright." translation="Mi feliĉas, ke Verdigriso estas en ordo."/>
@@ -928,8 +929,8 @@ Elsendanta" tt="1" centertext="1" pad="2"/>
 
 The Super-Gravitron is intended for entertainment purposes only." translation="-= AVERTO =-
  
-La Super-Gravitrono estas nur por celoj de amuzo." centertext="1" pad="1"/>
-        <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="Iu ajn, kiu uzas la Super-Gravitronon por edukaj celoj postuliĝos stari en la angulo por gebubaĉoj."/>
+La Supergravitrono estas nur por celoj de amuzo." centertext="1" pad="1"/>
+        <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="Iu ajn, kiu uzas la Supergravitronon por edukaj celoj postuliĝos stari en la angulo por gebubaĉoj."/>
     </cutscene>
     <cutscene id="terminal_shipcomputer" explanation="">
         <dialogue speaker="gray" english="-= D.S.S. SOULEYE =-
@@ -943,6 +944,6 @@ Ship Navigation Controls" translation="-= KOSMOŜIPO SOULEYE =-
         <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="...Ho, mi jam trovis tion."/>
     </cutscene>
     <cutscene id="disableaccessibility" explanation="">
-        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="Bonvolu malebligi nevundeblecon kaj/aŭ malrapidigon antaŭ ol eniri la Super-Gravitronon."/>
+        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="Bonvolu malebligi nevundeblecon kaj/aŭ malrapidigon antaŭ ol eniri la Supergravitronon."/>
     </cutscene>
 </cutscenes>

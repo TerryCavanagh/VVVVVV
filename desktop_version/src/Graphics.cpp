@@ -2,11 +2,11 @@
 #include "Graphics.h"
 
 #include <SDL.h>
-#include <utf8/unchecked.h>
 
 #include "Alloc.h"
 #include "Constants.h"
 #include "CustomLevels.h"
+#include "Editor.h"
 #include "Entity.h"
 #include "Exit.h"
 #include "FileSystemUtils.h"
@@ -18,6 +18,7 @@
 #include "Music.h"
 #include "RoomnameTranslator.h"
 #include "Screen.h"
+#include "Script.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 #include "Vlogging.h"
@@ -25,18 +26,14 @@
 void Graphics::init(void)
 {
     flipmode = false;
-    setRect(tiles_rect, 0,0,8,8);
-    setRect(sprites_rect, 0,0,32,32);
+    setRect(tiles_rect, 0, 0, 8, 8);
+    setRect(sprites_rect, 0, 0, 32, 32);
     setRect(footerrect, 0, 230, 320, 10);
-    setRect(prect, 0, 0, 4, 4);
-    setRect(line_rect, 0,0,0,0);
-    setRect(tele_rect,0,0,96,96);
+    setRect(tele_rect, 0, 0, 96, 96);
 
-
-    //We initialise a few things
+    // We initialise a few things
 
     linestate = 0;
-
 
     trinketcolset = false;
 
@@ -47,13 +44,12 @@ void Graphics::init(void)
     flipmode = false;
     setflipmode = false;
 
-    //Background inits
+    // Initialize backgrounds
     for (int i = 0; i < numstars; i++)
     {
-        SDL_Rect s = {(int) (fRandom() * 320), (int) (fRandom() * 240), 2, 2};
-        int s2 = 4+(fRandom()*4);
-        stars[i] = s;
-        starsspeed[i] = s2;
+        const SDL_Rect star = {(int) (fRandom() * 320), (int) (fRandom() * 240), 2, 2};
+        stars[i] = star;
+        starsspeed[i] = 4 + (fRandom() * 4);
     }
 
     for (int i = 0; i < numbackboxes; i++)
@@ -61,7 +57,7 @@ void Graphics::init(void)
         SDL_Rect bb;
         int bvx = 0;
         int bvy = 0;
-        if(fRandom()*100 > 50)
+        if (fRandom() * 100 > 50)
         {
             bvx = 9 - (fRandom() * 19);
             if (bvx > -6 && bvx < 6) bvx = 6;
@@ -73,14 +69,15 @@ void Graphics::init(void)
             bvy = 9 - (fRandom() * 19);
             if (bvy > -6 && bvy < 6) bvy = 6;
             bvy = bvy * 1.5;
-            setRect(bb, fRandom() * 320, fRandom() * 240, 12, 32) ;
+            setRect(bb, fRandom() * 320, fRandom() * 240, 12, 32);
         }
-        float bint = 0.5 + ((fRandom() * 100) / 200);
         backboxes[i] = bb;
         backboxvx[i] = bvx;
         backboxvy[i] = bvy;
-        backboxint[i] = bint;
     }
+
+    backboxmult = 0.5 + ((fRandom() * 100) / 200);
+
     backoffset = 0;
     foregrounddrawn = false;
     backgrounddrawn = false;
@@ -111,7 +108,7 @@ void Graphics::init(void)
     gameplayTexture = NULL;
     menuTexture = NULL;
     ghostTexture = NULL;
-    tempTexture = NULL;
+    tempShakeTexture = NULL;
     backgroundTexture = NULL;
     foregroundTexture = NULL;
     towerbg = TowerBG();
@@ -142,19 +139,14 @@ void Graphics::init(void)
 
     kludgeswnlinewidth = false;
 
-#ifndef NO_CUSTOM_LEVELS
     tiles1_mounted = false;
     tiles2_mounted = false;
     minimap_mounted = false;
-#endif
 
     gamecomplete_mounted = false;
     levelcomplete_mounted = false;
     flipgamecomplete_mounted = false;
     fliplevelcomplete_mounted = false;
-
-    SDL_zeroa(error);
-    SDL_zeroa(error_title);
 }
 
 void Graphics::destroy(void)
@@ -171,6 +163,9 @@ void Graphics::destroy(void)
 
 #undef CLEAR_ARRAY
 }
+
+static SDL_Surface* tempFilterSrc = NULL;
+static SDL_Surface* tempFilterDest = NULL;
 
 void Graphics::create_buffers(void)
 {
@@ -189,12 +184,13 @@ void Graphics::create_buffers(void)
     gameplayTexture = CREATE_TEXTURE;
     menuTexture = CREATE_TEXTURE;
     ghostTexture = CREATE_TEXTURE;
-    tempTexture = CREATE_TEXTURE;
+    tempShakeTexture = CREATE_TEXTURE;
     foregroundTexture = CREATE_TEXTURE;
     backgroundTexture = CREATE_SCROLL_TEXTURE;
+    tempScrollingTexture = CREATE_SCROLL_TEXTURE;
     towerbg.texture = CREATE_SCROLL_TEXTURE;
     titlebg.texture = CREATE_SCROLL_TEXTURE;
-    
+
 #undef CREATE_SCROLL_TEXTURE
 #undef CREATE_TEXTURE
 #undef CREATE_TEXTURE_WITH_DIMENSIONS
@@ -206,9 +202,14 @@ void Graphics::destroy_buffers(void)
     VVV_freefunc(SDL_DestroyTexture, gameplayTexture);
     VVV_freefunc(SDL_DestroyTexture, menuTexture);
     VVV_freefunc(SDL_DestroyTexture, ghostTexture);
-    VVV_freefunc(SDL_DestroyTexture, tempTexture);
+    VVV_freefunc(SDL_DestroyTexture, tempShakeTexture);
     VVV_freefunc(SDL_DestroyTexture, foregroundTexture);
     VVV_freefunc(SDL_DestroyTexture, backgroundTexture);
+    VVV_freefunc(SDL_DestroyTexture, tempScrollingTexture);
+    VVV_freefunc(SDL_DestroyTexture, towerbg.texture);
+    VVV_freefunc(SDL_DestroyTexture, titlebg.texture);
+    VVV_freefunc(SDL_FreeSurface, tempFilterSrc);
+    VVV_freefunc(SDL_FreeSurface, tempFilterDest);
 }
 
 void Graphics::drawspritesetcol(int x, int y, int t, int c)
@@ -229,65 +230,6 @@ void Graphics::updatetitlecolours(void)
     col_clock = getcol(18);
     col_trinket = getcol(18);
 }
-
-#define PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
-    if (grphx.im_##tilesheet == NULL) \
-    { \
-        /* We have already asserted; just no-op. */ \
-    } \
-    else if (grphx.im_##tilesheet->w % tile_square != 0 \
-    || grphx.im_##tilesheet->h % tile_square != 0) \
-    { \
-        static const char error_fmt[] = "%s.png dimensions not exact multiples of %i!"; \
-        static const char error_title_fmt[] = "Error with %s.png"; \
-        \
-        SDL_snprintf(error, sizeof(error), error_fmt, #tilesheet, tile_square); \
-        SDL_snprintf(error_title, sizeof(error_title), error_title_fmt, #tilesheet); \
-        \
-        vlog_error("%s", error); \
-        \
-        return false; \
-    }
-
-#define PROCESS_TILESHEET_RENAME(tilesheet, vector, tile_square, extra_code) \
-    PROCESS_TILESHEET_CHECK_ERROR(tilesheet, tile_square) \
-    \
-    else \
-    { \
-        int j; \
-        for (j = 0; j < grphx.im_##tilesheet->h / tile_square; ++j) \
-        { \
-            int i; \
-            for (i = 0; i < grphx.im_##tilesheet->w / tile_square; ++i) \
-            { \
-                SDL_Surface* temp = GetSubSurface( \
-                    grphx.im_##tilesheet, \
-                    i * tile_square, j * tile_square, \
-                    tile_square, tile_square \
-                ); \
-                vector.push_back(temp); \
-                \
-                extra_code \
-            } \
-        } \
-        \
-        VVV_freefunc(SDL_FreeSurface, grphx.im_##tilesheet); \
-    }
-
-#define PROCESS_TILESHEET(tilesheet, tile_square, extra_code) \
-    PROCESS_TILESHEET_RENAME(tilesheet, tilesheet, tile_square, extra_code)
-
-bool Graphics::MakeSpriteArray(void)
-{
-    PROCESS_TILESHEET(sprites_surf, 32, {})
-    PROCESS_TILESHEET(flipsprites_surf, 32, {})
-
-    return true;
-}
-
-#undef PROCESS_TILESHEET
-#undef PROCESS_TILESHEET_RENAME
-#undef PROCESS_TILESHEET_CHECK_ERROR
 
 
 void Graphics::map_tab(int opt, const char* text, bool selected /*= false*/)
@@ -329,7 +271,11 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
 
         char buffer[SCREEN_WIDTH_CHARS + 1];
         vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", text_upper.c_str());
-        font::print(0, x - 16, y, buffer, 196, 196, 255 - help.glow);
+
+        // Account for brackets
+        x -= (font::len(0, buffer) - font::len(0, text_upper.c_str())) / 2;
+
+        font::print(0, x, y, buffer, 196, 196, 255 - help.glow);
     }
     else
     {
@@ -341,25 +287,26 @@ void Graphics::map_option(int opt, int num_opts, const std::string& text, bool s
 void Graphics::printcrewname( int x, int y, int t )
 {
     //Print the name of crew member t in the right colour
+    const uint32_t flags = flipmode ? PR_CJK_LOW : PR_CJK_HIGH;
     switch(t)
     {
     case 0:
-        font::print(0, x, y, loc::gettext("Viridian"), 16, 240, 240);
+        font::print(flags, x, y, loc::gettext("Viridian"), 16, 240, 240);
         break;
     case 1:
-        font::print(0, x, y, loc::gettext("Violet"), 240, 16, 240);
+        font::print(flags, x, y, loc::gettext("Violet"), 240, 16, 240);
         break;
     case 2:
-        font::print(0, x, y, loc::gettext("Vitellary"), 240, 240, 16);
+        font::print(flags, x, y, loc::gettext("Vitellary"), 240, 240, 16);
         break;
     case 3:
-        font::print(0, x, y, loc::gettext("Vermilion"), 240, 16, 16);
+        font::print(flags, x, y, loc::gettext("Vermilion"), 240, 16, 16);
         break;
     case 4:
-        font::print(0, x, y, loc::gettext("Verdigris"), 16, 240, 16);
+        font::print(flags, x, y, loc::gettext("Verdigris"), 16, 240, 16);
         break;
     case 5:
-        font::print(0, x, y, loc::gettext("Victoria"), 16, 16, 240);
+        font::print(flags, x, y, loc::gettext("Victoria"), 16, 16, 240);
         break;
     }
 }
@@ -367,25 +314,26 @@ void Graphics::printcrewname( int x, int y, int t )
 void Graphics::printcrewnamedark( int x, int y, int t )
 {
     //Print the name of crew member t as above, but in black and white
+    const uint32_t flags = flipmode ? PR_CJK_LOW : PR_CJK_HIGH;
     switch(t)
     {
     case 0:
-        font::print(0, x, y, loc::gettext("Viridian"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Viridian"), 128,128,128);
         break;
     case 1:
-        font::print(0, x, y, loc::gettext("Violet"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Violet"), 128,128,128);
         break;
     case 2:
-        font::print(0, x, y, loc::gettext("Vitellary"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Vitellary"), 128,128,128);
         break;
     case 3:
-        font::print(0, x, y, loc::gettext("Vermilion"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Vermilion"), 128,128,128);
         break;
     case 4:
-        font::print(0, x, y, loc::gettext("Verdigris"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Verdigris"), 128,128,128);
         break;
     case 5:
-        font::print(0, x, y, loc::gettext("Victoria"), 128,128,128);
+        font::print(flags, x, y, loc::gettext("Victoria"), 128,128,128);
         break;
     }
 }
@@ -399,27 +347,27 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
     switch(t)
     {
     case 0:
-        r=12; g=140, b=140;
+        r = 12; g = 140, b = 140;
         gender = 3;
         break;
     case 1:
-        r=140; g=12; b=140;
+        r = 140; g = 12; b = 140;
         gender = 2;
         break;
     case 2:
-        r=140; g=140; b=12;
+        r = 140; g = 140; b = 12;
         gender = 1;
         break;
     case 3:
-        r=140; g=12; b=12;
+        r = 140; g = 12; b = 12;
         gender = 1;
         break;
     case 4:
-        r=12; g=140; b=12;
+        r = 12; g = 140; b = 12;
         gender = 1;
         break;
     case 5:
-        r=12; g=12; b=140;
+        r = 12; g = 12; b = 140;
         gender = 2;
         break;
     default:
@@ -437,11 +385,11 @@ void Graphics::printcrewnamestatus( int x, int y, int t, bool rescued )
     }
     else
     {
-        r=64; g=64; b=64;
+        r = 64; g = 64; b = 64;
         status_text = loc::gettext_case("Missing...", gender);
     }
 
-    font::print(0, x, y, status_text, r, g, b);
+    font::print(flipmode ? PR_CJK_HIGH : PR_CJK_LOW, x, y, status_text, r, g, b);
 }
 
 void Graphics::print_level_creator(
@@ -460,12 +408,12 @@ void Graphics::print_level_creator(
      * - it makes sense to make it a face
      * - if anyone is sad about this decision, the happy face will cheer them up anyway :D */
     int width_for_face = 17;
-    int total_width = width_for_face + font::len(print_flags, creator);
-    int face_x = (SCREEN_WIDTH_PIXELS-total_width)/2;
+    int total_width = width_for_face + font::len(print_flags, creator.c_str());
+    int face_x = (SCREEN_WIDTH_PIXELS - total_width) / 2;
     set_texture_color_mod(grphx.im_sprites, r, g, b);
-    draw_texture_part(grphx.im_sprites, face_x, y-1, 7, 2, 10, 10, 1, 1);
+    draw_texture_part(grphx.im_sprites, face_x, y - 1, 7, 2, 10, 10, 1, 1);
     set_texture_color_mod(grphx.im_sprites, 255, 255, 255);
-    font::print(print_flags, face_x+width_for_face, y, creator, r, g, b);
+    font::print(print_flags, face_x + width_for_face, y, creator, r, g, b);
 }
 
 int Graphics::set_render_target(SDL_Texture* texture)
@@ -540,7 +488,7 @@ int Graphics::clear(const int r, const int g, const int b, const int a)
     return result;
 }
 
-int Graphics::clear()
+int Graphics::clear(void)
 {
     return clear(0, 0, 0, 255);
 }
@@ -585,10 +533,8 @@ int Graphics::set_color(const SDL_Color color)
     return set_color(color.r, color.g, color.b, color.a);
 }
 
-int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+int Graphics::fill_rect(const SDL_Rect* rect)
 {
-    set_color(r, g, b, a);
-
     const int result = SDL_RenderFillRect(gameScreen.m_renderer, rect);
     if (result != 0)
     {
@@ -597,9 +543,10 @@ int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const in
     return result;
 }
 
-int Graphics::fill_rect(const int r, const int g, const int b, const int a)
+int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
 {
-    return fill_rect(NULL, r, g, b, a);
+    set_color(r, g, b, a);
+    return fill_rect(rect);
 }
 
 int Graphics::fill_rect(const SDL_Rect* rect, const int r, const int g, const int b)
@@ -638,6 +585,74 @@ int Graphics::fill_rect(const int x, const int y, const int w, const int h, cons
     return fill_rect(x, y, w, h, color.r, color.g, color.b, color.a);
 }
 
+int Graphics::draw_rect(const SDL_Rect* rect)
+{
+    const int result = SDL_RenderDrawRect(gameScreen.m_renderer, rect);
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(("Could not draw rectangle: %s", SDL_GetError()));
+    }
+    return result;
+}
+
+int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b, const int a)
+{
+    set_color(r, g, b, a);
+    return draw_rect(rect);
+}
+
+int Graphics::draw_rect(const SDL_Rect* rect, const int r, const int g, const int b)
+{
+    return draw_rect(rect, r, g, b, 255);
+}
+
+int Graphics::draw_rect(const SDL_Rect* rect, const SDL_Color color)
+{
+    return draw_rect(rect, color.r, color.g, color.b, color.a);
+}
+
+int Graphics::draw_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b, const int a)
+{
+    const SDL_Rect rect = {x, y, w, h};
+    return draw_rect(&rect, r, g, b, a);
+}
+
+int Graphics::draw_rect(const int x, const int y, const int w, const int h, const int r, const int g, const int b)
+{
+    return draw_rect(x, y, w, h, r, g, b, 255);
+}
+
+int Graphics::draw_rect(const int x, const int y, const int w, const int h, const SDL_Color color)
+{
+    return draw_rect(x, y, w, h, color.r, color.g, color.b, color.a);
+}
+
+int Graphics::draw_line(const int x, const int y, const int x2, const int y2)
+{
+    const int result = SDL_RenderDrawLine(gameScreen.m_renderer, x, y, x2, y2);
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(("Could not draw line: %s", SDL_GetError()));
+    }
+    return result;
+}
+
+int Graphics::draw_points(const SDL_Point* points, const int count)
+{
+    const int result = SDL_RenderDrawPoints(gameScreen.m_renderer, points, count);
+    if (result != 0)
+    {
+        WHINE_ONCE_ARGS(("Could not draw points: %s", SDL_GetError()));
+    }
+    return result;
+}
+
+int Graphics::draw_points(const SDL_Point* points, const int count, const int r, const int g, const int b)
+{
+    set_color(r, g, b);
+    return draw_points(points, count);
+}
+
 void Graphics::draw_sprite(const int x, const int y, const int t, const int r, const int g, const int b)
 {
     draw_grid_tile(grphx.im_sprites, t, x, y, sprites_rect.w, sprites_rect.h, r, g, b);
@@ -648,91 +663,60 @@ void Graphics::draw_sprite(const int x, const int y, const int t, const SDL_Colo
     draw_grid_tile(grphx.im_sprites, t, x, y, sprites_rect.w, sprites_rect.h, color);
 }
 
-void Graphics::scroll_texture(SDL_Texture* texture, const int x, const int y)
+void Graphics::draw_flipsprite(const int x, const int y, const int t, const SDL_Color color)
 {
+    draw_grid_tile(grphx.im_flipsprites, t, x, y, sprites_rect.w, sprites_rect.h, color);
+}
+
+void Graphics::scroll_texture(SDL_Texture* texture, SDL_Texture* temp, const int x, const int y)
+{
+    SDL_Texture* target = SDL_GetRenderTarget(gameScreen.m_renderer);
     SDL_Rect texture_rect = {0, 0, 0, 0};
     SDL_QueryTexture(texture, NULL, NULL, &texture_rect.w, &texture_rect.h);
 
-    if (x < 0)
-    {
-        for (int i = 0; i < texture_rect.w; i -= x)
-        {
-            const SDL_Rect src = {i, 0, x * -1, texture_rect.h};
-            const SDL_Rect dest = {i + x, 0, x * -1, texture_rect.h};
-            copy_texture(texture, &src, &dest);
-        }
-    }
-    else if (x > 0)
-    {
-        for (int i = texture_rect.w; i > 0; i -= x)
-        {
-            const SDL_Rect src = {i - x, 0, x, texture_rect.h};
-            const SDL_Rect dest = {i, 0, x, texture_rect.h};
-            copy_texture(texture, &src, &dest);
-        }
-    }
+    const SDL_Rect src = {0, 0, texture_rect.w, texture_rect.h};
+    const SDL_Rect dest = {x, y, texture_rect.w, texture_rect.h};
 
-    if (y < 0)
-    {
-        for (int i = 0; i < texture_rect.h; i -= y)
-        {
-            const SDL_Rect src = {0, i, texture_rect.w, y * -1};
-            const SDL_Rect dest = {0, i + y, texture_rect.w, y * -1};
-            copy_texture(texture, &src, &dest);
-        }
-    }
-    else if (y > 0)
-    {
-        for (int i = texture_rect.h; i > 0; i -= y)
-        {
-            const SDL_Rect src = {0, i - y, texture_rect.w, y};
-            const SDL_Rect dest = {0, i, texture_rect.w, y};
-            copy_texture(texture, &src, &dest);
-        }
-    }
+    set_render_target(temp);
+    clear();
+    copy_texture(texture, &src, &dest);
+    set_render_target(target);
+    copy_texture(temp, &src, &src);
 }
 
-#ifndef NO_CUSTOM_LEVELS
 bool Graphics::shouldrecoloroneway(const int tilenum, const bool mounted)
 {
     return (tilenum >= 14 && tilenum <= 17
     && (!mounted
     || cl.onewaycol_override));
 }
-#endif
 
-void Graphics::drawtile( int x, int y, int t )
+void Graphics::drawtile(int x, int y, int t)
 {
-#if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles1_mounted))
     {
         draw_grid_tile(grphx.im_tiles_tint, t, x, y, tiles_rect.w, tiles_rect.h, cl.getonewaycol());
     }
     else
-#endif
     {
         draw_grid_tile(grphx.im_tiles, t, x, y, tiles_rect.w, tiles_rect.h);
     }
 }
 
 
-void Graphics::drawtile2( int x, int y, int t )
+void Graphics::drawtile2(int x, int y, int t)
 {
-#if !defined(NO_CUSTOM_LEVELS)
     if (shouldrecoloroneway(t, tiles2_mounted))
     {
         draw_grid_tile(grphx.im_tiles2_tint, t, x, y, tiles_rect.w, tiles_rect.h, cl.getonewaycol());
     }
     else
-#endif
     {
         draw_grid_tile(grphx.im_tiles2, t, x, y, tiles_rect.w, tiles_rect.h);
     }
 }
 
-
-
-void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 0*/ )
+void Graphics::drawtile3(int x, int y, int t, int off, int height_subtract /*= 0*/)
 {
     t += off * 30;
 
@@ -749,17 +733,37 @@ void Graphics::drawtile3( int x, int y, int t, int off, int height_subtract /*= 
     draw_texture_part(grphx.im_tiles3, x, y, x2, y2, 8, 8 - height_subtract, 1, 1);
 }
 
-void Graphics::drawtowertile( int x, int y, int t )
-{
-    draw_grid_tile(grphx.im_tiles2, t, x, y, tiles_rect.w, tiles_rect.h);
-}
+const char* Graphics::textbox_line(
+    char* buffer,
+    const size_t buffer_len,
+    const size_t textbox_i,
+    const size_t line_i
+) {
+    /* Gets a line in a textbox, accounting for filling button placeholders like {b_map}.
+     * Takes a buffer as an argument, but DOESN'T ALWAYS write to that buffer.
+     * Always use the return value! ^^
+     * Does not check boundaries. */
 
+    const char* line = textboxes[textbox_i].lines[line_i].c_str();
+    if (!textboxes[textbox_i].fill_buttons)
+    {
+        return line;
+    }
 
-void Graphics::drawtowertile3( int x, int y, int t, TowerBG& bg_obj )
-{
-    t += bg_obj.colstate * 30;
-
-    draw_grid_tile(grphx.im_tiles3, t, x, y, tiles_rect.w, tiles_rect.h);
+    vformat_buf(buffer, buffer_len,
+        line,
+        "b_act:but,"
+        "b_int:but,"
+        "b_map:but,"
+        "b_res:but,"
+        "b_esc:but",
+        vformat_button(ActionSet_InGame, Action_InGame_ACTION),
+        vformat_button(ActionSet_InGame, Action_InGame_Interact),
+        vformat_button(ActionSet_InGame, Action_InGame_Map),
+        vformat_button(ActionSet_InGame, Action_InGame_Restart),
+        vformat_button(ActionSet_InGame, Action_InGame_Esc)
+    );
+    return buffer;
 }
 
 void Graphics::drawgui(void)
@@ -767,7 +771,6 @@ void Graphics::drawgui(void)
     int text_sign;
     int crew_yp;
     int crew_sprite;
-    size_t i;
 
     if (flipmode)
     {
@@ -783,7 +786,7 @@ void Graphics::drawgui(void)
     }
 
     //Draw all the textboxes to the screen
-    for (i = 0; i<textboxes.size(); i++)
+    for (size_t i = 0; i < textboxes.size(); i++)
     {
         int text_yoff;
         int yp;
@@ -804,6 +807,8 @@ void Graphics::drawgui(void)
             yp = SCREEN_HEIGHT_PIXELS - yp - 16 - textboxes[i].lines.size() * font_height;
         }
 
+        char buffer[SCREEN_WIDTH_CHARS + 1];
+
         if (textboxes[i].r == 0 && textboxes[i].g == 0 && textboxes[i].b == 0)
         {
             /* To avoid the outlines for different lines overlapping the text itself,
@@ -815,7 +820,7 @@ void Graphics::drawgui(void)
                     textboxes[i].print_flags | PR_CJK_LOW | PR_BOR,
                     textboxes[i].xp + 8,
                     yp + text_yoff + text_sign * (j * font_height),
-                    textboxes[i].lines[j],
+                    textbox_line(buffer, sizeof(buffer), i, j),
                     0, 0, 0
                 );
             }
@@ -825,7 +830,7 @@ void Graphics::drawgui(void)
                     textboxes[i].print_flags | PR_CJK_LOW,
                     textboxes[i].xp + 8,
                     yp + text_yoff + text_sign * (j * font_height),
-                    textboxes[i].lines[j],
+                    textbox_line(buffer, sizeof(buffer), i, j),
                     196, 196, 255 - help.glow
                 );
             }
@@ -838,7 +843,24 @@ void Graphics::drawgui(void)
             const int b = textboxes[i].b * tl_lerp;
             size_t j;
 
-            drawpixeltextbox(textboxes[i].xp, yp, textboxes[i].w, textboxes[i].h, r, g, b);
+            int w = textboxes[i].w;
+            if (textboxes[i].fill_buttons)
+            {
+                /* If we can fill in buttons, the width of the box may change...
+                 * This is Violet's fault. She decided to say a button name out loud. */
+                int max = 0;
+                for (j = 0; j < textboxes[i].lines.size(); j++)
+                {
+                    int len = font::len(textboxes[i].print_flags, textbox_line(buffer, sizeof(buffer), i, j));
+                    if (len > max)
+                    {
+                        max = len;
+                    }
+                }
+                w = max + 16;
+            }
+
+            drawpixeltextbox(textboxes[i].xp, yp, w, textboxes[i].h, r, g, b);
 
             for (j = 0; j < textboxes[i].lines.size(); j++)
             {
@@ -846,7 +868,7 @@ void Graphics::drawgui(void)
                     textboxes[i].print_flags | PR_BRIGHTNESS(tl_lerp*255) | PR_CJK_LOW,
                     textboxes[i].xp + 8,
                     yp + text_yoff + text_sign * (j * font_height),
-                    textboxes[i].lines[j],
+                    textbox_line(buffer, sizeof(buffer), i, j),
                     textboxes[i].r, textboxes[i].g, textboxes[i].b
                 );
             }
@@ -879,9 +901,10 @@ void Graphics::drawgui(void)
                 }
                 if (flipmode)
                 {
-                    y = 240 - y - 8*sc;
+                    y = 240 - y - 8 * sc;
                 }
-                font::print(sc==2 ? PR_2X : PR_1X | PR_CEN, -1, y, translation, 164, 164, 255);
+                SDL_Color color = TEXT_COLOUR("cyan");
+                font::print((sc == 2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, color.r, color.g, color.b);
             }
             else
             {
@@ -915,9 +938,9 @@ void Graphics::drawgui(void)
                 }
                 if (flipmode)
                 {
-                    y = 240 - y - 8*sc;
+                    y = 240 - y - 8 * sc;
                 }
-                font::print(sc==2 ? PR_2X : PR_1X | PR_CEN, -1, y, translation, 196, 196, 243);
+                font::print((sc == 2 ? PR_2X : PR_1X) | PR_CEN, -1, y, translation, 196, 196, 243);
             }
             else
             {
@@ -935,12 +958,12 @@ void Graphics::drawgui(void)
         if (textboxes[i].r == 175 && textboxes[i].g == 175)
         {
             //purple guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 120- help.glow/4, 210 - help.glow/4);
+            draw_sprite(crew_xp, crew_yp, crew_sprite, 220 - help.glow / 4 - textboxes[i].rand, 120 - help.glow / 4, 210 - help.glow / 4);
         }
         else if (textboxes[i].r == 175 && textboxes[i].b == 175)
         {
             //red guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
+            draw_sprite(crew_xp, crew_yp, crew_sprite, 255 - help.glow / 8, 70 - help.glow / 4, 70 - help.glow / 4);
         }
         else if (textboxes[i].r == 175)
         {
@@ -950,12 +973,12 @@ void Graphics::drawgui(void)
         else if (textboxes[i].g == 175)
         {
             //yellow guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 220- help.glow/4 - textboxes[i].rand, 210 - help.glow/4, 120- help.glow/4);
+            draw_sprite(crew_xp, crew_yp, crew_sprite, 220 - help.glow / 4 - textboxes[i].rand, 210 - help.glow / 4, 120 - help.glow / 4);
         }
         else if (textboxes[i].b == 175)
         {
             //blue guy
-            draw_sprite(crew_xp, crew_yp, crew_sprite, 75, 75, 255- help.glow/4 - textboxes[i].rand);
+            draw_sprite(crew_xp, crew_yp, crew_sprite, 75, 75, 255 - help.glow / 4 - textboxes[i].rand);
         }
     }
 }
@@ -1161,13 +1184,13 @@ void Graphics::cutscenebars(void)
     if (showcutscenebars)
     {
         fill_rect(0, 0, usethispos, 16, 0, 0, 0);
-        fill_rect(360-usethispos, 224, usethispos, 16, 0, 0, 0);
+        fill_rect(360 - usethispos, 224, usethispos, 16, 0, 0, 0);
     }
     else if (cutscenebarspos > 0) //disappearing
     {
         //draw
         fill_rect(0, 0, usethispos, 16, 0, 0, 0);
-        fill_rect(360-usethispos, 224, usethispos, 16, 0, 0, 0);
+        fill_rect(360 - usethispos, 224, usethispos, 16, 0, 0, 0);
     }
 }
 
@@ -1193,7 +1216,7 @@ void Graphics::setbars(const int position)
     oldcutscenebarspos = position;
 }
 
-void Graphics::drawcrewman( int x, int y, int t, bool act, bool noshift /*=false*/ )
+void Graphics::drawcrewman(int x, int y, int t, bool act, bool noshift /*=false*/)
 {
     if (!act)
     {
@@ -1261,13 +1284,13 @@ void Graphics::drawpixeltextbox(
 ) {
     int k;
 
-    fill_rect(x, y, w, h, r/6, g/6, b/6);
+    fill_rect(x, y, w, h, r / 6, g / 6, b / 6);
 
     /* Horizontal tiles */
-    for (k = 0; k < w/8 - 2; ++k)
+    for (k = 0; k < w / 8 - 2; ++k)
     {
-        drawcoloredtile(x + 8 + k*8, y, 41, r, g, b);
-        drawcoloredtile(x + 8 + k*8, y + h - 8, 46, r, g, b);
+        drawcoloredtile(x + 8 + k * 8, y, 41, r, g, b);
+        drawcoloredtile(x + 8 + k * 8, y + h - 8, 46, r, g, b);
     }
 
     if (w % 8 != 0)
@@ -1278,10 +1301,10 @@ void Graphics::drawpixeltextbox(
     }
 
     /* Vertical tiles */
-    for (k = 0; k < h/8 - 2; ++k)
+    for (k = 0; k < h / 8 - 2; ++k)
     {
-        drawcoloredtile(x, y + 8 + k*8, 43, r, g, b);
-        drawcoloredtile(x + w - 8, y + 8 + k*8, 44, r, g, b);
+        drawcoloredtile(x, y + 8 + k * 8, 43, r, g, b);
+        drawcoloredtile(x + w - 8, y + 8 + k * 8, 44, r, g, b);
     }
 
     if (h % 8 != 0)
@@ -1325,7 +1348,7 @@ void Graphics::textboxremove(void)
     }
 }
 
-void Graphics::textboxtimer( int t )
+void Graphics::textboxtimer(int t)
 {
     if (!INBOUNDS_VEC(m, textboxes))
     {
@@ -1333,7 +1356,7 @@ void Graphics::textboxtimer( int t )
         return;
     }
 
-    textboxes[m].timer=t;
+    textboxes[m].timer = t;
 }
 
 void Graphics::addline( const std::string& t )
@@ -1372,21 +1395,18 @@ void Graphics::textboxadjust(void)
 
 void Graphics::createtextboxreal(
     const std::string& t,
-    int xp,
-    int yp,
-    int r,
-    int g,
-    int b,
+    int xp, int yp,
+    int r, int g, int b,
     bool flipme
 ) {
     m = textboxes.size();
 
-    if(m<20)
+    if (m < 20)
     {
         textboxclass text;
         text.lines.push_back(t);
         text.xp = xp;
-        if (xp == -1) text.xp = 160 - ((font::len(PR_FONT_LEVEL, t) / 2) + 8);
+        if (xp == -1) text.xp = 160 - ((font::len(PR_FONT_LEVEL, t.c_str()) / 2) + 8);
         text.yp = yp;
         text.initcol(r, g, b);
         text.flipme = flipme;
@@ -1397,22 +1417,32 @@ void Graphics::createtextboxreal(
 
 void Graphics::createtextbox(
     const std::string& t,
-    int xp,
-    int yp,
-    int r,
-    int g,
-    int b
+    int xp, int yp,
+    SDL_Color color
+) {
+    createtextboxreal(t, xp, yp, color.r, color.g, color.b, false);
+}
+
+void Graphics::createtextbox(
+    const std::string& t,
+    int xp, int yp,
+    int r, int g, int b
 ) {
     createtextboxreal(t, xp, yp, r, g, b, false);
 }
 
 void Graphics::createtextboxflipme(
     const std::string& t,
-    int xp,
-    int yp,
-    int r,
-    int g,
-    int b
+    int xp, int yp,
+    SDL_Color color
+) {
+    createtextboxreal(t, xp, yp, color.r, color.g, color.b, true);
+}
+
+void Graphics::createtextboxflipme(
+    const std::string& t,
+    int xp, int yp,
+    int r, int g, int b
 ) {
     createtextboxreal(t, xp, yp, r, g, b, true);
 }
@@ -1435,7 +1465,7 @@ void Graphics::drawfade(void)
     case FADE_FADING_IN:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            fill_rect(fadebars[i]-usethisamount, i * 16, 500, 16, 0, 0, 0);
+            fill_rect(fadebars[i] - usethisamount, i * 16, 500, 16, 0, 0, 0);
         }
         break;
     case FADE_NONE:
@@ -1452,7 +1482,7 @@ void Graphics::processfade(void)
     case FADE_START_FADEOUT:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            fadebars[i] = -int(fRandom() * 12) * 8;
+            fadebars[i] = -(int)(fRandom() * 12) * 8;
         }
         setfade(0);
         fademode = FADE_FADING_OUT;
@@ -1467,7 +1497,7 @@ void Graphics::processfade(void)
     case FADE_START_FADEIN:
         for (size_t i = 0; i < SDL_arraysize(fadebars); i++)
         {
-            fadebars[i] = 320 + int(fRandom() * 12) * 8;
+            fadebars[i] = 320 + (int)(fRandom() * 12) * 8;
         }
         setfade(416);
         fademode = FADE_FADING_IN;
@@ -1501,7 +1531,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
     if (language_screen)
     {
         size_t n_options = game.menuoptions.size();
-        twocol_voptions = n_options - (n_options/2);
+        twocol_voptions = n_options - (n_options / 2);
     }
 
     for (size_t i = 0; i < game.menuoptions.size(); i++)
@@ -1528,16 +1558,15 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
         if (language_screen)
         {
             int name_len = font::len(opt.print_flags, opt.text);
-            x = (i < twocol_voptions ? 80 : 240) - name_len/2;
-            y = 36 + (i % twocol_voptions)*12;
+            x = (i < twocol_voptions ? 80 : 240) - name_len / 2;
+            y = 36 + (i % twocol_voptions) * 12;
         }
         else
         {
-            x = i*game.menuspacing + game.menuxoff;
-            y = 140 + i*12 + game.menuyoff;
+            x = i * game.menuspacing + game.menuxoff;
+            y = 140 + i * 12 + game.menuyoff;
         }
 
-#ifndef NO_CUSTOM_LEVELS
         if (menu == Menu::levellist)
         {
             size_t separator;
@@ -1560,7 +1589,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
                 y += 4;
             }
         }
-#endif
+
         if (menu == Menu::translator_options_cutscenetest)
         {
             size_t separator = 4;
@@ -1587,7 +1616,7 @@ void Graphics::drawmenu(int cr, int cg, int cb, enum Menu::MenuName menu)
             vformat_buf(buffer, sizeof(buffer), loc::get_langmeta()->menu_select.c_str(), "label:str", opt_text.c_str());
 
             // Account for brackets
-            x -= (font::len(opt.print_flags, buffer)-font::len(opt.print_flags, opt_text))/2;
+            x -= (font::len(opt.print_flags, buffer) - font::len(opt.print_flags, opt_text.c_str())) / 2;
         }
         else
         {
@@ -1655,7 +1684,7 @@ bool Graphics::Hitest(SDL_Surface* surface1, SDL_Point p1, SDL_Surface* surface2
 
 }
 
-void Graphics::drawgravityline( int t )
+void Graphics::drawgravityline(const int t, const int x, const int y, const int w, const int h)
 {
     if (!INBOUNDS_VEC(t, obj.entities))
     {
@@ -1665,44 +1694,53 @@ void Graphics::drawgravityline( int t )
 
     if (obj.entities[t].life == 0)
     {
+        if (game.noflashingmode)
+        {
+            set_color(200 - 20, 200 - 20, 200 - 20);
+            draw_line(x, y, x + w, y + h);
+            return;
+        }
+
         switch(linestate)
         {
         case 0:
-            fill_rect(&line_rect, getRGB(200-20, 200-20, 200-20));
+            set_color(200 - 20, 200 - 20, 200 - 20);
             break;
         case 1:
-            fill_rect(&line_rect, getRGB(245-30, 245-30, 225-30));
+            set_color(245 - 30, 245 - 30, 225 - 30);
             break;
         case 2:
-            fill_rect(&line_rect, getRGB(225-30, 245-30, 245-30));
+            set_color(225 - 30, 245 - 30, 245 - 30);
             break;
         case 3:
-            fill_rect(&line_rect, getRGB(200-20, 200-20, 164-10));
+            set_color(200 - 20, 200 - 20, 164 - 10);
             break;
         case 4:
-            fill_rect(&line_rect, getRGB(196-20, 255-30, 224-20));
+            set_color(196 - 20, 255 - 30, 224 - 20);
             break;
         case 5:
-            fill_rect(&line_rect, getRGB(196-20, 235-30, 205-20));
+            set_color(196 - 20, 235 - 30, 205 - 20);
             break;
         case 6:
-            fill_rect(&line_rect, getRGB(164-10, 164-10, 164-10));
+            set_color(164 - 10, 164 - 10, 164 - 10);
             break;
         case 7:
-            fill_rect(&line_rect, getRGB(205-20, 245-30, 225-30));
+            set_color(205 - 20, 245 - 30, 225 - 30);
             break;
         case 8:
-            fill_rect(&line_rect, getRGB(225-30, 255-30, 205-20));
+            set_color(225 - 30, 255 - 30, 205 - 20);
             break;
         case 9:
-            fill_rect(&line_rect, getRGB(245-30, 245-30, 245-30));
+            set_color(245 - 30, 245 - 30, 245 - 30);
             break;
         }
     }
     else
     {
-        fill_rect(&line_rect, getRGB(96, 96, 96));
+        set_color(96, 96, 96);
     }
+
+    draw_line(x, y, x + w, y + h);
 }
 
 void Graphics::drawtrophytext(void)
@@ -1712,7 +1750,7 @@ void Graphics::drawtrophytext(void)
     if (obj.trophytext < 15)
     {
         const int usethismult = lerp(obj.oldtrophytext, obj.trophytext);
-        brightness = (usethismult/15.0)*255;
+        brightness = (usethismult / 15.0) * 255;
     }
     else
     {
@@ -1799,12 +1837,12 @@ void Graphics::drawtrophytext(void)
     if (top_text != NULL)
     {
         font::string_wordwrap(0, top_text, 304, &lines);
-        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 11-(lines-1)*5, top_text, 196, 196, 255 - help.glow);
+        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 11 - (lines - 1) * 5, top_text, 196, 196, 255 - help.glow);
     }
     if (bottom_text != NULL)
     {
         font::string_wordwrap(0, bottom_text, 304, &lines);
-        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 221-(lines-1)*5, bottom_text, 196, 196, 255 - help.glow);
+        font::print_wrap(PR_CEN | PR_BRIGHTNESS(brightness) | PR_BOR, -1, 221 - (lines - 1) * 5, bottom_text, 196, 196, 255 - help.glow);
     }
 }
 
@@ -1856,13 +1894,18 @@ void Graphics::drawentity(const int i, const int yoff)
 
     SDL_Rect drawRect;
 
-#if !defined(NO_CUSTOM_LEVELS)
+    bool custom_gray;
+
     // Special case for gray Warp Zone tileset!
-    const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
-    const bool custom_gray = room->tileset == 3 && room->tilecol == 6;
-#else
-    const bool custom_gray = false;
-#endif
+    if (map.custommode)
+    {
+        const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
+        custom_gray = room->tileset == 3 && room->tilecol == 6;
+    }
+    else
+    {
+        custom_gray = false;
+    }
 
     SDL_Texture* sprites = flipmode ? grphx.im_flipsprites : grphx.im_sprites;
     SDL_Texture* tiles = (map.custommode && !map.finalmode) ? grphx.im_entcolours : grphx.im_tiles;
@@ -1886,7 +1929,7 @@ void Graphics::drawentity(const int i, const int yoff)
 
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
-        //screenwrapping!
+        // screenwrapping!
         SDL_Point wrappedPoint;
         bool wrapX = false;
         bool wrapY = false;
@@ -1978,45 +2021,36 @@ void Graphics::drawentity(const int i, const int yoff)
         }
         break;
     }
-    case 3:    // Big chunky pixels!
-        prect.x = xp;
-        prect.y = yp - yoff;
-        fill_rect(&prect, obj.entities[i].realcol);
+    case 3: // Big chunky pixels!
+        fill_rect(xp, yp - yoff, 4, 4, obj.entities[i].realcol);
         break;
-    case 4:    // Small pickups
+    case 4: // Small pickups
     {
         const SDL_Color color = obj.entities[i].realcol;
         drawcoloredtile(xp, yp - yoff, obj.entities[i].tile, color.r, color.g, color.b);
         break;
     }
-    case 5:    //Horizontal Line
+    case 5: // Horizontal Line
     {
         int oldw = obj.entities[i].w;
-        if ((game.swngame == 3 || kludgeswnlinewidth) && obj.getlineat(84 - 32) == i)
+        if ((game.swngame == SWN_START_GRAVITRON_STEP_2 || kludgeswnlinewidth)
+            && obj.getlineat(84 - 32) == i)
         {
             oldw -= 24;
         }
-        line_rect.x = xp;
-        line_rect.y = yp - yoff;
-        line_rect.w = lerp(oldw, obj.entities[i].w);
-        line_rect.h = 1;
-        drawgravityline(i);
+        drawgravityline(i, xp, yp - yoff, lerp(oldw, obj.entities[i].w) - 1, 0);
         break;
     }
-    case 6:    //Vertical Line
-        line_rect.x = xp;
-        line_rect.y = yp - yoff;
-        line_rect.w = 1;
-        line_rect.h = obj.entities[i].h;
-        drawgravityline(i);
+    case 6: // Vertical Line
+        drawgravityline(i, xp, yp - yoff, 0, obj.entities[i].h - 1);
         break;
-    case 7:    //Teleporter
+    case 7: // Teleporter
         drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].realcol);
         break;
-    //case 8:    // Special: Moving platform, 8 tiles
+    // case 8:    // Special: Moving platform, 8 tiles
         // Note: This code is in the 4-tile code
         break;
-    case 9:         // Really Big Sprite! (2x2)
+    case 9: // Really Big Sprite! (2x2)
     {
         const SDL_Color ct = obj.entities[i].realcol;
 
@@ -2029,9 +2063,9 @@ void Graphics::drawentity(const int i, const int yoff)
 
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
-        tpoint.x = xp+32;
+        tpoint.x = xp + 32;
         tpoint.y = yp - yoff;
-        //
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
@@ -2039,17 +2073,17 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe + 1, drawRect.x, drawRect.y, 32, 32, ct);
 
         tpoint.x = xp;
-        tpoint.y = yp+32 - yoff;
-        //
+        tpoint.y = yp + 32 - yoff;
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
 
         draw_grid_tile(sprites, obj.entities[i].drawframe + 12, drawRect.x, drawRect.y, 32, 32, ct);
 
-        tpoint.x = xp+32;
-        tpoint.y = yp+32 - yoff;
-        //
+        tpoint.x = xp + 32;
+        tpoint.y = yp + 32 - yoff;
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
@@ -2057,22 +2091,22 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe + 13, drawRect.x, drawRect.y, 32, 32, ct);
         break;
     }
-    case 10:         // 2x1 Sprite
+    case 10: // 2x1 Sprite
     {
         const SDL_Color ct = obj.entities[i].realcol;
 
         tpoint.x = xp;
         tpoint.y = yp - yoff;
-        //
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
 
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
-        tpoint.x = xp+32;
+        tpoint.x = xp + 32;
         tpoint.y = yp - yoff;
-        //
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
@@ -2080,35 +2114,35 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe + 1, drawRect.x, drawRect.y, 32, 32, ct);
         break;
     }
-    case 11:    //The fucking elephant
+    case 11: // The fucking elephant
         drawimagecol(IMAGE_ELEPHANT, xp, yp - yoff, obj.entities[i].realcol);
         break;
-    case 12:         // Regular sprites that don't wrap
+    case 12: // Regular sprites that don't wrap
     {
         tpoint.x = xp;
         tpoint.y = yp - yoff;
         const SDL_Color ct = obj.entities[i].realcol;
-        //
+
         drawRect = sprites_rect;
         drawRect.x += tpoint.x;
         drawRect.y += tpoint.y;
 
         draw_grid_tile(sprites, obj.entities[i].drawframe, drawRect.x, drawRect.y, 32, 32, ct);
 
-        //if we're outside the screen, we need to draw indicators
+        // if we're outside the screen, we need to draw indicators
 
         if (obj.entities[i].xp < -20 && obj.entities[i].vx > 0)
         {
             if (obj.entities[i].xp < -100)
             {
-                tpoint.x = -5 + (int(( -xp) / 10));
+                tpoint.x = -5 + (int) (-xp / 10);
             }
             else
             {
                 tpoint.x = 5;
             }
 
-            tpoint.y = tpoint.y+4;
+            tpoint.y = tpoint.y + 4;
 
 
             drawRect = tiles_rect;
@@ -2122,7 +2156,7 @@ void Graphics::drawentity(const int i, const int yoff)
         {
             if (obj.entities[i].xp > 420)
             {
-                tpoint.x = 320 - (int(( xp-320) / 10));
+                tpoint.x = 320 - (int) ((xp - 320) / 10);
             }
             else
             {
@@ -2130,7 +2164,6 @@ void Graphics::drawentity(const int i, const int yoff)
             }
 
             tpoint.y = tpoint.y+4;
-            //
 
             drawRect = tiles_rect;
             drawRect.x += tpoint.x;
@@ -2142,7 +2175,7 @@ void Graphics::drawentity(const int i, const int yoff)
     }
     case 13:
     {
-        //Special for epilogue: huge hero!
+        // Special for epilogue: huge hero!
         draw_grid_tile(grphx.im_sprites, obj.entities[i].drawframe, xp, yp - yoff, sprites_rect.w, sprites_rect.h, obj.entities[i].realcol, 6, 6);
         break;
     }
@@ -2154,12 +2187,10 @@ void Graphics::drawbackground( int t )
     switch(t)
     {
     case 1:
-        //Starfield
+        // Starfield
         fill_rect(0, 0, 0);
         for (int i = 0; i < numstars; i++)
         {
-            stars[i].w = 2;
-            stars[i].h = 2;
             SDL_Rect star_rect = stars[i];
             star_rect.x = lerp(star_rect.x + starsspeed[i], star_rect.x);
             if (starsspeed[i] <= 6)
@@ -2179,136 +2210,136 @@ void Graphics::drawbackground( int t )
         SDL_zero(bcol);
         SDL_zero(bcol2);
 
-            //Lab
-            switch(rcol)
+        // Lab
+        switch (rcol)
+        {
+            // Akward ordering to match tileset
+        case 0:
+            bcol2 = getRGB(0, 16 * backboxmult, 16 * backboxmult);
+            break; // Cyan
+        case 1:
+            bcol2 = getRGB(16 * backboxmult, 0, 0);
+            break; // Red
+        case 2:
+            bcol2 = getRGB(16 * backboxmult, 0, 16 * backboxmult);
+            break; // Purple
+        case 3:
+            bcol2 = getRGB(0, 0, 16 * backboxmult);
+            break; // Blue
+        case 4:
+            bcol2 = getRGB(16 * backboxmult, 16 * backboxmult, 0);
+            break; // Yellow
+        case 5:
+            bcol2 = getRGB(0, 16 * backboxmult, 0);
+            break; // Green
+        case 6:
+            // crazy case
+            switch (spcol)
             {
-                //Akward ordering to match tileset
             case 0:
-                bcol2 = getRGB(0, 16*backboxint[0], 16*backboxint[0]);
-                break; //Cyan
+                bcol2 = getRGB(0, 16 * backboxmult, 16 * backboxmult);
+                break; // Cyan
             case 1:
-                bcol2 = getRGB(16*backboxint[0], 0, 0);
-                break;  //Red
+                bcol2 = getRGB(0, (spcoldel + 1) * backboxmult, 16 * backboxmult);
+                break; // Cyan
             case 2:
-                bcol2 = getRGB(16*backboxint[0], 0, 16*backboxint[0]);
-                break; //Purple
+                bcol2 = getRGB(0, 0, 16 * backboxmult);
+                break; // Blue
             case 3:
-                bcol2 = getRGB(0, 0, 16*backboxint[0]);
-                break;  //Blue
+                bcol2 = getRGB((16 - spcoldel) * backboxmult, 0, 16 * backboxmult);
+                break; // Blue
             case 4:
-                bcol2 = getRGB(16*backboxint[0], 16*backboxint[0], 0);
-                break; //Yellow
+                bcol2 = getRGB(16 * backboxmult, 0, 16 * backboxmult);
+                break; // Purple
             case 5:
-                bcol2 = getRGB(0, 16 * backboxint[0], 0);
-                break;  //Green
+                bcol2 = getRGB(16 * backboxmult, 0, (spcoldel + 1) * backboxmult);
+                break; // Purple
             case 6:
-                //crazy case
-                switch(spcol)
-                {
-                case 0:
-                    bcol2 = getRGB(0, 16*backboxint[0], 16*backboxint[0]);
-                    break; //Cyan
-                case 1:
-                    bcol2 = getRGB(0, (spcoldel+1)*backboxint[0], 16*backboxint[0]);
-                    break; //Cyan
-                case 2:
-                    bcol2 = getRGB(0, 0, 16*backboxint[0]);
-                    break;  //Blue
-                case 3:
-                    bcol2 = getRGB((16-spcoldel)*backboxint[0], 0, 16*backboxint[0]);
-                    break;  //Blue
-                case 4:
-                    bcol2 = getRGB(16*backboxint[0], 0, 16*backboxint[0]);
-                    break; //Purple
-                case 5:
-                    bcol2 = getRGB(16*backboxint[0], 0, (spcoldel+1)*backboxint[0]);
-                    break; //Purple
-                case 6:
-                    bcol2 = getRGB(16*backboxint[0], 0, 0);
-                    break;  //Red
-                case 7:
-                    bcol2 = getRGB(16*backboxint[0], (16-spcoldel)*backboxint[0], 0);
-                    break;  //Red
-                case 8:
-                    bcol2 = getRGB(16*backboxint[0], 16*backboxint[0], 0);
-                    break; //Yellow
-                case 9:
-                    bcol2 = getRGB((spcoldel+1)*backboxint[0], 16*backboxint[0], 0);
-                    break; //Yellow
-                case 10:
-                    bcol2 = getRGB(0, 16 * backboxint[0], 0);
-                    break;  //Green
-                case 11:
-                    bcol2 = getRGB(0, 16 * backboxint[0], (16-spcoldel)*backboxint[0]);
-                    break;  //Green
-                }
+                bcol2 = getRGB(16 * backboxmult, 0, 0);
+                break; // Red
+            case 7:
+                bcol2 = getRGB(16 * backboxmult, (16 - spcoldel) * backboxmult, 0);
+                break; // Red
+            case 8:
+                bcol2 = getRGB(16 * backboxmult, 16 * backboxmult, 0);
+                break; // Yellow
+            case 9:
+                bcol2 = getRGB((spcoldel + 1) * backboxmult, 16 * backboxmult, 0);
+                break; // Yellow
+            case 10:
+                bcol2 = getRGB(0, 16 * backboxmult, 0);
+                break; // Green
+            case 11:
+                bcol2 = getRGB(0, 16 * backboxmult, (16 - spcoldel) * backboxmult);
+                break; // Green
+            }
             break;
         }
         fill_rect(bcol2);
 
         for (int i = 0; i < numbackboxes; i++)
         {
-            switch(rcol)
+            switch (rcol)
             {
-                //Akward ordering to match tileset
+                // Akward ordering to match tileset
             case 0:
-                bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
-                break; //Cyan
+                bcol = getRGB(16, 128 * backboxmult, 128 * backboxmult);
+                break; // Cyan
             case 1:
-                bcol = getRGB(128*backboxint[0], 16, 16);
-                break;  //Red
+                bcol = getRGB(128 * backboxmult, 16, 16);
+                break; // Red
             case 2:
-                bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
-                break; //Purple
+                bcol = getRGB(128 * backboxmult, 16, 128 * backboxmult);
+                break; // Purple
             case 3:
-                bcol = getRGB(16, 16, 128*backboxint[0]);
-                break;  //Blue
+                bcol = getRGB(16, 16, 128 * backboxmult);
+                break; // Blue
             case 4:
-                bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
-                break; //Yellow
+                bcol = getRGB(128 * backboxmult, 128 * backboxmult, 16);
+                break; // Yellow
             case 5:
-                bcol = getRGB(16, 128 * backboxint[0], 16);
-                break;  //Green
+                bcol = getRGB(16, 128 * backboxmult, 16);
+                break; // Green
             case 6:
-                //crazy case
-                switch(spcol)
+                // crazy case
+                switch (spcol)
                 {
                 case 0:
-                    bcol = getRGB(16, 128*backboxint[0], 128*backboxint[0]);
-                    break; //Cyan
+                    bcol = getRGB(16, 128 * backboxmult, 128 * backboxmult);
+                    break; // Cyan
                 case 1:
-                    bcol = getRGB(16, ((spcoldel+1)*8)*backboxint[0], 128*backboxint[0]);
-                    break; //Cyan
+                    bcol = getRGB(16, ((spcoldel + 1) * 8) * backboxmult, 128 * backboxmult);
+                    break; // Cyan
                 case 2:
-                    bcol = getRGB(16, 16, 128*backboxint[0]);
-                    break;  //Blue
+                    bcol = getRGB(16, 16, 128 * backboxmult);
+                    break; // Blue
                 case 3:
-                    bcol = getRGB((128-(spcoldel*8))*backboxint[0], 16, 128*backboxint[0]);
-                    break;  //Blue
+                    bcol = getRGB((128 - (spcoldel * 8)) * backboxmult, 16, 128 * backboxmult);
+                    break; // Blue
                 case 4:
-                    bcol = getRGB(128*backboxint[0], 16, 128*backboxint[0]);
-                    break; //Purple
+                    bcol = getRGB(128 * backboxmult, 16, 128 * backboxmult);
+                    break; // Purple
                 case 5:
-                    bcol = getRGB(128*backboxint[0], 16, ((spcoldel+1)*8)*backboxint[0]);
-                    break; //Purple
+                    bcol = getRGB(128 * backboxmult, 16, ((spcoldel + 1) * 8) * backboxmult);
+                    break; // Purple
                 case 6:
-                    bcol = getRGB(128*backboxint[0], 16, 16);
-                    break;  //Red
+                    bcol = getRGB(128 * backboxmult, 16, 16);
+                    break; // Red
                 case 7:
-                    bcol = getRGB(128*backboxint[0], (128-(spcoldel*8))*backboxint[0], 16);
-                    break;  //Red
+                    bcol = getRGB(128 * backboxmult, (128 - (spcoldel * 8)) * backboxmult, 16);
+                    break; // Red
                 case 8:
-                    bcol = getRGB(128*backboxint[0], 128*backboxint[0], 16);
-                    break; //Yellow
+                    bcol = getRGB(128 * backboxmult, 128 * backboxmult, 16);
+                    break; // Yellow
                 case 9:
-                    bcol = getRGB(((spcoldel+1)*8)*backboxint[0], 128*backboxint[0], 16);
-                    break; //Yellow
+                    bcol = getRGB(((spcoldel + 1) * 8) * backboxmult, 128 * backboxmult, 16);
+                    break; // Yellow
                 case 10:
-                    bcol = getRGB(16, 128 * backboxint[0], 16);
-                    break;  //Green
+                    bcol = getRGB(16, 128 * backboxmult, 16);
+                    break; // Green
                 case 11:
-                    bcol = getRGB(16, 128 * backboxint[0], (128-(spcoldel*8))*backboxint[0]);
-                    break;  //Green
+                    bcol = getRGB(16, 128 * backboxmult, (128 - (spcoldel * 8)) * backboxmult);
+                    break; // Green
                 }
                 break;
             }
@@ -2318,8 +2349,8 @@ void Graphics::drawbackground( int t )
             backboxrect.y = lerp(backboxes[i].y - backboxvy[i], backboxes[i].y);
 
             fill_rect(&backboxrect, bcol);
-            backboxrect.x += 1;
-            backboxrect.y += 1;
+            backboxrect.x++;
+            backboxrect.y++;
             backboxrect.w -= 2;
             backboxrect.h -= 2;
             fill_rect(&backboxrect, bcol2);
@@ -2348,47 +2379,47 @@ void Graphics::drawbackground( int t )
     }
     case 5:
     {
-        //Warp zone, central
+        // Warp zone, central
         SDL_Color warpbcol;
         SDL_Color warpfcol;
 
         switch(rcol)
         {
-            //Akward ordering to match tileset
+            // Akward ordering to match tileset
         case 0:
             warpbcol = getRGB(0x0A, 0x10, 0x0E);
             warpfcol = getRGB(0x10, 0x22, 0x21);
-            break; //Cyan
+            break; // Cyan
         case 1:
             warpbcol = getRGB(0x11, 0x09, 0x0B);
             warpfcol = getRGB(0x22, 0x10, 0x11);
-            break; //Red
+            break; // Red
         case 2:
             warpbcol = getRGB(0x0F, 0x0A, 0x10);
             warpfcol = getRGB(0x22,0x10,0x22);
-            break; //Purple
+            break; // Purple
         case 3:
             warpbcol = getRGB(0x0A, 0x0B, 0x10);
             warpfcol = getRGB(0x10, 0x10, 0x22);
-            break; //Blue
+            break; // Blue
         case 4:
             warpbcol = getRGB(0x10, 0x0D, 0x0A);
             warpfcol = getRGB(0x22, 0x1E, 0x10);
-            break; //Yellow
+            break; // Yellow
         case 5:
             warpbcol = getRGB(0x0D, 0x10, 0x0A);
             warpfcol = getRGB(0x14, 0x22, 0x10);
-            break; //Green
+            break; // Green
         case 6:
             warpbcol = getRGB(0x0A, 0x0A, 0x0A);
             warpfcol = getRGB(0x12, 0x12, 0x12);
-            break; //Gray
+            break; // Gray
         default:
             warpbcol = getRGB(0xFF, 0xFF, 0xFF);
             warpfcol = getRGB(0xFF, 0xFF, 0xFF);
         }
 
-        for (int i = 10 ; i >= 0; i--)
+        for (int i = 10; i >= 0; i--)
         {
             const int temp = (i * 16) + backoffset;
             const SDL_Rect warprect = {160 - temp, 120 - temp, temp * 2, temp * 2};
@@ -2404,12 +2435,10 @@ void Graphics::drawbackground( int t )
         break;
     }
     case 6:
-        //Final Starfield
+        // Final Starfield
         fill_rect(0, 0, 0);
         for (int i = 0; i < numstars; i++)
         {
-            stars[i].w = 2;
-            stars[i].h = 2;
             SDL_Rect star_rect = stars[i];
             star_rect.y = lerp(star_rect.y + starsspeed[i], star_rect.y);
             if (starsspeed[i] <= 8)
@@ -2423,7 +2452,7 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 7:
-        //Static, unscrolling section of the tower
+        // Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
             for (int i = 0; i < 40; i++)
@@ -2433,7 +2462,7 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 8:
-        //Static, unscrolling section of the tower
+        // Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
             for (int i = 0; i < 40; i++)
@@ -2443,7 +2472,7 @@ void Graphics::drawbackground( int t )
         }
         break;
     case 9:
-        //Static, unscrolling section of the tower
+        // Static, unscrolling section of the tower
         for (int j = 0; j < 30; j++)
         {
             for (int i = 0; i < 40; i++)
@@ -2454,7 +2483,6 @@ void Graphics::drawbackground( int t )
         break;
     default:
         fill_rect(0, 0, 0);
-
         break;
     }
 }
@@ -2464,26 +2492,23 @@ void Graphics::updatebackground(int t)
     switch (t)
     {
     case 1:
-        //Starfield
+        // Starfield
         for (int i = 0; i < numstars; i++)
         {
-            stars[i].w = 2;
-            stars[i].h = 2;
             stars[i].x -= starsspeed[i];
             if (stars[i].x < -10)
             {
                 stars[i].x += 340;
-                stars[i].y = int(fRandom() * 240);
-                stars[i].w = 2;
-                starsspeed[i] = 4+int(fRandom()*4);
+                stars[i].y = (int) (fRandom() * 240);
+                starsspeed[i] = 4 + (int) (fRandom() * 4);
             }
         }
         break;
     case 2:
-        //Lab
+        // Lab
         if (rcol == 6)
         {
-            //crazy caze
+            // crazy caze
             spcoldel--;
             if (spcoldel <= 0)
             {
@@ -2518,7 +2543,7 @@ void Graphics::updatebackground(int t)
             }
         }
         break;
-    case 3: //Warp zone (horizontal)
+    case 3: // Warp zone (horizontal)
     {
         const int temp = 680 + (rcol * 3);
         backoffset += 3;
@@ -2529,31 +2554,31 @@ void Graphics::updatebackground(int t)
 
         if (backgrounddrawn)
         {
-            scroll_texture(backgroundTexture, -3, 0);
+            scroll_texture(backgroundTexture, tempScrollingTexture, -3, 0);
             for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    drawtowertile(317 - backoffset + (i * 16), (j * 16), temp + 40);  //20*16 = 320
-                    drawtowertile(317 - backoffset + (i * 16) + 8, (j * 16), temp + 41);
-                    drawtowertile(317 - backoffset + (i * 16), (j * 16) + 8, temp + 80);
-                    drawtowertile(317 - backoffset + (i * 16) + 8, (j * 16) + 8, temp + 81);
+                    drawtile2(317 - backoffset + (i * 16), (j * 16), temp + 40);  // 20*16 = 320
+                    drawtile2(317 - backoffset + (i * 16) + 8, (j * 16), temp + 41);
+                    drawtile2(317 - backoffset + (i * 16), (j * 16) + 8, temp + 80);
+                    drawtile2(317 - backoffset + (i * 16) + 8, (j * 16) + 8, temp + 81);
                 }
             }
         }
         else
         {
-            //draw the whole thing for the first time!
+            // draw the whole thing for the first time!
             backoffset = 0;
             clear();
             for (int j = 0; j < 15; j++)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    drawtowertile((i * 16) - backoffset - 3, (j * 16), temp + 40);
-                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
-                    drawtowertile((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
-                    drawtowertile((i * 16) - backoffset + 8 - 3, (j * 16) + 8, temp + 81);
+                    drawtile2((i * 16) - backoffset - 3, (j * 16), temp + 40);
+                    drawtile2((i * 16) - backoffset + 8 - 3, (j * 16), temp + 41);
+                    drawtile2((i * 16) - backoffset - 3, (j * 16) + 8, temp + 80);
+                    drawtile2((i * 16) - backoffset + 8 - 3, (j * 16) + 8, temp + 81);
                 }
             }
             backgrounddrawn = true;
@@ -2561,7 +2586,7 @@ void Graphics::updatebackground(int t)
         set_render_target(target);
         break;
     }
-    case 4: //Warp zone (vertical)
+    case 4: // Warp zone (vertical)
     {
         const int temp = 760 + (rcol * 3);
         backoffset += 3;
@@ -2572,31 +2597,31 @@ void Graphics::updatebackground(int t)
 
         if (backgrounddrawn)
         {
-            scroll_texture(backgroundTexture, 0, -3);
+            scroll_texture(backgroundTexture, tempScrollingTexture, 0, -3);
             for (int j = 0; j < 2; j++)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    drawtowertile((i * 16), 237 - backoffset + (j * 16), temp + 40); //14*17=240 - 3
-                    drawtowertile((i * 16) + 8, 237 - backoffset + (j * 16), temp + 41);
-                    drawtowertile((i * 16), 237 - backoffset + (j * 16) + 8, temp + 80);
-                    drawtowertile((i * 16) + 8, 237 - backoffset + (j * 16) + 8, temp + 81);
+                    drawtile2((i * 16), 237 - backoffset + (j * 16), temp + 40); // 14*17=240 - 3
+                    drawtile2((i * 16) + 8, 237 - backoffset + (j * 16), temp + 41);
+                    drawtile2((i * 16), 237 - backoffset + (j * 16) + 8, temp + 80);
+                    drawtile2((i * 16) + 8, 237 - backoffset + (j * 16) + 8, temp + 81);
                 }
             }
         }
         else
         {
-            //draw the whole thing for the first time!
+            // draw the whole thing for the first time!
             backoffset = 0;
             clear();
             for (int j = 0; j < 16; j++)
             {
                 for (int i = 0; i < 21; i++)
                 {
-                    drawtowertile((i * 16), (j * 16) - backoffset - 3, temp + 40);
-                    drawtowertile((i * 16) + 8, (j * 16) - backoffset - 3, temp + 41);
-                    drawtowertile((i * 16), (j * 16) - backoffset + 8 - 3, temp + 80);
-                    drawtowertile((i * 16) + 8, (j * 16) - backoffset + 8 - 3, temp + 81);
+                    drawtile2((i * 16), (j * 16) - backoffset - 3, temp + 40);
+                    drawtile2((i * 16) + 8, (j * 16) - backoffset - 3, temp + 41);
+                    drawtile2((i * 16), (j * 16) - backoffset + 8 - 3, temp + 80);
+                    drawtile2((i * 16) + 8, (j * 16) - backoffset + 8 - 3, temp + 81);
                 }
             }
             backgrounddrawn = true;
@@ -2605,9 +2630,9 @@ void Graphics::updatebackground(int t)
         break;
     }
     case 5:
-        //Warp zone, central
+        // Warp zone, central
 
-        backoffset += 1;
+        backoffset++;
         if (backoffset >= 16)
         {
             backoffset -= 16;
@@ -2615,17 +2640,15 @@ void Graphics::updatebackground(int t)
         }
         break;
     case 6:
-        //Final Starfield
+        // Final Starfield
         for (int i = 0; i < numstars; i++)
         {
-            stars[i].w = 2;
-            stars[i].h = 2;
             stars[i].y -= starsspeed[i];
             if (stars[i].y < -10)
             {
                 stars[i].y += 260;
                 stars[i].x = fRandom() * 320;
-                starsspeed[i] = 5+(fRandom()*5);
+                starsspeed[i] = 5 + (fRandom() * 5);
             }
         }
         break;
@@ -2642,39 +2665,41 @@ void Graphics::drawmap(void)
         set_blendmode(foregroundTexture, SDL_BLENDMODE_BLEND);
         clear(0, 0, 0, 0);
 
-        if (map.tileset == 0)
+        for (int y = 0; y < 30; y++)
         {
-            for (int j = 0; j < 30; j++)
+            for (int x = 0; x < 40; x++)
             {
-                for (int i = 0; i < 40; i++)
+                int tile;
+                int tileset;
+                if (game.gamestate == EDITORMODE)
                 {
-                    const int tile = map.contents[TILE_IDX(i, j)];
-                    if (tile > 0) drawforetile(i * 8, j * 8, tile);
+                    tile = cl.gettile(ed.levx, ed.levy, x, y);
+                    tileset = (cl.getroomprop(ed.levx, ed.levy)->tileset == 0) ? 0 : 1;
+                }
+                else
+                {
+                    tile = map.contents[TILE_IDX(x, y)];
+                    tileset = map.tileset;
+                }
+
+                if (tile > 0)
+                {
+                    if (tileset == 0)
+                    {
+                        drawtile(x * 8, y * 8, tile);
+                    }
+                    else if (tileset == 1)
+                    {
+                        drawtile2(x * 8, y * 8, tile);
+                    }
+                    else if (tileset == 2)
+                    {
+                        drawtile3(x * 8, y * 8, tile, map.rcol);
+                    }
                 }
             }
         }
-        else if (map.tileset == 1)
-        {
-            for (int jt = 0; jt < 30; jt++)
-            {
-                for (int it = 0; it < 40; it++)
-                {
-                    const int tile = map.contents[TILE_IDX(it, jt)];
-                    if (tile > 0) drawforetile2(it * 8, jt * 8, tile);
-                }
-            }
-        }
-        else if (map.tileset == 2)
-        {
-            for (int j = 0; j < 30; j++)
-            {
-                for (int i = 0; i < 40; i++)
-                {
-                    const int tile = map.contents[TILE_IDX(i, j)];
-                    if (tile > 0) drawforetile3(i * 8, j * 8, tile, map.rcol);
-                }
-            }
-        }
+
         set_render_target(target);
         foregrounddrawn = true;
     }
@@ -2695,7 +2720,7 @@ void Graphics::drawfinalmap(void)
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
                     if ((map.contents[TILE_IDX(i, j)]) > 0)
-                        drawforetile(i * 8, j * 8, map.finalat(i, j));
+                        drawtile(i * 8, j * 8, map.finalat(i, j));
                 }
             }
         }
@@ -2703,7 +2728,7 @@ void Graphics::drawfinalmap(void)
             for (int j = 0; j < 30; j++) {
                 for (int i = 0; i < 40; i++) {
                     if ((map.contents[TILE_IDX(i, j)]) > 0)
-                        drawforetile2(i * 8, j * 8, map.finalat(i, j));
+                        drawtile2(i * 8, j * 8, map.finalat(i, j));
                 }
             }
         }
@@ -2768,7 +2793,7 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
             for (int i = 0; i < 40; i++)
             {
                 const int temp = map.tower.backat(i, j, bg_obj.bypos);
-                drawtowertile3(i * 8, (j * 8) - (bg_obj.bypos % 8) - off, temp, bg_obj);
+                drawtile3(i * 8, (j * 8) - (bg_obj.bypos % 8) - off, temp, bg_obj.colstate);
             }
         }
 
@@ -2776,16 +2801,16 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
     }
     else
     {
-        //just update the bottom
-        scroll_texture(bg_obj.texture, 0, -bg_obj.bscroll);
+        // just update the bottom
+        scroll_texture(bg_obj.texture, tempScrollingTexture, 0, -bg_obj.bscroll);
         if (bg_obj.scrolldir == 0)
         {
             for (int i = 0; i < 40; i++)
             {
                 int temp = map.tower.backat(i, -1, bg_obj.bypos);
-                drawtowertile3(i * 8, -1 * 8 - (bg_obj.bypos % 8), temp, bg_obj);
+                drawtile3(i * 8, -1 * 8 - (bg_obj.bypos % 8), temp, bg_obj.colstate);
                 temp = map.tower.backat(i, 0, bg_obj.bypos);
-                drawtowertile3(i * 8, -(bg_obj.bypos % 8), temp, bg_obj);
+                drawtile3(i * 8, -(bg_obj.bypos % 8), temp, bg_obj.colstate);
             }
         }
         else
@@ -2793,185 +2818,196 @@ void Graphics::updatetowerbackground(TowerBG& bg_obj)
             for (int i = 0; i < 40; i++)
             {
                 int temp = map.tower.backat(i, 29, bg_obj.bypos);
-                drawtowertile3(i * 8, 29 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                drawtile3(i * 8, 29 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj.colstate);
                 temp = map.tower.backat(i, 30, bg_obj.bypos);
-                drawtowertile3(i * 8, 30 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                drawtile3(i * 8, 30 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj.colstate);
                 temp = map.tower.backat(i, 31, bg_obj.bypos);
-                drawtowertile3(i * 8, 31 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                drawtile3(i * 8, 31 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj.colstate);
                 temp = map.tower.backat(i, 32, bg_obj.bypos);
-                drawtowertile3(i * 8, 32 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj);
+                drawtile3(i * 8, 32 * 8 - (bg_obj.bypos % 8) - bg_obj.bscroll, temp, bg_obj.colstate);
             }
         }
     }
     set_render_target(target);
 }
 
+#define GETCOL_RANDOM (game.noflashingmode ? 0.5 : fRandom())
 SDL_Color Graphics::getcol( int t )
 {
-    //Setup predefinied colours as per our zany palette
+    // Setup predefinied colours as per our zany palette
     switch(t)
     {
-        //Player Normal
+        // Player Normal
     case 0:
-        return getRGB(160 - help.glow/2 - (fRandom() * 20), 200 - help.glow/2, 220 - help.glow);
-        //Player Hurt
+        return getRGB(160 - help.glow/2 - (int) (GETCOL_RANDOM * 20), 200 - help.glow/2, 220 - help.glow);
+        // Player Hurt
     case 1:
-        return getRGB(196 - (fRandom() * 64), 10, 10);
-        //Enemies and stuff
+        return getRGB(196 - (GETCOL_RANDOM * 64), 10, 10);
+        // Enemies and stuff
     case 2:
         return getRGB(225 - (help.glow / 2), 75, 30);
-    case 3: //Trinket
+    case 3: // Trinket
         if (!trinketcolset)
         {
-            trinketr = 200 - (fRandom() * 64);
-            trinketg = 200 - (fRandom() * 128);
-            trinketb = 164 + (fRandom() * 60);
+            trinketr = 200 - (GETCOL_RANDOM * 64);
+            trinketg = 200 - (GETCOL_RANDOM * 128);
+            trinketb = 164 + (GETCOL_RANDOM * 60);
             trinketcolset = true;
         }
         return getRGB(trinketr, trinketg, trinketb);
-    case 4: //Inactive savepoint
+    case 4: // Inactive savepoint
     {
-        const int temp = (help.glow / 2) + (fRandom() * 8);
+        const int temp = (help.glow / 2) + (int) (GETCOL_RANDOM * 8);
         return getRGB(80 + temp, 80 + temp, 80 + temp);
     }
-    case 5: //Active savepoint
-        return getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
-    case 6: //Enemy : Red
-        return getRGB(250 - help.glow/2, 60- help.glow/2, 60 - help.glow/2);
-    case 7: //Enemy : Green
-        return getRGB(100 - help.glow/2 - (fRandom() * 30), 250 - help.glow/2, 100 - help.glow/2 - (fRandom() * 30));
-    case 8: //Enemy : Purple
-        return getRGB(250 - help.glow/2, 20, 128 - help.glow/2 + (fRandom() * 30));
-    case 9: //Enemy : Yellow
-        return getRGB(250 - help.glow/2, 250 - help.glow/2, 20);
-    case 10: //Warp point (white)
-        return getRGB(255 - (fRandom() * 64), 255 - (fRandom() * 64), 255 - (fRandom() * 64));
-    case 11: //Enemy : Cyan
-        return getRGB(20, 250 - help.glow/2, 250 - help.glow/2);
-    case 12: //Enemy : Blue
-        return getRGB(90 - help.glow/2, 90 - help.glow/2, 250 - help.glow/2);
-        //Crew Members
-        //green
+    case 5: // Active savepoint
+        return getRGB(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
+    case 6: // Enemy : Red
+        return getRGB(250 - help.glow / 2, 60 - help.glow / 2, 60 - help.glow / 2);
+    case 7: // Enemy : Green
+        return getRGB(100 - help.glow / 2 - (int) (GETCOL_RANDOM * 30), 250 - help.glow / 2, 100 - help.glow / 2 - (int) (GETCOL_RANDOM * 30));
+    case 8: // Enemy : Purple
+        return getRGB(250 - help.glow / 2, 20, 128 - help.glow / 2 + (int) (GETCOL_RANDOM * 30));
+    case 9: // Enemy : Yellow
+        return getRGB(250 - help.glow / 2, 250 - help.glow / 2, 20);
+    case 10: // Warp point (white)
+        return getRGB(255 - (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
+    case 11: // Enemy : Cyan
+        return getRGB(20, 250 - help.glow / 2, 250 - help.glow / 2);
+    case 12: // Enemy : Blue
+        return getRGB(90 - help.glow / 2, 90 - help.glow / 2, 250 - help.glow / 2);
+        // Crew Members
+        // green
     case 13:
-        return getRGB(120 - help.glow/4 - (fRandom() * 20), 220 - help.glow/4, 120 - help.glow/4);
-        //Yellow
+        return getRGB(120 - help.glow / 4 - (int) (GETCOL_RANDOM * 20), 220 - help.glow / 4, 120 - help.glow / 4);
+        // Yellow
     case 14:
-        return getRGB(220 - help.glow/4 - (fRandom() * 20), 210 - help.glow/4, 120 - help.glow/4);
-        //pink
+        return getRGB(220 - help.glow / 4 - (int) (GETCOL_RANDOM * 20), 210 - help.glow / 4, 120 - help.glow / 4);
+        // pink
     case 15:
-        return getRGB(255 - help.glow/8, 70 - help.glow/4, 70 - help.glow / 4);
-        //Blue
+        return getRGB(255 - help.glow / 8, 70 - help.glow / 4, 70 - help.glow / 4);
+        // Blue
     case 16:
-        return getRGB(75, 75, 255 - help.glow/4 - (fRandom() * 20));
+        return getRGB(75, 75, 255 - help.glow / 4 - (int) (GETCOL_RANDOM * 20));
 
-
-    case 17: //Enemy : Orange
-        return getRGB(250 - help.glow/2, 130 - help.glow/2, 20);
-    case 18: //Enemy : Gray
-        return getRGB(130 - help.glow/2, 130 - help.glow/2, 130 - help.glow/2);
-    case 19: //Enemy : Dark gray
-        return getRGB(60 - help.glow/8, 60 - help.glow/8, 60 - help.glow/8);
-        //Purple
+    case 17: // Enemy : Orange
+        return getRGB(250 - help.glow / 2, 130 - help.glow / 2, 20);
+    case 18: // Enemy : Gray
+        return getRGB(130 - help.glow / 2, 130 - help.glow / 2, 130 - help.glow / 2);
+    case 19: // Enemy : Dark gray
+        return getRGB(60 - help.glow / 8, 60 - help.glow / 8, 60 - help.glow / 8);
+        // Purple
     case 20:
-        return getRGB(220 - help.glow/4 - (fRandom() * 20), 120 - help.glow/4, 210 - help.glow/4);
+        return getRGB(220 - help.glow / 4 - (int) (GETCOL_RANDOM * 20), 120 - help.glow/4, 210 - help.glow/4);
 
-    case 21: //Enemy : Light Gray
+    case 21: // Enemy : Light Gray
         return getRGB(180 - help.glow/2, 180 - help.glow/2, 180 - help.glow/2);
-    case 22: //Enemy : Indicator Gray
-        return getRGB(230 - help.glow/2, 230- help.glow/2, 230 - help.glow/2);
-    case 23: //Enemy : Indicator Gray
-        return getRGB(255 - help.glow/2 - (fRandom() * 40) , 255 - help.glow/2 - (fRandom() * 40), 255 - help.glow/2 - (fRandom() * 40));
+    case 22: // Enemy : Indicator Gray
+        return getRGB(230 - help.glow/2, 230 - help.glow/2, 230 - help.glow/2);
+    case 23: // Enemy : Indicator Gray
+        return getRGB(255 - help.glow / 2 - (int) (GETCOL_RANDOM * 40), 255 - help.glow/2 - (int) (GETCOL_RANDOM * 40), 255 - help.glow/2 - (int) (GETCOL_RANDOM * 40));
 
-        //Trophies
-        //cyan
+        // Trophies
+        // cyan
     case 30:
         return RGBf(160, 200, 220);
-        //Purple
+        // Purple
     case 31:
         return RGBf(220, 120, 210);
-        //Yellow
+        // Yellow
     case 32:
         return RGBf(220, 210, 120);
-        //red
+        // red
     case 33:
         return RGBf(255, 70, 70);
-        //green
+        // green
     case 34:
         return RGBf(120, 220, 120);
-        //Blue
+        // Blue
     case 35:
         return RGBf(75, 75, 255);
-        //Gold
+        // Gold
     case 36:
         return getRGB(180, 120, 20);
-    case 37: //Trinket
+    case 37: // Trinket
         if (!trinketcolset)
         {
-            trinketr = 200 - (fRandom() * 64);
-            trinketg = 200 - (fRandom() * 128);
-            trinketb = 164 + (fRandom() * 60);
+            trinketr = 200 - (GETCOL_RANDOM * 64);
+            trinketg = 200 - (GETCOL_RANDOM * 128);
+            trinketb = 164 + (GETCOL_RANDOM * 60);
             trinketcolset = true;
         }
         return RGBf(trinketr, trinketg, trinketb);
-        //Silver
+        // Silver
     case 38:
         return RGBf(196, 196, 196);
-        //Bronze
+        // Bronze
     case 39:
         return RGBf(128, 64, 10);
-        //Awesome
-    case 40: //Teleporter in action!
+        // Awesome
+    case 40: // Teleporter in action!
     {
-        const int temp = fRandom() * 150;
-        if(temp<33)
+        if (game.noflashingmode)
         {
-            return RGBf(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
+            return getRGB(196, 196, 223);
+        }
+
+        const int temp = GETCOL_RANDOM * 150;
+        if (temp < 33)
+        {
+            return RGBf(255 - (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64));
         }
         else if (temp < 66)
         {
-            return RGBf(64 + (fRandom() * 64), 255 - (fRandom() * 64), 64 + (fRandom() * 64));
+            return RGBf(64 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64));
         }
         else if (temp < 100)
         {
-            return RGBf(64 + (fRandom() * 64), 64 + (fRandom() * 64), 255 - (fRandom() * 64));
+            return RGBf(64 + (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
         }
         else
         {
-            return RGBf(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
+            return RGBf(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
         }
     }
 
-    case 100: //Inactive Teleporter
+    case 100: // Inactive Teleporter
     {
-        const int temp = (help.glow / 2) + (fRandom() * 8);
+        const int temp = (help.glow / 2) + (GETCOL_RANDOM * 8);
         return getRGB(42 + temp, 42 + temp, 42 + temp);
     }
-    case 101: //Active Teleporter
-        return getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
-    case 102: //Teleporter in action!
+    case 101: // Active Teleporter
+        return getRGB(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
+    case 102: // Teleporter in action!
     {
-        const int temp = fRandom() * 150;
+        if (game.noflashingmode)
+        {
+            return getRGB(196, 196, 223);
+        }
+
+        const int temp = GETCOL_RANDOM * 150;
         if (temp < 33)
         {
-            return getRGB(255 - (fRandom() * 64), 64 + (fRandom() * 64), 64 + (fRandom() * 64));
+            return getRGB(255 - (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64));
         }
         else if (temp < 66)
         {
-            return getRGB(64 + (fRandom() * 64), 255 - (fRandom() * 64), 64 + (fRandom() * 64));
+            return getRGB(64 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64));
         }
         else if (temp < 100)
         {
-            return getRGB(64 + (fRandom() * 64), 64 + (fRandom() * 64), 255 - (fRandom() * 64));
+            return getRGB(64 + (GETCOL_RANDOM * 64), 64 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
         }
         else
         {
-            return getRGB(164 + (fRandom() * 64), 164 + (fRandom() * 64), 255 - (fRandom() * 64));
+            return getRGB(164 + (GETCOL_RANDOM * 64), 164 + (GETCOL_RANDOM * 64), 255 - (GETCOL_RANDOM * 64));
         }
     }
     }
 
     return getRGB(255, 255, 255);
 }
+#undef GETCOL_RANDOM
 
 void Graphics::menuoffrender(void)
 {
@@ -2989,28 +3025,27 @@ void Graphics::menuoffrender(void)
     }
 }
 
-SDL_Color Graphics::huetilegetcol(const int t)
+SDL_Color Graphics::huetilegetcol()
 {
-    switch (t)
+    if (game.noflashingmode)
     {
-    case 0:
-        return getRGB(250-int(fRandom()*32), 250-int(fRandom()*32), 10);
-    case 1:
-        return getRGB(250-int(fRandom()*32), 250-int(fRandom()*32), 10);
-    default:
-        return getRGB(250-int(fRandom()*32), 250-int(fRandom()*32), 10);
+        return getRGB(234, 234, 10);
     }
+
+    return getRGB(250 - (int) (fRandom() * 32), 250 - (int) (fRandom() * 32), 10);
 }
 
 SDL_Color Graphics::bigchunkygetcol(int t)
 {
-    //A seperate index of colours, for simplicity
+    // A seperate index of colours, for simplicity
+    float random = game.noflashingmode ? 0.5 : fRandom();
+
     switch (t)
     {
     case 1:
-        return getRGB((fRandom() * 64), 10, 10);
+        return getRGB(random * 64, 10, 10);
     case 2:
-        return getRGB(int(160- help.glow/2 - (fRandom()*20)),  200- help.glow/2, 220 - help.glow);
+        return getRGB(160 - help.glow / 2 - (int) (random * 20), 200 - help.glow / 2, 220 - help.glow);
     }
     const SDL_Color color = {0, 0, 0, 0};
     return color;
@@ -3080,7 +3115,7 @@ int Graphics::textboxwrap(int pad)
     std::string wrapped = font::string_wordwrap_balanced(
         textboxes[m].print_flags,
         textboxes[m].lines[0],
-        36*8 - pad*8
+        36 * 8 - pad * 8
     );
     textboxes[m].lines.clear();
 
@@ -3091,7 +3126,7 @@ int Graphics::textboxwrap(int pad)
         size_t pos_p = wrapped.find('|', startline);
         newline = SDL_min(pos_n, pos_p);
         addline(wrapped.substr(startline, newline-startline));
-        startline = newline+1;
+        startline = newline + 1;
     } while (newline != std::string::npos);
 
     return textboxes[m].h;
@@ -3119,7 +3154,7 @@ void Graphics::textboxpadtowidth(size_t new_w)
     textboxes[m].padtowidth(new_w);
 }
 
-void Graphics::textboxcentertext()
+void Graphics::textboxcentertext(void)
 {
     if (!INBOUNDS_VEC(m, textboxes))
     {
@@ -3142,9 +3177,20 @@ void Graphics::textboxprintflags(const uint32_t flags)
     textboxes[m].resize();
 }
 
-void Graphics::textboxcommsrelay()
+void Graphics::textboxbuttons(void)
 {
-    /* Special treatment for the gamestate textboxes in Comms Relay */
+    if (!INBOUNDS_VEC(m, textboxes))
+    {
+        vlog_error("textboxbuttons() out-of-bounds!");
+        return;
+    }
+
+    textboxes[m].fill_buttons = true;
+}
+
+void Graphics::textboxcommsrelay(void)
+{
+    // Special treatment for the gamestate textboxes in Comms Relay 
     if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxcommsrelay() out-of-bounds!");
@@ -3157,31 +3203,41 @@ void Graphics::textboxcommsrelay()
 
 int Graphics::crewcolour(const int t)
 {
-    //given crewmate t, return colour in setcol
-    if (t == 0) return CYAN;
-    if (t == 1) return PURPLE;
-    if (t == 2) return YELLOW;
-    if (t == 3) return RED;
-    if (t == 4) return GREEN;
-    if (t == 5) return BLUE;
-    return 0;
+    // Given crewmate t, return colour
+    switch (t)
+    {
+    case 0:
+        return CYAN;
+    case 1:
+        return PURPLE;
+    case 2:
+        return YELLOW;
+    case 3:
+        return RED;
+    case 4:
+        return GREEN;
+    case 5:
+        return BLUE;
+    default:
+        return 0;
+    }
 }
 
 void Graphics::flashlight(void)
 {
     set_blendmode(SDL_BLENDMODE_NONE);
 
-    fill_rect(0xBB, 0xBB, 0xBB, 0xBB);
+    fill_rect(NULL, 0xBB, 0xBB, 0xBB, 0xBB);
 }
 
 void Graphics::screenshake(void)
 {
     if (gameScreen.badSignalEffect)
     {
-        ApplyFilter();
+        ApplyFilter(tempFilterSrc, tempFilterDest);
     }
 
-    set_render_target(tempTexture);
+    set_render_target(tempShakeTexture);
     set_blendmode(SDL_BLENDMODE_NONE);
     clear();
 
@@ -3193,7 +3249,7 @@ void Graphics::screenshake(void)
     clear();
 
     // Clear the gameplay texture so blackout() is actually black after a screenshake
-    if (game.gamestate == GAMEMODE)
+    if (game.gamestate == GAMEMODE && game.blackout)
     {
         set_render_target(gameplayTexture);
         clear();
@@ -3203,7 +3259,7 @@ void Graphics::screenshake(void)
     set_blendmode(SDL_BLENDMODE_NONE);
     clear();
 
-    copy_texture(tempTexture, NULL, NULL, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+    copy_texture(tempShakeTexture, NULL, NULL, 0, NULL, flipmode ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 }
 
 void Graphics::updatescreenshake(void)
@@ -3216,7 +3272,7 @@ void Graphics::render(void)
 {
     if (gameScreen.badSignalEffect)
     {
-        ApplyFilter();
+        ApplyFilter(tempFilterSrc, tempFilterDest);
     }
 
     set_render_target(NULL);
@@ -3303,69 +3359,62 @@ SDL_Color Graphics::RGBf(int r, int g, int b)
     return color;
 }
 
-void Graphics::drawforetile(int x, int y, int t)
-{
-#if !defined(NO_CUSTOM_LEVELS)
-    if (shouldrecoloroneway(t, tiles1_mounted))
-    {
-        draw_grid_tile(grphx.im_tiles_tint, t, x, y, tiles_rect.w, tiles_rect.h, cl.getonewaycol());
-    }
-    else
-#endif
-    {
-        draw_grid_tile(grphx.im_tiles, t, x, y, tiles_rect.w, tiles_rect.h);
-    }
-}
-
-void Graphics::drawforetile2(int x, int y, int t)
-{
-#if !defined(NO_CUSTOM_LEVELS)
-    if (shouldrecoloroneway(t, tiles2_mounted))
-    {
-        draw_grid_tile(grphx.im_tiles2_tint, t, x, y, tiles_rect.w, tiles_rect.h, cl.getonewaycol());
-    }
-    else
-#endif
-    {
-        draw_grid_tile(grphx.im_tiles2, t, x, y, tiles_rect.w, tiles_rect.h);
-    }
-}
-
-void Graphics::drawforetile3(int x, int y, int t, int off)
-{
-    t += off * 30;
-
-    draw_grid_tile(grphx.im_tiles3, t, x, y, tiles_rect.w, tiles_rect.h);
-}
-
-void Graphics::drawrect(int x, int y, int w, int h, int r, int g, int b)
-{
-    SDL_Rect madrect;
-    //Draw the retangle indicated by that object
-    madrect.x = x;
-    madrect.y = y;
-    madrect.w = w;
-    madrect.h = 1;
-    fill_rect(&madrect, getRGB(r, g, b));
-
-    madrect.w = 1;
-    madrect.h = h;
-    fill_rect(&madrect, getRGB(r, g, b));
-
-    madrect.x = x + w - 1;
-    madrect.w = 1;
-    madrect.h = h;
-    fill_rect(&madrect, getRGB(r, g, b));
-    madrect.x = x;
-    madrect.y = y + h - 1;
-    madrect.w = w;
-    madrect.h = 1;
-    fill_rect(&madrect, getRGB(r, g, b));
-}
-
 bool Graphics::onscreen(int t)
 {
     return (t >= -40 && t <= 280);
+}
+
+bool Graphics::checktexturesize(
+    const char* filename, SDL_Texture* texture,
+    const int tilewidth, const int tileheight
+) {
+    int texturewidth;
+    int textureheight;
+    if (query_texture(texture, NULL, NULL, &texturewidth, &textureheight) != 0)
+    {
+        /* Just give it the benefit of the doubt. */
+        vlog_warn(
+            "Assuming the dimensions of %s are exact multiples of %i by %i!",
+            filename, tilewidth, tileheight
+        );
+        return true;
+    }
+
+    const bool valid = texturewidth % tilewidth == 0 && textureheight % tileheight == 0;
+    if (!valid)
+    {
+        FILESYSTEM_setLevelDirError(
+            loc::gettext("{filename} dimensions not exact multiples of {width} by {height}!"),
+            "filename:str, width:int, height:int",
+            filename, tilewidth, tileheight
+        );
+        return false;
+    }
+
+    return true;
+}
+
+static void make_array(
+    SDL_Surface** tilesheet,
+    std::vector<SDL_Surface*>& vector,
+    const int tile_square
+) {
+    int j;
+    for (j = 0; j < (*tilesheet)->h / tile_square; j++)
+    {
+        int i;
+        for (i = 0; i < (*tilesheet)->w / tile_square; i++)
+        {
+            SDL_Surface* temp = GetSubSurface(
+                *tilesheet,
+                i * tile_square, j * tile_square,
+                tile_square, tile_square
+            );
+            vector.push_back(temp);
+        }
+    }
+
+    VVV_freefunc(SDL_FreeSurface, *tilesheet);
 }
 
 bool Graphics::reloadresources(void)
@@ -3373,9 +3422,18 @@ bool Graphics::reloadresources(void)
     grphx.destroy();
     grphx.init();
 
+    MAYBE_FAIL(checktexturesize("tiles.png", grphx.im_tiles, 8, 8));
+    MAYBE_FAIL(checktexturesize("tiles2.png", grphx.im_tiles2, 8, 8));
+    MAYBE_FAIL(checktexturesize("tiles3.png", grphx.im_tiles3, 8, 8));
+    MAYBE_FAIL(checktexturesize("entcolours.png", grphx.im_entcolours, 8, 8));
+    MAYBE_FAIL(checktexturesize("sprites.png", grphx.im_sprites, 32, 32));
+    MAYBE_FAIL(checktexturesize("flipsprites.png", grphx.im_flipsprites, 32, 32));
+    MAYBE_FAIL(checktexturesize("teleporter.png", grphx.im_teleporter, 96, 96));
+
     destroy();
 
-    MAYBE_FAIL(MakeSpriteArray());
+    make_array(&grphx.im_sprites_surf, sprites_surf, 32);
+    make_array(&grphx.im_flipsprites_surf, flipsprites_surf, 32);
 
     images[IMAGE_LEVELCOMPLETE] = grphx.im_image0;
     images[IMAGE_MINIMAP] = grphx.im_image1;
@@ -3397,11 +3455,9 @@ bool Graphics::reloadresources(void)
     music.destroy();
     music.init();
 
-#ifndef NO_CUSTOM_LEVELS
     tiles1_mounted = FILESYSTEM_isAssetMounted("graphics/tiles.png");
     tiles2_mounted = FILESYSTEM_isAssetMounted("graphics/tiles2.png");
     minimap_mounted = FILESYSTEM_isAssetMounted("graphics/minimap.png");
-#endif
 
     gamecomplete_mounted = FILESYSTEM_isAssetMounted("graphics/gamecomplete.png");
     levelcomplete_mounted = FILESYSTEM_isAssetMounted("graphics/levelcomplete.png");

@@ -1,9 +1,9 @@
 #include "Textbox.h"
 
 #include <SDL.h>
-#include <utf8/unchecked.h>
 
 #include "Font.h"
+#include "UTF8.h"
 
 textboxclass::textboxclass(void)
 {
@@ -27,6 +27,7 @@ textboxclass::textboxclass(void)
     large = false;
 
     print_flags = PR_FONT_LEVEL;
+    fill_buttons = false;
 }
 
 void textboxclass::centerx(void)
@@ -106,7 +107,7 @@ void textboxclass::resize(void)
     int max = 0;
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
-        int len = font::len(print_flags, lines[iter]);
+        int len = font::len(print_flags, lines[iter].c_str());
         if (len > max) max = len;
     }
 
@@ -145,7 +146,7 @@ void textboxclass::padtowidth(size_t new_w)
     size_t chars_w = SDL_max(w-16, new_w) / glyph_w;
     for (size_t iter = 0; iter < lines.size(); iter++)
     {
-        size_t n_glyphs = utf8::unchecked::distance(lines[iter].begin(), lines[iter].end());
+        size_t n_glyphs = UTF8_total_codepoints(lines[iter].c_str());
         signed int padding_needed = chars_w - n_glyphs;
         if (padding_needed < 0)
         {
@@ -159,7 +160,7 @@ void textboxclass::padtowidth(size_t new_w)
     resize();
 }
 
-void textboxclass::centertext()
+void textboxclass::centertext(void)
 {
     padtowidth(w-16);
 }

@@ -27,15 +27,15 @@ void titlelogic(void)
         {
             if (game.menudest == Menu::mainmenu)
             {
-                music.play(6);
+                music.play(Music_PRESENTINGVVVVVV);
             }
             else if (game.menudest == Menu::gameover2)
             {
-                music.playef(11);
+                music.playef(Sound_VIRIDIAN);
             }
             else if (game.menudest == Menu::timetrialcomplete3)
             {
-                music.playef(3);
+                music.playef(Sound_TRINKET);
             }
             game.createmenu(game.menudest, true);
         }
@@ -78,6 +78,8 @@ void gamecompletelogic(void)
         //Return to game
         game.gamestate = GAMECOMPLETE2;
         graphics.fademode = FADE_START_FADEIN;
+        game.skip_message_timer = 1000;
+        game.old_skip_message_timer = 1000;
     }
 }
 
@@ -108,7 +110,7 @@ void gamecompletelogic2(void)
         //Fix the save thingy
         game.deletequick();
         int tmp=music.currentsong;
-        music.currentsong=4;
+        music.currentsong = Music_PASSIONFOREXPLORING;
         obj.flags[67] = true;
         game.savetele();
         music.currentsong=tmp;
@@ -185,7 +187,7 @@ void gamelogic(void)
         game.alarmdelay--;
         if (game.alarmdelay <= 0)
         {
-            music.playef(19);
+            music.playef(Sound_ALARM);
             game.alarmdelay = 20;
         }
     }
@@ -202,7 +204,7 @@ void gamelogic(void)
             {
                 obj.entities[i].tile = 144;
             }
-            music.playef(2);
+            music.playef(Sound_CRY);
         }
         if (obj.upset > 301) obj.upset = 301;
     }
@@ -427,11 +429,11 @@ void gamelogic(void)
         if (game.swnmode)
         {
             //if playing SWN game a, push the clock back to the nearest 10 second interval
-            if (game.swngame == 0)
+            if (game.swngame == SWN_GRAVITRON)
             {
                 game.swnpenalty();
             }
-            else if (game.swngame == 1)
+            else if (game.swngame == SWN_SUPERGRAVITRON)
             {
                 game.swnstate = 0;
                 game.swnstate2 = 0;
@@ -444,7 +446,7 @@ void gamelogic(void)
                     game.swnrecord = game.swntimer;
                     if (game.swnmessage == 0)
                     {
-                        music.playef(25);
+                        music.playef(Sound_NEWRECORD);
                         game.savestatsandsettings();
                     }
                     game.swnmessage = 1;
@@ -479,7 +481,7 @@ void gamelogic(void)
                 if (game.swnmode)
                 {
                     //if playing SWN game b, reset the clock
-                    if (game.swngame == 1)
+                    if (game.swngame == SWN_SUPERGRAVITRON)
                     {
                         game.swntimer = 0;
                         game.swnmessage = 0;
@@ -555,21 +557,21 @@ void gamelogic(void)
         //SWN Minigame Logic
         if (game.swnmode)      //which game?
         {
-            if(game.swngame==0)  //intermission, survive 60 seconds game
+            switch (game.swngame)
             {
+            case SWN_GRAVITRON:  // intermission, survive 60 seconds game
                 game.swntimer -= 1;
                 if (game.swntimer <= 0)
                 {
-                    music.niceplay(8);
-                    game.swngame = 5;
+                    music.niceplay(Music_PREDESTINEDFATE);
+                    game.swngame = SWN_FINISH_GRAVITRON_STEP_1;
                 }
                 else
                 {
                     obj.generateswnwave(0);
                 }
-            }
-            else if(game.swngame==1)   //super gravitron game
-            {
+                break;
+            case SWN_SUPERGRAVITRON:
                 game.swntimer += 1;
 #ifndef MAKEANDPLAY
                 if (!map.custommode)
@@ -587,7 +589,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav5");
                             game.swnbestrank = 1;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 300 && game.swnrank == 1)
@@ -598,7 +600,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav10");
                             game.swnbestrank = 2;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 450 && game.swnrank == 2)
@@ -609,7 +611,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav15");
                             game.swnbestrank = 3;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 600 && game.swnrank == 3)
@@ -620,7 +622,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav20");
                             game.swnbestrank = 4;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 900 && game.swnrank == 4)
@@ -631,7 +633,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav30");
                             game.swnbestrank = 5;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                     else if (game.swntimer >= 1800 && game.swnrank == 5)
@@ -642,7 +644,7 @@ void gamelogic(void)
                             game.unlockAchievement("vvvvvvsupgrav60");
                             game.swnbestrank = 6;
                             game.swnmessage = 2+30;
-                            music.playef(26);
+                            music.playef(Sound_TROPHY);
                         }
                     }
                 }
@@ -658,19 +660,18 @@ void gamelogic(void)
                     graphics.rcol = game.swncolstate;
                     obj.swnenemiescol(game.swncolstate);
                 }
-            }
-            else if (game.swngame == 2)    //introduce game a
-            {
+                break;
+            case SWN_START_GRAVITRON_STEP_3:    //introduce game a
                 game.swndelay--;
                 if (game.swndelay <= 0)
                 {
-                    game.swngame = 0;
+                    game.swngame = SWN_GRAVITRON;
                     game.swndelay = 0;
                     game.swntimer = (60 * 30) - 1;
                     //game.swntimer = 15;
                 }
-            }
-            else if (game.swngame == 3)    //extend line
+                break;
+            case SWN_START_GRAVITRON_STEP_2:    //extend line
             {
                 int line = obj.getlineat(84 - 32);
                 if (INBOUNDS_VEC(line, obj.entities))
@@ -679,19 +680,19 @@ void gamelogic(void)
                     if (obj.entities[line].w > 332)
                     {
                         obj.entities[line].w = 332;
-                        game.swngame = 2;
+                        game.swngame = SWN_START_GRAVITRON_STEP_3;
                         graphics.kludgeswnlinewidth = true;
                     }
                 }
+                break;
             }
-            else if (game.swngame == 4)    //create top line
-            {
-                game.swngame = 3;
+            case SWN_START_GRAVITRON_STEP_1:    //create top line
+                game.swngame = SWN_START_GRAVITRON_STEP_2;
                 obj.createentity(-8, 84 - 32, 11, 8);  // (horizontal gravity line)
-                music.niceplay(2);
+                music.niceplay(Music_POSITIVEFORCE);
                 game.swndeaths = game.deathcounts;
-            }
-            else if (game.swngame == 5)    //remove line
+                break;
+            case SWN_FINISH_GRAVITRON_STEP_1:    //remove line
             {
                 int line = obj.getlineat(148 + 32);
                 if (INBOUNDS_VEC(line, obj.entities))
@@ -700,28 +701,27 @@ void gamelogic(void)
                     if (obj.entities[line].xp > 320)
                     {
                         obj.disableentity(line);
-                        game.swngame = 8;
+                        game.swngame = SWN_FINISH_GRAVITRON_STEP_2;
                     }
                 }
+                break;
             }
-            else if (game.swngame == 6)    //Init the super gravitron
-            {
-                game.swngame = 7;
-                music.niceplay(3);
-            }
-            else if (game.swngame == 7)    //introduce game b
-            {
+            case SWN_START_SUPERGRAVITRON_STEP_1:    //Init the super gravitron
+                game.swngame = SWN_START_SUPERGRAVITRON_STEP_2;
+                music.niceplay(Music_POTENTIALFORANYTHING);
+                break;
+            case SWN_START_SUPERGRAVITRON_STEP_2:    //introduce game b
                 game.swndelay--;
                 if (game.swndelay <= 0)
                 {
-                    game.swngame = 1;
+                    game.swngame = SWN_SUPERGRAVITRON;
                     game.swndelay = 0;
                     game.swntimer = 0;
                     game.swncolstate = 3;
                     game.swncoldelay = 30;
                 }
-            }
-            else if (game.swngame == 8)    //extra kludge if player dies after game a ends
+                break;
+            case SWN_FINISH_GRAVITRON_STEP_2:    //extra kludge if player dies after game a ends
             {
                 bool square_onscreen = false;
                 for (size_t i = 0; i < obj.entities.size(); i++)
@@ -736,6 +736,10 @@ void gamelogic(void)
                 {
                     game.swnmode = false;
                 }
+                break;
+            }
+            case SWN_NONE:
+                break;
             }
         }
 
@@ -751,33 +755,33 @@ void gamelogic(void)
                 {
                     game.hascontrol = false;
                 }
-                if(game.timetrialcountdown == 120) music.playef(21);
-                if(game.timetrialcountdown == 90) music.playef(21);
-                if(game.timetrialcountdown == 60) music.playef(21);
+                if(game.timetrialcountdown == 120) music.playef(Sound_COUNTDOWN);
+                if(game.timetrialcountdown == 90) music.playef(Sound_COUNTDOWN);
+                if(game.timetrialcountdown == 60) music.playef(Sound_COUNTDOWN);
                 if (game.timetrialcountdown == 30)
                 {
                     switch(game.timetriallevel)
                     {
-                    case 0:
-                        music.play(1);
+                    case TimeTrial_SPACESTATION1:
+                        music.play(Music_PUSHINGONWARDS);
                         break;
-                    case 1:
-                        music.play(3);
+                    case TimeTrial_LABORATORY:
+                        music.play(Music_POTENTIALFORANYTHING);
                         break;
-                    case 2:
-                        music.play(2);
+                    case TimeTrial_TOWER:
+                        music.play(Music_POSITIVEFORCE);
                         break;
-                    case 3:
-                        music.play(1);
+                    case TimeTrial_SPACESTATION2:
+                        music.play(Music_PUSHINGONWARDS);
                         break;
-                    case 4:
-                        music.play(12);
+                    case TimeTrial_WARPZONE:
+                        music.play(Music_PRESSURECOOKER);
                         break;
-                    case 5:
-                        music.play(15);
+                    case TimeTrial_FINALLEVEL:
+                        music.play(Music_PREDESTINEDFATEREMIX);
                         break;
                     }
-                    music.playef(22);
+                    music.playef(Sound_GO);
                 }
             }
 
@@ -792,7 +796,7 @@ void gamelogic(void)
                     {
                         obj.entities[i].tile = 144;
                     }
-                    music.playef(2);
+                    music.playef(Sound_CRY);
                 }
             }
         }

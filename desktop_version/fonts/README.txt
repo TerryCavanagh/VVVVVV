@@ -33,14 +33,17 @@ The fontmeta file looks like this:
         <range start="0x00" end="0x1F" advance="6"/>
         <range start="0xEB00" end="0xEBFF" color="1"/>
     </special>
+    <fallback>buttons_12x12</fallback>
 </font_metadata>
 
 
-* display_name: the name of the language the font is specifically meant for - in the language itself. Users will see this in the level editor when choosing a font to use. If this font is used equally by multiple translations, this could be set to a combination like "繁體中文/한국어"
+* type: not specified for normal fonts. <type>buttons</type> is used in button glyph fonts.
 
-* width/height: the width and height of each glyph in the font. Every character will always be drawn as a rectangle of this size.
+* display_name: the name of the language the font is specifically meant for - in the language itself. Users will see this in the level editor when choosing a font to use. If this font is used equally by multiple translations, this could be set to a combination like "繁體中文/한국어". (If you are creating a custom player level: don't worry about this)
 
-* white_teeth: indicates that all characters in the font are white, so the game itself doesn't have to remove all color from the image and make all pixels white like it would in old versions of the game. If this is not set to 1, this font cannot have colored (button) glyphs.
+* width/height: the width and height of each glyph in the font. Every character will always be drawn as a rectangle of this size. VVVVVV is rated to support fonts up to 12 pixels high - anything higher may cause text overlapping or not fitting in place.
+
+* white_teeth: indicates that all characters in the font are white, so the game itself doesn't have to remove all color from the image and make all pixels white like it would in old versions of the game. If this is not set to 1, this font cannot have colored (button) glyphs, and the game has to specifically process the font every time it is loaded, so 1 is highly recommended.
 
 * chars: defines which characters are in the image. Starting at the top left of the image, each character is simply a rectangle of equal size (defined in <width> and <height>) from left to right, top to bottom. In the example given above, the image first has Unicode every character from U+0020 up to and including U+007F, then every character from U+00A0 to U+017F, and so on. To include a single character, simply use a range with equal start and end attributes equal.
 
@@ -49,4 +52,6 @@ The fontmeta file looks like this:
  - color: set to 1 if these glyphs should be drawn with its original colors (for button glyphs, or even emoji...)
 
  - advance: instead of <width>, the cursor (for drawing the next character) should be advanced this amount of pixels to the right. This controls the width of a character, but it does not affect how characters are arranged in the image, and the full glyph will still be drawn. While this means the font system has support for variable-width fonts, it's recommended to not use this option. There are some problems arising from using a variable-width font (especially in text boxes), so please consider copying the font's fullwidth forms (U+FF01-U+FF5E) to ASCII U+0021-U+007E instead. One may argue that a monospaced font also fits more with the game's style.
+
+* fallback: specifies the button glyphs font to use. Make sure to choose one that fits fully within your [width]x[height] rectangle, so for an 8x12 font, choose buttons_8x8, not buttons_12x12.
 

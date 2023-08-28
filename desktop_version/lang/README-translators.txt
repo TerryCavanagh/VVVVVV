@@ -2,7 +2,11 @@
 
 This file will explain everything you need to know when making translations of VVVVVV.
 
-This file is encoded in UTF-8.
+WARNING TO VOLUNTEERS: VVVVVV translation is not a community effort where anyone can submit translations! It's *possible* that, on a case-by-case basis, someone can volunteer to become an official translator. But you would need to get approval from Terry first (or you can express interest in there being an official translation into your language, it may already be planned!)
+
+Likewise, you're welcome to report issues in existing translations (or to submit PRs to fix these issues), but it's not a good idea to rewrite significant parts of a translation, and then contribute it without warning. If you think there are errors or things that could be improved, please give an explanation as to why. (We may decide to discuss it with the official translator.)
+
+It *is* possible to make a fan translation for fun, for sharing with others, etc. But it probably won't be distributed with the game officially.
 
 
 

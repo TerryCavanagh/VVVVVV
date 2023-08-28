@@ -117,6 +117,59 @@ enum SLIDERMODE
     SLIDER_SOUNDVOLUME
 };
 
+/* enums for swngame variable */
+enum SWNMODE
+{
+    SWN_GRAVITRON,
+    SWN_SUPERGRAVITRON,
+    SWN_START_GRAVITRON_STEP_3,
+    SWN_START_GRAVITRON_STEP_2,
+    SWN_START_GRAVITRON_STEP_1,
+    SWN_FINISH_GRAVITRON_STEP_1,
+    SWN_START_SUPERGRAVITRON_STEP_1,
+    SWN_START_SUPERGRAVITRON_STEP_2,
+    SWN_FINISH_GRAVITRON_STEP_2,
+    SWN_NONE
+};
+
+/* enums for unlock, unlocknotify arrays and unlocknum function */
+enum
+{
+    Unlock_SPACESTATION1_COMPLETE = 0,
+    Unlock_LABORATORY_COMPLETE = 1,
+    Unlock_TOWER_COMPLETE = 2,
+    Unlock_SPACESTATION2_COMPLETE = 3,
+    Unlock_WARPZONE_COMPLETE = 4,
+    UnlockTrophy_GAME_COMPLETE = 5,
+    Unlock_INTERMISSION1_COMPLETE = 6,
+    Unlock_INTERMISSION2_COMPLETE = 7,
+    Unlock_SECRETLAB = 8,
+    Unlock_TIMETRIAL_SPACESTATION1 = 9,
+    Unlock_TIMETRIAL_LABORATORY = 10,
+    Unlock_TIMETRIAL_TOWER = 11,
+    Unlock_TIMETRIAL_SPACESTATION2 = 12,
+    Unlock_TIMETRIAL_WARPZONE = 13,
+    Unlock_TIMETRIAL_FINALLEVEL = 14,
+    Unlock_INTERMISSION_UNUSED = 15,
+    Unlock_INTERMISSION_REPLAYS = 16,
+    Unlock_NODEATHMODE = 17,
+    Unlock_FLIPMODE = 18,
+    UnlockTrophy_FLIPMODE_COMPLETE = 19,
+    UnlockTrophy_NODEATHMODE_COMPLETE = 20
+};
+
+/* enums for bestrank, bestlives, besttrinkets, besttimes, bestframes arrays
+ * and timetriallevel */
+enum
+{
+    TimeTrial_SPACESTATION1 = 0,
+    TimeTrial_LABORATORY = 1,
+    TimeTrial_TOWER = 2,
+    TimeTrial_SPACESTATION2 = 3,
+    TimeTrial_WARPZONE = 4,
+    TimeTrial_FINALLEVEL = 5
+};
+
 struct MenuStackFrame
 {
     int option;
@@ -132,8 +185,11 @@ struct CustomLevelStat
 
 class Game
 {
+    char magic[16];
+
 public:
     void init(void);
+    void setdefaultcontrollerbuttons(void);
 
 
     int crewrescued(void);
@@ -173,13 +229,13 @@ public:
 
     void setstate(int gamestate);
 
-    void incstate();
+    void incstate(void);
 
     void setstatedelay(int delay);
 
-    void lockstate();
+    void lockstate(void);
 
-    void unlockstate();
+    void unlockstate(void);
 
     void updatestate(void);
 
@@ -263,7 +319,7 @@ public:
     bool hascontrol, jumpheld;
     int jumppressed;
     int gravitycontrol;
-    bool isingamecompletescreen();
+    bool isingamecompletescreen(void);
 
     bool muted;
     int mutebutton;
@@ -281,6 +337,7 @@ public:
 
     int framecounter;
     bool seed_use_sdl_getticks;
+    bool editor_disabled;
     int frames, seconds, minutes, hours;
     bool gamesaved;
     bool gamesavefailed;
@@ -331,7 +388,8 @@ public:
 
     //Sine Wave Ninja Minigame
     bool swnmode;
-    int swngame, swnstate, swnstate2, swnstate3, swnstate4, swndelay, swndeaths;
+    enum SWNMODE swngame;
+    int swnstate, swnstate2, swnstate3, swnstate4, swndelay, swndeaths;
     int swntimer, swncolstate, swncoldelay;
     int  swnrecord, swnbestrank, swnrank, swnmessage;
 
@@ -410,7 +468,6 @@ public:
     int quick_trinkets;
     std::string quick_currentarea;
 
-    int mx, my;
     int screenshake, flashlight;
     bool advancetext, pausescript;
 
@@ -496,9 +553,7 @@ public:
     bool fadetolab;
     int fadetolabdelay;
 
-#if !defined(NO_CUSTOM_LEVELS)
     void returntoeditor(void);
-#endif
 
     bool inline inspecial(void)
     {
@@ -516,9 +571,7 @@ public:
     bool showingametimer;
 
     bool ingame_titlemode;
-#if !defined(NO_CUSTOM_LEVELS) && !defined(NO_EDITOR)
     bool ingame_editormode;
-#endif
 
     void returntoingame(void);
     void unlockAchievement(const char *name);
@@ -529,6 +582,9 @@ public:
     bool inputdelay;
 
     bool statelocked;
+
+    int old_skip_message_timer;
+    int skip_message_timer;
 };
 
 #ifndef GAME_DEFINITION

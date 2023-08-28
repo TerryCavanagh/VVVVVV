@@ -46,20 +46,6 @@ jobs:
     - name: Build (M&P)
       run: ninja -C ${SRC_DIR_PATH}/build
 
-    - name: CMake configure (no custom levels)
-      run: |
-        cd ${SRC_DIR_PATH}/build
-        cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED ..
-    - name: Build (no custom levels)
-      run: ninja -C ${SRC_DIR_PATH}/build
-
-    - name: CMake configure (no editor)
-      run: |
-        cd ${SRC_DIR_PATH}/build
-        cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR ..
-    - name: Build (no editor)
-      run: ninja -C ${SRC_DIR_PATH}/build
-
   build-lin:
     name: Build (CentOS 7)
 
@@ -97,20 +83,6 @@ jobs:
     - name: Build (M&P)
       run: make -j $(nproc) -C ${SRC_DIR_PATH}/build
 
-    - name: CMake configure (no custom levels)
-      run: |
-        cd ${SRC_DIR_PATH}/build
-        cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED ..
-    - name: Build (no custom levels)
-      run: make -j $(nproc) -C ${SRC_DIR_PATH}/build
-
-    - name: CMake configure (no editor)
-      run: |
-        cd ${SRC_DIR_PATH}/build
-        cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR ..
-    - name: Build (no editor)
-      run: make -j $(nproc) -C ${SRC_DIR_PATH}/build
-
   build-win:
     name: Build (windows-latest)
 
@@ -125,22 +97,33 @@ jobs:
         submodules: true
 
     - name: Cache SDL
-      uses: actions/cache@v2
+      id: cache-windows-sdl
+      uses: actions/cache@v3
       env:
         cache-name: cache-sdl
       with:
-        path: C:\SDL
-        key: ${{ runner.os }}-build-${{ env.cache-name }}
+        path: C:\SDL2-*
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.SDL_VERSION }}
 
-    - name: Download SDL if not cached
+    - if: ${{ steps.cache-windows-sdl.outputs.cache-hit != 'true' }}
+      name: Download SDL if not cached
       run: |
-        if (-Not (Test-Path C:\SDL))
-        {
-          Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -o C:\SDL.zip
-          Expand-Archive C:\SDL.zip -DestinationPath C:\
-        }
+        Invoke-WebRequest "https://github.com/libsdl-org/SDL/releases/download/release-$env:SDL_VERSION/SDL2-devel-$env:SDL_VERSION-VC.zip" -o C:\SDL.zip
+        Expand-Archive C:\SDL.zip -DestinationPath C:\
 
-    - name: CMake configure (default version)
+    - name: Cache build folder for this CMakeLists.txt
+      id: cache-windows-build-folder
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-windows-build-folder-VS2022
+      with:
+        path: |
+          desktop_version/build
+          desktop_version/CMakeLists.txt
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('desktop_version/CMakeLists.txt') }}-SDL${{ env.SDL_VERSION }}
+
+    - if: ${{ steps.cache-windows-build-folder.outputs.cache-hit != 'true' }}
+      name: CMake initial configure/generate
       run: |
         mkdir $env:SRC_DIR_PATH/build
         cd $env:SRC_DIR_PATH/build
@@ -148,6 +131,11 @@ jobs:
         cmake -G "Visual Studio 17 2022" -A Win32 `
               -DSDL2_INCLUDE_DIRS="C:\SDL2-$env:SDL_VERSION\include" `
               -DSDL2_LIBRARIES="SDL2;SDL2main" ..
+
+    - name: CMake configure (default version)
+      run: |
+        cd $env:SRC_DIR_PATH/build
+        cmake ..
     - name: Build (default version)
       run: |
         cd $env:SRC_DIR_PATH/build
@@ -167,24 +155,6 @@ jobs:
         cd $env:SRC_DIR_PATH/build
         cmake -DOFFICIAL_BUILD=OFF -DMAKEANDPLAY=ON ..
     - name: Build (M&P)
-      run: |
-        cd $env:SRC_DIR_PATH/build
-        cmake --build .
-
-    - name: CMake configure (no custom levels)
-      run: |
-        cd $env:SRC_DIR_PATH/build
-        cmake -DMAKEANDPLAY=OFF -DCUSTOM_LEVEL_SUPPORT=DISABLED ..
-    - name: Build (no custom levels)
-      run: |
-        cd $env:SRC_DIR_PATH/build
-        cmake --build .
-
-    - name: CMake configure (no editor)
-      run: |
-        cd $env:SRC_DIR_PATH/build
-        cmake -DCUSTOM_LEVEL_SUPPORT=NO_EDITOR ..
-    - name: Build (no editor)
       run: |
         cd $env:SRC_DIR_PATH/build
         cmake --build .

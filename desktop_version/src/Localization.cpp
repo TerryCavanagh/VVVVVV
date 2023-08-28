@@ -2,10 +2,9 @@
 #include "Localization.h"
 #include "LocalizationStorage.h"
 
-#include <utf8/unchecked.h>
-
 #include "Alloc.h"
 #include "Game.h"
+#include "UTF8.h"
 #include "UtilityClass.h"
 #include "VFormat.h"
 
@@ -163,7 +162,7 @@ const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::s
     }
 
     uintptr_t ptr_cutscene_map;
-    bool found = hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_cutscene_map);
+    bool found = hashmap_get(map, map_script_key, SDL_strlen(map_script_key), &ptr_cutscene_map);
     hashmap* cutscene_map = (hashmap*) ptr_cutscene_map;
 
     if (!found || cutscene_map == NULL)
@@ -179,7 +178,7 @@ const TextboxFormat* gettext_cutscene(const std::string& script_id, const std::s
     }
 
     uintptr_t ptr_format;
-    found = hashmap_get(cutscene_map, (void*) key, alloc_len-1, &ptr_format);
+    found = hashmap_get(cutscene_map, key, alloc_len-1, &ptr_format);
     const TextboxFormat* format = (TextboxFormat*) ptr_format;
 
     VVV_free(key);
@@ -295,7 +294,7 @@ bool is_cutscene_translated(const std::string& script_id)
     }
 
     uintptr_t ptr_unused;
-    return hashmap_get(map, (void*) map_script_key, SDL_strlen(map_script_key), &ptr_unused);
+    return hashmap_get(map, map_script_key, SDL_strlen(map_script_key), &ptr_unused);
 }
 
 uint32_t toupper_ch(uint32_t ch)
@@ -367,13 +366,14 @@ std::string toupper(const std::string& lower)
     }
 
     std::string upper;
-    std::back_insert_iterator<std::string> inserter = std::back_inserter(upper);
-    std::string::const_iterator iter = lower.begin();
+    /* Capacity is not final, but some uppercase is more bytes than the
+     * lowercase equivalent, so some extra breathing room couldn't hurt... */
+    upper.reserve(lower.length() + 6);
+    const char* lower_c = lower.c_str();
+    uint32_t ch;
     bool ignorenext = false;
-    while (iter != lower.end())
+    while ((ch = UTF8_next(&lower_c)))
     {
-        uint32_t ch = utf8::unchecked::next(iter);
-
         if (get_langmeta()->toupper_lower_escape_char && ch == '~')
         {
             ignorenext = true;
@@ -384,7 +384,7 @@ std::string toupper(const std::string& lower)
         {
             ch = toupper_ch(ch);
         }
-        utf8::unchecked::append(ch, inserter);
+        upper.append(UTF8_encode(ch).bytes);
 
         ignorenext = false;
     }

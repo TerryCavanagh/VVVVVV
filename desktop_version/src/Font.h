@@ -81,9 +81,18 @@ std::string string_unwordwrap(const std::string& s);
 
 bool glyph_dimensions(uint32_t flags, uint8_t* glyph_w, uint8_t* glyph_h);
 
-int len(uint32_t flags, const std::string& t);
+int len(uint32_t flags, const char* text);
 int height(const uint32_t flags);
 
+void print(
+    uint32_t flags,
+    int x,
+    int y,
+    const char* text,
+    uint8_t r, uint8_t g, uint8_t b
+);
+
+// std::string overload for only font::print (use .c_str() for the others)
 void print(
     uint32_t flags,
     int x,
@@ -96,7 +105,7 @@ int print_wrap(
     uint32_t flags,
     int x,
     int y,
-    const std::string& text,
+    const char* text,
     uint8_t r, uint8_t g, uint8_t b,
     int linespacing = -1,
     int maxwidth = -1

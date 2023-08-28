@@ -17,9 +17,10 @@ public:
 
     void ResizeScreen(int x, int y);
     void ResizeToNearestMultiple(void);
-    void GetWindowSize(int* x, int* y);
+    void GetScreenSize(int* x, int* y);
 
-    void RenderPresent();
+    void UpdateScaling(void);
+    void RenderPresent(void);
 
     void toggleFullScreen(void);
     void toggleScalingMode(void);
@@ -30,6 +31,9 @@ public:
 
     bool isForcedFullscreen(void);
 
+    int windowDisplay;
+    int windowWidth;
+    int windowHeight;
     bool isWindowed;
     bool isFiltered;
     bool badSignalEffect;

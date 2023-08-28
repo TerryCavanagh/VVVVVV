@@ -22,6 +22,7 @@ struct LangMeta
     std::string nativename;
     std::string credit;
     std::string action_hint;
+    std::string gamepad_hint;
     bool autowordwrap; // = true; enable automatic wordwrapping
     bool toupper; // = true; enable automatic full-caps for menu options
     bool toupper_i_dot; // = false; enable Turkish i mapping when uppercasing

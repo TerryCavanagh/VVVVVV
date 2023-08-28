@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Please read README.txt for information about the language files -->
 <roomnames_special>
-    <roomname english="Outer Space" translation="" explanation="Literally Outer Space"/>
-    <roomname english="Dimension VVVVVV" translation="" explanation="The overall area that the game takes place in."/>
-    <roomname english="The Ship" translation="" explanation="The dimension exploring spaceship"/>
-    <roomname english="Secret Lab" translation="" explanation="An endgame section containing achievement trophys"/>
-    <roomname english="Laboratory" translation="" explanation="One of the stages"/>
-    <roomname english="The Tower" translation="" explanation="One of the stages"/>
-    <roomname english="Warp Zone" translation="" explanation="One of the stages"/>
-    <roomname english="Space Station" translation="" explanation="One of the stages"/>
-    <roomname english="Outside Dimension VVVVVV" translation="" explanation="For rare rooms outside the normal area"/>
-    <roomname english="???" translation="" explanation=""/>
-    <roomname english="The Super Gravitron" translation="" explanation="An expanded version of the room at 53, 50"/>
-    <roomname english="I Can&apos;t Believe You Got This Far" translation="" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
-    <roomname english="Imagine Spikes There, if You Like" translation="" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="Outer Space" translation="Espacio exterior" explanation="Literally Outer Space"/>
+    <roomname english="Dimension VVVVVV" translation="Dimensión VVVVVV" explanation="The overall area that the game takes place in."/>
+    <roomname english="The Ship" translation="La nave" explanation="The dimension exploring spaceship"/>
+    <roomname english="Secret Lab" translation="Laboratorio secreto" explanation="An endgame section containing achievement trophys"/>
+    <roomname english="Laboratory" translation="Laboratorio" explanation="One of the stages"/>
+    <roomname english="The Tower" translation="La Torre" explanation="One of the stages"/>
+    <roomname english="Warp Zone" translation="Zona cíclica" explanation="One of the stages"/>
+    <roomname english="Space Station" translation="Estación espacial" explanation="One of the stages"/>
+    <roomname english="Outside Dimension VVVVVV" translation="Fuera de la dimensión VVVVVV" explanation="For rare rooms outside the normal area"/>
+    <roomname english="???" translation="???" explanation=""/>
+    <roomname english="The Super Gravitron" translation="El Supergravitrón" explanation="An expanded version of the room at 53, 50"/>
+    <roomname english="I Can&apos;t Believe You Got This Far" translation="Increíble que llegaras tan lejos" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="Imagine Spikes There, if You Like" translation="Imagínate pinchos, si quieres" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
     <!-- - -->
-    <roomname english="Rear Window" translation="" explanation="Named after the Hitchcock film (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="Rear Vindow" translation="" explanation=""/>
+    <roomname english="Rear Window" translation="La ventana indiscreta" explanation="Named after the Hitchcock film (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Rear Vindow" translation="La ventana vindiscreta" explanation=""/>
     <!-- - -->
-    <roomname english="On the Waterfront" translation="" explanation="Named after the 1954 film (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="On the Vaterfront" translation="" explanation=""/>
+    <roomname english="On the Waterfront" translation="La ley del silencio" explanation="Named after the 1954 film (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="On the Vaterfront" translation="La ley del vilencio" explanation=""/>
     <!-- - -->
-    <roomname english="The Untouchables" translation="" explanation="Before it was a film, the Untouchables was a TV series in 1959 (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="The Untouchavles" translation="" explanation=""/>
+    <roomname english="The Untouchables" translation="Los intocables" explanation="Before it was a film, the Untouchables was a TV series in 1959 (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="The Untouchavles" translation="Los vintocables" explanation=""/>
     <!-- - -->
-    <roomname english="Television Newsveel" translation="" explanation="Refers to Television Newsreel. (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="Television Newsvel" translation="" explanation=""/>
-    <roomname english="TelevisvonvNewsvel" translation="" explanation=""/>
-    <roomname english="TvlvvvsvonvNevsvel" translation="" explanation=""/>
-    <roomname english="vvvvvvsvovvNe svel" translation="" explanation=""/>
-    <roomname english="vhv vvv&apos;vvovv vevl" translation="" explanation=""/>
-    <roomname english="vhv V v&apos;Cvovv vewv" translation="" explanation=""/>
-    <roomname english="vhe 9 v&apos;Cvovv vewv" translation="" explanation=""/>
-    <roomname english="vhe 9 v&apos;Cvovv Newv" translation="" explanation=""/>
-    <roomname english="The 9 O&apos;Cvovk Newv" translation="" explanation=""/>
-    <roomname english="The 9 O&apos;Clock News" translation="" explanation="(Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Television Newsveel" translation="Cine ve barrio" explanation="Refers to Television Newsreel. (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Television Newsvel" translation="Cine ve vario" explanation=""/>
+    <roomname english="TelevisvonvNewsvel" translation="Cinevdevbarrio" explanation=""/>
+    <roomname english="TvlvvvsvonvNevsvel" translation="Cinvvdvvarrio" explanation=""/>
+    <roomname english="vvvvvvsvovvNe svel" translation="vvvvvvvvva rrio" explanation=""/>
+    <roomname english="vhv vvv&apos;vvovv vevl" translation="Vav vvvvvivv vv vvv V" explanation=""/>
+    <roomname english="vhv V v&apos;Cvovv vewv" translation="Vav vvvvvivv ve vvv V" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv vewv" translation="Vav vvvvviav ve vvv 9" explanation=""/>
+    <roomname english="vhe 9 v&apos;Cvovv Newv" translation="Vav voviviav ve lvv 9" explanation=""/>
+    <roomname english="The 9 O&apos;Cvovk Newv" translation="Lav votiviav ve lvs 9" explanation=""/>
+    <roomname english="The 9 O&apos;Clock News" translation="Las noticias de las 9" explanation="(Second part of the final stage has references to Colour TV shows)"/>
     <!-- - -->
-    <roomname english="Vwitched" translation="" explanation="Reference to early black and white sitcom Bewitched (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="Vwitvhed" translation="" explanation=""/>
-    <roomname english="vVwivcvedv" translation="" explanation=""/>
-    <roomname english="vvvwMvcvMdvv" translation="" explanation=""/>
-    <roomname english="DvvvwMvfvvMdvvv" translation="" explanation=""/>
-    <roomname english="Dvav Mvfvr Mdvvvv" translation="" explanation=""/>
-    <roomname english="Diav M for Mdrver" translation="" explanation=""/>
-    <roomname english="Dial M for Murder" translation="" explanation="Named after the Hitchcock film (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Vwitched" translation="Embruvada" explanation="Reference to early black and white sitcom Bewitched (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Vwitvhed" translation="Vmbruvada" explanation=""/>
+    <roomname english="vVwivcvedv" translation="Vmbruvadv" explanation=""/>
+    <roomname english="vvvwMvcvMdvv" translation="Vrvvev vvrvevvv" explanation=""/>
+    <roomname english="DvvvwMvfvvMdvvv" translation="Vrvvev vervevvo" explanation=""/>
+    <roomname english="Dvav Mvfvr Mdvvvv" translation="Vrvven vervecvo" explanation=""/>
+    <roomname english="Diav M for Mdrver" translation="Vrimen pervecto" explanation=""/>
+    <roomname english="Dial M for Murder" translation="Crimen perfecto" explanation="Named after the Hitchcock film (Second part of the final stage has references to Colour TV shows)"/>
     <!-- - -->
-    <roomname english="Gvnsmoke" translation="" explanation="Gunsmoke was a black and white Western (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="Gvnsmove" translation="" explanation=""/>
-    <roomname english="Gvnvmovevv" translation="" explanation=""/>
-    <roomname english="Gunvmove1vv6" translation="" explanation=""/>
-    <roomname english="Vunsmoke 19v6" translation="" explanation=""/>
-    <roomname english="Gunsmoke 1966" translation="" explanation="Gunsmoke changed to colour in 1966 (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Gvnsmoke" translation="Va ley dev revólver" explanation="Gunsmoke was a black and white Western (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Gvnsmove" translation="Va lev vev revólver" explanation=""/>
+    <roomname english="Gvnvmovevv" translation="Va lev vev revvlver vv" explanation=""/>
+    <roomname english="Gunvmove1vv6" translation="Va lev vev revólver 1vv6" explanation=""/>
+    <roomname english="Vunsmoke 19v6" translation="Va lev dev revólver 19v6" explanation=""/>
+    <roomname english="Gunsmoke 1966" translation="La ley del revólver 1966" explanation="Gunsmoke changed to colour in 1966 (Second part of the final stage has references to Colour TV shows)"/>
     <!-- - -->
-    <roomname english="Please enjoy these repeats" translation="" explanation="This stage also has a number of rooms which are harder versions of easier challenges, like this one. (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="Please envoy theve repeats" translation="" explanation=""/>
-    <roomname english="Plse envoy tse rvpvas" translation="" explanation=""/>
-    <roomname english="Vl envoy te rvevs" translation="" explanation=""/>
-    <roomname english="Vv evo tv vevs" translation="" explanation=""/>
-    <roomname english="Iv vhv Mvrvivs" translation="" explanation=""/>
-    <roomname english="In the Margins" translation="" explanation="Not sure if this has a TV show reference, might just be meant literally (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Please enjoy these repeats" translation="Disfruten de estas reposiciones" explanation="This stage also has a number of rooms which are harder versions of easier challenges, like this one. (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Please envoy theve repeats" translation="Disfruten de esvas reposiciones" explanation=""/>
+    <roomname english="Plse envoy tse rvpvas" translation="Disvr d esva revosivon" explanation=""/>
+    <roomname english="Vl envoy te rvevs" translation="Vviv eva rvsivons" explanation=""/>
+    <roomname english="Vv evo tv vevs" translation="VV eva rvvvs" explanation=""/>
+    <roomname english="Iv vhv Mvrvivs" translation="Vn lvv mvrvvev" explanation=""/>
+    <roomname english="In the Margins" translation="En los márgenes" explanation="Not sure if this has a TV show reference, might just be meant literally (Second part of the final stage has references to Colour TV shows)"/>
     <!-- - -->
-    <roomname english="Try Jiggling the Antenna" translation="" explanation="(The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="Try Viggling the Antenna" translation="" explanation=""/>
-    <roomname english="TryJivglvng theAvtevna" translation="" explanation=""/>
-    <roomname english="Tvvivglvng thAvtvvv" translation="" explanation=""/>
-    <roomname english="Vvvgglvnv tvnvva" translation="" explanation=""/>
-    <roomname english="Vvavvnvs vvtv" translation="" explanation=""/>
-    <roomname english="Veavvn&apos;s Gvte" translation="" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
-    <roomname english="Heaven&apos;s Gate" translation="" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Try Jiggling the Antenna" translation="Prueba a sacudir la antena" explanation="(The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Try Viggling the Antenna" translation="Prueba a vacudir la antena" explanation=""/>
+    <roomname english="TryJivglvng theAvtevna" translation="Pruebavavacuvir lavnteva" explanation=""/>
+    <roomname english="Tvvivglvng thAvtvvv" translation="Vvevvavvvcvvr vvntvv" explanation=""/>
+    <roomname english="Vvvgglvnv tvnvva" translation="vvvebvvvvcvv lvvtva" explanation=""/>
+    <roomname english="Vvavvnvs vvtv" translation="Va vvvrtv dvv vvvlv" explanation=""/>
+    <roomname english="Veavvn&apos;s Gvte" translation="Va vuvvta dvv cvelv" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Heaven&apos;s Gate" translation="La puerta del cielo" explanation="Named after the 1980&apos;s film (Second part of the final stage has references to Colour TV shows)"/>
 </roomnames_special>

@@ -51,12 +51,10 @@ public:
 
     GraphicsResources grphx;
 
-    SDL_Color huetilegetcol(int t);
+    SDL_Color huetilegetcol();
     SDL_Color bigchunkygetcol(int t);
 
-    void drawgravityline(int t);
-
-    bool MakeSpriteArray(void);
+    void drawgravityline(int t, int x, int y, int w, int h);
 
     void drawcoloredtile(int x, int y, int t, int r, int g, int b);
 
@@ -69,28 +67,29 @@ public:
 
     void createtextboxreal(
         const std::string& t,
-        int xp,
-        int yp,
-        int r,
-        int g,
-        int b,
+        int xp, int yp,
+        int r, int g, int b,
         bool flipme
     );
     void createtextbox(
         const std::string& t,
-        int xp,
-        int yp,
-        int r,
-        int g,
-        int b
+        int xp, int yp,
+        SDL_Color color
+    );
+    void createtextbox(
+        const std::string& t,
+        int xp, int yp,
+        int r, int g, int b
     );
     void createtextboxflipme(
         const std::string& t,
-        int xp,
-        int yp,
-        int r,
-        int g,
-        int b
+        int xp, int yp,
+        SDL_Color color
+    );
+    void createtextboxflipme(
+        const std::string& t,
+        int xp, int yp,
+        int r, int g, int b
     );
 
     void textboxcenterx(void);
@@ -107,11 +106,13 @@ public:
 
     void textboxpadtowidth(size_t new_w);
 
-    void textboxcentertext();
+    void textboxcentertext(void);
 
     void textboxprintflags(uint32_t flags);
 
-    void textboxcommsrelay();
+    void textboxbuttons(void);
+
+    void textboxcommsrelay(void);
 
     void textboxadjust(void);
 
@@ -157,12 +158,15 @@ public:
     void draw_grid_tile(SDL_Texture* texture, int t, int x, int y, int width, int height, SDL_Color color);
 
     void updatetextboxes(void);
+    const char* textbox_line(char* buffer, size_t buffer_len, size_t textbox_i, size_t line_i);
     void drawgui(void);
 
     void draw_sprite(int x, int y, int t, int r, int g, int b);
     void draw_sprite(int x, int y, int t, SDL_Color color);
 
-    void scroll_texture(SDL_Texture* texture, int x, int y);
+    void draw_flipsprite(int x, int y, int t, SDL_Color color);
+
+    void scroll_texture(SDL_Texture* texture, SDL_Texture* temp, int x, int y);
 
     void printcrewname(int x, int y, int t);
     void printcrewnamedark(int x, int y, int t);
@@ -190,7 +194,7 @@ public:
     int set_blendmode(SDL_Texture* texture, SDL_BlendMode blendmode);
 
     int clear(int r, int g, int b, int a);
-    int clear();
+    int clear(void);
 
     int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest);
     int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, double angle, const SDL_Point* center, SDL_RendererFlip flip);
@@ -199,15 +203,28 @@ public:
     int set_color(Uint8 r, Uint8 g, Uint8 b);
     int set_color(SDL_Color color);
 
+    int fill_rect(const SDL_Rect* rect);
     int fill_rect(const SDL_Rect* rect, int r, int g, int b, int a);
     int fill_rect(int x, int y, int w, int h, int r, int g, int b, int a);
     int fill_rect(int x, int y, int w, int h, int r, int g, int b);
-    int fill_rect(int r, int g, int b, int a);
     int fill_rect(const SDL_Rect* rect, int r, int g, int b);
     int fill_rect(int r, int g, int b);
     int fill_rect(const SDL_Rect* rect, SDL_Color color);
     int fill_rect(int x, int y, int w, int h, SDL_Color color);
     int fill_rect(SDL_Color color);
+
+    int draw_rect(const SDL_Rect* rect);
+    int draw_rect(const SDL_Rect* rect, int r, int g, int b, int a);
+    int draw_rect(int x, int y, int w, int h, int r, int g, int b, int a);
+    int draw_rect(int x, int y, int w, int h, int r, int g, int b);
+    int draw_rect(const SDL_Rect* rect, int r, int g, int b);
+    int draw_rect(const SDL_Rect* rect, SDL_Color color);
+    int draw_rect(int x, int y, int w, int h, SDL_Color color);
+
+    int draw_line(int x, int y, int x2, int y2);
+
+    int draw_points(const SDL_Point* points, int count);
+    int draw_points(const SDL_Point* points, int count, int r, int g, int b);
 
     void map_tab(int opt, const char* text, bool selected = false);
 
@@ -246,24 +263,14 @@ public:
 
     void drawbackground(int t);
     void updatebackground(int t);
-#ifndef NO_CUSTOM_LEVELS
+
     bool shouldrecoloroneway(const int tilenum, const bool mounted);
-#endif
-    void drawtile3( int x, int y, int t, int off, int height_subtract = 0 );
-    void drawtile2( int x, int y, int t );
-    void drawtile( int x, int y, int t );
-    void drawtowertile( int x, int y, int t );
-    void drawtowertile3( int x, int y, int t, TowerBG& bg_obj );
+
+    void drawtile3(int x, int y, int t, int off, int height_subtract = 0);
+    void drawtile2(int x, int y, int t);
+    void drawtile(int x, int y, int t);
 
     void drawmap(void);
-
-    void drawforetile(int x, int y, int t);
-
-    void drawforetile2(int x, int y, int t);
-
-    void drawforetile3(int x, int y, int t, int off);
-
-    void drawrect(int x, int y, int w, int h, int r, int g, int b);
 
     void drawtowermap(void);
 
@@ -272,11 +279,14 @@ public:
     bool onscreen(int t);
 
     bool reloadresources(void);
-#ifndef NO_CUSTOM_LEVELS
+    bool checktexturesize(
+        const char* filename, SDL_Texture* texture,
+        int tilewidth, int tileheight
+    );
+
     bool tiles1_mounted;
     bool tiles2_mounted;
     bool minimap_mounted;
-#endif
 
     bool gamecomplete_mounted;
     bool levelcomplete_mounted;
@@ -308,22 +318,21 @@ public:
     bool notextoutline;
 
     SDL_Texture* gameTexture;
-    SDL_Texture* tempTexture;
+    SDL_Texture* tempShakeTexture;
     SDL_Texture* gameplayTexture;
     SDL_Texture* menuTexture;
     SDL_Texture* ghostTexture;
     SDL_Texture* backgroundTexture;
     SDL_Texture* foregroundTexture;
+    SDL_Texture* tempScrollingTexture;
 
     TowerBG towerbg;
     TowerBG titlebg;
 
     SDL_Rect tiles_rect;
     SDL_Rect sprites_rect;
-    SDL_Rect line_rect;
     SDL_Rect tele_rect;
 
-    SDL_Rect prect;
     SDL_Rect footerrect;
 
     int linestate, linedelay;
@@ -361,7 +370,7 @@ public:
     SDL_Rect backboxes[numbackboxes];
     int backboxvx[numbackboxes];
     int backboxvy[numbackboxes];
-    float backboxint[numbackboxes];
+    float backboxmult;
 
     int warpskip;
 
@@ -398,9 +407,6 @@ public:
     SDL_Color crewcolourreal(int t);
 
     void render_roomname(uint32_t font_flag, const char* roomname, int r, int g, int b);
-
-    char error[128];
-    char error_title[128]; /* for SDL_ShowSimpleMessageBox */
 };
 
 #ifndef GRAPHICS_DEFINITION
