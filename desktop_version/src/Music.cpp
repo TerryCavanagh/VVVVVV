@@ -171,6 +171,7 @@ end:
 
         ogg_file = mem;
         valid = true;
+        name = std::string(SDL_strrchr(fileName, '/') + 1);
     }
 
     void Dispose(void)
