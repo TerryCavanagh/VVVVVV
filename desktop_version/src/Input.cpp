@@ -1098,8 +1098,6 @@ static void menuactionpress(void)
     {
         music.playef(Sound_VIRIDIAN);
 
-        bool show_title = !loc::lang_set;
-
         if (loc::languagelist.size() != 0 && (unsigned)game.currentmenuoption < loc::languagelist.size())
         {
             loc::lang = loc::languagelist[game.currentmenuoption].code;
@@ -1107,12 +1105,13 @@ static void menuactionpress(void)
             loc::lang_set = true;
         }
 
-        if (show_title)
+        if (loc::pre_title_lang_menu)
         {
             /* Make the title screen appear, we haven't seen it yet */
             game.menustart = false;
             game.createmenu(Menu::mainmenu);
             game.currentmenuoption = 0;
+            loc::pre_title_lang_menu = false;
         }
         else
         {
@@ -2226,7 +2225,7 @@ void titleinput(void)
         && game.menucountdown <= 0
         && (key.isDown(27) || key.isDown(game.controllerButton_esc)))
         {
-            if (game.currentmenuname == Menu::language && !loc::lang_set)
+            if (game.currentmenuname == Menu::language && loc::pre_title_lang_menu)
             {
                 /* Don't exit from the initial language screen,
                  * you can't do this on the loading/title screen either. */
