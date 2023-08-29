@@ -80,7 +80,7 @@
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Я трохи приголомшений, Вайолет."/>
         <dialogue speaker="player" english="Where do I begin?" translation="З чого почати?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Не забувай, що натиснувши ENTER, можна побачити своє місцезнаходження на мапі!"/>
-        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="" buttons="1"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="Не забувай, що натиснувши {b_map}, можна побачити своє місцезнаходження на мапі!" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Шукай зони, де можуть бути інші члени екіпажу..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Якщо загубишся, на корабель тебе поверне будь-який телепорт."/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="І не переживай! Ми всіх знайдемо!"/>
