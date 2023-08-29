@@ -45,6 +45,8 @@ struct TextboxFormat
 };
 
 extern bool lang_set;
+extern bool pre_title_lang_menu;
+
 extern std::string lang;
 extern std::string lang_custom;
 extern std::string new_level_font;

@@ -12,6 +12,8 @@ namespace loc
 {
 
 bool lang_set = false;
+bool pre_title_lang_menu = false;
+
 std::string lang = "en";
 std::string lang_custom = "";
 std::string new_level_font = "";
