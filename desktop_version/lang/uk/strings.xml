@@ -213,8 +213,8 @@
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Вибрати, як взаємодіяти|з підказками: ENTER або E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
-    <string english="ESC" translation="" explanation="keyboard key ESC"/>
-    <string english="ACTION" translation="" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
+    <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="ACTION" translation="КНОПКУ ДІЇ" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Кнопка взаємодії: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="екран завантаження" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Екран завантаження" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
@@ -423,14 +423,14 @@
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Показати шлях до папки з рівнями? Якщо ви ведете стрім, глядачі можуть випадково побачити вашу особисту інформацію." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Шлях до рівнів:" explanation="" max="40"/>
     <string english="[ Press ACTION to Start ]" translation="[ Почати: натисніть КНОПКУ ДІЇ ]" explanation="***OUTDATED***" max="38*2"/>
-    <string english="[ Press {button} to Start ]" translation="" explanation="title screen. Expect `ACTION`" max="38*2"/>
+    <string english="[ Press {button} to Start ]" translation="[ Почати: натисніть {button} ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="КНОПКА ДІЇ = пробіл, Z або V" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="[Вернутись у редактор: натисніть ENTER]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to return to editor]" translation="" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="[Press {button} to return to editor]" translation="[Вернутись у редактор: натисніть {button}]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="- Читати далі: натискайте КНОПКУ ДІЇ -" explanation="***OUTDATED***" max="40"/>
-    <string english="- Press {button} to advance text -" translation="" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="- Press {button} to advance text -" translation="- Читати далі: натискайте {button} -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="Продовжити: натисніть КНОПКУ ДІЇ" explanation="***OUTDATED***" max="34"/>
-    <string english="Press {button} to continue" translation="" explanation="Expect `ACTION`" max="34"/>
+    <string english="Press {button} to continue" translation="Продовжити: натисніть {button}" explanation="Expect `ACTION`" max="34"/>
     <string english="Current Time" translation="Поточний час" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="Найкращий час" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Наступна нагорода через 5 секунд" explanation="" max="38*2"/>
@@ -443,7 +443,7 @@
     <string english="New Record!" translation="Новий рекорд!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Нова нагорода!" explanation="" max="20"/>
     <string english="[Press ENTER to stop]" translation="[Зупинити: натисніть ENTER]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to stop]" translation="" explanation="stop super gravitron" max="40"/>
+    <string english="[Press {button} to stop]" translation="[Зупинити: натисніть {button}]" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="СУПЕРГРАВІТРОН" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="НАЙКРАЩИЙ РАХУНОК У СУПЕРГРАВІТРОНІ" explanation="" max="38*4"/>
     <string english="MAP" translation="МАПА" explanation="in-game menu" max="8"/>
@@ -457,7 +457,7 @@
     <string english="[ GRAVITRON ]" translation="[ ГРАВІТРОН ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="СИГНАЛ ВІДСУТНІЙ" explanation="map screen. So like a TV/computer monitor" max="29"/>
     <string english="Press ACTION to warp to the ship." translation="Натисніть КНОПКУ ДІЇ, щоб зробити варп-стрибок на корабель." explanation="***OUTDATED***" max="38*7"/>
-    <string english="Press {button} to warp to the ship." translation="" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
+    <string english="Press {button} to warp to the ship." translation="Натисніть {button}, щоб зробити варп-стрибок на корабель." explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
     <string english="Missing..." translation="Не знайдено..." case="1" explanation="this male crew member is missing" max="15"/>
     <string english="Missing..." translation="Не знайдено..." case="2" explanation="this female crew member is missing" max="15"/>
     <string english="Missing..." translation="Не знайдено..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
@@ -472,7 +472,7 @@
     <string english="ERROR: Could not save settings file!" translation="ПОМИЛКА: Не вдалося зберегти файл налаштувань!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Гру збережено!" explanation="in-game menu" max="38*2"/>
     <string english="[Press ACTION to save your game]" translation="[Зберегти гру: натисніть КНОПКУ ДІЇ]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to save your game]" translation="" explanation="in-game menu. Expect `ACTION`" max="40"/>
+    <string english="[Press {button} to save your game]" translation="[Зберегти гру: натисніть {button}]" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Зверніть увагу: гра автоматично зберігається на кожному телепорті.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Останнє збереження:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Повернутися в головне меню?" explanation="in-game menu" max="38*4"/>
@@ -500,7 +500,7 @@
     <string english="Press {button} to activate terminal" translation="Активувати термінал: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="Активувати термінали: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Взаємодіяти: натисніть {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="- Press {button} to skip -" translation="" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
+    <string english="- Press {button} to skip -" translation="- Пропустити: натисніть {button} -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
     <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
@@ -524,10 +524,10 @@
     <string english="change author" translation="змінити автора" explanation="level editor menu option"/>
     <string english="change description" translation="змінити опис" explanation="level editor menu option"/>
     <string english="change website" translation="змінити вебсайт" explanation="level editor menu option"/>
-    <string english="change font" translation="" explanation="level editor menu option"/>
-    <string english="Level Font" translation="" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
-    <string english="Select the language in which the text in this level is written." translation="" explanation="" max="38*3"/>
-    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="14"/>
+    <string english="change font" translation="змінити шрифт" explanation="level editor menu option"/>
+    <string english="Level Font" translation="Шрифт рівня" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
+    <string english="Select the language in which the text in this level is written." translation="Оберіть мову, якою написано текст цього рівня." explanation="" max="38*3"/>
+    <string english="Font: " translation="Шрифт:" explanation="level options, followed by name of font (mind the space)" max="14"/>
     <string english="Map Music" translation="Музика мапи" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Поточна музика мапи:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="Фонова музика відсутня" explanation="editor, level starts with no song playing" max="38*2"/>
@@ -558,21 +558,21 @@
     <string english="Unknown" translation="Автор невідомий" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="Плитка:" explanation="editor, selected " max="34"/>
     <string english="SCRIPT BOX: Click on top left" translation="БЛОК ЗІ СКРИПТОМ: Натисніть вгорі ліворуч" explanation="***OUTDATED***"/>
-    <string english="SCRIPT BOX: Click on the first corner" translation="" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="SCRIPT BOX: Click on the first corner" translation="БЛОК ЗІ СКРИПТОМ: Натисніть перший куток" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
     <string english="SCRIPT BOX: Click on bottom right" translation="БЛОК ЗІ СКРИПТОМ: Натисніть внизу праворуч" explanation="***OUTDATED***"/>
-    <string english="SCRIPT BOX: Click on the last corner" translation="" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="SCRIPT BOX: Click on the last corner" translation="БЛОК ЗІ СКРИПТОМ: Натисніть останній куток" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
     <string english="ENEMY BOUNDS: Click on top left" translation="МЕЖІ ДЛЯ ВОРОГІВ: Натисніть вгорі ліворуч" explanation="***OUTDATED***"/>
-    <string english="ENEMY BOUNDS: Click on the first corner" translation="" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on the first corner" translation="МЕЖІ ДЛЯ ВОРОГІВ: Натисніть перший куток" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="ENEMY BOUNDS: Click on bottom right" translation="МЕЖІ ДЛЯ ВОРОГІВ: Натисніть внизу праворуч" explanation="***OUTDATED***"/>
-    <string english="ENEMY BOUNDS: Click on the last corner" translation="" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on the last corner" translation="МЕЖІ ДЛЯ ВОРОГІВ: Натисніть останній куток" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on top left" translation="МЕЖІ ДЛЯ ПЛАТФОРМ: Натисніть вгорі ліворуч" explanation="***OUTDATED***"/>
-    <string english="PLATFORM BOUNDS: Click on the first corner" translation="" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on the first corner" translation="МЕЖІ ДЛЯ ПЛАТФОРМИ: Натисніть перший куток" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on bottom right" translation="МЕЖІ ДЛЯ ПЛАТФОРМ: Натисніть внизу праворуч" explanation="***OUTDATED***"/>
-    <string english="PLATFORM BOUNDS: Click on the last corner" translation="" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on the last corner" translation="МЕЖІ ДЛЯ ПЛАТФОРМИ: Натисніть останній куток" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="Click on top left" translation="Натисніть вгорі ліворуч" explanation="***OUTDATED***"/>
-    <string english="Click on the first corner" translation="" explanation="" max="39*3"/>
+    <string english="Click on the first corner" translation="Натисніть перший куток" explanation="" max="39*3"/>
     <string english="Click on bottom right" translation="Натисніть внизу праворуч" explanation="***OUTDATED***"/>
-    <string english="Click on the last corner" translation="" explanation="" max="39*3"/>
+    <string english="Click on the last corner" translation="Натисніть останній куток" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** РЕДАКТОР СКРИПТІВ VVVVVV ****" explanation="supposed to look like a Commodore 64 screen" max="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="ПОВЕРНУТИСЬ У МЕНЮ: НАТИСНІТЬ ESC" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="НЕ ЗНАЙДЕНО ІДЕНТИФІКАТОРІВ СКРИПТІВ" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
@@ -586,25 +586,25 @@
     <string english="3: Spikes" translation="3: Шипи" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Блищики" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
     <string english="5: Checkpoint" translation="5: Чекпоінт" explanation="***OUTDATED***"/>
-    <string english="5: Checkpoints" translation="" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
+    <string english="5: Checkpoints" translation="5: Чекпоінти" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
     <string english="6: Disappear" translation="6: Зникаюча платформа" explanation="***OUTDATED***"/>
-    <string english="6: Disappearing Platforms" translation="" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
+    <string english="6: Disappearing Platforms" translation="6: Зникаючі платформи" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
     <string english="7: Conveyors" translation="7: Конвеєри" explanation="editor tool. Conveyor belt" max="32"/>
     <string english="8: Moving" translation="8: Рухома платформа" explanation="***OUTDATED***"/>
-    <string english="8: Moving Platforms" translation="" explanation="editor tool. Moving platform" max="32"/>
+    <string english="8: Moving Platforms" translation="8: Рухомі платформи" explanation="editor tool. Moving platform" max="32"/>
     <string english="9: Enemies" translation="9: Вороги" explanation="editor tool" max="32"/>
     <string english="0: Grav Line" translation="0: Грав. Лінія" explanation="***OUTDATED***"/>
-    <string english="0: Gravity Lines" translation="" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
+    <string english="0: Gravity Lines" translation="0: Гравітаційні лінії" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Текст у кімнатах" explanation="editor tool. Freely typed text, consider just Text" max="32"/>
     <string english="T: Terminal" translation="T: Термінал" explanation="***OUTDATED***"/>
-    <string english="T: Terminals" translation="" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
+    <string english="T: Terminals" translation="T: Термінали" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
     <string english="Y: Script Box" translation="Y: Блок зі скриптом" explanation="***OUTDATED***"/>
-    <string english="Y: Script Boxes" translation="" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
+    <string english="Y: Script Boxes" translation="Y: Блоки зі скриптом" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
     <string english="U: Warp Token" translation="U: Телепорт для варп-стрибка" explanation="***OUTDATED***"/>
-    <string english="U: Warp Tokens" translation="" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
+    <string english="U: Warp Tokens" translation="U: Телепорти для варп-стрибка" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
     <string english="I: Warp Lines" translation="I: Варп-лінії" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
     <string english="O: Crewmate" translation="O: Член екіпажу" explanation="***OUTDATED***"/>
-    <string english="O: Crewmates" translation="" explanation="editor tool. Crewmate that can be rescued" max="32"/>
+    <string english="O: Crewmates" translation="O: Члени екіпажу" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Стартова точка" explanation="editor tool" max="32"/>
     <string english="START" translation="ПОЧАТИ" explanation="start point in level editor" max="10"/>
     <string english="SPACE ^  SHIFT ^" translation="ПРОБІЛ ^  SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
@@ -633,7 +633,7 @@
     <string english="Now using {area} Tileset" translation="Використовується набір плиток «{area}»" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="Колір набору плиток змінено" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Тип ворога змінено" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
-    <string english="Platform speed is now {speed}" translation="" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
+    <string english="Platform speed is now {speed}" translation="Тепер швидкість платформи {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Ресурси перезавантажено" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="ПОМИЛКА: Неприпустимий формат" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Завантажено мапу: {filename}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -651,10 +651,10 @@
     <string english="ERROR: No checkpoint to spawn at" translation="ПОМИЛКА: Відсутній чекпоінт, де можна з&apos;явитися" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="ПОМИЛКА: Макс. кількість блищиків — 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="ПОМИЛКА: Макс. кількість членів екіпажу — 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
-    <string english="Level quits to menu" translation="" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
-    <string english="Level completed" translation="" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
+    <string english="Level quits to menu" translation="Рівень завершується поверненням у меню" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
+    <string english="Level completed" translation="Рівень пройдено" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
     <string english="Rolled credits" translation="Кінцеві титри показано" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
-    <string english="Time trial completed" translation="" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
+    <string english="Time trial completed" translation="Змагання на час пройдено" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
@@ -668,11 +668,11 @@
     <string english="All crewmates rescued!" translation="Весь екіпаж урятовано!" explanation="" max="32"/>
     <string english="Game Saved" translation="Гру збережено" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="Для руху натискайте кнопки зі стрілками або WASD" explanation="" max="32*2"/>
-    <string english="Press left/right to move" translation="" explanation="" max="32*2"/>
+    <string english="Press left/right to move" translation="Рухатися: тисніть ліворуч/праворуч" explanation="" max="32*2"/>
     <string english="Press ACTION to flip" translation="Для переверту натисніть КНОПКУ ДІЇ" explanation="***OUTDATED***" max="32*3"/>
-    <string english="Press {button} to flip" translation="" explanation="expect `ACTION`" max="32*3"/>
+    <string english="Press {button} to flip" translation="Для переверту натисніть {button}" explanation="expect `ACTION`" max="32*3"/>
     <string english="Press ENTER to view map and quicksave" translation="Подивитися мапу й швидко зберегтися: натисніть ENTER" explanation="***OUTDATED***" max="32*3"/>
-    <string english="Press {button} to view map and quicksave" translation="" explanation="" max="32*3"/>
+    <string english="Press {button} to view map and quicksave" translation="Подивитися мапу й швидко зберегтися: натисніть {button}" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Замість КНОПКИ ДІЇ для переверту можна натискати стрілки ВГОРУ і ВНИЗ." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="Допоможіть! Мене хтось чує?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="Вердіґрісе, ти там? У тебе все добре?" explanation="Violet speaking via Comms Relay" max="25*4"/>
@@ -764,11 +764,11 @@ You have found the secret lab!" translation="Поздоровляємо!
     <string english="Last 1 minute on the Super Gravitron" translation="Протримайтеся на супергравітроні 1 хвилину" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="ВОЛОДАР ВСЕСВІТУ" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Пройдіть гру в безсмертному режимі" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Something went wrong, but we forgot the error message." translation="" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
+    <string english="Something went wrong, but we forgot the error message." translation="Сталась якась проблема, але ми забули, як повідомляти про помилку" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Не вдалося завантажити з {path}: папки не існує" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
-    <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
-    <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
-    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
+    <string english="Level {path} not found" translation="Рівень {path} не знайдено" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="Помилка під час аналізу {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Розміри {filename} не відповідають співвідношенню {width} до {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ПОМИЛКА: Не вдалося здійснити збереження в мовну папку! Перевірте, чи нема папки «lang» поряд зі звичайними збереженнями." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
