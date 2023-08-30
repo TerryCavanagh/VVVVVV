@@ -220,8 +220,31 @@ static void menurender(void)
 #endif
         font::print(PR_RIGHT, 310, 230, RELEASE_VERSION, tr/2, tg/2, tb/2);
 
-        if(music.mmmmmm){
-            font::print(0, 10, 230, loc::gettext("[MMMMMM Mod Installed]"), tr/2, tg/2, tb/2);
+        const char* left_msg = NULL;
+
+        const bool fonts_error = !FILESYSTEM_doesFontsDirExist();
+        const bool lang_error = !FILESYSTEM_doesLangDirExist();
+
+        if (fonts_error && lang_error)
+        {
+            left_msg = "[No fonts&lang folders]";
+        }
+        else if (fonts_error)
+        {
+            left_msg = "[No fonts folder]";
+        }
+        else if (lang_error)
+        {
+            left_msg = "[No lang folder]";
+        }
+        else if (music.mmmmmm)
+        {
+            left_msg = loc::gettext("[MMMMMM Mod Installed]");
+        }
+
+        if (left_msg != NULL)
+        {
+            font::print(0, 10, 230, left_msg, tr/2, tg/2, tb/2);
         }
         break;
     }
