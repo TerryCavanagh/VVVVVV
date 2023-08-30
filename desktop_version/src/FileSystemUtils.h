@@ -17,6 +17,8 @@ char *FILESYSTEM_getUserSaveDirectory(void);
 char *FILESYSTEM_getUserLevelDirectory(void);
 char *FILESYSTEM_getUserMainLangDirectory(void);
 bool FILESYSTEM_isMainLangDirFromRepo(void);
+bool FILESYSTEM_doesLangDirExist(void);
+bool FILESYSTEM_doesFontsDirExist(void);
 
 bool FILESYSTEM_setLangWriteDir(void);
 bool FILESYSTEM_restoreWriteDir(void);

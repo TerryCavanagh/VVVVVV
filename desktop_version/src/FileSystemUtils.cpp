@@ -50,6 +50,8 @@ static char saveDir[MAX_PATH] = {'\0'};
 static char levelDir[MAX_PATH] = {'\0'};
 static char mainLangDir[MAX_PATH] = {'\0'};
 static bool isMainLangDirFromRepo = false;
+static bool doesLangDirExist = false;
+static bool doesFontsDirExist = false;
 
 static char assetDir[MAX_PATH] = {'\0'};
 static char virtualMountPath[MAX_PATH] = {'\0'};
@@ -74,7 +76,7 @@ static const PHYSFS_Allocator allocator = {
     SDL_free
 };
 
-static void mount_pre_datazip(
+static bool mount_pre_datazip(
     char* out_path,
     const char* real_dirname,
     const char* mount_point,
@@ -95,12 +97,11 @@ static void mount_pre_datazip(
             {
                 SDL_strlcpy(out_path, user_path, MAX_PATH);
             }
+            return true;
         }
-        else
-        {
-            vlog_warn("User-supplied %s directory is invalid!", real_dirname);
-        }
-        return;
+
+        vlog_warn("User-supplied %s directory is invalid!", real_dirname);
+        return false;
     }
 
     /* Try to detect the directory, it's next to data.zip in distributed builds */
@@ -170,6 +171,8 @@ static void mount_pre_datazip(
     {
         vlog_warn("Cannot find the %s directory anywhere!", real_dirname);
     }
+
+    return dir_found;
 }
 
 int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langDir, char* fontsDir)
@@ -255,10 +258,10 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         basePath = SDL_strdup("./");
     }
 
-    mount_pre_datazip(mainLangDir, "lang", "lang/", langDir);
+    doesLangDirExist = mount_pre_datazip(mainLangDir, "lang", "lang/", langDir);
     vlog_info("Languages directory: %s", mainLangDir);
 
-    mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir);
+    doesFontsDirExist = mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir);
 
     /* Mount the stock content last */
     if (assetsPath)
@@ -337,6 +340,16 @@ char *FILESYSTEM_getUserMainLangDirectory(void)
 bool FILESYSTEM_isMainLangDirFromRepo(void)
 {
     return isMainLangDirFromRepo;
+}
+
+bool FILESYSTEM_doesLangDirExist(void)
+{
+    return doesLangDirExist;
+}
+
+bool FILESYSTEM_doesFontsDirExist(void)
+{
+    return doesFontsDirExist;
 }
 
 bool FILESYSTEM_restoreWriteDir(void)
