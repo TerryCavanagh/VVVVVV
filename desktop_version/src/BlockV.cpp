@@ -35,7 +35,7 @@ void blockclass::clear(void)
     script.clear();
     prompt.clear();
 
-    print_flags = PR_FONT_INTERFACE;
+    gettext = true;
 }
 
 void blockclass::rectset(const int xi, const int yi, const int wi, const int hi)

@@ -2388,15 +2388,21 @@ void gamerender(void)
     float act_alpha = graphics.lerp(game.prev_act_fade, game.act_fade) / 10.0f;
     if(game.act_fade>5 || game.prev_act_fade>5)
     {
+        const char* prompt = game.activity_lastprompt.c_str();
+        if (game.activity_gettext)
+        {
+            prompt = loc::gettext(prompt);
+        }
         char buffer[SCREEN_WIDTH_CHARS + 1];
         const char* final_string = interact_prompt(
             buffer,
             sizeof(buffer),
-            game.activity_lastprompt.c_str()
+            prompt
         );
 
         uint8_t text_r, text_g, text_b;
-        uint32_t text_flags = game.activity_print_flags | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN;
+        uint32_t text_flags = (game.activity_gettext ? PR_FONT_INTERFACE : PR_FONT_LEVEL)
+        | PR_BRIGHTNESS(act_alpha*255) | PR_CJK_LOW | PR_CEN;
 
         if (game.activity_r == 0 && game.activity_g == 0 && game.activity_b == 0)
         {
