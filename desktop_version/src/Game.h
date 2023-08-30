@@ -489,7 +489,7 @@ public:
     int oldreadytotele;
     int activity_r, activity_g, activity_b, activity_y;
     std::string activity_lastprompt;
-    uint32_t activity_print_flags;
+    bool activity_gettext;
 
     std::string telesummary, quicksummary, customquicksummary;
     bool save_exists(void);

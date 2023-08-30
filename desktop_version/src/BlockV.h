@@ -23,7 +23,7 @@ public:
     std::string script, prompt;
     int r, g, b;
     int activity_y;
-    uint32_t print_flags;
+    bool gettext;
 };
 
 #endif /* BLOCKV_H */
