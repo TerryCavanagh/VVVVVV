@@ -527,7 +527,7 @@
     <string english="change font" translation="" explanation="level editor menu option"/>
     <string english="Level Font" translation="" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
     <string english="Select the language in which the text in this level is written." translation="" explanation="" max="38*3"/>
-    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="14"/>
+    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="15"/>
     <string english="Map Music" translation="" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="" explanation="editor, level starts with no song playing" max="38*2"/>
