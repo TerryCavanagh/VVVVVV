@@ -51,7 +51,8 @@
     <string english="Change controller options." translation="Wijzig controlleropties." explanation="" max="38*2"/>
     <string english="language" translation="taal" explanation="menu option"/>
     <string english="Language" translation="Taal" explanation="title" max="20"/>
-    <string english="Change the language." translation="Wijzig de taal." explanation="" max="38*5"/>
+    <string english="Change the language." translation="Wijzig de taal." explanation="" max="38*2"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
     <string english="clear main game data" translation="data hoofdspel wissen" explanation="menu option"/>
     <string english="clear custom level data" translation="data spelerlevels wissen" explanation="menu option"/>
     <string english="Clear Data" translation="Data wissen" explanation="title" max="20"/>

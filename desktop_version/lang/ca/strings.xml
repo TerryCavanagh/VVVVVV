@@ -51,7 +51,8 @@
     <string english="Change controller options." translation="Canvia les opcions del controlador." explanation="" max="38*2"/>
     <string english="language" translation="llengua" explanation="menu option"/>
     <string english="Language" translation="Llengua" explanation="title" max="20"/>
-    <string english="Change the language." translation="Canvia la llengua." explanation="" max="38*5"/>
+    <string english="Change the language." translation="Canvia la llengua." explanation="" max="38*2"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
     <string english="clear main game data" translation="esborra dades de partides" explanation="menu option"/>
     <string english="clear custom level data" translation="esborra dades de niv. person." explanation="menu option"/>
     <string english="Clear Data" translation="Esborra dades" explanation="title" max="20"/>

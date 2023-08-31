@@ -6503,7 +6503,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("audio"));
         option(loc::gettext("game pad"));
         option(loc::gettext("accessibility"));
-        option(loc::gettext("language"));
+        option(loc::gettext("language"), graphics.textboxes.empty());
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 15;
