@@ -1033,11 +1033,18 @@ static void menuactionpress(void)
             break;
         case 5:
             //language options
-            music.playef(Sound_VIRIDIAN);
-            loc::loadlanguagelist();
-            game.createmenu(Menu::language);
-            game.currentmenuoption = loc::languagelist_curlang;
-            map.nexttowercolour();
+            if (graphics.textboxes.empty())
+            {
+                music.playef(Sound_VIRIDIAN);
+                loc::loadlanguagelist();
+                game.createmenu(Menu::language);
+                game.currentmenuoption = loc::languagelist_curlang;
+                map.nexttowercolour();
+            }
+            else
+            {
+                music.playef(Sound_CRY);
+            }
             break;
         default:
             /* Return */

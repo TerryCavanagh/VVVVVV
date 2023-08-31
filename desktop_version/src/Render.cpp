@@ -381,8 +381,15 @@ static void menurender(void)
             font::print_wrap(PR_CEN, -1, 65, loc::gettext("Disable screen effects, enable slowdown modes or invincibility."), tr, tg, tb);
             break;
         case 5:
+        {
             font::print(PR_2X | PR_CEN,  -1, 30, loc::gettext("Language"), tr, tg, tb);
-            font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the language."), tr, tg, tb);
+            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Change the language."), tr, tg, tb);
+
+            if (!graphics.textboxes.empty())
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Can not change the language while a textbox is displayed in-game."), tr, tg, tb);
+            }
+        }
         }
         break;
     case Menu::graphicoptions:

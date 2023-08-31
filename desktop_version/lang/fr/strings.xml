@@ -51,7 +51,8 @@
     <string english="Change controller options." translation="Modifiez les options de votre manette." explanation="" max="38*2"/>
     <string english="language" translation="langue" explanation="menu option"/>
     <string english="Language" translation="Langue" explanation="title" max="20"/>
-    <string english="Change the language." translation="Changez de langue." explanation="" max="38*5"/>
+    <string english="Change the language." translation="Changez de langue." explanation="" max="38*2"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
     <string english="clear main game data" translation="effacer les données principales" explanation="menu option"/>
     <string english="clear custom level data" translation="effacer les données personnalisées" explanation="menu option"/>
     <string english="Clear Data" translation="Effacer les données" explanation="title" max="20"/>
