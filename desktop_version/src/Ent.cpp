@@ -1,5 +1,6 @@
 #include "Ent.h"
 
+#include "Entity.h"
 #include "Game.h"
 #include "Graphics.h"
 
@@ -106,36 +107,24 @@ void entclass::setenemy( int t )
         switch ((int) para)
         {
         case 0:
-            tile = 60;
-            animate = 2;
-            colour = 6;
+            obj.set_enemy_type(this, "lies_emitter");
             behave = 10;
-            w = 32;
-            h = 32;
             x1 = -200;
             break;
         case 1:
+            obj.set_enemy_type(this, "lies");
             yp += 10;
             lerpoldyp += 10;
-            tile = 63;
-            animate = 100; //LIES
-            colour = 6;
             behave = 11;
-            para = 9; //destroyed when outside
+            para = 9; // destroyed when outside
             x1 = -200;
             x2 = 400;
-            w = 26;
-            h = 10;
             cx = 1;
             cy = 1;
             break;
         case 2:
-            tile = 62;
-            animate = 100;
-            colour = 6;
+            obj.set_enemy_type(this, "lies_collector");
             behave = -1;
-            w = 32;
-            h = 32;
             break;
         }
         break;
@@ -144,39 +133,27 @@ void entclass::setenemy( int t )
         switch ((int) para)
         {
         case 0:
-            tile = 72;
-            animate = 3;
+            obj.set_enemy_type(this, "factory_emitter");
             size = 9;
-            colour = 6;
             behave = 12;
-            w = 64;
-            h = 40;
             cx = 0;
             cy = 24;
             break;
         case 1:
+            obj.set_enemy_type(this, "factory_clouds");
             xp += 4;
             lerpoldxp += 4;
             yp -= 4;
             lerpoldyp -= 4;
-            tile = 76;
-            animate = 100; // Clouds
-            colour = 6;
             behave = 13;
             para = -6; //destroyed when outside
             x2 = 400;
-            w = 32;
-            h = 12;
             cx = 0;
             cy = 6;
             break;
         case 2:
-            tile = 77;
-            animate = 100;
-            colour = 6;
+            obj.set_enemy_type(this, "factory_collector");
             behave = -1;
-            w = 32;
-            h = 16;
             break;
         }
         break;
@@ -194,47 +171,26 @@ void entclass::setenemyroom( int rx, int ry )
     {
         //Space Station 1
     case rn(12, 3):  //Security Drone
-        tile = 36;
-        colour = 8;
-        animate = 1;
+        obj.set_enemy_type(this, "disc");
         break;
     case rn(13, 3):  //Wavelengths
-        tile = 32;
-        colour = 7;
-        animate = 1;
-        w = 32;
+        obj.set_enemy_type(this, "wavelength");
         break;
     case rn(15, 3):  //Traffic
-        tile = 28;
-        colour = 6;
-        animate = 1;
-        w = 22;
-        h = 32;
+        obj.set_enemy_type(this, "stop");
         break;
     case rn(12, 5):  //The Yes Men
-        tile = 40;
-        colour = 9;
-        animate = 1;
-        w = 20;
-        h = 20;
+        obj.set_enemy_type(this, "yes");
         break;
     case rn(13, 6):  //Hunchbacked Guards
-        tile = 44;
-        colour = 8;
-        animate = 1;
-        w = 16;
-        h = 20;
+        obj.set_enemy_type(this, "guard");
         break;
     case rn(13, 4):  //Communication Station
         harmful = false;
         if (xp == 256)
         {
             //transmittor
-            tile = 104;
-            colour = 4;
-            animate = 7;
-            w = 16;
-            h = 16;
+            obj.set_enemy_type(this, "transmitter");
             xp -= 24;
             lerpoldxp -= 24;
             yp -= 16;
@@ -243,11 +199,7 @@ void entclass::setenemyroom( int rx, int ry )
         else
         {
             //radar dish
-            tile =124;
-            colour = 4;
-            animate = 6;
-            w = 32;
-            h = 32;
+            obj.set_enemy_type(this, "radar");
             cx = 4;
             size = 9;
             xp -= 4;
@@ -259,18 +211,10 @@ void entclass::setenemyroom( int rx, int ry )
         break;
         //The Lab
     case rn(4, 0):
-        tile = 78;
-        colour = 7;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "square");
         break;
     case rn(2, 0):
-        tile = 88;
-        colour = 11;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "circle");
         break;
         //Space Station 2
     case rn(14, 11):
@@ -288,237 +232,121 @@ void entclass::setenemyroom( int rx, int ry )
     case rn(13, 8):
         colour = 8;
         break; //Factory
+    case rn(13,7): // MAVVERRRICK
+        obj.set_enemy_type(this, "bus");
+        size = 9;
+        break;
     case rn(11, 13): //Truth
-        tile = 64;
-        colour = 7;
-        animate = 100;
-        w = 44;
-        h = 10;
+        obj.set_enemy_type(this, "truth");
         size = 10;
         break;
     case rn(17, 7): //Brass sent us under the top
-        tile =82;
-        colour = 8;
-        animate = 5;
-        w = 28;
-        h = 32;
+        obj.set_enemy_type(this, "solider");
         cx = 4;
         break;
     case rn(10, 7): // (deception)
-        tile = 92;
-        colour = 6;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "bowtie");
         break;
     case rn(14, 13): // (chose poorly)
-        tile = 56;
-        colour = 6;
-        animate = 1;
-        w = 15;
-        h = 24;
+        obj.set_enemy_type(this, "skeleton");
         break;
     case rn(13, 12): // (backsliders)
-        tile = 164;
-        colour = 7;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "glitch");
         break;
     case rn(14, 8): // (wheel of fortune room)
-        tile = 116;
-        colour = 12;
-        animate = 1;
-        w = 32;
-        h = 32;
+        obj.set_enemy_type(this, "wheel");
         break;
     case rn(16, 9): // (seeing dollar signs)
-        tile = 68;
-        colour = 7;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "coin");
         break;
     case rn(16, 7): // (tomb of mad carew)
-        tile = 106;
-        colour = 7;
-        animate = 2;
-        w = 24;
-        h = 25;
+        obj.set_enemy_type(this, "ghost");
         break;
         //Warp Zone
     case rn(15, 2): // (numbers)
-        tile = 100;
-        colour = 6;
-        animate = 1;
-        w = 32;
-        h = 14;
+        obj.set_enemy_type(this, "numbers");
         yp += 1;
         lerpoldyp += 1;
         break;
     case rn(16, 2): // (Manequins)
-        tile = 52;
-        colour = 7;
-        animate = 5;
-        w = 16;
-        h = 25;
+        obj.set_enemy_type(this, "mannequin");
         yp -= 4;
         lerpoldyp -= 4;
         break;
     case rn(18, 0): // (Obey)
-        tile = 51;
-        colour = 11;
-        animate = 100;
-        w = 30;
-        h = 14;
+        obj.set_enemy_type(this, "obey");
         break;
     case rn(19, 1): // Ascending and Descending
-        tile = 48;
-        colour = 9;
-        animate = 5;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "cross");
         break;
     case rn(19, 2): // Shockwave Rider
-        tile = 176;
-        colour = 6;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "triangle");
         break;
     case rn(18, 3): // Mind the gap
-        tile = 168;
-        colour = 7;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "ice");
         break;
     case rn(17, 3): // Edge Games
-        if (yp ==96)
+        if (yp == 96)
         {
-            tile = 160;
-            colour = 8;
-            animate = 1;
-            w = 16;
-            h = 16;
+            obj.set_enemy_type(this, "edgegames_left");
         }
         else
         {
-            tile = 156;
-            colour = 8;
-            animate = 1;
-            w = 16;
-            h = 16;
+            obj.set_enemy_type(this, "edgegames_right");
         }
         break;
     case rn(16, 0): // I love you
-        tile = 112;
-        colour = 8;
-        animate = 5;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "heart");
         break;
     case rn(14, 2): // That's why I have to kill you
-        tile = 114;
-        colour = 6;
-        animate = 5;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "broken_heart");
         break;
     case rn(18, 2): // Thinking with Portals
         //depends on direction
-        if (xp ==88)
+        size = 10;
+        if (xp == 88)
         {
-            tile = 54+12;
-            colour = 12;
-            animate = 100;
-            w = 60;
-            h = 16;
-            size = 10;
+            obj.set_enemy_type(this, "centipede_right");
         }
         else
         {
-            tile = 54;
-            colour = 12;
-            animate = 100;
-            w = 60;
-            h = 16;
-            size = 10;
+            obj.set_enemy_type(this, "centipede_left");
         }
         break;
         //Final level
     case rn(50-100, 53-100):  //The Yes Men
-        tile = 40;
-        colour = 9;
-        animate = 1;
-        w = 20;
-        h = 20;
+        obj.set_enemy_type(this, "yes");
         break;
     case rn(48-100, 51-100):  //Wavelengths
-        tile = 32;
-        colour = 7;
-        animate = 1;
-        w = 32;
+        obj.set_enemy_type(this, "wavelength");
         break;
     case rn(43-100,52-100): // Ascending and Descending
-        tile = 48;
-        colour = 9;
-        animate = 5;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "cross");
         break;
     case rn(46-100,51-100): //kids his age
-        tile = 88;
-        colour = 11;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "circle");
         break;
     case rn(43-100,51-100): // Mind the gap
-        tile = 168;
-        colour = 7;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "ice");
         break;
     case rn(44-100,51-100): // vertigo?
-        tile = 172;
-        colour = 7;
-        animate = 100;
-        w = 32;
-        h = 32;
+        obj.set_enemy_type(this, "vertigo");
         break;
     case rn(44-100,52-100): // (backsliders)
-        tile = 164;
-        colour = 7;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "glitch");
         break;
     case rn(43-100, 56-100): //Intermission 1
-        tile = 88;
-        colour = 21;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "circle");
         break;
     case rn(45-100, 56-100): //Intermission 1
-        tile = 88;
-        colour = 21;
-        animate = 1;
-        w = 16;
-        h = 16;
+        obj.set_enemy_type(this, "circle");
         break;
         //The elephant
     case rn(11, 9):
     case rn(12, 9):
     case rn(11, 8):
     case rn(12, 8):
-        tile = 0;
-        colour = 102;
-        animate = 0;
-        w = 464;
-        h = 320;
+        obj.set_enemy_type(this, "elephant");
         size = 11;
         harmful = false;
         break;

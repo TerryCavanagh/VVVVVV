@@ -1,6 +1,7 @@
 #define OBJ_DEFINITION
 #include "Entity.h"
 
+#include <map>
 #include <SDL.h>
 
 #include "CustomLevels.h"
@@ -99,6 +100,117 @@ void entityclass::init(void)
     SDL_memset(customcollect, false, sizeof(customcollect));
 
     k = 0;
+
+    enemy_types.clear();
+    add_default_types();
+}
+
+void entityclass::create_type(const char* type, int tile, int colour, int animate, int width, int height)
+{
+    EnemyType enemy_type;
+    enemy_type.tile = tile;
+    enemy_type.colour = colour;
+    enemy_type.animate = animate;
+    enemy_type.width = width;
+    enemy_type.height = height;
+
+    enemy_types[type] = enemy_type;
+}
+
+void entityclass::add_default_types(void)
+{
+    create_type("square", 78, 7, 1, 16, 16); // Vibrating String Problem
+    create_type("circle", 88, 11, 1, 16, 16); // Kids His Age Bounce
+    create_type("disc", 36, 8, 1, 16, 16); // Security Sweep
+    create_type("glitch", 164, 7, 1, 16, 16); // Backsliders
+    create_type("coin", 68, 7, 1, 16, 16); // $eeing Dollar $ign$
+    create_type("cross", 48, 9, 5, 16, 16); // Ascending and Descending
+    create_type("triangle", 176, 6, 1, 16, 16); // Shockwave Rider
+    create_type("ice", 168, 7, 1, 16, 16); // Mind The Gap
+    create_type("heart", 112, 8, 5, 16, 16); // I Love You
+    create_type("broken_heart", 114, 6, 5, 16, 16); // That's Why I Have To Kill You
+
+    create_type("bowtie", 92, 6, 1, 16, 16); // A Deception
+    create_type("crate", 24, 6, 1, 16, 16); // UNUSED in main game
+
+    create_type("wavelength", 32, 7, 1, 32, 16); // Linear Collider
+    create_type("stop", 28, 6, 1, 22, 32); // Traffic Jam
+    create_type("yes", 40, 9, 1, 20, 20); // The Yes Men
+    create_type("bus", 96, 6, 4, 64, 44); // B-B-B-Busted
+    create_type("vertigo", 172, 7, 100, 32, 32); // Vertigo
+    create_type("guard", 44, 8, 1, 16, 20); // Trench Warfare
+    create_type("truth", 64, 7, 100, 44, 10); // Boldly To Go
+    create_type("obey", 51, 11, 100, 30, 14); // Time to get serious
+    create_type("mannequin", 52, 7, 5, 16, 25); // Short Circuit
+    create_type("numbers", 100, 6, 1, 32, 14); // Take the Red Pill
+    create_type("ghost", 106, 7, 2, 24, 25); // The Tomb of Mad Carew
+    create_type("wheel", 116, 12, 1, 32, 32); // The Hanged Man, Reversed
+    create_type("skeleton", 56, 6, 1, 15, 24); // You Chose... Poorly
+    create_type("solider", 82, 8, 5, 28, 32); // Brass Sent Us Under The Top
+
+    create_type("transmitter", 104, 4, 7, 16, 16); // Comms Relay
+    create_type("radar", 124, 4, 6, 32, 32); // Comms Relay
+
+    create_type("edgegames_left", 160, 8, 1, 16, 16); // Edge Games
+    create_type("edgegames_right", 156, 8, 1, 16, 16); // Edge Games
+
+    create_type("centipede_right", 66, 12, 100, 60, 16); // Sweeney's Maze
+    create_type("centipede_left", 54, 12, 100, 60, 16); // Sweeney's Maze
+
+    // LIES
+    create_type("lies_emitter", 60, 6, 2, 32, 32);
+    create_type("lies", 63, 6, 100, 26, 10);
+    create_type("lies_collector", 62, 6, 100, 32, 32);
+
+    // Factory
+    create_type("factory_emitter", 72, 6, 3, 64, 40);
+    create_type("factory_clouds", 76, 6, 100, 32, 12);
+    create_type("factory_collector", 77, 6, 100, 32, 16);
+
+    // Elephant
+    create_type("elephant", 0, 102, 0, 464, 320);
+}
+
+void entityclass::set_enemy_type(entclass* entity, const char* type)
+{
+    if (enemy_types.count(type) > 0)
+    {
+        EnemyType* enemyType = &enemy_types[type];
+        entity->tile = enemyType->tile;
+        entity->colour = enemyType->colour;
+        entity->animate = enemyType->animate;
+        entity->w = enemyType->width;
+        entity->h = enemyType->height;
+    }
+}
+
+const char* entityclass::legacy_id_to_entity(const int id)
+{
+    switch (id)
+    {
+    case 0:
+        return "square";
+    case 1:
+        return "circle";
+    case 2:
+        return "disc";
+    case 3:
+        return "glitch";
+    case 4:
+        return "coin";
+    case 5:
+        return "cross";
+    case 6:
+        return "triangle";
+    case 7:
+        return "ice";
+    case 8:
+        return "heart";
+    case 9:
+        return "broken_heart";
+    default:
+        return "square";
+    }
 }
 
 void entityclass::resetallflags(void)
@@ -1371,16 +1483,6 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             entity.setenemy(1);
             entity.setenemyroom(game.roomx, game.roomy); //For colour
         }
-        else if (game.roomx == 113 && game.roomy == 107)
-        {
-            //MAVVERRRICK
-            entity.tile = 96;
-            entity.colour = 6;
-            entity.size = 9;
-            entity.w = 64;
-            entity.h = 44;
-            entity.animate = 4;
-        }
         else
         {
             entity.setenemyroom(game.roomx, game.roomy);
@@ -2112,19 +2214,8 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         entity.harmful = true;
 
-        switch(customenemy){
-          case 0: entity.setenemyroom(4+100, 0+100); break;
-          case 1: entity.setenemyroom(2+100, 0+100); break;
-          case 2: entity.setenemyroom(12+100, 3+100); break;
-          case 3: entity.setenemyroom(13+100, 12+100); break;
-          case 4: entity.setenemyroom(16+100, 9+100); break;
-          case 5: entity.setenemyroom(19+100, 1+100); break;
-          case 6: entity.setenemyroom(19+100, 2+100); break;
-          case 7: entity.setenemyroom(18+100, 3+100); break;
-          case 8: entity.setenemyroom(16+100, 0+100); break;
-          case 9: entity.setenemyroom(14+100, 2+100); break;
-          default: entity.setenemyroom(4+100, 0+100); break;
-        }
+        const char* type = legacy_id_to_entity(customenemy);
+        set_enemy_type(&entity, type);
 
         //Set colour based on room tile
          //Set custom colours

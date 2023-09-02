@@ -1,6 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include <map>
 #include <SDL.h>
 #include <string>
 #include <vector>
@@ -32,10 +33,24 @@ enum
     TELEPORTER = 102
 };
 
+struct EnemyType
+{
+    int tile;
+    int colour;
+    int animate;
+    int width;
+    int height;
+};
+
 class entityclass
 {
 public:
     void init(void);
+
+    void create_type(const char* type, int tile, int colour, int animate, int width, int height);
+    void add_default_types(void);
+    const char* legacy_id_to_entity(int id);
+    void set_enemy_type(entclass* entity, const char* type);
 
     void resetallflags(void);
 
@@ -200,6 +215,8 @@ public:
     std::string customactivitycolour;
     std::string customactivitytext;
     int customactivitypositiony;
+
+    std::map<std::string, EnemyType> enemy_types;
 };
 
 #ifndef OBJ_DEFINITION
