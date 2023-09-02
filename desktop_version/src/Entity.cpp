@@ -105,7 +105,7 @@ void entityclass::init(void)
     add_default_types();
 }
 
-void entityclass::create_type(const char* type, int tile, int colour, int animate, int width, int height)
+EnemyType* entityclass::create_type(const char* type, int tile, int colour, int animate, int width, int height)
 {
     EnemyType enemy_type;
     enemy_type.tile = tile;
@@ -113,12 +113,21 @@ void entityclass::create_type(const char* type, int tile, int colour, int animat
     enemy_type.animate = animate;
     enemy_type.width = width;
     enemy_type.height = height;
+    enemy_type.harmful = true;
+    enemy_type.corner_x = 0;
+    enemy_type.corner_y = 0;
+    enemy_type.x_offset = 0;
+    enemy_type.y_offset = 0;
+    enemy_type.size = 0;
 
     enemy_types[type] = enemy_type;
+    return &enemy_types[type];
 }
 
 void entityclass::add_default_types(void)
 {
+    EnemyType* type;
+
     create_type("square", 78, 7, 1, 16, 16); // Vibrating String Problem
     create_type("circle", 88, 11, 1, 16, 16); // Kids His Age Bounce
     create_type("disc", 36, 8, 1, 16, 16); // Security Sweep
@@ -136,39 +145,66 @@ void entityclass::add_default_types(void)
     create_type("wavelength", 32, 7, 1, 32, 16); // Linear Collider
     create_type("stop", 28, 6, 1, 22, 32); // Traffic Jam
     create_type("yes", 40, 9, 1, 20, 20); // The Yes Men
-    create_type("bus", 96, 6, 4, 64, 44); // B-B-B-Busted
     create_type("vertigo", 172, 7, 100, 32, 32); // Vertigo
     create_type("guard", 44, 8, 1, 16, 20); // Trench Warfare
-    create_type("truth", 64, 7, 100, 44, 10); // Boldly To Go
     create_type("obey", 51, 11, 100, 30, 14); // Time to get serious
-    create_type("mannequin", 52, 7, 5, 16, 25); // Short Circuit
-    create_type("numbers", 100, 6, 1, 32, 14); // Take the Red Pill
     create_type("ghost", 106, 7, 2, 24, 25); // The Tomb of Mad Carew
     create_type("wheel", 116, 12, 1, 32, 32); // The Hanged Man, Reversed
     create_type("skeleton", 56, 6, 1, 15, 24); // You Chose... Poorly
-    create_type("solider", 82, 8, 5, 28, 32); // Brass Sent Us Under The Top
 
-    create_type("transmitter", 104, 4, 7, 16, 16); // Comms Relay
-    create_type("radar", 124, 4, 6, 32, 32); // Comms Relay
+    type = create_type("mannequin", 52, 7, 5, 16, 25); // Short Circuit
+    type->y_offset = -4;
+    type = create_type("numbers", 100, 6, 1, 32, 14); // Take the Red Pill
+    type->y_offset = 1;
+    type = create_type("solider", 82, 8, 5, 28, 32); // Brass Sent Us Under The Top
+    type->corner_x = 4;
+    type = create_type("truth", 64, 7, 100, 44, 10); // Boldly To Go
+    type->size = 10;
+    type = create_type("bus", 96, 6, 4, 64, 44); // B-B-B-Busted
+    type->size = 9;
+
+    type = create_type("transmitter", 104, 4, 7, 16, 16); // Comms Relay
+    type->harmful = false;
+    type->x_offset = -24;
+    type->y_offset = -16;
+
+    type = create_type("radar", 124, 4, 6, 32, 32); // Comms Relay
+    type->harmful = false;
+    type->x_offset = -4;
+    type->y_offset = -32;
+    type->corner_x = 4;
+    type->size = 9;
 
     create_type("edgegames_left", 160, 8, 1, 16, 16); // Edge Games
     create_type("edgegames_right", 156, 8, 1, 16, 16); // Edge Games
 
-    create_type("centipede_right", 66, 12, 100, 60, 16); // Sweeney's Maze
-    create_type("centipede_left", 54, 12, 100, 60, 16); // Sweeney's Maze
+    type = create_type("centipede_right", 66, 12, 100, 60, 16); // Sweeney's Maze
+    type->size = 10;
+    type = create_type("centipede_left", 54, 12, 100, 60, 16); // Sweeney's Maze
+    type->size = 10;
 
     // LIES
     create_type("lies_emitter", 60, 6, 2, 32, 32);
-    create_type("lies", 63, 6, 100, 26, 10);
+    type = create_type("lies", 63, 6, 100, 26, 10);
+    type->corner_x = 1;
+    type->corner_y = 1;
+    type->y_offset = 10;
     create_type("lies_collector", 62, 6, 100, 32, 32);
 
     // Factory
-    create_type("factory_emitter", 72, 6, 3, 64, 40);
-    create_type("factory_clouds", 76, 6, 100, 32, 12);
+    type = create_type("factory_emitter", 72, 6, 3, 64, 40);
+    type->corner_y = 24;
+    type->size = 9;
+    type = create_type("factory_clouds", 76, 6, 100, 32, 12);
+    type->corner_y = 6;
+    type->x_offset = 4;
+    type->y_offset = -4;
     create_type("factory_collector", 77, 6, 100, 32, 16);
 
     // Elephant
-    create_type("elephant", 0, 102, 0, 464, 320);
+    type = create_type("elephant", 0, 102, 0, 464, 320);
+    type->size = 11;
+    type->harmful = false;
 }
 
 void entityclass::set_enemy_type(entclass* entity, const char* type)
@@ -181,6 +217,14 @@ void entityclass::set_enemy_type(entclass* entity, const char* type)
         entity->animate = enemyType->animate;
         entity->w = enemyType->width;
         entity->h = enemyType->height;
+        entity->harmful = enemyType->harmful;
+        entity->cx = enemyType->corner_x;
+        entity->cy = enemyType->corner_y;
+        entity->xp += enemyType->x_offset;
+        entity->lerpoldxp += enemyType->x_offset;
+        entity->yp += enemyType->y_offset;
+        entity->lerpoldyp += enemyType->y_offset;
+        entity->size = enemyType->size;
     }
 }
 

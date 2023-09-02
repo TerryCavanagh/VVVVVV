@@ -113,14 +113,10 @@ void entclass::setenemy( int t )
             break;
         case 1:
             obj.set_enemy_type(this, "lies");
-            yp += 10;
-            lerpoldyp += 10;
             behave = 11;
             para = 9; // destroyed when outside
             x1 = -200;
             x2 = 400;
-            cx = 1;
-            cy = 1;
             break;
         case 2:
             obj.set_enemy_type(this, "lies_collector");
@@ -134,22 +130,13 @@ void entclass::setenemy( int t )
         {
         case 0:
             obj.set_enemy_type(this, "factory_emitter");
-            size = 9;
             behave = 12;
-            cx = 0;
-            cy = 24;
             break;
         case 1:
             obj.set_enemy_type(this, "factory_clouds");
-            xp += 4;
-            lerpoldxp += 4;
-            yp -= 4;
-            lerpoldyp -= 4;
             behave = 13;
             para = -6; //destroyed when outside
             x2 = 400;
-            cx = 0;
-            cy = 6;
             break;
         case 2:
             obj.set_enemy_type(this, "factory_collector");
@@ -186,26 +173,15 @@ void entclass::setenemyroom( int rx, int ry )
         obj.set_enemy_type(this, "guard");
         break;
     case rn(13, 4):  //Communication Station
-        harmful = false;
         if (xp == 256)
         {
             //transmittor
             obj.set_enemy_type(this, "transmitter");
-            xp -= 24;
-            lerpoldxp -= 24;
-            yp -= 16;
-            lerpoldyp -= 16;
         }
         else
         {
             //radar dish
             obj.set_enemy_type(this, "radar");
-            cx = 4;
-            size = 9;
-            xp -= 4;
-            lerpoldxp -= 4;
-            yp -= 32;
-            lerpoldyp -= 32;
         }
 
         break;
@@ -234,15 +210,12 @@ void entclass::setenemyroom( int rx, int ry )
         break; //Factory
     case rn(13,7): // MAVVERRRICK
         obj.set_enemy_type(this, "bus");
-        size = 9;
         break;
     case rn(11, 13): //Truth
         obj.set_enemy_type(this, "truth");
-        size = 10;
         break;
     case rn(17, 7): //Brass sent us under the top
         obj.set_enemy_type(this, "solider");
-        cx = 4;
         break;
     case rn(10, 7): // (deception)
         obj.set_enemy_type(this, "bowtie");
@@ -265,13 +238,9 @@ void entclass::setenemyroom( int rx, int ry )
         //Warp Zone
     case rn(15, 2): // (numbers)
         obj.set_enemy_type(this, "numbers");
-        yp += 1;
-        lerpoldyp += 1;
         break;
     case rn(16, 2): // (Manequins)
         obj.set_enemy_type(this, "mannequin");
-        yp -= 4;
-        lerpoldyp -= 4;
         break;
     case rn(18, 0): // (Obey)
         obj.set_enemy_type(this, "obey");
@@ -303,7 +272,6 @@ void entclass::setenemyroom( int rx, int ry )
         break;
     case rn(18, 2): // Thinking with Portals
         //depends on direction
-        size = 10;
         if (xp == 88)
         {
             obj.set_enemy_type(this, "centipede_right");
@@ -347,8 +315,6 @@ void entclass::setenemyroom( int rx, int ry )
     case rn(11, 8):
     case rn(12, 8):
         obj.set_enemy_type(this, "elephant");
-        size = 11;
-        harmful = false;
         break;
     }
 }

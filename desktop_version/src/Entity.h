@@ -40,6 +40,12 @@ struct EnemyType
     int animate;
     int width;
     int height;
+    int harmful;
+    int corner_x;
+    int corner_y;
+    int x_offset;
+    int y_offset;
+    int size;
 };
 
 class entityclass
@@ -47,7 +53,7 @@ class entityclass
 public:
     void init(void);
 
-    void create_type(const char* type, int tile, int colour, int animate, int width, int height);
+    EnemyType* create_type(const char* type, int tile, int colour, int animate, int width, int height);
     void add_default_types(void);
     const char* legacy_id_to_entity(int id);
     void set_enemy_type(entclass* entity, const char* type);
