@@ -46,6 +46,18 @@ struct EnemyType
     int x_offset;
     int y_offset;
     int size;
+    int behave;
+    bool override_behave;
+    int para;
+    bool override_para;
+    int x1;
+    bool override_x1;
+    int x2;
+    bool override_x2;
+    int y1;
+    bool override_y1;
+    int y2;
+    bool override_y2;
 };
 
 class entityclass

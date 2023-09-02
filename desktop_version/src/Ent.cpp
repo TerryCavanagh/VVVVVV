@@ -108,19 +108,12 @@ void entclass::setenemy( int t )
         {
         case 0:
             obj.set_enemy_type(this, "lies_emitter");
-            behave = 10;
-            x1 = -200;
             break;
         case 1:
             obj.set_enemy_type(this, "lies");
-            behave = 11;
-            para = 9; // destroyed when outside
-            x1 = -200;
-            x2 = 400;
             break;
         case 2:
             obj.set_enemy_type(this, "lies_collector");
-            behave = -1;
             break;
         }
         break;
@@ -130,17 +123,12 @@ void entclass::setenemy( int t )
         {
         case 0:
             obj.set_enemy_type(this, "factory_emitter");
-            behave = 12;
             break;
         case 1:
             obj.set_enemy_type(this, "factory_clouds");
-            behave = 13;
-            para = -6; //destroyed when outside
-            x2 = 400;
             break;
         case 2:
             obj.set_enemy_type(this, "factory_collector");
-            behave = -1;
             break;
         }
         break;

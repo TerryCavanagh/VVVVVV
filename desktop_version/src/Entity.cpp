@@ -119,6 +119,12 @@ EnemyType* entityclass::create_type(const char* type, int tile, int colour, int 
     enemy_type.x_offset = 0;
     enemy_type.y_offset = 0;
     enemy_type.size = 0;
+    enemy_type.override_behave = false;
+    enemy_type.override_para = false;
+    enemy_type.override_x1 = false;
+    enemy_type.override_x2 = false;
+    enemy_type.override_y1 = false;
+    enemy_type.override_y2 = false;
 
     enemy_types[type] = enemy_type;
     return &enemy_types[type];
@@ -184,22 +190,46 @@ void entityclass::add_default_types(void)
     type->size = 10;
 
     // LIES
-    create_type("lies_emitter", 60, 6, 2, 32, 32);
+    type = create_type("lies_emitter", 60, 6, 2, 32, 32);
+    type->behave = 10;
+    type->x1 = -200;
+    type->override_behave = true;
+    type->override_x1 = true;
     type = create_type("lies", 63, 6, 100, 26, 10);
     type->corner_x = 1;
     type->corner_y = 1;
     type->y_offset = 10;
-    create_type("lies_collector", 62, 6, 100, 32, 32);
+    type->behave = 11;
+    type->para = 9;
+    type->x1 = -200;
+    type->x2 = 400;
+    type->override_behave = true;
+    type->override_para = true;
+    type->override_x1 = true;
+    type->override_x2 = true;
+    type = create_type("lies_collector", 62, 6, 100, 32, 32);
+    type->behave = -1;
+    type->override_behave = true;
 
     // Factory
     type = create_type("factory_emitter", 72, 6, 3, 64, 40);
     type->corner_y = 24;
     type->size = 9;
+    type->behave = 12;
+    type->override_behave = true;
     type = create_type("factory_clouds", 76, 6, 100, 32, 12);
     type->corner_y = 6;
     type->x_offset = 4;
     type->y_offset = -4;
-    create_type("factory_collector", 77, 6, 100, 32, 16);
+    type->behave = 13;
+    type->para = -6;
+    type->x2 = 400;
+    type->override_behave = true;
+    type->override_para = true;
+    type->override_x2 = true;
+    type = create_type("factory_collector", 77, 6, 100, 32, 16);
+    type->behave = -1;
+    type->override_behave = true;
 
     // Elephant
     type = create_type("elephant", 0, 102, 0, 464, 320);
@@ -225,6 +255,36 @@ void entityclass::set_enemy_type(entclass* entity, const char* type)
         entity->yp += enemyType->y_offset;
         entity->lerpoldyp += enemyType->y_offset;
         entity->size = enemyType->size;
+
+        if (enemyType->override_behave)
+        {
+            entity->behave = enemyType->behave;
+        }
+
+        if (enemyType->override_para)
+        {
+            entity->para = enemyType->para;
+        }
+
+        if (enemyType->override_x1)
+        {
+            entity->x1 = enemyType->x1;
+        }
+
+        if (enemyType->override_x2)
+        {
+            entity->x2 = enemyType->x2;
+        }
+
+        if (enemyType->override_y1)
+        {
+            entity->y1 = enemyType->y1;
+        }
+
+        if (enemyType->override_y2)
+        {
+            entity->y2 = enemyType->y2;
+        }
     }
 }
 
