@@ -186,7 +186,7 @@ void entityclass::add_default_types(void)
     type->x_offset = -24;
     type->y_offset = -16;
 
-    type = create_type("radar", 124, 4, 6, 32, 32); // Comms Relay
+    type = create_type("radar", 124, 4, 6, 64, 64); // Comms Relay
     type->harmful = false;
     type->x_offset = -4;
     type->y_offset = -32;
