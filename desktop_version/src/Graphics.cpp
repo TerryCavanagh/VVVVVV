@@ -1801,7 +1801,7 @@ void Graphics::drawtrophytext(void)
         break;
     case 7:
         top_text = loc::gettext("GAME COMPLETE");
-        bottom_text = loc::gettext("Complete the game");
+        bottom_text = loc::gettext_case("Complete the game", 1);
         break;
     case 8:
         top_text = loc::gettext("FLIP MODE COMPLETE");
