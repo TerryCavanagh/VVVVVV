@@ -5,6 +5,9 @@
 #ifdef _WIN32
 #   define WIN32_LEAN_AND_MEAN
 #   include <windows.h>
+#elif defined(__ANDROID__)
+// forward to SDL logging on Android, since stdout/stderr are /dev/null
+#   include <SDL.h>
 #elif defined(__unix__) || defined(__APPLE__)
 #   include <unistd.h>
 #endif
@@ -29,6 +32,9 @@ static void check_color_support(void);
 
 void vlog_init(void)
 {
+#ifdef __ANDROID__
+    SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_VERBOSE);
+#endif
     check_color_support();
 }
 
@@ -71,6 +77,11 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_debug(const char* text, ...)
         return;
     }
 
+#ifdef __ANDROID__
+    va_start(list, text);
+    SDL_LogMessageV(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_DEBUG, text, list);
+    va_end(list);
+#else
     printf(Color_BOLD_GRAY);
     printf("[DEBUG]");
     printf(Color_RESET);
@@ -81,6 +92,7 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_debug(const char* text, ...)
     va_end(list);
 
     putchar('\n');
+#endif
 }
 
 SDL_PRINTF_VARARG_FUNC(1) void vlog_info(const char* text, ...)
@@ -92,6 +104,11 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_info(const char* text, ...)
         return;
     }
 
+#ifdef __ANDROID__
+    va_start(list, text);
+    SDL_LogMessageV(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, text, list);
+    va_end(list);
+#else
     printf(Color_BOLD);
     printf("[INFO]");
     printf(Color_RESET);
@@ -102,6 +119,7 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_info(const char* text, ...)
     va_end(list);
 
     putchar('\n');
+#endif
 }
 
 SDL_PRINTF_VARARG_FUNC(1) void vlog_warn(const char* text, ...)
@@ -113,6 +131,11 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_warn(const char* text, ...)
         return;
     }
 
+#ifdef __ANDROID__
+    va_start(list, text);
+    SDL_LogMessageV(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_WARN, text, list);
+    va_end(list);
+#else
     fprintf(stderr, Color_BOLD_YELLOW);
     fprintf(stderr, "[WARN]");
     fprintf(stderr, Color_RESET);
@@ -123,6 +146,7 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_warn(const char* text, ...)
     va_end(list);
 
     fputc('\n', stderr);
+#endif
 }
 
 SDL_PRINTF_VARARG_FUNC(1) void vlog_error(const char* text, ...)
@@ -134,6 +158,11 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_error(const char* text, ...)
         return;
     }
 
+#ifdef __ANDROID__
+    va_start(list, text);
+    SDL_LogMessageV(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_ERROR, text, list);
+    va_end(list);
+#else
     fprintf(stderr, Color_BOLD_RED);
     fprintf(stderr, "[ERROR]");
     fprintf(stderr, Color_RESET);
@@ -144,6 +173,7 @@ SDL_PRINTF_VARARG_FUNC(1) void vlog_error(const char* text, ...)
     va_end(list);
 
     fputc('\n', stderr);
+#endif
 }
 
 #ifdef _WIN32
@@ -225,7 +255,7 @@ static void check_color_support(void)
     }
 
     color_supported = 1;
-#elif defined(__unix__) || defined(__APPLE__)
+#elif (defined(__unix__) || defined(__APPLE__)) && !defined(__ANDROID__)
     if (isatty(STDOUT_FILENO) && isatty(STDERR_FILENO))
     {
         color_supported = 1;
