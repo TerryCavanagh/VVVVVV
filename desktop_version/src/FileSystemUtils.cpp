@@ -183,6 +183,14 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
 
     PHYSFS_setAllocator(&allocator);
 
+    // Yes, this is actually how you're supposed to use PhysFS on Android.
+#ifdef __ANDROID__
+    PHYSFS_AndroidInit androidInit;
+    androidInit.jnienv = SDL_AndroidGetJNIEnv();
+    androidInit.context = SDL_AndroidGetActivity();
+    argvZero = (char*) &androidInit;
+#endif
+
     if (!PHYSFS_init(argvZero))
     {
         vlog_error(
@@ -264,6 +272,16 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
     doesFontsDirExist = mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir);
 
     /* Mount the stock content last */
+#ifdef __ANDROID__
+    // This is kind of a mess, but that's not really solvable unless we expect the user to download the data.zip manually.
+    if (!PHYSFS_mount(PHYSFS_getBaseDir(), "/apk", 1))
+    {
+        vlog_error("Failed to mount apk!");
+        return 0;
+    }
+    PHYSFS_File* zip = PHYSFS_openRead("/apk/assets/data.zip");
+    if (!zip || !PHYSFS_mountHandle(zip, "data.zip", NULL, 1))
+#else
     if (assetsPath)
     {
         SDL_strlcpy(output, assetsPath, sizeof(output));
@@ -276,6 +294,7 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         );
     }
     if (!PHYSFS_mount(output, NULL, 1))
+#endif
     {
         vlog_error("Error: data.zip missing!");
         vlog_error("You do not have data.zip!");
@@ -1233,6 +1252,18 @@ static int PLATFORM_getOSDirectory(char* output, const size_t output_size)
 
     SDL_strlcat(output, "\\VVVVVV\\", MAX_PATH);
     mkdir(output, 0777);
+    return 1;
+#elif defined(__ANDROID__)
+    const char* externalStoragePath = SDL_AndroidGetExternalStoragePath();
+    if (externalStoragePath == NULL)
+    {
+        vlog_error(
+            "Could not get OS directory: %s",
+            SDL_GetError()
+        );
+        return 0;
+    }
+    SDL_snprintf(output, output_size, "%s/", externalStoragePath);
     return 1;
 #else
     const char* prefDir = PHYSFS_getPrefDir("distractionware", "VVVVVV");

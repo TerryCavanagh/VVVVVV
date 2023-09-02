@@ -127,6 +127,8 @@ endif()
 # Executable information
 if(WIN32)
     add_executable(VVVVVV WIN32 ${VVV_SRC} icon.rc)
+elseif(ANDROID)
+    add_library(VVVVVV SHARED ${VVV_SRC})
 else()
     add_executable(VVVVVV ${VVV_SRC})
 endif()
@@ -189,6 +191,7 @@ set(PFS_SRC
     ../third_party/physfs/src/physfs_platform_unix.c
     ../third_party/physfs/src/physfs_platform_windows.c
     ../third_party/physfs/src/physfs_platform_haiku.cpp
+    ../third_party/physfs/src/physfs_platform_android.c
 )
 if(APPLE)
     # Are you noticing a pattern with this Apple crap yet?
@@ -399,6 +402,12 @@ elseif (EMSCRIPTEN)
     if(BUNDLE_DEPENDENCIES)
         target_compile_options(faudio-static PUBLIC -sUSE_SDL=2)
         target_link_libraries(faudio-static -sUSE_SDL=2)
+    endif()
+elseif (ANDROID)
+    message(STATUS "Using Android SDL2")
+    target_link_libraries(VVVVVV SDL2 SDL2main)
+    if(BUNDLE_DEPENDENCIES)
+        target_link_libraries(faudio-static SDL2)
     endif()
 else()
     # Only try to autodetect if both SDL2 variables aren't explicitly set

@@ -376,6 +376,12 @@ void Screen::recacheTextures(void)
     }
 }
 
+#ifdef __ANDROID__
+bool Screen::isForcedFullscreen(void)
+{
+    return true;
+}
+#else
 bool Screen::isForcedFullscreen(void)
 {
     /* This is just a check to see if we're on a desktop or tenfoot setup.
@@ -384,3 +390,4 @@ bool Screen::isForcedFullscreen(void)
      */
     return SDL_GetHintBoolean("SteamTenfoot", SDL_FALSE);
 }
+#endif
