@@ -818,7 +818,7 @@ void mapclass::resetplayer(const bool player_died)
         }
         if (!GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
         {
-            obj.entities[i].size = 0;
+            obj.entities[i].render_type = EntityRenderType_SPRITE;
             obj.entities[i].cx = 6;
             obj.entities[i].cy = 2;
             obj.entities[i].w = 12;

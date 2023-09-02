@@ -33,6 +33,25 @@ enum EntityType
     EntityType_TELEPORTER = 100
 };
 
+enum EntityRenderType
+{
+    EntityRenderType_INVALID = -1,
+    EntityRenderType_SPRITE,
+    EntityRenderType_TILE,
+    EntityRenderType_PLATFORM,
+    EntityRenderType_PARTICLE,
+    EntityRenderType_COIN,
+    EntityRenderType_HORIZONTAL_LINE,
+    EntityRenderType_VERTICAL_LINE,
+    EntityRenderType_TELEPORTER,
+    EntityRenderType_PLATFORM_LONG,
+    EntityRenderType_SPRITE_2x2,
+    EntityRenderType_SPRITE_2x1,
+    EntityRenderType_ELEPHANT,
+    EntityRenderType_SPRITE_NO_WRAP,
+    EntityRenderType_SPRITE_6x
+};
+
 class entclass
 {
 public:
@@ -55,7 +74,8 @@ public:
     //Fundamentals
     bool invis;
     EntityType type;
-    int size, tile, rule;
+    EntityRenderType render_type;
+    int tile, rule;
     int state, statedelay;
     int behave, animate;
     float para;

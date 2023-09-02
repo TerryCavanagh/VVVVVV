@@ -13,7 +13,7 @@ void entclass::clear(void)
 {
     invis = false;
     type = EntityType_PLAYER;
-    size = 0;
+    render_type = EntityRenderType_SPRITE;
     tile = 0;
     rule = 0;
     state = 0;
@@ -377,22 +377,22 @@ void entclass::settreadmillcolour( int rx, int ry )
 
 void entclass::updatecolour(void)
 {
-    switch (size)
+    switch (render_type)
     {
-    case 0: // Sprites
-    case 7: // Teleporter
-    case 9: // Really Big Sprite! (2x2)
-    case 10: // 2x1 Sprite
-    case 13: // Special for epilogue: huge hero!
+    case EntityRenderType_SPRITE: // Sprites
+    case EntityRenderType_TELEPORTER: // Teleporter
+    case EntityRenderType_SPRITE_2x2: // Really Big Sprite! (2x2)
+    case EntityRenderType_SPRITE_2x1: // 2x1 Sprite
+    case EntityRenderType_SPRITE_6x: // Special for epilogue: huge hero!
         realcol = graphics.getcol(colour);
         break;
-    case 3: // Big chunky pixels!
+    case EntityRenderType_PARTICLE: // Big chunky pixels!
         realcol = graphics.bigchunkygetcol(colour);
         break;
-    case 4: // Small pickups
+    case EntityRenderType_COIN: // Small pickups
         realcol = graphics.huetilegetcol();
         break;
-    case 11: // The fucking elephant
+    case EntityRenderType_ELEPHANT: // The fucking elephant
         if (game.noflashingmode)
         {
             realcol = graphics.getcol(22);
@@ -402,7 +402,7 @@ void entclass::updatecolour(void)
             realcol = graphics.getcol(colour);
         }
         break;
-    case 12: // Regular sprites that don't wrap
+    case EntityRenderType_SPRITE_NO_WRAP: // Regular sprites that don't wrap
         // if we're outside the screen, we need to draw indicators
         if ((xp < -20 && vx > 0) || (xp > 340 && vx < 0))
         {

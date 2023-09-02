@@ -118,7 +118,7 @@ EnemyType* entityclass::create_type(const char* type, int tile, int colour, int 
     enemy_type.corner_y = 0;
     enemy_type.x_offset = 0;
     enemy_type.y_offset = 0;
-    enemy_type.size = 0;
+    enemy_type.render_type = EntityRenderType_SPRITE;
     enemy_type.override_behave = false;
     enemy_type.override_para = false;
     enemy_type.override_x1 = false;
@@ -177,9 +177,9 @@ void entityclass::add_default_types(void)
     type = create_type("soldier", 82, 8, 5, 28, 32); // Brass Sent Us Under The Top
     type->corner_x = 4;
     type = create_type("truth", 64, 7, 100, 44, 10); // Boldly To Go
-    type->size = 10;
+    type->render_type = EntityRenderType_SPRITE_2x1;
     type = create_type("bus", 96, 6, 4, 64, 44); // B-B-B-Busted
-    type->size = 9;
+    type->render_type = EntityRenderType_SPRITE_2x2;
 
     type = create_type("transmitter", 104, 4, 7, 16, 16); // Comms Relay
     type->harmful = false;
@@ -191,15 +191,15 @@ void entityclass::add_default_types(void)
     type->x_offset = -4;
     type->y_offset = -32;
     type->corner_x = 4;
-    type->size = 9;
+    type->render_type = EntityRenderType_SPRITE_2x2;
 
     create_type("edgegames_left", 160, 8, 1, 16, 16); // Edge Games
     create_type("edgegames_right", 156, 8, 1, 16, 16); // Edge Games
 
     type = create_type("centipede_right", 66, 12, 100, 60, 16); // Sweeney's Maze
-    type->size = 10;
+    type->render_type = EntityRenderType_SPRITE_2x1;
     type = create_type("centipede_left", 54, 12, 100, 60, 16); // Sweeney's Maze
-    type->size = 10;
+    type->render_type = EntityRenderType_SPRITE_2x1;
 
     // LIES
     type = create_type("lies_emitter", 60, 6, 2, 32, 32);
@@ -226,7 +226,7 @@ void entityclass::add_default_types(void)
     // Factory
     type = create_type("factory_emitter", 72, 6, 3, 64, 40);
     type->corner_y = 24;
-    type->size = 9;
+    type->render_type = EntityRenderType_SPRITE_2x2;
     type->behave = 12;
     type->override_behave = true;
     type = create_type("factory_clouds", 76, 6, 100, 32, 12);
@@ -245,7 +245,7 @@ void entityclass::add_default_types(void)
 
     // Elephant
     type = create_type("elephant", 0, 102, 0, 464, 320);
-    type->size = 11;
+    type->render_type = EntityRenderType_ELEPHANT;
     type->harmful = false;
 }
 
@@ -270,7 +270,7 @@ void entityclass::set_enemy_type(entclass* entity, const char* type)
         entity->lerpoldxp += enemyType->x_offset;
         entity->yp += enemyType->y_offset;
         entity->lerpoldyp += enemyType->y_offset;
-        entity->size = enemyType->size;
+        entity->render_type = enemyType->render_type;
 
         if (enemyType->colour != -1)
         {
@@ -1507,7 +1507,7 @@ bool entityclass::disableentity(int t)
     }
 
     entities[t].invis = true;
-    entities[t].size = -1;
+    entities[t].render_type = EntityRenderType_INVALID;
     entities[t].type = EntityType_INVALID;
     entities[t].rule = -1;
     entities[t].isplatform = false;
@@ -1617,7 +1617,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     for (size_t i = 0; i < entities.size(); ++i)
     {
         if (entities[i].invis
-        && entities[i].size == -1
+        && entities[i].render_type == EntityRenderType_INVALID
         && entities[i].type == EntityType_INVALID
         && entities[i].rule == -1
         && !entities[i].isplatform)
@@ -1637,20 +1637,20 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entptr->clear();
     }
 
-    //Size 0 is a sprite
-    //Size 1 is a tile
-    //Beyond that are special cases (to do)
-    //Size 2 is a moving platform of width 4 (32)
-    //Size 3 is apparently a "bug chunky pixel"
-    //Size 4 is a coin/small pickup
-    //Size 5 is a horizontal line, 6 is vertical
+    // Size 0 is a sprite
+    // Size 1 is a tile
+    // Beyond that are special cases (to do)
+    // Size 2 is a moving platform of width 4 (32)
+    // Size 3 is apparently a "bug chunky pixel"
+    // Size 4 is a coin/small pickup
+    // Size 5 is a horizontal line, 6 is vertical
 
-    //Rule 0 is the playable character
-    //Rule 1 is anything harmful
-    //Rule 2 is anything decorative (no collisions)
-    //Rule 3 is anything that results in an entity to entity collision and state change
-    //Rule 4 is a horizontal line, 5 is vertical
-    //Rule 6 is a crew member
+    // Rule 0 is the playable character
+    // Rule 1 is anything harmful
+    // Rule 2 is anything decorative (no collisions)
+    // Rule 3 is anything that results in an entity to entity collision and state change
+    // Rule 4 is a horizontal line, 5 is vertical
+    // Rule 6 is a crew member
 
     entclass& entity = *entptr;
     entity.xp = xp;
@@ -1716,7 +1716,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 2: //A moving platform
         entity.rule = 2;
         entity.type = EntityType_MOVING;
-        entity.size = 2;
+        entity.render_type = EntityRenderType_PLATFORM;
         entity.tile = 1;
 
         if (customplatformtile > 0){
@@ -1747,7 +1747,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
             entity.w = 64;
             entity.h = 8;
             meta1 -= 2;
-            entity.size = 8;
+            entity.render_type = EntityRenderType_PLATFORM_LONG;
         }
 
         entity.behave = meta1;
@@ -1784,7 +1784,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 3: //Disappearing platforms
         entity.rule = 3;
         entity.type = EntityType_DISAPPEARING_PLATFORM;
-        entity.size = 2;
+        entity.render_type = EntityRenderType_PLATFORM;
         entity.tile = 2;
         //appearance again depends on location
         if(customplatformtile>0)
@@ -1814,7 +1814,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 4: //Breakable blocks
         entity.rule = 6;
         entity.type = EntityType_QUICKSAND;
-        entity.size = 1;
+        entity.render_type = EntityRenderType_TILE;
         entity.tile = 10;
         entity.cy = -1;
         entity.w = 8;
@@ -1829,7 +1829,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 5: //Gravity Tokens
         entity.rule = 3;
         entity.type = EntityType_GRAVITY_TOKEN;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 11;
         entity.w = 16;
         entity.h = 16;
@@ -1842,7 +1842,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.rule = 2;
         entity.type = EntityType_PARTICLE;  //Particles
         entity.colour = 1;
-        entity.size = 3;
+        entity.render_type = EntityRenderType_PARTICLE;
         entity.vx = meta1;
         entity.vy = meta2;
 
@@ -1852,7 +1852,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.rule = 2;
         entity.type = EntityType_PARTICLE;  //Particles
         entity.colour = 2;
-        entity.size = 3;
+        entity.render_type = EntityRenderType_PARTICLE;
         entity.vx = meta1;
         entity.vy = meta2;
 
@@ -1861,7 +1861,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 8: //Small collectibles
         entity.rule = 3;
         entity.type = EntityType_COIN;
-        entity.size = 4;
+        entity.render_type = EntityRenderType_COIN;
         entity.tile = 48;
         entity.w = 8;
         entity.h = 8;
@@ -1875,7 +1875,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 9: //Something Shiny
         entity.rule = 3;
         entity.type = EntityType_TRINKET;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 22;
         entity.w = 16;
         entity.h = 16;
@@ -1890,7 +1890,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 10: //Savepoint
         entity.rule = 3;
         entity.type = EntityType_CHECKPOINT;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 20 + meta1;
         entity.w = 16;
         entity.h = 16;
@@ -1913,7 +1913,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 11: //Horizontal Gravity Line
         entity.rule = 4;
         entity.type = EntityType_HORIZONTAL_GRAVITY_LINE;
-        entity.size = 5;
+        entity.render_type = EntityRenderType_HORIZONTAL_LINE;
         entity.life = 0;
         entity.w = meta1;
         entity.h = 1;
@@ -1922,7 +1922,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 12: //Vertical Gravity Line
         entity.rule = 5;
         entity.type = EntityType_VERTICAL_GRAVITY_LINE;
-        entity.size = 6;
+        entity.render_type = EntityRenderType_VERTICAL_LINE;
         entity.life = 0;
         entity.w = 1;
         entity.h = meta1;
@@ -1932,7 +1932,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 13: //Warp token
         entity.rule = 3;
         entity.type = EntityType_WARP_TOKEN;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 18;
         entity.w = 16;
         entity.h = 16;
@@ -1946,7 +1946,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 14: // Teleporter
         entity.rule = 3;
         entity.type = EntityType_TELEPORTER;
-        entity.size = 7;
+        entity.render_type = EntityRenderType_TELEPORTER;
         entity.tile = 1; //inactive
         entity.w = 96;
         entity.h = 96;
@@ -2047,7 +2047,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 20: //Terminal
         entity.rule = 3;
         entity.type = EntityType_TERMINAL;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 16 + meta1;
         entity.w = 16;
         entity.h = 16;
@@ -2059,7 +2059,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 21: //as above, except doesn't highlight
         entity.rule = 3;
         entity.type = EntityType_TERMINAL;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 16 + meta1;
         entity.w = 16;
         entity.h = 16;
@@ -2071,7 +2071,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 22: //Fake trinkets, only appear if you've collected them
         entity.rule = 3;
         entity.type = EntityType_TRINKET;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.tile = 22;
         entity.w = 16;
         entity.h = 16;
@@ -2102,7 +2102,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.harmful = true;
 
         //initilise tiles here based on behavior
-        entity.size = 12; //don't wrap around
+        entity.render_type = EntityRenderType_SPRITE_NO_WRAP; //don't wrap around
         entity.colour = 21;
         entity.tile = 78; //default case
         entity.animate = 1;
@@ -2158,7 +2158,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 25: //Trophies
         entity.rule = 3;
         entity.type = EntityType_TROPHY;
-        entity.size = 0;
+        entity.render_type = EntityRenderType_SPRITE;
         entity.w = 16;
         entity.h = 16;
         entity.colour = 4;
@@ -2321,7 +2321,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
             {
                 entity.tile = 3;
                 entity.colour = 102;
-                entity.size = 13;
+                entity.render_type = EntityRenderType_SPRITE_6x;
                 entity.xp -= 64;
                 entity.yp -= 128;
             }
@@ -2333,7 +2333,6 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     case 26: //Epilogue super warp token
         entity.rule = 3;
         entity.type = EntityType_WARP_TOKEN;
-        entity.size = 0;
         entity.tile = 18;
         entity.w = 16;
         entity.h = 16;
@@ -2341,7 +2340,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.onentity = 0;
         entity.animate = 100;
         entity.para = meta2;
-        entity.size = 13;
+        entity.render_type = EntityRenderType_SPRITE_6x;
         break;
 
     /* Warp lines */
@@ -2374,14 +2373,14 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         case 51:
         case 52:
             entity.rule = 5;
-            entity.size = 6;
+            entity.render_type = EntityRenderType_VERTICAL_LINE;
             entity.w = 1;
             entity.h = meta1;
             break;
         case 53:
         case 54:
             entity.rule = 7;
-            entity.size = 5;
+            entity.render_type = EntityRenderType_HORIZONTAL_LINE;
             entity.w = meta1;
             entity.h = 1;
             break;
@@ -4256,7 +4255,7 @@ int entityclass::getlineat( int t )
     //Get the entity which is a horizontal line at height t (for SWN game)
     for (size_t i = 0; i < entities.size(); i++)
     {
-        if (entities[i].size == 5)
+        if (entities[i].render_type == EntityRenderType_HORIZONTAL_LINE)
         {
             if (entities[i].yp == t)
             {
@@ -5101,7 +5100,7 @@ void entityclass::collisioncheck(int i, int j, bool scm /*= false*/)
         //person i hits enemy or enemy bullet j
         if (entitycollide(i, j) && !map.invincibility)
         {
-            if (entities[i].size == 0 && (entities[j].size == 0 || entities[j].size == 12))
+            if (entities[i].render_type == EntityRenderType_SPRITE && (entities[j].render_type == EntityRenderType_SPRITE || entities[j].render_type == EntityRenderType_SPRITE_NO_WRAP))
             {
                 //They're both sprites, so do a per pixel collision
                 SDL_Point colpoint1;
