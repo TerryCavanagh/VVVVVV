@@ -115,15 +115,15 @@ public:
 
     void revertlinecross(std::vector<entclass>& linecrosskludge, int t, int s);
 
-    void createentity(int xp, int yp, int t, int meta1, int meta2,
+    entclass* createentity(int xp, int yp, int t, int meta1, int meta2,
                       int p1, int p2, int p3, int p4);
-    void createentity(int xp, int yp, int t, int meta1, int meta2,
+    entclass* createentity(int xp, int yp, int t, int meta1, int meta2,
                       int p1, int p2);
-    void createentity(int xp, int yp, int t, int meta1, int meta2,
+    entclass* createentity(int xp, int yp, int t, int meta1, int meta2,
                       int p1);
-    void createentity(int xp, int yp, int t, int meta1, int meta2);
-    void createentity(int xp, int yp, int t, int meta1);
-    void createentity(int xp, int yp, int t);
+    entclass* createentity(int xp, int yp, int t, int meta1, int meta2);
+    entclass* createentity(int xp, int yp, int t, int meta1);
+    entclass* createentity(int xp, int yp, int t);
 
     bool updateentities(int i);
 

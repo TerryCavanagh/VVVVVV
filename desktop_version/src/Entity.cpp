@@ -239,6 +239,11 @@ void entityclass::add_default_types(void)
 
 void entityclass::set_enemy_type(entclass* entity, const char* type)
 {
+    if (entity == NULL)
+    {
+        return;
+    }
+
     if (enemy_types.count(type) > 0)
     {
         EnemyType* enemyType = &enemy_types[type];
@@ -1446,33 +1451,7 @@ static bool gridmatch( int p1, int p2, int p3, int p4, int p11, int p21, int p31
     return false;
 }
 
-static void entityclonefix(entclass* entity)
-{
-    const bool is_lies_emitter = entity->behave == 10;
-    const bool is_factory_emitter = entity->behave == 12;
-
-    const bool is_emitter = is_lies_emitter || is_factory_emitter;
-    if (!is_emitter)
-    {
-        return;
-    }
-
-    const bool in_lies_emitter_room =
-        game.roomx >= 113 && game.roomx <= 117 && game.roomy == 111;
-    const bool in_factory_emitter_room =
-        game.roomx == 113 && game.roomy >= 108 && game.roomy <= 110;
-
-    const bool valid = (is_lies_emitter && in_lies_emitter_room)
-        || (is_factory_emitter && in_factory_emitter_room);
-
-    if (!valid)
-    {
-        /* Fix memory leak */
-        entity->behave = -1;
-    }
-}
-
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2, int p3, int p4)
 {
     k = entities.size();
 
@@ -1590,7 +1569,6 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         else
         {
             entity.setenemyroom(game.roomx, game.roomy);
-            entityclonefix(&entity);
         }
         break;
     case 2: //A moving platform
@@ -1750,7 +1728,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return;
+        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return NULL;
         break;
     case 9: //Something Shiny
         entity.rule = 3;
@@ -1765,7 +1743,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return;
+        if (!INBOUNDS_ARR(meta1, collect) || collect[meta1]) return NULL;
         break;
     case 10: //Savepoint
         entity.rule = 3;
@@ -1787,7 +1765,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         if (game.nodeathmode)
         {
-            return;
+            return NULL;
         }
         break;
     case 11: //Horizontal Gravity Line
@@ -1961,7 +1939,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (INBOUNDS_ARR(meta1, collect) && !collect[meta1]) return;
+        if (INBOUNDS_ARR(meta1, collect) && !collect[meta1]) return NULL;
         break;
     case 23: //SWN Enemies
         //Given a different behavior, these enemies are especially for SWN mode and disappear outside the screen.
@@ -2273,7 +2251,7 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
             map.warpy = false;
         }
         break;
-      case 55: // Crew Member (custom, collectable)
+    case 55: // Crew Member (custom, collectable)
         //1 - position in array
         //2 - colour
         entity.rule = 3;
@@ -2299,75 +2277,75 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         //Check if it's already been collected
         entity.para = meta1;
-        if (!INBOUNDS_ARR(meta1, customcollect) || customcollect[meta1]) return;
+        if (!INBOUNDS_ARR(meta1, customcollect) || customcollect[meta1]) return NULL;
         break;
-      case 56: //Custom enemy
-        entity.rule = 1;
-        entity.type = EntityType_MOVING;
-        entity.behave = meta1;
-        entity.para = meta2;
-        entity.w = 16;
-        entity.h = 16;
-        entity.cx = 0;
-        entity.cy = 0;
+    case 56: //Custom enemy
+    {
+          entity.rule = 1;
+          entity.type = EntityType_MOVING;
+          entity.behave = meta1;
+          entity.para = meta2;
+          entity.w = 16;
+          entity.h = 16;
+          entity.cx = 0;
+          entity.cy = 0;
 
-        entity.x1 = p1;
-        entity.y1 = p2;
-        entity.x2 = p3;
-        entity.y2 = p4;
+          entity.x1 = p1;
+          entity.y1 = p2;
+          entity.x2 = p3;
+          entity.y2 = p4;
 
-        entity.harmful = true;
+          entity.harmful = true;
 
-        const char* type = legacy_id_to_entity(customenemy);
-        set_enemy_type(&entity, type);
+          const char* type = legacy_id_to_entity(customenemy);
+          set_enemy_type(&entity, type);
 
-        //Set colour based on room tile
-         //Set custom colours
-        if(customplatformtile>0){
-          int entcol=(customplatformtile/12);
-          switch(entcol){
-            //RED
-            case 3: case 7: case 12: case 23: case 28:
-            case 34: case 42: case 48: case 58:
-              entity.colour = 6; break;
-            //GREEN
-            case 5: case 9: case 22: case 25: case 29:
-            case 31: case 38: case 46: case 52: case 53:
-              entity.colour = 7; break;
-            //BLUE
-            case 1: case 6: case 14: case 27: case 33:
-            case 44: case 50: case 57:
-              entity.colour = 12; break;
-            //YELLOW
-            case 4: case 17: case 24: case 30: case 37:
-            case 45: case 51: case 55:
-              entity.colour = 9; break;
-            //PURPLE
-            case 2: case 11: case 15: case 19: case 32:
-            case 36: case 49:
-              entity.colour = 20; break;
-            //CYAN
-            case 8: case 10: case 13: case 18: case 26:
-            case 35: case 41: case 47: case 54:
-              entity.colour = 11; break;
-            //PINK
-            case 16: case 20: case 39: case 43: case 56:
-              entity.colour = 8; break;
-            //ORANGE
-            case 21: case 40:
-              entity.colour = 17; break;
-            default:
-              entity.colour = 6;
-            break;
+          //Set colour based on room tile
+           //Set custom colours
+          if (customplatformtile > 0) {
+              int entcol = (customplatformtile / 12);
+              switch (entcol) {
+                  //RED
+              case 3: case 7: case 12: case 23: case 28:
+              case 34: case 42: case 48: case 58:
+                  entity.colour = 6; break;
+                  //GREEN
+              case 5: case 9: case 22: case 25: case 29:
+              case 31: case 38: case 46: case 52: case 53:
+                  entity.colour = 7; break;
+                  //BLUE
+              case 1: case 6: case 14: case 27: case 33:
+              case 44: case 50: case 57:
+                  entity.colour = 12; break;
+                  //YELLOW
+              case 4: case 17: case 24: case 30: case 37:
+              case 45: case 51: case 55:
+                  entity.colour = 9; break;
+                  //PURPLE
+              case 2: case 11: case 15: case 19: case 32:
+              case 36: case 49:
+                  entity.colour = 20; break;
+                  //CYAN
+              case 8: case 10: case 13: case 18: case 26:
+              case 35: case 41: case 47: case 54:
+                  entity.colour = 11; break;
+                  //PINK
+              case 16: case 20: case 39: case 43: case 56:
+                  entity.colour = 8; break;
+                  //ORANGE
+              case 21: case 40:
+                  entity.colour = 17; break;
+              default:
+                  entity.colour = 6;
+                  break;
+              }
           }
-        }
 
-        if(custom_gray){
-          entity.colour = 18;
-        }
-
-        entityclonefix(&entity);
-        break;
+          if (custom_gray) {
+              entity.colour = 18;
+          }
+          break;
+    }
     case 100: // Invalid enemy, but gets treated as a teleporter
         entity.type = EntityType_TELEPORTER;
         break;
@@ -2382,48 +2360,51 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
         entities.push_back(entity);
     }
 
+    size_t indice;
+    if (reuse)
+    {
+        indice = entptr - entities.data();
+    }
+    else
+    {
+        indice = entities.size() - 1;
+    }
+
     /* Fix crewmate facing directions
      * This is a bit kludge-y but it's better than copy-pasting
      * and is okay to do because entity 12 does not change state on its own
      */
     if (entity.type == EntityType_CREWMATE)
     {
-        size_t indice;
-        if (reuse)
-        {
-            indice = entptr - entities.data();
-        }
-        else
-        {
-            indice = entities.size() - 1;
-        }
         updateentities(indice);
     }
+
+    return &entities[indice];
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1, int p2)
 {
-    createentity(xp, yp, t, meta1, meta2, p1, p2, 320, 240);
+    return createentity(xp, yp, t, meta1, meta2, p1, p2, 320, 240);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int p1)
 {
-    createentity(xp, yp, t, meta1, meta2, p1, 0);
+    return createentity(xp, yp, t, meta1, meta2, p1, 0);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2)
 {
-    createentity(xp, yp, t, meta1, meta2, 0);
+    return createentity(xp, yp, t, meta1, meta2, 0);
 }
 
-void entityclass::createentity(int xp, int yp, int t, int meta1)
+entclass* entityclass::createentity(int xp, int yp, int t, int meta1)
 {
-    createentity(xp, yp, t, meta1, 0);
+    return createentity(xp, yp, t, meta1, 0);
 }
 
-void entityclass::createentity(int xp, int yp, int t)
+entclass* entityclass::createentity(int xp, int yp, int t)
 {
-    createentity(xp, yp, t, 0);
+    return createentity(xp, yp, t, 0);
 }
 
 //Returns true if entity is removed
@@ -2600,7 +2581,9 @@ bool entityclass::updateentities( int i )
                 //Emitter: shoot an enemy every so often
                 if (entities[i].state == 0)
                 {
-                    createentity(entities[i].xp+28, entities[i].yp, 1, 10, 1);
+                    entclass* entity = createentity(entities[i].xp+28, entities[i].yp, 1, 10, -1);
+                    set_enemy_type(entity, "lies");
+                    entity->setenemyroom(game.roomx, game.roomy); // For the color
                     entities[i].state = 1;
                     entities[i].statedelay = 12;
                 }
@@ -2635,7 +2618,9 @@ bool entityclass::updateentities( int i )
                 //Emitter: shoot an enemy every so often (up)
                 if (entities[i].state == 0)
                 {
-                    createentity(entities[i].xp, entities[i].yp, 1, 12, 1);
+                    entclass* entity = createentity(entities[i].xp, entities[i].yp, 1, 12, -1);
+                    set_enemy_type(entity, "factory_clouds");
+                    entity->setenemyroom(game.roomx, game.roomy); // For the color
                     entities[i].state = 1;
                     entities[i].statedelay = 16;
                 }
