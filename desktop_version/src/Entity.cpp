@@ -134,6 +134,18 @@ void entityclass::add_default_types(void)
 {
     EnemyType* type;
 
+    // Copies for the editor, without the color set:
+    create_type("custom_square", 78, -1, 1, 16, 16);
+    create_type("custom_circle", 88, -1, 1, 16, 16);
+    create_type("custom_disc", 36, -1, 1, 16, 16);
+    create_type("custom_glitch", 164, -1, 1, 16, 16);
+    create_type("custom_coin", 68, -1, 1, 16, 16);
+    create_type("custom_cross", 48, -1, 5, 16, 16);
+    create_type("custom_triangle", 176, -1, 1, 16, 16);
+    create_type("custom_ice", 168, -1, 1, 16, 16);
+    create_type("custom_heart", 112, -1, 5, 16, 16);
+    create_type("custom_broken_heart", 114, -1, 5, 16, 16);
+
     create_type("square", 78, 7, 1, 16, 16); // Vibrating String Problem
     create_type("circle", 88, 11, 1, 16, 16); // Kids His Age Bounce
     create_type("disc", 36, 8, 1, 16, 16); // Security Sweep
@@ -302,27 +314,27 @@ const char* entityclass::legacy_id_to_entity(const int id)
     switch (id)
     {
     case 0:
-        return "square";
+        return "custom_square";
     case 1:
-        return "circle";
+        return "custom_circle";
     case 2:
-        return "disc";
+        return "custom_disc";
     case 3:
-        return "glitch";
+        return "custom_glitch";
     case 4:
-        return "coin";
+        return "custom_coin";
     case 5:
-        return "cross";
+        return "custom_cross";
     case 6:
-        return "triangle";
+        return "custom_triangle";
     case 7:
-        return "ice";
+        return "custom_ice";
     case 8:
-        return "heart";
+        return "custom_heart";
     case 9:
-        return "broken_heart";
+        return "custom_broken_heart";
     default:
-        return "square";
+        return "custom_square";
     }
 }
 
@@ -432,35 +444,35 @@ void entityclass::set_enemy_colour(entclass* entity)
             break;
         }
     }
-    else
-    {
-        /* Okay, so we're not in a custom level.
-        * Most colors are stored in the enemy type themselves,
-        * because each enemy is pretty much only in a single room.
-        * There's some special cases, though, like LIES and factory clouds,
-        * so let's correct their colors to match the rooms.
-        */
+}
 
-        switch (rn(game.roomx - 100, game.roomy - 100))
-        {
-        // First, adjust the color of the LIES enemies
-        case rn(14, 11):
-            entity->colour = 17;
-            break;
-        case rn(16, 11):
-            entity->colour = 8;
-            break;
+void entityclass::correct_emitter_colours(entclass* entity)
+{
+    /* Most colors are stored in the enemy type themselves,
+    * because each enemy is pretty much only in a single room.
+    * There's some special cases, though, like LIES and factory clouds,
+    * so let's correct their colors to match the rooms.
+    */
+
+    switch (rn(game.roomx - 100, game.roomy - 100))
+    {
+    // First, adjust the color of the LIES enemies
+    case rn(14, 11):
+        entity->colour = 17;
+        break;
+    case rn(16, 11):
+        entity->colour = 8;
+        break;
         // Then, the factory enemies
-        case rn(13, 10):
-            entity->colour = 11;
-            break;
-        case rn(13, 9):
-            entity->colour = 9;
-            break;
-        case rn(13, 8):
-            entity->colour = 8;
-            break;
-        }
+    case rn(13, 10):
+        entity->colour = 11;
+        break;
+    case rn(13, 9):
+        entity->colour = 9;
+        break;
+    case rn(13, 8):
+        entity->colour = 8;
+        break;
     }
 }
 
@@ -1689,12 +1701,12 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         if  (game.roomy == 111 && (game.roomx >= 113 && game.roomx <= 117))
         {
             entity.setenemy(0);
-            set_enemy_colour(&entity);
+            correct_emitter_colours(&entity);
         }
         else if  (game.roomx == 113 && (game.roomy <= 110 && game.roomy >= 108))
         {
             entity.setenemy(1);
-            set_enemy_colour(&entity);
+            correct_emitter_colours(&entity);
         }
         else
         {
@@ -2411,26 +2423,25 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         break;
     case 56: //Custom enemy
     {
-          entity.rule = 1;
-          entity.type = EntityType_MOVING;
-          entity.behave = meta1;
-          entity.para = meta2;
-          entity.w = 16;
-          entity.h = 16;
-          entity.cx = 0;
-          entity.cy = 0;
+        entity.rule = 1;
+        entity.type = EntityType_MOVING;
+        entity.behave = meta1;
+        entity.para = meta2;
+        entity.w = 16;
+        entity.h = 16;
+        entity.cx = 0;
+        entity.cy = 0;
 
-          entity.x1 = p1;
-          entity.y1 = p2;
-          entity.x2 = p3;
-          entity.y2 = p4;
+        entity.x1 = p1;
+        entity.y1 = p2;
+        entity.x2 = p3;
+        entity.y2 = p4;
 
-          entity.harmful = true;
+        entity.harmful = true;
 
-          const char* type = legacy_id_to_entity(customenemy);
-          set_enemy_type(&entity, type);
-          set_enemy_colour(&entity);
-          break;
+        const char* type = legacy_id_to_entity(customenemy);
+        set_enemy_type(&entity, type);
+        set_enemy_colour(&entity);
     }
     case 100: // Invalid enemy, but gets treated as a teleporter
         entity.type = EntityType_TELEPORTER;
@@ -2669,7 +2680,7 @@ bool entityclass::updateentities( int i )
                 {
                     entclass* entity = createentity(entities[i].xp+28, entities[i].yp, 1, 10, -1);
                     set_enemy_type(entity, "lies");
-                    set_enemy_colour(entity);
+                    entity->colour = entities[i].colour;
                     entities[i].state = 1;
                     entities[i].statedelay = 12;
                 }
@@ -2706,7 +2717,7 @@ bool entityclass::updateentities( int i )
                 {
                     entclass* entity = createentity(entities[i].xp, entities[i].yp, 1, 12, -1);
                     set_enemy_type(entity, "factory_clouds");
-                    set_enemy_colour(entity);
+                    entity->colour = entities[i].colour;
                     entities[i].state = 1;
                     entities[i].statedelay = 16;
                 }

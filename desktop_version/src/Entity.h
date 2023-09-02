@@ -70,6 +70,7 @@ public:
     const char* legacy_id_to_entity(int id);
     void set_enemy_type(entclass* entity, const char* type);
     void set_enemy_colour(entclass* entity);
+    void correct_emitter_colours(entclass* entity);
 
     void resetallflags(void);
 
