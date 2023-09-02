@@ -181,21 +181,6 @@ void entclass::setenemyroom( int rx, int ry )
         obj.set_enemy_type(this, "circle");
         break;
         //Space Station 2
-    case rn(14, 11):
-        colour = 17;
-        break; //Lies
-    case rn(16, 11):
-        colour = 8;
-        break; //Lies
-    case rn(13, 10):
-        colour = 11;
-        break; //Factory
-    case rn(13, 9):
-        colour = 9;
-        break; //Factory
-    case rn(13, 8):
-        colour = 8;
-        break; //Factory
     case rn(13,7): // MAVVERRRICK
         obj.set_enemy_type(this, "bus");
         break;

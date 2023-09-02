@@ -248,7 +248,6 @@ void entityclass::set_enemy_type(entclass* entity, const char* type)
     {
         EnemyType* enemyType = &enemy_types[type];
         entity->tile = enemyType->tile;
-        entity->colour = enemyType->colour;
         entity->animate = enemyType->animate;
         entity->w = enemyType->width;
         entity->h = enemyType->height;
@@ -260,6 +259,11 @@ void entityclass::set_enemy_type(entclass* entity, const char* type)
         entity->yp += enemyType->y_offset;
         entity->lerpoldyp += enemyType->y_offset;
         entity->size = enemyType->size;
+
+        if (enemyType->colour != -1)
+        {
+            entity->colour = enemyType->colour;
+        }
 
         if (enemyType->override_behave)
         {
@@ -319,6 +323,144 @@ const char* entityclass::legacy_id_to_entity(const int id)
         return "broken_heart";
     default:
         return "square";
+    }
+}
+
+void entityclass::set_enemy_colour(entclass* entity)
+{
+    if (entity == NULL)
+    {
+        return;
+    }
+
+    // For custom levels, color should be based on the room
+    if (customplatformtile > 0) {
+        // Special case for gray Warp Zone tileset!
+        const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
+        if (room->tileset == 3 && room->tilecol == 6)
+        {
+            entity->colour = 18;
+            return;
+        }
+
+        int entcol = (customplatformtile / 12);
+        switch (entcol) {
+        // RED
+        case 3:
+        case 7:
+        case 12:
+        case 23:
+        case 28:
+        case 34:
+        case 42:
+        case 48:
+        case 58:
+            entity->colour = 6;
+            break;
+        //GREEN
+        case 5:
+        case 9:
+        case 22:
+        case 25:
+        case 29:
+        case 31:
+        case 38:
+        case 46:
+        case 52:
+        case 53:
+            entity->colour = 7;
+            break;
+        // BLUE
+        case 1:
+        case 6:
+        case 14:
+        case 27:
+        case 33:
+        case 44:
+        case 50:
+        case 57:
+            entity->colour = 12;
+            break;
+        // YELLOW
+        case 4:
+        case 17:
+        case 24:
+        case 30:
+        case 37:
+        case 45:
+        case 51:
+        case 55:
+            entity->colour = 9;
+            break;
+        // PURPLE
+        case 2:
+        case 11:
+        case 15:
+        case 19:
+        case 32:
+        case 36:
+        case 49:
+            entity->colour = 20;
+            break;
+        // CYAN
+        case 8:
+        case 10:
+        case 13:
+        case 18:
+        case 26:
+        case 35:
+        case 41:
+        case 47:
+        case 54:
+            entity->colour = 11;
+            break;
+        // PINK
+        case 16:
+        case 20:
+        case 39:
+        case 43:
+        case 56:
+            entity->colour = 8;
+            break;
+        // ORANGE
+        case 21:
+        case 40:
+            entity->colour = 17;
+            break;
+        default:
+            entity->colour = 6;
+            break;
+        }
+    }
+    else
+    {
+        /* Okay, so we're not in a custom level.
+        * Most colors are stored in the enemy type themselves,
+        * because each enemy is pretty much only in a single room.
+        * There's some special cases, though, like LIES and factory clouds,
+        * so let's correct their colors to match the rooms.
+        */
+
+        switch (rn(game.roomx - 100, game.roomy - 100))
+        {
+        // First, adjust the color of the LIES enemies
+        case rn(14, 11):
+            entity->colour = 17;
+            break;
+        case rn(16, 11):
+            entity->colour = 8;
+            break;
+        // Then, the factory enemies
+        case rn(13, 10):
+            entity->colour = 11;
+            break;
+        case rn(13, 9):
+            entity->colour = 9;
+            break;
+        case rn(13, 8):
+            entity->colour = 8;
+            break;
+        }
     }
 }
 
@@ -1498,18 +1640,6 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
     //Rule 4 is a horizontal line, 5 is vertical
     //Rule 6 is a crew member
 
-    bool custom_gray;
-    // Special case for gray Warp Zone tileset!
-    if (map.custommode)
-    {
-        const RoomProperty* const room = cl.getroomprop(game.roomx - 100, game.roomy - 100);
-        custom_gray = room->tileset == 3 && room->tilecol == 6;
-    }
-    else
-    {
-        custom_gray = false;
-    }
-
     entclass& entity = *entptr;
     entity.xp = xp;
     entity.yp = yp;
@@ -1559,12 +1689,12 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         if  (game.roomy == 111 && (game.roomx >= 113 && game.roomx <= 117))
         {
             entity.setenemy(0);
-            entity.setenemyroom(game.roomx, game.roomy); //For colour
+            set_enemy_colour(&entity);
         }
         else if  (game.roomx == 113 && (game.roomy <= 110 && game.roomy >= 108))
         {
             entity.setenemy(1);
-            entity.setenemyroom(game.roomx, game.roomy); //For colour
+            set_enemy_colour(&entity);
         }
         else
         {
@@ -2299,51 +2429,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
 
           const char* type = legacy_id_to_entity(customenemy);
           set_enemy_type(&entity, type);
-
-          //Set colour based on room tile
-           //Set custom colours
-          if (customplatformtile > 0) {
-              int entcol = (customplatformtile / 12);
-              switch (entcol) {
-                  //RED
-              case 3: case 7: case 12: case 23: case 28:
-              case 34: case 42: case 48: case 58:
-                  entity.colour = 6; break;
-                  //GREEN
-              case 5: case 9: case 22: case 25: case 29:
-              case 31: case 38: case 46: case 52: case 53:
-                  entity.colour = 7; break;
-                  //BLUE
-              case 1: case 6: case 14: case 27: case 33:
-              case 44: case 50: case 57:
-                  entity.colour = 12; break;
-                  //YELLOW
-              case 4: case 17: case 24: case 30: case 37:
-              case 45: case 51: case 55:
-                  entity.colour = 9; break;
-                  //PURPLE
-              case 2: case 11: case 15: case 19: case 32:
-              case 36: case 49:
-                  entity.colour = 20; break;
-                  //CYAN
-              case 8: case 10: case 13: case 18: case 26:
-              case 35: case 41: case 47: case 54:
-                  entity.colour = 11; break;
-                  //PINK
-              case 16: case 20: case 39: case 43: case 56:
-                  entity.colour = 8; break;
-                  //ORANGE
-              case 21: case 40:
-                  entity.colour = 17; break;
-              default:
-                  entity.colour = 6;
-                  break;
-              }
-          }
-
-          if (custom_gray) {
-              entity.colour = 18;
-          }
+          set_enemy_colour(&entity);
           break;
     }
     case 100: // Invalid enemy, but gets treated as a teleporter
@@ -2583,7 +2669,7 @@ bool entityclass::updateentities( int i )
                 {
                     entclass* entity = createentity(entities[i].xp+28, entities[i].yp, 1, 10, -1);
                     set_enemy_type(entity, "lies");
-                    entity->setenemyroom(game.roomx, game.roomy); // For the color
+                    set_enemy_colour(entity);
                     entities[i].state = 1;
                     entities[i].statedelay = 12;
                 }
@@ -2620,7 +2706,7 @@ bool entityclass::updateentities( int i )
                 {
                     entclass* entity = createentity(entities[i].xp, entities[i].yp, 1, 12, -1);
                     set_enemy_type(entity, "factory_clouds");
-                    entity->setenemyroom(game.roomx, game.roomy); // For the color
+                    set_enemy_colour(entity);
                     entities[i].state = 1;
                     entities[i].statedelay = 16;
                 }
