@@ -174,7 +174,7 @@ void entityclass::add_default_types(void)
     type->y_offset = -4;
     type = create_type("numbers", 100, 6, 1, 32, 14); // Take the Red Pill
     type->y_offset = 1;
-    type = create_type("solider", 82, 8, 5, 28, 32); // Brass Sent Us Under The Top
+    type = create_type("soldier", 82, 8, 5, 28, 32); // Brass Sent Us Under The Top
     type->corner_x = 4;
     type = create_type("truth", 64, 7, 100, 44, 10); // Boldly To Go
     type->size = 10;

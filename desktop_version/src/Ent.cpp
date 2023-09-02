@@ -188,7 +188,7 @@ void entclass::setenemyroom( int rx, int ry )
         obj.set_enemy_type(this, "truth");
         break;
     case rn(17, 7): //Brass sent us under the top
-        obj.set_enemy_type(this, "solider");
+        obj.set_enemy_type(this, "soldier");
         break;
     case rn(10, 7): // (deception)
         obj.set_enemy_type(this, "bowtie");
