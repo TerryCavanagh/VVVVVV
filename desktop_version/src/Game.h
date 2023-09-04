@@ -501,8 +501,11 @@ public:
 
     //Some stats:
     int totalflips;
-    std::string hardestroom; // don't change to C string unless you wanna handle language switches (or make it store coords)
+    std::string hardestroom; // don't change to C string unless you wanna handle when this string is loaded from the XML
     int hardestroomdeaths, currentroomdeaths;
+    int hardestroom_x, hardestroom_y;
+    bool hardestroom_specialname;
+    bool hardestroom_finalstretch;
 
 
     bool quickrestartkludge;

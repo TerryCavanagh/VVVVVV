@@ -280,6 +280,10 @@ void Game::init(void)
     totalflips = 0;
     hardestroom = "Welcome Aboard";
     hardestroomdeaths = 0;
+    hardestroom_x = 13;
+    hardestroom_y = 5;
+    hardestroom_specialname = false;
+    hardestroom_finalstretch = false;
     currentroomdeaths=0;
 
     inertia = 1.1f;
@@ -2951,7 +2955,10 @@ void Game::updatestate(void)
             );
             graphics.createtextboxflipme(buffer, -1, 158, TEXT_COLOUR("transparent"));
             graphics.textboxprintflags(PR_FONT_INTERFACE);
-            graphics.createtextboxflipme(hardestroom, -1, 170, TEXT_COLOUR("transparent"));
+            graphics.createtextboxflipme(
+                loc::gettext_roomname(map.custommode, hardestroom_x, hardestroom_y, hardestroom.c_str(), hardestroom_specialname),
+                -1, 170, TEXT_COLOUR("transparent")
+            );
             graphics.textboxprintflags(PR_FONT_INTERFACE);
             break;
         }
@@ -4243,13 +4250,19 @@ void Game::gethardestroom(void)
     {
         hardestroomdeaths = currentroomdeaths;
 
+        hardestroom_x = roomx;
+        hardestroom_y = roomy;
+        hardestroom_finalstretch = map.finalstretch;
+
         if (map.roomname[0] == '\0')
         {
-            hardestroom = loc::gettext_roomname_special(map.hiddenname);
+            hardestroom = map.hiddenname;
+            hardestroom_specialname = true;
         }
         else
         {
-            hardestroom = loc::gettext_roomname(map.custommode, roomx, roomy, map.roomname, map.roomname_special);
+            hardestroom = map.roomname;
+            hardestroom_specialname = map.roomname_special;
         }
     }
 }
@@ -5197,6 +5210,13 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         return;
     }
 
+    /* Even if we want the default hardest room to be Welcome Aboard, there are pre-2.4
+     * saves with JUST <hardestroom> which should take priority over the coords */
+    hardestroom_x = -1;
+    hardestroom_y = -1;
+    hardestroom_specialname = false;
+    hardestroom_finalstretch = false;
+
     for (pElem = hDoc
         .FirstChildElement()
         .FirstChildElement("Data")
@@ -5309,6 +5329,22 @@ void Game::readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc)
         {
             hardestroomdeaths = help.Int(pText);
         }
+        else if (SDL_strcmp(pKey, "hardestroom_x") == 0)
+        {
+            hardestroom_x = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_y") == 0)
+        {
+            hardestroom_y = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_specialname") == 0)
+        {
+            hardestroom_specialname = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_finalstretch") == 0)
+        {
+            hardestroom_finalstretch = help.Int(pText);
+        }
         else if (SDL_strcmp(pKey, "currentsong") == 0)
         {
             int song = help.Int(pText);
@@ -5378,6 +5414,12 @@ void Game::customloadquick(const std::string& savfile)
         vlog_error("Error parsing %s.vvv: %s", levelfile.c_str(), doc.ErrorStr());
         return;
     }
+
+    // Like readmaingamesave(...), old saves have just <hardestroom>
+    hardestroom_x = -1;
+    hardestroom_y = -1;
+    hardestroom_specialname = false;
+    hardestroom_finalstretch = false;
 
     for (pElem = hDoc
         .FirstChildElement()
@@ -5513,6 +5555,22 @@ void Game::customloadquick(const std::string& savfile)
         else if (SDL_strcmp(pKey, "hardestroomdeaths") == 0)
         {
             hardestroomdeaths = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_x") == 0)
+        {
+            hardestroom_x = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_y") == 0)
+        {
+            hardestroom_y = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_specialname") == 0)
+        {
+            hardestroom_specialname = help.Int(pText);
+        }
+        else if (SDL_strcmp(pKey, "hardestroom_finalstretch") == 0)
+        {
+            hardestroom_finalstretch = help.Int(pText);
         }
         else if (SDL_strcmp(pKey, "currentsong") == 0)
         {
@@ -5815,6 +5873,10 @@ struct Game::Summary Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 
     xml::update_tag(msgs, "hardestroom", hardestroom.c_str());
     xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
+    xml::update_tag(msgs, "hardestroom_x", hardestroom_x);
+    xml::update_tag(msgs, "hardestroom_y", hardestroom_y);
+    xml::update_tag(msgs, "hardestroom_specialname", (int) hardestroom_specialname);
+    xml::update_tag(msgs, "hardestroom_finalstretch", (int) hardestroom_finalstretch);
 
     xml::update_tag(msgs, "finalmode", (int) map.finalmode);
     xml::update_tag(msgs, "finalstretch", (int) map.finalstretch);
@@ -5962,6 +6024,10 @@ bool Game::customsavequick(const std::string& savfile)
 
     xml::update_tag(msgs, "hardestroom", hardestroom.c_str());
     xml::update_tag(msgs, "hardestroomdeaths", hardestroomdeaths);
+    xml::update_tag(msgs, "hardestroom_x", hardestroom_x);
+    xml::update_tag(msgs, "hardestroom_y", hardestroom_y);
+    xml::update_tag(msgs, "hardestroom_specialname", (int) hardestroom_specialname);
+    xml::update_tag(msgs, "hardestroom_finalstretch", (int) hardestroom_finalstretch);
 
     xml::update_tag(msgs, "showminimap", (int) map.customshowmm);
 
@@ -7391,7 +7457,7 @@ void Game::copyndmresults(void)
 {
     ndmresultcrewrescued = crewrescued();
     ndmresulttrinkets = trinkets();
-    ndmresulthardestroom = hardestroom;
+    ndmresulthardestroom = loc::gettext_roomname(false, hardestroom_x, hardestroom_y, hardestroom.c_str(), hardestroom_specialname);
     SDL_memcpy(ndmresultcrewstats, crewstats, sizeof(ndmresultcrewstats));
 }
 

@@ -3187,8 +3187,12 @@ void scriptclass::hardreset(void)
     game.translator_cutscene_test = false;
 
     game.totalflips = 0;
-    game.hardestroom = loc::gettext_roomname(false, 13, 5, "Welcome Aboard", false);
+    game.hardestroom = "Welcome Aboard";
     game.hardestroomdeaths = 0;
+    game.hardestroom_x = 13;
+    game.hardestroom_y = 5;
+    game.hardestroom_specialname = false;
+    game.hardestroom_finalstretch = false;
     game.currentroomdeaths=0;
 
     game.swnmode = false;
