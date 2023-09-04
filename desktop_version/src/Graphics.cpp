@@ -3422,6 +3422,9 @@ bool Graphics::reloadresources(void)
     grphx.destroy();
     grphx.init();
 
+    gameScreen.isFiltered = !gameScreen.isFiltered;
+    gameScreen.toggleLinearFilter();
+
     MAYBE_FAIL(checktexturesize("tiles.png", grphx.im_tiles, 8, 8));
     MAYBE_FAIL(checktexturesize("tiles2.png", grphx.im_tiles2, 8, 8));
     MAYBE_FAIL(checktexturesize("tiles3.png", grphx.im_tiles3, 8, 8));

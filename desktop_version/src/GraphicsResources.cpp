@@ -262,6 +262,8 @@ static void LoadSprites(const char* filename, SDL_Texture** texture, SDL_Surface
 
 void GraphicsResources::init(void)
 {
+    SDL_SetHintWithPriority(SDL_HINT_RENDER_SCALE_QUALITY, "nearest", SDL_HINT_OVERRIDE);
+
     LoadVariants("graphics/tiles.png", &im_tiles, &im_tiles_white, &im_tiles_tint);
     LoadVariants("graphics/tiles2.png", &im_tiles2, NULL, &im_tiles2_tint);
     LoadVariants("graphics/entcolours.png", &im_entcolours, NULL, &im_entcolours_tint);

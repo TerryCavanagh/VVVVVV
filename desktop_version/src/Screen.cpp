@@ -39,11 +39,8 @@ void Screen::init(const struct ScreenSettings* settings)
     badSignalEffect = settings->badSignal;
     vsync = settings->useVsync;
 
-    SDL_SetHintWithPriority(
-        SDL_HINT_RENDER_SCALE_QUALITY,
-        isFiltered ? "linear" : "nearest",
-        SDL_HINT_OVERRIDE
-    );
+    SDL_SetHintWithPriority(SDL_HINT_RENDER_SCALE_QUALITY, "nearest", SDL_HINT_OVERRIDE);
+
     SDL_SetHintWithPriority(
         SDL_HINT_RENDER_VSYNC,
         vsync ? "1" : "0",
