@@ -22,7 +22,6 @@ void entclass::clear(void)
     colour = 0;
     para = 0;
     behave = 0;
-    animate = 0;
 
     xp = 0;
     yp = 0;
@@ -69,6 +68,10 @@ void entclass::clear(void)
     SDL_zero(realcol);
     lerpoldxp = 0;
     lerpoldyp = 0;
+
+    animation_frames = 4;
+    animation_type = EntityAnimationType_OSCILLATE;
+    animation_speed = 8;
 }
 
 bool entclass::outside(void)

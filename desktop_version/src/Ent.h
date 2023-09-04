@@ -52,6 +52,16 @@ enum EntityRenderType
     EntityRenderType_SPRITE_6x
 };
 
+enum EntityAnimationTypes
+{
+    EntityAnimationType_STILL,
+    EntityAnimationType_OSCILLATE,
+    EntityAnimationType_LOOP,
+    EntityAnimationType_ONESHOT,
+    EntityAnimationType_CONVEYOR_LEFT,
+    EntityAnimationType_CONVEYOR_RIGHT
+};
+
 class entclass
 {
 public:
@@ -77,7 +87,7 @@ public:
     EntityRenderType render_type;
     int tile, rule;
     int state, statedelay;
-    int behave, animate;
+    int behave;
     float para;
     int life, colour;
 
@@ -98,6 +108,9 @@ public:
     int onground, onroof;
     //Animation
     int framedelay, drawframe, walkingframe, dir, actionframe;
+    int animation_frames;
+    EntityAnimationTypes animation_type;
+    int animation_speed;
     int collisionframedelay, collisiondrawframe, collisionwalkingframe;
     int visualonground, visualonroof;
     int yp;int xp;

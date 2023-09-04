@@ -314,13 +314,17 @@ void scriptclass::run(void)
                 }
                 else if (words[1] == "platforms" || words[1] == "moving")
                 {
-                    const bool fixed = words[1] == "moving";
-
                     for (size_t edi = 0; edi < obj.entities.size(); edi++)
                     {
-                        if (obj.entities[edi].rule == 2 && obj.entities[edi].animate == 100)
+                        if (obj.entities[edi].type == EntityType_DISAPPEARING_PLATFORM)
                         {
-                            if (fixed)
+                            if (obj.entities[edi].behave >= 8 && obj.entities[edi].behave < 10)
+                            {
+                                // We don't want conveyors, moving platforms only
+                                continue;
+                            }
+
+                            if (words[1] == "moving")
                             {
                                 obj.disableblockat(obj.entities[edi].xp, obj.entities[edi].yp);
                             }

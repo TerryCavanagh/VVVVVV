@@ -105,12 +105,18 @@ void entityclass::init(void)
     add_default_types();
 }
 
-EnemyType* entityclass::create_type(const char* type, int tile, int colour, int animate, int width, int height)
+EnemyType* entityclass::create_type(
+    const char* type, int tile, int colour,
+    EntityAnimationTypes animation_type, int animation_frames, int animation_speed,
+    int width, int height
+)
 {
     EnemyType enemy_type;
     enemy_type.tile = tile;
     enemy_type.colour = colour;
-    enemy_type.animate = animate;
+    enemy_type.animation_type = animation_type;
+    enemy_type.animation_frames = animation_frames;
+    enemy_type.animation_speed = animation_speed;
     enemy_type.width = width;
     enemy_type.height = height;
     enemy_type.harmful = true;
@@ -135,79 +141,79 @@ void entityclass::add_default_types(void)
     EnemyType* type;
 
     // Copies for the editor, without the color set:
-    create_type("custom_square", 78, -1, 1, 16, 16);
-    create_type("custom_circle", 88, -1, 1, 16, 16);
-    create_type("custom_disc", 36, -1, 1, 16, 16);
-    create_type("custom_glitch", 164, -1, 1, 16, 16);
-    create_type("custom_coin", 68, -1, 1, 16, 16);
-    create_type("custom_cross", 48, -1, 5, 16, 16);
-    create_type("custom_triangle", 176, -1, 1, 16, 16);
-    create_type("custom_ice", 168, -1, 1, 16, 16);
-    create_type("custom_heart", 112, -1, 5, 16, 16);
-    create_type("custom_broken_heart", 114, -1, 5, 16, 16);
+    create_type("custom_square", 78, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_circle", 88, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_disc", 36, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_glitch", 164, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_coin", 68, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_cross", 48, -1, EntityAnimationType_LOOP, 2, 6, 16, 16);
+    create_type("custom_triangle", 176, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_ice", 168, -1, EntityAnimationType_LOOP, 4, 8, 16, 16);
+    create_type("custom_heart", 112, -1, EntityAnimationType_LOOP, 2, 6, 16, 16);
+    create_type("custom_broken_heart", 114, -1, EntityAnimationType_LOOP, 2, 6, 16, 16);
 
-    create_type("square", 78, 7, 1, 16, 16); // Vibrating String Problem
-    create_type("circle", 88, 11, 1, 16, 16); // Kids His Age Bounce
-    create_type("disc", 36, 8, 1, 16, 16); // Security Sweep
-    create_type("glitch", 164, 7, 1, 16, 16); // Backsliders
-    create_type("coin", 68, 7, 1, 16, 16); // $eeing Dollar $ign$
-    create_type("cross", 48, 9, 5, 16, 16); // Ascending and Descending
-    create_type("triangle", 176, 6, 1, 16, 16); // Shockwave Rider
-    create_type("ice", 168, 7, 1, 16, 16); // Mind The Gap
-    create_type("heart", 112, 8, 5, 16, 16); // I Love You
-    create_type("broken_heart", 114, 6, 5, 16, 16); // That's Why I Have To Kill You
+    create_type("square", 78, 7, EntityAnimationType_LOOP, 4, 8, 16, 16); // Vibrating String Problem
+    create_type("circle", 88, 11, EntityAnimationType_LOOP, 4, 8, 16, 16); // Kids His Age Bounce
+    create_type("disc", 36, 8, EntityAnimationType_LOOP, 4, 8, 16, 16); // Security Sweep
+    create_type("glitch", 164, 7, EntityAnimationType_LOOP, 4, 8, 16, 16); // Backsliders
+    create_type("coin", 68, 7, EntityAnimationType_LOOP, 4, 8, 16, 16); // $eeing Dollar $ign$
+    create_type("cross", 48, 9, EntityAnimationType_LOOP, 2, 6, 16, 16); // Ascending and Descending
+    create_type("triangle", 176, 6, EntityAnimationType_LOOP, 4, 8, 16, 16); // Shockwave Rider
+    create_type("ice", 168, 7, EntityAnimationType_LOOP, 4, 8, 16, 16); // Mind The Gap
+    create_type("heart", 112, 8, EntityAnimationType_LOOP, 2, 6, 16, 16); // I Love You
+    create_type("broken_heart", 114, 6, EntityAnimationType_LOOP, 2, 6, 16, 16); // That's Why I Have To Kill You
 
-    create_type("bowtie", 92, 6, 1, 16, 16); // A Deception
-    create_type("crate", 24, 6, 1, 16, 16); // UNUSED in main game
+    create_type("bowtie", 92, 6, EntityAnimationType_LOOP, 4, 8, 16, 16); // A Deception
+    create_type("crate", 24, 6, EntityAnimationType_LOOP, 4, 8, 16, 16); // UNUSED in main game
 
-    create_type("wavelength", 32, 7, 1, 32, 16); // Linear Collider
-    create_type("stop", 28, 6, 1, 22, 32); // Traffic Jam
-    create_type("yes", 40, 9, 1, 20, 20); // The Yes Men
-    create_type("vertigo", 172, 7, 100, 32, 32); // Vertigo
-    create_type("guard", 44, 8, 1, 16, 20); // Trench Warfare
-    create_type("obey", 51, 11, 100, 30, 14); // Time to get serious
-    create_type("ghost", 106, 7, 2, 24, 25); // The Tomb of Mad Carew
-    create_type("wheel", 116, 12, 1, 32, 32); // The Hanged Man, Reversed
-    create_type("skeleton", 56, 6, 1, 15, 24); // You Chose... Poorly
+    create_type("wavelength", 32, 7, EntityAnimationType_LOOP, 4, 8, 32, 16); // Linear Collider
+    create_type("stop", 28, 6, EntityAnimationType_LOOP, 4, 8, 22, 32); // Traffic Jam
+    create_type("yes", 40, 9, EntityAnimationType_LOOP, 4, 8, 20, 20); // The Yes Men
+    create_type("vertigo", 172, 7, EntityAnimationType_STILL, 1, 1, 32, 32); // Vertigo
+    create_type("guard", 44, 8, EntityAnimationType_LOOP, 4, 8, 16, 20); // Trench Warfare
+    create_type("obey", 51, 11, EntityAnimationType_STILL, 1, 1, 30, 14); // Time to get serious
+    create_type("ghost", 106, 7, EntityAnimationType_LOOP, 2, 2, 24, 25); // The Tomb of Mad Carew
+    create_type("wheel", 116, 12, EntityAnimationType_LOOP, 4, 8, 32, 32); // The Hanged Man, Reversed
+    create_type("skeleton", 56, 6, EntityAnimationType_LOOP, 4, 8, 15, 24); // You Chose... Poorly
 
-    type = create_type("mannequin", 52, 7, 5, 16, 25); // Short Circuit
+    type = create_type("mannequin", 52, 7, EntityAnimationType_LOOP, 2, 6, 16, 25); // Short Circuit
     type->y_offset = -4;
-    type = create_type("numbers", 100, 6, 1, 32, 14); // Take the Red Pill
+    type = create_type("numbers", 100, 6, EntityAnimationType_LOOP, 4, 8, 32, 14); // Take the Red Pill
     type->y_offset = 1;
-    type = create_type("soldier", 82, 8, 5, 28, 32); // Brass Sent Us Under The Top
+    type = create_type("soldier", 82, 8, EntityAnimationType_LOOP, 2, 6, 28, 32); // Brass Sent Us Under The Top
     type->corner_x = 4;
-    type = create_type("truth", 64, 7, 100, 44, 10); // Boldly To Go
+    type = create_type("truth", 64, 7, EntityAnimationType_STILL, 1, 1, 44, 10); // Boldly To Go
     type->render_type = EntityRenderType_SPRITE_2x1;
-    type = create_type("bus", 96, 6, 4, 64, 44); // B-B-B-Busted
+    type = create_type("bus", 96, 6, EntityAnimationType_LOOP, 2, 6, 64, 44); // B-B-B-Busted
     type->render_type = EntityRenderType_SPRITE_2x2;
 
-    type = create_type("transmitter", 104, 4, 7, 16, 16); // Comms Relay
+    type = create_type("transmitter", 104, 4, EntityAnimationType_LOOP, 2, 6, 16, 16); // Comms Relay
     type->harmful = false;
     type->x_offset = -24;
     type->y_offset = -16;
 
-    type = create_type("radar", 124, 4, 6, 64, 64); // Comms Relay
+    type = create_type("radar", 124, 4, EntityAnimationType_LOOP, 4, 4, 64, 64); // Comms Relay
     type->harmful = false;
     type->x_offset = -4;
     type->y_offset = -32;
     type->corner_x = 4;
     type->render_type = EntityRenderType_SPRITE_2x2;
 
-    create_type("edgegames_left", 160, 8, 1, 16, 16); // Edge Games
-    create_type("edgegames_right", 156, 8, 1, 16, 16); // Edge Games
+    create_type("edgegames_left", 160, 8, EntityAnimationType_LOOP, 4, 8, 16, 16); // Edge Games
+    create_type("edgegames_right", 156, 8, EntityAnimationType_LOOP, 4, 8, 16, 16); // Edge Games
 
-    type = create_type("centipede_right", 66, 12, 100, 60, 16); // Sweeney's Maze
+    type = create_type("centipede_right", 66, 12, EntityAnimationType_STILL, 1, 1, 60, 16); // Sweeney's Maze
     type->render_type = EntityRenderType_SPRITE_2x1;
-    type = create_type("centipede_left", 54, 12, 100, 60, 16); // Sweeney's Maze
+    type = create_type("centipede_left", 54, 12, EntityAnimationType_STILL, 1, 1, 60, 16); // Sweeney's Maze
     type->render_type = EntityRenderType_SPRITE_2x1;
 
     // LIES
-    type = create_type("lies_emitter", 60, 6, 2, 32, 32);
+    type = create_type("lies_emitter", 60, 6, EntityAnimationType_LOOP, 2, 2, 32, 32);
     type->behave = 10;
     type->x1 = -200;
     type->override_behave = true;
     type->override_x1 = true;
-    type = create_type("lies", 63, 6, 100, 26, 10);
+    type = create_type("lies", 63, 6, EntityAnimationType_STILL, 1, 1, 26, 10);
     type->corner_x = 1;
     type->corner_y = 1;
     type->y_offset = 10;
@@ -219,17 +225,17 @@ void entityclass::add_default_types(void)
     type->override_para = true;
     type->override_x1 = true;
     type->override_x2 = true;
-    type = create_type("lies_collector", 62, 6, 100, 32, 32);
+    type = create_type("lies_collector", 62, 6, EntityAnimationType_STILL, 1, 1, 32, 32);
     type->behave = -1;
     type->override_behave = true;
 
     // Factory
-    type = create_type("factory_emitter", 72, 6, 3, 64, 40);
+    type = create_type("factory_emitter", 72, 6, EntityAnimationType_LOOP, 2, 2, 64, 40);
     type->corner_y = 24;
     type->render_type = EntityRenderType_SPRITE_2x2;
     type->behave = 12;
     type->override_behave = true;
-    type = create_type("factory_clouds", 76, 6, 100, 32, 12);
+    type = create_type("factory_clouds", 76, 6, EntityAnimationType_STILL, 1, 1, 32, 12);
     type->corner_y = 6;
     type->x_offset = 4;
     type->y_offset = -4;
@@ -239,12 +245,12 @@ void entityclass::add_default_types(void)
     type->override_behave = true;
     type->override_para = true;
     type->override_x2 = true;
-    type = create_type("factory_collector", 77, 6, 100, 32, 16);
+    type = create_type("factory_collector", 77, 6, EntityAnimationType_STILL, 1, 1, 32, 16);
     type->behave = -1;
     type->override_behave = true;
 
     // Elephant
-    type = create_type("elephant", 0, 102, 0, 464, 320);
+    type = create_type("elephant", 0, 102, EntityAnimationType_STILL, 1, 1, 464, 320);
     type->render_type = EntityRenderType_ELEPHANT;
     type->harmful = false;
 }
@@ -260,7 +266,9 @@ void entityclass::set_enemy_type(entclass* entity, const char* type)
     {
         EnemyType* enemyType = &enemy_types[type];
         entity->tile = enemyType->tile;
-        entity->animate = enemyType->animate;
+        entity->animation_frames = enemyType->animation_frames;
+        entity->animation_speed = enemyType->animation_speed;
+        entity->animation_type = enemyType->animation_type;
         entity->w = enemyType->width;
         entity->h = enemyType->height;
         entity->harmful = enemyType->harmful;
@@ -1693,10 +1701,12 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
 
         entity.harmful = true;
         entity.tile = 24;
-        entity.animate = 0;
         entity.colour = 8;
 
         entity.type = EntityType_MOVING;
+        entity.animation_frames = 4;
+        entity.animation_type = EntityAnimationType_OSCILLATE;
+        entity.animation_speed = 8;
 
         if  (game.roomy == 111 && (game.roomx >= 113 && game.roomx <= 117))
         {
@@ -1756,20 +1766,20 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         if (meta1 >= 8  && meta1 <= 9)
         {
             horplatforms = true; //threadmill!
-            entity.animate = 10;
+            entity.animation_type = EntityAnimationType_CONVEYOR_LEFT;
             if(customplatformtile>0){
               entity.tile = customplatformtile+4;
               if (meta1 == 8) entity.tile += 4;
-              if (meta1 == 9) entity.animate = 11;
+              if (meta1 == 9) entity.animation_type = EntityAnimationType_CONVEYOR_RIGHT;
             }else{
               entity.settreadmillcolour(game.roomx, game.roomy);
               if (meta1 == 8) entity.tile += 40;
-              if (meta1 == 9) entity.animate = 11;
+              if (meta1 == 9) entity.animation_type = EntityAnimationType_CONVEYOR_RIGHT;
             }
         }
         else
         {
-            entity.animate = 100;
+            entity.animation_type = EntityAnimationType_STILL;
         }
 
         entity.x1 = p1;
@@ -1807,7 +1817,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.behave = meta1;
         entity.para = meta2;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         createblock(0, xp, yp, 32, 8);
         break;
@@ -1822,7 +1832,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.behave = meta1;
         entity.para = meta2;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         createblock(0, xp, yp, 8, 8);
         break;
@@ -1836,7 +1846,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.behave = meta1;
         entity.para = meta2;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         break;
     case 6: //Decorative particles
         entity.rule = 2;
@@ -1866,7 +1876,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.w = 8;
         entity.h = 8;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         //Check if it's already been collected
         entity.para = meta1;
@@ -1881,7 +1891,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 16;
         entity.colour = 3;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         //Check if it's already been collected
         entity.para = meta1;
@@ -1896,7 +1906,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
 
         if (game.savepoint == meta2)
@@ -1938,7 +1948,6 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 16;
         entity.colour = 10;
         entity.onentity = 1;
-        entity.animate = 2;
         //Added in port, hope it doesn't break anything
         entity.behave = meta1;
         entity.para = meta2;
@@ -1952,7 +1961,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 96;
         entity.colour = 100;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
         break;
     case 15: // Crew Member (warp zone)
@@ -2053,7 +2062,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
         break;
     case 21: //as above, except doesn't highlight
@@ -2065,7 +2074,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 0;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
         break;
     case 22: //Fake trinkets, only appear if you've collected them
@@ -2077,7 +2086,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 16;
         entity.colour = 3;
         entity.onentity = 0;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
 
         //Check if it's already been collected
         entity.para = meta1;
@@ -2105,7 +2114,9 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.render_type = EntityRenderType_SPRITE_NO_WRAP; //don't wrap around
         entity.colour = 21;
         entity.tile = 78; //default case
-        entity.animate = 1;
+        entity.animation_frames = 4;
+        entity.animation_speed = 8;
+        entity.animation_type = EntityAnimationType_LOOP;
         if (game.swngame == SWN_SUPERGRAVITRON)
         {
             //set colour based on current state
@@ -2163,7 +2174,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 16;
         entity.colour = 4;
         entity.onentity = 1;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
 
         //Decide tile here based on given achievement: both whether you have them and what they are
@@ -2338,7 +2349,7 @@ entclass* entityclass::createentity(int xp, int yp, int t, int meta1, int meta2,
         entity.h = 16;
         entity.colour = 3;
         entity.onentity = 0;
-        entity.animate = 100;
+        entity.animation_type = EntityAnimationType_STILL;
         entity.para = meta2;
         entity.render_type = EntityRenderType_SPRITE_6x;
         break;
@@ -3799,28 +3810,48 @@ void entityclass::animateentities( int _i )
             break;
         case EntityType_MOVING:
         case EntityType_GRAVITRON_ENEMY:
-            //Variable animation
-            switch(entities[_i].animate)
+        {
+            int offset = 1;
+
+            if (entities[_i].render_type == EntityRenderType_SPRITE_2x1 || entities[_i].render_type == EntityRenderType_SPRITE_2x2)
             {
-            case 0:
-                //Simple oscilation
+                offset = 2;
+            }
+
+            switch (entities[_i].animation_type)
+            {
+            case EntityAnimationType_LOOP:
                 entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
+                if (entities[_i].framedelay <= 0)
                 {
-                    entities[_i].framedelay = 8;
-                    if(entities[_i].actionframe==0)
+                    entities[_i].framedelay = entities[_i].animation_speed;
+                    entities[_i].walkingframe++;
+                    if (entities[_i].walkingframe >= entities[_i].animation_frames)
+                    {
+                        entities[_i].walkingframe = 0;
+                    }
+                }
+
+                entities[_i].drawframe = entities[_i].tile + entities[_i].walkingframe * offset;
+                break;
+            case EntityAnimationType_OSCILLATE:
+                entities[_i].framedelay--;
+                if (entities[_i].framedelay <= 0)
+                {
+                    entities[_i].framedelay = entities[_i].animation_speed;
+                    if (entities[_i].actionframe == 0)
                     {
                         entities[_i].walkingframe++;
-                        if (entities[_i].walkingframe == 4)
+                        if (entities[_i].walkingframe >= entities[_i].animation_frames)
                         {
-                            entities[_i].walkingframe = 2;
+                            entities[_i].walkingframe = entities[_i].animation_frames - 1;
                             entities[_i].actionframe = 1;
                         }
                     }
                     else
                     {
                         entities[_i].walkingframe--;
-                        if (entities[_i].walkingframe == -1)
+                        if (entities[_i].walkingframe < 0)
                         {
                             entities[_i].walkingframe = 1;
                             entities[_i].actionframe = 0;
@@ -3829,126 +3860,12 @@ void entityclass::animateentities( int _i )
                 }
 
                 entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
+                entities[_i].drawframe += entities[_i].walkingframe * offset;
                 break;
-            case 1:
-                //Simple Loop
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 8;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 4)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
-                break;
-            case 2:
-                //Simpler Loop (just two frames)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 2;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
-                break;
-            case 3:
-                //Simpler Loop (just two frames, but double sized)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 2;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += (entities[_i].walkingframe*2);
-                break;
-            case 4:
-                //Simpler Loop (just two frames, but double sized) (as above but slower)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 6;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += (entities[_i].walkingframe*2);
-                break;
-            case 5:
-                //Simpler Loop (just two frames) (slower)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 6;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
-                break;
-            case 6:
-                //Normal Loop (four frames, double sized)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 4;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 4)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += (entities[_i].walkingframe*2);
-                break;
-            case 7:
-                //Simpler Loop (just two frames) (slower) (with directions!)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 6;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
-
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
-
-                if (entities[_i].vx > 0.000f ) entities[_i].drawframe += 2;
-                break;
-            case 10:
+            case EntityAnimationType_CONVEYOR_LEFT:
                 //Threadmill left
                 entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
+                if (entities[_i].framedelay <= 0)
                 {
                     entities[_i].framedelay = 3;//(6-entities[_i].para);
                     entities[_i].walkingframe--;
@@ -3961,10 +3878,10 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe = entities[_i].tile;
                 entities[_i].drawframe += entities[_i].walkingframe;
                 break;
-            case 11:
+            case EntityAnimationType_CONVEYOR_RIGHT:
                 //Threadmill right
                 entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
+                if (entities[_i].framedelay <= 0)
                 {
                     entities[_i].framedelay = 3;//(6-entities[_i].para);
                     entities[_i].walkingframe++;
@@ -3977,37 +3894,35 @@ void entityclass::animateentities( int _i )
                 entities[_i].drawframe = entities[_i].tile;
                 entities[_i].drawframe += entities[_i].walkingframe;
                 break;
-            case 100:
-                //Simple case for no animation (platforms, etc)
-                entities[_i].drawframe = entities[_i].tile;
-                break;
+            case EntityAnimationType_STILL:
             default:
                 entities[_i].drawframe = entities[_i].tile;
                 break;
             }
+
             break;
+        }
         case EntityType_DISAPPEARING_PLATFORM: //Disappearing platforms
             entities[_i].drawframe = entities[_i].tile + entities[_i].walkingframe;
             break;
         case EntityType_WARP_TOKEN:
             entities[_i].drawframe = entities[_i].tile;
-            if(entities[_i].animate==2)
-            {
-                //Simpler Loop (just two frames)
-                entities[_i].framedelay--;
-                if(entities[_i].framedelay<=0)
-                {
-                    entities[_i].framedelay = 10;
-                    entities[_i].walkingframe++;
-                    if (entities[_i].walkingframe == 2)
-                    {
-                        entities[_i].walkingframe = 0;
-                    }
-                }
 
-                entities[_i].drawframe = entities[_i].tile;
-                entities[_i].drawframe += entities[_i].walkingframe;
+            // Two frame loop
+            entities[_i].framedelay--;
+            if (entities[_i].framedelay <= 0)
+            {
+                entities[_i].framedelay = 10;
+                entities[_i].walkingframe++;
+                if (entities[_i].walkingframe == 2)
+                {
+                    entities[_i].walkingframe = 0;
+                }
             }
+
+            entities[_i].drawframe = entities[_i].tile;
+            entities[_i].drawframe += entities[_i].walkingframe;
+
             break;
         case EntityType_CREWMATE:
         case EntityType_COLLECTABLE_CREWMATE:
