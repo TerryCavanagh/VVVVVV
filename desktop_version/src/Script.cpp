@@ -295,7 +295,7 @@ void scriptclass::run(void)
                 {
                     for (size_t edi = 0; edi < obj.entities.size(); edi++)
                     {
-                        if (obj.entities[edi].type == 9 || obj.entities[edi].type == 10)
+                        if (obj.entities[edi].type == EntityType_HORIZONTAL_GRAVITY_LINE || obj.entities[edi].type == EntityType_VERTICAL_GRAVITY_LINE)
                         {
                             obj.disableentity(edi);
                         }
@@ -332,7 +332,7 @@ void scriptclass::run(void)
                     for (size_t edi = 0; edi < obj.entities.size(); edi++)
                     {
                         obj.disableblockat(obj.entities[edi].xp, obj.entities[edi].yp);
-                        if (obj.entities[edi].type == 2 && obj.entities[edi].rule == 3)
+                        if (obj.entities[edi].type == EntityType_DISAPPEARING_PLATFORM && obj.entities[edi].rule == 3)
                         {
                             obj.disableentity(edi);
                         }
@@ -1648,7 +1648,7 @@ void scriptclass::run(void)
             {
                 for (j = 0; j < (int) obj.entities.size(); j++)
                 {
-                    if (obj.entities[j].type == 13)
+                    if (obj.entities[j].type == EntityType_TERMINAL)
                     {
                         obj.entities[j].colour = 4;
                     }

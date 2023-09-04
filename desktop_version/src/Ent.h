@@ -5,6 +5,34 @@
 
 #define        rn( rx,  ry) ((rx) + ((ry) * 100))
 
+enum EntityTypes
+{
+    EntityType_INVALID = -1,
+    EntityType_PLAYER,
+    EntityType_MOVING,
+    EntityType_DISAPPEARING_PLATFORM,
+    EntityType_QUICKSAND,
+    EntityType_GRAVITY_TOKEN,
+    EntityType_PARTICLE,
+    EntityType_COIN,
+    EntityType_TRINKET,
+    EntityType_CHECKPOINT,
+    EntityType_HORIZONTAL_GRAVITY_LINE,
+    EntityType_VERTICAL_GRAVITY_LINE,
+    EntityType_WARP_TOKEN,
+    EntityType_CREWMATE,
+    EntityType_TERMINAL,
+    EntityType_SUPERCREWMATE,
+    EntityType_TROPHY,
+    EntityType_GRAVITRON_ENEMY = 23,
+    EntityType_WARP_LINE_LEFT = 51,
+    EntityType_WARP_LINE_RIGHT = 52,
+    EntityType_WARP_LINE_TOP = 53,
+    EntityType_WARP_LINE_BOTTOM = 54,
+    EntityType_COLLECTABLE_CREWMATE = 55,
+    EntityType_TELEPORTER = 100
+};
+
 class entclass
 {
 public:
@@ -26,7 +54,8 @@ public:
 public:
     //Fundamentals
     bool invis;
-    int type, size, tile, rule;
+    EntityTypes type;
+    int size, tile, rule;
     int state, statedelay;
     int behave, animate;
     float para;
