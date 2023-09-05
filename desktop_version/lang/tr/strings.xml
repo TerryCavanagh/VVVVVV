@@ -213,8 +213,8 @@
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Etkileşim için ENTER tuşunun mu|E tuşunun mu kullanılacağını seç." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
-    <string english="ESC" translation="" explanation="keyboard key ESC"/>
-    <string english="ACTION" translation="" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
+    <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
+    <string english="ACTION" translation="AKSİYON" explanation="the ACTION key is either the SPACE key, Z or V (this is explained on the title screen). It&apos;s used in strings like `Press ACTION to advance text`"/>
     <string english="Interact button: {button}" translation="Etkileşim düğmesi: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="sahte yükleme ekranı" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Sahte Yükleme Ekranı" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
@@ -423,14 +423,14 @@
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="&quot;levels&quot; klasörünün yolunu göstermek istediğinden emin misin? Bu işlem, yayın yapıyorsan hassas bilgilerin görünmesine neden olabilir." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="&quot;levels&quot; klasörünün yolu:" explanation="" max="40"/>
     <string english="[ Press ACTION to Start ]" translation="[ Başlamak için AKSİYON tuşuna bas ]" explanation="***OUTDATED***" max="38*2"/>
-    <string english="[ Press {button} to Start ]" translation="" explanation="title screen. Expect `ACTION`" max="38*2"/>
+    <string english="[ Press {button} to Start ]" translation="[ Başlamak için {button} tuşuna bas ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="AKSİYON = Boşluk, Z veya V" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="[Düzenleyiciye dönmek için ENTER&apos;a bas]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to return to editor]" translation="" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="[Press {button} to return to editor]" translation="[Düzenleyiciye dönmek için {button} tuşuna bas]" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="- Metni geçmek için AKSİYON tuşuna bas -" explanation="***OUTDATED***" max="40"/>
-    <string english="- Press {button} to advance text -" translation="" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="- Press {button} to advance text -" translation="- Metni ilerletmek için {button} tuşuna bas -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="AKSİYON tuşuna basarak devam et" explanation="***OUTDATED***" max="34"/>
-    <string english="Press {button} to continue" translation="" explanation="Expect `ACTION`" max="34"/>
+    <string english="Press {button} to continue" translation="Devam etmek için {button} tuşuna bas" explanation="Expect `ACTION`" max="34"/>
     <string english="Current Time" translation="Mevcut Süre" explanation="super gravitron, stopwatch time" max="20"/>
     <string english="Best Time" translation="En İyi Süre" explanation="super gravitron, best stopwatch time" max="20"/>
     <string english="Next Trophy at 5 seconds" translation="Sıradaki Ödüle 5 Saniye" explanation="" max="38*2"/>
@@ -443,7 +443,7 @@
     <string english="New Record!" translation="Yeni Rekor!" explanation="" max="20"/>
     <string english="New Trophy!" translation="Yeni Ödül!" explanation="" max="20"/>
     <string english="[Press ENTER to stop]" translation="[Durdurmak için ENTER tuşuna bas]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to stop]" translation="" explanation="stop super gravitron" max="40"/>
+    <string english="[Press {button} to stop]" translation="Durmak için {button} tuşuna bas" explanation="stop super gravitron" max="40"/>
     <string english="SUPER GRAVITRON" translation="SÜPER GRAVITRON" explanation="" max="20"/>
     <string english="SUPER GRAVITRON HIGHSCORE" translation="SÜPER GRAVITRON - EN İYİ SKOR" explanation="" max="38*4"/>
     <string english="MAP" translation="HARİTA" explanation="in-game menu" max="8"/>
@@ -457,7 +457,7 @@
     <string english="[ GRAVITRON ]" translation="[ GRAVITRON ]" explanation="in-game menu" max="40"/>
     <string english="NO SIGNAL" translation="SİNYAL YOK" explanation="map screen. So like a TV/computer monitor" max="29"/>
     <string english="Press ACTION to warp to the ship." translation="Gemiyi ışınlamak için AKSİYON tuşuna bas." explanation="***OUTDATED***" max="38*7"/>
-    <string english="Press {button} to warp to the ship." translation="" explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
+    <string english="Press {button} to warp to the ship." translation="Gemiyi ışınlamak için {button} tuşuna bas." explanation="spaceship. Warp = teleport. Expect `ACTION`" max="38*7"/>
     <string english="Missing..." translation="Kayıp..." case="1" explanation="this male crew member is missing" max="15"/>
     <string english="Missing..." translation="Kayıp..." case="2" explanation="this female crew member is missing" max="15"/>
     <string english="Missing..." translation="Kayıp..." case="3" explanation="Viridian is missing (final level). You could even fill in something like `Uh-oh...` here if you really have to specify gender otherwise - everyone else is rescued, but the player is missing" max="15"/>
@@ -472,7 +472,7 @@
     <string english="ERROR: Could not save settings file!" translation="HATA: Ayarlar dosyası kaydedilemedi!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Oyun başarıyla kaydedildi!" explanation="in-game menu" max="38*2"/>
     <string english="[Press ACTION to save your game]" translation="[AKSİYON tuşuna basarak kaydet]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to save your game]" translation="" explanation="in-game menu. Expect `ACTION`" max="40"/>
+    <string english="[Press {button} to save your game]" translation="[Oyunu kaydetmek için {button} tuşuna bas]" explanation="in-game menu. Expect `ACTION`" max="40"/>
     <string english="(Note: The game is autosaved at every teleporter.)" translation="(Not: Işınlayıcılarda otomatik kaydedilir.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Son Kayıt:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Ana menüye dönülsün mü?" explanation="in-game menu" max="38*4"/>
@@ -500,7 +500,7 @@
     <string english="Press {button} to activate terminal" translation="{button}, terminali etkinleştirir" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="{button}, terminalleri etkinleştirir" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Etkileşim kurmak için {button} tuşuna bas" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="- Press {button} to skip -" translation="" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
+    <string english="- Press {button} to skip -" translation="- Atlamak için {button} tuşuna bas -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
     <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
@@ -524,10 +524,10 @@
     <string english="change author" translation="geliştiriciyi değiştir" explanation="level editor menu option"/>
     <string english="change description" translation="açıklamayı değiştir" explanation="level editor menu option"/>
     <string english="change website" translation="web sitesini değiştir" explanation="level editor menu option"/>
-    <string english="change font" translation="" explanation="level editor menu option"/>
-    <string english="Level Font" translation="" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
-    <string english="Select the language in which the text in this level is written." translation="" explanation="" max="38*3"/>
-    <string english="Font: " translation="" explanation="level options, followed by name of font (mind the space)" max="15"/>
+    <string english="change font" translation="yazı tipini değiştir" explanation="level editor menu option"/>
+    <string english="Level Font" translation="Bölüm Yazı Tipi" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
+    <string english="Select the language in which the text in this level is written." translation="Bu bölümdeki yazıların dilini seç." explanation="" max="38*3"/>
+    <string english="Font: " translation="Yazı tipi:" explanation="level options, followed by name of font (mind the space)" max="15"/>
     <string english="Map Music" translation="Harita Müziği" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Şu anki harita müziği:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="Arka plan müziği yok" explanation="editor, level starts with no song playing" max="38*2"/>
@@ -558,21 +558,21 @@
     <string english="Unknown" translation="Bilinmiyor" explanation="by Unknown [author]"/>
     <string english="Tile:" translation="Kare:" explanation="editor, selected " max="34"/>
     <string english="SCRIPT BOX: Click on top left" translation="BETİK KUTUSU: Sol üste sıkla" explanation="***OUTDATED***"/>
-    <string english="SCRIPT BOX: Click on the first corner" translation="" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="SCRIPT BOX: Click on the first corner" translation="BETİK KUTUSU: İlk köşeye tıkla" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
     <string english="SCRIPT BOX: Click on bottom right" translation="BETİK KUTUSU: Sağ alta tıkla" explanation="***OUTDATED***"/>
-    <string english="SCRIPT BOX: Click on the last corner" translation="" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
+    <string english="SCRIPT BOX: Click on the last corner" translation="BETİK KUTUSU: Son köşeye tıkla" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
     <string english="ENEMY BOUNDS: Click on top left" translation="DÜŞMAN SINIRLARI: Sol üste sıkla" explanation="***OUTDATED***"/>
-    <string english="ENEMY BOUNDS: Click on the first corner" translation="" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on the first corner" translation="DÜŞMAN SINIRLARI: İlk köşeye tıkla" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="ENEMY BOUNDS: Click on bottom right" translation="DÜŞMAN SINIRLARI: Sağ alta tıkla" explanation="***OUTDATED***"/>
-    <string english="ENEMY BOUNDS: Click on the last corner" translation="" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on the last corner" translation="DÜŞMAN SINIRLARI: Son köşeye tıkla" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on top left" translation="PLATFORM SINIRLARI: Sol üste sıkla" explanation="***OUTDATED***"/>
-    <string english="PLATFORM BOUNDS: Click on the first corner" translation="" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on the first corner" translation="PLATFORM SINIRLARI: İlk köşeye tıkla" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on bottom right" translation="PLATFORM SINIRLARI: Sağ alta tıkla" explanation="***OUTDATED***"/>
-    <string english="PLATFORM BOUNDS: Click on the last corner" translation="" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
+    <string english="PLATFORM BOUNDS: Click on the last corner" translation="PLATFORM SINIRLARI: Son köşeye tıkla" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="Click on top left" translation="Sol üste tıkla" explanation="***OUTDATED***"/>
-    <string english="Click on the first corner" translation="" explanation="" max="39*3"/>
+    <string english="Click on the first corner" translation="İlk köşeye tıkla" explanation="" max="39*3"/>
     <string english="Click on bottom right" translation="Sağ alta tıkla" explanation="***OUTDATED***"/>
-    <string english="Click on the last corner" translation="" explanation="" max="39*3"/>
+    <string english="Click on the last corner" translation="Son köşeye tıkla" explanation="" max="39*3"/>
     <string english="**** VVVVVV SCRIPT EDITOR ****" translation="**** VVVVVV BETİK DÜZENLEYİCİ ****" explanation="supposed to look like a Commodore 64 screen" max="36"/>
     <string english="PRESS ESC TO RETURN TO MENU" translation="MENÜYE DÖNMEK İÇİN ESC TUŞUNA BAS" explanation="Commodore 64-style script editor, TO MENU is redundant" max="36"/>
     <string english="NO SCRIPT IDS FOUND" translation="BETİK BULUNAMADI" explanation="Commodore 64-style script editor, basically NO SCRIPTS FOUND" max="36"/>
@@ -586,25 +586,25 @@
     <string english="3: Spikes" translation="3: Kazıklar" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Eşyalar" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
     <string english="5: Checkpoint" translation="5: Kayıt Noktası" explanation="***OUTDATED***"/>
-    <string english="5: Checkpoints" translation="" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
+    <string english="5: Checkpoints" translation="5: Kayıt Noktaları" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
     <string english="6: Disappear" translation="6: Kaybolan Platform" explanation="***OUTDATED***"/>
-    <string english="6: Disappearing Platforms" translation="" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
+    <string english="6: Disappearing Platforms" translation="6: Kaybolan Platformlar" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
     <string english="7: Conveyors" translation="7: Taşıyıcılar" explanation="editor tool. Conveyor belt" max="32"/>
     <string english="8: Moving" translation="8: Hareketli Platform" explanation="***OUTDATED***"/>
-    <string english="8: Moving Platforms" translation="" explanation="editor tool. Moving platform" max="32"/>
+    <string english="8: Moving Platforms" translation="8: Hareketli Platformlar" explanation="editor tool. Moving platform" max="32"/>
     <string english="9: Enemies" translation="9: Düşmanlar" explanation="editor tool" max="32"/>
     <string english="0: Grav Line" translation="0: Yerçekimi Çizgisi" explanation="***OUTDATED***"/>
-    <string english="0: Gravity Lines" translation="" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
+    <string english="0: Gravity Lines" translation="0: Yerçekimi Çizgileri" explanation="editor tool. Gravity line, which flips your gravity when touching it" max="32"/>
     <string english="R: Roomtext" translation="R: Metin" explanation="editor tool. Freely typed text, consider just Text" max="32"/>
     <string english="T: Terminal" translation="T: Terminal" explanation="***OUTDATED***"/>
-    <string english="T: Terminals" translation="" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
+    <string english="T: Terminals" translation="T: Terminaller" explanation="editor tool. Computer which can be activated by the player to run a script" max="32"/>
     <string english="Y: Script Box" translation="Y: Betik Kutusu" explanation="***OUTDATED***"/>
-    <string english="Y: Script Boxes" translation="" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
+    <string english="Y: Script Boxes" translation="Y: Betik Kutuları" explanation="editor tool. Invisible box that runs a script when touched" max="32"/>
     <string english="U: Warp Token" translation="U: Küçük Işınlayıcı" explanation="***OUTDATED***"/>
-    <string english="U: Warp Tokens" translation="" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
+    <string english="U: Warp Tokens" translation="U: Küçük Işınlayıcılar" explanation="editor tool. Small teleporter with entrance and destination" max="32"/>
     <string english="I: Warp Lines" translation="I: Işınlama Çizgileri" explanation="editor tool. Makes a room edge be connected to its opposite edge" max="32"/>
     <string english="O: Crewmate" translation="O: Ekip Üyesi" explanation="***OUTDATED***"/>
-    <string english="O: Crewmates" translation="" explanation="editor tool. Crewmate that can be rescued" max="32"/>
+    <string english="O: Crewmates" translation="O: Ekip Üyeleri" explanation="editor tool. Crewmate that can be rescued" max="32"/>
     <string english="P: Start Point" translation="P: Başlangıç Noktası" explanation="editor tool" max="32"/>
     <string english="START" translation="BAŞLANGIÇ" explanation="start point in level editor" max="10"/>
     <string english="SPACE ^  SHIFT ^" translation="SPACE ^  SHIFT ^" explanation="editor, indicates both SPACE key and SHIFT key open up menus. ^ is rendered as up arrow" max="32"/>
@@ -633,7 +633,7 @@
     <string english="Now using {area} Tileset" translation="{area} Kareleri kullanılıyor" explanation="level editor, user changed the tileset of the room to {area} (like Ship, Lab, etc)" max="38*3"/>
     <string english="Tileset Colour Changed" translation="Kare Renkleri Değişti" explanation="level editor, user changed the tileset colour/variant of the room" max="38*3"/>
     <string english="Enemy Type Changed" translation="Düşman Türü Değişti" explanation="level editor, user changed enemy appearance for the room" max="38*3"/>
-    <string english="Platform speed is now {speed}" translation="" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
+    <string english="Platform speed is now {speed}" translation="Platform hızı: {speed}" explanation="level editor, user changed speed of platforms for the room" max="38*3"/>
     <string english="Reloaded resources" translation="Kaynaklar tekrar yüklendi" explanation="level editor, reloaded graphics assets/resources, music and sound effects" max="38*3"/>
     <string english="ERROR: Invalid format" translation="HATA: Geçersiz format" explanation="user was supposed to enter something like `12,12`, but entered `as@df`" max="38*3"/>
     <string english="Loaded map: {filename}.vvvvvv" translation="Yüklenen harita: {dosyaadi}.vvvvvv" explanation="successfully loaded level file" max="38*3"/>
@@ -651,10 +651,10 @@
     <string english="ERROR: No checkpoint to spawn at" translation="HATA: Canlanılacak kayıt noktası yok" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="HATA: Maksimum eşya sayısı 100&apos;dür" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="HATA: Maksimum ekip üyesi sayısı 100&apos;dür" explanation="editor, user tried to place another crewmate" max="38*3"/>
-    <string english="Level quits to menu" translation="" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
-    <string english="Level completed" translation="" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
+    <string english="Level quits to menu" translation="Bölümden çıkınca menüye döner" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
+    <string english="Level completed" translation="Bölüm tamamlandı" explanation="editor message, user would have been returned to levels list but wasn&apos;t" max="38*3"/>
     <string english="Rolled credits" translation="Jenerik kısmı" explanation="editor message, credits would have been shown but weren&apos;t" max="38*3"/>
-    <string english="Time trial completed" translation="" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
+    <string english="Time trial completed" translation="Zamana karşı yarış tamamlandı" explanation="editor message, time trial complete screen would have been shown but wasn&apos;t" max="38*3"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}" explanation="time format H:MM:SS"/>
     <string english="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" translation="{hrs}:{min|digits=2}:{sec|digits=2}.{cen|digits=2}" explanation="time format H:MM:SS.CC"/>
     <string english="{min}:{sec|digits=2}" translation="{min}:{sec|digits=2}" explanation="time format M:SS"/>
@@ -668,11 +668,11 @@
     <string english="All crewmates rescued!" translation="Tüm ekip üyelerini kurtardın!" explanation="" max="32"/>
     <string english="Game Saved" translation="Oyun Kaydedildi" explanation="" max="30"/>
     <string english="Press arrow keys or WASD to move" translation="Hareket etmek için ok ya da WASD tuşlarını kullan" explanation="" max="32*2"/>
-    <string english="Press left/right to move" translation="" explanation="" max="32*2"/>
+    <string english="Press left/right to move" translation="Hareket etmek için sola/sağa bas" explanation="" max="32*2"/>
     <string english="Press ACTION to flip" translation="Ters dönmek için AKSİYON tuşuna bas" explanation="***OUTDATED***" max="32*3"/>
-    <string english="Press {button} to flip" translation="" explanation="expect `ACTION`" max="32*3"/>
+    <string english="Press {button} to flip" translation="Ter dönmek için {button} tuşuna bas" explanation="expect `ACTION`" max="32*3"/>
     <string english="Press ENTER to view map and quicksave" translation="Haritayı görüntüleyip oyunu hızlı kaydetmek için ENTER tuşuna bas" explanation="***OUTDATED***" max="32*3"/>
-    <string english="Press {button} to view map and quicksave" translation="" explanation="" max="32*3"/>
+    <string english="Press {button} to view map and quicksave" translation="Haritayı görüntüleyip oyunu hızlı kaydetmek için {button} tuşuna bas" explanation="" max="32*3"/>
     <string english="If you prefer, you can press UP or DOWN instead of ACTION to flip." translation="Dilersen ters dönmek için AKSİYON yerine YUKARI ya da AŞAĞI tuşlarını kullanabilirsin." explanation="" max="34*3"/>
     <string english="Help! Can anyone hear this message?" translation="Yardım edin! Bu mesajı duyan var mı?" explanation="Violet speaking via Comms Relay" max="25*4"/>
     <string english="Verdigris? Are you out there? Are you ok?" translation="Verdigris? Orada mısın? İyi misin?" explanation="Violet speaking via Comms Relay" max="25*4"/>
@@ -764,11 +764,11 @@ Gizli laboratuvarı buldun!" explanation="" max="34*4"/>
     <string english="Last 1 minute on the Super Gravitron" translation="Süper Gravitron&apos;da 1 dakika dayan" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="EVRENİN USTASI" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
     <string english="Complete the game in no death mode" translation="Oyunu ölümsüz modunda tamamla" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Something went wrong, but we forgot the error message." translation="" explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
+    <string english="Something went wrong, but we forgot the error message." translation="Bir sorun oluştu ama bunun için hata mesajı yazmayı unutmuşuz." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="{path} bağlanamadı: gerçek klasör yok" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
-    <string english="Level {path} not found" translation="" explanation="" max="38*6"/>
-    <string english="Error parsing {path}: {error}" translation="" explanation="we tried to parse the level file, but failed" max="38*6"/>
-    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
+    <string english="Level {path} not found" translation="Bölüm için {path} bulunamadı" explanation="" max="38*6"/>
+    <string english="Error parsing {path}: {error}" translation="{path} işlenemedi: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename} dosyasının boyutları {width} x {height} değerlerinin tam katı değil!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="HATA: Dil klasörüne yazılamadı! Normal kayıt dosyalarının yanında &quot;lang&quot; adlı bir klasör olmadığından emin ol." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
