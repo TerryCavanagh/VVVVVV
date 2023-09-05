@@ -68,6 +68,32 @@ android {
             enable true
         }
     }
+
+    sourceSets {
+        main {
+            assets {
+                srcDir layout.buildDirectory.dir("generated/main/assets")
+            }
+        }
+    }
+}
+
+def zipRepoAssetsTask = tasks.register("zipRepoAssets", Zip) {
+    from('../../fonts') { spec ->
+        spec.into('graphics')
+    }
+    from('../../lang') { spec ->
+        spec.into('lang')
+    }
+    archiveFileName.set('repo.zip')
+    destinationDirectory.value(layout.buildDirectory.dir("generated/main/assets"))
+}
+
+project.android.applicationVariants.configureEach { variant ->
+    def compressAssetsTask = project.tasks.named("merge${variant.name.capitalize()}Assets")
+    compressAssetsTask.configure { task ->
+        task.dependsOn zipRepoAssetsTask
+    }
 }
 
 dependencies {

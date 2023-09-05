@@ -266,12 +266,6 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         basePath = SDL_strdup("./");
     }
 
-    doesLangDirExist = mount_pre_datazip(mainLangDir, "lang", "lang/", langDir);
-    vlog_info("Languages directory: %s", mainLangDir);
-
-    doesFontsDirExist = mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir);
-
-    /* Mount the stock content last */
 #ifdef __ANDROID__
     // This is kind of a mess, but that's not really solvable unless we expect the user to download the data.zip manually.
     if (!PHYSFS_mount(PHYSFS_getBaseDir(), "/apk", 1))
@@ -279,9 +273,23 @@ int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langD
         vlog_error("Failed to mount apk!");
         return 0;
     }
-    PHYSFS_File* zip = PHYSFS_openRead("/apk/assets/data.zip");
-    if (!zip || !PHYSFS_mountHandle(zip, "data.zip", NULL, 1))
+
+    PHYSFS_File* repoZip = PHYSFS_openRead("/apk/assets/repo.zip");
+    if (repoZip && PHYSFS_mountHandle(repoZip, "repo.zip", NULL, 1))
+    {
+        doesLangDirExist = true;
+        doesFontsDirExist = true;
+    }
+
+    PHYSFS_File* dataZip = PHYSFS_openRead("/apk/assets/data.zip");
+    if (!dataZip || !PHYSFS_mountHandle(dataZip, "data.zip", NULL, 1))
 #else
+    doesLangDirExist = mount_pre_datazip(mainLangDir, "lang", "lang/", langDir);
+    vlog_info("Languages directory: %s", mainLangDir);
+
+    doesFontsDirExist = mount_pre_datazip(NULL, "fonts", "graphics/", fontsDir);
+
+    /* Mount the stock content last */
     if (assetsPath)
     {
         SDL_strlcpy(output, assetsPath, sizeof(output));
