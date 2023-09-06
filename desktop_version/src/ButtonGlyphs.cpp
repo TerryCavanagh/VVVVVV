@@ -194,6 +194,11 @@ void BUTTONGLYPHS_update_layout(Uint16 vendor, Uint16 product)
         {
             layout = LAYOUT_NINTENDO_SWITCH_JOYCON_R;
         }
+        else if (product == 0x0337)
+        {
+            /* FIXME: GameCube glyphs? -flibit */
+            layout = LAYOUT_XBOX;
+        }
         else
         {
             layout = LAYOUT_NINTENDO_SWITCH_PRO;
