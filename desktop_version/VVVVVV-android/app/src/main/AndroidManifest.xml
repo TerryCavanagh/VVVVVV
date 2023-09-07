@@ -96,6 +96,17 @@
             </intent-filter>
             -->
         </activity>
+        
+        <provider
+            android:name="com.distractionware.vvvvvv.BaseDirProvider"
+            android:authorities="com.distractionware.vvvvvv.basedir"
+            android:grantUriPermissions="true"
+            android:exported="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
     </application>
 
 </manifest>
