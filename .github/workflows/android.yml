@@ -1,0 +1,36 @@
+name: CI (Android)
+
+# Trigger this workflow on push or pull request
+on: [push, pull_request]
+
+env:
+  SRC_DIR_PATH: VVVVVV/desktop_version/VVVVVV-android
+
+jobs:
+  build:
+    name: Build (Android)
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+        path: 'VVVVVV'
+
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'gradle'
+
+    - uses: actions/checkout@v4
+      with:
+        repository: libsdl-org/SDL
+        ref: release-2.28.x
+        path: 'SDL'
+
+    - name: Build
+      run: |
+        cd ${SRC_DIR_PATH}
+        ./gradlew build
