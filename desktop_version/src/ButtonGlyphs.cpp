@@ -159,7 +159,11 @@ bool BUTTONGLYPHS_keyboard_is_available(void)
         return true;
     }
 
+#ifdef __ANDROID__
+    return false;
+#else
     return !SDL_GetHintBoolean("SteamDeck", SDL_FALSE);
+#endif
 }
 
 bool BUTTONGLYPHS_keyboard_is_active(void)
