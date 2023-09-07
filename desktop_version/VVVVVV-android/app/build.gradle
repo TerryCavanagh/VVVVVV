@@ -2,8 +2,7 @@ def buildAsLibrary = project.hasProperty('BUILD_AS_LIBRARY');
 def buildAsApplication = !buildAsLibrary
 if (buildAsApplication) {
     apply plugin: 'com.android.application'
-}
-else {
+} else {
     apply plugin: 'com.android.library'
 }
 
@@ -31,7 +30,7 @@ android {
     }
     applicationVariants.all { variant ->
         tasks["merge${variant.name.capitalize()}Assets"]
-            .dependsOn("externalNativeBuild${variant.name.capitalize()}")
+                .dependsOn("externalNativeBuild${variant.name.capitalize()}")
     }
     if (!project.hasProperty('EXCLUDE_NATIVE_LIBS')) {
         sourceSets.main {
@@ -97,7 +96,7 @@ project.android.applicationVariants.configureEach { variant ->
 }
 
 afterEvaluate {
-    [lintVitalReportRelease, lintVitalAnalyzeRelease].each { task ->
+    [lintReportDebug, lintAnalyzeDebug, lintReportRelease, lintAnalyzeRelease, lintVitalReportRelease, lintVitalAnalyzeRelease].each { task ->
         task.dependsOn zipRepoAssetsTask
     }
 }
