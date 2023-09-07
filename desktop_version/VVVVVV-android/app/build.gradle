@@ -42,7 +42,7 @@ android {
                 path 'jni/CMakeLists.txt'
             }
         }
-       
+
     }
     lint {
         abortOnError false
@@ -92,6 +92,12 @@ def zipRepoAssetsTask = tasks.register("zipRepoAssets", Zip) {
 project.android.applicationVariants.configureEach { variant ->
     def compressAssetsTask = project.tasks.named("merge${variant.name.capitalize()}Assets")
     compressAssetsTask.configure { task ->
+        task.dependsOn zipRepoAssetsTask
+    }
+}
+
+afterEvaluate {
+    [lintVitalReportRelease, lintVitalAnalyzeRelease].each { task ->
         task.dependsOn zipRepoAssetsTask
     }
 }
