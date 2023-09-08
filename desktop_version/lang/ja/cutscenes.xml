@@ -9,7 +9,7 @@
         <dialogue speaker="cyan" english="Something&apos;s wrong! We&apos;re going to crash!" translation="なんだか嫌な予感が…うぉっ!
 まずい!直撃する!!"/>
         <dialogue speaker="cyan" english="Evacuate!" translation="全員緊急退避!"/>
-        <dialogue speaker="blue" english="Oh no!" translation="えぇっ!　一体なに!?"/>
+        <dialogue speaker="blue" english="Oh no!" translation="えぇっ! 一体なに!?"/>
         <dialogue speaker="red" english="Everyone off the ship!" translation="みんな急いで脱出するっス!"/>
         <dialogue speaker="yellow" english="This shouldn&apos;t be happening!" translation="馬鹿な…こんな事が!!"/>
         <dialogue speaker="cyan" english="Phew! That was scary!" translation="ふぅ、危ない所だったな…。"/>
@@ -38,13 +38,12 @@
         <dialogue speaker="purple" english="Where are you, Captain?" translation="センチョーは今どこ?"/>
         <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="どこかの宇宙ステーションみたいだ。
 しかも設備を見る限り相当新しい…。"/>
-        <dialogue speaker="purple" english="There seems to be some sort of interference in this dimension..." translation="そこの次元って、何かミョーな妨害電波が
+        <dialogue speaker="purple" english="There seems to be some sort of interference in this dimension..." translation="ココの次元って、何かミョーな妨害電波が
 出てるみたい…。"/>
         <dialogue speaker="purple" english="I&apos;m broadcasting the coordinates of the ship to you now." translation="いまこっちの座標を転送するね!"/>
         <dialogue speaker="purple" english="I can&apos;t teleport you back, but..." translation="ここからセンチョーを呼び戻すのはムリだけど…"/>
         <dialogue speaker="purple" english="If YOU can find a teleporter anywhere nearby, you should be able to teleport back to me!" translation="そっちでテレポーターを見つけられれば
-こっちの座標に飛べるハズだよ!
-たぶん!!"/>
+こっちの座標に飛べるハズ!たぶん!!"/>
         <dialogue speaker="cyan" english="Ok! I&apos;ll try to find one!" translation="わかった。それじゃあこっちで探してみよう。"/>
         <dialogue speaker="purple" english="Good luck, Captain!" translation="センチョーがんばってー!"/>
         <dialogue speaker="purple" english="I&apos;ll keep trying to find the rest of the crew..." translation="こっちも引き続き
@@ -101,9 +100,9 @@
 ここの座標を教えてあげるのが
 一番てっとりばやいかなぁ…。"/>
         <dialogue speaker="player" english="Ok! Where do we start?" translation="そりゃ名案だな…よし、どこから始めようか?"/>
-        <dialogue speaker="purple" english="Well, I&apos;ve been trying to find them with the ship&apos;s scanners!" translation="ちょっとまって。
-今スキャンしてる…"/>
-        <dialogue speaker="purple" english="It&apos;s not working, but I did find something..." translation="…ってやっぱダメみたい。
+        <dialogue speaker="purple" english="Well, I&apos;ve been trying to find them with the ship&apos;s scanners!" translation="それが、さっきからずっと
+スキャンしてるんだけど…"/>
+        <dialogue speaker="purple" english="It&apos;s not working, but I did find something..." translation="…やっぱダメみたい。
 でも、なんか別の反応があったよ!"/>
         <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="こういう反応はエネルギー密度が高い場所を
 示してるハズ…。"/>
@@ -111,9 +110,9 @@
 それに、わざわざテレポーターを作ったって事は
 きっと近くに重要なものがあるんだと思う!"/>
         <dialogue speaker="purple" english="They could be a very good place to start looking." translation="最初はこういうわかりやすくて目立つ場所から
-探すといいかもー。"/>
+探すといいかも。"/>
         <dialogue speaker="player" english="Ok! I&apos;ll head out and see what I can find!" translation="よし、じゃあちょっと行って
-あいつらの事探してくるわ!"/>
+あいつらの事探してくる。"/>
         <dialogue speaker="purple" english="I&apos;ll be right here if you need any help!" translation="何か必要だったら言ってね。
 ここで待ってるから。"/>
     </cutscene>
@@ -125,9 +124,12 @@
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="まいったよヴァイオレット。
 何が何だかサッパリだ。"/>
         <dialogue speaker="player" english="Where do I begin?" translation="何から始めりゃいいんだ?"/>
-        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="."/>
-        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="" buttons="1"/>
-        <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation=""/>
+        <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="ENTERを押すとセンチョーが
+今ドコにいるか分かるよ。"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="{b_map}を押すとセンチョーが
+今ドコにいるか分かるよ。" buttons="1"/>
+        <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="クルーのみんながいそうな
+ところを探してみて。"/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="もしも迷った時はテレポーターから
 ここに戻れるからね。"/>
         <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="大丈夫!
@@ -136,11 +138,11 @@
     </cutscene>
     <cutscene id="talkpurple_3" explanation="only one player string is shown">
         <dialogue speaker="purple" english="Are you doing ok, Captain?" translation="センチョー平気?"/>
-        <dialogue speaker="player" english="I&apos;m worried about Victoria, Doctor!" translation="ヴィクトリアのことが心配だ！"/>
-        <dialogue speaker="player" english="I&apos;m worried about Vitellary, Doctor!" translation="ヴィテラリーのことが心配だ！"/>
-        <dialogue speaker="player" english="I&apos;m worried about Verdigris, Doctor!" translation="ヴァーディグリスのことが心配だ！"/>
-        <dialogue speaker="player" english="I&apos;m worried about Vermilion, Doctor!" translation="ヴァーミリオンのことが心配だ！"/>
-        <dialogue speaker="player" english="I&apos;m worried about you, Doctor!" translation="君のことが心配だ！"/>
+        <dialogue speaker="player" english="I&apos;m worried about Victoria, Doctor!" translation="ヴィクトリアのことが心配だ!"/>
+        <dialogue speaker="player" english="I&apos;m worried about Vitellary, Doctor!" translation="ヴィテラリーのことが心配だ!"/>
+        <dialogue speaker="player" english="I&apos;m worried about Verdigris, Doctor!" translation="ヴァーディグリスのことが心配だ!"/>
+        <dialogue speaker="player" english="I&apos;m worried about Vermilion, Doctor!" translation="ヴァーミリオンのことが心配だ!"/>
+        <dialogue speaker="player" english="I&apos;m worried about you, Doctor!" translation="君のことが心配だ!"/>
         <dialogue speaker="purple" english="Oh - well, don&apos;t worry, they&apos;ll show up!" translation="シンパイいらないよッ。
 みんな絶対生きてるから!"/>
         <dialogue speaker="purple" english="Here! Have a lollipop!" translation="ほらセンチョー…アメあげる♪"/>
@@ -184,7 +186,7 @@
         <dialogue speaker="player" english="Oh... well, don&apos;t worry." translation="あぁ…すまんな。だが心配するな。"/>
         <dialogue speaker="player" english="Follow me! Everything will be alright!" translation="とにかく俺についてこい!
 大丈夫だ。俺が絶対に助ける!"/>
-        <dialogue speaker="blue" english="Sniff... Really?" translation="えっ…・・本当?"/>
+        <dialogue speaker="blue" english="Sniff... Really?" translation="えっ… 本当?"/>
         <dialogue speaker="blue" english="Ok then!" translation="わかったわ。よろしくね船長!"/>
     </cutscene>
     <cutscene id="rescuered" explanation="">
@@ -192,7 +194,7 @@
         <dialogue speaker="red" english="Am I ever glad to see you! I thought I was the only one to escape the ship..." translation="うぉおお!よくぞご無事でっス!!
 脱出できたのは自分だけだったのかと
 大絶望していたっス!!"/>
-        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="ヴァ―ミリオン!　無事だったか!"/>
+        <dialogue speaker="player" english="Vermilion! I knew you&apos;d be ok!" translation="ヴァ―ミリオン! 無事だったか!"/>
         <dialogue speaker="red" english="So, what&apos;s the situation?" translation="しかし、一体何が起こっているんスか!?"/>
         <dialogue speaker="red" english="I see! Well, we&apos;d better get back then." translation="なるほど…ではとにかく船の所に行くっス!"/>
         <dialogue speaker="red" english="There&apos;s a teleporter in the next room." translation="テレポーターは隣の部屋にあるっス!
@@ -215,8 +217,8 @@
 飛ばされてしまった…。"/>
         <dialogue speaker="player" english="Er, that sounds about right!" translation="シンゴーカンショーでジゲンザヒョーか…。
 あぁ、きっとそれだな!俺もそんな気がする!"/>
-        <dialogue speaker="yellow" english="Let&apos;s get back to the ship, then!" translation=""/>
-        <dialogue speaker="yellow" english="After you, Captain!" translation=""/>
+        <dialogue speaker="yellow" english="Let&apos;s get back to the ship, then!" translation="それでは、船に戻りましょうか。"/>
+        <dialogue speaker="yellow" english="After you, Captain!" translation="後に付いて行きますね!"/>
     </cutscene>
     <cutscene id="int1blue_1" explanation="">
         <dialogue speaker="blue" english="Waaaa!" translation="きゃぁあー!" case="1"/>
@@ -259,9 +261,8 @@
     <cutscene id="int1blue_5" explanation="">
         <dialogue speaker="blue" english="We&apos;re never going to get out of here, are we?" translation="ねぇ私達もしかして…
 二度とここから出られないのかも…。"/>
-        <dialogue speaker="player" english="I.. I don&apos;t know..." translation="そ…そんな事はないさ。"/>
-        <dialogue speaker="player" english="I don&apos;t know where we are or how we&apos;re going to get out..." translation="たしかに、ここがどこかは分からない…
-だが、俺が弱音を吐くわけにはいかない!"/>
+        <dialogue speaker="player" english="I.. I don&apos;t know..." translation="そ…そんな事はないさ。出口はすぐそこだ！"/>
+        <dialogue speaker="player" english="I don&apos;t know where we are or how we&apos;re going to get out..." translation="(…ならば良いんだが…)"/>
     </cutscene>
     <cutscene id="int1blue_6" explanation="">
         <dialogue speaker="blue" english="We&apos;re going to be lost forever!" translation="私達きっとこのまま永遠に彷徨うんだわ…。"/>
@@ -327,7 +328,7 @@
         <dialogue speaker="player" english="Hmm..." translation="そ、そうだなぁ…まぁ、あれだ…"/>
         <dialogue speaker="player" english="Um... you should... be yourself!" translation="そう!ありのままの自分でいろ!
 無理しても疲れるだけだろ?"/>
-        <dialogue speaker="green" english="Oh." translation="ありのままの自分…・"/>
+        <dialogue speaker="green" english="Oh." translation="ありのままの自分…"/>
         <dialogue speaker="green" english="Thanks Captain!" translation="わかったのです!流石キャプテンなのです!"/>
     </cutscene>
     <cutscene id="int1green_6" explanation="">
@@ -385,13 +386,13 @@
     <cutscene id="int1red_5" explanation="">
         <dialogue speaker="red" english="Are we there yet?" translation="そろそろっスかね?"/>
         <dialogue speaker="player" english="We&apos;re getting closer, I think..." translation="あぁ、きっともうすぐだ!"/>
-        <dialogue speaker="player" english="I hope..." translation="（…ならば良いんだが…）"/>
+        <dialogue speaker="player" english="I hope..." translation="(…ならば良いんだが…)"/>
     </cutscene>
     <cutscene id="int1red_6" explanation="">
         <dialogue speaker="player" english="I wonder where we are, anyway?" translation="しかしここは一体どこなんだろうな…。"/>
         <dialogue speaker="player" english="This seems different from that dimension we crashed in, somehow..." translation="船が不時着した次元とも
 また別の次元のように見えるが。"/>
-        <dialogue speaker="red" english="I dunno... But we must be close to a teleporter by now..." translation="自分もワカランっす!　…でもきっと
+        <dialogue speaker="red" english="I dunno... But we must be close to a teleporter by now..." translation="自分もワカランっす! …でもきっと
 すぐにテレポーターが見つかるはずっスよ。"/>
     </cutscene>
     <cutscene id="int1red_7" explanation="">
@@ -501,7 +502,7 @@
     </cutscene>
     <cutscene id="int2_blue" explanation="after gravitron">
         <dialogue speaker="blue" english="I think I&apos;m going to be sick..." translation="もう、酔っちゃいそうだわ…。"/>
-        <dialogue speaker="player" english="I feel dizzy..." translation="あぁ、しかも酷い酔いだ…。"/>
+        <dialogue speaker="player" english="I feel dizzy..." translation="あぁ、俺も酷い酔いだ…。"/>
     </cutscene>
     <cutscene id="int2_green" explanation="after gravitron">
         <dialogue speaker="green" english="Phew! You&apos;re ok!" translation="ふぇぇ…酷い目にあったのです。"/>
@@ -535,17 +536,17 @@
         <dialogue speaker="purple" english="Vermilion called in to say hello!" translation="ヴァーミリオンさんがセンチョーに
 「大大大感謝っス!」ってコール入れてたよ。"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find the rest of the crew!" translation="ほんと、いちいち発言がオーバーだよね!
-残りのクルーを探すのを手伝うから！"/>
+残りのクルーを探すのを手伝うから!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Victoria!" translation="ほんと、いちいち発言がオーバーだよね!
-ヴィクトリアを探すのを手伝うから！"/>
+ヴィクトリアを探すのを手伝うから!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vitellary!" translation="ほんと、いちいち発言がオーバーだよね!
-ヴィテラリーを探すのを手伝うから！"/>
+ヴィテラリーを探すのを手伝うから!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Verdigris!" translation="ほんと、いちいち発言がオーバーだよね!
-ヴァーディグリスを探すのを手伝うから！"/>
+ヴァーディグリスを探すのを手伝うから!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vermilion!" translation="ほんと、いちいち発言がオーバーだよね!
-ヴァーミリオンを探すのを手伝うから！"/>
+ヴァーミリオンを探すのを手伝うから!"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find you!" translation="ほんと、いちいち発言がオーバーだよね!
-君を探すのを手伝うから！"/>
+君を探すのを手伝うから…?"/>
     </cutscene>
     <cutscene id="talkpurple_6" explanation="">
         <dialogue speaker="purple" english="Captain! You found Verdigris!" translation="ヴァーディグリス機関長が見つかったのね!"/>
@@ -639,7 +640,7 @@
     <cutscene id="talkgreen_8" explanation="">
         <dialogue speaker="green" english="The antenna&apos;s broken! This is going to be very hard to fix..." translation="アンテナが折れているのです。
 こういう単純な故障は
-却って直すのが面倒なのです。"/>
+かえって直すのが面倒なのです。"/>
     </cutscene>
     <cutscene id="talkgreen_9" explanation="">
         <dialogue speaker="green" english="It looks like we were warped into solid rock when we crashed!" translation="どうも船の一部が岩と同座標に
@@ -710,7 +711,7 @@
 デンジャラスな香りがするっス…。"/>
     </cutscene>
     <cutscene id="talkred_11" explanation="">
-        <dialogue speaker="red" english="I&apos;m helping!" translation="師匠、助けに来たっス!"/>
+        <dialogue speaker="red" english="I&apos;m helping!" translation="助けに来たっス!"/>
     </cutscene>
     <cutscene id="talkred_12" explanation="">
         <dialogue speaker="red" english="Hey Captain!" translation="師匠!"/>
@@ -748,7 +749,7 @@
 彼を襲う可能性だってあるし…。"/>
         <dialogue speaker="blue" english="sniff..." translation="…くすん。"/>
         <dialogue speaker="player" english="Doctor Victoria? He&apos;s ok!" translation="大丈夫。あいつは無事だよ。"/>
-        <dialogue speaker="blue" english="Oh! Sorry! I was just thinking about what if he wasn&apos;t?" translation="あっごめんなさい!　その…
+        <dialogue speaker="blue" english="Oh! Sorry! I was just thinking about what if he wasn&apos;t?" translation="あっごめんなさい! その…
 つい無事じゃなかった可能性の事を
 想像してしまって…。"/>
         <dialogue speaker="blue" english="Thank you, Captain!" translation="本当にありがとう…船長。"/>
@@ -817,14 +818,14 @@
 既にすべて回収しちゃったみたい!"/>
         <dialogue speaker="player" english="Oh? Really?" translation="おっ?本当か?"/>
         <dialogue speaker="blue" english="Yeah, well done! That can&apos;t have been easy!" translation="えぇ本当よ。
-すごいじゃない!　大変だったでしょ?"/>
+すごいじゃない! 大変だったでしょ?"/>
     </cutscene>
     <cutscene id="talkblue_trinket6" explanation="">
         <dialogue speaker="blue" english="...and they&apos;re related. They&apos;re all a part of something bigger!" translation="…これらは相互に共鳴しあい
 そしてさらに何か大きなものに
 繋がっている気がするの。"/>
         <dialogue speaker="player" english="Oh? Really?" translation="本当か?"/>
-        <dialogue speaker="blue" english="Yeah! There seem to be twenty variations of the fundamental energy signature..." translation="ええ、基本的なエネルギー痕は
+        <dialogue speaker="blue" english="Yeah! There seem to be twenty variations of the fundamental energy signature..." translation="ええ、このエネルギー痕は
 約20のバリエーションが存在する
 様だけど…。"/>
         <dialogue speaker="blue" english="Wait..." translation="ちょっと待って…。"/>
@@ -904,8 +905,8 @@
 山ほどありますから…。"/>
     </cutscene>
     <cutscene id="talkyellow_11" explanation="">
-        <dialogue speaker="yellow" english="I know it&apos;s probably a little dangerous to stay here now that this dimension is collapsing..." translation="確かに崩壊の運命にあるここに残り
-研究をつづける事は、愚かな選択と
+        <dialogue speaker="yellow" english="I know it&apos;s probably a little dangerous to stay here now that this dimension is collapsing..." translation="確かに、崩壊の運命にあるここに残り
+研究を続ける事は、愚かな選択と
 言えるかもしれません…。"/>
         <dialogue speaker="yellow" english="...but it&apos;s so rare to find somewhere this interesting!" translation="だけど、ここはそれだけの価値が
 ある場所だと僕は確信しています。"/>
@@ -919,8 +920,7 @@
         <dialogue speaker="yellow" english="Oh, it was just lying around that space station." translation="えぇと、あの宇宙ステーションに
 普通に転がっていた物です。"/>
         <dialogue speaker="yellow" english="It&apos;s a pity Doctor Victoria isn&apos;t here, she loves studying that sort of thing..." translation="ヴィクトリア先生が居ないのが残念です。
-あの方は未知の物質の解析がご趣味
-ですからね…。"/>
+あの方は未知の物質の解析がご趣味ですからね…。"/>
         <dialogue speaker="player" english="Any idea what it does?" translation="君にはこれが何かわかるか?"/>
         <dialogue speaker="yellow" english="Nope! But it is giving off a strange energy reading..." translation="専門外なので難しいですね。
 奇妙なエネルギー放射は確認できますが…。"/>
@@ -952,31 +952,35 @@
             [ Status ]
               Online
 
-READY _" translation="* ジゲン　アンテイ　ジェネレーター *
+READY _" translation="* ジゲン アンテイ ジェネレーター *
 
-   [ ゲンザイ　カドウチュウ ]
-     アンテイド　サイダイ
+   [ ゲンザイ カドウチュウ ]
+     アンテイド サイダイ
 
       [ ステータス ]
         オンライン
 
 READY _" tt="1"/>
-        <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="あった!　信号妨害の原因は
+        <dialogue speaker="cyan" english="Aha! This must be what&apos;s causing the interference!" translation="あった! 信号妨害の原因は
 おそらくコイツに違いない!"/>
         <dialogue speaker="cyan" english="I wonder if I can turn it off?" translation="なんとかして停止出来ないか!?"/>
-        <dialogue speaker="gray" english="WARNING: Disabling the Dimensional Stability Generator may lead to instability! Are you sure you want to do this?" translation="警告：安定装置の動作を停止すると
+        <dialogue speaker="gray" english="WARNING: Disabling the Dimensional Stability Generator may lead to instability! Are you sure you want to do this?" translation="      [ 警告 ]
+安定装置の動作を停止すると
 次元が不安定になる可能性があります。
 それでも停止しますか?
-[ はい / いいえ ]"/>
+
+   [ はい / いいえ ]"/>
         <dialogue speaker="cyan" english="Yes!" translation="もちろん「はい」だ!" case="1"/>
         <dialogue speaker="gray" english="Seriously! The whole dimension could collapse! Just think about this for a minute!
 
-Are you really sure you want to do this?" translation="警告!：いや、マジでこの装置を止めたら、
-次元ごと崩壊する可能性があるっつってんだが
+Are you really sure you want to do this?" translation="       [ 警告 ]
+いや、マジでこの装置を止めたら、次元ごと
+崩壊する可能性があるっつってんだが、
 本当に停止していいんだな!?
 
 ちょっとは考えてから選べよ!
-[ はい / いいえ ]"/>
+
+    [ はい / いいえ ]"/>
         <dialogue speaker="cyan" english="Yes!" translation="だから「はい」だっつってんだろ!" case="2"/>
     </cutscene>
     <cutscene id="finalterminal_finish" explanation="">
@@ -984,19 +988,19 @@ Are you really sure you want to do this?" translation="警告!：いや、マジ
 
 DIMENSIONAL STABILISER OFFLINE" translation="-= WARNING =-
 
-次元安定装置　機能停止" centertext="1" pad="1"/>
+次元安定装置 機能停止" centertext="1" pad="1"/>
         <dialogue speaker="cyan" english="Uh oh..." translation="やっちまったか…?"/>
     </cutscene>
     <cutscene id="gamecomplete" explanation="">
         <dialogue speaker="yellow" english="Any moment now..." translation="そろそろです…。"/>
     </cutscene>
     <cutscene id="gamecomplete_ending" explanation="">
-        <dialogue speaker="player" english="Hello!" translation="よぉみんな。改まってどうした!"/>
-        <dialogue speaker="purple" english="Captain!" translation="センチョー!" case="1" pad_right="17"/>
-        <dialogue speaker="yellow" english="Captain!" translation="船長!" case="2" pad_right="16"/>
-        <dialogue speaker="red" english="Captain!" translation="師匠!" case="3" pad_right="12"/>
-        <dialogue speaker="green" english="Captain!" translation="キャプテン!" case="4" pad_right="5"/>
-        <dialogue speaker="blue" english="Captain!" translation="ヴィリジアン!" case="5"/>
+        <dialogue speaker="player" english="Hello!" translation="よぉみんな!"/>
+        <dialogue speaker="purple" english="Captain!" translation="センチョー!!" case="1" pad_right="8"/>
+        <dialogue speaker="yellow" english="Captain!" translation="センチョー!!" case="2" pad_right="6"/>
+        <dialogue speaker="red" english="Captain!" translation="センチョー!!" case="3" pad_right="4"/>
+        <dialogue speaker="green" english="Captain!" translation="センチョー!!" case="4" pad_right="2"/>
+        <dialogue speaker="blue" english="Captain!" translation="センチョー!!" case="5"/>
         <dialogue speaker="blue" english="You&apos;re alright!" translation="無事だったのね…"/>
         <dialogue speaker="blue" english="I knew you&apos;d be ok!" translation="ううん、きっと無事だって分かってたわ!"/>
         <dialogue speaker="purple" english="We were very worried when you didn&apos;t come back..." translation="戻ってこなかった時は
@@ -1008,9 +1012,9 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= WARNING =-
 出来るようになりました。"/>
         <dialogue speaker="red" english="...and teleport you back on board!" translation="…それでこっちからぶっこ抜くように
 テレポートさせる事が出来たんス!"/>
-        <dialogue speaker="player" english="That was lucky!" translation="そいつは運が良かったな!
-皆のおかげだ、ありがとう!"/>
-        <dialogue speaker="player" english="Thanks guys!" translation="本当にありがとう!"/>
+        <dialogue speaker="player" english="That was lucky!" translation="そいつは運が良かったな!"/>
+        <dialogue speaker="player" english="Thanks guys!" translation="皆のおかげだ!
+本当にありがとう!"/>
         <dialogue speaker="yellow" english="...it looks like this dimension is starting to destabilise, just like our own..." translation="この次元…
 やはり崩壊が始まっていますね。
 まさに僕達の元の次元と同じように。"/>
@@ -1020,7 +1024,7 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= WARNING =-
 ただし、いずれは完全に崩壊するでしょう。"/>
         <dialogue speaker="green" english="There&apos;s no telling exactly how long we have here. But the ship&apos;s fixed, so..." translation="あとどれだけここに居られるか
 わからないのです。でもとりあえず
-船の修理は済ませてあるのです、"/>
+船の修理は済ませてあるのです。"/>
         <dialogue speaker="blue" english="...as soon as we&apos;re ready, we can go home!" translation="…探索が済んだら
 いつでも帰れるわ。私たちの家に!"/>
         <dialogue speaker="purple" english="What now, Captain?" translation="センチョー、今度はなーに?"/>
@@ -1035,7 +1039,7 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= WARNING =-
         <dialogue speaker="blue" english="Wow! You found all of them!" translation="すごいわヴィリジアン!回収完了よ!"/>
         <dialogue speaker="player" english="Really? Great!" translation="おぅ、そいつは良かった。"/>
         <dialogue speaker="blue" english="I&apos;ll run some tests and see if I can work out what they&apos;re for..." translation="それではこの光る物体がなんなのか
-解析するため、いくつかのテストをするわ。
+解析するため、いくつかテストをするわ。
 ちょっと待ってね…。"/>
         <dialogue speaker="player" english="That... that didn&apos;t sound good..." translation="い…今のはなんだ?
 あまり良い音には聞こえなかったが…。"/>
@@ -1062,13 +1066,13 @@ DIMENSIONAL STABILISER OFFLINE" translation="-= WARNING =-
         <dialogue speaker="blue" english="Oh no! We&apos;re trapped!" translation="まずいわ!…トラップよ!"/>
         <dialogue speaker="yellow" english="Oh dear..." translation="やられましたね…。"/>
         <dialogue speaker="player" english="Hmm... how should we get out of this?" translation="参ったな…
-こりゃ「アレ」をするしかないか…"/>
-        <dialogue speaker="player" english="COMBINE!" translation="合体ッ!" case="1"/>
-        <dialogue speaker="purple" english="COMBINE!" translation="ガッタァーイ♪" case="2"/>
-        <dialogue speaker="yellow" english="COMBINE!" translation="…合体!" case="3"/>
-        <dialogue speaker="red" english="COMBINE!" translation="ぬおおぉぉぉガッタイっす!!" case="4"/>
-        <dialogue speaker="green" english="COMBINE!" translation="合体なのです。" case="5"/>
-        <dialogue speaker="blue" english="COMBINE!" translation="合体♥" case="6"/>
+こんな時、どうすりゃいいんだ?"/>
+        <dialogue speaker="player" english="COMBINE!" translation="ガッタイ!!" case="1"/>
+        <dialogue speaker="purple" english="COMBINE!" translation="ガッタイ!!" case="2"/>
+        <dialogue speaker="yellow" english="COMBINE!" translation="ガッタイ!!" case="3" pad_left="1"/>
+        <dialogue speaker="red" english="COMBINE!" translation="ガッタイ!!" case="4"/>
+        <dialogue speaker="green" english="COMBINE!" translation="ガッタイ!!" case="5"/>
+        <dialogue speaker="blue" english="COMBINE!" translation="ガッタイ!!" case="6"/>
         <dialogue speaker="purple" english="Or, you know... we could have just warped back to the ship..." translation="えーとこれ、フツーに
 フネにワープして帰った方が
 良かったんじゃない?"/>
@@ -1115,13 +1119,13 @@ Collect trinkets to unlock new songs!" translation="-= ジュークボックス 
 この船を出るまで曲が流れ続けます。
 
 新しい曲を解除するには、
-トリンケットを見つけてください。" centertext="1" padtowidth="264"/>
+トリンケットを見つけてください。" centertext="1" pad_left="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock1" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
 5 Trinkets
 
-Pushing Onwards" translation="次のアンロック:
+Pushing Onwards" translation="次の曲:
 トリンケット×5
 
 Pushing Onwards" tt="1" pad="1"/>
@@ -1130,7 +1134,7 @@ Pushing Onwards" tt="1" pad="1"/>
         <dialogue speaker="gray" english="NEXT UNLOCK:
 8 Trinkets
 
-Positive Force" translation="次のアンロック:
+Positive Force" translation="次の曲:
 トリンケット×8
 
 Positive Force" tt="1" pad="1"/>
@@ -1139,7 +1143,7 @@ Positive Force" tt="1" pad="1"/>
         <dialogue speaker="gray" english="NEXT UNLOCK:
 10 Trinkets
 
-Presenting VVVVVV" translation="次のアンロック:
+Presenting VVVVVV" translation="次の曲:
 トリンケット×10
 
 Presenting VVVVVV" tt="1" pad="1"/>
@@ -1148,7 +1152,7 @@ Presenting VVVVVV" tt="1" pad="1"/>
         <dialogue speaker="gray" english="NEXT UNLOCK:
 12 Trinkets
 
-Potential for Anything" translation="次のアンロック:
+Potential for Anything" translation="次の曲:
 トリンケット×12
 
 Potential for Anything" tt="1" pad="1"/>
@@ -1157,7 +1161,7 @@ Potential for Anything" tt="1" pad="1"/>
         <dialogue speaker="gray" english="NEXT UNLOCK:
 14 Trinkets
 
-Pressure Cooker" translation="次のアンロック:
+Pressure Cooker" translation="次の曲:
 トリンケット×14
 
 Pressure Cooker" tt="1" pad="1"/>
@@ -1166,7 +1170,7 @@ Pressure Cooker" tt="1" pad="1"/>
         <dialogue speaker="gray" english="NEXT UNLOCK:
 16 Trinkets
 
-Predestined Fate" translation="次のアンロック:
+Predestined Fate" translation="次の曲:
 トリンケット×16
 
 Predestined Fate" tt="1" pad="1"/>
@@ -1175,7 +1179,7 @@ Predestined Fate" tt="1" pad="1"/>
         <dialogue speaker="gray" english="NEXT UNLOCK:
 18 Trinkets
 
-Popular Potpourri" translation="次のアンロック:
+Popular Potpourri" translation="次の曲:
 トリンケット×18
 
 Popular Potpourri" tt="1" pad="1"/>
@@ -1184,22 +1188,23 @@ Popular Potpourri" tt="1" pad="1"/>
         <dialogue speaker="gray" english="NEXT UNLOCK:
 20 Trinkets
 
-Pipe Dream" translation="次のアンロック:
+Pipe Dream" translation="次の曲:
 トリンケット×20
 
 Pipe Dream" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
-        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= 個人ログ =-" padtowidth="140"/>
+        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= 個人ログ =-" padtowidth="132"/>
         <dialogue speaker="gray" english="Almost everyone has been evacuated from the space station now. The rest of us are leaving in a couple of days, once our research has been completed." translation="宇宙ステーションからの避難は
 ほぼ全員完了したようだ。
-残った我々も、あと数日で離れる事になろう。
+残った我々も、あと数日で
+離れる事になろう。
 研究が終わればの話だが。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_2" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究資料 =-" padtowidth="132"/>
         <dialogue speaker="gray" english="...everything collapses, eventually. It&apos;s the way of the universe." translation="…万物はいずれ崩壊する。
-それが宇宙の理なのだから。" centertext="1" pad="1"/>
+それが宇宙の理なのだから。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_3" explanation="">
         <dialogue speaker="gray" english="I wonder if the generator we set up in the polar dimension is what&apos;s affecting our teleporters?" translation="もしや我々が極次元に設置した
@@ -1208,9 +1213,9 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="No, it&apos;s probably just a glitch." translation="いや、そちらは単なる電力異常だろう。"/>
     </cutscene>
     <cutscene id="terminal_station_4" explanation="a trinket that&apos;s difficult to get">
-        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= 個人ログ =-" padtowidth="140"/>
+        <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= 個人ログ =-" padtowidth="132"/>
         <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="ワハハハハッ!
-ここならば誰にも見つかるまい。" pad="1"/>
+これならば誰にも取れるまい。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_warp_1" explanation="">
         <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="…先日「AVOID」と書かれた
@@ -1236,13 +1241,13 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究資料 =-" padtowidth="132"/>
         <dialogue speaker="gray" english="...with just a small modification to the usual parameters, we were able to stabilise an infinite tunnel!" translation="…通常のパラメーターに微調整を
 加えただけで無限トンネルの安定化
-に成功した!"/>
+に成功した!" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_3" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究資料 =-" padtowidth="132"/>
         <dialogue speaker="gray" english="... the final step in creating the dimensional stabiliser was to create a feedback loop ..." translation="…次元スタビライザーの構築における
- 最後のステップは、フィードバックループを
- 再現する事だ…。" pad="1"/>
+最後のステップは、フィードバックループを
+再現する事だ…。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_4" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究資料 =-" padtowidth="132"/>
@@ -1250,22 +1255,22 @@ Pipe Dream" tt="1" pad="1"/>
 だが次元スタビライザーがそれほど長期間
 この状態を維持出来るとは到底思えない。
 やはり崩壊は時間の問題なのか…。" pad="1"/>
-        <dialogue speaker="cyan" english="Huh? These coordinates aren&apos;t even in this dimension!" translation="おいおい…この次元じゃ
-座標すらも不安定だっていうのか?"/>
+        <dialogue speaker="cyan" english="Huh? These coordinates aren&apos;t even in this dimension!" translation="うん? この次元に
+こんな座標はないぞ…?"/>
     </cutscene>
     <cutscene id="terminal_outside_5" explanation="">
-        <dialogue speaker="gray" english="-= Personal Log =-" translation="-= 個人 ログ =-" padtowidth="116"/>
+        <dialogue speaker="gray" english="-= Personal Log =-" translation="-= 個人ログ =-" padtowidth="132"/>
         <dialogue speaker="gray" english="... I&apos;ve had to seal off access to most of our research. Who knows what could happen if it fell into the wrong hands? ..." translation="面倒だが我々の研究結果への
 アクセスを遮断する必要があった。
 もしもこの情報が悪しき者に渡れば
-どんな恐ろしい事になるか・・・。
-それだけは避けねばならなかったのだ。" centertext="1" pad="1"/>
+どんな恐ろしい事になるか…。
+それだけは避けねばならなかったのだ。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_outside_6" explanation="">
         <dialogue speaker="gray" english="-= Research Notes =-" translation="-= 研究資料 =-" padtowidth="132"/>
         <dialogue speaker="gray" english="... access to the control center is still possible through the main atmospheric filters ..." translation="メイン大気フィルターを通って行けば
 今でもコントロールセンターに
-アクセスする事が出来るようだ…。"/>
+アクセスする事が出来るようだ…。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_lab_1" explanation="">
         <dialogue speaker="gray" english="... it turns out the key to stabilising this dimension was to create a balancing force outside of it!" translation="…どうやらこの次元を安定させる鍵は
@@ -1278,7 +1283,7 @@ Pipe Dream" tt="1" pad="1"/>
 あまりにも少ない…。"/>
     </cutscene>
     <cutscene id="terminal_lab_2" explanation="">
-        <dialogue speaker="gray" english="?SYNTAX  ERROR" translation="?SYNTAX  ERROR"/>
+        <dialogue speaker="gray" english="?SYNTAX  ERROR" translation="?ERROR"/>
     </cutscene>
     <cutscene id="terminal_letsgo" explanation="">
         <dialogue speaker="player" english="Now that the ship is fixed, we can leave anytime we want!" translation="さてと、損傷箇所は全て修理完了したな。
@@ -1300,13 +1305,13 @@ Broadcasting" translation="-= 船内放送 =-
     <cutscene id="terminal_secretlab" explanation="">
         <dialogue speaker="gray" english="-= WARNING =-
 
-The Super-Gravitron is intended for entertainment purposes only." translation="-= 警　告 =-
+The Super-Gravitron is intended for entertainment purposes only." translation="  -= 警 告 =-  
 
-スーパーグラビトロンは
-遊戯用途専用の施設です。" centertext="1" pad="1"/>
+ スーパーグラビトロンは 
+ 遊戯用途専用の施設です。"/>
         <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="スーパーグラビトロンを教育用に
-使用した事が判明した際には
-その指導者に廊下に立ってもらう
+使用した事が判明した際には、
+指導者にそこの廊下に立ってもらう
 可能性があります。"/>
     </cutscene>
     <cutscene id="terminal_shipcomputer" explanation="">
@@ -1315,14 +1320,16 @@ The Super-Gravitron is intended for entertainment purposes only." translation="-
 Ship Navigation Controls" translation="-= D.S.S. ソウルアイ =-
 
 航路ナビゲーションコントロール" centertext="1" pad="1"/>
-        <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation="[[ ERROR ]]
+        <dialogue speaker="gray" english="Error! Error! Cannot isolate dimensional coordinates! Interference detected!" translation="[ ERROR ]
 不明な問題が発生したため
 次元座標の分離に失敗しました。" centertext="1"/>
     </cutscene>
     <cutscene id="alreadyvisited" explanation="">
-        <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="…もう知ってる情報のようだ。"/>
+        <dialogue speaker="cyan" english="...oh, I&apos;ve already found this." translation="…もう知ってる情報みたいだな。"/>
     </cutscene>
     <cutscene id="disableaccessibility" explanation="">
-        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation=""/>
+        <dialogue speaker="gray" english="Please disable invincibility and/or slowdown before entering the Super Gravitron." translation="スーパーグラビトロンを始める前に、
+無敵モードとスピードダウンをOFFに
+してください。"/>
     </cutscene>
 </cutscenes>
