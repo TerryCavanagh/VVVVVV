@@ -6,13 +6,14 @@
     <nativename>日本語</nativename>
 
     <!-- English translation by X -->
-    <credit>Converted from Nicalis version</credit>
+    <credit>???(Nicalis)による翻訳
+KabanFriendsによる追加翻訳/校正</credit>
 
     <!-- On the language screen, hard limit 40 8x8 characters. Space/Z/V sets this as the language -->
-    <action_hint>Press Space, Z, or V to select</action_hint>
+    <action_hint>スペース, Z または V を押して決定</action_hint>
 
     <!-- Same as above, but for a gamepad button (hard limit 40 8x8 characters) -->
-    <gamepad_hint>Press {button} to select</gamepad_hint>
+    <gamepad_hint>{button} を押して決定</gamepad_hint>
 
     <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
     <autowordwrap>0</autowordwrap>
