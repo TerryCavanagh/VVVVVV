@@ -762,17 +762,17 @@ static void draw_edgeguides(void)
         }
         if (entity->rx == POS_MOD(ed.levx - 1, cl.mapwidth)
             // It's to the left...
-            && x + w >= 312)
+            && x + w >= SCREEN_WIDTH_PIXELS - 8)
         {
             // And touching the right edge!
-            graphics.fill_rect(x, entity->y * 8, 2, 8, green);
+            graphics.fill_rect(0, entity->y * 8, 2, 8, green);
         }
         else if (entity->rx == POS_MOD(ed.levx + 1, cl.mapwidth)
             // It's to the right...
             && x <= 0)
         {
             // And touching the left edge!
-            graphics.fill_rect(x + w - 2, entity->y * 8, 2, 8, green);
+            graphics.fill_rect(SCREEN_WIDTH_PIXELS - 2, entity->y * 8, 2, 8, green);
         }
     }
 }
