@@ -3884,42 +3884,7 @@ bool editorclass::autotile_connector(int x, int y, TileTypes original_type)
 
 int editorclass::get_enemy_tile(int t)
 {
-    switch(t)
-    {
-    case 0:
-        return 78;
-        break;
-    case 1:
-        return 88;
-        break;
-    case 2:
-        return 36;
-        break;
-    case 3:
-        return 164;
-        break;
-    case 4:
-        return 68;
-        break;
-    case 5:
-        return 48;
-        break;
-    case 6:
-        return 176;
-        break;
-    case 7:
-        return 168;
-        break;
-    case 8:
-        return 112;
-        break;
-    case 9:
-        return 114;
-        break;
-    default:
-        return 78;
-        break;
-    }
+    return (&obj.enemy_types[obj.legacy_id_to_entity(t)])->tile;
 }
 
 void editorclass::set_tile(int x, int y, int t)

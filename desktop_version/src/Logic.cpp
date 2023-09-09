@@ -371,7 +371,7 @@ void gamelogic(void)
         {
             if (game.roomx == 111 && game.roomy == 107 && !map.custommode)
             {
-                if (obj.entities[i].type == 1)
+                if (obj.entities[i].type == EntityType_MOVING)
                 {
                     if (obj.entities[i].xp < 152)
                     {
@@ -389,7 +389,7 @@ void gamelogic(void)
                     }
                 }
             }
-            if (obj.entities[i].type == 2 && obj.entities[i].state == 3)
+            if (obj.entities[i].type == EntityType_DISAPPEARING_PLATFORM && obj.entities[i].state == 3)
             {
                 //Ok! super magical exception for the room with the intention death for the shiny trinket
                 //fix this when the maps are finalised
@@ -403,7 +403,7 @@ void gamelogic(void)
                     map.settile(18, 9, 59);
                 }
             }
-            else if (obj.entities[i].type == 2 && obj.entities[i].state == 2)
+            else if (obj.entities[i].type == EntityType_DISAPPEARING_PLATFORM && obj.entities[i].state == 2)
             {
                 //ok, unfortunate case where the disappearing platform hasn't fully disappeared. Accept a little
                 //graphical uglyness to avoid breaking the room!
@@ -419,7 +419,7 @@ void gamelogic(void)
                 }
                 if (!entitygone) obj.entities[i].state = 4;
             }
-            else if (obj.entities[i].type == 23 && game.swnmode && game.deathseq<15)
+            else if (obj.entities[i].type == EntityType_GRAVITRON_ENEMY && game.swnmode && game.deathseq<15)
             {
                 //if playing SWN, get the enemies offscreen.
                 obj.entities[i].xp += obj.entities[i].vx*5;
@@ -726,7 +726,7 @@ void gamelogic(void)
                 bool square_onscreen = false;
                 for (size_t i = 0; i < obj.entities.size(); i++)
                 {
-                    if (obj.entities[i].type == 23)
+                    if (obj.entities[i].type == EntityType_GRAVITRON_ENEMY)
                     {
                         square_onscreen = true;
                         break;
@@ -1029,9 +1029,11 @@ void gamelogic(void)
             size_t i;
             for (i = 0; i < obj.entities.size(); ++i)
             {
-                if ((obj.entities[i].type >= 51
-                && obj.entities[i].type <= 54) /* Don't warp warp lines */
-                || obj.entities[i].size == 12) /* Don't warp gravitron squares */
+                if (obj.entities[i].type == EntityType_WARP_LINE_LEFT
+                    || obj.entities[i].type == EntityType_WARP_LINE_RIGHT
+                    || obj.entities[i].type == EntityType_WARP_LINE_TOP
+                    || obj.entities[i].type == EntityType_WARP_LINE_BOTTOM /* Don't warp warp lines */
+                    || obj.entities[i].render_type == EntityRenderType_SPRITE_NO_WRAP) /* Don't warp gravitron squares */
                 {
                     continue;
                 }

@@ -1914,9 +1914,9 @@ void Graphics::drawentity(const int i, const int yoff)
     const int xp = lerp(obj.entities[i].lerpoldxp, obj.entities[i].xp);
     const int yp = lerp(obj.entities[i].lerpoldyp, obj.entities[i].yp);
 
-    switch (obj.entities[i].size)
+    switch (obj.entities[i].render_type)
     {
-    case 0:
+    case EntityRenderType_SPRITE:
     {
         // Sprites
         tpoint.x = xp;
@@ -1982,7 +1982,7 @@ void Graphics::drawentity(const int i, const int yoff)
         }
         break;
     }
-    case 1:
+    case EntityRenderType_TILE:
         // Tiles
         tpoint.x = xp;
         tpoint.y = yp - yoff;
@@ -1992,15 +1992,15 @@ void Graphics::drawentity(const int i, const int yoff)
 
         draw_grid_tile(grphx.im_tiles, obj.entities[i].drawframe, drawRect.x, drawRect.y, 8, 8);
         break;
-    case 2:
-    case 8:
+    case EntityRenderType_PLATFORM:
+    case EntityRenderType_PLATFORM_LONG:
     {
         // Special: Moving platform, 4 tiles or 8 tiles
 
         tpoint.x = xp;
         tpoint.y = yp - yoff;
         int thiswidth = 4;
-        if (obj.entities[i].size == 8)
+        if (obj.entities[i].render_type == EntityRenderType_PLATFORM_LONG)
         {
             thiswidth = 8;
         }
@@ -2021,16 +2021,16 @@ void Graphics::drawentity(const int i, const int yoff)
         }
         break;
     }
-    case 3: // Big chunky pixels!
+    case EntityRenderType_PARTICLE: // Big chunky pixels!
         fill_rect(xp, yp - yoff, 4, 4, obj.entities[i].realcol);
         break;
-    case 4: // Small pickups
+    case EntityRenderType_COIN: // Small pickups
     {
         const SDL_Color color = obj.entities[i].realcol;
         drawcoloredtile(xp, yp - yoff, obj.entities[i].tile, color.r, color.g, color.b);
         break;
     }
-    case 5: // Horizontal Line
+    case EntityRenderType_HORIZONTAL_LINE: // Horizontal Line
     {
         int oldw = obj.entities[i].w;
         if ((game.swngame == SWN_START_GRAVITRON_STEP_2 || kludgeswnlinewidth)
@@ -2041,16 +2041,13 @@ void Graphics::drawentity(const int i, const int yoff)
         drawgravityline(i, xp, yp - yoff, lerp(oldw, obj.entities[i].w) - 1, 0);
         break;
     }
-    case 6: // Vertical Line
+    case EntityRenderType_VERTICAL_LINE: // Vertical Line
         drawgravityline(i, xp, yp - yoff, 0, obj.entities[i].h - 1);
         break;
-    case 7: // Teleporter
+    case EntityRenderType_TELEPORTER: // Teleporter
         drawtele(xp, yp - yoff, obj.entities[i].drawframe, obj.entities[i].realcol);
         break;
-    // case 8:    // Special: Moving platform, 8 tiles
-        // Note: This code is in the 4-tile code
-        break;
-    case 9: // Really Big Sprite! (2x2)
+    case EntityRenderType_SPRITE_2x2: // Really Big Sprite! (2x2)
     {
         const SDL_Color ct = obj.entities[i].realcol;
 
@@ -2091,7 +2088,7 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe + 13, drawRect.x, drawRect.y, 32, 32, ct);
         break;
     }
-    case 10: // 2x1 Sprite
+    case EntityRenderType_SPRITE_2x1: // 2x1 Sprite
     {
         const SDL_Color ct = obj.entities[i].realcol;
 
@@ -2114,10 +2111,10 @@ void Graphics::drawentity(const int i, const int yoff)
         draw_grid_tile(sprites, obj.entities[i].drawframe + 1, drawRect.x, drawRect.y, 32, 32, ct);
         break;
     }
-    case 11: // The fucking elephant
+    case EntityRenderType_ELEPHANT: // The fucking elephant
         drawimagecol(IMAGE_ELEPHANT, xp, yp - yoff, obj.entities[i].realcol);
         break;
-    case 12: // Regular sprites that don't wrap
+    case EntityRenderType_SPRITE_NO_WRAP: // Regular sprites that don't wrap
     {
         tpoint.x = xp;
         tpoint.y = yp - yoff;
@@ -2173,7 +2170,7 @@ void Graphics::drawentity(const int i, const int yoff)
         }
         break;
     }
-    case 13:
+    case EntityRenderType_SPRITE_6x:
     {
         // Special for epilogue: huge hero!
         draw_grid_tile(grphx.im_sprites, obj.entities[i].drawframe, xp, yp - yoff, sprites_rect.w, sprites_rect.h, obj.entities[i].realcol, 6, 6);

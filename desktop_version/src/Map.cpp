@@ -511,30 +511,34 @@ void mapclass::changefinalcol(int t)
     //Next, entities
     for (size_t i = 0; i < obj.entities.size(); i++)
     {
-        if (obj.entities[i].type == 1) //something with a movement behavior
+        if (obj.entities[i].type == EntityType_MOVING)
         {
-            if (obj.entities[i].animate == 10 || obj.entities[i].animate == 11) //treadmill
+            if (obj.entities[i].animation_type == EntityAnimationType_CONVEYOR_LEFT || obj.entities[i].animation_type == EntityAnimationType_CONVEYOR_RIGHT) //treadmill
             {
-                if(temp<3)
+                if (temp < 3)
                 {
                     obj.entities[i].tile = 907 + (temp * 80);
                 }
                 else
                 {
-                    obj.entities[i].tile = 911 + ((temp-3) * 80);
+                    obj.entities[i].tile = 911 + ((temp - 3) * 80);
                 }
-                if(obj.entities[i].animate == 10)    obj.entities[i].tile += 40;
+
+                if (obj.entities[i].animation_type == EntityAnimationType_CONVEYOR_LEFT)
+                {
+                    obj.entities[i].tile += 40;
+                }
             }
             else if (obj.entities[i].isplatform)
             {
-                obj.entities[i].tile = 915+(temp*40);
+                obj.entities[i].tile = 915 + (temp * 40);
             }
             else    //just an enemy
             {
                 obj.entities[i].colour = maptiletoenemycol(temp);
             }
         }
-        else if (obj.entities[i].type == 2)    //disappearing platforms
+        else if (obj.entities[i].type == EntityType_DISAPPEARING_PLATFORM)
         {
             obj.entities[i].tile = 915+(temp*40);
         }
@@ -810,7 +814,7 @@ void mapclass::resetplayer(const bool player_died)
         }
         if (!GlitchrunnerMode_less_than_or_equal(Glitchrunner2_2))
         {
-            obj.entities[i].size = 0;
+            obj.entities[i].render_type = EntityRenderType_SPRITE;
             obj.entities[i].cx = 6;
             obj.entities[i].cy = 2;
             obj.entities[i].w = 12;
@@ -884,7 +888,7 @@ void mapclass::gotoroom(int rx, int ry)
     //Ok, let's save the position of all lines on the screen
     for (size_t i = 0; i < obj.entities.size(); i++)
     {
-        if (obj.entities[i].type == 9)
+        if (obj.entities[i].type == EntityType_HORIZONTAL_GRAVITY_LINE)
         {
             //It's a horizontal line
             if (obj.entities[i].xp <= 0 || (obj.entities[i].xp + obj.entities[i].w) >= 312)
@@ -1022,7 +1026,7 @@ void mapclass::gotoroom(int rx, int ry)
 
     for (size_t i = 0; i < obj.entities.size(); i++)
     {
-        if (obj.entities[i].type == 9)
+        if (obj.entities[i].type == EntityType_HORIZONTAL_GRAVITY_LINE)
         {
             //It's a horizontal line
             if (obj.entities[i].xp <= 0 || obj.entities[i].xp + obj.entities[i].w >= 312)
@@ -2038,7 +2042,7 @@ void mapclass::loadlevel(int rx, int ry)
 
         for (size_t i = 0; i < obj.entities.size(); i++)
         {
-            if (obj.entities[i].type == 1 && obj.entities[i].behave >= 8 && obj.entities[i].behave < 10)
+            if (obj.entities[i].type == EntityType_MOVING && obj.entities[i].behave >= 8 && obj.entities[i].behave < 10)
             {
                 //put a block underneath
                 int temp = obj.entities[i].xp / 8.0f;
