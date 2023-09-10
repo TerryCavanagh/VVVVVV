@@ -11,7 +11,7 @@ Authors
 - Created by [Terry Cavanagh](http://distractionware.com/)
 - Room Names by [Bennett Foddy](http://www.foddy.net)
 - Music by [Magnus Pålsson](http://souleye.madtracker.net/)
-- Metal Soundtrack by [FamilyJules](http://familyjules7x.com/)
+- Metal Soundtrack by [FamilyJules](https://link.space/@familyjules)
 - 2.0 Update (C++ Port) by [Simon Roth](http://www.machinestudios.co.uk)
 - 2.2 Update (SDL2/PhysicsFS/Steamworks port) by [Ethan Lee](http://www.flibitijibibo.com/)
 - Beta Testing by Sam Kaplan and Pauli Kohberger
