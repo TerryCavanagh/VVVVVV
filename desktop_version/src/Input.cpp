@@ -1037,6 +1037,7 @@ static void menuactionpress(void)
             {
                 music.playef(Sound_VIRIDIAN);
                 loc::loadlanguagelist();
+                loc::pre_title_lang_menu = false;
                 game.createmenu(Menu::language);
                 game.currentmenuoption = loc::languagelist_curlang;
                 map.nexttowercolour();
@@ -1114,16 +1115,13 @@ static void menuactionpress(void)
 
         if (loc::pre_title_lang_menu)
         {
-            /* Make the title screen appear, we haven't seen it yet */
+            /* Make the title screen appear, we haven't seen it yet.
+             * game.returnmenu() works because Menu::mainmenu
+             * is created before the language menu. */
             game.menustart = false;
-            game.createmenu(Menu::mainmenu);
-            game.currentmenuoption = 0;
             loc::pre_title_lang_menu = false;
         }
-        else
-        {
-            game.returnmenu();
-        }
+        game.returnmenu();
         map.nexttowercolour();
         game.savestatsandsettings_menu();
 
