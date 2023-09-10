@@ -290,11 +290,13 @@ void scriptclass::run(void)
                 }
                 else if (words[1] == "platforms" || words[1] == "moving")
                 {
+                    const bool fixed = words[1] == "moving";
+
                     for (size_t edi = 0; edi < obj.entities.size(); edi++)
                     {
                         if (obj.entities[edi].rule == 2 && obj.entities[edi].animate == 100)
                         {
-                            if (words[1] == "moving")
+                            if (fixed)
                             {
                                 obj.disableblockat(obj.entities[edi].xp, obj.entities[edi].yp);
                             }
