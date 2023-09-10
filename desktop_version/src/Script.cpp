@@ -280,7 +280,8 @@ void scriptclass::run(void)
                 }
                 else if (words[1] == "warptokens")
                 {
-                    for (size_t edi = 0; edi < obj.entities.size(); edi++) {
+                    for (size_t edi = 0; edi < obj.entities.size(); edi++)
+                    {
                         if (obj.entities[edi].type == 11)
                         {
                             obj.disableentity(edi);
