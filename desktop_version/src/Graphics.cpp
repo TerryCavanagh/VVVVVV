@@ -194,6 +194,16 @@ void Graphics::create_buffers(void)
 #undef CREATE_SCROLL_TEXTURE
 #undef CREATE_TEXTURE
 #undef CREATE_TEXTURE_WITH_DIMENSIONS
+
+    SDL_SetTextureScaleMode(
+        gameTexture,
+        gameScreen.isFiltered ? SDL_ScaleModeLinear : SDL_ScaleModeNearest
+    );
+
+    SDL_SetTextureScaleMode(
+        tempShakeTexture,
+        gameScreen.isFiltered ? SDL_ScaleModeLinear : SDL_ScaleModeNearest
+    );
 }
 
 void Graphics::destroy_buffers(void)

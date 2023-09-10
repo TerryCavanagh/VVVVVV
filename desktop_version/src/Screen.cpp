@@ -40,11 +40,6 @@ void Screen::init(const struct ScreenSettings* settings)
     vsync = settings->useVsync;
 
     SDL_SetHintWithPriority(
-        SDL_HINT_RENDER_SCALE_QUALITY,
-        isFiltered ? "linear" : "nearest",
-        SDL_HINT_OVERRIDE
-    );
-    SDL_SetHintWithPriority(
         SDL_HINT_RENDER_VSYNC,
         vsync ? "1" : "0",
         SDL_HINT_OVERRIDE
@@ -313,13 +308,19 @@ void Screen::toggleScalingMode(void)
 void Screen::toggleLinearFilter(void)
 {
     isFiltered = !isFiltered;
-    SDL_SetHintWithPriority(
-        SDL_HINT_RENDER_SCALE_QUALITY,
-        isFiltered ? "linear" : "nearest",
-        SDL_HINT_OVERRIDE
-    );
+
     SDL_DestroyTexture(graphics.gameTexture);
+    SDL_DestroyTexture(graphics.tempShakeTexture);
+
     graphics.gameTexture = SDL_CreateTexture(
+        m_renderer,
+        SDL_PIXELFORMAT_ARGB8888,
+        SDL_TEXTUREACCESS_TARGET,
+        SCREEN_WIDTH_PIXELS,
+        SCREEN_HEIGHT_PIXELS
+    );
+
+    graphics.tempShakeTexture = SDL_CreateTexture(
         m_renderer,
         SDL_PIXELFORMAT_ARGB8888,
         SDL_TEXTUREACCESS_TARGET,
@@ -332,6 +333,22 @@ void Screen::toggleLinearFilter(void)
         vlog_error("Could not create game texture: %s", SDL_GetError());
         return;
     }
+
+    if (graphics.tempShakeTexture == NULL)
+    {
+        vlog_error("Could not create temp shake texture: %s", SDL_GetError());
+        return;
+    }
+
+    SDL_SetTextureScaleMode(
+        graphics.gameTexture,
+        isFiltered ? SDL_ScaleModeLinear : SDL_ScaleModeNearest
+    );
+
+    SDL_SetTextureScaleMode(
+        graphics.tempShakeTexture,
+        isFiltered ? SDL_ScaleModeLinear : SDL_ScaleModeNearest
+    );
 }
 
 void Screen::toggleVSync(void)
