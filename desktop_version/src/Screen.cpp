@@ -39,12 +39,6 @@ void Screen::init(const struct ScreenSettings* settings)
     badSignalEffect = settings->badSignal;
     vsync = settings->useVsync;
 
-    SDL_SetHintWithPriority(
-        SDL_HINT_RENDER_VSYNC,
-        vsync ? "1" : "0",
-        SDL_HINT_OVERRIDE
-    );
-
     // Uncomment this next line when you need to debug -flibit
     // SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "software", SDL_HINT_OVERRIDE);
 
@@ -70,6 +64,8 @@ void Screen::init(const struct ScreenSettings* settings)
         vlog_error("Could not create renderer: %s", SDL_GetError());
         VVV_exit(1);
     }
+
+    SDL_RenderSetVSync(m_renderer, (int) vsync);
 
 #ifdef INTERIM_VERSION_EXISTS
     /* Branch name limits are ill-defined but on GitHub it's ~256 chars
