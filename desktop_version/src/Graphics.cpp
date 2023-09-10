@@ -3190,7 +3190,7 @@ void Graphics::textboxbuttons(void)
 
 void Graphics::textboxcommsrelay(void)
 {
-    // Special treatment for the gamestate textboxes in Comms Relay 
+    // Special treatment for the gamestate textboxes in Comms Relay
     if (!INBOUNDS_VEC(m, textboxes))
     {
         vlog_error("textboxcommsrelay() out-of-bounds!");
