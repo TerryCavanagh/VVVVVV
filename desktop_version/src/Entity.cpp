@@ -2173,6 +2173,9 @@ void entityclass::createentity(int xp, int yp, int t, int meta1, int meta2, int 
 
         entityclonefix(&entity);
         break;
+    case 100: // Invalid enemy, but gets treated as a teleporter
+        entity.type = EntityType_TELEPORTER;
+        break;
     }
 
     entity.lerpoldxp = entity.xp;
