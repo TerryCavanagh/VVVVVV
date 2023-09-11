@@ -1240,9 +1240,14 @@ void mapclass::spawncompanion(void)
     }
 }
 
-const char* mapclass::currentarea(int t)
+const char* mapclass::currentarea(const int roomx, const int roomy)
 {
-    switch(t)
+    if (roomx >= 102 && roomx <= 104 && roomy >= 110 && roomy <= 111)
+    {
+        return loc::gettext_roomname_special("The Ship");
+    }
+
+    switch (area(roomx, roomy))
     {
     case 0:
         return loc::gettext_roomname_special("Dimension VVVVVV");

@@ -5683,9 +5683,7 @@ void Game::loadsummary(void)
             summary.seconds
         );
         map.finalmode = summary.finalmode;
-        tele_currentarea = map.currentarea(
-            map.area(summary.savex, summary.savey)
-        );
+        tele_currentarea = map.currentarea(summary.savex, summary.savey);
         SDL_memcpy(tele_crewstats, summary.crewstats, sizeof(tele_crewstats));
         tele_trinkets = summary.trinkets;
     }
@@ -5708,9 +5706,7 @@ void Game::loadsummary(void)
             summary.seconds
         );
         map.finalmode = summary.finalmode;
-        quick_currentarea = map.currentarea(
-            map.area(summary.savex, summary.savey)
-        );
+        quick_currentarea = map.currentarea(summary.savex, summary.savey);
         SDL_memcpy(quick_crewstats, summary.crewstats, sizeof(quick_crewstats));
         quick_trinkets = summary.trinkets;
     }

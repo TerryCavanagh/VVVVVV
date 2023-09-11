@@ -108,7 +108,7 @@ public:
 
     void spawncompanion(void);
 
-    const char* currentarea(int t);
+    const char* currentarea(int roomx, int roomy);
 
     void loadlevel(int rx, int ry);
 
