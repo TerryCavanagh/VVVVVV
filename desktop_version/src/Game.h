@@ -491,7 +491,7 @@ public:
     std::string activity_lastprompt;
     bool activity_gettext;
 
-    std::string telesummary, quicksummary, customquicksummary;
+    std::string telesummary, quicksummary;
     bool save_exists(void);
 
     bool backgroundtext;

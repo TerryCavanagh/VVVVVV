@@ -6064,8 +6064,6 @@ bool Game::customsavequick(const std::string& savfile)
     std::string summary = savearea + ", " + timestring();
     xml::update_tag(msgs, "summary", summary.c_str());
 
-    customquicksummary = summary;
-
     if(!FILESYSTEM_saveTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))
     {
         vlog_error("Could Not Save game!");
