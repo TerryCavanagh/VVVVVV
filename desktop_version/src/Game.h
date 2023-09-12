@@ -290,6 +290,21 @@ public:
 
     void loadsummary(void);
 
+    static const int numcrew = 6;
+
+    struct Summary
+    {
+        const char* summary;
+        int seconds;
+        int minutes;
+        int hours;
+        int savex;
+        int savey;
+        int trinkets;
+        bool finalmode;
+        bool crewstats[numcrew];
+    };
+
     void readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc);
     std::string writemaingamesave(tinyxml2::XMLDocument& doc);
 
@@ -434,7 +449,6 @@ public:
 
     bool inintermission;
 
-    static const int numcrew = 6;
     bool crewstats[numcrew];
     bool ndmresultcrewstats[numcrew];
 

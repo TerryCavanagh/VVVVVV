@@ -5581,22 +5581,9 @@ void Game::customloadquick(const std::string& savfile)
     }
 }
 
-struct Summary
-{
-    const char* summary;
-    int seconds;
-    int minutes;
-    int hours;
-    int savex;
-    int savey;
-    int trinkets;
-    bool finalmode;
-    bool crewstats[Game::numcrew];
-};
-
 static void loadthissummary(
     const char* filename,
-    struct Summary* summary,
+    struct Game::Summary* summary,
     tinyxml2::XMLDocument& doc
 ) {
     tinyxml2::XMLHandle hDoc(&doc);
