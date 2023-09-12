@@ -267,7 +267,6 @@ void Game::init(void)
     gamesaved = false;
     gamesavefailed = false;
     savetime = "00:00";
-    savearea = "nowhere";
     savetrinkets = 0;
 
     intimetrial = false;
@@ -5846,7 +5845,7 @@ struct Game::Summary Game::writemaingamesave(tinyxml2::XMLDocument& doc)
     xml::update_tag(msgs, "finalstretch", (int) map.finalstretch);
 
 
-    std::string legacy_summary = savearea + ", " + timestring();
+    std::string legacy_summary = std::string(map.currentarea(saverx, savery)) + ", " + timestring();
     xml::update_tag(msgs, "summary", legacy_summary.c_str());
 
 
@@ -6009,7 +6008,7 @@ bool Game::customsavequick(const std::string& savfile)
         }
     }
 
-    std::string legacy_summary = savearea + ", " + timestring();
+    std::string legacy_summary = customleveltitle + ", " + timestring();
     xml::update_tag(msgs, "summary", legacy_summary.c_str());
 
     if(!FILESYSTEM_saveTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))

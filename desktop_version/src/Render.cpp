@@ -3012,7 +3012,11 @@ void maprender(void)
         else
         {
             size_t i;
-            font::print(PR_CEN, -1, FLIP(80, 8), game.savearea, 25, 255 - help.glow/2, 255 - help.glow/2);
+            font::print(
+                PR_CEN, -1, FLIP(80, 8),
+                map.currentarea(game.last_quicksave.saverx, game.last_quicksave.savery),
+                25, 255 - help.glow/2, 255 - help.glow/2
+            );
             for (i = 0; i < SDL_arraysize(game.crewstats); ++i)
             {
                 /* Crewmates are annoying. Their height is 21 pixels, but to flip them,
