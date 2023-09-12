@@ -3057,7 +3057,6 @@ static void mapmenuactionpress(const bool version2_2)
         music.playef(Sound_GAMESAVED);
 
         game.savetime = game.timestring();
-        game.savearea = map.currentarea(game.roomx, game.roomy);
         game.savetrinkets = game.trinkets();
 
         bool success;
