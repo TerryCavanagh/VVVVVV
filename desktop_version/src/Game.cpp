@@ -108,53 +108,31 @@ static bool GetButtonFromString(const char *pText, SDL_GameControllerButton *but
     return false;
 }
 
-static const char* get_summary(
+// Unfortunate forward-declare... My hands are pretty tied
+static void loadthissummary(
+    const char* filename,
+    struct Game::Summary* summary,
+    tinyxml2::XMLDocument& doc
+);
+
+static struct Game::Summary get_summary(
     const char* filename,
     const char* savename,
     tinyxml2::XMLDocument& doc
 ) {
     tinyxml2::XMLHandle hDoc(&doc);
-    tinyxml2::XMLElement* pElem;
-    bool success;
-    const char* retval = "";
+    struct Game::Summary summary;
+    SDL_zero(summary);
 
-    success = FILESYSTEM_loadTiXml2Document(filename, doc);
-    if (!success)
+    if (!FILESYSTEM_loadTiXml2Document(filename, doc))
     {
         vlog_info("%s not found", savename);
-        goto end;
+        return summary;
     }
 
-    if (doc.Error())
-    {
-        vlog_error("Error parsing %s: %s", savename, doc.ErrorStr());
-        goto end;
-    }
+    loadthissummary(savename, &summary, doc);
 
-    for (pElem = hDoc
-        .FirstChildElement()
-        .FirstChildElement("Data")
-        .FirstChildElement()
-        .ToElement();
-    pElem != NULL;
-    pElem = pElem->NextSiblingElement())
-    {
-        const char* pKey = pElem->Value();
-        const char* pText = pElem->GetText();
-
-        if (pText == NULL)
-        {
-            pText = "";
-        }
-
-        if (SDL_strcmp(pKey, "summary") == 0)
-        {
-            retval = pText;
-        }
-    }
-
-end:
-    return retval;
+    return summary;
 }
 
 void Game::init(void)
@@ -339,11 +317,11 @@ void Game::init(void)
     saveFilePath = FILESYSTEM_getUserSaveDirectory();
 
     tinyxml2::XMLDocument doc;
-    quicksummary = get_summary("saves/qsave.vvv", "qsave.vvv", doc);
+    last_quicksave = get_summary("saves/qsave.vvv", "qsave.vvv", doc);
 
 
     tinyxml2::XMLDocument docTele;
-    telesummary = get_summary("saves/tsave.vvv", "tsave.vvv", doc);
+    last_telesave = get_summary("saves/tsave.vvv", "tsave.vvv", doc);
 
     screenshake = flashlight = 0 ;
 
@@ -5589,6 +5567,8 @@ static void loadthissummary(
         return;
     }
 
+    summary->exists = true;
+
     for (pElem = hDoc
         .FirstChildElement()
         .FirstChildElement("Data")
@@ -5605,11 +5585,7 @@ static void loadthissummary(
             pText = "";
         }
 
-        if (SDL_strcmp(pKey, "summary") == 0)
-        {
-            summary->summary = pText;
-        }
-        else if (SDL_strcmp(pKey, "seconds") == 0)
+        if (SDL_strcmp(pKey, "seconds") == 0)
         {
             summary->seconds = help.Int(pText);
         }
@@ -5642,48 +5618,35 @@ void Game::loadsummary(void)
 {
     tinyxml2::XMLDocument doc;
 
-    if (!FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc))
-    {
-        telesummary = "";
-    }
-    else
-    {
-        struct Summary summary;
-        SDL_zero(summary);
+    SDL_zero(last_telesave);
+    SDL_zero(last_quicksave);
 
-        loadthissummary("tsave.vvv", &summary, doc);
+    if (FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc))
+    {
+        loadthissummary("tsave.vvv", &last_telesave, doc);
 
-        telesummary = summary.summary;
         tele_gametime = giventimestring(
-            summary.hours,
-            summary.minutes,
-            summary.seconds
+            last_telesave.hours,
+            last_telesave.minutes,
+            last_telesave.seconds
         );
-        tele_currentarea = map.currentarea(summary.saverx, summary.savery);
-        SDL_memcpy(tele_crewstats, summary.crewstats, sizeof(tele_crewstats));
-        tele_trinkets = summary.trinkets;
+        tele_currentarea = map.currentarea(last_telesave.saverx, last_telesave.savery);
+        SDL_memcpy(tele_crewstats, last_telesave.crewstats, sizeof(tele_crewstats));
+        tele_trinkets = last_telesave.trinkets;
     }
 
-    if (!FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc))
+    if (FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc))
     {
-        quicksummary = "";
-    }
-    else
-    {
-        struct Summary summary;
-        SDL_zero(summary);
+        loadthissummary("qsave.vvv", &last_quicksave, doc);
 
-        loadthissummary("qsave.vvv", &summary, doc);
-
-        quicksummary = summary.summary;
         quick_gametime = giventimestring(
-            summary.hours,
-            summary.minutes,
-            summary.seconds
+            last_quicksave.hours,
+            last_quicksave.minutes,
+            last_quicksave.seconds
         );
-        quick_currentarea = map.currentarea(summary.saverx, summary.savery);
-        SDL_memcpy(quick_crewstats, summary.crewstats, sizeof(quick_crewstats));
-        quick_trinkets = summary.trinkets;
+        quick_currentarea = map.currentarea(last_quicksave.saverx, last_quicksave.savery);
+        SDL_memcpy(quick_crewstats, last_quicksave.crewstats, sizeof(quick_crewstats));
+        quick_trinkets = last_quicksave.trinkets;
     }
 }
 
@@ -5721,7 +5684,7 @@ bool Game::savetele(void)
         vlog_info("Creating new tsave.vvv");
     }
 
-    telesummary = writemaingamesave(doc);
+    last_telesave = writemaingamesave(doc);
 
     if(!FILESYSTEM_saveTiXml2Document("saves/tsave.vvv", doc))
     {
@@ -5754,7 +5717,7 @@ bool Game::savequick(void)
         vlog_info("Creating new qsave.vvv");
     }
 
-    quicksummary = writemaingamesave(doc);
+    last_quicksave = writemaingamesave(doc);
 
     if(!FILESYSTEM_saveTiXml2Document("saves/qsave.vvv", doc))
     {
@@ -5767,14 +5730,17 @@ bool Game::savequick(void)
 }
 
 // Returns summary of save
-std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
+struct Game::Summary Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 {
     //TODO make this code a bit cleaner.
+
+    struct Game::Summary summary;
+    SDL_zero(summary);
 
     if (map.custommode || inspecial())
     {
         //Don't trash save data!
-        return "";
+        return summary;
     }
 
     xml::update_declaration(doc);
@@ -5832,7 +5798,8 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
 
     xml::update_tag(msgs, "savepoint", savepoint);
 
-    xml::update_tag(msgs, "trinkets", trinkets());
+    int n_trinkets = trinkets();
+    xml::update_tag(msgs, "trinkets", n_trinkets);
 
 
     //Special stats
@@ -5873,8 +5840,18 @@ std::string Game::writemaingamesave(tinyxml2::XMLDocument& doc)
     xml::update_tag(msgs, "finalstretch", (int) map.finalstretch);
 
 
-    std::string summary = savearea + ", " + timestring();
-    xml::update_tag(msgs, "summary", summary.c_str());
+    std::string legacy_summary = savearea + ", " + timestring();
+    xml::update_tag(msgs, "summary", legacy_summary.c_str());
+
+
+    summary.exists = true;
+    summary.seconds = seconds;
+    summary.minutes = minutes;
+    summary.hours = hours;
+    summary.saverx = saverx;
+    summary.savery = savery;
+    summary.trinkets = n_trinkets;
+    SDL_memcpy(summary.crewstats, crewstats, sizeof(summary.crewstats));
 
     return summary;
 }
@@ -6026,8 +6003,8 @@ bool Game::customsavequick(const std::string& savfile)
         }
     }
 
-    std::string summary = savearea + ", " + timestring();
-    xml::update_tag(msgs, "summary", summary.c_str());
+    std::string legacy_summary = savearea + ", " + timestring();
+    xml::update_tag(msgs, "summary", legacy_summary.c_str());
 
     if(!FILESYSTEM_saveTiXml2Document(("saves/"+levelfile+".vvv").c_str(), doc))
     {
@@ -7014,10 +6991,14 @@ void Game::deletequick(void)
         return;
     }
 
-    if( !FILESYSTEM_delete( "saves/qsave.vvv" ) )
+    if (!FILESYSTEM_delete("saves/qsave.vvv"))
+    {
         vlog_error("Error deleting saves/qsave.vvv");
+    }
     else
-        quicksummary = "";
+    {
+        SDL_zero(last_quicksave);
+    }
 }
 
 void Game::deletetele(void)
@@ -7027,10 +7008,14 @@ void Game::deletetele(void)
         return;
     }
 
-    if( !FILESYSTEM_delete( "saves/tsave.vvv" ) )
+    if (!FILESYSTEM_delete("saves/tsave.vvv"))
+    {
         vlog_error("Error deleting saves/tsave.vvv");
+    }
     else
-        telesummary = "";
+    {
+        SDL_zero(last_telesave);
+    }
 }
 
 void Game::customdeletequick(const std::string& file)
@@ -7184,7 +7169,7 @@ bool Game::anything_unlocked(void)
 
 bool Game::save_exists(void)
 {
-    return telesummary != "" || quicksummary != "";
+    return last_telesave.exists || last_quicksave.exists;
 }
 
 static void hardreset(void)
