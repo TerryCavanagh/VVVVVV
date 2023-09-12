@@ -298,8 +298,8 @@ public:
         int seconds;
         int minutes;
         int hours;
-        int savex;
-        int savey;
+        int saverx;
+        int savery;
         int trinkets;
         bool finalmode;
         bool crewstats[numcrew];
