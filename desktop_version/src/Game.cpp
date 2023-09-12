@@ -5635,11 +5635,11 @@ static void loadthissummary(
         }
         else if (SDL_strcmp(pKey, "saverx") == 0)
         {
-            summary->savex = help.Int(pText);
+            summary->saverx = help.Int(pText);
         }
         else if (SDL_strcmp(pKey, "savery") == 0)
         {
-            summary->savey = help.Int(pText);
+            summary->savery = help.Int(pText);
         }
         else if (SDL_strcmp(pKey, "trinkets") == 0)
         {
@@ -5676,7 +5676,7 @@ void Game::loadsummary(void)
             summary.seconds
         );
         map.finalmode = summary.finalmode;
-        tele_currentarea = map.currentarea(summary.savex, summary.savey);
+        tele_currentarea = map.currentarea(summary.saverx, summary.savery);
         SDL_memcpy(tele_crewstats, summary.crewstats, sizeof(tele_crewstats));
         tele_trinkets = summary.trinkets;
     }
@@ -5699,7 +5699,7 @@ void Game::loadsummary(void)
             summary.seconds
         );
         map.finalmode = summary.finalmode;
-        quick_currentarea = map.currentarea(summary.savex, summary.savey);
+        quick_currentarea = map.currentarea(summary.saverx, summary.savery);
         SDL_memcpy(quick_crewstats, summary.crewstats, sizeof(quick_crewstats));
         quick_trinkets = summary.trinkets;
     }
