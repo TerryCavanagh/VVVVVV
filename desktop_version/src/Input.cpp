@@ -1773,13 +1773,13 @@ static void menuactionpress(void)
                 music.playef(Sound_VIRIDIAN);
                 startmode(Start_MAINGAME);
             }
-            else if (game.telesummary == "")
+            else if (!game.last_telesave.exists)
             {
                 //You at least have a quicksave, or you couldn't have gotten here
                 music.playef(Sound_VIRIDIAN);
                 startmode(Start_MAINGAME_QUICKSAVE);
             }
-            else if (game.quicksummary == "")
+            else if (!game.last_quicksave.exists)
             {
                 //You at least have a telesave, or you couldn't have gotten here
                 music.playef(Sound_VIRIDIAN);

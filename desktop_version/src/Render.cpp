@@ -2979,13 +2979,23 @@ void maprender(void)
 
             font::print(PR_CEN, -1, 80, buffer, 255 - help.glow*2, 255 - help.glow*2, 255 - help.glow);
 
-            if (map.custommode || game.quicksummary == "")
+            if (map.custommode || !game.last_quicksave.exists)
             {
                 break;
             }
 
             font::print(PR_CEN, -1, FLIP(100, 8), loc::gettext("Last Save:"), 164 - help.glow/4, 164 - help.glow/4, 164);
-            font::print(PR_CEN, -1, FLIP(112, 8), game.quicksummary, 164 - help.glow/4, 164 - help.glow/4, 164);
+
+            struct Game::Summary* last = &game.last_quicksave;
+            vformat_buf(
+                buffer, sizeof(buffer),
+                loc::gettext("{area}, {time}"),
+                "area:str, time:str",
+                map.currentarea(last->saverx, last->savery),
+                game.giventimestring(last->hours, last->minutes, last->seconds).c_str()
+            );
+
+            font::print(PR_CEN, -1, FLIP(112, 8), buffer, 164 - help.glow/4, 164 - help.glow/4, 164);
             break;
         }
 

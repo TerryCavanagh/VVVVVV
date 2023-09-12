@@ -294,7 +294,7 @@ public:
 
     struct Summary
     {
-        const char* summary;
+        bool exists;
         int seconds;
         int minutes;
         int hours;
@@ -304,8 +304,11 @@ public:
         bool crewstats[numcrew];
     };
 
+    struct Summary last_telesave, last_quicksave;
+    bool save_exists(void);
+
     void readmaingamesave(const char* savename, tinyxml2::XMLDocument& doc);
-    std::string writemaingamesave(tinyxml2::XMLDocument& doc);
+    struct Summary writemaingamesave(tinyxml2::XMLDocument& doc);
 
     void initteleportermode(void);
 
@@ -503,9 +506,6 @@ public:
     int activity_r, activity_g, activity_b, activity_y;
     std::string activity_lastprompt;
     bool activity_gettext;
-
-    std::string telesummary, quicksummary;
-    bool save_exists(void);
 
     bool backgroundtext;
 
