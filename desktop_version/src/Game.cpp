@@ -5639,10 +5639,6 @@ static void loadthissummary(
         {
             summary->trinkets = help.Int(pText);
         }
-        else if (SDL_strcmp(pKey, "finalmode") == 0)
-        {
-            map.finalmode = help.Int(pText);
-        }
 
         LOAD_ARRAY_RENAME(crewstats, summary->crewstats)
     }
@@ -5669,7 +5665,6 @@ void Game::loadsummary(void)
             summary.minutes,
             summary.seconds
         );
-        map.finalmode = summary.finalmode;
         tele_currentarea = map.currentarea(summary.saverx, summary.savery);
         SDL_memcpy(tele_crewstats, summary.crewstats, sizeof(tele_crewstats));
         tele_trinkets = summary.trinkets;
@@ -5692,7 +5687,6 @@ void Game::loadsummary(void)
             summary.minutes,
             summary.seconds
         );
-        map.finalmode = summary.finalmode;
         quick_currentarea = map.currentarea(summary.saverx, summary.savery);
         SDL_memcpy(quick_crewstats, summary.crewstats, sizeof(quick_crewstats));
         quick_trinkets = summary.trinkets;
