@@ -301,7 +301,6 @@ public:
         int saverx;
         int savery;
         int trinkets;
-        bool finalmode;
         bool crewstats[numcrew];
     };
 
