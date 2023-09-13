@@ -1243,58 +1243,58 @@ static void menurender(void)
         font::print_wrap(PR_CEN, -1, 75, loc::gettext("Are you sure you want to quit?"), tr, tg, tb);
         break;
     case Menu::continuemenu:
+    {
+        const char* title = NULL;
+        struct Game::Summary* summary = NULL;
+
         switch (game.currentmenuoption)
         {
         case 0:
-        {
-            //Show teleporter save info
-            graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
-
-            font::print(PR_2X | PR_CEN, -1, 20, loc::gettext("Tele Save"), tr, tg, tb);
-            font::print(PR_CEN, -1, 80-20, game.tele_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2));
-            for (int i = 0; i < 6; i++)
-            {
-                graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.tele_crewstats[i], true);
-            }
-            font::print(0, 59, 132-20, game.tele_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-            char buffer[SCREEN_WIDTH_CHARS + 1];
-            vformat_buf(buffer, sizeof(buffer),
-                loc::gettext("{savebox_n_trinkets|wordy}"),
-                "savebox_n_trinkets:int",
-                game.tele_trinkets
-            );
-            font::print(PR_RIGHT, 262, 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
-
-            graphics.draw_sprite(34, 126-20, 50, graphics.col_clock);
-            graphics.draw_sprite(270, 126-20, 22, graphics.col_trinket);
+            title = loc::gettext("Tele Save");
+            summary = &game.last_telesave;
             break;
-        }
         case 1:
+            title = loc::gettext("Quick Save");
+            summary = &game.last_quicksave;
+            break;
+        }
+
+        if (summary != NULL)
         {
-            //Show quick save info
             graphics.drawpixeltextbox(17, 65-20, 286, 90, 65, 185, 207);
 
-            font::print(PR_2X | PR_CEN, -1, 20, loc::gettext("Quick Save"), tr, tg, tb);
-            font::print(PR_CEN, -1, 80-20, game.quick_currentarea, 25, 255 - (help.glow / 2), 255 - (help.glow / 2));
+            font::print(PR_2X | PR_CEN, -1, 20, title, tr, tg, tb);
+            font::print(
+                PR_CEN, -1, 80-20,
+                map.currentarea(summary->saverx, summary->savery),
+                25, 255 - (help.glow / 2), 255 - (help.glow / 2)
+            );
             for (int i = 0; i < 6; i++)
             {
-                graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, game.quick_crewstats[i], true);
+                graphics.drawcrewman(169-(3*42)+(i*42), 95-20, i, summary->crewstats[i], true);
             }
-            font::print(0, 59, 132-20, game.quick_gametime, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
+            font::print(
+                0, 59, 132-20,
+                game.giventimestring(
+                    summary->hours,
+                    summary->minutes,
+                    summary->seconds
+                ),
+                255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2)
+            );
             char buffer[SCREEN_WIDTH_CHARS + 1];
             vformat_buf(buffer, sizeof(buffer),
                 loc::gettext("{savebox_n_trinkets|wordy}"),
                 "savebox_n_trinkets:int",
-                game.quick_trinkets
+                summary->trinkets
             );
             font::print(PR_RIGHT, 262, 132-20, buffer, 255 - (help.glow / 2), 255 - (help.glow / 2), 255 - (help.glow / 2));
 
             graphics.draw_sprite(34, 126-20, 50, graphics.col_clock);
             graphics.draw_sprite(270, 126-20, 22, graphics.col_trinket);
-            break;
-        }
         }
         break;
+    }
     case Menu::gameover:
     case Menu::gameover2:
     {

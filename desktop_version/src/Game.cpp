@@ -225,8 +225,6 @@ void Game::init(void)
 
     SDL_memset(crewstats, false, sizeof(crewstats));
     SDL_memset(ndmresultcrewstats, false, sizeof(ndmresultcrewstats));
-    SDL_memset(tele_crewstats, false, sizeof(tele_crewstats));
-    SDL_memset(quick_crewstats, false, sizeof(quick_crewstats));
     SDL_memset(besttimes, -1, sizeof(besttimes));
     SDL_memset(bestframes, -1, sizeof(bestframes));
     SDL_memset(besttrinkets, -1, sizeof(besttrinkets));
@@ -235,13 +233,6 @@ void Game::init(void)
 
     crewstats[0] = true;
     lastsaved = 0;
-
-    tele_gametime = "00:00";
-    tele_trinkets = 0;
-    tele_currentarea = "Error! Error!";
-    quick_gametime = "00:00";
-    quick_trinkets = 0;
-    quick_currentarea = "Error! Error!";
 
     //Menu stuff initiliased here:
     SDL_memset(unlock, false, sizeof(unlock));
@@ -5623,29 +5614,11 @@ void Game::loadsummary(void)
     if (FILESYSTEM_loadTiXml2Document("saves/tsave.vvv", doc))
     {
         loadthissummary("tsave.vvv", &last_telesave, doc);
-
-        tele_gametime = giventimestring(
-            last_telesave.hours,
-            last_telesave.minutes,
-            last_telesave.seconds
-        );
-        tele_currentarea = map.currentarea(last_telesave.saverx, last_telesave.savery);
-        SDL_memcpy(tele_crewstats, last_telesave.crewstats, sizeof(tele_crewstats));
-        tele_trinkets = last_telesave.trinkets;
     }
 
     if (FILESYSTEM_loadTiXml2Document("saves/qsave.vvv", doc))
     {
         loadthissummary("qsave.vvv", &last_quicksave, doc);
-
-        quick_gametime = giventimestring(
-            last_quicksave.hours,
-            last_quicksave.minutes,
-            last_quicksave.seconds
-        );
-        quick_currentarea = map.currentarea(last_quicksave.saverx, last_quicksave.savery);
-        SDL_memcpy(quick_crewstats, last_quicksave.crewstats, sizeof(quick_crewstats));
-        quick_trinkets = last_quicksave.trinkets;
     }
 }
 
