@@ -457,10 +457,6 @@ public:
     int alarmdelay;
     bool blackout;
 
-    bool tele_crewstats[numcrew];
-
-    bool quick_crewstats[numcrew];
-
     static const int numunlock = 25;
     bool unlock[numunlock];
     bool unlocknotify[numunlock];
@@ -475,13 +471,6 @@ public:
     int besttrinkets[numtrials];
     int bestlives[numtrials];
     int bestrank[numtrials];
-
-    std::string tele_gametime;
-    int tele_trinkets;
-    std::string tele_currentarea;
-    std::string quick_gametime;
-    int quick_trinkets;
-    std::string quick_currentarea;
 
     int screenshake, flashlight;
     bool advancetext, pausescript;
