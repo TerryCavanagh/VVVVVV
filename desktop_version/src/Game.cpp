@@ -5611,16 +5611,10 @@ static void loadthissummary(
             pText = "";
         }
 
-        if (pText == NULL)
-        {
-            pText = "";
-        }
-
         if (SDL_strcmp(pKey, "summary") == 0)
         {
             summary->summary = pText;
         }
-
         else if (SDL_strcmp(pKey, "seconds") == 0)
         {
             summary->seconds = help.Int(pText);
