@@ -1266,7 +1266,7 @@ static void menurender(void)
             font::print(PR_2X | PR_CEN, -1, 20, title, tr, tg, tb);
             font::print(
                 PR_CEN, -1, 80-20,
-                map.currentarea(summary->saverx, summary->savery),
+                loc::gettext_roomname_special(map.currentarea(summary->saverx, summary->savery)),
                 25, 255 - (help.glow / 2), 255 - (help.glow / 2)
             );
             for (int i = 0; i < 6; i++)
@@ -2974,7 +2974,7 @@ void maprender(void)
                 buffer, sizeof(buffer),
                 loc::gettext("{area}, {time}"),
                 "area:str, time:str",
-                map.currentarea(last->saverx, last->savery),
+                loc::gettext_roomname_special(map.currentarea(last->saverx, last->savery)),
                 game.giventimestring(last->hours, last->minutes, last->seconds).c_str()
             );
 
@@ -2997,7 +2997,7 @@ void maprender(void)
             size_t i;
             font::print(
                 PR_CEN, -1, FLIP(80, 8),
-                map.currentarea(game.last_quicksave.saverx, game.last_quicksave.savery),
+                loc::gettext_roomname_special(map.currentarea(game.last_quicksave.saverx, game.last_quicksave.savery)),
                 25, 255 - help.glow/2, 255 - help.glow/2
             );
             for (i = 0; i < SDL_arraysize(game.crewstats); ++i)

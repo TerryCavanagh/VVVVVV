@@ -1242,51 +1242,54 @@ void mapclass::spawncompanion(void)
 
 const char* mapclass::currentarea(const int roomx, const int roomy)
 {
+    /* For translation, the returned value is passed to loc::gettext_roomname_special().
+     * Returned strings must therefore be found in roomnames_special.xml! */
+
     if (roomx >= 102 && roomx <= 104 && roomy >= 110 && roomy <= 111)
     {
-        return loc::gettext_roomname_special("The Ship");
+        return "The Ship";
     }
 
     switch (area(roomx, roomy))
     {
     case 0:
-        return loc::gettext_roomname_special("Dimension VVVVVV");
+        return "Dimension VVVVVV";
         break;
     case 1:
-        return loc::gettext_roomname_special("Dimension VVVVVV");
+        return "Dimension VVVVVV";
         break;
     case 2:
-        return loc::gettext_roomname_special("Laboratory");
+        return "Laboratory";
         break;
     case 3:
-        return loc::gettext_roomname_special("The Tower");
+        return "The Tower";
         break;
     case 4:
-        return loc::gettext_roomname_special("Warp Zone");
+        return "Warp Zone";
         break;
     case 5:
-        return loc::gettext_roomname_special("Space Station");
+        return "Space Station";
         break;
     case 6:
-        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
+        return "Outside Dimension VVVVVV";
         break;
     case 7:
-        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
+        return "Outside Dimension VVVVVV";
         break;
     case 8:
-        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
+        return "Outside Dimension VVVVVV";
         break;
     case 9:
-        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
+        return "Outside Dimension VVVVVV";
         break;
     case 10:
-        return loc::gettext_roomname_special("Outside Dimension VVVVVV");
+        return "Outside Dimension VVVVVV";
         break;
     case 11:
-        return loc::gettext_roomname_special("The Tower");
+        return "The Tower";
         break;
     }
-    return loc::gettext_roomname_special("???");
+    return "???";
 }
 
 static void copy_short_to_int(int* dest, const short* src, const size_t size)
