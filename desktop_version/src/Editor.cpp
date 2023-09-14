@@ -3509,11 +3509,11 @@ void editorinput(void)
                 }
                 else
                 {
-                    game.returnmenu();
-                    map.nexttowercolour();
-
                     // Avoid double return
                     esc_from_font = game.currentmenuname == Menu::ed_font;
+
+                    game.returnmenu();
+                    map.nexttowercolour();
                 }
 
                 if (ed.state == EditorState_MENU && !esc_from_font)
