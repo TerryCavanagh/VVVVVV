@@ -1,6 +1,7 @@
 #include "LevelDebugger.h"
 
 #include "Constants.h"
+#include "CustomLevels.h"
 #include "Entity.h"
 #include "Font.h"
 #include "Graphics.h"
@@ -345,6 +346,7 @@ namespace level_debugger
             line++;
 
             render_info(line++, "AEM Target", help.String(script.i));
+            render_info(line++, "Warp Background", help.String(cl.getroomprop(game.roomx % 100, game.roomy % 100)->warpdir));
 
             line++;
 
