@@ -6,7 +6,7 @@
         <dialogue speaker="purple" english="Is everything ok?" translation="Un problème ?"/>
         <dialogue speaker="cyan" english="No! We&apos;ve hit some kind of interference..." translation="Oui ! Nous sommes affectés par un genre d&apos;interférence..."/>
         <dialogue speaker="cyan" english="Something&apos;s wrong! We&apos;re going to crash!" translation="Ça ne va pas du tout ! Nous allons nous écraser ! "/>
-        <dialogue speaker="cyan" english="Evacuate!" translation="Évacuation d&apos;urgence  !"/>
+        <dialogue speaker="cyan" english="Evacuate!" translation="Évacuation d&apos;urgence !"/>
         <dialogue speaker="blue" english="Oh no!" translation="Oh non !"/>
         <dialogue speaker="red" english="Everyone off the ship!" translation="Que tout le monde quitte le vaisseau !"/>
         <dialogue speaker="yellow" english="This shouldn&apos;t be happening!" translation="Ce genre de chose n&apos;était pas censé arriver !"/>
@@ -25,7 +25,7 @@
         <dialogue speaker="purple" english="I think everyone has been teleported away randomly! They could be anywhere!" translation="Nous avons tous été téléportés aléatoirement ! Tout le monde a été éparpillé un peu n&apos;importe où !"/>
         <dialogue speaker="cyan" english="Oh no!" translation="Oh non !"/>
         <dialogue speaker="purple" english="I&apos;m on the ship - it&apos;s damaged badly, but it&apos;s still intact!" translation="Je me trouve à bord du vaisseau... Il a été sévèrement endommagé, mais il est encore en un seul morceau !"/>
-        <dialogue speaker="purple" english="Where are you, Captain?" translation="Où êtes-vous, Capitaine  ?"/>
+        <dialogue speaker="purple" english="Where are you, Captain?" translation="Où êtes-vous, Capitaine ?"/>
         <dialogue speaker="cyan" english="I&apos;m on some sort of space station... It seems pretty modern..." translation="Je suis à bord d&apos;une espèce de station spatiale... Elle m&apos;a l&apos;air assez moderne..."/>
         <dialogue speaker="purple" english="There seems to be some sort of interference in this dimension..." translation="Quelque chose semble générer un genre d&apos;interférence dans cette dimension..."/>
         <dialogue speaker="purple" english="I&apos;m broadcasting the coordinates of the ship to you now." translation="Je vous transmets les coordonnées du vaisseau."/>
@@ -51,7 +51,7 @@
         <dialogue speaker="purple" english="Captain!" translation="Capitaine !"/>
     </cutscene>
     <cutscene id="bigopenworld" explanation="">
-        <dialogue speaker="player" english="So, Doctor - have you any idea what caused the crash?" translation="Alors, Docteure... Avez-vous une idée sur ce qui a pu provoquer notre crash  ?"/>
+        <dialogue speaker="player" english="So, Doctor - have you any idea what caused the crash?" translation="Alors, Docteure... Avez-vous une idée sur ce qui a pu provoquer notre crash ?"/>
         <dialogue speaker="purple" english="There&apos;s some sort of bizarre signal here that&apos;s interfering with our equipment..." translation="Il y a un signal étrange dans cette zone qui interfère avec notre équipement..."/>
         <dialogue speaker="purple" english="It caused the ship to lose its quantum position, collapsing us into this dimension!" translation="À cause de lui, notre vaisseau a perdu sa position quantique, avant de nous faire échouer dans cette dimension !"/>
         <dialogue speaker="player" english="Oh no!" translation="Oh non !"/>
@@ -80,10 +80,10 @@
         <dialogue speaker="player" english="I&apos;m feeling a bit overwhelmed, Doctor." translation="Je ne sais plus où donner de la tête, Docteure..."/>
         <dialogue speaker="player" english="Where do I begin?" translation="Par où commencer ?"/>
         <dialogue speaker="purple" english="Remember that you can press ENTER to check where you are on the map!" translation="Souvenez-vous que vous pouvez appuyer sur ENTRÉE pour vérifier votre position sur la carte !"/>
-        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="" buttons="1"/>
+        <dialogue speaker="purple" english="Remember that you can press {b_map} to check where you are on the map!" translation="Souvenez-vous que vous pouvez appuyer sur {b_map} pour vérifier votre position sur la carte !" buttons="1"/>
         <dialogue speaker="purple" english="Look for areas where the rest of the crew might be..." translation="Cherchez des endroits où le reste de l&apos;équipage pourrait se trouver..."/>
         <dialogue speaker="purple" english="If you get lost, you can get back to the ship from any teleporter." translation="Si vous vous perdez, vous pourrez regagner le vaisseau à partir de n&apos;importe quel téléporteur."/>
-        <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="Et ne vous en faites pas ! Nous allons tous les retrouver  !"/>
+        <dialogue speaker="purple" english="And don&apos;t worry! We&apos;ll find everyone!" translation="Et ne vous en faites pas ! Nous allons tous les retrouver !"/>
         <dialogue speaker="purple" english="Everything will be ok!" translation="Nous allons nous en sortir !"/>
     </cutscene>
     <cutscene id="talkpurple_3" explanation="only one player string is shown">
@@ -108,7 +108,7 @@
         <dialogue speaker="cyan" english="I hope she&apos;s ok..." translation="J&apos;espère qu&apos;elle va bien..."/>
     </cutscene>
     <cutscene id="rescuegreen" explanation="nuance: `she&apos;s BACK on the ship` means more `she&apos;s home` and not `she has returned to the ship`. She has never left the ship">
-        <dialogue speaker="green" english="Captain! I&apos;ve been so worried!" translation="Capitaine ! Je me suis fait un sang d&apos;encre  !"/>
+        <dialogue speaker="green" english="Captain! I&apos;ve been so worried!" translation="Capitaine ! Je me suis fait un sang d&apos;encre !"/>
         <dialogue speaker="player" english="Chief Verdigris! You&apos;re ok!" translation="Chef Vert-de-gris ! Vous allez bien !"/>
         <dialogue speaker="green" english="I&apos;ve been trying to get out, but I keep going around in circles..." translation="J&apos;essaye de sortir d&apos;ici depuis un moment, mais je ne fais que tourner en rond..."/>
         <dialogue speaker="player" english="I&apos;ve come from the ship. I&apos;m here to teleport you back to it." translation="J&apos;arrive du vaisseau. Je vais vous y téléporter."/>
@@ -141,7 +141,7 @@
         <dialogue speaker="player" english="It&apos;s badly damaged, but Violet&apos;s been working on fixing it." translation="Il a été salement endommagé, mais Violette est en train d&apos;essayer de le réparer."/>
         <dialogue speaker="player" english="We could really use your help..." translation="Cependant, nous aurions grandement besoin de votre aide..."/>
         <dialogue speaker="yellow" english="Ah, of course!" translation="Évidemment !"/>
-        <dialogue speaker="yellow" english="The background interference in this dimension prevented the ship from finding a teleporter when we crashed!" translation="L&apos;interférence qui émane de cette dimension a empêché le vaisseau de trouver un téléporteur lorsque nous nous sommes écrasés  !"/>
+        <dialogue speaker="yellow" english="The background interference in this dimension prevented the ship from finding a teleporter when we crashed!" translation="L&apos;interférence qui émane de cette dimension a empêché le vaisseau de trouver un téléporteur lorsque nous nous sommes écrasés !"/>
         <dialogue speaker="yellow" english="We&apos;ve all been teleported to different locations!" translation="Nous avons donc tous été téléportés à des endroits différents !"/>
         <dialogue speaker="player" english="Er, that sounds about right!" translation="Oui voilà, c&apos;est tout à fait ça..."/>
         <dialogue speaker="yellow" english="Let&apos;s get back to the ship, then!" translation="Eh bien, regagnons le vaisseau, en ce cas !"/>
@@ -188,7 +188,7 @@
         <dialogue speaker="blue" english="I hope you&apos;re right, captain..." translation="J&apos;espère que vous avez raison, Capitaine..."/>
     </cutscene>
     <cutscene id="int1blue_7" explanation="">
-        <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation="Capitaine ! Vous aviez raison  ! C&apos;est un téléporteur !"/>
+        <dialogue speaker="blue" english="Captain! You were right! It&apos;s a teleporter!" translation="Capitaine ! Vous aviez raison ! C&apos;est un téléporteur !"/>
         <dialogue speaker="player" english="Phew! You had me worried for a while there... I thought we were never going to find one." translation="Ouf ! Quel soulagement... Je commençais à croire que nous n&apos;arriverions jamais à en trouver un..."/>
         <dialogue speaker="blue" english="What? Really?" translation="Hein ? Pour de vrai ?!"/>
         <dialogue speaker="player" english="Anyway, let&apos;s go back to the ship." translation="Ahem... Bref... Retournons au vaisseau."/>
@@ -207,13 +207,13 @@
         <dialogue speaker="green" english="After you, Captain!" translation="Après vous, Capitaine !"/>
     </cutscene>
     <cutscene id="int1green_3" explanation="just like in rescuegreen, `Violet is back on the ship` does not mean she was ever off the ship and has *returned* to it. Or maybe Verdigris thinks Violet was warped off the ship as well just like him and she *has* made her way back to the ship?">
-        <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation="Alors comme ça, Violette est à bord du vaisseau ? Elle va bien, c&apos;est sûr  ?"/>
+        <dialogue speaker="green" english="So Violet&apos;s back on the ship? She&apos;s really ok?" translation="Alors comme ça, Violette est à bord du vaisseau ? Elle va bien, c&apos;est sûr ?"/>
         <dialogue speaker="player" english="She&apos;s fine! She helped me find my way back!" translation="Elle va très bien ! Elle m&apos;a aidé à retrouver le vaisseau !"/>
         <dialogue speaker="green" english="Oh, phew! I was worried about her." translation="Oh, ouf ! Je me faisais quand même du souci pour elle..."/>
         <dialogue speaker="green" english="Captain, I have a secret..." translation="Capitaine, je dois vous avouer quelque chose..."/>
         <dialogue speaker="green" english="I really like Violet!" translation="J&apos;apprécie vraiment beaucoup Violette..."/>
         <dialogue speaker="player" english="Is that so?" translation="Tiens donc ?"/>
-        <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation="Hé mais, promettez-moi de ne rien lui dire  !"/>
+        <dialogue speaker="green" english="Please promise you won&apos;t tell her!" translation="Hé mais, promettez-moi de ne rien lui dire !"/>
     </cutscene>
     <cutscene id="int1green_4" explanation="the split paths merge">
         <dialogue speaker="green" english="Hey again!" translation="Salut salut !"/>
@@ -245,12 +245,12 @@
     <cutscene id="int1red_1" explanation="">
         <dialogue speaker="red" english="Wow! Where are we?" translation="Houlà ! Où sommes-nous ?"/>
         <dialogue speaker="player" english="This... isn&apos;t right... Something must have gone wrong with the teleporter!" translation="Ce... Ce n&apos;est pas normal... Il a dû se passer quelque chose avec le téléporteur !"/>
-        <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation="Bah... Nous verrons cela une fois de retour à bord du vaisseau  !"/>
+        <dialogue speaker="red" english="Oh well... We can work it out when we get back to the ship!" translation="Bah... Nous verrons cela une fois de retour à bord du vaisseau !"/>
         <dialogue speaker="red" english="Let&apos;s go exploring!" translation="Explorons un peu les lieux !"/>
         <dialogue speaker="player" english="Ok then!" translation="Ah bon... D&apos;accord..."/>
     </cutscene>
     <cutscene id="int1red_2" explanation="">
-        <dialogue speaker="player" english="Follow me!" translation="Alors, suivez-moi  !"/>
+        <dialogue speaker="player" english="Follow me!" translation="Alors, suivez-moi !"/>
         <dialogue speaker="red" english="Aye aye, Captain!" translation="À vos ordres, Capitaine !"/>
     </cutscene>
     <cutscene id="int1red_3" explanation="">
@@ -304,7 +304,7 @@
         <dialogue speaker="yellow" english="That big... C thing! I wonder what it does?" translation="Ce gros... C. Je me demande à quoi ça sert..."/>
         <dialogue speaker="player" english="Em... I don&apos;t really know how to answer that question..." translation="Euh... Je ne vois pas trop quoi vous répondre..."/>
         <dialogue speaker="player" english="It&apos;s probably best not to acknowledge that it&apos;s there at all." translation="Il vaudrait peut-être mieux faire comme si de rien n&apos;était..."/>
-        <dialogue speaker="yellow" english="Maybe we should take it back to the ship to study it?" translation="Et si nous le ramenions à bord du vaisseau afin de l&apos;étudier  ?"/>
+        <dialogue speaker="yellow" english="Maybe we should take it back to the ship to study it?" translation="Et si nous le ramenions à bord du vaisseau afin de l&apos;étudier ?"/>
         <dialogue speaker="player" english="We really shouldn&apos;t think about it too much... Let&apos;s keep moving!" translation="Je crois vraiment que nous ne devrions pas nous prendre la tête avec ça... Poursuivons notre exploration !"/>
     </cutscene>
     <cutscene id="int1yellow_5" explanation="">
@@ -312,7 +312,7 @@
         <dialogue speaker="player" english="Yeah?" translation="Ah bon ?"/>
         <dialogue speaker="yellow" english="We shouldn&apos;t really be able to move between dimensions with a regular teleporter..." translation="Nous ne devrions pas être en mesure de nous déplacer entre les dimensions avec un téléporteur standard..."/>
         <dialogue speaker="yellow" english="Maybe this isn&apos;t a proper dimension at all?" translation="Du coup, il se pourrait qu&apos;il ne s&apos;agisse pas d&apos;une dimension à proprement parler..."/>
-        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="Ou alors d&apos;un genre de dimension polaire ? Quelque chose qui pourrait avoir été créé artificiellement pour une raison quelconque  ?"/>
+        <dialogue speaker="yellow" english="Maybe it&apos;s some kind of polar dimension? Something artificially created for some reason?" translation="Ou alors d&apos;un genre de dimension polaire ? Quelque chose qui pourrait avoir été créé artificiellement pour une raison quelconque ?"/>
         <dialogue speaker="yellow" english="I can&apos;t wait to get back to the ship. I have a lot of tests to run!" translation="Je suis vraiment impatient de regagner le vaisseau. J&apos;ai de nombreux tests à effectuer !"/>
     </cutscene>
     <cutscene id="int1yellow_6" explanation="">
@@ -382,7 +382,7 @@
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vitellary!" translation="Il est impatient de vous aider à retrouver Vitellus !"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Verdigris!" translation="Il est impatient de vous aider à retrouver Vert-de-gris !"/>
         <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find Vermilion!" translation="Il est impatient de vous aider à retrouver Vermillon !"/>
-        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find you!" translation="Il est impatient de vous aider à vous retrouver  !"/>
+        <dialogue speaker="purple" english="He&apos;s really looking forward to helping you find you!" translation="Il est impatient de vous aider à vous retrouver !"/>
     </cutscene>
     <cutscene id="talkpurple_6" explanation="">
         <dialogue speaker="purple" english="Captain! You found Verdigris!" translation="Capitaine ! Vous avez retrouvé Vert-de-gris !"/>
@@ -409,7 +409,7 @@
     <cutscene id="talkpurple_intermission3" explanation="">
         <dialogue speaker="player" english="Doctor, something strange has been happening when we teleport back to the ship..." translation="Docteure, il se passe quelque chose de bizarre lorsque nous cherchons à nous téléporter sur le vaisseau..."/>
         <dialogue speaker="player" english="We keep getting brought to another weird dimension!" translation="Nous nous retrouvons à chaque fois dans une autre dimension bizarroïde !"/>
-        <dialogue speaker="purple" english="Oh no!" translation="Oh non  !"/>
+        <dialogue speaker="purple" english="Oh no!" translation="Oh non !"/>
         <dialogue speaker="purple" english="Maybe that dimension has something to do with the interference that caused us to crash here?" translation="Cette dimension a peut-être quelque chose à voir avec l&apos;interférence qui a provoqué notre crash ?"/>
         <dialogue speaker="purple" english="Hmm, there&apos;s definitely something strange happening..." translation="Hum... Il se passe décidément quelque chose de très étrange..."/>
         <dialogue speaker="purple" english="If only we could find the source of that interference!" translation="Si seulement nous parvenions à trouver la source de cette interférence !"/>
@@ -445,7 +445,7 @@
         <dialogue speaker="green" english="The antenna&apos;s broken! This is going to be very hard to fix..." translation="L&apos;antenne est cassée ! Ça va être vraiment coton à réparer..."/>
     </cutscene>
     <cutscene id="talkgreen_9" explanation="">
-        <dialogue speaker="green" english="It looks like we were warped into solid rock when we crashed!" translation="J&apos;ai l&apos;impression que nous avons été littéralement incorporés à la roche lorsque nous nous sommes écrasés  !"/>
+        <dialogue speaker="green" english="It looks like we were warped into solid rock when we crashed!" translation="J&apos;ai l&apos;impression que nous avons été littéralement incorporés à la roche lorsque nous nous sommes écrasés !"/>
         <dialogue speaker="green" english="Hmm. It&apos;s going to be hard to separate from this..." translation="Hum... Nous allons avoir du mal à nous séparer de ça..."/>
     </cutscene>
     <cutscene id="talkgreen_10" explanation="">
@@ -488,14 +488,14 @@
         <dialogue speaker="red" english="I wonder what caused the teleporter to send us there?" translation="Je me demande pourquoi le téléporteur nous a envoyés là-bas..."/>
     </cutscene>
     <cutscene id="talkred_10" explanation="">
-        <dialogue speaker="red" english="Heya Captain!" translation="Hé, Capitaine  !"/>
+        <dialogue speaker="red" english="Heya Captain!" translation="Hé, Capitaine !"/>
         <dialogue speaker="red" english="This way looks a little dangerous..." translation="Ce côté-là m&apos;a l&apos;air un peu dangereux..."/>
     </cutscene>
     <cutscene id="talkred_11" explanation="">
         <dialogue speaker="red" english="I&apos;m helping!" translation="Je vous file un coup de main !"/>
     </cutscene>
     <cutscene id="talkred_12" explanation="">
-        <dialogue speaker="red" english="Hey Captain!" translation="Hé, Capitaine  !"/>
+        <dialogue speaker="red" english="Hey Captain!" translation="Hé, Capitaine !"/>
         <dialogue speaker="red" english="I found something interesting around here - the same warp signature I saw when I landed!" translation="J&apos;ai trouvé quelque chose d&apos;intéressant de ce côté... La même signature de distorsion que j&apos;avais repérée à mon atterrissage !"/>
         <dialogue speaker="red" english="Someone from the ship must be nearby..." translation="Quelqu&apos;un de l&apos;équipage doit se trouver à proximité..."/>
     </cutscene>
@@ -538,7 +538,7 @@
         <dialogue speaker="blue" english="Why did the teleporter send us to that scary dimension?" translation="Pourquoi le téléporteur nous a-t-il envoyés dans cette effrayante dimension ?"/>
         <dialogue speaker="blue" english="What happened?" translation="Que s&apos;est-il passé ?"/>
         <dialogue speaker="player" english="I don&apos;t know, Doctor..." translation="Je n&apos;en sais rien, Docteure..."/>
-        <dialogue speaker="blue" english="Why?" translation="Mais pourquoi  ?"/>
+        <dialogue speaker="blue" english="Why?" translation="Mais pourquoi ?"/>
     </cutscene>
     <cutscene id="talkblue_8" explanation="">
         <dialogue speaker="blue" english="Heya Captain!" translation="Salut, Capitaine !"/>
@@ -546,7 +546,7 @@
     </cutscene>
     <cutscene id="talkblue_trinket1" explanation="">
         <dialogue speaker="blue" english="Hey Captain, I found this in that lab..." translation="Hé, Capitaine ! Je suis tombée sur ceci dans ce labo..."/>
-        <dialogue speaker="blue" english="Any idea what it does?" translation="Avez-vous une idée de ce que cela peut bien être  ?"/>
+        <dialogue speaker="blue" english="Any idea what it does?" translation="Avez-vous une idée de ce que cela peut bien être ?"/>
         <dialogue speaker="player" english="Sorry, I don&apos;t know!" translation="Aucune. Désolé !"/>
         <dialogue speaker="player" english="They seem important, though..." translation="Mais ça m&apos;a l&apos;air d&apos;être quelque chose d&apos;important..."/>
         <dialogue speaker="player" english="Maybe something will happen if we find them all?" translation="Peut-être que quelque chose se produira si nous les trouvons tous ?"/>
@@ -564,7 +564,7 @@
     </cutscene>
     <cutscene id="talkblue_trinket4" explanation="">
         <dialogue speaker="blue" english="...and I was able to find more of them with the ship&apos;s scanner!" translation="...et j&apos;ai pu localiser d&apos;autres objets similaires à l&apos;aide des scanners du vaisseau !"/>
-        <dialogue speaker="blue" english="If you get a chance, it might be worth finding the rest of them!" translation="Si vous en avez l&apos;occasion, il pourrait être intéressant d&apos;essayer de les récupérer  !"/>
+        <dialogue speaker="blue" english="If you get a chance, it might be worth finding the rest of them!" translation="Si vous en avez l&apos;occasion, il pourrait être intéressant d&apos;essayer de les récupérer !"/>
         <dialogue speaker="blue" english="Don&apos;t put yourself in any danger, though!" translation="N&apos;allez cependant pas vous mettre en danger pour ça !"/>
     </cutscene>
     <cutscene id="talkblue_trinket5" explanation="">
@@ -597,7 +597,7 @@
     <cutscene id="talkyellow_4" explanation="">
         <dialogue speaker="yellow" english="My guess is that whoever used to live here was experimenting with ways to stop the dimension from collapsing." translation="Je crois que ceux qui vivaient ici ont mené des expériences visant à empêcher cette dimension de s&apos;effondrer."/>
         <dialogue speaker="yellow" english="It would explain why they&apos;ve wrapped the edges..." translation="Cela pourrait expliquer pourquoi ils en auraient fait boucler les limites..."/>
-        <dialogue speaker="yellow" english="Hey, maybe that&apos;s what&apos;s causing the interference?" translation="Hé... Se pourrait-il que cela soit à l&apos;origine de l&apos;interférence  ?"/>
+        <dialogue speaker="yellow" english="Hey, maybe that&apos;s what&apos;s causing the interference?" translation="Hé... Se pourrait-il que cela soit à l&apos;origine de l&apos;interférence ?"/>
     </cutscene>
     <cutscene id="talkyellow_5" explanation="">
         <dialogue speaker="yellow" english="I wonder where the people who used to live here have gone?" translation="Je me demande où ont bien pu passer les gens qui vivaient ici..."/>
@@ -608,7 +608,7 @@
     </cutscene>
     <cutscene id="talkyellow_7" explanation="">
         <dialogue speaker="yellow" english="I&apos;m glad Verdigris is alright." translation="Je suis heureux que Vert-de-gris se porte bien."/>
-        <dialogue speaker="yellow" english="It&apos;ll be a lot easier to find some way out of here now that we can get the ship working again!" translation="Il sera assurément plus facile de sortir d&apos;ici si nous pouvons remettre le vaisseau en état  !"/>
+        <dialogue speaker="yellow" english="It&apos;ll be a lot easier to find some way out of here now that we can get the ship working again!" translation="Il sera assurément plus facile de sortir d&apos;ici si nous pouvons remettre le vaisseau en état !"/>
     </cutscene>
     <cutscene id="talkyellow_8" explanation="">
         <dialogue speaker="yellow" english="Ah, you&apos;ve found Doctor Victoria? Excellent!" translation="Ah, vous avez retrouvé la Docteure Victoria ? Excellent !"/>
@@ -677,7 +677,7 @@ PRÊT _" tt="1"/>
         <dialogue speaker="cyan" english="Yes!" translation="Oui !" case="1"/>
         <dialogue speaker="gray" english="Seriously! The whole dimension could collapse! Just think about this for a minute!
 
-Are you really sure you want to do this?" translation="Non mais, sérieux ! Toute cette dimension pourrait s&apos;effondrer ! Prenez donc deux secondes pour|y réfléchir  !
+Are you really sure you want to do this?" translation="Non mais, sérieux ! Toute cette dimension pourrait s&apos;effondrer ! Prenez donc deux secondes pour|y réfléchir !
 
 Souhaitez-vous vraiment continuer ?"/>
         <dialogue speaker="cyan" english="Yes!" translation="Oui !" case="2"/>
@@ -912,7 +912,7 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="?SYNTAX  ERROR" translation=" ?ERREUR DE SYNTAXE"/>
     </cutscene>
     <cutscene id="terminal_letsgo" explanation="">
-        <dialogue speaker="player" english="Now that the ship is fixed, we can leave anytime we want!" translation="À présent que le vaisseau est réparé, nous pouvons partir dès que nous le souhaitons  !"/>
+        <dialogue speaker="player" english="Now that the ship is fixed, we can leave anytime we want!" translation="À présent que le vaisseau est réparé, nous pouvons partir dès que nous le souhaitons !"/>
         <dialogue speaker="player" english="We&apos;ve all agreed to keep exploring this dimension, though." translation="Nous sommes cependant tous tombés d&apos;accord pour poursuivre notre exploration de cette dimension."/>
         <dialogue speaker="player" english="Who knows what we&apos;ll find?" translation="Qui sait ce que nous pourrions découvrir ?"/>
     </cutscene>
