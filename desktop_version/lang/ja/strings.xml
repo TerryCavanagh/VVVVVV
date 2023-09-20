@@ -807,7 +807,7 @@ You have found the secret lab!" translation="よくやった!
     <string english="THE TOWER MASTERED" translation="[タワー 制覇]" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="38*1"/>
     <string english="SPACE STATION 2 MASTERED" translation="[スペースステーション2 制覇]" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="38*1"/>
     <string english="WARP ZONE MASTERED" translation="[ワープゾーン 制覇]" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="38*1"/>
-    <string english="FINAL LEVEL MASTERED" translation="[ファイナル・ステージ 制覇]" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="38*1"/>
+    <string english="FINAL LEVEL MASTERED" translation="[ファイナルステージ 制覇]" explanation="achievement/trophy title - V rank in time trial" max="38*2" max_local="38*1"/>
     <string english="Obtain a V Rank in this Time Trial" translation="タイムトライアルでVランクを獲得" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
     <string english="GAME COMPLETE" translation="[ゲームコンプリート]" explanation="achievement/trophy title" max="38*2" max_local="38*1"/>
     <string english="Complete the game" translation="ストーリーをクリア" case="1" explanation="achievement/trophy description" max="38*2" max_local="38*1"/>
