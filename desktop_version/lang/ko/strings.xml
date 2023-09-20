@@ -51,7 +51,8 @@
     <string english="Change controller options." translation="컨트롤러 설정을 변경합니다." explanation="" max="38*2" max_local="30*2"/>
     <string english="language" translation="언어" explanation="menu option"/>
     <string english="Language" translation="언어" explanation="title" max="20" max_local="16"/>
-    <string english="Change the language." translation="언어를 변경합니다." explanation="" max="38*5" max_local="30*5"/>
+    <string english="Change the language." translation="언어를 변경합니다." explanation="" max="38*2" max_local="30*2"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3" max_local="30*3"/>
     <string english="clear main game data" translation="주 게임 데이터 제거" explanation="menu option"/>
     <string english="clear custom level data" translation="커스텀 레벨 데이터 제거" explanation="menu option"/>
     <string english="Clear Data" translation="데이터 제거" explanation="title" max="20" max_local="16"/>

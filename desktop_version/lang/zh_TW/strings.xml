@@ -51,7 +51,8 @@
     <string english="Change controller options." translation="改變控制器選項。" explanation="" max="38*2" max_local="25*1"/>
     <string english="language" translation="語言" explanation="menu option"/>
     <string english="Language" translation="語言" explanation="title" max="20" max_local="13"/>
-    <string english="Change the language." translation="變更語言。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="Change the language." translation="變更語言。" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3" max_local="25*2"/>
     <string english="clear main game data" translation="清除主遊戲數據" explanation="menu option"/>
     <string english="clear custom level data" translation="清除自制關卡數據" explanation="menu option"/>
     <string english="Clear Data" translation="清除數據" explanation="title" max="20" max_local="13"/>
