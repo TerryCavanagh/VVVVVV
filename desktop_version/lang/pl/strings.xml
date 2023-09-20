@@ -417,7 +417,9 @@
     <string english="start from beginning" translation="zacznij od początku" explanation="menu option"/>
     <string english="delete save" translation="usuń zapisaną grę" explanation="menu option"/>
     <string english="back to levels" translation="powróć do poziomów" explanation="menu option"/>
-    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Aby zainstalować nowe poziomy dodatkowe, przekopiuj pliki|.vvvvvv do folderu z poziomami." explanation="" max="38*3"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Aby zainstalować nowe poziomy dodatkowe, przekopiuj pliki|.vvvvvv do folderu z poziomami." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Czy na pewno chcesz wyświetlić ścieżkę do poziomów? To może pokazać wrażliwe dane, jeśli streamujesz." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Ścieżka do poziomów:" explanation="" max="40"/>
     <string english="[ Press ACTION to Start ]" translation="[ Wciśnij AKCJĘ, by rozpocząć ]" explanation="***OUTDATED***" max="38*2"/>
@@ -525,7 +527,7 @@
     <string english="change font" translation="zmień czcionkę" explanation="level editor menu option"/>
     <string english="Level Font" translation="Czcionka Poziomu" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
     <string english="Select the language in which the text in this level is written." translation="Wybierz język, w którym jest tekst w tym poziomie." explanation="" max="38*3"/>
-    <string english="Font: " translation="Czcionka:" explanation="level options, followed by name of font (mind the space)" max="14"/>
+    <string english="Font: " translation="Czcionka: " explanation="level options, followed by name of font (mind the space)" max="15"/>
     <string english="Map Music" translation="Piosenka" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Piosenka:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="Brak piosenki" explanation="editor, level starts with no song playing" max="38*2"/>
@@ -768,4 +770,6 @@ Znaleziono tajne laboratorium!" explanation="" max="34*4"/>
     <string english="Error parsing {path}: {error}" translation="Błąd czytania {path}: {błąd}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Wymiary {filename} nie są wielokrotnościami {width} na {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="BŁĄD: Nie zapisano do folderu językowego! Upewnij się, że nie ma folderu &quot;lang&quot; obok regularnych zapisów." explanation="" max="38*5"/>
+    <string english="" translation="" explanation=""/>
+    <string english="" translation="" explanation=""/>
 </strings>
