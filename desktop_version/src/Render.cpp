@@ -2823,7 +2823,7 @@ void maprender(void)
                 "n_crew:int",
                 remaining
             );
-            font::print(PR_CEN, -1, FLIP(165, 8), buffer, 196, 196, 255 - help.glow);
+            font::print_wrap(PR_CEN, -1, FLIP(165, 8), buffer, 196, 196, 255 - help.glow);
         }
         else
         {
