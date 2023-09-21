@@ -387,7 +387,7 @@
     <string english="DEATH:" translation="ÖLÜM:" explanation="in time trial. Number of times player died, not too long"/>
     <string english="SHINY:" translation="EŞYA:" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
     <string english="PAR TIME:" translation="ORTALAMA SÜRE:" explanation="in time trial. Goal time for time trial"/>
-    <string english="BEST RANK" translation="EN İYİ KADEME" explanation="ranks are B A S V" max="14"/>
+    <string english="BEST RANK" translation="EN İYİ KADEME" explanation="ranks are B A S V" max="17"/>
     <string english="GO!" translation="BAŞLA!" explanation="3, 2, 1, GO!" max="13"/>
     <string english="Go!" translation="Başla!" explanation="3, 2, 1, Go!" max="10"/>
     <string english="Congratulations!" translation="Tebrikler!" explanation="title" max="20"/>

@@ -25,7 +25,7 @@
         <translation form="4" translation="Agus fuair tú {n_trinkets|wordy} ornáid."/>
         <translation form="5" translation="Agus fuair tú {n_trinkets|wordy} ornáid."/>
     </string>
-    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="38*2" var="n_crew" expect="100">
         <translation form="0" translation="Níl aon duine fós le tarrtháil"/>
         <translation form="1" translation="Tá duine amháin fós le tarrtháil"/>
         <translation form="2" translation="Tá {n_crew|wordy} dhuine fós le tarrtháil"/>
@@ -33,7 +33,7 @@
         <translation form="4" translation="Tá {n_crew|wordy} dhuine fós le tarrtháil"/>
         <translation form="5" translation="Tá {n_crew|wordy} duine fós le tarrtháil"/>
     </string>
-    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32*2" var="n_crew" expect="100">
         <translation form="0" translation="Níl aon duine fós le tarrtháil."/>
         <translation form="1" translation="Tá duine fós le tarrtháil."/>
         <translation form="2" translation="Tá {n_crew|wordy} dhuine fós le tarrtháil."/>

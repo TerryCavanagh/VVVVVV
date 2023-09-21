@@ -16,12 +16,12 @@
         <translation form="1" translation="І знайшли {n_trinkets} блищик."/>
         <translation form="2" translation="І знайшли {n_trinkets} блищиків."/>
     </string>
-    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="38*2" var="n_crew" expect="100">
         <translation form="0" translation="Треба знайти ще {n_crew|wordy} членів команди"/>
         <translation form="1" translation="Треба знайти ще {n_crew|wordy} члена команди"/>
         <translation form="2" translation="Треба знайти ще {n_crew} членів команди"/>
     </string>
-    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32*2" var="n_crew" expect="100">
         <translation form="0" translation="Треба знайти ще {n_crew|wordy}"/>
         <translation form="1" translation="Треба знайти ще {n_crew|wordy}"/>
         <translation form="2" translation="Треба знайти ще {n_crew}"/>
