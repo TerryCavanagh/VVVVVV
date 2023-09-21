@@ -76,6 +76,7 @@ static const PHYSFS_Allocator allocator = {
     SDL_free
 };
 
+#ifndef __ANDROID__
 static bool mount_pre_datazip(
     char* out_path,
     const char* real_dirname,
@@ -174,6 +175,7 @@ static bool mount_pre_datazip(
 
     return dir_found;
 }
+#endif
 
 int FILESYSTEM_init(char *argvZero, char* baseDir, char *assetsPath, char* langDir, char* fontsDir)
 {

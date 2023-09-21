@@ -24,8 +24,13 @@
 #define Color_BOLD_RED COLOR("\x1b[1;31m")
 #define Color_BOLD_GRAY COLOR("\x1b[1;90m")
 
-static int output_enabled = 1;
+#ifdef __ANDROID__
+const int color_supported = 0;
+#else
 static int color_supported = 0;
+#endif
+
+static int output_enabled = 1;
 static int color_enabled = 1;
 static int debug_enabled = 0;
 static int info_enabled = 1;

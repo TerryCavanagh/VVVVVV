@@ -274,6 +274,11 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     target_compile_options(VVVVVV PRIVATE -Wno-c++11-long-long)
 endif()
 
+# Disable warnings about flexible array members in C++ (from including FAudio)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_compile_options(VVVVVV PRIVATE -Wno-c99-extensions)
+endif()
+
 if(MSVC)
     # MSVC doesn't have /std:c99 or /std:c++98 switches!
 
