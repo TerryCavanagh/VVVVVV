@@ -25,7 +25,7 @@
         <translation form="4" translation="Odnaleziono {n_trinkets|wordy} drobiazgi."/>
         <translation form="5" translation="Odnaleziono {n_trinkets|wordy} drobiazgi."/>
     </string>
-    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="38*2" var="n_crew" expect="100">
         <translation form="0" translation="Pozostało {n_crew}"/>
         <translation form="1" translation="Pozostał jeden"/>
         <translation form="2" translation="Pozostało dwóch"/>
@@ -33,7 +33,7 @@
         <translation form="4" translation="Pozostało czterech"/>
         <translation form="5" translation="Pozostało {n_crew}"/>
     </string>
-    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32*2" var="n_crew" expect="100">
         <translation form="0" translation="Pozostało {n_crew}"/>
         <translation form="1" translation="Pozostał jeden"/>
         <translation form="2" translation="Pozostało dwóch"/>

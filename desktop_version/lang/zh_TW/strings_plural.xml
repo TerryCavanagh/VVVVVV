@@ -10,10 +10,10 @@
     <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20" max_local="25*2">
         <translation form="0" translation="並找到了{n_trinkets|wordy}件飾品"/>
     </string>
-    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100" max_local="26">
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="38*2" var="n_crew" expect="100" max_local="25*1">
         <translation form="0" translation="還剩下{n_crew|wordy}名船員"/>
     </string>
-    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100" max_local="21">
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32*2" var="n_crew" expect="100" max_local="21*1">
         <translation form="0" translation="還剩下{n_crew|wordy}名"/>
     </string>
     <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000" max_local="26">

@@ -411,7 +411,7 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="DEATH:" translation="ミス:" explanation="in time trial. Number of times player died, not too long"/>
     <string english="SHINY:" translation="トリンケット:" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
     <string english="PAR TIME:" translation="目標タイム:" explanation="in time trial. Goal time for time trial"/>
-    <string english="BEST RANK" translation="ランク" explanation="ranks are B A S V" max="14" max_local="14"/>
+    <string english="BEST RANK" translation="ランク" explanation="ranks are B A S V" max="17" max_local="17"/>
     <string english="GO!" translation="GO!" explanation="3, 2, 1, GO!" max="13" max_local="13"/>
     <string english="Go!" translation="GO!" explanation="3, 2, 1, Go!" max="10" max_local="10"/>
     <string english="Congratulations!" translation="おめでとう!" explanation="title" max="20" max_local="20"/>

@@ -13,11 +13,11 @@
         <translation form="0" translation="E hai trovato {n_trinkets|wordy} gingilli."/>
         <translation form="1" translation="E hai trovato {n_trinkets|wordy} gingillo."/>
     </string>
-    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="40" var="n_crew" expect="100">
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="38*2" var="n_crew" expect="100">
         <translation form="0" translation="Restano {n_crew|wordy} compagni"/>
         <translation form="1" translation="Resta {n_crew|wordy} compagno"/>
     </string>
-    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32" var="n_crew" expect="100">
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32*2" var="n_crew" expect="100">
         <translation form="0" translation="Ne restano {n_crew|wordy}"/>
         <translation form="1" translation="Ne resta {n_crew|wordy}"/>
     </string>
