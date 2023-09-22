@@ -52,7 +52,7 @@
     <string english="language" translation="llengua" explanation="menu option"/>
     <string english="Language" translation="Llengua" explanation="title" max="20"/>
     <string english="Change the language." translation="Canvia la llengua." explanation="" max="38*2"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="No es pot canviar la llengua mentre|es mostri una capsa de text al joc." explanation="" max="38*3"/>
     <string english="clear main game data" translation="esborra dades de partides" explanation="menu option"/>
     <string english="clear custom level data" translation="esborra dades de niv. person." explanation="menu option"/>
     <string english="Clear Data" translation="Esborra dades" explanation="title" max="20"/>
@@ -418,8 +418,8 @@
     <string english="start from beginning" translation="comença del principi" explanation="menu option"/>
     <string english="delete save" translation="suprimeix la partida desada" explanation="menu option"/>
     <string english="back to levels" translation="torna als nivells" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="L’editor de nivells no està suportat|a Steam Deck perquè per a poder-lo|utilitzar cal teclat i ratolí." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="L’editor de nivells no està suportat|en aquest dispositiu perquè per a|poder-lo utilitzar cal teclat i|ratolí." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Per a instal·lar nous nivells,|copia els fitxers .vvvvvv|a la carpeta de nivells." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="Segur que vols mostrar el camí|de la carpeta de nivells?|Si estàs emetent en directe, pot ser|que es mostri informació delicada." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="El camí dels nivells és:" explanation="" max="40"/>

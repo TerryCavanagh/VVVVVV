@@ -52,7 +52,7 @@
     <string english="language" translation="lingvo" explanation="menu option"/>
     <string english="Language" translation="Lingvo" explanation="title" max="20"/>
     <string english="Change the language." translation="Ŝanĝi la lingvon." explanation="" max="38*2"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="Ne eblas ŝanĝi la lingvon dum tekstoskatolo montriĝas enlude." explanation="" max="38*3"/>
     <string english="clear main game data" translation="viŝi datumojn ĉefludajn" explanation="menu option"/>
     <string english="clear custom level data" translation="viŝi datumojn ludantnivelajn" explanation="menu option"/>
     <string english="Clear Data" translation="Viŝi datumojn" explanation="title" max="20"/>
