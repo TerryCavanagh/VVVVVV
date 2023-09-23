@@ -23,6 +23,11 @@ Steamworks support is included and the DLL is loaded dynamically, you do not
 need the SDK headers and there is no special Steam or non-Steam version. The
 current implementation has been tested with Steamworks SDK v1.46.
 
+If you want to build the Make and Play edition of the game, then make sure in [MakeandPlay.h](https://github.com/TerryCavanagh/VVVVVV/blob/master/desktop_version/src/MakeAndPlay.h), line 8 is uncommented like this:
+```
+#define MAKEANDPLAY
+```
+
 To generate the projects on Windows:
 ```
 # Put your SDL2 folders somewhere nice!
@@ -36,7 +41,7 @@ SDL2/SDL2main to have `.lib` at the end of them. The reason for this
 inconsistency is unknown.
 
 Also note that if you're using a Visual Studio later than 2010, you will need to
-change the `-G` string accordingly; otherwise you will get a weird cryptic
+change the `-G` string accordingly; otherwise, you will get a weird cryptic
 error. Refer to the list below:
 
 - VS 2012: `"Visual Studio 11 2012"`
@@ -54,12 +59,12 @@ cmake ..
 ```
 
 macOS may be fussy about the SDK version. How to fix this is up to the whims of
-however Apple wants to make CMAKE_OSX_SYSROOT annoying to configure and retain
+however, Apple wants to make CMAKE_OSX_SYSROOT annoying to configure and retain
 each time Xcode updates.
 
 Including data.zip
 ------------
-You'll need the data.zip file from VVVVVV to actually run the game! It's
+You'll need the data.zip file from VVVVVV to actually run the game! You can copy it from your own copy of VVVVVV or it's
 available to download separately for free in the
 [Make and Play](https://thelettervsixtim.es/makeandplay/)
 edition of the game. Put this file next to your executable and the game should
@@ -84,7 +89,7 @@ particular, the Windows version _absolutely positively must_ be compiled in
 Debug mode, with /RTC enabled. If you build in Release mode, or have /RTC
 disabled, the game behaves dramatically different in ways that were never fully
 documented (bizarre softlocks, out-of-bounds issues that don't show up in tools
-like Valgrind, stuff like that). There are lots of things about this old code
+like Valgrind, and stuff like that). There are lots of things about this old code
 that could be cleaned up, polished, rewritten, and so on, but this is the one
 that will probably bite you the hardest when setting up your own build,
 regardless of platform.
