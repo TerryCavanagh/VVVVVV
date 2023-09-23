@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Please read README.txt for information about the language files -->
+<strings_plural>
+    <string english_plural="You rescued {n_crew|wordy} crewmates" english_singular="You rescued {n_crew|wordy} crewmate" explanation="These two strings are displayed underneath each other (1/2)" max="40" var="n_crew" expect="6">
+        <translation form="0" translation="Uratowano {n_crew} członkōw ekipy"/>
+        <translation form="1" translation="Uratowano jednego członka ekipy"/>
+        <translation form="2" translation="Uratowano dwōch członkōw ekipy"/>
+        <translation form="3" translation="Uratowano trzech członkōw ekipy"/>
+        <translation form="4" translation="Uratowano sztyrech członkōw ekipy"/>
+        <translation form="5" translation="Uratowano {n_crew} członkōw ekipy"/>
+    </string>
+    <string english_plural="and found {n_trinkets|wordy} trinkets." english_singular="and found {n_trinkets|wordy} trinket." explanation="These two strings are displayed underneath each other (2/2)" max="38*2" var="n_trinkets" expect="20">
+        <translation form="0" translation="i wysznupano {n_trinkets|wordy} dinksōw."/>
+        <translation form="1" translation="i wysznupano {n_trinkets|wordy} dinks."/>
+        <translation form="2" translation="i wysznupano {n_trinkets|wordy} dinksy."/>
+        <translation form="3" translation="i wysznupano {n_trinkets|wordy} dinksy."/>
+        <translation form="4" translation="i wysznupano {n_trinkets|wordy} dinksy."/>
+        <translation form="5" translation="i wysznupano {n_trinkets|wordy} dinksy."/>
+    </string>
+    <string english_plural="And you found {n_trinkets|wordy} trinkets." english_singular="And you found {n_trinkets|wordy} trinket." explanation="You rescued all the crewmates! And you found XX trinket(s)." max="38*3" var="n_trinkets" expect="20">
+        <translation form="0" translation="Wysznupano {n_trinkets|wordy} dinksōw."/>
+        <translation form="1" translation="Wysznupano {n_trinkets|wordy} dinks."/>
+        <translation form="2" translation="Wysznupano {n_trinkets|wordy} dinksy."/>
+        <translation form="3" translation="Wysznupano {n_trinkets|wordy} dinksy."/>
+        <translation form="4" translation="Wysznupano {n_trinkets|wordy} dinksy."/>
+        <translation form="5" translation="Wysznupano {n_trinkets|wordy} dinksy."/>
+    </string>
+    <string english_plural="{n_crew|wordy} crewmates remain" english_singular="{n_crew|wordy} crewmate remains" explanation="Reminder: you can add |upper for an uppercase letter." max="38*2" var="n_crew" expect="100">
+        <translation form="0" translation="Ôstało {n_crew}"/>
+        <translation form="1" translation="Ôstoł jeden"/>
+        <translation form="2" translation="Ôstało dwōch"/>
+        <translation form="3" translation="Ôstało trzech"/>
+        <translation form="4" translation="Ôstało sztyrech"/>
+        <translation form="5" translation="Ôstało {n_crew}"/>
+    </string>
+    <string english_plural="{n_crew|wordy} remain" english_singular="{n_crew|wordy} remains" explanation="You have rescued a crew member! XX remain" max="32*2" var="n_crew" expect="100">
+        <translation form="0" translation="Ôstało {n_crew}"/>
+        <translation form="1" translation="Ôstoł jeden"/>
+        <translation form="2" translation="Ôstało dwōch"/>
+        <translation form="3" translation="Ôstało trzech"/>
+        <translation form="4" translation="Ôstało sztyrech"/>
+        <translation form="5" translation="Ôstało {n_crew}"/>
+    </string>
+    <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000">
+        <translation form="0" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
+        <translation form="1" translation="Nojciynższo izba (z {n_deaths} wypadkiem)"/>
+        <translation form="2" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
+        <translation form="3" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
+        <translation form="4" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
+        <translation form="5" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
+    </string>
+    <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
+        <translation form="0" translation="{n} nieprzetłumaczonych|normalnych mianōw izbōw"/>
+        <translation form="1" translation="{n} nieprzetłumaczone|normalne miano izby"/>
+        <translation form="2" translation="{n} nieprzetłumaczone|normalne miana izbōw"/>
+        <translation form="3" translation="{n} nieprzetłumaczone|normalne miana izbōw"/>
+        <translation form="4" translation="{n} nieprzetłumaczone|normalne miana izbōw"/>
+        <translation form="5" translation="{n} nieprzetłumaczone|normalne miana izbōw"/>
+    </string>
+</strings_plural>
