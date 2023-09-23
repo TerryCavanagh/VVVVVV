@@ -24,7 +24,7 @@ need the SDK headers and there is no special Steam or non-Steam version. The
 current implementation has been tested with Steamworks SDK v1.46.
 
 If you want to build the Make and Play edition of the game, then 
-make sure in MakeandPlay.h, this is uncommented:
+make sure in src/MakeandPlay.h, this is uncommented:
 ```
 #define MAKEANDPLAY
 ```
