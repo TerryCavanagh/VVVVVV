@@ -19,7 +19,7 @@
     <string english="Adjust various gameplay settings." translation="Pas diverse spelopties aan." explanation="" max="38*5"/>
     <string english="graphics" translation="grafisch" explanation="options menu option"/>
     <string english="Graphics Options" translation="Grafische opties" explanation="title" max="20"/>
-    <string english="Adjust screen settings." translation="Pas scherminstellingen aan." explanation="" max="38*5"/>
+    <string english="Adjust screen settings." translation="Pas beeldinstellingen aan." explanation="" max="38*5"/>
     <string english="audio" translation="audio" explanation="options menu option"/>
     <string english="Audio Options" translation="Audio-opties" explanation="title" max="20"/>
     <string english="Adjust volume settings and soundtrack." translation="Pas het volume of de soundtrack aan." explanation="" max="38*5"/>
@@ -194,24 +194,24 @@
     <string english="advanced options" translation="geavanceerde opties" explanation="menu option"/>
     <string english="Advanced Options" translation="Geavanceerde opties" explanation="title" max="20"/>
     <string english="All other gameplay settings." translation="Alle overige spelinstellingen." explanation="description for advanced options" max="38*5"/>
-    <string english="unfocus pause" translation="automatisch pauzescherm" explanation="menu option. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen"/>
+    <string english="unfocus pause" translation="pauzescherm" explanation="menu option. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen"/>
     <string english="Unfocus Pause" translation="Pauzescherm" explanation="title. Turns the pause screen on/off, which shows up when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto pause screen" max="20"/>
-    <string english="Toggle if the game will pause when the window is unfocused." translation="Schakel tussen wel en niet pauzeren wanneer het venster inactief is." explanation="" max="38*3"/>
-    <string english="Unfocus pause is OFF" translation="Automatisch pauzescherm staat UIT" explanation="Making another window active will not show the pause screen." max="38*2"/>
-    <string english="Unfocus pause is ON" translation="Automatisch pauzescherm staat AAN" explanation="Making another window active will show the pause screen." max="38*2"/>
+    <string english="Toggle if the game will pause when the window is unfocused." translation="Wijzig of het spel moet pauzeren wanneer het venster inactief is." explanation="" max="38*3"/>
+    <string english="Unfocus pause is OFF" translation="Pauzescherm staat UIT" explanation="Making another window active will not show the pause screen." max="38*2"/>
+    <string english="Unfocus pause is ON" translation="Pauzescherm staat AAN" explanation="Making another window active will show the pause screen." max="38*2"/>
     <string english="unfocus audio pause" translation="automatisch audio pauzeren" explanation="menu option. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause"/>
     <string english="Unfocus Audio" translation="Autom. audiopauze" explanation="title. Allows the user to choose whether the music should pause, or continue to play, when the window is unfocused/inactive (only one window is normally in focus/active at a time). Possible alternative: auto audio pause" max="20"/>
-    <string english="Toggle if the audio will pause when the window is unfocused." translation="Schakel tussen wel en niet audio pauzeren wanneer het venster inactief is." explanation="" max="38*3"/>
+    <string english="Toggle if the audio will pause when the window is unfocused." translation="Wijzig of de audio gepauzeerd moet worden wanneer het venster inactief is." explanation="" max="38*3"/>
     <string english="Unfocus audio pause is OFF" translation="Automatisch audio pauzeren staat UIT" explanation="Making another window active will leave the music keep playing." max="38*2"/>
     <string english="Unfocus audio pause is ON" translation="Automatisch audio pauzeren staat AAN" explanation="Making another window active will pause the music." max="38*2"/>
     <string english="toggle in-game timer" translation="timer in spel" explanation="menu option"/>
     <string english="In-Game Timer" translation="Timer in spel" explanation="title" max="20"/>
-    <string english="Toggle the in-game timer outside of time trials." translation="Schakel de timer in het spel buiten races tegen de klok in of uit." explanation="" max="38*3"/>
+    <string english="Toggle the in-game timer outside of time trials." translation="Toon een timer in het spel, ook buiten races tegen de klok." explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Timer in spel staat AAN" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Timer in spel staat UIT" explanation="" max="38*2"/>
     <string english="interact button" translation="interactie-knop" explanation="menu option"/>
     <string english="Interact Button" translation="Interactie-knop" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
-    <string english="Toggle whether you interact with prompts using ENTER or E." translation="Wijzig of interacties met bemanningsleden en objecten werken met ENTER of E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
+    <string english="Toggle whether you interact with prompts using ENTER or E." translation="Wijzig of interacties met bemanningsleden en objecten|werken met ENTER of E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
     <string english="E" translation="E" explanation="keyboard key E. Speedrunner options menu"/>
     <string english="ENTER" translation="ENTER" explanation="keyboard key ENTER. Speedrunner options menu"/>
     <string english="ESC" translation="ESC" explanation="keyboard key ESC"/>
@@ -219,7 +219,7 @@
     <string english="Interact button: {button}" translation="Interactie-knop: {button}" explanation="keyboard key (E or ENTER) is filled in for {button}. Speedrunner options menu" max="38*2"/>
     <string english="fake load screen" translation="nep-laadscherm" explanation="menu option"/>
     <string english="Fake Load Screen" translation="Nep-laadscherm" explanation="title, allows the loading screen which counts to 100% to be turned off" max="20"/>
-    <string english="Disable the fake loading screen which appears on game launch." translation="Schakel het neppe laadscherm dat verschijnt bij het opstarten van het spel uit." explanation="" max="38*3"/>
+    <string english="Disable the fake loading screen which appears on game launch." translation="Deactiveer het neppe laadscherm dat verschijnt bij het opstarten van het spel." explanation="" max="38*3"/>
     <string english="Fake loading screen is OFF" translation="Nep-laadscherm staat UIT" explanation="allows the loading screen which counts to 100% to be turned off" max="38*2"/>
     <string english="Fake loading screen is ON" translation="Nep-laadscherm staat AAN" explanation="allows the loading screen which counts to 100% to be turned off" max="38*2"/>
     <string english="room name background" translation="kamernaamachtergrond" explanation="menu option, background behind room names"/>
@@ -228,20 +228,20 @@
     <string english="Room name background is TRANSLUCENT" translation="Kamernaamachtergrond is DOORZICHTIG" explanation="" max="38*2"/>
     <string english="Room name background is OPAQUE" translation="Kamernaamachtergrond is ONDOORZICHTIG" explanation="" max="38*2"/>
     <string english="speedrun options" translation="speedrunopties" explanation="menu option"/>
-    <string english="Speedrunner Options" translation="Speedrunneropties" explanation="title" max="20"/>
+    <string english="Speedrunner Options" translation="Speedrunopties" explanation="title" max="20"/>
     <string english="Access some advanced settings that might be of interest to speedrunners." translation="Een aantal geavanceerde instellingen die interessant kunnen zijn voor speedrunners." explanation="description for speedrunner options" max="38*5"/>
-    <string english="glitchrunner mode" translation="glitchrunnermodus" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
-    <string english="Glitchrunner Mode" translation="Glitchrunnermodus" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
+    <string english="glitchrunner mode" translation="glitchrunmodus" explanation="menu option, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster"/>
+    <string english="Glitchrunner Mode" translation="Glitchrunmodus" explanation="title, a glitchrunner is a speedrunner who takes advantage of glitches to run through the game faster" max="20"/>
     <string english="Re-enable glitches that existed in previous versions of the game." translation="Herstel glitches die bestonden in vorige versies van het spel." explanation="glitchrunner mode" max="38*3"/>
-    <string english="Glitchrunner mode is OFF" translation="Glitchrunnermodus staat UIT" explanation="" max="38*2"/>
-    <string english="Glitchrunner mode is {version}" translation="Glitchrunnermodus staat op {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
-    <string english="Select a new glitchrunner version below." translation="Kies hieronder een nieuwe glitchrunner-versie." explanation="" max="38*3"/>
+    <string english="Glitchrunner mode is OFF" translation="Glitchrunmodus staat UIT" explanation="" max="38*2"/>
+    <string english="Glitchrunner mode is {version}" translation="Glitchrunmodus staat op {version}" explanation="a version number is filled in for {version}, such as 2.0 or 2.2" max="38*2"/>
+    <string english="Select a new glitchrunner version below." translation="Kies hieronder een nieuwe glitchrun-versie." explanation="" max="38*3"/>
     <string english="none" translation="geen" explanation="menu option, do not emulate any older version"/>
     <string english="2.0" translation="2.0" explanation="VVVVVV version number for glitchrunner mode"/>
     <string english="2.2" translation="2.2" explanation="VVVVVV version number for glitchrunner mode"/>
     <string english="input delay" translation="invoervertraging" explanation="menu option, enable 1 frame of delay after pressing input"/>
     <string english="Input Delay" translation="Invoervertraging" explanation="title, enable 1 frame of delay after pressing input" max="20"/>
-    <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="Schakel de invoervertraging van 1 frame uit vorige versies van het spel weer in." explanation="input delay" max="38*3"/>
+    <string english="Re-enable the 1-frame input delay from previous versions of the game." translation="Herstel de invoervertraging van 1 frame uit vorige versies van het spel." explanation="input delay" max="38*3"/>
     <string english="Input delay is ON" translation="Invoervertraging staat AAN" explanation="" max="38*2"/>
     <string english="Input delay is OFF" translation="Invoervertraging staat UIT" explanation="" max="38*2"/>
     <string english="accessibility" translation="toegankelijkheid" explanation="menu option"/>
@@ -249,22 +249,22 @@
     <string english="Disable screen effects, enable slowdown modes or invincibility." translation="Schakel schermeffecten uit, schakel vertraging of onkwetsbaarheid in." explanation="" max="38*5"/>
     <string english="animated backgrounds" translation="geanimeerde achtergronden" explanation="menu option"/>
     <string english="Backgrounds" translation="Achtergronden" explanation="title" max="20"/>
-    <string english="Disable animated backgrounds in menus and during gameplay." translation="Schakel geanimeerde achtergronden in menu&apos;s en tijdens het spel uit." explanation="" max="38*3"/>
+    <string english="Disable animated backgrounds in menus and during gameplay." translation="Deactiveer geanimeerde achtergronden in menu&apos;s en tijdens het spel." explanation="" max="38*3"/>
     <string english="Backgrounds are ON." translation="Achtergronden staan AAN." explanation="" max="38*2"/>
     <string english="Backgrounds are OFF." translation="Achtergronden staan UIT." explanation="" max="38*2"/>
     <string english="screen effects" translation="schermeffecten" explanation="menu option"/>
     <string english="Screen Effects" translation="Schermeffecten" explanation="title" max="20"/>
-    <string english="Disables screen shakes and flashes." translation="Schakelt schermbevingen en flitsen uit." explanation="" max="38*2"/>
+    <string english="Disables screen shakes and flashes." translation="Deactiveer schermbevingen en flitsen." explanation="" max="38*2"/>
     <string english="Screen Effects are ON." translation="Schermeffecten staan AAN." explanation="" max="38*3"/>
     <string english="Screen Effects are OFF." translation="Schermeffecten staan UIT." explanation="" max="38*3"/>
     <string english="text outline" translation="tekstomtrek" explanation="menu option"/>
     <string english="Text Outline" translation="Tekstomtrek" explanation="title" max="20"/>
-    <string english="Disables outline on game text." translation="Schakelt de omtrek om tekst in het spel uit." explanation="" max="38*2"/>
+    <string english="Disables outline on game text." translation="Deactiveer de omtrek om tekst." explanation="" max="38*2"/>
     <string english="Text outlines are ON." translation="Tekstomtrek staat AAN." explanation="" max="40"/>
     <string english="Text outlines are OFF." translation="Tekstomtrek staat UIT." explanation="" max="40"/>
     <string english="invincibility" translation="onkwetsbaarheid" explanation="menu option"/>
     <string english="Invincibility" translation="Onkwetsbaarheid" explanation="title" max="20"/>
-    <string english="Explore the game freely without dying. (Can cause glitches.)" translation="Verken het spel ongehinderd zonder dood te gaan. (Kan glitches veroorzaken.)" explanation="invincibility mode" max="38*3"/>
+    <string english="Explore the game freely without dying. (Can cause glitches.)" translation="Verken het spel in alle vrijheid zonder dood te gaan. (Kan glitches veroorzaken.)" explanation="invincibility mode" max="38*3"/>
     <string english="Invincibility is ON." translation="Onkwetsbaarheid staat AAN." explanation="" max="38*2"/>
     <string english="Invincibility is OFF." translation="Onkwetsbaarheid staat UIT." explanation="" max="38*2"/>
     <string english="Are you sure you want to enable invincibility?" translation="Weet je zeker dat je onkwetsbaarheid wilt inschakelen?" explanation="" max="38*7"/>
@@ -273,8 +273,8 @@
     <string english="slowdown" translation="vertraging" explanation="menu option"/>
     <string english="Slowdown" translation="Vertraging" explanation="title" max="20"/>
     <string english="Game Speed" translation="Spelsnelheid" explanation="title" max="20"/>
-    <string english="Reduce the game speed." translation="Verlaag de spelsnelheid." explanation="" max="38*2"/>
-    <string english="Select a new game speed below." translation="Kies hieronder een nieuwe spelsnelheid." explanation="" max="38*2"/>
+    <string english="Reduce the game speed." translation="Verlaag de snelheid van het spel." explanation="" max="38*2"/>
+    <string english="Select a new game speed below." translation="Kies hieronder een nieuwe snelheid voor het spel." explanation="" max="38*2"/>
     <string english="Game speed is normal." translation="Snelheid is normaal." explanation="" max="38*2"/>
     <string english="Game speed is at 80%" translation="Snelheid is 80%" explanation="" max="38*2"/>
     <string english="Game speed is at 60%" translation="Snelheid is 60%" explanation="" max="38*2"/>
@@ -286,13 +286,13 @@
     <string english="play intermission 1" translation="intermissie 1 spelen" explanation="menu option"/>
     <string english="play intermission 2" translation="intermissie 2 spelen" explanation="menu option"/>
     <string english="Who do you want to play the level with?" translation="Met wie wil je het level spelen?" explanation="choose your NPC companion" max="38*8"/>
-    <string english="time trials" translation="races tegen de klok" explanation="menu option"/>
-    <string english="Time Trials" translation="Races tegen de klok" explanation="title" max="20"/>
-    <string english="Replay any level in the game in a competitive time trial mode." translation="Speel elk level in het spel opnieuw in een competitieve racemodus." explanation="" max="38*4"/>
+    <string english="time trials" translation="race tegen de klok" explanation="menu option"/>
+    <string english="Time Trials" translation="Race tegen de klok" explanation="title" max="20"/>
+    <string english="Replay any level in the game in a competitive time trial mode." translation="Speel elk level in het spel in een competitieve race tegen de klok." explanation="" max="38*4"/>
     <string english="Time Trials are not available with slowdown or invincibility." translation="Races tegen de klok zijn niet beschikbaar met vertraging of onkwetsbaarheid." explanation="" max="38*3"/>
     <string english="unlock time trials" translation="races tegen de klok ontgrendelen" explanation="menu option"/>
     <string english="Unlock Time Trials" translation="Races ontgrendelen" explanation="title" max="20"/>
-    <string english="You can unlock each time trial separately." translation="Je kunt elke race tegen de klok afzonderlijk ontgrendelen." explanation="" max="38*5"/>
+    <string english="You can unlock each time trial separately." translation="Je kunt elke race tegen de klok|apart ontgrendelen." explanation="" max="38*5"/>
     <string english="intermissions" translation="intermissies" explanation="menu option"/>
     <string english="Intermissions" translation="Intermissies" explanation="title" max="20"/>
     <string english="Replay the intermission levels." translation="Speel de intermissielevels opnieuw." explanation="" max="38*3"/>
@@ -771,7 +771,7 @@ Je hebt het geheime lab gevonden!" explanation="" max="34*4"/>
     <string english="Level {path} not found" translation="Level {path} niet gevonden" explanation="" max="38*6"/>
     <string english="Error parsing {path}: {error}" translation="Fout bij parseren van {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Dimensies van {filename} zijn geen exact veelvoud van {width} bij {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
-    <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERROR: Kan niet schrijven naar talenmap! Zorg dat er geen &quot;lang&quot;-map naast de normale opgeslagen bestanden staat." explanation="" max="38*5"/>
+    <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="FOUT: Kan niet schrijven naar talenmap! Zorg dat er geen &quot;lang&quot;-map naast de normale opgeslagen bestanden staat." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
