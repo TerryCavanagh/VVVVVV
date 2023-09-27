@@ -196,6 +196,9 @@ public:
     int clear(int r, int g, int b, int a);
     int clear(void);
 
+    bool substitute(SDL_Texture** texture);
+    void post_substitute(SDL_Texture* subst);
+
     int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest);
     int copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, double angle, const SDL_Point* center, SDL_RendererFlip flip);
 

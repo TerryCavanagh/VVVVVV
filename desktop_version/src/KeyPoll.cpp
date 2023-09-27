@@ -177,6 +177,7 @@ void KeyPoll::Poll(void)
             {
                 /* Reload language files */
                 loc::loadtext(false);
+                graphics.grphx.init_translations();
                 music.playef(Sound_COIN);
             }
 
