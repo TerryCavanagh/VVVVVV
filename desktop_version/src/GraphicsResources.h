@@ -16,6 +16,8 @@ public:
     void init(void);
     void destroy(void);
 
+    void init_translations(void);
+
     SDL_Surface* im_sprites_surf;
     SDL_Surface* im_flipsprites_surf;
 
@@ -43,6 +45,9 @@ public:
     SDL_Texture* im_image10;
     SDL_Texture* im_image11;
     SDL_Texture* im_image12;
+
+    SDL_Texture* im_sprites_translated;
+    SDL_Texture* im_flipsprites_translated;
 };
 
 #endif /* GRAPHICSRESOURCES_H */

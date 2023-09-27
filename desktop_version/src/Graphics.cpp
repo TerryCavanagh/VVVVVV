@@ -503,23 +503,82 @@ int Graphics::clear(void)
     return clear(0, 0, 0, 255);
 }
 
+bool Graphics::substitute(SDL_Texture** texture)
+{
+    /* Either keep the given texture the same and return false,
+     * or substitute it for a translation and return true. */
+
+    if (loc::english_sprites)
+    {
+        return false;
+    }
+
+    SDL_Texture* subst = NULL;
+
+    if (*texture == grphx.im_sprites)
+    {
+        subst = grphx.im_sprites_translated;
+    }
+    else if (*texture == grphx.im_flipsprites)
+    {
+        subst = grphx.im_flipsprites_translated;
+    }
+
+    if (subst == NULL)
+    {
+        return false;
+    }
+
+    // Apply the same colors as on the original
+    Uint8 r, g, b, a;
+    SDL_GetTextureColorMod(*texture, &r, &g, &b);
+    SDL_GetTextureAlphaMod(*texture, &a);
+    set_texture_color_mod(subst, r, g, b);
+    set_texture_alpha_mod(subst, a);
+
+    *texture = subst;
+    return true;
+}
+
+void Graphics::post_substitute(SDL_Texture* subst)
+{
+    set_texture_color_mod(subst, 255, 255, 255);
+    set_texture_alpha_mod(subst, 255);
+}
+
 int Graphics::copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest)
 {
+    bool is_substituted = substitute(&texture);
+
     const int result = SDL_RenderCopy(gameScreen.m_renderer, texture, src, dest);
     if (result != 0)
     {
         WHINE_ONCE_ARGS(("Could not copy texture: %s", SDL_GetError()));
     }
+
+    if (is_substituted)
+    {
+        post_substitute(texture);
+    }
+
     return result;
 }
 
 int Graphics::copy_texture(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dest, const double angle, const SDL_Point* center, const SDL_RendererFlip flip)
 {
+    bool is_substituted = substitute(&texture);
+
     const int result = SDL_RenderCopyEx(gameScreen.m_renderer, texture, src, dest, angle, center, flip);
     if (result != 0)
     {
         WHINE_ONCE_ARGS(("Could not copy texture: %s", SDL_GetError()));
     }
+
+    if (is_substituted)
+    {
+        post_substitute(texture);
+    }
+
     return result;
 }
 
@@ -3423,8 +3482,6 @@ static void make_array(
             vector.push_back(temp);
         }
     }
-
-    VVV_freefunc(SDL_FreeSurface, *tilesheet);
 }
 
 bool Graphics::reloadresources(void)
