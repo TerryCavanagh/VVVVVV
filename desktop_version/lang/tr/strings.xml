@@ -427,9 +427,9 @@
     <string english="[ Press {button} to Start ]" translation="[ Başlamak için {button} tuşuna bas ]" explanation="title screen. Expect `ACTION`" max="38*2"/>
     <string english="ACTION = Space, Z, or V" translation="AKSİYON = Boşluk, Z veya V" explanation="title screen" max="38*3"/>
     <string english="[Press ENTER to return to editor]" translation="[Düzenleyiciye dönmek için ENTER&apos;a bas]" explanation="***OUTDATED***" max="40"/>
-    <string english="[Press {button} to return to editor]" translation="[Düzenleyiciye dönmek için {button} tuşuna bas]" explanation="`to editor` is sorta redundant" max="40"/>
+    <string english="[Press {button} to return to editor]" translation="Düzenleyiciye dönmek için {button} kullan" explanation="`to editor` is sorta redundant" max="40"/>
     <string english="- Press ACTION to advance text -" translation="- Metni geçmek için AKSİYON tuşuna bas -" explanation="***OUTDATED***" max="40"/>
-    <string english="- Press {button} to advance text -" translation="- Metni ilerletmek için {button} tuşuna bas -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
+    <string english="- Press {button} to advance text -" translation="- Metni geçmek için {button} tuşuna bas -" explanation="to dismiss a textbox. Expect `ACTION`" max="40"/>
     <string english="Press ACTION to continue" translation="AKSİYON tuşuna basarak devam et" explanation="***OUTDATED***" max="34"/>
     <string english="Press {button} to continue" translation="Devam etmek için {button} tuşuna bas" explanation="Expect `ACTION`" max="34"/>
     <string english="Current Time" translation="Mevcut Süre" explanation="super gravitron, stopwatch time" max="20"/>
