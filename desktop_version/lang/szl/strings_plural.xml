@@ -42,12 +42,12 @@
         <translation form="5" translation="Ôstało {n_crew}"/>
     </string>
     <string english_plural="Hardest Room (with {n_deaths} deaths)" english_singular="Hardest Room (with {n_deaths} death)" explanation="game complete screen" max="40" var="n_deaths" expect="1000">
-        <translation form="0" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
-        <translation form="1" translation="Nojciynższo izba (z {n_deaths} wypadkiem)"/>
-        <translation form="2" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
-        <translation form="3" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
-        <translation form="4" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
-        <translation form="5" translation="Nojciynższo izba (z {n_deaths} wypadkami)"/>
+        <translation form="0" translation="Nojciynższo izba (z {n_deaths} wpadkami)"/>
+        <translation form="1" translation="Nojciynższo izba (z {n_deaths} wpadkiem)"/>
+        <translation form="2" translation="Nojciynższo izba (z {n_deaths} wpadkami)"/>
+        <translation form="3" translation="Nojciynższo izba (z {n_deaths} wpadkami)"/>
+        <translation form="4" translation="Nojciynższo izba (z {n_deaths} wpadkami)"/>
+        <translation form="5" translation="Nojciynższo izba (z {n_deaths} wpadkami)"/>
     </string>
     <string english_plural="{n} normal room names untranslated" english_singular="{n} normal room name untranslated" explanation="per-area counts for room name translator mode" max="38*4" var="n" expect="48">
         <translation form="0" translation="{n} nieprzetłumaczonych|normalnych mianōw izbōw"/>

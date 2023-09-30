@@ -333,7 +333,7 @@
     <string english="Total Deaths:" translation="Liczba Wypadków:" explanation="game complete screen" max="22"/>
     <string english="Results" translation="Wyniki" explanation="bigger title" max="13"/>
     <string english="TIME TAKEN:" translation="CZAS:" explanation="time the player took playing the level" max="32"/>
-    <string english="NUMBER OF DEATHS:" translation="LICZBA WYPADKÓW:" explanation="amount of times the player died" max="32"/>
+    <string english="NUMBER OF DEATHS:" translation="WYPADKI:" explanation="amount of times the player died" max="32"/>
     <string english="SHINY TRINKETS:" translation="DROBIAZGI:" explanation="amount of trinkets collected" max="32"/>
     <string english=" / " translation="/" explanation="inserted between two times, ex: 0:46.90 / 1:15.99. Time trial results"/>
     <string english="{n_trinkets}/{max_trinkets}" translation="{n_trinkets}/{max_trinkets}" explanation="ex: 2/5"/>
@@ -502,16 +502,16 @@
     <string english="Press {button} to activate terminals" translation="Aktywuj terminale: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Wejdź w interakcję: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="- Press {button} to skip -" translation="- Pomiń: {button} -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
-    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Potential for Anything" translation="Potential for Anything" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Predestined Fate" translation="Predestined Fate" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pipe Dream" translation="Pipe Dream" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Passion for Exploring" translation="Passion for Exploring|(Pasja do Eksploracji)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pushing Onwards" translation="Pushing Onwards|(Pchamy Naprzód)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Positive Force" translation="Positive Force|(Pozytywna Siła)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Presenting VVVVVV" translation="Presenting VVVVVV|(Prezentujemy VVVVVV)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Potential for Anything" translation="Potential for Anything|(Potencjał na Wszystko)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Predestined Fate" translation="Predestined Fate|(Przeznaczenie Narzucone)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pipe Dream" translation="Pipe Dream|(Pomarzyć Można)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Popular Potpourri" translation="Popular Potpourri|(Popularne Potpourri)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pressure Cooker" translation="Pressure Cooker|(Pod Ciśnieniem)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="ecroF evitisoP|(ałiS anwytyzoP)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Ustawienia mapy" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="edytuj skrypty" explanation="level editor menu option"/>
     <string english="change music" translation="zmień piosenkę" explanation="level editor menu option"/>
@@ -586,8 +586,8 @@
     <string english="2: Backing" translation="2: Tła" explanation="editor tool. Non-solid background tiles" max="32"/>
     <string english="3: Spikes" translation="3: Kolce" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Drobiazgi" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
-    <string english="5: Checkpoint" translation="5: Checkpoint" explanation="***OUTDATED***"/>
-    <string english="5: Checkpoints" translation="5: Checkpointy" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
+    <string english="5: Checkpoint" translation="5: Punkt Przywrócenia" explanation="***OUTDATED***"/>
+    <string english="5: Checkpoints" translation="5: Punktu Przywrócenia" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
     <string english="6: Disappear" translation="6: Znikające" explanation="***OUTDATED***"/>
     <string english="6: Disappearing Platforms" translation="6: Znikające Platformy" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
     <string english="7: Conveyors" translation="7: Taśmociągi" explanation="editor tool. Conveyor belt" max="32"/>
@@ -649,7 +649,7 @@
     <string english="Room warps horizontally" translation="Poziome krawędzie połączone" explanation="level editor, the left and right edges of the room are connected with each other. The player can still go to other rooms on the top and bottom" max="38*3"/>
     <string english="Room warps vertically" translation="Pionowe krawędzie połączone" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3"/>
     <string english="Room warping disabled" translation="Krawędzie nie zakrzywiają się" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
-    <string english="ERROR: No checkpoint to spawn at" translation="BŁĄD: Nie znaleziono checkpointu" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
+    <string english="ERROR: No checkpoint to spawn at" translation="BŁĄD: Nie znaleziono punktu przywrócenia" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="BŁĄD: Maksymalna liczba drobiazgów to 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="BŁĄD: Maksymalna liczba członków to 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
     <string english="Level quits to menu" translation="Poziom wychodzi do menu głównego" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
