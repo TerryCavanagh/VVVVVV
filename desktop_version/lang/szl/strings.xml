@@ -302,8 +302,8 @@
     <string english="No Death Mode" translation="Tryb Bez Wpadek" explanation="title" max="20"/>
     <string english="Play the entire game without dying once." translation="Przelyź cołki szpil bez żŏdnyj wpadki." explanation="" max="38*4"/>
     <string english="No Death Mode is not available with slowdown or invincibility." translation="Tryb Bez Wpadek niy jest dostympny|z niyśmiertelnościōm abo spomalyniym." explanation="" max="38*3"/>
-    <string english="unlock no death mode" translation="ôdymknij tryb bez wypadek" explanation="menu option"/>
-    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="COBY ÔDYMKNŌŃĆ: Dostōń stopiyń S abo wyżyj we nojmynij 4 prōbach czasowych." explanation="ranks are B A S V, see below" max="38*3"/>
+    <string english="unlock no death mode" translation="ôdymknij tryb bez wpadek" explanation="menu option"/>
+    <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="COBY ÔDYMKNŌŃĆ: Dostōń ranga S abo wyżyj we nojmynij 4 prōbach czasowych." explanation="ranks are B A S V, see below" max="38*3"/>
     <string english="flip mode" translation="tryb na ôpy" explanation="menu option, mirrors the entire game vertically"/>
     <string english="Flip Mode" translation="Tryb Na Ôpy" explanation="title, mirrors the entire game vertically" max="20"/>
     <string english="Flip the entire game vertically." translation="Zwyrtnij cołki szpil w piōnie." explanation="" max="38*2"/>
@@ -341,8 +341,8 @@
     <string english="{n_trinkets|wordy} out of {max_trinkets|wordy}" translation="{n_trinkets|wordy|upper} z {max_trinkets}" explanation="ex: One out of Twenty, see numbers.xml. You can add |upper for an uppercase letter." max="34"/>
     <string english="{savebox_n_trinkets|wordy}" translation="{savebox_n_trinkets|wordy|upper}" explanation="trinket count in telesave/quicksave information box. You can add |upper for an uppercase letter."/>
     <string english="{gamecomplete_n_trinkets|wordy}" translation="{gamecomplete_n_trinkets|wordy|upper}" explanation="trinket count on Game Complete screen (after Trinkets Found:) You can add |upper for an uppercase letter."/>
-    <string english="+1 Rank!" translation="Stopiyń +1!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
-    <string english="Rank:" translation="Stopiyń:" explanation="time trial rank" max="9"/>
+    <string english="+1 Rank!" translation="Ranga +1!" explanation="time trial rank was upgraded (B → A → S → V). B is minimum, which is purposefully high (see it as 7/10) - S is a popular rank above A in a lot of games, so VVVVVV added a rank above that." max="12"/>
+    <string english="Rank:" translation="Ranga:" explanation="time trial rank" max="9"/>
     <string english="B" translation="B" explanation="time trial rank" max="5"/>
     <string english="A" translation="A" explanation="time trial rank" max="5"/>
     <string english="S" translation="S" explanation="time trial rank" max="5"/>
@@ -368,7 +368,7 @@
     <string english="TO UNLOCK:" translation="COBY ÔDYMKNŌŃĆ:" explanation="followed by `Rescue XX`/`Complete the game`, and then `Find XX trinkets`" max="40"/>
     <string english="Rescue Violet" translation="Uratuj Violet" explanation="" max="40"/>
     <string english="Rescue Victoria" translation="Uratuj Victoria" explanation="" max="40"/>
-    <string english="Rescue Vermilion" translation="Uratuj Vermilliōna" explanation="" max="40"/>
+    <string english="Rescue Vermilion" translation="Uratuj Vermiliōna" explanation="" max="40"/>
     <string english="Rescue Vitellary" translation="Uratuj Vitellary&apos;ego" explanation="" max="40"/>
     <string english="Rescue Verdigris" translation="Uratuj Verdigrisa" explanation="" max="40"/>
     <string english="Complete the game" translation="Skōńcz szpil" case="0" explanation="" max="40"/>
@@ -380,12 +380,12 @@
     <string english="Find eighteen trinkets" translation="Znojdź ŏziymnŏście dinksōw" explanation="" max="40"/>
     <string english="RECORDS" translation="REKORDY" explanation="followed by a list of personal bests for TIME, SHINY and LIVES. So `records` as in `world records`, except for yourself" max="15"/>
     <string english="TIME" translation="CZAS" explanation="record time" max="8"/>
-    <string english="SHINY" translation="BLYSK" explanation="record number of trinkets" max="8"/>
+    <string english="SHINY" translation="DINKS" explanation="record number of trinkets" max="8"/>
     <string english="LIVES" translation="ŻYCIA" explanation="record lowest number of deaths" max="8"/>
     <string english="PAR TIME" translation="CZAS DOCYLOWY" explanation="followed by the goal time for this time trial" max="14"/>
     <string english="TIME:" translation="CZAS:" explanation="in time trial. Stopwatch time, not too long"/>
     <string english="DEATH:" translation="WPADKI:" explanation="in time trial. Number of times player died, not too long"/>
-    <string english="SHINY:" translation="DINKS:" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
+    <string english="SHINY:" translation="DINKSY:" explanation="in time trial. Number of shiny trinkets collected, not too long"/>
     <string english="PAR TIME:" translation="CZAS DOCYLOWY:" explanation="in time trial. Goal time for time trial"/>
     <string english="BEST RANK" translation="NOJLEPSZO RANGA" explanation="ranks are B A S V" max="17"/>
     <string english="GO!" translation="SZTART!" explanation="3, 2, 1, GO!" max="13"/>
@@ -466,19 +466,19 @@
     <string english="Rescued!" translation="Uratowano!" case="2" explanation="this female crew member is not missing anymore" max="15"/>
     <string english="(that&apos;s you!)" translation="(to Ty!)" explanation="this crew member is you (Viridian)" max="15"/>
     <string english="Cannot Save in Level Replay" translation="Niy idzie zachowywać w Trybie Powtōrki" explanation="in-game menu" max="38*7"/>
-    <string english="Cannot Save in No Death Mode" translation="Niy idzie zachowywać w Trybie Bez Wypadek" explanation="in-game menu" max="38*7"/>
+    <string english="Cannot Save in No Death Mode" translation="Niy idzie zachowywać w Trybie Bez Wpadek" explanation="in-game menu" max="38*7"/>
     <string english="How&apos;d you get here?" translation="Jak żeś sie sam znŏd?" explanation="in-game menu" max="38*7"/>
-    <string english="Cannot Save in Secret Lab" translation="Niy idzie zachowywać w Tajnym Laboratoriōm" explanation="in-game menu" max="38*7"/>
+    <string english="Cannot Save in Secret Lab" translation="Niy idzie zachowywać|w Tajnym Laboratoriōm" explanation="in-game menu" max="38*7"/>
     <string english="ERROR: Could not save game!" translation="FELER: Niy zachowano szpila!" explanation="in-game menu" max="34*2"/>
     <string english="ERROR: Could not save settings file!" translation="FELER: Niy zachowano sztalowań!" explanation="" max="38*2"/>
     <string english="Game saved ok!" translation="Zachowano szpil!" explanation="in-game menu" max="38*2"/>
     <string english="[Press ACTION to save your game]" translation="[Tyknij AKCYJO by zachować szpil]" explanation="***OUTDATED***" max="40"/>
     <string english="[Press {button} to save your game]" translation="[Tyknij {button} by zachować szpil]" explanation="in-game menu. Expect `ACTION`" max="40"/>
-    <string english="(Note: The game is autosaved at every teleporter.)" translation="(Szpil je autozachowano przi kŏżdym teleporterze.)" explanation="in-game menu" max="38*3"/>
+    <string english="(Note: The game is autosaved at every teleporter.)" translation="(Szpil je autozachowany przi|kŏżdym teleporterze.)" explanation="in-game menu" max="38*3"/>
     <string english="Last Save:" translation="Ôstatni zachowany szpil:" explanation="in-game menu" max="40"/>
     <string english="Return to main menu?" translation="Idź nazŏd do menu bazowego?" explanation="in-game menu" max="38*4"/>
     <string english="Do you want to quit? You will lose any unsaved progress." translation="Chcesz wylyź ze szpila? Stracisz niyzachowane postympy." explanation="in-game menu" max="38*4"/>
-    <string english="Do you want to return to the secret laboratory?" translation="Chcesz iś nazŏd do tajnego laboratoriōm?" explanation="in-game menu" max="38*4"/>
+    <string english="Do you want to return to the secret laboratory?" translation="Chcesz iś nazŏd do|tajnego laboratoriōm?" explanation="in-game menu" max="38*4"/>
     <string english="no, keep playing" translation="niy, grej dalij" explanation="in-game menu option" max="28"/>
     <string english="[ NO, KEEP PLAYING ]" translation="[ NIY, GREJ DALIJ ]" explanation="in-game menu option" max="32"/>
     <string english="yes, quit to menu" translation="ja, wylyź do menu" explanation="in-game menu option" max="24"/>
@@ -495,23 +495,23 @@
     <string english="Press {button} to explode" translation="Tyknij {button}, coby eksplodować" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. This was for testing, but people sometimes find it in custom levels" max="37"/>
     <string english="Press {button} to talk to Violet" translation="Pogŏdej z Violet: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to talk to Vitellary" translation="Pogŏdej z Vitellarym: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
-    <string english="Press {button} to talk to Vermilion" translation="Pogŏdej z Vermilliōnym: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
+    <string english="Press {button} to talk to Vermilion" translation="Pogŏdej z Vermiliōnym: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to talk to Verdigris" translation="Pogŏdej z Verdigrisym: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to talk to Victoria" translation="Pogŏdej z Victoriōm: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminal" translation="Uaktywnij terminal: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="Press {button} to activate terminals" translation="Uaktywnij terminale: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed. there are 3 next to each other in the ship" max="37"/>
     <string english="Press {button} to interact" translation="Wlyź w interakcyjo: {button}" explanation="keyboard key (E or ENTER) or controller button glyph is filled in for {button}. max is when displayed" max="37"/>
     <string english="- Press {button} to skip -" translation="- Pōmiń: {button} -" explanation="keyboard key (ENTER) or controller button glyph is filled in for {button}. max is when displayed. This prompt is for skipping cutscenes" max="40"/>
-    <string english="Passion for Exploring" translation="Passion for Exploring" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pushing Onwards" translation="Pushing Onwards" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Positive Force" translation="Positive Force" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Presenting VVVVVV" translation="Presenting VVVVVV" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Potential for Anything" translation="Potential for Anything" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Predestined Fate" translation="Predestined Fate" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pipe Dream" translation="Pipe Dream" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Popular Potpourri" translation="Popular Potpourri" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="Pressure Cooker" translation="Pressure Cooker" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
-    <string english="ecroF evitisoP" translation="ecroF evitisoP" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Passion for Exploring" translation="Passion for Exploring|(Pasjo Ôdkrywanio)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pushing Onwards" translation="Pushing Onwards|(Pociskōmy Dalij)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Positive Force" translation="Positive Force|(Pozytywno Moc)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Presenting VVVVVV" translation="Presenting VVVVVV|(Prezyntujymy VVVVVV)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Potential for Anything" translation="Potential for Anything|(Potyncjoł na Wszyjsko)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Predestined Fate" translation="Predestined Fate|(Porynczōny Los)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pipe Dream" translation="Pipe Dream|(Pomarzić Idzie)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Popular Potpourri" translation="Popular Potpourri|(Popularne Potpourri)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="Pressure Cooker" translation="Pressure Cooker|(Pod Presōm)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
+    <string english="ecroF evitisoP" translation="ecroF evitisoP|(coM onwytyzoP)" explanation="jukebox prompt. song name should probably not be translated" max="37*2"/>
     <string english="Map Settings" translation="Sztalowania mapy" explanation="title, editor, Level Settings, map is kinda inconsistent with everything else" max="20"/>
     <string english="edit scripts" translation="edytuj skrypty" explanation="level editor menu option"/>
     <string english="change music" translation="pomiyń śpiywka" explanation="level editor menu option"/>
@@ -528,7 +528,7 @@
     <string english="change font" translation="pomiyń czciōnka" explanation="level editor menu option"/>
     <string english="Level Font" translation="Czciōnka Poziōmu" explanation="title, editor, font that a custom level will show up in. You can select a language name here (like Chinese or Japanese which have different fonts, or `other`)" max="20"/>
     <string english="Select the language in which the text in this level is written." translation="Ôbier gŏdka, w keryj je tekst w tym poziōmie." explanation="" max="38*3"/>
-    <string english="Font: " translation="Czciōnka:" explanation="level options, followed by name of font (mind the space)" max="15"/>
+    <string english="Font: " translation="Czciōnka: " explanation="level options, followed by name of font (mind the space)" max="15"/>
     <string english="Map Music" translation="Śpiywka:" explanation="title, editor, music that starts playing when a level is started. Can be changed with scripting later, so this is really just initial music" max="20"/>
     <string english="Current map music:" translation="Śpiywka:" explanation="editor, followed by the number and name of a song, or `No background music`. Can be changed with scripting later, so this is really just initial music" max="38*2"/>
     <string english="No background music" translation="Niy ma śpiywki" explanation="editor, level starts with no song playing" max="38*2"/>
@@ -562,10 +562,10 @@
     <string english="SCRIPT BOX: Click on the first corner" translation="POLE SKRYPTOWE: Kliknij w piyrszo eka" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
     <string english="SCRIPT BOX: Click on bottom right" translation="POLE SKRYPTOWE: Kliknij na prawyj spodnij" explanation="***OUTDATED***"/>
     <string english="SCRIPT BOX: Click on the last corner" translation="POLE SKRYPTOWE: Kliknij w zadnio eka" explanation="editor, a script box is an invisible box that runs a script when touched" max="39*3"/>
-    <string english="ENEMY BOUNDS: Click on top left" translation="GRANICE WROGÓW: Kliknij na lewyj wiyrchnij" explanation="***OUTDATED***"/>
-    <string english="ENEMY BOUNDS: Click on the first corner" translation="GRANICE WROGÓW: Kliknij w piyrszo eka" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
-    <string english="ENEMY BOUNDS: Click on bottom right" translation="GRANICE WROGÓW: Kliknij na prawyj spodnij" explanation="***OUTDATED***"/>
-    <string english="ENEMY BOUNDS: Click on the last corner" translation="GRANICE WROGÓW: Kliknij w zadnio eka" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on top left" translation="GRANICE WROGŌW: Kliknij na lewyj wiyrchnij" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on the first corner" translation="GRANICE WROGŌW: Kliknij w piyrszo eka" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
+    <string english="ENEMY BOUNDS: Click on bottom right" translation="GRANICE WROGŌW: Kliknij na prawyj spodnij" explanation="***OUTDATED***"/>
+    <string english="ENEMY BOUNDS: Click on the last corner" translation="GRANICE WROGŌW: Kliknij w zadnio eka" explanation="editor, invisible box which enemies always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on top left" translation="GRANICE PLATFORM: Kliknij na lewyj wiyrchnij" explanation="***OUTDATED***"/>
     <string english="PLATFORM BOUNDS: Click on the first corner" translation="GRANICE PLATFORM: Kliknij w piyrszo eka" explanation="editor, invisible box which moving platforms always stay inside of" max="39*3"/>
     <string english="PLATFORM BOUNDS: Click on bottom right" translation="GRANICE PLATFORM: Kliknij na prawyj spodnij" explanation="***OUTDATED***"/>
@@ -586,8 +586,8 @@
     <string english="2: Backing" translation="2: Tła" explanation="editor tool. Non-solid background tiles" max="32"/>
     <string english="3: Spikes" translation="3: Żgaczki" explanation="editor tool" max="32"/>
     <string english="4: Trinkets" translation="4: Dinksy" explanation="editor tool. Shiny trinkets/collectibles" max="32"/>
-    <string english="5: Checkpoint" translation="5: Checkpoint" explanation="***OUTDATED***"/>
-    <string english="5: Checkpoints" translation="5: Checkpointy" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
+    <string english="5: Checkpoint" translation="5: Pōnkt Przywrōcenio" explanation="***OUTDATED***"/>
+    <string english="5: Checkpoints" translation="5: Pōnkty Przywrōcenio" explanation="editor tool. You restart at the last checkpoint after death" max="32"/>
     <string english="6: Disappear" translation="6: Znikajōnce" explanation="***OUTDATED***"/>
     <string english="6: Disappearing Platforms" translation="6: Znikajōnce Platformy" explanation="editor tool. Platform that disappears when you step on it (disappearing platform, crumbling platform)" max="32"/>
     <string english="7: Conveyors" translation="7: Taśmociōngi" explanation="editor tool. Conveyor belt" max="32"/>
@@ -649,7 +649,7 @@
     <string english="Room warps horizontally" translation="Poziōme ranty zepniynte" explanation="level editor, the left and right edges of the room are connected with each other. The player can still go to other rooms on the top and bottom" max="38*3"/>
     <string english="Room warps vertically" translation="Piōnowe ranty zepniynte" explanation="level editor, the top and bottom edges of the room are connected with each other. The player can still go to other rooms on the left and right" max="38*3"/>
     <string english="Room warping disabled" translation="Ranty niy skrziwiajōm sie" explanation="level editor, no edges are connected and the player can go to other rooms" max="38*3"/>
-    <string english="ERROR: No checkpoint to spawn at" translation="FELER: Niy wysznupano checkpointu" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
+    <string english="ERROR: No checkpoint to spawn at" translation="FELER: Niy wysznupano pōnktu przywrōcenio" explanation="we cannot playtest because there is no checkpoint in this room that the player could start (be spawned) at" max="38*3"/>
     <string english="ERROR: Max number of trinkets is 100" translation="FELER: Maksimum dinksōw to 100" explanation="editor, user tried to place another trinket" max="38*3"/>
     <string english="ERROR: Max number of crewmates is 100" translation="FELER: Maksimum człōnkōw to 100" explanation="editor, user tried to place another crewmate" max="38*3"/>
     <string english="Level quits to menu" translation="Poziōm wyłazi do menu bazowego" explanation="editor message, user would have been forcefully returned to title screen but wasn&apos;t" max="38*3"/>
@@ -708,7 +708,7 @@ You have found the secret lab!" translation="Winszujymy!" explanation="" max="34
     <string english="Captain Viridian" translation="Kapitan Viridian" explanation="credits roll. Starring the following 6 crew members" max="27"/>
     <string english="Doctor Violet" translation="Dochtor Violet" explanation="credits roll. Starring the following 6 crew members" max="27"/>
     <string english="Professor Vitellary" translation="Profesor Vitellary" explanation="credits roll. Starring the following 6 crew members" max="27"/>
-    <string english="Officer Vermilion" translation="Ôficer Vermillion" explanation="credits roll. Starring the following 6 crew members" max="27"/>
+    <string english="Officer Vermilion" translation="Ôficer Vermilion" explanation="credits roll. Starring the following 6 crew members" max="27"/>
     <string english="Chief Verdigris" translation="Inżinier Verdigris" explanation="credits roll. Starring the following 6 crew members" max="27"/>
     <string english="Doctor Victoria" translation="Dochtor Victoria" explanation="credits roll. Starring the following 6 crew members" max="27"/>
     <string english="When you&apos;re standing on the floor, Vitellary will try to walk to you." translation="Kej stoisz na zolu, Vitellary bydzie prōbowoł do Cie podlyź." explanation="Intermission 1" max="34*4"/>
@@ -734,22 +734,22 @@ You have found the secret lab!" translation="Winszujymy!" explanation="" max="34
     <string english="You can&apos;t continue to the next room until he is safely across." translation="Niy śmiysz przelyź dalij, dokej przōdzij niy przelezie ôn." explanation="Intermission 1" max="34*4"/>
     <string english="You can&apos;t continue to the next room until she is safely across." translation="Niy śmiysz przelyź dalij, dokej przōdzij niy przelezie ôna." explanation="Intermission 1" max="34*4"/>
     <string english="You can&apos;t continue to the next room until they are safely across." translation="Niy śmiysz przelyź dalij, dokej przōdzij niy przelezie kamrat." explanation="Intermission 1, unknown companion, normally impossible but reproducible in custom levels" max="34*4"/>
-    <string english="Survive for" translation="Przeżyj 60 sekund" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
+    <string english="Survive for" translation="Strzim 60 sekund" explanation="Gravitron. Line 1/2: Survive for 60 seconds!" max="20"/>
     <string english="60 seconds!" translation="bez wpadki!" explanation="Gravitron. Line 2/2: Survive for 60 seconds!" max="20"/>
     <string english="Thanks for" translation="Dziynkuja" explanation="credits. Line 1/2: Thanks for playing!" max="20"/>
     <string english="playing!" translation="za granie!" explanation="credits. Line 2/2: Thanks for playing!" max="20"/>
-    <string english="SPACE STATION 1 MASTERED" translation="SZAFNIYNTO JE SZTELA KOSMICZNO 1" explanation="achievement/trophy title" max="38*2"/>
-    <string english="LABORATORY MASTERED" translation="SZAFNIYNTE JE LABORATORIŌM" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="THE TOWER MASTERED" translation="SZAFNIYNTY JE WIEŻA" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="SPACE STATION 2 MASTERED" translation="SZAFNIYNTO JE SZTELA KOSMICZNO 2" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="WARP ZONE MASTERED" translation="SZAFNIYNTO JE ZŌUNA ZAKRZIWIŌNO" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="FINAL LEVEL MASTERED" translation="SZAFNIYNTY JE ETAP FINAŁOWY" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
-    <string english="Obtain a V Rank in this Time Trial" translation="Dostōń w tyj Prōbie na Czas stopiyń V" explanation="achievement/trophy description" max="38*2"/>
+    <string english="SPACE STATION 1 MASTERED" translation="SZTELA KOSMICZNO 1 SZAFNIYNTO" explanation="achievement/trophy title" max="38*2"/>
+    <string english="LABORATORY MASTERED" translation="LABORATORIŌM SZAFNIYNTE" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="THE TOWER MASTERED" translation="WIEŻA SZAFNIYNTO" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="SPACE STATION 2 MASTERED" translation="SZTELA KOSMICZNO 2 SZAFNIYNTO" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="WARP ZONE MASTERED" translation="ZŌUNA ZAKRZIWIŌNO SZAFNIYNTO" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="FINAL LEVEL MASTERED" translation="ETAP FINAŁOWY SZAFNIYNTy" explanation="achievement/trophy title - V rank in time trial" max="38*2"/>
+    <string english="Obtain a V Rank in this Time Trial" translation="Dostōń w tyj Prōbie na Czas ranga V" explanation="achievement/trophy description" max="38*2"/>
     <string english="GAME COMPLETE" translation="SZPIL JE FERTICH" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game" translation="Skōńcz szpil" case="1" explanation="achievement/trophy description" max="38*2"/>
     <string english="FLIP MODE COMPLETE" translation="SZPIL JE FERTICH NA ÔPY" explanation="achievement/trophy title" max="38*2"/>
     <string english="Complete the game in flip mode" translation="Skōńcz szpil w Trybie Na Ôpy" explanation="achievement/trophy description" max="38*2"/>
-    <string english="Win with less than 50 deaths" translation="Wygrej z mynij co 50 wypadkami" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Win with less than 50 deaths" translation="Wygrej z mynij co 50 wpadkami" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 100 deaths" translation="Wygrej z mynij co 100 wpadek" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 250 deaths" translation="Wygrej z mynij co 250 wpadek" explanation="achievement/trophy description" max="38*2"/>
     <string english="Win with less than 500 deaths" translation="Wygrej ze mynij co 500 wpadek" explanation="achievement/trophy description" max="38*2"/>
@@ -760,12 +760,12 @@ You have found the secret lab!" translation="Winszujymy!" explanation="" max="34
     <string english="Last 30 seconds on the Super Gravitron" translation="Przeżyj 30 sek. na Super Grawitrōnie" explanation="achievement/trophy description" max="38*2"/>
     <string english="Last 1 minute on the Super Gravitron" translation="Przeżyj 1 minuta na Super Grawitrōnie" explanation="achievement/trophy description" max="38*2"/>
     <string english="MASTER OF THE UNIVERSE" translation="CYSŎRZ WSZECHŚWIATA" explanation="achievement/trophy title - no death mode complete" max="38*2"/>
-    <string english="Complete the game in no death mode" translation="Dokōńcz szpil w trybie bez wpadek" explanation="achievement/trophy description" max="38*2"/>
+    <string english="Complete the game in no death mode" translation="Skōńcz szpil w trybie bez wpadek" explanation="achievement/trophy description" max="38*2"/>
     <string english="Something went wrong, but we forgot the error message." translation="Cosik poszło felernie...|Ale przepōmnieli my dopisać po jakimu." explanation="the message that is printed in case the game detects an error but there&apos;s no error message set" max="38*6"/>
     <string english="Could not mount {path}: real directory doesn&apos;t exist" translation="Niy podarziło sie wlyź do {path}: folderu niy ma" explanation="mount: link/attach a directory (folder) in the filesystem into the game&apos;s filesystem so we can access it" max="38*6"/>
     <string english="Level {path} not found" translation="Niy wysznupano ściyżki {path}" explanation="" max="38*6"/>
     <string english="Error parsing {path}: {error}" translation="Feler czytanio {path}: {feler}" explanation="we tried to parse the level file, but failed" max="38*6"/>
-    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="MIary {filename} niy ma wielakrotnōściami {width} na {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
+    <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Miary {filename} niy som wielakrotnōściami {width} na {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="Feler: Niy zachowano do folderu ôd gŏdki! Bydź zicher, co niy ma folderu &quot;lang&quot; kole regularnych zapisōw." explanation="" max="38*5"/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>

@@ -15,7 +15,7 @@
         <dialogue speaker="cyan" english="...guys?" translation="...kamraty?"/>
     </cutscene>
     <cutscene id="firststeps" explanation="">
-        <dialogue speaker="cyan" english="I wonder why the ship teleported me here alone?" translation="Dziwuja sie, po jakimu tyn szif teleportowoł sam ino mie?"/>
+        <dialogue speaker="cyan" english="I wonder why the ship teleported me here alone?" translation="Dziwuja sie, po jakimu szif teleportowoł sam ino mie?"/>
         <dialogue speaker="cyan" english="I hope everyone else got out ok..." translation="Ufōm, co wszyjscy wyleźli z tego ok..."/>
     </cutscene>
     <cutscene id="communicationstation" explanation="">
@@ -61,13 +61,13 @@
         <dialogue speaker="purple" english="Our friends could be anywhere - they could be lost, or in danger!" translation="Nasze kamraty poradzōm być leda kaj - poradzōm sie stracić i być zagrożyni!"/>
         <dialogue speaker="player" english="Can they teleport back here?" translation="Poradzōm sie ôni nazŏd tukej teleportować?"/>
         <dialogue speaker="purple" english="Not unless they find some way to communicate with us!" translation="Niy, dokej znojdōm jakiś knif, coby sie z nami dogŏdać!"/>
-        <dialogue speaker="purple" english="We can&apos;t pick up their signal and they can&apos;t teleport here unless they know where the ship is..." translation="Niy poradzymy chycić ôd ônych sygnału, a ôni niy bydōm poradzli sie sam teleportować, dokej niy bydōm wiedzieć kaj je szif..."/>
+        <dialogue speaker="purple" english="We can&apos;t pick up their signal and they can&apos;t teleport here unless they know where the ship is..." translation="Niy poradzymy chycić ôd ônych sygnału, a ôni niy bydōm poradzili sie sam teleportować, dokej niy bydōm wiedzieć kaj je szif..."/>
         <dialogue speaker="player" english="So what do we do?" translation="Tōż co bydymy robić?"/>
-        <dialogue speaker="purple" english="We need to find them! Head out into the dimension and look for anywhere they might have ended up..." translation="Muszymy ônych znojś! Iść do wymiaru i sznupej kaj ino ôni poradzōm być..."/>
+        <dialogue speaker="purple" english="We need to find them! Head out into the dimension and look for anywhere they might have ended up..." translation="Muszymy ônych znojś! Wyruszyć w głōmb wymiaru i sznupać kaj ino ôni poradzōm być..."/>
         <dialogue speaker="player" english="Ok! Where do we start?" translation="Ok! Kaj sztartujymy?"/>
         <dialogue speaker="purple" english="Well, I&apos;ve been trying to find them with the ship&apos;s scanners!" translation="No, prōbowała żech ônych znojś bez skanery ôd szifa!"/>
         <dialogue speaker="purple" english="It&apos;s not working, but I did find something..." translation="Niy funguje, ale cosik żech wysznupała..."/>
-        <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="Te pōnkty pokŏzujōm sie na naszych skanach za fest energetyczne mustry!"/>
+        <dialogue speaker="purple" english="These points show up on our scans as having high energy patterns!" translation="Te pōnkty, co pokŏzujōm sie na naszych skanach, sōm fest energetyczne!"/>
         <dialogue speaker="purple" english="There&apos;s a good chance they&apos;re teleporters - which means they&apos;re probably built near something important..." translation="Je fest szansa, co to sōm teleportery - co bodej ôznaczo, iże pobudowano ône kole czegoś wŏżnego..."/>
         <dialogue speaker="purple" english="They could be a very good place to start looking." translation="Ône poradzōm być dobrym placym coby sztarnōńć sznupanie."/>
         <dialogue speaker="player" english="Ok! I&apos;ll head out and see what I can find!" translation="Ok! Wyleza i ôbejrza co poradza znojś!"/>
@@ -150,7 +150,7 @@
     <cutscene id="int1blue_1" explanation="">
         <dialogue speaker="blue" english="Waaaa!" translation="Łaaaa!" case="1"/>
         <dialogue speaker="blue" english="Captain! Are you ok?" translation="Kapitanie! Je żeś ok?"/>
-        <dialogue speaker="player" english="I&apos;m ok... this... this isn&apos;t the ship..." translation="Je żech ok... to... to niy je tyn szif..."/>
+        <dialogue speaker="player" english="I&apos;m ok... this... this isn&apos;t the ship..." translation="Je żech ok... to... to niy je nasz szif..."/>
         <dialogue speaker="player" english="Where are we?" translation="Kaj my sōm?"/>
         <dialogue speaker="blue" english="Waaaa!" translation="Łaaaa!" case="2"/>
         <dialogue speaker="player" english="Something&apos;s gone wrong... We should look for a way back!" translation="Cosik poszło niyfajnie... Muszymy znojś drōga nazŏd!"/>
@@ -161,7 +161,7 @@
         <dialogue speaker="player" english="I promise! Don&apos;t worry!" translation="Ôbiecuja! Niy starej sie!"/>
     </cutscene>
     <cutscene id="int1blue_3" explanation="">
-        <dialogue speaker="player" english="Are you ok down there, Doctor?" translation="Je żeś ok, hań na spodku, Dochtor Victoria?"/>
+        <dialogue speaker="player" english="Are you ok down there, Doctor?" translation="Je Ci sam ok na spodku, Dochtor Victoria?"/>
         <dialogue speaker="blue" english="I wanna go home!" translation="Chca iś do dōm!"/>
         <dialogue speaker="blue" english="Where are we? How did we even get here?" translation="Kaj żeś je? Jak my sie tukej tak richtich dostali?"/>
         <dialogue speaker="player" english="Well, Violet did say that the interference in the dimension we crashed in was causing problems with the teleporters..." translation="Nō, Violet pedziała, co turbacyjo we wymiarze w kerym my sie roztrzaskali, zrobiła problymy z teleporterami..."/>
@@ -650,7 +650,7 @@
         <dialogue speaker="purple" english="..." translation="..."/>
         <dialogue speaker="purple" english="Um, where&apos;s Captain Viridian?" translation="Hmm, kaj je Kapitan Viridian?"/>
         <dialogue speaker="player" english="... Hello?" translation="... Halo?"/>
-        <dialogue speaker="player" english="Is anyone there?" translation="Je ftoś hań?"/>
+        <dialogue speaker="player" english="Is anyone there?" translation="Je sam fto?"/>
     </cutscene>
     <cutscene id="terminal_finallevel" explanation="">
         <dialogue speaker="gray" english="* DIMENSIONAL STABILITY GENERATOR *
@@ -746,7 +746,7 @@ SZTABILIZATOR WYMIARU OFFLINE" centertext="1" pad="1"/>
         <dialogue speaker="red" english="COMBINE!" translation="SPINAĆ!" case="4"/>
         <dialogue speaker="green" english="COMBINE!" translation="SPINAĆ!" case="5"/>
         <dialogue speaker="blue" english="COMBINE!" translation="SPINAĆ!" case="6"/>
-        <dialogue speaker="purple" english="Or, you know... we could have just warped back to the ship..." translation="Abo, wiysz... moglimy wrōcić na szif..."/>
+        <dialogue speaker="purple" english="Or, you know... we could have just warped back to the ship..." translation="Abo, wiycie... moglimy wrōcić na szif..."/>
         <dialogue speaker="green" english="Wow! What is this?" translation="Ôł! Co to je?"/>
         <dialogue speaker="yellow" english="It looks like another laboratory!" translation="To wyglōndo choby druge laboratorium!"/>
         <dialogue speaker="red" english="Let&apos;s have a look around!" translation="Poôglōndejmy sie doôbkoła!"/>
@@ -777,7 +777,7 @@ Songs will continue to play until you leave the ship.
 
 Collect trinkets to unlock new songs!" translation="-= GRAJŌNCY SZRANK =-
 
-Śpiywki bydōm puszczane aże niy wyleziecie ze szifa.
+Śpiywki bydōm puszczane aże niy wyleziesz ze szifa.
 
 Wysznupuj dinksy, coby ôdbloknōńć śpiywki!" centertext="1" padtowidth="264"/>
     </cutscene>
@@ -788,7 +788,8 @@ Wysznupuj dinksy, coby ôdbloknōńć śpiywki!" centertext="1" padtowidth="264"
 Pushing Onwards" translation="DOLSZE ÔDBLOKNIYŃCIE:
 5 Dinksōw
 
-Pushing Onwards" tt="1" pad="1"/>
+Pushing Onwards
+(Pociskōmy Dalij)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock2" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -797,7 +798,8 @@ Pushing Onwards" tt="1" pad="1"/>
 Positive Force" translation="DOLSZE ÔDBLOKNIYŃCIE:
 8 Dinksōw
 
-Positive Force" tt="1" pad="1"/>
+Positive Force
+(Pozytywno Moc)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock3" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -806,7 +808,8 @@ Positive Force" tt="1" pad="1"/>
 Presenting VVVVVV" translation="DOLSZE ÔDBLOKNIYŃCIE:
 10 Dinksōw
 
-Presenting VVVVVV" tt="1" pad="1"/>
+Presenting VVVVVV
+(Prezyntujymy VVVVVV)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock4" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -815,7 +818,8 @@ Presenting VVVVVV" tt="1" pad="1"/>
 Potential for Anything" translation="DOLSZE ÔDBLOKNIYŃCIE:
 12 Dinksōw
 
-Potential for Anything" tt="1" pad="1"/>
+Potential for Anything
+(Potyncjoł na Wszyjsko)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock41" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -824,7 +828,8 @@ Potential for Anything" tt="1" pad="1"/>
 Pressure Cooker" translation="DOLSZE ÔDBLOKNIYŃCIE:
 14 Dinksōw
 
-Pressure Cooker" tt="1" pad="1"/>
+Pressure Cooker
+(Pod Presōm)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock5" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -833,7 +838,8 @@ Pressure Cooker" tt="1" pad="1"/>
 Predestined Fate" translation="DOLSZE ÔDBLOKNIYŃCIE:
 16 Dinksōw
 
-Predestined Fate" tt="1" pad="1"/>
+Predestined Fate
+(Porynczōny Los)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock6" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -842,7 +848,8 @@ Predestined Fate" tt="1" pad="1"/>
 Popular Potpourri" translation="DOLSZE ÔDBLOKNIYŃCIE:
 18 Dinksōw
 
-Popular Potpourri" tt="1" pad="1"/>
+Popular Potpourri
+(Popularne Potpourri)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_jukeunlock7" explanation="">
         <dialogue speaker="gray" english="NEXT UNLOCK:
@@ -851,7 +858,8 @@ Popular Potpourri" tt="1" pad="1"/>
 Pipe Dream" translation="DOLSZE ÔDBLOKNIYŃCIE:
 20 Dinksōw
 
-Pipe Dream" tt="1" pad="1"/>
+Pipe Dream
+(Pomarzić Idzie)" tt="1" pad="1"/>
     </cutscene>
     <cutscene id="terminal_station_1" explanation="">
         <dialogue speaker="gray" english="-= PERSONAL LOG =-" translation="-= DZIYNNIK ÔSOBISTY =-" padtowidth="280"/>
@@ -929,7 +937,7 @@ Nadŏwanie" tt="1" centertext="1" pad="2"/>
 
 The Super-Gravitron is intended for entertainment purposes only." translation="-= POZŌR =-
 
-Super-Gravitrōn je ino do szpasu." centertext="1" pad="1"/>
+Super Gravitrōn je ino do szpasu." centertext="1" pad="1"/>
         <dialogue speaker="gray" english="Anyone found using the Super Gravitron for educational purposes may be asked to stand in the naughty corner." translation="Kŏżdy fto używo Super Gravitrōnu do edukacyji, poradzi być poprŏszōny coby stył w karnyj ece."/>
     </cutscene>
     <cutscene id="terminal_shipcomputer" explanation="">
