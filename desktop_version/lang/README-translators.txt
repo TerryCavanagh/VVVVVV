@@ -194,6 +194,52 @@ The ship you're all on is called the "D.S.S. Souleye", which is a minor easter e
 
 
 
+=== S P R I T E S   T R A N S L A T I O N ===
+
+There are several enemies in the game which contain words: STOP, YES, OBEY, LIES and TRUTH. These, as well as the C on checkpoints, can be translated.
+
+This may be a bit tricky - the sizes of the translated graphics should be as close to the original English as possible, which means that even though letters can be compressed a bit, they will quickly be too long. For example, if you'd like to translate LIES with 5 letters, it really doesn't help if one of those 5 letters is not an I (the most slim letter).
+
+Fortunately, the translation does not have to be literal, as the words themselves are only referenced in room names at most, and the exact meanings aren't that important, only the spirit of them is. OBEY is a They Live reference, so there are a lot of other signs you could use. Some inspiration:
+
+* STOP: this is on a stop sign, so may not need to be translated
+* OBEY: maybe something like FOLLOW, or one of the other words in "They Live" (WORK, BUY, CONSUME, CONFORM, ...)
+* LIES: maybe singular LIE, maybe some form of NONSENSE (as in BS but non-offensive), FALSE, FAKE, BLAH, FABLE
+* TRUTH: maybe FACTS
+
+
+== Implementation of translated sprites ==
+
+If you'd like to pixel translated sprites yourself: Take sprites.png and flipsprites.png from the graphics folder in data.zip. These spritesheets are a 32x32 grid - for example, you cannot extend OBEY upwards or to the left.
+
+The translated file does not have to contain any untranslated sprites - these can simply be made transparent, for optimization. So: the files should be transparent sheets with some translations in the middle.
+
+The translated versions of sprites.png and flipsprites.png can be placed in a "graphics" subfolder of your language folder.
+
+Then, put a file next to them called "spritesmask.xml", with the following contents:
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<spritesmask sprite_w="32" sprite_h="32">
+    <sprite x="8" y="1" w="2"/> <!-- Checkpoints -->
+    <sprite x="4" y="2" w="4"/> <!-- STOP -->
+    <sprite x="4" y="3" w="4"/> <!-- YES -->
+    <sprite x="3" y="4"/>       <!-- OBEY -->
+    <sprite x="2" y="5" w="2"/> <!-- LIES receiver and LIES -->
+    <sprite x="4" y="5" w="2"/> <!-- TRUTH -->
+</spritesmask>
+
+
+This file defines which sprites in the translated files should overwrite the original ones. Remove any lines for sprites you did not translate. After that, your translated sprites should work!
+
+For completeness: sprite_w and sprite_h on the <spritesmask> tag define the size of each unit in the attributes of <sprite>. The possible attributes of <sprite> are:
+
+* x, y: the position of the sprite to copy (in blocks of sprite_w by sprite_h)
+* w, h: the width and height of the sprite to copy (default 1 for both)
+* dx, dy: the destination position of the sprite (default x,y; so the same position as copied from)
+
+
+
 === F I L E S ===
 
 == meta.xml ==
