@@ -16,6 +16,7 @@ bool pre_title_lang_menu = false;
 
 std::string lang = "en";
 std::string lang_custom = "";
+bool english_sprites = false;
 std::string new_level_font = "";
 LangMeta langmeta;
 

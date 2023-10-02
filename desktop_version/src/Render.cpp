@@ -1019,6 +1019,7 @@ static void menurender(void)
             break;
         }
         case 4:
+        {
             font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("In-Game Timer"), tr, tg, tb);
             int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Toggle the in-game timer outside of time trials."), tr, tg, tb);
             if (game.showingametimer)
@@ -1030,6 +1031,21 @@ static void menurender(void)
                 font::print_wrap(PR_CEN, -1, next_y, loc::gettext("In-Game Timer is OFF"), tr / 2, tg / 2, tb / 2);
             }
             break;
+        }
+        case 5:
+        {
+            font::print(PR_2X | PR_CEN, -1, 30, loc::gettext("English Sprites"), tr, tg, tb);
+            int next_y = font::print_wrap(PR_CEN, -1, 65, loc::gettext("Show the original English word enemies regardless of your language setting."), tr, tg, tb);
+            if (loc::english_sprites)
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Sprites are currently ALWAYS ENGLISH"), tr, tg, tb);
+            }
+            else
+            {
+                font::print_wrap(PR_CEN, -1, next_y, loc::gettext("Sprites are currently translated"), tr / 2, tg / 2, tb / 2);
+            }
+            break;
+        }
         }
         break;
     case Menu::setglitchrunner:
