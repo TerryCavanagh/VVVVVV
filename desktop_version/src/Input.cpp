@@ -797,6 +797,16 @@ static void menuactionpress(void)
             game.savestatsandsettings_menu();
             music.playef(Sound_VIRIDIAN);
             break;
+        case 5:
+            // english sprites
+            loc::english_sprites = !loc::english_sprites;
+            if (!loc::english_sprites)
+            {
+                graphics.grphx.init_translations();
+            }
+            game.savestatsandsettings_menu();
+            music.playef(Sound_VIRIDIAN);
+            break;
         default:
             //back
             music.playef(Sound_VIRIDIAN);

@@ -49,6 +49,7 @@ extern bool pre_title_lang_menu;
 
 extern std::string lang;
 extern std::string lang_custom;
+extern bool english_sprites;
 extern std::string new_level_font;
 extern LangMeta langmeta;
 extern std::vector<LangMeta> languagelist;

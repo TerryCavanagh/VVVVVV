@@ -4637,6 +4637,11 @@ void Game::deserializesettings(tinyxml2::XMLElement* dataNode, struct ScreenSett
             loc::lang_set = help.Int(pText);
         }
 
+        if (SDL_strcmp(pKey, "english_sprites") == 0)
+        {
+            loc::english_sprites = help.Int(pText);
+        }
+
         if (SDL_strcmp(pKey, "new_level_font") == 0)
         {
             loc::new_level_font = std::string(pText);
@@ -4902,6 +4907,7 @@ void Game::serializesettings(tinyxml2::XMLElement* dataNode, const struct Screen
 
     xml::update_tag(dataNode, "lang", loc::lang.c_str());
     xml::update_tag(dataNode, "lang_set", (int) loc::lang_set);
+    xml::update_tag(dataNode, "english_sprites", (int) loc::english_sprites);
     xml::update_tag(dataNode, "new_level_font", loc::new_level_font.c_str());
     xml::update_tag(dataNode, "roomname_translator", (int) roomname_translator::enabled);
 }
@@ -6514,6 +6520,7 @@ void Game::createmenu( enum Menu::MenuName t, bool samemenu/*= false*/ )
         option(loc::gettext("interact button"));
         option(loc::gettext("fake load screen"));
         option(loc::gettext("toggle in-game timer"));
+        option(loc::gettext("english sprites"));
         option(loc::gettext("return"));
         menuyoff = 0;
         maxspacing = 15;
