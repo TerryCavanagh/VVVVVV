@@ -54,7 +54,8 @@
     <string english="language" translation="言語" explanation="menu option"/>
     <string english="Language" translation="言語" explanation="title" max="20" max_local="20"/>
     <string english="Change the language." translation="ゲーム内で表示される言語を変更する。" explanation="" max="38*2" max_local="38*1"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3" max_local="38*2"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="ゲーム画面上にテキストボックスが表示されている間は、
+言語設定を変更できません。" explanation="" max="38*3" max_local="38*2"/>
     <string english="clear main game data" translation="ストーリーの進捗を削除" explanation="menu option"/>
     <string english="clear custom level data" translation="カスタムステージの進捗を削除" explanation="menu option"/>
     <string english="Clear Data" translation="データ削除" explanation="title" max="20" max_local="20"/>
