@@ -2570,8 +2570,6 @@ static void rendermaplegend(void)
 
     const MapRenderData data = getmaprenderdata();
 
-    const int tile_offset = graphics.flipmode ? 3 : 0;
-
     for (size_t i = 0; i < map.teleporters.size(); i++)
     {
         if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
