@@ -60,10 +60,13 @@
         <range start="0x26C4" end="0x26C4"/>
         <range start="0x2713" end="0x2713"/>
         <range start="0x274C" end="0x274C"/>
+        <range start="0x2753" end="0x2753"/>
         <range start="0x2962" end="0x296F"/>
         <range start="0x2E18" end="0x2E18"/>
         <range start="0xFFFD" end="0xFFFD"/>
         <range start="0x1F451" end="0x1F451"/>
+        <range start="0x1F4BF" end="0x1F4BF"/>
+        <range start="0x1FA99" end="0x1FA99"/>
     </chars>
     <special>
         <range start="0x00" end="0x1F" advance="6"/>
