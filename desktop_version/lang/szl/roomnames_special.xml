@@ -9,17 +9,17 @@
     <roomname english="The Tower" translation="Wieża" explanation="One of the stages"/>
     <roomname english="Warp Zone" translation="Zōuna Skrziwiōno" explanation="One of the stages"/>
     <roomname english="Space Station" translation="Sztela Kosmiczno" explanation="One of the stages"/>
-    <roomname english="Outside Dimension VVVVVV" translation="Na Ausie Wymiaru VVVVVV" explanation="For rare rooms outside the normal area"/>
+    <roomname english="Outside Dimension VVVVVV" translation="Na ausie wymiaru VVVVVV" explanation="For rare rooms outside the normal area"/>
     <roomname english="???" translation="???" explanation=""/>
     <roomname english="The Super Gravitron" translation="Super Grawitrōn" explanation="An expanded version of the room at 53, 50"/>
-    <roomname english="I Can&apos;t Believe You Got This Far" translation="Niy Wierza, Co Żeś Sam Je" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
-    <roomname english="Imagine Spikes There, if You Like" translation="Forszteluj Se Tukej Żgaczki" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="I Can&apos;t Believe You Got This Far" translation="Niy wierza, co żeś sam je" explanation="If you&apos;re playing No Death Mode, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
+    <roomname english="Imagine Spikes There, if You Like" translation="Forszteluj se tukej żgaczki" explanation="If you&apos;re playing a time trial, the room Prize for the Reckless has this roomname instead (the room is altered to make it possible to do this section without dying)"/>
     <!-- - -->
-    <roomname english="Rear Window" translation="Perła We Korōnie" explanation="Named after the Hitchcock film (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="Rear Vindow" translation="Perła Ve Korōnie" explanation=""/>
+    <roomname english="Rear Window" translation="Perła we korōnie" explanation="Named after the Hitchcock film (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Rear Vindow" translation="Perła ve korōnie" explanation=""/>
     <!-- - -->
-    <roomname english="On the Waterfront" translation="Grzyszny Żywot Francika Buły" explanation="Named after the 1954 film (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="On the Vaterfront" translation="Grzyszny Żyvot Francika Buły" explanation=""/>
+    <roomname english="On the Waterfront" translation="Grzyszny żywot Francika Buły" explanation="Named after the 1954 film (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="On the Vaterfront" translation="Grzyszny żyvot Francika Buły" explanation=""/>
     <!-- - -->
     <roomname english="The Untouchables" translation="Nietykalni" explanation="Before it was a film, the Untouchables was a TV series in 1959 (The final stage has room names that suggest old black and white TV shows.)"/>
     <roomname english="The Untouchavles" translation="Nietvkalni" explanation=""/>
@@ -52,13 +52,13 @@
     <roomname english="Vunsmoke 19v6" translation="Nivôpedziany Dvōr" explanation=""/>
     <roomname english="Gunsmoke 1966" translation="Niyôpedziany Dwōr" explanation="Gunsmoke changed to colour in 1966 (Second part of the final stage has references to Colour TV shows)"/>
     <!-- - -->
-    <roomname english="Please enjoy these repeats" translation="Dublowany Szpas" explanation="This stage also has a number of rooms which are harder versions of easier challenges, like this one. (The final stage has room names that suggest old black and white TV shows.)"/>
-    <roomname english="Please envoy theve repeats" translation="vDvblowanvv Szpvs" explanation=""/>
-    <roomname english="Plse envoy tse rvpvas" translation="vvDvblvwanvv Svvv s" explanation=""/>
-    <roomname english="Vl envoy te rvevs" translation="vVveżvvvyvvo VVvv Vv" explanation=""/>
-    <roomname english="Vv evo tv vevs" translation="vrVeżvjmy vo DrvgiRvz" explanation=""/>
-    <roomname english="Iv vhv Mvrvivs" translation="Przeżvjmy To Drvgi Rvz" explanation=""/>
-    <roomname english="In the Margins" translation="Przeżyjmy To Drugi Rŏz" explanation="Not sure if this has a TV show reference, might just be meant literally (Second part of the final stage has references to Colour TV shows)"/>
+    <roomname english="Please enjoy these repeats" translation="Dublowany szpas" explanation="This stage also has a number of rooms which are harder versions of easier challenges, like this one. (The final stage has room names that suggest old black and white TV shows.)"/>
+    <roomname english="Please envoy theve repeats" translation="vDvblowanvv szpvs" explanation=""/>
+    <roomname english="Plse envoy tse rvpvas" translation="vvDvblvwanvv svvv s" explanation=""/>
+    <roomname english="Vl envoy te rvevs" translation="vVveżvvvyvvo vvvv vv" explanation=""/>
+    <roomname english="Vv evo tv vevs" translation="vrVeżvjmy vo drvgirvz" explanation=""/>
+    <roomname english="Iv vhv Mvrvivs" translation="Przeżvjmy to drvgi rvz" explanation=""/>
+    <roomname english="In the Margins" translation="Przeżyjmy to drugi rŏz" explanation="Not sure if this has a TV show reference, might just be meant literally (Second part of the final stage has references to Colour TV shows)"/>
     <!-- - -->
     <roomname english="Try Jiggling the Antenna" translation="Hasie i Diamynt" explanation="(The final stage has room names that suggest old black and white TV shows.)"/>
     <roomname english="Try Viggling the Antenna" translation="Hasie v Diamvnt" explanation=""/>
