@@ -78,6 +78,7 @@ struct PrintFlags
     Font* font_sel;
     uint8_t brightness;
     bool border;
+    bool border8;
     bool align_cen;
     bool align_right;
     bool cjk_low;
@@ -768,10 +769,16 @@ static PrintFlags decode_print_flags(uint32_t flags)
     pf.font_sel = fontsel_to_font(FLAG_PART(3, 5));
     pf.brightness = ~FLAG_PART(8, 8) & 0xff;
     pf.border = flags & PR_BOR;
+    pf.border8 = flags & PR_BOR8;
     pf.align_cen = flags & PR_CEN;
     pf.align_right = flags & PR_RIGHT;
     pf.cjk_low = flags & PR_CJK_LOW;
     pf.cjk_high = flags & PR_CJK_HIGH;
+
+    if (pf.border8)
+    {
+        pf.border = false;
+    }
 
     return pf;
 }
@@ -1223,6 +1230,22 @@ void print(
         }
     }
 
+    if (pf.border8)
+    {
+        static const int offsets[8][2] = { {0,-1}, {-1,0}, {1,0}, {0,1}, {-1,-1}, {1,1}, {-1,1}, {1,-1} };
+
+        for (int offset = 0; offset < 8; offset++)
+        {
+            print(
+                flags & ~PR_BOR8 & ~PR_CEN & ~PR_RIGHT,
+                x + offsets[offset][0] * pf.scale,
+                y + offsets[offset][1] * pf.scale,
+                text,
+                0, 0, 0
+            );
+        }
+    }
+
     int h_diff_8 = (pf.font_sel->glyph_h-8)*pf.scale;
     if (h_diff_8 < 0)
     {
@@ -1304,6 +1327,12 @@ int print_wrap(
     {
         print_wrap(flags, x, y, text, 0, 0, 0, linespacing, maxwidth);
         flags &= ~PR_BOR;
+    }
+
+    if (pf.border8 && (r | g | b) != 0)
+    {
+        print_wrap(flags, x, y, text, 0, 0, 0, linespacing, maxwidth);
+        flags &= ~PR_BOR8;
     }
 
     // This could fit 64 non-BMP characters onscreen, should be plenty

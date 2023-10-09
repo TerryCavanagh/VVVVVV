@@ -2495,15 +2495,15 @@ static MapRenderData getmaprenderdata(void)
     switch (data.zoom)
     {
     case 4:
-        data.legendxoff += 21;
-        data.legendyoff += 16;
+        data.legendxoff += 20;
+        data.legendyoff += 14;
         break;
     case 2:
-        data.legendxoff += 9;
+        data.legendxoff += 8;
         data.legendyoff += 5;
         break;
     default:
-        data.legendxoff += 3;
+        data.legendxoff += 2;
         data.legendyoff += 1;
         break;
     }
@@ -2559,11 +2559,11 @@ static void rendermaplegend(void)
     {
         if (map.showteleporters && map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1127 + tile_offset);
+            font::print(PR_FONT_8X8 | PR_BOR8, data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), "💿", 171, 255, 252);
         }
         else if (map.showtargets && !map.isexplored(map.teleporters[i].x, map.teleporters[i].y))
         {
-            graphics.drawtile(data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), 1126 + tile_offset);
+            font::print(PR_FONT_8X8 | PR_BOR8, data.legendxoff + (map.teleporters[i].x * 12 * data.zoom), data.legendyoff + (map.teleporters[i].y * 9 * data.zoom), "❓", 64, 64, 64);
         }
     }
 
@@ -2573,7 +2573,7 @@ static void rendermaplegend(void)
         {
             if (!obj.collect[i])
             {
-                graphics.drawtile(data.legendxoff + (map.shinytrinkets[i].x * 12 * data.zoom), data.legendyoff + (map.shinytrinkets[i].y * 9 * data.zoom), 1086 + tile_offset);
+                font::print(PR_FONT_8X8 | PR_BOR8, data.legendxoff + (map.shinytrinkets[i].x * 12 * data.zoom), data.legendyoff + (map.shinytrinkets[i].y * 9 * data.zoom), "🪙", 254, 252, 58);
             }
         }
     }
@@ -3184,7 +3184,7 @@ void teleporterrender(void)
 
     if (game.useteleporter && (help.slowsine % 16 > 8 || game.noflashingmode))
     {
-        graphics.drawtile(data.legendxoff + data.xoff + (telex * 12 * data.zoom), data.legendyoff + data.yoff + (teley * 9 * data.zoom), 1128 + (graphics.flipmode ? 3 : 0));
+        font::print(PR_FONT_8X8 | PR_BOR8, data.legendxoff + data.xoff + (telex * 12 * data.zoom), data.legendyoff + data.yoff + (teley * 9 * data.zoom), "💿", 255, 0, 0);
     }
 
     graphics.cutscenebars();
