@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:2d5ccfe47fff31ff6d049324fcb04dc0:9189db6ea5a9d435ab80e0b77d34f62f:c00323d6f6d42043e793197f28ce98c7$ -->
+<TextureAtlas imagePath="vvvvvv_graphics.png" width="1018" height="1412">
+    <SubTexture name="c64/c64_0" x="391" y="915" width="256" height="256"/>
+    <SubTexture name="controls/arrowleft" x="815" y="897" rotated="true" width="13" height="14"/>
+    <SubTexture name="controls/arrowright" x="327" y="1135" width="14" height="13"/>
+    <SubTexture name="controls/lefthand_far" x="459" y="1175" width="71" height="92"/>
+    <SubTexture name="controls/lefthand_near" x="534" y="1175" width="71" height="92"/>
+    <SubTexture name="controls/lefthand_off" x="327" y="1307" rotated="true" width="92" height="71"/>
+    <SubTexture name="controls/righthand_far" x="815" y="751" width="71" height="92"/>
+    <SubTexture name="controls/righthand_near" x="890" y="739" width="71" height="92"/>
+    <SubTexture name="controls/righthand_off" x="835" y="897" width="71" height="92"/>
+    <SubTexture name="controls/touchscreen" x="867" y="427" rotated="true" width="88" height="160"/>
+    <SubTexture name="covered" x="879" y="1089" rotated="true" width="9" height="12"/>
+    <SubTexture name="elephant" x="391" y="103" width="464" height="320"/>
+    <SubTexture name="ending" x="3" y="1135" width="320" height="240"/>
+    <SubTexture name="entcolours" x="391" y="427" width="96" height="480"/>
+    <SubTexture name="flipgamecomplete" x="967" y="3" rotated="true" width="48" height="320"/>
+    <SubTexture name="fliplevelcomplete" x="859" y="103" rotated="true" width="48" height="320"/>
+    <SubTexture name="flipsprites" x="3" y="103" width="384" height="512"/>
+    <SubTexture name="font" x="327" y="1175" width="128" height="128"/>
+    <SubTexture name="fontmask" x="867" y="591" width="144" height="144"/>
+    <SubTexture name="gamecomplete" x="815" y="427" rotated="true" width="48" height="320"/>
+    <SubTexture name="levelcomplete" x="911" y="103" rotated="true" width="48" height="320"/>
+    <SubTexture name="minimap" x="651" y="915" rotated="true" width="180" height="240"/>
+    <SubTexture name="mobilebuttons/back" x="3" y="1379" width="92" height="30"/>
+    <SubTexture name="mobilebuttons/button_left" x="835" y="1086" width="40" height="40"/>
+    <SubTexture name="mobilebuttons/button_right" x="972" y="1105" width="40" height="40"/>
+    <SubTexture name="mobilebuttons/controls_1" x="99" y="1379" width="92" height="30"/>
+    <SubTexture name="mobilebuttons/controls_2" x="195" y="1379" width="92" height="30"/>
+    <SubTexture name="mobilebuttons/gamecenter" x="609" y="1175" rotated="true" width="30" height="92"/>
+    <SubTexture name="mobilebuttons/map" x="459" y="1280" width="92" height="30"/>
+    <SubTexture name="mobilebuttons/old map" x="885" y="993" rotated="true" width="30" height="92"/>
+    <SubTexture name="mobilebuttons/talk_1" x="423" y="1307" rotated="true" width="30" height="92"/>
+    <SubTexture name="mobilebuttons/talk_2" x="457" y="1364" width="92" height="30"/>
+    <SubTexture name="mobilebuttons/teleport_1" x="959" y="427" rotated="true" width="30" height="92"/>
+    <SubTexture name="mobilebuttons/teleport_2" x="555" y="1280" width="92" height="30"/>
+    <SubTexture name="mobilebuttons/use_1" x="553" y="1364" width="92" height="30"/>
+    <SubTexture name="mobilebuttons/use_2" x="919" y="1071" width="92" height="30"/>
+    <SubTexture name="playerlevels/playerlevel_0" x="965" y="739" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_1" x="963" y="327" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_2" x="919" y="978" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_3" x="969" y="978" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_4" x="879" y="1105" width="89" height="46"/>
+    <SubTexture name="playerlevels/playerlevel_5" x="895" y="1155" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_6" x="895" y="1248" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_7" x="945" y="1155" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_8" x="945" y="1248" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_9" x="895" y="1341" width="89" height="46"/>
+    <SubTexture name="playerlevels/playerlevel_10" x="815" y="847" width="89" height="46"/>
+    <SubTexture name="playerlevels/playerlevel_11" x="835" y="993" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_12" x="457" y="1314" width="89" height="46"/>
+    <SubTexture name="playerlevels/playerlevel_13" x="550" y="1314" width="89" height="46"/>
+    <SubTexture name="playerlevels/playerlevel_14" x="908" y="835" width="89" height="46"/>
+    <SubTexture name="playerlevels/playerlevel_15" x="910" y="885" rotated="true" width="46" height="89"/>
+    <SubTexture name="playerlevels/playerlevel_16" x="960" y="885" rotated="true" width="46" height="89"/>
+    <SubTexture name="site" x="459" y="1271" width="121" height="5"/>
+    <SubTexture name="site2" x="959" y="523" rotated="true" width="5" height="64"/>
+    <SubTexture name="site3" x="1010" y="832" rotated="true" width="5" height="81"/>
+    <SubTexture name="sprites" x="3" y="619" width="384" height="512"/>
+    <SubTexture name="teleporter" x="3" y="3" width="960" height="96"/>
+    <SubTexture name="tiles" x="491" y="427" width="320" height="240"/>
+    <SubTexture name="tiles2" x="491" y="671" width="320" height="240"/>
+    <SubTexture name="tiles3" x="651" y="1159" width="240" height="240"/>
+</TextureAtlas>
