@@ -52,7 +52,7 @@
     <string english="language" translation="언어" explanation="menu option"/>
     <string english="Language" translation="언어" explanation="title" max="20" max_local="16"/>
     <string english="Change the language." translation="언어를 변경합니다." explanation="" max="38*2" max_local="30*2"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3" max_local="30*3"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="게임 중 텍스트 상자가 표시되는 동안에는 언어를 변경할 수 없습니다." explanation="" max="38*3" max_local="30*3"/>
     <string english="clear main game data" translation="주 게임 데이터 제거" explanation="menu option"/>
     <string english="clear custom level data" translation="커스텀 레벨 데이터 제거" explanation="menu option"/>
     <string english="Clear Data" translation="데이터 제거" explanation="title" max="20" max_local="16"/>
@@ -209,6 +209,11 @@
     <string english="Toggle the in-game timer outside of time trials." translation="시간 제한 도전 외에도 게임 내 타이머를 토글합니다." explanation="" max="38*3" max_local="30*3"/>
     <string english="In-Game Timer is ON" translation="게임 내 타이머 켜짐" explanation="" max="38*2" max_local="30*2"/>
     <string english="In-Game Timer is OFF" translation="게임 내 타이머 꺼짐" explanation="" max="38*2" max_local="30*2"/>
+    <string english="english sprites" translation="영문 스프라이트" explanation="menu option"/>
+    <string english="English Sprites" translation="영문 스프라이트" explanation="title" max="20" max_local="16"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="언어 설정과 관계없이 영어 원문 단어로 적을 표시합니다." explanation="" max="38*3" max_local="30*3"/>
+    <string english="Sprites are currently translated" translation="스프라이트는 현재 한국어로 표시됩니다." explanation="" max="38*2" max_local="30*2"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="스프라이트는 현재 영어로 고정되어있습니다." explanation="" max="38*2" max_local="30*2"/>
     <string english="interact button" translation="상호작용 버튼" explanation="menu option"/>
     <string english="Interact Button" translation="상호작용 버튼" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" max_local="16"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="프롬프트와 상호작용할 때 ENTER 혹은 E를 사용할지 토글합니다." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3" max_local="30*3"/>
@@ -298,11 +303,11 @@
     <string english="Replay the intermission levels." translation="인터미션 레벨을 다시 플레이합니다." explanation="" max="38*3" max_local="30*3"/>
     <string english="unlock intermissions" translation="인터미션 해금" explanation="menu option"/>
     <string english="TO UNLOCK: Complete the intermission levels in-game." translation="해금 방법: 게임 내 인터미션 레벨을 완료합니다." explanation="" max="38*4" max_local="30*4"/>
-    <string english="no death mode" translation="불사 모드" explanation="menu option"/>
-    <string english="No Death Mode" translation="불사 모드" explanation="title" max="20" max_local="16"/>
-    <string english="Play the entire game without dying once." translation="게임을 죽지 않고 플레이합니다." explanation="" max="38*4" max_local="30*4"/>
-    <string english="No Death Mode is not available with slowdown or invincibility." translation="불사 모드는 감속 혹은 무적 모드로 이용할 수 없습니다." explanation="" max="38*3" max_local="30*3"/>
-    <string english="unlock no death mode" translation="불사 모드 해금" explanation="menu option"/>
+    <string english="no death mode" translation="하드코어 모드" explanation="menu option"/>
+    <string english="No Death Mode" translation="하드코어 모드" explanation="title" max="20" max_local="16"/>
+    <string english="Play the entire game without dying once." translation="게임을 죽지 않고 플레이하세요." explanation="" max="38*4" max_local="30*4"/>
+    <string english="No Death Mode is not available with slowdown or invincibility." translation="하드코어 모드는 감속 혹은 무적 모드로 이용할 수 없습니다." explanation="" max="38*3" max_local="30*3"/>
+    <string english="unlock no death mode" translation="하드코어 모드 해금" explanation="menu option"/>
     <string english="TO UNLOCK: Achieve an S-rank or above in at least 4 time trials." translation="해금 방법: 최소 4개의 시간 제한 도전에서 S랭크 이상을 달성함." explanation="ranks are B A S V, see below" max="38*3" max_local="30*3"/>
     <string english="flip mode" translation="뒤집기 모드" explanation="menu option, mirrors the entire game vertically"/>
     <string english="Flip Mode" translation="뒤집기 모드" explanation="title, mirrors the entire game vertically" max="20" max_local="16"/>
@@ -395,7 +400,7 @@
     <string english="If you want to keep exploring the game, select CONTINUE from the play menu." translation="게임을 계속 탐험해보고 싶다면, 플레이 메뉴에서 계속을 선택하세요." explanation="" max="38*9" max_local="30*9"/>
     <string english="You have unlocked a new Time Trial." translation="새로운 시간 제한 도전을 해금했습니다." explanation="" max="38*7" max_local="30*7"/>
     <string english="You have unlocked some new Time Trials." translation="새로운 시간 제한 도전을 해금했습니다." explanation="" max="38*7" max_local="30*7"/>
-    <string english="You have unlocked No Death Mode." translation="불사 모드를 해금했습니다." explanation="" max="38*7" max_local="30*7"/>
+    <string english="You have unlocked No Death Mode." translation="하드코어 모드를 해금했습니다." explanation="" max="38*7" max_local="30*7"/>
     <string english="You have unlocked Flip Mode." translation="뒤집기 모드를 해금했습니다." explanation="" max="38*7" max_local="30*7"/>
     <string english="You have unlocked the intermission levels." translation="인터미션 레벨을 해금했습니다." explanation="" max="38*7" max_local="30*7"/>
     <string english="play a level" translation="레벨 플레이" explanation="menu option"/>
@@ -418,8 +423,8 @@
     <string english="start from beginning" translation="처음부터 계속" explanation="menu option"/>
     <string english="delete save" translation="저장 파일 삭제" explanation="menu option"/>
     <string english="back to levels" translation="레벨로 돌아가기" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5" max_local="30*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5" max_local="30*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="레벨 에디터는 키보드와 마우스가 필요하기 때문에 현재 Steam Deck에서는 지원하지 않습니다." explanation="" max="38*5" max_local="30*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="레벨 에디터는 키보드와 마우스가 필요하기 때문에 현재 이 장치에서는 지원하지 않습니다." explanation="" max="38*5" max_local="30*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="새로운 플레이어 레벨을 설치하려면, .vvvvvv 파일을 레벨 폴더에 붙여넣기 해주세요." explanation="" max="38*5" max_local="30*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="정말로 레벨 경로를 보여드리길 원하십니까? 방송 중이라면 민감한 정보가 유출될 수 있습니다." explanation="" max="38*4" max_local="30*4"/>
     <string english="The levels path is:" translation="레벨 경로:" explanation="" max="40" max_local="32"/>
@@ -662,6 +667,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
+    <string english="{area}, {time}" translation="{time} - {area}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="레벨 완료!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="14"/>
     <string english="Game Complete!" translation="게임 클리어!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="14"/>
     <string english="You have rescued a crew member!" translation="선원을 구출했습니다!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2" max_local="24*2"/>
@@ -771,6 +777,33 @@ You have found the secret lab!" translation="축하합니다!
     <string english="Error parsing {path}: {error}" translation="{path}의 경로를 분석할 수 없음: {error}" explanation="we tried to parse the level file, but failed" max="38*6" max_local="30*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename} 차원의 크기가 {width}, {height}의 정확한 배수가 아님!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6" max_local="30*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="오류: 언어 폴더에 쓰기 실패! 일반 저장 파일과 함께 &quot;lang&quot; 폴더가 없는지 확인해 주세요." explanation="" max="38*5" max_local="30*5"/>
+    <string english="Localisation" translation="현지화" explanation=""/>
+    <string english="Localisation Project Led by" translation="현지화 프로젝트 주도" explanation=""/>
+    <string english="Translations by" translation="번역" explanation=""/>
+    <string english="Translators" translation="번역가" explanation=""/>
+    <string english="Pan-European Font Design by" translation="범유럽 폰트 디자인" explanation=""/>
+    <string english="Fonts by" translation="폰트" explanation=""/>
+    <string english="Other Fonts by" translation="기타 폰트" explanation=""/>
+    <string english="Catalan" translation="카탈루냐어" explanation=""/>
+    <string english="Welsh" translation="웨일스어" explanation=""/>
+    <string english="German" translation="독일어" explanation=""/>
+    <string english="Esperanto" translation="에스페란토어" explanation=""/>
+    <string english="Spanish" translation="스페인어" explanation=""/>
+    <string english="French" translation="프랑스어" explanation=""/>
+    <string english="Irish" translation="아일랜드어" explanation=""/>
+    <string english="Italian" translation="이탈리아어" explanation=""/>
+    <string english="Japanese" translation="일본어" explanation=""/>
+    <string english="Korean" translation="한국어" explanation=""/>
+    <string english="Dutch" translation="네덜란드어" explanation=""/>
+    <string english="Polish" translation="폴란드어" explanation=""/>
+    <string english="Brazilian Portuguese" translation="브라질 포르투갈어" explanation=""/>
+    <string english="European Portuguese" translation="유럽식 포르투갈어" explanation=""/>
+    <string english="Russian" translation="러시아어" explanation=""/>
+    <string english="Silesian" translation="실레시아어" explanation=""/>
+    <string english="Turkish" translation="터키어" explanation=""/>
+    <string english="Ukrainian" translation="우크라이나어" explanation=""/>
+    <string english="Chinese (Simplified)" translation="중국어 간체" explanation=""/>
+    <string english="Chinese (Traditional)" translation="중국어 번체" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>

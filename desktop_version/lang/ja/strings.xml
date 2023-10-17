@@ -224,6 +224,11 @@ Escキーを押すと表示を終了する。" explanation="" max="38*6" max_loc
     <string english="Toggle the in-game timer outside of time trials." translation="タイムトライアル以外でも、ゲーム画面上にタイマーを表示する。" explanation="" max="38*3" max_local="38*2"/>
     <string english="In-Game Timer is ON" translation="現在の設定: ON" explanation="" max="38*2" max_local="38*1"/>
     <string english="In-Game Timer is OFF" translation="現在の設定: OFF" explanation="" max="38*2" max_local="38*1"/>
+    <string english="english sprites" translation="" explanation="menu option"/>
+    <string english="English Sprites" translation="" explanation="title" max="20" max_local="20"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3" max_local="38*2"/>
+    <string english="Sprites are currently translated" translation="" explanation="" max="38*2" max_local="38*1"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2" max_local="38*1"/>
     <string english="interact button" translation="「使用」キーの変更" explanation="menu option"/>
     <string english="Interact Button" translation="「使用」キー" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" max_local="20"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="ターミナルの使用や会話に使うキーを、ENTERまたはEに割り当てる。" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3" max_local="38*2"/>
@@ -697,6 +702,7 @@ Sランク以上を獲得" explanation="ranks are B A S V, see below" max="38*3"
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
+    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="ステージ コンプリート!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="Game Complete!" translation="ゲーム コンプリート!" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="18"/>
     <string english="You have rescued a crew member!" translation="遭難中のクルーを
@@ -835,6 +841,33 @@ You have found the secret lab!" translation="よくやった!
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="画像{filename}が、サイズ{width}×{height}の倍数になっていません!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6" max_local="38*5"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="エラー: 言語フォルダーに書き込めません!
 セーブファイルと同じ場所に「lang」ディレクトリーがないことを確認してください。" explanation="" max="38*5" max_local="38*4"/>
+    <string english="Localisation" translation="" explanation=""/>
+    <string english="Localisation Project Led by" translation="" explanation=""/>
+    <string english="Translations by" translation="" explanation=""/>
+    <string english="Translators" translation="" explanation=""/>
+    <string english="Pan-European Font Design by" translation="" explanation=""/>
+    <string english="Fonts by" translation="" explanation=""/>
+    <string english="Other Fonts by" translation="" explanation=""/>
+    <string english="Catalan" translation="" explanation=""/>
+    <string english="Welsh" translation="" explanation=""/>
+    <string english="German" translation="" explanation=""/>
+    <string english="Esperanto" translation="" explanation=""/>
+    <string english="Spanish" translation="" explanation=""/>
+    <string english="French" translation="" explanation=""/>
+    <string english="Irish" translation="" explanation=""/>
+    <string english="Italian" translation="" explanation=""/>
+    <string english="Japanese" translation="" explanation=""/>
+    <string english="Korean" translation="" explanation=""/>
+    <string english="Dutch" translation="" explanation=""/>
+    <string english="Polish" translation="" explanation=""/>
+    <string english="Brazilian Portuguese" translation="" explanation=""/>
+    <string english="European Portuguese" translation="" explanation=""/>
+    <string english="Russian" translation="" explanation=""/>
+    <string english="Silesian" translation="" explanation=""/>
+    <string english="Turkish" translation="" explanation=""/>
+    <string english="Ukrainian" translation="" explanation=""/>
+    <string english="Chinese (Simplified)" translation="" explanation=""/>
+    <string english="Chinese (Traditional)" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
