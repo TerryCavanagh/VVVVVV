@@ -209,6 +209,11 @@
     <string english="Toggle the in-game timer outside of time trials." translation="Baskuligi la enludan tempomontron ekster tempoprovoj." explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Enluda tempomontro estas ŜALTA" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Enluda tempomontro estas MALŜALTA" explanation="" max="38*2"/>
+    <string english="english sprites" translation="" explanation="menu option"/>
+    <string english="English Sprites" translation="" explanation="title" max="20"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3"/>
+    <string english="Sprites are currently translated" translation="" explanation="" max="38*2"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2"/>
     <string english="interact button" translation="interaga butono" explanation="menu option"/>
     <string english="Interact Button" translation="Interaga butono" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="Baskuligi ĉu interagi al invitoj per aŭ ENTER aŭ E." explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
@@ -662,6 +667,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2},{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec},{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=",99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
+    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="Fino de nivelo!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="Fino de ludo!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="You have rescued a crew member!" translation="Vi savis skipanon!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
@@ -771,6 +777,33 @@ Vi trovis la sekretan labon!" explanation="" max="34*4"/>
     <string english="Error parsing {path}: {error}" translation="Eraro dum analizado de {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Dimensioj de {filename} ne estas ekzaktaj obloj de {width} oble {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="ERARO: Ne eblis skribi en lingvo-dosierujo! Certigu, ke ne estas dosierujo &quot;lang&quot; apud la normalaj konservaĵoj." explanation="" max="38*5"/>
+    <string english="Localisation" translation="" explanation=""/>
+    <string english="Localisation Project Led by" translation="" explanation=""/>
+    <string english="Translations by" translation="" explanation=""/>
+    <string english="Translators" translation="" explanation=""/>
+    <string english="Pan-European Font Design by" translation="" explanation=""/>
+    <string english="Fonts by" translation="" explanation=""/>
+    <string english="Other Fonts by" translation="" explanation=""/>
+    <string english="Catalan" translation="" explanation=""/>
+    <string english="Welsh" translation="" explanation=""/>
+    <string english="German" translation="" explanation=""/>
+    <string english="Esperanto" translation="" explanation=""/>
+    <string english="Spanish" translation="" explanation=""/>
+    <string english="French" translation="" explanation=""/>
+    <string english="Irish" translation="" explanation=""/>
+    <string english="Italian" translation="" explanation=""/>
+    <string english="Japanese" translation="" explanation=""/>
+    <string english="Korean" translation="" explanation=""/>
+    <string english="Dutch" translation="" explanation=""/>
+    <string english="Polish" translation="" explanation=""/>
+    <string english="Brazilian Portuguese" translation="" explanation=""/>
+    <string english="European Portuguese" translation="" explanation=""/>
+    <string english="Russian" translation="" explanation=""/>
+    <string english="Silesian" translation="" explanation=""/>
+    <string english="Turkish" translation="" explanation=""/>
+    <string english="Ukrainian" translation="" explanation=""/>
+    <string english="Chinese (Simplified)" translation="" explanation=""/>
+    <string english="Chinese (Traditional)" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
