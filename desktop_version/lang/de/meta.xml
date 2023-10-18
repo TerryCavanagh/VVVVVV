@@ -12,7 +12,7 @@
     <action_hint>Mit Leertaste, Z oder V auswählen</action_hint>
 
     <!-- Same as above, but for a gamepad button (hard limit 40 8x8 characters) -->
-    <gamepad_hint>Drücke {button} zur Auswahl</gamepad_hint>
+    <gamepad_hint>Mit {button} auswählen</gamepad_hint>
 
     <!-- Enable automatic word wrapping instead of having to manually insert newlines -->
     <autowordwrap>1</autowordwrap>
