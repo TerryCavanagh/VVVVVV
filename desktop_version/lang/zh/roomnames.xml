@@ -61,7 +61,7 @@
     <roomname x="11" y="14" english="The Filter" translation="过滤网" explanation="Like a filter from an air conditioning vent"/>
     <roomname x="12" y="3" english="Security Sweep" translation="安保搜查" explanation="Contains a single, fast moving enemy that moves up and down."/>
     <roomname x="12" y="4" english="Gantry and Dolly" translation="两种平台" explanation="Gantry and Dolly are the names for types of cranes that move crates around. This room has two different types of platforms."/>
-    <roomname x="12" y="5" english="The Yes Men" translation="连声称YES" explanation="Contains a number of enemies with briefcases and the word -YES- for a head. An expression for people who work at large companies and agree a lot with their bosses"/>
+    <roomname x="12" y="5" english="The Yes Men" translation="连声称是" explanation="Contains a number of enemies with briefcases and the word -YES- for a head. An expression for people who work at large companies and agree a lot with their bosses"/>
     <roomname x="12" y="6" english="Stop and Reflect" translation="停步反思" explanation="Expression meaning to take a moment and think about what you&apos;re doing. In this room, a small puzzle where you need to use the underside of a moving platform to progress."/>
     <roomname x="12" y="7" english="V Stitch" translation="V字针织" explanation="A V Stitch is a type of crochet stitch."/>
     <roomname x="12" y="11" english="Upstream Downstream" translation="顺流逆流" explanation="As in swimming upstream or downstream, with or against a current in a river"/>

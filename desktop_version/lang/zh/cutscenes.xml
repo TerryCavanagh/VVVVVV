@@ -903,7 +903,7 @@ Pipe Dream" tt="1" pad="1"/>
         <dialogue speaker="gray" english="Hah! Nobody will ever get this one." translation="哈！谁也别想拿到这个。" pad="1"/>
     </cutscene>
     <cutscene id="terminal_warp_1" explanation="">
-        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="……上次我在走廊里被一个写着AVOID（避开）大字的巨大方块追着跑了好久。"/>
+        <dialogue speaker="gray" english="...The other day I was chased down a hallway by a giant cube with the word AVOID on it." translation="……上次我在走廊里被一个写着“避开”大字的巨大方块追着跑了好久。"/>
         <dialogue speaker="gray" english="These security measures go too far!" translation="这些安保措施也有点离谱过头了！"/>
     </cutscene>
     <cutscene id="terminal_warp_2" explanation="">
