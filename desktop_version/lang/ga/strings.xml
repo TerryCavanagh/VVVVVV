@@ -52,7 +52,7 @@
     <string english="language" translation="teanga" explanation="menu option"/>
     <string english="Language" translation="Teanga" explanation="title" max="20"/>
     <string english="Change the language." translation="Athraigh an teanga." explanation="" max="38*2"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="Ní féidir an teanga a athrú agus an bosca téacs le feiceáil sa chluiche." explanation="" max="38*3"/>
     <string english="clear main game data" translation="sonraí phríomhchuid an chluiche" explanation="menu option"/>
     <string english="clear custom level data" translation="sonraí na leibhéal saincheaptha" explanation="menu option"/>
     <string english="Clear Data" translation="Scrios Sonraí" explanation="title" max="20"/>
@@ -210,11 +210,11 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="Toggle the in-game timer outside of time trials." translation="Cuir an t-amadóir i bhfeidhm/as feidhm taobh amuigh de na trialacha ama" explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Tá an tAmadóir I bhFEIDHM" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Tá an tAmadóir AS FEIDHM" explanation="" max="38*2"/>
-    <string english="english sprites" translation="" explanation="menu option"/>
-    <string english="English Sprites" translation="" explanation="title" max="20"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3"/>
-    <string english="Sprites are currently translated" translation="" explanation="" max="38*2"/>
-    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2"/>
+    <string english="english sprites" translation="sprideanna i mbéarla" explanation="menu option"/>
+    <string english="English Sprites" translation="Sprideanna i mBéarla" explanation="title" max="20"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="Taispeáin na sprideanna i mBéarla pé teanga atá i bhfeidhm" explanation="" max="38*3"/>
+    <string english="Sprites are currently translated" translation="Cuirfear Gaeilge ar na sprideanna" explanation="" max="38*2"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="Ní chuirfear ach Béarla ar na sprideanna" explanation="" max="38*2"/>
     <string english="interact button" translation="cnaipe idirghníomhaithe" explanation="menu option"/>
     <string english="Interact Button" translation="Idirghníomhú" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="An mbeidh tú ag úsáid E nó ENTER le hidirghníomhú leis na noda?" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3"/>
@@ -425,8 +425,8 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="start from beginning" translation="tosaigh ón tosach" explanation="menu option"/>
     <string english="delete save" translation="scrios sábháil" explanation="menu option"/>
     <string english="back to levels" translation="ar ais go leibhéil" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="Ní féidir an t-eagarthóir leibhéal a úsáid ar an Steam Deck toisc go bhfuil méarchlár agus luch ag teastáil." explanation="" max="38*5"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="Ní féidir an t-eagarthóir leibhéal a úsáid ar an ngléas seo toisc go bhfuil méarchlár agus luch ag teastáil." explanation="" max="38*5"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="Le leibhéil nua a shuiteáil, cuir na comhaid .vvvvvv i bhfillteán na leibhéal." explanation="" max="38*5"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="An bhfuil tú cinnte go bhfuil tú ag iarraidh cosán fhillteán na leibhéal a thaispeáint? Seans go nochtfar eolas príobháideach má tá tú ag craoladh." explanation="" max="38*4"/>
     <string english="The levels path is:" translation="Sosán fhillteán na leibhéal:" explanation="" max="40"/>
@@ -669,7 +669,7 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area}, {time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="Leibhéal Slánaithe" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="Game Complete!" translation="Cluiche Slánaithe!" explanation="Might be tight, the exclamation mark may be removed" max="18"/>
     <string english="You have rescued a crew member!" translation="Tharrtháil tú duine den chriú!" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2"/>
@@ -773,33 +773,33 @@ You have found the secret lab!" translation="Comhghairdeas! Fuair tú an tsaotha
     <string english="Error parsing {path}: {error}" translation="Tharla earráid le parsáil {path}: {error}" explanation="we tried to parse the level file, but failed" max="38*6"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="Níl toisí {filename} ina n-iolraithe cruinne de {width} agus {height}!" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="EARRÁID: Theip ar shonraí a chur san fhillteán teanga! Déan cinnte nach bhfuil fillteán darb ainm &quot;lang&quot; in aice leis na gnáthshábhálacha." explanation="" max="38*5"/>
-    <string english="Localisation" translation="" explanation=""/>
-    <string english="Localisation Project Led by" translation="" explanation=""/>
-    <string english="Translations by" translation="" explanation=""/>
-    <string english="Translators" translation="" explanation=""/>
-    <string english="Pan-European Font Design by" translation="" explanation=""/>
-    <string english="Fonts by" translation="" explanation=""/>
-    <string english="Other Fonts by" translation="" explanation=""/>
-    <string english="Catalan" translation="" explanation=""/>
-    <string english="Welsh" translation="" explanation=""/>
-    <string english="German" translation="" explanation=""/>
-    <string english="Esperanto" translation="" explanation=""/>
-    <string english="Spanish" translation="" explanation=""/>
-    <string english="French" translation="" explanation=""/>
-    <string english="Irish" translation="" explanation=""/>
-    <string english="Italian" translation="" explanation=""/>
-    <string english="Japanese" translation="" explanation=""/>
-    <string english="Korean" translation="" explanation=""/>
-    <string english="Dutch" translation="" explanation=""/>
-    <string english="Polish" translation="" explanation=""/>
-    <string english="Brazilian Portuguese" translation="" explanation=""/>
-    <string english="European Portuguese" translation="" explanation=""/>
-    <string english="Russian" translation="" explanation=""/>
-    <string english="Silesian" translation="" explanation=""/>
-    <string english="Turkish" translation="" explanation=""/>
-    <string english="Ukrainian" translation="" explanation=""/>
-    <string english="Chinese (Simplified)" translation="" explanation=""/>
-    <string english="Chinese (Traditional)" translation="" explanation=""/>
+    <string english="Localisation" translation="Logánú" explanation=""/>
+    <string english="Localisation Project Led by" translation="Bainisteoir an Tionscadail Logánaithe" explanation=""/>
+    <string english="Translations by" translation="Aistriúcháin le" explanation=""/>
+    <string english="Translators" translation="Aistritheoirí" explanation=""/>
+    <string english="Pan-European Font Design by" translation="Cló Pan-Eorpach le" explanation=""/>
+    <string english="Fonts by" translation="Clónna le" explanation=""/>
+    <string english="Other Fonts by" translation="Clónna eile le" explanation=""/>
+    <string english="Catalan" translation="Catalóinis" explanation=""/>
+    <string english="Welsh" translation="Breatnais" explanation=""/>
+    <string english="German" translation="Gearmáinis" explanation=""/>
+    <string english="Esperanto" translation="Esperanto" explanation=""/>
+    <string english="Spanish" translation="Spáinnis" explanation=""/>
+    <string english="French" translation="Fraincis" explanation=""/>
+    <string english="Irish" translation="Gaeilge" explanation=""/>
+    <string english="Italian" translation="Iodáilis" explanation=""/>
+    <string english="Japanese" translation="Seapáinis" explanation=""/>
+    <string english="Korean" translation="Cóiréis" explanation=""/>
+    <string english="Dutch" translation="Ollainnis" explanation=""/>
+    <string english="Polish" translation="Polainnis" explanation=""/>
+    <string english="Brazilian Portuguese" translation="Portaingéilis na Brasaíle" explanation=""/>
+    <string english="European Portuguese" translation="Portaingéilis na hEorpa" explanation=""/>
+    <string english="Russian" translation="Rúisis" explanation=""/>
+    <string english="Silesian" translation="Siléisis" explanation=""/>
+    <string english="Turkish" translation="Tuircis" explanation=""/>
+    <string english="Ukrainian" translation="Úcráinis" explanation=""/>
+    <string english="Chinese (Simplified)" translation="Sínis (Shimplithe)" explanation=""/>
+    <string english="Chinese (Traditional)" translation="Sínis (Thraidisiúnta)" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
