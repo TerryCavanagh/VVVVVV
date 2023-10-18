@@ -210,7 +210,7 @@ Déan cóip chúltaca, ar eagla na heagla." explanation="translation maintenance
     <string english="Toggle the in-game timer outside of time trials." translation="Cuir an t-amadóir i bhfeidhm/as feidhm taobh amuigh de na trialacha ama" explanation="" max="38*3"/>
     <string english="In-Game Timer is ON" translation="Tá an tAmadóir I bhFEIDHM" explanation="" max="38*2"/>
     <string english="In-Game Timer is OFF" translation="Tá an tAmadóir AS FEIDHM" explanation="" max="38*2"/>
-    <string english="english sprites" translation="sprideanna i mbéarla" explanation="menu option"/>
+    <string english="english sprites" translation="sprideanna i ~mbéarla" explanation="menu option"/>
     <string english="English Sprites" translation="Sprideanna i mBéarla" explanation="title" max="20"/>
     <string english="Show the original English word enemies regardless of your language setting." translation="Taispeáin na sprideanna i mBéarla pé teanga atá i bhfeidhm" explanation="" max="38*3"/>
     <string english="Sprites are currently translated" translation="Cuirfear Gaeilge ar na sprideanna" explanation="" max="38*2"/>
