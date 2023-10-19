@@ -52,7 +52,7 @@
     <string english="language" translation="語言" explanation="menu option"/>
     <string english="Language" translation="語言" explanation="title" max="20" max_local="13"/>
     <string english="Change the language." translation="變更語言。" explanation="" max="38*2" max_local="25*1"/>
-    <string english="Can not change the language while a textbox is displayed in-game." translation="" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Can not change the language while a textbox is displayed in-game." translation="無法在遊戲中正有對話框顯示時改變語言。" explanation="" max="38*3" max_local="25*2"/>
     <string english="clear main game data" translation="清除主遊戲數據" explanation="menu option"/>
     <string english="clear custom level data" translation="清除自制關卡數據" explanation="menu option"/>
     <string english="Clear Data" translation="清除數據" explanation="title" max="20" max_local="13"/>
@@ -215,11 +215,11 @@
     <string english="Toggle the in-game timer outside of time trials." translation="在時間挑戰模式外切換計時器的開關。" explanation="" max="38*3" max_local="25*2"/>
     <string english="In-Game Timer is ON" translation="遊戲內計時器 開啟" explanation="" max="38*2" max_local="25*1"/>
     <string english="In-Game Timer is OFF" translation="遊戲內計時器 關閉" explanation="" max="38*2" max_local="25*1"/>
-    <string english="english sprites" translation="" explanation="menu option"/>
-    <string english="English Sprites" translation="" explanation="title" max="20" max_local="13"/>
-    <string english="Show the original English word enemies regardless of your language setting." translation="" explanation="" max="38*3" max_local="25*2"/>
-    <string english="Sprites are currently translated" translation="" explanation="" max="38*2" max_local="25*1"/>
-    <string english="Sprites are currently ALWAYS ENGLISH" translation="" explanation="" max="38*2" max_local="25*1"/>
+    <string english="english sprites" translation="英語敵方貼圖" explanation="menu option"/>
+    <string english="English Sprites" translation="英語敵方貼圖" explanation="title" max="20" max_local="13"/>
+    <string english="Show the original English word enemies regardless of your language setting." translation="無視語言設定，敵人貼圖將是原本的英語文本。" explanation="" max="38*3" max_local="25*2"/>
+    <string english="Sprites are currently translated" translation="敵方貼圖現在是 翻譯版" explanation="" max="38*2" max_local="25*1"/>
+    <string english="Sprites are currently ALWAYS ENGLISH" translation="敵方貼圖現在是 始終英語" explanation="" max="38*2" max_local="25*1"/>
     <string english="interact button" translation="交互按鍵" explanation="menu option"/>
     <string english="Interact Button" translation="交互按鍵" explanation="title, lets the user change the key for interacting with objects or crewmates" max="20" max_local="13"/>
     <string english="Toggle whether you interact with prompts using ENTER or E." translation="切換交互時使用回車鍵還是E。" explanation="prompts: see the `Press {button} to talk to .../activate terminal/teleport` below" max="38*3" max_local="25*2"/>
@@ -431,8 +431,8 @@
     <string english="start from beginning" translation="從頭開始" explanation="menu option"/>
     <string english="delete save" translation="刪除存檔" explanation="menu option"/>
     <string english="back to levels" translation="返回關卡" explanation="menu option"/>
-    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5" max_local="25*4"/>
-    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="" explanation="" max="38*5" max_local="25*4"/>
+    <string english="The level editor is not currently supported on Steam Deck, as it requires a keyboard and mouse to use." translation="關卡編輯器不支持Steam Deck，因為它需要鍵盤和滑鼠才能使用。" explanation="" max="38*5" max_local="25*4"/>
+    <string english="The level editor is not currently supported on this device, as it requires a keyboard and mouse to use." translation="關卡編輯器不支持當前設備，因為它需要鍵盤和滑鼠才能使用。" explanation="" max="38*5" max_local="25*4"/>
     <string english="To install new player levels, copy the .vvvvvv files to the levels folder." translation="要安裝新的玩家關卡，請將.vvvvvv檔案
 複製到關卡資料夾。" explanation="" max="38*5" max_local="25*4"/>
     <string english="Are you sure you want to show the levels path? This may reveal sensitive information if you are streaming." translation="你確定想要顯示資料夾路徑嗎？如果你在直播的話，
@@ -677,7 +677,7 @@
     <string english="{min}:{sec|digits=2}.{cen|digits=2}" translation="{min}:{sec|digits=2}.{cen|digits=2}" explanation="time format M:SS.CC"/>
     <string english="{sec}.{cen|digits=2}" translation="{sec}.{cen|digits=2}" explanation="time format S.CC"/>
     <string english=".99" translation=".99" explanation="appended to time format for 99/100 seconds (example: 1:15.99). Time trial results"/>
-    <string english="{area}, {time}" translation="" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
+    <string english="{area}, {time}" translation="{area}，{time}" explanation="saved game summary, e.g. `Space Station, 12:30:59`"/>
     <string english="Level Complete!" translation="關卡完成！" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="12"/>
     <string english="Game Complete!" translation="遊戲完成！" explanation="Might be tight, the exclamation mark may be removed" max="18" max_local="12"/>
     <string english="You have rescued a crew member!" translation="你救出了一名船員！" explanation="If you need to manually wordwrap: please ensure this has exactly two lines. Ignore the (font-adapted) maximum if it says 1 line." max="30*2" max_local="20*1"/>
@@ -787,33 +787,33 @@ You have found the secret lab!" translation="恭喜你！
     <string english="Error parsing {path}: {error}" translation="解析{path}時出錯：{error}" explanation="we tried to parse the level file, but failed" max="38*6" max_local="25*5"/>
     <string english="{filename} dimensions not exact multiples of {width} by {height}!" translation="{filename}的尺寸不是{width}x{height}的整數倍！" explanation="filename is something like tiles.png, tiles2.png, etc. and width/height are something like 8, 32, etc.; this is used if the dimensions of a graphics file aren&apos;t an exact multiple of the given size (e.g. 8x8, 32x32, etc.)" max="38*6" max_local="25*5"/>
     <string english="ERROR: Could not write to language folder! Make sure there is no &quot;lang&quot; folder next to the regular saves." translation="錯誤：無法寫入語言資料夾！請確保存檔資料夾的同路徑沒有“lang”資料夾。" explanation="" max="38*5" max_local="25*4"/>
-    <string english="Localisation" translation="" explanation=""/>
-    <string english="Localisation Project Led by" translation="" explanation=""/>
-    <string english="Translations by" translation="" explanation=""/>
-    <string english="Translators" translation="" explanation=""/>
-    <string english="Pan-European Font Design by" translation="" explanation=""/>
-    <string english="Fonts by" translation="" explanation=""/>
-    <string english="Other Fonts by" translation="" explanation=""/>
-    <string english="Catalan" translation="" explanation=""/>
-    <string english="Welsh" translation="" explanation=""/>
-    <string english="German" translation="" explanation=""/>
-    <string english="Esperanto" translation="" explanation=""/>
-    <string english="Spanish" translation="" explanation=""/>
-    <string english="French" translation="" explanation=""/>
-    <string english="Irish" translation="" explanation=""/>
-    <string english="Italian" translation="" explanation=""/>
-    <string english="Japanese" translation="" explanation=""/>
-    <string english="Korean" translation="" explanation=""/>
-    <string english="Dutch" translation="" explanation=""/>
-    <string english="Polish" translation="" explanation=""/>
-    <string english="Brazilian Portuguese" translation="" explanation=""/>
-    <string english="European Portuguese" translation="" explanation=""/>
-    <string english="Russian" translation="" explanation=""/>
-    <string english="Silesian" translation="" explanation=""/>
-    <string english="Turkish" translation="" explanation=""/>
-    <string english="Ukrainian" translation="" explanation=""/>
-    <string english="Chinese (Simplified)" translation="" explanation=""/>
-    <string english="Chinese (Traditional)" translation="" explanation=""/>
+    <string english="Localisation" translation="本地化" explanation=""/>
+    <string english="Localisation Project Led by" translation="本地化項目領導者" explanation=""/>
+    <string english="Translations by" translation="翻譯者" explanation=""/>
+    <string english="Translators" translation="譯者" explanation=""/>
+    <string english="Pan-European Font Design by" translation="泛歐洲字體設計" explanation=""/>
+    <string english="Fonts by" translation="字體" explanation=""/>
+    <string english="Other Fonts by" translation="其他字體" explanation=""/>
+    <string english="Catalan" translation="加泰羅尼亞語" explanation=""/>
+    <string english="Welsh" translation="威爾士語" explanation=""/>
+    <string english="German" translation="德語" explanation=""/>
+    <string english="Esperanto" translation="世界語" explanation=""/>
+    <string english="Spanish" translation="西班牙語" explanation=""/>
+    <string english="French" translation="法語" explanation=""/>
+    <string english="Irish" translation="愛爾蘭語" explanation=""/>
+    <string english="Italian" translation="意大利語" explanation=""/>
+    <string english="Japanese" translation="日語" explanation=""/>
+    <string english="Korean" translation="韓語" explanation=""/>
+    <string english="Dutch" translation="荷蘭語" explanation=""/>
+    <string english="Polish" translation="波蘭語" explanation=""/>
+    <string english="Brazilian Portuguese" translation="巴西葡萄牙語" explanation=""/>
+    <string english="European Portuguese" translation="歐洲葡萄牙語" explanation=""/>
+    <string english="Russian" translation="俄語" explanation=""/>
+    <string english="Silesian" translation="西里西亞語" explanation=""/>
+    <string english="Turkish" translation="土耳其語" explanation=""/>
+    <string english="Ukrainian" translation="烏克蘭語" explanation=""/>
+    <string english="Chinese (Simplified)" translation="簡體中文" explanation=""/>
+    <string english="Chinese (Traditional)" translation="繁體中文" explanation=""/>
     <string english="" translation="" explanation=""/>
     <string english="" translation="" explanation=""/>
 </strings>
